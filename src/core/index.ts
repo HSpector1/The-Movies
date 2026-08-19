@@ -494,6 +494,10 @@ export {
   advanceManagedProductions,
   emptyWorkflowBindings,
   productionPhaseForRemainingTicks,
+  // C2a-M4 (§3.3): the queue order for production transitions and the derived
+  // aging term it is ordered by.
+  productionWaitWeeks,
+  productionsInSweepOrder,
   assertStudioOperationsInvariants,
 } from './operations.js'
 

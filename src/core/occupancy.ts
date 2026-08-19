@@ -452,14 +452,23 @@ export function resourceClaims(sources: OccupancySources): ResourceClaim[] {
 
   //   6c. SET EXCLUSIVITY, claimed by the PICTURE that bound it (§3.2: bindings
   //       are not reservations, and a set's exclusivity is enforced HERE). The
-  //       claim exists only while the picture is physically on the set —
-  //       rehearsal and shooting — because that is exactly how long the set is
-  //       unavailable to anybody else. `bindings.setId` survives into post as the
+  //       claim exists only while the picture is physically on the set, and
+  //       C2a-M4 states what that means exactly: WHILE IT HOLDS THE STAGE THE SET
+  //       STANDS ON. Stage and set are one composite (§3.2), acquired together
+  //       and released together, so the stage reservation IS the tenancy.
+  //
+  //       This is the release law (`00E`.5) reaching the set: a picture that
+  //       wrapped has released the stage, so it has released the set that week —
+  //       even though it is still standing in the `shooting` phase waiting for
+  //       Post. Keying on the phase name would have kept the scenery hostage to
+  //       a picture that had already gone home. `bindings.setId` survives as the
   //       picture's RECORD of what it shot on, and a record holds nothing.
   for (const workflow of sources.operations?.workflows ?? []) {
     const bound = workflow.bindings?.setId ?? null
     if (bound === null) continue
-    if (workflow.phase !== 'rehearsal' && workflow.phase !== 'shooting') continue
+    if (!workflow.reservations.some((reservation) => reservation.capability === 'soundstage')) {
+      continue
+    }
     claims.push({
       key: setExclusivityKey(bound),
       facilitySlotKey: null,

@@ -51,18 +51,39 @@ export function freePackage(
   state: GameState,
   projectId: string,
 ): GreenlightScriptProjectPayload {
-  const project = state.scriptDevelopment.projects.find((entry) => entry.id === projectId)!
-  const concept = state.concepts.find((entry) => entry.id === project.conceptId)!
+  const payload = freePackageOrNull(state, projectId)
+  if (payload === null) {
+    throw new Error(`c2a-m4 fixture: project "${projectId}" cannot be staffed from the free roster`)
+  }
+  return payload
+}
+
+/**
+ * The same package, or NULL when the roster is exhausted — which a contention
+ * fixture has to be able to ask, because a studio with four pictures in flight
+ * runs out of bodies before it runs out of rooms and the test is about rooms.
+ */
+export function freePackageOrNull(
+  state: GameState,
+  projectId: string,
+): GreenlightScriptProjectPayload | null {
+  const project = state.scriptDevelopment.projects.find((entry) => entry.id === projectId)
+  if (project === undefined) return null
+  const concept = state.concepts.find((entry) => entry.id === project.conceptId)
+  if (concept === undefined) return null
   const busy = busyTalentIds(state)
   const free = (role: 'actor' | 'director' | 'craft') =>
     contractedByRole(state, role).filter(
       (person) => !busy.has(person.id) && person.id !== project.writerId,
     )
   const actors = free('actor')
+  const director = free('director')[0]
+  const craft = free('craft')[0]
+  if (director === undefined || craft === undefined || actors.length < 3) return null
   return {
     projectId,
-    directorId: free('director')[0]!.id,
-    craftIds: [free('craft')[0]!.id],
+    directorId: director.id,
+    craftIds: [craft.id],
     cast: {
       lead: actors[0]!.id,
       antagonist: actors[1]!.id,

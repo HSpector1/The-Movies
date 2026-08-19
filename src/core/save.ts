@@ -90,9 +90,11 @@ import {
   emptyStudioOperations,
 } from "./operations.js";
 import {
+  acquisitionRank,
   nextProductionPhase,
   productionPhaseForRemainingTicksOrNull,
   requirementsForPhase,
+  retainedCapabilitiesFor,
 } from "./productionPhases.js";
 import {
   assertScriptDevelopmentInvariants,
@@ -2596,12 +2598,52 @@ function checkOperationsState(
       reservationCapabilities.push(capability);
       if (capability === "soundstage") soundstageFacilityIds.add(facilityId);
     }
+    // ── WHAT A WORKFLOW MAY HOLD (C2a-M4; charter §3.2, ruling `00E`.5) ─────
+    //
+    // The predecessor was one equality: a workflow holds EXACTLY its phase's
+    // requirements. THE RESOURCE-RELEASE LAW makes that false on purpose — when
+    // a phase's work completes its resources release, even if the next phase's
+    // resource is unavailable, so a wrapped picture waiting for Post stands in
+    // the `shooting` phase holding NOTHING.
+    //
+    // The successor is the same equality plus its one exception, and the
+    // exception is bounded on both sides: a workflow WAITING for its next phase
+    // holds at least what that phase genuinely requires and it already had (the
+    // retained set), and never more than its current phase's own requirements.
+    // The upper half of the band is what keeps a pre-M4 save readable — a
+    // picture that was already holding when the law arrived keeps holding until
+    // its next transition attempt releases it.
+    const waitingTarget = waitingBlockerTargetPhase(raw.blocker, phase);
     const actualCapabilities = [...reservationCapabilities].sort();
     const requiredCapabilities = [...requirementsForPhase(phase)].sort();
-    if (!deepEqual(actualCapabilities, requiredCapabilities)) {
-      throw new Error(
-        `${itemLabel}.reservations must provide exactly ${requiredCapabilities.join(" + ") || "no facilities"} for ${phase}`,
-      );
+    if (waitingTarget === null) {
+      if (!deepEqual(actualCapabilities, requiredCapabilities)) {
+        throw new Error(
+          `${itemLabel}.reservations must provide exactly ${requiredCapabilities.join(" + ") || "no facilities"} for ${phase}`,
+        );
+      }
+    } else {
+      const retained = [...retainedCapabilitiesFor(phase, waitingTarget)].sort();
+      const held = [...actualCapabilities];
+      for (const capability of retained) {
+        const at = held.indexOf(capability);
+        if (at < 0) {
+          throw new Error(
+            `${itemLabel}.reservations released ${capability}, which entering ${waitingTarget} requires it to keep`,
+          );
+        }
+        held.splice(at, 1);
+      }
+      const surplus = [...requiredCapabilities];
+      for (const capability of actualCapabilities) {
+        const at = surplus.indexOf(capability);
+        if (at < 0) {
+          throw new Error(
+            `${itemLabel}.reservations hold ${capability}, which ${phase} does not require`,
+          );
+        }
+        surplus.splice(at, 1);
+      }
     }
 
     if (setsAwarePolicy(policy)) {
@@ -2675,8 +2717,16 @@ function checkOperationsState(
           `${itemLabel}.shootingTask cannot be completed before the first shooting week advances`,
         );
       }
-    } else if (phase === "shooting") {
+    } else if (phase === "shooting" && waitingTarget === null) {
       throw new Error(`${itemLabel}.shootingTask is required during shooting`);
+    } else if (phase === "shooting" && reservationCapabilities.length > 0) {
+      // C2a-M4: a shooting workflow may be task-less ONLY when it has wrapped —
+      // the work finished, the stage went back, and the picture is waiting for
+      // Post holding nothing. A picture still standing on a stage still has a
+      // take.
+      throw new Error(
+        `${itemLabel}.shootingTask is required while the picture still holds its stage`,
+      );
     }
 
     const blocker = raw.blocker;
@@ -2714,6 +2764,13 @@ function checkOperationsState(
             `${itemLabel} cannot have a capacity blocker before its shooting task completes`,
           );
         }
+        // C2a-M4: a wrapped picture has no task at all, and the countdown is the
+        // only witness left that its shooting actually finished.
+        if (taskRecord === null && phase === "shooting" && production.remainingTicks !== 4) {
+          throw new Error(
+            `${itemLabel} cannot have released its stage before its shooting task completes`,
+          );
+        }
       } else if (blocker.kind === "scenery-load-in") {
         v8ExactKeys(blocker, ["kind", "taskId"], [], `${itemLabel}.blocker`);
         if (
@@ -2746,6 +2803,26 @@ function checkOperationsState(
         }
       } else {
         throw new Error(`${itemLabel}.blocker.kind is invalid`);
+      }
+
+      // The acquisition order (§3.2) at the save boundary: a workflow may only
+      // wait on a resource ranked strictly above everything it holds, which is
+      // what makes circular wait unrepresentable rather than merely unlikely.
+      // Checked after the blocker's own legality so a forged blocker is refused
+      // by the specific law it breaks.
+      if (waitingTarget !== null) {
+        const waitedRank = acquisitionRank(
+          blocker.kind === "facility-capacity"
+            ? asCapability(blocker.capability, `${itemLabel}.blocker.capability`)
+            : "soundstage",
+        );
+        for (const capability of actualCapabilities) {
+          if (acquisitionRank(capability) >= waitedRank) {
+            throw new Error(
+              `${itemLabel} waits on a resource ranked at or below the ${capability} it holds (acquisition order)`,
+            );
+          }
+        }
       }
     }
     if (
@@ -4171,6 +4248,26 @@ function v14ExactKeys(
   for (const key of Object.keys(value)) {
     if (!allowed.has(key)) v14Error(label, `has unknown field ${JSON.stringify(key)}`);
   }
+}
+
+/**
+ * The next phase a workflow is WAITING for, or null when it is not waiting.
+ *
+ * C2a-M4: the two next-phase blocker arms — `facility-capacity` and
+ * `set-unavailable` — are the only states in which the resource-release law lets
+ * a workflow hold less than its phase requires. Read structurally and defensively
+ * here, because this runs over untrusted JSON: a malformed blocker is not a
+ * licence to hold nothing, so anything that does not read as a legal next-phase
+ * wait returns null and the strict equality applies.
+ */
+function waitingBlockerTargetPhase(
+  blocker: unknown,
+  phase: OperationsPhase,
+): OperationsPhase | null {
+  if (!isRecord(blocker)) return null;
+  if (blocker.kind !== "facility-capacity" && blocker.kind !== "set-unavailable") return null;
+  const target = nextProductionPhase(phase);
+  return target !== null && blocker.targetPhase === target ? target : null;
 }
 
 /**

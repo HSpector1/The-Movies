@@ -758,7 +758,13 @@ export function heldSetIds(
     if (workflow.productionId === excludingProductionId) continue
     const bound = workflow.bindings?.setId ?? null
     if (bound === null) continue
-    if (workflow.phase === 'rehearsal' || workflow.phase === 'shooting') held.add(bound)
+    // C2a-M4 (`00E`.5): a picture holds its set exactly as long as it holds the
+    // STAGE the set stands on — the composite is acquired and released as one.
+    // A wrapped picture waiting for Post has released both, so the set is
+    // bindable again the same week, which is the whole point of the release law.
+    if (workflow.reservations.some((reservation) => reservation.capability === 'soundstage')) {
+      held.add(bound)
+    }
   }
   return held
 }

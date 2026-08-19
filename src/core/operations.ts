@@ -11,10 +11,12 @@ import {
 import type { OccupancySources } from './occupancy.js'
 import { QueueableCapacityRefusal } from './productionQueue.js'
 import {
+  acquisitionRank,
   nextProductionPhase,
   productionPhaseForRemainingTicks,
   reachableCapacityBlockerForRemainingTicks,
   requirementsForPhase,
+  retainedCapabilitiesFor,
 } from './productionPhases.js'
 import {
   bindableSetsOn,
@@ -760,12 +762,57 @@ export function assertStudioOperationsInvariants(
       `workflow "${workflow.productionId}" phase disagrees with remainingTicks`,
     )
 
+    // ── WHAT A WORKFLOW MAY HOLD (charter §3.2, `00E`.5) ────────────────────
+    //
+    // AUDITED-INVARIANT SURGERY under law 28; this charter at GO is the explicit
+    // instruction (§3.3's last bullet). The predecessor was one equality: a
+    // workflow holds EXACTLY its phase's requirements. The resource-release law
+    // makes that false on purpose — a picture whose shooting finished releases
+    // the stage and the scenery the moment the work is done, and then waits for
+    // Post holding nothing while still standing in the `shooting` phase.
+    //
+    // So the law splits in two:
+    //   * NOT WAITING for the next phase → exactly this phase's requirements,
+    //     byte-for-byte the predecessor.
+    //   * WAITING (a next-phase blocker) → at least what the next phase genuinely
+    //     requires and this phase already holds (the retained set, which is what
+    //     an M4 transition attempt leaves behind), and never more than this
+    //     phase's own requirements. The band's upper half is not laxity: a
+    //     picture that was ALREADY holding when this law arrived — a migrated
+    //     save, a V13 fixture — keeps holding until its next transition attempt,
+    //     which is the attempt that releases it.
     const expectedCapabilities = [...requirementsForPhase(workflow.phase)].sort()
     const actualCapabilities = workflow.reservations.map((reservation) => reservation.capability).sort()
-    invariant(
-      JSON.stringify(actualCapabilities) === JSON.stringify(expectedCapabilities),
-      `workflow "${workflow.productionId}" has the wrong current-phase reservation set`,
-    )
+    const waitingBlocker =
+      workflow.blocker?.kind === 'facility-capacity' || workflow.blocker?.kind === 'set-unavailable'
+        ? workflow.blocker
+        : null
+    if (waitingBlocker === null) {
+      invariant(
+        JSON.stringify(actualCapabilities) === JSON.stringify(expectedCapabilities),
+        `workflow "${workflow.productionId}" has the wrong current-phase reservation set`,
+      )
+    } else {
+      const retained = [...retainedCapabilitiesFor(workflow.phase, waitingBlocker.targetPhase)].sort()
+      const held = [...actualCapabilities]
+      for (const capability of retained) {
+        const at = held.indexOf(capability)
+        invariant(
+          at >= 0,
+          `workflow "${workflow.productionId}" released ${capability}, which entering ${waitingBlocker.targetPhase} requires it to keep`,
+        )
+        held.splice(at, 1)
+      }
+      const surplus = [...expectedCapabilities]
+      for (const capability of actualCapabilities) {
+        const at = surplus.indexOf(capability)
+        invariant(
+          at >= 0,
+          `workflow "${workflow.productionId}" holds ${capability}, which ${workflow.phase} does not require`,
+        )
+        surplus.splice(at, 1)
+      }
+    }
     for (const reservation of workflow.reservations) {
       const facility = facilityById.get(reservation.facilityId)
       invariant(facility !== undefined, `reservation references unknown facility "${reservation.facilityId}"`)
@@ -814,6 +861,26 @@ export function assertStudioOperationsInvariants(
 
     if (workflow.phase === 'shooting') {
       const task = workflow.shootingTask
+      // ── THE WRAPPED PICTURE (charter §3.2, `00E`.5) ───────────────────────
+      //
+      // A picture whose shooting COMPLETED released the stage, the scenery and
+      // the set that week, and it is still standing in the `shooting` phase
+      // because Post has no room for it yet. It holds nothing, it is on no stage,
+      // and it therefore has no take: a task left behind would keep the world
+      // showing a crew that went home. The reservation band above already proved
+      // it released exactly what it should have; what this proves is that the
+      // wrap and the departure are the same event.
+      const wrapped =
+        task === null &&
+        workflow.reservations.length === 0 &&
+        isNextPhaseBlocker(workflow.blocker) &&
+        workflow.blocker !== null
+      if (wrapped) {
+        invariant(
+          production.remainingTicks === 4,
+          `wrapped workflow "${workflow.productionId}" must be waiting at the end of Shooting`,
+        )
+      } else {
       invariant(task !== null, `shooting workflow "${workflow.productionId}" has no shooting task`)
       invariant(task.id === `shooting:${production.id}`, 'shooting task id is not canonical')
       invariant(task.productionId === production.id, 'shooting task owner disagrees with production')
@@ -844,6 +911,7 @@ export function assertStudioOperationsInvariants(
         )
       } else {
         invariant(workflow.blocker === null, `shooting task status ${task.status} cannot have a blocker`)
+      }
       }
     } else {
       invariant(workflow.shootingTask === null, 'shooting task must be cleared outside Shooting')
@@ -883,6 +951,30 @@ export function assertStudioOperationsInvariants(
         `capacity blocker must be ${reachableBlocker.capability} for ${reachableBlocker.targetPhase}`,
       )
     }
+
+    // ── THE ACYCLIC INVARIANT (charter §3.2) ──────────────────────────────────
+    //
+    // "No workflow waits on a resource ranked ≤ anything it holds." With the
+    // declared total order that IS ordered resource acquisition, and ordered
+    // acquisition makes circular wait impossible — so the wait-for graph is a DAG
+    // as a matter of stated law rather than, as lane 2 found it, as an accident
+    // of the pipeline's linear shape. A `set-unavailable` wait is a wait on the
+    // stage+set COMPOSITE, which is the soundstage's rank: the two are acquired
+    // atomically and neither is ever waited for alone.
+    //
+    // Checked LAST, after the blocker's own legality, so a forged blocker is
+    // still refused by the specific law it breaks rather than by this one.
+    if (waitingBlocker !== null) {
+      const waitedRank = acquisitionRank(
+        waitingBlocker.kind === 'facility-capacity' ? waitingBlocker.capability : 'soundstage',
+      )
+      for (const reservation of workflow.reservations) {
+        invariant(
+          acquisitionRank(reservation.capability) < waitedRank,
+          `workflow "${workflow.productionId}" waits on a resource ranked at or below the ${reservation.capability} it holds (acquisition order, §3.2)`,
+        )
+      }
+    }
   }
 
   // FAIL-CLOSED, from the one union producer. Every reservation above has already
@@ -905,6 +997,59 @@ export function assertStudioOperationsInvariants(
   }
 }
 
+/**
+ * THE RESOURCE-RELEASE LAW (`00E`.5) — the split of the atomic transition.
+ *
+ * When a phase's work COMPLETES, that phase's resources RELEASE, even if the next
+ * phase's resource is unavailable. What survives is exactly what the NEXT phase
+ * genuinely requires (`retainedCapabilitiesFor`): the stage and the set the
+ * picture is about to shoot on, and nothing else. A wrapped picture waiting for
+ * Post holds NOTHING, so the stage it left is available to the next shoot in the
+ * same week, and hold-and-wait vanishes on that edge entirely.
+ *
+ * One reservation per retained capability is kept, in the workflow's own order,
+ * because the sticky-retention rule that re-claims them can carry exactly one.
+ */
+function releaseCompletedPhase(
+  workflow: ProductionWorkflow,
+  targetPhase: ProductionPhase,
+  week: number,
+): { workflow: ProductionWorkflow; released: readonly FacilityReservation[] } {
+  const retained = retainedCapabilitiesFor(workflow.phase, targetPhase)
+  const kept: FacilityReservation[] = []
+  const released: FacilityReservation[] = []
+  const claimed = new Set<FacilityCapability>()
+  for (const reservation of workflow.reservations) {
+    if (retained.includes(reservation.capability) && !claimed.has(reservation.capability)) {
+      claimed.add(reservation.capability)
+      kept.push(reservation)
+      continue
+    }
+    released.push(reservation)
+  }
+  if (released.length === 0) return { workflow, released }
+  return {
+    workflow: {
+      ...workflow,
+      reservations: kept,
+      // THE TAKE IS OVER. A shooting task is the picture's claim on a stage it is
+      // standing in; a picture that has released the stage is not standing in it,
+      // and a task left behind would keep the world showing a crew that went home.
+      shootingTask: kept.some((reservation) => reservation.capability === 'soundstage')
+        ? workflow.shootingTask
+        : null,
+      // The bindings MIRROR the reservations and are re-derived from them here
+      // for the same reason they are anywhere else: there is one authority for
+      // which stage a picture is standing on, and a released stage is no stage.
+      // `setId`, `lockedNovelty` and `lockedUplift` deliberately survive — they
+      // are the picture's RECORD of what it shot on, which its release still
+      // reads, and a record holds nothing.
+      bindings: deriveBindings(workflow.bindings, kept, week),
+    },
+    released,
+  }
+}
+
 function enterPhase(
   operations: StudioOperations,
   workflow: ProductionWorkflow,
@@ -920,72 +1065,81 @@ function enterPhase(
   production: Production
   advanced: boolean
   sets: readonly StudioSet[]
+  /** Whether this attempt handed capacity back to the pool (the sweep's progress signal). */
+  released: boolean
 } {
+  // ── 1. THE WORK FINISHED, SO THE RESOURCES GO BACK (charter §3.2, `00E`.5) ──
+  //
+  // BEFORE the acquisition, and unconditionally. This is the milestone's
+  // reversal: the transition used to be atomic, so a picture that could not
+  // enter Post kept the stage it had finished with. Now the release happens
+  // because the WORK completed, and the acquisition is a separate question asked
+  // afterwards — which is why a full Post building can no longer hostage a
+  // soundstage.
+  //
+  // Idempotent by construction: the second attempt in a later week finds nothing
+  // left to release, so nothing is released twice and no row is written twice.
+  const releasing = releaseCompletedPhase(workflow, targetPhase, week)
+  let nextSets = sets
+  let working = workflow
+  let nextOperations = operations
+  if (releasing.released.length > 0) {
+    // ── THE WRAP EVENT (charter §4.3) ──────────────────────────────────────
+    //
+    // Wrap is the authoritative completion of SHOOTING — automatic, never a
+    // player command — and it fires HERE, at the moment the work finished, with
+    // nothing about Post's availability gating it. Tier D and permanent: "this
+    // picture wrapped on this stage in this week" is the studio's history.
+    //
+    // C2a-M4 moved it above the allocation, which is where `00E`.5 says it
+    // belongs. `setId` null means the picture was bound to no set — the literal
+    // truth of a legacy, migrated, or pre-V14 production.
+    if (workflow.phase === 'shooting' && targetPhase === 'postProduction') {
+      const stage = workflow.reservations.find(
+        (reservation) => reservation.capability === 'soundstage',
+      )
+      if (stage === undefined) {
+        throw new Error(
+          `tick: shooting productionId "${production.id}" completed without a soundstage reservation`,
+        )
+      }
+      const wrappedSetId = workflow.bindings?.setId ?? null
+      events.append({
+        kind: 'wrapped',
+        productionId: production.id,
+        stageFacilityId: stage.facilityId,
+        setId: wrappedSetId,
+      })
+      // THE WEAR, at the moment the work finished. Per-USE and deterministic
+      // (§3.1) — one wrap, one wear, no clock and no draw — and it is the
+      // shooting that wore the scenery out, so a picture that never reaches an
+      // audience wore it just the same.
+      nextSets = wearSetAtWrap(nextSets, wrappedSetId)
+    }
+    recordReservationTransition(events, workflow, releasing.workflow.reservations)
+    working = releasing.workflow
+    nextOperations = replaceWorkflow(operations, working)
+  }
+
+  // ── 2. NOW ASK FOR THE NEXT ONE ───────────────────────────────────────────
   const allocation = allocateForPhase(
-    operations,
-    workflow,
+    nextOperations,
+    working,
     targetPhase,
     externallyOccupiedSlots,
     binding,
   )
   if (!allocation.ok) {
     return {
-      operations: replaceWorkflow(operations, { ...workflow, blocker: allocation.blocker }),
+      operations: replaceWorkflow(nextOperations, { ...working, blocker: allocation.blocker }),
       production,
       advanced: false,
-      sets,
+      sets: nextSets,
+      released: releasing.released.length > 0,
     }
   }
-
-  // ── THE WRAP EVENT (charter §4.3-M1) ──────────────────────────────────────
-  //
-  // Wrap is the authoritative completion of SHOOTING — automatic, never a player
-  // command — and this is the boundary it happens on: the silent
-  // `remainingTicks 4 → 3` transition out of Shooting. The row is Tier D and
-  // PERMANENT, because "this picture wrapped on this stage in this week" is the
-  // studio's history, not its operating chatter.
-  //
-  // It is emitted UNCONDITIONALLY at that boundary — nothing about Post's
-  // availability gates it, because wrap is a fact about the work that finished,
-  // not about the work that comes next.
-  //
-  // WHAT IS NOT HERE, stated so the next milestone does not have to infer it: the
-  // RESOURCE-RELEASE LAW (`00E`.5) says a completed phase releases its resources
-  // even when the next resource is unavailable — shooting completes, stage and
-  // set release, the picture queues for Post holding nothing. Today's transition
-  // is still atomic, so the stage is released as part of entering Post. That
-  // split is M4's designed engine change; M1's event lands on the boundary AS IT
-  // EXISTS, which is exactly what the charter asks for.
-  //
-  // `setId` is null until M2 binds sets. It is null, not absent: the row's shape
-  // is permanent, and a picture that shot on no bound set shot on no bound set.
-  let nextSets = sets
-  if (workflow.phase === 'shooting' && targetPhase === 'postProduction') {
-    const stage = workflow.reservations.find(
-      (reservation) => reservation.capability === 'soundstage',
-    )
-    if (stage === undefined) {
-      throw new Error(
-        `tick: shooting productionId "${production.id}" completed without a soundstage reservation`,
-      )
-    }
-    // C2a-M2: the row now names the SET the picture shot on as well as the stage
-    // it stood in. `null` still means what it always meant — this picture was
-    // bound to no set — and that is the literal truth of a legacy, migrated, or
-    // pre-V14 production.
-    const wrappedSetId = workflow.bindings?.setId ?? null
-    events.append({
-      kind: 'wrapped',
-      productionId: production.id,
-      stageFacilityId: stage.facilityId,
-      setId: wrappedSetId,
-    })
-    // THE WEAR, at the moment the work finished. Per-USE and deterministic (§3.1)
-    // — one wrap, one wear, no clock and no draw — and applied HERE rather than
-    // at release because it is the shooting that wore the scenery out, and a
-    // picture that never reaches an audience wore it just the same.
-    nextSets = wearSetAtWrap(nextSets, wrappedSetId)
-  }
+  operations = nextOperations
+  workflow = working
 
   recordReservationTransition(events, workflow, allocation.reservations)
   events.append({ kind: 'phaseEntered', productionId: production.id, phase: targetPhase })
@@ -1040,7 +1194,66 @@ function enterPhase(
     production: { ...production, remainingTicks: production.remainingTicks - 1 },
     advanced: true,
     sets: nextSets,
+    released: releasing.released.length > 0,
   }
+}
+
+/**
+ * How long this picture has been STUCK, in weeks — the aging term of the queue
+ * order (§3.3), derived and never persisted.
+ *
+ * A managed production consumes exactly one countdown tick per advance it is not
+ * held for, and it skips exactly one tick — the advance it was greenlit in. So
+ * the weeks that elapsed minus the ticks it consumed minus that one skipped tick
+ * IS the number of weeks it spent not moving. No timestamp, no clock, no new
+ * field: two integers already in the save file.
+ *
+ * It counts every kind of stall, including a take waiting for the player's own
+ * command. That is deliberate — the question the order asks is "who has been
+ * waiting longest", not "whose fault was it".
+ */
+export function productionWaitWeeks(production: Production, currentTick: number): number {
+  const elapsed = currentTick - production.startTick
+  const consumed = TUNING.PRODUCTION_TICKS - production.remainingTicks
+  return Math.max(0, elapsed - consumed - 1)
+}
+
+/**
+ * The permanent ORDINAL of a production id, read numerically.
+ *
+ * `00B`.2 guardrail: production-id format and values are permanent — never
+ * re-minted, never reformatted. So the fairness fix reads the id instead of
+ * rewriting it: `prod-0012-10` sorts AFTER `prod-0012-2`, which plain string
+ * order gets backwards (lane 2's S3), because the week and the within-week
+ * suffix are compared as the integers they are.
+ */
+function productionOrdinalKey(id: string): [number, number, string] {
+  const match = /^prod-(\d+)(?:-(\d+))?$/.exec(id)
+  if (match === null) return [Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, id]
+  return [Number(match[1]), match[2] === undefined ? 0 : Number(match[2]), id]
+}
+
+/**
+ * THE QUEUE ORDER for production transitions (§3.3): longest-waiting-first,
+ * ordinal tie-break. Deterministic — both terms are functions of state, there is
+ * no clock and no insertion race — and it replaces ascending-id-only order,
+ * whose one-week unfairness a committed test used to prove.
+ */
+export function productionsInSweepOrder(
+  productions: readonly Production[],
+  currentTick: number,
+): readonly Production[] {
+  return [...productions].sort((a, b) => {
+    const wait = productionWaitWeeks(b, currentTick) - productionWaitWeeks(a, currentTick)
+    if (wait !== 0) return wait
+    const left = productionOrdinalKey(a.id)
+    const right = productionOrdinalKey(b.id)
+    return (
+      left[0] - right[0] ||
+      left[1] - right[1] ||
+      (left[2] < right[2] ? -1 : left[2] > right[2] ? 1 : 0)
+    )
+  })
 }
 
 export type ManagedProductionAdvance = {
@@ -1074,10 +1287,34 @@ export function advanceManagedProductions(
   let nextOperations = operations
   const byId = new Map<string, Production>()
   for (const production of productions) byId.set(production.id, production)
-  const ordered = [...productions].sort(compareId)
+  // THE QUEUE ORDER (§3.3): longest-waiting-first, ordinal tie-break — computed
+  // ONCE, from the state as this advance found it, so the order a week is served
+  // in cannot shift underneath the sweep that is serving it.
+  const ordered = productionsInSweepOrder(productions, currentTick)
+  const settled = new Set<string>()
 
+  // ── THE FIXED-POINT WEEKLY SWEEP (charter §3.3) ───────────────────────────
+  //
+  // Transition attempts run in queue-priority order and the pass REPEATS until a
+  // whole round makes no progress. That is what closes lane 2's S2 hole: capacity
+  // freed by ANYONE — a picture moving on, a picture wrapping and dropping its
+  // stage under the release law, a picture leaving for release — is visible to
+  // every waiter in the SAME visible week, not to whoever happens to be later in
+  // the iteration order. The player who watches one film wrap and another start
+  // that same week is watching the truth.
+  //
+  // Bounded: each round either advances a workflow or hands capacity back, and
+  // each workflow can do each of those at most once per week, so the loop
+  // terminates in at most 2N rounds.
+  let progressed = true
+  while (progressed) {
+    progressed = false
   for (const original of ordered) {
-    if (original.startTick >= currentTick) continue
+    if (settled.has(original.id)) continue
+    if (original.startTick >= currentTick) {
+      settled.add(original.id)
+      continue
+    }
     let production = byId.get(original.id)!
     const workflow = nextOperations.workflows.find(
       (candidate) => candidate.productionId === production.id,
@@ -1098,6 +1335,7 @@ export function advanceManagedProductions(
     // scheduled; that same tick completes it. All other same-phase weeks advance.
     if (production.remainingTicks === 5) {
       const task = workflow.shootingTask
+      settled.add(production.id)
       if (task === null || task.status !== 'scheduled' || workflow.blocker !== null) continue
       production = { ...production, remainingTicks: 4 }
       nextOperations = replaceWorkflow(nextOperations, {
@@ -1110,6 +1348,7 @@ export function advanceManagedProductions(
 
     const nextRemaining = production.remainingTicks - 1
     if (nextRemaining === 0) {
+      settled.add(production.id)
       byId.set(production.id, { ...production, remainingTicks: 0 })
       // The workflow leaves with the picture. `releaseReady` requires no
       // capability, so today this releases nothing and records nothing — it is
@@ -1117,11 +1356,14 @@ export function advanceManagedProductions(
       // holds something at release, the release is in the log.
       recordReservationTransition(events, workflow, [])
       nextOperations = removeManagedProductionWorkflow(nextOperations, production.id)
+      // A picture leaving the board is capacity going back to the pool.
+      progressed = true
       continue
     }
 
     const targetPhase = productionPhaseForRemainingTicks(nextRemaining)
     if (targetPhase === workflow.phase) {
+      settled.add(production.id)
       byId.set(production.id, { ...production, remainingTicks: nextRemaining })
       continue
     }
@@ -1141,11 +1383,21 @@ export function advanceManagedProductions(
     )
     nextOperations = result.operations
     sets = result.sets
-    if (result.advanced) byId.set(production.id, result.production)
+    if (result.advanced) {
+      byId.set(production.id, result.production)
+      settled.add(production.id)
+      progressed = true
+      continue
+    }
+    // BLOCKED. It keeps its place in the order and is retried in the next round —
+    // the resources it just released (if any) may be exactly what another waiter
+    // needed, and what that waiter then finishes with may be what THIS one needs.
+    if (result.released) progressed = true
+  }
   }
 
   // Preserve the caller's production-array order; allocation order alone is the
-  // governed ascending-id order.
+  // governed queue-priority order.
   return {
     productions: productions.map((production) => byId.get(production.id)!),
     operations: nextOperations,

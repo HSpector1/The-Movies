@@ -13,7 +13,9 @@ import {
   addManagedProductionWorkflow,
   advanceManagedProductions,
   computeForecast,
+  productionWaitWeeks,
   resolveShape,
+  scriptCapacityView,
   stableStringify,
   tick,
   emptyStudioPlacement,
@@ -402,15 +404,20 @@ describe('Production Operations V1', () => {
       capability: 'soundstage',
       targetPhase: 'rehearsal',
     })
-    expect(state.operations.workflows[1]!.reservations).toEqual([
-      {
-        productionId: state.studio.activeProductions[1]!.id,
-        facilityId: 'facility-development-casting',
-        capability: 'development-casting',
-        slot: 1,
-        phase: 'preProduction',
-      },
-    ])
+    // ── C2a-M4 RE-BASE (the RESOURCE-RELEASE LAW, ruling `00E`.5) ──────────
+    //
+    // The predecessor asserted the waiter still HOLDS its Development & Casting
+    // slot while it waits for a stage. The Owner reversed that: when a phase's
+    // work completes its resources release, even if the next resource is
+    // unavailable. Pre-production's work is done, so the slot is back in the pool
+    // and the picture waits holding NOTHING — which is strictly more than the
+    // predecessor proved, because it also proves the slot is genuinely free.
+    expect(state.operations.workflows[1]!.reservations).toEqual([])
+    expect(
+      scriptCapacityView(state).facilities.flatMap((facility) =>
+        facility.slots.filter((slot) => slot.occupant !== null),
+      ),
+    ).toEqual([])
 
     const holderId = state.operations.workflows.find((workflow) => workflow.phase === 'rehearsal')!
       .productionId
@@ -430,7 +437,16 @@ describe('Production Operations V1', () => {
     )
   })
 
-  it('releases capacity in-order and defers a lower-id waiter exactly one retry week', () => {
+  // ── C2a-M4 RETIREMENT WITH ITS NAMED SUCCESSOR (charter §11.8 item 8) ──────
+  //
+  // The predecessor PROVED a defect: capacity freed inside a weekly sweep flowed
+  // only downstream in id order, so a waiter processed BEFORE its holder lost a
+  // whole week for no reason a player could see (lane 2's S2). Its subject — the
+  // one-week deferral — is deleted by the fixed-point sweep, and the successor
+  // asserts what replaced it: capacity freed mid-week is granted in the SAME
+  // week, in queue-priority order, longest-waiting-first with an ordinal
+  // tie-break, ASSERTED AGAINST A GENUINE TIE.
+  it('grants capacity freed mid-week in the SAME week, longest-waiting-first with an ordinal tie-break', () => {
     function releaseBoundary(holderFirst: boolean): GameState {
       let state = generateWorld(`ops-release-order-${String(holderFirst)}`)
       state = {
@@ -532,6 +548,10 @@ describe('Production Operations V1', () => {
       return state
     }
 
+    // BOTH ORDERS NOW CONVERGE. The holder wraps and its stage goes back inside
+    // the sweep; the waiter is granted it the same week whether the sweep reached
+    // the waiter before or after the holder. That the two arms now agree IS the
+    // successor: the outcome stopped depending on iteration order.
     let holderFirst = releaseBoundary(true)
     const forwardWaiterId = [...holderFirst.studio.activeProductions.map((production) => production.id)].sort()[1]!
     holderFirst = tickWithInvariant(holderFirst, 'configured')
@@ -543,17 +563,80 @@ describe('Production Operations V1', () => {
     let waiterFirst = releaseBoundary(false)
     const reverseWaiterId = [...waiterFirst.studio.activeProductions.map((production) => production.id)].sort()[0]!
     waiterFirst = tickWithInvariant(waiterFirst, 'configured')
-    const held = waiterFirst.operations.workflows.find(
+    const granted = waiterFirst.operations.workflows.find(
       (workflow) => workflow.productionId === reverseWaiterId,
     )!
-    expect(held.phase).toBe('preProduction')
-    expect(held.blocker?.kind).toBe('facility-capacity')
-    waiterFirst = tickWithInvariant(waiterFirst, 'configured')
-    const retried = waiterFirst.operations.workflows.find(
-      (workflow) => workflow.productionId === reverseWaiterId,
+    expect(granted.phase).toBe('rehearsal')
+    expect(granted.blocker).toBeNull()
+    expect(
+      granted.reservations.some((reservation) => reservation.capability === 'soundstage'),
+    ).toBe(true)
+
+    // ── THE GENUINE TIE ──────────────────────────────────────────────────────
+    //
+    // Two pictures that have waited EXACTLY as long, one free stage. Nothing
+    // separates them but the ordinal, so the ordinal is what decides — and it
+    // decides the same way on every replay.
+    let tied = releaseBoundary(true)
+    const tiedIds = [...tied.studio.activeProductions.map((production) => production.id)].sort()
+    tied = {
+      ...tied,
+      studio: {
+        ...tied.studio,
+        activeProductions: tied.studio.activeProductions.map((production) => ({
+          ...production,
+          remainingTicks: 7,
+        })),
+      },
+      operations: {
+        ...tied.operations,
+        workflows: tied.operations.workflows.map((workflow) => ({
+          ...workflow,
+          phase: 'preProduction' as const,
+          // Both have already released Pre-production's slot and are waiting for
+          // the one stage, exactly as the release law leaves them.
+          reservations: [],
+          shootingTask: null,
+          blocker: {
+            kind: 'facility-capacity' as const,
+            capability: 'soundstage' as const,
+            targetPhase: 'rehearsal' as const,
+          },
+          bindings: {
+            requiresSetBinding: false,
+            stageFacilityId: null,
+            setId: null,
+            lockedNovelty: null,
+            lockedUplift: null,
+            heldSinceWeek: null,
+          },
+        })),
+      },
+    }
+    assertConfiguredOperations(tied)
+    const tiedWaits = tied.studio.activeProductions.map((production) =>
+      productionWaitWeeks(production, tied.market.tick),
+    )
+    expect(tiedWaits[0]).toBe(tiedWaits[1]) // a GENUINE tie, not a contrived one
+    const resolved = tickWithInvariant(tied, 'configured')
+    const winner = resolved.operations.workflows.find(
+      (workflow) => workflow.productionId === tiedIds[0],
     )!
-    expect(retried.phase).toBe('rehearsal')
-    expect(retried.blocker).toBeNull()
+    const loser = resolved.operations.workflows.find(
+      (workflow) => workflow.productionId === tiedIds[1],
+    )!
+    expect(winner.phase).toBe('rehearsal')
+    expect(loser.phase).toBe('preProduction')
+    expect(loser.blocker).toEqual({
+      kind: 'facility-capacity',
+      capability: 'soundstage',
+      targetPhase: 'rehearsal',
+    })
+    // Deterministic: the same seed and the same script resolve the tie the same
+    // way, every time.
+    expect(stableStringify(tickWithInvariant(tied, 'configured'))).toBe(
+      stableStringify(resolved),
+    )
   })
 
   it('runs two simultaneous managed pipelines through shooting and release with invariants each tick', () => {

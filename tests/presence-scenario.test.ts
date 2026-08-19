@@ -281,13 +281,27 @@ describe('Presence Projection V1 — scenario walk', () => {
 
     const presence = studioPresence(state)
     expect(presence.withheld).toEqual([])
-    const held = facilityOf(state, 'development-casting', blockedId)
+    // ── C2a-M4 RE-BASE (ruling `00E`.5, the RESOURCE-RELEASE LAW) ───────────
+    //
+    // The predecessor read "the company waits AT THE SITE IT ACTUALLY HOLDS",
+    // which is `presence.ts`'s recorded truth gap 1 — and the release law makes
+    // its premise false ON PURPOSE: Pre-production's work is finished, so its
+    // Development & Casting slot went back the moment the transition was
+    // attempted, and this company is waiting for a stage holding NOTHING. The
+    // successor proves the stronger fact: the slot really is released, and the
+    // company is still VISIBLE and still says what it is waiting for. A crew that
+    // vanished from the world while it waited would be the real regression.
+    expect(
+      state.operations.workflows.find((workflow) => workflow.productionId === blockedId)!
+        .reservations,
+    ).toEqual([])
     for (const talentId of [blockedProduction.writerId, blockedProduction.directorId]) {
       const person = at(presence, talentId)
       expect(person).toMatchObject({
         engagement: 'production',
         ownerId: blockedId,
-        site: held,
+        site: null,
+        slot: null,
         blockedReason: 'awaiting soundstage capacity to enter rehearsal',
       })
       expect(person.beats).toContain('waiting')

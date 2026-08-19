@@ -105,6 +105,61 @@ export function nextProductionPhase(phase: ProductionPhase): ProductionPhase | n
 }
 
 /**
+ * THE ACQUISITION RANK (charter §3.2) — the declared total resource order.
+ *
+ *   `development-casting`(1) < stage+set composite(2) < `set-scenery`(3) < `post`(4)
+ *
+ * with ONE invariant: a workflow may only wait for a resource ranked STRICTLY
+ * ABOVE everything it currently holds. That converts the pipeline's accidental
+ * DAG (lane 2 §5.1 — "there is no cycle today, and only by accident") into a
+ * stated, tested law, and it is what makes lane 2's X1 cycle impossible rather
+ * than merely unlikely.
+ *
+ * The composite is ONE rank-2 node: stage and set are acquired atomically, so
+ * there is no moment at which a picture holds one and waits for the other. A
+ * SET therefore has no rank of its own — it is never waited for separately.
+ * `mount` is unranked for the same reason (§3.1: acquired instantly, never
+ * waited on).
+ *
+ * The resource-release law (`00E`.5) shrinks the graph this polices rather than
+ * complicating it: a completed phase's resources release, so the only surviving
+ * hold-and-wait edge is rehearsal→shooting, which retains the stage+set the next
+ * phase genuinely requires and waits for `set-scenery` above it.
+ */
+const ACQUISITION_RANK_BY_CAPABILITY: Readonly<Record<FacilityCapability, number>> =
+  Object.freeze({
+    'development-casting': 1,
+    soundstage: 2,
+    'set-scenery': 3,
+    post: 4,
+  })
+
+/** The declared acquisition rank of a capability (§3.2). Higher waits on lower. */
+export function acquisitionRank(capability: FacilityCapability): number {
+  return ACQUISITION_RANK_BY_CAPABILITY[capability]
+}
+
+/**
+ * The capabilities a workflow KEEPS across a transition — the intersection of
+ * what this phase holds and what the next phase requires.
+ *
+ * THE RESOURCE-RELEASE LAW (`00E`.5) is this one line and its complement: what
+ * the next phase genuinely requires is retained, and EVERYTHING ELSE RELEASES
+ * when the phase's work completes, whether or not the next resource is
+ * available. Shooting → Post retains nothing, so a wrapped picture waits for Post
+ * holding nothing at all; Rehearsal → Shooting retains the stage (and with it the
+ * set standing on it), because the next phase is where the picture actually
+ * shoots.
+ */
+export function retainedCapabilitiesFor(
+  phase: ProductionPhase,
+  targetPhase: ProductionPhase,
+): readonly FacilityCapability[] {
+  const required = requirementsForPhase(targetPhase)
+  return requirementsForPhase(phase).filter((capability) => required.includes(capability))
+}
+
+/**
  * The ONLY `facility-capacity` blocker a legal state can carry at a given
  * countdown position — derived, not tabled a second time.
  *

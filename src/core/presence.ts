@@ -269,8 +269,14 @@ type Claim = {
   engagement: PresenceEngagement
   credit: PresenceCredit
   ownerId: string
-  facilityId: string
-  slot: number
+  /**
+   * C2a-M4 (`00E`.5): NULL when the company is engaged but holds no site — a
+   * picture whose completed phase released its resources and is now waiting for
+   * the next one. It is still working for that production; it is simply not
+   * anywhere the studio owns this week.
+   */
+  facilityId: string | null
+  slot: number | null
   blockedReason: string | null
 }
 
@@ -280,6 +286,11 @@ const TIER_RANK: Record<ClaimTier, number> = { production: 0, script: 1, casting
 
 function blockedReasonFor(capability: string, targetPhase: string): string {
   return `awaiting ${capability} capacity to enter ${targetPhase}`
+}
+
+/** The set half of the same sentence (§3.3's `set-unavailable` arm). */
+function blockedSetReasonFor(targetPhase: string): string {
+  return `awaiting a standing set to enter ${targetPhase}`
 }
 
 /**
@@ -456,6 +467,15 @@ export function studioPresence(state: GameState): StudioPresence {
       isNonEmptyString(blocker['targetPhase'])
     ) {
       blockedReason = blockedReasonFor(blocker['capability'], blocker['targetPhase'])
+    } else if (
+      isObject(blocker) &&
+      blocker['kind'] === 'set-unavailable' &&
+      isNonEmptyString(blocker['targetPhase'])
+    ) {
+      // C2a-M4: the second next-phase wait. A picture with a stage available and
+      // no scenery to shoot on is waiting for a SET, and saying so is the whole
+      // reason the arm exists.
+      blockedReason = blockedSetReasonFor(blocker['targetPhase'])
     }
 
     const rows = attendanceForPhase(workflow.phase, production)
@@ -466,6 +486,33 @@ export function studioPresence(state: GameState): StudioPresence {
       const matching = reservations.filter(
         (reservation) => isObject(reservation) && reservation.capability === row.capability,
       )
+      if (matching.length === 0 && blockedReason !== null) {
+        // ── THE COMPANY THAT HOLDS NOTHING (C2a-M4, `00E`.5) ─────────────
+        //
+        // Truth gap 1 is CLOSED for this case rather than widened. The old
+        // reading — "the company waits AT THE SITE IT ACTUALLY HOLDS" — assumed
+        // a waiting picture is always holding something, and the resource-release
+        // law makes that false on purpose: a completed phase's resources go back
+        // even when the next one is unavailable, so a picture waiting for a stage
+        // (or for Post) holds nothing at all.
+        //
+        // A company with no site is NOT a contradiction and must not be withheld:
+        // withholding would make the crew of every waiting picture VANISH from
+        // the world, which is the opposite of "the player must know what is
+        // waiting". They are projected as engaged, waiting, with the reason they
+        // are waiting and no site — the honest reading of a state in which they
+        // are between rooms.
+        addClaim('production', {
+          talentId: row.talentId,
+          engagement: 'production',
+          credit: row.credit,
+          ownerId: workflow.productionId,
+          facilityId: null,
+          slot: null,
+          blockedReason,
+        })
+        continue
+      }
       if (matching.length !== 1) {
         withhold(
           row.talentId,
