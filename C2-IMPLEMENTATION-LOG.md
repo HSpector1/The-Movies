@@ -121,7 +121,126 @@ path (engine, M4/M7; the UI scopes it in one shared predicate meanwhile).
 market payload it cannot have — additive follow-up, no engine work. Both are
 written up in `docs/c2-planning/17-m3-records.md` §8.
 
-## M5 — IN PROGRESS (lane ENGINE-M5; started 2026-08-19)
+## M5 — LANDED (lanes ENGINE-M5 + UI-M5 + INTEGRATE-M5); integration checkpoint 2026-08-19
+
+CHECKPOINT (INTEGRATE-M5, HEAD `f58cba9` + this entry): **you can stop touching
+the controls and the studio keeps working.** One press of Roll and the weeks run
+themselves — the played week on screen, then the IDENTICAL authoritative advance
+a manual press commits, then the engine's own stop ladder, then the next week.
+The engine's discrete week is still the only clock in the product: `src/core`
+holds zero `Date.now` / `performance.now` / `setTimeout` / `Math.random`, and the
+one wall clock that exists (`StudioLotScreen`'s witnessed-week timer) spends time
+and decides nothing. Pause and the 1× / 2× / 4× ladder are pacing; the partition
+(§4.1) decides which engine stops halt the loop and which merely speak.
+
+**FLOORS, MEASURED WHOLE AT THIS HEAD ON A QUIET MACHINE.** root tsc 0 · ui tsc 0
+· FULL vitest **322 files / 4,389 passed + 5 skipped / 0 failed** (solo, unpiped,
+54.1s — `/tmp/c2a-m5-vitest.log`; UI-M5 left 320 / 4,370 + 5, ENGINE-M5 left
+317 / 4,313 + 5, M4 accepted at 312 / 4,256 + 5). FULL Playwright floor,
+serialized, whole: **219 passed / 4 skipped / 0 FAILED of 223 (19.4m)** —
+`/tmp/c2a-m5-playwright.log`. The M4-accepted floor was 215 / 4 / 0 of 219; the
+four additions are exactly M5's own browser spec. **ZERO regressions, and the
+floor law (0 failed) is met without a single pin loosened.**
+
+**THE §12-M5 GATE IS MET AS WRITTEN, IN A REAL BROWSER, IN ONE TEST.**
+`ui/e2e/c2a-m5-living-turn-v1.spec.ts` on the shipped grid origin (5179), reduced
+motion, the seeded gate fixture replayed byte-identically through the live save
+boundary first. TWO pictures in flight and a third greenlight waiting; ONE press
+of Roll; then **zero further input for the rest of the test**. Asserted, in this
+order: the transport reaches start + 12 with `data-mode="running"` and
+`data-paused-by="none"` (which IS the run length — a loop that had paused on any
+earlier week had nothing to restart it); the queue DRAINED into freed capacity,
+read out of the studio the browser is actually holding through the engine's own
+projection (`productionQueue` 1 → 0, `activeProductions` 2 → 3, `waitingIntents`
+0); a NOTIFY-class construction line surfaced **verbatim against the engine's own
+sentence** and `not.toHaveText(/Stopped at Week/)`, because nothing stopped; and
+then the loop stopped ITSELF on the first PAUSE-class stop — `cashNegative`, on
+exactly the week the hand-advanced twin owes — and stayed stopped. UI-M5's
+finding 2 ("the conjunction cannot be met") is **SUPERSEDED**: it is met, on the
+`livingStudioUnderPressure` fixture, whose quiet stretch measures SIXTEEN weeks
+against the charter's floor of twelve.
+
+**THE ONE PLACE A STOPWATCH BELONGS.** A second browser test measures a played
+week at 1× against the wall clock — 10.35s ±20%, twice running, so it is a
+cadence and not one lucky week. Every other assertion in the milestone refuses a
+stopwatch on purpose.
+
+**FOUR-WAY TIME PARITY IS A PERMANENT SUITE** (`ui/src/lot/livingTurn.parity
+.test.tsx`, 7 tests). The same seeded studio advanced (a) by hand through the
+manual verb at the App seam, (b) by the living loop at 1× and again at 4×,
+(c) paused and resumed arbitrarily — including a Hold taken half way through a
+witnessed week and two pace changes mid-run — and (d) batch-skipped through the
+fast-forward verb. **FOUR EXPORTED SAVES, ONE SET, SIZE 1.** The batch arm is
+asserted non-vacuous. The whole thing runs on `vi.useFakeTimers()`, which IS the
+statement: winding a mocked clock and getting the bytes a player's own presses
+produce is the proof that wall time decides nothing. G8.1/G8.2 theater on/off
+byte-parity lands in the same suite, `rngState` included, enabled arm non-vacuous.
+
+**WHAT WAS RE-VERIFIED AT THIS HEAD, AND HOW.**
+- **The M4 capacity/queue laws are untouched and green.** No M4 suite appears in
+  `git diff 15d835d..HEAD` at all: `c2a-m4-queue-admission` (9), `-legibility`
+  (4), `-contention-property` (7), `-g101-throughput`, `-release-law` and
+  `c2a-m4-queue-panel` (11) all pass unmodified, and the browser gate
+  `c2a-m4-throughput-queue-v1` is green in the floor.
+- **M0A corpus byte-identity holds.** `tests/acceptance-corpus.test.ts` (11) and
+  `tests/contracts/v14-byte-parity.contract.test.ts` (6) are untouched since M4
+  acceptance and green, alongside the §15.7 full-run replay and the T9 migration
+  parity arms.
+- **PF1's cue-grammar exhaustiveness suite is green WITH the eleventh member.**
+  Both teeth fired as designed. The count pin moved 10 → 11 — a TIGHTENING, not a
+  relaxation: a real union member arrived, and the reserved tier slot (PF1 §10
+  item 2) is filled with `wrap: { tier: 2, sound: 'completion', motion:
+  'emphasis' }`, argued at both sites. Tier 2 because tier 1 names exactly three
+  ceremonies and wrap is NOTIFY-class — a held beat would stop a loop the charter
+  says must not stop.
+- **The Scenery Load-In V1 re-pin question is answered by a RULING, not a re-pin,
+  and the reason is measured.** Every one of the four SHA-256-pinned fixtures is a
+  MIGRATED save, and the V14 migrator sets `requiresSetBinding` FALSE for every
+  migrated workflow — so a picture that was never required to bind a set is never
+  told how far its shop is. `tests/world-first-scenery-load-in-provenance.test.ts`,
+  `ui/src/lot/snapshot/sceneryLoadIn.test.ts`, the contract doc and the T9 matrix
+  are all **byte-untouched since `15d835d`** and green. The V1 Keep gate is
+  re-proven by the suites that own it running unmodified.
+- **The five-rule re-pin discipline holds on the only two structural pins that
+  moved.** 231 → 232 display objects in all four tuples (build-mode ×1, presence
+  ×3), +1 and no more: ONE shared `tier:week-theater` Graphics layer. Decoded
+  bytes UNCHANGED (8,806,568 / 8,807,528), draw calls UNCHANGED at 6, dynamic
+  actors UNCHANGED at 14 — and that last non-movement is the load-bearing one,
+  because it proves grounding the eight ambient patrols is a VISIBILITY law and
+  not a covert change to what the world is made of.
+- **G12 swept, and the sweep found two real violations on a drawn surface.** Fixed
+  at the source in `src/core/studioWeekTheater.ts` by REUSING the queue panel's
+  shipped vocabulary rather than authoring a second one. A non-vacuous G12 pin now
+  walks three studios (one WITH a queue, which is how the second violation had
+  survived) and refuses thirteen engine tokens plus any id-shaped run in any
+  `reason`. Every new player-facing sentence in the milestone re-read at this
+  HEAD: the transport copy, the pace labels, the NOTIFY bulletin lines, the wrap
+  stop message, the Call Board placards and the apron freight line are all
+  filmmaking language. See finding 8 for the one pre-existing sentence the sweep
+  flagged and deliberately did not touch.
+
+**THE OWNER'S PLAYTEST SHEET** is `docs/c2-planning/18-m5-owner-playtest.md` — one
+page, ten minutes, two saves and one press each, on the shipped grid origin. The
+saves are MINTED rather than committed (`npx vite-node tests/_m5PlaytestSave.ts`),
+from the same seeds the tests use, and the script prints the week each studio owes
+each event so the game can be held to the engine's own figures rather than to
+prose.
+
+**FINDING 8 (new, INTEGRATE-M5) — ONE PRE-EXISTING G12 SENTENCE, FLAGGED AND NOT
+TOUCHED.** The batch verb is drawn as **"Sim to next event"** on the Lot topbar,
+one button away from M5's new transport. "Sim" is engine language on a control the
+player reads, which is what `00F`'s tycoon floor forbids — but it PREDATES this
+milestone (present at `15d835d`), it is not a sentence M5 authored, and the string
+is pinned in 23 places across 12 files including two e2e specs. Renaming it is a
+copy decision with a test wave behind it, not an integration lane's call.
+**Routed to the Owner/PM**, alongside the three pre-existing sentences §14's G12
+already enumerates.
+
+Findings 1–7 (ladder rank, the played week's Class-A stage lamps, approximate haul
+proportion, the named presentation watchdog, the two carried ENGINE-M5 findings,
+and human visual review) stand as written below. Finding 2 is superseded as
+recorded above. **The one gate no automated run can close remains open: a person
+has never looked at the lot.** That is what the playtest sheet is for.
 
 Lane ENGINE-M5 owns `src/core/**`, `ui/src/engine/adapter.ts`,
 `ui/src/lot/snapshot/nextEvent.ts`, `ui/src/presentation/**`, `tests/**`.
