@@ -153,6 +153,17 @@ function record(prefix: string, title = `${prefix} Picture`): FilmRecordView {
     studioRevenue: 10_750_000,
     profit: 3_500_000,
     projected: false,
+    // C2a-M3 — the Chronicle now carries WHO WROTE IT. This fixture is a picture
+    // the studio bought from the market, which is what every C1 film was.
+    screenplay: {
+      origin: 'pool',
+      label: 'Acquired from the open script market',
+      writerId: null,
+      writerName: null,
+      generatedTitle: null,
+      renamedWeek: null,
+      renamed: false,
+    },
   }
 }
 

@@ -20,6 +20,7 @@
 // no set at all it says in the same breath that the greenlight is not stopped.
 
 import type { PackageSetPlanView, SetCandidateView } from '../engine/sets.ts'
+import type { RequiredSetTypeView } from '../engine/screenplay.ts'
 import {
   SET_ADVISORY_NOTE,
   SET_SURFACE_TITLE,
@@ -90,7 +91,60 @@ function AlternativesTable({
   )
 }
 
-export function SetStagePanel({ plan }: { plan: PackageSetPlanView }) {
+/**
+ * C2a-M3 — WHAT THE SCRIPT CALLS FOR (charter §3.5; the beat structure IS the set
+ * demand).
+ *
+ * The screenplay's seven beats each happen in one kind of place, and this is the
+ * list of those places with the beats that ask for them. It is the engine
+ * equivalent of the original's own info bubble, which "lists which sets the
+ * script requires" [CORPUS Bible §7.1, OFFICIAL manual p.13].
+ *
+ * ADVISORY IN V1, and it says so where the panel already says so: one bound set
+ * per production stands, so a location the studio does not own costs fit and
+ * variety rather than refusing the shoot. Nothing here is rendered as a blocker —
+ * turning demand into a reservation is M4's queue work.
+ */
+function ScriptDemand({ demand }: { demand: readonly RequiredSetTypeView[] }) {
+  if (demand.length === 0) return null
+  return (
+    <div className="stack" data-testid="pkg-set-demand" style={{ marginTop: 8 }}>
+      <span className="opt-title">What the script calls for</span>
+      <table className="data">
+        <thead>
+          <tr>
+            <th>Location</th>
+            <th>Scenes</th>
+            <th>On the lot</th>
+          </tr>
+        </thead>
+        <tbody>
+          {demand.map((row) => (
+            <tr key={row.setType} data-testid={`pkg-set-demand-${row.setType}`}>
+              <td>The script calls for {row.label}</td>
+              <td>{row.beats.join(', ')}</td>
+              <td data-testid={`pkg-set-demand-standing-${row.setType}`}>
+                {row.standing ? 'Standing' : 'Not built'}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+export function SetStagePanel({
+  plan,
+  demand = [],
+}: {
+  plan: PackageSetPlanView
+  /**
+   * C2a-M3: the locations this screenplay's beats ask for. Empty ⇒ the demand is
+   * out of scope for this render and the panel behaves exactly as M2 shipped it.
+   */
+  demand?: readonly RequiredSetTypeView[]
+}) {
   // A studio whose pictures are not built on its own sets is told nothing about
   // sets: every sentence below would be false of it (G12).
   if (!plan.required) return null
@@ -173,6 +227,8 @@ export function SetStagePanel({ plan }: { plan: PackageSetPlanView }) {
           </table>
         </div>
       )}
+
+      <ScriptDemand demand={demand} />
 
       <p className="hint" style={{ marginTop: 8 }} data-testid="pkg-set-advisory">
         {SET_ADVISORY_NOTE}

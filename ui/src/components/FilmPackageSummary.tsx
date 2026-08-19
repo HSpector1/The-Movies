@@ -18,10 +18,23 @@ import type {
   MarketingMenuView,
 } from '../engine/adapter.ts'
 import type { PackageSetPlanView } from '../engine/sets.ts'
+import type {
+  RequiredSetTypeView,
+  ScreenplayProvenanceLine,
+} from '../engine/screenplay.ts'
 import { money, moneyExact, score, confidenceLabel } from '../format.ts'
 import { Metric, Warn } from './common.tsx'
 import { DiscoveryExposureLine } from './DiscoveryExposure.tsx'
 import { SetStagePanel } from './SetStagePanel.tsx'
+
+/**
+ * C2a-M3 — the screenplay's own facts at the greenlight decision (charter §3.5):
+ * the credit line the studio earned, and the locations its beats call for.
+ */
+export type PackageScreenplayView = {
+  provenance: ScreenplayProvenanceLine
+  requiredSets: readonly RequiredSetTypeView[]
+}
 
 // A4: a plain money figure in a Downside/Expected/Upside triple (Studio Revenue — always ≥ 0).
 function RangeFigure({ label, value, testid }: { label: string; value: number; testid?: string }) {
@@ -105,6 +118,7 @@ export function FilmPackageSummary({
   discovery,
   marketing,
   setPlan,
+  screenplay,
 }: {
   cohesion: CreativeCohesion
   fit?: PackageFit
@@ -124,10 +138,32 @@ export function FilmPackageSummary({
   // studio whose pictures are not bound to sets renders nothing either way, which
   // the panel itself decides from `required`).
   setPlan?: PackageSetPlanView
+  // C2a-M3 §3.5: WHO WROTE IT, and WHAT THE SCRIPT CALLS FOR. The credit is the
+  // engine's own line; the demand is the screenplay's beats. Absent ⇒ the
+  // screenplay's own facts are out of scope for this render.
+  screenplay?: PackageScreenplayView
 }) {
   const fixedCost = cycleFixedCost?.amount ?? 0
   return (
     <div className="stack" data-testid="film-package-summary">
+      {/* 0 ── Where the screenplay came from (C2a-M3 §3.5) ────────────────── */}
+      {screenplay !== undefined && (
+        <div className="panel stack" data-testid="pkg-screenplay">
+          <div className="spread">
+            <h3 style={{ margin: 0 }}>The screenplay</h3>
+            <span className="badge" data-testid="pkg-screenplay-origin">
+              {screenplay.provenance.origin === 'original' ? 'Original' : 'Acquired'}
+            </span>
+          </div>
+          <strong data-testid="pkg-screenplay-credit">{screenplay.provenance.label}</strong>
+          {screenplay.provenance.renamed && screenplay.provenance.generatedTitle !== null && (
+            <span className="hint" data-testid="pkg-screenplay-working-title">
+              Written as ‘{screenplay.provenance.generatedTitle}’.
+            </span>
+          )}
+        </div>
+      )}
+
       {/* 1 ── Creative Cohesion — always shown, talent-independent ────────── */}
       <div className="panel" data-testid="pkg-cohesion">
         <div className="spread">
@@ -252,7 +288,9 @@ export function FilmPackageSummary({
       )}
 
       {/* 2b ── Where it will shoot — the set, its stat block, and its uplift ── */}
-      {setPlan !== undefined && <SetStagePanel plan={setPlan} />}
+      {setPlan !== undefined && (
+        <SetStagePanel plan={setPlan} demand={screenplay?.requiredSets ?? []} />
+      )}
 
       {/* 3 ── Execution Confidence — perceived only, WE excluded ──────────── */}
       {execution !== undefined && (

@@ -73,6 +73,18 @@ export function FilmRecord({
               <div>
                 <span className="mark">ARCHIVE · RELEASE WEEK {view.chronicle.productionRecord.available ? view.chronicle.productionRecord.releaseWeek : '—'}</span>
                 <h2 style={{ margin: '6px 0 0' }}>{view.conceptTitle}</h2>
+                {/* C2a-M3 §3.5 — the credit, on the record that outlives the session.
+                    A picture the studio's own writers invented says so forever; a
+                    premise it bought says where it came from. Withheld, never
+                    guessed, when the premise is no longer resolvable. */}
+                {view.screenplay !== null && (
+                  <div className="hint" data-testid="record-screenplay-credit">
+                    {view.screenplay.label}
+                    {view.screenplay.renamed && view.screenplay.generatedTitle !== null
+                      ? ` · Written as ‘${view.screenplay.generatedTitle}’.`
+                      : ''}
+                  </div>
+                )}
               </div>
               <span className="tag result">{view.chronicle.reception.audience.label}</span>
             </div>

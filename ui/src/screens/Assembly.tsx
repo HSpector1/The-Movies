@@ -79,6 +79,9 @@ import type {
 // module of the one engine boundary (`ui/src/engine/`); nothing about it is decided
 // here, and the whole projection is one call.
 import { packageSetPlan } from '../engine/sets.ts'
+// C2a-M3 §3.5 — WHO WROTE IT, and WHAT THE SCRIPT CALLS FOR. Same boundary layer;
+// the package states the screenplay's own facts and decides none of them.
+import { screenplayIdentityForConcept } from '../engine/screenplay.ts'
 import {
   SHAPE_DESCRIPTIONS,
   OPENING_OPTIONS,
@@ -686,6 +689,7 @@ export function Assembly({
             profit={profit}
             cycleFixedCost={cycleFixedCost}
             discovery={discovery}
+            conceptId={concept.id}
             {...(lockedScript ? { scriptProjectId: lockedScript.projectId } : {})}
           />
         )}
@@ -1756,6 +1760,7 @@ function ReviewStep({
   cycleFixedCost,
   discovery,
   scriptProjectId,
+  conceptId,
 }: {
   state: GameState
   pkg: DraftPackage
@@ -1768,6 +1773,8 @@ function ReviewStep({
   cycleFixedCost: CycleFixedCost
   discovery: DiscoveryExposureView | null
   scriptProjectId?: string
+  /** C2a-M3: the picture's own premise id, so the package can say who wrote it. */
+  conceptId: string
 }) {
   const committed = totalCommittedCost(state, pkg)
   const exposure = capitalExposure(state, committed) // C1: solvency and exposure are separate
@@ -1776,6 +1783,10 @@ function ReviewStep({
   // ONE forecast for this step — the discipline line and the forecast panel read the same object.
   const forecast = previewForecast(state, pkg, scriptProjectId)
   const menu = marketingMenu(state, pkg, scriptProjectId)
+  // C2a-M3: the screenplay's own facts — its credit and the locations its beats
+  // call for. Null when the premise cannot be resolved; the package then states
+  // nothing about the screenplay rather than guessing.
+  const screenplay = screenplayIdentityForConcept(state, conceptId)
   return (
     <div className="stack">
       {/* Film Readiness — assembled from the four real dimensions, not a hidden score */}
@@ -1884,6 +1895,14 @@ function ReviewStep({
           {...(discovery ? { discovery } : {})}
           marketing={menu}
           setPlan={packageSetPlan(state, pkg.promise.genre)}
+          {...(screenplay
+            ? {
+                screenplay: {
+                  provenance: screenplay.provenance,
+                  requiredSets: screenplay.requiredSets,
+                },
+              }
+            : {})}
         />
       )}
     </div>

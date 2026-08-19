@@ -387,6 +387,11 @@ import type {
   FacilityDemolitionRequest,
   LotCell,
 } from '../../../src/core/index.ts'
+// C2a-M3 — the screenplay boundary module is the address for "who wrote it".
+// A one-way edge: `screenplay.ts` imports only the `ActionOutcome` TYPE from here,
+// which erases, so there is no runtime cycle.
+import { screenplayProvenanceForConcept } from './screenplay.ts'
+import type { ScreenplayProvenanceLine } from './screenplay.ts'
 
 // Re-export the core types the UI needs, so components import types from the
 // adapter (still a single boundary — components never reach into src/core).
@@ -5301,6 +5306,18 @@ export type FilmRecordView = {
   profit: number
   /** D-17A/T2: true while the run is still ACTIVE — `profit` is a full-run figure, not banked. */
   projected: boolean
+  /**
+   * C2a-M3 §3.5 — WHO WROTE IT. "An Original Screenplay by ‹writer›" for a picture
+   * this studio's own writers invented, the market line for a premise it bought.
+   * Null when the premise is no longer resolvable; a Chronicle then credits nobody
+   * rather than crediting the wrong one.
+   *
+   * The Chronicle's `conceptTitle` already resolves LIVE off `FilmConcept.title`,
+   * so a picture retitled after release carries its new name here — while the two
+   * frozen-history surfaces (a talent's career credit, a press clipping) keep the
+   * old one, by design and by contract.
+   */
+  screenplay: ScreenplayProvenanceLine | null
 }
 export function filmRecordView(state: GameState, film: FilmResult): FilmRecordView | null {
   if (!film.participants) return null
@@ -5324,6 +5341,7 @@ export function filmRecordView(state: GameState, film: FilmResult): FilmRecordVi
     studioRevenue,
     profit: studioRevenue - committedCost,
     projected: runIsLive(state, film.productionId),
+    screenplay: screenplayProvenanceForConcept(state, film.conceptId),
   }
 }
 

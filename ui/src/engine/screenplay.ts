@@ -204,6 +204,17 @@ export function screenplayIdentityForProject(
   return screenplayIdentityForConcept(state, project.conceptId)
 }
 
+/**
+ * Just the credit, for a surface that already knows the picture — the Chronicle of
+ * a released film, which holds a concept id and no project.
+ */
+export function screenplayProvenanceForConcept(
+  state: GameState,
+  conceptId: string,
+): ScreenplayProvenanceLine | null {
+  return screenplayIdentityForConcept(state, conceptId)?.provenance ?? null
+}
+
 /** Every managed screenplay's identity, keyed by project id, for a whole board. */
 export function screenplayIdentitiesByProject(
   state: GameState,

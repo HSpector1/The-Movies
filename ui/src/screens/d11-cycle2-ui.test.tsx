@@ -215,6 +215,17 @@ describe('D-11.A — autopsy / record render the film\'s OWN participants', () =
     return {
       productionId: `prod-${prefix}`,
       conceptTitle: `${prefix} Film`,
+      // C2a-M3 — the Chronicle now carries WHO WROTE IT; these two films were
+      // bought from the market, as every C1 picture was.
+      screenplay: {
+        origin: 'pool' as const,
+        label: 'Acquired from the open script market',
+        writerId: null,
+        writerName: null,
+        generatedTitle: null,
+        renamedWeek: null,
+        renamed: false,
+      },
       chronicle: {
         productionId: `prod-${prefix}`,
         title: `${prefix} Film`,
