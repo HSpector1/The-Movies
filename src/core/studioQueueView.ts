@@ -354,15 +354,18 @@ export function studioQueueView(state: GameState): StudioQueueView {
 
     if (blocker.kind === 'set-unavailable') {
       // A stage IS free — this picture has nowhere to shoot, not nowhere to
-      // stand, and the remedy is scenery rather than a building.
-      const stage = state.operations.facilities.find(
+      // stand, and the remedy is scenery rather than a building. The stage named
+      // is the one the allocator would have taken: the first with a free slot, in
+      // the same fixed order it walks.
+      const heldSets = heldSetIds(state.operations, production.id)
+      const stage = facilities.find(
         (facility) =>
           facility.capability === 'soundstage' &&
-          bindableSetsOn(state.sets, facility.id, heldSetIds(state.operations, production.id))
-            .length === 0,
+          facility.available > 0 &&
+          bindableSetsOn(state.sets, facility.facilityId, heldSets).length === 0,
       )
       const occupiedBy: StudioQueueOccupantView[] = state.sets
-        .filter((set) => heldSetIds(state.operations, production.id).has(set.id))
+        .filter((set) => heldSets.has(set.id))
         .map((set) => {
           const owner = state.operations.workflows.find(
             (candidate) => candidate.bindings?.setId === set.id,
@@ -404,7 +407,7 @@ export function studioQueueView(state: GameState): StudioQueueView {
         detail:
           stage === undefined
             ? 'No standing set is free for this picture.'
-            : `${CAPABILITY_LABEL.soundstage} ${stage.name} is free, but nothing it can shoot on is standing there.`,
+            : `${stage.facilityName} is free, but nothing this picture can shoot on is standing there.`,
       })
       continue
     }
