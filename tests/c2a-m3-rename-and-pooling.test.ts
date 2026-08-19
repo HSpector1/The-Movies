@@ -252,7 +252,18 @@ describe('C2a-M3 — renaming a screenplay', () => {
           forecastComparator: 1,
           reasonCodes: ['noMeaningfulCareerChange'],
         },
-      ]
+      ],
+      broadcastItems: [
+        {
+          subjectId: 'prod-0001',
+          topic: 'release',
+          facts: { subjectId: 'prod-0001', filmId: 'prod-0001', direction: 'asExpected' },
+          // The rendered headline, frozen at release exactly as `broadcast.ts`
+          // caches it into the item.
+          template: `${generated} opened to the week it was promised.`,
+          tick: state.market.tick,
+        },
+      ],
     }
     const renamed = applyActions(withHistory, [
       { kind: 'renameScreenplay', conceptId: CONCEPT_ID, title: 'A Study in Cascade' },
@@ -264,6 +275,11 @@ describe('C2a-M3 — renaming a screenplay', () => {
     // THE CAREER RECORD STILL NAMES THE FILM AS IT WAS CALLED AT THE TIME.
     expect(renamed.careerEvents[0]!.filmTitle).toBe(generated)
     expect(renamed.careerEvents).toEqual(withHistory.careerEvents)
+    // AND SO DOES THE PRESS CLIPPING. A newspaper printed in 1931 does not
+    // change its headline in 1934.
+    expect(renamed.broadcastItems[0]!.template).toContain(generated)
+    expect(renamed.broadcastItems[0]!.template).not.toContain('A Study in Cascade')
+    expect(renamed.broadcastItems).toEqual(withHistory.broadcastItems)
   })
 })
 

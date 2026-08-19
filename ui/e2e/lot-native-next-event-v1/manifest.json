@@ -203,7 +203,7 @@
         }
       },
       "expectedConstructionCompletion": null,
-      "expectedFinalSaveSha256": "d25c53c6e0b51db729bb2ba83be7eb59ac3de1460f63cb0718e044a148128cab",
+      "expectedFinalSaveSha256": "4a4cce33b80bef9bdcf32ef63c713b8d4f1a27a9b90ab05edbdd2f261c7aab27",
       "claim": {
         "week": 0,
         "projectId": "script-0000",

@@ -357,18 +357,24 @@ function projectAssessment(state: GameState, projectId: string) {
 /**
  * What this exact draft would have been worth with NO development office standing.
  *
- * The engine's own first-draft assessor, called with the neutral uplift, on the concept,
- * writer, shape and promise the session actually stored. Nothing here re-implements a
- * formula: the counterfactual is the same function the tick runs, minus the building.
+ * The engine's own first-draft assessor, called with the neutral uplift, on the concept
+ * the session actually stored. Nothing here re-implements a formula: the counterfactual
+ * is the same function the tick runs, minus the building.
+ *
+ * RE-BASED at C2a-M3 by owner ruling `00E`.9. The predecessor also passed the writer,
+ * the shape and the promise, because a screenplay's strength used to be 40% the
+ * writer's. It is not any more — writer experience buys writing SPEED, and the office
+ * tier owns the achievable quality — so the counterfactual takes what still decides a
+ * draft: the premise, and the building. The claim under test is unchanged and is
+ * exactly the one the building was sold on.
  */
 function assessmentWithoutOffice(state: GameState, projectId: string) {
   const project = projectAssessment(state, projectId)
   const concept = state.concepts.find((candidate) => candidate.id === project.conceptId)
-  const writer = state.talent.find((candidate) => candidate.id === project.writerId)
-  if (concept === undefined || writer === undefined) {
+  if (concept === undefined) {
     throw new Error(`the session cannot resolve the sources of "${projectId}"`)
   }
-  return assessFirstDraft(concept, writer, project.shape, project.promise, 0)
+  return assessFirstDraft(concept, 0)
 }
 
 test('the whole Campaign 1 loop holds in one studio, in one browser, with no reload', async ({

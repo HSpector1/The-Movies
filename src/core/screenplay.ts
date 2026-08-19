@@ -453,8 +453,8 @@ export function screenplayDraftConsequence(weeks: number): string {
 //     printed in 1931 does not change its headline in 1934.
 //
 // That is what a real career record and a real press archive do, and
-// `tests/c2a-m3-rename.test.ts` asserts BOTH stay frozen rather than treating the
-// behaviour as an accident nobody checked.
+// `tests/c2a-m3-rename-and-pooling.test.ts` asserts BOTH stay frozen rather than
+// treating the behaviour as an accident nobody checked.
 
 export type ScreenplayRenameRefusal = { reason: string }
 
