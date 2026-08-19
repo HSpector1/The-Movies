@@ -291,6 +291,44 @@ snapshot.
 5. **Human visual review is still open** (no canvas digests exist) — the theater's
    tracks have never been drawn.
 
+### Lane UI-M5 — THE LIVING TURN SCHEDULER + THE LIVING LOT (started 2026-08-19)
+
+Lane UI-M5 owns `ui/src/**` (except `adapter.ts` / `nextEvent.ts`, ENGINE-M5's and
+finished) + `ui/e2e/` additions.
+
+- **THE PARTITION, THE SPEEDS AND THE VOICE — `ui/src/lot/livingTurn.ts`** (`f1c9a05`).
+  The scheduler stated as a value before anything consumes it. The PAUSE/NOTIFY
+  partition is a TOTAL switch over `SimStopReason` with a compile-time `never`
+  guard (a future engine member is a compile error, not a silent default); `limit`
+  belongs to neither published class and is named separately. The speeds derive
+  from the SHIPPED playback constants and are never re-declared — 1× IS
+  `PLAYBACK_DURATION_MS` (10.35s, nine beats), 2× and 4× divide it. The attention
+  channel's copy is built only from the engine's own stop payload and deliberately
+  never says "Stopped at Week N": under NOTIFY nothing stopped. The week clock
+  retains a FRACTION, so 1× → 4× half way through a week leaves half a week at the
+  new pace. 28 tests.
+
+- **THE LOOP, WIRED END TO END** (`65e4e70`). While unpaused on the Lot: play week
+  N as witnessed time → commit **the identical `handleAdvance` a manual press
+  commits** → consult `advanceWeek(...).stopReason` → repeat. ONE clock, owned by
+  the surface that draws the week (`StudioLotScreen`), freezing with the renderer
+  (`document.hidden`, PF1 §0.7) and while a decision surface holds the world.
+  **THE RELEASE-WEEK PLAYBACK HOLE IS CLOSED**: `App.tsx`'s gate read
+  `released.length === 0 && lot` — both conditions — so the shipping week never
+  played; the lot arm is now unconditional and the release surfaces take over when
+  the played week settles. A week that could not be played reports so AT ONCE, so
+  reduced-motion / canvas-less studios keep today's behaviour exactly.
+  Transport in the topbar (Hold/Roll + 1× / 2× / 4×), compacting to its marks below
+  the governed breakpoint on the PF1-M4 addendum-2 pattern. `TycoonScene` gained
+  `setPlaybackSpeed`; above `PLAYBACK_WITNESSED_BEAT_SPEED_CEILING` (2) the Class-B
+  beats collapse through the existing reduced-motion path.
+  11 App-seam tests, EVERY expectation measured off a hand-advanced twin: twelve
+  hands-off weeks byte-identical, four weeks at 4× inside one 1× week
+  byte-identical, auto-pause at exactly the hand-advanced PAUSE-class week, a
+  hidden tab that advances nothing, the release week witnessed first.
+  Floors: root tsc 0 · ui tsc 0 · ui **187 files / 2,536 + 5 skipped / 0** · core
+  **132 files / 1,816 / 0** (319 / 4,352 + 5 together; ENGINE-M5 left 317 / 4,313 + 5).
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and
