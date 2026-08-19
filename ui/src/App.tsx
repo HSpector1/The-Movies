@@ -83,6 +83,17 @@ import { StartScreen } from './screens/StartScreen.tsx'
 import { Dashboard } from './screens/Dashboard.tsx'
 import { Assembly } from './screens/Assembly.tsx'
 import { ScreenplayCommissionForm, WritersRoom } from './screens/WritersRoom.tsx'
+import type { OriginalCommissionSurface } from './screens/WritersRoom.tsx'
+// C2a-M3 — the original-screenplay path (charter §3.5). The Lot hosts the same
+// canonical commission form the Writers Room does, so it gets the same second supply.
+import {
+  commissionOriginalScreenplayAction,
+  mintedScreenplayTitle,
+  originalCommissionOpen,
+  originalDraftEstimate,
+  screenplayCommissioningOpen,
+} from './engine/screenplay.ts'
+import type { CommissionOriginalScreenplayPayload } from './engine/screenplay.ts'
 import { CastingRoom } from './screens/CastingRoom.tsx'
 import type { CastingSlateDraft } from './screens/CastingSlatePlanner.tsx'
 import { StudioCalendar } from './screens/StudioCalendar.tsx'
@@ -706,12 +717,15 @@ function genuineLotAuditionDraftChange(
 function RetainedScreenplayCommissionForm({
   board,
   officeUplift,
+  original,
   onSubmit,
   onClose,
 }: {
   board: ScriptProjectsReadModel
   /** C1-M5: the standing development office's uplift, from the accepted state. */
   officeUplift: { name: string; points: number } | null
+  /** C2a-M3: the original-screenplay supply, built by the host from the accepted state. */
+  original: OriginalCommissionSurface
   onSubmit: (payload: CommissionScriptPayload) => ActionOutcome
   onClose: () => void
 }) {
@@ -721,6 +735,7 @@ function RetainedScreenplayCommissionForm({
       <ScreenplayCommissionForm
         board={board}
         officeUplift={officeUplift}
+        original={original}
         onSubmit={onSubmit}
         onClose={onClose}
         onError={setError}
@@ -909,7 +924,9 @@ export function App() {
   const lotCommissionKeyRef = useRef(0)
   const lotCommissionActivationRef = useRef<{
     workspace: LotCommissionWorkspaceSession
-    payload: CommissionScriptPayload
+    // C2a-M3: either supply's payload. The activation token proves WHICH submit is in
+    // flight, and both supplies are one flight.
+    payload: CommissionScriptPayload | CommissionOriginalScreenplayPayload
   } | null>(null)
   const lotCommissionRejectedAttemptRef = useRef<{
     workspace: LotCommissionWorkspaceSession
@@ -2185,11 +2202,23 @@ export function App() {
     })
   }
 
+  /**
+   * C2a-M3 — WHICH SUPPLY THE PLAYER COMMISSIONED FROM (charter §3.5).
+   *
+   * The Lot's retained workspace hosts ONE canonical commission form and that form
+   * now offers two supplies, so the host's authority path takes the intent rather
+   * than a single payload shape. Every guard below — ownership, staleness, the
+   * duplicate-attempt memo, the synchronous publish — is shared verbatim, because
+   * the thing being protected (a live world behind a modal) is the same thing.
+   */
   function handleLotCommissionSubmit(
     workspace: LotCommissionWorkspaceSession,
     renderedBefore: GameState,
-    payload: CommissionScriptPayload,
+    intent:
+      | { kind: 'market'; payload: CommissionScriptPayload }
+      | { kind: 'original'; payload: CommissionOriginalScreenplayPayload },
   ): ActionOutcome {
+    const payload = intent.payload
     const current = latestLotCommissionPresentationRef.current.workspace
     if (
       current !== workspace ||
@@ -2229,7 +2258,9 @@ export function App() {
     lotCommissionRejectedAttemptRef.current = null
     const activation = { workspace: current, payload }
     lotCommissionActivationRef.current = activation
-    const result = commissionScriptAction(renderedBefore, payload)
+    const result = intent.kind === 'market'
+      ? commissionScriptAction(renderedBefore, intent.payload)
+      : commissionOriginalScreenplayAction(renderedBefore, intent.payload)
     if (!result.ok) {
       if (lotCommissionActivationRef.current === activation) {
         lotCommissionActivationRef.current = null
@@ -2244,11 +2275,21 @@ export function App() {
     }
 
     let receipt: ScreenplayCommissionReceipt | null = null
-    try {
-      receipt = acceptedScreenplayCommissionReceipt(renderedBefore, result.next, payload)
-    } catch {
-      receipt = null
+    if (intent.kind === 'market') {
+      try {
+        receipt = acceptedScreenplayCommissionReceipt(renderedBefore, result.next, intent.payload)
+      } catch {
+        receipt = null
+      }
     }
+    // An ORIGINAL has no market receipt to prove — there was no premise to buy. What
+    // it has instead is the title the studio's own writers just gave it, and that is
+    // read off the successor through the same kind of closed witness: exactly one
+    // concept appended, exactly one blueprint appended, the two agreeing, an ordinal
+    // burned. A commit that cannot prove what was written says "screenplay".
+    const committedTitle = intent.kind === 'market'
+      ? receipt?.title ?? 'screenplay'
+      : mintedScreenplayTitle(renderedBefore, result.next) ?? 'screenplay'
     const committed: LotCommissionWorkspaceSession = {
       phase: 'committed',
       identity: current.identity,
@@ -2258,7 +2299,7 @@ export function App() {
       opener: current.opener,
       before: renderedBefore,
       next: result.next,
-      title: receipt?.title ?? 'screenplay',
+      title: committedTitle,
       receipt,
     }
     // Publish the committed owner synchronously before React can deliver another activation from
@@ -2602,7 +2643,10 @@ export function App() {
             currentPresentation !== null &&
             board?.mode === 'managed' &&
             board.lotAttention.kind === 'idle' &&
-            board.commission.canStart === true &&
+            // C2a-M3: EITHER supply opens the retained workspace. This is the same
+            // predicate the Lot's Development verb reads, so the verb and the
+            // interception can never disagree about which surface a click lands on.
+            screenplayCommissioningOpen(board) &&
             latestLotPackagePresentationRef.current.workspace === null &&
             latestLotPackagePresentationRef.current.liveFormation === null &&
             latestLotCommissionPresentationRef.current.workspace === null &&
@@ -4710,10 +4754,20 @@ export function App() {
                   key={retainedCommissionWorkspace.key}
                   board={retainedCommissionBoard}
                   officeUplift={developmentOfficeUplift(retainedCommissionWorkspace.acceptedState)}
+                  original={{
+                    open: originalCommissionOpen(retainedCommissionBoard),
+                    estimateFor: (input) =>
+                      originalDraftEstimate(retainedCommissionWorkspace.acceptedState, input),
+                    submit: (payload) => handleLotCommissionSubmit(
+                      retainedCommissionWorkspace,
+                      retainedCommissionWorkspace.acceptedState,
+                      { kind: 'original', payload },
+                    ),
+                  }}
                   onSubmit={(payload) => handleLotCommissionSubmit(
                     retainedCommissionWorkspace,
                     retainedCommissionWorkspace.acceptedState,
-                    payload,
+                    { kind: 'market', payload },
                   )}
                   onClose={() => handleLotCommissionCancel(retainedCommissionWorkspace)}
                 />

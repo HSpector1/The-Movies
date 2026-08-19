@@ -55,6 +55,7 @@ import type {
   StudioCalendarView,
   StudioConstructionView,
 } from '../engine/adapter.ts'
+import { screenplayCommissioningOpen } from '../engine/screenplay.ts'
 import { firstFilmJourneyContext } from './snapshot/firstFilmJourney.ts'
 import { moneyExact } from '../format.ts'
 
@@ -870,7 +871,11 @@ function primaryActions(
       scriptBoard === null ||
       scriptBoard.mode !== 'managed' ||
       scriptBoard.lotAttention.kind !== 'idle' ||
-      scriptBoard.commission.canStart !== true
+      // C2a-M3: the verb is offered when EITHER supply is open — a market premise to
+      // adapt, or the studio's own writers. This is literally the same predicate the
+      // host's retained-commissioning interception reads (App.tsx), which is the
+      // property the docstring above requires: one condition, one landing surface.
+      !screenplayCommissioningOpen(scriptBoard)
     ) return []
     return [{ kind: 'commission', label: 'Commission a screenplay' }]
   }

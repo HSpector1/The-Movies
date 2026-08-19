@@ -20,10 +20,21 @@ import type {
   FilmPromise,
   FilmShape,
   GameState,
+  Genre,
   ScriptProjectActionView,
   ScriptProjectsReadModel,
   SegmentId,
 } from '../engine/adapter.ts'
+import {
+  SCREENPLAY_GENRES,
+  commissionOriginalScreenplayAction,
+  originalCommissionOpen,
+  originalDraftEstimate,
+} from '../engine/screenplay.ts'
+import type {
+  CommissionOriginalScreenplayPayload,
+  OriginalDraftEstimateView,
+} from '../engine/screenplay.ts'
 import {
   ENDING_OPTIONS,
   MIDPOINT_OPTIONS,
@@ -132,17 +143,47 @@ function Blockers({
   )
 }
 
+/**
+ * C2a-M3 — THE SECOND WAY TO START A PICTURE (charter §3.5).
+ *
+ * The market path is unchanged: pick a premise the world is selling and adapt it.
+ * The original path buys nothing from anybody — the player names a genre and a
+ * creative direction, a contracted writer goes to work, and the studio owns a
+ * premise that did not exist that morning. Everything in this object is supplied
+ * by the host from the accepted state, because the form itself may not reach into
+ * the engine; when it is absent the form is exactly the C1 form.
+ */
+export type OriginalCommissionSurface = {
+  /** Whether the original path is open — the engine's blockers, market arm scoped out. */
+  open: boolean
+  /** The engine's own clock for this writer and this creative direction. */
+  estimateFor: (input: { writerId: string; genre: Genre }) => OriginalDraftEstimateView
+  submit: (payload: CommissionOriginalScreenplayPayload) => ActionOutcome
+}
+
+/** Which supply the player is commissioning from. */
+export type CommissionSource = 'market' | 'original'
+
 export function ScreenplayCommissionForm({
   board,
   onSubmit,
   onClose,
   onError,
   officeUplift = null,
+  original = null,
+  initialSource,
 }: {
   board: ScriptProjectsReadModel
   onSubmit: (payload: CommissionScriptPayload) => ActionOutcome
   onClose: () => void
   onError: (message: string) => void
+  /**
+   * C2a-M3: the original-screenplay path, or null on a surface that has not been
+   * given it. Absent means the form behaves exactly as C1 shipped it.
+   */
+  original?: OriginalCommissionSurface | null
+  /** Which supply the form opens on. Defaults to whichever one is actually available. */
+  initialSource?: CommissionSource
   /**
    * C1-M5: what the studio's development offices will add to this draft, or null.
    *
@@ -167,6 +208,7 @@ export function ScreenplayCommissionForm({
   const availableWriters = board.commission.writers.filter((writer) => writer.available)
   const firstWriter =
     availableWriters.find((writer) => writer.primaryRole === 'writer') ?? availableWriters[0]
+  const originalOpen = original !== null && original.open
   const [conceptId, setConceptId] = useState(firstConcept?.id ?? '')
   const [writerId, setWriterId] = useState(firstWriter?.id ?? '')
   const [shape, setShape] = useState<FilmShape>(DEFAULT_SHAPE)
@@ -176,13 +218,38 @@ export function ScreenplayCommissionForm({
     tonalWeight: 1,
     kineticEnergy: 1,
   })
+  // The form opens on whichever supply the studio actually has. A studio that has
+  // bought the market out opens on its own writers rather than on an empty list —
+  // that is the whole inversion of C1's terminal exhaustion blocker (§3.5).
+  const [source, setSource] = useState<CommissionSource>(
+    initialSource ??
+      (board.commission.concepts.length === 0 && originalOpen ? 'original' : 'market'),
+  )
+  const [direction, setDirection] = useState<Genre>(
+    firstConcept?.genre ?? SCREENPLAY_GENRES[0]!,
+  )
 
+  const commissioningOriginal = source === 'original' && originalOpen
   const concept = board.commission.concepts.find((candidate) => candidate.id === conceptId)
-  const canSubmit =
-    board.commission.canStart &&
-    concept !== undefined &&
-    board.commission.writers.some((writer) => writer.id === writerId && writer.available) &&
-    segments.length > 0
+  const writerAvailable = board.commission.writers.some(
+    (writer) => writer.id === writerId && writer.available,
+  )
+  const estimate = commissioningOriginal
+    ? original.estimateFor({ writerId, genre: direction })
+    : null
+  const canSubmit = commissioningOriginal
+    ? originalOpen && writerAvailable && segments.length > 0
+    : board.commission.canStart &&
+      concept !== undefined &&
+      writerAvailable &&
+      segments.length > 0
+
+  // The market-exhaustion blocker is about the MARKET. On the original path it is
+  // not a blocker at all — it is the reason the player is on this path — so the
+  // form stops printing it as one rather than contradicting its own remedy.
+  const visibleBlockers = commissioningOriginal
+    ? board.commission.blockers.filter((blocker) => blocker.kind !== 'no-concepts')
+    : board.commission.blockers
 
   function toggleSegment(segment: SegmentId) {
     setSegments((current) =>
@@ -192,13 +259,38 @@ export function ScreenplayCommissionForm({
     )
   }
 
-  function submit() {
-    if (!canSubmit || concept === undefined) return
+  function promiseRanges(): FilmPromise['ranges'] {
     const width = PROMISE_WIDTHS[1]
     const ranges = {} as FilmPromise['ranges']
     for (const axis of Object.keys(promiseCenters) as PromiseAxis[]) {
       ranges[axis] = rangeFrom(PROMISE_CENTERS[promiseCenters[axis]]!, width)
     }
+    return ranges
+  }
+
+  function submit() {
+    if (!canSubmit) return
+    if (commissioningOriginal) {
+      const payload: CommissionOriginalScreenplayPayload = {
+        writerId,
+        genre: direction,
+        shape,
+        promise: {
+          genre: direction,
+          intendedSegments: segments,
+          ranges: promiseRanges(),
+        },
+      }
+      const result = original.submit(payload)
+      if (!result.ok) {
+        onError(result.error)
+        return
+      }
+      onError('')
+      onClose()
+      return
+    }
+    if (concept === undefined) return
     const payload: CommissionScriptPayload = {
       conceptId: concept.id,
       writerId,
@@ -206,7 +298,7 @@ export function ScreenplayCommissionForm({
       promise: {
         genre: concept.genre,
         intendedSegments: segments,
-        ranges,
+        ranges: promiseRanges(),
       },
     }
     const result = onSubmit(payload)
@@ -223,8 +315,10 @@ export function ScreenplayCommissionForm({
       <div className="spread">
         <div>
           <h2 id="commission-script-heading">Commission a screenplay</h2>
-          <p className="hint">
-            Lock the concept, creative shape, audience promise, and contracted writer before work begins.
+          <p className="hint" data-testid="commission-lede">
+            {commissioningOriginal
+              ? 'Name the picture’s genre and its creative shape, then put a contracted writer on it. The premise, the title and the story beats will be theirs.'
+              : 'Lock the concept, creative shape, audience promise, and contracted writer before work begins.'}
           </p>
         </div>
         <button type="button" onClick={onClose} data-testid="commission-close">
@@ -232,7 +326,56 @@ export function ScreenplayCommissionForm({
         </button>
       </div>
 
-      <Blockers blockers={board.commission.blockers} testId="commission-blockers" />
+      {originalOpen && (
+        <fieldset className="panel stack" data-testid="commission-source">
+          <legend>Where the screenplay comes from</legend>
+          <div className="row">
+            <label>
+              <input
+                type="radio"
+                name="commission-source"
+                checked={source === 'market'}
+                disabled={board.commission.concepts.length === 0}
+                onChange={() => setSource('market')}
+                data-testid="script-source-market"
+              />{' '}
+              Adapt a premise from the market
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="commission-source"
+                checked={commissioningOriginal}
+                onChange={() => setSource('original')}
+                data-testid="script-source-original"
+              />{' '}
+              Commission an original screenplay
+            </label>
+          </div>
+          <p className="hint" data-testid="commission-source-note">
+            {commissioningOriginal
+              ? 'Your own writer invents the premise. Nothing is bought, and the studio owns it outright.'
+              : `${String(board.commission.concepts.length)} unclaimed ${
+                  board.commission.concepts.length === 1 ? 'premise is' : 'premises are'
+                } still on the market.`}
+          </p>
+        </fieldset>
+      )}
+
+      <Blockers blockers={visibleBlockers} testId="commission-blockers" />
+
+      {!commissioningOriginal && originalOpen && board.commission.concepts.length === 0 && (
+        <div className="btn-row" data-testid="commission-exhaustion-remedy">
+          <button
+            type="button"
+            className="primary"
+            onClick={() => setSource('original')}
+            data-testid="commission-switch-to-original"
+          >
+            Commission an original screenplay
+          </button>
+        </div>
+      )}
 
       {officeUplift !== null && officeUplift.points > 0 && (
         <p className="hint" data-testid="commission-office-uplift">
@@ -242,21 +385,39 @@ export function ScreenplayCommissionForm({
       )}
 
       <div className="grid grid-2">
-        <label className="stack" htmlFor="script-concept">
-          <strong>Source concept</strong>
-          <select
-            id="script-concept"
-            data-testid="script-concept"
-            value={conceptId}
-            onChange={(event) => setConceptId(event.target.value)}
-          >
-            {board.commission.concepts.map((candidate) => (
-              <option key={candidate.id} value={candidate.id}>
-                {candidate.title} — {genreLabel(candidate.genre)}
-              </option>
-            ))}
-          </select>
-        </label>
+        {commissioningOriginal ? (
+          <label className="stack" htmlFor="script-direction">
+            <strong>Creative direction</strong>
+            <select
+              id="script-direction"
+              data-testid="script-direction"
+              value={direction}
+              onChange={(event) => setDirection(event.target.value as Genre)}
+            >
+              {SCREENPLAY_GENRES.map((candidate) => (
+                <option key={candidate} value={candidate}>
+                  {genreLabel(candidate)}
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : (
+          <label className="stack" htmlFor="script-concept">
+            <strong>Source concept</strong>
+            <select
+              id="script-concept"
+              data-testid="script-concept"
+              value={conceptId}
+              onChange={(event) => setConceptId(event.target.value)}
+            >
+              {board.commission.concepts.map((candidate) => (
+                <option key={candidate.id} value={candidate.id}>
+                  {candidate.title} — {genreLabel(candidate.genre)}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
 
         <label className="stack" htmlFor="script-writer">
           <strong>Contracted writer</strong>
@@ -372,7 +533,29 @@ export function ScreenplayCommissionForm({
 
       <div className="inset" data-testid="commission-consequence">
         <strong>What happens next</strong>
-        <div>{board.commission.consequence}</div>
+        <div>{estimate === null ? board.commission.consequence : estimate.consequence}</div>
+        {estimate !== null && (
+          <>
+            {/* C2a-M3 / `00E`.9 — WRITER SPEED, IN THE FORM, BEFORE THE COMMITMENT.
+                Every figure is `scriptDraftWeeks` asked about this studio and this
+                writer; the second sentence names the two levers the ruled law
+                actually has and no others. */}
+            <div data-testid="commission-writing-weeks">
+              An original at this office: about {estimate.weeks}{' '}
+              {estimate.weeks === 1 ? 'week' : 'weeks'} of writing.
+            </div>
+            {estimate.richnessWeeks > 0 && (
+              <div className="hint" data-testid="commission-richness-note">
+                Your development offices write a richer script, which adds{' '}
+                {estimate.richnessWeeks}{' '}
+                {estimate.richnessWeeks === 1 ? 'week' : 'weeks'} to it.
+              </div>
+            )}
+            <div className="hint" data-testid="commission-pace-note">
+              {estimate.pace}
+            </div>
+          </>
+        )}
         <div className="hint">
           No separate screenplay acquisition fee is charged. The studio still carries payroll and overhead while the week passes.
         </div>
@@ -386,7 +569,7 @@ export function ScreenplayCommissionForm({
           onClick={submit}
           data-testid="commission-submit"
         >
-          Commission screenplay
+          {commissioningOriginal ? 'Commission an original screenplay' : 'Commission screenplay'}
         </button>
       </div>
     </section>
@@ -411,7 +594,13 @@ export function WritersRoom({
 }) {
   const board = useMemo(() => scriptProjectsBoard(state), [state])
   const [commissioning, setCommissioning] = useState(false)
+  const [commissionSource, setCommissionSource] = useState<CommissionSource | undefined>(undefined)
   const [error, setError] = useState('')
+  // C2a-M3 — the door opens for EITHER supply. `canStart` alone shut the Writers
+  // Room the moment the market ran dry, which is precisely when the studio's own
+  // writers become the way through (§3.5).
+  const originalOpen = originalCommissionOpen(board)
+  const commissioningOpen = board.commission.canStart || originalOpen
   const pendingFocusProjectId = useRef<string | null>(null)
   const initialFocusProjectId = useRef<string | null>(focusProjectId ?? null)
   const actionRefs = useRef(new Map<string, HTMLButtonElement>())
@@ -475,8 +664,11 @@ export function WritersRoom({
           <button
             type="button"
             className="primary"
-            disabled={!board.commission.canStart}
-            onClick={() => setCommissioning(true)}
+            disabled={!commissioningOpen}
+            onClick={() => {
+              setCommissionSource(undefined)
+              setCommissioning(true)
+            }}
             data-testid="commission-open"
           >
             Commission a script
@@ -521,12 +713,42 @@ export function WritersRoom({
       </section>
 
       {!commissioning && (
-        <Blockers blockers={board.commission.blockers} testId="writers-room-commission-blockers" />
+        <>
+          <Blockers blockers={board.commission.blockers} testId="writers-room-commission-blockers" />
+          {/* C2a-M3 — the remedy is a BUTTON. C1's exhaustion blocker said "continue
+              with an existing project", which named no action; its successor names
+              one that exists, and here it is, beside the sentence that offers it. */}
+          {originalOpen && board.commission.concepts.length === 0 && (
+            <div className="btn-row" data-testid="writers-room-exhaustion-remedy">
+              <button
+                type="button"
+                className="primary"
+                onClick={() => {
+                  setCommissionSource('original')
+                  setCommissioning(true)
+                }}
+                data-testid="writers-room-commission-original"
+              >
+                Commission an original screenplay
+              </button>
+            </div>
+          )}
+        </>
       )}
       {commissioning && (
         <ScreenplayCommissionForm
           board={board}
           officeUplift={developmentOfficeUplift(state)}
+          original={{
+            open: originalOpen,
+            estimateFor: (input) => originalDraftEstimate(state, input),
+            submit: (payload) => {
+              const result = commissionOriginalScreenplayAction(state, payload)
+              if (result.ok) onChange(result.next)
+              return result
+            },
+          }}
+          {...(commissionSource ? { initialSource: commissionSource } : {})}
           onSubmit={(payload) => {
             const result = commissionScriptAction(state, payload)
             if (result.ok) onChange(result.next)
