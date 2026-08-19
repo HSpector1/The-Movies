@@ -12,12 +12,13 @@
 // token, no blocker kind ever reaches the screen.
 
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import { applyActions } from '../../../src/core/index.ts'
 import {
   advanceWeek,
   commissionScriptAction,
   greenlight,
+  cancelQueuedIntentAction,
   studioQueueBoard,
   studioQueueHolderPlaces,
 } from '../engine/adapter.ts'
@@ -261,6 +262,49 @@ describe('C2a-M4 — the queue panel answers all four of owner law 2’s questio
     expect(screen.getByTestId('studio-queue-count').textContent).toBe('Clear')
     expect(screen.getByTestId('studio-queue-empty').textContent).toContain('No picture')
     expect(screen.queryByTestId('studio-queue-waiters')).toBeNull()
+  })
+})
+
+describe('C2a-M4 — the one queue verb the player owns', () => {
+  it('withdraws a queued intent, and the row leaves the board', () => {
+    const state = twoPicturesAndAQueuedCommission('c2a-m4-queue-cancel')
+    expect(state.productionQueue).toHaveLength(1)
+    const ordinal = state.productionQueue[0]!.ordinal
+
+    const onCancel = vi.fn(() => ({ ok: true as const }))
+    render(<StudioCalendar state={state} onNavigate={() => {}} onBack={() => {}} onCancelQueuedIntent={onCancel} />)
+    fireEvent.click(
+      screen.getByTestId(`queue-remedy-act-queue-${String(ordinal)}-cancel-${String(ordinal)}-5`),
+    )
+    expect(onCancel).toHaveBeenCalledWith(ordinal)
+
+    // …and the engine really does take it out of the line, holding nothing back.
+    const outcome = cancelQueuedIntentAction(state, ordinal)
+    expect(outcome.ok).toBe(true)
+    if (!outcome.ok) return
+    expect(outcome.next.productionQueue).toHaveLength(0)
+    expect(studioQueueBoard(outcome.next).waiters).toHaveLength(0)
+    // Nothing was held while it waited, so nothing is refunded and nothing moves.
+    expect(outcome.next.studio.cash).toBe(state.studio.cash)
+  })
+
+  it('says why when the engine refuses a withdrawal, instead of failing silently', () => {
+    const state = twoPicturesAndAQueuedCommission('c2a-m4-queue-cancel-refused')
+    const ordinal = state.productionQueue[0]!.ordinal
+    render(
+      <StudioCalendar
+        state={state}
+        onNavigate={() => {}}
+        onBack={() => {}}
+        onCancelQueuedIntent={() => ({ ok: false, error: 'the queue moved before the click landed' })}
+      />,
+    )
+    fireEvent.click(
+      screen.getByTestId(`queue-remedy-act-queue-${String(ordinal)}-cancel-${String(ordinal)}-5`),
+    )
+    expect(screen.getByTestId('calendar-queue-error').textContent).toContain(
+      'the queue moved before the click landed',
+    )
   })
 })
 
