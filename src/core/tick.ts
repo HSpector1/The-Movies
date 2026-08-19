@@ -289,7 +289,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       ...castingOccupiedFacilitySlots(castingSessions),
       ...setOccupiedFacilitySlots(
         state.sets,
-        state.operations,
+        // C2a-M5: the POST-load-in operations, for consistency with the advance
+        // below. It is provably the same value today — `arriveDueScenery` changes
+        // a take's status and clears a blocker and touches no reservation — but
+        // reading two different operations roots inside one step is how a later
+        // change becomes a silent divergence.
+        stateAfterLoadIn.operations,
         scriptDevelopment,
         castingSessions,
       ),
