@@ -519,15 +519,28 @@ export function studioPresence(state: GameState): StudioPresence {
       withhold(project.writerId, failure)
       continue
     }
-    addClaim('script', {
-      talentId: project.writerId,
-      engagement: 'script',
-      credit: 'writer',
-      ownerId: project.id,
-      facilityId: reservation.facilityId,
-      slot: reservation.slot,
-      blockedReason: null,
-    })
+    // C2a-M3 (`00E`.9): the whole script pool is AT the office, not only the
+    // attributed writer. "Everything belongs to a system" (`00C`.6) — a writer
+    // the roster reports as busy on this screenplay has to be somewhere, and the
+    // somewhere is the room the screenplay reserved. Read defensively like every
+    // other field here: a fragment with no `writerIds` is one writer, which is
+    // what every pre-M3 state is.
+    const pooled = Array.isArray(project.writerIds)
+      ? (project.writerIds as unknown[]).filter(
+          (id): id is string => isNonEmptyString(id) && id !== project.writerId,
+        )
+      : []
+    for (const talentId of [project.writerId, ...pooled]) {
+      addClaim('script', {
+        talentId,
+        engagement: 'script',
+        credit: 'writer',
+        ownerId: project.id,
+        facilityId: reservation.facilityId,
+        slot: reservation.slot,
+        blockedReason: null,
+      })
+    }
   }
 
   // Tier 3 — auditioning casting sessions. The slate is the site activity; no

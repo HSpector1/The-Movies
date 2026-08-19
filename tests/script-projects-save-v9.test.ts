@@ -49,7 +49,7 @@ function scriptProject(
 ): ScriptProject {
   const concept = state.concepts[0]!;
   const writer = state.talent.find((person) => person.role === "writer")!;
-  return {
+  const project: ScriptProject = {
     id: "script-0000",
     conceptId: concept.id,
     writerId: writer.id,
@@ -77,6 +77,13 @@ function scriptProject(
     productionId: null,
     ...overrides,
   };
+  // C2a-M3 (`00E`.9): `writerIds[0]` IS the project's attributed writer, and the
+  // invariant now says so. An override that renames the writer has to rename the
+  // list with it — the fixture was silently building a project whose pool
+  // disagreed with its own attribution.
+  return overrides.writerIds === undefined
+    ? { ...project, writerIds: [project.writerId] }
+    : project;
 }
 
 function managedState(seed: string, project?: ScriptProject): GameState {

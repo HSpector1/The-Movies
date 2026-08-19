@@ -215,15 +215,23 @@ describe('managed screenplay assessment parity', () => {
     const readyState = rewrittenReadyStudio('menu-parity-9')
     const project = readyState.scriptDevelopment.projects[0]!
     expect(project).toMatchObject({ status: 'ready', rewriteCount: 1 })
+    // RE-BASED at C2a-M3 by owner ruling `00E`.9 — the writer-quality term is out
+    // of first-draft assessment with no compensating bonus, so a screenplay's
+    // strength is its premise plus the office and nothing else. The predecessor
+    // pinned 66.76880218961112 / 64.81101623653322, whose gap between hidden and
+    // estimated strength was ENTIRELY the writer's perceived/actual split. The
+    // successor keeps the same rewritten project and asserts the same causal
+    // reads; only the numbers the removed term produced have moved. Every figure
+    // in this test below is re-based from the same run for the same reason.
     expect(project.assessment).toEqual({
-      actualStrength: 66.76880218961112,
-      perceivedStrength: 64.81101623653322,
+      actualStrength: 46.928135897804566,
+      perceivedStrength: 46.928135897804566,
     })
 
     const pkg = packageReadyScript(readyState)
     const menu = marketingMenu(readyState, pkg, project.id)
-    expect(menu.capacity).toBeCloseTo(541_490.9676527756, 8)
-    expect(menu.levels).toEqual([703_938, 1_299_578, 2_003_517])
+    expect(menu.capacity).toBeCloseTo(530_181.0452559121, 8)
+    expect(menu.levels).toEqual([689_235, 1_272_435, 1_961_670])
 
     const entryPackage: DraftPackage = {
       ...pkg,
@@ -232,15 +240,15 @@ describe('managed screenplay assessment parity', () => {
     const efficiency = marketingEfficiency(readyState, entryPackage, project.id)
     expect(efficiency).toMatchObject({
       capacity: menu.capacity,
-      spend: 703_938,
+      spend: 689_235,
       state: 'Entry campaign',
     })
-    expect(efficiency.preMarketingAwareness).toBeCloseTo(0.39094662205409747, 12)
-    expect(efficiency.ratio).toBeCloseTo(1.2999995236326667, 12)
+    expect(efficiency.preMarketingAwareness).toBeCloseTo(0.3844703135776255, 12)
+    expect(efficiency.ratio).toBeCloseTo(1.299999323188392, 12)
 
     const discovery = assessDiscoveryExposure(readyState, entryPackage, project.id)
     expect(discovery).toMatchObject({
-      reachSupport: 0.3937644189634444,
+      reachSupport: 0.3928275661696548,
       shortfall: 0,
       exposed: false,
       spread: 0,

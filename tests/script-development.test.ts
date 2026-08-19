@@ -22,10 +22,8 @@ import {
   scriptRewriteDelta,
   scriptWriterAssignment,
 } from '../src/core/scriptDevelopment.js'
-import { effectiveSkill } from '../src/core/talentSummary.js'
 import {
   emptyWorkflowBindings, initialManagedStudioOperations } from '../src/core/operations.js'
-import { resolveShape } from '../src/core/shape.js'
 import { generateWorld } from '../src/core/worldgen.js'
 import type {
   CommissionScriptPayload,
@@ -217,47 +215,47 @@ describe('Script Projects V1 foundational core', () => {
     ).toThrow(/already owns a screenplay project/)
   })
 
-  it('computes actual/perceived first-draft strength independently without RNG', () => {
+  // RE-BASED at C2a-M3 by owner ruling `00E`.9. THE PREDECESSOR asserted the
+  // shipped blend `0.6·baselineStrength + 0.4·writerSkill`, and that the two
+  // halves of a writer's perceived/actual split pulled the two strengths apart.
+  // THE SUCCESSOR is this test: the writer term is gone with no compensating
+  // bonus, the premise is the script, the office is the only lever — and a first
+  // draft's estimate therefore equals its truth, which is the ruling's own
+  // arithmetic and is recorded as such in docs/c2-planning/17-m3-records.md.
+  it('assesses a first draft from the premise and the office alone — never the writer (00E.9)', () => {
     const { concepts, writers: roster } = writers('scripts-assessment')
     const concept = concepts[0]!
-    const writer = structuredClone(roster[0]!)
-    for (const pair of Object.values(writer.skills.writing)) {
+    const gifted = structuredClone(roster[0]!)
+    for (const pair of Object.values(gifted.skills.writing)) {
       pair.actual = 92
       pair.perceived = 12
     }
-    writer.genreExperience.writing[concept.genre] = { actual: 100, perceived: 0 }
-    const scriptPayload = payload(concept, writer)
-    const writerBefore = JSON.stringify(writer)
+    gifted.genreExperience.writing[concept.genre] = { actual: 100, perceived: 0 }
+    const journeyman = structuredClone(roster[0]!)
+    for (const pair of Object.values(journeyman.skills.writing)) {
+      pair.actual = 8
+      pair.perceived = 8
+    }
+    journeyman.genreExperience.writing[concept.genre] = { actual: 0, perceived: 0 }
+    const giftedBefore = JSON.stringify(gifted)
 
-    const assessment = assessFirstDraft(concept, writer, scriptPayload.shape, scriptPayload.promise)
-    const shapeEffects = resolveShape(scriptPayload.shape)
-    const actualWriting = effectiveSkill(
-      writer,
-      'writing',
-      concept,
-      undefined,
-      shapeEffects,
-      scriptPayload.promise,
-      'actual',
-      scriptPayload.shape,
-    )
-    const perceivedWriting = effectiveSkill(
-      writer,
-      'writing',
-      concept,
-      undefined,
-      shapeEffects,
-      scriptPayload.promise,
-      'perceived',
-      scriptPayload.shape,
-    )
-    expect(assessment.actualStrength).toBeCloseTo(0.6 * concept.baselineStrength + 0.4 * actualWriting)
-    expect(assessment.perceivedStrength).toBeCloseTo(
-      0.6 * concept.baselineStrength + 0.4 * perceivedWriting,
-    )
-    expect(assessment.actualStrength).toBeGreaterThan(assessment.perceivedStrength)
-    expect(assessFirstDraft(concept, writer, scriptPayload.shape, scriptPayload.promise)).toEqual(assessment)
-    expect(JSON.stringify(writer)).toBe(writerBefore)
+    const assessment = assessFirstDraft(concept)
+    expect(assessment.actualStrength).toBeCloseTo(concept.baselineStrength)
+    expect(assessment.perceivedStrength).toBeCloseTo(concept.baselineStrength)
+    // The EST equals the truth at first draft: the writer was the only source of
+    // divergence and the ruling removed it. A rewrite still diverges them.
+    expect(assessment.actualStrength).toBe(assessment.perceivedStrength)
+    // WHO wrote it cannot be read off the result, because it is not in it.
+    expect(assessFirstDraft(concept)).toEqual(assessment)
+    // The office is the one lever left, and it moves both numbers together.
+    const lifted = assessFirstDraft(concept, 9)
+    expect(lifted.actualStrength).toBeCloseTo(Math.min(100, concept.baselineStrength + 9))
+    expect(lifted.perceivedStrength).toBe(lifted.actualStrength)
+    // Two writers who could not be more different produce the same screenplay,
+    // which is the whole ruling in one assertion.
+    expect(assessFirstDraft(concept)).toEqual(assessment)
+    expect(JSON.stringify(gifted)).toBe(giftedBefore)
+    expect(journeyman.skills.writing).not.toEqual(gifted.skills.writing)
   })
 
   it('resolves exactly one week later, releases capacity, and exposes review first', () => {
@@ -273,9 +271,7 @@ describe('Script Projects V1 foundational core', () => {
     const reviewed = completeDueScriptWork(initial, 4, { concepts, talent: roster })
     const project = reviewed.projects[0]!
     expect(project.status).toBe('review')
-    expect(project.assessment).toEqual(
-      assessFirstDraft(concepts[0]!, roster[0]!, project.shape, project.promise),
-    )
+    expect(project.assessment).toEqual(assessFirstDraft(concepts[0]!))
     expect(project.dueWeek).toBeNull()
     expect(project.reservation).toBeNull()
     expect(nextScriptProjectNeedingReview(reviewed)?.id).toBe(project.id)

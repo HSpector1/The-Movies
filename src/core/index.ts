@@ -611,6 +611,8 @@ export {
   scriptProjectsNeedingReview,
   nextScriptProjectNeedingReview,
   activeScriptWriterAssignments,
+  joinScreenplayWriterPool,
+  scriptProjectWriterIds,
   scriptWriterAssignment,
   screenplayFactsMatch,
   assertScriptDevelopmentInvariants,

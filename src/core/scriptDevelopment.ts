@@ -4,8 +4,7 @@
 
 import { clamp } from './math.js'
 import { facilitySlotKey, occupiedResourceSlots, screenplayOccupiedSlotKeys } from './occupancy.js'
-import { resolveShape } from './shape.js'
-import { effectiveSkill } from './talentSummary.js'
+import { TUNING } from './tuning.js'
 import type {
   CommissionScriptPayload,
   Contract,
@@ -36,6 +35,28 @@ export function emptyScriptDevelopment(): ScriptDevelopment {
 
 export function initialManagedScriptDevelopment(): ScriptDevelopment {
   return { mode: 'managed', projects: [] }
+}
+
+/**
+ * The writers on a screenplay, read DEFENSIVELY (C2a-M3).
+ *
+ * `writerIds` is a V14 leaf widening (`00E`.9 pooling), and the frozen V9–V13
+ * boundaries still REFUSE it by design (§8.3's version-aware rule). Both the
+ * invariants and the roster read run over those older fragments, so a state that
+ * genuinely predates the list has to answer this question — and its honest
+ * answer is the one writer it has always had.
+ */
+export function scriptProjectWriterIds(project: ScriptProject): readonly string[] {
+  const listed: unknown = project.writerIds
+  if (!Array.isArray(listed) || listed.length === 0) return [project.writerId]
+  const ids = listed as readonly string[]
+  // THE ATTRIBUTED WRITER IS ALWAYS ON THE LIST, even if a state claims
+  // otherwise. `writerIds[0] === writerId` is an invariant, so a state that
+  // disagrees is malformed — and the safe reading of a malformed state is the
+  // one that reports MORE occupancy, never less. A reader that dropped the
+  // attributed writer here would let a forged save put one person on a picture
+  // and a screenplay at once.
+  return ids.includes(project.writerId) ? ids : [project.writerId, ...ids]
 }
 
 export function canonicalScriptProjectId(index: number): string {
@@ -223,12 +244,20 @@ function replaceProject(
   }
 }
 
+/**
+ * @param draftWeeks how many weeks this screenplay takes to write (`00E`.9).
+ *   DEFAULTED TO THE POOL CLOCK, which is the C1 constant: every existing caller,
+ *   fixture and sealed path keeps the one-week draft it was measured with, and
+ *   only an original screenplay — the thing M3 invented — passes anything else.
+ *   The authority for the number is `scriptDraftWeeks` in `screenplay.ts`.
+ */
 export function commissionScriptProject(
   development: ScriptDevelopment,
   operations: StudioOperations,
   payload: CommissionScriptPayload,
   commissionedWeek: number,
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
+  draftWeeks: number = TUNING.SCRIPT_DRAFT_WEEKS_POOL,
 ): ScriptDevelopment {
   requireManaged(development, 'commission')
   if (operations.mode !== 'managed') {
@@ -238,6 +267,15 @@ export function commissionScriptProject(
   }
   if (!Number.isInteger(commissionedWeek) || commissionedWeek < 0) {
     throw new Error('script development: commission week must be a non-negative integer')
+  }
+  if (
+    !Number.isInteger(draftWeeks) ||
+    draftWeeks < TUNING.SCRIPT_DRAFT_WEEKS_MIN ||
+    draftWeeks > TUNING.SCRIPT_DRAFT_WEEKS_MAX
+  ) {
+    throw new Error(
+      `script development: commission rejected — a draft of ${String(draftWeeks)} weeks is outside the bounded range`,
+    )
   }
   if (development.projects.some((project) => project.conceptId === payload.conceptId)) {
     throw new Error(
@@ -280,7 +318,7 @@ export function commissionScriptProject(
     status: 'drafting',
     rewriteCount: 0,
     commissionedWeek,
-    dueWeek: commissionedWeek + 1,
+    dueWeek: commissionedWeek + draftWeeks,
     assessment: null,
     reservation,
     productionId: null,
@@ -311,55 +349,49 @@ export function commissionScriptProject(
  * standing when the writer finishes, which is the honest answer to "was the work
  * done there?".
  *
- * SPEED IS UNTOUCHED. Drafting is one week with or without an office; tiers
- * change what a script can become, never how fast. That is the original law.
+ * ── C2a-M3: THE WRITER-QUALITY TERM IS GONE (OWNER RULING `00E`.9) ───────────
+ *
+ * C1 shipped `0.6·baselineStrength + 0.4·writerSkill`. The corpus law is the
+ * exact inverse, at its highest tier and developer-reviewed: *"The more
+ * experience a scriptwriter has, the faster scripts will be completed.
+ * Scriptwriter experience has NO BEARING ON THE QUALITY of the script"*
+ * [CORPUS Prima, verbatim; Bible §5.4, §12], and the Owner RULED the successor
+ * behaviour into C2 rather than deferring it (`00E`.9): *writer experience
+ * affects writing SPEED; the Script Office tier owns the achievable quality
+ * ceiling.*
+ *
+ * So the writer term is re-based out, WITH NO COMPENSATING BONUS INVENTED — and
+ * the remaining weight is renormalised to 1.0 rather than left at 0.6. That is
+ * not a compensating bonus: 0.6 and 0.4 were the two halves of one convex blend,
+ * and dropping a term from a weighted average without renormalising would not
+ * "remove the writer" — it would silently rescale every screenplay in the game to
+ * 60% of the number the whole economy was measured against. The premise IS the
+ * script; the office lifts it; nothing else touches it.
+ *
+ * THE ONE CONSEQUENCE THIS CREATES, stated rather than discovered: the writer was
+ * the only source of actual-vs-perceived divergence at first draft, so a first
+ * draft's EST now equals its hidden truth exactly. A REWRITE still diverges them
+ * (the rewriting skill has its own perceived/actual split) — and inventing a new
+ * premise-uncertainty term here would be precisely the compensating bonus the
+ * ruling forbids. Recorded in `docs/c2-planning/17-m3-records.md`.
+ *
+ * SPEED IS NO LONGER UNTOUCHED, and that is the other half of the same ruling:
+ * see `scriptDraftWeeks` in `screenplay.ts`. An ORIGINAL screenplay's draft
+ * length varies with office richness, writer experience and pool size; adapting a
+ * POOL concept is one week, unconditionally, exactly as C1 measured it.
  */
 export function assessFirstDraft(
   concept: FilmConcept,
-  writer: Talent,
-  shape: FilmShape,
-  promise: FilmPromise,
   // Defaulted to the identity so every existing caller — and every state with no
   // Development Office — produces byte-identical output.
   estUplift = 0,
 ): ScriptAssessment {
-  const shapeEffects = resolveShape(shape)
-  const actualWriting = effectiveSkill(
-    writer,
-    'writing',
-    concept,
-    undefined,
-    shapeEffects,
-    promise,
-    'actual',
-    shape,
-  )
-  const perceivedWriting = effectiveSkill(
-    writer,
-    'writing',
-    concept,
-    undefined,
-    shapeEffects,
-    promise,
-    'perceived',
-    shape,
-  )
-  // The uplift joins the blend INSIDE the existing clamp, so a script can never
-  // be pushed past 100 and an office can never make one worse. It moves both the
-  // hidden truth and the visible estimate: an office that moved only the estimate
-  // would change what the player is told rather than what the studio made.
-  return {
-    actualStrength: clamp(
-      0.6 * concept.baselineStrength + 0.4 * actualWriting + estUplift,
-      0,
-      100,
-    ),
-    perceivedStrength: clamp(
-      0.6 * concept.baselineStrength + 0.4 * perceivedWriting + estUplift,
-      0,
-      100,
-    ),
-  }
+  // The uplift joins INSIDE the clamp, so a script can never be pushed past 100
+  // and an office can never make one worse. It moves both the hidden truth and
+  // the visible estimate: an office that moved only the estimate would change
+  // what the player is told rather than what the studio made.
+  const strength = clamp(concept.baselineStrength + estUplift, 0, 100)
+  return { actualStrength: strength, perceivedStrength: strength }
 }
 
 export function scriptRewriteDelta(currentStrength: number, rewritingSkill: number): number {
@@ -433,7 +465,7 @@ export function completeDueScriptWork(
     }
     const assessment =
       project.status === 'drafting'
-        ? assessFirstDraft(concept, writer, project.shape, project.promise, sources.estUplift ?? 0)
+        ? assessFirstDraft(concept, sources.estUplift ?? 0)
         : project.assessment === null
           ? (() => {
               throw new Error(
@@ -659,14 +691,84 @@ export function activeScriptWriterAssignments(
         `script development: project "${project.id}" references unknown concept "${project.conceptId}"`,
       )
     }
-    const verb = project.status === 'drafting' ? 'Drafting' : 'Rewriting'
-    return [{
-      talentId: project.writerId,
+    const status = project.status
+    const verb = status === 'drafting' ? 'Drafting' : 'Rewriting'
+    // C2a-M3 (`00E`.9): EVERY writer on the script, not only the attributed one.
+    // This list is what `busyTalentIds` unions, so a writer who is in the pool is
+    // unavailable everywhere at once — the roster, the commission form, casting,
+    // and the freelancer market — from this one place.
+    return scriptProjectWriterIds(project).map((talentId) => ({
+      talentId,
       projectId: project.id,
-      status: project.status,
+      status,
       title,
       label: `${verb} ${title}`,
-    }]
+    }))
+  })
+}
+
+/**
+ * Put another writer on a screenplay already being drafted (`00E`.9, charter
+ * §3.5) — the bounded pooling the corpus describes: *"To speed the writing of
+ * scripts, put multiple writers on the project"*, capped at five
+ * [CORPUS Prima, verbatim; Bible §5.4, §12].
+ *
+ * IT BUYS TIME, NEVER QUALITY. The new writer shortens the draft and touches
+ * nothing else: attribution stays with the writer who was commissioned, and the
+ * assessment has no writer term left to move.
+ *
+ * THE RECOMPUTED DUE WEEK CAN NEVER LAND IN THE PAST, and it can never be this
+ * same week either — a screenplay that gained a hand on Monday still takes until
+ * next week at the earliest, because work already done is not undone by help.
+ *
+ * DRAFTING ONLY. A rewrite is one writer's pass over an existing draft (its own
+ * skill is the lever there), so pooling has no meaning on it.
+ */
+export function joinScreenplayWriterPool(
+  development: ScriptDevelopment,
+  projectId: string,
+  writerId: string,
+  currentWeek: number,
+  draftWeeks: number,
+): ScriptDevelopment {
+  requireManaged(development, 'writer pooling')
+  const project = requireProject(development, projectId, 'writer pooling')
+  if (project.status !== 'drafting') {
+    throw new Error(
+      `script development: writer pooling rejected — project "${projectId}" is not being drafted`,
+    )
+  }
+  const writerIds = scriptProjectWriterIds(project)
+  if (writerIds.includes(writerId)) {
+    throw new Error(
+      `script development: writer pooling rejected — writer "${writerId}" is already on "${projectId}"`,
+    )
+  }
+  if (writerIds.length >= TUNING.SCRIPT_DRAFT_MAX_WRITERS) {
+    throw new Error(
+      `script development: writer pooling rejected — "${projectId}" already has the maximum of ${String(TUNING.SCRIPT_DRAFT_MAX_WRITERS)} writers`,
+    )
+  }
+  if (
+    development.projects.some(
+      (candidate) =>
+        candidate.id !== project.id &&
+        ACTIVE_SCRIPT_STATUSES.has(candidate.status) &&
+        scriptProjectWriterIds(candidate).includes(writerId),
+    )
+  ) {
+    throw new Error(
+      `script development: writer pooling rejected — writer "${writerId}" already has an active screenplay task`,
+    )
+  }
+  if (!Number.isInteger(currentWeek) || currentWeek < project.commissionedWeek) {
+    throw new Error('script development: writer pooling week must be a valid present week')
+  }
+  const dueWeek = Math.max(currentWeek + 1, project.commissionedWeek + draftWeeks)
+  return replaceProject(development, {
+    ...project,
+    writerIds: [...writerIds, writerId],
+    dueWeek,
   })
 }
 
@@ -901,8 +1003,18 @@ export function assertScriptDevelopmentInvariants(
         invariant(project.rewriteCount === 0, `drafting project "${project.id}" was rewritten`)
         invariant(project.assessment === null, `drafting project "${project.id}" is already assessed`)
         invariant(project.productionId === null, `drafting project "${project.id}" has a production link`)
+        // C2a-M3 (`00E`.9): the one-week draft constant is RE-BASED to a bounded
+        // range, because writer experience and pooling now buy time. The
+        // successor invariant is the same law with a width: a draft still lies
+        // strictly in the future and still ends inside the authored ceiling, so a
+        // forged or drifted state cannot park a screenplay in development
+        // forever — which is the thing the pinned constant was really protecting.
         invariant(
-          project.dueWeek === project.commissionedWeek + 1 && project.dueWeek > context.currentWeek,
+          project.dueWeek !== null &&
+            Number.isInteger(project.dueWeek) &&
+            project.dueWeek >= project.commissionedWeek + TUNING.SCRIPT_DRAFT_WEEKS_MIN &&
+            project.dueWeek <= project.commissionedWeek + TUNING.SCRIPT_DRAFT_WEEKS_MAX &&
+            project.dueWeek > context.currentWeek,
           `drafting project "${project.id}" has an invalid due week`,
         )
         assertReservation(project, context.operations, occupied)
@@ -970,20 +1082,48 @@ export function assertScriptDevelopmentInvariants(
         invariant(false, `project "${project.id}" has unknown status ${String(project.status)}`)
     }
 
+    // C2a-M3 (`00E`.9): the bounded writers list. `writerId` stays the project's
+    // attribution and `writerIds[0]` is always it; the rest are the pool the
+    // corpus describes — "to speed the writing of scripts, put multiple writers
+    // on the project," capped at five.
+    const projectWriterIds = scriptProjectWriterIds(project)
+    invariant(
+      projectWriterIds.length >= 1 && projectWriterIds.length <= TUNING.SCRIPT_DRAFT_MAX_WRITERS,
+      `project "${project.id}" must hold between 1 and ${String(TUNING.SCRIPT_DRAFT_MAX_WRITERS)} writers`,
+    )
+    invariant(
+      projectWriterIds[0] === project.writerId,
+      `project "${project.id}" writers list does not start with its attributed writer`,
+    )
+    invariant(
+      new Set(projectWriterIds).size === projectWriterIds.length,
+      `project "${project.id}" lists a writer twice`,
+    )
+
     if (project.status === 'drafting' || project.status === 'rewriting') {
-      invariant(
-        activeContractAt(context.contracts, project.writerId, context.currentWeek),
-        `active project "${project.id}" writer is not contracted`,
-      )
-      invariant(
-        !activeScriptWriters.has(project.writerId),
-        `writer "${project.writerId}" has more than one active script task`,
-      )
-      invariant(
-        !activeProductionTalent.has(project.writerId),
-        `writer "${project.writerId}" is also assigned to an active production`,
-      )
-      activeScriptWriters.add(project.writerId)
+      // EVERY writer on the script is occupied by it — not only the attributed
+      // one. A pooled writer who was not busy could be commissioned onto a second
+      // screenplay in the same week, which is exactly the double-booking the
+      // shared occupancy union exists to refuse.
+      for (const writerId of projectWriterIds) {
+        invariant(
+          talentById.get(writerId) !== undefined,
+          `project "${project.id}" references unknown writer "${writerId}"`,
+        )
+        invariant(
+          activeContractAt(context.contracts, writerId, context.currentWeek),
+          `active project "${project.id}" writer is not contracted`,
+        )
+        invariant(
+          !activeScriptWriters.has(writerId),
+          `writer "${writerId}" has more than one active script task`,
+        )
+        invariant(
+          !activeProductionTalent.has(writerId),
+          `writer "${writerId}" is also assigned to an active production`,
+        )
+        activeScriptWriters.add(writerId)
+      }
     }
   }
 
