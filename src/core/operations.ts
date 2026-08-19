@@ -1306,6 +1306,12 @@ export function advanceManagedProductions(
   // Bounded: each round either advances a workflow or hands capacity back, and
   // each workflow can do each of those at most once per week, so the loop
   // terminates in at most 2N rounds.
+  //
+  // AND IT RESTARTS AT THE TOP WHENEVER CAPACITY COMES BACK. Without that, a
+  // resource released in the MIDDLE of a round would be taken by whichever waiter
+  // happened to be scanned after the release rather than by the one that has
+  // waited longest — a priority inversion invisible to everyone but the picture
+  // that lost. Restarting costs a re-scan and buys the ordering law its meaning.
   let progressed = true
   while (progressed) {
     progressed = false
@@ -1356,8 +1362,11 @@ export function advanceManagedProductions(
       // holds something at release, the release is in the log.
       recordReservationTransition(events, workflow, [])
       nextOperations = removeManagedProductionWorkflow(nextOperations, production.id)
-      // A picture leaving the board is capacity going back to the pool.
+      // A picture leaving the board is capacity going back to the pool — so the
+      // longest-waiting picture gets the first look at it.
       progressed = true
+      // Restart the scan so the longest-waiting picture sees it first.
+      if (workflow.reservations.length > 0) break
       continue
     }
 
@@ -1387,12 +1396,17 @@ export function advanceManagedProductions(
       byId.set(production.id, result.production)
       settled.add(production.id)
       progressed = true
+      if (result.released) break
       continue
     }
-    // BLOCKED. It keeps its place in the order and is retried in the next round —
-    // the resources it just released (if any) may be exactly what another waiter
-    // needed, and what that waiter then finishes with may be what THIS one needs.
-    if (result.released) progressed = true
+    // BLOCKED. It keeps its place in the order and is retried from the top of the
+    // next round — the resources it just released may be exactly what another
+    // waiter needed, and what that waiter then finishes with may be what THIS one
+    // needs.
+    if (result.released) {
+      progressed = true
+      break
+    }
   }
   }
 

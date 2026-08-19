@@ -16,9 +16,11 @@
 
 import { describe, expect, it } from 'vitest'
 import {
+  advanceManagedProductions,
   applyActions,
   assertStudioOperationsInvariants,
   bindableSetsOnStage,
+  productionsInSweepOrder,
   setById,
   stableStringify,
   studioCalendar,
@@ -224,6 +226,105 @@ describe('C2a-M4 `00E`.5 — a completed phase releases, even with nowhere to go
       (facility) => facility.capability === 'development-casting',
     )!
     expect(board.available).toBeGreaterThan(0)
+  })
+
+  it('gives capacity released MID-SWEEP to the longest-waiting picture, not the next one scanned', () => {
+    // ── THE PRIORITY INVERSION THE FIXED-POINT SWEEP MUST NOT HAVE ──────────
+    //
+    // Three pictures, ONE stage. The order is A (waited 3 weeks), C (waited 2,
+    // and about to wrap), B (waited 1). A is attempted first and refused — the
+    // stage is still under C. C then wraps and hands the stage back INSIDE the
+    // same sweep. If the sweep simply carried on scanning, B — the shortest wait
+    // — would take it, and A would find nothing when it retried. The scan
+    // restarts instead, so the stage goes to A.
+    const { state } = contendedStudio('m4-sweep-fairness')
+    const template = state.studio.activeProductions[0]!
+    const week = 20
+    const make = (id: string, remainingTicks: number, waitWeeks: number) => ({
+      ...template,
+      id,
+      startTick: week - waitWeeks - (8 - remainingTicks) - 1,
+      remainingTicks,
+    })
+    const productions = [
+      make('prod-0100', 7, 3), // A — longest wait, needs the stage
+      make('prod-0101', 4, 2), // C — shooting, wraps this advance
+      make('prod-0102', 7, 1), // B — shortest wait, also needs the stage
+    ]
+    const emptyBindings = {
+      requiresSetBinding: false,
+      stageFacilityId: null,
+      setId: null,
+      lockedNovelty: null,
+      lockedUplift: null,
+      heldSinceWeek: null,
+    }
+    const waiting = (productionId: string) => ({
+      productionId,
+      phase: 'preProduction' as const,
+      reservations: [],
+      shootingTask: null,
+      blocker: {
+        kind: 'facility-capacity' as const,
+        capability: 'soundstage' as const,
+        targetPhase: 'rehearsal' as const,
+      },
+      bindings: emptyBindings,
+    })
+    const operations = {
+      ...state.operations,
+      facilities: state.operations.facilities.filter(
+        (facility) => facility.id !== 'facility-soundstage-12',
+      ),
+      workflows: [
+        waiting('prod-0100'),
+        {
+          productionId: 'prod-0101',
+          phase: 'shooting' as const,
+          reservations: [
+            {
+              productionId: 'prod-0101',
+              facilityId: 'facility-soundstage-07',
+              capability: 'soundstage' as const,
+              slot: 0,
+              phase: 'shooting' as const,
+            },
+            {
+              productionId: 'prod-0101',
+              facilityId: 'facility-scenery-shop',
+              capability: 'set-scenery' as const,
+              slot: 0,
+              phase: 'shooting' as const,
+            },
+          ],
+          shootingTask: {
+            id: 'shooting:prod-0101',
+            productionId: 'prod-0101',
+            directorId: template.directorId,
+            soundstageFacilityId: 'facility-soundstage-07',
+            status: 'completed' as const,
+          },
+          blocker: null,
+          bindings: { ...emptyBindings, stageFacilityId: 'facility-soundstage-07', heldSinceWeek: 0 },
+        },
+        waiting('prod-0102'),
+      ],
+    }
+    // The order the sweep will serve, stated by the engine's own comparator.
+    expect(productionsInSweepOrder(productions, week).map((production) => production.id)).toEqual([
+      'prod-0100',
+      'prod-0101',
+      'prod-0102',
+    ])
+
+    const advanced = advanceManagedProductions(operations, productions, week)
+    const phaseOf = (productionId: string) =>
+      advanced.operations.workflows.find(
+        (workflow) => workflow.productionId === productionId,
+      )!.phase
+    expect(phaseOf('prod-0100')).toBe('rehearsal') // the longest wait got the stage
+    expect(phaseOf('prod-0102')).toBe('preProduction') // the shortest wait still waits
+    expect(phaseOf('prod-0101')).toBe('postProduction') // and the wrapper moved on
   })
 
   it('is deterministic under contention — the same seed resolves the same way twice', () => {
