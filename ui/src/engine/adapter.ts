@@ -5675,6 +5675,16 @@ function managedWorkflowLocation(
     case 'shooting': {
       const soundstage = workflow.reservations.find((reservation) => reservation.capability === 'soundstage')
       if (soundstage === undefined) {
+        // ── C2a-M4, THE RESOURCE-RELEASE LAW (`00E`.5) ──────────────────────
+        //
+        // A picture whose shooting COMPLETED releases the stage that week even
+        // when Post has no room for it, so a `shooting` workflow with no stage
+        // is not contradictory truth any more — it is a WRAPPED picture waiting
+        // at the Post door, holding nothing. It is placed at the room it is
+        // waiting for, because that is the only place on the lot its week is
+        // about; the Production Board says HELD beside it, and the queue view
+        // says what it is waiting for and who is in there.
+        if (workflow.phase === 'shooting' && workflow.blocker !== null) return 'post'
         throw new Error(
           `studioLotSnapshot: managed ${workflow.phase} productionId "${workflow.productionId}" has no soundstage reservation`,
         )
@@ -6617,6 +6627,12 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
           // Derived membership, not a literal pair: a picture on the studio's THIRD
           // soundstage is on a soundstage, and this no longer throws when it is.
           if (!stageBuildingIds.includes(stageId)) {
+            // C2a-M4 (`00E`.5): a WRAPPED picture — shooting finished, stage
+            // released, waiting for Post — is not on a stage, so it gets no stage
+            // card and no REC light. That is the release law rendered: the crew
+            // left, and the stage is free for whoever is next. Anything else with
+            // no stage is still contradictory truth.
+            if (operation.phase === 'shooting' && operation.blocker !== null) return []
             throw new Error(
               `studioLotSnapshot: managed ${operation.phase} productionId "${production.id}" is not located on a soundstage`,
             )

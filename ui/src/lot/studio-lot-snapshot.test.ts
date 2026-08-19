@@ -614,23 +614,27 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
       state.studio.activeProductions.find((production) => production.id === annexProductionId)!
         .remainingTicks,
     ).toBe(beforeHeld)
-    expect(operation(snap, annexProductionId).locationBuildingId).toBe('expansion')
-    expect(snap.annexWork?.occupant).toMatchObject({
-      owner: 'production',
-      ownerId: annexProductionId,
-      activity: 'preProduction',
-      workState: 'held',
-      statusLabel: 'Held for facility capacity',
-      blocker: {
-        kind: 'facility-capacity',
-        headline: 'Rehearsal held for Soundstage',
-      },
+    // ── C2a-M4 RE-BASE (ruling `00E`.5, the RESOURCE-RELEASE LAW) ──────────
+    //
+    // The predecessor asserted the HELD picture is still in the Annex, holding
+    // the slot it was working in. The Owner reversed that: Pre-production's work
+    // is finished, so its Development & Casting slot goes back the same week even
+    // though no stage is free. The picture is therefore NOT in the Annex any more
+    // — the world stops showing a room it left — and the Annex is genuinely
+    // available to the next screenplay, audition or greenlight.
+    expect(
+      state.operations.workflows.find(
+        (workflow) => workflow.productionId === annexProductionId,
+      )!.reservations,
+    ).toEqual([])
+    expect(operation(snap, annexProductionId).locationBuildingId).toBe('casting')
+    expect(snap.annexWork?.occupant ?? null).toBeNull()
+    expect(operationalAnnexWorkContext(snap)?.state).not.toBe('held')
+    // The hold itself is still legible — on the picture, where it belongs.
+    expect(operation(snap, annexProductionId).blocker).toMatchObject({
+      kind: 'facility-capacity',
+      headline: 'Rehearsal held for Soundstage',
     })
-    expect(stage(snap, 'expansion')).toMatchObject({
-      attention: 'warning',
-      attentionReason: `Production held · ${snap.annexWork?.occupant?.title}`,
-    })
-    expect(operationalAnnexWorkContext(snap)?.state).toBe('held')
   })
 
   it('projects every phase to its real lot location and never invents a physical stage', () => {
@@ -779,7 +783,12 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     expect(snap.activeProductions[0]).toMatchObject({ active: true, stageState: 'filming' })
   })
 
-  it('keeps REC off when a completed Shooting phase is held for Post capacity', () => {
+  // C2a-M4 RE-BASE (ruling `00E`.5, the RESOURCE-RELEASE LAW). The predecessor
+  // asserted the held picture RETAINS its stage with the REC light off. The Owner
+  // reversed that: a completed phase releases even when the next resource is
+  // unavailable, so the picture is no longer on the stage at all — which is a
+  // stronger form of "REC off" and a visibly free stage for the next shoot.
+  it('empties the stage when a completed Shooting phase is held for Post capacity', () => {
     let state = foundManagedStudio('lot-managed-post-capacity', true)
     state = {
       ...state,
@@ -812,11 +821,18 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     )!
     const snap = studioLotSnapshot(state)
     const op = operation(snap, held.productionId)
-    const card = snap.activeProductions.find((candidate) => candidate.id === held.productionId)!
     expect(op.blocker?.kind).toBe('facility-capacity')
     expect(op.attention).toBe('warning')
-    expect(card).toMatchObject({ active: false, stageState: 'idle' })
-    expect(stage(snap, card.stageId).attention).toBe('warning')
+    // THE STAGE IS EMPTY. No stage card, no REC light, and the picture's own
+    // reservations are gone — it wrapped and is waiting for Post holding nothing.
+    expect(held.reservations).toEqual([])
+    expect(
+      snap.activeProductions.some((candidate) => candidate.id === held.productionId),
+    ).toBe(false)
+    // ...and the stage it left is genuinely free: the OTHER picture is the only
+    // one on a stage, and one soundstage now carries nobody.
+    const stagesInUse = new Set(snap.activeProductions.map((candidate) => candidate.stageId))
+    expect(stagesInUse.has(op.locationBuildingId)).toBe(false)
   })
 
   it('keeps an empty managed studio idle and shows only its OWN employees, never a fabricated one', () => {

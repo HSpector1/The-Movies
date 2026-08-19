@@ -114,7 +114,16 @@ export type StudioCalendarProductionFacilityView = {
 }
 
 export type StudioCalendarProductionBlockerView = {
-  kind: 'facility-capacity' | 'director-dispatch' | 'scenery-load-in' | 'take-scheduling'
+  // C2a-M4: `set-unavailable` joins the rendered kinds. M2 taught the engine to
+  // produce it and this view never learned to say it, so a picture with a stage
+  // and no scenery read as "on schedule" — a silent wait, which is the exact
+  // failure owner law 2 exists to prevent.
+  kind:
+    | 'facility-capacity'
+    | 'set-unavailable'
+    | 'director-dispatch'
+    | 'scenery-load-in'
+    | 'take-scheduling'
   headline: string
   detail: string
   consequence: string
@@ -575,6 +584,19 @@ function productionBlocker(
         kind: 'facility-capacity',
         headline: `${target} held for ${capability}`,
         detail: `No ${capability.toLowerCase()} slot was available when the transition to ${target} was attempted. It will retry next week.`,
+        consequence: PRODUCTION_HOLD_CONSEQUENCE,
+      },
+    }
+  }
+  if (workflow.blocker?.kind === 'set-unavailable') {
+    const target = PHASE_LABEL[workflow.blocker.targetPhase]
+    return {
+      status: 'held',
+      statusLabel: 'Held for a set',
+      blocker: {
+        kind: 'set-unavailable',
+        headline: `${target} held for a standing set`,
+        detail: `A soundstage is free, but no set this picture can shoot on is standing on it when the transition to ${target} was attempted.`,
         consequence: PRODUCTION_HOLD_CONSEQUENCE,
       },
     }

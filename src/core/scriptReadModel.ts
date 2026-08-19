@@ -161,7 +161,19 @@ export type CommissionWriterView = ScriptWriterView & {
 }
 
 export type ScriptCommissionAvailabilityView = {
+  /** Can the studio ADAPT A MARKET PREMISE right now? */
   canStart: boolean
+  /**
+   * Can the studio COMMISSION AN ORIGINAL right now? (C2a-M4, the M3 carry.)
+   *
+   * `canStart` was one answer to two questions, and after M3 the two questions
+   * genuinely differ: an original needs a writer and a room, and needs NO
+   * unclaimed market premise at all — it mints its own. Publishing both here
+   * means the Writers Room stops having to reason about which blockers apply to
+   * which door, and the `no-concepts` blocker is scoped to the door it is
+   * actually about.
+   */
+  canStartOriginal: boolean
   consequence: string
   concepts: CommissionConceptView[]
   writers: CommissionWriterView[]
@@ -624,6 +636,12 @@ function commissionAvailability(
 
   return {
     canStart: blockers.length === 0,
+    // THE MARKET-PATH SCOPE (C2a-M4, the M3 carry). `no-concepts` is a fact about
+    // the premise MARKET, and an original screenplay does not shop there — so it
+    // is the one blocker an original commission steps over. Every other blocker
+    // on this list is about the studio, the room or the roster, and stops both
+    // doors exactly as it always did.
+    canStartOriginal: blockers.every((blocker) => blocker.kind === 'no-concepts'),
     consequence: SCRIPT_DEVELOPMENT_WEEK_CONSEQUENCE,
     concepts,
     writers,

@@ -46,6 +46,12 @@ const BOARD_KEYS = [
 
 const COMMISSION_KEYS = [
   'canStart',
+  // C2a-M4 (the M3 carry): the commission view publishes BOTH doors now —
+  // `canStart` for adapting a market premise, `canStartOriginal` for the studio's
+  // own writers. Admitted in the same commit that adds it, exactly as the note
+  // below prescribes: a view field this list does not know about makes the
+  // workspace reject the whole board with no visible error.
+  'canStartOriginal',
   'consequence',
   'concepts',
   'writers',

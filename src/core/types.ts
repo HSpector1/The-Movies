@@ -1581,6 +1581,10 @@ export type Action =
   //     all out of its reach by the shape of the action itself.
   | { kind: 'commissionOriginalScreenplay'; screenplay: CommissionOriginalScreenplayPayload }
   | { kind: 'assignScreenplayWriter'; projectId: string; writerId: string }
+  // C2a-M4 (§3.3): the `cancel-queued-intent` REMEDY, as a verb. A queued intent
+  // holds nothing, so cancelling one costs nothing and releases nothing — it is
+  // the player taking their own request back out of the line.
+  | { kind: 'cancelQueuedIntent'; ordinal: number }
   | { kind: 'renameScreenplay'; conceptId: string; title: string }
   | { kind: 'requestScriptRewrite'; projectId: string }
   | { kind: 'acceptScript'; projectId: string }

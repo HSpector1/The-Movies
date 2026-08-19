@@ -116,6 +116,7 @@ import {
   queueGreenlightScriptProject,
   queueStartCastingSession,
   queueingActive,
+  removeQueueEntry,
 } from './productionQueue.js'
 import {
   acceptScriptProject,
@@ -1711,6 +1712,40 @@ function admitOrQueue(
   }
 }
 
+/**
+ * CANCEL A QUEUED INTENT (§3.3's `cancel-queued-intent` remedy).
+ *
+ * The one queue verb the player owns. A queued intent holds nothing — no slot,
+ * no cash, no talent, no minted concept — so taking it out of the line releases
+ * nothing and refunds nothing; it simply stops waiting. Recorded as a Tier-W
+ * `queueIntentExpired` row with the studio itself as the stated reason, because
+ * the log's job is to say why something left the queue, and "we changed our
+ * minds" is a reason.
+ */
+function applyCancelQueuedIntent(
+  state: GameState,
+  action: Action & { kind: 'cancelQueuedIntent' },
+): GameState {
+  const entry = state.productionQueue.find((candidate) => candidate.ordinal === action.ordinal)
+  if (entry === undefined) {
+    throw new Error(
+      `applyActions: cancelQueuedIntent references ordinal ${String(action.ordinal)}, which is not in the queue`,
+    )
+  }
+  const events = studioEventSinkFor(state)
+  events.append({
+    kind: 'queueIntentExpired',
+    entryKind: entry.kind,
+    ordinal: entry.ordinal,
+    reason: 'the studio withdrew the request before it reached the front of the queue',
+  })
+  return {
+    ...state,
+    productionQueue: removeQueueEntry(state.productionQueue, entry.ordinal),
+    studioEvents: commitStudioEvents(state.studioEvents, events, state.market.tick),
+  }
+}
+
 /** What one dequeue attempt did: it started, it is still waiting, or it expired. */
 export type QueuedIntentOutcome =
   | { outcome: 'granted'; state: GameState }
@@ -2737,6 +2772,9 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'assignScreenplayWriter':
         next = applyAssignScreenplayWriter(next, action)
+        break
+      case 'cancelQueuedIntent':
+        next = applyCancelQueuedIntent(next, action)
         break
       case 'renameScreenplay':
         next = applyRenameScreenplay(next, action)

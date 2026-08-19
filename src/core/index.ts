@@ -377,6 +377,9 @@ export {
   SET_BLUEPRINTS,
   SET_TYPE_LABELS,
   setBlueprintById,
+  // C2a-M4: the queue's `build-blueprint` remedy quotes this catalog, so a
+  // surface can price the relief it is being offered.
+  FACILITY_BLUEPRINTS,
 } from './tuning.js'
 export type { SetBlueprint } from './tuning.js'
 
@@ -736,6 +739,19 @@ export {
 } from './productionQueue.js'
 export { admitQueuedIntents } from './queueAdmission.js'
 export type { QueueAdmissionResult } from './queueAdmission.js'
+
+// ── The Studio Queue (C2a-M4, charter §3.3) ──────────────────────────────────
+// The DERIVED law-2 surface: what waits, what it needs, who occupies it, when it
+// frees, and what relieves it. Beside `studioCalendar()`, fed by the same
+// authorities, and never persisted.
+export { studioQueueView } from './studioQueueView.js'
+export type {
+  StudioQueueNeedView,
+  StudioQueueOccupantView,
+  StudioQueueRemedy,
+  StudioQueueWaiterView,
+  StudioQueueView,
+} from './studioQueueView.js'
 
 // §6 standing (phase 3) — the three-channel updateStanding (B12 context param)
 export { updateStanding } from './standing.js'

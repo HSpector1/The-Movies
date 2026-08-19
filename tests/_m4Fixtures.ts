@@ -94,6 +94,51 @@ export function freePackageOrNull(
 }
 
 /**
+ * The next commission this studio could legally make — an unclaimed premise and
+ * a writer with nothing on their desk — or NULL when it has run out of one.
+ * A pressure loop has to be able to ask, because "no writer is free" is a
+ * different refusal than the one under test.
+ */
+export function nextCommissionOrNull(state: GameState) {
+  const claimed = new Set(state.scriptDevelopment.projects.map((project) => project.conceptId))
+  const queuedConcepts = new Set(
+    state.productionQueue.flatMap((entry) =>
+      entry.kind === 'commissionScript' ? [entry.payload.conceptId] : [],
+    ),
+  )
+  const concept = state.concepts.find(
+    (candidate) => !claimed.has(candidate.id) && !queuedConcepts.has(candidate.id),
+  )
+  if (concept === undefined) return null
+  const busy = busyTalentIds(state)
+  const queuedWriters = new Set(
+    state.productionQueue.flatMap((entry) =>
+      entry.kind === 'commissionScript' || entry.kind === 'commissionOriginalScreenplay'
+        ? [entry.payload.writerId]
+        : [],
+    ),
+  )
+  const writer = contractedByRole(state, 'writer').find(
+    (candidate) => !busy.has(candidate.id) && !queuedWriters.has(candidate.id),
+  )
+  if (writer === undefined) return null
+  return {
+    conceptId: concept.id,
+    writerId: writer.id,
+    shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' } as const,
+    promise: {
+      genre: concept.genre,
+      intendedSegments: ['adult'] as SegmentId[],
+      ranges: {
+        intimacy: [-0.5, 0.5] as [number, number],
+        tonalWeight: [-0.5, 0.5] as [number, number],
+        kineticEnergy: [-0.5, 0.5] as [number, number],
+      },
+    },
+  }
+}
+
+/**
  * An audition slate of three actors NO picture has locked — the contended
  * fixture's spare bodies, so a queued audition waits for capacity and never for
  * staffing.
