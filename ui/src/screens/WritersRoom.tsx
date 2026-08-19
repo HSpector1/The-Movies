@@ -32,14 +32,17 @@ import {
   deliveredScreenplaySentence,
   originalCommissionOpen,
   originalDraftEstimate,
+  assignScreenplayWriterAction,
   renameScreenplayAction,
   screenplayIdentitiesByProject,
+  writerPool,
   writingScreenplaySentence,
 } from '../engine/screenplay.ts'
 import type {
   CommissionOriginalScreenplayPayload,
   OriginalDraftEstimateView,
   ScreenplayIdentityView,
+  WriterPoolView,
 } from '../engine/screenplay.ts'
 import {
   ENDING_OPTIONS,
@@ -279,6 +282,101 @@ function ScreenplayProvenance({
 
 /** The lifecycle statuses this file distinguishes; the board publishes the value. */
 type ScriptProjectStatusLike = ScriptProjectsReadModel['sections']['inDevelopment'][number]['status']
+
+/**
+ * C2a-M3 — MORE HANDS ON THE SAME SCRIPT (`00E`.9).
+ *
+ * *"To speed the writing of scripts, put multiple writers on the project."*
+ * [CORPUS Prima, developer-reviewed.] It buys TIME and nothing else — the ruling
+ * is explicit that writer experience has no bearing on a script's quality — so
+ * this control states exactly one consequence: the week the draft would land.
+ *
+ * THE LIST IS THE ENGINE'S. Every name offered is a writer the engine would
+ * actually accept, and the week beside it is the week that successor carries. A
+ * writer who would be refused is absent rather than offered and then rejected.
+ * The candidates are computed only when the player opens the control.
+ */
+function ScreenplayWriterPool({
+  projectId,
+  poolFor,
+  onAssign,
+}: {
+  projectId: string
+  poolFor: () => WriterPoolView | null
+  onAssign: (writerId: string) => ActionOutcome
+}) {
+  const [open, setOpen] = useState(false)
+  const [refusal, setRefusal] = useState('')
+  const pool = open ? poolFor() : null
+
+  return (
+    <div className="stack" data-testid={`script-pool-${projectId}`}>
+      {!open && (
+        <div className="btn-row">
+          <button
+            type="button"
+            onClick={() => { setRefusal(''); setOpen(true) }}
+            data-testid={`script-pool-open-${projectId}`}
+          >
+            Put another writer on it
+          </button>
+        </div>
+      )}
+
+      {open && pool !== null && (
+        <div className="inset stack">
+          <span data-testid={`script-pool-on-it-${projectId}`}>
+            On the script: {pool.onIt.map((person) => person.name).join(', ')} ·{' '}
+            {pool.onIt.length} of {pool.maxWriters}
+          </span>
+          {pool.candidates.length === 0 ? (
+            <span className="hint" data-testid={`script-pool-empty-${projectId}`}>
+              No other contracted writer is free to join this script.
+            </span>
+          ) : (
+            <div className="btn-row" style={{ flexWrap: 'wrap' }}>
+              {pool.candidates.map((candidate) => (
+                <button
+                  type="button"
+                  key={candidate.id}
+                  onClick={() => {
+                    const result = onAssign(candidate.id)
+                    if (!result.ok) {
+                      setRefusal(result.error)
+                      return
+                    }
+                    setRefusal('')
+                    setOpen(false)
+                  }}
+                  data-testid={`script-pool-add-${projectId}-${candidate.id}`}
+                >
+                  {candidate.name} — delivers week {candidate.dueWeek}
+                  {candidate.weeksSaved > 0
+                    ? ` (${candidate.weeksSaved} ${candidate.weeksSaved === 1 ? 'week' : 'weeks'} sooner)`
+                    : ' (no sooner)'}
+                </button>
+              ))}
+            </div>
+          )}
+          <div className="btn-row">
+            <button
+              type="button"
+              onClick={() => { setOpen(false); setRefusal('') }}
+              data-testid={`script-pool-close-${projectId}`}
+            >
+              Leave the script as it is
+            </button>
+          </div>
+          {refusal && (
+            <div className="errbox" role="alert" data-testid={`script-pool-error-${projectId}`}>
+              {refusal}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
 
 /**
  * C2a-M3 — THE SECOND WAY TO START A PICTURE (charter §3.5).
@@ -964,6 +1062,18 @@ export function WritersRoom({
                       <div className="mono" data-testid={`script-weeks-${card.projectId}`}>
                         {card.weeksUntilDecision} week{card.weeksUntilDecision === 1 ? '' : 's'} until review
                       </div>
+                    )}
+
+                    {card.status === 'drafting' && (
+                      <ScreenplayWriterPool
+                        projectId={card.projectId}
+                        poolFor={() => writerPool(state, card.projectId)}
+                        onAssign={(writerId) => {
+                          const result = assignScreenplayWriterAction(state, card.projectId, writerId)
+                          if (result.ok) onChange(result.next)
+                          return result
+                        }}
+                      />
                     )}
 
                     {card.assessment && (

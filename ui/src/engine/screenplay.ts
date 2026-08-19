@@ -52,6 +52,7 @@ import {
   screenplayDraftConsequence,
   screenplayProvenance,
   scriptDraftWeeks,
+  scriptProjectWriterIds,
   setTypeLabel,
   writingPaceExperience,
 } from '../../../src/core/index.ts'
@@ -379,6 +380,77 @@ export function assignScreenplayWriterAction(
     }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
+  }
+}
+
+// ── Pooling: more hands on the same script (`00E`.9) ─────────────────────────
+
+/** One writer who could join a script that is being drafted, and what it would buy. */
+export type WriterPoolCandidateView = {
+  id: string
+  name: string
+  /** The week the draft would be due if they joined — the ENGINE'S own answer. */
+  dueWeek: number
+  /** How many weeks earlier that is than the schedule standing now. */
+  weeksSaved: number
+}
+
+export type WriterPoolView = {
+  projectId: string
+  /** Everyone whose name is on this script now, in join order. */
+  onIt: { id: string; name: string }[]
+  maxWriters: number
+  /** The week the draft is due as things stand, or null when it has none. */
+  dueWeek: number | null
+  candidates: WriterPoolCandidateView[]
+}
+
+/**
+ * WHO ELSE COULD WRITE THIS, AND WHAT IT WOULD BUY — answered by asking the
+ * engine what would happen, never by restating its arithmetic.
+ *
+ * *"To speed the writing of scripts, put multiple writers on the project."*
+ * [CORPUS Prima, developer-reviewed; `00E`.9.] Every candidate below is a writer
+ * for whom `assignScreenplayWriter` ACTUALLY SUCCEEDS on the current state, and
+ * the due week each one shows is the due week that successor carries. A writer
+ * the engine would refuse is absent from the list rather than offered and then
+ * rejected, and the saving is measured rather than promised.
+ *
+ * The probe is pure — `applyActions` returns a new state and this discards it —
+ * so nothing here can move the world. Call it when the player opens the control,
+ * not on every render of every card.
+ */
+export function writerPool(state: GameState, projectId: string): WriterPoolView | null {
+  const project = state.scriptDevelopment.projects.find((candidate) => candidate.id === projectId)
+  if (project === undefined) return null
+  const onIt = scriptProjectWriterIds(project).map((id) => ({
+    id,
+    name: talentName(state, id) ?? id,
+  }))
+  const seated = new Set(onIt.map((person) => person.id))
+  const dueWeek = project.dueWeek
+  const candidates: WriterPoolCandidateView[] = []
+  for (const person of state.talent) {
+    if (seated.has(person.id) || person.skills.writing === undefined) continue
+    const probe = assignScreenplayWriterAction(state, projectId, person.id)
+    if (!probe.ok) continue
+    const after = probe.next.scriptDevelopment.projects.find(
+      (candidate) => candidate.id === projectId,
+    )
+    if (after?.dueWeek === null || after?.dueWeek === undefined) continue
+    candidates.push({
+      id: person.id,
+      name: person.name,
+      dueWeek: after.dueWeek,
+      weeksSaved: dueWeek === null ? 0 : Math.max(0, dueWeek - after.dueWeek),
+    })
+  }
+  return {
+    projectId,
+    onIt,
+    maxWriters: TUNING.SCRIPT_DRAFT_MAX_WRITERS,
+    dueWeek,
+    candidates,
   }
 }
 

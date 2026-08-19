@@ -29,8 +29,10 @@ import {
 } from '../engine/adapter.ts'
 import type { CreativeRole, GameState } from '../engine/adapter.ts'
 import {
+  assignScreenplayWriterAction,
   commissionOriginalScreenplayAction,
   screenplayIdentityForProject,
+  writerPool,
 } from '../engine/screenplay.ts'
 import { WritersRoom } from './WritersRoom.tsx'
 
@@ -245,6 +247,45 @@ describe('C2a-M3 — the title moment and the rename', () => {
     // And the engine is the authority that says so, not this surface.
     expect(screenplayIdentityForProject(state, projectId)!.renameRefusal).toContain(
       'Only a screenplay this studio wrote can be retitled.',
+    )
+  })
+
+  // ── C2a-M3 / `00E`.9 — more hands buy TIME, and only time ──────────────────
+  it('offers only writers the engine would accept, and states the week each would deliver', () => {
+    const { state, projectId } = studioWritingAnOriginal('m3-pooling')
+    const pool = writerPool(state, projectId)!
+    const live = renderRoom(state)
+
+    fireEvent.click(screen.getByTestId(`script-pool-open-${projectId}`))
+
+    expect(screen.getByTestId(`script-pool-on-it-${projectId}`).textContent).toContain(
+      `${String(pool.onIt.length)} of ${String(pool.maxWriters)}`,
+    )
+    // Every offered name is one the ENGINE accepts on this exact state.
+    for (const candidate of pool.candidates) {
+      const button = screen.getByTestId(`script-pool-add-${projectId}-${candidate.id}`)
+      expect(button.textContent).toContain(`delivers week ${String(candidate.dueWeek)}`)
+      expect(assignScreenplayWriterAction(state, projectId, candidate.id).ok).toBe(true)
+    }
+    // …and the writer already on it is never offered to itself.
+    for (const person of pool.onIt) {
+      expect(screen.queryByTestId(`script-pool-add-${projectId}-${person.id}`)).toBeNull()
+    }
+
+    const first = pool.candidates[0]
+    if (first === undefined) throw new Error('fixture: no second writer is free')
+    fireEvent.click(screen.getByTestId(`script-pool-add-${projectId}-${first.id}`))
+
+    const after = live.current()
+    const project = after.scriptDevelopment.projects.find((row) => row.id === projectId)!
+    expect(project.writerIds).toContain(first.id)
+    expect(project.dueWeek).toBe(first.dueWeek)
+    // It bought TIME and nothing else: the attribution and the credit are untouched.
+    expect(project.writerId).toBe(
+      state.scriptDevelopment.projects.find((row) => row.id === projectId)!.writerId,
+    )
+    expect(screenplayIdentityForProject(after, projectId)!.provenance.label).toBe(
+      screenplayIdentityForProject(state, projectId)!.provenance.label,
     )
   })
 })
