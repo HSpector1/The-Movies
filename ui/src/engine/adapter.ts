@@ -46,6 +46,9 @@ import {
   // C2a-M4 (§3.3): the one gate question, asked of the engine's own union
   // producer so no surface derives capacity a second way.
   gateSlotAvailable,
+  // C2a-M4 (§3.3): the engine's own resource-key producer, so the UI never
+  // invents the format of a key it only means to look up.
+  facilitySlotKey,
   // constants
   TUNING,
   CAST_WEIGHT,
@@ -194,6 +197,9 @@ import {
   castingSessionsReadModel as coreCastingSessionsReadModel,
   // Studio Calendar V1 — one pure, studio-wide planning projection.
   studioCalendar as coreStudioCalendar,
+  // C2a-M4 (§3.3) — THE QUEUE, joined. One core read model answers all four of
+  // owner law 2's questions; every surface that shows the queue reads THIS.
+  studioQueueView as coreStudioQueueView,
   // Development & Casting Annex V1 — one core-owned lifecycle projection.
   studioConstructionView as coreStudioConstructionView,
   // Placement Core V12 — the one construction authority (M2-UI Build Mode).
@@ -370,6 +376,11 @@ import type {
   StudioCalendarProductionView,
   StudioCalendarProductionFacilityView,
   StudioCalendarProductionBlockerView,
+  StudioQueueView,
+  StudioQueueWaiterView,
+  StudioQueueNeedView,
+  StudioQueueOccupantView,
+  StudioQueueRemedy,
   StudioCalendarContractView,
   StudioCalendarExpiryClusterView,
   StudioCalendarSummaryView,
@@ -484,6 +495,11 @@ export type {
   StudioCalendarProductionView,
   StudioCalendarProductionFacilityView,
   StudioCalendarProductionBlockerView,
+  StudioQueueView,
+  StudioQueueWaiterView,
+  StudioQueueNeedView,
+  StudioQueueOccupantView,
+  StudioQueueRemedy,
   StudioCalendarContractView,
   StudioCalendarExpiryClusterView,
   StudioCalendarSummaryView,
@@ -1019,6 +1035,53 @@ export function castingSessionsBoard(state: GameState): CastingSessionsReadModel
 // React may format values and attach navigation labels, but owns no date or rule.
 export function studioCalendarBoard(state: GameState): StudioCalendarView {
   return coreStudioCalendar(state)
+}
+
+// ── C2a-M4 (§3.3): THE QUEUE BOARD — owner law 2's four facts, unedited ──────
+//
+// The cap is gone. What replaced it is a QUEUE, and a queue the player cannot
+// read is exactly the "magically forbid" the owner ruled out. The engine joins
+// WHAT IS WAITING / WHAT IT NEEDS / WHO OCCUPIES IT / WHAT RELIEVES IT into one
+// projection; this is a passthrough, byte-for-byte, because a second reading of
+// "who is waiting for what" is one reading too many (§3.3).
+//
+// React formats these facts and routes the remedies. It derives none of them:
+// no free-slot arithmetic, no countdown, no price, no blueprint lookup.
+export function studioQueueBoard(state: GameState): StudioQueueView {
+  return coreStudioQueueView(state)
+}
+
+/**
+ * WHERE the holder is standing — the queue's third fact, said as a place.
+ *
+ * `StudioQueueOccupantView.resourceId` is a resource KEY, not a place a player
+ * has ever heard of. The name of the room is on the calendar projection and the
+ * name of the scenery is on the set, so this joins those two engine answers into
+ * a lookup and nothing more. The keys are minted by the engine's OWN
+ * `facilitySlotKey`, never by parsing a string in the UI: a surface that split
+ * `"facility-stage-07:0"` on a colon would be inventing the engine's key format
+ * and would go quietly wrong the day that format changed.
+ */
+export function studioQueueHolderPlaces(state: GameState): ReadonlyMap<string, string> {
+  const places = new Map<string, string>()
+  for (const facility of coreStudioCalendar(state).facilities) {
+    for (const slot of facility.slots) {
+      places.set(facilitySlotKey(facility.facilityId, slot.slot), facility.facilityName)
+    }
+  }
+  for (const set of state.sets) {
+    places.set(`set:${set.id}`, set.name)
+  }
+  return places
+}
+
+/** Withdraw a queued intent that has not been granted a slot yet (§3.3). */
+export function cancelQueuedIntentAction(state: GameState, ordinal: number): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'cancelQueuedIntent', ordinal }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
 }
 
 // Development & Casting Annex V1. React receives the exact core projection and

@@ -1030,6 +1030,55 @@ th.num {
   gap: 3px;
 }
 
+/* ── C2a-M4: THE QUEUE PANEL (charter §3.3, owner law 2) ────────────────── */
+.queue-facts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 8px;
+  margin: 0;
+}
+.queue-facts > div {
+  padding: 9px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-inset);
+  min-width: 0;
+}
+.queue-facts dt {
+  color: var(--text-dim);
+  font-size: 12px;
+}
+.queue-facts dd {
+  margin: 2px 0 0;
+}
+.queue-holder-list,
+.queue-remedy-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.queue-remedy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.queue-remedy-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .queue-facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* ── Development & Casting Annex V1 ─────────────────────────────────────── */
 .development-header,
 .development-preview-heading,

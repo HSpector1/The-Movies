@@ -10,8 +10,9 @@ import type {
   StudioCalendarDecisionView,
   StudioCalendarView,
 } from '../engine/adapter.ts'
-import { studioCalendarBoard } from '../engine/adapter.ts'
+import { studioCalendarBoard, studioQueueBoard, studioQueueHolderPlaces } from '../engine/adapter.ts'
 import { moneyExact } from '../format.ts'
+import { StudioQueuePanel } from '../components/StudioQueuePanel.tsx'
 import { StudioDevelopmentPreview } from './StudioDevelopment.tsx'
 
 export type StudioCalendarRoute =
@@ -21,6 +22,11 @@ export type StudioCalendarRoute =
   | { kind: 'theatricalRun'; productionId: string }
   | { kind: 'contract'; talentId: string }
   | { kind: 'studioDevelopment' }
+  // C2a-M4 (§3.3): a queue remedy is only actionable if it goes somewhere. A
+  // ROOM is built on the lot, where the ground is chosen; SCENERY is commissioned
+  // at the Scenery Shop, which lives on the Studio Development screen.
+  | { kind: 'buildCatalog'; blueprintId: string }
+  | { kind: 'sceneryShop' }
 
 function decisionCopy(
   decision: StudioCalendarDecisionView | null,
@@ -193,6 +199,7 @@ export function StudioCalendarPreview({
   onOpen?: () => void
 }) {
   const calendar = useMemo(() => studioCalendarBoard(state), [state])
+  const queue = useMemo(() => studioQueueBoard(state), [state])
   const busiest = calendar.staffingHorizon.busiestExpiry
   return (
     <section className="card calendar-preview" aria-labelledby="calendar-preview-heading" data-testid="calendar-preview">
@@ -236,6 +243,19 @@ export function StudioCalendarPreview({
               : 'No active contract expiry cluster'}
           </strong>
         </div>
+        {/* C2a-M4 (§3.3): the queue's headline fact, where the studio's summary
+            already is. Nothing is refused for being next in line any more, so
+            "how long is the line" is a standing question the Dashboard answers. */}
+        <div>
+          <span className="hint">Waiting on the lot</span>
+          <strong data-testid="calendar-preview-queue">
+            {calendar.mode !== 'managed'
+              ? 'Legacy studio · no queue'
+              : queue.waiters.length === 0
+                ? 'Nothing is waiting'
+                : `${String(queue.waiters.length)} waiting · longest ${String(queue.summary.longestWaitWeeks)} week${queue.summary.longestWaitWeeks === 1 ? '' : 's'}`}
+          </strong>
+        </div>
       </div>
     </section>
   )
@@ -245,12 +265,18 @@ export function StudioCalendar({
   state,
   onNavigate,
   onBack,
+  onCancelQueuedIntent,
 }: {
   state: GameState
   onNavigate: (route: StudioCalendarRoute) => void
   onBack: () => void
+  /** C2a-M4: withdraw a queued front-door intent. Absent = the row states only. */
+  onCancelQueuedIntent?: (ordinal: number) => { ok: true } | { ok: false; error: string }
 }) {
   const calendar = useMemo(() => studioCalendarBoard(state), [state])
+  const queue = useMemo(() => studioQueueBoard(state), [state])
+  const queuePlaces = useMemo(() => studioQueueHolderPlaces(state), [state])
+  const [queueError, setQueueError] = useState('')
   const headingRef = useRef<HTMLHeadingElement | null>(null)
   const decision = decisionCopy(calendar.nextDecision, calendar.productionOutlook)
   const [operationalAnnouncement, setOperationalAnnouncement] = useState('')
@@ -377,6 +403,43 @@ export function StudioCalendar({
           </div>
         )}
       </section>
+
+      {/* ── C2a-M4 (§3.3): THE QUEUE, beside the occupancy it is waiting on ────
+          The board above says who is IN the rooms. This says who is OUTSIDE
+          them, what they need, who has it, and what would relieve it — the four
+          facts owner law 2 requires, in the order a player asks them. */}
+      {calendar.mode === 'managed' && (
+        <StudioQueuePanel
+          view={queue}
+          places={queuePlaces}
+          headingId="calendar-queue-heading"
+          handlers={{
+            onBuild: (remedy) => {
+              onNavigate(
+                remedy.catalog === 'facility'
+                  ? { kind: 'buildCatalog', blueprintId: remedy.blueprintId }
+                  : { kind: 'sceneryShop' },
+              )
+            },
+            onRepairSet: () => onNavigate({ kind: 'sceneryShop' }),
+            onStrikeSet: () => onNavigate({ kind: 'sceneryShop' }),
+            ...(onCancelQueuedIntent === undefined
+              ? {}
+              : {
+                  onCancelIntent: (remedy: { ordinal: number }) => {
+                    const outcome = onCancelQueuedIntent(remedy.ordinal)
+                    setQueueError(outcome.ok ? '' : outcome.error)
+                  },
+                }),
+          }}
+        />
+      )}
+
+      {queueError !== '' && (
+        <div className="errbox" role="alert" data-testid="calendar-queue-error">
+          {queueError}
+        </div>
+      )}
 
       <StudioDevelopmentPreview
         state={state}

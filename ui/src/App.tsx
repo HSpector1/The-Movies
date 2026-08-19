@@ -70,6 +70,7 @@ import {
   studioDecision,
   developmentOfficeUplift,
   studioDevelopment,
+  cancelQueuedIntentAction,
   studioPlacement,
   studioLotSnapshot,
   commissionScriptAction,
@@ -2558,7 +2559,41 @@ export function App() {
       case 'studioDevelopment':
         setScreen({ kind: 'studioDevelopment', returnContext })
         break
+      // ── C2a-M4 (§3.3): the queue's build remedies, routed ─────────────────
+      // A ROOM is chosen from the catalog and then placed on GROUND, and the
+      // ground is a real decision only the lot can take — so the remedy names
+      // the building, its price and its weeks on the queue panel, and lands the
+      // player where the catalog and the parcels are. With the lot switched off
+      // the Studio Development screen is the construction surface that exists.
+      case 'buildCatalog':
+        setScreen(
+          lotEnabled
+            ? { kind: 'lot', entryFocus: 'studio-home' }
+            : { kind: 'studioDevelopment', returnContext },
+        )
+        break
+      // SCENERY is commissioned, repaired and struck at the Scenery Shop, which
+      // is a panel on Studio Development — the exact surface, not an approximation.
+      case 'sceneryShop':
+        setScreen({ kind: 'studioDevelopment', returnContext })
+        break
     }
+  }
+
+  /**
+   * C2a-M4 (§3.3): withdraw a queued front-door intent.
+   *
+   * A queued intent holds NOTHING — no cash, no talent, no room — so withdrawing
+   * it spends nothing back and simply removes a row. The engine owns the legality;
+   * a refusal here is a state the queue panel could not have offered, so it is
+   * surfaced the way every other adapter refusal is.
+   */
+  function handleCancelQueuedIntent(ordinal: number): { ok: true } | { ok: false; error: string } {
+    if (!state) return { ok: false, error: 'No studio is loaded.' }
+    const outcome = cancelQueuedIntentAction(state, ordinal)
+    if (!outcome.ok) return { ok: false, error: outcome.error }
+    replaceAuthoritativeState(outcome.next)
+    return { ok: true }
   }
 
   // Translate a lot navigation intent into the existing screen navigation. Every route
@@ -4327,6 +4362,7 @@ export function App() {
           state={state}
           onNavigate={(route) => handleCalendarNavigate(route, screen.returnContext)}
           onBack={() => returnToStudioContext(screen.returnContext)}
+          onCancelQueuedIntent={handleCancelQueuedIntent}
         />
       )}
 
