@@ -502,6 +502,22 @@ base (`a394838`): root tsc 0 · ui tsc 0 · FULL vitest **320 files / 4,370 pass
   which is §4.1's own sentence about a genuinely failing studio made mechanical.
   M4's G16 law-2 facts re-asserted non-empty for every waiter on every week.
 
+- **FOUR-WAY TIME PARITY IS A PERMANENT SUITE** (`08A` §4, charter §4.1 / G8).
+  `ui/src/lot/livingTurn.parity.test.tsx` (7 tests) closes the obligation
+  `m5-determinism.contract.test.ts` could only half-close: the same seeded studio
+  advanced (a) BY HAND through the manual verb at the App seam, (b) BY THE LIVING
+  LOOP at 1× and again at 4×, (c) PAUSED AND RESUMED arbitrarily — including a
+  Hold taken half way through a witnessed week and two pace changes mid-run — and
+  (d) BATCH-SKIPPED through the fast-forward verb, bounded to the same week.
+  **FOUR EXPORTED SAVES, ONE SET, SIZE 1.** The wall clock is `vi.useFakeTimers()`
+  throughout, which is the statement of what the scheduler is: winding a mocked
+  clock and getting the bytes a player's own presses produce IS the proof that
+  wall time decides nothing. The batch arm is asserted NON-VACUOUS (a genuine
+  multi-week skip, not a hand walk wearing the batch verb's name). Also lands
+  **G8.1/G8.2 theater on/off byte-parity**: twelve weeks with the projection taken
+  every week and twelve with it never taken export byte-identically, `rngState`
+  included, with the enabled arm proven non-vacuous (subjects seen, ≥2 kinds).
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and
