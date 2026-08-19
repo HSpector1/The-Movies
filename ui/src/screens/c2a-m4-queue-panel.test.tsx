@@ -274,7 +274,7 @@ describe('C2a-M4 — the one queue verb the player owns', () => {
     const onCancel = vi.fn(() => ({ ok: true as const }))
     render(<StudioCalendar state={state} onNavigate={() => {}} onBack={() => {}} onCancelQueuedIntent={onCancel} />)
     fireEvent.click(
-      screen.getByTestId(`queue-remedy-act-queue-${String(ordinal)}-cancel-${String(ordinal)}-5`),
+      screen.getByTestId(`queue-remedy-act-queue-${String(ordinal)}-cancel-${String(ordinal)}`),
     )
     expect(onCancel).toHaveBeenCalledWith(ordinal)
 
@@ -300,7 +300,7 @@ describe('C2a-M4 — the one queue verb the player owns', () => {
       />,
     )
     fireEvent.click(
-      screen.getByTestId(`queue-remedy-act-queue-${String(ordinal)}-cancel-${String(ordinal)}-5`),
+      screen.getByTestId(`queue-remedy-act-queue-${String(ordinal)}-cancel-${String(ordinal)}`),
     )
     expect(screen.getByTestId('calendar-queue-error').textContent).toContain(
       'the queue moved before the click landed',

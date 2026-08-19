@@ -156,7 +156,15 @@ function remedyCopy(
   }
 }
 
-function remedyKey(remedy: StudioQueueRemedy, index: number): string {
+/**
+ * A remedy's stable identity — the thing it acts on, never its position.
+ *
+ * A positional key would move when the engine's remedy order moved, which is a
+ * React identity bug and a brittle test handle at once. Every arm names the
+ * resource, blueprint or ordinal it is about, and a waiter can only carry one
+ * remedy per subject.
+ */
+function remedyKey(remedy: StudioQueueRemedy): string {
   switch (remedy.kind) {
     case 'build-blueprint':
       return `build-${remedy.catalog}-${remedy.blueprintId}`
@@ -167,7 +175,7 @@ function remedyKey(remedy: StudioQueueRemedy, index: number): string {
     case 'strike-and-mount':
       return `strike-${remedy.setId}`
     case 'cancel-queued-intent':
-      return `cancel-${String(remedy.ordinal)}-${String(index)}`
+      return `cancel-${String(remedy.ordinal)}`
   }
 }
 
@@ -271,9 +279,9 @@ export function StudioQueueWaiterRow({
           <span className="hint">Nothing on the lot can relieve this one yet.</span>
         ) : (
           <ul className="queue-remedy-list">
-            {waiter.remedies.map((remedy, index) => {
+            {waiter.remedies.map((remedy) => {
               const copy = remedyCopy(remedy, week)
-              const key = remedyKey(remedy, index)
+              const key = remedyKey(remedy)
               const onAct = remedyHandler(remedy, handlers)
               return (
                 <li className="inset queue-remedy" key={key} data-testid={`queue-remedy-${waiter.id}-${key}`}>
