@@ -32,6 +32,7 @@ import {
   lotTheaterFreightCount,
   lotTheaterSubjects,
   lotWeekTheater,
+  theaterCallBoardLines,
 } from './weekTheater.ts'
 import type { StudioLotSnapshot } from './StudioLotSnapshot.ts'
 
@@ -193,6 +194,45 @@ describe('week theater — the plant, over a real studio s first weeks', () => {
         }
       }
     }
+  })
+})
+
+describe('the Call Board says what the engine said, and nothing else', () => {
+  it('names the picture and quotes the reason verbatim', () => {
+    expect(
+      theaterCallBoardLines({
+        buildingId: 'stage-a',
+        waiting: [
+          {
+            subjectId: 's1',
+            productionTitle: 'The Long Afternoon',
+            reason: 'Stage A is held by Rain on the Boulevard until Week 14.',
+            weeksWaiting: 2,
+          },
+        ],
+        freight: 2,
+      }),
+    ).toEqual([
+      'The Long Afternoon — Stage A is held by Rain on the Boulevard until Week 14.',
+      '2 weeks of freight are standing on the apron.',
+    ])
+  })
+
+  it('says "A picture" when the engine named none (§5 pin 3) and never reaches for an id', () => {
+    const lines = theaterCallBoardLines({
+      buildingId: 'stage-b',
+      waiting: [{ subjectId: 's2', productionTitle: null, reason: null, weeksWaiting: null }],
+      freight: 1,
+    })
+    expect(lines).toEqual([
+      'A picture is standing by.',
+      'One week of freight is standing on the apron.',
+    ])
+    for (const line of lines) expect(line).not.toMatch(/prod-|facility-|set-|s2/)
+  })
+
+  it('says nothing at all about an apron with nothing on it', () => {
+    expect(theaterCallBoardLines({ buildingId: 'stage-a', waiting: [], freight: 0 })).toEqual([])
   })
 })
 

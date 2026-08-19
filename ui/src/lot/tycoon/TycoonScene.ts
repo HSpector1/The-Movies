@@ -65,6 +65,7 @@ import {
   lotBodyTheaterStates,
   lotCallBoard,
   lotSceneryHauls,
+  theaterCallBoardLines,
   type LotBodyTheaterState,
   type LotCallBoardPlacard,
   type LotSceneryHaul,
@@ -343,29 +344,6 @@ type AmbientActor = {
   ground: AmbientGroundName
 }
 
-/**
- * The Call Board placard's lines, in the studio's voice (§4.2, r3.1 Option A).
- *
- * The four law-2 facts are ALREADY composed by the engine into `reason` (M4's
- * Remedy sentence); this only puts the picture's name in front of them and states
- * the wait. It writes nothing the engine did not say, and it never prints an id.
- */
-function theaterCallBoardLines(placard: LotCallBoardPlacard): string[] {
-  const lines: string[] = []
-  for (const waiting of placard.waiting) {
-    const who = waiting.productionTitle ?? 'A picture'
-    const reason = waiting.reason
-    lines.push(reason === null || reason.length === 0 ? `${who} is standing by.` : `${who} — ${reason}`)
-  }
-  if (placard.freight > 0) {
-    lines.push(
-      placard.freight === 1
-        ? 'One week of freight is standing on the apron.'
-        : `${String(placard.freight)} weeks of freight are standing on the apron.`,
-    )
-  }
-  return lines
-}
 
 /**
  * One inert dressing prop and the cell it stands on (C1-M6b).
