@@ -219,6 +219,16 @@ const OTHER_COMPANY_ALPHA = 0.72
 const GROUND_MARGIN_X = 500
 const GROUND_MARGIN_Y = 380
 
+/** Blend two packed 0xRRGGBB colours. The surround's only colour arithmetic. */
+function mixRgb(from: number, to: number, t: number): number {
+  const lerp = (a: number, b: number): number => Math.round(a + (b - a) * t)
+  return (
+    (lerp((from >> 16) & 0xff, (to >> 16) & 0xff) << 16) |
+    (lerp((from >> 8) & 0xff, (to >> 8) & 0xff) << 8) |
+    lerp(from & 0xff, to & 0xff)
+  )
+}
+
 const DEPTH = {
   ground: -1_000_000,
   /** Parcel hit areas sit BELOW every building, so a building always wins an overlap. */
@@ -1019,15 +1029,27 @@ export class TycoonScene extends Phaser.Scene {
       pts.push({ x: w + 60, y: baseY + 420 })
       fill(pts, colour)
     }
-    ridge(GROUND_MARGIN_Y * 0.42, 62, C.hillFar, 401)
-    ridge(GROUND_MARGIN_Y * 0.66, 54, C.hillMid, 409)
-    ridge(GROUND_MARGIN_Y * 0.88, 44, C.hillNear, 419)
-    // Scrub on the near ridge, so it is a hillside rather than a paper cut-out.
-    for (let i = 0; i < 90; i++) {
+    // The three baselines are TIGHT and low on purpose. The property's own north corner
+    // sits at local y = GROUND_MARGIN_Y, and at the whole-property framing everything
+    // above roughly 0.7 of that is behind the top bar — so a generously spaced range
+    // would have put two of its three ridges where nobody can see them. Layered into
+    // the visible sliver instead, which is also what a real distant range looks like.
+    ridge(GROUND_MARGIN_Y * 0.79, 30, C.hillFar, 401)
+    ridge(GROUND_MARGIN_Y * 0.89, 24, C.hillMid, 409)
+    ridge(GROUND_MARGIN_Y * 0.97, 18, C.hillNear, 419)
+    // Scrub and a ridge line of trees, so the range is a hillside not a paper cut-out.
+    for (let i = 0; i < 110; i++) {
       const x = gridNoise(i, 431) * (w + 120) - 60
-      const y = GROUND_MARGIN_Y * 0.9 - gridNoise(i, 433) * 52
-      g.fillStyle(C.hillScrub, 0.5)
-      g.fillEllipse(x, y, 20 + gridNoise(i, 437) * 26, 8 + gridNoise(i, 439) * 8)
+      const y = GROUND_MARGIN_Y * 0.97 - gridNoise(i, 433) * 26
+      g.fillStyle(C.hillScrub, 0.55)
+      g.fillEllipse(x, y, 18 + gridNoise(i, 437) * 22, 7 + gridNoise(i, 439) * 7)
+    }
+    for (let i = 0; i < 46; i++) {
+      const x = gridNoise(i, 441) * (w + 120) - 60
+      const y = GROUND_MARGIN_Y * 0.9 - gridNoise(i, 443) * 18
+      const r = 5 + gridNoise(i, 447) * 5
+      g.fillStyle(C.groveDark, 0.8)
+      g.fillEllipse(x, y - r, r * 1.7, r * 1.5)
     }
 
     // ── the groves ────────────────────────────────────────────────────────────
@@ -1167,17 +1189,19 @@ export class TycoonScene extends Phaser.Scene {
       g.fillStyle(C.grove, 1)
       g.fillEllipse(p.x - 1, p.y - r * 0.95, r * 1.3, r * 1.0)
     }
-    for (let gx = -12; gx < this.lotW + 12; gx += 3.6) {
+    for (let gx = -14; gx < this.lotW + 14; gx += 2.7) {
       const salt = Math.round(gx * 4) + 900
-      bungalow(gx, this.lotD + 6.1, 2.2 + gridNoise(salt, 831) * 0.7, 1.7, salt)
-      yardTree(gx + 2.9, this.lotD + 5.7, salt + 1)
-      if (gridNoise(salt, 841) > 0.45) bungalow(gx + 1.1, this.lotD + 9.2, 2.4, 1.9, salt + 2)
+      bungalow(gx, this.lotD + 6.1, 1.8 + gridNoise(salt, 831) * 0.6, 1.6, salt)
+      yardTree(gx + 2.2, this.lotD + 5.7, salt + 1)
+      if (gridNoise(salt, 841) > 0.36) bungalow(gx + 0.8, this.lotD + 9.0, 2.0, 1.7, salt + 2)
+      if (gridNoise(salt, 845) > 0.55) bungalow(gx - 0.4, this.lotD + 11.6, 2.2, 1.8, salt + 3)
     }
-    for (let gy = -12; gy < this.lotD + 12; gy += 3.6) {
+    for (let gy = -14; gy < this.lotD + 14; gy += 2.7) {
       const salt = Math.round(gy * 4) + 1_100
-      bungalow(this.lotW + 6.1, gy, 1.7, 2.2 + gridNoise(salt, 833) * 0.7, salt)
-      yardTree(this.lotW + 5.7, gy + 2.9, salt + 1)
-      if (gridNoise(salt, 843) > 0.45) bungalow(this.lotW + 9.2, gy + 1.1, 1.9, 2.4, salt + 2)
+      bungalow(this.lotW + 6.1, gy, 1.6, 1.8 + gridNoise(salt, 833) * 0.6, salt)
+      yardTree(this.lotW + 5.7, gy + 2.2, salt + 1)
+      if (gridNoise(salt, 843) > 0.36) bungalow(this.lotW + 9.0, gy + 0.8, 1.7, 2.0, salt + 2)
+      if (gridNoise(salt, 847) > 0.55) bungalow(this.lotW + 11.6, gy - 0.4, 1.8, 2.2, salt + 3)
     }
 
     // ── traffic on the public street ──────────────────────────────────────────
@@ -1186,8 +1210,12 @@ export class TycoonScene extends Phaser.Scene {
     const parkedCar = (gx: number, gy: number, along: 'gx' | 'gy', salt: number): void => {
       const p = at(gx, gy)
       if (!near(p)) return
-      const L = 1.5
-      const W = 0.62
+      // A car is ~0.8 of a tile, not one and a half. The first cut of this drew them at
+      // 1.5 tiles in near-black and, once the street was busy enough to read as a street,
+      // they merged into slabs of shadow — the exact "black blob" failure this milestone
+      // spent the rest of its budget removing from the apron.
+      const L = 0.82
+      const W = 0.4
       const box = (z0: number, z1: number, shrink: number, colour: number): void => {
         const a = shrink * L * 0.5
         const b = shrink * W * 0.5
@@ -1199,24 +1227,35 @@ export class TycoonScene extends Phaser.Scene {
         fill([at(x1, y0, z0), at(x1, y1, z0), at(x1, y1, z1), at(x1, y0, z1)], colour)
         fill([at(x0, y0, z1), at(x1, y0, z1), at(x1, y1, z1), at(x0, y1, z1)], colour)
       }
-      const body = gridNoise(salt, 851) > 0.55 ? C.vanBody : C.carBody
+      // Never the near-black of a real 1948 sedan: on public ground, at this size, value
+      // has to stay inside the surround's own band or the street reads as a hole.
+      const tone = gridNoise(salt, 851)
+      const body = tone > 0.66 ? C.vanBody : tone > 0.33 ? C.truckBody : C.neighbourWallShade
       fill(
-        [at(gx - 0.9, gy - 0.5), at(gx + 0.9, gy - 0.5), at(gx + 0.9, gy + 0.5), at(gx - 0.9, gy + 0.5)],
+        [at(gx - 0.5, gy - 0.3), at(gx + 0.5, gy - 0.3), at(gx + 0.5, gy + 0.3), at(gx - 0.5, gy + 0.3)],
         C.shadow,
-        0.2,
+        0.14,
       )
-      box(0, 15, 0, body)
-      box(15, 25, 0.42, body)
-      g.fillStyle(C.carTrim, 0.75)
-      g.fillEllipse(p.x, p.y - 17, 12, 5)
+      box(0, 9, 0, body)
+      box(9, 15, 0.4, mixRgb(body, 0xffffff, 0.16))
+      g.fillStyle(C.carTrim, 0.6)
+      g.fillEllipse(p.x, p.y - 11, 7, 3)
     }
-    for (let gx = -11; gx < this.lotW + 11; gx += 5.4) {
-      if (gridNoise(Math.round(gx), 861) < 0.42) continue
-      parkedCar(gx, this.lotD + 2.35, 'gx', Math.round(gx) + 861)
+    for (let gx = -12; gx < this.lotW + 12; gx += 3.1) {
+      if (gridNoise(Math.round(gx * 2), 861) < 0.34) continue
+      parkedCar(gx, this.lotD + 2.35, 'gx', Math.round(gx * 2) + 861)
     }
-    for (let gy = -11; gy < this.lotD + 11; gy += 5.4) {
-      if (gridNoise(Math.round(gy), 871) < 0.42) continue
-      parkedCar(this.lotW + 2.35, gy, 'gy', Math.round(gy) + 871)
+    for (let gx = -12; gx < this.lotW + 12; gx += 3.7) {
+      if (gridNoise(Math.round(gx * 2), 863) < 0.62) continue
+      parkedCar(gx + 1.4, this.lotD + 4.05, 'gx', Math.round(gx * 2) + 863)
+    }
+    for (let gy = -12; gy < this.lotD + 12; gy += 3.1) {
+      if (gridNoise(Math.round(gy * 2), 871) < 0.34) continue
+      parkedCar(this.lotW + 2.35, gy, 'gy', Math.round(gy * 2) + 871)
+    }
+    for (let gy = -12; gy < this.lotD + 12; gy += 3.7) {
+      if (gridNoise(Math.round(gy * 2), 873) < 0.62) continue
+      parkedCar(this.lotW + 4.05, gy + 1.4, 'gy', Math.round(gy * 2) + 873)
     }
 
     // ── the picture billboard on the gate approach ────────────────────────────
@@ -1283,11 +1322,17 @@ export class TycoonScene extends Phaser.Scene {
         g.strokePath()
       }
     }
-    for (let gx = -10; gx < this.lotW + 11; gx += 3.3) {
-      streetPalm(gx, this.lotD + 1.55, Math.round(gx) + 891)
+    for (let gx = -12; gx < this.lotW + 13; gx += 2.4) {
+      streetPalm(gx, this.lotD + 1.55, Math.round(gx * 2) + 891)
+      if (gridNoise(Math.round(gx * 2), 893) > 0.5) {
+        streetPalm(gx + 1.2, this.lotD + 5.0, Math.round(gx * 2) + 895)
+      }
     }
-    for (let gy = -10; gy < this.lotD + 11; gy += 3.3) {
-      streetPalm(this.lotW + 1.55, gy, Math.round(gy) + 897)
+    for (let gy = -12; gy < this.lotD + 13; gy += 2.4) {
+      streetPalm(this.lotW + 1.55, gy, Math.round(gy * 2) + 897)
+      if (gridNoise(Math.round(gy * 2), 899) > 0.5) {
+        streetPalm(this.lotW + 5.0, gy + 1.2, Math.round(gy * 2) + 901)
+      }
     }
   }
 
