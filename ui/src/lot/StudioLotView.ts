@@ -37,6 +37,8 @@ import {
 } from './tycoon/TycoonScene'
 import type { LotCellPoint } from './snapshot/StudioLotSnapshot'
 import type { LotPersonState } from './snapshot/StudioLotSnapshot'
+import { threeLotEnabled } from '../flags.ts'
+import type { ThreeLotEvent, ThreeLotScene } from './three/ThreeLotScene'
 
 export type { CameraPreset, CharacterInfo, MomentKind }
 export type { HollywoodGateVisitorPresentation, HollywoodGateVisitorSelection }
@@ -120,7 +122,7 @@ export type StudioLotViewOptions = {
 export type { TycoonBuildMode, TycoonPlacementPreview }
 
 export class StudioLotView {
-  private game: Phaser.Game
+  private game: Phaser.Game | null
   private scene: LotScene | null = null
   /**
    * The active semantic world renderer. Both the tycoon grid world and the retained
@@ -130,6 +132,13 @@ export class StudioLotView {
   private hollywoodScene: HollywoodScene | TycoonScene | null = null
   /** Narrow handle for the commands only the grid world offers (camera framings). */
   private tycoonScene: TycoonScene | null = null
+  /**
+   * Visual Tycoon Conversion Spike: the real-3D world renderer, mounted at this same
+   * seam behind its own DEFAULT-OFF proof flag. When it is live no Phaser game boots;
+   * every host command below forwards to whichever renderer exists. Presentation only.
+   */
+  private threeScene: ThreeLotScene | null = null
+  private readonly useThree: boolean
   private readonly worldSceneKey: 'hollywood' | 'tycoon'
   private pendingSnapshot: StudioLotSnapshot | null = null
   /** Snapshot handed to the currently booting scene; avoids repainting it at ready. */
@@ -147,8 +156,54 @@ export class StudioLotView {
   constructor(opts: StudioLotViewOptions) {
     this.opts = opts
     this.worldSceneKey = opts.tycoon === true ? 'tycoon' : 'hollywood'
+    this.useThree = opts.tycoon === true && threeLotEnabled()
     this.pendingSnapshot = opts.snapshot
-    this.game = this.boot()
+    if (this.useThree) {
+      this.game = null
+      void this.bootThree()
+    } else {
+      this.game = this.boot()
+    }
+  }
+
+  /** Boot the 3D spike renderer. Lazy import keeps three out of every other path. */
+  private async bootThree(): Promise<void> {
+    try {
+      const { ThreeLotScene } = await import('./three/ThreeLotScene.ts')
+      if (this.destroyed) return
+      const snapshot = this.pendingSnapshot ?? this.opts.snapshot
+      this.sceneBootSnapshot = snapshot
+      this.threeScene = new ThreeLotScene({
+        parent: this.opts.parent,
+        snapshot,
+        reducedMotion: this.reducedMotion,
+        onEvent: (e: ThreeLotEvent) => {
+          if (!this.destroyed) this.handleThreeEvent(e)
+        },
+      })
+    } catch {
+      this.reportHollywoodFailure('scene-boot-failed')
+    }
+  }
+
+  private handleThreeEvent(e: ThreeLotEvent): void {
+    if (e.type === 'failure') {
+      this.reportHollywoodFailure(e.reason)
+      return
+    }
+    if (e.type === 'ready') {
+      if (this.hollywoodFailureReported) return
+      this.threeScene?.setReducedMotion(this.reducedMotion)
+      this.threeScene?.setInputSuspended(this.inputSuspended)
+      if (this.pendingSnapshot && this.pendingSnapshot !== this.sceneBootSnapshot) {
+        this.threeScene?.applySnapshot(this.pendingSnapshot)
+      }
+      this.sceneBootSnapshot = this.pendingSnapshot
+      this.opts.onReady?.()
+      return
+    }
+    if (e.type === 'building') this.opts.onWorldBuilding?.(e.buildingId)
+    else if (e.type === 'person') this.opts.onHollywoodPerson?.(e.person)
   }
 
   private boot(): Phaser.Game {
@@ -227,7 +282,7 @@ export class StudioLotView {
       return
     }
     if (e.type === 'ready') {
-      if (this.hollywoodFailureReported) return
+      if (this.hollywoodFailureReported || this.game === null) return
       const scene = this.game.scene.getScene(this.worldSceneKey)
       this.hollywoodScene = scene as HollywoodScene | TycoonScene
       this.tycoonScene = this.worldSceneKey === 'tycoon' ? (scene as TycoonScene) : null
@@ -265,7 +320,7 @@ export class StudioLotView {
     if (this.hollywoodFailureReported || this.destroyed || !this.opts.hollywood) return
     this.hollywoodFailureReported = true
     let failedScene = this.hollywoodScene
-    if (!failedScene) {
+    if (!failedScene && this.game !== null) {
       try {
         failedScene = this.game.scene.getScene(this.worldSceneKey) as HollywoodScene | TycoonScene
       } catch {
@@ -274,15 +329,18 @@ export class StudioLotView {
     }
     try {
       failedScene?.failClosedFromHost()
+      this.threeScene?.failClosedFromHost()
     } finally {
       this.hollywoodScene = null
       this.tycoonScene = null
+      this.threeScene = null
       this.opts.onHollywoodFailure?.(reason)
     }
   }
 
   private handleEvent(e: LotEvent): void {
     if (e.type === 'ready') {
+      if (this.game === null) return
       this.scene = this.game.scene.getScene('lot') as LotScene
       this.scene.setInputSuspended(this.inputSuspended)
       if (this.pendingSnapshot && this.pendingSnapshot !== this.sceneBootSnapshot) {
@@ -325,6 +383,7 @@ export class StudioLotView {
     this.pendingSnapshot = snapshot
     this.scene?.applySnapshot(snapshot)
     this.hollywoodScene?.applySnapshot(snapshot)
+    this.threeScene?.applySnapshot(snapshot)
     if (this.hollywoodScene) this.reconcilePendingGateVisitor()
   }
 
@@ -350,11 +409,13 @@ export class StudioLotView {
   select(id: BuildingId): void {
     this.scene?.selectFromHost(id)
     this.tycoonScene?.selectFromHost(id)
+    this.threeScene?.selectFromHost(id)
   }
 
   clearSelection(): void {
     this.scene?.clearSelection()
     this.tycoonScene?.clearPlaceSelection()
+    this.threeScene?.clearPlaceSelection()
   }
 
   /** Invoke a building's default navigation action (fires onAction). */
@@ -365,12 +426,14 @@ export class StudioLotView {
   resetCamera(): void {
     this.scene?.resetCamera()
     this.hollywoodScene?.resetCamera()
+    this.threeScene?.resetCamera()
   }
 
   /** Move the camera to a named framing (overview / production / wide / entrance / theater). */
   camera(preset: CameraPreset): void {
     this.scene?.applyCameraPreset(preset)
     this.tycoonScene?.applyCameraPreset(preset)
+    this.threeScene?.applyCameraPreset(preset)
   }
 
   /**
@@ -387,6 +450,11 @@ export class StudioLotView {
    * and freezes the scene + ambient scheduler. Idempotent.
    */
   pause(): void {
+    if (this.threeScene !== null) {
+      this.threeScene.pause()
+      return
+    }
+    if (this.game === null) return
     this.pauseVignettes(true)
     if (this.game.scene.isActive('lot')) this.game.scene.pause('lot')
     if (this.game.scene.isActive(this.worldSceneKey)) this.game.scene.pause(this.worldSceneKey)
@@ -395,6 +463,13 @@ export class StudioLotView {
 
   /** Resume after `pause()` — wake the RAF loop, unfreeze the scene + ambient. */
   resume(): void {
+    if (this.threeScene !== null) {
+      this.threeScene.resume()
+      this.threeScene.setInputSuspended(this.inputSuspended)
+      if (this.pendingSnapshot) this.threeScene.applySnapshot(this.pendingSnapshot)
+      return
+    }
+    if (this.game === null) return
     this.game.loop.wake()
     if (this.game.scene.isPaused('lot')) this.game.scene.resume('lot')
     // A failed Hollywood generation may still be registered by Phaser, but its
@@ -430,6 +505,7 @@ export class StudioLotView {
     this.reducedMotion = on
     this.scene?.setReducedMotion(on)
     this.hollywoodScene?.setReducedMotion(on)
+    this.threeScene?.setReducedMotion(on)
   }
 
   /**
@@ -441,6 +517,7 @@ export class StudioLotView {
     this.inputSuspended = on
     this.scene?.setInputSuspended(on)
     this.hollywoodScene?.setInputSuspended(on)
+    this.threeScene?.setInputSuspended(on)
   }
 
   /** D1-A review: switch the studio-identity mode (baseline | concept-a | fallback). */
@@ -473,9 +550,16 @@ export class StudioLotView {
     this.scene = null
     this.hollywoodScene = null
     this.tycoonScene = null
-    this.game.destroy(true)
+    this.threeScene?.destroy()
+    this.threeScene = null
+    this.game?.destroy(true)
     this.hollywoodFailureReported = false
-    this.game = this.boot()
+    if (this.useThree) {
+      this.game = null
+      void this.bootThree()
+    } else {
+      this.game = this.boot()
+    }
   }
 
   destroy(): void {
@@ -483,7 +567,9 @@ export class StudioLotView {
     this.scene = null
     this.hollywoodScene = null
     this.tycoonScene = null
-    this.game.destroy(true)
+    this.threeScene?.destroy()
+    this.threeScene = null
+    this.game?.destroy(true)
   }
 
   selectHollywoodPerson(id: string): void { this.hollywoodScene?.selectPerson(id) }
@@ -609,7 +695,7 @@ export class StudioLotView {
    * the plate, and whenever the world simply shows the settled week instead).
    */
   playPresenceWeek(week: number): boolean {
-    return this.tycoonScene?.playPresenceWeek(week) ?? false
+    return this.tycoonScene?.playPresenceWeek(week) ?? this.threeScene?.playPresenceWeek(week) ?? false
   }
 
   /**
@@ -617,12 +703,12 @@ export class StudioLotView {
    * only — it scales the beat clock and is read by nothing that decides anything.
    */
   setPlaybackSpeed(speed: number): boolean {
-    return this.tycoonScene?.setPlaybackSpeed(speed) ?? false
+    return this.tycoonScene?.setPlaybackSpeed(speed) ?? this.threeScene?.setPlaybackSpeed(speed) ?? false
   }
 
   /** Abandon a running playback and settle on the week's own truth. Idempotent. */
   skipPresencePlayback(): boolean {
-    return this.tycoonScene?.skipPresencePlayback() ?? false
+    return this.tycoonScene?.skipPresencePlayback() ?? this.threeScene?.skipPresencePlayback() ?? false
   }
 
   /** Evidence seam: the live camera's grid → screen transform (browser suite). */

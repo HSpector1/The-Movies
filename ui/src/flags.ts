@@ -29,6 +29,9 @@ export const STUDIO_LOT_SOUNDSTAGES_LS_KEY = 'project-studio.flags.studio-lot-so
 /** localStorage key for the D1-B soundstage REVIEW/PROOF tooling (default OFF). */
 export const STUDIO_LOT_SOUNDSTAGE_PROOF_LS_KEY = 'project-studio.flags.studio-lot-soundstage-proof'
 
+/** localStorage key for the visual-conversion 3D world spike renderer (default OFF). */
+export const THREE_LOT_LS_KEY = 'project-studio.flags.three-lot'
+
 /** localStorage key for the AUTHORED Stage B ROLLBACK. Authored art is default ON;
  *  set this key to '0' to force the procedural Stage B. */
 export const STUDIO_LOT_AUTHORED_STAGE_LS_KEY = 'project-studio.flags.studio-lot-authored-stage'
@@ -59,6 +62,7 @@ type ViteEnv = {
   VITE_STUDIO_LOT_AUTHORED_STAGE_A?: string
   VITE_OPERATION_HOLLYWOOD?: string
   VITE_TYCOON_WORLD?: string
+  VITE_THREE_LOT?: string
 }
 
 function envValue(pick: (e: ViteEnv) => string | undefined): boolean {
@@ -353,4 +357,19 @@ export function setStudioLotIdentityRollback(rollback: boolean): void {
   } catch {
     /* storage unavailable — no-op */
   }
+}
+
+/**
+ * Visual Tycoon Conversion Spike: render the lot with the real-3D world renderer
+ * instead of the shipped tycoon grid. PROOF gate — DEFAULT OFF, so nothing in the
+ * shipped experience moves; enable explicitly to review the spike. Reload to apply
+ * (renderer choice is consumed once at construction, like every world gate).
+ */
+export function threeLotEnabled(): boolean {
+  return envValue((e) => e.VITE_THREE_LOT) || lsFlag(THREE_LOT_LS_KEY)
+}
+
+/** Dev/test helper: flip the 3D world spike override. Reload to apply. */
+export function setThreeLotOverride(on: boolean): void {
+  setLsFlag(THREE_LOT_LS_KEY, on)
 }
