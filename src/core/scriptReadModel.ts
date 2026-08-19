@@ -14,11 +14,21 @@ import {
   facilitySlotKey,
 } from './scriptDevelopment.js'
 import { roleOVR } from './talentSummary.js'
+import {
+  beatsForGenre,
+  blueprintForConcept,
+  requiredSetDemand,
+  screenplayDraftConsequence,
+  screenplayProvenance,
+  type RequiredSetTypeView,
+  type ScreenplayProvenanceView,
+} from './screenplay.js'
 import { CASTING_MIN_UNIQUE_CANDIDATES, TUNING } from './tuning.js'
 import type {
   Action,
   CreativeRole,
   DevelopmentCastingOccupancy,
+  FilmConcept,
   FilmShape,
   GameState,
   Genre,
@@ -127,6 +137,17 @@ export type CommissionConceptView = {
   id: string
   title: string
   genre: Genre
+  /**
+   * C2a-M3 — WHERE THIS SCREENPLAY CAME FROM (charter §3.5).
+   *
+   * "An Original Screenplay by Ava Hartwell" versus a premise acquired from the
+   * open market. The fantasy this milestone delivers is that a writer goes to
+   * work and hands the studio a new movie, and a fantasy the player cannot SEE
+   * is plumbing. Every entry on the commission board is a market premise by
+   * construction — an original is minted and claimed in the same action, so it
+   * never appears there — and every packaged screenplay says which it is.
+   */
+  provenance: ScreenplayProvenanceView
 }
 
 export type CommissionWriterView = ScriptWriterView & {
@@ -160,6 +181,18 @@ export type ReadyScriptPackageView = {
   lockedShape: FilmShape
   lockedPromise: FilmPromise
   assessment: EstimatedScriptAssessmentView
+  /**
+   * C2a-M3 — THE LOCATIONS THIS SCREENPLAY CALLS FOR, derived from its beats and
+   * never written onto the shared-world concept (guardrail 8). The engine
+   * equivalent of the original's own info bubble, which "lists which sets the
+   * script requires" [CORPUS Bible §7.1, OFFICIAL manual p.13].
+   *
+   * ADVISORY in V1, exactly as the M2 set binding is: one bound set per
+   * production stands, so an unowned location costs fit and variety rather than
+   * refusing the shoot. Turning it into a hard block is a reservation change,
+   * and reservations are M4's.
+   */
+  requiredSets: RequiredSetTypeView[]
   availability: ScriptPackageAvailabilityView
   openAction: Extract<ScriptProjectActionView, { kind: 'openPackage' }> | null
 }
@@ -464,6 +497,28 @@ export function scriptCapacityView(state: GameState): ScriptCapacityView {
   return { capacity, occupied, available, facilities }
 }
 
+/**
+ * The concept as a board or a package card reads it — including WHO WROTE IT.
+ *
+ * The provenance line is resolved live from the blueprint root and the talent
+ * census, never stored on the concept: a screenplay's writer is a
+ * studio-relative fact and the shared-world premise must not carry one
+ * (guardrail 8).
+ */
+function conceptView(state: GameState, concept: FilmConcept): CommissionConceptView {
+  const blueprint = blueprintForConcept(state.originalScreenplays, concept.id)
+  const writerName =
+    blueprint === undefined
+      ? undefined
+      : state.talent.find((person) => person.id === blueprint.writerId)?.name
+  return {
+    id: concept.id,
+    title: concept.title,
+    genre: concept.genre,
+    provenance: screenplayProvenance(blueprint, writerName),
+  }
+}
+
 function commissionAvailability(
   state: GameState,
   capacity: ScriptCapacityView,
@@ -475,11 +530,7 @@ function commissionAvailability(
     .filter((concept) => !claimedConcepts.has(concept.id))
     .slice()
     .sort((a, b) => compareId(a.id, b.id))
-    .map((concept): CommissionConceptView => ({
-      id: concept.id,
-      title: concept.title,
-      genre: concept.genre,
-    }))
+    .map((concept): CommissionConceptView => conceptView(state, concept))
 
   // Best writing estimate first. The commission form takes its default from the
   // head of this list, and a pure canonical-id order handed a fresh studio's very
@@ -546,11 +597,16 @@ function commissionAvailability(
     })
   }
   if (concepts.length === 0) {
+    // C2a-M3 — THIS BLOCKER IS NO LONGER TERMINAL, and that is the whole point of
+    // the milestone. C1 seeded thirty premises per world, claimed them
+    // permanently, and offered "Continue with an existing project" as the
+    // remedy — which was not a remedy, because no action in the game yielded a
+    // thirty-first. Now one does: the studio's own writers.
     blockers.push({
       kind: 'no-concepts',
-      headline: 'No uncommissioned concepts remain',
-      detail: 'Every available concept already owns a managed screenplay project.',
-      remedy: 'Continue with an existing project.',
+      headline: 'The market has no unclaimed premises left',
+      detail: 'Every premise this studio could buy already owns a screenplay project.',
+      remedy: 'Commission an original screenplay — put one of your writers on a new picture.',
     })
   }
   if (!writers.some((writer) => writer.available)) {
@@ -671,7 +727,15 @@ function sectionFor(status: ScriptProjectStatus): ScriptProjectSection {
 function consequenceFor(project: ScriptProject): string {
   switch (project.status) {
     case 'drafting':
-      return SCRIPT_DEVELOPMENT_WEEK_CONSEQUENCE
+      // C2a-M3 (`00E`.9): the draft clock varies now, so the sentence counts the
+      // weeks this screenplay actually takes rather than promising one. A pool
+      // commission still reads exactly the C1 sentence, because it still takes
+      // exactly one week.
+      return screenplayDraftConsequence(
+        project.dueWeek === null
+          ? TUNING.SCRIPT_DRAFT_WEEKS_POOL
+          : project.dueWeek - project.commissionedWeek,
+      )
     case 'rewriting':
       return SCRIPT_DEVELOPMENT_WEEK_CONSEQUENCE
     case 'review':
@@ -835,11 +899,15 @@ function readyPackage(
       }
   return {
     projectId: project.id,
-    concept: { id: concept.id, title: concept.title, genre: concept.genre },
+    concept: conceptView(state, concept),
     writer: writerView(state, project.writerId),
     lockedShape: cloneShape(project.shape),
     lockedPromise: clonePromise(project.promise),
     assessment: estimatedScriptAssessment(project.assessment),
+    requiredSets: requiredSetDemand(
+      blueprintForConcept(state.originalScreenplays, concept.id)?.beats ?? beatsForGenre(concept.genre),
+      state.sets,
+    ),
     availability,
     openAction: availability.staffingAvailable && castingClear
       ? {

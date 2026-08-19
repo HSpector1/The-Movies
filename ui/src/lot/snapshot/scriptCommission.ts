@@ -52,7 +52,31 @@ const COMMISSION_KEYS = [
   'blockers',
 ] as const
 
-const COMMISSION_CONCEPT_KEYS = ['id', 'title', 'genre'] as const
+// C2a-M3: the board publishes WHERE a screenplay came from, so this exact-key
+// mirror admits it in the same commit that adds it. Lane 14 §10.3 named this the
+// silent-failure surface: a view field this list does not know about makes the
+// workspace reject the whole board with no visible error.
+const COMMISSION_CONCEPT_KEYS = ['id', 'title', 'genre', 'provenance'] as const
+const PROVENANCE_KEYS = [
+  'origin',
+  'label',
+  'writerId',
+  'generatedTitle',
+  'renamedWeek',
+] as const
+const PROVENANCE_ORIGINS = new Set(['original', 'pool'])
+const SCREENPLAYS_KEYS = ['nextOrdinal', 'blueprints'] as const
+const BLUEPRINT_KEYS = [
+  'conceptId',
+  'ordinal',
+  'mintedWeek',
+  'projectId',
+  'writerId',
+  'generatedTitle',
+  'renamedWeek',
+  'beats',
+  'officeTierAtMint',
+] as const
 const COMMISSION_WRITER_KEYS = [
   'id',
   'name',
@@ -554,6 +578,11 @@ function commissionBeforeProjection(
       !isNonEmptyString(concept.title) ||
       typeof concept.genre !== 'string' ||
       !GENRES.has(concept.genre) ||
+      !isPlainRecord(concept.provenance) ||
+      !hasExactOwnKeys(concept.provenance, PROVENANCE_KEYS) ||
+      typeof concept.provenance.origin !== 'string' ||
+      !PROVENANCE_ORIGINS.has(concept.provenance.origin) ||
+      !isNonEmptyString(concept.provenance.label) ||
       concepts.has(concept.id) ||
       (priorConceptId !== null && concept.id <= priorConceptId)
     ) return null
@@ -679,7 +708,17 @@ export function acceptedScreenplayCommissionReceipt(
       after.operations.mode !== 'managed' ||
       before.scriptDevelopment.mode !== 'managed' ||
       after.scriptDevelopment.mode !== 'managed' ||
-      !sameClosedFieldsExcept(before, after, new Set(['scriptDevelopment'])) ||
+      // C2a-M3: a commission now also appends the screenplay's MOVIE BLUEPRINT
+      // (charter §3.5 — one production path, so a market premise gets beats on
+      // its first commission too). The root is admitted here and then CHECKED
+      // below rather than merely excused: a receipt is a closed witness, and a
+      // root that may change without being verified is a hole in it.
+      !sameClosedFieldsExcept(
+        before,
+        after,
+        new Set(['scriptDevelopment', 'originalScreenplays']),
+      ) ||
+      !appendedPoolBlueprint(before, after, payload) ||
       !sameClosedFieldsExcept(
         before.scriptDevelopment,
         after.scriptDevelopment,
@@ -750,6 +789,55 @@ export function acceptedScreenplayCommissionReceipt(
   } catch {
     return null
   }
+}
+
+/**
+ * C2a-M3 — the ONE blueprint a pool commission appends, checked exactly.
+ *
+ * A commission of a MARKET premise derives a blueprint with a null ordinal and
+ * no generated title (the world authored that premise; this studio did not
+ * write it), and it burns no mint ordinal. Anything else in this root — a
+ * generated screenplay, a moved counter, a rewritten earlier row — means the
+ * action was not the plain commission the receipt claims it was.
+ */
+function appendedPoolBlueprint(
+  before: GameState,
+  after: GameState,
+  payload: CommissionScriptPayload,
+): boolean {
+  const beforeRoot = before.originalScreenplays as unknown
+  const afterRoot = after.originalScreenplays as unknown
+  if (
+    !isPlainRecord(beforeRoot) ||
+    !isPlainRecord(afterRoot) ||
+    !hasExactOwnKeys(beforeRoot, SCREENPLAYS_KEYS) ||
+    !hasExactOwnKeys(afterRoot, SCREENPLAYS_KEYS) ||
+    beforeRoot.nextOrdinal !== afterRoot.nextOrdinal ||
+    !Array.isArray(beforeRoot.blueprints) ||
+    !Array.isArray(afterRoot.blueprints) ||
+    !hasCanonicalArrayKeys(beforeRoot.blueprints) ||
+    !hasCanonicalArrayKeys(afterRoot.blueprints) ||
+    afterRoot.blueprints.length !== beforeRoot.blueprints.length + 1
+  ) return false
+  for (let index = 0; index < beforeRoot.blueprints.length; index += 1) {
+    if (!sameClosedValue(beforeRoot.blueprints[index], afterRoot.blueprints[index])) return false
+  }
+  const appended = afterRoot.blueprints.at(-1) as unknown
+  return (
+    isPlainRecord(appended) &&
+    hasExactOwnKeys(appended, BLUEPRINT_KEYS) &&
+    appended.conceptId === payload.conceptId &&
+    appended.ordinal === null &&
+    appended.generatedTitle === null &&
+    appended.renamedWeek === null &&
+    appended.writerId === payload.writerId &&
+    appended.mintedWeek === before.market.tick &&
+    appended.projectId === canonicalScriptProjectId(before.scriptDevelopment.projects.length) &&
+    Array.isArray(appended.beats) &&
+    hasCanonicalArrayKeys(appended.beats) &&
+    appended.beats.length > 0 &&
+    isNonEmptyString(appended.officeTierAtMint)
+  )
 }
 
 /** Field-exact closed comparison for App and Lot receipt ownership checks. */
