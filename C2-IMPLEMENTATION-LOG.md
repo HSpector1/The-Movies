@@ -121,8 +121,98 @@ path (engine, M4/M7; the UI scopes it in one shared predicate meanwhile).
 market payload it cannot have — additive follow-up, no engine work. Both are
 written up in `docs/c2-planning/17-m3-records.md` §8.
 
-NEXT after this wave: M3 (Renewable Screenplay Generation V1 — §3.5), M4
-(throughput: cap deletion, queues, release law), M5 (Living Turn V1 + theater),
+## M3 — LANDED (lanes ENGINE-M3 + UI-M3); integration checkpoint 2026-08-19
+
+CHECKPOINT (INTEGRATE-M3, HEAD `5c1b2b8`): **a writer goes to work and hands the
+studio a new movie — and the thirty-film ceiling is gone.** The player picks a
+genre, a creative shape and one of their own contracted writers; the form states
+the writing weeks BEFORE the commitment; the concept, its title and its
+seven-beat blueprint are minted at commission-commit; the board says "‹Writer›
+is writing ‘T’" while the draft is out and "‹Writer› delivers ‘T’" when it lands;
+and the studio may retitle the picture without ceremony, with "Written as ‘T’"
+kept beside the new name. root tsc 0 · ui tsc 0 · FULL vitest **305 files /
+4,205 passed + 5 skipped / 0 failed** (solo, unpiped — `/tmp/c2a-m3-vitest.log`).
+
+**M3 GATE (§12-M3 / G17) — green, by name.** Determinism: same seed + same
+action script → byte-identical blueprints and titles; different worlds differ;
+the mint advances no sim RNG (purpose key `screenplay-v1` only, derived-only).
+Rename identity-stability: the display title is the only thing that moves, the
+generated title survives NOWHERE in live state after a rename (which is the
+proof that no surface cached a copy), and the TWO frozen-history surfaces the
+charter names — `TalentCareerEvent.filmTitle` and `BroadcastItem.template` — are
+asserted frozen. Append-only concepts; the `persistedConceptIds` reservation
+across all six identity-bearing roots (the blueprint root joins in both
+directions); the `correlateConceptCost` never-re-run regression — exactly ONE
+production call site remains (`employment.ts:415`, the founding boundary) and the
+regression proves re-running it WOULD move existing prices; the agent-stream
+guard (a headless corpus run mints nothing — both agents × two seeds × 26 weeks,
+`concepts.length` invariant). G15 era-clean beats and title leads. M0A corpus
+byte-identity: `acceptance-corpus`, `replay`, `save`, `migration`,
+`v14-migration.contract`, `v14-dual-run`, `roster-wall-corpus`,
+`presence-determinism` and `frozen-save-builder-projection` are all green AND all
+UNMODIFIED since `a0ac922` — no corpus fixture was touched by M3. LEGIBILITY,
+proven in a real browser: the board carries "An Original Screenplay by ‹writer›"
+and the generated title BEFORE the rename and the player's title AFTER; the
+package carries the credit plus "The script calls for ‹Location›" derived from
+the beats. SOURCE-FIRST spot-check against the Bible: the three recovered beat
+templates are transcribed VERBATIM from §5.5 (comedy/romance/horror); Action and
+Sci-Fi are recorded as unused reference shapes and consumed nowhere.
+
+**`00E`.9 RE-BASE AUDIT — FIVE pins moved, ALL FIVE cited, ZERO silent moves.**
+`tests/script-development.test.ts` (the assessment blend);
+`ui/src/engine/script-assessment-parity.test.ts` (the assessment pin + four
+downstream marketing/discovery figures); `tests/script-projects-save-v9.test.ts`
+(a fixture helper — a tightening); `ui/e2e/c1-golden-path-v1.spec.ts` (the office
+counterfactual); and `ui/e2e/lot-native-next-event-v1/manifest.json` (exactly ONE
+of twelve pinned save digests). Each carries the ruling in a comment at the site
+AND in its commit message (`2907c00`, `de73000`). No test file was deleted; the
+four re-based test files hold the SAME test count before and after (10 / 8 / 2 /
+1); every other test file touched in the range is additive-only (zero deletions).
+The sealed one-week draft invariant's re-base is likewise named in place at
+`scriptDevelopment.ts:1005-1019`, and the successor is STRICTER than its
+predecessor in one respect — it adds `Number.isInteger`.
+
+PLAYWRIGHT FLOOR, re-measured whole (16.7m, `/tmp/c2a-m3-playwright.log`):
+**207 passed / 4 skipped / 2 did not run / 4 failed of 217** — identical to the
+UI-M3 measurement, and the four red are exactly the four carried pre-existing
+failures (`lot.spec.ts:500` + `publicity-campaign-v1.spec.ts:296` viewport
+geometry; `recap.spec.ts:80` + `stage7-production-detail-handoff-v1.spec.ts:198`
+stale V13 literals). ZERO new failures. Run by name and green in isolation:
+`c2a-m3-renewable-screenplay-v1` (2), `c2a-m2-set-and-stage-legibility-v1` (2),
+`c1-golden-path-v1` (1), `first-movie-golden-path-v1` (1).
+
+CARRIED (M3): (8) THE CORPUS QUESTION ROW IS THE ONE §12-M3 SCOPE ITEM NOT
+DELIVERED, and it is not merely unwritten — the row as drafted cannot be pasted
+in. The file is at `THE-MOVIES-2005-ORIGINAL-DATA/ACTIVE-UNRESOLVED-QUESTIONS
+.csv`, NOT the corpus-root path both M3 lanes recorded, and its real schema is
+TEN columns (`question_id,system,question,status,current_best_answer,
+remaining_unknown,implementation_impact,verification_method,priority,
+last_updated`) against the six fields `17-m3-records.md` §5 drafted. Verified in
+place: Q001–Q070, no title-generation or rename row, so the successor is `Q071`,
+and `system` should reuse the file's existing `Script System` value rather than
+invent one. Needs a session with write access to the corpus.
+(9) FIRST-DRAFT EST UNCERTAINTY — an OWNER decision, routed, not blocking.
+Removing the writer term removed the only source of actual-vs-perceived
+divergence at first draft, so an EST now equals its truth. M3 may not invent a
+replacement (that is precisely the compensating bonus `00E`.9 forbids), and a
+rewrite still diverges them. → M7's economy remeasure or C4, with its own ruling.
+(10) A RICHER DEVELOPMENT OFFICE NOW WRITES SLOWER. `officeTierAtMint` feeds
+`developmentOfficeRichnessTier` into `scriptDraftWeeks`. That is `00E`.9's
+"blueprint richness" term and it is NOT a strength term — verified: the only
+consumers of `officeTierAtMint` are the audit record and the duration function —
+so the charter's "zero new economy levers" holds on QUALITY. But a longer draft
+holds a writer and a Development & Casting slot longer, which is a real
+THROUGHPUT cost the office did not previously carry. Bounded to originals (a pool
+concept drafts in one week unconditionally). Flagged for M7's remeasure.
+CLOSED against the ENGINE-M3 handoff: its blocker 1 (the board card cannot show
+provenance without a SCREENS lane) and blocker 2 (set demand not joined to M2's
+package set panel) were BOTH delivered by UI-M3 — provenance resolves at the
+adapter layer (`ui/src/engine/screenplay.ts`) with `ScriptProjectCardView` and
+`scriptReview.ts:CARD_KEYS` untouched, and demand renders inside the M2 set
+panel's own G12 guard. Neither is carried forward.
+
+NEXT after M3: M4 (throughput: cap deletion, queues, release law), M5 (Living
+Turn V1 + theater),
 M6 (Premiere at the Gate), M7 (economy remeasure), M8 (seal + Owner playtest).
 Budget posture: consolidate later milestones into fewer, larger sequential lanes;
 gates are the verification (no separate verify workflows during implementation).
