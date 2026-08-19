@@ -213,7 +213,13 @@ export function screenplayProvenanceForConcept(
   state: GameState,
   conceptId: string,
 ): ScreenplayProvenanceLine | null {
-  return screenplayIdentityForConcept(state, conceptId)?.provenance ?? null
+  try {
+    return screenplayIdentityForConcept(state, conceptId)?.provenance ?? null
+  } catch {
+    // A credit is a sentence beside a record. A record is never withheld — and a
+    // session is never crashed — because a sentence could not be written.
+    return null
+  }
 }
 
 /** Every managed screenplay's identity, keyed by project id, for a whole board. */
