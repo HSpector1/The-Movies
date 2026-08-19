@@ -216,6 +216,43 @@ export const WARM = {
   lampIdle: 0x6b6252,
   lampGlass: 0xf6e4b4,
 
+  // ── the world beyond the wall (C2a-M5x, 00H priorities 7 and 8) ──────────
+  //
+  // The graded property is an ISLAND in a 16:9 frame: a 2:1 isometric diamond can
+  // never reach the four triangles of frame outside it, and before this pass those
+  // triangles were one flat sand fill — which is exactly what made the Owner's
+  // screenshot read as "a small diamond floating in a beige void".
+  //
+  // They are landscape now: the hills the valley sits under, the groves the lot was
+  // graded out of, and the public street the Studio Gate actually opens onto. Every
+  // tone here is HAZIER, PALER and LOWER-CONTRAST than the property's own equivalent
+  // (compare `hillNear` against `lawn`, `street` against `road`, `neighbourRoof`
+  // against `terracotta`), because the one thing the surround may never do is compete
+  // with the studio. Atmospheric perspective, not decoration.
+  hillFar: 0xc3baa0,
+  hillMid: 0xb5ab8c,
+  hillNear: 0xa69b78,
+  hillScrub: 0x918d63,
+  /** Orange-grove canopy — the agriculture 1948 Los Angeles is still mostly made of. */
+  grove: 0x6f7c46,
+  groveDark: 0x57653a,
+  /** The dirt between grove rows. */
+  groveRow: 0xa89a6e,
+  /** Public asphalt. Paler and greyer than the studio's own road, so the wall reads. */
+  street: 0x8a8172,
+  streetEdge: 0x6f6759,
+  streetLine: 0xdfd3b2,
+  sidewalk: 0xc2b291,
+  /** The neighbourhood over the wall: stucco bungalows under terracotta. */
+  neighbourWall: 0xd5c3a0,
+  neighbourWallShade: 0xa88f6c,
+  neighbourRoof: 0xa5603d,
+  neighbourRoofDark: 0x854a2e,
+  /** The roadside picture billboard on the gate approach. */
+  billboardFace: 0xe8dcc0,
+  billboardInk: 0x8e4436,
+  billboardFrame: 0x7d6544,
+
   // ── on-canvas chrome ─────────────────────────────────────────────────────
   labelBg: 0x241d14,
   labelInk: 0xf6ebd2,

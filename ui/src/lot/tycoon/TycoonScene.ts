@@ -205,6 +205,20 @@ const SELECTED_PERSON_TINT = 0xffe6a0
 const SELECTED_COMPANY_TINT = 0xbfe3d6
 const OTHER_COMPANY_ALPHA = 0.72
 
+/**
+ * How far beyond the graded property the ground render texture reaches, in world px
+ * (C2a-M5x, 00H priorities 7-8).
+ *
+ * Was 320 × 200 — just enough to hide the diamond's edge. The frame at the
+ * whole-property framing is ~3,460 × 2,140 world px, so the four triangles the diamond
+ * cannot reach were a THIRD of the picture and every one of them was flat sand. These
+ * margins carry the hills, the groves and the public street instead. The cost is render
+ * texture area, not display objects: the surround is baked into the SAME single
+ * `tier:ground` texture as the tiles, so this pass adds zero objects and zero draw calls.
+ */
+const GROUND_MARGIN_X = 500
+const GROUND_MARGIN_Y = 380
+
 const DEPTH = {
   ground: -1_000_000,
   /** Parcel hit areas sit BELOW every building, so a building always wins an overlap. */
@@ -828,10 +842,10 @@ export class TycoonScene extends Phaser.Scene {
       this.world(this.lotW, this.lotD),
       this.world(0, this.lotD),
     ]
-    const minX = Math.min(...corners.map((c) => c.x)) - hw - 320
-    const minY = Math.min(...corners.map((c) => c.y)) - 200
-    const maxX = Math.max(...corners.map((c) => c.x)) + hw + 320
-    const maxY = Math.max(...corners.map((c) => c.y)) + TILE_H + 200
+    const minX = Math.min(...corners.map((c) => c.x)) - hw - GROUND_MARGIN_X
+    const minY = Math.min(...corners.map((c) => c.y)) - GROUND_MARGIN_Y
+    const maxX = Math.max(...corners.map((c) => c.x)) + hw + GROUND_MARGIN_X
+    const maxY = Math.max(...corners.map((c) => c.y)) + TILE_H + GROUND_MARGIN_Y
 
     const rt = this.add.renderTexture(minX, minY, maxX - minX, maxY - minY)
     rt.setOrigin(0, 0).setDepth(DEPTH.ground).setName('tier:ground')
@@ -850,6 +864,7 @@ export class TycoonScene extends Phaser.Scene {
         rng.range(24, 70),
       )
     }
+    this.drawSurroundLandscape(surround, minX, minY, maxX - minX, maxY - minY)
     rt.beginDraw()
     rt.batchDraw(surround, 0, 0)
     rt.endDraw()
@@ -911,6 +926,355 @@ export class TycoonScene extends Phaser.Scene {
     rt.batchDraw(decals, 0, 0)
     rt.endDraw()
     decals.destroy()
+  }
+
+  /**
+   * THE WORLD BEYOND THE WALL (C2a-M5x, 00H priorities 7 "significantly greater
+   * environmental density" and 8 "clear 1940s Hollywood character").
+   *
+   * A 2:1 isometric diamond in a 16:9 frame leaves four triangles the property can
+   * never reach — roughly a third of the picture — and until this pass all four were
+   * one flat sand fill. That is what the Owner saw as "a small green diamond in a
+   * beige void". They carry a landscape now, painted in the SAME grid the studio
+   * stands in so the perspective is one world:
+   *
+   *   • the ridge line the valley sits under, three bands deep, each paler than the
+   *     one in front of it (atmospheric perspective — the surround must never compete
+   *     with the studio, which is why every tone here is hazier than its equivalent
+   *     inside the wall);
+   *   • the orange groves 1948 Los Angeles is still mostly made of, in planted rows
+   *     that run with the grid, filling the two upper wedges;
+   *   • the PUBLIC STREET the Studio Gate opens onto, with sidewalks, a centre line,
+   *     parked cars and a picture billboard on the far verge — and the neighbourhood
+   *     of stucco-and-terracotta bungalows behind it.
+   *
+   * COST: zero display objects, zero draw calls, zero decoded texture bytes. Every
+   * stroke here is baked into the one `tier:ground` render texture with the tiles, the
+   * plinths and the perimeter wall. The only price is render-texture area, paid once at
+   * create (GROUND_MARGIN_X / _Y).
+   *
+   * DETERMINISM: `gridNoise` only — a pure function of the coordinate. No `Math.random`,
+   * no clock, and no consumed RNG stream, so two paints of one snapshot are identical.
+   */
+  private drawSurroundLandscape(
+    g: Phaser.GameObjects.Graphics,
+    minX: number,
+    minY: number,
+    w: number,
+    h: number,
+  ): void {
+    const at = (gx: number, gy: number, z = 0): Point => {
+      const p = this.world(gx, gy)
+      return { x: p.x - minX, y: p.y - minY - z }
+    }
+    const fill = (pts: Point[], colour: number, alpha = 1): void => {
+      g.fillStyle(colour, alpha)
+      g.beginPath()
+      g.moveTo(pts[0].x, pts[0].y)
+      for (let i = 1; i < pts.length; i++) g.lineTo(pts[i].x, pts[i].y)
+      g.closePath()
+      g.fillPath()
+    }
+    /** One ground quad in grid space, so the surround shares the studio's perspective. */
+    const quad = (
+      gx0: number,
+      gy0: number,
+      gx1: number,
+      gy1: number,
+      colour: number,
+      alpha = 1,
+    ): void => {
+      fill([at(gx0, gy0), at(gx1, gy0), at(gx1, gy1), at(gx0, gy1)], colour, alpha)
+    }
+    /** True when a point is anywhere near the texture, so off-frame work is skipped. */
+    const near = (p: Point): boolean =>
+      p.x > -220 && p.x < w + 220 && p.y > -220 && p.y < h + 220
+
+    // ── the hills ─────────────────────────────────────────────────────────────
+    // Three ridges across the top of the frame, above the property's north corner
+    // (which sits at local y = GROUND_MARGIN_Y). Back to front, dark to darker.
+    const ridge = (baseY: number, amp: number, colour: number, salt: number): void => {
+      const step = 74
+      const pts: Point[] = [{ x: -60, y: baseY + 420 }]
+      for (let x = -60; x <= w + 60; x += step) {
+        const k = Math.round(x / step)
+        const coarse = gridNoise(Math.floor(k / 4), salt, salt)
+        const fine = gridNoise(k, salt + 7, salt + 3)
+        pts.push({ x, y: baseY - coarse * amp * 1.5 - fine * amp * 0.5 })
+      }
+      pts.push({ x: w + 60, y: baseY + 420 })
+      fill(pts, colour)
+    }
+    ridge(GROUND_MARGIN_Y * 0.42, 62, C.hillFar, 401)
+    ridge(GROUND_MARGIN_Y * 0.66, 54, C.hillMid, 409)
+    ridge(GROUND_MARGIN_Y * 0.88, 44, C.hillNear, 419)
+    // Scrub on the near ridge, so it is a hillside rather than a paper cut-out.
+    for (let i = 0; i < 90; i++) {
+      const x = gridNoise(i, 431) * (w + 120) - 60
+      const y = GROUND_MARGIN_Y * 0.9 - gridNoise(i, 433) * 52
+      g.fillStyle(C.hillScrub, 0.5)
+      g.fillEllipse(x, y, 20 + gridNoise(i, 437) * 26, 8 + gridNoise(i, 439) * 8)
+    }
+
+    // ── the groves ────────────────────────────────────────────────────────────
+    // Planted rows running with the grid: the two upper wedges the diamond cannot
+    // reach are agriculture, not void. Rows are dirt-then-canopy so they read as
+    // cultivated ground rather than scattered bushes.
+    const groveRow = (
+      gxFrom: number,
+      gxTo: number,
+      gy: number,
+      salt: number,
+    ): void => {
+      const a = at(gxFrom, gy - 0.34)
+      const b = at(gxTo, gy + 0.34)
+      if (!near(a) && !near(b)) return
+      quad(gxFrom, gy - 0.34, gxTo, gy + 0.34, C.groveRow, 0.55)
+      for (let gx = gxFrom; gx <= gxTo; gx += 0.92) {
+        const n = gridNoise(Math.round(gx * 8), salt)
+        const p = at(gx, gy + (n - 0.5) * 0.24)
+        if (!near(p)) continue
+        const r = 15 + gridNoise(Math.round(gx * 8), salt + 1) * 7
+        g.fillStyle(C.groveDark, 0.9)
+        g.fillEllipse(p.x + 2, p.y + 3, r * 1.9, r * 1.0)
+        g.fillStyle(C.grove, 1)
+        g.fillEllipse(p.x, p.y - 3, r * 1.8, r * 0.94)
+        g.fillStyle(C.hillFar, 0.16)
+        g.fillEllipse(p.x - r * 0.4, p.y - 7, r * 0.8, r * 0.4)
+      }
+    }
+    // west of the property (the upper-left wedge)
+    for (let gy = -8; gy <= this.lotD + 9; gy += 1.5) groveRow(-9.5, -1.6, gy, 601 + gy)
+    // north of the property (the upper-right wedge)
+    for (let gx = -8; gx <= this.lotW + 9; gx += 1.5) {
+      const a = at(gx, -9.5)
+      const b = at(gx, -1.6)
+      if (!near(a) && !near(b)) continue
+      quad(gx - 0.34, -9.5, gx + 0.34, -1.6, C.groveRow, 0.55)
+      for (let gy = -9.5; gy <= -1.6; gy += 0.92) {
+        const p = at(gx + (gridNoise(Math.round(gy * 8), 701 + gx) - 0.5) * 0.24, gy)
+        if (!near(p)) continue
+        const r = 15 + gridNoise(Math.round(gy * 8), 703 + gx) * 7
+        g.fillStyle(C.groveDark, 0.9)
+        g.fillEllipse(p.x + 2, p.y + 3, r * 1.9, r * 1.0)
+        g.fillStyle(C.grove, 1)
+        g.fillEllipse(p.x, p.y - 3, r * 1.8, r * 0.94)
+      }
+    }
+
+    // ── the public street the Gate opens onto ─────────────────────────────────
+    // Outside the gy = lotD edge (lower-left on screen) and the gx = lotW edge
+    // (lower-right), meeting at the property's south corner exactly as two blocks of
+    // a street grid do.
+    const streetRun = (
+      along: 'gx' | 'gy',
+      offset: number,
+      from: number,
+      to: number,
+    ): void => {
+      const band = (n0: number, n1: number, colour: number, alpha = 1): void => {
+        if (along === 'gx') quad(from, offset + n0, to, offset + n1, colour, alpha)
+        else quad(offset + n0, from, offset + n1, to, colour, alpha)
+      }
+      band(1.2, 1.9, C.sidewalk)
+      band(1.9, 4.5, C.street)
+      band(4.5, 5.2, C.sidewalk)
+      // kerb shadow on the up-sun side, and the painted centre line in dashes
+      band(1.86, 2.02, C.streetEdge, 0.45)
+      for (let t = from; t < to; t += 2.2) {
+        const t1 = Math.min(to, t + 1.15)
+        if (along === 'gx') quad(t, offset + 3.14, t1, offset + 3.26, C.streetLine, 0.7)
+        else quad(offset + 3.14, t, offset + 3.26, t1, C.streetLine, 0.7)
+      }
+    }
+    streetRun('gx', this.lotD, -13, this.lotW + 13)
+    streetRun('gy', this.lotW, -13, this.lotD + 13)
+
+    // ── the neighbourhood over the wall ───────────────────────────────────────
+    // Stucco-and-terracotta bungalows, drawn with the same upper-left key light and
+    // the same value ladder as the studio's own bodies, only hazier.
+    const bungalow = (gx: number, gy: number, fw: number, fd: number, salt: number): void => {
+      const p = at(gx, gy)
+      if (!near(p)) return
+      const H = 24 + Math.round(gridNoise(salt, 811) * 12)
+      const rise = 14 + Math.round(gridNoise(salt, 813) * 8)
+      // contact shadow, then two wall faces, then a hip roof
+      fill(
+        [at(gx - 0.1, gy - 0.1), at(gx + fw + 0.2, gy - 0.1), at(gx + fw + 0.2, gy + fd + 0.2), at(gx - 0.1, gy + fd + 0.2)],
+        C.shadow,
+        0.16,
+      )
+      fill(
+        [at(gx, gy + fd), at(gx + fw, gy + fd), at(gx + fw, gy + fd, H), at(gx, gy + fd, H)],
+        C.neighbourWall,
+      )
+      fill(
+        [at(gx + fw, gy), at(gx + fw, gy + fd), at(gx + fw, gy + fd, H), at(gx + fw, gy, H)],
+        C.neighbourWallShade,
+      )
+      // A hip roof: two trapezoids to a ridge, two triangular hips at the ends. The
+      // ridge is the family badge every body in this world wears (palette §roofs).
+      const ridgeY = H + rise
+      const cy = gy + fd / 2
+      const r0 = gx + fw * 0.2
+      const r1 = gx + fw * 0.8
+      const eaves = 0.16
+      fill(
+        [at(gx - eaves, gy - eaves, H), at(gx + fw + eaves, gy - eaves, H), at(r1, cy, ridgeY), at(r0, cy, ridgeY)],
+        C.neighbourRoofDark,
+      )
+      fill([at(gx + fw + eaves, gy - eaves, H), at(gx + fw + eaves, gy + fd + eaves, H), at(r1, cy, ridgeY)], C.neighbourRoofDark)
+      fill([at(gx - eaves, gy - eaves, H), at(gx - eaves, gy + fd + eaves, H), at(r0, cy, ridgeY)], C.neighbourRoof)
+      fill(
+        [at(gx - eaves, gy + fd + eaves, H), at(gx + fw + eaves, gy + fd + eaves, H), at(r1, cy, ridgeY), at(r0, cy, ridgeY)],
+        C.neighbourRoof,
+      )
+      // one lit window on the street face
+      fill(
+        [
+          at(gx + fw * 0.34, gy + fd, H * 0.28),
+          at(gx + fw * 0.62, gy + fd, H * 0.28),
+          at(gx + fw * 0.62, gy + fd, H * 0.72),
+          at(gx + fw * 0.34, gy + fd, H * 0.72),
+        ],
+        C.glassDeep,
+        0.7,
+      )
+    }
+    /** A hedge or a garden tree in a front yard — what makes a block read as lived in. */
+    const yardTree = (gx: number, gy: number, salt: number): void => {
+      const p = at(gx, gy)
+      if (!near(p)) return
+      const r = 13 + gridNoise(salt, 821) * 8
+      g.fillStyle(C.shadow, 0.14)
+      g.fillEllipse(p.x + 5, p.y + 3, r * 1.8, r * 0.7)
+      g.fillStyle(C.groveDark, 1)
+      g.fillEllipse(p.x + 2, p.y - r * 0.7, r * 1.5, r * 1.15)
+      g.fillStyle(C.grove, 1)
+      g.fillEllipse(p.x - 1, p.y - r * 0.95, r * 1.3, r * 1.0)
+    }
+    for (let gx = -12; gx < this.lotW + 12; gx += 3.6) {
+      const salt = Math.round(gx * 4) + 900
+      bungalow(gx, this.lotD + 6.1, 2.2 + gridNoise(salt, 831) * 0.7, 1.7, salt)
+      yardTree(gx + 2.9, this.lotD + 5.7, salt + 1)
+      if (gridNoise(salt, 841) > 0.45) bungalow(gx + 1.1, this.lotD + 9.2, 2.4, 1.9, salt + 2)
+    }
+    for (let gy = -12; gy < this.lotD + 12; gy += 3.6) {
+      const salt = Math.round(gy * 4) + 1_100
+      bungalow(this.lotW + 6.1, gy, 1.7, 2.2 + gridNoise(salt, 833) * 0.7, salt)
+      yardTree(this.lotW + 5.7, gy + 2.9, salt + 1)
+      if (gridNoise(salt, 843) > 0.45) bungalow(this.lotW + 9.2, gy + 1.1, 1.9, 2.4, salt + 2)
+    }
+
+    // ── traffic on the public street ──────────────────────────────────────────
+    // Period sedans, drawn as bodies rather than sprites so they cost nothing. They
+    // stand on PUBLIC ground and are never addressable: nothing outside the wall is.
+    const parkedCar = (gx: number, gy: number, along: 'gx' | 'gy', salt: number): void => {
+      const p = at(gx, gy)
+      if (!near(p)) return
+      const L = 1.5
+      const W = 0.62
+      const box = (z0: number, z1: number, shrink: number, colour: number): void => {
+        const a = shrink * L * 0.5
+        const b = shrink * W * 0.5
+        const [x0, y0, x1, y1] =
+          along === 'gx'
+            ? [gx - L / 2 + a, gy - W / 2 + b, gx + L / 2 - a, gy + W / 2 - b]
+            : [gx - W / 2 + b, gy - L / 2 + a, gx + W / 2 - b, gy + L / 2 - a]
+        fill([at(x0, y1, z0), at(x1, y1, z0), at(x1, y1, z1), at(x0, y1, z1)], colour)
+        fill([at(x1, y0, z0), at(x1, y1, z0), at(x1, y1, z1), at(x1, y0, z1)], colour)
+        fill([at(x0, y0, z1), at(x1, y0, z1), at(x1, y1, z1), at(x0, y1, z1)], colour)
+      }
+      const body = gridNoise(salt, 851) > 0.55 ? C.vanBody : C.carBody
+      fill(
+        [at(gx - 0.9, gy - 0.5), at(gx + 0.9, gy - 0.5), at(gx + 0.9, gy + 0.5), at(gx - 0.9, gy + 0.5)],
+        C.shadow,
+        0.2,
+      )
+      box(0, 15, 0, body)
+      box(15, 25, 0.42, body)
+      g.fillStyle(C.carTrim, 0.75)
+      g.fillEllipse(p.x, p.y - 17, 12, 5)
+    }
+    for (let gx = -11; gx < this.lotW + 11; gx += 5.4) {
+      if (gridNoise(Math.round(gx), 861) < 0.42) continue
+      parkedCar(gx, this.lotD + 2.35, 'gx', Math.round(gx) + 861)
+    }
+    for (let gy = -11; gy < this.lotD + 11; gy += 5.4) {
+      if (gridNoise(Math.round(gy), 871) < 0.42) continue
+      parkedCar(this.lotW + 2.35, gy, 'gy', Math.round(gy) + 871)
+    }
+
+    // ── the picture billboard on the gate approach ────────────────────────────
+    // A 1948 studio advertises on its own street corner. Abstract poster composition:
+    // this is world art, and the scene never paints a word it was not given.
+    const billboard = (gx: number, gy: number): void => {
+      const p = at(gx, gy)
+      if (!near(p)) return
+      const H = 96
+      const face = 74
+      for (const dx of [-1.05, 1.05]) {
+        fill(
+          [at(gx + dx - 0.07, gy, 0), at(gx + dx + 0.07, gy, 0), at(gx + dx + 0.07, gy, H), at(gx + dx - 0.07, gy, H)],
+          C.billboardFrame,
+        )
+      }
+      fill(
+        [at(gx - 1.5, gy, H), at(gx + 1.5, gy, H), at(gx + 1.5, gy, H + face), at(gx - 1.5, gy, H + face)],
+        C.billboardFace,
+      )
+      fill(
+        [at(gx - 1.34, gy, H + 10), at(gx + 0.1, gy, H + 10), at(gx + 0.1, gy, H + face - 12), at(gx - 1.34, gy, H + face - 12)],
+        C.billboardInk,
+        0.85,
+      )
+      for (let i = 0; i < 4; i++) {
+        const z = H + face - 20 - i * 11
+        fill(
+          [at(gx + 0.3, gy, z), at(gx + 1.32, gy, z), at(gx + 1.32, gy, z + 6), at(gx + 0.3, gy, z + 6)],
+          C.billboardFrame,
+          0.55,
+        )
+      }
+      fill(
+        [at(gx - 1.5, gy, H + face), at(gx + 1.5, gy, H + face), at(gx + 1.5, gy, H + face + 6), at(gx - 1.5, gy, H + face + 6)],
+        C.billboardFrame,
+      )
+    }
+    billboard(5.4, this.lotD + 5.5)
+    billboard(this.lotW + 5.5, 17.6)
+
+    // ── palms along the public sidewalk ───────────────────────────────────────
+    // The one silhouette that says Los Angeles at any zoom, on ground the studio does
+    // not own, so it costs no prop and breaks no placement law.
+    const streetPalm = (gx: number, gy: number, salt: number): void => {
+      const p = at(gx, gy)
+      if (!near(p)) return
+      const H = 86 + gridNoise(salt, 881) * 34
+      g.fillStyle(C.shadow, 0.16)
+      g.fillEllipse(p.x + 6, p.y + 2, 26, 9)
+      g.lineStyle(5, C.trunk, 1)
+      g.beginPath()
+      g.moveTo(p.x, p.y)
+      g.lineTo(p.x - 4, p.y - H * 0.55)
+      g.lineTo(p.x + 3, p.y - H)
+      g.strokePath()
+      for (let i = 0; i < 7; i++) {
+        const a = (Math.PI * 2 * i) / 7 - Math.PI / 2 + gridNoise(salt, 883) * 0.4
+        g.lineStyle(4, Math.cos(a) < 0 ? C.frond : C.frondDark, 1)
+        g.beginPath()
+        g.moveTo(p.x + 3, p.y - H)
+        g.lineTo(p.x + 3 + Math.cos(a) * 14, p.y - H + Math.sin(a) * 9 - 6)
+        g.lineTo(p.x + 3 + Math.cos(a) * 27, p.y - H + Math.sin(a) * 17)
+        g.strokePath()
+      }
+    }
+    for (let gx = -10; gx < this.lotW + 11; gx += 3.3) {
+      streetPalm(gx, this.lotD + 1.55, Math.round(gx) + 891)
+    }
+    for (let gy = -10; gy < this.lotD + 11; gy += 3.3) {
+      streetPalm(this.lotW + 1.55, gy, Math.round(gy) + 897)
+    }
   }
 
   /**
@@ -998,6 +1362,58 @@ export class TycoonScene extends Phaser.Scene {
     // Front edges: a kerb and a clipped hedge, low enough to see over.
     band(at(this.lotW, 0), at(this.lotW, this.lotD), 13, C.hedgeDark, C.hedge)
     band(at(this.lotW, this.lotD), at(0, this.lotD), 13, C.hedgeDark, C.hedge)
+
+    // ── C2a-M5x (00H priority 8): the wall a studio actually has ──────────────
+    // A flat extruded band reads as a fence; a 1948 studio wall reads as PIERS with
+    // stucco panels between them. Piers every four tiles on all four edges, standing
+    // proud of the wall and capped in the same terracotta, so the property line is a
+    // built thing at institution zoom instead of a drawn line. The boulevard (gx 9-10)
+    // is deliberately skipped on the south edge: that is where the Gate stands and a
+    // wall across it would be a lie about the way in.
+    const pier = (gx: number, gy: number, height: number, along: 'gx' | 'gy'): void => {
+      const halfA = 0.34
+      const halfB = 0.2
+      const [ax, ay, bx, by] =
+        along === 'gx'
+          ? [gx - halfA, gy - halfB, gx + halfA, gy + halfB]
+          : [gx - halfB, gy - halfA, gx + halfB, gy + halfA]
+      const p = (x: number, y: number, z: number): Point => {
+        const w = this.world(x, y)
+        return { x: w.x - minX, y: w.y - minY - z }
+      }
+      const face = (pts: Point[], colour: number): void => {
+        g.fillStyle(colour, 1)
+        g.beginPath()
+        g.moveTo(pts[0].x, pts[0].y)
+        for (let i = 1; i < pts.length; i++) g.lineTo(pts[i].x, pts[i].y)
+        g.closePath()
+        g.fillPath()
+      }
+      face([p(ax, by, 0), p(bx, by, 0), p(bx, by, height), p(ax, by, height)], C.cream)
+      face([p(bx, ay, 0), p(bx, by, 0), p(bx, by, height), p(bx, ay, height)], C.creamShade)
+      face(
+        [p(ax, ay, height), p(bx, ay, height), p(bx, by, height), p(ax, by, height)],
+        C.terracotta,
+      )
+      face(
+        [
+          p(ax, ay, height + 5),
+          p(bx, ay, height + 5),
+          p(bx, by, height + 5),
+          p(ax, by, height + 5),
+        ],
+        C.terracottaDark,
+      )
+    }
+    for (let gx = 0; gx <= this.lotW; gx += 4) {
+      pier(gx, 0, 40, 'gx')
+      // the south edge, minus the boulevard the Gate stands on
+      if (gx < 8 || gx > 11) pier(gx, this.lotD, 24, 'gx')
+    }
+    for (let gy = 0; gy <= this.lotD; gy += 4) {
+      pier(0, gy, 40, 'gy')
+      pier(this.lotW, gy, 24, 'gy')
+    }
     // A pale kerb inside the whole boundary reads the property line at institution zoom.
     g.lineStyle(2.5, C.plaza, 0.75)
     g.beginPath()
