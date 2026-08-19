@@ -214,7 +214,14 @@ function ScreenplayProvenance({
         {identity.provenance.label}
       </span>
 
-      {identity.provenance.origin === 'original' && identity.provenance.writerName !== null && (
+      {/* THE TITLE MOMENT, and only while it IS one. A screenplay in production or
+          already released is not being handed over — the credit above says who
+          wrote it, and claiming a delivery that happened months ago would be a
+          sentence the studio's own calendar contradicts. */}
+      {identity.provenance.origin === 'original' &&
+        identity.provenance.writerName !== null &&
+        status !== 'inProduction' &&
+        status !== 'produced' && (
         <span data-testid={`script-title-moment-${projectId}`}>
           {status === 'drafting' || status === 'rewriting'
             ? writingScreenplaySentence(identity.provenance.writerName, identity.title)
