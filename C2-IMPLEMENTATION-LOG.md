@@ -596,6 +596,36 @@ base (`a394838`): root tsc 0 · ui tsc 0 · FULL vitest **320 files / 4,370 pass
   grid default on 5179 — the exact origin the browser proof runs on, no
   environment variables.
 
+- **G14 FLAKE WATCH — ONE PRE-EXISTING FLAKE FOUND, CHARACTERISED, AND LEFT
+  ALONE ON PURPOSE.** `ui/e2e/tycoon-build-mode-v1.spec.ts:849` ("a facility the
+  studio built is a first-class citizen of the world") failed once in this lane's
+  full-floor run. It is **NOT a regression from M5**: checked out at UI-M5's own
+  head `a2f985d` and run solo, it fails there too. What it is:
+  - **LOAD-SENSITIVE, and measured.** With six cores deliberately busy it failed
+    roughly one run in four; on a quiet machine it passed five runs in a row. Both
+    failure sites are the assertion immediately after a `clickCell`, and the
+    signature is always `element(s) not found` — a click that did not select what
+    it aimed at, never a panel rendering wrongly.
+  - **THE MECHANISM IS A READ-THEN-ACT RACE IN THE SPEC'S OWN HELPER.**
+    `cellPoint` aims (canvas box × the camera's live cell fraction) and
+    `page.mouse.click` fires some milliseconds later; nothing guarantees the world
+    is where it was when it was measured. Diagnosed further: a DOM panel
+    (`hollywood-production-idle`) sits over the south-lawn corner the last click
+    targets, and the scene edge-pans while a pointer rests near the frame — so the
+    honest fix has to know which of those the scene actually cares about.
+  - **NOT FIXED HERE, DELIBERATELY.** Three tightenings were tried and reverted:
+    settle-the-geometry (did not close it), require-the-canvas-on-top (wrong — the
+    scene takes clicks through DOM overlays, so the gate rejected valid clicks),
+    and park-the-pointer-first (unproven when the time-box ran out). The tree is at
+    the committed spec. A correct fix needs the tycoon scene's input and edge-pan
+    behaviour understood, which is OPUS-WORLD's surface, not a guess from here.
+    **Routed with the reproduction recipe: run that spec with six busy cores.**
+  - **ENVIRONMENTAL NOTE FOR WHOEVER RE-MEASURES.** This machine was carrying four
+    ORPHANED `vitest` worker processes (PPID 1, 10h45m old at discovery, ~90% CPU
+    each) that predate this session entirely. They are almost certainly why this
+    flake surfaced in this lane's floor run and not in UI-M5's. They were left
+    running — they are not this lane's to kill.
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and
