@@ -397,9 +397,16 @@ already at phase transitions becomes the ONE mechanism everywhere:
   in queue-priority order; each success releases predecessor resources into the
   pool immediately; the sweep iterates to a fixed point (bounded by workflow
   count) so capacity freed by anyone is visible to every waiter the same week.
-  Releases happen only through successful transitions, terminal completion,
-  cancellation, and strike/demolition paths — a blocked production releases
-  nothing. Front-door queue admission runs as a **new inserted tick step** (after
+  Releases happen through PHASE-WORK COMPLETION (`00E`.5 — the RESOURCE-RELEASE
+  LAW §3.2 carries: a completed phase's resources release unconditionally, even
+  when the next resource is unavailable; a post-waiter holds nothing), terminal
+  completion, cancellation, and strike/demolition paths — a production blocked
+  ENTERING a phase whose work has not begun holds only what its current phase
+  genuinely requires. *(r3.3 consistency amendment, 2026-08-19: this sentence
+  previously read "a blocked production releases nothing" — the pre-`00E`.5 HOLD
+  wording that r3.2 amended in §3.2 but missed here; found by ENGINE-M4 and
+  repaired by the PM. The implementation and the release-law gate follow
+  `00E`.5.)* Front-door queue admission runs as a **new inserted tick step** (after
   production allocation, before construction completion) under D-12 §9's ratified
   insertion rule ("inserted, not reordered" — `tick.ts:18`).
 - **The blocker becomes legible — split honestly (r3):** the PERSISTED
