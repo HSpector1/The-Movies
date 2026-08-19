@@ -150,6 +150,37 @@ Lane ENGINE-M5 owns `src/core/**`, `ui/src/engine/adapter.ts`,
   skipped / 0 failed**; `tests/acceptance-corpus.test.ts` green (M0A corpus
   byte-identity untouched).
 
+- **LOAD-IN HAS A DISTANCE** (§4.2, Owner-signed §18 item 8). New pure module
+  `src/core/sceneryLoadIn.ts`: `facilityBodyCentre` (authored structures, then
+  placements; law-12 silence for a facility no body stands for), `gridDistance`
+  (Manhattan), `sceneryLoadInWeeksForDistance` (`BASE + floor(d × PER_DISTANCE)`,
+  clamped to `[BASE, MAX]`), and `sceneryLoadInFor(state, workflow, week)` which
+  returns a derived load-in or a STATED withholding. TUNING gained
+  `SCENERY_LOAD_IN_WEEKS_BASE 1 / _PER_DISTANCE 0.1 / _MAX 5`, each with the
+  measurement behind it written at the constant. New tick step **0.7 THE SCENERY
+  REACHES THE STAGE** (`arriveDueScenery`) ends a load-in with no player input;
+  `clearSceneryLoadIn` is REFUSED while the trucks are on the road.
+  **Nothing is persisted — V14 gains no field** (the anchor is the already-
+  persisted `bindings.heldSinceWeek`).
+  MEASURED at this HEAD: shop body (19,18), Stage A (18,3), Stage B (18,10) →
+  16 and 9 cells → 2 and 1 weeks, against a **two-week head start** (rehearsal +
+  the entry advance, since the scenery is called when the STAGE is taken). Both
+  founding stages therefore arrive on time and **nothing already measured moves**.
+  A shop on the West Lawn is 25 cells from Stage A → 3 weeks → one week of a
+  company standing on a bare stage. Widest trip on this lot ≈43 cells → 5 weeks.
+  **THE RE-PROOF BUDGET IS ANSWERED BY A RULING, NOT A RE-PIN** (report this to
+  the Owner): the grandfather line is `bindings.requiresSetBinding === false`,
+  which the V14 migrator ALREADY mints for every in-flight workflow with its
+  reason stated in `save.ts`. Every migrated save is therefore grandfathered by
+  construction — **the four SHA-256-pinned Scenery Load-In V1 fixtures do not
+  move, `WorldFirstSceneryLoadIn.test.tsx` is unmodified, and the T9 matrix is
+  untouched.** New suite `tests/c2a-m5-scenery-load-in-layout.test.ts` (18 tests)
+  incl. bounded terms, monotonicity, purity, save-neutrality, the non-vacuous
+  arm (a distant stage genuinely stalls and the ENGINE ends the wait), and the
+  three grandfather arms. Evidence: root tsc 0 · ui tsc 0 · core **131 files /
+  1,799 passed / 0 failed** · ui **183 files / 2,484 passed + 5 skipped / 0
+  failed**.
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and

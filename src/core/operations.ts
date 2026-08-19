@@ -587,6 +587,52 @@ export function clearSceneryLoadIn(
   })
 }
 
+/**
+ * THE SCENERY REACHES THE STAGE ON ITS OWN (C2a-M5, charter §4.2).
+ *
+ * Load-in stopped being an instant when it gained a distance. This is the tick
+ * step that ends one: for every workflow whose load-in `arrived` is true, the
+ * blocker clears and the take becomes `ready` — the same transition
+ * `clearSceneryLoadIn` performs, writing the same `sceneryArrived` row, because
+ * there is one way a load-in ends and this is it.
+ *
+ * `arrivedFor` is supplied by the caller (`tick`) as a closure over the state's
+ * geometry, so this module stays free of property/placement knowledge exactly as
+ * it stays free of concepts. A workflow the closure cannot answer for — a
+ * grandfathered picture, a missing body, contradictory truth — is LEFT ALONE:
+ * withholding is the answer, and for a grandfathered picture the withholding IS
+ * the ruling (its load-in stays a click).
+ *
+ * Order is `operations.workflows` order, which is the engine's own and therefore
+ * deterministic; two identical playthroughs write identical rows.
+ */
+export function arriveDueScenery(
+  operations: StudioOperations,
+  arrivedFor: (workflow: ProductionWorkflow) => boolean,
+  events: StudioEventSink = disabledStudioEventSink(),
+): StudioOperations {
+  if (operations.mode !== 'managed') return operations
+  let next = operations
+  for (const workflow of operations.workflows) {
+    const task = workflow.shootingTask
+    if (
+      workflow.phase !== 'shooting' ||
+      task === null ||
+      task.status !== 'blocked' ||
+      workflow.blocker?.kind !== 'scenery-load-in' ||
+      workflow.blocker.taskId !== task.id
+    ) continue
+    if (!arrivedFor(workflow)) continue
+    events.append({ kind: 'sceneryArrived', productionId: workflow.productionId })
+    next = replaceWorkflow(next, {
+      ...workflow,
+      shootingTask: { ...task, status: 'ready' },
+      blocker: null,
+    })
+  }
+  return next
+}
+
 export function scheduleShootingTake(
   operations: StudioOperations,
   productionId: string,

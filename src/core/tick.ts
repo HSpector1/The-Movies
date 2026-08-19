@@ -63,8 +63,9 @@ import { economyEngaged, weeklyPayroll } from './employment.js'
 import { openTheatricalRun } from './economy.js'
 import { clamp } from './math.js'
 import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
-import { advanceManagedProductions } from './operations.js'
+import { advanceManagedProductions, arriveDueScenery } from './operations.js'
 import { admitQueuedIntents } from './queueAdmission.js'
+import { isSceneryLoadIn, sceneryLoadInFor } from './sceneryLoadIn.js'
 import {
   assertSetsInvariants,
   completeDueSets,
@@ -231,6 +232,36 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     },
   )
 
+  // ── 0.7 THE SCENERY REACHES THE STAGE (C2a-M5, charter §4.2) ──────────────
+  //
+  // Load-in has a DISTANCE now — `SCENERY_LOAD_IN_WEEKS_BASE +
+  // floor(distance × _PER_DISTANCE)` weeks between the supplying set-scenery body
+  // and the bound stage's body — so it also has an END the player does not have
+  // to click. This step is that end. It runs BEFORE the production advance so a
+  // week in which the trucks arrive is the same week the world shows them
+  // arriving.
+  //
+  // It advances nothing: a `ready` take still needs the player's take command, so
+  // this cannot move a picture through Shooting on its own. What it removes is a
+  // click that was never a decision — the scenery arriving is not a choice
+  // anybody makes.
+  //
+  // GRANDFATHERED PICTURES ARE UNTOUCHED (`sceneryLoadIn.ts` header): a migrated
+  // in-flight production never bound a set, so it is never told how far its shop
+  // is, and its load-in stays exactly the click it has always been.
+  const operationsAfterLoadIn = arriveDueScenery(
+    state.operations,
+    (workflow) => {
+      const loadIn = sceneryLoadInFor(state, workflow, currentTick)
+      return isSceneryLoadIn(loadIn) && loadIn.arrived
+    },
+    events,
+  )
+  const stateAfterLoadIn: GameState =
+    operationsAfterLoadIn === state.operations
+      ? state
+      : { ...state, operations: operationsAfterLoadIn }
+
   // ── 1. PRODUCTION ──────────────────────────────────────────────────────────
   // Advance every active production with startTick < currentTick (M1 skip-first-
   // tick: a film greenlit at t does NOT advance during tick t). Immutable: build a
@@ -250,7 +281,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // lookup is a closure over `state.concepts` rather than a copy, so there is one
   // authority for what a production is about.
   const productionAdvance = advanceManagedProductions(
-    state.operations,
+    stateAfterLoadIn.operations,
     state.studio.activeProductions,
     currentTick,
     new Set([

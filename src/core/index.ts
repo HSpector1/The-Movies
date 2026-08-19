@@ -753,6 +753,18 @@ export type {
   StudioQueueView,
 } from './studioQueueView.js'
 
+// ── Scenery Load-In V2 (C2a-M5, charter §4.2) ────────────────────────────────
+// The one place ground has a deterministic consequence on time. Pure geometry
+// over authored structures and completed placements; nothing persisted.
+export {
+  facilityBodyCentre,
+  gridDistance,
+  isSceneryLoadIn,
+  sceneryLoadInFor,
+  sceneryLoadInWeeksForDistance,
+} from './sceneryLoadIn.js'
+export type { SceneryLoadIn, SceneryLoadInWithholding } from './sceneryLoadIn.js'
+
 // §6 standing (phase 3) — the three-channel updateStanding (B12 context param)
 export { updateStanding } from './standing.js'
 export type { ReleaseBenchmarks, StandingContext } from './standing.js'

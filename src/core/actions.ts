@@ -86,6 +86,7 @@ import {
   scheduleShootingTake,
 } from './operations.js'
 import { publicityLiftAt } from './publicity.js'
+import { isSceneryLoadIn, sceneryLoadInFor } from './sceneryLoadIn.js'
 import {
   ENDOWED_NEXT_SET_ID,
   assertSetsInvariants,
@@ -1845,6 +1846,28 @@ function applyClearSceneryLoadIn(
   action: Action & { kind: 'clearSceneryLoadIn' },
 ): GameState {
   requireActiveProductionForOperations(state, action.productionId, 'clearSceneryLoadIn')
+  // C2a-M5 (charter §4.2): THE SCENERY IS NOT THERE YET.
+  //
+  // Load-in has a distance now, so "clear the load-in" stopped being something a
+  // player can assert into being true. A picture whose scenery is still on the
+  // road is refused here, in the loud posture every other illegal command uses,
+  // and the engine ends the load-in itself the week the trucks arrive
+  // (`arriveDueScenery`, tick step 0.7).
+  //
+  // The refusal is scoped exactly as narrowly as the mechanic: a GRANDFATHERED
+  // picture (no set binding — every migrated in-flight save) yields a withholding
+  // rather than a load-in, so it is never refused and its click is untouched.
+  const inFlight = state.operations.workflows.find(
+    (workflow) => workflow.productionId === action.productionId,
+  )
+  if (inFlight !== undefined) {
+    const loadIn = sceneryLoadInFor(state, inFlight, state.market.tick)
+    if (isSceneryLoadIn(loadIn) && !loadIn.arrived) {
+      throw new Error(
+        `applyActions: clearSceneryLoadIn rejected — productionId "${action.productionId}" scenery is still in transit (${String(loadIn.weeksRemaining)} week(s) out)`,
+      )
+    }
+  }
   const events = studioEventSinkFor(state)
   return {
     ...state,

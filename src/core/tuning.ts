@@ -765,6 +765,42 @@ export const TUNING = {
   // schedule to wait on — the flats come down and the stage is clear — and a
   // duration invented here would be a delay with nothing behind it.
   SET_STRIKE_WEEKS: 0, // [ICH] weeks a strike takes
+  // ── SCENERY LOAD-IN FROM LAYOUT (C2a-M5, charter §4.2; Owner-signed §18.8) ──
+  //
+  // The ONE place in this campaign where GROUND has a deterministic consequence
+  // on TIME. `weeks = BASE + floor(distance × PER_DISTANCE)`, clamped to
+  // `[BASE, MAX]`, where `distance` is the Manhattan grid distance between the
+  // supplying set-scenery body and the bound stage's body.
+  //
+  // THE HEAD START IS PART OF THE MECHANIC. The scenery is called the week the
+  // picture takes its STAGE (`bindings.heldSinceWeek` — already persisted, already
+  // preserved across sticky retention), not the week the director is assigned. The
+  // flats are trucked over while the company rehearses, which is both how a lot
+  // works and what makes the duration a pure function of state. Rehearsal plus the
+  // entry advance is TWO weeks, so a trip of ≤2 weeks is always finished before
+  // the cameras are ready and costs a picture nothing.
+  //
+  // MEASURED at this HEAD, on the founding lot the campaign actually ships (body
+  // centres derived from `INITIAL_PROPERTY_STRUCTURES`, printed from the engine):
+  // the Scenery Shop shares the Production/Post body at (19,18); Stage A's body
+  // centre is (18,3) and Stage B's is (18,10) — so the two founding runs are 16
+  // and 9 cells, which are 2 and 1 weeks. BOTH ARRIVE ON TIME: nothing the campaign
+  // has already measured moves. (Verified: the whole core and ui suites green with
+  // the mechanic live.) Stage A's run is the honest edge of that — the scenery gets
+  // there exactly as the cameras are ready — and Stage B's is comfortable.
+  //
+  // What DOES cost a picture time is ground a player chose. A second Scenery Shop
+  // on the West Lawn (body centre (1,11)) is 25 cells from Stage A: three weeks, so
+  // one week of the company standing on a bare stage. The widest run this lot
+  // allows is ~43 cells — five weeks, three of them waiting — which is where MAX
+  // sits, so the term is bounded by the property itself rather than by a guess.
+  //
+  // This is the WHOLE of §4.2's layout licence. No route, no vehicle, no ETA
+  // surface, no per-person travel; `00E`.13's general travel consequence stays a
+  // NAMED PARITY RESIDUAL owned by the C3+ docket.
+  SCENERY_LOAD_IN_WEEKS_BASE: 1, // [ICH] weeks a load-in takes at zero distance
+  SCENERY_LOAD_IN_WEEKS_PER_DISTANCE: 0.1, // [ICH] additional weeks per grid cell
+  SCENERY_LOAD_IN_WEEKS_MAX: 5, // [ICH] hard ceiling; the widest trip this lot allows
   // The fraction of a set's ORIGINAL capital cost returned when it is struck.
   // LOWER than a building's half (FACILITY_DEMOLITION_REFUND_FRACTION = 0.5)
   // because a struck set recovers timber, flats and dressing rather than a
