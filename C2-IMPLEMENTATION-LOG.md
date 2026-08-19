@@ -518,6 +518,26 @@ base (`a394838`): root tsc 0 · ui tsc 0 · FULL vitest **320 files / 4,370 pass
   every week and twelve with it never taken export byte-identically, `rngState`
   included, with the enabled arm proven non-vacuous (subjects seen, ≥2 kinds).
 
+- **THE HANDS-OFF PROOF, IN A REAL BROWSER, WHOLE** (`ui/e2e/c2a-m5-living-turn
+  -v1.spec.ts`, +2 tests → 4). On the shipped grid origin (5179), reduced motion,
+  the gate fixture seeded through the live save boundary and proven to replay
+  byte-identically first. TWO pictures in flight, ONE press of Roll, and then
+  **zero further input for the rest of the test**: the transport's `data-week`
+  reaches start + 12 while `data-mode` still reads `running` and `data-paused-by`
+  still reads `none` — which IS the twelve-consecutive-week claim, because a loop
+  that had paused on any earlier week had nothing to restart it. The QUEUE DRAIN
+  is read out of the studio the browser is actually holding (the session payload
+  is `exportSaveJson(state)` verbatim), through the ENGINE's own queue
+  projection: `productionQueue` empty, `activeProductions` 2 → 3,
+  `waitingIntents` 0. The NOTIFY-class line is asserted **VERBATIM** against the
+  engine's own `constructionCompletion.message` — so the bulletin check cannot
+  pass on an empty box — and `not.toHaveText(/Stopped at Week/)`, because nothing
+  stopped. Then the loop stops ITSELF on exactly the week the hand-advanced twin
+  owes, with `data-paused-by="cashNegative"`, and stays stopped.
+  **THE ONE PLACE A STOPWATCH BELONGS**: a second test measures a played week at
+  1× against the wall clock — 10.35s ±20%, twice in a row, so it is a cadence and
+  not one lucky week. Measured: 4 passed (2.4m).
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and

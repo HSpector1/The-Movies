@@ -11,6 +11,14 @@
 //   HOLD HOLDS. Paused, the week does not move, however long you leave it.
 //   THE PARTITION HOLDS. A PAUSE-class stop pauses the loop BY ITSELF and says
 //     which stop did it; a NOTIFY-class stop does not, and reaches the bulletin.
+//   THE GATE, WHOLE (§12-M5). One seeded save with two pictures in flight runs
+//     TWELVE-PLUS consecutive unpaused weeks on ONE press, its queue drains into
+//     freed capacity while it runs, a NOTIFY-class event reaches the player
+//     without stopping anything, and the loop then stops ITSELF on the FIRST
+//     PAUSE-class stop. Run length asserted, not merely an eventual pause.
+//   AND THE WEEK IS A WEEK. One played week at 1× is measured against the wall
+//     clock — the ONE place a stopwatch belongs, because "10.35s at 1×" is a
+//     claim about presentation, not about the world.
 //
 // TELEMETRY, NOT TIMING. Every assertion reads `data-week` / `data-mode` /
 // `data-paused-by` off the transport, so nothing here races an animation. The
@@ -21,6 +29,7 @@
 // proven to replay byte-identically through the live save boundary first.
 
 import { expect, test, type Page } from '@playwright/test'
+import { livingStudioUnderPressure } from '../../tests/_m5Fixtures.ts'
 import {
   advanceWeek,
   exportSaveJson,
@@ -36,6 +45,7 @@ import {
   runScriptProjectAction,
   scriptProjectsBoard,
   signContractAction,
+  studioQueueBoard,
   commissionScriptAction,
   type CreativeRole,
   type DraftPackage,
@@ -245,6 +255,40 @@ const QUIET_WEEK = QUIET_STATE.market.tick
 const QUIET_WEEKS_NEEDED = 12
 assertQuiet(QUIET_STATE, QUIET_WEEKS_NEEDED)
 
+// ── §12-M5's gate fixture: the whole sentence, on ONE studio ─────────────────
+//
+// Two pictures in flight, a third greenlight waiting for a Development & Casting
+// room, every set struck so no picture can reach a stage and ask for a decision,
+// a scenery shop rising to end the drought, and a bank balance calibrated to run
+// out AFTER the run the gate asks for. Built and self-verified in
+// `tests/_m5Fixtures.ts`; its engine-side contract is pinned by
+// `ui/src/test/contracts/m5-hands-off-gate.contract.test.ts`, so a green browser
+// run here can never be a browser that simply did nothing for a minute.
+const GATE_QUIET_WEEKS = 16
+const GATE = livingStudioUnderPressure('c2a-m5-hands-off-gate', GATE_QUIET_WEEKS)
+const GATE_SAVE = nativeSave(GATE.state, 'the living studio under pressure')
+const GATE_WEEK = GATE.state.market.tick
+/** The charter's own floor. The fixture clears it with room; this is the claim. */
+const CHARTER_HANDS_OFF_FLOOR = 12
+/** The stop the hand-advanced twin says ends this run, and the week it ends on. */
+const GATE_STOP = pauseClassRunway(GATE.state)
+
+/**
+ * The NOTIFY-class sentence the twin says this run produces, taken VERBATIM off
+ * the engine's own stop payload. Asserting the browser prints this exact string
+ * is what stops the bulletin check from passing on an empty box.
+ */
+const GATE_NOTIFY_LINE = ((): string => {
+  let state = GATE.state
+  for (let weeks = 1; weeks <= GATE.quietWeeks; weeks += 1) {
+    const step = advanceWeek(state)
+    state = step.next
+    const message = step.stop?.constructionCompletion?.message ?? null
+    if (step.stopReason === 'constructionCompleted' && message !== null) return message
+  }
+  throw new Error('fixture: the run produced no NOTIFY-class construction completion')
+})()
+
 // ── harness ──────────────────────────────────────────────────────────────────
 
 function watchRuntime(page: Page) {
@@ -282,6 +326,41 @@ const transport = (page: Page) => page.getByTestId('lot-transport')
 async function currentWeek(page: Page): Promise<number> {
   const value = await transport(page).getAttribute('data-week')
   return Number(value)
+}
+
+/**
+ * The studio the BROWSER is actually holding, read back through the same session
+ * payload a reload would restore from — `saveActiveSession` writes exactly
+ * `exportSaveJson(state)`, so this is the authoritative state and not a UI
+ * reconstruction of it. Used to ask the engine's own queue projection what the
+ * running studio did, without touching a single control to find out.
+ */
+async function liveState(page: Page) {
+  const raw = await page.evaluate((key) => localStorage.getItem(key), ACTIVE_SESSION_KEY)
+  if (raw === null) throw new Error('the browser has no active session')
+  const restored = importSaveJson(raw)
+  if (!restored.ok) throw new Error(`the browser's session will not load: ${restored.error}`)
+  return restored.state
+}
+
+/**
+ * Wait for the transport to report `week`, WITHOUT touching anything, and hand
+ * back how long the wall clock says it took.
+ *
+ * This is the one place a stopwatch belongs in this spec. Everywhere else the
+ * week is read off telemetry precisely so nothing races an animation; here the
+ * duration IS the claim under test (§4.1: one witnessed week is 10.35s at 1×).
+ */
+async function timeToReachWeek(page: Page, week: number, timeout: number): Promise<number> {
+  const startedAt = Date.now()
+  await page.waitForFunction(
+    (target) =>
+      document.querySelector('[data-testid="lot-transport"]')?.getAttribute('data-week') ===
+      String(target),
+    week,
+    { timeout, polling: 50 },
+  )
+  return Date.now() - startedAt
 }
 
 test.describe('C2a-M5 — Living Turn V1 in the browser', () => {
@@ -353,6 +432,111 @@ test.describe('C2a-M5 — Living Turn V1 in the browser', () => {
     await page.waitForTimeout(9_000)
     expect(await currentWeek(page)).toBe(START_WEEK + RUNWAY.weeks)
     await expect(transport(page)).toHaveAttribute('data-mode', 'paused')
+
+    expect(runtime.pageErrors).toEqual([])
+  })
+})
+
+// ── §12-M5's gate, whole, on one studio and one press ────────────────────────
+
+test.describe('C2a-M5 §12-M5 — the hands-off proof', () => {
+  test('two pictures in flight, ONE press, and the studio runs itself', async ({ page }) => {
+    const runtime = watchRuntime(page)
+
+    // THE STUDIO, BEFORE ANYONE TOUCHES IT. Two pictures in flight and a third
+    // greenlight waiting for a room — the engine's own words, read here so the
+    // browser assertions below are anchored to a state and not to a hope.
+    expect(GATE.state.studio.activeProductions).toHaveLength(2)
+    expect(GATE.state.productionQueue).toHaveLength(1)
+    expect(studioQueueBoard(GATE.state).waiters.length).toBeGreaterThanOrEqual(1)
+    expect(GATE.quietWeeks).toBeGreaterThanOrEqual(CHARTER_HANDS_OFF_FLOOR)
+    expect(GATE.queueDrainsAfter).toBeLessThanOrEqual(CHARTER_HANDS_OFF_FLOOR)
+    expect(GATE_STOP.weeks).toBe(GATE.quietWeeks + 1)
+
+    await seed(page, GATE_SAVE)
+    await expect(transport(page)).toHaveAttribute('data-week', String(GATE_WEEK))
+    await expect(transport(page)).toHaveAttribute('data-mode', 'paused')
+    await expect(transport(page)).toHaveAttribute('data-paused-by', 'none')
+
+    // ── ONE press. Nothing else is touched for the rest of this test. ────────
+    await page.getByTestId('lot-transport-speed-4').click()
+    await page.getByTestId('lot-transport-toggle').click()
+    await expect(transport(page)).toHaveAttribute('data-mode', 'running')
+
+    // ── THE RUN LENGTH, ASSERTED ─────────────────────────────────────────────
+    // Reaching this week with ZERO further input IS the twelve-consecutive-week
+    // claim: had the loop paused on any week before it, nothing would have
+    // restarted it and the week would have stopped where it stopped.
+    await expect(transport(page)).toHaveAttribute(
+      'data-week',
+      String(GATE_WEEK + CHARTER_HANDS_OFF_FLOOR),
+      { timeout: 120_000 },
+    )
+    await expect(transport(page)).toHaveAttribute('data-mode', 'running')
+    await expect(transport(page)).toHaveAttribute('data-paused-by', 'none')
+
+    // ── THE QUEUE DRAINED INTO FREED CAPACITY, WHILE IT RAN ──────────────────
+    // Read from the studio the browser is actually holding, through the engine's
+    // own queue projection. The waiting greenlight is gone from the queue and is
+    // now a third picture in flight — a room freed and the queue took it.
+    const running = await liveState(page)
+    expect(running.productionQueue).toHaveLength(0)
+    expect(running.studio.activeProductions).toHaveLength(3)
+    expect(studioQueueBoard(running).summary.waitingIntents).toBe(0)
+
+    // ── A NOTIFY-CLASS EVENT SURFACED, AND STOPPED NOTHING ───────────────────
+    // The scenery shop opened on its own clock. The studio said so on the
+    // bulletin, in its own voice, and kept working.
+    const bulletin = page.getByTestId('lot-living-turn-bulletin')
+    await expect(bulletin).toBeVisible()
+    // The ENGINE's own sentence, verbatim — never a re-worded one, and never an
+    // empty box that a `toBeVisible` would have accepted.
+    await expect(bulletin).toContainText(GATE_NOTIFY_LINE)
+    // …and NOT the batch verb's sentence: nothing stopped, so saying so would be
+    // a lie about the thing the player is watching (§4.1, the NOTIFY voice).
+    await expect(bulletin).not.toHaveText(/Stopped at Week/)
+    await expect(transport(page)).toHaveAttribute('data-mode', 'running')
+
+    // ── AND THEN IT STOPS ITSELF, ON THE FIRST PAUSE-CLASS STOP ──────────────
+    // The hand-advanced twin says the money crosses zero on exactly this week.
+    await expect(transport(page)).toHaveAttribute('data-mode', 'paused', { timeout: 120_000 })
+    await expect(transport(page)).toHaveAttribute(
+      'data-week',
+      String(GATE_WEEK + GATE_STOP.weeks),
+    )
+    await expect(transport(page)).toHaveAttribute('data-paused-by', GATE_STOP.reason)
+    expect(GATE_STOP.reason).toBe('cashNegative')
+
+    // …and it stays stopped, with nobody touching it.
+    await page.waitForTimeout(9_000)
+    expect(await currentWeek(page)).toBe(GATE_WEEK + GATE_STOP.weeks)
+    await expect(transport(page)).toHaveAttribute('data-mode', 'paused')
+
+    expect(runtime.pageErrors).toEqual([])
+  })
+
+  test('a played week at 1× is a played week — measured against the wall clock', async ({
+    page,
+  }) => {
+    const runtime = watchRuntime(page)
+    await seed(page, GATE_SAVE)
+    await expect(transport(page)).toHaveAttribute('data-speed', '1')
+
+    // §4.1 names the figure: the shipped nine-beat playback, 10.35s at 1×. Every
+    // other assertion in this spec deliberately refuses a stopwatch; this one
+    // needs it, because the claim IS a duration. ±20% is the tolerance, and the
+    // polling interval (50ms) is far inside it.
+    const expected = 10_350
+    const tolerance = expected * 0.2
+    await page.getByTestId('lot-transport-toggle').click()
+    const elapsed = await timeToReachWeek(page, GATE_WEEK + 1, 40_000)
+    expect(elapsed).toBeGreaterThan(expected - tolerance)
+    expect(elapsed).toBeLessThan(expected + tolerance)
+
+    // …and it is a CADENCE, not one lucky week: the second week takes the same.
+    const second = await timeToReachWeek(page, GATE_WEEK + 2, 40_000)
+    expect(second).toBeGreaterThan(expected - tolerance)
+    expect(second).toBeLessThan(expected + tolerance)
 
     expect(runtime.pageErrors).toEqual([])
   })
