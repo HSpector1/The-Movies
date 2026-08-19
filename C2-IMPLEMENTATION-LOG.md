@@ -329,6 +329,52 @@ finished) + `ui/e2e/` additions.
   Floors: root tsc 0 · ui tsc 0 · ui **187 files / 2,536 + 5 skipped / 0** · core
   **132 files / 1,816 / 0** (319 / 4,352 + 5 together; ENGINE-M5 left 317 / 4,313 + 5).
 
+- **THE PLANT, ON THE GROUND + EVERYONE HAS A REASON TO BE THERE** (`8238b62`).
+  `ui/src/lot/snapshot/weekTheater.ts` answers the last question before
+  `studioWeekTheater` can be DRAWN — where on the property each fact stands —
+  through the same authorities every other lot surface uses (derived stage
+  identities, the frozen founding scenery vocabulary, the placement projection).
+  **Law 12 kept**: a fact about a facility no body stands for is dropped, never
+  painted onto a convenient building. The scene gained ONE ground layer
+  (`tier:week-theater`): working light from a hot stage, the ring a wrap is
+  clearing out of, flats stacked mounting-left / struck-right, and freight.
+  **FREIGHT TRAVELS, IT DOES NOT TELEPORT** — a haul's position is the ENGINE's
+  own `weeksRemaining` against the trip the engine sized, and across a played week
+  it eases from LAST week's authoritative position to this one (law 2:
+  interpolation between two engine facts, deciding nothing).
+  **THE QUEUE, WORLD-NATIVE, BOTH OPTIONS (r3.1)**: Option A the floor — a Call
+  Board placard per contended body carrying the picture and the engine's own
+  Remedy sentence VERBATIM (never re-worded, never an id); Option B the committed
+  §18-item-8 target — the BACKED-UP LOT, one freight element per waited week on
+  the apron, capped at 6 so the pile stays a signal, under a named 24-element
+  draw budget.
+  **GROUNDED AMBIENT ACTORS** (§4.2, `00C`.6): the eight patrols each claim an
+  authoritative fact and may only stand on the property when it is true (freight /
+  a hot stage ×3 / a running campaign / the studio operating / a company standing
+  by / a build progressing). Zero new art, zero new actors, zero new routes — a
+  live law-9 violation became an exemplar. Where there is NO authority (legacy, no
+  `weekTheater`) nothing is claimed and all eight keep shipped behaviour: a
+  withheld projection is not evidence a studio is idle.
+  13 tests over real engine state, two of them non-vacuity proofs.
+
+- **THE BROWSER PROOF + THE RE-PIN** (`bdb43ae`). `ui/e2e/c2a-m5-living-turn-v1
+  .spec.ts`, on the shipped grid origin, reduced-motion, all telemetry
+  (`data-week` / `data-mode` / `data-paused-by`) and no stopwatch. Two fixtures,
+  both built through public actions and proven to replay byte-identically first:
+  (1) a picture in theatres with TWELVE weeks proven quiet by a hand-advanced twin
+  — one press, then 4× covers four weeks in one 1× week, then Hold holds through
+  six 4× weeks; (2) a picture in flight run at 4× lands on exactly the week the
+  twin says it owes a PAUSE-class stop, BY ITSELF, with the engine's own reason,
+  and stays stopped. **2 passed (1.0m).**
+  **RE-PIN (five rules).** The four grid structural tuples move **231 → 232**
+  display objects and nothing else, measured at HEAD: +1 is `tier:week-theater`,
+  one shared VECTOR layer created with the other overlays exactly as
+  `tier:presence-queue` and `tier:guidance-marker` were; decoded bytes and draw
+  calls do not move (no texture, existing pipeline); and **dynamic actors do not
+  move at 14 — the load-bearing NON-movement**, because grounding the patrols
+  changes what is VISIBLE and this counter counts what EXISTS. Both worlds keep
+  their own numbers: the plate tuples are a different world and did not move.
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and
