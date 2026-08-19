@@ -433,10 +433,14 @@ describe('strict Lot casting review context', () => {
       (board) => {
         board.sections.needsReview[0]!.packageAvailability!.productionSlotAvailable = false
       },
+      // C2a-M4 (§11.8 re-base, named successor): the retired
+      // `'production-capacity'` mutation is replaced by the one that proves the
+      // SUCCESSOR semantic — the two capacity booleans are one physical fact and
+      // may never disagree with each other.
       (board) => {
         const availability = board.sections.needsReview[0]!.packageAvailability!
-        availability.writerAvailable = true
-        availability.blockers[0]!.kind = 'production-capacity'
+        availability.productionSlotAvailable = false
+        availability.developmentCastingSlotAvailable = true
       },
       (board) => {
         board.sections.needsReview[0]!.packageAvailability!

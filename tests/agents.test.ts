@@ -134,6 +134,9 @@ function greenlightProd(
 
 // ── §13 both agents: exactly one greenlight from the shared grid (ruling #4) ─────
 
+// C2a-M4 (§11.8, re-based-not-retired): this live precondition consumed the
+// deleted cap. It is re-based onto `AGENT_MAX_SLATE` — the agents' own policy
+// bound — with the assertion unchanged.
 describe('§13 both agents greenlight from the shared candidate grid when active < 2', () => {
   for (const [name, agent] of [
     ['RandomAgent', RandomAgent],
@@ -141,9 +144,7 @@ describe('§13 both agents greenlight from the shared candidate grid when active
   ] as const) {
     it(`${name}: returns exactly one greenlight whose production is a package in generateCandidates(state,tick)`, () => {
       const state = generateWorld(`agent-one-${name}`)
-      expect(state.studio.activeProductions.length).toBeLessThan(
-        TUNING.MAX_CONCURRENT_PRODUCTIONS,
-      )
+      expect(state.studio.activeProductions.length).toBeLessThan(TUNING.AGENT_MAX_SLATE)
       const actions = agent.chooseActions(state)
       expect(actions).toHaveLength(1)
       expect(actions[0].kind).toBe('greenlight')
@@ -154,9 +155,16 @@ describe('§13 both agents greenlight from the shared candidate grid when active
   }
 })
 
-// ── §13/ruling #4 both agents pass when active === MAX_CONCURRENT_PRODUCTIONS ─────
+// ── §13/ruling #4 both agents pass at their policy slate bound ───────────────
+//
+// C2a-M4 RETIREMENT WITH ITS NAMED SUCCESSOR (charter §11.8 item 8): the subject
+// of the predecessor — "the engine refuses the third picture" — is deleted with
+// the cap (owner law 1). The successor is the same fixture and the same
+// assertion about the thing that still exists: both AGENTS stop at
+// `AGENT_MAX_SLATE`, which is a policy bound and never a game law. This is
+// exactly what holds the sealed M0A corpus byte-identical across the deletion.
 
-describe('§13 both agents return [] when active === MAX_CONCURRENT_PRODUCTIONS (2)', () => {
+describe('§13 both agents return [] when active === AGENT_MAX_SLATE (2)', () => {
   const SHAPE = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' } as const
 
   // Reach 2 active by applying two greenlights on manually tick-incremented states,
@@ -211,7 +219,8 @@ describe('§13 both agents return [] when active === MAX_CONCURRENT_PRODUCTIONS 
   ] as const) {
     it(`${name}: returns [] at 2 active`, () => {
       const s = fill2Active(`agent-full-${name}`)
-      expect(s.studio.activeProductions).toHaveLength(TUNING.MAX_CONCURRENT_PRODUCTIONS)
+      expect(s.studio.activeProductions).toHaveLength(TUNING.AGENT_MAX_SLATE)
+      expect(TUNING.AGENT_MAX_SLATE).toBe(2)
       expect(agent.chooseActions(s)).toEqual([])
     })
   }

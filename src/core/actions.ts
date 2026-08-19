@@ -8,8 +8,10 @@
 //   M16 — validation (role matching, distinct cast, talent exclusivity,
 //         concurrency) + loud rejection of any invalid action (a harness abort,
 //         NOT a silent no-op and NOT a game event).
-//   B3  — at most one greenlight per call; greenlight valid only while
-//         activeProductions.length < MAX_CONCURRENT_PRODUCTIONS.
+//   B3  — at most one greenlight per call. C2a-M4: the "under the cap" half of
+//         this law is DELETED with the cap (owner law 1); a greenlight the
+//         studio's rooms cannot carry is ADMITTED TO THE QUEUE (§3.3), never
+//         refused for being the Nth.
 //   D-1 — greenlight debits budget.negative + budget.marketing + Σ salaries
 //         (writer + director + all cast + all craft). Cash may go negative with
 //         no mechanical consequence. No credit here (release credits are in tick).
@@ -387,12 +389,11 @@ function applyGreenlight(
     throw new Error('applyActions: greenlight rejected — the studio is still in its founding draft (D-11)')
   }
 
-  // M16.6 / B3 — concurrency: greenlight valid only while under the cap.
-  if (state.studio.activeProductions.length >= TUNING.MAX_CONCURRENT_PRODUCTIONS) {
-    throw new Error(
-      `applyActions: greenlight rejected — activeProductions at capacity (${state.studio.activeProductions.length}/${TUNING.MAX_CONCURRENT_PRODUCTIONS})`,
-    )
-  }
+  // M16.6 / B3 — THE CONCURRENCY CAP IS GONE (C2a-M4, owner law 1). What limits
+  // a studio's slate is the rooms it has: this greenlight still has to acquire a
+  // Development & Casting slot below, and if it cannot, the front door admits it
+  // to the queue instead of throwing it away (§3.3). There is no global counter
+  // left to consult.
 
   // M16.1 — conceptId refers to an existing concept.
   const concept = state.concepts.find((c) => c.id === p.conceptId)

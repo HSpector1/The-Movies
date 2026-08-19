@@ -140,8 +140,8 @@ function runGame(seed: string, st: Strat, years: number): { finalCash: number; r
   let lastTentpoleWeek = -10_000
   for (let wk = 0; wk < weeks; wk++) {
     // Fill every free production slot this week (bounded by MAX_CONCURRENT + free talent + cash).
-    for (let guard = 0; guard < TUNING.MAX_CONCURRENT_PRODUCTIONS + 1; guard++) {
-      if (s.studio.activeProductions.length >= TUNING.MAX_CONCURRENT_PRODUCTIONS) break
+    for (let guard = 0; guard < TUNING.AGENT_MAX_SLATE + 1; guard++) {
+      if (s.studio.activeProductions.length >= TUNING.AGENT_MAX_SLATE) break
       const wantTentpole = st.tentpole !== undefined && s.studio.cash - st.tentpole.reserve >= 0 && wk - lastTentpoleWeek > st.tentpole.cooldownWeeks
       const g = assemble(s, st, conceptIdx, wantTentpole)
       if (!g) break

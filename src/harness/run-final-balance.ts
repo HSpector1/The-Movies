@@ -219,9 +219,9 @@ function runGame(seed: string, st: Strat, years: number): Run {
   let idleRun = 0
   for (let wk = 0; wk < weeks; wk++) {
     s = maintainRoster(s, founded.rosterIds)
-    r.slotIdleWeeks += Math.max(0, TUNING.MAX_CONCURRENT_PRODUCTIONS - s.studio.activeProductions.length)
-    for (let guard = 0; guard < TUNING.MAX_CONCURRENT_PRODUCTIONS + 1; guard++) {
-      if (s.studio.activeProductions.length >= TUNING.MAX_CONCURRENT_PRODUCTIONS) break
+    r.slotIdleWeeks += Math.max(0, TUNING.AGENT_MAX_SLATE - s.studio.activeProductions.length)
+    for (let guard = 0; guard < TUNING.AGENT_MAX_SLATE + 1; guard++) {
+      if (s.studio.activeProductions.length >= TUNING.AGENT_MAX_SLATE) break
       const res = assemble(s, st, conceptIdx)
       if ('blocked' in res) {
         if (res.blocked === 'noWriter' || res.blocked === 'noTeam') r.teamBlockedWeeks += 1
@@ -274,7 +274,7 @@ function aggregate(st: Strat, years: number) {
     endPositiveRate: +(runs.filter((r) => r.endPositive).length / SEEDS).toFixed(3),
     filmsReleased: median(runs.map((r) => r.released)),
     filmsPerYear: +(median(runs.map((r) => r.released)) / years).toFixed(1),
-    slotUtilPct: +(1 - median(runs.map((r) => r.slotIdleWeeks)) / (weeks * TUNING.MAX_CONCURRENT_PRODUCTIONS)).toFixed(3),
+    slotUtilPct: +(1 - median(runs.map((r) => r.slotIdleWeeks)) / (weeks * TUNING.AGENT_MAX_SLATE)).toFixed(3),
     fullIdlePct: +(median(runs.map((r) => r.weeksNoActive)) / weeks).toFixed(3),
     longestIdle: median(runs.map((r) => r.longestIdle)),
     teamBlockedWeeks: median(runs.map((r) => r.teamBlockedWeeks)),

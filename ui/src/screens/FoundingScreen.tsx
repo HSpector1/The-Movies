@@ -142,16 +142,23 @@ export function FoundingScreen({
 
       {/* A10: set the player's expectation about studio size and capacity up front — the
           original game did not offer Small/Medium/Large starting sizes either, and the
-          two-production capacity + separate-team requirement is easy to miss otherwise. */}
+          capacity + separate-team requirement is easy to miss otherwise.
+          C2a-M4 (§11.8): the "up to two productions" sentence went with the cap
+          (owner law 1). Its successor teaches CAPACITY-DERIVED throughput — how
+          many pictures the studio can run is a fact about its rooms and its
+          roster, and what it cannot start yet, it queues. */}
       <div className="card stack" data-testid="founding-intro">
         <h2 style={{ marginTop: 0 }}>You are founding a small independent studio</h2>
         <p className="hint" style={{ marginBottom: 0 }}>
           There is no Small / Medium / Large choice — every studio starts the same way, small and
-          independent, and grows through the films it makes. Your studio can run{' '}
-          <strong>up to two productions at once</strong>, but each production needs its own{' '}
-          <strong>complete, available team</strong> (a writer, a director, three cast, and a
+          independent, and grows through the films it makes. How many pictures you can run at once
+          is <strong>not a fixed number</strong> — it is <strong>the rooms you have built</strong>,
+          and your founding lot has two Development &amp; Casting slots. Each production also needs
+          its own <strong>complete, available team</strong> (a writer, a director, three cast, and a
           Production/Craft Lead). To staff a second film at the same time you need roster depth —
-          extra people beyond one team — or an available freelancer for each open role.
+          extra people beyond one team — or an available freelancer for each open role. Ask for more
+          than the lot can carry and nothing is refused: it <strong>waits in the queue</strong> and
+          starts the week a room frees.
         </p>
       </div>
 

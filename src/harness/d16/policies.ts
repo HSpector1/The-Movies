@@ -331,7 +331,7 @@ function roster(
 }
 
 function slotFree(view: PlayerView): boolean {
-  return view.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS
+  return view.activeProductions.length < TUNING.AGENT_MAX_SLATE
 }
 
 /** Greenlight the given package if a slot is free and the authoritative gate passes. */

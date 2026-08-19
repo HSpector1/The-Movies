@@ -396,7 +396,7 @@ export type RunOptions = {
 function makePlayerCtx(state: GameState, cache: PkgCache): PlayerCtx {
   return {
     week: state.market.tick,
-    maxConcurrent: TUNING.MAX_CONCURRENT_PRODUCTIONS,
+    maxConcurrent: TUNING.AGENT_MAX_SLATE,
     packages: (options?: PackageOptions) => cache.packages(state, options),
     bareMinimum: (options?: PackageOptions) => cache.bare(state, options),
     standard: (options?: PackageOptions) => cache.standard(state, options),
@@ -440,7 +440,7 @@ class PkgCache {
   ): void {
     if (roles.length === 0) return
     if (options?.ignoreBusy === true) return
-    if (state.studio.activeProductions.length >= TUNING.MAX_CONCURRENT_PRODUCTIONS) return
+    if (state.studio.activeProductions.length >= TUNING.AGENT_MAX_SLATE) return
     const w = state.market.tick
     this.unstaffableWeeks.add(w)
     for (const r of roles) {

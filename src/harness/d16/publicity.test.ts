@@ -45,7 +45,7 @@ function drive(weeks: number): GameState {
     const pkg = standardPackage(s)
     if (
       pkg !== null &&
-      s.studio.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS &&
+      s.studio.activeProductions.length < TUNING.AGENT_MAX_SLATE &&
       packageAffordable(s, pkg)
     ) {
       try {

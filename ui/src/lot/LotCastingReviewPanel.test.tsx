@@ -146,8 +146,11 @@ const blockedContext: LotCastingReviewContext = {
     knownGatesClear: false,
     writerAvailable: true,
     staffingAvailable: false,
+    // C2a-M4 (§11.8 re-base): the two booleans are the SAME physical fact now —
+    // is a Development & Casting slot free — so a fixture may not claim one
+    // without the other.
     productionSlotAvailable: false,
-    developmentCastingSlotAvailable: true,
+    developmentCastingSlotAvailable: false,
     blockers: [
       {
         kind: 'package-staffing',
@@ -156,16 +159,19 @@ const blockedContext: LotCastingReviewContext = {
         remedy: 'Review current availability before opening the package.',
       },
       {
-        kind: 'production-capacity',
-        headline: 'No production slot is available',
-        detail: 'The active production board has no open slot for another picture.',
-        remedy: 'Wait for a current picture to release its production slot.',
+        // C2a-M4 (§11.8 re-base, named successor): the retired
+        // `'production-capacity'` blocker's successor is the room it was always
+        // really about — and the copy states the queue rather than a refusal.
+        kind: 'facility-capacity',
+        headline: 'Development & Casting is full',
+        detail: 'Every Development & Casting slot is occupied, so a greenlight now joins the queue instead of starting.',
+        remedy: 'Greenlight anyway and it starts the week a slot frees.',
       },
     ],
   },
   blockers: [
     'The package still needs complete staffing',
-    'No production slot is available',
+    'Development & Casting is full',
   ],
   action: {
     kind: 'acknowledgeCastingSession',

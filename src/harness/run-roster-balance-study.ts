@@ -211,7 +211,7 @@ function runOne(seed: string, strategy: Strategy, years: number): RunResult {
       }
     }
     // Greenlight while a slot is free and a legal film can be fielded.
-    while (s.studio.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS) {
+    while (s.studio.activeProductions.length < TUNING.AGENT_MAX_SLATE) {
       const plan = planFilm(s)
       if (plan === null) {
         staffingFailures++

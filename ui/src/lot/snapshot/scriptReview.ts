@@ -207,7 +207,9 @@ const BLOCKER_KINDS = new Set([
   'facility-capacity',
   'writer-contract',
   'writer-assignment',
-  'production-capacity',
+  // C2a-M4 (§3.3): `'production-capacity'` retired with the cap it mirrored
+  // (owner law 1). Its successor is `'facility-capacity'`, already in this set —
+  // a room, not a counter.
   'package-staffing',
   'casting-session',
   'no-concepts',

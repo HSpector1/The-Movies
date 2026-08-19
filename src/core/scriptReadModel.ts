@@ -51,7 +51,11 @@ export type ScriptPlayerBlockerKind =
   | 'facility-capacity'
   | 'writer-contract'
   | 'writer-assignment'
-  | 'production-capacity'
+  // C2a-M4 (§3.3): `'production-capacity'` — "The production slate is full" — is
+  // GONE with the cap it mirrored (owner law 1). There is no slate count to be
+  // full of. What can still stop a greenlight starting THIS week is a physical
+  // room, and that has always been `'facility-capacity'`; the successor to the
+  // deleted arm is that arm, now carrying the queue's own truth.
   | 'package-staffing'
   | 'casting-session'
   | 'no-concepts'
@@ -677,23 +681,26 @@ function packageAvailability(
       remedy: 'Complete the founding roster and found the studio.',
     })
   }
-  const productionSlotAvailable =
-    state.studio.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS
-  if (!productionSlotAvailable) {
-    blockers.push({
-      kind: 'production-capacity',
-      headline: 'The production slate is full',
-      detail: `The studio already has ${String(state.studio.activeProductions.length)} of ${String(TUNING.MAX_CONCURRENT_PRODUCTIONS)} productions active.`,
-      remedy: 'Wait for a production to release or cancel one before greenlight.',
-    })
-  }
+  // ── THE SUCCESSOR SEMANTIC (charter §3.3) ────────────────────────────────
+  //
+  // `productionSlotAvailable` used to answer "is the studio under the cap?" —
+  // a question with no meaning now. Its successor answers the question the
+  // player actually has: CAN THIS PICTURE START THIS WEEK, or will it wait? One
+  // physical fact answers it — whether a Development & Casting slot is free —
+  // which is the same fact `developmentCastingSlotAvailable` reports, and the two
+  // are deliberately equal rather than independently derived, because a surface
+  // that renders "slot available" and a surface that renders the blocker must
+  // never disagree.
   const developmentCastingSlotAvailable = capacity.available > 0
+  const productionSlotAvailable = developmentCastingSlotAvailable
+  const queueDepth = state.productionQueue.length
   if (!developmentCastingSlotAvailable) {
     blockers.push({
       kind: 'facility-capacity',
       headline: 'Development & Casting is full',
-      detail: 'Greenlight needs one Development & Casting slot for the production workflow.',
-      remedy: 'Wait for a named screenplay, casting, or production task to release a slot.',
+      detail: `Every Development & Casting slot is occupied, so a greenlight now JOINS THE QUEUE instead of starting: ${String(queueDepth)} ${queueDepth === 1 ? 'intent is' : 'intents are'} already waiting.`,
+      remedy:
+        'Greenlight anyway and it starts the week a slot frees — or free one sooner by finishing a screenplay or audition, or build more Development & Casting capacity.',
     })
   }
   const writerAvailable = !blockers.some(

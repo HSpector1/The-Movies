@@ -199,10 +199,10 @@ function runGame(seed: string, st: Strat, years: number, variant: Variant): Metr
   let ledgerLen = 0
   for (let wk = 0; wk < weeks; wk++) {
     const active0 = s.studio.activeProductions.length
-    m.slotIdleWeeks += Math.max(0, TUNING.MAX_CONCURRENT_PRODUCTIONS - active0)
+    m.slotIdleWeeks += Math.max(0, TUNING.AGENT_MAX_SLATE - active0)
     // try to fill every free slot this week
-    for (let guard = 0; guard < TUNING.MAX_CONCURRENT_PRODUCTIONS + 1; guard++) {
-      if (s.studio.activeProductions.length >= TUNING.MAX_CONCURRENT_PRODUCTIONS) break
+    for (let guard = 0; guard < TUNING.AGENT_MAX_SLATE + 1; guard++) {
+      if (s.studio.activeProductions.length >= TUNING.AGENT_MAX_SLATE) break
       const r = assemble(s, st, conceptIdx, useFreelancers)
       if ('blocked' in r) {
         m.blocked += 1
@@ -299,7 +299,7 @@ function aggregate(st: Strat, variant: Variant, years: number): Cell {
     medianBlockNoWriter: median(runs.map((m) => m.blockNoWriter)),
     medianFreelancerHires: median(runs.map((m) => m.freelancerHires)),
     contractedWriters: runs[0]!.contractedWriters,
-    slotIdlePctMedian: +(median(runs.map((m) => m.slotIdleWeeks)) / (weeks * TUNING.MAX_CONCURRENT_PRODUCTIONS)).toFixed(3),
+    slotIdlePctMedian: +(median(runs.map((m) => m.slotIdleWeeks)) / (weeks * TUNING.AGENT_MAX_SLATE)).toFixed(3),
     weeksNoActivePctMedian: +(median(runs.map((m) => m.weeksNoActive)) / weeks).toFixed(3),
     longestIdleMedian: median(runs.map((m) => m.longestIdle)),
     avgGreenlightGapMedian: median(runs.map((m) => avgGap(m.greenlightWeeks))),

@@ -127,6 +127,12 @@ function greenlight(state: GameState, conceptIndex = 0): Greenlit {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
+// C2a-M4 (§11.8, re-based-not-retired): these two fill-to-capacity loops
+// consumed the deleted cap. A TEST-LOCAL slate bound replaces it and every
+// assertion below is unchanged — the loops need two pictures in flight, which is
+// a fact about the fixture rather than a law of the engine.
+const TEST_SLATE_BOUND = 2
+
 describe('§3/M1 skip-first-tick + release timing', () => {
   it('greenlit at market.tick=0 (startTick 0) releases on the 9th tick() call, releaseTick 8', () => {
     const world = generateWorld('tick-timing-1')
@@ -279,7 +285,7 @@ describe('§3/M1/B2/B3 exact 10-release timeline + 2 unfinished (D-2 cadence)', 
     for (let currentTick = 0; currentTick <= 51; currentTick++) {
       // sanity: currentTick tracks market.tick before this tick() call.
       expect(s.market.tick).toBe(currentTick)
-      if (s.studio.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS) {
+      if (s.studio.activeProductions.length < TEST_SLATE_BOUND) {
         const { state } = greenlight(s, conceptIdx)
         conceptIdx += 1
         s = state
@@ -324,7 +330,7 @@ describe('§15.7 determinism / replay', () => {
       let s = generateWorld(seed)
       let conceptIdx = 0
       for (let currentTick = 0; currentTick <= 51; currentTick++) {
-        if (s.studio.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS) {
+        if (s.studio.activeProductions.length < TEST_SLATE_BOUND) {
           const { state } = greenlight(s, conceptIdx)
           conceptIdx += 1
           s = state

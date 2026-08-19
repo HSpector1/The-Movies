@@ -73,6 +73,15 @@ import {
 
 // ── provenance ───────────────────────────────────────────────────────────────
 
+// ── C2a-M4: the C1 ceiling is FROZEN AS HISTORY (charter §3.3) ───────────────
+//
+// `MAX_CONCURRENT_PRODUCTIONS` is deleted from the engine (owner law 1). These
+// C1 sections describe a measurement taken WHEN IT EXISTED, and a historical
+// report may not silently re-describe itself: the number stays, as a literal,
+// named for what it is. Anything C2 measures gets its own section and its own
+// numbers.
+const C1_HISTORICAL_CONCURRENCY_CEILING = 2
+
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..')
 
@@ -1081,7 +1090,7 @@ function main(): void {
   push(
     '## 4. Shared slots at the two-production ceiling — what does another slot buy TODAY?',
     '',
-    `Measured with \`runFacilitiesArm\` from the accepted Facilities & Construction observatory (\`src/harness/facilities\`), driven at the \`scaled-two-team\` policy — the policy that tries to keep **${String(TUNING.MAX_CONCURRENT_PRODUCTIONS)} pictures**, the current ceiling, in production at once. Three arms per seed over ${String(THROUGHPUT_HORIZON_WEEKS)} weeks: founding capacity, +1 shared slot arriving the week an Annex would open (Week ${String(annexEntry.buildWeeks)}), and +2 arriving the week a Hall would open (Week ${String(hallEntry.buildWeeks)}).`,
+    `Measured with \`runFacilitiesArm\` from the accepted Facilities & Construction observatory (\`src/harness/facilities\`), driven at the \`scaled-two-team\` policy — the policy that tries to keep **${String(C1_HISTORICAL_CONCURRENCY_CEILING)} pictures**, the current ceiling, in production at once. Three arms per seed over ${String(THROUGHPUT_HORIZON_WEEKS)} weeks: founding capacity, +1 shared slot arriving the week an Annex would open (Week ${String(annexEntry.buildWeeks)}), and +2 arriving the week a Hall would open (Week ${String(hallEntry.buildWeeks)}).`,
     '',
     ...table(
       ['Configuration', 'Releases (mean)', 'Final cash (mean)', 'Idle D&C slot-weeks (mean)', 'D&C capacity refusals (mean)'],
@@ -1139,7 +1148,7 @@ function main(): void {
     'Why this is a ceiling result rather than a slot result: a picture holds one shared',
     'Development & Casting slot at a time (its screenplay, then its camera tests, then its',
     'early production work), and the studio may hold at most',
-    `${String(TUNING.MAX_CONCURRENT_PRODUCTIONS)} pictures. Two pictures therefore need two slots, which the founding Development &`,
+    `${String(C1_HISTORICAL_CONCURRENCY_CEILING)} pictures. Two pictures therefore need two slots, which the founding Development &`,
     'Casting building already provides. A refused commission is a screenplay that waits a',
     'week, not a picture that never gets made.',
     '',
@@ -1224,7 +1233,7 @@ function main(): void {
     ),
     '',
     'The two "never" rows are not a claim that capacity is worthless. They are a claim about',
-    `TODAY: with the ceiling at ${String(TUNING.MAX_CONCURRENT_PRODUCTIONS)} concurrent pictures, the founding building already supplies every`,
+    `TODAY: with the ceiling at ${String(C1_HISTORICAL_CONCURRENCY_CEILING)} concurrent pictures, the founding building already supplies every`,
     'slot a studio can use, so a purchased slot has nothing to hold — and the counterfactual',
     'that gives the slot away for free still does not leave the studio richer. Raising the',
     'ceiling is explicitly out of Campaign 1 scope; this is the measurement that says what',
@@ -1248,7 +1257,7 @@ function main(): void {
     '',
     `**FLAGGED — no. Not in ${String(THROUGHPUT_HORIZON_WEEKS)} weeks, and on this evidence not in any horizon, because its measured benefit is not merely small — it is negative before the building is even paid for.** Given its two shared slots for FREE from the week it would open, the studio finished a two-year run with a mean ${money(hallCashDelta)} of final cash against its founding-capacity twin (${String(unchangedSeeds.length)} of ${String(THROUGHPUT_SEEDS.length)} seeds byte-identical, ${String(divergedSeeds.length)} worse). What the capacity reliably bought was ${fixed(idleByDelta[2]! - idleByDelta[0]!, 0)} additional idle slot-weeks. Its ${money(hallEntry.cost)} of capital and ${money(hallEntry.weeklyOperatingCost)}/week — ${money(hallEntry.weeklyOperatingCost * THROUGHPUT_HORIZON_WEEKS)} of opex over that same two-year run — are therefore paid against a benefit of zero or less.`,
     '',
-    `The 20-week clock is therefore the second problem, not the first. Even if the Hall opened instantly it would still return nothing, because the constraint it relieves is not the constraint the studio is under: the studio is under the ${String(TUNING.MAX_CONCURRENT_PRODUCTIONS)}-production ceiling, and slots are not what that ceiling is made of. The same measurement condemns the Annex (${money(annexEntry.cost)}, ${String(annexEntry.buildWeeks)} weeks) for the same reason — the Hall is only the more expensive way to buy the same nothing.`,
+    `The 20-week clock is therefore the second problem, not the first. Even if the Hall opened instantly it would still return nothing, because the constraint it relieves is not the constraint the studio is under: the studio is under the ${String(C1_HISTORICAL_CONCURRENCY_CEILING)}-production ceiling, and slots are not what that ceiling is made of. The same measurement condemns the Annex (${money(annexEntry.cost)}, ${String(annexEntry.buildWeeks)} weeks) for the same reason — the Hall is only the more expensive way to buy the same nothing.`,
     '',
     'One honest counterweight, recorded so the flag is not read as more than it is: extra',
     'slots DO let a studio hold more screenplays and camera tests in flight at once, which is',

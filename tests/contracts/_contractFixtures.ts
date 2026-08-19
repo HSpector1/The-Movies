@@ -164,17 +164,26 @@ export function contractedByRole(state: GameState, role: CreativeRole): Talent[]
   return state.talent.filter((person) => person.role === role && contracted.has(person.id))
 }
 
-/** A founded studio with enough roster depth to package and shoot a picture. */
-export function richFoundedStudio(seed: string): GameState {
+/**
+ * A founded studio with enough roster depth to package and shoot a picture.
+ *
+ * `depth` widens the roster for a fixture that needs more bodies than one or two
+ * pictures — C2a-M4's contention fixtures need three actors nobody has locked.
+ * Omitted, every count is exactly what it has always been.
+ */
+export function richFoundedStudio(
+  seed: string,
+  depth: Partial<Record<CreativeRole, number>> = {},
+): GameState {
   let state = beginFounding(generateWorld(seed))
   const applicants = state.founding!.applicantIds.map(
     (id) => state.talent.find((person) => person.id === id)!,
   )
   const counts: Record<CreativeRole, number> = {
-    actor: Math.max(6, FOUNDING_MINIMUMS.actor),
-    director: Math.max(2, FOUNDING_MINIMUMS.director),
-    writer: Math.max(4, FOUNDING_MINIMUMS.writer),
-    craft: Math.max(2, FOUNDING_MINIMUMS.craft),
+    actor: Math.max(depth.actor ?? 0, 6, FOUNDING_MINIMUMS.actor),
+    director: Math.max(depth.director ?? 0, 2, FOUNDING_MINIMUMS.director),
+    writer: Math.max(depth.writer ?? 0, 4, FOUNDING_MINIMUMS.writer),
+    craft: Math.max(depth.craft ?? 0, 2, FOUNDING_MINIMUMS.craft),
   }
   for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
     for (const person of byRole(applicants, role).slice(0, counts[role])) {
@@ -190,8 +199,11 @@ export function operationsStudio(seed: string): GameState {
 }
 
 /** All three Development & Casting owners managed (the `first-film-journey` idiom). */
-export function managedStudio(seed: string): GameState {
-  return applyActions(richFoundedStudio(seed), [
+export function managedStudio(
+  seed: string,
+  depth: Partial<Record<CreativeRole, number>> = {},
+): GameState {
+  return applyActions(richFoundedStudio(seed, depth), [
     { kind: 'activateStudioOperations' },
     { kind: 'activateScriptDevelopment' },
     { kind: 'activateCastingSessions' },

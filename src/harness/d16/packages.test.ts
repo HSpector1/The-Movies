@@ -66,7 +66,7 @@ function feeBearingFixture(): { state: GameState; withFees: D16Package[]; week: 
     const std = standardPackage(s)
     if (
       std !== null &&
-      s.studio.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS &&
+      s.studio.activeProductions.length < TUNING.AGENT_MAX_SLATE &&
       packageAffordable(s, std)
     ) {
       s = applyActions(s, [toGreenlightAction(std)])

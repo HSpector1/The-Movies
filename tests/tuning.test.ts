@@ -51,7 +51,12 @@ describe('rev. 4 §4 — new TUNING entries at their exact contract values', () 
   const expectedScalars: Record<string, number> = {
     TICKS_PER_YEAR: 52,
     PRODUCTION_TICKS: 8,
-    MAX_CONCURRENT_PRODUCTIONS: 2,
+    // MAX_CONCURRENT_PRODUCTIONS is RETIRED here and proved ABSENT below —
+    // C2a-M4 / charter §11.8 item 8, owner law 1 (`00E`.3: capacity and
+    // reservations limit throughput; a global movie counter does not).
+    // `rev4-open-questions.md:297/:663`, the source this table cites, is ruled
+    // annotated-historical by the same item.
+    AGENT_MAX_SLATE: 2,
     INITIAL_CASH: 20_000_000,
     SALARY_BASE: 25_000,
     SALARY_SKILL_COEF: 150_000,
@@ -64,6 +69,14 @@ describe('rev. 4 §4 — new TUNING entries at their exact contract values', () 
       expect((TUNING as Record<string, unknown>)[key]).toBe(value)
     })
   }
+
+  // THE NAMED SUCCESSOR (§11.8 item 8): the deleted constant is not merely
+  // unasserted, it is asserted GONE — a cap re-added by hand would fail here —
+  // and the one policy constant that inherited its number is asserted present.
+  it('MAX_CONCURRENT_PRODUCTIONS is ABSENT from TUNING (owner law 1 — deleted, never raised)', () => {
+    expect(Object.prototype.hasOwnProperty.call(TUNING, 'MAX_CONCURRENT_PRODUCTIONS')).toBe(false)
+    expect((TUNING as Record<string, unknown>).MAX_CONCURRENT_PRODUCTIONS).toBeUndefined()
+  })
 
   it('FORECAST_SIGMA === { high: 5, medium: 10, low: 16 }', () => {
     // Source: B17 / §4 — kept sigma, changed widths.

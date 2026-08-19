@@ -290,8 +290,15 @@ export function Dashboard({
           </p>
           {!managedScripts && !canGreenlight && (
             <p className="hint">
-              At the production cap ({active.length}). Advance weeks until a film releases before
-              starting another.
+              {/* C2a-M4 (§3.3, G12): the sentence said "At the production cap",
+                  and there is no cap — owner law 1 deleted it. What actually
+                  stops another picture starting is a room: every Development &
+                  Casting slot is taken. The remedy is named for what frees one,
+                  which is any of the three kinds of work that hold them, not
+                  only a release. */}
+              Every Development &amp; Casting slot is taken ({active.length} in flight). A new
+              picture needs one — advance weeks until a production, screenplay, or audition
+              releases a slot.
             </p>
           )}
           {!managedScripts && canGreenlight && !availability.canAssemble && (

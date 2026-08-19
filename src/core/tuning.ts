@@ -48,7 +48,18 @@ export const TUNING = {
   // rev. 4 §4 new TUNING entries
   TICKS_PER_YEAR: 52,
   PRODUCTION_TICKS: 8,
-  MAX_CONCURRENT_PRODUCTIONS: 2,
+  // ── MAX_CONCURRENT_PRODUCTIONS IS DELETED (C2a-M4, owner law 1) ───────────
+  //
+  // Not raised — DELETED. "CAPACITY AND RESERVATIONS LIMIT THROUGHPUT; A GLOBAL
+  // MOVIE COUNTER DOES NOT" (`00E`.3). A raised number would still be a magic
+  // forbid; how many pictures a studio can run is now a fact about the rooms it
+  // built and the queue that serves them (§3.3). The 3–4 concurrency figure in
+  // the rulings is a mature balance TARGET, never a maximum: legitimately built
+  // capacity may exceed it.
+  //
+  // Its ONE surviving descendant is `AGENT_MAX_SLATE`, below, which bounds the
+  // headless AGENTS' policy and never the player (`00E` contradiction check).
+  AGENT_MAX_SLATE: 2,
   INITIAL_CASH: 20_000_000,
   SALARY_BASE: 25_000,
   SALARY_SKILL_COEF: 150_000,

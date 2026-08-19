@@ -43,6 +43,9 @@ import {
   PROMISE_WIDTHS,
   PROMISE_CENTERS,
   rangeFrom,
+  // C2a-M4 (§3.3): the one gate question, asked of the engine's own union
+  // producer so no surface derives capacity a second way.
+  gateSlotAvailable,
   // constants
   TUNING,
   CAST_WEIGHT,
@@ -1385,9 +1388,13 @@ export function talentEligibility(
   return { eligible: true }
 }
 
-// Concurrency: greenlight is legal only under the production cap (B3/M16.6).
+// Concurrency, C2a-M4 (§3.3): THE CAP IS DELETED (owner law 1), so this stopped
+// being "is the studio under the number" and became the only question left —
+// CAN ANOTHER PICTURE START THIS WEEK? It is derived from live capacity: a
+// greenlight with a free Development & Casting slot starts now; without one it is
+// still legal, and it joins the queue instead of being refused.
 export function canGreenlightMore(state: GameState): boolean {
-  return state.studio.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS
+  return gateSlotAvailable(state)
 }
 
 // ── D-12 beta P5: can a LEGAL complete creative team be staffed right now? ─────

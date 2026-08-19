@@ -61,7 +61,7 @@ import { assessFinancialState } from './states.js'
 function playerCtxForTest(s: GameState): PlayerCtx {
   return {
     week: s.market.tick,
-    maxConcurrent: TUNING.MAX_CONCURRENT_PRODUCTIONS,
+    maxConcurrent: TUNING.AGENT_MAX_SLATE,
     packages: (o) => generatePackages(s, o),
     bareMinimum: (o) => bareMinimumPackage(s, o),
     standard: (o) => standardPackage(s, o),

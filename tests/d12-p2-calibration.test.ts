@@ -41,6 +41,9 @@ function flatAppeal(inp: ReturnType<typeof makeReceptionInputs>, v: number): Rec
   return m
 }
 
+/** C2a-M4 §11.8: the fixture's own slate bound, not an engine law. */
+const TEST_SLATE_BOUND = 2
+
 describe('D-12 P2 gross scale: economy-engaged, applied exactly once, on OPENING', () => {
   it('engaged OPENING = non-engaged × ECONOMY_BOX_OFFICE_SCALE (marketing=0 isolates the scale)', () => {
     const inp = makeReceptionInputs({})
@@ -156,7 +159,11 @@ function fourFilms(seed: string): { multiple: number; contributions: number[] } 
   const committed: Record<string, number> = {}
   let conceptIdx = 0
   for (let wk = 0; wk < 120; wk++) {
-    while (s.studio.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS && Object.keys(committed).length < 4) {
+    // C2a-M4 (§11.8, re-based-not-retired): a TEST-LOCAL slate bound replaces the
+    // deleted constant. The assertions below are unchanged — this loop only ever
+    // needed "two pictures in flight", which is a property of the fixture, not a
+    // law of the engine.
+    while (s.studio.activeProductions.length < TEST_SLATE_BOUND && Object.keys(committed).length < 4) {
       const busy = busyTalentIds(s)
       const free = (role: CreativeRole) =>
         bestOf(s.contracts.map((c) => s.talent.find((t) => t.id === c.talentId)!).filter((t) => t.role === role && !busy.has(t.id)), role)

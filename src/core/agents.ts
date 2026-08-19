@@ -4,8 +4,10 @@
 // [] — never more (B3: at most one greenlight per tick).
 //
 // Both agents:
-//   - Greenlight only while activeProductions.length < MAX_CONCURRENT_PRODUCTIONS
-//     (ruling #4); otherwise return [].
+//   - Greenlight only while activeProductions.length < AGENT_MAX_SLATE
+//     (ruling #4); otherwise return []. C2a-M4: the constant is now the AGENTS'
+//     policy bound and nothing else — the engine's cap is deleted (owner law 1),
+//     and the M0A corpus stays byte-identical because the POLICY did not change.
 //   - Build the candidate set via generateCandidates(state, tick), which is
 //     deterministic and agent-INDEPENDENT — so both agents at the SAME state see
 //     the IDENTICAL 500 packages.
@@ -21,7 +23,8 @@
 //     omniscient noise-free pipeline (forecastCenters → computeBoxOffice with
 //     criticScore := criticMean implicitly, i.e. no sampled term); ties broken by
 //     ascending candidate index (keep the first-seen maximum).
-//   ruling #4 — both agents greenlight whenever activeProductions.length < cap.
+//   ruling #4 — both agents greenlight whenever activeProductions.length is under
+//     their policy slate bound.
 
 import { generateCandidates, packageReceptionInputs, type CandidatePackage } from './candidates.js'
 import { computeBoxOffice } from './reception.js'
@@ -57,9 +60,14 @@ function greenlightAction(pkg: CandidatePackage): Action {
   }
 }
 
-// True while the studio may take on another production (ruling #4 / B3).
+// True while THIS AGENT'S POLICY takes on another production (ruling #4 / B3).
+//
+// C2a-M4: a policy bound, not a game law. The engine no longer refuses a third
+// picture — it queues what capacity cannot yet carry (§3.3) — but the corpus
+// agents keep the exact slate they were measured with, which is what holds every
+// sealed M0A/D-6/D-12/D-16 figure byte-identical across the deletion.
 function canGreenlight(state: GameState): boolean {
-  return state.studio.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS
+  return state.studio.activeProductions.length < TUNING.AGENT_MAX_SLATE
 }
 
 // ── RandomAgent ──────────────────────────────────────────────────────────────

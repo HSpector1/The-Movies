@@ -142,12 +142,11 @@ export const TUNING_ALLOWLIST: readonly AllowlistEntry[] = [
     readAt: 'employment.ts:115-123 terminationCost',
     note: 'Read at each release. Safe mid-run.',
   },
-  {
-    key: 'MAX_CONCURRENT_PRODUCTIONS',
-    timing: 'use',
-    readAt: 'actions.ts:250-254 (greenlight cap)',
-    note: 'Read at each greenlight. Safe mid-run.',
-  },
+  // MAX_CONCURRENT_PRODUCTIONS is not a knob any more — C2a-M4 DELETED it
+  // (owner law 1: capacity and reservations limit throughput, a global movie
+  // counter does not). The sweep axis it declared no longer exists in the
+  // engine; the harness agents' own slate bound is `AGENT_MAX_SLATE`, which is a
+  // POLICY constant and therefore not an engine knob either.
 
   // ── D-17B extension (A4 §4; Phase-A gate ruling 1) ─────────────────────────
   // 20 DISC_*/MARKETING_*/OVEREXPOSURE_* keys + the 3 awareness-delta keys. Read timing was

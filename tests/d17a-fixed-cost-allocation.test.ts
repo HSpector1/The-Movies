@@ -247,7 +247,10 @@ function overlapFixture(): GameState {
   s = advance(s, 2) // IDLE GAP: founded, paying, no film
   s = greenlight(s, 0)
   s = advance(s, 3)
-  s = greenlight(s, 1) // FORCED 2-SLOT OVERLAP (MAX_CONCURRENT_PRODUCTIONS = 2)
+  // FORCED 2-SLOT OVERLAP. C2a-M4: no cap is being consumed here — two is what
+  // this fixed-cost fixture needs to overlap, and the founding lot's two shared
+  // slots are what let it.
+  s = greenlight(s, 1)
   s = advance(s, 25) // both produce, both release, both runs complete, then idle again
   return s
 }

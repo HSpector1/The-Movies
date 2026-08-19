@@ -4,190 +4,22 @@
 // Development & Casting rooms are full no longer REFUSES the next picture. It
 // admits the intent, states that it is waiting, holds nothing at all while it
 // waits, and starts it the week a room actually frees.
-//
-// The fixture is a contended studio: two pictures in Development hold both shared
-// slots for two consecutive weeks, which is the only way to have a queue that is
-// still a queue when the next week arrives.
 
 import { describe, expect, it } from 'vitest'
+import { applyActions, scriptCapacityView, stableStringify, tick } from '../src/core/index.js'
+import type { GameState, ProductionQueueEntry, SegmentId } from '../src/core/index.js'
 import {
-  FOUNDING_MINIMUMS,
-  applyActions,
-  beginFounding,
-  generateWorld,
-  scriptCapacityView,
-  stableStringify,
-  tick,
-} from '../src/core/index.js'
-import type {
-  CastSlot,
-  CreativeRole,
-  GameState,
-  ProductionQueueEntry,
-  SegmentId,
-  Talent,
-} from '../src/core/index.js'
-
-function applicants(state: GameState): Talent[] {
-  return state.founding!.applicantIds.map((id) => state.talent.find((talent) => talent.id === id)!)
-}
-
-function byRole(talent: readonly Talent[], role: CreativeRole): Talent[] {
-  return talent.filter((person) => person.role === role)
-}
-
-function contractedByRole(state: GameState, role: CreativeRole): Talent[] {
-  const contracted = new Set(state.contracts.map((contract) => contract.talentId))
-  return state.talent.filter((person) => person.role === role && contracted.has(person.id))
-}
-
-function foundedStudio(seed: string): GameState {
-  let state = beginFounding(generateWorld(seed))
-  const pool = applicants(state)
-  const hires = [
-    ...byRole(pool, 'actor').slice(0, Math.max(FOUNDING_MINIMUMS.actor, 9)),
-    ...byRole(pool, 'director').slice(0, Math.max(FOUNDING_MINIMUMS.director, 2)),
-    ...byRole(pool, 'writer').slice(0, Math.max(FOUNDING_MINIMUMS.writer, 4)),
-    ...byRole(pool, 'craft').slice(0, Math.max(FOUNDING_MINIMUMS.craft, 2)),
-  ]
-  for (const hire of hires) {
-    state = applyActions(state, [{ kind: 'signContract', talentId: hire.id, termWeeks: 208 }])
-  }
-  return applyActions(state, [{ kind: 'foundStudio' }])
-}
-
-function withCash(state: GameState, cash: number): GameState {
-  const delta = cash - state.studio.cash
-  return {
-    ...state,
-    studio: { ...state.studio, cash },
-    ledger:
-      delta === 0
-        ? state.ledger
-        : [
-            ...state.ledger,
-            {
-              week: state.market.tick,
-              kind: delta > 0 ? ('studioRevenue' as const) : ('overhead' as const),
-              amount: delta,
-              note: 'test fixture cash identity adjustment',
-            },
-          ],
-  }
-}
-
-/** A founded studio with managed operations, screenplays and auditions. */
-function managedStudio(seed: string): GameState {
-  return withCash(
-    applyActions(foundedStudio(seed), [
-      { kind: 'activateStudioOperations' },
-      { kind: 'activateScriptDevelopment' },
-      { kind: 'activateCastingSessions' },
-    ]),
-    120_000_000,
-  )
-}
-
-function commissionPayload(state: GameState, conceptIndex: number, writerIndex = 0) {
-  const concept = state.concepts[conceptIndex]!
-  return {
-    conceptId: concept.id,
-    writerId: contractedByRole(state, 'writer')[writerIndex]!.id,
-    shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' } as const,
-    promise: {
-      genre: concept.genre,
-      intendedSegments: ['adult'] as SegmentId[],
-      ranges: {
-        intimacy: [-0.5, 0.5] as [number, number],
-        tonalWeight: [-0.5, 0.5] as [number, number],
-        kineticEnergy: [-0.5, 0.5] as [number, number],
-      },
-    },
-  }
-}
-
-function greenlightPayload(state: GameState, projectId: string, offset = 0) {
-  const project = state.scriptDevelopment.projects.find((candidate) => candidate.id === projectId)!
-  const concept = state.concepts.find((candidate) => candidate.id === project.conceptId)!
-  const actors = contractedByRole(state, 'actor')
-  return {
-    projectId,
-    directorId: contractedByRole(state, 'director')[offset]!.id,
-    craftIds: [contractedByRole(state, 'craft')[offset]!.id],
-    cast: {
-      lead: actors[offset * 3]!.id,
-      antagonist: actors[offset * 3 + 1]!.id,
-      support: actors[offset * 3 + 2]!.id,
-    } satisfies Record<CastSlot, string>,
-    budget: { negative: concept.baseNegativeCost, marketing: 0 },
-  }
-}
-
-/**
- * A studio holding BOTH shared slots with two pictures in Development, with two
- * Ready screenplays left over. Development and Pre-production both require the
- * slot, so the gate stays shut for two consecutive advances — long enough for a
- * queue to age.
- */
-function contendedStudio(seed: string): { state: GameState; readyProjectIds: string[] } {
-  let state = managedStudio(seed)
-  // Four screenplays, two at a time (the studio has exactly two slots).
-  const projectIds: string[] = []
-  for (const pair of [
-    [0, 1],
-    [2, 3],
-  ]) {
-    state = applyActions(state, [
-      { kind: 'commissionScript', project: commissionPayload(state, pair[0]!, pair[0]!) },
-    ])
-    state = applyActions(state, [
-      { kind: 'commissionScript', project: commissionPayload(state, pair[1]!, pair[1]!) },
-    ])
-    state = tick(state)
-    for (const project of state.scriptDevelopment.projects) {
-      if (project.status !== 'review') continue
-      state = applyActions(state, [{ kind: 'acceptScript', projectId: project.id }])
-      projectIds.push(project.id)
-    }
-  }
-  // Two greenlights: both pictures sit in Development, holding both slots.
-  state = applyActions(state, [
-    {
-      kind: 'greenlightScriptProject',
-      production: greenlightPayload(state, projectIds[0]!, 0),
-    },
-  ])
-  state = applyActions(state, [
-    {
-      kind: 'greenlightScriptProject',
-      production: greenlightPayload(state, projectIds[1]!, 1),
-    },
-  ])
-  return { state, readyProjectIds: projectIds.slice(2) }
-}
-
-/** Advance `weeks` visible weeks. */
-function advance(state: GameState, weeks: number): GameState {
-  let next = state
-  for (let i = 0; i < weeks; i++) next = tick(next)
-  return next
-}
-
-/**
- * The audition slate the contended fixture can always staff: three actors that
- * neither greenlit picture locked.
- */
-function freeSlate(state: GameState, projectId: string) {
-  const actors = contractedByRole(state, 'actor')
-  return {
-    projectId,
-    slate: {
-      lead: [actors[6]!.id, actors[7]!.id] as [string, string],
-      antagonist: [actors[6]!.id, actors[8]!.id] as [string, string],
-      support: [actors[7]!.id, actors[8]!.id] as [string, string],
-    },
-  }
-}
+  advance,
+  contractedByRole,
+  richFoundedStudio,
+} from './contracts/_contractFixtures.js'
+import {
+  CONTENDED_DEPTH,
+  commissionFor as commissionPayload,
+  contendedStudio,
+  freePackage,
+  freeSlate,
+} from './_m4Fixtures.js'
 
 function queueKinds(state: GameState): string[] {
   return state.productionQueue.map((entry) => entry.kind)
@@ -281,6 +113,42 @@ describe('C2a-M4 §3.3 — the front doors admit and queue', () => {
     expect(granted.originalScreenplays.nextOrdinal).toBe(
       state.originalScreenplays.nextOrdinal + 1,
     )
+  })
+
+  it('a greenlight with no free slot is ADMITTED and commits its cash only when granted', () => {
+    const { state, readyProjectIds } = contendedStudio('m4-greenlight-queue')
+    const payload = freePackage(state, readyProjectIds[0]!)
+    const queued = applyActions(state, [
+      { kind: 'greenlightScriptProject', production: payload },
+    ])
+
+    // §11.8 item 8's NAMED SUCCESSOR to the retired greenlight-throws-at-the-cap
+    // test: the Nth greenlight ADMITS and queues on dev-slot exhaustion, with
+    // the queue row asserted.
+    expect(queued.productionQueue).toEqual([
+      {
+        kind: 'greenlightScriptProject',
+        ordinal: 0,
+        queuedWeek: state.market.tick,
+        scriptProjectId: readyProjectIds[0],
+        payload,
+      },
+    ])
+    // GREENLIGHT COMMITMENT SEMANTICS UNCHANGED (§3.3): cash and talent commit
+    // at greenlight — and a queued intent has not been greenlit.
+    expect(queued.studio.cash).toBe(state.studio.cash)
+    expect(queued.ledger).toEqual(state.ledger)
+    expect(queued.studio.activeProductions).toHaveLength(2)
+    expect(queued.operations.workflows).toHaveLength(2)
+
+    const granted = advance(queued, 3)
+    expect(granted.productionQueue).toEqual([])
+    expect(granted.studio.activeProductions).toHaveLength(3)
+    expect(granted.studio.cash).toBeLessThan(state.studio.cash)
+    const admitted = granted.studio.activeProductions[2]!
+    expect(
+      granted.operations.workflows.some((workflow) => workflow.productionId === admitted.id),
+    ).toBe(true)
   })
 
   it('an audition start with no free slot is ADMITTED and waits', () => {
@@ -396,12 +264,12 @@ describe('C2a-M4 §3.3 — the front doors admit and queue', () => {
   it('never queues in a legacy studio — a refusal there is still a refusal', () => {
     // A studio with no managed operations has no shared rooms to wait for; its
     // front doors are unchanged and its queue must stay empty.
-    const legacy = foundedStudio('m4-legacy-no-queue')
+    const legacy = richFoundedStudio('m4-legacy-no-queue', CONTENDED_DEPTH)
     expect(legacy.operations.mode).toBe('legacy')
     expect(legacy.productionQueue).toEqual([])
     expect(() =>
       applyActions(legacy, [
-        { kind: 'commissionScript', project: commissionPayload(legacy, 0) },
+        { kind: 'commissionScript', project: commissionPayload(legacy, 0, 0) },
       ]),
     ).toThrow()
     expect(legacy.productionQueue).toEqual([])

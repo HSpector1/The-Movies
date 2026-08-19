@@ -609,7 +609,11 @@ function main(): void {
       exemplarSeeds: Math.min(EXEMPLARS, SEEDS),
       engineConstants: {
         INITIAL_CASH: TUNING.INITIAL_CASH,
-        MAX_CONCURRENT_PRODUCTIONS: TUNING.MAX_CONCURRENT_PRODUCTIONS,
+        // C2a-M4: the engine's concurrency cap is DELETED (owner law 1). What
+        // this manifest records now is the harness POLICY's slate bound, under
+        // its own name — the corpus was measured with a two-picture policy and
+        // still is.
+        AGENT_MAX_SLATE: TUNING.AGENT_MAX_SLATE,
         PRODUCTION_TICKS: TUNING.PRODUCTION_TICKS,
         STUDIO_RENTAL_BLENDED: TUNING.STUDIO_RENTAL_BLENDED,
         OVERHEAD_BASE: TUNING.OVERHEAD_BASE,

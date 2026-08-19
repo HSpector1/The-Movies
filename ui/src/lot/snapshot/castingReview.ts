@@ -188,7 +188,7 @@ const BLOCKER_KINDS = new Set([
   'facility-capacity',
   'writer-contract',
   'writer-assignment',
-  'production-capacity',
+  // C2a-M4 (§3.3): retired with the cap. Successor: `'facility-capacity'`.
   'package-staffing',
   'casting-session',
   'no-concepts',
@@ -199,7 +199,6 @@ const PACKAGE_BLOCKER_KINDS = new Set<LotCastingReviewBlocker['kind']>([
   'facility-capacity',
   'writer-contract',
   'writer-assignment',
-  'production-capacity',
   'package-staffing',
 ])
 const CARD_STATUSES = new Set(['notStarted', 'auditioning', 'review', 'complete'])
@@ -389,7 +388,13 @@ function packageView(value: unknown): LotCastingReviewPackageAvailability | null
     value.writerAvailable !==
       !(blockerKinds.has('writer-contract') || blockerKinds.has('writer-assignment')) ||
     value.staffingAvailable !== !blockerKinds.has('package-staffing') ||
-    value.productionSlotAvailable !== !blockerKinds.has('production-capacity') ||
+    // C2a-M4 THE SUCCESSOR SEMANTIC (§3.3). The pin was
+    // `productionSlotAvailable === !has('production-capacity')`; the cap that
+    // blocker mirrored is deleted, and "can this picture start this week" is now
+    // answered by the same physical room the facility blocker names. So both
+    // booleans agree with THAT blocker — and therefore with each other, which is
+    // the new law this check now enforces.
+    value.productionSlotAvailable !== !blockerKinds.has('facility-capacity') ||
     value.developmentCastingSlotAvailable !== !blockerKinds.has('facility-capacity')
   ) return null
   return {

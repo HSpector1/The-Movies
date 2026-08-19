@@ -364,14 +364,25 @@ describe('A9: same-week secondary releases carry full reception + financials', (
   })
 })
 
-// ── A10: founding explains the small-independent studio + two-team capacity ───
+// ── A10: founding explains the small-independent studio + team capacity ───────
+//
+// C2a-M4 RE-BASE WITH ITS NAMED SUCCESSOR (charter §11.8 item 8). The pin was
+// `/two productions/i` — the founding prose's copy of the deleted cap (owner law
+// 1). Its stated successor "teaches capacity-derived throughput, not a fixed
+// number", so the successor assertions are: the copy REFUSES a fixed number,
+// names the ROOMS as the thing that limits the slate, and tells the player what
+// happens when they ask for more than the lot can carry — it waits.
 describe('A10: founding sets the small-studio expectation up front', () => {
-  it('shows the small-independent-studio and two-production-capacity copy before any staffing block', () => {
+  it('teaches capacity-derived throughput, not a production cap, before any staffing block', () => {
     const state = newGame('ux-a10-intro') // opens in the founding draft
     render(<FoundingScreen state={state} onChange={vi.fn()} onCreate={vi.fn()} onFounded={vi.fn()} />)
     const intro = screen.getByTestId('founding-intro')
     expect(within(intro).getByText(/small independent studio/i)).toBeInTheDocument()
-    expect(intro.textContent).toMatch(/two productions/i)
+    expect(intro.textContent).toMatch(/not a fixed number/i)
+    expect(intro.textContent).toMatch(/rooms you have built/i)
+    expect(intro.textContent).toMatch(/waits in the queue/i)
     expect(intro.textContent).toMatch(/complete, available team/i)
+    // The retired sentence may not come back by accident.
+    expect(intro.textContent).not.toMatch(/up to two productions/i)
   })
 })

@@ -55,6 +55,12 @@ import {
   withCash,
 } from './contracts/_contractFixtures.js'
 
+// C2a-M4 (§11.8, re-based-not-retired): the scripted dual-run driver held its
+// slate at the deleted cap. A TEST-LOCAL slate bound replaces it, so the SCRIPT
+// this corpus compares against is byte-for-byte the script it was sealed with —
+// which is exactly why the M0A/V14 dual-run equality still means what it meant.
+const TEST_SLATE_BOUND = 2
+
 // ── the run: one managed studio, two pictures, carried through to release ───
 
 /** A picture's three Shooting commands, issued the week the workflow is ready for them. */
@@ -109,7 +115,7 @@ function scriptedRun(seed: string, weeks: number): { weeks: Week[]; final: GameS
   let conceptIndex = 0
 
   for (let week = 0; week < weeks; week++) {
-    if (state.studio.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS) {
+    if (state.studio.activeProductions.length < TEST_SLATE_BOUND) {
       const payload = productionPayload(state, conceptIndex % 2)
       const busy = new Set(
         state.studio.activeProductions.flatMap((production) => [
@@ -254,6 +260,7 @@ function sorted(view: readonly Derived[]): string[] {
 
 const RUN = scriptedRun('c2a-m1-dual-run', 40)
 
+
 describe('C2a-M1 · dual-run equality — the ledger says exactly what a state-diff says', () => {
   it('produces a run with every covered transition family in it', () => {
     const families = new Set(RUN.weeks.flatMap((week) => week.appended.map((row) => row.kind)))
@@ -352,7 +359,7 @@ describe('C2a-M1 · presentation parity — the ledger is a witness, never an in
       let state = withCash(operationsStudio('c2a-m1-parity-read'), 500_000_000)
       let conceptIndex = 0
       for (let week = 0; week < 24; week++) {
-        if (state.studio.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS) {
+        if (state.studio.activeProductions.length < TEST_SLATE_BOUND) {
           const payload = productionPayload(state, conceptIndex % 2)
           const busy = new Set(
             state.studio.activeProductions.flatMap((production) => [

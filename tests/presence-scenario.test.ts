@@ -198,7 +198,9 @@ describe('Presence Projection V1 — scenario walk', () => {
   })
 
   it('shows an honest queue: a soundstage-blocked company waits at the site it holds', () => {
-    // MAX_CONCURRENT_PRODUCTIONS is 2 and every capability ships two slots, so
+    // C2a-M4: the cap is deleted (owner law 1); what this reasoning actually
+    // rests on is the FOUNDING LOT — this scenario runs two pictures and every
+    // capability ships two slots, so
     // the initial facility set can never produce a queue. This uses the accepted
     // operations-suite mechanism for reaching one: a structurally valid
     // CONFIGURED facility set with a single soundstage (see

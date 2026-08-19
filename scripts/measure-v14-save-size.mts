@@ -68,6 +68,11 @@ import {
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId, StudioEvent, Talent } from '../src/core/index.js'
 
+// C2a-M4: this measurement's own slate bound. The engine's cap is deleted (owner
+// law 1); the save-size measurement still wants a two-picture studio, which is a
+// property of the fixture it measures, not a law.
+const MEASUREMENT_SLATE_BOUND = 2
+
 const SEED = 'c2a-m1-save-size'
 const CHECKPOINTS = [52, 208, 520] as const
 
@@ -219,7 +224,7 @@ function measure(): Row[] {
     // operating behaviour the harnesses already model.
     state = restaffed(state)
 
-    if (state.studio.activeProductions.length < TUNING.MAX_CONCURRENT_PRODUCTIONS) {
+    if (state.studio.activeProductions.length < MEASUREMENT_SLATE_BOUND) {
       const payload = greenlightPayload(state, conceptIndex)
       if (payload !== null) {
         state = applyActions(state, [{ kind: 'greenlight', production: payload }])

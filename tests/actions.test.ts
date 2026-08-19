@@ -558,7 +558,20 @@ describe('applyActions — greenlight M16 validation rejections', () => {
     expect(() => applyActions(bumped, [greenlight(second)])).toThrow()
   })
 
-  it('concurrency: greenlight throws when activeProductions.length === MAX_CONCURRENT_PRODUCTIONS', () => {
+  // ── C2a-M4 RETIREMENT WITH ITS NAMED SUCCESSOR (charter §11.8 item 8) ──────
+  //
+  // The predecessor asserted that the THIRD greenlight throws because a global
+  // counter said two. That counter is DELETED (owner law 1, `00E`.3: "capacity
+  // and reservations limit throughput; a global movie counter does not"), so its
+  // successor asserts the law that replaced it — on this same fixture, which has
+  // no managed rooms at all and therefore nothing that can refuse a picture:
+  // THE THIRD GREENLIGHT IS ADMITTED.
+  //
+  // The other half of the successor — the Nth greenlight in a MANAGED studio
+  // whose Development & Casting slots are gone is admitted AND QUEUED, with the
+  // queue row asserted — needs a studio with rooms, and lives with the rest of
+  // the queue's laws in `tests/c2a-m4-queue-admission.test.ts`.
+  it('concurrency: no global counter refuses the third picture (the cap is deleted)', () => {
     const state = generateWorld('gl-rej-concurrency')
 
     // Reach 2 active with disjoint talent across manually-incremented ticks.
@@ -581,10 +594,10 @@ describe('applyActions — greenlight M16 validation rejections', () => {
       supportIndex: 5,
     })
     const s2 = applyActions(s1b, [greenlight(g2)])
-    expect(s2.studio.activeProductions.length).toBe(TUNING.MAX_CONCURRENT_PRODUCTIONS)
-    expect(TUNING.MAX_CONCURRENT_PRODUCTIONS).toBe(2)
+    expect(s2.studio.activeProductions.length).toBe(2)
 
-    // A third greenlight (fully disjoint talent) must be rejected on concurrency.
+    // A third greenlight (fully disjoint talent) is ADMITTED: nothing in the
+    // engine counts pictures any more, and this world has no rooms to wait for.
     const s2b = withTick(s2, s2.market.tick + 1)
     const g3 = buildGreenlightProduction(s2b, {
       conceptIndex: 2,
@@ -594,7 +607,9 @@ describe('applyActions — greenlight M16 validation rejections', () => {
       antagonistIndex: 7,
       supportIndex: 8,
     })
-    expect(() => applyActions(s2b, [greenlight(g3)])).toThrow()
+    const s3 = applyActions(s2b, [greenlight(g3)])
+    expect(s3.studio.activeProductions).toHaveLength(3)
+    expect(s3.productionQueue).toEqual([])
   })
 
   it('two greenlight actions in one applyActions call throws (≤1 greenlight/tick, B3)', () => {

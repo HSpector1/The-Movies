@@ -2893,7 +2893,7 @@ export function runFacilitiesCorpus(input: RunFacilitiesCorpusInput): Facilities
       horizonWeeks,
       seeds,
       policyIds,
-      maxConcurrentProductions: TUNING.MAX_CONCURRENT_PRODUCTIONS,
+      maxConcurrentProductions: TUNING.AGENT_MAX_SLATE,
       productionTicks: TUNING.PRODUCTION_TICKS,
       productionPhaseIdentity: Array.from(
         { length: TUNING.PRODUCTION_TICKS },
