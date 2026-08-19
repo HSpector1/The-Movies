@@ -538,6 +538,49 @@ base (`a394838`): root tsc 0 · ui tsc 0 · FULL vitest **320 files / 4,370 pass
   1× against the wall clock — 10.35s ±20%, twice in a row, so it is a cadence and
   not one lucky week. Measured: 4 passed (2.4m).
 
+- **THE G12 SWEEP FOUND TWO REAL VIOLATIONS ON A DRAWN M5 SURFACE, AND THEY ARE
+  FIXED AT THE SOURCE.** The Call Board prints `LotTheaterSubject.reason`
+  verbatim on a placard on the lot. That reason read:
+  **`awaiting development-casting capacity to enter preProduction`** — a
+  capability id and a camelCase phase — and, for a queued intent,
+  **`greenlightScriptProject waiting since week 2`** — a raw action identifier.
+  Both are exactly what `00F`'s tycoon floor forbids ("Avoid: debug/engine
+  language"). Repaired in `src/core/studioWeekTheater.ts` by REUSING the
+  vocabulary the queue panel has always spoken rather than authoring a second
+  one: `CAPABILITY_LABEL` / `PHASE_LABEL` are now exported from
+  `studioQueueView.ts`, and `queueEntryLabel` (already exported) names the
+  intents. The placard now reads **"waiting for Development & Casting to start
+  Pre-production"**, **"waiting for a standing set to start Rehearsal"** and
+  **"Greenlight admitted, waiting since Week 2"**. A capability, phase or intent
+  kind this engine does not have is WITHHELD, never printed raw (law 21) — proven
+  on forged blockers.
+  **WHY IT SURVIVED, AND WHAT NOW STOPS IT.** Every Call Board copy test handed
+  `theaterCallBoardLines` a reason its own author had written ("Stage A is held by
+  Rain on the Boulevard until Week 14."), so the composition was proved and the
+  engine's actual sentence was never once read. Two new tests close that: a G12
+  pin in `tests/c2a-m5-studio-week-theater.test.ts` walks a studio WITH A QUEUE
+  and refuses thirteen engine tokens in any `reason` (non-vacuous on both the
+  company and the queued-intent arms), and `ui/src/lot/snapshot/weekTheater.test
+  .ts` composes the board's lines from the reasons a real contended studio
+  publishes, week after week. The old `/^awaiting /` pin was RE-PINNED to the new
+  grammar and TIGHTENED, not relaxed — the assertion that carries the weight is
+  now "no engine identifier survives into a sentence a player sees".
+
+- **FINDING — THE CALL BOARD IS SILENT FOR THE WAITERS IT EXISTS TO EXPLAIN.**
+  Measured while closing the above. `lotCallBoard` places a placard on the body
+  the waiter's `facilityId` resolves to, and law 12 correctly drops a fact about a
+  facility no body stands for. But a `company-waiting` subject takes its
+  `facilityId` from a SOUNDSTAGE reservation only, and a picture blocked at
+  rehearsal entry (`set-unavailable`) or waiting at the front door holds no
+  soundstage — under `00E`.5's unconditional release law a blocked picture
+  generally holds nothing at all. So on the whole M5 pressured fixture the board
+  renders ZERO lines, and every existing `lotCallBoard` assertion in the suite was
+  passing over an empty list. The copy is now proven; WHERE the placard should
+  stand for a waiter that holds nothing is a §4.2 design question (the honest
+  anchor is the body holding what the waiter needs — the occupant — which the
+  theater subject does not carry today). NOT changed here: it is OPUS-WORLD's
+  surface and it wants the subject widened first. **Routed to the Owner/PM.**
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and

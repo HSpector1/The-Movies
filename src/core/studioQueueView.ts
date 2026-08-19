@@ -120,14 +120,24 @@ export type StudioQueueView = {
   }
 }
 
-const CAPABILITY_LABEL: Record<FacilityCapability, string> = {
+/**
+ * THE STUDIO'S OWN WORDS for the four capabilities and the six phases.
+ *
+ * EXPORTED at C2a-M5, not copied. `development-casting` and `preProduction` are
+ * engine identifiers; `Development & Casting` and `Pre-production` are what a
+ * studio calls them, and the tycoon floor (`00F`) says the player only ever sees
+ * the second kind. Every surface that has to name a capability or a phase to a
+ * player reads THESE — the queue panel that has always used them, and now the
+ * Call Board on the lot, which is the same fact drawn on a placard.
+ */
+export const CAPABILITY_LABEL: Record<FacilityCapability, string> = {
   'development-casting': 'Development & Casting',
   soundstage: 'Soundstage',
   'set-scenery': 'Scenery Shop',
   post: 'Post Building',
 }
 
-const PHASE_LABEL: Record<ProductionPhase, string> = {
+export const PHASE_LABEL: Record<ProductionPhase, string> = {
   development: 'Development',
   preProduction: 'Pre-production',
   rehearsal: 'Rehearsal',

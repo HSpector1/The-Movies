@@ -30,6 +30,7 @@ import {
 import type { GameState, StudioWeekTheater, TheaterBeat } from '../src/core/index.js'
 import { advance, withCash } from './contracts/_contractFixtures.js'
 import { contendedStudio, freePackageOrNull } from './_m4Fixtures.js'
+import { livingStudioUnderPressure } from './_m5Fixtures.js'
 
 const THEATER_SOURCE = readFileSync(
   resolve(dirname(fileURLToPath(import.meta.url)), '../src/core/studioWeekTheater.ts'),
@@ -126,6 +127,25 @@ function walkedStudio(seed: string, weeks: number): GameState[] {
 
 function everySubject(states: readonly GameState[]): StudioWeekTheater['subjects'] {
   return states.flatMap((state) => studioWeekTheater(state).subjects)
+}
+
+/**
+ * A studio with a standing QUEUE, walked hands-off.
+ *
+ * `walkedStudio` above never fills `productionQueue`, which is precisely how the
+ * `queue-waiting` subject's copy went unread — the G12 sweep needs a studio that
+ * actually has an admitted intent waiting at the front door. M5's own pressured
+ * fixture is one, and it stays quiet for the whole walk, so nothing here has to
+ * answer a decision to keep the queue standing.
+ */
+function queuedWalk(seed: string, weeks: number): GameState[] {
+  let state = livingStudioUnderPressure(seed, weeks).state
+  const weeksSeen: GameState[] = [state]
+  for (let i = 0; i < weeks; i++) {
+    state = advance(state, 1)
+    weeksSeen.push(state)
+  }
+  return weeksSeen
 }
 
 describe('C2a-M5 §4.2 — the projection is well-formed, always', () => {
@@ -236,7 +256,14 @@ describe('C2a-M5 §4.2 — the named subjects are all reachable', () => {
         if (subject.kind !== 'company-waiting') continue
         waiters += 1
         expect(subject.reason).not.toBeNull()
-        expect(subject.reason).toMatch(/^awaiting /)
+        // RE-PINNED at the M5 integration G12 sweep, and TIGHTENED, not relaxed.
+        // The old pin was `/^awaiting /`, which the reason satisfied by printing
+        // the engine's own tokens — "awaiting development-casting capacity to
+        // enter preProduction". That string is DRAWN: the Call Board puts it on a
+        // placard for the player to read. The grammar below is the studio's own
+        // words for the same fact, and the assertion under it is the one that
+        // matters — no engine identifier survives into a sentence a player sees.
+        expect(subject.reason).toMatch(/^waiting for .+ to start .+$/)
         const workflow = state.operations.workflows.find(
           (candidate) => candidate.productionId === subject.productionId,
         )
@@ -245,6 +272,101 @@ describe('C2a-M5 §4.2 — the named subjects are all reachable', () => {
       }
     }
     expect(waiters).toBeGreaterThanOrEqual(1)
+  })
+
+  it('says all of it in the STUDIO’s words — no engine token reaches a placard (G12)', () => {
+    // Every identifier this projection has ever had a chance to print. None may
+    // appear in a `reason`, because a `reason` is DRAWN: the Call Board puts it
+    // on a placard for the player to read.
+    //
+    // TWO REAL VIOLATIONS were found by this sweep and are fixed at the source:
+    // a `facility-capacity` waiter read "awaiting development-casting capacity to
+    // enter preProduction", and a queued intent read "greenlightScriptProject
+    // waiting since week 2". Both now speak the vocabulary the queue panel has
+    // always spoken. The queued-intent arm is why this walk uses a studio with a
+    // QUEUE — the earlier one had none, which is how that one survived.
+    const ENGINE_TOKENS = [
+      'development-casting',
+      'set-scenery',
+      'soundstage',
+      'preProduction',
+      'postProduction',
+      'releaseReady',
+      'scenery-load-in',
+      'facility-capacity',
+      'set-unavailable',
+      'commissionScript',
+      'commissionOriginalScreenplay',
+      'startCastingSession',
+      'greenlightScriptProject',
+    ]
+    let reasons = 0
+    let queueReasons = 0
+    const states = [
+      ...walkedStudio('c2a-m5-theater-g12-a', 20),
+      ...walkedStudio('c2a-m5-theater-g12-b', 20),
+      ...queuedWalk('c2a-m5-theater-g12-queue', 16),
+    ]
+    for (const state of states) {
+      for (const subject of studioWeekTheater(state).subjects) {
+        if (subject.reason === null) continue
+        reasons += 1
+        if (subject.kind === 'queue-waiting') queueReasons += 1
+        for (const token of ENGINE_TOKENS) {
+          expect(
+            subject.reason.includes(token),
+            `"${subject.reason}" carries the engine token "${token}"`,
+          ).toBe(false)
+        }
+        // …and no id of any kind: ids in this engine are hyphenated lowercase
+        // runs with a digit or a long tail, and a placard never carries one.
+        expect(subject.reason).not.toMatch(/\b(prod|facility|set|stage)-[a-z0-9-]{3,}/)
+      }
+    }
+    // NON-VACUOUS on BOTH arms: the walk produced sentences, and it produced the
+    // queued-intent sentences that were the second violation.
+    expect(reasons).toBeGreaterThanOrEqual(1)
+    expect(queueReasons).toBeGreaterThanOrEqual(1)
+  })
+
+  it('names a FACILITY-CAPACITY wait in the studio’s words too, and never half-names one', () => {
+    // The arm the walks above do not always reach, stated directly so the repair
+    // is not dead code. The blocker is set on a real workflow of a real studio —
+    // the same forging discipline the withholding test uses.
+    const base = pressuredStudio('c2a-m5-theater-capacity-copy')
+    const workflow = base.operations.workflows[0]!
+    const forge = (blocker: unknown): GameState => ({
+      ...base,
+      operations: {
+        ...base.operations,
+        workflows: base.operations.workflows.map((candidate) =>
+          candidate.productionId === workflow.productionId
+            ? ({ ...candidate, blocker } as typeof candidate)
+            : candidate,
+        ),
+      },
+    })
+    const reasonFor = (blocker: unknown): string | null =>
+      studioWeekTheater(forge(blocker)).subjects.find(
+        (subject) =>
+          subject.kind === 'company-waiting' && subject.productionId === workflow.productionId,
+      )?.reason ?? null
+
+    expect(
+      reasonFor({ kind: 'facility-capacity', capability: 'development-casting', targetPhase: 'preProduction' }),
+    ).toBe('waiting for Development & Casting to start Pre-production')
+    expect(
+      reasonFor({ kind: 'facility-capacity', capability: 'soundstage', targetPhase: 'shooting' }),
+    ).toBe('waiting for Soundstage to start Shooting')
+    expect(reasonFor({ kind: 'set-unavailable', targetPhase: 'rehearsal' })).toBe(
+      'waiting for a standing set to start Rehearsal',
+    )
+    // A capability or a phase this engine does not have is WITHHELD, never
+    // printed raw — the failure mode the whole repair exists to prevent.
+    expect(
+      reasonFor({ kind: 'facility-capacity', capability: 'teleporter', targetPhase: 'shooting' }),
+    ).toBeNull()
+    expect(reasonFor({ kind: 'set-unavailable', targetPhase: 'wormhole' })).toBeNull()
   })
 
   it('shows a BUILDING RISING with the weeks its own clock says are left', () => {

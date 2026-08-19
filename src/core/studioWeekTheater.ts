@@ -51,8 +51,19 @@
 //     work waiting, never a title.
 
 import { BEATS_PER_WEEK, PRESENCE_LAST_WORK_BEAT } from './presence.js'
+import { queueEntryLabel } from './productionQueue.js'
 import { isSceneryLoadIn, sceneryLoadInFor } from './sceneryLoadIn.js'
-import type { GameState, ProductionPhase } from './types.js'
+// THE STUDIO'S OWN WORDS, reused rather than re-authored (`00F`, and G12). The
+// queue panel has always named capabilities, phases and queued intents from
+// these; the Call Board draws the same facts on a placard and must say the same
+// thing about them.
+import { CAPABILITY_LABEL, PHASE_LABEL } from './studioQueueView.js'
+import type {
+  FacilityCapability,
+  GameState,
+  ProductionPhase,
+  ProductionQueueEntry,
+} from './types.js'
 
 export { BEATS_PER_WEEK }
 
@@ -200,6 +211,54 @@ function isNonEmptyString(value: unknown): value is string {
 
 function isNonNegativeInteger(value: unknown): value is number {
   return typeof value === 'number' && Number.isInteger(value) && value >= 0
+}
+
+/**
+ * The studio's word for a phase, or NULL when the value is not one this engine
+ * knows.
+ *
+ * NULL rather than the raw value on purpose. This module never throws (law 17/21
+ * — it withholds), and a blocker naming a phase the vocabulary has never heard of
+ * is exactly the case where printing the raw token would put an engine
+ * identifier on a placard. Withholding the whole subject is the honest answer;
+ * half-guessing it is not.
+ */
+function playerPhase(value: unknown): string | null {
+  if (typeof value !== 'string') return null
+  return Object.prototype.hasOwnProperty.call(PHASE_LABEL, value)
+    ? (PHASE_LABEL[value as ProductionPhase] ?? null)
+    : null
+}
+
+/** The same, for the four facility capabilities. */
+function playerCapability(value: unknown): string | null {
+  if (typeof value !== 'string') return null
+  return Object.prototype.hasOwnProperty.call(CAPABILITY_LABEL, value)
+    ? (CAPABILITY_LABEL[value as FacilityCapability] ?? null)
+    : null
+}
+
+/**
+ * What the studio CALLS a queued intent — "Greenlight", "Screenplay commission" —
+ * or NULL for a kind this engine does not have.
+ *
+ * `queueEntryLabel` is the shipped vocabulary the queue panel already speaks, so
+ * the placard and the panel name the same waiting thing the same way. The kind is
+ * checked against the closed list first because this module must not throw, and
+ * because printing the raw kind is the exact failure this exists to prevent: it
+ * used to say `greenlightScriptProject waiting since week 2`.
+ */
+const QUEUE_ENTRY_KINDS = [
+  'commissionScript',
+  'commissionOriginalScreenplay',
+  'startCastingSession',
+  'greenlightScriptProject',
+] as const
+
+function playerQueueLabel(kind: unknown): string | null {
+  if (typeof kind !== 'string') return null
+  if (!(QUEUE_ENTRY_KINDS as readonly string[]).includes(kind)) return null
+  return queueEntryLabel({ kind } as ProductionQueueEntry)
 }
 
 type Draft = Omit<TheaterSubject, 'facilityName'> & { facilityName?: string | null }
@@ -449,19 +508,33 @@ export function studioWeekTheater(state: GameState): StudioWeekTheater {
   }
 
   // ── 4. COMPANIES WAITING AT THE QUEUE (law 2, §3.3) ──────────────────────
-  // The blocker the ENGINE wrote is the reason, restated in its own terms. A
-  // `scenery-load-in` blocker is deliberately NOT a waiter — those people are on
-  // site and the scenery is on the road, which is subject 2's story, not this one
-  // (the same distinction `presence.ts` draws).
+  // The blocker the ENGINE wrote is the reason, restated IN THE STUDIO'S OWN
+  // WORDS. A `scenery-load-in` blocker is deliberately NOT a waiter — those
+  // people are on site and the scenery is on the road, which is subject 2's
+  // story, not this one (the same distinction `presence.ts` draws).
+  //
+  // G12 / THE TYCOON FLOOR (`00F`), and this sentence is the reason the tables
+  // are imported rather than interpolated. This reason is DRAWN — the Call Board
+  // on the lot prints it on a placard for the player to read — so it may not
+  // carry `development-casting` or `preProduction`, which are engine
+  // identifiers. `CAPABILITY_LABEL` and `PHASE_LABEL` are the words the queue
+  // panel has always shown, and the placard and the panel now say the same thing
+  // about the same fact, because they read the same vocabulary.
   for (const workflow of state.operations.workflows) {
     if (!isObject(workflow) || !isNonEmptyString(workflow.productionId)) continue
     const blocker = workflow.blocker
     if (!isObject(blocker)) continue
     let reason: string | null = null
     if (blocker.kind === 'facility-capacity') {
-      reason = `awaiting ${String(blocker.capability)} capacity to enter ${String(blocker.targetPhase)}`
+      const capability = playerCapability(blocker.capability)
+      const phase = playerPhase(blocker.targetPhase)
+      reason =
+        capability === null || phase === null
+          ? null
+          : `waiting for ${capability} to start ${phase}`
     } else if (blocker.kind === 'set-unavailable') {
-      reason = `awaiting a standing set to enter ${String(blocker.targetPhase)}`
+      const phase = playerPhase(blocker.targetPhase)
+      reason = phase === null ? null : `waiting for a standing set to start ${phase}`
     }
     if (reason === null) continue
     const stage = workflow.reservations?.find?.(
@@ -488,6 +561,13 @@ export function studioWeekTheater(state: GameState): StudioWeekTheater {
       continue
     }
     const queuedWeek = isNonNegativeInteger(entry.queuedWeek) ? (entry.queuedWeek as number) : null
+    // G12 / `00F`. This printed `entry.kind` — `greenlightScriptProject waiting
+    // since week 2` — which is an action identifier on a surface a player reads.
+    // The studio's own word for the same intent comes from the shipped
+    // `queueEntryLabel`, and an intent whose kind this engine does not have is
+    // WITHHELD rather than half-named (law 21).
+    const label = playerQueueLabel(entry.kind)
+    if (label === null) continue
     drafts.push({
       kind: 'queue-waiting',
       id: `queue-waiting:${String(entry.ordinal)}`,
@@ -499,8 +579,8 @@ export function studioWeekTheater(state: GameState): StudioWeekTheater {
       distance: null,
       reason:
         queuedWeek === null
-          ? `${entry.kind} admitted and waiting`
-          : `${entry.kind} waiting since week ${String(queuedWeek)}`,
+          ? `${label} admitted and waiting`
+          : `${label} admitted, waiting since Week ${String(queuedWeek)}`,
       beats: waitingWeek(),
     })
   }

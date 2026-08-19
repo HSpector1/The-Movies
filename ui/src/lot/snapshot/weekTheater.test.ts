@@ -12,6 +12,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { applyActions } from '../../../../src/core/index.ts'
+import { livingStudioUnderPressure } from '../../../../tests/_m5Fixtures.ts'
 import {
   advanceWeek,
   greenlight,
@@ -233,6 +234,79 @@ describe('the Call Board says what the engine said, and nothing else', () => {
 
   it('says nothing at all about an apron with nothing on it', () => {
     expect(theaterCallBoardLines({ buildingId: 'stage-a', waiting: [], freight: 0 })).toEqual([])
+  })
+
+  it('reads in the STUDIO’s words when the reasons are the ENGINE’s, not an author’s (G12)', () => {
+    // THE HOLE THIS CLOSES. The three tests above hand `theaterCallBoardLines` a
+    // reason written by their author — "Stage A is held by Rain on the Boulevard
+    // until Week 14." — so they proved the COMPOSITION and never once looked at
+    // the sentence the engine actually produces. It produced "awaiting
+    // development-casting capacity to enter preProduction" and
+    // "greenlightScriptProject waiting since week 2": a capability id, a
+    // camelCase phase and an action identifier, all of them destined for a
+    // placard a player reads. Every one of those tests passed the whole time.
+    //
+    // So this one composes the board's lines from the reasons a REAL contended
+    // studio publishes, week after week, and reads them.
+    //
+    // It builds the placard from the subjects directly rather than through
+    // `lotCallBoard`, because that mapping needs the waiter to HOLD a body and a
+    // waiter at the front door holds nothing — see the finding recorded against
+    // this milestone. That is a question about WHERE the placard stands; this is
+    // a question about WHAT IT SAYS, and the words are drawn either way.
+    const ENGINE_TOKENS = [
+      'development-casting',
+      'set-scenery',
+      'soundstage',
+      'preProduction',
+      'postProduction',
+      'releaseReady',
+      'facility-capacity',
+      'set-unavailable',
+      'scenery-load-in',
+      'commissionScript',
+      'commissionOriginalScreenplay',
+      'startCastingSession',
+      'greenlightScriptProject',
+    ]
+    // The studio has to be CONTENDED for there to be anything to say, so this
+    // uses M5's own pressured fixture: three pictures against two rooms, every
+    // set struck, and companies standing by with the engine's reasons on them.
+    let lines = 0
+    let queued = 0
+    for (const snapshot of weekSnapshots(
+      livingStudioUnderPressure('week-theater-g12', 16).state,
+      16,
+    )) {
+      const waiting = [
+        ...lotTheaterSubjects(snapshot, 'company-waiting'),
+        ...lotTheaterSubjects(snapshot, 'queue-waiting'),
+      ]
+      queued += lotTheaterSubjects(snapshot, 'queue-waiting').length
+      if (waiting.length === 0) continue
+      const composed = theaterCallBoardLines({
+        buildingId: 'stage-a',
+        waiting: waiting.map((subject) => ({
+          subjectId: subject.id,
+          productionTitle: subject.productionTitle,
+          reason: subject.reason,
+          weeksWaiting: subject.weeksRemaining,
+        })),
+        freight: 1,
+      })
+      for (const line of composed) {
+        lines += 1
+        expect(line.length).toBeGreaterThan(0)
+        for (const token of ENGINE_TOKENS) {
+          expect(line.includes(token), `the placard reads "${line}"`).toBe(false)
+        }
+        expect(line).not.toMatch(/\b(prod|facility|set|stage)-[a-z0-9-]{3,}/)
+      }
+    }
+    // NON-VACUOUS on both arms: real sentences, including the queued-intent ones
+    // that carried the second violation.
+    expect(lines).toBeGreaterThanOrEqual(1)
+    expect(queued).toBeGreaterThanOrEqual(1)
   })
 })
 
