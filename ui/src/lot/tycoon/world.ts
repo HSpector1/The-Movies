@@ -1132,21 +1132,54 @@ export function presenceQueueSlotOffset(index: number): GridPoint {
   }
 }
 
-/** Deterministic ambient patrols. Roles come from the role atlas. */
+/**
+ * Deterministic ambient patrols. Roles come from the role atlas.
+ *
+ * C2a-M5 (§4.2, `00C`.6 — EVERYTHING BELONGS TO A SYSTEM). Each route now carries
+ * the authoritative fact it stands on. The eight people, the eight routes and the
+ * art are unchanged; what changed is that a patrol may only be on the property when
+ * the studio is genuinely doing the thing that patrol is doing. The grounds
+ * themselves are read from the engine's own week theater — see
+ * `../snapshot/ambientGrounding.ts`, which also states why a studio that publishes
+ * no authority keeps all eight.
+ *
+ * Each pairing is an ordinary reading of where the route runs:
+ *   grip / service yard        → freight is moving (scenery, sets, wrap clearing)
+ *   stagehand / stage doors    → a stage is hot
+ *   electrician / stage alley  → a stage is hot
+ *   camera / production row    → a stage is hot
+ *   publicity / front avenue   → a booked campaign is running
+ *   security / the gate        → the studio is operating
+ *   extra / holding area       → a company or a queued picture is standing by
+ *   grip / back of the yard    → a committed build is progressing
+ */
 export const AMBIENT_ROUTES: readonly {
   role: 'grip' | 'stagehand' | 'electrician' | 'camera' | 'security' | 'publicity' | 'extra'
   a: GridPoint
   b: GridPoint
+  ground: AmbientGroundName
 }[] = [
-  { role: 'grip', a: { gx: 22.4, gy: 16.6 }, b: { gx: 20.4, gy: 14.9 } },
-  { role: 'stagehand', a: { gx: 17.8, gy: 6.6 }, b: { gx: 20.8, gy: 6.6 } },
-  { role: 'electrician', a: { gx: 21.4, gy: 7.4 }, b: { gx: 21.4, gy: 12.6 } },
-  { role: 'camera', a: { gx: 16.4, gy: 7.5 }, b: { gx: 13.6, gy: 7.5 } },
-  { role: 'publicity', a: { gx: 11.4, gy: 6.2 }, b: { gx: 9.2, gy: 6.6 } },
-  { role: 'security', a: { gx: 10.9, gy: 23.4 }, b: { gx: 10.9, gy: 21.4 } },
-  { role: 'extra', a: { gx: 7.8, gy: 11.4 }, b: { gx: 10.9, gy: 13.2 } },
-  { role: 'grip', a: { gx: 24.2, gy: 17.9 }, b: { gx: 22.6, gy: 17.9 } },
+  { role: 'grip', a: { gx: 22.4, gy: 16.6 }, b: { gx: 20.4, gy: 14.9 }, ground: 'scenery-moving' },
+  { role: 'stagehand', a: { gx: 17.8, gy: 6.6 }, b: { gx: 20.8, gy: 6.6 }, ground: 'stage-hot' },
+  { role: 'electrician', a: { gx: 21.4, gy: 7.4 }, b: { gx: 21.4, gy: 12.6 }, ground: 'stage-hot' },
+  { role: 'camera', a: { gx: 16.4, gy: 7.5 }, b: { gx: 13.6, gy: 7.5 }, ground: 'stage-hot' },
+  { role: 'publicity', a: { gx: 11.4, gy: 6.2 }, b: { gx: 9.2, gy: 6.6 }, ground: 'campaign-running' },
+  { role: 'security', a: { gx: 10.9, gy: 23.4 }, b: { gx: 10.9, gy: 21.4 }, ground: 'gate-open' },
+  { role: 'extra', a: { gx: 7.8, gy: 11.4 }, b: { gx: 10.9, gy: 13.2 }, ground: 'company-standing-by' },
+  { role: 'grip', a: { gx: 24.2, gy: 17.9 }, b: { gx: 22.6, gy: 17.9 }, ground: 'building' },
 ]
+
+/**
+ * The ground vocabulary, named here so `world.ts` stays a leaf: the authority that
+ * DERIVES these lives in the snapshot layer, and this file only names them.
+ */
+export type AmbientGroundName =
+  | 'gate-open'
+  | 'stage-hot'
+  | 'scenery-moving'
+  | 'campaign-running'
+  | 'company-standing-by'
+  | 'building'
 
 // ── camera framing targets ────────────────────────────────────────────────────
 

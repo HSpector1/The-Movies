@@ -47,6 +47,7 @@ import {
   type PresenceStand,
 } from './presence.ts'
 import {
+  PLAYBACK_DURATION_MS,
   PLAYBACK_WITNESSED_BEAT_SPEED_CEILING,
   personPositionAt,
   playbackFinished,
@@ -58,6 +59,14 @@ import {
   lotPeopleForCompanyPresentation,
 } from '../snapshot/productionCompany.ts'
 import { sceneryLoadInContext } from '../snapshot/sceneryLoadIn.ts'
+import { lotAmbientGrounds } from '../snapshot/ambientGrounding.ts'
+import {
+  THEATER_MAX_FREIGHT_ELEMENTS,
+  lotBodyTheaterStates,
+  lotCallBoard,
+  lotSceneryHauls,
+  type LotCallBoardPlacard,
+} from '../snapshot/weekTheater.ts'
 import { stage7ProductionDetailContext } from '../snapshot/stage7Production.ts'
 import { TILE_H, TILE_W, gridToScreen, screenToGrid } from '../scene/iso.ts'
 import { Rng } from '../scene/rng.ts'
@@ -140,6 +149,7 @@ import {
   panCentreIntoView,
   personHomeSlotOffset,
   reframedZoom,
+  type AmbientGroundName,
   type CameraFraming,
   type GridPoint,
   type GroundKind,
@@ -327,6 +337,32 @@ type AmbientActor = {
   b: GridPoint
   phase: number
   speed: number
+  /** The authoritative fact this patrol stands on (C2a-M5, §4.2 / `00C`.6). */
+  ground: AmbientGroundName
+}
+
+/**
+ * The Call Board placard's lines, in the studio's voice (§4.2, r3.1 Option A).
+ *
+ * The four law-2 facts are ALREADY composed by the engine into `reason` (M4's
+ * Remedy sentence); this only puts the picture's name in front of them and states
+ * the wait. It writes nothing the engine did not say, and it never prints an id.
+ */
+function theaterCallBoardLines(placard: LotCallBoardPlacard): string[] {
+  const lines: string[] = []
+  for (const waiting of placard.waiting) {
+    const who = waiting.productionTitle ?? 'A picture'
+    const reason = waiting.reason
+    lines.push(reason === null || reason.length === 0 ? `${who} is standing by.` : `${who} — ${reason}`)
+  }
+  if (placard.freight > 0) {
+    lines.push(
+      placard.freight === 1
+        ? 'One week of freight is standing on the apron.'
+        : `${String(placard.freight)} weeks of freight are standing on the apron.`,
+    )
+  }
+  return lines
 }
 
 /**
@@ -435,6 +471,18 @@ export class TycoonScene extends Phaser.Scene {
   private presencePlayback: PresencePlayback | null = null
   /** The one ground cue under every waiting queue. One object, not one per person. */
   private presenceGraphics: Phaser.GameObjects.Graphics | null = null
+
+  // ── Studio Week Theater V1 (C2a-M5, §4.2) ──────────────────────────────────
+  /** The whole plant's ground layer: freight, aprons, and the marks a body wears. */
+  private theaterGraphics: Phaser.GameObjects.Graphics | null = null
+  /** One Call Board placard per contended body. Reused across repaints. */
+  private callBoards = new Map<string, Phaser.GameObjects.Text>()
+  /**
+   * Which authoritative facts are true this week, for the grounded ambient patrols
+   * (§4.2, `00C`.6). `null` means this studio publishes no authority to ground
+   * against — a legacy world — and every patrol keeps its shipped behaviour.
+   */
+  private ambientGrounds: Set<AmbientGroundName> | null = null
 
   // ── Guidance World Marker V1 (M-D) ─────────────────────────────────────────
   /**
@@ -550,6 +598,10 @@ export class TycoonScene extends Phaser.Scene {
       this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
         this.clearPublicityVisual()
         this.events.off(Phaser.Scenes.Events.PAUSE, this.clearPublicityVisual, this)
+        // The Call Board's placards are the only text objects this scene creates
+        // outside `syncBuildingViews`, so they are the only ones it has to bury.
+        for (const board of this.callBoards.values()) board.destroy()
+        this.callBoards.clear()
       })
 
       this.applySnapshot(this.snapshot)
@@ -1298,6 +1350,15 @@ export class TycoonScene extends Phaser.Scene {
       .graphics()
       .setDepth(DEPTH.ground + 2)
       .setName('tier:presence-queue')
+    // C2a-M5 (§4.2) — THE WITNESSED WEEK, ON THE GROUND. ONE layer for the whole
+    // plant: freight on the road, freight backed up on a contended apron, and the
+    // marks a hot / clearing / mounting body wears. Same discipline as the queue
+    // cue above — the property's activity must read at a glance without costing a
+    // display object per fact.
+    this.theaterGraphics = this.add
+      .graphics()
+      .setDepth(DEPTH.worldOverlay - 2)
+      .setName('tier:week-theater')
     // The guidance marker: ONE layer for the whole property, on the ground just above the
     // queue cue so a building always stands on top of the light it is lit by.
     this.guidanceGraphics = this.add
@@ -2508,6 +2569,7 @@ export class TycoonScene extends Phaser.Scene {
         b: spec.b,
         phase: rng.next(),
         speed: rng.range(0.00004, 0.00009),
+        ground: spec.ground,
       })
     })
   }
@@ -2708,6 +2770,10 @@ export class TycoonScene extends Phaser.Scene {
     this.reconcileProductionCompanySelection()
     this.paintBuildingStates(this.snapshot, stage7)
     this.paintSceneryLoadIn(sceneryLoadInContext(this.snapshot))
+    // C2a-M5 (§4.2): what the PLANT is doing, and who on the property has a reason
+    // to be standing there. Both are read from the settled week's own projection.
+    this.paintWeekTheater()
+    this.applyAmbientGrounding()
     this.paintExpansion(this.snapshot)
     this.paintPlacementFromSnapshot()
     // Attention is snapshot truth, so a building that starts (or stops) demanding a
@@ -2794,6 +2860,166 @@ export class TycoonScene extends Phaser.Scene {
     // retained accepted override stands the dispatched director at the Stage 7 doors,
     // which is the same body of ground presence claims for a shooting company.
     if (director && destination) this.placePerson(director, destination)
+  }
+
+  // ── Studio Week Theater V1 — the plant, drawn (C2a-M5, §4.2) ───────────────
+  //
+  // CLASS A, all of it. Every mark below is a function of the SETTLED week's own
+  // projection, so it renders identically on load, after a forty-week batch and
+  // mid-playback. The only thing the played week adds is WHERE ALONG ITS HAUL a
+  // crate is (`theaterHaulEase`), which is interpolation between two authoritative
+  // week positions and decides nothing — law 2 exactly.
+  //
+  // Nothing here reads GameState, invents a fact, or names a picture the engine
+  // did not name. A fact about a facility no body stands for is dropped by the
+  // projection (law 12) before it ever reaches this method.
+
+  /** Grid anchor of a body, or null when nothing on this property is that body. */
+  private theaterAnchor(
+    buildingId: string,
+    anchor: 'work' | 'wait' | 'entry',
+  ): GridPoint | null {
+    const place = worldBuildingById(this.worldBuildings, buildingId)
+    const point = place?.anchors[anchor] ?? place?.anchors.work ?? null
+    return point ?? null
+  }
+
+  /**
+   * How far through the CURRENT played week the haul is, 0…1.
+   *
+   * A settled world returns 1: the crates stand at this week's authoritative
+   * position. Inside a played week they ease from LAST week's position to this
+   * one, which is what "no teleportation" means — the freight is seen to travel
+   * the leg the engine already charged it for.
+   */
+  private theaterHaulEase(): number {
+    const playback = this.presencePlayback
+    if (playback === null) return 1
+    return Math.min(1, Math.max(0, playback.elapsed / PLAYBACK_DURATION_MS))
+  }
+
+  private paintWeekTheater(): void {
+    const g = this.theaterGraphics
+    if (!g) return
+    g.clear()
+    const wanted = new Set<string>()
+
+    // ── the marks a body wears this week ────────────────────────────────────
+    for (const body of lotBodyTheaterStates(this.snapshot)) {
+      const at = this.theaterAnchor(body.buildingId, 'work')
+      if (at === null) continue
+      const p = this.world(at.gx, at.gy)
+      if (body.hot) {
+        // Working light spilling out of an open stage door.
+        g.fillStyle(C.lampFilming, 0.22)
+        g.fillEllipse(p.x, p.y + 4, 74, 34)
+      }
+      if (body.clearing) {
+        // A wrap clearing: the ring the company is striking out of.
+        g.lineStyle(2.5, C.lampAvailable, 0.75)
+        g.strokeEllipse(p.x, p.y + 4, 62, 28)
+      }
+      if (body.setMounting || body.setStruck) {
+        // Flats stacked against the wall — mounting on the left, struck on the right,
+        // so the two never read as the same event standing in the same place.
+        const side = body.setMounting ? -1 : 1
+        g.fillStyle(body.setMounting ? C.lampFilming : C.lampHeld, 0.6)
+        for (let i = 0; i < 3; i++) {
+          g.fillRect(p.x + side * (26 + i * 6) - 3, p.y - 6 - i * 2, 5, 18)
+        }
+      }
+    }
+
+    // ── freight on the road ─────────────────────────────────────────────────
+    const ease = this.theaterHaulEase()
+    for (const haul of lotSceneryHauls(this.snapshot)) {
+      const to = this.theaterAnchor(haul.to, 'entry')
+      if (to === null) continue
+      const from = haul.from === null ? null : this.theaterAnchor(haul.from, 'entry')
+      if (from === null) continue
+      // Last week's fraction and this week's: the crate crosses between them across
+      // the played week, and stands on this week's mark once the week has settled.
+      const step = haul.totalWeeks <= 0 ? 1 : 1 / haul.totalWeeks
+      const previous01 = Math.max(0, haul.progress01 - step)
+      const t = previous01 + (haul.progress01 - previous01) * ease
+      const gx = from.gx + (to.gx - from.gx) * t
+      const gy = from.gy + (to.gy - from.gy) * t
+      const p = this.world(gx, gy)
+      g.fillStyle(C.lampHeld, 0.85)
+      g.fillRect(p.x - 7, p.y - 5, 14, 10)
+      g.lineStyle(1.5, 0x241d14, 0.8)
+      g.strokeRect(p.x - 7, p.y - 5, 14, 10)
+    }
+
+    // ── the backed-up lot, and the Call Board that reads it ─────────────────
+    let freightDrawn = 0
+    for (const placard of lotCallBoard(this.snapshot)) {
+      const wait = this.theaterAnchor(placard.buildingId, 'wait')
+      if (wait === null) continue
+      const p = this.world(wait.gx, wait.gy)
+      for (let i = 0; i < placard.freight && freightDrawn < THEATER_MAX_FREIGHT_ELEMENTS; i++) {
+        freightDrawn++
+        const row = Math.floor(i / 3)
+        const col = i % 3
+        const x = p.x - 26 + col * 17
+        const y = p.y + 8 + row * 9
+        g.fillStyle(C.lampHeld, 0.75)
+        g.fillRect(x, y, 13, 9)
+        g.lineStyle(1.25, 0x241d14, 0.75)
+        g.strokeRect(x, y, 13, 9)
+      }
+      const lines = theaterCallBoardLines(placard)
+      if (lines.length === 0) continue
+      const key = placard.buildingId
+      wanted.add(key)
+      const existing = this.callBoards.get(key)
+      const text =
+        existing ??
+        this.add
+          .text(p.x, p.y - 6, '', {
+            fontFamily: FONT_SANS,
+            fontSize: '12px',
+            color: '#f6ebd2',
+            backgroundColor: '#241d14e6',
+            padding: { x: 7, y: 4 },
+            align: 'left',
+            wordWrap: { width: 260 },
+          })
+          .setOrigin(0.5, 1)
+          .setDepth(DEPTH.label)
+          .setName(`call-board:${key}`)
+      text.setPosition(p.x, p.y - 6)
+      text.setText(lines.join('\n'))
+      text.setScale(1 / this.chromeZoom)
+      text.setVisible(this.lodBand !== 'institution')
+      this.callBoards.set(key, text)
+    }
+    for (const [key, text] of [...this.callBoards]) {
+      if (wanted.has(key)) continue
+      text.destroy()
+      this.callBoards.delete(key)
+    }
+  }
+
+  /**
+   * EVERYTHING BELONGS TO A SYSTEM (§4.2, `00C`.6): a patrol may only be on the
+   * property when the fact it stands on is true. Visibility only — the routes,
+   * the art and the eight actors are untouched, and a studio that publishes no
+   * authority (legacy) keeps every one of them.
+   */
+  private applyAmbientGrounding(): void {
+    this.ambientGrounds = lotAmbientGrounds(this.snapshot)
+    this.applyAmbientVisibility()
+  }
+
+  /** One owner of ambient visibility, so the LOD band and the grounds cannot disagree. */
+  private applyAmbientVisibility(): void {
+    const institution = this.lodBand === 'institution'
+    const grounds = this.ambientGrounds
+    for (const actor of this.ambientActors) {
+      const grounded = grounds === null || grounds.has(actor.ground)
+      actor.sprite.setVisible(!institution && grounded)
+    }
   }
 
   /**
@@ -3341,6 +3567,9 @@ export class TycoonScene extends Phaser.Scene {
       return
     }
     this.applyPresenceFrame(playback.elapsed)
+    // The freight crosses its leg WITH the week (§4.2, no teleportation). This is
+    // interpolation between two authoritative week positions; it decides nothing.
+    this.paintWeekTheater()
   }
 
   // ── publicity ───────────────────────────────────────────────────────────────
@@ -3835,7 +4064,9 @@ export class TycoonScene extends Phaser.Scene {
 
     if (!bandChanged) return
     const institution = band === 'institution'
-    for (const actor of this.ambientActors) actor.sprite.setVisible(!institution)
+    // Ambient visibility has TWO owners now — the band and the grounding law — so it
+    // is applied in one place that reads both (§4.2).
+    this.applyAmbientVisibility()
     for (const car of this.stageCars) car.setVisible(!institution)
     for (const view of this.buildings.values()) view.sign?.setVisible(!institution)
     this.applyChromeVisibility()
