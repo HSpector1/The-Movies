@@ -468,6 +468,40 @@ new spec. **Zero regressions.**
    structural budget IS measured (+1 display object, 0 decoded bytes, 0 draw
    calls, dynamic actors unchanged at 14).
 
+### Lane INTEGRATE-M5 — THE HANDS-OFF GATE AND FOUR-WAY TIME PARITY (2026-08-19)
+
+Lane INTEGRATE-M5 is the sole writer everywhere. Floors re-measured at the lane's
+base (`a394838`): root tsc 0 · ui tsc 0 · FULL vitest **320 files / 4,370 passed
++ 5 skipped / 0 failed** (solo, unpiped — `/tmp/c2a-m5-vitest.log`). No drift.
+
+- **§12-M5'S GATE IS REACHABLE AFTER ALL, AND HERE IS THE STUDIO IT IS REACHABLE
+  ON.** UI-M5 reported the gate's conjunction — two pictures in flight AND ≥12
+  consecutive unpaused weeks AND a draining queue AND an auto-pause — as
+  unreachable. Re-measured from the engine, that finding is HALF right and the
+  other half is the answer. What is unreachable is ≥12 quiet weeks with a picture
+  ADVANCING: `TUNING.PRODUCTION_TICKS` is a fixed six-phase walk that asks for a
+  shooting decision at Shooting entry and plays a Premiere at the end, so any
+  advancing picture pauses the loop inside four weeks (the longest such run
+  measured at this HEAD is NINE weeks, on a lot waiting out an eight-week
+  showpiece set build). But a picture that is WAITING is quiet: a capacity blocker
+  is a truthful warning with no player command behind it, so a company standing by
+  for scenery stops nothing while staying visible, costed and stated — §4.1's
+  "stalled only on NOTIFY-class facts [and keeping] running", exactly.
+  New shared fixture `tests/_m5Fixtures.ts` (`livingStudioUnderPressure`): three
+  pictures greenlit against two Development & Casting rooms, every set struck, a
+  scenery shop rising, and a bank balance CALIBRATED — walked once on an unlimited
+  balance to read what the engine actually spends, then set to one penny under the
+  cumulative spend at week N+1 so the crossing lands there and nowhere earlier —
+  then walked AGAIN and refused if any promise fails. New suite
+  `ui/src/test/contracts/m5-hands-off-gate.contract.test.ts` (9 tests) pins the
+  whole gate at the engine: two pictures in flight at the start with a third
+  greenlight waiting; **16 consecutive unpaused weeks** (the charter's floor is
+  12); exactly those weeks advanced; the queue draining into the freed room on
+  week 3 and staying drained; a NOTIFY-class `constructionCompleted` on week 11
+  that pauses nothing; and the first PAUSE-class stop on week 17 — `cashNegative`,
+  which is §4.1's own sentence about a genuinely failing studio made mechanical.
+  M4's G16 law-2 facts re-asserted non-empty for every waiter on every week.
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and
