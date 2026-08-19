@@ -65,7 +65,9 @@ import {
   lotBodyTheaterStates,
   lotCallBoard,
   lotSceneryHauls,
+  type LotBodyTheaterState,
   type LotCallBoardPlacard,
+  type LotSceneryHaul,
 } from '../snapshot/weekTheater.ts'
 import { stage7ProductionDetailContext } from '../snapshot/stage7Production.ts'
 import { TILE_H, TILE_W, gridToScreen, screenToGrid } from '../scene/iso.ts'
@@ -477,6 +479,17 @@ export class TycoonScene extends Phaser.Scene {
   private theaterGraphics: Phaser.GameObjects.Graphics | null = null
   /** One Call Board placard per contended body. Reused across repaints. */
   private callBoards = new Map<string, Phaser.GameObjects.Text>()
+  /**
+   * The week's projection, DERIVED ONCE per snapshot.
+   *
+   * The same law `recomputePresence` states: a projection recomputed sixty times a
+   * second would be a renderer pretending to own a simulation. The paint below runs
+   * per frame while a week is playing (the freight has to cross its leg), so what it
+   * reads has to be a cached VALUE, not a fresh derivation.
+   */
+  private theaterBodies: LotBodyTheaterState[] = []
+  private theaterHauls: LotSceneryHaul[] = []
+  private theaterBoards: LotCallBoardPlacard[] = []
   /**
    * Which authoritative facts are true this week, for the grounded ambient patrols
    * (§4.2, `00C`.6). `null` means this studio publishes no authority to ground
@@ -2771,7 +2784,9 @@ export class TycoonScene extends Phaser.Scene {
     this.paintBuildingStates(this.snapshot, stage7)
     this.paintSceneryLoadIn(sceneryLoadInContext(this.snapshot))
     // C2a-M5 (§4.2): what the PLANT is doing, and who on the property has a reason
-    // to be standing there. Both are read from the settled week's own projection.
+    // to be standing there. Both are read from the settled week's own projection,
+    // derived HERE and cached — the paint runs per frame while a week plays.
+    this.refreshWeekTheater()
     this.paintWeekTheater()
     this.applyAmbientGrounding()
     this.paintExpansion(this.snapshot)
@@ -2898,6 +2913,13 @@ export class TycoonScene extends Phaser.Scene {
     return Math.min(1, Math.max(0, playback.elapsed / PLAYBACK_DURATION_MS))
   }
 
+  /** Re-derive the week's projection. Snapshot-time only — never per frame. */
+  private refreshWeekTheater(): void {
+    this.theaterBodies = lotBodyTheaterStates(this.snapshot)
+    this.theaterHauls = lotSceneryHauls(this.snapshot)
+    this.theaterBoards = lotCallBoard(this.snapshot)
+  }
+
   private paintWeekTheater(): void {
     const g = this.theaterGraphics
     if (!g) return
@@ -2905,7 +2927,7 @@ export class TycoonScene extends Phaser.Scene {
     const wanted = new Set<string>()
 
     // ── the marks a body wears this week ────────────────────────────────────
-    for (const body of lotBodyTheaterStates(this.snapshot)) {
+    for (const body of this.theaterBodies) {
       const at = this.theaterAnchor(body.buildingId, 'work')
       if (at === null) continue
       const p = this.world(at.gx, at.gy)
@@ -2932,7 +2954,7 @@ export class TycoonScene extends Phaser.Scene {
 
     // ── freight on the road ─────────────────────────────────────────────────
     const ease = this.theaterHaulEase()
-    for (const haul of lotSceneryHauls(this.snapshot)) {
+    for (const haul of this.theaterHauls) {
       const to = this.theaterAnchor(haul.to, 'entry')
       if (to === null) continue
       const from = haul.from === null ? null : this.theaterAnchor(haul.from, 'entry')
@@ -2953,7 +2975,7 @@ export class TycoonScene extends Phaser.Scene {
 
     // ── the backed-up lot, and the Call Board that reads it ─────────────────
     let freightDrawn = 0
-    for (const placard of lotCallBoard(this.snapshot)) {
+    for (const placard of this.theaterBoards) {
       const wait = this.theaterAnchor(placard.buildingId, 'wait')
       if (wait === null) continue
       const p = this.world(wait.gx, wait.gy)

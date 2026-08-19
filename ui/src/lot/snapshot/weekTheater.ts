@@ -240,6 +240,15 @@ export type LotBodyTheaterState = {
   clearing: boolean
   setMounting: boolean
   setStruck: boolean
+  /**
+   * A committed build is progressing here.
+   *
+   * Deliberately NOT drawn by the theater layer: the placement layer has owned
+   * construction chrome since C1-M1b and draws it from the same placement
+   * projection, and two owners painting one piece of ground is shift law 10's
+   * whole subject. It is carried because the GROUNDING law reads it (the grip at
+   * the back of the yard is on the property because a build is progressing).
+   */
   building: boolean
   /** The picture at work here, when the engine named one. Never an id. */
   productionTitle: string | null
