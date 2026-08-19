@@ -88,6 +88,16 @@ const WEEKS = 12
 const FIXTURE = livingStudioUnderPressure(SEED, 16)
 
 /**
+ * Vitest's default per-test budget is 5s. Every arm below mounts the whole App
+ * and then winds a mocked clock through twelve witnessed weeks in 500ms chunks —
+ * roughly 250 `act` boundaries, each of which flushes React — and the combined
+ * test does that twice. MEASURED: 1.1–2.6s per arm run alone, 5.1s under a full
+ * parallel suite, which is how the default first bit. The budget is raised, not
+ * the work reduced: nothing here is waiting on wall time, it is doing work.
+ */
+const MOUNTED_ARM_TIMEOUT_MS = 60_000
+
+/**
  * Mount the Lot on the REAL clock, then take the clock over.
  *
  * The lazy Lot chunk resolves through the module loader, not a timer, so it must
@@ -223,7 +233,7 @@ describe('C2a-M5 — four-way time parity: the same twelve weeks, four ways', ()
     }
     await waitFor(() => expect(shownWeek()).toBe(week0 + WEEKS))
     expect(sessionSave()).toBe(handAdvanced(FIXTURE.state, WEEKS))
-  })
+  }, MOUNTED_ARM_TIMEOUT_MS)
 
   it('(b) by the living loop at 1× — one press of Roll, then nothing at all', async () => {
     await mountLot(FIXTURE.state)
@@ -234,7 +244,7 @@ describe('C2a-M5 — four-way time parity: the same twelve weeks, four ways', ()
     // The loop never paused: no PAUSE-class stop is owed inside this run.
     expect(screen.getByTestId('lot-transport')).toHaveAttribute('data-mode', 'running')
     expect(sessionSave()).toBe(handAdvanced(FIXTURE.state, WEEKS))
-  })
+  }, MOUNTED_ARM_TIMEOUT_MS)
 
   it('(b′) by the living loop at 4× — the same weeks, a quarter of the wall time', async () => {
     await mountLot(FIXTURE.state)
@@ -244,7 +254,7 @@ describe('C2a-M5 — four-way time parity: the same twelve weeks, four ways', ()
     await spendWeeks(WEEKS, 4)
     await waitFor(() => expect(shownWeek()).toBe(week0 + WEEKS))
     expect(sessionSave()).toBe(handAdvanced(FIXTURE.state, WEEKS))
-  })
+  }, MOUNTED_ARM_TIMEOUT_MS)
 
   it('(c) paused and resumed arbitrarily, including mid-week', async () => {
     await mountLot(FIXTURE.state)
@@ -285,7 +295,7 @@ describe('C2a-M5 — four-way time parity: the same twelve weeks, four ways', ()
     await waitFor(() => expect(shownWeek()).toBe(week0 + WEEKS))
 
     expect(sessionSave()).toBe(handAdvanced(FIXTURE.state, WEEKS))
-  })
+  }, MOUNTED_ARM_TIMEOUT_MS)
 
   it('(d) batch-skipped — and the skip is genuine, not a hand walk in disguise', () => {
     const batch = batchSkipped(FIXTURE.state, WEEKS)
@@ -330,7 +340,7 @@ describe('C2a-M5 — and the four are one studio', () => {
 
     // The whole obligation, in one assertion.
     expect(new Set([byHand, byLoop, byPauseResume, byBatch]).size).toBe(1)
-  })
+  }, MOUNTED_ARM_TIMEOUT_MS * 2)
 })
 
 describe('C2a-M5 — the theater is evidence, and evidence changes nothing (G8.1/G8.2)', () => {
