@@ -20,8 +20,9 @@ proof stands. The minting step writes `m5-playtest-pressure.json` and
 `m5-playtest-wrap.json` to the repository root and prints the week each studio
 owes each event — keep that output beside you and hold the game to it.
 
-To load either one: **Saves → Import → choose file**, then open the Lot. The
-transport lives in the top bar: **Hold / Roll**, and **1× · 2× · 4×**.
+To load either one: **Saves → Import → "Open a save file"** (or drop the file
+anywhere in that panel), then open the Lot. The transport lives in the top bar:
+**Hold / Roll**, and **1× · 2× · 4×**.
 
 ---
 
