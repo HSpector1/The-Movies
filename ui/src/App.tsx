@@ -3248,6 +3248,24 @@ export function App() {
           })
           return true
         }
+        // C2a-M5 (charter §4.3-M5): a wrap's deep surface is the picture's own
+        // Production Board card — the place that now says it is in Post. The
+        // WORLD surface is the stage, and the rail already points there.
+        // Landed by ENGINE-M5 as the forced consequence of the union widening;
+        // the copy and any richer staging remain OPUS-SCREENS'/OPUS-TIME's.
+        case 'wrap': {
+          const wrapTarget = receipt.target
+          const stillActive = current.studio.activeProductions.filter(
+            (production) => production.id === wrapTarget.productionId,
+          )
+          if (stillActive.length !== 1) return demoteRendered()
+          setScreen({
+            kind: 'dashboard',
+            returnContext,
+            focusProductionId: wrapTarget.productionId,
+          })
+          return true
+        }
         case 'run-completed':
           setScreen({ kind: 'dashboard', returnContext, focusSection: 'releases' })
           return true

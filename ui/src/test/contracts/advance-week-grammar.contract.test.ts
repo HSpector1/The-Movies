@@ -377,6 +377,7 @@ describe('PF1-M2 contract — advance grammar agrees with the other cue surfaces
       next: FIXTURE_WORLD,
       released: [],
       completedRuns: [],
+      wrapped: [], // C2a-M5 (charter §4.3-M5)
       fromWeek,
       toWeek,
       weeks: 1,

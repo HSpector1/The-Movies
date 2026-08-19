@@ -2212,6 +2212,18 @@ export type AdvanceResult = {
   next: GameState
   released: FilmResult[]
   constructionCompletion: ConstructionCompletionSummary | null
+  /**
+   * C2a-M5 (charter §4.1, LL EX). The single-week path used to return NO stop
+   * reason: the ladder existed only inside the batch verb, so a scheduler that
+   * commits one authoritative week at a time had nothing engine-derived to
+   * consult. It does now, and it is the SAME ladder the batch consults.
+   *
+   * `null` means the week was ordinary. `limit` is never produced here — the
+   * 520-week guard belongs to the batch verb alone (§4.1).
+   */
+  stopReason: SimStopReason | null
+  /** The stop's payloads (titles, decisions, wrapped pictures), or `null`. */
+  stop: SimStopDetail | null
 }
 
 export type ConstructionCompletionSummary = {
@@ -2316,11 +2328,17 @@ export function advanceWeek(state: GameState): AdvanceResult {
   // Newly-released films = the entries appended to releasedFilms this tick.
   const before = state.studio.releasedFilms.length
   const released = next.studio.releasedFilms.slice(before)
+  const constructionCompletion = constructionCompletionBetween(preTick, next)
+  // C2a-M5: one tick, one ladder consultation. Computed from the completion the
+  // caller already needed, so this adds no second traversal.
+  const stop = simStopDetailWith(preTick, next, constructionCompletion)
   return {
     preTick,
     next,
     released,
-    constructionCompletion: constructionCompletionBetween(preTick, next),
+    constructionCompletion,
+    stopReason: stop?.reason ?? null,
+    stop,
   }
 }
 
@@ -2393,17 +2411,42 @@ export type SimStopReason =
   | 'scriptReview'
   | 'castingReview'
   | 'productionDecision'
+  // C2a-M5 (charter §4.3): wrap is the authoritative completion of SHOOTING —
+  // automatic, never a player command. Its position in this union is stated by
+  // the charter to the member: immediately after `productionDecision`, before
+  // `constructionCompleted`.
+  | 'wrap'
   | 'constructionCompleted'
   | 'runCompleted'
   | 'contractExpired'
   | 'renewalWindow'
   | 'cashNegative'
   | 'limit'
+/**
+ * ONE picture that finished shooting on the stopping tick (C2a-M5, charter §4.3).
+ *
+ * Every field is read off the engine's OWN Tier-D `wrapped` row and the state that
+ * row belongs to — the adapter derives nothing about wrap that the engine did not
+ * already record. `title` is the picture's spoken name (never an id — `00F`); a row
+ * whose production can no longer be named is dropped rather than printed, exactly
+ * as `lotWeekEvents` already drops it.
+ */
+export type WrappedPictureView = {
+  productionId: string
+  title: string
+  stageFacilityId: string
+  /** The engine's own name for the stage the picture wrapped on (§3.1). */
+  stageName: string
+  setId: string | null
+}
+
 export type SimResult = {
   preTick: GameState // state immediately BEFORE the stopping tick (release autopsy/development)
   next: GameState // final state after the sim
   released: FilmResult[] // films released on the stopping tick (empty unless stopReason==='release')
   completedRuns: { productionId: string; title: string }[] // runs that ENDED on the stopping tick (runCompleted)
+  // C2a-M5: pictures that WRAPPED on the stopping tick (empty unless stopReason==='wrap').
+  wrapped: WrappedPictureView[]
   fromWeek: number
   toWeek: number
   weeks: number
@@ -2425,6 +2468,206 @@ export type SimResult = {
 const SIM_CAP = 520 // safety guard (~10 years). A governed event (release / run end / contract / cash<0)
 // always fires far sooner; this only backstops an accidental infinite loop. Documented in D-12 Phase 1.4.
 
+// ── THE STOP LADDER, STATED ONCE (C2a-M5, charter §4.1 — the LL EX rule) ──────
+//
+// WHY THIS EXISTS. The per-tick stop predicate used to live INLINE inside
+// `advanceToNextEvent`'s batch loop, and the single-week path returned no stop
+// reason at all. Living Turn V1 (§4.1) runs a presentation scheduler that commits
+// exactly the advance a manual press commits and then consults this ladder — so
+// the ladder had to become a value, not a control-flow shape. The mandatory
+// engineering rule is stated in the charter to the sentence: **the ladder is never
+// re-implemented in React.** It is written here, once, and every consumer —
+// `advanceWeek`, `advanceToNextEvent`, the scheduler — reads THIS.
+//
+// The extraction is behaviour-preserving by construction: the checks below are the
+// old loop body in the old order, moved, with the ONE charter-named insertion
+// (`wrap`, §4.3-M5) placed where §4.3 puts it.
+//
+// PRIORITY, in evaluation order (the FIRST that fires wins):
+//   release → scriptReview → castingReview → productionDecision → wrap →
+//   runCompleted → cashNegative → contractExpired → renewalWindow →
+//   constructionCompleted
+//
+// `wrap` sits immediately after `productionDecision`, which is where §4.3-M5 puts
+// the member ("inserted immediately after `productionDecision`, before
+// `constructionCompleted`"). Note that the UNION's declaration order has never been
+// the ladder's evaluation order — `constructionCompleted` is declared fifth and
+// evaluated last — so the charter's stated position is honoured in both places by
+// the same rule: after the decision stops, ahead of the informational ones.
+export type SimStopDetail = {
+  reason: SimStopReason
+  released: FilmResult[]
+  completedRuns: { productionId: string; title: string }[]
+  wrapped: WrappedPictureView[]
+  productionDecision: ProductionBoardCardView | null
+  scriptDecision: ScriptProjectsReadModel['nextDecision']
+  castingDecision: CastingReviewDecisionView | null
+  /**
+   * ORTHOGONAL (the co-tick law, `cuesForSimResult`): carried whenever a build
+   * completed across this tick, whatever the primary reason turned out to be.
+   */
+  constructionCompletion: ConstructionCompletionSummary | null
+}
+
+const NO_STOP_PAYLOAD = {
+  released: [] as FilmResult[],
+  completedRuns: [] as { productionId: string; title: string }[],
+  wrapped: [] as WrappedPictureView[],
+  productionDecision: null,
+  scriptDecision: null,
+  castingDecision: null,
+} as const
+
+/**
+ * The pictures whose Tier-D `wrapped` row was appended ACROSS this tick.
+ *
+ * Detected by sequence, not by array diffing: `nextSeq` never rewinds and
+ * compaction removes rows without renumbering them (`studioEvents.ts` pin 4), so
+ * "appended during this tick" is exactly "seq >= the log's nextSeq before it".
+ *
+ * WITNESS, NEVER INPUT holds: this is the ADAPTER — the boundary layer, not the
+ * engine — reading history to explain a stop to a player. Nothing here re-enters
+ * the simulation.
+ *
+ * LEGACY IS SILENT BY CONSTRUCTION. The ledger is empty on the legacy/headless
+ * path (`operations.mode !== 'managed'`), so a legacy world can never produce a
+ * `wrap` stop and the M0A acceptance corpus is untouched.
+ */
+function wrappedBetween(before: GameState, after: GameState): WrappedPictureView[] {
+  const beforeLog = (before as Partial<GameState>).studioEvents
+  const afterLog = (after as Partial<GameState>).studioEvents
+  if (beforeLog === undefined || afterLog === undefined) return []
+  const firstNewSeq = beforeLog.nextSeq
+  const wrapped: WrappedPictureView[] = []
+  for (const row of afterLog.rows) {
+    if (row.kind !== 'wrapped' || row.seq < firstNewSeq) continue
+    const production = after.studio.activeProductions.find(
+      (candidate) => candidate.id === row.productionId,
+    )
+    // A picture we cannot name is dropped rather than printed as an id (`00F`,
+    // and `lotWeekEvents` already rules this way for the same rows).
+    if (production === undefined) continue
+    const facility = after.operations.facilities.find(
+      (candidate) => candidate.id === row.stageFacilityId,
+    )
+    if (facility === undefined) continue
+    wrapped.push({
+      productionId: row.productionId,
+      title: productionTitle(after, production),
+      stageFacilityId: row.stageFacilityId,
+      stageName: facility.name,
+      setId: row.setId,
+    })
+  }
+  return wrapped
+}
+
+/** The ladder proper. `completion` is passed in so a batch computes it once per tick. */
+function simStopDetailWith(
+  before: GameState,
+  after: GameState,
+  completion: ConstructionCompletionSummary | null,
+): SimStopDetail | null {
+  const carried = { constructionCompletion: completion }
+  const newReleases = after.studio.releasedFilms.slice(before.studio.releasedFilms.length)
+  if (newReleases.length > 0) {
+    return { ...NO_STOP_PAYLOAD, ...carried, reason: 'release', released: newReleases }
+  }
+  const nextStudioDecision = studioDecision(after)
+  if (nextStudioDecision?.kind === 'scriptReview') {
+    return {
+      ...NO_STOP_PAYLOAD,
+      ...carried,
+      reason: 'scriptReview',
+      scriptDecision: nextStudioDecision.decision,
+    }
+  }
+  if (nextStudioDecision?.kind === 'castingReview') {
+    return {
+      ...NO_STOP_PAYLOAD,
+      ...carried,
+      reason: 'castingReview',
+      castingDecision: nextStudioDecision.decision,
+    }
+  }
+  // A newly-entered Shooting task with a legal player command is actionable studio work.
+  // Capacity holds remain visible warnings but retry through ordinary ticks, so they do
+  // not masquerade as decisions or deadlock the next Sim preflight.
+  // Release keeps first priority because it owns the reveal/autopsy path; the production
+  // decision outranks informational run/contract stops on the same completed tick.
+  if (nextStudioDecision?.kind === 'productionDecision') {
+    return {
+      ...NO_STOP_PAYLOAD,
+      ...carried,
+      reason: 'productionDecision',
+      productionDecision: nextStudioDecision.decision,
+    }
+  }
+  // C2a-M5 (§4.3): PRINCIPAL PHOTOGRAPHY WRAPPED. Automatic, never a command, and
+  // unconditional under the resource-release law (`00E`.5) — it fires when shooting
+  // completes whether or not Post has room.
+  const wrapped = wrappedBetween(before, after)
+  if (wrapped.length > 0) {
+    return { ...NO_STOP_PAYLOAD, ...carried, reason: 'wrap', wrapped }
+  }
+  // D-12 Phase 1 FIX: a theatrical run ENDING is a player-facing event and MUST stop the sim (the UI
+  // has always promised "stops for a run ending"). Detect by diffing active→now: a run that was active
+  // before the tick and is no longer active after it (status 'completed' OR removed) ended this tick.
+  // This is detected even though the completed run stays in the collection with status 'completed'.
+  const afterRunById = new Map(after.theatricalRuns.map((r) => [r.productionId, r]))
+  const endedRuns = before.theatricalRuns
+    .filter((r) => r.status === 'active')
+    .filter((r) => {
+      const a = afterRunById.get(r.productionId)
+      return !a || a.status !== 'active'
+    })
+  if (endedRuns.length > 0) {
+    return {
+      ...NO_STOP_PAYLOAD,
+      ...carried,
+      reason: 'runCompleted',
+      completedRuns: endedRuns.map((r) => ({
+        productionId: r.productionId,
+        title: findConcept(after, r.conceptId)?.title ?? r.conceptId,
+      })),
+    }
+  }
+  if (after.studio.cash < 0 && before.studio.cash >= 0) {
+    return { ...NO_STOP_PAYLOAD, ...carried, reason: 'cashNegative' }
+  }
+  if (after.contracts.length < before.contracts.length) {
+    return { ...NO_STOP_PAYLOAD, ...carried, reason: 'contractExpired' }
+  }
+  const beforeRenewals = before.contracts.filter((c) => renewalWindowOpen(c, before.market.tick)).length
+  if (after.contracts.filter((c) => renewalWindowOpen(c, after.market.tick)).length > beforeRenewals) {
+    return { ...NO_STOP_PAYLOAD, ...carried, reason: 'renewalWindow' }
+  }
+  // Construction is a stop boundary when it is the only event on this tick,
+  // but never steals the established primary event priority above.
+  if (completion !== null) {
+    return { ...NO_STOP_PAYLOAD, ...carried, reason: 'constructionCompleted' }
+  }
+  return null
+}
+
+/**
+ * THE EXPORTED PER-TICK STOP PREDICATE (charter §4.1, LL EX).
+ *
+ * `before` and `after` must be one authoritative `tick` apart. Returns the stop the
+ * ladder found on that tick, with the payloads that stop needs, or `null` when the
+ * week was ordinary. `limit` is NEVER returned: the 520-week batch guard is a
+ * property of the BATCH VERB, not of a tick, and the living loop commits one tick at
+ * a time and can never raise it (§4.1, stated so the partition is total).
+ */
+export function simStopDetailFor(before: GameState, after: GameState): SimStopDetail | null {
+  return simStopDetailWith(before, after, constructionCompletionBetween(before, after))
+}
+
+/** The charter's named signature: the reason alone, projected off the one ladder. */
+export function simStopFor(before: GameState, after: GameState): SimStopReason | null {
+  return simStopDetailFor(before, after)?.reason ?? null
+}
+
 export function advanceToNextEvent(state: GameState): SimResult {
   const fromWeek = state.market.tick
   // The core's unified selector owns cross-system priority. Never charge a
@@ -2437,6 +2680,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
       next: state,
       released: [],
       completedRuns: [],
+      wrapped: [],
       fromWeek,
       toWeek: fromWeek,
       weeks: 0,
@@ -2448,6 +2692,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
       stopMessage: simStopMessage('scriptReview', fromWeek, {
         released: [],
         completedRuns: [],
+        wrapped: [],
         guardHit: false,
         productionDecision: null,
         scriptDecision: existingScriptDecision,
@@ -2464,6 +2709,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
       next: state,
       released: [],
       completedRuns: [],
+      wrapped: [],
       fromWeek,
       toWeek: fromWeek,
       weeks: 0,
@@ -2475,6 +2721,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
       stopMessage: simStopMessage('castingReview', fromWeek, {
         released: [],
         completedRuns: [],
+        wrapped: [],
         guardHit: false,
         productionDecision: null,
         scriptDecision: null,
@@ -2494,6 +2741,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
       next: state,
       released: [],
       completedRuns: [],
+      wrapped: [],
       fromWeek,
       toWeek: fromWeek,
       weeks: 0,
@@ -2505,6 +2753,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
       stopMessage: simStopMessage('productionDecision', fromWeek, {
         released: [],
         completedRuns: [],
+        wrapped: [],
         guardHit: false,
         productionDecision: existingDecision,
         scriptDecision: null,
@@ -2516,23 +2765,15 @@ export function advanceToNextEvent(state: GameState): SimResult {
   }
   let cur = state
   let preStop = state
-  let released: FilmResult[] = []
-  let completedRuns: { productionId: string; title: string }[] = []
-  let stopReason: SimStopReason = 'limit'
-  let stoppedProductionDecision: ProductionBoardCardView | null = null
-  let stoppedScriptDecision: ScriptProjectsReadModel['nextDecision'] = null
-  let stoppedCastingDecision: CastingReviewDecisionView | null = null
+  let stop: SimStopDetail | null = null
   let constructionCompletion: ConstructionCompletionSummary | null = null
-  let guardHit = true // stays true only if the loop exhausts without a governed stop
   for (let i = 0; i < SIM_CAP; i++) {
     const before = cur
-    const beforeReleases = before.studio.releasedFilms.length
-    const beforeContracts = before.contracts.length
-    const beforeRenewals = before.contracts.filter((c) => renewalWindowOpen(c, before.market.tick)).length
-    // Runs that are ACTIVE going into this tick — so we can detect which ones END during it.
-    const activeRunsBefore = before.theatricalRuns.filter((r) => r.status === 'active')
     const after = tick(before, { develop: true })
     cur = after
+    // The completion is carried across EVERY tick of the batch, stopping or not
+    // (the co-tick law) — so it is computed here and handed to the ladder rather
+    // than recomputed inside it.
     const completedConstructionThisTick = constructionCompletionBetween(before, after)
     if (completedConstructionThisTick !== null) {
       constructionCompletion = completedConstructionThisTick
@@ -2540,84 +2781,24 @@ export function advanceToNextEvent(state: GameState): SimResult {
     // Stop-condition checks on the COMPLETED post-tick state (the FIRST that fires wins). The tick has
     // already applied this week's theatrical payment(s), payroll/overhead, and completed/removed runs in
     // the canonical order (tick.ts) — we only DETECT and stop; we never re-order or re-apply anything.
-    const newReleases = after.studio.releasedFilms.slice(beforeReleases)
-    if (newReleases.length > 0) {
-      stopReason = 'release'
-      released = newReleases
+    // C2a-M5: the ladder is `simStopDetailWith`, and it is the SAME ladder the living
+    // loop consults through `simStopFor`. It is not restated here.
+    const detected = simStopDetailWith(before, after, completedConstructionThisTick)
+    if (detected !== null) {
+      stop = detected
       preStop = before
-      guardHit = false
-      break
-    }
-    const nextStudioDecision = studioDecision(after)
-    if (nextStudioDecision?.kind === 'scriptReview') {
-      stopReason = 'scriptReview'
-      stoppedScriptDecision = nextStudioDecision.decision
-      preStop = before
-      guardHit = false
-      break
-    }
-    if (nextStudioDecision?.kind === 'castingReview') {
-      stopReason = 'castingReview'
-      stoppedCastingDecision = nextStudioDecision.decision
-      preStop = before
-      guardHit = false
-      break
-    }
-    // A newly-entered Shooting task with a legal player command is actionable studio work.
-    // Capacity holds remain visible warnings but retry through ordinary ticks, so they do
-    // not masquerade as decisions or deadlock the next Sim preflight.
-    // Release keeps first priority because it owns the reveal/autopsy path; the production
-    // decision outranks informational run/contract stops on the same completed tick.
-    if (nextStudioDecision?.kind === 'productionDecision') {
-      stopReason = 'productionDecision'
-      stoppedProductionDecision = nextStudioDecision.decision
-      preStop = before
-      guardHit = false
-      break
-    }
-    // D-12 Phase 1 FIX: a theatrical run ENDING is a player-facing event and MUST stop the sim (the UI
-    // has always promised "stops for a run ending"). Detect by diffing active→now: a run that was active
-    // before the tick and is no longer active after it (status 'completed' OR removed) ended this tick.
-    // This is detected even though the completed run stays in the collection with status 'completed'.
-    const afterRunById = new Map(after.theatricalRuns.map((r) => [r.productionId, r]))
-    const endedRuns = activeRunsBefore.filter((r) => {
-      const a = afterRunById.get(r.productionId)
-      return !a || a.status !== 'active'
-    })
-    if (endedRuns.length > 0) {
-      stopReason = 'runCompleted'
-      completedRuns = endedRuns.map((r) => ({ productionId: r.productionId, title: findConcept(after, r.conceptId)?.title ?? r.conceptId }))
-      preStop = before
-      guardHit = false
-      break
-    }
-    if (after.studio.cash < 0 && before.studio.cash >= 0) {
-      stopReason = 'cashNegative'
-      preStop = before
-      guardHit = false
-      break
-    }
-    if (after.contracts.length < beforeContracts) {
-      stopReason = 'contractExpired'
-      preStop = before
-      guardHit = false
-      break
-    }
-    if (after.contracts.filter((c) => renewalWindowOpen(c, after.market.tick)).length > beforeRenewals) {
-      stopReason = 'renewalWindow'
-      preStop = before
-      guardHit = false
-      break
-    }
-    // Construction is a stop boundary when it is the only event on this tick,
-    // but never steals the established primary event priority above.
-    if (completedConstructionThisTick !== null) {
-      stopReason = 'constructionCompleted'
-      preStop = before
-      guardHit = false
       break
     }
   }
+  // `guardHit` stays true only if the loop exhausted without a governed stop.
+  const guardHit = stop === null
+  const stopReason: SimStopReason = stop?.reason ?? 'limit'
+  const released = stop?.released ?? []
+  const completedRuns = stop?.completedRuns ?? []
+  const wrapped = stop?.wrapped ?? []
+  const stoppedProductionDecision = stop?.productionDecision ?? null
+  const stoppedScriptDecision = stop?.scriptDecision ?? null
+  const stoppedCastingDecision = stop?.castingDecision ?? null
   const toWeek = cur.market.tick
   // Ledger entries + releaseTick are stamped with the PRE-increment week, so the ticks
   // processed span weeks [fromWeek, toWeek − 1] (tick.ts:114/437).
@@ -2625,6 +2806,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
   const stopMessage = simStopMessage(stopReason, toWeek, {
     released,
     completedRuns,
+    wrapped,
     guardHit,
     productionDecision: stoppedProductionDecision,
     scriptDecision: stoppedScriptDecision,
@@ -2635,6 +2817,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
     next: cur,
     released,
     completedRuns,
+    wrapped,
     fromWeek,
     toWeek,
     weeks: toWeek - fromWeek,
@@ -2657,6 +2840,7 @@ function simStopMessage(
   ctx: {
     released: FilmResult[]
     completedRuns: { productionId: string; title: string }[]
+    wrapped: WrappedPictureView[]
     guardHit: boolean
     productionDecision: ProductionBoardCardView | null
     scriptDecision: ScriptProjectsReadModel['nextDecision']
@@ -2688,6 +2872,14 @@ function simStopMessage(
         ? `${at}: audition results need studio review.`
         : `${at}: ${decision.title} has audition results waiting in the Casting Room.`
     }
+    // C2a-M5 (§4.3): before this arm existed, a `wrap` stop fell into `default:`
+    // and printed the 520-week-guard sentence — the G12 violation the charter names
+    // by line. The voice is filmmaking, never engine (`00F`, the tycoon floor).
+    case 'wrap': {
+      const titles = ctx.wrapped.map((w) => w.title)
+      if (titles.length === 0) return `${at}: principal photography wrapped.`
+      return `${at}: principal photography wraps on ${list(titles)}.`
+    }
     case 'runCompleted': {
       const titles = ctx.completedRuns.map((r) => r.title)
       return `${at}: ${list(titles)} completed ${titles.length > 1 ? 'their theatrical runs' : 'its theatrical run'}.`
@@ -2701,8 +2893,18 @@ function simStopMessage(
     case 'renewalWindow':
       return `${at}: a contract renewal window opened.`
     case 'limit':
-    default:
       return `${at}: reached the ${SIM_CAP}-week simulation safety guard with no event detected. State preserved; please review the studio.`
+    default: {
+      // C2a-M5 COMPILE-TIME NEVER-GUARD (§4.3-M5, named required work). A twelfth
+      // `SimStopReason` member cannot reach a player through the old `default:`
+      // sentence — which is what the eleventh did, and it printed the safety-guard
+      // text at a picture that had just finished shooting. `tsc` refuses first.
+      const exhaustive: never = reason
+      void exhaustive
+      // Unreachable while `tsc` is green. If it ever runs, it says only what is
+      // certainly true — never the safety-guard sentence about an event that fired.
+      return `${at}.`
+    }
   }
 }
 

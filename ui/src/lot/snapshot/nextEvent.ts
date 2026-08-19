@@ -16,6 +16,7 @@ import type {
 import { stage7ProductionDetailContext } from './stage7Production.ts'
 import {
   FOUNDING_STAGE_SEVEN_BUILDING_ID,
+  lotStageIdentities,
   lotStageIdentityFor,
 } from './stageIdentity.ts'
 import type {
@@ -65,6 +66,23 @@ export type LotNextEventWorldTarget =
       location: 'stage-7' | 'stage-12-semantic'
       buildingId: BuildingId
       stageName: string
+    }
+  /**
+   * C2a-M5 (charter §4.3-M5) — PRINCIPAL PHOTOGRAPHY WRAPPED.
+   *
+   * The world target is THE STAGE THE PICTURE WRAPPED ON, because that is the thing
+   * that visibly changed: the company left, the set is coming down, the floor is
+   * free. `stageFacilityId` and `stageName` are the engine's own (§3.1 display-name
+   * ruling); `buildingId` is the body derived from the shipped stage identities, so
+   * a stage the studio BUILT is pointed at exactly like the founding two.
+   */
+  | {
+      kind: 'wrap'
+      productionId: string
+      title: string
+      stageFacilityId: string
+      stageName: string
+      buildingId: BuildingId
     }
   | {
       kind: 'run-completed'
@@ -197,16 +215,40 @@ const OPERATION_COMPANY_KEYS = [
   'companyMembers',
 ] as const
 
-const EXACT_STOP_REASONS = new Set<LotNextEventStopReason>([
+/**
+ * Every stop reason the LOT can mint an exact receipt for.
+ *
+ * C2a-M5 (charter §4.3-M5, named required work): `wrap` joins the set, and the set
+ * gains a COMPILE-TIME totality guard. Before this, the set was a hand-written
+ * literal beside a `LotNextEventStopReason` union it had no relationship to — a
+ * twelfth member would simply be missing from it and every wrap receipt would fall
+ * silently to the neutral path. `EXACT_STOP_REASON_LIST` is now proved total by
+ * `Exclude<…>` resolving to `never`, exactly the PF1 tooth in the cue grammar.
+ */
+const EXACT_STOP_REASON_LIST = [
   'scriptReview',
   'castingReview',
   'productionDecision',
+  'wrap', // C2a-M5 (§4.3-M5)
   'constructionCompleted',
   'runCompleted',
   'contractExpired',
   'renewalWindow',
   'cashNegative',
-])
+] as const satisfies readonly LotNextEventStopReason[]
+
+/**
+ * Compile-time totality. The type argument is only `never` while the list above
+ * names the union exhaustively; a missing member makes this call fail `tsc`.
+ */
+function assertStopReasonCoverage<T extends never>(_uncovered: T[]): void {
+  /* the proof is entirely in the type argument */
+}
+assertStopReasonCoverage<
+  Exclude<LotNextEventStopReason, (typeof EXACT_STOP_REASON_LIST)[number]>
+>([])
+
+const EXACT_STOP_REASONS = new Set<LotNextEventStopReason>(EXACT_STOP_REASON_LIST)
 
 function isRecord(value: unknown): value is Record<PropertyKey, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
@@ -679,6 +721,43 @@ function targetFor(
       ) return null
       return productionTarget(result.next, current.decision)
     }
+    // C2a-M5 (charter §4.3-M5, named required work). The receipt points at the
+    // STAGE, and every fact on it is the engine's: the wrap row named the picture
+    // and the facility, `studioLotSnapshot` names the body, and a stage whose body
+    // this studio does not have produces NO target at all (law 12 — the same
+    // silence `productionTarget` already keeps).
+    case 'wrap': {
+      if (studioDecision(result.next) !== null) return null
+      const wrapped = result.wrapped
+      // One receipt names one place. Two pictures wrapping on one tick is a real
+      // state; it is just not a thing a single "show me" can point at.
+      if (!Array.isArray(wrapped) || wrapped.length !== 1) return null
+      const only = wrapped[0]!
+      if (
+        !isNonEmptyString(only.productionId) ||
+        !isNonEmptyString(only.title) ||
+        !isNonEmptyString(only.stageFacilityId) ||
+        !isNonEmptyString(only.stageName)
+      ) return null
+      const snapshot = studioLotSnapshot(result.next)
+      if (snapshot.operationsMode !== 'managed') return null
+      const identities = lotStageIdentities(snapshot).filter(
+        (stage) => stage.facilityId === only.stageFacilityId,
+      )
+      if (identities.length !== 1) return null
+      const identity = identities[0]!
+      if (identity.facilityName !== only.stageName || !isNonEmptyString(identity.buildingId)) {
+        return null
+      }
+      return {
+        kind: 'wrap',
+        productionId: only.productionId,
+        title: only.title,
+        stageFacilityId: only.stageFacilityId,
+        stageName: only.stageName,
+        buildingId: identity.buildingId,
+      }
+    }
     case 'runCompleted':
       if (studioDecision(result.next) !== null || rows.length === 0 || !exactRunTransition(result, rows)) {
         return null
@@ -725,8 +804,14 @@ function targetFor(
         buildingId,
       }
     }
-    default:
+    default: {
+      // C2a-M5 COMPILE-TIME NEVER-GUARD (§4.3-M5, named required work). This switch
+      // used to end in a bare `default: return null`, so a new stop reason produced
+      // a receipt-less silence nobody could find. A twelfth member now fails `tsc`.
+      const exhaustive: never = reason
+      void exhaustive
       return null
+    }
   }
 }
 
@@ -828,6 +913,21 @@ function isTarget(value: unknown): value is LotNextEventWorldTarget {
         (value.location === 'stage-7' || value.location === 'stage-12-semantic') &&
         isNonEmptyString(value.buildingId) &&
         isNonEmptyString(value.stageName)
+    // C2a-M5 (§4.3-M5): a wrap receipt names ONE picture and ONE stage body.
+    case 'wrap':
+      return hasExactOwnKeys(value, [
+        'kind',
+        'productionId',
+        'title',
+        'stageFacilityId',
+        'stageName',
+        'buildingId',
+      ]) &&
+        isNonEmptyString(value.productionId) &&
+        isNonEmptyString(value.title) &&
+        isNonEmptyString(value.stageFacilityId) &&
+        isNonEmptyString(value.stageName) &&
+        isNonEmptyString(value.buildingId)
     case 'run-completed': {
       if (!hasExactOwnKeys(value, ['kind', 'runs', 'buildingId']) || value.buildingId !== 'theater') {
         return false
@@ -884,6 +984,9 @@ function isLotNextEventReceipt(value: unknown): value is LotNextEventReceipt {
   if (reason === 'scriptReview' && target.kind !== 'script') return false
   if (reason === 'castingReview' && target.kind !== 'casting') return false
   if (reason === 'productionDecision' && target.kind !== 'production') return false
+  // C2a-M5: the pairing is exact in BOTH directions — a wrap receipt carries a wrap
+  // target, and nothing else may.
+  if ((reason === 'wrap') !== (target.kind === 'wrap')) return false
   if (reason === 'runCompleted') {
     if (target.kind !== 'run-completed' || rows.length === 0 || !sameClosedValue(rows, target.runs)) {
       return false

@@ -67,6 +67,10 @@ const STOP_REASON_TIERS = {
   scriptReview: { tier: 2, sound: 'select', motion: 'emphasis' },
   castingReview: { tier: 2, sound: 'select', motion: 'emphasis' },
   productionDecision: { tier: 2, sound: 'select', motion: 'emphasis' },
+  // C2a-M5 (charter §4.3-M5): the ELEVENTH member, and the tier slot PF1 §10 item 2
+  // reserved for it. Tier 2 with the never-yet-mapped `completion` token — wrap is
+  // NOTIFY-class (§4.1) and must not stop the living loop, so it is not a held beat.
+  wrap: { tier: 2, sound: 'completion', motion: 'emphasis' },
   runCompleted: { tier: 2, sound: 'positive', motion: 'emphasis' },
   contractExpired: { tier: 2, sound: 'warning', motion: 'emphasis' },
   renewalWindow: { tier: 2, sound: 'warning', motion: 'emphasis' },
@@ -111,6 +115,7 @@ const ALL_STOP_REASONS = [
   'scriptReview',
   'castingReview',
   'productionDecision',
+  'wrap', // C2a-M5
   'runCompleted',
   'contractExpired',
   'renewalWindow',
@@ -187,6 +192,7 @@ function simResult(facts: SimFacts): SimResult {
     next: FIXTURE_WORLD,
     released: [],
     completedRuns: [],
+    wrapped: [], // C2a-M5 (charter §4.3-M5)
     fromWeek,
     toWeek,
     weeks: toWeek - fromWeek,
@@ -222,14 +228,14 @@ function row(cue: PresentationCue): TierRow {
 }
 
 // ── Exhaustiveness ───────────────────────────────────────────────────────────
-describe('PF1-M2 contract — SimStopReason exhaustiveness (the 11th-member gate)', () => {
-  it('names exactly the ten SimStopReason members the engine declares', () => {
+describe('PF1-M2 contract — SimStopReason exhaustiveness (the 11th-member gate; wrap landed at C2a-M5)', () => {
+  it('names exactly the eleven SimStopReason members the engine declares', () => {
     // TOOTH 1: these two calls stop compiling the moment a union member is added.
     coverageProof<Exclude<SimStopReason, (typeof ALL_STOP_REASONS)[number]>>([])
     coverageProof<Exclude<CommitKind, (typeof ALL_COMMIT_KINDS)[number]>>([])
     // TOOTH 2. An 11th member cannot reach production without failing here, even
     // after the compile-time teeth above have been satisfied by a new table row.
-    expect(ALL_STOP_REASONS).toHaveLength(10)
+    expect(ALL_STOP_REASONS).toHaveLength(11)
     expect([...ALL_STOP_REASONS].sort()).toEqual(Object.keys(STOP_REASON_TIERS).sort())
   })
 

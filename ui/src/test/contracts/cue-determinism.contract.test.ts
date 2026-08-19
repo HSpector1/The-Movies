@@ -76,6 +76,7 @@ function simResult(
     next: FIXTURE_WORLD,
     released: [],
     completedRuns: [],
+    wrapped: [], // C2a-M5 (charter §4.3-M5)
     fromWeek,
     toWeek,
     weeks: toWeek - fromWeek,

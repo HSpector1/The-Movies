@@ -7874,6 +7874,15 @@ export function StudioLotScreen({
       }
       case 'run-completed':
         return <p>Theatrical run completed · {receipt.target.runs.map((run) => run.title).join(' · ')}</p>
+      // C2a-M5 (charter §4.3-M5) — landed by ENGINE-M5 as the forced consequence
+      // of the union widening; richer staging belongs to OPUS-SCREENS/OPUS-WORLD.
+      case 'wrap':
+        return (
+          <p>
+            Principal photography wraps on {receipt.target.title} · {receipt.target.stageName}
+            {' '}is clear.
+          </p>
+        )
       case 'cash':
         return <p>Administration · studio cash crossed below zero.</p>
       case 'contracts':
@@ -7933,6 +7942,8 @@ export function StudioLotScreen({
               case 'casting':
                 return `Open Casting Room · ${exactNextEventReceipt.target.title}`
               case 'production':
+                return `Open Production Board details · ${exactNextEventReceipt.target.title}`
+              case 'wrap':
                 return `Open Production Board details · ${exactNextEventReceipt.target.title}`
               case 'run-completed':
                 return 'Open Dashboard releases'

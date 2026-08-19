@@ -121,6 +121,35 @@ path (engine, M4/M7; the UI scopes it in one shared predicate meanwhile).
 market payload it cannot have — additive follow-up, no engine work. Both are
 written up in `docs/c2-planning/17-m3-records.md` §8.
 
+## M5 — IN PROGRESS (lane ENGINE-M5; started 2026-08-19)
+
+Lane ENGINE-M5 owns `src/core/**`, `ui/src/engine/adapter.ts`,
+`ui/src/lot/snapshot/nextEvent.ts`, `ui/src/presentation/**`, `tests/**`.
+
+- **`simStopFor` EXTRACTED + the `wrap` member LANDED** (§4.1 LL EX, §4.3-M5).
+  The per-tick ladder left the inline batch loop and became
+  `simStopDetailWith` / `simStopDetailFor` / `simStopFor(before, after)` in
+  `adapter.ts`; `advanceWeek` now returns `stopReason` + `stop` (the single-week
+  path returned NO stop reason before, which is why the scheduler had nothing to
+  consult); `advanceToNextEvent` consumes the SAME function — the ladder exists
+  once. `SimStopReason` gained `wrap` at the charter's exact position (after
+  `productionDecision`, before `constructionCompleted`), detected from the
+  engine's own Tier-D `wrapped` row by sequence (`seq >= before.nextSeq`) so the
+  legacy/headless path is silent by construction. Named required work all
+  landed: the `simStopMessage` wrap arm ("Stopped at Week N: principal
+  photography wraps on ‹TITLE›." — the G12 `default:` guard sentence is gone),
+  the `EXACT_STOP_REASONS` entry, the `targetFor` arm (target = the stage the
+  picture wrapped on, body derived from `lotStageIdentities`), and COMPILE-TIME
+  never-guards on BOTH switches plus a totality proof on the exact-reason list.
+  PF1's two cue-grammar teeth fired exactly as the appendix predicted; the
+  reserved wrap tier slot is filled: **tier 2, `completion`, `emphasis`** (tier 1
+  is "reserved and small" and wrap is NOTIFY-class under §4.1 — a held beat would
+  stop a loop the charter says must keep running). New suite:
+  `ui/src/test/contracts/sim-stop-ladder.contract.test.ts` (9 tests).
+  Evidence: root tsc 0 · ui tsc 0 · ui project **183 files / 2,484 passed + 5
+  skipped / 0 failed**; `tests/acceptance-corpus.test.ts` green (M0A corpus
+  byte-identity untouched).
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and

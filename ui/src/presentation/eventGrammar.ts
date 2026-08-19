@@ -16,6 +16,10 @@
 //      `Record<SimStopReason, …>`; an eleventh stop reason fails `tsc` before it can
 //      ship as a moment nobody hears.
 //
+// C2a-M5: the eleventh member arrived — `wrap` (charter §4.3-M5). Both PF1 teeth
+// fired exactly as designed (the `Record` here, and the contract suite's literal
+// count), and the reserved tier slot PF1 §10 item 2 recorded is filled below.
+//
 // M1 owns the sound vocabulary (`audio/tokens.ts`) and deliberately states no mapping.
 // This is that mapping, and the only one.
 
@@ -89,6 +93,16 @@ const PRIMARY_CUES: Record<SimStopReason, CueShape> = {
   scriptReview: { tier: 2, sound: 'select', motion: 'emphasis' },
   castingReview: { tier: 2, sound: 'select', motion: 'emphasis' },
   productionDecision: { tier: 2, sound: 'select', motion: 'emphasis' },
+  // C2a-M5 — THE RESERVED WRAP SLOT, FILLED (PF1 §10 item 2, appendix; charter
+  // §4.3-M5). Tier 2, deliberately: tier 1 is "reserved and small" and names
+  // exactly three moments — a picture reaches audiences, a picture is formed, a
+  // building on the property is finished. Wrap is the ordinary working day at its
+  // best, and under §4.1 it is NOTIFY-class — it surfaces on the attention channel
+  // while the studio keeps working. A held beat would stop a loop the charter says
+  // must not stop. The `completion` token (minted by PF1-M1, never yet mapped) is
+  // its voice: the non-ceremonial "that finished" beside `sting-completion`'s
+  // ceremonial one.
+  wrap: { tier: 2, sound: 'completion', motion: 'emphasis' },
   runCompleted: { tier: 2, sound: 'positive', motion: 'emphasis' },
   contractExpired: { tier: 2, sound: 'warning', motion: 'emphasis' },
   renewalWindow: { tier: 2, sound: 'warning', motion: 'emphasis' },

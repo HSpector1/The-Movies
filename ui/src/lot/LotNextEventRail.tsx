@@ -84,6 +84,8 @@ function targetKey(target: LotNextEventWorldTarget): string {
       return `casting:${target.sessionId}:${target.projectId}:${target.title}`;
     case "production":
       return `production:${target.productionId}:${target.title}:${target.location}`;
+    case "wrap":
+      return `wrap:${target.productionId}:${target.title}:${target.stageFacilityId}`;
     case "run-completed":
       return `run-completed:${target.runs.map((run) => `${run.productionId}:${run.title}`).join("|")}`;
     case "cash":
@@ -296,6 +298,19 @@ function ReasonIdentity({ target }: { target: LotNextEventWorldTarget }) {
               buildable stages exist. The receipt carries the engine's own name
               for the facility the picture is on; the rail says it. */}
           <span>{target.stageName}</span>
+        </div>
+      );
+    // C2a-M5 (charter §4.3-M5). Filmmaking voice, never engine voice (`00F`):
+    // the picture is named, and so is the stage it is coming off.
+    case "wrap":
+      return (
+        <div
+          className="lot-next-event-identity"
+          data-testid="lot-next-event-identity"
+        >
+          <span className="lot-next-event-kicker">Principal photography wrapped</span>
+          <strong>{target.title}</strong>
+          <span>The company is clearing {target.stageName}</span>
         </div>
       );
     case "run-completed":
