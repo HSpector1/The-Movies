@@ -230,4 +230,95 @@ profile — not a guess made at M3.
 
 ---
 
+## 8. THE UI LANE'S OWN RECORD — what the surfaces chose, and what they could not reach
+
+> Added by the C2a-M3 **UI lane** (sole writer of `ui/src/**` + `ui/e2e/`). The
+> engine lane's §§1–7 above stand unchanged.
+
+### 8.1 `canStart` IS ONE ANSWER TO TWO QUESTIONS, and the surface had to scope it
+
+`scriptReadModel.commissionAvailability` publishes ONE `canStart`, defined as
+"no blockers". The `no-concepts` blocker is one of them — so the moment the
+market ran dry, `canStart` went false and **every commission door in the game
+shut**, including the door to the path whose whole purpose is to open when the
+market is empty. The successor blocker's remedy ("Commission an original
+screenplay") would have pointed at a greyed button.
+
+The UI therefore reads the same blocker list with the market-exhaustion arm
+scoped out of it, in **one predicate** (`ui/src/engine/screenplay.ts →
+originalCommissionOpen`), shared by the Writers Room button, the Lot's
+Development verb (`buildingInspector.ts`) and the App's retained-workspace
+interception, so a verb can never open a surface that then refuses it. Nothing
+else is relaxed: an unfounded studio, legacy mode, a full Development & Casting
+floor and "no writer available" all still close both paths. A board that refuses
+commissioning while publishing **no** blocker falls CLOSED — absence of a stated
+reason never becomes an invented permission.
+
+**The cleaner fix is an engine one and is NOT in this lane's reach:** publish
+`canStartOriginal` beside `canStart` in `ScriptCommissionAvailabilityView`, and
+scope the `no-concepts` blocker to the market path in the read model itself.
+Recorded as an M4/M7 item rather than done across a lane boundary.
+
+### 8.2 AN ORIGINAL COMMISSION HAS NO LOT WITNESS — named, not hidden
+
+A POOL commission publishes a proved receipt
+(`acceptedScreenplayCommissionReceipt`) and the Lot shows the
+`lot-screenplay-commission-witness` card: title, writer, commissioned week, due
+week. That witness is keyed to a **market** payload — it proves a `conceptId`
+that an original does not have, because the concept is minted by the action
+itself. An original commission therefore closes the workspace with no witness.
+
+What lands instead is honest and immediate: the committed panel names the
+picture using a closed witness of its own (`mintedScreenplayTitle` — exactly one
+concept appended, exactly one blueprint appended, the two agreeing, an ordinal
+burned), the Development inspector then says the writers are working on it BY
+NAME, and the Writers Room card carries "‹Writer› is writing ‘TITLE’" from the
+same moment. **The delivery beat — "‹Writer› delivers ‘TITLE’" — is the one the
+§12-M3 gate names, and it is landed** at the Lot review panel and on the board.
+
+An `acceptedOriginalScreenplayCommissionReceipt` in
+`ui/src/lot/snapshot/scriptCommission.ts`, plus its arm in the Lot witness, is a
+named follow-up. It is additive and needs no engine work.
+
+### 8.3 THE SCRIPT BOARD CARD CARRIES PROVENANCE WITHOUT WIDENING THE CORE VIEW
+
+The engine lane's handoff named this a blocker: `ScriptProjectCardView` is
+exact-key checked by `scriptReview.ts:CARD_KEYS`, and widening the core view was
+out of that lane's reach. The UI lane did not need it. Provenance is resolved at
+the **adapter layer** (`ui/src/engine/screenplay.ts →
+screenplayIdentitiesByProject`) from the blueprint root and the talent census,
+which is where it belongs anyway: *who wrote a screenplay is a studio-relative
+fact*, and the shared-world `FilmConcept` must never carry one (guardrail 8).
+`CARD_KEYS` is untouched and `ScriptProjectCardView` is unchanged.
+
+`LotScriptReviewContext` **was** widened — with a nullable `provenance` — because
+that context is the Lot's own snapshot type and is this lane's to own. It is
+nullable on purpose: a credit that cannot be resolved is withheld, and the
+Accept/Rewrite decision is never withheld for want of a sentence.
+
+### 8.4 SET DEMAND IS JOINED TO M2's PANEL, INSIDE ITS G12 GUARD
+
+`requiredSetDemand` is published to the package through the M2 set surface
+(`SetStagePanel`), not beside it, so **G12 still holds**: a studio whose pictures
+are not bound to sets is told nothing about sets, because every sentence would be
+false of it. Demand renders as rows of "The script calls for ‹Location›" with the
+beats that ask and whether one is standing — and never as a blocker. The browser
+floor asserts the greenlight is **enabled** with locations unbuilt, because a
+player sent to build a set to unblock a greenlight that was never blocked has
+been lied to.
+
+### 8.5 A FLAKE FOUND AND NOT FIXED, because it is not M3's
+
+`ui/src/lot/WorldFirstAnnexConstruction.test.tsx:583` ("keeps the semantic Annex
+context when the live renderer cannot paint its outline") asserts
+`annexHostSelections === 1`. It failed ONCE, with 2, on the first run after a
+module-graph change, and has passed on every run since — including a full
+cold-transform-cache run. The count is the number of times a `useEffect` calls
+the fake renderer's `selectHollywoodAnnexPlace`, and the fixture's `onReady`
+fires from a `queueMicrotask`, so the assertion is sensitive to first-run
+transform timing rather than to product behaviour. Recorded so the next person
+who sees it knows it has been seen.
+
+---
+
 *End of M3 records.*

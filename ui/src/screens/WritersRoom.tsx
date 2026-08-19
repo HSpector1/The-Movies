@@ -599,19 +599,6 @@ export function ScreenplayCommissionForm({
 
       <Blockers blockers={visibleBlockers} testId="commission-blockers" />
 
-      {!commissioningOriginal && originalOpen && board.commission.concepts.length === 0 && (
-        <div className="btn-row" data-testid="commission-exhaustion-remedy">
-          <button
-            type="button"
-            className="primary"
-            onClick={() => setSource('original')}
-            data-testid="commission-switch-to-original"
-          >
-            Commission an original screenplay
-          </button>
-        </div>
-      )}
-
       {officeUplift !== null && officeUplift.points > 0 && (
         <p className="hint" data-testid="commission-office-uplift">
           {officeUplift.name} will add {officeUplift.points} points of estimated strength
