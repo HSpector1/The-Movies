@@ -22,3 +22,9 @@ README.md
 # never track node_modules (build artifact / worktree symlink)
 node_modules
 __pycache__/
+
+# M5 Owner playtest saves — MINTED, never committed. `npx vite-node
+# tests/_m5PlaytestSave.ts` rebuilds them byte-identically from the seed, so the
+# script is the artifact worth keeping and a 238KB blob is not.
+m5-playtest-pressure.json
+m5-playtest-wrap.json

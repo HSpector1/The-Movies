@@ -208,3 +208,45 @@ export function livingStudioUnderPressure(seed: string, quietWeeks: number): Liv
   }
   return { state, quietWeeks, queueDrainsAfter, buildCompletesAfter }
 }
+
+/**
+ * The week BEFORE principal photography wraps — the NOTIFY-class stop the
+ * pressured studio above can never reach, because none of its pictures ever gets
+ * to a stage.
+ *
+ * Wrap is `wrap`: NOTIFY-class, so the loop is meant to say so and KEEP WORKING.
+ * Seeing that happen is a different thing from seeing a queue drain, and it needs
+ * a different studio — one whose pictures are shooting.
+ *
+ * The wrap is detected from the ENGINE's own Tier-D ledger rather than from a
+ * phase count: the week whose next tick appends a `wrapped` row IS the week
+ * before the wrap, by the engine's definition and not by this file's.
+ */
+export function studioTheWeekBeforeWrap(seed: string): GameState {
+  let state: GameState = contendedStudio(seed).state
+  for (let weeks = 0; weeks < 40; weeks += 1) {
+    // Answer only the shooting commands the week is actually waiting on. This is
+    // what a player does at the board; nothing here is a fixture shortcut.
+    for (const workflow of state.operations.workflows) {
+      if (workflow.phase !== 'shooting' || workflow.shootingTask?.status !== 'unassigned') continue
+      const production = state.studio.activeProductions.find(
+        (candidate) => candidate.id === workflow.productionId,
+      )
+      if (production === undefined) continue
+      state = applyActions(state, [
+        {
+          kind: 'assignShootingDirector',
+          productionId: production.id,
+          directorId: production.directorId,
+        },
+        { kind: 'clearSceneryLoadIn', productionId: production.id },
+        { kind: 'scheduleShootingTake', productionId: production.id },
+      ])
+    }
+    const before = state.studioEvents.rows.length
+    const next = tick(state, { develop: true })
+    if (next.studioEvents.rows.slice(before).some((row) => row.kind === 'wrapped')) return state
+    state = next
+  }
+  throw new Error('c2a-m5 fixture: no picture wrapped inside forty weeks')
+}

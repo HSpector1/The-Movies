@@ -581,6 +581,21 @@ base (`a394838`): root tsc 0 · ui tsc 0 · FULL vitest **320 files / 4,370 pass
   theater subject does not carry today). NOT changed here: it is OPUS-WORLD's
   surface and it wants the subject widened first. **Routed to the Owner/PM.**
 
+- **THE OWNER PLAYTEST SHEET** — `docs/c2-planning/18-m5-owner-playtest.md`, one
+  page, ten minutes, two saves and one press each. The saves are MINTED, not
+  committed: `npx vite-node tests/_m5PlaytestSave.ts` writes both from the same
+  seeds the tests use (and prints the week each studio owes each event, so the
+  game can be held to the engine's own figures rather than to prose), which keeps
+  a 238KB blob out of the history while guaranteeing the Owner watches exactly
+  the weeks the gate watches. `m5-playtest-pressure.json` is §12-M5's own studio
+  — week 2, two pictures in flight, one waiting at the door, the queue draining
+  on week 5, the shop opening on week 13, the money crossing zero on week 19.
+  `m5-playtest-wrap.json` is a second studio one week short of principal
+  photography wrapping, because the pressured lot can never reach a stage and the
+  Owner has to SEE a NOTIFY-class wrap not stop the loop. Launch is the shipped
+  grid default on 5179 — the exact origin the browser proof runs on, no
+  environment variables.
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and
