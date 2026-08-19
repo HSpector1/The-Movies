@@ -1056,7 +1056,20 @@ describe('World-First Scenery Load-In V1 — StudioLotScreen contract', () => {
     expect(screen.queryByTestId('hollywood-scenery-load-in-context')).not.toBeInTheDocument()
   })
 
-  it.each(['scheduled', 'relocated', 'duplicate', 'absent'] as const)(
+  // ── C2a-M4, THE PM RULING (M3 checkpoint) — D1-B RE-BASE ─────────────────
+  //
+  // RETIRED: the `relocated` arm. It moved the picture to Soundstage 12 and
+  // asserted the desk fell EMPTY, because the load-in selector was Soundstage 7's
+  // alone and a picture anywhere else was out of its scope. The ruling widens the
+  // scenery/take affordances to N stages, so Soundstage 12 is not "somewhere
+  // else" — it is one of this studio's stages, and the picture is still standing
+  // on one.
+  //
+  // NAMED SUCCESSOR: the test below this one. The panel FOLLOWS the picture and
+  // NAMES the stage it is actually on, which is the G12 half of the same change.
+  // The other three arms — scheduled, duplicate, absent — are preserved verbatim:
+  // each is a change this selector must still fail closed on.
+  it.each(['scheduled', 'duplicate', 'absent'] as const)(
     'fails empty and clears the matching arrival activity after an external %s replacement',
     async (replacement) => {
       const ready = loadFixture(READY_FIXTURE)
@@ -1072,13 +1085,6 @@ describe('World-First Scenery Load-In V1 — StudioLotScreen contract', () => {
       transformedOperations(() => {
         if (replacement === 'scheduled') {
           return [{ ...exact, taskStatus: 'scheduled', blocker: null, currentCommand: null }]
-        }
-        if (replacement === 'relocated') {
-          return [{
-            ...exact,
-            locationBuildingId: 'stage-b',
-            facilityLabel: 'Soundstage 12 + Scenery Shop',
-          }]
         }
         if (replacement === 'duplicate') {
           return [exact, {
@@ -1115,6 +1121,44 @@ describe('World-First Scenery Load-In V1 — StudioLotScreen contract', () => {
       expect(view.productionSelections).toEqual([])
     },
   )
+
+  // ── C2a-M4, THE PM RULING: the NAMED SUCCESSOR of the `relocated` arm ─────
+  it('follows a picture that moves to ANOTHER of the studio’s stages, and names it', async () => {
+    const ready = loadFixture(READY_FIXTURE)
+    const exact = operationAt(ready)
+    const rendered = staticLot(ready, vi.fn<() => void>())
+    await latestView()
+    await enterServiceFromCompanion()
+    // The panel names the stage the picture is standing on — Soundstage 7 here,
+    // which is what it has always said, and it said it as a literal.
+    expect(screen.getByTestId('hollywood-scenery-load-in-context')).toHaveTextContent(
+      'SELECTED LOAD-IN · SOUNDSTAGE 7',
+    )
+
+    transformedOperations(() => [{
+      ...exact,
+      locationBuildingId: 'stage-b',
+      facilityLabel: 'Soundstage 12 + Scenery Shop',
+    }])
+    rendered.rerender(
+      <StudioLotScreen
+        state={{ ...ready }}
+        onNavigate={() => {}}
+        onExit={() => {}}
+        onAdvance={() => {}}
+        onProductionCommand={() => {}}
+      />,
+    )
+
+    // The affordance is not lost — the picture is still standing on one of this
+    // studio's stages, which is exactly what the ruling opened. And the copy tells
+    // the truth about WHICH one: naming Soundstage 7 here would be the G12 offence
+    // the widening would otherwise have introduced.
+    const panel = await screen.findByTestId('hollywood-scenery-load-in-context')
+    expect(panel).toHaveTextContent('SELECTED LOAD-IN · SOUNDSTAGE 12')
+    expect(panel).not.toHaveTextContent('SOUNDSTAGE 7')
+    expect(panel).toHaveTextContent(exact.title)
+  })
 
   it('exits service context cleanly for physical person/place and semantic Annex selection', async () => {
     const state = loadFixture(BLOCKED_FIXTURE)

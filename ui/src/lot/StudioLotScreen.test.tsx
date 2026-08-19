@@ -1139,7 +1139,19 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
     expect(getByTestId('hollywood-current-production')).toHaveTextContent(second.title)
   })
 
-  it('fails closed for managed multi-production snapshots with no exact Stage 7 operation', async () => {
+  // ── C2a-M4, THE PM RULING (M3 checkpoint) — D1-B RE-BASE ─────────────────
+  //
+  // "The Soundstage-7-sealed scenery/take affordances WIDEN to N stages in M4 —
+  // the Movie #2 gate demands production blocking be legible on every stage the
+  // player builds." The two tests below pinned the OLD narrowness: a picture on
+  // Soundstage 12 got no command control and no selection, because the world's
+  // detail context was Soundstage 7's alone.
+  //
+  // The successors assert the ruling. Soundstage 7 keeps PRECEDENCE — the world
+  // never borrows Stage 12's picture while Stage 7 has one, and every Stage-7
+  // assertion in these suites is untouched — but a stage that is one of this
+  // studio's stages and is the only one speaking is now heard.
+  it('C2a-M4: with no Stage 7 operation, the studio’s OTHER stage is heard', async () => {
     setOperationHollywoodOverride(true)
     const state = foundManagedStudio('hollywood-world-no-stage-7-default')
     const stage12 = stage12Operation()
@@ -1159,13 +1171,16 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
     const { getByTestId, queryByTestId, rerender } = render(renderProps())
     await waitFor(() => expect(spy.instances).toHaveLength(1))
 
-    expect(getByTestId('hollywood-production-idle')).toBeInTheDocument()
+    // A picture in POST is not on a stage at all, so it still gets no stage
+    // affordance — the widening is to STAGES, not to every room.
     expect(queryByTestId(`hollywood-production-command-${post.currentCommand!.kind}`)).not.toBeInTheDocument()
+    // Stage 12 IS one of this studio's stages, and it is the only one speaking.
+    expect(getByTestId(`hollywood-production-command-${stage12.currentCommand!.kind}`)).toBeInTheDocument()
 
+    // Array order changes nothing: the resolution is by stage, not by position.
     current = managedOperationsSnapshot(base, [stage12, post])
     rerender(renderProps())
-    expect(getByTestId('hollywood-production-idle')).toBeInTheDocument()
-    expect(queryByTestId(`hollywood-production-command-${stage12.currentCommand!.kind}`)).not.toBeInTheDocument()
+    expect(getByTestId(`hollywood-production-command-${stage12.currentCommand!.kind}`)).toBeInTheDocument()
 
     fireEvent.click(getByTestId(`hollywood-select-production-${stage12.productionId}`))
     expect(getByTestId('hollywood-current-production')).toHaveTextContent(stage12.title)
@@ -1288,7 +1303,7 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
     }
   })
 
-  it('keeps a Stage 12 blocker as truthful copy, never a Stage 7 selection control', async () => {
+  it('C2a-M4: a Stage 12 blocker becomes the same live control Stage 7’s always was', async () => {
     setOperationHollywoodOverride(true)
     const state = foundManagedStudio('hollywood-world-stage-12-non-selection')
     const stage12 = stage12Operation()
@@ -1301,11 +1316,12 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
     )
     await waitFor(() => expect(spy.instances).toHaveLength(1))
 
+    // RE-BASED, and the reason is the ruling: this picture is on one of the
+    // studio's own soundstages, and production blocking must be legible — and
+    // actionable — on every stage the player has. The copy is still the engine's;
+    // what changed is that it is now a control rather than a sentence.
     const blocker = getByTestId('hollywood-production-blocker')
-    expect(blocker.tagName).not.toBe('BUTTON')
-    expect(blocker).not.toHaveAttribute('data-world-problem')
-    fireEvent.click(blocker)
-    expect(latest().hollywoodProductionsSelected).toEqual([])
+    expect(blocker.tagName).toBe('BUTTON')
     expect(getByTestId('hollywood-current-production')).toHaveTextContent(stage12.title)
     expect(getByTestId(`hollywood-production-command-${stage12.currentCommand!.kind}`)).toHaveTextContent(
       stage12.currentCommand!.label,

@@ -73,10 +73,19 @@ import {
   FOUNDING_BUILDING_IDS,
   buildingActionFor,
 } from './snapshot/StudioLotSnapshot.ts'
-import { sceneryLoadInContext } from './snapshot/sceneryLoadIn.ts'
+// ── C2a-M4, THE PM RULING: the take + load-in affordances are N-stage ────────
+// Soundstage 7 keeps precedence in both resolvers, so every state that resolved
+// to a Stage-7 context still resolves to exactly that one. A picture on a stage
+// the studio BUILT is reached only when Soundstage 7 has nothing to say.
+import { anyStageSceneryLoadInContext } from './snapshot/sceneryLoadIn.ts'
 import {
+  isLotStageBuildingId,
+  lotStageBuildingIds,
+  lotStageIdentityFor,
+} from './snapshot/stageIdentity.ts'
+import {
+  anyStageProductionDetailContext,
   sameStage7ProductionDetailContext,
-  stage7ProductionDetailContext,
   type Stage7ProductionDetailContext,
   type Stage7ProductionOwnerIntent,
 } from './snapshot/stage7Production.ts'
@@ -183,6 +192,46 @@ import {
   type LotParcelInspectorContext,
 } from './buildMode.ts'
 import { lotBuildCatalog, lotCatalogEntryFor } from './buildCatalog.ts'
+
+/**
+ * ── C2a-M4, THE PM RULING (M3 checkpoint) ───────────────────────────────────
+ *
+ * "The Soundstage-7-sealed scenery/take affordances WIDEN to N stages in M4 —
+ * the Movie #2 gate demands production blocking be legible on every stage the
+ * player builds."
+ *
+ * These two are the lot's resolution of "which stage is the world talking about
+ * right now". Soundstage 7 keeps precedence inside both, so every state that
+ * used to resolve to the Stage-7 context still resolves to exactly that one and
+ * every accepted D1-B assertion is answered by the same code path. What is new
+ * is that when Soundstage 7 has nothing to say, a picture on a stage the studio
+ * BUILT is heard instead of being silently skipped.
+ */
+function currentStageSceneryLoadIn(snapshot: StudioLotSnapshot) {
+  return anyStageSceneryLoadInContext(snapshot, lotStageBuildingIds(snapshot))
+}
+
+function currentStageProductionDetail(snapshot: StudioLotSnapshot) {
+  return anyStageProductionDetailContext(snapshot, lotStageBuildingIds(snapshot))
+}
+
+/**
+ * The engine's own name for the stage a picture is standing on.
+ *
+ * C2a-M4: with the affordances open to N stages, "Soundstage 7" spelled into
+ * copy became a FALSE SENTENCE (G12) the moment the context resolved to another
+ * stage. The name comes from the derived stage identities — §3.1's display-name
+ * ruling, the engine name is the single spoken authority — and falls back to the
+ * operation's own facility label, which is a fact the projection already carries,
+ * when the world cannot place the body at all.
+ */
+function stageNameForOperation(
+  snapshot: StudioLotSnapshot,
+  operation: { locationBuildingId: string; facilityLabel: string },
+): string {
+  const identity = lotStageIdentityFor(snapshot, operation.locationBuildingId as BuildingId)
+  return identity?.facilityName ?? operation.facilityLabel
+}
 import type { LotCellPoint } from './snapshot/StudioLotSnapshot.ts'
 import { placedFacilityIdOf } from './snapshot/StudioLotSnapshot.ts'
 import {
@@ -866,8 +915,9 @@ function hasExactScheduledStage7Operation(
   )
 }
 
-function sceneryArrivalActivity(title: string): string {
-  return `${title} scenery reached Soundstage 7. The shooting take is ready to schedule.`
+function sceneryArrivalActivity(title: string, stageName: string): string {
+  // C2a-M4: the stage is NAMED from the world's own identities, not spelled.
+  return `${title} scenery reached ${stageName}. The shooting take is ready to schedule.`
 }
 
 export function StudioLotScreen({
@@ -1666,14 +1716,18 @@ export function StudioLotScreen({
       person,
     })),
   ) ?? null
-  const currentSceneryLoadInContext = sceneryLoadInContext(snapshot)
+  const stageBuildingIds = lotStageBuildingIds(snapshot)
+  const currentSceneryLoadInContext = anyStageSceneryLoadInContext(snapshot, stageBuildingIds)
   const selectedSceneryLoadInContext =
     hollywoodSceneryLoadInProductionId !== null &&
     currentSceneryLoadInContext?.operation.productionId === hollywoodSceneryLoadInProductionId
       ? currentSceneryLoadInContext
       : null
   const exactReadySceneryArrival = currentSceneryLoadInContext?.state === 'ready'
-    ? sceneryArrivalActivity(currentSceneryLoadInContext.operation.title)
+    ? sceneryArrivalActivity(
+        currentSceneryLoadInContext.operation.title,
+        stageNameForOperation(snapshot, currentSceneryLoadInContext.operation),
+      )
     : null
   hollywoodSceneryLoadInProductionIdRef.current = hollywoodSceneryLoadInProductionId
   const latestSnapshotRef = useRef(snapshot)
@@ -1742,7 +1796,7 @@ export function StudioLotScreen({
     onOpenTalentProfile !== undefined
   const hasManagedEngineOperations =
     snapshot.operationsMode === 'managed' && snapshot.stageAssignmentAuthority === 'engine'
-  const currentStage7DetailContext = stage7ProductionDetailContext(snapshot)
+  const currentStage7DetailContext = anyStageProductionDetailContext(snapshot, stageBuildingIds)
   const hollywoodStage7Operation = currentStage7DetailContext?.operation ?? null
   const explicitlySelectedHollywoodMatches = typeof hollywoodProductionId !== 'string'
     ? []
@@ -1825,12 +1879,15 @@ export function StudioLotScreen({
     if (
       operation !== null &&
       hasExactScheduledStage7Operation(current, operation.productionId) &&
-      activity === sceneryArrivalActivity(operation.title)
+      activity === sceneryArrivalActivity(operation.title, stageNameForOperation(current, operation))
     ) return
-    const exact = sceneryLoadInContext(current)
+    const exact = currentStageSceneryLoadIn(current)
     if (
       exact?.state === 'ready' &&
-      activity === sceneryArrivalActivity(exact.operation.title)
+      activity === sceneryArrivalActivity(
+        exact.operation.title,
+        stageNameForOperation(current, exact.operation),
+      )
     ) {
       hollywoodSceneryArrivalActivityRef.current = activity
     }
@@ -2233,7 +2290,7 @@ export function StudioLotScreen({
       selection.placeId !== 'service-yard' ||
       selection.locationBuildingId !== 'stage-a'
     ) return false
-    const exact = sceneryLoadInContext(latestSnapshotRef.current)
+    const exact = currentStageSceneryLoadIn(latestSnapshotRef.current)
     if (
       exact === null ||
       exact.operation.productionId !== selection.productionId
@@ -2242,7 +2299,7 @@ export function StudioLotScreen({
     clearFormationContext()
     const preservesExactStage7Context =
       hollywoodStage7DetailProductionIdRef.current === selection.productionId &&
-      stage7ProductionDetailContext(latestSnapshotRef.current)?.operation.productionId ===
+      currentStageProductionDetail(latestSnapshotRef.current)?.operation.productionId ===
         selection.productionId
     if (!preservesExactStage7Context) clearHollywoodStage7DetailContext()
 
@@ -2298,7 +2355,7 @@ export function StudioLotScreen({
   ): boolean => {
     if (worldInputSuspendedRef.current) return false
     const current = latestSnapshotRef.current
-    const stage7 = options.stage7Only ? stage7ProductionDetailContext(current) : null
+    const stage7 = options.stage7Only ? currentStageProductionDetail(current) : null
     const matches = options.stage7Only
       ? stage7?.operation.productionId === productionId
         ? [stage7.operation]
@@ -4278,7 +4335,7 @@ export function StudioLotScreen({
               else withoutSelectCue(() => view?.select('expansion'))
             } else if (
               hollywoodStage7DetailProductionIdRef.current !== null &&
-              stage7ProductionDetailContext(latestSnapshotRef.current)?.operation.productionId ===
+              currentStageProductionDetail(latestSnapshotRef.current)?.operation.productionId ===
                 hollywoodStage7DetailProductionIdRef.current
             ) {
               view?.selectHollywoodProduction?.(hollywoodStage7DetailProductionIdRef.current)
@@ -4483,7 +4540,7 @@ export function StudioLotScreen({
       } else if (
         !publicitySelectedRef.current &&
         hollywoodStage7DetailProductionIdRef.current !== null &&
-        stage7ProductionDetailContext(latestSnapshotRef.current)?.operation.productionId ===
+        currentStageProductionDetail(latestSnapshotRef.current)?.operation.productionId ===
           hollywoodStage7DetailProductionIdRef.current
       ) {
         if (
@@ -4699,7 +4756,7 @@ export function StudioLotScreen({
     productionId: string,
     grantsStage7Detail = false,
   ) => {
-    const stage7 = stage7ProductionDetailContext(latestSnapshotRef.current)
+    const stage7 = currentStageProductionDetail(latestSnapshotRef.current)
     if (stage7?.operation.productionId !== productionId) return
     if (grantsStage7Detail) ownHollywoodStage7DetailContext(productionId)
     enterHollywoodSceneryLoadInContext({
@@ -4739,7 +4796,7 @@ export function StudioLotScreen({
     // dispatch the freshly presented Schedule command.
     if (worldInputSuspendedRef.current || clickDetail > 1) return
     if (hollywoodSceneryCommandPendingRef.current || onProductionCommand === undefined) return
-    const current = sceneryLoadInContext(latestSnapshotRef.current)
+    const current = currentStageSceneryLoadIn(latestSnapshotRef.current)
     const productionId = renderedCommand.productionId
     if (
       current === null ||
@@ -4783,7 +4840,7 @@ export function StudioLotScreen({
     const nextSnapshot = readSnapshot(outcome.next)
     const accepted = command.kind === 'clearSceneryLoadIn'
       ? (() => {
-          const next = sceneryLoadInContext(nextSnapshot)
+          const next = currentStageSceneryLoadIn(nextSnapshot)
           return next?.state === 'ready' && next.operation.productionId === productionId
         })()
       : hasExactScheduledStage7Operation(nextSnapshot, productionId)
@@ -4939,7 +4996,7 @@ export function StudioLotScreen({
 
   const rejectHollywoodStage7DetailHandoff = useCallback(() => {
     const renderedProductionId = hollywoodStage7DetailProductionIdRef.current
-    const latest = stage7ProductionDetailContext(latestSnapshotRef.current)
+    const latest = currentStageProductionDetail(latestSnapshotRef.current)
     const canFocusFreshStage7 =
       renderedProductionId !== null &&
       latest?.operation.productionId === renderedProductionId &&
@@ -4977,7 +5034,7 @@ export function StudioLotScreen({
       hollywoodStage7DetailProductionIdRef.current !== rendered.operation.productionId
     ) return
 
-    const latest = stage7ProductionDetailContext(latestSnapshotRef.current)
+    const latest = currentStageProductionDetail(latestSnapshotRef.current)
     const owner = onOpenStage7ProductionDetailsRef.current
     if (
       latest === null ||
@@ -5918,8 +5975,11 @@ export function StudioLotScreen({
         recordSelection(null)
         return
       }
-      if (hollywood && id === 'stage-a') {
-        const operation = stage7ProductionDetailContext(
+      // C2a-M4, the PM ruling: EVERY stage this studio has, not the founding
+      // one alone. A picture on a stage the player BUILT opens its detail the
+      // same way Soundstage 7's always has.
+      if (hollywood && isLotStageBuildingId(latestSnapshotRef.current, id)) {
+        const operation = currentStageProductionDetail(
           latestSnapshotRef.current,
         )?.operation
         if (
@@ -7246,7 +7306,8 @@ export function StudioLotScreen({
         return (
           <>
             <p className="hollywood-eyebrow">
-              SELECTED LOAD-IN · SOUNDSTAGE 7
+              SELECTED LOAD-IN ·{' '}
+              {stageNameForOperation(snapshot, operation).toUpperCase()}
             </p>
             <div className="hollywood-scenery-heading">
               <h3>Scenery &amp; Service</h3>
@@ -8367,7 +8428,7 @@ export function StudioLotScreen({
                             currentSceneryLoadInContext?.state === 'blocked' &&
                             currentSceneryLoadInContext.operation.productionId === hollywoodOperation.productionId
                               ? `Inspect ${hollywoodOperation.title} scenery problem at Scenery & Service: ${hollywoodOperation.blocker.headline}`
-                              : `Inspect ${hollywoodOperation.title} problem at Soundstage 7: ${hollywoodOperation.blocker.headline}`
+                              : `Inspect ${hollywoodOperation.title} problem at ${stageNameForOperation(snapshot, hollywoodOperation)}: ${hollywoodOperation.blocker.headline}`
                           }
                           onClick={() => {
                             if (
@@ -8954,7 +9015,7 @@ export function StudioLotScreen({
                   onClick={() => inspectHollywoodSceneryLoadIn(
                     currentSceneryLoadInContext.operation.productionId,
                   )}
-                  title={`Manage ${currentSceneryLoadInContext.operation.title} scenery load-in at Soundstage 7`}
+                  title={`Manage ${currentSceneryLoadInContext.operation.title} scenery load-in at ${stageNameForOperation(snapshot, currentSceneryLoadInContext.operation)}`}
                 >
                   <span className="lot-nav-name">Scenery &amp; Service</span>
                   <span className="lot-nav-state">
@@ -8963,7 +9024,7 @@ export function StudioLotScreen({
                     </span>
                     <span className="lot-nav-att-word visually-hidden">Decision required: </span>
                     {currentSceneryLoadInContext.state === 'blocked'
-                      ? `${currentSceneryLoadInContext.operation.title} load-in is blocking Soundstage 7`
+                      ? `${currentSceneryLoadInContext.operation.title} load-in is blocking ${stageNameForOperation(snapshot, currentSceneryLoadInContext.operation)}`
                       : `${currentSceneryLoadInContext.operation.title} scenery delivered · take ready to schedule`}
                   </span>
                 </button>

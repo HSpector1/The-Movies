@@ -1,8 +1,9 @@
 import type {
+  BuildingId,
   ProductionOperationsState,
   StudioLotSnapshot,
 } from './StudioLotSnapshot'
-import { FOUNDING_STAGE_SEVEN_BUILDING_ID } from './stageIdentity.ts'
+import { isLotStageBuildingId, FOUNDING_STAGE_SEVEN_BUILDING_ID } from './stageIdentity.ts'
 
 /**
  * The only two Engine projections that Scenery & Service may own on the lot.
@@ -17,37 +18,44 @@ export type SceneryLoadInContext = {
 }
 
 /**
- * Select the exact Soundstage 7 scenery interaction from an authoritative lot
- * snapshot. This selector is intentionally stricter than a generic stage lookup:
- * every provenance, location, phase, task, blocker, command, and production-id
- * relationship must agree, otherwise the world affordance fails closed.
+ * Select the exact scenery interaction on ONE named stage from an authoritative
+ * lot snapshot. This selector is intentionally stricter than a generic stage
+ * lookup: every provenance, location, phase, task, blocker, command, and
+ * production-id relationship must agree, otherwise the world affordance fails
+ * closed.
  *
- * C2a-M2 note — DELIBERATELY NOT GENERALISED to N stages. The world's stage identity is
- * derived now (`stageIdentity.ts`), but this selector's own accepted specs assert that a
- * valid intervention on Soundstage 12 is NOT borrowed here ("does not borrow a valid
- * scenery intervention from Stage 12"). Widening it would rewrite an accepted D1-B
- * affordance under cover of a rendering milestone. The founding-stage constant is named
- * rather than spelled, so this reads as the decision it is; opening the load-in
- * affordance to every stage is a ruled change that belongs with the queue surface that
- * will own N-stage intervention.
+ * ── C2a-M4, THE PM RULING (M3 checkpoint) ──────────────────────────────────
+ *
+ * C2a-M2 recorded this selector's narrowness as a decision and refused to open
+ * it: "opening the load-in affordance to every stage is a ruled change that
+ * belongs with the queue surface that will own N-stage intervention." That is
+ * this milestone, and the ruling is made — *the Movie #2 gate demands production
+ * blocking be legible on every stage the player builds.*
+ *
+ * The widening is ADDITIVE: the stage is a PARAMETER, and `sceneryLoadInContext`
+ * is this same selector bound to the founding Soundstage 7, so every Stage-7
+ * assertion in the accepted specs is answered by the code path it always was.
+ * The stage asked about must be a soundstage THIS studio has (law 12).
  */
-export function sceneryLoadInContext(
+export function stageSceneryLoadInContext(
   snapshot: StudioLotSnapshot,
+  buildingId: BuildingId,
 ): SceneryLoadInContext | null {
   if (
     snapshot.operationsMode !== 'managed' ||
     snapshot.stageAssignmentAuthority !== 'engine' ||
-    !Array.isArray(snapshot.productionOperations)
+    !Array.isArray(snapshot.productionOperations) ||
+    !isLotStageBuildingId(snapshot, buildingId)
   ) {
     return null
   }
 
-  const stage7 = snapshot.productionOperations.filter(
-    (operation) => operation?.locationBuildingId === FOUNDING_STAGE_SEVEN_BUILDING_ID,
+  const onStage = snapshot.productionOperations.filter(
+    (operation) => operation?.locationBuildingId === buildingId,
   )
-  if (stage7.length !== 1) return null
+  if (onStage.length !== 1) return null
 
-  const operation = stage7[0]!
+  const operation = onStage[0]!
   if (operation.phase !== 'shooting') return null
 
   const command = operation.currentCommand
@@ -70,4 +78,34 @@ export function sceneryLoadInContext(
   }
 
   return null
+}
+
+/** The founding Soundstage 7's own load-in context — the selector above, bound. */
+export function sceneryLoadInContext(
+  snapshot: StudioLotSnapshot,
+): SceneryLoadInContext | null {
+  return stageSceneryLoadInContext(snapshot, FOUNDING_STAGE_SEVEN_BUILDING_ID)
+}
+
+/**
+ * The one stage on this lot with a scenery interaction right now, Stage 7 first.
+ *
+ * THE PM RULING'S ACTUAL DELIVERY for load-in: a picture on a stage the studio
+ * BUILT gets its scenery affordance. Soundstage 7 keeps precedence, so every
+ * state that resolved to a Stage-7 context still resolves to exactly that one;
+ * a built stage is reached only when Soundstage 7 has nothing to say, and two
+ * built stages with competing interventions resolve to NOTHING rather than to a
+ * guess — the same withholding this selector has always preferred.
+ */
+export function anyStageSceneryLoadInContext(
+  snapshot: StudioLotSnapshot,
+  stageBuildingIds: readonly BuildingId[],
+): SceneryLoadInContext | null {
+  const stage7 = sceneryLoadInContext(snapshot)
+  if (stage7 !== null) return stage7
+  const others = stageBuildingIds
+    .filter((id) => id !== FOUNDING_STAGE_SEVEN_BUILDING_ID)
+    .map((id) => stageSceneryLoadInContext(snapshot, id))
+    .filter((context): context is SceneryLoadInContext => context !== null)
+  return others.length === 1 ? others[0]! : null
 }
