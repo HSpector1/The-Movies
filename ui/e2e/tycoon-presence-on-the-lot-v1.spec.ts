@@ -270,6 +270,16 @@ type GridDebug = {
   selectedPersonId: string | null
   lodBand: 'institution' | 'operations' | 'people'
   buildingLabels: string[]
+  /**
+   * What the name channel SAYS about every body, painted or not (C2a-M5x / 00H).
+   *
+   * `buildingLabels` above is what is ON SCREEN, and since 00H the world only paints a
+   * body's name when the player asks about it. The occupancy claims in this file have
+   * always been about what the name channel CARRIES — "the sign counts them" — so they
+   * read this instead. Same strings, same intent, asserted where it lives.
+   */
+  buildingNameChannel: string[]
+  visibleBuildingLabels: number
   presenceWeek: number | null
   presencePlaybackWeek: number | null
   presencePlaybackMs: number | null
@@ -503,8 +513,18 @@ test('advancing one week walks the company to Development and leaves them there'
   expect(settled.presenceStands.filter((stand) => stand.stance !== 'home')).toHaveLength(2)
 
   // ── the sign counts them ──
+  //
+  // C2a-M5x RE-PIN (00H priority 5): `buildingLabels` → `buildingNameChannel`, and a
+  // new line under it. The string is UNCHANGED and so is what it proves — the sign at
+  // Development carries the occupancy the week actually has. What changed is that the
+  // world no longer PAINTS that sign unasked (the Owner's fourteen floating pills), so
+  // the claim is now made against the channel that carries it, and the second line pins
+  // the new law rather than letting it pass unremarked: the count is right, and it is
+  // not on screen until somebody asks. Both directions of the paint rule are proved in
+  // `tycoon-build-mode-v1.spec.ts` ("a building wears its name when it is asked about").
   expect(settled.presenceOccupants).toEqual([['writers', 2]])
-  expect(settled.buildingLabels).toContain('Development • 2 here')
+  expect(settled.buildingNameChannel).toContain('Development • 2 here')
+  expect(settled.visibleBuildingLabels).toBe(0)
 
   // ── the person panel quotes the week ──
   await clickGridPoint(page, writerStand.destination!.gx, writerStand.destination!.gy)
@@ -554,8 +574,8 @@ test('commissioning a screenplay in the world stands the writer at Development a
   expect(idle.presenceWeek).toBe(0)
   expect(idle.presenceOccupants).toEqual([])
   expect(idle.presenceStands.every((stand) => stand.stance === 'home')).toBe(true)
-  expect(idle.buildingLabels).toContain('Development')
-  expect(idle.buildingLabels.some((label) => label.includes('here'))).toBe(false)
+  expect(idle.buildingNameChannel).toContain('Development')
+  expect(idle.buildingNameChannel.some((label) => label.includes('here'))).toBe(false)
 
   // STRUCTURAL TUPLE — fixture: "grid presence, Week 0, whole-property framing".
   expect(await structure(page)).toEqual(GRID_PRESENCE_WEEK_0_STRUCTURE)
@@ -582,7 +602,7 @@ test('commissioning a screenplay in the world stands the writer at Development a
   expect(writerStand.site).toBe('writers')
   await expectSpriteSettled(page, writerStand)
   expect(drafting.presenceOccupants).toEqual([['writers', 1]])
-  expect(drafting.buildingLabels).toContain('Development • 1 here')
+  expect(drafting.buildingNameChannel).toContain('Development • 1 here')
 
   // …and the panel quotes the drafting line, in the studio's own words.
   await clickGridPoint(page, writerStand.destination!.gx, writerStand.destination!.gy)
@@ -606,7 +626,7 @@ test('commissioning a screenplay in the world stands the writer at Development a
   expect(reviewed.presenceWeek).toBe(1)
   expect(standFor(reviewed, WRITER.id).stance).toBe('home')
   expect(reviewed.presenceOccupants).toEqual([])
-  expect(reviewed.buildingLabels.some((label) => label.includes('here'))).toBe(false)
+  expect(reviewed.buildingNameChannel.some((label) => label.includes('here'))).toBe(false)
 
   expect(runtime.pageErrors).toEqual([])
   expect(runtime.consoleErrors).toEqual([])
@@ -754,23 +774,60 @@ test('simulating to the next event lands on current truth and animates no skippe
 //     is no longer VISIBLE. It still EXISTS, and this counter counts existence, so the
 //     figure is unchanged — which is exactly the evidence that grounding is a visibility
 //     law and not a covert change to what the world is made of.
+//
+// C2a-M5x RE-PIN (the CORRECTION WAVE, `docs/c2-planning/00H-OWNER-RULING-M5-FAILED`) —
+// 232 → 331 objects, 8,807,528 → 9,376,440 decoded bytes, 6 → 10 draw calls, in ALL
+// THREE tuples. Owner-ordered and argued part by part, every figure measured on a real
+// run of this spec at HEAD:
+//
+//   • +99 display objects, and it is EXACTLY 99 — `backlotDressing()` gained 99 prop
+//     placements (95 authored points plus a four-cell fence run) and the scene paints
+//     one Image per placement. The inventory is authored, not generated, so the figure
+//     is identical in all three fixtures and does not move as the journey advances or
+//     as a week plays back, which is the same property that let these three tuples be
+//     read as one number before. 00H priorities 4 and 7: the C1-M6b pass dressed the
+//     MARGINS and left the middle of the property open, and the Owner read the result
+//     as "only marginally busier".
+//   • +568,912 decoded bytes, and it is EXACTLY the nineteen new bakes, summed:
+//     tw-tree 29,792 · tw-tree2 27,552 · tw-cypress 19,712 · tw-flowerbed 10,560 ·
+//     tw-trailer 36,192 · tw-boxtruck 40,016 · tw-sedan 25,056 · tw-crane 57,536 ·
+//     tw-arcrig 26,880 · tw-genset 16,848 · tw-cablereel 11,600 · tw-cratestack 20,064 ·
+//     tw-flatlean 40,608 · tw-lumber 21,344 · tw-crew-build 45,312 · tw-crew-grip 34,944 ·
+//     tw-crew-haul 31,200 · tw-crew-queue 40,672 · tw-crew-camera 33,024. The build-mode
+//     suite — a different studio with its own 960-byte-smaller baseline — moved by the
+//     SAME +568,912, which is what proves the delta is shared world art and not people.
+//   • +4 draw calls — the counter sums `pipeline.batch.length`, the number of batch
+//     entries the multi-texture pipeline flushed, and a new entry opens when its
+//     texture-unit set is exhausted. Nineteen more textures cost four more rebinds. No
+//     new render pass and no new pipeline: the whole surround landscape (hills, groves,
+//     the public street, the neighbourhood) is baked into the EXISTING single ground
+//     render texture and costs zero of all three figures, and the construction shell,
+//     the scaffold cage and the week-theater marks all reuse existing Graphics layers.
+//   • dynamic actors UNCHANGED at 14, and this is again the load-bearing non-movement.
+//     00H priority 1 puts visibly active workers on the lot, and the honest way to read
+//     this number is that it did not do so by minting people: a CREW CLUSTER is one
+//     baked texture carrying three or four figures, so a whole gang costs one display
+//     object, no actor, no hit area and no state. These fixtures stand none at all —
+//     no stage is hot, nothing is in transit and nothing is under construction in
+//     either of them — which is itself the proof that crews are tied to real jobs
+//     rather than sprinkled on the property.
 const GRID_PRESENCE_WEEK_0_STRUCTURE = {
-  displayObjects: 232,
+  displayObjects: 331,
   dynamicActors: 14,
-  decodedBytes: 8_807_528,
-  drawCalls: 6,
+  decodedBytes: 9_376_440,
+  drawCalls: 10,
 }
 
 const GRID_GREENLIT_WEEK_0_STRUCTURE = {
-  displayObjects: 232,
+  displayObjects: 331,
   dynamicActors: 14,
-  decodedBytes: 8_807_528,
-  drawCalls: 6,
+  decodedBytes: 9_376_440,
+  drawCalls: 10,
 }
 
 const GRID_GREENLIT_WEEK_1_STRUCTURE = {
-  displayObjects: 232,
+  displayObjects: 331,
   dynamicActors: 14,
-  decodedBytes: 8_807_528,
-  drawCalls: 6,
+  decodedBytes: 9_376_440,
+  drawCalls: 10,
 }

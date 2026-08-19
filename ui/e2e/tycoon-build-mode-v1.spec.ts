@@ -186,6 +186,10 @@ type GridDebug = {
   guidanceMarker: { buildingId: string; motion: 'static' | 'pulse'; alpha: number } | null
   lodBand: 'institution' | 'operations' | 'people'
   visibleBuildingLabels: number
+  buildingLabels: string[]
+  /** What the name channel SAYS about every body, painted or not (C2a-M5x / 00H). */
+  buildingNameChannel: string[]
+  hoveredBuildingId: string | null
   placementLabels: string[]
 }
 
@@ -324,9 +328,40 @@ test('a fresh managed studio boots onto the whole grid property, labelled and re
   expect(projection.worldView.width).toBeGreaterThanOrEqual(lotPixelWidth)
   expect(projection.worldView.height).toBeGreaterThanOrEqual(lotPixelHeight)
 
-  // …and it is the OPERATIONS reading distance, so every building wears its name.
+  // …and it is the OPERATIONS reading distance.
   expect(debug.lodBand).toBe('operations')
-  expect(debug.visibleBuildingLabels).toBe(8) // nine places; the Annex parcel carries its own caption
+  // C2a-M5x RE-PIN (00H priority 5, "less floating debug-label dependence"): 8 → 0.
+  //
+  // MEASURED, and it is a change of KIND rather than a loosened bound. The claim this
+  // line has always made is "the world NAMES every addressable body it has, and the
+  // Annex parcel carries its own caption instead of a generic one" — nine places, eight
+  // names. That claim is unchanged and is still asserted, on the line below: the name
+  // CHANNEL still carries exactly eight names at the default framing.
+  //
+  // What moved is when the world PAINTS them. The Owner's M5 screenshot carried
+  // fourteen floating pills over a lot with almost nothing else to look at, and two of
+  // them sat squarely on top of the construction site they were describing (00H, "less
+  // floating debug-label dependence"). A name is an answer to a question, so it is
+  // raised for the body the player is pointing at or has selected and for no other —
+  // which the dedicated test below proves in both directions, hover and selection.
+  // Nothing is weaker here: this file now pins the channel's CONTENT and the paint
+  // rule, where before it pinned only a count of what happened to be on screen.
+  expect(debug.visibleBuildingLabels).toBe(0)
+  // Every one of the nine, named — and named EXACTLY, which the count this replaces
+  // never checked. The Annex's generic name is loaded here and is the one that is never
+  // painted at all, because that parcel carries its own lifecycle caption instead: the
+  // "nine places, eight names" claim, now stated where it can actually be read.
+  expect(debug.buildingNameChannel).toEqual([
+    'Administration',
+    'Casting / Talent',
+    'Development',
+    'Development & Casting Annex',
+    'Production / Post',
+    'Stage A',
+    'Stage B',
+    'Studio Gate',
+    'Theater',
+  ])
 
   // The companion names every destination on the same property, buildings and ground.
   await expect(page.getByTestId('lot-companion-nav')).toBeVisible()
@@ -349,6 +384,54 @@ test('a fresh managed studio boots onto the whole grid property, labelled and re
   // plate's 30/13/11,096,896 tuple: a different world, measured on purpose.
   const measured = await structure(page)
   expect(measured).toEqual(GRID_MANAGED_IDLE_STRUCTURE)
+
+  expect(runtime.pageErrors).toEqual([])
+  expect(runtime.consoleErrors).toEqual([])
+})
+
+// ── 1b. THE NAME IS AN ANSWER (C2a-M5x, 00H priority 5) ──────────────────────
+//
+// The other half of the re-pin above. The claim "the world names every body it has"
+// is asserted there on the CHANNEL; this asserts the paint rule that replaced the
+// permanent pill — a name appears when the player asks for the body, by pointing at
+// it or by selecting it, and for no other body at the same time.
+//
+// This is a stronger pin than the count it replaces, in both directions: it fails if
+// a name is raised unasked (the regression the Owner ruled against) AND it fails if
+// asking stops raising one (the regression this change could have introduced).
+
+test('a building wears its name when it is asked about, and not before', async ({ page }) => {
+  const runtime = watchRuntime(page)
+  await seed(page)
+
+  // Nothing on the lot is being asked about, so nothing on the lot is captioned…
+  const quiet = await gridDebug(page)
+  expect(quiet.lodBand).toBe('operations')
+  expect(quiet.visibleBuildingLabels).toBe(0)
+  expect(quiet.hoveredBuildingId).toBeNull()
+  // …and the channel is fully loaded the whole time, waiting to be asked.
+  expect(quiet.buildingNameChannel).toContain('Administration')
+
+  // POINTING at a body raises exactly its own name.
+  const admin = await cellPoint(page, 10, 3)
+  await page.mouse.move(admin.x, admin.y)
+  await expect.poll(async () => (await gridDebug(page)).hoveredBuildingId).toBe('admin')
+  const hovered = await gridDebug(page)
+  expect(hovered.visibleBuildingLabels).toBe(1)
+  expect(hovered.buildingLabels).toEqual(['Administration'])
+
+  // Pointing AWAY puts it down again — the world does not accumulate captions.
+  const empty = await cellPoint(page, 25, 11)
+  await page.mouse.move(empty.x, empty.y)
+  await expect.poll(async () => (await gridDebug(page)).visibleBuildingLabels).toBe(0)
+
+  // SELECTING a body holds its name up while the selection stands, and moving the
+  // pointer off it does not take the answer away — a selection is a standing question.
+  await clickCell(page, 4, 17) // the Theater
+  await expect(page.getByTestId('lot-building-inspector-theater')).toBeVisible()
+  await page.mouse.move(empty.x, empty.y)
+  await expect.poll(async () => (await gridDebug(page)).visibleBuildingLabels).toBe(1)
+  expect((await gridDebug(page)).buildingLabels).toEqual(['Theater'])
 
   expect(runtime.pageErrors).toEqual([])
   expect(runtime.consoleErrors).toEqual([])
@@ -983,9 +1066,31 @@ test('a facility the studio built is a first-class citizen of the world', async 
 //     ambient patrols (§4.2): one whose authoritative fact is false is no longer VISIBLE.
 //     It still EXISTS, and this counter counts existence — which is the evidence that
 //     grounding is a visibility law, not a covert change to what the world is made of.
+//
+// C2a-M5x RE-PIN (the CORRECTION WAVE, `docs/c2-planning/00H-OWNER-RULING-M5-FAILED`) —
+// 232 → 331 objects, 8,806,568 → 9,375,480 decoded bytes, 6 → 10 draw calls. The SAME
+// movement, for the same reasons, as the presence suite's three tuples, and the full
+// argument is written out there beside them. The parts, measured on a real run of this
+// spec at HEAD:
+//
+//   • +99 display objects — `backlotDressing()` gained exactly 99 authored placements
+//     (95 points plus a four-cell fence run), one Image each. Authored, so it does not
+//     move as the journey advances.
+//   • +568,912 decoded bytes — the nineteen new prop and crew bakes, itemised in the
+//     presence suite. This studio is NOT that studio (its own seed, its own roster, its
+//     own 960-byte-smaller baseline) and it moved by the identical figure, which is what
+//     proves the delta is shared world art rather than anything belonging to these
+//     people.
+//   • +4 draw calls — four more texture-unit rebinds for nineteen more textures. No new
+//     pass, no new pipeline. The whole surround landscape bakes into the existing ground
+//     render texture and costs nothing here at all.
+//   • dynamic actors UNCHANGED at 14 — 00H's visibly active workers are CREW CLUSTERS,
+//     one baked texture per gang of three or four, so they cost display objects and
+//     never actors. This managed-idle fixture has no hot stage, no haul and no build in
+//     progress, so it stands none.
 const GRID_MANAGED_IDLE_STRUCTURE = {
-  displayObjects: 232,
+  displayObjects: 331,
   dynamicActors: 14,
-  decodedBytes: 8_806_568,
-  drawCalls: 6,
+  decodedBytes: 9_375_480,
+  drawCalls: 10,
 }
