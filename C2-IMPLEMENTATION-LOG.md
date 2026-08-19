@@ -231,6 +231,55 @@ Lane ENGINE-M5 owns `src/core/**`, `ui/src/engine/adapter.ts`,
   **LANE TOTAL at this point: root tsc 0 · ui tsc 0 · FULL vitest 317 files /
   4,312 passed + 5 skipped / 0 failed** (M4 floor was 312 / 4,256 + 5).
 
+### ENGINE-M5 handoff — what the next lane needs (2026-08-19)
+
+**Everything ENGINE-M5 owed is landed and pushed.** Branch `c2a-implementation`,
+four commits: `6f2eff4` (ladder + wrap), `33fe1e5` (load-in distance), `d132c20`
+(theater), `df00239` (determinism). Resumable from Git alone.
+
+**FOR OPUS-TIME (the scheduler).** `simStopFor(before, after): SimStopReason |
+null` and `simStopDetailFor` are exported from `ui/src/engine/adapter.ts`;
+`advanceWeek(state)` now returns `{ ..., stopReason, stop }`. Consume THOSE. The
+ladder is never re-implemented in React (§4.1 LL EX), and `simStopFor` never
+returns `limit` — the 520-week guard is the batch verb's alone. The PAUSE/NOTIFY
+partition is the scheduler's to apply over these values; `wrap` is NOTIFY-class.
+
+**FOR OPUS-WORLD (the renderer).** `studioLotSnapshot(state).weekTheater` carries
+the whole projection: nine subject kinds, each with `beats` (exactly
+`beatsPerWeek` entries from `idle|travel|working|waiting|clearing`), the facility
+and its ENGINE name, the picture and its TITLE, `weeksRemaining`, `distance`, and
+the engine's own `reason`. `staticBeat` is shared with `presence`. Withholdings
+carry their reason. `studioWeekTheaterView(state)` is the same value without the
+snapshot.
+
+**FINDINGS AND CARRIES (M5):**
+1. **LADDER RANK — `wrap` outranks `cashNegative`.** §4.3-M5 places `wrap`
+   immediately after `productionDecision`, so on a tick where a picture wraps AND
+   cash crosses below zero, the reported stop is `wrap`. `cashNegative` fires only
+   on the CROSSING, so it is not reported again. This hazard is NOT new — the
+   shipped ladder already put `runCompleted` above `cashNegative` — but the living
+   loop makes it matter, because `wrap` is NOTIFY (keep running) and `cashNegative`
+   is PAUSE. Implemented as the charter states it; **the Owner/PM should rule**
+   whether PAUSE-class stops should outrank NOTIFY-class ones inside one tick.
+2. **`lotWeekEvents` may never see a wrap.** `studioEvents` stamps ENGINE-written
+   rows with `market.tick - 1` (the sink is built with `currentTick` and the clock
+   then increments) and COMMAND-written rows with the settled week. The shipped
+   `lotWeekEvents` (adapter, `row.week !== state.market.tick`) uses one rule, so
+   its `wrapped` branch looks unreachable in a settled state. `studioWeekTheater`
+   uses two rules, each naming its producer. Not touched here (a shipped M1/M2
+   surface, and not this lane's named work) — routed to its owner.
+3. **`SCENERY_LOAD_IN_WEEKS_PER_DISTANCE` is a BALANCE dial, deliberately set so
+   nothing already measured moves.** At 0.1 the founding lot's two stages are
+   supplied on time (2 and 1 weeks against a 2-week head start). Raising it makes
+   the founding lot itself feel distance and re-prices C1/C2 figures → an Owner
+   decision with M7's remeasure behind it.
+4. **Four UI arms were landed cross-boundary** as the forced consequence of
+   widening a closed union (`App.tsx` deep hop, `LotNextEventRail` identity line +
+   target key, `StudioLotScreen` reason detail + deep label). Minimal and in
+   filmmaking voice; richer staging is OPUS-SCREENS'/OPUS-TIME's.
+5. **Human visual review is still open** (no canvas digests exist) — the theater's
+   tracks have never been drawn.
+
 ## M4 — LANDED (lanes ENGINE-M4 + SURFACES-M4); integration checkpoint 2026-08-19
 
 CHECKPOINT (INTEGRATE-M4, HEAD `b600ca2`): **the two-film cap is gone, and
