@@ -1394,6 +1394,11 @@ export function talentEligibility(
 // greenlight with a free Development & Casting slot starts now; without one it is
 // still legal, and it joins the queue instead of being refused.
 export function canGreenlightMore(state: GameState): boolean {
+  // A LEGACY studio has no facility model at all — no rooms, no reservations, no
+  // queue — so nothing gates its greenlights and nothing ever did. Asking the
+  // room question of a studio with no rooms would answer "no" forever, which is
+  // the cap's ghost wearing a different coat.
+  if (state.operations.mode !== 'managed') return true
   return gateSlotAvailable(state)
 }
 
