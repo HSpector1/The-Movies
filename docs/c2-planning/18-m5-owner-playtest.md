@@ -7,12 +7,22 @@
 
 ## Launch
 
-From the repository root, in two shells:
+**From `/Users/bruce/The Movies - C2 Implementation` — the C2 worktree, and no
+other folder.** The main repo folder is on a different branch and its build has
+none of this milestone; launching there shows the old two-verb topbar. In two
+shells:
 
 ```
+cd "/Users/bruce/The Movies - C2 Implementation"
 npx vite-node tests/_m5PlaytestSave.ts        # mints the two saves, prints what they owe
+
+cd "/Users/bruce/The Movies - C2 Implementation"
 npm run dev -- --port 5179 --strictPort       # the SHIPPED grid world, the origin the proof runs on
 ```
+
+**Verify you are on the right build before judging anything:** the Lot topbar
+must show **Hold / Roll** and the **1× · 2× · 4×** pace group. If it shows only
+"Advance one week / Sim to next event", you are running the wrong folder's build.
 
 Open **http://localhost:5179**. No environment variables: the grid world is the
 shipped default, and 5179 is only so you are standing exactly where the browser
