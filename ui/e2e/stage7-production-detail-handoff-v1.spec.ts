@@ -3,6 +3,8 @@ import { createHash } from 'node:crypto'
 import { mkdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { exportSaveJson, type GameState } from '../src/engine/adapter.ts'
+import { loadPinnedSaveV13Fixture } from '../src/test/pinnedSaveFixture.ts'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = join(here, '..', '..')
@@ -101,6 +103,41 @@ async function activeSessionBytes(page: Page): Promise<string> {
   const value = await page.evaluate((key) => localStorage.getItem(key), ACTIVE_SESSION_KEY)
   expect(value).not.toBeNull()
   return value!
+}
+
+/**
+ * V14 boundary follow-up (C2a-M1) — the exact bytes a live app must hold once the Board's
+ * one existing command has been accepted on the governed blocked studio.
+ *
+ * This assertion used to read `readyFixture` straight off disk. It cannot any more, and the
+ * reason is NOT that the app drifted: `readyFixture` is a committed SaveFileV13 artefact and
+ * a running app writes SaveFileV14. The rule this file follows is the one `5b36cac`/`4ef9297`
+ * established in `ui/src/test/pinnedSaveFixture.ts` — the frozen artefact stays frozen (the
+ * `beforeAll` digest above still names its committed bytes, unchanged), and the live question
+ * is asked of the live format.
+ *
+ * `loadPinnedSaveV13Fixture` is what makes that safe rather than looser. Before returning a
+ * state it proves the file is untampered, that it migrates, that the FROZEN writer `makeSaveV13`
+ * puts every V13 byte back in order, and that the migrated V14 artefact reloads as native. And
+ * `makeSaveV13` refuses outright any state that has moved off the endowed sets, queued a
+ * production, or recorded screenplay provenance — so a successful projection is itself a
+ * positive claim that those three V14 roots are untouched here, which reading a V13 file
+ * never asserted at all.
+ *
+ * The single V14 root the frozen file has no room for is the studio-event log, which
+ * `convertV13ToV14` deliberately leaves EMPTY rather than manufacture. A live studio that has
+ * just accepted this command has recorded exactly one row for it, so the row is named here in
+ * full and asserted, rather than tolerated: a second row, a different week, a different
+ * production, or a missing row all fail this equality. Same exact-bytes claim as before,
+ * over strictly more of the save.
+ */
+function freshReadySuccessorBytes(): string {
+  const ready = loadPinnedSaveV13Fixture(readyFixture)
+  const studioEvents: GameState['studioEvents'] = {
+    nextSeq: 1,
+    rows: [{ seq: 0, week: 30, kind: 'sceneryArrived', productionId: PRODUCTION_ID }],
+  }
+  return exportSaveJson({ ...ready, studioEvents })
 }
 
 async function clickHollywoodWorldPoint(page: Page, point: { x: number; y: number }) {
@@ -206,7 +243,7 @@ test('one existing Board command returns to the fresh ready Stage 7 successor', 
     `production-command-scheduleShootingTake-${PRODUCTION_ID}`,
   )).toBeFocused()
   const acceptedBytes = await activeSessionBytes(page)
-  expect(acceptedBytes).toBe(readFileSync(readyFixture, 'utf8'))
+  expect(acceptedBytes).toBe(freshReadySuccessorBytes())
 
   await page.getByTestId('back-to-studio-lot').click()
   await expect(page.getByTestId('hollywood-stage7-production-heading')).toBeFocused()
