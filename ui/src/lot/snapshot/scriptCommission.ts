@@ -7,6 +7,7 @@ import type {
   CommissionScriptPayload,
   GameState,
 } from '../../engine/adapter.ts'
+import type { CommissionOriginalScreenplayPayload } from '../../engine/screenplay.ts'
 
 export type ScreenplayCommissionReceipt = {
   projectId: string
@@ -726,7 +727,13 @@ function strictReceipt(value: unknown): value is ScreenplayCommissionReceipt {
     isNonEmptyString(value.writerName) &&
     isNonNegativeSafeInteger(value.commissionedWeek) &&
     isNonNegativeSafeInteger(value.dueWeek) &&
-    value.dueWeek === value.commissionedWeek + 1 &&
+    // C2a-M4 (the M3 carry): a pool premise still drafts in ONE week
+    // unconditionally, and an ORIGINAL takes as many weeks as `00E`.9's writer
+    // law gives it. The shared invariant is therefore "the draft is due after it
+    // was commissioned"; the EXACT week is never taken on trust — every builder
+    // and `currentScreenplayCommissionReceipt` check it against the project row
+    // the engine actually wrote.
+    value.dueWeek > value.commissionedWeek &&
     isNonEmptyString(value.facilityId) &&
     isNonEmptyString(value.facilityName) &&
     isNonNegativeSafeInteger(value.slot)
@@ -975,4 +982,286 @@ export function currentScreenplayCommissionReceipt(
   } catch {
     return null
   }
+}
+
+
+// ── C2a-M4 (the M3 carry) — THE ORIGINAL COMMISSION'S OWN WITNESS ────────────
+//
+// M3 shipped the second supply — a genre, a creative shape, and one of the
+// studio's own writers — and shipped it without a witness card, because the card
+// was keyed to a MARKET payload an original cannot have (17-m3-records.md §8,
+// carry 7). So the world announced a bought premise and said nothing at all
+// about a picture the studio wrote itself, which is the wrong way round.
+//
+// This is the same closed witness, proved for the original path. It is not
+// weaker than the market one — it has MORE to prove, because an original mints a
+// concept and burns an ordinal, and both are checked here rather than excused.
+
+const ORIGINAL_PAYLOAD_KEYS = ['writerId', 'genre', 'shape', 'promise'] as const
+
+function isOriginalPayload(value: unknown): value is CommissionOriginalScreenplayPayload {
+  if (!isPlainRecord(value) || !hasExactOwnKeys(value, ORIGINAL_PAYLOAD_KEYS)) return false
+  if (!isNonEmptyString(value.writerId)) return false
+  if (typeof value.genre !== 'string' || !GENRES.has(value.genre)) return false
+  // The shape and the promise are validated by the market payload's own rules —
+  // they are the same two objects, and one reading of a shape is enough.
+  return isPayload({
+    conceptId: 'x',
+    writerId: value.writerId,
+    shape: value.shape,
+    promise: value.promise,
+  })
+}
+
+/**
+ * The room the original commission will take, and the writer's name — the two
+ * facts the witness needs that the successor cannot be asked for.
+ *
+ * F4's rule applies here exactly as it does to the market door: a FREE SLOT is
+ * the whole predicate, and the slot named is the one the allocator would take.
+ */
+function originalCommissionBeforeProjection(
+  state: GameState,
+  payload: CommissionOriginalScreenplayPayload,
+): { writerName: string; facilityId: string; facilityName: string; slot: number } | null {
+  const board = scriptProjectsBoard(state) as unknown
+  if (
+    !isPlainRecord(board) ||
+    !hasExactOwnKeys(board, BOARD_KEYS) ||
+    board.mode !== 'managed' ||
+    !isPlainRecord(board.lotAttention) ||
+    !hasExactOwnKeys(board.lotAttention, LOT_ATTENTION_KEYS) ||
+    !isNonEmptyString(board.lotAttention.kind) ||
+    !LOT_ATTENTION_KINDS.has(board.lotAttention.kind) ||
+    !isPlainRecord(board.commission) ||
+    !hasExactOwnKeys(board.commission, COMMISSION_KEYS) ||
+    // The ORIGINAL door's own legality, which is not `canStart`: a bought-out
+    // premise market stops the market door and not this one (§3.5).
+    board.commission.canStartOriginal !== true ||
+    !Array.isArray(board.commission.writers) ||
+    !hasCanonicalArrayKeys(board.commission.writers)
+  ) return null
+
+  const writerRow = (board.commission.writers as unknown[]).find(
+    (candidate) => isPlainRecord(candidate) && candidate.id === payload.writerId,
+  )
+  if (
+    !isPlainRecord(writerRow) ||
+    !hasExactOwnKeys(writerRow, COMMISSION_WRITER_KEYS) ||
+    writerRow.available !== true ||
+    writerRow.assignmentLabel !== null ||
+    !isNonEmptyString(writerRow.name)
+  ) return null
+
+  const stateTalent = uniqueById(state.talent)
+  const stateFacilities = uniqueById(state.operations.facilities)
+  if (stateTalent === null || stateFacilities === null) return null
+  const writerName = selectedNameIsUnique(stateTalent, payload.writerId, 'name')
+  if (writerName === null || writerName !== writerRow.name) return null
+
+  const capacity = strictCapacityProjection(state, board.capacity)
+  const firstFree = capacity === null ? null : firstFreeSlot(capacity)
+  if (capacity === null || capacity.available <= 0 || firstFree === null) return null
+  if ((board.lotAttention.kind === 'capacity-constraint') !== (capacity.available === 0)) {
+    return null
+  }
+  const facilityName = selectedNameIsUnique(stateFacilities, firstFree.facilityId, 'name')
+  const sourceFacility = stateFacilities.get(firstFree.facilityId)
+  if (
+    facilityName === null ||
+    facilityName !== firstFree.facilityName ||
+    sourceFacility?.capability !== 'development-casting'
+  ) return null
+
+  return { writerName, facilityId: firstFree.facilityId, facilityName, slot: firstFree.slot }
+}
+
+/**
+ * Prove the exact immediate footprint of one accepted ORIGINAL screenplay
+ * commission. Presents Engine truth only; it performs no action.
+ *
+ * THREE roots move, and all three are checked: `concepts` gains exactly the
+ * minted premise, `originalScreenplays` gains its blueprint AND burns exactly one
+ * ordinal, and `scriptDevelopment` gains the project that holds the room. Every
+ * earlier row in each is asserted untouched, and the three are required to AGREE
+ * — the blueprint's concept is the appended concept, its title is that concept's
+ * title, its project is the appended project. A commit that cannot prove all of
+ * that raises no witness, exactly as the market path raises none.
+ */
+export function acceptedOriginalScreenplayCommissionReceipt(
+  before: GameState,
+  after: GameState,
+  payload: CommissionOriginalScreenplayPayload,
+): ScreenplayCommissionReceipt | null {
+  try {
+    if (
+      before === after ||
+      !isOriginalPayload(payload) ||
+      !isClosedCanonicalState(before) ||
+      !isClosedCanonicalState(after) ||
+      before.seed !== after.seed ||
+      !isNonNegativeSafeInteger(before.market.tick) ||
+      before.market.tick !== after.market.tick ||
+      // `00E`.9 / §3.5: the mint is DERIVED-ONLY. A commission that moved the sim
+      // stream is not the action this witness claims it was.
+      before.rngState !== after.rngState ||
+      before.operations.mode !== 'managed' ||
+      after.operations.mode !== 'managed' ||
+      before.scriptDevelopment.mode !== 'managed' ||
+      after.scriptDevelopment.mode !== 'managed' ||
+      !sameClosedFieldsExcept(
+        before,
+        after,
+        new Set(['scriptDevelopment', 'originalScreenplays', 'concepts']),
+      ) ||
+      !Array.isArray(before.concepts) ||
+      !Array.isArray(after.concepts) ||
+      !hasCanonicalArrayKeys(before.concepts) ||
+      !hasCanonicalArrayKeys(after.concepts) ||
+      after.concepts.length !== before.concepts.length + 1 ||
+      !sameClosedFieldsExcept(
+        before.scriptDevelopment,
+        after.scriptDevelopment,
+        new Set(['projects']),
+      ) ||
+      !Array.isArray(before.scriptDevelopment.projects) ||
+      !Array.isArray(after.scriptDevelopment.projects) ||
+      !hasCanonicalArrayKeys(before.scriptDevelopment.projects) ||
+      !hasCanonicalArrayKeys(after.scriptDevelopment.projects) ||
+      after.scriptDevelopment.projects.length !== before.scriptDevelopment.projects.length + 1
+    ) return null
+
+    for (let index = 0; index < before.concepts.length; index += 1) {
+      if (!sameClosedValue(before.concepts[index], after.concepts[index])) return null
+    }
+    for (let index = 0; index < before.scriptDevelopment.projects.length; index += 1) {
+      if (!sameClosedValue(
+        before.scriptDevelopment.projects[index],
+        after.scriptDevelopment.projects[index],
+      )) return null
+    }
+
+    const projectedBefore = originalCommissionBeforeProjection(before, payload)
+    if (projectedBefore === null) return null
+
+    const beforeConcepts = uniqueById(before.concepts)
+    const afterConcepts = uniqueById(after.concepts)
+    const beforeProjects = uniqueById(before.scriptDevelopment.projects)
+    const afterProjects = uniqueById(after.scriptDevelopment.projects)
+    if (
+      beforeConcepts === null ||
+      afterConcepts === null ||
+      beforeProjects === null ||
+      afterProjects === null ||
+      beforeConcepts.size + 1 !== afterConcepts.size ||
+      beforeProjects.size + 1 !== afterProjects.size
+    ) return null
+
+    const concept = after.concepts.at(-1) as unknown
+    if (
+      !isPlainRecord(concept) ||
+      !isNonEmptyString(concept.id) ||
+      !isNonEmptyString(concept.title) ||
+      beforeConcepts.has(concept.id) ||
+      concept.genre !== payload.genre
+    ) return null
+
+    const projectId = canonicalScriptProjectId(before.scriptDevelopment.projects.length)
+    if (!mintedOriginalBlueprint(before, after, payload, concept, projectId)) return null
+
+    const project = after.scriptDevelopment.projects.at(-1) as unknown
+    if (
+      !isPlainRecord(project) ||
+      !hasExactOwnKeys(project, PROJECT_KEYS) ||
+      project.id !== projectId ||
+      beforeProjects.has(projectId) ||
+      project.conceptId !== concept.id ||
+      project.writerId !== payload.writerId ||
+      !sameClosedValue(project.writerIds, [payload.writerId]) ||
+      !sameClosedValue(project.shape, payload.shape) ||
+      !sameClosedValue(project.promise, payload.promise) ||
+      project.status !== 'drafting' ||
+      project.rewriteCount !== 0 ||
+      project.commissionedWeek !== before.market.tick ||
+      !isNonNegativeSafeInteger(project.dueWeek) ||
+      // `00E`.9: an original's writing weeks come from `scriptDraftWeeks`, so the
+      // due week is READ rather than predicted — but it must be in the future.
+      project.dueWeek <= before.market.tick ||
+      project.assessment !== null ||
+      project.productionId !== null ||
+      !isPlainRecord(project.reservation) ||
+      !hasExactOwnKeys(project.reservation, RESERVATION_KEYS) ||
+      project.reservation.projectId !== projectId ||
+      project.reservation.facilityId !== projectedBefore.facilityId ||
+      project.reservation.capability !== 'development-casting' ||
+      project.reservation.slot !== projectedBefore.slot
+    ) return null
+
+    return {
+      projectId,
+      conceptId: concept.id,
+      title: concept.title,
+      writerId: payload.writerId,
+      writerName: projectedBefore.writerName,
+      commissionedWeek: before.market.tick,
+      dueWeek: project.dueWeek,
+      facilityId: projectedBefore.facilityId,
+      facilityName: projectedBefore.facilityName,
+      slot: projectedBefore.slot,
+    }
+  } catch {
+    return null
+  }
+}
+
+/**
+ * The ONE blueprint an original commission mints, checked exactly — and the ONE
+ * ordinal it burns.
+ *
+ * An original differs from a pool commission in precisely these two ways
+ * (§3.5/§8.1): it carries a mint ordinal, and it carries the generated title.
+ * Both are asserted, and the title is required to BE the appended concept's, so
+ * the witness card can never show a name no root agrees with.
+ */
+function mintedOriginalBlueprint(
+  before: GameState,
+  after: GameState,
+  payload: CommissionOriginalScreenplayPayload,
+  concept: UnknownRecord,
+  projectId: string,
+): boolean {
+  const beforeRoot = before.originalScreenplays as unknown
+  const afterRoot = after.originalScreenplays as unknown
+  if (
+    !isPlainRecord(beforeRoot) ||
+    !isPlainRecord(afterRoot) ||
+    !hasExactOwnKeys(beforeRoot, SCREENPLAYS_KEYS) ||
+    !hasExactOwnKeys(afterRoot, SCREENPLAYS_KEYS) ||
+    !isNonNegativeSafeInteger(beforeRoot.nextOrdinal) ||
+    afterRoot.nextOrdinal !== beforeRoot.nextOrdinal + 1 ||
+    !Array.isArray(beforeRoot.blueprints) ||
+    !Array.isArray(afterRoot.blueprints) ||
+    !hasCanonicalArrayKeys(beforeRoot.blueprints) ||
+    !hasCanonicalArrayKeys(afterRoot.blueprints) ||
+    afterRoot.blueprints.length !== beforeRoot.blueprints.length + 1
+  ) return false
+  for (let index = 0; index < beforeRoot.blueprints.length; index += 1) {
+    if (!sameClosedValue(beforeRoot.blueprints[index], afterRoot.blueprints[index])) return false
+  }
+  const appended = afterRoot.blueprints.at(-1) as unknown
+  return (
+    isPlainRecord(appended) &&
+    hasExactOwnKeys(appended, BLUEPRINT_KEYS) &&
+    appended.conceptId === concept.id &&
+    appended.ordinal === beforeRoot.nextOrdinal &&
+    appended.generatedTitle === concept.title &&
+    appended.renamedWeek === null &&
+    appended.writerId === payload.writerId &&
+    appended.mintedWeek === before.market.tick &&
+    appended.projectId === projectId &&
+    Array.isArray(appended.beats) &&
+    hasCanonicalArrayKeys(appended.beats) &&
+    appended.beats.length > 0 &&
+    isNonEmptyString(appended.officeTierAtMint)
+  )
 }

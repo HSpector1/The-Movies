@@ -195,6 +195,7 @@ import {
   type LotCastingReviewTarget,
 } from './lot/snapshot/castingReview.ts'
 import {
+  acceptedOriginalScreenplayCommissionReceipt,
   acceptedScreenplayCommissionReceipt,
   type ScreenplayCommissionReceipt,
 } from './lot/snapshot/scriptCommission.ts'
@@ -2275,22 +2276,30 @@ export function App() {
       return result
     }
 
+    // C2a-M4 (the M3 carry, `17-m3-records.md` §8 item 7): AN ORIGINAL RAISES A
+    // WITNESS TOO. The card was keyed to a market payload an original cannot have,
+    // so the world announced a premise the studio BOUGHT and said nothing about a
+    // picture the studio WROTE — the wrong way round. Each door proves its own
+    // footprint with its own closed witness; the card is the same card.
     let receipt: ScreenplayCommissionReceipt | null = null
-    if (intent.kind === 'market') {
-      try {
-        receipt = acceptedScreenplayCommissionReceipt(renderedBefore, result.next, intent.payload)
-      } catch {
-        receipt = null
-      }
+    try {
+      receipt = intent.kind === 'market'
+        ? acceptedScreenplayCommissionReceipt(renderedBefore, result.next, intent.payload)
+        : acceptedOriginalScreenplayCommissionReceipt(
+            renderedBefore,
+            result.next,
+            intent.payload,
+          )
+    } catch {
+      receipt = null
     }
-    // An ORIGINAL has no market receipt to prove — there was no premise to buy. What
-    // it has instead is the title the studio's own writers just gave it, and that is
-    // read off the successor through the same kind of closed witness: exactly one
-    // concept appended, exactly one blueprint appended, the two agreeing, an ordinal
-    // burned. A commit that cannot prove what was written says "screenplay".
-    const committedTitle = intent.kind === 'market'
-      ? receipt?.title ?? 'screenplay'
-      : mintedScreenplayTitle(renderedBefore, result.next) ?? 'screenplay'
+    // The title the studio's own writers gave it stays the ORIGINAL door's own
+    // fallback: if the strict witness cannot be raised, the world still names the
+    // picture rather than saying "screenplay".
+    const committedTitle = receipt?.title
+      ?? (intent.kind === 'market'
+        ? 'screenplay'
+        : mintedScreenplayTitle(renderedBefore, result.next) ?? 'screenplay')
     const committed: LotCommissionWorkspaceSession = {
       phase: 'committed',
       identity: current.identity,

@@ -14,6 +14,11 @@ import {
   type ScriptProjectsReadModel,
 } from '../../engine/adapter.ts'
 import {
+  commissionOriginalScreenplayAction,
+  type CommissionOriginalScreenplayPayload,
+} from '../../engine/screenplay.ts'
+import {
+  acceptedOriginalScreenplayCommissionReceipt,
   acceptedScreenplayCommissionReceipt,
   currentScreenplayCommissionReceipt,
   sameScreenplayCommissionReceipt,
@@ -407,5 +412,97 @@ describe('current and same screenplay commission receipt', () => {
     falseOccupancy.capacity.available = 2
     vi.spyOn(adapter, 'scriptProjectsBoard').mockReturnValue(falseOccupancy)
     expect(currentScreenplayCommissionReceipt(pair.after, receipt)).toBeNull()
+  })
+})
+
+// ── C2a-M4 (the M3 carry) — the ORIGINAL commission's own witness ────────────
+//
+// M3 shipped the second supply and no witness card, because the card was keyed
+// to a market payload an original cannot have. The world announced a premise the
+// studio BOUGHT and said nothing about a picture the studio WROTE.
+describe('an original screenplay commission raises its own witness', () => {
+  function originalPayload(state: GameState): CommissionOriginalScreenplayPayload {
+    const writer = scriptProjectsBoard(state).commission.writers.find(
+      (candidate) => candidate.available && candidate.primaryRole === 'writer',
+    )
+    if (writer === undefined) throw new Error('fixture: no writer is available')
+    return {
+      writerId: writer.id,
+      genre: 'crime',
+      shape: { opening: 'immediateAction', midpoint: 'revelation', ending: 'bittersweet' },
+      promise: {
+        genre: 'crime',
+        intendedSegments: ['adult'],
+        ranges: { intimacy: [-0.4, 0.4], tonalWeight: [-0.4, 0.4], kineticEnergy: [-0.4, 0.4] },
+      },
+    }
+  }
+
+  it('names the picture the studio’s own writers just titled, and the room it took', () => {
+    const before = managedStudio('original-commission-witness')
+    const payload = originalPayload(before)
+    const outcome = commissionOriginalScreenplayAction(before, payload)
+    expect(outcome.ok).toBe(true)
+    if (!outcome.ok) return
+    const receipt = acceptedOriginalScreenplayCommissionReceipt(before, outcome.next, payload)
+
+    expect(receipt).not.toBeNull()
+    const minted = outcome.next.concepts.at(-1)!
+    const project = outcome.next.scriptDevelopment.projects.at(-1)!
+    expect(receipt!.title).toBe(minted.title)
+    expect(receipt!.conceptId).toBe(minted.id)
+    expect(receipt!.projectId).toBe(project.id)
+    expect(receipt!.writerId).toBe(payload.writerId)
+    expect(receipt!.commissionedWeek).toBe(before.market.tick)
+    // `00E`.9: an original's weeks are the writer law's, READ off the project.
+    expect(receipt!.dueWeek).toBe(project.dueWeek)
+    expect(receipt!.dueWeek).toBeGreaterThan(receipt!.commissionedWeek)
+    expect(receipt!.facilityId).toBe(project.reservation!.facilityId)
+    expect(receipt!.slot).toBe(project.reservation!.slot)
+
+    // …and the live revalidation the Lot performs accepts it, which is the whole
+    // reason the shared `dueWeek` invariant had to become "after", not "+1".
+    expect(currentScreenplayCommissionReceipt(outcome.next, receipt!)).toEqual(receipt)
+  })
+
+  it('refuses a successor whose roots disagree', () => {
+    const before = managedStudio('original-commission-witness-hostile')
+    const payload = originalPayload(before)
+    const outcome = commissionOriginalScreenplayAction(before, payload)
+    if (!outcome.ok) throw new Error(outcome.error)
+
+    // The ordinal must be BURNED. A successor that minted a blueprint without
+    // moving the counter is not the action the witness claims.
+    const frozenOrdinal = {
+      ...outcome.next,
+      originalScreenplays: {
+        ...outcome.next.originalScreenplays,
+        nextOrdinal: before.originalScreenplays.nextOrdinal,
+      },
+    } as GameState
+    expect(
+      acceptedOriginalScreenplayCommissionReceipt(before, frozenOrdinal, payload),
+    ).toBeNull()
+
+    // The blueprint's title must BE the minted concept's title.
+    const renamedConcept = {
+      ...outcome.next,
+      concepts: [
+        ...outcome.next.concepts.slice(0, -1),
+        { ...outcome.next.concepts.at(-1)!, title: 'A Title No Root Agrees With' },
+      ],
+    } as GameState
+    expect(
+      acceptedOriginalScreenplayCommissionReceipt(before, renamedConcept, payload),
+    ).toBeNull()
+
+    // A market payload is not an original payload.
+    expect(
+      acceptedOriginalScreenplayCommissionReceipt(
+        before,
+        outcome.next,
+        { ...payload, conceptId: 'c-00' } as unknown as CommissionOriginalScreenplayPayload,
+      ),
+    ).toBeNull()
   })
 })
