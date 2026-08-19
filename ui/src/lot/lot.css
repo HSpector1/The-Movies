@@ -2858,3 +2858,112 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+
+/* ── LIVING TURN V1 · THE TRANSPORT AND THE BULLETIN (charter §4.1) ───────────
+   The studio's own transport: hold/roll and the 1× / 2× / 4× pace ladder. It is
+   deliberately the SMALLEST group in the topbar — the player's attention belongs
+   on the lot, not on the controls — and it compacts to its two marks below the
+   governed breakpoint on exactly the PF1-M4 addendum-2 pattern. */
+.lot-transport {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+.lot-transport-run {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 12px;
+  white-space: nowrap;
+}
+.lot-transport-run[aria-pressed='true'] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.lot-transport-speeds {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+.lot-transport-speed {
+  min-height: 44px;
+  min-width: 34px;
+  padding: 0 4px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.lot-transport-speed.is-current {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.lot-transport-speed:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+/* The attention channel. `position: fixed` on purpose — it must never enter the
+   topbar's or the world's layout flow, both of which are measured. */
+.lot-bulletin {
+  position: fixed;
+  top: 76px;
+  right: 16px;
+  z-index: 40;
+  max-width: min(360px, calc(100vw - 32px));
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  background: var(--panel, #14110d);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 35%);
+  pointer-events: auto;
+}
+.lot-bulletin-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.lot-bulletin-line {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 13px;
+  line-height: 1.35;
+}
+.lot-bulletin-week {
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.lot-bulletin-headline {
+  color: var(--text);
+}
+.lot-bulletin-dismiss {
+  align-self: flex-end;
+  min-height: 32px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+@media (max-width: 1120px) {
+  .lot-transport {
+    gap: 4px;
+  }
+  .lot-transport-run {
+    padding: 0;
+  }
+  .lot-transport-speed {
+    min-width: 30px;
+    font-size: 12px;
+  }
+}

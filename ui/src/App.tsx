@@ -129,6 +129,16 @@ import { LotPackageWorkspace } from './lot/LotPackageWorkspace.tsx'
 import { LotCommissionWorkspace } from './lot/LotCommissionWorkspace.tsx'
 import { LotAuditionWorkspace } from './lot/LotAuditionWorkspace.tsx'
 import type { LotAuditionPlanningOrigin } from './lot/StudioLotScreen.tsx'
+// Living Turn V1 (§4.1). Pure values and arithmetic — no React, no Phaser, no lot
+// chunk — so the scheduler's law is available to App without pulling the world in.
+import {
+  INITIAL_LIVING_TURN,
+  livingTurnAfterCommand,
+  livingTurnAfterCommit,
+  livingTurnWeekMs,
+  type LivingTurnCommand,
+  type LivingTurnRun,
+} from './lot/livingTurn.ts'
 // Presentation-only, and deliberately NOT part of the lazy lot chunk: this module imports
 // nothing but types, so App can end the lot's presentation session without pulling Phaser
 // or the lot screen into the eager bundle.
@@ -1086,6 +1096,23 @@ export function App() {
   // the separately retained exact successor object is the non-serialized provenance boundary for
   // receipt-bearing deep returns.
   const [lotCadenceFeedback, setLotCadenceFeedback] = useState<LotCadenceFeedback | null>(null)
+  // ── Living Turn V1 (charter §4.1) — the presentation scheduler's own state ────
+  //
+  // Mode, speed, the stop that paused the loop, and the studio's bulletin. NONE of
+  // it is game truth and none of it is ever persisted (`00B`.6: `market.tick`
+  // remains the authoritative integer week and Living Turn V1 persists no
+  // intra-week position). App owns it because App owns the authoritative advance;
+  // the Lot owns the WITNESSED CLOCK, because the Lot is the surface that draws the
+  // week and the only screen living time runs on (§4.1, "Lot only").
+  const [livingTurn, setLivingTurn] = useState<LivingTurnRun>(INITIAL_LIVING_TURN)
+  const livingTurnRef = useRef<LivingTurnRun>(livingTurn)
+  livingTurnRef.current = livingTurn
+  // One deferred release presentation: the week a picture ships now PLAYS before
+  // its surfaces take over (§4.1, the release-week playback hole). Held in a ref
+  // because it is consumed exactly once, by whichever of the Lot's settled-week
+  // report or the watchdog arrives first.
+  const deferredLotReleaseRef = useRef<{ week: number; present: () => void } | null>(null)
+  const deferredLotReleaseTimerRef = useRef<number | null>(null)
   const lotNextEventSessionRef = useRef<{
     acceptedState: GameState
     receipt: LotNextEventReceipt
@@ -1127,6 +1154,10 @@ export function App() {
   } | null>(null)
   const [lotOperationalAnnouncementSuppressed, setLotOperationalAnnouncementSuppressed] =
     useState(false)
+  // Read by the living loop's settled-week joint, which is invoked from a timer and
+  // must never carry a stale suppression flag into an authoritative advance.
+  const lotOperationalAnnouncementSuppressedRef = useRef(lotOperationalAnnouncementSuppressed)
+  lotOperationalAnnouncementSuppressedRef.current = lotOperationalAnnouncementSuppressed
 
   // ── PF1-M2: the transient-notice epoch and the punctuation hand-off ──────────
   //
@@ -2747,6 +2778,72 @@ export function App() {
     }
   }
 
+  /**
+   * Hand a held release presentation to the screen, once. Returns true when this
+   * call is the one that consumed it, so the caller knows not to also advance.
+   */
+  function flushDeferredLotRelease(week: number): boolean {
+    const deferred = deferredLotReleaseRef.current
+    if (deferred === null || deferred.week !== week) return false
+    deferredLotReleaseRef.current = null
+    if (deferredLotReleaseTimerRef.current !== null) {
+      window.clearTimeout(deferredLotReleaseTimerRef.current)
+      deferredLotReleaseTimerRef.current = null
+    }
+    deferred.present()
+    return true
+  }
+
+  /**
+   * THE LIVING LOOP'S ONE JOINT (charter §4.1 / `08A` §2).
+   *
+   * The Lot reports that a witnessed week has settled. Two things can be waiting on
+   * it, in this order:
+   *
+   *   1. a release presentation deferred so the shipping week could play, and
+   *   2. the loop itself, which now commits **the identical advance a manual press
+   *      commits** — literally `handleAdvance`, the same function the topbar button
+   *      calls, with the same source and the same return context.
+   *
+   * That identity is the determinism proof's whole content: the scheduler emits
+   * ACTIONS and never becomes an authority. Nothing here reads wall time; the wall
+   * time was spent by the surface that drew the week.
+   */
+  function handleLotWeekPlayed(week: number, outcome: 'played' | 'unwitnessed') {
+    if (flushDeferredLotRelease(week)) return
+    // A week that could not be witnessed spends no wall time, so the loop must not
+    // treat it as a played week — that would be a studio running at whatever speed
+    // React re-renders at. The cadence clock reports 'played' for that week too,
+    // and the loop commits then (`08A` §4: reduced motion collapses the beats, not
+    // the cadence).
+    if (outcome !== 'played') return
+    if (livingTurnRef.current.mode !== 'running') return
+    if (latestScreenRef.current.kind !== 'lot') return
+    if (!currentLotWorldInputOwner()) return
+    const current = latestStateRef.current
+    if (current === null || current.market.tick !== week) return
+    handleAdvance(
+      {
+        kind: 'lot',
+        focus: 'advance-week',
+        suppressOperationalAnnouncement: lotOperationalAnnouncementSuppressedRef.current,
+      },
+      'mounted-lot',
+    )
+  }
+
+  function handleLivingTurnCommand(command: LivingTurnCommand) {
+    setLivingTurn((run) => livingTurnAfterCommand(run, command))
+    if (command.kind !== 'play') return
+    // Unpausing on a week whose playback has already settled would leave the loop
+    // with nothing to wait on. Re-arm the witnessed week the player is looking at:
+    // the Lot plays it, reports it, and the loop commits — "play week N, commit,
+    // repeat" starting from the week that is on screen.
+    const current = latestStateRef.current
+    if (current === null || latestScreenRef.current.kind !== 'lot') return
+    setLotCadenceFeedback({ kind: 'week', week: current.market.tick, constructionCompletion: null })
+  }
+
   function handleAdvance(
     returnContext: StudioReturnContext,
     source: StudioActionSource,
@@ -2756,11 +2853,19 @@ export function App() {
     // RULING A: advanceWeek ticks with development ON. The engine applies development
     // EXACTLY ONCE inside this single tick; we then replace the authoritative GameState
     // with `next` and never re-tick on re-render — so development is never double-applied.
-    const { preTick, next, released, constructionCompletion } = advanceWeek(state)
+    const { preTick, next, released, constructionCompletion, stopReason, stop } = advanceWeek(state)
     // Build the per-release development summary by DIFFING the pre-tick vs post-tick
     // talent (pure read of two immutable snapshots — no re-run of development).
     const development = buildReleaseDevelopment(preTick, next, released)
     replaceAuthoritativeState(next)
+    // ── Living Turn V1 (§4.1): consult the ENGINE's own ladder on this one tick.
+    // The scheduler never re-implements it (LL EX); `advanceWeek` returns the same
+    // value `advanceToNextEvent` reads, and this call site only PARTITIONS it. A
+    // PAUSE-class stop halts the loop and is then surfaced by the surface that
+    // already owns it; a NOTIFY-class stop adds a line to the studio's bulletin and
+    // the loop keeps working. A manual press reaches here too — pausing an already
+    // paused loop is a no-op, and the bulletin is true either way.
+    setLivingTurn((run) => livingTurnAfterCommit(run, next.market.tick, stopReason, stop))
     // PF1-M2: one advance, one punctuation. `advanceWeek` carries no `SimStopReason` — it
     // never asked the engine to stop for anything — but it is still the tick a picture can
     // reach audiences on and the tick a building can be finished on, and the grammar owns
@@ -2805,40 +2910,64 @@ export function App() {
         return merged
       })
     }
-    // World-First Live Week Advance V1: a no-release lot tick never changes screens. React
-    // retains the mounted host/view and repaints it from the fresh authoritative state.
-    if (released.length === 0 && resolvedReturnContext.kind === 'lot') {
+    // D-11.C PART 2: when a film actually reaches audiences this week, the reveal is the
+    // newspaper front page — shown ONCE, here, at release. Gazette eligibility decides only
+    // whether Newspaper precedes ReleaseResult; released.length above owns release truth.
+    const presentReleaseOutcome = () => {
+      const newspaperReleases = released
+        .map((film) => ({ film, view: releaseNewspaper(next, film) }))
+        .filter((entry): entry is { film: FilmResult; view: NewspaperView } => entry.view !== null)
+      if (newspaperReleases.length > 0) {
+        setScreen({
+          kind: 'newspaper',
+          source: 'release',
+          views: newspaperReleases.map((entry) => entry.view),
+          films: newspaperReleases.map((entry) => entry.film),
+          constructionCompletion,
+          returnContext: resolvedReturnContext,
+          // The first post-tick surface owns the one-time item. Continuing from
+          // the newspaper must not repeat it on ReleaseResult.
+          release: { ...release, constructionCompletion: null },
+        })
+        return
+      }
+      setScreen({ kind: 'release', ...release })
+    }
+    // ── THE RELEASE-WEEK PLAYBACK HOLE, CLOSED (charter §4.1, named FIRST) ──────
+    //
+    // This gate used to read `released.length === 0 && lot` — BOTH conditions — so
+    // the one week in the studio's life that most deserves to be witnessed was the
+    // one week that never played: the release surfaces took over the instant the
+    // tick returned. The lot arm is now unconditional. A no-release week behaves
+    // EXACTLY as it did (World-First Live Week Advance V1: the mounted host is
+    // retained and repainted). A release week now plays first, and its surfaces
+    // take over when the played week settles — reported by the Lot's own witnessed
+    // clock through `handleLotWeekPlayed`, which is the same clock the living loop
+    // commits on. There is no second clock and nothing about the release changed:
+    // `next` is already the authoritative state, and only the SURFACE waits.
+    if (resolvedReturnContext.kind === 'lot') {
       setLotCadenceFeedback({
         kind: 'week',
         week: next.market.tick,
         constructionCompletion,
       })
-      if (source === 'supporting-dashboard') {
+      if (released.length > 0) {
+        deferredLotReleaseRef.current = { week: next.market.tick, present: presentReleaseOutcome }
+        // WATCHDOG, not an authority. It decides nothing about the world; it only
+        // guarantees the release surface appears even if the Lot never reports a
+        // settled week (an unmounted canvas, a suspended presentation, a hidden tab
+        // the player never returns to). Generous by a whole week at 1x.
+        window.clearTimeout(deferredLotReleaseTimerRef.current ?? undefined)
+        deferredLotReleaseTimerRef.current = window.setTimeout(
+          () => flushDeferredLotRelease(next.market.tick),
+          livingTurnWeekMs(1) * 2,
+        )
+      } else if (source === 'supporting-dashboard') {
         setScreen({ kind: 'lot', entryFocus: 'advance-week' })
       }
       return
     }
-    // D-11.C PART 2: when a film actually reaches audiences this week, the reveal is the
-    // newspaper front page — shown ONCE, here, at release. Gazette eligibility decides only
-    // whether Newspaper precedes ReleaseResult; released.length above owns release truth.
-    const newspaperReleases = released
-      .map((film) => ({ film, view: releaseNewspaper(next, film) }))
-      .filter((entry): entry is { film: FilmResult; view: NewspaperView } => entry.view !== null)
-    if (newspaperReleases.length > 0) {
-      setScreen({
-        kind: 'newspaper',
-        source: 'release',
-        views: newspaperReleases.map((entry) => entry.view),
-        films: newspaperReleases.map((entry) => entry.film),
-        constructionCompletion,
-        returnContext: resolvedReturnContext,
-        // The first post-tick surface owns the one-time item. Continuing from
-        // the newspaper must not repeat it on ReleaseResult.
-        release: { ...release, constructionCompletion: null },
-      })
-      return
-    }
-    setScreen({ kind: 'release', ...release })
+    presentReleaseOutcome()
   }
 
   function executePublicity(tier: PublicityTier): LotPublicityResult {
@@ -4660,6 +4789,11 @@ export function App() {
               )
             }
             cadenceFeedback={lotCadenceFeedback}
+            // Living Turn V1 (§4.1): the Lot renders the transport, owns the
+            // witnessed clock, and reports the settled week back through the joint.
+            livingTurn={livingTurn}
+            onLivingTurnCommand={handleLivingTurnCommand}
+            onWeekPlayed={handleLotWeekPlayed}
             onSimToNextEvent={handleLotSimToEvent}
             onOpenNextEventDetails={(...args) =>
               lotPresentationToken !== null &&

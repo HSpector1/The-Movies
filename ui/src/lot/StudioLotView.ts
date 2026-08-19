@@ -612,6 +612,14 @@ export class StudioLotView {
     return this.tycoonScene?.playPresenceWeek(week) ?? false
   }
 
+  /**
+   * Living Turn V1 (§4.1): set the pace the witnessed week plays at. Presentation
+   * only — it scales the beat clock and is read by nothing that decides anything.
+   */
+  setPlaybackSpeed(speed: number): boolean {
+    return this.tycoonScene?.setPlaybackSpeed(speed) ?? false
+  }
+
   /** Abandon a running playback and settle on the week's own truth. Idempotent. */
   skipPresencePlayback(): boolean {
     return this.tycoonScene?.skipPresencePlayback() ?? false

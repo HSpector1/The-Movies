@@ -24,7 +24,12 @@
 // `SimStopReason` cannot be silently assigned to neither class.
 
 import type { SimStopDetail, SimStopReason } from '../engine/adapter.ts'
-import { PLAYBACK_BEAT_MS, PLAYBACK_DURATION_MS, PLAYBACK_LAST_BEAT } from './tycoon/playback.ts'
+import {
+  PLAYBACK_BEAT_MS,
+  PLAYBACK_DURATION_MS,
+  PLAYBACK_LAST_BEAT,
+  PLAYBACK_WITNESSED_BEAT_SPEED_CEILING,
+} from './tycoon/playback.ts'
 
 // ── The speed ladder ─────────────────────────────────────────────────────────
 
@@ -47,7 +52,8 @@ export const LIVING_TURN_MAX_SPEED: LivingTurnSpeed = 4
  * week cannot carry a nine-beat commute; rather than play it at a third of the
  * frames, the lot shows the settled truth and keeps the cadence.
  */
-export const LIVING_TURN_WITNESSED_BEAT_CEILING: LivingTurnSpeed = 2
+export const LIVING_TURN_WITNESSED_BEAT_CEILING: LivingTurnSpeed =
+  PLAYBACK_WITNESSED_BEAT_SPEED_CEILING
 
 /** Is `n` one of the three speeds the ladder offers? */
 export function isLivingTurnSpeed(n: number): n is LivingTurnSpeed {

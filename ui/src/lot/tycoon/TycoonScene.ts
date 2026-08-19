@@ -46,7 +46,11 @@ import {
   type PresencePersonHome,
   type PresenceStand,
 } from './presence.ts'
-import { personPositionAt, playbackFinished } from './playback.ts'
+import {
+  PLAYBACK_WITNESSED_BEAT_SPEED_CEILING,
+  personPositionAt,
+  playbackFinished,
+} from './playback.ts'
 import { operationalAnnexWorkContext } from '../snapshot/annexWork.ts'
 import { gateHiringCandidateContext } from '../snapshot/gateHiring.ts'
 import {
@@ -446,6 +450,12 @@ export class TycoonScene extends Phaser.Scene {
   private guidanceElapsed = 0
 
   private reducedMotion = false
+  /**
+   * Living Turn V1's pace (§4.1). 1 is the shipped week exactly; the loop only ever
+   * sets 1, 2 or 4. Presentation-only: it scales the beat clock and is read by
+   * nothing else in this scene or anywhere below it.
+   */
+  private playbackSpeed = 1
   private inputSuspended = false
   private roleAtlasActive = false
   private roleAtlasManifest: RoleAtlasRuntimeManifest | null = null
@@ -3246,13 +3256,38 @@ export class TycoonScene extends Phaser.Scene {
    * the snapshot is currently describing (so a stale intent can never replay an old
    * commute over new truth), or under reduced motion.
    */
+  /**
+   * Living Turn V1 (§4.1): the pace the witnessed week is played at. It multiplies
+   * the beat clock and NOTHING else — no outcome anywhere reads it, which is the
+   * whole content of "wall-clock never determines outcomes". Above the ceiling the
+   * Class-B beats collapse to their final positions through the SAME code path
+   * reduced motion uses, because a 2.6-second week cannot carry a nine-beat commute
+   * and §4.1 forbids half-played ceremonies.
+   */
+  setPlaybackSpeed(speed: number): boolean {
+    const next = Number.isFinite(speed) && speed > 0 ? speed : 1
+    if (this.playbackSpeed === next) return false
+    this.playbackSpeed = next
+    if (this.collapsesWitnessedBeats() && this.presencePlayback !== null) {
+      this.skipPresencePlayback()
+    }
+    return true
+  }
+
+  /** True when the current pace settles the week instead of walking it (§4.1). */
+  private collapsesWitnessedBeats(): boolean {
+    return this.playbackSpeed > PLAYBACK_WITNESSED_BEAT_SPEED_CEILING
+  }
+
   playPresenceWeek(week: number): boolean {
     if (!this.scene.isActive()) return false
     const presence = this.presence
     if (presence === null || presence.week !== week) return false
     if (this.presenceStandsById.size === 0) return false
-    if (this.reducedMotion) {
-      // Reduced motion is instant final positions, not a shorter walk.
+    if (this.reducedMotion || this.collapsesWitnessedBeats()) {
+      // Reduced motion is instant final positions, not a shorter walk. Above the
+      // pace ceiling the same rule applies for the same reason: the week settles
+      // rather than being walked at a third of its frames (§4.1).
       this.presencePlayback = null
       this.syncPeopleToSnapshot(this.authoritativeStage7Operation(this.snapshot))
       return false
@@ -3297,7 +3332,9 @@ export class TycoonScene extends Phaser.Scene {
   private updatePresencePlayback(delta: number): void {
     const playback = this.presencePlayback
     if (playback === null) return
-    playback.elapsed += delta
+    // The pace multiplies the BEAT CLOCK, never the beat array: the same nine beats
+    // in the same order, played over less wall time. Nothing about the week changes.
+    playback.elapsed += delta * this.playbackSpeed
     if (playbackFinished(playback.elapsed)) {
       this.presencePlayback = null
       this.syncPeopleToSnapshot(this.authoritativeStage7Operation(this.snapshot))

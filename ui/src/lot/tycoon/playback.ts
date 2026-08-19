@@ -33,6 +33,16 @@ export const PLAYBACK_LAST_BEAT = 8
 /** Total wall time of one week playback — 9 beats, 10.35s, inside the 8–12s target. */
 export const PLAYBACK_DURATION_MS = (PLAYBACK_LAST_BEAT + 1) * PLAYBACK_BEAT_MS
 
+/**
+ * C2a-M5 (charter §4.1). Living Turn V1's pace ladder multiplies the beat clock
+ * above; ABOVE this pace the played window collapses to its final positions
+ * through the reduced-motion path instead. It is declared here, beside the clock
+ * it qualifies, and re-exported by the scheduler so there is exactly one of it:
+ * a 2.6-second week cannot carry a nine-beat commute, and §4.1 forbids
+ * half-played ceremonies.
+ */
+export const PLAYBACK_WITNESSED_BEAT_SPEED_CEILING = 2
+
 export type PlaybackPhase = {
   /** The beat index the clock is inside. */
   beat: number

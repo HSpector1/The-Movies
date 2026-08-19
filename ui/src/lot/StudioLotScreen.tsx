@@ -44,6 +44,12 @@ import { punctuateRefusal } from '../presentation/punctuate.ts'
 import type { CueMotion } from '../presentation/eventGrammar.ts'
 import { useTransientNotice } from '../presentation/transientNotice.ts'
 import { CashReadout } from '../presentation/CashReadout.tsx'
+import {
+  LIVING_TURN_SPEEDS,
+  livingTurnRemainingMs,
+  type LivingTurnCommand,
+  type LivingTurnRun,
+} from './livingTurn.ts'
 import { useResolvedMotion } from '../shell/useResolvedMotion.ts'
 import {
   LotNextEventRail,
@@ -488,6 +494,21 @@ type Props = {
   /** One mutually exclusive App-owned weekly or next-event feedback arm. */
   cadenceFeedback?: LotCadenceFeedback | null
   /**
+   * Living Turn V1 (charter §4.1). The scheduler's presentation state, owned by App
+   * and rendered here as the studio's transport. Absent for every directly-rendered
+   * Lot in a focused test, which therefore behaves exactly as it did before.
+   */
+  livingTurn?: LivingTurnRun
+  /** Pause / play / speed / dismiss, straight through to App's pure reducer. */
+  onLivingTurnCommand?: (command: LivingTurnCommand) => void
+  /**
+   * ONE witnessed week has settled on screen. The Lot owns this clock because the
+   * Lot is the surface that draws the week; App owns what happens next (a deferred
+   * release presentation, or the loop's next authoritative advance). Absent = the
+   * legacy behaviour: nothing waits on the playback.
+   */
+  onWeekPlayed?: (week: number, outcome: 'played' | 'unwitnessed') => void
+  /**
    * PF1-M2 transient-notice epoch. App advances it once per authoritative state
    * replacement; a notice that was announced under an older epoch has been overtaken by a
    * newer player action and expires. Presentation only — never `GameState`, never saved.
@@ -920,6 +941,17 @@ function sceneryArrivalActivity(title: string, stageName: string): string {
   return `${title} scenery reached ${stageName}. The shooting take is ready to schedule.`
 }
 
+/**
+ * Living Turn V1 — the pace ladder's spoken names (§4.1). The visible chip is the
+ * multiplier, which is the grammar every game in this genre uses; the accessible
+ * name is a sentence about the STUDIO, never about a scheduler.
+ */
+const LOT_TRANSPORT_PACE_LABEL: Record<number, string> = {
+  1: 'Ordinary pace — one week plays in full',
+  2: 'Brisk pace — twice as fast',
+  4: 'Fastest pace — the week settles as it lands',
+}
+
 export function StudioLotScreen({
   state,
   onPresentationMount,
@@ -927,6 +959,9 @@ export function StudioLotScreen({
   onExit,
   onAdvance,
   cadenceFeedback = null,
+  livingTurn,
+  onLivingTurnCommand,
+  onWeekPlayed,
   noticeEpoch = 0,
   punctuation = null,
   advanceFeedback: legacyAdvanceFeedback = null,
@@ -4582,6 +4617,20 @@ export function StudioLotScreen({
   // This effect runs AFTER the snapshot-delivery effect above (source order is effect
   // order), so the scene is already holding the new week's projection when it fires.
   const playedAdvanceRef = useRef<object | null>(null)
+  // ── Living Turn V1 (§4.1): the WITNESSED WEEK, and who is waiting on it ───────
+  //
+  // The Lot owns this clock because the Lot is the surface that draws the week.
+  // Two consumers wait on it and they need different answers, so the report says
+  // which happened:
+  //
+  //   'unwitnessed' — the week could NOT be played (reduced motion, no canvas, a
+  //      Lot that is not the world, no presence to animate). Emitted at once. A
+  //      deferred release presentation takes over immediately, which is exactly
+  //      today's behaviour, because there is no witnessed week to wait for.
+  //   'played' — the week's wall time is spent. Emitted whether or not the
+  //      animation ran, because `08A` §4 says the CADENCE continues under reduced
+  //      motion even though the beats collapse to final positions.
+  const [witnessedWeek, setWitnessedWeek] = useState<{ token: object; week: number } | null>(null)
   useEffect(() => {
     const feedback = cadenceFeedback
     if (feedback === null || feedback === undefined || feedback.kind !== 'week') {
@@ -4591,10 +4640,66 @@ export function StudioLotScreen({
     // One playback per accepted advance: App mints a fresh feedback object each time.
     if (playedAdvanceRef.current === feedback) return
     playedAdvanceRef.current = feedback
-    if (!hollywood || !canvasReady) return
-    if (feedback.week !== state.market.tick) return
-    viewRef.current?.playPresenceWeek?.(feedback.week)
-  }, [cadenceFeedback, canvasReady, hollywood, state])
+    const stale = feedback.week !== state.market.tick
+    const played =
+      !stale &&
+      hollywood &&
+      canvasReady &&
+      (viewRef.current?.playPresenceWeek?.(feedback.week) ?? false)
+    if (stale) return
+    // The cadence always starts; only the ANIMATION is conditional.
+    setWitnessedWeek({ token: feedback, week: feedback.week })
+    if (!played) onWeekPlayed?.(feedback.week, 'unwitnessed')
+  }, [cadenceFeedback, canvasReady, hollywood, onWeekPlayed, state])
+
+  // The witnessed week's wall clock. It is a PACING device and never an authority:
+  // nothing in the world is decided by it, and stopping it stops nothing but the
+  // picture. It freezes with the renderer (`document.hidden` — PF1 §0.7: living
+  // time never advances a studio nobody is watching) and while a decision surface
+  // holds the world. What it retains across a pause or a speed change is a FRACTION
+  // of the week, so switching 1× → 4× half way through leaves half a week at the
+  // new pace rather than five seconds at the old one.
+  const witnessedConsumedRef = useRef(0)
+  const witnessedTokenRef = useRef<object | null>(null)
+  const livingTurnSpeed = livingTurn?.speed ?? 1
+  useEffect(() => {
+    if (witnessedWeek === null) {
+      witnessedTokenRef.current = null
+      witnessedConsumedRef.current = 0
+      return
+    }
+    if (witnessedTokenRef.current !== witnessedWeek.token) {
+      witnessedTokenRef.current = witnessedWeek.token
+      witnessedConsumedRef.current = 0
+    }
+    if (documentHidden || worldInputSuspended) return
+    const weekMs = livingTurnRemainingMs(0, livingTurnSpeed)
+    const remaining = livingTurnRemainingMs(witnessedConsumedRef.current, livingTurnSpeed)
+    const startedAt = Date.now()
+    const timer = window.setTimeout(() => {
+      witnessedConsumedRef.current = 0
+      setWitnessedWeek((current) => (current?.token === witnessedWeek.token ? null : current))
+      onWeekPlayed?.(witnessedWeek.week, 'played')
+    }, remaining)
+    return () => {
+      window.clearTimeout(timer)
+      if (weekMs > 0) {
+        witnessedConsumedRef.current = Math.min(
+          1,
+          witnessedConsumedRef.current + (Date.now() - startedAt) / weekMs,
+        )
+      }
+    }
+  }, [documentHidden, livingTurnSpeed, onWeekPlayed, witnessedWeek, worldInputSuspended])
+
+  // Speed is a PLAYBACK multiplier and nothing else. Above 2× the Class-B beats
+  // collapse to their final positions through the scene's existing reduced-motion
+  // path — a 2.6-second week cannot carry a nine-beat commute, and §4.1 forbids
+  // half-played ceremonies — while Class-A state stays continuous.
+  useEffect(() => {
+    if (!canvasReady) return
+    viewRef.current?.setPlaybackSpeed?.(livingTurnSpeed)
+  }, [canvasReady, livingTurnSpeed])
 
   // Company emphasis is presentation-only and deliberately separate from the
   // physical Stage 7 outline. It follows the exact current production context in
@@ -8115,6 +8220,85 @@ export function StudioLotScreen({
         </div>
         <div className="lot-topbar-actions">
           <CashReadout cash={snapshot.cash} reducedMotion={reducedMotion} />
+          {/*
+            ── LIVING TURN V1 · THE TRANSPORT (charter §4.1) ────────────────────
+            Pause / play and the 1× / 2× / 4× pace ladder. Player language only:
+            these say what the STUDIO is doing, never what the scheduler is doing.
+            They emit commands and decide nothing — the engine's week is still the
+            only clock, and the manual Advance and Sim-to-next-event verbs beside
+            them are untouched (§4.1: the ruling demotes Advance from required
+            heartbeat to option; it does not remove it).
+
+            The group compacts to its two marks below the governed breakpoint on
+            exactly the PF1-M4 addendum-2 pattern the Saves and Settings entries
+            already use: same buttons, same testids, ≥44px targets, full name on
+            `aria-label`, words clipped rather than removed.
+          */}
+          {livingTurn !== undefined && onLivingTurnCommand !== undefined && (
+            <div
+              className="lot-transport"
+              data-testid="lot-transport"
+              data-mode={livingTurn.mode}
+              data-speed={String(livingTurn.speed)}
+            >
+              <button
+                type="button"
+                className="lot-transport-run lot-topbar-compactable"
+                disabled={worldInputSuspended}
+                onPointerDown={containWorldInput}
+                onMouseDown={containWorldInput}
+                onTouchStart={containWorldInput}
+                aria-pressed={livingTurn.mode === 'running'}
+                aria-label={
+                  livingTurn.mode === 'running'
+                    ? 'Hold the studio — stop the weeks'
+                    : 'Let the studio work — the weeks run on their own'
+                }
+                title={
+                  livingTurn.mode === 'running'
+                    ? 'Hold the studio — stop the weeks'
+                    : 'Let the studio work — the weeks run on their own'
+                }
+                onClick={() => {
+                  if (worldInputSuspendedRef.current) return
+                  onLivingTurnCommand({
+                    kind: livingTurn.mode === 'running' ? 'pause' : 'play',
+                  })
+                }}
+                data-testid="lot-transport-toggle"
+              >
+                <span className="lot-topbar-mark" aria-hidden="true">
+                  {livingTurn.mode === 'running' ? '‖' : '▶'}
+                </span>
+                <span className="lot-topbar-label">
+                  {livingTurn.mode === 'running' ? 'Hold' : 'Roll'}
+                </span>
+              </button>
+              <div className="lot-transport-speeds" role="group" aria-label="Pace">
+                {LIVING_TURN_SPEEDS.map((speed) => (
+                  <button
+                    key={speed}
+                    type="button"
+                    className={`lot-transport-speed${livingTurn.speed === speed ? ' is-current' : ''}`}
+                    disabled={worldInputSuspended}
+                    onPointerDown={containWorldInput}
+                    onMouseDown={containWorldInput}
+                    onTouchStart={containWorldInput}
+                    aria-pressed={livingTurn.speed === speed}
+                    aria-label={LOT_TRANSPORT_PACE_LABEL[speed]}
+                    title={LOT_TRANSPORT_PACE_LABEL[speed]}
+                    onClick={() => {
+                      if (worldInputSuspendedRef.current) return
+                      onLivingTurnCommand({ kind: 'speed', speed })
+                    }}
+                    data-testid={`lot-transport-speed-${String(speed)}`}
+                  >
+                    {String(speed)}×
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
           <button
             ref={advanceButtonRef}
             type="button"
@@ -8248,6 +8432,67 @@ export function StudioLotScreen({
           )}
         </div>
       </header>
+
+      {/*
+        ── LIVING TURN V1 · THE ATTENTION CHANNEL (charter §4.1, NOTIFY-class) ────
+        A picture wrapping, a run finishing, a build reaching Operational and a
+        contract turning over are all things the studio TELLS you while it keeps
+        working. They are announced here, in the studio's voice, and the loop does
+        not stop for them. PAUSE-class stops never appear here: they are surfaced
+        by the surfaces that already own them, and a second announcement of one
+        event is a lie about how many things happened.
+
+        It is `position: fixed` on purpose: the strip must never enter the topbar's
+        or the world's layout flow, because the governed one-row topbar arithmetic
+        (PF1-M4 addendum 2) and every panel anchored under it are measured.
+      */}
+      {livingTurn !== undefined && livingTurn.notices.length > 0 && (
+        <aside className="lot-bulletin" data-testid="lot-living-turn-bulletin">
+          <div
+            className="visually-hidden"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            data-testid="lot-living-turn-bulletin-announcement"
+          >
+            {livingTurn.notices[livingTurn.notices.length - 1]?.headline ?? ''}
+          </div>
+          <ul className="lot-bulletin-list">
+            {livingTurn.notices.map((notice) => (
+              <li
+                key={notice.key}
+                className="lot-bulletin-line"
+                data-reason={notice.reason}
+                data-week={String(notice.week)}
+              >
+                {/*
+                  The dash is part of the LINE, not decoration: it reads "Week 13 —
+                  Principal photography wrapped on …", the way a call sheet reads,
+                  and it keeps this span from colliding with the topbar's own
+                  "Week N" for any surface that matches on exact text.
+                */}
+                <span className="lot-bulletin-week">Week {notice.week} —</span>
+                <span className="lot-bulletin-headline">{notice.headline}</span>
+              </li>
+            ))}
+          </ul>
+          {onLivingTurnCommand !== undefined && (
+            <button
+              type="button"
+              className="ghost lot-bulletin-dismiss"
+              onPointerDown={containWorldInput}
+              onMouseDown={containWorldInput}
+              onTouchStart={containWorldInput}
+              onClick={() => {
+                if (!worldInputSuspendedRef.current) onLivingTurnCommand({ kind: 'dismiss-notices' })
+              }}
+              data-testid="lot-living-turn-bulletin-dismiss"
+            >
+              Clear
+            </button>
+          )}
+        </aside>
+      )}
 
       <div className="lot-body">
         {/*
