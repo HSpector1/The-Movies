@@ -106,10 +106,13 @@ export function LotPictureGuidanceCard({
 }: LotPictureGuidanceCardProps) {
   const view = state.kind === 'view' ? state.view : null
   const title = view === null ? 'Picture unavailable' : view.pictureTitle ?? 'No picture yet'
+  // Working titles are display copy and may collide. Unsaved Package choices belong only
+  // to the exact engine-projected screenplay identity that produced them.
   const livePackage =
     view !== null &&
     packageProgress !== null &&
-    packageProgress.pictureTitle === view.pictureTitle
+    view.scriptProjectId !== null &&
+    packageProgress.projectId === view.scriptProjectId
       ? packageProgress
       : null
   const next = livePackage === null ? view?.next ?? null : null
@@ -122,10 +125,15 @@ export function LotPictureGuidanceCard({
 
   if (livePackage !== null) {
     if (!livePackage.castComplete) {
+      const hasCompletedAuditionEvidence = view?.beat === 'auditions-reviewed'
       headline = 'CAST YOUR PICTURE'
-      whatHappened = `Camera tests reviewed. ${livePackage.selectedRoleCount} of ${livePackage.requiredRoleCount} production roles selected.`
+      whatHappened = hasCompletedAuditionEvidence
+        ? `Camera-test results reviewed. ${livePackage.selectedRoleCount} of ${livePackage.requiredRoleCount} production roles selected.`
+        : `${livePackage.selectedRoleCount} of ${livePackage.requiredRoleCount} production roles selected.`
       detail = `Still required: ${livePackage.missingRoles.join(', ')}.`
-      whyItMatters = 'The audition evidence now travels with each performer, so every principal-role choice has a reason behind it.'
+      whyItMatters = hasCompletedAuditionEvidence
+        ? 'Recorded camera-test estimates and ranges stay beside each tested performer. They inform casting but do not assign anyone.'
+        : 'No camera tests were completed for this package. These are editable staffing choices, not audition-backed assignments.'
       packageNext = 'Choose the missing roles in the Package workspace.'
     } else if (livePackage.step === 'greenlight') {
       headline = 'READY FOR GREENLIGHT'
@@ -134,14 +142,14 @@ export function LotPictureGuidanceCard({
       whyItMatters = 'This package is ready to become an active studio production.'
       packageNext = 'Greenlight this picture to begin production.'
     } else {
-      headline = 'CAST LOCKED'
-      whatHappened = 'Director, principal cast, and crew are selected.'
+      headline = 'ROLES SELECTED'
+      whatHappened = 'Every required role currently has an editable selection.'
       detail = livePackage.chosenSummary
-      whyItMatters = 'The production team is complete; the remaining decision is how much the studio will commit to the picture.'
+      whyItMatters = 'Nothing is committed until greenlight. The next package decision is the production budget.'
       packageNext =
-        livePackage.step === 'budget'
-          ? 'Set the production and marketing budget, then review the forecast.'
-          : 'Review the budget and forecast.'
+        livePackage.step === 'casting'
+          ? 'Continue to the budget; every role remains editable until greenlight.'
+          : 'Set the production and marketing budget, then review the forecast.'
     }
   }
 

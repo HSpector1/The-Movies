@@ -22,6 +22,7 @@ function journey(overrides: Partial<FirstFilmJourneyView> = {}): FirstFilmJourne
   return {
     stage: 'no-picture',
     beat: 'no-picture',
+    scriptProjectId: null,
     pictureTitle: null,
     ordinal: 1,
     headline: 'No screenplay',
@@ -341,10 +342,88 @@ describe('LotPictureGuidanceCard — persistent P0 guidance', () => {
     expect(screen.getByTestId('lot-picture-guidance-next')).toBeVisible()
   })
 
+  it('does not attach Package form state from a different same-title project', () => {
+    render(
+      <LotPictureGuidanceCard
+        state={{
+          kind: 'view',
+          view: journey({
+            stage: 'ready-to-package',
+            beat: 'auditions-reviewed',
+            scriptProjectId: 'script-0000',
+            pictureTitle: 'The Shared Working Title',
+            headline: 'AUDITIONS REVIEWED',
+            next: {
+              kind: 'open-package',
+              label: "Assemble the picture's package at Casting",
+              site: 'casting',
+            },
+          }),
+        }}
+        packageProgress={{
+          projectId: 'script-0001',
+          pictureTitle: 'The Shared Working Title',
+          step: 'casting',
+          selectedRoleCount: 2,
+          requiredRoleCount: 5,
+          missingRoles: ['Lead', 'Antagonist', 'Support'],
+          castComplete: false,
+          chosenSummary: 'Director: Ida Vale',
+        }}
+        onNextStep={() => {}}
+      />,
+    )
+
+    expect(screen.getByTestId('lot-picture-guidance-headline')).toHaveTextContent(
+      'AUDITIONS REVIEWED',
+    )
+    expect(screen.getByTestId('lot-picture-guidance-next')).toHaveTextContent(
+      "Assemble the picture's package at Casting",
+    )
+    expect(screen.queryByText(/Still required:/)).not.toBeInTheDocument()
+  })
+
+  it('attaches Package form state when the same-title project identity matches exactly', () => {
+    render(
+      <LotPictureGuidanceCard
+        state={{
+          kind: 'view',
+          view: journey({
+            stage: 'ready-to-package',
+            beat: 'auditions-reviewed',
+            scriptProjectId: 'script-0001',
+            pictureTitle: 'The Shared Working Title',
+            headline: 'AUDITIONS REVIEWED',
+          }),
+        }}
+        packageProgress={{
+          projectId: 'script-0001',
+          pictureTitle: 'The Shared Working Title',
+          step: 'casting',
+          selectedRoleCount: 2,
+          requiredRoleCount: 5,
+          missingRoles: ['Lead', 'Antagonist', 'Support'],
+          castComplete: false,
+          chosenSummary: 'Director: Ida Vale',
+        }}
+        onNextStep={() => {}}
+      />,
+    )
+
+    expect(screen.getByTestId('lot-picture-guidance-headline')).toHaveTextContent(
+      'CAST YOUR PICTURE',
+    )
+    expect(screen.getByTestId('lot-picture-guidance-detail')).toHaveTextContent(
+      'Still required: Lead, Antagonist, Support.',
+    )
+    expect(screen.queryByTestId('lot-picture-guidance-next')).not.toBeInTheDocument()
+  })
+
   it('follows live Package choices through cast, budget, and greenlight', () => {
     const view = journey({
       stage: 'ready-to-package',
       beat: 'auditions-reviewed',
+      scriptProjectId: 'script-0000',
       pictureTitle: 'A Season of Archipelago',
       headline: 'AUDITIONS REVIEWED',
     })
@@ -365,6 +444,12 @@ describe('LotPictureGuidanceCard — persistent P0 guidance', () => {
       />,
     )
     expect(screen.getByTestId('lot-picture-guidance-headline')).toHaveTextContent('CAST YOUR PICTURE')
+    expect(screen.getByTestId('lot-picture-guidance-what')).toHaveTextContent(
+      'Camera-test results reviewed',
+    )
+    expect(screen.getByTestId('lot-picture-guidance-why')).toHaveTextContent(
+      'Recorded camera-test estimates and ranges',
+    )
     expect(screen.getByTestId('lot-picture-guidance-detail')).toHaveTextContent(
       'Still required: Lead, Antagonist, Support.',
     )
@@ -388,7 +473,10 @@ describe('LotPictureGuidanceCard — persistent P0 guidance', () => {
         onNextStep={() => {}}
       />,
     )
-    expect(screen.getByTestId('lot-picture-guidance-headline')).toHaveTextContent('CAST LOCKED')
+    expect(screen.getByTestId('lot-picture-guidance-headline')).toHaveTextContent('ROLES SELECTED')
+    expect(screen.getByTestId('lot-picture-guidance-what')).toHaveTextContent(
+      'currently has an editable selection',
+    )
     expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent(
       'Set the production and marketing budget',
     )
@@ -412,6 +500,47 @@ describe('LotPictureGuidanceCard — persistent P0 guidance', () => {
     expect(screen.getByTestId('lot-picture-guidance-headline')).toHaveTextContent('READY FOR GREENLIGHT')
     expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent(
       'Greenlight this picture to begin production.',
+    )
+  })
+
+  it('does not invent audition evidence when a screenplay goes directly to Package', () => {
+    render(
+      <LotPictureGuidanceCard
+        state={{
+          kind: 'view',
+          view: journey({
+            stage: 'ready-to-package',
+            beat: 'screenplay-ready',
+            scriptProjectId: 'script-0000',
+            pictureTitle: 'A Season of Archipelago',
+            headline: 'SCREENPLAY ACCEPTED',
+          }),
+        }}
+        packageProgress={{
+          projectId: 'script-0000',
+          pictureTitle: 'A Season of Archipelago',
+          step: 'casting',
+          selectedRoleCount: 2,
+          requiredRoleCount: 5,
+          missingRoles: ['Lead', 'Antagonist', 'Support'],
+          castComplete: false,
+          chosenSummary: 'Director: Ida Vale · Crew: Carlo Reed',
+        }}
+        onNextStep={() => {}}
+      />,
+    )
+
+    expect(screen.getByTestId('lot-picture-guidance-what')).toHaveTextContent(
+      '2 of 5 production roles selected',
+    )
+    expect(screen.getByTestId('lot-picture-guidance')).not.toHaveTextContent(
+      'Camera-test results reviewed',
+    )
+    expect(screen.getByTestId('lot-picture-guidance-why')).toHaveTextContent(
+      'No camera tests were completed for this package',
+    )
+    expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent(
+      'Choose the missing roles',
     )
   })
 

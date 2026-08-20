@@ -69,6 +69,7 @@ export interface FirstFilmJourneyNext {
 export interface FirstFilmJourneyView {
   stage: FirstFilmJourneyStage
   beat: PictureJourneyBeat
+  scriptProjectId: string | null
   pictureTitle: string | null
   ordinal: number
   headline: string
@@ -281,6 +282,7 @@ export function guidanceMarkerBuildingId(
 const VIEW_KEYS = [
   'stage',
   'beat',
+  'scriptProjectId',
   'pictureTitle',
   'ordinal',
   'headline',
@@ -339,6 +341,7 @@ export function isFirstFilmJourneyView(value: unknown): value is FirstFilmJourne
   return (
     JOURNEY_STAGES.includes(value['stage'] as FirstFilmJourneyStage) &&
     JOURNEY_BEATS.includes(value['beat'] as PictureJourneyBeat) &&
+    isNullableNonEmptyString(value['scriptProjectId']) &&
     isNullableNonEmptyString(value['pictureTitle']) &&
     Number.isSafeInteger(value['ordinal']) &&
     (value['ordinal'] as number) >= 1 &&

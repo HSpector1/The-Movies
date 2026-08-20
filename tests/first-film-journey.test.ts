@@ -149,6 +149,7 @@ describe('First Film Journey V1 — the guided chain', () => {
     seen.push(fresh)
     expect(fresh).toMatchObject({
       stage: 'no-picture',
+      scriptProjectId: null,
       pictureTitle: null,
       ordinal: 1,
       waiting: null,
@@ -251,6 +252,9 @@ describe('First Film Journey V1 — the guided chain', () => {
       headline: 'CAMERA TESTS UNDERWAY',
       blocked: null,
     })
+    expect(auditioning.whyItMatters).toBe(
+      'The casting sheet keeps the observed estimate and range. Role Fit updates for this screenplay; strengths and concerns explain that observed range in plain language.',
+    )
     expect(auditioning.waiting).toEqual({
       untilWeek: session.dueWeek,
       reason: `The camera tests finish in Week ${String(session.dueWeek!)} — advance the week.`,
@@ -304,6 +308,16 @@ describe('First Film Journey V1 — the guided chain', () => {
       label: "Assemble the picture's package at Casting",
       site: 'casting',
     })
+    for (const scriptBacked of [
+      drafting,
+      review,
+      accepted,
+      auditioning,
+      auditionReview,
+      packageable,
+    ]) {
+      expect(scriptBacked.scriptProjectId).toBe(project.id)
+    }
 
     // ── greenlit: the picture is a production, waiting on the schedule ─────
     state = applyActions(state, [
@@ -314,6 +328,7 @@ describe('First Film Journey V1 — the guided chain', () => {
     seen.push(greenlit)
     expect(greenlit).toMatchObject({
       stage: 'in-production',
+      scriptProjectId: project.id,
       pictureTitle: title,
       ordinal: 1,
       beat: 'greenlit',
@@ -332,13 +347,26 @@ describe('First Film Journey V1 — the guided chain', () => {
     expect(greenlit.next).toMatchObject({ kind: 'advance-week', site: null })
 
     // ── shooting: the world stops on a production command ──────────────────
+    let calmLoadInSeen = false
     for (let guard = 0; guard < 8; guard++) {
       const workflow = state.operations.workflows.find(
         (candidate) => candidate.productionId === production.id,
       )
+      if (workflow?.phase === 'rehearsal') {
+        const loadIn = firstFilmJourney(state)
+        expect(loadIn).toMatchObject({
+          beat: 'load-in',
+          headline: 'LOAD-IN',
+          blocked: null,
+        })
+        expect(loadIn.waiting?.reason).toContain('Stage and scenery load-in continues.')
+        expect(loadIn.waiting?.reason).not.toContain('Rehearsals continue')
+        calmLoadInSeen = true
+      }
       if (workflow?.phase === 'shooting') break
       state = tick(state)
     }
+    expect(calmLoadInSeen).toBe(true)
     expect(
       state.operations.workflows.find((w) => w.productionId === production.id)?.phase,
     ).toBe('shooting')
@@ -429,7 +457,7 @@ describe('First Film Journey V1 — the guided chain', () => {
     }
   })
 
-  it('counts the released picture and points at the next screenplay', () => {
+  it('counts the released picture and routes an unavailable next screenplay honestly', () => {
     let state = managedStudio('journey-release')
     const writerId = scriptProjectsReadModel(state).commission.writers.find(
       (candidate) => candidate.available,
@@ -444,8 +472,10 @@ describe('First Film Journey V1 — the guided chain', () => {
     ])
     const releasedTitle = state.concepts[0]!.title
     const promisedWeek = firstFilmJourney(state).waiting!.untilWeek
+    const witnessedProductionBeats = new Set<string>()
 
     for (let guard = 0; guard < 24 && state.studio.activeProductions.length > 0; guard++) {
+      witnessedProductionBeats.add(firstFilmJourney(state).beat)
       const decision = nextStudioDecision(state)
       if (decision !== null && decision.kind === 'productionOperation') {
         state = applyActions(state, [decision.command])
@@ -457,10 +487,19 @@ describe('First Film Journey V1 — the guided chain', () => {
     expect(state.studio.releasedFilms).toHaveLength(1)
     // The week the journey promised is the week the finished picture is in hand.
     expect(state.market.tick).toBe(promisedWeek)
+    expect([...witnessedProductionBeats]).toEqual(expect.arrayContaining([
+      'greenlit',
+      'pre-production',
+      'load-in',
+      'shooting',
+      'post-production',
+      'release-ready',
+    ]))
 
     const released = firstFilmJourney(state)
     expect(released).toMatchObject({
       stage: 'released',
+      scriptProjectId: 'script-0000',
       pictureTitle: releasedTitle,
       // The studio's SECOND picture is the one being guided now.
       ordinal: 2,
@@ -474,13 +513,41 @@ describe('First Film Journey V1 — the guided chain', () => {
       site: 'development',
     })
     for (const copy of copyStrings(released)) expect(copy).not.toMatch(INTERNAL_ID)
+
+    for (const writer of scriptProjectsReadModel(state).commission.writers) {
+      state = applyActions(state, [{ kind: 'releaseTalent', talentId: writer.id }])
+    }
+    expect(scriptProjectsReadModel(state).commission.canStart).toBe(false)
+
+    const blockedReleased = firstFilmJourney(state)
+    expect(blockedReleased).toMatchObject({
+      stage: 'released',
+      pictureTitle: releasedTitle,
+      blocked: { reason: expect.stringContaining('No contracted writer is available') },
+    })
+    expect(blockedReleased.next).toEqual({
+      kind: 'commission',
+      label: 'Review the screenplay blocker at Development',
+      site: 'development',
+    })
+    expect(blockedReleased.next?.label).not.toContain('Commission a screenplay')
   })
 
-  it('names the outermost blocker instead of pretending a commission is legal', () => {
+  it('routes a blocked fresh/no-picture journey without promising a commission', () => {
     const founding = beginFounding(generateWorld('journey-founding'))
     const view = firstFilmJourney(founding)
-    expect(view).toMatchObject({ stage: 'no-picture', pictureTitle: null, ordinal: 1 })
-    expect(view.next?.kind).toBe('commission')
+    expect(view).toMatchObject({
+      stage: 'no-picture',
+      scriptProjectId: null,
+      pictureTitle: null,
+      ordinal: 1,
+    })
+    expect(view.next).toEqual({
+      kind: 'commission',
+      label: 'Review the screenplay blocker at Development',
+      site: 'development',
+    })
+    expect(view.next?.label).not.toContain('Commission a screenplay')
     expect(view.blocked?.reason).toContain('Finish founding the studio')
 
     const legacy = generateWorld('journey-legacy')

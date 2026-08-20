@@ -148,6 +148,7 @@ function journey(overrides: Partial<FirstFilmJourneyView> = {}): FirstFilmJourne
   return {
     stage: 'drafting',
     beat: 'screenplay-writing',
+    scriptProjectId: 'script-0000',
     pictureTitle: 'A Season of Archipelago',
     ordinal: 1,
     headline: 'Screenplay — drafting',

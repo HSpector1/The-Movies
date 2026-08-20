@@ -431,7 +431,7 @@ describe('World-First Lot-Native Casting Review Intervention V1 — App/Lot inte
     pickFirstEligible('picker-support')
     pickFirstEligible('picker-craft')
     await waitFor(() => expect(screen.getByTestId('lot-picture-guidance-headline'))
-      .toHaveTextContent('CAST LOCKED'))
+      .toHaveTextContent('ROLES SELECTED'))
     fireEvent.click(screen.getByTestId('assembly-next'))
     expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent(
       'Set the production and marketing budget',
