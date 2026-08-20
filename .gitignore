@@ -8,6 +8,7 @@ playwright-report/
 ui/e2e/fixtures/
 .last-run.json
 *.log
+.tmp/3d-asset-audit.json
 .DS_Store
 
 # Design-archive material awaiting relocation by the owner — NOT FOR BUILD,
