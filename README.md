@@ -1,6 +1,6 @@
 # Project: Studio
 
-Project: Studio is a private studio-management simulation and a modern successor to
+Project: Studio is an in-development studio-management simulation and a modern successor to
 *The Movies* (2005).
 
 The product north star is deliberately direct:
@@ -63,9 +63,9 @@ Start with the current repository docs, not the GitHub landing branch if it is s
 - [CLAUDE.md](CLAUDE.md) - standing agent and engineering instructions, including historical notes and current authority warnings.
 - [START-HERE.md](START-HERE.md) - local launch notes and project orientation.
 
-For original-derived mechanics, read the Mechanics Bible before changing behavior:
-`THE-MOVIES-2005-COMPLETE-MECHANICS-BIBLE.md` is the historical floor referenced by the
-Blueprint.
+For original-derived mechanics, contributors must consult the canonical Mechanics Bible
+maintained with the project research corpus before changing behavior. It defines the
+historical floor referenced by the Blueprint.
 
 ## Current Development Rule
 
