@@ -22,19 +22,16 @@ import {
   createBridgeBootstrap,
   createBridgeInitialState,
   playNextMovieThroughAvailableIntents,
+  selectJourneyIntent,
   type CommandResponse,
 } from '../bridge/session.ts'
+import {
+  castingSessionsReadModel,
+  scriptCapacityView,
+  scriptProjectsReadModel,
+} from '../src/core/index.ts'
 import { exportSaveJson, studioLotSnapshot } from '../ui/src/engine/adapter.ts'
-
-const PLAYER_PRIORITY: readonly AvailableIntentKind[] = [
-  'commissionScreenplay',
-  'advanceWeek',
-  'acceptScreenplay',
-  'startAuditions',
-  'acknowledgeAuditions',
-  'greenlightPicture',
-  'resolveProductionBlocker',
-] as const
+import { contendedGreenlightStudio, contendedStudio } from './_m4Fixtures.ts'
 
 function command(
   session: BridgeSession,
@@ -82,19 +79,39 @@ function submit(
 }
 
 function chooseMovieIntent(session: BridgeSession): AvailableIntent {
-  const candidates = session.snapshot().availableIntents.filter(
-    (candidate) => candidate.kind !== 'startConstruction' && candidate.kind !== 'requestRewrite',
+  const snapshot = session.snapshot()
+  const selected = selectJourneyIntent(
+    snapshot.availableIntents,
+    snapshot.snapshot.journeyNotices.firstFilmJourney,
   )
-  const selected = PLAYER_PRIORITY
-    .map((kind) => candidates.find((candidate) => candidate.kind === kind))
-    .find((candidate) => candidate !== undefined)
   if (selected === undefined) {
     throw new Error(
       `No playable movie intent at revision ${String(session.stateRevision)}: ` +
-        session.snapshot().snapshot.journeyNotices.firstFilmJourney?.headline,
+        snapshot.snapshot.journeyNotices.firstFilmJourney?.headline,
     )
   }
   return selected
+}
+
+function advanceUntilQueueEntryLeaves(
+  session: BridgeSession,
+  isStillQueued: () => boolean,
+  commandPrefix: string,
+): AvailableIntentKind[] {
+  const kinds: AvailableIntentKind[] = []
+  for (let guard = 0; guard < 32; guard++) {
+    if (!isStillQueued()) return kinds
+    const intent = chooseMovieIntent(session)
+    expect(
+      ['advanceWeek', 'resolveProductionBlocker'],
+      'a queued picture may wait or clear an authoritative production blocker, never resubmit',
+    ).toContain(intent.kind)
+    const result = submit(session, intent, `${commandPrefix}-${String(guard)}`)
+    expect(result.accepted).toBe(true)
+    if (!result.accepted) throw new Error(result.message)
+    kinds.push(intent.kind)
+  }
+  throw new Error(`${commandPrefix}: queued intent did not leave the queue within 32 commands.`)
 }
 
 function advanceSessionMovieToRelease(
@@ -192,6 +209,8 @@ describe('Current-game Unity adoption bridge', () => {
       next: { kind: 'commission' },
     })
     const kinds = bootstrap.movieOneIntents.map((entry) => entry.option.kind)
+    expect(kinds.filter((kind) => kind === 'commissionScreenplay')).toHaveLength(1)
+    expect(bootstrap.state.productionQueue).toEqual([])
     expectOrderedSubsequence(kinds, [
       'commissionScreenplay',
       'advanceWeek',
@@ -341,6 +360,7 @@ describe('Current-game Unity adoption bridge', () => {
       'advanceWeek',
     ])
     expect(greenlightDetail).toMatch(/Director .+; Lead .+; Antagonist .+; Support .+; Production\/Craft .+\./)
+    expect(intentKinds.filter((kind) => kind === 'commissionScreenplay')).toHaveLength(1)
   })
 
   it('rejects stale, forged, wrong-session, and reused command identities without changing truth', () => {
@@ -503,6 +523,294 @@ describe('Current-game Unity adoption bridge', () => {
     expect(accepted.stateRevision).toBe(first.stateRevision + 1)
     expect(accepted.snapshot.lot.week).toBe(accepted.gameWeek)
     expect(accepted.snapshot.construction.placement.currentWeek).toBe(accepted.gameWeek)
+  })
+
+  it('emits and admits a screenplay commission when both authoritative slots are occupied', () => {
+    const contended = contendedStudio('bridge-queue-commission')
+    const session = new BridgeSession(contended.state, 'queue-commission')
+    const before = session.gameState
+    expect(scriptCapacityView(before)).toMatchObject({ occupied: 2, available: 0 })
+    const commission = scriptProjectsReadModel(before).commission
+    expect(commission.blockers.map((blocker) => blocker.kind)).toEqual(['facility-capacity'])
+    const expectedConceptId = commission.concepts[0]!.id
+    const expectedWriterId = commission.writers.find(
+      (writer) => writer.available && writer.primaryRole === 'writer',
+    )!.id
+
+    const snapshot = session.snapshot()
+    expect(snapshot.snapshot.journeyNotices.firstFilmJourney?.next?.kind).toBe('plan-auditions')
+    expect(snapshot.availableIntents.some(
+      (candidate) =>
+        candidate.kind === 'startAuditions' &&
+        candidate.projectId === snapshot.snapshot.journeyNotices.firstFilmJourney?.scriptProjectId,
+    )).toBe(true)
+    const intent = snapshot.availableIntents.find(
+      (candidate) => candidate.kind === 'commissionScreenplay',
+    )
+    expect(
+      intent,
+      'capacity may queue a legal commission, but must not hide its intent',
+    ).toBeDefined()
+    if (intent === undefined) throw new Error('Bridge omitted queue-admissible commission intent.')
+
+    const result = submit(session, intent, 'queue-commission-command')
+    expect(result.accepted).toBe(true)
+    if (!result.accepted) throw new Error(result.message)
+    expect(result.message).toMatch(/Screenplay commission joined the Development & Casting queue/i)
+    expect(result.message).toMatch(/No writer, project identity, or cost is committed/i)
+    expect(intent.detail).toMatch(/joins the Development & Casting queue and holds nothing/i)
+    expect(intent.detail).not.toMatch(/One week passes while the writer/i)
+    expect(session.gameState.productionQueue).toMatchObject([
+      {
+        kind: 'commissionScript',
+        ordinal: 0,
+        queuedWeek: before.market.tick,
+      },
+    ])
+    expect(session.gameState.productionQueue).toHaveLength(1)
+    const queued = session.gameState.productionQueue[0]
+    expect(queued?.kind === 'commissionScript' ? queued.payload : null).toMatchObject({
+      conceptId: expectedConceptId,
+      writerId: expectedWriterId,
+    })
+    expect(session.gameState.scriptDevelopment.projects).toEqual(before.scriptDevelopment.projects)
+    expect(session.gameState.operations.workflows).toEqual(before.operations.workflows)
+    expect(session.gameState.studio.activeProductions).toEqual(before.studio.activeProductions)
+    expect(session.gameState.studio.cash).toBe(before.studio.cash)
+    expect(session.gameState.ledger).toEqual(before.ledger)
+
+    const firstQueued = session.gameState.productionQueue[0]
+    if (firstQueued?.kind !== 'commissionScript') throw new Error('Expected queued commission.')
+    const followup = result.availableIntents.find(
+      (candidate) => candidate.kind === 'commissionScreenplay',
+    )
+    expect(followup, 'another physical-capacity choice may remain, but not the same default').toBeDefined()
+    const followupResult = submit(session, followup!, 'queue-commission-followup')
+    expect(followupResult.accepted).toBe(true)
+    const secondQueued = session.gameState.productionQueue[1]
+    if (secondQueued?.kind !== 'commissionScript') throw new Error('Expected second queued commission.')
+    expect(secondQueued.payload.conceptId).not.toBe(firstQueued.payload.conceptId)
+    expect(secondQueued.payload.writerId).not.toBe(firstQueued.payload.writerId)
+  })
+
+  it('emits and admits exact-project auditions when both authoritative slots are occupied', () => {
+    const contended = contendedStudio('bridge-queue-auditions')
+    const targetProjectId = contended.readyProjectIds[0]!
+    const session = new BridgeSession(contended.state, 'queue-auditions')
+    const before = session.gameState
+    expect(scriptCapacityView(before)).toMatchObject({ occupied: 2, available: 0 })
+    const casting = castingSessionsReadModel(before).sections.readyToPlan.find(
+      (project) => project.projectId === targetProjectId,
+    )
+    expect(casting).toBeDefined()
+    expect(casting?.candidates.lead.length).toBeGreaterThanOrEqual(3)
+    expect(casting?.blockers).toHaveLength(1)
+    expect(casting?.blockers[0]).toMatch(/Development & Casting slot.*queue/i)
+
+    const intent = session.snapshot().availableIntents.find(
+      (candidate) => candidate.kind === 'startAuditions' && candidate.projectId === targetProjectId,
+    )
+    expect(
+      intent,
+      'capacity may queue legal auditions, but must not hide the exact project intent',
+    ).toBeDefined()
+    if (intent === undefined) throw new Error('Bridge omitted queue-admissible audition intent.')
+
+    const result = submit(session, intent, 'queue-auditions-command')
+    expect(result.accepted).toBe(true)
+    if (!result.accepted) throw new Error(result.message)
+    expect(result.message).toMatch(/Auditions joined the Development & Casting queue/i)
+    expect(result.message).toMatch(/No actor was reserved or paid/i)
+    expect(intent.projectId).toBe(targetProjectId)
+    expect(session.gameState.productionQueue).toMatchObject([
+      {
+        kind: 'startCastingSession',
+        ordinal: 0,
+        queuedWeek: before.market.tick,
+        payload: { projectId: targetProjectId },
+      },
+    ])
+    expect(session.gameState.productionQueue).toHaveLength(1)
+    expect(session.gameState.scriptDevelopment.projects).toEqual(before.scriptDevelopment.projects)
+    expect(session.gameState.castingSessions.sessions).toEqual(before.castingSessions.sessions)
+    expect(session.gameState.operations.workflows).toEqual(before.operations.workflows)
+    expect(session.gameState.studio.activeProductions).toEqual(before.studio.activeProductions)
+    expect(session.gameState.studio.cash).toBe(before.studio.cash)
+    expect(session.gameState.ledger).toEqual(before.ledger)
+    expect(result.availableIntents.some(
+      (candidate) => candidate.kind === 'startAuditions' && candidate.projectId === targetProjectId,
+    )).toBe(false)
+
+    const queuedJourney = result.snapshot.journeyNotices.firstFilmJourney
+    expect(queuedJourney).toMatchObject({
+      stage: 'ready-to-package',
+      beat: 'screenplay-ready',
+      scriptProjectId: targetProjectId,
+      next: { kind: 'advance-week' },
+    })
+    expect(queuedJourney?.waiting?.reason).toMatch(/revalidated.*advance the week/i)
+    expect(selectJourneyIntent(result.availableIntents, queuedJourney)?.kind).toBe('advanceWeek')
+
+    const saved = session.save(control(session, 'queue-auditions-save'))
+    expect(saved.accepted).toBe(true)
+    if (!saved.accepted) throw new Error(saved.message)
+    const recovered = BridgeSession.fromSaveJson(saved.saveJson, 'queue-auditions-recovered')
+    expect(recovered.snapshot().snapshot.journeyNotices.firstFilmJourney).toEqual(queuedJourney)
+    const played = advanceUntilQueueEntryLeaves(
+      recovered,
+      () => recovered.gameState.productionQueue.some(
+        (entry) =>
+          entry.kind === 'startCastingSession' && entry.payload.projectId === targetProjectId,
+      ),
+      'queue-auditions-wait',
+    )
+    expect(played).toContain('advanceWeek')
+    expect(played).not.toContain('startAuditions')
+    expect(recovered.gameState.castingSessions.sessions.find(
+      (castingSession) => castingSession.projectId === targetProjectId,
+    )).toMatchObject({ status: 'auditioning' })
+
+    for (let guard = 0; guard < 16; guard++) {
+      const castingSession = recovered.gameState.castingSessions.sessions.find(
+        (candidate) => candidate.projectId === targetProjectId,
+      )
+      if (castingSession?.status === 'review') break
+      const nextIntent = chooseMovieIntent(recovered)
+      const nextResult = submit(recovered, nextIntent, `queue-auditions-results-${String(guard)}`)
+      expect(nextResult.accepted).toBe(true)
+      if (!nextResult.accepted) throw new Error(nextResult.message)
+    }
+    const review = recovered.gameState.castingSessions.sessions.find(
+      (castingSession) => castingSession.projectId === targetProjectId,
+    )
+    expect(review).toMatchObject({ status: 'review' })
+    const acknowledge = chooseMovieIntent(recovered)
+    expect(acknowledge).toMatchObject({
+      kind: 'acknowledgeAuditions',
+      projectId: targetProjectId,
+      castingSessionId: review?.id,
+    })
+    expect(submit(recovered, acknowledge, 'queue-auditions-acknowledge').accepted).toBe(true)
+    expect(recovered.gameState.castingSessions.sessions.find(
+      (castingSession) => castingSession.projectId === targetProjectId,
+    )).toMatchObject({ status: 'complete' })
+  })
+
+  it('emits and admits an evidenced exact-project greenlight without committing the package', () => {
+    const contended = contendedGreenlightStudio('bridge-queue-greenlight')
+    const session = new BridgeSession(contended.state, 'queue-greenlight')
+    const before = session.gameState
+    expect(scriptCapacityView(before)).toMatchObject({ occupied: 2, available: 0 })
+    expect(before.castingSessions.sessions.find(
+      (casting) => casting.id === contended.targetCastingSessionId,
+    )).toMatchObject({ projectId: contended.targetProjectId, status: 'complete' })
+    const packageView = scriptProjectsReadModel(before).packages.find(
+      (candidate) => candidate.projectId === contended.targetProjectId,
+    )
+    expect(packageView?.openAction?.projectId).toBe(contended.targetProjectId)
+    expect(packageView?.availability.blockers.map((blocker) => blocker.kind)).toEqual([
+      'facility-capacity',
+    ])
+
+    const intent = session.snapshot().availableIntents.find(
+      (candidate) =>
+        candidate.kind === 'greenlightPicture' &&
+        candidate.projectId === contended.targetProjectId,
+    )
+    expect(
+      intent,
+      'capacity may queue a legal greenlight, but must not hide its exact project intent',
+    ).toBeDefined()
+    if (intent === undefined) throw new Error('Bridge omitted queue-admissible greenlight intent.')
+
+    const result = submit(session, intent, 'queue-greenlight-command')
+    expect(result.accepted).toBe(true)
+    if (!result.accepted) throw new Error(result.message)
+    expect(result.message).toMatch(/Greenlight joined the Development & Casting queue/i)
+    expect(result.message).toMatch(/No production identity, budget, or talent commitment exists/i)
+    expect(intent.projectId).toBe(contended.targetProjectId)
+    expect(intent.castingSessionId).toBe(contended.targetCastingSessionId)
+    expect(session.gameState.productionQueue).toMatchObject([
+      {
+        kind: 'greenlightScriptProject',
+        ordinal: 0,
+        queuedWeek: before.market.tick,
+        scriptProjectId: contended.targetProjectId,
+        payload: { projectId: contended.targetProjectId },
+      },
+    ])
+    expect(session.gameState.productionQueue).toHaveLength(1)
+    expect(session.gameState.scriptDevelopment.projects).toEqual(before.scriptDevelopment.projects)
+    expect(session.gameState.castingSessions.sessions).toEqual(before.castingSessions.sessions)
+    expect(session.gameState.operations.workflows).toEqual(before.operations.workflows)
+    expect(session.gameState.studio.activeProductions).toEqual(before.studio.activeProductions)
+    expect(session.gameState.studio.cash).toBe(before.studio.cash)
+    expect(session.gameState.ledger).toEqual(before.ledger)
+    expect(result.availableIntents.some(
+      (candidate) =>
+        candidate.kind === 'greenlightPicture' && candidate.projectId === contended.targetProjectId,
+    )).toBe(false)
+
+    const queuedJourney = result.snapshot.journeyNotices.firstFilmJourney
+    expect(queuedJourney).toMatchObject({
+      stage: 'ready-to-package',
+      beat: 'auditions-reviewed',
+      scriptProjectId: contended.targetProjectId,
+      next: { kind: 'advance-week' },
+    })
+    expect(queuedJourney?.waiting?.reason).toMatch(/revalidated.*advance the week/i)
+    expect(selectJourneyIntent(result.availableIntents, queuedJourney)?.kind).toBe('advanceWeek')
+
+    const queued = session.gameState.productionQueue.find(
+      (entry) =>
+        entry.kind === 'greenlightScriptProject' &&
+        entry.scriptProjectId === contended.targetProjectId,
+    )
+    if (queued?.kind !== 'greenlightScriptProject') {
+      throw new Error('Expected exact-project queued greenlight payload.')
+    }
+    const queuedPayload = queued.payload
+    const played = advanceUntilQueueEntryLeaves(
+      session,
+      () => session.gameState.productionQueue.some(
+        (entry) =>
+          entry.kind === 'greenlightScriptProject' &&
+          entry.scriptProjectId === contended.targetProjectId,
+      ),
+      'queue-greenlight-wait',
+    )
+    expect(played).toContain('advanceWeek')
+    expect(played).not.toContain('greenlightPicture')
+    const project = session.gameState.scriptDevelopment.projects.find(
+      (candidate) => candidate.id === contended.targetProjectId,
+    )
+    expect(project).toMatchObject({ status: 'inProduction' })
+    const production = session.gameState.studio.activeProductions.find(
+      (candidate) => candidate.id === project?.productionId,
+    )
+    expect(production).toMatchObject({
+      directorId: queuedPayload.directorId,
+      craftIds: queuedPayload.craftIds,
+      cast: queuedPayload.cast,
+      budget: queuedPayload.budget,
+    })
+  })
+
+  it('never lets an ambient concurrent commission bypass a guided blocker', () => {
+    const ambient: AvailableIntent = {
+      intentId: 'intent-v2-ambient',
+      kind: 'commissionScreenplay',
+      label: 'Commission another screenplay',
+      detail: 'A concurrent physical-capacity choice.',
+      projectId: null,
+      castingSessionId: null,
+      productionId: null,
+    }
+    expect(selectJourneyIntent([ambient], {
+      next: { kind: 'review-casting-blocker' },
+      scriptProjectId: 'script-blocked',
+      productionId: null,
+    })).toBeUndefined()
   })
 })
 

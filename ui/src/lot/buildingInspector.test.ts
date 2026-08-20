@@ -501,6 +501,9 @@ describe('World Inspector projection — primary actions (M-B)', () => {
     mode?: 'legacy' | 'managed'
     attention?: string
     canStart?: boolean
+    canSubmitMarketIntent?: boolean
+    canSubmitOriginalIntent?: boolean
+    willQueueIntent?: boolean
     sections?: Record<string, { title: string }[]>
     /** C2a-M4/F4: the board's OWN blockers are what withholds the verb now. */
     blockers?: { kind: string; headline: string; detail: string; remedy: string }[]
@@ -510,6 +513,13 @@ describe('World Inspector projection — primary actions (M-B)', () => {
       lotAttention: { kind: overrides.attention ?? 'idle', headline: 'x', detail: 'y' },
       commission: {
         canStart: overrides.canStart ?? true,
+        canStartOriginal: overrides.canStart ?? true,
+        canSubmitMarketIntent:
+          overrides.canSubmitMarketIntent ?? overrides.canStart ?? true,
+        canSubmitOriginalIntent:
+          overrides.canSubmitOriginalIntent ?? overrides.canStart ?? true,
+        willQueueIntent: overrides.willQueueIntent ?? false,
+        consequence: 'One week passes while the screenplay is written.',
         blockers: overrides.blockers ?? [],
         concepts: [],
         writers: [],
@@ -587,7 +597,7 @@ describe('World Inspector projection — primary actions (M-B)', () => {
     expect(context.primaryActions).toEqual([])
   })
 
-  it('OFFERS the verb while other work is in flight, and withholds it only when the rooms are full', () => {
+  it('offers the verb while other work is in flight and queues it when every room is full', () => {
     // ── F4 RE-BASE (charter §10, owned by C2a-M4) ─────────────────────────
     //
     // RETIRED: "offers NO verb when both development slots are full", which
@@ -596,10 +606,8 @@ describe('World Inspector projection — primary actions (M-B)', () => {
     // is the seam §10 names: the verb demanded an idle board.
     //
     // NAMED SUCCESSOR, here: a BUSY board still offers the verb, because the
-    // engine will commission on a free slot; a board whose engine legality is
-    // false does not. The capacity case is preserved — it is the one arm of the
-    // retired test that was measuring a real rule, and it is measured through
-    // the engine's own `canStart` rather than through an attention label.
+    // engine will commission on a free slot. Under A3, capacity is the one refusal
+    // that becomes an authoritative queued intent rather than withholding the verb.
     for (const attention of ['active-work', 'review-required', 'ready-script']) {
       const context = lotBuildingInspectorContext(
         baseSnapshot(),
@@ -612,7 +620,7 @@ describe('World Inspector projection — primary actions (M-B)', () => {
         { kind: 'commission', label: 'Commission a screenplay' },
       ])
     }
-    // Rooms full: the engine says no, and so does the world.
+    // Rooms full: immediate start is false, but the engine publishes queue admission.
     const full = lotBuildingInspectorContext(
       baseSnapshot(),
       'writers',
@@ -621,6 +629,9 @@ describe('World Inspector projection — primary actions (M-B)', () => {
       board({
         attention: 'capacity-constraint',
         canStart: false,
+        canSubmitMarketIntent: true,
+        canSubmitOriginalIntent: true,
+        willQueueIntent: true,
         blockers: [
           {
             kind: 'facility-capacity',
@@ -631,10 +642,10 @@ describe('World Inspector projection — primary actions (M-B)', () => {
         ],
       }),
     )
-    expect(full.primaryActions).toEqual([])
-    expect(full.primaryActionNote).toBe(
-      'Development & Casting is full. Wait for a named task to release a slot.',
-    )
+    expect(full.primaryActions).toEqual([
+      { kind: 'commission', label: 'Commission a screenplay' },
+    ])
+    expect(full.primaryActionNote).toBeNull()
   })
 
   it('says WHY commissioning is withheld, in the board’s own words', () => {
@@ -644,11 +655,6 @@ describe('World Inspector projection — primary actions (M-B)', () => {
     // into any free room — so the note speaks the engine's own blockers instead
     // of inventing a story about the board's mood.
     const cases: Array<[string, string, string]> = [
-      [
-        'facility-capacity',
-        'Development & Casting is full',
-        'Wait for a named task to release a slot.',
-      ],
       [
         'no-writers',
         'No contracted writer is available',

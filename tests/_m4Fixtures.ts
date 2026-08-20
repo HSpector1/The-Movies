@@ -165,6 +165,12 @@ export type ContendedStudio = {
   productionIds: readonly string[]
 }
 
+export type ContendedGreenlightStudio = ContendedStudio & {
+  /** A Ready screenplay with reviewed audition evidence from the still-free actors. */
+  targetProjectId: string
+  targetCastingSessionId: string
+}
+
 export function contendedStudio(seed: string): ContendedStudio {
   let state = withCash(managedStudio(seed, CONTENDED_DEPTH), 200_000_000)
   const projectIds: string[] = []
@@ -196,4 +202,73 @@ export function contendedStudio(seed: string): ContendedStudio {
     )
   }
   return { state, readyProjectIds: projectIds.slice(2), productionIds }
+}
+
+/**
+ * Capacity contention with one additional truth: the target screenplay has
+ * completed camera tests whose three actors remain free after two other
+ * packages occupy both Development & Casting slots.
+ */
+export function contendedGreenlightStudio(seed: string): ContendedGreenlightStudio {
+  let state = withCash(managedStudio(seed, CONTENDED_DEPTH), 200_000_000)
+  const projectIds: string[] = []
+  for (const pair of [
+    [0, 1],
+    [2, 3],
+  ]) {
+    for (const index of pair) {
+      state = applyActions(state, [
+        { kind: 'commissionScript', project: commissionFor(state, index, index) },
+      ])
+    }
+    state = tick(state)
+    for (const project of state.scriptDevelopment.projects) {
+      if (project.status !== 'review') continue
+      state = applyActions(state, [{ kind: 'acceptScript', projectId: project.id }])
+      projectIds.push(project.id)
+    }
+  }
+
+  const targetProjectId = projectIds[2]!
+  const spareActors = contractedByRole(state, 'actor').slice(6, 9)
+  state = applyActions(state, [
+    {
+      kind: 'startCastingSession',
+      session: {
+        projectId: targetProjectId,
+        slate: {
+          lead: [spareActors[0]!.id, spareActors[1]!.id],
+          antagonist: [spareActors[0]!.id, spareActors[2]!.id],
+          support: [spareActors[1]!.id, spareActors[2]!.id],
+        },
+      },
+    },
+  ])
+  state = tick(state)
+  const targetCastingSession = state.castingSessions.sessions.find(
+    (session) => session.projectId === targetProjectId,
+  )
+  if (targetCastingSession === undefined || targetCastingSession.status !== 'review') {
+    throw new Error('c2a-m4 fixture: target camera tests did not reach review')
+  }
+  state = applyActions(state, [
+    { kind: 'acknowledgeCastingSession', sessionId: targetCastingSession.id },
+  ])
+
+  const productionIds: string[] = []
+  for (const projectId of projectIds.slice(0, 2)) {
+    state = applyActions(state, [
+      { kind: 'greenlightScriptProject', production: freePackage(state, projectId) },
+    ])
+    productionIds.push(
+      state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id,
+    )
+  }
+  return {
+    state,
+    readyProjectIds: projectIds.slice(2),
+    productionIds,
+    targetProjectId,
+    targetCastingSessionId: targetCastingSession.id,
+  }
 }

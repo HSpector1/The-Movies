@@ -87,13 +87,13 @@ function SlatePlanner({
   state,
   onChange,
   onCancel,
-  onStarted,
+  onAccepted,
 }: {
   project: CastingProjectView
   state: GameState
   onChange: (next: GameState) => void
   onCancel: () => void
-  onStarted: (projectId: string) => void
+  onAccepted: (projectId: string, queued: boolean) => void
 }) {
   function submit(slate: CastingSlate) {
     const result = startCastingSessionAction(state, {
@@ -101,8 +101,12 @@ function SlatePlanner({
       slate,
     })
     if (!result.ok) return result
+    const queued = result.next.productionQueue.some(
+      (entry) =>
+        entry.kind === 'startCastingSession' && entry.payload.projectId === project.projectId,
+    )
     onChange(result.next)
-    onStarted(project.projectId)
+    onAccepted(project.projectId, queued)
     return result
   }
 
@@ -419,15 +423,18 @@ export function CastingRoom({
           state={state}
           onChange={onChange}
           onCancel={() => setPlanningProjectId(null)}
-          onStarted={(projectId) => {
+          onAccepted={(projectId, queued) => {
             setPlanningProjectId(null)
             pendingFocusProjectId.current = projectId
-            setAnnouncement('Auditions started. Results are due in one week; no actor was reserved or paid.')
-            // DE-STRANDING (cold-playtest defect 3): starting auditions used to leave the
+            setAnnouncement(
+              queued
+                ? 'Auditions joined the Development & Casting queue. No actor was reserved or paid.'
+                : 'Auditions started. Results are due in one week; no actor was reserved or paid.',
+            )
+            // DE-STRANDING (cold-playtest defect 3): accepting auditions used to leave the
             // player standing on this full-screen management screen with the world gone
-            // and the week-advance control back on the lot. Camera tests are a WORLD
-            // event — the studio's own Casting sign now reads "camera tests underway" —
-            // so a successful start hands the player back to the studio by exactly the
+            // and the week-advance control back on the lot. Camera tests and their queue
+            // are WORLD events, so acceptance hands the player back to the studio by the
             // path "Back to studio" already takes. No new routing is introduced: `onBack`
             // is the host's existing return, unchanged.
             onBack()

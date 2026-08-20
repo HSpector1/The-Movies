@@ -1,5 +1,11 @@
 import type { ReactNode } from 'react'
 import { LotRetainedWorkspace } from './LotRetainedWorkspace'
+import type { LotCommissionQueueReceipt } from './snapshot/queueAdmission'
+
+type CommittedPresentation =
+  | { kind: 'accepted' }
+  | { kind: 'queued'; receipt: LotCommissionQueueReceipt }
+  | { kind: 'neutral' }
 
 type Props = {
   phase: 'editing' | 'committed'
@@ -7,6 +13,7 @@ type Props = {
   nestedModalOpen?: boolean
   onCancel: () => void
   onOpenDetails: () => void
+  committedPresentation?: CommittedPresentation | undefined
   children?: ReactNode
 }
 
@@ -20,6 +27,7 @@ export function LotCommissionWorkspace({
   nestedModalOpen = false,
   onCancel,
   onOpenDetails,
+  committedPresentation = { kind: 'accepted' },
   children,
 }: Props) {
   return (
@@ -66,7 +74,22 @@ export function LotCommissionWorkspace({
           </header>
           <div className="lot-commission-workspace-scroll">{children}</div>
         </>
-      ) : (
+      ) : committedPresentation.kind === 'queued' ? (
+        <div
+          className="lot-commission-workspace-recording"
+          data-testid="lot-commission-workspace-recording"
+        >
+          <span className="lot-commission-workspace-eyebrow">SCREENPLAY QUEUED</span>
+          <h2>
+            {committedPresentation.receipt.subject.kind === 'market'
+              ? `${committedPresentation.receipt.subject.title} joined the Development queue`
+              : 'An original screenplay request joined the Development queue'}
+          </h2>
+          <p><strong>WHAT HAPPENED</strong> The request entered the production queue in Week {committedPresentation.receipt.queuedWeek}.</p>
+          <p><strong>WHY IT MATTERS</strong> No writer, room, cash, or screenplay project identity is committed while it waits.</p>
+          <p><strong>WHAT NEXT</strong> Return to the live Lot. Advance time or cancel the request; the studio will revalidate it before writing begins.</p>
+        </div>
+      ) : committedPresentation.kind === 'accepted' ? (
         <div
           className="lot-commission-workspace-recording"
           data-testid="lot-commission-workspace-recording"
@@ -74,6 +97,15 @@ export function LotCommissionWorkspace({
           <span className="lot-commission-workspace-eyebrow">SCREENPLAY ACCEPTED</span>
           <h2>Recording {title} with the studio</h2>
           <p>The commission is secure. Returning to live Development…</p>
+        </div>
+      ) : (
+        <div
+          className="lot-commission-workspace-recording"
+          data-testid="lot-commission-workspace-recording"
+        >
+          <span className="lot-commission-workspace-eyebrow">STUDIO UPDATED</span>
+          <h2>Recording the studio's latest Development state</h2>
+          <p>The exact commission result could not be verified for presentation. Returning to the live Lot without claiming a project or commitment.</p>
         </div>
       )}
     </LotRetainedWorkspace>

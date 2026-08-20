@@ -148,6 +148,16 @@ export function queueCommissionScript(
   return appendIntent(queue, { kind: 'commissionScript', payload }, week)
 }
 
+/** Whether this exact market premise already has one pool commission waiting. */
+export function hasQueuedPoolCommissionForConcept(
+  queue: readonly ProductionQueueEntry[],
+  conceptId: string,
+): boolean {
+  return queue.some(
+    (entry) => entry.kind === 'commissionScript' && entry.payload.conceptId === conceptId,
+  )
+}
+
 export function queueCommissionOriginalScreenplay(
   queue: readonly ProductionQueueEntry[],
   payload: CommissionOriginalScreenplayPayload,
@@ -164,6 +174,16 @@ export function queueStartCastingSession(
   return appendIntent(queue, { kind: 'startCastingSession', payload }, week)
 }
 
+/** Whether this exact screenplay already has one camera-test request waiting. */
+export function hasQueuedCastingSession(
+  queue: readonly ProductionQueueEntry[],
+  projectId: string,
+): boolean {
+  return queue.some(
+    (entry) => entry.kind === 'startCastingSession' && entry.payload.projectId === projectId,
+  )
+}
+
 export function queueGreenlightScriptProject(
   queue: readonly ProductionQueueEntry[],
   scriptProjectId: string,
@@ -174,6 +194,17 @@ export function queueGreenlightScriptProject(
     queue,
     { kind: 'greenlightScriptProject', scriptProjectId, payload },
     week,
+  )
+}
+
+/** Whether this exact screenplay already has one greenlight intent waiting. */
+export function hasQueuedGreenlightScriptProject(
+  queue: readonly ProductionQueueEntry[],
+  scriptProjectId: string,
+): boolean {
+  return queue.some(
+    (entry) =>
+      entry.kind === 'greenlightScriptProject' && entry.scriptProjectId === scriptProjectId,
   )
 }
 

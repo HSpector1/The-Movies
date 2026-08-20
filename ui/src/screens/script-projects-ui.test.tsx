@@ -12,6 +12,8 @@ import {
   signContractAction,
 } from '../engine/adapter.ts'
 import type { CommissionScriptPayload, CreativeRole, GameState } from '../engine/adapter.ts'
+import { applyActions } from '../../../src/core/index.js'
+import { contendedStudio, freePackage } from '../../../tests/_m4Fixtures.js'
 import { WritersRoom } from './WritersRoom.tsx'
 
 afterEach(cleanup)
@@ -224,5 +226,37 @@ describe('Writers Room — managed screenplay workspace', () => {
     expect(firstAccept).toBeInTheDocument()
     expect(screen.getByTestId('script-status-script-0000')).toHaveTextContent('Needs review')
     expect(screen.getByTestId('script-status-script-0001')).toHaveTextContent('Ready to package')
+  })
+
+  it('does not reopen the exact screenplay whose greenlight is queued', () => {
+    const { state, readyProjectIds } = contendedStudio('writers-room-queued-greenlight')
+    const targetProjectId = readyProjectIds[0]!
+    const otherProjectId = readyProjectIds[1]!
+    const queued = applyActions(state, [
+      {
+        kind: 'greenlightScriptProject',
+        production: freePackage(state, targetProjectId),
+      },
+    ])
+    const onOpenPackage = vi.fn()
+
+    render(
+      <WritersRoom
+        state={queued}
+        onChange={() => {}}
+        onOpenPackage={onOpenPackage}
+        onBack={() => {}}
+      />,
+    )
+
+    expect(
+      screen.queryByTestId(`script-action-openPackage-${targetProjectId}`),
+    ).not.toBeInTheDocument()
+    expect(screen.getByTestId(`script-blockers-${targetProjectId}`)).toHaveTextContent(
+      'Greenlight already queued',
+    )
+    fireEvent.click(screen.getByTestId(`script-action-openPackage-${otherProjectId}`))
+    expect(onOpenPackage).toHaveBeenCalledTimes(1)
+    expect(onOpenPackage).toHaveBeenCalledWith(otherProjectId)
   })
 })

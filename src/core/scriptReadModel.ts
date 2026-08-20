@@ -13,6 +13,11 @@ import {
   developmentCastingOccupancy,
   facilitySlotKey,
 } from './scriptDevelopment.js'
+import {
+  hasQueuedCastingSession,
+  hasQueuedGreenlightScriptProject,
+  hasQueuedPoolCommissionForConcept,
+} from './productionQueue.js'
 import { roleOVR } from './talentSummary.js'
 import {
   beatsForGenre,
@@ -58,6 +63,7 @@ export type ScriptPlayerBlockerKind =
   // deleted arm is that arm, now carrying the queue's own truth.
   | 'package-staffing'
   | 'casting-session'
+  | 'greenlight-queued'
   | 'no-concepts'
   | 'no-writers'
 
@@ -174,6 +180,16 @@ export type ScriptCommissionAvailabilityView = {
    * actually about.
    */
   canStartOriginal: boolean
+  /**
+   * Can the market-premise intent be submitted through the authoritative front
+   * door? Capacity alone does not close that door: the intent joins the shared
+   * Development & Casting queue and is revalidated when it reaches the front.
+   */
+  canSubmitMarketIntent: boolean
+  /** The same front-door fact for an original screenplay commission. */
+  canSubmitOriginalIntent: boolean
+  /** True when an otherwise-legal commission will wait instead of starting now. */
+  willQueueIntent: boolean
   consequence: string
   concepts: CommissionConceptView[]
   writers: CommissionWriterView[]
@@ -182,6 +198,13 @@ export type ScriptCommissionAvailabilityView = {
 
 export type ScriptPackageAvailabilityView = {
   knownGatesClear: boolean
+  /**
+   * Can this exact package be submitted to the authoritative greenlight door?
+   * A facility-capacity blocker queues; every other blocker still refuses.
+   */
+  canSubmitGreenlightIntent: boolean
+  /** True when this legal greenlight will wait for Development & Casting capacity. */
+  willQueueGreenlightIntent: boolean
   writerAvailable: boolean
   staffingAvailable: boolean
   productionSlotAvailable: boolean
@@ -542,8 +565,17 @@ function commissionAvailability(
   const claimedConcepts = new Set(
     state.scriptDevelopment.projects.map((project) => project.conceptId),
   )
+  const queuedPoolConceptIds = new Set(
+    state.productionQueue.flatMap((entry) =>
+      entry.kind === 'commissionScript' ? [entry.payload.conceptId] : [],
+    ),
+  )
   const concepts = state.concepts
-    .filter((concept) => !claimedConcepts.has(concept.id))
+    .filter(
+      (concept) =>
+        !claimedConcepts.has(concept.id) &&
+        !hasQueuedPoolCommissionForConcept(state.productionQueue, concept.id),
+    )
     .slice()
     .sort((a, b) => compareId(a.id, b.id))
     .map((concept): CommissionConceptView => conceptView(state, concept))
@@ -608,8 +640,8 @@ function commissionAvailability(
     blockers.push({
       kind: 'facility-capacity',
       headline: 'Development & Casting is full',
-      detail: 'Every Development & Casting slot is occupied by screenplay, casting, or production work.',
-      remedy: 'Wait for a named task to release a slot.',
+      detail: 'Every Development & Casting slot is occupied, so an otherwise-legal commission joins the queue instead of starting now.',
+      remedy: 'Submit the commission to queue it, wait for a named task to release a slot, or build more Development & Casting capacity.',
     })
   }
   if (concepts.length === 0) {
@@ -620,8 +652,14 @@ function commissionAvailability(
     // thirty-first. Now one does: the studio's own writers.
     blockers.push({
       kind: 'no-concepts',
-      headline: 'The market has no unclaimed premises left',
-      detail: 'Every premise this studio could buy already owns a screenplay project.',
+      headline:
+        queuedPoolConceptIds.size > 0
+          ? 'No market premise is available to commission'
+          : 'The market has no unclaimed premises left',
+      detail:
+        queuedPoolConceptIds.size > 0
+          ? 'Every premise already owns a screenplay project or is already named by a queued commission.'
+          : 'Every premise this studio could buy already owns a screenplay project.',
       remedy: 'Commission an original screenplay — put one of your writers on a new picture.',
     })
   }
@@ -634,6 +672,12 @@ function commissionAvailability(
     })
   }
 
+  const canSubmitMarketIntent = blockers.every(
+    (blocker) => blocker.kind === 'facility-capacity',
+  )
+  const canSubmitOriginalIntent = blockers.every(
+    (blocker) => blocker.kind === 'facility-capacity' || blocker.kind === 'no-concepts',
+  )
   return {
     canStart: blockers.length === 0,
     // THE MARKET-PATH SCOPE (C2a-M4, the M3 carry). `no-concepts` is a fact about
@@ -642,6 +686,11 @@ function commissionAvailability(
     // on this list is about the studio, the room or the roster, and stops both
     // doors exactly as it always did.
     canStartOriginal: blockers.every((blocker) => blocker.kind === 'no-concepts'),
+    canSubmitMarketIntent,
+    canSubmitOriginalIntent,
+    willQueueIntent:
+      blockers.some((blocker) => blocker.kind === 'facility-capacity') &&
+      (canSubmitMarketIntent || canSubmitOriginalIntent),
     consequence: SCRIPT_DEVELOPMENT_WEEK_CONSEQUENCE,
     concepts,
     writers,
@@ -655,6 +704,10 @@ function packageAvailability(
   capacity: ScriptCapacityView,
 ): ScriptPackageAvailabilityView {
   const blockers = writerBlockers(state, project, 'package')
+  const greenlightQueued = hasQueuedGreenlightScriptProject(
+    state.productionQueue,
+    project.id,
+  )
   const busy = busyTalentIds(state)
   const freelancerMarket = new Set(freelancerMarketIds(state))
   const remainingTeamNeeds: ReadonlyArray<{
@@ -699,6 +752,14 @@ function packageAvailability(
       remedy: 'Complete the founding roster and found the studio.',
     })
   }
+  if (greenlightQueued) {
+    blockers.push({
+      kind: 'greenlight-queued',
+      headline: 'Greenlight already queued',
+      detail: 'This exact screenplay package already has a greenlight intent waiting in the Studio Queue.',
+      remedy: 'Advance the week until a Development & Casting slot frees, or cancel the intent in the Studio Queue before assembling a replacement.',
+    })
+  }
   // ── THE SUCCESSOR SEMANTIC (charter §3.3) ────────────────────────────────
   //
   // `productionSlotAvailable` used to answer "is the studio under the cap?" —
@@ -712,7 +773,7 @@ function packageAvailability(
   const developmentCastingSlotAvailable = capacity.available > 0
   const productionSlotAvailable = developmentCastingSlotAvailable
   const queueDepth = state.productionQueue.length
-  if (!developmentCastingSlotAvailable) {
+  if (!developmentCastingSlotAvailable && !greenlightQueued) {
     blockers.push({
       kind: 'facility-capacity',
       headline: 'Development & Casting is full',
@@ -724,8 +785,15 @@ function packageAvailability(
   const writerAvailable = !blockers.some(
     (blocker) => blocker.kind === 'writer-contract' || blocker.kind === 'writer-assignment',
   )
+  const canSubmitGreenlightIntent = blockers.every(
+    (blocker) => blocker.kind === 'facility-capacity',
+  )
   return {
     knownGatesClear: blockers.length === 0,
+    canSubmitGreenlightIntent,
+    willQueueGreenlightIntent:
+      canSubmitGreenlightIntent &&
+      blockers.some((blocker) => blocker.kind === 'facility-capacity'),
     writerAvailable,
     staffingAvailable,
     productionSlotAvailable,
@@ -779,9 +847,8 @@ function consequenceFor(project: ScriptProject): string {
 function canPlanAuditions(
   state: GameState,
   project: ScriptProject,
-  capacity: ScriptCapacityView,
 ): boolean {
-  if (capacity.available === 0) return false
+  if (hasQueuedCastingSession(state.productionQueue, project.id)) return false
   const busy = busyTalentIds(state)
   const freelancerMarket = new Set(freelancerMarketIds(state))
   const eligiblePrimaryActors = state.talent.filter(
@@ -828,6 +895,10 @@ function projectCard(
     }
   } else if (project.status === 'ready') {
     const availability = packageAvailability(state, project, capacity)
+    const greenlightQueued = hasQueuedGreenlightScriptProject(
+      state.productionQueue,
+      project.id,
+    )
     blockers.push(...availability.blockers)
     const castingSession = state.castingSessions.sessions.find(
       (session) => session.projectId === project.id,
@@ -835,7 +906,7 @@ function projectCard(
     if (
       state.castingSessions.mode === 'managed' &&
       castingSession === undefined &&
-      canPlanAuditions(state, project, capacity)
+      canPlanAuditions(state, project)
     ) {
       legalActions.push({
         kind: 'planAuditions',
@@ -854,7 +925,7 @@ function projectCard(
         remedy: 'Open the Casting Room and finish the session before assembling this package.',
       })
     }
-    if (availability.staffingAvailable) {
+    if (availability.staffingAvailable && !greenlightQueued) {
       if (
         castingSession === undefined ||
         castingSession.status === 'complete' ||
@@ -900,6 +971,10 @@ function readyPackage(
     throw new Error(`scriptReadModel: project "${project.id}" is not a Ready assessed screenplay`)
   }
   const baseAvailability = packageAvailability(state, project, capacity)
+  const greenlightQueued = hasQueuedGreenlightScriptProject(
+    state.productionQueue,
+    project.id,
+  )
   const castingSession = state.castingSessions.sessions.find(
     (session) => session.projectId === project.id,
   )
@@ -912,6 +987,8 @@ function readyPackage(
     : {
         ...baseAvailability,
         knownGatesClear: false,
+        canSubmitGreenlightIntent: false,
+        willQueueGreenlightIntent: false,
         blockers: [
           ...baseAvailability.blockers,
           {
@@ -934,7 +1011,7 @@ function readyPackage(
       state.sets,
     ),
     availability,
-    openAction: availability.staffingAvailable && castingClear
+    openAction: availability.staffingAvailable && castingClear && !greenlightQueued
       ? {
           kind: 'openPackage',
           projectId: project.id,

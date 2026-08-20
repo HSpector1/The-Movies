@@ -144,6 +144,8 @@ const blockedContext: LotCastingReviewContext = {
   ],
   packageAvailability: {
     knownGatesClear: false,
+    canSubmitGreenlightIntent: false,
+    willQueueGreenlightIntent: false,
     writerAvailable: true,
     staffingAvailable: false,
     // C2a-M4 (§11.8 re-base): the two booleans are the SAME physical fact now —
@@ -192,6 +194,8 @@ function clearContext(): LotCastingReviewContext {
     title: 'The Fading Constellation',
     packageAvailability: {
       knownGatesClear: true,
+      canSubmitGreenlightIntent: true,
+      willQueueGreenlightIntent: false,
       writerAvailable: true,
       staffingAvailable: true,
       productionSlotAvailable: true,

@@ -23,6 +23,7 @@ import type {
   StartCastingSessionPayload,
   Talent,
 } from '../src/core/index.js'
+import { contendedStudio, freeSlate } from './_m4Fixtures.js'
 
 function applicants(state: GameState): Talent[] {
   return state.founding!.applicantIds.map(
@@ -34,13 +35,16 @@ function byRole(talent: readonly Talent[], role: CreativeRole): Talent[] {
   return talent.filter((person) => person.role === role)
 }
 
-function foundedStudio(seed: string): GameState {
+function foundedStudio(
+  seed: string,
+  writerCount = FOUNDING_MINIMUMS.writer,
+): GameState {
   let state = beginFounding(generateWorld(seed))
   const pool = applicants(state)
   const hires = [
     ...byRole(pool, 'actor').slice(0, FOUNDING_MINIMUMS.actor),
     ...byRole(pool, 'director').slice(0, FOUNDING_MINIMUMS.director),
-    ...byRole(pool, 'writer').slice(0, FOUNDING_MINIMUMS.writer),
+    ...byRole(pool, 'writer').slice(0, writerCount),
     ...byRole(pool, 'craft').slice(0, FOUNDING_MINIMUMS.craft),
   ]
   for (const hire of hires) {
@@ -264,6 +268,85 @@ describe('Casting Sessions V1 action, tick, and read-model integration', () => {
     expect(greenlit.scriptDevelopment.projects[0]!.status).toBe('inProduction')
   })
 
+  it('hands capacity-only casting forward to a queueable Package and closes the exact queued project', () => {
+    let state = readyScript(
+      activateManaged(foundedStudio('casting-actions-capacity-handoff', 3)),
+    )
+    const projectId = state.scriptDevelopment.projects[0]!.id
+    const targetWriterId = state.scriptDevelopment.projects[0]!.writerId
+    const payload = remainingPackage(state, projectId)
+
+    state = applyActions(state, [
+      { kind: 'startCastingSession', session: auditionSlate(state, projectId) },
+    ])
+    const auditioning = castingSessionsReadModel(state).sections.auditioning[0]!
+    expect(auditioning.projectId).toBe(projectId)
+    expect(auditioning.legalActions).toEqual([])
+
+    state = tick(state)
+    const otherWriters = contractedByRole(state, 'writer').filter(
+      (writer) => writer.id !== targetWriterId,
+    )
+    expect(otherWriters).toHaveLength(2)
+    state = applyActions(state, [
+      { kind: 'commissionScript', project: commissionPayload(state, 1, otherWriters[0]!.id) },
+      { kind: 'commissionScript', project: commissionPayload(state, 2, otherWriters[1]!.id) },
+    ])
+
+    expect(scriptCapacityView(state)).toMatchObject({ occupied: 2, available: 0 })
+    const review = castingSessionsReadModel(state).sections.needsReview[0]!
+    expect(review).toMatchObject({
+      projectId,
+      packageAvailability: {
+        knownGatesClear: false,
+        canSubmitGreenlightIntent: true,
+        willQueueGreenlightIntent: true,
+        blockers: [expect.objectContaining({ kind: 'facility-capacity' })],
+      },
+      legalActions: [
+        {
+          kind: 'acknowledgeCastingSession',
+          sessionId: review.sessionId,
+          projectId,
+          label: 'Take results to Package',
+          opensPackage: true,
+        },
+      ],
+    })
+
+    state = applyActions(state, [
+      { kind: 'acknowledgeCastingSession', sessionId: review.sessionId! },
+    ])
+    const complete = castingSessionsReadModel(state).sections.history.find(
+      (card) => card.projectId === projectId,
+    )!
+    expect(complete.legalActions).toEqual([
+      { kind: 'openPackage', projectId, label: 'Open package' },
+    ])
+    expect(complete.packageAvailability?.canSubmitGreenlightIntent).toBe(true)
+
+    const queued = applyActions(state, [
+      { kind: 'greenlightScriptProject', production: payload },
+    ])
+    expect(queued.productionQueue).toContainEqual(
+      expect.objectContaining({
+        kind: 'greenlightScriptProject',
+        payload: expect.objectContaining({ projectId }),
+      }),
+    )
+    expect(queued.scriptDevelopment.projects.find((project) => project.id === projectId)?.status)
+      .toBe('ready')
+    const waiting = castingSessionsReadModel(queued).sections.history.find(
+      (card) => card.projectId === projectId,
+    )!
+    expect(waiting.packageAvailability).toMatchObject({
+      canSubmitGreenlightIntent: false,
+      willQueueGreenlightIntent: false,
+      blockers: [expect.objectContaining({ kind: 'greenlight-queued' })],
+    })
+    expect(waiting.legalActions.map((action) => action.kind)).not.toContain('openPackage')
+  })
+
   it('shares both slots with scripts in both directions and reports one combined occupancy', () => {
     let state = readyScript(activateManaged(foundedStudio('casting-actions-capacity')))
     const project = state.scriptDevelopment.projects[0]!
@@ -349,6 +432,33 @@ describe('Casting Sessions V1 action, tick, and read-model integration', () => {
       kind: 'castingReview',
       sessionId: 'casting-0000',
     })
+  })
+
+  it('rejects a second exact-project audition intent while the first waits in the queue', () => {
+    const fixture = contendedStudio('casting-actions-queued-duplicate')
+    const projectId = fixture.readyProjectIds[0]!
+    const slate = freeSlate(fixture.state, projectId)
+    const queued = applyActions(fixture.state, [
+      { kind: 'startCastingSession', session: slate },
+    ])
+
+    expect(queued.productionQueue).toMatchObject([
+      { kind: 'startCastingSession', payload: { projectId } },
+    ])
+    const queuedCard = castingSessionsReadModel(queued).sections.readyToPlan.find(
+      (project) => project.projectId === projectId,
+    )!
+    expect(queuedCard.legalActions.map((action) => action.kind)).not.toContain('planAuditions')
+    expect(queuedCard.blockers).toContainEqual(
+      expect.stringMatching(/already waiting in the Development & Casting queue/i),
+    )
+
+    const beforeDuplicate = stableStringify(queued)
+    expect(() =>
+      applyActions(queued, [{ kind: 'startCastingSession', session: slate }]),
+    ).toThrow(/already has auditions waiting in the production queue/i)
+    expect(stableStringify(queued)).toBe(beforeDuplicate)
+    expect(queued.productionQueue).toHaveLength(1)
   })
 
   it('orders casting review cards and the player decision by session ID, not project ID', () => {

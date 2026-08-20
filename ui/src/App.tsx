@@ -214,6 +214,13 @@ import {
   type ScreenplayCommissionReceipt,
 } from './lot/snapshot/scriptCommission.ts'
 import {
+  acceptedQueuedGreenlightReceipt,
+  acceptedQueuedOriginalCommissionReceipt,
+  acceptedQueuedScreenplayCommissionReceipt,
+  type LotCommissionQueueReceipt,
+  type LotGreenlightQueueReceipt,
+} from './lot/snapshot/queueAdmission.ts'
+import {
   acceptedLotAuditionPlanningReceipt,
   currentLotAuditionPlanningContext,
   LOT_AUDITION_OPENER_TESTID,
@@ -464,6 +471,7 @@ type LotPackageWorkspaceSession =
       before: GameState
       next: GameState
       formationReceipt: GreenlightFormationReceipt | null
+      queueReceipt: LotGreenlightQueueReceipt | null
     })
 
 type LiveFormationPresentation = {
@@ -498,6 +506,7 @@ type LotCommissionWorkspaceSession =
       next: GameState
       title: string
       receipt: ScreenplayCommissionReceipt | null
+      queueReceipt: LotCommissionQueueReceipt | null
     })
 
 type LiveCommissionPresentation = {
@@ -2331,10 +2340,20 @@ export function App() {
     } catch {
       receipt = null
     }
+    let queueReceipt: LotCommissionQueueReceipt | null = null
+    try {
+      queueReceipt = intent.kind === 'market'
+        ? acceptedQueuedScreenplayCommissionReceipt(renderedBefore, result.next, intent.payload)
+        : acceptedQueuedOriginalCommissionReceipt(renderedBefore, result.next, intent.payload)
+    } catch {
+      queueReceipt = null
+    }
     // The title the studio's own writers gave it stays the ORIGINAL door's own
     // fallback: if the strict witness cannot be raised, the world still names the
     // picture rather than saying "screenplay".
     const committedTitle = receipt?.title
+      ?? (queueReceipt?.subject.kind === 'market' ? queueReceipt.subject.title : null)
+      ?? (queueReceipt?.subject.kind === 'original' ? 'Original screenplay' : null)
       ?? (intent.kind === 'market'
         ? 'screenplay'
         : mintedScreenplayTitle(renderedBefore, result.next) ?? 'screenplay')
@@ -2349,6 +2368,7 @@ export function App() {
       next: result.next,
       title: committedTitle,
       receipt,
+      queueReceipt,
     }
     // Publish the committed owner synchronously before React can deliver another activation from
     // the still-rendered form. The valid Engine successor is accepted even if optional receipt
@@ -2366,7 +2386,12 @@ export function App() {
     setLotCadenceFeedback(null)
     setLotOperationalAnnouncementSuppressed(false)
     setState(result.next)
-    applyPunctuation(punctuateCommit('commission', result.next.market.tick))
+    // Queue admission is acceptance of an intent, not a commission commit. Preserve
+    // the existing immediate path (including neutral receipt demotion), but never
+    // punctuate an exactly witnessed wait as though writing had begun.
+    if (queueReceipt === null) {
+      applyPunctuation(punctuateCommit('commission', result.next.market.tick))
+    }
     return result
   }
 
@@ -2493,6 +2518,16 @@ export function App() {
     } catch {
       formationReceipt = null
     }
+    let queueReceipt: LotGreenlightQueueReceipt | null = null
+    try {
+      queueReceipt = acceptedQueuedGreenlightReceipt(
+        current,
+        next,
+        currentWorkspace.scriptProjectId,
+      )
+    } catch {
+      queueReceipt = null
+    }
 
     const committed: LotPackageWorkspaceSession = {
       phase: 'committed',
@@ -2506,6 +2541,7 @@ export function App() {
       before: current,
       next,
       formationReceipt,
+      queueReceipt,
     }
     // Close the editing owner synchronously before the Engine successor can make the screenplay
     // disappear from Assembly's Ready-package projection.
@@ -4996,6 +5032,15 @@ export function App() {
             phase={retainedPackageWorkspace.phase}
             title={retainedPackageWorkspace.title}
             nestedModalOpen={profileDrawerOpen}
+            committedPresentation={
+              retainedPackageWorkspace.phase !== 'committed'
+                ? undefined
+                : retainedPackageWorkspace.queueReceipt !== null
+                  ? { kind: 'queued', receipt: retainedPackageWorkspace.queueReceipt }
+                  : retainedPackageWorkspace.formationReceipt !== null
+                    ? { kind: 'accepted' }
+                    : { kind: 'neutral' }
+            }
             onCancel={() => handleLotPackageCancel(retainedPackageWorkspace)}
           >
             {retainedPackageWorkspace.phase === 'editing' && (
@@ -5040,6 +5085,15 @@ export function App() {
                 : 'New screenplay'
             }
             nestedModalOpen={profileDrawerOpen}
+            committedPresentation={
+              retainedCommissionWorkspace.phase !== 'committed'
+                ? undefined
+                : retainedCommissionWorkspace.queueReceipt !== null
+                  ? { kind: 'queued', receipt: retainedCommissionWorkspace.queueReceipt }
+                  : retainedCommissionWorkspace.receipt !== null
+                    ? { kind: 'accepted' }
+                    : { kind: 'neutral' }
+            }
             onCancel={() => handleLotCommissionCancel(retainedCommissionWorkspace)}
             onOpenDetails={() => handleLotCommissionOpenDetails(retainedCommissionWorkspace)}
           >

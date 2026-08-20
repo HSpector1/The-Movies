@@ -29,6 +29,8 @@ export type LotCastingReviewBlocker = NonNullable<
 
 export type LotCastingReviewPackageAvailability = {
   knownGatesClear: boolean
+  canSubmitGreenlightIntent: boolean
+  willQueueGreenlightIntent: boolean
   writerAvailable: boolean
   staffingAvailable: boolean
   productionSlotAvailable: boolean
@@ -133,6 +135,8 @@ const EVIDENCE_KEYS = [
 const FIT_KEYS = ['label', 'score'] as const
 const PACKAGE_KEYS = [
   'knownGatesClear',
+  'canSubmitGreenlightIntent',
+  'willQueueGreenlightIntent',
   'writerAvailable',
   'staffingAvailable',
   'productionSlotAvailable',
@@ -191,6 +195,7 @@ const BLOCKER_KINDS = new Set([
   // C2a-M4 (§3.3): retired with the cap. Successor: `'facility-capacity'`.
   'package-staffing',
   'casting-session',
+  'greenlight-queued',
   'no-concepts',
   'no-writers',
 ])
@@ -200,6 +205,7 @@ const PACKAGE_BLOCKER_KINDS = new Set<LotCastingReviewBlocker['kind']>([
   'writer-contract',
   'writer-assignment',
   'package-staffing',
+  'greenlight-queued',
 ])
 const CARD_STATUSES = new Set(['notStarted', 'auditioning', 'review', 'complete'])
 
@@ -369,6 +375,8 @@ function packageView(value: unknown): LotCastingReviewPackageAvailability | null
     !isPlainRecord(value) ||
     !hasExactOwnKeys(value, PACKAGE_KEYS) ||
     typeof value.knownGatesClear !== 'boolean' ||
+    typeof value.canSubmitGreenlightIntent !== 'boolean' ||
+    typeof value.willQueueGreenlightIntent !== 'boolean' ||
     typeof value.writerAvailable !== 'boolean' ||
     typeof value.staffingAvailable !== 'boolean' ||
     typeof value.productionSlotAvailable !== 'boolean' ||
@@ -384,7 +392,13 @@ function packageView(value: unknown): LotCastingReviewPackageAvailability | null
   }
   if (value.knownGatesClear !== (blockers.length === 0)) return null
   const blockerKinds = new Set(blockers.map((blocker) => blocker.kind))
+  const canSubmitGreenlightIntent = blockers.every(
+    (blocker) => blocker.kind === 'facility-capacity',
+  )
   if (
+    value.canSubmitGreenlightIntent !== canSubmitGreenlightIntent ||
+    value.willQueueGreenlightIntent !==
+      (canSubmitGreenlightIntent && blockerKinds.has('facility-capacity')) ||
     value.writerAvailable !==
       !(blockerKinds.has('writer-contract') || blockerKinds.has('writer-assignment')) ||
     value.staffingAvailable !== !blockerKinds.has('package-staffing') ||
@@ -399,6 +413,8 @@ function packageView(value: unknown): LotCastingReviewPackageAvailability | null
   ) return null
   return {
     knownGatesClear: value.knownGatesClear,
+    canSubmitGreenlightIntent: value.canSubmitGreenlightIntent,
+    willQueueGreenlightIntent: value.willQueueGreenlightIntent,
     writerAvailable: value.writerAvailable,
     staffingAvailable: value.staffingAvailable,
     productionSlotAvailable: value.productionSlotAvailable,
@@ -624,10 +640,8 @@ function actionMatchesPackage(
     headlines.length !== summaryBlockers.length ||
     !headlines.every((headline, index) => headline === summaryBlockers[index])
   ) return false
-  if (availability.knownGatesClear) {
-    return availability.blockers.length === 0 &&
-      summaryBlockers.length === 0 &&
-      action.opensPackage === true &&
+  if (availability.canSubmitGreenlightIntent) {
+    return action.opensPackage === true &&
       action.label === 'Take results to Package'
   }
   return availability.blockers.length > 0 &&
@@ -942,9 +956,7 @@ export function acceptedLotCastingReviewSuccess(
 
     if (action.opensPackage) {
       if (
-        !availability.knownGatesClear ||
-        availability.blockers.length !== 0 ||
-        summaryBlockers.length !== 0 ||
+        !availability.canSubmitGreenlightIntent ||
         successor.legalActions.length !== 1
       ) return null
       const open = openPackageAction(successor.legalActions[0], target.projectId)
@@ -956,13 +968,13 @@ export function acceptedLotCastingReviewSuccess(
         title: target.title,
         writerName: rendered.writer.name,
         statusLabel: 'Casting review complete',
-        blockers: [],
+        blockers: availability.blockers.map((blocker) => ({ ...blocker })),
         openPackageAction: open,
       }
     }
 
     if (
-      availability.knownGatesClear ||
+      availability.canSubmitGreenlightIntent ||
       availability.blockers.length === 0 ||
       successor.legalActions.length !== 0
     ) return null

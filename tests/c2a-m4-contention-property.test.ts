@@ -28,6 +28,7 @@ import {
   tick,
 } from '../src/core/index.js'
 import type { FacilityCapability, GameState, LedgerEntry } from '../src/core/index.js'
+import { hasQueuedGreenlightScriptProject } from '../src/core/productionQueue.js'
 import { contendedStudio, freePackageOrNull } from './_m4Fixtures.js'
 
 /** The charter's declared acquisition order (§3.2), restated by the test. */
@@ -76,7 +77,7 @@ function driveTakes(state: GameState): GameState {
   return next
 }
 
-/** Greenlight whatever the queue will take, so the studio stays over-subscribed. */
+/** Greenlight each distinct ready project once, so the studio stays over-subscribed. */
 function pressureGreenlights(state: GameState, readyProjectIds: readonly string[]): GameState {
   let next = state
   for (const projectId of readyProjectIds) {
@@ -84,6 +85,7 @@ function pressureGreenlights(state: GameState, readyProjectIds: readonly string[
       (candidate) => candidate.id === projectId,
     )
     if (project === undefined || project.status !== 'ready') continue
+    if (hasQueuedGreenlightScriptProject(next.productionQueue, projectId)) continue
     const payload = freePackageOrNull(next, projectId)
     // A studio with this many pictures in flight runs out of BODIES before it
     // runs out of rooms; this test is about the rooms.

@@ -27,6 +27,12 @@ import type {
   StartCastingSessionPayload,
   Talent,
 } from '../src/core/index.js'
+import {
+  contendedGreenlightStudio,
+  contendedStudio,
+  freePackage,
+  freeSlate,
+} from './_m4Fixtures.js'
 
 // An internal identifier is `<domain>-<digits>`. Player copy must never carry one.
 const INTERNAL_ID = /\b(?:script|casting|prod|production|facility|talent|concept|film)-\d+/i
@@ -694,7 +700,7 @@ describe('First Film Journey V1 — the guided chain', () => {
     })
   })
 
-  it('routes a fully blocked package to Casting without publishing a package verb', () => {
+  it('routes a blocked package through queueable auditions before package assembly', () => {
     let state = packageBlockedStudio('journey-blocked-2')
     const soleDirector = contractedByRole(state, 'director')[0]!
     const directorAsWriter = scriptProjectsReadModel(state).commission.writers.find(
@@ -743,7 +749,7 @@ describe('First Film Journey V1 — the guided chain', () => {
       (entry) => entry.projectId === target.id,
     )!
     expect(packageView.openAction).toBeNull()
-    expect(castingView.legalActions.some((action) => action.kind === 'planAuditions')).toBe(false)
+    expect(castingView.legalActions.some((action) => action.kind === 'planAuditions')).toBe(true)
 
     const blocked = firstFilmJourney(state)
     expect(blocked).toMatchObject({
@@ -751,14 +757,95 @@ describe('First Film Journey V1 — the guided chain', () => {
       productionId: null,
       scriptProjectId: target.id,
       ordinal: 1,
-      blocked: { reason: expect.any(String) },
+      blocked: null,
       next: {
-        kind: 'review-casting-blocker',
-        label: 'Review the package blocker at Casting',
+        kind: 'plan-auditions',
+        label: 'Plan auditions at Casting',
         site: 'casting',
       },
     })
     expect(blocked.next?.label).not.toContain('Assemble')
+  })
+
+  it('reports exact queued auditions as waiting work and advances instead of offering them twice', () => {
+    const contended = contendedStudio('journey-queued-auditions')
+    const targetProjectId = contended.readyProjectIds[0]!
+    const state = applyActions(contended.state, [
+      {
+        kind: 'startCastingSession',
+        session: freeSlate(contended.state, targetProjectId),
+      },
+    ])
+
+    expect(state.productionQueue).toMatchObject([
+      { kind: 'startCastingSession', payload: { projectId: targetProjectId } },
+    ])
+    expect(state.castingSessions.sessions.some(
+      (session) => session.projectId === targetProjectId,
+    )).toBe(false)
+    const waiting = firstFilmJourney(state)
+    expect(waiting).toMatchObject({
+      stage: 'ready-to-package',
+      beat: 'screenplay-ready',
+      productionId: null,
+      scriptProjectId: targetProjectId,
+      headline: 'AUDITIONS QUEUED',
+      blocked: null,
+      next: { kind: 'advance-week', site: null },
+      waiting: { untilWeek: null, reason: expect.stringMatching(/camera-test request.*revalidated.*advance the week/i) },
+    })
+    expect(waiting.whatHappened).toMatch(/joined the Development & Casting queue/i)
+    expect(waiting.whyItMatters).toMatch(/No camera test has started.*no actor is reserved/i)
+    for (const copy of copyStrings(waiting)) expect(copy).not.toMatch(INTERNAL_ID)
+  })
+
+  it('keeps a queued greenlight pre-production and preserves another project journey', () => {
+    const contended = contendedGreenlightStudio('journey-queued-greenlight')
+    const queuedState = applyActions(contended.state, [
+      {
+        kind: 'greenlightScriptProject',
+        production: freePackage(contended.state, contended.targetProjectId),
+      },
+    ])
+
+    expect(queuedState.productionQueue).toMatchObject([
+      {
+        kind: 'greenlightScriptProject',
+        scriptProjectId: contended.targetProjectId,
+      },
+    ])
+    expect(queuedState.scriptDevelopment.projects.find(
+      (project) => project.id === contended.targetProjectId,
+    )).toMatchObject({ status: 'ready', productionId: null })
+    const waiting = firstFilmJourney(queuedState)
+    expect(waiting).toMatchObject({
+      stage: 'ready-to-package',
+      beat: 'auditions-reviewed',
+      productionId: null,
+      scriptProjectId: contended.targetProjectId,
+      headline: 'GREENLIGHT QUEUED',
+      blocked: null,
+      next: { kind: 'advance-week', site: null },
+      waiting: { untilWeek: null, reason: expect.stringMatching(/revalidated for greenlight.*advance the week/i) },
+    })
+    expect(waiting.whyItMatters).toMatch(/not greenlit yet.*No production identity/i)
+
+    const otherTarget = contended.readyProjectIds.find(
+      (projectId) => projectId !== contended.targetProjectId,
+    )!
+    const otherQueued = applyActions(contended.state, [
+      {
+        kind: 'startCastingSession',
+        session: freeSlate(contended.state, otherTarget),
+      },
+    ])
+    const unaffected = firstFilmJourney(otherQueued)
+    expect(unaffected).toMatchObject({
+      scriptProjectId: contended.targetProjectId,
+      beat: 'auditions-reviewed',
+      waiting: null,
+      next: { kind: 'open-package', site: 'casting' },
+    })
   })
 
   it('routes a blocked fresh/no-picture journey without promising a commission', () => {

@@ -49,6 +49,7 @@
 import { castingSessionForProject } from './castingSessions.js'
 import { castingSessionsReadModel, type CastingProjectView } from './castingReadModel.js'
 import { productionPhaseForRemainingTicks } from './operations.js'
+import { queueInPriorityOrder } from './productionQueue.js'
 import {
   nextStudioDecision,
   scriptProjectsReadModel,
@@ -56,6 +57,7 @@ import {
   type ScriptPlayerBlocker,
   type ScriptProjectsReadModel,
 } from './scriptReadModel.js'
+import { studioQueueView, type StudioQueueView } from './studioQueueView.js'
 import type {
   CastingSessionsReadModel,
 } from './castingReadModel.js'
@@ -476,7 +478,13 @@ function commissionBlocked(
   board: ScriptProjectsReadModel | null,
 ): { reason: string } | null {
   if (board === null) return null
-  if (board.commission.canStart) return null
+  if (
+    board.commission.canStart ||
+    (
+      board.commission.blockers.length > 0 &&
+      board.commission.blockers.every((blocker) => blocker.kind === 'facility-capacity')
+    )
+  ) return null
   const blocker = primaryBlocker(board.commission.blockers)
   return blocker === null ? null : { reason: blockerReason(blocker) }
 }
@@ -714,8 +722,58 @@ function readyToPackageView(
   board: ScriptProjectsReadModel | null,
   casting: CastingSessionsReadModel | null,
   session: CastingSession | undefined,
+  queue: StudioQueueView | null,
 ): FirstFilmJourneyView {
   const writer = talentName(state, project.writerId)
+
+  const queued = queueInPriorityOrder(state.productionQueue).find(
+    (entry) =>
+      (entry.kind === 'startCastingSession' && entry.payload.projectId === project.id) ||
+      (entry.kind === 'greenlightScriptProject' && entry.scriptProjectId === project.id),
+  )
+  if (queued !== undefined) {
+    const waiter = queue?.waiters.find(
+      (candidate) => candidate.kind === 'intent' && candidate.ordinal === queued.ordinal,
+    )
+    const auditionsQueued = queued.kind === 'startCastingSession'
+    const auditionsReviewed = session?.status === 'complete'
+    const queueDetail = waiter?.detail ?? 'Development & Casting is still occupied.'
+    return {
+      stage: 'ready-to-package',
+      beat: auditionsQueued || !auditionsReviewed ? 'screenplay-ready' : 'auditions-reviewed',
+      productionId: null,
+      scriptProjectId: project.id,
+      pictureTitle: title,
+      ordinal,
+      headline: auditionsQueued ? 'AUDITIONS QUEUED' : 'GREENLIGHT QUEUED',
+      whatHappened: auditionsQueued
+        ? 'The camera-test request joined the Development & Casting queue.'
+        : 'The finished package joined the Development & Casting queue.',
+      whyItMatters: auditionsQueued
+        ? 'The screenplay is still Ready. No camera test has started and no actor is reserved until a shared slot opens.'
+        : 'The picture is not greenlit yet. No production identity, budget, or talent commitment exists until the package reaches a shared slot and is revalidated.',
+      detail: joinDetail([
+        `Waiting since Week ${String(queued.queuedWeek)}`,
+        queueDetail,
+      ]),
+      next: {
+        kind: 'advance-week',
+        label: auditionsQueued
+          ? 'Wait for the camera-test queue — advance the week'
+          : 'Wait for the greenlight queue — advance the week',
+        site: null,
+      },
+      waiting: {
+        untilWeek: null,
+        reason: waitOut(
+          auditionsQueued
+            ? 'The camera-test request will be revalidated when Development & Casting capacity reaches it'
+            : 'The package will be revalidated for greenlight when Development & Casting capacity reaches it',
+        ),
+      },
+      blocked: null,
+    }
+  }
 
   // Legality is never decided here. Auditions are legal iff the Casting Room's
   // own board publishes the action (castingReadModel.ts:319); the screenplay
@@ -991,6 +1049,7 @@ function inProductionView(
 export function firstFilmJourney(state: GameState): FirstFilmJourneyView {
   const board = attempt(() => scriptProjectsReadModel(state))
   const casting = attempt(() => castingSessionsReadModel(state))
+  const queue = attempt(() => studioQueueView(state))
   const decision = attempt(() => nextStudioDecision(state))
 
   const picture = currentPicture(state, decision)
@@ -1036,7 +1095,7 @@ export function firstFilmJourney(state: GameState): FirstFilmJourneyView {
       if (session !== undefined && session.status === 'review') {
         return auditionReviewView(session, project.id, ordinal, title)
       }
-      return readyToPackageView(state, project, ordinal, title, board, casting, session)
+      return readyToPackageView(state, project, ordinal, title, board, casting, session, queue)
     }
     default:
       // `inProduction` / `produced` never reach here: `currentPicture` ranks them

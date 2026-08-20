@@ -4,6 +4,7 @@ import {
   authoritativeDigest,
   createBridgeBootstrap,
   playNextMovieThroughAvailableIntents,
+  selectJourneyIntent,
   type AcceptedCommandResponse,
   type SnapshotEnvelope,
 } from './session.ts'
@@ -17,16 +18,6 @@ import {
   type SubmitIntentCommand,
 } from './protocol.ts'
 import { exportSaveJson } from '../ui/src/engine/adapter.ts'
-
-const PLAYER_PRIORITY: readonly AvailableIntentKind[] = [
-  'commissionScreenplay',
-  'advanceWeek',
-  'acceptScreenplay',
-  'startAuditions',
-  'acknowledgeAuditions',
-  'greenlightPicture',
-  'resolveProductionBlocker',
-] as const
 
 type EvidenceCapture = ReturnType<typeof evidenceCapture>
 
@@ -69,12 +60,10 @@ function submit(
 }
 
 function selectMovieIntent(snapshot: SnapshotEnvelope): AvailableIntent {
-  const options = snapshot.availableIntents.filter(
-    (option) => option.kind !== 'startConstruction' && option.kind !== 'requestRewrite',
+  const selected = selectJourneyIntent(
+    snapshot.availableIntents,
+    snapshot.snapshot.journeyNotices.firstFilmJourney,
   )
-  const selected = PLAYER_PRIORITY
-    .map((kind) => options.find((option) => option.kind === kind))
-    .find((option) => option !== undefined)
   if (selected === undefined) {
     throw new Error(
       `No legal movie intent at revision ${String(snapshot.stateRevision)} / ` +

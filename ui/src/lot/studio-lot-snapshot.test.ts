@@ -36,6 +36,7 @@ import {
   STUDIO_LOT_BRAND,
 } from '../engine/adapter.ts'
 import { operationalAnnexWorkContext } from './snapshot/annexWork.ts'
+import { contendedStudio, freeSlate } from '../../../tests/_m4Fixtures.ts'
 
 // ── engine-level fixtures (mirroring tests/d12-economy.test.ts) ───────────────
 function foundStudio(seed: string): GameState {
@@ -1327,6 +1328,32 @@ describe('studioLotSnapshot — Script Projects V1 Writers Room attention', () =
 })
 
 describe('studioLotSnapshot — Casting Sessions V1 attention', () => {
+  it('distinguishes queueable auditions from the exact screenplay already waiting', () => {
+    const fixture = contendedStudio('lot-casting-queued-exact-project')
+    const projectId = fixture.readyProjectIds[0]!
+    const project = castingSessionsBoard(fixture.state).sections.readyToPlan.find(
+      (candidate) => candidate.projectId === projectId,
+    )!
+
+    expect(stage(studioLotSnapshot(fixture.state), 'casting')).toMatchObject({
+      attention: 'warning',
+      attentionReason: `${project.title} — auditions can join the Development & Casting queue`,
+    })
+
+    const queued = applyActions(fixture.state, [
+      { kind: 'startCastingSession', session: freeSlate(fixture.state, projectId) },
+    ])
+    expect(
+      castingSessionsBoard(queued).sections.readyToPlan.find(
+        (candidate) => candidate.projectId === projectId,
+      )!.legalActions.map((action) => action.kind),
+    ).not.toContain('planAuditions')
+    expect(stage(studioLotSnapshot(queued), 'casting')).toMatchObject({
+      attention: 'warning',
+      attentionReason: `${project.title} — auditions waiting for a Development & Casting slot`,
+    })
+  })
+
   it('lets an active pre-production operation own Casting when casting has no cue', () => {
     let state = foundManagedScriptStudio('lot-casting-operation-fallback')
     state = applyActions(state, [{ kind: 'activateCastingSessions' }])
@@ -1364,6 +1391,7 @@ describe('studioLotSnapshot — Casting Sessions V1 attention', () => {
     state = greenlightReadyScript(state, 'script-0000')
     state = tick(state) // greenlight tick: skip
     state = tick(state) // Development → Pre-production at Casting
+    state = commissionScript(state, 2, 1)
 
     const production = state.studio.activeProductions[0]!
     const busyActors = new Set(Object.values(production.cast))
@@ -1383,6 +1411,7 @@ describe('studioLotSnapshot — Casting Sessions V1 attention', () => {
     }
 
     const ready = castingSessionsBoard(state).sections.readyToPlan[0]!
+    expect(castingSessionsBoard(state).capacity.available).toBe(0)
     expect(ready.legalActions.map((action) => action.kind)).not.toContain('planAuditions')
     expect(ready.blockers).toContainEqual(
       expect.stringContaining('At least three currently available primary Actors'),

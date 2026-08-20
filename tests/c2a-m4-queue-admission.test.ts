@@ -73,6 +73,37 @@ describe('C2a-M4 §3.3 — the front doors admit and queue', () => {
     expect(started!.dueWeek).toBeGreaterThan(granted.market.tick)
   })
 
+  it('rejects a second queued pool commission for the exact concept without blocking dequeue', () => {
+    const { state } = contendedStudio('m4-commission-duplicate')
+    const payload = commissionPayload(state, 4, 2)
+    const action = { kind: 'commissionScript' as const, project: payload }
+    const queued = applyActions(state, [action])
+    const beforeDuplicate = stableStringify(queued)
+    const sameConceptFromAnotherWriter = {
+      kind: 'commissionScript' as const,
+      project: commissionPayload(queued, 4, 3),
+    }
+
+    expect(() => applyActions(queued, [sameConceptFromAnotherWriter])).toThrow(
+      /concept .* already has a screenplay commission waiting in the production queue/i,
+    )
+    expect(stableStringify(queued)).toBe(beforeDuplicate)
+    expect(
+      queued.productionQueue.filter(
+        (entry) =>
+          entry.kind === 'commissionScript' && entry.payload.conceptId === payload.conceptId,
+      ),
+    ).toHaveLength(1)
+
+    const granted = advance(queued, 3)
+    expect(granted.productionQueue).toEqual([])
+    expect(
+      granted.scriptDevelopment.projects.find(
+        (project) => project.conceptId === payload.conceptId,
+      ),
+    ).toMatchObject({ status: 'drafting', commissionedWeek: granted.market.tick })
+  })
+
   it('a queued ORIGINAL commission mints nothing until the slot is granted', () => {
     const { state } = contendedStudio('m4-original-queue')
     const writer = contractedByRole(state, 'writer')[2]!
@@ -148,6 +179,38 @@ describe('C2a-M4 §3.3 — the front doors admit and queue', () => {
     const admitted = granted.studio.activeProductions[2]!
     expect(
       granted.operations.workflows.some((workflow) => workflow.productionId === admitted.id),
+    ).toBe(true)
+  })
+
+  it('rejects a second queued greenlight for the exact screenplay without blocking dequeue', () => {
+    const { state, readyProjectIds } = contendedStudio('m4-greenlight-duplicate')
+    const projectId = readyProjectIds[0]!
+    const payload = freePackage(state, projectId)
+    const action = { kind: 'greenlightScriptProject' as const, production: payload }
+    const queued = applyActions(state, [action])
+    const beforeDuplicate = stableStringify(queued)
+
+    expect(() => applyActions(queued, [action])).toThrow(
+      /screenplay project .* already has a greenlight waiting in the production queue/i,
+    )
+    expect(stableStringify(queued)).toBe(beforeDuplicate)
+    expect(
+      queued.productionQueue.filter(
+        (entry) =>
+          entry.kind === 'greenlightScriptProject' && entry.scriptProjectId === projectId,
+      ),
+    ).toHaveLength(1)
+
+    const granted = advance(queued, 3)
+    expect(granted.productionQueue).toEqual([])
+    const project = granted.scriptDevelopment.projects.find(
+      (candidate) => candidate.id === projectId,
+    )
+    expect(project).toMatchObject({ status: 'inProduction' })
+    expect(
+      granted.studio.activeProductions.some(
+        (production) => production.id === project!.productionId,
+      ),
     ).toBe(true)
   })
 

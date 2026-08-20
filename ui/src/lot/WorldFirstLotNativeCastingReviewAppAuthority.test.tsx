@@ -7,6 +7,7 @@ import { App } from '../App.tsx'
 import {
   acknowledgeCastingSessionAction,
   advanceToNextEvent,
+  commissionScriptAction,
   createBalancedTalent,
   exportSaveJson,
   findConcept,
@@ -19,6 +20,7 @@ import {
   studioPool,
   freelancerPool,
   type DraftPackage,
+  type CommissionScriptPayload,
   type GameState,
 } from '../engine/adapter.ts'
 import {
@@ -43,6 +45,8 @@ import {
   acceptedGreenlightFormationReceipt,
   type GreenlightFormationReceipt,
 } from './snapshot/productionFormation.ts'
+import { freePackage } from '../../../tests/_m4Fixtures.ts'
+import * as punctuation from '../presentation/punctuate.ts'
 
 type LotProps = ComponentProps<typeof StudioLotScreenType>
 type AssemblyProbeProps = {
@@ -240,6 +244,45 @@ function exactGreenlight(state: GameState, projectId: string) {
   const receipt = acceptedGreenlightFormationReceipt(state, outcome.next)
   if (receipt === null) throw new Error('setup: exact formation receipt is absent')
   return { next: outcome.next, receipt }
+}
+
+function occupyDevelopmentRooms(state: GameState, targetWriterId: string): GameState {
+  let next = state
+  while (scriptProjectsBoard(next).capacity.available > 0) {
+    const board = scriptProjectsBoard(next)
+    const concept = board.commission.concepts[0]
+    const writer = board.commission.writers.find(
+      (candidate) =>
+        candidate.available &&
+        candidate.primaryRole === 'writer' &&
+        candidate.id !== targetWriterId,
+    )
+    if (concept === undefined || writer === undefined) {
+      throw new Error('setup: expected another legal screenplay to occupy Development')
+    }
+    const payload = {
+      conceptId: concept.id,
+      writerId: writer.id,
+      shape: {
+        opening: 'slowSetup',
+        midpoint: 'revelation',
+        ending: 'bittersweet',
+      },
+      promise: {
+        genre: concept.genre,
+        intendedSegments: ['adult'],
+        ranges: {
+          intimacy: [-0.5, 0.5],
+          tonalWeight: [-0.5, 0.5],
+          kineticEnergy: [-0.5, 0.5],
+        },
+      },
+    } satisfies CommissionScriptPayload
+    const commissioned = commissionScriptAction(next, payload)
+    if (!commissioned.ok) throw new Error(commissioned.error)
+    next = commissioned.next
+  }
+  return next
 }
 
 function exactFeedback(props: LotProps): Extract<
@@ -603,12 +646,22 @@ describe('Lot-native Casting review — App commit and handoff authority', () =>
     await screen.findByTestId('mock-casting-authority-assembly')
     const assemblyProps = authorityProbe.assemblyProps!
     const accepted = exactGreenlight(assemblyProps.state, context.projectId)
+    const deferred: Array<() => void> = []
+    vi.spyOn(window, 'queueMicrotask').mockImplementation((callback) => {
+      deferred.push(callback)
+    })
 
     act(() => assemblyProps.onGreenlit(accepted.next, {
       ...accepted.receipt,
       productionId: `${accepted.receipt.productionId}-substitute`,
     }))
 
+    const neutral = screen.getByTestId('lot-package-workspace-committing')
+    expect(neutral).toHaveTextContent('STUDIO UPDATED')
+    expect(neutral).toHaveTextContent('could not be verified for presentation')
+    expect(neutral).not.toHaveTextContent('GREENLIGHT ACCEPTED')
+    expect(neutral).not.toHaveTextContent('GREENLIGHT QUEUED')
+    act(() => deferred.splice(0).forEach((callback) => callback()))
     await waitFor(() => expect(screen.queryByTestId('lot-package-workspace')).not.toBeInTheDocument())
     expect(activeSessionBytes()).toBe(exportSaveJson(accepted.next))
     expect(screen.getByTestId('mock-casting-authority-lot')).toHaveAttribute(
@@ -621,6 +674,85 @@ describe('Lot-native Casting review — App commit and handoff authority', () =>
     )
     expect(authorityProbe.lotMounts).toBe(1)
     expect(authorityProbe.lotUnmounts).toBe(0)
+  })
+
+  it('retains an exact queued greenlight with project truth, no formation cue, and no invented production', async () => {
+    const before = reviewState()
+    const context = currentLotCastingReviewContext(before)
+    if (context === null || !context.action.opensPackage) {
+      throw new Error('setup: expected one clear pending Casting review')
+    }
+    const lot = await mountStudio(before)
+    const reviewProps = authorityProbe.lotProps!
+    act(() => {
+      expect(reviewProps.onRunCastingReviewAction?.(
+        reviewProps.state,
+        context,
+        context.action,
+        null,
+      )?.ok).toBe(true)
+    })
+    await screen.findByTestId('mock-casting-authority-assembly')
+    const initialAssembly = authorityProbe.assemblyProps!
+    const contended = occupyDevelopmentRooms(initialAssembly.state, context.writer.id)
+    expect(scriptProjectsBoard(contended).capacity.available).toBe(0)
+    act(() => initialAssembly.onStateChange?.(contended))
+    await waitFor(() => expect(authorityProbe.assemblyProps?.state).toBe(contended))
+    const assembly = authorityProbe.assemblyProps!
+    const payload = freePackage(contended, context.projectId)
+    const queued = greenlightScriptProject(contended, context.projectId, {
+      ...payload,
+      conceptId: contended.scriptDevelopment.projects.find(
+        (project) => project.id === context.projectId,
+      )!.conceptId,
+      shape: contended.scriptDevelopment.projects.find(
+        (project) => project.id === context.projectId,
+      )!.shape,
+      promise: contended.scriptDevelopment.projects.find(
+        (project) => project.id === context.projectId,
+      )!.promise,
+      writerId: context.writer.id,
+    })
+    if (!queued.ok) throw new Error(queued.error)
+    expect(acceptedGreenlightFormationReceipt(contended, queued.next)).toBeNull()
+    expect(queued.next.productionQueue).toHaveLength(1)
+    expect(queued.next.studio.activeProductions).toEqual(contended.studio.activeProductions)
+    const formationCue = vi.spyOn(punctuation, 'punctuateFormation')
+    formationCue.mockClear()
+    const deferred: Array<() => void> = []
+    vi.spyOn(window, 'queueMicrotask').mockImplementation((callback) => {
+      deferred.push(callback)
+    })
+
+    act(() => {
+      assembly.onGreenlit(queued.next, null)
+      assembly.onGreenlit(queued.next, null)
+    })
+
+    const committing = screen.getByTestId('lot-package-workspace-committing')
+    expect(committing).toHaveTextContent('GREENLIGHT QUEUED')
+    expect(committing).toHaveTextContent(context.title)
+    expect(committing).toHaveTextContent('WHAT HAPPENED')
+    expect(committing).toHaveTextContent('entered the greenlight queue')
+    expect(committing).toHaveTextContent('WHY IT MATTERS')
+    expect(committing).toHaveTextContent('No production identity, budget, cast, crew, or room')
+    expect(committing).toHaveTextContent('WHAT NEXT')
+    expect(committing).not.toHaveTextContent('GREENLIGHT ACCEPTED')
+    expect(committing).not.toHaveTextContent('package is secure')
+    expect(formationCue).not.toHaveBeenCalled()
+    expect(screen.getByTestId('mock-casting-authority-lot')).toBe(lot)
+    expect(activeSessionBytes()).toBe(exportSaveJson(queued.next))
+    expect(authorityProbe.lotProps?.state.productionQueue).toHaveLength(1)
+    expect(authorityProbe.lotProps?.state.studio.activeProductions).toEqual(
+      contended.studio.activeProductions,
+    )
+
+    act(() => deferred.splice(0).forEach((callback) => callback()))
+    await waitFor(() => {
+      expect(screen.queryByTestId('lot-package-workspace')).not.toBeInTheDocument()
+    })
+    expect(authorityProbe.lotProps?.liveFormationPresentation).toBeUndefined()
+    expect(formationCue).not.toHaveBeenCalled()
   })
 
   it('keeps a blocked accepted successor in the same mounted Lot and autosaves exact parity', async () => {

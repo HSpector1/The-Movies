@@ -53,6 +53,12 @@ const COMMISSION_KEYS = [
   // below prescribes: a view field this list does not know about makes the
   // workspace reject the whole board with no visible error.
   'canStartOriginal',
+  // A3: the retained client now consumes the engine's front-door answers rather
+  // than treating capacity as a refusal. These fields are part of the same
+  // closed projection and must be admitted by its exact-key validator.
+  'canSubmitMarketIntent',
+  'canSubmitOriginalIntent',
+  'willQueueIntent',
   'consequence',
   'concepts',
   'writers',
@@ -599,6 +605,9 @@ function commissionBeforeProjection(
     !isPlainRecord(board.commission) ||
     !hasExactOwnKeys(board.commission, COMMISSION_KEYS) ||
     board.commission.canStart !== true ||
+    board.commission.canSubmitMarketIntent !== true ||
+    board.commission.canSubmitOriginalIntent !== true ||
+    board.commission.willQueueIntent !== false ||
     !isNonEmptyString(board.commission.consequence) ||
     !Array.isArray(board.commission.blockers) ||
     !hasCanonicalArrayKeys(board.commission.blockers) ||
@@ -1038,6 +1047,8 @@ function originalCommissionBeforeProjection(
     // The ORIGINAL door's own legality, which is not `canStart`: a bought-out
     // premise market stops the market door and not this one (§3.5).
     board.commission.canStartOriginal !== true ||
+    board.commission.canSubmitOriginalIntent !== true ||
+    board.commission.willQueueIntent !== false ||
     !Array.isArray(board.commission.writers) ||
     !hasCanonicalArrayKeys(board.commission.writers)
   ) return null

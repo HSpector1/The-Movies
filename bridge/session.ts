@@ -36,7 +36,6 @@ import {
   SCHEMA_ID,
   SNAPSHOT_VERSION,
   type AvailableIntent,
-  type AvailableIntentKind,
   type ControlEnvelope,
   type RejectionCode,
   type SubmitIntentCommand,
@@ -74,15 +73,44 @@ export type PlayedIntent = {
   afterDigest: string
 }
 
-const AUTOMATED_INTENT_PRIORITY: readonly AvailableIntentKind[] = [
-  'commissionScreenplay',
-  'advanceWeek',
-  'acceptScreenplay',
-  'startAuditions',
-  'acknowledgeAuditions',
-  'greenlightPicture',
-  'resolveProductionBlocker',
-] as const
+type JourneyIntentContext = {
+  next: { kind: string } | null
+  scriptProjectId: string | null
+  productionId: string | null
+}
+
+/** Follow the authoritative journey while other legal concurrent choices remain visible. */
+export function selectJourneyIntent(
+  candidates: readonly AvailableIntent[],
+  journey: JourneyIntentContext | null | undefined,
+): AvailableIntent | undefined {
+  if (journey?.next === null || journey?.next === undefined) return undefined
+  const project = (kind: AvailableIntent['kind']) => candidates.find(
+    (candidate) => candidate.kind === kind && candidate.projectId === journey.scriptProjectId,
+  )
+  switch (journey.next.kind) {
+    case 'commission':
+      return candidates.find((candidate) => candidate.kind === 'commissionScreenplay')
+    case 'advance-week':
+      return candidates.find((candidate) => candidate.kind === 'advanceWeek')
+    case 'script-review':
+      return project('acceptScreenplay') ?? project('requestRewrite')
+    case 'plan-auditions':
+      return project('startAuditions')
+    case 'audition-review':
+      return project('acknowledgeAuditions')
+    case 'open-package':
+      return project('greenlightPicture')
+    case 'resolve-production':
+      return candidates.find(
+        (candidate) =>
+          candidate.kind === 'resolveProductionBlocker' &&
+          candidate.productionId === journey.productionId,
+      )
+    default:
+      return undefined
+  }
+}
 
 function requireSuccess(outcome: ActionOutcome, operation: string): GameState {
   if (!outcome.ok) throw new Error(`${operation}: ${outcome.error}`)
@@ -197,12 +225,69 @@ function castFromReviewedAuditions(state: GameState, projectId: string) {
     : { lead, antagonist, support, sessionId: project.sessionId }
 }
 
+function hasOnlyQueueableCapacityBlockers(
+  blockers: readonly { kind: string }[],
+): boolean {
+  return blockers.length > 0 && blockers.every((blocker) => blocker.kind === 'facility-capacity')
+}
+
+function pushIfAccepted(
+  state: GameState,
+  resolved: IntentApplication[],
+  candidate: IntentApplication,
+): void {
+  if (candidate.apply(state).ok) resolved.push(candidate)
+}
+
+function acceptedIntentMessage(
+  fallback: string,
+  before: GameState,
+  after: GameState,
+): string {
+  const priorOrdinals = new Set(before.productionQueue.map((entry) => entry.ordinal))
+  const admitted = after.productionQueue.find((entry) => !priorOrdinals.has(entry.ordinal))
+  if (admitted === undefined) return fallback
+  switch (admitted.kind) {
+    case 'commissionScript':
+    case 'commissionOriginalScreenplay':
+      return 'Screenplay commission joined the Development & Casting queue. No writer, project identity, or cost is committed until capacity reaches it and TypeScript revalidates it.'
+    case 'startCastingSession':
+      return 'Auditions joined the Development & Casting queue. No actor was reserved or paid while the camera-test request waits.'
+    case 'greenlightScriptProject':
+      return 'Greenlight joined the Development & Casting queue. No production identity, budget, or talent commitment exists until capacity reaches the package and TypeScript revalidates it.'
+  }
+}
+
 function resolveAvailableIntents(state: GameState): IntentApplication[] {
   const stateDigest = authoritativeDigest(state)
   const snapshot = studioLotSnapshot(state)
   const journey = snapshot.firstFilmJourney
   if (journey === undefined) throw new Error('Current studio lot snapshot omitted firstFilmJourney.')
   const resolved: IntentApplication[] = []
+  const board = scriptProjectsBoard(state)
+  const castingProjects = allCastingProjects(state)
+  const queuedCommissionConceptIds = new Set(
+    state.productionQueue.flatMap((entry) =>
+      entry.kind === 'commissionScript' ? [entry.payload.conceptId] : [],
+    ),
+  )
+  const queuedCommissionWriterIds = new Set(
+    state.productionQueue.flatMap((entry) =>
+      entry.kind === 'commissionScript' || entry.kind === 'commissionOriginalScreenplay'
+        ? [entry.payload.writerId]
+        : [],
+    ),
+  )
+  const queuedCastingProjectIds = new Set(
+    state.productionQueue.flatMap((entry) =>
+      entry.kind === 'startCastingSession' ? [entry.payload.projectId] : [],
+    ),
+  )
+  const queuedGreenlightProjectIds = new Set(
+    state.productionQueue.flatMap((entry) =>
+      entry.kind === 'greenlightScriptProject' ? [entry.scriptProjectId] : [],
+    ),
+  )
 
   const construction = studioDevelopment(state)
   if (construction.canStart) {
@@ -220,45 +305,165 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
     })
   }
 
+  // Front-door choices are independent of the one guided picture. The read model
+  // says what is actionable; the discarded preflight lets the authoritative action
+  // distinguish the one queueable capacity refusal from every real illegality.
+  const commissionCapacityOnly = hasOnlyQueueableCapacityBlockers(board.commission.blockers)
+  const concept = board.commission.concepts.find(
+    (candidate) => !queuedCommissionConceptIds.has(candidate.id),
+  )
+  const writer = board.commission.writers.find(
+    (candidate) =>
+      candidate.available &&
+      candidate.primaryRole === 'writer' &&
+      !queuedCommissionWriterIds.has(candidate.id),
+  )
+  if (
+    (board.commission.canStart || commissionCapacityOnly) &&
+    concept !== undefined &&
+    writer !== undefined
+  ) {
+    const payload = {
+      conceptId: concept.id,
+      writerId: writer.id,
+      shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' } as const,
+      promise: {
+        genre: concept.genre,
+        intendedSegments: ['adult', 'prestige'] as Array<'adult' | 'prestige'>,
+        ranges: {
+          intimacy: [-0.4, 0.6] as [number, number],
+          tonalWeight: [0, 0.8] as [number, number],
+          kineticEnergy: [-0.7, 0.2] as [number, number],
+        },
+      },
+    }
+    const capacityDetail = commissionCapacityOnly
+      ? board.commission.blockers[0]?.detail ?? ''
+      : ''
+    const fields: Omit<AvailableIntent, 'intentId'> = {
+      kind: 'commissionScreenplay',
+      label:
+        journey.next?.kind === 'commission'
+          ? journey.next.label
+          : `Commission ${concept.title}`,
+      detail: commissionCapacityOnly
+        ? `${concept.title} · ${writer.name}. If accepted, this commission joins the ` +
+          `Development & Casting queue and holds nothing until revalidation. ${capacityDetail}`
+        : `${concept.title} · ${writer.name} · ${board.commission.consequence}`,
+      projectId: null,
+      castingSessionId: null,
+      productionId: null,
+    }
+    pushIfAccepted(state, resolved, {
+      option: option(stateDigest, fields, { kind: 'commissionScript', payload }),
+      apply: (current) => commissionScriptAction(current, payload),
+    })
+  }
+
+  for (const project of castingProjects) {
+    if (
+      queuedCastingProjectIds.has(project.projectId) ||
+      !project.legalActions.some((action) => action.kind === 'planAuditions')
+    ) continue
+    // This is a fixed bootstrap player choice, not a legality rule. Prefer the public
+    // read model's contract-backed availability presentation so a one-week camera test
+    // does not knowingly rely on a transient freelancer-market appearance.
+    const candidates = project.candidates.lead
+      .filter((candidate) => candidate.available)
+      .map((candidate, ordinal) => ({ candidate, ordinal }))
+      .sort((left, right) => {
+        const leftContracted = left.candidate.availabilityLabel.startsWith('Studio-contracted')
+        const rightContracted = right.candidate.availabilityLabel.startsWith('Studio-contracted')
+        return leftContracted === rightContracted
+          ? left.ordinal - right.ordinal
+          : leftContracted ? -1 : 1
+      })
+      .slice(0, 3)
+      .map(({ candidate }) => candidate)
+    if (candidates.length !== 3) continue
+    const payload = {
+      projectId: project.projectId,
+      slate: {
+        lead: [candidates[0]!.id, candidates[1]!.id] as [string, string],
+        antagonist: [candidates[0]!.id, candidates[2]!.id] as [string, string],
+        support: [candidates[1]!.id, candidates[2]!.id] as [string, string],
+      },
+    }
+    const fields: Omit<AvailableIntent, 'intentId'> = {
+      kind: 'startAuditions',
+      label:
+        journey.next?.kind === 'plan-auditions' && journey.scriptProjectId === project.projectId
+          ? journey.next.label
+          : `Plan auditions for ${project.title}`,
+      detail:
+        `Camera-test slate: ${candidates.map((candidate) => candidate.name).join(', ')}.` +
+        (project.blockers.length === 0 ? '' : ` ${project.blockers.join(' ')}`),
+      projectId: project.projectId,
+      castingSessionId: null,
+      productionId: null,
+    }
+    pushIfAccepted(state, resolved, {
+      option: option(stateDigest, fields, { kind: 'startCastingSession', payload }),
+      apply: (current) => startCastingSessionAction(current, payload),
+    })
+  }
+
+  for (const packageView of board.packages) {
+    if (queuedGreenlightProjectIds.has(packageView.projectId)) continue
+    const capacityOnly = hasOnlyQueueableCapacityBlockers(packageView.availability.blockers)
+    if (
+      packageView.openAction === null ||
+      (!packageView.availability.knownGatesClear && !capacityOnly)
+    ) continue
+    const cast = castFromReviewedAuditions(state, packageView.projectId)
+    const director = studioPool(state, 'director').find((candidate) => candidate.available)
+    const craft = studioPool(state, 'craft').find((candidate) => candidate.available)
+    const packageConcept = findConcept(state, packageView.concept.id)
+    if (
+      cast === null || director === undefined || craft === undefined || packageConcept === undefined
+    ) continue
+    const pkg: DraftPackage = {
+      conceptId: packageView.concept.id,
+      shape: packageView.lockedShape,
+      promise: packageView.lockedPromise,
+      writerId: packageView.writer.id,
+      directorId: director.id,
+      craftIds: [craft.id],
+      cast: {
+        lead: cast.lead.id,
+        antagonist: cast.antagonist.id,
+        support: cast.support.id,
+      },
+      budget: {
+        negative: requiredNegative(packageConcept, packageView.lockedShape, state),
+        marketing: 0,
+      },
+    }
+    const capacityDetail = capacityOnly ? packageView.availability.blockers[0]?.detail ?? '' : ''
+    const fields: Omit<AvailableIntent, 'intentId'> = {
+      kind: 'greenlightPicture',
+      label: `Greenlight ${packageView.concept.title}`,
+      detail:
+        `Director ${director.name}; Lead ${cast.lead.name}; Antagonist ${cast.antagonist.name}; ` +
+        `Support ${cast.support.name}; Production/Craft ${craft.name}.` +
+        (capacityDetail === '' ? '' : ` ${capacityDetail}`),
+      projectId: packageView.projectId,
+      castingSessionId: cast.sessionId,
+      productionId: null,
+    }
+    pushIfAccepted(state, resolved, {
+      option: option(stateDigest, fields, { kind: 'greenlightScriptProject', pkg }),
+      apply: (current) => greenlightScriptProject(current, packageView.projectId, pkg),
+    })
+  }
+
   const next = journey.next
   if (next === null) return resolved
-
-  if (next.kind === 'commission') {
-    const board = scriptProjectsBoard(state)
-    const concept = board.commission.concepts[0]
-    const writer = board.commission.writers.find(
-      (candidate) => candidate.available && candidate.primaryRole === 'writer',
-    )
-    if (board.commission.canStart && concept !== undefined && writer !== undefined) {
-      const payload = {
-        conceptId: concept.id,
-        writerId: writer.id,
-        shape: { opening: 'slowSetup', midpoint: 'revelation', ending: 'bittersweet' } as const,
-        promise: {
-          genre: concept.genre,
-          intendedSegments: ['adult', 'prestige'] as Array<'adult' | 'prestige'>,
-          ranges: {
-            intimacy: [-0.4, 0.6] as [number, number],
-            tonalWeight: [0, 0.8] as [number, number],
-            kineticEnergy: [-0.7, 0.2] as [number, number],
-          },
-        },
-      }
-      const fields: Omit<AvailableIntent, 'intentId'> = {
-        kind: 'commissionScreenplay',
-        label: next.label,
-        detail: `${concept.title} · ${writer.name} · ${board.commission.consequence}`,
-        projectId: null,
-        castingSessionId: null,
-        productionId: null,
-      }
-      resolved.push({
-        option: option(stateDigest, fields, { kind: 'commissionScript', payload }),
-        apply: (current) => commissionScriptAction(current, payload),
-      })
-    }
-    return resolved
-  }
+  if (
+    next.kind === 'commission' ||
+    next.kind === 'plan-auditions' ||
+    next.kind === 'open-package'
+  ) return resolved
 
   if (next.kind === 'advance-week') {
     const fields: Omit<AvailableIntent, 'intentId'> = {
@@ -277,7 +482,6 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
   }
 
   if (next.kind === 'script-review' && journey.scriptProjectId !== null) {
-    const board = scriptProjectsBoard(state)
     const decision = board.nextDecision
     if (decision?.projectId === journey.scriptProjectId) {
       for (const action of decision.legalActions) {
@@ -299,55 +503,8 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
     return resolved
   }
 
-  if (next.kind === 'plan-auditions' && journey.scriptProjectId !== null) {
-    const project = allCastingProjects(state).find(
-      (candidate) => candidate.projectId === journey.scriptProjectId &&
-        candidate.legalActions.some((action) => action.kind === 'planAuditions'),
-    )
-    if (project !== undefined) {
-      // This is a fixed bootstrap player choice, not a legality rule. Prefer the public
-      // read model's contract-backed availability presentation so a one-week camera test
-      // does not knowingly rely on a transient freelancer-market appearance.
-      const candidates = project.candidates.lead
-        .filter((candidate) => candidate.available)
-        .map((candidate, ordinal) => ({ candidate, ordinal }))
-        .sort((left, right) => {
-          const leftContracted = left.candidate.availabilityLabel.startsWith('Studio-contracted')
-          const rightContracted = right.candidate.availabilityLabel.startsWith('Studio-contracted')
-          return leftContracted === rightContracted
-            ? left.ordinal - right.ordinal
-            : leftContracted ? -1 : 1
-        })
-        .slice(0, 3)
-        .map(({ candidate }) => candidate)
-      if (candidates.length === 3) {
-        const payload = {
-          projectId: project.projectId,
-          slate: {
-            lead: [candidates[0]!.id, candidates[1]!.id] as [string, string],
-            antagonist: [candidates[0]!.id, candidates[2]!.id] as [string, string],
-            support: [candidates[1]!.id, candidates[2]!.id] as [string, string],
-          },
-        }
-        const fields: Omit<AvailableIntent, 'intentId'> = {
-          kind: 'startAuditions',
-          label: next.label,
-          detail: `Camera-test slate: ${candidates.map((candidate) => candidate.name).join(', ')}.`,
-          projectId: project.projectId,
-          castingSessionId: null,
-          productionId: null,
-        }
-        resolved.push({
-          option: option(stateDigest, fields, { kind: 'startCastingSession', payload }),
-          apply: (current) => startCastingSessionAction(current, payload),
-        })
-      }
-    }
-    return resolved
-  }
-
   if (next.kind === 'audition-review' && journey.scriptProjectId !== null) {
-    const project = allCastingProjects(state).find(
+    const project = castingProjects.find(
       (candidate) => candidate.projectId === journey.scriptProjectId && candidate.status === 'review',
     )
     const action = project?.legalActions.find(
@@ -368,55 +525,6 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
       resolved.push({
         option: option(stateDigest, fields, action),
         apply: (current) => acknowledgeCastingSessionAction(current, action.sessionId),
-      })
-    }
-    return resolved
-  }
-
-  if (next.kind === 'open-package' && journey.scriptProjectId !== null) {
-    const board = scriptProjectsBoard(state)
-    const packageView = board.packages.find(
-      (candidate) => candidate.projectId === journey.scriptProjectId &&
-        candidate.openAction !== null && candidate.availability.knownGatesClear,
-    )
-    const cast = castFromReviewedAuditions(state, journey.scriptProjectId)
-    const director = studioPool(state, 'director').find((candidate) => candidate.available)
-    const craft = studioPool(state, 'craft').find((candidate) => candidate.available)
-    const concept = packageView === undefined ? undefined : findConcept(state, packageView.concept.id)
-    if (
-      packageView !== undefined && cast !== null && director !== undefined &&
-      craft !== undefined && concept !== undefined
-    ) {
-      const pkg: DraftPackage = {
-        conceptId: packageView.concept.id,
-        shape: packageView.lockedShape,
-        promise: packageView.lockedPromise,
-        writerId: packageView.writer.id,
-        directorId: director.id,
-        craftIds: [craft.id],
-        cast: {
-          lead: cast.lead.id,
-          antagonist: cast.antagonist.id,
-          support: cast.support.id,
-        },
-        budget: {
-          negative: requiredNegative(concept, packageView.lockedShape, state),
-          marketing: 0,
-        },
-      }
-      const fields: Omit<AvailableIntent, 'intentId'> = {
-        kind: 'greenlightPicture',
-        label: `Greenlight ${packageView.concept.title}`,
-        detail:
-          `Director ${director.name}; Lead ${cast.lead.name}; Antagonist ${cast.antagonist.name}; ` +
-          `Support ${cast.support.name}; Production/Craft ${craft.name}.`,
-        projectId: packageView.projectId,
-        castingSessionId: cast.sessionId,
-        productionId: null,
-      }
-      resolved.push({
-        option: option(stateDigest, fields, { kind: 'greenlightScriptProject', pkg }),
-        apply: (current) => greenlightScriptProject(current, packageView.projectId, pkg),
       })
     }
     return resolved
@@ -468,13 +576,12 @@ export function playNextMovieThroughAvailableIntents(
   for (let guard = 0; guard < 128; guard++) {
     if (state.studio.releasedFilms.length > releasedBefore) return { state, played }
     const candidates = availableIntents(state).filter((candidate) => candidate.kind !== 'startConstruction')
-    const selected = AUTOMATED_INTENT_PRIORITY
-      .map((kind) => candidates.find((candidate) => candidate.kind === kind))
-      .find((candidate) => candidate !== undefined)
+    const journey = studioLotSnapshot(state).firstFilmJourney
+    const selected = selectJourneyIntent(candidates, journey)
     if (selected === undefined) {
       throw new Error(
         `Bridge autoplay found no legal movie intent at Week ${String(state.market.tick)}: ` +
-          studioLotSnapshot(state).firstFilmJourney?.headline,
+          journey?.headline,
       )
     }
     const beforeWeek = state.market.tick
@@ -589,7 +696,8 @@ export class BridgeSession {
       this.remember(command.commandId, key, rejected)
       return rejected
     }
-    const outcome = caught(() => resolved.apply(this.state))
+    const before = this.state
+    const outcome = caught(() => resolved.apply(before))
     if (!outcome.ok) {
       const rejected = this.reject(command.commandId, 'ENGINE_REJECTED', outcome.error, started)
       this.remember(command.commandId, key, rejected)
@@ -601,7 +709,7 @@ export class BridgeSession {
       ...this.snapshot(),
       commandId: command.commandId,
       accepted: true,
-      message: resolved.option.label,
+      message: acceptedIntentMessage(resolved.option.label, before, outcome.next),
       processingMs: performance.now() - started,
     }
     this.remember(command.commandId, key, accepted)

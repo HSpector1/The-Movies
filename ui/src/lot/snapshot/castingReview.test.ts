@@ -103,8 +103,8 @@ function acceptEveryScriptReview(state: GameState): GameState {
   }
 }
 
-function readyStudio(seed: string): GameState {
-  const managed = managedStudio(seed)
+function readyStudio(seed: string, writerCount = FOUNDING_COUNTS.writer): GameState {
+  const managed = managedStudio(seed, writerCount)
   const commissioned = commissionScriptAction(managed, commissionPayload(managed))
   if (!commissioned.ok) throw new Error(commissioned.error)
   return acceptEveryScriptReview(advanceWeek(commissioned.next).next)
@@ -127,11 +127,30 @@ function slateFor(state: GameState, projectId?: string): StartCastingSessionPayl
   }
 }
 
-function reviewStudio(seed: string): GameState {
-  const ready = readyStudio(seed)
+function reviewStudio(seed: string, writerCount = FOUNDING_COUNTS.writer): GameState {
+  const ready = readyStudio(seed, writerCount)
   const started = startCastingSessionAction(ready, slateFor(ready))
   if (!started.ok) throw new Error(started.error)
   return advanceWeek(started.next).next
+}
+
+function capacityOnlyReviewStudio(seed: string): GameState {
+  let state = reviewStudio(seed, 3)
+  const targetWriterId = castingSessionsBoard(state).sections.needsReview[0]!.writer.id
+  const otherWriterIds = state.contracts
+    .map((contract) => state.talent.find((talent) => talent.id === contract.talentId))
+    .filter((talent) => talent?.role === 'writer' && talent.id !== targetWriterId)
+    .map((talent) => talent!.id)
+  if (otherWriterIds.length !== 2) throw new Error('setup: expected two unassigned writers')
+  for (let index = 0; index < 2; index += 1) {
+    const commissioned = commissionScriptAction(state, {
+      ...commissionPayload(state),
+      writerId: otherWriterIds[index]!,
+    })
+    if (!commissioned.ok) throw new Error(commissioned.error)
+    state = commissioned.next
+  }
+  return state
 }
 
 function blockedReviewStudio(seed: string): GameState {
@@ -201,6 +220,16 @@ describe('strict Lot casting review context', () => {
         opensPackage: true,
       },
     })
+
+    const contradictory = boardFor(state)
+    const action = contradictory.sections.needsReview[0]!.legalActions[0]
+    if (action?.kind !== 'acknowledgeCastingSession') {
+      throw new Error('setup: expected the capacity-only acknowledgement')
+    }
+    action.label = 'Finish casting review'
+    action.opensPackage = false
+    mockBoard(contradictory)
+    expect(currentLotCastingReviewContext(state)).toBeNull()
     expect(context?.roles.map(({ slot, label }) => [slot, label])).toEqual([
       ['lead', 'Lead'],
       ['antagonist', 'Antagonist'],
@@ -239,6 +268,93 @@ describe('strict Lot casting review context', () => {
     expect(context?.blockers).toEqual(
       context?.packageAvailability.blockers.map((blocker) => blocker.headline),
     )
+  })
+
+  it('offers the exact Package handoff when capacity alone will queue the greenlight', () => {
+    const state = capacityOnlyReviewStudio('lot-casting-review-capacity-handoff')
+    const card = castingSessionsBoard(state).sections.needsReview[0]!
+    const context = currentLotCastingReviewContext(state)
+
+    expect(scriptProjectsBoard(state).capacity.available).toBe(0)
+    expect(adapter.studioDecision(state)).toMatchObject({
+      kind: 'castingReview',
+      decision: {
+        sessionId: card.sessionId,
+        projectId: card.projectId,
+        title: card.title,
+      },
+    })
+    expect(card).toMatchObject({
+      packageAvailability: {
+        knownGatesClear: false,
+        canSubmitGreenlightIntent: true,
+        willQueueGreenlightIntent: true,
+        blockers: [expect.objectContaining({ kind: 'facility-capacity' })],
+      },
+      blockers: ['Development & Casting is full'],
+      legalActions: [
+        {
+          kind: 'acknowledgeCastingSession',
+          sessionId: card.sessionId,
+          projectId: card.projectId,
+          label: 'Take results to Package',
+          opensPackage: true,
+        },
+      ],
+    })
+    expect(context).not.toBeNull()
+    expect(context).toMatchObject({
+      sessionId: card.sessionId,
+      projectId: card.projectId,
+      title: card.title,
+      packageAvailability: {
+        knownGatesClear: false,
+        canSubmitGreenlightIntent: true,
+        willQueueGreenlightIntent: true,
+        blockers: [expect.objectContaining({ kind: 'facility-capacity' })],
+      },
+      blockers: ['Development & Casting is full'],
+      action: {
+        kind: 'acknowledgeCastingSession',
+        sessionId: card.sessionId,
+        projectId: card.projectId,
+        label: 'Take results to Package',
+        opensPackage: true,
+      },
+    })
+  })
+
+  it('keeps a current review valid when another completed package has a queued greenlight', () => {
+    const state = reviewStudio('lot-casting-review-queued-history')
+    const board = boardFor(state)
+    const history = clone(board.sections.needsReview[0]!)
+    history.projectId = 'script-history-queued'
+    history.sessionId = 'casting-history-queued'
+    history.status = 'complete'
+    history.legalActions = []
+    history.blockers = ['Greenlight already queued']
+    history.packageAvailability = {
+      ...history.packageAvailability!,
+      knownGatesClear: false,
+      canSubmitGreenlightIntent: false,
+      willQueueGreenlightIntent: false,
+      blockers: [
+        {
+          kind: 'greenlight-queued',
+          headline: 'Greenlight already queued',
+          detail: 'This exact screenplay package already has a greenlight intent waiting.',
+          remedy: 'Advance the week or cancel the queued intent.',
+        },
+      ],
+    }
+    board.sections.history.push(history)
+    mockBoard(board)
+
+    expect(currentLotCastingReviewContext(state)).toMatchObject({
+      kind: 'casting-review',
+      sessionId: board.sections.needsReview[0]!.sessionId,
+      projectId: board.sections.needsReview[0]!.projectId,
+    })
   })
 
   it('requires an exact closed session/project/title target', () => {
@@ -380,6 +496,8 @@ describe('strict Lot casting review context', () => {
       (board) => { board.sections.needsReview[0]!.results!.lead[0]!.label = 'Actual' as never },
       (board) => { board.sections.needsReview[0]!.results!.lead[0]!.fit.score = Number.NaN },
       (board) => { board.sections.needsReview[0]!.packageAvailability!.knownGatesClear = true },
+      (board) => { board.sections.needsReview[0]!.packageAvailability!.canSubmitGreenlightIntent = true },
+      (board) => { board.sections.needsReview[0]!.packageAvailability!.willQueueGreenlightIntent = true },
       (board) => {
         const action = board.sections.needsReview[0]!.legalActions[0]
         if (action?.kind === 'acknowledgeCastingSession') action.opensPackage = true
@@ -545,6 +663,34 @@ describe('Lot casting review closed comparators and successor proof', () => {
     )
   })
 
+  it('proves a capacity-only review successor can open the exact queueable Package', () => {
+    const before = capacityOnlyReviewStudio('lot-casting-review-capacity-success')
+    const context = currentLotCastingReviewContext(before)!
+    const result = acknowledgeCastingSessionAction(before, context.sessionId)
+    if (!result.ok) throw new Error(result.error)
+
+    const success = acceptedLotCastingReviewSuccess(
+      context,
+      context.action,
+      before,
+      result.next,
+    )
+    expect(success).toEqual({
+      kind: 'clear',
+      sessionId: context.sessionId,
+      projectId: context.projectId,
+      title: context.title,
+      writerName: context.writer.name,
+      statusLabel: 'Casting review complete',
+      blockers: context.packageAvailability.blockers,
+      openPackageAction: {
+        kind: 'openPackage',
+        projectId: context.projectId,
+        label: 'Open package',
+      },
+    })
+  })
+
   it('proves the blocked same-Lot successor with exact persistent blockers', () => {
     const before = blockedReviewStudio('lot-casting-review-blocked-success')
     const context = currentLotCastingReviewContext(before)!
@@ -580,6 +726,11 @@ describe('Lot casting review closed comparators and successor proof', () => {
     const staleAction = clone(context.action)
     staleAction.sessionId += '-stale'
     expect(acceptedLotCastingReviewSuccess(context, staleAction, before, result.next)).toBeNull()
+    const wrongProjectAction = clone(context.action)
+    wrongProjectAction.projectId += '-stale'
+    expect(
+      acceptedLotCastingReviewSuccess(context, wrongProjectAction, before, result.next),
+    ).toBeNull()
     expect(acceptedLotCastingReviewSuccess(context, context.action, before, {
       ...result.next,
       studio: { ...result.next.studio, cash: result.next.studio.cash + 1 },

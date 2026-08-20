@@ -308,13 +308,10 @@ export function originalDraftEstimate(
  * it is drawn out loud because a silent inference is the thing the campaign laws
  * forbid.
  *
- * The engine publishes ONE `canStart` for commissioning, and it goes false when
- * the market runs out of unclaimed premises. That is correct for the market path
- * and WRONG for this one: commissioning an original needs no premise, because it
- * makes one. So the original path reads the same blocker list with the
- * market-exhaustion arm scoped out of it — and nothing else relaxed. Every other
- * blocker (unfounded studio, legacy mode, a full Development & Casting floor, no
- * available writer) still closes this path exactly as it closes the other.
+ * The engine publishes the separate front-door answer. Capacity alone queues an
+ * original commission; market exhaustion is irrelevant to an original; every
+ * other blocker still closes the door. The retained client consumes that answer
+ * rather than reclassifying blocker strings for itself.
  *
  * This is the inversion §3.5 exists for: C1's `no-concepts` blocker was TERMINAL,
  * with a remedy — "continue with an existing project" — that was not a remedy at
@@ -322,15 +319,7 @@ export function originalDraftEstimate(
  * the surface honour it instead of greying the button the remedy points at.
  */
 export function originalCommissionOpen(board: ScriptProjectsReadModel): boolean {
-  if (board.mode !== 'managed') return false
-  if (board.commission.canStart) return true
-  // A board that refuses commissioning WITHOUT SAYING WHY is not a board this
-  // predicate may reason from: the engine's own `canStart` is exactly
-  // "no blockers", so a refusal with an empty blocker list is malformed or
-  // hostile. Absence of a stated reason falls CLOSED — it never becomes a
-  // permission this surface invented.
-  return board.commission.blockers.length > 0 &&
-    board.commission.blockers.every((blocker) => blocker.kind === 'no-concepts')
+  return board.mode === 'managed' && board.commission.canSubmitOriginalIntent
 }
 
 /**
@@ -341,7 +330,7 @@ export function originalCommissionOpen(board: ScriptProjectsReadModel): boolean 
  * surface (the exact defect the retained workspace exists to close).
  */
 export function screenplayCommissioningOpen(board: ScriptProjectsReadModel): boolean {
-  return board.commission.canStart || originalCommissionOpen(board)
+  return board.commission.canSubmitMarketIntent || originalCommissionOpen(board)
 }
 
 /** True when the market has nothing left and the studio's own writers are the way through. */

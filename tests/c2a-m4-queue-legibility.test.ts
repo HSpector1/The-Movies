@@ -16,6 +16,7 @@ import {
   tick,
 } from '../src/core/index.js'
 import type { GameState, StudioQueueRemedy } from '../src/core/index.js'
+import { hasQueuedGreenlightScriptProject } from '../src/core/productionQueue.js'
 import { contendedStudio, freePackageOrNull, nextCommissionOrNull } from './_m4Fixtures.js'
 
 function starved(seed: string): { state: GameState; readyProjectIds: readonly string[] } {
@@ -72,6 +73,7 @@ describe('C2a-M4 G16 — studioQueueView answers law 2', () => {
           (candidate) => candidate.id === projectId,
         )
         if (project?.status !== 'ready') continue
+        if (hasQueuedGreenlightScriptProject(next.productionQueue, projectId)) continue
         const payload = freePackageOrNull(next, projectId)
         if (payload === null) continue
         next = applyActions(next, [{ kind: 'greenlightScriptProject', production: payload }])
@@ -148,6 +150,7 @@ describe('C2a-M4 G16 — studioQueueView answers law 2', () => {
           (candidate) => candidate.id === projectId,
         )
         if (project?.status !== 'ready' || payload === null) continue
+        if (hasQueuedGreenlightScriptProject(next.productionQueue, projectId)) continue
         next = applyActions(next, [{ kind: 'greenlightScriptProject', production: payload }])
       }
       const commission = nextCommissionOrNull(next)

@@ -126,6 +126,8 @@ const FIT_KEYS = ['label', 'score'] as const
 const ACTION_KEYS = ['kind', 'projectId', 'label'] as const
 const PACKAGE_KEYS = [
   'knownGatesClear',
+  'canSubmitGreenlightIntent',
+  'willQueueGreenlightIntent',
   'writerAvailable',
   'staffingAvailable',
   'productionSlotAvailable',
@@ -373,7 +375,7 @@ function isCandidate(value: unknown): value is CastingCandidateView {
 
 function isPackageAvailability(value: unknown): boolean {
   if (!isPlainRecord(value) || !hasExactOwnKeys(value, PACKAGE_KEYS)) return false
-  for (const key of PACKAGE_KEYS.slice(0, 5)) {
+  for (const key of PACKAGE_KEYS.slice(0, 7)) {
     if (typeof value[key] !== 'boolean') return false
   }
   if (!Array.isArray(value.blockers) || !hasCanonicalArrayKeys(value.blockers)) return false

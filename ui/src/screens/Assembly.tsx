@@ -459,7 +459,9 @@ export function Assembly({
   const blockedByGate = preview !== null && !preview.affordable
   const scriptAvailabilityBlockers = lockedScript?.availability.blockers ?? []
   const blockedByScriptAvailability =
-    lockedScript !== undefined && !lockedScript.availability.knownGatesClear
+    lockedScript !== undefined && !lockedScript.availability.canSubmitGreenlightIntent
+  const greenlightWillQueue =
+    lockedScript?.availability.willQueueGreenlightIntent ?? false
   // D-17A/T2: the 14-week studio fixed cost this package is asked to carry (sole occupancy —
   // the conservative, named default). Passed to every panel that reports a profit sign, so no
   // surface can show a green "Profit" whose studio-economic branch is negative.
@@ -786,7 +788,7 @@ export function Assembly({
             disabled={!pkg || blockedByGate || blockedByScriptAvailability}
             data-testid="greenlight"
           >
-            Greenlight this film
+            {greenlightWillQueue ? 'Queue this greenlight' : 'Greenlight this film'}
           </button>
         )}
       </div>
@@ -815,6 +817,19 @@ export function Assembly({
               <span className="hint"><strong>Remedy:</strong> {blocker.remedy}</span>
             </div>
           ))}
+        </div>
+      )}
+      {step === 'review' && greenlightWillQueue && (
+        <div
+          className="notice stack"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          data-testid="greenlight-queue-notice"
+          style={{ marginTop: 12 }}
+        >
+          <strong>This greenlight will join the Development &amp; Casting queue.</strong>
+          <span>No production identity, budget, or talent commitment is made until it starts.</span>
         </div>
       )}
       </div>

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   applyActions,
   beginFounding,
+  castingSessionsReadModel,
   FOUNDING_MINIMUMS,
   generateWorld,
   stableStringify,
@@ -19,6 +20,11 @@ import type {
   SegmentId,
   Talent,
 } from '../src/core/types.js'
+import {
+  commissionFor as contendedCommission,
+  contendedStudio,
+  freePackage,
+} from './_m4Fixtures.js'
 
 function applicants(state: GameState): Talent[] {
   return state.founding!.applicantIds.map(
@@ -165,6 +171,24 @@ describe('Script Projects V1 player read model', () => {
     expect(scriptProjectsReadModel(hiddenChanged).commission.writers).toEqual(
       view.commission.writers,
     )
+  })
+
+  it('omits a concept already named by a queued pool commission but leaves other premises available', () => {
+    const { state } = contendedStudio('script-read-queued-commission')
+    const payload = contendedCommission(state, 4, 2)
+    const before = scriptProjectsReadModel(state).commission
+    const otherConceptId = before.concepts.find(
+      (concept) => concept.id !== payload.conceptId,
+    )!.id
+
+    const queued = applyActions(state, [{ kind: 'commissionScript', project: payload }])
+    const commission = scriptProjectsReadModel(queued).commission
+
+    expect(commission.concepts.map((concept) => concept.id)).not.toContain(payload.conceptId)
+    expect(commission.concepts.map((concept) => concept.id)).toContain(otherConceptId)
+    expect(
+      commission.blockers.flatMap((blocker) => [blocker.headline, blocker.detail, blocker.remedy]),
+    ).not.toContainEqual(expect.stringMatching(/\bheld\b/i))
   })
 
   it('sorts reviews by project id and exposes only perceived Est. assessment decisions', () => {
@@ -319,6 +343,56 @@ describe('Script Projects V1 player read model', () => {
     expect(blocked.packages[0]!.openAction?.kind).toBe('openPackage')
   })
 
+  it('suppresses only the exact queued greenlight across screenplay and casting package doors', () => {
+    const { state, readyProjectIds } = contendedStudio('script-read-queued-greenlight')
+    const targetProjectId = readyProjectIds[0]!
+    const otherProjectId = readyProjectIds[1]!
+    const queued = applyActions(state, [
+      {
+        kind: 'greenlightScriptProject',
+        production: freePackage(state, targetProjectId),
+      },
+    ])
+
+    const scripts = scriptProjectsReadModel(queued)
+    const targetPackage = scripts.packages.find(
+      (candidate) => candidate.projectId === targetProjectId,
+    )!
+    const otherPackage = scripts.packages.find(
+      (candidate) => candidate.projectId === otherProjectId,
+    )!
+    const targetCard = scripts.sections.readyToPackage.find(
+      (candidate) => candidate.projectId === targetProjectId,
+    )!
+    const otherCard = scripts.sections.readyToPackage.find(
+      (candidate) => candidate.projectId === otherProjectId,
+    )!
+
+    expect(targetPackage.openAction).toBeNull()
+    expect(targetPackage.availability.blockers).toContainEqual(
+      expect.objectContaining({
+        kind: 'greenlight-queued',
+        headline: 'Greenlight already queued',
+      }),
+    )
+    expect(targetPackage.availability.blockers).not.toContainEqual(
+      expect.objectContaining({ kind: 'facility-capacity' }),
+    )
+    expect(targetCard.legalActions.map((action) => action.kind)).not.toContain('openPackage')
+
+    expect(otherPackage.openAction?.kind).toBe('openPackage')
+    expect(otherCard.legalActions.map((action) => action.kind)).toContain('openPackage')
+
+    const casting = castingSessionsReadModel(queued).sections.readyToPlan
+    const targetCasting = casting.find((candidate) => candidate.projectId === targetProjectId)!
+    const otherCasting = casting.find((candidate) => candidate.projectId === otherProjectId)!
+    expect(targetCasting.legalActions.map((action) => action.kind)).not.toContain('openPackage')
+    expect(targetCasting.packageAvailability?.blockers).toContainEqual(
+      expect.objectContaining({ kind: 'greenlight-queued' }),
+    )
+    expect(otherCasting.legalActions.map((action) => action.kind)).toContain('openPackage')
+  })
+
   it('blocks a Ready package before Assembly when its locked writer consumes a required role pool', () => {
     let state = foundedManagedStudio('script-read-cross-discipline-staffing')
     const directorWriter = contractedTalent(state).find(
@@ -366,7 +440,7 @@ describe('Script Projects V1 player read model', () => {
     expect(view.sections.readyToPackage[0]!.legalActions).toEqual([])
   })
 
-  it('offers audition planning only when shared capacity and three primary Actors are legal', () => {
+  it('offers audition planning with three Actors and keeps it queueable when capacity is full', () => {
     let state = foundedManagedStudio('script-read-casting-legality')
     state = applyActions(state, [{ kind: 'activateCastingSessions' }])
     const writers = contractedTalent(state)
@@ -401,8 +475,36 @@ describe('Script Projects V1 player read model', () => {
     ])
     expect(scriptCapacityView(state)).toMatchObject({ occupied: 2, available: 0 })
     for (const card of scriptProjectsReadModel(state).sections.readyToPackage) {
-      expect(card.legalActions.map((action) => action.kind)).not.toContain('planAuditions')
+      expect(card.legalActions.map((action) => action.kind)).toContain('planAuditions')
+      expect(card.blockers).toContainEqual(expect.objectContaining({ kind: 'facility-capacity' }))
     }
+
+    const target = scriptProjectsReadModel(state).sections.readyToPackage[0]!
+    const actors = castingSessionsReadModel(state).sections.readyToPlan.find(
+      (project) => project.projectId === target.projectId,
+    )!.candidates.lead
+    state = applyActions(state, [
+      {
+        kind: 'startCastingSession',
+        session: {
+          projectId: target.projectId,
+          slate: {
+            lead: [actors[0]!.id, actors[1]!.id],
+            antagonist: [actors[0]!.id, actors[2]!.id],
+            support: [actors[1]!.id, actors[2]!.id],
+          },
+        },
+      },
+    ])
+    const queuedCards = scriptProjectsReadModel(state).sections.readyToPackage
+    expect(
+      queuedCards.find((card) => card.projectId === target.projectId)!.legalActions
+        .map((action) => action.kind),
+    ).not.toContain('planAuditions')
+    expect(
+      queuedCards.find((card) => card.projectId !== target.projectId)!.legalActions
+        .map((action) => action.kind),
+    ).toContain('planAuditions')
   })
 
   it('keeps active and produced projects in deterministic production history', () => {

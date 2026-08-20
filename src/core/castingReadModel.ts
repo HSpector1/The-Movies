@@ -5,6 +5,7 @@
 
 import { activeContract, busyTalentIds, freelancerMarketIds } from './employment.js'
 import { nextCastingSessionNeedingReview } from './castingSessions.js'
+import { hasQueuedCastingSession } from './productionQueue.js'
 import { resolveShape } from './shape.js'
 import {
   scriptCapacityView,
@@ -291,7 +292,18 @@ function ordinaryPackageAvailability(
   availability: ScriptPackageAvailabilityView,
 ): ScriptPackageAvailabilityView {
   const blockers = availability.blockers.filter((blocker) => blocker.kind !== 'casting-session')
-  return { ...availability, knownGatesClear: blockers.length === 0, blockers }
+  const canSubmitGreenlightIntent = blockers.every(
+    (blocker) => blocker.kind === 'facility-capacity',
+  )
+  return {
+    ...availability,
+    knownGatesClear: blockers.length === 0,
+    canSubmitGreenlightIntent,
+    willQueueGreenlightIntent:
+      canSubmitGreenlightIntent &&
+      blockers.some((blocker) => blocker.kind === 'facility-capacity'),
+    blockers,
+  }
 }
 
 function projectView(
@@ -311,11 +323,18 @@ function projectView(
 
   if (session === null) {
     if (state.castingSessions.mode === 'managed') {
+      const auditionsQueued = hasQueuedCastingSession(state.productionQueue, project.id)
       if (candidates.lead.length < 3) {
         blockers.push('At least three currently available primary Actors are required for a legal slate.')
-      } else if (scriptCapacityView(state).available === 0) {
-        blockers.push('No shared Development & Casting slot is currently available.')
-      } else {
+      }
+      if (auditionsQueued) {
+        blockers.push('Auditions for this screenplay are already waiting in the Development & Casting queue.')
+      } else if (candidates.lead.length >= 3) {
+        if (scriptCapacityView(state).available === 0) {
+          blockers.push(
+            'Every shared Development & Casting slot is occupied; starting auditions now joins the queue.',
+          )
+        }
         legalActions.push({ kind: 'planAuditions', projectId: project.id, label: 'Plan auditions' })
       }
     }
@@ -323,7 +342,7 @@ function projectView(
       legalActions.push({ kind: 'openPackage', projectId: project.id, label: 'Open package' })
     }
   } else if (session.status === 'review') {
-    const opensPackage = packageAvailability?.knownGatesClear ?? false
+    const opensPackage = packageAvailability?.canSubmitGreenlightIntent ?? false
     legalActions.push({
       kind: 'acknowledgeCastingSession',
       sessionId: session.id,
@@ -331,17 +350,16 @@ function projectView(
       label: opensPackage ? 'Take results to Package' : 'Finish casting review',
       opensPackage,
     })
-    if (!opensPackage) {
-      blockers.push(
-        ...(packageAvailability?.blockers.map((blocker) => blocker.headline) ?? [
-          'This screenplay is not currently Ready to package.',
-        ]),
-      )
-    }
+    blockers.push(
+      ...(packageAvailability?.blockers.map((blocker) => blocker.headline) ?? [
+        'This screenplay is not currently Ready to package.',
+      ]),
+    )
   } else if (session.status === 'complete') {
-    if (packageAvailability?.knownGatesClear === true) {
+    if (packageAvailability?.canSubmitGreenlightIntent === true) {
       legalActions.push({ kind: 'openPackage', projectId: project.id, label: 'Open package' })
-    } else if (packageAvailability !== null) {
+    }
+    if (packageAvailability !== null) {
       blockers.push(...packageAvailability.blockers.map((blocker) => blocker.headline))
     }
   }

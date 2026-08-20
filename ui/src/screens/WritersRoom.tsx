@@ -481,7 +481,7 @@ export function ScreenplayCommissionForm({
     : null
   const canSubmit = commissioningOriginal
     ? originalOpen && writerAvailable && segments.length > 0
-    : board.commission.canStart &&
+    : board.commission.canSubmitMarketIntent &&
       concept !== undefined &&
       writerAvailable &&
       segments.length > 0
@@ -762,7 +762,13 @@ export function ScreenplayCommissionForm({
 
       <div className="inset" data-testid="commission-consequence">
         <strong>What happens next</strong>
-        <div>{estimate === null ? board.commission.consequence : estimate.consequence}</div>
+        <div>
+          {board.commission.willQueueIntent
+            ? 'The request joins the Development & Casting queue. No writer, screenplay identity, cost, or room is committed until it reaches the front and is revalidated.'
+            : estimate === null
+              ? board.commission.consequence
+              : estimate.consequence}
+        </div>
         {estimate !== null && (
           <>
             {/* C2a-M3 / `00E`.9 — WRITER SPEED, IN THE FORM, BEFORE THE COMMITMENT.
@@ -798,7 +804,13 @@ export function ScreenplayCommissionForm({
           onClick={submit}
           data-testid="commission-submit"
         >
-          {commissioningOriginal ? 'Commission an original screenplay' : 'Commission screenplay'}
+          {board.commission.willQueueIntent
+            ? commissioningOriginal
+              ? 'Queue original screenplay commission'
+              : 'Queue screenplay commission'
+            : commissioningOriginal
+              ? 'Commission an original screenplay'
+              : 'Commission screenplay'}
         </button>
       </div>
     </section>
@@ -825,11 +837,13 @@ export function WritersRoom({
   const [commissioning, setCommissioning] = useState(false)
   const [commissionSource, setCommissionSource] = useState<CommissionSource | undefined>(undefined)
   const [error, setError] = useState('')
+  const [announcement, setAnnouncement] = useState('')
   // C2a-M3 — the door opens for EITHER supply. `canStart` alone shut the Writers
   // Room the moment the market ran dry, which is precisely when the studio's own
   // writers become the way through (§3.5).
   const originalOpen = originalCommissionOpen(board)
-  const commissioningOpen = board.commission.canStart || originalOpen
+  const commissioningOpen =
+    board.commission.canSubmitMarketIntent || originalOpen
   // C2a-M3 — provenance is resolved once for the whole board, from the blueprint
   // root and the talent census. It is never stored on the shared-world premise
   // (guardrail 8): who wrote a screenplay is a studio-relative fact.
@@ -915,6 +929,18 @@ export function WritersRoom({
         </div>
       )}
 
+      {announcement && (
+        <div
+          className="notice"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+          data-testid="writers-room-commission-receipt"
+        >
+          {announcement}
+        </div>
+      )}
+
       <section className="card stack" aria-labelledby="script-capacity-heading">
         <div className="spread">
           <div>
@@ -977,14 +1003,44 @@ export function WritersRoom({
             estimateFor: (input) => originalDraftEstimate(state, input),
             submit: (payload) => {
               const result = commissionOriginalScreenplayAction(state, payload)
-              if (result.ok) onChange(result.next)
+              if (result.ok) {
+                const beforeOrdinals = new Set(
+                  state.productionQueue.map((entry) => entry.ordinal),
+                )
+                const added = result.next.productionQueue.filter(
+                  (entry) => !beforeOrdinals.has(entry.ordinal),
+                )
+                setAnnouncement(
+                  added.length === 1 &&
+                    added[0]?.kind === 'commissionOriginalScreenplay' &&
+                    added[0].payload.writerId === payload.writerId
+                    ? 'Original screenplay commission joined the Development & Casting queue. No writer, premise, project identity, or cost is committed until it starts.'
+                    : '',
+                )
+                onChange(result.next)
+              }
               return result
             },
           }}
           {...(commissionSource ? { initialSource: commissionSource } : {})}
           onSubmit={(payload) => {
             const result = commissionScriptAction(state, payload)
-            if (result.ok) onChange(result.next)
+            if (result.ok) {
+              const beforeOrdinals = new Set(
+                state.productionQueue.map((entry) => entry.ordinal),
+              )
+              const added = result.next.productionQueue.filter(
+                (entry) => !beforeOrdinals.has(entry.ordinal),
+              )
+              setAnnouncement(
+                added.length === 1 &&
+                  added[0]?.kind === 'commissionScript' &&
+                  added[0].payload.conceptId === payload.conceptId
+                  ? 'Screenplay commission joined the Development & Casting queue. No writer, project identity, or cost is committed until it starts.'
+                  : '',
+              )
+              onChange(result.next)
+            }
             return result
           }}
           onClose={() => setCommissioning(false)}

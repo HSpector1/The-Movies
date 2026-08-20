@@ -248,18 +248,20 @@ describe('Casting Sessions V1 — player-facing flow', () => {
     expect(screen.queryByTestId('casting-planner')).not.toBeInTheDocument()
   })
 
-  it('disables a prepared slate if shared capacity becomes full before Start', () => {
+  it('queues a prepared slate if shared capacity becomes full before Start', () => {
     const ready = readyStudio('casting-live-capacity-guard')
     const project = castingSessionsBoard(ready).sections.readyToPlan[0]!
     const ids = project.candidates.lead.map((candidate) => candidate.id)
+    const onChange = vi.fn()
+    const onBack = vi.fn()
     const room = render(
       <CastingRoom
         state={ready}
         initialProjectId={project.projectId}
-        onChange={() => {}}
+        onChange={onChange}
         onOpenPackage={() => {}}
         onOpenRoster={() => {}}
-        onBack={() => {}}
+        onBack={onBack}
       />,
     )
     for (const slot of ['lead', 'antagonist'] as const) {
@@ -279,18 +281,56 @@ describe('Casting Sessions V1 — player-facing flow', () => {
       <CastingRoom
         state={second.next}
         initialProjectId={project.projectId}
-        onChange={() => {}}
+        onChange={onChange}
         onOpenPackage={() => {}}
         onOpenRoster={() => {}}
-        onBack={() => {}}
+        onBack={onBack}
       />,
     )
 
     expect(screen.getByTestId('casting-planner')).toBeInTheDocument()
-    expect(screen.getByTestId('casting-start')).toBeDisabled()
+    expect(screen.getByTestId('casting-start')).toBeEnabled()
     expect(screen.getByTestId(`casting-session-blockers-${project.projectId}`)).toHaveTextContent(
-      'No shared Development & Casting slot',
+      'starting auditions now joins the queue',
     )
+    fireEvent.click(screen.getByTestId('casting-start'))
+    expect(onChange).toHaveBeenCalledTimes(1)
+    expect(onChange.mock.calls[0]![0].productionQueue).toMatchObject([
+      { kind: 'startCastingSession', payload: { projectId: project.projectId } },
+    ])
+    expect(screen.getByText(/Auditions joined the Development & Casting queue/)).toBeInTheDocument()
+    expect(onBack).toHaveBeenCalledTimes(1)
+
+    const queuedState = onChange.mock.calls[0]![0]
+    room.rerender(
+      <CastingRoom
+        state={queuedState}
+        initialProjectId={project.projectId}
+        onChange={onChange}
+        onOpenPackage={() => {}}
+        onOpenRoster={() => {}}
+        onBack={onBack}
+      />,
+    )
+    expect(screen.queryByTestId('casting-planner')).not.toBeInTheDocument()
+    expect(screen.queryByTestId(`casting-plan-${project.projectId}`)).not.toBeInTheDocument()
+    expect(screen.getByTestId(`casting-session-blockers-${project.projectId}`)).toHaveTextContent(
+      'already waiting in the Development & Casting queue',
+    )
+
+    room.unmount()
+    render(
+      <CastingRoom
+        state={queuedState}
+        initialProjectId={project.projectId}
+        onChange={onChange}
+        onOpenPackage={() => {}}
+        onOpenRoster={() => {}}
+        onBack={onBack}
+      />,
+    )
+    expect(screen.queryByTestId('casting-planner')).not.toBeInTheDocument()
+    expect(screen.queryByTestId(`casting-plan-${project.projectId}`)).not.toBeInTheDocument()
   })
 
   it('disables a prepared slate when a selected actor becomes busy but planning stays legal', () => {

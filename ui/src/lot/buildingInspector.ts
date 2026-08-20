@@ -810,8 +810,8 @@ function commitmentFacts(
  * TWO published legalities feed this, and nothing else:
  *
  *   • Development's "Commission a screenplay" mirrors the EXACT condition the host's own
- *     retained-commissioning interception already requires (managed board · Writers Room
- *     idle capacity · `commission.canStart`). Offering the button on any weaker test
+ *     retained-commissioning interception already requires (managed board plus a published
+ *     market or original submission intent). Offering the button on any weaker test
  *     would produce a verb that lands the full-screen screen instead of the in-world
  *     workspace, which is the defect this milestone exists to close.
  *   • Casting's two verbs are the engine's OWN first-film journey, read verbatim off the
@@ -879,10 +879,10 @@ function primaryActions(
       // quiet on a lot that was perfectly able to start the next picture, which
       // is precisely the "you must guess" failure this campaign exists to close.
       //
-      // The rule is now FREE SLOTS, and it always was the engine's: `canStart`
-      // carries the `facility-capacity` blocker, so `screenplayCommissioningOpen`
-      // is already false exactly when every room is taken. Nothing weakened —
-      // one condition was DELETED, and the one that remains is the engine's own.
+      // A3 separates "starts now" from "may be submitted": capacity carries a
+      // queueable blocker, so `screenplayCommissioningOpen` remains true while
+      // every non-capacity blocker still closes the door. The world consumes that
+      // published answer rather than reclassifying the blocker itself.
       //
       // C2a-M3: the verb is offered when EITHER supply is open — a market premise to
       // adapt, or the studio's own writers. This is literally the same predicate the
@@ -918,17 +918,9 @@ function primaryActions(
 /**
  * Why Development is not offering "Commission a screenplay" right now.
  *
- * The legality gate is unchanged and stays exactly where it is: the host's retained
- * commissioning interception requires an IDLE screenplay board, so the verb is correctly
- * absent whenever the Writers' Room is holding something. What was missing is the
- * SENTENCE — the panel read "No screenplay is in development · 0/2 slots" with the verb
- * silently gone, which is the "the world goes quiet and you must guess" seam this campaign
- * exists to close (red-team finding).
- *
- * Only called when the engine says commissioning itself is legal (`commission.canStart`),
- * so the sentence never contradicts a real blocker: the board's own blockers already speak
- * for those. Every reason names the studio's ACTUAL current occupation and what ends it,
- * and none of them claims anything about surfaces other than this one.
+ * Only reached when neither market nor original submission is published. Capacity does not
+ * reach this path because it queues; every sentence here therefore names a genuine hard
+ * blocker in the board's own words and cannot contradict an offered action.
  */
 function commissionWithheldNote(board: ScriptProjectsReadModel | null): string | null {
   if (board === null || board.mode !== 'managed') return null

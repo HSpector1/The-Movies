@@ -112,6 +112,9 @@ import { persistedProductionIds } from './productionIdentity.js'
 import {
   QueueableCapacityRefusal,
   gateSlotAvailable,
+  hasQueuedCastingSession,
+  hasQueuedGreenlightScriptProject,
+  hasQueuedPoolCommissionForConcept,
   queueCommissionOriginalScreenplay,
   queueCommissionScript,
   queueGreenlightScriptProject,
@@ -2013,6 +2016,14 @@ function applyCommissionScript(
       `applyActions: commissionScript references unknown concept "${action.project.conceptId}"`,
     )
   }
+  if (
+    allowQueue &&
+    hasQueuedPoolCommissionForConcept(state.productionQueue, action.project.conceptId)
+  ) {
+    throw new Error(
+      `applyActions: commissionScript rejected — concept "${action.project.conceptId}" already has a screenplay commission waiting in the production queue`,
+    )
+  }
   return admitOrQueue(
     state,
     () => {
@@ -2331,6 +2342,14 @@ function applyGreenlightScriptProject(
       `applyActions: greenlightScriptProject rejected — writer "${project.writerId}" must be currently studio-contracted`,
     )
   }
+  if (
+    allowQueue &&
+    hasQueuedGreenlightScriptProject(state.productionQueue, action.production.projectId)
+  ) {
+    throw new Error(
+      `applyActions: greenlightScriptProject rejected — screenplay project "${action.production.projectId}" already has a greenlight waiting in the production queue`,
+    )
+  }
   return admitOrQueue(
     state,
     () => applyGreenlightScriptProjectNow(state, action, project, injectedEvents),
@@ -2423,6 +2442,14 @@ function applyStartCastingSession(
   if (state.founding !== null) {
     throw new Error(
       'applyActions: startCastingSession rejected — the studio is still in its founding draft',
+    )
+  }
+  // The retained clients may submit again before the queued state is rendered.
+  // Dequeue replays this same verb with `allowQueue = false`, so it must be
+  // allowed to commit the one row that is already present.
+  if (allowQueue && hasQueuedCastingSession(state.productionQueue, action.session.projectId)) {
+    throw new Error(
+      `applyActions: startCastingSession rejected — screenplay project "${action.session.projectId}" already has auditions waiting in the production queue`,
     )
   }
   const assignableTalentIds = new Set<string>(freelancerMarketIds(state))

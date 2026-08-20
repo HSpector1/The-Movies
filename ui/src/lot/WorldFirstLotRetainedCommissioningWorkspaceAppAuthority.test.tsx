@@ -35,6 +35,7 @@ import {
   setStudioLotOverviewOverride,
 } from '../flags.ts'
 import type StudioLotScreenType from './StudioLotScreen.tsx'
+import * as punctuation from '../presentation/punctuate.ts'
 
 type LotProps = ComponentProps<typeof StudioLotScreenType>
 type CommissionFormProbeProps = {
@@ -530,12 +531,22 @@ describe('World-first retained screenplay commissioning — App authority', () =
     const direct = commissionScriptAction(renderedBefore, payload)
     if (!direct.ok) throw new Error(direct.error)
     const { form } = await openCommissionWorkspace()
+    const deferred: Array<() => void> = []
+    vi.spyOn(window, 'queueMicrotask').mockImplementation((callback) => {
+      deferred.push(callback)
+    })
     authorityProbe.trace.length = 0
     authorityProbe.commissionCalls.length = 0
 
     let accepted: ActionOutcome | undefined
     act(() => { accepted = form.onSubmit(payload) })
     expect(accepted?.ok).toBe(true)
+    const neutral = screen.getByTestId('lot-commission-workspace-recording')
+    expect(neutral).toHaveTextContent('STUDIO UPDATED')
+    expect(neutral).toHaveTextContent('could not be verified for presentation')
+    expect(neutral).not.toHaveTextContent('SCREENPLAY ACCEPTED')
+    expect(neutral).not.toHaveTextContent('SCREENPLAY QUEUED')
+    act(() => deferred.splice(0).forEach((callback) => callback()))
     await waitFor(() => {
       expect(screen.queryByTestId('lot-commission-workspace')).not.toBeInTheDocument()
       expect(activeSessionBytes()).toBe(exportSaveJson(direct.next))
@@ -547,6 +558,59 @@ describe('World-first retained screenplay commissioning — App authority', () =
     expect(screen.getByTestId('mock-commission-authority-canvas')).toBe(canvas)
     expect(authorityProbe.lotMounts).toBe(1)
     expect(authorityProbe.lotUnmounts).toBe(0)
+  })
+
+  it('retains an exact queued successor with truthful copy, no commit cue, and no invented project', async () => {
+    const before = capacityStudio('retained-commission-queued-success')
+    const payload = payloadFor(before)
+    const direct = commissionScriptAction(before, payload)
+    if (!direct.ok) throw new Error(direct.error)
+    expect(direct.next.productionQueue).toHaveLength(1)
+    expect(direct.next.scriptDevelopment.projects).toEqual(before.scriptDevelopment.projects)
+    const { lot } = await mountStudio(before)
+    const { form } = await openCommissionWorkspace()
+    const commitCue = vi.spyOn(punctuation, 'punctuateCommit')
+    commitCue.mockClear()
+    const deferred: Array<() => void> = []
+    vi.spyOn(window, 'queueMicrotask').mockImplementation((callback) => {
+      deferred.push(callback)
+    })
+
+    let accepted: ActionOutcome | undefined
+    let duplicate: ActionOutcome | undefined
+    act(() => {
+      accepted = form.onSubmit(payload)
+      duplicate = form.onSubmit(payload)
+    })
+
+    expect(accepted?.ok).toBe(true)
+    expect(duplicate).toEqual({
+      ok: false,
+      error: 'Screenplay commission is no longer owned by the live Studio Lot.',
+    })
+    const recording = screen.getByTestId('lot-commission-workspace-recording')
+    expect(recording).toHaveTextContent('SCREENPLAY QUEUED')
+    expect(recording).toHaveTextContent('WHAT HAPPENED')
+    expect(recording).toHaveTextContent('entered the production queue')
+    expect(recording).toHaveTextContent('WHY IT MATTERS')
+    expect(recording).toHaveTextContent('No writer, room, cash, or screenplay project identity')
+    expect(recording).toHaveTextContent('WHAT NEXT')
+    expect(recording).not.toHaveTextContent('SCREENPLAY ACCEPTED')
+    expect(recording).not.toHaveTextContent('commission is secure')
+    expect(commitCue).not.toHaveBeenCalledWith('commission', before.market.tick)
+    expect(screen.getByTestId('mock-commission-authority-lot')).toBe(lot)
+    expect(authorityProbe.commissionCalls).toHaveLength(1)
+    expect(activeSessionBytes()).toBe(exportSaveJson(direct.next))
+
+    act(() => deferred.splice(0).forEach((callback) => callback()))
+    await waitFor(() => {
+      expect(screen.queryByTestId('lot-commission-workspace')).not.toBeInTheDocument()
+    })
+    expect(authorityProbe.lotProps?.liveCommissionPresentation).toBeUndefined()
+    expect(authorityProbe.lotProps?.state.productionQueue).toHaveLength(1)
+    expect(authorityProbe.lotProps?.state.scriptDevelopment.projects).toEqual(
+      before.scriptDevelopment.projects,
+    )
   })
 
   it('keeps an Engine rejection and draft in place, suppresses its duplicate, then permits a changed retry', async () => {
@@ -598,25 +662,32 @@ describe('World-first retained screenplay commissioning — App authority', () =
   // world and open the retained workspace, because the engine will commission
   // into any free Development & Casting room.
   //
-  // PRESERVED, verbatim: the capacity arm. That fallback was never about the
-  // board being busy — it is about the rooms being FULL, which is a real refusal
-  // the engine still makes.
+  // A3 successor: capacity is no longer a fallback either. The authoritative
+  // front door admits an otherwise-legal commission to the shared queue, so the
+  // retained surface stays in the world for this state as well.
   it.each([['constrained capacity', capacityStudio, 'capacity-constraint']] as const)(
-    'keeps %s in the full Writers Room instead of guessing a retained commission',
+    'keeps %s IN THE WORLD and opens the retained queueable commission',
     async (_label, fixture, attention) => {
       const before = fixture(`retained-commission-fallback-${attention}`)
-      expect(scriptProjectsBoard(before).lotAttention.kind).toBe(attention)
+      const board = scriptProjectsBoard(before)
+      expect(board.lotAttention.kind).toBe(attention)
+      expect(board.capacity.available).toBe(0)
+      expect(board.commission.canSubmitMarketIntent).toBe(true)
+      expect(board.commission.willQueueIntent).toBe(true)
       const { lot } = await mountStudio(before)
 
       fireEvent.click(screen.getByTestId('mock-commission-development'))
 
-      expect(await screen.findByTestId('writers-room')).toBeInTheDocument()
-      expect(screen.queryByTestId('lot-commission-workspace')).not.toBeInTheDocument()
-      expect(lot.isConnected).toBe(false)
+      expect(await screen.findByTestId('lot-commission-workspace')).toBeInTheDocument()
+      expect(screen.queryByTestId('writers-room')).not.toBeInTheDocument()
+      expect(screen.getByTestId('commission-submit')).toHaveTextContent(
+        'Queue screenplay commission',
+      )
+      expect(lot.isConnected).toBe(true)
       expect(activeSessionBytes()).toBe(exportSaveJson(before))
       expect(authorityProbe.commissionCalls).toHaveLength(0)
       expect(authorityProbe.lotMounts).toBe(1)
-      expect(authorityProbe.lotUnmounts).toBe(1)
+      expect(authorityProbe.lotUnmounts).toBe(0)
     },
   )
 

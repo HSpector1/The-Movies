@@ -46,6 +46,7 @@ import {
   // C2a-M4 (§3.3): the one gate question, asked of the engine's own union
   // producer so no surface derives capacity a second way.
   gateSlotAvailable,
+  queueInPriorityOrder,
   // C2a-M4 (§3.3): the engine's own resource-key producer, so the UI never
   // invents the format of a key it only means to look up.
   facilitySlotKey,
@@ -6188,22 +6189,33 @@ function managedCastingLotCue(
   if (active !== undefined) {
     return { attention: 'active', reason: `${active.title} — camera tests underway` }
   }
+  for (const entry of queueInPriorityOrder(state.productionQueue)) {
+    if (entry.kind !== 'startCastingSession') continue
+    const queued = board.sections.readyToPlan.find(
+      (project) => project.projectId === entry.payload.projectId,
+    )
+    if (queued !== undefined) {
+      return {
+        attention: 'warning',
+        reason: `${queued.title} — auditions waiting for a Development & Casting slot`,
+      }
+    }
+  }
   const readyWithLegalPlan = board.sections.readyToPlan.find((project) =>
     project.legalActions.some((action) => action.kind === 'planAuditions'),
   )
   if (readyWithLegalPlan !== undefined) {
+    if (board.capacity.available === 0) {
+      return {
+        attention: 'warning',
+        reason: `${readyWithLegalPlan.title} — auditions can join the Development & Casting queue`,
+      }
+    }
     // The sign leads with the ACTION, never with the fact that the action is skippable.
     // Auditions remain engine-optional and the picture-guidance card says so in as many
     // words; a building sign that opens "— auditions optional" invited a first-time
     // player to skip the system that teaches casting (cold-playtest defect).
     return { attention: 'positive', reason: `${readyWithLegalPlan.title} — ready for auditions` }
-  }
-  const ready = board.sections.readyToPlan[0]
-  if (ready !== undefined && board.capacity.available === 0) {
-    return {
-      attention: 'warning',
-      reason: 'Development & Casting is full — auditions are waiting for a slot',
-    }
   }
   // A Ready screenplay without a legal plan action (for example, fewer than
   // three currently eligible primary Actors) is not positive Casting activity.
