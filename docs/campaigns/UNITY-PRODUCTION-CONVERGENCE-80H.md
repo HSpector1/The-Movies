@@ -44,7 +44,7 @@ rewritten, merged, rebased, or force-pushed.
 | Phase | Status | Notes |
 | --- | --- | --- |
 | Campaign setup and baseline | Complete | Authorities verified, isolated branches pushed, full baseline built, played, captured, and measured |
-| A - Productionize TypeScript to Unity contract | Active | A1 is the current acceptance gate; generated DTO protection is not yet implemented |
+| A - Productionize TypeScript to Unity contract | Active | A1 complete; A2 named projection decomposition is the current acceptance gate; A3 retains inherited command protections but still lacks structured remedies and durable replay identity |
 | B - Durable local game runtime | Untouched | Current server is a fixed-port, manually launched, in-memory experiment |
 | C - Unity client architecture | Untouched | Existing spike layers have been inventoried only |
 | D - Full Movie journey in Unity | Partial at inherited baseline | Automated native Movie #2 path passes, but the interaction surface remains proof-oriented and does not yet provide the approved professional retained workspaces |
@@ -240,12 +240,130 @@ Passing tests do not make the current Unity presentation commercially acceptable
   job errors. A native build and a second 11/11 run were clean. Do not remove or
   replace provenance-cleared assets based only on that transient log.
 
+## 2026-08-20 - Checkpoint 2: canonical generated bridge contract
+
+### Player and architecture value
+
+Phase A1 is complete. TypeScript now owns one complete Draft 2020-12 JSON Schema
+for the Unity wire contract. The schema encodes exact object shapes, required and
+optional properties, nullability, string vocabularies, numeric bounds, request
+and response literals, protocol identity, and projection identity. Every DTO
+object is closed with `additionalProperties: false`.
+
+The schema is canonicalized with fixed ordinal key ordering and hashed with
+SHA-256. Protocol remains `2`; the intentionally narrowed Unity presentation
+projection is version `3`. Accepted schema identity:
+
+`sha256:26a421b7e5e993828baf1ee8f077bc2dd917fff41f4a062847d3555d58cdbcd6`.
+
+The authoritative simulation still produces the broader browser/Three.js lot
+read model. A schema walker selects and validates only Unity-owned presentation
+facts. This intentionally removes unused browser/economy fields rather than
+perpetuating a giant accidental DTO. It changes no GameState, rule, formula,
+identity, save, RNG stream, or Three.js behavior.
+
+### Generated pipeline
+
+- Authoritative source: `bridge/schema/bridge-schema.ts`.
+- Deterministic schema artifact:
+  `bridge/schema/project-studio-bridge.schema.json` (56,196 bytes).
+- Deterministic C# golden artifact:
+  `generated/unity/StudioBridgeDtos.Generated.cs` (120,976 bytes).
+- Unity generated copy:
+  `Assets/Studio/Runtime/Data/Generated/StudioBridgeDtos.Generated.cs`.
+- Both C# copies are byte-identical, SHA-256
+  `a453df4b6dc1b9ac2d7b164273730cbf30b757280a9db4b93ca0c365911ab6bd`.
+- `npm run generate:bridge-contract` writes artifacts.
+- `npm run check:bridge-contract` fails without changing files when checked-in
+  artifacts are missing or stale.
+- Passing `--unity-project <path>` verifies the separate Unity repository copy
+  in the same check.
+- `npm run test:bridge` always runs the generated-artifact check first.
+- `.github/workflows/bridge-contract.yml` runs generation drift, bridge
+  typecheck, and bridge tests in CI.
+
+### Strict Unity consumption
+
+- Removed the handwritten live DTO mirror; handwritten files now retain only
+  fixture wrappers, normalization, validation, and endpoint adapters.
+- Added a direct official `com.unity.nuget.newtonsoft-json` `3.2.2` dependency.
+- Unity preflights protocol, schema, and projection before DTO materialization.
+- Raw JSON is checked against the embedded canonical schema, including closed
+  shapes, missing fields, nested enums, literals, unions, bounds, and nullable
+  arms.
+- Duplicate properties, comments, trailing JSON, trailing commas, metadata
+  shadows, and incompatible identities fail closed.
+- Plain snapshots, accepted command/load responses, saves, and rejections use
+  separate exact response DTOs. The former incorrect nested load DTO is gone;
+  successful load remains the real flat accepted response.
+- Nullable numerics preserve `null`, zero, and positive values across TypeScript
+  and Unity (`slot`, `maxInstances`, set completion, theater timing/distance).
+- The older broad offline fixture uses a deliberately lenient Json.NET resolver,
+  preserving nullable values without pretending that fixture is a live v3 wire
+  response.
+
+### Validation
+
+| Gate | Accepted A1 result |
+| --- | --- |
+| Generated cross-repository check | Passed; TypeScript golden and Unity copy byte-identical |
+| Bridge typecheck | Passed |
+| Bridge tests | 18/18 passed, including full Movie #2, schema drift, handshake shapes, canonical hash, exact response shapes, prototype-shadow unknown fields, and nullable-number arms |
+| Full TypeScript tests | Final isolated seal passed 325 files, 4,419 tests, 5 skipped, 0 failed in 60.93 seconds |
+| TypeScript production build | Passed; only inherited large-chunk warnings |
+| Unity EditMode | 14/14 passed in `/tmp/studio-a1-editmode-results-4.xml` |
+| Native macOS build | Passed: `Build Finished, Result: Success` |
+| HTTP handshake | `/health`, `/session`, and `/contract` returned protocol 2/projection 3; SHA-256 of `contractJson` exactly matched `schemaId` |
+| Native Movie #2 | Passed; exact `script-0001` / `prod-0013` released Week 22, revision 23 |
+| Native save/load | Saved and restored digest both `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee` |
+| Native stale action | Rejected with `STALE_REVISION` |
+| Runtime scan | No error, exception, protocol mismatch, or proof failure lines |
+
+Final A1 proof evidence is local and intentionally ignored:
+
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A1/Unity-Bridge/bridge-client-proof.json`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A1/Unity-Bridge/01-whole-lot.png`
+  through `11-movie-2-released.png`
+- `/tmp/studio-a1-native-proof-final.log`
+- `/tmp/studio-a1-build-final.log`
+
+Final native proof sample: 15,304-byte snapshot, 24.46 ms TypeScript
+serialization, 4.78 ms strict Unity parse, 0.31 ms application, 33.13 ms command
+round trip, and 118.80 average FPS. Strict parsing is measurably more expensive
+than the baseline permissive `JsonUtility` parse; profile allocations and parse
+cost during Phase L rather than weakening validation.
+
+### Visual critique
+
+A1 was deliberately load-bearing rather than visual. Inspected whole-lot and
+Movie #2 release captures are visually unchanged from the accepted baseline:
+campus scale and identity remain readable, while the proof HUD still dominates,
+people and filmmaking activity remain weak, and Hero Soundstage 7 remains bare.
+No visual score was inflated for architecture work.
+
+### Decisions and residual risk
+
+- Projection `3` is an explicit Unity presentation projection, not a claim that
+  the entire browser snapshot is mirrored. Phase A2 will decompose it further
+  without creating network/distributed complexity.
+- Protocol stays `2` because commands and lifecycle semantics did not change.
+- The separate-repository Unity artifact cannot be checked by the TypeScript CI
+  runner without checking out that repository. The deterministic
+  `--unity-project` gate is mandatory at cross-repository checkpoints; current
+  bytes match. Never edit the generated C# by hand.
+- Revisions are constrained to signed Int32 on this Unity contract. This is
+  practically unreachable in the current local session but is a formally
+  narrower numeric range than JavaScript safe integers; revisit only with an
+  explicit protocol migration.
+
 ## Accepted commits
 
 | Repository | SHA | Value |
 | --- | --- | --- |
 | TypeScript | `82c9486a6ce3a849d72c7f7f5258d6392cc3483a` | Exact architecture decision incorporated into campaign boot state |
+| TypeScript | `9584cd247c13b7fdda007ce767351b683890c1a5` | Reproducible baseline and durable continuity checkpoint |
 | Unity | `75706567fa9895892a88310a494158069b70aeda` | Clean-import URP serialization and ignored local evidence root |
+| Unity | `7fb693c78da06cca1c8e688340241e1c9fa0b874` | Generated strict contract consumer, exact endpoint parsing, nullable fixture preservation, and adversarial EditMode coverage |
 
 The TypeScript continuity-document checkpoint commit that contains this ledger
 is the campaign branch tip after Checkpoint 1; resolve it with `git rev-parse
@@ -253,7 +371,8 @@ HEAD` because a Git commit cannot embed its own final SHA.
 
 ## Next acceptance gate
 
-Phase A1: replace hand-maintained cross-language DTO drift with one complete,
-TypeScript-owned canonical schema and deterministic generated C# contract, then
-make generated-file verification part of normal validation on both sides.
-
+Phase A2: split projection `3` into named lot, productions, people,
+construction, and journey/notices projections under one shared authoritative
+revision/digest envelope. Preserve stable IDs, retain a local single-response
+transport, regenerate C#, and update Unity projection caches without moving any
+simulation truth into C#.

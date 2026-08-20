@@ -125,18 +125,20 @@ function expectOrderedSubsequence<T>(actual: readonly T[], expected: readonly T[
 }
 
 describe('Current-game Unity adoption bridge', () => {
-  it('pins protocol/snapshot v2 and fingerprints nested lot, journey, and exact intent fields', () => {
+  it('pins protocol v2/projection v3 and fingerprints nested lot, journey, and exact intent fields', () => {
     expect(PROTOCOL_VERSION).toBe(2)
-    expect(SNAPSHOT_VERSION).toBe(2)
+    expect(SNAPSHOT_VERSION).toBe(3)
     expect(SCHEMA_ID).toMatch(/^sha256:[0-9a-f]{64}$/)
-    expect(BRIDGE_CONTRACT.availableIntent.exact).toEqual(AVAILABLE_INTENT_KEYS)
-    expect(BRIDGE_CONTRACT.studioSnapshotSchema.rootManaged).toEqual(
-      expect.arrayContaining(['stages', 'sets', 'weekTheater', 'weekEvents']),
+    expect(Object.keys(
+      BRIDGE_CONTRACT.$defs.StudioBridgeIntentOption.properties as Record<string, unknown>,
+    )).toEqual(
+      AVAILABLE_INTENT_KEYS,
     )
-    expect(BRIDGE_CONTRACT.studioSnapshotSchema.firstFilmJourney).toEqual(
+    expect(BRIDGE_CONTRACT.$defs.StudioLotSnapshot.additionalProperties).toBe(false)
+    expect(BRIDGE_CONTRACT.$defs.StudioFirstFilmJourneySnapshot.required).toEqual(
       expect.arrayContaining(['productionId', 'scriptProjectId', 'ordinal', 'next', 'blocked']),
     )
-    expect(BRIDGE_CONTRACT.studioSnapshotSchema.placedFacility).toEqual(
+    expect(BRIDGE_CONTRACT.$defs.StudioPlacedFacilitySnapshot.required).toEqual(
       expect.arrayContaining(['facilityId', 'status', 'completesWeek', 'progress01']),
     )
 

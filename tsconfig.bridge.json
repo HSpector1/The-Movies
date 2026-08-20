@@ -8,6 +8,7 @@
   "include": [
     "bridge/**/*.ts",
     "tests/bridge.test.ts",
+    "tests/bridge-schema.test.ts",
     "src/**/*.ts",
     "ui/src/engine/adapter.ts",
     "ui/src/format.ts",

@@ -24,10 +24,10 @@ session, revision, digest, snapshot size, and serialization time at startup.
 ## Pinned wire contract
 
 - `protocolVersion`: `2`
-- `snapshotVersion`: `2`
+- `snapshotVersion`: `3` (the generated Unity presentation projection)
 - schema: emitted as `SCHEMA_ID` by `bridge/protocol.ts` and `GET /contract`
 - `GET /health`: protocol/session/revision/digest health record
-- `GET /contract`: the complete hashed contract descriptor
+- `GET /contract`: the complete canonical contract JSON plus its SHA-256 identity
 - `GET /session`: connection bootstrap identity and current digest
 - `GET /snapshot`: authoritative snapshot and current opaque choices
 - `POST /command`: one `submitIntent` envelope

@@ -10,6 +10,12 @@ import {
   validateControl,
   type RejectionCode,
 } from './protocol.ts'
+import { canonicalJson } from './schema/canonical.ts'
+import type {
+  BridgeContractResponse,
+  BridgeHealthResponse,
+  BridgeSessionResponse,
+} from './schema/bridge-schema.ts'
 import {
   BridgeSession,
   type CommandResponse,
@@ -75,7 +81,7 @@ const server = createServer(async (request, response) => {
   try {
     if (request.method === 'GET' && url.pathname === '/health') {
       const snapshot = session.snapshot()
-      json(response, 200, {
+      const body: BridgeHealthResponse = {
         status: 'ok',
         protocolVersion: PROTOCOL_VERSION,
         schemaId: SCHEMA_ID,
@@ -84,16 +90,21 @@ const server = createServer(async (request, response) => {
         stateRevision: session.stateRevision,
         gameWeek: snapshot.gameWeek,
         stateDigest: snapshot.stateDigest,
-      })
+      }
+      json(response, 200, body)
       return
     }
     if (request.method === 'GET' && url.pathname === '/contract') {
-      json(response, 200, { schemaId: SCHEMA_ID, contract: BRIDGE_CONTRACT })
+      const body: BridgeContractResponse = {
+        schemaId: SCHEMA_ID,
+        contractJson: canonicalJson(BRIDGE_CONTRACT),
+      }
+      json(response, 200, body)
       return
     }
     if (request.method === 'GET' && url.pathname === '/session') {
       const snapshot = session.snapshot()
-      json(response, 200, {
+      const body: BridgeSessionResponse = {
         protocolVersion: PROTOCOL_VERSION,
         schemaId: SCHEMA_ID,
         snapshotVersion: SNAPSHOT_VERSION,
@@ -101,7 +112,8 @@ const server = createServer(async (request, response) => {
         stateRevision: snapshot.stateRevision,
         gameWeek: snapshot.gameWeek,
         stateDigest: snapshot.stateDigest,
-      })
+      }
+      json(response, 200, body)
       return
     }
     if (request.method === 'GET' && url.pathname === '/snapshot') {

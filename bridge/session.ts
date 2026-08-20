@@ -41,66 +41,27 @@ import {
   type RejectionCode,
   type SubmitIntentCommand,
 } from './protocol.ts'
+import type {
+  BridgeAcceptedCommandResponse,
+  BridgeAcceptedSaveResponse,
+  BridgeRejectedResponse,
+  BridgeSnapshotEnvelope,
+} from './schema/bridge-schema.ts'
+import { projectStudioLotSnapshot } from './schema/runtime.ts'
 
 type IntentApplication = {
   option: AvailableIntent
   apply: (state: GameState) => ActionOutcome
 }
 
-export type SnapshotMetrics = {
-  payloadBytes: number
-  serializationMs: number
-}
-
-export type SnapshotEnvelope = {
-  protocolVersion: typeof PROTOCOL_VERSION
-  schemaId: string
-  snapshotVersion: typeof SNAPSHOT_VERSION
-  sessionId: string
-  stateRevision: number
-  gameWeek: number
-  stateDigest: string
-  snapshot: ReturnType<typeof studioLotSnapshot>
-  availableIntents: AvailableIntent[]
-  metrics: SnapshotMetrics
-}
-
-export type AcceptedCommandResponse = SnapshotEnvelope & {
-  commandId: string
-  accepted: true
-  message: string
-  processingMs: number
-}
-
-export type RejectedResponse = {
-  protocolVersion: typeof PROTOCOL_VERSION
-  schemaId: string
-  sessionId: string
-  commandId: string | null
-  accepted: false
-  reasonCode: RejectionCode
-  message: string
-  stateRevision: number
-  gameWeek: number
-  stateDigest: string
-  processingMs: number
-}
+export type SnapshotMetrics = BridgeSnapshotEnvelope['metrics']
+export type SnapshotEnvelope = BridgeSnapshotEnvelope
+export type AcceptedCommandResponse = BridgeAcceptedCommandResponse
+export type RejectedResponse = BridgeRejectedResponse
 
 export type CommandResponse = AcceptedCommandResponse | RejectedResponse
 
-export type AcceptedSaveResponse = {
-  protocolVersion: typeof PROTOCOL_VERSION
-  schemaId: string
-  sessionId: string
-  commandId: string
-  accepted: true
-  message: string
-  stateRevision: number
-  gameWeek: number
-  stateDigest: string
-  saveJson: string
-  processingMs: number
-}
+export type AcceptedSaveResponse = BridgeAcceptedSaveResponse
 
 export type SaveResponse = AcceptedSaveResponse | RejectedResponse
 type CachedResponse = CommandResponse | SaveResponse
@@ -575,7 +536,7 @@ export class BridgeSession {
 
   snapshot(): SnapshotEnvelope {
     const started = performance.now()
-    const snapshot = studioLotSnapshot(this.state)
+    const snapshot = projectStudioLotSnapshot(studioLotSnapshot(this.state))
     const intents = availableIntents(this.state)
     const partial = {
       protocolVersion: PROTOCOL_VERSION,
