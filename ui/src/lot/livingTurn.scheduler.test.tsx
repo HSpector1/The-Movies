@@ -321,6 +321,10 @@ describe('Living Turn V1 — time flows while unpaused (the Owner s acceptance)'
     }
   })
 
+  // This proof intentionally commits twelve complete App/Lot renders. It takes about
+  // 1.6s alone, but the full UI estate runs many jsdom workers concurrently; the
+  // ordinary 5s unit-test ceiling can expire under that load before fake time has
+  // finished flushing. The bound changes only wall-clock allowance, never sim time.
   it('runs 12 consecutive weeks with ZERO input and lands byte-identically', async () => {
     // A studio with a picture IN THEATRES: money moving every week, a theatrical
     // run completing mid-flight (NOTIFY-class), and no decision owed. This is the
@@ -347,7 +351,7 @@ describe('Living Turn V1 — time flows while unpaused (the Owner s acceptance)'
       if (!restored.ok) return
       expect(exportSaveJson(restored.state)).toBe(exportSaveJson(byHand))
     })
-  })
+  }, 15_000)
 
   it('speed changes the PACE and nothing else — 4x is four weeks in one week s time', async () => {
     const start = walkToWeekBefore(operatingStudio('living-turn-speed'), (step) =>
