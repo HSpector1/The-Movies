@@ -9,6 +9,7 @@
     "test:core": "vitest run --project core",
     "test:ui": "vitest run --project ui",
     "typecheck": "tsc --noEmit && tsc -p ui/tsconfig.json --noEmit",
+    "audit:3d-assets": "node scripts/audit-3d-assets.mjs",
     "dev": "vite --config ui/vite.config.ts",
     "build": "vite build --config ui/vite.config.ts",
     "preview": "vite preview --config ui/vite.config.ts"
