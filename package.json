@@ -8,7 +8,7 @@
     "test": "vitest run",
     "test:core": "vitest run --project core",
     "test:ui": "vitest run --project ui",
-    "test:bridge": "npm run check:bridge-contract && vitest run tests/bridge.test.ts tests/bridge-schema.test.ts",
+    "test:bridge": "npm run check:bridge-contract && vitest run tests/bridge*.test.ts",
     "generate:bridge-contract": "vite-node scripts/generate-bridge-contract.ts",
     "check:bridge-contract": "vite-node scripts/generate-bridge-contract.ts --check",
     "typecheck:bridge": "tsc -p tsconfig.bridge.json",

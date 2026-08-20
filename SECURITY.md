@@ -55,9 +55,17 @@ exact JSON content type. Before Phase B produces a packaged runtime, add those
 controls, request/header timeouts, safe token transfer from launcher to Unity,
 and tests proving that the token is neither persisted nor logged.
 
-Bridge save/session/replay state is currently process memory. Treat bridge
-restart persistence, stale-process cleanup, and log lifecycle as unfinished
-product work, not as a security guarantee.
+An opt-in development seam can now persist current and explicitly saved V14
+bytes, logical session/revision, and exact request/response replay history in a
+strict atomic checkpoint under a private runtime directory. It uses a
+process-incarnation lock, rejects symlinks and corrupt or oversized input, and
+fails closed on persistence errors. The default `npm run bridge` command remains
+memory-only until the product launcher owns this directory and lifecycle.
+
+Treat default-launch persistence, runtime-instance handoff, capability transfer,
+stale-process supervision, and log lifecycle as unfinished product work, not as
+a security guarantee. The checkpoint must never contain a launch capability or
+expand the V14 gameplay save format.
 
 ## Dependency policy
 

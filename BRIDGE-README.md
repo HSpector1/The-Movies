@@ -21,6 +21,24 @@ PROJECT_STUDIO_BRIDGE_PORT=4317 npm run bridge
 The server binds only to `127.0.0.1`, accepts at most 2 MB per request, and prints the live schema,
 session, revision, digest, snapshot size, and serialization time at startup.
 
+The command above is intentionally memory-only for compatibility with the existing manual
+development flow. To exercise the durable runtime primitive, create one private runtime directory
+and reuse that exact directory across restarts:
+
+```sh
+runtime_dir="$(mktemp -d "${TMPDIR:-/tmp}/project-studio-runtime.XXXXXX")"
+chmod 700 "$runtime_dir"
+echo "$runtime_dir"
+PROJECT_STUDIO_BRIDGE_RUNTIME_DIR="$runtime_dir" \
+  PROJECT_STUDIO_BRIDGE_PORT=4317 \
+  npm run bridge
+```
+
+Do not delete `runtime_dir` between the processes being tested. Startup reports
+`checkpoint=durable` when disk persistence is active and `checkpoint=memory-only` otherwise.
+The product launcher must eventually create and own the durable directory automatically; this
+manual environment variable is a validated infrastructure seam, not the finished launch path.
+
 ## Pinned wire contract
 
 - `protocolVersion`: `3`
@@ -75,6 +93,42 @@ contention that the engine accepts into a queue is an accepted receipt, never a 
 fresh session exclusively through the current `importSaveJson` migration boundary; no bridge
 revision is written into `GameState` or the save. Tests prove export/import/export byte identity,
 fresh-session digest equality, and bridge/headless byte equality.
+
+## Durable runtime checkpoint
+
+When `PROJECT_STUDIO_BRIDGE_RUNTIME_DIR` is set, the bridge stores a strict
+`BridgeRuntimeCheckpointV1` beside a single-process lock. It is operational infrastructure and is
+not a new gameplay save version. The closed checkpoint contains:
+
+- untouched canonical current V14 save JSON and its SHA-256 digest;
+- untouched last explicitly saved V14 JSON and digest, or exact `null` values;
+- the logical session ID and state revision;
+- a bounded journal of canonical route, command ID, exact request JSON, and exact full response
+  JSON; and
+- a digest over the complete canonical journal.
+
+All state-dependent reads and command/save/load dispatches share one serialized coordinator.
+A first-seen result is not returned to HTTP until the complete next checkpoint has been written to
+a same-directory temporary file, synced, renamed, and the directory synced. A duplicate replays
+the stored response bytes directly. A real-process test commits command/save/command/load, sends
+`SIGKILL`, restarts from the same directory, and proves the logical session, revision, state digest,
+V14 bytes, and all four raw HTTP responses are exact.
+
+The runtime root must be a dedicated current-user directory with mode `0700`; checkpoint and lock
+files use `0600`. Symlinks, unexpected nesting, corrupt UTF-8, oversized files, concurrent live
+owners, and unverifiable or mismatched lock ownership fail closed. A stale lock is reclaimed only
+after process-incarnation verification. Graceful `SIGINT`/`SIGTERM` drains accepted work and
+releases the lock.
+
+Journal bounds never silently evict a command identity. If existing history alone fills the bound,
+the checkpoint atomically rolls to a new logical session at revision zero while preserving current
+and explicit-save V14 authority, then requires the client to reconnect. If one candidate cannot fit
+an empty journal, the runtime fails fatally instead of cycling sessions forever.
+
+This checkpoint does not complete Phase B. The normal `npm run bridge` path remains memory-only,
+and the HTTP server still requires a per-launch capability, strict Host/Origin/content-type policy,
+timeouts, a non-persisted runtime-instance handshake, a supervised random-port launch, and Unity
+kill/restart retry proof.
 
 ## Movie #2 interaction
 

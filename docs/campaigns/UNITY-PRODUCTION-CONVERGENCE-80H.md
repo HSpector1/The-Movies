@@ -1061,3 +1061,130 @@ and a bounded command identity/response journal. Commit it atomically before a
 first-seen response, then prove exact duplicate response replay across
 authoritative save/load and a real TypeScript engine process restart. Do not
 widen V14 or put bridge operational history into `GameState`.
+
+## 2026-08-21 - Checkpoint 7: durable bridge replay foundation (validated pre-commit, non-Golden)
+
+### Exact candidate state
+
+| Side | Branch | Current pushed HEAD / candidate parent | Working tree |
+| --- | --- | --- | --- |
+| TypeScript | `campaign/unity-production-convergence-80h-ts` | `85d865cdd4f38ab4df32e24393e130ca094f6b7f` | Dirty only with the validated runtime checkpoint/store/coordinator/server/session/tests/config/docs unit; no candidate commit yet |
+| Unity | `campaign/unity-production-convergence-80h-client` | `40465d48c191c9dcdda2c6b32c17c9675f4908a4` | Clean and pushed; no source or contract change |
+
+Golden M3 remains the exact CURRENT BEST compatible pair: TypeScript
+`e9c6f06b717a6a106281b189a61072e35770155f` plus Unity
+`40465d48c191c9dcdda2c6b32c17c9675f4908a4`, with immutable pushed
+`golden/unity-convergence-m3` tags. This bounded TS-only infrastructure
+candidate is not Golden because the normal launch remains memory-only, the
+localhost transport remains unauthenticated, and no native Unity engine-kill
+reconnect proof has run.
+
+### Architecture landed
+
+- Added strict closed `BridgeRuntimeCheckpointV1` outside `GameState` and V14.
+  It contains exact canonical current V14 JSON, exact last explicit-save V14
+  JSON or null, logical session/revision, canonical route/request/full-response
+  entries, state/save digests, and a complete journal digest.
+- Decoder rejects unknown/missing fields, incompatible format/protocol/schema,
+  noncanonical bytes, invalid V14, digest mismatch, duplicate identities,
+  route-invalid requests or rejections, revision regression/inflation,
+  impossible saved-slot history, journal tampering, and all configured bounds.
+- Replaced independent in-memory dispatch with one serialized coordinator for
+  state reads and command/save/load. A first-seen response is hidden until the
+  complete next checkpoint commits. A persistence or invariant failure poisons
+  queued/later work rather than letting memory and disk diverge.
+- Replays use the exact stored canonical response bytes. The old implicit
+  256-entry eviction is gone. Default bounds are 512 entries, 16 MiB journal,
+  and 32 MiB checkpoint.
+- Recoverable history pressure first proves the candidate fits alone, then
+  atomically rolls to a new logical session at revision zero while preserving
+  current and explicit-save V14 authority. An intrinsically oversized first
+  entry is fatal and cannot create endless session churn.
+- Added a private filesystem store with a dedicated current-user `0700` root,
+  `0600` checkpoint/lock, strict containment and symlink rejection, bounded
+  UTF-8 reads, PID plus process-incarnation ownership, safe stale-lock reclaim,
+  same-directory temp/file-sync/rename/directory-sync commit, rollback on
+  post-rename failure, and ownership-safe close.
+- The actual HTTP server can use port zero and an opt-in
+  `PROJECT_STUDIO_BRIDGE_RUNTIME_DIR`. It restores or creates the checkpoint
+  before listening, routes stateful work through the coordinator, emits exact
+  stored bytes, distinguishes durable from memory-only startup, and drains on
+  `SIGINT`/`SIGTERM` or fatal runtime failure.
+- Added ADR 0007. V14, `GameState`, protocol 3, projection 4, schema hash,
+  generated C#, Unity, Three.js, assets, simulation formulas, identities, and
+  RNG streams are unchanged.
+
+### Real failure-mode proof
+
+`tests/bridge-process-restart.test.ts` launches the actual `vite-node`
+`bridge/server.ts` on an ephemeral loopback port with a private runtime root.
+It commits command/save/command/load, verifies canonical checkpoint/current and
+explicit-save V14 bytes and the four exact route/request/response pairs, sends
+`SIGKILL`, starts a new process against the same root, and proves:
+
+- the logical session, revision, week, and state digest are unchanged;
+- all four duplicate HTTP response bodies are byte-identical to the first
+  process and authority does not advance;
+- cross-route command-ID reuse is rejected without changing checkpoint bytes;
+- a final graceful `SIGTERM` releases the lock.
+
+Independent probes additionally proved a corrupt checkpoint exits nonzero while
+preserving its bytes and releasing its lock; an explicit non-null save survives
+multiple journal rollovers and later loads exactly; and a sole oversized entry
+causes one generic fatal capacity error with no write, session change, or save
+mutation. The non-null saved-slot rollover is now permanent coordinator-test
+coverage rather than transient evidence.
+
+### Red-team corrections
+
+Audits found and closed all persistence-core P0/P1 defects before acceptance:
+
+- unsafe chmod of an existing parent, ancestor-symlink escape, and PID-reuse
+  false liveness;
+- caller limit loss, post-mutation capacity failure, and a permanently full
+  journal sink;
+- route-rebound rejection replay, unbound historical response corruption, and
+  first-response/replay wire-byte mismatch;
+- checkpoint root revision inflation beyond terminal history; and
+- endless session rollover when one response cannot fit an empty journal.
+
+Final independent replay and lifecycle audits report no remaining P0/P1 in the
+checkpoint, store, session, coordinator, or restart primitive.
+
+### Validation
+
+| Gate | Accepted result |
+| --- | --- |
+| Full TypeScript suite | 332 files; 4,488 passed, 5 skipped, 0 failed |
+| Bridge aggregate | 62/62 passed across 7 files; generated schema/C# drift check passed |
+| TypeScript typecheck | Passed |
+| Bridge typecheck | Passed |
+| Production build | Passed; inherited chunk warnings only |
+| Movie #2 proof | Passed Week 22 at digest `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`; save/import/reconnect/headless parity exact |
+| Browser dependency audit | Passed; 0 browser-runtime vulnerabilities |
+| Repository hygiene | Passed; 1,017 repository files after documentation additions |
+| 3D asset audit | Passed; 26 assets, 0 hard violations |
+| Unity/native | Not rerun: no Unity, schema, DTO, projection, gameplay, or visual source changed; latest Golden M3 remains 24/24 EditMode and native Movie #2/reconnect proof |
+
+### Honest residuals
+
+- P1: independent HTTP reproduction sent an arbitrary Host, arbitrary Origin,
+  and `text/plain` command with no capability; the server returned HTTP 200 and
+  advanced revision `0 -> 1`. Loopback is not authorization.
+- P1: normal `npm run bridge` intentionally uses a memory store unless a caller
+  supplies the runtime directory. There is no product supervisor, random-port
+  handoff, secret transfer, owned logs, restart loop, or stale-child cleanup.
+- P1: handshake has no non-persisted runtime-instance ID and Unity has not
+  proven an exact retained in-flight retry after engine death.
+- P1: visuals remain unchanged from M3 and below ADR 0006.
+- P2: the current `vite-node` development bridge graph is outside the green
+  browser-runtime dependency audit.
+
+### Decision and next gate
+
+The candidate is a valuable production foundation and should be checkpointed,
+but it is not a new Golden and not canonical-promotion material. M3 remains
+CURRENT BEST. The next exact engineering action is to add a non-persisted
+per-launch capability and runtime-instance ID, enforce exact loopback Host,
+reject Origin, require JSON content type, add timeouts and attacker tests, then
+regenerate the contract and update Unity authorization/restart detection.

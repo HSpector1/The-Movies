@@ -23,6 +23,7 @@ do not rewrite its historical rationale. A later Owner ruling overrides an ADR.
 | [0004](0004-forward-only-versioned-saves.md) | Accepted | Saves migrate forward through frozen version boundaries |
 | [0005](0005-compatible-pair-golden-promotion.md) | Accepted | Preserve and promote exact compatible TypeScript and Unity pairs |
 | [0006](0006-visual-recognizability-and-two-scale-camera.md) | Accepted | Target The Movies recognizability through a modern two-scale Unity presentation |
+| [0007](0007-separate-durable-bridge-runtime-checkpoint.md) | Accepted | Persist bridge replay lifecycle outside GameState and V14 saves |
 
 ## Template
 

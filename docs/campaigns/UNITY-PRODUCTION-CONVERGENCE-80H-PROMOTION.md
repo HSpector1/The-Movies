@@ -13,10 +13,12 @@ Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
 | TypeScript authority | `HSpector1/The-Movies` | `campaign/unity-production-convergence-80h-ts` | `e9c6f06b717a6a106281b189a61072e35770155f` | `golden/unity-convergence-m3` |
 | Unity production client | `HSpector1/project-studio-unity-visual-spike` | `campaign/unity-production-convergence-80h-client` | `40465d48c191c9dcdda2c6b32c17c9675f4908a4` | `golden/unity-convergence-m3` |
 
-Both branches and annotated tags are pushed. Local, upstream, and remote branch
-refs were verified at the exact product SHAs, both worktrees were clean, and
-remote tag dereferences were verified. This is one schema-pinned compatible
-pair: protocol `3`, projection `4`, schema
+Both annotated tags are pushed and remote tag dereferences were verified at the
+exact product SHAs. The Unity campaign branch still points at its M3 product;
+the TypeScript campaign branch has pushed continuity descendants and now carries
+an uncommitted Phase B candidate, so its moving branch tip is not the M3 product
+authority. This is one schema-pinned compatible pair: protocol `3`, projection
+`4`, schema
 `sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac`.
 Never build, recover, or promote only one side.
 
@@ -68,30 +70,42 @@ economy rule, construction rule, or simulation authority moved into C#.
 
 ### Launch command
 
+Create detached worktrees from both immutable M3 tags so active campaign work
+cannot silently change the product being launched:
+
+```bash
+git -C '/Users/bruce/The Movies - Unity Production Convergence 80H' \
+  worktree add --detach '/tmp/project-studio-golden-m3-ts' \
+  golden/unity-convergence-m3
+git -C '/Users/bruce/Project Studio - Unity Production Convergence 80H' \
+  worktree add --detach '/tmp/project-studio-golden-m3-unity' \
+  golden/unity-convergence-m3
+```
+
 Terminal 1:
 
 ```bash
-cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
+cd '/tmp/project-studio-golden-m3-ts'
 npm ci
 npm run bridge
+```
+
+Build in the detached Unity M3 worktree:
+
+```bash
+'/Applications/Unity/Hub/Editor/6000.3.22f1/Unity.app/Contents/MacOS/Unity' \
+  -batchmode \
+  -projectPath '/tmp/project-studio-golden-m3-unity' \
+  -executeMethod Studio.Editor.Automation.StudioAutomation.BuildMacOS \
+  -logFile /tmp/studio-m3-native-build.log \
+  -quit
 ```
 
 Terminal 2:
 
 ```bash
-cd '/Users/bruce/Project Studio - Unity Production Convergence 80H'
+cd '/tmp/project-studio-golden-m3-unity'
 'Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike'
-```
-
-Rebuild if the ignored app is absent:
-
-```bash
-'/Applications/Unity/Hub/Editor/6000.3.22f1/Unity.app/Contents/MacOS/Unity' \
-  -batchmode \
-  -projectPath '/Users/bruce/Project Studio - Unity Production Convergence 80H' \
-  -executeMethod Studio.Editor.Automation.StudioAutomation.BuildMacOS \
-  -logFile /tmp/studio-m3-native-build.log \
-  -quit
 ```
 
 ### Validation summary
@@ -148,6 +162,31 @@ runtime durability is absent, TypeScript `main` remains historically diverged,
 and the Unity visual product still misses the binding recognizability gate.
 Promotion status remains exactly **GOLDEN — CONTINUE CAMPAIGN**.
 
+## ACTIVE PHASE B DURABILITY CANDIDATE - NON-GOLDEN
+
+The TypeScript worktree contains a fully validated but not-yet-committed
+durable replay foundation on parent
+`85d865cdd4f38ab4df32e24393e130ca094f6b7f`. Unity remains clean at Golden M3
+`40465d48c191c9dcdda2c6b32c17c9675f4908a4`. Protocol `3`, projection `4`,
+schema identity, generated DTOs, gameplay, and visual output are unchanged.
+
+The candidate adds a strict operational checkpoint outside `GameState`/V14,
+serialized commit-before-response dispatch, exact response replay, private
+atomic storage and process-incarnation locking, controlled bounded-history
+rollover, graceful shutdown, and a real command/save/command/load `SIGKILL`
+restart proof. Full validation passes: 332 files/4,488 tests/5 skipped;
+62/62 bridge tests; both typechecks; build; Movie #2/determinism proof; and all
+browser-dependency, repository-hygiene, and 3D provenance gates. Independent
+audits report no P0/P1 in the persistence core.
+
+This candidate does **not** supersede Golden M3. The ordinary launch remains
+memory-only, localhost accepts unauthorized Host/Origin/`text/plain` requests,
+there is no launcher/runtime-instance/Unity engine-kill recovery proof, and no
+new native or visual evidence exists. A Golden pair cannot advance on a TS-only
+internal primitive whose default product path is not yet durable. CURRENT BEST
+therefore remains the exact M3 tagged pair above, and promotion status remains
+**GOLDEN — CONTINUE CAMPAIGN**.
+
 ## PRIOR GOLDEN M2 REGISTER - HISTORICAL
 
 Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
@@ -167,7 +206,7 @@ of the product SHA after this register, the ledger, and the handoff are sealed.
 That does not change the product candidate. The M2 tags identify the exact code
 pair to build and recover.
 
-## ACTIVE A4 CANDIDATE - VALIDATED PRE-COMMIT, NOT GOLDEN
+## A4 PRE-COMMIT CANDIDATE - HISTORICAL
 
 A4 is a materially stronger compatible working state, but it is still dirty in
 both repositories and therefore is not CURRENT BEST, is not Golden, and has no
@@ -221,14 +260,16 @@ or push an A4 Golden tag from dirty worktrees. After coherent commits exist in
 both repositories, inspect the exact compatible pair, verify remote SHAs, and
 make the Golden supersession decision from the sealed evidence.
 
-## PARENT AND BASE SHAS
+## LEGACY M2 REGISTER DETAILS - HISTORICAL
+
+### Parent and base SHAs
 
 | Component | Direct parent of product SHA | Campaign base / frozen adoption authority |
 | --- | --- | --- |
 | TypeScript authority | `7218368cddc46eaeb0fb99691489d457a89112d6` | `f6606ac9db67dc70b12a7d247d74206571d12d2c` |
 | Unity production client | `7fb693c78da06cca1c8e688340241e1c9fa0b874` | `d970b81c2b17383ee71c3c66a5622ecc140473b3` |
 
-## CANONICAL / DEFAULT BRANCHES
+### Canonical / default branches at M2
 
 | Repository | Remote default branch | Last audited SHA | Campaign relationship |
 | --- | --- | --- | --- |
@@ -239,7 +280,7 @@ The Unity repository's local archival `main` at
 `17572ceb376fed048f110f34bbaac2fa7a8095ce` is not the remote default or a
 production-promotion target.
 
-## CURRENT GOLDEN TAGS
+### M2 Golden tags - historical
 
 - `golden/unity-convergence-m2` in `HSpector1/The-Movies` identifies
   `7d76951f6ad641e8940b97b03806b87638ed8ad8`.
@@ -257,7 +298,7 @@ its tags must never be moved or deleted. The frozen adoption authorities remain
 additional recovery authorities but were not retroactively relabeled as
 campaign Goldens.
 
-## WHY M2 SUPERSEDES M1
+### Why M2 superseded M1
 
 M2 contains the complete M1 A1 generated-contract foundation and A2 atomic
 projection bundle, then closes the A3 queue-law parity defects across the bridge
@@ -291,7 +332,7 @@ The Unity visual state is unchanged from M1 and remains below the
 visual-recognizability and two-scale-camera ruling recorded in ADR 0006. M2
 supersedes M1 functionally despite not claiming visual uplift.
 
-## LAUNCH COMMAND
+### M2 launch command - historical
 
 Terminal 1:
 
@@ -324,7 +365,7 @@ For byte-exact recovery, use clean worktrees at
 descendant is product-equivalent but is not a replacement for the exact Golden
 pair recorded above.
 
-## VALIDATION SUMMARY
+### M2 validation summary
 
 | Gate | Golden M2 result |
 | --- | --- |
@@ -357,7 +398,7 @@ Final native evidence:
 - structured reconnect proof:
   `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/bridge-reconnect-proof.json`.
 
-## MOVIE #2 STATUS
+### M2 Movie #2 status
 
 - Status: fully playable end to end through the native Unity proof client.
 - Title: `The Reluctant Cornerstone`.
@@ -377,7 +418,7 @@ pre-production, blockers, shooting, post, save/load, release, and reconnect.
 It also covers the A3 contention path that queues exact authoritative work
 instead of hiding or duplicating it.
 
-## VISUAL STATUS
+### M2 visual status
 
 A3 intentionally changes no Unity art, camera, UI composition, animation, or
 world layout. The native A3 captures prove that the M1 presentation is
@@ -407,7 +448,7 @@ and 33.25 ms command round trip. The separate reconnect application recovered
 the final snapshot with 3.96 ms parse and 4.44 ms apply. These are evidence
 samples, not yet a formal Phase L percentile budget.
 
-## KNOWN DEFECTS
+### M2 known defects
 
 - Phase A3 establishes truthful queue-law parity, but the more detailed
   screenplay/development, casting, package/greenlight, and structured
@@ -435,7 +476,7 @@ samples, not yet a formal Phase L percentile budget.
 No known P0 regression, P1 regression, or TypeScript-authority violation
 remains at the M2 seal.
 
-## PROMOTION DECISION
+### M2 promotion decision
 
 **GOLDEN — CONTINUE CAMPAIGN**
 
@@ -456,7 +497,7 @@ This is a technical-PM rejection of premature canonical promotion, not a
 request for Owner arbitration. Continue from the exact M2 pair. Do not mistake
 functional supersession of M1 for completion of the runtime or visual product.
 
-## PROMOTION PACKAGE STATUS
+### M2 promotion package status
 
 Not prepared. M2 is not `READY FOR OWNER MERGE REVIEW` and has not been promoted
 to canonical. The primary rollback/recovery point is the compatible M2 pair

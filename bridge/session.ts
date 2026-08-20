@@ -41,6 +41,20 @@ import {
   type RejectionCode,
   type SubmitIntentCommand,
 } from './protocol.ts'
+import {
+  BridgeRuntimeCheckpointCapacityError,
+  BridgeRuntimeCheckpointHistoryFullError,
+  createBridgeRuntimeCheckpoint,
+  createBridgeRuntimeJournalEntry,
+  DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
+  type BridgeRuntimeCheckpointLimits,
+  type BridgeRuntimeCheckpointV1,
+  type BridgeRuntimeJournalEntryV1,
+  type BridgeRuntimeJournalRoute,
+  type HydratedBridgeRuntimeCheckpoint,
+  type HydratedBridgeRuntimeJournalEntry,
+} from './runtime-checkpoint.ts'
+import { canonicalJson } from './schema/canonical.ts'
 import type {
   BridgeAcceptedCommandResponse,
   BridgeAcceptedSaveResponse,
@@ -65,6 +79,16 @@ export type AcceptedSaveResponse = BridgeAcceptedSaveResponse
 
 export type SaveResponse = AcceptedSaveResponse | RejectedResponse
 type CachedResponse = CommandResponse | SaveResponse
+
+type RuntimeEntry = {
+  entry: BridgeRuntimeJournalEntryV1
+}
+
+type BridgeSessionRuntimeState = {
+  revision: number
+  journal: readonly HydratedBridgeRuntimeJournalEntry[]
+  limits: BridgeRuntimeCheckpointLimits
+}
 
 export type PlayedIntent = {
   option: AvailableIntent
@@ -612,10 +636,6 @@ export function createBridgeInitialState(seed = 'current-game-unity-adoption-v2'
   return createBridgeBootstrap(seed).state
 }
 
-function fingerprint(route: 'command' | 'save' | 'load', value: SubmitIntentCommand | ControlEnvelope): string {
-  return createHash('sha256').update(route).update('\0').update(JSON.stringify(value)).digest('hex')
-}
-
 function rejectionFacts(
   reasonCode: RejectionCode,
 ): Rejection {
@@ -698,41 +718,105 @@ function rejectionFacts(
 export class BridgeSession {
   readonly sessionId: string
   private state: GameState
-  private revision = 0
-  private readonly processed = new Map<string, { fingerprint: string; response: CachedResponse }>()
+  private revision: number
+  private readonly processed = new Map<string, RuntimeEntry>()
+  private readonly journal: BridgeRuntimeJournalEntryV1[]
   private savedJson: string | null
+  private readonly runtimeLimits: BridgeRuntimeCheckpointLimits
 
   constructor(
     state = createBridgeInitialState(),
     sessionId: string = randomUUID(),
     savedJson: string | null = null,
+    runtime: Partial<BridgeSessionRuntimeState> = {},
   ) {
     this.state = state
     this.sessionId = sessionId
     this.savedJson = savedJson
+    this.revision = runtime.revision ?? 0
+    this.runtimeLimits = runtime.limits ?? DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS
+    this.journal = []
+    for (const hydrated of runtime.journal ?? []) {
+      const entry = {
+        route: hydrated.route,
+        commandId: hydrated.commandId,
+        requestJson: hydrated.requestJson,
+        responseJson: hydrated.responseJson,
+      }
+      this.journal.push(entry)
+      this.processed.set(entry.commandId, { entry })
+    }
   }
 
   static fromSaveJson(saveJson: string, sessionId: string = randomUUID()): BridgeSession {
     const imported = importSaveJson(saveJson)
     if (!imported.ok) throw new Error(imported.error)
-    return new BridgeSession(imported.state, sessionId, saveJson)
+    return new BridgeSession(imported.state, sessionId, exportSaveJson(imported.state))
+  }
+
+  static createRuntime(
+    limits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
+  ): BridgeSession {
+    return new BridgeSession(undefined, undefined, null, { limits })
+  }
+
+  static fromRuntimeCheckpoint(
+    hydrated: HydratedBridgeRuntimeCheckpoint,
+    limits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
+  ): BridgeSession {
+    const imported = importSaveJson(hydrated.checkpoint.currentSaveJson)
+    if (!imported.ok) throw new Error(imported.error)
+    return new BridgeSession(
+      imported.state,
+      hydrated.checkpoint.sessionId,
+      hydrated.checkpoint.savedSaveJson,
+      {
+        revision: hydrated.checkpoint.stateRevision,
+        journal: hydrated.journal,
+        limits,
+      },
+    )
   }
 
   get stateRevision(): number { return this.revision }
   get gameState(): GameState { return this.state }
+  get runtimeJournalSize(): number { return this.journal.length }
 
   snapshot(): SnapshotEnvelope {
+    return this.snapshotFor(this.state, this.revision)
+  }
+
+  exportRuntimeCheckpoint(): BridgeRuntimeCheckpointV1 {
+    return createBridgeRuntimeCheckpoint({
+      sessionId: this.sessionId,
+      stateRevision: this.revision,
+      currentSaveJson: exportSaveJson(this.state),
+      savedSaveJson: this.savedJson,
+      journal: this.journal,
+    }, this.runtimeLimits)
+  }
+
+  rolloverRuntime(
+    limits: BridgeRuntimeCheckpointLimits = this.runtimeLimits,
+  ): BridgeSession {
+    const currentSaveJson = exportSaveJson(this.state)
+    const imported = importSaveJson(currentSaveJson)
+    if (!imported.ok) throw new Error(imported.error)
+    return new BridgeSession(imported.state, randomUUID(), this.savedJson, { limits })
+  }
+
+  private snapshotFor(state: GameState, revision: number): SnapshotEnvelope {
     const started = performance.now()
-    const snapshot = projectStudioProjectionBundle(studioLotSnapshot(this.state))
-    const intents = availableIntents(this.state)
+    const snapshot = projectStudioProjectionBundle(studioLotSnapshot(state))
+    const intents = availableIntents(state)
     const partial = {
       protocolVersion: PROTOCOL_VERSION,
       schemaId: SCHEMA_ID,
       snapshotVersion: SNAPSHOT_VERSION,
       sessionId: this.sessionId,
-      stateRevision: this.revision,
-      gameWeek: this.state.market.tick,
-      stateDigest: authoritativeDigest(this.state),
+      stateRevision: revision,
+      gameWeek: state.market.tick,
+      stateDigest: authoritativeDigest(state),
       snapshot,
       availableIntents: intents,
     }
@@ -746,13 +830,8 @@ export class BridgeSession {
     if (command.sessionId !== this.sessionId) {
       return this.reject(command.commandId, 'SESSION_MISMATCH', 'Command belongs to a different bridge session.', started)
     }
-    const key = fingerprint('command', command)
-    const prior = this.processed.get(command.commandId)
-    if (prior !== undefined) {
-      return prior.fingerprint === key
-        ? prior.response as CommandResponse
-        : this.reject(command.commandId, 'COMMAND_ID_REUSE', 'commandId was already used for a different envelope.', started)
-    }
+    const prior = this.priorResponse('command', command, started)
+    if (prior !== null) return prior as CommandResponse
     if (command.expectedStateRevision !== this.revision) {
       const rejected = this.reject(
         command.commandId,
@@ -760,7 +839,7 @@ export class BridgeSession {
         `Intent expected revision ${String(command.expectedStateRevision)}; authority is revision ${String(this.revision)}.`,
         started,
       )
-      this.remember(command.commandId, key, rejected)
+      this.remember('command', command, rejected)
       return rejected
     }
     const resolved = resolveAvailableIntents(this.state).find(
@@ -773,26 +852,35 @@ export class BridgeSession {
         'Intent was not emitted by the current authoritative TypeScript state.',
         started,
       )
-      this.remember(command.commandId, key, rejected)
+      this.remember('command', command, rejected)
       return rejected
     }
     const before = this.state
     const outcome = caught(() => resolved.apply(before))
     if (!outcome.ok) {
       const rejected = this.reject(command.commandId, 'ENGINE_REJECTED', outcome.error, started)
-      this.remember(command.commandId, key, rejected)
+      this.remember('command', command, rejected)
       return rejected
     }
-    this.state = outcome.next
-    this.revision++
+    const nextRevision = this.revision + 1
     const accepted: AcceptedCommandResponse = {
-      ...this.snapshot(),
+      ...this.snapshotFor(outcome.next, nextRevision),
       commandId: command.commandId,
       accepted: true,
       message: acceptedIntentMessage(resolved.option.label, before, outcome.next),
       processingMs: performance.now() - started,
     }
-    this.remember(command.commandId, key, accepted)
+    const entry = this.prepareEntry(
+      'command',
+      command,
+      accepted,
+      outcome.next,
+      nextRevision,
+      this.savedJson,
+    )
+    this.state = outcome.next
+    this.revision = nextRevision
+    this.commitEntry(entry)
     return accepted
   }
 
@@ -800,7 +888,7 @@ export class BridgeSession {
     const started = performance.now()
     const guarded = this.guardControl('save', control, started)
     if (guarded !== null) return guarded as SaveResponse
-    this.savedJson = exportSaveJson(this.state)
+    const savedJson = exportSaveJson(this.state)
     const accepted: AcceptedSaveResponse = {
       protocolVersion: PROTOCOL_VERSION,
       schemaId: SCHEMA_ID,
@@ -811,10 +899,19 @@ export class BridgeSession {
       stateRevision: this.revision,
       gameWeek: this.state.market.tick,
       stateDigest: authoritativeDigest(this.state),
-      saveJson: this.savedJson,
+      saveJson: savedJson,
       processingMs: performance.now() - started,
     }
-    this.remember(control.commandId, fingerprint('save', control), accepted)
+    const entry = this.prepareEntry(
+      'save',
+      control,
+      accepted,
+      this.state,
+      this.revision,
+      savedJson,
+    )
+    this.savedJson = savedJson
+    this.commitEntry(entry)
     return accepted
   }
 
@@ -822,22 +919,20 @@ export class BridgeSession {
     const started = performance.now()
     const guarded = this.guardControl('load', control, started)
     if (guarded !== null) return guarded as CommandResponse
-    const key = fingerprint('load', control)
     if (this.savedJson === null) {
       const rejected = this.reject(control.commandId, 'NO_SAVE', 'No authoritative bridge save exists.', started)
-      this.remember(control.commandId, key, rejected)
+      this.remember('load', control, rejected)
       return rejected
     }
     const loaded = importSaveJson(this.savedJson)
     if (!loaded.ok) {
       const rejected = this.reject(control.commandId, 'SAVE_REJECTED', loaded.error, started)
-      this.remember(control.commandId, key, rejected)
+      this.remember('load', control, rejected)
       return rejected
     }
-    this.state = loaded.state
-    this.revision++
+    const nextRevision = this.revision + 1
     const accepted: AcceptedCommandResponse = {
-      ...this.snapshot(),
+      ...this.snapshotFor(loaded.state, nextRevision),
       commandId: control.commandId,
       accepted: true,
       message: loaded.converted
@@ -845,7 +940,17 @@ export class BridgeSession {
         : 'Authoritative TypeScript save loaded.',
       processingMs: performance.now() - started,
     }
-    this.remember(control.commandId, key, accepted)
+    const entry = this.prepareEntry(
+      'load',
+      control,
+      accepted,
+      loaded.state,
+      nextRevision,
+      this.savedJson,
+    )
+    this.state = loaded.state
+    this.revision = nextRevision
+    this.commitEntry(entry)
     return accepted
   }
 
@@ -866,13 +971,8 @@ export class BridgeSession {
     if (control.sessionId !== this.sessionId) {
       return this.reject(control.commandId, 'SESSION_MISMATCH', 'Control belongs to a different bridge session.', started)
     }
-    const key = fingerprint(route, control)
-    const prior = this.processed.get(control.commandId)
-    if (prior !== undefined) {
-      return prior.fingerprint === key
-        ? prior.response
-        : this.reject(control.commandId, 'COMMAND_ID_REUSE', 'commandId was already used for a different envelope.', started)
-    }
+    const prior = this.priorResponse(route, control, started)
+    if (prior !== null) return prior
     if (control.expectedStateRevision !== this.revision) {
       const rejected = this.reject(
         control.commandId,
@@ -880,7 +980,8 @@ export class BridgeSession {
         `Control expected revision ${String(control.expectedStateRevision)}; authority is revision ${String(this.revision)}.`,
         started,
       )
-      this.remember(control.commandId, key, rejected)
+      if (route === 'save') this.remember('save', control, rejected)
+      else this.remember('load', control, rejected)
       return rejected
     }
     return null
@@ -911,10 +1012,112 @@ export class BridgeSession {
     }
   }
 
-  private remember(commandId: string, key: string, response: CachedResponse): void {
-    this.processed.set(commandId, { fingerprint: key, response })
-    if (this.processed.size <= 256) return
-    const oldest = this.processed.keys().next().value as string | undefined
-    if (oldest !== undefined) this.processed.delete(oldest)
+  private priorResponse(
+    route: BridgeRuntimeJournalRoute,
+    request: SubmitIntentCommand | ControlEnvelope,
+    started: number,
+  ): CachedResponse | null {
+    const prior = this.processed.get(request.commandId)
+    if (prior === undefined) return null
+    if (prior.entry.route !== route || prior.entry.requestJson !== canonicalJson(request)) {
+      return this.reject(
+        request.commandId,
+        'COMMAND_ID_REUSE',
+        'commandId was already used for a different envelope.',
+        started,
+      )
+    }
+    return JSON.parse(prior.entry.responseJson) as CachedResponse
+  }
+
+  private remember(
+    route: 'command',
+    request: SubmitIntentCommand,
+    response: CommandResponse,
+  ): void
+  private remember(
+    route: 'save',
+    request: ControlEnvelope,
+    response: SaveResponse,
+  ): void
+  private remember(
+    route: 'load',
+    request: ControlEnvelope,
+    response: CommandResponse,
+  ): void
+  private remember(
+    route: BridgeRuntimeJournalRoute,
+    request: SubmitIntentCommand | ControlEnvelope,
+    response: CachedResponse,
+  ): void {
+    const entry = this.prepareEntry(
+      route,
+      request,
+      response,
+      this.state,
+      this.revision,
+      this.savedJson,
+    )
+    this.commitEntry(entry)
+  }
+
+  private prepareEntry(
+    route: BridgeRuntimeJournalRoute,
+    request: SubmitIntentCommand | ControlEnvelope,
+    response: CachedResponse,
+    nextState: GameState,
+    nextRevision: number,
+    nextSavedJson: string | null,
+  ): BridgeRuntimeJournalEntryV1 {
+    let entry: BridgeRuntimeJournalEntryV1
+    if (route === 'command') {
+      entry = createBridgeRuntimeJournalEntry(
+        route,
+        request as SubmitIntentCommand,
+        response as CommandResponse,
+      )
+    } else if (route === 'save') {
+      entry = createBridgeRuntimeJournalEntry(
+        route,
+        request as ControlEnvelope,
+        response as SaveResponse,
+      )
+    } else {
+      entry = createBridgeRuntimeJournalEntry(
+        route,
+        request as ControlEnvelope,
+        response as CommandResponse,
+      )
+    }
+    const checkpointInput = {
+      sessionId: this.sessionId,
+      stateRevision: nextRevision,
+      currentSaveJson: exportSaveJson(nextState),
+      savedSaveJson: nextSavedJson,
+    }
+    let prospective: BridgeRuntimeCheckpointV1
+    try {
+      prospective = createBridgeRuntimeCheckpoint({
+        ...checkpointInput,
+        journal: [...this.journal, entry],
+      }, this.runtimeLimits)
+    } catch (error) {
+      if (!(error instanceof BridgeRuntimeCheckpointCapacityError) || this.journal.length === 0) {
+        throw error
+      }
+
+      // Only history pressure is recoverable by rollover. Prove the candidate fits alone first.
+      createBridgeRuntimeCheckpoint({
+        ...checkpointInput,
+        journal: [entry],
+      }, this.runtimeLimits)
+      throw new BridgeRuntimeCheckpointHistoryFullError(error)
+    }
+    return prospective.journal[prospective.journal.length - 1]!
+  }
+
+  private commitEntry(entry: BridgeRuntimeJournalEntryV1): void {
+    this.journal.push(entry)
+    this.processed.set(entry.commandId, { entry })
   }
 }
