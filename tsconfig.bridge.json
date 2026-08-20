@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": [
+    "bridge/**/*.ts",
+    "tests/bridge.test.ts",
+    "src/**/*.ts",
+    "ui/src/engine/adapter.ts",
+    "ui/src/format.ts",
+    "ui/src/lot/snapshot/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist"]
+}
