@@ -6,7 +6,7 @@ decision is settled. Do not restart planning from scratch.
 
 ## CURRENT EXACT STATE
 
-Timestamp: 2026-08-21 00:08 CEST (UTC+02:00).
+Timestamp: 2026-08-21 00:12 CEST (UTC+02:00).
 
 | Item | Exact state |
 | --- | --- |
@@ -14,9 +14,9 @@ Timestamp: 2026-08-21 00:08 CEST (UTC+02:00).
 | TypeScript branch | `campaign/unity-production-convergence-80h-ts` |
 | TypeScript Golden M2 product SHA | `7d76951f6ad641e8940b97b03806b87638ed8ad8` |
 | TypeScript Golden M2 parent | `7218368cddc46eaeb0fb99691489d457a89112d6` |
-| TypeScript branch tip | Currently the product SHA while the three continuity documents are dirty. After their docs-only checkpoint commit, `git rev-parse HEAD` is authoritative; that branch tip must be a docs-only descendant of `7d76951f6ad641e8940b97b03806b87638ed8ad8`. A commit cannot embed its own resulting SHA. |
-| TypeScript pushed | Yes; product commit `7d76951f6ad641e8940b97b03806b87638ed8ad8` matches the remote campaign ref. The continuity-doc commit still needs its own push. |
-| TypeScript working tree | Only the campaign ledger, handoff, and promotion register are dirty. Product source is committed. Expected clean after the continuity commit/push. Ignored `node_modules/`, `dist/`, and `.tmp/` outputs remain local. |
+| TypeScript branch tip | The committed continuity declaration is `103ad1a4a55e27eb6ea3dff5ad10836d7b46a3aa`; this final CI note will create one more docs-only descendant. After that commit, `git rev-parse HEAD` is authoritative because a commit cannot embed its own resulting SHA. Every branch-tip commit after the Golden product SHA must remain documentation-only. |
+| TypeScript pushed | Yes through product commit `7d76951f6ad641e8940b97b03806b87638ed8ad8`; the two local docs-only continuity commits are pending one final push. |
+| TypeScript working tree | Only the three campaign continuity documents are dirty for the final CI note. Product source is committed. Expected clean after the docs-only commit/push. Ignored `node_modules/`, `dist/`, and `.tmp/` outputs remain local. |
 | Unity worktree | `/Users/bruce/Project Studio - Unity Production Convergence 80H` |
 | Unity branch | `campaign/unity-production-convergence-80h-client` |
 | Unity HEAD | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` |
@@ -299,7 +299,7 @@ HUD, protocol, and simulation changes.
 | Reconnect final-seal sample | 119.19 FPS; 15,394-byte snapshot; 23.10 ms serialization; 3.96 ms parse; 4.44 ms initial apply; 33.20 ms RTT |
 | Inherited baseline | 119.82 FPS; 8.32 ms median; 9.06 ms p95; 680 draw calls; 168,041 triangles; 412 MB working set |
 | Screenshot/evidence root | `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/` |
-| Product-SHA CI | GitHub Actions run `32422095175` for `7d76951f6ad641e8940b97b03806b87638ed8ad8` is in progress at this timestamp |
+| Product-SHA CI | GitHub Actions run `32422095175` passed every gate for `7d76951f6ad641e8940b97b03806b87638ed8ad8` in 9m36s |
 
 Current accepted evidence:
 
@@ -406,22 +406,7 @@ Current accepted evidence:
 - Attempted fixes: deterministic cross-repo check and Unity strict fixtures.
 - Must not be tried again: never hand-edit generated C# or add another mirror.
 
-### 7. Product-SHA CI is still in progress
-
-- Exact defect: local and native Golden M2 validation is complete, but GitHub
-  Actions run `32422095175` for product SHA `7d76951...` has not reported a
-  final conclusion at this timestamp.
-- Severity: Low checkpoint-observability risk; no local acceptance failure.
-- Reproduction: run
-  `gh run view 32422095175 --repo HSpector1/The-Movies`.
-- Origin: Normal remote CI latency after the pushed product commit.
-- Attempted fixes: local full suite, bridge, typecheck, build, audits, Unity
-  EditMode, native build, Movie #2, stale, save/load, and reconnect all passed.
-- Must not be tried again: do not rerun or cancel a healthy in-progress job,
-  weaken gates, or reinterpret remote latency as a product defect. Record its
-  final conclusion in the next continuity update.
-
-### 8. Canonical promotion remains deferred
+### 7. Canonical promotion remains deferred
 
 - Exact defect: TypeScript default and campaign histories remain a semantic
   mega-diff; Unity alone is incompatible with default TypeScript.
@@ -432,7 +417,7 @@ Current accepted evidence:
 - Must not be tried again: no unilateral default merge, rebase, force push,
   generated-DTO-only cherry-pick, or Golden tag movement.
 
-### 9. Development dependency and localhost security boundaries remain
+### 8. Development dependency and localhost security boundaries remain
 
 - Exact defect: browser runtime audit is clean, but the dev-run bridge graph
   still has advisories and lacks per-launch capability, strict Host/Origin and
@@ -644,9 +629,9 @@ is intended for the checkpoint commit.
    app command above. Confirm protocol 2/projection 4 and exact Movie #2 release
    at Week 22/revision 23. The accepted evidence is already under
    `Evidence/A3/Queue-Parity/`.
-5. Check GitHub Actions run `32422095175`. If it is still in progress, do not
-   restart it. If it failed, record the exact failing gate before changing code;
-   do not move either M2 tag or weaken validation.
+5. Verify GitHub Actions run `32422095175` remains successful for the exact
+   Golden TypeScript product SHA. Do not rerun it or weaken any gate merely to
+   obtain another green result.
 6. Perform NEXT EXACT ACTION. Do not repeat A1/A2 research, reopen Unity versus
    Three.js, hand-mirror DTOs, encode remedies in C#, reinterpret capacity as a
    rejection, or ask the Owner to reconstruct history.

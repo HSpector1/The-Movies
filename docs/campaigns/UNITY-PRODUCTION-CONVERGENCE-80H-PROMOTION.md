@@ -147,6 +147,7 @@ pair recorded above.
 | Determinism | Export/import/export byte-identical; headless and bridge save bytes/digests identical |
 | Runtime console | No proof failure, error, exception, or protocol mismatch |
 | Whole-diff red team | No P0 or P1 finding remains |
+| Product-SHA remote CI | GitHub Actions run `32422095175` passed every expanded gate in 9m36s |
 
 Final native evidence:
 

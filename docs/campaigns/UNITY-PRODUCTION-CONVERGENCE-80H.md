@@ -746,6 +746,7 @@ TypeScript front door.
 | Browser dependency audit | Passed with 0 browser-runtime vulnerabilities |
 | Adopted 3D asset audit | Passed; 26 assets, 0 hard violations |
 | Diff/independent audit | `git diff --check` passed; independent final review found no remaining P0 or P1 defect in the A3 checkpoint |
+| Product-SHA remote CI | GitHub Actions run `32422095175` passed every expanded gate in 9m36s at `7d76951f6ad641e8940b97b03806b87638ed8ad8` |
 
 Focused tests cover capacity-only queue admission, no premature mutation or
 reservation, exact dequeue payloads, casting-to-Package handoff, unfinished
