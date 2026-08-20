@@ -362,6 +362,7 @@ No visual score was inflated for architecture work.
 | --- | --- | --- |
 | TypeScript | `82c9486a6ce3a849d72c7f7f5258d6392cc3483a` | Exact architecture decision incorporated into campaign boot state |
 | TypeScript | `9584cd247c13b7fdda007ce767351b683890c1a5` | Reproducible baseline and durable continuity checkpoint |
+| TypeScript | `a7ceb56bbac6c2ceb0be534a5753f086c5d51401` | Canonical schema, deterministic C# generation/drift gate, schema-derived bridge projection, and adversarial contract coverage |
 | Unity | `75706567fa9895892a88310a494158069b70aeda` | Clean-import URP serialization and ignored local evidence root |
 | Unity | `7fb693c78da06cca1c8e688340241e1c9fa0b874` | Generated strict contract consumer, exact endpoint parsing, nullable fixture preservation, and adversarial EditMode coverage |
 

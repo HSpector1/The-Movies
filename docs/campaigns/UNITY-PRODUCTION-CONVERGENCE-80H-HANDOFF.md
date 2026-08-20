@@ -6,25 +6,24 @@ chronology. Do not restart planning or reopen the engine decision.
 
 ## CURRENT EXACT STATE
 
-Timestamp: 2026-08-20 20:34 CEST (UTC+02:00).
+Timestamp: 2026-08-20 20:36 CEST (UTC+02:00).
 
 | Item | Exact state |
 | --- | --- |
 | TypeScript worktree | `/Users/bruce/The Movies - Unity Production Convergence 80H` |
 | TypeScript branch | `campaign/unity-production-convergence-80h-ts` |
-| TypeScript HEAD | `9584cd247c13b7fdda007ce767351b683890c1a5` before the accepted A1 checkpoint commit containing this update |
-| TypeScript pushed | Baseline HEAD is pushed and equals `hspector-github/campaign/unity-production-convergence-80h-ts`; A1 source/docs are intentionally uncommitted until the checkpoint seal below |
-| TypeScript working tree | Accepted A1 schema, generator, tests, CI, bridge integration, and continuity updates are the only intended changes; `node_modules/` is ignored |
+| TypeScript implementation HEAD | `a7ceb56bbac6c2ceb0be534a5753f086c5d51401` before this continuity-only follow-up |
+| TypeScript branch tip | The pushed continuity commit containing this file. Resolve with `git rev-parse HEAD`; a commit cannot embed its own resulting SHA. It must have `a7ceb56bbac6c2ceb0be534a5753f086c5d51401` as its direct parent. |
+| TypeScript pushed | Yes after the immediate continuity push; local HEAD, upstream, and remote campaign ref must match |
+| TypeScript working tree | Only this exact continuity update is uncommitted while being written; expected clean after commit/push; `node_modules/` is ignored |
 | Unity worktree | `/Users/bruce/Project Studio - Unity Production Convergence 80H` |
 | Unity branch | `campaign/unity-production-convergence-80h-client` |
 | Unity HEAD | `7fb693c78da06cca1c8e688340241e1c9fa0b874` |
 | Unity pushed | Yes; local HEAD, upstream, and `git ls-remote` all match `7fb693c78da06cca1c8e688340241e1c9fa0b874` |
 | Unity working tree | Clean; `Library/`, `Logs/`, `Builds/`, and `Evidence/` are ignored |
 
-The final checkpoint will replace the two pre-commit HEAD descriptions above
-with pushed SHAs. A Git commit cannot embed its own resulting SHA; for the final
-TypeScript continuity commit, local `HEAD` and the remote campaign ref are the
-exact branch-tip authorities.
+Do not treat the implementation SHA and continuity branch tip as a discrepancy.
+Verify the direct-parent relationship and exact local/upstream/remote equality.
 
 ## CAMPAIGN STATUS
 
@@ -95,8 +94,8 @@ load-bearing drift risk for every later Unity capability.
   `75706567fa9895892a88310a494158069b70aeda`.
 - Unity A1 generated-contract consumer:
   `7fb693c78da06cca1c8e688340241e1c9fa0b874`.
-- TypeScript A1 checkpoint: pending the immediate implementation/continuity
-  commits; replace this line after push.
+- TypeScript A1 canonical generated contract:
+  `a7ceb56bbac6c2ceb0be534a5753f086c5d51401`.
 
 ## WHAT IS WORKING RIGHT NOW
 
@@ -349,9 +348,10 @@ tests. Do not add additional processes or duplicate simulation formulas.
 
 ### TypeScript
 
-- Before the immediate seal, all A1 source plus both continuity documents are
-  intentionally uncommitted. After the checkpoint push, no tracked WIP should
-  remain.
+- A1 implementation is committed at
+  `a7ceb56bbac6c2ceb0be534a5753f086c5d51401`.
+- Only this continuity-only exact-SHA update is intentionally uncommitted while
+  authored. After its push, no tracked WIP should remain.
 - `node_modules/` is ignored.
 - Vite `dist/` is generated/ignored when present.
 - Checked-in generated material is intentional source control material:
