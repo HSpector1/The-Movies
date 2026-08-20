@@ -91,6 +91,7 @@ const renderer = vi.hoisted(() => {
     readonly scenerySelections: string[] = []
     readonly productionSelections: string[] = []
     readonly personSelections: string[] = []
+    readonly focusedBuildings: string[] = []
     hollywoodPlaceSelection: string | null = null
     hollywoodPlaceClears = 0
     hollywoodPersonClears = 0
@@ -149,6 +150,10 @@ const renderer = vi.hoisted(() => {
         this.heldPlaceId = 'service-yard'
       }
       return controls.scenerySelectable
+    }
+    focusBuilding(id: string) {
+      this.focusedBuildings.push(id)
+      return true
     }
     selectHollywoodAnnexPlace() {
       this.heldPlaceId = 'annex-parcel'
@@ -405,6 +410,37 @@ describe('World-First Scenery Load-In V1 — StudioLotScreen contract', () => {
     ).toHaveFocus())
     expect(view.scenerySelections).toEqual([operation.productionId])
     expect(owner).not.toHaveBeenCalled()
+  })
+
+  it('opens the exact load-in command from Picture Journey without executing it', async () => {
+    const state = loadFixture(BLOCKED_FIXTURE)
+    const operation = operationAt(state)
+    if (operation.currentCommand?.kind !== 'clearSceneryLoadIn') {
+      throw new Error('blocked fixture lacks clearSceneryLoadIn')
+    }
+    const dispatch = vi.fn<(command: LotProductionCommand) => void>()
+    staticLot(state, dispatch)
+    const view = await latestView()
+
+    const journeyStep = await screen.findByTestId('lot-picture-guidance-next')
+    expect(journeyStep).toHaveAttribute('data-guidance-kind', 'resolve-production')
+    expect(journeyStep).toHaveTextContent(
+      'Clear the scenery load-in at Soundstage 7 + Scenery Shop',
+    )
+
+    fireEvent.click(journeyStep)
+
+    const context = await screen.findByTestId('hollywood-scenery-load-in-context')
+    expect(context).toHaveTextContent(operation.title)
+    const command = screen.getByTestId('hollywood-production-command-clearSceneryLoadIn')
+    expect(command).toHaveTextContent(operation.currentCommand.label)
+    await waitFor(() => expect(command).toHaveFocus())
+    expect(screen.queryByTestId('lot-building-inspector-post')).not.toBeInTheDocument()
+    expect(view.scenerySelections).toEqual([operation.productionId])
+    expect(view.focusedBuildings).toEqual(['post'])
+    // Guidance opens the smallest retained command surface. The command remains a
+    // separate, explicit player action and simulation is untouched by the card click.
+    expect(dispatch).not.toHaveBeenCalled()
   })
 
   it.each([

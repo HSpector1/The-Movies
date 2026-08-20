@@ -4887,11 +4887,11 @@ export function StudioLotScreen({
   const inspectHollywoodSceneryLoadIn = useCallback((
     productionId: string,
     grantsStage7Detail = false,
-  ) => {
+  ): boolean => {
     const stage7 = currentStageProductionDetail(latestSnapshotRef.current)
-    if (stage7?.operation.productionId !== productionId) return
+    if (stage7?.operation.productionId !== productionId) return false
     if (grantsStage7Detail) ownHollywoodStage7DetailContext(productionId)
-    enterHollywoodSceneryLoadInContext({
+    return enterHollywoodSceneryLoadInContext({
       productionId,
       locationBuildingId: 'stage-a',
       placeId: 'service-yard',
@@ -6181,9 +6181,67 @@ export function StudioLotScreen({
    */
   const takePictureGuidanceStep = useCallback((next: FirstFilmJourneyNext) => {
     if (worldInputSuspendedRef.current) return
-    const target = journeyTargetBuildingId(next.site, latestSnapshotRef.current)
+    const latest = latestSnapshotRef.current
+    const target = journeyTargetBuildingId(next.site, latest)
     // An unaddressable step is a real answer, not a fallback to some other building.
     if (target === null) return
+
+    /**
+     * A production blocker is already one step deeper than an ordinary place: the
+     * engine has published one exact command that must be considered before the picture
+     * can move. Landing the generic Production / Post building inspector made the
+     * Picture Journey button point at another "Open Production Board details" button,
+     * while the retained Lot already owns a smaller command surface.
+     *
+     * This remains navigation, never execution. We accept the shortcut only when the
+     * latest journey still names the field-exact rendered step and exactly one operation
+     * with the same picture identity owns an internally consistent current command. Any
+     * ambiguity falls through to the ordinary building activation below.
+     */
+    if (next.kind === 'resolve-production') {
+      const latestJourney = firstFilmJourneyContext(latest)
+      const latestNext = latestJourney.kind === 'view' ? latestJourney.view.next : null
+      const sameStep =
+        latestNext !== null &&
+        latestNext.kind === next.kind &&
+        latestNext.label === next.label &&
+        latestNext.site === next.site
+      const title = latestJourney.kind === 'view' ? latestJourney.view.pictureTitle : null
+      const commandOwners =
+        sameStep && title !== null && Array.isArray(latest.productionOperations)
+          ? latest.productionOperations.filter((operation) => (
+              operation.title === title &&
+              operation.currentCommand !== null &&
+              operation.currentCommand.productionId === operation.productionId
+            ))
+          : []
+      const operation = commandOwners.length === 1 ? commandOwners[0]! : null
+
+      if (operation !== null) {
+        const scenery = currentStageSceneryLoadIn(latest)
+        let opened =
+          scenery?.operation.productionId === operation.productionId
+            ? inspectHollywoodSceneryLoadIn(operation.productionId)
+            : false
+        if (!opened) {
+          opened = enterHollywoodProductionContext(operation.productionId, {
+            stage7Only: false,
+            detailEligible: false,
+            focus: 'primary',
+          })
+        }
+        if (opened) {
+          const view = viewRef.current
+          const focused = view?.focusBuilding?.(target) ?? false
+          const authoredPlace = PLACE_BY_BUILDING[target]
+          if (!focused && authoredPlace !== undefined) {
+            view?.focusHollywoodPlace?.(authoredPlace.placeId)
+          }
+          return
+        }
+      }
+    }
+
     activate(target)
     const view = viewRef.current
     const focused = view?.focusBuilding?.(target) ?? false
@@ -6191,7 +6249,7 @@ export function StudioLotScreen({
     if (!focused && authoredPlace !== undefined) {
       view?.focusHollywoodPlace?.(authoredPlace.placeId)
     }
-  }, [activate])
+  }, [activate, enterHollywoodProductionContext, inspectHollywoodSceneryLoadIn])
 
   /**
    * Take one of a building inspector's engine-published verbs (M-B).
