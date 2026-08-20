@@ -8,67 +8,90 @@ Do not infer a compatible TypeScript/Unity pair from branch names alone.
 
 Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
 
-| Component | Repository | Branch | Exact candidate SHA | Golden tag |
+| Component | Repository | Branch | Exact product SHA | Golden tag |
 | --- | --- | --- | --- | --- |
-| TypeScript authority | `HSpector1/The-Movies` | `campaign/unity-production-convergence-80h-ts` | `cd2b15872ac5849fa16beec1775543758cb3139e` | `golden/unity-convergence-m1` |
-| Unity production client | `HSpector1/project-studio-unity-visual-spike` | `campaign/unity-production-convergence-80h-client` | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` | `golden/unity-convergence-m1` |
+| TypeScript authority | `HSpector1/The-Movies` | `campaign/unity-production-convergence-80h-ts` | `7d76951f6ad641e8940b97b03806b87638ed8ad8` | `golden/unity-convergence-m2` |
+| Unity production client | `HSpector1/project-studio-unity-visual-spike` | `campaign/unity-production-convergence-80h-client` | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` | `golden/unity-convergence-m2` |
 
-The two SHAs above are one schema-pinned compatible pair: protocol `2`,
-projection `4`, schema
+Both product SHAs are pushed. They are one schema-pinned compatible pair:
+protocol `2`, projection `4`, schema
 `sha256:6e75cf246298bb742b66e56a17d8582a71dc2c3edb0c6542ad6595588244e833`.
 Do not promote, build, or recover only one side of the pair.
 
+The TypeScript campaign branch may have a continuity-document-only descendant
+of the product SHA after this register, the ledger, and the handoff are sealed.
+That does not change the product candidate. The M2 tags identify the exact code
+pair to build and recover.
+
+## PARENT AND BASE SHAS
+
+| Component | Direct parent of product SHA | Campaign base / frozen adoption authority |
+| --- | --- | --- |
+| TypeScript authority | `7218368cddc46eaeb0fb99691489d457a89112d6` | `f6606ac9db67dc70b12a7d247d74206571d12d2c` |
+| Unity production client | `7fb693c78da06cca1c8e688340241e1c9fa0b874` | `d970b81c2b17383ee71c3c66a5622ecc140473b3` |
+
 ## CANONICAL / DEFAULT BRANCHES
 
-| Repository | Remote default branch | Audited SHA | Campaign relationship |
+| Repository | Remote default branch | Last audited SHA | Campaign relationship |
 | --- | --- | --- | --- |
-| TypeScript | `main` | `5914c84e453461240540184e79b2bd7eafeb647f` | Diverged: merge base `c0c9561`; default has 3 unique commits and campaign has 185 before A2 |
+| TypeScript | `main` | `5914c84e453461240540184e79b2bd7eafeb647f` | Diverged; the campaign is a large semantic line that requires deliberate reconciliation |
 | Unity | `unity-typescript-bridge-spike` | `626c2d3a25f21ebdbb2603939378368af925f18c` | Linear ancestor of the campaign |
 
 The Unity repository's local archival `main` at
-`17572ceb376fed048f110f34bbaac2fa7a8095ce` is not a remote default or a
+`17572ceb376fed048f110f34bbaac2fa7a8095ce` is not the remote default or a
 production-promotion target.
 
 ## CURRENT GOLDEN TAGS
 
-- `golden/unity-convergence-m1` in `HSpector1/The-Movies` points immutably to
-  `cd2b15872ac5849fa16beec1775543758cb3139e`.
-- `golden/unity-convergence-m1` in
-  `HSpector1/project-studio-unity-visual-spike` points immutably to
+- `golden/unity-convergence-m2` in `HSpector1/The-Movies` identifies
+  `7d76951f6ad641e8940b97b03806b87638ed8ad8`.
+- `golden/unity-convergence-m2` in
+  `HSpector1/project-studio-unity-visual-spike` identifies
+  `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
+- Preserved M1: `golden/unity-convergence-m1` in `HSpector1/The-Movies`
+  identifies `cd2b15872ac5849fa16beec1775543758cb3139e`.
+- Preserved M1: `golden/unity-convergence-m1` in
+  `HSpector1/project-studio-unity-visual-spike` identifies
   `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
 
-No earlier campaign Golden tag exists. The frozen adoption authorities remain
-recovery authorities but were not retroactively relabeled as campaign Goldens.
+M2 supersedes M1 as CURRENT BEST. M1 remains an immutable recovery point and
+its tags must never be moved or deleted. The frozen adoption authorities remain
+additional recovery authorities but were not retroactively relabeled as
+campaign Goldens.
 
-## WHY THIS IS THE CURRENT BEST
+## WHY M2 SUPERSEDES M1
 
-M1 combines the complete A1 generated-contract foundation with the A2 atomic
-projection bundle. TypeScript still owns all simulation truth. Unity now receives
-six purpose-specific, closed projections (`lot`, `productions`, `people`,
-`construction`, `journeyNotices`, and `releaseResults`) under one authoritative
-revision/digest envelope instead of one growing snapshot DTO. Stable-ID caches
-are updated atomically; stale, conflicting same-revision, duplicate-ID, missing
-section, and incompatible projection payloads fail closed.
+M2 contains the complete M1 A1 generated-contract foundation and A2 atomic
+projection bundle, then closes the A3 queue-law parity defects across the bridge
+and retained TypeScript client:
 
-This is materially safer and more maintainable than the A1 branch tips while
-preserving the same native Movie #2, save/load, stale-command, reconnect, and
-visual behavior. It changes no gameplay rule, formula, save identity, RNG stream,
-or Three.js behavior.
+- commission, exact-project audition, and exact-project greenlight intents
+  remain reachable during Development & Casting contention and enter the
+  existing TypeScript-authoritative queue rather than being falsely withheld;
+- ambient concurrent front-door choices no longer hijack the exact guided
+  picture journey;
+- exact queued concept/project duplicate guards and read-model suppression
+  contain rerenders, panel reopenings, rapid clicks, and stale retained-client
+  affordances;
+- accepted bridge and retained-client receipts distinguish queued work from an
+  immediately committed screenplay, camera test, or production and claim no
+  identity, cash, talent, or room the engine has not committed;
+- capacity-only casting completion can hand off to Package so the player can
+  queue greenlight, while writer, staffing, founding, and duplicate blockers
+  continue to fail closed;
+- queued audition and greenlight guidance preserves exact screenplay identity
+  through waiting, save/load, dequeue, and continuation.
 
-## POST-GOLDEN CAMPAIGN DESCENDANTS
+This is a material functional and architectural improvement, not a visual one.
+Unity stays at the same exact SHA used by M1 because A3 changes TypeScript
+authority, bridge intent availability, and the retained TypeScript client
+without changing the generated wire schema or Unity source. TypeScript remains
+the sole simulation authority. M2 changes no gameplay formula, save identity,
+RNG stream, or Three.js authority boundary.
 
-The TypeScript campaign branch has a validated non-Golden governance descendant:
-implementation `f1847f9ec33c5b206d6b4354c8e5ad170cbd8de2`, followed by CI
-portability correction `38eb2d535b4c1da5c3c2908885c68227fb6ee0bc`. It harvests
-current-architecture ADR, security, dependency, CI, and repository-hygiene value
-from PR #5 without adopting either stale donor commit. GitHub Actions run
-`32411795447` passed every expanded TypeScript gate in 8m50s at the correction
-SHA. Unity remains at `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
-
-This descendant does not supersede M1 as CURRENT BEST: it changes no simulation,
-protocol, player flow, Unity client, native build, screenshots, or visual state.
-Build and recover the exact tagged M1 pair above until a later compatible pair
-earns a new Golden. No Golden tag was created or moved for the donor checkpoint.
+The Unity visual state is unchanged from M1 and remains below the
+visual-recognizability and two-scale-camera ruling recorded in ADR 0006. M2
+supersedes M1 functionally despite not claiming visual uplift.
 
 ## LAUNCH COMMAND
 
@@ -94,34 +117,50 @@ If the ignored native app is absent, rebuild it with:
   -batchmode \
   -projectPath '/Users/bruce/Project Studio - Unity Production Convergence 80H' \
   -executeMethod Studio.Editor.Automation.StudioAutomation.BuildMacOS \
-  -logFile /tmp/studio-a2-build.log \
+  -logFile /tmp/studio-a3-native-build-seal.log \
   -quit
 ```
 
+For byte-exact recovery, use clean worktrees at
+`golden/unity-convergence-m2` in both repositories. A continuity-only branch
+descendant is product-equivalent but is not a replacement for the exact Golden
+pair recorded above.
+
 ## VALIDATION SUMMARY
 
-| Gate | Golden M1 result |
+| Gate | Golden M2 result |
 | --- | --- |
-| TypeScript full suite | 325 files; 4,421 passed, 5 skipped, 0 failed |
+| TypeScript full suite | 327 files passed; 4,450 passed, 5 skipped, 0 failed |
 | TypeScript typecheck | Passed |
 | TypeScript production build | Passed; inherited Vite chunk-size warnings only |
 | Bridge typecheck | Passed |
-| Bridge/schema tests | 20/20 passed |
-| Generated cross-repo drift | Passed; C# copies byte-identical, SHA-256 `3805f4d54cba772d0670697d3d356b9c480c7a35d1bd4a295a63c5110e8ca004` |
+| Bridge/schema tests | 24/24 passed, including exact Movie #2, save/reconnect, stale/duplicate, and queue-contention coverage |
+| Generated contract | Passed deterministic generation and cross-repository drift verification; protocol `2`, projection `4` |
 | Unity EditMode | 15/15 passed |
 | Unity PlayMode | No dedicated suite exists; native automation is the runtime gate |
-| Native macOS build | Passed, `Build Finished, Result: Success` |
+| Native macOS build | Passed: `Build Finished, Result: Success` |
 | Fresh native Movie #2 | Passed through release at Week 22, revision 23 |
 | Native save/load | Passed; saved/restored digest identical |
-| Native reconnect | Passed in a second process against the same session/revision/digest |
+| Native reconnect | Passed in a separate process at the same session, revision, week, and digest |
 | Stale command | Rejected with `STALE_REVISION`; truth unchanged |
-| Duplicate command | Passed deterministic response replay test |
-| Determinism | Export/import/export byte-identical; headless and bridge save bytes identical |
+| Duplicate command / duplicate work | Deterministic command replay and exact queued-work guards passed |
+| Determinism | Export/import/export byte-identical; headless and bridge save bytes/digests identical |
 | Runtime console | No proof failure, error, exception, or protocol mismatch |
+| Whole-diff red team | No P0 or P1 finding remains |
+
+Final native evidence:
+
+- build log: `/tmp/studio-a3-native-build-seal.log`;
+- Movie #2 proof log: `/tmp/studio-a3-native-proof-final-seal.log`;
+- reconnect proof log: `/tmp/studio-a3-native-reconnect-final-seal.log`;
+- structured proof:
+  `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/bridge-client-proof.json`;
+- structured reconnect proof:
+  `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/bridge-reconnect-proof.json`.
 
 ## MOVIE #2 STATUS
 
-- Status: fully playable through the native Unity proof client.
+- Status: fully playable end to end through the native Unity proof client.
 - Title: `The Reluctant Cornerstone`.
 - Screenplay: `script-0001`.
 - Production: `prod-0013`.
@@ -130,35 +169,55 @@ If the ignored native app is absent, rebuild it with:
   `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
 - Save/restored digest:
   `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`.
+- Stale intent: rejected with `STALE_REVISION` without changing truth.
+- Reconnect: a separate native process recovered Week 22, revision 23, the
+  exact Movie #2 identity, and the final digest.
+
+The proof covers screenplay, auditions, editable casting, greenlight,
+pre-production, blockers, shooting, post, save/load, release, and reconnect.
+It also covers the A3 contention path that queues exact authoritative work
+instead of hiding or duplicating it.
 
 ## VISUAL STATUS
 
-A2 intentionally changes no art, camera, UI composition, animation, or world
-layout. Inspection of the whole-lot, blocker, release, and reconnect captures
-confirms the A1 visual state is preserved: campus scale reads, the proof HUD is
-clear but intrusive, people and filmmaking activity remain weak, and Hero
-Soundstage 7 remains below the commercial target. This Golden is an architecture
-and reliability improvement, not a visual-quality claim.
+A3 intentionally changes no Unity art, camera, UI composition, animation, or
+world layout. The native A3 captures prove that the M1 presentation is
+preserved while the queue-law behavior changes underneath it. Campus scale is
+readable, but the proof HUD remains intrusive; people and filmmaking activity
+remain weak; and Hero Soundstage 7, materials, era readability, and camera
+inspection remain below ADR 0006's commercial floor.
 
-Current evidence is local and ignored by Git:
+Current local, Git-ignored evidence:
 
-- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A2/Unity-Bridge/01-whole-lot.png`
-- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A2/Unity-Bridge/07-production-blocker.png`
-- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A2/Unity-Bridge/11-movie-2-released.png`
-- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A2/Unity-Bridge/12-reconnected.png`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/01-whole-lot.png`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/02-construction.png`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/03-screenplay-ready.png`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/04-audition-results-ready.png`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/05-auditions-reviewed-roles-greenlight.png`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/06-greenlit.png`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/07-production-blocker.png`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/08-shooting.png`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/09-post-production.png`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/10-save-load-restored.png`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/11-movie-2-released.png`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/12-reconnected.png`
 
-Latest native sample: 119.40 FPS average, 15,394-byte snapshot, 17.22 ms
-TypeScript serialization, 3.81 ms strict parse, 0.29 ms apply, and 33.01 ms
-command round trip. The separate reconnect application measured 3.89 ms.
+Latest native Movie #2 sample: 119.18 FPS average, 15,394-byte snapshot,
+18.52 ms TypeScript serialization, 3.82 ms strict client parse, 0.33 ms apply,
+and 33.25 ms command round trip. The separate reconnect application recovered
+the final snapshot with 3.96 ms parse and 4.44 ms apply. These are evidence
+samples, not yet a formal Phase L percentile budget.
 
 ## KNOWN DEFECTS
 
-- Phase A2 is only a decomposition foundation. Detailed screenplay/development,
-  casting, package/greenlight, and structured holder/remedy projections remain.
-- Runtime lifecycle is still two manual processes with a fixed default port and
-  memory-only session/save/replay state. Engine restart loses the session.
-- The proof HUD and visual client remain pre-production; no A2 visual uplift was
-  claimed.
+- Phase A3 establishes truthful queue-law parity, but the more detailed
+  screenplay/development, casting, package/greenlight, and structured
+  holder/remedy projections remain future production work.
+- Phase B runtime lifecycle is still two manually managed processes with a
+  fixed default port and memory-only session/save/replay state. Engine restart
+  loses the session.
+- The proof HUD and visual client remain pre-production; M2 provides no visual
+  uplift and remains below ADR 0006's visual floor.
 - TypeScript CI cannot inspect the separate Unity repository unless it is
   checked out and supplied to the cross-repository drift command.
 - The response replay cache remains memory-only and evicts after 256 identities.
@@ -174,27 +233,35 @@ command round trip. The separate reconnect application measured 3.89 ms.
 - Vite chunk warnings and first-import glTFast noise remain under documented
   non-destructive handling rules.
 
-No known P0 regression or TypeScript-authority violation remains.
+No known P0 regression, P1 regression, or TypeScript-authority violation
+remains at the M2 seal.
 
 ## PROMOTION DECISION
 
 **GOLDEN — CONTINUE CAMPAIGN**
 
-Do not promote M1 to the remote defaults yet. The TypeScript default and
-campaign line diverge by a large semantic history (3 default-only versus at
-least 185 campaign-only commits), so a merge would promote far more than this
-bounded A1/A2 checkpoint. Unity is fast-forwardable, but promoting it alone
-would publish a client incompatible with the TypeScript default. The two-repo
-promotion cannot be atomic, Phase B runtime durability is untouched, and the
-current product still requires manual lifecycle management.
+M2 is the best-known compatible product pair and supersedes M1 functionally.
+It is not being promoted to either canonical/default branch during this
+checkpoint for three independent technical reasons:
 
-This is a technical-PM rejection of premature canonical promotion, not a request
-for Owner arbitration. Continue on the campaign pair. Reassess promotion after
-a deliberately constructed two-repository candidate diff, durable runtime
-lifecycle, and validation of the actual merge candidates.
+- Phase B has not yet delivered a production runtime lifecycle, disk-backed
+  restart recovery, packaged dependency boundary, or completed localhost
+  hardening;
+- TypeScript `main` and the campaign line still require deliberate
+  reconciliation of a large semantic campaign mega-diff rather than an
+  uncontrolled wholesale merge;
+- the unchanged Unity client remains below ADR 0006's accepted visual floor and
+  cannot yet serve as the obvious commercial-quality canonical product line.
+
+This is a technical-PM rejection of premature canonical promotion, not a
+request for Owner arbitration. Continue from the exact M2 pair. Do not mistake
+functional supersession of M1 for completion of the runtime or visual product.
 
 ## PROMOTION PACKAGE STATUS
 
-Not prepared. M1 is not `READY FOR OWNER MERGE REVIEW` and is not being promoted
-to canonical. The rollback/recovery point is the compatible pair named at the
-top of this file and preserved by `golden/unity-convergence-m1` in both repos.
+Not prepared. M2 is not `READY FOR OWNER MERGE REVIEW` and has not been promoted
+to canonical. The primary rollback/recovery point is the compatible M2 pair
+named at the top and preserved by `golden/unity-convergence-m2` in both
+repositories. The previous M1 pair remains available at
+`golden/unity-convergence-m1` in both repositories and must not be moved or
+deleted.

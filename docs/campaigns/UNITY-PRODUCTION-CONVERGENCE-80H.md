@@ -673,3 +673,183 @@ accepted into authoritative TypeScript queue state under occupied capacity, and
 retain exact identity, revision, stale-click, Movie #2, save, and determinism
 behavior. Structured rejection guidance follows only for genuine rejection
 categories.
+
+## 2026-08-20 - Checkpoint 5: A3 queue-law parity across the product
+
+### Exact accepted state
+
+| Side | Branch | Accepted SHA | Parent / compatible base | Remote state |
+| --- | --- | --- | --- | --- |
+| TypeScript | `campaign/unity-production-convergence-80h-ts` | `7d76951f6ad641e8940b97b03806b87638ed8ad8` | Parent `7218368cddc46eaeb0fb99691489d457a89112d6` | Pushed and verified |
+| Unity | `campaign/unity-production-convergence-80h-client` | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` | Compatible with the accepted TypeScript protocol/projection schema | Pushed and verified; no Unity source or generated contract changed in A3 |
+
+The coherent A3 product commit is accepted and recoverable on the remote. It
+contains the queue-law implementation, retained-client parity, adversarial
+coverage, and visual-recognizability ADR. This ledger and the other campaign
+registers form the docs-only continuity checkpoint that seals the exact pair
+below as Golden M2.
+
+### Queue law restored end to end
+
+The inherited mismatch was real: the TypeScript action boundary correctly
+queued screenplay commissions, auditions, and greenlights when shared
+Development & Casting capacity was occupied, while bridge and retained-client
+read surfaces hid or described those same intents as unavailable. A3 now makes
+the existing `Queue, don't forbid` law consistent across core, bridge, and
+player presentation without moving any legality into TypeScript's clients.
+
+- The bridge resolves commission, audition, and greenlight candidates by exact
+  journey identity instead of a fixed commission-first priority. Capacity alone
+  no longer removes a legal intent from `availableIntents`.
+- Every bridge candidate is preflighted through the authoritative TypeScript
+  action. Only capacity-only outcomes are queue-admissible; genuine writer,
+  staffing, founding, casting-review, identity, and other hard blockers remain
+  closed.
+- Accepted bridge messages distinguish an immediate start from an authoritative
+  queue receipt. A queued commission creates no screenplay/project identity,
+  locks no writer, and charges no cost; queued auditions reserve or charge no
+  actor; a queued greenlight creates no production identity and commits no
+  budget or talent until dequeue revalidation succeeds.
+- Normal front doors reject a second exact queued pool concept, casting project,
+  or greenlight project. Internal dequeue replay remains legal. Read models and
+  bridge selectors suppress the already-queued exact identity so repeated or
+  rapid clicks cannot grow duplicate queue facts.
+- Retained screenplay commissioning, audition planning/Casting, Package
+  Assembly, lot cards, and inspectors now expose queue-admissible actions and
+  truthful waiting copy rather than capacity refusals. The authoritative state,
+  revision, command identity, and stale-click checks remain the dispatch gate.
+- Casting review and completed Casting history now use
+  `canSubmitGreenlightIntent`, not `knownGatesClear`, for the exact Package
+  handoff. Capacity-only packages retain the `Development & Casting is full`
+  notice while offering `Take results to Package` / `Open package`; unfinished
+  Casting, writer/staffing hard blockers, and `greenlight-queued` remain closed.
+  The strict retained snapshot proves the exact session/project/title action
+  and fails neutral on malformed or stale identities.
+
+No gameplay formula, RNG stream, save schema, projection schema, generated C#
+DTO, or Unity-side simulation rule changed. This checkpoint aligns all clients
+with authority that already existed and adds exact duplicate protection at the
+TypeScript front door.
+
+### Validation
+
+| Gate | Accepted A3 result |
+| --- | --- |
+| Full TypeScript suite | 327 files; 4,450 passed, 5 skipped, 0 failed |
+| Bridge tests | 24/24 passed, including all three capacity queues, exact receipts, duplicate/stale rejection, Movie #2, save/load, reconnect, and deterministic parity |
+| TypeScript typecheck | Passed |
+| Bridge typecheck | Passed |
+| Production build | Passed; inherited Vite chunk warnings only |
+| Native macOS build | Passed; final build is 136,925,846 bytes |
+| Generated contract verification | Passed; canonical TypeScript schema and Unity C# generated copies remain byte-identical |
+| Repository hygiene | Passed |
+| Browser dependency audit | Passed with 0 browser-runtime vulnerabilities |
+| Adopted 3D asset audit | Passed; 26 assets, 0 hard violations |
+| Diff/independent audit | `git diff --check` passed; independent final review found no remaining P0 or P1 defect in the A3 checkpoint |
+
+Focused tests cover capacity-only queue admission, no premature mutation or
+reservation, exact dequeue payloads, casting-to-Package handoff, unfinished
+Casting, hard blockers, exact queued-greenlight closure, malformed retained
+projections, duplicate intent rejection, same-title identity, and stale action
+safety.
+
+### Native Movie #2, save, stale, and reconnect proof
+
+The unchanged validated Unity client at `a1c27318` was run against the A3
+TypeScript authority. The native proof again completed exact Movie #2 at Week
+22, revision 23, with final digest
+`429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
+The active save was exported, loaded, and restored at digest
+`5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`.
+A stale command was rejected without authority mutation. A separate Unity
+client process reconnected to the same Week 22 / revision 23 session and final
+digest.
+
+The final-seal native Movie #2 proof averaged 119.18 FPS and the reconnect proof
+averaged 119.19 FPS on the Apple M3 Max reference device. These are lifecycle proof
+samples, not the later Phase L p95/p99 or 25/50/100-person scalability gate.
+
+Local ignored evidence:
+
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/bridge-client-proof.json`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/bridge-reconnect-proof.json`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/01-whole-lot.png`
+  through `12-reconnected.png`
+- `/tmp/studio-a3-native-proof-final-seal.log`
+- `/tmp/studio-a3-native-reconnect-final-seal.log`
+
+### Visual recognizability ruling and honest critique
+
+The Owner's visual-fidelity ruling is now binding campaign doctrine and is
+recorded in
+`docs/adr/0006-visual-recognizability-and-two-scale-camera.md`. Visual
+recognizability relative to *The Movies* is a first-class goal alongside systems
+recognizability, without copying Lionhead assets, textures, layouts, UI artwork,
+or any protected production material. Unity must support one coherent camera
+with both an elevated management scale and a lower, inhabitable
+inspection/production scale. Period, role, material, filmmaking activity, and
+backlot working-side truth must read from the world rather than labels alone.
+
+The source visual review was
+`/Users/bruce/Downloads/project-studio-visual-fidelity.pdf` (SHA-256
+`692140a7d4be313fd1df7605c96306a9f7e53f4fce46bc0f69a5ec1453a96a39`).
+Its literal claim that the production client is orthographic is stale for the
+current Unity client: Unity already uses perspective Cinemachine cameras,
+orbit, focus, and a variable pitch. Its central product critique remains valid.
+
+A3 intentionally makes no visual change. The new captures still read too much
+like a handsome diorama: the normal pitch and narrow lens keep inspection
+distant, focus retains the high management framing, the proof HUD dominates the
+world, materials and era specificity remain uneven, people are too small for
+role readability, and active production does not yet read strongly enough as
+filmmaking. Architecture, performance, and test counts do not satisfy this
+visual gate. The approved reversible next visual experiment is a two-scale
+camera profile after the load-bearing A/runtime work is safely checkpointed;
+it must not be used to interrupt or disguise unfinished bridge/runtime work.
+
+### Golden and promotion decision
+
+Golden M2 is the exact compatible pair:
+
+| Repository | Golden SHA | Immutable annotated tag |
+| --- | --- | --- |
+| TypeScript authority | `7d76951f6ad641e8940b97b03806b87638ed8ad8` | `golden/unity-convergence-m2` |
+| Unity production client | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` | `golden/unity-convergence-m2` |
+
+Both annotated tags point to those exact commits and are immutable and pushed
+as part of this seal. They do not move or replace the preserved
+`golden/unity-convergence-m1` tags.
+
+Golden M2 supersedes M1 as CURRENT BEST because it retains M1's generated
+protocol, atomic Unity projection store, deterministic Movie #2/save/reconnect
+proof, and native performance while materially improving player and
+architecture integrity:
+
+- all three capacity-admissible movie intents now obey the permanent queue law
+  across TypeScript core, bridge, and retained clients;
+- exact duplicate queue identities are rejected without weakening dequeue;
+- receipts state precisely what is and is not held while an intent waits;
+- Casting reaches the exact queueable Package rather than falsely closing on
+  facility capacity;
+- the full suite, bridge proof, native Movie #2, save/load, stale rejection,
+  reconnect, deterministic digests, build, audits, and independent P0/P1 review
+  all pass.
+
+M2 is visually unchanged from M1 and remains honestly below the newly ratified
+visual-recognizability ADR. That is a known product deficit, not hidden by the
+Golden designation. M2 is Golden because it is the best validated overall
+playable state, not because the current camera, people, materials, HUD, or
+filmmaking activity have reached the visual target.
+
+Promotion status remains **GOLDEN — CONTINUE CAMPAIGN**. Neither repository is
+promoted to its canonical/default branch. The TypeScript default remains a
+large divergent historical line, moving Unity alone would break compatible-pair
+clarity, Phase A structured rejection work and Phase B lifecycle hardening are
+unfinished, and the visual client remains below the approved product bar.
+
+### Next acceptance gate
+
+Add structured TypeScript-owned rejection facts only for genuine command
+failures, generate and validate the Unity DTO changes, and retain/render exact
+blocker, holder, and remedy guidance across stable same-revision polls. Capacity
+must remain queue authority, not be recast as a rejection.

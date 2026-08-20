@@ -6,107 +6,130 @@ decision is settled. Do not restart planning from scratch.
 
 ## CURRENT EXACT STATE
 
-Timestamp: 2026-08-20 22:10 CEST (UTC+02:00).
+Timestamp: 2026-08-21 00:08 CEST (UTC+02:00).
 
 | Item | Exact state |
 | --- | --- |
 | TypeScript worktree | `/Users/bruce/The Movies - Unity Production Convergence 80H` |
 | TypeScript branch | `campaign/unity-production-convergence-80h-ts` |
-| TypeScript Golden implementation | `cd2b15872ac5849fa16beec1775543758cb3139e` |
-| TypeScript donor checkpoint parent | A2 continuity tip `7eff21fccabe0ffb7a622b8b96b390b8543f15da` |
-| TypeScript donor checkpoint | `f1847f9ec33c5b206d6b4354c8e5ad170cbd8de2` |
-| TypeScript donor CI correction | `38eb2d535b4c1da5c3c2908885c68227fb6ee0bc` |
-| TypeScript branch tip | The pushed continuity commit containing this file. Resolve with `git rev-parse HEAD`; a commit cannot embed its own resulting SHA. It must descend from `38eb2d535b4c1da5c3c2908885c68227fb6ee0bc`. |
-| TypeScript pushed | Yes after the immediate checkpoint push; local, upstream, and remote campaign refs must match |
-| TypeScript working tree | Expected clean after checkpoint commits/push; `node_modules/` and `dist/` are ignored |
+| TypeScript Golden M2 product SHA | `7d76951f6ad641e8940b97b03806b87638ed8ad8` |
+| TypeScript Golden M2 parent | `7218368cddc46eaeb0fb99691489d457a89112d6` |
+| TypeScript branch tip | Currently the product SHA while the three continuity documents are dirty. After their docs-only checkpoint commit, `git rev-parse HEAD` is authoritative; that branch tip must be a docs-only descendant of `7d76951f6ad641e8940b97b03806b87638ed8ad8`. A commit cannot embed its own resulting SHA. |
+| TypeScript pushed | Yes; product commit `7d76951f6ad641e8940b97b03806b87638ed8ad8` matches the remote campaign ref. The continuity-doc commit still needs its own push. |
+| TypeScript working tree | Only the campaign ledger, handoff, and promotion register are dirty. Product source is committed. Expected clean after the continuity commit/push. Ignored `node_modules/`, `dist/`, and `.tmp/` outputs remain local. |
 | Unity worktree | `/Users/bruce/Project Studio - Unity Production Convergence 80H` |
 | Unity branch | `campaign/unity-production-convergence-80h-client` |
 | Unity HEAD | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` |
-| Unity base/parent | A1 client `7fb693c78da06cca1c8e688340241e1c9fa0b874` |
-| Unity pushed | Yes after the immediate checkpoint push; local, upstream, and remote campaign refs must match |
-| Unity working tree | Expected clean; `Library/`, `Logs/`, `Builds/`, and `Evidence/` are ignored |
+| Unity pushed | Yes; local, upstream, and remote campaign refs all resolve to `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` |
+| Unity working tree | Clean. `Library/`, `Logs/`, `Builds/`, and `Evidence/` are ignored local outputs. |
 
-Compatible Golden pair: TypeScript
-`cd2b15872ac5849fa16beec1775543758cb3139e` and Unity
-`a1c27318bec47f1abc4a29b77d9c413bdc8a8778`, tagged
-`golden/unity-convergence-m1` in each repository.
-Protocol is `2`; projection is `4`; schema ID is
+Golden M2 is the declared exact compatible pair: TypeScript product
+`7d76951f6ad641e8940b97b03806b87638ed8ad8` plus Unity
+`a1c27318bec47f1abc4a29b77d9c413bdc8a8778`, under immutable annotated tag name
+`golden/unity-convergence-m2` in each repository. Both annotated tag refs are
+pushed and resolve to those exact product commits; a later docs-only TypeScript
+branch tip does not move the Golden tag. Golden M2 supersedes M1 as CURRENT
+BEST. Both `golden/unity-convergence-m1` tags remain preserved and immutable at
+their original SHAs.
+
+The compatible live contract remains protocol `2`, projection `4`, schema ID
 `sha256:6e75cf246298bb742b66e56a17d8582a71dc2c3edb0c6542ad6595588244e833`.
 
-Remote default/canonical audit:
+Remote default/canonical audit remains unchanged:
 
 - TypeScript remote default `main` is
-  `5914c84e453461240540184e79b2bd7eafeb647f`, diverged from the campaign at
-  `c0c9561` (3 default-only and 185 campaign-only commits before A2).
+  `5914c84e453461240540184e79b2bd7eafeb647f`, historically diverged from the
+  campaign. Do not merge the campaign into it casually.
 - Unity remote default `unity-typescript-bridge-spike` is
-  `626c2d3a25f21ebdbb2603939378368af925f18c`, a linear campaign ancestor.
-- M1 is not promoted to either default. Promoting Unity alone would break the
-  schema-pinned pair; promoting TypeScript would be an uncontrolled mega-merge.
+  `626c2d3a25f21ebdbb2603939378368af925f18c`, a campaign ancestor.
+- Neither campaign branch has been promoted to its remote default.
 
 ## CAMPAIGN STATUS
 
 - Current phase: Phase A, productionize the TypeScript to Unity contract.
-- Current subphase: A3 queue-law correction, command rejection remedies, and
-  deduplication durability. The PR #5 donor review is complete.
-- Completed phases: campaign setup/baseline and Phase A1 generated DTO/schema
-  pipeline.
-- Partially completed phases: A2 now has an atomic six-section projection
-  foundation; detailed screenplay/development, casting, package/greenlight, and
-  structured notice/remedy projections remain. A3 inherits command IDs,
-  expected revisions, stale rejection, error codes, readable messages, and a
-  bounded response replay cache. D, E, F, G, H, I, J, K, and M remain inherited
-  partial capabilities.
-- Baseline-only phases: L performance/scalability and N professional QA.
-- Untouched campaign phases: B and C; no campaign implementation has begun in D
-  through N beyond inherited adoption behavior.
-- Current acceptance gate: restore the three authoritative queue-admissible
-  front doors to the bridge intent surface under occupied capacity, proving the
-  command is accepted into the existing TypeScript queue rather than suppressed
-  or converted into a rejection.
+- Current subphase: A3 queue-law parity is sealed as Golden M2. Work now moves
+  to TypeScript-owned structured guidance for genuine command rejections.
+- Completed phases: campaign setup/baseline; A1 generated schema/DTO pipeline;
+  A2 atomic named projection foundation; PR #5 donor review and current-architecture
+  security/governance harvest.
+- Partially completed phases: A3 commands have IDs, expected revisions, stale
+  rejection, deduplication, explicit codes/messages, bounded response replay,
+  and queue-admissible bridge/UI parity. Structured rejection guidance and
+  durable replay remain. D through N retain inherited partial capabilities only.
+- Untouched phases: Phase B durable local runtime and Phase C production client
+  layering have not begun as campaign implementations.
+- Current acceptance gate: add generated TypeScript-owned rejection categories
+  and guidance, then prove Unity retains and renders only valid guidance across
+  same-revision polls. Capacity remains queue admission, never a rejection.
 
 ## WHAT WAS JUST DONE
 
 ### Concise description
 
-Reviewed PR #5 at donor tip `0edeb4ea874de3d792a112c3d714e5c71657c76d`
-without merging or cherry-picking it. Harvested only current-architecture
-governance and security value: five concise ADRs, a truthful TypeScript/Unity/
-localhost-bridge security policy, least-privilege full TypeScript CI, scoped
-Dependabot, explicit bridge-runner ownership, a safe transitive security patch,
-and repository hygiene enforcement.
+Committed and pushed A3 queue parity end to end at
+`7d76951f6ad641e8940b97b03806b87638ed8ad8`. Commission, audition, and greenlight
+intents remain available when both authoritative Development & Casting slots are
+occupied. TypeScript accepts those commands into its existing deterministic
+queue rather than the bridge or UI suppressing them as capacity failures. Exact
+duplicate queued intents are rejected at the normal front door but dequeue
+replay remains legal.
+
+The retained Lot now distinguishes immediate acceptance from queue admission.
+Queued screenplay and greenlight successors show truthful WHAT HAPPENED / WHY IT
+MATTERS / WHAT NEXT copy, claim no premature project or production identity, and
+fire no false immediate-commit/formation presentation.
+
+The binding Visual Fidelity / Recognizability Ruling is encoded as ADR
+`docs/adr/0006-visual-recognizability-and-two-scale-camera.md`. The approved
+production direction is a coherent two-scale Unity camera and an inhabitable,
+human-scale period studio, not a permanently high-angle diorama. This changes
+the acceptance target, not simulation authority.
 
 ### Files and systems changed
 
-TypeScript repository only:
+TypeScript product commit `7d76951f6ad641e8940b97b03806b87638ed8ad8`:
 
-- `docs/adr/`: lightweight append-only decision process plus accepted authority,
-  determinism, forward-save, and compatible-pair promotion boundaries.
-- `SECURITY.md`: current V14, Unity-client, Three.js-reference, and localhost HTTP
-  threat model with the unfinished capability/Origin/Host/content-type boundary
-  stated explicitly.
-- `.github/workflows/bridge-contract.yml`: read-only permissions, non-persisted
-  checkout credentials, pinned actions, concurrency/timeout, and full contract,
-  typecheck, test, build, dependency, asset, and hygiene gates.
-- `.github/dependabot.yml`: bounded weekly npm and Actions proposals against
-  `main`, with no auto-merge. It is intentionally inactive until the config
-  reaches the default branch.
-- `scripts/audit-repository-hygiene.mjs` and `.gitignore`: generated-output,
-  credential-path, private-key, GitHub/AWS/npm-token, and signing-material
-  protection without a blanket asset-size gate.
-- `package.json` / `package-lock.json`: `vite-node@2.1.9` is now an explicit
-  bridge development dependency; `nanoid` moved from `3.3.16` to `3.3.18` using
-  the current lock, not PR #5's stale dependency graph.
+- `bridge/session.ts`: queue-admissible intent production independent of the
+  guided journey; exact project/production routing; authoritative preflight;
+  explicit accepted queue messages.
+- `bridge/proof.ts`: centralized journey-intent selection rather than fixed
+  commission-first proof priority.
+- `src/core/productionQueue.ts` and `src/core/actions.ts`: exact queued
+  commission/casting/greenlight duplicate guards while preserving dequeue.
+- `src/core/scriptReadModel.ts`, `src/core/castingReadModel.ts`, and
+  `src/core/firstFilmJourney.ts`: queue-aware legal actions, exact waiting
+  states, and advance/cancel remedies without capacity-as-refusal.
+- `ui/src/engine/`, `ui/src/screens/`, `ui/src/lot/`: queueable controls,
+  casting/package precedence, retained queue receipts, fail-neutral malformed
+  receipt behavior, and truthful Lot/world copy.
+- `ui/src/lot/snapshot/queueAdmission.ts`: exact whole-successor witnesses for
+  pool/original commission and greenlight queue admission. It replays the pure
+  TypeScript action and requires byte-equivalent state rather than duplicating
+  queue rules in presentation.
+- Core, bridge, read-model, contention/property, React, retained-workspace, and
+  snapshot tests were added or strengthened. Pressure harnesses now avoid
+  resubmitting an already queued exact greenlight.
+- `docs/adr/0006-visual-recognizability-and-two-scale-camera.md` and
+  `docs/adr/README.md`: binding modern-The-Movies recognizability and two-scale
+  camera direction.
+- Campaign continuity documents form the docs-only follow-up being prepared now.
 
-Unity: no file changed. The Golden client remains exact.
+Unity tracked source: no file changed. The same Unity client was rebuilt and
+revalidated against the A3 TypeScript authority.
 
 ### Why
 
-PR #5 predates V14, the Unity production-client decision, the generated bridge
-contract, current dependencies, the README fix, and asset guardrails. Its
-lockfile and raw CI gates would regress or fail the current product. The adopted
-subset adds enforceable current-baseline safeguards without importing stale
-browser-only assumptions, history rewriting, automatic branch deletion, hard
-LOC limits, blanket 2 MB asset limits, or blanket presentation randomness bans.
+The previous bridge and presentation treated occupied capacity as if the
+authoritative action were unavailable. That contradicted the permanent product
+law "queue, don't forbid" and the core action implementation. It also produced
+false retained-shell copy such as "GREENLIGHT ACCEPTED" when only a queue row
+existed. A3 restores one authority: Unity/React submits intent, TypeScript either
+commits or queues it, and every client presents that exact outcome.
+
+The visual ADR is required because a technically correct high-angle campus can
+still look like the wrong game. It preserves management readability while
+requiring lower inspection/production framing, authored materials, believable
+people, visible filmmaking, and period-studio UI identity.
 
 ### Relevant commits
 
@@ -116,25 +139,26 @@ LOC limits, blanket 2 MB asset limits, or blanket presentation randomness bans.
   `d970b81c2b17383ee71c3c66a5622ecc140473b3`.
 - A1 TypeScript implementation:
   `a7ceb56bbac6c2ceb0be534a5753f086c5d51401`.
-- A1 TypeScript continuity tip:
-  `1b249f02b701f8e24a3334d1e3f087b917ad9c8e`.
 - A1 Unity implementation:
   `7fb693c78da06cca1c8e688340241e1c9fa0b874`.
-- A2 TypeScript implementation:
+- A2 TypeScript implementation / preserved Golden M1:
   `cd2b15872ac5849fa16beec1775543758cb3139e`.
-- A2 Unity implementation:
+- A2 Unity implementation / preserved Golden M1 client:
   `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
-- PR #5 donor base (not adopted):
-  `3ac66bbbe1f29ecac44c1632ba23952fad8fe61d`.
-- PR #5 donor tip (reviewed, not merged/cherry-picked):
-  `0edeb4ea874de3d792a112c3d714e5c71657c76d`.
-- Donor-harvest checkpoint:
+- Donor harvest:
   `f1847f9ec33c5b206d6b4354c8e5ad170cbd8de2`.
-- Donor workflow portability correction:
+- Donor CI correction:
   `38eb2d535b4c1da5c3c2908885c68227fb6ee0bc`.
+- A3 parent:
+  `7218368cddc46eaeb0fb99691489d457a89112d6`.
+- A3 queue-parity product commit / Golden M2 TypeScript product:
+  `7d76951f6ad641e8940b97b03806b87638ed8ad8`.
+- Golden M2 Unity product:
+  `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
 
-No GameState, legality, economy, time, RNG, save migration, identity, outcome,
-progression, construction, production, or Three.js rule changed.
+No gameplay formula, GameState schema, protocol/projection version, RNG stream,
+save version, existing identity, economy rule, construction rule, or Unity
+simulation authority changed.
 
 ## WHAT IS WORKING RIGHT NOW
 
@@ -155,18 +179,18 @@ Open the Unity editor:
   -projectPath '/Users/bruce/Project Studio - Unity Production Convergence 80H'
 ```
 
-Build the current native client when ignored output is absent:
+Build the current native client if the ignored app is absent:
 
 ```bash
 '/Applications/Unity/Hub/Editor/6000.3.22f1/Unity.app/Contents/MacOS/Unity' \
   -batchmode \
   -projectPath '/Users/bruce/Project Studio - Unity Production Convergence 80H' \
   -executeMethod Studio.Editor.Automation.StudioAutomation.BuildMacOS \
-  -logFile /tmp/studio-a2-build.log \
+  -logFile /tmp/studio-a3-native-build-seal.log \
   -quit
 ```
 
-Launch after the bridge is live:
+Launch the current native client after the bridge is live:
 
 ```bash
 cd '/Users/bruce/Project Studio - Unity Production Convergence 80H'
@@ -182,329 +206,404 @@ cd '/Users/bruce/Project Studio - Unity Production Convergence 80H'
   -screen-width 1440 \
   -screen-height 900 \
   -studioBridgeAutoProof \
-  -studioBridgeProofRoot '/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A2/Unity-Bridge' \
-  -logFile /tmp/studio-a2-native-proof.log
+  -studioBridgeProofRoot '/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity' \
+  -logFile /tmp/studio-a3-native-proof-final-seal.log
 ```
 
 ### Bridge and runtime status
 
-- No bridge or native process is intentionally left running.
-- Local bind: `127.0.0.1:4317`; override with
+- No bridge or native process is intentionally running now.
+- Bind remains localhost-only at `127.0.0.1:4317`; override through
   `PROJECT_STUDIO_BRIDGE_PORT`, `PROJECT_STUDIO_BRIDGE_URL`, or
   `-studioBridgeUrl`.
-- Protocol: `2`.
-- Projection: `4`.
-- Schema:
-  `sha256:6e75cf246298bb742b66e56a17d8582a71dc2c3edb0c6542ad6595588244e833`.
-- One atomic response carries `lot`, `productions`, `people`, `construction`,
-  `journeyNotices`, and `releaseResults`; root authority tokens and legal intents
-  remain revision-consistent.
-- Lifecycle remains two manual processes. Save/session/replay state is process
-  memory only; Phase B is untouched.
+- Protocol `2`, projection `4`, and schema identity are unchanged.
+- One atomic response still carries `lot`, `productions`, `people`,
+  `construction`, `journeyNotices`, and `releaseResults`, plus root
+  authority tokens and same-revision legal intents.
+- Commission, auditions, and greenlight now remain available under occupied
+  capacity and resolve through TypeScript queue admission.
+- Lifecycle is still two manually managed processes. Session/save/replay state
+  remains bridge-process memory; Phase B is not complete.
 
 ### Current playable flow
 
-The native client completes screenplay, review, auditions, audition evidence,
-editable casting/greenlight, pre-production, named blockers, director call,
-scenery load-in, shooting, save/load restore, post-production, release,
-construction, and stale-revision proof entirely through TypeScript-published
-legal intents.
+The current native client completes screenplay, review, auditions, audition
+evidence, editable casting/greenlight, pre-production, blockers, director call,
+scenery load-in, shooting, save/load, post-production, release, construction,
+stale-revision rejection, and reconnect through TypeScript-published legal
+intents. Focused bridge/browser tests additionally prove contended commission,
+audition, and greenlight queue admission and retained queue-aware presentation.
 
 ### Current visual state
 
-A2 intentionally did not change presentation. Inspection of whole-lot, blocker,
-release, and reconnect captures confirms the same readable campus and explicit
-truth as A1. The proof HUD still dominates, visible people/filmmaking activity
-remain weak, materials are prototype-grade, and Hero Soundstage 7 remains sparse.
-Do not claim a visual improvement for A2.
+A3 did not change Unity visuals. The current client already uses perspective,
+Cinemachine, orbit/pan/focus, textured and normal-mapped materials, eight
+provenance-cleared Quaternius human variants, and Mecanim animators. Therefore
+the local fidelity PDF's Three.js-specific primitive/texture counts are not a
+literal Unity inventory.
+
+The important critique remains valid: the standard pitch, narrow lens, focus
+behavior, oversized proof HUD, sparse human-scale activity, weak role
+readability, prototype weathering/lighting, and sparse Hero Soundstage 7 still
+read as a managed diorama rather than an inhabitable filmmaking institution.
+Focus changes pivot/distance but retains the high management pitch and lens.
+The current visual state fails the new final visual target; do not claim A3 as a
+visual improvement.
+
+The next isolated camera experiment, after load-bearing runtime work, is
+`location-v1`: keep overview pitch 46.5 degrees, yaw 38.5 degrees, FOV 36,
+distance 155; use focus pitch 32 degrees, FOV 42, and distance
+`clamp(diagonal * 1.45, 18, 72)`; preserve yaw, smooth transitions, and make
+Home restore overview. Keep that experiment isolated from materials, lighting,
+HUD, protocol, and simulation changes.
 
 ### Current Movie #2 status
 
-- Native proof status: `complete`.
-- Title: `The Reluctant Cornerstone`.
+- Native proof: `complete`.
+- Movie #2: `The Reluctant Cornerstone`.
 - Screenplay: `script-0001`.
 - Production: `prod-0013`.
 - Released: Week 22, revision 23.
 - Final digest:
   `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
-- Save/restored digest:
+- Saved/restored shooting digest:
   `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`.
 - Stale action: rejected with `STALE_REVISION`.
-- Reconnect: second native process recovered the same session, revision, week,
-  digest, and exact released Movie #2 while the authority remained live.
+- Reconnect: a second native process recovered the same session at revision 23,
+  Week 22, with the exact Movie #2 identity and final digest.
 
 ## VALIDATION STATE
 
 | Gate | Latest accepted result |
 | --- | --- |
-| TypeScript full tests | 325 files; 4,421 passed, 5 skipped, 0 failed in 62.05 seconds |
-| Typecheck | `npm run typecheck` passed |
-| Production build | Passed in 5.49 seconds; inherited large-chunk warnings only |
-| Bridge typecheck | Passed |
-| Bridge tests | 20/20 passed |
-| Browser dependency audit | `npm run audit:browser-deps` passed with 0 vulnerabilities |
-| Full npm audit | 5 dev-graph advisories remain: 3 moderate, 1 high, 1 critical; bridge runtime is not yet a production graph |
-| Repository hygiene | Passed over 1,004 tracked/unignored files, including built-in negative guard checks |
-| Workflow/config | GitHub Actions `32411795447` passed every expanded gate in 8m50s at correction SHA `38eb2d535b4c1da5c3c2908885c68227fb6ee0bc`; prior run `32410749816` exposed and led to correction of the missing Pillow/NumPy runner prerequisite |
-| Generated drift | Canonical JSON, TypeScript C# golden, and Unity C# copy passed; generated copies byte-identical |
-| Generated C# | 124,814 bytes; SHA-256 `3805f4d54cba772d0670697d3d356b9c480c7a35d1bd4a295a63c5110e8ca004` |
-| Unity EditMode | Final seal 15/15 passed; `/tmp/studio-a2-seal-editmode-results.xml` |
-| Unity PlayMode | No dedicated suite exists; native automation is the runtime gate |
-| Native build | Passed; `/tmp/studio-a2-build-2.log`; ignored 131 MB app |
-| Runtime playthrough | Fresh native Movie #2 complete at Week 22 with 11 milestone screenshots |
-| Save/load | Passed with exact restored digest |
-| Reconnect | Passed from a separate native process; screenshot `12-reconnected.png` |
-| Stale/duplicate commands | Native stale rejection passed; bridge duplicate replay test passed |
-| Determinism | Export/import/export, reconnect, and headless/bridge save bytes matched |
-| Runtime console | No proof failure, error, exception, or protocol mismatch lines |
-| Native A2 sample | 119.40 FPS; 15,394-byte snapshot; 17.22 ms serialization; 3.81 ms parse; 0.29 ms apply; 33.01 ms RTT |
-| Reconnect sample | 119.40 FPS; 3.50 ms parse; 3.89 ms complete application |
-| Baseline performance | 119.82 FPS; 8.32 ms median; 9.06 ms p95; 680 draw calls; 168,041 rendered triangles; 412 MB working set |
-| Screenshot/evidence root | `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A2/Unity-Bridge/` |
+| TypeScript full tests | 327 files passed; 4,450 passed, 5 skipped, 0 failed in 60.15 seconds; `/tmp/studio-a3-seal-final-full-tests.log` |
+| Typecheck | `npm run typecheck` passed after the retained queue-receipt changes |
+| Production build | Passed in 3.74 seconds; inherited large-chunk warnings only; `/tmp/studio-a3-build.log` |
+| Bridge typecheck | `npm run typecheck:bridge` passed |
+| Bridge tests | 24/24 passed across 13 bridge and 11 schema tests; `/tmp/studio-a3-bridge-tests.log` |
+| Generated drift | Canonical schema, TypeScript C# golden, and Unity C# copy verified byte-identical |
+| Browser dependency audit | Passed with 0 vulnerabilities |
+| Full npm audit | Existing dev-graph advisories remain; no whole-product clean claim |
+| Repository hygiene | Passed over 1,005 tracked/unignored files |
+| 3D asset guard | 26 assets, 0 hard violations |
+| Unity EditMode | Final seal 15/15 passed; `/tmp/studio-a3-editmode-results-seal.xml` |
+| Unity PlayMode | No dedicated suite; native automation remains the runtime gate |
+| Native build | Final seal success; 136,925,846 bytes; `/tmp/studio-a3-native-build-seal.log` |
+| Runtime playthrough | Fresh native Movie #2 complete at Week 22/revision 23 with 11 milestones |
+| Save/load | Exact saved and restored digest `5543ef56...` |
+| Reconnect | Separate native process restored Week 22/revision 23/final digest; `12-reconnected.png` |
+| Stale/duplicate commands | Native stale rejection passed; bridge replay/duplicate tests and front-door queued-duplicate tests passed |
+| Determinism | Export/import/export, headless/bridge proof, save/load, and reconnect parity passed |
+| Runtime console | No proof failure, error, exception, or protocol/schema mismatch; Unity emits known shutdown thread-finalization warnings on exit |
+| Native A3 final-seal sample | 119.18 FPS; 15,394-byte snapshot; 18.52 ms serialization; 3.82 ms parse; 0.33 ms apply; 33.25 ms RTT |
+| Reconnect final-seal sample | 119.19 FPS; 15,394-byte snapshot; 23.10 ms serialization; 3.96 ms parse; 4.44 ms initial apply; 33.20 ms RTT |
+| Inherited baseline | 119.82 FPS; 8.32 ms median; 9.06 ms p95; 680 draw calls; 168,041 triangles; 412 MB working set |
+| Screenshot/evidence root | `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A3/Queue-Parity/` |
+| Product-SHA CI | GitHub Actions run `32422095175` for `7d76951f6ad641e8940b97b03806b87638ed8ad8` is in progress at this timestamp |
 
-Exact accepted local artifacts:
+Current accepted evidence:
 
-- `/tmp/studio-a2-full-tests.log`
-- `/tmp/studio-a2-typecheck.log`
-- `/tmp/studio-a2-ts-build.log`
-- `/tmp/studio-a2-headless-proof.log`
-- `/tmp/studio-a2-seal-bridge.log`
-- `/tmp/studio-a2-seal-generated.log`
-- `/tmp/studio-a2-seal-editmode-results.xml`
-- `/tmp/studio-a2-build-2.log`
-- `/tmp/studio-a2-native-proof-final.log`
-- `/tmp/studio-a2-native-reconnect-final.log`
-- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A2/Unity-Bridge/bridge-client-proof.json`
-- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A2/Unity-Bridge/bridge-reconnect-proof.json`
-- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A2/Unity-Bridge/01-whole-lot.png`
-  through `12-reconnected.png`.
+- `Evidence/A3/Queue-Parity/bridge-client-proof.json`
+- `Evidence/A3/Queue-Parity/bridge-reconnect-proof.json`
+- `Evidence/A3/Queue-Parity/01-whole-lot.png` through
+  `12-reconnected.png`
+- `/tmp/studio-a3-seal-final-full-tests.log`
+- `/tmp/studio-a3-bridge-tests.log`
+- `/tmp/studio-a3-typecheck.log`
+- `/tmp/studio-a3-bridge-typecheck.log`
+- `/tmp/studio-a3-build.log`
+- `/tmp/studio-a3-generated.log`
+- `/tmp/studio-a3-hygiene.log`
+- `/tmp/studio-a3-assets.log`
+- `/tmp/studio-a3-browser-audit.log`
+- `/tmp/studio-a3-editmode-results-seal.xml`
+- `/tmp/studio-a3-editmode-seal.log`
+- `/tmp/studio-a3-native-build-seal.log`
+- `/tmp/studio-a3-native-proof-final-seal.log`
+- `/tmp/studio-a3-native-reconnect-final-seal.log`
+- `/tmp/studio-a3-proof.log`
 
 ## KNOWN PROBLEMS / BLOCKERS
 
-### 1. Runtime lifecycle and persistence remain experimental
+### 1. Structured rejection guidance is not yet a generated contract
+
+- Exact defect: genuine command failures expose code/message but no typed
+  TypeScript-owned category, holder, remedy, or action guidance that Unity can
+  retain across same-revision polls.
+- Severity: High for the next Phase A contract unit and player-legible negative
+  paths; Golden M2 queue behavior itself is accepted.
+- Reproduction: inspect bridge rejection response/schema and Unity rejection
+  handling; trigger a legal command that fails for a non-capacity reason, then
+  poll the unchanged revision.
+- Origin: Pre-existing adoption gap, not an A3 queue regression.
+- Attempted fixes: A3 first removed capacity from the rejection category and
+  made queue acceptance truthful. Existing codes/messages, stale rejection, and
+  fail-neutral UI behavior remain.
+- Must not be tried again: do not call capacity a rejection; do not infer holder
+  or remedy in C#; do not invent a singular holder where queue authority is
+  plural.
+
+### 2. Replay durability remains process-memory-only
+
+- Exact defect: command response replay is bounded to 256 in-memory identities
+  and does not survive bridge restart.
+- Severity: High resilience gap before product runtime packaging.
+- Reproduction: exceed the cache or restart the bridge, then resubmit a prior
+  command ID.
+- Origin: Pre-existing bridge proof boundary.
+- Attempted fixes: command/session IDs, exact expected revision, deterministic
+  in-cache replay, and duplicate tests pass.
+- Must not be tried again: do not weaken stale/digest checks, use an unbounded
+  cache, or write a Unity-side command ledger.
+
+### 3. Runtime lifecycle and save persistence remain experimental
 
 - Exact defect: fixed default port, two manual processes, memory-only
-  session/save/replay cache, no launcher, restart persistence, stale-process
-  cleanup, integrated logs, or graceful product shutdown.
-- Severity: High for product lifecycle; the current developer proof works.
-- Reproduction: save, terminate the bridge, restart; a fresh bootstrap session
-  replaces prior in-memory truth.
-- Origin: Pre-existing adoption boundary; Phase B untouched.
-- Attempted fixes: A1/A2 added health/schema/session handshakes and proved client
-  reconnect while the engine remains alive. Disk persistence was not fabricated.
-- Must not be tried again: do not bind beyond localhost or expose arbitrary
-  filesystem/command execution; do not pretend in-process JSON is persistence.
+  session/save/replay state, no launcher, restart recovery, stale-process
+  cleanup, integrated logs, graceful shutdown, or disk-backed save abstraction.
+- Severity: High product lifecycle gap; current developer proof works.
+- Reproduction: save, terminate the bridge, restart, and observe a new in-memory
+  authority.
+- Origin: Phase B untouched.
+- Attempted fixes: health/schema/session handshakes and client reconnect while
+  the same engine remains alive.
+- Must not be tried again: no public bind, arbitrary filesystem/command bridge,
+  persistent/logged capability token, or claim that in-process JSON is durable.
 
-### 2. Phase A2 purpose coverage is incomplete
+### 4. Projection decomposition remains incomplete
 
-- Exact defect: six coarse sections now exist, but screenplay/development,
-  casting, package/greenlight, release autopsy detail, and structured notice
-  holder/remedy surfaces have not yet been decomposed to their final contracts.
-- Severity: Medium maintainability/player-workspace gap; no current data loss.
-- Reproduction: inspect `StudioProjectionBundle` definitions and compare them to
-  the Phase A2 named surface list.
-- Origin: Deliberately bounded A2 foundation, not a regression.
-- Attempted fixes: release results are isolated rather than hidden in mutable
-  production state; journey and notices remain grouped until truthful detail is
-  projected.
-- Must not be tried again: do not create independently polled routes or per-
-  section revision clocks; do not route identity by title or array index.
+- Exact defect: the six atomic sections are still coarse for screenplay,
+  casting, package/greenlight, detailed results, and structured notices/remedies.
+- Severity: Medium maintainability/client-workspace gap.
+- Reproduction: compare the projection bundle to the Phase A2 named surface list.
+- Origin: Deliberately bounded A2 foundation.
+- Attempted fixes: atomic same-revision bundle and stable-ID Unity store pass.
+- Must not be tried again: no independently polled revision clocks, title/index
+  routing, or second presentation-owned simulation model.
 
-### 3. Bridge queue-admission parity is wrong under capacity contention
+### 5. Current visuals still fail the new recognizability gate
 
-- Exact defect: bridge intent resolution withholds commission, auditions, and
-  greenlight when current capacity is occupied even though the authoritative
-  core accepts those front doors into queues.
-- Severity: High permanent product-law gap for affected states; ordinary Golden
-  Movie #2 remains playable because it does not hit every contention state.
-- Reproduction: compare `bridge/session.ts` intent predicates with
-  `src/core/actions.ts` and `tests/c2a-m4-queue-admission.test.ts`.
-- Origin: Pre-existing adoption/bridge behavior, discovered during A3 audit; not
-  caused by the donor checkpoint.
-- Attempted fixes: research and source/test parity audit only; no mutation yet.
-- Must not be tried again: do not encode Development/Casting capacity as a
-  rejection, choose an arbitrary holder from plural queue authority, or invent
-  a Unity-side queue rule.
+- Exact defect: high management framing persists into focus, serialized home
+  distance and controller limits disagree, the 520-pixel proof HUD dominates,
+  people/activity are weak at human scale, and Hero Soundstage 7 remains sparse.
+- Severity: High product-identity gap; no functional regression.
+- Reproduction: inspect A3 overview, blocker, shooting, and release captures;
+  focus a production and compare with the binding visual ruling.
+- Origin: Pre-existing Unity spike art/camera boundary, unchanged by A3.
+- Attempted fixes: audit only; ADR 0006 defines the two-scale target and a
+  reversible `location-v1` experiment.
+- Must not be tried again: do not reopen Unity versus Three.js, copy Lionhead
+  assets/layout/UI, fabricate production activity, perform a blanket asset
+  rewrite, or move simulation truth into Unity.
 
-### 4. A3 remedy and replay durability remain incomplete
+### 6. Cross-repository generated-copy CI is not automatic
 
-- Exact defect: rejections carry code/message but no structured holder/remedy;
-  response replay evicts after 256 command identities and is memory-only.
-- Severity: Medium resilience/player-legibility gap.
-- Reproduction: inspect rejection schema and `BridgeSession` replay cache.
-- Origin: Pre-existing adoption behavior.
-- Attempted fixes: command/session IDs, expected revision, stale rejection,
-  deterministic replay inside the cache, and explicit messages already pass.
-- Must not be tried again: do not infer gameplay remedies in C# or weaken stale,
-  duplicate, and digest invariants.
-
-### 5. Cross-repository generated-copy CI is not automatic
-
-- Exact defect: TypeScript CI validates its own C# golden but cannot see the
-  separate Unity repository unless that repo is supplied.
-- Severity: Medium future drift risk; current files are byte-identical.
-- Reproduction: run `npm run check:bridge-contract` without `--unity-project`.
+- Exact defect: TypeScript CI checks its C# golden but cannot see the Unity repo
+  without an explicit `--unity-project` path.
+- Severity: Medium drift risk; current copies are byte-identical.
+- Reproduction: run contract check without the Unity path.
 - Origin: Separate-repository topology.
-- Attempted fixes: deterministic cross-repo check exists and was mandatory at
-  this seal; Unity strict fixtures compile against the generated copy.
+- Attempted fixes: deterministic cross-repo check and Unity strict fixtures.
 - Must not be tried again: never hand-edit generated C# or add another mirror.
 
-### 6. Current visual production floor remains below target
+### 7. Product-SHA CI is still in progress
 
-- Exact defect: developer-oriented HUD, sparse operating set, weak role/person
-  readability, prototype materials/lighting, and limited visible filmmaking.
-- Severity: High player/visual gap; functional Movie #2 passes.
-- Reproduction: inspect A2 whole-lot, blocker, and release captures.
-- Origin: Pre-existing spike, intentionally unchanged by A1/A2.
-- Attempted fixes: none in these architecture checkpoints.
-- Must not be tried again: do not fabricate production activity or move
-  simulation truth into Unity for visual expedience.
+- Exact defect: local and native Golden M2 validation is complete, but GitHub
+  Actions run `32422095175` for product SHA `7d76951...` has not reported a
+  final conclusion at this timestamp.
+- Severity: Low checkpoint-observability risk; no local acceptance failure.
+- Reproduction: run
+  `gh run view 32422095175 --repo HSpector1/The-Movies`.
+- Origin: Normal remote CI latency after the pushed product commit.
+- Attempted fixes: local full suite, bridge, typecheck, build, audits, Unity
+  EditMode, native build, Movie #2, stale, save/load, and reconnect all passed.
+- Must not be tried again: do not rerun or cancel a healthy in-progress job,
+  weaken gates, or reinterpret remote latency as a product defect. Record its
+  final conclusion in the next continuity update.
 
-### 7. Canonical promotion is intentionally deferred
+### 8. Canonical promotion remains deferred
 
-- Exact defect: TypeScript default and campaign histories diverge by a semantic
-  mega-diff; Unity alone is incompatible with the default TypeScript schema.
-- Severity: High release-management risk, no campaign runtime defect.
-- Reproduction: compare campaign with TypeScript `main@5914c84` and Unity
-  `unity-typescript-bridge-spike@626c2d3`.
+- Exact defect: TypeScript default and campaign histories remain a semantic
+  mega-diff; Unity alone is incompatible with default TypeScript.
+- Severity: High release-management risk, not a runtime defect.
+- Reproduction: compare campaign branches with recorded remote defaults.
 - Origin: Historical repository topology.
-- Attempted fixes: M1 pair is explicit and preserved with immutable Golden tags.
-- Must not be tried again: do not fast-forward Unity alone, cherry-pick generated
-  DTOs alone, force push, rebase, or mass-merge the TypeScript lineage.
+- Attempted fixes: immutable M1 tags plus the explicit Golden M2 compatible pair.
+- Must not be tried again: no unilateral default merge, rebase, force push,
+  generated-DTO-only cherry-pick, or Golden tag movement.
 
-### 8. Dependency and localhost security boundaries remain
+### 9. Development dependency and localhost security boundaries remain
 
-- Exact defect: the browser runtime audit is clean, but the current development
-  bridge runs through the dev graph, where full npm audit reports 3 moderate,
-  1 high, and 1 critical advisory. The localhost HTTP bridge also lacks a
-  per-launch capability, Host/Origin policy, exact JSON content-type gate, and
-  request/header timeouts.
-- Severity: High before packaged Phase B runtime; bounded for the current local
-  developer proof.
-- Reproduction: run `npm audit`; inspect `bridge/server.ts` request admission.
-- Origin: Pre-existing dependency/runtime boundary. `nanoid` is now patched and
-  `vite-node` ownership is explicit.
-- Attempted fixes: documented the exact boundary, added a clean browser-runtime
-  audit, hardened CI/repository hygiene, and rejected the breaking forced Vitest
-  upgrade after it changed bridge execution, types, test discovery, and timeouts.
-- Must not be tried again: no `npm audit fix --force`, false-green whole-product
-  audit claim, public bind, persistent/logged capability token, or browser-only
-  threat model.
+- Exact defect: browser runtime audit is clean, but the dev-run bridge graph
+  still has advisories and lacks per-launch capability, strict Host/Origin and
+  content-type gates, and request/header timeouts.
+- Severity: High before packaged Phase B; bounded for local developer use.
+- Reproduction: run full `npm audit` and inspect `bridge/server.ts`.
+- Origin: Pre-existing runtime boundary.
+- Attempted fixes: least-privilege CI, repository hygiene, browser audit,
+  explicit `vite-node`, and safe `nanoid` patch.
+- Must not be tried again: no `npm audit fix --force`, false clean claim,
+  browser-only threat model, or non-localhost bind.
 
 No unresolved Owner-decision item blocks the next action.
 
 ## NEXT EXACT ACTION
 
-Correct `bridge/session.ts` so authoritative queue-admissible commission,
-audition, and greenlight front doors remain in `availableIntents` under occupied
-capacity, then prove through bridge tests that each command is accepted into the
-existing TypeScript queue without changing core queue rules.
+Implement TypeScript-owned structured rejection categories and actionable
+guidance in the bridge protocol/schema, regenerate the TypeScript C# golden and
+Unity DTO copy, then make Unity retain and render only schema-valid rejection
+guidance across same-revision polls. Run `npm run test:bridge`, bridge
+typecheck/generated drift checks, and Unity EditMode negative-path tests.
 
 ## NEXT 3-5 ACTIONS AFTER THAT
 
-1. Add TypeScript-owned structured rejection guidance only for real rejection
-   categories, generate the Unity contract, and retain/render valid guidance
-   across snapshot polls without inventing a capacity blocker or holder.
-2. Replace the 256-entry memory-only replay eviction boundary with a bounded,
-   save-associated command identity journal and prove duplicate commands remain
+1. Replace the 256-entry memory-only replay eviction boundary with a bounded,
+   save-associated command identity journal; prove duplicate commands remain
    deterministic across save/load and engine process restart.
-3. Extract a start/stop-capable localhost runtime with ephemeral-port discovery,
-   per-launch capability, Host/Origin/content-type enforcement, request/header
-   timeouts, health/schema handshake, save-path abstraction, and useful logs.
-4. Add engine restart detection/reconnect and prove disk-backed save recovery
-   through a native Unity restart playthrough.
-5. Refactor the winning client into explicit runtime/session, projection store,
-   presentation, interaction, and UI layers without changing simulation truth.
+2. Begin Phase B with a start/stop-capable localhost runtime, ephemeral-port
+   discovery, per-launch capability, Host/Origin/content-type enforcement,
+   request/header timeouts, save-path abstraction, useful logs, and graceful
+   shutdown.
+3. Add engine restart detection/reconnect and prove disk-backed recovery through
+   a native Unity restart and active-production save/load playthrough.
+4. Run the isolated `location-v1` two-scale camera experiment, capture control
+   and candidate evidence under `Evidence/I1/Camera-Fidelity/`, and accept it
+   only if management readability, human-scale framing, clipping, performance,
+   and veteran-recognizability gates pass.
+5. Refactor the winning Unity client into explicit runtime/session, projection
+   store, presentation, interaction, and UI layers without changing simulation
+   truth.
 
 ## DO NOT TOUCH
 
-- Frozen authorities `737bbe1f`, `f6606ac9`, `d970b81c`, and `82c9486a`.
-- Existing Golden tag `golden/unity-convergence-m1`; never move or delete it.
-- Remote defaults or historical/C2 branches during the next unit; promotion
-  requires a deliberately validated compatible pair, not unilateral movement.
+- Frozen authorities `737bbe1f`, `f6606ac9`, `d970b81c`, and
+  `82c9486a`.
+- Existing `golden/unity-convergence-m1` tags; never move or delete them.
+- The declared `golden/unity-convergence-m2` product pair. Publish each tag at
+  its exact product SHA during the final seal, then never move or delete it.
 - TypeScript ownership of GameState, legality, economy, time, RNG, saves,
   migrations, identities, outcomes, production/construction rules, and
   progression truth.
-- Three.js implementation/reference/fallback or its broader projection merely
-  to make Unity DTOs easier.
-- Permanent IDs, deterministic RNG streams, or Owner-set product laws.
-- Provenance-cleared assets/license records without evidence; no protected
-  commercial/Lionhead assets, unclear-license donors, purchases, or generated
+- The authoritative core queue laws now proven by A3. Capacity queues; it is not
+  a rejection. A queued intent holds nothing and is revalidated at dequeue.
+- Three.js as preserved reference/regression oracle/fallback.
+- Permanent IDs, deterministic RNG streams, V14 history, or Owner-set product
+  laws.
+- Protected/Lionhead assets, unclear-license donors, purchases, or generated
   imagery.
-- Generated C# files by hand. Change the TypeScript schema and regenerate.
-- Offline `StudioOfflineLotSnapshot` semantics while changing the v4 live wire.
-- Local ignored `Evidence/`, `Builds/`, `Library/`, `Logs/`, `node_modules/`,
-  `dist/`, or `/tmp` artifacts as tracked source.
-- Localhost-only security boundary.
+- Generated C# by hand. Change TypeScript schema, regenerate, and verify both
+  repositories.
+- `StudioOfflineLotSnapshot` semantics merely to simplify the live bundle.
+- Local ignored `Evidence/`, `Builds/`, `Library/`, `Logs/`,
+  `node_modules/`, `dist/`, `.tmp/`, `/tmp`, or the local PDF as tracked
+  source.
+- The `location-v1` camera experiment must remain isolated from protocol,
+  simulation, material, lighting, and HUD changes until its camera hypothesis is
+  measured.
+- Remote defaults/historical branches before deliberate promotion validation.
+- Localhost-only bridge security boundary.
 
 ## DECISIONS MADE THIS SESSION
 
 | Decision | Reason | Reversible | Supporting evidence |
 | --- | --- | --- | --- |
-| Keep protocol 2, bump projection to 4 | Command/lifecycle semantics did not change; the read contract did | Yes through an explicit future migration | v3 compatibility rejection and v4 live proof |
-| Keep one atomic transport response | Independently polled sections could mix revisions and invent client truth | Yes if a future measured need justifies a transactional transport | stable-poll and atomic-store tests |
-| Split into six required sections | Lot, production, people, construction, journey/notices, and results have distinct consumers; release results deserve a terminal surface | Yes with a projection bump | exact one-owner schema test and Unity consumers |
-| Keep legal intents at the envelope root | They span multiple surfaces and must match the same authority revision | Yes with explicit contract migration | direct poll equality test |
-| Build sections from the full source through closed schemas | Avoids a second hand-maintained mapping that could silently drop optional facts | Yes with equivalent generated projection | schema identity/parity and wire-path tests |
-| Use an atomic stable-ID projection store in Unity | Prevents partial cache mutation and array-index identity bugs | Yes internally; invariants must remain | 15/15 EditMode suite and native proof |
-| Permit freelancer presence outside employee roster | Authoritative audition slates can include non-employees | Yes only if TypeScript authority changes | live Movie #2 and targeted test |
-| Separate offline and live roots | Frozen broad fixture is not a valid v4 bundle and must not become live truth | Yes with equivalent isolation | loader/client tests |
-| Declare M1 Golden | A1+A2 is the best fully validated compatible playable pair with no P0 regression | No tag movement; later Goldens may supersede it | broad tests, native build/proof/reconnect, screenshots |
-| Do not promote M1 to defaults | TypeScript promotion is a 185+ commit semantic merge and Unity-only promotion breaks compatibility | Yes after a deliberate merge candidate exists | remote/default/ancestry audit |
-| Keep A2 marked partial | Detailed named screenplay/casting/package/remedy projections remain | Yes when those capabilities land | Phase A2 checklist audit |
-| Reject wholesale PR #5 adoption | Its base, lockfile, V13/browser doctrine, CI gates, and branch policies predate or conflict with the current product | Irreversible only if merged; no donor commit was adopted | exact PR/base diff and three independent audits |
-| Adopt five current ADRs without moving documentation | These are durable cross-cutting boundaries and add recovery value without duplicating feature records | Yes by a superseding ADR | current architecture/save/promotion authorities |
-| Audit browser dependencies honestly and defer bridge graph closure | `npm audit --omit=dev` is green but cannot cover the dev-run `vite-node` bridge | Yes after Phase B packages an explicit graph | scoped audit plus full audit report |
-| Declare `vite-node` directly and patch only `nanoid` | Package scripts already execute the runner; the transitive security patch is nonbreaking | Yes through a validated dependency change | clean `npm ci`, full gates, exact lock diff |
-| Keep Golden M1 as CURRENT BEST | Governance improves durability but changes no player build or Unity client and lacks a new native visual/playable delta | Yes when a later full compatible pair earns Golden | unchanged Golden tags and broad donor checkpoint validation |
-| Fix queue parity before rejection guidance | Capacity front doors are authoritative queue admissions, not command failures | Yes in ordering; product law is frozen | core actions and queue-admission tests versus bridge resolver |
+| Preserve capacity as queue admission across bridge and UI | Core TypeScript already owns the permanent queue law; suppressing the intent contradicted authority | The implementation is reversible; the product law is not | Queue-admission core tests, bridge contention tests, retained UI tests |
+| Centralize exact journey-intent routing | Fixed commission-first proof priority could choose the wrong exact project/production | Yes | Bridge Movie #2 and opaque-identity tests |
+| Guard exact duplicate queued intents at normal front doors, not dequeue | Rapid/stale client resubmission must not clone queue rows, while the existing row must still commit later | Yes internally | Commission/casting/greenlight duplicate and dequeue tests |
+| Treat queue success as its own retained presentation | A queue row creates no project/production identity and holds no cash/talent/facility | Yes if equivalent truthful UX replaces it | Whole-successor queue witnesses and App-authority tests |
+| Use whole-state pure replay to witness retained queue success | Reusing the TypeScript action avoids a presentation-side queue formula | Yes | Malformed/tampered/stale/null tests |
+| Keep protocol 2/projection 4 for A3 queue parity | Wire shape did not change | Yes only through explicit future migration | Generated drift and v4 native proof |
+| Ratify visual recognizability and a two-scale camera as binding | A readable diorama can still evoke the wrong game; management and emotional proximity are both required | Supersedable by later ADR, not casually ignored | Owner ruling, local fidelity PDF, Unity code/capture audit |
+| Treat PDF numeric Three.js inventory claims as reference-specific | Current Unity already has perspective, Cinemachine, textured materials, humans, and animators | Yes with new evidence | Unity source and A3 capture audit |
+| Declare Golden M2 and supersede M1 as CURRENT BEST | The pushed A3 product closes a permanent queue-law/client-parity defect while preserving Movie #2, determinism, native performance, and architecture | No tag movement; a later Golden may supersede it | Product SHA `7d76951...`, Unity `a1c273...`, final full/native seal |
+| Preserve Golden M1 | M2 supersession must not erase the prior recovery point | No; tags are immutable | Existing M1 tag pair remains at `cd2b158...` / `a1c273...` |
+| Keep promotion status `GOLDEN — CONTINUE CAMPAIGN` | Structured rejection guidance, durable runtime/restart recovery, canonical-history reconciliation, and visual floor remain unfinished | Yes after stronger evidence | Known blockers and unchanged defaults |
 
 ## UNCOMMITTED / GENERATED MATERIAL
 
-### TypeScript
+### TypeScript continuity tail
 
-- Golden A2 implementation remains
-  `cd2b15872ac5849fa16beec1775543758cb3139e`.
-- The donor checkpoint is a non-Golden TypeScript-only descendant committed at
-  `f1847f9ec33c5b206d6b4354c8e5ad170cbd8de2`, with its CI portability
-  correction at `38eb2d535b4c1da5c3c2908885c68227fb6ee0bc`. Only this
-  continuity-only follow-up is newer; after push no tracked WIP should remain.
-- Checked-in generated material is intentional: canonical JSON Schema and the
-  TypeScript-side C# golden.
-- `node_modules/`, Vite `dist/`, and `.tmp/3d-asset-audit.json` were regenerated
-  locally and remain ignored. No donor screenshot, native build, save, token,
-  or audit JSON report is tracked.
+- Golden M2 product source is committed and pushed at
+  `7d76951f6ad641e8940b97b03806b87638ed8ad8`, parent
+  `7218368cddc46eaeb0fb99691489d457a89112d6`.
+- Only these tracked continuity files are dirty now:
+  `docs/campaigns/UNITY-PRODUCTION-CONVERGENCE-80H.md`, this handoff, and
+  `docs/campaigns/UNITY-PRODUCTION-CONVERGENCE-80H-PROMOTION.md`.
+- No product source or untracked source remains outside the product commit.
+- After the continuity commit, the TypeScript branch tip will be a docs-only
+  descendant of the Golden product SHA. Use `git rev-parse HEAD` for that branch
+  tip; keep `golden/unity-convergence-m2` pinned to `7d76951...`.
+- Checked-in generated schema and TypeScript-side C# golden remain intentional
+  tracked source; A3 did not change their bytes.
+- `node_modules/`, `dist/`, and `.tmp/3d-asset-audit.json` are ignored and
+  regenerated locally.
 
-### Unity
+### Unity ignored material
 
-- Tracked A2 implementation is committed at
-  `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`; expected clean.
-- `Builds/macOS/Project Studio Visual Spike.app`: ignored, 131 MB.
-- `Evidence/A2/Unity-Bridge/`: ignored, approximately 16 MB, 12 PNGs and 2 JSON
-  reports.
-- `Evidence/A1/` and `Evidence/Baseline/`: ignored prior evidence.
+- Tracked Unity source is clean at
+  `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
+- `Builds/macOS/Project Studio Visual Spike.app`: ignored final-seal native
+  build, 136,925,846 bytes.
+- `Evidence/A3/Queue-Parity/`: ignored, approximately 16 MB, 12 PNGs and 2
+  JSON reports.
+- `Evidence/A2/`, `Evidence/A1/`, and `Evidence/Baseline/`: ignored prior
+  evidence.
 - `Library/` and `Logs/`: ignored Unity cache/logs.
 
-### Machine-local evidence
+### Local visual-fidelity source
 
-- `/tmp/studio-a2-full-tests.log`
-- `/tmp/studio-a2-typecheck.log`
-- `/tmp/studio-a2-ts-build.log`
-- `/tmp/studio-a2-headless-proof.log`
-- `/tmp/studio-a2-seal-bridge.log`
-- `/tmp/studio-a2-seal-generated.log`
-- `/tmp/studio-a2-seal-editmode-results.xml`
-- `/tmp/studio-a2-seal-editmode.log`
-- `/tmp/studio-a2-build-2.log`
-- `/tmp/studio-a2-native-proof-final.log`
-- `/tmp/studio-a2-native-reconnect-final.log`
-- Earlier `/tmp/studio-a2-*` attempts are superseded and deliberately excluded.
+- `/Users/bruce/Downloads/project-studio-visual-fidelity.pdf`
+- Size: 1,087,211 bytes.
+- SHA-256:
+  `692140a7d4be313fd1df7605c96306a9f7e53f4fce46bc0f69a5ec1453a96a39`.
+- This is local reference input, deliberately excluded from Git. Do not adopt
+  protected The Movies screenshots/assets into production or source control.
+
+### Machine-local logs/evidence
+
+- `/tmp/studio-a3-seal-final-full-tests.log`
+- `/tmp/studio-a3-bridge-tests.log`
+- `/tmp/studio-a3-typecheck.log`
+- `/tmp/studio-a3-bridge-typecheck.log`
+- `/tmp/studio-a3-build.log`
+- `/tmp/studio-a3-generated.log`
+- `/tmp/studio-a3-hygiene.log`
+- `/tmp/studio-a3-assets.log`
+- `/tmp/studio-a3-browser-audit.log`
+- `/tmp/studio-a3-editmode-results-seal.xml`
+- `/tmp/studio-a3-editmode-seal.log`
+- `/tmp/studio-a3-native-build-seal.log`
+- `/tmp/studio-a3-native-proof-final-seal.log`
+- `/tmp/studio-a3-native-reconnect-final-seal.log`
+- `/tmp/studio-a3-proof.log`
+- `/tmp/studio-a3-headless-proof.json`
+- Superseded but deliberately retained diagnostics:
+  `/tmp/studio-a3-3d-audit.log`, `/tmp/studio-a3-full-tests.log`,
+  `/tmp/studio-a3-editmode-results.xml`, `/tmp/studio-a3-editmode.log`,
+  `/tmp/studio-a3-final-full-tests.log`,
+  `/tmp/studio-a3-generated-check.log`,
+  `/tmp/studio-a3-native-build.log`,
+  `/tmp/studio-a3-native-proof.log`,
+  `/tmp/studio-a3-native-proof-postbuild.log`,
+  `/tmp/studio-a3-native-proof-seal.log`,
+  `/tmp/studio-a3-native-reconnect.log`,
+  `/tmp/studio-a3-native-reconnect-postbuild.log`,
+  `/tmp/studio-a3-native-reconnect-seal.log`,
+  `/tmp/studio-a3-queue-proof.json`,
+  `/tmp/studio-a3-repo-hygiene.log`, and
+  `/tmp/studio-a3-seal-full-tests.log`.
+
+No screenshot, native build, local PDF, token, secret, cache, or temporary report
+is intended for the checkpoint commit.
 
 ## RECOVERY INSTRUCTIONS
 
-1. Read the architecture decision, ledger, this handoff, and the promotion
-   register in that order.
-2. Verify the exact compatible pair, branch tips, tags, and clean trees:
+1. Read, in order:
+   - `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`
+   - `docs/campaigns/UNITY-PRODUCTION-CONVERGENCE-80H.md`
+   - this handoff
+   - `docs/campaigns/UNITY-PRODUCTION-CONVERGENCE-80H-PROMOTION.md`
+2. Verify the recorded committed heads, remote refs, Golden tags, and worktrees:
 
    ```bash
    cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
@@ -512,46 +611,47 @@ existing TypeScript queue without changing core queue rules.
    git rev-parse HEAD
    git rev-parse hspector-github/campaign/unity-production-convergence-80h-ts
    git rev-parse golden/unity-convergence-m1
+   git rev-parse 'golden/unity-convergence-m2^{}'
+   git merge-base --is-ancestor \
+     7d76951f6ad641e8940b97b03806b87638ed8ad8 HEAD
+   git diff --check
 
    cd '/Users/bruce/Project Studio - Unity Production Convergence 80H'
    git status --short --branch
    git rev-parse HEAD
    git rev-parse origin/campaign/unity-production-convergence-80h-client
    git rev-parse golden/unity-convergence-m1
+   git rev-parse 'golden/unity-convergence-m2^{}'
    ```
 
-3. Run the minimum M1 contract smoke:
+   The TypeScript branch tip may be a docs-only descendant and is whatever
+   `git rev-parse HEAD` reports after the continuity commit. It must descend from
+   product SHA `7d76951...`; the M2 tag itself must dereference exactly to that
+   product SHA. The Unity branch and M2 tag both resolve to `a1c273...`. Local,
+   upstream, and remote branch refs must agree, and both worktrees should be clean.
+3. Run the minimum Golden M2 smoke before modifying it:
 
    ```bash
    cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
-   npm ci
-   npm run audit:browser-deps
-   npm run audit:repo-hygiene
    npm run test:bridge
+   npm run typecheck
    npm run typecheck:bridge
    npm run check:bridge-contract -- \
      --unity-project '/Users/bruce/Project Studio - Unity Production Convergence 80H'
    ```
 
-4. If changing contract/client code, run Unity EditMode:
+4. Launch Golden M2 with `npm run bridge`, then the ignored native
+   app command above. Confirm protocol 2/projection 4 and exact Movie #2 release
+   at Week 22/revision 23. The accepted evidence is already under
+   `Evidence/A3/Queue-Parity/`.
+5. Check GitHub Actions run `32422095175`. If it is still in progress, do not
+   restart it. If it failed, record the exact failing gate before changing code;
+   do not move either M2 tag or weaken validation.
+6. Perform NEXT EXACT ACTION. Do not repeat A1/A2 research, reopen Unity versus
+   Three.js, hand-mirror DTOs, encode remedies in C#, reinterpret capacity as a
+   rejection, or ask the Owner to reconstruct history.
 
-   ```bash
-   '/Applications/Unity/Hub/Editor/6000.3.22f1/Unity.app/Contents/MacOS/Unity' \
-     -batchmode \
-     -projectPath '/Users/bruce/Project Studio - Unity Production Convergence 80H' \
-     -runTests \
-     -testPlatform EditMode \
-     -testResults /tmp/studio-campaign-editmode-results.xml \
-     -logFile /tmp/studio-campaign-editmode-tests.log
-   ```
-
-5. Start `npm run bridge`, then launch the ignored native app using the command
-   above. Rebuild if absent. The current Golden must show protocol 2/projection
-   4 and release exact Movie #2 at Week 22 with the recorded IDs/digest.
-6. Perform NEXT EXACT ACTION. Do not repeat A1/A2 research, recreate a monolith,
-   independently poll sections, manually mirror DTOs, reopen Unity versus
-   Three.js, or ask the Owner to reconstruct history.
-
-A replacement agent with no chat history can verify both HEADs/tags, launch the
-best build, understand every accepted gate and known failure, and begin A3 using
-only these repositories and documents.
+A replacement agent with no chat history can now verify both repositories,
+launch the current best build, understand the accepted Golden M2 product and its
+remaining defects, preserve the local evidence, and continue from the exact
+next action.
