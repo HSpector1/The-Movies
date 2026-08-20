@@ -328,15 +328,19 @@ describe('The next step points at the world — it never teleports to a screen',
 
 describe('The Picture Journey survives greenlight beside the production readout', () => {
   it('keeps the next step visible while retaining the existing production facts', async () => {
+    const state = greenlitStudio('picture-guidance-greenlit')
+    const productionId = state.studio.activeProductions[0]!.id
     projection.override = { kind: 'value', value: journey({
       stage: 'in-production',
       beat: 'shooting',
+      productionId,
+      scriptProjectId: null,
       headline: 'SHOOTING',
       whatHappened: 'Principal photography is underway.',
       whyItMatters: 'The company is now making the picture on its reserved stage.',
       next: null,
     }) }
-    renderLot(greenlitStudio('picture-guidance-greenlit'))
+    renderLot(state)
     await onlyView()
 
     const card = screen.getByTestId('hollywood-current-production')
