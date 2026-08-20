@@ -613,7 +613,7 @@ endpoint is authorized.
 | Full TypeScript suite | 325 files; 4,421 passed, 5 skipped, 0 failed in 62.05 seconds |
 | Production build | Passed in 5.49 seconds; inherited chunk warnings only |
 | 3D asset audit | 26 assets; 0 hard violations |
-| Workflow/config | YAML parse and actionlint 1.7.10 passed; both pinned SHAs resolve to official v4 refs; actual remote run pending push |
+| Workflow/config | GitHub Actions run `32411795447` passed every expanded gate in 8m50s at `38eb2d535b4c1da5c3c2908885c68227fb6ee0bc`; local YAML and actionlint 1.7.10 also passed |
 | Diff audit | No gameplay, protocol, generated DTO, UI, source asset, test, or Unity client changes; `git diff --check` passed |
 
 Independent architecture, CI/security, and whole-diff red teams found no
@@ -633,6 +633,14 @@ pipeline. The local suite was green because the reference Pillow/NumPy stack was
 already installed. The workflow correction pins Python 3.14, Pillow 12.3.0, and
 NumPy 2.5.1 and updates the official checkout/setup actions to Node-24 v6 refs.
 No test was skipped or weakened.
+
+Correction commit `38eb2d535b4c1da5c3c2908885c68227fb6ee0bc` is pushed. Its
+follow-up GitHub Actions run `32411795447` passed the clean install, scoped
+dependency audit, repository hygiene, generated-contract check, both
+typechecks, all 20 bridge tests, the full 4,421-test application suite,
+production build, and adopted-3D-asset audit in 8m50s. The earlier failed run is
+retained as evidence of the corrected portability gap, not hidden as a flaky
+success.
 
 No Unity test or native rebuild was required for this TypeScript-only governance
 checkpoint. Golden M1's Unity binary, Movie #2 evidence, save/load/reconnect
