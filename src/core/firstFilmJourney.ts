@@ -114,6 +114,7 @@ export type JourneyTargetKind =
   | 'plan-auditions'
   | 'audition-review'
   | 'open-package'
+  | 'review-casting-blocker'
   | 'resolve-production'
   | 'advance-week'
 
@@ -131,10 +132,12 @@ export interface FirstFilmJourneyView {
   stage: FirstFilmJourneyStage
   /** Exact filmmaking beat; presentation may highlight it but never advance it. */
   beat: PictureJourneyBeat
+  /** Exact production identity while this journey names a production or release. */
+  productionId: string | null
   /** Exact screenplay identity; null only when no managed project owns this picture. */
   scriptProjectId: string | null
   pictureTitle: string | null
-  /** 1 = the studio's first picture ever; increments per released picture. */
+  /** 1 = the studio's first commissioned picture; stable for that managed project. */
   ordinal: number
   headline: string
   /** The latest milestone or material change the player should understand. */
@@ -316,13 +319,28 @@ function scriptProjectIdForProduction(state: GameState, productionId: string): s
   return owners.length === 1 ? owners[0]!.id : null
 }
 
+/** Stable 1-based commissioning order for one authoritative managed screenplay. */
+function scriptProjectOrdinal(state: GameState, projectId: string | null): number | null {
+  if (projectId === null) return null
+  const commissioned = [...state.scriptDevelopment.projects].sort(
+    (a, b) => a.commissionedWeek - b.commissionedWeek || compareId(a.id, b.id),
+  )
+  const index = commissioned.findIndex((candidate) => candidate.id === projectId)
+  return index === -1 ? null : index + 1
+}
+
 /**
  * Frozen precedence:
  *  1. whatever the studio is actually STOPPED on (`nextStudioDecision`),
- *  2. else the active production with the lowest canonical id,
- *  3. else the most advanced screenplay still in the player's hands
+ *  2. else the most advanced screenplay still in the player's hands
  *     (ready > review > drafting/rewriting), lowest canonical id first,
+ *  3. else the newest active production (latest start week, newest canonical
+ *     id as the deterministic tie-break),
  *  4. else nothing.
+ *
+ * A calm older production must not hide a newer picture that still needs the
+ * player's screenplay/casting work. A production decision remains first because
+ * that is the authoritative blocker stopping the studio week.
  */
 function currentPicture(
   state: GameState,
@@ -338,10 +356,6 @@ function currentPicture(
     }
   }
 
-  const productions = [...state.studio.activeProductions].sort((a, b) => compareId(a.id, b.id))
-  const production = productions[0]
-  if (production !== undefined) return { kind: 'production', production }
-
   const candidates = state.scriptDevelopment.projects
     .filter((project) => SCRIPT_ADVANCEMENT[project.status] > 0)
     .slice()
@@ -351,6 +365,12 @@ function currentPicture(
     )
   const project = candidates[0]
   if (project !== undefined) return { kind: 'script', project }
+
+  const productions = [...state.studio.activeProductions].sort(
+    (a, b) => b.startTick - a.startTick || compareId(b.id, a.id),
+  )
+  const production = productions[0]
+  if (production !== undefined) return { kind: 'production', production }
 
   return null
 }
@@ -412,13 +432,14 @@ function hasEverProduced(state: GameState): boolean {
 /** The most recently released picture, by release week then canonical id. */
 function latestReleasedPicture(
   state: GameState,
-): { scriptProjectId: string | null; title: string | null } {
+): { productionId: string | null; scriptProjectId: string | null; title: string | null } {
   const released = [...state.studio.releasedFilms].sort(
     (a, b) => a.releaseTick - b.releaseTick || compareId(a.productionId, b.productionId),
   )
   const latest = released[released.length - 1]
   if (latest !== undefined) {
     return {
+      productionId: latest.productionId,
       scriptProjectId: scriptProjectIdForProduction(state, latest.productionId),
       title: conceptTitle(state, latest.conceptId),
     }
@@ -430,8 +451,9 @@ function latestReleasedPicture(
     .sort((a, b) => compareId(a.id, b.id))
   const lastProduced = produced[produced.length - 1]
   return lastProduced === undefined
-    ? { scriptProjectId: null, title: null }
+    ? { productionId: null, scriptProjectId: null, title: null }
     : {
+        productionId: lastProduced.productionId,
         scriptProjectId: lastProduced.id,
         title: conceptTitle(state, lastProduced.conceptId),
       }
@@ -463,14 +485,17 @@ function noPictureView(
   state: GameState,
   board: ScriptProjectsReadModel | null,
 ): FirstFilmJourneyView {
-  const ordinal = releasedCount(state) + 1
+  const nextOrdinal = releasedCount(state) + 1
   const blocked = commissionBlocked(board)
   if (hasEverProduced(state)) {
     const released = latestReleasedPicture(state)
     const title = released.title
+    const ordinal =
+      scriptProjectOrdinal(state, released.scriptProjectId) ?? Math.max(1, releasedCount(state))
     return {
       stage: 'released',
       beat: 'released',
+      productionId: released.productionId,
       scriptProjectId: released.scriptProjectId,
       pictureTitle: title,
       ordinal,
@@ -478,7 +503,9 @@ function noPictureView(
       whatHappened:
         title === null ? 'The studio released a picture.' : `${title} reached audiences.`,
       whyItMatters:
-        'The picture is now earning its theatrical run. Development is free to start the next screenplay.',
+        blocked === null
+          ? 'The picture is now earning its theatrical run. Development is free to start the next screenplay.'
+          : 'The picture is now earning its theatrical run. The next screenplay cannot start until the Development blocker below is cleared.',
       detail:
         title === null
           ? 'The last picture is playing. The next one starts with a screenplay.'
@@ -491,9 +518,10 @@ function noPictureView(
   return {
     stage: 'no-picture',
     beat: 'no-picture',
+    productionId: null,
     scriptProjectId: null,
     pictureTitle: null,
-    ordinal,
+    ordinal: nextOrdinal,
     headline: 'START A PICTURE',
     whatHappened: 'No screenplay is currently in development.',
     whyItMatters: 'Every picture begins with a screenplay commissioned at Development.',
@@ -516,6 +544,7 @@ function draftingView(
   return {
     stage: 'drafting',
     beat: 'screenplay-writing',
+    productionId: null,
     scriptProjectId: project.id,
     pictureTitle: title,
     ordinal,
@@ -557,6 +586,7 @@ function scriptReviewView(
   return {
     stage: 'script-review',
     beat: 'screenplay-review',
+    productionId: null,
     scriptProjectId: project.id,
     pictureTitle: title,
     ordinal,
@@ -589,6 +619,7 @@ function auditioningView(
   return {
     stage: 'auditioning',
     beat: 'auditions-running',
+    productionId: null,
     scriptProjectId,
     pictureTitle: title,
     ordinal,
@@ -649,6 +680,7 @@ function auditionReviewView(
   return {
     stage: 'audition-review',
     beat: 'auditions-ready',
+    productionId: null,
     scriptProjectId,
     pictureTitle: title,
     ordinal,
@@ -699,13 +731,29 @@ function readyToPackageView(
   const packageView = board?.packages.find((entry) => entry.projectId === project.id) ?? null
   const canOpenPackage = packageView?.openAction != null
 
-  const next: FirstFilmJourneyNext = canPlanAuditions
+  const blocked =
+    canPlanAuditions || canOpenPackage
+      ? null
+      : (() => {
+          const blocker = primaryBlocker(packageView?.availability.blockers ?? [])
+          return blocker === null ? null : { reason: blockerReason(blocker) }
+        })()
+
+  const next: FirstFilmJourneyNext | null = canPlanAuditions
     ? { kind: 'plan-auditions', label: `Plan auditions at ${SITE_PLACE.casting}`, site: 'casting' }
-    : {
-        kind: 'open-package',
-        label: `Assemble the picture's package at ${SITE_PLACE.casting}`,
-        site: 'casting',
-      }
+    : canOpenPackage
+      ? {
+          kind: 'open-package',
+          label: `Assemble the picture's package at ${SITE_PLACE.casting}`,
+          site: 'casting',
+        }
+      : blocked === null
+        ? null
+        : {
+            kind: 'review-casting-blocker',
+            label: `Review the package blocker at ${SITE_PLACE.casting}`,
+            site: 'casting',
+          }
 
   // First-run guidance leads with the action, and names ONLY what this state actually
   // offers. It used to add "…or go straight to the picture's package", which advertised a
@@ -715,23 +763,20 @@ function readyToPackageView(
   // (red-team finding, first-movie journey).
   const detailTail = canPlanAuditions
     ? 'Auditions show you who can carry the picture'
-    : session !== undefined && session.status === 'complete'
-      ? "The camera tests are done. The picture's package is next"
-      : "The picture's package is next"
+    : canOpenPackage
+      ? session !== undefined && session.status === 'complete'
+        ? "The camera tests are done. The picture's package is next"
+        : "The picture's package is next"
+      : blocked !== null
+        ? 'The picture cannot be packaged until the Casting blocker below is cleared'
+        : 'No package step is available at Casting right now'
 
   const auditionsReviewed = session !== undefined && session.status === 'complete'
-
-  const blocked =
-    canPlanAuditions || canOpenPackage
-      ? null
-      : (() => {
-          const blocker = primaryBlocker(packageView?.availability.blockers ?? [])
-          return blocker === null ? null : { reason: blockerReason(blocker) }
-        })()
 
   return {
     stage: 'ready-to-package',
     beat: auditionsReviewed ? 'auditions-reviewed' : 'screenplay-ready',
+    productionId: null,
     scriptProjectId: project.id,
     pictureTitle: title,
     ordinal,
@@ -891,6 +936,7 @@ function inProductionView(
     return {
       stage: 'in-production',
       beat,
+      productionId: production.id,
       scriptProjectId,
       pictureTitle: title,
       ordinal,
@@ -908,6 +954,7 @@ function inProductionView(
   return {
     stage: 'in-production',
     beat: defaultBeat,
+    productionId: production.id,
     scriptProjectId,
     pictureTitle: title,
     ordinal,
@@ -949,11 +996,12 @@ export function firstFilmJourney(state: GameState): FirstFilmJourneyView {
   const picture = currentPicture(state, decision)
   if (picture === null) return noPictureView(state, board)
 
-  const ordinal = releasedCount(state) + 1
+  const legacyOrdinal = releasedCount(state) + 1
 
   if (picture.kind === 'production') {
     const title = conceptTitle(state, picture.production.conceptId)
     const scriptProjectId = scriptProjectIdForProduction(state, picture.production.id)
+    const ordinal = scriptProjectOrdinal(state, scriptProjectId) ?? legacyOrdinal
     const command =
       decision !== null &&
       decision.kind === 'productionOperation' &&
@@ -972,6 +1020,7 @@ export function firstFilmJourney(state: GameState): FirstFilmJourneyView {
 
   const project = picture.project
   const title = conceptTitle(state, project.conceptId)
+  const ordinal = scriptProjectOrdinal(state, project.id) ?? legacyOrdinal
 
   switch (project.status) {
     case 'drafting':

@@ -906,6 +906,9 @@ function primaryActions(
       },
     ]
   }
+  // Navigation-only: the journey may bring the player here to read an engine
+  // blocker, but no legal package action exists for the inspector to restate.
+  if (next.kind === 'review-casting-blocker') return []
   if (next.kind === 'open-package') {
     return [{ kind: 'open-package', label: 'Open the picture’s package' }]
   }

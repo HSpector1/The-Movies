@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 import {
   applyActions,
   beginFounding,
+  castingSessionsReadModel,
   FOUNDING_MINIMUMS,
   generateWorld,
   nextStudioDecision,
@@ -67,6 +68,37 @@ function managedStudio(seed: string): GameState {
   ])
 }
 
+/** Exact real roster for the package-blocker proof: no spare studio director. */
+function packageBlockedStudio(seed: string): GameState {
+  let state = beginFounding(generateWorld(seed))
+  const applicants = state.founding!.applicantIds.map(
+    (id) => state.talent.find((person) => person.id === id)!,
+  )
+  const counts: Record<CreativeRole, number> = {
+    actor: 3,
+    director: 1,
+    writer: 3,
+    craft: 1,
+  }
+  for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
+    const selected = byRole(applicants, role).slice(0, counts[role])
+    if (selected.length !== counts[role]) {
+      throw new Error(`package-blocked fixture lacks ${role} applicants`)
+    }
+    for (const person of selected) {
+      state = applyActions(state, [
+        { kind: 'signContract', talentId: person.id, termWeeks: 104 },
+      ])
+    }
+  }
+  state = applyActions(state, [{ kind: 'foundStudio' }])
+  return applyActions(state, [
+    { kind: 'activateStudioOperations' },
+    { kind: 'activateScriptDevelopment' },
+    { kind: 'activateCastingSessions' },
+  ])
+}
+
 function commissionPayload(
   state: GameState,
   conceptIndex: number,
@@ -107,16 +139,28 @@ function greenlightPayload(
 ): GreenlightScriptProjectPayload {
   const project = state.scriptDevelopment.projects.find((entry) => entry.id === projectId)!
   const concept = state.concepts.find((entry) => entry.id === project.conceptId)!
+  const occupied = new Set(
+    state.studio.activeProductions.flatMap((production) => [
+      production.writerId,
+      production.directorId,
+      production.cast.lead,
+      production.cast.antagonist,
+      production.cast.support,
+      ...production.craftIds,
+    ]),
+  )
   const actors = contractedByRole(state, 'actor').filter(
-    (person) => person.id !== project.writerId,
+    (person) => person.id !== project.writerId && !occupied.has(person.id),
   )
   return {
     projectId,
     directorId: contractedByRole(state, 'director').find(
-      (person) => person.id !== project.writerId,
+      (person) => person.id !== project.writerId && !occupied.has(person.id),
     )!.id,
     craftIds: [
-      contractedByRole(state, 'craft').find((person) => person.id !== project.writerId)!.id,
+      contractedByRole(state, 'craft').find(
+        (person) => person.id !== project.writerId && !occupied.has(person.id),
+      )!.id,
     ],
     cast: {
       lead: actors[0]!.id,
@@ -470,6 +514,7 @@ describe('First Film Journey V1 — the guided chain', () => {
     state = applyActions(state, [
       { kind: 'greenlightScriptProject', production: greenlightPayload(state, 'script-0000') },
     ])
+    const releasedProductionId = state.scriptDevelopment.projects[0]!.productionId!
     const releasedTitle = state.concepts[0]!.title
     const promisedWeek = firstFilmJourney(state).waiting!.untilWeek
     const witnessedProductionBeats = new Set<string>()
@@ -499,10 +544,12 @@ describe('First Film Journey V1 — the guided chain', () => {
     const released = firstFilmJourney(state)
     expect(released).toMatchObject({
       stage: 'released',
+      productionId: releasedProductionId,
       scriptProjectId: 'script-0000',
       pictureTitle: releasedTitle,
-      // The studio's SECOND picture is the one being guided now.
-      ordinal: 2,
+      // This remains the studio's first commissioned picture; the card's identity
+      // does not jump to PICTURE 2 merely because its next action begins that picture.
+      ordinal: 1,
       beat: 'released',
       headline: 'PICTURE RELEASED',
       waiting: null,
@@ -531,6 +578,187 @@ describe('First Film Journey V1 — the guided chain', () => {
       site: 'development',
     })
     expect(blockedReleased.next?.label).not.toContain('Commission a screenplay')
+    expect(blockedReleased.whyItMatters).toContain('cannot start')
+    expect(blockedReleased.whyItMatters).not.toContain('Development is free')
+  })
+
+  it('keeps a concurrent second picture visible until a real production decision takes priority', () => {
+    let state = managedStudio('journey-concurrent-second')
+    const writers = scriptProjectsReadModel(state).commission.writers
+      .filter((writer) => writer.available && writer.primaryRole === 'writer')
+      .slice(0, 2)
+    expect(writers).toHaveLength(2)
+
+    state = applyActions(state, [
+      {
+        kind: 'commissionScript',
+        project: commissionPayload(state, 0, writers[0]!.id),
+      },
+      {
+        kind: 'commissionScript',
+        project: commissionPayload(state, 1, writers[1]!.id),
+      },
+    ])
+    const firstProject = state.scriptDevelopment.projects[0]!
+    const secondProject = state.scriptDevelopment.projects[1]!
+
+    for (let guard = 0; guard < 12; guard++) {
+      const reviews = state.scriptDevelopment.projects.filter(
+        (project) => project.status === 'review',
+      )
+      if (reviews.length > 0) {
+        state = applyActions(
+          state,
+          reviews.map((project) => ({ kind: 'acceptScript' as const, projectId: project.id })),
+        )
+      }
+      if (state.scriptDevelopment.projects.every((project) => project.status === 'ready')) break
+      state = tick(state)
+    }
+    expect(state.scriptDevelopment.projects.map((project) => project.status)).toEqual([
+      'ready',
+      'ready',
+    ])
+
+    state = applyActions(state, [
+      {
+        kind: 'greenlightScriptProject',
+        production: greenlightPayload(state, firstProject.id),
+      },
+    ])
+    const firstProductionId = state.scriptDevelopment.projects[0]!.productionId!
+    expect(nextStudioDecision(state)).toBeNull()
+
+    // The older production is calm, so the accepted screenplay that still needs
+    // player work remains the journey. Its ordinal comes from commissioning identity,
+    // not from the number of releases (which is still zero).
+    expect(firstFilmJourney(state)).toMatchObject({
+      stage: 'ready-to-package',
+      beat: 'screenplay-ready',
+      productionId: null,
+      scriptProjectId: secondProject.id,
+      ordinal: 2,
+      blocked: null,
+      next: { kind: 'plan-auditions', site: 'casting' },
+    })
+
+    let productionDecision = nextStudioDecision(state)
+    for (let guard = 0; guard < 12 && productionDecision === null; guard++) {
+      state = tick(state)
+      productionDecision = nextStudioDecision(state)
+    }
+    expect(productionDecision).toMatchObject({
+      kind: 'productionOperation',
+      productionId: firstProductionId,
+    })
+
+    // A decision that stops the studio still wins over the newer screenplay.
+    expect(firstFilmJourney(state)).toMatchObject({
+      stage: 'in-production',
+      productionId: firstProductionId,
+      scriptProjectId: firstProject.id,
+      ordinal: 1,
+      blocked: { reason: expect.any(String) },
+      next: { kind: 'resolve-production' },
+    })
+
+    // Clear the production's currently published commands, then greenlight Picture 2
+    // while Picture 1 is still active. With no decision or screenplay left in hand, the
+    // newest production is the persistent calm fallback.
+    for (let guard = 0; guard < 8; guard++) {
+      const decision = nextStudioDecision(state)
+      if (decision === null) break
+      expect(decision.kind).toBe('productionOperation')
+      if (decision.kind !== 'productionOperation') break
+      state = applyActions(state, [decision.command])
+    }
+    expect(nextStudioDecision(state)).toBeNull()
+    expect(state.studio.activeProductions.some((production) => production.id === firstProductionId))
+      .toBe(true)
+
+    state = applyActions(state, [
+      {
+        kind: 'greenlightScriptProject',
+        production: greenlightPayload(state, secondProject.id),
+      },
+    ])
+    const secondProductionId = state.scriptDevelopment.projects[1]!.productionId!
+    expect(secondProductionId).not.toBe(firstProductionId)
+    expect(state.studio.activeProductions).toHaveLength(2)
+    expect(firstFilmJourney(state)).toMatchObject({
+      stage: 'in-production',
+      productionId: secondProductionId,
+      scriptProjectId: secondProject.id,
+      ordinal: 2,
+      blocked: null,
+    })
+  })
+
+  it('routes a fully blocked package to Casting without publishing a package verb', () => {
+    let state = packageBlockedStudio('journey-blocked-2')
+    const soleDirector = contractedByRole(state, 'director')[0]!
+    const directorAsWriter = scriptProjectsReadModel(state).commission.writers.find(
+      (writer) => writer.id === soleDirector.id && writer.available,
+    )
+    expect(directorAsWriter).toBeDefined()
+
+    state = applyActions(state, [
+      {
+        kind: 'commissionScript',
+        project: commissionPayload(state, 0, directorAsWriter!.id),
+      },
+    ])
+    for (let guard = 0; guard < 8; guard++) {
+      const project = state.scriptDevelopment.projects[0]!
+      if (project.status === 'review') break
+      state = tick(state)
+    }
+    const target = state.scriptDevelopment.projects[0]!
+    expect(target.status).toBe('review')
+    state = applyActions(state, [{ kind: 'acceptScript', projectId: target.id }])
+
+    const writers = scriptProjectsReadModel(state).commission.writers
+      .filter((writer) => writer.available && writer.primaryRole === 'writer')
+      .slice(0, 2)
+    expect(writers).toHaveLength(2)
+
+    // Two real screenplay commissions fill both shared Development & Casting slots.
+    // The target's sole studio director is also its credited writer, so Package cannot
+    // use that person as its director; this seed's week-one freelancer market has none.
+    // No state is hand-shaped for either condition.
+    state = applyActions(state, [
+      {
+        kind: 'commissionScript',
+        project: commissionPayload(state, 1, writers[0]!.id),
+      },
+      {
+        kind: 'commissionScript',
+        project: commissionPayload(state, 2, writers[1]!.id),
+      },
+    ])
+
+    const board = scriptProjectsReadModel(state)
+    const packageView = board.packages.find((entry) => entry.projectId === target.id)!
+    const castingView = castingSessionsReadModel(state).sections.readyToPlan.find(
+      (entry) => entry.projectId === target.id,
+    )!
+    expect(packageView.openAction).toBeNull()
+    expect(castingView.legalActions.some((action) => action.kind === 'planAuditions')).toBe(false)
+
+    const blocked = firstFilmJourney(state)
+    expect(blocked).toMatchObject({
+      stage: 'ready-to-package',
+      productionId: null,
+      scriptProjectId: target.id,
+      ordinal: 1,
+      blocked: { reason: expect.any(String) },
+      next: {
+        kind: 'review-casting-blocker',
+        label: 'Review the package blocker at Casting',
+        site: 'casting',
+      },
+    })
+    expect(blocked.next?.label).not.toContain('Assemble')
   })
 
   it('routes a blocked fresh/no-picture journey without promising a commission', () => {

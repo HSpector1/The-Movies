@@ -444,7 +444,7 @@ describe('the camera grammar — selection frames, and the whole property is alw
     expect(control).toHaveAttribute('aria-keyshortcuts', 'R')
     expect(control).toHaveAttribute('title', 'Show the whole property (shortcut: R)')
     // It reads as a control, not as decoration: the visible words say what it does.
-    expect(control).toHaveTextContent('Whole property')
+    expect(control).toHaveTextContent('Campus')
     expect(control).toBeEnabled()
   })
 

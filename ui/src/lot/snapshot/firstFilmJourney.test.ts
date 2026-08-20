@@ -77,6 +77,7 @@ function view(overrides: Partial<FirstFilmJourneyView> = {}): FirstFilmJourneyVi
   return {
     stage: 'drafting',
     beat: 'screenplay-writing',
+    productionId: null,
     scriptProjectId: 'script-0000',
     pictureTitle: 'A Season of Archipelago',
     ordinal: 1,
@@ -313,6 +314,7 @@ describe('firstFilmJourneyContext — absent and malformed are different facts',
       { ...view(), ordinal: 0 },
       { ...view(), ordinal: 1.5 },
       { ...view(), headline: '   ' },
+      { ...view(), productionId: '' },
       { ...view(), scriptProjectId: '' },
       { ...view(), pictureTitle: '' },
       { ...view(), next: { kind: 'commission', label: 'Go', site: 'catering' } },
@@ -330,10 +332,26 @@ describe('firstFilmJourneyContext — absent and malformed are different facts',
 
   it('accepts every legal shape of the frozen contract', () => {
     expect(isFirstFilmJourneyView(view())).toBe(true)
+    expect(isFirstFilmJourneyView(view({ productionId: 'prod-0000' }))).toBe(false)
+    expect(isFirstFilmJourneyView(view({
+      stage: 'in-production',
+      beat: 'shooting',
+      productionId: 'prod-0000',
+    }))).toBe(true)
+    expect(isFirstFilmJourneyView(view({
+      stage: 'released',
+      beat: 'released',
+      productionId: null,
+    }))).toBe(false)
     expect(isFirstFilmJourneyView(view({ scriptProjectId: null, pictureTitle: null, detail: null, next: null }))).toBe(true)
     expect(isFirstFilmJourneyView(view({ next: { kind: 'advance-week', label: 'Wait', site: null } }))).toBe(true)
     expect(isFirstFilmJourneyView(view({ waiting: { untilWeek: 0, reason: 'the draft is due' } }))).toBe(true)
     expect(isFirstFilmJourneyView(view({ blocked: { reason: 'No writer is under contract.' } }))).toBe(true)
-    expect(isFirstFilmJourneyView(view({ ordinal: 12, stage: 'released' }))).toBe(true)
+    expect(isFirstFilmJourneyView(view({
+      ordinal: 12,
+      stage: 'released',
+      beat: 'released',
+      productionId: 'prod-0011',
+    }))).toBe(true)
   })
 })

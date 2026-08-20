@@ -53,6 +53,7 @@ export type JourneyTargetKind =
   | 'script-review'
   | 'plan-auditions'
   | 'audition-review'
+  | 'review-casting-blocker'
   | 'open-package'
   | 'resolve-production'
   | 'advance-week'
@@ -69,6 +70,7 @@ export interface FirstFilmJourneyNext {
 export interface FirstFilmJourneyView {
   stage: FirstFilmJourneyStage
   beat: PictureJourneyBeat
+  productionId: string | null
   scriptProjectId: string | null
   pictureTitle: string | null
   ordinal: number
@@ -114,6 +116,7 @@ const JOURNEY_TARGET_KINDS: readonly JourneyTargetKind[] = [
   'script-review',
   'plan-auditions',
   'audition-review',
+  'review-casting-blocker',
   'open-package',
   'resolve-production',
   'advance-week',
@@ -282,6 +285,7 @@ export function guidanceMarkerBuildingId(
 const VIEW_KEYS = [
   'stage',
   'beat',
+  'productionId',
   'scriptProjectId',
   'pictureTitle',
   'ordinal',
@@ -335,12 +339,18 @@ function isBlocked(value: unknown): value is { reason: string } {
 /** Closed-shape guard over the frozen contract. Nothing partial is ever accepted. */
 export function isFirstFilmJourneyView(value: unknown): value is FirstFilmJourneyView {
   if (!isPlainRecord(value) || !hasExactOwnKeys(value, VIEW_KEYS)) return false
+  const stage = value['stage']
+  const productionId = value['productionId']
   const next = value['next']
   const waiting = value['waiting']
   const blocked = value['blocked']
+  const requiresProductionIdentity = stage === 'in-production' || stage === 'released'
   return (
-    JOURNEY_STAGES.includes(value['stage'] as FirstFilmJourneyStage) &&
+    JOURNEY_STAGES.includes(stage as FirstFilmJourneyStage) &&
     JOURNEY_BEATS.includes(value['beat'] as PictureJourneyBeat) &&
+    (requiresProductionIdentity
+      ? isNonEmptyString(productionId)
+      : productionId === null) &&
     isNullableNonEmptyString(value['scriptProjectId']) &&
     isNullableNonEmptyString(value['pictureTitle']) &&
     Number.isSafeInteger(value['ordinal']) &&

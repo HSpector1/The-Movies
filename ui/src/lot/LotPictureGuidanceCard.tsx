@@ -26,7 +26,7 @@ export type LotPictureGuidanceCardProps = {
    * Take the picture's ONE imperative next step. The host owns what that means physically
    * (pan the camera to the building and select it); this card only names it.
    */
-  onNextStep: (next: FirstFilmJourneyNext) => void
+  onNextStep: (next: FirstFilmJourneyNext, productionId: string | null) => void
   /** No animated collapse when the player has asked for reduced motion. */
   reducedMotion?: boolean
   /** Native inertness while a modal or the renderer owns input. */
@@ -282,7 +282,7 @@ export function LotPictureGuidanceCard({
                   data-testid="lot-picture-guidance-next"
                   data-guidance-kind={next.kind}
                   disabled={disabled}
-                  onClick={() => onNextStep(next)}
+                  onClick={() => onNextStep(next, view.productionId)}
                 >
                   {next.label}
                 </button>

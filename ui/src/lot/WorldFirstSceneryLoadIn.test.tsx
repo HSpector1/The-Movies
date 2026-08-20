@@ -287,6 +287,13 @@ function stage12From(stage7: ProductionOperationsState): ProductionOperationsSta
   }
 }
 
+function sameTitleStage12From(stage7: ProductionOperationsState): ProductionOperationsState {
+  return {
+    ...stage12From(stage7),
+    title: stage7.title,
+  }
+}
+
 async function latestView(): Promise<InstanceType<typeof renderer.FakeView>> {
   await waitFor(() => expect(renderer.instances).toHaveLength(1))
   return renderer.instances[0]!
@@ -440,6 +447,47 @@ describe('World-First Scenery Load-In V1 — StudioLotScreen contract', () => {
     expect(view.focusedBuildings).toEqual(['post'])
     // Guidance opens the smallest retained command surface. The command remains a
     // separate, explicit player action and simulation is untouched by the card click.
+    expect(dispatch).not.toHaveBeenCalled()
+  })
+
+  it('keeps Picture Journey detached from a selected same-title production', async () => {
+    const state = loadFixture(BLOCKED_FIXTURE)
+    const exact = operationAt(state)
+    const sameTitleDecoy = sameTitleStage12From(exact)
+    transformedOperations((operations) => [...operations, sameTitleDecoy])
+    staticLot(state, vi.fn<() => void>())
+    await latestView()
+
+    fireEvent.click(screen.getByTestId(
+      `hollywood-select-production-${sameTitleDecoy.productionId}`,
+    ))
+
+    const guidance = screen.getByTestId('lot-picture-guidance')
+    expect(screen.getByTestId('hollywood-current-production')).not.toContainElement(guidance)
+    expect(screen.getByTestId('lot-picture-guidance-detached')).toContainElement(guidance)
+  })
+
+  it('routes a same-title blocker to the exact production identity', async () => {
+    const state = loadFixture(BLOCKED_FIXTURE)
+    const exact = operationAt(state)
+    if (exact.currentCommand?.kind !== 'clearSceneryLoadIn') {
+      throw new Error('blocked fixture lacks clearSceneryLoadIn')
+    }
+    const sameTitleDecoy = sameTitleStage12From(exact)
+    transformedOperations((operations) => [...operations, sameTitleDecoy])
+    const dispatch = vi.fn<(command: LotProductionCommand) => void>()
+    staticLot(state, dispatch)
+    const view = await latestView()
+
+    fireEvent.click(await screen.findByTestId('lot-picture-guidance-next'))
+
+    const context = await screen.findByTestId('hollywood-scenery-load-in-context')
+    expect(context).toHaveTextContent(exact.facilityLabel)
+    const command = screen.getByTestId('hollywood-production-command-clearSceneryLoadIn')
+    expect(command).toHaveTextContent(exact.currentCommand.label)
+    await waitFor(() => expect(command).toHaveFocus())
+    expect(view.scenerySelections).toEqual([exact.productionId])
+    expect(view.scenerySelections).not.toContain(sameTitleDecoy.productionId)
     expect(dispatch).not.toHaveBeenCalled()
   })
 

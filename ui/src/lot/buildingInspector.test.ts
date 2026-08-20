@@ -522,32 +522,41 @@ describe('World Inspector projection — primary actions (M-B)', () => {
     return baseSnapshot({ firstFilmJourney: view } as unknown as Partial<StudioLotSnapshot>)
   }
 
-  function readyToPackage(kind: 'plan-auditions' | 'open-package'): unknown {
+  function readyToPackage(
+    kind: 'plan-auditions' | 'open-package' | 'review-casting-blocker',
+  ): unknown {
+    const plansAuditions = kind === 'plan-auditions'
+    const reviewsBlocker = kind === 'review-casting-blocker'
     return {
       stage: 'ready-to-package',
-      beat: kind === 'plan-auditions' ? 'screenplay-ready' : 'auditions-reviewed',
+      beat: plansAuditions ? 'screenplay-ready' : 'auditions-reviewed',
+      productionId: null,
+      scriptProjectId: 'script-0000',
       pictureTitle: 'A Season of Archipelago',
       ordinal: 1,
-      headline: kind === 'plan-auditions' ? 'SCREENPLAY ACCEPTED' : 'AUDITIONS REVIEWED',
+      headline: plansAuditions ? 'SCREENPLAY ACCEPTED' : 'AUDITIONS REVIEWED',
       whatHappened:
-        kind === 'plan-auditions'
+        plansAuditions
           ? 'The screenplay was accepted.'
           : 'The camera tests were reviewed.',
       whyItMatters:
-        kind === 'plan-auditions'
+        plansAuditions
           ? 'Casting can now test performers against the roles.'
           : 'The evidence is ready to inform final casting.',
       detail: 'Writer: Ada Vane',
       next: {
         kind,
-        label:
-          kind === 'plan-auditions'
-            ? 'Plan auditions at Casting'
+        label: plansAuditions
+          ? 'Plan auditions at Casting'
+          : reviewsBlocker
+            ? 'Review the package blocker at Casting'
             : "Assemble the picture's package at Casting",
         site: 'casting',
       },
       waiting: null,
-      blocked: null,
+      blocked: reviewsBlocker
+        ? { reason: 'The remaining package cannot be staffed.' }
+        : null,
     }
   }
 
@@ -748,6 +757,17 @@ describe('World Inspector projection — primary actions (M-B)', () => {
     expect(context.primaryActions).toEqual([
       { kind: 'open-package', label: 'Open the picture’s package' },
     ])
+  })
+
+  it('offers no package verb when Casting is only the place to review a blocker', () => {
+    const context = lotBuildingInspectorContext(
+      journeySnapshot(readyToPackage('review-casting-blocker')),
+      'casting',
+      null,
+      null,
+      board(),
+    )
+    expect(context.primaryActions).toEqual([])
   })
 
   it('offers Casting nothing when the journey is absent, malformed, or at another stage', () => {

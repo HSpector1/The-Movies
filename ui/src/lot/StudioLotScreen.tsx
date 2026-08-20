@@ -1882,7 +1882,9 @@ export function StudioLotScreen({
   const pictureJourneyMatchesHollywoodOperation =
     hollywoodOperation === null ||
     (pictureJourney.kind === 'view' &&
-      pictureJourney.view.pictureTitle === hollywoodOperation.title)
+      pictureJourney.view.stage === 'in-production' &&
+      pictureJourney.view.productionId !== null &&
+      pictureJourney.view.productionId === hollywoodOperation.productionId)
   const hollywoodCompanyPresentationOwned =
     hollywoodPlace === null &&
     !publicitySelected &&
@@ -6179,7 +6181,10 @@ export function StudioLotScreen({
    * (`focusHollywoodPlace` glides and no-ops when the place is already comfortably in
    * frame), and never a full-screen management screen.
    */
-  const takePictureGuidanceStep = useCallback((next: FirstFilmJourneyNext) => {
+  const takePictureGuidanceStep = useCallback((
+    next: FirstFilmJourneyNext,
+    renderedProductionId: string | null,
+  ) => {
     if (worldInputSuspendedRef.current) return
     const latest = latestSnapshotRef.current
     const target = journeyTargetBuildingId(next.site, latest)
@@ -6202,15 +6207,20 @@ export function StudioLotScreen({
       const latestJourney = firstFilmJourneyContext(latest)
       const latestNext = latestJourney.kind === 'view' ? latestJourney.view.next : null
       const sameStep =
+        latestJourney.kind === 'view' &&
+        latestJourney.view.stage === 'in-production' &&
+        latestJourney.view.productionId === renderedProductionId &&
         latestNext !== null &&
         latestNext.kind === next.kind &&
         latestNext.label === next.label &&
         latestNext.site === next.site
-      const title = latestJourney.kind === 'view' ? latestJourney.view.pictureTitle : null
+      const productionId = sameStep && latestJourney.kind === 'view'
+        ? latestJourney.view.productionId
+        : null
       const commandOwners =
-        sameStep && title !== null && Array.isArray(latest.productionOperations)
+        sameStep && productionId !== null && Array.isArray(latest.productionOperations)
           ? latest.productionOperations.filter((operation) => (
-              operation.title === title &&
+              operation.productionId === productionId &&
               operation.currentCommand !== null &&
               operation.currentCommand.productionId === operation.productionId
             ))

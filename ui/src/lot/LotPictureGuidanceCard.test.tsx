@@ -22,6 +22,7 @@ function journey(overrides: Partial<FirstFilmJourneyView> = {}): FirstFilmJourne
   return {
     stage: 'no-picture',
     beat: 'no-picture',
+    productionId: null,
     scriptProjectId: null,
     pictureTitle: null,
     ordinal: 1,
@@ -38,12 +39,15 @@ function journey(overrides: Partial<FirstFilmJourneyView> = {}): FirstFilmJourne
 
 function renderCard(
   view: FirstFilmJourneyView,
-  onNextStep: (next: FirstFilmJourneyView['next']) => void = () => {},
+  onNextStep: (
+    next: FirstFilmJourneyView['next'],
+    productionId: string | null,
+  ) => void = () => {},
 ) {
   return render(
     <LotPictureGuidanceCard
       state={{ kind: 'view', view }}
-      onNextStep={(next) => onNextStep(next)}
+      onNextStep={(next, productionId) => onNextStep(next, productionId)}
     />,
   )
 }
@@ -294,7 +298,7 @@ describe('LotPictureGuidanceCard — the picture is followable from before it ex
     renderCard(view, onNextStep)
     fireEvent.click(screen.getByTestId('lot-picture-guidance-next'))
     expect(onNextStep).toHaveBeenCalledTimes(1)
-    expect(onNextStep).toHaveBeenCalledWith(view.next)
+    expect(onNextStep).toHaveBeenCalledWith(view.next, view.productionId)
   })
 
   it('does not offer a step the projection did not offer', () => {
