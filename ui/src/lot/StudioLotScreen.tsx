@@ -178,6 +178,7 @@ import {
   setLotSelectedBuilding,
 } from './snapshot/selectedBuildingSession.ts'
 import { lotStageAssignment } from './snapshot/stageAssignment.ts'
+import { lotSetDressings } from './snapshot/setDressing.ts'
 import { BUILDING_BLURBS, resolveAction, type LotRoute } from './navigation.ts'
 import {
   lotBuildingInspectorContext,
@@ -240,7 +241,7 @@ function stageNameForOperation(
   return identity?.facilityName ?? operation.facilityLabel
 }
 import type { LotCellPoint } from './snapshot/StudioLotSnapshot.ts'
-import { placedFacilityIdOf } from './snapshot/StudioLotSnapshot.ts'
+import { placedBuildingId, placedFacilityIdOf } from './snapshot/StudioLotSnapshot.ts'
 import {
   demolishConfirmText,
   demolishReceiptText,
@@ -1653,6 +1654,20 @@ export function StudioLotScreen({
       snapshot.placement.placements.some((placed) => placed.status === 'underConstruction')) ||
     (Array.isArray(snapshot.buildings) &&
       snapshot.buildings.some((building) => building.constructionStatus === 'building'))
+  const underConstructionPlacement = snapshot.placement?.placements?.find(
+    (placed) => placed.status === 'underConstruction',
+  )
+  const constructionCameraTarget: BuildingId | null = underConstructionPlacement !== undefined
+    ? underConstructionPlacement.parcelId === 'expansion'
+      ? 'expansion'
+      : placedBuildingId(underConstructionPlacement.id)
+    : snapshot.buildings.find((building) => building.constructionStatus === 'building')?.id ?? null
+  const mountedSetDressings = lotSetDressings(snapshot).filter((dressing) => dressing.set !== null)
+  const activeProductionStageId = snapshot.activeProductions.find((production) => production.active)?.stageId
+  const mountedSetCameraTarget: BuildingId | null =
+    mountedSetDressings.find((dressing) => dressing.buildingId === activeProductionStageId)?.buildingId ??
+    mountedSetDressings[0]?.buildingId ??
+    null
   const latestGameStateRef = useRef(state)
   latestGameStateRef.current = state
   const currentPublicityCampaign = publicityCampaignContext(snapshot)
@@ -8741,6 +8756,38 @@ export function StudioLotScreen({
               >
                 <span aria-hidden="true">◉</span><span>Hero stage</span>
               </button>
+              {mountedSetCameraTarget !== null && (
+                <button
+                  type="button"
+                  className="lot-camera-inspect"
+                  disabled={worldInputSuspended}
+                  title="Inspect the mounted movie set"
+                  aria-label="Inspect the mounted movie set"
+                  data-testid="lot-camera-mounted-set"
+                  onPointerDown={containWorldInput}
+                  onMouseDown={containWorldInput}
+                  onTouchStart={containWorldInput}
+                  onClick={() => viewRef.current?.frameMountedSet?.(mountedSetCameraTarget)}
+                >
+                  <span aria-hidden="true">▱</span><span>Set</span>
+                </button>
+              )}
+              {constructionCameraTarget !== null && (
+                <button
+                  type="button"
+                  className="lot-camera-inspect"
+                  disabled={worldInputSuspended}
+                  title="Inspect the active construction site"
+                  aria-label="Inspect the active construction site"
+                  data-testid="lot-camera-construction"
+                  onPointerDown={containWorldInput}
+                  onMouseDown={containWorldInput}
+                  onTouchStart={containWorldInput}
+                  onClick={() => viewRef.current?.frameBuilding?.(constructionCameraTarget, 4.1, -1.5)}
+                >
+                  <span aria-hidden="true">△</span><span>Construction</span>
+                </button>
+              )}
               <button
                 type="button"
                 className="lot-camera-inspect is-icon"

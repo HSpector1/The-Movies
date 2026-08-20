@@ -54,6 +54,7 @@ import {
 } from 'three'
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
 import type { StudioLotSnapshot, BuildingId, LotPersonState, LotPlacedFacilityState } from '../snapshot/StudioLotSnapshot'
+import { placedFacilityIdOf } from '../snapshot/StudioLotSnapshot'
 import { composeWorldBuildings, worldBounds, type WorldBuilding } from '../tycoon/buildings.ts'
 import {
   CAMERA_FRAMINGS,
@@ -427,7 +428,16 @@ export class ThreeLotScene {
 
   /** A parcel is addressable ground, not a building body. */
   private hasPhysicalBody(building: WorldBuilding): boolean {
-    return !(building.role === 'parcel' && building.texKey.length === 0 && building.status === null)
+    if (!(building.role === 'parcel' && building.texKey.length === 0 && building.status === null)) {
+      return true
+    }
+    // The legacy Annex is one intentional identity exception: its managed placement
+    // keeps the parcel id `expansion`, while the construction theater addresses the
+    // same engine placement as `placed-<id>`. It is still a physical body as soon as
+    // the authoritative placement stands on that parcel.
+    return this.snapshot.placement?.placements.some(
+      (placed) => placed.parcelId === building.buildingId,
+    ) === true
   }
 
   private clearGroup(group: Group): void {
@@ -442,12 +452,41 @@ export class ThreeLotScene {
     for (const p of this.snapshot.placement?.placements ?? []) placementById.set(p.id, p)
     for (const building of this.buildings) {
       if (!this.hasPhysicalBody(building)) continue
+      const legacyParcelPlacement = building.role === 'parcel'
+        ? this.snapshot.placement?.placements.find((placed) => placed.parcelId === building.buildingId)
+        : undefined
+      const placement = building.placedFacilityId !== null
+        ? placementById.get(building.placedFacilityId)
+        : legacyParcelPlacement
+      const placementWidth = placement === undefined || placement.cells.length === 0
+        ? building.fw
+        : Math.max(...placement.cells.map((cell) => cell.gx)) - placement.origin.gx + 1
+      const placementDepth = placement === undefined || placement.cells.length === 0
+        ? building.fd
+        : Math.max(...placement.cells.map((cell) => cell.gy)) - placement.origin.gy + 1
+      const displayBuilding: WorldBuilding = placement === undefined
+        ? building
+        : {
+            ...building,
+            label: placement.name.toUpperCase(),
+            capability: placement.capability ?? null,
+            blueprintId: placement.blueprintId,
+            placedFacilityId: placement.id,
+            status: placement.status,
+            gx: placement.origin.gx,
+            gy: placement.origin.gy,
+            fw: placementWidth,
+            fd: placementDepth,
+          }
       let body: Group
-      if (building.status === 'underConstruction') {
-        const placement = building.placedFacilityId !== null ? placementById.get(building.placedFacilityId) : undefined
-        body = this.buildingFactory.construction(building.fw, building.fd, placement?.progress01 ?? 0)
+      if (displayBuilding.status === 'underConstruction') {
+        body = this.buildingFactory.construction(
+          displayBuilding.fw,
+          displayBuilding.fd,
+          placement?.progress01 ?? 0,
+        )
       } else {
-        body = this.buildingFactory.make(building)
+        body = this.buildingFactory.make(displayBuilding)
       }
       const dynamicParts = [
         body.userData.hotOpenDoor,
@@ -455,7 +494,10 @@ export class ThreeLotScene {
         body.userData.hotLamp,
       ].filter((part): part is Object3D => part instanceof Object3D)
       this.buildingBatchGeometries.push(...this.batchStaticMeshes(body, dynamicParts))
-      const centre = gridToWorld(building.gx + building.fw / 2, building.gy + building.fd / 2)
+      const centre = gridToWorld(
+        displayBuilding.gx + displayBuilding.fw / 2,
+        displayBuilding.gy + displayBuilding.fd / 2,
+      )
       body.position.copy(centre)
       body.userData.buildingId = building.buildingId
       body.userData.label = building.label
@@ -475,6 +517,40 @@ export class ThreeLotScene {
       if (!this.hasPhysicalBody(b)) continue
       for (let gx = Math.floor(b.gx); gx < b.gx + b.fw; gx++) {
         for (let gy = Math.floor(b.gy); gy < b.gy + b.fd; gy++) occupied.add(`${gx}:${gy}`)
+      }
+    }
+    const byId = new Map(this.buildings.map((building) => [building.buildingId, building]))
+    // Cosmetic landscaping yields to snapshot-owned work aprons as well as bodies.
+    // Without this reservation, deterministic palms could grow through an active
+    // construction crew or a mounted set even though both are authoritative facts.
+    for (const state of lotBodyTheaterStates(this.snapshot)) {
+      if (!state.hot && !state.building) continue
+      const placementId = placedFacilityIdOf(state.buildingId)
+      const legacyParcelId = placementId === null
+        ? null
+        : this.snapshot.placement?.placements.find((placed) => placed.id === placementId)?.parcelId ?? null
+      const building = byId.get(state.buildingId) ??
+        (legacyParcelId === null ? undefined : byId.get(legacyParcelId))
+      const work = building?.anchors['work'] ?? building?.anchors['entry']
+      if (work === undefined) continue
+      for (let gx = Math.floor(work.gx - 2.2); gx <= Math.ceil(work.gx + 2.2); gx++) {
+        for (let gy = Math.floor(work.gy - 1.2); gy <= Math.ceil(work.gy + 2.3); gy++) {
+          occupied.add(`${gx}:${gy}`)
+        }
+      }
+    }
+    for (const dressing of lotSetDressings(this.snapshot)) {
+      if (dressing.set === null) continue
+      const building = byId.get(dressing.buildingId)
+      const work = building?.anchors['work'] ?? building?.anchors['entry']
+      if (building === undefined || work === undefined) continue
+      const side = building.gy < this.lotD / 2 ? 1 : -1
+      const setGx = work.gx + 2.15
+      const setGy = work.gy + side * 1.35
+      for (let gx = Math.floor(setGx - 1.45); gx <= Math.ceil(setGx + 1.45); gx++) {
+        for (let gy = Math.floor(setGy - 1.05); gy <= Math.ceil(setGy + 1.05); gy++) {
+          occupied.add(`${gx}:${gy}`)
+        }
       }
     }
     const seed = this.snapshot.sceneSeed ?? 'lot'
@@ -651,7 +727,12 @@ export class ThreeLotScene {
     }
 
     for (const state of states) {
-      const building = byId.get(state.buildingId)
+      const placementId = placedFacilityIdOf(state.buildingId)
+      const legacyParcelId = placementId === null
+        ? null
+        : this.snapshot.placement?.placements.find((placed) => placed.id === placementId)?.parcelId ?? null
+      const building = byId.get(state.buildingId) ??
+        (legacyParcelId === null ? undefined : byId.get(legacyParcelId))
       if (building === undefined) continue
       const work = building.anchors['work'] ?? building.anchors['crewCall']
       if (work === undefined) continue
@@ -1374,7 +1455,7 @@ export class ThreeLotScene {
    * its published work/entry anchor so the facade and the activity apron share frame;
    * no selection, occupancy or production claim is created by the camera.
    */
-  frameBuilding(id: BuildingId, relativeScale = 3.15, yaw = -Math.PI / 2): boolean {
+  frameBuilding(id: BuildingId, relativeScale = 3.15, yaw = -2.05): boolean {
     const building = this.buildings.find((candidate) => candidate.buildingId === id)
     if (building === undefined) return false
     const centre = { gx: building.gx + building.fw / 2, gy: building.gy + building.fd / 2 }
@@ -1383,6 +1464,25 @@ export class ThreeLotScene {
     this.centerOnGrid(
       centre.gx * 0.56 + work.gx * 0.44,
       centre.gy * 0.56 + work.gy * 0.44,
+      this.fitZoom() * relativeScale,
+    )
+    return true
+  }
+
+  /** Frame one real mounted set instead of the much larger building that owns it. */
+  frameMountedSet(id: BuildingId, relativeScale = 4.05, yaw = 0.8): boolean {
+    const dressing = lotSetDressings(this.snapshot).find(
+      (candidate) => candidate.buildingId === id && candidate.set !== null,
+    )
+    const building = this.buildings.find((candidate) => candidate.buildingId === id)
+    if (dressing === undefined || building === undefined) return false
+    const work = building.anchors['work'] ?? building.anchors['entry']
+    if (work === undefined) return false
+    const side = building.gy < this.lotD / 2 ? 1 : -1
+    this.camTargetYaw = yaw
+    this.centerOnGrid(
+      work.gx + 2.15,
+      work.gy + side * 1.35,
       this.fitZoom() * relativeScale,
     )
     return true

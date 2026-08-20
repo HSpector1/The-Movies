@@ -14,7 +14,7 @@ const repoRoot = resolve(here, '..', '..')
 const outputDir = join(repoRoot, 'out', 'visual-regression')
 const productionFixture = join(
   repoRoot,
-  'ui/e2e/world-first-scenery-load-in-v1/week-30-nights-of-watchtower-stage-7-ready.save.json',
+  'ui/e2e/live-week-advance-v1/week-30-nights-of-watchtower-stage-7-scheduled.save.json',
 )
 const constructionFixture = join(
   repoRoot,
@@ -27,19 +27,35 @@ const THREE_LOT_LS_KEY = 'project-studio.flags.three-lot'
 const VIEWPORT = { width: 1600, height: 900 } as const
 
 type Capture = {
-  name: 'overview' | 'production' | 'production-close' | 'construction'
+  name: 'overview' | 'production' | 'hero-stage-medium' | 'hero-stage-close' | 'construction' | 'backlot'
   fixture: string
-  // Aliases intentionally name only existing renderer camera presets. See the docs
-  // for the limitation: no separately named production-close/construction preset exists.
-  cameraPreset: 'overview' | 'production' | 'theater'
+  framing:
+    | { kind: 'preset'; preset: 'overview' | 'production' }
+    | { kind: 'building'; buildingId: string; scale: number; yaw?: number }
+    | { kind: 'set'; buildingId: string; scale: number; yaw?: number }
 }
 
 const CAPTURES: readonly Capture[] = [
-  { name: 'overview', fixture: productionFixture, cameraPreset: 'overview' },
-  { name: 'production', fixture: productionFixture, cameraPreset: 'production' },
-  { name: 'production-close', fixture: productionFixture, cameraPreset: 'production' },
-  { name: 'construction', fixture: constructionFixture, cameraPreset: 'theater' },
+  { name: 'overview', fixture: productionFixture, framing: { kind: 'preset', preset: 'overview' } },
+  { name: 'production', fixture: productionFixture, framing: { kind: 'preset', preset: 'production' } },
+  { name: 'hero-stage-medium', fixture: productionFixture, framing: { kind: 'building', buildingId: 'stage-a', scale: 3.15 } },
+  { name: 'hero-stage-close', fixture: productionFixture, framing: { kind: 'building', buildingId: 'stage-a', scale: 5.15 } },
+  { name: 'construction', fixture: constructionFixture, framing: { kind: 'building', buildingId: 'expansion', scale: 4.1, yaw: -1.5 } },
+  { name: 'backlot', fixture: productionFixture, framing: { kind: 'set', buildingId: 'stage-a', scale: 4.05 } },
 ]
+
+type ThreePerformance = {
+  rendererKind?: string
+  frameSampleCount: number
+  fps: number
+  onePercentLowFps: number
+  p99FrameMs: number
+  worstFrameMs: number
+  displayObjects: number
+  dynamicActors: number
+  drawCalls: number
+  textureCount?: number
+}
 
 type PngFacts = { width: number; height: number; byteLength: number; distinctSamples: number }
 
@@ -160,19 +176,78 @@ async function waitForThreeReady(page: Page): Promise<void> {
   }), { timeout: 60_000 }).toBe(true)
 }
 
-async function selectPreset(page: Page, preset: Capture['cameraPreset']): Promise<void> {
-  const reached = await page.evaluate((requestedPreset) => {
+async function selectFraming(page: Page, framing: Capture['framing']): Promise<void> {
+  const reached = await page.evaluate((requestedFraming) => {
     const view = (globalThis as typeof globalThis & {
-      __projectStudio3dVisualRegressionView?: { camera?: (preset: string) => void; threeScene?: unknown }
+      __projectStudio3dVisualRegressionView?: {
+        camera?: (preset: string) => void
+        frameBuilding?: (buildingId: string, scale: number) => boolean
+        frameMountedSet?: (buildingId: string, scale: number) => boolean
+        threeScene?: {
+          frameBuilding?: (buildingId: string, scale: number, yaw: number) => boolean
+          frameMountedSet?: (buildingId: string, scale: number, yaw: number) => boolean
+        }
+      }
     }).__projectStudio3dVisualRegressionView
-    if (view?.threeScene === undefined || view.threeScene === null || typeof view.camera !== 'function') return false
-    view.camera(requestedPreset)
-    return true
-  }, preset)
-  expect(reached, `required camera preset ${preset} could not be reached`).toBe(true)
+    if (view?.threeScene === undefined || view.threeScene === null) return false
+    if (requestedFraming.kind === 'preset') {
+      if (typeof view.camera !== 'function') return false
+      view.camera(requestedFraming.preset)
+      return true
+    }
+    if (requestedFraming.kind === 'set') {
+      if (requestedFraming.yaw !== undefined && typeof view.threeScene.frameMountedSet === 'function') {
+        return view.threeScene.frameMountedSet(
+          requestedFraming.buildingId,
+          requestedFraming.scale,
+          requestedFraming.yaw,
+        )
+      }
+      return typeof view.frameMountedSet === 'function' &&
+        view.frameMountedSet(requestedFraming.buildingId, requestedFraming.scale)
+    }
+    if (requestedFraming.yaw !== undefined && typeof view.threeScene.frameBuilding === 'function') {
+      return view.threeScene.frameBuilding(
+        requestedFraming.buildingId,
+        requestedFraming.scale,
+        requestedFraming.yaw,
+      )
+    }
+    return typeof view.frameBuilding === 'function' &&
+      view.frameBuilding(requestedFraming.buildingId, requestedFraming.scale)
+  }, framing)
+  expect(reached, `required camera framing ${JSON.stringify(framing)} could not be reached`).toBe(true)
   // The 3D camera settles toward its preset. Reduced motion removes ambient actor motion;
   // this pause gives the camera's own interpolation a fixed, conservative completion window.
   await page.waitForTimeout(1_000)
+}
+
+async function measureThree(page: Page): Promise<ThreePerformance> {
+  const reset = await page.evaluate(() => {
+    const view = (globalThis as typeof globalThis & {
+      __projectStudio3dVisualRegressionView?: { resetHollywoodPerformance?: () => void }
+    }).__projectStudio3dVisualRegressionView
+    if (typeof view?.resetHollywoodPerformance !== 'function') return false
+    view.resetHollywoodPerformance()
+    return true
+  })
+  expect(reset, 'Three performance window could not be reset').toBe(true)
+  await page.waitForTimeout(4_000)
+  const measured = await page.evaluate(() => {
+    const view = (globalThis as typeof globalThis & {
+      __projectStudio3dVisualRegressionView?: { hollywoodPerformance?: () => ThreePerformance | null }
+    }).__projectStudio3dVisualRegressionView
+    return view?.hollywoodPerformance?.() ?? null
+  })
+  expect(measured, 'Three performance stats were unavailable').not.toBeNull()
+  expect(measured?.rendererKind).toBe('three-3d')
+  // Chromium's headless software renderer may be deliberately throttled. A headed
+  // evidence run fills the full 240-frame window; CI only needs a non-trivial sample.
+  expect(measured?.frameSampleCount ?? 0).toBeGreaterThan(12)
+  expect(measured?.fps ?? 0).toBeGreaterThan(0)
+  expect(measured?.drawCalls ?? 0).toBeGreaterThan(0)
+  expect(measured?.textureCount ?? 0).toBeGreaterThan(0)
+  return measured!
 }
 
 test.describe.configure({ timeout: 300_000 })
@@ -180,7 +255,13 @@ test.describe.configure({ timeout: 300_000 })
 test('capture canonical real-3D studio views', async ({ browser }) => {
   mkdirSync(outputDir, { recursive: true })
   const failures: string[] = []
-  const screenshots: Array<{ name: string; path: string; cameraPreset: string; fixture: string }> = []
+  const screenshots: Array<{
+    name: string
+    path: string
+    framing: Capture['framing']
+    fixture: string
+    performance: ThreePerformance
+  }> = []
 
   for (const capture of CAPTURES) {
     const page = await browser.newPage({ viewport: VIEWPORT })
@@ -190,7 +271,8 @@ test('capture canonical real-3D studio views', async ({ browser }) => {
     })
     await installFixture(page, capture.fixture)
     await waitForThreeReady(page)
-    await selectPreset(page, capture.cameraPreset)
+    await selectFraming(page, capture.framing)
+    const performance = await measureThree(page)
 
     const canvasFacts = pngFacts(Buffer.from(await page.getByTestId('studio-lot-canvas').locator('canvas').screenshot()))
     expect(canvasFacts.byteLength, `${capture.name}: 3D canvas screenshot is trivial`).toBeGreaterThan(20_000)
@@ -207,8 +289,9 @@ test('capture canonical real-3D studio views', async ({ browser }) => {
     screenshots.push({
       name: capture.name,
       path: relative(repoRoot, screenshotPath),
-      cameraPreset: capture.cameraPreset,
+      framing: capture.framing,
       fixture: relative(repoRoot, capture.fixture),
+      performance,
     })
     await page.close()
   }

@@ -18,6 +18,9 @@ export default defineConfig({
     baseURL: `http://127.0.0.1:${PORT}`,
     viewport: { width: 1600, height: 900 },
     screenshot: 'off',
+    // Evidence runs can opt into a visible, hardware-accelerated browser. The default
+    // remains headless so CI can still prove that every canonical frame renders.
+    headless: process.env.PROJECT_STUDIO_CAPTURE_HEADED !== '1',
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {

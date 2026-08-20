@@ -637,10 +637,19 @@ export class StudioLotView {
   }
 
   /** Reward close inspection in real 3D; older renderers retain their production framing. */
-  frameBuilding(buildingId: BuildingId, relativeScale = 3.15): boolean {
-    if (this.threeScene !== null) return this.threeScene.frameBuilding(buildingId, relativeScale)
+  frameBuilding(buildingId: BuildingId, relativeScale = 3.15, yaw?: number): boolean {
+    if (this.threeScene !== null) {
+      return yaw === undefined
+        ? this.threeScene.frameBuilding(buildingId, relativeScale)
+        : this.threeScene.frameBuilding(buildingId, relativeScale, yaw)
+    }
     this.camera('production')
     return this.tycoonScene?.focusBuilding(buildingId) ?? false
+  }
+
+  /** Reward close inspection of one snapshot-owned mounted scenery kit. */
+  frameMountedSet(buildingId: BuildingId, relativeScale = 4.05): boolean {
+    return this.threeScene?.frameMountedSet(buildingId, relativeScale) ?? false
   }
 
   hollywoodPerformance(): HollywoodPerformance | null {
