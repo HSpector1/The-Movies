@@ -1001,6 +1001,26 @@
   overflow-y: auto;
   overscroll-behavior: contain;
 }
+/* When the persistent Picture Journey is the same production, it already carries
+   what happened, why it matters and the exact next command. Keep the older detail
+   markup in the accessibility/test contract, but do not paint a second production
+   card underneath it. The world wins back almost half the left edge. */
+.hollywood-production:has(> .hollywood-picture-guidance) {
+  width: 268px;
+  max-height: calc(100% - 132px);
+  padding: 12px 13px 13px;
+  background: linear-gradient(150deg, rgba(17, 43, 35, 0.93), rgba(8, 22, 18, 0.89));
+}
+.hollywood-production:has(> .hollywood-picture-guidance) > :is(
+  .hollywood-operation-divider,
+  .hollywood-eyebrow,
+  h2,
+  .hollywood-progress,
+  dl,
+  .hollywood-consequence
+) {
+  display: none;
+}
 .hollywood-picture-guidance-detached {
   position: absolute;
   z-index: 12;
@@ -1018,7 +1038,13 @@
   box-shadow: 0 12px 38px rgba(0, 0, 0, 0.52), inset 0 0 0 1px rgba(255, 255, 255, 0.035);
   backdrop-filter: blur(8px);
 }
-.hollywood-inspector { right: 16px; top: 16px; width: 306px; }
+.hollywood-inspector {
+  right: 16px;
+  top: 16px;
+  width: 282px;
+  padding: 13px 14px;
+  background: linear-gradient(150deg, rgba(17, 43, 35, 0.93), rgba(8, 22, 18, 0.89));
+}
 .hollywood-eyebrow {
   margin: 0 0 8px;
   color: #c8a65f;
@@ -2507,31 +2533,44 @@ button.hollywood-consequence:hover { background: rgba(133, 61, 28, .58); }
    centre. Deliberately quiet: a small pill, one command, not a camera toolbar.
    The written label never steps aside for a glyph at narrow widths or 200% effective
    zoom: those are exactly the conditions where a lost player needs to READ it. */
-.lot-camera-home {
+.lot-camera-tools {
   position: absolute;
   z-index: 16;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: 18px;
+  bottom: 84px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px;
+  border: 1px solid rgba(210, 174, 98, .38);
+  border-radius: 8px;
+  background: rgba(8, 22, 18, .84);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .3);
+}
+.lot-camera-home,
+.lot-camera-inspect {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  min-height: 36px;
-  padding: 6px 11px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: rgba(18, 21, 30, 0.86);
-  color: var(--text-dim);
-  font-size: 11px;
+  min-height: 32px;
+  padding: 5px 9px;
+  border: 1px solid rgba(210, 174, 98, .22);
+  border-radius: 5px;
+  background: rgba(31, 48, 39, .82);
+  color: #d6c8a9;
+  font-size: 10px;
   line-height: 1.2;
   white-space: nowrap;
   cursor: pointer;
-  backdrop-filter: blur(4px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
-.lot-camera-home:hover:not(:disabled) { color: var(--text); border-color: var(--accent, #c9a24a); }
-.lot-camera-home:focus-visible { outline: 2px solid var(--accent, #c9a24a); outline-offset: 2px; }
-.lot-camera-home:disabled { opacity: 0.5; cursor: default; }
+.lot-camera-inspect.is-icon { min-width: 32px; justify-content: center; padding-inline: 7px; font-size: 15px; }
+.lot-camera-home:hover:not(:disabled),
+.lot-camera-inspect:hover:not(:disabled) { color: #fff0cd; border-color: var(--accent, #c9a24a); }
+.lot-camera-home:focus-visible,
+.lot-camera-inspect:focus-visible { outline: 2px solid var(--accent, #c9a24a); outline-offset: 2px; }
+.lot-camera-home:disabled,
+.lot-camera-inspect:disabled { opacity: 0.5; cursor: default; }
 .lot-camera-home-glyph { font-size: 13px; line-height: 1; }
 .lot-camera-home-key {
   padding: 1px 5px;

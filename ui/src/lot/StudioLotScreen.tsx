@@ -8670,36 +8670,94 @@ export function StudioLotScreen({
             moves, no simulation runs, not one byte of the session changes.
           */}
           {canvasReady && !canvasFailed && (
-            <button
-              type="button"
-              className="lot-camera-home"
-              data-testid="lot-camera-home"
-              disabled={worldInputSuspended}
-              aria-keyshortcuts={cameraHomeShortcut ?? undefined}
-              title={
-                cameraHomeShortcut === null
-                  ? 'Show the whole property'
-                  : `Show the whole property (shortcut: ${cameraHomeShortcut})`
-              }
-              aria-label={
-                cameraHomeShortcut === null
-                  ? 'Show the whole property'
-                  : `Show the whole property. Keyboard shortcut ${cameraHomeShortcut}.`
-              }
-              onPointerDown={containWorldInput}
-              onMouseDown={containWorldInput}
-              onTouchStart={containWorldInput}
-              onClick={() => {
-                if (worldInputSuspendedRef.current) return
-                viewRef.current?.resetCamera?.()
-              }}
-            >
-              <span aria-hidden="true" className="lot-camera-home-glyph">⤢</span>
-              <span className="lot-camera-home-label">Whole property</span>
-              {cameraHomeShortcut !== null && (
-                <kbd aria-hidden="true" className="lot-camera-home-key">{cameraHomeShortcut}</kbd>
-              )}
-            </button>
+            <div className="lot-camera-tools" role="group" aria-label="Lot camera">
+              <button
+                type="button"
+                className="lot-camera-home"
+                data-testid="lot-camera-home"
+                disabled={worldInputSuspended}
+                aria-keyshortcuts={cameraHomeShortcut ?? undefined}
+                title={
+                  cameraHomeShortcut === null
+                    ? 'Show the whole property'
+                    : `Show the whole property (shortcut: ${cameraHomeShortcut})`
+                }
+                aria-label={
+                  cameraHomeShortcut === null
+                    ? 'Show the whole property'
+                    : `Show the whole property. Keyboard shortcut ${cameraHomeShortcut}.`
+                }
+                onPointerDown={containWorldInput}
+                onMouseDown={containWorldInput}
+                onTouchStart={containWorldInput}
+                onClick={() => {
+                  if (worldInputSuspendedRef.current) return
+                  viewRef.current?.resetCamera?.()
+                }}
+              >
+                <span aria-hidden="true" className="lot-camera-home-glyph">⤢</span>
+                <span className="lot-camera-home-label">Campus</span>
+                {cameraHomeShortcut !== null && (
+                  <kbd aria-hidden="true" className="lot-camera-home-key">{cameraHomeShortcut}</kbd>
+                )}
+              </button>
+              <button
+                type="button"
+                className="lot-camera-inspect"
+                disabled={worldInputSuspended}
+                title="Frame the production district"
+                aria-label="Frame the production district"
+                onPointerDown={containWorldInput}
+                onMouseDown={containWorldInput}
+                onTouchStart={containWorldInput}
+                onClick={() => viewRef.current?.camera('production')}
+              >
+                <span aria-hidden="true">⌖</span><span>District</span>
+              </button>
+              <button
+                type="button"
+                className="lot-camera-inspect"
+                disabled={worldInputSuspended || hollywoodOperation?.locationBuildingId == null}
+                title="Inspect the active soundstage"
+                aria-label="Inspect the active soundstage"
+                data-testid="lot-camera-hero-stage"
+                onPointerDown={containWorldInput}
+                onMouseDown={containWorldInput}
+                onTouchStart={containWorldInput}
+                onClick={() => {
+                  const target = hollywoodOperation?.locationBuildingId
+                  if (target !== null && target !== undefined) viewRef.current?.frameBuilding?.(target)
+                }}
+              >
+                <span aria-hidden="true">◉</span><span>Hero stage</span>
+              </button>
+              <button
+                type="button"
+                className="lot-camera-inspect is-icon"
+                disabled={worldInputSuspended}
+                title="Rotate camera left"
+                aria-label="Rotate camera left"
+                onPointerDown={containWorldInput}
+                onMouseDown={containWorldInput}
+                onTouchStart={containWorldInput}
+                onClick={() => viewRef.current?.rotateCamera?.(-1)}
+              >
+                <span aria-hidden="true">↶</span>
+              </button>
+              <button
+                type="button"
+                className="lot-camera-inspect is-icon"
+                disabled={worldInputSuspended}
+                title="Rotate camera right"
+                aria-label="Rotate camera right"
+                onPointerDown={containWorldInput}
+                onMouseDown={containWorldInput}
+                onTouchStart={containWorldInput}
+                onClick={() => viewRef.current?.rotateCamera?.(1)}
+              >
+                <span aria-hidden="true">↷</span>
+              </button>
+            </div>
           )}
 
           {visibleConstructionCompletion !== null && (
@@ -9157,8 +9215,10 @@ export function StudioLotScreen({
                   data-average-update-ms={hollywoodPerf.updateMs}
                   data-worst-update-ms={hollywoodPerf.worstUpdateMs}
                   data-draw-calls={hollywoodPerf.drawCalls}
+                  data-renderer={hollywoodPerf.rendererKind ?? 'hollywood-2d'}
+                  data-textures={hollywoodPerf.textureCount ?? ''}
                 >
-                  {hollywoodPerf.fps} fps · {hollywoodPerf.onePercentLowFps} fps 1% low · {hollywoodPerf.displayObjects} objects · {hollywoodPerf.dynamicActors} actors · {hollywoodPerf.textureMemoryMb} MB decoded · {hollywoodPerf.roleAtlasEncodedKb} KB atlas · {hollywoodPerf.p99FrameMs} ms p99 · {hollywoodPerf.worstFrameMs} ms worst · {hollywoodPerf.updateMs} ms update · {hollywoodPerf.drawCalls} draws
+                  {hollywoodPerf.fps} fps · {hollywoodPerf.onePercentLowFps} fps 1% low · {hollywoodPerf.displayObjects} objects · {hollywoodPerf.dynamicActors} actors · {hollywoodPerf.rendererKind === 'three-3d' ? `${String(hollywoodPerf.textureCount ?? 0)} textures` : `${String(hollywoodPerf.textureMemoryMb)} MB decoded · ${String(hollywoodPerf.roleAtlasEncodedKb)} KB atlas`} · {hollywoodPerf.p99FrameMs} ms p99 · {hollywoodPerf.worstFrameMs} ms worst · {hollywoodPerf.updateMs} ms CPU · {hollywoodPerf.drawCalls} draws
                 </div>
               )}
             </>

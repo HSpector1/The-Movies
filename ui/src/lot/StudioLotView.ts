@@ -436,6 +436,11 @@ export class StudioLotView {
     this.threeScene?.applyCameraPreset(preset)
   }
 
+  /** Presentation-only quarter turns for inspecting service faces in real 3D. */
+  rotateCamera(direction: -1 | 1): void {
+    this.threeScene?.rotateCameraQuarter(direction)
+  }
+
   /**
    * D1-B review tooling: hide the in-canvas cues that name a stage. Default OFF and only
    * ever called by the host behind the soundstage proof gate.
@@ -631,13 +636,21 @@ export class StudioLotView {
     return this.tycoonScene?.focusBuilding(buildingId) ?? this.threeScene?.focusBuilding(buildingId) ?? false
   }
 
+  /** Reward close inspection in real 3D; older renderers retain their production framing. */
+  frameBuilding(buildingId: BuildingId, relativeScale = 3.15): boolean {
+    if (this.threeScene !== null) return this.threeScene.frameBuilding(buildingId, relativeScale)
+    this.camera('production')
+    return this.tycoonScene?.focusBuilding(buildingId) ?? false
+  }
+
   hollywoodPerformance(): HollywoodPerformance | null {
-    return this.hollywoodScene?.performanceStats() ?? null
+    return this.hollywoodScene?.performanceStats() ?? this.threeScene?.performanceStats() ?? null
   }
 
   /** Evidence-only: begin a fresh sustained Hollywood frame window at a known UI boundary. */
   resetHollywoodPerformance(): void {
     this.hollywoodScene?.resetPerformanceTelemetry()
+    this.threeScene?.resetPerformanceTelemetry()
   }
 
   /** Debug/evidence seam: exact snapshot-derived Hollywood state, no GameState access. */

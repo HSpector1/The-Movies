@@ -72,6 +72,7 @@ import {
 import { presenceStands, type PresencePersonHome, type PresenceStand } from '../tycoon/presence.ts'
 import { PLAYBACK_DURATION_MS, personPositionAt } from '../tycoon/playback.ts'
 import { lotBodyTheaterStates, lotSceneryHauls } from '../snapshot/weekTheater.ts'
+import { lotSetDressings } from '../snapshot/setDressing.ts'
 import { lotPeopleForCompanyPresentation } from '../snapshot/productionCompany.ts'
 import { Rng } from '../scene/rng.ts'
 import { CAMERA_OFFSET_DIR, CAMERA_DISTANCE_M, SUN_OFFSET_DIR, TILE_M, gridToWorld, orthoHalfWidth } from './iso3d.ts'
@@ -79,9 +80,11 @@ import { buildMaterials, disposeMaterials, warm, type MaterialLedger } from './m
 import { BuildingFactory } from './buildings3d.ts'
 import { PropFactory } from './props3d.ts'
 import { CrewFactory, type CrewFigure, type CrewRole, type WorkingPose } from './crew3d.ts'
+import { SetFactory } from './sets3d.ts'
 import { WebGLRenderer } from 'three'
 import { WARM } from '../tycoon/palette.ts'
 import { buildAtmosphere, type AtmosphereBuild } from './atmosphere3d.ts'
+import type { HollywoodPerformance } from '../hollywood/HollywoodScene.ts'
 
 export type ThreeLotEvent =
   | { type: 'ready' }
@@ -110,6 +113,8 @@ type ActivityFigureRuntime = {
   role: CrewRole
   pose: WorkingPose
   phase: number
+  home: Vector3
+  travel: Vector3
 }
 
 const CREW_ROLE_COLOUR: Record<CrewRole, number> = {
@@ -135,6 +140,7 @@ export class ThreeLotScene {
   private readonly buildingFactory: BuildingFactory
   private readonly propFactory: PropFactory
   private readonly crewFactory: CrewFactory
+  private readonly setFactory: SetFactory
   private readonly sun: DirectionalLight
   private readonly atmosphere: AtmosphereBuild
 
@@ -218,6 +224,9 @@ export class ThreeLotScene {
   private guidanceRing: Mesh
   private raycaster = new Raycaster()
   private fpsSamples: number[] = []
+  private updateSamples: number[] = []
+  private worstFrameMs = 0
+  private worstUpdateMs = 0
   private resizeObserver: ResizeObserver
   private disposers: Array<() => void> = []
 
@@ -243,6 +252,7 @@ export class ThreeLotScene {
     this.buildingFactory = new BuildingFactory(this.materials)
     this.propFactory = new PropFactory(this.materials)
     this.crewFactory = new CrewFactory()
+    this.setFactory = new SetFactory(this.materials)
     this.crewShadowGeometry.rotateX(-Math.PI / 2)
     this.crewLodBodyGeometry.translate(0, 0.96, 0)
     this.crewLodHeadGeometry.translate(0, 1.52, 0)
@@ -593,13 +603,23 @@ export class ThreeLotScene {
       figure.root.rotation.y = yaw
       // A restrained tycoon exaggeration: a person remains readable without becoming
       // a giant or changing any authoritative footprint.
-      figure.root.scale.setScalar(1.14)
+      figure.root.scale.setScalar(1.38)
       this.theaterSlot.add(figure.root)
+      const travels = pose === 'carry' || pose === 'haul'
+      const travel = new Vector3(
+        gridNoise(gx, gy, salt + 641) - 0.5,
+        0,
+        gridNoise(gx, gy, salt + 647) - 0.5,
+      )
+      if (travels && travel.lengthSq() > 0.01) travel.normalize().multiplyScalar(2.7)
+      else travel.set(0, 0, 0)
       this.activityFigures.push({
         figure,
         role,
         pose,
         phase: gridNoise(gx, gy, salt + 503),
+        home: figure.root.position.clone(),
+        travel,
       })
       return figure
     }
@@ -654,12 +674,18 @@ export class ThreeLotScene {
         if (filming) {
           // The compact exterior unit reads as a working picture at management zoom:
           // identifiable jobs, camera, light, grip plant, set pieces and a warm door spill.
-          const director = addFigure('director', 'direct', work.gx - 1.08, work.gy + 0.82, faceBuilding(work.gx - 1.08, work.gy + 0.82), 91)
-          addFigure('camera', 'operate', work.gx - 0.38, work.gy + 1.18, faceBuilding(work.gx - 0.38, work.gy + 1.18), 92)
-          const grip = addFigure('grip', 'haul', work.gx + 1.18, work.gy + 0.92, faceBuilding(work.gx + 1.18, work.gy + 0.92), 93)
-          addFigure('electric', 'operate', work.gx + 1.48, work.gy - 0.08, faceBuilding(work.gx + 1.48, work.gy - 0.08), 94)
-          const pa = addFigure('pa', 'wait', work.gx - 0.82, work.gy + 1.72, faceBuilding(work.gx - 0.82, work.gy + 1.72), 95)
-          addFigure('actor', 'stand', work.gx + 0.28, work.gy + 1.82, faceBuilding(work.gx + 0.28, work.gy + 1.82), 96)
+          const director = addFigure('director', 'direct', work.gx - 1.18, work.gy + 0.72, faceBuilding(work.gx - 1.18, work.gy + 0.72), 91)
+          addFigure('camera', 'operate', work.gx - 0.45, work.gy + 0.78, faceBuilding(work.gx - 0.45, work.gy + 0.78), 92)
+          addFigure('camera', 'carry', work.gx - 1.42, work.gy + 1.32, faceBuilding(work.gx - 1.42, work.gy + 1.32), 921)
+          const grip = addFigure('grip', 'haul', work.gx + 0.92, work.gy + 0.72, faceBuilding(work.gx + 0.92, work.gy + 0.72), 93)
+          addFigure('grip', 'carry', work.gx + 1.75, work.gy + 1.12, faceBuilding(work.gx + 1.75, work.gy + 1.12), 931)
+          addFigure('electric', 'operate', work.gx + 1.4, work.gy - 0.12, faceBuilding(work.gx + 1.4, work.gy - 0.12), 94)
+          addFigure('electric', 'haul', work.gx + 2.05, work.gy + 0.18, faceBuilding(work.gx + 2.05, work.gy + 0.18), 941)
+          const pa = addFigure('pa', 'wait', work.gx - 1.02, work.gy + 1.58, faceBuilding(work.gx - 1.02, work.gy + 1.58), 95)
+          addFigure('actor', 'stand', work.gx - 0.02, work.gy + 1.32, faceBuilding(work.gx - 0.02, work.gy + 1.32), 96)
+          addFigure('actor', 'stand', work.gx + 0.5, work.gy + 1.52, faceBuilding(work.gx + 0.5, work.gy + 1.52), 961)
+          addFigure('actor', 'idle', work.gx - 0.2, work.gy + 1.75, faceBuilding(work.gx - 0.2, work.gy + 1.75), 962)
+          addFigure('craft', 'carry', work.gx + 2.12, work.gy + 0.92, faceBuilding(work.gx + 2.12, work.gy + 0.92), 97)
           this.crewFactory.attach(director, 'Prop_Megaphone_attach_hand_r.glb', 'handR')
           this.crewFactory.attach(pa, 'Prop_Slate_attach_hand_l.glb', 'handL')
           this.crewFactory.attach(grip, 'Prop_Boom_attach_hand_r.glb', 'handR')
@@ -671,6 +697,41 @@ export class ThreeLotScene {
           placeAsset('Prop_CableReel.glb', work.gx + 1.18, work.gy + 1.3, Math.PI * 0.35)
           for (let i = 0; i < 3; i++) {
             placeAsset('Prop_AppleBox_Full.glb', work.gx - 1.18 + i * 0.22, work.gy + 1.55, i * 0.35)
+          }
+
+          const unitProps: Array<[string, number, number, number, number]> = [
+            ['tw-camera-dolly', -0.2, 0.98, Math.PI, 1.18],
+            ['tw-light-bank', 1.62, 0.15, Math.PI * 0.86, 1.0],
+            ['tw-light-bank', -1.72, 0.2, -Math.PI * 0.14, 0.94],
+            ['tw-cable-snake', 0.15, 0.98, Math.PI * 0.16, 1.0],
+            ['tw-grip-cart', 1.72, 1.35, Math.PI * 0.6, 1.08],
+            ['tw-rack', 2.32, 1.4, Math.PI * 0.72, 1.0],
+            ['tw-cart', -1.9, 1.52, Math.PI * 0.12, 1.0],
+            ['tw-cablereel', 2.32, 0.62, 0, 1.0],
+          ]
+          for (const [key, dx, dy, yaw, scale] of unitProps) {
+            const prop = this.propFactory.make(key)
+            if (prop === null) continue
+            prop.position.copy(gridToWorld(work.gx + dx, work.gy + dy))
+            prop.rotation.y = yaw
+            prop.scale.setScalar(scale)
+            this.theaterSlot.add(prop)
+          }
+
+          // Trucks and talent trailers only appear for the same active-production fact.
+          const unitTruck = this.propFactory.make('tw-boxtruck')
+          if (unitTruck !== null) {
+            unitTruck.position.copy(gridToWorld(work.gx - 2.45, work.gy + 0.05))
+            unitTruck.rotation.y = Math.PI / 2
+            unitTruck.scale.setScalar(0.88)
+            this.theaterSlot.add(unitTruck)
+          }
+          const talentTrailer = this.propFactory.make('tw-trailer')
+          if (talentTrailer !== null) {
+            talentTrailer.position.copy(gridToWorld(work.gx + 2.72, work.gy + 1.62))
+            talentTrailer.rotation.y = -Math.PI / 2
+            talentTrailer.scale.setScalar(0.82)
+            this.theaterSlot.add(talentTrailer)
           }
 
           const flats = this.propFactory.make('tw-flats')
@@ -729,6 +790,28 @@ export class ThreeLotScene {
           prop.position.copy(gridToWorld(work.gx + dx, work.gy + dy))
           prop.rotation.y = yaw
           this.theaterSlot.add(prop)
+        }
+      }
+    }
+
+    // Mounted sets are engine truth. Their exterior presentation is deliberately a
+    // compact, visibly braced scenery sample on the owning stage's loading apron: the
+    // player can identify the location vocabulary without mistaking it for a facility.
+    for (const dressing of lotSetDressings(this.snapshot)) {
+      const building = byId.get(dressing.buildingId)
+      if (building === undefined || dressing.set === null) continue
+      const work = building.anchors['work'] ?? building.anchors['entry']
+      if (work === undefined) continue
+      const set = this.setFactory.make(dressing)
+      if (set === null) continue
+      const side = building.gy < this.lotD / 2 ? 1 : -1
+      set.position.copy(gridToWorld(work.gx + 2.15, work.gy + side * 1.35))
+      set.rotation.y = side > 0 ? Math.PI * 0.72 : -Math.PI * 0.28
+      set.scale.setScalar(0.92)
+      this.theaterSlot.add(set)
+      if (dressing.state === 'building' || dressing.state === 'repairing') {
+        for (const [index, [dx, dy]] of [[-0.7, 0.4], [0.15, 0.85], [0.8, 0.2]].entries()) {
+          addFigure('craft', index === 1 ? 'carry' : 'operate', work.gx + 2.15 + dx, work.gy + side * 1.35 + dy, -Math.PI / 2, 181 + index)
         }
       }
     }
@@ -1286,6 +1369,25 @@ export class ThreeLotScene {
     return true
   }
 
+  /**
+   * Commercial inspection framing for one authoritative body. The centre leans toward
+   * its published work/entry anchor so the facade and the activity apron share frame;
+   * no selection, occupancy or production claim is created by the camera.
+   */
+  frameBuilding(id: BuildingId, relativeScale = 3.15, yaw = -Math.PI / 2): boolean {
+    const building = this.buildings.find((candidate) => candidate.buildingId === id)
+    if (building === undefined) return false
+    const centre = { gx: building.gx + building.fw / 2, gy: building.gy + building.fd / 2 }
+    const work = building.anchors['work'] ?? building.anchors['entry'] ?? centre
+    this.camTargetYaw = yaw
+    this.centerOnGrid(
+      centre.gx * 0.56 + work.gx * 0.44,
+      centre.gy * 0.56 + work.gy * 0.44,
+      this.fitZoom() * relativeScale,
+    )
+    return true
+  }
+
   /** Paint the Picture Journey destination without selecting or activating it. */
   setGuidanceTarget(id: BuildingId | null): boolean {
     const building = id === null
@@ -1318,34 +1420,62 @@ export class ThreeLotScene {
     this.destroy()
   }
 
-  performanceStats(): {
-    frameSampleCount: number
-    fps: number
-    displayObjects: number
-    drawCalls: number
-    textureMemoryBytes: number
-  } {
+  performanceStats(): HollywoodPerformance {
+    const average = (values: readonly number[]): number =>
+      values.length === 0 ? 0 : values.reduce((sum, value) => sum + value, 0) / values.length
+    const percentile = (values: readonly number[], fraction: number): number => {
+      if (values.length === 0) return 0
+      const sorted = [...values].sort((a, b) => a - b)
+      return sorted[Math.max(0, Math.ceil(sorted.length * fraction) - 1)] ?? 0
+    }
     let objects = 0
     this.scene.traverse(() => objects++)
-    const fps =
-      this.fpsSamples.length === 0
-        ? 0
-        : Math.round(1_000 / (this.fpsSamples.reduce((a, b) => a + b, 0) / this.fpsSamples.length))
+    const frameMs = average(this.fpsSamples)
+    const p99FrameMs = percentile(this.fpsSamples, 0.99)
+    const updateMs = average(this.updateSamples)
     return {
+      rendererKind: 'three-3d',
       frameSampleCount: this.fpsSamples.length,
-      fps,
+      fps: Math.round(frameMs === 0 ? 0 : 1_000 / frameMs),
       displayObjects: objects,
       drawCalls: this.renderer.info.render.calls,
-      textureMemoryBytes: this.renderer.info.memory.textures,
+      // WebGLRenderer exposes the exact texture object count, not decoded bytes.
+      // Keep the byte claim neutral instead of converting a count into fake memory.
+      textureMemoryBytes: 0,
+      textureMemoryMb: 0,
+      districtTextureMemoryMb: 0,
+      peopleTextureMemoryMb: 0,
+      roleAtlasActive: false,
+      roleAtlasEncodedKb: 0,
+      roleAtlasDecodedMb: 0,
+      frameMs: Math.round(frameMs * 100) / 100,
+      p99FrameMs: Math.round(p99FrameMs * 100) / 100,
+      onePercentLowFps: Math.round(p99FrameMs === 0 ? 0 : 1_000 / p99FrameMs),
+      worstFrameMs: Math.round(this.worstFrameMs * 100) / 100,
+      updateMs: Math.round(updateMs * 100) / 100,
+      worstUpdateMs: Math.round(this.worstUpdateMs * 100) / 100,
+      renderMsEstimate: Math.round(Math.max(0, frameMs - updateMs) * 100) / 100,
+      dynamicActors: this.figures.length + this.activityFigures.length,
+      textureCount: this.renderer.info.memory.textures,
     }
+  }
+
+  resetPerformanceTelemetry(): void {
+    this.fpsSamples = []
+    this.updateSamples = []
+    this.worstFrameMs = 0
+    this.worstUpdateMs = 0
   }
 
   // ── the frame: cosmetics only — nothing here advances any truth ─────────────
   private frame = (): void => {
     if (this.destroyed) return
     const dt = this.clock.getDelta()
+    const updateStartedAt = performance.now()
     this.nowMs += dt * 1_000
-    if (this.fpsSamples.push(dt * 1_000) > 120) this.fpsSamples.shift()
+    const frameMs = dt * 1_000
+    if (this.fpsSamples.push(frameMs) > 240) this.fpsSamples.shift()
+    this.worstFrameMs = Math.max(this.worstFrameMs, frameMs)
     this.stepCamera(dt)
     const detailedCrew = this.updateCrewLod()
 
@@ -1374,7 +1504,16 @@ export class ThreeLotScene {
 
     if (!this.reducedMotion && detailedCrew) {
       for (const runtime of this.activityFigures) {
-        CrewFactory.work(runtime.figure, runtime.pose, (this.nowMs / 2_600 + runtime.phase) % 1)
+        if (runtime.travel.lengthSq() > 0) {
+          const loop = (this.nowMs / 5_800 + runtime.phase) % 1
+          const out = loop < 0.5
+          const t = out ? loop * 2 : (1 - loop) * 2
+          runtime.figure.root.position.copy(runtime.home).addScaledVector(runtime.travel, t)
+          runtime.figure.root.rotation.y = Math.atan2(runtime.travel.x, runtime.travel.z) + (out ? 0 : Math.PI)
+          CrewFactory.walk(runtime.figure, (loop * 4) % 1)
+        } else {
+          CrewFactory.work(runtime.figure, runtime.pose, (this.nowMs / 2_600 + runtime.phase) % 1)
+        }
       }
     }
     this.updateCrewShadows()
@@ -1390,6 +1529,9 @@ export class ThreeLotScene {
     }
 
     this.renderer.render(this.scene, this.camera)
+    const updateMs = performance.now() - updateStartedAt
+    if (this.updateSamples.push(updateMs) > 240) this.updateSamples.shift()
+    this.worstUpdateMs = Math.max(this.worstUpdateMs, updateMs)
   }
 
   pause(): void {

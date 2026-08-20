@@ -195,8 +195,11 @@ export class BuildingFactory {
     doorHost.add(box(0.34, wallH - 0.2, 0.28, this.m.trimDeep, frontPanelW / 2 - 0.18, 0, 0.1))
     doorHost.add(box(doorW + 0.54, doorH + 0.48, 0.3, this.m.trimDeep, 0, 0, 0.12))
     const openDoor = new Group()
-    openDoor.add(box(doorW, doorH, 0.2, this.m.timberDark, 0, 0.2, 0.31))
-    openDoor.add(box(doorW - 0.5, doorH - 0.45, 0.08, this.m.stageInterior, 0, 0.35, 0.45))
+    // The hot state is a genuine open portal: a dark soundstage volume with a warm
+    // practical rim, not the old brown rectangle that read as another closed panel.
+    openDoor.add(box(doorW, doorH, 0.2, this.m.stageInterior, 0, 0.2, 0.31))
+    openDoor.add(box(doorW - 0.75, doorH - 0.72, 0.08, this.m.slate, 0, 0.42, 0.45))
+    openDoor.add(box(doorW - 0.35, 0.16, 0.28, this.m.stageGlow, 0, 0.18, 0.68))
     for (const sx of [-0.28, 0.28]) {
       openDoor.add(box(0.42, 0.12, 0.08, this.m.stageGlow, sx * doorW, doorH - 0.42, 0.56))
     }
@@ -207,6 +210,10 @@ export class BuildingFactory {
     // than a bright rectangle pasted on the facade.
     for (const sx of [-1, 1]) {
       openDoor.add(box(0.48, doorH - 0.15, 0.12, this.m.slate, sx * (doorW / 2 - 0.25), 0.28, 0.56))
+      for (const y of [0.95, 2.15, 3.35, 4.45]) {
+        if (y >= doorH) continue
+        openDoor.add(part(new SphereGeometry(0.105, 7, 5), this.m.stageGlow, sx * (doorW / 2 - 0.42), y, 0.73))
+      }
     }
     openDoor.visible = false
     doorHost.add(openDoor)

@@ -229,6 +229,8 @@ type CosmeticSceneryLoadIn = {
 }
 
 export type HollywoodPerformance = {
+  /** Renderer identity for shared evidence chrome. Omitted by legacy callers. */
+  rendererKind?: 'hollywood-2d' | 'three-3d'
   /** Number of post-warm-up wall-frame samples in the frozen sustained window. */
   frameSampleCount: number
   fps: number
@@ -250,6 +252,8 @@ export type HollywoodPerformance = {
   worstUpdateMs: number
   renderMsEstimate: number
   dynamicActors: number
+  /** Three exposes an exact GPU texture object count where decoded bytes are unknown. */
+  textureCount?: number
 }
 
 export class HollywoodScene extends Phaser.Scene {
@@ -2339,6 +2343,7 @@ export class HollywoodScene extends Phaser.Scene {
       + peopleTextureBytes
       + GENERATED_VEHICLE_DECODED_BYTES
     return {
+      rendererKind: 'hollywood-2d',
       frameSampleCount: this.frameSamples.length,
       fps: Math.round(frameMs ? 1000 / frameMs : this.game.loop.actualFps || 0),
       displayObjects: this.children.length,
