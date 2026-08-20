@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit && tsc -p ui/tsconfig.json --noEmit",
     "dev": "vite --config ui/vite.config.ts",
     "build": "vite build --config ui/vite.config.ts",
-    "preview": "vite preview --config ui/vite.config.ts"
+    "preview": "vite preview --config ui/vite.config.ts",
+    "capture:3d-baseline": "playwright test --config tests/three-visual-regression/playwright.config.ts"
   },
   "dependencies": {
     "phaser": "^3.90.0",
