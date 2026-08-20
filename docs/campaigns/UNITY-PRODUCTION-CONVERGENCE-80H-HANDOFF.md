@@ -6,15 +6,16 @@ decision is settled. Do not restart planning from scratch.
 
 ## CURRENT EXACT STATE
 
-Timestamp: 2026-08-20 21:05 CEST (UTC+02:00).
+Timestamp: 2026-08-20 21:45 CEST (UTC+02:00).
 
 | Item | Exact state |
 | --- | --- |
 | TypeScript worktree | `/Users/bruce/The Movies - Unity Production Convergence 80H` |
 | TypeScript branch | `campaign/unity-production-convergence-80h-ts` |
-| TypeScript A2 implementation HEAD | `cd2b15872ac5849fa16beec1775543758cb3139e` before the continuity-only follow-up containing these documents |
-| TypeScript base/parent | A1 continuity tip `1b249f02b701f8e24a3334d1e3f087b917ad9c8e` |
-| TypeScript branch tip | The pushed continuity commit containing this file. Resolve with `git rev-parse HEAD`; a commit cannot embed its own resulting SHA. It must descend directly from `cd2b15872ac5849fa16beec1775543758cb3139e`. |
+| TypeScript Golden implementation | `cd2b15872ac5849fa16beec1775543758cb3139e` |
+| TypeScript donor checkpoint parent | A2 continuity tip `7eff21fccabe0ffb7a622b8b96b390b8543f15da` |
+| TypeScript donor checkpoint | The commit containing the PR #5 donor harvest and this ledger update; the immediate continuity follow-up records its exact SHA |
+| TypeScript branch tip | The pushed continuity commit containing this file. Resolve with `git rev-parse HEAD`; a commit cannot embed its own resulting SHA. It must descend from `7eff21fccabe0ffb7a622b8b96b390b8543f15da`. |
 | TypeScript pushed | Yes after the immediate checkpoint push; local, upstream, and remote campaign refs must match |
 | TypeScript working tree | Expected clean after checkpoint commits/push; `node_modules/` and `dist/` are ignored |
 | Unity worktree | `/Users/bruce/Project Studio - Unity Production Convergence 80H` |
@@ -44,7 +45,8 @@ Remote default/canonical audit:
 ## CAMPAIGN STATUS
 
 - Current phase: Phase A, productionize the TypeScript to Unity contract.
-- Current subphase: A3 command rejection remedies and deduplication durability.
+- Current subphase: A3 queue-law correction, command rejection remedies, and
+  deduplication durability. The PR #5 donor review is complete.
 - Completed phases: campaign setup/baseline and Phase A1 generated DTO/schema
   pipeline.
 - Partially completed phases: A2 now has an atomic six-section projection
@@ -56,58 +58,54 @@ Remote default/canonical audit:
 - Baseline-only phases: L performance/scalability and N professional QA.
 - Untouched campaign phases: B and C; no campaign implementation has begun in D
   through N beyond inherited adoption behavior.
-- Current acceptance gate: publish structured TypeScript-owned rejection facts
-  for holder/blocker/remedy, generate their Unity contract, render the remedy
-  without C# inference, and retain stale/duplicate deterministic behavior.
+- Current acceptance gate: restore the three authoritative queue-admissible
+  front doors to the bridge intent surface under occupied capacity, proving the
+  command is accepted into the existing TypeScript queue rather than suppressed
+  or converted into a rejection.
 
 ## WHAT WAS JUST DONE
 
 ### Concise description
 
-Completed the bounded Phase A2 projection-decomposition foundation. The bridge
-still returns one local, revision-atomic response, but its live payload is split
-into six required purpose-specific sections. Unity consumes the complete bundle
-through an atomic stable-ID store and refuses partial, stale, conflicting, or
-duplicate-ID state.
+Reviewed PR #5 at donor tip `0edeb4ea874de3d792a112c3d714e5c71657c76d`
+without merging or cherry-picking it. Harvested only current-architecture
+governance and security value: five concise ADRs, a truthful TypeScript/Unity/
+localhost-bridge security policy, least-privilege full TypeScript CI, scoped
+Dependabot, explicit bridge-runner ownership, a safe transitive security patch,
+and repository hygiene enforcement.
 
 ### Files and systems changed
 
-TypeScript:
+TypeScript repository only:
 
-- `bridge/schema/bridge-schema.ts`: projection `4` schema and shared property
-  authority for `lot`, `productions`, `people`, `construction`,
-  `journeyNotices`, and `releaseResults`.
-- `bridge/schema/runtime.ts`: schema-driven full-source projection into each
-  closed section; no hand-copied gameplay field mapping.
-- `bridge/session.ts`: v4 response assembly under one revision/digest envelope.
-- `bridge/proof.ts`: named-projection Movie #2 proof consumption.
-- `tests/bridge-schema.test.ts` and `tests/bridge.test.ts`: exact field ownership,
-  error paths, stable polling, v3 rejection, and full Movie #2 coverage.
-- Regenerated canonical schema and C# golden.
+- `docs/adr/`: lightweight append-only decision process plus accepted authority,
+  determinism, forward-save, and compatible-pair promotion boundaries.
+- `SECURITY.md`: current V14, Unity-client, Three.js-reference, and localhost HTTP
+  threat model with the unfinished capability/Origin/Host/content-type boundary
+  stated explicitly.
+- `.github/workflows/bridge-contract.yml`: read-only permissions, non-persisted
+  checkout credentials, pinned actions, concurrency/timeout, and full contract,
+  typecheck, test, build, dependency, asset, and hygiene gates.
+- `.github/dependabot.yml`: bounded weekly npm and Actions proposals against
+  `main`, with no auto-merge. It is intentionally inactive until the config
+  reaches the default branch.
+- `scripts/audit-repository-hygiene.mjs` and `.gitignore`: generated-output,
+  credential-path, private-key, GitHub/AWS/npm-token, and signing-material
+  protection without a blanket asset-size gate.
+- `package.json` / `package-lock.json`: `vite-node@2.1.9` is now an explicit
+  bridge development dependency; `nanoid` moved from `3.3.16` to `3.3.18` using
+  the current lock, not PR #5's stale dependency graph.
 
-Unity:
-
-- Regenerated `StudioBridgeDtos.Generated.cs` for the six-section bundle.
-- Isolated the broad frozen fixture behind `StudioOfflineLotSnapshot`; live v4
-  no longer synthesizes or shares the offline root.
-- Replaced the former snapshot cache with `StudioProjectionStore`, keeping the
-  filename only to avoid unrelated asset churn.
-- Added atomic validation/indexing for buildings, people/presence, productions,
-  operations, construction/catalog/property identities, stages, sets, theater
-  subjects, and released films.
-- Routed the client, presentation, proof runner, provider, and HUD bindings to
-  named projections.
-- Expanded EditMode coverage to 15 tests, including same-revision idempotence,
-  digest conflict, stale revision, new session, missing section, duplicate IDs,
-  freelancer presence, nullable values, and projection-3 rejection.
+Unity: no file changed. The Golden client remains exact.
 
 ### Why
 
-One monolithic Unity DTO would become a permanent coupling point for lot,
-production, people, construction, journey, and results presentation. Independent
-network routes would risk mixed revisions. The selected design gives systems
-purpose-specific data while retaining one simple local transport and one
-authoritative state revision/digest.
+PR #5 predates V14, the Unity production-client decision, the generated bridge
+contract, current dependencies, the README fix, and asset guardrails. Its
+lockfile and raw CI gates would regress or fail the current product. The adopted
+subset adds enforceable current-baseline safeguards without importing stale
+browser-only assumptions, history rewriting, automatic branch deletion, hard
+LOC limits, blanket 2 MB asset limits, or blanket presentation randomness bans.
 
 ### Relevant commits
 
@@ -125,6 +123,12 @@ authoritative state revision/digest.
   `cd2b15872ac5849fa16beec1775543758cb3139e`.
 - A2 Unity implementation:
   `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
+- PR #5 donor base (not adopted):
+  `3ac66bbbe1f29ecac44c1632ba23952fad8fe61d`.
+- PR #5 donor tip (reviewed, not merged/cherry-picked):
+  `0edeb4ea874de3d792a112c3d714e5c71657c76d`.
+- Donor-harvest checkpoint: commit containing this update; exact SHA recorded by
+  the immediate continuity follow-up.
 
 No GameState, legality, economy, time, RNG, save migration, identity, outcome,
 progression, construction, production, or Three.js rule changed.
@@ -230,11 +234,15 @@ Do not claim a visual improvement for A2.
 
 | Gate | Latest accepted result |
 | --- | --- |
-| TypeScript full tests | 325 files; 4,421 passed, 5 skipped, 0 failed in 60.25 seconds |
+| TypeScript full tests | 325 files; 4,421 passed, 5 skipped, 0 failed in 62.05 seconds |
 | Typecheck | `npm run typecheck` passed |
-| Production build | Passed in 5.73 seconds; inherited large-chunk warnings only |
+| Production build | Passed in 5.49 seconds; inherited large-chunk warnings only |
 | Bridge typecheck | Passed |
 | Bridge tests | 20/20 passed |
+| Browser dependency audit | `npm run audit:browser-deps` passed with 0 vulnerabilities |
+| Full npm audit | 5 dev-graph advisories remain: 3 moderate, 1 high, 1 critical; bridge runtime is not yet a production graph |
+| Repository hygiene | Passed over 1,003 tracked/unignored files, including built-in negative guard checks |
+| Workflow/config | YAML parse, actionlint 1.7.10, official pinned action refs, and Dependabot schema review passed; remote Actions run pending push |
 | Generated drift | Canonical JSON, TypeScript C# golden, and Unity C# copy passed; generated copies byte-identical |
 | Generated C# | 124,814 bytes; SHA-256 `3805f4d54cba772d0670697d3d356b9c480c7a35d1bd4a295a63c5110e8ca004` |
 | Unity EditMode | Final seal 15/15 passed; `/tmp/studio-a2-seal-editmode-results.xml` |
@@ -299,7 +307,23 @@ Exact accepted local artifacts:
 - Must not be tried again: do not create independently polled routes or per-
   section revision clocks; do not route identity by title or array index.
 
-### 3. A3 remedy and replay durability remain incomplete
+### 3. Bridge queue-admission parity is wrong under capacity contention
+
+- Exact defect: bridge intent resolution withholds commission, auditions, and
+  greenlight when current capacity is occupied even though the authoritative
+  core accepts those front doors into queues.
+- Severity: High permanent product-law gap for affected states; ordinary Golden
+  Movie #2 remains playable because it does not hit every contention state.
+- Reproduction: compare `bridge/session.ts` intent predicates with
+  `src/core/actions.ts` and `tests/c2a-m4-queue-admission.test.ts`.
+- Origin: Pre-existing adoption/bridge behavior, discovered during A3 audit; not
+  caused by the donor checkpoint.
+- Attempted fixes: research and source/test parity audit only; no mutation yet.
+- Must not be tried again: do not encode Development/Casting capacity as a
+  rejection, choose an arbitrary holder from plural queue authority, or invent
+  a Unity-side queue rule.
+
+### 4. A3 remedy and replay durability remain incomplete
 
 - Exact defect: rejections carry code/message but no structured holder/remedy;
   response replay evicts after 256 command identities and is memory-only.
@@ -311,7 +335,7 @@ Exact accepted local artifacts:
 - Must not be tried again: do not infer gameplay remedies in C# or weaken stale,
   duplicate, and digest invariants.
 
-### 4. Cross-repository generated-copy CI is not automatic
+### 5. Cross-repository generated-copy CI is not automatic
 
 - Exact defect: TypeScript CI validates its own C# golden but cannot see the
   separate Unity repository unless that repo is supplied.
@@ -322,7 +346,7 @@ Exact accepted local artifacts:
   this seal; Unity strict fixtures compile against the generated copy.
 - Must not be tried again: never hand-edit generated C# or add another mirror.
 
-### 5. Current visual production floor remains below target
+### 6. Current visual production floor remains below target
 
 - Exact defect: developer-oriented HUD, sparse operating set, weak role/person
   readability, prototype materials/lighting, and limited visible filmmaking.
@@ -333,7 +357,7 @@ Exact accepted local artifacts:
 - Must not be tried again: do not fabricate production activity or move
   simulation truth into Unity for visual expedience.
 
-### 6. Canonical promotion is intentionally deferred
+### 7. Canonical promotion is intentionally deferred
 
 - Exact defect: TypeScript default and campaign histories diverge by a semantic
   mega-diff; Unity alone is incompatible with the default TypeScript schema.
@@ -345,40 +369,49 @@ Exact accepted local artifacts:
 - Must not be tried again: do not fast-forward Unity alone, cherry-pick generated
   DTOs alone, force push, rebase, or mass-merge the TypeScript lineage.
 
-### 7. Inherited warnings remain
+### 8. Dependency and localhost security boundaries remain
 
-- Exact defect: six npm advisories, Vite large chunks, inherited React/jsdom
-  warnings, and transient first-clean-import glTFast noise.
-- Severity: Medium dependency audit; Low for the next A3 unit.
-- Origin: Pre-existing.
-- Attempted fixes: subsequent Unity tests/builds are clean.
-- Must not be tried again: no `npm audit fix --force`; do not remove licensed
-  character assets or upgrade import packages without reproduction/evidence.
+- Exact defect: the browser runtime audit is clean, but the current development
+  bridge runs through the dev graph, where full npm audit reports 3 moderate,
+  1 high, and 1 critical advisory. The localhost HTTP bridge also lacks a
+  per-launch capability, Host/Origin policy, exact JSON content-type gate, and
+  request/header timeouts.
+- Severity: High before packaged Phase B runtime; bounded for the current local
+  developer proof.
+- Reproduction: run `npm audit`; inspect `bridge/server.ts` request admission.
+- Origin: Pre-existing dependency/runtime boundary. `nanoid` is now patched and
+  `vite-node` ownership is explicit.
+- Attempted fixes: documented the exact boundary, added a clean browser-runtime
+  audit, hardened CI/repository hygiene, and rejected the breaking forced Vitest
+  upgrade after it changed bridge execution, types, test discovery, and timeouts.
+- Must not be tried again: no `npm audit fix --force`, false-green whole-product
+  audit claim, public bind, persistent/logged capability token, or browser-only
+  threat model.
 
 No unresolved Owner-decision item blocks the next action.
 
 ## NEXT EXACT ACTION
 
-Add a schema-derived structured rejection payload on the TypeScript side with
-optional authoritative `blocker`, `currentHolder`, and `remedy` facts; generate
-the C# DTOs, make Unity render those facts without inferring legality, and add
-bridge plus EditMode tests for stale, blocked, and malformed remedies.
+Correct `bridge/session.ts` so authoritative queue-admissible commission,
+audition, and greenlight front doors remain in `availableIntents` under occupied
+capacity, then prove through bridge tests that each command is accepted into the
+existing TypeScript queue without changing core queue rules.
 
 ## NEXT 3-5 ACTIONS AFTER THAT
 
-1. Replace the 256-entry memory-only replay eviction boundary with a bounded,
+1. Add TypeScript-owned structured rejection guidance only for real rejection
+   categories, generate the Unity contract, and retain/render valid guidance
+   across snapshot polls without inventing a capacity blocker or holder.
+2. Replace the 256-entry memory-only replay eviction boundary with a bounded,
    save-associated command identity journal and prove duplicate commands remain
    deterministic across save/load and engine process restart.
-2. Extract a start/stop-capable localhost runtime with ephemeral-port discovery,
-   health/schema handshake, persisted save-path abstraction, useful logs, and
-   integration tests as the first Phase B unit.
-3. Add engine restart detection/reconnect and prove disk-backed save recovery
+3. Extract a start/stop-capable localhost runtime with ephemeral-port discovery,
+   per-launch capability, Host/Origin/content-type enforcement, request/header
+   timeouts, health/schema handshake, save-path abstraction, and useful logs.
+4. Add engine restart detection/reconnect and prove disk-backed save recovery
    through a native Unity restart playthrough.
-4. Refactor the winning client into explicit runtime/session, projection store,
-   presentation, interaction, and UI layers without changing the current visual
-   behavior or simulation authority.
-5. Begin retained Movie #2 development/casting/package workspaces only after the
-   A/B/C seams are stable, keeping the lot visible.
+5. Refactor the winning client into explicit runtime/session, projection store,
+   presentation, interaction, and UI layers without changing simulation truth.
 
 ## DO NOT TOUCH
 
@@ -416,18 +449,27 @@ bridge plus EditMode tests for stale, blocked, and malformed remedies.
 | Declare M1 Golden | A1+A2 is the best fully validated compatible playable pair with no P0 regression | No tag movement; later Goldens may supersede it | broad tests, native build/proof/reconnect, screenshots |
 | Do not promote M1 to defaults | TypeScript promotion is a 185+ commit semantic merge and Unity-only promotion breaks compatibility | Yes after a deliberate merge candidate exists | remote/default/ancestry audit |
 | Keep A2 marked partial | Detailed named screenplay/casting/package/remedy projections remain | Yes when those capabilities land | Phase A2 checklist audit |
+| Reject wholesale PR #5 adoption | Its base, lockfile, V13/browser doctrine, CI gates, and branch policies predate or conflict with the current product | Irreversible only if merged; no donor commit was adopted | exact PR/base diff and three independent audits |
+| Adopt five current ADRs without moving documentation | These are durable cross-cutting boundaries and add recovery value without duplicating feature records | Yes by a superseding ADR | current architecture/save/promotion authorities |
+| Audit browser dependencies honestly and defer bridge graph closure | `npm audit --omit=dev` is green but cannot cover the dev-run `vite-node` bridge | Yes after Phase B packages an explicit graph | scoped audit plus full audit report |
+| Declare `vite-node` directly and patch only `nanoid` | Package scripts already execute the runner; the transitive security patch is nonbreaking | Yes through a validated dependency change | clean `npm ci`, full gates, exact lock diff |
+| Keep Golden M1 as CURRENT BEST | Governance improves durability but changes no player build or Unity client and lacks a new native visual/playable delta | Yes when a later full compatible pair earns Golden | unchanged Golden tags and broad donor checkpoint validation |
+| Fix queue parity before rejection guidance | Capacity front doors are authoritative queue admissions, not command failures | Yes in ordering; product law is frozen | core actions and queue-admission tests versus bridge resolver |
 
 ## UNCOMMITTED / GENERATED MATERIAL
 
 ### TypeScript
 
-- A2 implementation is committed at
+- Golden A2 implementation remains
   `cd2b15872ac5849fa16beec1775543758cb3139e`.
-- Only the continuity/promotion document follow-up is intentionally newer than
-  that implementation SHA. After its push, no tracked WIP should remain.
+- The donor checkpoint is a non-Golden TypeScript-only descendant. Its exact
+  implementation SHA is recorded by the immediate continuity follow-up; after
+  push no tracked WIP should remain.
 - Checked-in generated material is intentional: canonical JSON Schema and the
   TypeScript-side C# golden.
-- `node_modules/` and Vite `dist/` are ignored/generated.
+- `node_modules/`, Vite `dist/`, and `.tmp/3d-asset-audit.json` were regenerated
+  locally and remain ignored. No donor screenshot, native build, save, token,
+  or audit JSON report is tracked.
 
 ### Unity
 
@@ -479,6 +521,8 @@ bridge plus EditMode tests for stale, blocked, and malformed remedies.
    ```bash
    cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
    npm ci
+   npm run audit:browser-deps
+   npm run audit:repo-hygiene
    npm run test:bridge
    npm run typecheck:bridge
    npm run check:bridge-contract -- \

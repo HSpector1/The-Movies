@@ -15,6 +15,8 @@
     "bridge": "vite-node bridge/server.ts",
     "proof:bridge": "vite-node bridge/proof.ts",
     "typecheck": "tsc --noEmit && tsc -p ui/tsconfig.json --noEmit",
+    "audit:browser-deps": "npm audit --omit=dev --audit-level=high",
+    "audit:repo-hygiene": "node scripts/audit-repository-hygiene.mjs",
     "audit:3d-assets": "node scripts/audit-3d-assets.mjs",
     "dev": "vite --config ui/vite.config.ts",
     "build": "vite build --config ui/vite.config.ts",
@@ -41,6 +43,7 @@
     "jsdom": "^25.0.1",
     "typescript": "^5.6.0",
     "vite": "^6.0.0",
+    "vite-node": "2.1.9",
     "vitest": "^2.1.0"
   }
 }

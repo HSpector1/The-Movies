@@ -55,6 +55,19 @@ preserving the same native Movie #2, save/load, stale-command, reconnect, and
 visual behavior. It changes no gameplay rule, formula, save identity, RNG stream,
 or Three.js behavior.
 
+## POST-GOLDEN CAMPAIGN DESCENDANTS
+
+The TypeScript campaign branch has a validated non-Golden governance descendant
+that harvests current-architecture ADR, security, dependency, CI, and repository
+hygiene value from PR #5 without adopting either stale donor commit. Its exact
+checkpoint SHA is recorded by the immediate continuity follow-up. Unity remains
+at `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
+
+This descendant does not supersede M1 as CURRENT BEST: it changes no simulation,
+protocol, player flow, Unity client, native build, screenshots, or visual state.
+Build and recover the exact tagged M1 pair above until a later compatible pair
+earns a new Golden. No Golden tag was created or moved for the donor checkpoint.
+
 ## LAUNCH COMMAND
 
 Terminal 1:
@@ -148,8 +161,16 @@ command round trip. The separate reconnect application measured 3.89 ms.
   checked out and supplied to the cross-repository drift command.
 - The response replay cache remains memory-only and evicts after 256 identities.
 - No dedicated Unity PlayMode suite exists.
-- Inherited npm advisories, Vite chunk warnings, and first-import glTFast noise
-  remain under documented non-destructive handling rules.
+- The browser npm dependency audit is clean, but the development bridge still
+  executes through a dev graph with five advisories (3 moderate, 1 high,
+  1 critical). Phase B must package and audit an explicit runtime graph.
+- The loopback bridge has no per-launch capability, Host/Origin policy, exact
+  JSON content-type gate, or request/header timeouts. These are Phase B
+  production blockers, not reasons to expose a public bind.
+- Dependabot configuration on the campaign branch remains inactive until it
+  reaches the repository default branch.
+- Vite chunk warnings and first-import glTFast noise remain under documented
+  non-destructive handling rules.
 
 No known P0 regression or TypeScript-authority violation remains.
 

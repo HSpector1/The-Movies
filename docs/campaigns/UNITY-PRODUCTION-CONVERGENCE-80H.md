@@ -538,3 +538,118 @@ Phase A3 first unit: add TypeScript-authoritative structured rejection facts for
 facts without inferring legality in C#, and add bridge plus EditMode negative
 coverage. Then make command deduplication durable across save/load and engine
 restart before starting the Phase B lifecycle.
+
+## 2026-08-20 - Checkpoint 4: PR #5 donor harvest and current-baseline hardening
+
+### Donor disposition
+
+Reviewed GitHub PR #5 only as a donor proposal. Its base
+`3ac66bbbe1f29ecac44c1632ba23952fad8fe61d` and tip
+`0edeb4ea874de3d792a112c3d714e5c71657c76d` predate V14, the approved Unity
+production-client architecture, current bridge/schema generation, current npm
+graph, current main README correction, branch triage, and current 3D guardrails.
+Neither donor commit was merged, cherry-picked, or used as a lockfile source.
+
+The donor lock root had only React/ReactDOM and would remove current Phaser,
+Three.js, AJV, bridge, and generation dependencies. Its browser-only V13
+security description is false for the localhost TypeScript authority plus Unity
+client. Its raw 2 MB repository scan and `Math.random` grep fail legitimate
+current source, assets, comments, and test needles. Automatic branch deletion,
+history rewriting, hard LOC/document budgets, and documentation moves were
+rejected.
+
+### Production-ready harvest
+
+- Added five concise accepted ADRs for the lightweight append-only decision
+  process, sole TypeScript simulation authority, scoped deterministic boundary,
+  forward-only versioned saves, and exact compatible-pair Golden promotion.
+- Added a current `SECURITY.md` covering TypeScript authority, Unity production
+  client, preserved Three.js client, V14 saves, localhost HTTP routes, asset
+  provenance, and the unfinished runtime security boundary.
+- Expanded the existing workflow rather than creating duplicate CI. It now has
+  read-only permissions, non-persisted checkout credentials, pinned official
+  action SHAs, concurrency cancellation, a job timeout, and full dependency,
+  hygiene, schema, bridge, typecheck, test, build, and 3D-asset gates.
+- Added bounded weekly npm and GitHub Actions Dependabot configuration targeting
+  `main`, with no auto-merge. GitHub will not activate this configuration until
+  it is present on the default branch.
+- Added credential/signing/generated-output ignores and a repository hygiene
+  audit that checks tracked plus unignored files, runs negative guard self-tests,
+  and rejects known credential paths/markers without imposing a blanket binary
+  size limit.
+- Declared `vite-node@2.1.9` directly because bridge and generation scripts
+  execute it. Refreshed only the current lock's nonbreaking `nanoid` transitive
+  from `3.3.16` to `3.3.18`. No forced Vitest/Vite major update was accepted.
+
+### Security and dependency truth
+
+`npm run audit:browser-deps` passes with zero vulnerabilities. This is explicitly
+not called a whole-product runtime audit: the development bridge executes
+`vite-node` from the dev graph. Full `npm audit` reports five remaining tooling
+advisories (three moderate, one high, one critical). An isolated forced upgrade
+selected Vitest 4 and broke bridge execution, typechecking, test discovery, and
+timeouts, so it was rejected rather than hidden.
+
+Before Phase B production packaging, the bridge must have an explicit compiled
+or packaged runtime dependency graph. The current loopback HTTP service must
+also gain a per-launch random capability, expected Host policy, Origin rejection,
+exact JSON content-type enforcement, request/header timeouts, safe launcher to
+Unity token transfer, and proof that the token is never persisted or logged.
+Loopback-only binding remains mandatory and no arbitrary filesystem or command
+endpoint is authorized.
+
+### Validation
+
+| Gate | Accepted donor-checkpoint result |
+| --- | --- |
+| Clean install | `npm ci` passed with 205 installed packages |
+| Browser dependency audit | 0 vulnerabilities |
+| Full dependency report | 5 dev advisories documented: 3 moderate, 1 high, 1 critical |
+| Repository hygiene | Passed over 1,003 repository files plus negative self-tests |
+| Generated bridge contract | Passed; canonical JSON and C# golden unchanged |
+| Bridge typecheck | Passed |
+| Bridge tests | 20/20 passed, including Movie #2, stale/duplicate commands, save/load/reconnect, and determinism |
+| Full TypeScript typecheck | Passed |
+| Full TypeScript suite | 325 files; 4,421 passed, 5 skipped, 0 failed in 62.05 seconds |
+| Production build | Passed in 5.49 seconds; inherited chunk warnings only |
+| 3D asset audit | 26 assets; 0 hard violations |
+| Workflow/config | YAML parse and actionlint 1.7.10 passed; both pinned SHAs resolve to official v4 refs; actual remote run pending push |
+| Diff audit | No gameplay, protocol, generated DTO, UI, source asset, test, or Unity client changes; `git diff --check` passed |
+
+Independent architecture, CI/security, and whole-diff red teams found no
+remaining checkpoint blocker after correcting the ADR-index ignore, exact
+2,000,000-byte request-limit wording, actionable private-report fallback,
+`.npmrc`/npm-token coverage, env-example scanning, Python/C# scanning, and
+generated-root detection.
+
+No Unity test or native rebuild was required for this TypeScript-only governance
+checkpoint. Golden M1's Unity binary, Movie #2 evidence, save/load/reconnect
+proof, screenshots, and performance remain the accepted product evidence.
+
+### Golden and promotion decision
+
+This is not a new Golden Checkpoint. It improves engineering durability but has
+no compatible Unity delta, new native build, visual improvement, or player-flow
+change. CURRENT BEST remains the immutable M1 pair:
+
+- TypeScript `cd2b15872ac5849fa16beec1775543758cb3139e`;
+- Unity `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`;
+- tag `golden/unity-convergence-m1` in both repositories;
+- status **GOLDEN — CONTINUE CAMPAIGN**.
+
+### A3 sequencing decision
+
+The A3 audit found an inherited bridge parity defect: commission, auditions, and
+greenlight are suppressed from `availableIntents` under occupied capacity even
+though the TypeScript core deliberately accepts those front doors into queues.
+Permanent law says queue, do not forbid. Correct that bridge resolver parity
+before adding structured rejection guidance. Do not cement capacity as a
+rejection or choose one arbitrary holder/remedy from plural queue authority.
+
+### Next acceptance gate
+
+Correct the three queue-admissible bridge intent resolvers, prove each command is
+accepted into authoritative TypeScript queue state under occupied capacity, and
+retain exact identity, revision, stale-click, Movie #2, save, and determinism
+behavior. Structured rejection guidance follows only for genuine rejection
+categories.

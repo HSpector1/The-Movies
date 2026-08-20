@@ -1,19 +1,47 @@
-name: Bridge contract
+name: TypeScript validation
 
 on:
   pull_request:
   push:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: typescript-validation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  contract:
+  validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Configure Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
-      - run: npm run check:bridge-contract
-      - run: npm run typecheck:bridge
-      - run: npm run test:bridge
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Audit browser runtime dependencies
+        run: npm run audit:browser-deps
+      - name: Audit repository hygiene
+        run: npm run audit:repo-hygiene
+      - name: Verify generated bridge contract
+        run: npm run check:bridge-contract
+      - name: Typecheck bridge
+        run: npm run typecheck:bridge
+      - name: Typecheck application
+        run: npm run typecheck
+      - name: Test bridge
+        run: npm run test:bridge
+      - name: Test application
+        run: npm test
+      - name: Build production client
+        run: npm run build
+      - name: Audit adopted 3D assets
+        run: npm run audit:3d-assets

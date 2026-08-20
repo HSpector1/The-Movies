@@ -11,10 +11,33 @@ ui/e2e/fixtures/
 .tmp/3d-asset-audit.json
 .DS_Store
 
+# Local credentials and signing material. Commit only reviewed examples.
+.env
+.env.*
+!.env.example
+!.env.sample
+.envrc
+.netrc
+.npmrc
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Local native-client/runtime evidence and generated product output.
+/Evidence/
+/Builds/
+/Library/
+/Logs/
+/Temp/
+
 # Design-archive material awaiting relocation by the owner — NOT FOR BUILD,
 # must never enter git history. Remove these lines once the files leave the repo.
 design-spec.md
 README.md
+!docs/adr/README.md
 1-career-talent-market.md
 2-historical-talent.md
 3-acquisition.md
