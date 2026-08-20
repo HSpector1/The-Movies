@@ -1,4 +1,10 @@
-import { BRIDGE_SCHEMA, StudioLotSnapshotSchema, type BridgeStudioLotSnapshot } from './bridge-schema.ts'
+import {
+  BRIDGE_SCHEMA,
+  StudioLotSnapshotSchema,
+  StudioProjectionBundleSchema,
+  type BridgeStudioLotSnapshot,
+  type BridgeStudioProjectionBundle,
+} from './bridge-schema.ts'
 import type { InferSchema, JsonSchema } from './dsl.ts'
 
 type SchemaRecord = Record<string, unknown>
@@ -184,6 +190,35 @@ export function projectStudioLotSnapshot(value: unknown): BridgeStudioLotSnapsho
   return project(schemaRecord(StudioLotSnapshotSchema, '$defs.StudioLotSnapshot'), value, '$.snapshot', {
     stripAdditionalProperties: true,
   }) as BridgeStudioLotSnapshot
+}
+
+/** Decomposes one broad authoritative selector result into one atomic Unity projection bundle. */
+export function projectStudioProjectionBundle(value: unknown): BridgeStudioProjectionBundle {
+  const source = valueRecord(value, '$.studioLotSnapshot')
+  const section = (
+    name: keyof typeof BRIDGE_SCHEMA.$defs,
+    wireName: string,
+  ): unknown =>
+    project(
+      schemaRecord(BRIDGE_SCHEMA.$defs[name], `$defs.${name}`),
+      source,
+      `$.snapshot.${wireName}`,
+      { stripAdditionalProperties: true },
+    )
+  const candidate = {
+    lot: section('StudioLotProjection', 'lot'),
+    productions: section('StudioProductionsProjection', 'productions'),
+    people: section('StudioPeopleProjection', 'people'),
+    construction: section('StudioConstructionProjection', 'construction'),
+    journeyNotices: section('StudioJourneyNoticesProjection', 'journeyNotices'),
+    releaseResults: section('StudioReleaseResultsProjection', 'releaseResults'),
+  }
+  return project(
+    schemaRecord(StudioProjectionBundleSchema, '$defs.StudioProjectionBundle'),
+    candidate,
+    '$.snapshot',
+    { stripAdditionalProperties: false },
+  ) as BridgeStudioProjectionBundle
 }
 
 export function schemaDefinition(name: keyof typeof BRIDGE_SCHEMA.$defs): JsonSchema {

@@ -78,7 +78,7 @@ function selectMovieIntent(snapshot: SnapshotEnvelope): AvailableIntent {
   if (selected === undefined) {
     throw new Error(
       `No legal movie intent at revision ${String(snapshot.stateRevision)} / ` +
-        `${snapshot.snapshot.firstFilmJourney?.headline ?? 'missing journey'}.`,
+        `${snapshot.snapshot.journeyNotices.firstFilmJourney?.headline ?? 'missing journey'}.`,
     )
   }
   return selected
@@ -91,37 +91,37 @@ function evidenceCapture(snapshot: SnapshotEnvelope) {
     digest: snapshot.stateDigest,
     payloadBytes: snapshot.metrics.payloadBytes,
     serializationMs: snapshot.metrics.serializationMs,
-    journey: snapshot.snapshot.firstFilmJourney,
+    journey: snapshot.snapshot.journeyNotices.firstFilmJourney,
     availableIntents: snapshot.availableIntents.map((option) => ({
       kind: option.kind,
       projectId: option.projectId,
       castingSessionId: option.castingSessionId,
       productionId: option.productionId,
     })),
-    buildings: snapshot.snapshot.property?.buildings.map((building) => ({
+    buildings: snapshot.snapshot.lot.property?.buildings.map((building) => ({
       id: building.id,
       label: building.label,
       role: building.role,
       status: building.status,
     })) ?? [],
-    stages: snapshot.snapshot.stages?.map((stage) => ({
+    stages: snapshot.snapshot.lot.stages?.map((stage) => ({
       facilityId: stage.facilityId,
       facilityName: stage.facilityName,
       buildingId: stage.buildingId,
     })) ?? [],
-    sets: snapshot.snapshot.sets?.map((set) => ({
+    sets: snapshot.snapshot.lot.sets?.map((set) => ({
       id: set.id,
       name: set.name,
       locationLabel: set.locationLabel,
       status: set.status,
     })) ?? [],
-    people: snapshot.snapshot.people.map((person) => ({
+    people: snapshot.snapshot.people.people.map((person) => ({
       id: person.id,
       name: person.name,
       role: person.role,
       productionId: person.productionId,
     })),
-    construction: snapshot.snapshot.placement?.placements
+    construction: snapshot.snapshot.construction.placement?.placements
       .filter((placement) => placement.status === 'underConstruction')
       .map((placement) => ({
         id: placement.id,
@@ -130,7 +130,7 @@ function evidenceCapture(snapshot: SnapshotEnvelope) {
         completesWeek: placement.completesWeek,
         progress01: placement.progress01,
       })) ?? [],
-    productionOperations: snapshot.snapshot.productionOperations?.map((operation) => ({
+    productionOperations: snapshot.snapshot.productions.productionOperations?.map((operation) => ({
       productionId: operation.productionId,
       title: operation.title,
       phase: operation.phase,
@@ -138,7 +138,7 @@ function evidenceCapture(snapshot: SnapshotEnvelope) {
       blocker: operation.blocker,
       currentCommand: operation.currentCommand,
     })) ?? [],
-    releasedFilms: snapshot.snapshot.releasedFilms,
+    releasedFilms: snapshot.snapshot.releaseResults.releasedFilms,
   }
 }
 
@@ -215,7 +215,7 @@ for (let guard = 0; guard < 128; guard++) {
     serializationMs: response.metrics.serializationMs,
     payloadBytes: response.metrics.payloadBytes,
   })
-  const beat = response.snapshot.firstFilmJourney?.beat
+  const beat = response.snapshot.journeyNotices.firstFilmJourney?.beat
   if (beat === 'screenplay-ready') captures.screenplayReady ??= evidenceCapture(response)
   if (beat === 'auditions-reviewed') captures.auditionsReviewed ??= evidenceCapture(response)
   if (selected.kind === 'greenlightPicture') captures.rolesSelectedGreenlight = evidenceCapture(response)

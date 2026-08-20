@@ -16,7 +16,7 @@ import {
 } from './dsl.ts'
 
 export const PROTOCOL_VERSION = 2 as const
-export const PROJECTION_VERSION = 3 as const
+export const PROJECTION_VERSION = 4 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -431,7 +431,7 @@ const StudioSetSnapshot = object('StudioSetSnapshot', {
   sceneryFacilityId: nullable(text()),
 })
 
-export const StudioLotSnapshotSchema = object('StudioLotSnapshot', {
+const studioLotSnapshotProperties = {
   studioName: nonEmptyText(),
   week: nonNegativeInteger(),
   sceneSeed: nonEmptyText(),
@@ -450,6 +450,50 @@ export const StudioLotSnapshotSchema = object('StudioLotSnapshot', {
   stages: optional(array(reference('StudioStageSnapshot', StudioStageSnapshot))),
   sets: optional(array(reference('StudioSetSnapshot', StudioSetSnapshot))),
   firstFilmJourney: reference('StudioFirstFilmJourneySnapshot', StudioFirstFilmJourneySnapshot),
+} as const
+
+export const StudioLotSnapshotSchema = object('StudioLotSnapshot', studioLotSnapshotProperties)
+
+export const StudioLotProjectionSchema = object('StudioLotProjection', {
+  studioName: studioLotSnapshotProperties.studioName,
+  week: studioLotSnapshotProperties.week,
+  sceneSeed: studioLotSnapshotProperties.sceneSeed,
+  buildings: studioLotSnapshotProperties.buildings,
+  property: studioLotSnapshotProperties.property,
+  stages: studioLotSnapshotProperties.stages,
+  sets: studioLotSnapshotProperties.sets,
+})
+
+export const StudioProductionsProjectionSchema = object('StudioProductionsProjection', {
+  activeProductions: studioLotSnapshotProperties.activeProductions,
+  productionOperations: studioLotSnapshotProperties.productionOperations,
+})
+
+export const StudioPeopleProjectionSchema = object('StudioPeopleProjection', {
+  people: studioLotSnapshotProperties.people,
+  presence: studioLotSnapshotProperties.presence,
+})
+
+export const StudioConstructionProjectionSchema = object('StudioConstructionProjection', {
+  placement: studioLotSnapshotProperties.placement,
+})
+
+export const StudioJourneyNoticesProjectionSchema = object('StudioJourneyNoticesProjection', {
+  firstFilmJourney: studioLotSnapshotProperties.firstFilmJourney,
+  weekTheater: studioLotSnapshotProperties.weekTheater,
+})
+
+export const StudioReleaseResultsProjectionSchema = object('StudioReleaseResultsProjection', {
+  releasedFilms: studioLotSnapshotProperties.releasedFilms,
+})
+
+export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
+  lot: reference('StudioLotProjection', StudioLotProjectionSchema),
+  productions: reference('StudioProductionsProjection', StudioProductionsProjectionSchema),
+  people: reference('StudioPeopleProjection', StudioPeopleProjectionSchema),
+  construction: reference('StudioConstructionProjection', StudioConstructionProjectionSchema),
+  journeyNotices: reference('StudioJourneyNoticesProjection', StudioJourneyNoticesProjectionSchema),
+  releaseResults: reference('StudioReleaseResultsProjection', StudioReleaseResultsProjectionSchema),
 })
 
 export const AVAILABLE_INTENT_KINDS = [
@@ -524,7 +568,7 @@ const snapshotResponseProperties = {
   stateRevision: nonNegativeInteger(),
   gameWeek: nonNegativeInteger(),
   stateDigest: nonEmptyText(),
-  snapshot: reference('StudioLotSnapshot', StudioLotSnapshotSchema),
+  snapshot: reference('StudioProjectionBundle', StudioProjectionBundleSchema),
   availableIntents: array(reference('StudioBridgeIntentOption', StudioBridgeIntentOption)),
   metrics: reference('StudioBridgeMetrics', StudioBridgeMetrics),
 }
@@ -630,7 +674,13 @@ const definitions = {
   StudioWeekTheaterSnapshot,
   StudioStageSnapshot,
   StudioSetSnapshot,
-  StudioLotSnapshot: StudioLotSnapshotSchema,
+  StudioLotProjection: StudioLotProjectionSchema,
+  StudioProductionsProjection: StudioProductionsProjectionSchema,
+  StudioPeopleProjection: StudioPeopleProjectionSchema,
+  StudioConstructionProjection: StudioConstructionProjectionSchema,
+  StudioJourneyNoticesProjection: StudioJourneyNoticesProjectionSchema,
+  StudioReleaseResultsProjection: StudioReleaseResultsProjectionSchema,
+  StudioProjectionBundle: StudioProjectionBundleSchema,
   StudioBridgeIntentOption,
   StudioBridgeMetrics,
   StudioBridgeIntentPayload,
@@ -647,7 +697,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-2:projection-3',
+  $id: 'urn:project-studio:bridge:protocol-2:projection-4',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [
@@ -680,6 +730,7 @@ export const BRIDGE_SCHEMA = {
 } as const satisfies JsonSchema
 
 export type BridgeStudioLotSnapshot = InferSchema<typeof StudioLotSnapshotSchema>
+export type BridgeStudioProjectionBundle = InferSchema<typeof StudioProjectionBundleSchema>
 export type BridgeAvailableIntent = InferSchema<typeof StudioBridgeIntentOption>
 export type BridgeSubmitIntentCommand = InferSchema<typeof StudioBridgeIntentRequest>
 export type BridgeControlEnvelope = InferSchema<typeof StudioBridgeControlRequest>

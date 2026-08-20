@@ -74,10 +74,10 @@
           "type": "string"
         },
         "snapshot": {
-          "$ref": "#/$defs/StudioLotSnapshot"
+          "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 3,
+          "const": 4,
           "type": "integer"
         },
         "stateDigest": {
@@ -184,7 +184,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 3,
+          "const": 4,
           "type": "integer"
         },
         "stateDigest": {
@@ -533,7 +533,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 3,
+          "const": 4,
           "type": "integer"
         },
         "stateDigest": {
@@ -588,10 +588,10 @@
           "type": "string"
         },
         "snapshot": {
-          "$ref": "#/$defs/StudioLotSnapshot"
+          "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 3,
+          "const": 4,
           "type": "integer"
         },
         "stateDigest": {
@@ -693,6 +693,19 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioClearSceneryLoadInCommand"
+    },
+    "StudioConstructionProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "placement": {
+          "$ref": "#/$defs/StudioPlacementSnapshot"
+        }
+      },
+      "required": [
+        "placement"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioConstructionProjection"
     },
     "StudioFirstFilmJourneySnapshot": {
       "additionalProperties": false,
@@ -970,6 +983,22 @@
       "type": "object",
       "x-csharp-name": "StudioJourneyNextSnapshot"
     },
+    "StudioJourneyNoticesProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "firstFilmJourney": {
+          "$ref": "#/$defs/StudioFirstFilmJourneySnapshot"
+        },
+        "weekTheater": {
+          "$ref": "#/$defs/StudioWeekTheaterSnapshot"
+        }
+      },
+      "required": [
+        "firstFilmJourney"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioJourneyNoticesProjection"
+    },
     "StudioJourneyWaitingSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -997,50 +1026,17 @@
       "type": "object",
       "x-csharp-name": "StudioJourneyWaitingSnapshot"
     },
-    "StudioLotSnapshot": {
+    "StudioLotProjection": {
       "additionalProperties": false,
       "properties": {
-        "activeProductions": {
-          "items": {
-            "$ref": "#/$defs/StudioProductionSnapshot"
-          },
-          "type": "array"
-        },
         "buildings": {
           "items": {
             "$ref": "#/$defs/StudioBuildingSnapshot"
           },
           "type": "array"
         },
-        "firstFilmJourney": {
-          "$ref": "#/$defs/StudioFirstFilmJourneySnapshot"
-        },
-        "people": {
-          "items": {
-            "$ref": "#/$defs/StudioPersonSnapshot"
-          },
-          "type": "array"
-        },
-        "placement": {
-          "$ref": "#/$defs/StudioPlacementSnapshot"
-        },
-        "presence": {
-          "$ref": "#/$defs/StudioPresenceSnapshot"
-        },
-        "productionOperations": {
-          "items": {
-            "$ref": "#/$defs/StudioProductionOperationsSnapshot"
-          },
-          "type": "array"
-        },
         "property": {
           "$ref": "#/$defs/StudioPropertySnapshot"
-        },
-        "releasedFilms": {
-          "items": {
-            "$ref": "#/$defs/StudioReleasedFilmSnapshot"
-          },
-          "type": "array"
         },
         "sceneSeed": {
           "minLength": 1,
@@ -1066,26 +1062,17 @@
           "maximum": 2147483647,
           "minimum": 0,
           "type": "integer"
-        },
-        "weekTheater": {
-          "$ref": "#/$defs/StudioWeekTheaterSnapshot"
         }
       },
       "required": [
-        "activeProductions",
         "buildings",
-        "firstFilmJourney",
-        "people",
-        "placement",
-        "productionOperations",
         "property",
-        "releasedFilms",
         "sceneSeed",
         "studioName",
         "week"
       ],
       "type": "object",
-      "x-csharp-name": "StudioLotSnapshot"
+      "x-csharp-name": "StudioLotProjection"
     },
     "StudioParcelSnapshot": {
       "additionalProperties": false,
@@ -1136,6 +1123,25 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioParcelSnapshot"
+    },
+    "StudioPeopleProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "people": {
+          "items": {
+            "$ref": "#/$defs/StudioPersonSnapshot"
+          },
+          "type": "array"
+        },
+        "presence": {
+          "$ref": "#/$defs/StudioPresenceSnapshot"
+        }
+      },
+      "required": [
+        "people"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPeopleProjection"
     },
     "StudioPersonSnapshot": {
       "additionalProperties": false,
@@ -1983,6 +1989,62 @@
       "type": "object",
       "x-csharp-name": "StudioProductionSnapshot"
     },
+    "StudioProductionsProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "activeProductions": {
+          "items": {
+            "$ref": "#/$defs/StudioProductionSnapshot"
+          },
+          "type": "array"
+        },
+        "productionOperations": {
+          "items": {
+            "$ref": "#/$defs/StudioProductionOperationsSnapshot"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "activeProductions",
+        "productionOperations"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioProductionsProjection"
+    },
+    "StudioProjectionBundle": {
+      "additionalProperties": false,
+      "properties": {
+        "construction": {
+          "$ref": "#/$defs/StudioConstructionProjection"
+        },
+        "journeyNotices": {
+          "$ref": "#/$defs/StudioJourneyNoticesProjection"
+        },
+        "lot": {
+          "$ref": "#/$defs/StudioLotProjection"
+        },
+        "people": {
+          "$ref": "#/$defs/StudioPeopleProjection"
+        },
+        "productions": {
+          "$ref": "#/$defs/StudioProductionsProjection"
+        },
+        "releaseResults": {
+          "$ref": "#/$defs/StudioReleaseResultsProjection"
+        }
+      },
+      "required": [
+        "construction",
+        "journeyNotices",
+        "lot",
+        "people",
+        "productions",
+        "releaseResults"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioProjectionBundle"
+    },
     "StudioPropertyBoundsSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -2080,6 +2142,22 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioPropertySnapshot"
+    },
+    "StudioReleaseResultsProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "releasedFilms": {
+          "items": {
+            "$ref": "#/$defs/StudioReleasedFilmSnapshot"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "releasedFilms"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioReleaseResultsProjection"
     },
     "StudioReleasedFilmSnapshot": {
       "additionalProperties": false,
@@ -2450,7 +2528,7 @@
       "x-csharp-name": "StudioWeekTheaterSubjectSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-2:projection-3",
+  "$id": "urn:project-studio:bridge:protocol-2:projection-4",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -2485,7 +2563,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 3,
+    "projectionVersion": 4,
     "protocolVersion": 2,
     "routes": {
       "command": "POST /command",

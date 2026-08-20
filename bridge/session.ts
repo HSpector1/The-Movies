@@ -47,7 +47,7 @@ import type {
   BridgeRejectedResponse,
   BridgeSnapshotEnvelope,
 } from './schema/bridge-schema.ts'
-import { projectStudioLotSnapshot } from './schema/runtime.ts'
+import { projectStudioProjectionBundle } from './schema/runtime.ts'
 
 type IntentApplication = {
   option: AvailableIntent
@@ -536,7 +536,7 @@ export class BridgeSession {
 
   snapshot(): SnapshotEnvelope {
     const started = performance.now()
-    const snapshot = projectStudioLotSnapshot(studioLotSnapshot(this.state))
+    const snapshot = projectStudioProjectionBundle(studioLotSnapshot(this.state))
     const intents = availableIntents(this.state)
     const partial = {
       protocolVersion: PROTOCOL_VERSION,

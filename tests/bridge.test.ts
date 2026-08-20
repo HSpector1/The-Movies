@@ -91,7 +91,7 @@ function chooseMovieIntent(session: BridgeSession): AvailableIntent {
   if (selected === undefined) {
     throw new Error(
       `No playable movie intent at revision ${String(session.stateRevision)}: ` +
-        session.snapshot().snapshot.firstFilmJourney?.headline,
+        session.snapshot().snapshot.journeyNotices.firstFilmJourney?.headline,
     )
   }
   return selected
@@ -125,16 +125,24 @@ function expectOrderedSubsequence<T>(actual: readonly T[], expected: readonly T[
 }
 
 describe('Current-game Unity adoption bridge', () => {
-  it('pins protocol v2/projection v3 and fingerprints nested lot, journey, and exact intent fields', () => {
+  it('pins protocol v2/projection v4 and fingerprints named projections and exact intent fields', () => {
     expect(PROTOCOL_VERSION).toBe(2)
-    expect(SNAPSHOT_VERSION).toBe(3)
+    expect(SNAPSHOT_VERSION).toBe(4)
     expect(SCHEMA_ID).toMatch(/^sha256:[0-9a-f]{64}$/)
     expect(Object.keys(
       BRIDGE_CONTRACT.$defs.StudioBridgeIntentOption.properties as Record<string, unknown>,
     )).toEqual(
       AVAILABLE_INTENT_KEYS,
     )
-    expect(BRIDGE_CONTRACT.$defs.StudioLotSnapshot.additionalProperties).toBe(false)
+    expect(BRIDGE_CONTRACT.$defs.StudioProjectionBundle.additionalProperties).toBe(false)
+    expect(BRIDGE_CONTRACT.$defs.StudioProjectionBundle.required).toEqual([
+      'construction',
+      'journeyNotices',
+      'lot',
+      'people',
+      'productions',
+      'releaseResults',
+    ])
     expect(BRIDGE_CONTRACT.$defs.StudioFirstFilmJourneySnapshot.required).toEqual(
       expect.arrayContaining(['productionId', 'scriptProjectId', 'ordinal', 'next', 'blocked']),
     )
@@ -208,16 +216,16 @@ describe('Current-game Unity adoption bridge', () => {
       'movie-two-session',
     )
     const initial = session.snapshot()
-    expect(initial.snapshot.firstFilmJourney).toMatchObject({
+    expect(initial.snapshot.journeyNotices.firstFilmJourney).toMatchObject({
       stage: 'released',
       ordinal: 1,
       next: { kind: 'commission' },
     })
-    expect(initial.snapshot.property?.buildings.length).toBeGreaterThan(0)
-    expect(initial.snapshot.stages?.length).toBeGreaterThanOrEqual(2)
-    expect(initial.snapshot.sets?.length).toBeGreaterThanOrEqual(2)
-    expect(initial.snapshot.people.length).toBeGreaterThan(0)
-    expect(initial.snapshot.releasedFilms).toHaveLength(1)
+    expect(initial.snapshot.lot.property?.buildings.length).toBeGreaterThan(0)
+    expect(initial.snapshot.lot.stages?.length).toBeGreaterThanOrEqual(2)
+    expect(initial.snapshot.lot.sets?.length).toBeGreaterThanOrEqual(2)
+    expect(initial.snapshot.people.people.length).toBeGreaterThan(0)
+    expect(initial.snapshot.releaseResults.releasedFilms).toHaveLength(1)
 
     const construction = initial.availableIntents.find((intent) => intent.kind === 'startConstruction')
     expect(construction).toBeDefined()
@@ -225,7 +233,7 @@ describe('Current-game Unity adoption bridge', () => {
     expect(constructionResult.accepted).toBe(true)
     if (!constructionResult.accepted) throw new Error(constructionResult.message)
     expect(
-      constructionResult.snapshot.placement?.placements.some(
+      constructionResult.snapshot.construction.placement?.placements.some(
         (placed) => placed.status === 'underConstruction',
       ),
     ).toBe(true)
@@ -242,7 +250,7 @@ describe('Current-game Unity adoption bridge', () => {
 
     for (let guard = 0; guard < 128; guard++) {
       const before = session.snapshot()
-      const journey = before.snapshot.firstFilmJourney
+      const journey = before.snapshot.journeyNotices.firstFilmJourney
       if (journey === undefined) throw new Error('Missing current guidance.')
       beats.add(journey.beat)
       if (session.gameState.studio.releasedFilms.length > releasedBefore) break
@@ -252,7 +260,7 @@ describe('Current-game Unity adoption bridge', () => {
         expect(intent.projectId).toBe(movieTwoProjectId)
       }
       if (intent.kind === 'resolveProductionBlocker') {
-        const operation = before.snapshot.productionOperations?.find(
+        const operation = before.snapshot.productions.productionOperations?.find(
           (candidate) => candidate.productionId === movieTwoProductionId,
         )
         if (operation?.blocker !== null && operation?.blocker !== undefined) {
@@ -267,7 +275,7 @@ describe('Current-game Unity adoption bridge', () => {
       intentKinds.push(intent.kind)
       commandIndex++
 
-      const afterJourney = result.snapshot.firstFilmJourney
+      const afterJourney = result.snapshot.journeyNotices.firstFilmJourney
       if (afterJourney?.scriptProjectId !== null && afterJourney?.scriptProjectId !== undefined) {
         movieTwoProjectId ??= afterJourney.scriptProjectId
       }
@@ -290,7 +298,7 @@ describe('Current-game Unity adoption bridge', () => {
     }
 
     const released = session.snapshot()
-    const journey = released.snapshot.firstFilmJourney
+    const journey = released.snapshot.journeyNotices.firstFilmJourney
     expect(session.gameState.studio.releasedFilms).toHaveLength(releasedBefore + 1)
     expect(journey).toMatchObject({
       stage: 'released',
@@ -300,7 +308,7 @@ describe('Current-game Unity adoption bridge', () => {
       productionId: movieTwoProductionId,
       headline: 'PICTURE RELEASED',
     })
-    expect(released.snapshot.releasedFilms.some((film) => film.id === movieTwoProductionId)).toBe(true)
+    expect(released.snapshot.releaseResults.releasedFilms.some((film) => film.id === movieTwoProductionId)).toBe(true)
     expect([...beats]).toEqual(expect.arrayContaining([
       'screenplay-writing',
       'screenplay-review',
@@ -385,8 +393,8 @@ describe('Current-game Unity adoption bridge', () => {
     const commissionResult = submit(session, commission, 'commission')
     expect(commissionResult.accepted).toBe(true)
     if (!commissionResult.accepted) throw new Error(commissionResult.message)
-    const projectId = commissionResult.snapshot.firstFilmJourney?.scriptProjectId
-    const title = commissionResult.snapshot.firstFilmJourney?.pictureTitle
+    const projectId = commissionResult.snapshot.journeyNotices.firstFilmJourney?.scriptProjectId
+    const title = commissionResult.snapshot.journeyNotices.firstFilmJourney?.pictureTitle
     expect(projectId).toMatch(/^script-/)
     expect(title).toBeTruthy()
 
@@ -398,7 +406,7 @@ describe('Current-game Unity adoption bridge', () => {
 
     const oldCommission = submit(session, commission, 'old-intent-new-command')
     expect(oldCommission).toMatchObject({ accepted: false, reasonCode: 'INTENT_NOT_AVAILABLE' })
-    expect(session.snapshot().snapshot.firstFilmJourney?.scriptProjectId).toBe(projectId)
+    expect(session.snapshot().snapshot.journeyNotices.firstFilmJourney?.scriptProjectId).toBe(projectId)
   })
 
   it('protects save/load controls and reconstructs a fresh reconnect session byte-for-byte', () => {
@@ -428,8 +436,8 @@ describe('Current-game Unity adoption bridge', () => {
     expect(reconnected.sessionId).not.toBe(session.sessionId)
     expect(reconnected.snapshot().stateDigest).toBe(saved.stateDigest)
     expect(exportSaveJson(reconnected.gameState)).toBe(saved.saveJson)
-    expect(reconnected.snapshot().snapshot.people.map((person) => person.id)).toEqual(
-      loaded.snapshot.people.map((person) => person.id),
+    expect(reconnected.snapshot().snapshot.people.people.map((person) => person.id)).toEqual(
+      loaded.snapshot.people.people.map((person) => person.id),
     )
 
     const oldSessionIntent = session.snapshot().availableIntents[0]!
@@ -469,6 +477,32 @@ describe('Current-game Unity adoption bridge', () => {
     expect(exportSaveJson(state)).toBe(before)
     expect(applyAvailableIntent(state, 'intent-v2-not-real')).toMatchObject({ ok: false })
     expect(exportSaveJson(state)).toBe(before)
+  })
+
+  it('keeps every named projection and root authority token stable across identical polls', () => {
+    const session = new BridgeSession(
+      createBridgeInitialState('bridge-atomic-poll-stability'),
+      'atomic-poll-stability',
+    )
+    const saveBefore = exportSaveJson(session.gameState)
+    const first = session.snapshot()
+    const second = session.snapshot()
+    expect(second.snapshot).toEqual(first.snapshot)
+    expect(second.availableIntents).toEqual(first.availableIntents)
+    expect(second.stateRevision).toBe(first.stateRevision)
+    expect(second.stateDigest).toBe(first.stateDigest)
+    expect(second.gameWeek).toBe(first.snapshot.lot.week)
+    expect(second.gameWeek).toBe(first.snapshot.construction.placement.currentWeek)
+    expect(exportSaveJson(session.gameState)).toBe(saveBefore)
+
+    const commission = second.availableIntents.find((intent) => intent.kind === 'commissionScreenplay')
+    if (commission === undefined) throw new Error('Atomic poll fixture omitted commission intent.')
+    const accepted = submit(session, commission, 'atomic-poll-command')
+    expect(accepted.accepted).toBe(true)
+    if (!accepted.accepted) throw new Error(accepted.message)
+    expect(accepted.stateRevision).toBe(first.stateRevision + 1)
+    expect(accepted.snapshot.lot.week).toBe(accepted.gameWeek)
+    expect(accepted.snapshot.construction.placement.currentWeek).toBe(accepted.gameWeek)
   })
 })
 

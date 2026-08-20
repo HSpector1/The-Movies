@@ -10,9 +10,11 @@ import {
 } from '../bridge/protocol.ts'
 import { createBridgeInitialState, BridgeSession } from '../bridge/session.ts'
 import { canonicalJson, canonicalJsonPretty, schemaIdentity } from '../bridge/schema/canonical.ts'
+import { StudioLotSnapshotSchema } from '../bridge/schema/bridge-schema.ts'
 import {
   parseWireValue,
   projectStudioLotSnapshot,
+  projectStudioProjectionBundle,
 } from '../bridge/schema/runtime.ts'
 import { studioLotSnapshot } from '../ui/src/engine/adapter.ts'
 
@@ -60,7 +62,7 @@ describe('canonical Unity bridge schema', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
       protocolVersion: 2,
-      projectionVersion: 3,
+      projectionVersion: 4,
       transport: 'http-json-localhost',
     })
   })
@@ -69,10 +71,17 @@ describe('canonical Unity bridge schema', () => {
     const state = createBridgeInitialState('bridge-schema-live-snapshot')
     const broadSnapshot = studioLotSnapshot(state)
     const projected = projectStudioLotSnapshot(broadSnapshot)
+    const bundle = projectStudioProjectionBundle(broadSnapshot)
     expect(broadSnapshot).toHaveProperty('cash')
     expect(projected).not.toHaveProperty('cash')
     expect(projected).not.toHaveProperty('operationsMode')
     expect(projected.firstFilmJourney.ordinal).toBe(1)
+    expect(bundle.journeyNotices.firstFilmJourney).toEqual(projected.firstFilmJourney)
+    expect(bundle.lot.property).toEqual(projected.property)
+    expect(bundle.productions.productionOperations).toEqual(projected.productionOperations)
+    expect(bundle.people.people).toEqual(projected.people)
+    expect(bundle.construction.placement).toEqual(projected.placement)
+    expect(bundle.releaseResults.releasedFilms).toEqual(projected.releasedFilms)
 
     const session = new BridgeSession(state, 'bridge-schema-session')
     const envelope = session.snapshot()
@@ -84,9 +93,31 @@ describe('canonical Unity bridge schema', () => {
     const validate = ajv.compile(BRIDGE_SCHEMA)
     expect(validate(envelope), JSON.stringify(validate.errors)).toBe(true)
     const allowedRootKeys = Object.keys(
-      BRIDGE_SCHEMA.$defs.StudioLotSnapshot.properties as Record<string, unknown>,
+      BRIDGE_SCHEMA.$defs.StudioProjectionBundle.properties as Record<string, unknown>,
     )
     expect(Object.keys(envelope.snapshot).every((key) => allowedRootKeys.includes(key))).toBe(true)
+  })
+
+  it('owns every legacy projection field exactly once with byte-equivalent schema semantics', () => {
+    const ownership: Record<string, Record<string, unknown>> = {
+      lot: BRIDGE_SCHEMA.$defs.StudioLotProjection.properties as Record<string, unknown>,
+      productions: BRIDGE_SCHEMA.$defs.StudioProductionsProjection.properties as Record<string, unknown>,
+      people: BRIDGE_SCHEMA.$defs.StudioPeopleProjection.properties as Record<string, unknown>,
+      construction: BRIDGE_SCHEMA.$defs.StudioConstructionProjection.properties as Record<string, unknown>,
+      journeyNotices: BRIDGE_SCHEMA.$defs.StudioJourneyNoticesProjection.properties as Record<string, unknown>,
+      releaseResults: BRIDGE_SCHEMA.$defs.StudioReleaseResultsProjection.properties as Record<string, unknown>,
+    }
+    const fields = Object.values(ownership).flatMap((properties) => Object.keys(properties))
+    const legacyFields = Object.keys(StudioLotSnapshotSchema.properties as Record<string, unknown>)
+    expect(fields.sort()).toEqual(legacyFields.sort())
+    expect(new Set(fields).size).toBe(fields.length)
+    for (const properties of Object.values(ownership)) {
+      for (const [field, schema] of Object.entries(properties)) {
+        expect(schema).toEqual(
+          (StudioLotSnapshotSchema.properties as Record<string, unknown>)[field],
+        )
+      }
+    }
   })
 
   it('rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data', () => {
@@ -97,10 +128,10 @@ describe('canonical Unity bridge schema', () => {
     const definition = BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse
 
     const extra = clone(envelope) as typeof envelope & { snapshot: typeof envelope.snapshot & { debug?: boolean } }
-    extra.snapshot.firstFilmJourney = {
-      ...extra.snapshot.firstFilmJourney,
+    extra.snapshot.journeyNotices.firstFilmJourney = {
+      ...extra.snapshot.journeyNotices.firstFilmJourney,
       debug: true,
-    } as typeof extra.snapshot.firstFilmJourney
+    } as typeof extra.snapshot.journeyNotices.firstFilmJourney
     expect(() => parseWireValue(definition, extra)).toThrow(/additional properties are not allowed/)
 
     const prototypeShadow = clone(envelope) as typeof envelope & { constructor?: string }
@@ -116,16 +147,24 @@ describe('canonical Unity bridge schema', () => {
     expect(() => parseWireValue(definition, wrongEnum)).toThrow(/expected one of/)
 
     const wrongNull = clone(envelope)
-    wrongNull.snapshot.studioName = null as unknown as string
+    wrongNull.snapshot.lot.studioName = null as unknown as string
     expect(() => parseWireValue(definition, wrongNull)).toThrow(/expected a string/)
 
     const int32Overflow = clone(envelope)
     int32Overflow.stateRevision = 2_147_483_648
     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
 
-    const oldProjection = { ...clone(envelope), snapshotVersion: 2 }
-    expect(PROJECTION_VERSION).toBe(3)
-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 3/)
+    const oldProjection = { ...clone(envelope), snapshotVersion: 3 }
+    expect(PROJECTION_VERSION).toBe(4)
+    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 4/)
+
+    const missingSection = clone(envelope)
+    delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
+    expect(() => parseWireValue(definition, missingSection)).toThrow(/required property is missing/)
+
+    const legacyFlat = clone(envelope) as typeof envelope & { snapshot: typeof envelope.snapshot & { studioName?: string } }
+    legacyFlat.snapshot.studioName = legacyFlat.snapshot.lot.studioName
+    expect(() => parseWireValue(definition, legacyFlat)).toThrow(/additional properties are not allowed/)
   })
 
   it('preserves required nullable numeric fields through schema projection', () => {
@@ -134,19 +173,19 @@ describe('canonical Unity bridge schema', () => {
       'bridge-schema-nullable-numbers',
     ).snapshot())
     const snapshot = envelope.snapshot
-    const presencePerson = snapshot.presence?.people[0]
-    const firstSet = snapshot.sets?.[0]
-    const firstCatalog = snapshot.placement.catalog[0]
+    const presencePerson = snapshot.people.presence?.people[0]
+    const firstSet = snapshot.lot.sets?.[0]
+    const firstCatalog = snapshot.construction.placement.catalog[0]
     if (presencePerson === undefined || firstSet === undefined || firstCatalog === undefined) {
       throw new Error('Managed bridge fixture did not expose nullable-number DTOs.')
     }
     presencePerson.slot = null
     firstSet.completesWeek = null
     firstCatalog.maxInstances = null
-    if (snapshot.weekTheater === undefined) {
+    if (snapshot.journeyNotices.weekTheater === undefined) {
       throw new Error('Managed bridge fixture did not expose week theater.')
     }
-    snapshot.weekTheater.subjects.push({
+    snapshot.journeyNotices.weekTheater.subjects.push({
       kind: 'stage-dark',
       id: 'nullable-distance-fixture',
       facilityId: null,
@@ -158,14 +197,14 @@ describe('canonical Unity bridge schema', () => {
       weeksRemaining: null,
       distance: null,
       reason: null,
-      beats: Array.from({ length: snapshot.weekTheater.beatsPerWeek }, () => 'idle' as const),
+      beats: Array.from({ length: snapshot.journeyNotices.weekTheater.beatsPerWeek }, () => 'idle' as const),
     })
 
     const parsed = parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, envelope)
-    expect(parsed.snapshot.presence?.people[0]?.slot).toBeNull()
-    expect(parsed.snapshot.sets?.[0]?.completesWeek).toBeNull()
-    expect(parsed.snapshot.placement.catalog[0]?.maxInstances).toBeNull()
-    expect(parsed.snapshot.weekTheater?.subjects.at(-1)?.distance).toBeNull()
+    expect(parsed.snapshot.people.presence?.people[0]?.slot).toBeNull()
+    expect(parsed.snapshot.lot.sets?.[0]?.completesWeek).toBeNull()
+    expect(parsed.snapshot.construction.placement.catalog[0]?.maxInstances).toBeNull()
+    expect(parsed.snapshot.journeyNotices.weekTheater?.subjects.at(-1)?.distance).toBeNull()
 
     const overflow = clone(envelope)
     overflow.stateRevision = 2_147_483_648
@@ -239,14 +278,15 @@ describe('canonical Unity bridge schema', () => {
     )
     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 3;')
+    expect(generatedCsharp).toContain('public const int ProjectionVersion = 4;')
     expect(generatedCsharp).toContain('public int protocolVersion;')
     expect(generatedCsharp).toContain('public int snapshotVersion;')
     expect(generatedCsharp).toContain('public int? slot;')
     expect(generatedCsharp).toContain('public int? completesWeek;')
     expect(generatedCsharp).toContain('public double? distance;')
     expect(generatedCsharp).toContain('public int? maxInstances;')
-    expect(generatedCsharp).toContain('public sealed partial class StudioLotSnapshot')
+    expect(generatedCsharp).toContain('public sealed partial class StudioProjectionBundle')
+    expect(generatedCsharp).not.toContain('public sealed partial class StudioLotSnapshot')
     expect(generatedCsharp).toContain('public static readonly string CanonicalSchemaJson')
     expect(generatedCsharp).not.toContain('class StudioBridgeLoadResponse')
   })
