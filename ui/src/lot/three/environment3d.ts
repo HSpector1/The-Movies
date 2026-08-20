@@ -211,17 +211,76 @@ export function buildGround(lotW: number, lotD: number, buildings: readonly Worl
   horizon.position.set((lotW / 2) * TILE_M, -0.08, (lotD / 2) * TILE_M)
   horizon.receiveShadow = true
 
+  // The public walks are physical slabs, not another painted line. They sit wholly
+  // outside the studio wall, so the authoritative lot surface, roads and occupancy Y
+  // remain exactly where the engine put them. Split each run at the perpendicular
+  // street: a raised strip must never bridge the road through the public intersection.
+  const walkGeometry = new BoxGeometry(1, 1, 1)
+  const walkMaterial = new MeshStandardMaterial({ color: warm(WARM.sidewalk), roughness: 0.97 })
+  const curbMaterial = new MeshStandardMaterial({ color: warm(WARM.streetEdge), roughness: 0.92 })
+  const publicWalks = new Group()
+  publicWalks.name = 'Public sidewalks and kerbs'
+  const WALK_H = 0.16
+  const CURB_H = 0.24
+  const CURB_W = 0.16
+  const addWalkRect = (
+    x0: number,
+    z0: number,
+    x1: number,
+    z1: number,
+    roadEdge: 'x0' | 'x1' | 'z0' | 'z1',
+  ): void => {
+    const slab = new Mesh(walkGeometry, walkMaterial)
+    slab.position.set(((x0 + x1) / 2) * TILE_M, WALK_H / 2, ((z0 + z1) / 2) * TILE_M)
+    slab.scale.set((x1 - x0) * TILE_M, WALK_H, (z1 - z0) * TILE_M)
+    slab.receiveShadow = true
+    publicWalks.add(slab)
+
+    const curb = new Mesh(walkGeometry, curbMaterial)
+    const alongX = roadEdge === 'z0' || roadEdge === 'z1'
+    const edgeX = roadEdge === 'x0' ? x0 : roadEdge === 'x1' ? x1 : (x0 + x1) / 2
+    const edgeZ = roadEdge === 'z0' ? z0 : roadEdge === 'z1' ? z1 : (z0 + z1) / 2
+    curb.position.set(edgeX * TILE_M, CURB_H / 2, edgeZ * TILE_M)
+    curb.scale.set(alongX ? (x1 - x0) * TILE_M : CURB_W, CURB_H, alongX ? CURB_W : (z1 - z0) * TILE_M)
+    curb.castShadow = true
+    curb.receiveShadow = true
+    publicWalks.add(curb)
+  }
+  const xMin = -MARGIN
+  const xMax = lotW + MARGIN
+  const zMin = -MARGIN
+  const zMax = lotD + MARGIN
+  const eastRoad0 = lotW + 2.0
+  const eastRoad1 = lotW + 4.7
+  const southRoad0 = lotD + 2.0
+  const southRoad1 = lotD + 4.7
+
+  // South boulevard: inner and neighbourhood-side walks, each side of the east road.
+  addWalkRect(xMin, lotD + 1.1, eastRoad0, lotD + 2.0, 'z1')
+  addWalkRect(eastRoad1, lotD + 1.1, xMax, lotD + 2.0, 'z1')
+  addWalkRect(xMin, lotD + 4.7, eastRoad0, lotD + 5.6, 'z0')
+  addWalkRect(eastRoad1, lotD + 4.7, xMax, lotD + 5.6, 'z0')
+  // East boulevard: the same treatment, split at the south road.
+  addWalkRect(lotW + 1.1, zMin, lotW + 2.0, southRoad0, 'x1')
+  addWalkRect(lotW + 1.1, southRoad1, lotW + 2.0, zMax, 'x1')
+  addWalkRect(lotW + 4.7, zMin, lotW + 5.6, southRoad0, 'x0')
+  addWalkRect(lotW + 4.7, southRoad1, lotW + 5.6, zMax, 'x0')
+
   const group = new Group()
   group.add(horizon)
   group.add(ground)
+  group.add(publicWalks)
   return {
     group,
     dispose: () => {
       texture.dispose()
       groundMat.dispose()
       horizonMat.dispose()
+      walkMaterial.dispose()
+      curbMaterial.dispose()
       ground.geometry.dispose()
       horizon.geometry.dispose()
+      walkGeometry.dispose()
     },
   }
 }
@@ -338,7 +397,10 @@ export function buildSurround(lotW: number, lotD: number, m: MaterialLedger): Gr
   blobGeo.translate(0, 1.55, 0)
   const trunks = new InstancedMesh(trunkGeo, m.trunk, grovePts.length)
   const blobs = new InstancedMesh(blobGeo, m.grove, grovePts.length)
-  blobs.castShadow = true
+  // Hundreds of identical canopy shadow stamps made the surround noisier and darker
+  // than the playable studio. The painted row beds still ground the grove; reserve
+  // real cast shadows for the much sparser palms and built context.
+  blobs.castShadow = false
   grovePts.forEach(([gx, gy, salt], i) => {
     const s = 0.75 + gridNoise(Math.round(gx * 8), salt + 1) * 0.4
     const yaw = gridNoise(Math.round(gy * 8), salt + 2) * Math.PI
@@ -400,70 +462,259 @@ export function buildSurround(lotW: number, lotD: number, m: MaterialLedger): Gr
   for (let gy = -12; gy < lotD + 12; gy += 3.7) {
     if (gridNoise(Math.round(gy * 2), 873) >= 0.62) carPts.push([lotW + 4.05, gy + 1.4, false, Math.round(gy * 2) + 873])
   }
-  const carBodyGeo = new BoxGeometry(4.1, 0.75, 1.72)
-  carBodyGeo.translate(0, 0.72, 0)
-  const carCabGeo = new BoxGeometry(2.0, 0.62, 1.5)
-  carCabGeo.translate(-0.2, 1.4, 0)
-  const carBodies = new InstancedMesh(carBodyGeo, new MeshStandardMaterial({ roughness: 0.45, metalness: 0.2 }), carPts.length)
-  const carCabs = new InstancedMesh(carCabGeo, new MeshStandardMaterial({ roughness: 0.45, metalness: 0.2 }), carPts.length)
+  // A few extra shared parts turn the old two-box traffic into recognisable late-40s
+  // sedans without making the public street the star. One instanced draw per material /
+  // silhouette part keeps the added period read inexpensive.
+  const carPaint = new MeshStandardMaterial({ color: warm(0xffffff), roughness: 0.38, metalness: 0.28 })
+  const carGlass = new MeshStandardMaterial({ color: warm(WARM.glassDeep), roughness: 0.2, metalness: 0.18 })
+  const carChrome = new MeshStandardMaterial({ color: warm(WARM.carTrim), roughness: 0.2, metalness: 0.78 })
+  const carRubber = new MeshStandardMaterial({ color: warm(WARM.tyre), roughness: 0.96 })
+  const carBodyGeo = new BoxGeometry(4.25, 0.72, 1.78)
+  carBodyGeo.translate(0, 0.62, 0)
+  const carDeckGeo = new BoxGeometry(4.0, 0.24, 1.58)
+  carDeckGeo.translate(0, 1.02, 0)
+  const carGlassGeo = new BoxGeometry(2.08, 0.5, 1.4)
+  carGlassGeo.translate(-0.25, 1.4, 0)
+  const carRoofGeo = new BoxGeometry(1.9, 0.14, 1.44)
+  carRoofGeo.translate(-0.25, 1.72, 0)
+  const bumperGeo = new BoxGeometry(0.16, 0.14, 1.86)
+  const sideTrimGeo = new BoxGeometry(3.45, 0.065, 0.06)
+  const wheelGeo = new CylinderGeometry(0.38, 0.38, 0.22, 12)
+  wheelGeo.rotateX(Math.PI / 2)
+  const carBodies = new InstancedMesh(carBodyGeo, carPaint, carPts.length)
+  const carDecks = new InstancedMesh(carDeckGeo, carPaint, carPts.length)
+  const carGlazing = new InstancedMesh(carGlassGeo, carGlass, carPts.length)
+  const carRoofs = new InstancedMesh(carRoofGeo, carPaint, carPts.length)
+  const carBumpers = new InstancedMesh(bumperGeo, carChrome, carPts.length * 2)
+  const carSideTrim = new InstancedMesh(sideTrimGeo, carChrome, carPts.length * 2)
+  const carWheels = new InstancedMesh(wheelGeo, carRubber, carPts.length * 4)
   carBodies.castShadow = true
-  carCabs.castShadow = true
+  carDecks.castShadow = true
+  carRoofs.castShadow = true
+  carWheels.castShadow = true
+  const carQ = new Quaternion()
+  const carOrigin = new Vector3()
+  const carLocal = new Vector3()
+  const carWorld = new Vector3()
+  const carScale = new Vector3(1, 1, 1)
+  const carUp = new Vector3(0, 1, 0)
+  const carMtx = new Matrix4()
+  const placeCarPart = (
+    inst: InstancedMesh,
+    index: number,
+    gx: number,
+    gy: number,
+    yaw: number,
+    lx: number,
+    ly: number,
+    lz: number,
+  ): void => {
+    carQ.setFromAxisAngle(carUp, yaw)
+    carOrigin.set(gx * TILE_M, 0, gy * TILE_M)
+    carLocal.set(lx, ly, lz).applyQuaternion(carQ)
+    carWorld.copy(carOrigin).add(carLocal)
+    carMtx.compose(carWorld, carQ, carScale)
+    inst.setMatrixAt(index, carMtx)
+  }
   carPts.forEach(([gx, gy, alongX, salt], i) => {
     const yaw = alongX ? 0 : Math.PI / 2
     place(carBodies, i, gx, gy, 1, yaw)
-    place(carCabs, i, gx, gy, 1, yaw)
+    place(carDecks, i, gx, gy, 1, yaw)
+    place(carGlazing, i, gx, gy, 1, yaw)
+    place(carRoofs, i, gx, gy, 1, yaw)
+    placeCarPart(carBumpers, i * 2, gx, gy, yaw, -2.16, 0.55, 0)
+    placeCarPart(carBumpers, i * 2 + 1, gx, gy, yaw, 2.16, 0.55, 0)
+    placeCarPart(carSideTrim, i * 2, gx, gy, yaw, 0, 0.79, -0.91)
+    placeCarPart(carSideTrim, i * 2 + 1, gx, gy, yaw, 0, 0.79, 0.91)
+    for (let wi = 0; wi < 4; wi++) {
+      placeCarPart(
+        carWheels,
+        i * 4 + wi,
+        gx,
+        gy,
+        yaw,
+        wi < 2 ? -1.32 : 1.32,
+        0.42,
+        wi % 2 === 0 ? -0.83 : 0.83,
+      )
+    }
     const tone = gridNoise(salt, 851)
-    const colour = warm(tone > 0.66 ? WARM.vanBody : tone > 0.33 ? WARM.truckBody : WARM.neighbourWallShade)
+    const colour = warm(
+      tone > 0.75
+        ? WARM.vanBody
+        : tone > 0.5
+          ? WARM.truckBody
+          : tone > 0.25
+            ? WARM.neighbourWallShade
+            : WARM.carBody,
+    )
     carBodies.setColorAt(i, colour)
-    carCabs.setColorAt(i, colour.clone().lerp(warm(0xffffff), 0.16))
+    carDecks.setColorAt(i, colour)
+    carRoofs.setColorAt(i, colour.clone().lerp(warm(0xffffff), 0.08))
   })
   g.add(carBodies)
-  g.add(carCabs)
+  g.add(carDecks)
+  g.add(carGlazing)
+  g.add(carRoofs)
+  g.add(carBumpers)
+  g.add(carSideTrim)
+  g.add(carWheels)
 
   // ── bungalow blocks beyond the street, both sides ───────────────────────────
-  const bungalowPts: Array<[number, number, number, number, number]> = []
+  const bungalowPts: Array<[number, number, number, number, number, boolean]> = []
   for (let gx = -14; gx < lotW + 14; gx += 2.7) {
     const salt = Math.round(gx * 4) + 900
-    bungalowPts.push([gx, lotD + 6.1, 1.8 + gridNoise(salt, 831) * 0.6, 1.6, salt])
-    if (gridNoise(salt, 841) > 0.36) bungalowPts.push([gx + 0.8, lotD + 9.0, 2.0, 1.7, salt + 2])
-    if (gridNoise(salt, 845) > 0.55) bungalowPts.push([gx - 0.4, lotD + 11.6, 2.2, 1.8, salt + 3])
+    bungalowPts.push([gx, lotD + 6.1, 1.8 + gridNoise(salt, 831) * 0.6, 1.6, salt, true])
+    if (gridNoise(salt, 841) > 0.36) bungalowPts.push([gx + 0.8, lotD + 9.0, 2.0, 1.7, salt + 2, true])
+    if (gridNoise(salt, 845) > 0.55) bungalowPts.push([gx - 0.4, lotD + 11.6, 2.2, 1.8, salt + 3, true])
   }
   for (let gy = -14; gy < lotD + 14; gy += 2.7) {
     const salt = Math.round(gy * 4) + 1_100
-    bungalowPts.push([lotW + 6.1, gy, 1.6, 1.8 + gridNoise(salt, 833) * 0.6, salt])
-    if (gridNoise(salt, 843) > 0.36) bungalowPts.push([lotW + 9.0, gy + 0.8, 1.7, 2.0, salt + 2])
-    if (gridNoise(salt, 847) > 0.55) bungalowPts.push([lotW + 11.6, gy - 0.4, 1.8, 2.2, salt + 3])
+    bungalowPts.push([lotW + 6.1, gy, 1.6, 1.8 + gridNoise(salt, 833) * 0.6, salt, false])
+    if (gridNoise(salt, 843) > 0.36) bungalowPts.push([lotW + 9.0, gy + 0.8, 1.7, 2.0, salt + 2, false])
+    if (gridNoise(salt, 847) > 0.55) bungalowPts.push([lotW + 11.6, gy - 0.4, 1.8, 2.2, salt + 3, false])
   }
   const bwGeo = new BoxGeometry(1, 1, 1)
   bwGeo.translate(0, 0.5, 0)
   const brGeo = new ConeGeometry(0.78, 0.55, 4)
   brGeo.rotateY(Math.PI / 4)
-  const bWalls = new InstancedMesh(bwGeo, new MeshStandardMaterial({ roughness: 0.9 }), bungalowPts.length)
-  const bRoofs = new InstancedMesh(brGeo, new MeshStandardMaterial({ roughness: 0.85 }), bungalowPts.length)
+  const bungalowWallMat = new MeshStandardMaterial({ color: warm(0xffffff), roughness: 0.92 })
+  const bungalowRoofMat = new MeshStandardMaterial({ color: warm(0xffffff), roughness: 0.87 })
+  const bungalowDoorMat = new MeshStandardMaterial({ color: warm(0xffffff), roughness: 0.78 })
+  const bungalowGlassMat = new MeshStandardMaterial({ color: warm(0xffffff), roughness: 0.28, metalness: 0.08 })
+  const bungalowPorchMat = new MeshStandardMaterial({ color: warm(WARM.sidewalk), roughness: 0.96 })
+  const bungalowTrimMat = new MeshStandardMaterial({ color: warm(WARM.neighbourWallShade), roughness: 0.9 })
+  const bungalowBrickMat = new MeshStandardMaterial({ color: warm(WARM.brick), roughness: 0.94 })
+  const bWalls = new InstancedMesh(bwGeo, bungalowWallMat, bungalowPts.length)
+  const bRoofs = new InstancedMesh(brGeo, bungalowRoofMat, bungalowPts.length)
+  const bDoors = new InstancedMesh(bwGeo, bungalowDoorMat, bungalowPts.length)
+  const bWindows = new InstancedMesh(bwGeo, bungalowGlassMat, bungalowPts.length * 2)
+  const bPorches = new InstancedMesh(bwGeo, bungalowPorchMat, bungalowPts.length)
+  const bPorchRoofs = new InstancedMesh(bwGeo, bungalowRoofMat, bungalowPts.length)
+  const bPorchPosts = new InstancedMesh(bwGeo, bungalowTrimMat, bungalowPts.length * 2)
+  const chimneyCount = bungalowPts.filter(([, , , , salt]) => gridNoise(salt, 828) > 0.38).length
+  const bChimneys = new InstancedMesh(bwGeo, bungalowBrickMat, chimneyCount)
   bWalls.castShadow = true
   bRoofs.castShadow = true
+  bPorchRoofs.castShadow = true
+  bChimneys.castShadow = true
   const q = new Quaternion()
-  bungalowPts.forEach(([gx, gy, fw, fd, salt], i) => {
+  const setBungalowBox = (
+    inst: InstancedMesh,
+    index: number,
+    x: number,
+    y: number,
+    z: number,
+    w: number,
+    h: number,
+    d: number,
+  ): void => {
+    inst.setMatrixAt(index, new Matrix4().compose(new Vector3(x, y, z), q, new Vector3(w, h, d)))
+  }
+  let chimneyIndex = 0
+  bungalowPts.forEach(([gx, gy, fw, fd, salt, frontOnZ], i) => {
     const wallH = 2.7 + gridNoise(salt, 835) * 0.8
+    const worldX = gx * TILE_M
+    const worldZ = gy * TILE_M
+    const houseW = fw * TILE_M
+    const houseD = fd * TILE_M
     const mtx = new Matrix4().compose(
-      new Vector3(gx * TILE_M, 0, gy * TILE_M),
+      new Vector3(worldX, 0, worldZ),
       q,
-      new Vector3(fw * TILE_M, wallH, fd * TILE_M),
+      new Vector3(houseW, wallH, houseD),
     )
     bWalls.setMatrixAt(i, mtx)
     const rm = new Matrix4().compose(
-      new Vector3(gx * TILE_M, wallH, gy * TILE_M),
+      new Vector3(worldX, wallH, worldZ),
       q,
-      new Vector3(fw * TILE_M * 1.06, 2.2, fd * TILE_M * 1.06),
+      new Vector3(houseW * 1.06, 2.2, houseD * 1.06),
     )
     bRoofs.setMatrixAt(i, rm)
-    const wallTone = gridNoise(salt, 837) > 0.5 ? WARM.neighbourWall : WARM.neighbourWallShade
+    const wallRoll = gridNoise(salt, 837)
+    const wallColour =
+      wallRoll > 0.66
+        ? warm(WARM.neighbourWall)
+        : wallRoll > 0.33
+          ? warm(WARM.neighbourWallShade).lerp(warm(WARM.neighbourWall), 0.42)
+          : warm(WARM.creamShade).lerp(warm(WARM.neighbourWall), 0.58)
     const roofTone = gridNoise(salt, 839) > 0.5 ? WARM.neighbourRoof : WARM.neighbourRoofDark
-    bWalls.setColorAt(i, warm(wallTone))
+    const roofColour = warm(roofTone)
+    bWalls.setColorAt(i, wallColour)
     bRoofs.setColorAt(i, warm(roofTone))
+
+    // Every street-facing facade gets a real entrance, paired windows and a shallow
+    // porch. Their small, seeded offsets keep the rows residential rather than cloned.
+    const facadeSpan = frontOnZ ? houseW : houseD
+    const frontExtent = (frontOnZ ? houseD : houseW) / 2
+    const front = -frontExtent - 0.05
+    const doorShift = (gridNoise(salt, 849) - 0.5) * Math.min(0.7, facadeSpan * 0.12)
+    const doorColour = warm(
+      gridNoise(salt, 851) > 0.66
+        ? WARM.vanBody
+        : gridNoise(salt, 853) > 0.5
+          ? WARM.truckBody
+          : WARM.neighbourRoofDark,
+    )
+    if (frontOnZ) {
+      setBungalowBox(bDoors, i, worldX + doorShift, 0.14, worldZ + front, 0.82, 1.9, 0.1)
+    } else {
+      setBungalowBox(bDoors, i, worldX + front, 0.14, worldZ + doorShift, 0.1, 1.9, 0.82)
+    }
+    bDoors.setColorAt(i, doorColour)
+
+    const windowOffset = Math.min(1.45, facadeSpan * 0.27)
+    const windowColour = warm(gridNoise(salt, 855) > 0.76 ? WARM.glass : WARM.glassDeep)
+    for (let windowI = 0; windowI < 2; windowI++) {
+      const along = windowI === 0 ? -windowOffset : windowOffset
+      const index = i * 2 + windowI
+      if (frontOnZ) {
+        setBungalowBox(bWindows, index, worldX + along, 0.92, worldZ + front - 0.01, 0.9, 1.02, 0.07)
+      } else {
+        setBungalowBox(bWindows, index, worldX + front - 0.01, 0.92, worldZ + along, 0.07, 1.02, 0.9)
+      }
+      bWindows.setColorAt(index, windowColour)
+    }
+
+    const porchW = Math.min(2.45, facadeSpan * (0.46 + gridNoise(salt, 857) * 0.08))
+    const porchD = 0.78 + gridNoise(salt, 859) * 0.28
+    const porchFront = -frontExtent - porchD / 2
+    if (frontOnZ) {
+      setBungalowBox(bPorches, i, worldX + doorShift, 0, worldZ + porchFront, porchW, 0.16, porchD)
+      setBungalowBox(bPorchRoofs, i, worldX + doorShift, 2.18, worldZ + porchFront, porchW * 1.06, 0.14, porchD * 1.04)
+    } else {
+      setBungalowBox(bPorches, i, worldX + porchFront, 0, worldZ + doorShift, porchD, 0.16, porchW)
+      setBungalowBox(bPorchRoofs, i, worldX + porchFront, 2.18, worldZ + doorShift, porchD * 1.04, 0.14, porchW * 1.06)
+    }
+    bPorchRoofs.setColorAt(i, roofColour)
+    for (let postI = 0; postI < 2; postI++) {
+      const along = doorShift + (postI === 0 ? -porchW * 0.43 : porchW * 0.43)
+      const postFront = -frontExtent - porchD * 0.78
+      const index = i * 2 + postI
+      if (frontOnZ) {
+        setBungalowBox(bPorchPosts, index, worldX + along, 0.14, worldZ + postFront, 0.09, 2.04, 0.09)
+      } else {
+        setBungalowBox(bPorchPosts, index, worldX + postFront, 0.14, worldZ + along, 0.09, 2.04, 0.09)
+      }
+    }
+
+    if (gridNoise(salt, 828) > 0.38) {
+      const chimneyAlong = (gridNoise(salt, 827) - 0.5) * facadeSpan * 0.46
+      if (frontOnZ) {
+        setBungalowBox(bChimneys, chimneyIndex, worldX + chimneyAlong, wallH + 0.18, worldZ + houseD * 0.16, 0.42, 1.38, 0.42)
+      } else {
+        setBungalowBox(bChimneys, chimneyIndex, worldX + houseW * 0.16, wallH + 0.18, worldZ + chimneyAlong, 0.42, 1.38, 0.42)
+      }
+      chimneyIndex++
+    }
   })
   g.add(bWalls)
   g.add(bRoofs)
+  g.add(bDoors)
+  g.add(bWindows)
+  g.add(bPorches)
+  g.add(bPorchRoofs)
+  g.add(bPorchPosts)
+  g.add(bChimneys)
 
   // yard trees between the bungalows share the grove look
   const yardPts: Array<[number, number, number]> = []
@@ -471,7 +722,7 @@ export function buildSurround(lotW: number, lotD: number, m: MaterialLedger): Gr
   for (let gy = -14; gy < lotD + 14; gy += 2.7) yardPts.push([lotW + 5.7, gy + 2.2, Math.round(gy * 4) + 1_101])
   const yardTrunks = new InstancedMesh(trunkGeo, m.trunk, yardPts.length)
   const yardBlobs = new InstancedMesh(blobGeo, m.groveDark, yardPts.length)
-  yardBlobs.castShadow = true
+  yardBlobs.castShadow = false
   yardPts.forEach(([gx, gy, salt], i) => {
     const s = 1.0 + gridNoise(salt, 821) * 0.6
     place(yardTrunks, i, gx, gy, s, salt)

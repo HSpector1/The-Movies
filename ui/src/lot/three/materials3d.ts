@@ -139,7 +139,9 @@ export function buildMaterials() {
     // roofs
     terracotta: std({ map: terracotta, roughness: 0.8 }),
     roofGravel: std({ map: roofGravelTex, roughness: 0.95 }),
-    roofMetal: std({ color: warm(WARM.roofMetal), roughness: 0.55, metalness: 0.35 }),
+    // Galvanised stage roofing takes its warmth from the sun.  Feeding the ochre 2D
+    // swatch directly into a PBR metal made both stages read as giant brown hangars.
+    roofMetal: std({ color: warm(0x817f78), roughness: 0.62, metalness: 0.42 }),
     roofSlateGreen: std({ color: warm(WARM.roofSlateGreen), roughness: 0.8 }),
     // trim & detail
     trim: std({ color: warm(WARM.creamLit), roughness: 0.7 }),
