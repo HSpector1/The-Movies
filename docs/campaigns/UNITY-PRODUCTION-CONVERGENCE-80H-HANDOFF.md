@@ -14,7 +14,7 @@ Timestamp: 2026-08-20 21:45 CEST (UTC+02:00).
 | TypeScript branch | `campaign/unity-production-convergence-80h-ts` |
 | TypeScript Golden implementation | `cd2b15872ac5849fa16beec1775543758cb3139e` |
 | TypeScript donor checkpoint parent | A2 continuity tip `7eff21fccabe0ffb7a622b8b96b390b8543f15da` |
-| TypeScript donor checkpoint | The commit containing the PR #5 donor harvest and this ledger update; the immediate continuity follow-up records its exact SHA |
+| TypeScript donor checkpoint | `f1847f9ec33c5b206d6b4354c8e5ad170cbd8de2` |
 | TypeScript branch tip | The pushed continuity commit containing this file. Resolve with `git rev-parse HEAD`; a commit cannot embed its own resulting SHA. It must descend from `7eff21fccabe0ffb7a622b8b96b390b8543f15da`. |
 | TypeScript pushed | Yes after the immediate checkpoint push; local, upstream, and remote campaign refs must match |
 | TypeScript working tree | Expected clean after checkpoint commits/push; `node_modules/` and `dist/` are ignored |
@@ -127,8 +127,8 @@ LOC limits, blanket 2 MB asset limits, or blanket presentation randomness bans.
   `3ac66bbbe1f29ecac44c1632ba23952fad8fe61d`.
 - PR #5 donor tip (reviewed, not merged/cherry-picked):
   `0edeb4ea874de3d792a112c3d714e5c71657c76d`.
-- Donor-harvest checkpoint: commit containing this update; exact SHA recorded by
-  the immediate continuity follow-up.
+- Donor-harvest checkpoint:
+  `f1847f9ec33c5b206d6b4354c8e5ad170cbd8de2`.
 
 No GameState, legality, economy, time, RNG, save migration, identity, outcome,
 progression, construction, production, or Three.js rule changed.
@@ -242,7 +242,7 @@ Do not claim a visual improvement for A2.
 | Browser dependency audit | `npm run audit:browser-deps` passed with 0 vulnerabilities |
 | Full npm audit | 5 dev-graph advisories remain: 3 moderate, 1 high, 1 critical; bridge runtime is not yet a production graph |
 | Repository hygiene | Passed over 1,003 tracked/unignored files, including built-in negative guard checks |
-| Workflow/config | YAML parse, actionlint 1.7.10, official pinned action refs, and Dependabot schema review passed; remote Actions run pending push |
+| Workflow/config | Local YAML/actionlint and pinned refs passed. Remote run `32410749816` exposed missing Pillow after all earlier gates passed; pinned Python/Pillow/NumPy correction is being validated by the immediate follow-up run |
 | Generated drift | Canonical JSON, TypeScript C# golden, and Unity C# copy passed; generated copies byte-identical |
 | Generated C# | 124,814 bytes; SHA-256 `3805f4d54cba772d0670697d3d356b9c480c7a35d1bd4a295a63c5110e8ca004` |
 | Unity EditMode | Final seal 15/15 passed; `/tmp/studio-a2-seal-editmode-results.xml` |
@@ -462,9 +462,9 @@ existing TypeScript queue without changing core queue rules.
 
 - Golden A2 implementation remains
   `cd2b15872ac5849fa16beec1775543758cb3139e`.
-- The donor checkpoint is a non-Golden TypeScript-only descendant. Its exact
-  implementation SHA is recorded by the immediate continuity follow-up; after
-  push no tracked WIP should remain.
+- The donor checkpoint is a non-Golden TypeScript-only descendant committed at
+  `f1847f9ec33c5b206d6b4354c8e5ad170cbd8de2`. Only this continuity-only
+  follow-up is newer; after push no tracked WIP should remain.
 - Checked-in generated material is intentional: canonical JSON Schema and the
   TypeScript-side C# golden.
 - `node_modules/`, Vite `dist/`, and `.tmp/3d-asset-audit.json` were regenerated

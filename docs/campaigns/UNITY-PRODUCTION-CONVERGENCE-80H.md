@@ -622,6 +622,18 @@ remaining checkpoint blocker after correcting the ADR-index ignore, exact
 `.npmrc`/npm-token coverage, env-example scanning, Python/C# scanning, and
 generated-root detection.
 
+Accepted donor-harvest implementation commit:
+`f1847f9ec33c5b206d6b4354c8e5ad170cbd8de2`.
+
+The first expanded remote workflow run, GitHub Actions `32410749816`, proved all
+new install, dependency, hygiene, contract, typecheck, and bridge gates, then
+failed the full suite because the Ubuntu runner did not contain Pillow. Seven
+pre-existing authored-art/provenance tests call the repository's Python image
+pipeline. The local suite was green because the reference Pillow/NumPy stack was
+already installed. The workflow correction pins Python 3.14, Pillow 12.3.0, and
+NumPy 2.5.1 and updates the official checkout/setup actions to Node-24 v6 refs.
+No test was skipped or weakened.
+
 No Unity test or native rebuild was required for this TypeScript-only governance
 checkpoint. Golden M1's Unity binary, Movie #2 evidence, save/load/reconnect
 proof, screenshots, and performance remain the accepted product evidence.

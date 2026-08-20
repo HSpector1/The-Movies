@@ -58,10 +58,10 @@ or Three.js behavior.
 ## POST-GOLDEN CAMPAIGN DESCENDANTS
 
 The TypeScript campaign branch has a validated non-Golden governance descendant
-that harvests current-architecture ADR, security, dependency, CI, and repository
-hygiene value from PR #5 without adopting either stale donor commit. Its exact
-checkpoint SHA is recorded by the immediate continuity follow-up. Unity remains
-at `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
+at `f1847f9ec33c5b206d6b4354c8e5ad170cbd8de2`. It harvests
+current-architecture ADR, security, dependency, CI, and repository-hygiene value
+from PR #5 without adopting either stale donor commit. Unity remains at
+`a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
 
 This descendant does not supersede M1 as CURRENT BEST: it changes no simulation,
 protocol, player flow, Unity client, native build, screenshots, or visual state.
