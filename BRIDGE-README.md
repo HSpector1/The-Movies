@@ -1,4 +1,4 @@
-# Current-game Unity bridge (protocol 2)
+# Current-game Unity bridge (protocol 3)
 
 This bridge keeps the current TypeScript `GameState` as the only simulation authority. Unity
 receives a current lot snapshot plus opaque, state-bound choices and can submit only an emitted
@@ -23,8 +23,8 @@ session, revision, digest, snapshot size, and serialization time at startup.
 
 ## Pinned wire contract
 
-- `protocolVersion`: `2`
-- `snapshotVersion`: `3` (the generated Unity presentation projection)
+- `protocolVersion`: `3`
+- `snapshotVersion`: `4` (the generated Unity presentation projection)
 - schema: emitted as `SCHEMA_ID` by `bridge/protocol.ts` and `GET /contract`
 - `GET /health`: protocol/session/revision/digest health record
 - `GET /contract`: the complete canonical contract JSON plus its SHA-256 identity
@@ -44,13 +44,13 @@ The three identity fields are strings or `null`. A command has exactly these fie
 
 ```json
 {
-  "protocolVersion": 2,
+  "protocolVersion": 3,
   "schemaId": "sha256:...",
   "sessionId": "...",
   "commandId": "unity-generated-id",
   "expectedStateRevision": 0,
   "type": "submitIntent",
-  "payload": { "intentId": "intent-v2-..." }
+  "payload": { "intentId": "intent-v3-..." }
 }
 ```
 
@@ -64,7 +64,11 @@ authoritative state immediately before dispatch.
 Session identity is checked before replay. An identical repeated command returns its cached exact
 response. Reusing a `commandId` with any different route or envelope returns `COMMAND_ID_REUSE`.
 An old revision returns `STALE_REVISION`; an old or forged option returns
-`INTENT_NOT_AVAILABLE`. Every rejection includes current `stateDigest`.
+`INTENT_NOT_AVAILABLE`. Every genuine rejection includes current `stateDigest` and a closed,
+TypeScript-owned `rejection` object. Its `category` is a stable presentation category;
+`blocker` and `remedy` are required non-empty player-readable text, while `currentHolder` is a
+required nullable field. The authority uses `null` rather than inventing a holder. Capacity
+contention that the engine accepts into a queue is an accepted receipt, never a rejection.
 
 `POST /save` and `POST /load` use the same session/revision/command protections. The returned
 `saveJson` is the current engine's canonical export. `BridgeSession.fromSaveJson` reconstructs a

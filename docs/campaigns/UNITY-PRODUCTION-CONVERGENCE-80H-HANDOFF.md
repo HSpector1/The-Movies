@@ -4,7 +4,298 @@ START HERE. Read `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`, then the campaign
 ledger, this handoff, and the promotion register. The TypeScript/Unity engine
 decision is settled. Do not restart planning from scratch.
 
-## CURRENT EXACT STATE
+## A4 PRE-COMMIT CURRENT STATE - AUTHORITATIVE
+
+This section is the authoritative handoff as of 2026-08-21 00:48 CEST
+(UTC+02:00). It supersedes the preserved Golden M2 handoff below wherever the
+two differ. Golden M2 remains CURRENT BEST only until the validated A4 candidate
+is committed, pushed, verified, and deliberately tagged.
+
+### Current exact state
+
+| Item | Exact state |
+| --- | --- |
+| TypeScript worktree | `/Users/bruce/The Movies - Unity Production Convergence 80H` |
+| TypeScript branch | `campaign/unity-production-convergence-80h-ts` |
+| TypeScript HEAD / pushed branch | `85429f9d18e2b6321e21557bdb068b1047b4c452`; local, upstream, and remote agree before the A4 commit |
+| TypeScript working tree | Dirty only with the validated A4 contract/runtime/schema/generated/tests/README unit and the three campaign continuity documents |
+| Unity worktree | `/Users/bruce/Project Studio - Unity Production Convergence 80H` |
+| Unity branch | `campaign/unity-production-convergence-80h-client` |
+| Unity HEAD / pushed branch | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`; local, upstream, and remote agree before the A4 commit |
+| Unity working tree | Dirty only with the validated generated DTO, strict parser, rejection retention/client/HUD/proof, tests, and their two new `.meta` files |
+| Current Golden | M2: TypeScript `7d76951f6ad641e8940b97b03806b87638ed8ad8` plus Unity `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` |
+| Golden tags | Immutable/pushed `golden/unity-convergence-m1` and `golden/unity-convergence-m2` in both repositories |
+| A4 pushed | No. A4 has no commit or tag yet. Do not call it Golden from dirty worktrees. |
+
+The A4 compatible contract is protocol `3`, projection `4`, schema
+`sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac`.
+The TypeScript and Unity generated C# files are byte-identical at SHA-256
+`791853b02e1cc0b4fa2e2256f7b984dac71d2689bd7d0205f5d76353a49ccf09`.
+
+### Campaign status
+
+- Current phase: Phase A, productionize the TypeScript to Unity contract.
+- Current subphase: A4 structured rejection guidance is implementation-complete,
+  independently audited, and validated pre-commit.
+- Completed: campaign setup/baseline; A1 generated schema/DTO pipeline; A2
+  atomic named projection bundle; A3 queue-law parity; PR #5 donor/security
+  harvest.
+- Partially completed: command IDs, expected revision, stale rejection,
+  deduplication, explicit codes, structured player guidance, and bounded
+  in-process replay. Replay persistence and fatal-path structure remain.
+- Untouched as campaign implementations: Phase B durable product runtime and
+  Phase C production-client layering. D through N retain inherited partial
+  capabilities only.
+- Current acceptance gate: commit and push the exact validated protocol-3 pair,
+  verify clean remote SHAs, then decide Golden M3 without weakening the visual
+  or runtime requirements.
+
+### What was just done
+
+A4 replaces code-only bridge failures with one closed TypeScript-owned
+`rejection` object containing `category`, required non-empty `blocker`, required
+nullable `currentHolder`, and required non-empty `remedy`. All 12 reason codes
+map centrally. Capacity-full commission, auditions, and greenlight remain
+accepted queue admissions and never receive this object.
+
+Unity consumes only the generated DTO. It strictly validates the wire, binds a
+notice to the exact session/revision/week/digest, retains it through unchanged
+polls, clears it on an accepted command/save/load or session epoch change, and
+never invents a holder or remedy. Raw root `message` stays diagnostic-only. The
+HUD renders `WHAT HAPPENED`, optional `CURRENT HOLDER`, and `WHAT NEXT`.
+
+TypeScript files changed:
+
+- `BRIDGE-README.md`
+- `bridge/protocol.ts`
+- `bridge/schema/bridge-schema.ts`
+- `bridge/schema/project-studio-bridge.schema.json`
+- `bridge/session.ts`
+- `generated/unity/StudioBridgeDtos.Generated.cs`
+- `tests/bridge-schema.test.ts`
+- `tests/bridge.test.ts`
+- the three campaign continuity documents
+
+Unity files changed:
+
+- `Assets/Studio/Runtime/Data/Generated/StudioBridgeDtos.Generated.cs`
+- `Assets/Studio/Runtime/Data/StudioBridgeProtocol.cs`
+- `Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs`
+- new `Assets/Studio/Runtime/Infrastructure/StudioRejectionRetention.cs` and `.meta`
+- `Assets/Studio/Runtime/Presentation/StudioBridgeProofRunner.cs`
+- `Assets/Studio/Tests/EditMode/StudioBridgeProtocolTests.cs`
+- new `Assets/Studio/Tests/EditMode/StudioRejectionRetentionTests.cs` and `.meta`
+
+Why: the player must see a durable, truthful explanation for a rejected action
+after the next one-second poll. Unity may present the answer but may not derive
+legality, holders, or remedies. Protocol moved from `2` to `3` because the
+closed rejected-response envelope gained a required member; projection stayed
+at `4` because the snapshot bundle did not change.
+
+Relevant committed parents are TypeScript `85429f9d18e2b6321e21557bdb068b1047b4c452`
+and Unity `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`. A4 commit SHAs do not exist
+yet. Frozen authorities remain `f6606ac9db67dc70b12a7d247d74206571d12d2c`
+and `d970b81c2b17383ee71c3c66a5622ecc140473b3`.
+
+### What is working right now
+
+Start the protocol-3 TypeScript authority:
+
+```bash
+cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
+npm run bridge
+```
+
+Open Unity:
+
+```bash
+'/Applications/Unity/Hub/Editor/6000.3.22f1/Unity.app/Contents/MacOS/Unity' \
+  -projectPath '/Users/bruce/Project Studio - Unity Production Convergence 80H'
+```
+
+Build and launch the current native client:
+
+```bash
+'/Applications/Unity/Hub/Editor/6000.3.22f1/Unity.app/Contents/MacOS/Unity' \
+  -batchmode \
+  -projectPath '/Users/bruce/Project Studio - Unity Production Convergence 80H' \
+  -executeMethod Studio.Editor.Automation.StudioAutomation.BuildMacOS \
+  -logFile /tmp/studio-a4-native-build.log \
+  -quit
+
+cd '/Users/bruce/Project Studio - Unity Production Convergence 80H'
+'Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike'
+```
+
+- Bridge/runtime: localhost `127.0.0.1:4317`, two manually managed processes,
+  in-memory session/save/replay. A4 does not claim Phase B lifecycle completion.
+- Playable flow: construction, exact Movie #2 screenplay, auditions, evidence,
+  package/greenlight, pre-production, blockers, load-in, shooting, save/load,
+  post, release, stale rejection, and reconnect all work through TypeScript
+  intents.
+- Movie #2: `The Reluctant Cornerstone`, `script-0001`, `prod-0013`, released
+  Week 22/revision 23 at digest
+  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
+- Visual state: unchanged from M2. The retained rejection frame is clearer, but
+  the campus still reads too much like a distant diorama and remains below ADR
+  0006's inhabitable, two-scale, filmmaking-first acceptance target.
+
+### Validation state
+
+| Gate | Latest exact result |
+| --- | --- |
+| TypeScript full tests | 327 files; 4,452 passed, 5 skipped, 0 failed |
+| TypeScript typecheck | Passed |
+| Bridge typecheck | Passed |
+| TypeScript production build | Passed; inherited chunk warnings only |
+| Bridge/schema tests | 26/26 passed |
+| Generated drift | Passed across schema, TS C# golden, and Unity generated copy |
+| TypeScript Movie #2/determinism proof | Passed; final digest `429b88d5...3ed13`; export/import/headless parity true |
+| Browser dependency audit | 0 browser-runtime vulnerabilities |
+| Repository hygiene / adopted 3D assets | Both passed |
+| Unity EditMode | 24/24; `/tmp/studio-a4-rejection-p1-seal-editmode.xml` |
+| Native macOS build | Passed; 136,938,870 bytes; `/tmp/studio-a4-rejection-p1-native-build-final.log` |
+| Native runtime playthrough | Fresh Movie #2 complete at Week 22/revision 23 |
+| Native save/load | Saved/restored digest `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee` |
+| Stale/retention proof | `state-stale`, non-empty blocker/remedy, null holder, unchanged revision 18/digest, later poll 11 to 12 |
+| Native reconnect | Same session state at Week 22/revision 23/final digest |
+| Performance | 119.3803 FPS proof; 118.9993 FPS reconnect on Apple M3 Max |
+| Evidence | Ignored `Evidence/A4/Rejection-Guidance/`; 13 PNGs, 2 JSON reports |
+| Visual evidence | `10b-stale-rejection-retained.png`, SHA-256 `d57920515d9a0de8f3ce804e5f7545496e905b6538cf6eed103a84b9a768b4d5` |
+| Independent audit | No open P0 or P1 finding |
+
+### Known problems and blockers
+
+1. **Replay journal is process-memory-only - P1 resilience, pre-existing.**
+   Reproduce by submitting a command, restarting `npm run bridge`, and trying
+   the same identity: the 256-entry cache and session vanish. Save/load within
+   one process passes. Do not move this data into `GameState` or V14 gameplay
+   history; implement a bounded save-associated bridge journal.
+2. **Runtime lifecycle is manual - P1 productization, pre-existing.**
+   Reproduce by launching the native app without separately starting the bridge.
+   No launcher-owned process, random capability token, durable disk save, or
+   graceful coordinated shutdown exists. Do not expose a configurable network
+   bind or arbitrary filesystem/command API.
+3. **Unexpected HTTP 500 remains unstructured - P2 resilience, pre-existing.**
+   The bounded command/control rejection contract is structured, but an
+   unexpected server exception still returns the existing fatal response. Do
+   not disguise an internal exception as a gameplay holder/remedy.
+4. **Reason/category pairing is producer-tested, not schema-relational - P2.**
+   Every mapping is exhaustively tested, but JSON Schema does not encode the
+   cross-field pairing. Do not duplicate the mapping as gameplay logic in C#.
+5. **Some Unity adapter negative branches lack direct tests - P2 test gap.**
+   Wrong session/command/revision/week/digest branches are explicit; parser,
+   retention, and native positive rejection coverage pass.
+6. **Visual target is not met - P1 product quality, pre-existing.**
+   Reproduce from any A4 overview capture. People/roles, filmmaking activity,
+   materials, camera proximity, and Hero Stage 7 remain below ADR 0006. Do not
+   polish the old fixed-diorama premise or import protected reference assets.
+7. **Cross-repository contract CI is not automatic - P2 tooling.**
+   TS CI verifies its golden, while the external Unity-copy path is checked
+   locally. Do not hand-edit generated DTOs.
+
+### Next exact action
+
+Replace `BridgeSession`'s 256-entry memory-only replay map with a bounded,
+save-associated command identity journal, then prove exact duplicate response
+replay across authoritative save/load and a TypeScript engine process restart.
+
+### Next 3-5 actions after that
+
+1. Implement the Phase B one-command developer launcher with engine startup,
+   random port/capability token, health/schema/session handshake, logs, graceful
+   shutdown, and stale-process cleanup.
+2. Add atomic disk-backed V14 save persistence and recovery without exposing
+   arbitrary filesystem access through HTTP.
+3. Prove engine restart detection, Unity reconnect, save/load during active
+   production and construction, malformed protocol, and temporary outage.
+4. Start the isolated `location-v1` two-scale camera experiment after the
+   runtime foundation is durable.
+5. Use the resulting inspection mode to begin Hero Soundstage 7's professional
+   filmmaking vertical slice.
+
+### Do not touch
+
+- Frozen TypeScript authority, Unity adoption authority, architecture decision,
+  M1/M2 tags, current IDs, RNG streams, V14 game truth, and Three.js oracle.
+- Do not merge to main/C2, rebase, force-push, move/delete Golden tags, rewrite
+  history, delete historical branches, or mass-clean repositories.
+- Do not move gameplay legality/formulas/saves into C#, infer rejection facts in
+  Unity, manually edit generated DTOs, or turn capacity queues into rejection.
+- Do not adopt protected The Movies/Lionhead assets, buy assets, generate images,
+  or commit the local fidelity PDF/evidence/build/cache/log outputs.
+- Keep the unstructured HTTP 500 and launcher/security work isolated from this
+  already validated A4 unit until after its checkpoint is sealed.
+
+### Decisions made this session
+
+- Protocol `3`, projection `4`: required rejection envelope is breaking; snapshot
+  projection is unchanged. Reversible only through another coordinated protocol
+  revision. Evidence: schema/generator/Unity/native gates.
+- TypeScript owns category/blocker/holder/remedy; Unity only validates, retains,
+  and renders. This is the frozen authority law, not optional.
+- `currentHolder` is required-nullable and remains null until an exact causal
+  world holder exists. Never select the first member of a plural queue.
+- Raw rejection `message` is diagnostic-only. Red-team evidence showed revision
+  jargon was unsuitable as player copy; final screenshot renders only structured
+  guidance. Reversible presentation detail, authority boundary remains fixed.
+- Same-state polls retain a notice; accepted operations/session changes clear it;
+  mismatched authority tokens cannot replace it. Reversible lifecycle policy,
+  backed by EditMode and native post-poll proof.
+- A4 is not Golden while dirty. M2 remains CURRENT BEST pending exact commits,
+  remote verification, and deliberate tagging.
+
+### Uncommitted and generated material
+
+- TypeScript tracked A4 source plus these three continuity docs are intentionally
+  uncommitted. No unrelated tracked file is present.
+- Unity tracked A4 source and two new source/meta pairs are intentionally
+  uncommitted. `Builds/`, `Evidence/`, `Library/`, and `Logs/` remain ignored.
+- Ignored current evidence: `Evidence/A4/Rejection-Guidance/`, including proof
+  JSON SHA-256 `814009e4c5b1a0c2942fbbcf61bdcf1c28f25fb804e5ba70e7d3b6d9b13396a1`,
+  reconnect JSON SHA-256 `bf6d70addc525e9a23acc67bdccc16afde1a43fd8f9aa28aba09249878f1e9c7`,
+  and retained screenshot SHA above.
+- Current logs: `/tmp/studio-a4-rejection-p1-seal-editmode.log`, matching XML,
+  `/tmp/studio-a4-rejection-p1-native-build-final.log`,
+  `/tmp/studio-a4-rejection-p1-native-proof-final.log`, and
+  `/tmp/studio-a4-rejection-p1-native-reconnect-final.log`.
+- `.tmp/3d-asset-audit.json`, `dist/`, `node_modules/`, native build, screenshots,
+  JSON evidence, logs, caches, and local PDF are deliberately excluded.
+- Local PDF: `/Users/bruce/Downloads/project-studio-visual-fidelity.pdf`,
+  1,087,211 bytes, SHA-256
+  `692140a7d4be313fd1df7605c96306a9f7e53f4fce46bc0f69a5ec1453a96a39`.
+
+### Recovery instructions
+
+1. Read the architecture decision, ledger, this authoritative A4 section, and
+   promotion register in that order.
+2. Verify both recorded parent HEADs and dirty file lists with `git status`,
+   `git rev-parse HEAD`, and the configured upstream refs. M2 tags must remain
+   immutable/pushed.
+3. Run the minimum smoke:
+
+   ```bash
+   cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
+   npm run test:bridge
+   npm run typecheck
+   npm run typecheck:bridge
+   npm run check:bridge-contract -- \
+     --unity-project '/Users/bruce/Project Studio - Unity Production Convergence 80H'
+   ```
+
+4. If A4 is still uncommitted, do not restart implementation. Inspect the exact
+   diff, preserve the validated generated copy, commit/push both repositories,
+   verify remote SHAs and clean trees, then update all continuity documents and
+   make the M3 Golden decision.
+5. If A4 has been sealed by a later top-of-file section, follow that newer exact
+   pair and its NEXT EXACT ACTION. Never infer the compatible pair from branch
+   names alone.
+
+A replacement agent can launch protocol 3, understand every passed and failed
+gate, finish the A4 checkpoint without Owner reconstruction, and continue into
+the replay journal. The older M2 handoff remains below for historical context.
+
+## PRIOR GOLDEN M2 HANDOFF - HISTORICAL
 
 Timestamp: 2026-08-21 00:12 CEST (UTC+02:00).
 

@@ -6,6 +6,8 @@ import {
   AVAILABLE_INTENT_KEYS,
   BRIDGE_CONTRACT,
   PROTOCOL_VERSION,
+  REJECTION_CATEGORIES,
+  REJECTION_CODES,
   SCHEMA_ID,
   SNAPSHOT_VERSION,
   validateCommand,
@@ -13,6 +15,8 @@ import {
   type AvailableIntent,
   type AvailableIntentKind,
   type ControlEnvelope,
+  type RejectionCategory,
+  type RejectionCode,
 } from '../bridge/protocol.ts'
 import {
   BridgeSession,
@@ -142,8 +146,8 @@ function expectOrderedSubsequence<T>(actual: readonly T[], expected: readonly T[
 }
 
 describe('Current-game Unity adoption bridge', () => {
-  it('pins protocol v2/projection v4 and fingerprints named projections and exact intent fields', () => {
-    expect(PROTOCOL_VERSION).toBe(2)
+  it('pins protocol v3/projection v4 and fingerprints named projections and exact intent fields', () => {
+    expect(PROTOCOL_VERSION).toBe(3)
     expect(SNAPSHOT_VERSION).toBe(4)
     expect(SCHEMA_ID).toMatch(/^sha256:[0-9a-f]{64}$/)
     expect(Object.keys(
@@ -167,7 +171,7 @@ describe('Current-game Unity adoption bridge', () => {
       expect.arrayContaining(['facilityId', 'status', 'completesWeek', 'progress01']),
     )
 
-    const session = new BridgeSession(createBridgeInitialState('bridge-contract-v2'), 'contract')
+    const session = new BridgeSession(createBridgeInitialState('bridge-contract-v3'), 'contract')
     for (const intent of session.snapshot().availableIntents) {
       expect(Object.keys(intent).sort()).toEqual([...AVAILABLE_INTENT_KEYS].sort())
     }
@@ -179,7 +183,7 @@ describe('Current-game Unity adoption bridge', () => {
       ok: false,
       reasonCode: 'INVALID_COMMAND',
     })
-    expect(validateCommand({ ...valid, protocolVersion: 1 })).toMatchObject({
+    expect(validateCommand({ ...valid, protocolVersion: 2 })).toMatchObject({
       ok: false,
       reasonCode: 'PROTOCOL_MISMATCH',
     })
@@ -225,7 +229,7 @@ describe('Current-game Unity adoption bridge', () => {
     expect(kinds.filter((kind) => kind === 'resolveProductionBlocker').length).toBeGreaterThanOrEqual(3)
     for (const played of bootstrap.movieOneIntents) {
       expect(played.afterDigest).not.toBe(played.beforeDigest)
-      expect(played.option.intentId).toMatch(/^intent-v2-[0-9a-f]{64}$/)
+      expect(played.option.intentId).toMatch(/^intent-v3-[0-9a-f]{64}$/)
     }
   })
 
@@ -378,22 +382,59 @@ describe('Current-game Unity adoption bridge', () => {
 
     const currentIntent = chooseMovieIntent(session)
     const reused = submit(session, currentIntent, 'one-command')
-    expect(reused).toMatchObject({ accepted: false, reasonCode: 'COMMAND_ID_REUSE' })
+    expect(reused).toMatchObject({
+      accepted: false,
+      reasonCode: 'COMMAND_ID_REUSE',
+      rejection: {
+        category: 'command-conflict',
+        blocker: expect.stringMatching(/already bound/i),
+        currentHolder: null,
+        remedy: expect.stringMatching(/reconnect/i),
+      },
+    })
     const digestAfterAccept = authoritativeDigest(session.gameState)
     expect(reused.stateDigest).toBe(digestAfterAccept)
 
     const wrongSession = submit(session, currentIntent, 'one-command', session.stateRevision, 'other-session')
-    expect(wrongSession).toMatchObject({ accepted: false, reasonCode: 'SESSION_MISMATCH' })
+    expect(wrongSession).toMatchObject({
+      accepted: false,
+      reasonCode: 'SESSION_MISMATCH',
+      rejection: {
+        category: 'session-mismatch',
+        blocker: expect.stringMatching(/different bridge session/i),
+        currentHolder: null,
+        remedy: expect.stringMatching(/reconnect/i),
+      },
+    })
     expect(wrongSession.stateDigest).toBe(digestAfterAccept)
 
     const stale = submit(session, currentIntent, 'stale-command', 0)
-    expect(stale).toMatchObject({ accepted: false, reasonCode: 'STALE_REVISION' })
+    expect(stale).toMatchObject({
+      accepted: false,
+      reasonCode: 'STALE_REVISION',
+      rejection: {
+        category: 'state-stale',
+        blocker: expect.stringMatching(/authoritative state changed/i),
+        currentHolder: null,
+        remedy: expect.stringMatching(/refresh/i),
+      },
+    })
     expect(stale.stateDigest).toBe(digestAfterAccept)
+    expect(submit(session, currentIntent, 'stale-command', 0)).toEqual(stale)
 
-    const forgedParsed = validateCommand(command(session, 'intent-v2-forged', 'forged-command'))
+    const forgedParsed = validateCommand(command(session, 'intent-v3-forged', 'forged-command'))
     if (!forgedParsed.ok) throw new Error(forgedParsed.message)
     const forged = session.command(forgedParsed.command)
-    expect(forged).toMatchObject({ accepted: false, reasonCode: 'INTENT_NOT_AVAILABLE' })
+    expect(forged).toMatchObject({
+      accepted: false,
+      reasonCode: 'INTENT_NOT_AVAILABLE',
+      rejection: {
+        category: 'intent-unavailable',
+        blocker: expect.stringMatching(/exact intent is not available/i),
+        currentHolder: null,
+        remedy: expect.stringMatching(/actions available/i),
+      },
+    })
     expect(forged.stateDigest).toBe(digestAfterAccept)
     expect(authoritativeDigest(session.gameState)).toBe(digestAfterAccept)
 
@@ -401,8 +442,53 @@ describe('Current-game Unity adoption bridge', () => {
     expect(invalidJsonShape.stateDigest).toBe(digestAfterAccept)
     expect(Object.keys(invalidJsonShape).sort()).toEqual([
       'accepted', 'commandId', 'gameWeek', 'message', 'processingMs', 'protocolVersion',
-      'reasonCode', 'schemaId', 'sessionId', 'stateDigest', 'stateRevision',
+      'reasonCode', 'rejection', 'schemaId', 'sessionId', 'stateDigest', 'stateRevision',
     ].sort())
+    expect(invalidJsonShape.rejection).toEqual({
+      category: 'request-invalid',
+      blocker: 'The request body is not valid JSON.',
+      currentHolder: null,
+      remedy: 'Reconnect to the local engine. If this repeats, relaunch the documented compatible build and inspect the bridge log.',
+    })
+  })
+
+  it('maps every rejection code to closed TypeScript-owned facts', () => {
+    const session = new BridgeSession(createBridgeInitialState('bridge-rejection-facts'), 'facts')
+    const categories: Record<RejectionCode, RejectionCategory> = {
+      INVALID_JSON: 'request-invalid',
+      INVALID_COMMAND: 'request-invalid',
+      INVALID_CONTROL: 'request-invalid',
+      PROTOCOL_MISMATCH: 'contract-incompatible',
+      SCHEMA_MISMATCH: 'contract-incompatible',
+      SESSION_MISMATCH: 'session-mismatch',
+      STALE_REVISION: 'state-stale',
+      COMMAND_ID_REUSE: 'command-conflict',
+      INTENT_NOT_AVAILABLE: 'intent-unavailable',
+      ENGINE_REJECTED: 'authority-refusal',
+      NO_SAVE: 'save-state',
+      SAVE_REJECTED: 'save-state',
+    }
+    expect(Object.keys(categories)).toEqual(REJECTION_CODES)
+    expect(new Set(Object.values(categories))).toEqual(new Set(REJECTION_CATEGORIES))
+
+    for (const reasonCode of REJECTION_CODES) {
+      const rejected = session.protocolReject('facts-command', reasonCode, 'Authoritative detail.')
+      expect(rejected.accepted).toBe(false)
+      expect(rejected.rejection.category).toBe(categories[reasonCode])
+      expect(Object.keys(rejected.rejection).sort()).toEqual([
+        'blocker', 'category', 'currentHolder', 'remedy',
+      ])
+      expect(rejected.rejection.blocker === null || rejected.rejection.blocker.length > 0).toBe(true)
+      expect(
+        rejected.rejection.currentHolder === null || rejected.rejection.currentHolder.length > 0,
+      ).toBe(true)
+      expect(rejected.rejection.remedy === null || rejected.rejection.remedy.length > 0).toBe(true)
+      expect(rejected.rejection.currentHolder).toBeNull()
+      if (reasonCode === 'ENGINE_REJECTED' || reasonCode === 'SAVE_REJECTED') {
+        expect(rejected.message).toBe('Authoritative detail.')
+        expect(rejected.rejection.blocker).not.toBe(rejected.message)
+      }
+    }
   })
 
   it('uses opaque exact identities rather than titles and invalidates every prior-state intent', () => {
@@ -495,7 +581,7 @@ describe('Current-game Unity adoption bridge', () => {
       studioLotSnapshot(state)
     }
     expect(exportSaveJson(state)).toBe(before)
-    expect(applyAvailableIntent(state, 'intent-v2-not-real')).toMatchObject({ ok: false })
+    expect(applyAvailableIntent(state, 'intent-v3-not-real')).toMatchObject({ ok: false })
     expect(exportSaveJson(state)).toBe(before)
   })
 
@@ -555,6 +641,7 @@ describe('Current-game Unity adoption bridge', () => {
 
     const result = submit(session, intent, 'queue-commission-command')
     expect(result.accepted).toBe(true)
+    expect(result).not.toHaveProperty('rejection')
     if (!result.accepted) throw new Error(result.message)
     expect(result.message).toMatch(/Screenplay commission joined the Development & Casting queue/i)
     expect(result.message).toMatch(/No writer, project identity, or cost is committed/i)
@@ -618,6 +705,7 @@ describe('Current-game Unity adoption bridge', () => {
 
     const result = submit(session, intent, 'queue-auditions-command')
     expect(result.accepted).toBe(true)
+    expect(result).not.toHaveProperty('rejection')
     if (!result.accepted) throw new Error(result.message)
     expect(result.message).toMatch(/Auditions joined the Development & Casting queue/i)
     expect(result.message).toMatch(/No actor was reserved or paid/i)
@@ -725,6 +813,7 @@ describe('Current-game Unity adoption bridge', () => {
 
     const result = submit(session, intent, 'queue-greenlight-command')
     expect(result.accepted).toBe(true)
+    expect(result).not.toHaveProperty('rejection')
     if (!result.accepted) throw new Error(result.message)
     expect(result.message).toMatch(/Greenlight joined the Development & Casting queue/i)
     expect(result.message).toMatch(/No production identity, budget, or talent commitment exists/i)
@@ -798,7 +887,7 @@ describe('Current-game Unity adoption bridge', () => {
 
   it('never lets an ambient concurrent commission bypass a guided blocker', () => {
     const ambient: AvailableIntent = {
-      intentId: 'intent-v2-ambient',
+      intentId: 'intent-v3-ambient',
       kind: 'commissionScreenplay',
       label: 'Commission another screenplay',
       detail: 'A concurrent physical-capacity choice.',

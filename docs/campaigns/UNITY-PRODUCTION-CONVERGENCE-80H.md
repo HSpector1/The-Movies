@@ -854,3 +854,133 @@ Add structured TypeScript-owned rejection facts only for genuine command
 failures, generate and validate the Unity DTO changes, and retain/render exact
 blocker, holder, and remedy guidance across stable same-revision polls. Capacity
 must remain queue authority, not be recast as a rejection.
+
+## 2026-08-21 - Checkpoint 6: A4 structured rejection guidance (validated pre-commit)
+
+### Exact pre-commit state
+
+| Side | Branch | Current pushed HEAD / A4 parent | Working-tree state |
+| --- | --- | --- | --- |
+| TypeScript | `campaign/unity-production-convergence-80h-ts` | `85429f9d18e2b6321e21557bdb068b1047b4c452` | Dirty with the validated A4 protocol/runtime/schema/generated-golden/tests/README unit plus these continuity updates; not committed or pushed |
+| Unity | `campaign/unity-production-convergence-80h-client` | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` | Dirty with the validated generated DTO copy, strict protocol parser, rejection retention, proof presentation, and EditMode tests; not committed or pushed |
+
+Both recorded base HEADs are pushed and match their remote campaign refs. A4
+has no product commit SHA or Golden tag yet. Golden M2 remains the sole CURRENT
+BEST until both repositories are committed, pushed, and deliberately sealed.
+
+### TypeScript-owned rejection contract
+
+A4 makes every genuine bridge rejection carry one closed, generated,
+TypeScript-owned reason object. The live contract is protocol `3`, projection
+`4`, schema identity
+`sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac`.
+The projection version remains `4` because the authoritative snapshot bundle is
+unchanged; protocol moves from `2` to `3` because the rejected-response envelope
+has a new required member.
+
+The exact rejection shape is:
+
+```text
+category, blocker, currentHolder, remedy
+```
+
+- `category` is one of `request-invalid`, `contract-incompatible`,
+  `session-mismatch`, `state-stale`, `command-conflict`,
+  `intent-unavailable`, `authority-refusal`, or `save-state`.
+- `blocker` and `remedy` are required non-empty player-facing strings.
+- `currentHolder` is required but nullable and must be non-empty when present.
+  The current 12 mappings use `null` because no rejection path can truthfully
+  prove a person, facility, or work item as the current holder.
+- Root `reasonCode` and non-empty `message` remain diagnostic facts. Raw
+  `ENGINE_REJECTED` and `SAVE_REJECTED` detail stays in `message`/logs and is not
+  copied into player-facing blocker copy.
+- All 12 existing reason codes map centrally in TypeScript. Schema tests reject
+  a missing rejection, missing/null/blank blocker or remedy, a missing holder,
+  an unknown category, and additional fields.
+- Capacity contention remains an accepted authoritative queue receipt. The
+  commission, audition, and greenlight contention tests explicitly prove that
+  accepted responses contain no `rejection` member.
+- Exact cached rejection replay remains byte/object exact within the existing
+  process-memory journal.
+
+The generated TypeScript-side C# golden and the Unity generated copy are
+byte-identical. Generated C# names are
+`StudioBridgeRejectedResponse.rejection`, `StudioBridgeRejection`, and
+`StudioBridgeRejectionCategoryValues`; no C# gameplay formula or inferred
+rejection mapping was introduced.
+
+### Strict Unity retention and presentation
+
+Unity consumes the generated protocol-3 DTO rather than mirroring the contract
+by hand. It rejects malformed guidance and binds a valid rejection to the exact
+session, state revision, game week, and state digest that produced it.
+
+- Valid guidance survives same-state polling only when all authority tokens
+  remain exact. The native stale proof retained `state-stale`, a null holder,
+  and non-empty blocker/remedy from poll 11 to poll 12 while revision 18 and the
+  digest remained unchanged.
+- Accepted commands and session changes clear the retained rejection. A changed
+  revision, week, or digest cannot carry stale guidance forward.
+- Raw diagnostic `message` is available to logs/proof evidence but is not used
+  as player copy.
+- The proof HUD renders `WHAT HAPPENED`, optional `CURRENT HOLDER`, and
+  `WHAT NEXT`. It omits the holder section when the authoritative field is null.
+- The retained screenshot
+  `Evidence/A4/Rejection-Guidance/10b-stale-rejection-retained.png` has SHA-256
+  `d57920515d9a0de8f3ce804e5f7545496e905b6538cf6eed103a84b9a768b4d5`.
+
+### Validation
+
+| Gate | Validated A4 pre-commit result |
+| --- | --- |
+| Full TypeScript suite | 327 files; 4,452 passed, 5 skipped, 0 failed |
+| Bridge/schema tests | 26/26 passed, including all 12 mappings, exact replay, adversarial schema failures, Movie #2, and all three accepted capacity queues |
+| TypeScript typecheck | Passed |
+| Bridge typecheck | Passed |
+| Production build | Passed; inherited Vite chunk warnings only |
+| Generated contract | Passed deterministic generation and cross-repository byte-identity check |
+| TypeScript Movie #2 proof | Passed through Week 22 with final digest `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13` |
+| Browser dependency audit | Passed with 0 browser-runtime vulnerabilities |
+| Repository hygiene | Passed |
+| Adopted 3D asset audit | Passed |
+| Unity EditMode | 24/24 passed; `/tmp/studio-a4-rejection-p1-seal-editmode.xml` |
+| Native macOS build | Passed; 136,938,870 bytes; `/tmp/studio-a4-rejection-p1-native-build-final.log` |
+| Fresh native Movie #2 | Passed through Week 22/revision 23 with final digest `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13` |
+| Native save/load | Passed with exact saved/restored digest `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee` |
+| Stale rejection | Passed as category `state-stale`, null holder, non-empty blocker/remedy, retained across one same-state poll without revision/digest mutation |
+| Native reconnect | Separate process recovered Week 22/revision 23/final digest; `/tmp/studio-a4-rejection-p1-native-reconnect-final.log` |
+| Native performance sample | Fresh proof 119.3803 FPS; reconnect 118.9993 FPS |
+| Evidence | Ignored `Evidence/A4/Rejection-Guidance/` with 13 PNGs and two JSON reports |
+| Independent audit | No open P0 or P1 finding |
+
+### Residuals and promotion decision
+
+The bounded A4 rejection path is validated, but four resilience gaps remain:
+
+- unexpected bridge exceptions still use an unstructured fatal HTTP 500 path;
+- JSON Schema constrains each field but cannot encode every reason-code/category
+  cross-field pairing, so exhaustive TypeScript mapping tests remain required;
+- some Unity client-adapter negative branches lack direct isolated tests even
+  though strict protocol and retention tests plus native proof cover the
+  accepted path;
+- the 256-entry replay cache remains process-memory-only and does not survive
+  restart.
+
+A4 changes no art, camera, materials, animation, world layout, or simulation
+formula. Its captures remain visually equivalent to A3/M2: a readable but
+intrusive proof HUD over a sparse, distant campus that still reads too much like
+a diorama. It remains below ADR 0006's inhabitable, two-scale, filmmaking-first
+visual target.
+
+Promotion status remains **GOLDEN — CONTINUE CAMPAIGN** with Golden M2 as the
+sole CURRENT BEST. Do not create an A4 Golden tag or claim supersession from
+dirty worktrees. The checkpoint owner must first inspect the whole diff, commit
+and push both compatible repositories, verify remote SHAs, and then decide
+whether the sealed pair materially qualifies as the next Golden.
+
+### Next action after A4 seal
+
+Replace the 256-entry memory-only replay cache with a bounded, save-associated
+command identity journal, then prove exact duplicate response replay across
+save/load and TypeScript engine process restart. After that durability unit,
+begin the Phase B launcher and localhost security boundary.

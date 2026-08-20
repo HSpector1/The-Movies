@@ -23,6 +23,60 @@ of the product SHA after this register, the ledger, and the handoff are sealed.
 That does not change the product candidate. The M2 tags identify the exact code
 pair to build and recover.
 
+## ACTIVE A4 CANDIDATE - VALIDATED PRE-COMMIT, NOT GOLDEN
+
+A4 is a materially stronger compatible working state, but it is still dirty in
+both repositories and therefore is not CURRENT BEST, is not Golden, and has no
+tag. Golden M2 above remains the sole promotable/recovery answer until A4 is
+committed, pushed, and sealed.
+
+| Component | Branch | Current pushed HEAD / A4 parent | Candidate state |
+| --- | --- | --- | --- |
+| TypeScript authority | `campaign/unity-production-convergence-80h-ts` | `85429f9d18e2b6321e21557bdb068b1047b4c452` | Validated dirty A4 protocol/schema/runtime/generated-golden/tests/README changes |
+| Unity production client | `campaign/unity-production-convergence-80h-client` | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` | Validated dirty generated DTO, strict parser, retention, proof HUD, and EditMode changes |
+
+The A4 candidate contract is protocol `3`, projection `4`, schema
+`sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac`.
+Every genuine rejection contains a required closed TypeScript-owned
+`rejection` object with category, required non-empty blocker, required-nullable
+current holder, and required non-empty remedy. All 12 reason codes map in
+TypeScript. Capacity queue admission remains accepted and contains no rejection.
+
+Unity strictly parses the generated DTO, binds retained guidance to exact
+session/revision/week/digest authority tokens, retains it only across unchanged
+polls, and clears it on acceptance or session change. Raw diagnostic messages
+remain log-only. The proof HUD renders WHAT HAPPENED, optional CURRENT HOLDER,
+and WHAT NEXT.
+
+Validated pre-commit evidence:
+
+- TypeScript: 327 files, 4,452 passed, 5 skipped; 26/26 bridge/schema tests;
+  both typechecks, production build, generated drift, Movie #2 proof, repository
+  hygiene, adopted-3D guard, and zero-vulnerability browser audit pass.
+- Unity: 24/24 EditMode tests; native build 136,938,870 bytes; fresh Movie #2
+  release at Week 22/revision 23; exact save/load; retained `state-stale`
+  guidance across an unchanged poll; and separate-process reconnect all pass.
+- Deterministic final digest:
+  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
+- Save/load digest:
+  `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`.
+- Native samples: 119.3803 FPS fresh proof and 118.9993 FPS reconnect.
+- Evidence: ignored `Evidence/A4/Rejection-Guidance/`; retained-guidance
+  screenshot SHA-256
+  `d57920515d9a0de8f3ce804e5f7545496e905b6538cf6eed103a84b9a768b4d5`.
+- Independent review reports no open P0 or P1 finding.
+
+Known A4 residuals are an unstructured unexpected-fatal HTTP 500 path,
+schema-external reason/category pairing enforcement, several Unity adapter
+negative branches without isolated direct tests, and a 256-entry replay cache
+that remains memory-only. Visuals are unchanged and remain below ADR 0006; the
+candidate still reads too much like a distant proof diorama.
+
+Promotion status remains exactly **GOLDEN — CONTINUE CAMPAIGN**. Do not create
+or push an A4 Golden tag from dirty worktrees. After coherent commits exist in
+both repositories, inspect the exact compatible pair, verify remote SHAs, and
+make the Golden supersession decision from the sealed evidence.
+
 ## PARENT AND BASE SHAS
 
 | Component | Direct parent of product SHA | Campaign base / frozen adoption authority |

@@ -62,7 +62,7 @@
           "type": "number"
         },
         "protocolVersion": {
-          "const": 2,
+          "const": 3,
           "type": "integer"
         },
         "schemaId": {
@@ -141,7 +141,7 @@
           "type": "integer"
         },
         "protocolVersion": {
-          "const": 2,
+          "const": 3,
           "type": "integer"
         },
         "schemaId": {
@@ -172,7 +172,7 @@
           "type": "integer"
         },
         "protocolVersion": {
-          "const": 2,
+          "const": 3,
           "type": "integer"
         },
         "schemaId": {
@@ -315,7 +315,7 @@
           "$ref": "#/$defs/StudioBridgeIntentPayload"
         },
         "protocolVersion": {
-          "const": 2,
+          "const": 3,
           "type": "integer"
         },
         "schemaId": {
@@ -386,6 +386,7 @@
           "type": "integer"
         },
         "message": {
+          "minLength": 1,
           "type": "string"
         },
         "processingMs": {
@@ -393,7 +394,7 @@
           "type": "number"
         },
         "protocolVersion": {
-          "const": 2,
+          "const": 3,
           "type": "integer"
         },
         "reasonCode": {
@@ -412,6 +413,9 @@
             "SAVE_REJECTED"
           ],
           "type": "string"
+        },
+        "rejection": {
+          "$ref": "#/$defs/StudioBridgeRejection"
         },
         "schemaId": {
           "minLength": 1,
@@ -439,6 +443,7 @@
         "processingMs",
         "protocolVersion",
         "reasonCode",
+        "rejection",
         "schemaId",
         "sessionId",
         "stateDigest",
@@ -446,6 +451,51 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioBridgeRejectedResponse"
+    },
+    "StudioBridgeRejection": {
+      "additionalProperties": false,
+      "properties": {
+        "blocker": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "request-invalid",
+            "contract-incompatible",
+            "session-mismatch",
+            "state-stale",
+            "command-conflict",
+            "intent-unavailable",
+            "authority-refusal",
+            "save-state"
+          ],
+          "type": "string"
+        },
+        "currentHolder": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "remedy": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "blocker",
+        "category",
+        "currentHolder",
+        "remedy"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioBridgeRejection"
     },
     "StudioBridgeSaveResponse": {
       "additionalProperties": false,
@@ -471,7 +521,7 @@
           "type": "number"
         },
         "protocolVersion": {
-          "const": 2,
+          "const": 3,
           "type": "integer"
         },
         "saveJson": {
@@ -521,7 +571,7 @@
           "type": "integer"
         },
         "protocolVersion": {
-          "const": 2,
+          "const": 3,
           "type": "integer"
         },
         "schemaId": {
@@ -576,7 +626,7 @@
           "$ref": "#/$defs/StudioBridgeMetrics"
         },
         "protocolVersion": {
-          "const": 2,
+          "const": 3,
           "type": "integer"
         },
         "schemaId": {
@@ -2528,7 +2578,7 @@
       "x-csharp-name": "StudioWeekTheaterSubjectSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-2:projection-4",
+  "$id": "urn:project-studio:bridge:protocol-3:projection-4",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -2564,7 +2614,7 @@
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
     "projectionVersion": 4,
-    "protocolVersion": 2,
+    "protocolVersion": 3,
     "routes": {
       "command": "POST /command",
       "contract": "GET /contract",

@@ -15,7 +15,7 @@ import {
   type JsonSchema,
 } from './dsl.ts'
 
-export const PROTOCOL_VERSION = 2 as const
+export const PROTOCOL_VERSION = 3 as const
 export const PROJECTION_VERSION = 4 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
@@ -523,6 +523,17 @@ export const REJECTION_CODES = [
   'SAVE_REJECTED',
 ] as const
 
+export const REJECTION_CATEGORIES = [
+  'request-invalid',
+  'contract-incompatible',
+  'session-mismatch',
+  'state-stale',
+  'command-conflict',
+  'intent-unavailable',
+  'authority-refusal',
+  'save-state',
+] as const
+
 const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {
   intentId: nonEmptyText(),
   kind: enumeration(AVAILABLE_INTENT_KINDS),
@@ -600,6 +611,13 @@ const StudioBridgeSaveResponse = object('StudioBridgeSaveResponse', {
   processingMs: number({ minimum: 0 }),
 })
 
+const StudioBridgeRejection = object('StudioBridgeRejection', {
+  category: enumeration(REJECTION_CATEGORIES),
+  blocker: nonEmptyText(),
+  currentHolder: nullable(nonEmptyText()),
+  remedy: nonEmptyText(),
+})
+
 const StudioBridgeRejectedResponse = object('StudioBridgeRejectedResponse', {
   protocolVersion: literal(PROTOCOL_VERSION),
   schemaId: nonEmptyText(),
@@ -607,7 +625,8 @@ const StudioBridgeRejectedResponse = object('StudioBridgeRejectedResponse', {
   commandId: nullable(text()),
   accepted: literal(false),
   reasonCode: enumeration(REJECTION_CODES),
-  message: text(),
+  rejection: reference('StudioBridgeRejection', StudioBridgeRejection),
+  message: nonEmptyText(),
   stateRevision: nonNegativeInteger(),
   gameWeek: nonNegativeInteger(),
   stateDigest: nonEmptyText(),
@@ -689,6 +708,7 @@ const definitions = {
   StudioBridgeSnapshotResponse,
   StudioBridgeAcceptedCommandResponse,
   StudioBridgeSaveResponse,
+  StudioBridgeRejection,
   StudioBridgeRejectedResponse,
   StudioBridgeHealthResponse,
   StudioBridgeSessionResponse,
@@ -697,7 +717,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-2:projection-4',
+  $id: 'urn:project-studio:bridge:protocol-3:projection-4',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [
@@ -735,6 +755,8 @@ export type BridgeAvailableIntent = InferSchema<typeof StudioBridgeIntentOption>
 export type BridgeSubmitIntentCommand = InferSchema<typeof StudioBridgeIntentRequest>
 export type BridgeControlEnvelope = InferSchema<typeof StudioBridgeControlRequest>
 export type BridgeRejectionCode = (typeof REJECTION_CODES)[number]
+export type BridgeRejectionCategory = (typeof REJECTION_CATEGORIES)[number]
+export type BridgeRejection = InferSchema<typeof StudioBridgeRejection>
 export type BridgeSnapshotEnvelope = InferSchema<typeof StudioBridgeSnapshotResponse>
 export type BridgeAcceptedCommandResponse = InferSchema<typeof StudioBridgeAcceptedCommandResponse>
 export type BridgeRejectedResponse = InferSchema<typeof StudioBridgeRejectedResponse>

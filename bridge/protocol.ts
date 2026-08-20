@@ -4,9 +4,12 @@ import {
   BRIDGE_SCHEMA,
   PROJECTION_VERSION,
   PROTOCOL_VERSION,
+  REJECTION_CATEGORIES,
   REJECTION_CODES,
   type BridgeAvailableIntent,
   type BridgeControlEnvelope,
+  type BridgeRejection,
+  type BridgeRejectionCategory,
   type BridgeRejectionCode,
   type BridgeSubmitIntentCommand,
 } from './schema/bridge-schema.ts'
@@ -19,6 +22,7 @@ export {
   BRIDGE_SCHEMA,
   PROJECTION_VERSION,
   PROTOCOL_VERSION,
+  REJECTION_CATEGORIES,
   REJECTION_CODES,
 }
 
@@ -31,6 +35,8 @@ export type AvailableIntentKind = BridgeAvailableIntent['kind']
 export type AvailableIntent = BridgeAvailableIntent
 export type SubmitIntentCommand = BridgeSubmitIntentCommand
 export type ControlEnvelope = BridgeControlEnvelope
+export type Rejection = BridgeRejection
+export type RejectionCategory = BridgeRejectionCategory
 export type RejectionCode = BridgeRejectionCode
 
 export type ValidationFailure = {

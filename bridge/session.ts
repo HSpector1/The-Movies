@@ -37,6 +37,7 @@ import {
   SNAPSHOT_VERSION,
   type AvailableIntent,
   type ControlEnvelope,
+  type Rejection,
   type RejectionCode,
   type SubmitIntentCommand,
 } from './protocol.ts'
@@ -165,7 +166,7 @@ export function authoritativeDigest(state: GameState): string {
 }
 
 function opaqueIntentId(stateDigest: string, descriptor: unknown): string {
-  return `intent-v2-${createHash('sha256')
+  return `intent-v${String(PROTOCOL_VERSION)}-${createHash('sha256')
     .update(stateDigest)
     .update('\0')
     .update(JSON.stringify(descriptor))
@@ -615,6 +616,85 @@ function fingerprint(route: 'command' | 'save' | 'load', value: SubmitIntentComm
   return createHash('sha256').update(route).update('\0').update(JSON.stringify(value)).digest('hex')
 }
 
+function rejectionFacts(
+  reasonCode: RejectionCode,
+): Rejection {
+  switch (reasonCode) {
+    case 'INVALID_JSON':
+      return {
+        category: 'request-invalid',
+        blocker: 'The request body is not valid JSON.',
+        currentHolder: null,
+        remedy: 'Reconnect to the local engine. If this repeats, relaunch the documented compatible build and inspect the bridge log.',
+      }
+    case 'INVALID_COMMAND':
+    case 'INVALID_CONTROL':
+      return {
+        category: 'request-invalid',
+        blocker: 'The request does not match the current closed bridge envelope.',
+        currentHolder: null,
+        remedy: 'Reconnect to the local engine. If this repeats, relaunch the documented compatible build and inspect the bridge log.',
+      }
+    case 'PROTOCOL_MISMATCH':
+    case 'SCHEMA_MISMATCH':
+      return {
+        category: 'contract-incompatible',
+        blocker: 'The client contract is incompatible with the running TypeScript authority.',
+        currentHolder: null,
+        remedy: 'Stop both local processes and launch the documented compatible Project: Studio engine and client pair.',
+      }
+    case 'SESSION_MISMATCH':
+      return {
+        category: 'session-mismatch',
+        blocker: 'The request belongs to a different bridge session.',
+        currentHolder: null,
+        remedy: 'Reconnect to the local engine and retry from the current studio state.',
+      }
+    case 'STALE_REVISION':
+      return {
+        category: 'state-stale',
+        blocker: 'The authoritative state changed after this command was prepared.',
+        currentHolder: null,
+        remedy: 'Refresh the studio and try the action again from the current state.',
+      }
+    case 'COMMAND_ID_REUSE':
+      return {
+        category: 'command-conflict',
+        blocker: 'This commandId is already bound to a different request envelope.',
+        currentHolder: null,
+        remedy: 'Wait for the original action result. If the interface remains out of sync, reconnect to the local engine.',
+      }
+    case 'INTENT_NOT_AVAILABLE':
+      return {
+        category: 'intent-unavailable',
+        blocker: 'This exact intent is not available in the current authoritative state.',
+        currentHolder: null,
+        remedy: 'Refresh the studio and choose one of the actions available in the current state.',
+      }
+    case 'ENGINE_REJECTED':
+      return {
+        category: 'authority-refusal',
+        blocker: 'The authoritative TypeScript engine refused the submitted intent.',
+        currentHolder: null,
+        remedy: 'Follow the current blocker guidance, refresh the studio, and try the action again.',
+      }
+    case 'NO_SAVE':
+      return {
+        category: 'save-state',
+        blocker: 'No authoritative bridge save exists.',
+        currentHolder: null,
+        remedy: 'Create an authoritative save before requesting a load.',
+      }
+    case 'SAVE_REJECTED':
+      return {
+        category: 'save-state',
+        blocker: 'The stored authoritative save did not pass TypeScript validation.',
+        currentHolder: null,
+        remedy: 'Keep the current studio state and load a compatible Project: Studio save.',
+      }
+  }
+}
+
 export class BridgeSession {
   readonly sessionId: string
   private state: GameState
@@ -812,6 +892,9 @@ export class BridgeSession {
     message: string,
     started: number,
   ): RejectedResponse {
+    const diagnosticMessage = message.trim().length === 0
+      ? 'The TypeScript authority rejected the request.'
+      : message
     return {
       protocolVersion: PROTOCOL_VERSION,
       schemaId: SCHEMA_ID,
@@ -819,7 +902,8 @@ export class BridgeSession {
       commandId,
       accepted: false,
       reasonCode,
-      message,
+      rejection: rejectionFacts(reasonCode),
+      message: diagnosticMessage,
       stateRevision: this.revision,
       gameWeek: this.state.market.tick,
       stateDigest: authoritativeDigest(this.state),

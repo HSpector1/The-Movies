@@ -61,10 +61,11 @@ describe('canonical Unity bridge schema', () => {
   it('closes every declared object recursively and publishes explicit protocol metadata', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
-      protocolVersion: 2,
+      protocolVersion: 3,
       projectionVersion: 4,
       transport: 'http-json-localhost',
     })
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-3:projection-4')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
@@ -231,7 +232,84 @@ describe('canonical Unity bridge schema', () => {
       accepted,
     )).not.toThrow()
     expect(BRIDGE_SCHEMA.$defs.StudioBridgeAcceptedCommandResponse.required).toContain('snapshot')
+    expect(BRIDGE_SCHEMA.$defs.StudioBridgeAcceptedCommandResponse.properties).not.toHaveProperty(
+      'rejection',
+    )
+    expect(() => parseWireValue(
+      BRIDGE_SCHEMA.$defs.StudioBridgeAcceptedCommandResponse,
+      { ...accepted, rejection: null },
+    )).toThrow(/additional properties are not allowed/)
     expect(BRIDGE_SCHEMA.$defs).not.toHaveProperty('StudioBridgeLoadResponse')
+  })
+
+  it('requires one closed structured rejection with non-empty guidance and a nullable holder', () => {
+    const session = new BridgeSession(
+      createBridgeInitialState('bridge-schema-rejection'),
+      'bridge-schema-rejection',
+    )
+    const rejected = session.protocolReject(
+      'rejected-command',
+      'STALE_REVISION',
+      'Authority moved.',
+    )
+    const responseSchema = BRIDGE_SCHEMA.$defs.StudioBridgeRejectedResponse
+    const factsSchema = BRIDGE_SCHEMA.$defs.StudioBridgeRejection
+
+    expect(responseSchema.required).toContain('rejection')
+    expect(factsSchema.additionalProperties).toBe(false)
+    expect(factsSchema.required).toEqual(['blocker', 'category', 'currentHolder', 'remedy'])
+    expect(() => parseWireValue(responseSchema, rejected)).not.toThrow()
+    expect(() => parseWireValue(BRIDGE_SCHEMA, rejected)).not.toThrow()
+
+    const missingRejection = clone(rejected) as Partial<typeof rejected>
+    delete missingRejection.rejection
+    expect(() => parseWireValue(responseSchema, missingRejection)).toThrow(/required property is missing/)
+
+    for (const field of ['blocker', 'remedy'] as const) {
+      const missingGuidance = clone(rejected) as unknown as {
+        rejection: Record<string, unknown>
+      }
+      delete missingGuidance.rejection[field]
+      expect(() => parseWireValue(responseSchema, missingGuidance)).toThrow(
+        /required property is missing/,
+      )
+
+      const nullGuidance = clone(rejected) as unknown as {
+        rejection: Record<string, unknown>
+      }
+      nullGuidance.rejection[field] = null
+      expect(() => parseWireValue(responseSchema, nullGuidance)).toThrow(/expected a string/)
+
+      const blankGuidance = clone(rejected) as unknown as {
+        rejection: Record<string, unknown>
+      }
+      blankGuidance.rejection[field] = ''
+      expect(() => parseWireValue(responseSchema, blankGuidance)).toThrow(/at least 1 character/)
+    }
+
+    const missingHolder = clone(rejected)
+    delete (missingHolder.rejection as Partial<typeof missingHolder.rejection>).currentHolder
+    expect(() => parseWireValue(responseSchema, missingHolder)).toThrow(/required property is missing/)
+
+    const additional = clone(rejected) as typeof rejected & {
+      rejection: typeof rejected.rejection & { inferredCapacity?: number }
+    }
+    additional.rejection.inferredCapacity = 0
+    expect(() => parseWireValue(responseSchema, additional)).toThrow(
+      /additional properties are not allowed/,
+    )
+
+    const wrongCategory = clone(rejected)
+    wrongCategory.rejection.category = 'capacity' as typeof wrongCategory.rejection.category
+    expect(() => parseWireValue(responseSchema, wrongCategory)).toThrow(/expected one of/)
+
+    const emptyMessage = clone(rejected)
+    emptyMessage.message = ''
+    expect(() => parseWireValue(responseSchema, emptyMessage)).toThrow(/at least 1 character/)
+
+    const requiredNullableHolder = clone(rejected)
+    requiredNullableHolder.rejection.currentHolder = null
+    expect(() => parseWireValue(responseSchema, requiredNullableHolder)).not.toThrow()
   })
 
   it('models the schema discovery response without a self-referential object contract', () => {
@@ -278,6 +356,7 @@ describe('canonical Unity bridge schema', () => {
     )
     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
+    expect(generatedCsharp).toContain('public const int ProtocolVersion = 3;')
     expect(generatedCsharp).toContain('public const int ProjectionVersion = 4;')
     expect(generatedCsharp).toContain('public int protocolVersion;')
     expect(generatedCsharp).toContain('public int snapshotVersion;')
@@ -289,5 +368,17 @@ describe('canonical Unity bridge schema', () => {
     expect(generatedCsharp).not.toContain('public sealed partial class StudioLotSnapshot')
     expect(generatedCsharp).toContain('public static readonly string CanonicalSchemaJson')
     expect(generatedCsharp).not.toContain('class StudioBridgeLoadResponse')
+    expect(generatedCsharp).toContain('public sealed partial class StudioBridgeRejection')
+    expect(generatedCsharp).toContain('public static class StudioBridgeRejectionCategoryValues')
+    expect(generatedCsharp).toContain('public StudioBridgeRejection rejection;')
+    expect(generatedCsharp).toContain(
+      '[JsonProperty("blocker", Required = Required.Always)]',
+    )
+    expect(generatedCsharp).toContain(
+      '[JsonProperty("currentHolder", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]',
+    )
+    expect(generatedCsharp).toContain(
+      '[JsonProperty("remedy", Required = Required.Always)]',
+    )
   })
 })
