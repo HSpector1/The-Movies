@@ -22,26 +22,37 @@
 
 import {
   AmbientLight,
+  BufferGeometry,
   CircleGeometry,
   Clock,
+  CylinderGeometry,
   DirectionalLight,
+  DynamicDrawUsage,
+  Euler,
   Group,
   HemisphereLight,
+  InstancedMesh,
+  Matrix4,
+  type Material,
   Mesh,
   MeshBasicMaterial,
+  MeshStandardMaterial,
   Object3D,
   OrthographicCamera,
   PCFSoftShadowMap,
   Plane,
   PointLight,
+  Quaternion,
   Raycaster,
   RingGeometry,
   Scene,
+  SphereGeometry,
   SRGBColorSpace,
   Vector2,
   Vector3,
   ACESFilmicToneMapping,
 } from 'three'
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
 import type { StudioLotSnapshot, BuildingId, LotPersonState, LotPlacedFacilityState } from '../snapshot/StudioLotSnapshot'
 import { composeWorldBuildings, worldBounds, type WorldBuilding } from '../tycoon/buildings.ts'
 import {
@@ -89,14 +100,29 @@ type FigureRuntime = {
   figure: CrewFigure
   stand: PresenceStand
   fact: LotPersonState | null
+  role: CrewRole
   pose: WorkingPose
   phase: number
 }
 
 type ActivityFigureRuntime = {
   figure: CrewFigure
+  role: CrewRole
   pose: WorkingPose
   phase: number
+}
+
+const CREW_ROLE_COLOUR: Record<CrewRole, number> = {
+  director: 0x643d31,
+  actor: 0x9a665d,
+  writer: 0x59656a,
+  craft: 0x8a6840,
+  grip: 0x505c47,
+  electric: 0xa17432,
+  camera: 0x394e5e,
+  maintenance: 0x59624b,
+  office: 0x62536c,
+  pa: 0x6b6970,
 }
 
 export class ThreeLotScene {
@@ -126,6 +152,7 @@ export class ThreeLotScene {
   private theaterSlot = new Group()
   private peopleSlot = new Group()
   private structuralSignature = ''
+  private environmentSignature = ''
   private staticGeneration = 0
 
   // camera state, in tycoon terms: a grid centre and an absolute zoom
@@ -142,6 +169,10 @@ export class ThreeLotScene {
   // presentation-only runtime
   private figures: FigureRuntime[] = []
   private activityFigures: ActivityFigureRuntime[] = []
+  private buildingBatchGeometries: BufferGeometry[] = []
+  private dressingBatchGeometries: BufferGeometry[] = []
+  private theaterBatchGeometries: BufferGeometry[] = []
+  private wallBatchGeometries: BufferGeometry[] = []
   private readonly activitySpillGeometry = new CircleGeometry(1, 40)
   private readonly activitySpillMaterial = new MeshBasicMaterial({
     color: 0xffd68a,
@@ -149,6 +180,30 @@ export class ThreeLotScene {
     opacity: 0.2,
     depthWrite: false,
   })
+  private readonly crewShadowGeometry = new CircleGeometry(0.38, 14)
+  private readonly crewShadowMaterial = new MeshBasicMaterial({
+    color: 0x211a13,
+    transparent: true,
+    opacity: 0.2,
+    depthWrite: false,
+  })
+  private crewShadowMesh: InstancedMesh | null = null
+  private readonly crewLodBodyGeometry = new CylinderGeometry(0.19, 0.27, 0.78, 7)
+  private readonly crewLodHeadGeometry = new SphereGeometry(0.17, 8, 6)
+  private readonly crewLodLegGeometry = new CylinderGeometry(0.075, 0.09, 0.68, 6)
+  private readonly crewLodArmGeometry = new CylinderGeometry(0.06, 0.065, 0.64, 6)
+  private readonly crewLodHatBrimGeometry = new CylinderGeometry(0.23, 0.23, 0.04, 10)
+  private readonly crewLodHatCrownGeometry = new CylinderGeometry(0.13, 0.15, 0.16, 10)
+  private readonly crewLodBodyMaterial = new MeshStandardMaterial({ color: 0xffffff, roughness: 0.88 })
+  private readonly crewLodHeadMaterial = new MeshStandardMaterial({ color: 0xc59a78, roughness: 0.84 })
+  private readonly crewLodLegMaterial = new MeshStandardMaterial({ color: 0x413e3b, roughness: 0.9 })
+  private readonly crewLodHatMaterial = new MeshStandardMaterial({ color: 0x3b352f, roughness: 0.88 })
+  private crewLodBodyMesh: InstancedMesh | null = null
+  private crewLodHeadMesh: InstancedMesh | null = null
+  private crewLodLegMesh: InstancedMesh | null = null
+  private crewLodArmMesh: InstancedMesh | null = null
+  private crewLodHatBrimMesh: InstancedMesh | null = null
+  private crewLodHatCrownMesh: InstancedMesh | null = null
   private playback: { startMs: number; speed: number; week: number } | null = null
   private nowMs = 0
   private reducedMotion: boolean
@@ -185,6 +240,9 @@ export class ThreeLotScene {
     this.buildingFactory = new BuildingFactory(this.materials)
     this.propFactory = new PropFactory(this.materials)
     this.crewFactory = new CrewFactory()
+    this.crewShadowGeometry.rotateX(-Math.PI / 2)
+    this.crewLodBodyGeometry.translate(0, 0.96, 0)
+    this.crewLodHeadGeometry.translate(0, 1.52, 0)
 
     this.atmosphere = buildAtmosphere(this.renderer)
     this.scene.background = this.atmosphere.fog.color
@@ -196,7 +254,7 @@ export class ThreeLotScene {
     // afternoon while preserving colour and detail in faces that turn away from sun.
     this.sun = new DirectionalLight(warm(0xffe4bd), 2.15)
     this.sun.castShadow = true
-    this.sun.shadow.mapSize.set(4096, 4096)
+    this.sun.shadow.mapSize.set(2048, 2048)
     this.sun.shadow.bias = -0.00018
     this.sun.shadow.normalBias = 0.055
     this.scene.add(this.sun)
@@ -267,11 +325,7 @@ export class ThreeLotScene {
       placementProgress.set(placed.id, placed.progress01)
     }
 
-    const signature = JSON.stringify(
-      [
-        this.lotW,
-        this.lotD,
-        ...this.buildings.map((b) => [
+    const buildingRecords = this.buildings.map((b) => [
           b.buildingId,
           b.gx,
           b.gy,
@@ -280,16 +334,23 @@ export class ThreeLotScene {
           b.texKey,
           b.status,
           b.placedFacilityId === null ? null : placementProgress.get(b.placedFacilityId) ?? null,
-        ]),
-      ],
-    )
+        ])
+    const signature = JSON.stringify([this.lotW, this.lotD, ...buildingRecords])
+    const environmentSignature = JSON.stringify([
+      this.lotW,
+      this.lotD,
+      ...buildingRecords.map((record) => record.slice(0, -1)),
+    ])
     if (signature !== this.structuralSignature) {
       this.structuralSignature = signature
-      void this.rebuildStatic().catch(() => {
-        if (!this.destroyed) this.opts.onEvent({ type: 'failure', reason: 'scene-create-failed' })
-      })
+      if (environmentSignature !== this.environmentSignature) {
+        this.environmentSignature = environmentSignature
+        void this.rebuildStatic().catch(() => {
+          if (!this.destroyed) this.opts.onEvent({ type: 'failure', reason: 'scene-create-failed' })
+        })
+        this.rebuildDressing()
+      }
       this.rebuildBuildings()
-      this.rebuildDressing()
     }
     this.rebuildTheater()
     this.rebuildPeople()
@@ -304,8 +365,10 @@ export class ThreeLotScene {
     const nextSurround = buildSurround(this.lotW, this.lotD, this.materials)
     const gate = physicalBuildings.find((b) => b.placeId === 'studio-gate')
     const nextWall = buildPerimeterWall(this.lotW, this.lotD, this.materials, gate)
+    const nextWallGeometries = this.batchStaticMeshes(nextWall)
     if (this.destroyed || generation !== this.staticGeneration) {
       nextGround.dispose()
+      for (const geometry of nextWallGeometries) geometry.dispose()
       return
     }
     if (this.groundSlot !== null) {
@@ -318,6 +381,8 @@ export class ThreeLotScene {
     this.surroundSlot = nextSurround
     this.scene.add(this.surroundSlot)
     if (this.wallSlot !== null) this.scene.remove(this.wallSlot)
+    for (const geometry of this.wallBatchGeometries) geometry.dispose()
+    this.wallBatchGeometries = nextWallGeometries
     this.wallSlot = nextWall
     this.scene.add(this.wallSlot)
 
@@ -325,7 +390,7 @@ export class ThreeLotScene {
     const centre = gridToWorld(this.lotW / 2, this.lotD / 2)
     this.sun.position.copy(centre.clone().add(SUN_OFFSET_DIR.clone().multiplyScalar(260)))
     this.sun.target.position.copy(centre)
-    const half = Math.max(this.lotW, this.lotD) * TILE_M * 0.85
+    const half = Math.max(this.lotW, this.lotD) * TILE_M * 0.72
     this.sun.shadow.camera.left = -half
     this.sun.shadow.camera.right = half
     this.sun.shadow.camera.top = half
@@ -345,6 +410,8 @@ export class ThreeLotScene {
   }
 
   private rebuildBuildings(): void {
+    for (const geometry of this.buildingBatchGeometries) geometry.dispose()
+    this.buildingBatchGeometries = []
     this.clearGroup(this.buildingSlot)
     const placementById = new Map<number, LotPlacedFacilityState>()
     for (const p of this.snapshot.placement?.placements ?? []) placementById.set(p.id, p)
@@ -357,6 +424,12 @@ export class ThreeLotScene {
       } else {
         body = this.buildingFactory.make(building)
       }
+      const dynamicParts = [
+        body.userData.hotOpenDoor,
+        body.userData.hotClosedDoor,
+        body.userData.hotLamp,
+      ].filter((part): part is Object3D => part instanceof Object3D)
+      this.buildingBatchGeometries.push(...this.batchStaticMeshes(body, dynamicParts))
       const centre = gridToWorld(building.gx + building.fw / 2, building.gy + building.fd / 2)
       body.position.copy(centre)
       body.userData.buildingId = building.buildingId
@@ -368,6 +441,8 @@ export class ThreeLotScene {
 
   /** Landscaping + backlot + established dressing, through the SAME inventories. */
   private rebuildDressing(): void {
+    for (const geometry of this.dressingBatchGeometries) geometry.dispose()
+    this.dressingBatchGeometries = []
     this.clearGroup(this.dressingSlot)
     const occupied = new Set<string>()
     for (const b of this.buildings) {
@@ -394,10 +469,95 @@ export class ThreeLotScene {
         : rng.range(0, Math.PI * 2)
       this.dressingSlot.add(body)
     })
+    this.dressingBatchGeometries = this.batchStaticMeshes(this.dressingSlot)
+  }
+
+  /** Collapse non-interactive procedural meshes by shared material + vertex layout. */
+  private batchStaticMeshes(root: Group, dynamicParts: readonly Object3D[] = []): BufferGeometry[] {
+    root.updateMatrixWorld(true)
+    for (const part of dynamicParts) {
+      if (part.parent !== root) root.attach(part)
+    }
+    root.updateMatrixWorld(true)
+    const dynamic = new Set(dynamicParts)
+    const belongsToDynamicPart = (node: Object3D): boolean => {
+      let cursor: Object3D | null = node
+      while (cursor !== null && cursor !== root) {
+        if (dynamic.has(cursor)) return true
+        cursor = cursor.parent
+      }
+      return false
+    }
+    const source: Array<Mesh<BufferGeometry, Material>> = []
+    let supported = true
+    root.traverse((node) => {
+      const mesh = node as Mesh
+      if (!mesh.isMesh || belongsToDynamicPart(node)) return
+      const kind = mesh as Mesh & { isSkinnedMesh?: boolean; isInstancedMesh?: boolean }
+      if (kind.isSkinnedMesh === true || kind.isInstancedMesh === true || Array.isArray(mesh.material)) {
+        supported = false
+        return
+      }
+      source.push(mesh as Mesh<BufferGeometry, Material>)
+    })
+    if (!supported || source.length < 2) return []
+
+    type Bucket = {
+      material: Material
+      geometries: BufferGeometry[]
+      castShadow: boolean
+      receiveShadow: boolean
+    }
+    const buckets = new Map<string, Bucket>()
+    for (const mesh of source) {
+      const attributes = Object.entries(mesh.geometry.attributes)
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([name, attribute]) =>
+          `${name}:${attribute.itemSize}:${String(attribute.normalized)}:${attribute.array.constructor.name}`,
+        )
+        .join('|')
+      const key = `${mesh.material.uuid}:${mesh.geometry.index === null ? 'plain' : 'indexed'}:${attributes}`
+      let bucket = buckets.get(key)
+      if (bucket === undefined) {
+        bucket = {
+          material: mesh.material,
+          geometries: [],
+          castShadow: false,
+          receiveShadow: false,
+        }
+      }
+      const geometry = mesh.geometry.clone()
+      geometry.applyMatrix4(mesh.matrixWorld)
+      bucket.geometries.push(geometry)
+      bucket.castShadow ||= mesh.castShadow
+      bucket.receiveShadow ||= mesh.receiveShadow
+      buckets.set(key, bucket)
+    }
+
+    const mergedGeometries: BufferGeometry[] = []
+    const mergedMeshes: Mesh[] = []
+    for (const bucket of buckets.values()) {
+      const merged = mergeGeometries(bucket.geometries, false)
+      for (const geometry of bucket.geometries) geometry.dispose()
+      if (merged === null) continue
+      const mesh = new Mesh(merged, bucket.material)
+      mesh.castShadow = bucket.castShadow
+      mesh.receiveShadow = bucket.receiveShadow
+      mergedGeometries.push(merged)
+      mergedMeshes.push(mesh)
+    }
+    if (mergedMeshes.length === 0) return []
+    for (const child of [...root.children]) {
+      if (!dynamic.has(child)) root.remove(child)
+    }
+    for (const mesh of mergedMeshes) root.add(mesh)
+    return mergedGeometries
   }
 
   /** Crews, equipment and freight where the ENGINE says work is happening. */
   private rebuildTheater(): void {
+    for (const geometry of this.theaterBatchGeometries) geometry.dispose()
+    this.theaterBatchGeometries = []
     this.clearGroup(this.theaterSlot)
     this.activityFigures = []
     const byId = new Map(this.buildings.map((b) => [b.buildingId, b]))
@@ -421,6 +581,7 @@ export class ThreeLotScene {
       this.theaterSlot.add(figure.root)
       this.activityFigures.push({
         figure,
+        role,
         pose,
         phase: gridNoise(gx, gy, salt + 503),
       })
@@ -444,9 +605,13 @@ export class ThreeLotScene {
     }
 
     for (const b of this.buildings) {
-      const lamp = this.buildingSlot.children.find((c) => c.userData.buildingId === b.buildingId)
-        ?.userData.hotLamp as Mesh | undefined
+      const body = this.buildingSlot.children.find((c) => c.userData.buildingId === b.buildingId)
+      const lamp = body?.userData.hotLamp as Mesh | undefined
       if (lamp !== undefined) lamp.visible = false
+      const openDoor = body?.userData.hotOpenDoor as Group | undefined
+      const closedDoor = body?.userData.hotClosedDoor as Group | undefined
+      if (openDoor !== undefined) openDoor.visible = false
+      if (closedDoor !== undefined) closedDoor.visible = true
     }
 
     for (const state of states) {
@@ -457,6 +622,10 @@ export class ThreeLotScene {
       const body = this.buildingSlot.children.find((c) => c.userData.buildingId === building.buildingId)
       const lamp = body?.userData.hotLamp as Mesh | undefined
       if (lamp !== undefined) lamp.visible = state.hot
+      const openDoor = body?.userData.hotOpenDoor as Group | undefined
+      const closedDoor = body?.userData.hotClosedDoor as Group | undefined
+      if (openDoor !== undefined) openDoor.visible = state.hot
+      if (closedDoor !== undefined) closedDoor.visible = !state.hot
 
       if (state.hot) {
         const centre = { gx: building.gx + building.fw / 2, gy: building.gy + building.fd / 2 }
@@ -576,6 +745,12 @@ export class ThreeLotScene {
         this.theaterSlot.add(crate)
       }
     }
+    const dynamicTheaterParts: Object3D[] = this.activityFigures.map((runtime) => runtime.figure.root)
+    for (const child of this.theaterSlot.children) {
+      if (child instanceof PointLight) dynamicTheaterParts.push(child)
+    }
+    this.theaterBatchGeometries = this.batchStaticMeshes(this.theaterSlot, dynamicTheaterParts)
+    this.syncCrewShadows()
   }
 
   /** Named people at the stands the engine's own presence projection claims. */
@@ -632,10 +807,180 @@ export class ThreeLotScene {
         figure,
         stand,
         fact,
+        role,
         pose,
         phase: gridNoise(at.gx, at.gy, 607),
       })
     }
+    this.syncCrewShadows()
+  }
+
+  /** One cheap grounded contact pass replaces hundreds of skinned shadow draws. */
+  private syncCrewShadows(): void {
+    if (this.crewShadowMesh !== null) this.scene.remove(this.crewShadowMesh)
+    const count = this.figures.length + this.activityFigures.length
+    if (count === 0) {
+      this.crewShadowMesh = null
+      this.syncCrewLod()
+      return
+    }
+    const shadows = new InstancedMesh(this.crewShadowGeometry, this.crewShadowMaterial, count)
+    shadows.name = 'crew contact shadows'
+    shadows.renderOrder = 1
+    shadows.frustumCulled = false
+    shadows.instanceMatrix.setUsage(DynamicDrawUsage)
+    this.crewShadowMesh = shadows
+    this.scene.add(shadows)
+    this.updateCrewShadows()
+    this.syncCrewLod()
+  }
+
+  /** Management zoom uses two instanced silhouette draws; inspection zoom restores GLBs. */
+  private syncCrewLod(): void {
+    for (const mesh of [
+      this.crewLodBodyMesh,
+      this.crewLodHeadMesh,
+      this.crewLodLegMesh,
+      this.crewLodArmMesh,
+      this.crewLodHatBrimMesh,
+      this.crewLodHatCrownMesh,
+    ]) {
+      if (mesh !== null) this.scene.remove(mesh)
+    }
+    const runtimes = [...this.figures, ...this.activityFigures]
+    if (runtimes.length === 0) {
+      this.crewLodBodyMesh = null
+      this.crewLodHeadMesh = null
+      this.crewLodLegMesh = null
+      this.crewLodArmMesh = null
+      this.crewLodHatBrimMesh = null
+      this.crewLodHatCrownMesh = null
+      return
+    }
+    const bodies = new InstancedMesh(this.crewLodBodyGeometry, this.crewLodBodyMaterial, runtimes.length)
+    const heads = new InstancedMesh(this.crewLodHeadGeometry, this.crewLodHeadMaterial, runtimes.length)
+    const legs = new InstancedMesh(this.crewLodLegGeometry, this.crewLodLegMaterial, runtimes.length * 2)
+    const arms = new InstancedMesh(this.crewLodArmGeometry, this.crewLodBodyMaterial, runtimes.length * 2)
+    const hatBrims = new InstancedMesh(this.crewLodHatBrimGeometry, this.crewLodHatMaterial, runtimes.length)
+    const hatCrowns = new InstancedMesh(this.crewLodHatCrownGeometry, this.crewLodHatMaterial, runtimes.length)
+    bodies.name = 'management-distance crew bodies'
+    heads.name = 'management-distance crew heads'
+    legs.name = 'management-distance crew legs'
+    arms.name = 'management-distance crew arms'
+    hatBrims.name = 'management-distance crew hat brims'
+    hatCrowns.name = 'management-distance crew hat crowns'
+    for (const mesh of [bodies, heads, legs, arms, hatBrims, hatCrowns]) {
+      mesh.castShadow = false
+      mesh.receiveShadow = true
+      mesh.frustumCulled = false
+      mesh.instanceMatrix.setUsage(DynamicDrawUsage)
+    }
+    runtimes.forEach((runtime, index) => {
+      const colour = warm(CREW_ROLE_COLOUR[runtime.role])
+      bodies.setColorAt(index, colour)
+      arms.setColorAt(index * 2, colour)
+      arms.setColorAt(index * 2 + 1, colour)
+    })
+    this.crewLodBodyMesh = bodies
+    this.crewLodHeadMesh = heads
+    this.crewLodLegMesh = legs
+    this.crewLodArmMesh = arms
+    this.crewLodHatBrimMesh = hatBrims
+    this.crewLodHatCrownMesh = hatCrowns
+    this.scene.add(bodies)
+    this.scene.add(heads)
+    this.scene.add(legs)
+    this.scene.add(arms)
+    this.scene.add(hatBrims)
+    this.scene.add(hatCrowns)
+    this.updateCrewLod()
+  }
+
+  /** Returns whether the detailed rig tier is visible this frame. */
+  private updateCrewLod(): boolean {
+    const detailed = this.camZoom >= 0.86
+    const runtimes = [...this.figures, ...this.activityFigures]
+    for (const runtime of runtimes) runtime.figure.root.visible = detailed
+    const lodMeshes = [
+      this.crewLodBodyMesh,
+      this.crewLodHeadMesh,
+      this.crewLodLegMesh,
+      this.crewLodArmMesh,
+      this.crewLodHatBrimMesh,
+      this.crewLodHatCrownMesh,
+    ]
+    if (lodMeshes.some((mesh) => mesh === null)) return detailed
+    for (const mesh of lodMeshes) if (mesh !== null) mesh.visible = !detailed
+    if (detailed) return true
+
+    const matrix = new Matrix4()
+    const rootPosition = new Vector3()
+    const partPosition = new Vector3()
+    const scale = new Vector3()
+    const localRotation = new Quaternion()
+    const worldRotation = new Quaternion()
+    const localEuler = new Euler()
+    const setPart = (
+      mesh: InstancedMesh | null,
+      index: number,
+      runtime: FigureRuntime | ActivityFigureRuntime,
+      x: number,
+      y: number,
+      z: number,
+      rx: number,
+      rz: number,
+      partScale = 1,
+    ): void => {
+      if (mesh === null) return
+      partPosition.set(x, y, z).applyQuaternion(runtime.figure.root.quaternion).add(rootPosition)
+      localEuler.set(rx, 0, rz)
+      localRotation.setFromEuler(localEuler)
+      worldRotation.copy(runtime.figure.root.quaternion).multiply(localRotation)
+      scale.setScalar(runtime.figure.root.scale.x * partScale)
+      matrix.compose(partPosition, worldRotation, scale)
+      mesh.setMatrixAt(index, matrix)
+    }
+    runtimes.forEach((runtime, index) => {
+      const figureScale = runtime.figure.root.scale.x
+      const bob = this.reducedMotion
+        ? 0
+        : Math.sin(this.nowMs / 520 + runtime.phase * Math.PI * 2) * 0.025
+      const stride = this.reducedMotion
+        ? 0
+        : Math.sin(this.nowMs / 470 + runtime.phase * Math.PI * 2)
+      rootPosition.set(runtime.figure.root.position.x, bob, runtime.figure.root.position.z)
+      scale.setScalar(figureScale)
+      matrix.compose(rootPosition, runtime.figure.root.quaternion, scale)
+      this.crewLodBodyMesh?.setMatrixAt(index, matrix)
+      this.crewLodHeadMesh?.setMatrixAt(index, matrix)
+      setPart(this.crewLodLegMesh, index * 2, runtime, -0.11, 0.38, 0, stride * 0.1, 0)
+      setPart(this.crewLodLegMesh, index * 2 + 1, runtime, 0.11, 0.38, 0, -stride * 0.1, 0)
+      const directLift = runtime.pose === 'direct' ? -1.05 : 0
+      setPart(this.crewLodArmMesh, index * 2, runtime, -0.27, 1.04, 0, -stride * 0.08, -0.18)
+      setPart(this.crewLodArmMesh, index * 2 + 1, runtime, 0.27, 1.04, 0, stride * 0.08, 0.18 + directLift)
+      const hasHat = runtime.role !== 'actor' && runtime.role !== 'office'
+      setPart(this.crewLodHatBrimMesh, index, runtime, 0, 1.69, 0, 0, 0, hasHat ? 1 : 0)
+      setPart(this.crewLodHatCrownMesh, index, runtime, 0, 1.79, 0, 0, 0, hasHat ? 1 : 0)
+    })
+    for (const mesh of lodMeshes) if (mesh !== null) mesh.instanceMatrix.needsUpdate = true
+    return false
+  }
+
+  private updateCrewShadows(): void {
+    if (this.crewShadowMesh === null) return
+    const figures = [
+      ...this.figures.map((runtime) => runtime.figure),
+      ...this.activityFigures.map((runtime) => runtime.figure),
+    ]
+    const matrix = new Matrix4()
+    const position = new Vector3()
+    const scale = new Vector3(1, 1, 0.62)
+    figures.forEach((figure, index) => {
+      position.set(figure.root.position.x, 0.035, figure.root.position.z)
+      matrix.compose(position, figure.root.quaternion, scale)
+      this.crewShadowMesh?.setMatrixAt(index, matrix)
+    })
+    this.crewShadowMesh.instanceMatrix.needsUpdate = true
   }
 
   // ── the witnessed week (Class-B presentation, engine beats only) ────────────
@@ -960,6 +1305,7 @@ export class ThreeLotScene {
     this.nowMs += dt * 1_000
     if (this.fpsSamples.push(dt * 1_000) > 120) this.fpsSamples.shift()
     this.stepCamera(dt)
+    const detailedCrew = this.updateCrewLod()
 
     if (this.playback !== null && !this.reducedMotion) {
       const elapsed = (this.nowMs - this.playback.startMs) * this.playback.speed
@@ -972,23 +1318,24 @@ export class ThreeLotScene {
           runtime.figure.root.position.copy(gridToWorld(pos.at.gx, pos.at.gy))
           if (pos.moving) {
             runtime.figure.root.rotation.y = Math.atan2(pos.heading.dgx, pos.heading.dgy)
-            CrewFactory.walk(runtime.figure, (this.nowMs / 620 + runtime.phase) % 1)
-          } else {
+            if (detailedCrew) CrewFactory.walk(runtime.figure, (this.nowMs / 620 + runtime.phase) % 1)
+          } else if (detailedCrew) {
             CrewFactory.work(runtime.figure, runtime.pose, (this.nowMs / 3_800 + runtime.phase) % 1)
           }
         }
       }
-    } else if (!this.reducedMotion) {
+    } else if (!this.reducedMotion && detailedCrew) {
       for (const runtime of this.figures) {
         CrewFactory.work(runtime.figure, runtime.pose, (this.nowMs / 3_800 + runtime.phase) % 1)
       }
     }
 
-    if (!this.reducedMotion) {
+    if (!this.reducedMotion && detailedCrew) {
       for (const runtime of this.activityFigures) {
         CrewFactory.work(runtime.figure, runtime.pose, (this.nowMs / 2_600 + runtime.phase) % 1)
       }
     }
+    this.updateCrewShadows()
 
     // selection ring breathes gently — acknowledged, never load-bearing
     if (this.selectionRing.visible && !this.reducedMotion) {
@@ -1020,8 +1367,24 @@ export class ThreeLotScene {
       if (mesh.isMesh) mesh.geometry?.dispose()
     })
     this.groundSlot?.dispose()
+    for (const geometry of this.buildingBatchGeometries) geometry.dispose()
+    for (const geometry of this.dressingBatchGeometries) geometry.dispose()
+    for (const geometry of this.theaterBatchGeometries) geometry.dispose()
+    for (const geometry of this.wallBatchGeometries) geometry.dispose()
     this.activitySpillGeometry.dispose()
     this.activitySpillMaterial.dispose()
+    this.crewShadowGeometry.dispose()
+    this.crewShadowMaterial.dispose()
+    this.crewLodBodyGeometry.dispose()
+    this.crewLodHeadGeometry.dispose()
+    this.crewLodLegGeometry.dispose()
+    this.crewLodArmGeometry.dispose()
+    this.crewLodHatBrimGeometry.dispose()
+    this.crewLodHatCrownGeometry.dispose()
+    this.crewLodBodyMaterial.dispose()
+    this.crewLodHeadMaterial.dispose()
+    this.crewLodLegMaterial.dispose()
+    this.crewLodHatMaterial.dispose()
     this.atmosphere.dispose()
     disposeMaterials(this.materials)
     this.renderer.dispose()

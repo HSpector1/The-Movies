@@ -16,7 +16,7 @@ import {
   SRGBColorSpace,
 } from 'three'
 import { WARM } from '../tycoon/palette.ts'
-import { gridHash } from '../tycoon/world.ts'
+import { gridNoise } from '../tycoon/world.ts'
 
 /**
  * Hex number → three Color. Palette numbers are sRGB; three's colour management
@@ -58,7 +58,7 @@ const css = (hex: number, alpha = 1): string => {
 }
 
 /** Deterministic 0..1 per texel — the same hash the 2D ground bake varies with. */
-const texel01 = (x: number, y: number, salt: number): number => gridHash(x * 0.37, y * 0.53, salt)
+const texel01 = (x: number, y: number, salt: number): number => gridNoise(x * 0.37, y * 0.53, salt)
 
 /** Subtle per-texel luminance mottle over a base colour (stucco, render, gravel). */
 function mottle(base: number, spread: number, salt: number, scale = 4): Painter {
@@ -167,6 +167,12 @@ export function buildMaterials() {
       emissive: warm(WARM.stageGlow),
       emissiveIntensity: 1.15,
       roughness: 0.5,
+    }),
+    stageInterior: std({
+      color: warm(0x21160f),
+      emissive: warm(0x8c461f),
+      emissiveIntensity: 0.24,
+      roughness: 0.88,
     }),
     marquee: std({ color: warm(WARM.marquee), roughness: 0.5 }),
     // greenery

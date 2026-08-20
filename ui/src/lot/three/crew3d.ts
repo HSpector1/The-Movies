@@ -8,9 +8,20 @@
 // stands where and WHY stays the world model's decision (presence/theater) — this
 // module only answers what a grip looks like.
 
-import { Group, Mesh, MeshStandardMaterial, Object3D, Quaternion, SphereGeometry, CylinderGeometry } from 'three'
+import {
+  CylinderGeometry,
+  Float32BufferAttribute,
+  Group,
+  Mesh,
+  MeshStandardMaterial,
+  Object3D,
+  Quaternion,
+  SkinnedMesh,
+  SphereGeometry,
+} from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { clone as cloneSkeleton } from 'three/addons/utils/SkeletonUtils.js'
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js'
 import { gridNoise } from '../tycoon/world.ts'
 
 export type CrewRole =
@@ -91,6 +102,74 @@ type FigurePoseState = {
 // Animation bookkeeping is presentation-only and deliberately kept outside the
 // public figure shape. A WeakMap also lets rebuilt scene figures be collected.
 const POSE_STATE = new WeakMap<CrewFigure, FigurePoseState>()
+
+/**
+ * Asset-Lab characters carry 7–9 flat-colour primitives on one rig. GLTFLoader
+ * correctly preserves them as separate SkinnedMeshes, but that multiplies both
+ * draw submission and skeleton work for every visible person. Bake each material
+ * colour into a vertex attribute and merge sibling primitives onto their shared
+ * skeleton: identical silhouette/rig, one skinned draw.
+ */
+function collapseCharacterPrimitives(root: Object3D): void {
+  const byParent = new Map<Object3D, SkinnedMesh[]>()
+  root.traverse((node) => {
+    const skinned = node as SkinnedMesh
+    if (!skinned.isSkinnedMesh || skinned.parent === null) return
+    const siblings = byParent.get(skinned.parent) ?? []
+    siblings.push(skinned)
+    byParent.set(skinned.parent, siblings)
+  })
+
+  for (const [parent, meshes] of byParent) {
+    if (meshes.length < 2) continue
+    const first = meshes[0]
+    const sameTransform = meshes.every(
+      (mesh) =>
+        mesh.position.equals(first.position) &&
+        mesh.quaternion.equals(first.quaternion) &&
+        mesh.scale.equals(first.scale),
+    )
+    if (!sameTransform) continue
+
+    const geometries = meshes.map((mesh) => {
+      const geometry = mesh.geometry.clone()
+      const material = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material
+      const colour = material instanceof MeshStandardMaterial ? material.color : undefined
+      const position = geometry.getAttribute('position')
+      const colours = new Float32Array(position.count * 3)
+      for (let i = 0; i < position.count; i++) {
+        colours[i * 3] = colour?.r ?? 0.5
+        colours[i * 3 + 1] = colour?.g ?? 0.5
+        colours[i * 3 + 2] = colour?.b ?? 0.5
+      }
+      geometry.setAttribute('color', new Float32BufferAttribute(colours, 3))
+      return geometry
+    })
+    const geometry = mergeGeometries(geometries, false)
+    for (const part of geometries) part.dispose()
+    if (geometry === null) continue
+
+    const material = new MeshStandardMaterial({ vertexColors: true, roughness: 0.82 })
+    const combined = new SkinnedMesh(geometry, material)
+    combined.name = `${first.name || 'crew'}-merged`
+    combined.position.copy(first.position)
+    combined.quaternion.copy(first.quaternion)
+    combined.scale.copy(first.scale)
+    combined.bindMode = first.bindMode
+    combined.bind(first.skeleton, first.bindMatrix)
+    combined.castShadow = false
+    combined.receiveShadow = true
+    combined.frustumCulled = false
+
+    for (const mesh of meshes) parent.remove(mesh)
+    parent.add(combined)
+    for (const mesh of meshes) {
+      mesh.geometry.dispose()
+      const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material]
+      for (const oldMaterial of materials) oldMaterial.dispose()
+    }
+  }
+}
 
 function captureRotations(bones: Bones): BoneRotations {
   const rotations: BoneRotations = new Map()
@@ -178,9 +257,13 @@ export class CrewFactory {
       try {
         const gltf = await loader.loadAsync(`${baseUrl}spike3d/${file.startsWith('Prop_') ? 'props' : 'characters'}/${file}`)
         const scene = gltf.scene
+        if (!file.startsWith('Prop_')) collapseCharacterPrimitives(scene)
         scene.traverse((node) => {
           if ((node as Mesh).isMesh) {
-            node.castShadow = true
+            // Tens of rig parts each issuing a second skinned shadow draw was the
+            // dominant overview cost. A batched contact-blob pass in ThreeLotScene
+            // grounds people while the PBR figures still receive the authored sun.
+            node.castShadow = false
             node.receiveShadow = true
             // Bind-pose bounds cull skinned crew in close views (3D-spike lesson).
             node.frustumCulled = false
@@ -358,11 +441,11 @@ export class CrewFactory {
     const skin = new MeshStandardMaterial({ color: 0xc9a181, roughness: 0.8 })
     const body = new Mesh(new CylinderGeometry(0.22, 0.28, 1.05, 8), suit)
     body.position.y = 0.85
-    body.castShadow = true
+    body.castShadow = false
     g.add(body)
     const head = new Mesh(new SphereGeometry(0.16, 8, 6), skin)
     head.position.y = 1.56
-    head.castShadow = true
+    head.castShadow = false
     g.add(head)
     const brim = new Mesh(new CylinderGeometry(0.24, 0.24, 0.04, 10), suit)
     brim.position.y = 1.66

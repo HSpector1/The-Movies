@@ -194,13 +194,34 @@ export class BuildingFactory {
     doorHost.add(box(0.34, wallH - 0.2, 0.28, this.m.trimDeep, -frontPanelW / 2 + 0.18, 0, 0.1))
     doorHost.add(box(0.34, wallH - 0.2, 0.28, this.m.trimDeep, frontPanelW / 2 - 0.18, 0, 0.1))
     doorHost.add(box(doorW + 0.54, doorH + 0.48, 0.3, this.m.trimDeep, 0, 0, 0.12))
-    doorHost.add(box(doorW, doorH, 0.22, this.m.slate, 0, 0.2, 0.31))
+    const openDoor = new Group()
+    openDoor.add(box(doorW, doorH, 0.2, this.m.timberDark, 0, 0.2, 0.31))
+    openDoor.add(box(doorW - 0.5, doorH - 0.45, 0.08, this.m.stageInterior, 0, 0.35, 0.45))
+    for (const sx of [-0.28, 0.28]) {
+      openDoor.add(box(0.42, 0.12, 0.08, this.m.stageGlow, sx * doorW, doorH - 0.42, 0.56))
+    }
+    // A dark interior flat breaks up the opening and hints at scenery beyond the
+    // threshold; it is deliberately non-semantic set dressing inside a truthful hot stage.
+    openDoor.add(box(doorW * 0.22, doorH * 0.48, 0.09, this.m.timberDark, -doorW * 0.25, 0.36, 0.57))
+    // Retracted panel edges make the opening read as a working elephant door rather
+    // than a bright rectangle pasted on the facade.
+    for (const sx of [-1, 1]) {
+      openDoor.add(box(0.48, doorH - 0.15, 0.12, this.m.slate, sx * (doorW / 2 - 0.25), 0.28, 0.56))
+    }
+    openDoor.visible = false
+    doorHost.add(openDoor)
+
+    const closedDoor = new Group()
+    closedDoor.add(box(doorW, doorH, 0.22, this.m.slate, 0, 0.2, 0.49))
     for (let i = 1; i < 4; i++) {
-      doorHost.add(box(0.075, doorH - 0.2, 0.08, this.m.steel, -doorW / 2 + (doorW * i) / 4, 0.3, 0.47))
+      closedDoor.add(box(0.075, doorH - 0.2, 0.08, this.m.steel, -doorW / 2 + (doorW * i) / 4, 0.3, 0.65))
     }
     for (const y of [1.35, 2.85, 4.2]) {
-      doorHost.add(box(doorW - 0.18, 0.1, 0.08, this.m.steel, 0, y, 0.47))
+      closedDoor.add(box(doorW - 0.18, 0.1, 0.08, this.m.steel, 0, y, 0.65))
     }
+    doorHost.add(closedDoor)
+    g.userData.hotOpenDoor = openDoor
+    g.userData.hotClosedDoor = closedDoor
     doorHost.add(box(doorW + 1.05, 0.28, 0.4, this.m.steel, 0, doorH + 0.5, 0.2))
     for (const sx of [-1, 1]) {
       doorHost.add(part(new CylinderGeometry(0.14, 0.17, 0.85, 10), this.m.brass, sx * (doorW / 2 + 0.48), 0.425, 0.72))
