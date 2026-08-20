@@ -35,22 +35,39 @@ export function StartScreen({ onStart }: { onStart: (state: GameState) => void }
   }
 
   return (
-    <div className="app-shell">
-      <div className="topbar">
-        <div className="brand">
-          <span className="mark">PROJECT: STUDIO</span>
-          <span className="sub">a studio you run one film at a time</span>
+    <div className="studio-start">
+      <div className="start-backdrop" />
+      <header className="start-header">
+        <div className="studio-wordmark static">
+          <span className="studio-monogram">S</span>
+          <span>
+            <strong>SILVERLINE</strong>
+            <small>MOTION PICTURE STUDIOS</small>
+          </span>
         </div>
-      </div>
+        <span className="start-build">INTERACTIVE 3D PROTOTYPE · 01</span>
+      </header>
 
-      <div className="grid grid-2">
-        <div className="card stack">
-          <h2>New studio</h2>
-          <p className="hint">
-            The seed sets the whole world — talent, concepts, market. The same seed always
-            produces the same world.
+      <main className="start-content">
+        <div className="start-copy">
+          <span className="eyebrow">BUILD THE LOT · FIND THE STARS · MAKE THE PICTURE</span>
+          <h1>Make movies.<br /><em>Make history.</em></h1>
+          <p>
+            Run an original golden-age studio from the first greenlight to opening night—now with
+            a living 3D lot, grounded scene intelligence and autonomous production units.
           </p>
-          <label htmlFor="seed-input">Seed</label>
+          <div className="feature-ribbon">
+            <span><b>01</b> Generative sets</span>
+            <span><b>02</b> Spatial reasoning</span>
+            <span><b>03</b> Embodied crews</span>
+          </div>
+        </div>
+
+        <div className="start-panel">
+          <span className="eyebrow">OPEN THE GATES</span>
+          <h2>Name your studio world</h2>
+          <p>The seed creates its talent, concepts and market. Use it again to replay the same world.</p>
+          <label htmlFor="seed-input">World seed</label>
           <input
             id="seed-input"
             type="text"
@@ -58,45 +75,33 @@ export function StartScreen({ onStart }: { onStart: (state: GameState) => void }
             onChange={(e) => setSeed(e.target.value)}
             data-testid="seed-input"
           />
-          <div>
-            <button className="accent" onClick={handleNew} data-testid="new-game">
-              Open the studio
-            </button>
-          </div>
-        </div>
+          <button className="button-brass start-button" onClick={handleNew} data-testid="new-game">
+            Enter Silverline Studios <span>→</span>
+          </button>
 
-        <div className="card stack">
-          <h2>Continue from a save</h2>
-          <p className="hint">Paste an exported save file to restore a studio exactly.</p>
-          <label htmlFor="import-text">Save JSON</label>
-          <textarea
-            id="import-text"
-            value={importText}
-            onChange={(e) => setImportText(e.target.value)}
-            rows={6}
-            style={{
-              fontFamily: 'monospace',
-              background: 'var(--bg-inset)',
-              color: 'var(--text)',
-              border: '1px solid var(--border-strong)',
-              borderRadius: 6,
-              padding: 10,
-            }}
-            data-testid="import-text"
-          />
-          <div>
-            <button onClick={handleImport} data-testid="import-save" disabled={importText.trim().length === 0}>
-              Load save
+          <details className="continue-details">
+            <summary>Continue from a save</summary>
+            <label htmlFor="import-text">Save JSON</label>
+            <textarea
+              id="import-text"
+              value={importText}
+              onChange={(e) => setImportText(e.target.value)}
+              rows={5}
+              data-testid="import-text"
+            />
+            <button className="button-dark" onClick={handleImport} data-testid="import-save" disabled={importText.trim().length === 0}>
+              Load studio save
             </button>
-          </div>
-        </div>
-      </div>
+          </details>
 
-      {error && (
-        <div style={{ marginTop: 16 }}>
-          <ErrorBox message={error} />
+          {error && <ErrorBox message={error} />}
         </div>
-      )}
+      </main>
+
+      <footer className="start-footer">
+        <span>AN ORIGINAL STUDIO MANAGEMENT PROTOTYPE</span>
+        <span>ART ASSET STORED WITH GIT LFS</span>
+      </footer>
     </div>
   )
 }
