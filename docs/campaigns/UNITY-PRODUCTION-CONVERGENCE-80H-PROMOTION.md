@@ -4,7 +4,151 @@ This file is the authoritative answer to: **What is currently the best version
 of Project: Studio, and is it ready for promotion?** Preserve every Golden tag.
 Do not infer a compatible TypeScript/Unity pair from branch names alone.
 
-## CURRENT BEST PROJECT: STUDIO
+## CURRENT BEST PROJECT: STUDIO - GOLDEN M3
+
+Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
+
+| Component | Repository | Branch | Exact product SHA | Golden tag |
+| --- | --- | --- | --- | --- |
+| TypeScript authority | `HSpector1/The-Movies` | `campaign/unity-production-convergence-80h-ts` | `e9c6f06b717a6a106281b189a61072e35770155f` | `golden/unity-convergence-m3` |
+| Unity production client | `HSpector1/project-studio-unity-visual-spike` | `campaign/unity-production-convergence-80h-client` | `40465d48c191c9dcdda2c6b32c17c9675f4908a4` | `golden/unity-convergence-m3` |
+
+Both branches and annotated tags are pushed. Local, upstream, and remote branch
+refs were verified at the exact product SHAs, both worktrees were clean, and
+remote tag dereferences were verified. This is one schema-pinned compatible
+pair: protocol `3`, projection `4`, schema
+`sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac`.
+Never build, recover, or promote only one side.
+
+### Current Golden tags
+
+- M3 TypeScript: `golden/unity-convergence-m3` ->
+  `e9c6f06b717a6a106281b189a61072e35770155f`.
+- M3 Unity: `golden/unity-convergence-m3` ->
+  `40465d48c191c9dcdda2c6b32c17c9675f4908a4`.
+- Preserved M2 TypeScript: `golden/unity-convergence-m2` ->
+  `7d76951f6ad641e8940b97b03806b87638ed8ad8`.
+- Preserved M2 Unity: `golden/unity-convergence-m2` ->
+  `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
+- Preserved M1 TypeScript: `golden/unity-convergence-m1` ->
+  `cd2b15872ac5849fa16beec1775543758cb3139e`.
+- Preserved M1 Unity: `golden/unity-convergence-m1` ->
+  `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
+
+M3 supersedes M2 as CURRENT BEST. No prior tag was moved or deleted.
+
+### Parent and base SHAs
+
+| Component | Direct parent | Frozen campaign base |
+| --- | --- | --- |
+| TypeScript authority | `85429f9d18e2b6321e21557bdb068b1047b4c452` | `f6606ac9db67dc70b12a7d247d74206571d12d2c` |
+| Unity production client | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` | `d970b81c2b17383ee71c3c66a5622ecc140473b3` |
+
+### Why M3 is better than M2
+
+M3 preserves every M2 queue-law, identity, determinism, save, Movie #2, and
+visual capability, then closes the genuine-command rejection experience across
+the schema boundary:
+
+- every genuine rejection carries a closed TypeScript-owned category, blocker,
+  required-nullable holder, and remedy;
+- all 12 codes map centrally while capacity-full commission, auditions, and
+  greenlight remain accepted queue receipts;
+- Unity consumes the generated DTO, rejects malformed guidance, and binds a
+  notice to exact session/revision/week/digest authority tokens;
+- same-state polls no longer erase the explanation after one second;
+- accepted command/save/load and session changes clear the notice;
+- raw engine diagnostics stay in logs/evidence while the HUD shows WHAT
+  HAPPENED, optional CURRENT HOLDER, and WHAT NEXT;
+- a race-free native proof demonstrates retention across a later successful
+  poll without mutating TypeScript truth.
+
+No gameplay formula, GameState field, V14 save shape, RNG stream, identity,
+economy rule, construction rule, or simulation authority moved into C#.
+
+### Launch command
+
+Terminal 1:
+
+```bash
+cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
+npm ci
+npm run bridge
+```
+
+Terminal 2:
+
+```bash
+cd '/Users/bruce/Project Studio - Unity Production Convergence 80H'
+'Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike'
+```
+
+Rebuild if the ignored app is absent:
+
+```bash
+'/Applications/Unity/Hub/Editor/6000.3.22f1/Unity.app/Contents/MacOS/Unity' \
+  -batchmode \
+  -projectPath '/Users/bruce/Project Studio - Unity Production Convergence 80H' \
+  -executeMethod Studio.Editor.Automation.StudioAutomation.BuildMacOS \
+  -logFile /tmp/studio-m3-native-build.log \
+  -quit
+```
+
+### Validation summary
+
+- TypeScript full suite: 327 files, 4,452 passed, 5 skipped, 0 failed.
+- Bridge/schema: 26/26; both typechecks; production build; generated drift;
+  Movie #2/determinism proof; browser dependency, repository hygiene, and 3D
+  provenance gates all passed.
+- Unity EditMode: 24/24.
+- Native build: 136,938,870 bytes.
+- Fresh native Movie #2: Week 22/revision 23; exact title/project/production;
+  final digest
+  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
+- Save/load: exact saved/restored digest
+  `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`.
+- Structured stale proof: category `state-stale`, null holder, non-empty
+  blocker/remedy, unchanged revision/digest, retained from poll 11 to poll 12.
+- Reconnect: separate native process recovered Week 22/revision 23/final digest.
+- Performance: 119.3803 FPS proof and 118.9993 FPS reconnect on Apple M3 Max.
+- Evidence: ignored `Evidence/A4/Rejection-Guidance/`; retained screenshot
+  SHA-256 `d57920515d9a0de8f3ce804e5f7545496e905b6538cf6eed103a84b9a768b4d5`.
+- Independent red-team: no open P0 or P1 finding.
+
+### Movie #2 status
+
+Playable end to end from real TypeScript intents: screenplay, review, auditions,
+evidence, package/greenlight, pre-production, director call, scenery load-in,
+shooting, save/load, post, release, stale rejection, and reconnect. Exact route:
+`The Reluctant Cornerstone`, `script-0001`, `prod-0013`.
+
+### Visual status
+
+M3 improves the retained error presentation only. World art, camera, people,
+materials, animation, and activity remain visually equivalent to M2 and below
+ADR 0006. The campus still reads too much like a distant diorama; M3 does not
+claim the required inhabitable, human-scale filmmaking uplift.
+
+### Known defects
+
+- P1: replay/session/save state remains process-memory-only.
+- P1: launch and shutdown still require two manually managed processes.
+- P1: visual recognizability/two-scale camera/Hero Stage 7 target remains unmet.
+- P2: unexpected server exceptions retain the unstructured HTTP 500 path.
+- P2: reason/category pairing is exhaustive in producer tests, not encoded as a
+  cross-field JSON Schema relation.
+- P2: some Unity rejection-adapter mismatch branches lack isolated direct tests.
+- P2: cross-repository Unity-copy drift is locally gated, not automatic CI.
+
+### Promotion decision
+
+M3 is the best known playable overall product and is recoverable as an exact
+pair, so it is a Golden checkpoint. It is **not** promoted to canonical: Phase B
+runtime durability is absent, TypeScript `main` remains historically diverged,
+and the Unity visual product still misses the binding recognizability gate.
+Promotion status remains exactly **GOLDEN — CONTINUE CAMPAIGN**.
+
+## PRIOR GOLDEN M2 REGISTER - HISTORICAL
 
 Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
 

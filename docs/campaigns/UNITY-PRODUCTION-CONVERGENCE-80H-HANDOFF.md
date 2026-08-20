@@ -4,12 +4,182 @@ START HERE. Read `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`, then the campaign
 ledger, this handoff, and the promotion register. The TypeScript/Unity engine
 decision is settled. Do not restart planning from scratch.
 
-## A4 PRE-COMMIT CURRENT STATE - AUTHORITATIVE
+## GOLDEN M3 CURRENT STATE - AUTHORITATIVE
 
-This section is the authoritative handoff as of 2026-08-21 00:48 CEST
-(UTC+02:00). It supersedes the preserved Golden M2 handoff below wherever the
-two differ. Golden M2 remains CURRENT BEST only until the validated A4 candidate
-is committed, pushed, verified, and deliberately tagged.
+Timestamp: 2026-08-21 00:55 CEST (UTC+02:00).
+
+| Item | Exact state |
+| --- | --- |
+| TypeScript worktree | `/Users/bruce/The Movies - Unity Production Convergence 80H` |
+| TypeScript branch | `campaign/unity-production-convergence-80h-ts` |
+| TypeScript Golden M3 product / pushed remote | `e9c6f06b717a6a106281b189a61072e35770155f` |
+| TypeScript parent | `85429f9d18e2b6321e21557bdb068b1047b4c452` |
+| TypeScript working tree | Clean immediately after product push/tag; this continuity-only update is the sole expected tracked follow-up |
+| Unity worktree | `/Users/bruce/Project Studio - Unity Production Convergence 80H` |
+| Unity branch | `campaign/unity-production-convergence-80h-client` |
+| Unity Golden M3 HEAD / pushed remote | `40465d48c191c9dcdda2c6b32c17c9675f4908a4` |
+| Unity parent | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` |
+| Unity working tree | Clean; only ignored `Builds/`, `Evidence/`, `Library/`, and `Logs/` remain local |
+| Golden tags | `golden/unity-convergence-m3` pushed in each repository and peeled to the exact product pair; M1/M2 preserved |
+| Promotion | `GOLDEN — CONTINUE CAMPAIGN`; not promoted to canonical |
+
+The exact compatible live contract is protocol `3`, projection `4`, schema
+`sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac`.
+Golden M3 supersedes M2 as CURRENT BEST because it preserves M2's queue-law and
+Movie #2 integrity while adding a generated, strict, poll-durable player
+explanation for every genuine rejection. TypeScript remains sole simulation
+authority.
+
+### Current campaign status
+
+- Current phase: Phase A contract durability moving into Phase B local runtime.
+- Completed: setup/baseline, A1 generated contract, A2 atomic named projection
+  foundation, A3 queue-law parity, A4 structured rejection guidance, donor
+  security/governance harvest.
+- Partial: command identity/revision/deduplication/rejection are robust within a
+  process, but replay/save/session durability does not survive engine restart.
+- Untouched: production launcher/lifecycle, authenticated local transport,
+  durable disk save, production client layering. Later visual/player phases
+  remain inherited partial work.
+- Current acceptance gate: exact response replay across save/load and an actual
+  TypeScript process restart without changing V14 or `GameState`.
+
+### Just completed
+
+- TS commit `e9c6f06b717a6a106281b189a61072e35770155f` publishes protocol 3 and one
+  closed `rejection` object with category, blocker, required-nullable holder, and
+  remedy; all 12 codes map centrally; capacity queues remain accepted.
+- Unity commit `40465d48c191c9dcdda2c6b32c17c9675f4908a4` consumes the generated DTO,
+  validates exact authority tokens, retains the notice across same-state polls,
+  clears it on acceptance/session change, and renders WHAT HAPPENED / optional
+  CURRENT HOLDER / WHAT NEXT. Raw diagnostics are log/proof-only.
+- Generated copies are byte-identical. Both commits/branches/tags are pushed,
+  remote-verified, and clean. No asset, simulation, save, RNG, or identity
+  authority changed.
+
+### Working build and evidence
+
+Launch:
+
+```bash
+cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
+npm run bridge
+
+cd '/Users/bruce/Project Studio - Unity Production Convergence 80H'
+'Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike'
+```
+
+- Runtime: localhost `127.0.0.1:4317`; still two manual processes with
+  process-memory-only session/save/replay.
+- Playable flow: construction and exact Movie #2 from screenplay through
+  release, including save/load, stale rejection, and reconnect.
+- Movie #2: `The Reluctant Cornerstone`, `script-0001`, `prod-0013`, Week
+  22/revision 23, final digest
+  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
+- Visual state: rejection notice improved; world/camera/people/materials/activity
+  unchanged and still below ADR 0006's inhabitable two-scale target.
+- TypeScript: 327 files/4,452 pass/5 skip; bridge 26/26; both typechecks, build,
+  proof, generator, browser-dependency, hygiene, and 3D audits passed.
+- Unity: EditMode 24/24; native build 136,938,870 bytes; save/load digest
+  `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`;
+  stale notice retained poll 11 to 12; proof/reconnect 119.3803/118.9993 FPS.
+- Evidence: ignored `Evidence/A4/Rejection-Guidance/`; retained screenshot
+  SHA-256 `d57920515d9a0de8f3ce804e5f7545496e905b6538cf6eed103a84b9a768b4d5`.
+- Latest logs: `/tmp/studio-a4-rejection-p1-seal-editmode.xml`,
+  `/tmp/studio-a4-rejection-p1-native-build-final.log`,
+  `/tmp/studio-a4-rejection-p1-native-proof-final.log`, and
+  `/tmp/studio-a4-rejection-p1-native-reconnect-final.log`.
+
+### Known blockers
+
+- P1: replay/session/current-state/explicit-save checkpoint is memory-only.
+- P1: no one-command supervisor, durable disk save, restart-aware Unity
+  handshake, per-launch capability, or coordinated shutdown.
+- P1: visual recognizability, two-scale camera, Hero Stage 7, people/animation,
+  and visible filmmaking remain below the product target.
+- P2: unexpected HTTP 500 remains unstructured; cross-repository DTO copy CI is
+  local; several Unity mismatch branches lack isolated tests.
+- Do not retry widening V14, persisting bridge metadata in `GameState`, silently
+  evicting command IDs in one logical session, or letting async checkpoint
+  writes reorder authoritative mutations.
+
+### Next exact action
+
+Implement a separate strict `BridgeRuntimeCheckpointV1` containing untouched
+canonical current V14 JSON, last explicit saved V14 JSON, logical session ID,
+state revision, and a bounded canonical request/full-response journal. Serialize
+all command/save/load dispatch through one persistence queue, atomically commit
+the checkpoint before sending a first-seen response, and prove raw response
+replay across save/load and a real engine process restart.
+
+### Next 3-5 actions
+
+1. Add a non-persisted `runtimeInstanceId`, harden the HTTP server, and make
+   Unity perform health/session/snapshot handshake plus restart-aware reconnect.
+2. Add per-launch capability, strict Host/Origin/content-type/timeouts, and an
+   emitted dependency-audited bridge runtime.
+3. Add the one-command developer supervisor with random port, safe logs, owned
+   child shutdown, and stale-lock cleanup.
+4. Prove native engine kill/restart during Movie #2, then active-production and
+   construction save/recovery.
+5. Resume the isolated `location-v1` camera experiment and Hero Stage 7 slice.
+
+### Do not touch
+
+- Frozen authorities, M1/M2/M3 tags, V14 save/game truth, IDs, RNG streams,
+  Three.js regression oracle, and TypeScript-only simulation authority.
+- Do not merge to main/C2, rebase, force-push, rewrite history, delete tags or
+  historical branches, buy assets, use protected assets, or generate images.
+- Do not put replay metadata into `GameState`, widen V14, hand-edit generated
+  DTOs, infer gameplay remedies in Unity, or expose filesystem/command execution
+  over the bridge.
+- Local fidelity references, screenshots, builds, evidence JSON, logs, caches,
+  `.tmp/`, `dist/`, and `node_modules/` remain excluded from Git.
+
+### Decisions made this session
+
+- M3 is CURRENT BEST and supersedes M2; status remains
+  `GOLDEN — CONTINUE CAMPAIGN`, not canonical promotion.
+- Protocol is 3 because rejection shape is breaking; projection stays 4 because
+  snapshot facts did not change.
+- TypeScript owns all rejection facts. Raw diagnostics are not player copy.
+- The replay checkpoint must be operational state separate from closed V14 and
+  `GameState`; this preserves deterministic gameplay/save parity.
+- A logical session must survive process restart for exact replay. A separate
+  non-persisted runtime instance identity will later signal process replacement.
+
+### Uncommitted / generated material
+
+- Unity product tree is clean at M3. Ignored current native build and A4 evidence
+  remain local and deliberately excluded.
+- TypeScript product tree was clean at M3; this ledger/handoff/promotion update
+  is a continuity-only descendant and must be committed/pushed separately.
+- Generated C# is committed in both repositories and byte-identical. Do not
+  regenerate unless the canonical TypeScript schema changes.
+- The local visual-fidelity PDF remains outside Git at
+  `/Users/bruce/Downloads/project-studio-visual-fidelity.pdf`, 1,087,211 bytes,
+  SHA-256
+  `692140a7d4be313fd1df7605c96306a9f7e53f4fce46bc0f69a5ec1453a96a39`.
+
+### Recovery
+
+1. Read the architecture decision, ledger, this top section, and promotion
+   register.
+2. Verify both M3 tags peel to the product SHAs above and remote branch refs
+   agree. The TypeScript branch may have a docs-only descendant containing this
+   section; its product tag remains the recovery authority.
+3. Run `npm run test:bridge`, both typechecks, and the cross-repository generated
+   check before starting the replay checkpoint.
+4. Launch the commands above and inspect the accepted A4 evidence. Do not repeat
+   A1-A4 research or ask the Owner to reconstruct the campaign.
+5. Preserve M1/M2/M3 tags, frozen authorities, Three.js oracle, V14 bytes, IDs,
+   RNG streams, and all ignored evidence/build material.
+
+## A4 PRE-COMMIT STATE - HISTORICAL
+
+This section was the authoritative pre-commit handoff at 2026-08-21 00:48 CEST
+(UTC+02:00). It is preserved only as checkpoint history. The Golden M3 section
+above supersedes it completely.
 
 ### Current exact state
 
