@@ -525,9 +525,18 @@ describe('World Inspector projection — primary actions (M-B)', () => {
   function readyToPackage(kind: 'plan-auditions' | 'open-package'): unknown {
     return {
       stage: 'ready-to-package',
+      beat: kind === 'plan-auditions' ? 'screenplay-ready' : 'auditions-reviewed',
       pictureTitle: 'A Season of Archipelago',
       ordinal: 1,
-      headline: 'Screenplay accepted',
+      headline: kind === 'plan-auditions' ? 'SCREENPLAY ACCEPTED' : 'AUDITIONS REVIEWED',
+      whatHappened:
+        kind === 'plan-auditions'
+          ? 'The screenplay was accepted.'
+          : 'The camera tests were reviewed.',
+      whyItMatters:
+        kind === 'plan-auditions'
+          ? 'Casting can now test performers against the roles.'
+          : 'The evidence is ready to inform final casting.',
       detail: 'Writer: Ada Vane',
       next: {
         kind,

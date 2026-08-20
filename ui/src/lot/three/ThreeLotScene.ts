@@ -213,6 +213,9 @@ export class ThreeLotScene {
   private selectedBuildingId: BuildingId | null = null
   private selectionBaseScale = 1
   private selectionRing: Mesh
+  private guidanceTarget: BuildingId | null = null
+  private guidanceBaseScale = 1
+  private guidanceRing: Mesh
   private raycaster = new Raycaster()
   private fpsSamples: number[] = []
   private resizeObserver: ResizeObserver
@@ -274,6 +277,18 @@ export class ThreeLotScene {
     this.selectionRing.position.y = 0.06
     this.selectionRing.visible = false
     this.scene.add(this.selectionRing)
+
+    const guidanceGeo = new RingGeometry(0.9, 1, 40)
+    this.guidanceRing = new Mesh(guidanceGeo, new MeshBasicMaterial({
+      color: warm(0xffcc66),
+      transparent: true,
+      opacity: 0.48,
+      depthWrite: false,
+    }))
+    this.guidanceRing.rotation.x = -Math.PI / 2
+    this.guidanceRing.position.y = 0.045
+    this.guidanceRing.visible = false
+    this.scene.add(this.guidanceRing)
 
     this.resizeObserver = new ResizeObserver(() => this.resize())
     this.resizeObserver.observe(opts.parent)
@@ -437,6 +452,7 @@ export class ThreeLotScene {
       this.buildingSlot.add(body)
     }
     if (this.selectedBuildingId !== null) this.selectFromHost(this.selectedBuildingId)
+    if (this.guidanceTarget !== null) this.setGuidanceTarget(this.guidanceTarget)
   }
 
   /** Landscaping + backlot + established dressing, through the SAME inventories. */
@@ -1262,6 +1278,32 @@ export class ThreeLotScene {
     this.selectionRing.visible = false
   }
 
+  /** Pan to one authoritative building without changing the player's zoom. */
+  focusBuilding(id: BuildingId): boolean {
+    const building = this.buildings.find((candidate) => candidate.buildingId === id)
+    if (building === undefined) return false
+    this.centerOnGrid(building.gx + building.fw / 2, building.gy + building.fd / 2, this.camTargetZoom)
+    return true
+  }
+
+  /** Paint the Picture Journey destination without selecting or activating it. */
+  setGuidanceTarget(id: BuildingId | null): boolean {
+    const building = id === null
+      ? undefined
+      : this.buildings.find((candidate) => candidate.buildingId === id)
+    this.guidanceTarget = building?.buildingId ?? null
+    if (building === undefined) {
+      this.guidanceRing.visible = false
+      return false
+    }
+    const centre = gridToWorld(building.gx + building.fw / 2, building.gy + building.fd / 2)
+    this.guidanceRing.position.set(centre.x, 0.045, centre.z)
+    this.guidanceBaseScale = (Math.max(building.fw, building.fd) / 2 + 0.9) * TILE_M
+    this.guidanceRing.scale.setScalar(this.guidanceBaseScale)
+    this.guidanceRing.visible = true
+    return true
+  }
+
   setReducedMotion(on: boolean): void {
     this.reducedMotion = on
     if (on) this.playback = null
@@ -1342,6 +1384,10 @@ export class ThreeLotScene {
       const pulse = 1 + Math.sin(this.nowMs / 420) * 0.03
       this.selectionRing.scale.setScalar(this.selectionBaseScale * pulse)
     }
+    if (this.guidanceRing.visible && !this.reducedMotion) {
+      const pulse = 1 + Math.sin(this.nowMs / 560) * 0.045
+      this.guidanceRing.scale.setScalar(this.guidanceBaseScale * pulse)
+    }
 
     this.renderer.render(this.scene, this.camera)
   }
@@ -1386,6 +1432,10 @@ export class ThreeLotScene {
     this.crewLodLegMaterial.dispose()
     this.crewLodHatMaterial.dispose()
     this.atmosphere.dispose()
+    this.selectionRing.geometry.dispose()
+    ;(this.selectionRing.material as Material).dispose()
+    this.guidanceRing.geometry.dispose()
+    ;(this.guidanceRing.material as Material).dispose()
     disposeMaterials(this.materials)
     this.renderer.dispose()
     this.renderer.domElement.remove()

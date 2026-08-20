@@ -1431,7 +1431,9 @@ export type Eligible = { eligible: true }
 export type Eligibility = Eligible | Ineligibility
 
 // A talent is selectable for a role slot if: right role, not engaged in any active
-// production, and (for cast) distinct across the three cast slots already chosen.
+// production, and not already holding another credit on this picture. The last
+// check mirrors M16.7's cross-discipline single-role law rather than describing
+// only the three cast slots.
 export function talentEligibility(
   talent: PlayerVisibleTalent,
   wantRole: CreativeRole,
@@ -1450,7 +1452,10 @@ export function talentEligibility(
     }
   }
   if (chosenElsewhere.includes(talent.id)) {
-    return { eligible: false, reason: 'Already assigned to another slot on this film.' }
+    return {
+      eligible: false,
+      reason: 'Already assigned elsewhere on this picture — one person can hold only one role per production.',
+    }
   }
   return { eligible: true }
 }

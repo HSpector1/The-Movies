@@ -310,6 +310,7 @@ export type {
   FirstFilmJourneyNext,
   FirstFilmJourneyStage,
   FirstFilmJourneyView,
+  PictureJourneyBeat,
   JourneySite,
   JourneyTargetKind,
 } from './firstFilmJourney.js'

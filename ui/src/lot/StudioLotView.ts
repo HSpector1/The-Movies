@@ -626,6 +626,11 @@ export class StudioLotView {
 
   focusHollywoodPlace(id: string): void { this.hollywoodScene?.focus(id) }
 
+  /** Pan to one snapshot-owned building at the player's current zoom. */
+  focusBuilding(buildingId: BuildingId): boolean {
+    return this.tycoonScene?.focusBuilding(buildingId) ?? this.threeScene?.focusBuilding(buildingId) ?? false
+  }
+
   hollywoodPerformance(): HollywoodPerformance | null {
     return this.hollywoodScene?.performanceStats() ?? null
   }
@@ -679,7 +684,7 @@ export class StudioLotView {
    * decision badge, and the painted plate has no property to mark at all).
    */
   setWorldGuidanceTarget(buildingId: BuildingId | null): boolean {
-    return this.tycoonScene?.setGuidanceTarget?.(buildingId) ?? false
+    return this.tycoonScene?.setGuidanceTarget?.(buildingId) ?? this.threeScene?.setGuidanceTarget(buildingId) ?? false
   }
 
   // ── Presence on the Lot V1 ─────────────────────────────────────────────────

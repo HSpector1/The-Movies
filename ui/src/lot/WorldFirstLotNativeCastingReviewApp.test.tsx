@@ -368,6 +368,11 @@ describe('World-First Lot-Native Casting Review Intervention V1 — App/Lot inte
     expect(screen.getByTestId('studio-lot-canvas')).toBe(retainedCanvas)
     expect(renderer.instances.at(-1)).toBe(retainedView)
     expect(retainedView.destroyed).toBe(false)
+    await waitFor(() => expect(screen.getByTestId('lot-picture-guidance-headline'))
+      .toHaveTextContent('CAST YOUR PICTURE'))
+    expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent(
+      'Choose the missing roles in the Package workspace.',
+    )
 
     const profileOpener = within(screen.getByTestId('picker-director'))
       .getAllByTestId(/^picker-open-profile-/)[0]!
@@ -425,8 +430,15 @@ describe('World-First Lot-Native Casting Review Intervention V1 — App/Lot inte
     pickFirstEligible('picker-antagonist')
     pickFirstEligible('picker-support')
     pickFirstEligible('picker-craft')
+    await waitFor(() => expect(screen.getByTestId('lot-picture-guidance-headline'))
+      .toHaveTextContent('CAST LOCKED'))
     fireEvent.click(screen.getByTestId('assembly-next'))
+    expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent(
+      'Set the production and marketing budget',
+    )
     fireEvent.click(screen.getByTestId('assembly-next'))
+    await waitFor(() => expect(screen.getByTestId('lot-picture-guidance-headline'))
+      .toHaveTextContent('READY FOR GREENLIGHT'))
     expect(screen.getByTestId('greenlight')).toBeEnabled()
     fireEvent.click(screen.getByTestId('greenlight'))
 

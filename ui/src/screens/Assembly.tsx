@@ -102,6 +102,7 @@ import { DiscoveryExposureLine } from '../components/DiscoveryExposure.tsx'
 import { ChangePreview } from '../components/ChangePreview.tsx'
 import { ErrorBox, RefusalNotice, Warn, Metric } from '../components/common.tsx'
 import { auditionReadsForPackage } from '../presentation/auditionEvidence.ts'
+import type { PackageJourneyProgress } from '../lot/packageJourney.ts'
 import { TalentCreator } from './TalentCreator.tsx'
 import { CastingEvidence } from './CastingRoom.tsx'
 import {
@@ -268,6 +269,7 @@ export function Assembly({
   onCancel,
   onStateChange,
   onOpenProfile,
+  onJourneyChange,
   surface = 'standalone',
 }: {
   state: GameState
@@ -281,6 +283,8 @@ export function Assembly({
   // D-14: open the shared Talent Profile for a candidate/assigned talent. Optional so existing
   // tests still work.
   onOpenProfile?: ((id: string) => void) | undefined
+  /** Mirror the current uncommitted Package form into the persistent Lot card. */
+  onJourneyChange?: ((progress: PackageJourneyProgress) => void) | undefined
   // The Lot workspace is a presentation adapter over this same canonical wizard. It removes
   // page-level chrome and owns scroll locally so the still-mounted world never drifts behind it.
   surface?: AssemblySurface
@@ -376,6 +380,41 @@ export function Assembly({
   const directors = useMemo(() => buildPool('director'), [state])
   const actors = useMemo(() => buildPool('actor'), [state])
   const crew = useMemo(() => buildPool('craft'), [state])
+
+  const packageJourney = useMemo<PackageJourneyProgress | null>(() => {
+    if (lockedScript === undefined) return null
+    const required = [
+      { label: 'Director', id: draft.directorId },
+      { label: 'Lead', id: draft.cast.lead },
+      { label: 'Antagonist', id: draft.cast.antagonist },
+      { label: 'Support', id: draft.cast.support },
+      ...(engaged
+        ? [{ label: 'Production/Craft Lead', id: draft.craftIds[0] ?? null }]
+        : []),
+    ]
+    const missingRoles = required.filter((role) => role.id === null).map((role) => role.label)
+    const chosenNames = required
+      .filter((role): role is { label: string; id: string } => role.id !== null)
+      .map((role) => {
+        const name = state.talent.find((person) => person.id === role.id)?.name
+        return name === undefined ? null : `${role.label}: ${name}`
+      })
+      .filter((line): line is string => line !== null)
+    return {
+      projectId: lockedScript.projectId,
+      pictureTitle: lockedScript.concept.title,
+      step: step === 'review' ? 'greenlight' : step === 'budget' ? 'budget' : 'casting',
+      selectedRoleCount: required.length - missingRoles.length,
+      requiredRoleCount: required.length,
+      missingRoles,
+      castComplete: missingRoles.length === 0,
+      chosenSummary: chosenNames.length === 0 ? null : chosenNames.join(' · '),
+    }
+  }, [draft, engaged, lockedScript, state.talent, step])
+
+  useEffect(() => {
+    if (packageJourney !== null) onJourneyChange?.(packageJourney)
+  }, [onJourneyChange, packageJourney])
   // id → one-film freelancer fee, for every available freelancer across all roles.
   const freelancerFees = useMemo(() => {
     const m: Record<string, number> = {}

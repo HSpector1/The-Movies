@@ -958,7 +958,8 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
     // First Movie Journey Wave 1: the desk no longer claims an idle lot with no verb. It
     // names the studio's first picture and the one step that starts it. What "honestly
     // idle" still means — no fabricated film, person or task — is asserted below.
-    expect(getByTestId('hollywood-production-idle')).toHaveTextContent('YOUR FIRST PICTURE')
+    expect(getByTestId('hollywood-production-idle')).toHaveTextContent('PICTURE JOURNEY')
+    expect(getByTestId('hollywood-production-idle')).toHaveTextContent('PICTURE 1')
     expect(getByTestId('lot-picture-guidance-title')).toHaveTextContent('No picture yet')
     expect(queryByText(/Violet Hour/i)).not.toBeInTheDocument()
     expect(queryByText(/Mara Voss/i)).not.toBeInTheDocument()

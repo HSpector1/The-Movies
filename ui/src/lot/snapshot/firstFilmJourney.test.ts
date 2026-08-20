@@ -76,9 +76,12 @@ function withOperations(operations: ProductionOperationsState[]): StudioLotSnaps
 function view(overrides: Partial<FirstFilmJourneyView> = {}): FirstFilmJourneyView {
   return {
     stage: 'drafting',
+    beat: 'screenplay-writing',
     pictureTitle: 'A Season of Archipelago',
     ordinal: 1,
     headline: 'Screenplay — drafting',
+    whatHappened: 'The screenplay was commissioned.',
+    whyItMatters: 'The writer is preparing the script for casting.',
     detail: 'Writer: Lauren Ravel · Due Week 1',
     next: { kind: 'commission', label: 'Commission a screenplay at Development', site: 'development' },
     waiting: null,

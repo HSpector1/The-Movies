@@ -123,6 +123,8 @@ export function CastingEvidence({ project }: { project: CastingProjectView }) {
         <h3 id={`casting-evidence-${project.projectId}`}>Camera-test evidence</h3>
         <p className="hint">
           Est. ranges are persisted audition observations, not guarantees. Fit is the studio’s adjacent project metric; current availability still controls legal casting.
+          {' '}Seeing the same person under more than one role means they tested for each; final Lead,
+          Antagonist, and Support must still be three different performers.
         </p>
       </div>
       <div className="grid grid-3">

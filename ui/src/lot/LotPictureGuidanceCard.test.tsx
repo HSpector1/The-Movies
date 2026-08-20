@@ -21,9 +21,12 @@ afterEach(() => {
 function journey(overrides: Partial<FirstFilmJourneyView> = {}): FirstFilmJourneyView {
   return {
     stage: 'no-picture',
+    beat: 'no-picture',
     pictureTitle: null,
     ordinal: 1,
     headline: 'No screenplay',
+    whatHappened: 'No screenplay is currently in development.',
+    whyItMatters: 'Every picture begins with a screenplay.',
     detail: null,
     next: { kind: 'commission', label: 'Commission a screenplay at Development', site: 'development' },
     waiting: null,
@@ -45,16 +48,18 @@ function renderCard(
 }
 
 describe('LotPictureGuidanceCard — the picture is followable from before it exists', () => {
-  it('is a labelled region whose eyebrow names the studio\'s FIRST picture', () => {
+  it('is a labelled, persistent journey for Picture 1', () => {
     renderCard(journey())
     expect(screen.getByRole('region', { name: 'Picture guidance' })).toBeInTheDocument()
-    expect(screen.getByTestId('lot-picture-guidance-eyebrow')).toHaveTextContent('YOUR FIRST PICTURE')
+    expect(screen.getByTestId('lot-picture-guidance-eyebrow')).toHaveTextContent('PICTURE JOURNEY')
+    expect(screen.getByTestId('lot-picture-guidance-eyebrow')).toHaveTextContent('PICTURE 1')
     expect(screen.getByTestId('lot-picture-guidance-title')).toHaveTextContent('No picture yet')
   })
 
-  it('switches the eyebrow to the NEXT picture once one has been made', () => {
+  it('keeps the next picture numbered without changing the card grammar', () => {
     renderCard(journey({ ordinal: 2, pictureTitle: 'The Second Feature', stage: 'drafting' }))
-    expect(screen.getByTestId('lot-picture-guidance-eyebrow')).toHaveTextContent('YOUR NEXT PICTURE')
+    expect(screen.getByTestId('lot-picture-guidance-eyebrow')).toHaveTextContent('PICTURE JOURNEY')
+    expect(screen.getByTestId('lot-picture-guidance-eyebrow')).toHaveTextContent('PICTURE 2')
     expect(screen.getByTestId('lot-picture-guidance-title')).toHaveTextContent('The Second Feature')
   })
 
@@ -294,7 +299,9 @@ describe('LotPictureGuidanceCard — the picture is followable from before it ex
   it('does not offer a step the projection did not offer', () => {
     renderCard(journey({ next: null }))
     expect(screen.queryByTestId('lot-picture-guidance-next')).not.toBeInTheDocument()
-    expect(screen.queryByTestId('lot-picture-guidance-status')).not.toBeInTheDocument()
+    expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent(
+      'No action required.',
+    )
   })
 
   it('claims nothing about the picture when the projection cannot be trusted', () => {
@@ -323,36 +330,89 @@ describe('LotPictureGuidanceCard — the picture is followable from before it ex
   })
 })
 
-describe('LotPictureGuidanceCard — collapsing is a UI preference, never save data', () => {
-  it('collapses to a header, and the chevron carries its expanded state', () => {
+describe('LotPictureGuidanceCard — persistent P0 guidance', () => {
+  it('ignores the former collapse preference and keeps the answer visible', () => {
+    localStorage.setItem(PICTURE_GUIDANCE_COLLAPSED_STORAGE_KEY, '1')
     renderCard(journey())
-    const toggle = screen.getByRole('button', { name: 'Picture guidance details' })
-    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+    expect(screen.queryByTestId('lot-picture-guidance-toggle')).not.toBeInTheDocument()
     expect(screen.getByTestId('lot-picture-guidance-headline')).toBeVisible()
-
-    fireEvent.click(toggle)
-    expect(toggle).toHaveAttribute('aria-expanded', 'false')
-    // Header only: identity survives, the body and its step fold away.
-    expect(screen.getByTestId('lot-picture-guidance-eyebrow')).toBeVisible()
-    expect(screen.getByTestId('lot-picture-guidance-title')).toBeVisible()
-    expect(screen.getByTestId('lot-picture-guidance-headline')).not.toBeVisible()
-    expect(screen.getByTestId('lot-picture-guidance-next')).not.toBeVisible()
+    expect(screen.getByTestId('lot-picture-guidance-what')).toBeVisible()
+    expect(screen.getByTestId('lot-picture-guidance-why')).toBeVisible()
+    expect(screen.getByTestId('lot-picture-guidance-next')).toBeVisible()
   })
 
-  it('persists the preference in localStorage and restores it on the next mount', () => {
-    const first = renderCard(journey())
-    fireEvent.click(screen.getByTestId('lot-picture-guidance-toggle'))
-    expect(localStorage.getItem(PICTURE_GUIDANCE_COLLAPSED_STORAGE_KEY)).toBe('1')
-    first.unmount()
-
-    renderCard(journey())
-    expect(screen.getByTestId('lot-picture-guidance-toggle')).toHaveAttribute(
-      'aria-expanded',
-      'false',
+  it('follows live Package choices through cast, budget, and greenlight', () => {
+    const view = journey({
+      stage: 'ready-to-package',
+      beat: 'auditions-reviewed',
+      pictureTitle: 'A Season of Archipelago',
+      headline: 'AUDITIONS REVIEWED',
+    })
+    const { rerender } = render(
+      <LotPictureGuidanceCard
+        state={{ kind: 'view', view }}
+        packageProgress={{
+          projectId: 'script-0000',
+          pictureTitle: 'A Season of Archipelago',
+          step: 'casting',
+          selectedRoleCount: 2,
+          requiredRoleCount: 5,
+          missingRoles: ['Lead', 'Antagonist', 'Support'],
+          castComplete: false,
+          chosenSummary: 'Director: Ida Vale · Crew: Carlo Reed',
+        }}
+        onNextStep={() => {}}
+      />,
     )
-    fireEvent.click(screen.getByTestId('lot-picture-guidance-toggle'))
-    // Expanded is the default, so the preference is removed rather than stored as '0'.
-    expect(localStorage.getItem(PICTURE_GUIDANCE_COLLAPSED_STORAGE_KEY)).toBeNull()
+    expect(screen.getByTestId('lot-picture-guidance-headline')).toHaveTextContent('CAST YOUR PICTURE')
+    expect(screen.getByTestId('lot-picture-guidance-detail')).toHaveTextContent(
+      'Still required: Lead, Antagonist, Support.',
+    )
+    expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent(
+      'Choose the missing roles',
+    )
+
+    rerender(
+      <LotPictureGuidanceCard
+        state={{ kind: 'view', view }}
+        packageProgress={{
+          projectId: 'script-0000',
+          pictureTitle: 'A Season of Archipelago',
+          step: 'budget',
+          selectedRoleCount: 5,
+          requiredRoleCount: 5,
+          missingRoles: [],
+          castComplete: true,
+          chosenSummary: 'Director: Ida Vale · Lead: Marta Vane',
+        }}
+        onNextStep={() => {}}
+      />,
+    )
+    expect(screen.getByTestId('lot-picture-guidance-headline')).toHaveTextContent('CAST LOCKED')
+    expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent(
+      'Set the production and marketing budget',
+    )
+
+    rerender(
+      <LotPictureGuidanceCard
+        state={{ kind: 'view', view }}
+        packageProgress={{
+          projectId: 'script-0000',
+          pictureTitle: 'A Season of Archipelago',
+          step: 'greenlight',
+          selectedRoleCount: 5,
+          requiredRoleCount: 5,
+          missingRoles: [],
+          castComplete: true,
+          chosenSummary: 'Director: Ida Vale · Lead: Marta Vane',
+        }}
+        onNextStep={() => {}}
+      />,
+    )
+    expect(screen.getByTestId('lot-picture-guidance-headline')).toHaveTextContent('READY FOR GREENLIGHT')
+    expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent(
+      'Greenlight this picture to begin production.',
+    )
   })
 
   it('marks reduced motion so the fold is never animated', () => {

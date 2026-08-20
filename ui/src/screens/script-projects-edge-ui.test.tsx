@@ -281,7 +281,9 @@ describe('managed screenplay gate truth', () => {
         `talent-${crossDisciplineWriter.id}`,
       )
       expect(candidate).toBeDisabled()
-      expect(candidate).toHaveTextContent('Already assigned to another slot on this film')
+      expect(candidate).toHaveTextContent(
+        'Already assigned elsewhere on this picture — one person can hold only one role per production.',
+      )
     }
     },
   )

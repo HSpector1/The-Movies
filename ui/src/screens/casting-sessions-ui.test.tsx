@@ -405,6 +405,12 @@ describe('Casting Sessions V1 — player-facing flow', () => {
     expect(screen.getByTestId('casting-consequence')).toHaveTextContent(
       'do not sign, pay, reserve, or mark an actor busy',
     )
+    expect(screen.getByTestId('casting-plan-screenplay-context')).toHaveTextContent(
+      'audition evidence, not a cast assignment',
+    )
+    expect(screen.getByTestId('casting-plan-screenplay-context')).toHaveTextContent(
+      'Final Lead, Antagonist, and Support must be three different performers',
+    )
 
     for (const slot of ['lead', 'antagonist'] as const) {
       fireEvent.click(screen.getByTestId(`casting-candidate-${slot}-${ids[0]}`))
@@ -458,6 +464,12 @@ describe('Casting Sessions V1 — player-facing flow', () => {
 
     const first = project.results!.lead[0]!
     const evidence = screen.getByTestId(`casting-result-lead-${first.talentId}`)
+    expect(screen.getByTestId(`casting-results-${project.projectId}`)).toHaveTextContent(
+      'same person under more than one role means they tested for each',
+    )
+    expect(screen.getByTestId(`casting-results-${project.projectId}`)).toHaveTextContent(
+      'Lead, Antagonist, and Support must still be three different performers',
+    )
     expect(evidence).toHaveTextContent(`Est. ${first.estimate}`)
     expect(evidence).toHaveTextContent(`Camera-test range ${first.low}–${first.high}`)
     expect(evidence).toHaveTextContent(`Fit ${first.fit.score}`)

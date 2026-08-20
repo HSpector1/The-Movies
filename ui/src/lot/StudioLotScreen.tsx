@@ -172,6 +172,7 @@ import {
   LotPictureGuidanceCard,
   type LotPictureGuidanceState,
 } from './LotPictureGuidanceCard.tsx'
+import type { PackageJourneyProgress } from './packageJourney.ts'
 import {
   getLotSelectedBuilding,
   setLotSelectedBuilding,
@@ -483,6 +484,8 @@ const REVIEW_MODES: ReadonlyArray<{
 
 type Props = {
   state: GameState
+  /** Unsaved choices from the retained Package workspace, for live journey guidance only. */
+  packageJourneyProgress?: PackageJourneyProgress | null
   /** Claim/release the exact App-owned authority lifetime of this mounted Lot presentation. */
   onPresentationMount?: () => () => void
   /** Host maps a lot route to the existing app navigation (setScreen). */
@@ -954,6 +957,7 @@ const LOT_TRANSPORT_PACE_LABEL: Record<number, string> = {
 
 export function StudioLotScreen({
   state,
+  packageJourneyProgress = null,
   onPresentationMount,
   onNavigate,
   onExit,
@@ -1875,6 +1879,10 @@ export function StudioLotScreen({
       : hollywoodProductionId === null
         ? null
       : explicitlySelectedHollywoodOperation
+  const pictureJourneyMatchesHollywoodOperation =
+    hollywoodOperation === null ||
+    (pictureJourney.kind === 'view' &&
+      pictureJourney.view.pictureTitle === hollywoodOperation.title)
   const hollywoodCompanyPresentationOwned =
     hollywoodPlace === null &&
     !publicitySelected &&
@@ -6177,7 +6185,12 @@ export function StudioLotScreen({
     // An unaddressable step is a real answer, not a fallback to some other building.
     if (target === null) return
     activate(target)
-    viewRef.current?.focusHollywoodPlace?.(PLACE_BY_BUILDING[target].placeId)
+    const view = viewRef.current
+    const focused = view?.focusBuilding?.(target) ?? false
+    const authoredPlace = PLACE_BY_BUILDING[target]
+    if (!focused && authoredPlace !== undefined) {
+      view?.focusHollywoodPlace?.(authoredPlace.placeId)
+    }
   }, [activate])
 
   /**
@@ -8681,18 +8694,30 @@ export function StudioLotScreen({
                 onMouseDown={containWorldInput}
                 onTouchStart={containWorldInput}
               >
+                {formationWitnessVisible &&
+                  currentFormationContext?.operation.productionId ===
+                    hollywoodOperation?.productionId && (
+                    <p
+                      className="hollywood-formation-witness"
+                      data-testid="hollywood-production-formation-witness"
+                    >
+                      PICTURE FORMED
+                    </p>
+                  )}
+                {pictureJourney.kind !== 'absent' && pictureJourneyMatchesHollywoodOperation && (
+                  <LotPictureGuidanceCard
+                    state={pictureGuidanceState}
+                    packageProgress={packageJourneyProgress}
+                    onNextStep={takePictureGuidanceStep}
+                    reducedMotion={reducedMotion}
+                    disabled={worldInputSuspended}
+                  />
+                )}
                 {hollywoodOperation ? (
                   <>
-                    {formationWitnessVisible &&
-                      currentFormationContext?.operation.productionId ===
-                        hollywoodOperation.productionId && (
-                        <p
-                          className="hollywood-formation-witness"
-                          data-testid="hollywood-production-formation-witness"
-                        >
-                          PICTURE FORMED
-                        </p>
-                      )}
+                    {pictureJourney.kind !== 'absent' && pictureJourneyMatchesHollywoodOperation && (
+                      <div className="hollywood-operation-divider" aria-hidden="true" />
+                    )}
                     <p className="hollywood-eyebrow">
                       <i /> {hollywoodOperation.phaseLabel} · {hollywoodOperation.facilityLabel}
                     </p>
@@ -8779,18 +8804,29 @@ export function StudioLotScreen({
                       The studio lot is idle. Assemble a film to begin production.
                     </p>
                   </>
-                ) : (
-                  // Before a picture is greenlit this desk used to say the lot was idle
-                  // while a screenplay was drafting and auditions were running. The
-                  // picture owns the slot from before its first commission instead.
-                  <LotPictureGuidanceCard
-                    state={pictureGuidanceState}
-                    onNextStep={takePictureGuidanceStep}
-                    reducedMotion={reducedMotion}
-                    disabled={worldInputSuspended}
-                  />
-                )}
+                ) : null}
               </section>
+
+              {hollywoodOperation !== null &&
+                pictureJourney.kind !== 'absent' &&
+                !pictureJourneyMatchesHollywoodOperation && (
+                  <section
+                    className="hollywood-picture-guidance-detached"
+                    aria-label="Active picture journey"
+                    data-testid="lot-picture-guidance-detached"
+                    onPointerDown={containWorldInput}
+                    onMouseDown={containWorldInput}
+                    onTouchStart={containWorldInput}
+                  >
+                    <LotPictureGuidanceCard
+                      state={pictureGuidanceState}
+                      packageProgress={packageJourneyProgress}
+                      onNextStep={takePictureGuidanceStep}
+                      reducedMotion={reducedMotion}
+                      disabled={worldInputSuspended}
+                    />
+                  </section>
+                )}
 
               <section
                 className={`hollywood-inspector${scriptReviewSurfaceContents ? ' is-script-review' : ''}${castingReviewSurfaceContents ? ' is-casting-review' : ''}${gateSelected ? ' is-gate' : ''}${publicitySelected ? ' is-publicity' : ''}${annexSelected ? ' is-annex' : ''}${selectedSceneryLoadInContext ? ' is-scenery' : ''}${parcelInspectorContents ? ' is-parcel' : ''}${buildingInspectorContents ? ' is-building' : ''}${hollywoodPerson ? ' is-person' : ''}`}

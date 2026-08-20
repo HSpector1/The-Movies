@@ -1,9 +1,13 @@
-import { useCallback, useId, useState } from 'react'
-import type { FirstFilmJourneyNext, FirstFilmJourneyView } from './snapshot/firstFilmJourney.ts'
+import type {
+  FirstFilmJourneyNext,
+  FirstFilmJourneyView,
+  PictureJourneyBeat,
+} from './snapshot/firstFilmJourney.ts'
+import type { PackageJourneyProgress } from './packageJourney.ts'
 
 /**
- * UI PREFERENCE, not save data. The collapsed state of a HUD card is a property of this
- * browser, not of the studio — it never enters GameState, a save, or a session snapshot.
+ * Kept only so older browser preferences remain a known, harmless key. Picture Journey is
+ * now a persistent P0 surface and deliberately ignores this former collapse preference.
  */
 export const PICTURE_GUIDANCE_COLLAPSED_STORAGE_KEY = 'project-studio.ui.picture-guidance-collapsed'
 
@@ -27,23 +31,8 @@ export type LotPictureGuidanceCardProps = {
   reducedMotion?: boolean
   /** Native inertness while a modal or the renderer owns input. */
   disabled?: boolean
-}
-
-function readCollapsedPreference(): boolean {
-  try {
-    return localStorage.getItem(PICTURE_GUIDANCE_COLLAPSED_STORAGE_KEY) === '1'
-  } catch {
-    return false // storage unavailable (private mode / sandbox) — start expanded
-  }
-}
-
-function writeCollapsedPreference(collapsed: boolean): void {
-  try {
-    if (collapsed) localStorage.setItem(PICTURE_GUIDANCE_COLLAPSED_STORAGE_KEY, '1')
-    else localStorage.removeItem(PICTURE_GUIDANCE_COLLAPSED_STORAGE_KEY)
-  } catch {
-    /* storage unavailable — the preference simply does not persist */
-  }
+  /** Live, unsaved choices inside the open Package workspace. */
+  packageProgress?: PackageJourneyProgress | null
 }
 
 /**
@@ -61,6 +50,39 @@ function waitingLine(waiting: { untilWeek: number | null; reason: string }): str
   return waiting.reason
 }
 
+const JOURNEY_CHAPTERS = [
+  { id: 'screenplay', label: 'Script' },
+  { id: 'auditions', label: 'Tests' },
+  { id: 'casting', label: 'Cast' },
+  { id: 'prep', label: 'Prep' },
+  { id: 'shoot', label: 'Shoot' },
+  { id: 'finish', label: 'Finish' },
+] as const
+
+type JourneyChapter = (typeof JOURNEY_CHAPTERS)[number]['id']
+
+function journeyChapter(beat: PictureJourneyBeat): JourneyChapter {
+  switch (beat) {
+    case 'auditions-running':
+    case 'auditions-ready':
+      return 'auditions'
+    case 'auditions-reviewed':
+      return 'casting'
+    case 'greenlit':
+    case 'pre-production':
+    case 'load-in':
+      return 'prep'
+    case 'shooting':
+      return 'shoot'
+    case 'post-production':
+    case 'release-ready':
+    case 'released':
+      return 'finish'
+    default:
+      return 'screenplay'
+  }
+}
+
 /**
  * PICTURE GUIDANCE — the picture as a followable identity, from before its first
  * commission.
@@ -70,35 +92,58 @@ function waitingLine(waiting: { untilWeek: number | null; reason: string }): str
  * running. This card owns that slot instead: the picture's name, where it stands, and the
  * ONE imperative next step — engine copy, rendered verbatim.
  *
- * It is a guidance LAYER, not a quest log and not a tutorial: no modal, no auto-pop, no
- * progress checklist, one step at a time, collapsible to a header, and every step is a
- * suggestion the player may ignore.
+ * It is a guidance LAYER, not a quest log and not a tutorial: no modal, no auto-pop, one
+ * current chapter and one next step at a time. Every step is a suggestion the player may
+ * ignore. It stays visible: hiding the movie's only explanation
+ * of what happened and what comes next recreated the exact dead end this surface prevents.
  */
 export function LotPictureGuidanceCard({
   state,
   onNextStep,
   reducedMotion = false,
   disabled = false,
+  packageProgress = null,
 }: LotPictureGuidanceCardProps) {
-  const bodyId = useId()
-  const [collapsed, setCollapsed] = useState(readCollapsedPreference)
-
-  const toggle = useCallback(() => {
-    setCollapsed((current) => {
-      const next = !current
-      writeCollapsedPreference(next)
-      return next
-    })
-  }, [])
-
   const view = state.kind === 'view' ? state.view : null
-  const eyebrow = view === null
-    ? 'YOUR PICTURE'
-    : view.ordinal === 1
-      ? 'YOUR FIRST PICTURE'
-      : 'YOUR NEXT PICTURE'
   const title = view === null ? 'Picture unavailable' : view.pictureTitle ?? 'No picture yet'
-  const next = view?.next ?? null
+  const livePackage =
+    view !== null &&
+    packageProgress !== null &&
+    packageProgress.pictureTitle === view.pictureTitle
+      ? packageProgress
+      : null
+  const next = livePackage === null ? view?.next ?? null : null
+  const chapter = view === null ? null : livePackage === null ? journeyChapter(view.beat) : 'casting'
+  let headline = view?.headline ?? null
+  let whatHappened = view?.whatHappened ?? null
+  let detail = view?.detail ?? null
+  let whyItMatters = view?.whyItMatters ?? null
+  let packageNext: string | null = null
+
+  if (livePackage !== null) {
+    if (!livePackage.castComplete) {
+      headline = 'CAST YOUR PICTURE'
+      whatHappened = `Camera tests reviewed. ${livePackage.selectedRoleCount} of ${livePackage.requiredRoleCount} production roles selected.`
+      detail = `Still required: ${livePackage.missingRoles.join(', ')}.`
+      whyItMatters = 'The audition evidence now travels with each performer, so every principal-role choice has a reason behind it.'
+      packageNext = 'Choose the missing roles in the Package workspace.'
+    } else if (livePackage.step === 'greenlight') {
+      headline = 'READY FOR GREENLIGHT'
+      whatHappened = 'Cast, crew, budget, and forecast are assembled.'
+      detail = livePackage.chosenSummary
+      whyItMatters = 'This package is ready to become an active studio production.'
+      packageNext = 'Greenlight this picture to begin production.'
+    } else {
+      headline = 'CAST LOCKED'
+      whatHappened = 'Director, principal cast, and crew are selected.'
+      detail = livePackage.chosenSummary
+      whyItMatters = 'The production team is complete; the remaining decision is how much the studio will commit to the picture.'
+      packageNext =
+        livePackage.step === 'budget'
+          ? 'Set the production and marketing budget, then review the forecast.'
+          : 'Review the budget and forecast.'
+    }
+  }
 
   /**
    * The ENGINE's own stage id, printed verbatim — never a value this card derives.
@@ -118,29 +163,38 @@ export function LotPictureGuidanceCard({
   return (
     <section
       className={
-        `hollywood-picture-guidance${collapsed ? ' is-collapsed' : ''}` +
-        `${reducedMotion ? ' is-reduced-motion' : ''}`
+        `hollywood-picture-guidance${reducedMotion ? ' is-reduced-motion' : ''}`
       }
       aria-label="Picture guidance"
       data-testid="lot-picture-guidance"
       data-guidance-stage={stageAttribute}
+      data-guidance-beat={view?.beat ?? 'unavailable'}
     >
       <p className="hollywood-eyebrow" data-testid="lot-picture-guidance-eyebrow">
-        <i /> {eyebrow}
+        <i /> PICTURE JOURNEY
+        {view !== null && <span>PICTURE {view.ordinal}</span>}
       </p>
-      <button
-        type="button"
-        className="hollywood-picture-guidance-toggle"
-        data-testid="lot-picture-guidance-toggle"
-        aria-expanded={!collapsed}
-        aria-controls={bodyId}
-        aria-label="Picture guidance details"
-        onClick={toggle}
-      >
-        <span aria-hidden="true">{collapsed ? '▸' : '▾'}</span>
-      </button>
-      <h2 data-testid="lot-picture-guidance-title">{title}</h2>
-      <div id={bodyId} className="hollywood-picture-guidance-body" hidden={collapsed}>
+      <p className="hollywood-picture-guidance-title" data-testid="lot-picture-guidance-title">
+        {title}
+      </p>
+      {view !== null && (
+        <ol
+          className="hollywood-picture-guidance-rail"
+          aria-label="Picture journey"
+          data-testid="lot-picture-guidance-rail"
+        >
+          {JOURNEY_CHAPTERS.map((item) => (
+            <li
+              key={item.id}
+              className={item.id === chapter ? 'is-current' : undefined}
+              aria-current={item.id === chapter ? 'step' : undefined}
+            >
+              {item.label}
+            </li>
+          ))}
+        </ol>
+      )}
+      <div className="hollywood-picture-guidance-body">
         {view === null ? (
           <p className="hollywood-picture-guidance-headline" data-testid="lot-picture-guidance-headline">
             Picture guidance is unavailable this week.
@@ -151,24 +205,27 @@ export function LotPictureGuidanceCard({
               className="hollywood-picture-guidance-headline"
               data-testid="lot-picture-guidance-headline"
             >
-              {view.headline}
+              {headline}
             </p>
-            {view.detail !== null && (
+            <p
+              className="hollywood-picture-guidance-milestone"
+              data-testid="lot-picture-guidance-what"
+            >
+              <b aria-hidden="true">✓</b>
+              <span>{whatHappened}</span>
+            </p>
+            {detail !== null && (
               <p
                 className="hollywood-picture-guidance-detail"
                 data-testid="lot-picture-guidance-detail"
               >
-                {view.detail}
+                {detail}
               </p>
             )}
-            {view.waiting !== null && (
-              <p
-                className="hollywood-picture-guidance-waiting"
-                data-testid="lot-picture-guidance-waiting"
-              >
-                {waitingLine(view.waiting)}
-              </p>
-            )}
+            <div className="hollywood-picture-guidance-why" data-testid="lot-picture-guidance-why">
+              <strong>WHY IT MATTERS</strong>
+              <p>{whyItMatters}</p>
+            </div>
             {view.blocked !== null && (
               <p
                 className="hollywood-consequence hollywood-picture-guidance-blocked"
@@ -178,8 +235,25 @@ export function LotPictureGuidanceCard({
                 <span>{view.blocked.reason}</span>
               </p>
             )}
-            {next !== null && (
-              next.kind === 'advance-week' ? (
+            <div className="hollywood-picture-guidance-next-step">
+              <strong>NEXT</strong>
+              {livePackage === null && view.waiting !== null && (
+                <p
+                  className="hollywood-picture-guidance-waiting"
+                  data-testid="lot-picture-guidance-waiting"
+                >
+                  {waitingLine(view.waiting)}
+                </p>
+              )}
+              {packageNext !== null ? (
+                <p
+                  className="hollywood-picture-guidance-status"
+                  data-testid="lot-picture-guidance-status"
+                >
+                  {packageNext}
+                </p>
+              ) : next !== null ? (
+                next.kind === 'advance-week' ? (
                 // The week already has ONE advance control, on the studio bar. A second
                 // button here would be a duplicate authority over time, so the picture's
                 // step is stated as a quiet status line instead — and only when the
@@ -205,7 +279,12 @@ export function LotPictureGuidanceCard({
                   {next.label}
                 </button>
               )
-            )}
+              ) : (
+                <p className="hollywood-picture-guidance-status" data-testid="lot-picture-guidance-status">
+                  No action required.
+                </p>
+              )}
+            </div>
           </>
         )}
       </div>

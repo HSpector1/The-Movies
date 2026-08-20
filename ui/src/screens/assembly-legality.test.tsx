@@ -96,7 +96,7 @@ describe('assembly legality: greenlight is blocked until every required choice i
   })
 })
 
-describe('assembly legality: choosing one actor disables it in the other cast slots (no duplicate cast)', () => {
+describe('assembly legality: choosing one performer disables it in the other principal roles', () => {
   it('the picked lead actor is disabled/unselectable in the antagonist and support pickers', () => {
     openToTalentStep('legal-dup-1')
     pickFirstEligible('picker-writer')
@@ -104,13 +104,13 @@ describe('assembly legality: choosing one actor disables it in the other cast sl
     const leadBtn = pickFirstEligible('picker-lead')
     const leadTestId = leadBtn.getAttribute('data-testid')!
 
-    // The same actor button in the antagonist and support pickers is now disabled,
-    // with a reason mentioning it is already assigned to another slot.
+    // The same actor button in the antagonist and support pickers is disabled,
+    // with the final-cast rule stated in player language.
     for (const other of ['picker-antagonist', 'picker-support']) {
       const picker = screen.getByTestId(other)
       const sameActor = within(picker).getByTestId(leadTestId) as HTMLButtonElement
       expect(sameActor.disabled).toBe(true)
-      expect(sameActor.textContent ?? '').toMatch(/already assigned to another slot/i)
+      expect(sameActor.textContent ?? '').toMatch(/one person can hold only one role per production/i)
     }
   })
 })

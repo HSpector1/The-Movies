@@ -145,8 +145,9 @@ export function CastingSlatePlanner({
           <h2 id="casting-plan-heading">Plan auditions for {project.title}</h2>
           <p className="hint" data-testid="casting-plan-screenplay-context">
             {genreLabel(project.genre)} screenplay by {project.writer.name}. Choose exactly two
-            primary Actors for each role. A person may read more than one role, but the complete
-            slate needs at least three different people.
+            primary Actors for each role. A person may camera-test for more than one role; that is
+            audition evidence, not a cast assignment. Final Lead, Antagonist, and Support must be
+            three different performers. The complete test slate needs at least three different people.
           </p>
         </div>
         {onCancel !== undefined && (

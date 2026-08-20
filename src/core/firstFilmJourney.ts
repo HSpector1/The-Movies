@@ -84,6 +84,30 @@ export type FirstFilmJourneyStage =
   | 'in-production'
   | 'released'
 
+/**
+ * The precise filmmaking beat inside the broader compatibility stage above.
+ *
+ * `stage` remains the stable routing vocabulary. `beat` is the player-facing
+ * answer to "where is this picture in the movie-making journey?" and is still a
+ * pure projection of screenplay, casting-session, workflow-phase, and release
+ * truth already owned by the engine.
+ */
+export type PictureJourneyBeat =
+  | 'no-picture'
+  | 'screenplay-writing'
+  | 'screenplay-review'
+  | 'screenplay-ready'
+  | 'auditions-running'
+  | 'auditions-ready'
+  | 'auditions-reviewed'
+  | 'greenlit'
+  | 'pre-production'
+  | 'load-in'
+  | 'shooting'
+  | 'post-production'
+  | 'release-ready'
+  | 'released'
+
 export type JourneyTargetKind =
   | 'commission'
   | 'script-review'
@@ -105,10 +129,16 @@ export interface FirstFilmJourneyNext {
 
 export interface FirstFilmJourneyView {
   stage: FirstFilmJourneyStage
+  /** Exact filmmaking beat; presentation may highlight it but never advance it. */
+  beat: PictureJourneyBeat
   pictureTitle: string | null
   /** 1 = the studio's first picture ever; increments per released picture. */
   ordinal: number
   headline: string
+  /** The latest milestone or material change the player should understand. */
+  whatHappened: string
+  /** Why that milestone changes the player's choices or expectations. */
+  whyItMatters: string
   detail: string | null
   next: FirstFilmJourneyNext | null
   waiting: { untilWeek: number | null; reason: string } | null
@@ -130,12 +160,39 @@ const SITE_PLACE: Record<JourneySite, string> = {
 }
 
 const PHASE_HEADLINE: Record<ProductionPhase, string> = {
-  development: 'In development',
-  preProduction: 'In pre-production',
-  rehearsal: 'In rehearsal',
-  shooting: 'Shooting',
-  postProduction: 'In post-production',
-  releaseReady: 'Ready to release',
+  development: 'PICTURE GREENLIT',
+  preProduction: 'PRE-PRODUCTION',
+  rehearsal: 'LOAD-IN',
+  shooting: 'SHOOTING',
+  postProduction: 'POST-PRODUCTION',
+  releaseReady: 'RELEASE READY',
+}
+
+const PHASE_BEAT: Record<ProductionPhase, PictureJourneyBeat> = {
+  development: 'greenlit',
+  preProduction: 'pre-production',
+  rehearsal: 'load-in',
+  shooting: 'shooting',
+  postProduction: 'post-production',
+  releaseReady: 'release-ready',
+}
+
+const PHASE_MILESTONE: Record<ProductionPhase, string> = {
+  development: 'The picture was greenlit.',
+  preProduction: 'The cast and crew package is locked.',
+  rehearsal: 'The picture reached the stage and scenery load-in.',
+  shooting: 'Principal photography started.',
+  postProduction: 'Principal photography wrapped.',
+  releaseReady: 'The final cut is complete.',
+}
+
+const PHASE_SIGNIFICANCE: Record<ProductionPhase, string> = {
+  development: 'The committed cast and crew are preparing the picture for production.',
+  preProduction: 'Departments are preparing the stage, scenery, and shooting company.',
+  rehearsal: 'The stage and scenery must be ready before the camera can turn.',
+  shooting: 'The director, cast, and crew are working on set. No production action is required unless the card names one.',
+  postProduction: 'Editorial and finishing are turning the photographed material into the release cut.',
+  releaseReady: 'No production work remains. The picture is ready to reach audiences.',
 }
 
 const PHASE_CONTINUES: Record<ProductionPhase, string> = {
@@ -386,9 +443,14 @@ function noPictureView(
     const title = latestReleasedTitle(state)
     return {
       stage: 'released',
+      beat: 'released',
       pictureTitle: title,
       ordinal,
-      headline: 'In release',
+      headline: 'PICTURE RELEASED',
+      whatHappened:
+        title === null ? 'The studio released a picture.' : `${title} reached audiences.`,
+      whyItMatters:
+        'The picture is now earning its theatrical run. Development is free to start the next screenplay.',
       detail:
         title === null
           ? 'The last picture is playing. The next one starts with a screenplay.'
@@ -400,9 +462,12 @@ function noPictureView(
   }
   return {
     stage: 'no-picture',
+    beat: 'no-picture',
     pictureTitle: null,
     ordinal,
-    headline: 'No screenplay',
+    headline: 'START A PICTURE',
+    whatHappened: 'No screenplay is currently in development.',
+    whyItMatters: 'Every picture begins with a screenplay commissioned at Development.',
     detail: 'The studio has no picture in the works. Every picture starts with a screenplay.',
     next: commissionNext(),
     waiting: null,
@@ -421,9 +486,16 @@ function draftingView(
   const dueText = due === null ? null : `Due Week ${String(due)}`
   return {
     stage: 'drafting',
+    beat: 'screenplay-writing',
     pictureTitle: title,
     ordinal,
-    headline: project.status === 'rewriting' ? 'Screenplay — rewriting' : 'Screenplay — drafting',
+    headline: project.status === 'rewriting' ? 'SCREENPLAY REWRITE' : 'SCREENPLAY IN PROGRESS',
+    whatHappened:
+      project.status === 'rewriting'
+        ? 'The screenplay went back for its final rewrite.'
+        : 'The screenplay was commissioned.',
+    whyItMatters:
+      'The writer is turning the accepted premise into the script that casting and production will use.',
     detail: joinDetail([writer === null ? null : `Writer: ${writer}`, dueText]),
     next: {
       kind: 'advance-week',
@@ -454,9 +526,14 @@ function scriptReviewView(
   const writer = talentName(state, project.writerId)
   return {
     stage: 'script-review',
+    beat: 'screenplay-review',
     pictureTitle: title,
     ordinal,
-    headline: 'Script review ready',
+    headline: 'SCREENPLAY READY',
+    whatHappened:
+      project.rewriteCount === 0 ? 'The first draft is finished.' : 'The final draft is finished.',
+    whyItMatters:
+      'Review the pages now. Accepting the screenplay sends the picture forward to camera tests and casting.',
     detail: joinDetail([
       writer === null ? null : `Writer: ${writer}`,
       project.rewriteCount === 0 ? 'The first draft is in' : 'The final draft is in',
@@ -479,9 +556,13 @@ function auditioningView(
   const due = session.dueWeek
   return {
     stage: 'auditioning',
+    beat: 'auditions-running',
     pictureTitle: title,
     ordinal,
-    headline: 'Auditions underway',
+    headline: 'CAMERA TESTS UNDERWAY',
+    whatHappened: 'The audition slate was sent to Casting.',
+    whyItMatters:
+      'Each read records an observed performance range, role fit, strengths, and concerns before you cast the picture.',
     detail: joinDetail([
       `Camera tests are running at ${SITE_PLACE.casting}`,
       due === null ? null : `Results due Week ${String(due)}`,
@@ -533,9 +614,16 @@ function auditionReviewView(
   const reads = auditionReadCount(session)
   return {
     stage: 'audition-review',
+    beat: 'auditions-ready',
     pictureTitle: title,
     ordinal,
-    headline: 'Audition results ready',
+    headline: 'AUDITION RESULTS READY',
+    whatHappened:
+      reads === null
+        ? 'The camera tests finished.'
+        : `${String(reads)} camera-test ${plural(reads, 'read is', 'reads are')} complete.`,
+    whyItMatters:
+      'The stored observations show what each performer revealed for each role. Review them before choosing the cast.',
     detail: joinDetail([
       reads === null
         ? `The camera tests are in — the reads are waiting at ${SITE_PLACE.casting}`
@@ -596,6 +684,8 @@ function readyToPackageView(
       ? "The camera tests are done. The picture's package is next"
       : "The picture's package is next"
 
+  const auditionsReviewed = session !== undefined && session.status === 'complete'
+
   const blocked =
     canPlanAuditions || canOpenPackage
       ? null
@@ -606,9 +696,16 @@ function readyToPackageView(
 
   return {
     stage: 'ready-to-package',
+    beat: auditionsReviewed ? 'auditions-reviewed' : 'screenplay-ready',
     pictureTitle: title,
     ordinal,
-    headline: 'Screenplay accepted',
+    headline: auditionsReviewed ? 'AUDITIONS REVIEWED' : 'SCREENPLAY ACCEPTED',
+    whatHappened: auditionsReviewed
+      ? 'The camera-test evidence was reviewed.'
+      : 'The screenplay was accepted.',
+    whyItMatters: auditionsReviewed
+      ? 'Those observations now follow each performer into casting. They inform the choice; they do not assign anyone.'
+      : 'The picture now has a locked story. Camera tests are the next chance to replace casting guesses with evidence.',
     detail: joinDetail([writer === null ? null : `Writer: ${writer}`, detailTail]),
     next,
     waiting: null,
@@ -658,6 +755,20 @@ function reservedFacilityLabel(state: GameState, productionId: string): string |
     names.push(facility.name)
   }
   return names.length === 0 ? null : names.join(' + ')
+}
+
+/** The exact soundstage held by this picture, when the workflow proves one. */
+function stageFacilityLabel(state: GameState, productionId: string): string | null {
+  const workflow = state.operations.workflows.find(
+    (candidate) => candidate.productionId === productionId,
+  )
+  if (workflow === undefined) return null
+  const stageId = workflow.bindings.stageFacilityId ?? workflow.reservations.find(
+    (reservation) => reservation.capability === 'soundstage',
+  )?.facilityId
+  if (stageId === undefined || stageId === null) return null
+  const stage = state.operations.facilities.find((candidate) => candidate.id === stageId)
+  return stage?.name === '' ? null : stage?.name ?? null
 }
 
 function commandGuidance(
@@ -719,21 +830,35 @@ function inProductionView(
     : null
 
   const detail = joinDetail([
-    director === null ? null : `Director: ${director}`,
+    stageFacilityLabel(state, production.id),
     remainingKnown
-      ? `${String(remaining)} ${plural(remaining, 'week', 'weeks')} of work ${plural(remaining, 'remains', 'remain')}`
+      ? `${String(remaining)} ${plural(remaining, 'week', 'weeks')} remaining`
       : null,
+    director === null ? null : `Director: ${director}`,
   ])
-  const headline = phase === null ? 'In production' : PHASE_HEADLINE[phase]
+  const headline = phase === null ? 'IN PRODUCTION' : PHASE_HEADLINE[phase]
+  const defaultBeat: PictureJourneyBeat = phase === null ? 'greenlit' : PHASE_BEAT[phase]
+  const defaultMilestone =
+    phase === null ? 'The picture entered production.' : PHASE_MILESTONE[phase]
+  const defaultSignificance =
+    phase === null
+      ? 'The package is committed and the studio is carrying the picture toward release.'
+      : PHASE_SIGNIFICANCE[phase]
 
   if (command !== null) {
-    const site: JourneySite = phase === 'postProduction' ? 'post' : 'stage'
+    const site: JourneySite =
+      command.kind === 'clearSceneryLoadIn' || phase === 'postProduction' ? 'post' : 'stage'
     const guidance = commandGuidance(state, command, site)
+    const beat: PictureJourneyBeat =
+      command.kind === 'clearSceneryLoadIn' ? 'load-in' : defaultBeat
     return {
       stage: 'in-production',
+      beat,
       pictureTitle: title,
       ordinal,
-      headline,
+      headline: command.kind === 'clearSceneryLoadIn' ? 'LOAD-IN BLOCKED' : headline,
+      whatHappened: defaultMilestone,
+      whyItMatters: 'The picture cannot advance until the named production problem is cleared.',
       detail,
       next: { kind: 'resolve-production', label: guidance.label, site },
       waiting: null,
@@ -744,9 +869,12 @@ function inProductionView(
   const continues = phase === null ? 'Production continues' : PHASE_CONTINUES[phase]
   return {
     stage: 'in-production',
+    beat: defaultBeat,
     pictureTitle: title,
     ordinal,
     headline,
+    whatHappened: defaultMilestone,
+    whyItMatters: defaultSignificance,
     detail,
     next: {
       kind: 'advance-week',

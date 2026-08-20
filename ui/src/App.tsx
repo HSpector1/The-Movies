@@ -129,6 +129,10 @@ import { LotPackageWorkspace } from './lot/LotPackageWorkspace.tsx'
 import { LotCommissionWorkspace } from './lot/LotCommissionWorkspace.tsx'
 import { LotAuditionWorkspace } from './lot/LotAuditionWorkspace.tsx'
 import type { LotAuditionPlanningOrigin } from './lot/StudioLotScreen.tsx'
+import {
+  samePackageJourneyProgress,
+  type PackageJourneyProgress,
+} from './lot/packageJourney.ts'
 // Living Turn V1 (§4.1). Pure values and arithmetic — no React, no Phaser, no lot
 // chunk — so the scheduler's law is available to App without pulling the world in.
 import {
@@ -452,6 +456,8 @@ type LotPackageWorkspaceSession =
   | (LotPackageWorkspaceBase & {
       phase: 'editing'
       acceptedState: GameState
+      /** Live, unsaved form progress for the persistent Picture Journey card. */
+      journey: PackageJourneyProgress | null
     })
   | (LotPackageWorkspaceBase & {
       phase: 'committed'
@@ -1492,6 +1498,7 @@ export function App() {
         title: success.title,
         opener: pending.opener,
         acceptedState: pending.next,
+        journey: null,
       }
       commitLotPackagePresentation({
         workspace,
@@ -2372,7 +2379,7 @@ export function App() {
   function handleLotPackageCancel(workspace: LotPackageWorkspaceSession) {
     const current = latestLotPackagePresentationRef.current.workspace
     if (
-      current !== workspace ||
+      current?.identity !== workspace.identity ||
       current.phase !== 'editing' ||
       latestStateRef.current !== current.acceptedState ||
       latestScreenRef.current !== current.lotScreen ||
@@ -2390,7 +2397,7 @@ export function App() {
   ) {
     const current = latestLotPackagePresentationRef.current.workspace
     if (
-      current !== workspace ||
+      current?.identity !== workspace.identity ||
       current.phase !== 'editing' ||
       current.acceptedState !== renderedBefore ||
       latestStateRef.current !== renderedBefore ||
@@ -2410,13 +2417,33 @@ export function App() {
     applyPunctuation(punctuateCommit('package-step', next.market.tick))
   }
 
+  function handleLotPackageJourneyChange(
+    workspace: LotPackageWorkspaceSession,
+    journey: PackageJourneyProgress,
+  ) {
+    const current = latestLotPackagePresentationRef.current.workspace
+    if (
+      current?.identity !== workspace.identity ||
+      current.phase !== 'editing' ||
+      latestStateRef.current !== current.acceptedState ||
+      latestScreenRef.current !== current.lotScreen ||
+      activeLotPresentationRef.current !== current.lotPresentation ||
+      latestOpenProfileIdRef.current !== null ||
+      samePackageJourneyProgress(current.journey, journey)
+    ) return
+    commitLotPackagePresentation({
+      workspace: { ...current, journey },
+      liveFormation: null,
+    })
+  }
+
   function handleLotPackageOpenProfile(
     workspace: LotPackageWorkspaceSession,
     personId: string,
   ) {
     const current = latestLotPackagePresentationRef.current.workspace
     if (
-      current !== workspace ||
+      current?.identity !== workspace.identity ||
       current.phase !== 'editing' ||
       latestStateRef.current !== current.acceptedState ||
       latestScreenRef.current !== current.lotScreen ||
@@ -2436,7 +2463,7 @@ export function App() {
     const currentWorkspace = latestLotPackagePresentationRef.current.workspace
     const current = latestStateRef.current
     if (
-      currentWorkspace !== workspace ||
+      currentWorkspace?.identity !== workspace.identity ||
       currentWorkspace.phase !== 'editing' ||
       current === null ||
       current !== renderedBefore ||
@@ -4792,6 +4819,13 @@ export function App() {
         >
           <StudioLotScreen
             state={state}
+            packageJourneyProgress={
+              retainedPackageWorkspace?.phase === 'editing' &&
+              retainedPackageWorkspace.lotScreen === screen &&
+              retainedPackageWorkspace.lotPresentation === lotPresentationToken
+                ? retainedPackageWorkspace.journey
+                : null
+            }
             // PF1-M2 presentation-only channels. `noticeEpoch` expires transient notices on
             // the next player action; `punctuation` carries the motion strength the cue
             // grammar chose. Neither is game truth and neither is ever persisted.
@@ -4984,6 +5018,8 @@ export function App() {
                     retainedPackageWorkspace.acceptedState,
                     next,
                   )}
+                onJourneyChange={(journey) =>
+                  handleLotPackageJourneyChange(retainedPackageWorkspace, journey)}
                 onOpenProfile={(personId) =>
                   handleLotPackageOpenProfile(retainedPackageWorkspace, personId)}
               />

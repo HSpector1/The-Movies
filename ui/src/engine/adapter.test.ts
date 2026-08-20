@@ -108,7 +108,10 @@ describe('adapter: eligibility mirrors engine legality', () => {
     // duplicate on this film
     const actor = talentByRole(state, 'actor')[0]!
     const dup = talentEligibility(actor, 'actor', [actor.id])
-    expect(dup.eligible).toBe(false)
+    expect(dup).toEqual({
+      eligible: false,
+      reason: 'Already assigned elsewhere on this picture — one person can hold only one role per production.',
+    })
   })
 
   it('marks talent engaged in an active production unavailable after greenlight', () => {

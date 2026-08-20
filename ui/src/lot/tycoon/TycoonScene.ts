@@ -2132,6 +2132,14 @@ export class TycoonScene extends Phaser.Scene {
     return true
   }
 
+  /** Frame a snapshot-owned building at the player's current management distance. */
+  focusBuilding(buildingId: BuildingId): boolean {
+    const place = this.buildingFor(buildingId)
+    if (place === null) return false
+    this.focusPlace(place)
+    return true
+  }
+
   /**
    * Enter or leave the bounded build flow. While it is active the world's ordinary
    * activation seams stand down: a pointer over the lot points the GHOST instead of

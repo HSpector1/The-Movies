@@ -130,6 +130,8 @@ function greenlightPayload(
 function copyStrings(view: FirstFilmJourneyView): string[] {
   return [
     view.headline,
+    view.whatHappened,
+    view.whyItMatters,
     view.detail,
     view.next?.label ?? null,
     view.waiting?.reason ?? null,
@@ -175,7 +177,8 @@ describe('First Film Journey V1 — the guided chain', () => {
       stage: 'drafting',
       pictureTitle: title,
       ordinal: 1,
-      headline: 'Screenplay — drafting',
+      beat: 'screenplay-writing',
+      headline: 'SCREENPLAY IN PROGRESS',
       blocked: null,
     })
     expect(drafting.detail).toBe(`Writer: ${writerName} · Due Week ${String(project.dueWeek!)}`)
@@ -196,7 +199,8 @@ describe('First Film Journey V1 — the guided chain', () => {
     expect(review).toMatchObject({
       stage: 'script-review',
       pictureTitle: title,
-      headline: 'Script review ready',
+      beat: 'screenplay-review',
+      headline: 'SCREENPLAY READY',
       waiting: null,
       blocked: null,
     })
@@ -213,7 +217,8 @@ describe('First Film Journey V1 — the guided chain', () => {
     expect(accepted).toMatchObject({
       stage: 'ready-to-package',
       pictureTitle: title,
-      headline: 'Screenplay accepted',
+      beat: 'screenplay-ready',
+      headline: 'SCREENPLAY ACCEPTED',
       waiting: null,
       blocked: null,
     })
@@ -242,7 +247,8 @@ describe('First Film Journey V1 — the guided chain', () => {
     expect(auditioning).toMatchObject({
       stage: 'auditioning',
       pictureTitle: title,
-      headline: 'Auditions underway',
+      beat: 'auditions-running',
+      headline: 'CAMERA TESTS UNDERWAY',
       blocked: null,
     })
     expect(auditioning.waiting).toEqual({
@@ -259,7 +265,8 @@ describe('First Film Journey V1 — the guided chain', () => {
     expect(auditionReview).toMatchObject({
       stage: 'audition-review',
       pictureTitle: title,
-      headline: 'Audition results ready',
+      beat: 'auditions-ready',
+      headline: 'AUDITION RESULTS READY',
       waiting: null,
       blocked: null,
     })
@@ -287,6 +294,8 @@ describe('First Film Journey V1 — the guided chain', () => {
     expect(packageable).toMatchObject({
       stage: 'ready-to-package',
       pictureTitle: title,
+      beat: 'auditions-reviewed',
+      headline: 'AUDITIONS REVIEWED',
       waiting: null,
       blocked: null,
     })
@@ -307,7 +316,8 @@ describe('First Film Journey V1 — the guided chain', () => {
       stage: 'in-production',
       pictureTitle: title,
       ordinal: 1,
-      headline: 'In development',
+      beat: 'greenlit',
+      headline: 'PICTURE GREENLIT',
       blocked: null,
     })
     // A picture does not advance during its own greenlight tick (tick.ts:37), so
@@ -341,7 +351,8 @@ describe('First Film Journey V1 — the guided chain', () => {
     expect(commanded).toMatchObject({
       stage: 'in-production',
       pictureTitle: title,
-      headline: 'Shooting',
+      beat: 'shooting',
+      headline: 'SHOOTING',
       waiting: null,
     })
     expect(commanded.blocked).toEqual({
@@ -361,7 +372,7 @@ describe('First Film Journey V1 — the guided chain', () => {
       const blocked = firstFilmJourney(state)
       seen.push(blocked)
       expect(blocked.blocked).not.toBeNull()
-      expect(blocked.next).toMatchObject({ kind: 'resolve-production', site: 'stage' })
+      expect(blocked.next).toMatchObject({ kind: 'resolve-production' })
       if (decision.command.kind === 'clearSceneryLoadIn') {
         // The scenery beat is NOT at the soundstage alone — the lot flags the Scenery &
         // Service ground beside the stage — so the step names the picture's own reserved
@@ -379,7 +390,11 @@ describe('First Film Journey V1 — the guided chain', () => {
           `Clear the scenery load-in at ${facilities.join(' + ')}`,
         )
         expect(blocked.next!.label).not.toContain('at the soundstage')
+        expect(blocked).toMatchObject({ beat: 'load-in', headline: 'LOAD-IN BLOCKED' })
+        expect(blocked.next!.site).toBe('post')
         sceneryStepsSeen += 1
+      } else {
+        expect(blocked.next!.site).toBe('stage')
       }
       state = applyActions(state, [decision.command])
     }
@@ -449,7 +464,8 @@ describe('First Film Journey V1 — the guided chain', () => {
       pictureTitle: releasedTitle,
       // The studio's SECOND picture is the one being guided now.
       ordinal: 2,
-      headline: 'In release',
+      beat: 'released',
+      headline: 'PICTURE RELEASED',
       waiting: null,
     })
     expect(released.next).toEqual({
@@ -507,7 +523,7 @@ describe('First Film Journey V1 — the guided chain', () => {
     first.headline = 'mutated'
     if (first.next !== null) first.next.label = 'mutated'
     expect(stableStringify(state)).toBe(before)
-    expect(firstFilmJourney(state).headline).toBe('Screenplay accepted')
+    expect(firstFilmJourney(state).headline).toBe('SCREENPLAY ACCEPTED')
   })
 })
 

@@ -32,6 +32,22 @@ export type FirstFilmJourneyStage =
   | 'in-production'
   | 'released'
 
+export type PictureJourneyBeat =
+  | 'no-picture'
+  | 'screenplay-writing'
+  | 'screenplay-review'
+  | 'screenplay-ready'
+  | 'auditions-running'
+  | 'auditions-ready'
+  | 'auditions-reviewed'
+  | 'greenlit'
+  | 'pre-production'
+  | 'load-in'
+  | 'shooting'
+  | 'post-production'
+  | 'release-ready'
+  | 'released'
+
 export type JourneyTargetKind =
   | 'commission'
   | 'script-review'
@@ -52,9 +68,12 @@ export interface FirstFilmJourneyNext {
 
 export interface FirstFilmJourneyView {
   stage: FirstFilmJourneyStage
+  beat: PictureJourneyBeat
   pictureTitle: string | null
   ordinal: number
   headline: string
+  whatHappened: string
+  whyItMatters: string
   detail: string | null
   next: FirstFilmJourneyNext | null
   waiting: { untilWeek: number | null; reason: string } | null
@@ -69,6 +88,23 @@ const JOURNEY_STAGES: readonly FirstFilmJourneyStage[] = [
   'auditioning',
   'audition-review',
   'in-production',
+  'released',
+]
+
+const JOURNEY_BEATS: readonly PictureJourneyBeat[] = [
+  'no-picture',
+  'screenplay-writing',
+  'screenplay-review',
+  'screenplay-ready',
+  'auditions-running',
+  'auditions-ready',
+  'auditions-reviewed',
+  'greenlit',
+  'pre-production',
+  'load-in',
+  'shooting',
+  'post-production',
+  'release-ready',
   'released',
 ]
 
@@ -244,9 +280,12 @@ export function guidanceMarkerBuildingId(
 
 const VIEW_KEYS = [
   'stage',
+  'beat',
   'pictureTitle',
   'ordinal',
   'headline',
+  'whatHappened',
+  'whyItMatters',
   'detail',
   'next',
   'waiting',
@@ -299,10 +338,13 @@ export function isFirstFilmJourneyView(value: unknown): value is FirstFilmJourne
   const blocked = value['blocked']
   return (
     JOURNEY_STAGES.includes(value['stage'] as FirstFilmJourneyStage) &&
+    JOURNEY_BEATS.includes(value['beat'] as PictureJourneyBeat) &&
     isNullableNonEmptyString(value['pictureTitle']) &&
     Number.isSafeInteger(value['ordinal']) &&
     (value['ordinal'] as number) >= 1 &&
     isNonEmptyString(value['headline']) &&
+    isNonEmptyString(value['whatHappened']) &&
+    isNonEmptyString(value['whyItMatters']) &&
     isNullableNonEmptyString(value['detail']) &&
     (next === null || isNextStep(next)) &&
     (waiting === null || isWaiting(waiting)) &&

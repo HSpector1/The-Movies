@@ -147,9 +147,12 @@ function greenlitStudio(seed: string): GameState {
 function journey(overrides: Partial<FirstFilmJourneyView> = {}): FirstFilmJourneyView {
   return {
     stage: 'drafting',
+    beat: 'screenplay-writing',
     pictureTitle: 'A Season of Archipelago',
     ordinal: 1,
     headline: 'Screenplay — drafting',
+    whatHappened: 'The screenplay was commissioned.',
+    whyItMatters: 'The writer is preparing the script for casting.',
     detail: 'Writer: Lauren Ravel · Due Week 1',
     next: { kind: 'commission', label: 'Commission a screenplay at Development', site: 'development' },
     waiting: null,
@@ -212,7 +215,8 @@ describe('Picture guidance owns the desk before the first greenlight', () => {
     expect(desk).not.toHaveTextContent('Assemble a film to begin production')
 
     expect(screen.getByRole('region', { name: 'Picture guidance' })).toBeInTheDocument()
-    expect(screen.getByTestId('lot-picture-guidance-eyebrow')).toHaveTextContent('YOUR FIRST PICTURE')
+    expect(screen.getByTestId('lot-picture-guidance-eyebrow')).toHaveTextContent('PICTURE JOURNEY')
+    expect(screen.getByTestId('lot-picture-guidance-eyebrow')).toHaveTextContent('PICTURE 1')
     expect(screen.getByTestId('lot-picture-guidance-title')).toHaveTextContent('A Season of Archipelago')
     expect(screen.getByTestId('lot-picture-guidance-headline')).toHaveTextContent('Screenplay — drafting')
     expect(screen.getByTestId('lot-picture-guidance-detail')).toHaveTextContent('Writer: Lauren Ravel · Due Week 1')
@@ -244,7 +248,8 @@ describe('The shipped path carries the engine\'s own projection', () => {
 
     const card = screen.getByTestId('lot-picture-guidance')
     expect(card).toHaveAttribute('data-guidance-stage', 'no-picture')
-    expect(screen.getByTestId('lot-picture-guidance-eyebrow')).toHaveTextContent('YOUR FIRST PICTURE')
+    expect(screen.getByTestId('lot-picture-guidance-eyebrow')).toHaveTextContent('PICTURE JOURNEY')
+    expect(screen.getByTestId('lot-picture-guidance-eyebrow')).toHaveTextContent('PICTURE 1')
     expect(screen.getByTestId('lot-picture-guidance-title')).toHaveTextContent('No picture yet')
     // Engine copy is not pinned here — only that a real imperative step exists and names
     // a destination the renderer can address.
@@ -319,17 +324,26 @@ describe('The next step points at the world — it never teleports to a screen',
   })
 })
 
-describe('The production card keeps the slot once a picture is greenlit', () => {
-  it('renders the existing production readout, not the guidance card', async () => {
-    projection.override = { kind: 'value', value: journey({ stage: 'in-production', headline: 'Shooting' }) }
+describe('The Picture Journey survives greenlight beside the production readout', () => {
+  it('keeps the next step visible while retaining the existing production facts', async () => {
+    projection.override = { kind: 'value', value: journey({
+      stage: 'in-production',
+      beat: 'shooting',
+      headline: 'SHOOTING',
+      whatHappened: 'Principal photography is underway.',
+      whyItMatters: 'The company is now making the picture on its reserved stage.',
+      next: null,
+    }) }
     renderLot(greenlitStudio('picture-guidance-greenlit'))
     await onlyView()
 
     const card = screen.getByTestId('hollywood-current-production')
     expect(card).toBeInTheDocument()
     expect(screen.queryByTestId('hollywood-production-idle')).not.toBeInTheDocument()
-    expect(screen.queryByTestId('lot-picture-guidance')).not.toBeInTheDocument()
-    // The production card still carries phase and its own progress meter.
+    expect(screen.getByTestId('lot-picture-guidance')).toBeInTheDocument()
+    expect(screen.getByTestId('lot-picture-guidance-headline')).toHaveTextContent('SHOOTING')
+    expect(screen.getByTestId('lot-picture-guidance-status')).toHaveTextContent('No action required.')
+    // The operation readout still carries phase and its own progress meter.
     expect(card).toHaveTextContent('Phase')
     expect(card).toHaveTextContent('Weeks left')
   })
