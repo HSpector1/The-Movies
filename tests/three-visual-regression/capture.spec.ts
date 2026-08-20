@@ -58,6 +58,13 @@ type ThreePerformance = {
 }
 
 type PngFacts = { width: number; height: number; byteLength: number; distinctSamples: number }
+type BrowserGraphics = {
+  userAgent: string
+  platform: string
+  hardwareConcurrency: number
+  webglVendor: string
+  webglRenderer: string
+}
 
 function be32(buffer: Buffer, offset: number): number {
   return buffer.readUInt32BE(offset)
@@ -250,11 +257,43 @@ async function measureThree(page: Page): Promise<ThreePerformance> {
   return measured!
 }
 
+async function browserGraphics(page: Page): Promise<BrowserGraphics> {
+  return page.evaluate(() => {
+    type WebGlLike = {
+      VENDOR: number
+      RENDERER: number
+      getExtension: (name: string) => { UNMASKED_VENDOR_WEBGL: number; UNMASKED_RENDERER_WEBGL: number } | null
+      getParameter: (parameter: number) => unknown
+    }
+    const browser = globalThis as unknown as {
+      document: {
+        querySelector: (selector: string) => { getContext: (type: string) => WebGlLike | null } | null
+      }
+      navigator: { userAgent: string; platform: string; hardwareConcurrency: number }
+    }
+    const canvas = browser.document.querySelector('[data-testid="studio-lot-canvas"] canvas')
+    const gl = canvas?.getContext('webgl2') ?? canvas?.getContext('webgl') ?? null
+    const debug = gl?.getExtension('WEBGL_debug_renderer_info') ?? null
+    return {
+      userAgent: browser.navigator.userAgent,
+      platform: browser.navigator.platform,
+      hardwareConcurrency: browser.navigator.hardwareConcurrency,
+      webglVendor: gl === null
+        ? 'unavailable'
+        : String(gl.getParameter(debug?.UNMASKED_VENDOR_WEBGL ?? gl.VENDOR)),
+      webglRenderer: gl === null
+        ? 'unavailable'
+        : String(gl.getParameter(debug?.UNMASKED_RENDERER_WEBGL ?? gl.RENDERER)),
+    }
+  })
+}
+
 test.describe.configure({ timeout: 300_000 })
 
 test('capture canonical real-3D studio views', async ({ browser }) => {
   mkdirSync(outputDir, { recursive: true })
   const failures: string[] = []
+  let graphics: BrowserGraphics | null = null
   const screenshots: Array<{
     name: string
     path: string
@@ -271,6 +310,7 @@ test('capture canonical real-3D studio views', async ({ browser }) => {
     })
     await installFixture(page, capture.fixture)
     await waitForThreeReady(page)
+    graphics ??= await browserGraphics(page)
     await selectFraming(page, capture.framing)
     const performance = await measureThree(page)
 
@@ -303,6 +343,7 @@ test('capture canonical real-3D studio views', async ({ browser }) => {
     timestamp: new Date().toISOString(),
     viewport: VIEWPORT,
     rendererFlag: { VITE_THREE_LOT: '1' },
+    browserGraphics: graphics,
     captures: screenshots,
   }, null, 2)}\n`)
 })

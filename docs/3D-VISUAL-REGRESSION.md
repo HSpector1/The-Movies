@@ -24,7 +24,7 @@ It starts an isolated Vite server with `VITE_THREE_LOT=1`, restores native deter
 - `construction.png` — the exact in-progress Annex body from the deterministic construction fixture.
 - `backlot.png` — the mounted-set/scenery side of authoritative Soundstage 7.
 
-`manifest.json` records the source Git revision, capture time, viewport, renderer flag, fixture, exact framing, screenshot path, and a four-second sustained Three.js performance window for every frame. The performance record includes draw calls, GPU texture-object count, FPS, 1% low, p99/worst frame time, display objects and dynamic actors. It is capture provenance only; the timestamp is not a comparison input.
+`manifest.json` records the source Git revision, capture time, viewport, renderer flag, browser/WebGL device identity, fixture, exact framing, screenshot path, and a four-second sustained Three.js performance window for every frame. The performance record includes draw calls, GPU texture-object count, FPS, 1% low, p99/worst frame time, display objects and dynamic actors. It is capture provenance only; the timestamp is not a comparison input.
 
 The capture is valid only when the command exits successfully and all six PNG files exist. The harness fails on page or console errors, a missing/non-3D renderer, unavailable camera command, a blank/trivial canvas, an insufficient telemetry window, or an incorrect screenshot size. It deliberately does not apply a perceptual-diff threshold.
 
