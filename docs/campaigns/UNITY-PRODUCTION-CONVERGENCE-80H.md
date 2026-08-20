@@ -377,3 +377,164 @@ construction, and journey/notices projections under one shared authoritative
 revision/digest envelope. Preserve stable IDs, retain a local single-response
 transport, regenerate C#, and update Unity projection caches without moving any
 simulation truth into C#.
+
+## 2026-08-20 - Checkpoint 3: atomic named projection bundle
+
+### Player and architecture value
+
+Phase A2's decomposition foundation is accepted. The localhost bridge still
+delivers one authoritative snapshot transaction, but projection `4` replaces
+the monolithic live `StudioLotSnapshot` with six required, closed sections:
+
+- `lot`: studio identity, week, scene seed, buildings, property, stages, sets;
+- `productions`: active productions and operations;
+- `people`: roster and optional authoritative presence;
+- `construction`: placement, parcels, catalog, and placed facilities;
+- `journeyNotices`: first-film journey plus optional week-theater notices;
+- `releaseResults`: released-film results.
+
+Legal intents, session identity, state revision, state digest, and game week stay
+at the response root. There are no independently polled routes, per-section
+revision clocks, or client-side joins across moments in time. Release results
+are isolated from mutable operations rather than being buried in a generic
+production section.
+
+Protocol remains `2` because command and lifecycle semantics are unchanged.
+Projection is `4`. Accepted schema identity:
+
+`sha256:6e75cf246298bb742b66e56a17d8582a71dc2c3edb0c6542ad6595588244e833`.
+
+The TypeScript schema's shared field map is the single property authority for
+the legacy parity projection and all six live sections. Runtime projection gives
+each closed schema the complete broad source object, allowing the schema walker
+to retain its owned facts. This avoids a second hand-maintained projection map
+that could silently omit future optional values. A structural test proves all
+15 v3 live fields appear exactly once in v4 with identical schema semantics.
+
+### Unity consumer
+
+The generated v4 DTOs are consumed through an atomic `StudioProjectionStore`.
+Before mutating current state, it validates and indexes stable identities for
+buildings, people, presence, active productions, production operations,
+construction records, parcels, catalog items, property buildings, stages, sets,
+week-theater subjects, and released films.
+
+The store rejects:
+
+- an incomplete six-section response;
+- a lower revision in the same session;
+- the same revision with a different digest;
+- the same revision/digest with different projected data;
+- duplicate stable IDs in any indexed surface;
+- unsupported projection `3` or schema identity.
+
+An identical same-revision bundle is a true no-op. A new session resets the
+revision epoch only after a complete valid bundle is built. `StudioBridgeClient`
+publishes the store-owned response, eliminating the former possibility of the
+client and cache disagreeing. Accepted command/load application errors are
+contained and surfaced as protocol mismatches rather than escaping callbacks.
+
+Authoritative presence intentionally permits audition freelancers absent from
+the employee roster. The frozen broad fixture is now represented by
+`StudioOfflineLotSnapshot` and remains isolated from the v4 live bundle.
+
+### Validation
+
+| Gate | Accepted A2 result |
+| --- | --- |
+| Cross-repository generated check | Passed; C# files byte-identical, 124,814 bytes, SHA-256 `3805f4d54cba772d0670697d3d356b9c480c7a35d1bd4a295a63c5110e8ca004` |
+| Bridge typecheck | Passed |
+| Bridge tests | 20/20 passed, including field ownership, real wire paths, stable polling, projection-3 rejection, nullability, and full Movie #2 |
+| Full TypeScript suite | 325 files; 4,421 passed, 5 skipped, 0 failed in 60.25 seconds |
+| TypeScript typecheck | Passed |
+| TypeScript production build | Passed in 5.73 seconds; inherited chunk warnings only |
+| Headless proof | Passed Movie #2 plus export/import/export, reconnect, and bridge/headless byte identity |
+| Unity EditMode | Final seal 15/15 passed in `/tmp/studio-a2-seal-editmode-results.xml` |
+| Native macOS build | Passed in `/tmp/studio-a2-build-2.log` |
+| Fresh native Movie #2 | Passed; exact `script-0001` / `prod-0013` released Week 22, revision 23 |
+| Native save/load | Passed; saved/restored digest `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee` |
+| Native stale action | Rejected with `STALE_REVISION`; authority unchanged |
+| Native reconnect | Separate client process recovered the same session/revision/week/digest and released Movie #2 |
+| Runtime scan | No error, exception, protocol mismatch, or proof-failure lines |
+
+The final state digest remains
+`429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`,
+matching A1 and the headless authority. No GameState, rule, formula, identity,
+save, RNG stream, or Three.js behavior changed.
+
+Final native proof sample: 15,394-byte snapshot, 17.22 ms TypeScript
+serialization, 3.81 ms strict Unity parse, 0.29 ms store application, 33.01 ms
+command round trip, and 119.40 FPS average. A fresh reconnect applied the entire
+bundle in 3.89 ms and averaged 119.40 FPS. These are proof samples, not a
+replacement for the Phase L p95/p99 stress program.
+
+### Evidence and visual critique
+
+Local ignored evidence:
+
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A2/Unity-Bridge/bridge-client-proof.json`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A2/Unity-Bridge/bridge-reconnect-proof.json`
+- `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/A2/Unity-Bridge/01-whole-lot.png`
+  through `12-reconnected.png`
+- `/tmp/studio-a2-native-proof-final.log`
+- `/tmp/studio-a2-native-reconnect-final.log`
+
+Whole-lot, production-blocker, release, and reconnect captures were inspected.
+A2 is visually unchanged by design. The campus and explicit next-action truth
+remain readable; the proof HUD is intrusive, people and production activity are
+weak, and the hero stage remains sparse. A2 earns acceptance for architecture,
+atomicity, and preserved playability, not visual uplift. The baseline self-grade
+remains authoritative.
+
+### Red-team findings resolved
+
+- Removed a hand-maintained field-selection map and added exact schema ownership
+  parity so optional facts cannot silently drift.
+- Added direct stable-poll assertions for sections, intents, revision, digest,
+  game week, and save bytes.
+- Preserved real wire paths in validation errors.
+- Removed a false Unity invariant that rejected authoritative audition
+  freelancers absent from the employee roster.
+- Moved command/load projection application inside protocol error boundaries.
+- Made same-revision behavior compare all semantic stable-ID maps and exact
+  projection JSON before no-op.
+- Added week-theater subject identity validation and caching.
+- Updated runtime binding audit paths to the named schema.
+
+Independent final TypeScript and Unity audits found no remaining checkpoint
+blocker.
+
+### Scope honestly deferred
+
+A2 is not marked fully complete. Detailed screenplay/development, casting,
+package/greenlight, richer release/autopsy, and structured holder/remedy
+projections remain. The six-section response is the durable decomposition
+foundation on which those surfaces can be added without rebuilding transport or
+introducing mixed revisions.
+
+### Golden and promotion decision
+
+Accepted compatible pair:
+
+| Repository | SHA | Value |
+| --- | --- | --- |
+| TypeScript | `cd2b15872ac5849fa16beec1775543758cb3139e` | Projection-4 schema/runtime, proof migration, deterministic generated artifacts, and adversarial tests |
+| Unity | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` | Atomic projection store, offline/live separation, migrated presentation/proof, and EditMode coverage |
+
+This pair is the first campaign **GOLDEN CHECKPOINT**, preserved by immutable
+annotated tag `golden/unity-convergence-m1` in both repositories.
+
+It is not promoted to remote defaults. TypeScript `main@5914c84` diverges from
+the campaign at `c0c9561` with three default-only and 185 campaign-only commits
+before A2. Treating A2 as a simple feature merge would therefore promote an
+unreviewed historical mega-diff. Unity is linearly fast-forwardable, but moving
+it alone would make the remote defaults schema-incompatible. The technical PM
+decision is **GOLDEN — CONTINUE CAMPAIGN**.
+
+### Next acceptance gate
+
+Phase A3 first unit: add TypeScript-authoritative structured rejection facts for
+`blocker`, `currentHolder`, and `remedy`; generate the Unity DTOs, present those
+facts without inferring legality in C#, and add bridge plus EditMode negative
+coverage. Then make command deduplication durable across save/load and engine
+restart before starting the Phase B lifecycle.
