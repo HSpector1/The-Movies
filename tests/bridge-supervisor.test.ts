@@ -315,18 +315,35 @@ function publishedEnginePids(output: string): number[] {
     .map((match) => Number(match[1]))
 }
 
+function isMissingPath(error: unknown): boolean {
+  return (error as NodeJS.ErrnoException)?.code === 'ENOENT'
+}
+
 function allFiles(root: string): string[] {
   if (!fs.existsSync(root)) return []
   const files: string[] = []
-  const visit = (candidate: string): void => {
-    const stat = fs.lstatSync(candidate)
+  const visit = (candidate: string, discovered = false): void => {
+    let stat: fs.Stats
+    try {
+      stat = fs.lstatSync(candidate)
+    } catch (error) {
+      if (discovered && isMissingPath(error)) return
+      throw error
+    }
     if (stat.isSymbolicLink()) return
     if (stat.isFile()) {
       files.push(candidate)
       return
     }
     if (!stat.isDirectory()) return
-    for (const entry of fs.readdirSync(candidate)) visit(path.join(candidate, entry))
+    let entries: string[]
+    try {
+      entries = fs.readdirSync(candidate)
+    } catch (error) {
+      if (discovered && isMissingPath(error)) return
+      throw error
+    }
+    for (const entry of entries) visit(path.join(candidate, entry), true)
   }
   visit(root)
   return files.sort()
@@ -453,6 +470,48 @@ function leaseRecord(
 }
 
 describe.sequential('one-command studio supervisor', () => {
+  it('tolerates only entries that disappear during a recursive profile scan', () => {
+    const root = temporaryRoot('profile-scan-race')
+    const stable = path.join(root, 'stable-secret-audit-target')
+    const vanishedFile = path.join(root, 'vanished-file')
+    const vanishedDirectory = path.join(root, 'vanished-directory')
+    const linked = path.join(root, 'linked-secret-audit-target')
+    fs.writeFileSync(stable, 'stable')
+    fs.writeFileSync(vanishedFile, 'ephemeral')
+    fs.mkdirSync(vanishedDirectory)
+    fs.writeFileSync(path.join(vanishedDirectory, 'nested'), 'ephemeral')
+    fs.symlinkSync(stable, linked)
+
+    const originalLstat = fs.lstatSync.bind(fs)
+    let removedDirectory = false
+    const lstatSpy = vi.spyOn(fs, 'lstatSync').mockImplementation((candidate) => {
+      if (String(candidate) === vanishedFile) fs.unlinkSync(vanishedFile)
+      if (String(candidate) === vanishedDirectory && !removedDirectory) {
+        const stat = originalLstat(candidate)
+        removedDirectory = true
+        fs.rmSync(vanishedDirectory, { recursive: true })
+        return stat
+      }
+      return originalLstat(candidate)
+    })
+    try {
+      expect(allFiles(root)).toEqual([stable])
+    } finally {
+      lstatSpy.mockRestore()
+    }
+
+    const accessDenied = Object.assign(new Error('test access denied'), { code: 'EACCES' })
+    const failureSpy = vi.spyOn(fs, 'lstatSync').mockImplementation((candidate) => {
+      if (String(candidate) === stable) throw accessDenied
+      return originalLstat(candidate)
+    })
+    try {
+      expect(() => allFiles(root)).toThrow(accessDenied)
+    } finally {
+      failureSpy.mockRestore()
+    }
+  })
+
   it('fails closed when the Unity app is missing, multiply configured, or control arguments are injected', () => {
     const root = temporaryRoot('config')
     const profileRoot = path.join(root, 'profile')
