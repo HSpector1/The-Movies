@@ -4,291 +4,360 @@ START HERE. Read `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`, then the campaign
 ledger, this handoff, and the promotion register. The TypeScript/Unity engine
 decision is settled. Do not restart planning from scratch.
 
-## PHASE B DURABILITY CHECKPOINT - CURRENT AUTHORITATIVE STATE
+## CHECKPOINT 8 SEALED - CURRENT AUTHORITATIVE STATE
 
-Timestamp: 2026-08-21 02:00 CEST (UTC+02:00).
+### CURRENT EXACT STATE
 
-### Current exact state
+Timestamp: 2026-08-21 03:22 CEST (UTC+02:00).
 
 | Item | Exact state |
 | --- | --- |
 | TypeScript worktree | `/Users/bruce/The Movies - Unity Production Convergence 80H` |
 | TypeScript branch | `campaign/unity-production-convergence-80h-ts` |
-| TypeScript durable-runtime product / pushed commit | `e6fc2047f372e7642c3c2fcee1d3915bb4064620`; remote-verified product checkpoint |
-| TypeScript product parent / Golden | Parent `85d865cdd4f38ab4df32e24393e130ca094f6b7f`; M3 Golden product `e9c6f06b717a6a106281b189a61072e35770155f` |
-| TypeScript continuity HEAD | The commit containing this section is the sole docs-only descendant of `e6fc2047`; `git rev-parse HEAD` must equal its upstream after recovery |
-| TypeScript working tree | Expected clean after the continuity push; any tracked change is new work and must be audited before continuing |
+| TypeScript product HEAD / pushed | `720826bd843995920bb2f219ab21203d236c1879`; pushed to the recorded campaign branch |
+| TypeScript product parent | `550eae6799b5cb64f567b42ab688a2bc76f5a073` |
+| TypeScript branch tip / working tree | This handoff's containing commit is the sole continuity-only descendant of `720826bd843995920bb2f219ab21203d236c1879`; after push, `git rev-parse HEAD` must equal the configured upstream and the tree must be clean |
 | Unity worktree | `/Users/bruce/Project Studio - Unity Production Convergence 80H` |
 | Unity branch | `campaign/unity-production-convergence-80h-client` |
-| Unity HEAD / pushed upstream | `40465d48c191c9dcdda2c6b32c17c9675f4908a4`; clean and remote-verified |
-| Unity parent | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` |
-| Golden recovery pair | TypeScript `e9c6f06b717a6a106281b189a61072e35770155f` plus Unity `40465d48c191c9dcdda2c6b32c17c9675f4908a4` |
-| Golden tags | Immutable/pushed `golden/unity-convergence-m1`, `m2`, and `m3` in both repositories |
-| Promotion | `GOLDEN — CONTINUE CAMPAIGN`; M3 remains CURRENT BEST; this pushed TS-only checkpoint is not Golden or canonical |
+| Unity HEAD / upstream / pushed | `94e8bcac6a5bf94fd70f3f8a61992511230688a2`; local HEAD, configured upstream, and remote branch agree |
+| Unity product parent | `40465d48c191c9dcdda2c6b32c17c9675f4908a4` |
+| Unity working tree | Clean |
+| Current Golden recovery pair | TypeScript `e9c6f06b717a6a106281b189a61072e35770155f` plus Unity `40465d48c191c9dcdda2c6b32c17c9675f4908a4` |
+| Golden tags | Immutable and pushed `golden/unity-convergence-m1`, `golden/unity-convergence-m2`, and `golden/unity-convergence-m3` in both repositories |
+| Branches pushed | Yes; TypeScript product `720826bd...` and Unity product `94e8bcac...` are remotely recoverable as one compatible pair |
+| Promotion | `GOLDEN — CONTINUE CAMPAIGN`; M3 remains CURRENT BEST; sealed Checkpoint 8 is non-Golden and not canonical |
 
-The compatible product contract remains protocol `3`, projection `4`, schema
-`sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac`.
-No schema, generated DTO, Unity source, gameplay formula, `GameState` member,
-V14 field, identity, or RNG stream changed in this unit.
+The exact sealed contract is protocol `4`, projection `4`, schema
+`sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`.
+The TypeScript and Unity generated C# copies are byte-identical at SHA-256
+`1192d58a323e98b4ebab001d910c5f38dfa6455c90b38769e8af6325e84ee1dd`.
+No gameplay formula, `GameState` member, V14 field, permanent identity, or RNG
+stream changed. TypeScript remains the sole simulation authority.
 
-### Campaign status
+### CAMPAIGN STATUS
 
 - Current phase: Phase B, durable local game runtime.
-- Completed phases/subphases: campaign setup and baseline; A1 generated
-  schema/DTO pipeline; A2 atomic named projection foundation; A3 queue-law
-  cross-client parity; A4 structured rejection guidance; donor governance and
-  security reconciliation.
-- Partially completed: Phase B now has a strict separate runtime checkpoint,
-  serialized commit-before-response coordinator, private atomic filesystem
-  store, safe lock recovery, graceful shutdown, controlled journal rollover,
-  and real-process SIGKILL/restart replay proof.
-- Untouched Phase B boundaries: default durable launcher/supervisor, random-port
-  handoff, per-launch capability, Host/Origin/content-type/timeouts,
-  `runtimeInstanceId`, Unity in-flight retry/reconnect, packaged runtime graph,
-  and product log lifecycle.
-- Later phases: C remains largely inherited; D through N retain prior partial
-  capabilities. Visual work remains below ADR 0006.
-- Current acceptance gate: secure the localhost boundary and add
-  runtime-instance-aware Unity reconnect before claiming default restart
-  durability.
+- Completed phases/subphases: campaign setup/baseline; A1 generated contract;
+  A2 named atomic projections; A3 queue-law parity; A4 structured rejection
+  guidance; donor governance/security reconciliation; Phase B's separate V14-
+  preserving runtime checkpoint, commit-before-response coordinator, private
+  atomic store, bounded replay, lock recovery, and real-process replay core.
+- Partially completed: Checkpoint 8 adds an authenticated loopback boundary,
+  protocol-4 process identity, forward migration from the exact protocol-3
+  operational checkpoint, strict Unity transport, session-first polling,
+  restart/outage detection, torn-read recovery, and native idle restart proof.
+- Untouched or incomplete in Phase B: exact ambiguous in-flight POST retention
+  and retry, default durable launch, random-port/supervisor lifecycle, packaged
+  runtime graph, stale-child cleanup, bounded product logs, and active-state
+  restart proof.
+- Later phases: inherited Phase C/D/E capabilities remain playable; F through N
+  remain mostly untouched or inherited partial work. The current visual client
+  remains below ADR 0006.
+- Current acceptance gate: recover an engine death after authoritative commit
+  but before HTTP response without duplicate mutation, lost action, stale replay,
+  or any retry across a changed logical session.
 
-### What was just done
+### WHAT WAS JUST DONE
 
-The bridge can opt into `BridgeRuntimeCheckpointV1`, a closed operational
-checkpoint that retains untouched canonical current V14 JSON, untouched last
-explicit V14 save JSON, logical session/revision, exact canonical route/request/
-full-response journal entries, and journal/state/save digests. It is deliberately
-outside `GameState` and the forward-only gameplay save chain.
+TypeScript now requires one canonical random 32-byte base64url capability for
+every request, deletes the plaintext from its own environment after hashing it,
+binds only `127.0.0.1`, requires the exact local Host, rejects every Origin,
+requires `application/json` for POST, rejects duplicate/protected overflow
+headers, bounds headers/body/request/socket lifetime and requests per socket, and
+returns generic closed boundary failures. The capability is absent from saves,
+checkpoints, journal entries, responses, reports, and logs.
 
-One coordinator serializes every state-dependent read and command/save/load.
-For a first-seen request it validates the complete prospective checkpoint and
-atomically writes it before exposing the response. Duplicate requests replay
-the committed response bytes directly. A bounded history never silently evicts
-an identity: recoverable history pressure creates a new logical session while
-preserving current and explicit-save V14 authority, but a candidate that cannot
-fit an empty journal fatally poisons the runtime instead of looping.
+Protocol 4 adds a random non-persisted `runtimeInstanceId` only to `/health` and
+`/session`. It is absent from snapshots, POST envelopes/responses, the replay
+journal, runtime checkpoint, V14, and logs. Startup performs one strict forward-
+only migration from protocol 3/schema
+`sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac`:
+both exact V14 slots survive, while incompatible cached protocol-3 response
+bytes are discarded behind a new logical session at revision zero. Migration
+is atomically committed before the server becomes ready and preserves old bytes
+if the write fails.
 
-The filesystem store requires a dedicated current-user `0700` root, writes
-checkpoint/lock files at `0600`, rejects symlinks and unsafe nesting, bounds and
-strictly decodes input, verifies process incarnation before reclaiming a stale
-lock, and uses same-directory temp write, file sync, rename, and directory sync.
-Graceful `SIGINT`/`SIGTERM` drains accepted work and releases the lock.
+Unity now validates an exact `http://127.0.0.1:<port>` endpoint before reading or
+attaching the environment capability, disables redirects, attaches the secret
+through one transport factory, and performs `/session` before `/snapshot`.
+Runtime-process identity is kept separate from logical authority identity.
+Actual outages retain the last authoritative projection and disable actions;
+runtime replacement reconnects only after the authority tuple is valid. A
+bounded session/snapshot join policy retries transient torn reads and fails
+loudly after five consecutive contradictions. Runtime-only replacement preserves
+player guidance; logical-session change and `SESSION_MISMATCH` clear it and
+discard the old action without automatic replay.
 
-The real production server path now supports port `0`, initializes or restores
-the checkpoint before listening, routes state-dependent GET/POST work through
-the coordinator, serves exact stored response bytes, shuts down after fatal
-persistence errors, and reports whether it is `durable` or `memory-only`.
+Files/systems changed:
 
-Files changed:
+- TypeScript contract/runtime: `bridge/schema/bridge-schema.ts`, checked-in JSON,
+  generated Unity DTO, `bridge/server.ts`, `bridge/runtime-checkpoint.ts`, and
+  `bridge/runtime/runtime-coordinator.ts`.
+- TypeScript tests/docs: bridge schema/session tests, runtime checkpoint and
+  coordinator tests, process restart tests, new `tests/bridge-http-security.test.ts`,
+  `BRIDGE-README.md`, `SECURITY.md`, and campaign continuity documents.
+- Unity runtime: generated DTO, `StudioBridgeProtocol`, `StudioBridgeTransport`,
+  `StudioBridgeRuntimeContinuity`, `StudioBridgeClient`, rejection retention,
+  and `StudioBridgeProofRunner`.
+- Unity tests: protocol, rejection-retention, and runtime-continuity EditMode
+  suites plus the required new `.meta` files.
 
-- `bridge/runtime-checkpoint.ts`
-- `bridge/runtime/checkpoint-store.ts`
-- `bridge/runtime/runtime-coordinator.ts`
-- `bridge/session.ts`
-- `bridge/server.ts`
-- `tests/bridge-runtime-checkpoint.test.ts`
-- `tests/bridge-runtime-session.test.ts`
-- `tests/bridge-runtime-coordinator.test.ts`
-- `tests/bridge-checkpoint-store.test.ts`
-- `tests/bridge-process-restart.test.ts`
-- `package.json`, `tsconfig.bridge.json`, and `tsconfig.json`
-- `BRIDGE-README.md`, `SECURITY.md`, ADR 0007/index, ledger, handoff, and
-  promotion register
+Why: loopback alone is not authentication, a logical session cannot identify an
+engine-process replacement, and a protocol bump must not strand the already-
+validated protocol-3 durable state. This unit closes those boundaries without
+moving simulation or save truth into C#.
 
-Why: a lost response after an authoritative mutation must be replayable after
-an engine crash without placing transport metadata in simulation truth. Product
-commit `e6fc2047f372e7642c3c2fcee1d3915bb4064620` is pushed; its exact parent is
-`85d865cdd4f38ab4df32e24393e130ca094f6b7f`.
+Relevant commits: TypeScript product
+`720826bd843995920bb2f219ab21203d236c1879` (parent
+`550eae6799b5cb64f567b42ab688a2bc76f5a073`) and Unity product
+`94e8bcac6a5bf94fd70f3f8a61992511230688a2` (parent
+`40465d48c191c9dcdda2c6b32c17c9675f4908a4`). Both product commits are pushed.
 
-### What is working right now
+### WHAT IS WORKING RIGHT NOW
 
-Memory-only compatibility launch:
+Launch the sealed protocol-4 checkpoint from one shell so both processes
+receive the same capability without putting it in argv or a file:
 
 ```bash
 cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
-PROJECT_STUDIO_BRIDGE_PORT=4317 npm run bridge
-```
-
-Validated durable primitive launch:
-
-```bash
-cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
+launch_capability="$(node -e \
+  "process.stdout.write(require('node:crypto').randomBytes(32).toString('base64url'))")"
 runtime_dir="$(mktemp -d "${TMPDIR:-/tmp}/project-studio-runtime.XXXXXX")"
 chmod 700 "$runtime_dir"
-echo "$runtime_dir"
-PROJECT_STUDIO_BRIDGE_RUNTIME_DIR="$runtime_dir" \
+bridge_log="${TMPDIR:-/tmp}/project-studio-bridge.$$.log"
+PROJECT_STUDIO_BRIDGE_CAPABILITY="$launch_capability" \
+  PROJECT_STUDIO_BRIDGE_RUNTIME_DIR="$runtime_dir" \
   PROJECT_STUDIO_BRIDGE_PORT=4317 \
-  npm run bridge
-```
-
-Reuse the printed directory for the restarted process. The standard command is
-not durable unless `PROJECT_STUDIO_BRIDGE_RUNTIME_DIR` is supplied.
-
-Launch the current Golden Unity client in a second terminal:
-
-```bash
+  npm run bridge >"$bridge_log" 2>&1 &
+bridge_pid=$!
+while ! rg -q '\[bridge\] live http://127\.0\.0\.1:4317' "$bridge_log"; do sleep 0.1; done
 cd '/Users/bruce/Project Studio - Unity Production Convergence 80H'
-'Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike'
+PROJECT_STUDIO_BRIDGE_CAPABILITY="$launch_capability" \
+  'Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike'
+kill -TERM "$bridge_pid"
+wait "$bridge_pid"
 ```
 
-- Bridge/runtime: opt-in persistence survives `SIGKILL`, restores the same
-  logical session/revision/digest and exact current/explicit-save V14 bytes, and
-  replays prior command/save/load HTTP bodies byte-for-byte. Default launch is
-  still memory-only and two-process.
-- Current playable flow: inherited M3 construction and exact Movie #2 journey
-  remain working from screenplay through auditions, package, production
-  blockers, load-in, shooting, save/load, post, release, stale guidance, and
-  reconnect.
-- Movie #2: TypeScript proof releases `The Reluctant Cornerstone`,
-  `script-0001`, `prod-0013` at Week 22 with digest
-  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
-- Visual state: no Unity or art change. The M3 campus remains readable but too
-  distant and diorama-like; people, material variation, two-scale camera, and
-  visible filmmaking remain below ADR 0006.
+Reuse the same `launch_capability` and `runtime_dir` only when restarting the
+engine during that one product launch. Rotate the capability for the next
+product launch. Normal `npm run bridge` without a capability fails closed; it
+also remains memory-only unless `PROJECT_STUDIO_BRIDGE_RUNTIME_DIR` is supplied.
 
-### Validation state
+- Bridge/runtime status: authenticated protocol 4 is live; opt-in durable state
+  survives `SIGKILL`; same-session response replay remains byte-exact; an actual
+  protocol-3 checkpoint migrates to protocol 4 with both V14 digests exact.
+- Unity runtime status: session-first polling, strict transport, redirect denial,
+  outage presentation retention, action pause, process-replacement detection,
+  reconnect, and bounded torn-read handling are working in EditMode and native
+  proof.
+- Current playable flow: construction and exact Movie #2 remain playable from
+  screenplay through auditions, editable casting/package, greenlight,
+  pre-production, director/scenery blockers, load-in, shooting, save/load, post,
+  release, stale guidance, and reconnect.
+- Current Movie #2 status: `The Reluctant Cornerstone`, `script-0001`,
+  `prod-0013` released at Week 22/revision 23; final digest
+  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`;
+  saved/restored digest
+  `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`.
+- Current visual state: functionally unchanged from M3. The capture remains a
+  high-isometric, sparse diorama with a generic debug-heavy HUD. It does not yet
+  feel inhabitable, human-scale, era-authored, or visibly like filmmaking and
+  remains below ADR 0006's recognizability gate.
+
+### VALIDATION STATE
 
 | Gate | Latest result |
 | --- | --- |
-| Full TypeScript tests | 332 files; 4,488 passed, 5 skipped, 0 failed |
-| TypeScript typecheck | Passed after routing all `bridge*.test.ts` files exclusively through the dedicated bridge config |
+| Full TypeScript tests | Passed: 333 files; 4,493 passed, 5 skipped, 0 failed |
+| Product-SHA CI | GitHub Actions run `32435419313` passed all gates for exact TypeScript product `720826bd843995920bb2f219ab21203d236c1879` in 10m54s |
+| TypeScript typecheck | Full application typecheck passed |
 | Bridge typecheck | Passed |
 | Production build | Passed; inherited Vite chunk-size warnings only |
-| Bridge aggregate | 62/62 passed across 7 files; deterministic generated contract verified |
-| Checkpoint/session/coordinator focused | 23/23 passed; non-null explicit-save rollover is now permanent coverage |
-| Filesystem store | 12/12 passed, including mode, symlink, PID-reuse, UTF-8, bound, fsync, and rollback cases |
-| Real process restart | Passed command/save/command/load, `SIGKILL`, same-directory restore, four byte-exact replays, cross-route reuse rejection, and graceful lock removal |
-| Movie #2 bridge proof | Passed Week 22; save/import/headless byte parity and reconnect digest exact |
-| Browser dependency audit | Passed; 0 browser-runtime vulnerabilities |
-| Repository hygiene | Passed; 1,017 repository files after documentation additions |
-| Adopted 3D assets | Passed; 26 assets, 0 hard violations |
-| Product-SHA remote CI | GitHub Actions run `32430904875` passed every gate for `e6fc2047f372e7642c3c2fcee1d3915bb4064620` in 10m25s |
-| Latest Unity EditMode | M3 24/24; not rerun because this candidate changes no Unity/contract source |
-| Latest native build | M3 136,938,870 bytes; not rebuilt for this TS-only internal runtime candidate |
-| Latest native playthrough | M3 Week 22/revision 23, exact final digest above |
-| Latest performance | M3 119.3803 FPS proof; 118.9993 FPS reconnect on Apple M3 Max |
-| Latest screenshots/evidence | Ignored `Evidence/A4/Rejection-Guidance/`; retained frame SHA-256 `d57920515d9a0de8f3ce804e5f7545496e905b6538cf6eed103a84b9a768b4d5`; no new visual evidence |
+| Generated contract | Passed; protocol 4/projection 4/schema `ba9cd199...`; checked-in JSON and generated C# deterministic |
+| Bridge aggregate | Passed: 67/67 across 8 files, including raw HTTP attacker, restart, migration, replay, Movie #2, and save determinism coverage |
+| Bridge proof | Passed; exact Movie #2 release, V14 save/import/headless parity, stale/duplicate protection, and polling independence |
+| Protocol-3 migration | Passed unit/coordinator failure tests and an independent real checkpoint produced by `e6fc2047`; current/saved V14 digests preserved exactly |
+| Browser dependency audit | Passed: 0 browser-runtime vulnerabilities |
+| Repository hygiene | Passed: 1,018 repository files checked |
+| 3D asset audit | Passed: 26 assets, 0 hard violations |
+| Unity EditMode | Passed: 46/46 |
+| Native macOS build | Passed; `Builds/macOS/Project Studio Visual Spike.app`; 136,955,718 aggregate file bytes |
+| Native Movie #2 | Passed protocol 4 end-to-end at Week 22/revision 23; stale rejection retained from poll 13 to 14; no console failure |
+| Native runtime restart | Passed actual outage and engine replacement with the same logical session/revision `0`/Week `11`/digest `3517604efca1c48a54732d9799b6a73ffa9ab99f26e0e28d54bdbac010af1109`; runtime ID changed; 3 outage polls; projection retained; actions disabled then restored |
+| Restart checkpoint | Byte-identical across restart; SHA-256 `9684a67cb1e04bd4cec44dd91aab37aabef28d53b22d757b175b8821dd1bcfb5`; 266,526 bytes; journal length 0 |
+| Performance | Movie #2 average 118.999455 FPS; restart proof 118.999921 FPS on Apple M3 Max |
+| Secret scan | Capability absent from server/Unity logs, checkpoint, reports, evidence JSON, and generated DTO; runtime ID absent from checkpoint and logs |
+| Latest evidence | `Evidence/B/Secure-Movie2-Protocol4-Final-20260821T005553Z/` and `Evidence/B/Runtime-Restart-Protocol4-Final-20260821T005655Z/` |
+| Evidence hashes | Movie #2 proof JSON `e1795b73...`; released frame `6e1efea3...`; restart proof JSON `b0ea2900...`; restart frame `6e3feeef...` |
 
-Independent replay and lifecycle audits report no remaining P0/P1 in the
-persistence core. A corrupt real checkpoint was also proven to exit nonzero,
-preserve its bytes, and release the lock.
+Independent TypeScript and Unity red-team passes found no remaining P0/P1 in
+the implemented protocol-4 boundary, migration, or idle restart lifecycle after
+fixes. This is still not a Golden checkpoint because the next acceptance gate
+and default product lifecycle are incomplete and visual quality did not improve.
 
-### Known problems / blockers
+### KNOWN PROBLEMS / BLOCKERS
 
-- P1, pre-existing localhost boundary: the server accepts arbitrary Host,
-  arbitrary Origin, and `text/plain` state-changing requests without a
-  capability. Independent reproduction returned HTTP 200 and moved revision
-  `0 -> 1`. This blocks Golden/default-runtime claims.
-- P1, incomplete lifecycle: normal `npm run bridge` is memory-only; no
-  supervisor creates the private runtime root, chooses a random port, transfers
-  a capability, owns logs, or restarts/cleans the child.
-- P1, incomplete Unity recovery: health/session has no non-persisted
-  `runtimeInstanceId`; Unity has no exact retained in-flight envelope/retry proof
-  across an engine kill. Do not auto-replay stale or session-mismatched intents.
-- P1, visual product: current Unity still misses inhabitable two-scale camera,
-  human-scale role readability, era/material character, and convincing active
-  filmmaking.
-- P2, packaging: the development bridge runs through `vite-node`; the green
-  browser audit does not audit this dev runtime graph.
-- P2, default evidence boundary: the real-process test supplies the runtime
-  directory itself, so it proves the primitive, not the ordinary launch command.
-- Regression status: no persistence-core regression remains after red-team.
-  The security/default-launch defects are inherited unfinished Phase B work.
-- Attempted/fixed: parent permission mutation, ancestor symlink escape, PID
-  reuse locks, post-mutation capacity split, permanent journal-full sink,
-  route-invalid replay, unbound journal corruption, noncanonical live bytes,
-  root revision inflation, and intrinsic-entry rollover loops were all found,
-  fixed, and regression-tested.
-- Must not retry: widening V14, placing replay metadata/capabilities in
-  `GameState`, async unqueued checkpoint writes, silent command-ID eviction,
-  arbitrary caller-selected storage paths, or treating loopback alone as auth.
+- P1, ambiguous in-flight POST recovery. Exact defect: Unity does not retain and
+  retry the exact raw UTF-8 route/body/command identity if the engine dies after
+  durable commit but before response delivery. Reproduction: kill the engine in
+  that interval during `/command`, `/save`, or `/load`; the authoritative action
+  may be committed while Unity observes only transport failure and discards the
+  operation. This is pre-existing unfinished Phase B work, not a Checkpoint 8
+  regression. Commit-before-response, durable deduplication, same-session exact
+  replay, session-first polling, and process/outage detection are implemented;
+  the deterministic response-hold seam and native kill proof are not. Must not
+  generate a new command ID/body, retry before validating `/session`, or replay
+  anything after logical-session mismatch.
+- P1, default runtime lifecycle. Exact defect: normal `npm run bridge` remains
+  memory-only and there is no one-command supervisor owning a private runtime
+  root, random port, capability handoff, child restart/shutdown, stale-process
+  cleanup, and bounded logs. Reproduction: launch with only capability and port;
+  startup reports `checkpoint=memory-only`, and engine exit leaves Unity without
+  a supervisor. This is pre-existing incomplete Phase B work. The secure/durable
+  primitives and manual launch are validated. Must not place the capability in
+  argv, logs, disk, reports, checkpoints, saves, or `GameState`, and must not
+  expose arbitrary filesystem or command execution through HTTP.
+- P2, packaged runtime audit boundary. Exact defect: the development bridge runs
+  through `vite-node`; `npm run audit:browser-deps` intentionally excludes the
+  dev runtime graph. Reproduction: inspect the launch script and audit scope.
+  This is pre-existing packaging work. Browser dependencies and repository
+  hygiene pass. Must not claim a production dependency audit until an emitted,
+  pinned runtime artifact is audited directly.
+- P1, visual product mismatch. Exact defect: current captures remain elevated,
+  sparse, flat, and debug-HUD-led; people, role readability, era materials,
+  two-scale camera, Hero Stage 7, and visible filmmaking remain below ADR 0006.
+  Reproduction: inspect the latest whole-lot, construction, shooting, release,
+  and restart frames against the fidelity reference and M3. This is pre-existing
+  and visually unchanged in Checkpoint 8. Must not call this unit a visual
+  improvement or Golden based on tests/FPS.
+- Attempted fixes that must not be repeated: a positive Node
+  `server.maxHeadersCount` hid protected tail headers through truncation;
+  transport redirects forwarded the capability; ordinary poll transitions were
+  miscounted as outages; one valid session/snapshot race was treated as fatal;
+  runtime-only replacement cleared valid rejection guidance; and protocol-3
+  checkpoints were initially rejected instead of migrated. All were replaced
+  with tested fail-closed or recovery behavior. Do not restore those designs.
 
-### Next exact action
+### NEXT EXACT ACTION
 
-Add a non-persisted per-launch capability and `runtimeInstanceId` to the
-TypeScript handshake, enforce the exact loopback Host, reject every Origin,
-require `application/json` for POST, set bounded header/request/idle timeouts,
-and add real attacker/compatibility tests before regenerating the contract and
-wiring Unity authorization/restart detection.
+Implement exact in-flight POST recovery for `/command`, `/save`, and `/load`:
+retain the route, raw UTF-8 body, and `commandId` before send; after transport
+loss, fetch and validate `/session`; retry the identical bytes only when the
+logical session still matches, and discard/refresh on session mismatch. Add a
+deterministic TypeScript test seam that holds the response after atomic durable
+commit, then kill the engine at that point in a native Unity proof and verify
+one authoritative mutation plus byte-identical deduplicated response recovery.
 
-### Next 3-5 actions after that
+### NEXT 3-5 ACTIONS AFTER THAT
 
-1. Build the one-command developer supervisor: private runtime root, random
-   port, secret transfer without logs/disk, bounded logs, child ownership,
-   graceful shutdown, and stale-process cleanup.
-2. Make Unity retain the exact in-flight envelope, detect a changed runtime
-   instance, reconnect/refresh, and retry only a byte-identical deduplicated
-   request when the logical session still matches.
-3. Prove native Movie #2 through engine `SIGKILL`/restart, including a lost
-   response, explicit save/load, stale click, and duplicate protection.
-4. Prove active-production and active-construction checkpoint recovery, then
-   define/audit the packaged Node runtime dependency graph.
-5. Resume the isolated `location-v1` two-scale camera experiment and Hero
-   Soundstage 7 vertical slice after Phase B is safely sealed.
+1. Build the one-command developer launcher/supervisor with a private durable
+   root, random port, same-launch capability handoff, bounded logs, owned child
+   restart/shutdown, health readiness, and stale-process cleanup.
+2. Prove checkpoint/reconnect/save-load behavior from an active Movie #2
+   production and active construction, including duplicate/stale protection.
+3. Emit and pin the production bridge runtime, audit its actual packaged
+   dependency graph, and document the remaining installer/launcher boundary.
+4. Resume the isolated `location-v1` two-scale camera experiment and Hero
+   Soundstage 7 visual slice only after the Phase B lifecycle gate is sealed.
 
-### Do not touch
+### DO NOT TOUCH
 
-- Frozen authorities, M1/M2/M3 tags, V14 save/game truth, permanent IDs, RNG
-  streams, Three.js regression oracle, and TypeScript-only simulation authority.
-- Do not promote this candidate now or merge it to C2. A future canonical
-  promotion must pass the delegated technical-PM gate and use a reviewed merge
-  candidate. Never rebase, force-push, rewrite history, delete tags or
-  historical branches, buy assets, use protected assets, or generate images.
-- Do not persist the future launch capability, expose filesystem/command
-  execution over HTTP, hand-edit generated DTOs, or infer gameplay truth in C#.
-- Keep the `location-v1` visual experiment isolated until the runtime gate is
-  closed. Do not disguise unfinished lifecycle/security work with screenshots.
+- Frozen authorities, immutable M1/M2/M3 tags, V14 save/game truth, permanent
+  IDs, RNG streams, Three.js regression oracle, and TypeScript-only simulation
+  authority.
+- Do not tag or promote non-Golden Checkpoint 8, and do not merge this bounded
+  checkpoint to main/C2. A later canonical promotion remains authorized only
+  after the full delegated PM gate and a reviewed merge candidate pass. Never
+  rebase, force-push, rewrite history, delete tags/branches, buy assets, use
+  protected assets, generate images, or mutate historical research truth.
+- Do not persist the capability or `runtimeInstanceId`; widen V14; add bridge
+  metadata to `GameState`; hand-edit generated DTOs; duplicate gameplay formulas
+  in C#; silently evict command IDs; or perform async unqueued checkpoint writes.
+- Do not weaken exact Host/Origin/content-type/header/redirect checks. Do not
+  retry a retained POST across a changed logical session or reconstruct its
+  body from current presentation state.
+- Keep `location-v1` and other visual experiments isolated until the runtime
+  recovery gate is closed. The latest native evidence is validation material,
+  not proof of visual acceptance.
 
-### Decisions made this session
+### DECISIONS MADE THIS SESSION
 
-- Bridge operational state is a separately versioned checkpoint, never a V15
-  gameplay save and never part of `GameState`. Reversible: format V1 can migrate
-  independently; evidence is V14 byte/digest parity and ADR 0007.
-- Logical session identity survives a process restart so duplicate responses
-  remain exact. A future non-persisted runtime-instance identity will report
-  process replacement. Reversible at a later protocol boundary.
-- First-seen responses are committed before exposure and all relevant work is
-  serialized. Not safely reversible without losing crash semantics.
-- No silent replay eviction. Bounded history rolls only when a sole candidate
-  fits, preserves both V14 slots, and returns session mismatch. Reversible only
-  with an equally explicit bounded retention policy.
-- This checkpoint is non-Golden: it is a validated TS-only infrastructure
-  improvement, but the default product launch and native kill/reconnect gate do
-  not yet pass. M3 remains the unambiguous CURRENT BEST compatible pair.
+| Decision | Reason | Reversible | Supporting evidence |
+| --- | --- | --- | --- |
+| Bump protocol to 4 and keep projection at 4 | Process identity changes the handshake contract but adds no snapshot facts | Only at a later explicit protocol boundary | Generated schema/DTO checks and 67 bridge tests |
+| Keep `runtimeInstanceId` process-local and expose it only on health/session | Process replacement must be visible without contaminating durable/gameplay truth | Yes, within infrastructure, while confinement remains | Schema exclusion tests, checkpoint/log scans, native restart proof |
+| Require one 32-byte per-launch capability on every request | Loopback is not an authentication boundary | Replaceable by an equally private launcher channel | Raw attacker tests and no-secret scans |
+| Migrate exactly protocol 3 to 4 by preserving both V14 slots but opening a new session with no journal | Protocol-3 response bytes cannot satisfy protocol 4, while gameplay/save authority must survive | Forward-only; do not synthesize rewritten replay bytes | Unit/coordinator failure tests and actual `e6fc2047` checkpoint migration |
+| Preserve projection/guidance during runtime-only replacement and disable actions during real outage | Process identity is not logical authority identity | Yes if an equally strict state machine replaces it | 46 EditMode tests and native restart evidence |
+| Do not automatically retry POSTs in this unit | Safe retry requires retaining exact bytes and validating the logical session after ambiguity | Yes; NEXT EXACT ACTION adds the bounded safe path | Red-team lifecycle audit and missing kill-after-commit proof |
+| Keep M3 as CURRENT BEST and mark Checkpoint 8 non-Golden | Default lifecycle and in-flight proof remain incomplete; visuals are unchanged and below ADR 0006 | Yes after the full Golden gate passes | Promotion register, current evidence, and blocker list above |
 
-### Uncommitted / generated material
+### UNCOMMITTED / GENERATED MATERIAL
 
-- The Phase B source/test/config/docs product is committed and pushed at
-  `e6fc2047f372e7642c3c2fcee1d3915bb4064620`. This section, the ledger seal, and
-  promotion update are the sole docs-only continuity descendant. No product WIP
-  is intentionally uncommitted.
-- There are no new assets, schema/generated DTO changes, screenshots, or native
-  builds in this checkpoint.
-- `.tmp/3d-asset-audit.json`, `dist/`, `node_modules/`, runtime test directories,
-  and `/tmp` logs are generated/ignored and deliberately excluded.
-- Unity ignored `Builds/`, `Evidence/`, `Library/`, and `Logs/` remain local from
-  M3. No Unity tracked file is dirty.
-- The local fidelity PDF remains outside Git at
+- No tracked or untracked product WIP remains after the containing continuity
+  commit is pushed. The TypeScript branch tip may be one documentation-only
+  descendant of product `720826bd...`; Unity remains exactly at product
+  `94e8bcac...`.
+- Ignored local evidence: `Evidence/B/Secure-Movie2-20260821T003224Z/`,
+  `Evidence/B/Secure-Movie2-Protocol4-20260821T005114Z/`,
+  `Evidence/B/Secure-Movie2-Protocol4-Final-20260821T005553Z/`,
+  `Evidence/B/Runtime-Restart-20260821T003049Z/`,
+  `Evidence/B/Runtime-Restart-Protocol4-20260821T005219Z/`, and
+  `Evidence/B/Runtime-Restart-Protocol4-Final-20260821T005655Z/`.
+- Generated local native build: Unity `Builds/macOS/Project Studio Visual
+  Spike.app`, 136,955,718 aggregate file bytes. Unity `Library/` and `Logs/`
+  remain ignored caches.
+- Local final logs: `/tmp/studio-b8-final-editmode.log`,
+  `/tmp/studio-b8-final-editmode.xml`,
+  `/tmp/studio-b8-final-native-build.log`,
+  `/tmp/studio-b8-final-movie2-server-20260821T005553Z.log`,
+  `/tmp/studio-b8-final-movie2-unity-20260821T005553Z.log`, and the three
+  `/tmp/studio-b8-final-restart-*-20260821T005655Z.log` files. Earlier B8 and
+  red-team logs remain local and deliberately excluded.
+- TypeScript generated/ignored material: `.tmp/3d-asset-audit.json`, `dist/`,
+  `node_modules/`, and temporary runtime directories. These must not enter Git.
+- Retained final runtime checkpoints are local-only:
+  `/var/folders/q_/n1q5ygxd25b3r9wnd57c5zsw0000gn/T/studio-b8-final-movie2-runtime.PFUS1e/bridge-runtime-v1.json`
+  is 1,354,920 bytes, has 25 journal entries, and SHA-256
+  `2e657e66284389709116f228e31f4488450c2c104288ca7f43235cb3544b93ce`;
+  `/var/folders/q_/n1q5ygxd25b3r9wnd57c5zsw0000gn/T/studio-b8-final-restart-runtime.rv3wJn/bridge-runtime-v1.json`
+  is 266,526 bytes, has 0 journal entries, and SHA-256
+  `9684a67cb1e04bd4cec44dd91aab37aabef28d53b22d757b175b8821dd1bcfb5`.
+- The local visual-fidelity PDF remains outside Git at
   `/Users/bruce/Downloads/project-studio-visual-fidelity.pdf`, 1,087,211 bytes,
   SHA-256
   `692140a7d4be313fd1df7605c96306a9f7e53f4fce46bc0f69a5ec1453a96a39`.
+- No purchased, generated-image, protected, or newly adopted production asset is
+  part of Checkpoint 8.
 
-### Recovery instructions
+### RECOVERY INSTRUCTIONS
 
-1. Read the frozen client decision, ledger, this top section, promotion
-   register, ADR 0007, and `BRIDGE-README.md`.
-2. Verify `git rev-parse HEAD` equals the configured TypeScript upstream and is
-   the one docs-only descendant of product commit
-   `e6fc2047f372e7642c3c2fcee1d3915bb4064620`. Verify Unity HEAD/upstream
-   `40465d48c191c9dcdda2c6b32c17c9675f4908a4` and that M3 tags peel to the
-   product pair above.
-3. Run `npm run test:bridge`, both typechecks, and `git diff --check`. Do not
-   revert the pushed Phase B product commit.
-4. Run the durable launch command with one reused private directory, then run
-   `npx vitest run tests/bridge-process-restart.test.ts` to confirm the recorded
-   SIGKILL/replay state.
-5. Continue from NEXT EXACT ACTION without reopening engine choice, V14 design,
-   schema generation, A1-A4, or the checkpoint architecture.
+1. Read `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`, the campaign ledger, this top
+   section, the promotion register, ADR 0006, ADR 0007, `BRIDGE-README.md`, and
+   `SECURITY.md`. Do not restart planning or reopen the engine decision.
+2. In the TypeScript worktree, verify branch
+   `campaign/unity-production-convergence-80h-ts`; confirm product commit
+   `720826bd843995920bb2f219ab21203d236c1879` is an ancestor of HEAD, HEAD equals
+   its configured upstream, and `git status --short` is empty. The branch tip may
+   be exactly one continuity-document-only descendant of the product commit.
+3. In the Unity worktree, verify branch
+   `campaign/unity-production-convergence-80h-client`, HEAD/upstream
+   `94e8bcac6a5bf94fd70f3f8a61992511230688a2`, then confirm
+   `git status --short` is empty.
+4. Verify protocol `4`, projection `4`, schema `ba9cd199...`, and SHA-256
+   `1192d58a...` for both generated DTO copies. Run the minimum source smoke:
+   `npm run check:bridge-contract`, `npm run typecheck:bridge`, and
+   `npm run test:bridge`; expected bridge result is 67/67.
+5. If Unity source integrity is uncertain, run Unity 6000.3.22f1 EditMode with
+   `-runTests -testPlatform EditMode`; expected result is 46/46. Rebuild only if
+   the current native app is missing or source changed after the timestamp.
+6. Launch the protocol-4 checkpoint with the same-shell command above. Confirm
+   authenticated `/session`, a stable logical session, a nonempty runtime ID,
+   Movie #2 playability, and clear action pause/recovery during an engine restart.
+7. Inspect the two final evidence directories and logs listed above. They prove
+   idle restart and Movie #2, not the still-missing kill-after-commit case.
+8. Continue with NEXT EXACT ACTION exactly as written. Do not ask the Owner to
+   reconstruct history or repeat settled A1-A4/checkpoint/security research.
 
 ## GOLDEN M3 HANDOFF - HISTORICAL
 

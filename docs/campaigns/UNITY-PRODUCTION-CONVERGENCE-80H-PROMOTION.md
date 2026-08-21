@@ -14,10 +14,9 @@ Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
 | Unity production client | `HSpector1/project-studio-unity-visual-spike` | `campaign/unity-production-convergence-80h-client` | `40465d48c191c9dcdda2c6b32c17c9675f4908a4` | `golden/unity-convergence-m3` |
 
 Both annotated tags are pushed and remote tag dereferences were verified at the
-exact product SHAs. The Unity campaign branch still points at its M3 product;
-the TypeScript campaign branch has pushed continuity descendants and now carries
-an uncommitted Phase B candidate, so its moving branch tip is not the M3 product
-authority. This is one schema-pinned compatible pair: protocol `3`, projection
+exact product SHAs. Both campaign branches have since advanced to the sealed
+non-Golden Checkpoint 8 pair, so neither moving branch tip is the M3 product
+authority. M3 remains this schema-pinned compatible pair: protocol `3`, projection
 `4`, schema
 `sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac`.
 Never build, recover, or promote only one side.
@@ -162,32 +161,103 @@ runtime durability is absent, TypeScript `main` remains historically diverged,
 and the Unity visual product still misses the binding recognizability gate.
 Promotion status remains exactly **GOLDEN — CONTINUE CAMPAIGN**.
 
-## PUSHED PHASE B DURABILITY CHECKPOINT - NON-GOLDEN
+## CHECKPOINT 8 SEALED PHASE B PAIR - NON-GOLDEN
 
-The TypeScript durability product is committed and pushed at
-`e6fc2047f372e7642c3c2fcee1d3915bb4064620` on parent
-`85d865cdd4f38ab4df32e24393e130ca094f6b7f`. The campaign branch may have the
-single continuity-only descendant containing this seal. Unity remains clean at
-Golden M3 `40465d48c191c9dcdda2c6b32c17c9675f4908a4`. Protocol `3`, projection
-`4`, schema identity, generated DTOs, gameplay, and visual output are unchanged.
+Checkpoint 8 is a validated, protocol-pinned, committed, pushed, and recoverable
+compatible pair. It is not tagged, Golden, or canonical. Its exact product SHAs
+and parents are:
 
-The pushed checkpoint adds a strict operational checkpoint outside `GameState`/V14,
-serialized commit-before-response dispatch, exact response replay, private
-atomic storage and process-incarnation locking, controlled bounded-history
-rollover, graceful shutdown, and a real command/save/command/load `SIGKILL`
-restart proof. Full validation passes: 332 files/4,488 tests/5 skipped;
-62/62 bridge tests; both typechecks; build; Movie #2/determinism proof; and all
-browser-dependency, repository-hygiene, and 3D provenance gates. Independent
-audits report no P0/P1 in the persistence core. Product-SHA GitHub Actions run
-`32430904875` passed the same complete gate at
-`e6fc2047f372e7642c3c2fcee1d3915bb4064620` in 10m25s.
+| Component | Branch | Exact product SHA | Parent | State |
+| --- | --- | --- | --- | --- |
+| TypeScript authority | `campaign/unity-production-convergence-80h-ts` | `720826bd843995920bb2f219ab21203d236c1879` | `550eae6799b5cb64f567b42ab688a2bc76f5a073` | Product commit pushed; branch may have one continuity-only descendant |
+| Unity production client | `campaign/unity-production-convergence-80h-client` | `94e8bcac6a5bf94fd70f3f8a61992511230688a2` | `40465d48c191c9dcdda2c6b32c17c9675f4908a4` | Product commit pushed; branch clean at exact product SHA |
 
-This checkpoint does **not** supersede Golden M3. The ordinary launch remains
-memory-only, localhost accepts unauthorized Host/Origin/`text/plain` requests,
-there is no launcher/runtime-instance/Unity engine-kill recovery proof, and no
-new native or visual evidence exists. A Golden pair cannot advance on a TS-only
-internal primitive whose default product path is not yet durable. CURRENT BEST
-therefore remains the exact M3 tagged pair above, and promotion status remains
+The Checkpoint 8 pair is protocol `4`, projection `4`, schema
+`sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`.
+The generated TypeScript C# golden and Unity copy are byte-identical. These two
+product SHAs are the only Checkpoint 8 compatible pair; neither side is
+independently promotable.
+
+### What Checkpoint 8 adds
+
+- The TypeScript HTTP boundary now requires a canonical non-persisted 32-byte
+  launch capability, binds to exact IPv4 loopback, rejects invalid Host and all
+  Origin requests, requires JSON for POST, uses bounded HTTP timeouts, and emits
+  generic boundary failures without reflecting the capability.
+- `/health` and the new `/session` route expose a non-persisted
+  `runtimeInstanceId` separately from logical session/revision/week/digest
+  authority. Gameplay truth, V14 saves, migration, replay, and outcomes remain
+  TypeScript-owned.
+- The durable runtime checkpoint moves to protocol `4` with a strict forward-only
+  migration from the immediately preceding protocol-3 checkpoint. Migration
+  preserves current and explicitly saved V14 bytes, creates a fresh logical
+  session at revision zero, discards incompatible replay bytes, commits before
+  use, and preserves the old bytes on a failed migration write.
+- Unity accepts only exact `http://127.0.0.1:<port>` transport, attaches the
+  capability header through one private transport factory, disables redirects,
+  joins `/session` before `/snapshot`, rejects persistent torn reads, and gates
+  every action until the handshake and applied projection match exactly.
+- Unity distinguishes engine-process replacement from logical-session change.
+  During an outage it retains the last projection as explicitly noninteractive;
+  `SESSION_MISMATCH` discards the prior action, clears session-bound guidance,
+  refreshes authority, and never auto-replays a stale or session-mismatched
+  envelope. Fatal authorization and contract errors are player-visible without
+  exposing the capability.
+
+### Checkpoint 8 validation
+
+- TypeScript bridge/schema/runtime/security: 67/67 passed, including capability
+  attacker coverage, runtime incarnation, protocol-3 checkpoint migration,
+  persistence/restart, stale/duplicate commands, save/load, and deterministic
+  Movie #2 paths.
+- Full TypeScript regression: 333 files, 4,493 passed, 5 skipped, 0 failed.
+  Both TypeScript typechecks, production build, generated drift, Movie #2,
+  repository hygiene, browser dependency audit, and 3D provenance gates passed.
+- Exact-product GitHub Actions run `32435419313` passed every configured gate in
+  10m54s at TypeScript SHA `720826bd843995920bb2f219ab21203d236c1879`.
+- Unity EditMode: 46/46 passed, including strict protocol-4 DTO parsing,
+  loopback/capability transport, session/snapshot continuity, torn reads, and
+  authority-bound rejection retention.
+- Native macOS build passed at 136,955,718 bytes.
+- Fresh authenticated native Movie #2 passed the full player path: construction,
+  screenplay, auditions/evidence, package and greenlight, pre-production,
+  blocker resolution, shooting, save/load, post, stale rejection, and release.
+  `The Reluctant Cornerstone`, `script-0001`, and `prod-0013` released at Week
+  22/revision 23 with final digest
+  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
+  Saved/restored digest was exactly
+  `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`.
+- Movie #2 report and 12 milestone captures are in ignored local evidence at
+  `Evidence/B/Secure-Movie2-Protocol4-Final-20260821T005553Z/` in the Unity
+  worktree. The report completed at 118.9995 FPS with zero torn reads.
+- An externally orchestrated idle native engine-kill proof observed three outage
+  polls, disabled actions while retaining the exact Week 11/revision 0
+  projection, detected one changed runtime incarnation, and returned Live with
+  unchanged session/revision/week/digest. Report and capture are in ignored local
+  evidence at
+  `Evidence/B/Runtime-Restart-Protocol4-Final-20260821T005655Z/`; all restart
+  assertions are true.
+- Independent TypeScript and Unity audits found no remaining P0/P1 in this
+  bounded checkpoint.
+
+### Why Checkpoint 8 does not supersede M3
+
+Checkpoint 8 materially improves the Phase B architecture and native recovery
+evidence and is now a recoverable pushed product checkpoint. It still does not
+supersede M3 because:
+
+- the default developer launch still starts a memory-only runtime through two
+  manually managed processes; no supervisor yet owns a private runtime root,
+  random port, capability transfer, child lifecycle, logs, or cleanup;
+- exact byte-identical recovery of an ambiguous in-flight command, save, or load
+  after a lost response remains unimplemented and unproven; the current client
+  intentionally refreshes authority without automatic replay;
+- visual output is unchanged from M3 and remains below ADR 0006's inhabitable,
+  human-scale, filmmaking-recognizability gate.
+
+Therefore Checkpoint 8 receives no Golden tag and no canonical promotion. It
+does **not** supersede M3. CURRENT BEST remains the exact immutable M3 pair at
+the top of this register, and promotion status remains exactly
 **GOLDEN — CONTINUE CAMPAIGN**.
 
 ## PRIOR GOLDEN M2 REGISTER - HISTORICAL
