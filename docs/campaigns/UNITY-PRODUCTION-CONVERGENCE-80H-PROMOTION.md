@@ -232,14 +232,230 @@ obvious build-from state while continuing the campaign.
 
 Promotion status remains exactly **GOLDEN — CONTINUE CAMPAIGN**.
 
-## CHECKPOINT 15 SEALED RECOGNIZABLE PRODUCTION SLATE - NON-GOLDEN
+## CHECKPOINT 16 SEALED INSPECTION FRAMING - NON-GOLDEN
 
 Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
 
-Checkpoint 15 is the compatible pushed campaign tip after Checkpoint 14. The
-targeted slate-recognition gate passes, but CP15 is **SEALED NON-GOLDEN**: it is
-not CURRENT BEST, tagged, canonical, promoted, or ready for canonical review
-because portrait composition still fails. Golden M4 above remains the sole
+Checkpoint 16 is the compatible pushed campaign tip after Checkpoint 15. Its
+bounded Stage 7 inspection-framing slice passes, but CP16 is **SEALED
+NON-GOLDEN**: it is not CURRENT BEST, tagged, canonical, promoted, or ready for
+canonical review because the portrait composition still fails first-read
+quality. Golden M4 above remains the sole CURRENT BEST recovery answer.
+
+| Component | Repository | Branch | Exact pushed compatible SHA | Direct parent | Tag |
+| --- | --- | --- | --- | --- | --- |
+| TypeScript authority | `HSpector1/The-Movies` | `campaign/unity-production-convergence-80h-ts` | `69c931ff56bd550926143ad065fc36794441a839` | `d92f74191dc9d4d0e80f3e922e7dbc4bd0961c2f`; CP15 documentation-only seal; no CP16 TypeScript product change | None |
+| Unity production client | `HSpector1/project-studio-unity-visual-spike` | `campaign/unity-production-convergence-80h-client` | `e1cfa2a1dc1da7b2be8214d587fac60d444b0603` | `0c0ef1554278441eed1d2dccac54c2d941395041`; `feat(visuals): frame Stage 7 inspection`; exactly 9 modified paths | None |
+
+Both compatible parents are pushed. Unity local HEAD, configured upstream, and
+live remote branch equal `e1cfa2a1...` with a clean tracked tree. TypeScript
+HEAD/upstream equal `69c931ff...` before this continuity edit. Never substitute
+either parent or mix CP16 sides.
+
+The documentation-only commit containing this section must be the direct child
+of TypeScript `69c931ff56bd550926143ad065fc36794441a839`. A commit cannot
+embed its own resulting SHA, so resolve its self SHA with `git rev-parse HEAD`;
+after push, require HEAD equal configured upstream and a clean tracked tree.
+That docs-only child changes no CP16 product or promotion fact.
+
+The contract remains protocol `4`, projection `4`, schema
+`sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`.
+TypeScript remains sole simulation authority. CP16 changes no TypeScript,
+generated DTO, V14 save, `GameState`, identity, RNG, economy, construction,
+gameplay, state semantics, or authority. Both StageSeven camera profiles, all
+role/equipment marks, and the final CP15 slate are frozen.
+
+### What Checkpoint 16 adds
+
+- `BACK` is exactly `112x44`, `12px` from the top/right of
+  `Screen.safeArea`, with a charcoal `.12/.115/.105/.86` fill, warm
+  `.66/.55/.38/.72` one-pixel keyline, bold `13px` cream text, and the full
+  `112x44` transparent hit overlay. Exact GUI rectangles are
+  `(1316,12,112,44)` at 1440x900, `(266,12,112,44)` at 390x844, and
+  `(266,59,112,44)` for safe area `(0,34,390,763)`.
+- Stage A gains identity-root `Inspection Portrait Framing` with exactly eight
+  permanent direct renderers and no collider, rigidbody, NavMesh obstacle,
+  light, or runtime-state component.
+- The accepted geometry below supersedes the initial CP16 draft, which could
+  not satisfy both frozen camera frusta. Exact Stage A-local endpoints are
+  batten 01 `(-1.5,9,8)->(4.7,9,8)` and batten 02
+  `(-1.5,10.4,12)->(5.6,10.4,12)`, radius `.08`, `Steel`; rails are
+  `x=-.7/.4`, `y=.72`, `z=-5.53->-2.53`, radius `.035`, `Steel`; four ties
+  are centered at `x=-.15`, `y=.705`, `z=-5.23/-4.43/-3.63/-2.83`, size
+  `1.2/.035/.08`, `HeroStageBlackSteel`.
+- Schema `4` now fail-closes exact aggregate IDs
+  `inspection-overhead-framing` and `inspection-floor-framing`, renderer
+  cardinality/names, normal-frustum visibility, composite/isolated ID pixels,
+  edge inset, and portrait area/band thresholds. All pre-existing role,
+  backdrop, slate, state, luma, effects, authority, and no-POST gates remain.
+
+### Accepted validation and evidence
+
+| Gate | Checkpoint 16 result |
+| --- | --- |
+| Canonical scene validation | Runs 1 and 2 each pass 32 people / 10 vehicles / 16 equipment / 4 captures / 0 errors / 0 warnings. `/tmp/cp16-canonical-final1.log`, SHA-256 `392b3744c7dd4bf2fd673ca78448a67de3f8febad75a9d1a4ced00a7006fdb24`; `/tmp/cp16-canonical-final2.log`, SHA-256 `235fd744280810479cbba5b0ecd987977f152c8fee7402b6aec4300992c5c478`; accepted validation JSON SHA-256 `9ae61146c6bd5da9b602be0a66d6795a443189c329f720647e080bccacdbc21a` |
+| NavMesh | `StudioLotNavMesh.asset` remains byte-identical, 119,012 bytes, SHA-256 `20a8afad3e7fba5f0c974050fbc39f332f03ad29c21dc84561809758aa828f04` |
+| Unity EditMode | 196/196; `/tmp/cp16-editmode-final2.xml`, SHA-256 `9c90c91ff421649e20f762a9f9293c7a3a72aa497fb9c5202a166e450d6c8814`; log SHA-256 `9dcb8956bac70a430faaded74c9e1229a1dbd907542be9e280799727295bec00` |
+| Native build | Success; `/tmp/cp16-build-macos.log`, SHA-256 `f28da81152e851db802b576f1a50fa5c689569637986d89002f69cf3daf1aac9`; app 183 files / 151,509,138 bytes; executable 116,116 bytes, SHA-256 `07ee943e6494256b8966bc74d667cb9ab3d3e0a6dc292d3b9077ae9b7d104653`; player DLL `c2e56989046ee301279374b2d5c5d5b401d4dc4d535bfee3413f34f8abb77cf5`; `UnityPlayer.dylib` `1b87c29dc8572c521081a15359f656819bd2959ea7623013e2b69ffc995846c4` |
+| Fresh TypeScript gates | Bridge 11 files / 100 tests; full 336 files / 4,526 passed / 5 skipped; both typechecks, build, contract drift, hygiene 1,032, assets 26/0, browser audit 0, and cleanup pass; build has only the accepted chunk warning |
+
+Accepted Stage reports are
+`Evidence/H/Stage7-20260821T201651Z/Landscape/stage-visual-proof-landscape.json`,
+382,106 bytes, SHA-256
+`3765777637011c0fe81f5f7c1d3d43a513d29280f83c103a749b30ee5bad2045`,
+and
+`Evidence/H/Stage7-20260821T201758Z/Portrait/stage-visual-proof-portrait.json`,
+380,648 bytes, SHA-256
+`b962289528fedeef7a9f4f01919a10dd9f3310e17fe90b11f1c09d0de507c9e4`.
+Both are schema `4`, `complete`, failure-empty, and prove Waiting/Load-In/
+Shooting/Clearing/Dark at revisions `11/13/15/17/18`; final revision `18`,
+Week `20`, digest
+`ba8024eaad964a3b886ff668f746ba4b75d23b759f159a3bc20f26e5ca30f26d`.
+Both accept 18/18 intents with zero unexpected or presentation POSTs and all
+five states pass every gate.
+
+- Landscape overhead area/top/bottom/edge is
+  `.004117284/.08444444/.11777778/76px`; floor is
+  `.009300155/.85111111/.99666667/3px` (`.009422840` in Dark).
+- Portrait overhead area/top/bottom/edge is
+  `.008710050/.20023696/.22630332/40px`; floor is
+  `.020373071/.80450237/.92061609/67px` (`.020649532` in Dark).
+- Landscape/portrait minimum occupied-minus-Dark luma is
+  `.119611323/.104021385`; Shooting-minus-Dark is
+  `.141321108/.125808805`. The Shooting slate remains 875/1,125
+  (`.7777778`), 33x37 in landscape and 497/640 (`.7765625`), 24x27 in
+  portrait, with the six-pixel portrait bright rail retained.
+
+Camera evidence root is `Evidence/H/Camera-20260821T203100Z/`. Landscape and
+portrait schema-1 reports are complete/failure-empty at SHA-256
+`f760252c901c617f1786e007d6b37e5252a00527387e4cdead7851557eec0beb` and
+`7e55b377596e91d9953a72723754b41d2a0f1a49d425151bd4602de35b52536f`.
+Both prove the exact `112x44` control is visible and hit-testable, invokes the
+same return path, restores management/workflow input, preserves target and
+authority, and posts nothing. `externalActivationRequired=false` exactly;
+the harness did not perform a physical pointer click. That is a recorded,
+nonblocking evidence limit, not a claim of physical-click coverage.
+
+Fresh functional root is `Evidence/H/Regression-20260821T202208Z/`.
+
+- Movie2 report/release frame SHA-256:
+  `c32b4c8cb4a157914b55b43377faa6928ac821bebc354584628787fa832dc18b` /
+  `f5ae57dcb9a612ca6a096d2c1af55d4934ebb8e4f0efbd7b8b8779649af6540f`.
+- Reconnect report/frame SHA-256:
+  `02e3f697d744530e00ba0b80288c0674af193d84c79f151937398468590585bf` /
+  `d5984df46e620a582f116f7c0edc1d17032cdb95bb4528ce917012cfa79cea6c`.
+- RuntimeRestart report/ready SHA-256
+  `ebf03355949f67a3807460f2cd278e544c33c56bebb0ac4bde39b242d42f6e3a` /
+  `7c30ec6f1d4d622711816dc1954726f65d475aa53983696c5c284470c4358f3f`
+  and RuntimeRestart2 report/ready
+  `168a999fc1f872dccf6e757aca1fb14b738551fd2f6325557daf62cf4075d145` /
+  `ffddbbf01956579831542c63e6d9119179685156f7e40b20e20db34e62d2c3e7`
+  are failed/superseded no-kill operator attempts: Unity correctly reported
+  that no outage was observed.
+- Accepted RuntimeRestart3 report/ready/frame SHA-256:
+  `3117c5d1e517b4f3720524740dcbe0f6579709d57a938d6854564430f45d49b6` /
+  `6c7a452b218585ec878e26caddb4a9ebac92bf8c28f3d7897fad17ee9ed37f20` /
+  `bdfd1a2777b6f525dbba83c4ab392b4a3e938aef34f5c5e4071e76cf9daad042`.
+  One SIGKILL produces one replacement and three observed transport outages,
+  zero torn reads, and all five continuity gates pass.
+
+Movie2 and Reconnect prove exact release identity `The Reluctant Cornerstone` /
+`script-0001` / `prod-0013` in session
+`9b0cd1bb-ce88-426d-9c7d-5ac9800c70a5`, revision `23`, Week `22`, digest
+`429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
+RuntimeRestart3 is restart-only; its identity fields are blank and
+`exactMovie2Released` is false by design. The stable checkpoint is 1,354,926
+bytes, protocol `4`, revision `23`, journal `25`, SHA-256
+`a63c711763c0a7a8a00056c0ff052fe85fc60663fddfbd19e89d2f1e61d20459`.
+
+### Visual and promotion decision
+
+Landscape passes the bounded slice and is equal-or-better. Portrait has no new
+clipping or slate regression, but its role union remains exactly `.225118488`;
+the action stays compressed, while the upper battens read weak/floating rather
+than materially solving the large dark upper band. CP16 therefore remains
+visually **NON-GOLDEN**.
+
+CP16 receives no tag. Golden M4 remains the sole CURRENT BEST with status
+exactly **GOLDEN — CONTINUE CAMPAIGN**. CP15 is historical. No M5, canonical
+state, or Golden recovery pointer was created or moved.
+
+### NEXT EXACT ACTION
+
+Run bounded CP17 as a portrait-motivated camera/permanent-reblock trial. Freeze
+the landscape camera, CP16 `BACK` UI and framing scenery, CP15 slate,
+equipment, five-state semantics, authority, and every existing gate. Keep the
+portrait camera at `(46.2,2.05,22.8)`, use target `(48.1,3.3,38.2)` and the
+first viable FOV `39`. Trial an asymmetric but permanent shared-mark reblock,
+starting with Antagonist `z=39.8`, Carpenter `x~46.08`, and Camera Operator
+`z=31.8`; static projection predicts role union about `.2728`.
+
+The earlier FOV `37` plus naive `.82` compression proposal is superseded and
+must not be implemented: at FOV `37`, Batten 01 projects to AABB
+`x=-7.83..395.12` in the 390px viewport, while FOV `39` keeps it at
+`x=3.35..384.09`; naive `.82` compression still predicts only `.2682` role
+union, clips Carpenter, and creates Antagonist/Supporting physical overlap.
+
+Adopt the trial only if the unweakened all-12 role, edge, overlap, held-prop,
+framing, luma, state, no-POST, and authority gates pass; portrait role union
+must ratchet to at least `.27`, the conventional slate and bright rail must
+remain, both dolly rails must stay fully framed, and independent native review
+must accept both aspects. Marks must be honest permanent shared routes: no
+aspect-triggered teleport or fake tableau. Otherwise reject the trial and
+retain CP16. No M5 absent independent Golden acceptance of both aspects.
+
+### Launch
+
+```bash
+cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
+npm run studio -- \
+  --unity-project '/Users/bruce/Project Studio - Unity Production Convergence 80H'
+```
+
+The moving compatible pair launches CP16. Immutable CURRENT BEST recovery uses
+both M4 tags in the first section.
+
+### DO NOT TOUCH
+
+- Do not create/move M5, move/delete M1-M4, promote CP16, or infer CURRENT BEST
+  from moving branches. Golden M4 remains sole immutable CURRENT BEST.
+- Do not weaken landscape, CP16 UI/framing, slate, all-12 role, edge, overlap,
+  prop, luma, effects, state, no-POST, authority, Movie #2, reconnect, restart,
+  checkpoint, or NavMesh gates during CP17.
+- Do not implement the superseded FOV `37`/naive `.82` compression proposal,
+  aspect-triggered role teleport, or a portrait-only fake tableau. Any reblock
+  must be permanent/shared and pass fresh native proof in both aspects.
+- Do not stage ignored apps, Evidence/H, profiles, checkpoints, screenshots,
+  logs, locks, caches, `/tmp` outputs, or protected reference assets.
+
+### Recovery
+
+1. Read this CP16 section, the handoff's top CP16 section, ledger CP16 entry,
+   ADR 0006, and the client decision. Do not infer CURRENT BEST from branches.
+2. For immutable M4 recovery verify TypeScript
+   `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6` plus Unity
+   `6b32335447848ed0680eb8077e78ee36aded5d56` under their M4 tags.
+3. To continue CP16 use TypeScript
+   `69c931ff56bd550926143ad065fc36794441a839` plus Unity
+   `e1cfa2a1dc1da7b2be8214d587fac60d444b0603`. Never mix sides.
+4. Resolve the containing docs-only direct child's self SHA with
+   `git rev-parse HEAD`; after push require HEAD equal upstream and clean.
+   Require Unity HEAD/upstream/live remote at `e1cfa2a1...` and clean.
+5. Rebuild/launch with the command above; verify protocol/projection `4`, schema
+   `ba9cd199...`, authenticated readiness, and the compact `BACK` control.
+6. Use only accepted Evidence/H hashes. RuntimeRestart and RuntimeRestart2 are
+   superseded no-kill attempts; RuntimeRestart3 is accepted restart-only proof.
+7. Continue only with NEXT EXACT ACTION. No M5 or canonical promotion is
+   authorized.
+
+## CHECKPOINT 15 SEALED RECOGNIZABLE PRODUCTION SLATE - HISTORICAL NON-GOLDEN
+
+Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
+
+Checkpoint 16 above supersedes Checkpoint 15 as the current development base.
+CP15 remains preserved **SEALED NON-GOLDEN** history: its targeted
+slate-recognition gate passed, but it was never CURRENT BEST, tagged, canonical,
+promoted, or ready for canonical review. Golden M4 above remains the sole
 CURRENT BEST recovery answer.
 
 | Component | Repository | Branch | Exact pushed SHA | Direct parent | Tag |
