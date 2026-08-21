@@ -232,14 +232,203 @@ obvious build-from state while continuing the campaign.
 
 Promotion status remains exactly **GOLDEN — CONTINUE CAMPAIGN**.
 
-## CHECKPOINT 14 SEALED PROOF-LEGIBLE STAGE ROLES - NON-GOLDEN
+## CHECKPOINT 15 SEALED RECOGNIZABLE PRODUCTION SLATE - NON-GOLDEN
 
 Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
 
-Checkpoint 14 is the compatible pushed campaign tip after Checkpoint 13 and
-the correct base for bounded CP15 visual work. It is **SEALED NON-GOLDEN**: it
-is not CURRENT BEST, tagged, canonical, promoted, or ready for canonical
-review. Golden M4 above remains the sole CURRENT BEST recovery answer.
+Checkpoint 15 is the compatible pushed campaign tip after Checkpoint 14. The
+targeted slate-recognition gate passes, but CP15 is **SEALED NON-GOLDEN**: it is
+not CURRENT BEST, tagged, canonical, promoted, or ready for canonical review
+because portrait composition still fails. Golden M4 above remains the sole
+CURRENT BEST recovery answer.
+
+| Component | Repository | Branch | Exact pushed SHA | Direct parent | Tag |
+| --- | --- | --- | --- | --- | --- |
+| TypeScript authority | `HSpector1/The-Movies` | `campaign/unity-production-convergence-80h-ts` | `d92f74191dc9d4d0e80f3e922e7dbc4bd0961c2f` | `8dffc6f31d3f3034eb5a94fcf0dafd8c65005d4a`; CP14 documentation-only seal; no CP15 TypeScript product change | None |
+| Unity production client | `HSpector1/project-studio-unity-visual-spike` | `campaign/unity-production-convergence-80h-client` | `0c0ef1554278441eed1d2dccac54c2d941395041` | `a1f6ae8a11d58e28491662a1858631f8019faf33`; `Improve Stage 7 slate readability`; exactly 6 modified paths | None |
+
+Both local HEADs, configured upstreams, and live remote branch refs matched the
+exact SHAs above before this continuity edit; both tracked trees were clean.
+Never substitute either parent or mix CP15 sides.
+
+The documentation-only commit containing this section must be the direct child
+of TypeScript `d92f74191dc9d4d0e80f3e922e7dbc4bd0961c2f`. A commit cannot
+embed its own resulting SHA, so resolve its self SHA with `git rev-parse HEAD`;
+after push, require HEAD equal configured upstream and a clean tracked tree.
+That docs-only child changes no CP15 product or promotion fact.
+
+The contract remains protocol `4`, projection `4`, schema
+`sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`.
+TypeScript remains sole simulation authority. CP15 makes no TypeScript,
+generated DTO, V14 save, `GameState`, identity, RNG, economy, construction,
+gameplay, camera, role-mark, state-semantics, or authority change.
+
+### What Checkpoint 15 adds
+
+- the PA slate uses exact sources `[base, LOD1, LOD1]` at thresholds
+  `.52/.22/.025`, retaining the fuller LOD1 mesh as its terminal asset;
+- ordered material slots are dark board / ivory clapper / mustard stripe:
+  `HeldPropCharcoal`, `HeldPropIvory`, `HeldPropMustard`;
+- fail-closed landscape slate thresholds are `800/32/28`, portrait
+  `440/24/20`, and minimum visible fraction `.70`;
+- only six Unity paths change: slate authoring, validation, schema-4 proof,
+  canonical scene, and two test files. CP14 slate pose, cameras, role marks,
+  landscape profile, state/authority semantics, and schema `4` stay fixed.
+
+### Accepted validation
+
+| Gate | Checkpoint 15 result |
+| --- | --- |
+| Canonical scene validation | Runs 1 and 2 each passed 32 people / 10 vehicles / 16 equipment / 4 captures / 0 errors / 0 warnings. `/tmp/project-studio-cp15-dark-slate-scene-run1.log`, SHA-256 `d531886872560ac0ee92aaf6bb8eda549e9c2b7b78ef919be7b2fd041607b82e`; `/tmp/project-studio-cp15-dark-slate-scene-run2.log`, SHA-256 `fe5e9eebb9fd6a65bd4b82d633398292da36fe640444be2218b3fcb84b99b51e`; accepted validation JSON SHA-256 `a2c6bf2ca3d3e6a40616ced0b474031ac0f4dfcd0479eafb6d6df8f0cc4a302a` |
+| Unity EditMode | 191/191; `/tmp/project-studio-cp15-editmode-run2.xml`, SHA-256 `7ae511cf9c2c41a44abbd0456ffcf1c5d1be864b362e1a021f1672d39f3955ff`; `/tmp/project-studio-cp15-editmode-run2.log`, SHA-256 `00d458a0ea374d79d6545d6068402d0fdaae1f19d065c7892b51721e3d7fd2ef` |
+| Native build | Success; `/tmp/project-studio-cp15-dark-slate-build-run2.log`, SHA-256 `fb2413bd4b35e32c1038a2ff1f727618a50cbbd66f504f5544d668292dcc3e8f`; app 183 files / 151,475,682 bytes; executable 116,116 bytes, SHA-256 `eae78f14c609aec59e5646094b371c1a2519b4671af902f7148eff74a2e63e48`; player DLL SHA-256 `7e50620ec560db947da9a268ccdd38814248a11754a9e07e1851d0af6324802f` |
+| Fresh TypeScript gates | Bridge 11 files / 100 tests; full 336 files / 4,526 passed / 5 skipped; both typechecks, build, contract drift, hygiene 1,032, assets 26/0, browser audit 0, and cleanup passed; build had only the accepted chunk warning |
+
+### Accepted Stage and functional evidence
+
+- Landscape schema-4 report:
+  `Evidence/G/Stage7-20260821T190243Z/Landscape/stage-visual-proof-landscape.json`,
+  1440x900, SHA-256
+  `3f3647dc172e30d85c55f46563329a589dcdb038e5dbcb0c3b697d4a1c7a494c`.
+- Portrait schema-4 report:
+  `Evidence/G/Stage7-20260821T190335Z/Portrait/stage-visual-proof-portrait.json`,
+  390x844, SHA-256
+  `ff420f3767a8ebd50515ae73235a4e5fe57e78bebd5ef0d84b8fd300a8c5afd1`.
+- Both complete reports prove states/revisions
+  `Waiting/11`, `Load-In/13`, `Shooting/15`, `Clearing/17`, `Dark/18`, ending
+  revision `18`, Week `20`, digest
+  `ba8024eaad964a3b886ff668f746ba4b75d23b759f159a3bc20f26e5ca30f26d`.
+  They accept 18/18 proof intents with zero presentation/unexpected/retry/
+  recovery POSTs. All 20 PNGs match recorded hashes, dimensions, bytes, and
+  decode; every mask/role/prop/luma/effects/authority/no-POST gate passes.
+- Exact role counts are `12/12/12/8/0`; held props `0/0/3/0/0`. Landscape/
+  Portrait minimum occupied-minus-Dark luma is `0.119559/0.103997`, and
+  Shooting-minus-Dark `0.141363/0.125979`.
+- Shooting slate: landscape 875/1,125 (`0.7777778`), 33x37, owner `0.0257778`,
+  head `2/0`; portrait 497/640 (`0.7765625`), 24x27, owner `0.034375`, head
+  `0/0`. The portrait bright rail is exactly six native pixels, y `501-506`.
+  Manual inspection recognizes a conventional clapperboard in both aspects.
+
+Fresh functional root: `Evidence/G/Regression-20260821T190530Z/`.
+
+- Movie2 report/release frame:
+  `93e333c96116bc46f87c49570183b90466a22da58d84bff2c48af9b56927e9aa` /
+  `2d44993a03ac2025caedfdd6a43a358a27d7813dbd90f4df51dfb7663a9d44c6`.
+- Reconnect report/frame:
+  `1c2c47dce92915cfba244ac72c7875e9651fc85135408fab7cc9b9b0c6ab2fa6` /
+  `e2a76395022745e1e9d57f8ada892c079f2af76977b024400571a2fff1107f0c`.
+- First RuntimeRestart report
+  `a9751b46bde75dd40a10c548e58618e180555486399d41420832810257bf8bc3`
+  is invalid/superseded because Unity missed outage observation.
+- Accepted RuntimeRestart2 ready/report/frame:
+  `c0642e800f08c0026c423a2527d69aa9430e49119275861927d1cdb3b38473e5` /
+  `dd188cc5c79471e8aa1d67bc1aaf30990fb12fc3fa51792c4cd0fb7876287659` /
+  `17c9fd409eb16a27ea4534395c256d37f19c2382916cbddc6c8ebf33e8101107`.
+  It records one replacement, three transport outages, zero torn reads, and
+  passes all five continuity gates.
+- Session `3fc95257-e59b-479f-9d43-1779ea5019a3` retains revision `23`, Week
+  `22`, digest
+  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
+  Checkpoint
+  `/private/tmp/project-studio-cp15-regression-final-20260821T190530Z/bridge-runtime/bridge-runtime-v1.json`:
+  1,354,921 bytes, journal `25`, SHA-256
+  `8338000aaab6a7c3267852814b1f2f72b582b16dce3d1c76e5dcbd13fa9248a8`.
+
+Movie2 plus Reconnect carry exact release identity. RuntimeRestart2 carries
+restart continuity only. The first failed observation is superseded operator
+history, not a product defect.
+
+### Visual and promotion decision
+
+The bounded slate target passes: both aspects show a recognizable conventional
+clapperboard. The pair remains visually **NON-GOLDEN** because portrait action
+is still compressed into a narrow middle band with large dead headroom/floor,
+and the dominant Back UI reinforces a prototype composition. A targeted pass
+cannot manufacture overall visual success.
+
+CP15 receives no tag. Golden M4 remains the sole CURRENT BEST with status
+exactly **GOLDEN — CONTINUE CAMPAIGN**. CP14 is historical. No M5 or canonical
+state was created or moved.
+
+### NEXT EXACT ACTION
+
+Implement bounded CP16 as a presentation-only portrait-framing slice. Freeze
+both StageSeven camera profiles, every role/equipment mark, and the final CP15
+slate. Replace the dominant control with exact `BACK`, `112x44`, anchored
+`12px` from the top/right of `Screen.safeArea` while retaining its `44x44` hit
+region. Use a low-contrast charcoal fill, thin warm keyline, and `13px` cream
+text; no stock-silver treatment. Add permanent collider-free Stage A overhead
+battens and foreground dolly rails/ties to replace the empty portrait black/
+floor bands.
+
+Use the current handoff's exact native control rectangles and Stage A authored
+names/transforms/materials for validator and focused EditMode assertions,
+including collider absence; assert the NavMesh asset remains byte-identical.
+Add native
+framing proof-ID targets and portrait occupancy gates: each target at least
+`.002` viewport area, overhead
+ending above `.23`, floor beginning below `.80` and reaching at least `.92`.
+Preserve schema `4` and every role/backdrop/slate/state/luma/no-POST/authority
+gate without weakening. Require fresh exact 390x844 plus 1440x900 proof and
+manual acceptance that the ensemble/set is the first read, `BACK` is
+discoverable but subordinate, upper/lower bands read as working soundstage,
+and both native aspects are equal or better. The conventional slate and at
+least `3px` bright rail must remain, with faces, hands, boom, megaphone, and
+slate unobscured across all five milestones. No M5 absent independent Golden
+acceptance of both aspects.
+
+### Launch
+
+```bash
+cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
+npm run studio -- \
+  --unity-project '/Users/bruce/Project Studio - Unity Production Convergence 80H'
+```
+
+The moving pair launches CP15. Immutable CURRENT BEST recovery uses both M4
+tags in the first section.
+
+### DO NOT TOUCH
+
+- Do not create/move M5, move/delete M1-M4, promote CP15, or infer CURRENT BEST
+  from moving branches. Golden M4 remains sole immutable CURRENT BEST.
+- Do not change either StageSeven camera profile, any role/equipment mark, CP15
+  slate sources/material order/pose/gates, TypeScript authority, schema/state
+  semantics, or weaken all-12 role, edge, mask, luma, no-POST, Movie #2,
+  reconnect, or restart gates.
+- Do not stage ignored builds, evidence, profiles, checkpoints, logs, or
+  protected reference assets.
+
+### Recovery
+
+1. Read this CP15 section, the current handoff, ledger CP15 entry, ADR 0006,
+   and the client decision.
+2. For immutable M4 recovery verify TypeScript
+   `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6` plus Unity
+   `6b32335447848ed0680eb8077e78ee36aded5d56` under their M4 tags.
+3. To continue CP15 use TypeScript
+   `d92f74191dc9d4d0e80f3e922e7dbc4bd0961c2f` plus Unity
+   `0c0ef1554278441eed1d2dccac54c2d941395041`. Never mix sides.
+4. Resolve the containing docs-only direct child's self SHA with
+   `git rev-parse HEAD`; after push require HEAD equal upstream and clean.
+   Require Unity HEAD/upstream/live remote at `0c0ef155...` and clean.
+5. Continue only with NEXT EXACT ACTION. No M5 or canonical promotion is
+   authorized.
+
+## CHECKPOINT 14 SEALED PROOF-LEGIBLE STAGE ROLES - HISTORICAL NON-GOLDEN
+
+Checkpoint 14 was the compatible campaign tip before Checkpoint 15. CP15 above
+supersedes it as the current development base. CP14 remains preserved **SEALED
+NON-GOLDEN** history: it was never CURRENT BEST, tagged, canonical, promoted,
+or ready for canonical review. Golden M4 remains the sole CURRENT BEST.
+
+Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
+
+Checkpoint 14 was the compatible pushed campaign tip after Checkpoint 13 and
+the correct base for bounded CP15 visual work at that seal. It is **SEALED
+NON-GOLDEN**: it is not CURRENT BEST, tagged, canonical, promoted, or ready for
+canonical review. Golden M4 above remains the sole CURRENT BEST recovery
+answer.
 
 | Component | Repository | Branch | Exact pushed SHA | Direct parent | Tag |
 | --- | --- | --- | --- | --- | --- |
@@ -384,8 +573,8 @@ section, not the moving branches.
 
 ### Recovery
 
-1. Read this section, the current CP14 handoff, ledger CP14 entry, ADR 0006,
-   and the client decision.
+1. Read this historical CP14 section, the handoff's CP14 section, ledger CP14
+   entry, ADR 0006, and the client decision.
 2. For immutable M4 recovery, verify TypeScript
    `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6` plus Unity
    `6b32335447848ed0680eb8077e78ee36aded5d56` under their M4 tags.
