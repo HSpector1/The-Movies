@@ -5,12 +5,18 @@ import { describe, expect, it } from 'vitest'
 
 import {
   BRIDGE_SCHEMA,
+  PROTOCOL_VERSION,
   PROJECTION_VERSION,
   SCHEMA_ID,
 } from '../bridge/protocol.ts'
-import { createBridgeInitialState, BridgeSession } from '../bridge/session.ts'
+import {
+  createBridgeInitialState,
+  BridgeSession,
+  selectJourneyIntent,
+} from '../bridge/session.ts'
 import { canonicalJson, canonicalJsonPretty, schemaIdentity } from '../bridge/schema/canonical.ts'
 import { StudioLotSnapshotSchema } from '../bridge/schema/bridge-schema.ts'
+import { applyActions } from '../src/core/index.ts'
 import {
   parseWireValue,
   projectStudioLotSnapshot,
@@ -97,6 +103,153 @@ describe('canonical Unity bridge schema', () => {
       BRIDGE_SCHEMA.$defs.StudioProjectionBundle.properties as Record<string, unknown>,
     )
     expect(Object.keys(envelope.snapshot).every((key) => allowedRootKeys.includes(key))).toBe(true)
+  })
+
+  it('keeps live location identities in the projection-v4 building namespace', () => {
+    const session = new BridgeSession(
+      createBridgeInitialState('bridge-schema-location-identities'),
+      'bridge-schema-location-identities',
+    )
+    let envelope = session.snapshot()
+    let constructionIdentityFound = false
+    const assertLocationIdentities = (candidate: typeof envelope): void => {
+      const propertyBuildings = candidate.snapshot.lot.property?.buildings
+      const stages = candidate.snapshot.lot.stages
+      if (propertyBuildings === undefined || stages === undefined) {
+        throw new Error('Managed bridge fixture did not expose property and stage identities.')
+      }
+
+      const lotBuildingIds = candidate.snapshot.lot.buildings.map((building) => building.id)
+      const propertyBuildingIds = propertyBuildings.map((building) => building.id)
+      expect(new Set(lotBuildingIds).size).toBe(lotBuildingIds.length)
+      expect(new Set(propertyBuildingIds).size).toBe(propertyBuildingIds.length)
+      for (const buildingId of propertyBuildingIds) {
+        expect(lotBuildingIds.filter((id) => id === buildingId)).toHaveLength(1)
+        expect(buildingId.startsWith('facility-')).toBe(false)
+      }
+
+      // `expansion` is authoritative parcel/presentation ground, not a physical body.
+      expect(lotBuildingIds.filter((id) => id === 'expansion')).toHaveLength(1)
+      expect(propertyBuildingIds).not.toContain('expansion')
+      for (const requiredId of ['admin', 'stage-a', 'stage-b', 'post']) {
+        expect(propertyBuildingIds.filter((id) => id === requiredId)).toHaveLength(1)
+      }
+
+      const stageBuildingIds = stages.map((stage) => stage.buildingId)
+      const stageFacilityIds = stages.map((stage) => stage.facilityId)
+      expect(new Set(stageBuildingIds).size).toBe(stageBuildingIds.length)
+      expect(new Set(stageFacilityIds).size).toBe(stageFacilityIds.length)
+      for (const stage of stages) {
+        expect(propertyBuildingIds.filter((id) => id === stage.buildingId)).toHaveLength(1)
+        expect(stage.buildingId.startsWith('facility-')).toBe(false)
+      }
+
+      for (const production of candidate.snapshot.productions.activeProductions) {
+        expect(propertyBuildingIds.filter((id) => id === production.stageId)).toHaveLength(1)
+        expect(production.stageId.startsWith('facility-')).toBe(false)
+      }
+      for (const operation of candidate.snapshot.productions.productionOperations) {
+        expect(
+          propertyBuildingIds.filter((id) => id === operation.locationBuildingId),
+        ).toHaveLength(1)
+        expect(operation.locationBuildingId.startsWith('facility-')).toBe(false)
+      }
+
+      const constructionPlacements =
+        candidate.snapshot.construction.placement?.placements ?? []
+      const constructionIdentityMatches = constructionPlacements.filter(
+        (placement) => placement.facilityId === 'facility-scenery-shop-1',
+      )
+      if (constructionIdentityMatches.length > 0) {
+        expect(constructionIdentityMatches).toHaveLength(1)
+        expect(constructionIdentityMatches[0]).toMatchObject({
+          id: 1,
+          facilityId: 'facility-scenery-shop-1',
+        })
+        expect(
+          propertyBuildings
+            .filter((building) => building.placedFacilityId === 1)
+            .map((building) => building.id),
+        ).toEqual(['placed-1'])
+        expect(lotBuildingIds.filter((id) => id === 'placed-1')).toHaveLength(1)
+        expect(lotBuildingIds).not.toContain('facility-scenery-shop-1')
+        expect(propertyBuildingIds).not.toContain('facility-scenery-shop-1')
+        constructionIdentityFound = true
+      }
+
+      const buildingIdentityFields = [
+        ...propertyBuildingIds,
+        ...stageBuildingIds,
+        ...candidate.snapshot.productions.activeProductions.map((production) => production.stageId),
+        ...candidate.snapshot.productions.productionOperations.map(
+          (operation) => operation.locationBuildingId,
+        ),
+      ]
+      expect(buildingIdentityFields).not.toContain('facility-administration')
+    }
+
+    assertLocationIdentities(envelope)
+    const sceneryConstructionState = applyActions(
+      createBridgeInitialState('bridge-schema-scenery-construction-identity'),
+      [{
+        kind: 'placeFacility',
+        placement: {
+          blueprintId: 'scenery-shop',
+          origin: { gx: 0, gy: 2 },
+        },
+      }],
+    )
+    assertLocationIdentities(new BridgeSession(
+      sceneryConstructionState,
+      'bridge-schema-scenery-construction-identity',
+    ).snapshot())
+    expect(
+      envelope.snapshot.lot.stages
+        ?.filter((stage) => stage.facilityId === 'facility-soundstage-07')
+        .map(({ buildingId, facilityId }) => ({ buildingId, facilityId })),
+    ).toEqual([{
+      buildingId: 'stage-a',
+      facilityId: 'facility-soundstage-07',
+    }])
+    expect(
+      envelope.snapshot.lot.stages
+        ?.filter((stage) => stage.facilityId === 'facility-soundstage-12')
+        .map(({ buildingId, facilityId }) => ({ buildingId, facilityId })),
+    ).toEqual([{
+      buildingId: 'stage-b',
+      facilityId: 'facility-soundstage-12',
+    }])
+
+    let stageSevenOperationFound = false
+    for (let guard = 0; guard < 32; guard++) {
+      assertLocationIdentities(envelope)
+      const operations = envelope.snapshot.productions.productionOperations ?? []
+      if (operations.some((operation) => operation.locationBuildingId === 'stage-a')) {
+        stageSevenOperationFound = true
+        break
+      }
+
+      const intent = selectJourneyIntent(
+        envelope.availableIntents,
+        envelope.snapshot.journeyNotices.firstFilmJourney,
+      )
+      if (intent === undefined) {
+        throw new Error('Movie #2 did not expose a legal journey intent before reaching Stage 7.')
+      }
+      const response = session.command({
+        protocolVersion: PROTOCOL_VERSION,
+        schemaId: SCHEMA_ID,
+        sessionId: session.sessionId,
+        commandId: `location-identity-${String(guard)}`,
+        expectedStateRevision: session.stateRevision,
+        type: 'submitIntent',
+        payload: { intentId: intent.intentId },
+      })
+      if (!response.accepted) throw new Error(response.message)
+      envelope = response
+    }
+    expect(stageSevenOperationFound).toBe(true)
+    expect(constructionIdentityFound).toBe(true)
   })
 
   it('owns every legacy projection field exactly once with byte-equivalent schema semantics', () => {
