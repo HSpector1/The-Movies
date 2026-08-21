@@ -310,6 +310,11 @@ function parseReadyLine(process_: RunningSupervisor): ReadyLine | null {
   }
 }
 
+function publishedEnginePids(output: string): number[] {
+  return [...output.matchAll(/^\[supervisor\] engine pid=(\d+) incarnation=/gm)]
+    .map((match) => Number(match[1]))
+}
+
 function allFiles(root: string): string[] {
   if (!fs.existsSync(root)) return []
   const files: string[] = []
@@ -514,6 +519,16 @@ describe.sequential('one-command studio supervisor', () => {
     expect(restartBudget.claim(0)).toBe(2)
     expect(restartBudget.claim(0)).toBeNull()
     expect(restartBudget.claim(1_000)).toBe(1)
+  })
+
+  it('does not count platform-dependent cleanup as another engine publication', () => {
+    expect(publishedEnginePids([
+      '[supervisor] engine pid=8399 incarnation=linux-proc:boot-id:123',
+      '[supervisor] cleanup engine pid=8399 signal=SIGTERM',
+      '[supervisor] cleanup unpublished engine pid=8400 signal=SIGTERM',
+      '[supervisor] engine pid=8401 was reused; no signal sent',
+      '[supervisor] engine pid=8402 incarnation=linux-proc:boot-id:456',
+    ].join('\n'))).toEqual([8399, 8402])
   })
 
   it('recovers stable empty or partial acquisition artifacts without weakening private ownership', async () => {
@@ -753,10 +768,9 @@ describe.sequential('one-command studio supervisor', () => {
       const shutdownIndex = supervisor.stdout.lastIndexOf('unity exit ')
       expect(shutdownIndex).toBeGreaterThanOrEqual(0)
       expect(supervisor.stdout.slice(shutdownIndex).includes('engine spawn mode=restart')).toBe(false)
-      const enginePids = [...supervisor.stdout.matchAll(/engine pid=(\d+)/g)]
-        .map((match) => Number(match[1]))
-      expect(enginePids).toEqual([initial.pid])
-      for (const pid of enginePids) {
+      const enginePids = publishedEnginePids(supervisor.stdout)
+      expect(enginePids[0]).toBe(initial.pid)
+      for (const pid of new Set(enginePids)) {
         await eventually(
           () => pidIsAlive(pid) ? null : true,
           `Outage shutdown left engine pid ${String(pid)} alive.`,

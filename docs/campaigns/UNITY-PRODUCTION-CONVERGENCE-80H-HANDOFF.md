@@ -4,9 +4,185 @@ START HERE. Read `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`, then the campaign
 ledger, this handoff, and the promotion register. The TypeScript/Unity engine
 decision is settled. Do not restart planning from scratch.
 
-## CHECKPOINT 10 PRE-COMMIT - GOLDEN M4 CANDIDATE
+## CHECKPOINT 10 SEAL INTERRUPTION - EXACT-PRODUCT CI TEST DEFECT
 
 This is the authoritative current-state section as of the timestamp below.
+Checkpoint 10 now has an exact pushed product commit, but its first exact-product
+Linux CI run failed in a supervisor test classifier. The failure duplicated one
+real engine PID by counting its legitimate cleanup line as another spawn; it did
+not reproduce a second engine start or a product P0/P1. The test-only repair is
+implemented and locally green but not yet committed or pushed. Golden M3 remains
+CURRENT BEST and no M4 tag exists.
+
+### CURRENT EXACT STATE
+
+Timestamp: 2026-08-21 06:37 CEST (UTC+02:00).
+
+| Item | Exact state |
+| --- | --- |
+| TypeScript worktree | `/Users/bruce/The Movies - Unity Production Convergence 80H` |
+| TypeScript branch | `campaign/unity-production-convergence-80h-ts` |
+| TypeScript product HEAD / upstream | `e6421dcd51c7b64071b8be227f0950129634ff35`; local HEAD, configured upstream, and pushed campaign branch agree |
+| TypeScript product parent | `808d319bd1b9b2c8b81cd8e2c60808ae0180c8a3` |
+| TypeScript pushed state | Yes; exact Checkpoint 10 product commit `e6421dcd51c7b64071b8be227f0950129634ff35` is remotely recoverable |
+| TypeScript working tree | Dirty only with the completed test-only correction in `tests/bridge-supervisor.test.ts` and this interruption handoff; product implementation otherwise remains at the pushed commit |
+| Unity worktree | `/Users/bruce/Project Studio - Unity Production Convergence 80H` |
+| Unity branch | `campaign/unity-production-convergence-80h-client` |
+| Unity HEAD / upstream / pushed | `6b32335447848ed0680eb8077e78ee36aded5d56`; local HEAD, configured upstream, and pushed campaign branch agree |
+| Unity working tree | Clean; ignored `Builds/` and `Evidence/` remain local only |
+| Current Golden recovery pair | TypeScript `e9c6f06b717a6a106281b189a61072e35770155f` plus Unity `40465d48c191c9dcdda2c6b32c17c9675f4908a4` |
+| Golden tags | Immutable and pushed `golden/unity-convergence-m1`, `golden/unity-convergence-m2`, and `golden/unity-convergence-m3` in both repositories; no M4 tag exists |
+| Promotion | `GOLDEN — CONTINUE CAMPAIGN`; M3 remains CURRENT BEST; Checkpoint 10 is a pushed but unsealed M4 candidate, not Golden or canonical |
+
+### CAMPAIGN STATUS
+
+- Current phase: Phase B seal interruption after the first exact-product Linux
+  CI run for the one-command supervised lifecycle.
+- Completed before interruption: the full Checkpoint 10 product implementation,
+  local TypeScript/bridge/build/proof gates, Unity EditMode/native validation,
+  Movie #2, save/load/reconnect, and actual supervised engine replacement.
+- Partially completed: exact-product remote seal. The product commit is pushed,
+  but CI run `32446759604` is red and the locally green test-only correction is
+  not yet committed or pushed.
+- Untouched/later work: the Stage 7/Admin two-scale visual slice remains next
+  only after this seal is repaired; production packaging and the broader visual
+  acceptance work remain incomplete as recorded below.
+- Current acceptance gate: commit/push the exact spawn-line parser repair,
+  obtain green exact-product Linux CI, confirm clean trees, then make the Golden
+  M4 decision. Do not tag while this gate is red.
+
+### WHAT WAS JUST DONE
+
+- Product commit `e6421dcd51c7b64071b8be227f0950129634ff35`
+  (`feat(runtime): supervise the local Unity product lifecycle`) was created
+  from parent `808d319bd1b9b2c8b81cd8e2c60808ae0180c8a3` and pushed.
+- GitHub Bridge contract run `32446759604` executed against that exact SHA and
+  failed in `Test application` at `tests/bridge-supervisor.test.ts:758`.
+- The failing assertion expected one engine start but received `[8399, 8399]`.
+  Its broad regex matched both the real start and the legitimate Linux cleanup
+  message `cleanup engine pid=8399`.
+- All earlier CI gates, including the 97/97 bridge aggregate and the Linux
+  supervisor path, passed before that classifier failure.
+- The repair is constrained to parsing the exact engine-publication log line.
+  It ignores cleanup diagnostics, treats any replacement published before the
+  Unity-exit boundary as a legitimate shutdown race, proves every unique
+  published engine is dead, and still forbids a restart spawn after Unity exit.
+  No gameplay, runtime ownership, bridge contract, V14, or Unity change is
+  needed.
+
+### WHAT IS WORKING RIGHT NOW
+
+- The exact Checkpoint 10 product commit is pushed and recoverable with the
+  compatible clean/pushed Unity client at `6b323354...`.
+- The locally validated `npm run studio` lifecycle, persistent private profile,
+  per-launch capability, authenticated health, owned restart, bounded logs,
+  Movie #2, save/load, reconnect, and restart evidence remain as recorded in
+  the immediately following historical pre-commit section.
+- TypeScript remains sole simulation authority. Protocol `4`, projection `4`,
+  generated DTO identity, `GameState`, V14, gameplay, art, and assets are
+  unchanged by the current test repair.
+- The exact candidate is not Golden while its exact-product CI run is red.
+
+### VALIDATION STATE
+
+| Gate | Current result |
+| --- | --- |
+| Product commit and push | Passed: TypeScript `e6421dcd51c7b64071b8be227f0950129634ff35` is the exact remote campaign tip |
+| Compatible Unity pair | Passed: clean/pushed `6b32335447848ed0680eb8077e78ee36aded5d56` |
+| Local Checkpoint 10 validation | Passed before product commit as recorded in the following historical section: 336 files, 4,523 passed, 5 skipped; bridge 97/97; both typechecks; build; Movie #2/determinism; Unity 62/62; native Movie #2/reconnect/restart |
+| Exact-product GitHub CI | **Failed**: Bridge contract run `32446759604`, `Test application`, `tests/bridge-supervisor.test.ts:758` |
+| CI failure classification | Test-only false duplicate: cleanup `pid=8399` was counted as another start, yielding `[8399, 8399]`; no second spawn or product P0/P1 reproduced |
+| Local repaired supervisor gate | Passed: 10/10, including exact publication parsing and Linux cleanup regression |
+| Local repaired bridge aggregate | Passed: 98/98 across 11 files |
+| Local repaired full TypeScript suite | Passed: 336 files; 4,524 passed, 5 skipped, 0 failed |
+| Local repaired typechecks | Passed: bridge and full application |
+| Local repaired diff check | Passed |
+| Golden M4 seal | Blocked until corrected tests pass locally and on exact-product Linux CI; no M4 tag exists |
+
+### KNOWN PROBLEMS / BLOCKERS
+
+- Seal blocker: the locally green test repair has no pushed SHA or exact-product
+  Linux result yet. Commit/push it and require the replacement workflow to pass.
+- No product P0/P1 was reproduced by run `32446759604`. The duplicate values
+  are the same PID from two log contexts, not two engine processes.
+- The campaign-level P1 visual mismatch, P2 `vite-node` packaging/audit boundary,
+  and restart-proof reporting quirk remain unchanged from the detailed section
+  below. None explains or should be mixed into this CI repair.
+- M3 remains CURRENT BEST. Checkpoint 10 must not receive an M4 tag or canonical
+  promotion while exact-product CI is red or either worktree is dirty.
+
+### NEXT EXACT ACTION
+
+Commit/push the locally green exact-publication parser repair, rerun
+exact-product Linux CI, and only then make the Golden M4 decision.
+
+### NEXT 3-5 ACTIONS AFTER THAT
+
+1. Commit and push only the reviewed test repair plus continuity update; verify
+   the remote candidate SHA.
+2. Rerun/wait for the Bridge contract workflow on the repaired exact SHA.
+3. If CI is green and both trees are clean, update all three campaign documents,
+   decide Golden M4, and create/push immutable M4 tags; otherwise preserve M3
+   and record the exact remaining blocker.
+4. Reconfirm remote tag dereferences and the one-command launch after the seal.
+5. Resume the Stage 7/Admin two-scale visual slice from the sealed pair.
+
+### DO NOT TOUCH
+
+- Do not change the supervisor lifecycle implementation merely to satisfy this
+  false-positive parser. Preserve the race-correct invariants: the first
+  publication is the initial engine, no restart begins after Unity exit, and
+  every uniquely published engine is dead after shutdown.
+- Do not change TypeScript simulation authority, protocol/schema/generated DTOs,
+  `GameState`, V14, gameplay formulas, RNG, construction/economy rules, or Unity
+  source for this repair.
+- Do not create or move Golden tags, promote canonical branches, rewrite Git
+  history, force push, or discard the dirty test repair.
+- Keep ignored builds, evidence, profiles, logs, leases, caches, and local
+  absolute proof paths out of Git.
+
+### DECISIONS MADE THIS SESSION
+
+| Decision | Reason | Reversible | Supporting evidence |
+| --- | --- | --- | --- |
+| Interrupt the M4 seal and keep M3 CURRENT BEST | Exact-product CI is red, so the Golden remote gate has not passed | Yes after a green repaired exact-product run | GitHub run `32446759604`; no M4 tag |
+| Classify the failure as a test parser defect, not a second engine start | The assertion received the same PID twice because it matched the real start and `cleanup engine pid=8399` | Yes if contrary process evidence appears | Failed line 758 and CI log |
+| Repair only the exact spawn-line parser | The product invariant remains correct; the classifier is too broad | Yes | Earlier CI gates and local/native evidence remain green |
+| Permit only a pre-exit replacement race and prove its cleanup | Unity can exit during the bounded restart backoff; an engine published before that observation is legitimate but must be terminated | Yes with contrary lifecycle evidence | Exact-line helper, no-post-exit-spawn assertion, and unique-PID liveness checks |
+
+### UNCOMMITTED / UNSAVED MATERIAL
+
+- `tests/bridge-supervisor.test.ts` is dirty with the completed test-only exact
+  publication parser, focused regression, and race-correct shutdown assertions.
+  Its local supervisor, bridge, full-suite, typecheck, and diff gates pass.
+- This handoff is dirty to preserve the interruption state. No other tracked
+  product implementation change is expected at this checkpoint.
+- Ignored B10 native evidence, the private proof profile, native app, `/tmp`
+  results, caches, logs, locks, and leases remain local and must not be staged.
+
+### RECOVERY INSTRUCTIONS
+
+1. Read this top interruption section, then the immediately following historical
+   Checkpoint 10 pre-commit section for full implementation/evidence context.
+2. Verify TypeScript branch `campaign/unity-production-convergence-80h-ts` has
+   HEAD/upstream product `e6421dcd51c7b64071b8be227f0950129634ff35`, parent
+   `808d319bd1b9b2c8b81cd8e2c60808ae0180c8a3`, and only the intended test and
+   continuity work dirty.
+3. Verify Unity is clean/pushed on
+   `campaign/unity-production-convergence-80h-client` at
+   `6b32335447848ed0680eb8077e78ee36aded5d56`.
+4. Inspect GitHub Bridge contract run `32446759604` and confirm the sole failed
+   step is `Test application` with `[8399, 8399]` caused by cleanup-line matching.
+5. Inspect, commit, and push the exact publication-parser repair plus this
+   interruption handoff; its focused/full local gates already pass.
+6. Run exact-product Linux CI on the repaired pushed SHA. Do not declare or tag
+   Golden M4 until it is green and both worktrees are clean.
+7. After the Golden decision is durably recorded in the ledger, handoff, and
+   promotion register, resume the Stage 7/Admin camera slice.
+
+## CHECKPOINT 10 PRE-COMMIT - HISTORICAL GOLDEN M4 CANDIDATE
+
+This section was the authoritative pre-commit state at the timestamp below.
 Checkpoint 10 is implementation-complete and broadly validated in the dirty
 TypeScript worktree, but it has no product commit, remote SHA, or Golden tag
 yet. Golden M3 remains CURRENT BEST until the exact candidate is committed,
