@@ -46,18 +46,18 @@ rewritten, merged, rebased, or force-pushed.
 | Campaign setup and baseline | Complete | Authorities verified, isolated branches pushed, full baseline built, played, captured, and measured |
 | A - Productionize TypeScript to Unity contract | Complete for current protocol | A1 generated contract, A2 named projections, A3 queue parity, and A4 structured remedies are sealed; later projection growth must retain the same authority/version discipline |
 | B - Durable local game runtime | Golden M4 complete for local development | Checkpoints 7/8/9/10 provide durable authenticated exact-retry continuity and a one-command owned lifecycle; emitted production packaging remains later work |
-| C - Unity client architecture | Partial, Checkpoint 11 non-Golden | Protocol, runtime continuity, authoritative physical-location joins, two-scale Cinemachine direction, unified input, collision recovery, proof, and presentation seams exist; broader production decomposition remains open |
+| C - Unity client architecture | Partial, Checkpoint 12 non-Golden | Protocol, runtime continuity, authoritative physical-location joins, two-scale Cinemachine direction, Stage-A truth/state presentation, unified input, collision recovery, proof, and presentation seams exist; broader production decomposition remains open |
 | D - Full Movie journey in Unity | Partial at inherited baseline | Automated native Movie #2 path passes, but the interaction surface remains proof-oriented and does not yet provide the approved professional retained workspaces |
 | E - Lot interaction / construction / management | Partial at inherited baseline | TypeScript construction intent and visible construction state pass; direct build placement interaction is not productionized in Unity |
-| F - Hero Soundstage 7 | Partial, first close-scale proof accepted | Authored inspection now frames recognizable filmmaking equipment and human-scale activity; material, people, role, period, and production-density quality remain below the visual law |
-| G - Characters and authored animation | Partial at inherited baseline | Provenance-cleared assets, Mecanim setup, 32 animators, and seven active people exist; quality and role activity are below target |
-| H - Purposeful people / NavMesh | Partial at inherited baseline | Seven visible people are active on NavMesh; 25/50/100 stress gates are untouched |
-| I - Camera / occlusion / inspection | Functional non-Golden slice | Smooth management/inspection Cinemachine modes, Stage 7/Admin targets, collision/occlusion recovery, shared mouse/touch sampling, UI gesture exclusion, Back/Escape/Home return, and 1440/narrow proof pass; a real foreground touch activation remains unproven |
+| F - Hero Soundstage 7 | Partial, Checkpoint 12 working-stage slice sealed non-Golden | Stage-A truth now drives five distinct operating states with film-camera, boom, director, cast, crew, load-in, clearing, lighting, and working-back cues; close-read art, materials, lighting, role scale, and portrait composition remain below the visual law |
+| G - Characters and authored animation | Partial, role animation slice accepted | Provenance-cleared bodies, Mecanim role controllers, authoritative/ambient slot separation, and 32 declared people exist; human detail, close-read role identity, and animation quality remain below target |
+| H - Purposeful people / NavMesh | Partial, Stage-A activation proven | Runtime NavMesh activation and Stage-A role stations present 4/4 authoritative plus 8/8 ambient people in active proof states; 25/50/100 stress gates are untouched |
+| I - Camera / occlusion / inspection | Functional non-Golden slice | Smooth management/inspection Cinemachine modes, responsive Stage 7 landscape/portrait profiles, Admin target, collision/occlusion recovery, shared mouse/touch sampling, UI gesture exclusion, Back/Escape/Home return, and exact-viewport proof pass; frustum tests do not prove occlusion-free composition and real foreground touch remains unproven |
 | J - World / era / campus quality | Partial at inherited visual floor | Campus scale reads, but overview remains a diorama and Administration is flat/empty; surroundings, density, material variation, inhabitation, and 1948 specificity remain weak |
-| K - Materials / lighting / VFX / audio | Partial at inherited baseline | URP presentation exists; prototype surfaces and sparse soundstage lighting dominate |
+| K - Materials / lighting / VFX / audio | Partial, first Stage 7 treatment accepted | Stage-specific generated surface detail, working-set backs, practical/shooting effects, and state-driven lights exist; flat low-detail materials and lighting still dominate the close read |
 | L - Performance / scalability | Baseline only | M3 Max measurements captured; no 25/50/100 scalability campaign yet |
 | M - Resilience | Partial | Stale/duplicate, durable save/load, idle restart, outage retention, malformed protocol, exact lost-response recovery, and the Golden M4 supervisor pass; production packaging and the full ugly-condition matrix remain incomplete |
-| N - Professional QA | Active | Full TypeScript, Unity EditMode, native build, scene validation, two-resolution camera proof, native Movie #2, full-client reconnect, actual process-kill, evidence-verifier, and runtime capture gates are established and run per checkpoint |
+| N - Professional QA | Active | Full TypeScript, Unity EditMode, native build, scene validation, two-resolution five-state Stage proof, native Movie #2, full-client reconnect, actual process-kill, evidence-verifier, and runtime capture gates are established and run per checkpoint |
 
 ## 2026-08-20 - Checkpoint 0: branch creation and architecture boot
 
@@ -2461,3 +2461,250 @@ with `git rev-parse HEAD`, require HEAD to equal configured upstream, and
 require a clean tracked tree. M4 remains sole CURRENT BEST with status exactly
 **GOLDEN — CONTINUE CAMPAIGN**; Checkpoint 11 remains the non-Golden development
 base; no M5 or canonical promotion is authorized.
+
+## 2026-08-21 11:43 CEST - Checkpoint 12 sealed: Stage 7 working soundstage (pushed, non-Golden)
+
+### Exact sealed state
+
+| Component | Branch | Exact pushed SHA | Direct parent / disposition |
+| --- | --- | --- | --- |
+| TypeScript authority | `campaign/unity-production-convergence-80h-ts` | `93e15232915695e904680c34e2e1abbb4a5e5152` | Clean pushed Checkpoint 11 continuity tip; no TypeScript product change in Checkpoint 12 |
+| Unity production client | `campaign/unity-production-convergence-80h-client` | `219f290e3dc4b7174ee2ff26992692e8b2779c89` | Direct child of `5c8a0eee7fa16bb9fd486fb61707230b208330d6`; `feat(presentation): stage a working soundstage`; clean and pushed |
+
+These SHAs are the compatible sealed Checkpoint 12 development pair. Neither is
+tagged, Golden, canonical, or CURRENT BEST. Golden M4 remains the sole CURRENT
+BEST recovery pair: TypeScript
+`11e2cf88a35ce004ecd7a240fdc2ec892c3688b6` plus Unity
+`6b32335447848ed0680eb8077e78ee36aded5d56`, both under the pushed annotated
+tag `golden/unity-convergence-m4`. Promotion status remains exactly
+**GOLDEN — CONTINUE CAMPAIGN**. No M5 tag or canonical promotion is authorized.
+
+The contract remains protocol `4`, projection `4`, schema
+`sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`.
+TypeScript remains the sole simulation authority. Checkpoint 12 changes only
+Unity presentation, authoring, validation, and additive proof behavior; it does
+not change V14, `GameState`, gameplay formulas, RNG, permanent identity, or the
+generated bridge contract.
+
+The documentation-only commit containing this section is the direct child of
+TypeScript `93e15232915695e904680c34e2e1abbb4a5e5152`. Its self SHA is resolved
+with `git rev-parse HEAD`; recovery requires HEAD to equal the configured
+upstream and the tracked tree to be clean. This containing commit changes no
+product or promotion fact.
+
+### Working-soundstage implementation
+
+- Added an exact protocol-v4 Stage-A truth resolver. It fails closed on missing,
+  duplicate, ambiguous, stale-week, or inconsistent physical stage, facility,
+  theater-subject, and production-operation joins instead of inventing visual
+  activity.
+- Added mutually exclusive `LoadIn`, `Shooting`, `Waiting`, and `Clearing`
+  presentation roots plus a truly inactive `Dark` state. The state is a pure
+  reading of authority and cannot advance time or POST an intent.
+- Separated authoritative people from explicitly declared ambient presentation
+  bodies. Active Stage-A states show the exact four on-stage authoritative
+  director/cast identities when authority requires them and eight stable ambient
+  camera, grip, electric, PA, boom, carpenter, camera-assist, and wardrobe
+  identities; `Dark` removes stage activity.
+- Activated the authored NavMesh at runtime, retained exact role stations, and
+  added role-specific Mecanim controllers and purposeful movement for director,
+  performance, camera, camera-assist, boom, electric, slate, and carry work.
+- Added state-driven practical effects: interior spill while occupied, shooting
+  beacon/indicators, six shooting-only lights, and distinct load-in, camera,
+  boom, waiting, clearing, and dark equipment cues.
+- Reworked Stage 7 as a visible working soundstage with an apartment set,
+  wainscot/battens, practical furniture/radio, dolly track, camera, boom,
+  director station, load-in flatbed/flats, wrap cart, stage apron, visible
+  working backs, braces, rail, studs, and sandbag.
+- Added deterministic Stage-specific material detail and normal variation for
+  floor, canvas, timber, steel, and apron surfaces without importing protected
+  reference material.
+- Reframed Stage inspection as a responsive three-quarter composition: a
+  landscape close read and a separate portrait profile, both keeping the exact
+  role marks and state props in the proof frustum.
+- Regenerated the canonical scene and expanded the validator to require the
+  truth controller, exact state roots, effects wiring, slot authority,
+  department counts, role stations, Stage materials/working side, camera
+  anchors, and existing scene population counts.
+- Added a separate five-milestone runtime proof that drives Movie #2 through
+  Rehearsal Waiting, Scenery Load-In, Shooting, Wrap Clearing, and Stage Dark.
+  It records exact authoritative correlation and visibility without replacing
+  the normal full Movie #2/reconnect/restart proofs.
+
+### Accepted validation
+
+| Gate | Checkpoint 12 result |
+| --- | --- |
+| Canonical scene validation | Passed: 32 people, 10 vehicles, 18 equipment objects, 4 capture anchors, 0 errors, 0 warnings |
+| Unity EditMode | Passed 101/101; `/tmp/project-studio-d-stage-seal2-editmode.xml` |
+| Native macOS build | Passed; `/tmp/project-studio-d-stage-seal-build.log`; aggregate bytes `137484986`; executable SHA-256 `d41cadf58ec66502cc810aebd0c82022e8a58e350e10a94b4e2bdfbafa9f44e1` |
+| Bridge aggregate | Passed 100/100 |
+| Full TypeScript suite | Passed uncontended rerun: 336 files, 4,526 passed, 5 skipped, 0 failed |
+| TypeScript checks | `typecheck`, `typecheck:bridge`, build, generated-contract check, and repository hygiene passed |
+
+The first full TypeScript run overlapped other validation and transiently
+reported four duplicate-testid failures. The exact affected test file passed
+28/28 in isolation, and the full uncontended rerun passed clean. The failure was
+non-reproducible and is retained as concurrent-run test history, not erased or
+classified as a product regression.
+
+### Five-state native Stage evidence
+
+Landscape evidence root:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/D/Stage7-20260821T093017Z/Landscape/`.
+
+- Report SHA-256:
+  `3b5891ccd2cb3f88ad3f7f39bfe40a8ba498d74a29a5e20154869ce1786f1072`.
+- Rehearsal Waiting / Scenery Load-In / Shooting / Wrap Clearing / Dark PNG
+  SHA-256:
+  `ec028158917530eaf84fdcb54a3581e04eba63ae9d790d94f71c4a6418d40434`,
+  `7d5c047d446300966138378b546f7f4076f22b226d17325c8b74c5d3ecd7008a`,
+  `74611d9ccd43fb6b5bbec5c8da123594f1e14d015bfb7a24934416150eb8be6e`,
+  `eb31e56b45a6353f066479e800981cc80fe70d0b1e667f608fe6c5da31d9d1f0`,
+  `4e751ecb820f22938c3d5d06da17a862d5d1a1d2226a413e3f376ef9639720cb`.
+
+Portrait evidence root:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/D/Stage7-20260821T093040Z/Portrait/`.
+
+- Report SHA-256:
+  `dc72c390a8d8c894d7e9c2f0b5c006135776927a7aa48fe460f20e9d9c4b9f72`.
+- Rehearsal Waiting / Scenery Load-In / Shooting / Wrap Clearing / Dark PNG
+  SHA-256:
+  `1f9bede04eb6d0606e1406c79db362137f3095f0877036bc7bf31975edf7942f`,
+  `6399fce172be3037061d5cfc9c7b51b1c3088ca9db96e0ea6eb45f703ec5cd11`,
+  `7c658181a42eede15241cd4a0ca567cd6ae3d3491b2b36bdd26e1a73ba9533ef`,
+  `6b3de340c82253a5b789d25a5cc1fbf58c48317415263a3f74b154e016bfb6ba`,
+  `e79a7f24c885b6a6d64a80116364c941a29e5d42d92059f32937f25315669213`.
+
+Both reports are `complete` at their exact 1440x900 and 390x844 viewports.
+Both advance revision `0 -> 18`, finish Week `20`, submit and accept exactly
+18/18 proof-owned POSTs, capture all five exact state milestones, show 4/4
+authoritative plus 8/8 ambient Stage-A people in every active state that
+requires them, and observe zero unexpected or presentation-owned POSTs. `Dark`
+correctly has no active state root or stage people.
+
+### Fresh Movie #2, reconnect, and restart regression
+
+Accepted regression root:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/D/Regression-20260821T093322Z/`.
+
+- Movie #2 report/released-frame SHA-256:
+  `ec548b87a6b0caca729ae8a37d1ed1227405e5c46f44a4aa2b8ada54d74e5307` /
+  `2f685af592fdd24382b664f39143ee4846f76e1e4a5681876b9ff98af0cde102`.
+  Session `0523495d-4cb6-46fe-b60d-f5cd38947afb` reaches exact release at
+  revision `23`, Week `22`, digest
+  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`;
+  save/load restores
+  `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`;
+  average `119.001` FPS.
+- Reconnect report/frame SHA-256:
+  `c58bb140adbcbed30cd02cfa48847c1ed3563b633da66492e5877cd71fab41cf` /
+  `6cde39fa913f01945d7a167d0fc9737b116062484ac64582d65ea73df8736deb`.
+  It preserves the same logical authority under a new runtime instance at
+  `119.199` FPS.
+- Accepted `RuntimeRestart2` ready/report/frame SHA-256:
+  `e06cc19e99bbf5a1ef75603348e9f65ff8ed876dca4aac1e1f61f00ae3c591b8` /
+  `3e2e7be339a6c1dddbc61760364ab1cf51f20228cd4ae416dc402b5b448ac906` /
+  `878f533dfa92d448ba99abd1dd63ffa34f10fb3e5832f58caf74e2d9562ce632`.
+  It validates initial engine PID `81829` and its incarnation, kills that exact
+  process, observes one outage and one replacement, accepts replacement PID
+  `81939` on pinned port `62737`, preserves the same authority, and averages
+  `119.999` FPS.
+- `RuntimeRestart/bridge-runtime-restart-proof.json`, SHA-256
+  `ee8631e363ca402cd56d7dd1c857a79bae5f915449dea7572b381811490035c2`,
+  is a failed operator attempt that missed the kill window and killed no engine.
+  It is superseded by `RuntimeRestart2` and is not a product failure.
+- The stable runtime checkpoint is V1/protocol `4`/schema `ba9cd199...`, revision
+  `23`, 25 journal entries, 1,354,914 bytes, SHA-256
+  `4cff54571eba36eecdfded011c5e840c4eadd48dcfa8771dfeea37b0bc6473da`,
+  with the exact saved digest above.
+
+### Visual-fidelity ruling and non-Golden decision
+
+The governing local reference remains
+`/Users/bruce/Downloads/project-studio-visual-fidelity.pdf`. Counts, test
+passes, build size, and FPS establish engineering integrity only; they must
+never be fused with the visual verdict.
+
+Checkpoint 12 is meaningfully and immediately recognizable as a working
+soundstage. Waiting, Load-In, Shooting, Clearing, and Dark are visibly distinct,
+and Shooting clearly reads as a film camera, boom, director, cast, and crew
+working around a dressed set. This is a material visual improvement over
+Checkpoint 11.
+
+It remains below the reference bar. The art is low-detail and flat, material
+separation and lighting lack cinematic depth, roles remain tiny at the accepted
+camera distance, and portrait captures retain empty vertical bands while the
+Load-In truck is clipped. The result does not yet sustain the close-read,
+inhabited, modern-The-Movies response required for a visual Golden.
+
+Checkpoint 12 is therefore **SEALED NON-GOLDEN**. Golden M4 remains the sole
+CURRENT BEST with status exactly **GOLDEN — CONTINUE CAMPAIGN**. No M5 tag is
+created; no promotion or canonical claim is made.
+
+### Known residuals
+
+- Proof frustum checks establish in-frame points, not freedom from occlusion by
+  every prop or person.
+- Director-blocked `Waiting` shares the rehearsal `Waiting` presentation rather
+  than having its own visual substate.
+- The accepted runtime-restart report records `exactMovie2Released: false`
+  because of the existing report-schema identity quirk, although its exact
+  released ordinal-2 milestone and all restart invariants pass.
+- Portrait composition still has empty bands and clips part of the load-in
+  truck; this is visual debt, not a reason to weaken exact-viewport proof.
+
+### NEXT EXACT ACTION
+
+Implement one bounded Stage 7 visual slice on the pushed Checkpoint 12 pair.
+Improve the set and role close read, material depth, practical/cinematic
+lighting, and landscape/portrait composition while preserving the exact
+protocol-v4 truth resolver and five-state behavior. Rerun the same five-state
+landscape/portrait proof and full Movie #2/reconnect/restart regression. Do not
+start another infrastructure unit and do not promote based on counts or FPS.
+
+### DO NOT TOUCH
+
+- Do not create or move `golden/unity-convergence-m5`; do not move or delete
+  M1-M4. Golden M4 remains the sole CURRENT BEST immutable pair.
+- Do not promote Checkpoint 12, call it Golden/canonical, or weaken the local
+  visual-fidelity ruling because engineering gates pass.
+- Do not change TypeScript sole simulation authority, protocol/schema/generated
+  DTOs, V14, `GameState`, identity, RNG, economy, or gameplay formulas to solve
+  presentation work.
+- Do not infer Stage activity from display text, emit a presentation POST, merge
+  authoritative and ambient identity, or relax fail-closed truth joins.
+- Do not weaken exact state-root, active-person, viewport, no-presentation-POST,
+  Movie #2, reconnect, restart, or checkpoint assertions.
+- Do not treat frustum visibility as occlusion proof, the superseded missed-kill
+  run as a product failure, or the restart-report schema quirk as proof that
+  Movie #2 was not released.
+- Do not stage ignored apps, evidence, profiles, checkpoints, screenshots,
+  logs, locks, caches, or `/tmp` outputs. Do not import protected reference
+  assets or reproduce the 2005 UI literally.
+
+### Recovery
+
+1. Read this section, the current handoff's Checkpoint 12 section, the promotion
+   register's Checkpoint 12 non-Golden section, ADR 0006, and the client
+   decision. Do not reopen the engine/client decision.
+2. For immutable CURRENT BEST recovery, use both M4 tags and verify TypeScript
+   `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6` plus Unity
+   `6b32335447848ed0680eb8077e78ee36aded5d56`.
+3. To continue Checkpoint 12, use TypeScript
+   `93e15232915695e904680c34e2e1abbb4a5e5152` plus Unity
+   `219f290e3dc4b7174ee2ff26992692e8b2779c89`. Never mix sides.
+4. Preserve the documentation-only commit containing this section directly
+   above TypeScript `93e1523...`. Resolve its self SHA with `git rev-parse HEAD`;
+   after push, require HEAD equal configured upstream and an empty
+   `git status --short`. Require Unity HEAD/upstream at `219f290...` and a clean
+   tracked tree.
+5. Rebuild and launch with `npm run studio -- --unity-project
+   '/Users/bruce/Project Studio - Unity Production Convergence 80H'`. Verify
+   protocol/projection `4`, schema `ba9cd199...`, and authenticated readiness.
+6. Use the exact report/frame hashes above for regression. Treat
+   `RuntimeRestart` as superseded and `RuntimeRestart2` as the accepted actual
+   process-replacement proof.
+7. Continue only with NEXT EXACT ACTION. Do not tag M5 or promote until a future
+   checkpoint independently passes visual, interaction, runtime, remote CI,
+   clean-tree, and recovery gates.

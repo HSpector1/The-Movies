@@ -15,9 +15,9 @@ Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
 
 This exact pair is the sole CURRENT BEST recovery answer. Both annotated M4
 tags are pushed and their remote dereferences were verified at the exact SHAs
-above. Both campaign branches have advanced to the non-Golden Checkpoint 11
+above. Both campaign branches have advanced to the non-Golden Checkpoint 12
 pair recorded below; those moving tips do not replace the tagged M4 product
-SHAs. Continue bounded campaign work from Checkpoint 11, but recover/build M4
+SHAs. Continue bounded campaign work from Checkpoint 12, but recover/build M4
 only from both tags. Never mix sides.
 
 M4 remains protocol `4`, projection `4`, schema
@@ -120,7 +120,7 @@ npm run studio -- \
 ```
 
 The exact immutable recovery authority is the M4 tag pair above. The advanced
-campaign worktrees launch Checkpoint 11 and must not be described as exact M4.
+campaign worktrees launch Checkpoint 12 and must not be described as exact M4.
 
 ### Validation summary
 
@@ -195,9 +195,10 @@ sparse elevated diorama, oversized generic proof HUD, flat materials, small
 role-unreadable people, weak filmmaking activity, and no convincing human-scale
 inspection view. It remains below ADR 0006 and the visual-fidelity ruling.
 
-The next visual gate is explicit: schema-backed stable Stage 7/Admin location
-IDs plus a Cinemachine management-to-inspection click focus transition, with
-before/after evidence at both camera scales.
+Checkpoint 11 subsequently delivered the stable Stage 7/Admin location and
+two-scale camera gate; Checkpoint 12 adds the working-soundstage slice recorded
+below. The current next visual gate is a stronger Stage 7 set/role close read,
+material and lighting depth, and landscape/portrait composition.
 
 ### Known defects
 
@@ -230,14 +231,199 @@ obvious build-from state while continuing the campaign.
 
 Promotion status remains exactly **GOLDEN — CONTINUE CAMPAIGN**.
 
-## CHECKPOINT 11 PUSHED CAMERA/LOCATION PAIR - NON-GOLDEN
+## CHECKPOINT 12 SEALED STAGE 7 WORKING SOUNDSTAGE - NON-GOLDEN
 
 Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
 
-This section records the compatible pushed campaign tip after Golden M4. It is
-useful production work and the correct base for the next bounded campaign
-slice. It is not CURRENT BEST, Golden, tagged, canonical, or ready for
-canonical promotion. The Golden M4 section above remains authoritative.
+Checkpoint 12 is the compatible pushed campaign tip after Checkpoint 11. It is
+a meaningful working-soundstage visual/runtime slice and the correct base for
+the next bounded visual unit. It is **SEALED NON-GOLDEN**: it is not CURRENT
+BEST, tagged, canonical, promoted, or ready for canonical review. Golden M4
+above remains the sole CURRENT BEST recovery answer.
+
+| Component | Repository | Branch | Exact pushed SHA | Direct parent | Tag |
+| --- | --- | --- | --- | --- | --- |
+| TypeScript authority | `HSpector1/The-Movies` | `campaign/unity-production-convergence-80h-ts` | `93e15232915695e904680c34e2e1abbb4a5e5152` | `600e014f3bd862583ee1605d158d1f8edb1f525e` | None |
+| Unity production client | `HSpector1/project-studio-unity-visual-spike` | `campaign/unity-production-convergence-80h-client` | `219f290e3dc4b7174ee2ff26992692e8b2779c89` | `5c8a0eee7fa16bb9fd486fb61707230b208330d6` | None |
+
+TypeScript `93e1523...` remains clean and pushed with no Checkpoint 12 product
+change. Unity `219f290e...`, `feat(presentation): stage a working soundstage`,
+is clean and pushed. These two SHAs are the only compatible Checkpoint 12 pair.
+Never substitute the Unity parent or mix one side with another checkpoint.
+
+The documentation-only commit containing this section is the direct child of
+TypeScript `93e15232915695e904680c34e2e1abbb4a5e5152`. Its self SHA is resolved
+with `git rev-parse HEAD`; recovery requires HEAD to equal configured upstream
+and the tracked tree to be clean. That docs-only child changes no product or
+promotion fact.
+
+The contract remains protocol `4`, projection `4`, schema
+`sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`.
+TypeScript remains sole simulation authority. There is no schema, V14,
+`GameState`, gameplay-formula, RNG, permanent-identity, economy, or generated
+DTO change.
+
+### What Checkpoint 12 adds
+
+- exact, fail-closed Stage-A protocol-v4 truth resolution across the physical
+  stage, facility, theater beat, and production operation;
+- mutually exclusive Waiting, Load-In, Shooting, and Clearing roots plus true
+  Dark inactivity, all presentation-only and save-neutral;
+- separate authoritative and ambient person slots, with exact on-stage
+  director/cast identities and eight stable filmmaking-department bodies;
+- runtime NavMesh activation, role stations, purposeful locomotion, and
+  director/performance/camera/boom/electric/slate/carry Mecanim roles;
+- state-driven shooting beacon/indicators, interior spill, six shooting-only
+  lights, and distinct load-in/shooting/waiting/clearing equipment;
+- an apartment set, practical furniture, film camera/dolly/boom/director
+  stations, loading flatbed/flats, wrap cart, working backs/studs/braces/rail,
+  sandbag, and deterministic Stage-specific material detail;
+- responsive landscape and portrait Stage inspection profiles;
+- regenerated canonical scene/validator coverage and an additive five-state
+  runtime proof that does not replace full Movie #2/reconnect/restart gates.
+
+### Validation and evidence
+
+- Scene validation: 32 people, 10 vehicles, 18 equipment objects, 4 capture
+  anchors, 0 errors, 0 warnings.
+- Unity EditMode: 101/101 in
+  `/tmp/project-studio-d-stage-seal2-editmode.xml`.
+- Native build: passed in `/tmp/project-studio-d-stage-seal-build.log`;
+  137,484,986 aggregate bytes; executable SHA-256
+  `d41cadf58ec66502cc810aebd0c82022e8a58e350e10a94b4e2bdfbafa9f44e1`.
+- TypeScript: bridge 100/100; uncontended full rerun 336 files, 4,526 passed,
+  5 skipped; both typechecks, build, generated-contract check, and hygiene pass.
+  An initial concurrent full run transiently reported four duplicate-testid
+  failures; the affected file passed 28/28 alone and the uncontended full rerun
+  was clean. This is retained as non-reproducible test history, not a product
+  regression.
+
+Landscape Stage evidence root:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/D/Stage7-20260821T093017Z/Landscape/`.
+Report SHA-256 is
+`3b5891ccd2cb3f88ad3f7f39bfe40a8ba498d74a29a5e20154869ce1786f1072`;
+Waiting / Load-In / Shooting / Clearing / Dark PNG SHA-256 values are
+`ec028158917530eaf84fdcb54a3581e04eba63ae9d790d94f71c4a6418d40434`,
+`7d5c047d446300966138378b546f7f4076f22b226d17325c8b74c5d3ecd7008a`,
+`74611d9ccd43fb6b5bbec5c8da123594f1e14d015bfb7a24934416150eb8be6e`,
+`eb31e56b45a6353f066479e800981cc80fe70d0b1e667f608fe6c5da31d9d1f0`,
+and `4e751ecb820f22938c3d5d06da17a862d5d1a1d2226a413e3f376ef9639720cb`.
+
+Portrait Stage evidence root:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/D/Stage7-20260821T093040Z/Portrait/`.
+Report SHA-256 is
+`dc72c390a8d8c894d7e9c2f0b5c006135776927a7aa48fe460f20e9d9c4b9f72`;
+the five corresponding PNG SHA-256 values are
+`1f9bede04eb6d0606e1406c79db362137f3095f0877036bc7bf31975edf7942f`,
+`6399fce172be3037061d5cfc9c7b51b1c3088ca9db96e0ea6eb45f703ec5cd11`,
+`7c658181a42eede15241cd4a0ca567cd6ae3d3491b2b36bdd26e1a73ba9533ef`,
+`6b3de340c82253a5b789d25a5cc1fbf58c48317415263a3f74b154e016bfb6ba`,
+and `e79a7f24c885b6a6d64a80116364c941a29e5d42d92059f32937f25315669213`.
+
+Both reports are complete at exact 1440x900 and 390x844 viewports, revision
+`0 -> 18`, Week `20`, 18/18 accepted proof-owned POSTs, five exact states, 4/4
+authoritative plus 8/8 ambient people in active states, and zero unexpected or
+presentation-owned POSTs.
+
+Fresh regression root:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/D/Regression-20260821T093322Z/`.
+
+- Movie #2 report/released PNG:
+  `ec548b87a6b0caca729ae8a37d1ed1227405e5c46f44a4aa2b8ada54d74e5307` /
+  `2f685af592fdd24382b664f39143ee4846f76e1e4a5681876b9ff98af0cde102`;
+  session `0523495d-4cb6-46fe-b60d-f5cd38947afb`, revision 23/Week 22/digest
+  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`,
+  saved/restored
+  `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`,
+  119.001 FPS.
+- Reconnect report/PNG:
+  `c58bb140adbcbed30cd02cfa48847c1ed3563b633da66492e5877cd71fab41cf` /
+  `6cde39fa913f01945d7a167d0fc9737b116062484ac64582d65ea73df8736deb`;
+  same logical authority/new runtime, 119.199 FPS.
+- Accepted `RuntimeRestart2` ready/report/PNG:
+  `e06cc19e99bbf5a1ef75603348e9f65ff8ed876dca4aac1e1f61f00ae3c591b8` /
+  `3e2e7be339a6c1dddbc61760364ab1cf51f20228cd4ae416dc402b5b448ac906` /
+  `878f533dfa92d448ba99abd1dd63ffa34f10fb3e5832f58caf74e2d9562ce632`;
+  exact initial PID `81829`/incarnation, replacement PID `81939`, pinned port
+  `62737`, one outage/replacement, same authority, 119.999 FPS.
+- Superseded restart report
+  `ee8631e363ca402cd56d7dd1c857a79bae5f915449dea7572b381811490035c2`
+  missed the operator kill window and killed no engine. It is not a product
+  failure.
+- Runtime checkpoint: V1/protocol `4`/schema `ba9cd199...`, revision `23`, 25
+  journal entries, 1,354,914 bytes, SHA-256
+  `4cff54571eba36eecdfded011c5e840c4eadd48dcfa8771dfeea37b0bc6473da`,
+  exact saved digest above.
+
+### Visual ruling and residuals
+
+Checkpoint 12 is meaningfully recognizable as a working soundstage. The five
+states are distinct, and Shooting clearly reads as a film camera, boom,
+director, cast, and crew around a dressed set. This is real visual progress.
+
+It remains below
+`/Users/bruce/Downloads/project-studio-visual-fidelity.pdf`: art/materials and
+lighting are low-detail and flat, roles are tiny, portrait framing leaves empty
+bands, and the load-in truck is clipped. Frustum inclusion is not proof against
+occlusion. Director-blocked Waiting shares rehearsal Waiting. The accepted
+restart report's `exactMovie2Released: false` is the existing schema quirk even
+though the exact Movie #2 release milestone and restart invariants pass.
+
+Counts, tests, build bytes, and FPS prove engineering health only. They must
+never be combined with the visual ruling to manufacture a Golden decision.
+
+### Recovery and launch
+
+For exact Checkpoint 12 continuation, use TypeScript
+`93e15232915695e904680c34e2e1abbb4a5e5152` with Unity
+`219f290e3dc4b7174ee2ff26992692e8b2779c89`, then launch:
+
+```bash
+cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
+npm run studio -- \
+  --unity-project '/Users/bruce/Project Studio - Unity Production Convergence 80H'
+```
+
+For immutable CURRENT BEST recovery/build, use both M4 tags in the first
+section, never the moving campaign tips. Preserve this section's containing
+docs-only child of `93e1523...`; resolve it with `git rev-parse HEAD`, and after
+push require HEAD equal upstream plus a clean tracked tree. Unity must remain
+clean at HEAD/upstream `219f290e...`.
+
+### DO NOT TOUCH
+
+- Do not create/move M5, move/delete M1-M4, or promote Checkpoint 12. M4 remains
+  sole CURRENT BEST.
+- Do not alter TypeScript authority, protocol/schema/generated DTOs, V14,
+  `GameState`, identity, RNG, economy, or gameplay formulas for visual work.
+- Do not weaken Stage truth, state-root, authority/ambient, viewport, no-POST,
+  Movie #2, reconnect, restart, or checkpoint assertions.
+- Do not equate frustum checks with occlusion proof, classify the missed-kill
+  attempt as a product defect, or hide the restart-report schema quirk.
+- Do not commit native apps, evidence, profiles, checkpoints, screenshots,
+  logs, caches, locks, or protected reference assets.
+
+### Promotion decision and next exact action
+
+Checkpoint 12 is **SEALED NON-GOLDEN** and receives no tag. Golden M4 remains
+the sole CURRENT BEST; promotion status remains exactly
+**GOLDEN — CONTINUE CAMPAIGN**.
+
+The next unit is one bounded Stage 7 visual slice improving set/role close-read,
+material depth, practical/cinematic lighting, and landscape/portrait
+composition while preserving exact five-state truth. Rerun the Stage proof and
+full Movie #2/reconnect/restart gates. Do not divert to infrastructure and do
+not consider promotion until the images independently satisfy the visual law.
+
+## CHECKPOINT 11 PUSHED CAMERA/LOCATION PAIR - HISTORICAL NON-GOLDEN
+
+Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
+
+This section records the compatible pushed campaign tip after Golden M4 and
+before Checkpoint 12. Checkpoint 12 above supersedes it as the current
+development base. Checkpoint 11 remains useful production history, but it is
+not CURRENT BEST, Golden, tagged, canonical, or ready for canonical promotion.
+The Golden M4 section above remains authoritative.
 
 | Component | Repository | Branch | Exact product SHA | Direct parent | Tag |
 | --- | --- | --- | --- | --- | --- |
