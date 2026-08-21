@@ -2406,3 +2406,52 @@ generic workflow surface with a restrained world-first responsive HUD. Then
 rerun the same 1440x900 and 390x844 two-scale/collision/authority proof plus a
 real foreground pointer/touch activation of `BACK TO STUDIO` before considering
 another visual Golden checkpoint.
+
+## 2026-08-21 09:16 CEST - Checkpoint 11 continuity CI interruption and test-only repair
+
+### Exact branch history
+
+| State | Exact SHA / run | Disposition |
+| --- | --- | --- |
+| Checkpoint 11 TypeScript product | `014f7ef94e085222bf375b9457a6b15420fa314c` | Unchanged compatible product with Unity `5c8a0eee7fa16bb9fd486fb61707230b208330d6` |
+| Checkpoint 11 docs continuity | `ef6bb94d5bc05fd8a8166c8e7ac059a766e0b8e2`, parent `014f7ef9...` | Documentation-only; pushed |
+| Docs-continuity CI | `32456422238` at `ef6bb94d...` | Failed in Bridge test helper; not a product defect |
+| Test-only repair | `21629d2323dc11bc5927ff209f9255909fb5afe2`, parent `ef6bb94d...` | Changes only `tests/bridge-supervisor.test.ts`; pushed |
+| Exact repair CI | `32457020574` at `21629d2...` | Passed every workflow step in 11m41s |
+
+The Checkpoint 11 product pair, Golden M4 recovery pair, protocol `4`,
+projection `4`, schema `ba9cd199...`, generated DTO `1192d58a...`, visual
+verdict, and promotion status are unchanged. No Unity commit accompanies this
+test-only repair.
+
+### Failure classification and repair
+
+Run `32456422238` reached the Bridge suite after browser audit, repository
+hygiene, generated-contract verification, and both typechecks passed. During
+the supervisor crash-loop test, `allFiles` enumerated a temporary atomic lease
+candidate and then received `ENOENT` when `lstat` inspected the now-removed
+path. The publisher had legally completed or cleaned the candidate between the
+two operations. This is a test-inspection TOCTOU, not a runtime, authority,
+camera, location, or Movie #2 failure.
+
+Repair `21629d2...` is deliberately narrow:
+
+- tolerate `ENOENT` only after an entry has already been discovered, including
+  a directory that vanishes before its read;
+- keep root `ENOENT` and every non-`ENOENT` error fail-closed;
+- retain symlink exclusion and inspection of stable files;
+- deterministically cover disappearing file/directory cases and `EACCES`.
+
+Local repair validation passed `tests/bridge-supervisor.test.ts` 11/11 three
+consecutive times, the Bridge aggregate 100/100, generated contract check,
+bridge/full typechecks, and `git diff --check`. Repository hygiene remains
+1,032 files. Exact repair run `32457020574` subsequently passed every workflow
+step at `21629d2...` in 11m41s. Failed run `32456422238` is superseded
+test-harness history; the post-product validation repair is remotely sealed.
+
+The next containing TypeScript commit must modify only the three campaign
+continuity documents and be the sole docs-only child of pushed repair
+`21629d2...`. After its push, local HEAD must equal configured upstream and the
+tracked tree must be clean. M4 remains sole CURRENT BEST with status exactly
+**GOLDEN — CONTINUE CAMPAIGN**; Checkpoint 11 remains the non-Golden development
+base; no M5 or canonical promotion is authorized.

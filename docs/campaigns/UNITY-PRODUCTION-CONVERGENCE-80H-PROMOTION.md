@@ -244,10 +244,13 @@ canonical promotion. The Golden M4 section above remains authoritative.
 | TypeScript authority | `HSpector1/The-Movies` | `campaign/unity-production-convergence-80h-ts` | `014f7ef94e085222bf375b9457a6b15420fa314c` | `db03bd8400e79822262a17ba73b0a4c829dc91ff` | None |
 | Unity production client | `HSpector1/project-studio-unity-visual-spike` | `campaign/unity-production-convergence-80h-client` | `5c8a0eee7fa16bb9fd486fb61707230b208330d6` | `6b32335447848ed0680eb8077e78ee36aded5d56` | None |
 
-Both commits are pushed. They are the only compatible Checkpoint 11 product
-pair. The TypeScript branch will gain at most a documentation-only continuity
-descendant after this section; that moving tip does not create a new product
-SHA. Never pair `014f7ef9...` with a Unity commit other than `5c8a0eee...`.
+Both product commits are pushed. They are the only compatible Checkpoint 11
+product pair. The TypeScript branch has since added docs-only continuity
+`ef6bb94d5bc05fd8a8166c8e7ac059a766e0b8e2` and pushed test-only repair
+`21629d2323dc11bc5927ff209f9255909fb5afe2`; neither replaces the product SHA.
+The next containing continuity commit must be the sole docs-only child of
+`21629d2...`. Never pair `014f7ef9...` with a Unity commit other than
+`5c8a0eee...`.
 
 The exact immutable CURRENT BEST remains Golden M4: TypeScript
 `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6` plus Unity
@@ -327,6 +330,25 @@ not these moving campaign branches.
 - TypeScript exact-product GitHub Actions run `32454923261` passed every step at
   `014f7ef94e085222bf375b9457a6b15420fa314c` in 12m12s, including bridge/full
   tests, typechecks, production build, hygiene, and adopted assets.
+
+### Post-product continuity CI repair
+
+- Docs-only `ef6bb94d...` triggered run `32456422238`. Its Bridge step failed
+  because the test helper enumerated an atomic lease candidate that disappeared
+  before `lstat`, producing `ENOENT`. This is a legal publication TOCTOU in test
+  inspection, not a product/runtime/camera defect.
+- Pushed test-only `21629d2...`, direct child of `ef6bb94d...`, tolerates only
+  `ENOENT` for an already discovered entry. The scan root, `EACCES`, and every
+  other error remain fail-closed; symlinks stay excluded and stable files stay
+  inspected.
+- Deterministic file/directory disappearance and `EACCES` coverage pass.
+  Supervisor tests passed 11/11 three consecutive times; bridge passed 100/100;
+  contract check, bridge/full typechecks, and diff hygiene passed locally.
+- Exact repair CI run `32457020574` passed every workflow step at
+  `21629d2323dc11bc5927ff209f9255909fb5afe2` in 11m41s. Failed run
+  `32456422238` remains superseded test-harness history. This later validation
+  history does not change the Checkpoint 11 product pair or its non-Golden
+  decision.
 
 Accepted 1440x900 camera evidence root:
 `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/C/Camera-Final-20260821T060033Z/`.

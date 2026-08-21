@@ -14,14 +14,14 @@ Golden M4 remains the sole CURRENT BEST recovery pair.
 
 ### CURRENT EXACT STATE
 
-Timestamp: 2026-08-21 08:50 CEST (UTC+02:00).
+Timestamp: 2026-08-21 09:16 CEST (UTC+02:00).
 
 | Item | Exact state |
 | --- | --- |
 | TypeScript worktree | `/Users/bruce/The Movies - Unity Production Convergence 80H` |
 | TypeScript branch | `campaign/unity-production-convergence-80h-ts` |
 | TypeScript Checkpoint 11 product / pushed | `014f7ef94e085222bf375b9457a6b15420fa314c`; direct parent `db03bd8400e79822262a17ba73b0a4c829dc91ff` |
-| TypeScript branch tip / working tree | Before this continuity edit, local HEAD and configured upstream both equal pushed product `014f7ef9...`; only this ledger, handoff, and promotion register are intentionally dirty for one docs-only descendant. After that commit/push, HEAD must equal upstream and the tracked tree must be clean. The containing commit cannot embed its own resulting SHA. |
+| TypeScript branch tip / working tree | Local HEAD and configured upstream equal pushed test-only repair `21629d2323dc11bc5927ff209f9255909fb5afe2`, direct child of docs-only continuity `ef6bb94d5bc05fd8a8166c8e7ac059a766e0b8e2`. Only this ledger, handoff, and promotion register are intentionally dirty. Their containing commit must be the sole docs-only child of `21629d2...`; after push, HEAD must equal upstream and the tracked tree must be clean. The containing commit cannot embed its own resulting SHA. |
 | Unity worktree | `/Users/bruce/Project Studio - Unity Production Convergence 80H` |
 | Unity branch | `campaign/unity-production-convergence-80h-client` |
 | Unity Checkpoint 11 product / pushed | `5c8a0eee7fa16bb9fd486fb61707230b208330d6`; direct parent `6b32335447848ed0680eb8077e78ee36aded5d56` |
@@ -29,6 +29,8 @@ Timestamp: 2026-08-21 08:50 CEST (UTC+02:00).
 | Compatible Checkpoint 11 pair | TypeScript `014f7ef94e085222bf375b9457a6b15420fa314c` plus Unity `5c8a0eee7fa16bb9fd486fb61707230b208330d6`; no tag |
 | Sole CURRENT BEST / recovery pair | Golden M4: TypeScript `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6` plus Unity `6b32335447848ed0680eb8077e78ee36aded5d56`, both under pushed annotated `golden/unity-convergence-m4` |
 | Exact-product CI | Passed TypeScript run `32454923261` at `014f7ef94e085222bf375b9457a6b15420fa314c`; 12m12s; every workflow step green |
+| Post-product continuity failure | Docs-only `ef6bb94d5bc05fd8a8166c8e7ac059a766e0b8e2` triggered run `32456422238`; Bridge test failed on an `allFiles` disappearing-candidate `lstat` `ENOENT`; this is a test-harness TOCTOU race, not a product defect |
+| Test-only repair / CI | Pushed `21629d2323dc11bc5927ff209f9255909fb5afe2`, parent `ef6bb94d...`; exact repair run `32457020574` passed every workflow step in 11m41s |
 | Promotion | `GOLDEN — CONTINUE CAMPAIGN`; M4 remains sole CURRENT BEST; Checkpoint 11 is non-Golden and not canonical |
 
 The contract remains protocol `4`, projection `4`, schema
@@ -53,6 +55,9 @@ gameplay formula, RNG stream, or permanent authority moved into Unity.
   period identity, and responsive HUD do not yet meet the governing ruling.
 - Emitted production packaging and TypeScript-main reconciliation remain later
   work. They do not outrank the immediate production-art slice.
+- Post-product validation continuity is repaired and remotely sealed by exact
+  run `32457020574`. Checkpoint 11 product/runtime/visual facts and its
+  non-Golden decision remain unchanged.
 
 ### WHAT WAS JUST DONE
 
@@ -80,6 +85,20 @@ gameplay formula, RNG stream, or permanent authority moved into Unity.
   macOS session remained behind `loginwindow`; they are superseded
   environmental attempts. No successful real foreground click/touch proof is
   claimed.
+- Docs-only continuity commit `ef6bb94d...` triggered CI run `32456422238`.
+  Bridge test failed because an atomic lease candidate disappeared after
+  recursive discovery but before `lstat`; the remaining bridge files passed and
+  the failure occurred in test inspection and did not contradict product
+  behavior.
+- Pushed test-only child `21629d2...` repairs only the test helper. A discovered
+  entry's `ENOENT` from `lstat` or directory read is tolerated; the scan root
+  and every non-`ENOENT` error still fail closed. Symlinks remain excluded and
+  stable files remain inspected.
+- Deterministic tests cover disappearing files/directories plus `EACCES`.
+  Supervisor tests passed 11/11 three consecutive times locally; the bridge
+  aggregate passed 100/100; contract check, both typechecks, and diff hygiene
+  passed. Exact repair CI `32457020574` then passed every workflow step at
+  `21629d2...` in 11m41s.
 
 ### WHAT IS WORKING RIGHT NOW
 
@@ -120,7 +139,7 @@ npm run studio -- \
 | Gate | Checkpoint 11 result |
 | --- | --- |
 | Full TypeScript suite | Passed: 336 files; 4,525 passed; 5 skipped; 0 failed |
-| Bridge aggregate | Passed: 99/99 |
+| Bridge aggregate | Checkpoint 11 product passed 99/99; test-only repair passed 100/100 locally |
 | Typechecks/build | Bridge and full application typechecks passed; production build passed |
 | Audits | Browser runtime dependencies 0; repository hygiene 1,032 files; 26 adopted 3D assets, 0 hard violations |
 | Unity EditMode | Passed 86/86 |
@@ -130,6 +149,9 @@ npm run studio -- \
 | Native journey regression | Passed fresh Movie #2, exact save/load/stale retention, full-client reconnect, and one actual engine replacement with zero torn reads |
 | Real foreground pointer/touch | **Not accepted**: unattended `loginwindow` prevented external GUI activation; deterministic same-path proof passed, but a foreground run remains required |
 | Exact-product GitHub CI | Passed run `32454923261` at TypeScript `014f7ef94e085222bf375b9457a6b15420fa314c`; 12m12s; every workflow step green |
+| Docs-continuity CI | Run `32456422238` failed in the test helper when one atomic lease candidate disappeared between discovery and `lstat`; classified test-only, not a product regression |
+| Repair validation | `tests/bridge-supervisor.test.ts` 11/11 passed three times; bridge 100/100; contract check, bridge/full typechecks, and `git diff --check` passed |
+| Exact repair CI | Passed run `32457020574` at pushed test-only `21629d2323dc11bc5927ff209f9255909fb5afe2`; 11m41s; every workflow step green |
 
 Accepted camera evidence:
 
@@ -194,6 +216,8 @@ Accepted fresh regression root:
   slice.
 - Exact-product CI is green at the pushed TypeScript product. This closes the
   remote engineering gate but does not override the failed visual gate.
+- Exact repair CI `32457020574` is green at pushed `21629d2...`; failed run
+  `32456422238` remains superseded test-harness history, not a product defect.
 - There is no known product P0 regression and no authority drift in accepted
   evidence.
 
@@ -242,6 +266,9 @@ pointer/touch activation of `BACK TO STUDIO`.
   location to Administration, or treat `expansion` as a property body.
 - Do not weaken collision, UI gesture exclusion, no-POST, exact-return, or
   restart assertions to make evidence pass.
+- Do not classify run `32456422238` as a product failure, broadly swallow
+  filesystem errors, follow symlinks, or tolerate root/non-`ENOENT` scan
+  failures. Only a discovered entry that atomically vanishes is benign.
 - Do not stage ignored apps, evidence, profiles, screenshots, logs, locks,
   caches, or `/tmp` outputs. The temporary profile-seeding helper was deleted
   before product commit and is absent.
@@ -256,15 +283,17 @@ pointer/touch activation of `BACK TO STUDIO`.
 | Keep camera behavior presentation-only | Focus, orbit, collision, and HUD visibility do not need simulation mutation | Yes if a future gameplay command is explicitly designed in TypeScript | No-POST camera reports and unchanged digest |
 | Make production art and responsive HUD the next bounded unit | The camera now exposes the real deficit: empty/flat locations, weak human/period readability, and UI that dominates narrow screens | Yes after visual comparison | Stage/Admin/overview/narrow frames and PDF law |
 | Defer packaging and main reconciliation | They remain necessary, but neither resolves the immediate player-facing wrong-game response | Yes | Promotion blockers remain recorded |
+| Repair the continuity scan as a test-only TOCTOU defect | Atomic lease publication may remove a discovered candidate before inspection; swallowing only discovered-entry `ENOENT` models that legal race while root and permission errors remain fail-closed | Yes if a stronger deterministic scan replaces it | Failed run `32456422238`, deterministic disappearance/`EACCES` coverage, repeated 11/11 supervisor runs |
 
 ### UNCOMMITTED / UNSAVED MATERIAL
 
-- Product source is committed and pushed at TypeScript `014f7ef9...` and Unity
-  `5c8a0eee...`.
-- Only these three TypeScript continuity documents are intentionally dirty for
-  the post-product record. Their containing commit must be documentation-only;
-  after commit/push, TypeScript HEAD must equal configured upstream and the
-  tracked tree must be clean.
+- Product source remains committed and pushed at TypeScript `014f7ef9...` and
+  Unity `5c8a0eee...`. Pushed `21629d2...` changes only
+  `tests/bridge-supervisor.test.ts`; it does not replace either product SHA.
+- Only these three TypeScript continuity documents are intentionally dirty atop
+  pushed repair `21629d2...`. Their containing commit must be its sole
+  documentation-only child; after commit/push, TypeScript HEAD must equal
+  configured upstream and the tracked tree must be clean.
 - Unity is already clean with HEAD equal configured upstream at `5c8a0eee...`.
 - Camera/regression evidence, the ignored native app, private seeded proof
   profile/checkpoint, `/tmp` results, caches, logs, locks, and screenshots
@@ -284,8 +313,10 @@ pointer/touch activation of `BACK TO STUDIO`.
 3. To continue Checkpoint 11, use the exact pushed pair TypeScript
    `014f7ef94e085222bf375b9457a6b15420fa314c` plus Unity
    `5c8a0eee7fa16bb9fd486fb61707230b208330d6`. Never mix sides.
-4. After this documentation-only commit is pushed, confirm TypeScript HEAD
-   equals configured upstream and `git status --short` is empty. Confirm Unity
+4. Preserve pushed validation repair
+   `21629d2323dc11bc5927ff209f9255909fb5afe2` above the product pair. After
+   this documentation-only child is pushed, confirm TypeScript HEAD equals
+   configured upstream and `git status --short` is empty. Confirm Unity
    HEAD/upstream at `5c8a0eee...` and a clean tracked tree.
 5. Rebuild/launch with the exact commands above. Verify protocol/projection `4`,
    schema `ba9cd199...`, and authenticated readiness before changing visuals.
