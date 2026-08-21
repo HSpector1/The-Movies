@@ -30,7 +30,12 @@ import {
 import {
   createBridgeRuntimeCoordinator,
   type BridgeRuntimeCoordinator,
+  type BridgeRuntimeDispatchResult,
 } from './runtime/runtime-coordinator.ts'
+import {
+  loadPostCommitResponseTestGate,
+  type PostCommitResponseTestGate,
+} from './testing/post-commit-response-gate.ts'
 
 const host = '127.0.0.1'
 const capabilityHeader = 'x-project-studio-capability'
@@ -152,7 +157,12 @@ function rejectAtBoundary(
   json(response, rejection.status, { error: 'Request rejected.' })
 }
 
-async function readJson(request: IncomingMessage): Promise<unknown> {
+type ReadJsonResult = {
+  body: unknown
+  utf8Sha256: string
+}
+
+async function readJson(request: IncomingMessage): Promise<ReadJsonResult> {
   const chunks: Buffer[] = []
   let length = 0
   for await (const chunk of request) {
@@ -161,11 +171,34 @@ async function readJson(request: IncomingMessage): Promise<unknown> {
     if (length > 2_000_000) throw new Error('Request body exceeds 2 MB.')
     chunks.push(buffer)
   }
+  const bytes = Buffer.concat(chunks)
   try {
-    return JSON.parse(Buffer.concat(chunks).toString('utf8')) as unknown
+    return {
+      body: JSON.parse(bytes.toString('utf8')) as unknown,
+      utf8Sha256: createHash('sha256').update(bytes).digest('hex'),
+    }
   } catch {
     throw new Error('Request body is not valid JSON.')
   }
+}
+
+async function postCommitResponseDisposition(
+  gate: PostCommitResponseTestGate,
+  route: 'command' | 'save' | 'load',
+  commandId: string,
+  requestUtf8Sha256: string,
+  result: BridgeRuntimeDispatchResult,
+  response: ServerResponse,
+): Promise<boolean> {
+  const disposition = await gate.afterDispatch({
+    route,
+    commandId,
+    requestUtf8Sha256,
+    result,
+  })
+  if (disposition !== 'drop') return false
+  response.destroy()
+  return true
 }
 
 function statusOf(response: CommandResponse): number {
@@ -202,6 +235,7 @@ function createHttpServer(
   runtime: BridgeRuntimeCoordinator,
   boundary: HttpBoundary,
   runtimeInstanceId: string,
+  postCommitResponseTestGate: PostCommitResponseTestGate,
 ): Server {
   const handleRequest = async (
     request: IncomingMessage,
@@ -269,8 +303,11 @@ function createHttpServer(
       }
       if (request.method === 'POST' && url.pathname === '/command') {
         let body: unknown
+        let requestUtf8Sha256: string
         try {
-          body = await readJson(request)
+          const parsed = await readJson(request)
+          body = parsed.body
+          requestUtf8Sha256 = parsed.utf8Sha256
         } catch (error) {
           const rejected = await validationRejection(
             runtime,
@@ -304,6 +341,17 @@ function createHttpServer(
           return
         }
         const result = await runtime.dispatch('command', validation.command)
+        if (
+          await postCommitResponseDisposition(
+            postCommitResponseTestGate,
+            'command',
+            validation.command.commandId,
+            requestUtf8Sha256,
+            result,
+            response,
+          )
+        )
+          return
         logResult(
           result.response,
           validation.command.type,
@@ -315,8 +363,11 @@ function createHttpServer(
       }
       if (request.method === 'POST' && (url.pathname === '/save' || url.pathname === '/load')) {
         let body: unknown
+        let requestUtf8Sha256: string
         try {
-          body = await readJson(request)
+          const parsed = await readJson(request)
+          body = parsed.body
+          requestUtf8Sha256 = parsed.utf8Sha256
         } catch (error) {
           const rejected = await validationRejection(
             runtime,
@@ -344,6 +395,17 @@ function createHttpServer(
         }
         if (url.pathname === '/save') {
           const result = await runtime.dispatch('save', validation.control)
+          if (
+            await postCommitResponseDisposition(
+              postCommitResponseTestGate,
+              'save',
+              validation.control.commandId,
+              requestUtf8Sha256,
+              result,
+              response,
+            )
+          )
+            return
           logResult(
             result.response,
             'save',
@@ -353,6 +415,17 @@ function createHttpServer(
           encodedJson(response, result.response.accepted ? 200 : 409, result.responseJson)
         } else {
           const result = await runtime.dispatch('load', validation.control)
+          if (
+            await postCommitResponseDisposition(
+              postCommitResponseTestGate,
+              'load',
+              validation.control.commandId,
+              requestUtf8Sha256,
+              result,
+              response,
+            )
+          )
+            return
           logResult(
             result.response,
             'load',
@@ -409,6 +482,10 @@ async function createCheckpointStore(): Promise<{ store: BridgeCheckpointStore; 
 async function main(): Promise<void> {
   const capabilityDigest = loadCapabilityDigest()
   const runtimeInstanceId = randomUUID()
+  const configuredRuntimeDirectory = process.env.PROJECT_STUDIO_BRIDGE_RUNTIME_DIR?.trim()
+  const postCommitResponseTestGate = loadPostCommitResponseTestGate(
+    configuredRuntimeDirectory !== undefined && configuredRuntimeDirectory.length > 0,
+  )
   const { store, durable } = await createCheckpointStore()
   let requestFatalShutdown: (() => void) | null = null
   const runtime = await createBridgeRuntimeCoordinator({
@@ -419,7 +496,12 @@ async function main(): Promise<void> {
       requestFatalShutdown?.()
     },
   })
-  const server = createHttpServer(runtime, { capabilityDigest }, runtimeInstanceId)
+  const server = createHttpServer(
+    runtime,
+    { capabilityDigest },
+    runtimeInstanceId,
+    postCommitResponseTestGate,
+  )
   let stopping: Promise<void> | null = null
   const shutdown = (exitCode: number): Promise<void> => {
     if (stopping !== null) return stopping
