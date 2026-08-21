@@ -15,7 +15,7 @@ Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
 
 Both annotated tags are pushed and remote tag dereferences were verified at the
 exact product SHAs. Both campaign branches have since advanced to the sealed
-non-Golden Checkpoint 8 pair, so neither moving branch tip is the M3 product
+non-Golden Checkpoint 9 pair, so neither moving branch tip is the M3 product
 authority. M3 remains this schema-pinned compatible pair: protocol `3`, projection
 `4`, schema
 `sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac`.
@@ -160,6 +160,181 @@ pair, so it is a Golden checkpoint. It is **not** promoted to canonical: Phase B
 runtime durability is absent, TypeScript `main` remains historically diverged,
 and the Unity visual product still misses the binding recognizability gate.
 Promotion status remains exactly **GOLDEN — CONTINUE CAMPAIGN**.
+
+## CHECKPOINT 9 SEALED PHASE B PAIR - NON-GOLDEN
+
+Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
+
+Checkpoint 9 is a validated, protocol-pinned, committed, pushed, and recoverable
+compatible pair. It is not CURRENT BEST, Golden, tagged, or canonical. Golden
+M3 at the top of this register remains the sole answer to "what should we build
+from now?"
+
+| Component | Branch | Exact pushed product SHA | Parent / state |
+| --- | --- | --- | --- |
+| TypeScript authority | `campaign/unity-production-convergence-80h-ts` | `114c99c1c4e5623c5ea3e0c60864faed925fb33e` | Parent `b1738b92bd988bf5535629babb1223903ffad802`; product commit pushed; branch may have one continuity-only descendant |
+| Unity production client | `campaign/unity-production-convergence-80h-client` | `6b32335447848ed0680eb8077e78ee36aded5d56` | Parent `94e8bcac6a5bf94fd70f3f8a61992511230688a2`; branch clean at exact pushed product SHA |
+
+Both product commits and campaign branch tips are pushed and remotely verified.
+The TypeScript commit is `test(bridge): seal exact in-flight response recovery`;
+the Unity commit is `feat(bridge): recover in-flight actions after engine loss`.
+These two product SHAs are the only compatible Checkpoint 9 pair. The containing
+TypeScript continuity-only commit does not change the product pair.
+
+The checkpoint remains compatible at protocol `4`, projection `4`, schema
+`sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`.
+Generated C# copies remain byte-identical at SHA-256
+`1192d58a323e98b4ebab001d910c5f38dfa6455c90b38769e8af6325e84ee1dd`.
+There is no schema, generated DTO, V14, `GameState`, gameplay, identity, RNG,
+projection, art, or asset change. TypeScript remains sole simulation authority.
+
+### Why Checkpoint 9 is better than Checkpoint 8
+
+Checkpoint 8 detects an engine outage, retains a paused exact projection,
+distinguishes runtime replacement from logical-session replacement, and safely
+rejoins authority. It deliberately discards an unresolved POST outcome rather
+than guessing. Checkpoint 9 closes that final commit-before-response window:
+
+- Unity retains one immutable exact route/body/command/session/revision envelope
+  before first send and never reconstructs it from presentation state.
+- After ambiguous transport loss, `/session` must confirm the same logical
+  session before Unity retries the exact bytes. Session replacement discards it.
+- Cached, fresh, historical, and later-stale outcomes are reconciled against the
+  originating and handshake authority; contradictions fail loudly.
+- A fresh `/session` plus `/snapshot` join is mandatory before recovered
+  completion is published or actions resume.
+- TypeScript exposes a canonical one-shot post-commit hold/drop seam only in a
+  test process with durable state; normal product startup receives no fault
+  control.
+- A separate fail-closed verifier binds server commit/replay markers, Unity
+  receipt hashes, the four-process restart topology, and the exact ordered
+  durable journal rather than trusting one self-reported proof file.
+
+An actual native run killed three successive TypeScript engine processes after
+the command, save, and load were durably committed but before their responses
+were delivered. One logical session survived; Unity observed 10 outage polls,
+three runtime replacements, three exact retries, three recoveries, retained a
+paused projection, and completed at exactly revision 2 with no torn read or
+duplicate mutation.
+
+### Sealed product files
+
+TypeScript:
+
+- `bridge/server.ts`
+- `bridge/testing/in-flight-evidence-verifier.ts`
+- `bridge/testing/post-commit-response-gate.ts`
+- `package.json`
+- `scripts/verify-bridge-inflight-evidence.ts`
+- `tests/bridge-inflight-evidence-verifier.test.ts`
+- `tests/bridge-process-restart.test.ts`
+
+Unity:
+
+- `Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs`
+- `Assets/Studio/Runtime/Infrastructure/StudioBridgePendingPost.cs`
+- `Assets/Studio/Runtime/Infrastructure/StudioBridgePendingPost.cs.meta`
+- `Assets/Studio/Runtime/Infrastructure/StudioBridgeTransport.cs`
+- `Assets/Studio/Runtime/Presentation/StudioBridgeProofRunner.cs`
+- `Assets/Studio/Tests/EditMode/StudioBridgePendingPostTests.cs`
+- `Assets/Studio/Tests/EditMode/StudioBridgePendingPostTests.cs.meta`
+
+The three campaign documents are intentional continuity-only TypeScript changes.
+No generated data, evidence, builds, logs, caches, secrets, lock files, or assets
+belong in either product commit.
+
+### Validation summary
+
+- Full TypeScript: 334 files, 4,510 passed, 5 skipped, 0 failed; both
+  typechecks, production build, generated drift, Movie #2/determinism proof,
+  browser dependency audit, repository hygiene over 1,022 files, and 26-asset
+  provenance audit passed.
+- Exact-product GitHub CI passed every Bridge contract workflow step for
+  TypeScript `114c99c1c4e5623c5ea3e0c60864faed925fb33e` in run `32441324305`
+  (11m17s).
+- Bridge aggregate: 84/84 across 9 files. Evidence-verifier mutation suite: 8/8.
+- Unity EditMode: 62/62. Native macOS build: 136,980,022 aggregate file bytes.
+- Final in-flight root:
+  `Evidence/B/InFlight-Post-Recovery-Protocol4-20260821T021520Z/`.
+- In-flight Unity report SHA-256:
+  `b6d9dcb95686d32c24690d1136899b8b195204b57350267263ce5141fea2ff77`;
+  verifier receipt:
+  `20f3ec25f3fe3724c5b35c39c4f4f79a199a2aa309da2a3816654071f7235403`;
+  recovery frame:
+  `9621d7ab21196465cb684b5e3879419af0da1d15c02a0cb82fe8c05edd17cc9a`.
+- In-flight checkpoint: 897,790 bytes, exactly three ordered journal entries,
+  SHA-256
+  `3bcbc4009efe5a5f1de972862a233118dd7b93aacc3b2f97f3df0cc23cebe1ff`;
+  same session `efcd5d93-7a62-48dc-bb70-1969d48fa617`; final revision 2;
+  current/saved/restored digest
+  `141f95a8222cee274d913eb0d68ad6f461f4e2f35f6f49c4fc71c08cfb4992b5`.
+- Fresh Movie #2 regression root:
+  `Evidence/B/Checkpoint9-Movie2-Regression-Protocol4-20260821T022838Z/`;
+  report SHA-256
+  `b25f679d2470c8e4ee642770b36738e38f247ee438008c780c16835257a186b9`;
+  Week 22/revision 23/final digest
+  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`;
+  exact saved/restored digest
+  `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`.
+- Idle restart regression root:
+  `Evidence/B/Checkpoint9-Runtime-Restart-Regression-Protocol4-20260821T022933Z/`;
+  report SHA-256
+  `cebc3c4d7599101c10ee7748205b2629b73cb36621f7b23a4fe969e4e5d7afeb`;
+  one runtime replacement and three outage polls with exact stable logical
+  session/revision/week/digest.
+- Performance samples: 119.1992 FPS response-loss proof, 119.9976 FPS Movie #2,
+  and 118.9989 FPS idle restart on Apple M3 Max.
+- Independent final audit found no remaining P0/P1 in this bounded checkpoint.
+
+The earlier root
+`Evidence/B/InFlight-Post-Recovery-Protocol4-20260821T021103Z/` is explicitly
+superseded. It failed before sending a POST because the proof hardcoded an
+unavailable `advance-week` intent, retained revision 0/an empty journal, and
+left a stale ignored lock. Its report SHA-256 is
+`a2bc3ae4e3d41416d1bdb943d0d793e90f2de4ec9ceba167368747c854511e50`.
+Do not use that root as promotion evidence or reuse its runtime directory.
+
+### Movie #2 status
+
+Fresh native Movie #2 remains playable end to end: construction, screenplay,
+auditions/evidence, editable casting and package, greenlight, pre-production,
+director/scenery blockers, load-in, shooting, save/load, post, stale rejection,
+release, and reconnect. Exact identity remains `The Reluctant Cornerstone`,
+`script-0001`, `prod-0013`. Checkpoint 9 adds resilience underneath this path;
+it changes no production rule.
+
+### Visual status
+
+No visual improvement is claimed. The new recovery screenshot was inspected and
+remains equivalent to M3: elevated sparse diorama framing, flat materials,
+small role-unreadable people, weak visible filmmaking, and a large generic proof
+HUD. The checkpoint remains below ADR 0006's inhabitable, period-authored,
+two-scale visual acceptance gate.
+
+### Known defects and promotion decision
+
+- The pair is committed and pushed, but remains intentionally non-Golden because
+  the default runtime lifecycle and visual gate below are incomplete.
+- Default launch remains manually coordinated. No one-command supervisor owns a
+  private durable root, random port, capability handoff, health readiness,
+  engine restart, stale cleanup, graceful shutdown, and bounded logs.
+- The bridge still runs through `vite-node`; the emitted/pinned runtime graph
+  and direct production dependency audit remain incomplete.
+- Visual recognizability, Hero Stage 7, human-scale inspection, role-readable
+  people, period materials, and visible filmmaking remain below the binding
+  product floor.
+
+Checkpoint 9 materially supersedes Checkpoint 8 as a validated, pushed Phase B
+recovery checkpoint, but it does not supersede Golden M3 as CURRENT BEST. It
+receives no tag and no canonical promotion. Promotion status remains exactly
+**GOLDEN — CONTINUE CAMPAIGN**.
+
+After the containing continuity-only update is committed/pushed and both trees
+are clean, the next engineering action is the one-command supervisor with
+private durable root, random port, environment-only capability handoff,
+authenticated health readiness, engine restart, stale cleanup, graceful
+shutdown, and bounded secret-free logs. The existing exact retry path must be
+proven through that entry point.
 
 ## CHECKPOINT 8 SEALED PHASE B PAIR - NON-GOLDEN
 

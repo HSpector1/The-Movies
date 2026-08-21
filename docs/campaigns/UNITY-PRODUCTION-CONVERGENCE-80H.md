@@ -44,9 +44,9 @@ rewritten, merged, rebased, or force-pushed.
 | Phase | Status | Notes |
 | --- | --- | --- |
 | Campaign setup and baseline | Complete | Authorities verified, isolated branches pushed, full baseline built, played, captured, and measured |
-| A - Productionize TypeScript to Unity contract | Active | A1 complete; A2 named projection decomposition is the current acceptance gate; A3 retains inherited command protections but still lacks structured remedies and durable replay identity |
-| B - Durable local game runtime | Untouched | Current server is a fixed-port, manually launched, in-memory experiment |
-| C - Unity client architecture | Untouched | Existing spike layers have been inventoried only |
+| A - Productionize TypeScript to Unity contract | Complete for current protocol | A1 generated contract, A2 named projections, A3 queue parity, and A4 structured remedies are sealed; later projection growth must retain the same authority/version discipline |
+| B - Durable local game runtime | Active | Checkpoints 7/8 provide durable authenticated restart continuity; sealed Checkpoint 9 proves exact command/save/load response-loss recovery; the one-command supervisor remains the current gate |
+| C - Unity client architecture | Partial | Protocol, runtime continuity, projection cache/client, interaction, proof, and presentation seams exist; the spike still needs broader production decomposition |
 | D - Full Movie journey in Unity | Partial at inherited baseline | Automated native Movie #2 path passes, but the interaction surface remains proof-oriented and does not yet provide the approved professional retained workspaces |
 | E - Lot interaction / construction / management | Partial at inherited baseline | TypeScript construction intent and visible construction state pass; direct build placement interaction is not productionized in Unity |
 | F - Hero Soundstage 7 | Partial at inherited baseline | Exterior and inspectable interior exist; interior is visually bare and lacks an operating production company |
@@ -56,8 +56,8 @@ rewritten, merged, rebased, or force-pushed.
 | J - World / era / campus quality | Partial at inherited baseline | Campus scale reads; surroundings, density, hills, and 1948 specificity remain weak |
 | K - Materials / lighting / VFX / audio | Partial at inherited baseline | URP presentation exists; prototype surfaces and sparse soundstage lighting dominate |
 | L - Performance / scalability | Baseline only | M3 Max measurements captured; no 25/50/100 scalability campaign yet |
-| M - Resilience | Partial at inherited baseline | Stale command and save/load pass; restart, outage, malformed schema, and missing-asset matrix is incomplete |
-| N - Professional QA | Baseline only | Full TypeScript, Unity EditMode, native build, native Movie #2, and runtime capture gates established |
+| M - Resilience | Partial | Stale/duplicate, durable save/load, idle restart, outage retention, malformed protocol, and exact lost-response recovery pass; default supervisor and the full ugly-condition matrix remain incomplete |
+| N - Professional QA | Active | Full TypeScript, Unity EditMode, native build, native Movie #2, actual process-kill, evidence-verifier, and runtime capture gates are established and run per checkpoint |
 
 ## 2026-08-20 - Checkpoint 0: branch creation and architecture boot
 
@@ -1481,3 +1481,274 @@ double-mutate authority, and never retry across a changed logical session.
 After that retry unit is sealed, implement the supervisor-owned random-port
 launcher, private capability transfer, engine restart/stale-child cleanup, and
 owned log lifecycle.
+
+## 2026-08-21 04:52 CEST - Checkpoint 9 sealed: exact ambiguous POST recovery (validated, pushed, non-Golden)
+
+### Exact sealed state
+
+| Side | Branch | Exact pushed product SHA | Parent / post-seal state |
+| --- | --- | --- | --- |
+| TypeScript authority | `campaign/unity-production-convergence-80h-ts` | `114c99c1c4e5623c5ea3e0c60864faed925fb33e` | Parent `b1738b92bd988bf5535629babb1223903ffad802`; product source clean; branch receives only the containing continuity-document commit after this update |
+| Unity production client | `campaign/unity-production-convergence-80h-client` | `6b32335447848ed0680eb8077e78ee36aded5d56` | Parent `94e8bcac6a5bf94fd70f3f8a61992511230688a2`; clean at exact pushed product SHA |
+
+Both product commits and branch tips are pushed and remotely verified as the
+only compatible Checkpoint 9 pair. The TypeScript product commit is
+`test(bridge): seal exact in-flight response recovery`; the Unity product commit
+is `feat(bridge): recover in-flight actions after engine loss`. The containing
+TypeScript continuity-only commit must be the sole descendant of the recorded
+product SHA and leave HEAD equal to upstream with a clean tree after push.
+
+Golden M3 remains the sole CURRENT BEST pair: TypeScript
+`e9c6f06b717a6a106281b189a61072e35770155f` plus Unity
+`40465d48c191c9dcdda2c6b32c17c9675f4908a4`, each preserved by pushed immutable
+`golden/unity-convergence-m3`. Promotion status remains exactly
+**GOLDEN — CONTINUE CAMPAIGN**.
+
+The protocol is unchanged at `4`, projection `4`, schema
+`sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`.
+The generated TypeScript golden and Unity C# copy remain byte-identical at
+SHA-256
+`1192d58a323e98b4ebab001d910c5f38dfa6455c90b38769e8af6325e84ee1dd`.
+No schema, DTO, V14 save field, `GameState` member, gameplay rule, permanent ID,
+RNG stream, projection content, or simulation authority changed.
+
+### Player and architecture value
+
+Checkpoint 8 safely detected transport loss and refreshed authority but
+intentionally did not replay an unresolved POST. That left one P1 failure
+window: the TypeScript engine could atomically commit a command, save, or load,
+then die before the native client received the response. The player saw an
+outage without a reliable action outcome even though the durable journal
+already contained the result.
+
+Checkpoint 9 closes that window through a bounded exact-envelope
+state machine:
+
+- Unity retains the route, cloned raw UTF-8 body, command ID, originating
+  logical session, expected revision, originating revision/week/digest, and
+  request SHA-256 before the first send.
+- A connection failure or `5xx` marks the result ambiguous and keeps the last
+  exact projection visible but noninteractive. Authorization/media failures are
+  terminal and never retried.
+- Unity performs `/session` first. The exact retained bytes are retried only if
+  the logical session is unchanged; session replacement abandons them.
+- Reconciliation accepts only a current cached response, the one expected
+  first-execution transition, a historical completion behind newer same-session
+  authority, or a later `STALE_REVISION` receipt. Regression, same-revision
+  digest/week conflict, command/session mismatch, an advance beyond one expected
+  transition, or a non-stale rejection after authority advanced fails loudly.
+- Completion is not published until a new `/session` plus `/snapshot` join
+  establishes current authority. The client never reconstructs an intent from
+  presentation state and never interprets a gameplay formula.
+
+TypeScript adds a narrow deterministic acceptance seam after the queued runtime
+coordinator has atomically stored a first-seen accepted response but before the
+HTTP response begins. It is available only with `NODE_ENV=test`, a private
+durable runtime directory, and one canonical closed environment plan. The plan
+is deleted before runtime state opens. The gate hashes exact received bytes,
+flushes one canonical post-commit marker, and either holds for external
+`SIGKILL` or drops the response. Exact replay emits a separate marker and cannot
+rearm the one-shot failure. The production path receives a disabled no-op gate.
+
+A standalone TypeScript verifier now cross-checks the Unity report, all commit
+and replay markers, the four-process topology, and the exact three-entry durable
+journal. It rejects semantic-but-byte-different requests, forged response
+hashes, partial/unterminated/noncanonical lines, duplicate or missing routes,
+extra durable authority, and revision/digest/session contradictions.
+
+### Sealed product diff
+
+TypeScript product files in `114c99c1c4e5623c5ea3e0c60864faed925fb33e`:
+
+- `bridge/server.ts`
+- `bridge/testing/in-flight-evidence-verifier.ts` (new)
+- `bridge/testing/post-commit-response-gate.ts` (new)
+- `package.json`
+- `scripts/verify-bridge-inflight-evidence.ts` (new)
+- `tests/bridge-inflight-evidence-verifier.test.ts` (new)
+- `tests/bridge-process-restart.test.ts`
+
+Unity product files in `6b32335447848ed0680eb8077e78ee36aded5d56`:
+
+- `Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs`
+- `Assets/Studio/Runtime/Infrastructure/StudioBridgePendingPost.cs` (new)
+- `Assets/Studio/Runtime/Infrastructure/StudioBridgePendingPost.cs.meta` (new)
+- `Assets/Studio/Runtime/Infrastructure/StudioBridgeTransport.cs`
+- `Assets/Studio/Runtime/Presentation/StudioBridgeProofRunner.cs`
+- `Assets/Studio/Tests/EditMode/StudioBridgePendingPostTests.cs` (new)
+- `Assets/Studio/Tests/EditMode/StudioBridgePendingPostTests.cs.meta` (new)
+
+Generated contract/data paths are untouched. This ledger, the handoff, and the
+promotion register are the only continuity changes after the product commit and
+belong in the containing docs-only seal rather than being mistaken for product
+source.
+
+### Deterministic test and evidence design
+
+The native proof uses three explicit bounded command IDs and the first legal
+intent offered by current TypeScript truth. For each route, an external harness
+starts an engine against the same capability/runtime root, waits for the flushed
+post-commit marker, kills that engine before response delivery, leaves the
+native client long enough to observe the outage/paused exact projection, then
+starts the next engine. The fourth engine delivers the cached load response.
+
+The proof requires:
+
+- one unchanged logical session across four TypeScript process incarnations;
+- three runtime replacements and at least three observed outage polls;
+- exactly three retries and exactly three recovered receipts;
+- command revision `0 -> 1` with a changed digest;
+- save revision `1 -> 1` with no state mutation and an exact saved digest;
+- load revision `1 -> 2` with current/restored digest equal to saved truth;
+- exactly ordered `command`, `save`, and `load` journal entries, each appearing
+  once;
+- exact request and response byte hashes across the server commit marker,
+  server replay marker, Unity receipt, and checkpoint journal;
+- retained last projection, disabled actions during each outage, no torn read,
+  and a fresh joined projection before completion.
+
+The first native attempt at
+`Evidence/B/InFlight-Post-Recovery-Protocol4-20260821T021103Z/` failed before a
+POST because the proof harness incorrectly required a hardcoded `advance-week`
+intent that TypeScript did not offer. It left revision 0 and an empty journal;
+report SHA-256 is
+`a2bc3ae4e3d41416d1bdb943d0d793e90f2de4ec9ceba167368747c854511e50`,
+checkpoint SHA-256 is
+`e545a32350ec3875906c8a3fab803d10bbc6525a4dbffd6a1225066170fa0185`,
+and a stale local lock remains in that ignored evidence root. This was a harness
+assumption, not a gameplay/runtime regression. It is superseded and must not be
+reused as evidence or as a runtime root. The final harness selects a real
+authoritative `availableIntents` entry.
+
+### Accepted native in-flight result
+
+Final accepted root:
+`Evidence/B/InFlight-Post-Recovery-Protocol4-20260821T021520Z/`.
+
+- Unity proof status `complete`; report SHA-256
+  `b6d9dcb95686d32c24690d1136899b8b195204b57350267263ce5141fea2ff77`.
+- Independent verifier receipt SHA-256
+  `20f3ec25f3fe3724c5b35c39c4f4f79a199a2aa309da2a3816654071f7235403`.
+- Recovery capture SHA-256
+  `9621d7ab21196465cb684b5e3879419af0da1d15c02a0cb82fe8c05edd17cc9a`.
+- Same session `efcd5d93-7a62-48dc-bb70-1969d48fa617`; runtime replacements 3;
+  outage polls 10; retry count 3; recovered count 3; torn reads 0.
+- Initial revision/digest: `0` /
+  `3517604efca1c48a54732d9799b6a73ffa9ab99f26e0e28d54bdbac010af1109`.
+- Final revision/current/saved/restored digest: `2` /
+  `141f95a8222cee274d913eb0d68ad6f461f4e2f35f6f49c4fc71c08cfb4992b5`.
+- Runtime checkpoint: 897,790 bytes, exactly three journal entries, SHA-256
+  `3bcbc4009efe5a5f1de972862a233118dd7b93aacc3b2f97f3df0cc23cebe1ff`.
+- Command request/response SHA-256:
+  `a302afc7bd8db68900efe59a3d009ec47d6d5dee591926d427eca263adedc71e` /
+  `8bbb6fe08b737d376237f51ee885ac5a13b66a86c80f728d61ed94486e3cbc04`.
+- Save request/response SHA-256:
+  `529c126786ef68600a144baf6d376f00ca9872e5b7659b56d78cc97571a7b912` /
+  `0575b464007fe0220c5eab77fb9de0483166ef7e4295228a2086190895d22199`.
+- Load request/response SHA-256:
+  `03b3088424a495765c419f6fa5c6c50a89d763004e9dda21098d8e50c3b9b433` /
+  `88a2e7867ad266a23ac617c55a3251fe8cca9188c9388c13e33f7f8b7dda8c7b`.
+- Native sample: 119.1992 FPS, 15,251-byte snapshot, 17.7425 ms TypeScript
+  serialization, 4.2764 ms client parse, 0.2595 ms apply, and 24.3448 ms sampled
+  command round trip.
+
+### Regression evidence
+
+Fresh Movie #2 regression root:
+`Evidence/B/Checkpoint9-Movie2-Regression-Protocol4-20260821T022838Z/`.
+
+- `The Reluctant Cornerstone`, `script-0001`, `prod-0013` released at Week 22,
+  revision 23, final digest
+  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
+- Saved/restored digest remained exactly
+  `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`.
+- `STALE_REVISION` guidance remained bound across poll 11 to poll 12.
+- Report SHA-256
+  `b25f679d2470c8e4ee642770b36738e38f247ee438008c780c16835257a186b9`;
+  released frame SHA-256
+  `e971426cd59aaa3cb2dca144e3bb9726291aa0c434d2276c37c16891861d93ef`.
+- Runtime checkpoint: 1,354,916 bytes, revision 23, 25 journal entries,
+  SHA-256
+  `724f824b5399c2f91008fd9cb8dec6840dbb55d70304615977ad7d7242892dda`.
+- Native sample: 119.9976 FPS, 15,394-byte snapshot, 19.4043 ms TypeScript
+  serialization, 4.2752 ms parse, 0.2963 ms apply, and 33.0938 ms command RTT.
+
+Idle engine-restart regression root:
+`Evidence/B/Checkpoint9-Runtime-Restart-Regression-Protocol4-20260821T022933Z/`.
+
+- Session `7c131fbf-292d-4df0-a01e-80ce811c039b`, revision 0, Week 11, and digest
+  `3517604efca1c48a54732d9799b6a73ffa9ab99f26e0e28d54bdbac010af1109`
+  remained exact while runtime identity changed once.
+- Unity recorded 3 outage polls, retained exact projection, disabled/restored
+  actions, and observed zero torn reads.
+- Report SHA-256
+  `cebc3c4d7599101c10ee7748205b2629b73cb36621f7b23a4fe969e4e5d7afeb`;
+  ready-record SHA-256
+  `6f26768239e8dbf965601377cbbbdfd1036b4d3993874aabc66d55de527e3f5f`;
+  frame SHA-256
+  `8ea7fb50a531bce9e21a5ebad132f8953caae2c009a26665faef88ee55f68344`.
+- Empty-journal checkpoint: 266,526 bytes, SHA-256
+  `19cef726bf977c538904fa8ddc6f48f0fdc61f5a17e9122eee76454463dc05fc`.
+- Native sample: 118.9989 FPS.
+
+### Accepted seal validation
+
+| Gate | Result |
+| --- | --- |
+| Full TypeScript regression | 334 files; 4,510 passed, 5 skipped, 0 failed |
+| Bridge aggregate | 84/84 across 9 files |
+| Evidence verifier tests | 8/8 |
+| Both TypeScript typechecks | Passed |
+| Production build | Passed with inherited Vite chunk warnings only |
+| Generated drift | Passed; protocol/schema/generated identities unchanged |
+| Movie #2 and determinism proof | Passed exact release, V14 save/import/headless parity, stale/duplicate protection, and polling neutrality |
+| Browser runtime dependency audit | Passed: 0 vulnerabilities |
+| Repository hygiene | Passed: 1,022 files |
+| Adopted 3D asset audit | Passed: 26 assets, 0 hard violations |
+| Unity EditMode | 62/62 passed; `/tmp/studio-b9-editmode-proof-fix.xml` |
+| Native macOS build | Passed; 136,980,022 aggregate file bytes; `/tmp/studio-b9-native-build-proof-fix.log` |
+| Native in-flight response loss | Passed three actual engine kills plus exact journal/marker/report verification |
+| Native Movie #2 regression | Passed fresh through release with exact save/load and retained stale guidance |
+| Native idle restart regression | Passed actual outage/replacement with stable logical authority |
+| Exact-product GitHub CI | Passed every Bridge contract workflow step for TypeScript `114c99c1c4e5623c5ea3e0c60864faed925fb33e`; run `32441324305`, 11m17s |
+| `git diff --check` | Passed in both worktrees before continuity edits |
+| Independent P0/P1 audit | No remaining P0/P1 after fixing split-marker parsing and advanced-authority rejection handling |
+
+### Honest residuals and visual gate
+
+- The default developer experience remains manual. There is no one-command
+  supervisor owning a private runtime root, random loopback port, capability
+  environment handoff, health readiness, engine restart, stale cleanup,
+  graceful shutdown, or bounded logs.
+- Development still executes through `vite-node`; the emitted/pinned production
+  runtime graph and its direct dependency audit remain future work.
+- Exact pending-POST recovery is committed and pushed as the exact product pair
+  recorded above. Product source is clean; the containing docs-only seal does
+  not change those product SHAs.
+- Current evidence JSON contains local absolute screenshot paths and remains
+  ignored; no evidence/build/log/runtime/lock file may enter Git.
+- Visual output is unchanged. Inspection of
+  `14-in-flight-post-recovered.png` still shows an elevated sparse diorama with
+  a large generic proof HUD, small role-unreadable people, flat materials, and
+  little visible filmmaking. It remains below ADR 0006's inhabitable,
+  era-readable, two-scale production-client gate.
+
+### Golden and promotion decision
+
+Checkpoint 9 is **NON-GOLDEN**. It is a material, well-evidenced, and remotely
+recoverable functional improvement over sealed Checkpoint 8, but the default
+one-command lifecycle and visual recognizability gate remain incomplete.
+
+Do not create `golden/unity-convergence-m4`, move CURRENT BEST, or promote either
+repository from this checkpoint. Golden M3 remains CURRENT BEST and promotion
+status remains exactly **GOLDEN — CONTINUE CAMPAIGN**.
+
+### NEXT EXACT ACTION
+
+After the containing continuity-only update is committed/pushed and both trees
+are confirmed clean, implement a one-command developer launcher/supervisor with
+a private per-launch durable root, random loopback port, environment-only
+capability handoff, authenticated
+health readiness, owned engine restart, stale process/lock cleanup, graceful
+Unity/engine shutdown, and bounded secret-free logs. Integrate and prove the
+current exact pending-POST retry through that supervised lifecycle.
