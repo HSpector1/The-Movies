@@ -4,7 +4,224 @@ This file is the authoritative answer to: **What is currently the best version
 of Project: Studio, and is it ready for promotion?** Preserve every Golden tag.
 Do not infer a compatible TypeScript/Unity pair from branch names alone.
 
-## CURRENT BEST PROJECT: STUDIO - GOLDEN M3
+## CURRENT BEST PROJECT: STUDIO - GOLDEN M4
+
+Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
+
+| Component | Repository | Branch | Exact product SHA | Golden tag |
+| --- | --- | --- | --- | --- |
+| TypeScript authority | `HSpector1/The-Movies` | `campaign/unity-production-convergence-80h-ts` | `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6` | `golden/unity-convergence-m4` |
+| Unity production client | `HSpector1/project-studio-unity-visual-spike` | `campaign/unity-production-convergence-80h-client` | `6b32335447848ed0680eb8077e78ee36aded5d56` | `golden/unity-convergence-m4` |
+
+This exact pair is the sole answer to “what should we build from next?” Both
+annotated M4 tags are pushed and their remote dereferences were verified at the
+exact SHAs above. The TypeScript branch may contain one later continuity-only
+seal commit; that moving branch tip does not replace the tagged product SHA.
+Never recover, build, or promote only one side.
+
+M4 remains protocol `4`, projection `4`, schema
+`sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`.
+Generated TypeScript/Unity C# copies remain byte-identical at SHA-256
+`1192d58a323e98b4ebab001d910c5f38dfa6455c90b38769e8af6325e84ee1dd`.
+TypeScript remains sole simulation authority.
+
+### Current Golden tags
+
+- M4 TypeScript: `golden/unity-convergence-m4` ->
+  `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6`.
+- M4 Unity: `golden/unity-convergence-m4` ->
+  `6b32335447848ed0680eb8077e78ee36aded5d56`.
+- Preserved M3 TypeScript: `golden/unity-convergence-m3` ->
+  `e9c6f06b717a6a106281b189a61072e35770155f`.
+- Preserved M3 Unity: `golden/unity-convergence-m3` ->
+  `40465d48c191c9dcdda2c6b32c17c9675f4908a4`.
+- Preserved M2 TypeScript: `golden/unity-convergence-m2` ->
+  `7d76951f6ad641e8940b97b03806b87638ed8ad8`.
+- Preserved M2 Unity: `golden/unity-convergence-m2` ->
+  `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
+- Preserved M1 TypeScript: `golden/unity-convergence-m1` ->
+  `cd2b15872ac5849fa16beec1775543758cb3139e`.
+- Preserved M1 Unity: `golden/unity-convergence-m1` ->
+  `a1c27318bec47f1abc4a29b77d9c413bdc8a8778`.
+
+M4 supersedes M3 as CURRENT BEST. No prior Golden tag was moved or deleted.
+
+### Parent and base SHAs
+
+| Component | Direct parent | Implementation parent / frozen campaign base |
+| --- | --- | --- |
+| TypeScript authority | `e6421dcd51c7b64071b8be227f0950129634ff35` | Implementation commit parent `808d319bd1b9b2c8b81cd8e2c60808ae0180c8a3`; frozen base `f6606ac9db67dc70b12a7d247d74206571d12d2c` |
+| Unity production client | `94e8bcac6a5bf94fd70f3f8a61992511230688a2` | Frozen base `d970b81c2b17383ee71c3c66a5622ecc140473b3` |
+
+TypeScript M4 contains two product commits after the prior continuity tip:
+`e6421dcd...` implements the lifecycle; direct child `11e2cf88...` makes its
+Linux test evidence publication-exact and race-correct without changing
+runtime product source.
+
+### Why M4 is better than M3
+
+M4 preserves M3's Movie #2, queue-law, deterministic V14, identity, structured
+rejection, and native visual floor, then accumulates three durable Phase B
+improvements:
+
+- Checkpoint 8 adds an authenticated capability boundary, durable current/saved
+  authority, stable logical session, incarnation identity, and safe restart;
+- Checkpoint 9 adds byte-exact bounded retry for ambiguous committed
+  `/command`, `/save`, and `/load` responses, with the durable journal proving
+  one mutation and an exact replay after engine loss;
+- Checkpoint 10 makes those capabilities one usable product: `npm run studio`
+  owns a stable private profile, fresh per-launch capability, random initial
+  loopback port, pinned replacement port, authenticated readiness, direct
+  engine/Unity children, process-incarnation leases, stale cleanup, automatic
+  restart, graceful shutdown, and bounded redacted logs;
+- exact Linux CI now covers the supervisor and `flock` owner-lock path rather
+  than leaving that portability boundary source-audited only;
+- one command launches the compatible client and authoritative engine while
+  the stable profile preserves current and explicitly saved V14 authority
+  across full application exits.
+
+No gameplay formula, `GameState` field, V14 save shape, RNG stream, permanent
+identity, economy/construction rule, art, or simulation authority moved into C#.
+
+### Launch command
+
+If the ignored compatible native app is absent, rebuild it first:
+
+```bash
+'/Applications/Unity/Hub/Editor/6000.3.22f1/Unity.app/Contents/MacOS/Unity' \
+  -batchmode \
+  -projectPath '/Users/bruce/Project Studio - Unity Production Convergence 80H' \
+  -executeMethod Studio.Editor.Automation.StudioAutomation.BuildMacOS \
+  -logFile /tmp/studio-golden-m4-native-build.log \
+  -quit
+```
+
+Launch the current best product with one command:
+
+```bash
+cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
+npm run studio -- \
+  --unity-project '/Users/bruce/Project Studio - Unity Production Convergence 80H'
+```
+
+The exact immutable recovery authority is the M4 tag pair above. The campaign
+worktrees are the convenient current launch surface; after the containing
+continuity commit is pushed, both branches must equal their configured upstreams
+and both tracked trees must be clean.
+
+### Validation summary
+
+- Final exact-product GitHub Bridge contract run `32447981439` passed every
+  step at TypeScript M4 `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6`
+  in 12m27s, including Linux supervisor/`flock`, typechecks, build, hygiene, and
+  adopted assets.
+- Full TypeScript suite: 336 files, 4,524 passed, 5 skipped, 0 failed.
+- Bridge aggregate: 98/98 across 11 files, including exact engine-publication
+  parsing and race-correct Linux shutdown cleanup.
+- Generated drift, protocol/schema identity, Movie #2/determinism proof, V14
+  export/import/headless parity, stale/duplicate protection, and polling
+  neutrality passed.
+- Browser production dependency audit: 0. Repository hygiene passed. Adopted
+  3D assets: 26, with 0 hard violations.
+- Full development graph audit separately reports five advisories: 3 moderate,
+  1 high, 1 critical. This remains a packaging boundary, not a clean whole-
+  runtime audit claim.
+- Unity EditMode: 62/62 in `/tmp/studio-b10-golden-editmode.xml`.
+- Native macOS build passed/launched: 136,980,022 aggregate file bytes;
+  executable 116,116 bytes.
+- Fresh supervised Movie #2 passed construction, exact save/load, retained
+  stale guidance, and release at Week 22/revision 23.
+- Full-client reconnect passed twice from one stable profile with exact logical
+  authority. An actual engine replacement retained the projection, disabled
+  actions during outage, restored authority, and recorded zero torn reads.
+- Performance on Apple M3 Max: Movie #2 119.3772 FPS; final reconnect 119.1999
+  FPS; accepted restart 119.5948 FPS.
+- No open product P0/P1 runtime finding remains after final local/native/Linux
+  validation.
+
+The first exact-product run `32446759604` at `e6421dcd...` is superseded seal
+history, not a product regression. A broad test matcher counted both the true
+publication and legitimate `cleanup engine pid=8399`, yielding `[8399, 8399]`.
+Commit `11e2cf88...` parses the exact publication line and adds synthetic
+cleanup, unpublished/reused PID, genuine-second-publication, and pre-exit race
+coverage. The final run above passed it on Linux.
+
+Accepted evidence root:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/B10/Supervisor-20260821T035727Z/`.
+
+- Movie #2 report/released frame SHA-256:
+  `126152d4f91f64800ec6f88f22831cc6c0b297f3d97e9898ed5ef95c7db72f0e` /
+  `d6fdf5d26598d968906d19d0bec4d3e7a646415d2e5279b9c4ef6eda2add8a12`.
+- Final reconnect report/frame SHA-256:
+  `128fa7b1c58db4541b9c87bd9e3bca3bcefed16219edb61362ba1642bd92a050` /
+  `b1098fce189ca5f32a072e8c7c464274c329ee4d944ccf561b67c5f3f922fee3`.
+- Accepted restart report/ready/frame SHA-256:
+  `65e4be5b7f2ef0bf0bc82432dad45b4212cd21ef9bcc555e75cb90fe6ce4087c` /
+  `eaeacbcfc155abb977c19c92b21750bbf2bab532acd814e31c4a8c5399952c1c` /
+  `171306b2701401a38464353f31a0ccd969caf2858bafdf245421ed89b5a740fe`.
+- Stable private checkpoint: 1,354,928 bytes, 25 journal entries, SHA-256
+  `e6907ff5fe552cdc2c1f138458b93d4c2ec50bea4cc9cb4b173514c4fb8ed48c`.
+
+### Movie #2 status
+
+Playable end to end from fresh TypeScript authority through construction,
+screenplay, auditions/evidence, editable casting/package, greenlight,
+pre-production, director/scenery, load-in, shooting, save/load, post, retained
+stale guidance, release, full-client reconnect, and supervised engine restart.
+Exact identity: `The Reluctant Cornerstone`, `script-0001`, `prod-0013`.
+Final revision/week/digest: `23` / `22` /
+`429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
+Saved/restored digest:
+`5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`.
+
+### Visual status
+
+M4 claims no visual uplift over M3. Direct inspection of the overview,
+construction, production, release, reconnect, and restart frames still shows a
+sparse elevated diorama, oversized generic proof HUD, flat materials, small
+role-unreadable people, weak filmmaking activity, and no convincing human-scale
+inspection view. It remains below ADR 0006 and the visual-fidelity ruling.
+
+The next visual gate is explicit: schema-backed stable Stage 7/Admin location
+IDs plus a Cinemachine management-to-inspection click focus transition, with
+before/after evidence at both camera scales.
+
+### Known defects
+
+- P1: ADR 0006 visual recognizability remains unmet. This is the principal
+  canonical-promotion blocker.
+- P2: `npm run studio` still executes the pinned `vite-node` development graph;
+  emitted production packaging and its direct audit remain incomplete, with the
+  five development advisories recorded above.
+- P2/integration: TypeScript `main` has a large semantic divergence from this
+  campaign line. A canonical merge requires deliberate full-diff reconciliation
+  and validation on the actual merge candidate.
+- P2 evidence quirk: the restart-only report has
+  `exactMovie2Released: false` because unrelated identity fields are not filled;
+  its exact released ordinal-2 milestone and all restart invariants pass.
+- There is no known P0 regression and no violation of TypeScript simulation
+  authority.
+
+### Promotion decision
+
+Golden M4 is the best known playable overall product and supersedes M3. It is
+recoverable as an exact pushed/tagged compatible pair and passes the Golden
+runtime, Movie #2, determinism, save/load/reconnect, native, and Linux CI gates.
+
+It is **not** promoted to canonical and is **not** ready for canonical merge
+review. ADR 0006 is still unmet, the local engine remains on an unaudited
+development packaging boundary with five advisories, and current TypeScript
+`main` has a semantic mega-diff that has not been reconciled on a merge
+candidate. This is an autonomous technical-PM decision to preserve M4 as the
+obvious build-from state while continuing the campaign.
+
+Promotion status remains exactly **GOLDEN — CONTINUE CAMPAIGN**.
+
+## PRIOR GOLDEN M3 REGISTER - HISTORICAL
+
+This section records M3 as it stood before Golden M4. Every statement below
+that calls M3 CURRENT BEST is historical and superseded by the M4 authority
+above. M3 remains an immutable recovery tag, not the current build-from pair.
 
 Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
 
@@ -162,9 +379,13 @@ runtime durability is absent, TypeScript `main` remains historically diverged,
 and the Unity visual product still misses the binding recognizability gate.
 Promotion status remains exactly **GOLDEN — CONTINUE CAMPAIGN**.
 
-## CHECKPOINT 10 PRE-COMMIT - GOLDEN M4 CANDIDATE
+## CHECKPOINT 10 PRE-COMMIT - HISTORICAL GOLDEN M4 CANDIDATE
 
 Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
+
+This section records the pre-commit candidate state only. Its M3-current,
+uncommitted, no-CI, and no-M4-tag statements were superseded by the sealed M4
+section at the top of this register.
 
 This candidate is the first state to accumulate Checkpoints 8 and 9's durable,
 authenticated, exact retry/reconnect guarantees with a one-command owned native
@@ -339,9 +560,12 @@ combining schema-backed stable Stage 7/Admin location IDs with a Cinemachine
 management-to-inspection click focus transition, then capture before/after
 evidence at both camera scales.
 
-## CHECKPOINT 9 SEALED PHASE B PAIR - NON-GOLDEN
+## CHECKPOINT 9 SEALED PHASE B PAIR - HISTORICAL NON-GOLDEN
 
 Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
+
+This section is historical. Its M3-current statements record the Checkpoint 9
+decision at that time and are superseded by Golden M4 at the top of this file.
 
 Checkpoint 9 is a validated, protocol-pinned, committed, pushed, and recoverable
 compatible pair. It is not CURRENT BEST, Golden, tagged, or canonical. Golden
@@ -514,7 +738,10 @@ authenticated health readiness, engine restart, stale cleanup, graceful
 shutdown, and bounded secret-free logs. The existing exact retry path must be
 proven through that entry point.
 
-## CHECKPOINT 8 SEALED PHASE B PAIR - NON-GOLDEN
+## CHECKPOINT 8 SEALED PHASE B PAIR - HISTORICAL NON-GOLDEN
+
+This section is historical. Its M3-current statements record the Checkpoint 8
+decision at that time and are superseded by Golden M4 at the top of this file.
 
 Checkpoint 8 is a validated, protocol-pinned, committed, pushed, and recoverable
 compatible pair. It is not tagged, Golden, or canonical. Its exact product SHAs

@@ -1987,3 +1987,183 @@ Ordered work after that:
    and 25/50/100-person scalability evidence.
 3. Package the TypeScript runtime and define/audit its emitted dependency graph.
 4. Productionize direct lot construction placement, selection, and inspection.
+
+## 2026-08-21 06:57 CEST - Golden M4 sealed: supervised durable product lifecycle
+
+### Exact Golden state
+
+| Side | Repository / branch | Golden product SHA | Parent / tag / push state |
+| --- | --- | --- | --- |
+| TypeScript authority | `HSpector1/The-Movies` / `campaign/unity-production-convergence-80h-ts` | `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6` | Direct parent `e6421dcd51c7b64071b8be227f0950129634ff35`; implementation commit parent `808d319bd1b9b2c8b81cd8e2c60808ae0180c8a3`; pushed annotated `golden/unity-convergence-m4` remotely dereferences to this SHA |
+| Unity production client | `HSpector1/project-studio-unity-visual-spike` / `campaign/unity-production-convergence-80h-client` | `6b32335447848ed0680eb8077e78ee36aded5d56` | Direct parent `94e8bcac6a5bf94fd70f3f8a61992511230688a2`; branch clean/pushed; annotated `golden/unity-convergence-m4` remotely dereferences to this SHA |
+
+Both branch tips were pushed and upstream-equal with clean tracked trees before
+this continuity-only seal. The containing TypeScript documentation commit will
+be the sole descendant of Golden product `11e2cf88...`; after push, local HEAD
+must equal configured upstream and the tracked tree must again be clean. Unity
+remains clean at exact Golden `6b323354...`.
+
+All M1, M2, and M3 annotated tags remain immutable and pushed in both
+repositories. No historical tag moved or was deleted.
+
+Promotion status: **GOLDEN — CONTINUE CAMPAIGN**.
+
+M4 is not canonical and is not ready for canonical merge review. It is the sole
+CURRENT BEST compatible pair and the exact answer to “what should we build from
+next?”
+
+### Why M4 supersedes M3
+
+M4 preserves M3's Movie #2, deterministic V14, queue-law parity, structured
+rejections, and native client floor, then accumulates the missing durable local
+product lifecycle:
+
+- Checkpoint 8 established the authenticated capability boundary, durable
+  current/saved authority, stable logical session, and safe engine restart;
+- Checkpoint 9 established byte-identical retry of a committed-but-unanswered
+  command/save/load through an exact durable request/response journal;
+- Checkpoint 10 established one TypeScript-owned product entry point with a
+  stable private profile, fresh per-launch capability, random first/pinned
+  replacement port, authenticated readiness, direct engine/Unity children,
+  PID-incarnation/process-group leases, stale cleanup, restart budget, graceful
+  shutdown, bounded redacted logs, and automatic engine replacement;
+- final exact-product Linux CI proved the supervisor and `flock` owner-lock path
+  on the tagged TypeScript product SHA.
+
+No schema, generated DTO, projection, `GameState`, V14 save field, gameplay
+formula, legality, economy/construction rule, permanent identity, RNG stream,
+art, asset, or Three.js regression oracle changed during the seal. TypeScript
+remains sole simulation authority.
+
+### Commit and CI seal trail
+
+1. Implementation commit `e6421dcd51c7b64071b8be227f0950129634ff35`
+   (`feat(runtime): supervise the local Unity product lifecycle`) was pushed on
+   parent `808d319bd1b9b2c8b81cd8e2c60808ae0180c8a3`.
+2. First exact-product Bridge contract run `32446759604` failed in `Test
+   application` at `tests/bridge-supervisor.test.ts:758`. A broad PID matcher
+   counted the true publication and legitimate Linux
+   `cleanup engine pid=8399`, receiving `[8399, 8399]`. All earlier gates,
+   including bridge 97/97 and the Linux supervisor path, passed. No second
+   engine spawn and no product P0/P1 was reproduced.
+3. Direct child `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6`
+   (`test(runtime): classify engine publications exactly`) changed only the
+   supervisor test and the interruption handoff. It parses exact publication
+   lines and covers synthetic cleanup, unpublished/reused PIDs, a genuine
+   second publication, and the race-correct cleanup of a replacement published
+   before the Unity-exit boundary. Runtime product source did not change.
+4. Final exact-product run `32447981439` passed every Bridge contract workflow
+   step at `11e2cf88...` in 12m27s. This supersedes the failed first run as the
+   accepted seal evidence.
+5. Annotated `golden/unity-convergence-m4` tags were pushed and remotely
+   verified at the exact TypeScript/Unity pair above.
+
+### Phase status after seal
+
+| Phase / scope | Status | Exact result / remaining work |
+| --- | --- | --- |
+| Setup and authority baseline | Complete | Frozen authorities, two-repository law, campaign branches, M1-M4 recovery tags, TypeScript-only simulation authority |
+| Phase A contract/client convergence | Complete for current slice | Generated contract, named projections, queue-law parity, structured rejection guidance |
+| Phase B durable development lifecycle | **Complete and Golden** | Atomic durable authority, authenticated restart, exact pending-POST replay, stable-profile one-command supervisor, Linux owner-lock validation |
+| Phase B production packaging | **Partial** | Emitted runtime, installer/update, profile backup UX, and direct emitted dependency audit remain open; current `vite-node` dev graph has five advisories |
+| Visual recognizability / camera | Partial and below acceptance | ADR 0006 two-scale inhabitable studio gate remains unmet; Stage 7/Admin focus slice is next |
+| Production activity / people / construction polish | Inherited partial | Filmmaking readability, human proportions/roles, scale evidence, and direct placement/inspection remain open |
+| Canonical promotion | Not ready | Visual gate, production packaging/audit, and TypeScript-main semantic mega-diff reconciliation remain blockers |
+
+### Accepted validation
+
+| Gate | Golden M4 result |
+| --- | --- |
+| Exact-product GitHub CI | Passed run `32447981439` at `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6`; 12m27s; every workflow step green |
+| Full TypeScript regression | 336 files; 4,524 passed, 5 skipped, 0 failed |
+| Bridge aggregate | 98/98 across 11 files, including exact publication and Linux supervisor/`flock` paths |
+| Typechecks / production build | Bridge and application typechecks passed; build passed with inherited Vite chunk warnings |
+| Generated drift / authority | Protocol `4`, projection `4`, schema and generated C# identity passed; TypeScript remains sole simulation authority |
+| Movie #2 / determinism | Fresh release, V14 export/import/headless parity, stale/duplicate protection, polling neutrality, exact save/load passed |
+| Browser dependencies / hygiene / assets | Browser runtime audit 0; repository hygiene passed; 26 adopted 3D assets, 0 hard violations |
+| Full development dependency audit | Five advisories remain: 3 moderate, 1 high, 1 critical; documented packaging blocker, not hidden by the browser audit |
+| Unity EditMode | 62/62 passed; `/tmp/studio-b10-golden-editmode.xml` |
+| Native macOS build | Passed/launched; 136,980,022 aggregate file bytes; executable 116,116 bytes |
+| Native supervised Movie #2 | Passed fresh construction through release; 119.3772 FPS |
+| Full-client reconnect | Passed twice with exact session/revision/week/digests; final sample 119.1999 FPS |
+| Automatic engine replacement | Passed actual kill/replacement on pinned port; outage and disabled actions observed, projection retained, zero torn reads; 119.5948 FPS |
+| Independent runtime audit | No open product P0/P1 regression after final test repair and Linux CI |
+| Git recovery | Both product branches and both annotated M4 tags pushed; remote tag dereferences match the exact compatible pair |
+
+### Movie #2 and native evidence
+
+Accepted evidence root:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/B10/Supervisor-20260821T035727Z/`.
+
+- `The Reluctant Cornerstone`, `script-0001`, `prod-0013` released at Week 22,
+  revision 23, final digest
+  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
+- Saved/restored digest remained
+  `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`.
+- Movie #2 report/released frame SHA-256:
+  `126152d4f91f64800ec6f88f22831cc6c0b297f3d97e9898ed5ef95c7db72f0e` /
+  `d6fdf5d26598d968906d19d0bec4d3e7a646415d2e5279b9c4ef6eda2add8a12`.
+- Final reconnect report/frame SHA-256:
+  `128fa7b1c58db4541b9c87bd9e3bca3bcefed16219edb61362ba1642bd92a050` /
+  `b1098fce189ca5f32a072e8c7c464274c329ee4d944ccf561b67c5f3f922fee3`.
+- Accepted restart report/ready/frame SHA-256:
+  `65e4be5b7f2ef0bf0bc82432dad45b4212cd21ef9bcc555e75cb90fe6ce4087c` /
+  `eaeacbcfc155abb977c19c92b21750bbf2bab532acd814e31c4a8c5399952c1c` /
+  `171306b2701401a38464353f31a0ccd969caf2858bafdf245421ed89b5a740fe`.
+- Stable private checkpoint: 1,354,928 bytes, 25 journal entries, SHA-256
+  `e6907ff5fe552cdc2c1f138458b93d4c2ec50bea4cc9cb4b173514c4fb8ed48c`.
+
+### Launch
+
+Rebuild the ignored compatible native app only when absent:
+
+```bash
+'/Applications/Unity/Hub/Editor/6000.3.22f1/Unity.app/Contents/MacOS/Unity' \
+  -batchmode \
+  -projectPath '/Users/bruce/Project Studio - Unity Production Convergence 80H' \
+  -executeMethod Studio.Editor.Automation.StudioAutomation.BuildMacOS \
+  -logFile /tmp/studio-golden-m4-native-build.log \
+  -quit
+```
+
+One-command product launch:
+
+```bash
+cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
+npm run studio -- \
+  --unity-project '/Users/bruce/Project Studio - Unity Production Convergence 80H'
+```
+
+### Honest visual and promotion decision
+
+No visual uplift is claimed for M4. The accepted overview, construction,
+production, release, reconnect, and restart captures still read as a sparse
+elevated diorama with an oversized generic HUD, flat materials, small
+role-unreadable people, weak filmmaking activity, and no convincing human-scale
+inspection view. ADR 0006 and the visual-fidelity ruling remain unmet.
+
+Canonical promotion is deliberately rejected at this checkpoint because:
+
+- the visual/two-scale camera gate is still a campaign-level P1;
+- `npm run studio` remains on the pinned `vite-node` development graph with five
+  audit advisories and no emitted production package boundary;
+- TypeScript `main` has a semantic mega-diff from the campaign line and has not
+  been reconciled/tested as an actual merge candidate.
+
+Golden M4 is therefore CURRENT BEST with promotion status exactly
+**GOLDEN — CONTINUE CAMPAIGN**, not canonical and not ready for canonical merge
+review.
+
+### NEXT EXACT ACTION
+
+Implement schema-backed stable Stage 7/Admin location IDs plus a Cinemachine
+management-to-inspection click focus transition, then capture before/after
+evidence at both camera scales.
+
+Ordered work after that:
+
+1. Turn Hero Stage 7 into a visibly operating filmmaking environment.
+2. Improve human proportions, role readability, animation, purposeful movement,
+   and 25/50/100-person scalability evidence.
+3. Package the TypeScript runtime and define/audit its emitted dependency graph.
+4. Productionize direct lot construction placement, selection, and inspection.
