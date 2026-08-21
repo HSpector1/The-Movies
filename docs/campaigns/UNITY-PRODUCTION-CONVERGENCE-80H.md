@@ -45,19 +45,19 @@ rewritten, merged, rebased, or force-pushed.
 | --- | --- | --- |
 | Campaign setup and baseline | Complete | Authorities verified, isolated branches pushed, full baseline built, played, captured, and measured |
 | A - Productionize TypeScript to Unity contract | Complete for current protocol | A1 generated contract, A2 named projections, A3 queue parity, and A4 structured remedies are sealed; later projection growth must retain the same authority/version discipline |
-| B - Durable local game runtime | Candidate-complete, unsealed | Checkpoints 7/8/9 provide durable authenticated exact-retry continuity; uncommitted Checkpoint 10 adds the one-command owned lifecycle and awaits product commit/push/Linux CI/Golden seal |
-| C - Unity client architecture | Partial | Protocol, runtime continuity, projection cache/client, interaction, proof, and presentation seams exist; the spike still needs broader production decomposition |
+| B - Durable local game runtime | Golden M4 complete for local development | Checkpoints 7/8/9/10 provide durable authenticated exact-retry continuity and a one-command owned lifecycle; emitted production packaging remains later work |
+| C - Unity client architecture | Partial, Checkpoint 11 non-Golden | Protocol, runtime continuity, authoritative physical-location joins, two-scale Cinemachine direction, unified input, collision recovery, proof, and presentation seams exist; broader production decomposition remains open |
 | D - Full Movie journey in Unity | Partial at inherited baseline | Automated native Movie #2 path passes, but the interaction surface remains proof-oriented and does not yet provide the approved professional retained workspaces |
 | E - Lot interaction / construction / management | Partial at inherited baseline | TypeScript construction intent and visible construction state pass; direct build placement interaction is not productionized in Unity |
-| F - Hero Soundstage 7 | Partial at inherited baseline | Exterior and inspectable interior exist; interior is visually bare and lacks an operating production company |
+| F - Hero Soundstage 7 | Partial, first close-scale proof accepted | Authored inspection now frames recognizable filmmaking equipment and human-scale activity; material, people, role, period, and production-density quality remain below the visual law |
 | G - Characters and authored animation | Partial at inherited baseline | Provenance-cleared assets, Mecanim setup, 32 animators, and seven active people exist; quality and role activity are below target |
 | H - Purposeful people / NavMesh | Partial at inherited baseline | Seven visible people are active on NavMesh; 25/50/100 stress gates are untouched |
-| I - Camera / occlusion / inspection | Partial at inherited baseline | Tycoon camera and judging cameras exist; professional interaction QA is untouched |
-| J - World / era / campus quality | Partial at inherited baseline | Campus scale reads; surroundings, density, hills, and 1948 specificity remain weak |
+| I - Camera / occlusion / inspection | Functional non-Golden slice | Smooth management/inspection Cinemachine modes, Stage 7/Admin targets, collision/occlusion recovery, shared mouse/touch sampling, UI gesture exclusion, Back/Escape/Home return, and 1440/narrow proof pass; a real foreground touch activation remains unproven |
+| J - World / era / campus quality | Partial at inherited visual floor | Campus scale reads, but overview remains a diorama and Administration is flat/empty; surroundings, density, material variation, inhabitation, and 1948 specificity remain weak |
 | K - Materials / lighting / VFX / audio | Partial at inherited baseline | URP presentation exists; prototype surfaces and sparse soundstage lighting dominate |
 | L - Performance / scalability | Baseline only | M3 Max measurements captured; no 25/50/100 scalability campaign yet |
-| M - Resilience | Partial | Stale/duplicate, durable save/load, idle restart, outage retention, malformed protocol, exact lost-response recovery, and the candidate supervisor pass; production packaging and the full ugly-condition matrix remain incomplete |
-| N - Professional QA | Active | Full TypeScript, Unity EditMode, native build, native Movie #2, actual process-kill, evidence-verifier, and runtime capture gates are established and run per checkpoint |
+| M - Resilience | Partial | Stale/duplicate, durable save/load, idle restart, outage retention, malformed protocol, exact lost-response recovery, and the Golden M4 supervisor pass; production packaging and the full ugly-condition matrix remain incomplete |
+| N - Professional QA | Active | Full TypeScript, Unity EditMode, native build, scene validation, two-resolution camera proof, native Movie #2, full-client reconnect, actual process-kill, evidence-verifier, and runtime capture gates are established and run per checkpoint |
 
 ## 2026-08-20 - Checkpoint 0: branch creation and architecture boot
 
@@ -2167,3 +2167,242 @@ Ordered work after that:
    and 25/50/100-person scalability evidence.
 3. Package the TypeScript runtime and define/audit its emitted dependency graph.
 4. Productionize direct lot construction placement, selection, and inspection.
+
+## 2026-08-21 08:50 CEST - Checkpoint 11 pushed: authoritative two-scale studio inspection (non-Golden)
+
+### Exact pushed product state
+
+| Component | Branch | Exact product SHA | Direct parent |
+| --- | --- | --- | --- |
+| TypeScript authority | `campaign/unity-production-convergence-80h-ts` | `014f7ef94e085222bf375b9457a6b15420fa314c` | `db03bd8400e79822262a17ba73b0a4c829dc91ff` |
+| Unity production client | `campaign/unity-production-convergence-80h-client` | `5c8a0eee7fa16bb9fd486fb61707230b208330d6` | `6b32335447848ed0680eb8077e78ee36aded5d56` |
+
+Both product commits are pushed on their configured campaign branches. They are
+the only compatible Checkpoint 11 product pair. Neither commit is tagged,
+Golden, canonical, or CURRENT BEST.
+
+Golden M4 remains the sole CURRENT BEST pair and immutable recovery authority:
+TypeScript `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6` plus Unity
+`6b32335447848ed0680eb8077e78ee36aded5d56`, each under the pushed annotated
+tag `golden/unity-convergence-m4`. Promotion status remains exactly
+**GOLDEN — CONTINUE CAMPAIGN**. Do not create or move M5 from this checkpoint.
+
+The contract remains protocol `4`, projection `4`, schema
+`sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`.
+The checked-in TypeScript and Unity generated C# DTO copies remain
+byte-identical at SHA-256
+`1192d58a323e98b4ebab001d910c5f38dfa6455c90b38769e8af6325e84ee1dd`.
+There is no schema, V14, `GameState`, gameplay-formula, RNG, or authority move.
+
+Exact-product GitHub Actions run `32454923261` passed every workflow step at
+TypeScript `014f7ef94e085222bf375b9457a6b15420fa314c` in 12m12s, including
+bridge/full tests, typechecks, production build, hygiene, and adopted assets.
+
+### Authoritative location and placement identity
+
+Checkpoint 11 first closes the identity prerequisite for camera focus rather
+than inferring a Unity location from display labels or facility IDs:
+
+- `lot.property.buildings[].id` is the sole physical presentation namespace;
+  canonical bodies include `admin`, `stage-a`, `stage-b`, and `post`.
+- Every stage building ID, active-production stage ID, and production-operation
+  `locationBuildingId` resolves exactly once to that physical namespace.
+- Facility IDs remain operational identities. They are never substituted for a
+  physical building ID, and an unknown or ambiguous join fails closed instead
+  of silently selecting Administration.
+- A non-expansion placement joins by authoritative `placedFacilityId`; placement
+  `1` for `facility-scenery-shop-1` resolves to physical body `placed-1`.
+  `expansion` remains the documented lot-only parcel exception with no property
+  body.
+- Unity indexes physical locations only through explicit
+  `StudioLocationBinding`. This prevents heterogeneous selectable/facility IDs
+  from colliding and prevents stale authored construction bodies from surviving
+  a missing authority join.
+- TypeScript product `014f7ef9...` changes only the bridge-schema regression
+  test. It pins these already-authoritative projection-v4 invariants through a
+  real construction placement and the Stage 7 Movie #2 operation.
+
+### Coherent two-scale camera slice
+
+Unity product `5c8a0eee...` implements the first bounded management/inspection
+slice on the current M4 baseline rather than merging stale PR #5 code:
+
+- A Cinemachine 3.1.7 brain blends for `0.85` seconds between an elevated
+  management camera and an authored human-scale inspection camera.
+- The management home pose targets `(1, 3, 4)` from
+  `(-65.419174, 115.43302, -79.50034)` at 36-degree FOV. Stage 7 targets
+  `(48, 2.2, 36)` from `(52.5, 5.3, 12)` at 43-degree FOV; Administration
+  targets `(-55, 3.2, -32)` from `(-41, 5.5, -48)` at 44-degree FOV.
+- Cinemachine deocclusion preserves camera height with a `0.42` camera radius,
+  `1.25` minimum target distance, and a mask that excludes selection proxies.
+- One immutable mouse/touch sample per frame drives selection and both camera
+  scales. The input path checks EventSystem, every active touch, the bridge
+  panel, and the Back control, and latches a UI-owned gesture until all pointers
+  release. A stationary startup cursor at the screen edge cannot pan the lot.
+- Double activation enters or exits the same target. `BACK TO STUDIO` is always
+  visible in inspection with a 220x56 hit area; Escape and Home also return.
+  Management input and the prior workflow-panel visibility are restored.
+- Camera focus is presentation-only. It emits no bridge POST and cannot mutate
+  TypeScript authority. Selection remains stable through the return transition.
+- The canonical scene was regenerated and validation now requires exact
+  Stage 7/Admin location bindings, the two-camera rig, selection-layer
+  isolation, and no invented facility-prefixed physical binding.
+
+### Accepted validation
+
+| Gate | Checkpoint 11 result |
+| --- | --- |
+| Full TypeScript suite | Passed: 336 files; 4,525 passed; 5 skipped; 0 failed |
+| Bridge aggregate | Passed: 99/99 |
+| TypeScript checks/build | Full and bridge typechecks passed; production build passed |
+| Dependency/hygiene/assets | Browser runtime audit 0; repository hygiene 1,032 files; 26 adopted 3D assets with 0 hard violations |
+| Unity EditMode | Passed 86/86 |
+| Canonical scene validation | Passed: 32 people, 10 vehicles, 18 equipment objects, 4 capture anchors, 0 errors, 0 warnings |
+| Native macOS build | Passed; aggregate file bytes `137037930` |
+| Exact-product CI | Passed run `32454923261` at `014f7ef94e085222bf375b9457a6b15420fa314c`; 12m12s; every workflow step green |
+
+### Native two-scale evidence
+
+Accepted 1440x900 evidence:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/C/Camera-Final-20260821T060033Z/`.
+
+- Report SHA-256:
+  `249c812d2279dd762ffc1f04efc80e08ebf7ee7597b2c12cc11b43e5a1afe912`.
+- Management / Stage 7 / Administration / management-return frame SHA-256:
+  `b557f2feeb57b4c5061fb138f904a3e83a780a5021101f13ba9a17bfd1e0f546`,
+  `a682901c243e17460a626f041ef347a557bf91c16c21eb01f5f73442aa0bf242`,
+  `476ae54561ea4d55b55167136601858c5fb0bf9312c29635e73f72ab9b525722`,
+  `df8e8d166499e17dbf5a5a76314a843b2e803f33f60e487db99bdf85f726a02d`.
+- All four mode changes blend and settle. The Back path restores management
+  mode/input/panel, hides itself, and preserves Stage 7 selection.
+- A synthetic invisible Default-layer obstruction displaces the inspection
+  camera `8.6125526` metres without overlap, then recovers to the authored pose
+  within `4.7683716e-7` metres after removal with clear spherecasts.
+- The shooting authority is byte-stable before/after at session
+  `camera-native-shooting-v1`, revision `12`, week `17`, digest
+  `eeef141cbebfab95bbcbbcee55b67473e3b07d26507c7f111e7bf4ab3c65f521`;
+  no bridge POST is observed. Samples remain approximately 119 FPS.
+
+Accepted narrow 390x844 evidence:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/C/Camera-Narrow-Final-20260821T060033Z/`.
+
+- Report SHA-256:
+  `f9bdeaf47d7be7056d97039520d47ef87d337b503e3c67f1d29e706505ab067b`.
+- Management / Stage 7 / Administration / management-return frame SHA-256:
+  `8a2f4507c67d81496e28d0fc8993482c041bb18985b7e1948d32fa93537152ea`,
+  `6c8ab65c88768560ed754f9431d68f74d15d147edf61e99f1a8d9f168b4478d6`,
+  `b108ea3ff74d457ab8aa6bc633b210212d46749de7e2b25e97e6fa519ed6d2db`,
+  `601bf0b1de6f8738755684a9a94f1ce2af9ce2dac7b54e0ec0a220fabce769d6`.
+- The same authority, transitions, collision recovery, 220x56 Back control,
+  and workflow restoration pass at narrow resolution.
+
+Three external-control attempts under
+`Evidence/C/Camera-Touch-20260821T060033Z/`,
+`Evidence/C/Camera-Touch-Final-20260821T060033Z/`, and
+`Evidence/C/Camera-Touch-Final2-20260821T060033Z/` failed closed. Their report
+hashes are
+`74e49bcc1e9c5a613f5babef40654523cdb6773e7d14e4ca77a297471a521251`,
+`94bb6e2b851eb72e0551a72e740c704bc3f93ee3711e999f15b273fd7a5402ce`,
+and `6757fe48e9682da5353435cf91f248b0e65a7cd236b9c70904138870a4cc0e48`.
+The unattended macOS
+session remained behind `loginwindow`, so a targeted synthetic event never
+reached the native GUI and the activation counter correctly stayed zero. These
+are superseded environmental attempts, not accepted click/touch evidence. The
+deterministic proof exercises the same return method and is accepted for this
+non-Golden checkpoint, but a real foreground pointer/touch activation remains
+an explicit evidence gap.
+
+### Fresh native regression evidence
+
+Fresh one-profile Movie #2, reconnect, and actual supervised engine-restart
+evidence is rooted at
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/C/Regression-20260821T062502Z/`.
+
+- Movie #2 report/released-frame SHA-256:
+  `c0fbb5e185a38e67886ea4e73a67de5109467f9314f8db1e9eabe0f26ce09600` /
+  `5d01de0a80a2f5daea3b77b7970de2bd35f5647ca326e31f1e9017f2cfd11cbd`.
+- Reconnect report/frame SHA-256:
+  `66578dac0eed82ef504cb51ffb87b0f3501a00041128b92c7d64955eae5b20bd` /
+  `21f1aad7c4aec3fc9da5defd6b1639d5895ecf0956f4580e96e158a444f83b4e`.
+- Restart report/ready/frame SHA-256:
+  `101cc3d8c81631c9e07486759e8926c52d4cf72165ec885e656164ea320526e3` /
+  `96027cba21bd3c44d6efe5aab908818ca62e0b2495efee5638fd2cf686388208` /
+  `0d63226b667f05680594e942da6bd0526dd59b00fa410e0587fdfbeef6aa9ecc`.
+- Runtime checkpoint: 1,354,919 bytes, 25 journal entries, SHA-256
+  `657458a33f8417e50da5d50d308161598705e0360de6d5403fd31e843a6df02e`.
+- `The Reluctant Cornerstone`, `script-0001`, `prod-0013` reaches release at
+  revision 23/week 22/digest
+  `429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`.
+  Save/load restores digest
+  `5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`;
+  stale rejection remains retained across polling.
+- Reconnect preserves the exact logical session/revision/week/digest. The
+  restart proof kills validated engine PID `41873`, observes one outage and one
+  new runtime instance, disables actions while retaining the last projection,
+  then recovers exact authority with zero torn reads. All three runs are
+  complete at approximately 120 FPS.
+
+### Launch and rebuild
+
+Rebuild the compatible native client when the ignored app is absent:
+
+```bash
+'/Applications/Unity/Hub/Editor/6000.3.22f1/Unity.app/Contents/MacOS/Unity' \
+  -batchmode \
+  -projectPath '/Users/bruce/Project Studio - Unity Production Convergence 80H' \
+  -executeMethod Studio.Editor.Automation.StudioAutomation.BuildMacOS \
+  -logFile /tmp/studio-c-checkpoint11-native-build.log \
+  -quit
+```
+
+Launch the pushed campaign pair:
+
+```bash
+cd '/Users/bruce/The Movies - Unity Production Convergence 80H'
+npm run studio -- \
+  --unity-project '/Users/bruce/Project Studio - Unity Production Convergence 80H'
+```
+
+The ignored app/evidence/profile are local conveniences. Exact recovery is by
+the two product SHAs above, never by mixing either side with another checkpoint.
+
+### Visual-fidelity ruling and non-Golden decision
+
+The governing visual reference is the local, six-page
+`/Users/bruce/Downloads/project-studio-visual-fidelity.pdf`, 1,087,211 bytes,
+SHA-256
+`692140a7d4be313fd1df7605c96306a9f7e53f4fce46bc0f69a5ec1453a96a39`.
+It and representative The Movies screenshots are reference-only acceptance
+material. No Lionhead asset, texture, UI artwork, layout, or protected
+production material was copied or imported.
+
+Checkpoint 11 passes the bounded camera/identity engineering gate and materially
+improves the Stage 7 production fantasy: the close view reads at human scale and
+visibly contains filmmaking equipment and activity. It does not pass the visual
+Golden law:
+
+- the management view remains a handsome but flat diorama;
+- the large generic workflow HUD dominates the world and overwhelms 390x844;
+- Administration remains flat, empty, and visibly uninhabited;
+- people, faces, hair, wardrobe, and roles are not sufficiently human- or
+  period-readable;
+- grass, pavement, stucco, timber, metal, roofs, glass, and scenery still lack
+  authored surface variation and believable material character;
+- the campus does not yet consistently produce the immediate “This is The
+  Movies” recognition without the title.
+
+A technically valid camera does not compensate for a wrong-game visual result.
+Checkpoint 11 is therefore **NON-GOLDEN**. M4 remains the sole CURRENT BEST;
+status remains exactly **GOLDEN — CONTINUE CAMPAIGN**; there is no M5 tag and
+no canonical promotion. Packaging and TypeScript-main reconciliation remain
+later gates and must not displace the immediate visual product work.
+
+### NEXT EXACT ACTION
+
+Implement one bounded production-art slice on the pushed Checkpoint 11 pair:
+make Stage 7 and Administration visibly inhabited and period-readable with
+authored material variation and role-readable people, and replace the oversized
+generic workflow surface with a restrained world-first responsive HUD. Then
+rerun the same 1440x900 and 390x844 two-scale/collision/authority proof plus a
+real foreground pointer/touch activation of `BACK TO STUDIO` before considering
+another visual Golden checkpoint.
