@@ -45,7 +45,7 @@ rewritten, merged, rebased, or force-pushed.
 | --- | --- | --- |
 | Campaign setup and baseline | Complete | Authorities verified, isolated branches pushed, full baseline built, played, captured, and measured |
 | A - Productionize TypeScript to Unity contract | Complete for current protocol | A1 generated contract, A2 named projections, A3 queue parity, and A4 structured remedies are sealed; later projection growth must retain the same authority/version discipline |
-| B - Durable local game runtime | Active | Checkpoints 7/8 provide durable authenticated restart continuity; sealed Checkpoint 9 proves exact command/save/load response-loss recovery; the one-command supervisor remains the current gate |
+| B - Durable local game runtime | Candidate-complete, unsealed | Checkpoints 7/8/9 provide durable authenticated exact-retry continuity; uncommitted Checkpoint 10 adds the one-command owned lifecycle and awaits product commit/push/Linux CI/Golden seal |
 | C - Unity client architecture | Partial | Protocol, runtime continuity, projection cache/client, interaction, proof, and presentation seams exist; the spike still needs broader production decomposition |
 | D - Full Movie journey in Unity | Partial at inherited baseline | Automated native Movie #2 path passes, but the interaction surface remains proof-oriented and does not yet provide the approved professional retained workspaces |
 | E - Lot interaction / construction / management | Partial at inherited baseline | TypeScript construction intent and visible construction state pass; direct build placement interaction is not productionized in Unity |
@@ -56,7 +56,7 @@ rewritten, merged, rebased, or force-pushed.
 | J - World / era / campus quality | Partial at inherited baseline | Campus scale reads; surroundings, density, hills, and 1948 specificity remain weak |
 | K - Materials / lighting / VFX / audio | Partial at inherited baseline | URP presentation exists; prototype surfaces and sparse soundstage lighting dominate |
 | L - Performance / scalability | Baseline only | M3 Max measurements captured; no 25/50/100 scalability campaign yet |
-| M - Resilience | Partial | Stale/duplicate, durable save/load, idle restart, outage retention, malformed protocol, and exact lost-response recovery pass; default supervisor and the full ugly-condition matrix remain incomplete |
+| M - Resilience | Partial | Stale/duplicate, durable save/load, idle restart, outage retention, malformed protocol, exact lost-response recovery, and the candidate supervisor pass; production packaging and the full ugly-condition matrix remain incomplete |
 | N - Professional QA | Active | Full TypeScript, Unity EditMode, native build, native Movie #2, actual process-kill, evidence-verifier, and runtime capture gates are established and run per checkpoint |
 
 ## 2026-08-20 - Checkpoint 0: branch creation and architecture boot
@@ -1752,3 +1752,238 @@ capability handoff, authenticated
 health readiness, owned engine restart, stale process/lock cleanup, graceful
 Unity/engine shutdown, and bounded secret-free logs. Integrate and prove the
 current exact pending-POST retry through that supervised lifecycle.
+
+## 2026-08-21 06:07 CEST - Checkpoint 10 pre-commit: one-command supervised product lifecycle (Golden M4 candidate)
+
+### Exact pre-commit state
+
+| Side | Branch | Exact state | Push/working-tree state |
+| --- | --- | --- | --- |
+| TypeScript authority | `campaign/unity-production-convergence-80h-ts` | Dirty Checkpoint 10 candidate atop parent `808d319bd1b9b2c8b81cd8e2c60808ae0180c8a3` | Parent equals configured upstream and is pushed; candidate source/docs/tests have no commit or remote SHA yet |
+| Unity production client | `campaign/unity-production-convergence-80h-client` | `6b32335447848ed0680eb8077e78ee36aded5d56` | Clean; local HEAD equals configured upstream and is pushed |
+
+Golden M3 remains the sole CURRENT BEST pair: TypeScript
+`e9c6f06b717a6a106281b189a61072e35770155f` plus Unity
+`40465d48c191c9dcdda2c6b32c17c9675f4908a4`, each preserved by the pushed
+immutable `golden/unity-convergence-m3` tag. Checkpoint 10 is a **Golden M4
+candidate**, not a Golden declaration: its exact product SHA, remote branch
+ref, Linux CI, clean-tree result, and M4 tags do not exist yet. Promotion status
+remains exactly **GOLDEN — CONTINUE CAMPAIGN**.
+
+The bridge contract is unchanged at protocol `4`, projection `4`, schema
+`sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`.
+Generated C# copies remain byte-identical at SHA-256
+`1192d58a323e98b4ebab001d910c5f38dfa6455c90b38769e8af6325e84ee1dd`.
+No protocol/schema, generated DTO, projection content, `GameState`, V14 save,
+gameplay formula, legality, construction, economy, identity, RNG, art, or asset
+changed. TypeScript remains the sole simulation authority.
+
+### Product and architecture value
+
+Checkpoints 7 through 9 established atomic durable authority, authenticated
+session-first reconnect, and byte-identical retry after command/save/load was
+committed but its response was lost. The remaining player/developer gap was
+lifecycle ownership: the caller still had to create and secure the capability
+and runtime root, choose the port, coordinate two processes, restart the engine,
+and clean children/logs.
+
+Checkpoint 10 supplies one TypeScript-owned development product entry point:
+
+- `npm run studio` owns the engine and Unity native executable as direct
+  `shell:false` children with minimal allowlisted environments.
+- One stable current-user-private profile preserves current and explicitly
+  saved V14 authority, logical session/revision, and exact replay journal across
+  full product exits.
+- Every full launch gets a new random 32-byte base64url capability kept only in
+  supervisor memory and the two child environments, plus a separate private
+  launch/log directory.
+- The initial engine requests loopback port `0`; a strict complete live line and
+  authenticated schema-valid `/health` response establish readiness before
+  Unity starts. Replacements reuse the pinned port, stable profile, and only
+  that launch's capability.
+- Strict `0600` leases bind supervisor, engine, and Unity PID to process
+  incarnation and process group. Acquisition rejects live/concurrent,
+  unverifiable, corrupt, oversized, wrong-owner, wrong-mode, and symlink state.
+  Stale cleanup acts only after exact ownership verification.
+- Startup rollback, `SIGINT`/`SIGTERM`/`SIGHUP`, Unity exit, engine crash,
+  restart failure, and fatal supervisor error drive bounded owned group cleanup.
+  The owner lease remains recoverable rather than being erased if a child may
+  still survive.
+- Supervisor, engine, and Unity logs are `0600`, line-aware, redact an exact
+  capability even across split chunks, stop at 2 MiB each, and remain under a
+  five-launch/32 MiB retention ceiling.
+- A cross-platform process-incarnation helper now serves both the existing
+  bridge checkpoint lock and the new supervisor lease, removing duplicated
+  process identity code without changing checkpoint semantics.
+- Accepted ADR 0008 records the stable-profile/per-launch-capability boundary,
+  direct child ownership, ephemeral-then-pinned port behavior, and the explicit
+  `vite-node` development packaging boundary.
+
+This closes the bounded development lifecycle. It does not claim installer,
+public packaging, update, profile-backup, or emitted runtime dependency
+completion.
+
+### Candidate source and documentation
+
+Modified candidate files:
+
+- `BRIDGE-README.md`
+- `SECURITY.md`
+- `bridge/runtime/checkpoint-store.ts`
+- `docs/adr/README.md`
+- `package.json`
+- `tests/bridge-checkpoint-store.test.ts`
+
+New candidate files:
+
+- `bridge/runtime/process-incarnation.ts`
+- `bridge/supervisor/bounded-log.ts`
+- `bridge/supervisor/cli.ts`
+- `bridge/supervisor/config.ts`
+- `bridge/supervisor/lease.ts`
+- `bridge/supervisor/supervisor.ts`
+- `docs/adr/0008-supervise-the-local-product-lifecycle.md`
+- `tests/bridge-process-incarnation.test.ts`
+- `tests/bridge-supervisor.test.ts`
+- `tests/fixtures/fake-unity-supervisor.mjs`
+
+The ledger, current handoff, and promotion register are the only campaign
+continuity files changed by this pre-commit update. Unity source is unchanged.
+
+### Test design and validation
+
+The focused supervisor suite covers fail-closed config, missing/ambiguous Unity
+selection, controlled argument rejection, stable profile persistence, fresh
+capability rotation, inherited secret scrubbing, capability redaction across
+split log chunks, unauthenticated health rejection, authenticated health,
+random first port, fixed-port replacement, signal cleanup, stale-incarnation
+reclaim, concurrent-owner rejection, startup rollback, crash-budget exhaustion,
+unrelated-process isolation, process-group cleanup, private modes, bounded logs,
+and retention. The fake Unity fixture observes the endpoint/environment boundary
+without becoming gameplay authority.
+
+Latest candidate validation:
+
+| Gate | Result |
+| --- | --- |
+| Full TypeScript regression | Passed: 336 files; 4,523 passed, 5 skipped, 0 failed |
+| Bridge aggregate | Passed: 97/97 across 11 files |
+| TypeScript typecheck | Passed |
+| Bridge typecheck | Passed |
+| Production build | Passed with inherited Vite chunk-size warnings only |
+| Generated drift | Passed; contract/generated identities unchanged |
+| Movie #2/determinism proof | Passed fresh release, exact V14 export/import/headless parity, stale/duplicate protection, and polling neutrality |
+| Browser production dependency audit | Passed: 0 vulnerabilities |
+| Full `npm audit` | 5 development-graph advisories: 3 moderate, 1 high, 1 critical; documented `vite-node` runtime boundary remains open |
+| Repository hygiene | Passed: 1,032 files |
+| Adopted 3D assets | Passed: 26 assets, 0 hard violations |
+| Unity EditMode | Passed: 62/62; `/tmp/studio-b10-golden-editmode.xml` |
+| Native macOS build | Existing compatible app passed/launched; 136,980,022 aggregate file bytes |
+| Native supervised Movie #2 | Passed fresh construction, full Movie #2, exact save/load, retained stale rejection, and release |
+| Full-client reconnect | Passed twice from one stable profile with exact logical authority |
+| Automatic engine restart | Passed one actual replacement on the pinned port; outage/paused actions/retained projection/rejoin all observed; zero torn reads |
+| Independent runtime audit | No open P0/P1 finding after ownership, rollback, health, group-cleanup, restart-budget, and log fixes |
+
+The Linux `flock` owner-lock path still awaits exact-product CI. Therefore this
+is not yet the remote Golden seal.
+
+### Native supervised proof
+
+Accepted evidence root:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/B10/Supervisor-20260821T035727Z/`.
+
+Fresh Movie #2 completed as `The Reluctant Cornerstone`, `script-0001`,
+`prod-0013` at Week 22/revision 23. Final digest is
+`429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`;
+saved/restored digest is
+`5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`.
+Report SHA-256 is
+`126152d4f91f64800ec6f88f22831cc6c0b297f3d97e9898ed5ef95c7db72f0e`.
+The overview, construction, and released frames have SHA-256
+`7a2c79e7355b411890241511e611f4049f6ce1dde9f856c9a62fc6ef534efef2`,
+`405afbef4c5308235c0add108d7883aa912212cd36ca77ecfb0c5e6eb373e6b1`,
+and `d6fdf5d26598d968906d19d0bec4d3e7a646415d2e5279b9c4ef6eda2add8a12`.
+Native sample: 119.3772 FPS, 15,394-byte snapshot, 21.4668 ms TypeScript
+serialization, 4.2044 ms parse, 0.3109 ms apply, and 24.8510 ms command RTT on
+the Apple M3 Max reference.
+
+Two later full-client launches recovered the same session, revision, week, and
+final digest from the same profile. The final accepted reconnect report/frame
+SHA-256 values are
+`128fa7b1c58db4541b9c87bd9e3bca3bcefed16219edb61362ba1642bd92a050` /
+`b1098fce189ca5f32a072e8c7c464274c329ee4d944ccf561b67c5f3f922fee3`;
+sample 119.1999 FPS.
+
+The accepted automatic replacement under `RuntimeRestart2/` observed one
+outage, disabled actions, retained the exact projection, changed runtime
+identity once, kept logical authority exact, and recorded zero torn reads.
+Report/ready/frame SHA-256 values are
+`65e4be5b7f2ef0bf0bc82432dad45b4212cd21ef9bcc555e75cb90fe6ce4087c` /
+`eaeacbcfc155abb977c19c92b21750bbf2bab532acd814e31c4a8c5399952c1c` /
+`171306b2701401a38464353f31a0ccd969caf2858bafdf245421ed89b5a740fe`;
+sample 119.5948 FPS.
+
+The stable local profile is
+`/private/tmp/project-studio-b10-supervisor-native-20260821T035727Z/`.
+Its final `bridge-runtime-v1.json` is 1,354,928 bytes, has SHA-256
+`e6907ff5fe552cdc2c1f138458b93d4c2ec50bea4cc9cb4b173514c4fb8ed48c`,
+retains session `864b0fee-00a3-49bb-9442-72b565410c73`, revision 23, exactly 25
+journal entries, and journal digest
+`e926f7e4a75b971303c9324fbbfc30d588bfca0af8a5cf7249b3b1aaeb3b5407`.
+Five launch directories remain under the intended retention bound. Private
+modes are exact, the active lease is absent after shutdown, and every recorded
+launch ends with `cleanup complete`.
+
+### Superseded evidence and honest residuals
+
+- The first `RuntimeRestart/` attempt is invalid. The operator killed outside
+  the proof's actual wait window, so Unity timed out with `Unity did not observe
+  the TypeScript engine outage.` The report/ready hashes are
+  `37a7dc93035a910c625a774a418525ab443ac8fe0e084985e45b06426a8a1b99` /
+  `6de34f15b9f12da345cbaa9441fef658b8e30c68a967fd2e870aa5c8b748b63f`.
+  Authority stayed exact. `RuntimeRestart2/` supersedes it; never cite the first
+  directory as accepted proof or repeat its operator-timeout sequence.
+- P2 proof reporting quirk: accepted `RuntimeRestart2` has
+  `exactMovie2Released: false` because the restart-only harness does not
+  populate the unrelated title/project/production fields. Its milestone still
+  contains the exact released projection and all restart invariants pass. Do
+  not mutate gameplay or weaken the restart proof to satisfy that convenience
+  field.
+- P2 portability gap: Linux `flock` remains to be confirmed by exact-product
+  CI. Never replace lock/incarnation/group ownership with name-, port-, or
+  PID-only guessing.
+- P2 packaging boundary: `npm run studio` still executes the pinned
+  development `vite-node` graph. Full `npm audit` finds 5 dev-graph advisories.
+  Do not force-upgrade, suppress, or claim the clean browser audit covers the
+  local engine runtime.
+- Existing campaign-level P1 visual mismatch remains unchanged. Inspection of
+  the accepted frames shows a sparse elevated diorama, oversized generic HUD,
+  flat materials, small role-unreadable people, little visible filmmaking, and
+  no convincing human-scale inspection view. It remains below ADR 0006.
+- Evidence JSON embeds local absolute screenshot paths. The entire evidence
+  root, proof profile, app build, `/tmp` test outputs, logs, and leases remain
+  ignored/local and must not enter Git.
+
+### Golden candidate decision and next work
+
+Checkpoint 10 materially improves the overall playable product and is the
+candidate for Golden M4 because it accumulates durable authority, exact retry,
+Movie #2, save/load/reconnect, and the first one-command owned lifecycle. It
+does **not** supersede M3 before the exact product commit is pushed, Linux CI is
+green, both worktrees are clean, and immutable M4 tags are created/verified in
+both repositories.
+
+Do not tag the dirty tree and do not move CURRENT BEST in the promotion
+register yet. After the product seal, the next exact engineering action is:
+
+**Implement a visible vertical slice combining schema-backed stable Stage 7/Admin
+location IDs with a Cinemachine management-to-inspection click focus transition,
+then capture before/after evidence at both camera scales.**
+
+Ordered work after that:
+
+1. Build Hero Stage 7 into a visibly operating filmmaking environment.
+2. Improve human proportions, role readability, animation, purposeful movement,
+   and 25/50/100-person scalability evidence.
+3. Package the TypeScript runtime and define/audit its emitted dependency graph.
+4. Productionize direct lot construction placement, selection, and inspection.

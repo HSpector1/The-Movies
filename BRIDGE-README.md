@@ -11,6 +11,34 @@ are unchanged.
 
 ## Run
 
+The preferred native development path launches the authoritative TypeScript engine and the
+compatible Unity build together, waits for an authenticated health check, and supervises engine
+restarts:
+
+```sh
+npm run studio -- --unity-project "/absolute/path/to/unity-project"
+```
+
+The Unity project must already contain the standard macOS build at
+`Builds/macOS/Project Studio Visual Spike.app`. The supervisor keeps authoritative runtime state
+under a stable private profile, while each product launch receives a new in-memory capability and
+its own bounded logs. Use `--profile-root PATH` to select a different persistent profile; reusing
+that profile is what preserves current and explicitly saved V14 authority across full launches.
+Run `npm run studio -- --help` for the executable/app alternatives and restart-budget option.
+
+If the ignored native build is absent, rebuild it first with the pinned Unity editor:
+
+```sh
+"/Applications/Unity/Hub/Editor/6000.3.22f1/Unity.app/Contents/MacOS/Unity" \
+  -batchmode \
+  -projectPath "/absolute/path/to/unity-project" \
+  -executeMethod Studio.Editor.Automation.StudioAutomation.BuildMacOS \
+  -logFile /tmp/project-studio-native-build.log \
+  -quit
+```
+
+The lower-level commands remain available for bridge-only diagnostics:
+
 ```sh
 npm run typecheck:bridge
 npm run test:bridge
@@ -44,8 +72,8 @@ Never put it in command-line arguments, logs, checkpoints, saves, reports, or re
 
 Do not delete `runtime_dir` between the processes being tested. Startup reports
 `checkpoint=durable` when disk persistence is active and `checkpoint=memory-only` otherwise.
-The product launcher must eventually create and own the durable directory automatically; this
-manual environment variable is a validated infrastructure seam, not the finished launch path.
+`npm run studio` creates and owns its stable durable profile automatically; the manual environment
+variable remains a validated infrastructure seam for bridge-only tests and diagnostics.
 
 ## Pinned wire contract
 
@@ -145,9 +173,16 @@ the checkpoint atomically rolls to a new logical session at revision zero while 
 and explicit-save V14 authority, then requires the client to reconnect. If one candidate cannot fit
 an empty journal, the runtime fails fatally instead of cycling sessions forever.
 
-This checkpoint does not complete Phase B. The normal `npm run bridge` path remains memory-only,
-there is no supervised random-port product launcher, and Unity does not yet retain and retry an
-exact in-flight POST after an engine dies between durable commit and response delivery.
+`npm run studio` now owns the private durable profile, fresh launch capability, random initial
+port, authenticated readiness, direct Unity startup, fixed-port engine restarts, bounded redacted
+logs, and exact child-process cleanup. Unity retains an ambiguous command/save/load envelope and
+retries its identical UTF-8 bytes only after a compatible session handshake; the TypeScript replay
+journal returns the already committed response without applying the operation twice.
+
+This completes the bounded development lifecycle, not production packaging. `npm run studio`
+still executes the checked-in TypeScript through the pinned `vite-node` development graph. A
+packaged runtime must define and audit its emitted dependency set and establish install/update and
+profile-backup behavior before public distribution.
 
 ## Movie #2 interaction
 

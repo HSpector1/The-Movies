@@ -13,6 +13,7 @@
     "check:bridge-contract": "vite-node scripts/generate-bridge-contract.ts --check",
     "typecheck:bridge": "tsc -p tsconfig.bridge.json",
     "bridge": "vite-node bridge/server.ts",
+    "studio": "vite-node --script bridge/supervisor/cli.ts",
     "proof:bridge": "vite-node bridge/proof.ts",
     "verify:bridge-inflight-evidence": "vite-node scripts/verify-bridge-inflight-evidence.ts",
     "typecheck": "tsc --noEmit && tsc -p ui/tsconfig.json --noEmit",

@@ -10,6 +10,7 @@ import {
   openBridgeCheckpointStore,
   type BridgeCheckpointStore,
 } from '../bridge/runtime/checkpoint-store.ts'
+import { currentProcessIncarnation } from '../bridge/runtime/process-incarnation.ts'
 
 const temporaryRoots: string[] = []
 const openStores: BridgeCheckpointStore[] = []
@@ -151,7 +152,7 @@ describe('crash-safe bridge checkpoint store', () => {
       processIncarnation: string
     }
     expect(replacement.pid).toBe(process.pid)
-    expect(replacement.processIncarnation).toMatch(/^(linux-proc|ps-lstart):/)
+    expect(replacement.processIncarnation).toBe(currentProcessIncarnation())
     await expect(store.read()).resolves.toBeNull()
   })
 

@@ -1,16 +1,18 @@
 import { randomBytes } from 'node:crypto'
-import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import { TextDecoder } from 'node:util'
+
+import {
+  boundedProcessIncarnation,
+  inspectProcessIncarnation,
+} from './process-incarnation.ts'
 
 export const DEFAULT_BRIDGE_CHECKPOINT_MAX_BYTES = 32 * 1024 * 1024
 
 const LOCK_VERSION = 1
 const MAX_LOCK_BYTES = 4 * 1024
 const LOCK_ACQUIRE_ATTEMPTS = 8
-const MAX_PROCESS_INCARNATION_BYTES = 256
-const MAX_PROCESS_STAT_BYTES = 4 * 1024
 
 export type BridgeCheckpointStoreErrorCode =
   | 'CLOSED'
@@ -64,11 +66,6 @@ type BoundedFile = {
   bytes: Buffer
   identity: FileIdentity
 }
-
-type ProcessInspection =
-  | { status: 'absent' }
-  | { status: 'unverifiable' }
-  | { status: 'verified'; incarnation: string }
 
 type RuntimeLayout = {
   checkpointPath: string
@@ -384,75 +381,6 @@ function unlinkOwnedTemporary(filePath: string): void {
   fs.unlinkSync(filePath)
 }
 
-function processPresence(pid: number): 'absent' | 'present' | 'unverifiable' {
-  try {
-    process.kill(pid, 0)
-    return 'present'
-  } catch (error) {
-    if (systemCode(error) === 'ESRCH') return 'absent'
-    if (systemCode(error) === 'EPERM') return 'present'
-    return 'unverifiable'
-  }
-}
-
-function boundedProcessIncarnation(value: string): string | null {
-  const normalized = value.trim().replace(/\s+/g, ' ')
-  if (
-    normalized.length === 0 ||
-    Buffer.byteLength(normalized, 'utf8') > MAX_PROCESS_INCARNATION_BYTES ||
-    !/^[\x20-\x7e]+$/.test(normalized)
-  ) return null
-  return normalized
-}
-
-function linuxProcessIncarnation(pid: number): string | null {
-  try {
-    const bootId = fs.readFileSync('/proc/sys/kernel/random/boot_id', 'utf8').trim().toLowerCase()
-    const processStat = fs.readFileSync(`/proc/${String(pid)}/stat`, 'utf8')
-    if (
-      !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(bootId) ||
-      Buffer.byteLength(processStat, 'utf8') > MAX_PROCESS_STAT_BYTES
-    ) return null
-    const commandEnd = processStat.lastIndexOf(')')
-    if (commandEnd < 0) return null
-    const fieldsAfterCommand = processStat.slice(commandEnd + 1).trim().split(/\s+/)
-    const startTicks = fieldsAfterCommand[19]
-    if (startTicks === undefined || !/^\d+$/.test(startTicks)) return null
-    return boundedProcessIncarnation(`linux-proc:${bootId}:${startTicks}`)
-  } catch {
-    return null
-  }
-}
-
-function psProcessIncarnation(pid: number): string | null {
-  const result = spawnSync(
-    '/bin/ps',
-    ['-o', 'lstart=', '-p', String(pid)],
-    {
-      encoding: 'utf8',
-      env: { LANG: 'C', LC_ALL: 'C', PATH: '/usr/bin:/bin' },
-      maxBuffer: 1024,
-      timeout: 2_000,
-    },
-  )
-  if (result.error !== undefined || result.signal !== null || result.status !== 0) return null
-  return boundedProcessIncarnation(`ps-lstart:${result.stdout}`)
-}
-
-function inspectProcess(pid: number): ProcessInspection {
-  const before = processPresence(pid)
-  if (before === 'absent') return { status: 'absent' }
-  if (before === 'unverifiable') return { status: 'unverifiable' }
-
-  const incarnation = process.platform === 'linux'
-    ? linuxProcessIncarnation(pid) ?? psProcessIncarnation(pid)
-    : psProcessIncarnation(pid)
-  if (incarnation !== null) return { status: 'verified', incarnation }
-
-  const after = processPresence(pid)
-  return after === 'absent' ? { status: 'absent' } : { status: 'unverifiable' }
-}
-
 function serializeLock(record: LockRecord): Buffer {
   return Buffer.from(JSON.stringify(record), 'utf8')
 }
@@ -518,7 +446,7 @@ class LockedBridgeCheckpointStore implements BridgeCheckpointStore {
   }
 
   open(): void {
-    const processInspection = inspectProcess(process.pid)
+    const processInspection = inspectProcessIncarnation(process.pid)
     if (processInspection.status !== 'verified') {
       throw new BridgeCheckpointStoreError(
         'LOCK_OWNERSHIP',
@@ -548,7 +476,7 @@ class LockedBridgeCheckpointStore implements BridgeCheckpointStore {
 
         const existing = readLock(this.lockPath)
         if (existing === null) continue
-        const existingProcess = inspectProcess(existing.record.pid)
+        const existingProcess = inspectProcessIncarnation(existing.record.pid)
         if (existingProcess.status === 'unverifiable') {
           throw new BridgeCheckpointStoreError(
             'LOCK_HELD',

@@ -60,23 +60,28 @@ repository files.
 
 These controls defend the browser/DNS-rebinding boundary and accidental
 cross-process access; they do not make the bridge suitable for non-loopback or
-hostile multi-user deployment. A future product launcher must generate the
-capability, pass the same value privately to the engine and Unity, reuse it only
-for engine restarts within that product launch, and rotate it for the next
-launch.
+hostile multi-user deployment. The `npm run studio` supervisor generates the
+capability in memory, passes the same value privately to the engine and Unity,
+reuses it only for engine restarts within that product launch, and rotates it
+for the next launch. It selects an ephemeral loopback port for the first engine,
+pins that port for replacements, and launches both children without a shell or
+capability-bearing command-line argument.
 
-An opt-in development seam can now persist current and explicitly saved V14
-bytes, logical session/revision, and exact request/response replay history in a
-strict atomic checkpoint under a private runtime directory. It uses a
-process-incarnation lock, rejects symlinks and corrupt or oversized input, and
-fails closed on persistence errors. The default `npm run bridge` command remains
-memory-only until the product launcher owns this directory and lifecycle.
+The supervisor persists current and explicitly saved V14 bytes, logical
+session/revision, and exact request/response replay history in a strict atomic
+checkpoint under one stable, private profile. It uses process-incarnation locks,
+rejects symlinks and corrupt or oversized input, bounds and redacts per-launch
+logs, and fails closed on persistence or child-ownership errors. A dead engine
+is restarted against the same profile, port, and launch capability; a new full
+product launch retains the profile but rotates the capability. The lower-level
+`npm run bridge` command intentionally remains memory-only unless an operator
+supplies a durable runtime directory.
 
-Treat default-launch persistence, random-port handoff, supervised child-process
-restart, in-flight POST recovery, packaged runtime dependency auditing, and log
-lifecycle as unfinished product work, not as a security guarantee. The
-checkpoint must never contain a launch capability or expand the V14 gameplay
-save format.
+Treat packaged runtime dependency auditing, installer/update behavior, profile
+backup/recovery UX, and hostile multi-user isolation as unfinished product work,
+not as security guarantees. The checkpoint and logs must never contain a launch
+capability, and operational persistence must never expand the V14 gameplay save
+format.
 
 ## Dependency policy
 
