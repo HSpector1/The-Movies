@@ -2418,6 +2418,8 @@ another visual Golden checkpoint.
 | Docs-continuity CI | `32456422238` at `ef6bb94d...` | Failed in Bridge test helper; not a product defect |
 | Test-only repair | `21629d2323dc11bc5927ff209f9255909fb5afe2`, parent `ef6bb94d...` | Changes only `tests/bridge-supervisor.test.ts`; pushed |
 | Exact repair CI | `32457020574` at `21629d2...` | Passed every workflow step in 11m41s |
+| Preliminary documentation seal | `600e014f3bd862583ee1605d158d1f8edb1f525e`, parent `21629d2...` | Documentation-only; pushed |
+| Preliminary documentation-seal CI | `32458198739` at `600e014f...` | Passed every workflow step in 11m38s |
 
 The Checkpoint 11 product pair, Golden M4 recovery pair, protocol `4`,
 projection `4`, schema `ba9cd199...`, generated DTO `1192d58a...`, visual
@@ -2447,11 +2449,15 @@ consecutive times, the Bridge aggregate 100/100, generated contract check,
 bridge/full typechecks, and `git diff --check`. Repository hygiene remains
 1,032 files. Exact repair run `32457020574` subsequently passed every workflow
 step at `21629d2...` in 11m41s. Failed run `32456422238` is superseded
-test-harness history; the post-product validation repair is remotely sealed.
+test-harness history. Preliminary documentation-seal run `32458198739` then
+passed every workflow step at `600e014f...` in 11m38s; the post-product
+validation repair and its continuity record are remotely validated.
 
-The next containing TypeScript commit must modify only the three campaign
-continuity documents and be the sole docs-only child of pushed repair
-`21629d2...`. After its push, local HEAD must equal configured upstream and the
-tracked tree must be clean. M4 remains sole CURRENT BEST with status exactly
+Preliminary documentation seal
+`600e014f3bd862583ee1605d158d1f8edb1f525e` follows pushed repair
+`21629d2...`. The documentation-only commit containing this paragraph is its
+direct child and cannot embed its own resulting SHA. At recovery, resolve it
+with `git rev-parse HEAD`, require HEAD to equal configured upstream, and
+require a clean tracked tree. M4 remains sole CURRENT BEST with status exactly
 **GOLDEN — CONTINUE CAMPAIGN**; Checkpoint 11 remains the non-Golden development
 base; no M5 or canonical promotion is authorized.

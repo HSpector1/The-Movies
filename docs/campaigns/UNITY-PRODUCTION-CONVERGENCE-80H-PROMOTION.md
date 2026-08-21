@@ -246,11 +246,14 @@ canonical promotion. The Golden M4 section above remains authoritative.
 
 Both product commits are pushed. They are the only compatible Checkpoint 11
 product pair. The TypeScript branch has since added docs-only continuity
-`ef6bb94d5bc05fd8a8166c8e7ac059a766e0b8e2` and pushed test-only repair
-`21629d2323dc11bc5927ff209f9255909fb5afe2`; neither replaces the product SHA.
-The next containing continuity commit must be the sole docs-only child of
-`21629d2...`. Never pair `014f7ef9...` with a Unity commit other than
-`5c8a0eee...`.
+`ef6bb94d5bc05fd8a8166c8e7ac059a766e0b8e2`, pushed test-only repair
+`21629d2323dc11bc5927ff209f9255909fb5afe2`, and preliminary docs-only seal
+`600e014f3bd862583ee1605d158d1f8edb1f525e`; none replaces the product SHA.
+The documentation-only commit containing this section is the direct child of
+`600e014f...` and cannot embed its own resulting SHA. Resolve it with
+`git rev-parse HEAD`; the sealed branch must have HEAD equal configured
+upstream and a clean tracked tree. Never pair `014f7ef9...` with a Unity commit
+other than `5c8a0eee...`.
 
 The exact immutable CURRENT BEST remains Golden M4: TypeScript
 `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6` plus Unity
@@ -349,6 +352,10 @@ not these moving campaign branches.
   `32456422238` remains superseded test-harness history. This later validation
   history does not change the Checkpoint 11 product pair or its non-Golden
   decision.
+- Preliminary docs-only seal `600e014f3bd862583ee1605d158d1f8edb1f525e`
+  then passed exact CI run `32458198739` in 11m38s with every workflow step
+  green. The documentation-only commit containing this section is its direct
+  child; it changes no product or promotion fact.
 
 Accepted 1440x900 camera evidence root:
 `/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/C/Camera-Final-20260821T060033Z/`.

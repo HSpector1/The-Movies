@@ -14,14 +14,14 @@ Golden M4 remains the sole CURRENT BEST recovery pair.
 
 ### CURRENT EXACT STATE
 
-Timestamp: 2026-08-21 09:16 CEST (UTC+02:00).
+Timestamp: 2026-08-21 09:32 CEST (UTC+02:00).
 
 | Item | Exact state |
 | --- | --- |
 | TypeScript worktree | `/Users/bruce/The Movies - Unity Production Convergence 80H` |
 | TypeScript branch | `campaign/unity-production-convergence-80h-ts` |
 | TypeScript Checkpoint 11 product / pushed | `014f7ef94e085222bf375b9457a6b15420fa314c`; direct parent `db03bd8400e79822262a17ba73b0a4c829dc91ff` |
-| TypeScript branch tip / working tree | Local HEAD and configured upstream equal pushed test-only repair `21629d2323dc11bc5927ff209f9255909fb5afe2`, direct child of docs-only continuity `ef6bb94d5bc05fd8a8166c8e7ac059a766e0b8e2`. Only this ledger, handoff, and promotion register are intentionally dirty. Their containing commit must be the sole docs-only child of `21629d2...`; after push, HEAD must equal upstream and the tracked tree must be clean. The containing commit cannot embed its own resulting SHA. |
+| TypeScript branch tip / working tree | The pushed documentation-only seal containing this section is the direct child of preliminary docs-only seal `600e014f3bd862583ee1605d158d1f8edb1f525e`, which follows test-only repair `21629d2323dc11bc5927ff209f9255909fb5afe2` and docs-only continuity `ef6bb94d5bc05fd8a8166c8e7ac059a766e0b8e2`. Because a commit cannot embed its own resulting SHA, resolve the seal with `git rev-parse HEAD`; required state is HEAD equal configured upstream with a clean tracked tree. |
 | Unity worktree | `/Users/bruce/Project Studio - Unity Production Convergence 80H` |
 | Unity branch | `campaign/unity-production-convergence-80h-client` |
 | Unity Checkpoint 11 product / pushed | `5c8a0eee7fa16bb9fd486fb61707230b208330d6`; direct parent `6b32335447848ed0680eb8077e78ee36aded5d56` |
@@ -31,6 +31,7 @@ Timestamp: 2026-08-21 09:16 CEST (UTC+02:00).
 | Exact-product CI | Passed TypeScript run `32454923261` at `014f7ef94e085222bf375b9457a6b15420fa314c`; 12m12s; every workflow step green |
 | Post-product continuity failure | Docs-only `ef6bb94d5bc05fd8a8166c8e7ac059a766e0b8e2` triggered run `32456422238`; Bridge test failed on an `allFiles` disappearing-candidate `lstat` `ENOENT`; this is a test-harness TOCTOU race, not a product defect |
 | Test-only repair / CI | Pushed `21629d2323dc11bc5927ff209f9255909fb5afe2`, parent `ef6bb94d...`; exact repair run `32457020574` passed every workflow step in 11m41s |
+| Preliminary documentation seal / CI | Pushed `600e014f3bd862583ee1605d158d1f8edb1f525e`, parent `21629d2...`; exact run `32458198739` passed every workflow step in 11m38s |
 | Promotion | `GOLDEN — CONTINUE CAMPAIGN`; M4 remains sole CURRENT BEST; Checkpoint 11 is non-Golden and not canonical |
 
 The contract remains protocol `4`, projection `4`, schema
@@ -56,8 +57,9 @@ gameplay formula, RNG stream, or permanent authority moved into Unity.
 - Emitted production packaging and TypeScript-main reconciliation remain later
   work. They do not outrank the immediate production-art slice.
 - Post-product validation continuity is repaired and remotely sealed by exact
-  run `32457020574`. Checkpoint 11 product/runtime/visual facts and its
-  non-Golden decision remain unchanged.
+  repair run `32457020574` and preliminary documentation-seal run
+  `32458198739`. Checkpoint 11 product/runtime/visual facts and its non-Golden
+  decision remain unchanged.
 
 ### WHAT WAS JUST DONE
 
@@ -152,6 +154,7 @@ npm run studio -- \
 | Docs-continuity CI | Run `32456422238` failed in the test helper when one atomic lease candidate disappeared between discovery and `lstat`; classified test-only, not a product regression |
 | Repair validation | `tests/bridge-supervisor.test.ts` 11/11 passed three times; bridge 100/100; contract check, bridge/full typechecks, and `git diff --check` passed |
 | Exact repair CI | Passed run `32457020574` at pushed test-only `21629d2323dc11bc5927ff209f9255909fb5afe2`; 11m41s; every workflow step green |
+| Preliminary documentation-seal CI | Passed run `32458198739` at pushed docs-only `600e014f3bd862583ee1605d158d1f8edb1f525e`; 11m38s; every workflow step green |
 
 Accepted camera evidence:
 
@@ -218,6 +221,8 @@ Accepted fresh regression root:
   remote engineering gate but does not override the failed visual gate.
 - Exact repair CI `32457020574` is green at pushed `21629d2...`; failed run
   `32456422238` remains superseded test-harness history, not a product defect.
+- Preliminary documentation-seal CI `32458198739` is green at pushed
+  `600e014f...`; every workflow step passed in 11m38s.
 - There is no known product P0 regression and no authority drift in accepted
   evidence.
 
@@ -290,10 +295,11 @@ pointer/touch activation of `BACK TO STUDIO`.
 - Product source remains committed and pushed at TypeScript `014f7ef9...` and
   Unity `5c8a0eee...`. Pushed `21629d2...` changes only
   `tests/bridge-supervisor.test.ts`; it does not replace either product SHA.
-- Only these three TypeScript continuity documents are intentionally dirty atop
-  pushed repair `21629d2...`. Their containing commit must be its sole
-  documentation-only child; after commit/push, TypeScript HEAD must equal
-  configured upstream and the tracked tree must be clean.
+- There is no uncommitted product or continuity work. This ledger, handoff, and
+  promotion register are sealed by the documentation-only commit containing
+  this section, directly atop preliminary seal `600e014f...`. At recovery,
+  TypeScript HEAD must equal configured upstream and the tracked tree must be
+  clean.
 - Unity is already clean with HEAD equal configured upstream at `5c8a0eee...`.
 - Camera/regression evidence, the ignored native app, private seeded proof
   profile/checkpoint, `/tmp` results, caches, logs, locks, and screenshots
@@ -314,10 +320,13 @@ pointer/touch activation of `BACK TO STUDIO`.
    `014f7ef94e085222bf375b9457a6b15420fa314c` plus Unity
    `5c8a0eee7fa16bb9fd486fb61707230b208330d6`. Never mix sides.
 4. Preserve pushed validation repair
-   `21629d2323dc11bc5927ff209f9255909fb5afe2` above the product pair. After
-   this documentation-only child is pushed, confirm TypeScript HEAD equals
-   configured upstream and `git status --short` is empty. Confirm Unity
-   HEAD/upstream at `5c8a0eee...` and a clean tracked tree.
+   `21629d2323dc11bc5927ff209f9255909fb5afe2`, preliminary documentation seal
+   `600e014f3bd862583ee1605d158d1f8edb1f525e`, and this section's containing
+   documentation-only child above the product pair. Resolve the containing
+   seal with `git rev-parse HEAD`; confirm it is the direct child of
+   `600e014f...`, equals configured upstream, and has an empty
+   `git status --short`. Confirm Unity HEAD/upstream at `5c8a0eee...` and a
+   clean tracked tree.
 5. Rebuild/launch with the exact commands above. Verify protocol/projection `4`,
    schema `ba9cd199...`, and authenticated readiness before changing visuals.
 6. Use the accepted report/frame hashes above for regression. Treat all three
