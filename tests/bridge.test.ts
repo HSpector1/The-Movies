@@ -146,8 +146,8 @@ function expectOrderedSubsequence<T>(actual: readonly T[], expected: readonly T[
 }
 
 describe('Current-game Unity adoption bridge', () => {
-  it('pins protocol v3/projection v4 and fingerprints named projections and exact intent fields', () => {
-    expect(PROTOCOL_VERSION).toBe(3)
+  it('pins protocol v4/projection v4 and fingerprints named projections and exact intent fields', () => {
+    expect(PROTOCOL_VERSION).toBe(4)
     expect(SNAPSHOT_VERSION).toBe(4)
     expect(SCHEMA_ID).toMatch(/^sha256:[0-9a-f]{64}$/)
     expect(Object.keys(
@@ -171,7 +171,7 @@ describe('Current-game Unity adoption bridge', () => {
       expect.arrayContaining(['facilityId', 'status', 'completesWeek', 'progress01']),
     )
 
-    const session = new BridgeSession(createBridgeInitialState('bridge-contract-v3'), 'contract')
+    const session = new BridgeSession(createBridgeInitialState('bridge-contract-v4'), 'contract')
     for (const intent of session.snapshot().availableIntents) {
       expect(Object.keys(intent).sort()).toEqual([...AVAILABLE_INTENT_KEYS].sort())
     }
@@ -229,7 +229,7 @@ describe('Current-game Unity adoption bridge', () => {
     expect(kinds.filter((kind) => kind === 'resolveProductionBlocker').length).toBeGreaterThanOrEqual(3)
     for (const played of bootstrap.movieOneIntents) {
       expect(played.afterDigest).not.toBe(played.beforeDigest)
-      expect(played.option.intentId).toMatch(/^intent-v3-[0-9a-f]{64}$/)
+      expect(played.option.intentId).toMatch(/^intent-v4-[0-9a-f]{64}$/)
     }
   })
 
@@ -422,7 +422,7 @@ describe('Current-game Unity adoption bridge', () => {
     expect(stale.stateDigest).toBe(digestAfterAccept)
     expect(submit(session, currentIntent, 'stale-command', 0)).toEqual(stale)
 
-    const forgedParsed = validateCommand(command(session, 'intent-v3-forged', 'forged-command'))
+    const forgedParsed = validateCommand(command(session, 'intent-v4-forged', 'forged-command'))
     if (!forgedParsed.ok) throw new Error(forgedParsed.message)
     const forged = session.command(forgedParsed.command)
     expect(forged).toMatchObject({
@@ -581,7 +581,7 @@ describe('Current-game Unity adoption bridge', () => {
       studioLotSnapshot(state)
     }
     expect(exportSaveJson(state)).toBe(before)
-    expect(applyAvailableIntent(state, 'intent-v3-not-real')).toMatchObject({ ok: false })
+    expect(applyAvailableIntent(state, 'intent-v4-not-real')).toMatchObject({ ok: false })
     expect(exportSaveJson(state)).toBe(before)
   })
 
@@ -887,7 +887,7 @@ describe('Current-game Unity adoption bridge', () => {
 
   it('never lets an ambient concurrent commission bypass a guided blocker', () => {
     const ambient: AvailableIntent = {
-      intentId: 'intent-v3-ambient',
+      intentId: 'intent-v4-ambient',
       kind: 'commissionScreenplay',
       label: 'Commission another screenplay',
       detail: 'A concurrent physical-capacity choice.',

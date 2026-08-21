@@ -61,11 +61,11 @@ describe('canonical Unity bridge schema', () => {
   it('closes every declared object recursively and publishes explicit protocol metadata', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
-      protocolVersion: 3,
+      protocolVersion: 4,
       projectionVersion: 4,
       transport: 'http-json-localhost',
     })
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-3:projection-4')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-4')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
@@ -333,6 +333,7 @@ describe('canonical Unity bridge schema', () => {
       protocolVersion: snapshot.protocolVersion,
       schemaId: snapshot.schemaId,
       snapshotVersion: snapshot.snapshotVersion,
+      runtimeInstanceId: 'opaque-process-incarnation-01',
       sessionId: snapshot.sessionId,
       stateRevision: snapshot.stateRevision,
       gameWeek: snapshot.gameWeek,
@@ -343,6 +344,40 @@ describe('canonical Unity bridge schema', () => {
       ...session,
       status: 'ok',
     })).not.toThrow()
+
+    for (const [name, definition, envelope] of [
+      ['session', BRIDGE_SCHEMA.$defs.StudioBridgeSessionResponse, session],
+      ['health', BRIDGE_SCHEMA.$defs.StudioBridgeHealthResponse, { ...session, status: 'ok' as const }],
+    ] as const) {
+      const missing = clone(envelope) as Record<string, unknown>
+      delete missing['runtimeInstanceId']
+      expect(
+        () => parseWireValue(definition, missing),
+        `${name} must require runtimeInstanceId`,
+      ).toThrow(/required property is missing/)
+
+      expect(
+        () => parseWireValue(definition, { ...envelope, runtimeInstanceId: '' }),
+        `${name} must reject a blank runtimeInstanceId`,
+      ).toThrow(/at least 1 character/)
+
+      expect(
+        () => parseWireValue(definition, { ...envelope, runtimeInstanceIdAlias: 'forged' }),
+        `${name} must remain closed`,
+      ).toThrow(/additional properties are not allowed/)
+    }
+
+    for (const definition of [
+      BRIDGE_SCHEMA.$defs.StudioBridgeIntentRequest,
+      BRIDGE_SCHEMA.$defs.StudioBridgeControlRequest,
+      BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse,
+      BRIDGE_SCHEMA.$defs.StudioBridgeAcceptedCommandResponse,
+      BRIDGE_SCHEMA.$defs.StudioBridgeSaveResponse,
+      BRIDGE_SCHEMA.$defs.StudioBridgeRejectedResponse,
+      BRIDGE_SCHEMA.$defs.StudioBridgeContractResponse,
+    ]) {
+      expect(definition.properties).not.toHaveProperty('runtimeInstanceId')
+    }
   })
 
   it('keeps checked-in JSON and generated C# byte-derived from the canonical schema', () => {
@@ -356,10 +391,11 @@ describe('canonical Unity bridge schema', () => {
     )
     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
-    expect(generatedCsharp).toContain('public const int ProtocolVersion = 3;')
+    expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
     expect(generatedCsharp).toContain('public const int ProjectionVersion = 4;')
     expect(generatedCsharp).toContain('public int protocolVersion;')
     expect(generatedCsharp).toContain('public int snapshotVersion;')
+    expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)
     expect(generatedCsharp).toContain('public int? slot;')
     expect(generatedCsharp).toContain('public int? completesWeek;')
     expect(generatedCsharp).toContain('public double? distance;')

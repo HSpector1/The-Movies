@@ -6,12 +6,15 @@ import {
   BRIDGE_RUNTIME_CHECKPOINT_FORMAT,
   BRIDGE_RUNTIME_CHECKPOINT_VERSION,
   BridgeRuntimeCheckpointError,
+  LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION,
+  LEGACY_BRIDGE_RUNTIME_SCHEMA_ID,
   appendBridgeRuntimeJournalEntry,
   createBridgeRuntimeCheckpoint,
   createBridgeRuntimeJournalEntry,
   decodeBridgeRuntimeCheckpoint,
   encodeBridgeRuntimeCheckpoint,
   hydrateBridgeRuntimeCheckpoint,
+  loadBridgeRuntimeCheckpoint,
   type BridgeRuntimeCheckpointLimits,
   type BridgeRuntimeCheckpointV1,
   type BridgeRuntimeJournalEntryV1,
@@ -94,7 +97,68 @@ function fixture(): Fixture {
   }
 }
 
+function protocol3Bytes(checkpoint: BridgeRuntimeCheckpointV1): string {
+  const journal = checkpoint.journal.map((entry) => {
+    const request = JSON.parse(entry.requestJson) as Record<string, unknown>
+    const response = JSON.parse(entry.responseJson) as Record<string, unknown>
+    request.protocolVersion = LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION
+    request.schemaId = LEGACY_BRIDGE_RUNTIME_SCHEMA_ID
+    response.protocolVersion = LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION
+    response.schemaId = LEGACY_BRIDGE_RUNTIME_SCHEMA_ID
+    return {
+      ...entry,
+      requestJson: canonicalJson(request),
+      responseJson: canonicalJson(response),
+    }
+  })
+  const legacy = {
+    ...checkpoint,
+    protocolVersion: LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION,
+    schemaId: LEGACY_BRIDGE_RUNTIME_SCHEMA_ID,
+    journalDigest: sha256(canonicalJson(journal)),
+    journal,
+  }
+  return `${canonicalJson(legacy)}\n`
+}
+
 describe('BridgeRuntimeCheckpointV1', () => {
+  it('forward-migrates protocol 3 by preserving both V14 slots and discarding incompatible replay bytes', () => {
+    const source = fixture()
+    const legacyBytes = protocol3Bytes(source.checkpoint)
+    expect(() => decodeBridgeRuntimeCheckpoint(legacyBytes)).toThrow(/protocolVersion/)
+
+    const loaded = loadBridgeRuntimeCheckpoint(
+      legacyBytes,
+      undefined,
+      () => 'runtime-protocol-4-session',
+    )
+    expect(loaded.migratedFromProtocolVersion).toBe(3)
+    expect(loaded.hydrated.checkpoint).toMatchObject({
+      protocolVersion: PROTOCOL_VERSION,
+      schemaId: SCHEMA_ID,
+      sessionId: 'runtime-protocol-4-session',
+      stateRevision: 0,
+      currentSaveJson: source.currentSaveJson,
+      savedSaveJson: source.savedSaveJson,
+      journal: [],
+    })
+    expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(source.currentSaveJson))
+    expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(source.savedSaveJson))
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(14)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(14)
+    expect(() => decodeBridgeRuntimeCheckpoint(
+      encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint),
+    )).not.toThrow()
+
+    const corrupted = JSON.parse(legacyBytes) as Record<string, unknown>
+    corrupted.journalDigest = '0'.repeat(64)
+    expect(() => loadBridgeRuntimeCheckpoint(
+      `${canonicalJson(corrupted)}\n`,
+      undefined,
+      () => 'runtime-protocol-4-session',
+    )).toThrow(/journalDigest/)
+  })
+
   it('encodes one exact closed canonical shape with one LF and hydrates stable V14 bytes', () => {
     const source = fixture()
     const encoded = encodeBridgeRuntimeCheckpoint(source.checkpoint)

@@ -1,3 +1,4 @@
+import { createHash, randomUUID, timingSafeEqual } from 'node:crypto'
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from 'node:http'
 import { join } from 'node:path'
 import { performance } from 'node:perf_hooks'
@@ -32,9 +33,27 @@ import {
 } from './runtime/runtime-coordinator.ts'
 
 const host = '127.0.0.1'
+const capabilityHeader = 'x-project-studio-capability'
+const capabilityBytes = 32
+const maxHeaderBytes = 16 * 1024
+const maxHeadersCount = 64
+const maxRequestsPerSocket = 100
+const headersTimeoutMs = 5_000
+const requestTimeoutMs = 15_000
+const keepAliveTimeoutMs = 2_000
+const socketIdleTimeoutMs = 15_000
+const connectionsCheckingIntervalMs = 1_000
 const requestedPort = Number(process.env.PROJECT_STUDIO_BRIDGE_PORT ?? '4317')
 if (!Number.isSafeInteger(requestedPort) || requestedPort < 0 || requestedPort > 65535) {
   throw new Error('PROJECT_STUDIO_BRIDGE_PORT must be an integer from 0 to 65535.')
+}
+
+type HttpBoundary = {
+  capabilityDigest: Buffer
+}
+
+type BoundaryRejection = {
+  status: 401 | 403 | 415
 }
 
 class MemoryCheckpointStore implements BridgeCheckpointStore {
@@ -60,6 +79,79 @@ function json(response: ServerResponse, status: number, body: unknown): void {
   encodedJson(response, status, canonicalJson(body))
 }
 
+function loadCapabilityDigest(): Buffer {
+  const capability = process.env.PROJECT_STUDIO_BRIDGE_CAPABILITY
+  delete process.env.PROJECT_STUDIO_BRIDGE_CAPABILITY
+  if (capability === undefined || !/^[A-Za-z0-9_-]{43}$/.test(capability)) {
+    throw new Error(
+      'PROJECT_STUDIO_BRIDGE_CAPABILITY must be a canonical 32-byte base64url value.',
+    )
+  }
+  const decoded = Buffer.from(capability, 'base64url')
+  if (decoded.length !== capabilityBytes || decoded.toString('base64url') !== capability) {
+    throw new Error(
+      'PROJECT_STUDIO_BRIDGE_CAPABILITY must be a canonical 32-byte base64url value.',
+    )
+  }
+  return createHash('sha256').update(capability, 'utf8').digest()
+}
+
+function rawHeaderValues(request: IncomingMessage, name: string): string[] {
+  const values: string[] = []
+  for (let index = 0; index < request.rawHeaders.length; index += 2) {
+    if (request.rawHeaders[index]?.toLowerCase() === name) {
+      values.push(request.rawHeaders[index + 1] ?? '')
+    }
+  }
+  return values
+}
+
+function hasValidCapability(request: IncomingMessage, expectedDigest: Buffer): boolean {
+  const values = rawHeaderValues(request, capabilityHeader)
+  const presented = values.length === 1 ? values[0] : ''
+  const presentedDigest = createHash('sha256').update(presented, 'utf8').digest()
+  const digestMatches = timingSafeEqual(expectedDigest, presentedDigest)
+  return values.length === 1 && digestMatches
+}
+
+function hasJsonContentType(request: IncomingMessage): boolean {
+  const values = rawHeaderValues(request, 'content-type')
+  if (values.length !== 1) return false
+  return values[0]?.split(';', 1)[0]?.trim().toLowerCase() === 'application/json'
+}
+
+function inspectBoundary(
+  request: IncomingMessage,
+  boundary: HttpBoundary,
+): BoundaryRejection | null {
+  // Hash every presented credential before deciding so secret comparison is fixed-length.
+  const authorized = hasValidCapability(request, boundary.capabilityDigest)
+  const tooManyHeaders = request.rawHeaders.length / 2 > maxHeadersCount
+  const expectedHost = request.socket.localAddress === host && request.socket.localPort !== undefined
+    ? `${host}:${String(request.socket.localPort)}`
+    : ''
+  const hosts = rawHeaderValues(request, 'host')
+  const validHost = hosts.length === 1 && hosts[0] === expectedHost
+  const hasOrigin = rawHeaderValues(request, 'origin').length !== 0
+  const validContentType = request.method !== 'POST' || hasJsonContentType(request)
+
+  if (!authorized) return { status: 401 }
+  if (tooManyHeaders || !validHost || hasOrigin) return { status: 403 }
+  if (!validContentType) return { status: 415 }
+  return null
+}
+
+function rejectAtBoundary(
+  request: IncomingMessage,
+  response: ServerResponse,
+  rejection: BoundaryRejection,
+): void {
+  request.resume()
+  response.shouldKeepAlive = false
+  response.setHeader('connection', 'close')
+  json(response, rejection.status, { error: 'Request rejected.' })
+}
+
 async function readJson(request: IncomingMessage): Promise<unknown> {
   const chunks: Buffer[] = []
   let length = 0
@@ -69,7 +161,11 @@ async function readJson(request: IncomingMessage): Promise<unknown> {
     if (length > 2_000_000) throw new Error('Request body exceeds 2 MB.')
     chunks.push(buffer)
   }
-  return JSON.parse(Buffer.concat(chunks).toString('utf8')) as unknown
+  try {
+    return JSON.parse(Buffer.concat(chunks).toString('utf8')) as unknown
+  } catch {
+    throw new Error('Request body is not valid JSON.')
+  }
 }
 
 function statusOf(response: CommandResponse): number {
@@ -102,10 +198,27 @@ function validationRejection(
   return runtime.read((session) => session.protocolReject(commandId, reasonCode, message, started))
 }
 
-function createHttpServer(runtime: BridgeRuntimeCoordinator): Server {
-  return createServer(async (request, response) => {
+function createHttpServer(
+  runtime: BridgeRuntimeCoordinator,
+  boundary: HttpBoundary,
+  runtimeInstanceId: string,
+): Server {
+  const handleRequest = async (
+    request: IncomingMessage,
+    response: ServerResponse,
+    expectContinue: boolean,
+  ): Promise<void> => {
     const started = performance.now()
     try {
+      const boundaryRejection = inspectBoundary(request, boundary)
+      if (boundaryRejection !== null) {
+        rejectAtBoundary(request, response, boundaryRejection)
+        return
+      }
+      if (expectContinue) {
+        rejectAtBoundary(request, response, { status: 403 })
+        return
+      }
       const url = new URL(request.url ?? '/', `http://${host}`)
       if (request.method === 'GET' && url.pathname === '/health') {
         const body = await runtime.read((session): BridgeHealthResponse => {
@@ -115,6 +228,7 @@ function createHttpServer(runtime: BridgeRuntimeCoordinator): Server {
             protocolVersion: PROTOCOL_VERSION,
             schemaId: SCHEMA_ID,
             snapshotVersion: SNAPSHOT_VERSION,
+            runtimeInstanceId,
             sessionId: session.sessionId,
             stateRevision: snapshot.stateRevision,
             gameWeek: snapshot.gameWeek,
@@ -139,6 +253,7 @@ function createHttpServer(runtime: BridgeRuntimeCoordinator): Server {
             protocolVersion: PROTOCOL_VERSION,
             schemaId: SCHEMA_ID,
             snapshotVersion: SNAPSHOT_VERSION,
+            runtimeInstanceId,
             sessionId: session.sessionId,
             stateRevision: snapshot.stateRevision,
             gameWeek: snapshot.gameWeek,
@@ -254,7 +369,27 @@ function createHttpServer(runtime: BridgeRuntimeCoordinator): Server {
       if (!response.headersSent) json(response, 503, { error: 'Bridge runtime unavailable.' })
       else response.destroy()
     }
+  }
+  const server = createServer({
+    connectionsCheckingInterval: connectionsCheckingIntervalMs,
+    headersTimeout: headersTimeoutMs,
+    insecureHTTPParser: false,
+    keepAliveTimeout: keepAliveTimeoutMs,
+    maxHeaderSize: maxHeaderBytes,
+    requestTimeout: requestTimeoutMs,
+    requireHostHeader: true,
+  }, (request, response) => {
+    void handleRequest(request, response, false)
   })
+  // Node truncates rawHeaders when maxHeadersCount is positive, which could hide a
+  // protected header after the limit. Parse the size-bounded complete set, then fail closed.
+  server.maxHeadersCount = 0
+  server.maxRequestsPerSocket = maxRequestsPerSocket
+  server.setTimeout(socketIdleTimeoutMs, (socket) => socket.destroy())
+  server.on('checkContinue', (request, response) => {
+    void handleRequest(request, response, true)
+  })
+  return server
 }
 
 async function createCheckpointStore(): Promise<{ store: BridgeCheckpointStore; durable: boolean }> {
@@ -272,6 +407,8 @@ async function createCheckpointStore(): Promise<{ store: BridgeCheckpointStore; 
 }
 
 async function main(): Promise<void> {
+  const capabilityDigest = loadCapabilityDigest()
+  const runtimeInstanceId = randomUUID()
   const { store, durable } = await createCheckpointStore()
   let requestFatalShutdown: (() => void) | null = null
   const runtime = await createBridgeRuntimeCoordinator({
@@ -282,7 +419,7 @@ async function main(): Promise<void> {
       requestFatalShutdown?.()
     },
   })
-  const server = createHttpServer(runtime)
+  const server = createHttpServer(runtime, { capabilityDigest }, runtimeInstanceId)
   let stopping: Promise<void> | null = null
   const shutdown = (exitCode: number): Promise<void> => {
     if (stopping !== null) return stopping

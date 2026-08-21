@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto'
+import { createHash, randomUUID } from 'node:crypto'
 
 import {
   exportSave,
@@ -22,6 +22,9 @@ import { parseWireValue } from './schema/runtime.ts'
 
 export const BRIDGE_RUNTIME_CHECKPOINT_FORMAT = 'project-studio-bridge-runtime-checkpoint' as const
 export const BRIDGE_RUNTIME_CHECKPOINT_VERSION = 1 as const
+export const LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION = 3 as const
+export const LEGACY_BRIDGE_RUNTIME_SCHEMA_ID =
+  'sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac' as const
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({
   maxCheckpointBytes: 32 * 1024 * 1024,
@@ -99,6 +102,11 @@ export type HydratedBridgeRuntimeCheckpoint = {
   journal: readonly HydratedBridgeRuntimeJournalEntry[]
   checkpointBytes: number
   journalBytes: number
+}
+
+export type LoadedBridgeRuntimeCheckpoint = {
+  hydrated: HydratedBridgeRuntimeCheckpoint
+  migratedFromProtocolVersion: typeof LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION | null
 }
 
 export type CreateBridgeRuntimeCheckpointInput = {
@@ -427,6 +435,182 @@ function journalEntryBytes(entry: BridgeRuntimeJournalEntryV1): number {
   return Buffer.byteLength(canonicalJson(entry), 'utf8')
 }
 
+function migrateLegacyContractJson(json: string, path: string): string {
+  const parsed = parseCanonicalJson(json, path)
+  if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+    return fail(path, 'must be a bridge contract object')
+  }
+  const record = parsed as Record<string, unknown>
+  if (record['protocolVersion'] !== LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION) {
+    fail(`${path}.protocolVersion`, `must be ${String(LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION)}`)
+  }
+  if (record['schemaId'] !== LEGACY_BRIDGE_RUNTIME_SCHEMA_ID) {
+    fail(`${path}.schemaId`, 'does not match the supported protocol-3 bridge schema')
+  }
+  return canonicalJson({
+    ...record,
+    protocolVersion: PROTOCOL_VERSION,
+    schemaId: SCHEMA_ID,
+  })
+}
+
+function migrateProtocol3Checkpoint(
+  bytes: string,
+  configuredLimits: BridgeRuntimeCheckpointLimits,
+  createSessionId: () => string,
+): LoadedBridgeRuntimeCheckpoint {
+  const limits = validateLimits(configuredLimits)
+  const byteLength = Buffer.byteLength(bytes, 'utf8')
+  if (byteLength > limits.maxCheckpointBytes) {
+    capacityFail('checkpoint', `uses ${String(byteLength)} bytes; maximum is ${String(limits.maxCheckpointBytes)}`)
+  }
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(bytes) as unknown
+  } catch (error) {
+    fail('checkpoint', `is not valid JSON: ${(error as Error).message}`)
+  }
+  const record = exactRecord(parsed, 'checkpoint', CHECKPOINT_KEYS)
+  if (record['format'] !== BRIDGE_RUNTIME_CHECKPOINT_FORMAT) {
+    fail('checkpoint.format', `must be ${JSON.stringify(BRIDGE_RUNTIME_CHECKPOINT_FORMAT)}`)
+  }
+  if (record['checkpointVersion'] !== BRIDGE_RUNTIME_CHECKPOINT_VERSION) {
+    fail('checkpoint.checkpointVersion', `must be ${String(BRIDGE_RUNTIME_CHECKPOINT_VERSION)}`)
+  }
+  if (record['protocolVersion'] !== LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION) {
+    fail(
+      'checkpoint.protocolVersion',
+      `must be ${String(LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION)} for forward migration`,
+    )
+  }
+  if (record['schemaId'] !== LEGACY_BRIDGE_RUNTIME_SCHEMA_ID) {
+    fail('checkpoint.schemaId', 'does not match the supported protocol-3 bridge schema')
+  }
+
+  const legacySessionId = requireString(record['sessionId'], 'checkpoint.sessionId')
+  const stateRevision = requireRevision(record['stateRevision'], 'checkpoint.stateRevision')
+  const currentSaveJson = requireString(record['currentSaveJson'], 'checkpoint.currentSaveJson')
+  const currentStateDigest = requireDigest(record['currentStateDigest'], 'checkpoint.currentStateDigest')
+  const savedSaveJson = requireNullableString(record['savedSaveJson'], 'checkpoint.savedSaveJson')
+  const savedStateDigest = record['savedStateDigest'] === null
+    ? null
+    : requireDigest(record['savedStateDigest'], 'checkpoint.savedStateDigest')
+  const journalDigest = requireDigest(record['journalDigest'], 'checkpoint.journalDigest')
+  if (!Array.isArray(record['journal'])) fail('checkpoint.journal', 'must be an array')
+  if (record['journal'].length > limits.maxJournalEntries) {
+    capacityFail(
+      'checkpoint.journal',
+      `contains ${String(record['journal'].length)} entries; maximum is ${String(limits.maxJournalEntries)}`,
+    )
+  }
+
+  const saveCache = new Map<string, SaveFileV14>()
+  const currentSave = validateCanonicalV14(currentSaveJson, 'checkpoint.currentSaveJson', saveCache)
+  if (digest(currentSaveJson) !== currentStateDigest) {
+    fail('checkpoint.currentStateDigest', 'does not match currentSaveJson')
+  }
+  if ((savedSaveJson === null) !== (savedStateDigest === null)) {
+    fail('checkpoint.savedStateDigest', 'must be null exactly when savedSaveJson is null')
+  }
+  if (savedSaveJson !== null) {
+    validateCanonicalV14(savedSaveJson, 'checkpoint.savedSaveJson', saveCache)
+    if (digest(savedSaveJson) !== savedStateDigest) {
+      fail('checkpoint.savedStateDigest', 'does not match savedSaveJson')
+    }
+  }
+
+  const identities = new Set<string>()
+  const normalizedJournal: BridgeRuntimeJournalEntryV1[] = []
+  let totalJournalBytes = 0
+  let previousResponseRevision = -1
+  let lastAcceptedSaveJson: string | null = null
+  for (let index = 0; index < record['journal'].length; index++) {
+    const path = `checkpoint.journal[${String(index)}]`
+    const legacy = exactRecord(record['journal'][index], path, JOURNAL_ENTRY_KEYS)
+    const route = requireRoute(legacy['route'], `${path}.route`)
+    const commandId = requireString(legacy['commandId'], `${path}.commandId`)
+    const requestJson = requireString(legacy['requestJson'], `${path}.requestJson`)
+    const responseJson = requireString(legacy['responseJson'], `${path}.responseJson`)
+    if (identities.has(commandId)) fail(`${path}.commandId`, 'duplicates an earlier journal identity')
+
+    const hydrated = hydrateEntry({
+      route,
+      commandId,
+      requestJson: migrateLegacyContractJson(requestJson, `${path}.requestJson`),
+      responseJson: migrateLegacyContractJson(responseJson, `${path}.responseJson`),
+    }, index, legacySessionId, stateRevision, saveCache)
+    if (hydrated.response.stateRevision < previousResponseRevision) {
+      fail(path, 'response revisions must be non-decreasing')
+    }
+    if (hydrated.response.stateRevision === stateRevision) {
+      if (hydrated.response.stateDigest !== currentStateDigest ||
+          hydrated.response.gameWeek !== currentSave.state.market.tick) {
+        fail(path, 'terminal response does not match the current checkpoint state')
+      }
+    }
+    if (hydrated.route === 'save' && hydrated.response.accepted) {
+      lastAcceptedSaveJson = hydrated.response.saveJson
+    }
+    identities.add(commandId)
+    previousResponseRevision = hydrated.response.stateRevision
+    const normalized = { route, commandId, requestJson, responseJson }
+    normalizedJournal.push(normalized)
+    totalJournalBytes += journalEntryBytes(normalized)
+    if (totalJournalBytes > limits.maxJournalBytes) {
+      capacityFail(
+        'checkpoint.journal',
+        `uses ${String(totalJournalBytes)} bytes; maximum is ${String(limits.maxJournalBytes)}`,
+      )
+    }
+  }
+  if (normalizedJournal.length === 0 && stateRevision !== 0) {
+    fail('checkpoint.stateRevision', 'must be 0 when the journal is empty')
+  }
+  if (normalizedJournal.length > 0 && previousResponseRevision !== stateRevision) {
+    fail('checkpoint.stateRevision', 'must equal the terminal journal response revision')
+  }
+  if (lastAcceptedSaveJson !== null && savedSaveJson !== lastAcceptedSaveJson) {
+    fail('checkpoint.savedSaveJson', 'does not match the latest accepted save journal response')
+  }
+  if (journalDigest !== digest(canonicalJson(normalizedJournal))) {
+    fail('checkpoint.journalDigest', 'does not match the canonical journal bytes')
+  }
+
+  const normalizedLegacy = {
+    format: BRIDGE_RUNTIME_CHECKPOINT_FORMAT,
+    checkpointVersion: BRIDGE_RUNTIME_CHECKPOINT_VERSION,
+    protocolVersion: LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION,
+    schemaId: LEGACY_BRIDGE_RUNTIME_SCHEMA_ID,
+    sessionId: legacySessionId,
+    stateRevision,
+    currentSaveJson,
+    currentStateDigest,
+    savedSaveJson,
+    savedStateDigest,
+    journalDigest,
+    journal: normalizedJournal,
+  }
+  if (bytes !== `${canonicalJson(normalizedLegacy)}\n`) {
+    fail('checkpoint', 'must be canonical JSON followed by exactly one LF')
+  }
+
+  const nextSessionId = requireString(createSessionId(), 'migration.sessionId')
+  if (nextSessionId === legacySessionId) {
+    fail('migration.sessionId', 'must differ from the protocol-3 logical session')
+  }
+  const checkpoint = createBridgeRuntimeCheckpoint({
+    sessionId: nextSessionId,
+    stateRevision: 0,
+    currentSaveJson,
+    savedSaveJson,
+    journal: [],
+  }, limits)
+  return {
+    hydrated: hydrateBridgeRuntimeCheckpoint(checkpoint, limits),
+    migratedFromProtocolVersion: LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION,
+  }
+}
+
 export function hydrateBridgeRuntimeCheckpoint(
   value: unknown,
   configuredLimits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
@@ -615,6 +799,38 @@ export function decodeBridgeRuntimeCheckpoint(
     fail('checkpoint', 'must be canonical JSON followed by exactly one LF')
   }
   return hydrated
+}
+
+/**
+ * Startup-only compatibility boundary. Protocol-3 response bytes cannot be replayed under the
+ * closed protocol-4 contract, so a valid legacy checkpoint is rolled into a fresh logical
+ * session while preserving both authoritative V14 save slots exactly.
+ */
+export function loadBridgeRuntimeCheckpoint(
+  bytes: string,
+  configuredLimits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
+  createSessionId: () => string = randomUUID,
+): LoadedBridgeRuntimeCheckpoint {
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(bytes) as unknown
+  } catch {
+    return {
+      hydrated: decodeBridgeRuntimeCheckpoint(bytes, configuredLimits),
+      migratedFromProtocolVersion: null,
+    }
+  }
+  if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)) {
+    const record = parsed as Record<string, unknown>
+    if (record['protocolVersion'] === LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION ||
+        record['schemaId'] === LEGACY_BRIDGE_RUNTIME_SCHEMA_ID) {
+      return migrateProtocol3Checkpoint(bytes, configuredLimits, createSessionId)
+    }
+  }
+  return {
+    hydrated: decodeBridgeRuntimeCheckpoint(bytes, configuredLimits),
+    migratedFromProtocolVersion: null,
+  }
 }
 
 export function createBridgeRuntimeCheckpoint(

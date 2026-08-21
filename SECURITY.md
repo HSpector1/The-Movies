@@ -49,11 +49,21 @@ must never expose arbitrary filesystem access or command execution.
 ## Known development boundary
 
 Loopback binding alone is not a complete browser or local-process trust
-boundary. The current bridge does not yet require a per-launch capability, nor
-does it enforce an expected Host, reject browser Origin headers, or require an
-exact JSON content type. Before Phase B produces a packaged runtime, add those
-controls, request/header timeouts, safe token transfer from launcher to Unity,
-and tests proving that the token is neither persisted nor logged.
+boundary. The bridge therefore requires a random 32-byte capability for every
+request, accepts only its exact `127.0.0.1:<port>` Host, rejects every Origin,
+requires JSON content type on POSTs, and applies bounded headers, requests,
+requests per socket, and timeouts. Unity accepts the capability only through its
+environment after validating the exact loopback endpoint, disables redirects,
+and attaches it through one request factory. The capability is process-launch
+infrastructure: it must not enter argv, logs, reports, saves, checkpoints, or
+repository files.
+
+These controls defend the browser/DNS-rebinding boundary and accidental
+cross-process access; they do not make the bridge suitable for non-loopback or
+hostile multi-user deployment. A future product launcher must generate the
+capability, pass the same value privately to the engine and Unity, reuse it only
+for engine restarts within that product launch, and rotate it for the next
+launch.
 
 An opt-in development seam can now persist current and explicitly saved V14
 bytes, logical session/revision, and exact request/response replay history in a
@@ -62,10 +72,11 @@ process-incarnation lock, rejects symlinks and corrupt or oversized input, and
 fails closed on persistence errors. The default `npm run bridge` command remains
 memory-only until the product launcher owns this directory and lifecycle.
 
-Treat default-launch persistence, runtime-instance handoff, capability transfer,
-stale-process supervision, and log lifecycle as unfinished product work, not as
-a security guarantee. The checkpoint must never contain a launch capability or
-expand the V14 gameplay save format.
+Treat default-launch persistence, random-port handoff, supervised child-process
+restart, in-flight POST recovery, packaged runtime dependency auditing, and log
+lifecycle as unfinished product work, not as a security guarantee. The
+checkpoint must never contain a launch capability or expand the V14 gameplay
+save format.
 
 ## Dependency policy
 

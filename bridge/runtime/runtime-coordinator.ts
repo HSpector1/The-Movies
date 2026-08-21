@@ -5,8 +5,8 @@ import type {
 import {
   BridgeRuntimeCheckpointHistoryFullError,
   DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
-  decodeBridgeRuntimeCheckpoint,
   encodeBridgeRuntimeCheckpoint,
+  loadBridgeRuntimeCheckpoint,
   type BridgeRuntimeCheckpointLimits,
   type BridgeRuntimeCheckpointV1,
   type BridgeRuntimeJournalRoute,
@@ -282,8 +282,14 @@ export async function createBridgeRuntimeCoordinator(
         checkpointLimits,
       ))
     } else {
-      const hydrated = decodeBridgeRuntimeCheckpoint(checkpointJson, checkpointLimits)
-      session = BridgeSession.fromRuntimeCheckpoint(hydrated, checkpointLimits)
+      const loaded = loadBridgeRuntimeCheckpoint(checkpointJson, checkpointLimits)
+      session = BridgeSession.fromRuntimeCheckpoint(loaded.hydrated, checkpointLimits)
+      if (loaded.migratedFromProtocolVersion !== null) {
+        await options.store.writeAtomic(encodeCheckpoint(
+          session.exportRuntimeCheckpoint(),
+          checkpointLimits,
+        ))
+      }
     }
 
     return new SerializedBridgeRuntimeCoordinator(

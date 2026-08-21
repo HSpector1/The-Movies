@@ -62,7 +62,7 @@
           "type": "number"
         },
         "protocolVersion": {
-          "const": 3,
+          "const": 4,
           "type": "integer"
         },
         "schemaId": {
@@ -141,7 +141,7 @@
           "type": "integer"
         },
         "protocolVersion": {
-          "const": 3,
+          "const": 4,
           "type": "integer"
         },
         "schemaId": {
@@ -172,8 +172,12 @@
           "type": "integer"
         },
         "protocolVersion": {
-          "const": 3,
+          "const": 4,
           "type": "integer"
+        },
+        "runtimeInstanceId": {
+          "minLength": 1,
+          "type": "string"
         },
         "schemaId": {
           "minLength": 1,
@@ -204,6 +208,7 @@
       "required": [
         "gameWeek",
         "protocolVersion",
+        "runtimeInstanceId",
         "schemaId",
         "sessionId",
         "snapshotVersion",
@@ -315,7 +320,7 @@
           "$ref": "#/$defs/StudioBridgeIntentPayload"
         },
         "protocolVersion": {
-          "const": 3,
+          "const": 4,
           "type": "integer"
         },
         "schemaId": {
@@ -394,7 +399,7 @@
           "type": "number"
         },
         "protocolVersion": {
-          "const": 3,
+          "const": 4,
           "type": "integer"
         },
         "reasonCode": {
@@ -521,7 +526,7 @@
           "type": "number"
         },
         "protocolVersion": {
-          "const": 3,
+          "const": 4,
           "type": "integer"
         },
         "saveJson": {
@@ -571,8 +576,12 @@
           "type": "integer"
         },
         "protocolVersion": {
-          "const": 3,
+          "const": 4,
           "type": "integer"
+        },
+        "runtimeInstanceId": {
+          "minLength": 1,
+          "type": "string"
         },
         "schemaId": {
           "minLength": 1,
@@ -599,6 +608,7 @@
       "required": [
         "gameWeek",
         "protocolVersion",
+        "runtimeInstanceId",
         "schemaId",
         "sessionId",
         "snapshotVersion",
@@ -626,7 +636,7 @@
           "$ref": "#/$defs/StudioBridgeMetrics"
         },
         "protocolVersion": {
-          "const": 3,
+          "const": 4,
           "type": "integer"
         },
         "schemaId": {
@@ -2578,7 +2588,7 @@
       "x-csharp-name": "StudioWeekTheaterSubjectSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-3:projection-4",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-4",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -2614,7 +2624,7 @@
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
     "projectionVersion": 4,
-    "protocolVersion": 3,
+    "protocolVersion": 4,
     "routes": {
       "command": "POST /command",
       "contract": "GET /contract",

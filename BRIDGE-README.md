@@ -1,4 +1,4 @@
-# Current-game Unity bridge (protocol 3)
+# Current-game Unity bridge (protocol 4)
 
 This bridge keeps the current TypeScript `GameState` as the only simulation authority. Unity
 receives a current lot snapshot plus opaque, state-bound choices and can submit only an emitted
@@ -15,6 +15,8 @@ are unchanged.
 npm run typecheck:bridge
 npm run test:bridge
 npm run proof:bridge
+export PROJECT_STUDIO_BRIDGE_CAPABILITY="$(node -e \
+  "process.stdout.write(require('node:crypto').randomBytes(32).toString('base64url'))")"
 PROJECT_STUDIO_BRIDGE_PORT=4317 npm run bridge
 ```
 
@@ -29,10 +31,16 @@ and reuse that exact directory across restarts:
 runtime_dir="$(mktemp -d "${TMPDIR:-/tmp}/project-studio-runtime.XXXXXX")"
 chmod 700 "$runtime_dir"
 echo "$runtime_dir"
+export PROJECT_STUDIO_BRIDGE_CAPABILITY="$(node -e \
+  "process.stdout.write(require('node:crypto').randomBytes(32).toString('base64url'))")"
 PROJECT_STUDIO_BRIDGE_RUNTIME_DIR="$runtime_dir" \
   PROJECT_STUDIO_BRIDGE_PORT=4317 \
   npm run bridge
 ```
+
+The TypeScript engine and Unity client must inherit that same capability for one product launch.
+Reuse it when restarting only the engine within that launch; rotate it for the next product launch.
+Never put it in command-line arguments, logs, checkpoints, saves, reports, or repository files.
 
 Do not delete `runtime_dir` between the processes being tested. Startup reports
 `checkpoint=durable` when disk persistence is active and `checkpoint=memory-only` otherwise.
@@ -41,12 +49,12 @@ manual environment variable is a validated infrastructure seam, not the finished
 
 ## Pinned wire contract
 
-- `protocolVersion`: `3`
+- `protocolVersion`: `4`
 - `snapshotVersion`: `4` (the generated Unity presentation projection)
 - schema: emitted as `SCHEMA_ID` by `bridge/protocol.ts` and `GET /contract`
-- `GET /health`: protocol/session/revision/digest health record
+- `GET /health`: protocol/runtime-instance/session/revision/digest health record
 - `GET /contract`: the complete canonical contract JSON plus its SHA-256 identity
-- `GET /session`: connection bootstrap identity and current digest
+- `GET /session`: runtime/session bootstrap identity and current digest
 - `GET /snapshot`: authoritative snapshot and current opaque choices
 - `POST /command`: one `submitIntent` envelope
 - `POST /save`: guarded export of the current V14 TypeScript save
@@ -62,13 +70,13 @@ The three identity fields are strings or `null`. A command has exactly these fie
 
 ```json
 {
-  "protocolVersion": 3,
+  "protocolVersion": 4,
   "schemaId": "sha256:...",
   "sessionId": "...",
   "commandId": "unity-generated-id",
   "expectedStateRevision": 0,
   "type": "submitIntent",
-  "payload": { "intentId": "intent-v3-..." }
+  "payload": { "intentId": "intent-v4-..." }
 }
 ```
 
@@ -76,6 +84,11 @@ Unity must display `label`/`detail`, retain the exact nullable identities for pr
 and send only the selected opaque ID. It must never infer legality from `kind`, titles, dates,
 money, facility status, or production phase. The TypeScript server rebuilds choices from the live
 authoritative state immediately before dispatch.
+
+Protocol 4 requires an opaque, non-empty `runtimeInstanceId` on `GET /health` and `GET /session`.
+It identifies one engine-process incarnation, changes when that process restarts, and is never
+written to snapshots, command/control responses, the replay journal, V14 saves, or the durable
+runtime checkpoint. Clients use it only to detect engine replacement during reconnect.
 
 ## Revision, replay, and reconnect rules
 
@@ -114,6 +127,13 @@ the stored response bytes directly. A real-process test commits command/save/com
 `SIGKILL`, restarts from the same directory, and proves the logical session, revision, state digest,
 V14 bytes, and all four raw HTTP responses are exact.
 
+A strict forward-only operational migration accepts the immediately preceding protocol-3
+checkpoint schema. It validates its canonical bytes, both V14 slots, digests, journal, and terminal
+authority before atomically writing protocol 4. Because protocol-3 replay bytes cannot be returned
+under the protocol-4 contract, the migration preserves current and explicitly saved V14 bytes but
+starts a new logical session at revision zero with an empty journal. Corrupt or unsupported
+checkpoints fail closed; the old bytes remain intact if the migration write fails.
+
 The runtime root must be a dedicated current-user directory with mode `0700`; checkpoint and lock
 files use `0600`. Symlinks, unexpected nesting, corrupt UTF-8, oversized files, concurrent live
 owners, and unverifiable or mismatched lock ownership fail closed. A stale lock is reclaimed only
@@ -126,9 +146,8 @@ and explicit-save V14 authority, then requires the client to reconnect. If one c
 an empty journal, the runtime fails fatally instead of cycling sessions forever.
 
 This checkpoint does not complete Phase B. The normal `npm run bridge` path remains memory-only,
-and the HTTP server still requires a per-launch capability, strict Host/Origin/content-type policy,
-timeouts, a non-persisted runtime-instance handshake, a supervised random-port launch, and Unity
-kill/restart retry proof.
+there is no supervised random-port product launcher, and Unity does not yet retain and retry an
+exact in-flight POST after an engine dies between durable commit and response delivery.
 
 ## Movie #2 interaction
 

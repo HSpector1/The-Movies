@@ -8,6 +8,8 @@ import {
 } from '../bridge/protocol.ts'
 import {
   BridgeRuntimeCheckpointCapacityError,
+  LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION,
+  LEGACY_BRIDGE_RUNTIME_SCHEMA_ID,
   decodeBridgeRuntimeCheckpoint,
   encodeBridgeRuntimeCheckpoint,
 } from '../bridge/runtime-checkpoint.ts'
@@ -82,6 +84,53 @@ function sessionFixture(name: string): SessionFixture {
 }
 
 describe('BridgeRuntimeCoordinator', () => {
+  it('atomically persists a state-preserving protocol-3 rollover before becoming ready', async () => {
+    const fixture = sessionFixture('protocol-3-upgrade')
+    const current = decodeBridgeRuntimeCheckpoint(fixture.checkpointJson).checkpoint
+    const legacyJson = `${canonicalJson({
+      ...current,
+      protocolVersion: LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION,
+      schemaId: LEGACY_BRIDGE_RUNTIME_SCHEMA_ID,
+    })}\n`
+    const store = new FakeCheckpointStore(legacyJson)
+    const coordinator = await createBridgeRuntimeCoordinator({ store, fatal: () => undefined })
+
+    expect(store.writeAttempts).toHaveLength(1)
+    const migrated = decodeBridgeRuntimeCheckpoint(store.contents ?? '').checkpoint
+    expect(migrated.sessionId).not.toBe(current.sessionId)
+    expect(migrated.stateRevision).toBe(0)
+    expect(migrated.currentSaveJson).toBe(current.currentSaveJson)
+    expect(migrated.currentStateDigest).toBe(current.currentStateDigest)
+    expect(migrated.savedSaveJson).toBe(current.savedSaveJson)
+    expect(migrated.journal).toEqual([])
+    const snapshot = await coordinator.read((session) => session.snapshot())
+    expect(snapshot.sessionId).toBe(migrated.sessionId)
+    expect(snapshot.stateDigest).toBe(current.currentStateDigest)
+    await coordinator.close()
+  })
+
+  it('preserves protocol-3 bytes when the migration checkpoint commit fails', async () => {
+    const fixture = sessionFixture('protocol-3-write-failure')
+    const current = decodeBridgeRuntimeCheckpoint(fixture.checkpointJson).checkpoint
+    const legacyJson = `${canonicalJson({
+      ...current,
+      protocolVersion: LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION,
+      schemaId: LEGACY_BRIDGE_RUNTIME_SCHEMA_ID,
+    })}\n`
+    const store = new FakeCheckpointStore(legacyJson)
+    store.writeBehavior = async () => { throw new Error('migration write failed') }
+    const fatals: unknown[] = []
+
+    await expect(createBridgeRuntimeCoordinator({
+      store,
+      fatal: (error) => { fatals.push(error) },
+    })).rejects.toThrow(/migration write failed/)
+    expect(store.contents).toBe(legacyJson)
+    expect(store.writeAttempts).toHaveLength(1)
+    expect(store.closeCalls).toBe(1)
+    expect(fatals).toHaveLength(1)
+  })
+
   it('persists a fresh runtime checkpoint before becoming ready', async () => {
     const writeStarted = deferred()
     const releaseWrite = deferred()

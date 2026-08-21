@@ -1,4 +1,5 @@
 import { spawn, type ChildProcess } from 'node:child_process'
+import { randomBytes } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -42,6 +43,7 @@ type CapturedLogs = {
 type RunningBridge = {
   child: ChildProcess
   baseUrl: string
+  capability: string
   logs: CapturedLogs
 }
 
@@ -125,19 +127,20 @@ async function cleanupBridge(bridge: RunningBridge | null): Promise<void> {
   }
 }
 
-async function startBridge(runtimeDirectory: string): Promise<RunningBridge> {
+async function startBridge(runtimeDirectory: string, capability: string): Promise<RunningBridge> {
   const logs: CapturedLogs = { stdout: '', stderr: '' }
   const child = spawn(process.execPath, [VITE_NODE, SERVER_ENTRY], {
     cwd: ROOT,
     env: {
       ...process.env,
       NO_COLOR: '1',
+      PROJECT_STUDIO_BRIDGE_CAPABILITY: capability,
       PROJECT_STUDIO_BRIDGE_PORT: '0',
       PROJECT_STUDIO_BRIDGE_RUNTIME_DIR: runtimeDirectory,
     },
     stdio: ['ignore', 'pipe', 'pipe'],
   })
-  const bridge: RunningBridge = { child, baseUrl: '', logs }
+  const bridge: RunningBridge = { child, baseUrl: '', capability, logs }
 
   const started = new Promise<number>((resolve, reject) => {
     let settled = false
@@ -201,12 +204,16 @@ async function request(
   const timer = setTimeout(() => abort.abort(), HTTP_TIMEOUT_MS)
   try {
     const init: RequestInit = {
+      headers: { 'x-project-studio-capability': bridge.capability },
       method,
       signal: abort.signal,
     }
     if (body !== undefined) {
       init.body = body
-      init.headers = { 'content-type': 'application/json' }
+      init.headers = {
+        ...init.headers,
+        'content-type': 'application/json',
+      }
     }
     const response = await fetch(`${bridge.baseUrl}${pathname}`, init)
     return { status: response.status, body: await response.text() }
@@ -274,9 +281,14 @@ it('restores one durable logical bridge session and exact HTTP replay after SIGK
   const lockPath = `${checkpointPath}.lock`
   let first: RunningBridge | null = null
   let restarted: RunningBridge | null = null
+  const productLaunchCapability = randomBytes(32).toString('base64url')
 
   try {
-    first = await startBridge(runtimeDirectory)
+    first = await startBridge(runtimeDirectory, productLaunchCapability)
+    const firstHealthRaw = await request(first, '/health')
+    expect(firstHealthRaw.status).toBe(200)
+    const firstRuntimeInstanceId = parseJson<{ runtimeInstanceId: string }>(firstHealthRaw)
+      .runtimeInstanceId
     const initial = await snapshot(first)
     expect(initial.stateRevision).toBe(0)
 
@@ -326,6 +338,12 @@ it('restores one durable logical bridge session and exact HTTP replay after SIGK
     expect(fs.existsSync(lockPath)).toBe(true)
 
     const persistedBeforeCrash = fs.readFileSync(checkpointPath, 'utf8')
+    expect(persistedBeforeCrash).not.toContain(first.capability)
+    expect(persistedBeforeCrash).not.toContain(firstRuntimeInstanceId)
+    expect(first.logs.stdout).not.toContain(first.capability)
+    expect(first.logs.stderr).not.toContain(first.capability)
+    expect(first.logs.stdout).not.toContain(firstRuntimeInstanceId)
+    expect(first.logs.stderr).not.toContain(firstRuntimeInstanceId)
     const hydrated = decodeBridgeRuntimeCheckpoint(persistedBeforeCrash)
     expect(hydrated.checkpoint.journal.map((entry) => [entry.route, entry.commandId])).toEqual([
       ['command', firstCommand.request.commandId],
@@ -359,7 +377,13 @@ it('restores one durable logical bridge session and exact HTTP replay after SIGK
     expect(killed).toEqual({ code: null, signal: 'SIGKILL' })
     expect(fs.existsSync(lockPath)).toBe(true)
 
-    restarted = await startBridge(runtimeDirectory)
+    restarted = await startBridge(runtimeDirectory, productLaunchCapability)
+    expect(restarted.capability).toBe(first.capability)
+    const restartedHealthRaw = await request(restarted, '/health')
+    expect(restartedHealthRaw.status).toBe(200)
+    const restartedRuntimeInstanceId = parseJson<{ runtimeInstanceId: string }>(restartedHealthRaw)
+      .runtimeInstanceId
+    expect(restartedRuntimeInstanceId).not.toBe(firstRuntimeInstanceId)
     const restored = await snapshot(restarted)
     expect(restored).toMatchObject({
       sessionId: beforeCrash.sessionId,
@@ -408,6 +432,10 @@ it('restores one durable logical bridge session and exact HTTP replay after SIGK
       stateDigest: restored.stateDigest,
     })
     expect(fs.readFileSync(checkpointPath, 'utf8')).toBe(persistedBeforeCrash)
+    expect(restarted.logs.stdout).not.toContain(restarted.capability)
+    expect(restarted.logs.stderr).not.toContain(restarted.capability)
+    expect(restarted.logs.stdout).not.toContain(restartedRuntimeInstanceId)
+    expect(restarted.logs.stderr).not.toContain(restartedRuntimeInstanceId)
 
     const graceful = await signalAndWait(restarted, 'SIGTERM')
     expect(graceful).toEqual({ code: 0, signal: null })

@@ -15,7 +15,7 @@ import {
   type JsonSchema,
 } from './dsl.ts'
 
-export const PROTOCOL_VERSION = 3 as const
+export const PROTOCOL_VERSION = 4 as const
 export const PROJECTION_VERSION = 4 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
@@ -638,6 +638,7 @@ const StudioBridgeHealthResponse = object('StudioBridgeHealthResponse', {
   protocolVersion: literal(PROTOCOL_VERSION),
   schemaId: nonEmptyText(),
   snapshotVersion: literal(PROJECTION_VERSION),
+  runtimeInstanceId: nonEmptyText(),
   sessionId: nonEmptyText(),
   stateRevision: nonNegativeInteger(),
   gameWeek: nonNegativeInteger(),
@@ -648,6 +649,7 @@ const StudioBridgeSessionResponse = object('StudioBridgeSessionResponse', {
   protocolVersion: literal(PROTOCOL_VERSION),
   schemaId: nonEmptyText(),
   snapshotVersion: literal(PROJECTION_VERSION),
+  runtimeInstanceId: nonEmptyText(),
   sessionId: nonEmptyText(),
   stateRevision: nonNegativeInteger(),
   gameWeek: nonNegativeInteger(),
@@ -717,7 +719,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-3:projection-4',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-4',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [
