@@ -4,9 +4,9 @@ START HERE. Read `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`, then the campaign
 ledger, this handoff, and the promotion register. The TypeScript/Unity engine
 decision is settled. Do not restart planning from scratch.
 
-## PHASE B DURABILITY CANDIDATE - CURRENT AUTHORITATIVE STATE
+## PHASE B DURABILITY CHECKPOINT - CURRENT AUTHORITATIVE STATE
 
-Timestamp: 2026-08-21 01:47 CEST (UTC+02:00).
+Timestamp: 2026-08-21 02:00 CEST (UTC+02:00).
 
 ### Current exact state
 
@@ -14,16 +14,17 @@ Timestamp: 2026-08-21 01:47 CEST (UTC+02:00).
 | --- | --- |
 | TypeScript worktree | `/Users/bruce/The Movies - Unity Production Convergence 80H` |
 | TypeScript branch | `campaign/unity-production-convergence-80h-ts` |
-| TypeScript HEAD / pushed upstream | `85d865cdd4f38ab4df32e24393e130ca094f6b7f`; local, upstream, and remote agree before this candidate commit |
-| TypeScript parent/product Golden | M3 product `e9c6f06b717a6a106281b189a61072e35770155f`; current branch HEAD is its pushed continuity descendant |
-| TypeScript working tree | Dirty only with the validated durable-runtime code/tests/config/docs unit listed below; not committed or pushed yet |
+| TypeScript durable-runtime product / pushed commit | `e6fc2047f372e7642c3c2fcee1d3915bb4064620`; remote-verified product checkpoint |
+| TypeScript product parent / Golden | Parent `85d865cdd4f38ab4df32e24393e130ca094f6b7f`; M3 Golden product `e9c6f06b717a6a106281b189a61072e35770155f` |
+| TypeScript continuity HEAD | The commit containing this section is the sole docs-only descendant of `e6fc2047`; `git rev-parse HEAD` must equal its upstream after recovery |
+| TypeScript working tree | Expected clean after the continuity push; any tracked change is new work and must be audited before continuing |
 | Unity worktree | `/Users/bruce/Project Studio - Unity Production Convergence 80H` |
 | Unity branch | `campaign/unity-production-convergence-80h-client` |
 | Unity HEAD / pushed upstream | `40465d48c191c9dcdda2c6b32c17c9675f4908a4`; clean and remote-verified |
 | Unity parent | `a1c27318bec47f1abc4a29b77d9c413bdc8a8778` |
 | Golden recovery pair | TypeScript `e9c6f06b717a6a106281b189a61072e35770155f` plus Unity `40465d48c191c9dcdda2c6b32c17c9675f4908a4` |
 | Golden tags | Immutable/pushed `golden/unity-convergence-m1`, `m2`, and `m3` in both repositories |
-| Promotion | `GOLDEN — CONTINUE CAMPAIGN`; M3 remains CURRENT BEST; this TS-only candidate is not Golden or canonical |
+| Promotion | `GOLDEN — CONTINUE CAMPAIGN`; M3 remains CURRENT BEST; this pushed TS-only checkpoint is not Golden or canonical |
 
 The compatible product contract remains protocol `3`, projection `4`, schema
 `sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac`.
@@ -47,9 +48,9 @@ V14 field, identity, or RNG stream changed in this unit.
   and product log lifecycle.
 - Later phases: C remains largely inherited; D through N retain prior partial
   capabilities. Visual work remains below ADR 0006.
-- Current acceptance gate: seal and push this non-Golden TypeScript durability
-  foundation, then secure the localhost boundary and add runtime-instance-aware
-  Unity reconnect before claiming default restart durability.
+- Current acceptance gate: secure the localhost boundary and add
+  runtime-instance-aware Unity reconnect before claiming default restart
+  durability.
 
 ### What was just done
 
@@ -95,8 +96,8 @@ Files changed:
   promotion register
 
 Why: a lost response after an authoritative mutation must be replayable after
-an engine crash without placing transport metadata in simulation truth. The
-candidate has no commit SHA yet; its exact parent is
+an engine crash without placing transport metadata in simulation truth. Product
+commit `e6fc2047f372e7642c3c2fcee1d3915bb4064620` is pushed; its exact parent is
 `85d865cdd4f38ab4df32e24393e130ca094f6b7f`.
 
 ### What is working right now
@@ -161,6 +162,7 @@ cd '/Users/bruce/Project Studio - Unity Production Convergence 80H'
 | Browser dependency audit | Passed; 0 browser-runtime vulnerabilities |
 | Repository hygiene | Passed; 1,017 repository files after documentation additions |
 | Adopted 3D assets | Passed; 26 assets, 0 hard violations |
+| Product-SHA remote CI | GitHub Actions run `32430904875` passed every gate for `e6fc2047f372e7642c3c2fcee1d3915bb4064620` in 10m25s |
 | Latest Unity EditMode | M3 24/24; not rerun because this candidate changes no Unity/contract source |
 | Latest native build | M3 136,938,870 bytes; not rebuilt for this TS-only internal runtime candidate |
 | Latest native playthrough | M3 Week 22/revision 23, exact final digest above |
@@ -256,9 +258,12 @@ wiring Unity authorization/restart detection.
 
 ### Uncommitted / generated material
 
-- Uncommitted tracked/untracked source is exactly the Phase B file list above;
-  there are no new assets, schema/generated DTO changes, screenshots, or native
-  builds in this candidate.
+- The Phase B source/test/config/docs product is committed and pushed at
+  `e6fc2047f372e7642c3c2fcee1d3915bb4064620`. This section, the ledger seal, and
+  promotion update are the sole docs-only continuity descendant. No product WIP
+  is intentionally uncommitted.
+- There are no new assets, schema/generated DTO changes, screenshots, or native
+  builds in this checkpoint.
 - `.tmp/3d-asset-audit.json`, `dist/`, `node_modules/`, runtime test directories,
   and `/tmp` logs are generated/ignored and deliberately excluded.
 - Unity ignored `Builds/`, `Evidence/`, `Library/`, and `Logs/` remain local from
@@ -272,12 +277,13 @@ wiring Unity authorization/restart detection.
 
 1. Read the frozen client decision, ledger, this top section, promotion
    register, ADR 0007, and `BRIDGE-README.md`.
-2. Verify TypeScript HEAD/upstream `85d865cdd4f38ab4df32e24393e130ca094f6b7f`
-   before the candidate commit and Unity HEAD/upstream
-   `40465d48c191c9dcdda2c6b32c17c9675f4908a4`. Verify M3 tags peel to the
+2. Verify `git rev-parse HEAD` equals the configured TypeScript upstream and is
+   the one docs-only descendant of product commit
+   `e6fc2047f372e7642c3c2fcee1d3915bb4064620`. Verify Unity HEAD/upstream
+   `40465d48c191c9dcdda2c6b32c17c9675f4908a4` and that M3 tags peel to the
    product pair above.
-3. Inspect the exact Phase B worktree list; run `npm run test:bridge`, both
-   typechecks, and `git diff --check`. Do not discard validated dirty work.
+3. Run `npm run test:bridge`, both typechecks, and `git diff --check`. Do not
+   revert the pushed Phase B product commit.
 4. Run the durable launch command with one reused private directory, then run
    `npx vitest run tests/bridge-process-restart.test.ts` to confirm the recorded
    SIGKILL/replay state.

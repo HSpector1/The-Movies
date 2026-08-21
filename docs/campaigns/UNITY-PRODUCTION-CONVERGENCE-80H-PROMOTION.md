@@ -162,24 +162,27 @@ runtime durability is absent, TypeScript `main` remains historically diverged,
 and the Unity visual product still misses the binding recognizability gate.
 Promotion status remains exactly **GOLDEN — CONTINUE CAMPAIGN**.
 
-## ACTIVE PHASE B DURABILITY CANDIDATE - NON-GOLDEN
+## PUSHED PHASE B DURABILITY CHECKPOINT - NON-GOLDEN
 
-The TypeScript worktree contains a fully validated but not-yet-committed
-durable replay foundation on parent
-`85d865cdd4f38ab4df32e24393e130ca094f6b7f`. Unity remains clean at Golden M3
-`40465d48c191c9dcdda2c6b32c17c9675f4908a4`. Protocol `3`, projection `4`,
-schema identity, generated DTOs, gameplay, and visual output are unchanged.
+The TypeScript durability product is committed and pushed at
+`e6fc2047f372e7642c3c2fcee1d3915bb4064620` on parent
+`85d865cdd4f38ab4df32e24393e130ca094f6b7f`. The campaign branch may have the
+single continuity-only descendant containing this seal. Unity remains clean at
+Golden M3 `40465d48c191c9dcdda2c6b32c17c9675f4908a4`. Protocol `3`, projection
+`4`, schema identity, generated DTOs, gameplay, and visual output are unchanged.
 
-The candidate adds a strict operational checkpoint outside `GameState`/V14,
+The pushed checkpoint adds a strict operational checkpoint outside `GameState`/V14,
 serialized commit-before-response dispatch, exact response replay, private
 atomic storage and process-incarnation locking, controlled bounded-history
 rollover, graceful shutdown, and a real command/save/command/load `SIGKILL`
 restart proof. Full validation passes: 332 files/4,488 tests/5 skipped;
 62/62 bridge tests; both typechecks; build; Movie #2/determinism proof; and all
 browser-dependency, repository-hygiene, and 3D provenance gates. Independent
-audits report no P0/P1 in the persistence core.
+audits report no P0/P1 in the persistence core. Product-SHA GitHub Actions run
+`32430904875` passed the same complete gate at
+`e6fc2047f372e7642c3c2fcee1d3915bb4064620` in 10m25s.
 
-This candidate does **not** supersede Golden M3. The ordinary launch remains
+This checkpoint does **not** supersede Golden M3. The ordinary launch remains
 memory-only, localhost accepts unauthorized Host/Origin/`text/plain` requests,
 there is no launcher/runtime-instance/Unity engine-kill recovery proof, and no
 new native or visual evidence exists. A Golden pair cannot advance on a TS-only

@@ -1188,3 +1188,39 @@ CURRENT BEST. The next exact engineering action is to add a non-persisted
 per-launch capability and runtime-instance ID, enforce exact loopback Host,
 reject Origin, require JSON content type, add timeouts and attacker tests, then
 regenerate the contract and update Unity authorization/restart detection.
+
+## 2026-08-21 - Checkpoint 7 seal: durable replay product pushed, M3 preserved
+
+TypeScript product commit
+`e6fc2047f372e7642c3c2fcee1d3915bb4064620` (`feat(bridge): persist exact
+replay across engine restarts`) is pushed to
+`campaign/unity-production-convergence-80h-ts`; `git ls-remote` verified the
+remote branch at that exact SHA before this continuity-only follow-up. Its
+parent is `85d865cdd4f38ab4df32e24393e130ca094f6b7f`. Unity remains unchanged,
+clean, and pushed at `40465d48c191c9dcdda2c6b32c17c9675f4908a4`.
+
+The accepted validation and red-team record is exactly the Checkpoint 7 section
+above. Final product-tree reruns passed 62/62 bridge tests, both TypeScript
+typechecks, production build, 332-file full regression with 4,488 passed and 5
+skipped, Movie #2/save/import/headless proof, browser dependency audit,
+1,017-file repository hygiene, 26-asset provenance audit, and `git diff
+--check`. Final independent product and continuity audits reported no open
+P0/P1 in the bounded persistence core or checkpoint diff.
+
+Product-SHA GitHub Actions run `32430904875` completed successfully in 10m25s
+at `e6fc2047f372e7642c3c2fcee1d3915bb4064620`, including install, browser
+dependency and repository hygiene, generated contract, both typechecks, bridge
+and full application tests, production build, and 3D asset audit.
+
+This seal deliberately creates no Golden tag. Golden M3 remains CURRENT BEST at
+TypeScript `e9c6f06b717a6a106281b189a61072e35770155f` plus Unity
+`40465d48c191c9dcdda2c6b32c17c9675f4908a4`, both identified by immutable
+`golden/unity-convergence-m3` tags. The durability product is a recoverable
+non-Golden descendant because default launch, localhost authorization,
+runtime-instance handshake, Unity kill/retry proof, and the binding visual gate
+remain incomplete.
+
+NEXT EXACT ACTION remains: add a non-persisted per-launch capability and
+`runtimeInstanceId`; enforce exact loopback Host, reject Origin, require JSON
+content type, add bounded HTTP timeouts and attacker tests; then regenerate the
+contract and wire Unity authorization/restart detection.
