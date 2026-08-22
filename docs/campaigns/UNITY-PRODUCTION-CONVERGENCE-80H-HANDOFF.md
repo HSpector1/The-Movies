@@ -4,67 +4,66 @@ START HERE. Read `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`, then the campaign
 ledger, this handoff, and the promotion register. The TypeScript/Unity engine
 decision is settled. Do not restart planning from scratch.
 
-## CHECKPOINT 18 AUTHORIZED - REJECTABLE PORTRAIT CAMERA / FLOOR-FRAMING TRIAL
+## CHECKPOINT 19 AUTHORIZED - REJECTABLE PALLET-SUPPORT CORRECTION
 
-Checkpoint 16 remains the pushed, sealed non-Golden development baseline.
-Checkpoint 17 was rejected and contributed no product commit. A standard
-camera-only Checkpoint 18 search was also found infeasible before source
-mutation. The only authorized continuation is the exact CP18 trial below. It
-is not implemented, validated, sealed, Golden, tagged, canonical, promoted, or
-CURRENT BEST. Golden M4 remains the sole CURRENT BEST recovery pair.
+Checkpoint 18 is rejected in full after its fresh native portrait proof failed
+closed on the exact Load-in Pallet renderer. Its source delta was removed
+atomically, so Checkpoint 16 remains the pushed, clean, sealed non-Golden
+product and rollback baseline. The only authorized continuation is the exact
+CP19 trial below: reapply CP18 unchanged and add only the Load-in Pallet support
+height correction. CP19 is not implemented, validated, sealed, Golden, tagged,
+canonical, promoted, or CURRENT BEST. Golden M4 remains the sole CURRENT BEST
+recovery pair.
 
 ### CURRENT EXACT STATE AND CONTINUITY BOUNDARY
 
-Timestamp: 2026-08-22 02:18 CEST (UTC+02:00).
+Timestamp: 2026-08-22 02:46 CEST (UTC+02:00).
 
 | Item | Exact state |
 | --- | --- |
 | TypeScript worktree / branch | `/Users/bruce/The Movies - Unity Production Convergence 80H`; `campaign/unity-production-convergence-80h-ts` |
-| TypeScript pushed CP16 continuity authority | `f97728e7cd16a2240a0bfa08b231aa8f74dab2f2`; local HEAD and configured upstream match before this continuity edit; product authority is unchanged |
-| Containing CP18 authorization document | These three continuity documents must form the documentation-only direct child of `f97728e7cd16a2240a0bfa08b231aa8f74dab2f2`. A commit cannot embed its own resulting SHA; resolve the self SHA with `git rev-parse HEAD`. After push, HEAD must equal configured upstream and the tracked tree must be clean. |
+| TypeScript pushed CP18 continuity authority | `54035f6e8df6ef280b02c617c80f9560509ff18b`; direct child of CP16 authority `f97728e7cd16a2240a0bfa08b231aa8f74dab2f2`; local HEAD and configured upstream match before this continuity edit; product source authority is unchanged |
+| Containing CP19 authorization document | These three continuity documents must form the documentation-only direct child of `54035f6e8df6ef280b02c617c80f9560509ff18b`. A commit cannot embed its own resulting SHA; resolve the self SHA with `git rev-parse HEAD`. After push, HEAD must equal configured upstream and the tracked tree must be clean. |
 | Unity worktree / branch | `/Users/bruce/Project Studio - Unity Production Convergence 80H`; `campaign/unity-production-convergence-80h-client` |
-| Unity retained CP16 product / rollback authority | `e1cfa2a1dc1da7b2be8214d587fac60d444b0603`; HEAD/configured upstream/live remote match and tracked tree is clean after complete CP17 rejection |
+| Unity retained CP16 product / rollback authority | `e1cfa2a1dc1da7b2be8214d587fac60d444b0603`; HEAD/configured upstream/live remote match and tracked tree is clean after complete CP18 rejection |
 | Retained CP16 scene / NavMesh identity | Canonical `StudioLot.unity` SHA-256 `b9f4133554f03b73be7f07df7286cf0840608b4529bc480abcb1d6a6c090796d`; `StudioLotNavMesh.asset` SHA-256 `20a8afad3e7fba5f0c974050fbc39f332f03ad29c21dc84561809758aa828f04` |
 | Sole CURRENT BEST / recovery pair | Golden M4: TypeScript `11e2cf88a35ce004ecd7a240fdc2ec892c3688b6` plus Unity `6b32335447848ed0680eb8077e78ee36aded5d56`, both under pushed annotated `golden/unity-convergence-m4` |
-| Promotion | `GOLDEN — CONTINUE CAMPAIGN`; CP18 is only a rejectable authorization boundary and changes no promotion fact |
+| Promotion | `GOLDEN — CONTINUE CAMPAIGN`; rejected CP18 and authorized CP19 change no promotion fact |
 
 Protocol `4`, projection `4`, schema
 `sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`
-and TypeScript's sole simulation authority remain frozen. CP18 may not change
+and TypeScript's sole simulation authority remain frozen. CP19 may not change
 TypeScript product source, generated contracts, V14, `GameState`, identity,
 RNG, economy, construction, gameplay formulas, or state semantics.
 
-### REJECTED CP17 AND CAMERA-ONLY FINDING
+### REJECTED CP18 RESULT
 
-The CP17 FOV-39 permanent shared-route trial is rejected in full. Its native
-C5F portrait stopped after the first rehearsal milestone. It raised role union
-to `.278436005`, but failed unweakened proof with minimum/median role visible
-fractions `.460526317/.807778835`, zero-pixel Wardrobe edge inset, and four
-role-pair overlap failures: Grip/PA `.386842102`, Director/Carpenter
-`.329442292`, Supporting/Camera Assistant `.304951906`, and Antagonist/Boom
-`.302950084`. The report status is `failed`; no later milestone is claimed.
+CP18 re-applied the exact authorized portrait camera, permanent shared floor-
+framing translation and `.27` role-union ratchet. The native schema-4 portrait
+proof passed the Waiting and LoadIn screen-space gates, including role union
+`.304502368`, LoadIn minimum/median role visible fractions
+`.761979997/.899182916`, maximum role-pair overlap `.229594529`, and backdrop
+bottom `.702606618`. It nevertheless failed closed at `scenery-load-in`,
+revision `13`, week `17`, because the exact `Load-in Pallet` critical renderer
+intersected the portrait viewport edge. No later milestone or aspect is
+claimed. Unity exited `2`, and exact runtime/profile cleanup completed.
 
 The rejected local diagnostic is
-`Evidence/I/Stage7-20260821T225134Z/Portrait/stage-visual-proof-portrait.json`,
-SHA-256 `1b5a10520f5f2e004e013d35f363da9207772c4dfb9af052ee0045d5632dae1d`.
-It is ignored, local failure evidence, not an accepted or durable campaign
-artifact. All CP17 source mutations were removed; no CP17 product commit or
-push exists.
-
-A subsequent calibrated static search held CP16 role routes, props, framing,
-state, UI, facade and landscape fixed while varying only the standard portrait
-camera position, target and FOV. It found role/body candidates, but no candidate
-that jointly preserved the `.70` backdrop-bottom gate, the complete CP16 floor
-framing, the `.27` portrait role-union ratchet, and all other margins. That is
-an infeasibility result for the bounded camera-only search, not a theorem about
-all cameras and not native acceptance. Search scripts, mask transforms and
-`/tmp` outputs are disposable engineering notes and are not recovery or
-durable evidence.
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/J/Stage7-20260822T003217Z/Portrait/stage-visual-proof-portrait.json`,
+size `180895` bytes, SHA-256
+`6ab97fd6d2c5288b5341f0f085cf7f594667872f3d122062f268112b304143a8`.
+It is explicit failed local evidence, not accepted or durable proof. The exact
+rejected source diff is preserved only as disposable local engineering material
+at `/tmp/cp18-rejected-trial.patch`, SHA-256
+`759e5eb70497a7622e07573784a256cb84c02dbf10b6c3708e94c99f9eefca3a`.
+Every CP18 source and scene mutation was removed atomically; no CP18 Unity
+product commit or push exists. TypeScript continuity `54035f6e...` records the
+authorization history but changes no product source.
 
 ### NEXT EXACT ACTION
 
-Implement one rejectable CP18 presentation-only trial from the exact clean CP16
-Unity product. Make only these permanent changes:
+Implement one rejectable CP19 presentation-only trial from the exact clean CP16
+Unity product. Reapply the exact CP18 delta unchanged:
 
 - set the portrait StageSeven camera position to `(46.2,3.45,22.8)`, target
   to `(48.1,4.1,38.2)`, and vertical FOV to `46`;
@@ -79,23 +78,53 @@ Unity product. Make only these permanent changes:
   proof and focused tests. This is a stronger gate, never permission to weaken
   any other threshold.
 
-Freeze CP16 role marks, routes, yaws, held props, equipment, work targets,
-slate, five-state behavior, state/authority semantics, UI, landscape camera,
+Add only one correction beyond CP18: change the exact `Load-in Pallet` world Y
+from `.35` to `.69`. Preserve its world X/Z `(48,31)`, yaw `18`, uniform scale
+`1.65`, imported model, parent, name, state membership, material and every other
+property. `.69` is the exact top of the existing Dolly Platform
+(`.55 + .28/2`), and the imported pallet mesh has local minimum Y `0`, so this
+places the pallet on that support instead of introducing a free-floating offset.
+This geometric rationale is static only; native proof and manual inspection
+must establish actual support, no float, and no new occlusion.
+
+Freeze every other CP16/CP18 contract: CP16 role marks, routes, yaws, held props,
+equipment, work targets, slate, five-state behavior, state/authority semantics,
+UI, landscape camera,
 both overhead battens, facade/backdrop, materials, lighting, collision,
 NavMesh, and every other framing child and source path. No aspect-triggered
 role movement, camera roll, custom projection, portrait-only tableau, or
 authority mutation is authorized.
 
-The six floor-framing children are shared permanent scene geometry. Their
-rail/tie pixels may therefore change in landscape as the direct consequence of
-the authorized `+2.50` translation; this narrow pixel change is explicit and
-is not a landscape waiver. Adoption requires a fresh native landscape report
-that passes every unweakened gate and independent comparison that rules the
-landscape equal-or-better, plus the corresponding fresh native portrait pass.
+The static projection predicts the raised pallet AABB at portrait x
+`215.065..373.569`, y-from-bottom `18.814..99.005`, leaving L/R/B/T margins
+`215.065/16.431/18.814/744.995` px. At landscape it predicts x
+`747.178..962.149`, y-from-bottom `95.109..168.139`, leaving margins
+`747.178/477.851/95.109/731.861` px. The rejected `.35` placement projected
+portrait y-from-bottom `-26.485..60.420`. These are design calculations, not
+native acceptance and not permission to weaken the edge rule.
+
+The complete authorized Unity diff is exactly these nine paths and no others:
+
+1. `Assets/Studio/Editor/Authoring/StudioLotActivityAuthoring.cs`
+2. `Assets/Studio/Editor/Authoring/StudioLotArchitectureAuthoring.cs`
+3. `Assets/Studio/Editor/Automation/StudioSceneValidation.cs`
+4. `Assets/Studio/Runtime/Presentation/StudioInspectionTarget.cs`
+5. `Assets/Studio/Runtime/Presentation/StudioStageVisualProofRunner.cs`
+6. `Assets/Studio/Scenes/StudioLot.unity`
+7. `Assets/Studio/Tests/EditMode/StudioCameraPresentationTests.cs`
+8. `Assets/Studio/Tests/EditMode/StudioSceneContractTests.cs`
+9. `Assets/Studio/Tests/EditMode/StudioStageVisualProofRunnerTests.cs`
+
+The six floor-framing children and raised pallet are shared permanent scene
+geometry. Their rail/tie/pallet pixels may therefore change in landscape only
+as the direct consequence of the authorized transforms; this narrow pixel
+change is explicit and is not a landscape waiver. Adoption requires fresh
+native five-state reports in both aspects, with every milestone passing every
+unweakened gate, plus independent equal-or-better visual review.
 
 ### ADOPTION / REJECTION GATE
 
-Adopt CP18 only after clean canonical validation, focused and full EditMode,
+Adopt CP19 only after clean canonical validation, focused and full EditMode,
 native build, fresh five-state Stage proof in both aspects, both camera
 journeys, Movie #2, reconnect, actual engine-replacement restart, checkpoint
 integrity, TypeScript gates, Git hygiene, and independent native visual review
@@ -108,49 +137,64 @@ all pass. In particular:
   owner/head relationship and pair-overlap gates;
 - backdrop/facade, slate, overhead framing and translated floor framing pass
   every area/band/edge/normal-camera condition in all required states;
+- the Load-in Pallet is fully inside the viewport at every active milestone in
+  both aspects and is manually confirmed supported on the dolly, not floating,
+  and not occluding any role, held prop, slate, framing or critical renderer;
 - luma, effects, no-POST, intent, state, authority, schema and navigation gates
   remain unweakened; and
 - fresh landscape is equal-or-better despite the expressly authorized shared
-  floor-framing pixel movement.
+  floor-framing and pallet pixel movement.
 
-Any failed gate, clipped renderer, body/held-prop collision, visual regression,
-or independent rejection invalidates the whole trial. Remove every CP18 source
-mutation and return exactly to TypeScript `f97728e...` plus Unity
-`e1cfa2a1...`; do not cherry-pick a partial camera, proof, or scenery change.
+Repeated canonical generation must be semantically and contract equivalent
+after local-fileID/order normalization. Raw `StudioLot.unity` byte/hash equality
+between regenerations is not required because Unity may reassign local file IDs
+or serialization order; the retained CP16 raw hash remains exact rollback
+identity, not a CP19 generation-determinism gate.
+
+Any failed gate, clipped renderer, unsupported/floating pallet, new occlusion,
+body/held-prop collision, visual regression, unexpected path, or independent
+rejection invalidates the whole trial. Remove every CP19 source/scene mutation
+atomically and return Unity exactly to CP16 `e1cfa2a1...`; retain the pushed
+TypeScript continuity chain through `54035f6e...` and the containing docs-only
+CP19 record. Do not cherry-pick a partial camera, proof, scenery or pallet
+change.
 No M5 exists absent a later independent Golden ruling over a completely
 accepted both-aspect product.
 
 ### DO NOT TOUCH
 
-- Do not create/move M5, move/delete M1-M4, promote CP16/CP18, or infer CURRENT
+- Do not create/move M5, move/delete M1-M4, promote CP16/CP19, or infer CURRENT
   BEST from a moving branch. Golden M4 is the sole immutable CURRENT BEST.
 - Do not revive any CP17 role reblock or alter CP16 role routes, marks, yaws,
   props, equipment, work targets, UI, state, authority, landscape camera,
   overhead framing, facade, lighting, collision, or NavMesh.
 - Do not move any scenery except the exact six floor-framing children by the
-  exact shared `+2.50` Z translation. Landscape pixel change is authorized only
-  for the resulting floor-framing rails/ties and must still pass every gate.
+  exact shared `+2.50` Z translation and the exact Load-in Pallet Y
+  `.35 -> .69`. Landscape pixel change is authorized only for the resulting
+  floor-framing rails/ties and pallet and must still pass every gate.
 - Do not weaken role, held-prop, framing, backdrop, slate, luma, effects,
   state, no-POST, authority, Movie #2, reconnect, restart, checkpoint, schema,
   protocol, or Git gates. The only threshold change is `.22 -> .27`.
-- Do not treat the rejected Evidence/I report, `/tmp` calculations, masks,
-  screenshots, profiles, builds, locks, caches, or checkpoints as accepted
+- Do not treat the rejected Evidence/J report, CP18 patch, `/tmp` calculations,
+  masks, screenshots, profiles, builds, locks, caches, or checkpoints as accepted
   evidence or stage them in Git.
 
 ### RECOVERY INSTRUCTIONS
 
-1. Read this CP18 boundary, the retained CP16 sections below, the ledger CP18
-   entry, promotion CP18 section, ADR 0006, and the client decision.
+1. Read this CP19 boundary, the retained CP16 sections below, the historical
+   CP18 ledger entry, promotion CP19 section, ADR 0006, and the client decision.
 2. For immutable CURRENT BEST recovery, use both M4 tags and verify TypeScript
    `11e2cf88...` plus Unity `6b323354...`.
-3. For the exact reject/rollback base, use TypeScript `f97728e...` plus Unity
-   `e1cfa2a1...`; verify the retained scene and NavMesh hashes above.
+3. For current continuity, start from pushed TypeScript `54035f6e...`; for the
+   exact Unity reject/rollback base use `e1cfa2a1...` and verify the retained
+   scene and NavMesh hashes above.
 4. Preserve the containing documentation-only direct child of TypeScript
-   `f97728e...`; resolve its self SHA with `git rev-parse HEAD`, then require
+   `54035f6e...`; resolve its self SHA with `git rev-parse HEAD`, then require
    HEAD equal configured upstream and clean after push.
-5. Implement only NEXT EXACT ACTION. If it does not receive complete fresh
-   native both-aspect acceptance, restore the exact CP16 rollback base and
-   record the rejection rather than advancing the campaign tip.
+5. Implement only NEXT EXACT ACTION across exactly nine Unity paths. If it does
+   not receive complete fresh native both-aspect acceptance, restore the exact
+   CP16 Unity rollback base atomically and record the rejection rather than
+   advancing the product tip.
 
 ## CHECKPOINT 16 SEALED - NON-GOLDEN CURRENT CAMPAIGN TIP
 

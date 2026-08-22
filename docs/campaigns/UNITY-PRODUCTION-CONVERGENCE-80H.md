@@ -3751,3 +3751,158 @@ Recovery order:
 4. Resolve this containing documentation direct child's self SHA with
    `git rev-parse HEAD`, require it equals upstream after push, and keep the
    tree clean. No ignored Evidence/I or `/tmp` artifact enters Git.
+
+## 2026-08-22 02:46 CEST - Checkpoint 19 authorized after atomic CP18 rejection: exact pallet-support correction (not implemented)
+
+### Continuity state
+
+| Component | Branch | Exact retained SHA | Disposition |
+| --- | --- | --- | --- |
+| TypeScript continuity authority | `campaign/unity-production-convergence-80h-ts` | `54035f6e8df6ef280b02c617c80f9560509ff18b` | Pushed clean CP18 documentation-only authority; direct child of `f97728e7cd16a2240a0bfa08b231aa8f74dab2f2`; no CP18/CP19 TypeScript product source |
+| Unity production client | `campaign/unity-production-convergence-80h-client` | `e1cfa2a1dc1da7b2be8214d587fac60d444b0603` | Pushed clean CP16 product after exact atomic rollback of rejected CP18; sole CP19 trial and rejection base |
+
+CP18 is rejected and contributes no product commit, tag, push or accepted
+evidence. CP19 is only a bounded authorization; it records no implementation
+or pass. CP16 remains **SEALED NON-GOLDEN** and the exact Unity rollback
+authority. Golden M4 remains the sole CURRENT BEST pair: TypeScript
+`11e2cf88a35ce004ecd7a240fdc2ec892c3688b6` plus Unity
+`6b32335447848ed0680eb8077e78ee36aded5d56`, both under pushed annotated
+`golden/unity-convergence-m4` tags. Promotion remains exactly
+**GOLDEN — CONTINUE CAMPAIGN**. No M5 or canonical state exists.
+
+The documentation-only commit containing this entry must be the direct child
+of TypeScript `54035f6e8df6ef280b02c617c80f9560509ff18b` and may modify only
+this ledger, the current handoff and the promotion register. Its direct parent
+is CP18 continuity `54035f6e...`, whose direct parent is CP16 continuity
+`f97728e7...`. A commit cannot embed its own resulting SHA; resolve the self
+SHA with `git rev-parse HEAD`. After push, require HEAD equal configured
+upstream and `git status --short` empty. This boundary authorizes no TypeScript
+product mutation.
+
+Protocol `4`, projection `4`, schema
+`sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`
+and TypeScript sole simulation authority remain unchanged. The exact retained
+CP16 canonical scene SHA-256 is
+`b9f4133554f03b73be7f07df7286cf0840608b4529bc480abcb1d6a6c090796d`;
+the byte-identical NavMesh SHA-256 is
+`20a8afad3e7fba5f0c974050fbc39f332f03ad29c21dc84561809758aa828f04`.
+
+### CP18 failed result and rollback
+
+CP18 re-applied its exact authorized portrait camera, permanent shared floor-
+framing translation and `.27` role-union ratchet. Fresh native portrait proof
+passed Waiting and LoadIn screen-space gates. Role union was `.304502368`;
+LoadIn minimum/median role visible fractions were
+`.761979997/.899182916`, maximum role-pair overlap was `.229594529`, and
+backdrop bottom was `.702606618`. At `scenery-load-in`, revision `13`, week
+`17`, the schema-4 proof then failed closed because the exact `Load-in Pallet`
+critical renderer intersected the viewport edge. No later state or Landscape
+milestone is claimed. Unity exited `2`, followed by exact runtime/profile
+cleanup.
+
+The explicit failed local report is
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/J/Stage7-20260822T003217Z/Portrait/stage-visual-proof-portrait.json`,
+size `180895` bytes, SHA-256
+`6ab97fd6d2c5288b5341f0f085cf7f594667872f3d122062f268112b304143a8`.
+The rejected local diff is `/tmp/cp18-rejected-trial.patch`, SHA-256
+`759e5eb70497a7622e07573784a256cb84c02dbf10b6c3708e94c99f9eefca3a`.
+Both are nondurable diagnostic material, not accepted evidence or recovery
+authority. All eight CP18 paths were restored atomically; Unity HEAD, upstream
+and live remote remain CP16 `e1cfa2a1...`, the tracked tree is clean, and the
+scene/NavMesh identities again match the retained hashes above.
+
+### Exact authorized CP19 product trial
+
+Start only from clean Unity `e1cfa2a1...`. Reapply the complete CP18 delta
+unchanged:
+
+1. Set portrait StageSeven camera position `(46.2,3.45,22.8)`, target
+   `(48.1,4.1,38.2)`, vertical FOV `46`.
+2. Translate only the six collider-free `inspection-floor-framing` direct
+   children by permanent Stage A-local `+2.50` Z. Rail L/R retain
+   `x=-.7/.4`, `y=.72`, radius `.035`, and endpoints become
+   `-3.03..-.03`. Four ties retain `x=-.15`, `y=.705`, size
+   `1.2/.035/.08`, and centers become `-2.73/-1.93/-1.13/-.33`.
+3. Ratchet the portrait role-union product gate and focused assertions
+   `.22 -> .27`. No other threshold may weaken.
+
+Add exactly one correction beyond CP18: change only the exact
+`Load-in Pallet` world Y `.35 -> .69`. Keep world X/Z `(48,31)`, yaw `18`,
+uniform scale `1.65`, imported asset, name, parent, state membership, material
+and every other property frozen. The existing Dolly Platform center Y is
+`.55` with height `.28`, so its top is exactly `.69`; the imported pallet
+mesh local minimum Y is `0`. This makes `.69` the exact support-plane
+candidate, not an arbitrary screen-space offset. Native proof and manual
+inspection must still establish visible support, no float and no occlusion.
+
+The static design projection for Y `.69` predicts portrait pallet AABB x
+`215.065..373.569`, y-from-bottom `18.814..99.005`, with L/R/B/T margins
+`215.065/16.431/18.814/744.995` px. It predicts landscape x
+`747.178..962.149`, y-from-bottom `95.109..168.139`, with margins
+`747.178/477.851/95.109/731.861` px. For comparison, the rejected Y `.35`
+portrait AABB was y-from-bottom `-26.485..60.420`. These static margins bound
+the authorized hypothesis but are not native acceptance.
+
+The complete CP19 Unity mutation set is exactly nine paths:
+
+1. `Assets/Studio/Editor/Authoring/StudioLotActivityAuthoring.cs`
+2. `Assets/Studio/Editor/Authoring/StudioLotArchitectureAuthoring.cs`
+3. `Assets/Studio/Editor/Automation/StudioSceneValidation.cs`
+4. `Assets/Studio/Runtime/Presentation/StudioInspectionTarget.cs`
+5. `Assets/Studio/Runtime/Presentation/StudioStageVisualProofRunner.cs`
+6. `Assets/Studio/Scenes/StudioLot.unity`
+7. `Assets/Studio/Tests/EditMode/StudioCameraPresentationTests.cs`
+8. `Assets/Studio/Tests/EditMode/StudioSceneContractTests.cs`
+9. `Assets/Studio/Tests/EditMode/StudioStageVisualProofRunnerTests.cs`
+
+Freeze every other CP16 and CP18 contract: all role marks, routes, yaws, held
+props, equipment, work targets, state membership and five-state behavior;
+slate, UI, state/authority semantics and TypeScript authority; landscape
+camera, overhead battens, facade/backdrop, materials, lighting, collision,
+navigation and every unlisted scene/source/test path. The shared floor-framing
+and pallet transforms necessarily change some Landscape pixels; this narrow
+consequence is authorized but creates no Landscape gate or quality waiver.
+
+### Acceptance, rejection, and recovery
+
+Adopt CP19 only if all of the following pass without qualification:
+
+- canonical authoring/validation with semantic and contract equivalence after
+  local-fileID/order normalization; raw `StudioLot.unity` hash equality across
+  regenerations is not required because Unity may reassign local file IDs or
+  serialization order, while the recorded CP16 raw hash remains rollback
+  identity only;
+- focused and full EditMode, cached compile, native build and Git scope/hygiene;
+- fresh complete schema-4 five-state Stage proof in both Portrait and
+  Landscape, with every milestone and inherited unweakened gate passing;
+- manual both-aspect review confirming the pallet is visibly supported on the
+  dolly, never floating, never clipped and causes no role, held-prop, slate,
+  framing, state-root or other critical-renderer occlusion;
+- independent equal-or-better Landscape and acceptable Portrait rulings;
+- both camera journeys, Movie #2, reconnect, actual killed-engine replacement
+  restart, checkpoint integrity, TypeScript authority/gates and exact cleanup.
+
+Any failed gate, partial milestone, unsupported/floating pallet, occlusion,
+visual rejection, unexpected tenth path or regression rejects the complete
+CP19 delta. Revert all nine Unity paths atomically and prove the exact CP16
+Unity baseline `e1cfa2a1...`, scene `b9f41335...`, NavMesh `20a8afad...`, clean
+tree and matching remote. Retain the TypeScript documentation chain through
+`54035f6e...` and the containing CP19 record; never keep a partial camera,
+floor-framing, `.27` proof or pallet change. Do not create/move M5, alter M1-M4,
+claim canonical state or move CURRENT BEST without a later completely accepted
+both-aspect product and independent Golden ruling.
+
+Recovery order:
+
+1. Read this entry, the top CP19 handoff, promotion CP19 section, historical
+   CP18/CP16 records, ADR 0006 and the client decision.
+2. Recover immutable CURRENT BEST only from both M4 tags and verify exact
+   TypeScript `11e2cf88...` plus Unity `6b323354...`.
+3. Start CP19 continuity only from pushed TypeScript `54035f6e...`; start or
+   reject the Unity trial only from exact clean CP16 `e1cfa2a1...` and verify
+   the retained scene/NavMesh hashes.
+4. Resolve the containing docs-only direct child's self SHA with
+   `git rev-parse HEAD`; after push require HEAD equal upstream and clean.
+5. Treat Evidence/J, the CP18 patch, projected margins, profiles, builds,
+   screenshots, masks, locks, caches and checkpoints as local nondurable
+   diagnostics unless a later acceptance record explicitly seals new evidence.
