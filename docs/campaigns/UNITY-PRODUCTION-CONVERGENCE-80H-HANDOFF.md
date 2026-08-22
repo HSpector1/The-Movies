@@ -4,7 +4,264 @@ START HERE. Read `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`, then the campaign
 ledger, this handoff, and the promotion register. The TypeScript/Unity engine
 decision is settled. Do not restart planning from scratch.
 
-## CHECKPOINT 19 AUTHORIZED - REJECTABLE PALLET-SUPPORT CORRECTION
+## GOLDEN M5 SEALED - SOLE CURRENT BEST
+
+Golden M5 is the exact build-from and recovery authority. Checkpoint 19 passed
+the complete both-aspect visual, authority, lifecycle, regression, and Git
+gates; an independent ruling found no P0/P1 and accepted the result against ADR
+0006. M5 supersedes M4 as sole CURRENT BEST while remaining non-canonical and
+not ready for canonical merge review. Promotion status remains exactly
+**GOLDEN — CONTINUE CAMPAIGN**.
+
+### CURRENT EXACT STATE
+
+Timestamp: 2026-08-22 03:44 CEST (UTC+02:00).
+
+| Item | Exact state |
+| --- | --- |
+| TypeScript authority | `/Users/bruce/The Movies - Unity Production Convergence 80H`; `campaign/unity-production-convergence-80h-ts`; `e5e95e54dc45252433bf96a75349f336df8dc875`; direct child of CP18 continuity `54035f6e8df6ef280b02c617c80f9560509ff18b`; no CP19 TypeScript product-source change |
+| Unity production client | `/Users/bruce/Project Studio - Unity Production Convergence 80H`; `campaign/unity-production-convergence-80h-client`; `4770e22955f2fae770445065c2bf782ef251496e`; direct child of CP16 `e1cfa2a1dc1da7b2be8214d587fac60d444b0603`; exactly nine paths |
+| Golden tag | Pushed annotated `golden/unity-convergence-m5` in both repositories |
+| TypeScript tag identity | Tag object `6dbd1f22802e8f39599b0545751be901a176f081`; remote peel `e5e95e54dc45252433bf96a75349f336df8dc875` |
+| Unity tag identity | Tag object `1775a85b0c0538ef417bbe1ee4adc194e727d0c8`; remote peel `4770e22955f2fae770445065c2bf782ef251496e` |
+| Git state before this seal | Both product HEADs equalled configured upstream and live remote; Unity tracked tree clean; all M1-M4 tags preserved unchanged |
+| Promotion | Golden M5 is sole CURRENT BEST; `GOLDEN — CONTINUE CAMPAIGN`; non-canonical |
+
+The three continuity documents containing this seal must form the
+documentation-only direct child of TypeScript M5 authority `e5e95e54...`.
+That child is not the M5 tag target and changes no product fact. A commit cannot
+embed its own resulting SHA; resolve it after commit with `git rev-parse HEAD`,
+then require local HEAD, configured upstream, and live remote to match with an
+empty tracked status.
+
+Protocol `4`, projection `4`, schema
+`sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f`,
+V14, `GameState`, identities, RNG, economy, construction, gameplay formulas,
+and TypeScript sole simulation authority remain unchanged. The generated DTO
+copies remain byte-identical at SHA-256
+`1192d58a323e98b4ebab001d910c5f38dfa6455c90b38769e8af6325e84ee1dd`.
+
+### ACCEPTED CP19 PRODUCT
+
+CP19 re-applies the accepted CP18 presentation hypothesis and adds the exact
+pallet-support correction:
+
+- portrait StageSeven camera position `(46.2,3.45,22.8)`, target
+  `(48.1,4.1,38.2)`, vertical FOV `46`;
+- the six collider-free floor-framing children translated permanently by
+  Stage A-local `+2.50` Z: rail endpoints `-3.03..-.03` and tie centers
+  `-2.73/-1.93/-1.13/-.33`;
+- portrait role-union proof ratcheted from `.22` to `.27`; and
+- `Load-in Pallet` raised only from world Y `.35` to `.69`, retaining X/Z
+  `(48,31)`, yaw `18`, scale `1.65`, imported model, identity, parent,
+  material, and `STATE_LoadIn` membership.
+
+The validator and focused test require exactly one pallet renderer, one Dolly
+Platform collider, and one Interior Floor collider. The pallet renderer bottom
+equals the dolly top within `.001`, remains at or above the floor, and projects
+with at least `12px` inset in both sealed StageSeven profiles.
+
+The committed Unity scope is exactly:
+
+1. `Assets/Studio/Editor/Authoring/StudioLotActivityAuthoring.cs`
+2. `Assets/Studio/Editor/Authoring/StudioLotArchitectureAuthoring.cs`
+3. `Assets/Studio/Editor/Automation/StudioSceneValidation.cs`
+4. `Assets/Studio/Runtime/Presentation/StudioInspectionTarget.cs`
+5. `Assets/Studio/Runtime/Presentation/StudioStageVisualProofRunner.cs`
+6. `Assets/Studio/Scenes/StudioLot.unity`
+7. `Assets/Studio/Tests/EditMode/StudioCameraPresentationTests.cs`
+8. `Assets/Studio/Tests/EditMode/StudioSceneContractTests.cs`
+9. `Assets/Studio/Tests/EditMode/StudioStageVisualProofRunnerTests.cs`
+
+Canonical `StudioLot.unity` SHA-256 is
+`79b5c1cb5293772453879be03942df9df30268338724bacda8e1a547e3f373af`.
+`StudioLotNavMesh.asset` remains byte-identical at SHA-256
+`20a8afad3e7fba5f0c974050fbc39f332f03ad29c21dc84561809758aa828f04`.
+
+### ACCEPTED VALIDATION
+
+- Final canonical runs 3/4 each pass 32 people, 10 vehicles, 16 equipment,
+  four captures, zero errors, and zero warnings. Log SHA-256 values are
+  `02a02fb4d88d637b0c4b8f63a2d1a91d132520f0440bef11499962fccc72817a`
+  and `9bbc5e9ec1ca67138ec4bd90e017014750f0f2f7aca92c304ff776dc5fee8f24`;
+  validation JSON SHA-256 values are
+  `81ef17423225beeecde89847ea71aff472b1f1639acc8943d99b4c4133202e16`
+  and `aab88a43ba4d23108ecc90282e1f2f00b30c19aa21385e4612db91bf2ca3fec4`.
+- The repeated raw scene SHA-256 values are
+  `2ec501d71bfa66756679225e00542c462bc5f6c51b3d1fdc3b2c9655d60dad64`
+  and the accepted `79b5c1cb...`. Both contain 6,588 Unity YAML records and
+  are semantically/contract equivalent after local-fileID/order
+  normalization. No universal normalized SHA is claimed.
+- EditMode passes 197/197. XML SHA-256 is
+  `76238cb1b1e9c76ed968eff13efef737f4056cfaa3815af4574988f385177fef`;
+  log SHA-256 is
+  `884fb755d669697df6cc30087612df96579e864136f345ffa9cbe79be0263e17`.
+- Native macOS build succeeds. Log SHA-256 is
+  `5f46f943389617b7f04b598d8006a0640da10ee87b0a2471ddebf2781353221f`;
+  app is 183 files / 151,509,142 bytes. Executable SHA-256 is
+  `b00432f98d8cb03e2ac4bd3f1255e21e091385ba97b057ab0f075896989438c6`;
+  `Assembly-CSharp.dll` is
+  `bf8aa251942d9bbe43075ad1be3d943bd5b9de3fa7f616a4a7ab9fd6254a1dda`;
+  `UnityPlayer.dylib` is
+  `1b87c29dc8572c521081a15359f656819bd2959ea7623013e2b69ffc995846c4`.
+- Fresh TypeScript bridge passes 11 files / 100 tests; the full suite passes
+  336 files / 4,526 tests with 5 skipped. Log SHA-256 values are
+  `40e551f258c256461a1a5dc452b1831ef4c2fea3695d69eeb5c7642cb58571ad`
+  and `4d0d851450f6f25daece154942e313192bde2138e32714aa3615ff2345922f45`.
+- Main/bridge typechecks, contract drift, build, hygiene 1,032, assets 26/0,
+  and browser production audit 0 all pass. Log SHA-256 values are respectively
+  `9b130e15b37796cd618608b6c6ca20ae83a96d1707ba154e59a187669a26e8c6`,
+  `855ad18a7ca3545de92d4b3fd419afe98fb76a0b095511beff0b3e65cfdaee59`,
+  `0b7f4ee0eadbaf3e903661691140c40fa5384c902bf90b72feaac890583c6e5a`,
+  `027d50f29b82114084295b35c5cce56e1ca195544f22ea51b487d936cd875aa7`,
+  `97f61db6a7ba9767429e221ce92e300f2e4b7762052b7c12f1f3b3498b25ca1f`,
+  `6c440b2e3b673670102a229ca397aaede2fb0b03828f3ad655e0388f21af02ed`,
+  and `eca8cdcbfe26f7401eb6a2c195ae86ade0b061668be90d3a36aa68853e57d144`.
+
+### ACCEPTED NATIVE EVIDENCE
+
+Portrait Stage report:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/K/Stage7-20260822T011050Z/Portrait/stage-visual-proof-portrait.json`,
+380,839 bytes, schema `4`, complete, 390x844, SHA-256
+`a5da02b556bb36138e13c248f1f0cea037088ffd2f4a670a0ed6458c7642d49a`.
+
+Landscape Stage report:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/K/Stage7-20260822T011141Z/Landscape/stage-visual-proof-landscape.json`,
+382,208 bytes, schema `4`, complete, 1440x900, SHA-256
+`271e6f7b82c11234a2ea48dd0e28b644406dc0f3c6735181019068053e5b1cfb`.
+
+Both prove Waiting/LoadIn/Shooting/Clearing/Dark at revisions
+`11/13/15/17/18`, ending revision `18`, Week `20`, digest
+`ba8024eaad964a3b886ff668f746ba4b75d23b759f159a3bc20f26e5ca30f26d`.
+Both accept 18/18 intents with zero unexpected or presentation POSTs. Exact
+visible role counts are `12/12/12/8/0`; held props are `0/0/3/0/0`; every
+screen/state/role/prop/effect/luma gate passes; all critical-root edge/outside
+lists are empty.
+
+Portrait role union is `.304502368`, clearing the strengthened `.27` gate.
+LoadIn minimum/median role-visible fractions are
+`.761954784/.899288893`, maximum pair overlap `.229637414`, minimum edge
+`7px`, and backdrop bottom `.702606618`. Landscape role union remains
+`.283333331`; LoadIn fractions are `.721335709/.830210865`, maximum overlap
+`.278664291`, minimum edge `142px`, and backdrop bottom `.723333359`.
+
+Portrait Dark/occupied-minimum/Shooting luma is
+`.117711358/.226177484/.253625691`; the two Dark deltas are
+`.108466126/.135914326`. Landscape equivalents are
+`.116124548/.235534251/.257450879`, with deltas
+`.119409703/.141326338`. All pass. The Shooting slate is 602/602 pixels,
+24x27 portrait, and 875/1,125 pixels, 33x37 landscape.
+
+Camera reports at
+`Evidence/K/Camera-20260822T011455Z/Landscape/camera-proof.json` and
+`Portrait/camera-proof.json` are complete schema `1`, 23,975/23,956 bytes,
+SHA-256
+`9ae6bfcb02c069538303e6f057c2123177c556f7314a1f2d4c0ca0ccf6acb6aa` /
+`5a386c65b2a76fcca373fd875861d592be700bf63afe364f1dae71cb625614b3`.
+Both four-shot/five-transition journeys prove exact Stage/Admin joins,
+settled blends, collision displacement/recovery, unchanged authority, no bridge
+POST, and restored management/workflow state.
+
+Regression root:
+`/Users/bruce/Project Studio - Unity Production Convergence 80H/Evidence/K/Regression-20260822T011626Z/`.
+
+- Movie2 report/release frame SHA-256:
+  `ff496335150a8b4d7a196d0eaa6a1ac608d523d3f95c2862e263c8a32c1277c1` /
+  `ba3dc5f88b53acb70215bd53bdd5d28eac33384e37acf2146b92a13310e8caf1`.
+- Reconnect report/frame SHA-256:
+  `3f07791bc3e50cd48dbd5f0b8a394567495c3f080cb634d9a73e3bd186868075` /
+  `b79810d62fa1493ad76499688288d6cbfb081fcd795d2ad9c0a8ac81dc840481`.
+- Runtime-restart ready/report/frame SHA-256:
+  `81057de110ff134065f3baf0d80038903687a4f62f543e209835be33ecbde341` /
+  `57bc2a2c1e7e129c3ae461a5adf6a34abed2f083cb740a594bbc2aa3fd7ecdbe` /
+  `5a5a49e0f2bc6b5549857e3e8f9131841447cfb4a6f2d2037d0a9e7bbf879807`.
+
+Movie2/Reconnect prove `The Reluctant Cornerstone`, `script-0001`,
+`prod-0013`, revision `23`, Week `22`, digest
+`429b88d5538e44839a7cfa78acc244e8a17f435a1064f9f66ea75b522203ed13`,
+and exact save/load digest
+`5543ef56db8fec0df43f1a8e02548b84d77d393b71dea9cd33659614804cc5ee`.
+The actual killed-engine run records one outage, one replacement, stable
+authority, disabled actions, retained projection, and zero torn reads.
+
+Stable checkpoint
+`/private/tmp/project-studio-cp19-regression-20260822T011626Z/bridge-runtime/bridge-runtime-v1.json`
+is 1,354,903 bytes, protocol `4`, revision `23`, journal `25`, SHA-256
+`2a3f7f35ece6ae7e01f739a9678df3b34c79d325f5fb66acb468fcd4f27d4fa8`.
+All seven launch leases are stopped with engine/Unity null; only the accepted
+restart lease records one engine restart. No live product process remains.
+
+### RULING AND P2 BOUNDARY
+
+Independent visual review accepts both aspects, the supported pallet, the
+portrait first read, and equal-or-better landscape. Portrait role union rises
+from CP16 `.225118488` to `.304502368`; role silhouettes, slate, boom,
+megaphone, stage state, and filmmaking action are readable. CP19 satisfies ADR
+0006 for this Golden gate. No P0/P1 remains.
+
+M5 is deliberately non-canonical. Remaining P2 work is explicit:
+
+- `npm run studio` still executes the pinned `vite-node` development graph;
+  emitted production packaging and a direct packaged dependency audit remain;
+- TypeScript `main` has a large semantic divergence requiring deliberate
+  isolated merge-candidate reconciliation and full revalidation;
+- camera proof uses the in-product hit target and return path but records
+  `externalActivationRequired=false`; it does not prove a physical foreground
+  mouse/touch activation;
+- the restart-only report leaves movie identity fields blank and therefore
+  says `exactMovie2Released=false`; its exact released ordinal-2 milestone and
+  all restart invariants pass;
+- pallet automation proves vertical contact, not full footprint containment;
+  the frozen geometry overlaps the Dolly Platform by `45.36%` in X and `100%`
+  in Z, and native visual review accepts that support;
+- upper-ceiling/batten emphasis, pallet contact-shadow depth, and abstract
+  scenery-flat treatment remain optional polish, not failed recognizability;
+  and
+- 25/50/100 scale and the broader ugly-condition matrix remain unrun.
+
+### NEXT EXACT ACTION
+
+Keep M5 immutable and take only bounded P2 work on moving branches. First
+productionize the local engine launcher/package and audit that emitted graph;
+then reconcile TypeScript `main` in an isolated merge candidate. Add a real
+foreground mouse/touch activation proof, run 25/50/100 scalability, and perform
+targeted visual polish only when it preserves all M5 gates. Every continuation
+is non-Golden by default. Do not invent, create, or move an M6 tag without a
+later complete independent Golden ruling.
+
+### DO NOT TOUCH
+
+- Do not move, delete, or retarget M1-M5; do not infer a compatible pair from
+  moving branches.
+- Do not move simulation authority, state semantics, gameplay law, or durable
+  identity into Unity.
+- Do not weaken M5 role, held-prop, framing, backdrop, slate, luma, effects,
+  state, no-POST, authority, Movie2, reconnect, restart, checkpoint, schema,
+  protocol, Git, or both-aspect visual gates.
+- Do not stage Evidence/K, private profiles/checkpoints, builds, masks,
+  screenshots, logs, locks, caches, controller-noise patches, or `/tmp` files.
+
+### RECOVERY INSTRUCTIONS
+
+1. Recover/build only from both pushed annotated
+   `golden/unity-convergence-m5` tags.
+2. Verify TypeScript tag object `6dbd1f22...` peels to `e5e95e54...` and Unity
+   tag object `1775a85b...` peels to `4770e229...`.
+3. Use isolated clean worktrees; never mix M5 with M4 or moving branch tips.
+4. Verify protocol/projection `4`, schema `ba9cd199...`, DTO SHA
+   `1192d58a...`, scene `79b5c1cb...`, and NavMesh `20a8afad...`.
+5. Treat the containing docs-only child as continuity, not the tagged product;
+   resolve its self SHA and require HEAD/upstream/live-remote equality after
+   push.
+6. Use only accepted Evidence/K hashes above. Evidence/J and the rejected CP18
+   patch remain explicit failed diagnostics.
+7. Continue only with the bounded P2 action above; M5 stays sole CURRENT BEST.
+
+## CHECKPOINT 19 AUTHORIZATION - HISTORICAL PRE-IMPLEMENTATION BOUNDARY
+
+The following section preserves the exact rejectable authorization as it stood
+before CP19 implementation. Its present-tense restrictions and M4 disposition
+are historical and are superseded by the Golden M5 authority above.
 
 Checkpoint 18 is rejected in full after its fresh native portrait proof failed
 closed on the exact Load-in Pallet renderer. Its source delta was removed
@@ -196,7 +453,7 @@ accepted both-aspect product.
    CP16 Unity rollback base atomically and record the rejection rather than
    advancing the product tip.
 
-## CHECKPOINT 16 SEALED - NON-GOLDEN CURRENT CAMPAIGN TIP
+## CHECKPOINT 16 SEALED - HISTORICAL NON-GOLDEN CAMPAIGN TIP
 
 Checkpoint 16 is the pushed, compatible Stage 7 inspection-framing slice on
 top of Checkpoint 15. Its compact return control and permanent framing scenery
@@ -2113,10 +2370,11 @@ pointer/touch activation of `BACK TO STUDIO`.
    unless a future checkpoint independently passes the visual, interaction,
    runtime, remote CI, clean-tree, and recovery gates.
 
-## GOLDEN M4 SEALED - CURRENT BEST RECOVERY AUTHORITY
+## GOLDEN M4 SEALED - HISTORICAL RECOVERY AUTHORITY
 
-This is the immutable Golden M4 authority beneath the newer non-Golden campaign
-tip. Golden M4 is the sole CURRENT BEST compatible Project: Studio pair. It
+This is the immutable historical Golden M4 authority beneath Golden M5. M4 was
+the sole CURRENT BEST compatible Project: Studio pair at seal time; M5 now
+supersedes it without moving the M4 tags. M4
 combines the authenticated durable/retry work from Checkpoints 8 and 9 with Checkpoint
 10's one-command stable-profile supervisor. Both exact product commits and both
 annotated M4 tags are pushed and remotely verified. It is Golden, not canonical
