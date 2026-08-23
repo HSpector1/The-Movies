@@ -80,3 +80,46 @@ presentation-only background extras (non-interactable, non-persistent,
 gameplay-inert, never implying staff counts), busy-where-busy/calm-where-calm
 placement, and vehicle motion; then character motion quality (locomotion,
 idle variation, work loops); then environment passes per the baseline review.
+
+## 2026-08-23 — LL-CP2 sealed: decorative lot life in normal gameplay
+
+**Player-visible change:** the lot now carries classified background life on
+top of the attending staff — arrivals clustered inside the studio gate,
+crossers walking the public zones between gate, administration, and casting,
+and theater-goers once a picture is playing. Week-22 population rises from 7
+attending staff to ~15 visible people, busy where the studio is busy and
+empty before the studio exists.
+
+**Implementation:** `StudioLotLifePresentation` (Unity commit `7171151...`),
+installed by the bootstrap beside the presentation. A pure census
+(`StudioLotLifeContracts.Census`) derives extra counts deterministically from
+coarse authoritative signals (stages exist / production operations active /
+released film count): 2 gate + 3 street (+1 during production) + 3 theater,
+hard-capped at 12, zero pre-founding. Extras are cloned from role-free
+authored bodies with all selection/slot/marker/role components stripped:
+non-interactable, non-persistent, gameplay-inert, invisible to every people
+census and evidence gate, and never given a stage-zone wander point. Five
+EditMode contract tests cover the census math, cap, decorative-only source
+rules, and single bootstrap install.
+
+**Validation:** Unity EditMode 276/276; macOS rebuild + codesign valid;
+TypeScript untouched. Native gates all complete on the final build: stage
+visual proofs 5/5 both aspects
+(`Evidence/R/LLCP2-Stage-20260823T143044Z`, landscape `99d5b1c11835544e2a36...`,
+portrait `1ff3196da329c9d3901a...`); bridge auto proof exact Movie #2 at
+119.2 FPS (`Evidence/R/LLCP2-Bridge-20260823T143304Z`,
+`774a29a858c08a743e0e...`); 25/50/100 scalability complete with baseline
+UNCHANGED at 4 and p95 8.75/8.64/11.01 ms
+(`Evidence/R/LLCP2-Scalability-20260823T143304Z`, `01a3ae62272157a6140a...`)
+— proving the pre-founding-zero census leaves raw-founding proofs
+byte-equivalent in behavior.
+
+**Ruling: KEEP.** The gate cluster and street crossers read naturally at
+management zoom; no proof weakened; no false staff implication (extras are
+unclickable and unnamed).
+
+**Next:** LL-CP3 candidates in priority order — character motion quality
+(locomotion polish, idle variation, work loops, de-mannequin pass), then
+vehicle motion, then the environment passes (ground planes, prop density,
+building faces, lighting) from the baseline review. Phase M resilience should
+begin interleaved (fast-recovery outage observability is already queued).
