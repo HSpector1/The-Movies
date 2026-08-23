@@ -678,3 +678,39 @@ and vehicle-ratchet test first), the deferred CP6 scope (unload pair,
 label depth-testing, teal-cube/truck remodels, sky/lighting overhaul,
 settle-freeze pose), or the environment follow-ups (east horizon);
 Phase M continues interleaved.
+
+## 2026-08-24 — Investigation: the CP3 settle-freeze note does not reproduce as recorded
+
+The next-candidate list carried a CP3 follow-up: "walkers hold a mid-stride
+pose during the pre-path settle window instead of a standing idle
+(pre-existing; visible for ~2s after spawn)." Scoping it as a checkpoint,
+the first step was evidence the campaign had never captured: the spawn
+window itself. The motion evidence runner gained
+`-studioMotionEvidenceSettleSeconds` (client `951b0a2`; default 6 preserves
+every sealed burst) and a 20-frame burst was taken at settle 0.5 s on the
+shooting profile (`Evidence/R/LLCP8-SettleBefore`, report digest
+`shasum -a 256` on disk).
+
+Findings, honestly:
+- The sharp "frozen for ~2 s after spawn" defect does NOT reproduce on the
+  CP7 build. Adjacent quarter-second frames of the freshly spawned followed
+  subject differ by 5.8–7.4% in the body region — the animator is
+  evaluating and the idle loop is playing. No frozen adjacent frames.
+- What DOES exist is milder and legible only at close zoom: some resting
+  bodies' idle stance carries scissored legs that read stride-like at a
+  glance (clip-content/art choice, not a state bug), and two code smells
+  remain in `PurposefulAgent` that match the note's spirit without a
+  demonstrated player-visible cost today: `Start()` hardcodes
+  `SetAnimation(false, true)` (ignoring `idleWhenResting`, so a traveller
+  can flash its work loop at spawn), and the off-mesh early return in
+  `Update()` skips `SetAnimation` entirely, leaving the settle window on
+  whatever state preceded it.
+- Ruling on scope: no checkpoint. The campaign seals player-visible
+  changes proven by measurement; forcing a seal cycle onto a defect that
+  does not reproduce as recorded would be theater. The two one-line
+  candidates above are recorded for the next animation checkpoint, where
+  the new settle-window burst is the before/after instrument.
+
+The next-candidate list otherwise stands as written at the CP7 seal
+(button-ink ratchet and vehicle-ratchet test first, then deferred CP6
+scope / environment follow-ups; Phase M interleaved).
