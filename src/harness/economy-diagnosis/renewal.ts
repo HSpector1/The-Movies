@@ -592,10 +592,22 @@ export type RenewalDiagnosisAggregate = {
     oneTimeFullGapGrant428: RenewalArmSummary
   }
   zeroGrantIdentity: { checked: number; failures: number }
+  wallDirection: {
+    baselineFullWalls: number
+    baselinePartialWalls: number
+    healthyAt196Entries: number
+    healthyAt196AnyWalls: number
+    fullWallsCashNonnegativeAt156: number
+    fullWallsCashNonnegativeAt182: number
+    fullWallsCashNonnegativeAt196: number
+    fullWallsByOperatingPolicy: Record<string, number>
+  }
   timelines: {
     healthyToWall: RenewalTimeline | null
     distressedToWall: RenewalTimeline | null
     healthyNoWallControl: RenewalTimeline | null
+    cashNonnegativeAt156ToWall: RenewalTimeline | null
+    cashNonnegativeAt182ToWall: RenewalTimeline | null
     positiveCashToWallFallback: RenewalTimeline | null
   }
 }
@@ -621,6 +633,21 @@ export function aggregateRenewalDiagnosis(
   )
   const positiveCashWall = cells.filter(
     (cell) => cell.cashAt196 >= 0 && cell.baseline260.fullWall,
+  )
+  const cashNonnegative156Wall = cells.filter(
+    (cell) => !cell.cashNegativeByWarning.week156 && cell.baseline260.fullWall,
+  )
+  const cashNonnegative182Wall = cells.filter(
+    (cell) => !cell.cashNegativeByWarning.week182 && cell.baseline260.fullWall,
+  )
+  const fullWalls = cells.filter((cell) => cell.baseline260.fullWall)
+  const partialWalls = cells.filter((cell) => cell.baseline260.partialWall)
+  const healthyEntries = cells.filter((cell) => cell.financialStateAt196 === 'healthy')
+  const fullWallsByOperatingPolicy = Object.fromEntries(
+    DIAGNOSIS_RENEWAL_OPERATING_POLICIES.map((policy) => [
+      policy,
+      fullWalls.filter((cell) => cell.operatingPolicyId === policy).length,
+    ]),
   )
   const identities = cells.filter((cell) => cell.zeroGrantIdentityAt260 !== null)
   const current260 = armSummary(cells, (cell) => cell.baseline260, (cell) => cell.baseline260)
@@ -674,10 +701,30 @@ export function aggregateRenewalDiagnosis(
       checked: identities.length,
       failures: identities.filter((cell) => cell.zeroGrantIdentityAt260 === false).length,
     },
+    wallDirection: {
+      baselineFullWalls: fullWalls.length,
+      baselinePartialWalls: partialWalls.length,
+      healthyAt196Entries: healthyEntries.length,
+      healthyAt196AnyWalls: healthyEntries.filter(
+        (cell) => cell.baseline260.fullWall || cell.baseline260.partialWall,
+      ).length,
+      fullWallsCashNonnegativeAt156: cashNonnegative156Wall.length,
+      fullWallsCashNonnegativeAt182: cashNonnegative182Wall.length,
+      fullWallsCashNonnegativeAt196: positiveCashWall.length,
+      fullWallsByOperatingPolicy,
+    },
     timelines: {
       healthyToWall: exemplar(healthyWall, 'formal-healthy-at-196-to-full-wall'),
       distressedToWall: exemplar(distressedWall, 'not-healthy-at-196-to-full-wall'),
       healthyNoWallControl: exemplar(healthyNoWall, 'formal-healthy-at-196-no-wall-control'),
+      cashNonnegativeAt156ToWall: exemplar(
+        cashNonnegative156Wall,
+        'cash-nonnegative-at-156-to-full-wall; not-a-formal-health-classification',
+      ),
+      cashNonnegativeAt182ToWall: exemplar(
+        cashNonnegative182Wall,
+        'cash-nonnegative-at-182-to-full-wall; not-a-formal-health-classification',
+      ),
       positiveCashToWallFallback: exemplar(positiveCashWall, 'cash-nonnegative-at-196-to-full-wall'),
     },
   }
