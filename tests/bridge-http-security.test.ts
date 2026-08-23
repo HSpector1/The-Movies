@@ -212,8 +212,10 @@ function journeyCommand(snapshot: SnapshotEnvelope): string {
   const intent = selectJourneyIntent(
     snapshot.availableIntents.filter((candidate) => candidate.kind !== 'startConstruction'),
     snapshot.snapshot.journeyNotices.firstFilmJourney,
+  ) ?? snapshot.availableIntents.find(
+    (candidate) => candidate.kind === 'signFoundingContract' || candidate.kind === 'foundStudio',
   )
-  if (intent === undefined) throw new Error('Initial snapshot has no Movie journey intent.')
+  if (intent === undefined) throw new Error('Initial snapshot has no authoritative intent.')
   return canonicalJson({
     protocolVersion: PROTOCOL_VERSION,
     schemaId: SCHEMA_ID,

@@ -25,6 +25,7 @@ import {
   availableIntents,
   createBridgeBootstrap,
   createBridgeInitialState,
+  createManagedBridgeState,
   playNextMovieThroughAvailableIntents,
   selectJourneyIntent,
   type CommandResponse,
@@ -139,6 +140,21 @@ function advanceSessionMovieToRelease(
   throw new Error('Session movie playthrough exceeded its guard.')
 }
 
+function advanceToGreenlightChoices(session: BridgeSession): AvailableIntent[] {
+  for (let guard = 0; guard < 32; guard++) {
+    const snapshot = session.snapshot()
+    const choices = snapshot.availableIntents.filter(
+      (candidate) => candidate.kind === 'greenlightPicture',
+    )
+    if (choices.length > 0) return choices
+    const intent = chooseMovieIntent(session)
+    const result = submit(session, intent, `cast-choice-setup-${String(guard)}`)
+    expect(result.accepted).toBe(true)
+    if (!result.accepted) throw new Error(result.message)
+  }
+  throw new Error('Movie did not reach player cast selection within 32 commands.')
+}
+
 function expectOrderedSubsequence<T>(actual: readonly T[], expected: readonly T[]): void {
   let at = 0
   for (const value of actual) if (value === expected[at]) at++
@@ -199,6 +215,51 @@ describe('Current-game Unity adoption bridge', () => {
       ok: false,
       reasonCode: 'INVALID_CONTROL',
     })
+  })
+
+  it('keeps the managed runtime fixture at Week 0 before Picture #1', () => {
+    const state = createManagedBridgeState('bridge-managed-cold-profile')
+    const snapshot = studioLotSnapshot(state)
+    const roles = state.contracts.map(
+      (contract) => state.talent.find((person) => person.id === contract.talentId)?.role,
+    )
+
+    expect(state.market.tick).toBe(0)
+    expect(state.founding).toBeNull()
+    expect(state.operations).toMatchObject({ mode: 'managed', workflows: [] })
+    expect(state.construction).toMatchObject({ mode: 'managed', projects: [] })
+    expect(state.placement).toMatchObject({ mode: 'managed', facilities: [] })
+    expect(state.scriptDevelopment).toMatchObject({ mode: 'managed', projects: [] })
+    expect(state.castingSessions).toMatchObject({ mode: 'managed', sessions: [] })
+    expect(state.operations.facilities).toHaveLength(5)
+    expect(state.sets).toHaveLength(2)
+    expect(state.productionQueue).toEqual([])
+    expect(state.studio.activeProductions).toEqual([])
+    expect(state.studio.releasedFilms).toEqual([])
+
+    expect(state.contracts).toHaveLength(7)
+    expect(state.contracts.every((contract) => contract.termWeeks === 208)).toBe(true)
+    expect(roles).not.toContain(undefined)
+    expect(roles.filter((role) => role === 'actor')).toHaveLength(4)
+    expect(roles.filter((role) => role === 'director')).toHaveLength(1)
+    expect(roles.filter((role) => role === 'writer')).toHaveLength(1)
+    expect(roles.filter((role) => role === 'craft')).toHaveLength(1)
+
+    expect(snapshot.firstFilmJourney).toMatchObject({
+      stage: 'no-picture',
+      beat: 'no-picture',
+      productionId: null,
+      scriptProjectId: null,
+      pictureTitle: null,
+      ordinal: 1,
+      headline: 'START A PICTURE',
+      next: { kind: 'commission' },
+      waiting: null,
+      blocked: null,
+    })
+    expect(availableIntents(state).map((intent) => intent.kind)).toEqual(
+      expect.arrayContaining(['commissionScreenplay', 'startConstruction']),
+    )
   })
 
   it('bootstraps through real founding and legal intents, releasing Movie #1 at the Movie #2 gate', () => {
@@ -363,8 +424,74 @@ describe('Current-game Unity adoption bridge', () => {
       'resolveProductionBlocker',
       'advanceWeek',
     ])
-    expect(greenlightDetail).toMatch(/Director .+; Lead .+; Antagonist .+; Support .+; Production\/Craft .+\./)
+    expect(greenlightDetail).toMatch(/Lead .+: Est\. \d+, observed range \d+-\d+, Fit \d+\./)
+    expect(greenlightDetail).toMatch(/Antagonist .+: Est\. \d+, observed range \d+-\d+, Fit \d+\./)
+    expect(greenlightDetail).toMatch(/Support .+: Est\. \d+, observed range \d+-\d+, Fit \d+\./)
+    expect(greenlightDetail).toMatch(/Director .+; Production\/Craft .+\./)
     expect(intentKinds.filter((kind) => kind === 'commissionScreenplay')).toHaveLength(1)
+  })
+
+  it('makes the player choose a distinct evidenced cast before greenlight', () => {
+    const session = new BridgeSession(
+      createBridgeInitialState('bridge-player-cast-choice'),
+      'player-cast-choice',
+    )
+    const choices = advanceToGreenlightChoices(session)
+    const readySnapshot = session.snapshot()
+    const castingProject = castingSessionsReadModel(session.gameState).sections.history.find(
+      (candidate) => candidate.projectId === choices[0]?.projectId,
+    )
+    expect(castingProject?.results).not.toBeNull()
+    const availableByRole = {
+      lead: new Set(castingProject?.results?.lead.filter((entry) => entry.available).map((entry) => entry.talentId)),
+      antagonist: new Set(castingProject?.results?.antagonist.filter((entry) => entry.available).map((entry) => entry.talentId)),
+      support: new Set(castingProject?.results?.support.filter((entry) => entry.available).map((entry) => entry.talentId)),
+    }
+    expect(choices.length).toBeGreaterThanOrEqual(2)
+    expect(new Set(choices.map((choice) => choice.intentId)).size).toBe(choices.length)
+    expect(new Set(choices.map((choice) => choice.label)).size).toBe(choices.length)
+    expect(choices.some((choice) => choice.detail.includes('Strength: '))).toBe(true)
+    expect(choices.some((choice) => choice.detail.includes('Concern: '))).toBe(true)
+    const { metrics: _readyMetrics, ...readyAuthority } = readySnapshot
+    const { metrics: _polledMetrics, ...polledAuthority } = session.snapshot()
+    expect(polledAuthority).toEqual(readyAuthority)
+    for (const choice of choices) {
+      expect(choice.label).toMatch(
+        /^Lead .+ \/ Antagonist .+ \/ Support .+ - greenlight .+$/,
+      )
+      expect(choice.detail).toMatch(/Lead .+: Est\. \d+, observed range \d+-\d+, Fit \d+\./)
+      expect(choice.detail).toMatch(/Antagonist .+: Est\. \d+, observed range \d+-\d+, Fit \d+\./)
+      expect(choice.detail).toMatch(/Support .+: Est\. \d+, observed range \d+-\d+, Fit \d+\./)
+      expect(choice.castingSessionId).not.toBeNull()
+    }
+
+    const readySave = exportSaveJson(session.gameState)
+    const casts = choices.map((choice, index) => {
+      const branch = BridgeSession.fromSaveJson(readySave, `player-cast-branch-${String(index)}`)
+      const result = submit(branch, choice, `player-cast-choice-${String(index)}`)
+      expect(result.accepted).toBe(true)
+      if (!result.accepted) throw new Error(result.message)
+      const production = branch.gameState.studio.activeProductions.at(-1)
+      expect(production).toBeDefined()
+      const names = new Map(branch.gameState.talent.map((talent) => [talent.id, talent.name]))
+      const label = choice.label.match(
+        /^Lead (.+) \/ Antagonist (.+) \/ Support (.+) - greenlight (.+)$/,
+      )
+      expect(label).not.toBeNull()
+      expect(production?.cast).toBeDefined()
+      if (production === undefined || label === null) throw new Error('Greenlight did not create its labeled cast.')
+      expect(new Set(Object.values(production.cast)).size).toBe(3)
+      expect(availableByRole.lead.has(production.cast.lead)).toBe(true)
+      expect(availableByRole.antagonist.has(production.cast.antagonist)).toBe(true)
+      expect(availableByRole.support.has(production.cast.support)).toBe(true)
+      expect(label.slice(1, 4)).toEqual([
+        names.get(production.cast.lead),
+        names.get(production.cast.antagonist),
+        names.get(production.cast.support),
+      ])
+      return production?.cast
+    })
+    expect(new Set(casts.map((cast) => JSON.stringify(cast))).size).toBe(choices.length)
   })
 
   it('rejects stale, forged, wrong-session, and reused command identities without changing truth', () => {

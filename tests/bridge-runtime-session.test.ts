@@ -49,6 +49,43 @@ function restore(session: BridgeSession): BridgeSession {
 }
 
 describe('BridgeSession runtime checkpoint recovery', () => {
+  it('creates and restores an unsaved production runtime during founding', () => {
+    const session = BridgeSession.createRuntime()
+    const before = session.snapshot()
+    const checkpoint = session.exportRuntimeCheckpoint()
+
+    expect(session.stateRevision).toBe(0)
+    expect(session.gameState.market.tick).toBe(0)
+    expect(session.gameState.productionQueue).toEqual([])
+    expect(session.gameState.studio.activeProductions).toEqual([])
+    expect(session.gameState.studio.releasedFilms).toEqual([])
+    expect(session.gameState.founding).not.toBeNull()
+    expect(session.gameState.contracts).toEqual([])
+    expect(before.snapshot.journeyNotices.firstFilmJourney).toMatchObject({
+      stage: 'no-picture',
+      beat: 'no-picture',
+      ordinal: 1,
+      next: { kind: 'commission' },
+    })
+    expect(before.availableIntents).not.toHaveLength(0)
+    expect(before.availableIntents.every(
+      (intent) => intent.kind === 'signFoundingContract',
+    )).toBe(true)
+    expect(checkpoint.currentSaveJson).toBe(exportSaveJson(session.gameState))
+    expect(checkpoint.currentStateDigest).toBe(before.stateDigest)
+    expect(checkpoint.savedSaveJson).toBeNull()
+    expect(checkpoint.savedStateDigest).toBeNull()
+    expect(checkpoint.journal).toEqual([])
+
+    const recovered = restore(session)
+    expect(recovered.sessionId).toBe(session.sessionId)
+    expect(recovered.stateRevision).toBe(0)
+    expect(recovered.snapshot().stateDigest).toBe(before.stateDigest)
+    expect(exportSaveJson(recovered.gameState)).toBe(checkpoint.currentSaveJson)
+    expect(recovered.exportRuntimeCheckpoint().savedSaveJson).toBeNull()
+    expect(recovered.exportRuntimeCheckpoint().journal).toEqual([])
+  })
+
   it('restores untouched V14 authority bytes, logical identity, revision, and digest', () => {
     const session = new BridgeSession(undefined, 'runtime-checkpoint-initial')
     const before = session.snapshot()

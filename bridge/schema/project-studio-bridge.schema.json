@@ -241,6 +241,8 @@
         },
         "kind": {
           "enum": [
+            "signFoundingContract",
+            "foundStudio",
             "commissionScreenplay",
             "advanceWeek",
             "acceptScreenplay",

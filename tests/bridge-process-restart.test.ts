@@ -429,10 +429,12 @@ function journeyCommand(
   const intent = selectJourneyIntent(
     current.availableIntents.filter((candidate) => candidate.kind !== 'startConstruction'),
     current.snapshot.journeyNotices.firstFilmJourney,
+  ) ?? current.availableIntents.find(
+    (candidate) => candidate.kind === 'signFoundingContract' || candidate.kind === 'foundStudio',
   )
   if (intent === undefined) {
     throw new Error(
-      `No Movie journey intent is available at revision ${String(current.stateRevision)}.`,
+      `No authoritative intent is available at revision ${String(current.stateRevision)}.`,
     )
   }
   const request: SubmitIntentCommand = {
@@ -704,6 +706,20 @@ it('restores one durable logical bridge session and exact HTTP replay after SIGK
     ).runtimeInstanceId
     const initial = await snapshot(first)
     expect(initial.stateRevision).toBe(0)
+    expect(initial.gameWeek).toBe(0)
+    expect(initial.snapshot.lot.week).toBe(0)
+    expect(initial.snapshot.productions.activeProductions).toEqual([])
+    expect(initial.snapshot.releaseResults.releasedFilms).toEqual([])
+    expect(initial.snapshot.journeyNotices.firstFilmJourney).toMatchObject({
+      stage: 'no-picture',
+      beat: 'no-picture',
+      ordinal: 1,
+      next: { kind: 'commission' },
+    })
+    expect(initial.availableIntents).not.toHaveLength(0)
+    expect(initial.availableIntents.every(
+      (intent) => intent.kind === 'signFoundingContract',
+    )).toBe(true)
 
     const firstCommand = journeyCommand(initial, 'process-restart-command-1')
     const firstCommandRaw = await request(first, '/command', 'POST', firstCommand.body)

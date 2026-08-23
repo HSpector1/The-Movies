@@ -497,6 +497,8 @@ export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
 })
 
 export const AVAILABLE_INTENT_KINDS = [
+  'signFoundingContract',
+  'foundStudio',
   'commissionScreenplay',
   'advanceWeek',
   'acceptScreenplay',

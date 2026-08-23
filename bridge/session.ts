@@ -10,10 +10,16 @@ import {
   findConcept,
   foundManagedStudioAction,
   foundingApplicantCards,
+  foundingApplicantRows,
+  foundingBudgetRemaining,
+  foundingProgress,
+  foundingRunwayPreview,
   greenlightScriptProject,
   importSaveJson,
   newGame,
   nextIncompleteProfession,
+  offerObligation,
+  payrollSummary,
   requiredNegative,
   runProductionCommand,
   runScriptProjectAction,
@@ -29,6 +35,7 @@ import {
 import type {
   ActionOutcome,
   DraftPackage,
+  FoundingApplicantRow,
   GameState,
 } from '../ui/src/engine/adapter.ts'
 import {
@@ -230,24 +237,56 @@ function allCastingProjects(state: GameState) {
   ]
 }
 
-function castFromReviewedAuditions(state: GameState, projectId: string) {
+function castsFromReviewedAuditions(state: GameState, projectId: string) {
   const project = allCastingProjects(state).find((candidate) => candidate.projectId === projectId)
-  if (project?.results === null || project?.results === undefined) return null
-  const used = new Set<string>()
-  const pick = (slot: 'lead' | 'antagonist' | 'support'): { id: string; name: string } | null => {
-    const candidate = project.results?.[slot].find(
-      (entry) => entry.available && !used.has(entry.talentId),
-    )
-    if (candidate === undefined) return null
-    used.add(candidate.talentId)
-    return { id: candidate.talentId, name: candidate.name }
+  if (project?.results === null || project?.results === undefined || project.sessionId === null) return []
+  const results = project.results
+  const casts: Array<{
+    lead: (typeof results.lead)[number]
+    antagonist: (typeof results.antagonist)[number]
+    support: (typeof results.support)[number]
+    sessionId: string
+  }> = []
+  const seen = new Set<string>()
+  for (const lead of results.lead.filter((entry) => entry.available)) {
+    for (const antagonist of results.antagonist.filter((entry) => entry.available)) {
+      for (const support of results.support.filter((entry) => entry.available)) {
+        if (
+          lead.talentId === antagonist.talentId ||
+          lead.talentId === support.talentId ||
+          antagonist.talentId === support.talentId
+        ) continue
+        const identity = `${lead.talentId}\0${antagonist.talentId}\0${support.talentId}`
+        if (seen.has(identity)) continue
+        seen.add(identity)
+        casts.push({ lead, antagonist, support, sessionId: project.sessionId })
+      }
+    }
   }
-  const lead = pick('lead')
-  const antagonist = pick('antagonist')
-  const support = pick('support')
-  return lead === null || antagonist === null || support === null
-    ? null
-    : { lead, antagonist, support, sessionId: project.sessionId }
+  return casts
+}
+
+function auditionEvidenceLine(
+  role: 'Lead' | 'Antagonist' | 'Support',
+  evidence: {
+    name: string
+    estimate: number
+    low: number
+    high: number
+    fit: { score: number }
+    strengths: string[]
+    concerns: string[]
+  },
+): string {
+  const observations: string[] = []
+  if (evidence.strengths[0] !== undefined) observations.push(`Strength: ${evidence.strengths[0]}`)
+  if (evidence.concerns[0] !== undefined) observations.push(`Concern: ${evidence.concerns[0]}`)
+  if (observations.length === 0) {
+    observations.push('This camera test is evidence, not a performance guarantee.')
+  }
+  return `${role} ${evidence.name}: Est. ${String(evidence.estimate)}, observed range ` +
+    `${String(evidence.low)}-${String(evidence.high)}, Fit ${String(evidence.fit.score)}. ` +
+    observations.join(' ')
 }
 
 function hasOnlyQueueableCapacityBlockers(
@@ -283,8 +322,123 @@ function acceptedIntentMessage(
   }
 }
 
+const FOUNDING_OFFER_TERM_WEEKS = 104
+
+function exactDollars(value: number): string {
+  const rounded = Math.round(value)
+  const sign = rounded < 0 ? '-' : ''
+  const digits = String(Math.abs(rounded)).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  return `${sign}$${digits}`
+}
+
+function foundingRoleLabel(role: FoundingApplicantRow['role']): string {
+  switch (role) {
+    case 'actor': return 'actor'
+    case 'director': return 'director'
+    case 'writer': return 'writer'
+    case 'craft': return 'production/craft lead'
+  }
+}
+
+function foundingRunwayLabel(state: GameState): string {
+  const runway = foundingRunwayPreview(state)
+  return runway.infinite ? 'unlimited at current commitments' : `${String(runway.weeks)} weeks`
+}
+
+function foundingOfferDetail(
+  row: FoundingApplicantRow,
+  offer: FoundingApplicantRow['card']['employment']['offerOptions'][number],
+  after: GameState,
+): string {
+  const obligation = offerObligation(offer)
+  const strengths = row.topStrengths.length > 0
+    ? row.topStrengths.join(', ')
+    : 'No standout signal surfaced'
+  const concern = row.primaryConcern ?? 'No primary concern surfaced'
+  return `Perceived OVR ${String(row.ovr)} (${row.ovrTier}); potential ` +
+    `${row.potentialTier} up to ${String(row.potentialHigh)}; work ethic ${row.workEthicLabel}. ` +
+    `Strengths: ${strengths}. Concern: ${concern}. ` +
+    `Annual salary ${exactDollars(offer.annualSalary)}; signing bonus ` +
+    `${exactDollars(offer.signingBonus)}; guaranteed salary ` +
+    `${exactDollars(obligation.guaranteedComp)}; total obligation ` +
+    `${exactDollars(obligation.total)}; weekly salary ${exactDollars(obligation.weeklySalary)}. ` +
+    `Projected weekly payroll after signing ${exactDollars(payrollSummary(after).weeklyPayroll)}; ` +
+    `recruitment fund after signing ${exactDollars(foundingBudgetRemaining(after))}; ` +
+    `projected founding runway ${foundingRunwayLabel(after)}.`
+}
+
+function resolveFoundingIntents(
+  state: GameState,
+  stateDigest: string,
+): IntentApplication[] | null {
+  if (state.founding === null) return null
+
+  const progress = foundingProgress(state)
+  const requiredRole = progress.find((entry) => !entry.met)?.role ?? null
+  const actorProgress = progress.find((entry) => entry.role === 'actor')
+  if (actorProgress === undefined) throw new Error('Founding progress omitted Actors.')
+
+  const resolved: IntentApplication[] = []
+  // Core founding closes at 3/1/1/1. The bridge's two-picture journey additionally needs a
+  // reserve Actor so three contracted cast roles survive the intervening market refresh.
+  const offerRole = requiredRole ?? (actorProgress.extra === 0 ? 'actor' : null)
+  if (offerRole !== null) {
+    for (const row of foundingApplicantRows(state, offerRole)) {
+      if (row.signed) continue
+      const offer = row.card.employment.offerOptions.find(
+        (candidate) => candidate.termWeeks === FOUNDING_OFFER_TERM_WEEKS,
+      )
+      if (offer === undefined) continue
+      const preview = signContractAction(state, row.id, FOUNDING_OFFER_TERM_WEEKS)
+      if (!preview.ok) continue
+      const fields: Omit<AvailableIntent, 'intentId'> = {
+        kind: 'signFoundingContract',
+        label: `Offer ${row.name} a 2-year ${foundingRoleLabel(row.role)} contract`,
+        detail:
+          (requiredRole === null
+            ? 'Reserve-actor readiness is required for two-picture continuity. '
+            : '') + foundingOfferDetail(row, offer, preview.next),
+        projectId: null,
+        castingSessionId: null,
+        productionId: null,
+      }
+      resolved.push({
+        option: option(stateDigest, fields, {
+          kind: 'signContract',
+          talentId: row.id,
+          termWeeks: FOUNDING_OFFER_TERM_WEEKS,
+        }),
+        apply: (current) => signContractAction(current, row.id, FOUNDING_OFFER_TERM_WEEKS),
+      })
+    }
+    return resolved
+  }
+
+  const fields: Omit<AvailableIntent, 'intentId'> = {
+    kind: 'foundStudio',
+    label: 'START A STUDIO',
+    detail:
+      `Founding coverage: ${progress.map((entry) =>
+        `${entry.label} ${String(entry.count)}/${String(entry.min)}`).join('; ')}. ` +
+      `Weekly payroll ${exactDollars(payrollSummary(state).weeklyPayroll)}; recruitment fund ` +
+      `${exactDollars(foundingBudgetRemaining(state))}; projected runway ` +
+      `${foundingRunwayLabel(state)}. The roster includes one reserve Actor for two-picture ` +
+      `continuity. Accepting opens the operational studio lot.`,
+      projectId: null,
+      castingSessionId: null,
+      productionId: null,
+  }
+  pushIfAccepted(state, resolved, {
+    option: option(stateDigest, fields, { kind: 'foundManagedStudio' }),
+    apply: (current) => foundManagedStudioAction(current),
+  })
+  return resolved
+}
+
 function resolveAvailableIntents(state: GameState): IntentApplication[] {
   const stateDigest = authoritativeDigest(state)
+  const founding = resolveFoundingIntents(state, stateDigest)
+  if (founding !== null) return founding
   const snapshot = studioLotSnapshot(state)
   const journey = snapshot.firstFilmJourney
   if (journey === undefined) throw new Error('Current studio lot snapshot omitted firstFilmJourney.')
@@ -440,46 +594,52 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
       packageView.openAction === null ||
       (!packageView.availability.knownGatesClear && !capacityOnly)
     ) continue
-    const cast = castFromReviewedAuditions(state, packageView.projectId)
+    const casts = castsFromReviewedAuditions(state, packageView.projectId)
     const director = studioPool(state, 'director').find((candidate) => candidate.available)
     const craft = studioPool(state, 'craft').find((candidate) => candidate.available)
     const packageConcept = findConcept(state, packageView.concept.id)
     if (
-      cast === null || director === undefined || craft === undefined || packageConcept === undefined
+      casts.length === 0 || director === undefined || craft === undefined || packageConcept === undefined
     ) continue
-    const pkg: DraftPackage = {
-      conceptId: packageView.concept.id,
-      shape: packageView.lockedShape,
-      promise: packageView.lockedPromise,
-      writerId: packageView.writer.id,
-      directorId: director.id,
-      craftIds: [craft.id],
-      cast: {
-        lead: cast.lead.id,
-        antagonist: cast.antagonist.id,
-        support: cast.support.id,
-      },
-      budget: {
-        negative: requiredNegative(packageConcept, packageView.lockedShape, state),
-        marketing: 0,
-      },
-    }
     const capacityDetail = capacityOnly ? packageView.availability.blockers[0]?.detail ?? '' : ''
-    const fields: Omit<AvailableIntent, 'intentId'> = {
-      kind: 'greenlightPicture',
-      label: `Greenlight ${packageView.concept.title}`,
-      detail:
-        `Director ${director.name}; Lead ${cast.lead.name}; Antagonist ${cast.antagonist.name}; ` +
-        `Support ${cast.support.name}; Production/Craft ${craft.name}.` +
-        (capacityDetail === '' ? '' : ` ${capacityDetail}`),
-      projectId: packageView.projectId,
-      castingSessionId: cast.sessionId,
-      productionId: null,
+    for (const cast of casts) {
+      const pkg: DraftPackage = {
+        conceptId: packageView.concept.id,
+        shape: packageView.lockedShape,
+        promise: packageView.lockedPromise,
+        writerId: packageView.writer.id,
+        directorId: director.id,
+        craftIds: [craft.id],
+        cast: {
+          lead: cast.lead.talentId,
+          antagonist: cast.antagonist.talentId,
+          support: cast.support.talentId,
+        },
+        budget: {
+          negative: requiredNegative(packageConcept, packageView.lockedShape, state),
+          marketing: 0,
+        },
+      }
+      const fields: Omit<AvailableIntent, 'intentId'> = {
+        kind: 'greenlightPicture',
+        label:
+          `Lead ${cast.lead.name} / Antagonist ${cast.antagonist.name} / ` +
+          `Support ${cast.support.name} - greenlight ${packageView.concept.title}`,
+        detail:
+          `${auditionEvidenceLine('Lead', cast.lead)} ` +
+          `${auditionEvidenceLine('Antagonist', cast.antagonist)} ` +
+          `${auditionEvidenceLine('Support', cast.support)} ` +
+          `Director ${director.name}; Production/Craft ${craft.name}.` +
+          (capacityDetail === '' ? '' : ` ${capacityDetail}`),
+        projectId: packageView.projectId,
+        castingSessionId: cast.sessionId,
+        productionId: null,
+      }
+      pushIfAccepted(state, resolved, {
+        option: option(stateDigest, fields, { kind: 'greenlightScriptProject', pkg }),
+        apply: (current) => greenlightScriptProject(current, packageView.projectId, pkg),
+      })
     }
-    pushIfAccepted(state, resolved, {
-      option: option(stateDigest, fields, { kind: 'greenlightScriptProject', pkg }),
-      apply: (current) => greenlightScriptProject(current, packageView.projectId, pkg),
-    })
   }
 
   const next = journey.next
@@ -757,7 +917,7 @@ export class BridgeSession {
   static createRuntime(
     limits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
   ): BridgeSession {
-    return new BridgeSession(undefined, undefined, null, { limits })
+    return new BridgeSession(newGame('current-game-unity-adoption-v2'), undefined, null, { limits })
   }
 
   static fromRuntimeCheckpoint(
