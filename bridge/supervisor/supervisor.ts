@@ -586,16 +586,21 @@ export async function runStudioSupervisor(
     throwIfAborted(startSignal)
     const requestedPort = fixedPort ?? 0
     report(
-      `engine spawn mode=${restart ? 'restart' : 'initial'} requestedPort=${String(requestedPort)}`,
+      `engine spawn mode=${restart ? 'restart' : 'initial'} requestedPort=${String(requestedPort)} ` +
+        `graph=${options.engineEntry === null ? 'vite-node-dev' : 'emitted'}`,
     )
-    const viteNodeEntry = assertFile(
-      path.join(options.repositoryRoot, 'node_modules', 'vite-node', 'vite-node.mjs'),
-      'vite-node entry',
-    )
-    const serverEntry = assertFile(
-      path.join(options.repositoryRoot, 'bridge', 'server.ts'),
-      'bridge server entry',
-    )
+    const engineArguments = options.engineEntry === null
+      ? [
+          assertFile(
+            path.join(options.repositoryRoot, 'node_modules', 'vite-node', 'vite-node.mjs'),
+            'vite-node entry',
+          ),
+          assertFile(
+            path.join(options.repositoryRoot, 'bridge', 'server.ts'),
+            'bridge server entry',
+          ),
+        ]
+      : [assertFile(options.engineEntry, 'emitted engine entry')]
     let resolveReady!: (ready: ReadyLine) => void
     let rejectReady!: (error: unknown) => void
     let readySettled = false
@@ -618,7 +623,7 @@ export async function runStudioSupervisor(
       }
     }
     throwIfAborted(startSignal)
-    const child = spawn(process.execPath, [viteNodeEntry, serverEntry], {
+    const child = spawn(process.execPath, engineArguments, {
       cwd: options.repositoryRoot,
       detached: true,
       env: createMinimalChildEnvironment(process.env, {

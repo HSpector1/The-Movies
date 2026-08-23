@@ -3,12 +3,16 @@ import fs from 'node:fs'
 import net, { type Socket } from 'node:net'
 import os from 'node:os'
 import path from 'node:path'
+import { pathToFileURL } from 'node:url'
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { currentProcessIncarnation } from '../bridge/runtime/process-incarnation.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
-import { parseStudioSupervisorArguments } from '../bridge/supervisor/config.ts'
+import {
+  emittedEngineEntryFromModuleUrl,
+  parseStudioSupervisorArguments,
+} from '../bridge/supervisor/config.ts'
 import {
   prepareSupervisorProfile,
   SupervisorLease,
@@ -19,6 +23,9 @@ import { EngineRestartBudget } from '../bridge/supervisor/supervisor.ts'
 const ROOT = process.cwd()
 const VITE_NODE = path.join(ROOT, 'node_modules', 'vite-node', 'vite-node.mjs')
 const SUPERVISOR_ENTRY = path.join(ROOT, 'bridge', 'supervisor', 'cli.ts')
+const BUILD_STUDIO_SCRIPT = path.join(ROOT, 'scripts', 'build-studio.mjs')
+const AUDIT_STUDIO_SCRIPT = path.join(ROOT, 'scripts', 'audit-studio-packaged.mjs')
+const PACKAGED_SUPERVISOR = path.join(ROOT, 'dist', 'studio', 'studio.mjs')
 const FAKE_UNITY_ENTRY = path.join(ROOT, 'tests', 'fixtures', 'fake-unity-supervisor.mjs')
 const START_TIMEOUT_MS = 20_000
 const EXIT_TIMEOUT_MS = 15_000
@@ -219,6 +226,7 @@ function spawnSupervisor(
   maxEngineRestarts = 3,
   exitCode = 0,
   helper = false,
+  entry: 'dev' | 'packaged' = 'dev',
 ): RunningSupervisor {
   const unityArguments = [
     '--observer-port',
@@ -229,10 +237,11 @@ function spawnSupervisor(
     String(exitCode),
   ]
   if (helper) unityArguments.push('--helper', 'ignore-term')
+  const supervisorEntry = entry === 'dev'
+    ? [VITE_NODE, '--script', SUPERVISOR_ENTRY]
+    : [PACKAGED_SUPERVISOR]
   const child = spawn(process.execPath, [
-    VITE_NODE,
-    '--script',
-    SUPERVISOR_ENTRY,
+    ...supervisorEntry,
     '--profile-root',
     profileRoot,
     '--unity-executable',
@@ -506,7 +515,41 @@ describe.sequential('one-command studio supervisor', () => {
       ? path.join(home, 'Library', 'Application Support', 'Project Studio')
       : path.join(home, '.local', 'state', 'project-studio'))
     expect(parsed.options.unityArguments).toEqual([])
+    expect(parsed.options.engineEntry).toBeNull()
   })
+
+  it('resolves the emitted engine entry beside the packaged supervisor module', () => {
+    const moduleUrl = pathToFileURL(path.join(ROOT, 'dist', 'studio', 'studio.mjs')).href
+    expect(emittedEngineEntryFromModuleUrl(moduleUrl))
+      .toBe(path.join(ROOT, 'dist', 'studio', 'engine.mjs'))
+  })
+
+  it('emits, audits, and supervises the packaged production graph without the development loader', async () => {
+    const build = spawnSync(process.execPath, [BUILD_STUDIO_SCRIPT], { cwd: ROOT, encoding: 'utf8' })
+    expect(build.status, build.stderr).toBe(0)
+    const audit = spawnSync(process.execPath, [AUDIT_STUDIO_SCRIPT], { cwd: ROOT, encoding: 'utf8' })
+    expect(audit.status, `${audit.stdout}\n${audit.stderr}`).toBe(0)
+    expect(audit.stdout).toContain('PASS: emitted graph is first-party + node builtins only')
+
+    const root = temporaryRoot('packaged-launch')
+    const profileRoot = path.join(root, 'profile')
+    const observer = await FixtureObserver.open()
+    try {
+      const supervisor = spawnSupervisor(profileRoot, observer, 'exit', 3, 0, false, 'packaged')
+      const started = await observer.waitFor('started')
+      const ready = await eventually(
+        () => parseReadyLine(supervisor),
+        `Packaged supervisor did not publish readiness.\n${processDiagnostics(supervisor)}`,
+      )
+      expect(requiredString(started, 'endpoint')).toBe(ready.endpoint)
+      await expectSupervisorExit(supervisor, 0)
+      expect(supervisor.stdout).toContain('graph=emitted')
+      expect(supervisor.stdout.includes('vite-node')).toBe(false)
+      expect(supervisor.stderr.includes('vite-node')).toBe(false)
+    } finally {
+      await observer.close()
+    }
+  }, 60_000)
 
   it('tolerates only entries that disappear during a recursive profile scan', () => {
     const root = temporaryRoot('profile-scan-race')

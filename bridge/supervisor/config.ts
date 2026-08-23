@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import url from 'node:url'
 
 export const STUDIO_PROFILE_ROOT_ENV = 'PROJECT_STUDIO_PROFILE_ROOT'
 export const STUDIO_UNITY_EXECUTABLE_ENV = 'PROJECT_STUDIO_UNITY_EXECUTABLE'
@@ -53,6 +54,17 @@ export type StudioSupervisorOptions = {
   unityWorkingDirectory: string
   unityArguments: string[]
   maxEngineRestarts: number
+  /**
+   * Absolute path of the emitted engine bundle to spawn directly, or null to
+   * spawn the vite-node development graph. Only the packaged CLI entry sets
+   * this; there is no flag, environment variable, or implicit fallback.
+   */
+  engineEntry: string | null
+}
+
+export function emittedEngineEntryFromModuleUrl(moduleUrl: string): string {
+  const modulePath = url.fileURLToPath(moduleUrl)
+  return path.join(path.dirname(modulePath), 'engine.mjs')
 }
 
 export type StudioSupervisorArgumentResult =
@@ -390,6 +402,7 @@ export function parseStudioSupervisorArguments(
           : path.dirname(unityExecutable),
       unityArguments: assertSafeUnityArguments(parsed.unityArguments),
       maxEngineRestarts: parsed.maxEngineRestarts ?? DEFAULT_MAX_ENGINE_RESTARTS,
+      engineEntry: null,
     },
   }
 }
