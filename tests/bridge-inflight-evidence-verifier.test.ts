@@ -21,7 +21,7 @@ import {
   BridgeInFlightEvidenceError,
   verifyBridgeInFlightEvidence,
 } from '../bridge/testing/in-flight-evidence-verifier.ts'
-import { BridgeSession, createBridgeInitialState } from '../bridge/session.ts'
+import { BridgeSession } from '../bridge/session.ts'
 
 type MarkerRecord = Record<string, unknown>
 
@@ -32,6 +32,18 @@ type FixtureReport = {
   status: string
   failure: string
   sessionId: string
+  openingClassification: string
+  openingRevision: number
+  openingWeek: number
+  openingDigest: string
+  automationPreludeApplied: boolean
+  automationPreludeAcceptedIntentCount: number
+  automationPreludeRevisionStart: number
+  automationPreludeRevisionEnd: number
+  automationFoundingSigningCount: number
+  automationFoundStudioCount: number
+  automationFoundingAccountingPassed: boolean
+  automationPreludeAcceptedIntents: unknown[]
   finalRevision: number
   finalWeek: number
   finalDigest: string
@@ -100,11 +112,26 @@ function makeFixture(extraJournalEntry = false): EvidenceFixture {
   fs.mkdirSync(logs)
   fs.mkdirSync(runtime)
 
-  const sessionId = 'inflight-evidence-session'
-  const session = new BridgeSession(createBridgeInitialState('inflight-evidence'), sessionId)
+  const session = BridgeSession.createRuntime()
+  const sessionId = session.sessionId
   const initial = session.snapshot()
+  const openingJourney = initial.snapshot.journeyNotices.firstFilmJourney
+  if (initial.stateRevision !== 0 || initial.gameWeek !== 0 || initial.snapshot.lot.week !== 0 ||
+      openingJourney?.stage !== 'no-picture' || openingJourney.beat !== 'no-picture' ||
+      openingJourney.ordinal !== 1 || openingJourney.blocked === null ||
+      initial.snapshot.releaseResults.releasedFilms.length !== 0 ||
+      initial.snapshot.productions.activeProductions.length !== 0 ||
+      initial.snapshot.productions.productionOperations?.length !== 0 ||
+      initial.snapshot.construction.placement?.currentWeek !== 0 ||
+      initial.snapshot.construction.placement.placements.length !== 0) {
+    throw new Error('Fixture did not begin at exact revision-zero raw founding authority.')
+  }
+  if (initial.availableIntents.length === 0 ||
+      initial.availableIntents.some((candidate) => candidate.kind !== 'signFoundingContract')) {
+    throw new Error('Fixture did not expose an exact sign-only raw founding surface.')
+  }
   const intent = initial.availableIntents[0]
-  if (intent === undefined) throw new Error('Fixture has no legal intent.')
+  if (intent === undefined) throw new Error('Fixture has no founding signing intent.')
 
   const commandId = 'inflight-evidence-command'
   const commandRequest: SubmitIntentCommand = {
@@ -118,6 +145,11 @@ function makeFixture(extraJournalEntry = false): EvidenceFixture {
   }
   const commandResponse = accepted(session.command(commandRequest))
   const afterCommand = session.snapshot()
+  if (session.gameState.founding === null || session.gameState.contracts.length !== 1 ||
+      afterCommand.availableIntents.length === 0 ||
+      afterCommand.availableIntents.some((candidate) => candidate.kind !== 'signFoundingContract')) {
+    throw new Error('Fixture command did not recover the exact first founding signing.')
+  }
 
   const saveId = 'inflight-evidence-save'
   const saveRequest: ControlEnvelope = {
@@ -201,10 +233,22 @@ function makeFixture(extraJournalEntry = false): EvidenceFixture {
   const report: FixtureReport = {
     runtimeInstanceId: 'runtime-final',
     initialRuntimeInstanceId: 'runtime-initial',
-    schemaVersion: 5,
+    schemaVersion: 7,
     status: 'complete',
     failure: '',
     sessionId,
+    openingClassification: 'raw-founding',
+    openingRevision: 0,
+    openingWeek: 0,
+    openingDigest: initial.stateDigest,
+    automationPreludeApplied: false,
+    automationPreludeAcceptedIntentCount: 0,
+    automationPreludeRevisionStart: 0,
+    automationPreludeRevisionEnd: 0,
+    automationFoundingSigningCount: 0,
+    automationFoundStudioCount: 0,
+    automationFoundingAccountingPassed: false,
+    automationPreludeAcceptedIntents: [],
     finalRevision: final.stateRevision,
     finalWeek: final.gameWeek,
     finalDigest: final.stateDigest,
@@ -284,6 +328,58 @@ describe('bridge in-flight native evidence verifier', () => {
     })
     expect(result.recoveredPosts.map((post) => post.route)).toEqual(['command', 'save', 'load'])
     expect(canonicalJson(result)).not.toContain(fixture.root)
+  })
+
+  it('requires schema 7 raw-founding identity and an explicitly empty recovery prelude', () => {
+    const oldSchema = makeFixture()
+    oldSchema.report.schemaVersion = 6
+    oldSchema.write()
+    expect(() => verifyBridgeInFlightEvidence(oldSchema.root)).toThrow(/schemaVersion must be 7/)
+
+    const legacy = makeFixture()
+    legacy.report.openingClassification = 'legacy-movie-1-released'
+    legacy.write()
+    expect(() => verifyBridgeInFlightEvidence(legacy.root)).toThrow(/must be raw-founding/)
+
+    const advanced = makeFixture()
+    advanced.report.openingRevision = 1
+    advanced.write()
+    expect(() => verifyBridgeInFlightEvidence(advanced.root)).toThrow(/revision and week must both be 0/)
+
+    const wrongDigest = makeFixture()
+    wrongDigest.report.openingDigest = 'a'.repeat(64)
+    wrongDigest.write()
+    expect(() => verifyBridgeInFlightEvidence(wrongDigest.root)).toThrow(
+      /raw founding opening does not match initial in-flight authority/,
+    )
+
+    const applied = makeFixture()
+    applied.report.automationPreludeApplied = true
+    applied.write()
+    expect(() => verifyBridgeInFlightEvidence(applied.root)).toThrow(
+      /automationPreludeApplied must be false/,
+    )
+
+    const missingIntents = makeFixture()
+    delete (missingIntents.report as Partial<FixtureReport>).automationPreludeAcceptedIntents
+    missingIntents.write()
+    expect(() => verifyBridgeInFlightEvidence(missingIntents.root)).toThrow(
+      /empty, zero-width automation prelude/,
+    )
+
+    const forgedFoundingCount = makeFixture()
+    forgedFoundingCount.report.automationFoundingSigningCount = 1
+    forgedFoundingCount.write()
+    expect(() => verifyBridgeInFlightEvidence(forgedFoundingCount.root)).toThrow(
+      /empty, zero-width automation prelude/,
+    )
+
+    const forgedFoundingAccounting = makeFixture()
+    forgedFoundingAccounting.report.automationFoundingAccountingPassed = true
+    forgedFoundingAccounting.write()
+    expect(() => verifyBridgeInFlightEvidence(forgedFoundingAccounting.root)).toThrow(
+      /empty, zero-width automation prelude/,
+    )
   })
 
   it('rejects a byte-different semantic retry even when command identity still matches', () => {

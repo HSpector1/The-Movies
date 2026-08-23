@@ -64,6 +64,18 @@ type ProofReport = {
   runtimeInstanceId: string
   initialRuntimeInstanceId: string
   sessionId: string
+  openingClassification: 'raw-founding'
+  openingRevision: 0
+  openingWeek: 0
+  openingDigest: string
+  automationPreludeApplied: false
+  automationPreludeAcceptedIntentCount: 0
+  automationPreludeRevisionStart: 0
+  automationPreludeRevisionEnd: 0
+  automationFoundingSigningCount: 0
+  automationFoundStudioCount: 0
+  automationFoundingAccountingPassed: false
+  automationPreludeAcceptedIntents: readonly []
   finalRevision: number
   finalWeek: number
   finalDigest: string
@@ -398,9 +410,51 @@ function parseRecoveredPost(value: unknown, label: string): RecoveredPost {
 
 function parseProofReport(text: string): ProofReport {
   const record = asRecord(parseJson(text, 'Unity proof report'), 'Unity proof report')
-  if (record['schemaVersion'] !== 5) fail('Unity proof report.schemaVersion must be 5.')
+  if (record['schemaVersion'] !== 7) fail('Unity proof report.schemaVersion must be 7.')
   if (record['status'] !== 'complete') fail('Unity proof report.status must be complete.')
   if (record['failure'] !== '') fail('Unity proof report.failure must be empty.')
+  if (record['openingClassification'] !== 'raw-founding') {
+    fail('Unity proof report.openingClassification must be raw-founding.')
+  }
+  const openingRevision = requireInteger(
+    record['openingRevision'],
+    'Unity proof report.openingRevision',
+  )
+  const openingWeek = requireInteger(record['openingWeek'], 'Unity proof report.openingWeek')
+  if (openingRevision !== 0 || openingWeek !== 0) {
+    fail('Unity proof report opening revision and week must both be 0.')
+  }
+  const openingDigest = requireSha256(
+    record['openingDigest'],
+    'Unity proof report.openingDigest',
+  )
+  requireBoolean(
+    record['automationPreludeApplied'],
+    false,
+    'Unity proof report.automationPreludeApplied',
+  )
+  const automationPreludeAcceptedIntentCount = requireInteger(
+    record['automationPreludeAcceptedIntentCount'],
+    'Unity proof report.automationPreludeAcceptedIntentCount',
+  )
+  const automationPreludeRevisionStart = requireInteger(
+    record['automationPreludeRevisionStart'],
+    'Unity proof report.automationPreludeRevisionStart',
+  )
+  const automationPreludeRevisionEnd = requireInteger(
+    record['automationPreludeRevisionEnd'],
+    'Unity proof report.automationPreludeRevisionEnd',
+  )
+  if (automationPreludeAcceptedIntentCount !== 0 ||
+      automationPreludeRevisionStart !== openingRevision ||
+      automationPreludeRevisionEnd !== openingRevision ||
+      record['automationFoundingSigningCount'] !== 0 ||
+      record['automationFoundStudioCount'] !== 0 ||
+      record['automationFoundingAccountingPassed'] !== false ||
+      !Array.isArray(record['automationPreludeAcceptedIntents']) ||
+      record['automationPreludeAcceptedIntents'].length !== 0) {
+    fail('Unity in-flight proof report must expose an empty, zero-width automation prelude.')
+  }
   requireBoolean(
     record['inFlightRecoveryComplete'],
     true,
@@ -442,6 +496,18 @@ function parseProofReport(text: string): ProofReport {
       'Unity proof report.initialRuntimeInstanceId',
     ),
     sessionId: requireString(record['sessionId'], 'Unity proof report.sessionId'),
+    openingClassification: 'raw-founding',
+    openingRevision: 0,
+    openingWeek: 0,
+    openingDigest,
+    automationPreludeApplied: false,
+    automationPreludeAcceptedIntentCount: 0,
+    automationPreludeRevisionStart: 0,
+    automationPreludeRevisionEnd: 0,
+    automationFoundingSigningCount: 0,
+    automationFoundStudioCount: 0,
+    automationFoundingAccountingPassed: false,
+    automationPreludeAcceptedIntents: [],
     finalRevision: requireInteger(record['finalRevision'], 'Unity proof report.finalRevision'),
     finalWeek: requireInteger(record['finalWeek'], 'Unity proof report.finalWeek'),
     finalDigest: requireSha256(record['finalDigest'], 'Unity proof report.finalDigest'),
@@ -484,6 +550,10 @@ function parseProofReport(text: string): ProofReport {
 
   if (report.sessionId !== report.inFlightInitialSessionId) {
     fail('Unity proof report changed logical session identity.')
+  }
+  if (report.openingRevision !== report.inFlightInitialRevision ||
+      report.openingDigest !== report.inFlightInitialDigest) {
+    fail('Unity proof report raw founding opening does not match initial in-flight authority.')
   }
   if (report.runtimeInstanceId === report.initialRuntimeInstanceId) {
     fail('Unity proof report did not change process-scoped runtime identity.')
@@ -576,6 +646,23 @@ export function verifyBridgeInFlightEvidence(
   }
   if (checkpoint.currentSave.state.market.tick !== report.finalWeek) {
     fail('Bridge runtime checkpoint final week does not match the Unity proof report.')
+  }
+  if (checkpoint.currentSave.state.founding === null ||
+      checkpoint.currentSave.state.contracts.length !== 1) {
+    fail('Bridge runtime checkpoint must retain raw founding with exactly one recovered signing.')
+  }
+
+  const recoveredSigning = checkpoint.journal[0]
+  if (recoveredSigning === undefined || recoveredSigning.route !== 'command' ||
+      !recoveredSigning.response.accepted ||
+      recoveredSigning.response.availableIntents.length === 0 ||
+      recoveredSigning.response.availableIntents.some(
+        (intent) => intent.kind !== 'signFoundingContract',
+      ) ||
+      recoveredSigning.response.snapshot.journeyNotices.firstFilmJourney.stage !== 'no-picture' ||
+      recoveredSigning.response.snapshot.journeyNotices.firstFilmJourney.beat !== 'no-picture' ||
+      recoveredSigning.response.snapshot.journeyNotices.firstFilmJourney.blocked === null) {
+    fail('Recovered command is not the exact first raw-founding signing transition.')
   }
 
   const postCommitByRoute = indexExactlyOneByRoute(markers.postCommit, 'Post-commit markers')
