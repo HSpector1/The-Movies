@@ -342,6 +342,11 @@ export type SliceRecord = {
   engaged: boolean
   /** D-17B: publicity dollars spent by this run up to this slice. ABSENT when publicity is off. */
   publicitySpendToSlice?: number
+  /**
+   * Optional audit instrumentation: signed ledger totals through this slice. Absent by
+   * default so established D-16/D-17 artifact bytes remain unchanged.
+   */
+  ledgerTotals?: Record<string, number>
 }
 
 export type RunOptions = {
@@ -390,6 +395,8 @@ export type RunOptions = {
   awarenessStats?: boolean
   /** harvest entry states for the Stage-5 continuation corpora (A4 §7). */
   captureAt?: { states: FinancialState[]; firstOnly: boolean; maxPerRun: number }
+  /** Add cumulative signed ledger totals to slice rows; analysis-only and off by default. */
+  captureLedgerAtSlices?: boolean
 }
 
 /** Build the player-facing decision context. Holds `state` in a closure; never exposes it. */
@@ -886,6 +893,7 @@ function runOneCore(opts: RunOptions): RunRecord {
           engaged: employmentEngaged(state),
         }
         if (pubCfg !== undefined) slice.publicitySpendToSlice = pubMemo.spend
+        if (opts.captureLedgerAtSlices === true) slice.ledgerTotals = ledgerTotals(state)
         slices[String(sw)] = slice
       }
     }
