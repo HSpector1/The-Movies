@@ -182,6 +182,21 @@ non-regressive polish. Keep all M1-M5 tags immutable. Every new slice is
 non-Golden by default; do not invent, create, or move M6 without a later full
 independent Golden ruling.
 
+## CHECKPOINT 22 SEALED 25/50/100 SCALABILITY GATE - NON-GOLDEN
+
+Promotion status: **NOT PROMOTED — GOLDEN M5 REMAINS CURRENT BEST**
+
+CP22 (Unity `c7a19dcd5b8c74b57a9053a1a2c0cf8b07bbd48e`, TypeScript unchanged
+at the CP21 docs child plus this seal's docs child) passes the 25/50/100-person
+scalability gate on the packaged runtime: exact tier populations of synthetic
+proof-only walkers, all on-mesh, zero error logs, p95 frame time 9.06/9.05/9.35
+ms against the 16.67 ms (60 FPS) floor at ~119.5 FPS, with authority
+byte-identical afterwards (fully passive proof; report SHA-256
+`211f32669d7ebbd9ec6f201e23dfdac0b9d0cf04d997bb181de7f76e7b888cc5`). Unity
+EditMode 271/271; rebuilt player passes the schema-7 bridge auto proof
+(`ab2c9a21...`). Scene, NavMesh, DTO pair, protocol, schema, and the M5 tags
+are unchanged. CP22 is deliberately non-Golden; no M6 exists.
+
 ## CHECKPOINT 21 SEALED EMITTED PRODUCTION STUDIO GRAPH - NON-GOLDEN
 
 Promotion status: **NOT PROMOTED — GOLDEN M5 REMAINS CURRENT BEST**

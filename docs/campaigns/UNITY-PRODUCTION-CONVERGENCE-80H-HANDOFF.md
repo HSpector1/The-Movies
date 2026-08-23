@@ -4,6 +4,110 @@ START HERE. Read `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`, then the campaign
 ledger, this handoff, and the promotion register. The TypeScript/Unity engine
 decision is settled. Do not restart planning from scratch.
 
+## CHECKPOINT 22 SEALED - NON-GOLDEN CAMPAIGN TIP
+
+CP22 runs the long-open 25/50/100-person scalability gate (M5 P2 / Phase H+L)
+and passes it with wide headroom. It is **non-Golden**; Golden M5 remains the
+sole formal CURRENT BEST. No M6 tag exists or is implied.
+
+### CURRENT EXACT STATE
+
+Timestamp: 2026-08-23 14:42 CEST (UTC+02:00).
+
+| Item | Exact state |
+| --- | --- |
+| TypeScript authority | unchanged this checkpoint; remains CP21 docs child `4fd6a8126433c237d02bbfdc6cf60df433e56c97` (plus this seal's docs child) |
+| Unity production client | `campaign/unity-production-convergence-80h-client` at `c7a19dcd5b8c74b57a9053a1a2c0cf8b07bbd48e`; one CP22 commit on top of CP20 tip `2b1562f8...` |
+| CP22 Unity scope | exactly five paths: `StudioScalabilityProofRunner.cs` (+`.meta`), `StudioScalabilityProofRunnerTests.cs` (+`.meta`), `StudioBridgeBootstrap.cs` (three-line installer) |
+| Contract / scene / NavMesh | unchanged: protocol `4`, projection `4`, schema `f84ae77e...`, DTO pair `6bb61749...`, scene `475c89ce...`, NavMesh `20a8afad...`; no simulation, identity, or gameplay-law change; runtime clones are proof-only and never serialized |
+
+### ACCEPTED CP22 PRODUCT
+
+`-studioScalabilityProof` + `-studioScalabilityProofRoot` (strict single fresh
+root) spawns explicitly synthetic proof-only presentation walkers — role-free
+authored bodies cloned with slot/selectable/marker bookkeeping stripped — to
+exact 25/50/100 total lot populations spread across the authored zone points,
+then per tier measures frame timing (p95), render counters, NavMesh counts,
+and working set, captures a native frame, and gates on: exact on-mesh
+population, `p95 <= 16.67 ms` (60 FPS floor), and zero error logs. The proof
+is fully passive (never posts; session/revision/digest must be identical
+afterwards; fails closed otherwise).
+
+### VALIDATION STATE
+
+- Unity EditMode **271/271** (adds 10 scalability contract tests: tiers,
+  gates, percentile math, report schema, runner passivity/source rules).
+- macOS player rebuild SUCCESS with valid codesign.
+- Native scalability proof COMPLETE on the packaged runtime through the real
+  owner launcher; native bridge auto proof rerun on the rebuilt player as
+  regression: complete, exact Movie #2, revision 50, 119.6 FPS.
+- `git diff --check` clean. TypeScript untouched (no TS gates rerun). The
+  CP20 stage visual proof record stands; stage composition is untouched by
+  the added dormant runner.
+
+### ACCEPTED NATIVE EVIDENCE
+
+Scalability (packaged runtime, owner launcher, raw-founding opening digest
+`3d8d2876...`, baseline 4 ambient people):
+
+- `Evidence/R/CP22-Scalability-20260823T123843Z/Main/studio-scalability-proof.json`,
+  4,047 bytes, schema `1`, status `complete`, SHA-256
+  `211f32669d7ebbd9ec6f201e23dfdac0b9d0cf04d997bb181de7f76e7b888cc5`, with
+  tier captures `01-tier-025.png`/`02-tier-050.png`/`03-tier-100.png`.
+
+| Tier | Clones | Active people | p50 ms | p95 ms | max ms | FPS | Draw calls | Triangles | Working set |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 25 | 21 | 25 | 8.33 | 9.06 | 25.85 | 119.8 | 1,686 | 731k | 407 MB |
+| 50 | 46 | 50 | 8.34 | 9.05 | 12.78 | 119.4 | 2,824 | 1.33M | 443 MB |
+| 100 | 96 | 100 | 8.30 | **9.35** | 12.52 | 119.5 | 5,923 | 2.87M | 457 MB |
+
+All tiers: exact population, all clones on mesh, zero errors, authority
+byte-identical (revision 0 before and after, zero workflow attempts, zero
+outages/replacements/torn reads).
+
+Bridge regression on the rebuilt player:
+`Evidence/R/CP22-Bridge-Regression-20260823T124042Z/Main/bridge-client-proof.json`,
+25,247 bytes, schema 7, complete, SHA-256
+`ab2c9a21dcd0fffa56007cf2c509dc2bf80b497f1fae412eba8c6daff9cbd504`.
+
+### VISUAL RULING
+
+The tier-100 native frame reads well: people are dotted naturally across the
+whole campus (streets, stage aprons, casting, gate, lawns) with no stacking,
+floating, or T-posing at read distance. Notably the lot at 100 people feels
+substantially more alive than the baseline — recorded as future ambient-
+density polish input for the known "diorama" overview critique. KEEP.
+
+### KNOWN BOUNDARIES AFTER CP22
+
+- The scalability proof stresses presentation population, not simulation
+  scale; the broader resilience "ugly-condition matrix" (Phase M) remains
+  open P2.
+- The 60 FPS p95 floor is the first scalability ratchet on the M3 Max
+  reference device; per-device budgets and p99 remain future strengthening.
+- CP21/CP20 boundaries stand: install/update distribution, profile backup,
+  TypeScript `main` reconciliation, cast cross-product cap, cosmetic
+  founding-literal indentation, visual polish.
+
+### NEXT EXACT ACTION
+
+Keep M5 immutable. Next bounded P2 work in priority order: reconcile
+TypeScript `main` in an isolated merge candidate with full revalidation, or
+take a bounded slice of the resilience ugly-condition matrix; targeted visual
+polish (including ambient lot density informed by the tier evidence) only
+when it preserves all M5 gates. Every continuation is non-Golden by default;
+do not create or move an M6 tag without a later complete independent Golden
+ruling.
+
+### RECOVERY INSTRUCTIONS
+
+1. Golden recovery remains M5-only (see the M5 section below).
+2. CP22 campaign tips: TypeScript `4fd6a812...` plus this seal's docs child;
+   Unity `c7a19dcd...`. Both pushed; HEAD = upstream = live remote with
+   clean tracked trees.
+3. CP22 evidence roots are local and ignored; verify by the SHA-256 values
+   above.
+
 ## CHECKPOINT 21 SEALED - NON-GOLDEN CAMPAIGN TIP
 
 CP21 productionizes the local engine launcher and audits the emitted graph —

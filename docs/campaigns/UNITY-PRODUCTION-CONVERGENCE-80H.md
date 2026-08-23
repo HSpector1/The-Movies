@@ -4288,3 +4288,45 @@ The docs-only commit containing this entry is the direct child of TypeScript
 CP21 tip `ea940aec4f7e13434ab8df855f221c9387515dfa`; resolve its self SHA
 after commit and require HEAD/upstream/live-remote equality with a clean
 tracked tree.
+
+## 2026-08-23 14:42 CEST - Checkpoint 22 sealed: 25/50/100 scalability gate passed (pushed, non-Golden)
+
+CP22 runs the long-open 25/50/100-person scalability gate (Phase H stress /
+Phase L p95) and passes with wide headroom. Golden M5 unchanged; no tag.
+TypeScript product source untouched.
+
+Unity commit on `campaign/unity-production-convergence-80h-client` (parent
+CP20 tip `2b1562f80b7d8645765f5506a0deaf147f6aeb9e`):
+`c7a19dcd5b8c74b57a9053a1a2c0cf8b07bbd48e` — passive 25/50/100 scalability
+stress proof (`StudioScalabilityProofRunner` + contract tests + three-line
+bootstrap install; exactly five paths). Scene/NavMesh/DTO byte-identical;
+clones are proof-only runtime objects with bookkeeping components stripped
+and explicitly synthetic naming.
+
+Validation: Unity EditMode 271/271 (adds 10 contract tests); macOS rebuild
+SUCCESS + codesign VALID; `git diff --check` clean; native bridge auto proof
+rerun on the rebuilt player: complete, exact Movie #2, revision 50, 119.6
+FPS (`Evidence/R/CP22-Bridge-Regression-20260823T124042Z/Main/bridge-client-proof.json`,
+25,247 bytes, SHA-256
+`ab2c9a21dcd0fffa56007cf2c509dc2bf80b497f1fae412eba8c6daff9cbd504`).
+
+Accepted scalability evidence (packaged runtime through the real owner
+launcher; raw-founding opening `3d8d2876...`; baseline 4 ambient people):
+`Evidence/R/CP22-Scalability-20260823T123843Z/Main/studio-scalability-proof.json`,
+4,047 bytes, schema 1, complete, SHA-256
+`211f32669d7ebbd9ec6f201e23dfdac0b9d0cf04d997bb181de7f76e7b888cc5`, three
+tier captures. Tier results (M3 Max, 1440x900): 25 people p95 9.06 ms /
+119.8 FPS / 1,686 draw calls; 50 people p95 9.05 ms / 119.4 FPS / 2,824
+draw calls; 100 people p95 9.35 ms / 119.5 FPS / 5,923 draw calls / 2.87M
+triangles / 457 MB working set. Every tier: exact population, all clones
+on mesh, zero error logs, authority byte-identical afterwards (revision 0,
+zero attempts/outages/replacements/torn reads). The 60 FPS p95 floor is the
+first scalability ratchet; p99 and per-device budgets remain future
+strengthening. Visual ruling: KEEP — natural distribution, no stacking or
+T-posing; the 100-person lot notably improves perceived aliveness (recorded
+as ambient-density polish input).
+
+The docs-only commit containing this entry is the direct child of TypeScript
+CP21 docs child `4fd6a8126433c237d02bbfdc6cf60df433e56c97`; resolve its self
+SHA after commit and require HEAD/upstream/live-remote equality with a clean
+tracked tree.
