@@ -379,3 +379,47 @@ depot pose reads as "stopped in the gateway."
 list), or the environment follow-ups (east horizon, settle-freeze pose);
 Phase M continues interleaved (Case E — journal-bound rollover under
 save-heavy load — landed this stretch, `c2f7249`).
+
+## 2026-08-23 — LL-CP6 in progress: "Shooting Today" exterior production tell — NOT SEALED
+
+**Status: implemented and pushed as WIP (`b5908c9` on
+campaign/living-lot-client), compiling, scene validation 0 errors, EditMode
+292/292 — but UNSEALED: no runtime evidence, no two-world measurement, no
+independent review. Run stopped here for an Owner machine restart.**
+
+**Why this checkpoint:** hostile review measured that a shooting week and an
+idle week differ by 0.126% of whole-lot pixels — the game's premise is
+invisible from the primary surface. Correction discovered during scoping:
+`StageActivityEffects` already drives a truthful pulsing beacon, rotating
+lens, SHOOTING sign and practicals off the sealed stage truth — but at the
+management camera the whole tell is ~3 px. The reviewer's baseline compared
+a LOAD-IN week to an idle week (beacon correctly dark in both), so the
+"beacon is static" finding was wrong; the "tell is illegible" finding stands.
+
+**Implemented (all presentation-only, driven by the sealed Stage 7 truth):**
+beacon halo + two elephant-door hot lamps appended to shootingIndicators
+(validation pin extended 2 → 5 exact); collider-free apron dressing (cable
+runs, cases, crew cart — names avoid the equipment auto-marker tokens) in
+the STATE_Shooting group; StudioStageDoorCrewPresentation — 3 decorative
+door-crew bodies spawned only while Shooting, LL-CP2 identity-stripping
+rules, marks south of the stage camera's back; StudioPublicStreetTraffic —
+2 decorative sedans looping Melrose outside the wall (own group
+17_Public_Street_Traffic, colliders stripped, honest ambience implying no
+studio state).
+
+**To seal (next session):** rebuild app; sweep = stage proofs both aspects +
+bridge proof + shooting-week burst (profile builder:
+scratchpad/llcp6-make-shooting-profile.mjs — drives the journey to
+phase=="shooting", blocker-free; note snapshot fields nest under
+`response.snapshot.*`) + idle-week burst (canon week-22 profile) + LL-CP5
+regression (delivery/parked bursts must still behave); measure the
+reviewer's acceptance criteria — two-world whole-lot pixel delta ≥ 3% with
+≥ 60% outside the doorway rectangle, stranger test, no frozen adjacent
+frames, stage seal luma separations unchanged, crew non-selectable, FPS ≥
+60; then a fresh-context Opus ruling. Deferred from CP6 scope: unload pair
+at the truck's hold, label depth-testing, teal-cube/truck remodels,
+sky/lighting overhaul, settle-freeze pose.
+
+**Recovery if anything is wrong:** the branch tip before CP6 work is
+`18bb54f` (leg ratchet, sealed state); LL-CP5 seal evidence at stamps
+20260823T194141Z. Golden M6 remains the recovery floor.
