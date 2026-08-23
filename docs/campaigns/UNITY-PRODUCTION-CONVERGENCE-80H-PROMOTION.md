@@ -182,6 +182,32 @@ non-regressive polish. Keep all M1-M5 tags immutable. Every new slice is
 non-Golden by default; do not invent, create, or move M6 without a later full
 independent Golden ruling.
 
+## CHECKPOINT 20 SEALED GENUINE FOREGROUND PLAYER JOURNEY - NON-GOLDEN
+
+Promotion status: **NOT PROMOTED — GOLDEN M5 REMAINS CURRENT BEST**
+
+CP20 is the sealed, validated, pushed campaign tip on both moving branches:
+TypeScript `5eb80ed472093d63a5e9cf7d4c40998fcc934f89` (direct descendant of
+the M5 docs child `37aa4a87...`) and Unity
+`2b1562f80b7d8645765f5506a0deaf147f6aeb9e` (direct descendant of Unity M5
+`4770e229...`). It ships the raw Week-0 founding workflow, player-workflow
+facts, the semantic `_Loop` animation import, the Boom Operator mark
+`49.09 X`, raw-founding proof preludes, the owner launcher, and — closing the
+M5 P2 item for mouse input — the genuine foreground PlayerJourney proof:
+schema-2 `complete`, 49 GUI attempts = 49 accepted,
+`zeroProofDirectSubmissions=true`, driven end-to-end by OS-level HID mouse
+events into the frontmost supervised player on an unlocked console
+(report SHA-256
+`d9c90971d2a011ec19ef9469858764b0761299598ec80249fc1eb80b4ad460f0`).
+
+CP20 is deliberately **non-Golden**: no independent full Golden ruling was
+run for it, no M6 tag exists, and M1-M5 remain immutable. Promotion beyond M5
+requires a later complete independent Golden ruling under the standing
+discipline. Contract at CP20: protocol `4`, projection `4`, schema
+`sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61`,
+DTO pair `6bb61749...`; this supersedes the M5 schema id only on the moving
+branches, never on the M5 tags.
+
 ## PRIOR GOLDEN M4 REGISTER - HISTORICAL
 
 This section preserves M4 exactly as the CURRENT BEST decision stood before

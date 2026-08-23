@@ -4,6 +4,153 @@ START HERE. Read `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`, then the campaign
 ledger, this handoff, and the promotion register. The TypeScript/Unity engine
 decision is settled. Do not restart planning from scratch.
 
+## CHECKPOINT 20 SEALED - NON-GOLDEN CAMPAIGN TIP
+
+CP20 is sealed, validated, and pushed on both moving campaign branches. It is
+**non-Golden**; Golden M5 below remains the sole formal CURRENT BEST and the
+only build-from/recovery authority. No M6 tag exists or is implied.
+
+### CURRENT EXACT STATE
+
+Timestamp: 2026-08-23 13:52 CEST (UTC+02:00).
+
+| Item | Exact state |
+| --- | --- |
+| TypeScript authority | `campaign/unity-production-convergence-80h-ts` at `5eb80ed472093d63a5e9cf7d4c40998fcc934f89`; four CP20 commits (`d0223c1a...`, `eb70acc1...`, `3c5a90be...`, `5eb80ed4...`) on top of the pushed M5 docs child `37aa4a8731f2fa78f28d7d5730ac79fa626e63cf` |
+| Unity production client | `campaign/unity-production-convergence-80h-client` at `2b1562f80b7d8645765f5506a0deaf147f6aeb9e`; six CP20 commits (`a1fc23df...`, `05279457...`, `e2f3fdbe...`, `0cadf221...`, `84b0c6d9...`, `2b1562f8...`) directly on top of Unity M5 `4770e22955f2fae770445065c2bf782ef251496e` |
+| Contract | Protocol `4`, projection `4`, schema `sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61`; DTO copies byte-identical at SHA-256 `6bb617490900c903a6ebcb29bf6e32a338c473ba0d33c10e763088f8f794c81e` |
+| Scene / NavMesh | `StudioLot.unity` SHA-256 `475c89ceffc009aa5ef06092995b0e918ffd3658e48e48d72891bf044cf963b7`; `StudioLotNavMesh.asset` unchanged at `20a8afad3e7fba5f0c974050fbc39f332f03ad29c21dc84561809758aa828f04` |
+| Golden | M5 unchanged and immutable in both repos (`golden/unity-convergence-m5`); CP20 creates no tag |
+
+### ACCEPTED CP20 PRODUCT
+
+- TypeScript: fresh runtimes open at exact revision-zero Week 0 raw founding
+  under the versioned deterministic adopted-authority seed; seven
+  `signFoundingContract` signings then one `foundStudio`; audition-evidence
+  cast-choice greenlight intents; forward-migration of prior protocol-4
+  checkpoints (open founding drafts refused fail-closed); schema-7 in-flight
+  evidence contract; `npm run play` / `PLAY_PROJECT_STUDIO.command` owner
+  launcher (owner-machine layout by design).
+- Unity: player-workflow facts for every accepted GUI mutation (button screen
+  rect, layout/repaint nonce, command identity, route revisions, attempt and
+  accepted counters); founding/cast-choice/reception workflow panel and
+  selection receipt HUD; semantic `_Loop` animation import so the 30 intended
+  loop clips actually loop (`Idle_No_Loop` intentionally non-looping); Boom
+  Operator shooting mark `48.99 -> 49.09 X` with refreshed held Boom
+  Microphone pose; raw-founding automation prelude for the schema-7 bridge
+  proof and schema-6 stage proof; the passive player journey recorder.
+
+### VALIDATION STATE
+
+Validated by the prior session against exactly this tree (byte-identical at
+seal, re-verified 2026-08-23): Unity EditMode 261/261; macOS player build
+SUCCESS with valid codesign; TypeScript 337 files / 4,540 passed / 5 skipped;
+main+bridge typechecks; contract drift check; production build; repository
+hygiene; 3D asset audit; `git diff --check` clean in both repos. No source
+change occurred after those gates; this session added only local evidence.
+
+### ACCEPTED NATIVE EVIDENCE
+
+Stage (rebuilt player, both aspects authority-identical, schema 6, complete,
+5/5 milestones; representative frames — they do not claim every instant of
+every animation loop):
+
+- `Evidence/R/CP20-Stage-BoomMark-Final-20260822T100014Z/Landscape/stage-visual-proof-landscape.json`,
+  400,748 bytes, SHA-256
+  `5921d91c5e72f78598202366334be0669aba1d44a5d7dc2af42d48d432ac7b72`.
+- `Evidence/R/CP20-Stage-BoomMark-Final-20260822T100014Z/Portrait/stage-visual-proof-portrait.json`,
+  399,122 bytes, SHA-256
+  `d42872044d6ae4faa476fb003d81a915c0cf5f8c9ce9e1b092c5359bbca0ffb6`.
+
+Bridge (schema 7, 12/12 milestones, exact founding 7+1, Movie #2, save/load,
+stale-state/checkpoint joins, zero restart budget):
+
+- `Evidence/R/CP20-Bridge-BoomMark-Final-20260822T100620Z/Main/bridge-client-proof.json`,
+  25,283 bytes, SHA-256
+  `1ce8ed0ffbcfed91672d51f413f6cd97942fc3bcec6b82abf188b1c9c9003a92`.
+
+**Genuine foreground PlayerJourney proof (the CP20 blocker, completed
+2026-08-23):**
+
+- `Evidence/R/CP20-PlayerJourney-Foreground-20260823T112246Z/Main/studio-player-journey-proof.json`,
+  91,275 bytes, schema `2`, status `complete`, captured
+  `2026-08-23T11:43:35Z`, SHA-256
+  `d9c90971d2a011ec19ef9469858764b0761299598ec80249fc1eb80b4ad460f0`,
+  plus 38 milestone screenshots `00`-`37` in the same root.
+- Method: macOS console unlocked (`IOConsoleLocked = No`); every input was a
+  physical-path foreground interaction — OS-level HID mouse events posted via
+  `CGEventPost` from an external accessibility-trusted process into the
+  frontmost supervised player window (`node .../supervisor/cli.ts` +
+  `-studioPlayerJourneyProof`). No direct handler invocation, no fake click,
+  no test shortcut.
+- Result: 49 attempts = 49 accepted (47 commands + 1 save + 1 load);
+  `zeroProofDirectSubmissions=true`; exact 7+1 founding; construction before
+  Picture 1 development; both full picture beat chains including the exact
+  director-dispatch -> scenery-load-in -> take-scheduling detour twice;
+  Picture 1 `Echoes of Undertow` (`script-0000`/`prod-0002`, FLOP); Picture 2
+  `The Reluctant Cornerstone` (`script-0001`/`prod-0013`, HIT); final
+  revision `48`, Week `22`; saved = restored = final digest
+  `4834455c7368f1c0345bad625fd6854c1ab320a6a93c570a1484c0b4fd35306e`; session
+  `b26bd3d9-6366-49c4-b7ed-e51dcfaabe43`, runtime
+  `29d1294d-c29f-463c-b6c5-22d808770b60`, zero outages/replacements/torn
+  reads; Unity exit code 0; supervisor cleanup complete; no residual product
+  process.
+
+This completes the M5 P2 item "real foreground mouse/touch activation proof"
+for mouse input on the guided journey. It does not claim touch input, and the
+prior camera proof's `externalActivationRequired=false` record stands as
+history.
+
+### VISUAL RULING
+
+Native review of the CP20 stage evidence accepts the result: the Boom
+Operator reads naturally with a believable raised-boom relationship, sits
+centered between Supporting Actor and Camera Assistant in both aspects, role
+spacing is good, filmmaking language (dolly, camera, boom, slate, director)
+remains readable, no bad occlusion or prop clipping, portrait remains strong,
+landscape is not worse than M5. KEEP.
+
+### KNOWN P2/P3 NOTES (RECORDED, NOT FIXED IN CP20)
+
+- `bridge/session.ts` founding intent literal has mis-indented
+  `projectId`/`castingSessionId`/`productionId` fields — cosmetic only (P3).
+- `castsFromReviewedAuditions` enumerates the full lead x antagonist x
+  support cross product with no cap; bounded today by the founding roster,
+  but it will inflate the intent surface as rosters grow (P2).
+- The launcher hardcodes the owner-machine sibling layout by design.
+- Landscape/portrait stage evidence remains representative-frame; per-instant
+  animation-loop continuity is covered by import semantics tests, not frames.
+- M5 P2 items still open: emitted production packaging + packaged-graph
+  audit; TypeScript `main` reconciliation; 25/50/100 scalability and the
+  ugly-condition matrix; optional visual polish.
+
+### NEXT EXACT ACTION
+
+Keep M5 immutable. Continue bounded non-Golden P2 work in priority order:
+first productionize/package the local engine launcher and audit the emitted
+graph; then reconcile TypeScript `main` in an isolated merge candidate; then
+25/50/100 scalability and ugly-condition proof; targeted visual polish only
+when it preserves all M5 gates. Do not create or move an M6 tag without a
+later complete independent Golden ruling.
+
+### DO NOT TOUCH
+
+- Everything in the M5 DO NOT TOUCH list below remains binding.
+- Do not weaken the player journey acceptance contract or represent any
+  synthetic in-process activation as physical foreground interaction.
+- Do not stage Evidence/R, private profiles/checkpoints, builds, screenshots,
+  logs, or scratch tooling.
+
+### RECOVERY INSTRUCTIONS
+
+1. Golden recovery remains M5-only (see the M5 section below).
+2. The CP20 campaign tips are `5eb80ed4...` (TypeScript) and `2b1562f8...`
+   (Unity); both pushed with HEAD = configured upstream = live remote and
+   clean tracked trees.
+3. CP20 evidence roots are local and ignored; verify by the exact SHA-256
+   values above. The PlayerJourney profile/supervisor logs were session
+   scratch, not evidence.
+
 ## GOLDEN M5 SEALED - SOLE CURRENT BEST
 
 Golden M5 is the exact build-from and recovery authority. Checkpoint 19 passed

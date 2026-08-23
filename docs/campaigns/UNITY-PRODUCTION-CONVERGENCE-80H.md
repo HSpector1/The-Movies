@@ -4140,3 +4140,91 @@ Recovery order:
 6. Use only accepted Evidence/K hashes. Evidence/J and CP18 patches remain
    failed local diagnostics; builds/profiles/checkpoints/masks/logs stay
    ignored and unstaged.
+
+## 2026-08-23 13:52 CEST - Checkpoint 20 sealed: genuine foreground player journey (pushed, non-Golden)
+
+CP20 closes the M5 P2 gap "real foreground mouse/touch activation proof" for
+mouse input and ships the raw-founding player workflow. Golden M5 is unchanged
+and remains sole CURRENT BEST; CP20 creates no tag.
+
+Product commits, in order, on the moving branches:
+
+- TypeScript (`campaign/unity-production-convergence-80h-ts`, parent
+  `37aa4a8731f2fa78f28d7d5730ac79fa626e63cf`):
+  1. `d0223c1af50b610e30c290ae26c6413e6373b8c9` raw Week-0 founding opening
+     with GUI cast choice (schema
+     `sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61`);
+  2. `eb70acc19cdb608545cce0406c3507ba70019019` forward-migrate prior
+     protocol-4 checkpoints;
+  3. `3c5a90be9a9b08a6101cf1eca06158b144f38b69` schema-7 raw-founding
+     in-flight evidence contract;
+  4. `5eb80ed472093d63a5e9cf7d4c40998fcc934f89` memorable `npm run play`
+     owner launcher (campaign tip).
+- Unity (`campaign/unity-production-convergence-80h-client`, parent Unity M5
+  `4770e22955f2fae770445065c2bf782ef251496e`):
+  1. `a1fc23dfa827ccf38c929d4c00815e841ec5bf7d` regenerated DTO sync
+     (byte-identical pair SHA-256
+     `6bb617490900c903a6ebcb29bf6e32a338c473ba0d33c10e763088f8f794c81e`);
+  2. `05279457a969222b80ab056b7b5e02233c7bc3b9` semantic `_Loop` animation
+     import (30 loop clips loop; `Idle_No_Loop` stays non-looping);
+  3. `e2f3fdbe4c58b226b9bcec5833f08b002aeac228` player workflow facts and
+     founding/cast-choice panel;
+  4. `0cadf221ef5b1c2ea0aa5e70f8aeba1efb9c4d67` Boom Operator mark
+     `48.99 -> 49.09 X` with refreshed held Boom Microphone pose (scene
+     `475c89ceffc009aa5ef06092995b0e918ffd3658e48e48d72891bf044cf963b7`,
+     NavMesh unchanged `20a8afad3e7fba5f0c974050fbc39f332f03ad29c21dc84561809758aa828f04`);
+  5. `84b0c6d9a393b7a0169e71a336f050086db070ea` raw-founding automation
+     prelude for bridge/stage proofs;
+  6. `2b1562f80b7d8645765f5506a0deaf147f6aeb9e` passive player journey
+     recorder (campaign tip).
+
+Validation (prior session, tree byte-identical at seal): Unity EditMode
+261/261; macOS build SUCCESS, codesign VALID; TypeScript 337 files / 4,540
+passed / 5 skipped; both typechecks; contract drift; production build;
+hygiene; 3D asset audit; `git diff --check` both repos.
+
+Accepted evidence (local, ignored, exact SHA-256):
+
+- Stage landscape
+  `Evidence/R/CP20-Stage-BoomMark-Final-20260822T100014Z/Landscape/stage-visual-proof-landscape.json`
+  400,748 bytes
+  `5921d91c5e72f78598202366334be0669aba1d44a5d7dc2af42d48d432ac7b72`;
+  portrait `.../Portrait/stage-visual-proof-portrait.json` 399,122 bytes
+  `d42872044d6ae4faa476fb003d81a915c0cf5f8c9ce9e1b092c5359bbca0ffb6` — both
+  schema 6, complete, 5/5, authority-identical, representative frames.
+- Bridge
+  `Evidence/R/CP20-Bridge-BoomMark-Final-20260822T100620Z/Main/bridge-client-proof.json`
+  25,283 bytes
+  `1ce8ed0ffbcfed91672d51f413f6cd97942fc3bcec6b82abf188b1c9c9003a92` —
+  schema 7, 12/12, exact founding 7+1, Movie #2, save/load, zero restart
+  budget.
+- Genuine foreground PlayerJourney (completed this checkpoint,
+  2026-08-23T11:43:35Z)
+  `Evidence/R/CP20-PlayerJourney-Foreground-20260823T112246Z/Main/studio-player-journey-proof.json`
+  91,275 bytes, schema 2, complete,
+  `d9c90971d2a011ec19ef9469858764b0761299598ec80249fc1eb80b4ad460f0`, 38
+  milestone screenshots. Console unlocked (`IOConsoleLocked = No`); all input
+  was OS-level HID mouse events (`CGEventPost`, accessibility-trusted
+  external process) into the frontmost supervised player. 49 attempts = 49
+  accepted (47 commands + 1 save + 1 load), `zeroProofDirectSubmissions=true`,
+  exact 7+1 founding, construction before development, both picture chains
+  with the exact blocker detour twice, Picture 1 `Echoes of Undertow`
+  (`script-0000`/`prod-0002`, FLOP), Picture 2 `The Reluctant Cornerstone`
+  (`script-0001`/`prod-0013`, HIT), final revision 48 Week 22, saved =
+  restored = final digest
+  `4834455c7368f1c0345bad625fd6854c1ab320a6a93c570a1484c0b4fd35306e`, zero
+  outages/replacements/torn reads, exit 0, exact process cleanup.
+
+Native visual ruling: KEEP — boom relationship believable, role spacing
+centered as intended, portrait strong, landscape not worse than M5.
+
+Recorded, not fixed: cosmetic founding-literal indentation in
+`bridge/session.ts` (P3); uncapped cast cross-product at greenlight (P2);
+owner-machine launcher layout (by design); stage evidence remains
+representative-frame. Open M5 P2 work continues: emitted packaging + audit,
+TypeScript `main` reconciliation, 25/50/100 scalability, polish.
+
+The docs-only commit containing this entry is the direct child of TypeScript
+CP20 tip `5eb80ed472093d63a5e9cf7d4c40998fcc934f89`; resolve its self SHA
+after commit and require HEAD/upstream/live-remote equality with a clean
+tracked tree.
