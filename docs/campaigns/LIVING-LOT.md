@@ -563,3 +563,118 @@ label depth-testing, teal-cube/truck remodels, sky/lighting overhaul,
 settle-freeze pose), the environment follow-ups (east horizon,
 settle-freeze pose), or the follow-up hardenings above; Phase M continues
 interleaved.
+
+## 2026-08-23 — LL-CP7 sealed: the player surface — the panel becomes a memo, not a wall
+
+**Player-visible change:** the opening hostile review's item (7) — "the
+proof-style panel dominates a third of the screen" — is retired. The
+workflow panel was a 520 px, full-screen-height translucent grey slab
+covering 34.7% of every frame, headed by a debug census line, repeating
+its status sentence twice, and swallowing every world click under its
+empty lower half. It is now a warm paper production memo with period ink
+that sizes itself to its content inside a 400 px envelope: measured
+13.4–24.9% of the screen across all eleven bridge milestones (mean 16.3%
+— a 53% reduction), body ink at 9.8:1 contrast and every control at
+7.9–10.0:1 (the review's instrument), the census demoted to one muted
+footer line, the duplicated sentence suppressed exactly when the journey
+block above already tells it, and the empty envelope returned to the
+world (the hit test clamps to measured content height). The blocker card
+now shows its ATTENTION line and an equally legible remedy button; the
+lot — convoy, beacon, street — fills the rest of the screen.
+
+**Review-born ratchets shipped with it (from the LL-CP6 rulings):**
+- `StudioDecorativeIdentity.Strip` is the single decorative identity law
+  (was three copied blocks across lot-life, door crew and shooting-day
+  people — the door crew previously had no coverage of any kind), with
+  destruction injected so a real EditMode test strips a live two-level
+  hierarchy via DestroyImmediate and asserts the four identity component
+  types are actually gone — behavioral, not grep theater.
+- `ValidateVehicleFootprints`: fail-closed scene ratchet — no two
+  authored vehicle footprints may interpenetrate (yaw-aware SAT over all
+  82 sedans/trucks/trailers/wagons, 3,321 pairs; tangency legal,
+  penetration beyond 0.01 m an error; extents copied from the vehicles'
+  own colliders, conservative everywhere). Born from CP6's
+  found-only-by-eye gate defect; on arrival it caught one real overlap
+  (the basecamp water wagon into the production trailer by 0.20 m, moved
+  to x 77.6) — the ratchet paid for itself before it was committed.
+
+**Seam integrity preserved, verified hostile:** button evidence still
+flows only through `GUILayoutUtility.GetRect` inside
+`PlayerWorkflowButton` (pinned GetLastRect-free); the panel's single
+sanctioned `GetLastRect` is pinned by the seam test to the
+fit-to-content measurement line; PlayerWorkflowButton count, player-slice
+button ban, and the editor-diagnostics strip all hold. The StudioHud
+receipt law follows the 400 px width at the same 12 px-gap contract
+(compact landscapes now fit the full 420 px receipt).
+
+**Unity commits:** `6c8969e` (panel + ratchets; the footprint ratchet's
+forced water-wagon fix rode along) and `6a39c1a` (review fix pass).
+
+**Honest failure record:** the first independent hostile review REJECTED
+the candidate on two defects: B-1 — all four button styles kept the
+built-in skin's light text, measured 1.13–1.40:1 against the new cream
+card (the reviewer's exhibit: a bold ATTENTION line whose remedy button
+was a ghost; the campaign law "reject slices that make the real game
+worse" applied squarely); B-2 — the commit message understated the
+stage-luma drift five-fold by quoting only the landscape figure. The fix
+inked all controls across normal/hover/active/focused, routed Save/Load
+through the inked style, and applied the review's recommended founding
+guard to the suppression predicate (N-2). A second fresh-context hostile
+verifier reproduced the pre-fix defect band with its own instrument
+(1.01–1.41:1), measured the fix at 7.94–9.98:1 on all 36 enabled buttons
+across 12 milestones, confirmed disabled buttons still read ghosted
+(1.82:1), proved the fix diff exactly B-1+N-2, tied the evidence to the
+fixed binary via assembly chain-of-custody, and ruled ACCEPT.
+
+**Validation (final build):** scene validation 0 errors with censuses
+unchanged (32/10/16) and both new ratchets live; EditMode 299/299 (3 new
+behavioral tests); macOS rebuild + ad-hoc codesign valid; stage visual
+proofs complete 5/5 BOTH aspects — worst luma drift vs the sealed LL-CP5
+record 7.5e-5 (portrait shootingMean; landscape worst 3.0e-5), at or
+below the spread the same metric shows across the sealed CP3–CP6 runs
+(4.1e-5–1.07e-4), with the stage captures panel-free by design; bridge
+auto proof complete, exact Movie #2, revision 50, week 22, 119.8 FPS.
+
+**Sealed-gains regression (final build):** CP6 two-world criteria still
+pass — 3.065% mean / 3.046% min pair (floor 3%), 94.6% outside the
+doorway rectangle (floor 60%), zero frozen frames, measurement tool
+byte-unchanged; CP5 delivery burst Holding 170/170 passive at revision
+20 and parked burst Parked 24/24 at (2, −52) passive at revision 50.
+
+**Evidence (SHA-256 prefixes, stamp 20260823T231822Z):** stage landscape
+`6e7372abf134b7b4...`, stage portrait `d4cb3e8fc65ead05...`, bridge
+`ad888b3bc4dce605...`, motion shooting `ab038579a655ebb5...`, motion
+idle `20b567991c471b66...`, motion delivery `540c5d013c762ff7...`,
+motion parked `1bebad84cab16f74...`, two-world `2a1aaa79dd8985b3...`.
+The rejected candidate's evidence is retained at stamp
+20260823T224952Z for third-party audit.
+
+**Independent rulings (fresh-context, hostile, Opus):** candidate 1
+REJECT (B-1 button legibility, B-2 records accuracy); candidate 2
+**ACCEPT** — "both blocking defects cleared with independently
+reproduced measurements, the fix exactly scoped, nothing regressed."
+
+**Ruling: KEEP.**
+
+**Logged non-blocking follow-ups (both reviews):** (1) no EditMode
+ratchet pins the button ink — a one-line assert would stop B-1 recurring
+silently; (2) the hit rect clamps height but not origin, so a ~4 px band
+at the card's edges is off by the box margin; (3) the 400 px width
+constant is duplicated across StudioBridgeClient and StudioHud with no
+equality pin; (4) `Strip` fails open on a null destroyer and the test
+enshrines it — throwing would be the fail-closed choice; (5) the vehicle
+ratchet itself has no unit test, no completeness check on its recipe
+whitelist, and no pin tying its extents to the colliders they mirror;
+(6) two authored vehicle pairs sit at exactly 0.000 m clearance and one
+at 0.022 m — legal tangency, zero authoring headroom; (7) the two-world
+delta is trending toward its 3% floor (3.082% → 3.065% across CP7's two
+builds) — thin headroom for future slices; (8) milestone 05's cast-choice
+beat overflows the envelope and clips the trailing button mid-glyph at
+the scroll edge (pre-existing, unchanged geometry); (9) the founding
+branch of the suppression guard is exercised by no capture or test.
+
+**Next candidates:** the follow-up hardenings above (button-ink ratchet
+and vehicle-ratchet test first), the deferred CP6 scope (unload pair,
+label depth-testing, teal-cube/truck remodels, sky/lighting overhaul,
+settle-freeze pose), or the environment follow-ups (east horizon);
+Phase M continues interleaved.
