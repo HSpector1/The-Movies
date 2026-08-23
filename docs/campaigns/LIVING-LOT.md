@@ -301,3 +301,81 @@ weakens frame-indexed A/B review — consider a seeded evidence route.
 motion, arrival/departure), then filmmaking activity visibility, per the
 campaign priority list; Phase M continues interleaved (Case D — SIGKILL
 around save/load boundaries — landed this stretch, `94ef84e`).
+
+## 2026-08-23 — LL-CP5 sealed: the moving vehicle tells the truth
+
+**Player-visible change:** the service truck stops lying. It used to loop a
+fixed route forever — before the studio existed, regardless of game state —
+and its route drove through the Stage A east wall, pausing 3.5 s inside the
+soundstage. Now its motion derives from the same sealed Stage 7 production
+truth the stage itself presents: a scenery load-in with a travel beat sends
+it driving the service loop, a working beat holds it at the Stage A service
+mark, and everything else — withheld, pre-founding, no live authority —
+parks it at the gate depot. Its selectable status carries the authoritative
+"<production> · scenery load-in" label and degrades to a neutral line. The
+new loop stays on authored roads (gate → boulevard → crossroad → service
+hold → back), never enters the stage shell, and is invisible to every
+sealed proof camera. The cab leads travel — the truck had driven its whole
+route in reverse since the model was first imported, caught only when this
+checkpoint's evidence followed it closely.
+
+**Unity commits:** `a994d0a` (authority-driven vehicle: 3-mode
+StudioVehicleRoute, StudioLotDeliveryContracts pure mapping off the stage
+truth, ApplyDeliveryVehicle wiring, on-road route, validation ratchet —
+route anchors on-road + outside-shell, single route, serialized Parked
+default; 13-case reflection test suite), `6de1b66` (vehicle-follow motion
+evidence: -studioMotionEvidenceVehicle, per-frame position + authoritative
+mode in the report, vehicle-scaled camera ladder), `4246009` (cab-leads
+facing fix + validator facing assertion).
+
+**Design decision:** the vehicle is authoritative presentation, not
+decoration, so it keeps its SelectableEntity (same class as the Stage A
+bodies) — which also keeps its collider on the selection layer, invisible
+to the person line-of-sight gate, the deoccluder, and the evidence camera
+guard. LL-CP2's decorative rules (unnamed, non-selectable) do not apply.
+
+**Evidence (SHA-256 prefixes, stamp 20260823T194141Z):** stage landscape
+`d55088830d7d418d...`, portrait `33551266f16665b9...`, bridge
+`bedb3588a07cd9df...`, motion-delivery `92afa32803b284d1...`,
+motion-parked `3864c2e3c1c23f68...`. The delivery burst runs on a
+purpose-built week-6 profile (first-movie journey driven via the journey's
+own next-step guide to the scenery load-in week, then stopped — the
+blocker deliberately left unresolved); the parked burst runs on the
+canonical week-22 profile with no load-in.
+
+**Validation (final build):** scene validation 0 errors (now including the
+route/facing ratchet); EditMode 292/292; stage visual proofs complete both
+aspects, stage seal drift at the noise floor (independent measurement:
+signed means ≤ +0.0005/channel); bridge auto proof complete, exact Movie
+#2, 120.0 FPS; delivery telemetry: mode Holding 170/170 frames, 120.8 m
+path ending at the service hold (72,33), zero points or interpolated
+segments inside the stage shell, zero off-road excursion, 23.9 s travel +
+29.2 s hold, all frames ≥ 1053 richness, passive at revision 20; parked
+telemetry: mode Parked 24/24, 0.0 m path, pinned at (2,−52), passive at
+revision 50.
+
+**Independent ruling (fresh-context Opus, hostile): ACCEPT** — all three
+claims verified with margins ("not one corner cut"); clipping/floating
+checks clean (1.49 m worst clearance to parked vehicles); "parked-at-depot
+is the right honest default… the old behavior was decoration impersonating
+information." The reviewer's one required fix (reverse driving) and its
+ratchet assertion landed in `4246009` and the seal evidence was recaptured
+after it.
+
+**Ruling: KEEP.**
+
+**Logged non-blocking follow-ups (reviewer):** (1) the route ratchet
+checks anchors, not legs — today all 8 legs verify analytically with
+1.41 m worst headroom, but leg coverage would make it structural; (2)
+`ServiceRouteSurfaces` is a hand-mirrored copy of the road rects and can
+drift; (3) "Parked" is a destination, not a state — flipping modes
+mid-route finishes the ring first (honest, but transiently moving while
+Parked); (4) at the hold the truck is fully occluded from the whole-lot
+camera, so a working beat contributes no aliveness to the primary surface
+— consider a hold mark visible from capture A in a future pass; (5) the
+depot pose reads as "stopped in the gateway."
+
+**Next candidates:** filmmaking activity visibility (per the priority
+list), or the environment follow-ups (east horizon, settle-freeze pose);
+Phase M continues interleaved (Case E — journal-bound rollover under
+save-heavy load — landed this stretch, `c2f7249`).
