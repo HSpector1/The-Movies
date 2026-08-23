@@ -148,3 +148,70 @@ uses a double SIGKILL), outage around save/load boundaries natively
 (kill-after-commit already covered at the TypeScript layer by the post-commit
 gate and in-flight evidence verifier), longer-session reconnect, large valid
 saves, and boundary window/aspect sizes.
+
+## 2026-08-23 — LL-CP3 sealed: character motion / de-mannequin pass
+
+**Player-visible change:** people finally read as people. The modern
+hoodie-and-shorts body is gone from the 1948 lot (era-safe Farmer/Formal
+substitution); travellers no longer perform their trade in the middle of a
+street (a real RestIdle state exists at last — the Working parameter had
+never been wired to anything); the lead actor and camera assistant no longer
+freeze into statues after one playthrough (every work/walk/rest clip must now
+loop — ratchet); formal trades stroll with a formal walk; walk cadence
+matches translation speed (no more foot-skating at 2.45 m/s against a 1.0x
+clip); extras stroll at varied 1.6–2.1 m/s; and a seeded per-body phase/tempo
+offset finally desynchronizes bodies that had ticked in perfect unison since
+scene load (the authored animator-speed variety was never persisted into the
+scene — a latent bug found by the Opus archaeology sweep).
+
+**Unity commits:** `3509c81` (offscreen motion-evidence recorder — timed
+frame bursts, whole-lot + close-follow cameras, subject-selectable, fully
+passive; the campaign's standard motion A/B tool) and `099cb37` (the
+de-mannequin pass; scene + all 24 controllers regenerated; validation and
+role tests updated; loop requirement strengthened with the non-loop
+exemptions deleted).
+
+**Honest failure record:** the first candidate desynchronized bodies with
+Animator.Play using a state hash that is uninitialized on freshly cloned
+bodies — the followed extra glided down the street with frozen legs. The
+independent fresh-context Opus reviewer REJECTED that candidate on
+frame-strip evidence (its verdict crops are preserved in the session
+scratchpad); the desync now advances the state machine via a seeded
+Animator.Update offset. A first landscape stage run also failed when the
+stage carry roles briefly swapped to a lantern-hold silhouette — the sealed
+composition gates caught it; the two stage carry roles keep the rail-lean
+clip and only off-stage carriers gained the variety.
+
+**Validation:** scene validation 0 errors; Unity EditMode 276/276; macOS
+build + codesign valid; stage visual proofs complete 5/5 BOTH aspects
+(`Evidence/R/LLCP3-Stage-Seal-20260823T161757Z`, landscape
+`c2f745a2f79cf01fedd8...`-see-hashes-below); bridge auto proof complete,
+exact Movie #2, revision 50, 120.0 FPS; motion seal burst complete and
+passive (revision 50 unchanged).
+
+**Evidence SHA-256 prefixes (in run order printed at seal):** stage
+landscape, stage portrait, bridge, motion-seal report, motion-baseline
+report — recorded in the checkpoint console log; roots:
+`LLCP3-Stage-Seal-20260823T161757Z`, `LLCP3-Bridge-Seal-20260823T161757Z`,
+`LLCP3-MotionSeal-20260823T161757Z`, baseline
+`LLCP3-MotionBaseline-20260823T153130Z`.
+
+**Independent visual ruling (fresh-context Opus, hostile):** ACCEPT — the
+followed character's leg phase measurably cycles (spread 23→113→25 px) with
+zero frames of translation-with-static-legs; era wardrobe passes; no
+T-poses/gliders; stage reads as a real 1948 soundstage; no new regressions
+vs the accepted baseline.
+
+**Ruling: KEEP.**
+
+**Logged non-blocking follow-ups:** (1) walkers hold a mid-stride pose during
+the pre-path settle window instead of a standing idle (pre-existing; visible
+for ~2s after spawn); (2) the camera operator model's hair mesh clips
+through his cap brim (asset artifact); (3) teal/magenta hair on some
+Quaternius models is an era-adjacent art-direction item for a future
+environment/art checkpoint.
+
+**Next candidates (hostile-review ranked):** normal-game lot life details
+(vehicle motion, arrival/departure flows), then environment depth (ground
+planes, contact shadows, prop density, building faces) per the baseline
+review; Phase M continues interleaved.
