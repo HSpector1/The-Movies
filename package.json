@@ -16,6 +16,7 @@
     "studio": "vite-node --script bridge/supervisor/cli.ts",
     "build:studio": "node scripts/build-studio.mjs",
     "audit:studio-packaged": "node scripts/audit-studio-packaged.mjs",
+    "phasem:matrix": "node scripts/phase-m-matrix.mjs",
     "studio:packaged": "node dist/studio/studio.mjs",
     "play": "zsh ./PLAY_PROJECT_STUDIO.command --from-npm",
     "proof:bridge": "vite-node bridge/proof.ts",

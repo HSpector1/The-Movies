@@ -123,3 +123,28 @@ unclickable and unnamed).
 vehicle motion, then the environment passes (ground planes, prop density,
 building faces, lighting) from the baseline review. Phase M resilience should
 begin interleaved (fast-recovery outage observability is already queued).
+
+## 2026-08-23 — Phase M entry 1: ugly-condition matrix opened and passing
+
+`npm run phasem:matrix` (`scripts/phase-m-matrix.mjs`) is the campaign's
+fail-closed resilience matrix, run against the emitted production engine.
+First three real-world cases, all passing on the LL-CP2 pair:
+
+- **Repeated launch/quit cycles** — five full engine lifecycles against one
+  durable profile: session identity and authoritative digest byte-stable,
+  revision zero preserved, every exit clean.
+- **Corrupted/oversized checkpoint rejection** — truncated, garbled, and
+  39 MB oversized `bridge-runtime-v1.json` variants all refused fail-closed:
+  the engine never serves from a damaged checkpoint and never exits zero.
+- **Rapid valid/stale input burst** — valid and stale commands raced
+  concurrently pair-by-pair: 19 accepted, 19 rejected with exactly
+  `STALE_REVISION`, zero other outcomes, final revision exactly equals
+  accepted commands.
+
+Matrix law: extend with new cases, never weaken one. Queued next cases:
+fast-recovery outage observability (the emitted engine restarts inside the
+client's 1 s poll window, discovered at the M6 ruling; the accepted proof
+uses a double SIGKILL), outage around save/load boundaries natively
+(kill-after-commit already covered at the TypeScript layer by the post-commit
+gate and in-flight evidence verifier), longer-session reconnect, large valid
+saves, and boundary window/aspect sizes.
