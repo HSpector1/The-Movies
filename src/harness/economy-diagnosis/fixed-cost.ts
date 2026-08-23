@@ -40,7 +40,6 @@ function annexWitnessState(seed: string): GameState {
   }
   return state
 }
-
 export type FixedCostBlastRadiusWitness = {
   identity: 'D02-FIXED-COST-BLAST-RADIUS-ANNEX-1W-v1'
   seed: string
@@ -146,4 +145,3 @@ export function runFixedCostBlastRadiusWitness(
     },
   }
 }
-
