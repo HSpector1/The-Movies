@@ -182,6 +182,21 @@ non-regressive polish. Keep all M1-M5 tags immutable. Every new slice is
 non-Golden by default; do not invent, create, or move M6 without a later full
 independent Golden ruling.
 
+## CHECKPOINT 23 SEALED MAIN MERGE CANDIDATE - NON-GOLDEN, NOT CANONICAL
+
+Promotion status: **NOT PROMOTED — GOLDEN M5 REMAINS CURRENT BEST**
+
+CP23 pushes the isolated reconciliation candidate
+`merge-candidate/unity-convergence-80h-into-main-01`
+(`5ff04cd252a2a94d9e6f7f195267812125877b6e`): the campaign line cleanly
+absorbing `main`'s only divergence (the three-commit contributor README) plus
+a quickstart reconciliation, fully revalidated (337 files / 4,542 passed / 5
+skipped; both typechecks; drift; builds; audits). `main` is untouched and
+canonical merge review remains an explicit Owner gate — this candidate is
+evidence for that review, not a promotion. With CP20-CP23 sealed, every M5
+P2 engineering item actionable autonomously is closed; what remains before
+any Golden M6 or canonical merge is Owner judgment.
+
 ## CHECKPOINT 22 SEALED 25/50/100 SCALABILITY GATE - NON-GOLDEN
 
 Promotion status: **NOT PROMOTED — GOLDEN M5 REMAINS CURRENT BEST**
