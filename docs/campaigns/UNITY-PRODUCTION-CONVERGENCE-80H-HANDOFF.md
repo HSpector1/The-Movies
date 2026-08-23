@@ -4,6 +4,102 @@ START HERE. Read `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`, then the campaign
 ledger, this handoff, and the promotion register. The TypeScript/Unity engine
 decision is settled. Do not restart planning from scratch.
 
+## CHECKPOINT 21 SEALED - NON-GOLDEN CAMPAIGN TIP
+
+CP21 productionizes the local engine launcher and audits the emitted graph —
+the first item of the M5 P2 boundary. It is **non-Golden**; Golden M5 remains
+the sole formal CURRENT BEST. No M6 tag exists or is implied.
+
+### CURRENT EXACT STATE
+
+Timestamp: 2026-08-23 14:20 CEST (UTC+02:00).
+
+| Item | Exact state |
+| --- | --- |
+| TypeScript authority | `campaign/unity-production-convergence-80h-ts` at `ea940aec4f7e13434ab8df855f221c9387515dfa`; CP21 commits `ca6f8b4334cdbe107922e5331d12306414ef0497` (emitted production graph + fail-closed audit) and `ea940aec...` (launcher emits/audits/launches packaged graph) on top of the CP20 docs child `2278d083ae53044f079f372dd1cfbef4fb0fdb29` |
+| Unity production client | unchanged this checkpoint; remains CP20 tip `2b1562f80b7d8645765f5506a0deaf147f6aeb9e` |
+| Contract | Unchanged: protocol `4`, projection `4`, schema `sha256:f84ae77e...`, DTO pair `6bb61749...`; no simulation, identity, or gameplay-law change |
+| Emitted package | `npm run build:studio` -> `dist/studio/studio.mjs` (114,142 bytes, SHA-256 `24c7597d6f85a2ccdbb16ee8a81fd1f79e68b9bad10b7817b23f9d3ccbb93ae5`) and `dist/studio/engine.mjs` (1,020,266 bytes, SHA-256 `cf2624bb0727e465a538c5238623e75dc64c381690ef816b3d3f019f083b73fd`); byte-identical across independent rebuilds this session; `dist/` stays ignored |
+| Packaged-graph audit | `npm run audit:studio-packaged` PASS: 78 metafile inputs, all first-party (`bridge/` 18, `src/` 55, `ui/src/` 5), zero `node_modules` inputs, only `node:` externals, no development loader, no UI-side dependencies |
+
+### ACCEPTED CP21 PRODUCT
+
+- `scripts/build-studio.mjs` emits the supervisor
+  (`bridge/supervisor/cli-packaged.ts`) and engine (`bridge/server.ts`) as
+  self-contained node ESM bundles with an esbuild (pinned `0.25.12`)
+  metafile.
+- `scripts/audit-studio-packaged.mjs` fails closed on any non-first-party
+  input, development-loader segment, UI dependency, missing output, or
+  non-builtin external.
+- The supervisor takes an explicit `engineEntry` option: the packaged entry
+  supervises its emitted sibling `engine.mjs`; the development entry
+  (`npm run studio`) keeps the pinned vite-node graph; no flag, environment
+  variable, or fallback chooses the graph. Spawn reports say
+  `graph=emitted` / `graph=vite-node-dev`.
+- `npm run play` / `PLAY_PROJECT_STUDIO.command` now emit, audit, and launch
+  the packaged graph; READMEs updated.
+
+### VALIDATION STATE
+
+All fresh this checkpoint, after the source change: bridge typecheck PASS;
+main typecheck PASS; contract drift verified; production (browser) build
+PASS; repository hygiene 1,038 files PASS; 3D assets 26/0 PASS; browser
+dependency audit 0 vulnerabilities; `zsh -n` launcher syntax PASS; full suite
+**337 files / 4,542 passed / 5 skipped** including the new packaged-graph
+supervisor lifecycle test (emits, audits, ready line, `graph=emitted`, clean
+exit 0, no vite-node in output); `git diff --check` clean. Unity EditMode was
+not rerun: the Unity worktree is byte-identical to sealed CP20.
+
+### ACCEPTED NATIVE EVIDENCE
+
+Packaged-runtime bridge client proof, launched through the real owner
+launcher (`PLAY_PROJECT_STUDIO.command` -> emit -> audit -> emitted
+supervisor -> emitted engine -> real Unity player):
+
+- `Evidence/R/CP21-Packaged-BridgeProof-20260823T121807Z/Main/bridge-client-proof.json`,
+  25,279 bytes, schema `7`, status `complete`, captured
+  `2026-08-23T12:18:39Z`, SHA-256
+  `8e72c6f29308d4da62b8cd873f2e1a7fa06e5358033207109c9a8db7e7d0b96f`, plus
+  the twelve milestone captures `01`-`11` and `10b`.
+- Raw-founding opening (revision 0, week 0, digest `3d8d2876...` — identical
+  to the vite-node graph's deterministic opening); automation prelude 27
+  intents with exact 7+1 founding accounting; Movie #2
+  `The Reluctant Cornerstone` (`script-0001`/`prod-0013`) released,
+  `exactMovie2Released=true`; final revision `50`, Week `22`; saved =
+  restored digest `4b9bded953cb14eb38bb26d496fb4f5d621c6556816e3d8b3f339822ad743d2c`;
+  stale intent rejected `STALE_REVISION` with retained projection; average
+  FPS `119.8`; zero runtime replacements/outages; supervisor log shows
+  `graph=emitted`; Unity exit code 0; cleanup complete; no residual product
+  process.
+
+### KNOWN BOUNDARIES AFTER CP21
+
+- Emitted packaging covers the local owner launch. Public distribution still
+  needs install/update behavior and profile backup (unchanged P2).
+- TypeScript `main` reconciliation, 25/50/100 scalability, the ugly-condition
+  matrix, and optional visual polish remain open (unchanged P2).
+- CP20 notes stand: cosmetic founding-literal indentation (P3), uncapped cast
+  cross-product at greenlight (P2), owner-machine launcher layout by design.
+
+### NEXT EXACT ACTION
+
+Keep M5 immutable. Next bounded P2 work in priority order: reconcile
+TypeScript `main` in an isolated merge candidate with full revalidation; then
+25/50/100 scalability and ugly-condition proof; targeted visual polish only
+when it preserves all M5 gates. Every continuation is non-Golden by default;
+do not create or move an M6 tag without a later complete independent Golden
+ruling.
+
+### RECOVERY INSTRUCTIONS
+
+1. Golden recovery remains M5-only (see the M5 section below).
+2. CP21 campaign tips: TypeScript `ea940aec...` (plus its docs child),
+   Unity `2b1562f8...` (unchanged CP20). Both pushed; HEAD = upstream =
+   live remote with clean tracked trees.
+3. `dist/studio` is emitted, ignored, and reproducible: rebuild with
+   `npm run build:studio` and verify the audit plus the bundle SHA-256
+   values above.
+
 ## CHECKPOINT 20 SEALED - NON-GOLDEN CAMPAIGN TIP
 
 CP20 is sealed, validated, and pushed on both moving campaign branches. It is

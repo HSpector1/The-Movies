@@ -182,6 +182,23 @@ non-regressive polish. Keep all M1-M5 tags immutable. Every new slice is
 non-Golden by default; do not invent, create, or move M6 without a later full
 independent Golden ruling.
 
+## CHECKPOINT 21 SEALED EMITTED PRODUCTION STUDIO GRAPH - NON-GOLDEN
+
+Promotion status: **NOT PROMOTED — GOLDEN M5 REMAINS CURRENT BEST**
+
+CP21 (TypeScript `ea940aec4f7e13434ab8df855f221c9387515dfa`, Unity unchanged
+at CP20 `2b1562f80b7d8645765f5506a0deaf147f6aeb9e`) productionizes the local
+engine launcher: `npm run play` emits `dist/studio/{studio.mjs,engine.mjs}`
+(esbuild-pinned, byte-identical across rebuilds), passes the fail-closed
+packaged-graph audit (78 first-party inputs, zero `node_modules`, only
+`node:` externals, no development loader), and supervises the emitted engine
+(`graph=emitted`). Native proof: schema-7 bridge client proof complete on the
+packaged runtime through the real owner launcher (report SHA-256
+`8e72c6f29308d4da62b8cd873f2e1a7fa06e5358033207109c9a8db7e7d0b96f`), with the
+deterministic raw-founding opening digest identical to the development graph.
+Simulation authority, protocol, schema, and the M5 tags are unchanged. CP21
+is deliberately non-Golden; no M6 exists.
+
 ## CHECKPOINT 20 SEALED GENUINE FOREGROUND PLAYER JOURNEY - NON-GOLDEN
 
 Promotion status: **NOT PROMOTED — GOLDEN M5 REMAINS CURRENT BEST**

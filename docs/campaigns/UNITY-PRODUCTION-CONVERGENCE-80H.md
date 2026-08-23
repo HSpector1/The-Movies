@@ -4228,3 +4228,63 @@ The docs-only commit containing this entry is the direct child of TypeScript
 CP20 tip `5eb80ed472093d63a5e9cf7d4c40998fcc934f89`; resolve its self SHA
 after commit and require HEAD/upstream/live-remote equality with a clean
 tracked tree.
+
+## 2026-08-23 14:20 CEST - Checkpoint 21 sealed: emitted production studio graph (pushed, non-Golden)
+
+CP21 closes the first M5 P2 item: the local engine launcher is productionized
+and its emitted dependency graph is directly audited. Golden M5 unchanged;
+no tag created. The Unity client is untouched and remains CP20 tip
+`2b1562f80b7d8645765f5506a0deaf147f6aeb9e`.
+
+Product commits on `campaign/unity-production-convergence-80h-ts` (parent CP20
+docs child `2278d083ae53044f079f372dd1cfbef4fb0fdb29`):
+
+1. `ca6f8b4334cdbe107922e5331d12306414ef0497` emit the production studio
+   graph with a fail-closed audit — `scripts/build-studio.mjs` (esbuild
+   pinned `0.25.12`) bundles `bridge/supervisor/cli-packaged.ts` ->
+   `dist/studio/studio.mjs` and `bridge/server.ts` ->
+   `dist/studio/engine.mjs`; `scripts/audit-studio-packaged.mjs` fails
+   closed unless the metafile graph is exactly first-party TypeScript plus
+   node builtins; the supervisor's explicit `engineEntry` option selects
+   `graph=emitted` vs `graph=vite-node-dev` with no fallback; packaged
+   lifecycle test added.
+2. `ea940aec4f7e13434ab8df855f221c9387515dfa` `npm run play` /
+   `PLAY_PROJECT_STUDIO.command` emit, audit, and launch the packaged graph
+   (campaign tip); READMEs updated.
+
+Validation (fresh, post-change): bridge+main typechecks; contract drift
+verified; browser production build; hygiene 1,038; 3D assets 26/0; browser
+dependency audit 0; launcher syntax; full suite 337 files / 4,542 passed /
+5 skipped (adds the packaged supervisor lifecycle test); `git diff --check`
+clean. Unity EditMode not rerun — Unity tree byte-identical to sealed CP20.
+
+Emitted package (ignored, reproducible; byte-identical across independent
+rebuilds this session): `studio.mjs` 114,142 bytes SHA-256
+`24c7597d6f85a2ccdbb16ee8a81fd1f79e68b9bad10b7817b23f9d3ccbb93ae5`;
+`engine.mjs` 1,020,266 bytes SHA-256
+`cf2624bb0727e465a538c5238623e75dc64c381690ef816b3d3f019f083b73fd`; audit:
+78 inputs, all first-party (18 bridge / 55 src / 5 ui-src), zero
+node_modules, only `node:` externals.
+
+Accepted native evidence — packaged-runtime bridge client proof through the
+real owner launcher:
+`Evidence/R/CP21-Packaged-BridgeProof-20260823T121807Z/Main/bridge-client-proof.json`,
+25,279 bytes, schema 7, complete, captured 2026-08-23T12:18:39Z, SHA-256
+`8e72c6f29308d4da62b8cd873f2e1a7fa06e5358033207109c9a8db7e7d0b96f`, twelve
+milestone captures. Raw-founding opening digest `3d8d2876...` identical to
+the development graph; 27-intent prelude with exact 7+1 founding accounting;
+Movie #2 `The Reluctant Cornerstone` released with `exactMovie2Released=true`
+at revision 50 Week 22; saved = restored digest `4b9bded9...`; exact
+`STALE_REVISION` rejection with retained projection; ~119.8 FPS; zero
+outages/replacements; supervisor `graph=emitted`; Unity exit 0; exact
+cleanup.
+
+One CP21 launch mistake is recorded honestly: the first evidence attempt
+passed a nonexistent `-studioBridgeProof` flag, so the app idled as a normal
+game; it was shut down cleanly through the supervisor and relaunched with the
+real `-studioBridgeAutoProof` flag. No proof threshold was touched.
+
+The docs-only commit containing this entry is the direct child of TypeScript
+CP21 tip `ea940aec4f7e13434ab8df855f221c9387515dfa`; resolve its self SHA
+after commit and require HEAD/upstream/live-remote equality with a clean
+tracked tree.
