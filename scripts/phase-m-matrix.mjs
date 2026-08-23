@@ -11,6 +11,10 @@
 //   C. Rapid valid/stale input burst — alternating valid and stale commands
 //      fired back-to-back must commit exactly the valid ones, reject every
 //      stale one with STALE_REVISION, and leave a consistent digest chain.
+//   D. Abrupt kill around save/load boundaries — SIGKILL immediately after an
+//      acknowledged command, save, and load (and once mid-flight) must never
+//      lose an acked revision, tear the checkpoint, or change session
+//      identity; every relaunch resumes the exact acked (revision, digest).
 //
 // Usage: node scripts/phase-m-matrix.mjs   (requires npm run build:studio)
 import { spawn } from 'node:child_process'
@@ -261,13 +265,157 @@ async function caseRapidStaleBurst() {
   rmSync(runtimeDir, { recursive: true, force: true })
 }
 
+// ── Case D: abrupt kill around save/load boundaries ─────────────────────────
+async function caseKillAroundSaveLoad() {
+  note('case D: SIGKILL after acked command/save/load must never lose acked state')
+  const runtimeDir = freshRuntimeDir('killsave')
+  const digests = new Map()
+
+  const killAbruptly = async (engine) => {
+    engine.child.kill('SIGKILL')
+    await engine.exit
+  }
+  const launch = async (label) => {
+    const engine = startEngine(runtimeDir)
+    const ready = await engine.ready
+    if (ready === null) {
+      fail(`case D (${label}): engine did not become ready after abrupt kill — ` +
+        `acked state was lost or the checkpoint tore (${engine.output().slice(-300)})`)
+      await stopEngine(engine)
+      return null
+    }
+    return { engine, ready }
+  }
+  const expectResumed = (label, ready, sessionId, revision) => {
+    if (ready.sessionId !== sessionId) fail(`case D (${label}): session identity changed after SIGKILL`)
+    if (ready.revision !== revision) {
+      fail(`case D (${label}): resumed at revision ${ready.revision}, expected acked ${revision}`)
+    } else if (ready.digest !== digests.get(revision)) {
+      fail(`case D (${label}): digest at revision ${revision} changed across SIGKILL`)
+    }
+  }
+  const submitFirstIntent = async (port, sessionId, meta, commandId) => {
+    const snapshot = await get(port, '/snapshot')
+    const intents = snapshot.body.availableIntents ?? []
+    if (intents.length === 0) return null
+    return post(port, '/command', {
+      protocolVersion: meta.protocolVersion,
+      schemaId: meta.schemaId,
+      sessionId,
+      commandId,
+      expectedStateRevision: snapshot.body.stateRevision,
+      type: 'submitIntent',
+      payload: { intentId: intents[0].intentId },
+    })
+  }
+
+  let boot = await launch('boot')
+  if (boot === null) { rmSync(runtimeDir, { recursive: true, force: true }); return }
+  const sessionId = boot.ready.sessionId
+  digests.set(boot.ready.revision, boot.ready.digest)
+  const contract = await get(boot.ready.port, '/snapshot')
+  const meta = { protocolVersion: contract.body.protocolVersion, schemaId: contract.body.schemaId }
+
+  // Two acked commands, then SIGKILL. Relaunch must resume both.
+  for (let index = 0; index < 2; index++) {
+    const result = await submitFirstIntent(boot.ready.port, sessionId, meta, `phase-m-d-cmd-${index}`)
+    if (result === null || result.status !== 200 || !result.body.accepted) {
+      fail(`case D: setup command ${index} was not accepted`)
+      await stopEngine(boot.engine)
+      rmSync(runtimeDir, { recursive: true, force: true })
+      return
+    }
+    digests.set(result.body.stateRevision, result.body.stateDigest)
+  }
+  const ackedAfterCommands = Math.max(...digests.keys())
+  await killAbruptly(boot.engine)
+  let resumed = await launch('after-commands')
+  if (resumed === null) { rmSync(runtimeDir, { recursive: true, force: true }); return }
+  expectResumed('after-commands', resumed.ready, sessionId, ackedAfterCommands)
+  note(`case D: resumed acked revision ${ackedAfterCommands} after SIGKILL past commands`)
+
+  // Acked save (does not advance revision), then SIGKILL at the boundary.
+  const save = await post(resumed.ready.port, '/save', {
+    protocolVersion: meta.protocolVersion,
+    schemaId: meta.schemaId,
+    sessionId,
+    commandId: 'phase-m-d-save',
+    expectedStateRevision: resumed.ready.revision,
+  })
+  if (save.status !== 200 || !save.body.accepted) {
+    fail(`case D: save was not accepted (${JSON.stringify(save.body).slice(0, 200)})`)
+    await stopEngine(resumed.engine)
+    rmSync(runtimeDir, { recursive: true, force: true })
+    return
+  }
+  const savedDigest = save.body.stateDigest
+  await killAbruptly(resumed.engine)
+  resumed = await launch('after-save')
+  if (resumed === null) { rmSync(runtimeDir, { recursive: true, force: true }); return }
+  expectResumed('after-save', resumed.ready, sessionId, ackedAfterCommands)
+
+  // One more command so load visibly rewinds, acked load, SIGKILL at the boundary.
+  const drift = await submitFirstIntent(resumed.ready.port, sessionId, meta, 'phase-m-d-drift')
+  if (drift === null || drift.status !== 200 || !drift.body.accepted) {
+    fail('case D: post-save drift command was not accepted')
+    await stopEngine(resumed.engine)
+    rmSync(runtimeDir, { recursive: true, force: true })
+    return
+  }
+  digests.set(drift.body.stateRevision, drift.body.stateDigest)
+  const load = await post(resumed.ready.port, '/load', {
+    protocolVersion: meta.protocolVersion,
+    schemaId: meta.schemaId,
+    sessionId,
+    commandId: 'phase-m-d-load',
+    expectedStateRevision: drift.body.stateRevision,
+  })
+  if (load.status !== 200 || !load.body.accepted) {
+    fail(`case D: load was not accepted (${JSON.stringify(load.body).slice(0, 200)})`)
+    await stopEngine(resumed.engine)
+    rmSync(runtimeDir, { recursive: true, force: true })
+    return
+  }
+  if (load.body.stateDigest !== savedDigest) {
+    fail(`case D: load restored digest ${load.body.stateDigest} != saved digest ${savedDigest}`)
+  }
+  digests.set(load.body.stateRevision, load.body.stateDigest)
+  const ackedAfterLoad = load.body.stateRevision
+  await killAbruptly(resumed.engine)
+  resumed = await launch('after-load')
+  if (resumed === null) { rmSync(runtimeDir, { recursive: true, force: true }); return }
+  expectResumed('after-load', resumed.ready, sessionId, ackedAfterLoad)
+  note(`case D: resumed acked load at revision ${ackedAfterLoad} with the saved digest`)
+
+  // Mid-flight kill: fire a command and SIGKILL without awaiting the ack.
+  // The relaunch may land before or after the un-acked command, but must be
+  // ready, keep session identity, and match the digest chain if pre-commit.
+  void submitFirstIntent(resumed.ready.port, sessionId, meta, 'phase-m-d-midflight')
+    .catch(() => null)
+  await killAbruptly(resumed.engine)
+  resumed = await launch('mid-flight')
+  if (resumed === null) { rmSync(runtimeDir, { recursive: true, force: true }); return }
+  if (resumed.ready.sessionId !== sessionId) fail('case D (mid-flight): session identity changed after SIGKILL')
+  if (resumed.ready.revision !== ackedAfterLoad && resumed.ready.revision !== ackedAfterLoad + 1) {
+    fail(`case D (mid-flight): resumed at revision ${resumed.ready.revision}, ` +
+      `expected ${ackedAfterLoad} or ${ackedAfterLoad + 1}`)
+  } else if (resumed.ready.revision === ackedAfterLoad &&
+    resumed.ready.digest !== digests.get(ackedAfterLoad)) {
+    fail('case D (mid-flight): pre-commit digest changed across SIGKILL')
+  }
+  note(`case D: mid-flight kill resumed cleanly at revision ${resumed.ready.revision}`)
+  await stopEngine(resumed.engine)
+  rmSync(runtimeDir, { recursive: true, force: true })
+}
+
 await caseLaunchQuitCycles()
 await caseCheckpointRejection()
 await caseRapidStaleBurst()
+await caseKillAroundSaveLoad()
 
 if (failures.length > 0) {
   console.error(`[phase-m] MATRIX FAILED: ${failures.length} violation(s)`)
   process.exit(1)
 }
-console.log('[phase-m] MATRIX PASS: launch/quit cycles, checkpoint rejection, rapid stale burst')
+console.log('[phase-m] MATRIX PASS: launch/quit cycles, checkpoint rejection, rapid stale burst, kill around save/load')
 process.exit(0)
