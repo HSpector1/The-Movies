@@ -214,3 +214,90 @@ environment/art checkpoint.
 (vehicle motion, arrival/departure flows), then environment depth (ground
 planes, contact shadows, prop density, building faces) per the baseline
 review; Phase M continues interleaved.
+
+## 2026-08-23 — LL-CP4 sealed: environment depth — street furniture, ground interest, aerial perspective
+
+**Player-visible change:** the lot stops reading as a prototype floating in
+green soup. Street lamp standards (a lamp-iron recipe, not black metal) give
+every road vertical rhythm where the lot previously had zero outdoor light
+standards; benches and terracotta planters spread beyond the two facades
+that held the lot's only two benches; painted parallel-parking stalls sit on
+Melrose asphalt at the curb; the construction district is bounded by a solid
+cream site hoarding (replacing a rail-on-legs barricade line that dissolved
+into disconnected sticks at management distance); palms use four Kenney
+models instead of two and now flank the entry axis; and the horizon runs a
+true three-band aerial perspective — near ridge olive-slate, far ridge blue,
+palest valley haze closing the east — replacing a uniform green-grey murk
+(hostile-measured: green horizon pixels 78.6% → ~10–26% depending on fog
+band; baseline's gradient was actually *inverted*, far band greener than
+near).
+
+**Unity commits:** `20470cb` (evidence hardening: follow-camera physics/
+furniture guards, 10-azimuth × 3-distance retry, per-frame colour-richness
+floor recorded in the report — schemaVersion 2) and `d61bd0c` (the
+environment pass; scene, navmesh and materials regenerated).
+
+**Honest failure record — this checkpoint took five candidates:**
+- v2 REJECTED (independent Opus, hostile): six blocking defects — an unlit
+  near-black lamp mast covering 55% of the followed character, parking bays
+  painted on grass/misaligned with cars and shedding broken dash decals, a
+  partial mountain recolor with a hard green/grey seam and inverted
+  gradient, lamp heads reading detached at pixel level, fencing reading as
+  disconnected sticks, and an overall darkening contradicting the claimed
+  exposure change.
+- v3 fixed four of six; REJECTED because the "stick fence" survived (it was
+  the *pre-existing* safety-barricade line, misattributed by the author to
+  the new Kenney fence — the reviewer proved 100% of baseline rail pixels
+  were retained) and a stage-interior ambient drift (~0.16 luma, ~225× the
+  measured noise floor) violated the sealed stage.
+- v4 fixed the fence (barricades deleted, hoarding widened to sole
+  boundary) but the drift persisted at 97% magnitude; the reviewer
+  *disproved the claimed mechanism* (skybox exposure — the rendered sky had
+  changed ≤1/255) and localized the true cause by drift signature
+  (depth-uniform ⇒ fog, not ambient).
+- v5 restored fog byte-identically to the sealed baseline; the drift
+  collapsed to the noise floor (signed per-channel means ±0.005, verified
+  independently) proving fog was the cause by direct experiment, and the
+  horizon stayed categorically better under the restored fog. REJECTED on
+  one new defect: evidence frame follow-008 was captured from inside a
+  building wall (73 unique colours).
+- v7 hardened the evidence camera (guards + richness floor + closer
+  distances for wall-hugging subjects); a fresh independent reviewer
+  recomputed everything and ruled **ACCEPT**: follow-008 now 14,998 unique
+  colours, no degenerate frames, all prior fixes hold, stage seal signed
+  drift ≈ 1e-6 per channel (the rejected v4 drift was ~53,000× larger).
+
+**Validation (final build):** scene validation 0 errors; Unity EditMode
+276/276; macOS build + codesign valid; stage visual proofs complete BOTH
+aspects; bridge auto proof complete, exact Movie #2, revision 50, ~120 FPS;
+motion evidence complete and passive (revision 50 unchanged), followRichness
+1494–2196 across all 24 frames.
+
+**Evidence (SHA-256 prefixes, stamp 20260823T181812Z):** stage landscape
+`4279d73334456027...`, stage portrait `f583c69a4e2b6655...`, bridge
+`46c8a6bbfbb60ade...`, motion report `efe1407b3fbd138d...`. Intermediate
+candidate evidence is retained on disk for audit (`LLCP4-*-20260823T175049Z`
+= v5, `LLCP4-*-20260823T181456Z` = v6 fixed-distance intermediate).
+
+**Process lessons recorded:** (1) superseded candidate evidence is never
+deleted again — the v3 evidence roots were cleaned up mid-review and the
+reviewer rightly flagged that a claimed delta must stay auditable by a third
+party; (2) "this change is inert" is a measurement, not an assumption — the
+fog-is-negligible-indoors claim was wrong at the 0.1-luma scale and cost a
+candidate; (3) the reviewer's drift-signature analysis (brightness-weighted
+= ambient, depth-uniform = fog) is the diagnostic to reuse for any future
+sealed-scene regression.
+
+**Ruling: KEEP.**
+
+**Logged non-blocking follow-ups:** follow-cam subject stacking in frames
+010–015 (characters occlude each other — pathing phase, not scenery); east
+horizon at the frame edge reverts toward baseline green under restored fog
+(improvement is concentrated on the west ridges and upper haze band); the
+follow segment beyond frame 8 is not deterministic across builds, which
+weakens frame-indexed A/B review — consider a seeded evidence route.
+
+**Next candidates (hostile-review ranked):** lot life flows (vehicle
+motion, arrival/departure), then filmmaking activity visibility, per the
+campaign priority list; Phase M continues interleaved (Case D — SIGKILL
+around save/load boundaries — landed this stretch, `94ef84e`).
