@@ -365,7 +365,7 @@ function fileIdentity(path: string): { file: string; bytes: number; sha256: stri
 }
 
 function readBaseline(directory: string): { rows: MacroRunCompact[]; files: ReturnType<typeof fileIdentity>[] } {
-  const files = jsonFiles(directory)
+  const files = jsonFiles(directory).filter((path) => basename(path).startsWith('macro-'))
   const identities = files.map(fileIdentity)
   assertExactKeys(
     identities.map((identity) => identity.file),
