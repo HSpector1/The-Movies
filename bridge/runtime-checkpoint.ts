@@ -25,6 +25,8 @@ export const BRIDGE_RUNTIME_CHECKPOINT_VERSION = 1 as const
 export const LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION = 3 as const
 export const LEGACY_BRIDGE_RUNTIME_SCHEMA_ID =
   'sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac' as const
+export const PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID =
+  'sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f' as const
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({
   maxCheckpointBytes: 32 * 1024 * 1024,
@@ -106,7 +108,10 @@ export type HydratedBridgeRuntimeCheckpoint = {
 
 export type LoadedBridgeRuntimeCheckpoint = {
   hydrated: HydratedBridgeRuntimeCheckpoint
-  migratedFromProtocolVersion: typeof LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION | null
+  migratedFromProtocolVersion:
+    | typeof LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION
+    | typeof PROTOCOL_VERSION
+    | null
 }
 
 export type CreateBridgeRuntimeCheckpointInput = {
@@ -435,17 +440,30 @@ function journalEntryBytes(entry: BridgeRuntimeJournalEntryV1): number {
   return Buffer.byteLength(canonicalJson(entry), 'utf8')
 }
 
-function migrateLegacyContractJson(json: string, path: string): string {
+type SupportedPriorProtocolVersion =
+  | typeof LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION
+  | typeof PROTOCOL_VERSION
+
+type SupportedPriorSchemaId =
+  | typeof LEGACY_BRIDGE_RUNTIME_SCHEMA_ID
+  | typeof PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID
+
+function migratePriorContractJson(
+  json: string,
+  path: string,
+  priorProtocolVersion: SupportedPriorProtocolVersion,
+  priorSchemaId: SupportedPriorSchemaId,
+): string {
   const parsed = parseCanonicalJson(json, path)
   if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
     return fail(path, 'must be a bridge contract object')
   }
   const record = parsed as Record<string, unknown>
-  if (record['protocolVersion'] !== LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION) {
-    fail(`${path}.protocolVersion`, `must be ${String(LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION)}`)
+  if (record['protocolVersion'] !== priorProtocolVersion) {
+    fail(`${path}.protocolVersion`, `must be ${String(priorProtocolVersion)}`)
   }
-  if (record['schemaId'] !== LEGACY_BRIDGE_RUNTIME_SCHEMA_ID) {
-    fail(`${path}.schemaId`, 'does not match the supported protocol-3 bridge schema')
+  if (record['schemaId'] !== priorSchemaId) {
+    fail(`${path}.schemaId`, 'does not match the supported prior bridge schema')
   }
   return canonicalJson({
     ...record,
@@ -454,10 +472,12 @@ function migrateLegacyContractJson(json: string, path: string): string {
   })
 }
 
-function migrateProtocol3Checkpoint(
+function migratePriorCheckpoint(
   bytes: string,
   configuredLimits: BridgeRuntimeCheckpointLimits,
   createSessionId: () => string,
+  priorProtocolVersion: SupportedPriorProtocolVersion,
+  priorSchemaId: SupportedPriorSchemaId,
 ): LoadedBridgeRuntimeCheckpoint {
   const limits = validateLimits(configuredLimits)
   const byteLength = Buffer.byteLength(bytes, 'utf8')
@@ -477,14 +497,14 @@ function migrateProtocol3Checkpoint(
   if (record['checkpointVersion'] !== BRIDGE_RUNTIME_CHECKPOINT_VERSION) {
     fail('checkpoint.checkpointVersion', `must be ${String(BRIDGE_RUNTIME_CHECKPOINT_VERSION)}`)
   }
-  if (record['protocolVersion'] !== LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION) {
+  if (record['protocolVersion'] !== priorProtocolVersion) {
     fail(
       'checkpoint.protocolVersion',
-      `must be ${String(LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION)} for forward migration`,
+      `must be ${String(priorProtocolVersion)} for forward migration`,
     )
   }
-  if (record['schemaId'] !== LEGACY_BRIDGE_RUNTIME_SCHEMA_ID) {
-    fail('checkpoint.schemaId', 'does not match the supported protocol-3 bridge schema')
+  if (record['schemaId'] !== priorSchemaId) {
+    fail('checkpoint.schemaId', 'does not match the supported prior bridge schema')
   }
 
   const legacySessionId = requireString(record['sessionId'], 'checkpoint.sessionId')
@@ -512,10 +532,25 @@ function migrateProtocol3Checkpoint(
   if ((savedSaveJson === null) !== (savedStateDigest === null)) {
     fail('checkpoint.savedStateDigest', 'must be null exactly when savedSaveJson is null')
   }
+  let savedSave: SaveFileV14 | null = null
   if (savedSaveJson !== null) {
-    validateCanonicalV14(savedSaveJson, 'checkpoint.savedSaveJson', saveCache)
+    savedSave = validateCanonicalV14(savedSaveJson, 'checkpoint.savedSaveJson', saveCache)
     if (digest(savedSaveJson) !== savedStateDigest) {
       fail('checkpoint.savedStateDigest', 'does not match savedSaveJson')
+    }
+  }
+  if (priorSchemaId === PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID) {
+    if (currentSave.state.founding !== null) {
+      fail(
+        'checkpoint.currentSaveJson',
+        'previous protocol-4 production authority cannot contain an open founding draft',
+      )
+    }
+    if (savedSave !== null && savedSave.state.founding !== null) {
+      fail(
+        'checkpoint.savedSaveJson',
+        'previous protocol-4 production authority cannot contain an open founding draft',
+      )
     }
   }
 
@@ -536,8 +571,18 @@ function migrateProtocol3Checkpoint(
     const hydrated = hydrateEntry({
       route,
       commandId,
-      requestJson: migrateLegacyContractJson(requestJson, `${path}.requestJson`),
-      responseJson: migrateLegacyContractJson(responseJson, `${path}.responseJson`),
+      requestJson: migratePriorContractJson(
+        requestJson,
+        `${path}.requestJson`,
+        priorProtocolVersion,
+        priorSchemaId,
+      ),
+      responseJson: migratePriorContractJson(
+        responseJson,
+        `${path}.responseJson`,
+        priorProtocolVersion,
+        priorSchemaId,
+      ),
     }, index, legacySessionId, stateRevision, saveCache)
     if (hydrated.response.stateRevision < previousResponseRevision) {
       fail(path, 'response revisions must be non-decreasing')
@@ -579,8 +624,8 @@ function migrateProtocol3Checkpoint(
   const normalizedLegacy = {
     format: BRIDGE_RUNTIME_CHECKPOINT_FORMAT,
     checkpointVersion: BRIDGE_RUNTIME_CHECKPOINT_VERSION,
-    protocolVersion: LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION,
-    schemaId: LEGACY_BRIDGE_RUNTIME_SCHEMA_ID,
+    protocolVersion: priorProtocolVersion,
+    schemaId: priorSchemaId,
     sessionId: legacySessionId,
     stateRevision,
     currentSaveJson,
@@ -596,7 +641,7 @@ function migrateProtocol3Checkpoint(
 
   const nextSessionId = requireString(createSessionId(), 'migration.sessionId')
   if (nextSessionId === legacySessionId) {
-    fail('migration.sessionId', 'must differ from the protocol-3 logical session')
+    fail('migration.sessionId', 'must differ from the prior logical session')
   }
   const checkpoint = createBridgeRuntimeCheckpoint({
     sessionId: nextSessionId,
@@ -607,7 +652,7 @@ function migrateProtocol3Checkpoint(
   }, limits)
   return {
     hydrated: hydrateBridgeRuntimeCheckpoint(checkpoint, limits),
-    migratedFromProtocolVersion: LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION,
+    migratedFromProtocolVersion: priorProtocolVersion,
   }
 }
 
@@ -802,9 +847,9 @@ export function decodeBridgeRuntimeCheckpoint(
 }
 
 /**
- * Startup-only compatibility boundary. Protocol-3 response bytes cannot be replayed under the
- * closed protocol-4 contract, so a valid legacy checkpoint is rolled into a fresh logical
- * session while preserving both authoritative V14 save slots exactly.
+ * Startup-only compatibility boundary. Prior response bytes cannot be replayed under the
+ * current closed contract, so a valid checkpoint is rolled into a fresh logical session while
+ * preserving both authoritative V14 save slots exactly.
  */
 export function loadBridgeRuntimeCheckpoint(
   bytes: string,
@@ -824,7 +869,23 @@ export function loadBridgeRuntimeCheckpoint(
     const record = parsed as Record<string, unknown>
     if (record['protocolVersion'] === LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION ||
         record['schemaId'] === LEGACY_BRIDGE_RUNTIME_SCHEMA_ID) {
-      return migrateProtocol3Checkpoint(bytes, configuredLimits, createSessionId)
+      return migratePriorCheckpoint(
+        bytes,
+        configuredLimits,
+        createSessionId,
+        LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION,
+        LEGACY_BRIDGE_RUNTIME_SCHEMA_ID,
+      )
+    }
+    if (record['protocolVersion'] === PROTOCOL_VERSION &&
+        record['schemaId'] === PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID) {
+      return migratePriorCheckpoint(
+        bytes,
+        configuredLimits,
+        createSessionId,
+        PROTOCOL_VERSION,
+        PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID,
+      )
     }
   }
   return {

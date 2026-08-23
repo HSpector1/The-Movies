@@ -8,6 +8,7 @@ import {
   BridgeRuntimeCheckpointError,
   LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION,
   LEGACY_BRIDGE_RUNTIME_SCHEMA_ID,
+  PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID,
   appendBridgeRuntimeJournalEntry,
   createBridgeRuntimeCheckpoint,
   createBridgeRuntimeJournalEntry,
@@ -121,6 +122,26 @@ function protocol3Bytes(checkpoint: BridgeRuntimeCheckpointV1): string {
   return `${canonicalJson(legacy)}\n`
 }
 
+function previousProtocol4Bytes(checkpoint: BridgeRuntimeCheckpointV1): string {
+  const journal = checkpoint.journal.map((entry) => {
+    const request = JSON.parse(entry.requestJson) as Record<string, unknown>
+    const response = JSON.parse(entry.responseJson) as Record<string, unknown>
+    request.schemaId = PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID
+    response.schemaId = PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID
+    return {
+      ...entry,
+      requestJson: canonicalJson(request),
+      responseJson: canonicalJson(response),
+    }
+  })
+  return `${canonicalJson({
+    ...checkpoint,
+    schemaId: PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID,
+    journalDigest: sha256(canonicalJson(journal)),
+    journal,
+  })}\n`
+}
+
 describe('BridgeRuntimeCheckpointV1', () => {
   it('forward-migrates protocol 3 by preserving both V14 slots and discarding incompatible replay bytes', () => {
     const source = fixture()
@@ -157,6 +178,79 @@ describe('BridgeRuntimeCheckpointV1', () => {
       undefined,
       () => 'runtime-protocol-4-session',
     )).toThrow(/journalDigest/)
+  })
+
+  it('rolls the previous protocol-4 schema forward without changing either V14 save slot', () => {
+    const source = fixture()
+    const priorBytes = previousProtocol4Bytes(source.checkpoint)
+    expect(() => decodeBridgeRuntimeCheckpoint(priorBytes)).toThrow(/schemaId/)
+
+    const loaded = loadBridgeRuntimeCheckpoint(
+      priorBytes,
+      undefined,
+      () => 'runtime-current-schema-session',
+    )
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint).toMatchObject({
+      protocolVersion: PROTOCOL_VERSION,
+      schemaId: SCHEMA_ID,
+      sessionId: 'runtime-current-schema-session',
+      stateRevision: 0,
+      currentSaveJson: source.currentSaveJson,
+      currentStateDigest: sha256(source.currentSaveJson),
+      savedSaveJson: source.savedSaveJson,
+      savedStateDigest: sha256(source.savedSaveJson),
+      journal: [],
+    })
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(14)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(14)
+
+    const corrupted = JSON.parse(priorBytes) as Record<string, unknown>
+    corrupted.journalDigest = '0'.repeat(64)
+    expect(() => loadBridgeRuntimeCheckpoint(
+      `${canonicalJson(corrupted)}\n`,
+      undefined,
+      () => 'runtime-current-schema-session',
+    )).toThrow(/journalDigest/)
+  })
+
+  it('rolls an authentic previous protocol-4 checkpoint with no explicit save slot', () => {
+    const source = new BridgeSession(
+      createBridgeInitialState('bridge-runtime-checkpoint-prior-p4-unsaved'),
+      'bridge-runtime-checkpoint-prior-p4-unsaved-session',
+    ).exportRuntimeCheckpoint()
+    expect(source.savedSaveJson).toBeNull()
+    expect(source.savedStateDigest).toBeNull()
+
+    const loaded = loadBridgeRuntimeCheckpoint(
+      previousProtocol4Bytes(source),
+      undefined,
+      () => 'runtime-current-schema-unsaved-session',
+    )
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint).toMatchObject({
+      protocolVersion: PROTOCOL_VERSION,
+      schemaId: SCHEMA_ID,
+      sessionId: 'runtime-current-schema-unsaved-session',
+      stateRevision: 0,
+      currentSaveJson: source.currentSaveJson,
+      currentStateDigest: source.currentStateDigest,
+      savedSaveJson: null,
+      savedStateDigest: null,
+      journal: [],
+    })
+    expect(loaded.hydrated.savedSave).toBeNull()
+  })
+
+  it('rejects an impossible open-founding state attributed to the previous protocol-4 runtime', () => {
+    const rawFounding = BridgeSession.createRuntime().exportRuntimeCheckpoint()
+    const impossiblePriorBytes = previousProtocol4Bytes(rawFounding)
+
+    expect(() => loadBridgeRuntimeCheckpoint(
+      impossiblePriorBytes,
+      undefined,
+      () => 'runtime-impossible-founding-session',
+    )).toThrow(/previous protocol-4 production authority cannot contain an open founding draft/)
   })
 
   it('encodes one exact closed canonical shape with one LF and hydrates stable V14 bytes', () => {

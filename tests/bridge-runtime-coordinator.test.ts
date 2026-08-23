@@ -10,6 +10,7 @@ import {
   BridgeRuntimeCheckpointCapacityError,
   LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION,
   LEGACY_BRIDGE_RUNTIME_SCHEMA_ID,
+  PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID,
   decodeBridgeRuntimeCheckpoint,
   encodeBridgeRuntimeCheckpoint,
 } from '../bridge/runtime-checkpoint.ts'
@@ -131,6 +132,51 @@ describe('BridgeRuntimeCoordinator', () => {
     expect(fatals).toHaveLength(1)
   })
 
+  it('atomically rolls the previous protocol-4 schema into a fresh replay session', async () => {
+    const fixture = sessionFixture('protocol-4-schema-upgrade')
+    const current = decodeBridgeRuntimeCheckpoint(fixture.checkpointJson).checkpoint
+    const priorJson = `${canonicalJson({
+      ...current,
+      schemaId: PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID,
+    })}\n`
+    const store = new FakeCheckpointStore(priorJson)
+    const coordinator = await createBridgeRuntimeCoordinator({ store, fatal: () => undefined })
+
+    expect(store.writeAttempts).toHaveLength(1)
+    const migrated = decodeBridgeRuntimeCheckpoint(store.contents ?? '').checkpoint
+    expect(migrated.sessionId).not.toBe(current.sessionId)
+    expect(migrated.stateRevision).toBe(0)
+    expect(migrated.currentSaveJson).toBe(current.currentSaveJson)
+    expect(migrated.currentStateDigest).toBe(current.currentStateDigest)
+    expect(migrated.savedSaveJson).toBe(current.savedSaveJson)
+    expect(migrated.journal).toEqual([])
+    const snapshot = await coordinator.read((session) => session.snapshot())
+    expect(snapshot.sessionId).toBe(migrated.sessionId)
+    expect(snapshot.stateDigest).toBe(current.currentStateDigest)
+    await coordinator.close()
+  })
+
+  it('keeps prior protocol-4 bytes when its schema rollover commit fails', async () => {
+    const fixture = sessionFixture('protocol-4-schema-write-failure')
+    const current = decodeBridgeRuntimeCheckpoint(fixture.checkpointJson).checkpoint
+    const priorJson = `${canonicalJson({
+      ...current,
+      schemaId: PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID,
+    })}\n`
+    const store = new FakeCheckpointStore(priorJson)
+    store.writeBehavior = async () => { throw new Error('schema migration write failed') }
+    const fatals: unknown[] = []
+
+    await expect(createBridgeRuntimeCoordinator({
+      store,
+      fatal: (error) => { fatals.push(error) },
+    })).rejects.toThrow(/schema migration write failed/)
+    expect(store.contents).toBe(priorJson)
+    expect(store.writeAttempts).toHaveLength(1)
+    expect(store.closeCalls).toBe(1)
+    expect(fatals).toHaveLength(1)
+  })
+
   it('persists a fresh runtime checkpoint before becoming ready', async () => {
     const writeStarted = deferred()
     const releaseWrite = deferred()
@@ -140,15 +186,10 @@ describe('BridgeRuntimeCoordinator', () => {
       await releaseWrite.promise
     }
     const fatals: unknown[] = []
-    const session = new BridgeSession(
-      createBridgeInitialState('coordinator-fresh'),
-      'runtime-coordinator-fresh-session',
-    )
 
     const opening = createBridgeRuntimeCoordinator({
       store,
       fatal: (error) => { fatals.push(error) },
-      createFreshSession: () => session,
     })
     let ready = false
     void opening.then(() => { ready = true })
@@ -161,11 +202,30 @@ describe('BridgeRuntimeCoordinator', () => {
     const coordinator = await opening
     expect(ready).toBe(true)
     expect(store.contents).not.toBeNull()
-    expect(decodeBridgeRuntimeCheckpoint(store.contents ?? '').checkpoint).toMatchObject({
-      sessionId: session.sessionId,
+    const persisted = decodeBridgeRuntimeCheckpoint(store.contents ?? '').checkpoint
+    const snapshot = await coordinator.read((session) => session.snapshot())
+    expect(persisted).toMatchObject({
+      sessionId: snapshot.sessionId,
       stateRevision: 0,
+      savedSaveJson: null,
+      savedStateDigest: null,
       journal: [],
     })
+    expect(persisted.currentStateDigest).toBe(snapshot.stateDigest)
+    expect(snapshot.gameWeek).toBe(0)
+    expect(snapshot.snapshot.lot.week).toBe(0)
+    expect(snapshot.snapshot.productions.activeProductions).toEqual([])
+    expect(snapshot.snapshot.releaseResults.releasedFilms).toEqual([])
+    expect(snapshot.snapshot.journeyNotices.firstFilmJourney).toMatchObject({
+      stage: 'no-picture',
+      beat: 'no-picture',
+      ordinal: 1,
+      next: { kind: 'commission' },
+    })
+    expect(snapshot.availableIntents).not.toHaveLength(0)
+    expect(snapshot.availableIntents.every(
+      (intent) => intent.kind === 'signFoundingContract',
+    )).toBe(true)
     expect(fatals).toEqual([])
     await coordinator.close()
   })
