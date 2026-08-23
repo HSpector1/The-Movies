@@ -470,6 +470,44 @@ function leaseRecord(
 }
 
 describe.sequential('one-command studio supervisor', () => {
+  it('resolves the owner launch from the TypeScript repository to its sibling build and default profile', () => {
+    const root = temporaryRoot('owner-launch')
+    const repositoryRoot = path.join(root, 'The Movies - Unity Production Convergence 80H')
+    const unityProject = path.join(root, 'Project Studio - Unity Production Convergence 80H')
+    const home = path.join(root, 'owner-home')
+    const app = path.join(unityProject, 'Builds', 'macOS', 'Project Studio Visual Spike.app')
+    const macos = path.join(app, 'Contents', 'MacOS')
+    const executable = path.join(macos, 'Project Studio - Unity Visual Spike')
+
+    fs.mkdirSync(repositoryRoot, { mode: 0o700 })
+    fs.mkdirSync(path.join(unityProject, 'ProjectSettings'), { mode: 0o700, recursive: true })
+    fs.writeFileSync(path.join(unityProject, 'ProjectSettings', 'ProjectSettings.asset'), 'PlayerSettings:\n')
+    fs.mkdirSync(macos, { mode: 0o700, recursive: true })
+    fs.writeFileSync(executable, '#!/bin/sh\nexit 0\n', { mode: 0o700 })
+    fs.writeFileSync(path.join(app, 'Contents', 'Info.plist'), [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<plist version="1.0"><dict>',
+      '<key>CFBundleExecutable</key><string>Project Studio - Unity Visual Spike</string>',
+      '</dict></plist>',
+    ].join(''))
+
+    const parsed = parseStudioSupervisorArguments(
+      ['--unity-project', '../Project Studio - Unity Production Convergence 80H'],
+      { HOME: home },
+      repositoryRoot,
+    )
+    expect(parsed.help).toBe(false)
+    if (parsed.help) throw new Error('Owner launch unexpectedly requested help.')
+
+    expect(parsed.options.repositoryRoot).toBe(fs.realpathSync.native(repositoryRoot))
+    expect(parsed.options.unityWorkingDirectory).toBe(fs.realpathSync.native(unityProject))
+    expect(parsed.options.unityExecutable).toBe(fs.realpathSync.native(executable))
+    expect(parsed.options.profileRoot).toBe(process.platform === 'darwin'
+      ? path.join(home, 'Library', 'Application Support', 'Project Studio')
+      : path.join(home, '.local', 'state', 'project-studio'))
+    expect(parsed.options.unityArguments).toEqual([])
+  })
+
   it('tolerates only entries that disappear during a recursive profile scan', () => {
     const root = temporaryRoot('profile-scan-race')
     const stable = path.join(root, 'stable-secret-audit-target')

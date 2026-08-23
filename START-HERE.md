@@ -1,5 +1,10 @@
 # Project: Studio — Start Here
 
+> **Native owner launch (local CP20 candidate, not formal CURRENT BEST / Golden M5):** from this
+> repository run `npm run play`, or double-click `PLAY_PROJECT_STUDIO.command`. It preflights and
+> supervises the sibling macOS Unity build and uses the private durable default profile. An empty
+> profile opens at `START A STUDIO`; an existing profile resumes the same authoritative studio.
+
 > **Current-branch notice:** the setup/status narrative below describes the original M0A launch and
 > is retained for provenance. It is not current authority for
 > `operation-hollywood-autonomous-marathon`. Begin with `CURRENT-BEST.md`, `PROGRESS.md`,
@@ -7,7 +12,7 @@
 > `AUTONOMOUS-MARATHON-HANDOFF.md`, then current Git. The game is now playable, SaveFileV13 is the
 > current writer, and the Owner has ruled that **THE STUDIO LOT IS THE PRIMARY GAME SURFACE**.
 
-## Current launch
+## Historical browser launch
 
 From this repository root:
 

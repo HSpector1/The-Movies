@@ -11,15 +11,27 @@ are unchanged.
 
 ## Run
 
-The preferred native development path launches the authoritative TypeScript engine and the
-compatible Unity build together, waits for an authenticated health check, and supervises engine
-restarts:
+For this campaign worktree on the owner's Mac, the memorable native launch is:
+
+```sh
+npm run play
+```
+
+The command preflights the sibling `Project Studio - Unity Production Convergence 80H` project and
+its standard macOS build, then launches the authoritative TypeScript engine and Unity together
+through the existing supervisor. It is the **local CP20 candidate**, not the formal CURRENT BEST /
+Golden M5 pair. The first run against an empty default profile starts with an open Week 0 founding
+draft: the player signs the seven-person company and chooses `START A STUDIO` before Picture #1.
+Later runs resume their durable authority instead of replacing an existing studio. Double-click
+`PLAY_PROJECT_STUDIO.command` for the same path from Finder.
+
+The configurable development entry point remains:
 
 ```sh
 npm run studio -- --unity-project "/absolute/path/to/unity-project"
 ```
 
-The Unity project must already contain the standard macOS build at
+The selected Unity project must already contain the standard macOS build at
 `Builds/macOS/Project Studio Visual Spike.app`. The supervisor keeps authoritative runtime state
 under a stable private profile, while each product launch receives a new in-memory capability and
 its own bounded logs. Use `--profile-root PATH` to select a different persistent profile; reusing
@@ -186,11 +198,18 @@ profile-backup behavior before public distribution.
 
 ## Movie #2 interaction
 
-The server starts after a real managed-studio founding and a complete Movie #1 driven through the
-same legal choices, leaving the journey on released Movie #1 with a `commissionScreenplay` choice.
-The Movie #2 path is entirely server-issued:
+A fresh production runtime starts in the real Week 0 founding draft. It exposes only opaque,
+state-bound player choices until four actors (including the reserve performer required for the
+two-picture run), one director, one writer, and one production/craft lead are under contract. The
+next authoritative choice is exactly `START A STUDIO`. Only then do construction and Picture #1
+development become available. The automated bridge proof follows those same legal choices before
+exercising this entirely server-issued two-picture path:
 
 ```text
+signFoundingContract x7
+foundStudio (START A STUDIO)
+commissionScreenplay / advanceWeek / screenplay / audition / cast / greenlight / production
+advanceWeek through Movie #1 shooting, post-production, release-ready, and released
 startConstruction (independent lot choice)
 commissionScreenplay
 advanceWeek
