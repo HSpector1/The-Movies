@@ -4,6 +4,29 @@ START HERE. Read `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`, then the campaign
 ledger, this handoff, and the promotion register. The TypeScript/Unity engine
 decision is settled. Do not restart planning from scratch.
 
+## CANONICAL MAIN + GOLDEN M6 - CURRENT AUTHORITY
+
+Timestamp: 2026-08-23 15:25 CEST. Owner-authorized continuation completed the
+reconciliation, disposed of PR #5, and ruled Golden M6.
+
+| Item | Exact state |
+| --- | --- |
+| Canonical TypeScript `main` | `ce0eaee8772d7e1975b6cfdb62466cd7b60091d3` via fast-forward merge of PR #7 (pre-merge rollback point `5914c84e453461240540184e79b2bd7eafeb647f`); docs commits follow on `main` (ADR merge `f8052e20...`, then this ruling) |
+| CURRENT BEST | **Golden M6**: TypeScript `ce0eaee8...` (= the canonical merge) + Unity `c7a19dcd...`; annotated tags `golden/unity-convergence-m6` pushed in both repos (objects `2c22719c...` / `177b9729...`) — see the promotion register M6 section for the full case, fresh evidence set, and the two recorded honesty notes |
+| PR #5 disposition | Closed as superseded with a full crediting comment; its still-useful concepts recorded as ADR 0009 (size/navigation budgets, Proposed) and ADR 0010 (evidence/binary hygiene, Accepted) via PR #16 |
+| M1-M5 | Immutable, verified unchanged |
+| Fresh M6 evidence | Reconnect `M6-Reconnect-20260823T131536Z` complete; killed-engine `M6-KilledEngine-20260823T131957Z` complete under double SIGKILL (two earlier attempts failed only to OBSERVE the outage because the emitted engine restarts faster than the 1 s poll window — recorded, thresholds untouched); stage visual `M6-Stage-20260823T132035Z` both aspects complete with no visual regression |
+
+### NEXT EXACT ACTION
+
+Golden M6 is the build-from and recovery authority; canonical work continues
+from `main`. The next campaign is the Owner-directed **Unity-first Living Lot
+& Production Presentation** campaign (living lot population from authoritative
+presence, character quality/motion, environment quality, production activity
+legibility, UI cohesion, camera feel) with a bounded Phase M resilience
+matrix. Fast-recovery outage observability is queued as a Phase M item. Every
+checkpoint remains non-Golden by default; do not move M1-M6.
+
 ## CHECKPOINT 23 SEALED - MAIN MERGE CANDIDATE (NON-GOLDEN, NOT CANONICAL)
 
 CP23 performs the deliberate isolated TypeScript-`main` reconciliation. It is

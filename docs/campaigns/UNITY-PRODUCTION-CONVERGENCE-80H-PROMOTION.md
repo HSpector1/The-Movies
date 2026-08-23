@@ -4,9 +4,83 @@ This file is the authoritative answer to: **What is currently the best version
 of Project: Studio, and is it ready for promotion?** Preserve every Golden tag.
 Do not infer a compatible TypeScript/Unity pair from branch names alone.
 
-## CURRENT BEST PROJECT: STUDIO - GOLDEN M5
+## CURRENT BEST PROJECT: STUDIO - GOLDEN M6
 
-Promotion status: **GOLDEN — CONTINUE CAMPAIGN**
+Promotion status: **GOLDEN — CANONICAL**
+
+| Component | Repository | Branch | Exact product SHA | Golden tag |
+| --- | --- | --- | --- | --- |
+| TypeScript authority | `HSpector1/The-Movies` | `main` (canonical) | `ce0eaee8772d7e1975b6cfdb62466cd7b60091d3` | `golden/unity-convergence-m6` |
+| Unity production client | `HSpector1/project-studio-unity-visual-spike` | `campaign/unity-production-convergence-80h-client` | `c7a19dcd5b8c74b57a9053a1a2c0cf8b07bbd48e` | `golden/unity-convergence-m6` |
+
+Ruled 2026-08-23 by independent Golden review under Owner authorization. Both
+annotated M6 tags are pushed and remote-verified: TypeScript tag object
+`2c22719c2dca54b2f45689d8022ef5f93a74d2a0` peels to `ce0eaee8...`; Unity tag
+object `177b9729b17e5883d75e5238f516991d80c0e133` peels to `c7a19dcd...`. The
+TypeScript M6 SHA **is** canonical `main` (fast-forwarded via PR #7), so the
+tagged product and the canonical mainline are byte-identical by construction.
+
+### The M6 case
+
+- **Genuine foreground player input** — CP20 PlayerJourney proof (report
+  SHA-256 `d9c90971d2a011ec19ef9469858764b0761299598ec80249fc1eb80b4ad460f0`):
+  the full guided journey driven by external OS-level HID mouse input, 49 GUI
+  attempts = 49 accepted, zero direct submissions.
+- **Emitted audited production runtime + packaged native launch** — CP21;
+  re-verified fresh on the exact M6 bytes (build + fail-closed packaged-graph
+  audit; every M6 evidence run below launched through
+  `PLAY_PROJECT_STUDIO.command` with `graph=emitted`).
+- **25/50/100 presentation scalability** — CP22 (report
+  `211f32669d7ebbd9ec6f201e23dfdac0b9d0cf04d997bb181de7f76e7b888cc5`): p95
+  9.06/9.05/9.35 ms against the 16.67 ms floor on the current player binary.
+- **Full Movie #2 / save-load / deterministic authority** — fresh on the M6
+  pair: `Evidence/R/Canonical-Candidate-BridgeProof-20260823T130602Z` complete
+  (revision 50, exact release, saved = restored digest, 118.8 FPS); the
+  raw-founding opening digest `3d8d2876...` and Movie #2 identity
+  `script-0001`/`prod-0013` reproduce across every run.
+- **Reconnect** — fresh: `Evidence/R/M6-Reconnect-20260823T131536Z` complete
+  (SHA-256 prefix `14824abf...`), rejoining Week 22 / revision 50 authority at
+  the expected digest.
+- **Actual killed-engine recovery** — fresh and STRONGER than the M5 gate:
+  `Evidence/R/M6-KilledEngine-20260823T131957Z` complete (prefix
+  `4d8406e1...`) under a double SIGKILL spanning two supervisor restart
+  cycles: outage observed, actions disabled, projection retained, changed
+  runtime identity, authority byte-stable.
+- **No visual regression** — fresh both-aspect schema-6 stage proofs on the
+  current player (`Evidence/R/M6-Stage-20260823T132035Z`, landscape prefix
+  `89e5459a...`, portrait `7c8b5778...`, 5/5 milestones each) with human
+  review: indistinguishable from the accepted CP20/M5 composition.
+- **Validation** — full suite on the M6 TypeScript bytes: 337 files / 4,542
+  passed / 5 skipped; both typechecks; contract drift; hygiene 1,039; asset
+  audit 26/0; dependency audit 0; `git diff --check` clean; Unity EditMode
+  271/271 on the M6 Unity bytes; macOS build + codesign valid.
+
+### Honesty notes recorded with the ruling
+
+1. The foreground-journey evidence was captured on the CP20-era player
+   binary; the delta to the tagged M6 Unity SHA is the CP22 passive
+   scalability runner (dormant without its flag, source-passivity asserted by
+   EditMode tests) and its three-line bootstrap install. The workflow input
+   surface is unchanged; the bridge and stage proofs were re-run on the
+   current binary. Judged acceptable without re-driving the ~40-minute
+   interactive journey.
+2. Two earlier killed-engine attempts (`M6-KilledEngine-20260823T131640Z`,
+   `...T131804Z`, both `failed`) could not OBSERVE the outage because the
+   CP21 emitted engine restarts faster than the client's 1-second poll
+   window — a product improvement that broke a proof observability
+   assumption. No threshold was weakened; the accepted run uses a harsher
+   double-kill. Fast-recovery observability is queued as Phase M work.
+
+M1-M5 remain immutable historical recovery points. M6 supersedes M5 without
+moving or deleting any prior tag.
+
+## PRIOR GOLDEN M5 REGISTER - HISTORICAL
+
+This section preserves M5 exactly as the CURRENT BEST decision stood before
+M6. Unqualified CURRENT BEST statements below are historical and superseded
+by the M6 authority above; the M5 tags themselves remain immutable.
+
+Promotion status (historical): **GOLDEN — CONTINUE CAMPAIGN**
 
 | Component | Repository | Branch | Exact product SHA | Golden tag |
 | --- | --- | --- | --- | --- |

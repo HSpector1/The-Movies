@@ -4359,3 +4359,26 @@ The docs-only commit containing this entry is the direct child of TypeScript
 CP22 docs child `6505b1074344cca392c278c1c28b247d9821cb6b`; resolve its self
 SHA after commit and require HEAD/upstream/live-remote equality with a clean
 tracked tree.
+
+## 2026-08-23 15:25 CEST - Canonical main established; PR #5 disposed; Golden M6 ruled
+
+Owner-authorized continuation. (1) The merge candidate was refreshed with the
+final CP23 seal (`ce0eaee8772d7e1975b6cfdb62466cd7b60091d3`), fully
+revalidated from `npm ci` up (337 files / 4,542 passed / 5 skipped; all
+gates), re-proven natively on exact candidate bytes, published as PR #7, and
+fast-forwarded to `main` — canonical `main` IS the validated SHA; rollback
+point `5914c84e...`. (2) PR #5 (ask-the-six) was reviewed file-by-file:
+superseded ADR backfills/security/CI acknowledged; its two still-useful
+absent concepts recorded as ADR 0009 (size/navigation budgets, Proposed) and
+ADR 0010 (evidence/binary hygiene incl. explicit history-rewrite rejection,
+Accepted) via PR #16 with credit; a full respectful disposition comment was
+posted and the PR closed as superseded, not ignored. (3) An independent
+Golden review ruled **M6** for the exact pair TypeScript `ce0eaee8...` +
+Unity `c7a19dcd...` — tags `golden/unity-convergence-m6` pushed (objects
+`2c22719c...` / `177b9729...`). Fresh M6 evidence: reconnect complete
+(`14824abf...`), killed-engine complete under double SIGKILL (`4d8406e1...`;
+two prior attempts failed only to observe the outage because the emitted
+engine recovers inside the 1 s poll window — recorded honestly, thresholds
+untouched, observability queued for Phase M), and both-aspect stage visual
+proofs complete with no regression (`89e5459a...` / `7c8b5778...`). M1-M5
+remain immutable. CURRENT BEST is Golden M6.
