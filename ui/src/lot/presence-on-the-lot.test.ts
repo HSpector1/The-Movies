@@ -157,21 +157,51 @@ describe('presence reaches the lot from real engine state', () => {
     expect(writerStand.path.at(-1)).toEqual(writerStand.destination)
     expect(writerStand.path.length).toBeGreaterThan(2)
 
-    // Everyone else the studio employs is still parked at home this week.
+    // Everyone else attends their roster home facility (LL-CP1) when the lot
+    // can place it, and is parked at home only when the week claims nothing.
+    const presenceById = new Map(
+      snapshot.presence!.people.map((person) => [person.talentId, person]),
+    )
     const others = stands.filter((stand) => stand.talentId !== id)
     expect(others.length).toBeGreaterThan(0)
-    expect(others.every((stand) => stand.stance === 'home')).toBe(true)
+    let attending = 0
+    for (const stand of others) {
+      const record = presenceById.get(stand.talentId)
+      if (record?.facilityId != null) {
+        expect(stand.stance).toBe('at-site')
+        attending += 1
+      } else {
+        expect(stand.stance).toBe('home')
+      }
+    }
+    expect(attending).toBeGreaterThan(0)
   })
 
-  it('counts exactly one occupant on Development’s sign', () => {
+  it('counts the claimed writer plus the attending company on Development’s sign', () => {
     const snapshot = studioLotSnapshot(DRAFTING)
     const counts = presenceOccupantCounts(snapshot.presence, snapshot.placement?.placements ?? [])
-    expect(counts.byBuilding.get('writers')).toBe(1)
-    expect([...counts.byBuilding.keys()]).toEqual(['writers'])
-    // …and nothing at all before a screenplay is commissioned.
+    // The expected sign counts are recomputed from the same presence truth the
+    // sign reads: everyone at-site at the static beat, per mapped facility.
+    const expected = new Map<string, number>()
+    for (const person of snapshot.presence!.people) {
+      if (person.facilityId === null) continue
+      if (person.beats[snapshot.presence!.staticBeat] !== 'at-site') continue
+      const building = person.facilityId === 'facility-development-casting'
+        ? 'writers'
+        : person.facilityId === 'facility-scenery-shop'
+          ? 'post'
+          : null
+      if (building !== null) expected.set(building, (expected.get(building) ?? 0) + 1)
+    }
+    expect(counts.byBuilding.get('writers')).toBe(expected.get('writers'))
+    expect(new Set(counts.byBuilding.keys())).toEqual(new Set(expected.keys()))
+    // The claimed writer is never alone now: the contracted company attends too.
+    expect(counts.byBuilding.get('writers')!).toBeGreaterThan(1)
+    // Roster attendance (LL-CP1): the lot is inhabited even before the first
+    // screenplay is commissioned.
     expect(
       presenceOccupantCounts(studioLotSnapshot(IDLE).presence, []).byBuilding.size,
-    ).toBe(0)
+    ).toBeGreaterThan(0)
   })
 
   it('quotes the drafting sentence in the person panel', () => {
@@ -186,10 +216,17 @@ describe('presence reaches the lot from real engine state', () => {
     const writer = snapshot.people.find((person) => person.id === writerId(DRAFTING))!
     const context = lotBuildingInspectorContext(snapshot, 'writers', null, null)
     // M-B prints the people group ahead of the verbs, so it is now `occupantFacts`.
-    // Same content, same source, and it is still ONLY there.
+    // Same content, same source, and it is still ONLY there. The heading count is
+    // recomputed from the same presence truth (writer plus attending company).
+    const atDevelopment = snapshot.presence!.people.filter(
+      (person) =>
+        person.facilityId === 'facility-development-casting' &&
+        person.beats[snapshot.presence!.staticBeat] === 'at-site',
+    ).length
+    expect(atDevelopment).toBeGreaterThan(1)
     expect(context.occupantFacts.map((fact) => fact.term)).toContain(writer.name)
     expect(context.occupantFacts.find((fact) => fact.key === 'presence:heading')?.detail).toBe(
-      '1 person',
+      `${atDevelopment} people`,
     )
     expect(context.facts.map((fact) => fact.term)).not.toContain(writer.name)
   })

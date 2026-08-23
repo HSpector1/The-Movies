@@ -556,12 +556,14 @@ describe('M-B — the buildings carry the verbs the guidance names', () => {
 
     fireEvent.click(screen.getByTestId('lot-nav-writers'))
     const panel = screen.getByTestId('lot-building-inspector-writers')
-    // Week 0: nobody is at Development yet, so the people block is honestly absent —
-    // but the VERB is above the capacity readout, which is the inversion M-B fixes.
+    // Week 0: roster attendance (LL-CP1) already reports the contracted company
+    // to Development, so the people block is present from the first week — and
+    // the VERB stays above the capacity readout, the inversion M-B fixes.
     expect(inspectorReadingOrder(panel)).toEqual([
       'description',
       'status',
       'attention',
+      'occupants',
       'actions',
       'capacity',
       'deep',

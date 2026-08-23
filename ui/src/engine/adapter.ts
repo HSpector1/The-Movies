@@ -6016,7 +6016,10 @@ function lotPresenceProjection(
 
   // One lookup table over every calendar slot: (facilityId, slot) → its exact row.
   const slotRows = new Map<string, { facilityName: string; occupant: StudioCalendarOccupantView | null }>()
+  // And the facility's own name by id, for slot-less roster attendance sites.
+  const facilityNames = new Map<string, string>()
   for (const facility of calendar.facilities) {
+    facilityNames.set(facility.facilityId, facility.facilityName)
     for (const slot of facility.slots) {
       slotRows.set(`${slot.facilityId}:${String(slot.slot)}`, {
         facilityName: facility.facilityName,
@@ -6046,6 +6049,10 @@ function lotPresenceProjection(
         workTitle = occupant.title
         activity = occupant.activity
       }
+    } else if (person.site !== null && person.slot === null && person.engagement === 'roster') {
+      // Roster attendance claims a facility without a Calendar slot. Only the
+      // facility's own proven name is joined; no occupant strings are invented.
+      facilityName = facilityNames.get(person.site) ?? null
     }
 
     people.push({

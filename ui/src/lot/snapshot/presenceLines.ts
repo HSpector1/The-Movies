@@ -117,13 +117,21 @@ export function lotPersonPresenceLine(
   const creditLabel = presenceCreditLabel(person.credit)
 
   if (person.facilityId === null || person.engagement === 'roster') {
+    // Roster attendance (LL-CP1): a contracted member the week does not claim
+    // still reports to their home facility. The line names the facility only
+    // when its name was proven by the adapter join; it never invents work.
+    const attending = person.engagement === 'roster' && person.facilityId !== null
     return {
       kind: 'roster',
-      line: 'On the studio roster this week — no workplace is claimed for them.',
+      line: attending
+        ? isText(person.facilityName)
+          ? `On the lot at ${person.facilityName} this week — between engagements.`
+          : 'On the lot this week — between engagements.'
+        : 'On the studio roster this week — no workplace is claimed for them.',
       creditLabel,
       activityLabel: null,
       workTitle: null,
-      facilityName: null,
+      facilityName: attending && isText(person.facilityName) ? person.facilityName : null,
       slotNumber: null,
       blockedReason: null,
     }

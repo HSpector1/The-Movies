@@ -141,6 +141,36 @@ describe('person presence line', () => {
     expect(line?.line).toBe('On the studio roster this week — no workplace is claimed for them.')
   })
 
+  it('states roster attendance at the proven home facility, and degrades without the name', () => {
+    const attending = (facilityName: string | null) =>
+      lotPersonPresenceLine(
+        snapshot([
+          person({
+            engagement: 'roster',
+            credit: null,
+            ownerId: null,
+            facilityId: 'facility-development-casting',
+            slot: null,
+            beats: [
+              'travel', 'at-site', 'at-site', 'at-site', 'at-site',
+              'at-site', 'at-site', 'at-site', 'at-site', 'home',
+            ] as LotPresenceBeat[],
+            facilityName,
+            workTitle: null,
+            activity: null,
+          }),
+        ]),
+        'talent-w',
+      )
+    const named = attending('Development & Casting')
+    expect(named?.kind).toBe('roster')
+    expect(named?.line).toBe('On the lot at Development & Casting this week — between engagements.')
+    expect(named?.facilityName).toBe('Development & Casting')
+    const unnamed = attending(null)
+    expect(unnamed?.line).toBe('On the lot this week — between engagements.')
+    expect(unnamed?.facilityName).toBeNull()
+  })
+
   it('claims nothing when a claimed site and its own beat disagree', () => {
     // The canvas parks such a person at home, so a sentence saying they are at work
     // would make the two surfaces disagree about one week. Neither is claimed.
