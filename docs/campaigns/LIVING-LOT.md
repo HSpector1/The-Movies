@@ -423,3 +423,143 @@ sky/lighting overhaul, settle-freeze pose.
 **Recovery if anything is wrong:** the branch tip before CP6 work is
 `18bb54f` (leg ratchet, sealed state); LL-CP5 seal evidence at stamps
 20260823T194141Z. Golden M6 remains the recovery floor.
+
+## 2026-08-23 — LL-CP6 sealed: "Shooting Today" — the whole lot answers the question
+
+**Player-visible change:** a shooting week finally transforms the lot at
+management zoom instead of hiding behind a ~3 px beacon. While the sealed
+Stage 7 truth says Shooting: the stage front comes alive (beacon halo, door
+hot lamps, apron dressing, 3 door crew — the WIP wave, `b5908c9`) and the
+whole visible world responds: a support convoy parks on the authored roads
+with generator, honeywagon and water wagon on the east service road; craft
+services and reflector boards stage on the apron; every painted Melrose
+stall fills; spectator and visitor vehicles line both public curbs at real
+parallel-parking spacing; a held queue stacks inside Gate Boulevard; a taxi
+waits opposite the gate; and 6 decorative crew plus 14 onlookers work the
+apron and gather at the gate. Idle weeks return to the sleepy street. Two
+blinded stranger tests (different reviewers, different frame pairs, answer
+keys withheld) both identified the shooting world instantly.
+
+**Why a fix wave was required:** the recorded acceptance floor is a ≥3%
+shooting-vs-idle whole-lot pixel difference with ≥60% outside the doorway
+rectangle. The WIP doorway tell measured 0.187% (same-world cross-launch
+noise floor ≈0.095% at the same threshold) with 75% of the difference
+inside the doorway rectangle — the premise was still invisible, the exact
+defect this checkpoint existed to fix. Measurement also showed the
+whole-lot camera cannot see the crossroad basecamp behind the mid-lot
+buildings, so the management-zoom tell had to live in visible space: the
+public street. The measured convergence across the iteration series —
+0.19% → 0.59% → 1.57% → 2.67% → 2.91% → 2.97% → 3.03% → 3.08% — is
+retained on disk (stamps 204519Z/211216Z/211851Z/213117Z/220108Z) with the
+metric provably frozen across all runs (verified independently: identical
+threshold, doorway box, projection and denominator throughout; only the
+world changed).
+
+**Honesty line:** every object is presentation-only and driven exclusively
+by the sealed Stage 7 Shooting truth (STATE_Shooting group activation or
+`CurrentState == Shooting`). The convoy/craft/reflectors present the real
+company's transport and services during its real stage shoot; the street
+response presents the public world's honest reaction to a real shoot.
+Nothing implies a second unit, staff counts, or gate state the authority
+does not hold; internal names asserting unmodeled facts (press/newsreel)
+were renamed on review.
+
+**Decorative law, ratcheted:** basecamp objects are stripped of colliders,
+lights, markers, selectables and selection rings (`MakeDecorative`, now
+including `StudioSceneMarker` so the census guarantee is intrinsic); people
+clones follow the LL-CP2 identity-stripping rules. A new fail-closed
+validation rule (`ValidateShootingDayBasecamp`) pins the basecamp inside
+STATE_Shooting, forbids any collider/light/marker/selectable within it, and
+pins the people-loop marks (8 crew / 14 onlooker). Census isolation was
+independently verified as structural, not incidental: people 32, vehicles
+10, equipment 16 — identical to LL-CP5 at both reviewed commits.
+
+**Unity commits:** `b5908c9` (WIP doorway tell: shootingIndicators pin 2→5,
+apron dressing, door crew, always-on public street traffic), `01ad293`
+(shooting-day basecamp + street response + StudioShootingDayLotPresentation
++ ratchet + 4 EditMode contract tests + committed measurement tool
+`Tools/llcp6-two-world-measurement.py`), `56b0b05` (reviewer's blocking
+defect cleared + O-3/O-5 hardenings). **TS commit:** `264dc3b`
+(`scripts/living-lot-profile.mjs` — the profile builder, recreated as
+committed tooling after the machine restart wiped the session scratchpad
+that held `llcp6-make-shooting-profile.mjs`).
+
+**Honest failure record:** the first independent hostile review (fresh
+context) REJECTED the first candidate on one blocking defect — the late-
+added Gate Taxi at x −10 interpenetrated the north-curb car at x −12.5 by
+2.60 m at the studio gate, in every shooting frame, violating the
+placement invariant written three lines above it. The same review verified
+everything else, several claims beyond the stated level (bit-for-bit
+measurement reproduction; a same-week control isolating the tell at 2.99%
+against a 0.137% week confound; milestone-PNG diffs proving the sealed
+stage compositions differ only by animated bodies). The fix (`56b0b05`)
+moved the taxi to the south curb opposite the gate and re-spaced the
+north-curb car; a second fresh-context hostile verifier reproduced D-1 at
+the old commit, proved zero interpenetrating pairs among all 80 vehicle
+bodies at the new one, and structurally diffed all 2,585 scene objects to
+confirm exactly the fix and nothing else changed.
+
+**Validation (final build):** scene validation 0 errors; EditMode 296/296
+(4 new contract tests; the WIP wave had shipped none); macOS rebuild +
+ad-hoc codesign valid; stage visual proofs complete 5/5 BOTH aspects with
+seal luma preserved (worst drift 4.83e-5, 10× inside the 5e-4 budget);
+bridge auto proof complete, exact Movie #2, revision 50, week 22,
+119.8 FPS.
+
+**Two-world measurement (72 aligned frame pairs, threshold maxΔ>10/255,
+960×600 whole-lot surface, committed tool):** delta 3.082% mean / 3.060%
+minimum pair (floor 3%); 94.6% of differing pixels outside the doorway
+rectangle (floor 60%; rectangle = projected stage-front tell volume
+x[35,59] y[0,23] z[16,20] through the authored whole-lot camera); zero
+frozen adjacent frames on all four surfaces; threshold sensitivity
+recorded (4/10/20). Independent controls: same-week tell (shooting w6r22
+vs delivery w6r20) 3.043% mean / 3.013% min — over the floor with the week
+confound removed; week confound alone 0.151%; cross-launch noise floor
+0.0136%.
+
+**Profiles (rebuilt post-restart via the committed builder + bridge
+proof):** shooting week-6 (revision 22, phase shooting, blocker-free);
+delivery week-6 (revision 20, unresolved scenery-load-in blocker — the
+LL-CP5 record exactly); canonical week-22 (revision 50).
+
+**LL-CP5 regression (final build):** delivery burst Holding 170/170,
+travel to the service hold ending (72.0, 32.7); parked burst Parked 24/24
+pinned at (2, −52); both passive.
+
+**Evidence (SHA-256 prefixes, stamp 20260823T220108Z):** stage landscape
+`4a43380ac84d8d80...`, stage portrait `54aa1979ec3daecc...`, bridge
+`181ea0402b7db596...`, motion shooting `b3c927eaf53961b8...`, motion idle
+`808482b7f9a261a8...`, motion crew `4a9fb0e79ab86925...`, motion delivery
+`f26593a16e1493d5...`, motion parked `5809f4efed67f886...`, two-world
+measurement `dec57d9c33f6989f...`.
+
+**Independent rulings (fresh-context, hostile, Opus):** candidate 1
+REJECT (D-1 above); candidate 2 **ACCEPT** — "no new blocking defects."
+
+**Ruling: KEEP.**
+
+**Logged non-blocking follow-ups (both reviews):** (1) ~80% of the
+headline tell is on the public-street side of the wall — the in-lot tell
+alone is ≈0.6% of frame, real and legible but the neighbourhood carries
+the pixel share; a future pass could move part of the convoy into a
+visible service yard. (2) Two of the four new contract tests are
+source-text assertions that a semantic regression could survive; no test
+spawns the presentations and asserts clones lack SelectableEntity; door
+crew and street traffic still have no dedicated tests. (3) The frozen-
+frame epsilon is loose (57 px of 576,000); the idle-lot margin over it is
+~3×. (4) Evidence artifacts carry no source-tree fingerprint; stamping the
+tree hash into reports would close an ordering-based provenance gap.
+(5) The re-spaced north-curb pair clears by 0.23 m and its collider
+envelopes are exactly tangent — a future nudge re-creates the defect; no
+automated vehicle-footprint overlap guard exists, and adding one to the
+scene contract would make this class fail-closed. (6) The gate-approach
+comment overstates its east boundary (a car's tail reaches x 12.95 inside
+the declared x −10..14 band; the actual driving lane is clear). (7) The
+tell's magnitude is fixed rather than scaled to any authoritative
+magnitude — honest, but uniform.
+
+**Next candidates:** deferred CP6 scope (unload pair at the truck's hold,
+label depth-testing, teal-cube/truck remodels, sky/lighting overhaul,
+settle-freeze pose), the environment follow-ups (east horizon,
+settle-freeze pose), or the follow-up hardenings above; Phase M continues
+interleaved.
