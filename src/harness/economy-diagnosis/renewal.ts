@@ -587,6 +587,15 @@ export type RenewalDiagnosisAggregate = {
     financialStatesAt196: Record<FinancialState, number>
   }
   arms: RenewalArmSummary[]
+  liquidityAffected: {
+    identity: 'entries-with-positive-all-obligation-gap-at-196'
+    entries: number
+    arms: RenewalArmSummary[]
+    recurrence: {
+      current428: RenewalArmSummary
+      oneTimeFullGapGrant428: RenewalArmSummary
+    }
+  }
   recurrence: {
     current428: RenewalArmSummary
     oneTimeFullGapGrant428: RenewalArmSummary
@@ -653,6 +662,12 @@ export function aggregateRenewalDiagnosis(
   const current260 = armSummary(cells, (cell) => cell.baseline260, (cell) => cell.baseline260)
   const current428 = armSummary(cells, (cell) => cell.baseline428, (cell) => cell.baseline428)
   const full428 = armSummary(cells, (cell) => cell.fullGap428, (cell) => cell.baseline428)
+  const affected = cells.filter((cell) => cell.allGap > 0)
+  const affectedCurrent260 = armSummary(
+    affected,
+    (cell) => cell.baseline260,
+    (cell) => cell.baseline260,
+  )
   return {
     identity: 'D02-RENEWAL-LIQUIDITY-ORDER-75x-v2',
     experiment: {
@@ -693,6 +708,33 @@ export function aggregateRenewalDiagnosis(
       armSummary(cells, (cell) => cell.roleOrder260, (cell) => cell.baseline260),
       armSummary(cells, (cell) => cell.fullGap260, (cell) => cell.baseline260),
     ],
+    liquidityAffected: {
+      identity: 'entries-with-positive-all-obligation-gap-at-196',
+      entries: affected.length,
+      arms: [
+        affectedCurrent260,
+        armSummary(affected, (cell) => cell.halfGap260, (cell) => cell.baseline260),
+        armSummary(
+          affected,
+          (cell) => cell.minimumRoleGap260,
+          (cell) => cell.baseline260,
+        ),
+        armSummary(affected, (cell) => cell.roleOrder260, (cell) => cell.baseline260),
+        armSummary(affected, (cell) => cell.fullGap260, (cell) => cell.baseline260),
+      ],
+      recurrence: {
+        current428: armSummary(
+          affected,
+          (cell) => cell.baseline428,
+          (cell) => cell.baseline428,
+        ),
+        oneTimeFullGapGrant428: armSummary(
+          affected,
+          (cell) => cell.fullGap428,
+          (cell) => cell.baseline428,
+        ),
+      },
+    },
     recurrence: {
       current428,
       oneTimeFullGapGrant428: full428,

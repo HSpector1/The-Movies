@@ -60,6 +60,23 @@ import type { RosterWallSourceProvenance } from '../../src/harness/roster-wall/p
 const here = dirname(fileURLToPath(import.meta.url))
 const repoRoot = resolve(here, '../..')
 
+const SHADOW_REPORT_POLICY_NAMES = [
+  'P1_cheapestViable',
+  'P3_standardCadence',
+  'P4_premiumAmbitious',
+  'P5_forecastProfitMax',
+  'P6_forecastROIMax',
+  'P7_starDriven',
+  'P9_freelancerLean',
+  'P11_adaptiveBalanced',
+  'P15_exploitDisengage',
+  'P16_doNothing',
+  'Q0_neverPublicize',
+  'Q4_maximumPublicity',
+  'Q6_awarenessMaintenance',
+  'Q7_publicitySpamAdversary',
+] as const
+
 type Args = Record<string, string | boolean>
 
 function parseArgs(argv: readonly string[]): { command: string; flags: Args } {
@@ -498,6 +515,7 @@ function aggregate(flags: Args): void {
       renewalRawFiles: renewal.files,
       preservationBoundary:
         'selector success/failure/variation measured; shadow arms are open-loop and all other Audit-01 preservation gates remain conditional, not newly passed',
+      shadowPolicyScope: [...SHADOW_REPORT_POLICY_NAMES],
     },
     commands: {
       selector: 'npm run diagnose:economy -- selector-shard --shard-index <i> --shard-count <n> --out out/economy-diagnosis/selector-<i>.json',
@@ -509,7 +527,12 @@ function aggregate(flags: Args): void {
       p5Strata: p5RunawayStrata(baseline.rows),
       selectorFrontier: aggregateSelectorFrontier(baseline.rows, selector.rows),
       shadowInterventions: SHADOW_INTERVENTIONS.map((intervention) =>
-        aggregateShadowIntervention(baseline.rows, intervention),
+        aggregateShadowIntervention(
+          baseline.rows.filter((row) =>
+            (SHADOW_REPORT_POLICY_NAMES as readonly string[]).includes(row.policy),
+          ),
+          intervention,
+        ),
       ),
     },
     renewal: aggregateRenewalDiagnosis(renewal.cells),
