@@ -183,18 +183,17 @@ composition gates caught it; the two stage carry roles keep the rail-lean
 clip and only off-stage carriers gained the variety.
 
 **Validation:** scene validation 0 errors; Unity EditMode 276/276; macOS
-build + codesign valid; stage visual proofs complete 5/5 BOTH aspects
-(`Evidence/R/LLCP3-Stage-Seal-20260823T161757Z`, landscape
-`c2f745a2f79cf01fedd8...`-see-hashes-below); bridge auto proof complete,
-exact Movie #2, revision 50, 120.0 FPS; motion seal burst complete and
-passive (revision 50 unchanged).
+build + codesign valid; stage visual proofs complete 5/5 BOTH aspects;
+bridge auto proof complete, exact Movie #2, revision 50, 120.0 FPS; motion
+seal burst complete and passive (revision 50 unchanged).
 
-**Evidence SHA-256 prefixes (in run order printed at seal):** stage
-landscape, stage portrait, bridge, motion-seal report, motion-baseline
-report — recorded in the checkpoint console log; roots:
-`LLCP3-Stage-Seal-20260823T161757Z`, `LLCP3-Bridge-Seal-20260823T161757Z`,
-`LLCP3-MotionSeal-20260823T161757Z`, baseline
-`LLCP3-MotionBaseline-20260823T153130Z`.
+**Evidence (SHA-256 prefixes):** stage landscape `d8247fe55f165f4bde7b...`
+and portrait `f5afe467d64cfec9016a...`
+(`Evidence/R/LLCP3-Stage-Seal-20260823T161757Z`); bridge
+`368f5fb3b3dcd0524c1e...` (`LLCP3-Bridge-Seal-20260823T161757Z`); motion
+seal report `f92ffe0049f287325d1f...` (`LLCP3-MotionSeal-20260823T161757Z`);
+motion baseline report `2bf9125d61ff33923c78...`
+(`LLCP3-MotionBaseline-20260823T153130Z`).
 
 **Independent visual ruling (fresh-context Opus, hostile):** ACCEPT — the
 followed character's leg phase measurably cycles (spread 23→113→25 px) with
