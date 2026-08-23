@@ -33,6 +33,7 @@ export const CHOICE_ARMS = [
   'D03_downsideBudget_0_5',
   'D03_downsideBudget_1',
   'D03_nearBestProfit_80_leastCapital',
+  'D03_nearBestProfit_80_leastCapital_activeFallback',
   'D03_nearBestProfit_60_leastCapital',
   'D03_runwayReserve_52',
 ] as const
@@ -42,7 +43,12 @@ export type ChoiceArm = (typeof CHOICE_ARMS)[number]
 type ChoiceRule =
   | { kind: 'absoluteProfit' }
   | { kind: 'downsideBudget'; maximumLowLossShare: 0.5 | 1 }
-  | { kind: 'nearBestLeastCapital'; retainPositiveProfit: 0.8 | 0.6 }
+  | {
+      kind: 'nearBestLeastCapital'
+      retainPositiveProfit: 0.8 | 0.6
+      /** What a player does when every affordable package forecasts a loss. */
+      nonPositiveFallback: 'abstain' | 'highestForecastContribution'
+    }
   | { kind: 'runwayReserve'; minimumWeeks: 52 }
 
 export type ChoiceArmDefinition = {
@@ -73,13 +79,31 @@ export const CHOICE_ARM_DEFINITIONS: Readonly<Record<ChoiceArm, ChoiceArmDefinit
     arm: 'D03_nearBestProfit_80_leastCapital',
     playerFacingRule:
       'Among packages keeping at least 80% of the best positive forecast profit, choose the least capital-intensive.',
-    rule: { kind: 'nearBestLeastCapital', retainPositiveProfit: 0.8 },
+    rule: {
+      kind: 'nearBestLeastCapital',
+      retainPositiveProfit: 0.8,
+      nonPositiveFallback: 'abstain',
+    },
+  },
+  D03_nearBestProfit_80_leastCapital_activeFallback: {
+    arm: 'D03_nearBestProfit_80_leastCapital_activeFallback',
+    playerFacingRule:
+      'Among packages keeping at least 80% of the best positive forecast profit, choose the least capital-intensive; if none forecasts a profit, choose the least-bad affordable package.',
+    rule: {
+      kind: 'nearBestLeastCapital',
+      retainPositiveProfit: 0.8,
+      nonPositiveFallback: 'highestForecastContribution',
+    },
   },
   D03_nearBestProfit_60_leastCapital: {
     arm: 'D03_nearBestProfit_60_leastCapital',
     playerFacingRule:
       'Among packages keeping at least 60% of the best positive forecast profit, choose the least capital-intensive.',
-    rule: { kind: 'nearBestLeastCapital', retainPositiveProfit: 0.6 },
+    rule: {
+      kind: 'nearBestLeastCapital',
+      retainPositiveProfit: 0.6,
+      nonPositiveFallback: 'abstain',
+    },
   },
   D03_runwayReserve_52: {
     arm: 'D03_runwayReserve_52',
@@ -176,6 +200,13 @@ export function chooseChoiceCandidate(
   if (rule.kind === 'nearBestLeastCapital') {
     const bestPositive = Math.max(...candidates.map((candidate) => candidate.forecastCenter))
     if (!(bestPositive > 0)) {
+      if (rule.nonPositiveFallback === 'highestForecastContribution') {
+        return {
+          selected: maxCenter(candidates),
+          reason: 'selected',
+          qualifyingCandidates: candidates.length,
+        }
+      }
       return { selected: null, reason: 'noPositiveProfit', qualifyingCandidates: 0 }
     }
     const qualifying = candidates.filter(

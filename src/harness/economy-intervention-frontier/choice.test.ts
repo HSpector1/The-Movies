@@ -75,6 +75,37 @@ describe('economy intervention choice frontier', () => {
     expect(chooseChoiceCandidate('D03_nearBestProfit_80_leastCapital', shortlist).selected?.id).toBe('cheap-a')
   })
 
+  it('uses the highest contribution with a stable id only when active fallback faces no profit', () => {
+    const allLosses = [
+      candidate({ id: 'least-bad-z', forecastCenter: -10, committedCost: 10 }),
+      candidate({ id: 'least-bad-a', forecastCenter: -10, committedCost: 1_000 }),
+      candidate({ id: 'worse', forecastCenter: -11, committedCost: 1 }),
+    ]
+    const fallback = chooseChoiceCandidate(
+      'D03_nearBestProfit_80_leastCapital_activeFallback',
+      allLosses,
+    )
+    expect(fallback).toMatchObject({
+      selected: { id: 'least-bad-a' },
+      reason: 'selected',
+      qualifyingCandidates: 3,
+    })
+    expect(chooseChoiceCandidate('D03_nearBestProfit_80_leastCapital', allLosses)).toMatchObject({
+      selected: null,
+      reason: 'noPositiveProfit',
+    })
+  })
+
+  it('leaves the 80% near-best capital rule unchanged when a profit exists', () => {
+    const candidates = [
+      candidate({ id: 'high', committedCost: 900, forecastCenter: 1_000 }),
+      candidate({ id: 'cheap', committedCost: 300, forecastCenter: 800 }),
+    ]
+    expect(
+      chooseChoiceCandidate('D03_nearBestProfit_80_leastCapital_activeFallback', candidates),
+    ).toEqual(chooseChoiceCandidate('D03_nearBestProfit_80_leastCapital', candidates))
+  })
+
   it('applies downside and runway gates only from player-visible values', () => {
     const candidates = [
       candidate({ id: 'risky', committedCost: 100, forecastLow: -51, forecastCenter: 1_000, postRunwayWeeks: 51 }),
