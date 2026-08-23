@@ -32,6 +32,8 @@ import {
 } from '../../src/harness/economy-diagnosis/runaway.ts'
 import {
   DIAGNOSIS_SELECTOR_SCHEMA_VERSION,
+  SELECTOR_EXPONENTS,
+  SELECTOR_POLICY_NAMES,
   runSelectorCell,
 } from '../../src/harness/economy-diagnosis/selector.ts'
 import {
@@ -47,6 +49,7 @@ import {
   DIAGNOSIS_AUDIT_INSTRUMENT_COMMIT,
   DIAGNOSIS_CANONICAL_MAIN,
   DIAGNOSIS_EXPECTED_BRANCH,
+  DIAGNOSIS_FROZEN_MACRO_FILES,
   DIAGNOSIS_FROZEN_AUDIT_TIP,
   DIAGNOSIS_INSTRUMENT_PATHS,
   DIAGNOSIS_PRODUCTION_PATHS,
@@ -101,7 +104,7 @@ function isAncestor(ancestor: string, descendant: string): boolean {
   }).status === 0
 }
 
-function provenance(allowDirty: boolean): EconomyDiagnosisProvenance {
+function provenance(): EconomyDiagnosisProvenance {
   const branch = git(['branch', '--show-current'])
   if (branch !== DIAGNOSIS_EXPECTED_BRANCH) {
     throw new Error(`economy diagnosis must run on ${DIAGNOSIS_EXPECTED_BRANCH}; found ${branch}`)
@@ -126,8 +129,8 @@ function provenance(allowDirty: boolean): EconomyDiagnosisProvenance {
     ...DIAGNOSIS_INSTRUMENT_PATHS,
   ])
   const instrumentWorktreeDirty = instrumentStatus !== ''
-  if (instrumentWorktreeDirty && !allowDirty) {
-    throw new Error('diagnosis instrument is dirty; commit it or pass --allow-dirty for smoke only')
+  if (instrumentWorktreeDirty) {
+    throw new Error('diagnosis instrument is dirty; commit it before generating evidence')
   }
   return {
     canonicalMain: DIAGNOSIS_CANONICAL_MAIN,
@@ -144,11 +147,14 @@ function provenance(allowDirty: boolean): EconomyDiagnosisProvenance {
 }
 
 function rosterSource(source: EconomyDiagnosisProvenance): RosterWallSourceProvenance {
+  if (source.instrumentWorktreeDirty) {
+    throw new Error('renewal evidence cannot use a dirty diagnosis instrument')
+  }
   return {
     branch: source.branch,
     commit: source.instrumentCommit,
     tree: source.instrumentTree,
-    worktreeDirty: false,
+    worktreeDirty: source.instrumentWorktreeDirty,
     runtime: source.runtime,
     saveVersion: 14,
     productionAuthorityCommit: source.canonicalMain,
@@ -189,11 +195,13 @@ type SelectorShard = {
 }
 
 function runSelectorShard(flags: Args): void {
-  const source = provenance(flags['allow-dirty'] === true)
+  const source = provenance()
   const shard = shardSpec(flags, MACRO_SEED_COUNT)
   const rows: MacroRunCompact[] = []
   shard.indices.forEach((zeroBased, position) => {
-    rows.push(runSelectorCell(macroSeed(zeroBased + 1), 0.5))
+    for (const exponent of SELECTOR_EXPONENTS) {
+      rows.push(runSelectorCell(macroSeed(zeroBased + 1), exponent))
+    }
     progress('selector', position + 1, shard.indices.length)
   })
   const envelope: SelectorShard = {
@@ -215,7 +223,7 @@ type RenewalShard = {
 }
 
 function runRenewalShard(flags: Args): void {
-  const source = provenance(flags['allow-dirty'] === true)
+  const source = provenance()
   const shard = shardSpec(flags, DIAGNOSIS_RENEWAL_SEEDS.length)
   const acceptedSource = rosterSource(source)
   const cells: RenewalDiagnosisCell[] = []
@@ -254,6 +262,88 @@ function uniqueBy<T>(rows: readonly T[], key: (row: T) => string): T[] {
   return [...values.values()]
 }
 
+function assertExactKeys(
+  actualValues: readonly string[],
+  expectedValues: readonly string[],
+  label: string,
+): void {
+  const actual = new Set(actualValues)
+  const expected = new Set(expectedValues)
+  const missing = [...expected].filter((key) => !actual.has(key))
+  const extra = [...actual].filter((key) => !expected.has(key))
+  if (
+    actualValues.length !== expectedValues.length ||
+    actual.size !== actualValues.length ||
+    missing.length > 0 ||
+    extra.length > 0
+  ) {
+    throw new Error(
+      `${label} key mismatch: rows=${String(actualValues.length)}, expected=${String(expectedValues.length)}, missing=${missing[0] ?? 'none'}, extra=${extra[0] ?? 'none'}`,
+    )
+  }
+}
+
+function validateDiagnosisProvenance(
+  source: EconomyDiagnosisProvenance,
+  label: string,
+): void {
+  if (
+    source.canonicalMain !== DIAGNOSIS_CANONICAL_MAIN ||
+    source.canonicalMainTree !== git(['rev-parse', `${DIAGNOSIS_CANONICAL_MAIN}^{tree}`]) ||
+    source.frozenAuditTip !== DIAGNOSIS_FROZEN_AUDIT_TIP ||
+    source.frozenAuditIsAncestor !== true ||
+    source.branch !== DIAGNOSIS_EXPECTED_BRANCH ||
+    !Array.isArray(source.productionDiffPaths) ||
+    source.productionDiffPaths.length !== 0 ||
+    source.instrumentWorktreeDirty !== false
+  ) {
+    throw new Error(`${label} provenance mismatch`)
+  }
+  if (
+    !isAncestor(DIAGNOSIS_FROZEN_AUDIT_TIP, source.instrumentCommit) ||
+    !isAncestor(source.instrumentCommit, 'HEAD') ||
+    git(['rev-parse', `${source.instrumentCommit}^{tree}`]) !== source.instrumentTree
+  ) {
+    throw new Error(`${label} instrument commit/tree is not on the diagnosis lineage`)
+  }
+}
+
+function validateShardLayout(
+  shards: readonly Array<{
+    provenance: EconomyDiagnosisProvenance
+    shard: { index: number; count: number; seedIndices: number[] }
+  }>,
+  totalSeeds: number,
+  label: string,
+): void {
+  const count = shards[0]?.shard.count
+  if (count === undefined || count < 1 || shards.length !== count) {
+    throw new Error(`${label} shard-count mismatch`)
+  }
+  const firstCommit = shards[0]!.provenance.instrumentCommit
+  const firstTree = shards[0]!.provenance.instrumentTree
+  const seenIndices = new Set<number>()
+  for (const shard of shards) {
+    validateDiagnosisProvenance(shard.provenance, label)
+    if (
+      shard.provenance.instrumentCommit !== firstCommit ||
+      shard.provenance.instrumentTree !== firstTree ||
+      shard.shard.count !== count ||
+      seenIndices.has(shard.shard.index)
+    ) {
+      throw new Error(`${label} shards do not share one clean instrument/layout`)
+    }
+    seenIndices.add(shard.shard.index)
+    const expectedSeedIndices: number[] = []
+    for (let zeroBased = 0; zeroBased < totalSeeds; zeroBased++) {
+      if (zeroBased % count === shard.shard.index) expectedSeedIndices.push(zeroBased + 1)
+    }
+    if (JSON.stringify(shard.shard.seedIndices) !== JSON.stringify(expectedSeedIndices)) {
+      throw new Error(`${label} shard ${String(shard.shard.index)} seed-index mismatch`)
+    }
+  }
+}
+
 type BaselineShard = {
   kind: 'economy-truth-macro-shard'
   schemaVersion: typeof MACRO_SCHEMA_VERSION
@@ -276,6 +366,18 @@ function fileIdentity(path: string): { file: string; bytes: number; sha256: stri
 
 function readBaseline(directory: string): { rows: MacroRunCompact[]; files: ReturnType<typeof fileIdentity>[] } {
   const files = jsonFiles(directory)
+  const identities = files.map(fileIdentity)
+  assertExactKeys(
+    identities.map((identity) => identity.file),
+    DIAGNOSIS_FROZEN_MACRO_FILES.map((identity) => identity.file),
+    'baseline macro files',
+  )
+  for (const expectedIdentity of DIAGNOSIS_FROZEN_MACRO_FILES) {
+    const actual = identities.find((identity) => identity.file === expectedIdentity.file)
+    if (actual?.sha256 !== expectedIdentity.sha256) {
+      throw new Error(`baseline macro hash mismatch: ${expectedIdentity.file}`)
+    }
+  }
   const shards = files.map((path) => JSON.parse(readFileSync(path, 'utf8')) as BaselineShard)
   for (const shard of shards) {
     if (shard.kind !== 'economy-truth-macro-shard' || shard.schemaVersion !== MACRO_SCHEMA_VERSION) {
@@ -290,34 +392,96 @@ function readBaseline(directory: string): { rows: MacroRunCompact[]; files: Retu
     }
   }
   const rows = uniqueBy(shards.flatMap((shard) => shard.rows), (row) => `${row.seed}\u0000${row.policy}`)
-  const expected = MACRO_SEED_COUNT * MACRO_POLICY_NAMES.length
-  if (rows.length !== expected) throw new Error(`baseline macro incomplete: ${String(rows.length)}/${String(expected)}`)
-  return { rows, files: files.map(fileIdentity) }
+  const expectedKeys = Array.from({ length: MACRO_SEED_COUNT }, (_, index) => macroSeed(index + 1))
+    .flatMap((seed) => MACRO_POLICY_NAMES.map((policy) => `${seed}\u0000${policy}`))
+  assertExactKeys(
+    rows.map((row) => `${row.seed}\u0000${row.policy}`),
+    expectedKeys,
+    'baseline macro rows',
+  )
+  if (rows.some((row) => row.schemaVersion !== MACRO_SCHEMA_VERSION)) {
+    throw new Error('baseline macro row schema mismatch')
+  }
+  return { rows, files: identities }
 }
 
-function readSelector(directory: string): MacroRunCompact[] {
-  const shards = jsonFiles(directory).map((path) => JSON.parse(readFileSync(path, 'utf8')) as SelectorShard)
+function readSelector(directory: string): {
+  rows: MacroRunCompact[]
+  files: ReturnType<typeof fileIdentity>[]
+  instrumentCommit: string
+} {
+  const files = jsonFiles(directory)
+  const shards = files.map((path) => JSON.parse(readFileSync(path, 'utf8')) as SelectorShard)
+  for (const shard of shards) {
+    if (
+      shard.kind !== 'economy-diagnosis-selector-shard' ||
+      shard.schemaVersion !== DIAGNOSIS_SELECTOR_SCHEMA_VERSION
+    ) {
+      throw new Error('selector input is not a Diagnosis-02 selector shard')
+    }
+  }
+  validateShardLayout(shards, MACRO_SEED_COUNT, 'selector')
   const rows = uniqueBy(shards.flatMap((shard) => shard.rows), (row) => `${row.seed}\u0000${row.policy}`)
-  if (rows.length !== MACRO_SEED_COUNT) throw new Error(`selector corpus incomplete: ${String(rows.length)}/${String(MACRO_SEED_COUNT)}`)
-  return rows
+  const expectedKeys = Array.from({ length: MACRO_SEED_COUNT }, (_, index) => macroSeed(index + 1))
+    .flatMap((seed) => SELECTOR_POLICY_NAMES.map((policy) => `${seed}\u0000${policy}`))
+  assertExactKeys(
+    rows.map((row) => `${row.seed}\u0000${row.policy}`),
+    expectedKeys,
+    'selector rows',
+  )
+  if (rows.some((row) => row.schemaVersion !== MACRO_SCHEMA_VERSION)) {
+    throw new Error('selector row schema mismatch')
+  }
+  return {
+    rows,
+    files: files.map(fileIdentity),
+    instrumentCommit: shards[0]!.provenance.instrumentCommit,
+  }
 }
 
-function readRenewal(directory: string): RenewalDiagnosisCell[] {
-  const shards = jsonFiles(directory).map((path) => JSON.parse(readFileSync(path, 'utf8')) as RenewalShard)
+function readRenewal(directory: string): {
+  cells: RenewalDiagnosisCell[]
+  files: ReturnType<typeof fileIdentity>[]
+  instrumentCommit: string
+} {
+  const files = jsonFiles(directory)
+  const shards = files.map((path) => JSON.parse(readFileSync(path, 'utf8')) as RenewalShard)
+  for (const shard of shards) {
+    if (
+      shard.kind !== 'economy-diagnosis-renewal-shard' ||
+      shard.schemaVersion !== DIAGNOSIS_RENEWAL_SCHEMA_VERSION
+    ) {
+      throw new Error('renewal input is not a Diagnosis-02 renewal shard')
+    }
+  }
+  validateShardLayout(shards, DIAGNOSIS_RENEWAL_SEEDS.length, 'renewal')
   const cells = uniqueBy(
     shards.flatMap((shard) => shard.cells),
     (cell) => `${cell.seed}\u0000${cell.operatingPolicyId}`,
   )
-  const expected = DIAGNOSIS_RENEWAL_SEEDS.length * DIAGNOSIS_RENEWAL_OPERATING_POLICIES.length
-  if (cells.length !== expected) throw new Error(`renewal corpus incomplete: ${String(cells.length)}/${String(expected)}`)
-  return cells
+  const expectedKeys = DIAGNOSIS_RENEWAL_SEEDS.flatMap((seed) =>
+    DIAGNOSIS_RENEWAL_OPERATING_POLICIES.map((policy) => `${seed}\u0000${policy}`),
+  )
+  assertExactKeys(
+    cells.map((cell) => `${cell.seed}\u0000${cell.operatingPolicyId}`),
+    expectedKeys,
+    'renewal cells',
+  )
+  if (cells.some((cell) => cell.estatePolicyId !== 'vacant')) {
+    throw new Error('renewal corpus contains a non-vacant estate')
+  }
+  return {
+    cells,
+    files: files.map(fileIdentity),
+    instrumentCommit: shards[0]!.provenance.instrumentCommit,
+  }
 }
 
 function aggregate(flags: Args): void {
-  const source = provenance(flags['allow-dirty'] === true)
+  const source = provenance()
   const baseline = readBaseline(flagString(flags, 'baseline-dir'))
-  const selectorRows = readSelector(flagString(flags, 'selector-dir'))
-  const renewalCells = readRenewal(flagString(flags, 'renewal-dir'))
+  const selector = readSelector(flagString(flags, 'selector-dir'))
+  const renewal = readRenewal(flagString(flags, 'renewal-dir'))
   const artifact = {
     schemaVersion: 'economy-diagnosis-aggregate-v1',
     provenance: source,
@@ -327,6 +491,14 @@ function aggregate(flags: Args): void {
       auditInstrumentCommit: DIAGNOSIS_AUDIT_INSTRUMENT_COMMIT,
       rawMacroFiles: baseline.files,
     },
+    diagnosisEvidence: {
+      selectorInstrumentCommit: selector.instrumentCommit,
+      selectorRawFiles: selector.files,
+      renewalInstrumentCommit: renewal.instrumentCommit,
+      renewalRawFiles: renewal.files,
+      preservationBoundary:
+        'selector success/failure/variation measured; shadow arms are open-loop and all other Audit-01 preservation gates remain conditional, not newly passed',
+    },
     commands: {
       selector: 'npm run diagnose:economy -- selector-shard --shard-index <i> --shard-count <n> --out out/economy-diagnosis/selector-<i>.json',
       renewal: 'npm run diagnose:economy -- renewal-shard --shard-index <i> --shard-count <n> --out out/economy-diagnosis/renewal-<i>.json',
@@ -335,19 +507,19 @@ function aggregate(flags: Args): void {
     runaway: {
       pairedAccounting: pairedRunawayAccounting(baseline.rows),
       p5Strata: p5RunawayStrata(baseline.rows),
-      selectorFrontier: aggregateSelectorFrontier(baseline.rows, selectorRows),
+      selectorFrontier: aggregateSelectorFrontier(baseline.rows, selector.rows),
       shadowInterventions: SHADOW_INTERVENTIONS.map((intervention) =>
         aggregateShadowIntervention(baseline.rows, intervention),
       ),
     },
-    renewal: aggregateRenewalDiagnosis(renewalCells),
+    renewal: aggregateRenewalDiagnosis(renewal.cells),
     fixedCost: runFixedCostBlastRadiusWitness(),
   }
   writeJson(flagString(flags, 'out'), artifact)
 }
 
 function smoke(flags: Args): void {
-  const source = provenance(true)
+  const source = provenance()
   const roster = rosterSource(source)
   const artifact = {
     source,
@@ -366,7 +538,7 @@ function help(): void {
     '  aggregate --baseline-dir DIR --selector-dir DIR --renewal-dir DIR --out PATH',
     '  smoke [--out PATH]',
     '',
-    `Selector: ${String(MACRO_SEED_COUNT)} seeds x exponent 0.5 x 260 weeks.`,
+    `Selector: ${String(MACRO_SEED_COUNT)} seeds x exponents 0/0.5/1 x 260 weeks.`,
     `Renewal: ${String(DIAGNOSIS_RENEWAL_SEEDS.length)} seeds x ${String(DIAGNOSIS_RENEWAL_OPERATING_POLICIES.length)} policies x paired Week-196 treatments.`,
   ].join('\n'))
 }

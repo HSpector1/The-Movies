@@ -55,9 +55,9 @@ export type PairedAccountingGroup = {
   meanShareOfMeanEndCashDelta: number | null
 }
 
-export type RunawayCausalAccounting = {
+export type PairedPolicyAccounting = {
   identity:
-    'paired P5-minus-P6 same-seed closed-loop policy contrast with exact cash-ledger decomposition'
+    'paired P5-minus-P6 same-seed policy accounting decomposition; ledger groups are downstream mediators, not isolated causal effects'
   pairs: number
   endCash: PairedEffect
   groups: PairedAccountingGroup[]
@@ -93,7 +93,7 @@ function pairRows(
 
 export function pairedRunawayAccounting(
   rows: readonly MacroRunCompact[],
-): RunawayCausalAccounting {
+): PairedPolicyAccounting {
   const pairs = pairRows(rows)
   if (pairs.length === 0) throw new Error('economy diagnosis runaway: no P5/P6 pairs')
   const endCash = pairedEffect(
@@ -156,7 +156,7 @@ export function pairedRunawayAccounting(
 
   return {
     identity:
-      'paired P5-minus-P6 same-seed closed-loop policy contrast with exact cash-ledger decomposition',
+      'paired P5-minus-P6 same-seed policy accounting decomposition; ledger groups are downstream mediators, not isolated causal effects',
     pairs: pairs.length,
     endCash,
     groups,
@@ -318,24 +318,65 @@ function selectorPolicySummary(rows: readonly MacroRunCompact[]): SelectorPolicy
 }
 
 export type SelectorFrontier = {
-  identity: 'D02-SELECTOR-EXPONENT-0-0.5-1-1000x260-v1'
+  identity: 'D02-SELECTOR-EXPONENT-0-0.5-1-1000x260-v2'
   policies: SelectorPolicySummary[]
   pairedCashEffects: Record<string, Record<string, PairedEffect>>
   validation: {
     seeds: number
     missingCells: number
     reconciliationFailures: number
-    endpointAuthority: 'P5/P6 rows reused byte-for-byte from frozen Audit 01'
+    endpointAuthority: 'frozen Audit-01 P5/P6 rows used after corpus-wide normalized endpoint equivalence'
+    endpointEquivalence: {
+      checked: number
+      failures: number
+      firstFailure: string | null
+    }
   }
+}
+
+const SELECTOR_PROFIT_ENDPOINT = 'D02_profitCostExponent_0'
+const SELECTOR_ROI_ENDPOINT = 'D02_profitCostExponent_1'
+
+function normalizedEndpoint(
+  row: MacroRunCompact,
+  authorityPolicy: typeof P5 | typeof P6,
+): string {
+  return JSON.stringify({ ...row, policy: authorityPolicy })
 }
 
 export function aggregateSelectorFrontier(
   baselineRows: readonly MacroRunCompact[],
-  midpointRows: readonly MacroRunCompact[],
+  selectorRows: readonly MacroRunCompact[],
 ): SelectorFrontier {
+  const endpointByKey = new Map(
+    selectorRows
+      .filter(
+        (row) =>
+          row.policy === SELECTOR_PROFIT_ENDPOINT ||
+          row.policy === SELECTOR_ROI_ENDPOINT,
+      )
+      .map((row) => [`${row.seed}\u0000${row.policy}`, row]),
+  )
+  let endpointChecked = 0
+  const endpointFailures: string[] = []
+  for (const authority of baselineRows.filter(
+    (row) => row.policy === P5 || row.policy === P6,
+  )) {
+    const endpointPolicy =
+      authority.policy === P5 ? SELECTOR_PROFIT_ENDPOINT : SELECTOR_ROI_ENDPOINT
+    const endpoint = endpointByKey.get(`${authority.seed}\u0000${endpointPolicy}`)
+    endpointChecked++
+    if (
+      endpoint === undefined ||
+      normalizedEndpoint(endpoint, authority.policy as typeof P5 | typeof P6) !==
+        JSON.stringify(authority)
+    ) {
+      endpointFailures.push(`${authority.seed}/${authority.policy}`)
+    }
+  }
   const selected = [
     ...baselineRows.filter((row) => row.policy === P5 || row.policy === P6),
-    ...midpointRows.filter((row) => row.policy === SELECTOR_MIDPOINT),
+    ...selectorRows.filter((row) => row.policy === SELECTOR_MIDPOINT),
   ]
   const policies = [P5, SELECTOR_MIDPOINT, P6] as const
   const seeds = [...new Set(selected.map((row) => row.seed))].sort()
@@ -358,7 +399,7 @@ export function aggregateSelectorFrontier(
     )
   }
   return {
-    identity: 'D02-SELECTOR-EXPONENT-0-0.5-1-1000x260-v1',
+    identity: 'D02-SELECTOR-EXPONENT-0-0.5-1-1000x260-v2',
     policies: policies.map((policy) =>
       selectorPolicySummary(selected.filter((row) => row.policy === policy)),
     ),
@@ -367,7 +408,13 @@ export function aggregateSelectorFrontier(
       seeds: seeds.length,
       missingCells: seeds.length * policies.length - selected.length,
       reconciliationFailures: selected.filter((row) => !row.reconciliationOk).length,
-      endpointAuthority: 'P5/P6 rows reused byte-for-byte from frozen Audit 01',
+      endpointAuthority:
+        'frozen Audit-01 P5/P6 rows used after corpus-wide normalized endpoint equivalence',
+      endpointEquivalence: {
+        checked: endpointChecked,
+        failures: endpointFailures.length,
+        firstFailure: endpointFailures[0] ?? null,
+      },
     },
   }
 }

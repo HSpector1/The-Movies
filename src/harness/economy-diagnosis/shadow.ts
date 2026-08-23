@@ -33,8 +33,18 @@ export type ShadowIntervention =
       family: 'one-time-capital'
       amount: typeof MEASURED_C1_ESTATE_CAPEX
     }
-  | { id: 'global-fixed-cost-match'; family: 'fixed-cost'; richOnly: false; multiplier: 1 }
-  | { id: 'rich-fixed-cost-match'; family: 'fixed-cost'; richOnly: true; multiplier: 1 }
+  | {
+      id: 'global-payroll-overhead-match'
+      family: 'payroll-overhead'
+      richOnly: false
+      multiplier: 1
+    }
+  | {
+      id: 'rich-payroll-overhead-match'
+      family: 'payroll-overhead'
+      richOnly: true
+      multiplier: 1
+    }
   | { id: 'rich-positive-margin-share-25'; family: 'positive-margin-share'; rate: 0.25 }
   | { id: 'rich-positive-margin-share-50'; family: 'positive-margin-share'; rate: 0.5 }
   | { id: 'rich-cash-stock-charge-25'; family: 'cash-stock'; rate: 0.25 }
@@ -48,14 +58,14 @@ export const SHADOW_INTERVENTIONS: readonly ShadowIntervention[] = [
     amount: MEASURED_C1_ESTATE_CAPEX,
   },
   {
-    id: 'global-fixed-cost-match',
-    family: 'fixed-cost',
+    id: 'global-payroll-overhead-match',
+    family: 'payroll-overhead',
     richOnly: false,
     multiplier: 1,
   },
   {
-    id: 'rich-fixed-cost-match',
-    family: 'fixed-cost',
+    id: 'rich-payroll-overhead-match',
+    family: 'payroll-overhead',
     richOnly: true,
     multiplier: 1,
   },
@@ -79,7 +89,7 @@ type ShadowSample = {
   shadowCashBeforeCharge: number
   charge: number
   shadowCash: number
-  fixedSpend: number
+  payrollOverheadSpend: number
   filmContribution: number
 }
 
@@ -119,7 +129,7 @@ function chargeFor(
   intervention: ShadowIntervention,
   input: {
     shadowCash: number
-    fixedSpend: number
+    payrollOverheadSpend: number
     filmContribution: number
     capitalAlreadyCharged: boolean
   },
@@ -131,9 +141,9 @@ function chargeFor(
       return !input.capitalAlreadyCharged && input.shadowCash > RICH_CASH_THRESHOLD
         ? intervention.amount
         : 0
-    case 'fixed-cost':
+    case 'payroll-overhead':
       return !intervention.richOnly || input.shadowCash > RICH_CASH_THRESHOLD
-        ? intervention.multiplier * input.fixedSpend
+        ? intervention.multiplier * input.payrollOverheadSpend
         : 0
     case 'positive-margin-share':
       return input.shadowCash > RICH_CASH_THRESHOLD
@@ -172,7 +182,10 @@ export function applyShadowIntervention(
     productionCash = slice.cash
     shadowCash += productionFlow
 
-    const fixedSpend = -intervalValue(
+    // The frozen direct-package macro has no managed facilities. This measure is
+    // intentionally payroll + base/per-contract overhead, not complete facility-
+    // inclusive operating cost.
+    const payrollOverheadSpend = -intervalValue(
       slice.ledgerTotals,
       previousLedger,
       ['payroll', 'overhead'],
@@ -185,7 +198,7 @@ export function applyShadowIntervention(
     const shadowCashBeforeCharge = shadowCash
     const charge = chargeFor(intervention, {
       shadowCash,
-      fixedSpend,
+      payrollOverheadSpend,
       filmContribution,
       capitalAlreadyCharged,
     })
@@ -204,7 +217,7 @@ export function applyShadowIntervention(
       shadowCashBeforeCharge,
       charge,
       shadowCash,
-      fixedSpend,
+      payrollOverheadSpend,
       filmContribution,
     })
     previousLedger = slice.ledgerTotals
@@ -298,4 +311,3 @@ export function aggregateShadowIntervention(
     ).length,
   }
 }
-

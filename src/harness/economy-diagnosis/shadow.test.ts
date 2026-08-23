@@ -108,7 +108,7 @@ describe('economy diagnosis shadow interventions', () => {
     const row = fixture([30e6, 40e6, 50e6, 55e6, 58e6])
     for (const id of [
       'measured-capital-envelope',
-      'rich-fixed-cost-match',
+      'rich-payroll-overhead-match',
       'rich-positive-margin-share-25',
       'rich-positive-margin-share-50',
       'rich-cash-stock-charge-25',

@@ -32,7 +32,7 @@ import {
 import type { MacroRunCompact } from '../economy-truth-audit/macro.js'
 
 export const DIAGNOSIS_SELECTOR_SCHEMA_VERSION =
-  'economy-diagnosis-selector-v1' as const
+  'economy-diagnosis-selector-v2' as const
 
 export const SELECTOR_EXPONENTS = [0, 0.5, 1] as const
 export type SelectorExponent = (typeof SELECTOR_EXPONENTS)[number]
@@ -40,6 +40,12 @@ export type SelectorExponent = (typeof SELECTOR_EXPONENTS)[number]
 function exponentLabel(exponent: SelectorExponent): string {
   return exponent === 0 ? '0' : exponent === 0.5 ? '0_5' : '1'
 }
+
+export function selectorPolicyName(exponent: SelectorExponent): string {
+  return `D02_profitCostExponent_${exponentLabel(exponent)}`
+}
+
+export const SELECTOR_POLICY_NAMES = SELECTOR_EXPONENTS.map(selectorPolicyName)
 
 function greenlightAction(pkg: D16Package): Action {
   return {
@@ -98,7 +104,7 @@ export function profitCostExponentPolicy(
   exponent: SelectorExponent,
 ): PlayerPolicy {
   const policy: PlayerPolicy = {
-    name: `D02_profitCostExponent_${exponentLabel(exponent)}`,
+    name: selectorPolicyName(exponent),
     kind: 'player',
     disengagementIntended: false,
     description:
@@ -134,4 +140,3 @@ export function runSelectorCell(
 ): MacroRunCompact {
   return compactMacroRun(runSelectorRecord(seed, exponent))
 }
-

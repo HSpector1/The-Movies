@@ -54,17 +54,18 @@ import type {
 } from '../economy-truth-audit/statistics.js'
 
 export const DIAGNOSIS_RENEWAL_SCHEMA_VERSION =
-  'economy-diagnosis-renewal-v1' as const
+  'economy-diagnosis-renewal-v2' as const
 
 export const DIAGNOSIS_RENEWAL_SEEDS = [...ROSTER_WALL_CANONICAL_SEEDS] as const
 export const DIAGNOSIS_RENEWAL_OPERATING_POLICIES = [
   ...ROSTER_WALL_OPERATING_POLICY_IDS,
 ] as const
 
-export type LiquidityTreatmentId =
+export type RenewalTreatmentId =
   | 'current'
   | 'half-all-obligation-gap-grant'
   | 'minimum-role-gap-grant'
+  | 'role-coverage-first-no-grant'
   | 'all-obligation-gap-grant'
 
 const sha256 = (value: string): string =>
@@ -126,7 +127,7 @@ export function withCashGrantAtEntry(
 }
 
 type CompactArm = {
-  treatmentId: LiquidityTreatmentId
+  treatmentId: RenewalTreatmentId
   continuationPolicyId: RosterWallContinuationArm['continuationPolicyId']
   horizonWeeks: number
   grant: number
@@ -153,7 +154,7 @@ type CompactArm = {
 }
 
 function compactArm(
-  treatmentId: LiquidityTreatmentId,
+  treatmentId: RenewalTreatmentId,
   grant: number,
   arm: RosterWallContinuationArm,
 ): CompactArm {
@@ -381,7 +382,8 @@ export type RenewalDiagnosisCell = {
   minimumRoleGap: number
   baseline260: CompactArm
   halfGap260: CompactArm
-  minimumRole260: CompactArm
+  minimumRoleGap260: CompactArm
+  roleOrder260: CompactArm
   fullGap260: CompactArm
   baseline428: CompactArm
   fullGap428: CompactArm
@@ -433,7 +435,8 @@ export function runRenewalDiagnosisCell(
 
   const baseline260Arm = runArm(harvest, 'C1-current-retry-all', 260, source)
   const halfGap260Arm = runArm(halfHarvest, 'C1-current-retry-all', 260, source)
-  const minimumRole260Arm = runArm(minimumHarvest, 'C3-role-coverage-first', 260, source)
+  const minimumRoleGap260Arm = runArm(minimumHarvest, 'C1-current-retry-all', 260, source)
+  const roleOrder260Arm = runArm(harvest, 'C3-role-coverage-first', 260, source)
   const fullGap260Arm = runArm(fullHarvest, 'C1-current-retry-all', 260, source)
   const baseline428Arm = runArm(harvest, 'C1-current-retry-all', 428, source)
   const fullGap428Arm = runArm(fullHarvest, 'C1-current-retry-all', 428, source)
@@ -456,7 +459,16 @@ export function runRenewalDiagnosisCell(
     minimumRoleGap,
     baseline260: compactArm('current', 0, baseline260Arm),
     halfGap260: compactArm('half-all-obligation-gap-grant', halfGap, halfGap260Arm),
-    minimumRole260: compactArm('minimum-role-gap-grant', minimumRoleGap, minimumRole260Arm),
+    minimumRoleGap260: compactArm(
+      'minimum-role-gap-grant',
+      minimumRoleGap,
+      minimumRoleGap260Arm,
+    ),
+    roleOrder260: compactArm(
+      'role-coverage-first-no-grant',
+      0,
+      roleOrder260Arm,
+    ),
     fullGap260: compactArm('all-obligation-gap-grant', allGap, fullGap260Arm),
     baseline428: compactArm('current', 0, baseline428Arm),
     fullGap428: compactArm('all-obligation-gap-grant', allGap, fullGap428Arm),
@@ -470,13 +482,14 @@ export function runRenewalDiagnosisCell(
 }
 
 type RenewalArmSummary = {
-  treatmentId: LiquidityTreatmentId
+  treatmentId: RenewalTreatmentId
   continuationPolicyId: string
   horizonWeeks: number
   runs: number
   grant: Distribution
   finalCash: Distribution
   finalCashDeltaVsCurrent: Distribution
+  finalCashDeltaNetOfGrant: Distribution
   acceptedOriginalOwners: Distribution
   rejectedOriginalOwners: Distribution
   originalRetryAttempts: Distribution
@@ -508,6 +521,11 @@ function armSummary(
     finalCash: distribution(arms.map((arm) => arm.finalCash)),
     finalCashDeltaVsCurrent: distribution(
       arms.map((arm, index) => arm.finalCash - bases[index]!.finalCash),
+    ),
+    finalCashDeltaNetOfGrant: distribution(
+      arms.map(
+        (arm, index) => arm.finalCash - bases[index]!.finalCash - arm.grant,
+      ),
     ),
     acceptedOriginalOwners: distribution(arms.map((arm) => arm.acceptedOriginalOwners)),
     rejectedOriginalOwners: distribution(arms.map((arm) => arm.rejectedOriginalOwners)),
@@ -546,7 +564,7 @@ function exemplar(
 }
 
 export type RenewalDiagnosisAggregate = {
-  identity: 'D02-RENEWAL-LIQUIDITY-75x-v1'
+  identity: 'D02-RENEWAL-LIQUIDITY-ORDER-75x-v2'
   experiment: {
     seeds: number
     operatingPolicies: number
@@ -609,7 +627,7 @@ export function aggregateRenewalDiagnosis(
   const current428 = armSummary(cells, (cell) => cell.baseline428, (cell) => cell.baseline428)
   const full428 = armSummary(cells, (cell) => cell.fullGap428, (cell) => cell.baseline428)
   return {
-    identity: 'D02-RENEWAL-LIQUIDITY-75x-v1',
+    identity: 'D02-RENEWAL-LIQUIDITY-ORDER-75x-v2',
     experiment: {
       seeds: new Set(cells.map((cell) => cell.seed)).size,
       operatingPolicies: new Set(cells.map((cell) => cell.operatingPolicyId)).size,
@@ -644,7 +662,8 @@ export function aggregateRenewalDiagnosis(
     arms: [
       current260,
       armSummary(cells, (cell) => cell.halfGap260, (cell) => cell.baseline260),
-      armSummary(cells, (cell) => cell.minimumRole260, (cell) => cell.baseline260),
+      armSummary(cells, (cell) => cell.minimumRoleGap260, (cell) => cell.baseline260),
+      armSummary(cells, (cell) => cell.roleOrder260, (cell) => cell.baseline260),
       armSummary(cells, (cell) => cell.fullGap260, (cell) => cell.baseline260),
     ],
     recurrence: {

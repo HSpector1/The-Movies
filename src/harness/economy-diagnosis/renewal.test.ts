@@ -24,7 +24,8 @@ describe('economy diagnosis renewal lab', () => {
     for (const arm of [
       cell.baseline260,
       cell.halfGap260,
-      cell.minimumRole260,
+      cell.minimumRoleGap260,
+      cell.roleOrder260,
       cell.fullGap260,
       cell.baseline428,
       cell.fullGap428,
@@ -34,5 +35,12 @@ describe('economy diagnosis renewal lab', () => {
     expect(cell.timeline.weeks196Through207).toHaveLength(12)
     expect(cell.timeline.warnings.map((warning) => warning.week)).toEqual([156, 182, 196])
     if (cell.allGap === 0) expect(cell.zeroGrantIdentityAt260).toBe(true)
+    expect(cell.minimumRoleGap260.continuationPolicyId).toBe(
+      'C1-current-retry-all',
+    )
+    expect(cell.roleOrder260.grant).toBe(0)
+    expect(cell.roleOrder260.continuationPolicyId).toBe(
+      'C3-role-coverage-first',
+    )
   }, 60_000)
 })
