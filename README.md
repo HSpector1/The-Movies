@@ -25,13 +25,23 @@ Install dependencies:
 npm ci
 ```
 
-Run locally:
+Run the browser development client (Three.js reference/debug surface):
 
 ```bash
 npm run dev -- --host 127.0.0.1
 ```
 
 Open `http://127.0.0.1:5173/`.
+
+On the Unity production-convergence campaign line, the native owner launch is:
+
+```bash
+npm run play
+```
+
+It emits and audits the production studio package (`dist/studio`), then
+supervises the emitted TypeScript engine together with the sibling Unity
+production client. See `START-HERE.md` for the exact preconditions.
 
 Run the test suite:
 
