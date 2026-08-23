@@ -601,6 +601,11 @@ export type RenewalDiagnosisAggregate = {
     oneTimeFullGapGrant428: RenewalArmSummary
   }
   zeroGrantIdentity: { checked: number; failures: number }
+  roleOrderIdentity: {
+    checked: number
+    finalStateHashFailures: number
+    finalRngStateFailures: number
+  }
   wallDirection: {
     baselineFullWalls: number
     baselinePartialWalls: number
@@ -754,6 +759,15 @@ export function aggregateRenewalDiagnosis(
     zeroGrantIdentity: {
       checked: identities.length,
       failures: identities.filter((cell) => cell.zeroGrantIdentityAt260 === false).length,
+    },
+    roleOrderIdentity: {
+      checked: cells.length,
+      finalStateHashFailures: cells.filter(
+        (cell) => cell.baseline260.finalStateHash !== cell.roleOrder260.finalStateHash,
+      ).length,
+      finalRngStateFailures: cells.filter(
+        (cell) => cell.baseline260.finalRngState !== cell.roleOrder260.finalRngState,
+      ).length,
     },
     wallDirection: {
       baselineFullWalls: fullWalls.length,
