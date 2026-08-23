@@ -937,7 +937,12 @@ function aggregate(flags: Args): void {
       pairedEnterpriseResourcesVsFrozenP5: combination.design.choiceArms.map((choiceArm) => {
         const rows = combination.cells.filter((cell) => cell.choiceArm === choiceArm)
         const p5 = baseline.rows.filter((row) => row.policy === 'P5_forecastProfitMax')
-        return pairedRows(`${choiceArm}/combination`, 'P5_forecastProfitMax', rows, p5, (row) => (row as CombinationCell).enterpriseEndResources)
+        return pairedEffect(
+          `${choiceArm}/combination/enterprise-resources`,
+          'P5_forecastProfitMax/cash',
+          new Map(rows.map((row) => [row.seed, row.enterpriseEndResources])),
+          new Map(p5.map((row) => [row.seed, row.endCash])),
+        )
       }),
     },
     publicityGates: gates === undefined ? undefined : {
