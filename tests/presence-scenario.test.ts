@@ -8,6 +8,8 @@ import { describe, expect, it } from 'vitest'
 import {
   applyActions,
   assertStudioOperationsInvariants,
+  BEATS_PER_WEEK,
+  rosterHomeFacilityId,
   studioPresence,
   tick,
 } from '../src/core/index.js'
@@ -102,11 +104,18 @@ describe('Presence Projection V1 — scenario walk', () => {
       blockedReason: null,
     })
     expect(at(presence, writer.id).beats).toContain('at-site')
-    // Everyone else on the roster is present with no workplace claim.
+    // Everyone else attends their profession's home facility (LL-CP1 canon):
+    // contracted, unclaimed members report to the lot, slot-less and unowned.
     for (const person of presence.people) {
       if (person.talentId === writer.id) continue
-      expect(person).toMatchObject({ engagement: 'roster', site: null, slot: null, ownerId: null })
-      expect(new Set(person.beats)).toEqual(new Set(['home']))
+      expect(person).toMatchObject({
+        engagement: 'roster',
+        site: rosterHomeFacilityId(person.role),
+        slot: null,
+        ownerId: null,
+      })
+      expect(person.beats).toContain('at-site')
+      expect(person.beats[BEATS_PER_WEEK - 1]).toBe('home')
     }
 
     // ── development / preProduction: writer + director at Development & Casting
@@ -188,11 +197,16 @@ describe('Presence Projection V1 — scenario walk', () => {
     expect(at(presence, craft.id).site).toBe(post)
     expect(at(presence, actors[0]!.id).engagement).toBe('roster')
 
-    // ── releaseReady: the phase holds no reservation, so nobody is claimed ────
+    // ── releaseReady: the phase holds no reservation, so nobody is claimed;
+    // the whole company falls to the roster tier and attends home facilities.
     state = advanceUntil(state, (candidate) => phaseOf(candidate, productionId) === 'releaseReady')
     presence = studioPresence(state)
     for (const person of presence.people) {
-      expect(person).toMatchObject({ engagement: 'roster', site: null, blockedReason: null })
+      expect(person).toMatchObject({
+        engagement: 'roster',
+        site: rosterHomeFacilityId(person.role),
+        blockedReason: null,
+      })
     }
     expect(presence.withheld).toEqual([])
   })

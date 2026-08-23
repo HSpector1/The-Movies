@@ -291,6 +291,8 @@ export {
   BEATS_PER_WEEK,
   PRESENCE_DEPARTURE_WINDOW,
   PRESENCE_LAST_WORK_BEAT,
+  ROSTER_HOME_FACILITY,
+  rosterHomeFacilityId,
   studioPresence,
 } from './presence.js'
 export type {

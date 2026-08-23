@@ -14,6 +14,7 @@ import {
   BEATS_PER_WEEK,
   FOUNDING_MINIMUMS,
   generateWorld,
+  rosterHomeFacilityId,
   tick,
 } from '../src/core/index.js'
 import type {
@@ -229,13 +230,28 @@ export function presenceViolations(state: GameState, presence: StudioPresence): 
     }
 
     if (person.engagement === 'roster') {
-      if (person.site !== null || person.slot !== null || person.ownerId !== null) {
-        problems.push(`${person.talentId}: a roster week claims a workplace`)
+      // Roster attendance canon (LL-CP1): an unclaimed contracted member
+      // reports to their profession's home facility when it exists. A roster
+      // week therefore either attends the exact canon home site (slot-less,
+      // standard work-week shape) or stays entirely home; it never carries a
+      // slot, owner, credit, or blocker either way.
+      if (person.slot !== null || person.ownerId !== null) {
+        problems.push(`${person.talentId}: a roster week claims a reservation`)
       }
       if (person.credit !== null) problems.push(`${person.talentId}: a roster week carries a credit`)
       if (person.blockedReason !== null) problems.push(`${person.talentId}: a roster week is blocked`)
-      if (!person.beats.every((beat) => beat === 'home')) {
-        problems.push(`${person.talentId}: a roster week leaves home`)
+      if (person.site !== null) {
+        if (person.site !== rosterHomeFacilityId(person.role)) {
+          problems.push(`${person.talentId}: a roster week attends a non-home site`)
+        }
+        if (!facilityIds.has(person.site)) {
+          problems.push(`${person.talentId}: roster home site "${person.site}" is not a studio facility`)
+        }
+        if (person.beats.every((beat) => beat === 'home')) {
+          problems.push(`${person.talentId}: an attending roster week never leaves home`)
+        }
+      } else if (!person.beats.every((beat) => beat === 'home')) {
+        problems.push(`${person.talentId}: a home roster week leaves home`)
       }
       continue
     }

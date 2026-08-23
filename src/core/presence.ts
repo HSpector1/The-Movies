@@ -81,6 +81,32 @@ export type PresenceCredit =
   | 'auditionee'
   | null
 
+// ── roster attendance canon (Living Lot LL-CP1) ──────────────────────────────
+// A contracted company member whose week no production, screenplay, or casting
+// session claims still REPORTS TO THE LOT: the studio pays their weekly salary
+// (authoritative contract truth), and the 1948 studio system kept its contract
+// company on the premises between assignments. The rule is PRESENTATION CANON
+// exactly like the departure stagger above: deterministic, outcome-neutral,
+// derived only from truth that exists (an active contract and the person's
+// primary profession), feeding no decision, cost, duration, or tick. The home
+// site must EXIST in `state.operations.facilities` or the person stays home
+// (fail-neutral, never invented). Freelancers hold no contract and are not
+// projected — unchanged.
+/** Where an unclaimed contracted member reports during a contract week. */
+export const ROSTER_HOME_FACILITY: Readonly<Record<CreativeRole, string>> = {
+  writer: 'facility-development-casting',
+  director: 'facility-development-casting',
+  actor: 'facility-development-casting',
+  craft: 'facility-scenery-shop',
+}
+
+/** The attendance-canon home facility for a primary profession, or null. */
+export function rosterHomeFacilityId(role: string): string | null {
+  return role === 'writer' || role === 'director' || role === 'actor' || role === 'craft'
+    ? ROSTER_HOME_FACILITY[role]
+    : null
+}
+
 export type PersonPresence = {
   talentId: string
   name: string
@@ -662,6 +688,10 @@ export function studioPresence(state: GameState): StudioPresence {
     }
     const claim = claims.get(talentId)
     if (claim === undefined) {
+      // Roster attendance canon: contracted, unclaimed members report to their
+      // profession's home facility when it exists; otherwise they stay home.
+      const homeFacilityId = rosterHomeFacilityId(person.role)
+      const attends = homeFacilityId !== null && facilityIds.has(homeFacilityId)
       people.push({
         talentId,
         name: person.name,
@@ -669,9 +699,11 @@ export function studioPresence(state: GameState): StudioPresence {
         engagement: 'roster',
         credit: null,
         ownerId: null,
-        site: null,
+        site: attends ? homeFacilityId : null,
         slot: null,
-        beats: homeWeek(),
+        beats: attends
+          ? workWeek(departureBeat(seed, talentId, currentWeek), 'at-site')
+          : homeWeek(),
         blockedReason: null,
       })
       continue

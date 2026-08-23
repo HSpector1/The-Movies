@@ -11,6 +11,7 @@ import {
   BEATS_PER_WEEK,
   PRESENCE_DEPARTURE_WINDOW,
   PRESENCE_LAST_WORK_BEAT,
+  rosterHomeFacilityId,
   studioPresence,
   tick,
 } from '../src/core/index.js'
@@ -148,9 +149,15 @@ describe('Presence Projection V1 — laws', () => {
     for (const person of presence.people) {
       expect(person.beats).toHaveLength(BEATS_PER_WEEK)
       expect(person.slot === null || Number.isInteger(person.slot)).toBe(true)
-      if (person.engagement === 'roster') {
+      if (person.engagement === 'roster' && person.site === null) {
         expect(person.beats.every((beat) => beat === 'home')).toBe(true)
         continue
+      }
+      if (person.engagement === 'roster') {
+        // Roster attendance canon: slot-less, at the profession's home site,
+        // with the same work-week shape asserted below.
+        expect(person.site).toBe(rosterHomeFacilityId(person.role))
+        expect(person.slot).toBeNull()
       }
       const departure = person.beats.indexOf('travel')
       expect(departure).toBeGreaterThanOrEqual(0)
@@ -372,5 +379,43 @@ describe('Presence Projection V1 — malformed and hostile truth', () => {
 
     const presence = studioPresence(forged)
     expect(presence).toEqual({ week: forged.market.tick, people: [], withheld: [] })
+  })
+
+  it('sends every unclaimed contracted member to their profession home facility (LL-CP1 canon)', () => {
+    const state = busyStudio('presence-roster-attendance')
+    const presence = studioPresence(state)
+    const roster = presence.people.filter((person) => person.engagement === 'roster')
+    expect(roster.length).toBeGreaterThan(0)
+    for (const person of roster) {
+      expect(person.site).toBe(rosterHomeFacilityId(person.role))
+      expect(person.slot).toBeNull()
+      expect(person.ownerId).toBeNull()
+      expect(person.credit).toBeNull()
+      expect(person.beats).toContain('travel')
+      expect(person.beats).toContain('at-site')
+      expect(person.beats[BEATS_PER_WEEK - 1]).toBe('home')
+      expect(person.beats.includes('waiting')).toBe(false)
+    }
+    expect(rosterHomeFacilityId('writer')).toBe('facility-development-casting')
+    expect(rosterHomeFacilityId('director')).toBe('facility-development-casting')
+    expect(rosterHomeFacilityId('actor')).toBe('facility-development-casting')
+    expect(rosterHomeFacilityId('craft')).toBe('facility-scenery-shop')
+    expect(rosterHomeFacilityId('gaffer')).toBeNull()
+  })
+
+  it('keeps an unclaimed contracted member home when their home facility does not exist', () => {
+    const state = busyStudio('presence-roster-no-home')
+    const forged = forge(state)
+    mutable(forged.operations).facilities = state.operations.facilities.filter(
+      (facility) => facility.id !== 'facility-development-casting' &&
+        facility.id !== 'facility-scenery-shop',
+    )
+    const presence = studioPresence(forged)
+    const roster = presence.people.filter((person) => person.engagement === 'roster')
+    expect(roster.length).toBeGreaterThan(0)
+    for (const person of roster) {
+      expect(person.site).toBeNull()
+      expect(person.beats.every((beat) => beat === 'home')).toBe(true)
+    }
   })
 })
