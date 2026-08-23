@@ -106,6 +106,42 @@ describe('economy intervention choice frontier', () => {
     ).toEqual(chooseChoiceCandidate('D03_nearBestProfit_80_leastCapital', candidates))
   })
 
+  it('combines a visible downside screen with the near-best least-capital frontier', () => {
+    const candidates = [
+      candidate({ id: 'risky-best', committedCost: 100, forecastLow: -60, forecastCenter: 1_000 }),
+      candidate({ id: 'safe-high', committedCost: 900, forecastLow: -40, forecastCenter: 900 }),
+      candidate({ id: 'safe-cheap', committedCost: 300, forecastLow: -20, forecastCenter: 720 }),
+    ]
+    expect(
+      chooseChoiceCandidate(
+        'D03_downsideHalf_nearBest80_leastCapital_activeFallback',
+        candidates,
+      ),
+    ).toMatchObject({
+      selected: { id: 'safe-cheap' },
+      reason: 'selected',
+      qualifyingCandidates: 2,
+    })
+  })
+
+  it('keeps the composite frontier active when no package clears its downside screen', () => {
+    const candidates = [
+      candidate({ id: 'least-bad-z', committedCost: 100, forecastLow: -60, forecastCenter: -10 }),
+      candidate({ id: 'least-bad-a', committedCost: 100, forecastLow: -60, forecastCenter: -10 }),
+      candidate({ id: 'worse', committedCost: 100, forecastLow: -60, forecastCenter: -11 }),
+    ]
+    expect(
+      chooseChoiceCandidate(
+        'D03_downsideHalf_nearBest80_leastCapital_activeFallback',
+        candidates,
+      ),
+    ).toMatchObject({
+      selected: { id: 'least-bad-a' },
+      reason: 'selected',
+      qualifyingCandidates: 3,
+    })
+  })
+
   it('applies downside and runway gates only from player-visible values', () => {
     const candidates = [
       candidate({ id: 'risky', committedCost: 100, forecastLow: -51, forecastCenter: 1_000, postRunwayWeeks: 51 }),

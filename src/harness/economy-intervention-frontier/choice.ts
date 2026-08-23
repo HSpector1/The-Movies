@@ -34,6 +34,7 @@ export const CHOICE_ARMS = [
   'D03_downsideBudget_1',
   'D03_nearBestProfit_80_leastCapital',
   'D03_nearBestProfit_80_leastCapital_activeFallback',
+  'D03_downsideHalf_nearBest80_leastCapital_activeFallback',
   'D03_nearBestProfit_60_leastCapital',
   'D03_runwayReserve_52',
 ] as const
@@ -48,6 +49,11 @@ type ChoiceRule =
       retainPositiveProfit: 0.8 | 0.6
       /** What a player does when every affordable package forecasts a loss. */
       nonPositiveFallback: 'abstain' | 'highestForecastContribution'
+    }
+  | {
+      kind: 'downsideNearBestLeastCapital'
+      maximumLowLossShare: 0.5
+      retainPositiveProfit: 0.8
     }
   | { kind: 'runwayReserve'; minimumWeeks: 52 }
 
@@ -93,6 +99,16 @@ export const CHOICE_ARM_DEFINITIONS: Readonly<Record<ChoiceArm, ChoiceArmDefinit
       kind: 'nearBestLeastCapital',
       retainPositiveProfit: 0.8,
       nonPositiveFallback: 'highestForecastContribution',
+    },
+  },
+  D03_downsideHalf_nearBest80_leastCapital_activeFallback: {
+    arm: 'D03_downsideHalf_nearBest80_leastCapital_activeFallback',
+    playerFacingRule:
+      'Prefer packages whose low forecast loses no more than half their committed cost; among those keeping at least 80% of the best positive forecast profit, choose the least capital-intensive; if none qualifies, choose the least-bad affordable package.',
+    rule: {
+      kind: 'downsideNearBestLeastCapital',
+      maximumLowLossShare: 0.5,
+      retainPositiveProfit: 0.8,
     },
   },
   D03_nearBestProfit_60_leastCapital: {
@@ -210,6 +226,30 @@ export function chooseChoiceCandidate(
       return { selected: null, reason: 'noPositiveProfit', qualifyingCandidates: 0 }
     }
     const qualifying = candidates.filter(
+      (candidate) => candidate.forecastCenter >= bestPositive * rule.retainPositiveProfit,
+    )
+    return {
+      selected: leastCapital(qualifying),
+      reason: 'selected',
+      qualifyingCandidates: qualifying.length,
+    }
+  }
+  if (rule.kind === 'downsideNearBestLeastCapital') {
+    const downsideQualified = candidates.filter(
+      (candidate) => candidate.forecastLow >= -rule.maximumLowLossShare * candidate.committedCost,
+    )
+    const bestPositive =
+      downsideQualified.length === 0
+        ? Number.NEGATIVE_INFINITY
+        : Math.max(...downsideQualified.map((candidate) => candidate.forecastCenter))
+    if (!(bestPositive > 0)) {
+      return {
+        selected: maxCenter(candidates),
+        reason: 'selected',
+        qualifyingCandidates: candidates.length,
+      }
+    }
+    const qualifying = downsideQualified.filter(
       (candidate) => candidate.forecastCenter >= bestPositive * rule.retainPositiveProfit,
     )
     return {
