@@ -15,6 +15,10 @@
 //      acknowledged command, save, and load (and once mid-flight) must never
 //      lose an acked revision, tear the checkpoint, or change session
 //      identity; every relaunch resumes the exact acked (revision, digest).
+//   E. Journal-bound rollover — filling the durable replay journal to its
+//      bound must open a new logical session with authoritative state
+//      preserved (same digest and week, revision 0), keep serving commands,
+//      and survive an abrupt kill immediately after the rollover.
 //
 // Usage: node scripts/phase-m-matrix.mjs   (requires npm run build:studio)
 import { spawn } from 'node:child_process'
@@ -408,14 +412,126 @@ async function caseKillAroundSaveLoad() {
   rmSync(runtimeDir, { recursive: true, force: true })
 }
 
+// ── Case E: journal-bound rollover ──────────────────────────────────────────
+async function caseJournalRollover() {
+  note('case E: journal bound must roll into a fresh logical session, state preserved')
+  const runtimeDir = freshRuntimeDir('rollover')
+  const engine = startEngine(runtimeDir)
+  const ready = await engine.ready
+  if (ready === null) {
+    fail('case E: engine did not become ready')
+    await stopEngine(engine)
+    return
+  }
+  const contract = await get(ready.port, '/snapshot')
+  const meta = { protocolVersion: contract.body.protocolVersion, schemaId: contract.body.schemaId }
+
+  // One real committed intent so the preserved state is non-trivial.
+  const intents = contract.body.availableIntents ?? []
+  if (intents.length === 0) {
+    fail('case E: no available intent to seed non-trivial state')
+    await stopEngine(engine)
+    return
+  }
+  const seed = await post(ready.port, '/command', {
+    protocolVersion: meta.protocolVersion,
+    schemaId: meta.schemaId,
+    sessionId: ready.sessionId,
+    commandId: 'phase-m-e-seed',
+    expectedStateRevision: 0,
+    type: 'submitIntent',
+    payload: { intentId: intents[0].intentId },
+  })
+  if (seed.status !== 200 || !seed.body.accepted) {
+    fail('case E: seed intent was not accepted')
+    await stopEngine(engine)
+    return
+  }
+  const preservedDigest = seed.body.stateDigest
+  const preservedWeek = seed.body.gameWeek
+
+  // Saves are journaled but never advance game state: fill the journal with
+  // them until the bound forces a controlled rollover rejection.
+  let rolled = false
+  let saves = 0
+  for (; saves < 600; saves++) {
+    const save = await post(ready.port, '/save', {
+      protocolVersion: meta.protocolVersion,
+      schemaId: meta.schemaId,
+      sessionId: ready.sessionId,
+      commandId: `phase-m-e-save-${saves}`,
+      expectedStateRevision: 1,
+    })
+    if (save.status === 200 && save.body.accepted) continue
+    if (save.body.reasonCode === 'SESSION_MISMATCH') { rolled = true; break }
+    fail(`case E: save ${saves} rejected with unexpected ${save.body.reasonCode}`)
+    await stopEngine(engine)
+    rmSync(runtimeDir, { recursive: true, force: true })
+    return
+  }
+  if (!rolled) {
+    fail(`case E: no rollover after ${saves} journaled saves (bound expected at 512)`)
+    await stopEngine(engine)
+    rmSync(runtimeDir, { recursive: true, force: true })
+    return
+  }
+  note(`case E: rollover after ${saves} journaled saves`)
+
+  const session = await get(ready.port, '/session')
+  const snapshot = await get(ready.port, '/snapshot')
+  if (session.body.sessionId === ready.sessionId) fail('case E: rollover kept the old logical session id')
+  if (snapshot.body.stateRevision !== 0) fail(`case E: rollover revision ${snapshot.body.stateRevision} != 0`)
+  if (snapshot.body.stateDigest !== preservedDigest) fail('case E: rollover changed the authoritative digest')
+  if (snapshot.body.gameWeek !== preservedWeek) fail('case E: rollover changed the game week')
+
+  // The fresh session must accept work, and an abrupt kill immediately after
+  // the rollover must resume it exactly.
+  const after = await get(ready.port, '/snapshot')
+  const nextIntents = after.body.availableIntents ?? []
+  let expectResume = 0
+  let expectDigest = preservedDigest
+  if (nextIntents.length > 0) {
+    const commit = await post(ready.port, '/command', {
+      protocolVersion: meta.protocolVersion,
+      schemaId: meta.schemaId,
+      sessionId: session.body.sessionId,
+      commandId: 'phase-m-e-post-rollover',
+      expectedStateRevision: 0,
+      type: 'submitIntent',
+      payload: { intentId: nextIntents[0].intentId },
+    })
+    if (commit.status !== 200 || !commit.body.accepted) {
+      fail('case E: post-rollover command was not accepted')
+    } else {
+      expectResume = commit.body.stateRevision
+      expectDigest = commit.body.stateDigest
+    }
+  }
+  engine.child.kill('SIGKILL')
+  await engine.exit
+  const revived = startEngine(runtimeDir)
+  const back = await revived.ready
+  if (back === null) {
+    fail('case E: engine did not come back after SIGKILL past rollover')
+  } else {
+    if (back.sessionId !== session.body.sessionId) fail('case E: rolled-over session identity lost across SIGKILL')
+    if (back.revision !== expectResume) fail(`case E: resumed revision ${back.revision} != acked ${expectResume}`)
+    if (back.digest !== expectDigest) fail('case E: resumed digest mismatch after rollover kill')
+  }
+  note(`case E: rolled-over session survived SIGKILL at revision ${expectResume}`)
+  await stopEngine(revived)
+  rmSync(runtimeDir, { recursive: true, force: true })
+}
+
 await caseLaunchQuitCycles()
 await caseCheckpointRejection()
 await caseRapidStaleBurst()
 await caseKillAroundSaveLoad()
+await caseJournalRollover()
 
 if (failures.length > 0) {
   console.error(`[phase-m] MATRIX FAILED: ${failures.length} violation(s)`)
   process.exit(1)
 }
-console.log('[phase-m] MATRIX PASS: launch/quit cycles, checkpoint rejection, rapid stale burst, kill around save/load')
+console.log('[phase-m] MATRIX PASS: launch/quit cycles, checkpoint rejection, rapid stale burst, kill around save/load, journal rollover')
 process.exit(0)
