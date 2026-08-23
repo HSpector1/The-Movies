@@ -35,7 +35,7 @@ import { distribution, rate } from '../economy-truth-audit/statistics.js'
 import type { Distribution, RateEstimate } from '../economy-truth-audit/statistics.js'
 
 export const RENEWAL_FRONTIER_SCHEMA_VERSION =
-  'economy-intervention-frontier-renewal-v2' as const
+  'economy-intervention-frontier-renewal-v3' as const
 export const RENEWAL_FRONTIER_CHECKPOINT_WEEK = 144 as const
 export const RENEWAL_FRONTIER_HORIZON_WEEK = 442 as const
 export const RENEWAL_FRONTIER_CURRENT_WINDOW_WEEKS = 12 as const
@@ -741,7 +741,9 @@ export function runRenewalFrontierArm(
     const operating = runRosterWallOperatingWeek({
       state,
       operatingPolicyId: checkpoint.operatingPolicyId,
-      captureIntents: false,
+      // Intents are counted into compact staffability/affordability diagnostics
+      // and never persisted as raw weekly traces in the aggregate.
+      captureIntents: true,
     })
     const transition = operating.stateAfterTick.ledger.slice(ledgerStart)
     const scheduledPayroll = weeklyPayroll(operating.stateAfterActions)
