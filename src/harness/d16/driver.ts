@@ -181,6 +181,42 @@ export type RejectionRecord = {
   reason: string
 }
 
+/**
+ * Analysis-only cash conversion used by bounded economy laboratories. Production
+ * actions and ledger kinds must not grow experiment-only variants, so a laboratory
+ * may instead convert liquid cash into a separately journalled resource before the
+ * week's player decision. The driver owns the mutation and cash checkpoint; the
+ * plan sees only player-legible cash/time facts.
+ */
+export type AnalysisCashPlan = {
+  id: string
+  decide(view: {
+    week: number
+    weeksElapsed: number
+    cash: number
+    openingCash: number
+    totalConverted: number
+    conversions: number
+  }): { amount: number; label: string } | null
+}
+
+export type AnalysisCashConversion = {
+  week: number
+  weeksElapsed: number
+  amount: number
+  label: string
+  cashBefore: number
+  cashAfter: number
+}
+
+export type AnalysisCashRecord = {
+  planId: string
+  totalConverted: number
+  conversions: AnalysisCashConversion[]
+  /** opening cash + production ledger since run start - conversions === cash. */
+  shadowReconciliationOk: true
+}
+
 export type RunRecord = {
   seed: string
   policy: string
@@ -281,6 +317,8 @@ export type RunRecord = {
   counterFlow?: { family: string; appliedWeeks: number; netFlow: number; pivotEma: number; releases: number }
   /** captured states (`captureAt`). In memory only — the corpus runner never sets `captureAt`. */
   captures?: RunCapture[]
+  /** Analysis-only cash/resource journal. Absent on every ordinary D-16/D-17B run. */
+  analysisCash?: AnalysisCashRecord
 }
 
 /** A harvested entry state, for the Stage-5 continuation corpora (A4 §7). */
@@ -364,6 +402,12 @@ export type RunOptions = {
   keepFullSeries?: boolean
   /** start from an existing state instead of generateWorld (e.g. the Week-86 save). */
   initialState?: GameState
+
+  /**
+   * Harness-only conversion of liquid cash into an external analysis resource.
+   * Omitted means no callback, no checkpoint mutation, and no output field.
+   */
+  analysisCashPlan?: AnalysisCashPlan
 
   // ── D-17B levers. OMITTING EVERY ONE OF THESE MUST BE INDISTINGUISHABLE FROM D-17A. ──
   /** the awareness counter-flow shim. Absent (or `family: 'off'`) ⇒ object-identity no-op. */
@@ -520,12 +564,18 @@ class PkgCache {
 }
 
 function assertReconciled(state: GameState, seed: string, policy: string): void {
-  const expected = reconciledCash(state)
+  const checkpoint = state.cashLedgerCheckpoint
+  const expected =
+    checkpoint === undefined
+      ? reconciledCash(state)
+      : state.ledger
+          .slice(checkpoint.ledgerLength)
+          .reduce((cash, entry) => cash + entry.amount, checkpoint.cash)
   const actual = state.studio.cash
   if (Math.abs(expected - actual) > EPS) {
     throw new Error(
       `d16/driver: RECONCILIATION VIOLATED at week ${state.market.tick} (seed ${seed}, policy ${policy}): ` +
-        `cash ${actual} !== INITIAL_CASH + Σledger ${expected} (Δ ${actual - expected}). Run HALTED.`,
+        `cash ${actual} !== reconciliation basis + Σledger ${expected} (Δ ${actual - expected}). Run HALTED.`,
     )
   }
 }
@@ -658,6 +708,24 @@ function runOneCore(opts: RunOptions): RunRecord {
   const awarenessSeries: number[] = []
   const captures: RunCapture[] = []
   const capturedStates = new Set<FinancialState>()
+  const analysisConversions: AnalysisCashConversion[] = []
+  let analysisTotalConverted = 0
+
+  const assertAnalysisCashReconciled = (): void => {
+    if (opts.analysisCashPlan === undefined) return
+    const productionFlow = state.ledger
+      .slice(ledgerLengthAtStart)
+      .reduce((sum, entry) => sum + entry.amount, 0)
+    const expected = openingCash + productionFlow - analysisTotalConverted
+    if (Math.abs(expected - state.studio.cash) > EPS) {
+      throw new Error(
+        `d16/driver: ANALYSIS CASH RECONCILIATION VIOLATED at week ${String(state.market.tick)} ` +
+          `(seed ${seed}, policy ${policy.name}, plan ${opts.analysisCashPlan.id}): ` +
+          `cash ${String(state.studio.cash)} !== opening + production ledger - analysis conversions ` +
+          `${String(expected)} (delta ${String(state.studio.cash - expected)}). Run HALTED.`,
+      )
+    }
+  }
 
   // B2-C3/C8: P15 (exploit) AND P16 (doNothing, `renewAtWeeksRemaining: 0`) disengage BY
   // DESIGN. Flagging them as a defect prints "cliff 0 %" against the two policies whose
@@ -670,6 +738,50 @@ function runOneCore(opts: RunOptions): RunRecord {
     pubCfg === undefined ? { seedLabel: seed } : { seedLabel: seed, publicity: { cfg: pubCfg, memo: pubMemo } }
 
   const runWeek = (w: number): void => {
+    if (opts.analysisCashPlan !== undefined) {
+      const proposed = opts.analysisCashPlan.decide({
+        week: state.market.tick,
+        weeksElapsed: w,
+        cash: state.studio.cash,
+        openingCash,
+        totalConverted: analysisTotalConverted,
+        conversions: analysisConversions.length,
+      })
+      if (proposed !== null) {
+        if (
+          !Number.isFinite(proposed.amount) ||
+          proposed.amount <= 0 ||
+          proposed.amount > state.studio.cash ||
+          proposed.label.length === 0
+        ) {
+          throw new Error(
+            `d16/driver: invalid analysis cash conversion from ${opts.analysisCashPlan.id} ` +
+              `at week ${String(state.market.tick)}`,
+          )
+        }
+        const cashBefore = state.studio.cash
+        const cashAfter = cashBefore - proposed.amount
+        state = {
+          ...state,
+          studio: { ...state.studio, cash: cashAfter },
+          cashLedgerCheckpoint: {
+            cash: cashAfter,
+            ledgerLength: state.ledger.length,
+          },
+        }
+        analysisTotalConverted += proposed.amount
+        analysisConversions.push({
+          week: state.market.tick,
+          weeksElapsed: w,
+          amount: proposed.amount,
+          label: proposed.label,
+          cashBefore,
+          cashAfter,
+        })
+        assertReconciled(state, seed, `${policy.name}/${opts.analysisCashPlan.id}`)
+        assertAnalysisCashReconciled()
+      }
+    }
     const view = buildPlayerView(state, viewOpts())
     // L12: the information-discipline canary is WIRED, not merely available. It costs a
     // JSON round-trip of the whole view, so it runs on the run's first week only — enough
@@ -869,6 +981,7 @@ function runOneCore(opts: RunOptions): RunRecord {
     if ((w + 1) % RECONCILE_EVERY === 0) {
       try {
         assertReconciled(state, seed, policy.name)
+        assertAnalysisCashReconciled()
       } catch (err) {
         reconciliationOk = false
         throw err
@@ -913,6 +1026,7 @@ function runOneCore(opts: RunOptions): RunRecord {
   }
 
   assertReconciled(state, seed, policy.name)
+  assertAnalysisCashReconciled()
 
   // The publicity self-check (A4 §2.3): the run-local tally must equal Σ of the relevant
   // lab-note or production publicity ledger rows. A mismatch means cash and ledger diverged,
@@ -1031,6 +1145,14 @@ function runOneCore(opts: RunOptions): RunRecord {
     }
   }
   if (captureCfg !== undefined && captures.length > 0) record.captures = captures
+  if (opts.analysisCashPlan !== undefined) {
+    record.analysisCash = {
+      planId: opts.analysisCashPlan.id,
+      totalConverted: analysisTotalConverted,
+      conversions: analysisConversions,
+      shadowReconciliationOk: true,
+    }
+  }
   return record
 }
 
