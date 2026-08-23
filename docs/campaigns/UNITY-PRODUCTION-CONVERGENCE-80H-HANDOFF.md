@@ -4,6 +4,44 @@ START HERE. Read `docs/UNITY-PRODUCTION-CLIENT-DECISION.md`, then the campaign
 ledger, this handoff, and the promotion register. The TypeScript/Unity engine
 decision is settled. Do not restart planning from scratch.
 
+## CHECKPOINT 23 SEALED - MAIN MERGE CANDIDATE (NON-GOLDEN, NOT CANONICAL)
+
+CP23 performs the deliberate isolated TypeScript-`main` reconciliation. It is
+**non-Golden and non-canonical**: the candidate branch is pushed for review,
+`main` itself is untouched, and canonical merge review remains an explicit
+Owner gate (the M5 "not ready for canonical merge review" ruling is not
+overturned by this checkpoint).
+
+### CURRENT EXACT STATE
+
+Timestamp: 2026-08-23 14:50 CEST (UTC+02:00).
+
+| Item | Exact state |
+| --- | --- |
+| Divergence measured | merge-base `c0c9561bf78f77d81cb23c0bbee6cf3507f79a82`; campaign 226 commits ahead; `main` ahead by exactly three commits (PR #6) adding only `README.md` (+93 lines); **zero overlapping files** |
+| Merge candidate | `merge-candidate/unity-convergence-80h-into-main-01` at `5ff04cd252a2a94d9e6f7f195267812125877b6e`, pushed; parent chain: campaign CP22 docs child `6505b107...` -> clean ort merge `20972fb...` (absorbs `main`) -> README quickstart reconciliation `5ff04cd2...` |
+| Campaign branch | unchanged at `6505b107...` (plus this seal's docs child); `main` unchanged at `5914c84...` |
+| Reconciliation content | `README.md` arrives from `main` verbatim except the Quickstart now names the browser dev flow as the Three.js reference surface and adds the campaign-line native `npm run play` launch |
+
+### VALIDATION STATE (ON THE CANDIDATE)
+
+Main+bridge typechecks PASS; contract drift verified; browser production
+build PASS; repository hygiene 1,039 files PASS; studio package build +
+packaged-graph audit PASS; full suite **337 files / 4,542 passed / 5
+skipped**. No Unity-side change; Unity remains CP22 `c7a19dcd...`.
+
+### NEXT EXACT ACTION
+
+The engineering P2 list from M5 is now fully addressed as far as autonomous
+work allows: foreground activation (CP20), emitted packaging + audit (CP21),
+25/50/100 scalability (CP22), and the isolated `main` reconciliation (CP23).
+Remaining continuation work: Owner review of the merge candidate and of any
+Golden M6 case; the resilience ugly-condition matrix (Phase M); ambient lot
+density / visual polish informed by the CP22 tier evidence; install/update
+distribution and profile backup. Every continuation is non-Golden by
+default; do not create or move an M6 tag or touch `main` without explicit
+Owner authorization.
+
 ## CHECKPOINT 22 SEALED - NON-GOLDEN CAMPAIGN TIP
 
 CP22 runs the long-open 25/50/100-person scalability gate (M5 P2 / Phase H+L)

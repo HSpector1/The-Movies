@@ -4330,3 +4330,32 @@ The docs-only commit containing this entry is the direct child of TypeScript
 CP21 docs child `4fd6a8126433c237d02bbfdc6cf60df433e56c97`; resolve its self
 SHA after commit and require HEAD/upstream/live-remote equality with a clean
 tracked tree.
+
+## 2026-08-23 14:50 CEST - Checkpoint 23 sealed: isolated main merge candidate (pushed, non-Golden, not canonical)
+
+CP23 measures and performs the deliberate isolated TypeScript-`main`
+reconciliation. Measured divergence: merge-base
+`c0c9561bf78f77d81cb23c0bbee6cf3507f79a82`; the campaign is 226 commits
+ahead; `main` is ahead by exactly three commits (PR #6) that add only the
+contributor quickstart `README.md` (+93 lines); zero files changed on both
+sides. The long-feared "large semantic divergence" is, by git truth,
+one new documentation file — the semantic weight of the reconciliation lies
+entirely in the campaign's own 226 commits, which is an Owner-level merge
+review, not an autonomous action.
+
+Candidate `merge-candidate/unity-convergence-80h-into-main-01` pushed at
+`5ff04cd252a2a94d9e6f7f195267812125877b6e`: clean ort merge `20972fb...`
+absorbing `main` into the campaign line, then a README quickstart
+reconciliation naming the browser dev flow as the Three.js reference
+surface and adding the campaign-line native `npm run play` launch.
+Validation on the candidate: both typechecks, contract drift, browser
+production build, hygiene 1,039, studio package build + packaged-graph
+audit, and the full suite 337 files / 4,542 passed / 5 skipped. `main` and
+the campaign branch are untouched; Unity remains CP22 `c7a19dcd...`.
+Canonical merge review remains an explicit Owner gate; the M5 non-canonical
+ruling stands.
+
+The docs-only commit containing this entry is the direct child of TypeScript
+CP22 docs child `6505b1074344cca392c278c1c28b247d9821cb6b`; resolve its self
+SHA after commit and require HEAD/upstream/live-remote equality with a clean
+tracked tree.
