@@ -1,9 +1,11 @@
 # Project: Studio — Start Here
 
-> **Native owner launch (local CP20 candidate, not formal CURRENT BEST / Golden M5):** from this
-> repository run `npm run play`, or double-click `PLAY_PROJECT_STUDIO.command`. It preflights and
-> supervises the sibling macOS Unity build and uses the private durable default profile. An empty
-> profile opens at `START A STUDIO`; an existing profile resumes the same authoritative studio.
+> **Native owner launch (local CP21 candidate, not formal CURRENT BEST / Golden M5):** from this
+> repository run `npm run play`, or double-click `PLAY_PROJECT_STUDIO.command`. It preflights the
+> sibling macOS Unity build, emits and audits the production studio package (`dist/studio`), and
+> supervises the emitted engine — never the development loader — with the private durable default
+> profile. An empty profile opens at `START A STUDIO`; an existing profile resumes the same
+> authoritative studio.
 
 > **Current-branch notice:** the setup/status narrative below describes the original M0A launch and
 > is retained for provenance. It is not current authority for

@@ -18,9 +18,10 @@ npm run play
 ```
 
 The command preflights the sibling `Project Studio - Unity Production Convergence 80H` project and
-its standard macOS build, then launches the authoritative TypeScript engine and Unity together
-through the existing supervisor. It is the **local CP20 candidate**, not the formal CURRENT BEST /
-Golden M5 pair. The first run against an empty default profile starts with an open Week 0 founding
+its standard macOS build, emits the production studio package with `npm run build:studio`, runs the
+packaged-graph audit, and then launches the emitted supervisor and engine (`dist/studio/studio.mjs`
+spawning its sibling `engine.mjs`) together with Unity. It is the **local CP21 candidate**, not the
+formal CURRENT BEST / Golden M5 pair. The first run against an empty default profile starts with an open Week 0 founding
 draft: the player signs the seven-person company and chooses `START A STUDIO` before Picture #1.
 Later runs resume their durable authority instead of replacing an existing studio. Double-click
 `PLAY_PROJECT_STUDIO.command` for the same path from Finder.
@@ -191,10 +192,13 @@ logs, and exact child-process cleanup. Unity retains an ambiguous command/save/l
 retries its identical UTF-8 bytes only after a compatible session handshake; the TypeScript replay
 journal returns the already committed response without applying the operation twice.
 
-This completes the bounded development lifecycle, not production packaging. `npm run studio`
-still executes the checked-in TypeScript through the pinned `vite-node` development graph. A
-packaged runtime must define and audit its emitted dependency set and establish install/update and
-profile-backup behavior before public distribution.
+This completes the bounded development lifecycle. Production packaging of the local launch now
+exists: `npm run build:studio` emits `dist/studio/{studio.mjs,engine.mjs}` as self-contained node
+bundles, `npm run audit:studio-packaged` fails closed unless the emitted graph is exactly
+first-party TypeScript plus node builtins (zero `node_modules` inputs, no development loader), and
+`npm run play` / `PLAY_PROJECT_STUDIO.command` emit, audit, and launch that packaged graph.
+`npm run studio` remains the configurable development entry on the pinned `vite-node` graph.
+Install/update distribution and profile-backup behavior remain open before public distribution.
 
 ## Movie #2 interaction
 
