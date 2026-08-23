@@ -609,6 +609,10 @@ export type RenewalDiagnosisAggregate = {
     fullWallsCashNonnegativeAt156: number
     fullWallsCashNonnegativeAt182: number
     fullWallsCashNonnegativeAt196: number
+    fullWallsAllRenewalsAffordableAt156: number
+    fullWallsAllRenewalsAffordableAt182: number
+    fullWallsMinimumRolesAffordableAt156: number
+    fullWallsMinimumRolesAffordableAt182: number
     fullWallsByOperatingPolicy: Record<string, number>
   }
   timelines: {
@@ -658,6 +662,14 @@ export function aggregateRenewalDiagnosis(
       fullWalls.filter((cell) => cell.operatingPolicyId === policy).length,
     ]),
   )
+  const fullWallWarningCount = (
+    week: 156 | 182,
+    select: (warning: TimelineWarning) => boolean,
+  ): number =>
+    fullWalls.filter((cell) => {
+      const warning = cell.timeline.warnings.find((candidate) => candidate.week === week)
+      return warning !== undefined && select(warning)
+    }).length
   const identities = cells.filter((cell) => cell.zeroGrantIdentityAt260 !== null)
   const current260 = armSummary(cells, (cell) => cell.baseline260, (cell) => cell.baseline260)
   const current428 = armSummary(cells, (cell) => cell.baseline428, (cell) => cell.baseline428)
@@ -753,6 +765,22 @@ export function aggregateRenewalDiagnosis(
       fullWallsCashNonnegativeAt156: cashNonnegative156Wall.length,
       fullWallsCashNonnegativeAt182: cashNonnegative182Wall.length,
       fullWallsCashNonnegativeAt196: positiveCashWall.length,
+      fullWallsAllRenewalsAffordableAt156: fullWallWarningCount(
+        156,
+        (warning) => warning.allRenewalsAffordable,
+      ),
+      fullWallsAllRenewalsAffordableAt182: fullWallWarningCount(
+        182,
+        (warning) => warning.allRenewalsAffordable,
+      ),
+      fullWallsMinimumRolesAffordableAt156: fullWallWarningCount(
+        156,
+        (warning) => warning.minimumRoleAffordable,
+      ),
+      fullWallsMinimumRolesAffordableAt182: fullWallWarningCount(
+        182,
+        (warning) => warning.minimumRoleAffordable,
+      ),
       fullWallsByOperatingPolicy,
     },
     timelines: {
