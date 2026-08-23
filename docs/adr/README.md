@@ -25,6 +25,8 @@ do not rewrite its historical rationale. A later Owner ruling overrides an ADR.
 | [0006](0006-visual-recognizability-and-two-scale-camera.md) | Accepted | Target The Movies recognizability through a modern two-scale Unity presentation |
 | [0007](0007-separate-durable-bridge-runtime-checkpoint.md) | Accepted | Persist bridge replay lifecycle outside GameState and V14 saves |
 | [0008](0008-supervise-the-local-product-lifecycle.md) | Accepted | Launch Unity and the TypeScript engine through one private local supervisor |
+| [0009](0009-size-and-navigation-budgets.md) | Proposed | Budget size and navigation for touched code and docs; decompose monoliths on touch |
+| [0010](0010-evidence-and-binaries-stay-out-of-git-history.md) | Accepted | Keep rendered evidence and binaries out of git; reject history rewrites while Golden tags are recovery authority |
 
 ## Template
 
