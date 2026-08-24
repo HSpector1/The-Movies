@@ -157,6 +157,13 @@ describe('Bridge production founding v1', () => {
       /Actors 4\/3; Directors 1\/1; Writers 1\/1; Production\/Craft Leads 1\/1/,
     )
     expect(ready.availableIntents[0]?.detail).toContain('reserve Actor')
+    // The payroll COMPONENT reports the contracted amount while the
+    // founding-guarded burn stays 0 — a zero-vs-zero comparison cannot fake
+    // this (7 signings make the component strictly positive).
+    const draftTreasury = reserveSession.snapshot().treasury
+    expect(draftTreasury.weeklyPayroll).toBeGreaterThan(0)
+    expect(draftTreasury.weeklyBurn).toBe(0)
+
     const founded = submit(reserveSession, ready.availableIntents[0]!, 'founding-start-studio')
     expect(founded).toMatchObject({ accepted: true, stateRevision: 8, gameWeek: 0 })
     expect(reserveSession.gameState.founding).toBeNull()
@@ -204,7 +211,8 @@ describe('Bridge production founding v1', () => {
       expect(arrival.potentialHigh).toBe(row!.potentialHigh)
       expect(arrival.topStrengths).toEqual(row!.topStrengths)
       expect(arrival.primaryConcern).toBe(row!.primaryConcern)
-      // v7 specialty signal — a pure carry of the adapter's perceived genre law.
+      // v7 specialty signal — wire equals the adapter row, field for field
+    // (the independent recomputation of the law itself lives in its own test).
       expect(arrival.topGenreLabel).toBe(row!.topGenreLabel)
       expect(arrival.topGenreExperience).toBe(row!.topGenreExperience)
       expect(arrival.topGenreTied).toBe(row!.topGenreTied)
@@ -246,10 +254,16 @@ describe('Bridge production founding v1', () => {
     for (const row of rows) {
       const primary = row.card.profile.disciplines.find((d) => d.isPrimary) ?? row.card.profile.disciplines[0]!
       const cells = row.card.profile.genreExperience[primary.discipline]
-      // Expectation recomputed independently: stable sort by perceived desc over
-      // GENRE_ORDER-ordered cells = GENRE_ORDER tie-break.
-      const sorted = [...cells].sort((a, b) => b.perceived - a.perceived)
-      if (sorted[0]!.perceived === 0) {
+      // A genuinely INDEPENDENT oracle — a strictly-greater linear scan, not
+      // the adapter's stable sort. Cells arrive in GENRE_ORDER, so keeping
+      // the first strictly-greater cell IS the earliest-genre tie-break.
+      let expectedTopIndex = -1
+      for (let i = 0; i < cells.length; i++) {
+        const cell = cells[i]!
+        if (cell.perceived <= 0) continue
+        if (expectedTopIndex === -1 || cell.perceived > cells[expectedTopIndex]!.perceived) expectedTopIndex = i
+      }
+      if (expectedTopIndex === -1) {
         expect(row.topGenre).toBeNull()
         expect(row.topGenreLabel).toBeNull()
         expect(row.topGenreExperience).toBeNull()
@@ -258,20 +272,34 @@ describe('Bridge production founding v1', () => {
         expect(row.secondGenreExperience).toBeNull()
         continue
       }
-      expect(row.topGenre).toBe(sorted[0]!.genre)
-      expect(row.topGenreExperience).toBe(sorted[0]!.perceived)
-      expect(row.topGenreLabel).toBe(sorted[0]!.genre.charAt(0).toUpperCase() + sorted[0]!.genre.slice(1))
-      const secondNonZero = sorted[1] !== undefined && sorted[1]!.perceived > 0
-      expect(row.topGenreTied).toBe(secondNonZero && sorted[1]!.perceived === sorted[0]!.perceived)
-      if (secondNonZero) {
-        expect(row.secondGenreLabel).toBe(sorted[1]!.genre.charAt(0).toUpperCase() + sorted[1]!.genre.slice(1))
-        expect(row.secondGenreExperience).toBe(sorted[1]!.perceived)
+      let expectedSecondIndex = -1
+      for (let i = 0; i < cells.length; i++) {
+        if (i === expectedTopIndex) continue
+        const cell = cells[i]!
+        if (cell.perceived <= 0) continue
+        if (expectedSecondIndex === -1 || cell.perceived > cells[expectedSecondIndex]!.perceived) expectedSecondIndex = i
+      }
+      const expectedTop = cells[expectedTopIndex]!
+      expect(row.topGenre).toBe(expectedTop.genre)
+      expect(row.topGenreExperience).toBe(expectedTop.perceived)
+      expect(row.topGenreLabel).toBe(expectedTop.genre.charAt(0).toUpperCase() + expectedTop.genre.slice(1))
+      // The projected VALUE must be the perceived value of the NAMED genre —
+      // a genre/value swap cannot pass this pairing check.
+      const namedCell = cells.find((c) => c.genre === row.topGenre)!
+      expect(row.topGenreExperience).toBe(namedCell.perceived)
+      expect(row.topGenreTied).toBe(
+        expectedSecondIndex !== -1 && cells[expectedSecondIndex]!.perceived === expectedTop.perceived,
+      )
+      if (expectedSecondIndex !== -1) {
+        const expectedSecond = cells[expectedSecondIndex]!
+        expect(row.secondGenreLabel).toBe(
+          expectedSecond.genre.charAt(0).toUpperCase() + expectedSecond.genre.slice(1),
+        )
+        expect(row.secondGenreExperience).toBe(expectedSecond.perceived)
       } else {
         expect(row.secondGenreLabel).toBeNull()
         expect(row.secondGenreExperience).toBeNull()
       }
-      // The signal never leaks hidden truth: it must equal a PERCEIVED cell value.
-      expect(cells.some((c) => c.perceived === row.topGenreExperience)).toBe(true)
     }
   })
 

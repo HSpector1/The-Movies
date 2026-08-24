@@ -162,7 +162,7 @@ function expectOrderedSubsequence<T>(actual: readonly T[], expected: readonly T[
 }
 
 describe('Current-game Unity adoption bridge', () => {
-  it('pins protocol v4/projection v6 and fingerprints named projections and exact intent fields', () => {
+  it('pins protocol v4/projection v7 and fingerprints named projections and exact intent fields', () => {
     expect(PROTOCOL_VERSION).toBe(4)
     expect(SNAPSHOT_VERSION).toBe(7)
     expect(SCHEMA_ID).toMatch(/^sha256:[0-9a-f]{64}$/)
