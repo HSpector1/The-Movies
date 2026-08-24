@@ -3925,6 +3925,15 @@ export type FoundingApplicantRow = {
   standingPct: number
   topStrengths: string[] // up to 2 qualitative strengths from STORED signals (no raw skills)
   primaryConcern: string | null
+  // Perceived genre experience in the PRIMARY discipline — the one authoritative
+  // specialty signal. Top cell null when every perceived cell is 0 (honest absence);
+  // ties break by GENRE_ORDER; second signal only when a second non-zero cell exists.
+  topGenre: Genre | null
+  topGenreLabel: string | null
+  topGenreExperience: number | null
+  topGenreTied: boolean
+  secondGenreLabel: string | null
+  secondGenreExperience: number | null
 }
 
 function assignmentText(a: { role: string; slot?: string | null }): string {
@@ -3961,6 +3970,13 @@ function foundingRowOf(state: GameState, card: EmploymentCard, fundRemaining: nu
   else if (POTENTIAL_RANK[pt] <= POTENTIAL_RANK.Limited) primaryConcern = 'Limited ceiling'
   else if (p.age >= 55) primaryConcern = 'Late career'
 
+  // Perceived genre experience — cells arrive in GENRE_ORDER, so a stable sort by
+  // value alone tie-breaks by GENRE_ORDER (the repo's determinism convention).
+  const genreCells = [...p.genreExperience[primary.discipline]].sort((a, b) => b.perceived - a.perceived)
+  const topCell = genreCells.length > 0 && genreCells[0]!.perceived > 0 ? genreCells[0]! : null
+  const secondCell = topCell !== null && genreCells.length > 1 && genreCells[1]!.perceived > 0 ? genreCells[1]! : null
+  const topGenreTied = topCell !== null && secondCell !== null && secondCell.perceived === topCell.perceived
+
   return {
     card,
     id: p.id,
@@ -3986,7 +4002,19 @@ function foundingRowOf(state: GameState, card: EmploymentCard, fundRemaining: nu
     standingPct,
     topStrengths: strengths.slice(0, 2),
     primaryConcern,
+    topGenre: topCell?.genre ?? null,
+    topGenreLabel: topCell ? genreDisplayLabel(topCell.genre) : null,
+    topGenreExperience: topCell?.perceived ?? null,
+    topGenreTied,
+    secondGenreLabel: secondCell ? genreDisplayLabel(secondCell.genre) : null,
+    secondGenreExperience: secondCell?.perceived ?? null,
   }
+}
+
+// Title-case display label for a genre key — matches the core's GENRE_LABELS map
+// (Comedy, Drama, Crime, Romance, Horror, Adventure) without widening the core surface.
+function genreDisplayLabel(genre: Genre): string {
+  return genre.charAt(0).toUpperCase() + genre.slice(1)
 }
 
 // All founding applicants (optionally one profession), enriched.

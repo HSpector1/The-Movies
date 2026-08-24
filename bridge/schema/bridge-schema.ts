@@ -16,7 +16,7 @@ import {
 } from './dsl.ts'
 
 export const PROTOCOL_VERSION = 4 as const
-export const PROJECTION_VERSION = 6 as const
+export const PROJECTION_VERSION = 7 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -470,6 +470,19 @@ const StudioFoundingArrivalSnapshot = object('StudioFoundingArrivalSnapshot', {
   age: integer({ minimum: 0 }),
   topStrengths: array(nonEmptyText()),
   primaryConcern: nullable(text()),
+  /**
+   * The one authoritative specialty signal: the highest PERCEIVED genre
+   * experience in the primary discipline (worldgen genreExperience, 0..100).
+   * Null label/value when every perceived cell is 0 — honest absence, never
+   * a manufactured strength. Ties break by GENRE_ORDER; the tied flag keeps
+   * a shared top honest. The second signal exists only when a second
+   * non-zero cell does.
+   */
+  topGenreLabel: nullable(text()),
+  topGenreExperience: nullable(integer({ minimum: 0, maximum: 100 })),
+  topGenreTied: bool(),
+  secondGenreLabel: nullable(text()),
+  secondGenreExperience: nullable(integer({ minimum: 0, maximum: 100 })),
   weeklySalary: number({ minimum: 0 }),
   annualSalary: number({ minimum: 0 }),
   signingBonus: number({ minimum: 0 }),
@@ -522,6 +535,12 @@ const StudioFoundingSnapshot = object('StudioFoundingSnapshot', {
 const StudioTreasurySnapshot = object('StudioTreasurySnapshot', {
   cash: number(),
   weeklyBurn: number({ minimum: 0 }),
+  /**
+   * Contracted payroll COMPONENT (FinanceView.weeklyPayroll). Post-founding,
+   * burn = payroll + overhead; during a founding draft the tick charges
+   * nothing, so burn is 0 while this still reports the contracted amount.
+   */
+  weeklyPayroll: number({ minimum: 0 }),
   netWeeklyCash: number(),
   runwayWeeks: nullable(integer()),
   runwayInfinite: bool(),
@@ -824,7 +843,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-6',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-7',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [

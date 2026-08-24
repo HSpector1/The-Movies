@@ -7,7 +7,7 @@ import {
 } from '../bridge/runtime-checkpoint.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
 import { BridgeSession } from '../bridge/session.ts'
-import { foundingApplicantRows, offerObligation } from '../ui/src/engine/adapter.ts'
+import { foundingApplicantRows, offerObligation, payrollSummary } from '../ui/src/engine/adapter.ts'
 
 function submit(
   session: BridgeSession,
@@ -204,6 +204,12 @@ describe('Bridge production founding v1', () => {
       expect(arrival.potentialHigh).toBe(row!.potentialHigh)
       expect(arrival.topStrengths).toEqual(row!.topStrengths)
       expect(arrival.primaryConcern).toBe(row!.primaryConcern)
+      // v7 specialty signal — a pure carry of the adapter's perceived genre law.
+      expect(arrival.topGenreLabel).toBe(row!.topGenreLabel)
+      expect(arrival.topGenreExperience).toBe(row!.topGenreExperience)
+      expect(arrival.topGenreTied).toBe(row!.topGenreTied)
+      expect(arrival.secondGenreLabel).toBe(row!.secondGenreLabel)
+      expect(arrival.secondGenreExperience).toBe(row!.secondGenreExperience)
       expect(arrival.annualSalary).toBe(offer.annualSalary)
       expect(arrival.signingBonus).toBe(offer.signingBonus)
       expect(arrival.weeklySalary).toBe(obligation.weeklySalary)
@@ -212,9 +218,11 @@ describe('Bridge production founding v1', () => {
       expect(arrival.termWeeks).toBe(104)
     }
     // The treasury pulse is present from the first frame; a founding draft
-    // charges no burn (the engine's own founding-guarded rule).
+    // charges no burn (the engine's own founding-guarded rule). weeklyPayroll
+    // is the contracted COMPONENT and reports even while burn is guarded to 0.
     expect(envelope.treasury.cash).toBe(session.gameState.studio.cash)
     expect(envelope.treasury.weeklyBurn).toBe(0)
+    expect(envelope.treasury.weeklyPayroll).toBe(payrollSummary(session.gameState).weeklyPayroll)
 
     // Dispatching an arrival's intentId is exactly the established opaque path,
     // and the accepted projection repaints the wave without the signed person.
@@ -228,6 +236,42 @@ describe('Bridge production founding v1', () => {
         (arrival) => arrival.talentId === first.talentId,
       )).toBe(false)
       expect(accepted.founding?.progress.find((entry) => entry.role === 'actor')?.count).toBe(1)
+    }
+  })
+
+  it('derives the specialty signal from perceived genre experience alone — max cell, GENRE_ORDER tie-break, honest absence', () => {
+    const session = BridgeSession.createRuntime()
+    const rows = foundingApplicantRows(session.gameState)
+    expect(rows.length).toBeGreaterThan(0)
+    for (const row of rows) {
+      const primary = row.card.profile.disciplines.find((d) => d.isPrimary) ?? row.card.profile.disciplines[0]!
+      const cells = row.card.profile.genreExperience[primary.discipline]
+      // Expectation recomputed independently: stable sort by perceived desc over
+      // GENRE_ORDER-ordered cells = GENRE_ORDER tie-break.
+      const sorted = [...cells].sort((a, b) => b.perceived - a.perceived)
+      if (sorted[0]!.perceived === 0) {
+        expect(row.topGenre).toBeNull()
+        expect(row.topGenreLabel).toBeNull()
+        expect(row.topGenreExperience).toBeNull()
+        expect(row.topGenreTied).toBe(false)
+        expect(row.secondGenreLabel).toBeNull()
+        expect(row.secondGenreExperience).toBeNull()
+        continue
+      }
+      expect(row.topGenre).toBe(sorted[0]!.genre)
+      expect(row.topGenreExperience).toBe(sorted[0]!.perceived)
+      expect(row.topGenreLabel).toBe(sorted[0]!.genre.charAt(0).toUpperCase() + sorted[0]!.genre.slice(1))
+      const secondNonZero = sorted[1] !== undefined && sorted[1]!.perceived > 0
+      expect(row.topGenreTied).toBe(secondNonZero && sorted[1]!.perceived === sorted[0]!.perceived)
+      if (secondNonZero) {
+        expect(row.secondGenreLabel).toBe(sorted[1]!.genre.charAt(0).toUpperCase() + sorted[1]!.genre.slice(1))
+        expect(row.secondGenreExperience).toBe(sorted[1]!.perceived)
+      } else {
+        expect(row.secondGenreLabel).toBeNull()
+        expect(row.secondGenreExperience).toBeNull()
+      }
+      // The signal never leaks hidden truth: it must equal a PERCEIVED cell value.
+      expect(cells.some((c) => c.perceived === row.topGenreExperience)).toBe(true)
     }
   })
 

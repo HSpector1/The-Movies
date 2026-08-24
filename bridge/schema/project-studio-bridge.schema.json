@@ -87,7 +87,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 6,
+          "const": 7,
           "type": "integer"
         },
         "stateDigest": {
@@ -203,7 +203,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 6,
+          "const": 7,
           "type": "integer"
         },
         "stateDigest": {
@@ -609,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 6,
+          "const": 7,
           "type": "integer"
         },
         "stateDigest": {
@@ -678,7 +678,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 6,
+          "const": 7,
           "type": "integer"
         },
         "stateDigest": {
@@ -1056,6 +1056,28 @@
             }
           ]
         },
+        "secondGenreExperience": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "secondGenreLabel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "signingBonus": {
           "minimum": 0,
           "type": "number"
@@ -1077,6 +1099,31 @@
           "maximum": 2147483647,
           "minimum": 1,
           "type": "integer"
+        },
+        "topGenreExperience": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "topGenreLabel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "topGenreTied": {
+          "type": "boolean"
         },
         "topStrengths": {
           "items": {
@@ -1122,11 +1169,16 @@
         "roleLabel",
         "runwayAfterInfinite",
         "runwayAfterWeeks",
+        "secondGenreExperience",
+        "secondGenreLabel",
         "signingBonus",
         "standingPct",
         "standingTier",
         "talentId",
         "termWeeks",
+        "topGenreExperience",
+        "topGenreLabel",
+        "topGenreTied",
         "topStrengths",
         "totalObligation",
         "weeklySalary",
@@ -2767,6 +2819,10 @@
         "weeklyBurn": {
           "minimum": 0,
           "type": "number"
+        },
+        "weeklyPayroll": {
+          "minimum": 0,
+          "type": "number"
         }
       },
       "required": [
@@ -2774,7 +2830,8 @@
         "netWeeklyCash",
         "runwayInfinite",
         "runwayWeeks",
-        "weeklyBurn"
+        "weeklyBurn",
+        "weeklyPayroll"
       ],
       "type": "object",
       "x-csharp-name": "StudioTreasurySnapshot"
@@ -2959,7 +3016,7 @@
       "x-csharp-name": "StudioWeekTheaterSubjectSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-6",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-7",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -2994,7 +3051,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 6,
+    "projectionVersion": 7,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",
