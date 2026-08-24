@@ -9,6 +9,7 @@ import {
   exportSaveJson,
   financeCard,
   findConcept,
+  findTalent,
   foundManagedStudioAction,
   foundingApplicantCards,
   foundingApplicantRows,
@@ -497,11 +498,22 @@ function resolveFounding(
   }
 
   const projectedRunway = foundingRunwayPreview(state)
+  // The signed roster, in signing order — the engine's contracts joined to
+  // its own talent records. A missing talent record is a structural fault;
+  // fail closed to the id rather than inventing a name.
+  const signed = state.contracts.map((contract) => {
+    const talent = findTalent(state, contract.talentId)
+    return {
+      name: talent?.name ?? contract.talentId,
+      roleLabel: talent === undefined ? 'unknown' : foundingRoleLabel(talent.role),
+    }
+  })
   const projection: BridgeFoundingSnapshot = {
     waveRole: offerRole,
     waveRoleLabel: offerRole === null ? null : foundingRoleLabel(offerRole),
     waveReserve: reserveWave,
     arrivals,
+    signed,
     progress: progress.map((entry) => ({
       role: entry.role,
       label: entry.label,

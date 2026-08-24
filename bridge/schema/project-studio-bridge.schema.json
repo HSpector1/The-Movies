@@ -87,7 +87,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 7,
+          "const": 8,
           "type": "integer"
         },
         "stateDigest": {
@@ -203,7 +203,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 7,
+          "const": 8,
           "type": "integer"
         },
         "stateDigest": {
@@ -609,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 7,
+          "const": 8,
           "type": "integer"
         },
         "stateDigest": {
@@ -678,7 +678,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 7,
+          "const": 8,
           "type": "integer"
         },
         "stateDigest": {
@@ -1228,6 +1228,25 @@
       "type": "object",
       "x-csharp-name": "StudioFoundingRoleProgressSnapshot"
     },
+    "StudioFoundingSignedSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "roleLabel": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "roleLabel"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFoundingSignedSnapshot"
+    },
     "StudioFoundingSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -1268,6 +1287,12 @@
         "recruitmentFund": {
           "type": "number"
         },
+        "signed": {
+          "items": {
+            "$ref": "#/$defs/StudioFoundingSignedSnapshot"
+          },
+          "type": "array"
+        },
         "waveReserve": {
           "type": "boolean"
         },
@@ -1306,6 +1331,7 @@
         "projectedWeeklyPayroll",
         "readyToFound",
         "recruitmentFund",
+        "signed",
         "waveReserve",
         "waveRole",
         "waveRoleLabel"
@@ -3016,7 +3042,7 @@
       "x-csharp-name": "StudioWeekTheaterSubjectSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-7",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-8",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -3051,7 +3077,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 7,
+    "projectionVersion": 8,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

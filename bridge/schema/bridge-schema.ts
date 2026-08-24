@@ -16,7 +16,7 @@ import {
 } from './dsl.ts'
 
 export const PROTOCOL_VERSION = 4 as const
-export const PROJECTION_VERSION = 7 as const
+export const PROJECTION_VERSION = 8 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -507,6 +507,16 @@ const StudioFoundingRoleProgressSnapshot = object('StudioFoundingRoleProgressSna
   met: bool(),
 })
 
+/**
+ * One signed founding contract, in signing order — a founding is exact
+ * humans, not a tally (v8; hostile review #2). Names come from the engine's
+ * own talent records via each contract's talentId.
+ */
+const StudioFoundingSignedSnapshot = object('StudioFoundingSignedSnapshot', {
+  name: nonEmptyText(),
+  roleLabel: nonEmptyText(),
+})
+
 const StudioFoundingSnapshot = object('StudioFoundingSnapshot', {
   /** The profession currently arriving at the gate; null once nothing is offered. */
   waveRole: nullable(foundingRole()),
@@ -514,6 +524,8 @@ const StudioFoundingSnapshot = object('StudioFoundingSnapshot', {
   /** True when the current wave is the optional reserve-Actor offer. */
   waveReserve: bool(),
   arrivals: array(reference('StudioFoundingArrivalSnapshot', StudioFoundingArrivalSnapshot)),
+  /** Every contract signed so far, in signing order. */
+  signed: array(reference('StudioFoundingSignedSnapshot', StudioFoundingSignedSnapshot)),
   progress: array(reference(
     'StudioFoundingRoleProgressSnapshot',
     StudioFoundingRoleProgressSnapshot,
@@ -817,6 +829,7 @@ const definitions = {
   StudioSetSnapshot,
   StudioFoundingArrivalSnapshot,
   StudioFoundingRoleProgressSnapshot,
+  StudioFoundingSignedSnapshot,
   StudioFoundingSnapshot,
   StudioTreasurySnapshot,
   StudioLotProjection: StudioLotProjectionSchema,
@@ -843,7 +856,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-7',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-8',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [

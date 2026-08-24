@@ -94,6 +94,20 @@ describe('Bridge production founding v1', () => {
     const atCoverage = playerSession.snapshot()
     expect(atCoverage.founding?.readyToFound).toBe(true)
     expect(atCoverage.founding?.progress.every((entry) => entry.met)).toBe(true)
+    // v8 — the signed roster is the engine's contracts joined to its own
+    // talent records, in signing order: a founding is exact humans, not a
+    // tally (hostile review #2: the client must never source "signed" from
+    // whoever happens to be standing on the lot).
+    expect(atCoverage.founding?.signed).toHaveLength(6)
+    expect(atCoverage.founding?.signed.map((entry) => entry.name)).toEqual(
+      playerSession.gameState.contracts.map((contract) =>
+        playerSession.gameState.talent.find((person) => person.id === contract.talentId)?.name,
+      ),
+    )
+    expect(atCoverage.founding?.signed.every((entry) => entry.roleLabel.length > 0)).toBe(true)
+    expect(
+      atCoverage.founding?.signed.filter((entry) => entry.roleLabel === 'actor'),
+    ).toHaveLength(3)
     const foundOption = atCoverage.availableIntents.find((option) => option.kind === 'foundStudio')
     expect(foundOption).toMatchObject({
       kind: 'foundStudio',
@@ -212,7 +226,7 @@ describe('Bridge production founding v1', () => {
       expect(arrival.topStrengths).toEqual(row!.topStrengths)
       expect(arrival.primaryConcern).toBe(row!.primaryConcern)
       // v7 specialty signal — wire equals the adapter row, field for field
-    // (the independent recomputation of the law itself lives in its own test).
+      // (the independent recomputation of the law itself lives in its own test).
       expect(arrival.topGenreLabel).toBe(row!.topGenreLabel)
       expect(arrival.topGenreExperience).toBe(row!.topGenreExperience)
       expect(arrival.topGenreTied).toBe(row!.topGenreTied)
