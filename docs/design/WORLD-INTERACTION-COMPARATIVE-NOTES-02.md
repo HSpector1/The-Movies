@@ -291,3 +291,68 @@ Casting card (with the audition/package comparison staying in the retained works
 **Repository evidence `[R]`** — TS `de32b41` (`campaign/living-lot-ts`): `bridge/schema/bridge-schema.ts`, `bridge/session.ts`, `src/core/firstFilmJourney.ts`, `src/core/lot.ts`, `ui/src/lot/buildingInspector.ts`, `ui/src/lot/StudioLotScreen.tsx`, `ui/src/lot/snapshot/nextEvent.ts`, `ui/src/lot/snapshot/StudioLotSnapshot.ts`, `ui/src/lot/LotRetainedWorkspace.tsx`. Unity `3003081`: `Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs`, `Assets/Studio/Runtime/Presentation/StudioHud.cs`, `StudioFoundingCardHud.cs`, `StudioBridgePresentation.cs`, `StudioStageProductionPresentation.cs`, `SelectableEntity.cs`.
 
 **Access caveats, recorded honestly:** `sims.fandom.com` returned HTTP 402 to direct fetch throughout, so Sims wiki claims came via search synthesis and are labelled MEDIUM. No professional review text criticising Sims pie-menu depth was retrievable — that claim rests on EA forums and mod evidence only. The Movies' lack of alert click-through is inference from absence across five guides and two reviews, not a positive statement in any source. The RCT3 Prima Guide URL is a pointer whose interior was not re-verified this pass; the register's existing Prima citations remain the authority for its content.
+
+---
+
+## ADDENDUM — first-hand manual verification pass
+
+A second research pass read two primary manuals page-by-page and verified
+(HIGH confidence) material the body above carried at MEDIUM, plus new
+findings. Where this addendum and the body disagree, the addendum's
+manual-verified claims win.
+
+**The Movies (2005) manual — the mouse grammar table (p. 10), verbatim law:**
+Person: left-click = Pick Up/Drop, right-click = show all Information
+Bubbles. Star/Movie card on the HUD: left = select to move/drop, right =
+information. Facilities: **left-click = Show Floorplan**. This RESOLVES the
+Codex blueprint's floorplan-versus-radial open question in favour of the
+floorplan: "left-click on it to lower the walls and view its floorplan"
+(p. 12); rooms are drop targets, not menu items. Note the inherited defect:
+left-click on a person is pick-up, so The Movies has NO selection state for
+people — inspection requires a commitment-shaped gesture. Project: Studio's
+"selection is never commitment" is the better law and stays.
+
+**Right-click is a universal "explain this"** across world objects AND HUD
+cards (p. 10, p. 21: right-click the Production Office "I" for the prestige
+breakdown; right-click a chart row for "what determines their ranking and
+what you can do to improve"). Project: Studio's spare right-button is the
+natural home for this gesture in a later slice (P7-ADDENDUM).
+
+**Legality previewed on the target, before commit (p. 19):** carrying a
+photographer draws a camera icon with a tick or cross ABOVE the nearest
+Star before the drop; carrying a hire reveals the staff office's blue
+floorplan on hover. The principle (refusals visible on the thing, before
+the click) is worth adopting; the dragging is not.
+
+**Alert click-through existed after all — as a key:** TAB = "Go to End of
+Highest Priority Sparkling Stream" (p. 37). The body's inference that The
+Movies lacked alert click-through is corrected: it lacked a CLICK-through
+but shipped a key-through.
+
+**Navigation keys (pp. 36-37):** number keys jump to and CYCLE buildings
+(1 script office, 2 casting, 3 active set, 4 production office, 7 staff/
+school/crew, 8 sets, 9 trailers); Spacebar centres the Studio Gates —
+home. F-keys open management screens. Creation (Build button) holds exactly
+three sub-menus. The toolbar/world division in the body is confirmed.
+
+**Pause is inspect-only (p. 5):** while paused you can read everything but
+"won't be able to pick up and drop items." A clean precedent for what a
+paused Project: Studio permits.
+
+**One-drag irreversible spends confirmed as the anti-pattern (p. 20):**
+"Simply drop the Star or script you want to sell into the building and
+you'll be rewarded with cold, hard cash" — no confirmation, no preview.
+CP9's armed, geometrically separated two-step commit is strictly better.
+
+**RollerCoaster Tycoon manual (pp. 8-31), first-hand:** the ride's physical
+ENTRANCE is the click-handle for its window; run-state is three coloured
+lights (red close / amber test / green open) inside that window; the window
+is tabbed by JOB (view, test data, income, operation+inspection interval);
+staff are hired in a panel and deployed by placing them in the world, with
+OPTIONAL painted patrol areas; the construction ghost prices itself
+continuously and a missing price IS the refusal.
+
+**Provenance:** the first pass synthesized four sub-researcher reports; the
+second pass could not receive them and re-verified directly against the two
+manuals. Sub-researcher reports for Sims/RCT3 were separately received by
+the orchestrator and corroborate the body's claims.
