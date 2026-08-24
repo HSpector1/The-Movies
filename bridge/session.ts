@@ -441,9 +441,13 @@ function resolveFounding(
         roleLabel: foundingRoleLabel(row.role),
         ovr: row.ovr,
         ovrTier: row.ovrTier,
+        fame: row.fame,
         potentialTier: row.potentialTier,
         potentialHigh: row.potentialHigh,
+        workEthic: row.workEthic,
         workEthicLabel: row.workEthicLabel,
+        standingPct: row.standingPct,
+        standingTier: row.standing,
         // The engine ages talent continuously; the person's stated age is completed years.
         age: Math.floor(row.age),
         topStrengths: row.topStrengths,

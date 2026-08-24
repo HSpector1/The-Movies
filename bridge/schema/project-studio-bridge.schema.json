@@ -87,7 +87,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 5,
+          "const": 6,
           "type": "integer"
         },
         "stateDigest": {
@@ -203,7 +203,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 5,
+          "const": 6,
           "type": "integer"
         },
         "stateDigest": {
@@ -609,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 5,
+          "const": 6,
           "type": "integer"
         },
         "stateDigest": {
@@ -678,7 +678,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 5,
+          "const": 6,
           "type": "integer"
         },
         "stateDigest": {
@@ -973,6 +973,11 @@
           "minimum": 0,
           "type": "number"
         },
+        "fame": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
         "fundAfter": {
           "type": "number"
         },
@@ -1055,6 +1060,15 @@
           "minimum": 0,
           "type": "number"
         },
+        "standingPct": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "standingTier": {
+          "minLength": 1,
+          "type": "string"
+        },
         "talentId": {
           "minLength": 1,
           "type": "string"
@@ -1079,6 +1093,11 @@
           "minimum": 0,
           "type": "number"
         },
+        "workEthic": {
+          "maximum": 99,
+          "minimum": 1,
+          "type": "integer"
+        },
         "workEthicLabel": {
           "minLength": 1,
           "type": "string"
@@ -1087,6 +1106,7 @@
       "required": [
         "age",
         "annualSalary",
+        "fame",
         "fundAfter",
         "guaranteedComp",
         "intentId",
@@ -1103,11 +1123,14 @@
         "runwayAfterInfinite",
         "runwayAfterWeeks",
         "signingBonus",
+        "standingPct",
+        "standingTier",
         "talentId",
         "termWeeks",
         "topStrengths",
         "totalObligation",
         "weeklySalary",
+        "workEthic",
         "workEthicLabel"
       ],
       "type": "object",
@@ -2936,7 +2959,7 @@
       "x-csharp-name": "StudioWeekTheaterSubjectSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-5",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-6",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -2971,7 +2994,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 5,
+    "projectionVersion": 6,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

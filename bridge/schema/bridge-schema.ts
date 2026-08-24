@@ -16,7 +16,7 @@ import {
 } from './dsl.ts'
 
 export const PROTOCOL_VERSION = 4 as const
-export const PROJECTION_VERSION = 5 as const
+export const PROJECTION_VERSION = 6 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -449,9 +449,24 @@ const StudioFoundingArrivalSnapshot = object('StudioFoundingArrivalSnapshot', {
   roleLabel: nonEmptyText(),
   ovr: integer({ minimum: 0, maximum: 100 }),
   ovrTier: nonEmptyText(),
+  /**
+   * Star Power. The engine bounds fame to 0..100 (worldgen truncated normal;
+   * per-film deltas re-clamped to 0..100) but never rounds it — it is a
+   * CONTINUOUS number, not an integer. A stat block may round for display.
+   */
+  fame: number({ minimum: 0, maximum: 100 }),
   potentialTier: nonEmptyText(),
   potentialHigh: integer({ minimum: 0, maximum: 100 }),
+  /** Visible work ethic. Engine law (D-9.11): an integer in 1..99. */
+  workEthic: integer({ minimum: 1, maximum: 99 }),
   workEthicLabel: nonEmptyText(),
+  /**
+   * Relative market standing: the D-11.C percentile of this person's primary
+   * OVR within the matching working population, rounded to a whole 0..100.
+   */
+  standingPct: number({ minimum: 0, maximum: 100 }),
+  /** Plain-language tier for standingPct (standingTier() — approximate by law). */
+  standingTier: nonEmptyText(),
   age: integer({ minimum: 0 }),
   topStrengths: array(nonEmptyText()),
   primaryConcern: nullable(text()),
@@ -809,7 +824,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-5',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-6',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [

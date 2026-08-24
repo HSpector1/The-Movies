@@ -195,6 +195,12 @@ describe('Bridge production founding v1', () => {
       expect(arrival.role).toBe('actor')
       expect(arrival.ovr).toBe(row!.ovr)
       expect(arrival.ovrTier).toBe(row!.ovrTier)
+      // Projection v6 stat block: fame, work ethic, and market standing are the
+      // adapter's own numbers, carried across unrounded.
+      expect(arrival.fame).toBe(row!.fame)
+      expect(arrival.workEthic).toBe(row!.workEthic)
+      expect(arrival.standingPct).toBe(row!.standingPct)
+      expect(arrival.standingTier).toBe(row!.standing)
       expect(arrival.potentialHigh).toBe(row!.potentialHigh)
       expect(arrival.topStrengths).toEqual(row!.topStrengths)
       expect(arrival.primaryConcern).toBe(row!.primaryConcern)
