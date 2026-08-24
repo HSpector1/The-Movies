@@ -866,3 +866,228 @@ becomes played time rather than hold-and-cut), between-pictures lot
 life so the quiet window reads as a living studio at rest, the
 narrow-width transport, premiere/release ceremony surfacing; Phase M
 continues interleaved.
+
+## 2026-08-24 — LL-CP9 sealed: Gate-to-Founding World Interaction V1 — the lot becomes the interface
+
+**Player-visible change:** founding stops being a white-panel exercise, and
+the Owner drove the final shape live. A new studio opens on the gate: up to
+three applicants stand OUTSIDE the arch as selectable people, each with a
+billboarded nameplate (NAME / role · the authority's OVR) and a ground
+marker that answers the pointer on the person — muted brass waiting,
+sky-blue hovered, bright brass selected. Clicking a person opens THE PLAYER
+PROFILE (the Owner's Madden/NCAA ruling): a 640px card with a LIVE 3D
+portrait of the exact selected body against a sepia 1948 backdrop, name and
+age masthead, a 46pt OVR figure with its authored tier, a five-bar SCOUTING
+REPORT (Overall, Potential ceiling, Work ethic, Fame, Market standing — all
+verified authoritative figures, the hiring-UX research's own sanctioned
+fallback until a reviewed six-skill projection exists), CONTRACT DEMANDS
+(weekly · signing bonus · term · guaranteed · total obligation), and the
+signals. Review Offer opens the contract sheet, whose consequence block
+names the bonus' source (the recruitment fund), shows the fund before →
+after and payroll as an explicit +delta → after, and whose commit is NAMED
+with the authority's own term — "Sign Ramon Ashby — 104-week contract" —
+never a generic verb. A signed applicant
+sheds the applicant marks and walks through the arch; the freed pad is
+taken by the next named arrival only after the walker physically clears it.
+Administration is the founding anchor: its card reviews coverage/payroll/
+fund/runway/cash and holds the only FOUND THE STUDIO confirmation. A
+persistent tycoon pulse (1948 · WK n · Pause/1×/2×/4× · cash · weekly
+direction · one attention line) replaces the transport-only chip. The memo
+is demoted to guidance, receipts, and the journey — the founding-offer wall
+is gone and founding kinds never render as memo buttons again. One-shot
+camera reveals frame the gate at opening and Administration at coverage.
+
+**Founding law fixed (the Codex finding):** the bridge emitted foundStudio
+only after a proof-only FOURTH Actor. Now foundStudio is emitted the moment
+the ENGINE's Core coverage (3/1/1/1) is met; the reserve Actor is an
+explicitly optional post-coverage wave. Automation still signs its reserve
+deliberately — the committed profile builder founds byte-identically (7
+signings then found; load-in profile at the recorded rev 20 / week 6), and
+the client automation selector adopts the same law. Regression tests pin
+both sides so proof convenience can never become player law again.
+
+**Three commitment laws the hostile reviews forced into existence:**
+— THE GEOMETRIC LAW: a commit control never overlaps the control that
+revealed it (commits render under their facts, out of the bottom navigation
+band; live reveal/commit screen rects are captured on Repaint and the
+native proof asserts a 12px pointer margin). The instrument is real: its
+first run caught the confirm sheet's commit clipping the reveal band
+(failed run retained at FoundingJourney-…T123617Z) and forced the sheet
+taller; commit sheets render at full height or not at all (fail-closed
+under any forced viewport).
+— THE COMMIT-ARM LAW: a freshly revealed commit is dead for 0.7s, enforced
+in the commit METHODS, calibrated against the OS double-click defaults
+(pinned OsDefaultDoubleClickSeconds = 0.5; user-configurable cadences
+beyond the window are covered by the geometric law). The proof probes the
+boundary: a commit 0.55s after the reveal — beyond both OS defaults, inside
+the window — must refuse. Eight in-window commits refused on the final run.
+— THE PAD LAW IS OCCUPANCY: a waiting applicant keeps their pad, a signed
+walker frees it only after clearing 2.5m, a replacement takes the lowest
+FREE pad, retrying per frame — never spawning inside a person. Distinctness
+asserted after EVERY signing.
+
+**Authority discipline:** projection v6. The founding-arrival view is a
+READ-ONLY join computed in the SAME resolution pass as the intents (an
+arrival's opaque intentId can never disagree with availableIntents);
+identity, pricing, legality, potential bands, the five stat figures
+(workEthic 1..99 int, fame 0..100 float rounded only for display,
+standingPct 0..100 percentile with its seven-tier label), and every
+consequence preview are TypeScript's own read models. The treasury pulse is
+the engine's D-12/D-17A truth (founding-guarded burn: the HUD showed $0/wk
+during the draft and the burn the moment founding closed). The era masthead
+is presentation truth with one home (browser precedent: LOT_ERA_KEY). The
+portrait is Unity presentation bound to the live selected body — the world
+person and the portrait are visibly the same person by construction. The
+card dispatches through the client's public SubmitIntent seam; sign commits
+only from the ARMED contract sheet, founding only from the ARMED admin
+confirm; every review traced every path to the single dispatch site.
+
+**Commits:** TS `de32b41` (projection v5: arrival view + treasury +
+Core-minimum law), `72c373c` (projection v6: profile stats), `48bce5b` +
+`f190db3` (comparative notes 02 + manual-verified addendum), `dbd7f6e`
+(person-profile layering notes 03). Client `9d444ad` (v5 DTOs +
+ToSnapshotResponse carry), `0df57f4` (world-first founding), `159cc83`
+(native proof + automation law), `f033daa` (review-1 fix wave), `3003081`
+(review-2 fix wave + committed harnesses `Tools/cp9-run-*.sh` +
+`Tools/cp9-play.sh`), `d679280` (player profile + live portraits, Owner
+ruling), `07d7d6e` (Owner sizing pass), `949687d` (hiring-UX research
+delta: named commit + consequence clarity), `2c30ba7` (review-4 wave:
+refusal diagnostics, the live-seam proof clock, per-sheet geometry with
+the clearance floor, authority-echoed term, portrait honesty and layer
+hygiene), `911e87e` — THE SEAL BUILD (review-5 record correction: the
+portrait-camera isolation comment, the card's class comment, and the
+proof runner's step label; the only delta from `2c30ba7` is two XML doc
+comments plus that one diagnostic step-label string — the label is
+compiled IL, so the client was rebuilt and re-proved). Design inputs:
+`CODEX-WORLD-FIRST-INTERACTION-BLUEPRINT-01` (b23b676) and
+`CODEX-HIRING-CANDIDATE-REVIEW-UX-01` (e3f5108) on
+`codex/world-first-interaction-research-01`.
+
+**Native proof (ten-run determinism campaign on the campaign build
+`2c30ba7`, pinned 1440×900):** TEN consecutive committed-harness
+runs — five quiet, five under deliberate 12-way CPU load — all complete
+(FoundingJourney-20260824T140438Z…140925Z). Each run: fresh raw-founding
+engine; 3 named, marked, portrait-layered applicant bodies, pairwise >4m,
+human-renderer-verified (the applicant marks cannot vouch for a person);
+5 selection probes at revision 0 with zero workflow attempts (selection is
+not commitment); 8 in-window commit refusals incl. both 0.55s OS-cadence
+boundary probes; the commit/reveal geometric margin asserted on EVERY
+signing sheet with a recorded clearance floor of 80px (vs the 12px pointer
+margin); transport distress 0.0–0.2s per run, recorded by the live-seam
+proof clock; 6 deliberate NAMED signings ("Sign <name> — 104-week
+contract") in role waves, each exactly +1 revision; the first hire's
+entrance walk measured motion-honestly; pad distinctness after every
+signing; readiness at EXACTLY 6 signings / Actors 3/3, reserve wave
+optional; consumed-offer replay refused without revision/digest change;
+Administration confirm; gate cleared; treasury pulse enforced present.
+8 screenshots per run. SEAL-BUILD CONFIRMATION: the rebuilt `911e87e`
+client ran three further confirmation runs —
+FoundingJourney-20260824T142210Z / 142244Z / 142317Z, named here because
+`Evidence/` is gitignored and the repo will not carry them — each 33/33
+steps complete with identical substantive outcomes (6 named signings,
+Actors 3/3, 8 in-window refusals, both geometry laws true, clearance
+floor 80px, transport distress 0.099–0.266s).
+
+**Regression gates:** EditMode 330/330 (incl. pad/arm/geometry/nameplate/
+portrait-layer laws and the total 400px pulse-width sweep); TS bridge
+suite green incl. schema-sync at v6; bridge two-picture proof complete at
+revision 50 / week 22; Living Time auto == manual == the CP8-SEALED digest
+41f46177491c7c6e… at week 11 (profile rebuilt under v6 after the engine
+correctly fail-closed on the v5 checkpoint's schemaId); stage proofs
+complete both aspects. Honest flake record: two stage-portrait attempts
+timed out on probe DURATION with every check passing when launched
+back-to-back with other proof apps (focus starvation under
+runInBackground:0); green when run alone — back-to-back app launches are
+an invalid harness condition, not a product defect.
+
+**Evidence (SHA-256 prefixes; final campaign run 140925Z):** founding
+report a2e13823c8f92ac3, gate close-up a2100b25d5440be3, profile card
+abd54db0582046fb, contract sheet e959d0cfb50e2225, hire consequence
+88ad2c1c1e92c450, post-founding 59249cfd7d282894; regression bundles
+(validated across the presentation-only deltas by reviews #4-#5): bridge
+auto 91f7e14dea2683bb (rev 50 / week 22), living auto 9dbc77d7d4e6e089,
+manual 50042764eb59d8e3 (both the CP8 digest 41f46177…), stage landscape
+542b47dd8029aa74, portrait 5afab66a0e9e8bd6. Prior-candidate and
+failed-instrument evidence retained for audit (incl. the geometry
+instrument's own recorded failures at …T123617Z and …-SHORT-…T125751Z).
+
+**Honest failure record:** review #1 REJECTED on five blocking defects and
+was right on every one (double-click commits through 100%-overlapping
+bottom-anchored buttons — the Owner's original accident, rebuilt; pad
+stacking at 0.00m in the proof's one blind spot; a dead selection
+highlight the repo had carried since CP7; unmarked, unidentifiable
+applicants). Review #2 REJECTED again: the 0.45s arm window lost to the
+500ms OS-default double-click, the geometry was unchanged, the arm probe
+fired where it could not fail, and the first fix commit's "impossible"
+claim was false as written (corrected on the record). Review #3 ACCEPTED
+after independently re-measuring 49px/44px clearances and making the
+overlap instrument fail on demand; its punch list (fail-closed height
+clamp, margin law, boundary symmetry, honest walk metric, committed
+harnesses, resolution-pinned bridge harness, enforced hudChipFits, honest
+OS-default prose) was folded in full. Review #5's finding was
+self-inflicted twice over: a sed edit silently matched nothing, so a fix
+commit's message asserted corrections that did not exist — the false
+record, not the strings, was the defect; the remedy landed as its own
+honestly-described commit and was verified independently. Pre-review
+defects the gates caught: deferred Destroy vs DisallowMultipleComponent
+left no bodies; the first pads stood INSIDE the arch, occluded by the
+marquee and contradicting the not-a-member law; a nested-coroutine frame
+hop let the poll seize the single-flight seam; the automation selector
+still encoded the old 7-signings gate; the first marker disc was buried
+under authored paving and the second rendered in missing-shader magenta;
+the Owner was found play-testing an app instance from before any of CP9
+existed.
+
+**Independent rulings (fresh-context, hostile, Opus):** #1 REJECT (five
+blocking defects), #2 REJECT (arm window vs OS default; geometry
+unchanged), #3 ACCEPT (client 3003081, with a punch list folded in full),
+#4 REJECT (every product law verified sound; rejected solely on the proof
+instrument's nondeterminism — a latched, undiagnosed dead commit in 2 of
+its 9 runs — plus hygiene items D2-D10, all folded), #5 REJECT (narrowly,
+on record honesty alone: three stale strings — the portrait-camera
+isolation comment, a "2-year" residue in the card's class comment, and
+the proof runner's step label — survived that falsely-claiming fix
+commit; every product law re-verified sound; ACCEPT pre-authorized on
+the exact remedy). The remedy `911e87e` was then confirmed by a
+fresh-context verify-only ruling: **ACCEPT** — diff scope exactly the
+three strings and nothing else, repo-wide "2-year" grep clean, commit
+message judged honest claim-by-claim, 3/3 confirmation runs green.
+
+**Owner findings incorporated live (2026-08-24):** "still driven from the
+box on the left" → the world-first surfaces above; "a small white box…
+compared to what pro games have" → the player profile with portrait,
+stats and demands; "make that window larger" → the 640px profile and the
+1720×1045 play window. Playable via committed `Tools/cp9-play.sh`.
+
+**Known limits recorded:** post-founding memo surfaces unchanged by
+charter (the grammar propagates building-by-building in later checkpoints);
+the 1948 masthead never advances with play (presentation truth until the
+engine owns a calendar); below 842px viewport width the tycoon pulse is
+suppressed entirely and commit sheets fail closed rather than squeeze
+(narrow-width surfaces remain open work); hover tint shares the selected
+code path but batch evidence exercises only selected; the repo-wide
+SelectableEntity MPB highlight remains dead for non-applicant entities
+(buildings select with no world response — recorded follow-up); the
+six-perceived-skill projection, dossier modality, Prev/Next candidate
+rail, and the full comparison/profile workspace are DEFERRED per Owner
+direction (charters: CODEX-HIRING-CANDIDATE-REVIEW-UX-01 §9-10 NEXT;
+PERSON-PROFILE-LAYERING-NOTES-03 layer 3). Proof-instrument caveats on
+the record (review #5, non-blocking): the live-seam clock also pauses on
+terminal non-Live states (latency-only — the run still fails and names
+the state); WaitUntilTimed steps remain wall-clock; transportDistress-
+Seconds is commit-window-scoped (0.03–0.32s observed across all
+thirteen runs); minSignClearancePx is a directional proxy, not a full
+hit-test; campaign bundles carry no load-flag field distinguishing
+quiet from loaded runs.
+
+**Ruling: KEEP.**
+
+**Next (awaiting Owner CP9 playtest + Codex Package 02 — World Selection,
+Navigation & Context UX):** Development operable from the lot
+(WORLD-INTERACTION-COMPARATIVE-NOTES-02 §3: one TypeScript-authored
+site/buildingId binding on intent options + the Development card;
+commission/review leave the memo exactly as founding did), then Casting,
+the stages, the attention rail; the Full Profile workspace with
+side-by-side applicant comparison; a real selection-response system for
+every world entity; witnessed-beat playback; between-pictures lot life;
+narrow-width transport/HUD.
