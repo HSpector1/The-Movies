@@ -46,6 +46,16 @@
           "minLength": 1,
           "type": "string"
         },
+        "founding": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFoundingSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "gameWeek": {
           "maximum": 2147483647,
           "minimum": 0,
@@ -77,7 +87,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 4,
+          "const": 5,
           "type": "integer"
         },
         "stateDigest": {
@@ -88,12 +98,16 @@
           "maximum": 2147483647,
           "minimum": 0,
           "type": "integer"
+        },
+        "treasury": {
+          "$ref": "#/$defs/StudioTreasurySnapshot"
         }
       },
       "required": [
         "accepted",
         "availableIntents",
         "commandId",
+        "founding",
         "gameWeek",
         "message",
         "metrics",
@@ -104,7 +118,8 @@
         "snapshot",
         "snapshotVersion",
         "stateDigest",
-        "stateRevision"
+        "stateRevision",
+        "treasury"
       ],
       "type": "object",
       "x-csharp-name": "StudioBridgeAcceptedCommandResponse"
@@ -188,7 +203,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 4,
+          "const": 5,
           "type": "integer"
         },
         "stateDigest": {
@@ -594,7 +609,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 4,
+          "const": 5,
           "type": "integer"
         },
         "stateDigest": {
@@ -629,6 +644,16 @@
           },
           "type": "array"
         },
+        "founding": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFoundingSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "gameWeek": {
           "maximum": 2147483647,
           "minimum": 0,
@@ -653,7 +678,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 4,
+          "const": 5,
           "type": "integer"
         },
         "stateDigest": {
@@ -664,10 +689,14 @@
           "maximum": 2147483647,
           "minimum": 0,
           "type": "integer"
+        },
+        "treasury": {
+          "$ref": "#/$defs/StudioTreasurySnapshot"
         }
       },
       "required": [
         "availableIntents",
+        "founding",
         "gameWeek",
         "metrics",
         "protocolVersion",
@@ -676,7 +705,8 @@
         "snapshot",
         "snapshotVersion",
         "stateDigest",
-        "stateRevision"
+        "stateRevision",
+        "treasury"
       ],
       "type": "object",
       "x-csharp-name": "StudioBridgeSnapshotResponse"
@@ -930,6 +960,283 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioFootprintSnapshot"
+    },
+    "StudioFoundingArrivalSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "age": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "annualSalary": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "fundAfter": {
+          "type": "number"
+        },
+        "guaranteedComp": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "ovr": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "ovrTier": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "payrollAfterWeekly": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "potentialHigh": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "potentialTier": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "primaryConcern": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reserve": {
+          "type": "boolean"
+        },
+        "role": {
+          "enum": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "type": "string"
+        },
+        "roleLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "runwayAfterInfinite": {
+          "type": "boolean"
+        },
+        "runwayAfterWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": -2147483648,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signingBonus": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "termWeeks": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "topStrengths": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "totalObligation": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "weeklySalary": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "workEthicLabel": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "age",
+        "annualSalary",
+        "fundAfter",
+        "guaranteedComp",
+        "intentId",
+        "name",
+        "ovr",
+        "ovrTier",
+        "payrollAfterWeekly",
+        "potentialHigh",
+        "potentialTier",
+        "primaryConcern",
+        "reserve",
+        "role",
+        "roleLabel",
+        "runwayAfterInfinite",
+        "runwayAfterWeeks",
+        "signingBonus",
+        "talentId",
+        "termWeeks",
+        "topStrengths",
+        "totalObligation",
+        "weeklySalary",
+        "workEthicLabel"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFoundingArrivalSnapshot"
+    },
+    "StudioFoundingRoleProgressSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "met": {
+          "type": "boolean"
+        },
+        "min": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "role": {
+          "enum": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "count",
+        "label",
+        "met",
+        "min",
+        "role"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFoundingRoleProgressSnapshot"
+    },
+    "StudioFoundingSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "arrivals": {
+          "items": {
+            "$ref": "#/$defs/StudioFoundingArrivalSnapshot"
+          },
+          "type": "array"
+        },
+        "progress": {
+          "items": {
+            "$ref": "#/$defs/StudioFoundingRoleProgressSnapshot"
+          },
+          "type": "array"
+        },
+        "projectedRunwayInfinite": {
+          "type": "boolean"
+        },
+        "projectedRunwayWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": -2147483648,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "projectedWeeklyPayroll": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "readyToFound": {
+          "type": "boolean"
+        },
+        "recruitmentFund": {
+          "type": "number"
+        },
+        "waveReserve": {
+          "type": "boolean"
+        },
+        "waveRole": {
+          "anyOf": [
+            {
+              "enum": [
+                "actor",
+                "director",
+                "writer",
+                "craft"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "waveRoleLabel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "arrivals",
+        "progress",
+        "projectedRunwayInfinite",
+        "projectedRunwayWeeks",
+        "projectedWeeklyPayroll",
+        "readyToFound",
+        "recruitmentFund",
+        "waveReserve",
+        "waveRole",
+        "waveRoleLabel"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFoundingSnapshot"
     },
     "StudioGridCellSnapshot": {
       "additionalProperties": false,
@@ -2410,6 +2717,45 @@
       "type": "object",
       "x-csharp-name": "StudioStageSnapshot"
     },
+    "StudioTreasurySnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "cash": {
+          "type": "number"
+        },
+        "netWeeklyCash": {
+          "type": "number"
+        },
+        "runwayInfinite": {
+          "type": "boolean"
+        },
+        "runwayWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": -2147483648,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "weeklyBurn": {
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "cash",
+        "netWeeklyCash",
+        "runwayInfinite",
+        "runwayWeeks",
+        "weeklyBurn"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTreasurySnapshot"
+    },
     "StudioWeekTheaterSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -2590,7 +2936,7 @@
       "x-csharp-name": "StudioWeekTheaterSubjectSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-4",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-5",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -2625,7 +2971,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 4,
+    "projectionVersion": 5,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

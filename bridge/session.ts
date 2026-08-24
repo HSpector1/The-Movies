@@ -7,6 +7,7 @@ import {
   castingSessionsBoard,
   commissionScriptAction,
   exportSaveJson,
+  financeCard,
   findConcept,
   foundManagedStudioAction,
   foundingApplicantCards,
@@ -65,8 +66,11 @@ import { canonicalJson } from './schema/canonical.ts'
 import type {
   BridgeAcceptedCommandResponse,
   BridgeAcceptedSaveResponse,
+  BridgeFoundingArrivalSnapshot,
+  BridgeFoundingSnapshot,
   BridgeRejectedResponse,
   BridgeSnapshotEnvelope,
+  BridgeTreasurySnapshot,
 } from './schema/bridge-schema.ts'
 import { projectStudioProjectionBundle } from './schema/runtime.ts'
 
@@ -367,10 +371,26 @@ function foundingOfferDetail(
     `projected founding runway ${foundingRunwayLabel(after)}.`
 }
 
-function resolveFoundingIntents(
+type FoundingResolution = {
+  intents: IntentApplication[]
+  projection: BridgeFoundingSnapshot
+}
+
+/**
+ * LL-CP9. Founding intents and the read-only founding-arrival view come from ONE
+ * resolution pass, so every projected arrival's intentId matches an emitted intent
+ * by construction — Unity never parses prose to bind an offer to a person.
+ *
+ * THE PLAYER'S FOUNDING LAW IS THE ENGINE'S: Core coverage (3 Actors / 1 Director /
+ * 1 Writer / 1 Production-Craft Lead) makes foundStudio legal, and the bridge emits
+ * it the moment coverage is met. The reserve Actor the automated two-picture proof
+ * wants is an OPTIONAL post-coverage offer wave — automation that needs a reserve
+ * signs one deliberately; a player may found without it.
+ */
+function resolveFounding(
   state: GameState,
   stateDigest: string,
-): IntentApplication[] | null {
+): FoundingResolution | null {
   if (state.founding === null) return null
 
   const progress = foundingProgress(state)
@@ -379,9 +399,9 @@ function resolveFoundingIntents(
   if (actorProgress === undefined) throw new Error('Founding progress omitted Actors.')
 
   const resolved: IntentApplication[] = []
-  // Core founding closes at 3/1/1/1. The bridge's two-picture journey additionally needs a
-  // reserve Actor so three contracted cast roles survive the intervening market refresh.
-  const offerRole = requiredRole ?? (actorProgress.extra === 0 ? 'actor' : null)
+  const arrivals: BridgeFoundingArrivalSnapshot[] = []
+  const reserveWave = requiredRole === null && actorProgress.extra === 0
+  const offerRole = requiredRole ?? (reserveWave ? 'actor' : null)
   if (offerRole !== null) {
     for (const row of foundingApplicantRows(state, offerRole)) {
       if (row.signed) continue
@@ -395,50 +415,115 @@ function resolveFoundingIntents(
         kind: 'signFoundingContract',
         label: `Offer ${row.name} a 2-year ${foundingRoleLabel(row.role)} contract`,
         detail:
-          (requiredRole === null
-            ? 'Reserve-actor readiness is required for two-picture continuity. '
+          (reserveWave
+            ? 'Optional reserve Actor: founding is already legal without this signing. '
             : '') + foundingOfferDetail(row, offer, preview.next),
         projectId: null,
         castingSessionId: null,
         productionId: null,
       }
+      const intentOption = option(stateDigest, fields, {
+        kind: 'signContract',
+        talentId: row.id,
+        termWeeks: FOUNDING_OFFER_TERM_WEEKS,
+      })
       resolved.push({
-        option: option(stateDigest, fields, {
-          kind: 'signContract',
-          talentId: row.id,
-          termWeeks: FOUNDING_OFFER_TERM_WEEKS,
-        }),
+        option: intentOption,
         apply: (current) => signContractAction(current, row.id, FOUNDING_OFFER_TERM_WEEKS),
       })
+      const obligation = offerObligation(offer)
+      const after = preview.next
+      const runwayAfter = foundingRunwayPreview(after)
+      arrivals.push({
+        talentId: row.id,
+        name: row.name,
+        role: row.role,
+        roleLabel: foundingRoleLabel(row.role),
+        ovr: row.ovr,
+        ovrTier: row.ovrTier,
+        potentialTier: row.potentialTier,
+        potentialHigh: row.potentialHigh,
+        workEthicLabel: row.workEthicLabel,
+        // The engine ages talent continuously; the person's stated age is completed years.
+        age: Math.floor(row.age),
+        topStrengths: row.topStrengths,
+        primaryConcern: row.primaryConcern,
+        weeklySalary: obligation.weeklySalary,
+        annualSalary: offer.annualSalary,
+        signingBonus: offer.signingBonus,
+        guaranteedComp: obligation.guaranteedComp,
+        totalObligation: obligation.total,
+        termWeeks: offer.termWeeks,
+        reserve: reserveWave,
+        intentId: intentOption.intentId,
+        payrollAfterWeekly: payrollSummary(after).weeklyPayroll,
+        fundAfter: foundingBudgetRemaining(after),
+        runwayAfterWeeks: runwayAfter.weeks,
+        runwayAfterInfinite: runwayAfter.infinite,
+      })
     }
-    return resolved
   }
 
-  const fields: Omit<AvailableIntent, 'intentId'> = {
-    kind: 'foundStudio',
-    label: 'START A STUDIO',
-    detail:
-      `Founding coverage: ${progress.map((entry) =>
-        `${entry.label} ${String(entry.count)}/${String(entry.min)}`).join('; ')}. ` +
-      `Weekly payroll ${exactDollars(payrollSummary(state).weeklyPayroll)}; recruitment fund ` +
-      `${exactDollars(foundingBudgetRemaining(state))}; projected runway ` +
-      `${foundingRunwayLabel(state)}. The roster includes one reserve Actor for two-picture ` +
-      `continuity. Accepting opens the operational studio lot.`,
-      projectId: null,
-      castingSessionId: null,
-      productionId: null,
+  if (requiredRole === null) {
+    const rosterSentence = actorProgress.extra > 0
+      ? 'The roster includes a reserve Actor for two-picture continuity. '
+      : ''
+    const fields: Omit<AvailableIntent, 'intentId'> = {
+      kind: 'foundStudio',
+      label: 'START A STUDIO',
+      detail:
+        `Founding coverage: ${progress.map((entry) =>
+          `${entry.label} ${String(entry.count)}/${String(entry.min)}`).join('; ')}. ` +
+        `Weekly payroll ${exactDollars(payrollSummary(state).weeklyPayroll)}; recruitment fund ` +
+        `${exactDollars(foundingBudgetRemaining(state))}; projected runway ` +
+        `${foundingRunwayLabel(state)}. ${rosterSentence}Accepting opens the operational studio lot.`,
+        projectId: null,
+        castingSessionId: null,
+        productionId: null,
+    }
+    pushIfAccepted(state, resolved, {
+      option: option(stateDigest, fields, { kind: 'foundManagedStudio' }),
+      apply: (current) => foundManagedStudioAction(current),
+    })
   }
-  pushIfAccepted(state, resolved, {
-    option: option(stateDigest, fields, { kind: 'foundManagedStudio' }),
-    apply: (current) => foundManagedStudioAction(current),
-  })
-  return resolved
+
+  const projectedRunway = foundingRunwayPreview(state)
+  const projection: BridgeFoundingSnapshot = {
+    waveRole: offerRole,
+    waveRoleLabel: offerRole === null ? null : foundingRoleLabel(offerRole),
+    waveReserve: reserveWave,
+    arrivals,
+    progress: progress.map((entry) => ({
+      role: entry.role,
+      label: entry.label,
+      count: entry.count,
+      min: entry.min,
+      met: entry.met,
+    })),
+    recruitmentFund: foundingBudgetRemaining(state),
+    projectedWeeklyPayroll: payrollSummary(state).weeklyPayroll,
+    projectedRunwayWeeks: projectedRunway.weeks,
+    projectedRunwayInfinite: projectedRunway.infinite,
+    readyToFound: requiredRole === null,
+  }
+  return { intents: resolved, projection }
+}
+
+function treasuryOf(state: GameState): BridgeTreasurySnapshot {
+  const finance = financeCard(state)
+  return {
+    cash: finance.cash,
+    weeklyBurn: finance.weeklyBurn,
+    netWeeklyCash: finance.netWeeklyCash,
+    runwayWeeks: finance.runway.weeks,
+    runwayInfinite: finance.runway.infinite,
+  }
 }
 
 function resolveAvailableIntents(state: GameState): IntentApplication[] {
   const stateDigest = authoritativeDigest(state)
-  const founding = resolveFoundingIntents(state, stateDigest)
-  if (founding !== null) return founding
+  const founding = resolveFounding(state, stateDigest)
+  if (founding !== null) return founding.intents
   const snapshot = studioLotSnapshot(state)
   const journey = snapshot.firstFilmJourney
   if (journey === undefined) throw new Error('Current studio lot snapshot omitted firstFilmJourney.')
@@ -968,7 +1053,13 @@ export class BridgeSession {
   private snapshotFor(state: GameState, revision: number): SnapshotEnvelope {
     const started = performance.now()
     const snapshot = projectStudioProjectionBundle(studioLotSnapshot(state))
-    const intents = availableIntents(state)
+    const stateDigest = authoritativeDigest(state)
+    // One founding resolution serves both surfaces, so an arrival's intentId can
+    // never disagree with the availableIntents list of the same envelope.
+    const founding = resolveFounding(state, stateDigest)
+    const intents = founding === null
+      ? availableIntents(state)
+      : founding.intents.map((entry) => entry.option)
     const partial = {
       protocolVersion: PROTOCOL_VERSION,
       schemaId: SCHEMA_ID,
@@ -976,8 +1067,10 @@ export class BridgeSession {
       sessionId: this.sessionId,
       stateRevision: revision,
       gameWeek: state.market.tick,
-      stateDigest: authoritativeDigest(state),
+      stateDigest,
       snapshot,
+      founding: founding === null ? null : founding.projection,
+      treasury: treasuryOf(state),
       availableIntents: intents,
     }
     const serializationMs = performance.now() - started

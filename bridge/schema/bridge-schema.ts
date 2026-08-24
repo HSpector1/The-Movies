@@ -16,7 +16,7 @@ import {
 } from './dsl.ts'
 
 export const PROTOCOL_VERSION = 4 as const
-export const PROJECTION_VERSION = 4 as const
+export const PROJECTION_VERSION = 5 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -431,6 +431,87 @@ const StudioSetSnapshot = object('StudioSetSnapshot', {
   sceneryFacilityId: nullable(text()),
 })
 
+// ── LL-CP9: Gate-to-Founding World Interaction ───────────────────────────────
+//
+// The founding-arrival view is a READ-ONLY presentation join, not a second
+// hiring model: every arrival is one currently-offerable founding applicant,
+// keyed to the EXACT opaque signFoundingContract intentId the same snapshot
+// emits in availableIntents. Identity, pricing, legality, potential, and the
+// consequence preview are all authored here by the TypeScript authority;
+// Unity may only place, select, and dispatch.
+
+const foundingRole = () => enumeration(['actor', 'director', 'writer', 'craft'])
+
+const StudioFoundingArrivalSnapshot = object('StudioFoundingArrivalSnapshot', {
+  talentId: nonEmptyText(),
+  name: nonEmptyText(),
+  role: foundingRole(),
+  roleLabel: nonEmptyText(),
+  ovr: integer({ minimum: 0, maximum: 100 }),
+  ovrTier: nonEmptyText(),
+  potentialTier: nonEmptyText(),
+  potentialHigh: integer({ minimum: 0, maximum: 100 }),
+  workEthicLabel: nonEmptyText(),
+  age: integer({ minimum: 0 }),
+  topStrengths: array(nonEmptyText()),
+  primaryConcern: nullable(text()),
+  weeklySalary: number({ minimum: 0 }),
+  annualSalary: number({ minimum: 0 }),
+  signingBonus: number({ minimum: 0 }),
+  guaranteedComp: number({ minimum: 0 }),
+  totalObligation: number({ minimum: 0 }),
+  termWeeks: integer({ minimum: 1 }),
+  /** True on the optional post-coverage reserve-Actor wave — never a founding gate. */
+  reserve: bool(),
+  /** The exact opaque intent this arrival dispatches; matches availableIntents. */
+  intentId: nonEmptyText(),
+  payrollAfterWeekly: number({ minimum: 0 }),
+  fundAfter: number(),
+  runwayAfterWeeks: nullable(integer()),
+  runwayAfterInfinite: bool(),
+})
+
+const StudioFoundingRoleProgressSnapshot = object('StudioFoundingRoleProgressSnapshot', {
+  role: foundingRole(),
+  label: nonEmptyText(),
+  count: nonNegativeInteger(),
+  min: integer({ minimum: 1 }),
+  met: bool(),
+})
+
+const StudioFoundingSnapshot = object('StudioFoundingSnapshot', {
+  /** The profession currently arriving at the gate; null once nothing is offered. */
+  waveRole: nullable(foundingRole()),
+  waveRoleLabel: nullable(text()),
+  /** True when the current wave is the optional reserve-Actor offer. */
+  waveReserve: bool(),
+  arrivals: array(reference('StudioFoundingArrivalSnapshot', StudioFoundingArrivalSnapshot)),
+  progress: array(reference(
+    'StudioFoundingRoleProgressSnapshot',
+    StudioFoundingRoleProgressSnapshot,
+  )),
+  recruitmentFund: number(),
+  projectedWeeklyPayroll: number({ minimum: 0 }),
+  projectedRunwayWeeks: nullable(integer()),
+  projectedRunwayInfinite: bool(),
+  /** Core coverage (3/1/1/1) is met and foundStudio is emitted — the player's law. */
+  readyToFound: bool(),
+})
+
+/**
+ * The persistent tycoon pulse (LL-CP9): the authoritative money facts a HUD may
+ * state without a workspace. All values are the engine's own D-12/D-17A read
+ * models — cash, the ONE runway rule, and the founding-guarded weekly burn
+ * (0 during a founding draft, when the tick charges nothing).
+ */
+const StudioTreasurySnapshot = object('StudioTreasurySnapshot', {
+  cash: number(),
+  weeklyBurn: number({ minimum: 0 }),
+  netWeeklyCash: number(),
+  runwayWeeks: nullable(integer()),
+  runwayInfinite: bool(),
+})
+
 const studioLotSnapshotProperties = {
   studioName: nonEmptyText(),
   week: nonNegativeInteger(),
@@ -582,6 +663,9 @@ const snapshotResponseProperties = {
   gameWeek: nonNegativeInteger(),
   stateDigest: nonEmptyText(),
   snapshot: reference('StudioProjectionBundle', StudioProjectionBundleSchema),
+  /** Non-null exactly while the founding draft is open (LL-CP9 gate arrivals). */
+  founding: nullable(reference('StudioFoundingSnapshot', StudioFoundingSnapshot)),
+  treasury: reference('StudioTreasurySnapshot', StudioTreasurySnapshot),
   availableIntents: array(reference('StudioBridgeIntentOption', StudioBridgeIntentOption)),
   metrics: reference('StudioBridgeMetrics', StudioBridgeMetrics),
 }
@@ -697,6 +781,10 @@ const definitions = {
   StudioWeekTheaterSnapshot,
   StudioStageSnapshot,
   StudioSetSnapshot,
+  StudioFoundingArrivalSnapshot,
+  StudioFoundingRoleProgressSnapshot,
+  StudioFoundingSnapshot,
+  StudioTreasurySnapshot,
   StudioLotProjection: StudioLotProjectionSchema,
   StudioProductionsProjection: StudioProductionsProjectionSchema,
   StudioPeopleProjection: StudioPeopleProjectionSchema,
@@ -721,7 +809,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-4',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-5',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [
@@ -762,6 +850,9 @@ export type BridgeRejectionCode = (typeof REJECTION_CODES)[number]
 export type BridgeRejectionCategory = (typeof REJECTION_CATEGORIES)[number]
 export type BridgeRejection = InferSchema<typeof StudioBridgeRejection>
 export type BridgeSnapshotEnvelope = InferSchema<typeof StudioBridgeSnapshotResponse>
+export type BridgeFoundingSnapshot = InferSchema<typeof StudioFoundingSnapshot>
+export type BridgeFoundingArrivalSnapshot = InferSchema<typeof StudioFoundingArrivalSnapshot>
+export type BridgeTreasurySnapshot = InferSchema<typeof StudioTreasurySnapshot>
 export type BridgeAcceptedCommandResponse = InferSchema<typeof StudioBridgeAcceptedCommandResponse>
 export type BridgeRejectedResponse = InferSchema<typeof StudioBridgeRejectedResponse>
 export type BridgeAcceptedSaveResponse = InferSchema<typeof StudioBridgeSaveResponse>
