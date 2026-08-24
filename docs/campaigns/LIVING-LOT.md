@@ -714,3 +714,155 @@ Findings, honestly:
 The next-candidate list otherwise stands as written at the CP7 seal
 (button-ink ratchet and vehicle-ratchet test first, then deferred CP6
 scope / environment follow-ups; Phase M interleaved).
+
+## 2026-08-24 — LL-CP8 sealed: Living Time — the studio runs
+
+**Player-visible change:** Project: Studio stops being a turn-based proof
+harness. A paper transport chip (Pause / 1× / 2× / 4×) sits above the
+lot; press a speed and the studio RUNS — weeks advance on their own
+cadence, the memo card turns over, and the loop stops itself the moment
+the authority needs a decision, with the reason stated in the studio's
+voice. The sealed proof-sentence artifact shows it end to end: the
+studio rolled unattended from week 6 through shoot, wrap and release
+(a FLOP — "Reviews landed poorly"), then latched at "Paused —
+Commission a screenplay at Development" with exactly that button
+waiting on the memo card. Manual Advance Week stays — demoted from
+required heartbeat to option, exactly as the Owner ruled. Also this
+stretch, pre-CP8: `2ea3aa5` closed the two highest-value CP7 review
+ratchets (button-ink recurrence pin; behavioral SAT coverage, census
+completeness floor and collider-pinned extents for the vehicle gate).
+
+**Governance:** implements 00A-OWNER-RULING-TIME-MODEL-2026-08-18 in
+the Unity client, mirroring the ratified Living Turn V1
+(08A-TIME-MODEL-DOCKET-ADDENDUM; ui/src/lot/livingTurn.ts is the
+precedent): ladder pinned to the ratified figures (10.35 s / 5.175 s /
+2.5875 s), the week retained as a FRACTION so mid-week speed switches
+are exact, no persisted intra-week position (00B.6), and the
+hidden-tab law by construction — runInBackground stays 0 (now pinned
+by test) and per-frame steps clamp at 0.25 s, so a refocused window
+resumes where it paused. Honest framing the review demanded: Unity's
+1× is a HOLD-AND-CUT week (a 10.35 s tableau, then the state cut), not
+the browser's witnessed 9-beat playback — the played-beat system has
+no Unity analog yet and is the recorded next frontier.
+
+**Authority discipline:** the TypeScript sim is untouched (tip
+e689f5e). The roll predicate consumes the authority's own guidance —
+journey.next.kind, computed server-side: "advance-week" rolls (intent
+guaranteed, waiting stated, no blocker); every other kind — decisions,
+the casting blocker, the silent null gap, any future kind — latches
+pause fail-closed (the LL EX rule: no client-side ladder). Scheduled
+advances flow exclusively through the client's existing single-flight
+seam (`RequestFirstIntent("advanceWeek")`), inheriting the
+exact-envelope ambiguous-post recovery; one advance in flight; the
+next witnessed week begins only after the authoritative projection
+applies; the wire payload carries no timing field (verified at the
+serializer). A racing manual press can never duplicate (two
+independent locks + wire idempotency) nor — after the fix wave —
+compress the following week (the fraction resets on any observed
+authoritative week change). Scheduled time and button time are
+separate ledgers: zero player-workflow facts minted, proven.
+
+**Unity commits:** `d33716b` (controller + chip + proof runner + 7
+EditMode contracts), `6518450` (synchronous experience captures),
+`19acc29` (review fix wave).
+
+**Honest failure record:** the first independent hostile review
+REJECTED the candidate on one defect and one principle: below ~610 px
+viewport width the chip's on-screen clamp overrode its clearance floor
+and overlapped the memo card — 174 px at the sealed 390×844 portrait
+viewport — while the geometry test sampled only two wide viewports
+where the invariant could not fail (the exact grep-theater failure
+mode a last gate exists to stop). The same review verified the
+determinism core "stronger than claimed": every INTERMEDIATE week
+digest identical across scheduled, manual, and crash-interrupted runs;
+the roll predicate checked against the authority's own TypeScript; the
+wire payload wall-clock-free at the serializer; two independent
+single-flight locks. The fix made the chip law total — ChipFits: the
+chip exists only where full width + inset + 12 px gap clear the memo
+card (≥622 px); anywhere narrower it is suppressed entirely (manual
+verbs remain) — and upgraded every instrument the review named: a
+GENUINE measured mid-week switch, an observed revision chain that
+fails on gaps and duplicates, holds longer than a week at the actual
+speed, cadence fail-guards, and the two named state captures. The
+re-review swept 6,225 widths at 0.5 px granularity against the new
+law, found zero violations, verified the fix diff 10/10 and the fresh
+digests 12/12, and ruled ACCEPT.
+
+**The core proof (mission criterion), reproduced on the final build:**
+from identical profile copies, five automatically rolled weeks —
+including a 12.4 s paused hold, a measured mid-week 2×→4× switch
+(4.023 s / 4.025 s across two runs against a 4.04 s retained-fraction
+prediction, with both control signatures in the same runs), a player
+pause/resume, a revision-passive save mid-roll, and a load that
+latched pause, cost exactly one revision, restored the saved digest
+and REPLAYED the rewound week to the identical digest — produced final
+digest `41f46177491c7c6e...`; five manual seam advances produced the
+SAME digest; and a third run whose engine was SIGKILLED mid-roll at
+T+18 s and restarted 3.5 s later (3 transport outages, runtime
+replaced, roll held and resumed) produced the SAME digest again, with
+every intermediate week digest identical across all three. Speed
+changed wall-clock cadence only. Scope note the review required: both
+outage runs killed the engine BETWEEN posts (recoveredPostCount 0); a
+kill while an advance POST is in flight is covered by the prior sealed
+in-flight-recovery evidence over the same seam
+(Evidence/B/InFlight-Post-Recovery-Protocol4-20260821T021520Z), not by
+CP8.
+
+**Experience (instrumented, judged hostile):** while a picture shoots,
+1× reads as a paced, watchable rhythm (0.23–0.47%/s whole-frame
+motion; the memo card turning over is a clear beat); 2× and 4× stay
+readable (the body paragraph is marginal at 4×). Known property
+recorded honestly: BETWEEN pictures the lot is a near-still postcard
+(0.05–0.13%/s) — the CP6 "shooting today?" law truthfully answering
+"nobody is" — bounded by the auto-pause latch (~1–2 weeks) and owned
+as content work, not a time-model defect. Pause is obvious on film:
+three visually distinct chip states with redundant signals, and the
+latched frame is the checkpoint's strongest image.
+
+**Validation (final build, single-build provenance verified):**
+EditMode 310/310 (8 Living Time contracts including the 10 px-step
+width sweep and the runInBackground pin); scene validation 0 errors
+(the scene is untouched — Living Time installs at runtime); stage
+proofs complete 5/5 both aspects, luma inside the historical band;
+bridge exact Movie #2, revision 50, week 22, 119.8 FPS; CP6 two-world
+3.072% mean / 3.057% min, 94.6% outside the doorway, no frozen frames;
+CP5 delivery Holding 170/170 passive at revision 20 and parked Parked
+24/24 at (2, −52) passive at revision 50.
+
+**Evidence (SHA-256 prefixes, stamp 20260824T072951Z):** living-time
+auto `e0548cace369bd84...`, manual `c82cb0d520935e12...`, outage
+`690399845ea181bb...`, experience `c00df6ad4e4d72dc...` (30 frames:
+ladder + paused + latched); stage landscape `b0fe142bb22f1d30...`,
+portrait `ef25c6197c8bfec8...`, bridge `41a6b6bd695786fd...`, motion
+shooting `8fa688e25b6d25ae...`, idle `e29af12fef20a134...`, delivery
+`d84094caf4662889...`, parked `ca7ccea34ed732f0...`, two-world
+`bccf0f72947bad56...`. The rejected candidate's evidence is retained
+at stamp 20260824T034944Z for third-party audit. The outage harness:
+SIGKILL at T+18 s, restart after 3.5 s, same durable profile, port and
+capability.
+
+**Independent rulings (fresh-context, hostile, Opus):** candidate 1
+REJECT (chip overlap + a test structurally unable to catch it);
+candidate 2 **ACCEPT** — "fixed at the root... verified adversarially
+rather than accepting the fix on its face."
+
+**Ruling: KEEP.**
+
+**Logged non-blocking follow-ups (review):** (1) below 622 px there is
+now no transport control at all — a compact narrow-width transport is
+the open design task; (2) cadenceClean renders outage-exempt spans as
+true rather than a distinct "exempt" value; (3) the Time.time source
+pin misses the `Time.time)` / `Time.time,` spellings; (4) an
+in-flight-kill living-time outage variant would bring C8's scope
+inside CP8's own evidence; (5) no transport control or status is
+visible during stage inspection while time keeps rolling; (6) the
+chip's status line can clip on long blocker reasons at narrow widths;
+(7) an abandoned-but-committed POST yields one unwitnessed (never
+duplicated) week — bounded, unexercised.
+
+**Next candidates:** witnessed-beat playback for Unity (the browser's
+performed 9-beat week — arrivals, departures, wrap clears — so 1×
+becomes played time rather than hold-and-cut), between-pictures lot
+life so the quiet window reads as a living studio at rest, the
+narrow-width transport, premiere/release ceremony surfacing; Phase M
+continues interleaved.
