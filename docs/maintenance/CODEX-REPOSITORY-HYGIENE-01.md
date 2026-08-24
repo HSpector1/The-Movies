@@ -10,14 +10,18 @@ Canonical comparison point: `main` at `c902a704eb948cc576083d0973c8c23e59937dc1`
 
 ## Outcome
 
-The live remote inventory contained 72 branches. Two refs were deleted after semantic and
-independent review. Both were merged, had no open PR or worktree, and remain fully recoverable from
-retained authoritative refs. This report branch adds one ref, so the final live count is 71: a net
-reduction of one branch (1.4%).
+The live remote inventory contained 72 branches. Five refs were deleted across the original pass
+and an Owner-authorized follow-up. The first two were merged redundant refs; the final three were
+the exact branches previously held for Owner judgment. All five had no open PR or worktree and
+remain fully recoverable from retained authoritative refs or, for the trivial write-test commit, a
+retained descendant. This report branch adds one ref, so the final live count is 68: a net reduction
+of four branches (5.6%).
 
 The deliberately small deletion set is a fail-closed result. A much larger topology-only candidate
 set was rejected because canonical documentation uses those branch names as evidence, authority, or
 recovery coordinates. Reachability alone was not treated as permission to erase those pointers.
+The three original REVIEW REQUIRED refs were deleted only after the Owner explicitly resolved their
+documented ambiguity and live verification reconfirmed the expected facts.
 
 No commit was rewritten, no tag was changed, no PR was merged/closed/commented on, and neither
 `main` nor Living Lot was modified.
@@ -120,10 +124,14 @@ finding that the branch name itself was not an intentional archive coordinate.
 | --- | --- | --- | --- |
 | `support/readme-quickstart` | `e67178671a51f361cc1d2b5fd76b99391937a656` | `main`; also contained by `golden/unity-convergence-m6` | PR #6 was merged. The branch had no open PR, worktree, unique commit, current documentation reference, or independent recovery role. |
 | `merge-candidate/unity-convergence-80h-into-main-01` | `ce0eaee8772d7e1975b6cfdb62466cd7b60091d3` | Exact peeled commit of `golden/unity-convergence-m6`, and reachable from `main` | PR #7 was merged. This was a temporary merge-candidate ref; immutable Golden M6 is the explicit recovery authority at the exact same SHA. No open PR or worktree used it. |
+| `codex-github-write-test` | `3d6c48710a2edf92dfe420363742cb7176decf50` | Retained descendant `silverline-campus-experiment` | One unique trivial commit added only the three-line `CODEX_GITHUB_WRITE_TEST.md`, whose contents say it is safe to delete. No production, research, recovery, PR, tag, or worktree depended on the ref. |
+| `operation-hollywood-autonomous-marathon` | `2be66562aa9593fee79c370ea7ce6787ac88557f` | `main`; also contained by later immutable Golden tags | Zero commits unique versus live `main`; the tip was its merge-base with `main`. No open PR, worktree, or tag pointed at the tip. The Owner explicitly retired the branch-level recovery coordinate. |
+| `professional-floor-v1-fresh` | `2b75e3d79ab6426ccc2e67cb66ab278f4abb3e48` | `main`; also contained by later immutable Golden tags | Zero commits unique versus live `main`; the tip was its merge-base with `main`. No open PR, worktree, or tag pointed at the tip. The Owner explicitly retired the charter's keep instruction. |
 
-The deletions were executed one at a time. After each deletion the repository was fetched/pruned,
-recounted, and checked for unchanged `main`, Living Lot, all eight PR heads, Golden M1–M6, and
-remote `HEAD` health.
+The original two deletions were executed one at a time. The three Owner-authorized refs were deleted
+in one exact-name batch after a fresh audit. After each operation the repository was fetched/pruned,
+recounted, and checked for unchanged `main`, Living Lot, Unity-related refs, Codex evidence refs, all
+eight PR heads, Golden M1–M6, and remote `HEAD` health.
 
 ## Kept — ACTIVE
 
@@ -231,25 +239,25 @@ are canonical provenance coordinates:
   evidence rather than silently superseded.
 - `tycoon-world-conversion-12h` — sealed predecessor milestone and named recovery coordinate.
 
-## Review Required — KEEP
+## Owner disposition follow-up
 
-Final REVIEW REQUIRED count: 3.
+Final REVIEW REQUIRED count: 0.
 
-| Branch | Exact uncertainty preventing deletion |
-| --- | --- |
-| `codex-github-write-test` | Its single probe commit is preserved as an ancestor of `silverline-campus-experiment`, but current `main` references the branch in a pre-C2 diagnosis and the prior branch audit classified it UNKNOWN/DO-NOT-TOUCH. Owner must decide whether that historical reference must remain live. |
-| `operation-hollywood-autonomous-marathon` | Tip is reachable from `main`, but many recovery/closure documents name this branch and claim an annotated `operation-hollywood-marathon-sealed` tag. That tag is absent remotely because publication was not authorized. Deleting the branch could invalidate the intended recovery coordinate. |
-| `professional-floor-v1-fresh` | Tip is reachable from `main` and no matching worktree exists, but the canonical PF1 charter explicitly says the branch “is kept” as the PF1 working branch. Only an Owner ruling can retire that instruction. |
+| Branch | Live re-verification | Owner disposition |
+| --- | --- | --- |
+| `codex-github-write-test` | Exactly one unique commit and one three-line connectivity artifact; no PR, tag, worktree, product, research, or recovery dependency. | Authorized and deleted. |
+| `operation-hollywood-autonomous-marathon` | `451` commits behind and `0` ahead of live `main`; fully contained, with no PR/worktree or exact tag at its tip. | Authorized and deleted; the prior branch-recovery ambiguity is retired. |
+| `professional-floor-v1-fresh` | `242` commits behind and `0` ahead of live `main`; fully contained, with no PR/worktree or exact tag at its tip. | Authorized and deleted; the prior charter keep instruction is retired. |
 
 ## After
 
 | Item | Verified final state |
 | --- | --- |
-| Remote branches | 71: 70 retained pre-existing refs plus `codex/repository-hygiene-01` |
-| Net reduction | 1 branch from 72 (1.4%); 2 obsolete refs deleted and 1 evidence ref added |
-| Retained classification | 21 ACTIVE, 47 HISTORICAL/EVIDENCE, 3 REVIEW REQUIRED |
+| Remote branches | 68, including `codex/repository-hygiene-01` |
+| Net reduction | 4 branches from 72 (5.6%); 5 obsolete refs deleted and 1 evidence ref added |
+| Retained classification | 21 ACTIVE, 47 HISTORICAL/EVIDENCE, 0 REVIEW REQUIRED |
 | Default branch | `main` unchanged at `c902a704eb948cc576083d0973c8c23e59937dc1` |
-| Active campaign | `campaign/living-lot-ts` unchanged at `e689f5edb5f441e455f31c4a15f9398f1410cf0a` |
+| Active campaign | `campaign/living-lot-ts` advanced independently before the follow-up and remained unchanged by it at `c93b8578ec4373185f5f3ce0c9a120440413eb6a` |
 | Open PRs | PRs #8–#15 remain open; all eight head refs and tips unchanged |
 | Golden recovery | M1–M6 tag objects and peeled commits unchanged; M6 remains `ce0eaee8772d7e1975b6cfdb62466cd7b60091d3` |
 | History/ref safety | No force-push, history rewrite, tag mutation, PR mutation, or `main` push occurred |
@@ -280,7 +288,8 @@ Final REVIEW REQUIRED count: 3.
   open and still accurately describes the general problem: a roughly 1.7 GB full clone, dominated
   by roughly 1.9 GB of historical `proof/` blobs plus deleted backup/binary content. Do not use
   `git filter-repo`, BFG, force-push, or tag replacement while immutable Golden SHAs govern recovery.
-- Owner disposition is required for the three REVIEW REQUIRED branches above.
+- The three prior REVIEW REQUIRED branches have received Owner disposition; no branch decision from
+  this audit remains outstanding.
 - A future documentation-only task should establish one concise current-status/index page and mark
   stale branch-only claims in `START-HERE.md`, Operation Hollywood records, and overlapping root
   routing documents. This audit does not authorize rewriting those historical records.
