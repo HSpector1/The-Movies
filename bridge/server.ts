@@ -10,6 +10,7 @@ import {
   SNAPSHOT_VERSION,
   validateCommand,
   validateControl,
+  validateQuote,
   type RejectionCode,
 } from './protocol.ts'
 import { canonicalJson } from './schema/canonical.ts'
@@ -20,6 +21,7 @@ import type {
 } from './schema/bridge-schema.ts'
 import {
   type CommandResponse,
+  type QuoteResponse,
   type RejectedResponse,
   type SaveResponse,
 } from './session.ts'
@@ -206,7 +208,7 @@ function statusOf(response: CommandResponse): number {
 }
 
 function logResult(
-  response: CommandResponse | SaveResponse,
+  response: CommandResponse | SaveResponse | QuoteResponse,
   operation: string,
   expectedRevision: unknown,
   firstSeen: boolean | null,
@@ -359,6 +361,44 @@ function createHttpServer(
           result.sessionRolledOver === true ? null : result.firstSeen,
         )
         encodedJson(response, statusOf(result.response), result.responseJson)
+        return
+      }
+      if (request.method === 'POST' && url.pathname === '/quote') {
+        // P03A: a commission quote is a pure read plus a session-transient mint.
+        // It mutates no game state, advances no revision, and is never journaled,
+        // so it rides the read path rather than the dispatch/journal path.
+        let body: unknown
+        try {
+          const parsed = await readJson(request)
+          body = parsed.body
+        } catch (error) {
+          const rejected = await validationRejection(
+            runtime,
+            null,
+            'INVALID_JSON',
+            (error as Error).message,
+            started,
+          )
+          logResult(rejected, 'quoteCommission', '-', null)
+          json(response, 400, rejected)
+          return
+        }
+        const validation = validateQuote(body)
+        if (!validation.ok) {
+          const rejected = await validationRejection(
+            runtime,
+            validation.commandId,
+            validation.reasonCode,
+            validation.message,
+            started,
+          )
+          logResult(rejected, 'quoteCommission', '-', null)
+          json(response, 400, rejected)
+          return
+        }
+        const quoted = await runtime.read((session) => session.quote(validation.quote))
+        logResult(quoted, 'quoteCommission', validation.quote.expectedStateRevision, null)
+        json(response, quoted.accepted ? 200 : 409, quoted)
         return
       }
       if (request.method === 'POST' && (url.pathname === '/save' || url.pathname === '/load')) {

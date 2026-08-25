@@ -16,7 +16,7 @@ import {
 } from './dsl.ts'
 
 export const PROTOCOL_VERSION = 4 as const
-export const PROJECTION_VERSION = 8 as const
+export const PROJECTION_VERSION = 9 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -558,6 +558,332 @@ const StudioTreasurySnapshot = object('StudioTreasurySnapshot', {
   runwayInfinite: bool(),
 })
 
+// ── P03A: Development-from-the-Lot — the Development board and the quote seam ─
+//
+// Package 03 (accepted 2d285e5). The physical Development building becomes the
+// primary owner of screenplay work, so the bundle gains ONE new projection: the
+// TypeScript-authored Development board (capacity, projects, the commission
+// board with its creative catalog, and the review context with the qualitative
+// assessment basis and the deterministic rewrite preview). The commission
+// choice space cannot fan out as pre-resolved intents, so the protocol gains a
+// QUOTE exchange: Unity posts the player's draft selections; TypeScript
+// validates them against the live state, mints ONE opaque digest-bound commit
+// intent, and answers with the exact consequence summary. Unity then submits
+// only that intentId through the ordinary /command route. C# never constructs
+// an engine payload and never caches legality.
+
+const developmentGenre = () =>
+  enumeration(['comedy', 'drama', 'crime', 'romance', 'horror', 'adventure'])
+
+const estimateBand = () => enumeration(['Fragile', 'Workable', 'Promising', 'Strong'])
+
+const developmentBlockerKind = () =>
+  enumeration([
+    'script-mode',
+    'operations-mode',
+    'studio-founding',
+    'facility-capacity',
+    'writer-contract',
+    'writer-assignment',
+    'package-staffing',
+    'casting-session',
+    'greenlight-queued',
+    'no-concepts',
+    'no-writers',
+  ])
+
+const StudioDevelopmentBlockerSnapshot = object('StudioDevelopmentBlockerSnapshot', {
+  kind: developmentBlockerKind(),
+  headline: nonEmptyText(),
+  detail: nonEmptyText(),
+  remedy: nonEmptyText(),
+})
+
+const StudioScriptAssessmentSnapshot = object('StudioScriptAssessmentSnapshot', {
+  /** The required player-facing uncertainty marker, authored as `Est.`. */
+  label: nonEmptyText(),
+  /** Persisted PERCEIVED strength only — never the hidden actual value. */
+  score: number({ minimum: 0, maximum: 100 }),
+  band: estimateBand(),
+  strengths: array(nonEmptyText()),
+  concerns: array(nonEmptyText()),
+})
+
+const StudioDevelopmentOccupantSnapshot = object('StudioDevelopmentOccupantSnapshot', {
+  owner: enumeration(['production', 'script', 'casting']),
+  ownerId: nonEmptyText(),
+  activity: enumeration(['production-development', 'drafting', 'rewriting', 'auditioning']),
+  title: nonEmptyText(),
+  label: nonEmptyText(),
+})
+
+const StudioDevelopmentSlotSnapshot = object('StudioDevelopmentSlotSnapshot', {
+  slot: nonNegativeInteger(),
+  occupant: nullable(reference('StudioDevelopmentOccupantSnapshot', StudioDevelopmentOccupantSnapshot)),
+})
+
+const StudioDevelopmentFacilitySnapshot = object('StudioDevelopmentFacilitySnapshot', {
+  facilityId: nonEmptyText(),
+  facilityName: nonEmptyText(),
+  capacity: nonNegativeInteger(),
+  occupied: nonNegativeInteger(),
+  available: nonNegativeInteger(),
+  slots: array(reference('StudioDevelopmentSlotSnapshot', StudioDevelopmentSlotSnapshot)),
+})
+
+const StudioDevelopmentCapacitySnapshot = object('StudioDevelopmentCapacitySnapshot', {
+  capacity: nonNegativeInteger(),
+  occupied: nonNegativeInteger(),
+  available: nonNegativeInteger(),
+  facilities: array(reference('StudioDevelopmentFacilitySnapshot', StudioDevelopmentFacilitySnapshot)),
+})
+
+const StudioDevelopmentProjectSnapshot = object('StudioDevelopmentProjectSnapshot', {
+  projectId: nonEmptyText(),
+  section: enumeration(['needsReview', 'inDevelopment', 'readyToPackage', 'productionHistory']),
+  title: nonEmptyText(),
+  genre: developmentGenre(),
+  status: enumeration(['drafting', 'review', 'rewriting', 'ready', 'inProduction', 'produced']),
+  statusLabel: nonEmptyText(),
+  rewriteCount: integer({ minimum: 0, maximum: 1 }),
+  dueWeek: nullable(nonNegativeInteger()),
+  weeksUntilDecision: nullable(nonNegativeInteger()),
+  writerId: nonEmptyText(),
+  writerName: nonEmptyText(),
+  consequence: nonEmptyText(),
+  assessment: nullable(reference('StudioScriptAssessmentSnapshot', StudioScriptAssessmentSnapshot)),
+  facilityName: nullable(text()),
+  slot: nullable(nonNegativeInteger()),
+})
+
+const StudioCommissionConceptSnapshot = object('StudioCommissionConceptSnapshot', {
+  id: nonEmptyText(),
+  title: nonEmptyText(),
+  genre: developmentGenre(),
+  provenanceLabel: nonEmptyText(),
+  origin: enumeration(['original', 'pool']),
+})
+
+const StudioCommissionWriterSnapshot = object('StudioCommissionWriterSnapshot', {
+  id: nonEmptyText(),
+  name: nonEmptyText(),
+  primaryRole: enumeration(['writer', 'director', 'actor', 'craft']),
+  estimateLabel: nonEmptyText(),
+  estimateScore: number({ minimum: 0, maximum: 100 }),
+  available: bool(),
+  assignmentLabel: nullable(text()),
+})
+
+const StudioCommissionOfficeUpliftSnapshot = object('StudioCommissionOfficeUpliftSnapshot', {
+  name: nonEmptyText(),
+  points: nonNegativeInteger(),
+  line: nonEmptyText(),
+})
+
+const StudioCommissionChoiceSnapshot = object('StudioCommissionChoiceSnapshot', {
+  id: nonEmptyText(),
+  title: nonEmptyText(),
+})
+
+const StudioCommissionSegmentSnapshot = object('StudioCommissionSegmentSnapshot', {
+  id: enumeration(['youngAdult', 'family', 'adult', 'prestige']),
+  label: nonEmptyText(),
+})
+
+const StudioCommissionPromiseAxisSnapshot = object('StudioCommissionPromiseAxisSnapshot', {
+  id: enumeration(['intimacy', 'tonalWeight', 'kineticEnergy']),
+  title: nonEmptyText(),
+  description: nonEmptyText(),
+  /** Exactly four authored center labels, lowest center first. */
+  centerLabels: array(nonEmptyText()),
+})
+
+const StudioCommissionCatalogSnapshot = object('StudioCommissionCatalogSnapshot', {
+  openings: array(reference('StudioCommissionChoiceSnapshot', StudioCommissionChoiceSnapshot)),
+  midpoints: array(reference('StudioCommissionChoiceSnapshot', StudioCommissionChoiceSnapshot)),
+  endings: array(reference('StudioCommissionChoiceSnapshot', StudioCommissionChoiceSnapshot)),
+  segments: array(reference('StudioCommissionSegmentSnapshot', StudioCommissionSegmentSnapshot)),
+  promiseAxes: array(reference(
+    'StudioCommissionPromiseAxisSnapshot',
+    StudioCommissionPromiseAxisSnapshot,
+  )),
+})
+
+const StudioCommissionBoardSnapshot = object('StudioCommissionBoardSnapshot', {
+  canStart: bool(),
+  canStartOriginal: bool(),
+  canSubmitMarketIntent: bool(),
+  canSubmitOriginalIntent: bool(),
+  willQueueIntent: bool(),
+  consequence: nonEmptyText(),
+  concepts: array(reference('StudioCommissionConceptSnapshot', StudioCommissionConceptSnapshot)),
+  writers: array(reference('StudioCommissionWriterSnapshot', StudioCommissionWriterSnapshot)),
+  blockers: array(reference('StudioDevelopmentBlockerSnapshot', StudioDevelopmentBlockerSnapshot)),
+  officeUplift: nullable(reference(
+    'StudioCommissionOfficeUpliftSnapshot',
+    StudioCommissionOfficeUpliftSnapshot,
+  )),
+  catalog: reference('StudioCommissionCatalogSnapshot', StudioCommissionCatalogSnapshot),
+})
+
+const StudioScriptExplanationSnapshot = object('StudioScriptExplanationSnapshot', {
+  label: nonEmptyText(),
+  finding: nonEmptyText(),
+  tone: enumeration(['strength', 'concern', 'neutral']),
+})
+
+const StudioScriptBriefSnapshot = object('StudioScriptBriefSnapshot', {
+  openingTitle: nonEmptyText(),
+  midpointTitle: nonEmptyText(),
+  endingTitle: nonEmptyText(),
+  segmentLabels: array(nonEmptyText()),
+  promiseLines: array(nonEmptyText()),
+})
+
+const StudioScriptAcceptCardSnapshot = object('StudioScriptAcceptCardSnapshot', {
+  label: nonEmptyText(),
+  lines: array(nonEmptyText()),
+})
+
+const StudioRewritePreviewSnapshot = object('StudioRewritePreviewSnapshot', {
+  currentScore: number({ minimum: 0, maximum: 100 }),
+  currentBand: estimateBand(),
+  projectedScore: number({ minimum: 0, maximum: 100 }),
+  projectedBand: estimateBand(),
+  delta: number(),
+  direction: enumeration(['gain', 'unchanged', 'decline']),
+  currentLine: nonEmptyText(),
+  projectedLine: nonEmptyText(),
+  directionLine: nonEmptyText(),
+  dueWeek: nonNegativeInteger(),
+  writerName: nonEmptyText(),
+  capacityLine: nonEmptyText(),
+  operatingLine: nonEmptyText(),
+  projectionNote: nonEmptyText(),
+})
+
+const StudioScriptRewriteCardSnapshot = object('StudioScriptRewriteCardSnapshot', {
+  available: bool(),
+  label: nullable(text()),
+  blockers: array(reference('StudioDevelopmentBlockerSnapshot', StudioDevelopmentBlockerSnapshot)),
+  preview: nullable(reference('StudioRewritePreviewSnapshot', StudioRewritePreviewSnapshot)),
+})
+
+const StudioScriptReviewSnapshot = object('StudioScriptReviewSnapshot', {
+  projectId: nonEmptyText(),
+  title: nonEmptyText(),
+  genre: developmentGenre(),
+  reviewState: enumeration(['first-draft', 'final-draft']),
+  writerId: nonEmptyText(),
+  writerName: nonEmptyText(),
+  writerRoleLabel: nonEmptyText(),
+  provenanceLabel: nullable(text()),
+  deliveryLine: nullable(text()),
+  assessment: nullable(reference('StudioScriptAssessmentSnapshot', StudioScriptAssessmentSnapshot)),
+  whyThisEstimate: array(reference(
+    'StudioScriptExplanationSnapshot',
+    StudioScriptExplanationSnapshot,
+  )),
+  brief: reference('StudioScriptBriefSnapshot', StudioScriptBriefSnapshot),
+  consequence: nonEmptyText(),
+  accept: reference('StudioScriptAcceptCardSnapshot', StudioScriptAcceptCardSnapshot),
+  rewrite: reference('StudioScriptRewriteCardSnapshot', StudioScriptRewriteCardSnapshot),
+  finalNote: nullable(text()),
+})
+
+const StudioDevelopmentAttentionSnapshot = object('StudioDevelopmentAttentionSnapshot', {
+  kind: enumeration([
+    'review-required',
+    'capacity-constraint',
+    'active-work',
+    'ready-script',
+    'idle',
+  ]),
+  headline: nonEmptyText(),
+  detail: nonEmptyText(),
+})
+
+const StudioDevelopmentBoardSnapshot = object('StudioDevelopmentBoardSnapshot', {
+  /** The Development building's world status line, authored here. */
+  worldStatus: nonEmptyText(),
+  /** Non-null exactly while a review decision waits (world pennant text). */
+  attentionPennant: nullable(text()),
+  /** Non-null exactly while an accepted screenplay waits for Casting. */
+  castingBoundaryLine: nullable(text()),
+  attention: reference('StudioDevelopmentAttentionSnapshot', StudioDevelopmentAttentionSnapshot),
+  capacity: reference('StudioDevelopmentCapacitySnapshot', StudioDevelopmentCapacitySnapshot),
+  projects: array(reference('StudioDevelopmentProjectSnapshot', StudioDevelopmentProjectSnapshot)),
+  commission: reference('StudioCommissionBoardSnapshot', StudioCommissionBoardSnapshot),
+  review: nullable(reference('StudioScriptReviewSnapshot', StudioScriptReviewSnapshot)),
+})
+
+const StudioDevelopmentSnapshot = object('StudioDevelopmentSnapshot', {
+  mode: enumeration(['legacy', 'managed']),
+  /** Null outside a managed screenplay studio (legacy mode or an open founding draft). */
+  board: nullable(reference('StudioDevelopmentBoardSnapshot', StudioDevelopmentBoardSnapshot)),
+})
+
+const StudioCommissionDraftPayload = object('StudioCommissionDraftPayload', {
+  source: enumeration(['market', 'original']),
+  /** Required exactly when source is `market`. */
+  conceptId: nullable(text()),
+  /** Required exactly when source is `original`. */
+  genre: nullable(developmentGenre()),
+  writerId: nonEmptyText(),
+  opening: enumeration(['immediateAction', 'slowSetup', 'mysteryHook']),
+  midpoint: enumeration(['reversal', 'escalation', 'revelation']),
+  ending: enumeration(['triumph', 'bittersweet', 'tragic', 'ambiguous']),
+  intendedSegments: array(enumeration(['youngAdult', 'family', 'adult', 'prestige'])),
+  /** Center indices into the authored promise grid; the width stays TypeScript law. */
+  intimacyCenter: integer({ minimum: 0, maximum: 3 }),
+  tonalWeightCenter: integer({ minimum: 0, maximum: 3 }),
+  kineticEnergyCenter: integer({ minimum: 0, maximum: 3 }),
+})
+
+const StudioCommissionQuoteSnapshot = object('StudioCommissionQuoteSnapshot', {
+  /** The ONE opaque digest-bound commit intent this quote mints. */
+  intentId: nonEmptyText(),
+  kind: enumeration(['commissionScreenplay', 'commissionOriginalScreenplay']),
+  commitLabel: nonEmptyText(),
+  startsNow: bool(),
+  queues: bool(),
+  /** The adapted premise title; null for an original (its title is minted at commit). */
+  title: nullable(text()),
+  writerName: nonEmptyText(),
+  draftWeeks: nullable(nonNegativeInteger()),
+  reviewWeek: nullable(nonNegativeInteger()),
+  consequence: nonEmptyText(),
+  paceNote: nullable(text()),
+  richnessNote: nullable(text()),
+  officeUpliftLine: nullable(text()),
+  noFeeLine: nonEmptyText(),
+  queueNote: nullable(text()),
+})
+
+const StudioBridgeQuoteRequest = object('StudioBridgeQuoteRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION),
+  schemaId: nonEmptyText(),
+  sessionId: nonEmptyText(),
+  commandId: nonEmptyText(),
+  expectedStateRevision: nonNegativeInteger(),
+  type: literal('quoteCommission'),
+  draft: reference('StudioCommissionDraftPayload', StudioCommissionDraftPayload),
+})
+
+const StudioBridgeQuoteResponse = object('StudioBridgeQuoteResponse', {
+  protocolVersion: literal(PROTOCOL_VERSION),
+  schemaId: nonEmptyText(),
+  sessionId: nonEmptyText(),
+  commandId: nonEmptyText(),
+  accepted: literal(true),
+  /** A quote mutates nothing: the revision is UNCHANGED. */
+  stateRevision: nonNegativeInteger(),
+  gameWeek: nonNegativeInteger(),
+  stateDigest: nonEmptyText(),
+  quote: reference('StudioCommissionQuoteSnapshot', StudioCommissionQuoteSnapshot),
+  processingMs: number({ minimum: 0 }),
+})
+
 const studioLotSnapshotProperties = {
   studioName: nonEmptyText(),
   week: nonNegativeInteger(),
@@ -577,6 +903,7 @@ const studioLotSnapshotProperties = {
   stages: optional(array(reference('StudioStageSnapshot', StudioStageSnapshot))),
   sets: optional(array(reference('StudioSetSnapshot', StudioSetSnapshot))),
   firstFilmJourney: reference('StudioFirstFilmJourneySnapshot', StudioFirstFilmJourneySnapshot),
+  development: reference('StudioDevelopmentSnapshot', StudioDevelopmentSnapshot),
 } as const
 
 export const StudioLotSnapshotSchema = object('StudioLotSnapshot', studioLotSnapshotProperties)
@@ -614,6 +941,10 @@ export const StudioReleaseResultsProjectionSchema = object('StudioReleaseResults
   releasedFilms: studioLotSnapshotProperties.releasedFilms,
 })
 
+export const StudioDevelopmentProjectionSchema = object('StudioDevelopmentProjection', {
+  development: studioLotSnapshotProperties.development,
+})
+
 export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
   lot: reference('StudioLotProjection', StudioLotProjectionSchema),
   productions: reference('StudioProductionsProjection', StudioProductionsProjectionSchema),
@@ -621,6 +952,7 @@ export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
   construction: reference('StudioConstructionProjection', StudioConstructionProjectionSchema),
   journeyNotices: reference('StudioJourneyNoticesProjection', StudioJourneyNoticesProjectionSchema),
   releaseResults: reference('StudioReleaseResultsProjection', StudioReleaseResultsProjectionSchema),
+  development: reference('StudioDevelopmentProjection', StudioDevelopmentProjectionSchema),
 })
 
 export const AVAILABLE_INTENT_KINDS = [
@@ -635,6 +967,7 @@ export const AVAILABLE_INTENT_KINDS = [
   'greenlightPicture',
   'resolveProductionBlocker',
   'startConstruction',
+  'commissionOriginalScreenplay',
 ] as const
 
 export const REJECTION_CODES = [
@@ -832,12 +1165,41 @@ const definitions = {
   StudioFoundingSignedSnapshot,
   StudioFoundingSnapshot,
   StudioTreasurySnapshot,
+  StudioDevelopmentBlockerSnapshot,
+  StudioScriptAssessmentSnapshot,
+  StudioDevelopmentOccupantSnapshot,
+  StudioDevelopmentSlotSnapshot,
+  StudioDevelopmentFacilitySnapshot,
+  StudioDevelopmentCapacitySnapshot,
+  StudioDevelopmentProjectSnapshot,
+  StudioCommissionConceptSnapshot,
+  StudioCommissionWriterSnapshot,
+  StudioCommissionOfficeUpliftSnapshot,
+  StudioCommissionChoiceSnapshot,
+  StudioCommissionSegmentSnapshot,
+  StudioCommissionPromiseAxisSnapshot,
+  StudioCommissionCatalogSnapshot,
+  StudioCommissionBoardSnapshot,
+  StudioScriptExplanationSnapshot,
+  StudioScriptBriefSnapshot,
+  StudioScriptAcceptCardSnapshot,
+  StudioRewritePreviewSnapshot,
+  StudioScriptRewriteCardSnapshot,
+  StudioScriptReviewSnapshot,
+  StudioDevelopmentAttentionSnapshot,
+  StudioDevelopmentBoardSnapshot,
+  StudioDevelopmentSnapshot,
+  StudioCommissionDraftPayload,
+  StudioCommissionQuoteSnapshot,
+  StudioBridgeQuoteRequest,
+  StudioBridgeQuoteResponse,
   StudioLotProjection: StudioLotProjectionSchema,
   StudioProductionsProjection: StudioProductionsProjectionSchema,
   StudioPeopleProjection: StudioPeopleProjectionSchema,
   StudioConstructionProjection: StudioConstructionProjectionSchema,
   StudioJourneyNoticesProjection: StudioJourneyNoticesProjectionSchema,
   StudioReleaseResultsProjection: StudioReleaseResultsProjectionSchema,
+  StudioDevelopmentProjection: StudioDevelopmentProjectionSchema,
   StudioProjectionBundle: StudioProjectionBundleSchema,
   StudioBridgeIntentOption,
   StudioBridgeMetrics,
@@ -856,12 +1218,14 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-8',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-9',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [
     { $ref: '#/$defs/StudioBridgeIntentRequest' },
     { $ref: '#/$defs/StudioBridgeControlRequest' },
+    { $ref: '#/$defs/StudioBridgeQuoteRequest' },
+    { $ref: '#/$defs/StudioBridgeQuoteResponse' },
     { $ref: '#/$defs/StudioBridgeSnapshotResponse' },
     { $ref: '#/$defs/StudioBridgeAcceptedCommandResponse' },
     { $ref: '#/$defs/StudioBridgeSaveResponse' },
@@ -882,6 +1246,7 @@ export const BRIDGE_SCHEMA = {
       session: 'GET /session',
       snapshot: 'GET /snapshot',
       command: 'POST /command',
+      quote: 'POST /quote',
       save: 'POST /save',
       load: 'POST /load',
     },
@@ -906,6 +1271,11 @@ export type BridgeAcceptedSaveResponse = InferSchema<typeof StudioBridgeSaveResp
 export type BridgeHealthResponse = InferSchema<typeof StudioBridgeHealthResponse>
 export type BridgeSessionResponse = InferSchema<typeof StudioBridgeSessionResponse>
 export type BridgeContractResponse = InferSchema<typeof StudioBridgeContractResponse>
+export type BridgeDevelopmentSnapshot = InferSchema<typeof StudioDevelopmentSnapshot>
+export type BridgeCommissionDraftPayload = InferSchema<typeof StudioCommissionDraftPayload>
+export type BridgeCommissionQuoteSnapshot = InferSchema<typeof StudioCommissionQuoteSnapshot>
+export type BridgeQuoteRequest = InferSchema<typeof StudioBridgeQuoteRequest>
+export type BridgeQuoteResponse = InferSchema<typeof StudioBridgeQuoteResponse>
 
 export const AVAILABLE_INTENT_KEYS = Object.keys(
   StudioBridgeIntentOption.properties as Record<string, unknown>,

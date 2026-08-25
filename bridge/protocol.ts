@@ -12,6 +12,7 @@ import {
   type BridgeRejectionCategory,
   type BridgeRejectionCode,
   type BridgeSubmitIntentCommand,
+  type BridgeQuoteRequest,
 } from './schema/bridge-schema.ts'
 import { schemaIdentity } from './schema/canonical.ts'
 import { BridgeSchemaError, parseWireValue } from './schema/runtime.ts'
@@ -52,6 +53,10 @@ export type CommandValidation =
 
 export type ControlValidation =
   | { ok: true; control: ControlEnvelope }
+  | ValidationFailure
+
+export type QuoteValidation =
+  | { ok: true; quote: BridgeQuoteRequest }
   | ValidationFailure
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -128,3 +133,19 @@ export function validateControl(value: unknown): ControlValidation {
     return invalidEnvelope(error, 'INVALID_CONTROL', commandIdOf(value))
   }
 }
+
+/** P03A: the commission-quote envelope shares the command family's failure codes. */
+export function validateQuote(value: unknown): QuoteValidation {
+  const failed = validateVersionedRecord(value, 'INVALID_COMMAND')
+  if (failed !== null) return failed
+  try {
+    return {
+      ok: true,
+      quote: parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteRequest, value),
+    }
+  } catch (error) {
+    return invalidEnvelope(error, 'INVALID_COMMAND', commandIdOf(value))
+  }
+}
+
+export type QuoteRequest = BridgeQuoteRequest

@@ -23,6 +23,7 @@ import {
   projectStudioProjectionBundle,
 } from '../bridge/schema/runtime.ts'
 import { studioLotSnapshot } from '../ui/src/engine/adapter.ts'
+import { developmentProjection } from '../bridge/development.ts'
 
 function clone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T
@@ -68,15 +69,17 @@ describe('canonical Unity bridge schema', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
       protocolVersion: 4,
-      projectionVersion: 8,
+      projectionVersion: 9,
       transport: 'http-json-localhost',
     })
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-8')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-9')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
     const state = createBridgeInitialState('bridge-schema-live-snapshot')
-    const broadSnapshot = studioLotSnapshot(state)
+    // P03A: the Development board joins the broad selector result at the bridge
+    // boundary (exactly as BridgeSession.snapshotFor composes it).
+    const broadSnapshot = { ...studioLotSnapshot(state), development: developmentProjection(state) }
     const projected = projectStudioLotSnapshot(broadSnapshot)
     const bundle = projectStudioProjectionBundle(broadSnapshot)
     expect(broadSnapshot).toHaveProperty('cash')
@@ -89,6 +92,7 @@ describe('canonical Unity bridge schema', () => {
     expect(bundle.people.people).toEqual(projected.people)
     expect(bundle.construction.placement).toEqual(projected.placement)
     expect(bundle.releaseResults.releasedFilms).toEqual(projected.releasedFilms)
+    expect(bundle.development.development).toEqual(projected.development)
 
     const session = new BridgeSession(state, 'bridge-schema-session')
     const envelope = session.snapshot()
@@ -260,6 +264,7 @@ describe('canonical Unity bridge schema', () => {
       construction: BRIDGE_SCHEMA.$defs.StudioConstructionProjection.properties as Record<string, unknown>,
       journeyNotices: BRIDGE_SCHEMA.$defs.StudioJourneyNoticesProjection.properties as Record<string, unknown>,
       releaseResults: BRIDGE_SCHEMA.$defs.StudioReleaseResultsProjection.properties as Record<string, unknown>,
+      development: BRIDGE_SCHEMA.$defs.StudioDevelopmentProjection.properties as Record<string, unknown>,
     }
     const fields = Object.values(ownership).flatMap((properties) => Object.keys(properties))
     const legacyFields = Object.keys(StudioLotSnapshotSchema.properties as Record<string, unknown>)
@@ -309,8 +314,8 @@ describe('canonical Unity bridge schema', () => {
     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
 
     const oldProjection = { ...clone(envelope), snapshotVersion: 5 }
-    expect(PROJECTION_VERSION).toBe(8)
-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 8/)
+    expect(PROJECTION_VERSION).toBe(9)
+    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 9/)
 
     const missingSection = clone(envelope)
     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
@@ -545,7 +550,7 @@ describe('canonical Unity bridge schema', () => {
     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
     expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 8;')
+    expect(generatedCsharp).toContain('public const int ProjectionVersion = 9;')
     expect(generatedCsharp).toContain('public int protocolVersion;')
     expect(generatedCsharp).toContain('public int snapshotVersion;')
     expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)

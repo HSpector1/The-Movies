@@ -30,7 +30,7 @@ export type BridgeRuntimeDispatchResult<Response extends BridgeRuntimeResponse =
 
 export type BridgeRuntimeReadView = Pick<
   BridgeSession,
-  'sessionId' | 'stateRevision' | 'runtimeJournalSize' | 'snapshot' | 'protocolReject'
+  'sessionId' | 'stateRevision' | 'runtimeJournalSize' | 'snapshot' | 'protocolReject' | 'quote'
 >
 
 export type BridgeRuntimeCoordinatorOptions = {

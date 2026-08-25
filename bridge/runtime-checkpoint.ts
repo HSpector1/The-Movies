@@ -25,8 +25,11 @@ export const BRIDGE_RUNTIME_CHECKPOINT_VERSION = 1 as const
 export const LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION = 3 as const
 export const LEGACY_BRIDGE_RUNTIME_SCHEMA_ID =
   'sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac' as const
+// P03A: the one carry-forward slot moves to the outgoing v8 identity. A v8
+// runtime dir migrates with the documented cost (journal discarded, revision
+// reset, fresh sessionId, both save slots preserved); v7 dirs now fail closed.
 export const PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID =
-  'sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f' as const
+  'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5' as const
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({
   maxCheckpointBytes: 32 * 1024 * 1024,

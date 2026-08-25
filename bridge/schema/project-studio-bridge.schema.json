@@ -87,7 +87,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 8,
+          "const": 9,
           "type": "integer"
         },
         "stateDigest": {
@@ -203,7 +203,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 8,
+          "const": 9,
           "type": "integer"
         },
         "stateDigest": {
@@ -266,7 +266,8 @@
             "acknowledgeAuditions",
             "greenlightPicture",
             "resolveProductionBlocker",
-            "startConstruction"
+            "startConstruction",
+            "commissionOriginalScreenplay"
           ],
           "type": "string"
         },
@@ -384,6 +385,110 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioBridgeMetrics"
+    },
+    "StudioBridgeQuoteRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/StudioCommissionDraftPayload"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "quoteCommission",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commandId",
+        "draft",
+        "expectedStateRevision",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioBridgeQuoteRequest"
+    },
+    "StudioBridgeQuoteResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "accepted": {
+          "const": true,
+          "type": "boolean"
+        },
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "gameWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "processingMs": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "quote": {
+          "$ref": "#/$defs/StudioCommissionQuoteSnapshot"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "stateDigest": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "stateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "accepted",
+        "commandId",
+        "gameWeek",
+        "processingMs",
+        "protocolVersion",
+        "quote",
+        "schemaId",
+        "sessionId",
+        "stateDigest",
+        "stateRevision"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioBridgeQuoteResponse"
     },
     "StudioBridgeRejectedResponse": {
       "additionalProperties": false,
@@ -609,7 +714,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 8,
+          "const": 9,
           "type": "integer"
         },
         "stateDigest": {
@@ -678,7 +783,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 8,
+          "const": 9,
           "type": "integer"
         },
         "stateDigest": {
@@ -786,6 +891,565 @@
       "type": "object",
       "x-csharp-name": "StudioClearSceneryLoadInCommand"
     },
+    "StudioCommissionBoardSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "blockers": {
+          "items": {
+            "$ref": "#/$defs/StudioDevelopmentBlockerSnapshot"
+          },
+          "type": "array"
+        },
+        "canStart": {
+          "type": "boolean"
+        },
+        "canStartOriginal": {
+          "type": "boolean"
+        },
+        "canSubmitMarketIntent": {
+          "type": "boolean"
+        },
+        "canSubmitOriginalIntent": {
+          "type": "boolean"
+        },
+        "catalog": {
+          "$ref": "#/$defs/StudioCommissionCatalogSnapshot"
+        },
+        "concepts": {
+          "items": {
+            "$ref": "#/$defs/StudioCommissionConceptSnapshot"
+          },
+          "type": "array"
+        },
+        "consequence": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "officeUplift": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioCommissionOfficeUpliftSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "willQueueIntent": {
+          "type": "boolean"
+        },
+        "writers": {
+          "items": {
+            "$ref": "#/$defs/StudioCommissionWriterSnapshot"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "blockers",
+        "canStart",
+        "canStartOriginal",
+        "canSubmitMarketIntent",
+        "canSubmitOriginalIntent",
+        "catalog",
+        "concepts",
+        "consequence",
+        "officeUplift",
+        "willQueueIntent",
+        "writers"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCommissionBoardSnapshot"
+    },
+    "StudioCommissionCatalogSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "endings": {
+          "items": {
+            "$ref": "#/$defs/StudioCommissionChoiceSnapshot"
+          },
+          "type": "array"
+        },
+        "midpoints": {
+          "items": {
+            "$ref": "#/$defs/StudioCommissionChoiceSnapshot"
+          },
+          "type": "array"
+        },
+        "openings": {
+          "items": {
+            "$ref": "#/$defs/StudioCommissionChoiceSnapshot"
+          },
+          "type": "array"
+        },
+        "promiseAxes": {
+          "items": {
+            "$ref": "#/$defs/StudioCommissionPromiseAxisSnapshot"
+          },
+          "type": "array"
+        },
+        "segments": {
+          "items": {
+            "$ref": "#/$defs/StudioCommissionSegmentSnapshot"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "endings",
+        "midpoints",
+        "openings",
+        "promiseAxes",
+        "segments"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCommissionCatalogSnapshot"
+    },
+    "StudioCommissionChoiceSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCommissionChoiceSnapshot"
+    },
+    "StudioCommissionConceptSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "genre": {
+          "enum": [
+            "comedy",
+            "drama",
+            "crime",
+            "romance",
+            "horror",
+            "adventure"
+          ],
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "origin": {
+          "enum": [
+            "original",
+            "pool"
+          ],
+          "type": "string"
+        },
+        "provenanceLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "genre",
+        "id",
+        "origin",
+        "provenanceLabel",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCommissionConceptSnapshot"
+    },
+    "StudioCommissionDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "conceptId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ending": {
+          "enum": [
+            "triumph",
+            "bittersweet",
+            "tragic",
+            "ambiguous"
+          ],
+          "type": "string"
+        },
+        "genre": {
+          "anyOf": [
+            {
+              "enum": [
+                "comedy",
+                "drama",
+                "crime",
+                "romance",
+                "horror",
+                "adventure"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "intendedSegments": {
+          "items": {
+            "enum": [
+              "youngAdult",
+              "family",
+              "adult",
+              "prestige"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "intimacyCenter": {
+          "maximum": 3,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "kineticEnergyCenter": {
+          "maximum": 3,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "midpoint": {
+          "enum": [
+            "reversal",
+            "escalation",
+            "revelation"
+          ],
+          "type": "string"
+        },
+        "opening": {
+          "enum": [
+            "immediateAction",
+            "slowSetup",
+            "mysteryHook"
+          ],
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "market",
+            "original"
+          ],
+          "type": "string"
+        },
+        "tonalWeightCenter": {
+          "maximum": 3,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "writerId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "conceptId",
+        "ending",
+        "genre",
+        "intendedSegments",
+        "intimacyCenter",
+        "kineticEnergyCenter",
+        "midpoint",
+        "opening",
+        "source",
+        "tonalWeightCenter",
+        "writerId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCommissionDraftPayload"
+    },
+    "StudioCommissionOfficeUpliftSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "line": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "points": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "line",
+        "name",
+        "points"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCommissionOfficeUpliftSnapshot"
+    },
+    "StudioCommissionPromiseAxisSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "centerLabels": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "description": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "enum": [
+            "intimacy",
+            "tonalWeight",
+            "kineticEnergy"
+          ],
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "centerLabels",
+        "description",
+        "id",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCommissionPromiseAxisSnapshot"
+    },
+    "StudioCommissionQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "commitLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "consequence": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draftWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "commissionScreenplay",
+            "commissionOriginalScreenplay"
+          ],
+          "type": "string"
+        },
+        "noFeeLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "officeUpliftLine": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "paceNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queueNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queues": {
+          "type": "boolean"
+        },
+        "reviewWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "richnessNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "startsNow": {
+          "type": "boolean"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "writerName": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "commitLabel",
+        "consequence",
+        "draftWeeks",
+        "intentId",
+        "kind",
+        "noFeeLine",
+        "officeUpliftLine",
+        "paceNote",
+        "queueNote",
+        "queues",
+        "reviewWeek",
+        "richnessNote",
+        "startsNow",
+        "title",
+        "writerName"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCommissionQuoteSnapshot"
+    },
+    "StudioCommissionSegmentSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "enum": [
+            "youngAdult",
+            "family",
+            "adult",
+            "prestige"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "label"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCommissionSegmentSnapshot"
+    },
+    "StudioCommissionWriterSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "assignmentLabel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "estimateLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "estimateScore": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "primaryRole": {
+          "enum": [
+            "writer",
+            "director",
+            "actor",
+            "craft"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "assignmentLabel",
+        "available",
+        "estimateLabel",
+        "estimateScore",
+        "id",
+        "name",
+        "primaryRole"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCommissionWriterSnapshot"
+    },
     "StudioConstructionProjection": {
       "additionalProperties": false,
       "properties": {
@@ -798,6 +1462,471 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioConstructionProjection"
+    },
+    "StudioDevelopmentAttentionSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "detail": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "headline": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "review-required",
+            "capacity-constraint",
+            "active-work",
+            "ready-script",
+            "idle"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "detail",
+        "headline",
+        "kind"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDevelopmentAttentionSnapshot"
+    },
+    "StudioDevelopmentBlockerSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "detail": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "headline": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "script-mode",
+            "operations-mode",
+            "studio-founding",
+            "facility-capacity",
+            "writer-contract",
+            "writer-assignment",
+            "package-staffing",
+            "casting-session",
+            "greenlight-queued",
+            "no-concepts",
+            "no-writers"
+          ],
+          "type": "string"
+        },
+        "remedy": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "detail",
+        "headline",
+        "kind",
+        "remedy"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDevelopmentBlockerSnapshot"
+    },
+    "StudioDevelopmentBoardSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "attention": {
+          "$ref": "#/$defs/StudioDevelopmentAttentionSnapshot"
+        },
+        "attentionPennant": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "capacity": {
+          "$ref": "#/$defs/StudioDevelopmentCapacitySnapshot"
+        },
+        "castingBoundaryLine": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "commission": {
+          "$ref": "#/$defs/StudioCommissionBoardSnapshot"
+        },
+        "projects": {
+          "items": {
+            "$ref": "#/$defs/StudioDevelopmentProjectSnapshot"
+          },
+          "type": "array"
+        },
+        "review": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioScriptReviewSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "worldStatus": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "attention",
+        "attentionPennant",
+        "capacity",
+        "castingBoundaryLine",
+        "commission",
+        "projects",
+        "review",
+        "worldStatus"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDevelopmentBoardSnapshot"
+    },
+    "StudioDevelopmentCapacitySnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "capacity": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "facilities": {
+          "items": {
+            "$ref": "#/$defs/StudioDevelopmentFacilitySnapshot"
+          },
+          "type": "array"
+        },
+        "occupied": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "available",
+        "capacity",
+        "facilities",
+        "occupied"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDevelopmentCapacitySnapshot"
+    },
+    "StudioDevelopmentFacilitySnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "capacity": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "facilityId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "facilityName": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "occupied": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "slots": {
+          "items": {
+            "$ref": "#/$defs/StudioDevelopmentSlotSnapshot"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "available",
+        "capacity",
+        "facilityId",
+        "facilityName",
+        "occupied",
+        "slots"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDevelopmentFacilitySnapshot"
+    },
+    "StudioDevelopmentOccupantSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "activity": {
+          "enum": [
+            "production-development",
+            "drafting",
+            "rewriting",
+            "auditioning"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "owner": {
+          "enum": [
+            "production",
+            "script",
+            "casting"
+          ],
+          "type": "string"
+        },
+        "ownerId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "activity",
+        "label",
+        "owner",
+        "ownerId",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDevelopmentOccupantSnapshot"
+    },
+    "StudioDevelopmentProjectSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "assessment": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioScriptAssessmentSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "consequence": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "dueWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "facilityName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "genre": {
+          "enum": [
+            "comedy",
+            "drama",
+            "crime",
+            "romance",
+            "horror",
+            "adventure"
+          ],
+          "type": "string"
+        },
+        "projectId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "rewriteCount": {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "section": {
+          "enum": [
+            "needsReview",
+            "inDevelopment",
+            "readyToPackage",
+            "productionHistory"
+          ],
+          "type": "string"
+        },
+        "slot": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "drafting",
+            "review",
+            "rewriting",
+            "ready",
+            "inProduction",
+            "produced"
+          ],
+          "type": "string"
+        },
+        "statusLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "weeksUntilDecision": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "writerId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "writerName": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "assessment",
+        "consequence",
+        "dueWeek",
+        "facilityName",
+        "genre",
+        "projectId",
+        "rewriteCount",
+        "section",
+        "slot",
+        "status",
+        "statusLabel",
+        "title",
+        "weeksUntilDecision",
+        "writerId",
+        "writerName"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDevelopmentProjectSnapshot"
+    },
+    "StudioDevelopmentProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "development": {
+          "$ref": "#/$defs/StudioDevelopmentSnapshot"
+        }
+      },
+      "required": [
+        "development"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDevelopmentProjection"
+    },
+    "StudioDevelopmentSlotSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "occupant": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioDevelopmentOccupantSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "slot": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "occupant",
+        "slot"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDevelopmentSlotSnapshot"
+    },
+    "StudioDevelopmentSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "board": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioDevelopmentBoardSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "mode": {
+          "enum": [
+            "legacy",
+            "managed"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "board",
+        "mode"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioDevelopmentSnapshot"
     },
     "StudioFirstFilmJourneySnapshot": {
       "additionalProperties": false,
@@ -2488,6 +3617,9 @@
         "construction": {
           "$ref": "#/$defs/StudioConstructionProjection"
         },
+        "development": {
+          "$ref": "#/$defs/StudioDevelopmentProjection"
+        },
         "journeyNotices": {
           "$ref": "#/$defs/StudioJourneyNoticesProjection"
         },
@@ -2506,6 +3638,7 @@
       },
       "required": [
         "construction",
+        "development",
         "journeyNotices",
         "lot",
         "people",
@@ -2664,6 +3797,101 @@
       "type": "object",
       "x-csharp-name": "StudioReleasedFilmSnapshot"
     },
+    "StudioRewritePreviewSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "capacityLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "currentBand": {
+          "enum": [
+            "Fragile",
+            "Workable",
+            "Promising",
+            "Strong"
+          ],
+          "type": "string"
+        },
+        "currentLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "currentScore": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "delta": {
+          "type": "number"
+        },
+        "direction": {
+          "enum": [
+            "gain",
+            "unchanged",
+            "decline"
+          ],
+          "type": "string"
+        },
+        "directionLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "dueWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "operatingLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "projectedBand": {
+          "enum": [
+            "Fragile",
+            "Workable",
+            "Promising",
+            "Strong"
+          ],
+          "type": "string"
+        },
+        "projectedLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "projectedScore": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "projectionNote": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "writerName": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "capacityLine",
+        "currentBand",
+        "currentLine",
+        "currentScore",
+        "delta",
+        "direction",
+        "directionLine",
+        "dueWeek",
+        "operatingLine",
+        "projectedBand",
+        "projectedLine",
+        "projectedScore",
+        "projectionNote",
+        "writerName"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRewritePreviewSnapshot"
+    },
     "StudioScheduleShootingTakeCommand": {
       "additionalProperties": false,
       "properties": {
@@ -2687,6 +3915,306 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioScheduleShootingTakeCommand"
+    },
+    "StudioScriptAcceptCardSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "lines": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "label",
+        "lines"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioScriptAcceptCardSnapshot"
+    },
+    "StudioScriptAssessmentSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "band": {
+          "enum": [
+            "Fragile",
+            "Workable",
+            "Promising",
+            "Strong"
+          ],
+          "type": "string"
+        },
+        "concerns": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "score": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "strengths": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "band",
+        "concerns",
+        "label",
+        "score",
+        "strengths"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioScriptAssessmentSnapshot"
+    },
+    "StudioScriptBriefSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "endingTitle": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "midpointTitle": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "openingTitle": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "promiseLines": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "segmentLabels": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "endingTitle",
+        "midpointTitle",
+        "openingTitle",
+        "promiseLines",
+        "segmentLabels"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioScriptBriefSnapshot"
+    },
+    "StudioScriptExplanationSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "finding": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "tone": {
+          "enum": [
+            "strength",
+            "concern",
+            "neutral"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "finding",
+        "label",
+        "tone"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioScriptExplanationSnapshot"
+    },
+    "StudioScriptReviewSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "accept": {
+          "$ref": "#/$defs/StudioScriptAcceptCardSnapshot"
+        },
+        "assessment": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioScriptAssessmentSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "brief": {
+          "$ref": "#/$defs/StudioScriptBriefSnapshot"
+        },
+        "consequence": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "deliveryLine": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "finalNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "genre": {
+          "enum": [
+            "comedy",
+            "drama",
+            "crime",
+            "romance",
+            "horror",
+            "adventure"
+          ],
+          "type": "string"
+        },
+        "projectId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "provenanceLabel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reviewState": {
+          "enum": [
+            "first-draft",
+            "final-draft"
+          ],
+          "type": "string"
+        },
+        "rewrite": {
+          "$ref": "#/$defs/StudioScriptRewriteCardSnapshot"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "whyThisEstimate": {
+          "items": {
+            "$ref": "#/$defs/StudioScriptExplanationSnapshot"
+          },
+          "type": "array"
+        },
+        "writerId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "writerName": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "writerRoleLabel": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "accept",
+        "assessment",
+        "brief",
+        "consequence",
+        "deliveryLine",
+        "finalNote",
+        "genre",
+        "projectId",
+        "provenanceLabel",
+        "reviewState",
+        "rewrite",
+        "title",
+        "whyThisEstimate",
+        "writerId",
+        "writerName",
+        "writerRoleLabel"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioScriptReviewSnapshot"
+    },
+    "StudioScriptRewriteCardSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "blockers": {
+          "items": {
+            "$ref": "#/$defs/StudioDevelopmentBlockerSnapshot"
+          },
+          "type": "array"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "preview": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioRewritePreviewSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "available",
+        "blockers",
+        "label",
+        "preview"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioScriptRewriteCardSnapshot"
     },
     "StudioSetSnapshot": {
       "additionalProperties": false,
@@ -3042,7 +4570,7 @@
       "x-csharp-name": "StudioWeekTheaterSubjectSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-8",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-9",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -3051,6 +4579,12 @@
     },
     {
       "$ref": "#/$defs/StudioBridgeControlRequest"
+    },
+    {
+      "$ref": "#/$defs/StudioBridgeQuoteRequest"
+    },
+    {
+      "$ref": "#/$defs/StudioBridgeQuoteResponse"
     },
     {
       "$ref": "#/$defs/StudioBridgeSnapshotResponse"
@@ -3077,13 +4611,14 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 8,
+    "projectionVersion": 9,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",
       "contract": "GET /contract",
       "health": "GET /health",
       "load": "POST /load",
+      "quote": "POST /quote",
       "save": "POST /save",
       "session": "GET /session",
       "snapshot": "GET /snapshot"

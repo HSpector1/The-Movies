@@ -67,13 +67,21 @@ import { canonicalJson } from './schema/canonical.ts'
 import type {
   BridgeAcceptedCommandResponse,
   BridgeAcceptedSaveResponse,
+  BridgeCommissionDraftPayload,
   BridgeFoundingArrivalSnapshot,
   BridgeFoundingSnapshot,
+  BridgeQuoteRequest,
+  BridgeQuoteResponse,
   BridgeRejectedResponse,
   BridgeSnapshotEnvelope,
   BridgeTreasurySnapshot,
 } from './schema/bridge-schema.ts'
 import { projectStudioProjectionBundle } from './schema/runtime.ts'
+import {
+  commissionQuoteSnapshot,
+  developmentProjection,
+  draftToEngine,
+} from './development.ts'
 
 type IntentApplication = {
   option: AvailableIntent
@@ -91,6 +99,17 @@ export type AcceptedSaveResponse = BridgeAcceptedSaveResponse
 
 export type SaveResponse = AcceptedSaveResponse | RejectedResponse
 type CachedResponse = CommandResponse | SaveResponse
+
+export type AcceptedQuoteResponse = BridgeQuoteResponse
+export type QuoteResponse = AcceptedQuoteResponse | RejectedResponse
+
+/** One minted commission quote: valid for exactly the state that quoted it. */
+type PendingCommissionQuote = {
+  draft: BridgeCommissionDraftPayload
+  stateDigest: string
+  kind: 'commissionScreenplay' | 'commissionOriginalScreenplay'
+  commitLabel: string
+}
 
 type RuntimeEntry = {
   entry: BridgeRuntimeJournalEntryV1
@@ -986,6 +1005,13 @@ export class BridgeSession {
   readonly sessionId: string
   private state: GameState
   private revision: number
+  /**
+   * P03A commission quotes, keyed by minted intentId. Session-transient by
+   * design: every entry is digest-bound to the exact state that quoted it, so
+   * any accepted command or load invalidates the whole map, and a process
+   * restart simply forgets quotes the client must re-request. Never journaled.
+   */
+  private readonly pendingQuotes = new Map<string, PendingCommissionQuote>()
   private readonly processed = new Map<string, RuntimeEntry>()
   private readonly journal: BridgeRuntimeJournalEntryV1[]
   private savedJson: string | null
@@ -1074,7 +1100,12 @@ export class BridgeSession {
 
   private snapshotFor(state: GameState, revision: number): SnapshotEnvelope {
     const started = performance.now()
-    const snapshot = projectStudioProjectionBundle(studioLotSnapshot(state))
+    // P03A: the Development board rides the broad selector result into the bundle
+    // at the bridge boundary, so the browser's own snapshot stays untouched.
+    const snapshot = projectStudioProjectionBundle({
+      ...studioLotSnapshot(state),
+      development: developmentProjection(state),
+    })
     const stateDigest = authoritativeDigest(state)
     // One founding resolution serves both surfaces, so an arrival's intentId can
     // never disagree with the availableIntents list of the same envelope.
@@ -1117,9 +1148,10 @@ export class BridgeSession {
       this.remember('command', command, rejected)
       return rejected
     }
-    const resolved = resolveAvailableIntents(this.state).find(
-      (candidate) => candidate.option.intentId === command.payload.intentId,
-    )
+    const resolved =
+      resolveAvailableIntents(this.state).find(
+        (candidate) => candidate.option.intentId === command.payload.intentId,
+      ) ?? this.quotedIntentFor(command.payload.intentId)
     if (resolved === undefined) {
       const rejected = this.reject(
         command.commandId,
@@ -1155,8 +1187,106 @@ export class BridgeSession {
     )
     this.state = outcome.next
     this.revision = nextRevision
+    // Every quote was digest-bound to the state this command just replaced.
+    this.pendingQuotes.clear()
     this.commitEntry(entry)
     return accepted
+  }
+
+  /**
+   * P03A: resolve a quote-minted commission intent. The quote is honored only
+   * against the EXACT state that minted it (digest equality on top of the
+   * revision guard the caller already passed); the draft is re-converted
+   * against the live board so the engine's own front doors decide legality at
+   * commit time. C# never sees or constructs the payload.
+   */
+  private quotedIntentFor(intentId: string): IntentApplication | undefined {
+    const pending = this.pendingQuotes.get(intentId)
+    if (pending === undefined) return undefined
+    if (pending.stateDigest !== authoritativeDigest(this.state)) return undefined
+    const fields = {
+      kind: pending.kind,
+      label: pending.commitLabel,
+      detail: '',
+      projectId: null,
+      castingSessionId: null,
+      productionId: null,
+    } as const
+    const conversion = draftToEngine(this.state, pending.draft)
+    if (!conversion.ok) {
+      return {
+        option: { intentId, ...fields },
+        apply: () => ({ ok: false, error: conversion.error }),
+      }
+    }
+    return { option: { intentId, ...fields }, apply: conversion.apply }
+  }
+
+  /**
+   * P03A: validate a commission draft against the live state, mint the ONE
+   * opaque commit intent, and answer with the TypeScript-authored consequence
+   * summary. A quote mutates nothing — the revision is unchanged, nothing is
+   * journaled, and the preflight successor is discarded whole.
+   */
+  quote(request: BridgeQuoteRequest): QuoteResponse {
+    const started = performance.now()
+    if (request.sessionId !== this.sessionId) {
+      return this.reject(
+        request.commandId,
+        'SESSION_MISMATCH',
+        'Quote belongs to a different bridge session.',
+        started,
+      )
+    }
+    if (request.expectedStateRevision !== this.revision) {
+      return this.reject(
+        request.commandId,
+        'STALE_REVISION',
+        `Quote expected revision ${String(request.expectedStateRevision)}; authority is revision ${String(this.revision)}.`,
+        started,
+      )
+    }
+    const conversion = draftToEngine(this.state, request.draft)
+    if (!conversion.ok) {
+      return this.reject(request.commandId, 'ENGINE_REJECTED', conversion.error, started)
+    }
+    const preflight = caught(() => conversion.apply(this.state))
+    if (!preflight.ok) {
+      return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
+    }
+    const stateDigest = authoritativeDigest(this.state)
+    const intentId = opaqueIntentId(stateDigest, { commissionDraft: request.draft })
+    const quote = commissionQuoteSnapshot(
+      this.state,
+      request.draft,
+      conversion,
+      preflight.next,
+      intentId,
+    )
+    this.pendingQuotes.set(intentId, {
+      draft: request.draft,
+      stateDigest,
+      kind: conversion.kind,
+      commitLabel: quote.commitLabel,
+    })
+    // A small bound keeps an abandoned workspace from growing the map; the
+    // oldest quote is the least likely to be committed.
+    if (this.pendingQuotes.size > 16) {
+      const oldest = this.pendingQuotes.keys().next().value
+      if (oldest !== undefined) this.pendingQuotes.delete(oldest)
+    }
+    return {
+      protocolVersion: PROTOCOL_VERSION,
+      schemaId: SCHEMA_ID,
+      sessionId: this.sessionId,
+      commandId: request.commandId,
+      accepted: true,
+      stateRevision: this.revision,
+      gameWeek: this.state.market.tick,
+      stateDigest,
+      quote,
+      processingMs: performance.now() - started,
+    }
   }
 
   save(control: ControlEnvelope): SaveResponse {
@@ -1225,6 +1355,8 @@ export class BridgeSession {
     )
     this.state = loaded.state
     this.revision = nextRevision
+    // Loading replaces the state every pending quote was digest-bound to.
+    this.pendingQuotes.clear()
     this.commitEntry(entry)
     return accepted
   }
