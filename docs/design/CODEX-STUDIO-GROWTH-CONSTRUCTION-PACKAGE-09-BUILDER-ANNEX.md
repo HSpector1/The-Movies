@@ -995,7 +995,7 @@ Automate at the TypeScript/browser/bridge level where possible and manually prov
 9. Construction site and completed building shared inspector states plus the minimum 1920 art/fallback contract.
 10. Non-pausing, non-occluding, deduped completion attention with explicit Locate/Open Development.
 11. P09A-labelled sparse/current/migrated/save-load/reconnect/stale/replay/accessibility journeys above.
-12. Measurement plus Owner-approved opening cash/build-pacing values before sealing this non-sealing gameplay checkpoint.
+12. Use the Owner-approved **P09A-only provisional envelope**—`$20M / $1.5M / 14 weeks / $5.5K weekly / +2 slots`—and label it non-final tuning authority in the checkpoint evidence.
 
 ## EXTEND
 
@@ -1042,24 +1042,16 @@ Automate at the TypeScript/browser/bridge level where possible and manually prov
 
 ## OWNER DECISIONS REQUIRED
 
-One genuine decision remains before P09A can be sealed:
+**None before P09A prototyping.** The Owner approved `$20M` starting cash, `$1.5M` Development & Casting Office construction cost, `14` authoritative construction weeks, `$5.5K/week` operating cost, and `+2` capacity slots as the provisional measured envelope for this checkpoint.
 
-### Approve the measured Founding Flip funding/pacing envelope
+This approval is deliberately bounded. The values:
 
-Current `INITIAL_CASH` is $20M and current baseline office values are $1.5M / 14 weeks / $5.5K weekly, but the accepted economy research explicitly warns that a bare studio pays core capex, payroll/overhead dead burn, later facility opex, and first-film exposure before revenue. Package 09 does not invent a replacement number.
+- may be used to implement, automate, and Owner-test the sparse-start construction proof;
+- are not final product balance;
+- do not become permanent tuning authority; and
+- cannot settle the complete Founding Flip economy.
 
-For engineering fixtures only, P09A may hold the current `$20M / $1.5M / 14 weeks / $5.5K weekly / +2 slots` manifest so protocol, persistence, and UI tests are deterministic. That is not product balance approval and cannot be used to seal the Owner playtest.
-
-Fable should use the existing economy measurement apparatus to present a small calibration sheet covering at least:
-
-- opening cash;
-- minimum first-picture core capex under the current catalog;
-- sequential versus currently unlimited-parallel build duration;
-- payroll/overhead/facility-opex burn until first plausible release;
-- minimum remaining production/marketing runway;
-- distress/runaway thresholds with their definitions.
-
-The Owner must approve the opening cash/build pacing together. This is a balance decision, not a Unity UX decision.
+Final opening economy and pacing are tuned only after the complete bare-lot → first-film loop is playable and Owner-tested. At that later gate, use the existing economy measurement apparatus to compare opening cash, minimum first-picture core capex, build concurrency/duration, payroll/overhead/facility-opex burn, production/marketing runway, and defined distress/runaway thresholds.
 
 No further P09A interaction decision is required. The combined Development & Casting V1 office, absence of Theater, exact V15 regime, immutable migration anchor, fixed current orientation, non-pausing completion, and one-office boundary are ruled here or upstream. The already-approved Builder direction and full core/first-film overlap remain mandatory **post-P09A full-Flip work**, not Owner questions and not claims this checkpoint has satisfied.
 

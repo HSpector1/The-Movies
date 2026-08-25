@@ -270,7 +270,7 @@ A future separate Casting capability/building is a deliberate simulation and mig
 | Property boundary | Visible at management/build scale | TypeScript-owned finite bounds |
 | Vacant parcels | Owned, addressable, stable IDs, buildable/unbuildable state explicit | Candidate sites for authoritative placement queries |
 | Minimal utilities | Visual boundary/service connections only | No power/water cost, capacity, outage, or placement rule |
-| Cash/founding resources | Exact TypeScript-authored new-game value | Value must be measured and Owner-approved; this report invents none |
+| Cash/founding resources | **P09A prototype:** $20M starting cash | Provisional proof envelope only; not permanent tuning authority |
 | Core operating facilities | None | No hidden endowed capacity |
 | Sets | None | No endowed house Sets in bare-lot regime |
 | Theater | None | Release remains venue-independent; optional facility later |
@@ -803,7 +803,7 @@ Do not display:
 - operating cost hidden in a tooltip;
 - costs split across three screens.
 
-Current `INITIAL_CASH` is $20M, but the Founding Flip’s opening balance is deliberately unresolved. Existing economy work warns that core capex, payroll/overhead dead burn, facility opex, and first-picture exposure interact materially. P09A requires measurement and Owner approval of the starting-funding/build-pacing envelope; this report does not turn a current compatibility constant into mature balance law.
+The Owner approved the following envelope **for P09A prototyping only**: `$20M` starting cash; `$1.5M` Development & Casting Office construction cost; `14` authoritative weeks; `$5.5K/week` operating cost after completion; and `+2` capacity slots. These values prove the sparse-start construction experience and make its acceptance fixtures deterministic. They are not final product balance and do not become permanent tuning authority. Final opening economy and pacing are tuned only after the complete bare-lot → first-film loop is playable and Owner-tested. Existing economy work remains relevant because core capex, payroll/overhead dead burn, facility opex, and first-picture exposure interact materially.
 
 ---
 
@@ -965,7 +965,7 @@ Do not hard-code film reels, one camera rig, 1948 copy, one architectural style,
 - Projection-driven construction site and completed-facility handoff for arbitrary stable placement identity.
 - Existing Living Turn notify-class completion event and data, adapted from the current occluding overlay into non-occluding queued attention; Package 02 camera/Back laws.
 - New sparse, existing current, and historical migrated save regression fixtures.
-- Owner-approved measured starting-cash/build-pacing envelope.
+- Use the Owner-approved **P09A-only provisional envelope**: `$20M / $1.5M / 14 weeks / $5.5K weekly / +2 slots`; preserve its explicit non-final tuning status.
 
 ## FOLLOW-UP
 
