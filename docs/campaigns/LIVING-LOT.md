@@ -2202,3 +2202,111 @@ notes landed the same hour as a disclosed follow-up commit with the entire floor
 
 **STOPPED per charter §26/§27: no P04A work. The Owner plays P03A.1 first.**
 Owner launch: `Tools/cp9-play.sh` (fresh engine, windowed 1720×1045).
+
+---
+
+# P03A.2 — MEMO HANDOFF: THE MEMO INFORMS, THE CLOCK OPERATES TIME (2026-08-25)
+
+**Charter:** the Owner played sealed P03A.1 and ruled KEEP WITH ONE SURGICAL CLEANUP — the white
+memo still carried material workflow commands and so remained part of the operating loop. The
+product law now sealed: **the memo may inform; it may not operate the studio when a world/HUD
+owner exists.** P03A.2 is that narrow cleanup and nothing else: no memo redesign, no Development
+redesign, no P04A, no mandatory world-click busywork.
+
+**Sealed at:** TypeScript UNCHANGED at `25be71e` on `campaign/living-lot-ts` (zero TS edits —
+second consecutive client-only checkpoint); Unity client `bae3c4e` on `campaign/living-lot-client`
+(from `f9c96f1`).
+
+## What changed
+
+**Time cedes to the clock.** While the persistent Living Time chip lawfully stands —
+`ChipShownFor(width, height)`, the LAYOUT law, so a moment of camera inspection never hands time
+back — the memo no longer renders its advance-week verb. In its place stands one muted line:
+*"Time runs from the studio clock above — press 1×, 2×, or 4×."* The chip DECLARES ownership to
+the bridge client every frame (`SetWorldTimeOwnerPresent`) and withdraws it on disable, so a
+scene without the chip — or a viewport that lawfully suppresses it (the chip's own sealed
+suppression law: "manual verbs remain") — keeps the classic memo verb. **No viewport is ever left
+without a way to advance the week**: at 1280×800 the chip cannot stand and the memo verb remains,
+by design and by witnessed proof.
+
+**Owner-conditional demotion, honestly recorded.** The Owner's mandate demotes material actions
+"when an accepted world/HUD owner already exists." Audit of the full wire vocabulary (12 intent
+kinds): founding (2) — demoted since LL-CP9; screenplay Development (4) — demoted since P03A;
+advanceWeek — demoted THIS checkpoint wherever the chip stands. The remaining memo verbs each
+lack any world/HUD owner and therefore lawfully remain as the sole fallback operator:
+`startConstruction` (Development Casting Annex), `startAuditions`, `acknowledgeAuditions`,
+`greenlightPicture` (the cast choice), `resolveProductionBlocker`. Each is recorded here as
+awaiting a world owner (casting's is P04A's charter; the annex's is a future Development-card
+concern), at which point the product law demotes it too.
+
+**The memo's evidence seam.** The button loop now records, on each repaint, exactly which intent
+kinds it rendered (`LastRenderedWorkflowIntentKinds`) and whether the pointer line stood
+(`WorkflowTimePointerShown`) — cleared whenever the panel hides, never repopulated while hidden.
+Proof reads the memo's own record instead of narrating it.
+
+## The witnessed record (all on client `bae3c4e`)
+
+Development journey proof gains the memo-VISIBLE handoff laws, sampled at drafting and again at
+Ready from the memo's own repaint evidence: zero Development verbs may ever render;
+`memoOffersTimeCommand` must equal the chip's lawful ABSENCE exactly (ceded at 1720×1045 and
+1440×900, retained at 1280×800); a ceded verb must leave the pointer. The memo-hidden variant now
+also proves the hidden panel reports zero rendered buttons.
+
+- accept 1440×900 `DevelopmentJourney-1440x900-20260825T174553Z`, 1720×1045 `…174702Z`, 1280×800 `…174811Z`
+- final-rewrite ×3 (1440×900 `…174921Z`, 1280×800 `…175032Z`, 1720×1045 `…175143Z`) — 13 frames each, projection == realized
+- memo-hidden whole journeys 1720×1045 / 1440×900 / 1280×800 + rewrite 1440×900 (`…175254Z`, `…175404Z`, `…175512Z`, `…175621Z`) — every law green with the memo excluded; each records memoRenderedNothingWhileHidden=true
+
+Founding journey regression ×5 — 1440×900 `FoundingJourney-1440x900-20260825T175733Z`, 1720×1045
+`…175812Z`, 1280×800 `…175851Z`, reserve 1440×900 `…175929Z`, reserve 1280×900 `…180009Z` — all
+complete, 14 frames each, field-for-field the CP10A.1 laws.
+
+Ladder: Bridge `BridgeAuto-20260825T180048Z` (rev 50 / wk 22, digest `590479c3…`); Living Time manual-5 + auto-6
+`LivingTime-manual-20260825T180316Z` + `…auto…180329Z` (week 11, digest `41f46177…`, auto == manual); Stage portrait + landscape `Stage-portrait-20260825T180629Z` + `…landscape…180743Z`
+(sealed tableau `856198f5…`, held-prop readiness 3 required / 3 observed with every state and
+screen-space gate passed at all milestones).
+
+Canonical EditMode at the seal SHA: 357/357 Passed (356 sealed + 1 new handoff-law test;
+`PerformanceCaptures/Unity/editmode-results.xml`). TypeScript floor: unchanged at `25be71e`.
+
+## Hostile review
+
+Fresh-context, Opus-tier, verify-only, charged with ten reject-hunting questions. **VERDICT:
+ACCEPT — zero blockers.** Independently re-derived (not narrated): the TS tree clean and unchanged
+at `25be71e`; the client range `f9c96f1..bae3c4e` touches only the four declared files and deletes
+exactly THREE lines, all mechanical; the OnGUI filter and pointer confirmed in source AND in the
+memo's own per-beat repaint evidence AND in pixels (1720×1045 drafting frame: chip standing, no
+advance button, pointer line; 1280×800 frame: the manual verb still standing); the reviewer
+re-computed `ChipMinimumHeight = 884` from its constituents rather than trusting it; both
+fail-closed directions of the handoff law located at their exact lines; the five remaining memo
+verbs verified OWNERLESS by exhaustive client search; the intermediate commit judged to have
+STRENGTHENED the law (requireTimeIntent + per-beat record); every sealed digest reproduced and the
+EditMode artifact verified with a post-commit mtime; and a field-for-field diff of a P03A.1-era
+report against the seal candidate: zero fields removed, ten added, every sealed law field
+byte-identical. The reviewer's record-hygiene notes (two one-second timestamp typos in the draft,
+one imprecise sentence) were corrected in this ledger before sealing.
+
+## Known non-blockers (recorded, not hidden)
+
+- The memo retains ownerless material verbs by the Owner's own conditional (list above) — the
+  next owners to build are casting (P04A) and the annex; each demotes its verb on arrival.
+- During camera inspection the memo is hidden ENTIRELY (pre-existing `StudioCameraDirector`
+  behavior) and the chip hides too — for that moment no time control exists at any viewport.
+  Not introduced by P03A.2; recorded at the reviewer's insistence on precision.
+- The authority's journey body copy still reads "The draft is due Week 1 — advance the week"
+  above the clock pointer at ceded viewports — TS-owned wording; P03A.2 correctly made zero TS
+  edits; a future TS checkpoint may soften the imperative.
+- 1440×900 clears the 884px chip threshold by only 16px — a small chrome change could silently
+  flip a common viewport between cession and fallback; the per-beat proof fields would catch it.
+- `timeOwnerChipShown` stays a single shared report field while its siblings went per-beat
+  (viewport is fixed per run — harmless asymmetry). The legacy `StudioPlayerJourneyProofRunner`
+  (not in the sealed ladder) encodes advance-week beat expectations and was not re-exercised;
+  run it before ever relying on it again.
+- The canonical EditMode artifact remains untracked by git (recurring evidence-integrity note).
+- P03A/P03A.1 carried non-blockers stand unchanged (assessment-evidence floor, scroll owner,
+  officeUplift arithmetic before any office tier, proof git-SHA stamps — sixth recording).
+
+**Ruling: KEEP. One hostile round, ACCEPT with zero blockers; the reviewer's hygiene notes were
+folded into this record the same hour.**
+
+**STOPPED per the Owner's directive: report and stop for Owner verification. No P04A work.**
+Owner launch: `Tools/cp9-play.sh` (fresh engine, windowed 1720×1045).
