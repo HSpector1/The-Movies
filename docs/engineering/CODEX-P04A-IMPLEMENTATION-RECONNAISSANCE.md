@@ -20,7 +20,7 @@ authoritative revision + exact player-selected IDs and budget
 
 The current bridge is an automation/bootstrap surface, not an interactive Package 04 surface. It auto-selects an audition slate and auto-builds a minimum Greenlight package. Unity must not reproduce or depend on those choices. P03A is now sealed and supplies the missing mutation-free `POST /quote` transport, digest-bound ephemeral intent registry, and retained top-anchored card precedent. P04A must extend those exact seams—not create another quote route, intent registry, command path, or Casting-local simulation.
 
-The remaining implementation work is additive and bounded. P03A intentionally ended at `Development work is complete — continue at Casting.` and implemented no P04 behavior. It did not supply a generic origin/Locate stack or a contained scroll owner. Those are real presentation seams for P04A, not reasons to fork authority or UI architecture.
+The remaining implementation work is additive and bounded. P03A intentionally ended at `Development work is complete — continue at Casting.` and implemented no P04 behavior. P03A.1/P03A.2 added a Development-only Production Rail, a sanctioned exact-stable-ID `StudioLocateAction`, authoritative writer joins, and conditional memo ownership; they did not add a workspace-origin/Back stack, a contained scroll owner, or Casting ownership. The accepted architecture audit now resolves the renderer choice: P04A is the first major UI Toolkit retained workspace, over the preserved GameObject/URP/Cinemachine lot and sealed IMGUI surfaces.
 
 ## POST-P03A DELTA / FINAL PRE-IMPLEMENTATION HARDENING
 
@@ -34,6 +34,9 @@ This section is the controlling delta over the still-valid reconnaissance below.
 | P03A TypeScript documentation tip | `4423fe03664701df68e1f44de42b8c15dbe8632c` |
 | P03A TypeScript production-code tip | `2ddf080` |
 | P03A Unity client | `432c39d4caeacc33bdcd1c60ec5f4ec0a30e6321` |
+| P03A.2 TypeScript seal | `d4ed07d539a764b542269338c1ffbdc55e1b9be7` |
+| P03A.2 Unity seal | `bae3c4e652cb93212f627e973ec864ed94613081` |
+| Accepted Unity production architecture audit | `8110820d96ddf2089df582bc0a0a92d3d4cf17d9` |
 | Previous P04 TypeScript inspection | `1b3c5271d7314cbd20d0cd28b9481fa3003553b4` |
 | Previous P04 Unity inspection | `2e192269504226a2f9b7a2a3082f4a4678968587` |
 | Package 09 future-growth authority | `32818e37216892c898486d1741e40fc5987564a6` |
@@ -47,6 +50,8 @@ TypeScript changed paths, old inspection → sealed production (`1b3c527` → `2
 
 The only production-tip → documentation-tip change (`2ddf080` → `4423fe`) is `docs/campaigns/LIVING-LOT.md`, the P03A seal ledger. No additional production behavior hides under the documentation tip.
 
+Final TypeScript delta, prior P03A seal → P03A.2 (`4423fe0` → `d4ed07d`): exactly one changed path, `docs/campaigns/LIVING-LOT.md`. Commits `25be71e` and `d4ed07d` append the P03A.1/P03A.2 seal records only. There is no Core, bridge, projection, schema, generated DTO, quote, refusal, revision, save, or browser production-code change. Protocol v4, projection v9, and the schema identity recorded below remain exact.
+
 Unity changed paths, old inspection → seal (`2e192269` → `432c39d`):
 
 - authoring/scene: `StudioLotArchitectureAuthoring.cs`, `StudioLotLandAuthoring.cs`, `StudioSceneValidation.cs`, `StudioLotNavMesh.asset`, and `StudioLot.unity`;
@@ -55,11 +60,22 @@ Unity changed paths, old inspection → seal (`2e192269` → `432c39d`):
 - new Development surface: `StudioDevelopmentCardHud.cs`, `StudioDevelopmentJourneyProofRunner.cs`, and `StudioDevelopmentPresentation.cs` with their `.meta` files;
 - tests/proof: `StudioBridgeProtocolTests.cs`, new `StudioDevelopmentCardTests.cs`, new `StudioDevelopmentPresentationTests.cs`, and `Tools/p03a-run-development-proof.sh`.
 
+Final Unity delta, prior P03A seal → P03A.2 (`432c39d` → `bae3c4e`), is exactly these 18 paths:
+
+- infrastructure/bootstrap: `StudioBridgeClient.cs`, `StudioBridgeBootstrap.cs`, `StudioBridgePresentation.cs`, and `StudioCameraInput.cs`;
+- Development/lot presentation: `StudioDevelopmentCardHud.cs`, `StudioDevelopmentJourneyProofRunner.cs`, `StudioDevelopmentPresentation.cs`, and `StudioLivingTimeHud.cs`;
+- new presentation seams: `StudioLocateAction.cs`, `StudioProductionRailHud.cs`, and `StudioWriterPresencePresentation.cs` with their `.meta` files;
+- tests: `StudioBridgePlayerWorkflowTests.cs`, `StudioDevelopmentPresentationTests.cs`, and new `StudioProductionRailTests.cs` with its `.meta` file.
+
+Commit intent is bounded: `f2b62a5` adds writer/placard/receipt joins and Locate, `688374d` adds Production Rail V1, `d89f796`/`f9c96f1` seal world-vs-memo proof, and `4374c8a`/`bae3c4e` make Living Time the conditional `advanceWeek` owner and seal per-beat memo evidence. No scene, package, ProjectSettings, input-actions asset, camera-director, selection-manager, portrait, capture, UXML, USS, PanelSettings, renderer, or generated DTO path changed.
+
 ### Unchanged, changed, and superseded findings
 
-Unchanged: Core Casting lifecycle and six-read law; deterministic `casting-v1` evidence; one-week/shared-capacity/no-fee/no-hold semantics; candidate employment/availability; OVR/Fit/package assessment; Greenlight front door, queue, transaction atomicity, save V14 Casting state, browser oracle, and existing Unity selection/presence/production presentation all remain as mapped below.
+Unchanged: Core Casting lifecycle and six-read law; deterministic `casting-v1` evidence; one-week/shared-capacity/no-fee/no-hold semantics; candidate employment/availability; OVR/Fit/package assessment; Greenlight front door, queue, transaction atomicity, save V14 Casting state, browser oracle, P03 `/quote`, projection/schema/DTO contract, and existing Unity selection/presence/production presentation all remain as mapped below.
 
-Changed by P03A: projection is now version 9; Development has a physical `writers` bungalow, named-writer presence, TypeScript-authored board/copy, `/quote`, generated quote DTOs, a top-anchored retained card, pointer shielding, and the shared 0.7-second arm. `Ready to package · <title>` now ends with the exact Casting boundary line.
+Changed by P03A and still current: projection is version 9; Development has a physical `writers` bungalow, named-writer presence, TypeScript-authored board/copy, `/quote`, generated quote DTOs, a top-anchored retained card, pointer shielding, and the shared 0.7-second arm. `Ready to package · <title>` ends with the exact Casting boundary line.
+
+Changed by P03A.1/P03A.2: the lot now carries current Development rows in `StudioProductionRailHud`; explicit row/card Locate dispatches through `StudioLocateAction.Locate`; active drafting/rewriting writers receive exact-authority placards, nameplates, and receipts; and `StudioBridgeClient` conditionally cedes `advanceWeek` to `StudioLivingTimeHud`. These are presentation ownership/navigation precedents, not new Casting authority.
 
 Superseded:
 
@@ -69,6 +85,43 @@ Superseded:
 - “projection v8” → protocol v4, projection v9, sealed schema `sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47`, derived by `bridge/protocol.ts::SCHEMA_ID = schemaIdentity(BRIDGE_SCHEMA)`;
 - “richer finance is merely a Package 11 integration point” → Package 11 now controls the shared consequence vocabulary and exposes a known recurring-cost truth prerequisite;
 - literal `casting` as permanent owner law → `casting` is the current authored presentation target, while semantic capability/placed-facility routing must remain replaceable.
+
+Final supersessions from this delta:
+
+- “no exact Locate API landed” → `StudioLocateAction.Locate(stableId, focus)` now exists for explicit player actions, but it captures no origin and supplies no Back stack;
+- “Production Rail/project summary may land” → `StudioProductionRailHud` is sealed, Development-only, consumes existing `development.board.projects` in authority order, excludes `productionHistory`, and is summary/navigation only;
+- “memo ownership is static Development filtering” → P03A.2 establishes conditional owner declaration/fallback through `SetWorldTimeOwnerPresent`; Casting must apply that ownership law to its three memo verbs without copying a time-specific boolean three times;
+- “UI framework decision pending” → accepted audit `8110820d` makes P04A the first major UI Toolkit workspace and requires the smallest shared UI host, Input System context/navigation, and origin/Back/Locate orchestration; existing IMGUI remains intact.
+
+### Production Rail, Locate, writer join, and memo ownership delta
+
+| Sealed seam | Exact code | What P04A reuses | What P04A must not infer |
+|---|---|---|---|
+| Development project summary | `StudioProductionRailContracts.RowWanted/RailWanted/WeekLine/OverflowLine`; `StudioProductionRailHud` | Authority-order project identity/status/title/week composition, summary yields to deeper surface, row selects and explicit `LOCATE` focuses, ghost shield and pointer containment. The Ready row's `projectId` is a valid exact join into Casting. | Do not add Casting rows to this Development-only IMGUI class or client-compose a cross-domain rail. It intentionally excludes production history and carries at most four Development rows. A future cross-domain Rail requires a TypeScript-owned summary projection. |
+| Exact explicit Locate | `StudioLocateAction.Locate(string stableId, bool focus)`; `LastLocatedStableId` proof | Use as the leaf stable-ID selection/focus dispatch behind P04's new navigation orchestrator. `focus=false` selects only; `focus=true` makes the explicit camera promise through `StudioSelectionManager.Select`. | It is not an origin token, route, retained workspace, Back stack, availability join, or authority-refresh hook. Never call it from snapshot apply/`Update`. |
+| Writer authority join | `StudioDevelopmentContracts.WriterWorkStatus/WriterNameplateText/PlacardText`; `StudioWriterPresencePresentation`; `StudioBridgePresentation.ApplyPeople` script branch | Copy the exact-ID join/fail-closed pattern: only an active authoritative body receives person-level UI; building/session truth remains when no body can join. | Do not couple Casting to Development contracts, treat review/Ready writers as active, synthesize copy in Unity, or use a name as identity. |
+| Memo ownership | `StudioBridgeClient.PlayerIsDevelopmentOption`, `PlayerIsTimeOption`, `SetWorldTimeOwnerPresent`, `LastRenderedWorkflowIntentKinds`, `WorkflowTimePointerShown`; `StudioLivingTimeHud.OnGUI/OnDisable` | An accepted owner declares presence; memo cedes the owned verb only while that owner is truly usable, retains wire/automation access, and preserves a fallback when the owner is absent. Proof observes rendered kinds rather than assuming them. | Do not permanently delete wire verbs or hide a verb before its world/workspace owner works at the current viewport/context. Do not parse memo copy as a command. |
+
+The P04 memo ownership set is exact: `startAuditions`, `acknowledgeAuditions`, and `greenlightPicture`. Today `PlayerIsCastChoiceOption` classifies only a same-project `greenlightPicture` after auditions are reviewed; `startAuditions` and `acknowledgeAuditions` remain ordinary memo actions. When the accepted Casting owner is present, extend/generalize the presentation ownership registry so all three kinds cede to Casting. If the UI Toolkit host/workspace is unavailable, disabled, or cannot render a legal fallback, the existing memo verbs remain. Do not add three unrelated owner booleans to `StudioBridgeClient`; one semantic owner-kind registry/context is the smallest reusable extension. Keep `advanceWeek` ownership and `SetWorldTimeOwnerPresent` behavior intact during that generalization.
+
+The sealed Rail uses no new projection: it reads `snapshot.development.development.board.projects` (`projectId`, `statusLabel`, `title`, `weeksUntilDecision`) and calls the authored Development owner ID. Therefore P04 can reuse the Ready project's exact identity in its workspace header immediately, but it cannot claim a new generic Production Rail or Casting summary projection already exists. P04's new closed Casting projection should own any Casting status/readiness summary; `StudioProductionRailHud` remains a sealed IMGUI Development V1 surface.
+
+### Accepted Unity architecture and minimum P04 foundation
+
+Audit authority `8110820d96ddf2089df582bc0a0a92d3d4cf17d9` resolves presentation technology. Preserve Unity 6.3, URP 17.3 PC Forward+, Render Graph, SRP Batcher, Cinemachine 3, ordinary GameObjects, the current lot/camera/selection stack, and every working Founding/Living Time/memo/P03 IMGUI surface. P04A is the first major UI Toolkit retained management workspace.
+
+The exact minimum foundation P04A may establish is:
+
+1. one runtime `PanelSettings` plus one `UIDocument`/host lifetime, bootstrapped beside `StudioBridgeBootstrap` rather than replacing it;
+2. one small shared USS token sheet and responsive root with wide/mid/narrow classes, persistent header/action area, one contained scroll/list owner, focus-visible/disabled/refusal/commit states, and stable element names for tests;
+3. one workspace route/lifecycle that retains exact local project/role/candidate/comparison/scroll/focus state and declares whether Casting currently owns its memo verbs;
+4. one explicit origin token recording prior world/workspace, selected stable ID, camera mode/pose needed for restoration, and nested Casting context;
+5. one project-owned Input System action/context service for `Global`, `World`, `Camera`, and `UI` contexts, consuming `Assets/InputSystem_Actions.inputactions` (or its reviewed successor), providing mouse/keyboard/controller navigation, default/restored focus, submit/cancel, tabs, scroll/page, and a central UI-capture signal;
+6. one additive camera/navigation orchestrator that calls existing `StudioLocateAction`, `StudioSelectionManager`, and `StudioCameraDirector`/`TycoonCameraController`; Locate is explicit, authority refresh never moves the camera, and Back restores the token rather than calling Home.
+
+Likely new paths—names may follow repository convention, but ownership must stay this narrow—are `Assets/Studio/Runtime/Presentation/UI/StudioManagementWorkspaceHost.cs`, `Assets/Studio/Runtime/Presentation/Input/StudioPresentationInputContext.cs`, one origin-token/orchestrator class, one `PanelSettings` asset, one shared USS token sheet, and Casting UXML/USS/controller files. Existing `StudioCameraInput.Current` may remain the one-frame camera facade while its device source moves behind actions. No Casting component may poll `Keyboard.current`, `Mouse.current`, `Touchscreen.current`, or `Gamepad.current` directly, and no Casting-specific screen-rectangle check may be appended to `StudioCameraInput`.
+
+This pass deliberately does **not** pull broader audit foundations into P04A: no Addressables installation/migration, semantic-content catalog rollout, renderer/URP work, DOTS, general IMGUI migration, movie/capture infrastructure, whole-lot refactor, or broad platform/build refactor. Portrait work may consume `StudioApplicantPortraitCamera` through a narrow adapter or copy its proven pattern; creating a general pooled capture platform is not a prerequisite in this P04 handoff. These exclusions do not weaken the framework-agnostic authority, quote, identity, Back, or input laws.
 
 ### Exact sealed P03 quote seam to reuse
 
@@ -174,14 +227,16 @@ Extend `tests/bridge-development.test.ts` for route-generic purity and add P04 c
 | Band growth + optional-row dropping | 620/600 sheets, cap 780/660, tier-based omission | DO NOT PROPAGATE | P04 candidate list/comparison/dossier requires one real contained scroll owner. |
 | Score/band hierarchy | tall P03 card makes score dominant and band subordinate | DO NOT PROPAGATE | Package 04 prioritizes evidence/role-read context; preserve approved hierarchy. |
 | Evidence density | P03 `whyThisEstimate` can be thin | REUSE + HARDEN | P04 must meet its approved evidence floor without inventing facts. |
-| Generic origin/Locate service | none landed | ADD SHARED PRESENTATION SEAM | P03 has a retained card and explicit Back, not a general origin stack or exact Locate API. |
+| Explicit stable-ID Locate | `StudioLocateAction.Locate(stableId, focus)` | REUSE + WRAP | Reuse as the leaf dispatch only; P04's shared orchestrator must capture/restore origin and retained context around it. |
+| Generic origin/Back service | none landed | ADD SHARED PRESENTATION SEAM | P03A.1 added Locate but no origin token or workspace/camera Back stack. |
+| Production Rail | `StudioProductionRailHud`; `StudioProductionRailContracts` | COPY BEHAVIOR, DO NOT COUPLE | Preserve exact-ID, authority-copy, yield, Locate, and ghost-shield laws; leave the Development-only IMGUI implementation unchanged. |
 | Proof metadata | Development proof reports do not stamp Git SHA | REUSE + HARDEN | P04 proof reports must stamp TS/Unity SHAs and schema/projection versions. |
 
-P04 presentation law is framework-agnostic above the final renderer: exact-ID draft state, projection joins, quote/refusal/receipt state machine, Back/origin model, scroll ownership, pointer containment, and arm behavior remain required whether the accepted implementation is IMGUI or UI Toolkit. `StudioDevelopmentCardHud` is an IMGUI precedent, not a mandate to migrate or remain. The separate Unity Production Architecture Audit is not accepted authority in this reconnaissance; UI-technology selection remains pending it. Do not independently introduce UI Toolkit, URP, or a parallel framework here.
+P04 presentation law remains framework-agnostic at its authority/controller boundary: exact-ID draft state, projection joins, quote/refusal/receipt state machine, Back/origin model, scroll ownership, pointer containment, and arm behavior do not depend on renderer details. The accepted audit nevertheless resolves the concrete P04 renderer: build the new retained workspace in UI Toolkit. `StudioDevelopmentCardHud` and `StudioProductionRailHud` are IMGUI behavior precedents, not base classes or layouts. Do not migrate them, Founding, Living Time, the memo, or inspection Back during P04A.
 
 ### Exact Development → Casting boundary after seal
 
-`bridge/development.ts::developmentProjection` publishes `Ready to package · <title>` and the constant `CASTING_BOUNDARY_LINE = 'Development work is complete — continue at Casting.'`. `StudioDevelopmentPresentation` applies this board verbatim to the physical `writers` bungalow. The wire-accessible screenplay memo verbs remain automation/fallback, not player-facing buttons. There is no Casting workspace, package draft, Camera Test planning UI, Greenlight preview, or P04 command authored by P03A. P04 begins by selecting the semantic Casting capability/project from that exact Ready identity.
+`bridge/development.ts::developmentProjection` publishes `Ready to package · <title>` and the constant `CASTING_BOUNDARY_LINE = 'Development work is complete — continue at Casting.'`. `StudioDevelopmentPresentation` applies this board verbatim to the physical `writers` bungalow, and `StudioProductionRailHud` carries the Ready row's exact `projectId`/status/title as a selectable Development summary. Selecting that row still targets Development; it does not open Casting. The wire-accessible screenplay/Casting memo verbs remain automation/fallback until an accepted owner declares itself. There is no Casting workspace, package draft, Camera Test planning UI, Greenlight preview, or P04 command authored by P03A.2. P04 begins from the exact Ready `projectId`, resolves the semantic Casting owner, opens the new workspace without automatic focus, then lets explicit Locate move to that owner if requested.
 
 ### Projection/schema/generated DTO position
 
@@ -266,6 +321,7 @@ Smallest safe extension:
 | Requirement | Existing authority | P04 implementation seam | Existing proof | Required P04 proof |
 |---|---|---|---|---|
 | Ready handoff | `scriptReadModel`, `firstFilmJourney`, `developmentProjection` | Casting projection keyed by exact project | P03 Development bridge/proof | Ready project opens exact Casting draft; no auto-focus. |
+| Production Rail handoff | `development.board.projects[].projectId`; `StudioProductionRailContracts` | Treat Ready row as exact identity/navigation context only; separate Casting route/summary authority | `StudioProductionRailTests.RailContracts_SummarizeTheAuthoritysRowsAndYieldToDeeperSurfaces` | Ready row remains Development-owned; Casting opens exact ID; no title authority or client package computation. |
 | Six reads/2 per role/3 actors | `assertCastingSlateLaw` | `quoteCasting` Screen Test draft converter | `casting-sessions-domain.test.ts` | Exact chosen slate quote/commit parity and structured refusal. |
 | One week/shared slot | `startCastingSession`, allocation, tick completion | project session/queue projection | Casting action/capacity/tick suites | Started/queued consequence and due-week parity. |
 | No fee/hold/assignment/winner | Casting Core law | quote/result copy + negative DTO keys | domain/save/read-model tests | State/save/ledger/contracts/busy unchanged; no winner field. |
@@ -278,6 +334,9 @@ Smallest safe extension:
 | Queue expiry recovery | persisted queue + engine refusal | identity-bearing event + Casting notice | `c2a-m4-queue-admission.test.ts` | exact project/title/reason/Review after save/reconnect. |
 | Stale/refusal/idempotency | `BridgeSession.command`, journal, pending post | reuse existing envelope/lifecycle | bridge runtime/process tests | stale quote, same-byte retry, changed-command-ID refusal. |
 | Back/context/scroll | P03 card + Package 02 laws | shared origin model + contained Casting scroll | Development card geometry tests | nested Back restores project/role/scroll/camera; pointer shield. |
+| Explicit Locate | `StudioLocateAction.Locate`; selection/camera stack | shared origin orchestrator wraps leaf dispatch | `StudioProductionRailTests.LocateSource_IsTheOneSanctionedDispatchAndOnlySelectsThroughTheManager` | player-only dispatch; refresh never moves camera; failed join is honest; Back restores exact token. |
+| Memo ownership | Development filtering + `SetWorldTimeOwnerPresent` conditional fallback | semantic owner-kind registration for three Casting verbs | `StudioBridgePlayerWorkflowTests.TimeVerb_CedesToThePresentLivingClockAndSurvivesItsAbsence` | owner present/absent/disabled/viewport tests; no duplicate or missing verb; time owner unchanged. |
+| Retained UI/input | accepted audit `8110820d`; Input System 1.19; existing camera facade | bounded UI Toolkit host + action contexts + central capture/focus | no current retained-host proof | host rollback, mouse/keyboard/controller, modal/world suppression, responsive contained scroll, no direct Casting polling. |
 | Save/reconnect | Save V14 Casting + runtime checkpoint | draft local, quote ephemeral, expiry identity persisted | save/runtime tests | restart/load/session cases and no stale quote replay. |
 
 ### Exact implementation waves, ownership, and delegation
@@ -294,7 +353,7 @@ Unity must not reimplement `roleOVR`, `projectFit`, `actorRoleFit`, `temperament
 
 Package 04 is the accepted design authority for this implementation handoff. Its main report still contains stale proposal-era governance at `## Owner decision status`: “No additional Owner decision is required to begin P04A **after the Owner accepts this Package 04 ruling**.” Do not edit that research report in this pass. The smallest later reconciliation is a status note: accepted design authority; implementation remains subject to current campaign authorization and sealed dependency contracts. Fable must not treat the old conditional wording as an unresolved product decision.
 
-There are no product-law blockers to beginning P04A. The true implementation prerequisites are: (1) decide the accepted Unity renderer with the separate architecture audit without changing framework-agnostic law; (2) repair or qualify/omit facility-Opex-dependent burn/runway before presenting them as complete; (3) add the expiry subject identity if recoverable queued-Greenlight UX ships in the same slice; and (4) implement a shared origin/Locate model plus one contained scroll owner for the dense workspace. These are implementation seams, not reasons to redesign Package 04.
+Remaining true blockers: **none**. The reconnaissance is **READY FOR FABLE**; the UI technology decision is closed. The first implementation prerequisites are: (1) land the bounded UI Toolkit host, Input System contexts, and origin/Back/Locate orchestrator described above; (2) repair or qualify/omit facility-Opex-dependent burn/runway before presenting them as complete; (3) add the expiry subject identity if recoverable queued-Greenlight UX ships in the same slice; and (4) provide one contained scroll owner for the dense workspace. These are planned implementation seams, not blockers or reasons to redesign Package 04.
 
 ## 2. Inspected baseline
 
@@ -303,10 +362,12 @@ There are no product-law blockers to beginning P04A. The true implementation pre
 | Canonical documentation baseline | `c902a704eb948cc576083d0973c8c23e59937dc1` | Parent of the approved Package 04 documentation commit. |
 | Package 04 | `ddc4976cd7c947ba513917e6311a697ad4ea6934` | Contains `CODEX-CASTING-AUDITIONS-PACKAGE-04.md` and Builder Annex. |
 | Reconnaissance starting revision | `579a81de58a308db36a0e0b96d78de50a77809c9` | Existing P04 recon updated in place by this hardening pass. |
+| Accepted hardened recon baseline | `19655116339d17ffa31b26b1682db05a0d6bb7e1` | Starting point for this final changed-path-only refresh. |
 | TypeScript campaign baseline | `campaign/living-lot-ts` at `1b3c5271d7314cbd20d0cd28b9481fa3003553b4` | Inspected in a clean stable worktree. |
 | Unity campaign baseline | `campaign/living-lot-client` at `2e192269504226a2f9b7a2a3082f4a4678968587` | Inspected in a clean stable worktree. |
 | Package 02 inputs | Approved world-interaction core and Builder Annex | Used for selection, retained context, Back, camera, attention, and world-presence law. |
-| Package 03 sealed inputs | TS `4423fe03664701df68e1f44de42b8c15dbe8632c` (production `2ddf080`); Unity `432c39d4caeacc33bdcd1c60ec5f4ec0a30e6321` | Narrow delta inspected directly; no P03 files changed. |
+| Package 03 final sealed inputs | TS `d4ed07d539a764b542269338c1ffbdc55e1b9be7` (production remains `2ddf080`); Unity `bae3c4e652cb93212f627e973ec864ed94613081` | P03A.1/P03A.2 narrow changed-path delta inspected directly. |
+| Unity architecture authority | `8110820d96ddf2089df582bc0a0a92d3d4cf17d9` | `CODEX-UNITY-PRODUCTION-ARCHITECTURE-AUDIT-01.md` + Builder Annex; UI Toolkit/Input/origin decision accepted; only the bounded P04 foundation adopted here. |
 | Package 09 input | `32818e37216892c898486d1741e40fc5987564a6` | Architecture-only future-proofing; not implemented by P04A. |
 | Package 11 input | `d6c38546d19fbb23533af496e0f62b9c340b7ce5` | Shared consequence vocabulary and recurring-cost truth prerequisite. |
 
@@ -320,7 +381,7 @@ No TypeScript, Unity, browser production code, tests, assets, saves, dependencie
 |---|---|---|---|---|
 | Ready screenplay | `acceptScriptProject` in `src/core/scriptDevelopment.ts`; `ReadyScriptPackageView`, `readyPackage`, and `packageAvailability` in `src/core/scriptReadModel.ts`; `readyToPackageView` in `src/core/firstFilmJourney.ts`; `bridge/development.ts::CASTING_BOUNDARY_LINE` | Browser lot journey routes Ready work to Casting. Sealed Unity renders `Ready to package · <title>` and `Development work is complete — continue at Casting.` at `writers`; P03 implements no P04 behavior. | Publish the exact Ready screenplay/package identity in the bridge Casting projection. | Do not create Unity screenplay state or extend Development past its sealed boundary. |
 | Casting requests attention | Core journey site is semantic `casting`; browser `managedCastingLotCue` and `ui/src/lot/buildingInspector.ts` derive review/running/queued/planning cues | Unity `StudioBridgePresentation.ApplyBuildingStates` consumes TypeScript `attention`/`attentionReason`; current authored owner is `casting`. Ambient Casting extras already stand up only for qualifying authority state. | Extend TypeScript Casting projection and semantic owner routing for direct-Package/blocked-ready attention. | Do not infer urgency from bodies/labels/intents or make the literal current owner permanent law. |
-| Select/open Casting | `FirstFilmJourneyNext.site = 'casting'`; browser uses deep Casting routes and retained lot workspaces | Unity selection/camera owns place. P03 supplies `StudioDevelopmentCardHud` as a retained same-camera card but no generic origin/Locate stack. | Add the Casting workspace using P03 card safety and one shared origin/Locate seam for exact building/project restoration. | Do not add another selection/camera system or claim P03 landed a generic navigation stack. |
+| Select/open Casting | `FirstFilmJourneyNext.site = 'casting'`; Ready `development.board.projects[].projectId`; browser uses deep Casting routes and retained lot workspaces | Unity selection/camera owns place. P03A.1 supplies `StudioLocateAction` and the Ready row in `StudioProductionRailHud`, but no generic origin/Back stack. | Open the UI Toolkit Casting route by exact project ID; wrap `StudioLocateAction` behind the shared origin orchestrator for optional owner/person Locate. | Do not add another selection/camera system, mutate the Development Rail into Casting UI, or claim Locate alone restores context. |
 | Role-first workspace | Writer lock and required roles exist in the screenplay/package payload; fixed actor slots are `lead`, `antagonist`, `support` | Browser `Assembly` has a local reversible draft and `TalentPicker`; it is a wizard, not the approved target. Unity has CP10A dossier/card patterns, not Casting. | Add a TS Casting/package projection and a Unity role-first retained workspace. Keep the draft transient and identity-based. | Do not copy the browser page architecture or persist a package draft as a hold. |
 | Inspect candidates | `roleOVR`, `projectFit`, `expectedPerformance`, `genreExperience`, employment and fee helpers exist | Browser `assignmentCard`/`TalentPicker` expose most required facts. Unity CP10A shows OVR, genre, economics, and portrait patterns for founding applicants. | Publish safe, role-specific candidate rows for Director, each actor role, and Craft Lead. Generalize the existing dossier visual pattern without coupling to founding. | Do not calculate or decompose Fit in Unity. Do not expose hidden persona/actual values. |
 | Compare candidates | Same TS facts can be aligned by role; `packageDelta` supports before/after package effects | Browser has card sorting and package delta, but no real side-by-side comparison component. Unity has no comparison UI. | Add presentation-only compare selection over already-published candidate rows; any consequences remain TS-projected. | Do not claim an existing comparison implementation. Do not invent a new comparison score. |
@@ -519,13 +580,13 @@ There is no existing browser side-by-side comparison implementation. Comparison 
 - `StudioLotActivityAuthoring.BuildServiceAndCastingEvidence` authors a check-in table, three decorative applicants, and a decorative casting clerk. These are presentation identities only and must never be joined to candidate IDs.
 - `ApplyPeople` already binds authoritative `StudioPersonSnapshot` + `StudioPresencePersonSnapshot` to physical bodies and routes `facility-development-casting*` presence into the Casting zone.
 
-No Unity Casting screen, candidate card, role assignment workspace, comparison surface, Fit explanation, Greenlight preview, or exact Casting building inspector exists at this baseline. The current `StudioBridgeClient` memo can list auto-generated Greenlight intent buttons and a generic “choose cast” heading, but it does not contain the data or interaction model approved for P04A.
+No Unity Casting screen, candidate card, role assignment workspace, comparison surface, Fit explanation, Greenlight preview, or exact Casting building inspector exists at the P03A.2 seal. The current `StudioBridgeClient` memo can list auto-generated Greenlight intent buttons and a generic “choose cast” heading, while `startAuditions` and `acknowledgeAuditions` remain ordinary memo verbs. The Development Production Rail adds navigation only; neither surface contains the data or interaction model approved for P04A.
 
 The sealed P03 surface is IMGUI/scene-authoring and has no P04 `.prefab`, `.uxml`, or `.uss`. This is evidence, not an architecture ruling. `StudioCameraInput.IsPointerOverUi` is the current pointer-ownership seam; preserve its contract under whichever renderer the separate audit accepts. There is no generic building beacon: current Casting spectacle is ambient visibility plus selected-building status.
 
 ### Back and context restoration
 
-Current camera Back is exact for inspection: `StudioCameraDirector.ExitInspection(false)` restores management input and previous workflow-panel visibility. Current selection Escape clears selection. CP10A `StudioFoundingCardHud.BackToCompact` and sealed P03 `StudioDevelopmentCardHud.BackToDepartment` reverse explicit presentation layers. P03 did not land a general retained-workspace origin/Locate stack. P04A therefore adds one shared presentation-level origin model while reusing the existing selection/camera authority:
+Current camera Back is exact only for its current inspection contract: `StudioCameraDirector.ExitInspection(false)` restores management input and previous workflow-panel visibility. Current selection Escape clears selection. CP10A `StudioFoundingCardHud.BackToCompact` and sealed P03 `StudioDevelopmentCardHud.BackToDepartment` reverse explicit presentation layers. P03A.1 adds `StudioLocateAction.Locate(stableId, focus)`, but it is a stateless explicit dispatch and records only `LastLocatedStableId` for proof. P04A therefore adds one shared UI Toolkit workspace-origin model around that dispatch while reusing the existing selection/camera authority:
 
 ```text
 origin = selected building ID + selected project ID + workspace layer + local scroll/compare state
@@ -536,7 +597,7 @@ authority refresh = retain origin if all exact IDs still join; otherwise fail ne
 
 Do not wire Back to `SnapHome`, change selection, or refocus the camera unless the player explicitly requests Locate/Focus.
 
-`TycoonCameraController.FocusOn` changes management pivot/distance and exposes no complete pose capture/restore API. Therefore it cannot, by itself, satisfy Package 02 exact Back restoration. `StudioSelectionManager` also lacks a selection-change event, exact-stable-ID select method, and exact Locate/Focus API. These remain shared presentation gaps after P03A, not reasons to add Casting-local camera or selection state.
+`TycoonCameraController.FocusOn` changes management pivot/distance and exposes no complete pose capture/restore API. Therefore it cannot, by itself, satisfy Package 02 exact Back restoration. `StudioSelectionManager` still lacks a selection-change event and pose/origin token; `StudioLocateAction` now supplies exact-stable-ID lookup plus selection/focus but no restoration. The missing piece is the accepted shared UI workspace/input/origin orchestrator, not Casting-local camera or selection state.
 
 ## 8. Candidate/Profile reuse
 
@@ -544,7 +605,7 @@ Package 10 is not a P04A dependency. Its Unity applicant dossier is still the be
 
 ### COPY COMPONENT
 
-- `StudioApplicantPortraitCamera`: reuse its live `RenderTexture`, isolated portrait layer, framing, cleanup, and `ShowPortrait` / `HidePortrait` lifecycle for an exact current body. Generalize naming/API only if needed; maintain the exclusion of applicant furniture/decorative marks.
+- `StudioApplicantPortraitCamera`: reuse behind a narrow UI Toolkit texture adapter when its exact-body assumptions fit. Preserve its live `RenderTexture`, isolated portrait layer, framing, cleanup, and `ShowPortrait` / `HidePortrait` lifecycle. Do not make a general capture platform a P04 prerequisite.
 - `StudioRejectionRetention`: reuse unchanged for exact-authority refusal display.
 - `SelectableEntity` and `StudioSelectionManager`: reuse unchanged for physically present people.
 
@@ -552,8 +613,8 @@ The portrait component can only render a body that exists. The current Casting p
 
 ### COPY PATTERN
 
-- `StudioFoundingCardContracts`: readable typography floors, safe-area-aware width growth, height tiers, right-edge receipt anchoring, and fail-closed confirmation-sheet sizing.
-- `StudioFoundingCardHud`: profile -> review -> explicit confirmation layering, local retained state, refusal text, commit-arm law, and no commit on selection/double-click.
+- `StudioFoundingCardContracts`: copy readable typography, safe-area, receipt, and fail-closed confirmation laws into shared USS/UI Toolkit contracts; do not copy its IMGUI geometry constants.
+- `StudioFoundingCardHud`: copy profile -> review -> explicit confirmation behavior, local retained state, refusal retention, commit-arm law, and no commit on selection/double-click; do not subclass or reuse its renderer.
 - `StudioApplicantPortraitTests` and `StudioFoundingPresentationTests`: live portrait isolation, readability, responsive card bounds, commit-under-cursor prevention, and pointer shielding patterns.
 - CP10A dossier hierarchy: portrait, role/OVR, genre signal, strengths/concern, employment economics, and explicit next action.
 
@@ -561,7 +622,7 @@ The portrait component can only render a body that exists. The current Casting p
 
 - Do not make Casting depend on `StudioFoundingCardHud`, `StudioFoundingGatePresentation`, `StudioFoundingArrivalSnapshot`, `StudioFoundingGateContracts.ApplicantStableId`, gate pad bodies, founding readiness, or founding offer intents.
 - Do not copy founding-only annual salary/signing bonus/term economics into film package cost. P04A must use current contract-vs-freelancer film cost authority.
-- Do not turn the CP10A card into a generic domain model. Extract a presentation-neutral dossier/card shell or follow its layout laws.
+- Do not turn the CP10A card into a generic domain model or a UI Toolkit dependency on IMGUI. Consume exact portrait output/pattern and build the retained dossier in Casting UXML/USS/controller state.
 - Do not implement Package 10's future human-information spine, relationship discovery, or profile persistence.
 
 ## 9. Casting workspace engineering anatomy
@@ -800,6 +861,7 @@ The immediate-cost assembly currently lives partly in `ui/src/engine/adapter.ts`
 - Resolve the semantic current Casting owner to today's authored `casting` building and reuse its six activity-zone points from `StudioLotArchitectureAuthoring.BuildCasting`; keep the literal ID at the routing edge.
 - Reuse its `StudioLocationBinding`, `SelectableEntity`, selection ring/collider, and `StudioBridgePresentation.ApplyBuildingStates` exact property join.
 - Extend TypeScript building attention so Ready/direct-package, Camera Test running, results ready, package blocked, and package-ready-to-commit have explicit authoritative states and primary actions.
+- Keep `StudioProductionRailHud` as the sealed Development summary. Its Ready row may lead the player to the exact project/Development owner, but Casting attention/opening belongs to the semantic Casting owner and new workspace route; do not make the Rail compute or own package lifecycle.
 - Reuse `TryResolveBuildingAmbient` / `ApplyAmbientDepartment` to make Casting visibly active without inventing staff.
 - Copy the restrained attention patterns from `StudioFoundingBeaconHud` and the founding pennant only if an off-screen/world beacon is required. Build a neutral shared attention component; do not couple to founding or auto-focus the camera.
 
@@ -807,7 +869,7 @@ The immediate-cost assembly currently lives partly in `ui/src/engine/adapter.ts`
 
 `src/core/presence.ts` already carries exact authority participation. Its precedence is production > script > casting > roster; auditioning sessions project slate members as auditionees; no casting director exists in state and none is invented. Unity `StudioBridgePresentation.ApplyPeople` joins canonical person IDs to `StudioPresencePersonSnapshot`, resolves the facility/zone, and uses authoritative presentation slots. Reuse that path.
 
-P04A may need narrow presentation APIs from `StudioBridgePresentation` to resolve/select/Locate an exact current talent ID. Add those to the existing identity binder; do not create a candidate body dictionary in the workspace.
+P04A already has exact live-object lookup/select/focus through `StudioLocateAction.Locate`. Reuse it for authoritative-present talent behind the new origin orchestrator. If Casting needs a read-only “is this exact body present?” join, expose that narrowly from the existing `StudioBridgePresentation` identity binder; do not create a candidate body dictionary in the workspace.
 
 ### Decorative extras
 
@@ -923,26 +985,40 @@ These browser tests remain oracle tests. P04A should not make Unity depend on Re
 | `StudioBridgePendingPostTests.cs` — `Lifecycle_ReusesTheSameEnvelopeAcrossRepeatedTransportLoss`, `ResponseJoin_FailsClosedOnContradictoryAuthority` | EXTEND EXISTING TEST for Camera Test/Greenlight opaque submission. There should still be one commit operation, not assign/unassign mutations. |
 | `StudioRejectionRetentionTests.cs` — `SameSessionPollsRetainNoticeButOnlyExactAuthorityStateCanRenderIt`, `AuthorityGuidanceIsStoredVerbatimWithoutClientInference` | EXTEND EXISTING TEST for workspace quote/commit refusal. |
 | `StudioBridgePlayerWorkflowTests.cs` — `CastChoiceHeading_RequiresReviewedAuditionsAndMultipleDistinctGreenlights` | Replace/retire only the raw memo presentation assertion when the workspace supersedes it; retain opaque workflow evidence coverage. |
-| `StudioApplicantPortraitTests.cs` — `PortraitApi_IsTheExactSeamTheCardCalls`, `PortraitSource_RendersLiveAndTouchesNothingElse` | EXTEND EXISTING TEST after genericizing portrait service. |
+| `StudioBridgePlayerWorkflowTests.cs` — `TimeVerb_CedesToThePresentLivingClockAndSurvivesItsAbsence` | COPY OWNERSHIP LAW for all three Casting verbs; preserve the Living Time classification/fallback and assert memo proof kinds with owner present/absent. |
+| `StudioProductionRailTests.cs` — `RailContracts_SummarizeTheAuthoritysRowsAndYieldToDeeperSurfaces`, `WriterJoin_ArrangesTheAuthoritysOwnRowByIdentity`, `RailSource_SummarizesAndNavigatesButNeverCommandsOrComputes`, `LocateSource_IsTheOneSanctionedDispatchAndOnlySelectsThroughTheManager` | PRESERVE. ADD separate Casting host tests; do not widen this Development-only suite into package logic. |
+| `StudioApplicantPortraitTests.cs` — `PortraitApi_IsTheExactSeamTheCardCalls`, `PortraitSource_RendersLiveAndTouchesNothingElse` | EXTEND only for the narrow UI Toolkit texture adapter if used; a general capture-service migration is out of P04 scope. |
 | `StudioFoundingPresentationTests.cs` — `ProfileCard_IsThePlayerCardTheOwnerRuledFor`, `CardRect_StacksAboveTheReceiptOrDoesNotExist`, `CommitSheets_NeverVanishAtAnySupportedHeight`, `Beacon_StandsDownForAnySelectionAndShieldsTheDoubleClick` | COPY TEST PATTERN into new Casting workspace tests; do not couple founding tests to P04. |
 | `StudioSelectionSemanticsTests.cs` — person-first and occlusion proofs | EXTEND EXISTING TEST for canonical Casting bodies and exact-ID Locate. |
 | `StudioCameraPresentationTests.cs` — `Director_ChangesOnlyCinemachinePriorityAndManagementInputMode`, receipt/back geometry | ADD NEW TEST for exact origin/context Back, explicit Locate, no camera hijack, and responsive workspace avoidance. |
+| `Assets/InputSystem_Actions.inputactions`; `StudioCameraInput.cs` | ADD focused action-map/context tests for mouse, keyboard, gamepad, focus restore, modal suppression, UI capture, and no direct device polling in Casting components. |
 | `StudioLivingTimeTests.cs` — `ControllerSource_SchedulesOnlyThroughTheClientSeamAndStartsPaused`, `Classify_RollsOnlyOnAdvanceWeekAndFailsClosed` | EXTEND EXISTING TEST for Camera Test decision/pause behavior; no local Camera Test timer. |
 | `StudioShootingDayLotPresentationTests.cs` — decorative-only/bootstrap-once proof | COPY TEST PATTERN into a new Camera Test spectacle test. |
 | `StudioDevelopmentPresentationTests.cs` — `Contracts_NameTheFixtureIdentityAndTheirOwnPennantObject`, `DevelopmentSource_SpeaksButNeverSelectsMovesOrComposesCopy`; `StudioSceneContractTests.cs` | PRESERVE sealed Development; EXTEND only semantic Casting-owner/current-`casting`/future placed-facility routing tests. |
 
-ADD NEW UNITY TESTS for the retained role-first workspace, responsive candidate dossier/comparison, exact draft preservation/revalidation, armed Greenlight confirmation, queued-vs-formed receipt, and multi-project isolation. No current Unity test proves those behaviors.
+ADD NEW UNITY TESTS for the runtime UI Toolkit host/PanelSettings lifetime, retained role-first workspace, one contained `ListView`/`ScrollView` owner, responsive candidate dossier/comparison, exact origin/Back/Locate restoration, exact draft preservation/revalidation, memo-owner fallback, armed Greenlight confirmation, queued-vs-formed receipt, and multi-project isolation. No current Unity test proves those behaviors.
 
 ## 16. Suggested implementation waves
 
 These are the definitive post-delta waves. Fable owns architecture, integration, reviews, and the final merge throughout.
+
+### Wave 0 — Minimum retained UI/input/origin foundation
+
+- **Purpose:** establish only the accepted infrastructure needed to host Casting without changing existing simulation or IMGUI product surfaces.
+- **Likely files/symbols:** `Assets/InputSystem_Actions.inputactions`; additive adapters around `StudioCameraInput`, `StudioSelectionManager`, `StudioCameraDirector`, `TycoonCameraController`, and `StudioLocateAction`; `StudioBridgeBootstrap` only for host installation; new runtime `UIDocument`/host, one `PanelSettings`, shared token USS, `StudioPresentationInputContext`-equivalent service, and workspace-origin token/orchestrator. Exact new filenames are implementation-owned; keep them under the existing `Assets/Studio/Runtime/Presentation` and UI asset conventions.
+- **Ownership:** Unity presentation infrastructure; Fable owns the host/input/navigation contract. No TypeScript/bridge authority changes.
+- **Dependencies:** Unity `bae3c4e`, architecture audit `8110820d`; preserve `StudioDevelopmentCardHud`, `StudioProductionRailHud`, `StudioLivingTimeHud`, memo, Founding, inspection Back, and current Cinemachine rigs.
+- **Tests:** host enable/disable rollback; wide/mid/narrow + safe-area/DPI; mouse/keyboard/gamepad navigation and focus restore; UI capture suppresses world/camera; modal context; Locate explicit/no refresh movement; Back restores selection/workspace/camera origin; no new direct device polling.
+- **Risk:** HIGH—general-platform refactor or input/camera regression before feature value.
+- **Stop condition:** one empty Casting-shaped retained route opens/closes over the live lot, owns focus/pointer correctly, and restores exact origin; disabling the host leaves every existing IMGUI workflow operational.
+- **Cheapest capable worker:** Sonnet/equivalent for bounded host/action implementation after Fable fixes interfaces; Haiku/equivalent for asset/test fixture wiring; Fable alone integrates origin/camera/input semantics.
 
 ### Wave 1 — TypeScript Casting workspace and safe candidate truth
 
 - **Purpose:** publish one exact project/role/candidate/evidence/readiness model with the field classifications above.
 - **Likely files/symbols:** extend `src/core/castingReadModel.ts`, `src/core/scriptReadModel.ts`, and exports in `src/core/index.ts`; add focused `src/core/castingPackageReadModel.ts` if composition would otherwise pollute lifecycle code; reuse/export from `talentSummary.ts`, `employment.ts`, and `filmPackage.ts` without changing formulas.
 - **Ownership:** TypeScript/Core; Fable approves all disclosure and cross-module boundaries.
-- **Dependencies:** sealed Ready identity and Package 04 hidden-information law.
+- **Dependencies:** sealed Ready identity and Package 04 hidden-information law; can proceed in parallel with Wave 0.
 - **Tests:** add focused `tests/casting-package-read-model.test.ts`; extend `script-read-model.test.ts`, `film-package-truthfulness.test.ts`, and `d11-employment.test.ts`; add projection JSON key scan forbidding every no-go symbol.
 - **Risk:** HIGH—hidden data or duplicated Fit/cost law.
 - **Stop condition:** every role-first region has an exact TypeScript source; no candidate ranking/winner/private decomposition crosses the view.
@@ -970,21 +1046,21 @@ These are the definitive post-delta waves. Fable owns architecture, integration,
 - **Stop condition:** protocol v4 successor/projection successor validates end-to-end; `/quote` remains non-journaled and `/command` the sole commit path.
 - **Cheapest capable worker:** Haiku/equivalent for schema regeneration and parity fixtures; Sonnet/equivalent for bounded protocol/store changes; Fable reviews envelope semantics.
 
-### Wave 4 — Retained Casting shell, semantic owner, origin/Back, and scroll
+### Wave 4 — UI Toolkit Casting shell, semantic owner, origin/Back, memo ownership, and scroll
 
 - **Purpose:** open one dense role-first workspace from the semantic Casting owner while retaining lot/camera/context.
-- **Likely files/symbols:** new Casting workspace/contracts classes; reuse `StudioDevelopmentCardContracts`/`StudioDevelopmentCardHud` patterns; extend `StudioCameraInput` pointer shielding, `StudioBridgeBootstrap`, `StudioSelectionManager` only for a shared exact-ID/origin/Locate seam, and extract/extend `StudioBridgePresentation.ResolveZoneId`/`ResolvePlacedBuildingId` rather than hard-coding `casting` in the workspace.
-- **Ownership:** Unity presentation; framework choice pending the accepted architecture audit.
-- **Dependencies:** Wave 3 DTO/store; exact semantic owner projection.
-- **Tests:** copy P03 geometry/arm source laws; add one contained scroll-owner test, nested Back/origin/project/role/scroll restore, pointer shielding, no Focus/selection calls on open, current `casting` and placed-facility routing fixtures.
+- **Likely files/symbols:** Casting UXML/USS/controller/view-model files on the Wave 0 host; exact project route from `development.board.projects[].projectId`; reuse behaviors, not code inheritance, from `StudioDevelopmentCardContracts`/`StudioDevelopmentCardHud`; wrap `StudioLocateAction`; extend `StudioBridgeBootstrap` only to register the host; extract/extend `StudioBridgePresentation.ResolveZoneId`/`ResolvePlacedBuildingId`; generalize memo ownership around `StudioBridgeClient.PlayerIsDevelopmentOption`, `PlayerIsTimeOption`, and `SetWorldTimeOwnerPresent` so Casting owns `startAuditions`/`acknowledgeAuditions`/`greenlightPicture` only while usable.
+- **Ownership:** Unity UI Toolkit presentation on the shared Wave 0 host; no gameplay law.
+- **Dependencies:** Waves 0 and 3; exact semantic owner projection.
+- **Tests:** UI Toolkit layout/focus tests; one contained `ListView`/`ScrollView` owner; nested Back/origin/project/role/scroll/focus restore; central pointer capture; no automatic Focus/selection on open; current `casting` and placed-facility routing fixtures; memo owner present/absent/fail-closed fallback; Living Time ownership unchanged.
 - **Risk:** HIGH—camera hijack, context loss, hard-coded future owner, inherited P03 density limits.
 - **Stop condition:** root/open/Back/Locate are exact; candidate body can scroll without moving the lot; no commit control appears under the opening pointer.
-- **Cheapest capable worker:** Sonnet/equivalent for bounded Unity UI/navigation; Fable integrates with shared selection/camera and architecture-audit outcome.
+- **Cheapest capable worker:** Sonnet/equivalent for bounded UXML/USS/controller work; Fable integrates shared selection/camera/input/memo ownership.
 
 ### Wave 5 — Candidate dossier, comparison, and durable local choices
 
 - **Purpose:** render role-first candidate inspection/comparison using exact IDs and safe projected facts.
-- **Likely files/symbols:** new Casting candidate/dossier/comparison presentation; reuse/generalize `StudioApplicantPortraitCamera` only where an exact body exists; reuse `StudioRejectionRetention`; local draft state separate from quote state.
+- **Likely files/symbols:** new Casting UXML/USS candidate/dossier/comparison presentation; bind `StudioApplicantPortraitCamera` through a narrow adapter only where an exact body exists; reuse `StudioRejectionRetention`; local draft state separate from quote state.
 - **Ownership:** Unity presentation only.
 - **Dependencies:** Waves 1, 3, 4.
 - **Tests:** duplicate names/reordered arrays, exact-role Fit/evidence, absent portrait fail-neutral state, changed availability/fee/cash, draft survives revision/reconnect while quote dies, incomplete/illegal package cannot quote/commit.
@@ -1019,7 +1095,7 @@ These are the definitive post-delta waves. Fable owns architecture, integration,
 - **Purpose:** reuse existing production/company presentation and prove all continuity/layout/multi-project laws without expanding simulation.
 - **Likely files/symbols:** `StudioBridgePresentation`, `StudioBridgeBootstrap`, existing production/stage presentation; Casting proof runner and focused EditMode tests; no new production law.
 - **Ownership:** Unity integration/proof plus complete TS/bridge regression.
-- **Dependencies:** all prior waves and accepted UI architecture choice.
+- **Dependencies:** all prior waves; architecture choice is already accepted and Wave 0 is its bounded implementation.
 - **Tests:** three supported viewport bands/safe areas, contained scroll, pointer/arm, nested Back/camera, process restart/load/session rollover, duplicate submit, exact expiry recovery, same-title/multi-production isolation, no stale quote replay, full relevant Core/bridge/EditMode/browser-oracle regression.
 - **Risk:** MEDIUM—presentation divergence or proof that does not identify its source.
 - **Stop condition:** proof artifacts stamp TS SHA, Unity SHA, protocol/projection/schema identity; tracked implementation worktree contains only intended P04 changes and all acceptance suites are green.
@@ -1042,9 +1118,12 @@ These are the definitive post-delta waves. Fable owns architecture, integration,
 | MEDIUM | Primary-role/Core discipline mismatch | Unity widens or narrows candidate pools inconsistently with current V1 read models/final Core. | Reuse TS-published primary pools; final Core validation remains authoritative; pin with tests. |
 | MEDIUM | Accidental or duplicate commit | Double-click/repaint or retry issues two different Greenlight commands. | Separate review/armed confirmation geometry; one pending post; exact immutable retry; command-id replay tests. |
 | MEDIUM | Camera hijack / broken Back | Opening Casting or accepting Greenlight focuses, snaps Home, or loses previous lot context. | No automatic focus; explicit Locate; shared origin stack; never call `ExitInspection(true)`; camera regression tests. |
+| HIGH | Input/UI foundation sprawls | P04 rewrites legacy IMGUI/camera/platform systems or Casting polls devices/owns rectangle suppression independently. | Wave 0 is one UI Toolkit host, one action/context service, and one origin orchestrator; all existing surfaces remain rollback-safe; no direct polling in Casting. |
+| HIGH | Memo owner removes the only verb | Casting verbs disappear while the retained owner is unavailable at a viewport/context, or duplicated verbs create competing commits. | General semantic owner-kind registration; cede only while usable; preserve wire verbs and absent-owner fallback; assert rendered memo intent kinds. |
 | MEDIUM | Dense P03 layout inherited blindly | Candidate/comparison content grows past 780f, drops facts, or has no usable scroll owner. | Reuse top anchor/arm/pointer laws but add one contained scroll owner and preserve approved evidence hierarchy. |
 | MEDIUM | Physical owner hard-coded | New P04 classes assume `casting` forever and cannot open a future placed Development & Casting facility. | Route semantic Casting capability through `ResolveZoneId`/placed-building identity; keep current authored ID at the edge. |
-| MEDIUM | UI audit overreach | Recon prematurely mandates IMGUI/UI Toolkit/URP and entangles authority with renderer choice. | Keep projection/draft/quote/navigation contracts framework-agnostic; Fable adopts only an accepted audit result. |
+| MEDIUM | Architecture-audit overreach | P04 turns the accepted UI Toolkit decision into Addressables, capture, renderer, DOTS, IMGUI migration, or platform refactoring. | Adopt only host, action/context input, origin/Back/Locate, responsive scroll/focus, and Casting UXML/USS/controller seams. Defer every listed broad foundation. |
+| LOW | Production Rail becomes package authority | Unity extends `StudioProductionRailHud` to compute Casting state or treats a row title as identity. | Leave Development V1 sealed; join Ready by exact `projectId`; publish any Casting summary from TypeScript. |
 | MEDIUM | Browser/Unity divergence | Unity copies React adapter formulas/wording and drifts. | Promote selectors to shared TS projection; browser stays behavioral oracle; both clients consume same view where practical. |
 | MEDIUM | Save migration creep | Transient draft is added to GameState, or explicit save is confused with runtime continuity. | Keep draft presentation-only; no save bump for projection; add absence/reconnect tests and accurate copy. |
 | MEDIUM | Queue shown as commitment | Player sees cast hired, cash spent, or production formed while waiting. | Quote/receipt explicitly says no commitment; world presentation remains unchanged until authoritative formation. |
@@ -1085,19 +1164,23 @@ No browser production work is required for Unity P04A unless Fable deliberately 
 
 ### Unity
 
+- `Assets/InputSystem_Actions.inputactions` — add/review project-owned Global/World/Camera/UI actions; preserve new-input-only settings.
+- new minimal UI Toolkit host assets/classes under the established Studio presentation/UI layout: one runtime `UIDocument` host, one `PanelSettings`, shared token USS, Casting UXML/USS/controller/view model, and focused tests.
+- one shared presentation input-context service and one workspace-origin/navigation token/orchestrator; adapt existing `StudioCameraInput.Current` rather than adding Casting device polling.
 - `Assets/Studio/Runtime/Data/Generated/StudioBridgeDtos.Generated.cs`
 - `Assets/Studio/Runtime/Data/StudioBridgeProtocol.cs` / `StudioBridgeWireValidator.cs` only as generated/contract needs require
 - `Assets/Studio/Runtime/Infrastructure/StudioSnapshotStateCache.cs`
 - `Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs` for typed quote transport/workspace events, while retaining opaque commit
 - `Assets/Studio/Runtime/Presentation/StudioBridgePresentation.cs`
 - `Assets/Studio/Runtime/Presentation/StudioBridgeBootstrap.cs`
-- `StudioDevelopmentCardHud.cs` / `StudioDevelopmentPresentation.cs` as behavior patterns, not Casting base classes
-- `StudioCameraInput.cs`, `StudioSelectionManager.cs`, and camera classes only for the still-missing shared pointer/Locate/origin APIs
-- `StudioApplicantPortraitCamera.cs` if generalized
+- `StudioDevelopmentCardHud.cs`, `StudioDevelopmentPresentation.cs`, and `StudioProductionRailHud.cs` as read-only behavior precedents, not Casting base classes or extension targets
+- `StudioLocateAction.cs` as the explicit stable-ID leaf dispatch; `StudioCameraInput.cs`, `StudioSelectionManager.cs`, and camera classes only for the shared action/context/origin adapter
+- `StudioBridgeClient.cs` to generalize semantic memo-owner registration while preserving `SetWorldTimeOwnerPresent`, typed quote transport, and ordinary opaque commit
+- `StudioApplicantPortraitCamera.cs` only if a narrow UI Toolkit binding requires an adapter; no general capture-platform project
 - likely new Casting-specific workspace, card, comparison, confirmation, attention, and optional spectacle presentation classes
 - related EditMode tests; scene/authoring only if P04's current Casting session state cannot be truthfully shown through the sealed authored owner and existing ambient points
 
-Do not author a second Casting building. Do not spread `casting` as domain law. Do not choose or migrate UI technology in this package unless the separate architecture audit is accepted; the authority/identity/quote contracts remain renderer-independent.
+Do not author a second Casting building or spread `casting` as domain law. Use UI Toolkit for the new Casting workspace, but do not migrate Founding, Living Time, memo/workflow, Development, Production Rail, or inspection Back. Do not install/migrate Addressables, alter URP/renderer assets, introduce DOTS, or create general capture/platform infrastructure in P04A; authority/identity/quote contracts remain presentation-framework independent.
 
 ## 19. Do-not-rebuild list
 
@@ -1114,7 +1197,7 @@ Fable should absolutely not rebuild:
 - save migrations for existing Casting state;
 - bridge revision/digest, opaque intent, idempotency journal, stale-state refusal, reconnect, pending-post, or rejection retention;
 - Unity selection, semantic person picking, camera management/inspection, exact building/person presentation binder, living-time controller, or production/stage presentation;
-- a new Casting building, candidate body pool, bridge client, polling loop, refusal model, timer, or UI framework;
+- a new Casting building, candidate body pool, bridge client, polling loop, refusal model, timer, or parallel UI framework; P04 adds the one accepted shared UI Toolkit host, not a Casting-local framework;
 - browser `Assembly`/React page structure, hidden `TeamDirectionPanel`, or adapter arithmetic in C#;
 - Package 10's future human-information spine or Package 11's broader Finance workspace/forecast scope.
 
@@ -1126,9 +1209,13 @@ Exact source/symbol no-go list:
 - never bypass `BridgeSession.quote`, `pendingQuotes`, `quotedIntentFor`, `BridgeSession.command`, `opaqueIntentId`, `authoritativeDigest`, `priorResponse`, or the command journal/pending-post/refusal lifecycle;
 - never split or reproduce `applyGreenlightScriptProject`, `applyGreenlightScriptProjectNow`, or `applyGreenlight` in client choreography;
 - never encode the full server-side action payload in ordinary display copy and parse it back in Unity;
-- never hand-edit either generated `StudioBridgeDtos.Generated.cs` as the source of contract truth.
+- never hand-edit either generated `StudioBridgeDtos.Generated.cs` as the source of contract truth;
+- never rewrite or absorb `StudioProductionRailHud`, `StudioProductionRailContracts`, `StudioDevelopmentCardHud`, `StudioLivingTimeHud`, `StudioLocateAction`, `StudioWriterPresencePresentation`, `StudioCameraDirector`, `TycoonCameraController`, or `StudioSelectionManager` into Casting; extend only the narrow shared registration/adapter seams named above;
+- never break `StudioBridgeClient.PlayerIsDevelopmentOption`, `PlayerIsTimeOption`, `SetWorldTimeOwnerPresent`, `LastRenderedWorkflowIntentKinds`, or `WorkflowTimePointerShown`; Casting ownership must generalize beside these sealed behaviors with an absent-owner fallback;
+- never call `StudioLocateAction.Locate` from projection refresh, polling, or `Update`, and never treat `LastLocatedStableId` as authority or a Back token;
+- never add direct `Keyboard.current`, `Mouse.current`, `Touchscreen.current`, or `Gamepad.current` reads to Casting code.
 
-## 20. P03A collision/delta-refresh resolution
+## 20. P03A.1/P03A.2 final delta-refresh resolution
 
 The narrow refresh is complete; do not rerun it during P04A implementation. Exact resolution:
 
@@ -1138,48 +1225,53 @@ The narrow refresh is complete; do not rerun it during P04A implementation. Exac
 | Opaque exact commit | digest+draft `opaqueIntentId`; `/command` consumes through `quotedIntentFor` | Reuse for Screen Test/package. |
 | Quote journal/reconnect | quotes are ephemeral, never journaled/checkpointed; commands remain durable/replayable | Preserve local draft, discard/requote authority. |
 | Projection | protocol 4 / projection 9 with required Development member | Increment closed contract once for P04. |
-| Ready handoff | exact board line at physical `writers`; nothing after Casting boundary | Start P04 from exact Ready project ID. |
+| Ready handoff / Rail | exact board line at physical `writers`; Ready `projectId` also appears in Development-only `StudioProductionRailHud`; nothing after Casting boundary | Start P04 from exact Ready project ID; leave Rail selection targeting Development and route Casting separately. |
 | Retained workspace | top-anchored `StudioDevelopmentCardHud`, 0.7s arm, pointer shield, same camera | Reuse safety laws and harden density/scroll. |
-| Origin/Locate | no generic stack/API landed; explicit Back only | Add one shared presentation seam, not Casting-local camera state. |
+| Locate | `StudioLocateAction.Locate(stableId, focus)` landed as one explicit player-action dispatch | Wrap/reuse it; never trigger from refresh and never duplicate stable-ID selection/focus lookup. |
+| Origin/Back | no generic token/stack landed | Add one shared UI Toolkit presentation seam, not Casting-local camera state. |
+| Project summary | `StudioProductionRailContracts` publishes current Development rows only from existing Development projection | Copy authority-order/yield/Locate behavior; do not couple Casting or add client package law. |
+| Memo ownership | Development verbs always filtered; Living Time conditionally owns `advanceWeek` through `SetWorldTimeOwnerPresent`; Casting's three verbs remain | Generalize one semantic owner-kind registry; cede `startAuditions`, `acknowledgeAuditions`, `greenlightPicture` only while Casting owner is usable; preserve fallback. |
+| Writer presence | exact drafting/rewriting joins in `WriterWorkStatus`, `WriterNameplateText`, `StudioWriterPresencePresentation`, and `ApplyPeople` | Copy exact-ID/fail-closed join pattern for auditionees; do not couple to Development contracts. |
 | Physical Development | authored `writers` bungalow plus script-presence redirect | Leave unchanged. |
 | Casting owner | current `ResolveZoneId` maps shared facility to `casting`; placed-building join already exists | Extract/extend semantic owner routing; do not hard-code future law. |
 | Responsive behavior | fail-closed/grow/drop rows; no inner scroll; hierarchy/evidence limits recorded | Do not propagate unsafe limits into P04 density. |
 | Proof provenance | P03 artifacts do not stamp Git SHA | P04 proof must stamp both SHAs and contract versions. |
+| UI technology | no runtime UI Toolkit landed in P03A.2; audit `8110820d` is accepted | P04 establishes the bounded UI Toolkit host/action/origin foundation; preserve all existing IMGUI. |
 
-P03 files that P04 may extend but should not rewrite casually: `bridge/development.ts` as a converter/quote pattern; quote unions in `bridge/schema/bridge-schema.ts`; `BridgeSession.pendingQuotes`, `quote`, `quotedIntentFor`, `command`, and `load`; `StudioBridgeClient.RequestCommissionQuote/PostQuote`; `StudioDevelopmentCardContracts`/`StudioDevelopmentCardHud` safety laws; `StudioDevelopmentContracts` TypeScript-copy pass-through; `StudioCameraInput` pointer shielding; `StudioBridgePresentation.ResolveZoneId`/`ResolvePlacedBuildingId` facility-world join.
+P03 files that P04 may extend but should not rewrite casually: `bridge/development.ts` as a converter/quote pattern; quote unions in `bridge/schema/bridge-schema.ts`; `BridgeSession.pendingQuotes`, `quote`, `quotedIntentFor`, `command`, and `load`; `StudioBridgeClient.RequestCommissionQuote/PostQuote` and its presentation-owner registration; `StudioDevelopmentCardContracts`/`StudioDevelopmentCardHud` safety laws as behavior only; `StudioDevelopmentContracts` TypeScript-copy pass-through; `StudioCameraInput.Current` as the camera facade; `StudioLocateAction` as the leaf dispatch; `StudioBridgePresentation.ResolveZoneId`/`ResolvePlacedBuildingId` facility-world join.
 
-P03 sealed symbols P04 must leave behaviorally intact: commission draft/range conversion in `draftToEngine`; `CASTING_BOUNDARY_LINE`; Development board copy; named writer `engagement === 'script'` routing to `writers`; memo demotion; accepted-command/load quote invalidation; non-journaled quote read path; 0.7-second commit arm; no automatic camera/selection change.
+P03 sealed symbols P04 must leave behaviorally intact: commission draft/range conversion in `draftToEngine`; `CASTING_BOUNDARY_LINE`; Development board copy; `StudioProductionRailContracts`/`StudioProductionRailHud` Development-only summary law; `StudioLocateAction.Locate`; named writer `engagement === 'script'` routing to `writers` and `WriterWorkStatus/WriterNameplateText`; Development and conditional Living Time memo demotion; accepted-command/load quote invalidation; non-journaled quote read path; 0.7-second commit arm; no automatic camera/selection change.
 
 ## 21. Fable handoff summary
 
 ## START HERE
 
-Wave 1: publish the closed TypeScript Casting/package view. Wave 2: extend sealed `POST /quote` and its single ephemeral `pendingQuotes` registry for exact six-read and Greenlight drafts. `/command` remains the sole commit path; Unity remains presentation/input only.
+Wave 0: land the bounded UI Toolkit host, centralized Input System contexts, and exact origin/Back/Locate orchestrator while every existing IMGUI surface stays intact. In parallel, Wave 1 publishes the closed TypeScript Casting/package view. Then extend sealed `POST /quote` and its single ephemeral `pendingQuotes` registry; `/command` remains the sole commit path.
 
 ## REUSE THESE
 
-`castingSessions.ts` lifecycle/law/RNG, `castingReadModel.ts`, employment/talent/film-package selectors, `commitmentPreview`, `applyGreenlightScriptProject/Now` + `applyGreenlight`, production queue/revalidation, P03 `/quote` + opaque intent, bridge journal/refusals/pending-post, P03 card arm/top-anchor/pointer laws, Unity selection/camera/presence/production presentation.
+`castingSessions.ts` lifecycle/law/RNG, `castingReadModel.ts`, employment/talent/film-package selectors, `commitmentPreview`, `applyGreenlightScriptProject/Now` + `applyGreenlight`, production queue/revalidation, P03 `/quote` + opaque intent, bridge journal/refusals/pending-post, P03 card arm/top-anchor/pointer laws, `StudioLocateAction` leaf dispatch, exact writer/presence join pattern, Unity selection/camera/presence/production presentation.
 
 ## EXTEND THESE
 
-Casting/package/candidate/expiry projections; the existing quote request/response union and `BridgeSession.pendingQuotes/quotedIntentFor`; generated bridge DTO/store; semantic Casting owner resolver; one shared origin/Locate seam; contained-scroll retained workspace; typed formed/queued receipt; identity-bearing queue expiry.
+Casting/package/candidate/expiry projections; the existing quote request/response union and `BridgeSession.pendingQuotes/quotedIntentFor`; generated bridge DTO/store; semantic Casting owner resolver; one shared UI Toolkit host, input-context service, and origin/Back wrapper around `StudioLocateAction`; one semantic memo-owner registry; contained-scroll retained workspace; typed formed/queued receipt; identity-bearing queue expiry.
 
 ## LIKELY NEW SEAMS
 
-Transient exact-ID player draft independent of quote revision; `bridge/casting.ts` converter/read-model composition; Package 11 shared consequence envelope; persistent expiry `subjectId`; nested workspace origin/Back/scroll state; building-level Screen Test activity when person presence is preempted.
+Transient exact-ID player draft independent of quote revision; `bridge/casting.ts` converter/read-model composition; Package 11 shared consequence envelope; persistent expiry `subjectId`; runtime `UIDocument`/PanelSettings/token USS; centralized Global/World/Camera/UI action contexts; nested workspace origin/Back/scroll/focus state; building-level Screen Test activity when person presence is preempted.
 
 ## DO NOT REBUILD
 
-Do not rebuild Camera Test law/RNG/time, Fit/OVR/cost/availability/finance, presence precedence, queue, atomic Greenlight, save/reconnect, command journal, selection/camera, people/production presentation, or a second quote/command route. Never cross hidden `Talent.actual`, ceilings/persona/temperament decomposition, `teamDirection*`, hidden RNG/formulas, or parse server payloads from display text.
+Do not rebuild Camera Test law/RNG/time, Fit/OVR/cost/availability/finance, presence precedence, queue, atomic Greenlight, save/reconnect, command journal, selection/camera, people/production presentation, Development Rail, Locate dispatch, or a second quote/command route. Do not migrate existing IMGUI, Addressables, renderer, DOTS, or general capture/platform infrastructure. Never cross hidden `Talent.actual`, ceilings/persona/temperament decomposition, `teamDirection*`, hidden RNG/formulas, or parse server payloads from display text.
 
 ## TEST THESE FIRST
 
-Quote purity and `/quote` non-journaling; exact six-read quote/commit; draft survives revision/reconnect while quote dies; hostile production-over-Casting presence; Package 11 finance basis; exact Greenlight quote→formed/queued parity; expiry project/reason/Review recovery across save; duplicate `/command` replay; hidden-data schema scan.
+UI host/input-context/origin rollback; explicit Locate/no refresh movement; exact Back restores workspace/role/candidate/scroll/focus/camera; Casting memo verbs cede only with a usable owner; quote purity and `/quote` non-journaling; exact six-read quote/commit; draft survives revision/reconnect while quote dies; hostile production-over-Casting presence; Package 11 finance basis; Greenlight formed/queued parity; exact expiry recovery; duplicate replay; hidden-data scan.
 
 ## WATCH THESE RISKS
 
-Parallel P03 quote/registry, hidden-data leak, stale quote replay or silent draft clearing, incomplete facility-Opex burn/runway, queue expiry without project identity, literal `casting` hard-code, no contained scroll owner, camera/context loss, and UI-architecture decisions leaking into authority.
+Parallel P03 quote/registry, hidden-data leak, stale quote replay or silent draft clearing, input/UI foundation sprawl, memo owner removing the only verb, incomplete facility-Opex burn/runway, queue expiry without project identity, literal `casting` hard-code, no contained scroll owner, and camera/context loss.
 
 ## P03A DELTA TO RECHECK AFTER SEAL
 
-No conditional P03 seam remains at the sealed SHAs. Recheck only if those SHAs move: `/quote` request/response/registry invalidation; projection/schema/DTO versions; `CASTING_BOUNDARY_LINE`; `StudioDevelopmentCardHud` geometry/arm/Back; `StudioBridgePresentation.ResolveZoneId` and script→`writers` presence; any newly accepted generic origin/Locate or UI-architecture audit result.
+Closed at final TS `d4ed07d539a764b542269338c1ffbdc55e1b9be7`, Unity `bae3c4e652cb93212f627e973ec864ed94613081`, and architecture audit `8110820d96ddf2089df582bc0a0a92d3d4cf17d9`. No conditional P03 seam remains: protocol/schema/quote were unchanged; Rail is Development-only; Locate exists but origin/Back does not; writer joins are exact; Casting's three memo verbs still need an accepted conditional owner; P04 is the first major UI Toolkit workspace on the preserved stack. Reopen this delta only if one of those authorities moves.
