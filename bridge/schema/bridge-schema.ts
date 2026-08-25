@@ -698,11 +698,17 @@ const StudioCommissionPromiseAxisSnapshot = object('StudioCommissionPromiseAxisS
   centerLabels: array(nonEmptyText()),
 })
 
+const StudioCommissionGenreSnapshot = object('StudioCommissionGenreSnapshot', {
+  id: developmentGenre(),
+  label: nonEmptyText(),
+})
+
 const StudioCommissionCatalogSnapshot = object('StudioCommissionCatalogSnapshot', {
   openings: array(reference('StudioCommissionChoiceSnapshot', StudioCommissionChoiceSnapshot)),
   midpoints: array(reference('StudioCommissionChoiceSnapshot', StudioCommissionChoiceSnapshot)),
   endings: array(reference('StudioCommissionChoiceSnapshot', StudioCommissionChoiceSnapshot)),
   segments: array(reference('StudioCommissionSegmentSnapshot', StudioCommissionSegmentSnapshot)),
+  genres: array(reference('StudioCommissionGenreSnapshot', StudioCommissionGenreSnapshot)),
   promiseAxes: array(reference(
     'StudioCommissionPromiseAxisSnapshot',
     StudioCommissionPromiseAxisSnapshot,
@@ -1177,6 +1183,7 @@ const definitions = {
   StudioCommissionOfficeUpliftSnapshot,
   StudioCommissionChoiceSnapshot,
   StudioCommissionSegmentSnapshot,
+  StudioCommissionGenreSnapshot,
   StudioCommissionPromiseAxisSnapshot,
   StudioCommissionCatalogSnapshot,
   StudioCommissionBoardSnapshot,

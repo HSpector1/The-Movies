@@ -970,6 +970,12 @@
           },
           "type": "array"
         },
+        "genres": {
+          "items": {
+            "$ref": "#/$defs/StudioCommissionGenreSnapshot"
+          },
+          "type": "array"
+        },
         "midpoints": {
           "items": {
             "$ref": "#/$defs/StudioCommissionChoiceSnapshot"
@@ -997,6 +1003,7 @@
       },
       "required": [
         "endings",
+        "genres",
         "midpoints",
         "openings",
         "promiseAxes",
@@ -1178,6 +1185,32 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioCommissionDraftPayload"
+    },
+    "StudioCommissionGenreSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "enum": [
+            "comedy",
+            "drama",
+            "crime",
+            "romance",
+            "horror",
+            "adventure"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "label"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCommissionGenreSnapshot"
     },
     "StudioCommissionOfficeUpliftSnapshot": {
       "additionalProperties": false,

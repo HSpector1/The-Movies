@@ -50,7 +50,7 @@ import {
   deliveredScreenplaySentence,
   originalDraftEstimate,
 } from '../ui/src/engine/screenplay.ts'
-import { PROMISE_AXIS_INFO, SHAPE_DESCRIPTIONS } from '../ui/src/content.ts'
+import { PROMISE_AXIS_INFO, SHAPE_DESCRIPTIONS, genreLabel } from '../ui/src/content.ts'
 
 // ── Closed creative vocabulary (identical to the browser form's option sets) ──
 
@@ -89,6 +89,7 @@ const COMMISSION_CATALOG = {
   midpoints: DRAFT_MIDPOINTS.map((id) => ({ id, title: SHAPE_DESCRIPTIONS[id].title })),
   endings: DRAFT_ENDINGS.map((id) => ({ id, title: SHAPE_DESCRIPTIONS[id].title })),
   segments: DRAFT_SEGMENTS.map((id) => ({ id, label: segmentLabel(id) })),
+  genres: DRAFT_GENRES.map((id) => ({ id, label: genreLabel(id) })),
   promiseAxes: DRAFT_AXES.map((id) => ({
     id,
     title: PROMISE_AXIS_INFO[id].title,
@@ -340,6 +341,7 @@ function commissionSnapshot(state: GameState, board: ScriptProjectsReadModel) {
       midpoints: COMMISSION_CATALOG.midpoints.map((entry) => ({ ...entry })),
       endings: COMMISSION_CATALOG.endings.map((entry) => ({ ...entry })),
       segments: COMMISSION_CATALOG.segments.map((entry) => ({ ...entry })),
+      genres: COMMISSION_CATALOG.genres.map((entry) => ({ ...entry })),
       promiseAxes: COMMISSION_CATALOG.promiseAxes.map((entry) => ({
         id: entry.id,
         title: entry.title,
