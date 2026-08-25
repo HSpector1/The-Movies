@@ -402,3 +402,23 @@ No Owner decision is required to proceed with P04A architecture. The evidence su
 ## Final ruling
 
 Project: Studio already has the correct rendering and world foundation. Preserve it. The production standard to add now is a retained UI/input/navigation layer and presentation-service boundary—not a new renderer or simulation model. Build P04A on UI Toolkit, Cinemachine 3, action-based Input System, pooled RenderTexture capture, semantic Unity asset resolution, and the existing authoritative bridge. Keep current IMGUI working, keep ordinary GameObjects, adopt Addressables deliberately, and escalate to GPU-driven rendering or Entities only when representative profiling earns the complexity.
+
+## Post-P03A sealed baseline verification
+
+**Verification date:** 2026-08-25
+
+**Final authority:** TypeScript seal `4423fe03664701df68e1f44de42b8c15dbe8632c`; TypeScript production-code tip `2ddf080`; Unity client seal `432c39d4caeacc33bdcd1c60ec5f4ec0a30e6321`.
+
+This verification examined only the final Unity delta from the audited `2c8c747` to sealed `432c39d` and the final P03A seal entry added to `docs/campaigns/LIVING-LOT.md`. It did not reopen the package, renderer, or broader architecture audit.
+
+**Result: no architecture ruling changes.** The following audited assumptions were reverified:
+
+- P03A remains a feature-specific IMGUI implementation. No UI Toolkit host, UXML/USS, uGUI management framework, or generic retained-workspace service was introduced. Its final band-growing sheet and clip/Back containment remedies reinforce the ruling that P04A should establish the first production UI Toolkit workspace rather than copy P03A's layout code.
+- P03A now resolves workspace height against the available top-floor-to-receipt band, using compact/standard bases and 660/780 caps, while live proof rects require the review tail and Back control to remain wholly contained. P04A must preserve the law—whole decision content, explicit Back, fail-closed containment, and pointer shielding—but implement it through the retained host's responsive layout, focus, and scroll policy rather than inherit those IMGUI constants.
+- The shared 0.7-second commit arm, explicit layer Back buttons, current-card pointer containment, and camera-stationarity law remain intact. No central Input System action/context layer was added, so that recommendation remains required before/during P04A.
+- No Cinemachine, camera-director, tycoon-controller, portrait, capture, bridge/bootstrap, or selection architecture changed. The Cinemachine restoration and `PresentationCaptureService` recommendations remain unchanged.
+- The Development building and pad are now excluded from navmesh baking, the building uses a local runtime carve, and the writer approach moved onto sealed-baked ground. This is a sealed P03A world-preservation remedy, not a new simulation or rendering architecture. P04A must not undo it during scene regeneration or broad migration.
+- Packages, ProjectSettings, URP assets, renderer assets, Input actions, Addressables/content-loading surfaces, and presentation-capture code are unchanged. The URP/Forward+/Render Graph/SRP Batcher and semantic resolver/Addressables rulings therefore remain unchanged.
+- The final seal documentation confirms TypeScript production code remains at the already audited `2ddf080`; `4423fe0` adds the P03A seal record only. TypeScript remains authoritative, and P04A must not copy P03A's recorded C# presentation defaults as new gameplay law.
+
+**Final P04A recommendation remains unchanged:** complete a bounded UI Toolkit production shell and centralized Input System context/navigation seam, then build P04A as the first production retained workspace on the existing GameObject lot, Cinemachine stack, authoritative bridge, pooled capture-service seam, and semantic Unity asset resolver. Preserve the sealed P03A IMGUI and navmesh/runtime-carve behavior; do not migrate either inside P04A.

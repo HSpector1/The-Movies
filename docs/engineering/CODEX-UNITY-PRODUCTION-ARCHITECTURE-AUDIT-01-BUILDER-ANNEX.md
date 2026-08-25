@@ -884,3 +884,57 @@ Reject a P04A design or code review if it introduces any of the following:
 P04A should begin only after Foundation 0 verifies the exact active P03A seam and Foundation 2 proves the smallest UI Toolkit host. It should then proceed as a vertical slice on the existing world/render/camera/bridge foundation, adding action-based input, shared capture ownership, and semantic asset resolution only to the degree Casting exercises them.
 
 The most important implementation discipline is separation: new retained infrastructure beside preserved working IMGUI; Unity presentation beside TypeScript authority; semantic keys beside delivery addresses; frame capture beside movie encoding; ordinary GameObject rendering beside later optional high-volume accelerators. Those boundaries let Casting become the reusable pattern for Finance, Rivals, and Staff without making Casting pay for every future system in advance.
+
+## 22. Post-P03A sealed baseline verification
+
+### Verified authority and bounded scope
+
+| Item | SHA | Verification treatment |
+|---|---|---|
+| Audited TypeScript production code | `2ddf080` | unchanged by the final seal; already covered by the audit |
+| Final TypeScript seal documentation | `4423fe03664701df68e1f44de42b8c15dbe8632c` | inspected only for the appended P03A seal record in `docs/campaigns/LIVING-LOT.md` |
+| Audited Unity baseline | `2c8c747` | lower bound of the narrow delta |
+| Final Unity client seal | `432c39d4caeacc33bdcd1c60ec5f4ec0a30e6321` | upper bound of the narrow delta |
+
+The Unity delta contains four commits:
+
+1. `e74fbfa` — excludes Development from the navmesh bake, adds a local runtime carve, moves writer approach points onto sealed-baked ground, regenerates `StudioLot.unity`, and restores the generated navmesh asset to the sealed triangulation.
+2. `d9738f5` — restores the stage proof's sealed 20-second readiness budget after the rejected 60-second workaround.
+3. `375cf71` — adds available-band growth for tall review sheets, resolved-height typography, inseparable `Est. <score>`, neutral forecast styling, and proof instruments for the rewrite tail and Back control.
+4. `432c39d` — extends available-band growth to the standard tier, capped at 660, after the new containment law exposed a pre-existing 18-pixel Back overflow at 1440×900.
+
+Exactly nine Unity paths changed:
+
+- `Assets/Studio/Editor/Authoring/StudioLotArchitectureAuthoring.cs`
+- `Assets/Studio/Editor/Authoring/StudioLotLandAuthoring.cs`
+- `Assets/Studio/Generated/Navigation/StudioLotNavMesh.asset`
+- `Assets/Studio/Runtime/Presentation/StudioDevelopmentCardHud.cs`
+- `Assets/Studio/Runtime/Presentation/StudioDevelopmentJourneyProofRunner.cs`
+- `Assets/Studio/Runtime/Presentation/StudioStageVisualProofRunner.cs`
+- `Assets/Studio/Scenes/StudioLot.unity`
+- `Assets/Studio/Tests/EditMode/StudioDevelopmentCardTests.cs`
+- `Assets/Studio/Tests/EditMode/StudioStageVisualProofRunnerTests.cs`
+
+No `Packages`, `ProjectSettings`, `Assets/Settings`, input, camera, portrait, bridge/bootstrap, Addressables/content-loading, UXML, or USS path changed.
+
+### Reverified assumptions and impact
+
+| Audited assumption | Sealed-code evidence | Ruling impact |
+|---|---|---|
+| P03A did not create the reusable retained host P04A needs | `StudioDevelopmentCardHud` remains `OnGUI`; geometry/proof code is feature-specific; no UI Toolkit assets or runtime host were added | **Unchanged.** P04A remains the first production UI Toolkit workspace after the bounded shell. |
+| Responsive workspaces require explicit geometry and containment laws | `WorkspaceHeightFor(screenHeight, availableBand)` now uses 600/620 bases, `WorkspaceStandardCap = 660`, `WorkspaceTallCap = 780`, and `TallContentMinimumHeight = 760`; tests pin resolved heights | **Strengthened, not changed.** The retained host must own responsive bands, whole-content containment, and a deliberate inner scroll policy. Do not copy the IMGUI constants as a generic framework. |
+| Back and pointer shielding must follow the resolved workspace | `CurrentCardRect()` uses the resolved available-band height; `ContainsScreenPoint()` continues to derive from that rect; live `LastReviewTailScreenRect` and `LastReviewBackScreenRect` proof fields require whole containment | **Unchanged.** P04A still needs central Back/origin/focus and pointer capture. Existing P03A explicit buttons remain sealed. |
+| Commit controls require separation and arm law | top-anchored workspace construction remains separate from the department reveal band; the shared founding 0.7-second arm is unchanged and tests remain pinned | **Unchanged.** The production host should preserve the law, not reuse P03A's renderer. |
+| Camera changes must be explicit and restorable | no camera/input file changed; final journey proof records camera stationarity; seal documentation retains explicit layer Back and notes ESC clears selection | **Unchanged.** Preserve Cinemachine/director/custom tycoon control; establish a P04 workspace-origin stack rather than treating ESC selection clearing as a reusable workspace pop. |
+| Centralized Input System actions are absent | `StudioCameraInput.cs` and `InputSystem_Actions.inputactions` are unchanged | **Unchanged and still required.** No per-workspace polling in P04A. |
+| Portrait capture is component-local | `StudioApplicantPortraitCamera.cs` is unchanged | **Unchanged.** Generalize behind `PresentationCaptureService` during P04A portrait work. |
+| Semantic asset resolver/Addressables is absent | no package, settings, resolver, or content-loading path changed | **Unchanged.** Resolver seam during P04A; broad Addressables rollout remains separate. |
+| URP PC Forward+/Render Graph/SRP Batcher is the correct baseline | no package, ProjectSettings, URP pipeline asset, renderer asset, material, or shader changed | **Unchanged.** No renderer work belongs in P04A. |
+| Existing lot/navigation must be preserved | Development root and pad receive `NavMeshModifier.ignoreFromBuild`; the root receives a local carving `NavMeshObstacle`; writer zone points move west of the pad; generated scene/navmesh are resealed | **Preservation boundary added.** Do not reinclude Development in navmesh baking or remove its local carve during P04 scene/asset work. This is not a mandate to use runtime carving for every future building. |
+| TypeScript authority remains the P04 foundation | final seal documentation states production code sealed at `2ddf080`; the `4423fe0` change is documentation only | **Unchanged.** P03A's recorded C# draft defaults are a contained known non-blocker, not precedent for Casting law. |
+
+### Final sealed-baseline ruling
+
+No material architecture ruling changes, and no migration phase is reordered. Foundation 0 must protect the final P03A seal at Unity `432c39d`, including its generated navmesh/runtime-carve remedy and final containment proofs. Foundation 2/3 still establish the bounded UI Toolkit host, explicit Back/origin and centralized action contexts before P04A's full workspace. Foundation 5 still generalizes portrait capture during P04A. Addressables rollout, renderer profiling, legacy IMGUI migration, GPU-driven rendering, and DOTS remain outside P04A.
+
+**Final P04A stack remains:** existing Unity 6.3/URP PC Forward+ GameObject lot; UI Toolkit retained workspace; action-driven Input System context/navigation; current Cinemachine 3 overview/inspection and explicit Locate/Back restoration; pooled RenderTexture capture service; semantic Unity visual resolver with Addressables as the production-art boundary; generated DTOs and revision-bound TypeScript-authoritative quote/intent protocol; preserved lightweight world indicators. The sealed P03A IMGUI workspace and its navmesh/runtime-carve solution remain untouched.
