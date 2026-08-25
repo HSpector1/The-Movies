@@ -679,12 +679,17 @@ export type {
 export {
   SCRIPT_DEVELOPMENT_WEEK_CONSEQUENCE,
   estimatedScriptAssessment,
+  estimatedBandForScore,
+  scriptAssessmentExplanation,
+  rewriteDecisionPreview,
   scriptCapacityView,
   scriptProjectsReadModel,
   nextScriptDecision,
   nextStudioDecision,
 } from './scriptReadModel.js'
 export type {
+  ScriptAssessmentExplanationView,
+  RewriteDecisionPreviewView,
   ScriptProjectSection,
   ScriptPlayerBlockerKind,
   ScriptPlayerBlocker,

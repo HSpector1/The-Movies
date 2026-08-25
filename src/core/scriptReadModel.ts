@@ -12,7 +12,10 @@ import {
   activeScriptWriterAssignments,
   developmentCastingOccupancy,
   facilitySlotKey,
+  scriptRewriteDelta,
 } from './scriptDevelopment.js'
+import { clamp } from './math.js'
+import { developmentOfficeEstUplift } from './facilityEffects.js'
 import {
   hasQueuedCastingSession,
   hasQueuedGreenlightScriptProject,
@@ -1231,4 +1234,186 @@ export function nextStudioDecision(state: GameState): StudioDecisionView | null 
     }
   }
   return nextProductionOperationsDecision(state)
+}
+
+// ── P03A: TypeScript-authored review evidence — explanation and rewrite preview ─
+//
+// Package 03 (accepted 2d285e5) rules that the review surface may not paraphrase
+// score bands in the renderer and may not let a client compute a rewrite outcome.
+// Both extensions below are pure, RNG-free projections over persisted PERCEIVED
+// values only. `actualStrength`, actual skills, raw premise values, and numeric
+// factor decompositions never appear here — the qualitative findings are the
+// whole disclosure, by ruling.
+
+/** The band ladder, alone. Must stay byte-identical to estimatedScriptAssessment. */
+export function estimatedBandForScore(
+  score: number,
+): EstimatedScriptAssessmentView['band'] {
+  if (score >= 75) return 'Strong'
+  if (score >= 60) return 'Promising'
+  if (score >= 45) return 'Workable'
+  return 'Fragile'
+}
+
+export type ScriptAssessmentExplanationView = {
+  /** Short public factor label, e.g. `Premise`. */
+  label: string
+  /** One concise TypeScript-authored qualitative finding. */
+  finding: string
+  tone: 'strength' | 'concern' | 'neutral'
+}
+
+/**
+ * Why the studio holds its current estimate, in the only honest vocabulary the
+ * simulation supports: a qualitative premise-foundation band, whether a
+ * Development Office contribution is included, and whether the final rewrite is
+ * already in the number. No raw values, no formula, no per-factor arithmetic.
+ */
+export function scriptAssessmentExplanation(
+  state: GameState,
+  projectId: string,
+): ScriptAssessmentExplanationView[] | null {
+  const project = state.scriptDevelopment.projects.find(
+    (candidate) => candidate.id === projectId,
+  )
+  if (project === undefined || project.assessment === null) return null
+  const band = estimatedBandForScore(project.assessment.perceivedStrength)
+  const lines: ScriptAssessmentExplanationView[] = []
+  switch (band) {
+    case 'Strong':
+      lines.push({
+        label: 'Premise',
+        finding: 'The premise gives these pages a strong creative foundation.',
+        tone: 'strength',
+      })
+      break
+    case 'Promising':
+      lines.push({
+        label: 'Premise',
+        finding: 'The premise gives these pages a promising creative foundation.',
+        tone: 'strength',
+      })
+      break
+    case 'Workable':
+      lines.push({
+        label: 'Premise',
+        finding: 'The premise holds a workable foundation with room left to find.',
+        tone: 'neutral',
+      })
+      break
+    case 'Fragile':
+      lines.push({
+        label: 'Premise',
+        finding: 'The premise foundation is thin; the pages carry creative risk.',
+        tone: 'concern',
+      })
+      break
+  }
+  // The uplift is applied at the tick that WRITES a draft; review opens on that
+  // same authoritative tick, so "current" is the completing office. (An office
+  // finishing in the very same advance completes after step 0.5 and is honestly
+  // not included — the copy names inclusion only when a contribution exists now.)
+  if (developmentOfficeEstUplift(state) > 0) {
+    lines.push({
+      label: 'Development Office',
+      finding: 'The current Development Office contribution is included in this estimate.',
+      tone: 'neutral',
+    })
+  }
+  if (project.rewriteCount === 1) {
+    lines.push({
+      label: 'Final rewrite',
+      finding: 'The final rewrite is included in this estimate.',
+      tone: 'neutral',
+    })
+  }
+  return lines
+}
+
+/** Display form shared with the browser: whole numbers stay whole, else one decimal. */
+function formatEstScore(value: number): string {
+  return Number.isInteger(value) ? String(value) : value.toFixed(1)
+}
+
+export type RewriteDecisionPreviewView = {
+  currentScore: number
+  currentBand: EstimatedScriptAssessmentView['band']
+  projectedScore: number
+  projectedBand: EstimatedScriptAssessmentView['band']
+  /** Realized perceived movement after the 0..100 clamp — may differ from the raw delta. */
+  delta: number
+  direction: 'gain' | 'unchanged' | 'decline'
+  /** `Est. 62 · Promising` */
+  currentLine: string
+  /** `Projected Est. 65 · Promising` */
+  projectedLine: string
+  /** `Projected +3` / `Projected unchanged` / `Projected -2` */
+  directionLine: string
+  /** The exact review week if the rewrite is authorized now. */
+  dueWeek: number
+  writerName: string
+  capacityLine: string
+  operatingLine: string
+  projectionNote: string
+}
+
+/**
+ * The player-safe Accept-vs-Rewrite comparison Package 03 requires. Deterministic
+ * under current law: the perceived leg of the rewrite consumes no RNG and the
+ * writer's perceived rewriting skill cannot move during the one rewrite week, so
+ * the projection equals the realized perceived result exactly. It remains a
+ * PROJECTION of the estimate — the hidden actual result may differ and is never
+ * disclosed.
+ *
+ * Null whenever the project is not at its first review, the assessment or writer
+ * is missing, or the writer has no perceived rewriting skill — the surface then
+ * withholds the number rather than inventing one.
+ */
+export function rewriteDecisionPreview(
+  state: GameState,
+  projectId: string,
+): RewriteDecisionPreviewView | null {
+  if (state.scriptDevelopment.mode !== 'managed') return null
+  const project = state.scriptDevelopment.projects.find(
+    (candidate) => candidate.id === projectId,
+  )
+  if (project === undefined) return null
+  if (project.status !== 'review' || project.rewriteCount !== 0) return null
+  if (project.assessment === null) return null
+  const writer = state.talent.find((candidate) => candidate.id === project.writerId)
+  if (writer === undefined) return null
+  const rewriting = writer.skills.writing?.rewriting
+  if (rewriting === undefined || typeof rewriting.perceived !== 'number') return null
+  const currentScore = project.assessment.perceivedStrength
+  const projectedScore = clamp(
+    currentScore + scriptRewriteDelta(currentScore, rewriting.perceived),
+    0,
+    100,
+  )
+  const delta = projectedScore - currentScore
+  const direction = delta > 0 ? 'gain' : delta < 0 ? 'decline' : 'unchanged'
+  const currentBand = estimatedBandForScore(currentScore)
+  const projectedBand = estimatedBandForScore(projectedScore)
+  return {
+    currentScore,
+    currentBand,
+    projectedScore,
+    projectedBand,
+    delta,
+    direction,
+    currentLine: `Est. ${formatEstScore(currentScore)} · ${currentBand}`,
+    projectedLine: `Projected Est. ${formatEstScore(projectedScore)} · ${projectedBand}`,
+    directionLine:
+      direction === 'gain'
+        ? `Projected +${formatEstScore(delta)}`
+        : direction === 'decline'
+          ? `Projected -${formatEstScore(Math.abs(delta))}`
+          : 'Projected unchanged',
+    dueWeek: state.market.tick + 1,
+    writerName: writer.name,
+    capacityLine: 'One Development & Casting slot for one week.',
+    operatingLine: SCRIPT_DEVELOPMENT_WEEK_CONSEQUENCE,
+    projectionNote:
+      'A projection of the perceived estimate under current studio law — not a guarantee.',
+  }
 }
