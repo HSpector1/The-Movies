@@ -1091,3 +1091,531 @@ the stages, the attention rail; the Full Profile workspace with
 side-by-side applicant comparison; a real selection-response system for
 every world entity; witnessed-beat playback; between-pictures lot life;
 narrow-width transport/HUD.
+
+## 2026-08-25 — LL-CP10A sealed: the Gate + Administration interaction spine reaches professional floor
+
+**Owner playtest verdicts answered (all seven):**
+— **A. The middle applicant could not be clicked** — root-caused, not patched:
+their capsule stands STRICTLY INSIDE the Crown Gate's own 34×12×8
+selectable envelope AND the parked delivery truck's box, and CP9's single
+nearest-hit ray always fed the click to the envelope; every CP9 proof
+selected by talentId directly, so the raycast path was never exercised.
+The pick is now SEMANTIC (Package 02 §4.5): RaycastAll over the selection
+layer, every hit resolved to its entity, and a visible person on the ray
+beats every place/vehicle envelope; within a class the nearest hit wins;
+a person occluded by real geometry along the exact sight line never
+x-rays (one honest person decision — an occluder ahead of the nearest
+person blocks every person behind it). Semantic kind comes from honest
+component evidence (person slot / vehicle route), never names; applicant
+clones declare Person explicitly. The marker disc AND the floating
+nameplate are honest targets too — selection-layer colliders resolving
+to the applicant's own entity, the plate on a warm 3.6-wide backing
+quad, so clicking a person's NAME selects the person. The native proof
+runs screen-space picks through the REAL camera-ray path — left, middle,
+right, both directions, at chest AND plate — and every pick must resolve
+the exact person (12/12 at every layout).
+— **B. "Screen for actor hard to read… larger with larger font":** the
+dossier is the Codex Layer-2 two-column surface — live portrait, 30pt
+masthead, 64pt OVR, scouting report with real tracks, genre signal, and
+a CONTRACT DEMANDS column led by the 24pt weekly figure — up to 980px
+wide at 1720×1045 with the lot retained as context. Type NEVER shrinks
+across tiers; the card resizes instead (the typography constants are
+law, pinned by test). Standard tier: portrait 200×250, no duplicate
+Overall bar (the 64pt figure and tier already state it), strengths a
+Large-tier signal, the concern on every tier.
+— **C. Contract review too small:** same treatment — portrait/identity
+echo (name, OVR, tier restated), consequence rows as quiet 17pt label +
+prominent 24pt bold figure, every CP9 commitment protection unchanged
+(named commit, 0.7s arm vs the 0.5s OS double-click window, commit-
+under-facts geometry, fail-closed height, single dispatch seam).
+— **D. Specialty invisible:** projection v7 carries the one authoritative
+perceived signal — the top genre-experience cell of the primary
+discipline (worldgen `genreExperience`, 0..100, deterministic), with a
+tie flag and the second non-zero signal. The dossier states it in
+belief vocabulary: "GENRE EXPERIENCE (AS BELIEVED · NOT CREDITS) /
+Strongest signal: Comedy · 33 / 100 / Also: Horror · 25" — a tie always
+names its partner — and honestly "No believed genre experience" when
+every perceived cell is 0, coexisting with the "Unproven — no credits
+yet" concern instead of contradicting it. No hidden truth, no invented
+fit, no new simulation: a pure carry (adapter law: max cell, GENRE_ORDER
+tie-break, null on all-zero; wire == row asserted field-by-field, plus
+an INDEPENDENT recomputation oracle over every applicant — review #1).
+— **E. Administration not obvious:** the CP9 coverage-triggered automatic
+camera flight is GONE (Package 02: arrival, state change, readiness never
+move the camera). Attention is now layered without a hijack: a
+billboarded "★ FOUNDING READY — Found the studio at Administration"
+pennant stands over the building exactly while readyToFound (shape +
+text, no color-alone, no glow, no pulse) — and because that pennant
+stands ~660px off-frame at the only authored pose, the screen-space
+half of the law is StudioFoundingBeaconHud: "◀ FOUNDING READY /
+Administration — click to review" at the building's projection when
+framed, clamped to the nearest LEGAL edge when not (never the memo
+column, never the chip band), clicking it SELECTS Administration (never
+a camera move), and it stands down entirely the moment ANY selection
+exists — it can never cover or out-click an open surface (review #2).
+Beside these: the chip's attention line and the memo's supporting
+sentence. The ONE remaining authored composition is the session-opening
+Gate framing, and it fires only while the player has expressed zero
+camera intent (TycoonCameraController.UserCameraInputObserved).
+— **F. Administration context incomplete:** the founding review now
+answers in reading order — identity, role ("Studio administration,
+finances, and publicity"), status (Founding ready / Recruiting), the
+four coverage lines, "Signed so far:" by name WITH each signing's
+founding role ("Ramon Ashby (Director)", body-size type), then fund/
+payroll/runway/cash as label+figure rows. The names are AUTHORITY, not
+presence: projection v8 publishes the signed roster
+(state.contracts joined to talent, signing order, founding-role
+labels) after review #2 caught the client counting bodies on the lot
+— 2 names shown while 6 contracts existed. Post-founding the new
+AdminOperations card replaces the CP9 dead panel: cash, weekly payroll
+(v7), weekly burn, net weekly, runway (⚠ at ≤8 weeks), roster count
+and names — all the treasury pulse's own figures, no client
+arithmetic, and honestly NO action button (the engine offers none at
+Administration after founding).
+— **G. Rejection:** audited, not faked. The engine has NO decline/
+dismiss/skip-applicant law (all 30 action kinds; FoundingState never
+removes an id; save shape pins it). "Not now" remains the honest
+non-mutating step back; an explicit candidate decline/replacement law is
+RECORDED as a deferred design dependency for a future authoritative
+package — no client-only rejection was invented.
+— **H. Memo:** untouched by charter (no redesign; CP10A neither causes
+nor relies on its geometry); it keeps its demoted guidance role.
+
+**Interaction behavior frozen (§7):** hover = marker tint + nameplate;
+single click selects only; double-click = Focus only, and the activation
+window widened 0.32s → the pinned OS default 0.5s so a normal-cadence
+double-click actually Focuses; Esc clears; camera never moves for
+arrival/signing/readiness/notification/panel.
+
+**Layout law:** the card stack respects two floors — never into the
+living-time chip's band, never leftward into the memo column (CardRect
+topFloor/leftFloor, test-pinned) — and the beacon obeys the same floors.
+Below 884px height the chip YIELDS entirely — a DERIVED threshold
+(receipt band + gaps + chip band + the tallest fail-closed commit
+sheet), not a guess, after review #3 proved the hand-picked 860
+admitted a band where founding could not complete. The compact tier
+renders full-height commit sheets; compact narrows consequence labels
+and drops the second genre line (recorded limits).
+
+**The instrument kept its record:** the geometric margin law caught FIVE
+successive layout defects live before any reviewer could — the Standard
+review's commit 5px from the reveal band; the compact tier unable to
+host chip + full-height sheets; the Standard dossier clipping its own
+bottom-anchored Review Offer (review #1 B1 — the proof now MEASURES
+every reveal/commit against its own card rect instead of trusting
+layout arithmetic, and immediately caught two more overruns while
+tuning). Final clearances: 71px at 1440×900, 71px at 1720×1045, 56px at
+1280×800; clip law true at all three, including the admin reveal.
+
+**Eight hostile reviews, every blocker dead at the root:**
+Review #1 (fresh Opus, REJECT — five blockers): B1 the clip law above;
+B2 discoverability is screen-space (the beacon was born here — its
+first frame rendered UNDER the memo column, existence≠visibility,
+fixed with the legal-floor clamp); B3 the affordances are honest
+targets (nameplate/disc colliders, 12-pick proof); B4 the signal
+explains itself (belief vocabulary above); B5 the people have names.
+Review #2 (fresh Opus, REJECT — two blockers): ND1 the beacon overlapped
+the dossier's top band and stole its clicks → ANY selection stands it
+down entirely; ND2 "Signed so far" derived from lot presence → the v8
+authoritative signed roster. Non-blockers folded: nameplate backing/
+collider 3.6 + characterSize 0.04; ResolvePick's dead fall-through
+removed (an occluder before the nearest person necessarily blocks those
+behind); the runner's admin-reveal clip check.
+Review #3 (fresh Opus, verify-and-hunt on TS `6761178` / client
+`046f112`, REJECT — three blockers, every one real): R3-B1 the
+"1440×900" proof bundle was a lie — the window drifted to full-native
+3456×2168 mid-run, nine of ten frames and every geometry figure
+described the wrong surface, and the Standard tier had NO visual
+evidence; the runner could not witness its own viewport. Remedy: the
+report now records requested + per-screenshot observed resolution and
+FAILS CLOSED on drift (one re-assertion attempted, ±2px tolerance for
+the recorded 1045→1046 title-bar rounding). R3-B2 a 24px height band
+(860–883) where the fail-closed AdminConfirm sheet rendered NOTHING —
+the hand-picked 860px chip threshold admitted heights whose card
+budget could not host the 620px sheet, and REVIEW FOUNDING opened an
+empty screen. Remedy: ChipMinimumHeight is now DERIVED (receipt band +
+card gap + chip band + tallest fail-closed Standard sheet = 884), and
+a per-pixel sweep test (788→1440) proves no commit sheet ever
+vanishes or clamps at any admitted height; the "window is not
+resizable" comment the law leaned on was falsified by R3-B1's own
+evidence and is corrected. R3-B3 double-clicking the beacon selected
+the Crown Gate — the ND1 stand-down deleted the plate after click one,
+so click two fell through to the world pick, where the Gate's broad
+envelope waits directly behind the plate. Remedy: the ghost shield —
+the consumed rect keeps claiming its pixels as UI for exactly the OS
+double-click window (pure static law, unit-tested at the boundary),
+and the native proof now drives a real double-click through
+TryConsumeClick: Administration selected, plate down, second press
+shielded. Non-blockers folded: ND1 gained its missing unit law
+(BeaconWantedFor) AND the native probe for its exact filed case (an
+applicant dossier open at readiness); the 1280×800 report no longer
+records a chip line the player never saw; the v8 roleLabel is rendered
+("Vera Barrow (Director)") so the wire field is live — and after the
+clip instrument caught the roles treatment overflowing the compact
+520px card (its SIXTH live catch), presentation became the measured
+ladder of R4-B1: the role-labeled form renders exactly where it
+measures inside the block budget, which in practice is the DECIDING
+phase (a short roster steering the next signing —
+admin-review-midway.png at three signings is its evidence frame); at
+six-plus names it lawfully yields to names-only with the coverage
+checkmarks carrying the role truth; "Signed so far" stands at body
+size wherever the tier grants it; the post-founding
+roster row is labeled "On the lot" — presence stated as presence, with
+the employed-roster projection recorded as deferred authority work;
+the beacon's leaked style texture is destroyed. Recorded, not built:
+sub-788px heights (the fail-closed floor), Evidence/ remaining
+gitignored (bundle digests recorded in this ledger bind it), the
+1046px rounding, Large-tier dead band above bottom controls.
+Review #4 (fresh Opus, verify-and-hunt on TS `6761178` / client
+`417ab70`, REJECT — two blockers, both real): R4-B1 the role-labeled
+signed line overflowed the founding card in reachable states the
+evidence never rendered — SEVEN signings (the ladder's own automation
+signs seven; normal play) wrap the line to four body lines and clip
+REVIEW FOUNDING at the pinned 1440×900, and the tier split gated on
+HEIGHT when card WIDTH drives the wrap (1280×900 rendered roles on the
+exact 520×600 geometry the instrument had already rejected). Remedy at
+the root: the signed block is now MEASURED, never estimated —
+GUIStyle.CalcHeight with the exact style and wrap width the label
+uses, against an explicit three-body-line budget
+(SignedBlockMaxHeight 72), richer forms yielding to plainer (roles at
+body → names at body → names at muted, the proven compact floor form
+rendering unconditionally as the last rung); the Standard overview
+stands exactly as tall as the confirm sheet (620 — the tallest height
+the chip-shown budget always grants, so it NEVER clamps); and the
+proof gained a reserve-signing VARIANT (-studioFoundingJourneySignReserve)
+that signs the seventh after the Core-minimum laws are asserted at
+exactly six, then renders and clip-checks the seven-name card in
+pixels at 1440×900 and at the width-trigger geometry 1280×900
+(foundedWithoutReserve honestly false in the variant bundles). The new
+1280×900 variant immediately EARNED ITS KEEP: on its first run the
+geometric instrument caught the contract sheet's commit landing inside
+the profile reveal's pointer margin — the same width-driven-wrap
+family, the height-keyed consequence-label width (230px) wrapping the
+narrow 563px sheet's figures and sinking the commit ~70px. Fixed at
+the root: the label column is keyed on the LIVE CARD width (≥570 →
+230, else 150 — every charter layout pixel-identical), and the
+Standard review sheet stands at the chip-shown budget's full grant
+(620, the same law as the confirm sheet). R4-B2
+the ghost shield expired at the nominal 0.5s OS default — the window
+this codebase had ALREADY ruled insufficient for this exact gesture
+(the 0.7s commit arm exists because a 0.45s window measurably lost to
+a default-cadence double-click; OS intervals run to ~900ms). The two
+laws guarding the same physical double-click now share CommitArmSeconds,
+the unit boundary tests moved with it, and the native probe re-tests
+the shield at the 0.55s cadence the commit sheets defend. Non-blockers
+folded: the viewport witness now closes on the EVIDENCE itself — the
+captured texture's pixels are asserted against the request, not only
+Screen.* (the Screen/backbuffer disagreement was the original drift's
+exact signature); the runner asserts the full-window safe-area
+assumption the derived budget laws stand on; the stale "below 860px"
+comment corrected to the derived law; admin-confirm-armed.png — the
+first evidence frame ever to show a LIVE commit button; the chip's
+leaked style texture destroyed (the beacon's identical leak was fixed
+in wave 3). Recorded: the overview height changes (570→620 Standard,
+600→640 Large across waves 3-4) are stated here explicitly.
+Review #5 (fresh Opus, verify-and-hunt on TS `6761178` / client
+`cc8a06c`, REJECT — two EVIDENCE-INTEGRITY blockers, no product
+defect; both R4 remedies verified fixed at root by independent pixel
+measurement): R5-B1 admin-confirm-armed.png showed a DISARMED button
+in all five bundles — the Back/reopen probe restarts the 0.7s arm
+clock and nothing waited for it (the reviewer proved it from the
+pixels: zero commit-red in the button band, byte-identical tone to
+the deliberately disarmed frame). Remedy: the armed frame is WAITED
+for (card.CommitArmed), hard-asserted before AND after the capture so
+a disarmed frame can never silently record, and moved BEFORE the
+stale-offer probe so no rejection receipt pollutes it. R5-B2 the
+sealed "founded ... with no reserve Actor" note lied in both
+reserve-variant bundles (the machine field foundedWithoutReserve was
+honest; the human note was a fixed string). Remedy: the note reads
+from the run's own facts. Non-blockers folded: the roster ladder's
+budget is now the measuring style's OWN metrics (lineHeight × 3,
+computed at draw — the hand-picked 72px admitted only two wrapped
+body lines in practice, silently demoting the seven-name roster to
+the card's smallest type); the chosen roster form is TELEMETRY
+(LastSignedRosterForm → signedRosterFormMidway/AtReview in the
+report, schemaVersion 6) instead of a claim to eyeball from font
+colour; the card HUD's own leaked style texture destroyed (the last
+of the three); the ConsequenceRow comment's wrong width corrected;
+one width source for the roster measurement (the same live area rect
+ConsequenceRow keys on). Recorded, not changed: the 150px label
+column wraps three long labels at 1280×900 (the shipped compact form,
+scruffy not clipping); 20px commit clearance at 1280×900 is the
+thinnest of the five geometries (the instrument stands guard); the
+boundary-exact 0px slack at exactly 884px height (self-consistent by
+derivation); two evidence frames honestly captured during transport
+refresh; the ladder has no resize hysteresis (unreachable in normal
+play). The reviewer also CORRECTED my stage-landscape record: the
+probe stalls measured 14.6–15.1s (not the 13.35s I had quoted from
+one earlier report), and the failures began ~20 minutes BEFORE the
+wave-4 build on unchanged landscape code — strengthening the
+environmental diagnosis (locked session), which the reviewer
+endorsed while correctly demanding the green run stay a seal
+precondition.
+Review #6 (fresh Opus, verify-and-hunt on TS `6761178` / client
+`3d770c7`, REJECT — two blockers, both instrument-integrity, verified
+by classifying all 60 captures in the wave): R6-B1 the armed-frame
+guard checked HALF the button's gate — GUI.enabled is ActionsEnabled
+AND CommitArmed, and ActionsEnabled drops during every ~1Hz snapshot
+poll (18% of the wave's pre-founding captures landed on such frames;
+the clean armed sweep was luck, ~63% chance of at least one corrupted
+frame per five-bundle wave). Remedy: CaptureWhenStable — the capture
+waits on BOTH gates and only stands if they still hold across the
+captured frame, else the frame is discarded from the record and
+retaken (bounded, fail-closed); applied to every card evidence frame,
+so the transport-refresh banner can no longer pollute the corpus
+silently. R6-B2 the lineHeight×3 roster budget was a pixel-for-pixel
+NO-OP sold as a fix — CalcHeight for three wrapped lines exceeds
+lineHeight×3 (padding and wrap leading), so the seven-name roster
+still demoted to muted while comment, commit message and a
+source-string test all claimed otherwise; the same commit had deleted
+the behavioral assertions that would have caught it. Remedy: the
+budget is the style's OWN three-line CalcHeight — the same function
+the candidate is measured with, asked for an explicit three-line text
+at the same width — true by construction; the roster telemetry gains
+fail-closed floors (empty telemetry fails the run) and the readiness
+form joins the step record. Review #6 also verified R5-B1/R5-B2
+genuinely fixed (pixel-measured: commit-red 618 in every armed
+frame's button band, 0 in every disarmed one) and independently
+endorsed the locked-session stage-landscape diagnosis. Inherited
+findings recorded for the Owner, NOT CP10A scope: the transport's
+~1Hz snapshot poll disables all commit CTAs and grows the left panel
+~40px each cycle — visible flicker on the primary surface that
+predates this checkpoint (StudioBridgeClient took only a
+pluralization change in the whole campaign); and the camera-freeze
+law is enforced by source pins, not yet by a runtime pose-invariance
+probe.
+Review #7 (fresh Opus, verify-and-hunt on TS `6761178` / client
+`8e56c26`, REJECT — two blockers on the telemetry's own honesty,
+while independently CONFIRMING both R6 remedies at root: a
+banner-color detector over 911 frames measured pollution 10/60 on the
+prior build and 0/60 on this one, and the cross-build roster-form
+delta showed every ≥860 layout promoted exactly one rung — roles at
+six, body at seven — at unchanged geometry): R7-B1 LastSignedRosterForm
+was never reset, so the readiness telemetry floor could never fire
+and a non-rendering ladder would silently report the MIDWAY frame's
+form as the readiness form. Remedy: the property resets at every
+DrawSignedRoster entry — an early return leaves the honest empty
+value the floors fail on. R7-B2 nothing floored the FORM — a
+regression back to the muted floor at a chip-tier layout would still
+produce a complete green run, discoverable only by a human diffing
+JSONs across waves (exactly how the reviewer caught R6-B2). Remedy:
+fail-closed form floors in the runner — muted at a ≥860px layout
+fails the run at both the midway and readiness reads, the same shape
+as controlsWithinCards. Non-blockers folded: ALL twelve evidence
+frames now carry the stable-capture gate (the five world/HUD frames
+included — founding-ready.png had been polluted twice in a prior
+wave); a discarded frame's file is deleted on exhaustion so no
+orphaned pixels linger under a canonical name; the stale duplicate
+doc block removed. Recorded, not changed: admin-confirm.png and the
+armed frame are pixel-identical in the commit button (by capture
+time the arm has lawfully elapsed; nothing claims the frame disarmed
+— the disarmed truth lives in the nine behavioral refusals and their
+revision checks); the compact tier's muted floor is a fixed form,
+not a measurement (the recorded compact limit); CaptureWhenStable's
+10-attempt bound is generous (a persistent gate failure fails
+earlier, inside the wait).
+Review #8 (fresh Opus, verify-and-hunt on TS `6761178` / client
+`f9e4ec4`): **ACCEPT — zero blockers**, conditional on exactly one
+explicit seal precondition: the green Stage-landscape run on an
+unlocked session (satisfied below). The reviewer re-derived every
+report claim with ZERO discrepancies, verified all twelve frames'
+pixel dimensions from PNG headers, independently REPRODUCED review
+#7's banner detector over three waves (10/60 polluted pre-remedy,
+0/60 on both remedied builds — founding-ready.png's two historic
+hits included), found the archived negative case proving the form
+floor discriminates (a prior wave's green run carries the exact
+muted-at-900 regression the floor now kills), corroborated 342/342
+structurally (231 [Test] + 111 [TestCase]), and confirmed the
+CP8-sealed digest against the TS ledger. Recorded observations
+(non-blocking, follow-up work): the telemetry reset guards one of
+four non-render paths (the others are independently killed by the
+clip law — verified — but the root "the value is only truthful when
+the whole chain rendered" wants a frame-stamp); the R7 remedies are
+not yet source-pinned by test; the 860–883 chip-hidden band is safe
+by derivation but unwitnessed in the proof matrix (a ~1440×870
+layout would witness it); proof reports do not yet stamp the git SHA
+they ran on; one CP9-inherited presentation-model/name mismatch
+visible in evidence (no law covers portrait-model agreement).
+
+**Commits:** TS `57fde6f` (projection v7: specialty signal + treasury
+weeklyPayroll; decline-intent absence recorded), `1bb29c9` (review #1:
+the genre oracle becomes independent), `6761178` (projection v8: the
+signed roster becomes authoritative) — THE TS SEAL. Client `83d3833`
+(v7 DTOs), `dacb101` (semantic pick law + adversarial overlap suite +
+OS-default double-activation), `b17c402` (dossier/review/admin/pennant/
+runner v2 + `Tools/cp10a-run-founding-proof.sh`), `ccc2c2e` (geometry
+fix wave: per-tier heights, chip height law, compact tier), `9dc0c52`
+(review #1 wave: clip law, beacon, honest targets, belief vocabulary,
+names), `046f112` (review #2 wave: the beacon yields, the roster tells
+the truth), `417ab70` (review #3 wave: the proof witnesses its
+viewport, the chip law derives, the beacon shields the double-click),
+`cc8a06c` (review #4 wave: the roster is measured never estimated,
+the shield matches the arm law), `3d770c7` (review #5 wave: the armed
+frame is armed, every note reads from facts), `8e56c26` (review #6
+wave: the capture gates on the whole truth, the budget measures
+itself), `f9e4ec4` (review #7 wave: the telemetry resets and the form
+is floored) — THE SEAL BUILD. Design authority:
+`CODEX-WORLD-INTERACTION-PACKAGE-02` (a4795ff) + Builder Annex
+(f571a1d) + `CODEX-HIRING-CANDIDATE-REVIEW-UX-01` (e3f5108). The
+Annex's one open decision — the implementation base — was answered by
+the Owner's order: CP9's sealed `911e87e` / `44615e5`.
+
+**Native proof (final build `f9e4ec4` + TS `6761178`):** the
+founding-journey proof (report schemaVersion 6 — the VIEWPORT-WITNESSED
+form, closing on the captured pixels themselves, with roster-form
+telemetry and the stable-capture law on every card frame) runs
+complete at true 1440×900 (proof floor), 1720×1046 (the Owner's
+window; the recorded 1045→1046 title-bar rounding), and 1280×800
+(narrow landscape), plus the two reserve-signing variants at 1440×900
+and 1280×900 — bundles
+FoundingJourney-1440x900-20260824T232107Z / 1720x1045-…T232148Z /
+1280x800-…T232228Z / 1440x900-reserve-…T232308Z /
+1280x900-reserve-…T232349Z, named here because Evidence/ is
+gitignored; each report records requested + per-screenshot observed
+resolution and the run fails closed on drift. Roster-form telemetry
+across the corpus (machine-recorded, floored fail-closed): midway
+(3 signings) roles-body at every ≥860px layout, names-muted at
+compact; readiness ROLES-BODY at six signings on 1440/1720 (the
+by-construction budget finally admits the full role-labeled roster —
+every founding role visible at body size), names-body at seven
+signings (both reserve variants), names-muted at compact. One
+stable-capture retake fired live in the wave (a snapshot poll flipped
+a gate mid-capture at 1440-reserve) — the law caught and cleaned the
+exact 18% hazard review #6 measured. Each run: 12/12 screen-space pointer picks
+exact (L/M/R both directions, chest AND nameplate, through the real
+ray), 5 selection-is-not-commitment probes, 9 in-window commit
+refusals incl. both 0.55s OS-cadence boundary probes, cancel/reopen
+probe, admin Back probe, the geometric margin on EVERY sheet measured
+against its own card rect (clearances 24/71/56px), 6 named signings
+each +1 revision, Core minimum at exactly 6 signings / Actors 3/3,
+pennant present at readiness, the beacon a real on-screen rect at
+readiness, standing down for an OPEN APPLICANT DOSSIER (ND1's exact
+case) and after its own click, the beacon's real double-click probe
+(Administration selected, plate down, second press ghost-shielded),
+consumed-offer replay refused without mutation, founding at
+Administration, post-founding AdminOperations card live, 12
+screenshots including founding-ready.png (the attention surface
+exists in pixels), admin-review-midway.png (the deciding-phase review
+— the role-labeled roster form in pixels), admin-review.png (six
+signed names), and admin-confirm-armed.png (the LIVE commit button —
+the first evidence frame to show a commit outside its disarmed
+state). Two reserve-signing VARIANT bundles render the seven-name
+card (foundedWithoutReserve honestly false): 1440×900 and the
+width-trigger 1280×900, both complete with the measured names-only
+form and full clearances.
+
+**Regression floor:** EditMode 342/342 (the semantic-selection suite,
+CP10A contract pins, camera-law pin, beacon bootstrap pin, the derived
+chip law + per-pixel commit-sheet sweep, the beacon's stand-down and
+ghost-shield laws, the measured-roster law); TS bridge suite 118/118
+at v8 (arrival join extended to the five genre fields; treasury
+weeklyPayroll law; the independent genre oracle; the signed-roster
+law: 6 contracts → 6 names, 3 actor role labels); typecheck clean;
+bridge two-picture proof complete at revision 50 / week 22
+(BridgeAuto-20260824T232430Z); Living Time auto(6 observed weeks) ==
+manual(5 advances, exactly TO the lawful week-11 commission latch) ==
+the CP8-SEALED digest 41f46177491c7c6e…
+(LivingTime-auto-20260824T233325Z — green solo after the RECURRING
+locked-session wall-clock cadence flake, the digest at the sealed
+value in every failing run too — and
+LivingTime-manual-20260824T233059Z; profile
+rebuilt under v8 after the engine correctly fail-closed on the v7
+checkpoint); stage proofs complete both aspects on the seal build
+(Stage-portrait-20260824T233109Z; Stage-landscape-20260825T043008Z — the GREEN
+landscape run on the seal build, on the unlocked session with the
+window visible, the review-#8 seal precondition satisfied — the landscape runs during the locked-session
+window failed ONLY on the 20-second wall-clock readiness law with
+every functional check true; see the honest failure record). Full TS
+vitest suite (serial, quiet machine): 9 failures in 2 files, ALL
+pre-existing — WorldFirstWorldInspectorDefault.test.tsx fails 8/28
+IDENTICALLY on the sealed CP9 baseline `44615e5` (worktree-verified
+5s-timeout cascade, not a CP10A regression) and the casting-review
+file passes solo (machine-load flake).
+
+**Evidence bundle digests (SHA-256 prefixes, file-list digest per
+bundle):** FoundingJourney 1440×900 82367f09c59c10dc · 1720×1045
+38e668c21ab687ed · 1280×800 046b82e7709bdc83 · 1440×900-reserve
+25bf85313c5809c6 · 1280×900-reserve c7f38318664f4d00; BridgeAuto
+3100eb16917f74af; LivingTime auto 26556d753e259666 / manual
+94f78d20d806348c; Stage portrait 68c7b194e3648916 / landscape c0ea942d938af776;
+EditMode results ace011576b7a95e0; engine.mjs 28e11e951e9ae74c.
+
+**Honest failure record:** the five instrument catches above; the v8
+schema draft omitted registering StudioFoundingSignedSnapshot in the
+bridge definitions map — 21 hydration failures ("Unknown bridge schema
+definition") before registration; the beacon's first frame buried under
+the memo (review #1), its second over the dossier (review #2), its
+third form's stand-down opened the double-click fall-through (review
+#3) — the ghost shield is the fourth and proven form; "Signed so far"
+lied from presence until v8; a live proof run's window drifted
+1440×900 → 3456×2168 and the evidence lied about its own resolution
+until the runner learned to witness and enforce its viewport (review
+#3); the hand-picked chip threshold admitted a founding-cannot-complete
+band until the law was derived (review #3); the full-vitest suite
+produced 11 then 142 flaky failures while three heavy jobs shared the
+machine — the quiet serial truth is recorded above; one stage-portrait
+duration flake as recorded above; one verification-chain invocation
+error of my own — `manual 6` asked the living-time harness to advance
+THROUGH the engine's lawful week-11 auto-pause latch ("Commission a
+screenplay at Development"), failing step 6 twice before the correct
+`manual 5` (advance exactly TO the latch) completed with the sealed
+digest — the equality law auto(6 observed weeks) == manual(5 advances)
+== 41f46177… was never broken; and the stage-landscape "duration
+flake" finally gave up its cause — five consecutive failures, every
+functional probe check TRUE, each probe stalling 14.6–15.1s (review
+#5 corrected my first 13.35s misquote), traced by desktop screenshot
+to the macOS session being LOCKED (wallpaper screensaver): the window
+server throttles the occluded 1440×900 landscape window's synchronous
+readback past the 20-second three-probe readiness law while the small
+portrait window still fits; review #5 independently confirmed the
+failures began BEFORE the wave-4 build on unchanged landscape code
+and endorsed the environmental diagnosis. Not a product defect; the
+landscape proof requires an unlocked session, and the seal waited for
+one.
+
+**Package 02 systems reused (no parallel frameworks):**
+StudioSelectionManager (extended: semantic candidates, proof seam),
+SelectableEntity (extended: semantic kind), TycoonCameraController
+(extended: input-observed guard), StudioCameraInput (beacon joins the
+PointerOverUi chain)/StudioCameraDirector (unchanged laws), StudioHud
+receipt (unchanged host), StudioFoundingCardHud (extended in place —
+no second inspector), StudioFoundingGatePresentation/
+StudioBridgePresentation (extended: pennant, marker/nameplate targets;
+identity laws unchanged), portrait camera (reused for the review echo),
+bridge opaque intents (unchanged single dispatch seam). NOT built
+(deferred per charter §13 / Annex §7.5): target registry cycling/
+controller navigation, Follow, generic alerts, zoom bands, bottom-sheet
+reflow, Stage 7 migration, full comparison workspace, explicit decline/
+replacement law (recorded design dependency).
+
+**Known limits recorded:** below 884px height the tycoon pulse is
+suppressed (the derived law; narrow-viewport surfaces remain open work)
+and the compact dossier drops the second genre signal + header
+strengths; below 788px height the fail-closed commit sheets lawfully
+vanish rather than corrupt their commit geometry (no supported layout
+stands there; a fallback message surface is open work); the
+post-founding roster row reads lot PRESENCE, labeled as exactly that —
+an employed-roster projection is deferred authority work; the gate/truck envelope quirk (a visible truck inside
+the gate envelope resolves to the gate — pre-existing nearest-hit
+behavior, unchanged); hover tint's MPB path remains shader-dead
+repo-wide (marker disc is the working hover cue — CP9 recorded
+follow-up); the memo's narrow-width jitter report stands unaddressed by
+charter; the 1948 masthead law unchanged (no new era hardcodes; new
+strings are era-neutral); WaitUntilTimed steps remain wall-clock and
+transportDistressSeconds commit-window-scoped (CP9 instrument caveats).
+
+**Ruling: KEEP** — review #8's independent ACCEPT (zero blockers)
+with its one seal precondition satisfied by the green landscape run
+recorded above.
+
+**Next (STOPPED for Owner CP10A playtest + Codex Development/
+Screenwriting package):** Development operable from the lot, Casting,
+the Full Profile comparison workspace, target cycling/controller
+navigation, Follow, cause-aware alerts, semantic zoom bands, Stage 7
+inspector migration; review #8's recorded follow-ups (telemetry
+frame-stamp, R7 source pins, a ~1440×870 witness layout, git-SHA
+stamps in proof reports, portrait-model/name agreement); the Owner
+should also know the transport's ~1Hz snapshot poll visibly disables
+commit CTAs and grows the memo panel each cycle (predates CP10A —
+review #6's inherited finding). Playable via committed `Tools/cp9-play.sh`
+(unchanged, 1720×1045).
