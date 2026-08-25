@@ -2,11 +2,13 @@
 
 **Companion report:** [Rival Studios & the Hollywood Ecosystem](./CODEX-RIVAL-STUDIOS-HOLLYWOOD-ECOSYSTEM-PACKAGE-12.md)
 
-**Status:** implementation-ready design boundary; no production authorization
+**Status:** accepted implementation-ready design boundary; documentation only; no production authorization
 
 **Canonical baseline:** `main` at `c902a704eb948cc576083d0973c8c23e59937dc1`
 
 **Audit date:** 2026-08-25
+
+**Campaign authority:** the primary authored campaign runs 1920 → 2040 and culminates in the Studio Legacy finale. Endless continuation beyond 2040 remains an unapproved future optional-mode decision. Every 120-year / approximately 6,240-week endurance, save, performance, and history gate in this annex remains binding.
 
 This annex translates the research ruling into data, simulation, UX, retention, test, and performance contracts. Type names are illustrative until a dedicated implementation-recon pass maps a new save version. The words **persist**, **derive**, and **project** describe authority; they do not pre-approve a migration.
 
@@ -942,21 +944,21 @@ Reject a build if profiling shows:
 
 ---
 
-## T. Owner Decisions Required
+## T. Owner Law — Decisions Resolved
 
-### Decision 1 — player studio naming law
+### Approved law 1 — player studio identity and naming
 
-**Recommendation:** immutable `studioId`; player chooses a display name during founding; renaming later, if allowed, is a dated typed event and never changes ID. A migrated save receives the current product-brand name as its present default and can rename through the same law.
+**PROJECT AUTHORITY VERIFIED:** every studio has an immutable stable `studioId`; the player chooses the studio display name during founding. Any future rename, if supported, is a dated authoritative event and never changes the underlying `studioId`.
 
-**Alternatives:** permanent authored default, or player-authored once with no rename. This is a real product/history choice because names appear in films, awards, profiles, news, save cards, archives, and Legacy.
+The accepted law governs names in films, Awards, profiles, news, save cards, archives, and Legacy. It does not itself authorize a rename feature.
 
-### Decision 2 — minimal Package 10 boundary in P12A
+### Approved law 2 — minimum Package 10 labor seam in P12A
 
-**Recommendation:** authorize the minimum coherent seam: contract identity, global employer ownership, deterministic initial allocation, one-employer exclusivity, cross-studio release credit, and a noncompetitive renewal/replacement maintenance law. Defer auctions, poaching, competitive renewal UX, relationships, aging/retirement, deep career generation, and negotiation to P12B/Package 10 integration.
+**PROJECT AUTHORITY VERIFIED:** P12A may include contract identity, authoritative employer ownership, deterministic initial allocation, one-employer exclusivity, cross-studio career/release credit, and noncompetitive renewal/replacement maintenance.
 
-**Alternative:** forbid the cross-package seam. If selected, P12A must drop its only current honest shared consequence and become a structural rival-business/history proof. It must not substitute a fake audience penalty.
+Competitive bidding, poaching, negotiation, relationships, aging/retirement, and deeper labor-market systems remain deferred. The approval does not expand P12A into those systems.
 
-### Not Owner decisions now
+### No additional Owner decisions required now
 
 - final rival count: tune within 6–10 active AI, stress 12;
 - P12A count: three rivals is the bounded proof;
@@ -967,4 +969,4 @@ Reject a build if profiling shows:
 - acquisition/co-production: later package;
 - sabotage/crime/rival lots: rejected from core P12A.
 
-If both recommended Owner decisions are accepted, no further product choice blocks a bounded P12A implementation charter. Technical names, version number, numeric tuning, exact UI route, and formula coefficients belong to dedicated recon and measured implementation—not Owner invention.
+Both laws are approved. No further product choice blocks a bounded P12A implementation charter. Technical names, version number, numeric tuning, exact UI route, and formula coefficients belong to dedicated recon and measured implementation—not Owner invention. Package acceptance does not itself authorize production code.

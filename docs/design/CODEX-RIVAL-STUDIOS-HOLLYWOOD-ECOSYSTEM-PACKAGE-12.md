@@ -1,6 +1,6 @@
 # CODEX — RIVAL STUDIOS & THE HOLLYWOOD ECOSYSTEM — PACKAGE 12
 
-**Status:** definitive design research; documentation only
+**Status:** accepted definitive design research; documentation only; no production authorization
 
 **Audit date:** 2026-08-25
 
@@ -8,7 +8,7 @@
 
 **Research branch:** `codex/rival-studios-hollywood-ecosystem-research-12`
 
-**Campaign horizon:** 1920 through 2040, with continuation allowed
+**Campaign authority:** the primary authored campaign runs 1920 → 2040 and culminates in the Studio Legacy finale. Endless continuation beyond 2040 is an unapproved future optional-mode decision. All 120-year / approximately 6,240-week endurance requirements remain binding.
 
 **Companion:** [Package 12 Builder Annex](./CODEX-RIVAL-STUDIOS-HOLLYWOOD-ECOSYSTEM-PACKAGE-12-BUILDER-ANNEX.md)
 
@@ -35,7 +35,9 @@ Every material ruling uses one of the requested labels:
 
 ### Decision
 
-**PROJECT AUTHORITY VERIFIED — Rival studios are legitimate long-term direction, but Package 12 remains research.** `docs/OWNER-RULINGS-HOLLYWOOD-HORIZON.md` authorizes persistent fictional studios, films, multi-studio awards, libraries/IP, dynasties, and acquisitions as possible long-term product directions. Mention does not authorize implementation. The same authority fixes the authored campaign at 1920 through at least 2040 and permits rival distress/failure despite the player's no-hard-bankruptcy protection.
+**PROJECT AUTHORITY VERIFIED — Package 12's design boundary is accepted, without authorizing production implementation.** `docs/OWNER-RULINGS-HOLLYWOOD-HORIZON.md` authorizes persistent fictional studios, films, multi-studio awards, libraries/IP, dynasties, and acquisitions as possible long-term product directions. Current Owner law fixes the primary authored campaign at 1920 → 2040, culminating in the Studio Legacy finale, and permits rival distress/failure despite the player's no-hard-bankruptcy protection. Endless continuation beyond 2040 remains an unapproved future optional-mode decision; this does not weaken any 120-year / approximately 6,240-week endurance gate.
+
+**PROJECT AUTHORITY VERIFIED — The two Package 12 decisions are resolved as current Owner law.** Every studio has an immutable stable `studioId`; the player chooses the studio display name during founding, and any future supported rename is a dated authoritative event that never changes the ID. P12A may include contract identity, authoritative employer ownership, deterministic initial allocation, one-employer exclusivity, cross-studio career/release credit, and noncompetitive renewal/replacement maintenance. Competitive bidding, poaching, negotiation, relationships, aging/retirement, and deeper labor-market systems remain deferred.
 
 **PROJECT AUTHORITY VERIFIED — The fantasy is alternate fictional Hollywood.** Real cinema history supplies eras and industry weather; studios, people, films, rivalries, and dynasties are fictional. The Success Blueprint's Pillar 11 target and success test are verified: a player should be able to name the rival fought for thirty years and the star lost to it.
 
@@ -47,7 +49,7 @@ Every material ruling uses one of the requested labels:
 
 ### Ten controlling rulings
 
-1. **PROJECT AUTHORITY VERIFIED:** Hollywood outside the gate is an accepted pillar; rivals are not authorized merely because this report specifies them.
+1. **PROJECT AUTHORITY VERIFIED:** Hollywood outside the gate and the Package 12 design boundary are accepted; production implementation still requires its normal authorization.
 2. **CURRENT CODE VERIFIED:** the player has no persistent `studioId` or `studioName`; the bridge projects the product brand `PROJECT: STUDIO`.
 3. **CURRENT CODE VERIFIED:** `beginFounding()` still reprices the shared concept pool through `correlateConceptCost()`; this is a pre-rival infrastructure defect.
 4. **CURRENT CODE VERIFIED:** save authority is V14 on canonical `main`, correcting the older V13 scout and seed-era assumptions.
@@ -55,7 +57,7 @@ Every material ruling uses one of the requested labels:
 6. **SOURCE VERIFIED:** original genre interest responded to output from all studios, but no trustworthy formula, decay duration, or exact AI path has been recovered.
 7. **SOURCE VERIFIED:** original research advantage was comparative; `televisionCompetition` remains a Project: Studio field, not original-game evidence.
 8. **PRELIMINARY RECOMMENDATION:** rivals may abstract physical operations but never the conserved causes of player-visible competitive outcomes.
-9. **PRELIMINARY RECOMMENDATION:** shared people use one persistent person ID and one authoritative employer; current player-relative contracts are not sufficient.
+9. **PROJECT AUTHORITY VERIFIED:** P12A may include the approved minimum coherent cross-studio labor seam; current player-relative contracts are not sufficient.
 10. **PRELIMINARY RECOMMENDATION:** retain durable identities and consequences, derive current views, summarize long-range trends, and discard deliberation/prose/UI state.
 
 ### The hard gate
@@ -72,7 +74,8 @@ This is stricter and more useful than demanding player-equivalent lot simulation
 
 | Evidence | Class | Confidence | Use in this report |
 |---|---|---:|---|
-| `docs/OWNER-RULINGS-HOLLYWOOD-HORIZON.md` | Owner authority | High | 1920–2040+, fictional-Hollywood direction, long-term legitimacy, player/rival failure asymmetry |
+| Package 12 acceptance and governance reconciliation, 2026-08-25 | Current Owner authority | Highest | accepts Package 12 and both decisions; fixes 1920 → 2040 Studio Legacy finale; leaves post-2040 Endless Mode undecided; preserves 6,240-week gates |
+| `docs/OWNER-RULINGS-HOLLYWOOD-HORIZON.md` | Earlier Owner authority | High within unsuperseded scope | fictional-Hollywood direction, long-term legitimacy, player/rival failure asymmetry; any implication of guaranteed post-2040 continuation is superseded |
 | `PROJECT-STUDIO-SUCCESS-BLUEPRINT.md`, Pillar 11 | Project blueprint | High | target fantasy, original parity floor, success test, no difficulty-tax rivals |
 | Canonical `main` at `c902a704…` | Executable current code | Highest for current state | GameState V14, identity gap, market inactivity, save/RNG/history seams |
 | `campaign/living-lot-ts` at `2ddf080…` | Read-only active campaign branch | High for that branch | verifies that current campaign work has not introduced rival authority, player identity, or market competition |
@@ -1077,7 +1080,7 @@ P12A can persist all of this honestly in campaign-relative `market.tick` weeks. 
 
 ## 37. 2040 Legacy data seam
 
-Future Legacy may derive, when definitions exist:
+**PROJECT AUTHORITY VERIFIED — The primary authored campaign culminates in the Studio Legacy finale in 2040.** Endless continuation beyond that finale is not current guaranteed product law. The following 1920–2040 facts remain required inputs to the future Legacy implementation:
 
 - longest-lived and greatest rival;
 - player and rival peak/final Standing positions;
@@ -1162,14 +1165,14 @@ Acquisitions, labels/subsidiaries, co-productions, libraries/IP/franchises, lice
 - do not describe acquisitions as shipped historical parity;
 - do not use sabotage/crime as the core competitive loop.
 
-### True Owner decisions
+### Resolved Owner law
 
-Most seed questions admit a clear recommendation and do not need Owner intervention now. Two choices remain genuinely product-bearing before an implementation charter:
+Package 12 and both formerly open decisions are accepted. The following are now current Owner law:
 
-1. **OWNER DECISION REQUIRED — Player naming law.** Recommended: immutable studio ID; player-authored display name during founding; later rename only through a typed dated event; migrated saves begin with the current product-brand name until the player changes it. Alternative: an authored permanent default. This affects identity/history and cannot be left to presentation.
-2. **OWNER DECISION REQUIRED — P12A may cross the Package 10 boundary for the minimum coherent labor seam.** Recommended: authorize contract identity, one-employer/exclusivity, cross-studio release credit, and a deterministic noncompetitive renewal/replacement law; defer competing offers, poaching, negotiation UX, relationships, aging, and deep career generation. If not authorized, P12A must become a structural rival-film proof with no honest shared consequence and no claim of coherent rival talent careers, weakening the acceptance question materially.
+1. **PROJECT AUTHORITY VERIFIED — Studio identity and naming.** Every studio has an immutable stable `studioId`. The player chooses the studio display name during founding. Any future rename, if supported, is a dated authoritative event and never changes the underlying `studioId`.
+2. **PROJECT AUTHORITY VERIFIED — Minimum Package 10 labor seam.** P12A may include contract identity, authoritative employer ownership, deterministic initial allocation, one-employer exclusivity, cross-studio career/release credit, and noncompetitive renewal/replacement maintenance. Competitive bidding, poaching, negotiation, relationships, aging/retirement, and deeper labor-market systems remain deferred.
 
-No Owner decision is required now on final rival count, Power Ranking formula, closure floor, acquisition, co-production, sabotage, or full talent poaching: this report supplies a bounded recommendation or defers the system until its prerequisite authority exists.
+No additional Owner decision is required now on final rival count, Power Ranking formula, closure floor, acquisition, co-production, sabotage, or full talent poaching: this report supplies a bounded recommendation or defers the system until its prerequisite authority exists.
 
 ### Later implementation-recon inspection list
 
