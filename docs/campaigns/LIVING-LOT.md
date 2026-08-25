@@ -2058,3 +2058,147 @@ threshold 0.60), correcting the single-pair comparison the round-1 blocker reste
 
 **STOPPED per charter §29: no P04A work. The Owner plays P03A first.**
 Owner launch: `Tools/cp9-play.sh` (fresh engine, windowed 1720×1045).
+
+---
+
+# P03A.1 — WORLD PRESENCE + WORKFLOW HANDOFF REMEDY (2026-08-25)
+
+**Charter:** the Owner played sealed P03A and ruled the product experience not yet accepted: the
+writer's walk to Development was technically true but humanly invisible, the white memo remained
+the functional game director, and the world gave little reason to be looked at. P03A.1 is the
+bounded remedy — Development explains and visibly carries Development; the named Writer visibly
+matters; the memo becomes support, never the narrator. Nothing of P03A's accepted mechanics moves.
+
+**Sealed at:** TypeScript UNCHANGED at `4423fe0` on `campaign/living-lot-ts` (zero TS edits — every
+word the new surfaces speak was already published); Unity client `f9c96f1` on
+`campaign/living-lot-client` (from `432c39d`; hostile review passed at `d89f796`, three of its
+recorded non-blockers landed as the disclosed polish commit `f9c96f1`, full floor re-proven).
+
+## What exists now
+
+**The building speaks.** A restrained world placard above the Development entrance — created and
+destroyed at runtime, so the authored scene and the navmesh bake stay byte-sealed — carries the
+authority's own `worldStatus` with the department card's exact clock composition beneath it:
+`Drafting · <title> / Week N · M weeks` → `Decision required · <title> awaits review` →
+`Ready to package · <title>`. The review pennant (P03A) still rises; the placard makes the same
+call in fixed signage.
+
+**The writer is a person, not a pixel.** The authoritative writer's body carries a world nameplate
+— `<name>` over `<statusLabel> · <title>`, both from the board's own project row, joined by
+writerId — that follows the body across the lot, so the walk from the shared pool reads as a named
+person going to work on the player's script. The nameplate exists exactly while the authority
+names ACTIVE work (drafting/rewriting) and dies on release. The person receipt joins the same row:
+selecting the writer reads `Drafting · <title>` instead of a raw wire code.
+
+**Locate is an explicit promise, kept.** The department card offers `Locate writer · <name>`
+during active work; its dispatch runs through the ONE new sanctioned seam (`StudioLocateAction` →
+the selection manager's own double-click path), selects the exact authoritative writer, and frames
+them — the only player-commanded camera move in the journey, with the pinned card source still
+free of every banned selection/camera call.
+
+**Production Rail V1.** A compact right-edge summary of current screenplay Development: for each
+authority project row (authority order, production history excluded), `statusLabel` / `title` /
+week line — every word verbatim from the wire, zero lifecycle computed client-side. A row click
+SELECTS the owner building (selection only, the founding beacon's precedent); the row's explicit
+LOCATE zone alone also focuses. The rail yields to any open Development card layer and to camera
+inspection, ghost-shields the double-click, registers with the pointer-over-UI latch, and caps at
+four rows with annex C2's `N more in Development` overflow voice. It commits nothing, pauses
+nothing, and owns no future-package rows.
+
+**The memo is support, never the narrator.** No memo code changed; what changed is that the memo
+is no longer NEEDED: a new proof variant runs the ENTIRE journey — found → commission → drafting →
+review → decision → Ready → Casting boundary — with the memo column hidden, and every law stays
+green. Save/Load and system messages remain the memo's.
+
+## The witnessed record (all on client `f9c96f1`)
+
+Development journey proof (~40 fail-closed laws; P03A.1 adds: nameplate exists and reads the
+authority's exact row; receipt joins the same row; placard follows drafting/decision/ready in
+pixels; Locate control shown, dispatch selects and frames the exact writer; rail yields to the
+card, stands at the lot, selects Development without camera movement; memo-hidden journey):
+
+- accept 1440×900 `DevelopmentJourney-1440x900-20260825T151833Z`, 1720×1045 `…151943Z`,
+  1280×800 `…152052Z` — complete, 11 witnessed frames each (the eight sealed frames plus
+  writer-located, development-rail, development-rail-ready)
+- final-rewrite 1440×900 `…-rewrite-…152200Z`, 1280×800 `…152312Z`, 1720×1045 `…152423Z` —
+  complete, 13 frames each, projection == realized to the last bit
+- MEMO-HIDDEN whole journeys at every proof viewport AND on the rewrite path:
+  1720×1045 `…-memoless-…152538Z`, 1440×900 `…152647Z`, 1280×800 `…152756Z`,
+  rewrite 1440×900 `…-memoless-rewrite-…152905Z` — all complete; every law green with the memo
+  column excluded from the entire run, and the run fails closed if the panel re-appears
+
+Founding journey regression (five variants, field-for-field the CP10A.1 laws):
+
+- 1440×900 `FoundingJourney-1440x900-20260825T153017Z`, 1720×1045 `…153055Z`, 1280×800
+  `…153134Z`, reserve 1440×900 `…153213Z`, reserve 1280×900 `…153252Z` — all complete, 14 frames
+  each, field-for-field the CP10A.1 laws on the P03A.1 build.
+
+Ladder:
+
+- Bridge two-picture: `BridgeAuto-20260825T153332Z` — complete, revision 50 / week 22, sealed
+  digest `590479c3…` reproduced exactly.
+- Living Time: manual-5 `LivingTime-manual-20260825T153556Z` and auto-6 `LivingTime-auto-20260825T153609Z`
+  — both complete at week 11, sealed digest `41f46177…`, auto == manual, cadence law green.
+- Stage visual: portrait `Stage-portrait-20260825T153909Z` and landscape
+  `Stage-landscape-20260825T154402Z` — both complete at the sealed 20-second budget, sealed
+  tableau digest `856198f5…`, readiness 3/3/0 at every milestone (one 4/3/1 — the sealed
+  baseline's own occasional shape). The wave-tail landscape run `…154022Z` failed in the
+  CP10A.1-documented window-server throttle mode (13.7-second probes, every content gate TRUE)
+  and is kept; the sealed run above went green first-try after a two-minute cooldown.
+
+Canonical EditMode at the seal SHA: 356/356 Passed (`PerformanceCaptures/Unity/editmode-results.xml`;
+351 sealed tests + 5 new P03A.1 law tests).
+TypeScript floor: unchanged at `4423fe0` — zero TS edits this checkpoint; `npm run test:bridge`
+122/122 re-verified on the unchanged tip.
+
+## Owner-invisibility diagnosis (Wave 1, evidence-ranked — why P03A was true but unseen)
+
+1. No camera reframe on commission (the law) + a 43–90-unit walk STARTING at the Casting pool
+   while the player's camera was parked at Development.
+2. The walking writer's body was pixel-identical to every ambient body — no nameplate, no marker.
+3. The body is drawn from the casting pool, so the walk's origin was essentially always off-frame.
+4. The transit window (~18–26s) was never re-signaled after arrival.
+Remedy: make the writer LEGIBLE (nameplate), the destination TALKATIVE (placard), the status
+PERSISTENT (rail), the discovery EXPLICIT (Locate) — and never move the camera automatically.
+
+## Hostile review
+
+Fresh-context, Opus-tier, verify-only, charged with the charter's twelve reject-hunting
+questions. **VERDICT: ACCEPT — zero blockers.** Independently verified: TS tree clean and
+unchanged; client diff `432c39d..d89f796` touches 15 C#/meta files only — no scenes, no
+generated navmesh, no sealed proof runners, no selection/camera managers; the four deleted
+lines all wrap the sealed receipt ternary, which survives byte-for-byte inside the fallback;
+the placard clock is token-identical to the department card's composition; StudioLocateAction
+is the sole new seam and lands on the selection manager's own double-click gate in an
+unmodified file; the memoless journeys were confirmed BY PIXELS against a non-memoless control
+frame; founding compared across 48 keys; every sealed digest and the canonical 356/356 EditMode
+artifact verified with post-commit timestamps. The reviewer's justification addresses each
+Owner complaint explicitly — including that the writer reads as drafting while standing on open
+grass far from the building, which PROVES the join is authority-driven with no proximity
+inference. Three of the six recorded non-blockers were landed immediately after the verdict as
+`f9c96f1` (disclosed, full wave re-run green): the placard now billboards (it read mirrored
+from the game's own camera angles), the memoless-frame field now proves the panel was hidden
+(the founding counterpart's honesty), the memo-hidden journey fails closed if the panel
+re-appears, and the memoless matrix gains 1280×800 and a rewrite-path variant.
+
+## Known non-blockers (recorded, not hidden)
+
+- The placard is witnessed in pixels at drafting; at review and ready it is proven as report
+  text (the camera faces away at those beats). The pennant, rail, receipt, and card carry the
+  same truths redundantly in pixels.
+- The receipt join also feeds the writer's agent purpose label (display-only; purpose never
+  keys navigation) — an unpinned change to an accepted P03A output string, recorded.
+- `finalViewport` records `1720x1046` for a requested 1045 (pre-existing quirk; the frames
+  genuinely are 1046 tall).
+- The Locate button adds 38px of layout pressure to the department card; `controlsWithinCards`
+  is true in every bundle — the containment laws are the net.
+- The rail's LOCATE zone focuses the BUILDING; locating the WRITER lives on the department card.
+  If the Owner wants writer-locate on the rail row itself, that is a V2 note.
+- P03A's carried non-blockers stand unchanged (assessment-evidence floor, scroll-owner,
+  officeUplift arithmetic before any office tier, proof git-SHA stamps — fifth recording).
+
+**Ruling: KEEP.** One hostile round, ACCEPT with zero blockers; the reviewer's sharpest polish
+notes landed the same hour as a disclosed follow-up commit with the entire floor re-proven green.
+
+**STOPPED per charter §26/§27: no P04A work. The Owner plays P03A.1 first.**
+Owner launch: `Tools/cp9-play.sh` (fresh engine, windowed 1720×1045).
