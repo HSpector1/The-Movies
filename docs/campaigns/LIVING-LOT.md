@@ -2310,3 +2310,207 @@ folded into this record the same hour.**
 
 **STOPPED per the Owner's directive: report and stop for Owner verification. No P04A work.**
 Owner launch: `Tools/cp9-play.sh` (fresh engine, windowed 1720×1045).
+
+# P03A.3 — CAMERA RECOVERY + LEGIBILITY FLOOR (2026-08-25)
+
+**Charter:** the Owner played sealed P03A.2 fullscreen on a 3456×2234 Liquid Retina panel and
+ruled three blockers stand between the Development slice and acceptance: (A) Locate traps the
+player — "normal zoom-out does not recover management view"; (B) management traversal is too
+slow; (C) the UI is materially too small at fullscreen — "buttons are super small… fonts are too
+small… hard to follow." Bounded remediation over the P03A.2 seal: no P04A, no Development
+redesign, no broad UI migration, no new simulation authority, zero TypeScript changes.
+
+**Sealed at:** TypeScript UNCHANGED at `d4ed07d` on `campaign/living-lot-ts` (fourth consecutive
+client-only checkpoint — code unchanged since `25be71e`); Unity client `SEAL_SHA` on
+`campaign/living-lot-client` (from `bae3c4e`).
+
+## The trap, root-caused — three defects composing (proven from code, then fixed)
+
+1. **Locate Writer was never inspection.** The scene authors exactly two StudioInspectionTarget
+   profiles (Soundstage, Administration); a person has none, so the explicit Locate fell through
+   to a management `FocusOn` dive to minimum distance — with NO origin memory and NO Back
+   affordance (the BACK control rendered only while `IsInspecting`; during the writer trap it
+   was never on screen at all).
+2. **Zoom was ~1/120th its designed speed.** `activeInputHandler: 1` (Input System only); the
+   live path fed raw macOS scroll notches (±1) into a zoom rate tuned for legacy 120-unit
+   clicks (the dead legacy path multiplied by 120). Designed feel: ~11 notches across the full
+   23→155 zoom range; shipped feel: ~1,300. "Zoom-out does not recover" was arithmetic.
+3. **Pan crawled.** Speed lerped 13→48 u/s across the zoom range — the 176-unit lot took ~6
+   seconds of held key at management zoom, 13 u/s at the close zoom Locate had dived to.
+
+## What changed (client `bae3c4e..SEAL_SHA`)
+
+**Camera recovery (`f9a13de`).** `StudioNavigationOriginTrail` (depth 8, oldest falls away):
+every explicit player Focus captures the TARGET pose — never the mid-flight smoothed pose, so
+restore is a struct copy and drift is impossible by construction — the moment before the camera
+moves; `TryRestoreNavigationOrigin` travels back through the same smoothing every player move
+uses, never a teleport. Any user camera intent (pan/orbit/zoom/edge-pan/Home/SnapHome) stales
+the whole trail: after the player re-establishes context, Back must not exist to yank them
+backward. The BACK control now stands whenever ANY way back exists — inspection OR a held
+origin — reads **"◄ BACK TO STUDIO"** at 190×50 (the charter's ≥40px hit floor; it was an
+unlabeled 112×44 "BACK" shown only during building inspection), and routes to the right return.
+Esc peels exactly ONE layer, topmost first: exit inspection (selection KEPT — the receipt still
+reads the world), then deselect (closing cards/receipt), then restore origin, then nothing — so
+Esc never moves the camera while UI stands open, and the player is never stranded. Wheel scroll
+is normalized (`WheelNotchZoomUnits = 120`) on both camera scales. The founding gate's authored
+reveal calls `FocusOn` directly and lawfully pushes no origin; founding completion's
+`ExitInspection(true)`/SnapHome behavior is untouched (SnapHome also clears origins — Home is
+the canonical overview, never Back).
+
+**Traversal (`bd8d261`).** Pan speed is proportional to view distance (×0.78, clamped 14–120):
+23→17.9 u/s (close control preserved relatively — 17.9 against 120 at the overview), 90→70 u/s
+against the old lerp's ~31, capped 120 at the overview — the lot crosses in ~2.5s at management
+zoom instead of ~5.7s. Edge pan inherits. Camera motion stays on unscaled time: Pause/1×/2×/4×
+never touch navigation feel.
+
+**Legibility floor (`21b7ac7`).** `StudioLegacyUiMetrics` (Infrastructure):
+`ScaleFor(w,h) = clamp(min(w/1720, h/1045), 1.0, 2.6)` — ONE bounded scale law for every legacy
+surface. Conjunctive (a wide-but-short viewport never scales — the founding commit-sheet height
+sweep stays base across its whole domain) and IDENTITY at and below the reference: at 1720×1045,
+1440×900, and 1280×800 every rendered rect and font is byte-identical to the P03A.2 seal, proven
+by the whole EditMode suite passing with zero touched geometry pins. At the Owner's fullscreen
+the scale lands at 2.009 — the exact panel-density ratio — restoring the physical UI size the
+Owner already accepted windowed. Fonts rasterize at true scaled size (crisp — never GUI.matrix
+blur); styles rebuild when the scale changes; the pinned pure layout laws compute in base space
+and only their product with the scale reaches the screen. Scaled surfaces: memo, selection
+receipt, Living Time chip, BACK control, Production Rail, founding beacon, founding card,
+Development card. The chip's fit/shown laws (`ChipFits` 842 / `ChipMinimumHeight` 884 /
+`ChipShownFor`) are UNCHANGED — above the reference both thresholds are exceeded by construction
+(854·s ≤ 0.497·w; 884·s ≤ 0.846·h), so the P03A.2 conditional-cession semantics are identical at
+every viewport. The memo's panel envelope now reads the ONE shared metrics source, aliased by
+`StudioHud`'s public consts — the recon audit's two-unlinked-18/400 hazard is dead.
+
+**Development hierarchy (`062a881`).** Acceptance doc §7: the department card's six equally
+heavy rows became ranked lines — the screenplay title leads (figure weight), phase + decision
+clock stand as one strong supporting line, writer/room/assessment read as quiet facts, capacity
+is muted meta. Same authoritative facts; nothing added, removed, or recomputed.
+
+## The witnessed record (all on client `SEAL_SHA`)
+
+The Development journey proof gained a fail-closed camera-recovery chapter driving ONLY public
+seams (`StudioLocateAction.Locate`; `TryRestoreNavigationOrigin` — the exact call the BACK
+button makes): Back available AND visible after Locate; camera input state untouched by Locate;
+exact-pose restore; five Locate→Back cycles without drift; chained writer→building Back
+unwinding in order. Per-run fields witness all of it, plus `effectiveUiScale`.
+
+- Development journeys ×11: accept 1440×900 `DevelopmentJourney-1440x900-20260825T204017Z`,
+  1720×1045 `…204139Z`, 1280×800 `…204301Z`; **Owner fullscreen 3456×2234**
+  `DevelopmentJourney-3456x2234-ownerfullscreen-20260825T205406Z` (real fullscreen,
+  `finalViewport 3456x2234`, `effectiveUiScale 2.00930…`, every law green including the exact
+  per-beat cession record); rewrite ×3 (`…204423Z` / `…204546Z` / `…204710Z` — 13 frames each,
+  projection == realized); memo-hidden ×4 (`…204835Z` / `…204958Z` / `…205120Z` /
+  memoless-rewrite `…205241Z`). Cession per beat, field-exact at every viewport: 1440×900 and
+  1720×1045 and 3456×2234 ceded with the pointer standing; 1280×800 chip suppressed, manual
+  verb retained, no pointer. Recovery fields (`cameraBackAvailableAfterLocate`,
+  `…ControlVisibleAfterLocate`, `…InputUnchangedByLocate`, `…BackRestoresExactPose`,
+  `…RepeatedCyclesStable`, `…ChainedBackUnwindsInOrder`) true in all eleven runs.
+- Founding journeys ×5 field-for-field — 1440×900 `FoundingJourney-1440x900-20260825T205531Z`,
+  1720×1045 `…205611Z`, 1280×800 `…205650Z`, reserve 1440×900 `…205729Z`, reserve 1280×900
+  `…205809Z` — all complete, 14 frames each.
+- Ladder: Bridge `BridgeAuto-20260825T205849Z` (rev 50 / wk 22, digest `590479c3…` — byte-equal
+  to the P03A.2 seal); Living Time manual-5 + auto-6 `LivingTime-manual-20260825T210115Z` +
+  `…auto…210128Z` (week 11, digest `41f46177…`, auto == manual, replay matched); Stage portrait
+  `Stage-portrait-20260825T210428Z` + landscape `Stage-landscape-20260825T210918Z` (sealed
+  tableau `856198f5…`). The wave's FIRST landscape attempt (`…210542Z`) missed its
+  3-consecutive-probes-in-20s pacing under wave load with every gate TRUE on its final probe —
+  a timing miss, not a law breach; the law was not touched and the quiet re-run passed with the
+  sealed digest. Recorded, not hidden.
+- Canonical EditMode at the seal SHA: EDITMODE_COUNT Passed (368 = 356 sealed + 1 P03A.2
+  handoff + 6 camera-recovery laws + 5 legacy-metrics laws), with the P03A.3-mandated pin
+  updates: the BACK control's exact rects (112×44 → 190×50, per the charter's hit-floor
+  mandate), the receipt hint's inspection-aware second parameter, and overload-disambiguated
+  reflection lookups. No assertion was loosened; every other change is additive.
+- Fullscreen pixels inspected at 100% (not narrated): the memo, chip (Pause/1×/2×/4× at ~44px),
+  BACK TO STUDIO, rail row, receipt, and Development card crops from the 3456×2234 frames all
+  render at physical parity with the accepted windowed experience — crisp, contained,
+  unclipped.
+
+## Hostile review
+
+Fresh-context, Opus-tier, verify-only, charged with the charter's fifteen reject questions.
+**VERDICT: ACCEPT — zero blockers.** Independently re-derived (not narrated): both repository
+tips; the complete `bae3c4e..062a881` diff line by line including all three camera files, the
+memo renderer, and every scaled HUD; the trap's root causes re-proven from primary sources (the
+two inspection-target components counted by GUID in the scene file; `activeInputHandler: 1`
+confirmed at ProjectSettings.asset:932; the raw-notch-vs-120 arithmetic recomputed — 17.4%
+distance change per notch after the fix vs 0.145% before, "the dead zoom-out is fully
+explained"); the origin state machine hunted for holes (SnapHome clears, founding exit homes,
+gate reveal pushes nothing, interleavings unwind topmost-first, capture-TARGET makes drift
+impossible by construction); the cession algebra re-checked; every viewport bucket confirmed
+base-space; the EditMode artifact audited with post-commit mtime and the new-case delta
+enumerated (357 sealed + 11 new = 368, the ONLY deleted assertion lines in the whole diff being
+the three charter-mandated 112×44→190×50 rect pins); a field-for-field deep diff of all ten
+repeated journeys against their P03A.2 sealed predecessors (zero fields removed, only the six
+additive camera fields); the ladder digests reproduced; and ten frames inspected including
+three fullscreen 100% crops — "a clean 2× of the accepted reference frame with no clipping, no
+overlap, no matrix blur, and the lot still dominant." The reviewer's twelve record-hygiene
+non-blockers are folded into the list below.
+
+## Known non-blockers (recorded, not hidden)
+
+- The authority's journey body copy still reads "The draft is due Week 1 — advance the week"
+  above the memo's clock pointer — the acceptance doc §7.3's exact anti-example, at every
+  viewport including fullscreen (the reviewer's first note). The string is TS-owned; zero TS
+  changes was the charter's default, and the doc's suggested "run the studio clock" is NOT a
+  straight swap: at chip-suppressed viewports (1280×800) the memo's manual verb lawfully
+  remains, so "advance the week" is still live vocabulary there. **Recommend the Owner
+  authorize a beat-aware one-line TS copy change in a future checkpoint.**
+- The scale cap is 2.6, not the acceptance doc §6.4 sample's 1.45 — a DELIBERATE deviation the
+  record must own: at 3456×2234 the sample cap would clip 2.009 to 1.45 and leave blocker C
+  only ~72% remedied. The doc itself instructs validating against the Owner's actual monitor;
+  2.009 is that monitor's exact density ratio.
+- The acceptance doc §6.3 absolute floors (e.g. 40–44px buttons) are met at and above the
+  reference scale only; at 1440×900/1280×800 the chip transport buttons stay 22px base — the
+  deliberate price of byte-identity with every sealed pin, and the sizes the Owner accepted
+  windowed. Blocker C was a fullscreen complaint; the absolute floors belong to P04A's token
+  system.
+- `StudioCameraProofRunner`'s inspection-control footprint law now derives from the control's
+  own constants rather than a re-pinned literal — future widening would auto-pass that clause
+  (the safe-area clause still binds). The reviewer prefers a literal; re-pin it when that
+  runner next changes.
+- The journey chapter's `cameraInputUnchangedByLocate` witnesses an unchanged state under the
+  harness's own input-park (false==false); the SUBSTANTIVE never-disables law is carried by the
+  EditMode `PersonFocus_CapturesAnOriginAndNeverTakesTheCameraInput` test against a fresh
+  enabled controller. No end-to-end runtime wheel-notch-after-Locate proof exists; the law
+  rests on the source pin plus reviewer-verified arithmetic.
+- The Back affordance clears on ANY user camera intent including a single scroll notch —
+  defensible (a stale origin teleport is worse) and recorded: after one nudge, recovery is
+  zoom/pan/Home, all of which now work.
+- The origin restores camera pose only (pivot/distance/yaw/pitch), not selection or card state —
+  consistent with §4.1's "where applicable" and §4.3's ban on clearing selection to escape,
+  narrower than §4.4's illustrative struct.
+- The founding gate's authored reveal does not CLEAR a pre-existing origin trail (it lawfully
+  pushes none); practically unreachable ordering, recorded for completeness.
+- Two comment/naming imprecisions the reviewer caught, recorded rather than churned post-review:
+  the ChipRect doc comment says "854·s" where the ChipFits threshold is 842 (conservative — the
+  inequality holds a fortiori), and the pan-speed test name says "keeping close precision"
+  where close pan is in fact 38% faster than sealed (17.9 vs 13) while staying proportionally
+  precise.
+- Wheel-notch normalization is calibrated for the macOS Input System delta regime (the only
+  shipping platform); a Windows build should re-verify per-notch scroll units before trusting
+  zoom feel.
+- The department card keeps its sealed fixed-height tiers, so at sparse states (no screenplay)
+  the card shows generous empty space above its bottom-anchored CTAs — pre-existing layout law,
+  not introduced here.
+- Memo body/muted faces (13/11 base) sit below the acceptance doc's 16-18px aspirational floor
+  AT REFERENCE SCALE — exactly the sizes the Owner accepted windowed in P03A.1/2; at the
+  fullscreen where the complaint arose they render at 26/22px physical. The doc's absolute
+  typography floors belong to P04A's UI Toolkit token system.
+- The camera-recovery chapter runs inside the Development journey (the only proof with a
+  founded studio + writer); `StudioCameraProofRunner` (stage/admin inspection contracts, no
+  shell launcher — unchanged status) still has no Tools/*.sh entry; its compact-safe-area
+  contract now derives from the control's own constants instead of re-pinned literals.
+- 1440×900 still clears the 884px chip threshold by only 16px (unchanged P03A.2 note; the
+  scale law is identity there so the margin is untouched).
+- The canonical EditMode artifact remains untracked by git (recurring evidence-integrity note).
+- P03A/P03A.1/P03A.2 carried non-blockers stand unchanged (ownerless memo verbs awaiting their
+  world owners; assessment-evidence floor; scroll owner; officeUplift arithmetic; proof git-SHA
+  stamps — seventh recording).
+
+**Ruling: KEEP CANDIDATE for Owner playtest. One hostile round, ACCEPT with zero blockers; the
+reviewer's twelve hygiene notes were folded into this record the same hour, with no post-review
+code churn.**
+
+**STOPPED per the charter: report and STOP for Owner playtest. No P04A work.**
+Owner launch: `Tools/cp9-play.sh` (fresh engine, windowed 1720×1045) — or fullscreen play at
+native resolution; both are now first-class.
