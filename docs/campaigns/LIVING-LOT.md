@@ -1619,3 +1619,203 @@ should also know the transport's ~1Hz snapshot poll visibly disables
 commit CTAs and grows the memo panel each cycle (predates CP10A —
 review #6's inherited finding). Playable via committed `Tools/cp9-play.sh`
 (unchanged, 1720×1045).
+
+---
+
+# LL-CP10A.1 — FOUNDING HANDOFF + START-YEAR VERIFICATION (2026-08-25)
+
+**Charter:** surgical follow-up on sealed CP10A (Owner verdict: KEEP). Two issues
+only: (A) the founding-complete → Administration handoff was too weak — the Owner
+signed the exact minimum and "was not sure whether he needed to keep signing
+people," reaching Administration only via the memo; (B) the visible `1948 · WK 0`
+fresh-start date had to be conclusively sourced and corrected to 1920 only if
+genuine product state. No CP10A redesign; no Development work.
+
+**Sealed at:** client `2e19226` (from CP10A seal `f9e4ec4`). TypeScript
+authority unchanged at `020b27a` — zero code changes; this ledger entry is the
+only TS-side commit of the checkpoint.
+
+## A. The handoff now speaks from the world
+
+Every voice keys on the authority's own `readyToFound`; no camera move, no
+auto-select, no new mechanic, memo untouched (supporting, never owning):
+
+- **Pennant** (over Administration): "★ FOUNDING TEAM COMPLETE / Found the
+  studio at Administration" — the handoff stated, not a readiness flag to decode.
+- **Beacon** (screen-space, ND1 laws unchanged): title "FOUNDING TEAM COMPLETE",
+  hint "Administration — click to review".
+- **Nameplates**: every waiting applicant's plate gains "· OPTIONAL" at coverage
+  (rich-text size drop keeps the longer line inside the review-#2 backing
+  budget); one `NameplateText` composer feeds spawn AND refresh, so a readiness
+  flip reaches every plate on its own revision.
+- **Applicant receipt**: "Applicant · optional — the founding team is complete."
+- **Dossier**: "Founding team complete — additional applicants are optional." in
+  the reserve line's proven 60-character muted slot; readiness outranks the
+  reserve flag; repaint-honest telemetry (`LastProfileOptionalLine`, the
+  review-#7 reset law).
+- **Administration receipt lifecycle**: "Studio headquarters · recruiting the
+  founding roster" while coverage is open → "Founding team complete — ready to
+  found the studio" at readiness → the authored operational status restored
+  verbatim after founding (CameraFocusEnabled preserved). The baked
+  "operational" no longer stands before the studio exists.
+
+## B. `1948 · WK 0` — root cause and the 1920 law
+
+Archaeology (conclusive, as corrected by the hostile review):
+- TypeScript authority owns **no calendar year** — the bridge projects `week`
+  only (nonNegativeInteger); no year field exists anywhere in `src/` or
+  `bridge/`; the only TS "1948" is one comment.
+- `Tools/cp9-play.sh` boots a **genuine fresh engine** (`dist/studio/engine.mjs`
+  with a fresh runtime dir) — not a 1948 fixture.
+- Player-facing 1948 had exactly TWO homes, not one: the Unity client's
+  `StudioLivingTimeHud.EraMasthead` presentation constant (the date line), and —
+  found by the hostile review after my "only source" claim — seven selectable
+  sedans whose baked LOT SELECTION receipt read "1948 studio motor pool" (one
+  of them parked in frame in the handoff evidence). Both corrected; the scene
+  now sweeps clean of year-bearing status lines.
+
+Fix: `EraMasthead` = **"1920"** per the Owner timeline law (2026-08-18
+time-model ruling; authored campaign 1920 → 2040). The date-line tests are now
+the start-year regression (`1920 · WK 0` / `1920 · WK 22`), and the founding
+proof asserts `dateLineAtBoot == "1920 · WK 0"` on the genuine fresh path,
+fail-closed. The masthead still never advances with play until the engine owns
+a calendar.
+
+**Intentional 1948 retained (fixture-scoped, untouched):** the baked lot
+envelope `Assets/StreamingAssets/studio-lot-1948.json` + `StudioSnapshotLoaderTests`
+(fixture parsing), scene identity `hollywood-1948-canonical`, and era styling
+(sepia portrait stock, motor-pool copy, authored world dressing) — recorded for
+future era work, not refactored here.
+
+## Instrument record (proof schema v7)
+
+New fail-closed instruments, each reading live objects: `dateLineAtBoot` /
+`campaignStartsAt1920`; pennant TextMesh words; applicant receipt status,
+rendered dossier line, and the actual waiting nameplate at readiness; a
+witnessed frame with the memo column hidden and restored
+(`founding-ready-memoless.png` — the world alone carries the next step);
+revision-bracketed harmless readiness inspection; the Administration status
+lifecycle bracket (midway recruiting / readiness complete / post-founding
+cleared); the optional dossier re-asserts the clip law where the new line renders.
+
+## Honest failure record
+
+The first cut of the dossier line (101 characters at body size) was caught by
+its own new clip instrument pushing Review Offer out of the 1280-wide cards:
+`FoundingJourney-1280x800-20260825T050851Z` (7px past the limit) and
+`FoundingJourney-1280x900-reserve-20260825T051000Z` (22px) — both bundles kept.
+Remedy `78ac04c`: the ready form takes the charter's own 60-character copy in
+the reserve line's proven muted slot, and a test pins both forms to that budget.
+
+## Verification floor (all on client `2e19226`, the seal build)
+
+EditMode **344/344** — the canonical
+`PerformanceCaptures/Unity/editmode-results.xml`, run on the committed seal
+SHA (the review's B1 remedy). Five founding proofs green, every handoff and
+start-year instrument true (fifteen laws checked per bundle),
+`controlsWithinCards` true, 12/12 pointer picks, Core 6/3 base and 7-signing
+reserve variants:
+
+- FoundingJourney-1440x900-20260825T054110Z `6c9922cb8d81b1ec`
+- FoundingJourney-1720x1045-20260825T054151Z `a9dfcb5786c2a41b`
+- FoundingJourney-1280x800-20260825T054232Z `c01d83c96e6911d7`
+- FoundingJourney-1440x900-reserve-20260825T054311Z `f7ace02d42fa3b26`
+- FoundingJourney-1280x900-reserve-20260825T054352Z `ffb50ecc3d13f159`
+
+Regression ladder on the same build:
+
+- BridgeAuto-20260825T054432Z `652cf8b81f0d3f95` (rev 50 / wk 22, digest `590479c3…`)
+- LivingTime-manual-20260825T054649Z `8eacbc2e790b6909` — finalDigest
+  `41f46177491c7c6e…` at week 11 (`manual 5`, the latch law)
+- Stage-portrait-20260825T054659Z `ff7b14932a7ca609` — finalDigest `856198f5…`
+- LivingTime-auto-20260825T060822Z `f12f1eb2d322b724` — finalDigest
+  `41f46177…` at week 11 (`auto 6`; green on the third attempt, unlocked +
+  display-awake session)
+- Stage-landscape-20260825T061225Z `48ca0a99f59b2a62` — finalDigest
+  `856198f5…` (green on the fourth attempt: unlocked session, `caffeinate`
+  display-awake, window activation every 3s)
+
+An intermediate full wave on `78ac04c` (05:13–05:23 UTC) was also entirely
+green, including LivingTime-auto-20260825T051836Z and
+Stage-landscape-20260825T052158Z at their sealed digests — the engine digests
+the two environmental reruns re-witness are unchanged by the client-string
+remedy.
+
+## Commits (client, atop `f9e4ec4`)
+
+- `1cee299` feat(founding): the world says the team is COMPLETE and more hiring is optional
+- `91b2503` fix(time): the authored campaign begins in 1920
+- `30bea2a` feat(proof): the handoff and the start year join the witnessed record
+- `78ac04c` fix(founding): the optionality line takes the reserve line's proven budget
+- `2e19226` fix(founding): review — the motor pool drops its year, the record gains its literals
+
+## Hostile review
+
+One fresh-context verify-only hostile Opus review: **REJECT, two blockers**,
+both failures of the record, both remedied at the root in `2e19226`:
+
+- **B1 — the EditMode claim lacked its canonical artifact.** The 344/344 runs
+  had been recorded only in session scratch files; the project's own
+  `PerformanceCaptures/Unity/editmode-results.xml` still held the sealed
+  342-test run. Remedy: EditMode re-run on exactly the committed remedy SHA,
+  writing the canonical artifact — 344/344, the two new tests present and
+  passing. ("Run the tests. Report actual output." — the law the review
+  enforced.)
+- **B2 — the 1948 archaeology overclaimed.** "The ONLY player-facing source"
+  was false: seven selectable sedans baked "1948 studio motor pool" into the
+  exact receipt widget this checkpoint corrected for Administration, one of
+  them visible in the handoff frames. Remedy: authoring source and all seven
+  baked statuses became the year-free "Studio motor pool"; the scene grep
+  proves zero year-bearing status lines remain; the archaeology in this
+  ledger states the corrected two-source truth.
+
+Review non-blockers recorded: the profile column has no measured-fit ladder
+(the live clip instrument is the net — it caught the 101-char defect and runs
+at every viewport); at 1280×800 the chip lawfully yields so the 1920 line is
+witnessed only at ≥884-height layouts; the pennant is verified by TextMesh,
+never witnessed in pixels (the beacon is the declared screen-space guarantee);
+the dossier optionality line renders muted — whether that register is loud
+enough is the Owner's playtest question; `adminStatusAtReadiness` gained its
+literal backstop in the remedy; this ledger entry is the committed narrative
+the review found missing; `cp9-play.sh`'s stale 1440×900 header comment fixed.
+
+## Ruling
+
+A second fresh-context verify-only Opus ruling on the exact remedy:
+**ACCEPT.** B1 killed two independent ways (the canonical
+`editmode-results.xml` — 344/344, started 26s after the commit, per-case
+tally counted; and a source-structural corroboration: 233 `[Test]` + 111
+`[TestCase]` = 344 at the seal SHA vs 231+111 = 342 at `f9e4ec4`). B2 killed
+through to the shipped binary (`strings -a` on the built player: "1948 studio
+motor pool" absent, "Studio motor pool" the only motor-pool string; every
+surviving 1948 an internal fixture identifier). Collateral: none — the five
+founding bundles on the remedy build are field-for-field identical to the
+prior build's, and the failing living-time run still produced the sealed
+digest, demonstrating the engine is out of the remedy's reach by construction.
+Canonical artifact digests stamped: `editmode-results.xml`
+`c03473e67e016096…`, `editmode.log` `84104594b0836f63…`.
+
+The ruling held one seal precondition open, in CP10A's own shape: green
+`Stage-landscape` and `LivingTime-auto` on build `2e19226`, which required an
+unlocked session. **Satisfied before this seal was written** — both runs green
+on the seal build with their sealed digests (bundles above). The environmental
+record extends the locked-session law: an unlocked session alone was NOT
+sufficient this time — the display had to be held awake (`caffeinate -dimsu`)
+and the window re-activated every 3 seconds; the 5-second activation cadence
+that passed at 05:21 failed three times between 05:49 and 06:05 with every
+functional check true and the failing living-time runs still at the sealed
+digest.
+
+**Ruling: KEEP.** The founding handoff speaks from the world, additional
+hiring reads as optional, the campaign begins in 1920, and every accepted
+CP10A interaction is field-for-field unchanged.
+
+Ruling follow-ups recorded (non-blocking): proof reports still do not stamp
+their git SHA (review-#8 carryover — provenance was reconstructed from mtime
+ordering and verified end to end); `Studio.Tests.EditMode` structurally cannot
+cover `Runtime/Presentation` (no asmdef), so runner literals are guarded by
+the fail-closed bundle fields, not unit tests.
+
+**STOPPED per charter: no Development / P03A work.** Next assignment uses the
+approved Codex Package 03 Development/Screenwriting research after Owner
+verification of this follow-up. Owner launch: `Tools/cp9-play.sh`.
