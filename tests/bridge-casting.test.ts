@@ -256,6 +256,46 @@ describe('P04A Casting bridge — quote seam and board', () => {
     const replay = session.command(commandEnvelope(session, 'screentest-commit-2', quoted.quote.intentId))
     expect(replay.accepted).toBe(false)
     if (!replay.accepted) expect(replay.reasonCode).toBe('INTENT_NOT_AVAILABLE')
+
+    // FIX 1: the projection publishes the authoritative active slate — the
+    // EXACT six player-chosen talentIds, grouped by role, identity + display
+    // name only.
+    const nameFor = (talentId: string) =>
+      session.gameState.talent.find((candidate) => candidate.id === talentId)!.name
+    const expectedActiveSlate = {
+      lead: draft.slateLead!.map((talentId) => ({ talentId, name: nameFor(talentId) })),
+      antagonist: draft.slateAntagonist!.map((talentId) => ({ talentId, name: nameFor(talentId) })),
+      support: draft.slateSupport!.map((talentId) => ({ talentId, name: nameFor(talentId) })),
+    }
+    const projectAfterCommit = castingProjection(session.gameState).board!.projects.find(
+      (candidate) => candidate.projectId === projectId,
+    )!
+    expect(projectAfterCommit.activeSlate).toEqual(expectedActiveSlate)
+
+    // ...and it survives save/load.
+    const saved = requireAccepted(
+      session.save({
+        protocolVersion: PROTOCOL_VERSION,
+        schemaId: SCHEMA_ID,
+        sessionId: session.sessionId,
+        commandId: 'screentest-save-1',
+        expectedStateRevision: session.stateRevision,
+      }),
+    )
+    const loaded = requireAccepted(
+      session.load({
+        protocolVersion: PROTOCOL_VERSION,
+        schemaId: SCHEMA_ID,
+        sessionId: session.sessionId,
+        commandId: 'screentest-load-1',
+        expectedStateRevision: session.stateRevision,
+      }),
+    )
+    expect(saved.stateDigest).toBe(loaded.stateDigest)
+    const projectAfterLoad = castingProjection(session.gameState).board!.projects.find(
+      (candidate) => candidate.projectId === projectId,
+    )!
+    expect(projectAfterLoad.activeSlate).toEqual(expectedActiveSlate)
   })
 
   it('quotes, mints, and commits a greenlight with the EXACT participants and budget; a later refusal changes NOTHING', () => {
@@ -353,6 +393,21 @@ describe('P04A Casting bridge — quote seam and board', () => {
         (entry) => entry.kind === 'startCastingSession' && entry.payload.projectId === projectId,
       ),
     ).toBe(true)
+
+    // FIX 1: even while only QUEUED (no CastingSession created yet), the
+    // projection's activeSlate already carries the exact six player-chosen
+    // talentIds, grouped by role, from the queued production-queue entry.
+    const queuedNameFor = (talentId: string) =>
+      session.gameState.talent.find((candidate) => candidate.id === talentId)!.name
+    const projectQueued = castingProjection(session.gameState).board!.projects.find(
+      (candidate) => candidate.projectId === projectId,
+    )!
+    expect(projectQueued.sessionStatus).toBe('queued')
+    expect(projectQueued.activeSlate).toEqual({
+      lead: draft.slateLead!.map((talentId) => ({ talentId, name: queuedNameFor(talentId) })),
+      antagonist: draft.slateAntagonist!.map((talentId) => ({ talentId, name: queuedNameFor(talentId) })),
+      support: draft.slateSupport!.map((talentId) => ({ talentId, name: queuedNameFor(talentId) })),
+    })
   })
 
   it('capacity-only greenlight quotes queues:true (cashAfter null) and commits with ZERO commitment', () => {

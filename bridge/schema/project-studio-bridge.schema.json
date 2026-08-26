@@ -87,7 +87,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 10,
+          "const": 11,
           "type": "integer"
         },
         "stateDigest": {
@@ -203,7 +203,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 10,
+          "const": 11,
           "type": "integer"
         },
         "stateDigest": {
@@ -681,7 +681,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 10,
+          "const": 11,
           "type": "integer"
         },
         "stateDigest": {
@@ -750,7 +750,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 10,
+          "const": 11,
           "type": "integer"
         },
         "stateDigest": {
@@ -853,6 +853,36 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioBuildingSnapshot"
+    },
+    "StudioCastingActiveSlateSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "antagonist": {
+          "items": {
+            "$ref": "#/$defs/StudioCastingSlateReadSnapshot"
+          },
+          "type": "array"
+        },
+        "lead": {
+          "items": {
+            "$ref": "#/$defs/StudioCastingSlateReadSnapshot"
+          },
+          "type": "array"
+        },
+        "support": {
+          "items": {
+            "$ref": "#/$defs/StudioCastingSlateReadSnapshot"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "antagonist",
+        "lead",
+        "support"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCastingActiveSlateSnapshot"
     },
     "StudioCastingBlockerSnapshot": {
       "additionalProperties": false,
@@ -1317,6 +1347,16 @@
     "StudioCastingProjectSnapshot": {
       "additionalProperties": false,
       "properties": {
+        "activeSlate": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioCastingActiveSlateSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "antagonistCandidates": {
           "items": {
             "$ref": "#/$defs/StudioCastingCandidateSnapshot"
@@ -1466,6 +1506,7 @@
         }
       },
       "required": [
+        "activeSlate",
         "antagonistCandidates",
         "attention",
         "auditionQueued",
@@ -1827,6 +1868,25 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioCastingSignalSnapshot"
+    },
+    "StudioCastingSlateReadSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "talentId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCastingSlateReadSnapshot"
     },
     "StudioCastingSnapshot": {
       "additionalProperties": false,
@@ -5695,7 +5755,7 @@
       "x-csharp-name": "StudioWeekTheaterSubjectSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-10",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-11",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -5736,7 +5796,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 10,
+    "projectionVersion": 11,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

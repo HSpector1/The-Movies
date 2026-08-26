@@ -16,7 +16,7 @@ import {
 } from './dsl.ts'
 
 export const PROTOCOL_VERSION = 4 as const
-export const PROJECTION_VERSION = 10 as const
+export const PROJECTION_VERSION = 11 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -916,6 +916,23 @@ const StudioCastingReadinessSnapshot = object('StudioCastingReadinessSnapshot', 
   blockers: array(reference('StudioCastingBlockerSnapshot', StudioCastingBlockerSnapshot)),
 })
 
+/** Identity + display name ONLY — no scores, no hidden facts. */
+const StudioCastingSlateReadSnapshot = object('StudioCastingSlateReadSnapshot', {
+  talentId: nonEmptyText(),
+  name: nonEmptyText(),
+})
+
+/**
+ * The authoritative committed screen-test slate for a project, grouped by
+ * role. Populated whenever the project's casting session is queued,
+ * auditioning, in review, or complete; null otherwise.
+ */
+const StudioCastingActiveSlateSnapshot = object('StudioCastingActiveSlateSnapshot', {
+  lead: array(reference('StudioCastingSlateReadSnapshot', StudioCastingSlateReadSnapshot)),
+  antagonist: array(reference('StudioCastingSlateReadSnapshot', StudioCastingSlateReadSnapshot)),
+  support: array(reference('StudioCastingSlateReadSnapshot', StudioCastingSlateReadSnapshot)),
+})
+
 const StudioCastingProjectSnapshot = object('StudioCastingProjectSnapshot', {
   projectId: nonEmptyText(),
   title: nonEmptyText(),
@@ -940,6 +957,8 @@ const StudioCastingProjectSnapshot = object('StudioCastingProjectSnapshot', {
   packageReadiness: reference('StudioCastingReadinessSnapshot', StudioCastingReadinessSnapshot),
   greenlightQueued: bool(),
   auditionQueued: bool(),
+  /** The authoritative active slate; null when no session (queued/auditioning/review/complete) exists. */
+  activeSlate: nullable(reference('StudioCastingActiveSlateSnapshot', StudioCastingActiveSlateSnapshot)),
 })
 
 const StudioCastingExpiryNoticeSnapshot = object('StudioCastingExpiryNoticeSnapshot', {
@@ -1423,6 +1442,8 @@ const definitions = {
   StudioCastingCandidateSnapshot,
   StudioCastingResultsSnapshot,
   StudioCastingReadinessSnapshot,
+  StudioCastingSlateReadSnapshot,
+  StudioCastingActiveSlateSnapshot,
   StudioCastingProjectSnapshot,
   StudioCastingExpiryNoticeSnapshot,
   StudioCastingBoardSnapshot,
@@ -1462,7 +1483,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-10',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-11',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [

@@ -132,6 +132,65 @@ function poolEvidence(view: CastingPackageProjectView, role: CastSlotPoolRole) {
     .map((candidate) => ({ ...candidate.evidence! }))
 }
 
+// ── The authoritative active slate ───────────────────────────────────────
+//
+// Identity + display name ONLY (no scores, no hidden facts). `queued` has no
+// CastingSession yet — the committed slate lives on the queued
+// `startCastingSession` production-queue entry's payload — so its reads are
+// resolved directly against `state.talent`. `auditioning`/`review`/`complete`
+// already have a real session; its slate is exactly what `sessionView.candidates`
+// carries (candidatePools composes it from `session.slate` — never the general
+// eligible pool — once a session exists), so it is reused rather than re-derived.
+
+type SlateReadWire = { talentId: string; name: string }
+
+function requireTalentName(state: GameState, talentId: string): string {
+  const talent = state.talent.find((candidate) => candidate.id === talentId)
+  if (talent === undefined) {
+    throw new Error(`castingProjection: unknown talent "${talentId}" in the active casting slate`)
+  }
+  return talent.name
+}
+
+function slateReadsFromIds(state: GameState, ids: readonly string[]): SlateReadWire[] {
+  return ids.map((talentId) => ({ talentId, name: requireTalentName(state, talentId) }))
+}
+
+function slateReadsFromCandidates(
+  candidates: readonly { id: string; name: string }[],
+): SlateReadWire[] {
+  return candidates.map((candidate) => ({ talentId: candidate.id, name: candidate.name }))
+}
+
+function activeSlateFor(
+  state: GameState,
+  sessionStatus: SessionStatusWire,
+  sessionView: CastingProjectView | undefined,
+  queuedSlate: CastingSlate | undefined,
+): BridgeCastingProjectSnapshot['activeSlate'] {
+  if (sessionStatus === 'queued') {
+    if (queuedSlate === undefined) {
+      throw new Error('castingProjection: a queued screen test has no recorded slate')
+    }
+    return {
+      lead: slateReadsFromIds(state, queuedSlate.lead),
+      antagonist: slateReadsFromIds(state, queuedSlate.antagonist),
+      support: slateReadsFromIds(state, queuedSlate.support),
+    }
+  }
+  if (sessionStatus === 'auditioning' || sessionStatus === 'review' || sessionStatus === 'complete') {
+    if (sessionView === undefined) {
+      throw new Error('castingProjection: an active casting session has no session view')
+    }
+    return {
+      lead: slateReadsFromCandidates(sessionView.candidates.lead),
+      antagonist: slateReadsFromCandidates(sessionView.candidates.antagonist),
+      support: slateReadsFromCandidates(sessionView.candidates.support),
+    }
+  }
+  return null
+}
+
 function resultsSnapshot(view: CastingPackageProjectView): BridgeCastingProjectSnapshot['results'] {
   const lead = poolEvidence(view, 'lead')
   const antagonist = poolEvidence(view, 'antagonist')
@@ -161,10 +220,12 @@ function attentionFor(
 }
 
 function projectSnapshot(
+  state: GameState,
   view: CastingPackageProjectView,
   sessionView: CastingProjectView | undefined,
   queuedAuditionProjectIds: ReadonlySet<string>,
   queuedGreenlightProjectIds: ReadonlySet<string>,
+  queuedSlate: CastingSlate | undefined,
 ): BridgeCastingProjectSnapshot {
   const queued = queuedAuditionProjectIds.has(view.projectId)
   const sessionStatus = sessionStatusFor(sessionView?.status ?? null, queued)
@@ -186,6 +247,7 @@ function projectSnapshot(
     supportCandidates: poolCandidates(view, 'support'),
     craftCandidates: poolCandidates(view, 'craftLead'),
     results: resultsSnapshot(view),
+    activeSlate: activeSlateFor(state, sessionStatus, sessionView, queuedSlate),
     negativeOptions: view.negativeOptions.map((option) => ({ ...option })),
     marketingOptions: view.marketingOptions.map((option) => ({ ...option })),
     packageReadiness: {
@@ -256,16 +318,25 @@ export function castingProjection(state: GameState): BridgeCastingSnapshot {
       entry.kind === 'greenlightScriptProject' ? [entry.scriptProjectId] : [],
     ),
   )
+  const queuedSlateByProjectId = new Map<string, CastingSlate>(
+    state.productionQueue.flatMap((entry) =>
+      entry.kind === 'startCastingSession'
+        ? [[entry.payload.projectId, entry.payload.slate] as const]
+        : [],
+    ),
+  )
   const capacity = sessionsBoard.capacity
   const projects = packageModel.projects
     .slice()
     .sort((a, b) => compareId(a.projectId, b.projectId))
     .map((view) =>
       projectSnapshot(
+        state,
         view,
         sessionViews.find((candidate) => candidate.projectId === view.projectId),
         queuedAuditionProjectIds,
         queuedGreenlightProjectIds,
+        queuedSlateByProjectId.get(view.projectId),
       ),
     )
   const board: CastingBoardWire = {
