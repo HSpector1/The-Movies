@@ -812,11 +812,40 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
 
   const next = journey.next
   if (next === null) return resolved
+  if (next.kind === 'commission') return resolved
+
+  // Ready-to-package family: the screenplay is accepted and camera tests have not
+  // been planned (`plan-auditions`), the finished package has not been opened
+  // (`open-package`), or packaging is blocked (`review-casting-blocker`). The
+  // guided next step above still points at Casting — that guidance is untouched —
+  // but Living Time's one authoritative clock must not go dead here: a player
+  // legitimately wants a week to pass while browsing candidates (weekly
+  // freelancer-market rotation), while a queued greenlight ages toward admission,
+  // or during the P04A staleness window. The ordinary advanceWeek control is
+  // published alongside the casting-oriented intents above, gated by the same
+  // decision-pause law every other branch below already honors: nothing publishes
+  // while the studio is actually stopped on a decision (`studioDecision`).
   if (
-    next.kind === 'commission' ||
     next.kind === 'plan-auditions' ||
-    next.kind === 'open-package'
-  ) return resolved
+    next.kind === 'open-package' ||
+    next.kind === 'review-casting-blocker'
+  ) {
+    if (studioDecision(state) === null) {
+      const fields: Omit<AvailableIntent, 'intentId'> = {
+        kind: 'advanceWeek',
+        label: 'No action is required this week — advance the week',
+        detail: journey.waiting?.reason ?? journey.detail ?? 'Advance the authoritative studio week.',
+        projectId: journey.scriptProjectId,
+        castingSessionId: null,
+        productionId: journey.productionId,
+      }
+      resolved.push({
+        option: option(stateDigest, fields, { kind: 'advanceWeek' }),
+        apply: advanceOutcome,
+      })
+    }
+    return resolved
+  }
 
   if (next.kind === 'advance-week') {
     const fields: Omit<AvailableIntent, 'intentId'> = {

@@ -1014,6 +1014,70 @@ describe('Current-game Unity adoption bridge', () => {
     })
   })
 
+  it('publishes advanceWeek through the ready-to-package family and withholds it at a casting-review decision stop', () => {
+    const session = new BridgeSession(
+      createBridgeInitialState('bridge-rtp-advance-week'),
+      'rtp-advance-week',
+    )
+    let sawPlanAuditions = false
+    let sawAuditionReview = false
+    let sawOpenPackage = false
+    for (let guard = 0; guard < 64 && !sawOpenPackage; guard++) {
+      const before = session.snapshot()
+      const journey = before.snapshot.journeyNotices.firstFilmJourney
+      const advanceIntent = before.availableIntents.find((intent) => intent.kind === 'advanceWeek')
+      if (journey?.next?.kind === 'plan-auditions') {
+        sawPlanAuditions = true
+        expect(
+          advanceIntent,
+          'advanceWeek must stay available while ready-to-package, before any casting session',
+        ).toBeDefined()
+      } else if (journey?.next?.kind === 'open-package') {
+        sawOpenPackage = true
+        expect(
+          advanceIntent,
+          'advanceWeek must stay available while ready-to-package, after a complete casting session',
+        ).toBeDefined()
+      } else if (journey?.next?.kind === 'audition-review') {
+        sawAuditionReview = true
+        expect(
+          advanceIntent,
+          'advanceWeek must remain withheld at a casting-review decision stop',
+        ).toBeUndefined()
+      }
+      const intent = chooseMovieIntent(session)
+      const result = submit(session, intent, `rtp-advance-week-${String(guard)}`)
+      expect(result.accepted).toBe(true)
+      if (!result.accepted) throw new Error(result.message)
+    }
+    expect(sawPlanAuditions, 'walkthrough never reached plan-auditions').toBe(true)
+    expect(sawAuditionReview, 'walkthrough never reached audition-review').toBe(true)
+    expect(sawOpenPackage, 'walkthrough never reached open-package').toBe(true)
+  })
+
+  it('keeps advanceWeek available while a greenlight sits queued for Development & Casting capacity', () => {
+    const contended = contendedGreenlightStudio('bridge-rtp-queued-greenlight-advance-week')
+    const session = new BridgeSession(contended.state, 'rtp-queued-greenlight-advance-week')
+    const intent = session.snapshot().availableIntents.find(
+      (candidate) =>
+        candidate.kind === 'greenlightPicture' &&
+        candidate.projectId === contended.targetProjectId,
+    )
+    expect(intent).toBeDefined()
+    if (intent === undefined) throw new Error('Bridge omitted queue-admissible greenlight intent.')
+
+    const result = submit(session, intent, 'rtp-queued-greenlight-advance-week-command')
+    expect(result.accepted).toBe(true)
+    if (!result.accepted) throw new Error(result.message)
+
+    const queuedJourney = result.snapshot.journeyNotices.firstFilmJourney
+    expect(queuedJourney?.next?.kind).toBe('advance-week')
+    expect(
+      result.availableIntents.some((candidate) => candidate.kind === 'advanceWeek'),
+      'advanceWeek must remain available while a greenlight sits queued',
+    ).toBe(true)
+  })
+
   it('never lets an ambient concurrent commission bypass a guided blocker', () => {
     const ambient: AvailableIntent = {
       intentId: 'intent-v4-ambient',
