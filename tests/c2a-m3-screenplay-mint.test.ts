@@ -347,13 +347,13 @@ describe('C2a-M3 — a writer goes to work and hands the studio a new movie', ()
     expect(after).toHaveLength(before.length + 1)
   })
 
-  it('saves and re-validates a minted world at the V14 boundary', () => {
+  it('saves and re-validates a minted world at the V15 boundary', () => {
     let state = managedStudio('m3-mint-save')
     state = applyActions(state, [
       { kind: 'commissionOriginalScreenplay', screenplay: originalPayload(state, 'crime') },
     ])
     const save = makeSave(state)
-    expect(save.saveVersion).toBe(14)
+    expect(save.saveVersion).toBe(15)
     expect(save.state.originalScreenplays.blueprints).toHaveLength(1)
     expect(save.state.concepts.at(-1)!.id).toBe(`${ORIGINAL_CONCEPT_ID_PREFIX}0000`)
   })

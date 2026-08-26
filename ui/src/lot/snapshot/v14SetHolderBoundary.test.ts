@@ -37,11 +37,11 @@ function activatedStudio(): GameState {
   return fresh
 }
 
-describe('C2a-M2 — a save round-trips as V14, roots and all', () => {
-  it('exports V14 and imports it back with the four C2a roots intact', () => {
+describe('C2a-M2 — a save round-trips as V15, roots and all', () => {
+  it('exports V15 and imports it back with the four C2a roots intact', () => {
     const state = activatedStudio()
     const json = exportSaveJson(state)
-    expect(JSON.parse(json).saveVersion).toBe(14)
+    expect(JSON.parse(json).saveVersion).toBe(15)
 
     const outcome = importSaveJson(json)
     expect(outcome.ok).toBe(true)

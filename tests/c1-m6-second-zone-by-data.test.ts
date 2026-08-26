@@ -39,6 +39,7 @@ import {
   makeSave,
   makeSaveV13,
   migrateToV14,
+  migrateToV15,
   parcelById,
   parcelHasRoadFrontage,
   placementWouldSeverLot,
@@ -182,9 +183,9 @@ describe('C1-M6 (1) — the committed second-zone fixture is what the generator 
     const reloaded = migrateToV14(importSave(fixtureBytes))
     expect(reloaded.saveVersion).toBe(14)
     expect(exportSave(makeSaveV13(reloaded.state))).toBe(fixtureBytes)
-    // …and the live V14 envelope round-trips byte-identically too, twice over.
+    // …and the live V15 envelope round-trips byte-identically too, twice over.
     const liveJson = exportSave(makeSave(reloaded.state))
-    expect(exportSave(makeSave(migrateToV14(importSave(liveJson)).state))).toBe(liveJson)
+    expect(exportSave(makeSave(migrateToV15(importSave(liveJson)).state))).toBe(liveJson)
     expect(() => assertStudioPlacementInvariants(reloaded.state)).not.toThrow()
   })
 })
@@ -311,7 +312,7 @@ describe('C1-M6 (1) — placement legality accepts a build in the second zone', 
 
     // …and the whole grown world round-trips at the live boundary.
     const json = exportSave(makeSave(operational))
-    const reloaded = migrateToV14(importSave(json))
+    const reloaded = migrateToV15(importSave(json))
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(stableStringify(reloaded.state.property)).toBe(stableStringify(operational.property))
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)

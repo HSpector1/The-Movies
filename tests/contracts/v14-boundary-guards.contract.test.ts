@@ -305,9 +305,12 @@ describe('C2a-M1 · guards (B) — the live boundary moves one way', () => {
     }
   })
 
-  it('moves the unknown-version boundary from 14 to 15', () => {
+  // P04A (§2.5): the live boundary moved again, from V14 to V15. The unknown-version
+  // boundary moves the same way it always does — one past whatever the newest live
+  // version now is. 15 is no longer unknown (validateSaveV15 exists); 16 is.
+  it('moves the unknown-version boundary from 15 to 16', () => {
     const save = envelopeAt(14)
-    expect(() => validateSave({ ...save, saveVersion: 15 })).toThrow(/unknown saveVersion 15/)
+    expect(() => validateSave({ ...save, saveVersion: 16 })).toThrow(/unknown saveVersion 16/)
   })
 })
 

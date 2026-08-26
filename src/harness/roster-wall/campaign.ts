@@ -23,6 +23,7 @@ import {
   generateWorld,
   importSave,
   isContracted,
+  makeSave,
   makeSaveV14,
   marketingLevelsFor,
   nextStudioDecision,
@@ -533,7 +534,7 @@ function initializeCampaign(
     state = applyActions(state, [{ kind: 'startDevelopmentCastingAnnex' }])
   }
   const initialStateHash = stateHash(state)
-  const initialSaveHash = sha256(exportSave(makeSaveV14(structuredClone(state))))
+  const initialSaveHash = sha256(exportSave(makeSave(structuredClone(state))))
   return {
     runtime: {
       state,

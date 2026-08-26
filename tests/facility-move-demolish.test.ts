@@ -41,14 +41,14 @@ import {
   importSave,
   makeSave,
   makeSaveV12,
-  migrateToV14,
+  migrateToV15,
   moveFacility,
   queryPlacement,
   stableStringify,
   studioCalendar,
   tick,
   validateSave,
-  validateSaveV14,
+  validateSaveV15,
 } from '../src/core/index.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -775,12 +775,12 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     state = advance(state, 2)
 
     const save = makeSave(state)
-    expect(save.saveVersion).toBe(14)
+    expect(save.saveVersion).toBe(15)
     expect(validateSave(save)).toBe(save)
-    expect(validateSaveV14(save)).toBe(save)
+    expect(validateSaveV15(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json))).toBe(json)
-    const reloaded = migrateToV14(importSave(json)).state
+    const reloaded = migrateToV15(importSave(json)).state
     expect(exportSave(makeSave(reloaded))).toBe(json)
     expect(reloaded.placement.facilities).toEqual(state.placement.facilities)
     expect(refundRows(reloaded)).toHaveLength(1)

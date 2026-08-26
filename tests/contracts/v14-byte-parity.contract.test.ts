@@ -196,13 +196,13 @@ describe('C2a-M1 · parity (C) — every exported row is inside the window or Ti
   })
 
   it('re-validates what it wrote, at its own version', () => {
-    const validateV14 = requireFunction(
+    const validateV15 = requireFunction(
       requireCore(),
-      'validateSaveV14',
-      '§8.1: the V14 boundary',
+      'validateSaveV15',
+      '§8.1: the V15 boundary',
     ) as unknown as (save: unknown) => unknown
     const save = makeSave(runScriptedWeeks(scriptedStart(SEED), RUN_WEEKS))
-    expect(save.saveVersion).toBe(14)
-    expect(() => validateV14(save)).not.toThrow()
+    expect(save.saveVersion).toBe(15)
+    expect(() => validateV15(save)).not.toThrow()
   })
 })

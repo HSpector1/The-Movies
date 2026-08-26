@@ -37,6 +37,7 @@ import {
   makeSave,
   makeSaveV13,
   migrateToV14,
+  migrateToV15,
   moveFacility,
   parcelAt,
   placementWouldSeverLot,
@@ -318,7 +319,7 @@ describe('C1-M6 (2) — composition, legality, completion, move, demolish, save,
 
     // …and the whole thing round-trips byte-identically.
     const json = exportSave(makeSave(operational))
-    const reloaded = migrateToV14(importSave(json))
+    const reloaded = migrateToV15(importSave(json))
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(stableStringify(reloaded.state.property)).toBe(stableStringify(operational.property))
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)
@@ -405,7 +406,7 @@ describe('C1-M6 (2) — composition, legality, completion, move, demolish, save,
 
     // …and the survivors, on a property this size, still round-trip byte-identically.
     const json = exportSave(makeSave(demolished))
-    const reloaded = migrateToV14(importSave(json))
+    const reloaded = migrateToV15(importSave(json))
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(reloaded.state.property.parcels).toHaveLength(demolished.property.parcels.length)
     expect(reloaded.state.property.structures).toHaveLength(demolished.property.structures.length)

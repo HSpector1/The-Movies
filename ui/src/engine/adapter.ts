@@ -103,7 +103,7 @@ import {
   makeSave,
   exportSave,
   importSave,
-  migrateToV14,
+  migrateToV15,
   convertV4ToV5,
   convertV5ToV6,
   convertV6ToV7,
@@ -3478,14 +3478,14 @@ export type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
   | { ok: false; error: string }
 
-// Import a save. Accepts V14 (current) and every legacy version V1–V13, all deterministic.
+// Import a save. Accepts V15 (current) and every legacy version V1–V14, all deterministic.
 // `converted` tells the caller a legacy save was upgraded so the UI can inform the player
-// — their original file is never overwritten (a fresh V14 is returned).
+// — their original file is never overwritten (a fresh V15 is returned).
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const converted = save.saveVersion !== 14
-    return { ok: true, state: migrateToV14(save).state, converted }
+    const converted = save.saveVersion !== 15
+    return { ok: true, state: migrateToV15(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
