@@ -52,6 +52,7 @@ import type {
   GameStateV12,
   GameStateV13,
   GameStateV14,
+  GameStateV15,
   GameStateV2,
   GameStateV3,
   GameStateV4,
@@ -307,6 +308,22 @@ export type SaveFileV14 = {
   broadcastCache: BroadcastItem[];
 };
 
+// P04A SaveFileV15 (§2.5) — the live envelope. V14 joins V1–V13 as a frozen,
+// readable historical format the moment this exists: a V14 file's
+// `queueIntentExpired` rows carry no subject identity, which is exactly why a
+// V14 envelope may never carry `subjectId` on one. V15 owns NO new root (unlike
+// every earlier bump in this union) — it widens one persisted leaf only:
+// `StudioEvent`'s `queueIntentExpired` arm gains `subjectId`, captured before
+// the queue entry is removed. GameStateV15 is therefore structurally identical
+// to GameStateV14; the two envelope types differ only in their `saveVersion`
+// tag and in what `validateSaveV15` additionally requires of that one leaf.
+export type SaveFileV15 = {
+  saveVersion: 15;
+  seed: string;
+  state: GameStateV15;
+  broadcastCache: BroadcastItem[];
+};
+
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
   | SaveFileV1
@@ -322,7 +339,8 @@ export type SaveFile =
   | SaveFileV11
   | SaveFileV12
   | SaveFileV13
-  | SaveFileV14;
+  | SaveFileV14
+  | SaveFileV15;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -4597,6 +4615,79 @@ export function validateSaveV14(save: unknown): SaveFileV14 {
   return save as SaveFileV14;
 }
 
+// ── The subject-identity leaf — SaveFileV15 (P04A §2.5) ──────────────────────
+// V15 owns NO new root: it widens exactly one persisted leaf, the
+// `queueIntentExpired` event's `subjectId`. Every other root, kind, and
+// invariant is exactly what V14 already proves, so this validator proves ITS
+// leaf directly and delegates everything else to `validateSaveV14` itself —
+// against a synthetic V14 envelope with `subjectId` stripped from every
+// `queueIntentExpired` row first, because V14's own exact-key check does not
+// know that field and must not be asked to. The strip is not a discard: the
+// untouched original `state` (with `subjectId` intact) is what the loop below
+// checks next, and what this function returns on success.
+export function validateSaveV15(save: unknown): SaveFileV15 {
+  if (!isRecord(save)) {
+    throw new Error("validateSaveV15: save is not a plain object");
+  }
+  v12ExactKeys(save, ["saveVersion", "seed", "state", "broadcastCache"], "save");
+  if (save.saveVersion !== 15) {
+    throw new Error(
+      `validateSaveV15: expected saveVersion 15, got ${JSON.stringify(save.saveVersion)}`,
+    );
+  }
+  const state = v14Record(checkEnvelope(save, "validateSaveV15"), "state");
+  // V15 owns no new root: the identical state-key allowlist V14 validates.
+  v12ExactKeys(state, V14_STATE_KEYS, "state", V11_OPTIONAL_STATE_KEYS);
+
+  const rawStudioEvents = state.studioEvents;
+  if (!isRecord(rawStudioEvents) || !Array.isArray(rawStudioEvents.rows)) {
+    throw new Error(
+      "validateSaveV15: state.studioEvents.rows is missing or not an array",
+    );
+  }
+  const rows = rawStudioEvents.rows;
+
+  const strippedRows = rows.map((row) => {
+    if (isRecord(row) && row.kind === "queueIntentExpired") {
+      const { subjectId: _subjectId, ...rest } = row;
+      return rest;
+    }
+    return row;
+  });
+  try {
+    validateSaveV14({
+      saveVersion: 14,
+      seed: save.seed,
+      state: {
+        ...state,
+        studioEvents: { ...rawStudioEvents, rows: strippedRows },
+      },
+      broadcastCache: save.broadcastCache,
+    });
+  } catch (error) {
+    throw new Error(
+      `validateSaveV15: frozen V14 state is invalid — ${(error as Error).message}`,
+    );
+  }
+
+  // The one leaf V14 does not know about: every `queueIntentExpired` row's
+  // `subjectId` must be present and either a string or null — never absent,
+  // never any other type, never guessed from title.
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    if (!isRecord(row) || row.kind !== "queueIntentExpired") continue;
+    const label = `validateSaveV15: state.studioEvents.rows[${String(i)}].subjectId`;
+    if (!Object.prototype.hasOwnProperty.call(row, "subjectId")) {
+      throw new Error(`${label} is missing`);
+    }
+    if (row.subjectId !== null && typeof row.subjectId !== "string") {
+      throw new Error(`${label} must be a string or null`);
+    }
+  }
+
+  return save as SaveFileV15;
+}
+
 // ── Version-dispatching validation (LOUD rejection of unknown versions) ──────
 // Returns the correctly-narrowed envelope for a known version; throws for any
 // other saveVersion. Every version remains anchored to its own frozen or live
@@ -4620,8 +4711,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 12) return validateSaveV12(save);
   if (s.saveVersion === 13) return validateSaveV13(save);
   if (s.saveVersion === 14) return validateSaveV14(save);
+  if (s.saveVersion === 15) return validateSaveV15(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 14 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 15 only)`,
   );
 }
 
@@ -4970,6 +5062,17 @@ function projectStateV14(state: GameStateV14): GameStateV14 {
     productionQueue: state.productionQueue,
     originalScreenplays: state.originalScreenplays,
     studioEvents: state.studioEvents,
+  };
+}
+
+// The live projection (P04A). V15 owns no new root — it widens the
+// `queueIntentExpired.subjectId` leaf, which V14's own pass-through of
+// `studioEvents` above already carries verbatim. One version on, positively,
+// for the same reason every projection in this chain is: a frozen envelope
+// must carry its own version's shape, and the live one already does.
+function projectStateV15(state: GameStateV15): GameStateV15 {
+  return {
+    ...projectStateV14(state),
   };
 }
 
@@ -5512,6 +5615,19 @@ export function makeSaveV13(state: GameStateV13): SaveFileV13 {
 // Build the current V14 envelope (C2a-M1). Live state already owns explicit sets,
 // queue, screenplay, and history roots, so this is a projection with no
 // synthesis: nothing is invented on the way out.
+//
+// P04A NOTE (§2.5): `makeSave` below deliberately still calls THIS builder, not
+// `makeSaveV15` — `bridge/runtime-checkpoint.ts` (Lane B territory, off-limits
+// here) hard-requires "a current V14 save" today, confirmed by running
+// bridge.test.ts against a V15-routed `makeSave` (10/16 tests failed with
+// `must be a current V14 save, received V15`). Cutting the live boundary over
+// to V15 is therefore a coordinated change across save.ts AND bridge.ts that
+// this lane does not own; see this task's returned report for the resulting
+// gap (a state whose `queueIntentExpired` rows carry `subjectId` — which is
+// EVERY such row this milestone's emission sites now produce — cannot cross
+// `validateSaveV14`'s unchanged exact-key check, so `makeSave`/`exportSaveJson`
+// will throw once a live game has ever admitted-expired or cancelled a queued
+// intent, until that coordinated cutover happens).
 export function makeSaveV14(state: GameState): SaveFileV14 {
   const currentState = projectStateV14(state);
   const save: SaveFileV14 = {
@@ -5523,8 +5639,25 @@ export function makeSaveV14(state: GameState): SaveFileV14 {
   return validateSaveV14(save);
 }
 
+// Build the V15 envelope (P04A §2.5). Live state already owns the widened
+// `queueIntentExpired.subjectId` leaf (there is no new root to carry), so this
+// is a projection with no synthesis: nothing is invented on the way out. NOT
+// yet wired as the `makeSave` default — see the note on `makeSaveV14` above.
+export function makeSaveV15(state: GameState): SaveFileV15 {
+  const currentState = projectStateV15(state);
+  const save: SaveFileV15 = {
+    saveVersion: 15,
+    seed: currentState.seed,
+    state: currentState,
+    broadcastCache: currentState.broadcastItems,
+  };
+  return validateSaveV15(save);
+}
+
 // makeSave — the C2a-M1 live boundary. Frozen V13 values must cross
-// convertV13ToV14/migrateToV14 explicitly.
+// convertV13ToV14/migrateToV14 explicitly. STILL V14 (see the note on
+// `makeSaveV14` above) — SaveFileV15 exists, is fully validated, and migrates
+// both directions, but the live cutover is a follow-up integration decision.
 export function makeSave(state: GameState): SaveFileV14 {
   return makeSaveV14(state);
 }
@@ -6311,6 +6444,28 @@ export function convertV13ToV14(v13: SaveFileV13): SaveFileV14 {
   return makeSaveV14(newState);
 }
 
+// P04A convertV14ToV15 (§2.5) — the pure, deterministic V14→V15 upgrader. ZERO
+// RNG consumed, `rngState` byte-identical, exactly like every upgrader above.
+// V15 owns no new root, so there is nothing to synthesize except the one
+// widened leaf: a real V14 file's `queueIntentExpired` rows never recorded a
+// subject, so migration gives them the honest, un-guessed `subjectId: null` —
+// never reconstructed from a row's title or reason text.
+export function convertV14ToV15(v14: SaveFileV14): SaveFileV15 {
+  const validated = validateSaveV14(v14);
+  const oldState = clonePlainJson(validated.state);
+
+  const newState: GameStateV15 = {
+    ...oldState,
+    studioEvents: {
+      ...oldState.studioEvents,
+      rows: oldState.studioEvents.rows.map((row) =>
+        row.kind === "queueIntentExpired" ? { ...row, subjectId: null } : row,
+      ),
+    },
+  };
+  return makeSaveV15(newState);
+}
+
 // importLegacyV{3,2,1}ToV4 — parse a legacy JSON string and return a NEW SaveFileV4.
 export function importLegacyV3ToV4(json: string): SaveFileV4 {
   let parsed: unknown;
@@ -6409,7 +6564,8 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
     save.saveVersion === 11 ||
     save.saveVersion === 12 ||
     save.saveVersion === 13 ||
-    save.saveVersion === 14
+    save.saveVersion === 14 ||
+    save.saveVersion === 15
   ) {
     throw new Error(
       `migrateToV8: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
@@ -6428,7 +6584,8 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
     save.saveVersion === 11 ||
     save.saveVersion === 12 ||
     save.saveVersion === 13 ||
-    save.saveVersion === 14
+    save.saveVersion === 14 ||
+    save.saveVersion === 15
   ) {
     throw new Error(
       `migrateToV9: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
@@ -6446,7 +6603,8 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
     save.saveVersion === 11 ||
     save.saveVersion === 12 ||
     save.saveVersion === 13 ||
-    save.saveVersion === 14
+    save.saveVersion === 14 ||
+    save.saveVersion === 15
   ) {
     throw new Error(
       `migrateToV10: cannot downgrade SaveFileV${String(save.saveVersion)} or discard construction, placement, and property state`,
@@ -6465,7 +6623,8 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
   if (
     save.saveVersion === 12 ||
     save.saveVersion === 13 ||
-    save.saveVersion === 14
+    save.saveVersion === 14 ||
+    save.saveVersion === 15
   ) {
     throw new Error(
       `migrateToV11: cannot downgrade SaveFileV${String(save.saveVersion)} or discard placement and property state`,
@@ -6480,7 +6639,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
 // their own validated construction history implies at the final V11→V12 step.
 // V13 is rejected, never downgraded: a property that has grown has no V12 home.
 export function migrateToV12(save: SaveFile): SaveFileV12 {
-  if (save.saveVersion === 13 || save.saveVersion === 14) {
+  if (save.saveVersion === 13 || save.saveVersion === 14 || save.saveVersion === 15) {
     throw new Error(
       `migrateToV12: cannot downgrade SaveFileV${String(save.saveVersion)} or discard property, set, queue, screenplay, and studio-history state`,
     );
@@ -6489,24 +6648,40 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
   return convertV11ToV12(migrateToV11(save));
 }
 
-// migrateToV13 — live load-to-play migration (C1-M1a). V13 passes through by
-// identity; V1–V12 cross every frozen boundary, then receive the initial authored
-// property at the final V12→V13 step — which is the property they were already
-// implicitly played on.
-// migrateToV14 — the LIVE load-to-play migration (C2a-M1). V14 passes through by
-// identity; V1–V13 cross every frozen boundary, then receive the four Campaign-2
-// roots at the final V13→V14 step — including the two endowed house sets, which
-// are the compatibility device that keeps founding capacity exactly what it has
-// always been.
+// migrateToV13 — retained historical PRE-V14 boundary (C1-M1a). V13 passes
+// through by identity; V1–V12 cross every frozen boundary, then receive the
+// initial authored property at the final V12→V13 step — which is the property
+// they were already implicitly played on. V14/V15 are rejected, never
+// downgraded.
+// migrateToV14 — retained historical PRE-V15 boundary (C2a-M1). V14 passes
+// through by identity; V1–V13 cross every frozen boundary, then receive the
+// four Campaign-2 roots at the final V13→V14 step — including the two endowed
+// house sets, which are the compatibility device that keeps founding capacity
+// exactly what it has always been. V15 is rejected, never downgraded: its
+// widened `queueIntentExpired.subjectId` leaf has no V14 home.
+// migrateToV15 — the LIVE load-to-play migration (P04A §2.5). V15 passes
+// through by identity; V1–V14 cross every frozen boundary, then receive the
+// one widened leaf — the honest, un-guessed `subjectId: null` on any
+// pre-existing `queueIntentExpired` row — at the final V14→V15 step.
+export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 15) return save;
+  return convertV14ToV15(migrateToV14(save));
+}
+
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 15) {
+    throw new Error(
+      "migrateToV14: cannot downgrade SaveFileV15 or discard queue-intent-expiry subject identity",
+    );
+  }
   if (save.saveVersion === 14) return save;
   return convertV13ToV14(migrateToV13(save));
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
-  if (save.saveVersion === 14) {
+  if (save.saveVersion === 14 || save.saveVersion === 15) {
     throw new Error(
-      "migrateToV13: cannot downgrade SaveFileV14 or discard set, queue, screenplay, and studio-history state",
+      `migrateToV13: cannot downgrade SaveFileV${String(save.saveVersion)} or discard set, queue, screenplay, and studio-history state`,
     );
   }
   if (save.saveVersion === 13) return save;

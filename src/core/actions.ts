@@ -117,6 +117,7 @@ import {
   hasQueuedPoolCommissionForConcept,
   queueCommissionOriginalScreenplay,
   queueCommissionScript,
+  queueEntrySubjectId,
   queueGreenlightScriptProject,
   queueStartCastingSession,
   queueingActive,
@@ -1737,11 +1738,15 @@ function applyCancelQueuedIntent(
     )
   }
   const events = studioEventSinkFor(state)
+  // Captured BEFORE removeQueueEntry below — the subject still exists to be
+  // named at this point, and won't after.
+  const subjectId = queueEntrySubjectId(entry)
   events.append({
     kind: 'queueIntentExpired',
     entryKind: entry.kind,
     ordinal: entry.ordinal,
     reason: 'the studio withdrew the request before it reached the front of the queue',
+    subjectId,
   })
   return {
     ...state,

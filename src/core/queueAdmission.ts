@@ -24,6 +24,7 @@
 import { commitQueuedIntent } from './actions.js'
 import {
   gateSlotAvailable,
+  queueEntrySubjectId,
   queueInPriorityOrder,
   removeQueueEntry,
 } from './productionQueue.js'
@@ -74,11 +75,15 @@ export function admitQueuedIntents(
       continue
     }
     if (result.outcome === 'expired') {
+      // Captured BEFORE the entry is removed from the queue below — the subject
+      // still exists to be named at this point, and won't after.
+      const subjectId = queueEntrySubjectId(entry)
       events.append({
         kind: 'queueIntentExpired',
         entryKind: entry.kind,
         ordinal: entry.ordinal,
         reason: result.reason,
+        subjectId,
       })
       next = { ...next, productionQueue: removeQueueEntry(next.productionQueue, entry.ordinal) }
       expired.push(entry.ordinal)

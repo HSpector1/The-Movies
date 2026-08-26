@@ -16,10 +16,18 @@
 import { describe, it, expect } from "vitest";
 import {
   makeSave,
+  makeSaveV14,
+  makeSaveV15,
   loadSave,
   exportSave,
   importSave,
   generateWorld,
+  applyActions,
+  validateSave,
+  validateSaveV15,
+  migrateToV14,
+  migrateToV15,
+  convertV14ToV15,
 } from "../src/core/index.js";
 import type {
   GameState,
@@ -28,8 +36,9 @@ import type {
   FilmConcept,
   Segment,
 } from "../src/core/index.js";
-import type { SaveFileV14 } from "../src/core/save.js";
+import type { SaveFileV14, SaveFileV15 } from "../src/core/save.js";
 import { initialProperty } from "../src/core/lot.js";
+import { contendedStudio, freePackage } from "./_m4Fixtures.js";
 
 // ── Minimal valid fixtures (all values are chosen inputs) ────────────────────
 
@@ -195,11 +204,21 @@ function makeState(broadcastItems: BroadcastItem[]): GameState {
 }
 
 // A well-formed save: envelope seed === state.seed, broadcastCache === broadcastItems.
-// makeSave is the C2a-M1 SaveFileV14 default.
+// makeSave is the C2a-M1 SaveFileV14 default. STILL V14 as of P04A (§2.5): see
+// the P04A §2.5 describe block below for why `makeSave` has not yet been cut
+// over to SaveFileV15, and `wellFormedV15Save` for the V15-specific fixture.
 function wellFormedSave(): SaveFileV14 {
   const items = [broadcastItem];
   const state = makeState(items);
   return makeSave(state);
+}
+
+// The V15 counterpart: SaveFileV15 exists, validates, and migrates both
+// directions (§2.5), even though `makeSave` itself is not yet wired to it.
+function wellFormedV15Save(): SaveFileV15 {
+  const items = [broadcastItem];
+  const state = makeState(items);
+  return makeSaveV15(state);
 }
 
 describe("§17 / §15.7 — export→import→export round-trips byte-identically", () => {
@@ -222,11 +241,13 @@ describe("§17 / §15.7 — export→import→export round-trips byte-identicall
 });
 
 describe("§17 — loud rejection of an unknown saveVersion", () => {
-  it("throws on an unknown saveVersion (e.g. 15)", () => {
-    // Source: §17 "loud rejection of unknown versions". Versions 1–13 are known;
-    // Property State V13 (C1-M1a) moved the unknown boundary from 13 to 14.
+  it("throws on an unknown saveVersion (e.g. 16)", () => {
+    // Source: §17 "loud rejection of unknown versions". Versions 1–14 are known;
+    // P04A SaveFileV15 (§2.5) moved the unknown boundary from 14 to 15, so the
+    // sentinel this test reaches for one version past the known ceiling moves
+    // with it — 15 to 16.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: 15 } as unknown as SaveFileV14;
+    const bad = { ...save, saveVersion: 16 } as unknown as SaveFileV14;
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -259,5 +280,115 @@ describe("M14 — loud rejection when broadcastCache ≠ state.broadcastItems", 
     const save = wellFormedSave();
     const bad: SaveFileV14 = { ...save, broadcastCache: [] };
     expect(() => loadSave(bad)).toThrow();
+  });
+});
+
+// P04A §2.5 note: `makeSave`/`exportSaveJson` still emit SaveFileV14 today (see
+// the note on `makeSaveV14` in save.ts) — the live cutover to V15 is a
+// follow-up integration decision, not this lane's. SaveFileV15 itself,
+// however, is fully built: it validates, round-trips, and both
+// `convertV14ToV15`/`migrateToV15` migrate a real V14 file forward. These
+// tests exercise the V15 machinery directly (via `makeSaveV15`), independent
+// of which envelope `makeSave` currently defaults to.
+describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
+  it("makeSaveV15 emits a valid SaveFileV15 envelope, and it round-trips byte-identically", () => {
+    const save = wellFormedV15Save();
+    expect(save.saveVersion).toBe(15);
+    const firstExport = exportSave(save);
+    const reimported = importSave(firstExport);
+    expect(reimported.saveVersion).toBe(15);
+    expect(exportSave(reimported)).toBe(firstExport);
+  });
+
+  it("validateSaveV15 requires subjectId (string or null) on every queueIntentExpired row, and rejects it missing", () => {
+    const save = wellFormedV15Save();
+    expect(() => validateSaveV15(save)).not.toThrow();
+
+    // A genuine managed studio, driven only through public actions (the same
+    // fixtures C2a-M4's own admission suite uses): queue a greenlight, then
+    // cancel it, producing one authentic queueIntentExpired row with a real
+    // subjectId.
+    const { state, readyProjectIds } = contendedStudio("save-v15-shape");
+    const projectId = readyProjectIds[0]!;
+    const payload = freePackage(state, projectId);
+    const queued = applyActions(state, [
+      { kind: "greenlightScriptProject", production: payload },
+    ]);
+    const cancelled = applyActions(queued, [
+      { kind: "cancelQueuedIntent", ordinal: queued.productionQueue[0]!.ordinal },
+    ]);
+    const expiredRow = cancelled.studioEvents.rows.find(
+      (row) => row.kind === "queueIntentExpired",
+    );
+    expect(expiredRow).toMatchObject({ subjectId: projectId });
+
+    const validSave = makeSaveV15(cancelled);
+    expect(() => validateSaveV15(validSave)).not.toThrow();
+
+    // Forge the row back to the pre-P04A shape (no subjectId key at all) and
+    // confirm V15 refuses it — the leaf is required, never merely tolerated.
+    const forgedRows = validSave.state.studioEvents.rows.map((row) => {
+      if (row.kind !== "queueIntentExpired") return row;
+      const { subjectId: _subjectId, ...rest } = row;
+      return rest;
+    });
+    const forged = {
+      ...validSave,
+      state: { ...validSave.state, studioEvents: { ...validSave.state.studioEvents, rows: forgedRows } },
+    };
+    expect(() => validateSaveV15(forged)).toThrow(/subjectId/);
+  });
+
+  it("migrates a V14 save forward with subjectId: null on a pre-existing queueIntentExpired row", () => {
+    // The same genuine managed-studio scenario, but this time captured as a
+    // GENUINE V14 file: a real pre-P04A V14 save never recorded a subject, so
+    // the fixture strips the field back off before building the V14 envelope
+    // — never guessed, honestly absent — exactly what `makeSaveV14` (the
+    // still-live V14 builder) accepts.
+    const { state, readyProjectIds } = contendedStudio("save-v15-migration");
+    const projectId = readyProjectIds[0]!;
+    const payload = freePackage(state, projectId);
+    const queued = applyActions(state, [
+      { kind: "greenlightScriptProject", production: payload },
+    ]);
+    const cancelled = applyActions(queued, [
+      { kind: "cancelQueuedIntent", ordinal: queued.productionQueue[0]!.ordinal },
+    ]);
+    const liveRow = cancelled.studioEvents.rows.find(
+      (row) => row.kind === "queueIntentExpired",
+    );
+    expect(liveRow).toMatchObject({ subjectId: projectId });
+
+    const v14Rows = cancelled.studioEvents.rows.map((row) => {
+      if (row.kind !== "queueIntentExpired") return row;
+      const { subjectId: _subjectId, ...rest } = row;
+      return rest;
+    });
+    const v14State = {
+      ...cancelled,
+      studioEvents: { ...cancelled.studioEvents, rows: v14Rows },
+    };
+    const v14Save = makeSaveV14(v14State as unknown as GameState);
+    expect(v14Save.saveVersion).toBe(14);
+
+    const migrated = migrateToV15(v14Save);
+    expect(migrated.saveVersion).toBe(15);
+    expect(
+      migrated.state.studioEvents.rows.find((row) => row.kind === "queueIntentExpired"),
+    ).toMatchObject({ subjectId: null });
+
+    // convertV14ToV15 directly, same result.
+    const converted = convertV14ToV15(v14Save);
+    expect(
+      converted.state.studioEvents.rows.find((row) => row.kind === "queueIntentExpired"),
+    ).toMatchObject({ subjectId: null });
+  });
+
+  it("rejects an unknown saveVersion 16 with the updated range, and rejects downgrading V15 to V14", () => {
+    const save = wellFormedV15Save();
+    expect(() => validateSave({ ...save, saveVersion: 16 })).toThrow(
+      /versions 1 through 15 only/,
+    );
+    expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
   });
 });

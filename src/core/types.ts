@@ -1470,6 +1470,11 @@ export type StudioEvent =
       entryKind: string
       ordinal: number
       reason: string
+      // P04A / SaveFileV15 (§2.5): the subject's identity, from
+      // `queueEntrySubjectId(entry)` captured before removal. `null` only for
+      // rows migrated forward from a pre-V15 save, which never recorded one —
+      // honest absence, never guessed from title.
+      subjectId: string | null
     }
 
 export type StudioEventKind = StudioEvent['kind']
@@ -1496,7 +1501,17 @@ export type GameStateV14 = GameStateV13 & {
   studioEvents: StudioEventLog
 }
 
-export type GameState = GameStateV14
+// P04A (§2.5): GameStateV15 owns NO new root — it is the same shape as
+// GameStateV14. The only change at this version is the widened
+// `queueIntentExpired.subjectId` leaf on the SHARED `StudioEvent` type above
+// (reached identically from both V14 and V15, exactly as `ProductionWorkflow
+// .bindings` and `ScriptProject.writerIds` were shared, version-aware-at-the-
+// -boundary leaves for V13/V14). The distinct name exists so save.ts's version
+// dispatch has a version to point `GameState` at; it carries no structural
+// difference of its own.
+export type GameStateV15 = GameStateV14
+
+export type GameState = GameStateV15
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

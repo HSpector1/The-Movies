@@ -96,7 +96,18 @@ export type StudioEventDraft =
   | { kind: 'phaseEntered'; productionId: string; phase: ProductionPhase }
   | { kind: 'sceneryArrived'; productionId: string }
   | { kind: 'queueAdmitted'; entryKind: string; ordinal: number }
-  | { kind: 'queueIntentExpired'; entryKind: string; ordinal: number; reason: string }
+  | {
+      kind: 'queueIntentExpired'
+      entryKind: string
+      ordinal: number
+      reason: string
+      // P04A: the subject's identity, captured via `queueEntrySubjectId(entry)`
+      // BEFORE the entry is removed from the queue — at both the dequeue-expiry
+      // site (queueAdmission.ts) and the cancel site (actions.ts). `null` only
+      // for events migrated forward from a pre-V15 save, which recorded no such
+      // identity and must never have one guessed for it.
+      subjectId: string | null
+    }
 
 /** A draft plus the week its own domain calls authoritative (see `StudioEventSink`). */
 type StampedDraft = { draft: StudioEventDraft; week: number }

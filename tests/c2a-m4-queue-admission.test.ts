@@ -267,12 +267,81 @@ describe('C2a-M4 §3.3 — the front doors admit and queue', () => {
         entryKind: 'commissionScript',
         ordinal: 0,
         reason: expect.stringContaining('unknown concept'),
+        subjectId: payload.conceptId,
       },
     ])
     // An expired intent orphans nothing, because it held nothing.
     expect(after.scriptDevelopment.projects).toHaveLength(
       state.scriptDevelopment.projects.length,
     )
+  })
+
+  // P04A §2.5 — the identity a `queueIntentExpired` row carries. `subjectId`
+  // is captured via `queueEntrySubjectId(entry)` BEFORE the entry is removed,
+  // at both the dequeue-expiry site (queueAdmission.ts) and the cancel site
+  // (actions.ts). For a `greenlightScriptProject` entry that identity is the
+  // screenplay project's own id — proved here at both sites.
+  it('drops a queued greenlight that is no longer legal at dequeue, carrying the project id', () => {
+    const { state, readyProjectIds } = contendedStudio('m4-expiry-greenlight')
+    const projectId = readyProjectIds[0]!
+    const payload = freePackage(state, projectId)
+    let queued = applyActions(state, [{ kind: 'greenlightScriptProject', production: payload }])
+    const writerId = queued.scriptDevelopment.projects.find(
+      (project) => project.id === projectId,
+    )!.writerId
+    // The writer the greenlight depends on is no longer studio-contracted by
+    // the time its turn comes — no longer legal, and cannot become legal by
+    // waiting. (The project itself is left in place: `scriptDevelopment
+    // .projects` carries a positional id invariant, so a queued-intent
+    // illegality fixture must break legality WITHOUT touching that array's
+    // membership — exactly what a real "writer's contract lapsed while
+    // waiting" scenario would do.)
+    queued = {
+      ...queued,
+      contracts: queued.contracts.filter((contract) => contract.talentId !== writerId),
+    }
+
+    const after = advance(queued, 3)
+    expect(after.productionQueue).toEqual([])
+    expect(
+      after.studioEvents.rows.filter((row) => row.kind === 'queueIntentExpired'),
+    ).toMatchObject([
+      {
+        kind: 'queueIntentExpired',
+        entryKind: 'greenlightScriptProject',
+        ordinal: 0,
+        reason: expect.stringContaining('studio-contracted'),
+        subjectId: projectId,
+      },
+    ])
+  })
+
+  it('cancelling a queued greenlight emits queueIntentExpired carrying the project id', () => {
+    const { state, readyProjectIds } = contendedStudio('m4-cancel-greenlight')
+    const projectId = readyProjectIds[0]!
+    const payload = freePackage(state, projectId)
+    const queued = applyActions(state, [{ kind: 'greenlightScriptProject', production: payload }])
+    expect(queued.productionQueue).toHaveLength(1)
+    const ordinal = queued.productionQueue[0]!.ordinal
+
+    const cancelled = applyActions(queued, [{ kind: 'cancelQueuedIntent', ordinal }])
+    expect(cancelled.productionQueue).toEqual([])
+    expect(
+      cancelled.studioEvents.rows.filter((row) => row.kind === 'queueIntentExpired'),
+    ).toMatchObject([
+      {
+        kind: 'queueIntentExpired',
+        entryKind: 'greenlightScriptProject',
+        ordinal,
+        reason: expect.stringContaining('withdrew'),
+        subjectId: projectId,
+      },
+    ])
+    // Cancelling holds nothing and refunds nothing — because it held nothing:
+    // the named project is exactly as ready as it was before it was queued.
+    expect(
+      cancelled.scriptDevelopment.projects.find((project) => project.id === projectId),
+    ).toMatchObject({ status: 'ready' })
   })
 
   it('serves the queue longest-waiting-first, ordinal tie-break — against a genuine tie', () => {

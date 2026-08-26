@@ -101,6 +101,7 @@ export type {
   PropertyStructureRole,
   GameStateV13,
   GameStateV14,
+  GameStateV15,
   SetTypeId,
   StudioSet,
   WorkflowBindings,
@@ -1091,6 +1092,7 @@ export {
   validateSaveV12,
   validateSaveV13,
   validateSaveV14,
+  validateSaveV15,
   makeSave,
   makeSaveV1,
   makeSaveV2,
@@ -1106,6 +1108,7 @@ export {
   makeSaveV12,
   makeSaveV13,
   makeSaveV14,
+  makeSaveV15,
   loadSave,
   exportSave,
   importSave,
@@ -1155,6 +1158,10 @@ export {
   migrateToV12,
   migrateToV13,
   migrateToV14,
+  // P04A (§2.5) — live V14 → NEW V15 + migrateToV15 (identity-bearing queue
+  // expiry: `subjectId` on `queueIntentExpired`), deterministic + idempotent.
+  convertV14ToV15,
+  migrateToV15,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -1171,6 +1178,7 @@ export type {
   SaveFileV12,
   SaveFileV13,
   SaveFileV14,
+  SaveFileV15,
   SaveFile,
   TalentV1,
   GameStateV1,
