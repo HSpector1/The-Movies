@@ -714,6 +714,18 @@ export type {
   ScriptProjectsReadModel,
 } from './scriptReadModel.js'
 
+// Casting Package V1 — the role-first package-assembly projection (director/
+// lead/antagonist/support/craftLead pools, closed budget menus, readiness).
+export { castingPackageReadModel } from './castingPackageReadModel.js'
+export type {
+  PackageCandidateView,
+  PublicSignalView,
+  AuditionEvidenceRef,
+  RolePoolView,
+  CastingPackageProjectView,
+  PackageBlockerView,
+} from './castingPackageReadModel.js'
+
 // Studio Calendar & Capacity Board V1 — pure studio-wide planning projection.
 export { studioCalendar } from './studioCalendar.js'
 export type {
@@ -968,6 +980,7 @@ export {
   activeContract,
   isContracted,
   assignableForFilm,
+  assignmentProjectCost,
   busyTalentIds,
   weeklySalary,
   guaranteedComp,
@@ -1006,6 +1019,9 @@ export {
   // D-17A/T6 — same-rule discoverability exposure (mirrors reception.ts:633-642);
   // player-visible operands only, no realized draw.
   discoveryExposure,
+  // Casting Package V1 — the negative-budget-menu formula promoted verbatim from
+  // ui/src/engine/adapter.ts's requiredNegative, symmetric to marketingLevelsFor.
+  requiredNegative,
 } from './filmPackage.js'
 export type {
   CreativeCohesion,

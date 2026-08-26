@@ -39,6 +39,7 @@ import type {
   FilmShape,
   Forecast,
   ForecastFactorKey,
+  GameState,
   Production,
   Range,
   SegmentId,
@@ -78,6 +79,22 @@ const AXIS_TERM: Record<(typeof AXES)[number], string> = {
   intimacy: 'intimacy',
   tonalWeight: 'tonal',
   kineticEnergy: 'kinetic',
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// requiredNegative — NAMING the inline funding-demand formula this module already
+// computes at its own call site below (`forecastProfitRange`'s engaged narration:
+// `inp.concept.baseNegativeCost * inp.shapeEffects.budgetDemandMultiplier *
+// inp.era.costScale`). This is the SAME formula `ui/src/engine/adapter.ts`'s
+// `requiredNegative(concept, shape, state)` has re-derived UI-side (no Core
+// equivalent existed). Promoted verbatim — no math changed — so a Core-only
+// caller (e.g. a Casting Package projection building the negative-budget menu
+// symmetric to `marketingLevelsFor`) never has to re-derive it. The inline site
+// below is untouched: it has `shapeEffects`/`era` in hand already and does not
+// take a `GameState`, so it is not rewritten to call this exported form.
+// ═══════════════════════════════════════════════════════════════════════════════
+export function requiredNegative(concept: FilmConcept, shape: FilmShape, state: GameState): number {
+  return concept.baseNegativeCost * resolveShape(shape).budgetDemandMultiplier * state.era.costScale
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════

@@ -247,6 +247,23 @@ export function freelancerFee(state: GameState, talent: Talent): number {
   )
 }
 
+// ── assignmentProjectCost — promoted verbatim from ui/src/engine/adapter.ts
+// (`assignmentProjectCost`, adapter.ts:4180) so a Core-only caller (e.g. a Casting
+// Package projection pricing a candidate) never has to re-derive the same
+// managed/legacy cost split the adapter's Budget step already shows. Regime split
+// unchanged: legacy open-pool (never economy-engaged) prices the per-production
+// salary (D-1); engaged + contracted is 0 (payroll already covers it — "On studio
+// payroll"); engaged + not contracted is the one-time freelancer fee (D-11.10).
+export function assignmentProjectCost(state: GameState, talentId: string): number {
+  if (!economyEngaged(state)) {
+    const t = state.talent.find((candidate) => candidate.id === talentId)
+    return t ? t.salary : 0
+  }
+  if (isContracted(state, talentId)) return 0
+  const t = state.talent.find((candidate) => candidate.id === talentId)
+  return t ? freelancerFee(state, t) : 0
+}
+
 // ── deterministic markets (D-11.14) ──────────────────────────────────────────
 // The "signable universe": talent neither contracted nor engaged in a production.
 function signableUniverse(state: GameState): Talent[] {
