@@ -44,7 +44,7 @@ import {
   makeSaveV11,
   makeSaveV12,
   migrateToV13,
-  migrateToV14,
+  migrateToV15,
   occupiedCellKeys,
   parcelAt,
   parcelById,
@@ -57,7 +57,7 @@ import {
   studioPlacementView,
   tick,
   validateSave,
-  validateSaveV14,
+  validateSaveV15,
   assertStudioPlacementInvariants,
   expectedWeeklyOperatingCostAt,
 } from '../src/core/index.js'
@@ -468,8 +468,8 @@ describe('C1-M1a (b) — nothing assumes eight structures or a small placement c
 
     // And it all round-trips byte-identically at the live boundary.
     const json = exportSave(makeSave(operational))
-    const reloaded = migrateToV14(importSave(json))
-    expect(reloaded.saveVersion).toBe(14)
+    const reloaded = migrateToV15(importSave(json))
+    expect(reloaded.saveVersion).toBe(15)
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(reloaded.state.property).toEqual(INITIAL_PROPERTY)
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)
@@ -517,7 +517,7 @@ describe('C1-M1a (b) — nothing assumes eight structures or a small placement c
     expect(() => assertStudioPlacementInvariants(operational)).not.toThrow()
 
     const json = exportSave(makeSave(operational))
-    expect(exportSave(makeSave(migrateToV14(importSave(json)).state))).toBe(json)
+    expect(exportSave(makeSave(migrateToV15(importSave(json)).state))).toBe(json)
   })
 })
 
@@ -597,7 +597,7 @@ describe('C1-M1a (c) — a bigger property works with no code change', () => {
 
     // And an expanded property persists and round-trips like any other.
     const json = exportSave(makeSave(operational))
-    const reloaded = migrateToV14(importSave(json))
+    const reloaded = migrateToV15(importSave(json))
     expect(reloaded.state.property.bounds).toEqual({ width: 34, depth: 26 })
     expect(reloaded.state.property.parcels).toHaveLength(11)
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
@@ -634,15 +634,15 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     ]
     for (const state of states) {
       const save = makeSave(state)
-      // C2a-M1: the LIVE envelope is now V14. The property root and every claim
+      // P04A: the LIVE envelope is now V15. The property root and every claim
       // this case makes about it are unchanged — only which version writes it.
-      expect(save.saveVersion).toBe(14)
+      expect(save.saveVersion).toBe(15)
       expect(validateSave(save)).toBe(save)
-      expect(validateSaveV14(save)).toBe(save)
+      expect(validateSaveV15(save)).toBe(save)
       expect(save.state.property).toEqual(INITIAL_PROPERTY)
       const json = exportSave(save)
       expect(exportSave(importSave(json))).toBe(json)
-      expect(exportSave(migrateToV14(importSave(json)))).toBe(json)
+      expect(exportSave(migrateToV15(importSave(json)))).toBe(json)
     }
   })
 
@@ -735,7 +735,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV14(bad)).toThrow(expected)
+      expect(() => validateSaveV15(bad)).toThrow(expected)
     }
   })
 
@@ -804,7 +804,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV14(bad)).toThrow(expected)
+      expect(() => validateSaveV15(bad)).toThrow(expected)
     }
   })
 
@@ -816,7 +816,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     const forged = clone(makeSave(state))
     // Move the Theater onto the Annex's ground. Nothing may stand in a body.
     forged.state.property.structures.find((s) => s.id === 'theater')!.origin = { gx: 7, gy: 15 }
-    expect(() => validateSaveV14(forged)).toThrow(
+    expect(() => validateSaveV15(forged)).toThrow(
       /placed facility 1 overlaps property structure "theater"/,
     )
   })
@@ -877,10 +877,10 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     }
   })
 
-  it('moves the unknown-version boundary from 14 to 15', () => {
+  it('moves the unknown-version boundary from 15 to 16', () => {
     const live = makeSave(managedStudio('c1-m1a-unknown'))
-    expect(() => validateSave({ ...live, saveVersion: 15 })).toThrow(
-      /unknown saveVersion 15.*versions 1 through 14 only/,
+    expect(() => validateSave({ ...live, saveVersion: 16 })).toThrow(
+      /unknown saveVersion 16.*versions 1 through 15 only/,
     )
   })
 })

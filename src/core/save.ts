@@ -5616,18 +5616,11 @@ export function makeSaveV13(state: GameStateV13): SaveFileV13 {
 // queue, screenplay, and history roots, so this is a projection with no
 // synthesis: nothing is invented on the way out.
 //
-// P04A NOTE (§2.5): `makeSave` below deliberately still calls THIS builder, not
-// `makeSaveV15` — `bridge/runtime-checkpoint.ts` (Lane B territory, off-limits
-// here) hard-requires "a current V14 save" today, confirmed by running
-// bridge.test.ts against a V15-routed `makeSave` (10/16 tests failed with
-// `must be a current V14 save, received V15`). Cutting the live boundary over
-// to V15 is therefore a coordinated change across save.ts AND bridge.ts that
-// this lane does not own; see this task's returned report for the resulting
-// gap (a state whose `queueIntentExpired` rows carry `subjectId` — which is
-// EVERY such row this milestone's emission sites now produce — cannot cross
-// `validateSaveV14`'s unchanged exact-key check, so `makeSave`/`exportSaveJson`
-// will throw once a live game has ever admitted-expired or cancelled a queued
-// intent, until that coordinated cutover happens).
+// FROZEN as of P04A: V14 is now a historical format the moment SaveFileV15
+// exists as the live boundary (see `makeSave` below) — writing a bare V14
+// envelope from live state is a downgrade in spirit, but this builder is kept
+// for the frozen historical-format test suites and internal migration chain,
+// exactly like every earlier `makeSaveVN`.
 export function makeSaveV14(state: GameState): SaveFileV14 {
   const currentState = projectStateV14(state);
   const save: SaveFileV14 = {
@@ -5641,8 +5634,8 @@ export function makeSaveV14(state: GameState): SaveFileV14 {
 
 // Build the V15 envelope (P04A §2.5). Live state already owns the widened
 // `queueIntentExpired.subjectId` leaf (there is no new root to carry), so this
-// is a projection with no synthesis: nothing is invented on the way out. NOT
-// yet wired as the `makeSave` default — see the note on `makeSaveV14` above.
+// is a projection with no synthesis: nothing is invented on the way out. This
+// IS the `makeSave` default as of P04A — see `makeSave` below.
 export function makeSaveV15(state: GameState): SaveFileV15 {
   const currentState = projectStateV15(state);
   const save: SaveFileV15 = {
@@ -5654,12 +5647,13 @@ export function makeSaveV15(state: GameState): SaveFileV15 {
   return validateSaveV15(save);
 }
 
-// makeSave — the C2a-M1 live boundary. Frozen V13 values must cross
-// convertV13ToV14/migrateToV14 explicitly. STILL V14 (see the note on
-// `makeSaveV14` above) — SaveFileV15 exists, is fully validated, and migrates
-// both directions, but the live cutover is a follow-up integration decision.
-export function makeSave(state: GameState): SaveFileV14 {
-  return makeSaveV14(state);
+// makeSave — the P04A live boundary. Frozen V13/V14 values must cross their
+// respective convertVNToVN+1/migrateToVN+1 explicitly. V15 owns no new root
+// (§2.5): it is the same live GameState projection as V14, plus the widened
+// `queueIntentExpired.subjectId` leaf that this milestone's emission sites now
+// always populate, which V14's unchanged exact-key check cannot carry.
+export function makeSave(state: GameState): SaveFileV15 {
+  return makeSaveV15(state);
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────

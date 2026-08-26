@@ -137,10 +137,10 @@ describe('D-17B/E4 — the frozen V7 envelope remains valid and isolated', () =>
     expect(() => validateSaveV7({ ...save, saveVersion: 6 })).toThrow(/expected saveVersion 7/)
   })
 
-  it('V7 through V14 are known, so the unknown-version boundary is now 15', () => {
+  it('V7 through V15 are known, so the unknown-version boundary is now 16', () => {
     const save = makeSaveV7(toV7(foundStudio('d17b-v7-boundary')))
-    expect(() => validateSave({ ...save, saveVersion: 16 })).toThrow(/unknown saveVersion 16/)
-    expect(() => validateSave({ ...save, saveVersion: 15 })).toThrow(/versions 1 through 14 only/)
+    expect(() => validateSave({ ...save, saveVersion: 17 })).toThrow(/unknown saveVersion 17/)
+    expect(() => validateSave({ ...save, saveVersion: 16 })).toThrow(/versions 1 through 15 only/)
   })
 
   it('rejects a V7 whose inherited regime fact or publicity clocks are missing/corrupt', () => {

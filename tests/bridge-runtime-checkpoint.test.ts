@@ -143,7 +143,7 @@ function previousProtocol4Bytes(checkpoint: BridgeRuntimeCheckpointV1): string {
 }
 
 describe('BridgeRuntimeCheckpointV1', () => {
-  it('forward-migrates protocol 3 by preserving both V14 slots and discarding incompatible replay bytes', () => {
+  it('forward-migrates protocol 3 by preserving both V15 slots and discarding incompatible replay bytes', () => {
     const source = fixture()
     const legacyBytes = protocol3Bytes(source.checkpoint)
     expect(() => decodeBridgeRuntimeCheckpoint(legacyBytes)).toThrow(/protocolVersion/)
@@ -165,8 +165,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
     })
     expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(source.currentSaveJson))
     expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(source.savedSaveJson))
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(14)
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(14)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(15)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(15)
     expect(() => decodeBridgeRuntimeCheckpoint(
       encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint),
     )).not.toThrow()
@@ -180,7 +180,7 @@ describe('BridgeRuntimeCheckpointV1', () => {
     )).toThrow(/journalDigest/)
   })
 
-  it('rolls the previous protocol-4 schema forward without changing either V14 save slot', () => {
+  it('rolls the previous protocol-4 schema forward without changing either V15 save slot', () => {
     const source = fixture()
     const priorBytes = previousProtocol4Bytes(source.checkpoint)
     expect(() => decodeBridgeRuntimeCheckpoint(priorBytes)).toThrow(/schemaId/)
@@ -202,8 +202,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
       savedStateDigest: sha256(source.savedSaveJson),
       journal: [],
     })
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(14)
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(14)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(15)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(15)
 
     const corrupted = JSON.parse(priorBytes) as Record<string, unknown>
     corrupted.journalDigest = '0'.repeat(64)
@@ -253,7 +253,7 @@ describe('BridgeRuntimeCheckpointV1', () => {
     )).toThrow(/previous protocol-4 production authority cannot contain an open founding draft/)
   })
 
-  it('encodes one exact closed canonical shape with one LF and hydrates stable V14 bytes', () => {
+  it('encodes one exact closed canonical shape with one LF and hydrates stable V15 bytes', () => {
     const source = fixture()
     const encoded = encodeBridgeRuntimeCheckpoint(source.checkpoint)
     expect(encoded.endsWith('\n')).toBe(true)
@@ -264,8 +264,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
     const hydrated = decodeBridgeRuntimeCheckpoint(encoded)
     expect(hydrated.checkpoint).toEqual(source.checkpoint)
     expect(encodeBridgeRuntimeCheckpoint(hydrated.checkpoint)).toBe(encoded)
-    expect(hydrated.currentSave.saveVersion).toBe(14)
-    expect(hydrated.savedSave?.saveVersion).toBe(14)
+    expect(hydrated.currentSave.saveVersion).toBe(15)
+    expect(hydrated.savedSave?.saveVersion).toBe(15)
     expect(hydrated.checkpoint.currentSaveJson).toBe(source.currentSaveJson)
     expect(hydrated.checkpoint.savedSaveJson).toBe(source.savedSaveJson)
     expect(hydrated.checkpoint.currentStateDigest).toBe(sha256(source.currentSaveJson))
@@ -323,7 +323,7 @@ describe('BridgeRuntimeCheckpointV1', () => {
     expect(Object.keys(checkpoint).some((key) => /time|secret|token|path/i.test(key))).toBe(false)
   })
 
-  it('requires untouched canonical V14 current and explicit-save bytes with exact digests', () => {
+  it('requires untouched canonical V15 current and explicit-save bytes with exact digests', () => {
     const checkpoint = fixture().checkpoint
     expect(() => hydrateBridgeRuntimeCheckpoint({
       ...checkpoint,
@@ -364,7 +364,7 @@ describe('BridgeRuntimeCheckpointV1', () => {
       currentSaveJson: nonCanonicalSave,
       savedSaveJson: checkpoint.savedSaveJson,
       journal: checkpoint.journal,
-    })).toThrow(/canonical V14 save bytes exactly/)
+    })).toThrow(/canonical V15 save bytes exactly/)
 
     const forgedSave = JSON.parse(checkpoint.currentSaveJson) as Record<string, unknown>
     forgedSave['bridgeJournal'] = []
@@ -578,7 +578,7 @@ describe('BridgeRuntimeCheckpointV1', () => {
     )).not.toThrow()
   })
 
-  it('validates an accepted save response V14 payload and digest before journaling it', () => {
+  it('validates an accepted save response V15 payload and digest before journaling it', () => {
     const source = fixture()
     const badResponse = JSON.parse(source.saveEntry.responseJson) as Record<string, unknown>
     badResponse['stateDigest'] = '0'.repeat(64)

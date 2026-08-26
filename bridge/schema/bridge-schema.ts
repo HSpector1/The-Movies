@@ -16,7 +16,7 @@ import {
 } from './dsl.ts'
 
 export const PROTOCOL_VERSION = 4 as const
-export const PROJECTION_VERSION = 9 as const
+export const PROJECTION_VERSION = 10 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -829,6 +829,140 @@ const StudioDevelopmentSnapshot = object('StudioDevelopmentSnapshot', {
   board: nullable(reference('StudioDevelopmentBoardSnapshot', StudioDevelopmentBoardSnapshot)),
 })
 
+// ── P04A: Casting — the role-first package-assembly board and the casting quote seam ─
+//
+// Package 04 (§2.1). The Casting board composes castingSessionsReadModel +
+// castingPackageReadModel + expiry notices into ONE role-first projection per
+// Ready screenplay: candidate pools (director/lead/antagonist/support/craftLead),
+// closed negative/marketing budget menus, screen-test evidence, and a
+// greenlight-readiness summary. Every public signal is a SAFE PERCEIVED fact
+// (role tier, genre experience, availability, contract/fee status) — never
+// `talent.actual`, persona, temperament decomposition, RNG state, the run seed,
+// or hidden ceilings. Mirrors the `development`/quote idiom exactly: the
+// mode/board-nullable snapshot shape, and a second quote-request member
+// (`quoteCasting`) alongside `quoteCommission` in the SAME union envelope.
+
+const StudioCastingSignalSnapshot = object('StudioCastingSignalSnapshot', {
+  kind: enumeration(['positive', 'concern', 'action']),
+  text: nonEmptyText(),
+})
+
+const StudioCastingEvidenceSnapshot = object('StudioCastingEvidenceSnapshot', {
+  talentId: nonEmptyText(),
+  slot: enumeration(['lead', 'antagonist', 'support']),
+  estimate: nonNegativeInteger(),
+  low: nonNegativeInteger(),
+  high: nonNegativeInteger(),
+  testedWeek: nullable(nonNegativeInteger()),
+  sessionId: nonEmptyText(),
+})
+
+const StudioBudgetOptionSnapshot = object('StudioBudgetOptionSnapshot', {
+  amount: nonNegativeInteger(),
+  label: nonEmptyText(),
+})
+
+const StudioCastingBlockerSnapshot = object('StudioCastingBlockerSnapshot', {
+  code: nonEmptyText(),
+  role: enumeration([
+    'screenTest',
+    'director',
+    'lead',
+    'antagonist',
+    'support',
+    'craftLead',
+    'budget',
+    'capacity',
+    'session',
+    'project',
+  ]),
+  talentId: nullable(text()),
+  message: nonEmptyText(),
+  currentHolderId: nullable(text()),
+  remedy: nonEmptyText(),
+})
+
+const StudioCastingCandidateSnapshot = object('StudioCastingCandidateSnapshot', {
+  talentId: nonEmptyText(),
+  name: nonEmptyText(),
+  professionLabel: nonEmptyText(),
+  contractBadge: enumeration(['studio', 'freelancer']),
+  ovr: nonNegativeInteger(),
+  fit: nonNegativeInteger(),
+  epLow: nonNegativeInteger(),
+  epHigh: nonNegativeInteger(),
+  epExpected: nonNegativeInteger(),
+  genreExperienceLabel: nonEmptyText(),
+  starPower: nonNegativeInteger(),
+  available: bool(),
+  availabilityLabel: nonEmptyText(),
+  currentWorkLabel: nullable(text()),
+  projectCostAmount: nonNegativeInteger(),
+  projectCostLabel: nonEmptyText(),
+  signals: array(reference('StudioCastingSignalSnapshot', StudioCastingSignalSnapshot)),
+  /** Role-specific to the pool this row sits in; null outside the lead/antagonist/support acting pools. */
+  evidence: nullable(reference('StudioCastingEvidenceSnapshot', StudioCastingEvidenceSnapshot)),
+})
+
+const StudioCastingResultsSnapshot = object('StudioCastingResultsSnapshot', {
+  lead: array(reference('StudioCastingEvidenceSnapshot', StudioCastingEvidenceSnapshot)),
+  antagonist: array(reference('StudioCastingEvidenceSnapshot', StudioCastingEvidenceSnapshot)),
+  support: array(reference('StudioCastingEvidenceSnapshot', StudioCastingEvidenceSnapshot)),
+})
+
+const StudioCastingReadinessSnapshot = object('StudioCastingReadinessSnapshot', {
+  knownGatesClear: bool(),
+  willQueue: bool(),
+  blockers: array(reference('StudioCastingBlockerSnapshot', StudioCastingBlockerSnapshot)),
+})
+
+const StudioCastingProjectSnapshot = object('StudioCastingProjectSnapshot', {
+  projectId: nonEmptyText(),
+  title: nonEmptyText(),
+  genre: developmentGenre(),
+  writerId: nonEmptyText(),
+  writerName: nonEmptyText(),
+  sessionStatus: enumeration(['notStarted', 'queued', 'auditioning', 'review', 'complete']),
+  sessionId: nullable(text()),
+  dueWeek: nullable(nonNegativeInteger()),
+  weeksUntilDecision: nullable(nonNegativeInteger()),
+  /** The no-fee/no-hold/one-week copy from Core CASTING_SESSION_CONSEQUENCE. */
+  consequence: nonEmptyText(),
+  attention: enumeration(['none', 'ready', 'waiting', 'active', 'decisionRequired', 'blocked']),
+  directorCandidates: array(reference('StudioCastingCandidateSnapshot', StudioCastingCandidateSnapshot)),
+  leadCandidates: array(reference('StudioCastingCandidateSnapshot', StudioCastingCandidateSnapshot)),
+  antagonistCandidates: array(reference('StudioCastingCandidateSnapshot', StudioCastingCandidateSnapshot)),
+  supportCandidates: array(reference('StudioCastingCandidateSnapshot', StudioCastingCandidateSnapshot)),
+  craftCandidates: array(reference('StudioCastingCandidateSnapshot', StudioCastingCandidateSnapshot)),
+  results: nullable(reference('StudioCastingResultsSnapshot', StudioCastingResultsSnapshot)),
+  negativeOptions: array(reference('StudioBudgetOptionSnapshot', StudioBudgetOptionSnapshot)),
+  marketingOptions: array(reference('StudioBudgetOptionSnapshot', StudioBudgetOptionSnapshot)),
+  packageReadiness: reference('StudioCastingReadinessSnapshot', StudioCastingReadinessSnapshot),
+  greenlightQueued: bool(),
+  auditionQueued: bool(),
+})
+
+const StudioCastingExpiryNoticeSnapshot = object('StudioCastingExpiryNoticeSnapshot', {
+  eventSeq: nonNegativeInteger(),
+  queueOrdinal: nonNegativeInteger(),
+  projectId: nonEmptyText(),
+  title: nonEmptyText(),
+  reason: nonEmptyText(),
+  reviewActionLabel: nonEmptyText(),
+})
+
+const StudioCastingBoardSnapshot = object('StudioCastingBoardSnapshot', {
+  capacityLine: nonEmptyText(),
+  projects: array(reference('StudioCastingProjectSnapshot', StudioCastingProjectSnapshot)),
+  expiryNotices: array(reference('StudioCastingExpiryNoticeSnapshot', StudioCastingExpiryNoticeSnapshot)),
+})
+
+const StudioCastingSnapshot = object('StudioCastingSnapshot', {
+  mode: enumeration(['legacy', 'managed']),
+  /** Null outside a managed screenplay studio (legacy mode or an open founding draft). */
+  board: nullable(reference('StudioCastingBoardSnapshot', StudioCastingBoardSnapshot)),
+})
+
 const StudioCommissionDraftPayload = object('StudioCommissionDraftPayload', {
   source: enumeration(['market', 'original']),
   /** Required exactly when source is `market`. */
@@ -866,7 +1000,12 @@ const StudioCommissionQuoteSnapshot = object('StudioCommissionQuoteSnapshot', {
   queueNote: nullable(text()),
 })
 
-const StudioBridgeQuoteRequest = object('StudioBridgeQuoteRequest', {
+// P04A: the request draft envelope, generalized from a single monomorphic
+// object into a discriminated union member alongside `StudioQuoteCastingRequest`
+// (the `StudioProductionCommandSnapshot` precedent). The wire shape of THIS
+// member is byte-identical to the pre-P04A `StudioBridgeQuoteRequest` — only
+// the registered definition name changed, to make room for the sibling member.
+const StudioQuoteCommissionRequest = object('StudioQuoteCommissionRequest', {
   protocolVersion: literal(PROTOCOL_VERSION),
   schemaId: nonEmptyText(),
   sessionId: nonEmptyText(),
@@ -875,6 +1014,81 @@ const StudioBridgeQuoteRequest = object('StudioBridgeQuoteRequest', {
   type: literal('quoteCommission'),
   draft: reference('StudioCommissionDraftPayload', StudioCommissionDraftPayload),
 })
+
+// P04A (§2.1): ONE object, kind-discriminant, nullable-by-kind — the
+// `StudioCommissionDraftPayload` precedent. Every field is always PRESENT on
+// the wire (never `optional()`); "required exactly when kind=X" is a plain-
+// language refusal enforced by `castingDraftToEngine` against the live read
+// models, not a JSON Schema structural constraint.
+const StudioCastingDraftPayload = object('StudioCastingDraftPayload', {
+  kind: enumeration(['screenTest', 'greenlightPackage']),
+  projectId: nonEmptyText(),
+  /** Required exactly when kind is `screenTest`; exactly 2 IDs each, enforced server-side. */
+  slateLead: nullable(array(nonEmptyText())),
+  slateAntagonist: nullable(array(nonEmptyText())),
+  slateSupport: nullable(array(nonEmptyText())),
+  /** Required exactly when kind is `greenlightPackage`. */
+  directorId: nullable(text()),
+  castLead: nullable(text()),
+  castAntagonist: nullable(text()),
+  castSupport: nullable(text()),
+  craftLeadId: nullable(text()),
+  /** Must equal a published negative/marketing menu amount — enforced server-side. */
+  budgetNegative: nullable(nonNegativeInteger()),
+  budgetMarketing: nullable(nonNegativeInteger()),
+})
+
+const StudioQuoteCastingRequest = object('StudioQuoteCastingRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION),
+  schemaId: nonEmptyText(),
+  sessionId: nonEmptyText(),
+  commandId: nonEmptyText(),
+  expectedStateRevision: nonNegativeInteger(),
+  type: literal('quoteCasting'),
+  draft: reference('StudioCastingDraftPayload', StudioCastingDraftPayload),
+})
+
+const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
+  reference('StudioQuoteCommissionRequest', StudioQuoteCommissionRequest),
+  reference('StudioQuoteCastingRequest', StudioQuoteCastingRequest),
+] as const)
+
+const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
+  /** The ONE opaque digest-bound commit intent this quote mints. */
+  intentId: nonEmptyText(),
+  kind: enumeration(['startAuditions', 'greenlightPicture']),
+  commitLabel: nonEmptyText(),
+  startsNow: bool(),
+  queues: bool(),
+  projectId: nonEmptyText(),
+  title: nonEmptyText(),
+  // Screen-test consequence — null when kind !== 'startAuditions'.
+  weekLine: nullable(text()),
+  slotLine: nullable(text()),
+  noFeeLine: nullable(text()),
+  noHoldLine: nullable(text()),
+  uniquePeople: nullable(nonNegativeInteger()),
+  // Greenlight consequence — null when kind !== 'greenlightPicture'. NO burn,
+  // NO runway, NO recurring delta anywhere on this snapshot — omission is law
+  // this checkpoint.
+  negative: nullable(nonNegativeInteger()),
+  marketing: nullable(nonNegativeInteger()),
+  freelancerFees: nullable(nonNegativeInteger()),
+  totalImmediate: nullable(nonNegativeInteger()),
+  cashBefore: nullable(integer()),
+  cashAfter: nullable(integer()),
+  affordable: nullable(bool()),
+  strongestAssignmentLine: nullable(text()),
+  weakestAssignmentLine: nullable(text()),
+  forecastLine: nullable(text()),
+  setDemandLine: nullable(text()),
+  queueNote: nullable(text()),
+})
+
+const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
+  reference('StudioCommissionQuoteSnapshot', StudioCommissionQuoteSnapshot),
+  reference('StudioCastingQuoteSnapshot', StudioCastingQuoteSnapshot),
+] as const)
 
 const StudioBridgeQuoteResponse = object('StudioBridgeQuoteResponse', {
   protocolVersion: literal(PROTOCOL_VERSION),
@@ -886,7 +1100,7 @@ const StudioBridgeQuoteResponse = object('StudioBridgeQuoteResponse', {
   stateRevision: nonNegativeInteger(),
   gameWeek: nonNegativeInteger(),
   stateDigest: nonEmptyText(),
-  quote: reference('StudioCommissionQuoteSnapshot', StudioCommissionQuoteSnapshot),
+  quote: reference('StudioQuoteSnapshot', StudioQuoteSnapshot),
   processingMs: number({ minimum: 0 }),
 })
 
@@ -910,6 +1124,7 @@ const studioLotSnapshotProperties = {
   sets: optional(array(reference('StudioSetSnapshot', StudioSetSnapshot))),
   firstFilmJourney: reference('StudioFirstFilmJourneySnapshot', StudioFirstFilmJourneySnapshot),
   development: reference('StudioDevelopmentSnapshot', StudioDevelopmentSnapshot),
+  casting: reference('StudioCastingSnapshot', StudioCastingSnapshot),
 } as const
 
 export const StudioLotSnapshotSchema = object('StudioLotSnapshot', studioLotSnapshotProperties)
@@ -951,6 +1166,10 @@ export const StudioDevelopmentProjectionSchema = object('StudioDevelopmentProjec
   development: studioLotSnapshotProperties.development,
 })
 
+export const StudioCastingProjectionSchema = object('StudioCastingProjection', {
+  casting: studioLotSnapshotProperties.casting,
+})
+
 export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
   lot: reference('StudioLotProjection', StudioLotProjectionSchema),
   productions: reference('StudioProductionsProjection', StudioProductionsProjectionSchema),
@@ -959,6 +1178,7 @@ export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
   journeyNotices: reference('StudioJourneyNoticesProjection', StudioJourneyNoticesProjectionSchema),
   releaseResults: reference('StudioReleaseResultsProjection', StudioReleaseResultsProjectionSchema),
   development: reference('StudioDevelopmentProjection', StudioDevelopmentProjectionSchema),
+  casting: reference('StudioCastingProjection', StudioCastingProjectionSchema),
 })
 
 export const AVAILABLE_INTENT_KINDS = [
@@ -1196,9 +1416,25 @@ const definitions = {
   StudioDevelopmentAttentionSnapshot,
   StudioDevelopmentBoardSnapshot,
   StudioDevelopmentSnapshot,
+  StudioCastingSignalSnapshot,
+  StudioCastingEvidenceSnapshot,
+  StudioBudgetOptionSnapshot,
+  StudioCastingBlockerSnapshot,
+  StudioCastingCandidateSnapshot,
+  StudioCastingResultsSnapshot,
+  StudioCastingReadinessSnapshot,
+  StudioCastingProjectSnapshot,
+  StudioCastingExpiryNoticeSnapshot,
+  StudioCastingBoardSnapshot,
+  StudioCastingSnapshot,
   StudioCommissionDraftPayload,
   StudioCommissionQuoteSnapshot,
+  StudioCastingDraftPayload,
+  StudioQuoteCommissionRequest,
+  StudioQuoteCastingRequest,
   StudioBridgeQuoteRequest,
+  StudioCastingQuoteSnapshot,
+  StudioQuoteSnapshot,
   StudioBridgeQuoteResponse,
   StudioLotProjection: StudioLotProjectionSchema,
   StudioProductionsProjection: StudioProductionsProjectionSchema,
@@ -1207,6 +1443,7 @@ const definitions = {
   StudioJourneyNoticesProjection: StudioJourneyNoticesProjectionSchema,
   StudioReleaseResultsProjection: StudioReleaseResultsProjectionSchema,
   StudioDevelopmentProjection: StudioDevelopmentProjectionSchema,
+  StudioCastingProjection: StudioCastingProjectionSchema,
   StudioProjectionBundle: StudioProjectionBundleSchema,
   StudioBridgeIntentOption,
   StudioBridgeMetrics,
@@ -1225,7 +1462,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-9',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-10',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [
@@ -1279,8 +1516,17 @@ export type BridgeHealthResponse = InferSchema<typeof StudioBridgeHealthResponse
 export type BridgeSessionResponse = InferSchema<typeof StudioBridgeSessionResponse>
 export type BridgeContractResponse = InferSchema<typeof StudioBridgeContractResponse>
 export type BridgeDevelopmentSnapshot = InferSchema<typeof StudioDevelopmentSnapshot>
+export type BridgeCastingSnapshot = InferSchema<typeof StudioCastingSnapshot>
+export type BridgeCastingCandidateSnapshot = InferSchema<typeof StudioCastingCandidateSnapshot>
+export type BridgeCastingProjectSnapshot = InferSchema<typeof StudioCastingProjectSnapshot>
+export type BridgeCastingBlockerSnapshot = InferSchema<typeof StudioCastingBlockerSnapshot>
+export type BridgeCastingExpiryNoticeSnapshot = InferSchema<typeof StudioCastingExpiryNoticeSnapshot>
 export type BridgeCommissionDraftPayload = InferSchema<typeof StudioCommissionDraftPayload>
 export type BridgeCommissionQuoteSnapshot = InferSchema<typeof StudioCommissionQuoteSnapshot>
+export type BridgeCastingDraftPayload = InferSchema<typeof StudioCastingDraftPayload>
+export type BridgeCastingQuoteSnapshot = InferSchema<typeof StudioCastingQuoteSnapshot>
+export type BridgeQuoteCommissionRequest = InferSchema<typeof StudioQuoteCommissionRequest>
+export type BridgeQuoteCastingRequest = InferSchema<typeof StudioQuoteCastingRequest>
 export type BridgeQuoteRequest = InferSchema<typeof StudioBridgeQuoteRequest>
 export type BridgeQuoteResponse = InferSchema<typeof StudioBridgeQuoteResponse>
 

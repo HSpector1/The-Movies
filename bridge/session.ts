@@ -17,7 +17,6 @@ import {
   foundingProgress,
   foundingRunwayPreview,
   greenlightScriptProject,
-  importSaveJson,
   newGame,
   nextIncompleteProfession,
   offerObligation,
@@ -40,6 +39,7 @@ import type {
   FoundingApplicantRow,
   GameState,
 } from '../ui/src/engine/adapter.ts'
+import { importSave, migrateToV15 } from '../src/core/index.js'
 import {
   PROTOCOL_VERSION,
   SCHEMA_ID,
@@ -67,9 +67,14 @@ import { canonicalJson } from './schema/canonical.ts'
 import type {
   BridgeAcceptedCommandResponse,
   BridgeAcceptedSaveResponse,
+  BridgeCastingDraftPayload,
+  BridgeCastingQuoteSnapshot,
   BridgeCommissionDraftPayload,
+  BridgeCommissionQuoteSnapshot,
   BridgeFoundingArrivalSnapshot,
   BridgeFoundingSnapshot,
+  BridgeQuoteCastingRequest,
+  BridgeQuoteCommissionRequest,
   BridgeQuoteRequest,
   BridgeQuoteResponse,
   BridgeRejectedResponse,
@@ -82,6 +87,28 @@ import {
   developmentProjection,
   draftToEngine,
 } from './development.ts'
+import { castingDraftToEngine, castingProjection, castingQuoteSnapshot } from './casting.ts'
+
+type ImportOutcome =
+  | { ok: true; state: GameState; converted: boolean }
+  | { ok: false; error: string }
+
+// P04A (§2.5) STEP 0: the bridge's live-boundary save import, routed to the
+// live V15 migrator. `ui/src/engine/adapter.ts`'s own `importSaveJson` remains
+// hard-wired to `migrateToV14` (out of this lane's allowed files — the ui/**
+// boundary is off-limits here), so this local, contract-identical wrapper is
+// the bridge-owned half of the "one coordinated change" §2.5 describes: same
+// `ImportOutcome` shape, same semantics, migrating to V15 (the current
+// `GameState` live shape) instead of the now-historical V14.
+function importSaveJsonV15(json: string): ImportOutcome {
+  try {
+    const save = importSave(json)
+    const converted = save.saveVersion !== 15
+    return { ok: true, state: migrateToV15(save).state, converted }
+  } catch (error) {
+    return { ok: false, error: (error as Error).message }
+  }
+}
 
 type IntentApplication = {
   option: AvailableIntent
@@ -102,14 +129,29 @@ type CachedResponse = CommandResponse | SaveResponse
 
 export type AcceptedQuoteResponse = BridgeQuoteResponse
 export type QuoteResponse = AcceptedQuoteResponse | RejectedResponse
+/** The accepted quote envelope, narrowed to exactly one family's `quote` payload. */
+export type AcceptedQuoteResponseFor<TQuote> = Omit<BridgeQuoteResponse, 'quote'> & { quote: TQuote }
 
-/** One minted commission quote: valid for exactly the state that quoted it. */
-type PendingCommissionQuote = {
-  draft: BridgeCommissionDraftPayload
-  stateDigest: string
-  kind: 'commissionScreenplay' | 'commissionOriginalScreenplay'
-  commitLabel: string
-}
+/**
+ * One minted quote: valid for exactly the state that quoted it. A single
+ * cap-16 map shared by both families — `quotedIntentFor()`/clear-on-command/
+ * clear-on-load stay generic over intentId regardless of which family minted it.
+ */
+type PendingQuote =
+  | {
+      family: 'commission'
+      draft: BridgeCommissionDraftPayload
+      stateDigest: string
+      kind: 'commissionScreenplay' | 'commissionOriginalScreenplay'
+      commitLabel: string
+    }
+  | {
+      family: 'casting'
+      draft: BridgeCastingDraftPayload
+      stateDigest: string
+      kind: 'startAuditions' | 'greenlightPicture'
+      commitLabel: string
+    }
 
 type RuntimeEntry = {
   entry: BridgeRuntimeJournalEntryV1
@@ -1011,7 +1053,7 @@ export class BridgeSession {
    * any accepted command or load invalidates the whole map, and a process
    * restart simply forgets quotes the client must re-request. Never journaled.
    */
-  private readonly pendingQuotes = new Map<string, PendingCommissionQuote>()
+  private readonly pendingQuotes = new Map<string, PendingQuote>()
   private readonly processed = new Map<string, RuntimeEntry>()
   private readonly journal: BridgeRuntimeJournalEntryV1[]
   private savedJson: string | null
@@ -1042,7 +1084,7 @@ export class BridgeSession {
   }
 
   static fromSaveJson(saveJson: string, sessionId: string = randomUUID()): BridgeSession {
-    const imported = importSaveJson(saveJson)
+    const imported = importSaveJsonV15(saveJson)
     if (!imported.ok) throw new Error(imported.error)
     return new BridgeSession(imported.state, sessionId, exportSaveJson(imported.state))
   }
@@ -1057,7 +1099,7 @@ export class BridgeSession {
     hydrated: HydratedBridgeRuntimeCheckpoint,
     limits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
   ): BridgeSession {
-    const imported = importSaveJson(hydrated.checkpoint.currentSaveJson)
+    const imported = importSaveJsonV15(hydrated.checkpoint.currentSaveJson)
     if (!imported.ok) throw new Error(imported.error)
     return new BridgeSession(
       imported.state,
@@ -1093,18 +1135,20 @@ export class BridgeSession {
     limits: BridgeRuntimeCheckpointLimits = this.runtimeLimits,
   ): BridgeSession {
     const currentSaveJson = exportSaveJson(this.state)
-    const imported = importSaveJson(currentSaveJson)
+    const imported = importSaveJsonV15(currentSaveJson)
     if (!imported.ok) throw new Error(imported.error)
     return new BridgeSession(imported.state, randomUUID(), this.savedJson, { limits })
   }
 
   private snapshotFor(state: GameState, revision: number): SnapshotEnvelope {
     const started = performance.now()
-    // P03A: the Development board rides the broad selector result into the bundle
-    // at the bridge boundary, so the browser's own snapshot stays untouched.
+    // P03A/P04A: the Development and Casting boards ride the broad selector
+    // result into the bundle at the bridge boundary, so the browser's own
+    // snapshot stays untouched.
     const snapshot = projectStudioProjectionBundle({
       ...studioLotSnapshot(state),
       development: developmentProjection(state),
+      casting: castingProjection(state),
     })
     const stateDigest = authoritativeDigest(state)
     // One founding resolution serves both surfaces, so an arrival's intentId can
@@ -1194,8 +1238,8 @@ export class BridgeSession {
   }
 
   /**
-   * P03A: resolve a quote-minted commission intent. The quote is honored only
-   * against the EXACT state that minted it (digest equality on top of the
+   * Resolve a quote-minted commission OR casting intent. The quote is honored
+   * only against the EXACT state that minted it (digest equality on top of the
    * revision guard the caller already passed); the draft is re-converted
    * against the live board so the engine's own front doors decide legality at
    * commit time. C# never sees or constructs the payload.
@@ -1208,11 +1252,13 @@ export class BridgeSession {
       kind: pending.kind,
       label: pending.commitLabel,
       detail: '',
-      projectId: null,
+      projectId: pending.family === 'casting' ? pending.draft.projectId : null,
       castingSessionId: null,
       productionId: null,
     } as const
-    const conversion = draftToEngine(this.state, pending.draft)
+    const conversion = pending.family === 'commission'
+      ? draftToEngine(this.state, pending.draft)
+      : castingDraftToEngine(this.state, pending.draft)
     if (!conversion.ok) {
       return {
         option: { intentId, ...fields },
@@ -1222,14 +1268,11 @@ export class BridgeSession {
     return { option: { intentId, ...fields }, apply: conversion.apply }
   }
 
-  /**
-   * P03A: validate a commission draft against the live state, mint the ONE
-   * opaque commit intent, and answer with the TypeScript-authored consequence
-   * summary. A quote mutates nothing — the revision is unchanged, nothing is
-   * journaled, and the preflight successor is discarded whole.
-   */
-  quote(request: BridgeQuoteRequest): QuoteResponse {
-    const started = performance.now()
+  /** Session-mismatch/stale-revision envelope guard shared by both quote families. */
+  private quoteGuard(
+    request: { sessionId: string; commandId: string; expectedStateRevision: number },
+    started: number,
+  ): RejectedResponse | null {
     if (request.sessionId !== this.sessionId) {
       return this.reject(
         request.commandId,
@@ -1246,35 +1289,23 @@ export class BridgeSession {
         started,
       )
     }
-    const conversion = draftToEngine(this.state, request.draft)
-    if (!conversion.ok) {
-      return this.reject(request.commandId, 'ENGINE_REJECTED', conversion.error, started)
-    }
-    const preflight = caught(() => conversion.apply(this.state))
-    if (!preflight.ok) {
-      return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
-    }
-    const stateDigest = authoritativeDigest(this.state)
-    const intentId = opaqueIntentId(stateDigest, { commissionDraft: request.draft })
-    const quote = commissionQuoteSnapshot(
-      this.state,
-      request.draft,
-      conversion,
-      preflight.next,
-      intentId,
-    )
-    this.pendingQuotes.set(intentId, {
-      draft: request.draft,
-      stateDigest,
-      kind: conversion.kind,
-      commitLabel: quote.commitLabel,
-    })
-    // A small bound keeps an abandoned workspace from growing the map; the
-    // oldest quote is the least likely to be committed.
+    return null
+  }
+
+  /** A small bound keeps an abandoned workspace from growing the map; the oldest quote is the least likely to be committed. */
+  private capPendingQuotes(): void {
     if (this.pendingQuotes.size > 16) {
       const oldest = this.pendingQuotes.keys().next().value
       if (oldest !== undefined) this.pendingQuotes.delete(oldest)
     }
+  }
+
+  private mintQuoteResponse<TQuote>(
+    request: { commandId: string },
+    started: number,
+    stateDigest: string,
+    quote: TQuote,
+  ): AcceptedQuoteResponseFor<TQuote> {
     return {
       protocolVersion: PROTOCOL_VERSION,
       schemaId: SCHEMA_ID,
@@ -1287,6 +1318,80 @@ export class BridgeSession {
       quote,
       processingMs: performance.now() - started,
     }
+  }
+
+  /**
+   * Validate a commission or casting draft against the live state, mint the
+   * ONE opaque commit intent, and answer with the TypeScript-authored
+   * consequence summary. A quote mutates nothing — the revision is unchanged,
+   * nothing is journaled, and the preflight successor is discarded whole.
+   * Dispatches on `request.type`; overloaded so a caller that already knows
+   * which family it asked for gets that family's quote type back narrowed,
+   * with no cast.
+   */
+  quote(request: BridgeQuoteCommissionRequest): AcceptedQuoteResponseFor<BridgeCommissionQuoteSnapshot> | RejectedResponse
+  quote(request: BridgeQuoteCastingRequest): AcceptedQuoteResponseFor<BridgeCastingQuoteSnapshot> | RejectedResponse
+  quote(request: BridgeQuoteRequest): QuoteResponse
+  quote(request: BridgeQuoteRequest): QuoteResponse {
+    const started = performance.now()
+    const guarded = this.quoteGuard(request, started)
+    if (guarded !== null) return guarded
+
+    if (request.type === 'quoteCommission') {
+      const conversion = draftToEngine(this.state, request.draft)
+      if (!conversion.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', conversion.error, started)
+      }
+      const preflight = caught(() => conversion.apply(this.state))
+      if (!preflight.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
+      }
+      const stateDigest = authoritativeDigest(this.state)
+      const intentId = opaqueIntentId(stateDigest, { commissionDraft: request.draft })
+      const quote = commissionQuoteSnapshot(
+        this.state,
+        request.draft,
+        conversion,
+        preflight.next,
+        intentId,
+      )
+      this.pendingQuotes.set(intentId, {
+        family: 'commission',
+        draft: request.draft,
+        stateDigest,
+        kind: conversion.kind,
+        commitLabel: quote.commitLabel,
+      })
+      this.capPendingQuotes()
+      return this.mintQuoteResponse(request, started, stateDigest, quote)
+    }
+
+    const conversion = castingDraftToEngine(this.state, request.draft)
+    if (!conversion.ok) {
+      return this.reject(request.commandId, 'ENGINE_REJECTED', conversion.error, started)
+    }
+    const preflight = caught(() => conversion.apply(this.state))
+    if (!preflight.ok) {
+      return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
+    }
+    const stateDigest = authoritativeDigest(this.state)
+    const intentId = opaqueIntentId(stateDigest, { castingDraft: request.draft })
+    const quote = castingQuoteSnapshot(
+      this.state,
+      request.draft,
+      conversion,
+      preflight.next,
+      intentId,
+    )
+    this.pendingQuotes.set(intentId, {
+      family: 'casting',
+      draft: request.draft,
+      stateDigest,
+      kind: conversion.kind,
+      commitLabel: quote.commitLabel,
+    })
+    this.capPendingQuotes()
+    return this.mintQuoteResponse(request, started, stateDigest, quote)
   }
 
   save(control: ControlEnvelope): SaveResponse {
@@ -1329,7 +1434,7 @@ export class BridgeSession {
       this.remember('load', control, rejected)
       return rejected
     }
-    const loaded = importSaveJson(this.savedJson)
+    const loaded = importSaveJsonV15(this.savedJson)
     if (!loaded.ok) {
       const rejected = this.reject(control.commandId, 'SAVE_REJECTED', loaded.error, started)
       this.remember('load', control, rejected)

@@ -16,14 +16,17 @@ import {
 } from '../bridge/session.ts'
 import { canonicalJson, canonicalJsonPretty, schemaIdentity } from '../bridge/schema/canonical.ts'
 import { StudioLotSnapshotSchema } from '../bridge/schema/bridge-schema.ts'
+import { integer, literal, object, text, union } from '../bridge/schema/dsl.ts'
 import { applyActions } from '../src/core/index.ts'
 import {
+  BridgeSchemaError,
   parseWireValue,
   projectStudioLotSnapshot,
   projectStudioProjectionBundle,
 } from '../bridge/schema/runtime.ts'
 import { studioLotSnapshot } from '../ui/src/engine/adapter.ts'
 import { developmentProjection } from '../bridge/development.ts'
+import { castingProjection } from '../bridge/casting.ts'
 
 function clone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T
@@ -69,17 +72,21 @@ describe('canonical Unity bridge schema', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
       protocolVersion: 4,
-      projectionVersion: 9,
+      projectionVersion: 10,
       transport: 'http-json-localhost',
     })
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-9')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-10')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
     const state = createBridgeInitialState('bridge-schema-live-snapshot')
-    // P03A: the Development board joins the broad selector result at the bridge
-    // boundary (exactly as BridgeSession.snapshotFor composes it).
-    const broadSnapshot = { ...studioLotSnapshot(state), development: developmentProjection(state) }
+    // P03A/P04A: the Development and Casting boards join the broad selector
+    // result at the bridge boundary (exactly as BridgeSession.snapshotFor composes it).
+    const broadSnapshot = {
+      ...studioLotSnapshot(state),
+      development: developmentProjection(state),
+      casting: castingProjection(state),
+    }
     const projected = projectStudioLotSnapshot(broadSnapshot)
     const bundle = projectStudioProjectionBundle(broadSnapshot)
     expect(broadSnapshot).toHaveProperty('cash')
@@ -93,6 +100,7 @@ describe('canonical Unity bridge schema', () => {
     expect(bundle.construction.placement).toEqual(projected.placement)
     expect(bundle.releaseResults.releasedFilms).toEqual(projected.releasedFilms)
     expect(bundle.development.development).toEqual(projected.development)
+    expect(bundle.casting.casting).toEqual(projected.casting)
 
     const session = new BridgeSession(state, 'bridge-schema-session')
     const envelope = session.snapshot()
@@ -265,6 +273,7 @@ describe('canonical Unity bridge schema', () => {
       journeyNotices: BRIDGE_SCHEMA.$defs.StudioJourneyNoticesProjection.properties as Record<string, unknown>,
       releaseResults: BRIDGE_SCHEMA.$defs.StudioReleaseResultsProjection.properties as Record<string, unknown>,
       development: BRIDGE_SCHEMA.$defs.StudioDevelopmentProjection.properties as Record<string, unknown>,
+      casting: BRIDGE_SCHEMA.$defs.StudioCastingProjection.properties as Record<string, unknown>,
     }
     const fields = Object.values(ownership).flatMap((properties) => Object.keys(properties))
     const legacyFields = Object.keys(StudioLotSnapshotSchema.properties as Record<string, unknown>)
@@ -314,8 +323,8 @@ describe('canonical Unity bridge schema', () => {
     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
 
     const oldProjection = { ...clone(envelope), snapshotVersion: 5 }
-    expect(PROJECTION_VERSION).toBe(9)
-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 9/)
+    expect(PROJECTION_VERSION).toBe(10)
+    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 10/)
 
     const missingSection = clone(envelope)
     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
@@ -550,7 +559,7 @@ describe('canonical Unity bridge schema', () => {
     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
     expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 9;')
+    expect(generatedCsharp).toContain('public const int ProjectionVersion = 10;')
     expect(generatedCsharp).toContain('public int protocolVersion;')
     expect(generatedCsharp).toContain('public int snapshotVersion;')
     expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)
@@ -574,5 +583,257 @@ describe('canonical Unity bridge schema', () => {
     expect(generatedCsharp).toContain(
       '[JsonProperty("remedy", Required = Required.Always)]',
     )
+  })
+
+  // P04A Lane B STEP 1: the quote request/response seam (§2.1) needs a real
+  // top-level `union(...)` of object alternatives distinguished ONLY by a
+  // literal `type` field (the `StudioProductionCommandSnapshot` precedent).
+  // `parseWireValue`'s `anyOf` handling (bridge/schema/runtime.ts) was never
+  // exercised by an existing test with more than one object alternative, so
+  // this is the required spike/proof that it actually dispatches — not just
+  // declares — before any casting schema work depends on it.
+  describe('parseWireValue anyOf dispatch on a discriminated object union (P04A Lane B Step 1 spike)', () => {
+    const AlphaMember = object('ProbeAlpha', {
+      type: literal('alpha'),
+      alphaOnly: text({ minLength: 1 }),
+    })
+    const BetaMember = object('ProbeBeta', {
+      type: literal('beta'),
+      betaOnly: integer({ minimum: 0 }),
+    })
+    const ProbeUnion = union('ProbeUnion', [AlphaMember, BetaMember])
+
+    it('dispatches each member by its literal discriminant and preserves its own fields', () => {
+      expect(parseWireValue(ProbeUnion, { type: 'alpha', alphaOnly: 'hello' })).toEqual({
+        type: 'alpha',
+        alphaOnly: 'hello',
+      })
+      expect(parseWireValue(ProbeUnion, { type: 'beta', betaOnly: 7 })).toEqual({
+        type: 'beta',
+        betaOnly: 7,
+      })
+    })
+
+    it('rejects a value matching neither member', () => {
+      expect(() => parseWireValue(ProbeUnion, { type: 'gamma', alphaOnly: 'x' })).toThrow(
+        BridgeSchemaError,
+      )
+    })
+
+    it('rejects a mixed member carrying fields from both alternatives', () => {
+      // additionalProperties: false on BOTH members means a value carrying the
+      // other member's field can match neither closed shape.
+      expect(() =>
+        parseWireValue(ProbeUnion, { type: 'alpha', alphaOnly: 'hello', betaOnly: 7 }),
+      ).toThrow(BridgeSchemaError)
+      expect(() =>
+        parseWireValue(ProbeUnion, { type: 'beta', betaOnly: 7, alphaOnly: 'hello' }),
+      ).toThrow(BridgeSchemaError)
+    })
+
+    it('rejects a member whose discriminant is right but whose own field is malformed', () => {
+      expect(() => parseWireValue(ProbeUnion, { type: 'alpha', alphaOnly: '' })).toThrow(
+        BridgeSchemaError,
+      )
+      expect(() => parseWireValue(ProbeUnion, { type: 'beta', betaOnly: -1 })).toThrow(
+        BridgeSchemaError,
+      )
+    })
+  })
+
+  // P04A Lane B STEP 5: closed-union coverage for the real casting members —
+  // not the probe schema above, the ACTUAL registered `StudioBridgeQuoteRequest`
+  // (commission | casting) and `StudioQuoteSnapshot` (commission | casting)
+  // unions, plus the kind-discriminant, nullable-by-kind `StudioCastingDraftPayload`.
+  describe('P04A casting schema — closed union coverage', () => {
+    const envelope = {
+      protocolVersion: PROTOCOL_VERSION,
+      schemaId: SCHEMA_ID,
+      sessionId: 'session-1',
+      commandId: 'command-1',
+      expectedStateRevision: 0,
+    }
+    const commissionDraft = {
+      source: 'market' as const,
+      conceptId: 'concept-0001',
+      genre: null,
+      writerId: 'talent-writer',
+      opening: 'slowSetup' as const,
+      midpoint: 'revelation' as const,
+      ending: 'bittersweet' as const,
+      intendedSegments: ['adult' as const],
+      intimacyCenter: 1,
+      tonalWeightCenter: 1,
+      kineticEnergyCenter: 1,
+    }
+    const screenTestDraft = {
+      kind: 'screenTest' as const,
+      projectId: 'script-0001',
+      slateLead: ['talent-0001', 'talent-0002'],
+      slateAntagonist: ['talent-0001', 'talent-0003'],
+      slateSupport: ['talent-0002', 'talent-0003'],
+      directorId: null,
+      castLead: null,
+      castAntagonist: null,
+      castSupport: null,
+      craftLeadId: null,
+      budgetNegative: null,
+      budgetMarketing: null,
+    }
+    const greenlightDraft = {
+      kind: 'greenlightPackage' as const,
+      projectId: 'script-0001',
+      slateLead: null,
+      slateAntagonist: null,
+      slateSupport: null,
+      directorId: 'talent-0004',
+      castLead: 'talent-0001',
+      castAntagonist: 'talent-0002',
+      castSupport: 'talent-0003',
+      craftLeadId: 'talent-0005',
+      budgetNegative: 1_000_000,
+      budgetMarketing: 200_000,
+    }
+
+    it('validates a quoteCommission and a quoteCasting request through the SAME StudioBridgeQuoteRequest union', () => {
+      const commissionRequest = { ...envelope, type: 'quoteCommission', draft: commissionDraft }
+      const screenTestRequest = { ...envelope, type: 'quoteCasting', draft: screenTestDraft }
+      const greenlightRequest = { ...envelope, type: 'quoteCasting', draft: greenlightDraft }
+      expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteRequest, commissionRequest)).toEqual(
+        commissionRequest,
+      )
+      expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteRequest, screenTestRequest)).toEqual(
+        screenTestRequest,
+      )
+      expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteRequest, greenlightRequest)).toEqual(
+        greenlightRequest,
+      )
+    })
+
+    it('rejects a request carrying an extra key on either union member', () => {
+      const withExtra = { ...envelope, type: 'quoteCasting', draft: screenTestDraft, extra: true }
+      expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteRequest, withExtra)).toThrow(
+        BridgeSchemaError,
+      )
+      const draftWithExtra = { ...screenTestDraft, extraField: 1 }
+      const withDraftExtra = { ...envelope, type: 'quoteCasting', draft: draftWithExtra }
+      expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteRequest, withDraftExtra)).toThrow(
+        BridgeSchemaError,
+      )
+    })
+
+    it('rejects a request whose `type` and `draft` shape disagree (mixed member)', () => {
+      const mismatched = { ...envelope, type: 'quoteCommission', draft: screenTestDraft }
+      expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteRequest, mismatched)).toThrow(
+        BridgeSchemaError,
+      )
+      const reversed = { ...envelope, type: 'quoteCasting', draft: commissionDraft }
+      expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteRequest, reversed)).toThrow(
+        BridgeSchemaError,
+      )
+    })
+
+    it('StudioCastingDraftPayload keeps every by-kind field REQUIRED (nullable, never optional)', () => {
+      expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioCastingDraftPayload, screenTestDraft)).toEqual(
+        screenTestDraft,
+      )
+      expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioCastingDraftPayload, greenlightDraft)).toEqual(
+        greenlightDraft,
+      )
+      const { slateLead: _omitted, ...missingSlateLead } = screenTestDraft
+      expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioCastingDraftPayload, missingSlateLead)).toThrow(
+        BridgeSchemaError,
+      )
+      const { craftLeadId: _omitted2, ...missingCraftLeadId } = greenlightDraft
+      expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioCastingDraftPayload, missingCraftLeadId)).toThrow(
+        BridgeSchemaError,
+      )
+    })
+
+    it('validates a commission AND a casting quote through the SAME StudioQuoteSnapshot union, closed and burn/runway-free', () => {
+      const commissionQuote = {
+        intentId: 'intent-1',
+        kind: 'commissionScreenplay',
+        commitLabel: 'Commission screenplay',
+        startsNow: true,
+        queues: false,
+        title: 'Some Title',
+        writerName: 'Writer',
+        draftWeeks: 4,
+        reviewWeek: 10,
+        consequence: 'One week passes.',
+        paceNote: null,
+        richnessNote: null,
+        officeUpliftLine: null,
+        noFeeLine: 'No fee.',
+        queueNote: null,
+      }
+      const screenTestQuote = {
+        intentId: 'intent-2',
+        kind: 'startAuditions',
+        commitLabel: 'Start camera tests',
+        startsNow: true,
+        queues: false,
+        projectId: 'script-0001',
+        title: 'Some Title',
+        weekLine: 'Camera tests conclude at week 5.',
+        slotLine: 'Uses one shared Development & Casting slot.',
+        noFeeLine: 'No casting fee is charged.',
+        noHoldLine: 'No hold.',
+        uniquePeople: 3,
+        negative: null,
+        marketing: null,
+        freelancerFees: null,
+        totalImmediate: null,
+        cashBefore: null,
+        cashAfter: null,
+        affordable: null,
+        strongestAssignmentLine: null,
+        weakestAssignmentLine: null,
+        forecastLine: null,
+        setDemandLine: null,
+        queueNote: null,
+      }
+      const greenlightQuote = {
+        intentId: 'intent-3',
+        kind: 'greenlightPicture',
+        commitLabel: 'Greenlight picture',
+        startsNow: true,
+        queues: false,
+        projectId: 'script-0001',
+        title: 'Some Title',
+        weekLine: null,
+        slotLine: null,
+        noFeeLine: null,
+        noHoldLine: null,
+        uniquePeople: null,
+        negative: 1_000_000,
+        marketing: 200_000,
+        freelancerFees: 50_000,
+        totalImmediate: 1_250_000,
+        cashBefore: 5_000_000,
+        cashAfter: 3_750_000,
+        affordable: true,
+        strongestAssignmentLine: 'Strongest: Director Some Director — Fit 80/100.',
+        weakestAssignmentLine: 'Weakest: Support Some Actor — Fit 40/100.',
+        forecastLine: 'Forecast profit: $1 to $2 (expected $3).',
+        setDemandLine: 'Adequately funded.',
+        queueNote: null,
+      }
+      expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, commissionQuote)).toEqual(commissionQuote)
+      expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, screenTestQuote)).toEqual(screenTestQuote)
+      expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, greenlightQuote)).toEqual(greenlightQuote)
+
+      // Structurally closed: neither member — nor the union — tolerates a
+      // burn/runway/recurring-delta field even if a caller tried to add one.
+      const withBurn = { ...greenlightQuote, weeklyBurn: 100 }
+      expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, withBurn)).toThrow(
+        BridgeSchemaError,
+      )
+      const withRunway = { ...greenlightQuote, runwayWeeks: 10 }
+      expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, withRunway)).toThrow(
+        BridgeSchemaError,
+      )
+    })
   })
 })

@@ -213,6 +213,7 @@ export function projectStudioProjectionBundle(value: unknown): BridgeStudioProje
     journeyNotices: section('StudioJourneyNoticesProjection', 'journeyNotices'),
     releaseResults: section('StudioReleaseResultsProjection', 'releaseResults'),
     development: section('StudioDevelopmentProjection', 'development'),
+    casting: section('StudioCastingProjection', 'casting'),
   }
   return project(
     schemaRecord(StudioProjectionBundleSchema, '$defs.StudioProjectionBundle'),

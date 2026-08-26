@@ -204,17 +204,19 @@ function makeState(broadcastItems: BroadcastItem[]): GameState {
 }
 
 // A well-formed save: envelope seed === state.seed, broadcastCache === broadcastItems.
-// makeSave is the C2a-M1 SaveFileV14 default. STILL V14 as of P04A (§2.5): see
-// the P04A §2.5 describe block below for why `makeSave` has not yet been cut
-// over to SaveFileV15, and `wellFormedV15Save` for the V15-specific fixture.
-function wellFormedSave(): SaveFileV14 {
+// `makeSave` is the P04A (§2.5) live boundary: SaveFileV15. V15 owns no new
+// root over V14 (only the widened `queueIntentExpired.subjectId` leaf), so
+// every V1–V13-style shape assertion below is unchanged by the cutover — only
+// the envelope's own version tag moved.
+function wellFormedSave(): SaveFileV15 {
   const items = [broadcastItem];
   const state = makeState(items);
   return makeSave(state);
 }
 
-// The V15 counterpart: SaveFileV15 exists, validates, and migrates both
-// directions (§2.5), even though `makeSave` itself is not yet wired to it.
+// The V15 fixture, built directly via `makeSaveV15` rather than through
+// `makeSave` — kept distinct so the P04A describe block below still exercises
+// the V15 machinery explicitly, independent of what `makeSave` defaults to.
 function wellFormedV15Save(): SaveFileV15 {
   const items = [broadcastItem];
   const state = makeState(items);
@@ -257,7 +259,7 @@ describe("M14 — loud rejection when envelope seed ≠ state.seed", () => {
     // Source: M14 "the envelope seed must equal state.seed; load validation
     // rejects any divergence loudly (same failure mode as an unknown saveVersion)."
     const save = wellFormedSave();
-    const bad: SaveFileV14 = { ...save, seed: "a-different-seed" };
+    const bad: SaveFileV15 = { ...save, seed: "a-different-seed" };
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -271,22 +273,20 @@ describe("M14 — loud rejection when broadcastCache ≠ state.broadcastItems", 
       ...broadcastItem,
       template: "release-worse",
     };
-    const bad: SaveFileV14 = { ...save, broadcastCache: [divergentItem] };
+    const bad: SaveFileV15 = { ...save, broadcastCache: [divergentItem] };
     expect(() => loadSave(bad)).toThrow();
   });
 
   it("throws when broadcastCache differs from state.broadcastItems by length", () => {
     // Source: M14 — any divergence (including cardinality) is rejected.
     const save = wellFormedSave();
-    const bad: SaveFileV14 = { ...save, broadcastCache: [] };
+    const bad: SaveFileV15 = { ...save, broadcastCache: [] };
     expect(() => loadSave(bad)).toThrow();
   });
 });
 
-// P04A §2.5 note: `makeSave`/`exportSaveJson` still emit SaveFileV14 today (see
-// the note on `makeSaveV14` in save.ts) — the live cutover to V15 is a
-// follow-up integration decision, not this lane's. SaveFileV15 itself,
-// however, is fully built: it validates, round-trips, and both
+// P04A §2.5: `makeSave`/`exportSaveJson` now emit SaveFileV15 — the live
+// cutover has landed. SaveFileV15 validates, round-trips, and both
 // `convertV14ToV15`/`migrateToV15` migrate a real V14 file forward. These
 // tests exercise the V15 machinery directly (via `makeSaveV15`), independent
 // of which envelope `makeSave` currently defaults to.

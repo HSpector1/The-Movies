@@ -3,7 +3,7 @@ import { createHash, randomUUID } from 'node:crypto'
 import {
   exportSave,
   importSave,
-  type SaveFileV14,
+  type SaveFileV15,
 } from '../src/core/index.js'
 import {
   BRIDGE_SCHEMA,
@@ -102,8 +102,8 @@ export type HydratedBridgeRuntimeJournalEntry =
 
 export type HydratedBridgeRuntimeCheckpoint = {
   checkpoint: BridgeRuntimeCheckpointV1
-  currentSave: SaveFileV14
-  savedSave: SaveFileV14 | null
+  currentSave: SaveFileV15
+  savedSave: SaveFileV15 | null
   journal: readonly HydratedBridgeRuntimeJournalEntry[]
   checkpointBytes: number
   journalBytes: number
@@ -279,11 +279,11 @@ function parseCanonicalJson(json: string, path: string): unknown {
   return parsed
 }
 
-function validateCanonicalV14(
+function validateCanonicalV15(
   saveJson: string,
   path: string,
-  cache: Map<string, SaveFileV14>,
-): SaveFileV14 {
+  cache: Map<string, SaveFileV15>,
+): SaveFileV15 {
   const cached = cache.get(saveJson)
   if (cached !== undefined) return cached
   let imported
@@ -292,13 +292,13 @@ function validateCanonicalV14(
   } catch (error) {
     fail(path, `is not a valid TypeScript save: ${(error as Error).message}`)
   }
-  if (imported.saveVersion !== 14) {
-    fail(path, `must be a current V14 save, received V${String(imported.saveVersion)}`)
+  if (imported.saveVersion !== 15) {
+    fail(path, `must be a current V15 save, received V${String(imported.saveVersion)}`)
   }
   if (exportSave(imported) !== saveJson) {
-    fail(path, 'must preserve the canonical V14 save bytes exactly')
+    fail(path, 'must preserve the canonical V15 save bytes exactly')
   }
-  const current = imported as SaveFileV14
+  const current = imported as SaveFileV15
   cache.set(saveJson, current)
   return current
 }
@@ -354,7 +354,7 @@ function hydrateEntry(
   index: number,
   sessionId: string,
   stateRevision: number,
-  saveCache: Map<string, SaveFileV14>,
+  saveCache: Map<string, SaveFileV15>,
 ): HydratedBridgeRuntimeJournalEntry {
   const path = `checkpoint.journal[${String(index)}]`
   const record = exactRecord(value, path, JOURNAL_ENTRY_KEYS)
@@ -397,9 +397,9 @@ function hydrateEntry(
     }
     if (route === 'save') {
       const acceptedSave = response as BridgeAcceptedSaveResponse
-      validateCanonicalV14(acceptedSave.saveJson, `${path}.responseJson.saveJson`, saveCache)
+      validateCanonicalV15(acceptedSave.saveJson, `${path}.responseJson.saveJson`, saveCache)
       if (digest(acceptedSave.saveJson) !== acceptedSave.stateDigest) {
-        fail(path, 'accepted save response digest does not match its V14 bytes')
+        fail(path, 'accepted save response digest does not match its V15 bytes')
       }
     }
   } else {
@@ -527,17 +527,17 @@ function migratePriorCheckpoint(
     )
   }
 
-  const saveCache = new Map<string, SaveFileV14>()
-  const currentSave = validateCanonicalV14(currentSaveJson, 'checkpoint.currentSaveJson', saveCache)
+  const saveCache = new Map<string, SaveFileV15>()
+  const currentSave = validateCanonicalV15(currentSaveJson, 'checkpoint.currentSaveJson', saveCache)
   if (digest(currentSaveJson) !== currentStateDigest) {
     fail('checkpoint.currentStateDigest', 'does not match currentSaveJson')
   }
   if ((savedSaveJson === null) !== (savedStateDigest === null)) {
     fail('checkpoint.savedStateDigest', 'must be null exactly when savedSaveJson is null')
   }
-  let savedSave: SaveFileV14 | null = null
+  let savedSave: SaveFileV15 | null = null
   if (savedSaveJson !== null) {
-    savedSave = validateCanonicalV14(savedSaveJson, 'checkpoint.savedSaveJson', saveCache)
+    savedSave = validateCanonicalV15(savedSaveJson, 'checkpoint.savedSaveJson', saveCache)
     if (digest(savedSaveJson) !== savedStateDigest) {
       fail('checkpoint.savedStateDigest', 'does not match savedSaveJson')
     }
@@ -697,8 +697,8 @@ export function hydrateBridgeRuntimeCheckpoint(
     )
   }
 
-  const saveCache = new Map<string, SaveFileV14>()
-  const currentSave = validateCanonicalV14(currentSaveJson, 'checkpoint.currentSaveJson', saveCache)
+  const saveCache = new Map<string, SaveFileV15>()
+  const currentSave = validateCanonicalV15(currentSaveJson, 'checkpoint.currentSaveJson', saveCache)
   if (digest(currentSaveJson) !== currentStateDigest) {
     fail('checkpoint.currentStateDigest', 'does not match currentSaveJson')
   }
@@ -707,7 +707,7 @@ export function hydrateBridgeRuntimeCheckpoint(
   }
   const savedSave = savedSaveJson === null
     ? null
-    : validateCanonicalV14(savedSaveJson, 'checkpoint.savedSaveJson', saveCache)
+    : validateCanonicalV15(savedSaveJson, 'checkpoint.savedSaveJson', saveCache)
   if (savedSaveJson !== null && digest(savedSaveJson) !== savedStateDigest) {
     fail('checkpoint.savedStateDigest', 'does not match savedSaveJson')
   }
@@ -852,7 +852,7 @@ export function decodeBridgeRuntimeCheckpoint(
 /**
  * Startup-only compatibility boundary. Prior response bytes cannot be replayed under the
  * current closed contract, so a valid checkpoint is rolled into a fresh logical session while
- * preserving both authoritative V14 save slots exactly.
+ * preserving both authoritative V15 save slots exactly.
  */
 export function loadBridgeRuntimeCheckpoint(
   bytes: string,

@@ -42,11 +42,11 @@ import {
   migrateToV10,
   makeSaveV11,
   migrateToV11,
-  migrateToV14,
+  migrateToV15,
   stableStringify,
   validateSave,
   validateSaveV11,
-  validateSaveV14,
+  validateSaveV15,
   type SaveFile,
   type SaveFileV11,
 } from "../src/core/save.js";
@@ -186,9 +186,9 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
 
     for (const state of states) {
       const save = makeSave(state);
-      expect(save.saveVersion).toBe(14);
+      expect(save.saveVersion).toBe(15);
       expect(validateSave(save)).toBe(save);
-      expect(validateSaveV14(save)).toBe(save);
+      expect(validateSaveV15(save)).toBe(save);
       const json = exportSave(save);
       expect(exportSave(importSave(json))).toBe(json);
     }
@@ -235,7 +235,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
 
     for (const state of states) {
       const json = exportSave(makeSave(state));
-      const imported = migrateToV14(importSave(json)).state;
+      const imported = migrateToV15(importSave(json)).state;
       expect(exportSave(makeSave(imported))).toBe(json);
       expect(exportSave(makeSave(tick(imported)))).toBe(
         exportSave(makeSave(tick(state))),
@@ -511,7 +511,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
           productionId: reservedId,
           note: "forged persisted production identity",
         });
-        expect(() => validateSaveV14(forgedV13)).toThrow(
+        expect(() => validateSaveV15(forgedV13)).toThrow(
           /canonical Annex id .*collides with persisted production history/,
         );
       }
@@ -550,8 +550,8 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
     };
     const save = makeSave(withFuture);
     expect("futureV13" in save.state).toBe(false);
-    expect(() => validateSave({ ...save, saveVersion: 15 })).toThrow(
-      /unknown saveVersion 15.*versions 1 through 14 only/,
+    expect(() => validateSave({ ...save, saveVersion: 16 })).toThrow(
+      /unknown saveVersion 16.*versions 1 through 15 only/,
     );
   });
 });

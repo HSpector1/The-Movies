@@ -364,9 +364,10 @@ function createHttpServer(
         return
       }
       if (request.method === 'POST' && url.pathname === '/quote') {
-        // P03A: a commission quote is a pure read plus a session-transient mint.
-        // It mutates no game state, advances no revision, and is never journaled,
-        // so it rides the read path rather than the dispatch/journal path.
+        // P03A/P04A: a quote (commission OR casting) is a pure read plus a
+        // session-transient mint. It mutates no game state, advances no
+        // revision, and is never journaled, so it rides the read path rather
+        // than the dispatch/journal path.
         let body: unknown
         try {
           const parsed = await readJson(request)
@@ -379,7 +380,8 @@ function createHttpServer(
             (error as Error).message,
             started,
           )
-          logResult(rejected, 'quoteCommission', '-', null)
+          // The body never parsed, so no request `type` is known yet.
+          logResult(rejected, 'quote', '-', null)
           json(response, 400, rejected)
           return
         }
@@ -392,12 +394,13 @@ function createHttpServer(
             validation.message,
             started,
           )
-          logResult(rejected, 'quoteCommission', '-', null)
+          // The envelope failed validation before its `type` could be trusted.
+          logResult(rejected, 'quote', '-', null)
           json(response, 400, rejected)
           return
         }
         const quoted = await runtime.read((session) => session.quote(validation.quote))
-        logResult(quoted, 'quoteCommission', validation.quote.expectedStateRevision, null)
+        logResult(quoted, validation.quote.type, validation.quote.expectedStateRevision, null)
         json(response, quoted.accepted ? 200 : 409, quoted)
         return
       }
