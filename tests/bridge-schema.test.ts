@@ -583,6 +583,16 @@ describe('canonical Unity bridge schema', () => {
     expect(generatedCsharp).toContain(
       '[JsonProperty("remedy", Required = Required.Always)]',
     )
+    // P04A wire-correctness fix: `StudioQuoteSnapshot` flattens the
+    // commissionQuote/castingQuote union into ONE C# class. `noFeeLine` is
+    // `nonEmptyText()` on the commission member but `nullable(text())` on the
+    // casting member — the merge must keep it required-present but loosen it
+    // to nullable (the LOOSEST across members), never pin the first member's
+    // non-null schema, or a legal `greenlightPicture` quote (`noFeeLine: null`)
+    // would throw during Unity-side deserialization.
+    expect(generatedCsharp).toContain(
+      '[JsonProperty("noFeeLine", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]',
+    )
   })
 
   // P04A Lane B STEP 1: the quote request/response seam (§2.1) needs a real

@@ -116,9 +116,22 @@ function objectShape(input: Schema): { properties: Record<string, Schema>; requi
     const constants = [...new Set(candidates.flatMap((candidate) =>
       candidate['const'] === undefined ? [] : [candidate['const']],
     ))]
-    properties[name] = constants.length > 1
-      ? { type: typeof constants[0], enum: constants }
-      : candidates[0]!
+    if (constants.length > 1) {
+      // Literal-discriminant merge across members (e.g. a per-member `kind`/`type`
+      // literal): unchanged. This is not a nullability collision.
+      properties[name] = { type: typeof constants[0], enum: constants }
+      continue
+    }
+    // "First member wins" for the property's TYPE/$ref is a documented limitation
+    // (no full polymorphism in the flattened C# DTO). But requiredness/nullability
+    // must be the LOOSEST across every member that declares this property: if ANY
+    // member allows null for it, the merged field must allow null too, or a legal
+    // value from a later member throws during Unity-side deserialization.
+    const merged = candidates[0]!
+    const anyMemberAllowsNull = candidates.some((candidate) => nullablePart(candidate).nullable)
+    properties[name] = anyMemberAllowsNull && !nullablePart(merged).nullable
+      ? { anyOf: [merged, { type: 'null' }] }
+      : merged
   }
   const required = new Set(propertyNames.filter((name) => shapes.every((shape) => shape.required.has(name))))
   return { properties, required }

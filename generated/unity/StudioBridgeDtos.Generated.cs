@@ -3085,7 +3085,7 @@ namespace Studio.Runtime.Data
         [JsonProperty("negative", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
         public int? negative;
 
-        [JsonProperty("noFeeLine", Required = Required.Always)]
+        [JsonProperty("noFeeLine", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public string noFeeLine;
 
         [JsonProperty("noHoldLine", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
