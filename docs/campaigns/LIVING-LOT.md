@@ -2595,3 +2595,219 @@ Owner P04A assignment (sole Fable lead; cheapest-capable subagents; hostile revi
 **Residuals recorded:** (a) an old-schema profile saved *mid-founding* still fails closed on the founding-draft guard with no in-product recovery — not a regression (those profiles failed on schemaId before; the bricked set strictly shrank), but the one class the headline does not cover; (b) the remedy commit message says "19 new tests" — actual executed cases in that commit were 17 (9 it-blocks; corrected here); (c) saved-slot-vs-journal provenance is no longer cross-checked for prior imports (bounded acceptably: full core save validation still binds content, as hostile tampering proved); (d) `ReadonlyMap` is type-level only (cosmetic freeze follow-up); (e) at every future projection bump, the OUTGOING identity must be appended to the map — the literal-pin test forces the decision consciously.
 
 **Re-seal:** TS `fd93811 (amended in-place post-commit: see log)` on `campaign/living-lot-ts` (production remedy `0386d34` + this amendment + boundary pins); Unity unchanged at `d0c42d7`. Both pushed. **STOPPED — awaiting the Owner's playtest. Do not start P05.**
+
+### P04A.1 — Owner-input remedy (KEEP CANDIDATE, 2026-08-28 overnight convergence)
+
+**Ledger-only TypeScript change. Zero TypeScript production edits — `b870a71` production
+bytes are untouched, and that property is worth keeping.** This checkpoint is Unity
+presentation and proof harness only.
+
+#### The Owner's rejection
+
+The Owner played the accepted P04A seal (`d0c42d7`) and rejected it in four sentences:
+"I don't know how to select my cast." · "It is not letting me hit save or anything at
+Casting." · "It was not super clear I needed to go to Casting because the film was done." ·
+"I do not know how to exit out of my game. The top left is not showing minimize, exit out,
+or anything."
+
+Their recovered session is the evidence: `quoteCommission` accepted 07:43:57, two
+`submitIntent`s, then **3 min 21 s with zero commands**, then `load rejected:NO_SAVE`, then
+`shutdown reason=SIGHUP` when the terminal closed. A player who could not act, then could
+not leave.
+
+#### Root causes — all measured in the packaged player, none inferred
+
+1. **The Casting body had no usable scroll range at all.** Measured at 1440x900:
+   `viewportH 1023 == contentH 1023, vRange 0..0, verticalScroller display=None`. The
+   themeless `PanelSettings` leaves `ScrollView` without the internal box model Unity's
+   default theme supplies, and a bare `VisualElement { flex-shrink: 0 }` **type** selector
+   added by Wave 7B also pinned the ScrollView's own containers. Choose / Replace / Remove
+   were **unreachable, not merely unclear**. The accepted seal's own non-blocker #8
+   described this content as *"scrollable; scroll affordance is subtle at some sizes."* It
+   was not scrollable. **That mis-description is why the defect survived the seal** — the
+   same self-criticism shape as the P04A REOPEN's non-blocker #16.
+2. **Save Game could swallow a click.** `ActionsEnabled` folds in `!requestInFlight` and the
+   client polls ~1/s, so the control was dead for a slice of most seconds as a pure
+   transport artifact — the Owner's complaint reproduced inside the control built to answer
+   it. Save/Load now arm on click and dispatch on the first idle frame.
+3. **The role rail could scroll fully away**, leaving nothing answering "WHAT ROLE AM I
+   CASTING?". `NOW CASTING · <ROLE>` is now pinned outside the scrolling region.
+4. **There was no way out.** A global Studio Menu (IMGUI, because IMGUI draws above the
+   runtime UI Toolkit panel here and so can be genuinely modal over the memo) owns
+   Resume / Save Game / Load Game / Quit to Desktop.
+
+#### What the overnight convergence actually found
+
+The remedy was implemented before this session. The session's job was to prove it under the
+CF-02 binding — and proving it exposed that several claims **were never actually asserted**:
+
+- **Journey B could pass while the thing under test failed.** A missed `rail-locate-casting`
+  click recorded its fallback with no `ok` field, and `record()` defaults `ok` to true.
+- **`NOW CASTING · <ROLE>` was never asserted anywhere**, despite role visibility being one
+  of the four verbatim failures.
+- **Inspection vs assignment had no packaged proof** (design report §5 REJECTs "single click
+  assigns a role"; Annex E1 requires the separation).
+- **Journey D proved Cancel on three discard routes but Confirm on only one.**
+- **CF-01's one-Esc-one-layer grammar had no real-input proof and could not have had one** —
+  inspection was not observable from outside the player, and the menu driver had never sent
+  an Escape key at all, in any state.
+- **The casting-journey runner was never bytes-bound**, stamping provenance from a live
+  `git rev-parse HEAD` — the checkout, not the bytes under test. Exactly the CF-02 trap.
+
+Two defects in that binding fix were caught by its own new tests before any real run. One
+was destructive: under `node -e`, `process.argv` has no script-path slot, so a two-hole
+destructure made the output path the **player executable** — the provenance write would have
+overwritten the packaged binary with JSON on every casting run.
+
+Three harness defects surfaced as failures against a *correct* player and were root-caused
+rather than tuned: an assertion that Locate enters inspection (it focuses the camera; only
+Stage Seven and Administration carry inspection profiles at all); a CF-01 sweep aimed at the
+Casting Office, which has no inspection profile, from a camera framing where the two
+inspectable buildings were off screen (fixed by pressing Home first); and a `dload` scenario
+asserting a load succeeded in a run that had never saved, which the engine correctly refused
+with `409 NO_SAVE` — the same refusal the Owner's own session records at 07:47:34.
+
+#### The one product change
+
+`StudioCameraDirector` publishes `world-back-to-studio` (aimable) and `world-inspection-active`
+(the witness) to the inert element registry — the mechanism the Production Rail and
+Development card already use. Geometry only: rects and labels, no state, no callbacks, no
+authority. Without it no packaged proof could witness whether inspection survived an Esc.
+That file is named **P03A.3 regression-sensitive** by the P04A reconnaissance; it shadows
+none of the protected symbols, adds no behaviour, and the full P03A.3 suite was re-run.
+
+#### Hostile review — REJECT, then ACCEPT
+
+One fresh-context Opus reviewer. It **rejected** and it was right.
+
+**B1:** the CF-06 secret-scan `ALLOWED` list was tested against the whole line and
+`continue`d past both detectors. Every `wire-recording.jsonl` record carries the redaction
+witness `"digest":"runlocal:<hex>"`, so **100% of the lines in the one file CF-06 was filed
+about were skipped**. The reviewer planted a real 43-char token under an unrecognised key on
+a real wire line and the gate reported SCAN CLEAN. Worse, **the guard meant to discharge
+exactly this was itself too weak** — it planted the capability on the *next* line while the
+skip was line-scoped. Fixed by masking rather than skipping; every guard now plants the
+capability on the *same* line. Verified by reproducing the reviewer's own demonstration.
+
+On re-verification the same reviewer returned **ACCEPT**, having attacked the masking with 12
+constructions (10 caught; the 2 survivors proven unreachable and also missed under the old
+skip — a strict improvement).
+
+Its two new non-blockers were then closed rather than banked, and closing them corrected a
+misattribution: of the two reported adjacencies only `runlocal:` was a real allowlist bleed;
+`"memorysetup-<43>=1"` is invisible to the shape detector **with or without any allowlist**
+(55 unbroken word characters, no isolated 43-char window), so it is a limit of the shape
+definition and is now pinned both ways as a test rather than "fixed" in the wrong place.
+
+Because the first reviewer's context could not be resumed, a **delta-scoped verifier**
+independently confirmed the post-ACCEPT commits (`CONFIRMED`), re-derived the NB-A
+measurement, and found four documentation defects — two of them fresh stale comments
+introduced *while fixing the previous stale comment*. All four were fixed.
+
+#### Gates
+
+| gate | result |
+|---|---|
+| Unity EditMode | **493/493**, 0 failed, 0 `error CS` |
+| Headless harness tests | **61/61** |
+| TypeScript `npm run test:bridge` (contract + suites) | 14 files / **162 tests** |
+| TypeScript casting/save/queue/package floor | 9 files / **107 tests** |
+| `npm run audit:studio-packaged` | PASS — first-party + node builtins only, 82 inputs |
+| Casting journeys (bytes-bound) | 5/5 `status: complete`, `integrity.ok true` |
+| Owner-input Journeys A+B | PASS 0 failed at 1280x800, 1440x900, 1720x1045, **3456x2234 fullscreen** |
+| Studio Menu journeys | `cd`, `dload`, `dquit`, `equit`, `ecmdq`, **`esc` (CF-01)** — all PASS |
+| P03/P04A regression floor | 9/9 `status: complete`, `failure: ""` |
+| Coordinate self-test | PASS, 0 failed assertions |
+
+Living Time determinism unchanged from the sealed baseline: manual `finalDigest` == auto
+`finalDigest` == `replayedWeekDigest` == `8f18cd97fc0262d250e4ff94c72719e07d150fa42987d11f9df99b0f586ad12c`.
+
+**CF-01 witnessed through real packaged keyboard input** (`esc4`): inspection entered on
+`StageSeven` by real double-click, Studio Menu opened over it, **one real Esc closed the menu
+and left inspection standing**, a second Esc exited it.
+
+**Exact stable ids verified off the raw wire**, not reflected out of Unity: exactly one
+`POST /quote` per run, its draft ids equal to the ids clicked, and **zero `POST /command`**
+between workspace-open and the explicit Greenlight click.
+
+#### Visual verdict at 100% — all four viewports PASS
+
+`NOW CASTING · <ROLE>` pinned outside the scroll; `PACKAGE READY` plus next action; a
+dominant full-width `Review Greenlight`; `SELECTED FOR DIRECTOR` with `Remove from Director`
+and `Replace with <name>` reachable; `MENU` and `◄ BACK TO STUDIO` present; a live scrollbar;
+nothing clipped; the lot visible behind the workspace. The Greenlight review shows named
+company, strongest/weakest assignment, forecast range with uncertainty, the full cost
+breakdown, capacity and `Starts immediately` — and **no master quality score**. Save copy on
+screen reads *"Saved. Uncommitted Casting selections are presentation-only and will not be
+included in this save."*
+
+Design tokens are the north star's own values (`--ps-font-body: 18px`, meta 15, section 22,
+title 32, `--ps-control-min-height: 44px`) and the single `PanelSettings` site is
+`ScaleWithScreenSize`, 1920x1080, match 0.5 — ≈1.93× at the Owner's fullscreen, which is what
+answers the original "UI is materially too small" blocker.
+
+#### Known non-blockers (disclosed, not fixed)
+
+1. The rail's and Development card's own `READY FOR CASTING` state lines are drawn but never
+   published to the element registry, so the packaged driver asserts the `LOCATE CASTING ▸` /
+   `GO TO CASTING` control text instead. Observability gap, not faked with an invented element.
+2. Memo contents are published nowhere; the "memo is not required" claim is discharged by the
+   in-player `JourneyMemoless` variant, not by the pointer driver.
+3. The `HomePressed` residual is **not-measured**, not "measured clean": the probe is now
+   genuinely drivable (`h` → keycode 4) but inspection could not be re-entered after the
+   second Esc in the sealed run. Home is separately an explicitly sanctioned camera verb
+   (design report §21; P03A.3: "Home remains canonical overview … it is not Back"), so Home
+   retiring inspection is Home doing its documented job; whether it should be suppressed under
+   a modal is a design decision, deferred.
+4. The nine P03/P04A regression-floor runners carry the same exact direct-child process
+   binding but **no manifest stamp** and are mode 755 (0 secret findings). Run in this session
+   against the same rebuilt binary with no intervening rebuild. Disclosed, not claimed as
+   bytes-bound.
+5. UI Toolkit scales *down* below its 1920x1080 reference: ≈1.93× at 3456x2234 but ≈0.70× at
+   1280x800. Judged legible from real frames at the smallest supported proof viewport.
+6. Under the Studio Menu the suppressed workspace renders **translucent rather than dimmed**,
+   so lot art reads through workspace text. The modal is fully legible and is the only
+   interactive surface. Cosmetic; a deliberate suppression treatment is a design change.
+7. The launcher's evidence-collision guard is still discharged by **source order**
+   (`indexOf` before `nohup node`) — the stamp is minted at run time so a true collision
+   cannot be forced. The casting runner's equivalent gate IS exercised for real (exit 6 plus
+   filesystem-state assertions).
+8. A capability **concatenated** to adjacent word characters is invisible to
+   `CAPABILITY_SHAPE` by definition, allowlist or not. Pinned as a test so the real limit of
+   the CF-06 gate is written down rather than assumed.
+9. The 60 legacy pre-fix `OwnerInputProof-*` evidence directories still contain raw
+   capabilities. Engines dead, gitignored, owner-only (mode 700), never in git, none cited as
+   seal evidence. **Purging them remains an Owner call.** The fixed gate reports 305 findings
+   on one of them, which is the live control proving the detector is not merely quiet.
+10. Superseded/failed intermediate runs from this session (`dload`, `dload2`, `dload3`, `esc`,
+    `esc2`, the first `ab1280`) remain on disk recorded as `pass=false`. Kept deliberately:
+    deleting failed evidence is how greens get manufactured.
+
+### Ruling
+
+**KEEP CANDIDATE.** Hostile chain closed at ACCEPT, its two new non-blockers closed, and a
+delta-scoped verifier CONFIRMED the post-ACCEPT commits. Owner acceptance is **still
+pending** — nothing here is Owner-accepted. Development remains closed. **STOPPED — before
+P05, awaiting the Owner's playtest verdict.**
+
+#### Exact SHAs
+
+| | |
+|---|---|
+| Accepted P04A baseline (superseded by this seal) | `d0c42d7089a25eb496bcfc0e69433c3dc786bc35` |
+| Unity `campaign/living-lot-client` | **`629090c066a4345acb197193103760cc21a43965`** — fast-forwarded, no merge, no rewrite |
+| Unity WIP branch (same tip, history preserved) | `wip/p04a1-owner-input-remedy-resume-20260827` |
+| Packaged player under test | `36a79dca850a4685959206c174277c5ac32faa745a8b88c05eba967084bf8532`, built 2026-08-27T21:21:43Z |
+| TypeScript production | `b870a712758b7d1689b0cc4110c8fe64a0702234` — **byte-unchanged**; this ledger entry is the only TS change |
+| Schema / protocol / projection | `sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e` / 4 / 11 |
+
+Both repositories pushed. Both worktrees clean. No Project: Studio process left running.
+
+#### Owner launch command
+
+```sh
+cd "/Users/bruce/The Movies - Unity Production Convergence 80H"
+npm run play
+```
+
+(or double-click `PLAY_PROJECT_STUDIO.command` in Finder — it delegates to the same command.)
