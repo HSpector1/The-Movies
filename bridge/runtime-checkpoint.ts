@@ -3,8 +3,10 @@ import { createHash, randomUUID } from 'node:crypto'
 import {
   exportSave,
   importSave,
+  migrateToV15,
   type SaveFileV15,
 } from '../src/core/index.js'
+import { exportSaveJson } from '../ui/src/engine/adapter.ts'
 import {
   BRIDGE_SCHEMA,
   PROTOCOL_VERSION,
@@ -25,11 +27,63 @@ export const BRIDGE_RUNTIME_CHECKPOINT_VERSION = 1 as const
 export const LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION = 3 as const
 export const LEGACY_BRIDGE_RUNTIME_SCHEMA_ID =
   'sha256:3e812c30081ae8c9af3999e8907246c040957dfffedcbcf9909a19c1eeb317ac' as const
-// P03A: the one carry-forward slot moves to the outgoing v8 identity. A v8
-// runtime dir migrates with the documented cost (journal discarded, revision
-// reset, fresh sessionId, both save slots preserved); v7 dirs now fail closed.
+// P03A named this the one carry-forward slot; P04A REOPEN retires that ceiling.
+// The Owner's durable profile checkpoint proved a real runtime dir can sit on
+// ANY historical protocol-4 schema, not just the one immediately prior to the
+// running schema, so a single slot fails closed on everything older. This
+// constant is kept (unchanged value, still the projection-v8 identity) purely
+// because existing call sites already name it; it is now one entry among many
+// in SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS below, not a distinguished slot.
 export const PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID =
   'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5' as const
+
+// P04A REOPEN: every distinct protocol-4 schema identity that has ever shipped,
+// enumerated by walking the full commit history of
+// generated/unity/StudioBridgeDtos.Generated.cs (`git log --format=%h -- <path>`,
+// then `git show <sha>:<path> | grep -m1 "Schema identity"` for each commit) and
+// collecting every DISTINCT value, excluding the current running schema
+// (SCHEMA_ID, sha256:01f15efc...) and the protocol-3 legacy identity
+// (LEGACY_BRIDGE_RUNTIME_SCHEMA_ID above). The era label mirrors the
+// generator's ProjectionVersion constant at the introducing commit. Two
+// commits can share a ProjectionVersion number yet still mint distinct schema
+// identities when the schema content changed without a version bump — both
+// are enumerated (suffixed "-early") because a durable checkpoint written in
+// that window would carry the earlier hash, and this map is keyed on the
+// hash, not the label.
+export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // projection-v4-early: 720826b "authenticate durable runtime sessions" — the
+  // first protocol-4 schema; superseded two days later within the same
+  // generator ProjectionVersion=4 label by the entry below.
+  ['sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f', 'projection-v4-early'],
+  // projection-v4: d0223c1 "raw Week-0 founding opening with GUI cast choice" —
+  // the identity carried by the Owner's stuck durable profile checkpoint that
+  // opened this P04A REOPEN lane.
+  ['sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61', 'projection-v4'],
+  // projection-v5: de32b41 "LL-CP9 founding-arrival view, treasury pulse,
+  // founding at Core minimum"
+  ['sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb', 'projection-v5'],
+  // projection-v6: 72c373c "projection v6 — Madden-style arrival stats (fame,
+  // work ethic, market standing)"
+  ['sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587', 'projection-v6'],
+  // projection-v7: 57fde6f "projection v7 — the specialty signal and the
+  // payroll pulse"
+  ['sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c', 'projection-v7'],
+  // projection-v8: 6761178 "projection v8 — the signed roster becomes
+  // authoritative" — this was the P03A single carry-forward slot
+  // (PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID above); referenced by name
+  // here so existing call sites that import that constant keep working.
+  [PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID, 'projection-v8'],
+  // projection-v9-early: a75b20c "projection v9 — the Development board and
+  // the commission quote seam" — superseded eleven minutes later within the
+  // same generator ProjectionVersion=9 label by the entry below.
+  ['sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c', 'projection-v9-early'],
+  // projection-v9: 2ddf080 "the commission catalog names the genres"
+  ['sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47', 'projection-v9'],
+  // projection-v10: 84c47d4 "P04A — casting projection v10 + quote union +
+  // SaveV15 cutover" (also c056f2b, a same-day generator fix that reproduces
+  // the identical hash — one P04A-interim value, not two).
+  ['sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4', 'projection-v10'],
+])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({
   maxCheckpointBytes: 32 * 1024 * 1024,
@@ -447,10 +501,17 @@ type SupportedPriorProtocolVersion =
   | typeof LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION
   | typeof PROTOCOL_VERSION
 
-type SupportedPriorSchemaId =
-  | typeof LEGACY_BRIDGE_RUNTIME_SCHEMA_ID
-  | typeof PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID
+// Widened (P04A REOPEN): was the two-member literal union
+// `LEGACY_BRIDGE_RUNTIME_SCHEMA_ID | PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID`.
+// The set of accepted protocol-4 identities is now a runtime map
+// (SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS), so it cannot be expressed as a
+// closed compile-time literal union; membership is checked at the dispatch
+// site (loadBridgeRuntimeCheckpoint) instead.
+type SupportedPriorSchemaId = typeof LEGACY_BRIDGE_RUNTIME_SCHEMA_ID | string
 
+// Used only by the protocol-3 legacy path below — protocol-4 prior imports
+// never hydrate/parse journal bodies under the current contract (see
+// migratePriorProtocol4Checkpoint's compatibility-boundary comment).
 function migratePriorContractJson(
   json: string,
   path: string,
@@ -475,13 +536,21 @@ function migratePriorContractJson(
   })
 }
 
-function migratePriorCheckpoint(
+// Protocol-3 legacy import — UNCHANGED law (kept byte-for-byte from the prior
+// single-path implementation; only the two former parameters are now fixed
+// `const`s naming what was always their one caller). Still hydrates/parses
+// every journal request and response body under the CURRENT contract via
+// hydrateEntry, and still cross-checks the terminal journal response against
+// the root revision/digest/week and the latest accepted save. Do not change
+// this function to "fix" it to match the protocol-4 compatibility boundary
+// below — the frozen law is explicit that protocol-3 law stays untouched.
+function migrateLegacyProtocol3Checkpoint(
   bytes: string,
   configuredLimits: BridgeRuntimeCheckpointLimits,
   createSessionId: () => string,
-  priorProtocolVersion: SupportedPriorProtocolVersion,
-  priorSchemaId: SupportedPriorSchemaId,
 ): LoadedBridgeRuntimeCheckpoint {
+  const priorProtocolVersion = LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION
+  const priorSchemaId = LEGACY_BRIDGE_RUNTIME_SCHEMA_ID
   const limits = validateLimits(configuredLimits)
   const byteLength = Buffer.byteLength(bytes, 'utf8')
   if (byteLength > limits.maxCheckpointBytes) {
@@ -542,7 +611,7 @@ function migratePriorCheckpoint(
       fail('checkpoint.savedStateDigest', 'does not match savedSaveJson')
     }
   }
-  if (priorSchemaId === PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID) {
+  if ((priorSchemaId as string) === PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID) {
     if (currentSave.state.founding !== null) {
       fail(
         'checkpoint.currentSaveJson',
@@ -657,6 +726,209 @@ function migratePriorCheckpoint(
     hydrated: hydrateBridgeRuntimeCheckpoint(checkpoint, limits),
     migratedFromProtocolVersion: priorProtocolVersion,
   }
+}
+
+// Parse then live-migrate a prior save slot through the EXISTING core save
+// path — `importSave` then `migrateToV15` (accepts V1..V15, refuses malformed
+// or unknown versions loudly; the same two-step chain `bridge/session.ts`'s
+// own `importSaveJsonV15` wraps, and what the ui adapter's `importSaveJson`
+// mirrors for V1..V14) — then re-serialize via `exportSaveJson`. This is the
+// ONLY place a prior identity's save bytes are interpreted; the surrounding
+// checkpoint envelope and journal are handled as opaque bytes (see
+// migratePriorProtocol4Checkpoint below).
+function importPriorSaveViaCanonicalChain(
+  json: string,
+  path: string,
+): { json: string; state: SaveFileV15['state'] } {
+  let migrated: SaveFileV15
+  try {
+    migrated = migrateToV15(importSave(json))
+  } catch (error) {
+    fail(path, `is not a save the current save contract can import: ${(error as Error).message}`)
+  }
+  return { json: exportSaveJson(migrated.state), state: migrated.state }
+}
+
+// Unified prior import (P04A REOPEN) for ANY enumerated protocol-4 identity in
+// SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.
+//
+// COMPATIBILITY BOUNDARY: a prior protocol-4 checkpoint's journal is opaque,
+// discarded history. This function verifies the checkpoint ENVELOPE and
+// journal STRUCTURE against the original bytes exactly (exact keys, exact
+// format/checkpointVersion/protocolVersion/schemaId, canonical-JSON-plus-LF
+// against the normalized record, array bounds, per-entry exact keys, valid
+// route strings, non-empty ids, unique commandIds, and the journalDigest/
+// currentStateDigest/savedStateDigest byte digests) — but it never parses or
+// hydrates a journal entry's requestJson/responseJson body under the current
+// contract, and it never checks savedSaveJson against a journal response.
+// Prior journal bodies were shaped under a schema up to seven versions removed
+// from the one running now; there is no meaning-preserving way to replay them
+// under today's contract, and the documented migration cost already discards
+// the journal outright (stateRevision resets to 0, journal becomes []). Only
+// the two authoritative V15 save slots are living state, and only they are
+// interpreted — via the existing core save path, never invented.
+function migratePriorProtocol4Checkpoint(
+  bytes: string,
+  configuredLimits: BridgeRuntimeCheckpointLimits,
+  createSessionId: () => string,
+  priorSchemaId: string,
+): LoadedBridgeRuntimeCheckpoint {
+  const limits = validateLimits(configuredLimits)
+  const byteLength = Buffer.byteLength(bytes, 'utf8')
+  if (byteLength > limits.maxCheckpointBytes) {
+    capacityFail('checkpoint', `uses ${String(byteLength)} bytes; maximum is ${String(limits.maxCheckpointBytes)}`)
+  }
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(bytes) as unknown
+  } catch (error) {
+    fail('checkpoint', `is not valid JSON: ${(error as Error).message}`)
+  }
+  const record = exactRecord(parsed, 'checkpoint', CHECKPOINT_KEYS)
+  if (record['format'] !== BRIDGE_RUNTIME_CHECKPOINT_FORMAT) {
+    fail('checkpoint.format', `must be ${JSON.stringify(BRIDGE_RUNTIME_CHECKPOINT_FORMAT)}`)
+  }
+  if (record['checkpointVersion'] !== BRIDGE_RUNTIME_CHECKPOINT_VERSION) {
+    fail('checkpoint.checkpointVersion', `must be ${String(BRIDGE_RUNTIME_CHECKPOINT_VERSION)}`)
+  }
+  if (record['protocolVersion'] !== PROTOCOL_VERSION) {
+    fail(
+      'checkpoint.protocolVersion',
+      `must be ${String(PROTOCOL_VERSION)} for forward migration`,
+    )
+  }
+  if (record['schemaId'] !== priorSchemaId) {
+    fail('checkpoint.schemaId', 'does not match the supported prior bridge schema')
+  }
+
+  const priorSessionId = requireString(record['sessionId'], 'checkpoint.sessionId')
+  const priorStateRevision = requireRevision(record['stateRevision'], 'checkpoint.stateRevision')
+  const currentSaveJson = requireString(record['currentSaveJson'], 'checkpoint.currentSaveJson')
+  const currentStateDigest = requireDigest(record['currentStateDigest'], 'checkpoint.currentStateDigest')
+  const savedSaveJson = requireNullableString(record['savedSaveJson'], 'checkpoint.savedSaveJson')
+  const savedStateDigest = record['savedStateDigest'] === null
+    ? null
+    : requireDigest(record['savedStateDigest'], 'checkpoint.savedStateDigest')
+  const journalDigest = requireDigest(record['journalDigest'], 'checkpoint.journalDigest')
+  if (!Array.isArray(record['journal'])) fail('checkpoint.journal', 'must be an array')
+  if (record['journal'].length > limits.maxJournalEntries) {
+    capacityFail(
+      'checkpoint.journal',
+      `contains ${String(record['journal'].length)} entries; maximum is ${String(limits.maxJournalEntries)}`,
+    )
+  }
+
+  // Old-artifact integrity ON THE ORIGINAL BYTES: a plain byte digest, never a
+  // schema/version check — the raw currentSaveJson/savedSaveJson may be any
+  // pre-V15 canonical save shape.
+  if (digest(currentSaveJson) !== currentStateDigest) {
+    fail('checkpoint.currentStateDigest', 'does not match currentSaveJson')
+  }
+  if ((savedSaveJson === null) !== (savedStateDigest === null)) {
+    fail('checkpoint.savedStateDigest', 'must be null exactly when savedSaveJson is null')
+  }
+  if (savedSaveJson !== null && digest(savedSaveJson) !== savedStateDigest) {
+    fail('checkpoint.savedStateDigest', 'does not match savedSaveJson')
+  }
+
+  // Journal: opaque discarded history for prior identities (see the
+  // compatibility-boundary comment above). Verify structure and identity only
+  // — never parse requestJson/responseJson, never cross-check against the
+  // save slots or the root revision.
+  const identities = new Set<string>()
+  const normalizedJournal: BridgeRuntimeJournalEntryV1[] = []
+  let totalJournalBytes = 0
+  for (let index = 0; index < record['journal'].length; index++) {
+    const path = `checkpoint.journal[${String(index)}]`
+    const raw = exactRecord(record['journal'][index], path, JOURNAL_ENTRY_KEYS)
+    const route = requireRoute(raw['route'], `${path}.route`)
+    const commandId = requireString(raw['commandId'], `${path}.commandId`)
+    const requestJson = requireString(raw['requestJson'], `${path}.requestJson`)
+    const responseJson = requireString(raw['responseJson'], `${path}.responseJson`)
+    if (identities.has(commandId)) fail(`${path}.commandId`, 'duplicates an earlier journal identity')
+    identities.add(commandId)
+    const normalized = { route, commandId, requestJson, responseJson }
+    normalizedJournal.push(normalized)
+    totalJournalBytes += journalEntryBytes(normalized)
+    if (totalJournalBytes > limits.maxJournalBytes) {
+      capacityFail(
+        'checkpoint.journal',
+        `uses ${String(totalJournalBytes)} bytes; maximum is ${String(limits.maxJournalBytes)}`,
+      )
+    }
+  }
+  if (journalDigest !== digest(canonicalJson(normalizedJournal))) {
+    fail('checkpoint.journalDigest', 'does not match the canonical journal bytes')
+  }
+
+  const normalizedPrior = {
+    format: BRIDGE_RUNTIME_CHECKPOINT_FORMAT,
+    checkpointVersion: BRIDGE_RUNTIME_CHECKPOINT_VERSION,
+    protocolVersion: PROTOCOL_VERSION,
+    schemaId: priorSchemaId,
+    sessionId: priorSessionId,
+    stateRevision: priorStateRevision,
+    currentSaveJson,
+    currentStateDigest,
+    savedSaveJson,
+    savedStateDigest,
+    journalDigest,
+    journal: normalizedJournal,
+  }
+  if (bytes !== `${canonicalJson(normalizedPrior)}\n`) {
+    fail('checkpoint', 'must be canonical JSON followed by exactly one LF')
+  }
+
+  // Save import via the canonical chain (§2b): parse + live-migrate + re-serialize.
+  const migratedCurrent = importPriorSaveViaCanonicalChain(currentSaveJson, 'checkpoint.currentSaveJson')
+  const migratedSaved = savedSaveJson === null
+    ? null
+    : importPriorSaveViaCanonicalChain(savedSaveJson, 'checkpoint.savedSaveJson')
+
+  // The founding-draft guard applies to BOTH slots, checked on the MIGRATED
+  // save: a durable prior-protocol-4 checkpoint is production authority, and
+  // production authority cannot be mid-founding.
+  if (migratedCurrent.state.founding !== null) {
+    fail(
+      'checkpoint.currentSaveJson',
+      'previous protocol-4 production authority cannot contain an open founding draft',
+    )
+  }
+  if (migratedSaved !== null && migratedSaved.state.founding !== null) {
+    fail(
+      'checkpoint.savedSaveJson',
+      'previous protocol-4 production authority cannot contain an open founding draft',
+    )
+  }
+
+  const nextSessionId = requireString(createSessionId(), 'migration.sessionId')
+  if (nextSessionId === priorSessionId) {
+    fail('migration.sessionId', 'must differ from the prior logical session')
+  }
+  const checkpoint = createBridgeRuntimeCheckpoint({
+    sessionId: nextSessionId,
+    stateRevision: 0,
+    currentSaveJson: migratedCurrent.json,
+    savedSaveJson: migratedSaved === null ? null : migratedSaved.json,
+    journal: [],
+  }, limits)
+  return {
+    hydrated: hydrateBridgeRuntimeCheckpoint(checkpoint, limits),
+    migratedFromProtocolVersion: PROTOCOL_VERSION,
+  }
+}
+
+function migratePriorCheckpoint(
+  bytes: string,
+  configuredLimits: BridgeRuntimeCheckpointLimits,
+  createSessionId: () => string,
+  priorProtocolVersion: SupportedPriorProtocolVersion,
+  priorSchemaId: SupportedPriorSchemaId,
+): LoadedBridgeRuntimeCheckpoint {
+  if (priorProtocolVersion === LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION) {
+    return migrateLegacyProtocol3Checkpoint(bytes, configuredLimits, createSessionId)
+  }
+  return migratePriorProtocol4Checkpoint(bytes, configuredLimits, createSessionId, priorSchemaId)
 }
 
 export function hydrateBridgeRuntimeCheckpoint(
@@ -881,13 +1153,14 @@ export function loadBridgeRuntimeCheckpoint(
       )
     }
     if (record['protocolVersion'] === PROTOCOL_VERSION &&
-        record['schemaId'] === PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID) {
+        typeof record['schemaId'] === 'string' &&
+        SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(record['schemaId'])) {
       return migratePriorCheckpoint(
         bytes,
         configuredLimits,
         createSessionId,
         PROTOCOL_VERSION,
-        PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID,
+        record['schemaId'],
       )
     }
   }

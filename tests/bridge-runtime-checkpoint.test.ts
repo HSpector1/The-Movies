@@ -9,6 +9,7 @@ import {
   LEGACY_BRIDGE_RUNTIME_PROTOCOL_VERSION,
   LEGACY_BRIDGE_RUNTIME_SCHEMA_ID,
   PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID,
+  SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
   appendBridgeRuntimeJournalEntry,
   createBridgeRuntimeCheckpoint,
   createBridgeRuntimeJournalEntry,
@@ -32,6 +33,7 @@ import {
 } from '../bridge/session.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
 import { exportSaveJson } from '../ui/src/engine/adapter.ts'
+import { exportSave, makeSaveV14 } from '../src/core/index.js'
 
 function sha256(value: string): string {
   return createHash('sha256').update(value, 'utf8').digest('hex')
@@ -141,6 +143,59 @@ function previousProtocol4Bytes(checkpoint: BridgeRuntimeCheckpointV1): string {
     journal,
   })}\n`
 }
+
+// ── P04A REOPEN fixtures: genuine old-shape prior protocol-4 checkpoints ────
+// Built from real V14 saves (minted with the exported `makeSaveV14`, never the
+// Owner's real profile) plus wholly opaque journal bodies, so these exercise
+// the unified prior-import path exactly as a real durable checkpoint written
+// under an old protocol-4 schema would be shaped: the save slots are genuine,
+// versioned save bytes; the journal is deliberately NOT current-contract-
+// shaped, because the new import path must never parse it.
+
+function v14CurrentSaveJson(seed: string): string {
+  return exportSave(makeSaveV14(createBridgeInitialState(seed)))
+}
+
+function opaqueJournalEntry(commandId: string, tag: string): BridgeRuntimeJournalEntryV1 {
+  return {
+    route: 'command',
+    commandId,
+    requestJson: canonicalJson({ opaqueHistoricalRequest: tag, commandId }),
+    responseJson: canonicalJson({ opaqueHistoricalResponse: tag, commandId }),
+  }
+}
+
+type PriorProtocol4Fixture = {
+  schemaId: string
+  sessionId: string
+  stateRevision: number
+  currentSaveJson: string
+  savedSaveJson: string | null
+  journal: readonly BridgeRuntimeJournalEntryV1[]
+}
+
+function priorProtocol4Bytes(fixture: PriorProtocol4Fixture): string {
+  const currentStateDigest = sha256(fixture.currentSaveJson)
+  const savedStateDigest = fixture.savedSaveJson === null ? null : sha256(fixture.savedSaveJson)
+  const journal = [...fixture.journal]
+  const checkpoint = {
+    format: BRIDGE_RUNTIME_CHECKPOINT_FORMAT,
+    checkpointVersion: BRIDGE_RUNTIME_CHECKPOINT_VERSION,
+    protocolVersion: PROTOCOL_VERSION,
+    schemaId: fixture.schemaId,
+    sessionId: fixture.sessionId,
+    stateRevision: fixture.stateRevision,
+    currentSaveJson: fixture.currentSaveJson,
+    currentStateDigest,
+    savedSaveJson: fixture.savedSaveJson,
+    savedStateDigest,
+    journalDigest: sha256(canonicalJson(journal)),
+    journal,
+  }
+  return `${canonicalJson(checkpoint)}\n`
+}
+
+const V4_SCHEMA_ID = 'sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61'
 
 describe('BridgeRuntimeCheckpointV1', () => {
   it('forward-migrates protocol 3 by preserving both V15 slots and discarding incompatible replay bytes', () => {
@@ -599,5 +654,243 @@ describe('BridgeRuntimeCheckpointV1', () => {
       expect(error).toBeInstanceOf(BridgeRuntimeCheckpointError)
       expect((error as BridgeRuntimeCheckpointError).checkpointPath).toBe('checkpoint')
     }
+  })
+})
+
+describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => {
+  it('migrates a v4-identity (f84ae77e) checkpoint with a V14 current save and an opaque 2-entry journal', () => {
+    const seedState = createBridgeInitialState('prior-p4-v4-basic')
+    const currentSaveJson = exportSave(makeSaveV14(seedState))
+    const priorBytes = priorProtocol4Bytes({
+      schemaId: V4_SCHEMA_ID,
+      sessionId: 'prior-v4-basic-session',
+      stateRevision: 21,
+      currentSaveJson,
+      savedSaveJson: null,
+      journal: [
+        opaqueJournalEntry('prior-command-1', 'alpha'),
+        opaqueJournalEntry('prior-command-2', 'beta'),
+      ],
+    })
+
+    const loaded = loadBridgeRuntimeCheckpoint(priorBytes, undefined, () => 'fresh-v4-basic-session')
+
+    // (6)/(7) fresh session + revision-0 laws.
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint.sessionId).toBe('fresh-v4-basic-session')
+    expect(loaded.hydrated.checkpoint.sessionId).not.toBe('prior-v4-basic-session')
+    expect(loaded.hydrated.checkpoint.stateRevision).toBe(0)
+    expect(loaded.hydrated.checkpoint.journal).toEqual([])
+
+    // save now V15, digests recomputed correctly.
+    expect(loaded.hydrated.checkpoint.schemaId).toBe(SCHEMA_ID)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(15)
+    expect(loaded.hydrated.checkpoint.currentStateDigest)
+      .toBe(sha256(loaded.hydrated.checkpoint.currentSaveJson))
+
+    // (4) V14 -> V15 content preservation, field-level.
+    expect(loaded.hydrated.currentSave.state.market.tick).toBe(seedState.market.tick)
+    expect(loaded.hydrated.currentSave.state.studio.cash).toBe(seedState.studio.cash)
+    expect(loaded.hydrated.currentSave.state.founding).toBeNull()
+  })
+
+  it('preserves and migrates a non-null savedSaveJson slot for a prior protocol-4 identity', () => {
+    const currentState = createBridgeInitialState('prior-p4-v4-saved-current')
+    const savedState = createBridgeInitialState('prior-p4-v4-saved-saved')
+    const currentSaveJson = exportSave(makeSaveV14(currentState))
+    const savedSaveJson = exportSave(makeSaveV14(savedState))
+    const priorBytes = priorProtocol4Bytes({
+      schemaId: V4_SCHEMA_ID,
+      sessionId: 'prior-v4-saved-session',
+      stateRevision: 3,
+      currentSaveJson,
+      savedSaveJson,
+      journal: [opaqueJournalEntry('prior-saved-command', 'gamma')],
+    })
+
+    const loaded = loadBridgeRuntimeCheckpoint(priorBytes, undefined, () => 'fresh-v4-saved-session')
+
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint.savedSaveJson).not.toBeNull()
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(15)
+    expect(loaded.hydrated.savedSave?.state.market.tick).toBe(savedState.market.tick)
+    expect(loaded.hydrated.savedSave?.state.studio.cash).toBe(savedState.studio.cash)
+    expect(loaded.hydrated.checkpoint.savedStateDigest)
+      .toBe(sha256(loaded.hydrated.checkpoint.savedSaveJson ?? ''))
+    // currentSaveJson also preserved+migrated, independent of the saved slot.
+    expect(loaded.hydrated.currentSave.state.market.tick).toBe(currentState.market.tick)
+  })
+
+  it.each(Array.from(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.entries()))(
+    'accepts and migrates the enumerated %s (%s) identity',
+    (schemaId, era) => {
+      const seedState = createBridgeInitialState(`prior-p4-each-${era}`)
+      const currentSaveJson = exportSave(makeSaveV14(seedState))
+      const priorBytes = priorProtocol4Bytes({
+        schemaId,
+        sessionId: `prior-session-${era}`,
+        stateRevision: 0,
+        currentSaveJson,
+        savedSaveJson: null,
+        journal: [],
+      })
+
+      const loaded = loadBridgeRuntimeCheckpoint(priorBytes, undefined, () => `fresh-session-${era}`)
+      expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+      expect(loaded.hydrated.checkpoint.schemaId).toBe(SCHEMA_ID)
+      expect(loaded.hydrated.checkpoint.stateRevision).toBe(0)
+      expect(loaded.hydrated.checkpoint.journal).toEqual([])
+      expect(loaded.hydrated.currentSave.saveVersion).toBe(15)
+    },
+  )
+
+  it('fails closed on a duplicate commandId, a wrong journalDigest, and non-canonical bytes', () => {
+    const currentSaveJson = v14CurrentSaveJson('prior-p4-journal-integrity')
+
+    const duplicateBytes = priorProtocol4Bytes({
+      schemaId: V4_SCHEMA_ID,
+      sessionId: 'prior-v4-dup-session',
+      stateRevision: 0,
+      currentSaveJson,
+      savedSaveJson: null,
+      journal: [
+        opaqueJournalEntry('same-command-id', 'one'),
+        opaqueJournalEntry('same-command-id', 'two'),
+      ],
+    })
+    expect(() => loadBridgeRuntimeCheckpoint(duplicateBytes)).toThrow(/duplicates an earlier journal identity/)
+
+    const validBytes = priorProtocol4Bytes({
+      schemaId: V4_SCHEMA_ID,
+      sessionId: 'prior-v4-digest-session',
+      stateRevision: 0,
+      currentSaveJson,
+      savedSaveJson: null,
+      journal: [opaqueJournalEntry('journal-digest-command', 'one')],
+    })
+    const corruptedDigest = JSON.parse(validBytes) as Record<string, unknown>
+    corruptedDigest['journalDigest'] = '0'.repeat(64)
+    expect(() => loadBridgeRuntimeCheckpoint(`${canonicalJson(corruptedDigest)}\n`))
+      .toThrow(/journalDigest/)
+
+    expect(() => loadBridgeRuntimeCheckpoint(` ${validBytes}`)).toThrow(/canonical JSON/)
+    expect(() => loadBridgeRuntimeCheckpoint(validBytes.trimEnd())).toThrow(/exactly one LF/)
+  })
+
+  it('re-hydrates the migrated output via the normal current-schema path (write-read round trip, idempotent)', () => {
+    const currentSaveJson = v14CurrentSaveJson('prior-p4-roundtrip')
+    const priorBytes = priorProtocol4Bytes({
+      schemaId: V4_SCHEMA_ID,
+      sessionId: 'prior-v4-roundtrip-session',
+      stateRevision: 5,
+      currentSaveJson,
+      savedSaveJson: null,
+      journal: [opaqueJournalEntry('roundtrip-command', 'one')],
+    })
+
+    const loaded = loadBridgeRuntimeCheckpoint(priorBytes, undefined, () => 'fresh-v4-roundtrip-session')
+    const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+
+    // (8) migrated output re-hydrates via the normal path.
+    const decoded = decodeBridgeRuntimeCheckpoint(encoded)
+    expect(decoded.checkpoint).toEqual(loaded.hydrated.checkpoint)
+
+    // (9) idempotence: loading the migrated bytes again takes the NORMAL
+    // (non-migrating) path, because the output is already current-schema —
+    // running the import twice is impossible by construction.
+    const reloaded = loadBridgeRuntimeCheckpoint(encoded)
+    expect(reloaded.migratedFromProtocolVersion).toBeNull()
+    expect(reloaded.hydrated.checkpoint).toEqual(loaded.hydrated.checkpoint)
+
+    // (10) current-schema checkpoint bytes unchanged by a load/store round trip.
+    expect(encodeBridgeRuntimeCheckpoint(reloaded.hydrated.checkpoint)).toBe(encoded)
+  })
+
+  it('fails closed on an unknown protocol-4 schemaId with the exact current message', () => {
+    const currentSaveJson = v14CurrentSaveJson('prior-p4-unknown-schema')
+    const unknownBytes = priorProtocol4Bytes({
+      schemaId: 'sha256:' + 'ab'.repeat(32),
+      sessionId: 'prior-unknown-session',
+      stateRevision: 0,
+      currentSaveJson,
+      savedSaveJson: null,
+      journal: [],
+    })
+    expect(() => loadBridgeRuntimeCheckpoint(unknownBytes))
+      .toThrow(/does not match the running TypeScript bridge schema/)
+  })
+
+  it('fails closed on malformed prior protocol-4 checkpoint bytes', () => {
+    const currentSaveJson = v14CurrentSaveJson('prior-p4-malformed')
+    const validBytes = priorProtocol4Bytes({
+      schemaId: V4_SCHEMA_ID,
+      sessionId: 'prior-malformed-session',
+      stateRevision: 0,
+      currentSaveJson,
+      savedSaveJson: null,
+      journal: [],
+    })
+
+    // Truncated JSON.
+    expect(() => loadBridgeRuntimeCheckpoint(validBytes.slice(0, -5))).toThrow(/not valid JSON/)
+
+    // Missing a required root key.
+    const missingKey = JSON.parse(validBytes) as Record<string, unknown>
+    delete missingKey['journalDigest']
+    expect(() => loadBridgeRuntimeCheckpoint(`${canonicalJson(missingKey)}\n`))
+      .toThrow(/missing required field "journalDigest"/)
+
+    // Unknown extra root key.
+    const extraKey = { ...(JSON.parse(validBytes) as Record<string, unknown>), notAuthorized: true }
+    expect(() => loadBridgeRuntimeCheckpoint(`${canonicalJson(extraKey)}\n`))
+      .toThrow(/unknown field "notAuthorized"/)
+
+    // Malformed journal entry (wrong keys).
+    const badJournalEntry = JSON.parse(validBytes) as Record<string, unknown>
+    badJournalEntry['journal'] = [{ route: 'command', commandId: 'x' }]
+    expect(() => loadBridgeRuntimeCheckpoint(`${canonicalJson(badJournalEntry)}\n`))
+      .toThrow(/missing required field/)
+  })
+
+  it('rejects an impossible open-founding state on either migrated save slot', () => {
+    const founding = BridgeSession.createRuntime().exportRuntimeCheckpoint()
+    const foundingState = JSON.parse(founding.currentSaveJson) as { state: { founding: unknown } }
+    expect(foundingState.state.founding).not.toBeNull()
+
+    const priorBytes = priorProtocol4Bytes({
+      schemaId: V4_SCHEMA_ID,
+      sessionId: 'prior-founding-session',
+      stateRevision: 0,
+      currentSaveJson: founding.currentSaveJson,
+      savedSaveJson: null,
+      journal: [],
+    })
+    expect(() => loadBridgeRuntimeCheckpoint(priorBytes))
+      .toThrow(/previous protocol-4 production authority cannot contain an open founding draft/)
+  })
+
+  it('never parses journal request/response bodies for a prior protocol-4 identity', () => {
+    // The journal bodies below are NOT current-contract-shaped at all (no
+    // route-matching command/response fields BRIDGE_SCHEMA would recognize).
+    // If the import path ever hydrated them, this would throw; it must not.
+    const currentSaveJson = v14CurrentSaveJson('prior-p4-opaque-journal')
+    const priorBytes = priorProtocol4Bytes({
+      schemaId: V4_SCHEMA_ID,
+      sessionId: 'prior-opaque-session',
+      stateRevision: 99,
+      currentSaveJson,
+      savedSaveJson: null,
+      journal: [
+        {
+          route: 'save',
+          commandId: 'totally-opaque-1',
+          requestJson: canonicalJson('not even an object'),
+          responseJson: canonicalJson({ nothing: 'to see here' }),
+        },
+      ],
+    })
+    const loaded = loadBridgeRuntimeCheckpoint(priorBytes, undefined, () => 'fresh-opaque-session')
+    expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
+    expect(loaded.hydrated.checkpoint.journal).toEqual([])
   })
 })
