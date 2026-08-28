@@ -23,6 +23,10 @@ const MAX_LEASE_BYTES = 16 * 1024
 const STALE_CHILD_TERM_TIMEOUT_MS = 3_000
 const STALE_CHILD_KILL_TIMEOUT_MS = 2_000
 const OWNER_LOCK_TIMEOUT_MS = 4_000
+const OWNER_LOCK_WAIT_MS = 2_000
+// macOS <sys/fcntl.h>: `#define O_EXLOCK 0x00000020`. @types/node does not
+// declare fs.constants.O_EXLOCK, so the darwin holder uses the ABI value.
+const DARWIN_O_EXLOCK = 0x20
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
 const LAUNCH_DIRECTORY_PATTERN = /^launch-\d{8}T\d{9}Z-[0-9a-f-]{36}$/
 
@@ -211,20 +215,51 @@ function ensurePrivateLockFile(filePath: string): void {
 
 async function acquireOwnerLock(layout: SupervisorProfileLayout): Promise<ChildProcess> {
   ensurePrivateLockFile(layout.ownerLockPath)
-  const holderScript = [
+  const holderTail = [
     "process.stdin.resume()",
     "process.stdin.once('end',()=>process.exit(0))",
     "process.stdout.write('project-studio-owner-lock\\n')",
+  ]
+  const holderScript = holderTail.join(';')
+  // macOS has never shipped lockf(1) - it is a FreeBSD utility - so on darwin
+  // the holder takes the same kernel lock lockf(1) would have taken, itself,
+  // via O_EXLOCK. The semantics are preserved exactly: the lock lives on the
+  // open file description, so it is released when the holder exits for ANY
+  // reason (SIGKILL included), and a contended acquire retries for the same
+  // two seconds `lockf -t 2` waited before giving up and exiting non-zero.
+  // O_EXLOCK is deliberately NOT used on linux, where the kernel ignores it;
+  // that branch keeps flock(1) exactly as it was.
+  // hrtime is monotonic: a wall-clock step must not stretch the wait past the
+  // parent's OWNER_LOCK_TIMEOUT_MS and turn a clean contention refusal into a
+  // timeout + SIGKILL. The fd is deliberately never closed — the BSD lock lives
+  // on the open file description and must outlive this statement.
+  const darwinHolderScript = [
+    "const f=require('fs')",
+    'const p=process.argv[1]',
+    `const deadline=process.hrtime.bigint()+BigInt(${OWNER_LOCK_WAIT_MS})*1000000n`,
+    'for(;;){try{f.openSync(p,f.constants.O_RDWR|'
+      + `${DARWIN_O_EXLOCK}`
+      + '|f.constants.O_NONBLOCK);break}catch(e){'
+      // ONLY EAGAIN means another supervisor holds the lock. Every other errno
+      // (ENOENT, EACCES, EISDIR, ELOOP, a read-only volume) is a real fault and
+      // is reported on stderr with a distinct exit code, never disguised as
+      // contention. lockf(1) and flock(1) both said why they failed; so does this.
+      + "if(e.code!=='EAGAIN'){f.writeSync(2,e.message);process.exit(76)}"
+      + 'if(process.hrtime.bigint()>=deadline)process.exit(75);'
+      + 'Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,25)}}',
+    ...holderTail,
   ].join(';')
   const lockCommand = process.platform === 'darwin'
     ? {
-        executable: '/usr/bin/lockf',
-        arguments: ['-k', '-t', '2', layout.ownerLockPath, process.execPath, '-e', holderScript],
+        executable: process.execPath,
+        arguments: ['-e', darwinHolderScript, layout.ownerLockPath],
+        mechanism: 'O_EXLOCK',
       }
     : process.platform === 'linux'
       ? {
           executable: fs.existsSync('/usr/bin/flock') ? '/usr/bin/flock' : '/bin/flock',
-          arguments: ['-w', '2', layout.ownerLockPath, process.execPath, '-e', holderScript],
+          arguments: ['-w', String(OWNER_LOCK_WAIT_MS / 1_000), layout.ownerLockPath, process.execPath, '-e', holderScript],
+          mechanism: 'flock',
         }
       : null
   if (
@@ -265,8 +300,11 @@ async function acquireOwnerLock(layout: SupervisorProfileLayout): Promise<ChildP
     })
     holder.once('exit', (code, signal) => {
       fail(
-        `Another Project: Studio supervisor owns the profile ` +
-          `(lockf code=${String(code)} signal=${signal ?? '-'}${stderr.length === 0 ? '' : `: ${stderr}`}).`,
+        code === 76
+          ? `Supervisor owner lock could not be opened at ${layout.ownerLockPath} ` +
+            `(${lockCommand.mechanism}${stderr.length === 0 ? '' : `: ${stderr}`}).`
+          : `Another Project: Studio supervisor owns the profile ` +
+            `(${lockCommand.mechanism} code=${String(code)} signal=${signal ?? '-'}${stderr.length === 0 ? '' : `: ${stderr}`}).`,
       )
     })
     holder.stderr?.on('data', (chunk: Buffer) => {
