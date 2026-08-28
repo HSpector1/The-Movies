@@ -6441,6 +6441,12 @@ export function managedProductionCompanyProjection(
       }
 
       pictureTalentIds.add(talent.id)
+      // KNOWN HAZARD — same one documented at length in
+      // ui/src/lot/snapshot/productionCompany.ts, and left undone for the same
+      // reason: this adds unconditionally, so a writer CREDIT consumes the
+      // cross-picture seat-exclusivity slot, and credit-on-A + seat-on-B
+      // collapses the projection. Unreachable by playing; the correction is
+      // `if (claimsASeat)`; deferred to the next checkpoint with its own proof.
       globallyAssignedTalentIds.add(talent.id)
       members.push({
         productionRole: memberSlot.productionRole,

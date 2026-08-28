@@ -340,6 +340,28 @@ export function activeProductionCompanyContexts(
         operationsById.get(person.productionId ?? '')?.title !== person.productionTitle
       ) return null
 
+      // KNOWN HAZARD — disclosed, deliberately NOT changed in P04A.2.
+      //
+      // This adds unconditionally, so a writer CREDIT also consumes the
+      // cross-picture exclusivity slot that the `claimsASeat && has(...)` test
+      // above enforces. One person credited on picture A who also holds a SEAT
+      // on picture B therefore fails that test and collapses the WHOLE
+      // projection to null — the failure `dfd2155` exists to prevent, reached
+      // through the other door. P04A.2 made that state newly reachable AT THE
+      // ENGINE, because M16.5 stopped counting `writerId` as busy.
+      //
+      // It is NOT reachable by playing: the packaged greenlight is built
+      // server-side from role-partitioned pools (`bridge/session.ts`
+      // `studioPool(state, 'director'|'craft')`) and `castingReadModel.ts`
+      // restricts cast slots to `role === 'actor'`, so no writer can take a
+      // seat through the product. Only a direct `applyActions` caller — an M0A
+      // agent or the headless harness — can construct it.
+      //
+      // The correction is one word: `if (claimsASeat)`. It is left undone here
+      // because it changes the emitted engine graph, and doing that at seal
+      // time would invalidate a fully green packaged floor for a state the
+      // Owner cannot reach. It belongs in the next checkpoint, with its own
+      // proof. Found by hostile review of this checkpoint.
       globallyAssignedTalentIds.add(member.talentId)
       members.push({ member, person })
     }

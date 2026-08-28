@@ -116,8 +116,13 @@ export function lotPersonWorkContext(
         .filter((memberContext) => memberContext.person.id === person.id)
         .map((memberContext) => ({ context, ...memberContext })),
     )
-    // P04A.2 — a person may appear on several pictures at once ONLY as a writer
-    // CREDIT, never as a seat (the projection refuses a repeated seat outright).
+    // P04A.2 — a person appears on several pictures at once by holding a writer
+    // CREDIT on one and something else on another. The projection refuses a
+    // repeated SEAT outright (two seats on two pictures), but a credit is not a
+    // seat and does not consume that exclusivity — so credit-on-A plus a seat on
+    // B is a legal shape here, not an impossible one. An earlier version of this
+    // comment claimed the only multi-picture shape was credit-plus-credit; that
+    // was already false once M16.5 stopped counting `writerId` as busy.
     // Several credits are one person with several credits, not the hostile
     // last-write-wins ambiguity this selector exists to fail closed on, so they
     // must not resolve to `ambiguous-assignment`. Prefer a real seat; failing
