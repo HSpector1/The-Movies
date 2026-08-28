@@ -2811,3 +2811,367 @@ npm run play
 ```
 
 (or double-click `PLAY_PROJECT_STUDIO.command` in Finder — it delegates to the same command.)
+
+---
+
+## 2026-08-29 — P04A.2 sealed: a Writer credit is not an assignment, and the A+B gate was never a product defect
+
+**Owner rejection that opened this checkpoint (P04A.1 playtest).** Three failures, all reproduced
+and all fixed:
+
+1. **Writer deadlock.** A finished screenplay could not be greenlit while its own credited Writer
+   drafted the next one, and no legal action could free them. One set — `busyTalentIds` — was doing
+   three jobs.
+2. **Actor-role clarity.** A candidate already selected for one role appeared under every other
+   role with no visible assignment label.
+3. **Time/decision deadlock.** The clock would not advance: `StudioLivingTime` re-implemented the
+   stop ladder client-side and re-latched every frame after the authority began publishing
+   `advanceWeek` for the ready-to-package family.
+
+### The correction
+
+`src/core/employment.ts` splits one conflated set into three, and says so in the code:
+
+```
+creditedWriterIds  ≠  activeProductionCompanyTalentIds  ≠  activeWritingAssignmentIds
+```
+
+`busyTalentIds` is now exactly the union of the last two, so a permanent film credit can never
+again be read as availability. `applyGreenlight`'s M16.5 exclusivity gate stops submitting
+`p.writerId` to an occupancy test and rebuilds its busy set from the same two helpers, so the gate
+and `busyTalentIds` cannot drift apart. M16.7 still refuses `writerId` doubling as a cast or craft
+seat in the same production, so nothing here lets one person hold two jobs on one picture, and
+`requireCommissionableWriter` keeps drafting exclusivity intact — a writer already drafting still
+cannot be commissioned again.
+
+`src/core/presence.ts` removes the credited Writer's production presence claim in **every** phase.
+The claim outranked the script tier, so a writer drafting screenplay B was being projected into
+picture A's Development slot. With no claim they fall through to their real current work. The
+Writer is therefore never staffed to A's Stage.
+
+The Unity half restores the clock (`StudioLivingTime` now reads the authority's published
+`advanceWeek` intent instead of a stale client-side copy of the stop ladder — withheld means
+paused, so the client fails closed by construction), and adds the casting-clarity surface:
+`SELECTED FOR <ROLE>` / `CAST AS <ROLE>` on every appearance, an always-visible five-role summary,
+and `MOVE FROM <OLD> TO <NEW>` naming both ends and who it evicts.
+
+### Three defects that only packaged proof could find
+
+4,659 TypeScript tests, 547 EditMode tests and three adversarial review rounds all passed over:
+
+- the false discard warning on the receipt's own **[Close]** after a successful Greenlight;
+- the `STALE_REVISION` quote-refusal latch — made reachable by the very clock fix that closed the
+  original deadlock — and its `SESSION_MISMATCH` twin;
+- the armed Move prompt self-destructing on a hidden timer once the clock started rolling
+  (`Bind()` cleared the pending move on every applied snapshot; harmless while the clock was dead).
+
+### The A+B gate — classification
+
+**HARNESS DEFECT, primary. EVIDENCE/OBSERVATION, secondary. Not a product defect.**
+
+`Tools/ownerinput/ownerinput.swift` `pressKey()` posted its key **up** with the modifier mask
+still asserted, and never released it. A key-up that still asserts its own mask tells the system
+the modifier is *still down*, so the `ecmdq` (Command+Q) journey left **Command latched in
+`CGEventSource.flagsState(.hidSystemState)`**. `leftClick()` builds its events with
+`CGEvent(mouseEventSource: nil, …)`, which inherits the system's cached modifier state — so every
+synthetic click after a Command+Q journey was a **Command+click**, which does not activate a UI
+Toolkit button. `OPEN CASTING` never fired and the workspace never opened.
+
+Measured directly on the sealing host, not inferred:
+
+```
+after a cmdq run   hidSystemState raw=537919488 -> COMMAND      NSEvent.modifierFlags 1048576
+after releasing    hidSystemState raw=536870912 -> (none)       NSEvent.modifierFlags 0
+```
+
+537919488 − 536870912 = 1048576 = 0x100000, exactly the Command bit.
+
+**Why it read as a product defect for three machines.** Every failing run recorded the player
+frontmost, the control `enabled: true` and visible, correct scaled coordinates, and a fresh
+element map (32–142 ms). The player's own published `diag` showed `selectionStableId="casting"`,
+`castingBoardProjectCount=1`, `inspectorCardBoundProjectId="script-0000"`,
+`inspectorCardDisplayed=true`, `suspendedForLocate=false` — every precondition correct. The one
+fact that was wrong is the one no driver had ever recorded: the modifier flags on the click.
+
+**Why the failures clustered in wall-clock windows.** The first machine's confusing record — the
+same binary `d27200a2` passing five times, then failing six, then passing three — is fully
+explained: every HID run *after* a Command+Q journey failed until something cleared the modifier.
+The same pattern reproduced exactly here. A+B passed **10/10** from 21:16–21:36Z and all six menu
+journeys passed 21:40–21:47Z — `ecmdq` was the **last** of them — and every HID run from 21:47Z on
+failed at that step. The earlier "baseline control" was therefore uninformative about the product
+but is real evidence about the input path: both arms failed because both ran inside a dirty window.
+
+**The instant discriminator, available all along:** the reflection-driven runners
+(`-castingJourney*`, which never post OS events) open the workspace through the *same*
+`OpenCasting` seam 100% of the time — six variants here, plus three more viewports — while the
+HID-driven journeys failed. Product path sound; input path broken.
+
+**Remedy — proof tooling only, no product change.**
+
+- `pressKey` now releases the modifiers it asserted (posting modifier key-UPs with **empty** flags
+  is what actually clears the cached state). Regression-tested: `cmdq` leaves the state clean.
+- New `ownerinput modifiers` / `releasemods` subcommands.
+- All three HID drivers record `modifiersAtClick` on **every** click, and normalise the modifier
+  state at journey start while recording what it was — so a dirty inheritance becomes evidence
+  instead of a mystery.
+- `expect workspace open` was hardened in both journey drivers from a single conjunct to three:
+  the workspace must be open, **observed** in a map strictly newer than the pre-click one, and
+  **not already open** before the click. Strictly stronger — it can only fail runs the old form
+  passed.
+
+**Controlled causal test** (same binary, same host, same journey; only the named variable differs):
+
+| arm | HID modifier state at click | driver | result |
+|---|---|---|---|
+| A | clean — `{"raw":536870912,"held":"","clean":true}` | normalisation removed | **PASS, 0 failed steps** |
+| B | Command latched — `{"raw":537919488,"held":"command","clean":false}` | normalisation removed | **FAIL, 24 failed steps** at `expect workspace open` |
+| C | Command latched | shipped driver (normalises) | **PASS, 0 failed steps** |
+
+A vs B isolates the modifier and establishes causation. B vs C isolates the remedy. **24 failed
+steps is the exact count the first machine reported**, at the exact step it reported.
+
+Arm B's own evidence is the clearest statement of the observability gap this closes: the report
+carries, in the same record, `modifiersAtClick={"held":"command","clean":false}` **and** the
+classifier's verdict *"PRODUCT — card bound and displayed, click delivered, yet OpenCasting did not
+raise workspaceOpen."* The classifier asserted a delivery it had never verified. It now checks the
+modifier state first and returns HARNESS, because a modified click invalidates every verdict below
+it.
+
+The rebuilt player's `assemblyCSharpSha256` is **byte-identical** across the fix
+(`2c881925ac6cd3fa04242b87ff11de4c6ce31943644ecccfe605847aece98ef3` before and after), which is the
+checkable proof that no product code moved — only proof tooling.
+
+### `/usr/bin/lockf` — an undeclared portability defect, fixed in isolation
+
+`bridge/supervisor/lease.ts` required `/usr/bin/lockf` on darwin. **`lockf(1)` is a FreeBSD utility;
+macOS has never shipped it.** The one-command studio supervisor — `npm run play`, the Owner's own
+launch command — therefore could not take its owner lock on a stock Mac. It failed loudly, which
+was correct, but the requirement appeared in no requirements file and no document.
+
+`b18a8f71` replaces the shell-out with the same kernel lock `lockf(1)` would have taken, taken
+directly: `open(O_RDWR|O_EXLOCK|O_NONBLOCK)` in the holder process. The lock lives on the open file
+description, so it is released when the holder exits for any reason, SIGKILL included; a contended
+acquire retries for the same two seconds `lockf -t 2` waited, on a monotonic clock so a wall-clock
+step cannot stretch the wait past the parent's timeout and turn a clean contention refusal into a
+SIGKILL. Only `EAGAIN` counts as contention — every other errno is reported on its own exit code
+rather than disguised as "another supervisor owns this". Linux keeps `flock(1)` exactly as it was.
+
+<!-- FILLED FROM THE LEASE STRESS RESULTS -->
+
+### Known non-blockers, disclosed
+
+1. The Greenlight review's quality readout names the Writer beside the five seats
+   ("Weakest: Writer … — Fit n/100"), three lines below the heading declaring the Writer is not
+   Production staff. The writer's fit lives in `src/core/filmPackage.ts` `perAssignment`, feeding
+   `overall`, `strongest`/`weakest` and `severeMismatch` against the D-9.6 ability floor. Changing
+   it moves film quality and the economy. Pre-existing. **Owner call.**
+2. The craft seat has three names — `Craft` in the rail, `CRAFT` in NOW CASTING, `Craft Lead` in
+   the summary. The last is the §14 wording verbatim.
+3. The browser Lot person card degrades to "Assignment details unavailable" for a credited writer
+   who is drafting. Unity never reads that channel and the engine's own presence projection is
+   correct. **Owner call: it needs a wire-shape decision.**
+4. §19H — an out-of-contract credited Writer still blocks Greenlight, via `writer-contract` and
+   never via `writer-assignment`. Documented as a test, not papered over.
+5. `src/core/candidates.ts` still holds the pre-P04A.2 rule. Every caller is an M0A agent or the
+   headless harness, never play. Left deliberately, with a comment naming it.
+6. At 1280×800, reaching `[Pin to compare]` means scrolling past the whole candidate list and the
+   whole dossier. Reachable — not a §22 violation — but a long way down.
+7. The regression runners do not stamp the executable hash into their provenance. Disclosed, not
+   claimed as bytes-bound — carried from the P04A.1 seal.
+8. **A writer CREDIT consumes cross-picture SEAT exclusivity in the Lot company projection.**
+   `ui/src/lot/snapshot/productionCompany.ts` and `ui/src/engine/adapter.ts` add the credit row to
+   `globallyAssignedTalentIds` unconditionally, so one person credited on picture A who also holds a
+   seat on picture B collapses the whole projection to null. P04A.2 made that state newly reachable
+   **at the engine** (M16.5 stopped counting `writerId` as busy; `requireRole` is a no-op), but it is
+   **not reachable by playing**: the packaged greenlight is assembled server-side from
+   role-partitioned pools (`bridge/session.ts` `studioPool(state,'director'|'craft')`) and
+   `castingReadModel.ts` restricts cast slots to `role === 'actor'`. Only a direct `applyActions`
+   caller — an M0A agent or the headless harness — can construct it. The correction is one word,
+   `if (claimsASeat)`, and it **changes the emitted engine graph** (`cd18f245…` → `9e504d8b…`,
+   verified by building both ways), which would unbind a fully green packaged floor at seal time.
+   Documented at both sites and deferred to the next checkpoint with its own proof. Found by hostile
+   review. **First item for the next checkpoint.**
+9. **`writerAvailable` now means "the Greenlight writer-gate is clear", not "the writer is idle".**
+   `src/core/scriptReadModel.ts` derives it from blocker absence, and the browser Lot panel renders
+   it verbatim as `Writer — Available` for a writer who is actively drafting. Browser surface only;
+   Unity never reads that channel. Disclosed by hostile review.
+10. 8 hardcoded `/Users/bruce` paths remain in the proof tooling added by this checkpoint
+   (`Tools/`, not product), matching the existing convention; `CLIENT_REPO`/`TS_REPO` override them.
+
+11. **The supervisor lease ships without a test written for it.** `tests/bridge-supervisor.test.ts`
+    is unchanged by this checkpoint, and before `b18a8f71` `acquireOwnerLock` threw unconditionally
+    on darwin — so no prior spec exercised a real kernel lock on this platform. The 96-acquisition
+    stress and the `npm run play` end-to-end run are the coverage: that is evidence, not a test.
+12. **CF-06 matches shape, not position.** `CAPABILITY_SHAPE` matches any run of 43+
+    `[A-Za-z0-9_-]` characters, so it flags ordinary long identifiers — the JSON field name
+    `allExpectedActivityStagePeopleVisuallyClear`, and C# test method names such as
+    `CancelStep_PeelsExactlyOneLayerTopmostFirst`. Four Stage directories and the two EditMode
+    artifacts are false positives; `grep -c x-project-studio-capability` returns 0 in all of them.
+    The gate will keep crying wolf until it is position-aware.
+
+### Verification floor
+
+**TypeScript** (all on `b18a8f71`): `npm test` **343 files / 4659 passed / 5 skipped / 0 failed**;
+`typecheck`, `typecheck:bridge`, `check:bridge-contract`, `test:bridge` (15 files / 164 tests),
+`audit:repo-hygiene`, `audit:browser-deps`, `audit:3d-assets`, `build`, `build:studio`,
+`audit:studio-packaged` — all exit 0. The second machine's 18 failures did **not** reproduce here;
+they were host-environmental. Python test dependencies came from `.github/requirements-tests.txt`
+(numpy 2.5.1, Pillow 12.3.0) in an isolated venv.
+
+**Supervisor lease**, stressed on the product path: 12×6 concurrent at 250 ms hold → 72
+acquisitions, 0 refused; 8×6 at 900 ms → 24 acquisitions, 24 refused. **0 overlapping hold
+intervals in 96 acquisitions**, measured on two independent clocks. Refusals carry the contention
+code (`O_EXLOCK code=75`), never the fault code 76. `tests/bridge-supervisor.test.ts` 14/14.
+
+**Unity headless**: EditMode **547 / 547**, 0 failed, 0 skipped, **0 `error CS`** — the A+B
+instrumentation compiled for the first time on this machine. Harness self-tests (CF-02/CF-06)
+**61 / 61**. Coordinate self-test PASS, 0 failed assertions.
+
+**Measured host cadence**: 119.1 fps, 15 frames per element-map publication, interval mean
+125.9 ms (p95 135, max 166).
+
+
+### The sealed packaged floor
+
+Every run below is against player `fdcd48e1…`, built 2026-08-28T22:17:00Z from Unity `14dd3c35` +
+TypeScript `b18a8f71`, with `sourcesNewerThanBuild = 0`. 38 evidence directories, **35 pass, 0
+fail** (the remaining three are the two Stage runs, both `EXIT=0`, and the scalability attempt
+disclosed below).
+
+| gate | result |
+|---|---|
+| Owner-input Journeys **A+B** ×10 | **10 / 10**, 0 failed steps each |
+| Studio Menu `cd` (Journeys C+D) | pass, 0 failures, 76 steps |
+| Studio Menu `esc` (CF-01, never run before) | pass, 0 failures |
+| Studio Menu `dload` / `dquit` | pass, 0 failures |
+| Menu Quit `equit` / Command+Q `ecmdq` | pass, 0 failures |
+| Casting-clarity journey ×4 viewports | **4 / 4** — 1280×800, 1440×900, 1720×1045, 3456×2234 fullscreen |
+| Casting variants ×6 | `direct` `tests` `stale` `navigation` `memoless` `writerCredit` — all `complete`, `failure: ""` |
+| Owner journey ×4 viewports | all `complete`, `failure: ""`, true native 3456×2234 fullscreen |
+| Regression runners ×8 | development · bridge · founding ×2 · living-time ×2 · stage ×2 — all `EXIT=0` |
+
+**Living Time determinism, stated precisely.** Both arms complete and both land on
+`finalDigest = 8f18cd97fc0262d250e4ff94c72719e07d150fa42987d11f9df99b0f586ad12c`, equal to the value
+recorded in the P04A.1 seal. Only the **auto** arm performs save/load/replay
+(`replayedWeekDigest == finalDigest`, `loadDigestMatchedSave = true`); the **manual** arm reports
+`savedDigest:""`, `replayedWeekDigest:""` and `loadDigestMatchedSave:false` **by design**, because it
+does no save or replay. An earlier account of this checkpoint claimed both arms proved the replay
+equality. They do not; two independent drive paths reaching the same final digest is the real —
+and sufficient — claim.
+| Harness self-tests (CF-02/CF-06) | **61 / 61** |
+| Coordinate self-test | PASS, 0 failed assertions |
+
+All ten A+B runs were machine-checked, not eyeballed: `bytesBound=10`, `guardedFastPath=10`
+(`classification=="OPENED"`, `mapRepublishedAfterClick==true`, `workspaceOpenBeforeClick==false`)
+and `cleanModifiersAtClick=10`. The last of those is what makes the classification falsifiable: a
+failing run with clean modifiers would refute it, and none occurred.
+
+**The clarity phase was 0/4 before the harness fix and is 4/4 after it**, on the same product bytes.
+
+**No assertion weakening, machine-checked.** Last pre-fix A+B run vs last sealed run: 64 → 65 steps,
+31 → 32 asserted steps, **zero actions removed**, one added.
+
+**The Owner's own launch command was run end to end.** `npm run play` emitted and audited the
+production graph, the supervisor **took its owner lock** (`supervisor-owner.lock` and
+`active-supervisor-v1.json` both present), the engine came ready on protocol 4 / snapshot 11 /
+schema `01f15efc…`, the packaged player launched, and everything shut down clean. That is the first
+successful execution of this path on macOS — before `b18a8f71` it threw
+*"No supported kernel owner-lock utility is available on darwin."*
+
+**Retained headless-gate artifacts.** `Evidence/S/HeadlessGates-20260828T232609Z/` holds the
+EditMode XML+log run against the final tip (`start-time 2026-08-28 23:14:10Z`, after the build and
+after the last `Assets/` commit), the lease stress transcript, the `npm run play` supervisor log,
+the CF-06 scan, and the TypeScript floor. They exist because a hostile review refused four gates
+that had been run but whose output lived only in a session scratchpad — a gate a reviewer cannot
+reach is not a gate.
+
+**CF-06.** 88 evidence directories scanned; **zero raw bearer capabilities in anything produced this
+session** — the capability appears only as `{"present":true,"digest":"runlocal:…"}`. Modes 0700/0600.
+Four directories still report a finding: all are the Stage visual proof, and the flagged line is
+`"allExpectedActivityStagePeopleVisuallyClear": true` — that key is exactly 43 characters of
+`[A-Za-z0-9_-]`, so the gate is matching a **field name**, not a value. A false positive in the gate.
+
+### Honest failure record
+
+- The first ten A+B runs of this session passed on the **pre-fix** binary `9c5d6d92…`. They are
+  **not** the seal evidence: they were produced by a harness now known to be defective, and they
+  passed only because they ran before any Command+Q journey. Kept, and labelled.
+- The `cd-preab` diagnostic reproduced the first machine's **24** A+B failures and **26** C+D
+  failures exactly, by following that machine's own recipe (C+D immediately after A+B on the same
+  runtime). `cd` in fact opens the casting workspace itself from the world root, and `esc`
+  explicitly requires the root — so that recipe was wrong, and run correctly `cd` passes cleanly.
+- Four clarity runs failed inside the dirty-modifier window before the cause was known. Kept on
+  disk recorded as failures. Deleting failed evidence is how greens get manufactured.
+
+
+- **Scalability / "legacy scaling" did not run.** `-studioScalabilityProof` has no sanctioned
+  wrapper; an invocation constructed by analogy exited 2 writing no report and logging no error. It
+  is claimed neither pass nor fail — only that it could not be run from an inferred recipe. It was
+  not part of the accepted floor. Headless coverage is `StudioScalabilityProofRunnerTests`
+  (10 tests) inside the green 547.
+- **A hostile review of this checkpoint upheld four findings**, all acted on: the tip's own status
+  document still declared itself NOT READY against a two-builds-old binary (rewritten); the
+  "strictly stronger" claim was false for the p04a2 driver, which is stronger on causality and
+  weaker on timing (comment corrected to say both); a writer CREDIT wrongly consumes seat
+  exclusivity in the Lot projection (documented, deferred — see non-blockers); and the p04a2 driver
+  hardcoded a home directory (now `CLIENT_REPO`/`TS_REPO`-overridable).
+
+
+### Hostile review
+
+One fresh reviewer, two passes, no reviewer-shopping. First pass **REJECT** on four findings; second
+pass **REJECT** on two more; final **ACCEPT, 20/20 axes PASS, no blockers**.
+
+Upheld and fixed:
+
+- **B1** — the tip's own `P04A2-RESUME.md` still declared "Status: NOT READY", still recorded the
+  lockf finding as deferred pending an Owner call, still said the instrumentation had never been
+  compiled, and bound its whole "Gates COMPLETE" table to `d27200a2` — a binary two builds out of
+  date. By that document's own rule, evidence older than the build is void. Rewritten.
+- **B3** — the claim that the hardened `expect workspace open` was "strictly stronger" is **false**
+  for the p04a2 driver: stronger on causality, genuinely **weaker on timing** (one sample at +700 ms
+  became an 8 s wait, so a workspace opening at +2 s used to fail and now passes). The comment now
+  states both directions.
+- **B4** — a writer CREDIT wrongly consumes cross-picture SEAT exclusivity. Documented, measured,
+  deferred. See non-blockers.
+- **R1** — EditMode had been run at the final tip but its artifact lived in a session scratchpad,
+  where a reviewer could not reach it. *A gate whose output a reviewer cannot reach is not a gate.*
+  Retained.
+- **R2** — four gates (lease stress, `npm run play` E2E, CF-06 scan, `npm test`) had no retained
+  artifact at all. Retained, with an index.
+
+Two findings were **wrong and were withdrawn on evidence**: that `ad3a02d` was unpushed (it is an
+ancestor of the pushed `9bcd7be`), and that the lockf fix was made against a standing "Owner call"
+deferral (the Owner's own brief for this session authorises it, and the text cited was itself one of
+the stale statements B1 required fixing).
+
+The reviewer's closing note is worth preserving: the strongest evidence for the central claim was
+never the designed three-arm experiment but the accident inside the floor — `final-ecmdq` at
+22:43:56Z followed by `final-c1280` at 22:44:27Z, clean modifiers, 126/126. The exact sequence that
+used to poison every subsequent run, now inert, on the sealed bytes.
+
+### Exact SHAs
+
+| | |
+|---|---|
+| Accepted P04A.1 baseline (superseded by this seal) | Unity `629090c066a4345acb197193103760cc21a43965` · TS `9b196f799de969932ca3dfdc1f5bb9ae82819b3f` |
+| Unity `campaign/living-lot-client` | **`3ed7510ac6917eaa3376690a2fe72703d6e944ee`** — fast-forwarded, no merge, no rewrite |
+| TypeScript `campaign/living-lot-ts` | **`2e27c485cb9ce862878171199a3af34234e0725a`** plus the commit carrying this ledger entry, which becomes the branch tip — fast-forwarded, no merge, no rewrite |
+| Packaged player under test | built from Unity `14dd3c35` + TS `b18a8f71`; the two commits above that touch **0 files under `Assets/`** and are comments-only in TypeScript, with the engine graph rebuilding byte-identical | 
+| | `fdcd48e1ecc62e27c736ec124ccdf8bf9b5a7c4f06603f77f99fa87c1922d2e4`, built 2026-08-28T22:17:00Z |
+| Assembly-CSharp | `2c881925ac6cd3fa04242b87ff11de4c6ce31943644ecccfe605847aece98ef3` — **byte-identical across the harness fix** |
+| Engine bundle | `cd18f245b2ecb9512f532ad9589779117345197809b6b1cfb1623b31cb4df326` |
+| Schema / protocol / projection | `sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e` / 4 / 11 — unchanged from the P04A.1 seal |
+| Unity editor | 6000.3.22f1 (project pin unchanged) · Node v24.16.0 |
+
+### Ruling
+
+**KEEP CANDIDATE.** Owner acceptance is **still pending** — nothing here is Owner-accepted.
+Development remains closed. **STOPPED — before P05, awaiting the Owner's playtest verdict.**
+
+#### Owner launch command
+
+```sh
+cd "/Users/bruce/The Movies - Unity Production Convergence 80H"
+npm run play
+```
