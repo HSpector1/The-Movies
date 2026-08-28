@@ -1334,15 +1334,38 @@ export type TalentAssignmentContext =
  * One uniqueness-aware assignment gate for identity-sensitive presentation.
  * Unlike the legacy convenience map below, this collects every occupied role so
  * a hostile accepted save can never choose an arbitrary first/last engagement.
+ *
+ * P04A.2 (Owner ruling A/B/C) — WORK OUTRANKS CREDIT. A production's `writerId`
+ * is a permanent film CREDIT, not an occupancy claim: it is collected separately
+ * below and it speaks ONLY when the person is doing no current work at all.
+ * Current work is the union of real production SEATS (director, the three cast
+ * slots, craft — exactly the core's `activeProductionCompanyTalentIds`) and
+ * active screenplay tasks (exactly the core's `activeWritingAssignmentIds`).
+ *
+ * Why the split. The core now permits — intends — "credited writer of picture A
+ * while drafting screenplay B". Counting the credit as an assignment made that
+ * writer collect TWO assignments and fall out as `ambiguous`, which suppressed
+ * them everywhere identity-sensitive presentation is gated on this function. With
+ * the precedence above, their CURRENT work (screenplay B) is the single
+ * assignment — the same "script first, seat second" precedence the core's
+ * `scriptReadModel.ts` `writerAssignmentLabel` uses, and consistent with that
+ * module's `activeProductionAssignment`, which is likewise seats-only.
+ *
+ * This is NOT an availability test and never was: `available` on
+ * `PlayerVisibleTalent` comes from `engagedTalentIds` below, which mirrors the
+ * core's `busyTalentIds` and contains no writer credit at all.
  */
 export function talentAssignmentContext(
   state: GameState,
   talentId: string,
 ): TalentAssignmentContext {
-  const assignments: Array<
+  type Assignment =
     | { kind: 'production'; assignmentId: string; label: string }
     | { kind: 'script'; assignmentId: string; label: string }
-  > = []
+  // Real current work — production seats, then active screenplay tasks.
+  const work: Assignment[] = []
+  // Permanent film credits — presentation only, and only when work is empty.
+  const credits: Assignment[] = []
   for (const production of state.studio.activeProductions) {
     const title = findConcept(state, production.conceptId)?.title ?? production.conceptId
     const assignment = {
@@ -1350,34 +1373,46 @@ export function talentAssignmentContext(
       assignmentId: production.id,
       label: title,
     }
-    const participantIds = [
-      production.writerId,
+    const seatIds = [
       production.directorId,
       ...CAST_SLOTS.map((slot) => production.cast[slot]),
       ...production.craftIds,
     ]
-    for (const participantId of participantIds) {
-      if (participantId === talentId) assignments.push(assignment)
+    for (const seatId of seatIds) {
+      if (seatId === talentId) work.push(assignment)
     }
+    if (production.writerId === talentId) credits.push(assignment)
   }
   for (const script of activeScriptWriterAssignments(state.scriptDevelopment, state.concepts)) {
     if (script.talentId === talentId) {
-      assignments.push({ kind: 'script', assignmentId: script.projectId, label: script.label })
+      work.push({ kind: 'script', assignmentId: script.projectId, label: script.label })
     }
   }
 
+  const assignments = work.length > 0 ? work : credits
   if (assignments.length === 0) return { kind: 'available' }
   if (assignments.length === 1) return { kind: 'assigned', assignment: assignments[0]! }
   return { kind: 'ambiguous' }
 }
 
 // One generalized assignment truth for every player talent surface.
+//
+// P04A.2 (Owner ruling A/B/C): this map's key set MUST equal the core's
+// `busyTalentIds` — which is exactly `activeProductionCompanyTalentIds` ∪
+// `activeWritingAssignmentIds`. It is mirrored here rather than imported because
+// this map carries a player-facing LABEL per id that the core sets do not have
+// (`available`/`engagedIn`/`assignmentKind` on `PlayerVisibleTalent`), so the two
+// loops below are the label-bearing twins of those two core helpers, in the same
+// order. A production's `writerId` is a permanent film CREDIT, never work, so it
+// is deliberately NOT in the production loop; a writer is busy only while an
+// active script assignment names them. Adding the credit back here is what drove
+// `available: false` and the "Already working on …" refusal for a writer whose
+// screenplay is finished.
 function engagedTalentIds(state: GameState): Map<string, TalentAssignmentView> {
   const busy = new Map<string, TalentAssignmentView>()
   for (const prod of state.studio.activeProductions) {
     const title = findConcept(state, prod.conceptId)?.title ?? prod.conceptId
     const assignment: TalentAssignmentView = { kind: 'production', label: title }
-    busy.set(prod.writerId, assignment)
     busy.set(prod.directorId, assignment)
     for (const slot of CAST_SLOTS) busy.set(prod.cast[slot], assignment)
     for (const cid of prod.craftIds) busy.set(cid, assignment)
@@ -6357,14 +6392,29 @@ export function managedProductionCompanyProjection(
       )
       if (currentTalent.length !== 1) return null
       const talent = currentTalent[0]!
-      const assignment = talentAssignmentContext(state, talent.id)
-      if (
-        assignment.kind !== 'assigned' ||
-        assignment.assignment.kind !== 'production' ||
-        assignment.assignment.assignmentId !== production.id ||
-        assignment.assignment.label !== title
-      ) {
-        return null
+      // P04A.2 (Owner ruling A/B/C) — the WRITER row is a permanent film CREDIT;
+      // every OTHER row is a production OCCUPANCY claim and is proved exactly as
+      // before. `talentAssignmentContext` no longer reports a writer credit as a
+      // production assignment (a credited writer who is drafting a second
+      // screenplay now resolves to that SCRIPT), so proving the writer the way a
+      // seat is proved would fail this atomic projection and collapse the whole
+      // Lot company for EVERY picture, not just this one. Prove the credit by
+      // EXACT STABLE ID against `production.writerId` — never by a display name
+      // or a role label, per the presence law. The member arity and
+      // LOT_PRODUCTION_COMPANY_ROLE_ORDER are unchanged: the writer is still the
+      // first of the six on the wire.
+      if (memberSlot.productionRole === 'writer') {
+        if (talent.id !== production.writerId) return null
+      } else {
+        const assignment = talentAssignmentContext(state, talent.id)
+        if (
+          assignment.kind !== 'assigned' ||
+          assignment.assignment.kind !== 'production' ||
+          assignment.assignment.assignmentId !== production.id ||
+          assignment.assignment.label !== title
+        ) {
+          return null
+        }
       }
 
       pictureTalentIds.add(talent.id)
