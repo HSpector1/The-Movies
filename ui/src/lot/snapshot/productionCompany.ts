@@ -324,10 +324,20 @@ export function activeProductionCompanyContexts(
         person.role !== member.presentationRole ||
         person.authority !== 'active-production'
       ) return null
-      if (
-        claimsASeat &&
-        (person.productionId !== operation.productionId ||
-          person.productionTitle !== operation.title)
+      if (claimsASeat) {
+        if (
+          person.productionId !== operation.productionId ||
+          person.productionTitle !== operation.title
+        ) return null
+      } else if (
+        // The credited writer may name a DIFFERENT live picture than this one —
+        // they are emitted once, on the canonically-first picture they are
+        // credited on. They may not name a picture that does not exist: without
+        // this the credit row was the one place a person could claim any title
+        // at all and still be rendered, which is weaker than what this validator
+        // accepted before P04A.2.
+        !operationsById.has(person.productionId ?? '') ||
+        operationsById.get(person.productionId ?? '')?.title !== person.productionTitle
       ) return null
 
       globallyAssignedTalentIds.add(member.talentId)

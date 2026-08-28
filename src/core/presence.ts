@@ -145,8 +145,8 @@ export type StudioPresence = {
 //
 // phase           who                                    where (owned reservation)
 // ─────────────── ────────────────────────────────────── ─────────────────────────
-// development     writer, director                       development-casting
-// preProduction   writer, director                       development-casting
+// development     director                               development-casting
+// preProduction   director                               development-casting
 // rehearsal       director, lead, antagonist, support    soundstage
 // shooting        director, lead, antagonist, support    soundstage
 // shooting        craft…                                 set-scenery
@@ -158,8 +158,13 @@ export type StudioPresence = {
 // capabilities), so every projected site is a claim the engine already made.
 // Rationale per row:
 //  • development / preProduction — the phase's single reservation is the
-//    Development & Casting slot; the writer and director are the company members
-//    whose work that building exists for.
+//    Development & Casting slot, and the director is the company member whose
+//    work that building exists for. The credited WRITER is deliberately absent
+//    (P04A.2): the credit is permanent and reserves nobody, so it must not
+//    outrank the writer's real current work. A writer drafting their next
+//    screenplay is claimed by that screenplay's own tier below; one who is
+//    writing nothing falls through to the roster, which already sends writers
+//    to this same building.
 //  • rehearsal — the phase reserves the soundstage; rehearsal is the director
 //    working with the cast on that stage. Craft and writer hold no claim.
 //  • shooting — the ONLY hard law here is ShootingTask, which names the director
