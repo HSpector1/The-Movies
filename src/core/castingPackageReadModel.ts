@@ -259,9 +259,12 @@ function poolAvailability(
 // neither collection names (never invents a specific credit).
 function currentWorkLabel(state: GameState, talentId: string): string | null {
   if (!busyTalentIds(state).has(talentId)) return null
+  // P04A.2 — SEATS ONLY, no `p.writerId`. A writer credit is not work, so it
+  // must never win this lookup: a writer drafting their next screenplay while a
+  // picture they wrote shoots has to read "Drafting <title>", not "Working on
+  // <the old picture>" (Owner ruling §10 — current work outranks credit).
   const production = state.studio.activeProductions.find(
     (p) =>
-      p.writerId === talentId ||
       p.directorId === talentId ||
       p.cast.lead === talentId ||
       p.cast.antagonist === talentId ||

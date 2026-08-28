@@ -389,9 +389,10 @@ type ReferenceStaff = {
 
 /** A deterministic, actually selectable roster/freelancer team for prospective quotes. */
 function referenceStaff(state: GameState): ReferenceStaff | null {
+  // P04A.2 — seats only; a writer credit reserves nobody, so a credited writer
+  // stays selectable for a prospective quote (matches `busyTalentIds`).
   const busy = new Set<string>()
   for (const production of state.studio.activeProductions) {
-    busy.add(production.writerId)
     busy.add(production.directorId)
     for (const id of Object.values(production.cast)) busy.add(id)
     for (const id of production.craftIds) busy.add(id)

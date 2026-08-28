@@ -925,10 +925,14 @@ function assertReservation(
   occupied.add(key)
 }
 
-function activeProductionTalentIds(productions: readonly Production[]): Set<string> {
+// P04A.2 — the people a picture RESERVES. The credited writer is deliberately
+// absent: a writer credit is permanent and is not a production assignment, so a
+// writer may draft the next screenplay while a picture they wrote is shooting
+// (Owner ruling §6). Mirrors `activeProductionCompanyTalentIds` in employment.ts;
+// kept local because this module must not import from employment (cycle).
+function activeProductionCompanyTalentIds(productions: readonly Production[]): Set<string> {
   const ids = new Set<string>()
   for (const production of productions) {
-    ids.add(production.writerId)
     ids.add(production.directorId)
     ids.add(production.cast.lead)
     ids.add(production.cast.antagonist)
@@ -963,7 +967,7 @@ export function assertScriptDevelopmentInvariants(
   const releasedById = new Map(
     context.releasedFilms.map((film) => [film.productionId, film]),
   )
-  const activeProductionTalent = activeProductionTalentIds(context.activeProductions)
+  const activeProductionTalent = activeProductionCompanyTalentIds(context.activeProductions)
   const activeScriptWriters = new Set<string>()
   const conceptIds = new Set<string>()
   const productionLinks = new Set<string>()
@@ -1122,6 +1126,9 @@ export function assertScriptDevelopmentInvariants(
           !activeScriptWriters.has(writerId),
           `writer "${writerId}" has more than one active script task`,
         )
+        // P04A.2: a SEAT in an active production still blocks writing (a
+        // multi-hyphenate cannot shoot and draft in the same week). Being the
+        // credited writer of a picture does not — the credit is not a seat.
         invariant(
           !activeProductionTalent.has(writerId),
           `writer "${writerId}" is also assigned to an active production`,

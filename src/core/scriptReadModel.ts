@@ -379,10 +379,12 @@ export function estimatedScriptAssessment(
   }
 }
 
+// P04A.2 — SEATS ONLY. `candidate.writerId` is deliberately absent: being the
+// credited writer of a picture is not work and must never produce a "Working
+// on …" label, because that label is what the availability blockers quote.
 function activeProductionAssignment(state: GameState, talentId: string): string | null {
   const productions = [...state.studio.activeProductions].sort((a, b) => compareId(a.id, b.id))
   const production = productions.find((candidate) =>
-    candidate.writerId === talentId ||
     candidate.directorId === talentId ||
     candidate.cast.lead === talentId ||
     candidate.cast.antagonist === talentId ||
@@ -428,12 +430,24 @@ function writerBlockers(
       detail: `${writer.name} must be currently studio-contracted to ${purpose === 'rewrite' ? 'perform the rewrite' : 'greenlight this screenplay'}.`,
       remedy: `Sign ${writer.name} to a new studio contract.`,
     })
-  } else if (!availability.available) {
+  } else if (purpose === 'rewrite' && !availability.available) {
+    // P04A.2 (Owner ruling §6/§7) — availability gates REWRITES ONLY. A rewrite
+    // is real writing work, so the writer must actually be free for it. A
+    // GREENLIGHT engages nobody's writing time: it locks a permanent credit on a
+    // screenplay that is already finished. Publishing a writer-availability
+    // blocker for `purpose: 'package'` was the projection half of the one-writer
+    // deadlock — it drove `canSubmitGreenlightIntent: false`, so the Casting
+    // surface refused a greenlight the engine now accepts, and the only remedy
+    // it offered ("Wait for the named assignment to finish") needed time the
+    // paused Casting surface would not advance. The engine's own greenlight gate
+    // (`applyGreenlight`) no longer consults the credited writer's availability
+    // either, so the two agree. The contract gate above stays: the engine really
+    // does require `isContracted(project.writerId)` at greenlight.
     const assignment = availability.assignmentLabel ?? 'Working on another assignment'
     blockers.push({
       kind: 'writer-assignment',
       headline: `${writer.name} is already assigned`,
-      detail: `${assignment}. The screenplay remains ${purpose === 'rewrite' ? 'in review' : 'Ready'} until the writer is available.`,
+      detail: `${assignment}. The screenplay remains in review until the writer is available.`,
       remedy: 'Wait for the named assignment to finish.',
     })
   }

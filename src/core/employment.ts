@@ -99,24 +99,72 @@ export function isContracted(state: GameState, talentId: string, week?: number):
   return activeContract(state, talentId, week) !== undefined
 }
 
-// Ids engaged in any active production or active screenplay task — one
-// authoritative availability set for actions, roster, markets, and player UI.
-export function busyTalentIds(state: GameState): Set<string> {
-  const busy = new Set<string>()
+// ── P04A.2 — CREDIT IS NOT AN ASSIGNMENT (Owner ruling, 2026-08-28) ──────────
+// Three distinct concepts used to be one set, and the conflation deadlocked the
+// one-writer studio: a completed screenplay could not be greenlit while its
+// CREDITED writer was drafting the next one, and a writer credited on a picture
+// in production could not be commissioned again for the picture's whole run.
+//
+//   creditedWriterIds  ≠  activeProductionCompanyTalentIds  ≠  activeWritingAssignmentIds
+//
+// A screenplay's writer credit is PERMANENT and attaches by exact stable id. It
+// survives Development, Casting, Greenlight, Production, Post, Release, contract
+// expiry and off-lot status. It is never an availability claim and never a
+// world-presence claim. Only real work — a production seat, or an actual drafting
+// or rewriting assignment — makes someone unavailable.
+
+/**
+ * The people a picture actually RESERVES: director, the three cast slots, and
+ * craft. The writer is NOT here — the credit is not a seat in the company
+ * (Owner ruling §6: "The Writer is not part of the active Production company
+ * merely because they wrote the screenplay").
+ */
+export function activeProductionCompanyTalentIds(state: GameState): Set<string> {
+  const ids = new Set<string>()
   for (const p of state.studio.activeProductions) {
-    busy.add(p.writerId)
-    busy.add(p.directorId)
-    busy.add(p.cast.lead)
-    busy.add(p.cast.antagonist)
-    busy.add(p.cast.support)
-    for (const cid of p.craftIds) busy.add(cid)
+    ids.add(p.directorId)
+    ids.add(p.cast.lead)
+    ids.add(p.cast.antagonist)
+    ids.add(p.cast.support)
+    for (const cid of p.craftIds) ids.add(cid)
   }
+  return ids
+}
+
+/**
+ * The writers doing actual writing work right now — drafting or rewriting, the
+ * whole pooled crew, not just the attributed one. This is the ONLY sense in
+ * which writing makes a writer busy.
+ */
+export function activeWritingAssignmentIds(state: GameState): Set<string> {
+  const ids = new Set<string>()
   for (const assignment of activeScriptWriterAssignments(
     state.scriptDevelopment,
     state.concepts,
   )) {
-    busy.add(assignment.talentId)
+    ids.add(assignment.talentId)
   }
+  return ids
+}
+
+/**
+ * The credited writers of every picture currently in production. CREDIT ONLY —
+ * never union this into an availability test. It exists so callers that want to
+ * NAME a credit (history, participant records, review copy) have an exact-id
+ * source that is visibly separate from `busyTalentIds`.
+ */
+export function creditedWriterIds(state: GameState): Set<string> {
+  const ids = new Set<string>()
+  for (const p of state.studio.activeProductions) ids.add(p.writerId)
+  return ids
+}
+
+// Ids engaged in real work — a seat in an active production company, or an
+// active screenplay task. ONE authoritative availability set for actions,
+// roster, markets, and player UI. A writer credit alone never appears here.
+export function busyTalentIds(state: GameState): Set<string> {
+  const busy = activeProductionCompanyTalentIds(state)
+  for (const id of activeWritingAssignmentIds(state)) busy.add(id)
   return busy
 }
 

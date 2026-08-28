@@ -205,7 +205,17 @@ function attendanceForPhase(
     case 'development':
     case 'preProduction':
       rows.push({ talentId: production.directorId, credit: 'director', capability: 'development-casting' })
-      rows.push({ talentId: production.writerId, credit: 'writer', capability: 'development-casting' })
+      // P04A.2 (Owner ruling §10) — the CREDITED WRITER holds no production
+      // presence claim, in any phase. The credit is permanent and reserves
+      // nobody; the writer's body belongs wherever their CURRENT work is. A
+      // production claim here outranked the script tier (TIER_RANK below), so a
+      // writer drafting their next screenplay was projected into this picture's
+      // Development slot instead — "current work truth outranks historical
+      // credit". With no claim, they fall through to the script tier (drafting
+      // or rewriting, at that screenplay's own reserved room), then casting,
+      // then the roster — which already sends writers to Development & Casting.
+      // The phase's Development & Casting reservation is still attended: the
+      // director's row above is anchored to it.
       return rows
     case 'rehearsal':
       rows.push({ talentId: production.directorId, credit: 'director', capability: 'soundstage' })

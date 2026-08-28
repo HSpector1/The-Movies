@@ -37,6 +37,8 @@
 
 import {
   activeContract,
+  activeProductionCompanyTalentIds,
+  activeWritingAssignmentIds,
   busyTalentIds,
   canAfford,
   contractOffer,
@@ -470,28 +472,30 @@ function applyGreenlight(
     seenRoleById.set(id, role)
   }
 
-  // M16.5 — talent exclusivity: none of the engaged ids (writer, director, the
-  // three cast, all craft) may already be engaged in ANY active production (as
-  // its writerId/directorId/any cast/any craftId). Fixed-order id list.
+  // M16.5 — talent exclusivity: none of the ids this greenlight ENGAGES (the
+  // director, the three cast, all craft) may already be doing real work — a seat
+  // in another active production company, or an active drafting/rewriting task.
+  //
+  // P04A.2 (Owner ruling §6/§7) — `p.writerId` is deliberately NOT in this list.
+  // The screenplay's writer is being CREDITED here, not staffed: the credit is
+  // permanent, attaches by exact stable id, and reserves nobody. Requiring the
+  // credited writer to be idle deadlocked the one-writer studio — a finished
+  // screenplay could not be greenlit while its own author wrote the next one,
+  // and no legal action could free them. The writer keeps their credit below
+  // (`participants`, `production.writerId`) and stays free to draft.
+  // `roleAssignments` above still refuses writerId doubling as a cast/craft seat
+  // IN THIS SAME production (M16.7), so nothing here lets one person hold two
+  // jobs on one picture. Writing exclusivity is unchanged: a writer already
+  // drafting cannot be commissioned again (`requireCommissionableWriter`).
   const engagedIds: string[] = [
-    p.writerId,
     p.directorId,
     ...castIds,
     ...p.craftIds,
   ]
-  const busy = new Set<string>()
-  for (const active of state.studio.activeProductions) {
-    busy.add(active.writerId)
-    busy.add(active.directorId)
-    for (const slot of CAST_SLOTS) busy.add(active.cast[slot])
-    for (const cid of active.craftIds) busy.add(cid)
-  }
-  for (const assignment of activeScriptWriterAssignments(
-    state.scriptDevelopment,
-    state.concepts,
-  )) {
-    busy.add(assignment.talentId)
-  }
+  // ONE union, from the two shared producers, so this gate and `busyTalentIds`
+  // can never drift apart again.
+  const busy = activeProductionCompanyTalentIds(state)
+  for (const id of activeWritingAssignmentIds(state)) busy.add(id)
   for (const id of engagedIds) {
     if (busy.has(id)) {
       throw new Error(
