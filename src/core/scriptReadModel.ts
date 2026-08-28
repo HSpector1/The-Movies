@@ -751,7 +751,10 @@ function packageAvailability(
     blockers.push({
       kind: 'package-staffing',
       headline: 'The remaining package cannot be staffed',
-      detail: `After reserving ${writer.name} for the screenplay credit, the currently available studio roster and freelancer market are short: ${staffingShortages
+      // P04A.2 — the writer is excluded from this count because one person may
+      // not hold two roles on ONE picture (M16.7), not because the credit
+      // reserves them. It does not: they are free to write the next screenplay.
+      detail: `${writer.name} holds this screenplay's writing credit and cannot also fill a role on it, and the currently available studio roster and freelancer market are short: ${staffingShortages
         .map(
           ({ role, label, count }) =>
             `${label} (${String(availableByRole.get(role) ?? 0)} of ${String(count)} available)`,

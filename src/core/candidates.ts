@@ -163,6 +163,17 @@ export function generateCandidates(state: GameState, tick: number): CandidatePac
 
   // ── Step 1 — Eligibility (M16). A talent is eligible iff not engaged in ANY
   // active production (as writerId / directorId / any cast slot / any craftId).
+  //
+  // P04A.2 — DELIBERATELY NOT NARROWED, and this is the one place the pre-P04A.2
+  // rule still stands. Everywhere a player can reach, a writer CREDIT is no
+  // longer an availability claim (`busyTalentIds` in employment.ts). This
+  // function is not reachable from play: its only callers are the M0A agents
+  // (agents.ts) and the headless harness, i.e. the acceptance corpus, which
+  // CLAUDE.md holds byte-identical. Dropping `active.writerId` here would
+  // enlarge the eligible-writer pool, change the 'candidates' stream draws, and
+  // silently move every corpus outcome — a balance change disguised as a
+  // correctness fix, for zero player benefit. If the corpus is ever re-baselined,
+  // this is the line to revisit.
   const busy = new Set<string>()
   for (const active of state.studio.activeProductions) {
     busy.add(active.writerId)

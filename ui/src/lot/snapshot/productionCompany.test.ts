@@ -326,3 +326,216 @@ describe('activeProductionCompanyContexts', () => {
     expect(activeProductionCompanyContexts(makeState())).toBeNull()
   })
 })
+
+// ── P04A.2 — a Writer CREDIT is not a seat, at the CONSUMER layer ────────────
+//
+// The blocker this mirrors: two live pictures credited to ONE writer collapsed
+// the whole projection to null, which emptied `companyMembers` on BOTH pictures
+// and dropped every named member off the Lot. The writer row is a permanent
+// screenplay credit — it carries no cross-picture exclusivity and claims no
+// place on a soundstage. The five SEATS are unchanged: still globally exclusive,
+// still required to be standing on their own picture.
+
+/** A company whose writer row is an explicit credit id, distinct from the seats. */
+function companyWithWriter(
+  suffix: string,
+  writerId: string,
+  writerName: string,
+): LotProductionCompanyMember[] {
+  return companyMembers(suffix).map((member) =>
+    member.productionRole === 'writer'
+      ? { ...member, talentId: writerId, name: writerName }
+      : member,
+  )
+}
+
+/** Only the five SEATS occupy the picture; the credited writer is elsewhere. */
+function seatPeopleFor(operationRow: ProductionOperationsState): LotPersonState[] {
+  return (operationRow.companyMembers ?? [])
+    .filter((member) => member.productionRole !== 'writer')
+    .map((member) => ({
+      id: member.talentId,
+      name: member.name,
+      role: member.presentationRole,
+      authority: 'active-production' as const,
+      productionId: operationRow.productionId,
+      productionTitle: operationRow.title,
+    }))
+}
+
+/**
+ * The credited writer, emitted ONCE by the producer on the canonically-first
+ * picture they are credited on — never once per credit. A credit is not
+ * exclusive, so the same person may be `companyMembers[0]` on several pictures
+ * while standing in only one place.
+ */
+function creditedWriterPerson(
+  id: string,
+  name: string,
+  canonicalPicture: ProductionOperationsState,
+): LotPersonState {
+  return {
+    id,
+    name,
+    role: 'talent',
+    authority: 'active-production',
+    productionId: canonicalPicture.productionId,
+    productionTitle: canonicalPicture.title,
+  }
+}
+
+describe('activeProductionCompanyContexts — the writer credit is not a seat (P04A.2)', () => {
+  function sharedWriterState(): StudioLotSnapshot {
+    const operationA = operation('a', {
+      companyMembers: companyWithWriter('a', 'writer-shared', 'Shared Writer'),
+    })
+    const operationB = operation('b', {
+      companyMembers: companyWithWriter('b', 'writer-shared', 'Shared Writer'),
+    })
+    return snapshot(
+      [operationA, operationB],
+      [
+        ...seatPeopleFor(operationA),
+        ...seatPeopleFor(operationB),
+        creditedWriterPerson('writer-shared', 'Shared Writer', operationA),
+      ],
+    )
+  }
+
+  it('(a) joins TWO pictures that share one credited writer, six members each', () => {
+    const state = sharedWriterState()
+    const before = structuredClone(state)
+
+    const contexts = activeProductionCompanyContexts(state)
+
+    expect(contexts).not.toBeNull()
+    expect(contexts?.map((context) => context.operation.productionId)).toEqual([
+      'production-a',
+      'production-b',
+    ])
+    expect(contexts?.map((context) => context.members.length)).toEqual([6, 6])
+    for (const context of contexts ?? []) {
+      const writer = context.members[0]!
+      expect(writer.member.productionRole).toBe('writer')
+      expect(writer.member.talentId).toBe('writer-shared')
+      // Both pictures join the SAME single person by exact id — the credit is
+      // not an occupancy claim, so picture B accepts a writer who is standing on
+      // picture A. Before the fix, picture B's writer slot was tested for
+      // cross-picture seat exclusivity and returned null for BOTH pictures.
+      expect(writer.person.id).toBe('writer-shared')
+      expect(writer.person.productionId).toBe('production-a')
+    }
+    expect(state).toEqual(before)
+  })
+
+  it('(a) CONTROL — two different credited writers project identically', () => {
+    const operationA = operation('a', {
+      companyMembers: companyWithWriter('a', 'writer-one', 'Writer One'),
+    })
+    const operationB = operation('b', {
+      companyMembers: companyWithWriter('b', 'writer-two', 'Writer Two'),
+    })
+    const contexts = activeProductionCompanyContexts(
+      snapshot(
+        [operationA, operationB],
+        [
+          ...seatPeopleFor(operationA),
+          ...seatPeopleFor(operationB),
+          creditedWriterPerson('writer-one', 'Writer One', operationA),
+          creditedWriterPerson('writer-two', 'Writer Two', operationB),
+        ],
+      ),
+    )
+    expect(contexts?.map((context) => context.members.length)).toEqual([6, 6])
+    expect(contexts?.map((context) => context.members[0]!.member.talentId)).toEqual([
+      'writer-one',
+      'writer-two',
+    ])
+  })
+
+  it.each([
+    ['a shared DIRECTOR seat', () => {
+      const operationA = operation('a', {
+        companyMembers: companyWithWriter('a', 'writer-one', 'Writer One'),
+      })
+      const operationB = operation('b', {
+        directorId: 'director-a',
+        directorName: 'Director A',
+        companyMembers: companyWithWriter('b', 'writer-two', 'Writer Two').map((member) =>
+          member.productionRole === 'director'
+            ? { ...member, talentId: 'director-a', name: 'Director A' }
+            : member,
+        ),
+      })
+      return snapshot(
+        [operationA, operationB],
+        [
+          ...seatPeopleFor(operationA),
+          ...seatPeopleFor(operationB),
+          creditedWriterPerson('writer-one', 'Writer One', operationA),
+          creditedWriterPerson('writer-two', 'Writer Two', operationB),
+        ],
+      )
+    }],
+    ['a shared LEAD seat', () => {
+      const operationA = operation('a', {
+        companyMembers: companyWithWriter('a', 'writer-one', 'Writer One'),
+      })
+      const operationB = operation('b', {
+        leadId: 'lead-a',
+        leadName: 'Lead A',
+        companyMembers: companyWithWriter('b', 'writer-two', 'Writer Two').map((member) =>
+          member.productionRole === 'lead'
+            ? { ...member, talentId: 'lead-a', name: 'Lead A' }
+            : member,
+        ),
+      })
+      return snapshot(
+        [operationA, operationB],
+        [
+          ...seatPeopleFor(operationA),
+          ...seatPeopleFor(operationB),
+          creditedWriterPerson('writer-one', 'Writer One', operationA),
+          creditedWriterPerson('writer-two', 'Writer Two', operationB),
+        ],
+      )
+    }],
+    ['a shared CRAFT seat', () => {
+      const operationA = operation('a', {
+        companyMembers: companyWithWriter('a', 'writer-one', 'Writer One'),
+      })
+      const operationB = operation('b', {
+        companyMembers: companyWithWriter('b', 'writer-two', 'Writer Two').map((member) =>
+          member.productionRole === 'craft'
+            ? { ...member, talentId: 'craft-a', name: 'Craft Lead A' }
+            : member,
+        ),
+      })
+      return snapshot(
+        [operationA, operationB],
+        [
+          ...seatPeopleFor(operationA),
+          ...seatPeopleFor(operationB),
+          creditedWriterPerson('writer-one', 'Writer One', operationA),
+          creditedWriterPerson('writer-two', 'Writer Two', operationB),
+        ],
+      )
+    }],
+  ])('(c) still fails %s closed — a seat is globally exclusive', (_label, makeState) => {
+    expect(activeProductionCompanyContexts(makeState())).toBeNull()
+  })
+
+  it.each([
+    ['the writer id equals the LEAD id', 'lead', 'lead-a', 'Lead A'],
+    ['the writer id equals the SUPPORT id', 'support', 'support-a', 'Support A'],
+    ['the writer id equals the DIRECTOR id', 'director', 'director-a', 'Director A'],
+  ] as const)(
+    '(d) M16.7 within one picture — fails closed when %s',
+    (_label, _seatRole, seatId, seatName) => {
+      const row = operation('a', {
+        companyMembers: companyWithWriter('a', seatId, seatName),
+      })
+      expect(activeProductionCompanyContexts(snapshot([row], seatPeopleFor(row)))).toBeNull()
+    },
+  )
+})

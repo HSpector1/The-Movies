@@ -304,9 +304,17 @@ export function activeProductionCompanyContexts(
     for (let index = 0; index < LOT_PRODUCTION_COMPANY_ROLE_ORDER.length; index += 1) {
       const expectedRole = LOT_PRODUCTION_COMPANY_ROLE_ORDER[index]!
       const member = rawMembers[index]
+      // P04A.2 — the writer row is a permanent screenplay CREDIT, the other five
+      // are seats. Only a seat is exclusive across pictures, and only a seat may
+      // be required to name THIS picture: one person may hold the credit row on
+      // two live pictures at once, and the producer emits them as a person once,
+      // on the canonically-first of them. Requiring the credit to name every
+      // picture it appears on rejected the whole projection and emptied every
+      // company. Identity is still proved by exact id and name.
+      const claimsASeat = expectedRole !== 'writer'
       if (
         !completeMember(member, expectedRole) ||
-        globallyAssignedTalentIds.has(member.talentId)
+        (claimsASeat && globallyAssignedTalentIds.has(member.talentId))
       ) return null
 
       const person = peopleById.get(member.talentId)
@@ -314,9 +322,12 @@ export function activeProductionCompanyContexts(
         person === undefined ||
         person.name !== member.name ||
         person.role !== member.presentationRole ||
-        person.authority !== 'active-production' ||
-        person.productionId !== operation.productionId ||
-        person.productionTitle !== operation.title
+        person.authority !== 'active-production'
+      ) return null
+      if (
+        claimsASeat &&
+        (person.productionId !== operation.productionId ||
+          person.productionTitle !== operation.title)
       ) return null
 
       globallyAssignedTalentIds.add(member.talentId)

@@ -1389,10 +1389,21 @@ export function talentAssignmentContext(
     }
   }
 
-  const assignments = work.length > 0 ? work : credits
-  if (assignments.length === 0) return { kind: 'available' }
-  if (assignments.length === 1) return { kind: 'assigned', assignment: assignments[0]! }
-  return { kind: 'ambiguous' }
+  if (work.length > 0) {
+    return work.length === 1 ? { kind: 'assigned', assignment: work[0]! } : { kind: 'ambiguous' }
+  }
+  // No current work. A CREDIT still names them on a picture, and unlike a seat a
+  // person may legitimately hold several at once — a one-writer studio whose two
+  // finished screenplays are both shooting. Several credits are therefore not an
+  // ambiguity to fail closed on; they are one person with two credits. Resolve to
+  // the canonically-first picture so the choice is deterministic rather than
+  // array-order luck. (`activeProductions` is already id-ordered upstream; sort
+  // defensively so this can never depend on the caller.)
+  if (credits.length === 0) return { kind: 'available' }
+  const canonicalCredit = [...credits].sort((a, b) =>
+    a.assignmentId < b.assignmentId ? -1 : a.assignmentId > b.assignmentId ? 1 : 0,
+  )[0]!
+  return { kind: 'assigned', assignment: canonicalCredit }
 }
 
 // One generalized assignment truth for every player talent surface.
@@ -6379,10 +6390,22 @@ export function managedProductionCompanyProjection(
     const pictureTalentIds = new Set<string>()
     const members: LotProductionCompanyMember[] = []
     for (const memberSlot of memberSlots) {
+      // P04A.2 — `globallyAssignedTalentIds` is CROSS-PICTURE SEAT exclusivity:
+      // nobody occupies a seat on two pictures at once. A writer CREDIT is not a
+      // seat and carries no such exclusivity — one writer credited on two live
+      // pictures is now legal and is exactly the one-writer studio this
+      // checkpoint unblocks. Testing the credit here failed the SECOND picture's
+      // writer slot and returned null, wiping companyMembers off EVERY picture:
+      // the credit vanished from the Lot at the moment the law says it persists.
+      // The writer is still ADDED below, because the consumer balances this set
+      // against the active-production people and the writer is one of them.
+      // `pictureTalentIds` still covers all six slots, so M16.7 (one person, one
+      // role, one picture) is untouched.
+      const claimsASeat = memberSlot.productionRole !== 'writer'
       if (
         memberSlot.talentId.length === 0 ||
         pictureTalentIds.has(memberSlot.talentId) ||
-        globallyAssignedTalentIds.has(memberSlot.talentId)
+        (claimsASeat && globallyAssignedTalentIds.has(memberSlot.talentId))
       ) {
         return null
       }
@@ -6441,6 +6464,13 @@ export function managedProductionCompanyProjection(
 
     membersByProductionId.set(production.id, members)
     for (const member of members) {
+      // P04A.2 — one row per PERSON, not per credit. A writer credited on two
+      // live pictures would otherwise be pushed twice; the by-id people map
+      // downstream keeps only one, so which picture they stood on became
+      // array-order luck. Emit them once, on the canonically-first picture
+      // (`canonicalProductions` is sorted by id), and let the seat rows below be
+      // unaffected — a seat can never repeat, the guard above refuses it.
+      if (people.some((existing) => existing.id === member.talentId)) continue
       people.push({
         id: member.talentId,
         name: member.name,

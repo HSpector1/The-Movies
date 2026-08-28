@@ -116,10 +116,26 @@ export function lotPersonWorkContext(
         .filter((memberContext) => memberContext.person.id === person.id)
         .map((memberContext) => ({ context, ...memberContext })),
     )
-    if (companyMatches.length !== 1) {
+    // P04A.2 — a person may appear on several pictures at once ONLY as a writer
+    // CREDIT, never as a seat (the projection refuses a repeated seat outright).
+    // Several credits are one person with several credits, not the hostile
+    // last-write-wins ambiguity this selector exists to fail closed on, so they
+    // must not resolve to `ambiguous-assignment`. Prefer a real seat; failing
+    // that, take the credit on the picture the person's own record names.
+    const resolvedMatches = (() => {
+      if (companyMatches.length <= 1) return companyMatches
+      const seats = companyMatches.filter(
+        (candidate) => candidate.member.productionRole !== 'writer',
+      )
+      if (seats.length > 0) return seats
+      return companyMatches.filter(
+        (candidate) => candidate.context.operation.productionId === person.productionId,
+      )
+    })()
+    if (resolvedMatches.length !== 1) {
       return { kind: 'unavailable', person, reason: 'ambiguous-assignment' }
     }
-    const match = companyMatches[0]!
+    const match = resolvedMatches[0]!
     if (
       match.person !== person ||
       person.productionId === null ||
