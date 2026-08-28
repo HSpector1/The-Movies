@@ -121,9 +121,42 @@ describe('adapter: eligibility mirrors engine legality', () => {
     expect(result.ok).toBe(true)
     if (!result.ok) return
     const next = result.next
+    // RE-POINTED for P04A.2 (Owner ruling A/B/C). This spec proves "a talent
+    // ENGAGED in an active production is unavailable and ineligible". It used to
+    // read that off the credited WRITER, which is no longer an engagement: a
+    // Writer credit is permanent, is never an availability blocker, and the
+    // core's `busyTalentIds` (= production SEATS ∪ active writing assignments)
+    // does not contain it. The law itself is unchanged, so it is re-read off a
+    // real production SEAT — the director, and every cast slot.
+    const directorVisible = talentByRole(next, 'director').find((t) => t.id === pkg.directorId)!
+    expect(directorVisible.available).toBe(false)
+    expect(directorVisible.engagedIn).not.toBeNull()
+    expect(talentEligibility(directorVisible, 'director', []).eligible).toBe(false)
+    for (const slot of CAST_SLOTS) {
+      const castVisible = talentByRole(next, 'actor').find((t) => t.id === pkg.cast[slot])!
+      expect(castVisible.available).toBe(false)
+      expect(talentEligibility(castVisible, 'actor', []).eligible).toBe(false)
+    }
+  })
+
+  it('leaves the credited writer available — a Writer credit is not an engagement', () => {
+    // P04A.2 (Owner ruling A/B/C): the author of a screenplay stays attached as the
+    // credited Writer for the life of the picture, but that credit is NEVER an
+    // availability claim. Once the screenplay is finished the writer is released,
+    // so the adapter must offer them for the next picture instead of refusing with
+    // "Already working on …". This is the exact deadlock P04A.2 closes.
+    const state = newFoundedGame(SEED)
+    const pkg = makeLegalPackage(state)
+    const result = greenlight(state, pkg)
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    const next = result.next
+    expect(next.studio.activeProductions[0]!.writerId).toBe(pkg.writerId)
     const writerVisible = talentByRole(next, 'writer').find((t) => t.id === pkg.writerId)!
-    expect(writerVisible.available).toBe(false)
-    expect(talentEligibility(writerVisible, 'writer', []).eligible).toBe(false)
+    expect(writerVisible.available).toBe(true)
+    expect(writerVisible.engagedIn).toBeNull()
+    expect(writerVisible.assignmentKind).toBeNull()
+    expect(talentEligibility(writerVisible, 'writer', []).eligible).toBe(true)
   })
 
   it('gates zero, one, and hostile multiple assignments without last-write-wins truth', () => {

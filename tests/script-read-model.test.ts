@@ -295,7 +295,19 @@ describe('Script Projects V1 player read model', () => {
     expect(scriptProjectsReadModel(noReviews).lotAttention.kind).toBe('capacity-constraint')
   })
 
-  it('names a Ready writer assignment blocker and returns cloned locked package facts', () => {
+  // ── P04A.2 SPLIT (Owner ruling: greenlight CREDITS a writer, it does not staff
+  // one) ─────────────────────────────────────────────────────────────────────
+  //
+  // The predecessor proved two things in one body: (1) a READY package whose
+  // credited writer is drafting another screenplay publishes a writer-assignment
+  // blocker, and (2) the package facts it publishes are clones. The ruling
+  // reverses (1) — availability gates WRITING WORK, and a greenlight engages no
+  // writing time — so (1) is re-pointed here to the opposite, now-correct truth,
+  // and the availability law it was written for is preserved unbroken in the two
+  // named siblings below: the REWRITE purpose (real writing work) still emits the
+  // blocker, and the writer-CONTRACT gate still refuses a package outright.
+  // Half (2) is untouched.
+  it('publishes a clear Ready package while its credited writer drafts another screenplay, and returns cloned locked package facts', () => {
     let state = foundedManagedStudio('script-read-package')
     const writer = contractedTalent(state)[0]!
     const firstPayload = commissionPayload(state, 0, writer)
@@ -325,22 +337,109 @@ describe('Script Projects V1 player read model', () => {
     expect(scriptProjectsReadModel(state).packages[0]!.lockedPromise).toEqual(firstPayload.promise)
 
     // A Ready screenplay releases its writer, so the same writer can begin another
-    // script. That named active task must then block this package's greenlight gate.
+    // script. Under P04A.2 that active drafting task must NOT block this package:
+    // greenlighting script-0000 credits an author whose work on it is finished and
+    // engages none of the writing time they are now spending on script-0001. The
+    // read model has to agree with the engine, which no longer consults the
+    // credited writer's availability at greenlight either.
     state = applyActions(state, [
       { kind: 'commissionScript', project: commissionPayload(state, 1, writer) },
     ])
-    const blocked = scriptProjectsReadModel(state)
-    expect(blocked.packages[0]!.availability.knownGatesClear).toBe(false)
-    expect(blocked.packages[0]!.availability.writerAvailable).toBe(false)
-    expect(blocked.packages[0]!.availability.blockers).toContainEqual(
+    const drafting = scriptProjectsReadModel(state)
+    const draftingPackage = drafting.packages.find(
+      (candidate) => candidate.projectId === 'script-0000',
+    )!
+    // The writer really IS busy — the second screenplay is genuinely drafting.
+    expect(
+      drafting.sections.inDevelopment.map((card) => card.projectId),
+    ).toContain('script-0001')
+    expect(state.scriptDevelopment.projects.find((p) => p.id === 'script-0001')!.status).toBe(
+      'drafting',
+    )
+    expect(draftingPackage.availability).toMatchObject({
+      knownGatesClear: true,
+      writerAvailable: true,
+      canSubmitGreenlightIntent: true,
+    })
+    expect(draftingPackage.availability.blockers).not.toContainEqual(
+      expect.objectContaining({ kind: 'writer-assignment' }),
+    )
+    // Opening the locked package stays legal, as it always was.
+    expect(draftingPackage.openAction?.kind).toBe('openPackage')
+  })
+
+  // The availability law the predecessor was written for, kept whole on the path
+  // where it still binds: a REWRITE is real writing work, so a writer who is
+  // genuinely busy cannot be handed one. Unchanged by P04A.2.
+  it('still names a writer-assignment blocker on the REWRITE path when the writer is genuinely busy', () => {
+    let state = foundedManagedStudio('script-read-rewrite-writer-busy')
+    const writer = contractedTalent(state)[0]!
+    state = applyActions(state, [
+      { kind: 'commissionScript', project: commissionPayload(state, 0, writer) },
+    ])
+    state = tick(state)
+    // script-0000 is now a first draft awaiting review; the writer is released.
+    const review = state.scriptDevelopment.projects.find((p) => p.id === 'script-0000')!
+    expect(review.status).toBe('review')
+    expect(review.rewriteCount).toBe(0)
+
+    // The same writer starts a second screenplay — now they are genuinely busy.
+    state = applyActions(state, [
+      { kind: 'commissionScript', project: commissionPayload(state, 1, writer) },
+    ])
+    expect(state.scriptDevelopment.projects.find((p) => p.id === 'script-0001')!.status).toBe(
+      'drafting',
+    )
+
+    const view = scriptProjectsReadModel(state)
+    const card = view.sections.needsReview.find((candidate) => candidate.projectId === 'script-0000')!
+    expect(card.blockers).toContainEqual(
       expect.objectContaining({
         kind: 'writer-assignment',
+        headline: `${writer.name} is already assigned`,
         detail: expect.stringContaining(`Drafting ${state.concepts[1]!.title}`),
+        remedy: 'Wait for the named assignment to finish.',
       }),
     )
-    // Opening the locked package is navigation and remains legal; the known gate
-    // truth tells Assembly why greenlight itself is not yet legal.
-    expect(blocked.packages[0]!.openAction?.kind).toBe('openPackage')
+    // …and the rewrite it gates is therefore not offered.
+    expect(card.legalActions.map((action) => action.kind)).not.toContain('requestScriptRewrite')
+    expect(card.legalActions.map((action) => action.kind)).toContain('acceptScript')
+  })
+
+  // The OTHER half of `writerBlockers`, unchanged by P04A.2 and load-bearing for
+  // the package path: the engine really does require `isContracted(writerId)` at
+  // greenlight, so a Ready package whose credited writer is out of contract is
+  // still refused — availability is not the only writer gate.
+  it('still names a writer-contract blocker for a Ready package whose writer is out of contract', () => {
+    let state = foundedManagedStudio('script-read-package-writer-uncontracted')
+    const writer = contractedTalent(state)[0]!
+    state = applyActions(state, [
+      { kind: 'commissionScript', project: commissionPayload(state, 0, writer) },
+    ])
+    state = tick(state)
+    state = applyActions(state, [{ kind: 'acceptScript', projectId: 'script-0000' }])
+    expect(
+      scriptProjectsReadModel(state).packages[0]!.availability,
+    ).toMatchObject({ knownGatesClear: true, writerAvailable: true })
+
+    // Let the writer's contract lapse (projection-level fixture, as elsewhere in
+    // this file): the credit survives, the greenlight gate does not.
+    const lapsed: GameState = {
+      ...state,
+      contracts: state.contracts.filter((contract) => contract.talentId !== writer.id),
+    }
+    const availability = scriptProjectsReadModel(lapsed).packages[0]!.availability
+    expect(availability.knownGatesClear).toBe(false)
+    expect(availability.writerAvailable).toBe(false)
+    expect(availability.canSubmitGreenlightIntent).toBe(false)
+    expect(availability.blockers).toContainEqual(
+      expect.objectContaining({
+        kind: 'writer-contract',
+        headline: `${writer.name} is out of contract`,
+        detail: expect.stringContaining('greenlight this screenplay'),
+        remedy: `Sign ${writer.name} to a new studio contract.`,
+      }),
+    )
   })
 
   it('suppresses only the exact queued greenlight across screenplay and casting package doors', () => {

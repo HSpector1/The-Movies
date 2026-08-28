@@ -267,7 +267,15 @@ describe('World-First Named Person Work & Career Inspector V1', () => {
           ...production,
           // Hostile accepted-state shape: one ID now fills two active roles. The
           // exact operation participant still joins, but the profile gate must not.
-          writerId: production.directorId,
+          //
+          // RE-POINTED for P04A.2 (Owner ruling A/B/C): this used to duplicate the
+          // director into `writerId`. A Writer CREDIT is no longer a role occupancy —
+          // it is a permanent film credit that yields to any real current work — so
+          // that shape is no longer ambiguous and no longer proves this gate. The
+          // collision is now made between two real SEATS (director + Production/Craft
+          // Lead), which M16.7 "one talent, one role, same production" still forbids,
+          // so the spec proves exactly the law it was written for.
+          craftIds: [production.directorId],
         }],
       },
     }
@@ -503,11 +511,16 @@ describe('World-First Named Person Work & Career Inspector V1', () => {
       talent: valid.talent.filter((person) => person.id !== director.id),
     }
     const production = valid.studio.activeProductions[0]!
+    // RE-POINTED for P04A.2 (Owner ruling A/B/C) — see the sibling spec above: a
+    // duplicated Writer CREDIT is no longer an ambiguous occupancy, so the hostile
+    // shape is now a duplicated SEAT (director + Production/Craft Lead), which
+    // M16.7 still forbids and which still makes whole-studio assignment identity
+    // ambiguous.
     const ambiguousAssignment: GameState = {
       ...valid,
       studio: {
         ...valid.studio,
-        activeProductions: [{ ...production, writerId: production.directorId }],
+        activeProductions: [{ ...production, craftIds: [production.directorId] }],
       },
     }
     const onOpen = vi.fn()

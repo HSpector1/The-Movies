@@ -1064,31 +1064,66 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     }
   })
 
-  it('rejects a production-plus-screenplay writer collision inside the bounded company proof', () => {
+  it('rejects a production-seat-plus-screenplay collision inside the bounded company proof', () => {
+    // RE-POINTED for P04A.2 (Owner ruling A/B/C). The law this spec was written for —
+    // "a company member who is ALSO doing screenplay work is not an exact single
+    // assignment, so the bounded company proof withholds the whole projection" — is
+    // unchanged for every real production SEAT. What changed is which people can
+    // collide: the credited WRITER of a picture holds no seat and no occupancy claim,
+    // so "credited on the picture AND drafting the next screenplay" is now the
+    // INTENDED state, not a collision (pinned below and in
+    // ui/src/engine/writer-credit-not-assignment.test.ts). The collision is therefore
+    // re-pointed onto a real seat — the Production/Craft Lead.
     const legal = productionAndDraftingScript(
       'lot-managed-company-production-script-collision',
     )
     const legalSnapshot = studioLotSnapshot(legal)
-    const productionWriter = legal.studio.activeProductions[0]!.writerId
+    const production = legal.studio.activeProductions[0]!
     const draftingProject = legal.scriptDevelopment.projects.at(-1)!
-    const collision: GameState = {
+    const withWriterOf = (talentId: string): GameState => ({
       ...legal,
       scriptDevelopment: {
         ...legal.scriptDevelopment,
         projects: legal.scriptDevelopment.projects.map((project) =>
           project.id === draftingProject.id
-            ? { ...project, writerId: productionWriter }
+            ? { ...project, writerId: talentId, writerIds: [talentId] }
             : project,
         ),
       },
-    }
-    const before = JSON.stringify(collision)
+    })
 
-    expect(managedProductionCompanyProjection(
-      collision,
+    for (const seatId of [
+      production.craftIds[0]!,
+      production.directorId,
+      production.cast.lead,
+      production.cast.antagonist,
+      production.cast.support,
+    ]) {
+      const collision = withWriterOf(seatId)
+      const before = JSON.stringify(collision)
+      expect(managedProductionCompanyProjection(
+        collision,
+        legalSnapshot.productionOperations ?? [],
+      )).toBeNull()
+      expect(JSON.stringify(collision)).toBe(before)
+    }
+
+    // …and the credited WRITER doing exactly the same screenplay work does NOT
+    // collapse the company: the credit is proved by exact stable id, so all six
+    // members still project for the picture.
+    const creditedAndDrafting = withWriterOf(production.writerId)
+    const beforeCredit = JSON.stringify(creditedAndDrafting)
+    const projected = managedProductionCompanyProjection(
+      creditedAndDrafting,
       legalSnapshot.productionOperations ?? [],
-    )).toBeNull()
-    expect(JSON.stringify(collision)).toBe(before)
+    )
+    expect(projected).not.toBeNull()
+    expect(projected!.membersByProductionId.get(production.id)).toHaveLength(6)
+    expect(projected!.membersByProductionId.get(production.id)![0]).toMatchObject({
+      productionRole: 'writer',
+      talentId: production.writerId,
+    })
+    expect(JSON.stringify(creditedAndDrafting)).toBe(beforeCredit)
   })
 
   it('keeps hostile Director/Lead fallback uniqueness-aware and array-order independent', () => {

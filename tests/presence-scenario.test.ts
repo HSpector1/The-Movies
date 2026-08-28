@@ -17,9 +17,11 @@ import type { GameState, PersonPresence, StudioPresence } from '../src/core/inde
 import {
   activateManaged,
   cheapestConcepts,
+  commissionPayload,
   contractedByRole,
   foundedStudio,
   packagePayload,
+  presenceViolations,
   readyScript,
 } from './_presenceFixtures.js'
 
@@ -137,11 +139,20 @@ describe('Presence Projection V1 — scenario walk', () => {
       state = advanceUntil(state, (candidate) => phaseOf(candidate, productionId) === phase)
       presence = studioPresence(state)
       const site = facilityOf(state, 'development-casting', productionId)
+      // P04A.2 (Owner ruling: a Writer credit is never a world-presence claim).
+      // The predecessor asserted the credited writer stood in this picture's
+      // Development & Casting slot for both phases. That is the claim the ruling
+      // deletes: the screenplay is finished, the writer is released, and with no
+      // other work their body falls through to the roster tier — visible, at the
+      // writers' own home facility, holding nothing. The DIRECTOR still anchors
+      // the phase's Development & Casting reservation, asserted unchanged below.
       expect(at(presence, writer.id)).toMatchObject({
-        engagement: 'production',
-        credit: 'writer',
-        ownerId: productionId,
-        site,
+        engagement: 'roster',
+        credit: null,
+        ownerId: null,
+        site: rosterHomeFacilityId(writer.role),
+        slot: null,
+        blockedReason: null,
       })
       expect(at(presence, director.id)).toMatchObject({
         engagement: 'production',
@@ -309,7 +320,13 @@ describe('Presence Projection V1 — scenario walk', () => {
       state.operations.workflows.find((workflow) => workflow.productionId === blockedId)!
         .reservations,
     ).toEqual([])
-    for (const talentId of [blockedProduction.writerId, blockedProduction.directorId]) {
+    //
+    // P04A.2 (Owner ruling: a Writer credit is never a world-presence claim) —
+    // the queue is the blocked COMPANY, and the credited writer is not in the
+    // company. Pre-production attendance is the director's; the writer, whose
+    // screenplay is finished and who holds no other task, waits for nothing and
+    // is on the roster. Only the director's row carries this law now.
+    for (const talentId of [blockedProduction.directorId]) {
       const person = at(presence, talentId)
       expect(person).toMatchObject({
         engagement: 'production',
@@ -321,11 +338,20 @@ describe('Presence Projection V1 — scenario walk', () => {
       expect(person.beats).toContain('waiting')
       expect(person.beats).not.toContain('at-site')
     }
+    // The credited writer of the blocked picture is NOT queued by their credit.
+    const blockedWriter = at(presence, blockedProduction.writerId)
+    expect(blockedWriter).toMatchObject({
+      engagement: 'roster',
+      credit: null,
+      ownerId: null,
+      blockedReason: null,
+    })
+    expect(blockedWriter.beats).not.toContain('waiting')
 
     // The queue is exactly the blocked company's phase attendance — nobody else.
     const waiting = presence.people.filter((person) => person.beats.includes('waiting'))
     expect(waiting.map((person) => person.talentId).sort()).toEqual(
-      [blockedProduction.writerId, blockedProduction.directorId].sort(),
+      [blockedProduction.directorId].sort(),
     )
     // …and the company that holds the stage is working, not queued.
     for (const person of presence.people) {
@@ -347,5 +373,74 @@ describe('Presence Projection V1 — scenario walk', () => {
       site: facilityOf(state, 'soundstage', blockedId),
       blockedReason: null,
     })
+  })
+
+  // ── P04A.2, the Owner ruling pinned directly ────────────────────────────────
+  //
+  // "creditedWriterId != activeProductionCompanyTalentIds != activeWritingAssignmentIds."
+  // A writer credited on picture A — while A is live in Development — AND actively
+  // drafting screenplay B is the exact case the ruling declares intended. Presence
+  // must show where the body IS, which is B's reserved room: CURRENT WORK TRUTH
+  // OUTRANKS HISTORICAL CREDIT. The old law projected them into A's Development &
+  // Casting slot instead, hiding the work they were really doing.
+  it('projects a credited writer who is drafting a second screenplay at that screenplay, not at their credit', () => {
+    let state = activateManaged(foundedStudio('presence-writer-credit'))
+    const concepts = cheapestConcepts(state, 2)
+    const writer = contractedByRole(state, 'writer')[0]!
+    const director = contractedByRole(state, 'director')[0]!
+    const craft = contractedByRole(state, 'craft')[0]!
+    const actors = contractedByRole(state, 'actor')
+
+    // Screenplay A: written by `writer`, finished and accepted, then greenlit.
+    const first = readyScript(state, concepts[0]!, writer.id)
+    state = first.state
+    state = applyActions(state, [
+      {
+        kind: 'greenlightScriptProject',
+        production: packagePayload(state, first.projectId, {
+          directorId: director.id,
+          craftIds: [craft.id],
+          cast: { lead: actors[0]!.id, antagonist: actors[1]!.id, support: actors[2]!.id },
+        }),
+      },
+    ])
+    const productionId = state.studio.activeProductions[0]!.id
+    state = advanceUntil(state, (candidate) => phaseOf(candidate, productionId) === 'development')
+
+    // The credit really is on the live picture, by exact stable id.
+    expect(state.studio.activeProductions[0]!.writerId).toBe(writer.id)
+    expect(phaseOf(state, productionId)).toBe('development')
+
+    // Screenplay B: the SAME writer starts drafting a second script. Under the
+    // old law this action was unreachable at all — the credit made them busy.
+    state = applyActions(state, [
+      { kind: 'commissionScript', project: commissionPayload(concepts[1]!, writer.id) },
+    ])
+    const second = state.scriptDevelopment.projects.find(
+      (project) => project.conceptId === concepts[1]!.id,
+    )!
+    expect(second.status).toBe('drafting')
+    expect(second.id).not.toBe(first.projectId)
+
+    const presence = studioPresence(state)
+    expect(at(presence, writer.id)).toMatchObject({
+      engagement: 'script',
+      credit: 'writer',
+      ownerId: second.id,
+      site: second.reservation!.facilityId,
+      slot: second.reservation!.slot,
+      blockedReason: null,
+    })
+    expect(at(presence, writer.id).beats).toContain('at-site')
+    // The picture's own company is untouched by any of this.
+    expect(at(presence, director.id)).toMatchObject({
+      engagement: 'production',
+      credit: 'director',
+      ownerId: productionId,
+      site: facilityOf(state, 'development-casting', productionId),
+    })
+
+    expect(presenceViolations(state, presence)).toEqual([])
+    expect(presence.withheld).toEqual([])
   })
 })

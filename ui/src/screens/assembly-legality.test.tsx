@@ -248,23 +248,107 @@ describe('assembly legality: an engaged actor cannot be selected and the conflic
     if (!g1.ok) return
     state = g1.next
 
-    // Second film reuses the engaged writer (writers[0], now busy) but is otherwise legal
-    // (distinct still-available roster actors, a second director and the second craft lead)
-    // → the engine rejects it on the reused writer; the adapter surfaces that as data.
+    // RE-POINTED for P04A.2 (Owner ruling A/B/C). The law under test is unchanged —
+    // "the engine refuses a greenlight that reuses ENGAGED talent, and the adapter
+    // surfaces that refusal as data". It used to be read off the reused WRITER, which
+    // P04A.2 removed from the engine's greenlight exclusivity set: a Writer credit is
+    // permanent and is never an availability claim, so reusing it is now legal (see
+    // the sibling spec below). Production exclusivity for the SEATS — director, the
+    // three cast slots and craft — is explicitly unchanged, so the refusal is re-read
+    // off each of those seats in turn. Everything else in each package is legal
+    // (a fresh writer, distinct still-available roster people), so the reused seat is
+    // the only possible cause of the rejection.
+    const concept2 = state.concepts[1]!
+    const legalSecondBase: DraftPackage = {
+      ...first,
+      conceptId: concept2.id,
+      promise: { ...first.promise, genre: concept2.genre },
+      writerId: writers[1]!,
+      directorId: directors[1]!,
+      craftIds: [craft[1]!],
+      cast: { lead: actors[3]!, antagonist: actors[4]!, support: actors[5]! },
+      budget: { negative: requiredNegative(concept2, shape, state), marketing: 400_000 },
+    }
+    const reusedSeatPackages: ReadonlyArray<readonly [string, DraftPackage]> = [
+      ['director', { ...legalSecondBase, directorId: directors[0]! }],
+      ['craft lead', { ...legalSecondBase, craftIds: [craft[0]!] }],
+      ['lead actor', {
+        ...legalSecondBase,
+        cast: { ...legalSecondBase.cast, lead: actors[0]! },
+      }],
+      ['antagonist', {
+        ...legalSecondBase,
+        cast: { ...legalSecondBase.cast, antagonist: actors[1]! },
+      }],
+      ['supporting actor', {
+        ...legalSecondBase,
+        cast: { ...legalSecondBase.cast, support: actors[2]! },
+      }],
+    ]
+    for (const [seat, pkg] of reusedSeatPackages) {
+      const rejected = greenlight(state, pkg)
+      expect([seat, rejected.ok]).toEqual([seat, false])
+      if (rejected.ok) continue
+      expect(rejected.error.length).toBeGreaterThan(0)
+    }
+  })
+
+  it('accepts a greenlight that reuses ONLY the credited writer of an active picture', () => {
+    // P04A.2 (Owner ruling A/B/C): the credited Writer of a picture in Production is
+    // NOT a seat in that picture's company and holds no availability claim. With the
+    // screenplay finished, the same writer may be credited on the next picture. This
+    // is the state the old engaged-writer refusal made unreachable — the deadlock a
+    // one-writer studio could never escape.
+    let state: GameState = newFoundedGame('legal-writer-credit-reuse')
+    const concept = state.concepts[0]!
+    const writers = foundedRosterIds(state, 'writer')
+    const directors = foundedRosterIds(state, 'director')
+    const actors = foundedRosterIds(state, 'actor')
+    const craft = foundedRosterIds(state, 'craft')
+    const shape = { opening: 'slowSetup', midpoint: 'reversal', ending: 'bittersweet' } as const
+    const first: DraftPackage = {
+      conceptId: concept.id,
+      shape,
+      promise: {
+        genre: concept.genre,
+        intendedSegments: ['adult'],
+        ranges: { intimacy: [-0.4, 0.4], tonalWeight: [-0.4, 0.4], kineticEnergy: [-0.4, 0.4] },
+      },
+      writerId: writers[0]!,
+      directorId: directors[0]!,
+      craftIds: [craft[0]!],
+      cast: { lead: actors[0]!, antagonist: actors[1]!, support: actors[2]! },
+      budget: { negative: requiredNegative(concept, shape, state), marketing: 400_000 },
+    }
+    const g1 = greenlight(state, first)
+    expect(g1.ok).toBe(true)
+    if (!g1.ok) return
+    state = g1.next
+    expect(state.studio.activeProductions[0]!.writerId).toBe(writers[0]!)
+
+    // Same writer, every SEAT distinct and still free.
     const concept2 = state.concepts[1]!
     const second: DraftPackage = {
       ...first,
       conceptId: concept2.id,
       promise: { ...first.promise, genre: concept2.genre },
+      writerId: writers[0]!,
       directorId: directors[1]!,
       craftIds: [craft[1]!],
       cast: { lead: actors[3]!, antagonist: actors[4]!, support: actors[5]! },
       budget: { negative: requiredNegative(concept2, shape, state), marketing: 400_000 },
     }
     const g2 = greenlight(state, second)
-    expect(g2.ok).toBe(false)
-    if (g2.ok) return
-    expect(g2.error.length).toBeGreaterThan(0)
+    expect(g2.ok).toBe(true)
+    if (!g2.ok) return
+    // Both pictures carry the credit, by exact stable id.
+    expect(
+      g2.next.studio.activeProductions.map((production) => production.writerId),
+    ).toEqual([writers[0]!, writers[0]!])
+    // And the credit alone still does not make them unavailable in the pickers.
+    const writerVisible = talentByRole(g2.next, 'writer').find((t) => t.id === writers[0]!)!
+    expect(writerVisible.available).toBe(true)
+    expect(writerVisible.engagedIn).toBeNull()
   })
 })
 

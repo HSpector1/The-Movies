@@ -116,6 +116,17 @@ function acceptFirstReview(state: GameState): GameState {
   return result.next
 }
 
+// A Ready package whose credited writer is BOTH drafting another screenplay and out
+// of contract, with both shared Development/Casting slots occupied.
+//
+// RE-POINTED for P04A.2 (Owner ruling A/B/C). The "writer is drafting another
+// screenplay" half used to publish a `writer-assignment` blocker on this Ready
+// package; it no longer does, and must not — a greenlight engages nobody's writing
+// time, it locks a permanent credit on a screenplay that is already finished. The
+// drafting setup is kept ON PURPOSE so this fixture also pins that absence. The
+// blockers this spec renders are `writer-contract` (still law for `package`: the
+// engine really does require `isContracted(project.writerId)` at greenlight) and
+// `facility-capacity`.
 function readyPackageBlockedByScriptWork(seed: string) {
   let state = managedStudio(seed, 2)
   const writerIds = scriptProjectsBoard(state).commission.writers
@@ -124,9 +135,20 @@ function readyPackageBlockedByScriptWork(seed: string) {
   state = commission(state, writerIds[0])
   state = acceptFirstReview(advanceWeek(state).next)
   const readyId = scriptProjectsBoard(state).packages[0]!.projectId
+  const creditedWriterId = state.scriptDevelopment.projects.find(
+    (project) => project.id === readyId,
+  )!.writerId
+  expect(creditedWriterId).toBe(writerIds[0])
   state = commission(state, writerIds[0])
   state = commission(state, writerIds[1])
-  return { state, readyId }
+  // The credited writer of the Ready package leaves the studio's contract list.
+  const lapsed: GameState = {
+    ...state,
+    contracts: state.contracts.filter(
+      (contract) => contract.talentId !== creditedWriterId,
+    ),
+  }
+  return { state: lapsed, readyId, creditedWriterId, draftingState: state }
 }
 
 function pickFirstEligible(testId: string) {
@@ -141,12 +163,28 @@ function pickFirstEligible(testId: string) {
 
 describe('managed screenplay gate truth', () => {
   it('disables greenlight and renders every Ready-package blocker with its remedy', () => {
-    const { state, readyId } = readyPackageBlockedByScriptWork('script-package-gates')
+    const { state, readyId, creditedWriterId, draftingState } =
+      readyPackageBlockedByScriptWork('script-package-gates')
+
+    // P04A.2: the credited writer being busy DRAFTING another screenplay publishes no
+    // package blocker at all — a Writer credit is not an active writing assignment.
+    const draftingOnly = scriptProjectsBoard(draftingState).packages.find(
+      (candidate) => candidate.projectId === readyId,
+    )!
+    expect(
+      draftingState.scriptDevelopment.projects
+        .filter((project) => project.status === 'drafting')
+        .map((project) => project.writerId),
+    ).toContain(creditedWriterId)
+    expect(draftingOnly.availability.blockers.map((blocker) => blocker.kind)).toEqual([
+      'facility-capacity',
+    ])
+
     const locked = scriptProjectsBoard(state).packages.find(
       (candidate) => candidate.projectId === readyId,
     )!
     expect(locked.availability.blockers.map((blocker) => blocker.kind)).toEqual([
-      'writer-assignment',
+      'writer-contract',
       'facility-capacity',
     ])
 

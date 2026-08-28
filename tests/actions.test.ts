@@ -538,24 +538,85 @@ describe('applyActions — greenlight M16 validation rejections', () => {
     expect(() => applyActions(state, [greenlight(prod)])).toThrow()
   })
 
+  // ── M16.5 RE-POINTED FOR P04A.2 (Owner ruling: credit != company seat) ─────
+  //
+  // The predecessor proved M16.5 by reusing the first production's WRITER and
+  // expecting a refusal. Under P04A.2 the credited writer is not a seat in the
+  // production company — the credit reserves nobody — so writer reuse is now
+  // LEGAL and cannot carry this law any more. The law itself is unchanged, so
+  // the test is re-pointed at a seat that IS still exclusive (the DIRECTOR) and
+  // keeps asserting the same refusal, now also pinning the message to the id it
+  // refuses. The new-law half lives in its named sibling directly below.
   it('exclusivity: a talent already engaged in an active production throws (M16)', () => {
     const state = generateWorld('gl-rej-exclusive')
     const first = buildGreenlightProduction(state)
     const afterFirst = applyActions(state, [greenlight(first)])
     expect(afterFirst.studio.activeProductions.length).toBe(1)
 
-    // Bump the tick so id differs, then greenlight a DISJOINT-except-writer package
-    // reusing the first production's writer. Reuse of an engaged talent must throw.
+    // Bump the tick so id differs, then greenlight a DISJOINT-except-DIRECTOR
+    // package reusing the first production's director. Reuse of an engaged SEAT
+    // must throw.
     const bumped = withTick(afterFirst, afterFirst.market.tick + 1)
     const second = buildGreenlightProduction(bumped, {
-      writerIndex: 0, // same writer as `first` (both use writers[0]) → engaged
+      conceptIndex: 1,
+      writerIndex: 1, // a DIFFERENT writer — writer reuse is no longer the subject
+      directorIndex: 0, // same director as `first` (both use directors[0]) → engaged
+      leadIndex: 3,
+      antagonistIndex: 4,
+      supportIndex: 5,
+    })
+    expect(second.directorId).toBe(first.directorId) // fixture reuses the engaged talent
+    expect(second.writerId).not.toBe(first.writerId) // …and ONLY the engaged talent
+    expect(() => applyActions(bumped, [greenlight(second)])).toThrow()
+    // The refusal must name the talent it is refusing, and refuse it for exclusivity.
+    let message = ''
+    try {
+      applyActions(bumped, [greenlight(second)])
+    } catch (e) {
+      message = e instanceof Error ? e.message : String(e)
+    }
+    expect(message).toContain(first.directorId)
+    expect(message).toContain('exclusivity')
+  })
+
+  // P04A.2 (Owner ruling, "creditedWriterId != activeProductionCompanyTalentIds"):
+  // a screenplay's author is CREDITED at greenlight, never staffed. The credit is
+  // permanent, attaches by exact stable id, and reserves nobody — so the same
+  // writer may be the credited writer of two active pictures at once. This is the
+  // exact case the predecessor above used to refuse; it is now intended behaviour,
+  // and it is what un-deadlocks the one-writer studio.
+  it('exclusivity: reusing ONLY the credited writer across two productions succeeds (P04A.2)', () => {
+    const state = generateWorld('gl-credited-writer-reuse')
+    const first = buildGreenlightProduction(state)
+    const afterFirst = applyActions(state, [greenlight(first)])
+    expect(afterFirst.studio.activeProductions.length).toBe(1)
+
+    const bumped = withTick(afterFirst, afterFirst.market.tick + 1)
+    const second = buildGreenlightProduction(bumped, {
+      conceptIndex: 1,
+      writerIndex: 0, // the SAME writer as `first` — credited twice, staffed never
       directorIndex: 1,
       leadIndex: 3,
       antagonistIndex: 4,
       supportIndex: 5,
     })
-    expect(second.writerId).toBe(first.writerId) // fixture reuses the engaged talent
-    expect(() => applyActions(bumped, [greenlight(second)])).toThrow()
+    expect(second.writerId).toBe(first.writerId)
+    // Every OTHER seat is disjoint, so the writer is the only thing shared.
+    const firstSeats = [first.directorId, first.cast.lead, first.cast.antagonist, first.cast.support]
+    const secondSeats = [
+      second.directorId,
+      second.cast.lead,
+      second.cast.antagonist,
+      second.cast.support,
+    ]
+    expect(firstSeats.some((id) => secondSeats.includes(id))).toBe(false)
+
+    const afterSecond = applyActions(bumped, [greenlight(second)])
+    expect(afterSecond.studio.activeProductions.length).toBe(2)
+    const [prodA, prodB] = afterSecond.studio.activeProductions
+    // The credit is recorded on BOTH pictures, by the same exact stable id.
+    expect(prodA!.writerId).toBe(first.writerId)
+    expect(prodB!.writerId).toBe(first.writerId)
   })
 
   // ── C2a-M4 RETIREMENT WITH ITS NAMED SUCCESSOR (charter §11.8 item 8) ──────
