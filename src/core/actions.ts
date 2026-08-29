@@ -577,7 +577,13 @@ function applyGreenlight(
     // them, D-11.5); each freelancer costs a one-film fee (a direct project cost,
     // D-11.10), debited and logged separately from payroll.
     const freelancerMarket = new Set(freelancerMarketIds(state))
-    const assigned: Talent[] = [writer, director, cast.lead, cast.antagonist, cast.support, ...craftHires]
+    // P04A.3 (Owner ruling) — `writer` is deliberately NOT in this list, mirroring
+    // `engagedIds` above (which already excludes `p.writerId` for the same reason,
+    // M16.5/P04A.2). The credited writer of a finished screenplay is not newly
+    // staffed labour at greenlight — the credit is permanent and reserves nobody's
+    // time — so it is neither gated on D-11.12 contract/freelancer status nor
+    // charged the D-11.10 one-film freelancer fee here.
+    const assigned: Talent[] = [director, cast.lead, cast.antagonist, cast.support, ...craftHires]
     let freelancerFees = 0
     for (const t of assigned) {
       if (isContracted(state, t.id)) continue // payroll covers contracted talent
@@ -2346,11 +2352,26 @@ function applyGreenlightScriptProject(
       `applyActions: greenlightScriptProject references unknown project "${action.production.projectId}"`,
     )
   }
-  if (!isContracted(state, project.writerId)) {
-    throw new Error(
-      `applyActions: greenlightScriptProject rejected — writer "${project.writerId}" must be currently studio-contracted`,
-    )
-  }
+  // P04A.3 (Owner ruling §8) — THE WRITER'S CONTRACT DOES NOT GATE A GREENLIGHT.
+  //
+  // This gate used to throw when the credited writer was out of contract. That
+  // contradicted the accepted law that a finished screenplay's writer holds a
+  // permanent CREDIT, not an active assignment: greenlighting a completed
+  // screenplay engages nobody's writing time, so there is nothing for a current
+  // contract to authorise.
+  //
+  // Removing it here is not merely a relaxation, it is what keeps the surfaces
+  // HONEST. `writerBlockers(..., 'package')` now publishes no writer blocker, so
+  // leaving this throw in place would have meant the Casting board offering a
+  // greenlight the engine then refused — a rejection with no warning anywhere,
+  // which is the same shape as the P04A.1 deadlock this checkpoint exists to
+  // clear. The projection and the engine agree again.
+  //
+  // Writing WORK is untouched: `requireCommissionableWriter` (commission) and
+  // `applyRequestScriptRewrite` (rewrite) both still require a current contract
+  // AND an idle writer, because those spend real studio-contracted time. So does
+  // every non-writer seat — director, cast and craft keep D-11.12 eligibility and
+  // the D-11.10 one-film fee in `applyGreenlight`.
   if (
     allowQueue &&
     hasQueuedGreenlightScriptProject(state.productionQueue, action.production.projectId)

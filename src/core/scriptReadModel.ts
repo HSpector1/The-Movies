@@ -420,6 +420,14 @@ function writerBlockers(
   project: ScriptProject,
   purpose: 'rewrite' | 'package',
 ): ScriptPlayerBlocker[] {
+  // P04A.3 (Owner ruling) — a screenplay's Writer holds a permanent CREDIT, not an
+  // active production assignment. Contract state gates real writing WORK (drafting,
+  // rewriting) because that work spends studio-contracted time; it does not gate
+  // GREENLIGHTING a screenplay that is already finished, because a completed
+  // screenplay's credit engages no writing time at all. So the writer-contract
+  // blocker below is scoped to `purpose === 'rewrite'` only — a `package` greenlight
+  // publishes no writer blocker of any kind.
+  if (purpose === 'package') return []
   const writer = writerView(state, project.writerId)
   const availability = writerAvailability(state, project.writerId)
   const blockers: ScriptPlayerBlocker[] = []
@@ -427,10 +435,10 @@ function writerBlockers(
     blockers.push({
       kind: 'writer-contract',
       headline: `${writer.name} is out of contract`,
-      detail: `${writer.name} must be currently studio-contracted to ${purpose === 'rewrite' ? 'perform the rewrite' : 'greenlight this screenplay'}.`,
+      detail: `${writer.name} must be currently studio-contracted to perform the rewrite.`,
       remedy: `Sign ${writer.name} to a new studio contract.`,
     })
-  } else if (purpose === 'rewrite' && !availability.available) {
+  } else if (!availability.available) {
     // P04A.2 (Owner ruling §6/§7) — availability gates REWRITES ONLY. A rewrite
     // is real writing work, so the writer must actually be free for it. A
     // GREENLIGHT engages nobody's writing time: it locks a permanent credit on a
@@ -441,8 +449,23 @@ function writerBlockers(
     // it offered ("Wait for the named assignment to finish") needed time the
     // paused Casting surface would not advance. The engine's own greenlight gate
     // (`applyGreenlight`) no longer consults the credited writer's availability
-    // either, so the two agree. The contract gate above stays: the engine really
-    // does require `isContracted(project.writerId)` at greenlight.
+    // either, so the two agree.
+    //
+    // P04A.3 (Owner ruling §8) — the writer-CONTRACT blocker above is now ALSO
+    // scoped to `purpose: 'rewrite'` (see the early `if (purpose === 'package')
+    // return []`): a completed screenplay's credit is not new labour, so contract
+    // state cannot gate greenlighting it either.
+    //
+    // The engine moved WITH this projection, not against it:
+    // `applyGreenlightScriptProject` no longer throws on an out-of-contract
+    // credited writer, and `applyGreenlight`'s D-11.12 eligibility list no longer
+    // contains the writer. Had only this projection changed, the board would have
+    // offered a greenlight the engine refused — a rejection with no warning
+    // anywhere, the same shape as the P04A.1 deadlock. The two agree.
+    //
+    // Real writing WORK still requires a current contract and an idle writer:
+    // `requireCommissionableWriter` (commission) and `applyRequestScriptRewrite`
+    // (rewrite) both still gate on it.
     const assignment = availability.assignmentLabel ?? 'Working on another assignment'
     blockers.push({
       kind: 'writer-assignment',

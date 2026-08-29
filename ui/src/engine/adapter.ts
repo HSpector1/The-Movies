@@ -1751,9 +1751,21 @@ export function productionDemandView(
 // id (0 for contracted, freelancerFee for freelancers). In the legacy open-pool mode
 // it sums per-production salaries (D-1). This is the "salaries" input the profit
 // range and the Budget step read, so the break-even reflects real project cost.
+//
+// P04A.3 (Owner ruling §8) — the credited WRITER is summed ONLY on the legacy
+// D-1 path, because that is exactly what the engine does.
+//
+// `applyGreenlight`'s ENGAGED branch no longer includes the writer in its
+// D-11.12/D-11.10 set — a completed screenplay's credit is not new labour, so it
+// is charged no one-film fee. Its LEGACY branch is untouched and still debits
+// `writer.salary + director.salary + …`. This function's whole contract is that
+// the number the player reads is the number the engine takes, so it has to
+// follow the engine down both branches rather than pick one. (`bridge/casting.ts`
+// sums only the five seats and is always engaged, so the packaged client was
+// never wrong either way.)
 export function salarySum(state: GameState, pkg: DraftPackageIds): number {
   let total = 0
-  total += assignmentProjectCost(state, pkg.writerId)
+  if (!economyEngaged(state)) total += assignmentProjectCost(state, pkg.writerId)
   total += assignmentProjectCost(state, pkg.directorId)
   for (const slot of CAST_SLOTS) {
     const id = pkg.cast[slot]
