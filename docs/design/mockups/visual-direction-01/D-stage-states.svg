@@ -1,0 +1,385 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1570" viewBox="0 0 1600 1570" font-family="Georgia, 'Iowan Old Style', serif">
+  <title>Mockup D — Production Stage world-state language at management distance (Visual Direction 01)</title>
+  <desc>Non-production reference mockup. Six management-distance variants. Not an implementation asset.</desc>
+
+  <defs>
+    <filter id="glowD" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="bigGlowD" x="-90%" y="-90%" width="280%" height="280%"><feGaussianBlur stdDeviation="11" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+
+    <!-- reusable soundstage body -->
+    <g id="stageShell">
+      <!-- apron / forecourt -->
+      <path d="M-10 268 L510 268 L510 214 L60 214 Z" fill="#4a4a46"/>
+      <!-- main box -->
+      <path d="M60 84 L330 52 L330 216 L60 250 Z" fill="#c2b48f"/>
+      <path d="M330 52 L470 82 L470 240 L330 216 Z" fill="#9d9070"/>
+      <path d="M60 84 L330 52 L470 82 L200 114 Z" fill="#6f6a5c"/>
+      <!-- vent ridge -->
+      <path d="M150 76 L320 56 L358 64 L188 84 Z" fill="#5d594d"/>
+    </g>
+  </defs>
+
+  <rect width="1600" height="1570" fill="#0e0d0b"/>
+
+  <!-- ===== TITLE ===== -->
+  <g font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+    <text x="30" y="42" font-size="22" fill="#c6a664" letter-spacing="3">MOCKUP D — SOUNDSTAGE WORLD-STATE LANGUAGE AT MANAGEMENT DISTANCE</text>
+    <text x="30" y="68" font-size="14.5" fill="#8d8778">Six variants of one Stage, same camera, same building. Reference only — not implementation assets. No new lifecycle state is invented: every variant below maps to existing TypeScript truth.</text>
+  </g>
+
+  <!-- ================= ROW 1 ================= -->
+
+  <!-- = 1. IDLE / DARK = -->
+  <g transform="translate(24,96)">
+    <rect width="500" height="404" rx="4" fill="#15140f"/>
+    <rect width="500" height="30" fill="#1c1a16"/>
+    <text x="16" y="21" font-size="14" fill="#8d8778" letter-spacing="2.6">1 · IDLE</text>
+    <text x="484" y="21" font-size="13" fill="#5f5b51" text-anchor="end" font-family="'Helvetica Neue',Helvetica,sans-serif">no production holds this stage</text>
+    <svg x="0" y="30" width="500" height="300" viewBox="0 0 500 300">
+      <rect width="500" height="300" fill="#1c2226"/>
+      <rect y="180" width="500" height="120" fill="#3c4a3e"/>
+      <g transform="translate(10,10)" opacity="0.62">
+        <use href="#stageShell"/>
+        <!-- doors SHUT, unlit -->
+        <rect x="96" y="150" width="104" height="98" fill="#22201b"/>
+        <line x1="148" y1="150" x2="148" y2="248" stroke="#161511" stroke-width="3"/>
+        <!-- windows dark -->
+        <rect x="242" y="128" width="26" height="34" fill="#2a2822"/>
+        <rect x="282" y="122" width="26" height="34" fill="#2a2822"/>
+        <!-- beacon OFF -->
+        <circle cx="404" cy="72" r="9" fill="#3a3630"/>
+        <!-- signage unlit -->
+        <rect x="238" y="176" width="112" height="18" rx="2" fill="#2f2c26"/>
+        <text x="294" y="190" font-size="11" fill="#4c483f" text-anchor="middle" letter-spacing="2">SHOOTING</text>
+      </g>
+      <!-- parked truck, cold -->
+      <g transform="translate(370,232)" opacity="0.6">
+        <rect width="58" height="20" rx="3" fill="#3d423c"/><rect x="44" y="-11" width="22" height="16" rx="3" fill="#464c45"/>
+        <circle cx="14" cy="22" r="6" fill="#191917"/><circle cx="50" cy="22" r="6" fill="#191917"/>
+      </g>
+    </svg>
+    <!-- nameplate -->
+    <g transform="translate(16,344)">
+      <rect width="468" height="44" rx="3" fill="#141210"/>
+      <rect width="4" height="44" fill="#4a4438"/>
+      <text x="18" y="20" font-size="16" fill="#b2aa98">Stage A</text>
+      <text x="18" y="38" font-size="14" fill="#7d786b" letter-spacing="1.4">AVAILABLE</text>
+    </g>
+  </g>
+
+  <!-- = 2. REHEARSAL = -->
+  <g transform="translate(536,96)">
+    <rect width="500" height="404" rx="4" fill="#15140f"/>
+    <rect width="500" height="30" fill="#1c1a16"/>
+    <text x="16" y="21" font-size="14" fill="#8d8778" letter-spacing="2.6">2 · REHEARSAL</text>
+    <text x="484" y="21" font-size="13" fill="#5f5b51" text-anchor="end" font-family="'Helvetica Neue',Helvetica,sans-serif">phase = rehearsal</text>
+    <svg x="0" y="30" width="500" height="300" viewBox="0 0 500 300">
+      <rect width="500" height="300" fill="#1c2226"/>
+      <rect y="180" width="500" height="120" fill="#48583f"/>
+      <g transform="translate(10,10)">
+        <use href="#stageShell"/>
+        <!-- doors AJAR, low warm work-light -->
+        <rect x="96" y="150" width="104" height="98" fill="#241f18"/>
+        <rect x="96" y="150" width="34" height="98" fill="#8a7444" opacity="0.75"/>
+        <!-- windows low warm -->
+        <rect x="242" y="128" width="26" height="34" fill="#7d6a40"/>
+        <rect x="282" y="122" width="26" height="34" fill="#7d6a40"/>
+        <circle cx="404" cy="72" r="9" fill="#3a3630"/>
+        <rect x="238" y="176" width="112" height="18" rx="2" fill="#2f2c26"/>
+        <text x="294" y="190" font-size="11" fill="#4c483f" text-anchor="middle" letter-spacing="2">SHOOTING</text>
+      </g>
+      <!-- company arriving / rehearsal marks on apron -->
+      <g fill="#e6dcc4">
+        <circle cx="150" cy="252" r="5"/><circle cx="168" cy="258" r="5"/><circle cx="186" cy="250" r="5"/>
+        <circle cx="122" cy="264" r="5"/>
+      </g>
+      <g stroke="#c9b98a" stroke-width="2" opacity="0.5">
+        <line x1="212" y1="256" x2="232" y2="256"/><line x1="240" y1="262" x2="260" y2="262"/>
+      </g>
+      <g transform="translate(376,236)" opacity="0.6">
+        <rect width="58" height="20" rx="3" fill="#3d423c"/><rect x="44" y="-11" width="22" height="16" rx="3" fill="#464c45"/>
+        <circle cx="14" cy="22" r="6" fill="#191917"/><circle cx="50" cy="22" r="6" fill="#191917"/>
+      </g>
+    </svg>
+    <g transform="translate(16,344)">
+      <rect width="468" height="44" rx="3" fill="#141210"/>
+      <rect width="4" height="44" fill="#c6a664"/>
+      <text x="18" y="20" font-size="16" fill="#eee8da">The Reluctant Cornerstone</text>
+      <text x="18" y="38" font-size="14" fill="#c6a664" letter-spacing="1.4">REHEARSAL · company called</text>
+    </g>
+  </g>
+
+  <!-- = 3. LOAD-IN = -->
+  <g transform="translate(1048,96)">
+    <rect width="500" height="404" rx="4" fill="#15140f"/>
+    <rect width="500" height="30" fill="#1c1a16"/>
+    <text x="16" y="21" font-size="14" fill="#8d8778" letter-spacing="2.6">3 · LOAD-IN</text>
+    <text x="484" y="21" font-size="13" fill="#5f5b51" text-anchor="end" font-family="'Helvetica Neue',Helvetica,sans-serif">blocker = scenery-load-in</text>
+    <svg x="0" y="30" width="500" height="300" viewBox="0 0 500 300">
+      <rect width="500" height="300" fill="#1c2226"/>
+      <rect y="180" width="500" height="120" fill="#48583f"/>
+      <g transform="translate(10,10)">
+        <use href="#stageShell"/>
+        <!-- doors WIDE OPEN, work light spilling -->
+        <rect x="86" y="146" width="124" height="102" fill="#241f18"/>
+        <rect x="86" y="146" width="124" height="102" fill="#a08a52" opacity="0.62"/>
+        <path d="M86 248 L210 248 L246 268 L58 268 Z" fill="#c8ac6a" opacity="0.22"/>
+        <rect x="242" y="128" width="26" height="34" fill="#7d6a40"/>
+        <rect x="282" y="122" width="26" height="34" fill="#7d6a40"/>
+        <circle cx="404" cy="72" r="9" fill="#3a3630"/>
+        <rect x="238" y="176" width="112" height="18" rx="2" fill="#2f2c26"/>
+        <text x="294" y="190" font-size="11" fill="#4c483f" text-anchor="middle" letter-spacing="2">SHOOTING</text>
+      </g>
+      <!-- freight truck AT the door, backed in -->
+      <g transform="translate(228,224)">
+        <rect width="86" height="34" rx="3" fill="#6d5b3a"/>
+        <rect x="70" y="-14" width="30" height="22" rx="3" fill="#7d6a44"/>
+        <circle cx="20" cy="37" r="8" fill="#191917"/><circle cx="74" cy="37" r="8" fill="#191917"/>
+        <!-- flats being carried off -->
+        <rect x="-38" y="4" width="8" height="34" fill="#b8a274"/>
+        <rect x="-26" y="1" width="8" height="37" fill="#a89466"/>
+      </g>
+      <!-- crew moving flats toward the door -->
+      <g fill="#e6dcc4">
+        <circle cx="196" cy="256" r="5"/><circle cx="214" cy="262" r="5"/><circle cx="164" cy="264" r="5"/>
+      </g>
+      <!-- stacked flats on apron -->
+      <g>
+        <rect x="352" y="228" width="10" height="36" fill="#b8a274"/><rect x="366" y="224" width="10" height="40" fill="#a89466"/>
+        <rect x="380" y="230" width="10" height="34" fill="#c0aa7c"/>
+      </g>
+    </svg>
+    <g transform="translate(16,344)">
+      <rect width="468" height="44" rx="3" fill="#141210"/>
+      <rect width="4" height="44" fill="#c6a664"/>
+      <text x="18" y="20" font-size="16" fill="#eee8da">The Reluctant Cornerstone</text>
+      <text x="18" y="38" font-size="14" fill="#c6a664" letter-spacing="1.4">LOAD-IN · scenery arriving · 1 wk</text>
+    </g>
+  </g>
+
+  <!-- ================= ROW 2 ================= -->
+
+  <!-- = 4. BLOCKED / WAITING = -->
+  <g transform="translate(24,516)">
+    <rect width="500" height="404" rx="4" fill="#15140f"/>
+    <rect width="500" height="30" fill="#1c1a16"/>
+    <text x="16" y="21" font-size="14" fill="#8d8778" letter-spacing="2.6">4 · BLOCKED / WAITING</text>
+    <text x="484" y="21" font-size="13" fill="#5f5b51" text-anchor="end" font-family="'Helvetica Neue',Helvetica,sans-serif">rehearsal + facility-capacity</text>
+    <svg x="0" y="30" width="500" height="300" viewBox="0 0 500 300">
+      <rect width="500" height="300" fill="#1c2226"/>
+      <rect y="180" width="500" height="120" fill="#48583f"/>
+      <g transform="translate(10,10)">
+        <use href="#stageShell"/>
+        <!-- doors ajar, HELD low light (stage still held) -->
+        <rect x="96" y="150" width="104" height="98" fill="#241f18"/>
+        <rect x="96" y="150" width="34" height="98" fill="#7a6a48" opacity="0.6"/>
+        <rect x="242" y="128" width="26" height="34" fill="#6b5f3e"/>
+        <rect x="282" y="122" width="26" height="34" fill="#6b5f3e"/>
+        <circle cx="404" cy="72" r="9" fill="#3a3630"/>
+        <rect x="238" y="176" width="112" height="18" rx="2" fill="#2f2c26"/>
+        <text x="294" y="190" font-size="11" fill="#4c483f" text-anchor="middle" letter-spacing="2">SHOOTING</text>
+      </g>
+      <!-- company PRESENT but grouped and still: truthful "we are here, we are not working" -->
+      <g fill="#e6dcc4" opacity="0.92">
+        <circle cx="150" cy="256" r="5"/><circle cx="164" cy="260" r="5"/><circle cx="158" cy="270" r="5"/>
+        <circle cx="176" cy="266" r="5"/><circle cx="140" cy="266" r="5"/>
+      </g>
+      <!-- amber HOLD marker anchored to the stage -->
+      <g transform="translate(300,86)">
+        <path d="M22 46 L36 76 L8 76 Z" fill="#d6a84e"/>
+        <rect x="-52" y="4" width="148" height="46" rx="4" fill="#241814" stroke="#d6a84e" stroke-width="2"/>
+        <g transform="translate(-38,17)">
+          <rect width="15" height="15" rx="2.5" fill="none" stroke="#d6a84e" stroke-width="2"/><line x1="1" y1="15" x2="15" y2="1" stroke="#d6a84e" stroke-width="2"/>
+        </g>
+        <text x="-16" y="24" font-size="12.5" fill="#d6a84e" letter-spacing="1.2">HELD 2 WEEKS</text>
+        <text x="-16" y="40" font-size="12" fill="#e0cfa8">Waiting for scenery</text>
+      </g>
+      <g transform="translate(376,236)" opacity="0.6">
+        <rect width="58" height="20" rx="3" fill="#3d423c"/><rect x="44" y="-11" width="22" height="16" rx="3" fill="#464c45"/>
+        <circle cx="14" cy="22" r="6" fill="#191917"/><circle cx="50" cy="22" r="6" fill="#191917"/>
+      </g>
+    </svg>
+    <g transform="translate(16,344)">
+      <rect width="468" height="44" rx="3" fill="#141210"/>
+      <rect width="4" height="44" fill="#c45c4e"/>
+      <text x="18" y="20" font-size="16" fill="#eee8da">The Reluctant Cornerstone</text>
+      <text x="18" y="38" font-size="14" fill="#c45c4e" letter-spacing="1.4">REHEARSAL · held · waiting for scenery</text>
+    </g>
+  </g>
+
+  <!-- = 5. SHOOTING = -->
+  <g transform="translate(536,516)">
+    <rect width="500" height="404" rx="4" fill="#15140f"/>
+    <rect width="500" height="30" fill="#1c1a16"/>
+    <text x="16" y="21" font-size="14" fill="#8d8778" letter-spacing="2.6">5 · SHOOTING</text>
+    <text x="484" y="21" font-size="13" fill="#5f5b51" text-anchor="end" font-family="'Helvetica Neue',Helvetica,sans-serif">take status = scheduled</text>
+    <svg x="0" y="30" width="500" height="300" viewBox="0 0 500 300">
+      <rect width="500" height="300" fill="#1c2226"/>
+      <rect y="180" width="500" height="120" fill="#48583f"/>
+      <g transform="translate(10,10)">
+        <use href="#stageShell"/>
+        <!-- doors SHUT — closed set. The authentic signal. -->
+        <rect x="96" y="150" width="104" height="98" fill="#2a231a"/>
+        <line x1="148" y1="150" x2="148" y2="248" stroke="#171410" stroke-width="3"/>
+        <!-- door hot-lamps -->
+        <circle cx="90" cy="156" r="5" fill="#e2564a" filter="url(#glowD)"/>
+        <circle cx="206" cy="150" r="5" fill="#e2564a" filter="url(#glowD)"/>
+        <!-- interior HIGH: bright rim at roofline + windows blazing -->
+        <rect x="242" y="128" width="26" height="34" fill="#ffe9b0" filter="url(#glowD)"/>
+        <rect x="282" y="122" width="26" height="34" fill="#ffe9b0" filter="url(#glowD)"/>
+        <path d="M60 84 L330 52 L330 58 L60 90 Z" fill="#ffdf9c" opacity="0.55" filter="url(#glowD)"/>
+        <!-- SHOOTING sign LIT -->
+        <rect x="238" y="176" width="112" height="18" rx="2" fill="#3a1a16" stroke="#e2564a" stroke-width="1.5"/>
+        <text x="294" y="190" font-size="11" fill="#ff8a76" text-anchor="middle" letter-spacing="2" filter="url(#glowD)">SHOOTING</text>
+        <!-- ROOF BEACON blazing -->
+        <circle cx="404" cy="72" r="10" fill="#e2564a" filter="url(#bigGlowD)"/>
+        <circle cx="404" cy="72" r="21" fill="none" stroke="#e2564a" stroke-width="2.5" opacity="0.6"/>
+        <circle cx="404" cy="72" r="31" fill="none" stroke="#e2564a" stroke-width="1.5" opacity="0.3"/>
+      </g>
+      <!-- basecamp: nobody loitering at the door, crew is INSIDE -->
+      <g transform="translate(330,224)">
+        <rect width="70" height="26" rx="3" fill="#5a4a30"/><rect x="56" y="-12" width="24" height="18" rx="3" fill="#6b5a3c"/>
+        <circle cx="16" cy="28" r="7" fill="#191917"/><circle cx="60" cy="28" r="7" fill="#191917"/>
+      </g>
+      <g fill="#cfc6ae" opacity="0.65"><circle cx="286" cy="262" r="4.5"/><circle cx="300" cy="268" r="4.5"/></g>
+      <!-- cable runs to the door = power is live -->
+      <path d="M330 246 Q260 258 214 250" fill="none" stroke="#2a2822" stroke-width="3"/>
+    </svg>
+    <g transform="translate(16,344)">
+      <rect width="468" height="44" rx="3" fill="#141210"/>
+      <rect width="4" height="44" fill="#e2564a"/>
+      <text x="18" y="20" font-size="16" fill="#eee8da">The Reluctant Cornerstone</text>
+      <text x="18" y="38" font-size="14" fill="#ff8a76" letter-spacing="1.4">SHOOTING · take in progress · wk 1 of 2</text>
+    </g>
+  </g>
+
+  <!-- = 6. WRAP = -->
+  <g transform="translate(1048,516)">
+    <rect width="500" height="404" rx="4" fill="#15140f"/>
+    <rect width="500" height="30" fill="#1c1a16"/>
+    <text x="16" y="21" font-size="14" fill="#8d8778" letter-spacing="2.6">6 · WRAP</text>
+    <text x="484" y="21" font-size="13" fill="#5f5b51" text-anchor="end" font-family="'Helvetica Neue',Helvetica,sans-serif">take completed → post; stage released</text>
+    <svg x="0" y="30" width="500" height="300" viewBox="0 0 500 300">
+      <rect width="500" height="300" fill="#1c2226"/>
+      <rect y="180" width="500" height="120" fill="#44533d"/>
+      <g transform="translate(10,10)">
+        <use href="#stageShell"/>
+        <!-- doors open, teardown light only -->
+        <rect x="90" y="148" width="116" height="100" fill="#241f18"/>
+        <rect x="90" y="148" width="116" height="100" fill="#7a6a48" opacity="0.42"/>
+        <rect x="242" y="128" width="26" height="34" fill="#5e5540"/>
+        <rect x="282" y="122" width="26" height="34" fill="#3a352b"/>
+        <!-- beacon OFF -->
+        <circle cx="404" cy="72" r="9" fill="#3a3630"/>
+        <!-- sign UNLIT again -->
+        <rect x="238" y="176" width="112" height="18" rx="2" fill="#2f2c26"/>
+        <text x="294" y="190" font-size="11" fill="#4c483f" text-anchor="middle" letter-spacing="2">SHOOTING</text>
+      </g>
+      <!-- flat cart leaving, struck flats -->
+      <g transform="translate(238,232)">
+        <rect width="76" height="12" rx="2" fill="#2e2c26"/>
+        <circle cx="16" cy="16" r="6" fill="#191917"/><circle cx="60" cy="16" r="6" fill="#191917"/>
+        <rect x="8" y="-30" width="9" height="32" fill="#9a8a64" transform="rotate(-8 12 -14)"/>
+        <rect x="26" y="-32" width="9" height="34" fill="#8b7c58" transform="rotate(-4 30 -15)"/>
+        <rect x="44" y="-28" width="9" height="30" fill="#a3936c" transform="rotate(-11 48 -13)"/>
+      </g>
+      <!-- crew departing, walking AWAY from the door -->
+      <g fill="#d8cfb8" opacity="0.85">
+        <circle cx="352" cy="256" r="5"/><circle cx="382" cy="264" r="5"/><circle cx="410" cy="256" r="5"/>
+      </g>
+      <path d="M214 262 L440 262" stroke="#c9b98a" stroke-width="1.5" stroke-dasharray="5 12" opacity="0.35"/>
+    </svg>
+    <g transform="translate(16,344)">
+      <rect width="468" height="44" rx="3" fill="#141210"/>
+      <rect width="4" height="44" fill="#4a4438"/>
+      <text x="18" y="20" font-size="16" fill="#b2aa98">Stage A</text>
+      <text x="18" y="38" font-size="14" fill="#7d786b" letter-spacing="1.4">WRAPPED · clearing · releasing</text>
+    </g>
+  </g>
+
+  <!-- ================= STATE TABLE ================= -->
+  <g font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+    <text x="30" y="972" font-size="17" fill="#c6a664" letter-spacing="2.6">STATE → AUTHORITY → SIGNAL</text>
+    <text x="30" y="994" font-size="13.5" fill="#8d8778">Every variant is derived from state that already exists in src/core/types.ts. Nothing here adds a lifecycle state, a scene count, or a percentage.</text>
+
+    <!-- header row -->
+    <g transform="translate(30,1014)">
+      <rect width="1540" height="30" fill="#1c1a16"/>
+      <text x="14" y="20" font-size="12.5" fill="#c6a664" letter-spacing="1.6">VARIANT</text>
+      <text x="150" y="20" font-size="12.5" fill="#c6a664" letter-spacing="1.6">TYPESCRIPT AUTHORITY</text>
+      <text x="530" y="20" font-size="12.5" fill="#c6a664" letter-spacing="1.6">BEACON</text>
+      <text x="640" y="20" font-size="12.5" fill="#c6a664" letter-spacing="1.6">DOORS</text>
+      <text x="770" y="20" font-size="12.5" fill="#c6a664" letter-spacing="1.6">INTERIOR</text>
+      <text x="890" y="20" font-size="12.5" fill="#c6a664" letter-spacing="1.6">COMPANY</text>
+      <text x="1050" y="20" font-size="12.5" fill="#c6a664" letter-spacing="1.6">APRON / FREIGHT</text>
+      <text x="1270" y="20" font-size="12.5" fill="#c6a664" letter-spacing="1.6">NAMEPLATE</text>
+    </g>
+
+    <g font-size="13" fill="#b2aa98">
+      <g transform="translate(30,1044)">
+        <rect width="1540" height="34" fill="#141210"/>
+        <text x="14" y="22" fill="#eee8da">1 · Idle</text>
+        <text x="150" y="22" font-size="12.5" fill="#8d8778">no bindings.stageFacilityId names this stage</text>
+        <text x="530" y="22">off</text><text x="640" y="22">shut</text><text x="770" y="22">dark</text>
+        <text x="890" y="22">none</text><text x="1050" y="22">parked, cold</text>
+        <text x="1270" y="22" fill="#7d786b">Stage A · AVAILABLE</text>
+      </g>
+      <g transform="translate(30,1080)">
+        <rect width="1540" height="34" fill="#17150f"/>
+        <text x="14" y="22" fill="#eee8da">2 · Rehearsal</text>
+        <text x="150" y="22" font-size="12.5" fill="#8d8778">phase === 'rehearsal'</text>
+        <text x="530" y="22">off</text><text x="640" y="22">ajar</text><text x="770" y="22">low warm</text>
+        <text x="890" y="22">present, arriving</text><text x="1050" y="22">marks only</text>
+        <text x="1270" y="22" fill="#c6a664">title · REHEARSAL</text>
+      </g>
+      <g transform="translate(30,1116)">
+        <rect width="1540" height="34" fill="#141210"/>
+        <text x="14" y="22" fill="#eee8da">3 · Load-In</text>
+        <text x="150" y="22" font-size="12.5" fill="#8d8778">phase 'shooting' + blocker.kind === 'scenery-load-in'</text>
+        <text x="530" y="22">off</text><text x="640" y="22" fill="#d6a84e">wide open</text><text x="770" y="22">work light</text>
+        <text x="890" y="22">craft, hauling</text><text x="1050" y="22" fill="#d6a84e">truck at door + flats</text>
+        <text x="1270" y="22" fill="#c6a664">title · LOAD-IN · N wk</text>
+      </g>
+      <g transform="translate(30,1152)">
+        <rect width="1540" height="34" fill="#17150f"/>
+        <text x="14" y="22" fill="#eee8da">4 · Blocked</text>
+        <text x="150" y="22" font-size="12.5" fill="#8d8778">blocker ≠ null (evaluated after Load-In)</text>
+        <text x="530" y="22">off</text><text x="640" y="22">ajar</text><text x="770" y="22">held low</text>
+        <text x="890" y="22" fill="#d6a84e">present, grouped, still</text><text x="1050" y="22">parked</text>
+        <text x="1270" y="22" fill="#c45c4e">title · HELD · cause</text>
+      </g>
+      <g transform="translate(30,1188)">
+        <rect width="1540" height="34" fill="#141210"/>
+        <text x="14" y="22" fill="#eee8da">5 · Shooting</text>
+        <text x="150" y="22" font-size="12.5" fill="#8d8778">phase 'shooting', blocker null, task 'scheduled'</text>
+        <text x="530" y="22" fill="#e2564a">ON, pulsing</text><text x="640" y="22" fill="#e2564a">shut + hot lamps</text><text x="770" y="22" fill="#e2564a">blazing</text>
+        <text x="890" y="22">inside, not visible</text><text x="1050" y="22">basecamp, cabled</text>
+        <text x="1270" y="22" fill="#ff8a76">title · SHOOTING · wk n of 2</text>
+      </g>
+      <g transform="translate(30,1224)">
+        <rect width="1540" height="34" fill="#17150f"/>
+        <text x="14" y="22" fill="#eee8da">6 · Wrap</text>
+        <text x="150" y="22" font-size="12.5" fill="#8d8778">task 'completed' → phase 'postProduction'</text>
+        <text x="530" y="22">off</text><text x="640" y="22">open</text><text x="770" y="22">teardown only</text>
+        <text x="890" y="22">departing</text><text x="1050" y="22">flat cart out</text>
+        <text x="1270" y="22" fill="#7d786b">Stage A · WRAPPED</text>
+      </g>
+    </g>
+
+    <!-- design notes -->
+    <g font-size="13.5" fill="#b2aa98">
+      <text x="30" y="1298" fill="#d6a84e" font-size="14" letter-spacing="1.6">WHY THESE SIGNALS</text>
+      <text x="30" y="1322">· <tspan fill="#eee8da">Shooting closes the doors.</tspan> A hot set is a sealed set: red lamps lit, doors shut, interior blazing through the roofline and windows. Load-in throws them wide.</text>
+      <text x="30" y="1344">  Doors alone separate the two states that today differ by 5.98% of pixels — and they read at any zoom, in any palette, without text.</text>
+      <text x="30" y="1366">· <tspan fill="#eee8da">Blocked keeps its people.</tspan> The company is still on the clock, so it stays on screen — grouped and idle, not deleted. An empty stage would be a lie while roles remain assigned.</text>
+      <text x="30" y="1388">· <tspan fill="#eee8da">Every state is legible three ways</tspan> — silhouette/light, activity, and one restrained nameplate carrying title + phase. Remove colour and all six still separate.</text>
+      <text x="30" y="1410">· <tspan fill="#eee8da">One label per stage, its own holder only.</tspan> A second stage renders its own current holder or nothing. Historical wrap never overrides a new occupant.</text>
+      <text x="30" y="1434" fill="#d6a84e" font-size="14" letter-spacing="1.6">EVALUATION ORDER — THE VARIANTS ARE NOT INDEPENDENT PREDICATES</text>
+      <text x="30" y="1456" font-size="13.5" fill="#b2aa98">Resolve top-down and stop at the first match: Idle → Shooting → Load-In → Blocked → Wrap → Rehearsal. Load-In must be tested BEFORE Blocked, because</text>
+      <text x="30" y="1476" font-size="13.5" fill="#b2aa98">`scenery-load-in` is itself a blocker and would otherwise match both. A stage-anchored hold requires `bindings.stageFacilityId !== null`; a blocked picture that holds</text>
+      <text x="30" y="1496" font-size="13.5" fill="#b2aa98">no stage (e.g. `set-unavailable`, raised in `preProduction`) has no stage to mark and must surface on its owning building instead — never on an idle soundstage.</text>
+      <text x="30" y="1524" font-size="13" fill="#5f5b51">Not shown and deliberately absent: scene/shot counts, dailies, progress percentages, a quality meter, collapsed multi-alerts, auto-camera on state change.</text>
+      <text x="30" y="1546" font-size="13" fill="#5f5b51">Period props (camera, slate, boom, 1920s freight) are drawn here for legibility but must be withheld behind a confirmed era presentation profile — Package 05 era-safety rule.</text>
+    </g>
+  </g>
+</svg>

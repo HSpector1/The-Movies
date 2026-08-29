@@ -1,0 +1,286 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200" font-family="Georgia, 'Iowan Old Style', serif">
+  <title>Mockup C — Casting Retained Workspace (Visual Direction 01)</title>
+  <desc>Non-production reference mockup. Not an implementation asset.</desc>
+
+  <defs>
+    <linearGradient id="skyC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#243033"/><stop offset="1" stop-color="#3c4a42"/></linearGradient>
+    <linearGradient id="grassC" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#57724d"/><stop offset="1" stop-color="#455e3e"/></linearGradient>
+    <filter id="softC" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="-6" dy="0" stdDeviation="16" flood-color="#000" flood-opacity="0.6"/></filter>
+    <filter id="glowC" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+
+  <!-- ===== RETAINED LOT (left ~38%) ===== -->
+  <rect width="1600" height="900" fill="url(#skyC)"/>
+  <rect y="150" width="1600" height="750" fill="url(#grassC)"/>
+  <path d="M0 196 L240 150 L500 200 L760 152 L1040 202 L1320 150 L1600 194 L1600 254 L0 254 Z" fill="#33423c" opacity="0.85"/>
+  <path d="M0 660 L900 520 L900 596 L0 748 Z" fill="#3a3a38"/>
+
+  <!-- the casting office, still selected, still visible -->
+  <g>
+    <ellipse cx="330" cy="700" rx="212" ry="60" fill="none" stroke="#c6a664" stroke-width="3" opacity="0.9"/>
+    <ellipse cx="330" cy="700" rx="212" ry="60" fill="#c6a664" opacity="0.09"/>
+    <path d="M180 530 L340 496 L340 630 L180 668 Z" fill="#d8cba6"/>
+    <path d="M340 496 L468 524 L468 654 L340 630 Z" fill="#b5a682"/>
+    <path d="M180 530 L340 496 L468 524 L308 558 Z" fill="#8f5842"/>
+    <rect x="208" y="570" width="36" height="50" fill="#2f4f4a"/>
+    <rect x="266" y="558" width="36" height="50" fill="#f0d99a" opacity="0.9" filter="url(#glowC)"/>
+    <rect x="386" y="552" width="28" height="48" fill="#2f4f4a"/>
+    <rect x="180" y="506" width="164" height="15" fill="#2f4f4a" opacity="0.85"/>
+    <text x="262" y="518" font-size="11" fill="#e8dcbb" text-anchor="middle" letter-spacing="2">CASTING</text>
+  </g>
+  <g>
+    <rect x="226" y="404" width="240" height="40" rx="4" fill="#141210" opacity="0.94"/>
+    <rect x="226" y="404" width="4" height="40" fill="#c6a664"/>
+    <text x="244" y="431" font-size="16" fill="#eee8da">Casting Office</text>
+  </g>
+  <!-- neighbour, dimmed -->
+  <g opacity="0.42">
+    <path d="M596 560 L740 530 L740 640 L596 674 Z" fill="#a99d80"/><path d="M740 530 L840 552 L840 660 L740 640 Z" fill="#8b8168"/>
+    <path d="M596 560 L740 530 L840 552 L696 582 Z" fill="#6d4436"/>
+  </g>
+  <g fill="#e6dcc4" opacity="0.85"><circle cx="396" cy="676" r="4"/><circle cx="414" cy="684" r="4"/></g>
+
+  <!-- ===== TOP HUD ===== -->
+  <g>
+    <rect width="1600" height="72" fill="#141210" opacity="0.97"/>
+    <line x1="0" y1="72" x2="1600" y2="72" stroke="#c6a664" stroke-width="2" opacity="0.55"/>
+    <text x="34" y="30" font-size="15" fill="#b2aa98" letter-spacing="2.2">SPRING 1920</text>
+    <text x="34" y="58" font-size="30" fill="#eee8da">Week 14</text>
+    <line x1="228" y1="16" x2="228" y2="56" stroke="#4a4438" stroke-width="1.5"/>
+    <g transform="translate(268,18)">
+      <rect width="42" height="38" rx="4" fill="#c6a664"/><rect x="14" y="11" width="5" height="16" fill="#18140e"/><rect x="23" y="11" width="5" height="16" fill="#18140e"/>
+      <g transform="translate(52,0)"><rect width="46" height="38" rx="4" fill="#272522" stroke="#4a4438"/><text x="23" y="25" font-size="17" fill="#b2aa98" text-anchor="middle">1×</text></g>
+      <g transform="translate(106,0)"><rect width="46" height="38" rx="4" fill="#272522" stroke="#4a4438"/><text x="23" y="25" font-size="17" fill="#b2aa98" text-anchor="middle">2×</text></g>
+      <g transform="translate(160,0)"><rect width="46" height="38" rx="4" fill="#272522" stroke="#4a4438"/><text x="23" y="25" font-size="17" fill="#b2aa98" text-anchor="middle">4×</text></g>
+    </g>
+    <line x1="500" y1="16" x2="500" y2="56" stroke="#4a4438" stroke-width="1.5"/>
+    <text x="536" y="30" font-size="15" fill="#b2aa98" letter-spacing="2.2">CASH ON HAND</text><text x="536" y="58" font-size="30" fill="#eee8da">$19.9M</text>
+  </g>
+
+  <!-- ===== RETAINED WORKSPACE (right 62%) ===== -->
+  <g filter="url(#softC)">
+    <rect x="608" y="72" width="992" height="828" fill="#141210" opacity="0.985"/>
+    <rect x="608" y="72" width="5" height="828" fill="#c6a664"/>
+
+    <!-- HEADER: origin-linked -->
+    <g id="ws-header">
+      <rect x="613" y="72" width="987" height="104" fill="#1a1814"/>
+      <!-- BACK — secondary, but obvious -->
+      <g transform="translate(636,100)">
+        <rect width="128" height="46" rx="4" fill="#272522" stroke="#6a6152" stroke-width="1.5"/>
+        <path d="M28 23 L40 15 L40 31 Z" fill="#eee8da"/>
+        <text x="76" y="29" font-size="17" fill="#eee8da" text-anchor="middle">Back</text>
+      </g>
+      <text x="788" y="108" font-size="14" fill="#8d8778" letter-spacing="2.6">CASTING OFFICE · THE RELUCTANT CORNERSTONE</text>
+      <text x="788" y="140" font-size="32" fill="#eee8da">Casting</text>
+      <g transform="translate(788,152)">
+        <text y="16" font-size="16" fill="#d6a84e" letter-spacing="1.6">PACKAGE DRAFT</text>
+        <text x="160" y="16" font-size="16" fill="#7d786b">·</text>
+        <text x="176" y="16" font-size="16" fill="#b2aa98">not committed</text>
+      </g>
+      <!-- Esc hint, quiet -->
+      <text x="1568" y="108" font-size="15" fill="#8d8778" text-anchor="end">Esc returns to the lot</text>
+      <line x1="613" y1="176" x2="1600" y2="176" stroke="#302d26"/>
+    </g>
+
+    <!-- LEFT COLUMN: role summary -->
+    <g id="role-summary">
+      <text x="636" y="212" font-size="14" fill="#8d8778" letter-spacing="2.6">ROLES</text>
+      <text x="866" y="212" font-size="14" fill="#8d8778" letter-spacing="1.2" text-anchor="end">2 / 5</text>
+
+      <!-- Director — current role -->
+      <g transform="translate(636,226)">
+        <rect width="248" height="60" rx="3" fill="#2d2718"/>
+        <rect width="4" height="60" fill="#c6a664"/>
+        <text x="20" y="26" font-size="18" fill="#eee8da">Director</text>
+        <text x="20" y="47" font-size="14" fill="#d6a84e" letter-spacing="1.4">CASTING NOW · 2 candidates</text>
+      </g>
+      <!-- Lead — cast -->
+      <g transform="translate(636,294)">
+        <rect width="248" height="60" rx="3" fill="#1c1a16"/>
+        <text x="20" y="26" font-size="18" fill="#eee8da">Lead</text>
+        <text x="20" y="47" font-size="14" fill="#b2aa98">Marguerite Vance</text>
+        <g transform="translate(198,18)"><circle r="11" cx="11" cy="11" fill="#3a4a2e"/><path d="M6 12 L10 16 L17 7" fill="none" stroke="#a8c47a" stroke-width="2.4" stroke-linecap="round"/></g>
+      </g>
+      <!-- Support — cast -->
+      <g transform="translate(636,362)">
+        <rect width="248" height="60" rx="3" fill="#1c1a16"/>
+        <text x="20" y="26" font-size="18" fill="#eee8da">Support</text>
+        <text x="20" y="47" font-size="14" fill="#b2aa98">Sidney Marchetti</text>
+        <g transform="translate(198,18)"><circle r="11" cx="11" cy="11" fill="#3a4a2e"/><path d="M6 12 L10 16 L17 7" fill="none" stroke="#a8c47a" stroke-width="2.4" stroke-linecap="round"/></g>
+      </g>
+      <!-- Antagonist — open -->
+      <g transform="translate(636,430)">
+        <rect width="248" height="60" rx="3" fill="#1c1a16"/>
+        <text x="20" y="26" font-size="18" fill="#b2aa98">Antagonist</text>
+        <text x="20" y="47" font-size="14" fill="#7d786b">Open · 5 candidates</text>
+      </g>
+      <!-- Craft — open -->
+      <g transform="translate(636,498)">
+        <rect width="248" height="60" rx="3" fill="#1c1a16"/>
+        <text x="20" y="26" font-size="18" fill="#b2aa98">Craft lead</text>
+        <text x="20" y="47" font-size="14" fill="#7d786b">Open · 2 candidates</text>
+      </g>
+
+      <!-- BUDGETS -->
+      <text x="636" y="596" font-size="14" fill="#8d8778" letter-spacing="2.6">BUDGETS</text>
+      <g transform="translate(636,610)">
+        <rect width="248" height="56" rx="3" fill="#241814"/><rect width="4" height="56" fill="#c45c4e"/>
+        <text x="20" y="24" font-size="16" fill="#eee8da">Negative</text>
+        <text x="20" y="44" font-size="14" fill="#c45c4e">Not set</text>
+      </g>
+      <g transform="translate(636,674)">
+        <rect width="248" height="56" rx="3" fill="#241814"/><rect width="4" height="56" fill="#c45c4e"/>
+        <text x="20" y="24" font-size="16" fill="#eee8da">Marketing</text>
+        <text x="20" y="44" font-size="14" fill="#c45c4e">Not set</text>
+      </g>
+    </g>
+
+    <!-- DIVIDER -->
+    <line x1="908" y1="196" x2="908" y2="746" stroke="#302d26"/>
+
+    <!-- RIGHT COLUMN: candidates -->
+    <g id="candidates">
+      <text x="936" y="212" font-size="14" fill="#8d8778" letter-spacing="2.6">CANDIDATES FOR DIRECTOR</text>
+      <text x="1568" y="212" font-size="14" fill="#8d8778" text-anchor="end">Sorted by fit</text>
+
+      <!-- CANDIDATE 1 — selected -->
+      <g transform="translate(936,226)">
+        <rect width="632" height="152" rx="4" fill="#2d2718"/>
+        <rect width="4" height="152" fill="#c6a664"/>
+        <!-- portrait -->
+        <rect x="20" y="18" width="94" height="116" rx="3" fill="#33302a"/>
+        <circle cx="67" cy="58" r="24" fill="#5c5344"/>
+        <path d="M31 134 Q67 90 103 134 Z" fill="#5c5344"/>
+        <text x="132" y="44" font-size="22" fill="#eee8da">Genevieve Prescott</text>
+        <text x="132" y="68" font-size="15" fill="#b2aa98">Freelancer · available now</text>
+        <!-- stats, numeric emphasis -->
+        <g transform="translate(132,80)">
+          <text y="26" font-size="30" fill="#eee8da">55</text><text x="38" y="26" font-size="14" fill="#8d8778" letter-spacing="1.6">OVERALL</text>
+          <text x="148" y="26" font-size="30" fill="#d6a84e">50</text><text x="186" y="26" font-size="14" fill="#8d8778" letter-spacing="1.6">FIT</text>
+          <text y="52" font-size="15" fill="#b2aa98">$41K / week · no contract to buy out</text>
+        </g>
+        <!-- selected badge -->
+        <g transform="translate(452,18)">
+          <rect width="158" height="30" rx="3" fill="#3a2f18" stroke="#c6a664" stroke-width="1.5"/>
+          <text x="79" y="20" font-size="14" fill="#c6a664" text-anchor="middle" letter-spacing="1.6">SELECTED</text>
+        </g>
+        <g transform="translate(452,102)">
+          <rect width="158" height="34" rx="3" fill="#272522" stroke="#4a4438"/>
+          <text x="79" y="23" font-size="15" fill="#b2aa98" text-anchor="middle">Pin to compare</text>
+        </g>
+      </g>
+
+      <!-- CANDIDATE 2 -->
+      <g transform="translate(936,390)">
+        <rect width="632" height="152" rx="4" fill="#1c1a16"/>
+        <rect x="20" y="18" width="94" height="116" rx="3" fill="#2b2924"/>
+        <circle cx="67" cy="58" r="24" fill="#4a4438"/>
+        <path d="M31 134 Q67 90 103 134 Z" fill="#4a4438"/>
+        <text x="132" y="44" font-size="22" fill="#eee8da">Errol Reyes</text>
+        <text x="132" y="68" font-size="15" fill="#b2aa98">Under contract · free in 2 weeks</text>
+        <g transform="translate(132,80)">
+          <text y="26" font-size="30" fill="#eee8da">69</text><text x="38" y="26" font-size="14" fill="#8d8778" letter-spacing="1.6">OVERALL</text>
+          <text x="148" y="26" font-size="30" fill="#eee8da">44</text><text x="186" y="26" font-size="14" fill="#8d8778" letter-spacing="1.6">FIT</text>
+          <text y="52" font-size="15" fill="#b2aa98">$63K / week · $18K to buy out 2 weeks</text>
+        </g>
+        <g transform="translate(452,102)">
+          <rect width="158" height="34" rx="3" fill="#c6a664"/>
+          <text x="79" y="23" font-size="15" fill="#18140e" text-anchor="middle" font-weight="bold">Choose</text>
+        </g>
+        <g transform="translate(452,18)">
+          <rect width="158" height="30" rx="3" fill="#3a2f18" stroke="#d6a84e" stroke-width="1.2"/>
+          <text x="79" y="20" font-size="15" fill="#d6a84e" text-anchor="middle" letter-spacing="0.6">WILL QUEUE · 2 WK</text>
+        </g>
+      </g>
+
+      <!-- CANDIDATE 3 (partial, shows the list continues) -->
+      <g transform="translate(936,554)" opacity="0.55">
+        <rect width="632" height="80" rx="4" fill="#1c1a16"/>
+        <rect x="20" y="18" width="94" height="62" rx="3" fill="#2b2924"/>
+        <text x="132" y="44" font-size="22" fill="#eee8da">Thelma Ellery</text>
+        <text x="132" y="68" font-size="15" fill="#b2aa98">Freelancer · available now</text>
+      </g>
+      <!-- scroll hint -->
+      <rect x="1580" y="226" width="6" height="408" rx="3" fill="#2a2822"/>
+      <rect x="1580" y="226" width="6" height="220" rx="3" fill="#6a6152"/>
+    </g>
+
+    <!-- COMMITMENT BAND (sticky footer) -->
+    <g id="commit-band">
+      <rect x="613" y="746" width="987" height="154" fill="#1a1814"/>
+      <line x1="613" y1="746" x2="1600" y2="746" stroke="#3c372d" stroke-width="1.5"/>
+
+      <!-- readiness, left -->
+      <g transform="translate(636,764)">
+        <text y="20" font-size="44" fill="#eee8da">2</text>
+        <text x="30" y="20" font-size="20" fill="#8d8778">/ 5</text>
+        <text y="42" font-size="14" fill="#8d8778" letter-spacing="2.2">ROLES FILLED</text>
+      </g>
+
+      <!-- exact blocker, centre -->
+      <g transform="translate(800,762)">
+        <rect width="536" height="112" rx="4" fill="#241814"/>
+        <rect width="4" height="112" fill="#c45c4e"/>
+        <g transform="translate(20,18)">
+          <rect width="15" height="15" rx="2.5" fill="none" stroke="#c45c4e" stroke-width="2"/><line x1="1" y1="15" x2="15" y2="1" stroke="#c45c4e" stroke-width="2"/>
+          <text x="26" y="13" font-size="14" fill="#c45c4e" letter-spacing="1.8">GREENLIGHT IS NOT AVAILABLE</text>
+        </g>
+        <text x="20" y="62" font-size="16" fill="#eee8da">Still open: Director, Antagonist, Craft lead,</text>
+        <text x="20" y="84" font-size="16" fill="#eee8da">negative budget, marketing budget.</text>
+        <text x="20" y="104" font-size="14" fill="#b2aa98">Fill all five to reserve a soundstage.</text>
+      </g>
+
+      <!-- actions, right: disabled primary explains itself by adjacency -->
+      <g transform="translate(1356,762)">
+        <rect width="212" height="52" rx="4" fill="#2a2723" stroke="#4a4438" stroke-width="1.5"/>
+        <text x="106" y="33" font-size="17" fill="#6e6a5e" text-anchor="middle" letter-spacing="1.2">Review Greenlight</text>
+        <g transform="translate(0,64)">
+          <rect width="212" height="46" rx="4" fill="#272522" stroke="#4a4438"/>
+          <text x="106" y="29" font-size="16" fill="#b2aa98" text-anchor="middle">Plan camera tests</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ===== ANNOTATIONS ===== -->
+  <rect y="900" width="1600" height="300" fill="#0e0d0b"/>
+  <line x1="0" y1="900" x2="1600" y2="900" stroke="#c6a664" stroke-width="2"/>
+  <g font-family="'Helvetica Neue', Helvetica, Arial, sans-serif">
+    <text x="34" y="932" font-size="19" fill="#c6a664" letter-spacing="2.6">MOCKUP C — CASTING RETAINED WORKSPACE</text>
+    <text x="34" y="956" font-size="14" fill="#8d8778">Reference only. Workspace holds ~62% from the right; the lot and the selected Casting Office stay visible and lit at left.</text>
+
+    <g font-size="13" fill="#b2aa98">
+      <text x="30" y="998" fill="#eee8da" font-size="14.5">The world origin never leaves</text>
+      <text x="30" y="1020">The building the player clicked stays on screen,</text>
+      <text x="30" y="1039">still ringed, still nameplated. Back is one 128×46</text>
+      <text x="30" y="1058">control in the header, beside the breadcrumb that</text>
+      <text x="30" y="1077">names the origin. One Back, not two.</text>
+
+      <text x="420" y="998" fill="#eee8da" font-size="14.5">Candidates get the room</text>
+      <text x="420" y="1020">Cards are 632×152 with a portrait, two headline</text>
+      <text x="420" y="1039">numerics, a cost line and one action. Two and a</text>
+      <text x="420" y="1058">half fit above the fold instead of one. Only the</text>
+      <text x="420" y="1077">candidate list scrolls — header and band are fixed.</text>
+
+      <text x="810" y="998" fill="#eee8da" font-size="14.5">The disabled primary explains itself</text>
+      <text x="810" y="1020">"Review Greenlight" is inert, and the reason sits</text>
+      <text x="810" y="1039">immediately left of it as a structured list, not a</text>
+      <text x="810" y="1058">comma run-on. Reading order is count → reason →</text>
+      <text x="810" y="1077">control, left to right.</text>
+
+      <text x="1200" y="998" fill="#eee8da" font-size="14.5">Badges are shape + text</text>
+      <text x="1200" y="1020">SELECTED is a brass outline chip; a cast role gets</text>
+      <text x="1200" y="1039">a check disc; "WILL QUEUE · 2 WK" states the delay</text>
+      <text x="1200" y="1058">in the badge itself. No status anywhere is carried</text>
+      <text x="1200" y="1077">by colour alone.</text>
+    </g>
+
+    <g font-size="13" fill="#7d786b">
+      <text x="30" y="1116" fill="#d6a84e" font-size="13" letter-spacing="1.4">AUTHORITY</text>
+      <text x="30" y="1138">Retention ratio and block order from Package 05 §E1: retain 35–45% of the lot; workspace occupies 55–65% from the right. Casting anatomy, badge</text>
+      <text x="30" y="1157">vocabulary and the greenlight gate from Package 04. Type scale is the frozen --ps-* ladder: meta 15 / body 18 / section 22 / title 32, controls 44px.</text>
+      <text x="30" y="1176" fill="#5f5b51">Portraits are placeholders — missing portrait art is a content limitation, not a design decision. All numbers are illustrative, not engine output.</text>
+    </g>
+  </g>
+</svg>
