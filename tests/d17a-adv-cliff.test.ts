@@ -277,6 +277,13 @@ describe('D-17A/C — post-cliff, the ENGAGED greenlight branch is fully live, g
   // the rotating freelancer market happens to contain a legal crew (writer + director +
   // 3 actors + 1 craft lead). That lets the D-11.12 branch be satisfied with ZERO contracts,
   // so the engaged branch's OTHER rules can be tested on a rosterless studio.
+  //
+  // P04A.3 (Owner ruling) — the credited `writer` is no longer part of the D-11.12
+  // contracted-or-available-freelancer set inside `applyGreenlight`'s engaged branch
+  // (a completed screenplay's credit is not new labour, so it is neither gated nor
+  // fee-charged there). `writer` is still drawn from the freelancer market below —
+  // that stays a legal input — but their fee is EXCLUDED from `fees`/`commitment`,
+  // because the engine no longer charges it.
   function postCliffWithLegalFreelancers() {
     let s = foundStudio('fc-4', TUNING.CONTRACT_MIN_WEEKS)
     s = advanceEngaged(s, 52)
@@ -291,7 +298,8 @@ describe('D-17A/C — post-cliff, the ENGAGED greenlight branch is fully live, g
     const actors = pick('actor', 3)
     expect(actors.length).toBe(3)
 
-    const fees = [writer, director, ...actors, craft].reduce((a, t) => a + freelancerFee(s, t), 0)
+    // P04A.3 — writer excluded: their freelancer fee is no longer charged at greenlight.
+    const fees = [director, ...actors, craft].reduce((a, t) => a + freelancerFee(s, t), 0)
     const commitment = 1_000_000 + 100_000 + fees
     const attempt = (st: GameState): GameState =>
       applyActions(st, [
@@ -326,7 +334,9 @@ describe('D-17A/C — post-cliff, the ENGAGED greenlight branch is fully live, g
     const ok = attempt(withCashIdentity(s, commitment))
     expect(ok.studio.activeProductions.length).toBe(1)
     expect(ok.studio.cash).toBe(0)
-    expect(ok.ledger.filter((e) => e.kind === 'freelancerFee').length).toBe(6) // the ENGAGED cost model
+    // P04A.3 — 5 freelancer fees, not 6: director + 3 actors + craft. The credited
+    // writer is excluded from the D-11.12/D-11.10 set, so no fee is charged for them.
+    expect(ok.ledger.filter((e) => e.kind === 'freelancerFee').length).toBe(5) // the ENGAGED cost model
 
     expect(() => attempt(withCashIdentity(s, commitment - 1))).toThrow(
       /D-12 solvency gate/,

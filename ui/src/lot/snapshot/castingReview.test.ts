@@ -153,13 +153,24 @@ function capacityOnlyReviewStudio(seed: string): GameState {
   return state
 }
 
+// P04A.3 (Owner ruling) — a lapsed WRITER contract no longer blocks a Ready
+// package (a completed screenplay's credit is not new labour), so this fixture
+// can no longer reach a blocked package by dropping the writer's contract.
+// Dropping a SEAT's studio contract doesn't reliably reach `package-staffing`
+// either: `packageAvailability` counts every talent WORLD-WIDE (contracted or
+// freelancer-market), so one dropped contract is routinely covered by an
+// unrelated freelancer. The deterministic way in — already used for the same
+// blocker elsewhere in this suite (`tests/script-read-model.test.ts`,
+// "blocks a Ready package before Assembly when its locked writer consumes a
+// required role pool") — is to remove the required role from the WORLD
+// entirely: reassign every Director-role talent to Actor, so the studio has
+// zero available Directors anywhere, contracted or freelance.
 function blockedReviewStudio(seed: string): GameState {
   const state = reviewStudio(seed)
-  const card = castingSessionsBoard(state).sections.needsReview[0]!
   return {
     ...state,
-    contracts: state.contracts.filter(
-      (contract) => contract.talentId !== card.writer.id,
+    talent: state.talent.map((talent) =>
+      talent.role === 'director' ? { ...talent, role: 'actor' } : talent,
     ),
   }
 }
@@ -257,9 +268,12 @@ describe('strict Lot casting review context', () => {
     })
     expect(context?.packageAvailability.knownGatesClear).toBe(false)
     expect(context?.packageAvailability.blockers).toEqual(card.packageAvailability?.blockers)
+    // P04A.3 — `blockedReviewStudio` no longer reaches this state via a lapsed
+    // writer contract (a package no longer gates on it); it now removes the
+    // world's only Director role entirely, so the block is `package-staffing`.
     expect(context?.packageAvailability.blockers).toEqual([
       expect.objectContaining({
-        kind: 'writer-contract',
+        kind: 'package-staffing',
         headline: expect.any(String),
         detail: expect.any(String),
         remedy: expect.any(String),
@@ -537,16 +551,22 @@ describe('strict Lot casting review context', () => {
 
   it('requires every blocked availability boolean to agree with its exact blocker kind', () => {
     const state = blockedReviewStudio('lot-casting-review-blocker-gate-coherence')
+    // P04A.3 — `blockedReviewStudio` now blocks via `package-staffing` (a lapsed
+    // writer contract no longer blocks a package at all: see the fixture's own
+    // comment). So the baseline here is `writerAvailable: true`, `staffingAvailable:
+    // false`, one `package-staffing` blocker — the mirror image of the old
+    // writer-contract baseline. `staffingAvailable` now plays the role
+    // `writerAvailable` used to play, and vice versa.
     const mutations: Array<(board: ReturnType<typeof castingSessionsBoard>) => void> = [
-      (board) => { board.sections.needsReview[0]!.packageAvailability!.writerAvailable = true },
+      (board) => { board.sections.needsReview[0]!.packageAvailability!.staffingAvailable = true },
       (board) => {
         board.sections.needsReview[0]!.packageAvailability!.blockers[0]!.kind = 'studio-founding'
       },
-      (board) => { board.sections.needsReview[0]!.packageAvailability!.staffingAvailable = false },
+      (board) => { board.sections.needsReview[0]!.packageAvailability!.writerAvailable = false },
       (board) => {
         const availability = board.sections.needsReview[0]!.packageAvailability!
-        availability.writerAvailable = true
-        availability.blockers[0]!.kind = 'package-staffing'
+        availability.staffingAvailable = true
+        availability.blockers[0]!.kind = 'writer-contract'
       },
       (board) => {
         board.sections.needsReview[0]!.packageAvailability!.productionSlotAvailable = false
@@ -566,7 +586,7 @@ describe('strict Lot casting review context', () => {
       },
       (board) => {
         const availability = board.sections.needsReview[0]!.packageAvailability!
-        availability.writerAvailable = true
+        availability.staffingAvailable = true
         availability.blockers[0]!.kind = 'facility-capacity'
       },
     ]

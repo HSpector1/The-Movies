@@ -200,20 +200,27 @@ describe('Script Projects V1 action and tick integration', () => {
     expect(() => applyActions(state, [rawBypass])).toThrow(/authoritative Ready script project/)
     expect(stableStringify(state)).toBe(readyBeforeRejectedBypass)
 
+    // P04A.3 (Owner ruling) — a completed screenplay's credited Writer holds a
+    // permanent CREDIT, not an active assignment: greenlighting it engages no
+    // writing time, so the writer's contract state cannot gate it. This used to
+    // throw "must be currently studio-contracted"; it now succeeds, and
+    // `applyActions` is still pure — the input state is untouched either way.
     const withoutWriterContract: GameState = {
       ...state,
       contracts: state.contracts.filter((contract) => contract.talentId !== project.writerId),
     }
     const noContractBefore = stableStringify(withoutWriterContract)
-    expect(() =>
-      applyActions(withoutWriterContract, [
-        {
-          kind: 'greenlightScriptProject',
-          production: { projectId: project.id, ...packageInput },
-        },
-      ]),
-    ).toThrow(/must be currently studio-contracted/)
+    const greenlitWithoutWriterContract = applyActions(withoutWriterContract, [
+      {
+        kind: 'greenlightScriptProject',
+        production: { projectId: project.id, ...packageInput },
+      },
+    ])
     expect(stableStringify(withoutWriterContract)).toBe(noContractBefore)
+    expect(greenlitWithoutWriterContract.studio.activeProductions).toHaveLength(1)
+    expect(greenlitWithoutWriterContract.studio.activeProductions[0]!.writerId).toBe(
+      project.writerId,
+    )
 
     const greenlit = applyActions(state, [
       {

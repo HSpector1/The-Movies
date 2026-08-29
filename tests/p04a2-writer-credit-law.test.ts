@@ -817,26 +817,26 @@ describe('P04A.2 §19G — the split needs no save migration and survives reload
 // ─────────────────────────────────────────────────────────────────────────────
 describe('P04A.2 §19H — an out-of-contract credited writer: the exact current limitation', () => {
   /**
-   * LIMITATION, STATED PRECISELY AND DELIBERATELY LEFT IN PLACE THIS CHECKPOINT.
+   * UPDATED BY P04A.3 (Owner ruling, 2026-08-29). §19H originally documented a
+   * DELIBERATE limitation: the projection AND the engine both blocked a package
+   * greenlight for an out-of-contract credited writer, on purpose, because the
+   * writer sat inside the D-11.12 contracted-or-available-freelancer set and could
+   * be charged a freelancer fee — a financial fact the credit/assignment split
+   * left untouched.
    *
-   * Product law A says a Writer credit survives contract expiry. The CREDIT does —
-   * `production.writerId`, `participants.writer`, and the released-film record all keep
-   * the exact stable id whatever happens to the contract afterwards (proved in §19A).
-   *
-   * What current law CANNOT express is the GREENLIGHT of a screenplay whose credited
-   * writer has since gone out of contract. `applyGreenlightScriptProject` still requires
-   * `isContracted(project.writerId)`, and `writerBlockers` still publishes the
-   * `writer-contract` blocker for BOTH purposes. That gate was left UNCHANGED on purpose:
-   * the credited writer sits inside the D-11.12 contracted-or-available-freelancer set and
-   * can be charged a freelancer fee, so relaxing it would change greenlight COST
-   * semantics — a financial change, out of scope for the credit/assignment split.
-   *
-   * So the honest, currently-expressible statement is the one this test makes: an
-   * out-of-contract credited writer blocks the greenlight via `writer-contract`, and
-   * NEVER via `writer-assignment`. The availability half of the old deadlock is gone; the
-   * contract half remains and is a known, priced-in limitation, not an oversight.
+   * P04A.3 removes that financial fact: a completed screenplay's credit is not new
+   * writing labour, so `applyGreenlight`'s D-11.12/D-11.10 loop no longer includes
+   * the credited writer at all (they are charged no fee and gate on no contract),
+   * and `writerBlockers` now publishes NO blocker of any kind for `purpose:
+   * 'package'`. `applyGreenlightScriptProject`'s own, separate
+   * `isContracted(project.writerId)` throw — which predates D-11.12 and was never
+   * part of it — was ALSO removed, so the projection and the engine now fully
+   * agree: an out-of-contract credited writer blocks package readiness NOWHERE,
+   * neither read model nor command. (`tests/p04a3-greenlight-law.test.ts` §11D
+   * carries the fresh, from-scratch regression suite for this same law; this test
+   * is kept, updated, as the historical §19H witness.)
    */
-  it('blocks greenlight via writer-contract — NEVER via writer-assignment', () => {
+  it('publishes no writer blocker, and the greenlight succeeds at the ENGINE layer too', () => {
     const s = buildScenario(SEED)
     // The writer is idle (drafting nothing), so nothing but the contract can bite.
     expect(busyTalentIds(s.readyOnly).has(s.writerId)).toBe(false)
@@ -847,35 +847,37 @@ describe('P04A.2 §19H — an out-of-contract credited writer: the exact current
     // Screenplay A still names them as its author, by exact stable id.
     expect(projectById(released, s.projectAId).writerId).toBe(s.writerId)
 
-    const message = refusal(() =>
-      applyActions(released, [
-        { kind: 'greenlightScriptProject', production: { projectId: s.projectAId, ...s.packageA } },
-      ]),
-    )
-    // eslint-disable-next-line no-console
-    console.log('[P04A.2 WITNESS] §19H out-of-contract greenlight refusal:', message)
-    expect(message).toMatch(/must be currently studio-contracted/)
-    expect(message).toContain(s.writerId)
-    // The refusal is about the CONTRACT, not about an assignment.
-    expect(message).not.toMatch(/active assignment/)
-    expect(message).not.toMatch(/already engaged in an active production/)
-
+    // THE PROJECTION HALF (P04A.3 — clear, not blocked by writer-contract).
     const kinds = scriptProjectsReadModel(released)
       .packages.find((p) => p.projectId === s.projectAId)!
       .availability.blockers.map((b) => b.kind)
     // eslint-disable-next-line no-console
     console.log(
-      '[P04A.2 WITNESS] §19H projection blockers for an out-of-contract credited writer:',
+      '[P04A.3 WITNESS] §19H projection blockers for an out-of-contract credited writer:',
       JSON.stringify(kinds),
     )
-    expect(kinds).toContain('writer-contract')
+    expect(kinds).not.toContain('writer-contract')
     expect(kinds).not.toContain('writer-assignment')
 
     const codes = castingPackageReadModel(released)
       .projects.find((p) => p.projectId === s.projectAId)!
       .readiness.blockers.map((b) => b.code)
-    expect(codes).toContain('writer-contract')
+    expect(codes).not.toContain('writer-contract')
     expect(codes).not.toContain('writer-assignment')
+
+    // THE ENGINE HALF (P04A.3 — `applyGreenlightScriptProject`'s `isContracted`
+    // throw is gone too, so the two surfaces agree: the command now succeeds).
+    const next = applyActions(released, [
+      { kind: 'greenlightScriptProject', production: { projectId: s.projectAId, ...s.packageA } },
+    ])
+    // eslint-disable-next-line no-console
+    console.log(
+      '[P04A.3 WITNESS] §19H out-of-contract greenlight now succeeds at the engine layer:',
+      JSON.stringify({ activeProductions: next.studio.activeProductions.length }),
+    )
+    expect(next.studio.activeProductions.length).toBe(released.studio.activeProductions.length + 1)
+    const production = next.studio.activeProductions[next.studio.activeProductions.length - 1]!
+    expect(production.writerId).toBe(s.writerId)
   })
 
   it('the CREDIT itself survives the contract ending mid-production', () => {

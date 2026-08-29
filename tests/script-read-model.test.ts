@@ -406,11 +406,16 @@ describe('Script Projects V1 player read model', () => {
     expect(card.legalActions.map((action) => action.kind)).toContain('acceptScript')
   })
 
-  // The OTHER half of `writerBlockers`, unchanged by P04A.2 and load-bearing for
-  // the package path: the engine really does require `isContracted(writerId)` at
-  // greenlight, so a Ready package whose credited writer is out of contract is
-  // still refused — availability is not the only writer gate.
-  it('still names a writer-contract blocker for a Ready package whose writer is out of contract', () => {
+  // P04A.3 (Owner ruling) SUPERSEDES this test's original claim. The predecessor
+  // proved the OTHER half of `writerBlockers` — that the engine's `isContracted`
+  // requirement at greenlight meant a Ready package whose credited writer had
+  // gone out of contract was still refused, projection included. The ruling
+  // holds that a completed screenplay's CREDIT is not new writing labour: it
+  // engages no writer time, so contract state cannot gate greenlighting it. So
+  // `writerBlockers` now returns no blocker of any kind for `purpose: 'package'`,
+  // and the read model must agree — an out-of-contract credited writer no longer
+  // blocks a Ready package's greenlight readiness.
+  it('names no writer-contract blocker for a Ready package whose writer is out of contract', () => {
     let state = foundedManagedStudio('script-read-package-writer-uncontracted')
     const writer = contractedTalent(state)[0]!
     state = applyActions(state, [
@@ -423,22 +428,18 @@ describe('Script Projects V1 player read model', () => {
     ).toMatchObject({ knownGatesClear: true, writerAvailable: true })
 
     // Let the writer's contract lapse (projection-level fixture, as elsewhere in
-    // this file): the credit survives, the greenlight gate does not.
+    // this file): the credit survives, and — per P04A.3 — so does the greenlight
+    // gate's clean read: the writer's contract state no longer blocks a package.
     const lapsed: GameState = {
       ...state,
       contracts: state.contracts.filter((contract) => contract.talentId !== writer.id),
     }
     const availability = scriptProjectsReadModel(lapsed).packages[0]!.availability
-    expect(availability.knownGatesClear).toBe(false)
-    expect(availability.writerAvailable).toBe(false)
-    expect(availability.canSubmitGreenlightIntent).toBe(false)
-    expect(availability.blockers).toContainEqual(
-      expect.objectContaining({
-        kind: 'writer-contract',
-        headline: `${writer.name} is out of contract`,
-        detail: expect.stringContaining('greenlight this screenplay'),
-        remedy: `Sign ${writer.name} to a new studio contract.`,
-      }),
+    expect(availability.knownGatesClear).toBe(true)
+    expect(availability.writerAvailable).toBe(true)
+    expect(availability.canSubmitGreenlightIntent).toBe(true)
+    expect(availability.blockers).not.toContainEqual(
+      expect.objectContaining({ kind: 'writer-contract' }),
     )
   })
 

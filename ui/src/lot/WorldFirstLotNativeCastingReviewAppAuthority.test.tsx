@@ -14,7 +14,6 @@ import {
   greenlightScriptProject,
   importSaveJson,
   marketingMenu,
-  releaseTalentAction,
   requiredNegative,
   scriptProjectsBoard,
   studioPool,
@@ -177,17 +176,34 @@ function reviewState(): GameState {
   return stopped.next
 }
 
+// P04A.3 (Owner ruling) — a completed screenplay's credited Writer holds a
+// permanent CREDIT, not an active assignment, so a released writer contract no
+// longer publishes any blocker on a Ready package (`writerBlockers` is now `[]`
+// for `purpose: 'package'`). Releasing the writer's contract — the old route to
+// this fixture — no longer reaches a blocked review at all. Dropping a SEAT's
+// studio contract doesn't reliably reach `package-staffing` either:
+// `packageAvailability` counts every talent WORLD-WIDE (contracted or
+// freelancer-market), so one dropped contract is routinely covered by an
+// unrelated freelancer. The deterministic way in — already used for the same
+// blocker in `ui/src/lot/snapshot/castingReview.test.ts` (`blockedReviewStudio`)
+// and `tests/script-read-model.test.ts` — is to remove the required role from
+// the WORLD entirely: reassign every Director-role talent to Actor, so the
+// studio has zero available Directors anywhere, contracted or freelance.
 function blockedReviewState(): GameState {
   const review = reviewState()
-  const context = currentLotCastingReviewContext(review)
-  if (context === null) throw new Error('setup: expected a clear Casting review')
-  const released = releaseTalentAction(review, context.writer.id)
-  if (!released.ok) throw new Error(released.error)
-  const blocked = currentLotCastingReviewContext(released.next)
-  if (blocked === null || blocked.action.opensPackage) {
-    throw new Error('setup: expected the released writer to block Package Assembly')
+  const clearContext = currentLotCastingReviewContext(review)
+  if (clearContext === null) throw new Error('setup: expected a clear Casting review')
+  const blocked: GameState = {
+    ...review,
+    talent: review.talent.map((talent) =>
+      talent.role === 'director' ? { ...talent, role: 'actor' } : talent,
+    ),
   }
-  return released.next
+  const context = currentLotCastingReviewContext(blocked)
+  if (context === null || context.action.opensPackage) {
+    throw new Error('setup: expected the world-wide Director shortage to block Package Assembly')
+  }
+  return blocked
 }
 
 function exactGreenlight(state: GameState, projectId: string) {

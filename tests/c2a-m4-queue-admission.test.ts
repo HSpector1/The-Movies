@@ -289,16 +289,24 @@ describe('C2a-M4 §3.3 — the front doors admit and queue', () => {
     const writerId = queued.scriptDevelopment.projects.find(
       (project) => project.id === projectId,
     )!.writerId
-    // The writer the greenlight depends on is no longer studio-contracted by
-    // the time its turn comes — no longer legal, and cannot become legal by
-    // waiting. (The project itself is left in place: `scriptDevelopment
-    // .projects` carries a positional id invariant, so a queued-intent
-    // illegality fixture must break legality WITHOUT touching that array's
-    // membership — exactly what a real "writer's contract lapsed while
-    // waiting" scenario would do.)
+    // RE-POINTED for P04A.3 (Owner ruling §8). This fixture used to lapse the
+    // credited WRITER's contract, because that used to make a queued greenlight
+    // permanently illegal. It no longer does — a completed screenplay's credit is
+    // not new labour, so neither `applyGreenlightScriptProject` nor
+    // `applyGreenlight`'s D-11.12 set consults the writer's contract any more.
+    //
+    // The subject of this test is unchanged: an intent that CANNOT become legal
+    // by waiting is dropped at dequeue, and the row it emits carries the
+    // screenplay project's own id. So the illegality is re-pointed at a seat that
+    // genuinely still gates — the DIRECTOR the package names leaves the studio's
+    // talent entirely while the intent waits, which `requireTalent` refuses
+    // permanently. (The project itself is still left in place: `scriptDevelopment
+    // .projects` carries a positional id invariant, so a queued-intent illegality
+    // fixture must break legality WITHOUT touching that array's membership.)
+    void writerId
     queued = {
       ...queued,
-      contracts: queued.contracts.filter((contract) => contract.talentId !== writerId),
+      talent: queued.talent.filter((candidate) => candidate.id !== payload.directorId),
     }
 
     const after = advance(queued, 3)
@@ -310,7 +318,7 @@ describe('C2a-M4 §3.3 — the front doors admit and queue', () => {
         kind: 'queueIntentExpired',
         entryKind: 'greenlightScriptProject',
         ordinal: 0,
-        reason: expect.stringContaining('studio-contracted'),
+        reason: expect.stringContaining('unknown talent id'),
         subjectId: projectId,
       },
     ])
