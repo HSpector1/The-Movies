@@ -1,0 +1,429 @@
+{
+  "fixtureId": "p05-visual-oracle-v1",
+  "generator": "scripts/gen-p05-visual-oracle-fixtures.mts",
+  "generatorSourceSha256": "a33bf5cc4c47daa19f56802351fd644e6751fecb6a22d3bf20d0891638bf844f",
+  "seed": "p05-visual-oracle-v1",
+  "ledger": {
+    "productionA": "prod-0000",
+    "productionB": "prod-0001",
+    "loadInProduction": "prod-0016",
+    "stageABuilding": "stage-a",
+    "stageAFacility": "facility-soundstage-07",
+    "stageBBuilding": "stage-b",
+    "stageBFacility": "facility-soundstage-12",
+    "setA": "set-0",
+    "setB": "set-1",
+    "placedStageFacility": "facility-stage-1",
+    "placedSceneryFacility": "facility-scenery-shop-2",
+    "sceneryResource": "facility-scenery-shop-2:0",
+    "writerA": "t-p05-writer-a",
+    "companyA": {
+      "director": "t-p05-director-a",
+      "lead": "t-p05-lead-a",
+      "antagonist": "t-p05-antagonist-a",
+      "support": "t-p05-support-a",
+      "craft": "t-p05-craft-a"
+    },
+    "companyB": {
+      "director": "t-p05-director-b",
+      "lead": "t-p05-lead-b",
+      "antagonist": "t-p05-antagonist-b",
+      "support": "t-p05-support-b",
+      "craft": "t-p05-craft-b"
+    }
+  },
+  "normalizationLaw": "Exact-token rewrite onto the charter §9.1 ledger, longest-token-first, pre-image counts asserted, target collisions refused, re-imported through importSaveJson; every machine assertion runs on the NORMALIZED state. The ledger identities are not mintable through public seams (production ids derive from the greenlight tick, talent ids from worldgen/authored streams).",
+  "fixtures": [
+    {
+      "ordinal": 1,
+      "scenarioId": "idle-stage",
+      "week": 20,
+      "save": {
+        "file": "s1-idle-stage.save.json",
+        "byteLength": 240921,
+        "sha256": "55f5fcdda8debd25a57f29f119d9803beceda047c44f6c4eb131eeb578d9dd38"
+      },
+      "checkpoint": {
+        "file": "s1-idle-stage.checkpoint.json",
+        "byteLength": 272512,
+        "sha256": "1c97a8217d2445fba9514e4ee5ed015fd904940d9f8e20507ed8089f7ae3ca0f",
+        "sessionId": "p05-oracle-idle-stage",
+        "schemaId": "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+        "stateDigest": "55f5fcdda8debd25a57f29f119d9803beceda047c44f6c4eb131eeb578d9dd38"
+      },
+      "publicActionDerivation": [
+        "contendedStudio → drive both leaders to wrap/release",
+        "advance to week 20 with the lot quiet"
+      ],
+      "idNormalization": [],
+      "machineAssertions": [
+        "stage row stage-a: presentationState=dark, holder=null, wrapReceipt=null",
+        "set-0 mounted on facility-soundstage-07 without implying occupancy",
+        "zero active productions on the board"
+      ],
+      "inMemoryProofAnchors": []
+    },
+    {
+      "ordinal": 2,
+      "scenarioId": "rehearsal",
+      "week": 19,
+      "save": {
+        "file": "s2-rehearsal.save.json",
+        "byteLength": 245854,
+        "sha256": "e537315c0fc0eb5ff069bc2891cf7864721bd796b3216478284239af6346d532"
+      },
+      "checkpoint": {
+        "file": "s2-rehearsal.checkpoint.json",
+        "byteLength": 278034,
+        "sha256": "680d2d326ffeb79bcf8486d7d5d8cde97af3459b646da77c7df7d51fe41fc97e",
+        "sessionId": "p05-oracle-rehearsal",
+        "schemaId": "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+        "stateDigest": "e537315c0fc0eb5ff069bc2891cf7864721bd796b3216478284239af6346d532"
+      },
+      "publicActionDerivation": [
+        "base → greenlight ready screenplay at week 16 (stage acquired at rehearsal entry, week 19)",
+        "advance undriven to week 19",
+        "normalize onto the ledger (prod + company + writer)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0016",
+          "to": "prod-0000",
+          "occurrences": 11
+        },
+        {
+          "from": "t-dir-00",
+          "to": "t-p05-director-a",
+          "occurrences": 6
+        },
+        {
+          "from": "t-act-04",
+          "to": "t-p05-lead-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-09",
+          "to": "t-p05-antagonist-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-10",
+          "to": "t-p05-support-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-cra-05",
+          "to": "t-p05-craft-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-wri-04",
+          "to": "t-p05-writer-a",
+          "occurrences": 7
+        }
+      ],
+      "machineAssertions": [
+        "workflow rehearsal on facility-soundstage-07 with live set-0",
+        "closed state rehearsal-working; stage row holder prod-0000, presentationState rehearsal",
+        "presence: director/lead/antagonist/support at stage; craft and writer never"
+      ],
+      "inMemoryProofAnchors": []
+    },
+    {
+      "ordinal": 3,
+      "scenarioId": "scenery-load-in",
+      "week": 20,
+      "save": {
+        "file": "s3-scenery-load-in.save.json",
+        "byteLength": 249428,
+        "sha256": "082a87fb6544d091f0cf4bfd8d4e2e65d9dd2032dadeb985be34f857db6825b1"
+      },
+      "checkpoint": {
+        "file": "s3-scenery-load-in.checkpoint.json",
+        "byteLength": 282174,
+        "sha256": "753ee1563572b726e2a00d4608ce231126451ca109102d7ad92ebf34f8c5e6af",
+        "sessionId": "p05-oracle-scenery-load-in",
+        "schemaId": "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+        "stateDigest": "082a87fb6544d091f0cf4bfd8d4e2e65d9dd2032dadeb985be34f857db6825b1"
+      },
+      "publicActionDerivation": [
+        "contendedStudio → place stage-standard@(23,20) [operational wk 18 → facility-stage-1/placed-1] and scenery-shop@(0,11) [operational wk 13 → facility-scenery-shop-2/placed-2, centre (1,11)]",
+        "drive leaders to release; strike set-1 (frees the stage-b mount)",
+        "greenlight at week 16 → the engine mints prod-0016 itself; stage A acquired at rehearsal entry (heldSince 18)",
+        "week 18: commission set-house-generic on facility-stage-1 and set-city-street on facility-soundstage-12 — both founding scenery slots held by sets under work",
+        "shooting entry (tick 19→20) allocates scenery from facility-scenery-shop-2:0; Director called at week 20 (assignment settles only DUE scenery — the take stands blocked in transit)",
+        "normalize the company onto the ledger (production id needs no rename)",
+        "centres: source {\"gx\":1,\"gy\":11} → destination {\"gx\":18,\"gy\":3}"
+      ],
+      "idNormalization": [
+        {
+          "from": "t-dir-02",
+          "to": "t-p05-director-a",
+          "occurrences": 7
+        },
+        {
+          "from": "t-act-00",
+          "to": "t-p05-lead-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-01",
+          "to": "t-p05-antagonist-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-p05-support-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-cra-01",
+          "to": "t-p05-craft-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-wri-02",
+          "to": "t-p05-writer-a",
+          "occurrences": 7
+        }
+      ],
+      "machineAssertions": [
+        "persisted shooting / task blocked / scenery-load-in blocker / heldSince 18",
+        "reserved resource facility-scenery-shop-2:0; source centre (1,11), destination (18,3)",
+        "transit math 25 distance / 3 total / 2 elapsed / 1 remaining at week 20",
+        "closed state scenery-in-transit (LOAD-IN, never labeled Rehearsal); no manual Clear",
+        "craft at the exact scenery source; director/cast stage-bound"
+      ],
+      "inMemoryProofAnchors": []
+    },
+    {
+      "ordinal": 4,
+      "scenarioId": "blocked-waiting",
+      "week": 20,
+      "save": {
+        "file": "s4-blocked-waiting.save.json",
+        "byteLength": 246424,
+        "sha256": "f29e31ee09c9055158306324111575bc04d30a870b87196cf24cb9e02f0b86dc"
+      },
+      "checkpoint": {
+        "file": "s4-blocked-waiting.checkpoint.json",
+        "byteLength": 278704,
+        "sha256": "16f92e65dcd6c238180be115446b26c1b390dfc2f1e0be48fcccbac7a0348fc1",
+        "sessionId": "p05-oracle-blocked-waiting",
+        "schemaId": "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+        "stateDigest": "f29e31ee09c9055158306324111575bc04d30a870b87196cf24cb9e02f0b86dc"
+      },
+      "publicActionDerivation": [
+        "base → greenlight at week 16; advance UNDRIVEN to week 20 (no Director call)",
+        "normalize onto the ledger (prod-0000 + company + writer)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0016",
+          "to": "prod-0000",
+          "occurrences": 16
+        },
+        {
+          "from": "t-dir-03",
+          "to": "t-p05-director-a",
+          "occurrences": 7
+        },
+        {
+          "from": "t-act-01",
+          "to": "t-p05-lead-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-p05-antagonist-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-03",
+          "to": "t-p05-support-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-cra-02",
+          "to": "t-p05-craft-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-wri-04",
+          "to": "t-p05-writer-a",
+          "occurrences": 7
+        }
+      ],
+      "machineAssertions": [
+        "shooting phase, task unassigned, Director locked t-p05-director-a",
+        "closed state director-required with exactly one emitted operation (Call the Director)",
+        "stage row blocked — occupied-low, never hot"
+      ],
+      "inMemoryProofAnchors": []
+    },
+    {
+      "ordinal": 5,
+      "scenarioId": "shooting",
+      "week": 20,
+      "save": {
+        "file": "s5-shooting.save.json",
+        "byteLength": 251921,
+        "sha256": "77662a2d5444e4bf3859b00360a2055fd91c9ccfa509f9e97585cfb42a57dd56"
+      },
+      "checkpoint": {
+        "file": "s5-shooting.checkpoint.json",
+        "byteLength": 284874,
+        "sha256": "2f53371b34e70cf61bb6f5e5176f6def6bbd1b5cff7475d011972e258545f056",
+        "sessionId": "p05-oracle-shooting",
+        "schemaId": "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+        "stateDigest": "77662a2d5444e4bf3859b00360a2055fd91c9ccfa509f9e97585cfb42a57dd56"
+      },
+      "publicActionDerivation": [
+        "base → greenlight BOTH ready screenplays at week 16 (A binds set-0/stage A; B binds set-1/stage B)",
+        "advance undriven to week 20; drive A only (Director call settles due scenery; take scheduled)",
+        "normalize onto the ledger (prod-0000 + prod-0001 + both companies + writer)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0016-1",
+          "to": "prod-0001",
+          "occurrences": 16
+        },
+        {
+          "from": "prod-0016",
+          "to": "prod-0000",
+          "occurrences": 17
+        },
+        {
+          "from": "t-dir-02",
+          "to": "t-p05-director-a",
+          "occurrences": 7
+        },
+        {
+          "from": "t-act-01",
+          "to": "t-p05-lead-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-p05-antagonist-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-04",
+          "to": "t-p05-support-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-cra-00",
+          "to": "t-p05-craft-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-wri-02",
+          "to": "t-p05-writer-a",
+          "occurrences": 7
+        },
+        {
+          "from": "t-dir-05",
+          "to": "t-p05-director-b",
+          "occurrences": 7
+        },
+        {
+          "from": "t-act-13",
+          "to": "t-p05-lead-b",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-14",
+          "to": "t-p05-antagonist-b",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-21",
+          "to": "t-p05-support-b",
+          "occurrences": 5
+        },
+        {
+          "from": "t-cra-03",
+          "to": "t-p05-craft-b",
+          "occurrences": 5
+        }
+      ],
+      "machineAssertions": [
+        "A: shooting scheduled on stage A/set-0, closed state shooting-working, no remaining action",
+        "B: shooting unassigned hold on stage B/set-1, closed state director-required",
+        "stage rows: A shooting with exact holder; B blocked with exact holder; no cross-stage body"
+      ],
+      "inMemoryProofAnchors": [
+        "driving A (assign+schedule) left B operations+stage rows byte-identical (asserted pre-normalization)"
+      ]
+    },
+    {
+      "ordinal": 6,
+      "scenarioId": "wrap",
+      "week": 20,
+      "save": {
+        "file": "s6-wrap.save.json",
+        "byteLength": 246362,
+        "sha256": "396cc8f4d0e97f6ba45013d89d643a4ea3f78e5ffc600d106d1de8ef3f7e2336"
+      },
+      "checkpoint": {
+        "file": "s6-wrap.checkpoint.json",
+        "byteLength": 278635,
+        "sha256": "5d394910b8a3671fcef80a7a0c498bff9679aac8ab7389d719322b8f1dd4e153",
+        "sessionId": "p05-oracle-wrap",
+        "schemaId": "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+        "stateDigest": "396cc8f4d0e97f6ba45013d89d643a4ea3f78e5ffc600d106d1de8ef3f7e2336"
+      },
+      "publicActionDerivation": [
+        "base → greenlight at week 15; drive at week 19 (assign + schedule); one tick completes the take at week 20",
+        "normalize onto the ledger (prod-0000 + company + writer)",
+        "the Wrap transition itself is driven by the oracle runner: ONE advanceWeek intent moves week 20 → 21"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0015",
+          "to": "prod-0000",
+          "occurrences": 17
+        },
+        {
+          "from": "t-dir-00",
+          "to": "t-p05-director-a",
+          "occurrences": 7
+        },
+        {
+          "from": "t-act-00",
+          "to": "t-p05-lead-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-05",
+          "to": "t-p05-antagonist-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-08",
+          "to": "t-p05-support-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-cra-00",
+          "to": "t-p05-craft-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-wri-08",
+          "to": "t-p05-writer-a",
+          "occurrences": 7
+        }
+      ],
+      "machineAssertions": [
+        "fixture: shooting/completed at week 20 — the state one lawful advance before Wrap"
+      ],
+      "inMemoryProofAnchors": [
+        "tick(fixture) → week 21: wrap event week 20; stage row wrap with current-week receipt and released holder; closed state wrapped-waiting-for-post with no P05 operation; no authoritative person at the stage"
+      ]
+    }
+  ]
+}
