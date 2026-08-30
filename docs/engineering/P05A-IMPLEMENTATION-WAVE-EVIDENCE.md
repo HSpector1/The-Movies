@@ -574,7 +574,7 @@ for the per-finding record. Highlights and honest notes:
   `ExactOne<presenter>` spelling (the fourth consumer class).
 
 Floors after correction: TS full suite green (+1 test), EditMode **646/646**, generator
-re-validated byte-identical. Delta visual review of the sealed set: pending.
+re-validated byte-identical. Delta visual review of the sealed set: completed — recorded below.
 
 **Sealed set v2 (the FINAL evidence).** The first sealed delta review verified fixes A
 (closed-state workspace header — systemic) and C (DIRECTOR CALL REQUIRED guidance card) in
@@ -586,4 +586,45 @@ gate re-ran once more against one fresh binary — exe sha `91838e22…`, Unity 
 PASS, P04A.1 owner-input **PASS — 0 failed steps** (boot-wait harness), sealed stage-visual at
 its recorded supersession point (milestone 1 lawful, 2–5 superseded by oracle s3/s5/s6/s1).
 EditMode **646/646** at the tip. The v1 sealed runs (exe `3a7e2ba9…`) are SUPERSEDED evidence
-retained beside v2. Delta confirmation of fix B on the v2 bytes: pending.
+retained beside v2.
+
+**v2 delta confirmation — fix B VERIFIED in pixels.** The delta reviewer opened the v2 bytes,
+re-ran the pixel probe that had refuted the min-height attempt, and measured the blocked-waiting
+workspace card bleed at **zero pixels** (v1: 22,287 card-coloured pixels painted past the panel
+border; v2: 0). It confirmed the single-binary chain (every v2 run-binding names exe
+`91838e22…`, Unity `c8d6698`, TS `4242b17`, with the build-manifest bytes copied beside each
+run) and issued final visual dispositions: **1 ACCEPT + 5 ACCEPT_WITH_NOTES** (notes are polish
+observations, none a truth defect). `visual-verdicts.json` v2 in `Evidence/P05-Oracle-Sealed`
+carries the per-scenario verdicts.
+
+## W7 hostile review — FINAL DISPOSITION: ACCEPT
+
+The same fresh hostile reviewer (correction law: no reviewer-shopping) returned its final
+disposition on the corrected range: **ACCEPT — technical, range-scoped.** Verbatim scope line:
+"Technical hostile ACCEPT of the range only. This is not Owner acceptance… Status remains
+`KEEP CANDIDATE — Owner acceptance pending`." Before accepting it independently re-ran both
+floors (TS 4858/353 files, EditMode 646/646), killed three mutations (the F4 owner-join filter,
+the F6 headline mint, and a relaxation of the sets invariant — each caught by exactly the test
+that claims to guard it), recomputed the sealed exe hash `91838e22…` from disk against all 22
+artifact SHAs, opened the fixed pixels, and replayed the F2 supersession claim in the engine
+("after the first release at week 11 every subsequent week offers only [startConstruction,
+commissionScreenplay]").
+
+Six NON-BLOCKING residuals were recorded with the accept; their dispositions:
+
+1. *No EditMode regression guard for F3/F5/F7/F8/F11* — **CLOSED before seal**: three guards
+   added to `StudioProductionWorkspaceTests.cs` (F11 refused-dispatch notice behavioral test;
+   F3 `ClosedStageTruth` withheld/row-driven/travel-beat behavioral test via reflection; a
+   source-law pin covering F3 one-authority, F5 one-resolver, F7 null-collection guard, F8
+   exact-zone withhold).
+2. *§9.2 residuals (window identity, CF-09 attestation hash, scene/GUID hashes)* — CF-09
+   attestation is bound at seal (below); window-identity and scene-hash binding remain open
+   engineering debt, recorded in the final report.
+3. *Anti-latch pin lost the `if (productionRouteOpen)` guard assertion* — **CLOSED**: the
+   substring assertion is restored to `Host_WiresTheAntiLatchGate_AtTheUpdateCadence`.
+4. *Stale "delta pending" line in this document* — **CLOSED** (this revision).
+5. *Sealed-proof redundancy gone (milestones 2–5 superseded)* — accepted as recorded; the
+   oracle scenarios are the standing successor evidence.
+6. *No visible scrollbar in the workspace detail pane (discoverability)* — deferred as an
+   Owner-playtest observation; a pixel-affecting change after the sealed v2 set would reopen
+   the one-binary law for polish, which the correction law does not permit at this point.
