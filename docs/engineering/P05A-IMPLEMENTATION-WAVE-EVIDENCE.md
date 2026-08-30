@@ -309,3 +309,64 @@ end-to-end path — the wave touching those invariants owes the walk; (2) F8 rem
 not enforcement — a grep gate or removal of `locationBuildingId` would be stronger (W3+ concern);
 (3) `projection-v12-stale-urn` in the prior-identity map never shipped outside the WIP branch —
 labelled so a reader does not mistake it for a released projection.
+
+## W3 — exact-ID N-Stage presentation registry — commit `830fe07` (Unity)
+
+**Scope.** `StudioStagePresentationRegistry` in `Studio.Runtime.Infrastructure` (the assembly
+EditMode tests can reference): presenters register by exact `stageBuildingIdentity`; `Apply`
+routes each closed v12 `stageProductions` row to ITS registered presenter only. Fail-closed law
+throughout — duplicate registration refuses loudly; a row with no presenter and a presenter with
+no row both resolve to withheld presentation, never a guess, never a neighbour; a diagnostic
+event reports every refusal. `StudioStageProductionPresentation` implements the presenter on both
+stage bodies (serialized identity `stage-a`/`stage-b`), with the enum member `Rehearsal` APPENDED
+(serialized ints stable) and the pure `MapPresentationState` law (dark→Dark, rehearsal→Rehearsal,
+load-in→LoadIn, blocked→Waiting, shooting→Shooting, wrap→Clearing, else Withheld) public for
+direct test. `StudioBridgePresentation` registers at cache time and applies per snapshot.
+
+**Consumption seam.** The registry consumes `StudioProductionsProjection.stageProductions`
+verbatim; nothing re-derives stage state from productions, copy, or history.
+
+**EditMode: 598/598** (13 new registry tests: registration/duplicate/unregister law, exact-ID
+routing, withheld fallbacks both directions, two-Stage isolation — a row for one stage never
+touches the other's presenter — plus the reflection-proven mapping law).
+
+## W4 — world presentation, presence & activity — commit `a71b067` (Unity)
+
+**Scope.** The one truthful stage nameplate (`StudioStagePlacardContracts`, pure, Infrastructure):
+facility label + holder copy for occupied, AVAILABLE for dark, WRAPPED · STAGE RELEASED for the
+bounded release cue, NOTHING for withheld — placards are billboarded colliderless TextMesh bodies
+(the P03A placard idiom), keyed by exact building id, destroyed with their row.
+`ApplyStageAndSetStates` rebuilt row-driven: the closed row is the ONLY stage status speaker —
+this kills Stage B's baked "SHOOTING · Legend of the Smuggler" lie at the root (the old apply
+preserved any non-empty authored string; the authoring source is corrected for future regens; the
+sealed scene is untouched because runtime now overwrites every snapshot). The legacy Stage-A-only
+truth overwrite (`ApplyStageTruthToSelectable`) is retired. `StageActivityEffects` treats
+Rehearsal as occupied-low (warm work light, beacon off). Decorative shooting-day/door-crew counts
+gained serialized [0..1] presentation budgets — zero is lawful and changes no simulation, named
+presence, blocker, or legibility law.
+
+**Deliberate bounded deviations (recorded, not silent):** stage door geometry/animation deferred
+(no door assets exist; state distinctness is carried by placard + beacon/interior/indicator
+channels and the W6 camera poses viewing the signal-bearing facade the sealed stage camera never
+saw); the delivery vehicle keeps its sealed legacy Stage-7 Resolve truth pending a per-stage
+refit; the identity test's stage-status arm was consciously rewritten to the new row-driven law
+it now proves.
+
+**EditMode: 602/602** (4 new placard/status/budget tests + the rewritten identity law).
+
+## W5 — retained Production workspace — commit `ca0cba0` (Unity)
+
+**Scope.** See the commit body for the full inventory: `StudioProductionWorkspace` (all-active
+wire-ordered list + exact detail: state rail, ONE operation, blocker anatomy with read-only
+remedies, activation-revalidated Locate, company, current Stage/Set vs wrap history, read-only
+Wrap→Post handoff), `StudioProductionWorkspaceContracts` (every control decided by one pure
+function — queueable distinction disabled-with-exact-reason, duplicate publication withheld,
+stale/settling reasons, selection stationarity, no raw-id copy), `StudioProductionEntryCard`
+(Stage selection → closed-row truth + [OPEN PRODUCTION] for the exact holder only), and the
+host's production route (same UIDocument/scrim/input/Esc/menu/Locate seams; casting-only dossier
+peel; draft-free close; board-empty keeps the all-active workspace open honestly).
+
+**EditMode: 625/625** (23 new — 13 pure contract laws, 8 controller/entry reflection laws
+including single-flight dispatch and honest removal, 2 source laws). The remaining W5 charter
+proofs (Esc order end-to-end, Save/Load/Quit coexistence, memo-hidden operability, responsive
+hierarchy at runtime) are Level-4 packaged-journey obligations and land in W7 on the final build.
