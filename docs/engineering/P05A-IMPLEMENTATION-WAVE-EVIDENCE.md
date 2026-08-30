@@ -398,6 +398,20 @@ journey); the workspace's phase rail is the closed two-line status + next-milest
 rendered); remedy routes render read-only because their canonical owners publish no exact opaque
 intent in P05A (recon §6.2's navigation clause awaits those owners).
 
+**Follow-up (review C1/C2, Unity `6df7c25`):** the F1 remedy is now regression-guarded (host
+wiring pinned by source law; refusal re-render killed behaviorally — reviewer mutations N1/N6
+re-run and KILLED), and `StageActivityEffects` — the third first-controller consumer the F4
+sibling audit missed — resolves by exact serialized identity, fail closed on ambiguity, with the
+sibling audit promoted to a standing sweep law over every runtime source. Scene regenerated
+(0 validation errors; both effects serialize exact identities). EditMode **641/641**. Record
+corrections from the reviewer's accuracy notes: the correction's NavMesh re-bake was
+BYTE-IDENTICAL (the 30 Stage B additions carry no NavigationStatic flag) — the earlier phrasing
+implying new NavMesh data is wrong; the F6 copy-ownership boundary (client-status strings living
+in Unity Infrastructure pending a wire-side copy field) is hereby recorded as an explicit
+deliberate deviation alongside F12/F14; and the N-Stage scene contract is enforced by the Editor
+validation gate whose JSON output is gitignored — W8's evidence binding must copy that validation
+output into the sealed evidence set rather than resting on an ignored file.
+
 **Floors after correction:** Unity EditMode **638/638** (13 new correction tests: gate cadence,
 per-production latch + rejection release with verbatim engine copy, locateTargets consumption,
 locate-refusal notice, entry-card withheld, placard out-of-vocabulary fail-closed,
