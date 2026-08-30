@@ -97,12 +97,12 @@ namespace ProjectStudio.Bridge.GeneratedFixtures
 
     public static class F12FixtureP05ProductionStateStateValues
     {
-        public const string RehearsalWorking = "rehearsalWorking";
         public const string SceneryInTransit = "sceneryInTransit";
-        public const string ResourceWait = "resourceWait";
+        public const string RehearsalWorking = "rehearsalWorking";
         public const string ShootingWorking = "shootingWorking";
-        public const string WrappedWaitingForPost = "wrappedWaitingForPost";
+        public const string ResourceWait = "resourceWait";
         public const string Withheld = "withheld";
+        public const string WrappedWaitingForPost = "wrappedWaitingForPost";
     }
 
     public static class F12FixtureRehearsalStateStateValues
@@ -809,21 +809,21 @@ namespace ProjectStudio.Bridge.GeneratedFixtures
                 throw new JsonSerializationException("C# union F12FixtureP05ProductionState requires string discriminator \"state\".");
             switch (discriminator.Value<string>())
             {
-                case "rehearsalWorking":
-                    return value.ToObject<F12FixtureRehearsalState>(serializer);
                 case "sceneryInTransit":
                     return value.ToObject<F12FixtureLoadInState>(serializer);
-                case "resourceWait":
-                    return value.ToObject<F12FixtureWaitingState>(serializer);
+                case "rehearsalWorking":
+                    return value.ToObject<F12FixtureRehearsalState>(serializer);
                 case "shootingWorking":
                     return value.ToObject<F12FixtureShootingState>(serializer);
-                case "wrappedWaitingForPost":
-                    return value.ToObject<F12FixtureWrapState>(serializer);
+                case "resourceWait":
+                    return value.ToObject<F12FixtureWaitingState>(serializer);
                 case "withheld":
                     return value.ToObject<F12FixtureWithheldState>(serializer);
+                case "wrappedWaitingForPost":
+                    return value.ToObject<F12FixtureWrapState>(serializer);
                 default:
                     throw new JsonSerializationException(
-                        "C# union F12FixtureP05ProductionState has unknown discriminator \"" + (discriminator.Value<string>() ?? "<null>") + "\"; expected [rehearsalWorking, sceneryInTransit, resourceWait, shootingWorking, wrappedWaitingForPost, withheld].");
+                        "C# union F12FixtureP05ProductionState has unknown discriminator \"" + (discriminator.Value<string>() ?? "<null>") + "\"; expected [sceneryInTransit, rehearsalWorking, shootingWorking, resourceWait, withheld, wrappedWaitingForPost].");
             }
         }
 

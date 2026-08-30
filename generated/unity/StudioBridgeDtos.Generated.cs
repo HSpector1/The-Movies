@@ -171,8 +171,8 @@ namespace Studio.Runtime.Data
 
     public static class StudioBridgeQuoteRequestTypeValues
     {
-        public const string QuoteCommission = "quoteCommission";
         public const string QuoteCasting = "quoteCasting";
+        public const string QuoteCommission = "quoteCommission";
     }
 
     public static class StudioBridgeRejectedResponseReasonCodeValues
@@ -716,10 +716,10 @@ namespace Studio.Runtime.Data
 
     public static class StudioQuoteSnapshotKindValues
     {
-        public const string CommissionScreenplay = "commissionScreenplay";
-        public const string CommissionOriginalScreenplay = "commissionOriginalScreenplay";
         public const string StartAuditions = "startAuditions";
         public const string GreenlightPicture = "greenlightPicture";
+        public const string CommissionScreenplay = "commissionScreenplay";
+        public const string CommissionOriginalScreenplay = "commissionOriginalScreenplay";
     }
 
     public static class StudioReleasedFilmSnapshotReceptionValues
@@ -3591,13 +3591,13 @@ namespace Studio.Runtime.Data
                 throw new JsonSerializationException("C# union StudioBridgeQuoteRequest requires string discriminator \"type\".");
             switch (discriminator.Value<string>())
             {
-                case "quoteCommission":
-                    return value.ToObject<StudioQuoteCommissionRequest>(serializer);
                 case "quoteCasting":
                     return value.ToObject<StudioQuoteCastingRequest>(serializer);
+                case "quoteCommission":
+                    return value.ToObject<StudioQuoteCommissionRequest>(serializer);
                 default:
                     throw new JsonSerializationException(
-                        "C# union StudioBridgeQuoteRequest has unknown discriminator \"" + (discriminator.Value<string>() ?? "<null>") + "\"; expected [quoteCommission, quoteCasting].");
+                        "C# union StudioBridgeQuoteRequest has unknown discriminator \"" + (discriminator.Value<string>() ?? "<null>") + "\"; expected [quoteCasting, quoteCommission].");
             }
         }
 
@@ -3681,17 +3681,17 @@ namespace Studio.Runtime.Data
                 throw new JsonSerializationException("C# union StudioQuoteSnapshot requires string discriminator \"kind\".");
             switch (discriminator.Value<string>())
             {
-                case "commissionScreenplay":
-                    return value.ToObject<StudioCommissionQuoteSnapshot>(serializer);
-                case "commissionOriginalScreenplay":
-                    return value.ToObject<StudioCommissionQuoteSnapshot>(serializer);
                 case "startAuditions":
                     return value.ToObject<StudioCastingQuoteSnapshot>(serializer);
                 case "greenlightPicture":
                     return value.ToObject<StudioCastingQuoteSnapshot>(serializer);
+                case "commissionScreenplay":
+                    return value.ToObject<StudioCommissionQuoteSnapshot>(serializer);
+                case "commissionOriginalScreenplay":
+                    return value.ToObject<StudioCommissionQuoteSnapshot>(serializer);
                 default:
                     throw new JsonSerializationException(
-                        "C# union StudioQuoteSnapshot has unknown discriminator \"" + (discriminator.Value<string>() ?? "<null>") + "\"; expected [commissionScreenplay, commissionOriginalScreenplay, startAuditions, greenlightPicture].");
+                        "C# union StudioQuoteSnapshot has unknown discriminator \"" + (discriminator.Value<string>() ?? "<null>") + "\"; expected [startAuditions, greenlightPicture, commissionScreenplay, commissionOriginalScreenplay].");
             }
         }
 

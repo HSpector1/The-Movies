@@ -924,7 +924,7 @@ function analyzeUnionDefinition(
       discriminatorValuePaths: selected!.domainPaths[index]!,
       properties: member.properties.filter((property) => !promotedNames.has(property.wireName)),
     }
-  })
+  }).sort((left, right) => ordinal(left.definitionName, right.definitionName))
   return {
     kind: 'discriminated-object',
     definitionName: definition.key,
@@ -932,8 +932,8 @@ function analyzeUnionDefinition(
     schemaPath: definition.path,
     discriminator: selected.propertyName,
     discriminatorPath: selected.propertyPath,
-    discriminatorValues: selected.domains.flatMap((domain) => domain),
-    discriminatorValuePaths: selected.domainPaths.flatMap((pathsForMember) => pathsForMember),
+    discriminatorValues: cases.flatMap((member) => member.discriminatorValues),
+    discriminatorValuePaths: cases.flatMap((member) => member.discriminatorValuePaths),
     promotedProperties: promoted,
     cases,
   }
