@@ -431,3 +431,46 @@ light, no dedicated cue root) and scenario 2's CAM-MEDIUM-A-V1 disposition shoul
 deliberately; (3) process note — the W6 fixture-ledger commit landed while this range review was
 in flight (it touches zero W1–W5 product code); (4) the W8 evidence-binding obligation for the
 gitignored scene-validation JSON stands.
+
+## W6 — Visual Oracle V1 — TS `2a06692` (fixtures) + Unity `aec224c`/`8905609`/`e63aef5` (runner/harness/corrections)
+
+**Fixture ledger (TS `2a06692`).** `scripts/gen-p05-visual-oracle-fixtures.mts` emits six
+deterministic scenario checkpoints on the charter §9.1 identities (see the commit body). Two
+consecutive runs are byte-identical; the engine resumes each checkpoint at the scenario week with
+digest = save sha256. The ledger identities are reached via ONE manifest-recorded exact-token
+normalization (the engine cannot mint them through public seams); `prod-0016` alone is engine-
+minted (greenlight tick 16). Charter numbers proven in-generator: the 25/3/2/1 transit math from
+`facility-scenery-shop-2:0` (placed shop centre (1,11) → stage-a centre (18,3)), heldSince 18,
+the two-Stage isolation byte-identity anchor, and the one-tick wrap transition anchor.
+
+**Runner + harness (Unity `aec224c`).** One scenario per app run; frozen numeric camera tuples
+applied through the product's own management-camera API; machine re-assertions against live wire
+DTOs + shipped presenters + the paired effects' beacon channel BEFORE any pixel; stable-authority
+capture windows (revision+digest constant, zero POSTs inside); staging→rename artifact promotion
+with sha256/dims; atomic sidecars carrying the charter visual questions with
+visualReviewStatus=pending; scenario `wrap` submits exactly ONE published advanceWeek intent
+between matched management captures; `shooting` carries the REQUIRED isolation variant inside
+itself. Charter-shape laws are EditMode tests (exactly six scenarios / six cameras / variant-not-
+seventh / charter weeks). Harness: CF-02 bindings (manifest exe sha, stale-source + evidence-
+collision refusals, fresh runtime + per-run capability, caffeinate display law, post-run exe
+re-verification, capability scrubbing, run-binding.json).
+
+**What the oracle runs CAUGHT (fixed at root in owning waves):**
+- The runner initially froze headless — every sealed proof runner sets `Application.runInBackground`;
+  the idiom is now in the oracle runner too (`8905609`).
+- The stage nameplate hovered over the roof centroid, out of every frame; it now anchors above the
+  SIGNAL FACADE and reads against the roof at management/medium pitch (W4 anchor polish, `8905609`).
+- **Live isolation failure (s5):** stage-b's presenter was authored as its own activityRoot — the
+  Dark preview self-deactivated it into the scene bytes, and the deferred Awake stomped the first
+  applied truth back to Withheld. The controller/activity split now mirrors the hero stage
+  (`e63aef5`); the scenario then passed with presenter B Waiting and beacon isolation live.
+
+**Final consistent run set** (one build, exe sha in each run-binding.json):
+`Evidence/P05-Oracle-Final/` — all six scenarios `complete`, machine assertions 50/50
+(6+7+9+8+11+9), 22 artifacts (3+3+3+3+6+4; close omitted where the charter says it is not
+useful; s5 carries the variant's CAM-MEDIUM-B + workspace-B; s6 carries matched before/after
+management frames around the one transition). The §9.2 sidecar floor is the COMPOSITION of the
+per-scenario sidecar + run-binding.json (checkpoint sha256, exe sha256, viewport, build manifest)
++ the fixture manifest (fixture bytes/hashes/derivations/normalization) — recorded here because no
+single file carries every key. Independent visual review: pending; dispositions land in
+`visual-verdicts.json` keyed by artifact sha256.
