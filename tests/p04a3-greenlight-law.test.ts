@@ -27,6 +27,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   applyActions,
+  assignmentProjectCost,
   isContracted,
   scriptCapacityView,
   scriptProjectsReadModel,
@@ -177,12 +178,33 @@ describe('P04A.3 §11D — a credited Writer out of contract cannot block a gree
     const scenario = buildScenario(SEED)
     const state = withLapsedWriterContract(scenario)
 
+    // The assertion is only worth making if the fee is REAL. An out-of-contract
+    // person in an engaged economy carries a positive one-film cost, so this is
+    // a fee the old law would have charged and the new one must not.
+    const writerFee = assignmentProjectCost(state, scenario.writerId)
+    expect(writerFee).toBeGreaterThan(0)
+
     const next = applyActions(state, [greenlightA(scenario)])
     const fees = next.ledger
       .slice(state.ledger.length)
       .filter((entry) => entry.kind === 'freelancerFee')
-
     expect(fees.map((f) => f.talentId)).not.toContain(scenario.writerId)
+
+    // And prove it by the money, not only by the absence of a ledger row: the
+    // cash actually taken is the budget plus the FIVE SEATS' costs exactly, with
+    // no room for the writer's fee in it.
+    const seatIds = [
+      scenario.packageA.directorId,
+      scenario.packageA.cast.lead,
+      scenario.packageA.cast.antagonist,
+      scenario.packageA.cast.support,
+      ...scenario.packageA.craftIds,
+    ]
+    const seatCost = seatIds.reduce((sum, id) => sum + assignmentProjectCost(state, id), 0)
+    const budget = scenario.packageA.budget
+    const debited = state.studio.cash - next.studio.cash
+    expect(debited).toBe(budget.negative + budget.marketing + seatCost)
+    expect(debited).not.toBe(budget.negative + budget.marketing + seatCost + writerFee)
   })
 
   it('leaves Director, cast and Craft eligibility and cost exactly as they were', () => {
