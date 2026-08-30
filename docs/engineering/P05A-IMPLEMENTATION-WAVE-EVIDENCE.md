@@ -474,3 +474,21 @@ per-scenario sidecar + run-binding.json (checkpoint sha256, exe sha256, viewport
 + the fixture manifest (fixture bytes/hashes/derivations/normalization) — recorded here because no
 single file carries every key. Independent visual review: pending; dispositions land in
 `visual-verdicts.json` keyed by artifact sha256.
+
+**W6 VISUAL DISPOSITIONS (independent reviewer, every artifact byte-opened): 1 ACCEPT + 5 ACCEPT
+WITH NOTES + 0 REJECT** — the exit gate ("all six scenario dispositions accepted") is met.
+Verdicts bound to artifact sha256 in `Evidence/P05-Oracle-Final/visual-verdicts.json`. Verified
+across the corpus: the beacon law (matte dark dome in idle/rehearsal/blocked/wrap; bright bloomed
+sphere ONLY in shooting — "the one strong management-distance channel, and it works"); zero
+cross-stage leakage proven four ways in the isolation variant; wrap's before/after genuinely
+frame-matched with every hot cue struck; no P06 control anywhere; no P05 nameplate mirrored (the
+one mirrored text is the sealed prior-package DEVELOPMENT placard). Notes acted on immediately
+(Unity `c8e8d8c`): the workspace header now speaks the CLOSED state (never the raw phase — the
+reviewer caught 'Shooting' over a scenery transit and over B's director hold), and the detail
+pane gained the flexbox min-height law so STAGE & SET can never draw past the panel. Notes
+recorded as accepted dispositions for Owner-playtest calibration: the nameplate's holder line can
+cross the facility line at long copy (top polish candidate), one load-in plate is occluded by the
+legacy READY FOR CASTING card at the frozen route camera, the world-side rehearsal/blocked
+channel is thin (plate + occupied-low light only — the charter advisory confirmed with the
+mechanism named), and the legacy guidance card can advertise a different picture than the stage
+plate beside it.
