@@ -168,6 +168,55 @@ describe('CF-08 sound union-to-C# generation', () => {
         'C# contract generation failed [CF08-NULLABLE] at #/$defs/Holder/properties/value/anyOf: nullable unions must contain exactly one non-null member and one {"type":"null"} member; found 1 non-null and 2 null members.',
       )
     })
+
+    it('preserves nullable value-type array items recursively and initializes the exact element type', () => {
+      const nullable = (type: 'boolean' | 'integer' | 'number'): SchemaNode => ({
+        anyOf: [{ type }, { type: 'null' }],
+      })
+      const schema = fixtureSchema({
+        Holder: closedObject('Holder', {
+          booleans: { type: 'array', items: nullable('boolean') },
+          doubles: { type: 'array', items: nullable('number') },
+          integers: { type: 'array', items: nullable('integer') },
+          matrix: { type: 'array', items: { type: 'array', items: nullable('integer') } },
+        }),
+      })
+      const generated = extractClass(generateCsharpTypeDeclarations(schema), 'public sealed partial class Holder')
+      expect(generated).toContain('public bool?[] booleans = Array.Empty<bool?>();')
+      expect(generated).toContain('public double?[] doubles = Array.Empty<double?>();')
+      expect(generated).toContain('public int?[] integers = Array.Empty<int?>();')
+      expect(generated).toContain('public int?[][] matrix = Array.Empty<int?[]>();')
+
+      const reversed = mutableClone(schema)
+      const holder = definitions(reversed)['Holder']!
+      const properties = holder['properties'] as Record<string, Record<string, unknown>>
+      for (const name of ['booleans', 'doubles', 'integers']) {
+        const item = properties[name]!['items'] as Record<string, unknown>
+        item['anyOf'] = [...(item['anyOf'] as unknown[])].reverse()
+      }
+      expect(generateCsharpTypeDeclarations(reversed)).toBe(generateCsharpTypeDeclarations(schema))
+    })
+
+    it('leaves optional arrays absent while required arrays retain empty initialization', () => {
+      const schema = fixtureSchema({
+        Holder: closedObject('Holder', {
+          optionalItems: { type: 'array', items: { type: 'string' } },
+          optionalNullableItems: {
+            anyOf: [
+              { type: 'array', items: { type: 'integer' } },
+              { type: 'null' },
+            ],
+          },
+          requiredItems: { type: 'array', items: { type: 'string' } },
+        }, ['requiredItems']),
+      })
+      const generated = extractClass(generateCsharpTypeDeclarations(schema), 'public sealed partial class Holder')
+      expect(generated).toContain('public string[] optionalItems;')
+      expect(generated).toContain('public int[] optionalNullableItems;')
+      expect(generated).toContain('public string[] requiredItems = Array.Empty<string>();')
+      expect(generated).not.toContain('optionalItems = Array.Empty')
+      expect(generated).not.toContain('optionalNullableItems = Array.Empty')
+    })
   })
 
   describe('B — structurally compatible object unions', () => {
@@ -323,7 +372,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       expectExactGenerationError(
         overlap,
         'CF08-DISCRIMINATOR',
-        'C# contract generation failed [CF08-DISCRIMINATOR] at #/$defs/U/anyOf: discriminator "kind" value "same" is claimed by #/$defs/A and #/$defs/B; discriminator values must be non-empty and pairwise disjoint.',
+        'C# contract generation failed [CF08-DISCRIMINATOR] at #/$defs/B/properties/kind/const: discriminator "kind" value "same" is claimed by #/$defs/A/properties/kind/const and #/$defs/B/properties/kind/const; discriminator values must be non-empty and pairwise disjoint.',
+      )
+      expectExactGenerationError(
+        reverseUnion(overlap, 'U'),
+        'CF08-DISCRIMINATOR',
+        'C# contract generation failed [CF08-DISCRIMINATOR] at #/$defs/B/properties/kind/const: discriminator "kind" value "same" is claimed by #/$defs/A/properties/kind/const and #/$defs/B/properties/kind/const; discriminator values must be non-empty and pairwise disjoint.',
       )
 
       const explicitlyUnsafe = mutableClone(overlap)
@@ -331,7 +385,44 @@ describe('CF-08 sound union-to-C# generation', () => {
       expectExactGenerationError(
         explicitlyUnsafe,
         'CF08-DISCRIMINATOR-METADATA',
-        'C# contract generation failed [CF08-DISCRIMINATOR-METADATA] at #/$defs/U/x-csharp-discriminator: selector "kind" is unsafe because value "same" is claimed by #/$defs/A and #/$defs/B; discriminator values must be non-empty and pairwise disjoint.',
+        'C# contract generation failed [CF08-DISCRIMINATOR-METADATA] at #/$defs/B/properties/kind/const: selector "kind" is unsafe because value "same" is claimed by #/$defs/A/properties/kind/const and #/$defs/B/properties/kind/const; discriminator values must be non-empty and pairwise disjoint.',
+      )
+    })
+
+    it('rejects repeated discriminator literals at the duplicate enum entry', () => {
+      const schema = fixtureSchema({
+        A: closedObject('A', { kind: { type: 'string', enum: ['a', 'a'] } }),
+        B: closedObject('B', { kind: literal('b') }),
+        U: namedUnion('U', [reference('A'), reference('B')]),
+      })
+      expectExactGenerationError(
+        schema,
+        'CF08-DUPLICATE-LITERAL',
+        'C# contract generation failed [CF08-DUPLICATE-LITERAL] at #/$defs/A/properties/kind/enum/1: string enum literal "a" duplicates #/$defs/A/properties/kind/enum/0.',
+      )
+    })
+
+    it('quotes hostile discriminator values in every generated diagnostic context', () => {
+      const schema = fixtureSchema({
+        A: closedObject('A', {
+          kind: {
+            type: 'string',
+            enum: ['brace{open', 'quote"value', 'line\nbreak', 'nel\u0085separator', 'unicode\u2028separator'],
+          },
+        }),
+        B: closedObject('B', { kind: literal('plain') }),
+        U: namedUnion('U', [reference('A'), reference('B')]),
+      })
+      const generated = generateCsharpTypeDeclarations(schema)
+      expect(generated).not.toContain('$"C# union')
+      expect(generated).toContain('case "brace{open":')
+      expect(generated).toContain('case "quote\\"value":')
+      expect(generated).toContain('case "line\\nbreak":')
+      expect(generated).toContain('case "nel\\u0085separator":')
+      expect(generated).toContain('case "unicode\\u2028separator":')
+      expect(generated).toContain('+ (value ?? "<null>") + "\\".");')
+      expect(generated).toContain(
+        '+ (discriminator.Value<string>() ?? "<null>") + "\\"; expected [brace{open, quote\\"value, line\\nbreak, nel\\u0085separator, unicode\\u2028separator, plain].");',
       )
     })
 
@@ -510,11 +601,11 @@ describe('CF-08 sound union-to-C# generation', () => {
         F01_STRING_OR_NULL: '797f92b1f532d61f21dad93ba8fea8da02dd5104c4f744213c9832cb2c1f6bdd',
         F02_OBJECT_OR_NULL: '0fef8c834b895f9cf185af8f421357c642dc71984f1b4618a79eba9c4dd60e1f',
         F03_COMPATIBLE_OBJECTS: '99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68',
-        F04_DISCRIMINATED_OBJECTS: 'f7061130f0944956c96351ad03a5dcef51731d971c19a03793b12d30e00451e8',
-        F09_ARRAY_ITEM_UNION: '9438c3b42bf7d61c0a873301b350d2f47118ae9c3301165d65df5785fa2019d3',
-        F10_CURRENT_QUOTE_UNIONS: 'f8e6b5d8e5ad8c8850b2e225319aaaba259ad0eab5f1d165848f5b3d3dd1eafc',
-        F11_CURRENT_COMMAND_UNION: 'f8e6b5d8e5ad8c8850b2e225319aaaba259ad0eab5f1d165848f5b3d3dd1eafc',
-        F12_P05_PRODUCTION_SENTINEL: '1ed29c2234adaff32a358d20aa4771302982484e85152cbc23c144e0c1b9699c',
+        F04_DISCRIMINATED_OBJECTS: 'd878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b',
+        F09_ARRAY_ITEM_UNION: '7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b',
+        F10_CURRENT_QUOTE_UNIONS: 'e6566e26815355b631d1c1fc8e740cd980cb4f953ad5f92428f11fa35364275b',
+        F11_CURRENT_COMMAND_UNION: 'e6566e26815355b631d1c1fc8e740cd980cb4f953ad5f92428f11fa35364275b',
+        F12_P05_PRODUCTION_SENTINEL: '90a982c551529975e300c022d2358edd3a5e4c6e249611b75e52ac11016f6fce',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {
         const schema = FIXTURES[name as keyof typeof FIXTURES].schema
@@ -570,7 +661,171 @@ describe('CF-08 sound union-to-C# generation', () => {
       expectExactGenerationError(
         schema,
         'CF08-IDENTIFIER-COLLISION',
-        'C# contract generation failed [CF08-IDENTIFIER-COLLISION] at #/$defs/Holder/properties/state: schema names "foo-bar" and "foo_bar" both emit C# identifier "FooBar".',
+        'C# contract generation failed [CF08-IDENTIFIER-COLLISION] at #/$defs/Holder/properties/state/enum/1: schema names "foo-bar" and "foo_bar" both emit C# identifier "FooBar".',
+      )
+    })
+
+    it('rejects duplicate vocabulary literals at the exact enum entry', () => {
+      const schema = fixtureSchema({
+        Holder: closedObject('Holder', {
+          state: { type: 'string', enum: ['ready', 'working', 'ready'] },
+        }),
+      })
+      expectExactGenerationError(
+        schema,
+        'CF08-DUPLICATE-LITERAL',
+        'C# contract generation failed [CF08-DUPLICATE-LITERAL] at #/$defs/Holder/properties/state/enum/2: string enum literal "ready" duplicates #/$defs/Holder/properties/state/enum/0.',
+      )
+    })
+
+    it('validates compatible and promoted properties in their emitted class scopes', () => {
+      const compatible = fixtureSchema({
+        U: namedUnion('U', [
+          closedObject('InlineA', { 'bad-name': { type: 'string' } }),
+          closedObject('InlineB', { 'bad-name': { type: 'string' } }),
+        ]),
+      })
+      expectExactGenerationError(
+        compatible,
+        'CF08-IDENTIFIER-COLLISION',
+        'C# contract generation failed [CF08-IDENTIFIER-COLLISION] at #/$defs/U/anyOf/0/properties/bad-name: schema name "bad-name" emits invalid C# identifier "bad-name".',
+      )
+
+      const promoted = fixtureSchema({
+        A: closedObject('A', { kind: literal('a'), 'bad-name': { type: 'string' } }),
+        B: closedObject('B', { kind: literal('b'), 'bad-name': { type: 'string' } }),
+        U: namedUnion('U', [reference('A'), reference('B')]),
+      })
+      const exact = 'C# contract generation failed [CF08-IDENTIFIER-COLLISION] at #/$defs/A/properties/bad-name: schema name "U.bad-name inherited property" emits invalid C# identifier "bad-name".'
+      expectExactGenerationError(promoted, 'CF08-IDENTIFIER-COLLISION', exact)
+      expectExactGenerationError(reverseUnion(promoted, 'U'), 'CF08-IDENTIFIER-COLLISION', exact)
+    })
+
+    it('rejects enclosing class and synthesized discriminator member collisions', () => {
+      const enclosing = fixtureSchema({
+        A: closedObject('A', { A: { type: 'string' } }),
+      })
+      expectExactGenerationError(
+        enclosing,
+        'CF08-IDENTIFIER-COLLISION',
+        'C# contract generation failed [CF08-IDENTIFIER-COLLISION] at #/$defs/A/properties/A: schema names "A enclosing class" and "A" both emit C# identifier "A".',
+      )
+
+      const collision = (property: string): SchemaNode => fixtureSchema({
+        A: closedObject('A', { kind: literal('a'), [property]: { type: 'string' } }),
+        B: closedObject('B', { kind: literal('b') }),
+        U: namedUnion('U', [reference('A'), reference('B')]),
+      })
+      expectExactGenerationError(
+        collision('kindValue'),
+        'CF08-IDENTIFIER-COLLISION',
+        'C# contract generation failed [CF08-IDENTIFIER-COLLISION] at #/$defs/A/properties/kind: schema names "kindValue" and "kind discriminator backing field" both emit C# identifier "kindValue".',
+      )
+      expectExactGenerationError(
+        collision('ExpectedKind'),
+        'CF08-IDENTIFIER-COLLISION',
+        'C# contract generation failed [CF08-IDENTIFIER-COLLISION] at #/$defs/A/properties/kind: schema names "ExpectedKind" and "kind discriminator constant" both emit C# identifier "ExpectedKind".',
+      )
+      expectExactGenerationError(
+        collision('ValidateUnionMember'),
+        'CF08-IDENTIFIER-COLLISION',
+        'C# contract generation failed [CF08-IDENTIFIER-COLLISION] at #/$defs/A/properties/kind: schema names "ValidateUnionMember" and "kind discriminator validation method" both emit C# identifier "ValidateUnionMember".',
+      )
+    })
+
+    it('rejects inherited promoted and vocabulary-enclosing symbol collisions', () => {
+      const inherited = fixtureSchema({
+        A: closedObject('A', { kind: literal('a'), kindValue: { type: 'string' } }),
+        B: closedObject('B', { kind: literal('b'), kindValue: { type: 'string' } }),
+        U: namedUnion('U', [reference('A'), reference('B')]),
+      })
+      expectExactGenerationError(
+        inherited,
+        'CF08-IDENTIFIER-COLLISION',
+        'C# contract generation failed [CF08-IDENTIFIER-COLLISION] at #/$defs/A/properties/kind: schema names "U.kindValue inherited property" and "kind discriminator backing field" both emit C# identifier "kindValue".',
+      )
+
+      const vocabulary = fixtureSchema({
+        Holder: closedObject('Holder', {
+          state: { type: 'string', enum: ['holder-state-values'] },
+        }),
+      })
+      expectExactGenerationError(
+        vocabulary,
+        'CF08-IDENTIFIER-COLLISION',
+        'C# contract generation failed [CF08-IDENTIFIER-COLLISION] at #/$defs/Holder/properties/state/enum/0: schema names "HolderStateValues enclosing vocabulary class" and "holder-state-values" both emit C# identifier "HolderStateValues".',
+      )
+    })
+
+    it('reserves configured contract class and generated contract member names', () => {
+      const schema = fixtureSchema({
+        CustomContract: closedObject('CustomContract', { value: { type: 'string' } }),
+      })
+      let collision: unknown
+      try {
+        generateCsharpContract({
+          schema,
+          protocolVersion: 1,
+          projectionVersion: 1,
+          contractClassName: 'CustomContract',
+        })
+      } catch (error) {
+        collision = error
+      }
+      expect(collision).toBeInstanceOf(CSharpContractGenerationError)
+      expect((collision as Error).message).toBe(
+        'C# contract generation failed [CF08-IDENTIFIER-COLLISION] at #/$defs/CustomContract: schema names "CustomContract configured contract class" and "CustomContract" both emit C# identifier "CustomContract".',
+      )
+
+      expect(() => generateCsharpContract({
+        schema: fixtureSchema({ Holder: closedObject('Holder', { value: { type: 'string' } }) }),
+        protocolVersion: 1,
+        projectionVersion: 1,
+        contractClassName: 'SchemaId',
+      })).toThrow(
+        'C# contract generation failed [CF08-IDENTIFIER-COLLISION] at #: schema names "SchemaId enclosing class" and "SchemaId generated contract member" both emit C# identifier "SchemaId".',
+      )
+    })
+
+    it('allows annotation-only $ref siblings and rejects assertions/applicators at the sibling path', () => {
+      const annotated = fixtureSchema({
+        Holder: closedObject('Holder', {
+          target: {
+            ...reference('Target'),
+            description: 'annotation only',
+            default: null,
+            'x-note': { ignored: true },
+          },
+        }),
+        Target: closedObject('Target', { id: { type: 'string' } }),
+      })
+      expect(extractClass(generateCsharpTypeDeclarations(annotated), 'public sealed partial class Holder'))
+        .toContain('public Target target;')
+
+      const sibling = (extra: Readonly<Record<string, unknown>>): SchemaNode => fixtureSchema({
+        Holder: closedObject('Holder', { target: { ...reference('Target'), ...extra } }),
+        Target: closedObject('Target', { id: { type: 'string' } }),
+      })
+      expectExactGenerationError(
+        sibling({ minLength: 1 }),
+        'CF08-REFERENCE',
+        'C# contract generation failed [CF08-REFERENCE] at #/$defs/Holder/properties/target/minLength: non-annotation $ref sibling "minLength" cannot be emitted without changing its Draft 2020-12 semantics.',
+      )
+      expectExactGenerationError(
+        sibling({ allOf: [{ type: 'object' }] }),
+        'CF08-REFERENCE',
+        'C# contract generation failed [CF08-REFERENCE] at #/$defs/Holder/properties/target/allOf: non-annotation $ref sibling "allOf" cannot be emitted without changing its Draft 2020-12 semantics.',
+      )
+
+      const unionArm = fixtureSchema({
+        A: closedObject('A', { kind: literal('a') }),
+        B: closedObject('B', { kind: literal('b') }),
+        U: namedUnion('U', [{ ...reference('A'), type: 'object' }, reference('B')]),
+      })
+      expectExactGenerationError(
+        unionArm,
+        'CF08-REFERENCE',
+        'C# contract generation failed [CF08-REFERENCE] at #/$defs/U/anyOf/0/type: non-annotation $ref sibling "type" cannot be emitted without changing its Draft 2020-12 semantics.',
       )
     })
 

@@ -8,6 +8,7 @@ export type CSharpContractGenerationErrorCode =
   | 'CF08-ANONYMOUS-UNION'
   | 'CF08-DISCRIMINATOR'
   | 'CF08-DISCRIMINATOR-METADATA'
+  | 'CF08-DUPLICATE-LITERAL'
   | 'CF08-IDENTIFIER-COLLISION'
   | 'CF08-INCOMPATIBLE-OBJECT-UNION'
   | 'CF08-MIXED-UNION'
@@ -72,6 +73,7 @@ export interface PropertyPlan {
   readonly required: boolean
   readonly storage: CSharpStoragePlan
   readonly vocabularyValues: readonly string[]
+  readonly vocabularyValuePaths: readonly SchemaPath[]
 }
 
 export interface ObjectPlan {
@@ -86,6 +88,7 @@ export interface DiscriminatedCasePlan {
   readonly className: string
   readonly schemaPath: SchemaPath
   readonly discriminatorValues: readonly string[]
+  readonly discriminatorValuePaths: readonly SchemaPath[]
   readonly properties: readonly PropertyPlan[]
 }
 
@@ -111,6 +114,7 @@ export interface DiscriminatedObjectUnionPlan {
   readonly discriminator: string
   readonly discriminatorPath: SchemaPath
   readonly discriminatorValues: readonly string[]
+  readonly discriminatorValuePaths: readonly SchemaPath[]
   readonly promotedProperties: readonly PropertyPlan[]
   readonly cases: readonly DiscriminatedCasePlan[]
 }
@@ -163,6 +167,7 @@ interface DiscriminatorCandidate {
   readonly propertyName: string
   readonly propertyPath: SchemaPath
   readonly domains: readonly (readonly string[])[]
+  readonly domainPaths: readonly (readonly SchemaPath[])[]
   readonly overlap: {
     readonly value: string
     readonly leftPath: SchemaPath
@@ -181,6 +186,21 @@ interface MemberOwnership {
 }
 
 const LOCAL_REFERENCE_PREFIX = '#/$defs/'
+const CANONICAL_SCHEMA_CHUNK_SIZE = 3_000
+const REFERENCE_ANNOTATION_SIBLINGS = new Set([
+  '$comment',
+  'contentEncoding',
+  'contentMediaType',
+  'contentSchema',
+  'default',
+  'deprecated',
+  'description',
+  'examples',
+  'format',
+  'readOnly',
+  'title',
+  'writeOnly',
+])
 
 function ordinal(left: string, right: string): number {
   return left < right ? -1 : left > right ? 1 : 0
@@ -273,6 +293,23 @@ function normalizedDefinitionName(reference: string, usePath: SchemaPath): strin
   return encoded.replaceAll('~1', '/').replaceAll('~0', '~')
 }
 
+function validateReferenceSiblings(schema: SchemaNode, usePath: SchemaPath): void {
+  const unsupported = Object.keys(schema)
+    .filter((key) => key !== '$ref')
+    .filter((key) => !REFERENCE_ANNOTATION_SIBLINGS.has(key) && !key.startsWith('x-'))
+    .sort(ordinal)[0]
+  if (unsupported === undefined) return
+  fail(
+    'CF08-REFERENCE',
+    childPath(usePath, unsupported),
+    `non-annotation $ref sibling ${JSON.stringify(unsupported)} cannot be emitted without changing its Draft 2020-12 semantics.`,
+  )
+}
+
+function isAnnotationKeyword(key: string): boolean {
+  return REFERENCE_ANNOTATION_SIBLINGS.has(key) || key.startsWith('x-')
+}
+
 function referenceDescriptor(
   schema: SchemaNode,
   usePath: SchemaPath,
@@ -283,6 +320,7 @@ function referenceDescriptor(
   if (typeof reference !== 'string') {
     return fail('CF08-REFERENCE', usePath, 'local $ref must be a string.')
   }
+  validateReferenceSiblings(schema, usePath)
   const name = normalizedDefinitionName(reference, usePath)
   const descriptor = context.definitions.get(name)
   if (descriptor === undefined) {
@@ -338,8 +376,8 @@ function walkReferences(
     walkReferences(referenced.schema, referenced.path, context, [...referenceStack, referenced])
     return
   }
-  for (const [key, value] of Object.entries(schema)) {
-    if (key === '$defs' || key === '$ref') continue
+  for (const [key, value] of Object.entries(schema).sort(([left], [right]) => ordinal(left, right))) {
+    if (key === '$defs' || key === '$ref' || isAnnotationKeyword(key)) continue
     const valuePath = childPath(path, key)
     if (Array.isArray(value)) {
       for (let index = 0; index < value.length; index++) {
@@ -371,8 +409,8 @@ function referenceUseSites(context: AnalysisContext): ReadonlyMap<string, readon
       uses.set(name, existing)
       return
     }
-    for (const [key, value] of Object.entries(schema)) {
-      if (key === '$defs') continue
+    for (const [key, value] of Object.entries(schema).sort(([left], [right]) => ordinal(left, right))) {
+      if (key === '$defs' || isAnnotationKeyword(key)) continue
       const valuePath = childPath(path, key)
       if (Array.isArray(value)) {
         for (let index = 0; index < value.length; index++) {
@@ -416,14 +454,53 @@ function withNullable(storage: CSharpStoragePlan, schemaPath: SchemaPath): CShar
   }
 }
 
+function emittedStorageType(storage: CSharpStoragePlan): string {
+  return `${storage.csharpType}${storage.valueType && storage.nullable ? '?' : ''}`
+}
+
+function nullableMemberPath(
+  schema: SchemaNode,
+  path: SchemaPath,
+  nonNull: SchemaNode,
+): SchemaPath {
+  const alternatives = schema['anyOf'] as readonly unknown[]
+  const index = alternatives.findIndex((entry) => entry === nonNull)
+  return childPath(childPath(path, 'anyOf'), index)
+}
+
+function validateDuplicateStringEnumLiterals(schema: SchemaNode, path: SchemaPath): void {
+  const values = schema['enum']
+  if (!Array.isArray(values)) return
+  const enumPath = childPath(path, 'enum')
+  const firstPaths = new Map<string, SchemaPath>()
+  for (let index = 0; index < values.length; index++) {
+    const value = values[index]
+    if (typeof value !== 'string') continue
+    const valuePath = childPath(enumPath, index)
+    const firstPath = firstPaths.get(value)
+    if (firstPath !== undefined) {
+      fail(
+        'CF08-DUPLICATE-LITERAL',
+        valuePath,
+        `string enum literal ${JSON.stringify(value)} duplicates ${firstPath}.`,
+      )
+    }
+    firstPaths.set(value, valuePath)
+  }
+}
+
 function analyzeStorage(
   schema: SchemaNode,
   path: SchemaPath,
   context: AnalysisContext,
 ): CSharpStoragePlan {
+  validateDuplicateStringEnumLiterals(schema, path)
   const nullable = splitNullableUnion(schema, path)
   if (nullable !== null) {
-    return withNullable(analyzeStorage(nullable.nonNull, path, context), path)
+    return withNullable(
+      analyzeStorage(nullable.nonNull, nullableMemberPath(schema, path, nullable.nonNull), context),
+      path,
+    )
   }
 
   const referenced = referenceDescriptor(schema, path, context)
@@ -477,7 +554,7 @@ function analyzeStorage(
     const constraints = constraintsSignature(schema, new Set(['type', 'items', 'x-csharp-name']))
     return {
       kind: 'array',
-      csharpType: `${item.csharpType}[]`,
+      csharpType: `${emittedStorageType(item)}[]`,
       nullable: false,
       signature: `array(${item.signature};${constraints})`,
       schemaPath: path,
@@ -514,15 +591,28 @@ function analyzeStorage(
   return malformedSchema(path, `unsupported C# schema type ${JSON.stringify(type)}.`)
 }
 
-function vocabularyValues(schema: SchemaNode): readonly string[] {
-  const nullable = schema['anyOf']
-  const source = Array.isArray(nullable)
-    ? nullable.map((entry, index) => asSchema(entry, `#/anyOf/${String(index)}`)).find((entry) => !exactNullSchema(entry)) ?? schema
-    : schema
+interface StringVocabulary {
+  readonly values: readonly string[]
+  readonly paths: readonly SchemaPath[]
+}
+
+function vocabulary(schema: SchemaNode, path: SchemaPath): StringVocabulary {
+  const nullable = splitNullableUnion(schema, path)
+  const source = nullable?.nonNull ?? schema
+  const sourcePath = nullable === null ? path : nullableMemberPath(schema, path, nullable.nonNull)
+  validateDuplicateStringEnumLiterals(source, sourcePath)
   if (Array.isArray(source['enum']) && source['enum'].every((entry) => typeof entry === 'string')) {
-    return source['enum'] as string[]
+    const values = source['enum'] as string[]
+    const enumPath = childPath(sourcePath, 'enum')
+    return {
+      values,
+      paths: values.map((_, index) => childPath(enumPath, index)),
+    }
   }
-  return typeof source['const'] === 'string' ? [source['const']] : []
+  if (typeof source['const'] === 'string') {
+    return { values: [source['const']], paths: [childPath(sourcePath, 'const')] }
+  }
+  return { values: [], paths: [] }
 }
 
 function analyzeObjectMember(
@@ -553,22 +643,27 @@ function analyzeObjectMember(
   }
   const properties = Object.keys(rawProperties).sort(ordinal).map((wireName): PropertyPlan => {
     const propertySchema = rawProperties[wireName]!
+    const schemaPath = childPath(childPath(path, 'properties'), wireName)
+    const propertyVocabulary = vocabulary(propertySchema, schemaPath)
     return {
       wireName,
-      schemaPath: childPath(childPath(path, 'properties'), wireName),
+      schemaPath,
       required: required.has(wireName),
-      storage: analyzeStorage(propertySchema, childPath(childPath(path, 'properties'), wireName), context),
-      vocabularyValues: vocabularyValues(propertySchema),
+      storage: analyzeStorage(propertySchema, schemaPath, context),
+      vocabularyValues: propertyVocabulary.values,
+      vocabularyValuePaths: propertyVocabulary.paths,
     }
   })
   return { definition, schema, path, properties, required }
 }
 
-function stringDiscriminatorDomain(schema: SchemaNode): readonly string[] | null {
-  if (splitNullableUnion(schema, '#/discriminator') !== null || schemaType(schema) !== 'string') return null
-  if (typeof schema['const'] === 'string') return [schema['const']]
-  if (!Array.isArray(schema['enum']) || !schema['enum'].every((entry) => typeof entry === 'string')) return null
-  return schema['enum'] as string[]
+function stringDiscriminatorDomain(schema: SchemaNode, path: SchemaPath): StringVocabulary | null {
+  if (splitNullableUnion(schema, path) !== null || schemaType(schema) !== 'string') return null
+  const domain = vocabulary(schema, path)
+  if (typeof schema['const'] === 'string') return domain
+  return Array.isArray(schema['enum']) && schema['enum'].every((entry) => typeof entry === 'string')
+    ? domain
+    : null
 }
 
 function discriminatorCandidates(
@@ -583,37 +678,47 @@ function discriminatorCandidates(
   for (const name of shared) {
     if (!members.every((member) => member.required.has(name))) continue
     const domains: (readonly string[])[] = []
+    const domainPaths: (readonly SchemaPath[])[] = []
     let valid = true
     for (const member of members) {
       const properties = asSchemaRecord(member.schema['properties'], childPath(member.path, 'properties'))
-      const domain = stringDiscriminatorDomain(properties[name]!)
+      const propertyPath = childPath(childPath(member.path, 'properties'), name)
+      const domain = stringDiscriminatorDomain(properties[name]!, propertyPath)
       if (domain === null) {
         valid = false
         break
       }
-      domains.push(domain)
+      domains.push(domain.values)
+      domainPaths.push(domain.paths)
     }
     if (!valid) continue
     let overlap: DiscriminatorCandidate['overlap'] = null
-    const claims = new Map<string, number>()
-    for (let memberIndex = 0; memberIndex < domains.length && overlap === null; memberIndex++) {
-      for (const value of new Set(domains[memberIndex]!)) {
-        const previous = claims.get(value)
-        if (previous !== undefined) {
-          overlap = {
-            value,
-            leftPath: members[previous]!.path,
-            rightPath: members[memberIndex]!.path,
-          }
-          break
+    const claims = domains.flatMap((domain, memberIndex) =>
+      domain.map((value, valueIndex) => ({
+        value,
+        memberIndex,
+        path: domainPaths[memberIndex]![valueIndex]!,
+      }))).sort((left, right) => ordinal(left.path, right.path))
+    const firstClaims = new Map<string, { readonly memberIndex: number; readonly path: SchemaPath }>()
+    for (const claim of claims) {
+      const previous = firstClaims.get(claim.value)
+      if (previous !== undefined && previous.memberIndex !== claim.memberIndex) {
+        overlap = {
+          value: claim.value,
+          leftPath: previous.path,
+          rightPath: claim.path,
         }
-        claims.set(value, memberIndex)
+        break
       }
+      firstClaims.set(claim.value, claim)
     }
     candidates.push({
       propertyName: name,
-      propertyPath: childPath(childPath(members[0]!.path, 'properties'), name),
+      propertyPath: members
+        .map((member) => childPath(childPath(member.path, 'properties'), name))
+        .sort(ordinal)[0]!,
       domains,
+      domainPaths,
       overlap,
     })
   }
@@ -677,14 +782,16 @@ function promotedProperties(
   discriminator: string,
 ): readonly PropertyPlan[] {
   if (members.length === 0) return []
-  const names = members[0]!.properties
+  const sortedMembers = [...members].sort((left, right) => ordinal(left.path, right.path))
+  const names = sortedMembers[0]!.properties
     .map((property) => property.wireName)
     .filter((name) => name !== discriminator)
-    .filter((name) => members.every((member) => member.properties.some((property) => property.wireName === name)))
+    .filter((name) => sortedMembers.every((member) => member.properties.some((property) => property.wireName === name)))
     .sort(ordinal)
   const promoted: PropertyPlan[] = []
   for (const name of names) {
-    const properties = members.map((member) => member.properties.find((property) => property.wireName === name)!)
+    const properties = sortedMembers.map((member) =>
+      member.properties.find((property) => property.wireName === name)!)
     if (properties.every((property) => propertiesEqual(properties[0]!, property))) promoted.push(properties[0]!)
   }
   return promoted
@@ -752,7 +859,7 @@ function analyzeUnionDefinition(
     if (selected.overlap !== null) {
       return fail(
         'CF08-DISCRIMINATOR-METADATA',
-        metadataPath,
+        selected.overlap.rightPath,
         `selector ${JSON.stringify(metadata)} is unsafe because value ${JSON.stringify(selected.overlap.value)} is claimed by ${selected.overlap.leftPath} and ${selected.overlap.rightPath}; discriminator values must be non-empty and pairwise disjoint.`,
       )
     }
@@ -779,7 +886,7 @@ function analyzeUnionDefinition(
       if (overlapping?.overlap !== null && overlapping?.overlap !== undefined) {
         return fail(
           'CF08-DISCRIMINATOR',
-          alternativesPath,
+          overlapping.overlap.rightPath,
           `discriminator ${JSON.stringify(overlapping.propertyName)} value ${JSON.stringify(overlapping.overlap.value)} is claimed by ${overlapping.overlap.leftPath} and ${overlapping.overlap.rightPath}; discriminator values must be non-empty and pairwise disjoint.`,
         )
       }
@@ -814,6 +921,7 @@ function analyzeUnionDefinition(
       className: descriptor.className,
       schemaPath: descriptor.path,
       discriminatorValues: selected!.domains[index]!,
+      discriminatorValuePaths: selected!.domainPaths[index]!,
       properties: member.properties.filter((property) => !promotedNames.has(property.wireName)),
     }
   })
@@ -823,8 +931,9 @@ function analyzeUnionDefinition(
     className: definition.className,
     schemaPath: definition.path,
     discriminator: selected.propertyName,
-    discriminatorPath: childPath(definition.path, 'x-csharp-discriminator'),
+    discriminatorPath: selected.propertyPath,
     discriminatorValues: selected.domains.flatMap((domain) => domain),
+    discriminatorValuePaths: selected.domainPaths.flatMap((pathsForMember) => pathsForMember),
     promotedProperties: promoted,
     cases,
   }
@@ -889,77 +998,200 @@ function validateIdentifier(identifier: string, schemaPath: SchemaPath, sourceNa
   }
 }
 
-function validateIdentifiers(plan: ContractPlan): void {
-  const emittedTypes = new Map<string, { source: string; path: SchemaPath }>()
-  const claimType = (identifier: string, source: string, path: SchemaPath): void => {
-    validateIdentifier(identifier, path, source)
-    const existing = emittedTypes.get(identifier)
-    if (existing !== undefined && existing.source !== source) {
-      fail(
-        'CF08-IDENTIFIER-COLLISION',
-        path,
-        `schema names ${JSON.stringify(existing.source)} and ${JSON.stringify(source)} both emit C# identifier ${JSON.stringify(identifier)}.`,
-      )
-    }
-    emittedTypes.set(identifier, { source, path })
+interface IdentifierClaim {
+  readonly source: string
+  readonly path: SchemaPath
+}
+
+interface ContractIdentifierPlan {
+  readonly className: string
+  readonly canonicalSchemaPartCount: number
+}
+
+function claimIdentifier(
+  symbols: Map<string, IdentifierClaim>,
+  identifier: string,
+  source: string,
+  path: SchemaPath,
+): void {
+  validateIdentifier(identifier, path, source)
+  const existing = symbols.get(identifier)
+  if (existing !== undefined) {
+    fail(
+      'CF08-IDENTIFIER-COLLISION',
+      path,
+      `schema names ${JSON.stringify(existing.source)} and ${JSON.stringify(source)} both emit C# identifier ${JSON.stringify(identifier)}.`,
+    )
   }
+  symbols.set(identifier, { source, path })
+}
+
+function validateIdentifiers(plan: ContractPlan, contract?: ContractIdentifierPlan): void {
+  const emittedTypes = new Map<string, IdentifierClaim>()
+  const claimType = (identifier: string, source: string, path: SchemaPath): void => {
+    claimIdentifier(emittedTypes, identifier, source, path)
+  }
+  if (contract !== undefined) {
+    claimType(contract.className, `${contract.className} configured contract class`, '#')
+  }
+  for (const definition of plan.definitions) {
+    const emitted = definition.kind === 'object' ? definition.object : definition.union
+    claimType(emitted.className, emitted.definitionName, emitted.schemaPath)
+  }
+
   const claimVocabulary = (className: string, property: PropertyPlan): void => {
     if (property.vocabularyValues.length === 0) return
     const vocabularyName = `${className}${pascalCase(property.wireName)}Values`
     claimType(vocabularyName, `${className}.${property.wireName} vocabulary`, property.schemaPath)
-    const constants = new Map<string, string>()
-    for (const value of property.vocabularyValues) {
-      const emitted = pascalCase(value)
-      validateIdentifier(emitted, property.schemaPath, value)
-      const previous = constants.get(emitted)
-      if (previous !== undefined && previous !== value) {
-        fail(
-          'CF08-IDENTIFIER-COLLISION',
-          property.schemaPath,
-          `schema names ${JSON.stringify(previous)} and ${JSON.stringify(value)} both emit C# identifier ${JSON.stringify(emitted)}.`,
-        )
-      }
-      constants.set(emitted, value)
+    const constants = new Map<string, IdentifierClaim>()
+    claimIdentifier(
+      constants,
+      vocabularyName,
+      `${vocabularyName} enclosing vocabulary class`,
+      property.schemaPath,
+    )
+    for (let index = 0; index < property.vocabularyValues.length; index++) {
+      const value = property.vocabularyValues[index]!
+      claimIdentifier(
+        constants,
+        pascalCase(value),
+        value,
+        property.vocabularyValuePaths[index] ?? property.schemaPath,
+      )
     }
   }
   for (const definition of plan.definitions) {
     if (definition.kind === 'object') {
-      claimType(definition.object.className, definition.object.definitionName, definition.object.schemaPath)
       for (const property of definition.object.properties) {
-        validateIdentifier(property.wireName, property.schemaPath, property.wireName)
         claimVocabulary(definition.object.className, property)
       }
-    } else {
-      const union = definition.union
-      claimType(union.className, union.definitionName, union.schemaPath)
-      const properties = union.kind === 'compatible-object'
-        ? union.properties
-        : union.promotedProperties
-      for (const property of properties) claimVocabulary(union.className, property)
-      if (union.kind === 'discriminated-object') {
-        claimType(`${union.className}JsonConverter`, `${union.definitionName} converter`, union.schemaPath)
-        claimType(
-          `${union.className}${pascalCase(union.discriminator)}Values`,
-          `${union.definitionName}.${union.discriminator} vocabulary`,
-          union.schemaPath,
-        )
-      }
+      continue
+    }
+    const union = definition.union
+    const properties = union.kind === 'compatible-object'
+      ? union.properties
+      : union.promotedProperties
+    for (const property of properties) claimVocabulary(union.className, property)
+    if (union.kind !== 'discriminated-object') continue
+    claimType(`${union.className}JsonConverter`, `${union.definitionName} converter`, union.schemaPath)
+    const vocabularyName = `${union.className}${pascalCase(union.discriminator)}Values`
+    claimType(
+      vocabularyName,
+      `${union.definitionName}.${union.discriminator} vocabulary`,
+      union.discriminatorPath,
+    )
+    const constants = new Map<string, IdentifierClaim>()
+    claimIdentifier(
+      constants,
+      vocabularyName,
+      `${vocabularyName} enclosing vocabulary class`,
+      union.discriminatorPath,
+    )
+    for (let index = 0; index < union.discriminatorValues.length; index++) {
+      const value = union.discriminatorValues[index]!
+      claimIdentifier(
+        constants,
+        pascalCase(value),
+        value,
+        union.discriminatorValuePaths[index] ?? union.discriminatorPath,
+      )
     }
   }
-  for (const union of plan.unions) {
-    if (union.kind !== 'discriminated-object') continue
-    const constants = new Map<string, string>()
-    for (const value of union.discriminatorValues) {
-      const emitted = pascalCase(value)
-      const previous = constants.get(emitted)
-      if (previous !== undefined && previous !== value) {
-        fail(
-          'CF08-IDENTIFIER-COLLISION',
-          union.schemaPath,
-          `schema names ${JSON.stringify(previous)} and ${JSON.stringify(value)} both emit C# identifier ${JSON.stringify(emitted)}.`,
-        )
-      }
-      constants.set(emitted, value)
+
+  const ownership = buildOwnership(plan)
+  const validateClassScope = (
+    className: string,
+    classPath: SchemaPath,
+    properties: readonly PropertyPlan[],
+    inherited: readonly PropertyPlan[] = [],
+    member?: { readonly union: DiscriminatedObjectUnionPlan; readonly casePlan: DiscriminatedCasePlan },
+  ): void => {
+    const symbols = new Map<string, IdentifierClaim>()
+    claimIdentifier(symbols, className, `${className} enclosing class`, classPath)
+    for (const property of inherited) {
+      claimIdentifier(
+        symbols,
+        property.wireName,
+        `${member?.union.className ?? className}.${property.wireName} inherited property`,
+        property.schemaPath,
+      )
+    }
+    for (const property of properties) {
+      claimIdentifier(symbols, property.wireName, property.wireName, property.schemaPath)
+    }
+    if (member === undefined) return
+    const discriminatorProperty = properties.find((property) =>
+      property.wireName === member.union.discriminator)
+    const discriminatorPath = discriminatorProperty?.schemaPath ?? member.union.discriminatorPath
+    const discriminatorSuffix = pascalCase(member.union.discriminator)
+    if (member.casePlan.discriminatorValues.length === 1) {
+      claimIdentifier(
+        symbols,
+        `Expected${discriminatorSuffix}`,
+        `${member.union.discriminator} discriminator constant`,
+        discriminatorPath,
+      )
+    }
+    claimIdentifier(
+      symbols,
+      `${member.union.discriminator}Value`,
+      `${member.union.discriminator} discriminator backing field`,
+      discriminatorPath,
+    )
+    for (const method of [
+      'ValidateUnionMemberAfterDeserialization',
+      'ValidateUnionMemberBeforeSerialization',
+      'ValidateUnionMember',
+    ]) {
+      claimIdentifier(symbols, method, `${member.union.discriminator} discriminator validation method`, discriminatorPath)
+    }
+  }
+
+  for (const definition of plan.definitions) {
+    if (definition.kind === 'compatible-object-union') {
+      validateClassScope(
+        definition.union.className,
+        definition.union.schemaPath,
+        definition.union.properties,
+      )
+      continue
+    }
+    if (definition.kind === 'discriminated-object-union') {
+      validateClassScope(
+        definition.union.className,
+        definition.union.schemaPath,
+        definition.union.promotedProperties,
+      )
+      continue
+    }
+    const owner = ownership.get(definition.object.definitionName)
+    validateClassScope(
+      definition.object.className,
+      definition.object.schemaPath,
+      definition.object.properties,
+      owner?.union.promotedProperties,
+      owner === undefined ? undefined : { union: owner.union, casePlan: owner.member },
+    )
+  }
+
+  if (contract !== undefined) {
+    const symbols = new Map<string, IdentifierClaim>()
+    claimIdentifier(symbols, contract.className, `${contract.className} enclosing class`, '#')
+    const fixedMembers = [
+      'ProtocolVersion',
+      'ProjectionVersion',
+      'SnapshotVersion',
+      'SchemaId',
+      'CanonicalSchemaJson',
+      'CreateStrictJsonSettings',
+      'RequireCompatible',
+    ]
+    for (const member of fixedMembers) {
+      claimIdentifier(symbols, member, `${member} generated contract member`, '#')
+    }
+    for (let index = 0; index < contract.canonicalSchemaPartCount; index++) {
+      const member = `CanonicalSchemaJsonPart${String(index)}`
+      claimIdentifier(symbols, member, `${member} generated contract member`, '#')
     }
   }
 }
@@ -1031,11 +1263,14 @@ export const analyzeCSharpContract = analyzeCsharpContract
 
 function csharpString(value: string): string {
   return JSON.stringify(value)
+    .replaceAll('\u0085', '\\u0085')
+    .replaceAll('\u2028', '\\u2028')
+    .replaceAll('\u2029', '\\u2029')
 }
 
 function emittedPropertyType(property: PropertyPlan): string {
-  const nullableValueType = property.storage.valueType && (property.storage.nullable || !property.required)
-  return `${property.storage.csharpType}${nullableValueType ? '?' : ''}`
+  const storageType = emittedStorageType(property.storage)
+  return `${storageType}${property.storage.valueType && !property.storage.nullable && !property.required ? '?' : ''}`
 }
 
 function propertyAttribute(property: PropertyPlan): string {
@@ -1049,8 +1284,8 @@ function propertyAttribute(property: PropertyPlan): string {
 }
 
 function propertyInitialization(property: PropertyPlan): string {
-  return property.storage.kind === 'array'
-    ? ` = Array.Empty<${property.storage.item.csharpType}>();`
+  return property.required && property.storage.kind === 'array'
+    ? ` = Array.Empty<${emittedStorageType(property.storage.item)}>();`
     : ';'
 }
 
@@ -1099,6 +1334,7 @@ function emitDiscriminatorProperty(
     .map((value) => `String.Equals(value, ${csharpString(value)}, StringComparison.Ordinal)`)
     .join(' ||\n                    ')
   const expected = `[${values.join(', ')}]`
+  const messagePrefix = `C# union ${union.className} member ${member.className} requires discriminator ${JSON.stringify(union.discriminator)} in ${expected}; received "`
   return [
     `        private string ${union.discriminator}Value;`,
     '',
@@ -1110,7 +1346,7 @@ function emitDiscriminatorProperty(
     '            {',
     `                if (!(${allowedExpression}))`,
     '                    throw new JsonSerializationException(',
-    `                        $"C# union ${union.className} member ${member.className} requires discriminator \\"${union.discriminator}\\" in ${expected}; received \\"{value ?? "<null>"}\\".");`,
+    `                        ${csharpString(messagePrefix)} + (value ?? "<null>") + ${csharpString('".')});`,
     `                ${union.discriminator}Value = value;`,
     '            }',
     '        }',
@@ -1210,6 +1446,8 @@ export function emitDiscriminatedBase(plan: DiscriminatedObjectUnionPlan): strin
 
 function emitUnionConverterLines(union: DiscriminatedObjectUnionPlan): string[] {
   const expected = union.discriminatorValues.join(', ')
+  const unknownPrefix = `C# union ${union.className} has unknown discriminator "`
+  const unknownSuffix = `"; expected [${expected}].`
   const dispatchLines: string[] = []
   for (const member of union.cases) {
     for (const value of member.discriminatorValues) {
@@ -1251,7 +1489,7 @@ function emitUnionConverterLines(union: DiscriminatedObjectUnionPlan): string[] 
     ...dispatchLines,
     '                default:',
     '                    throw new JsonSerializationException(',
-    `                        $"C# union ${union.className} has unknown discriminator \\"{discriminator.Value<string>() ?? "<null>"}\\"; expected [${expected}].");`,
+    `                        ${csharpString(unknownPrefix)} + (discriminator.Value<string>() ?? "<null>") + ${csharpString(unknownSuffix)});`,
     '            }',
     '        }',
     '',
@@ -1292,10 +1530,9 @@ function emitUnionVocabulary(union: DiscriminatedObjectUnionPlan): string[] {
 }
 
 function emitCanonicalSchemaConstants(schemaJson: string): string[] {
-  const chunkSize = 3_000
   const chunks: string[] = []
-  for (let offset = 0; offset < schemaJson.length; offset += chunkSize) {
-    chunks.push(schemaJson.slice(offset, offset + chunkSize))
+  for (let offset = 0; offset < schemaJson.length; offset += CANONICAL_SCHEMA_CHUNK_SIZE) {
+    chunks.push(schemaJson.slice(offset, offset + CANONICAL_SCHEMA_CHUNK_SIZE))
   }
   return [
     ...chunks.map((chunk, index) =>
@@ -1371,6 +1608,10 @@ export function generateCsharpContract(input: GenerateCSharpContractInput): stri
   const formatExceptionType = input.formatExceptionType ?? 'StudioSnapshotFormatException'
   const identity = schemaIdentity(input.schema)
   const canonicalSchema = canonicalJsonPretty(input.schema).trimEnd()
+  validateIdentifiers(plan, {
+    className: contractClassName,
+    canonicalSchemaPartCount: Math.max(1, Math.ceil(canonicalSchema.length / CANONICAL_SCHEMA_CHUNK_SIZE)),
+  })
   const rendered = renderContractParts(plan)
   const converterInitializers = plan.unions
     .filter((union): union is DiscriminatedObjectUnionPlan => union.kind === 'discriminated-object')
