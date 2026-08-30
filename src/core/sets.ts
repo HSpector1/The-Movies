@@ -869,8 +869,17 @@ export function assertSetsInvariants(state: GameState): void {
         set.status === 'standing',
         `workflow "${workflow.productionId}" is filming on set "${bound}", which is not standing`,
       )
+      // The release law (\`00E\`.5): a picture that wrapped has released the
+      // stage while still in the shooting phase waiting for Post — its
+      // bindings keep \`setId\` purely as the RECORD of what it shot on, and
+      // \`stageFacilityId\` is null because it holds nothing. The mounted-on
+      // agreement is a law about a HELD stage; a released record holds none.
+      // (Reproduced by the W7 hostile-correction walk: post capacity 1, the
+      // second wrapped picture waiting a week, the invariant read the record
+      // as tenancy and killed a lawful state on read.)
       setInvariant(
-        set.mountedOn === workflow.bindings.stageFacilityId,
+        workflow.bindings.stageFacilityId === null ||
+          set.mountedOn === workflow.bindings.stageFacilityId,
         `workflow "${workflow.productionId}" holds a stage its bound set does not stand on`,
       )
     }

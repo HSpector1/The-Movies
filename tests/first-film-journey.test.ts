@@ -435,7 +435,10 @@ describe('First Film Journey V1 — the guided chain', () => {
       stage: 'in-production',
       pictureTitle: title,
       beat: 'shooting',
-      headline: 'SHOOTING',
+      // W7 hostile F6: while the Director call stands, the card must not
+      // claim the phase's happy milestone — the headline names the decision.
+      headline: 'DIRECTOR CALL REQUIRED',
+      whatHappened: 'The company holds its stage; principal photography has not started.',
       waiting: null,
     })
     expect(commanded.blocked).toEqual({

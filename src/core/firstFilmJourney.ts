@@ -998,6 +998,26 @@ function inProductionView(
     const guidance = commandGuidance(state, command, site)
     const beat: PictureJourneyBeat =
       command.kind === 'clearSceneryLoadIn' ? 'load-in' : defaultBeat
+    // Hostile-review F6: while a decision stands, the card must not claim
+    // the phase's happy milestone. 'SHOOTING · Principal photography
+    // started.' over a Director hold was the exact management-distance
+    // over-claim the closed vocabulary exists to prevent — the same defect
+    // class as the workspace header, fixed at the same authority (the
+    // journey owns this copy; the beat vocabulary stays frozen).
+    const commandHeadline =
+      command.kind === 'clearSceneryLoadIn'
+        ? 'LOAD-IN BLOCKED'
+        : command.kind === 'assignShootingDirector'
+          ? 'DIRECTOR CALL REQUIRED'
+          : command.kind === 'scheduleShootingTake'
+            ? 'READY TO SCHEDULE'
+            : headline
+    const commandMilestone =
+      command.kind === 'assignShootingDirector'
+        ? 'The company holds its stage; principal photography has not started.'
+        : command.kind === 'scheduleShootingTake'
+          ? 'The company and scenery are ready for the camera.'
+          : defaultMilestone
     return {
       stage: 'in-production',
       beat,
@@ -1005,8 +1025,8 @@ function inProductionView(
       scriptProjectId,
       pictureTitle: title,
       ordinal,
-      headline: command.kind === 'clearSceneryLoadIn' ? 'LOAD-IN BLOCKED' : headline,
-      whatHappened: defaultMilestone,
+      headline: commandHeadline,
+      whatHappened: commandMilestone,
       whyItMatters: 'The picture cannot advance until the named production problem is cleared.',
       detail,
       next: { kind: 'resolve-production', label: guidance.label, site },

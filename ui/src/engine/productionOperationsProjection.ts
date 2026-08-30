@@ -717,9 +717,23 @@ export function composeClosedProduction(
       }
     }
     const buildingId = input.stageBodyByFacilityId.get(stage.facilityId) ?? null
-    const theaterSubjectIds = (input.weekTheater?.subjects ?? [])
-      .filter((subject) => subject.facilityId === stage.facilityId)
-      .map((subject) => subject.id)
+    // Hostile-review F4: a subject rides a HOLDER's row only when the engine
+    // names this exact holder as its picture (owner AND facility — the same
+    // law the presence join already keeps), so an outgoing production's wrap
+    // subject can never claim the NEW holder's stage. A row with NO holder
+    // (dark/wrap) describes the place, not a picture, and keeps the
+    // facility-scoped view — there is no holder to leak onto.
+    const facilityScopedSubjects = (input.weekTheater?.subjects ?? []).filter(
+      (subject) => subject.facilityId === stage.facilityId,
+    )
+    const holderProductionIdForSubjects =
+      holder === undefined || holder === 'withheld' ? null : holder.productionId
+    const theaterSubjectIds = (holderProductionIdForSubjects === null
+      ? facilityScopedSubjects
+      : facilityScopedSubjects.filter(
+          (subject) => subject.productionId === holderProductionIdForSubjects,
+        )
+    ).map((subject) => subject.id)
     if (holder === undefined) {
       // Current ownership beats history: with NO current holder, a same-week
       // wrap receipt is a bounded 'wrap' cue; otherwise the stage is dark.

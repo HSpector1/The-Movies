@@ -333,3 +333,62 @@ describe('P05A W2 correction — no raw enum identifier in player copy (review F
     expect(capacityRow, 'walk never reached wrapped-waiting-for-post').not.toBeNull()
   })
 })
+
+describe('P05A W7 correction — theater subjects join by OWNER, not by address (hostile F4)', () => {
+  // KILLS: reverting the subject join to facility-only. Reproduced by the
+  // hostile reviewer on this exact walk: the outgoing picture's wrap-clearing
+  // subject rode the NEW holder's stage row.
+  it('an outgoing wrap subject never rides the new holder\u2019s row', () => {
+    const { state, readyProjectIds } = contendedStudio('w7-kill-subject-owner')
+    let next = structuredClone(state)
+    for (const facility of next.operations.facilities) {
+      if (facility.id === 'facility-post-building') facility.capacity = 1
+    }
+    next = advance(next, 3)
+    next = applyActions(next, [
+      { kind: 'greenlightScriptProject', production: freePackage(next, readyProjectIds[0]!) },
+    ])
+    for (let week = 0; week < 14; week++) {
+      for (const workflow of next.operations.workflows) {
+        if (workflow.phase !== 'shooting' || workflow.shootingTask === null) continue
+        const production = next.studio.activeProductions.find(
+          (candidate) => candidate.id === workflow.productionId,
+        )!
+        if (workflow.shootingTask.status === 'unassigned') {
+          next = applyActions(next, [
+            {
+              kind: 'assignShootingDirector',
+              productionId: production.id,
+              directorId: production.directorId,
+            },
+          ])
+        }
+        const settled = next.operations.workflows.find(
+          (candidate) => candidate.productionId === production.id,
+        )
+        if (settled?.shootingTask?.status === 'ready') {
+          next = applyActions(next, [
+            { kind: 'scheduleShootingTake', productionId: production.id },
+          ])
+        }
+      }
+      next = advance(next, 1)
+      const snapshot = managedSnapshot(next)
+      const subjectsById = new Map(
+        (snapshot.weekTheater?.subjects ?? []).map((subject: any) => [subject.id, subject]),
+      )
+      for (const stage of snapshot.stageProductions ?? []) {
+        if (stage.holderProductionId === null) continue
+        for (const subjectId of stage.theaterSubjectIds ?? []) {
+          const subject: any = subjectsById.get(subjectId)
+          expect(subject, `subject ${subjectId} exists`).toBeDefined()
+          expect(
+            subject.productionId,
+            `subject ${subjectId} on ${stage.stageFacilityId} names the holder`,
+          ).toBe(stage.holderProductionId)
+        }
+      }
+    }
+  })
+})
+
