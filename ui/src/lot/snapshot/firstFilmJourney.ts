@@ -42,6 +42,7 @@ export type PictureJourneyBeat =
   | 'auditions-reviewed'
   | 'greenlit'
   | 'pre-production'
+  | 'rehearsal'
   | 'load-in'
   | 'shooting'
   | 'post-production'
@@ -104,6 +105,7 @@ const JOURNEY_BEATS: readonly PictureJourneyBeat[] = [
   'auditions-reviewed',
   'greenlit',
   'pre-production',
+  'rehearsal',
   'load-in',
   'shooting',
   'post-production',

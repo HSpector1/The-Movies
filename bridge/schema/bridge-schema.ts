@@ -16,7 +16,12 @@ import {
 } from './dsl.ts'
 
 export const PROTOCOL_VERSION = 4 as const
-export const PROJECTION_VERSION = 11 as const
+// P05A W2: the closed Production projection (fourteen operational states,
+// worksite/Locate targets, blocker anatomy, wrap receipts, the Stage-local
+// collection, and the exact `rehearsal` journey beat) extends the wire shape,
+// so the projection identity advances 11 → 12. Protocol stays 4; save stays 15
+// (no saved byte changed).
+export const PROJECTION_VERSION = 12 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -128,6 +133,9 @@ const StudioFirstFilmJourneySnapshot = object('StudioFirstFilmJourneySnapshot', 
     'auditions-reviewed',
     'greenlit',
     'pre-production',
+    // P05A W2: Rehearsal is preparation, not LOAD-IN — the exact member the
+    // W1 copy correction deferred to this governed projection bump.
+    'rehearsal',
     'load-in',
     'shooting',
     'post-production',
@@ -192,6 +200,98 @@ const StudioProductionCommandSnapshot = union('StudioProductionCommandSnapshot',
   reference('StudioScheduleShootingTakeCommand', StudioScheduleShootingTakeCommand),
 ] as const)
 
+// ── P05A W2 — the CLOSED Production row and Stage-local collection ───────────
+
+const StudioProductionTargetSnapshot = object('StudioProductionTargetSnapshot', {
+  relationship: enumeration(['current-work', 'related']),
+  resourceKind: enumeration(['facility', 'set']),
+  resourceId: nonEmptyText(),
+  capability: nullable(text()),
+  label: nonEmptyText(),
+  buildingId: nullable(text()),
+  locatable: bool(),
+  reason: nullable(text()),
+})
+
+const StudioBlockerHolderSnapshot = object('StudioBlockerHolderSnapshot', {
+  resourceId: nonEmptyText(),
+  ownerId: nonEmptyText(),
+  title: text(),
+  activity: text(),
+  freesInWeeks: nullable(nonNegativeInteger()),
+})
+
+const StudioProductionRemedyRouteSnapshot = object('StudioProductionRemedyRouteSnapshot', {
+  kind: enumeration(['open-queue', 'open-scenery-shop', 'open-set', 'wait-for-holder']),
+  label: nonEmptyText(),
+  setId: nullable(text()),
+  holderId: nullable(text()),
+  freesInWeeks: nullable(nonNegativeInteger()),
+})
+
+const StudioProductionBlockerAnatomySnapshot = object('StudioProductionBlockerAnatomySnapshot', {
+  kind: enumeration([
+    'facility-capacity',
+    'set-unavailable',
+    'director-dispatch',
+    'scenery-load-in',
+    'take-scheduling',
+  ]),
+  headline: nonEmptyText(),
+  detail: nonEmptyText(),
+  consequence: nonEmptyText(),
+  holders: array(reference('StudioBlockerHolderSnapshot', StudioBlockerHolderSnapshot)),
+  projectedWeeks: nullable(nonNegativeInteger()),
+  remedies: array(reference(
+    'StudioProductionRemedyRouteSnapshot',
+    StudioProductionRemedyRouteSnapshot,
+  )),
+})
+
+const StudioWrapReceiptSnapshot = object('StudioWrapReceiptSnapshot', {
+  wrappedWeek: nonNegativeInteger(),
+  stageFacilityId: nonEmptyText(),
+  setId: nullable(text()),
+  currentWeek: bool(),
+})
+
+const StudioStageLogisticsCueSnapshot = object('StudioStageLogisticsCueSnapshot', {
+  kind: literal('scenery-load-in'),
+  fromFacilityId: nonEmptyText(),
+  toFacilityId: nonEmptyText(),
+  distance: nonNegativeInteger(),
+  weeksTotal: nonNegativeInteger(),
+  weeksRemaining: nonNegativeInteger(),
+  arrived: bool(),
+})
+
+const StudioStageProductionSnapshot = object('StudioStageProductionSnapshot', {
+  stageFacilityId: nonEmptyText(),
+  stageBuildingId: nullable(text()),
+  facilityLabel: nonEmptyText(),
+  holderProductionId: nullable(text()),
+  holderTitle: nullable(text()),
+  currentSetId: nullable(text()),
+  presentationState: enumeration([
+    'withheld',
+    'dark',
+    'rehearsal',
+    'load-in',
+    'blocked',
+    'shooting',
+    'wrap',
+  ]),
+  holderCopy: nullable(text()),
+  theaterSubjectIds: array(nonEmptyText()),
+  presenceTalentIds: array(nonEmptyText()),
+  logistics: nullable(reference(
+    'StudioStageLogisticsCueSnapshot',
+    StudioStageLogisticsCueSnapshot,
+  )),
+  wrapReceipt: nullable(reference('StudioWrapReceiptSnapshot', StudioWrapReceiptSnapshot)),
+  presentationHint: nullable(text()),
+})
+
 const StudioProductionOperationsSnapshot = object('StudioProductionOperationsSnapshot', {
   productionId: nonEmptyText(),
   title: nonEmptyText(),
@@ -231,6 +331,54 @@ const StudioProductionOperationsSnapshot = object('StudioProductionOperationsSna
     'recently-completed',
   ]),
   currentCommand: nullable(reference('StudioProductionCommandSnapshot', StudioProductionCommandSnapshot)),
+  // ── P05A W2 closed-row fields. REQUIRED on the wire: the adapter always
+  //    emits them (managed rows from the composition, legacy rows as honest
+  //    status-unavailable defaults), so absence fails closed at the boundary. ──
+  conceptId: nonEmptyText(),
+  operationalState: enumeration([
+    'development-working',
+    'pre-production-working',
+    'rehearsal-working',
+    'director-required',
+    'scenery-in-transit',
+    'scenery-arrival-pending',
+    'legacy-load-in-acknowledgment',
+    'ready-to-schedule',
+    'shooting-working',
+    'resource-wait',
+    'wrapped-waiting-for-post',
+    'post-handoff',
+    'release-ready',
+    'status-unavailable',
+  ]),
+  stateLabel: nonEmptyText(),
+  stateWeeksRemaining: nullable(nonNegativeInteger()),
+  nextMilestone: nonEmptyText(),
+  worksiteResolution: enumeration(['exact', 'none', 'withheld']),
+  ownedWorksites: array(reference(
+    'StudioProductionTargetSnapshot',
+    StudioProductionTargetSnapshot,
+  )),
+  primaryWorkTarget: nullable(reference(
+    'StudioProductionTargetSnapshot',
+    StudioProductionTargetSnapshot,
+  )),
+  relatedTargets: array(reference(
+    'StudioProductionTargetSnapshot',
+    StudioProductionTargetSnapshot,
+  )),
+  locateTargets: array(reference(
+    'StudioProductionTargetSnapshot',
+    StudioProductionTargetSnapshot,
+  )),
+  stageFacilityId: nullable(text()),
+  stageBuildingId: nullable(text()),
+  currentSetId: nullable(text()),
+  blockerAnatomy: nullable(reference(
+    'StudioProductionBlockerAnatomySnapshot',
+    StudioProductionBlockerAnatomySnapshot,
+  )),
+  wrapReceipt: nullable(reference('StudioWrapReceiptSnapshot', StudioWrapReceiptSnapshot)),
 })
 
 const StudioPersonSnapshot = object('StudioPersonSnapshot', {
@@ -1134,6 +1282,12 @@ const studioLotSnapshotProperties = {
     'StudioProductionOperationsSnapshot',
     StudioProductionOperationsSnapshot,
   )),
+  // P05A W2: the Stage-local collection (recon §5.5). Optional at the snapshot
+  // root exactly like `stages`/`sets` — always emitted in managed mode.
+  stageProductions: optional(array(reference(
+    'StudioStageProductionSnapshot',
+    StudioStageProductionSnapshot,
+  ))),
   people: array(reference('StudioPersonSnapshot', StudioPersonSnapshot)),
   presence: optional(reference('StudioPresenceSnapshot', StudioPresenceSnapshot)),
   placement: reference('StudioPlacementSnapshot', StudioPlacementSnapshot),
@@ -1161,6 +1315,7 @@ export const StudioLotProjectionSchema = object('StudioLotProjection', {
 export const StudioProductionsProjectionSchema = object('StudioProductionsProjection', {
   activeProductions: studioLotSnapshotProperties.activeProductions,
   productionOperations: studioLotSnapshotProperties.productionOperations,
+  stageProductions: studioLotSnapshotProperties.stageProductions,
 })
 
 export const StudioPeopleProjectionSchema = object('StudioPeopleProjection', {
@@ -1388,6 +1543,13 @@ const definitions = {
   StudioClearSceneryLoadInCommand,
   StudioScheduleShootingTakeCommand,
   StudioProductionCommandSnapshot,
+  StudioProductionTargetSnapshot,
+  StudioBlockerHolderSnapshot,
+  StudioProductionRemedyRouteSnapshot,
+  StudioProductionBlockerAnatomySnapshot,
+  StudioWrapReceiptSnapshot,
+  StudioStageLogisticsCueSnapshot,
+  StudioStageProductionSnapshot,
   StudioProductionOperationsSnapshot,
   StudioPersonSnapshot,
   StudioPresencePersonSnapshot,

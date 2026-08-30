@@ -269,12 +269,15 @@ import type {
   LotProductionCompanyRole,
   LotSetState,
   LotStageIdentity,
+  LotStageProductionState,
   LotTheaterBeat,
   LotTheaterSubject,
   LotWeekEvent,
   LotWeekTheater,
   ProductionOperationsState,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
+// P05A W2: the bounded closed-Production composition (recon §5.3–§5.5).
+import { composeClosedProduction } from './productionOperationsProjection.ts'
 import {
   FOUNDING_BUILDING_IDS,
   LOT_PRESENCE_STATIC_BEAT,
@@ -7148,7 +7151,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     state,
     baseProductionOperations,
   )
-  const productionOperations =
+  const companyRows =
     companyProjection === null
       ? baseProductionOperations
       : [...baseProductionOperations]
@@ -7157,6 +7160,63 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
             ...operation,
             companyMembers: companyProjection.membersByProductionId.get(operation.productionId)!,
           }))
+
+  // ── P05A W2: the CLOSED Production rows + Stage-local collection ───────────
+  //
+  // Managed mode always emits every closed field and the stage collection; the
+  // rail law (recon §16.2) requires ascending exact-productionId order, so the
+  // managed rows are sorted unconditionally — attention is a tag, never a sort.
+  let productionOperations = companyRows
+  let stageProductions: LotStageProductionState[] | undefined
+  if (state.operations.mode === 'managed') {
+    const locationBuildingIdByProductionId = new Map(
+      companyRows.map((row) => [row.productionId, row.locationBuildingId] as const),
+    )
+    const closed = composeClosedProduction({
+      state,
+      stageIdentities,
+      stageBodyByFacilityId,
+      locationBuildingIdByProductionId,
+      presence,
+      weekTheater,
+    })
+    productionOperations = [...companyRows]
+      .sort((a, b) => comparePlainId(a.productionId, b.productionId))
+      .map((row) => {
+        const extension = closed.rowExtensions.get(row.productionId)
+        if (extension === undefined) {
+          throw new Error(
+            `studioLotSnapshot: closed composition omitted managed productionId "${row.productionId}"`,
+          )
+        }
+        return { ...row, ...extension }
+      })
+    stageProductions = closed.stageProductions
+  } else {
+    // Legacy operations sit outside the closed Production system. The wire
+    // REQUIRES the closed fields, so legacy rows state that honestly rather
+    // than omitting them: status unavailable, nothing owned, nothing located.
+    productionOperations = companyRows.map((row) => ({
+      ...row,
+      conceptId:
+        prods.find((production) => production.id === row.productionId)?.conceptId ??
+        row.productionId,
+      operationalState: 'status-unavailable' as const,
+      stateLabel: 'Production details unavailable',
+      stateWeeksRemaining: null,
+      nextMilestone: 'Production details unavailable',
+      worksiteResolution: 'withheld' as const,
+      ownedWorksites: [],
+      primaryWorkTarget: null,
+      relatedTargets: [],
+      locateTargets: [],
+      stageFacilityId: null,
+      stageBuildingId: null,
+      currentSetId: null,
+      blockerAnatomy: null,
+      wrapReceipt: null,
+    }))
+  }
 
   const activeProductions: ProductionCard[] =
     state.operations.mode === 'legacy'
@@ -7596,6 +7656,9 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
           operationsMode: 'managed' as const,
           stageAssignmentAuthority: 'engine' as const,
           productionOperations,
+          // Always present in managed mode (P05A W2); typed optional only for
+          // older hand-authored fixtures.
+          stageProductions: stageProductions ?? [],
         }
       : {
           operationsMode: 'legacy' as const,

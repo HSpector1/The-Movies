@@ -208,6 +208,24 @@ const OPERATION_KEYS = [
   'blocker',
   'attention',
   'currentCommand',
+  // P05A W2 — the closed-row extension (recon §5.3). The strict boundary
+  // widens with the projection; the receipt itself still consumes none of
+  // these fields.
+  'conceptId',
+  'operationalState',
+  'stateLabel',
+  'stateWeeksRemaining',
+  'nextMilestone',
+  'worksiteResolution',
+  'ownedWorksites',
+  'primaryWorkTarget',
+  'relatedTargets',
+  'locateTargets',
+  'stageFacilityId',
+  'stageBuildingId',
+  'currentSetId',
+  'blockerAnatomy',
+  'wrapReceipt',
 ] as const
 
 const OPERATION_COMPANY_KEYS = [

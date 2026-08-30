@@ -29,6 +29,46 @@
       "type": "object",
       "x-csharp-name": "StudioAssignShootingDirectorCommand"
     },
+    "StudioBlockerHolderSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "activity": {
+          "type": "string"
+        },
+        "freesInWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ownerId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "resourceId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activity",
+        "freesInWeeks",
+        "ownerId",
+        "resourceId",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioBlockerHolderSnapshot"
+    },
     "StudioBridgeAcceptedCommandResponse": {
       "additionalProperties": false,
       "properties": {
@@ -87,7 +127,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 11,
+          "const": 12,
           "type": "integer"
         },
         "stateDigest": {
@@ -203,7 +243,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 11,
+          "const": 12,
           "type": "integer"
         },
         "stateDigest": {
@@ -681,7 +721,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 11,
+          "const": 12,
           "type": "integer"
         },
         "stateDigest": {
@@ -750,7 +790,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 11,
+          "const": 12,
           "type": "integer"
         },
         "stateDigest": {
@@ -3024,6 +3064,7 @@
             "auditions-reviewed",
             "greenlit",
             "pre-production",
+            "rehearsal",
             "load-in",
             "shooting",
             "post-production",
@@ -4383,6 +4424,68 @@
       "type": "object",
       "x-csharp-name": "StudioPresenceSnapshot"
     },
+    "StudioProductionBlockerAnatomySnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "consequence": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "detail": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "headline": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "holders": {
+          "items": {
+            "$ref": "#/$defs/StudioBlockerHolderSnapshot"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "enum": [
+            "facility-capacity",
+            "set-unavailable",
+            "director-dispatch",
+            "scenery-load-in",
+            "take-scheduling"
+          ],
+          "type": "string"
+        },
+        "projectedWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "remedies": {
+          "items": {
+            "$ref": "#/$defs/StudioProductionRemedyRouteSnapshot"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "consequence",
+        "detail",
+        "headline",
+        "holders",
+        "kind",
+        "projectedWeeks",
+        "remedies"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioProductionBlockerAnatomySnapshot"
+    },
     "StudioProductionBlockerSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -4498,16 +4601,40 @@
             }
           ]
         },
+        "blockerAnatomy": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioProductionBlockerAnatomySnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "companyMembers": {
           "items": {
             "$ref": "#/$defs/StudioProductionCompanyMemberSnapshot"
           },
           "type": "array"
         },
+        "conceptId": {
+          "minLength": 1,
+          "type": "string"
+        },
         "currentCommand": {
           "anyOf": [
             {
               "$ref": "#/$defs/StudioProductionCommandSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "currentSetId": {
+          "anyOf": [
+            {
+              "type": "string"
             },
             {
               "type": "null"
@@ -4534,9 +4661,44 @@
           "minLength": 1,
           "type": "string"
         },
+        "locateTargets": {
+          "items": {
+            "$ref": "#/$defs/StudioProductionTargetSnapshot"
+          },
+          "type": "array"
+        },
         "locationBuildingId": {
           "minLength": 1,
           "type": "string"
+        },
+        "nextMilestone": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "operationalState": {
+          "enum": [
+            "development-working",
+            "pre-production-working",
+            "rehearsal-working",
+            "director-required",
+            "scenery-in-transit",
+            "scenery-arrival-pending",
+            "legacy-load-in-acknowledgment",
+            "ready-to-schedule",
+            "shooting-working",
+            "resource-wait",
+            "wrapped-waiting-for-post",
+            "post-handoff",
+            "release-ready",
+            "status-unavailable"
+          ],
+          "type": "string"
+        },
+        "ownedWorksites": {
+          "items": {
+            "$ref": "#/$defs/StudioProductionTargetSnapshot"
+          },
+          "type": "array"
         },
         "phase": {
           "enum": [
@@ -4554,6 +4716,16 @@
           "minLength": 1,
           "type": "string"
         },
+        "primaryWorkTarget": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioProductionTargetSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "productionId": {
           "minLength": 1,
           "type": "string"
@@ -4562,6 +4734,48 @@
           "maximum": 1,
           "minimum": 0,
           "type": "number"
+        },
+        "relatedTargets": {
+          "items": {
+            "$ref": "#/$defs/StudioProductionTargetSnapshot"
+          },
+          "type": "array"
+        },
+        "stageBuildingId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stageFacilityId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stateLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "stateWeeksRemaining": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "statusLabel": {
           "minLength": 1,
@@ -4592,27 +4806,119 @@
           "maximum": 2147483647,
           "minimum": 0,
           "type": "integer"
+        },
+        "worksiteResolution": {
+          "enum": [
+            "exact",
+            "none",
+            "withheld"
+          ],
+          "type": "string"
+        },
+        "wrapReceipt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioWrapReceiptSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       },
       "required": [
         "attention",
         "blocker",
+        "blockerAnatomy",
+        "conceptId",
         "currentCommand",
+        "currentSetId",
         "directorId",
         "directorName",
         "facilityLabel",
+        "locateTargets",
         "locationBuildingId",
+        "nextMilestone",
+        "operationalState",
+        "ownedWorksites",
         "phase",
         "phaseLabel",
+        "primaryWorkTarget",
         "productionId",
         "progress01",
+        "relatedTargets",
+        "stageBuildingId",
+        "stageFacilityId",
+        "stateLabel",
+        "stateWeeksRemaining",
         "statusLabel",
         "taskStatus",
         "title",
-        "weeksRemaining"
+        "weeksRemaining",
+        "worksiteResolution",
+        "wrapReceipt"
       ],
       "type": "object",
       "x-csharp-name": "StudioProductionOperationsSnapshot"
+    },
+    "StudioProductionRemedyRouteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "freesInWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "holderId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "kind": {
+          "enum": [
+            "open-queue",
+            "open-scenery-shop",
+            "open-set",
+            "wait-for-holder"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "setId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "freesInWeeks",
+        "holderId",
+        "kind",
+        "label",
+        "setId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioProductionRemedyRouteSnapshot"
     },
     "StudioProductionSnapshot": {
       "additionalProperties": false,
@@ -4670,6 +4976,78 @@
       "type": "object",
       "x-csharp-name": "StudioProductionSnapshot"
     },
+    "StudioProductionTargetSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "buildingId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "capability": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "locatable": {
+          "type": "boolean"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "relationship": {
+          "enum": [
+            "current-work",
+            "related"
+          ],
+          "type": "string"
+        },
+        "resourceId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "resourceKind": {
+          "enum": [
+            "facility",
+            "set"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "buildingId",
+        "capability",
+        "label",
+        "locatable",
+        "reason",
+        "relationship",
+        "resourceId",
+        "resourceKind"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioProductionTargetSnapshot"
+    },
     "StudioProductionsProjection": {
       "additionalProperties": false,
       "properties": {
@@ -4682,6 +5060,12 @@
         "productionOperations": {
           "items": {
             "$ref": "#/$defs/StudioProductionOperationsSnapshot"
+          },
+          "type": "array"
+        },
+        "stageProductions": {
+          "items": {
+            "$ref": "#/$defs/StudioStageProductionSnapshot"
           },
           "type": "array"
         }
@@ -5495,6 +5879,188 @@
       "type": "object",
       "x-csharp-name": "StudioSetSnapshot"
     },
+    "StudioStageLogisticsCueSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "arrived": {
+          "type": "boolean"
+        },
+        "distance": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "fromFacilityId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "const": "scenery-load-in",
+          "type": "string"
+        },
+        "toFacilityId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "weeksRemaining": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "weeksTotal": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "arrived",
+        "distance",
+        "fromFacilityId",
+        "kind",
+        "toFacilityId",
+        "weeksRemaining",
+        "weeksTotal"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioStageLogisticsCueSnapshot"
+    },
+    "StudioStageProductionSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "currentSetId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "facilityLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "holderCopy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "holderProductionId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "holderTitle": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "logistics": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioStageLogisticsCueSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "presenceTalentIds": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "presentationHint": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "presentationState": {
+          "enum": [
+            "withheld",
+            "dark",
+            "rehearsal",
+            "load-in",
+            "blocked",
+            "shooting",
+            "wrap"
+          ],
+          "type": "string"
+        },
+        "stageBuildingId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stageFacilityId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "theaterSubjectIds": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "wrapReceipt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioWrapReceiptSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "currentSetId",
+        "facilityLabel",
+        "holderCopy",
+        "holderProductionId",
+        "holderTitle",
+        "logistics",
+        "presenceTalentIds",
+        "presentationHint",
+        "presentationState",
+        "stageBuildingId",
+        "stageFacilityId",
+        "theaterSubjectIds",
+        "wrapReceipt"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioStageProductionSnapshot"
+    },
     "StudioStageSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -5753,6 +6319,41 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioWeekTheaterSubjectSnapshot"
+    },
+    "StudioWrapReceiptSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "currentWeek": {
+          "type": "boolean"
+        },
+        "setId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stageFacilityId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "wrappedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "currentWeek",
+        "setId",
+        "stageFacilityId",
+        "wrappedWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
   "$id": "urn:project-studio:bridge:protocol-4:projection-11",
@@ -5796,7 +6397,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 11,
+    "projectionVersion": 12,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

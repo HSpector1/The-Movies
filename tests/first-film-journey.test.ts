@@ -409,7 +409,8 @@ describe('First Film Journey V1 — the guided chain', () => {
         // exact `rehearsal` member; the player-facing copy is corrected now.
         const rehearsing = firstFilmJourney(state)
         expect(rehearsing).toMatchObject({
-          beat: 'load-in',
+          // P05A W2: the exact rehearsal beat shipped with projection v12.
+          beat: 'rehearsal',
           headline: 'REHEARSAL',
           blocked: null,
         })
@@ -543,7 +544,9 @@ describe('First Film Journey V1 — the guided chain', () => {
     expect([...witnessedProductionBeats]).toEqual(expect.arrayContaining([
       'greenlit',
       'pre-production',
-      'load-in',
+      // P05A W2: rehearsal has its own beat; the founding lot never shows
+      // 'load-in' (due-at-call settles inside the Director call).
+      'rehearsal',
       'shooting',
       'post-production',
       'release-ready',

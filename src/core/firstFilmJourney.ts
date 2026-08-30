@@ -105,6 +105,7 @@ export type PictureJourneyBeat =
   | 'auditions-reviewed'
   | 'greenlit'
   | 'pre-production'
+  | 'rehearsal'
   | 'load-in'
   | 'shooting'
   | 'post-production'
@@ -167,12 +168,11 @@ const SITE_PLACE: Record<JourneySite, string> = {
   admin: 'Administration',
 }
 
-// P05A W1: Rehearsal is company/stage PREPARATION — `LOAD-IN` is reserved for
-// the exact Shooting scenery transit, which cannot begin before the Director
-// call creates it (Package 05 §8). The wire `beat` enumeration is closed at
-// projection v11 and carries no `rehearsal` member, so `PHASE_BEAT.rehearsal`
-// deliberately keeps `'load-in'` until W2's governed schema transaction adds
-// the exact value; the player-facing copy is corrected now.
+// P05A W1/W2: Rehearsal is company/stage PREPARATION — `LOAD-IN` is reserved
+// for the exact Shooting scenery transit, which cannot begin before the
+// Director call creates it (Package 05 §8). W2's governed projection bump
+// (v12) added the exact `rehearsal` wire member, so the beat now says what the
+// phase is.
 const PHASE_HEADLINE: Record<ProductionPhase, string> = {
   development: 'PICTURE GREENLIT',
   preProduction: 'PRE-PRODUCTION',
@@ -185,7 +185,7 @@ const PHASE_HEADLINE: Record<ProductionPhase, string> = {
 const PHASE_BEAT: Record<ProductionPhase, PictureJourneyBeat> = {
   development: 'greenlit',
   preProduction: 'pre-production',
-  rehearsal: 'load-in',
+  rehearsal: 'rehearsal',
   shooting: 'shooting',
   postProduction: 'post-production',
   releaseReady: 'release-ready',

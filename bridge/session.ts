@@ -26,6 +26,7 @@ import {
   scriptProjectsBoard,
   signContractAction,
   startCastingSessionAction,
+  productionBoard,
   startDevelopmentCastingAnnexAction,
   studioDecision,
   studioDevelopment,
@@ -812,6 +813,36 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
     }
   }
 
+  // ── P05A W2: ALL active exact-ID Production decisions publish (recon §6.2) ──
+  //
+  // The bridge no longer narrows Production commands to the one guided picture:
+  // every active production whose board card carries a current command emits its
+  // own digest-bound intent, in ascending exact-productionId order. The guided
+  // journey's `resolve-production` step selects from this same family (see
+  // `selectJourneyIntent`), so guidance and availability can never disagree.
+  if (state.operations.mode === 'managed') {
+    const commandCards = productionBoard(state)
+      .cards.filter((card) => card.command !== null)
+      .sort((left, right) =>
+        left.productionId < right.productionId ? -1 : left.productionId > right.productionId ? 1 : 0,
+      )
+    for (const card of commandCards) {
+      const command = card.command!
+      const fields: Omit<AvailableIntent, 'intentId'> = {
+        kind: 'resolveProductionBlocker',
+        label: command.label,
+        detail: card.blocker?.detail ?? card.statusLabel,
+        projectId: null,
+        castingSessionId: null,
+        productionId: card.productionId,
+      }
+      pushIfAccepted(state, resolved, {
+        option: option(stateDigest, fields, command),
+        apply: (current) => runProductionCommand(current, command),
+      })
+    }
+  }
+
   const next = journey.next
   if (next === null) return resolved
   if (next.kind === 'commission') return resolved
@@ -914,29 +945,10 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
     return resolved
   }
 
-  if (next.kind === 'resolve-production' && journey.productionId !== null) {
-    const decision = studioDecision(state)
-    if (
-      decision?.kind === 'productionDecision' &&
-      decision.decision.productionId === journey.productionId &&
-      decision.decision.command !== null
-    ) {
-      const command = decision.decision.command
-      const fields: Omit<AvailableIntent, 'intentId'> = {
-        kind: 'resolveProductionBlocker',
-        label: next.label,
-        detail: decision.decision.blocker?.detail ?? decision.decision.statusLabel,
-        projectId: journey.scriptProjectId,
-        castingSessionId: null,
-        productionId: command.productionId,
-      }
-      resolved.push({
-        option: option(stateDigest, fields, command),
-        apply: (current) => runProductionCommand(current, command),
-      })
-    }
-  }
-
+  // P05A W2: `resolve-production` intents are published for EVERY active
+  // production above; the journey's own step selects the matching one by exact
+  // productionId in `selectJourneyIntent`, so no separate journey-bound
+  // emission remains (a second emission would mint a duplicate intentId).
   return resolved
 }
 

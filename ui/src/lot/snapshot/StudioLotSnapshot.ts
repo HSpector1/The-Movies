@@ -371,6 +371,168 @@ export type LotProductionCommand =
   | { kind: 'clearSceneryLoadIn'; productionId: string; label: string }
   | { kind: 'scheduleShootingTake'; productionId: string; label: string }
 
+// ── P05A W2 — the CLOSED Production row (recon §5.3/§5.4/§6.1, charter W2) ───
+//
+// TypeScript owns every meaning below. Unity and the browser render these
+// closed values and never reconstruct lifecycle, worksites, blockers, or
+// remedies from raw strings, phases, positions, or history.
+
+/**
+ * The fourteen closed operational states (recon §5.4). The projection derives
+ * them from phase + task + the one scenery classifier + queue truth; a state a
+ * consumer does not recognize is rendered as withheld, never guessed.
+ */
+export type LotProductionOperationalState =
+  | 'development-working'
+  | 'pre-production-working'
+  | 'rehearsal-working'
+  | 'director-required'
+  | 'scenery-in-transit'
+  | 'scenery-arrival-pending'
+  | 'legacy-load-in-acknowledgment'
+  | 'ready-to-schedule'
+  | 'shooting-working'
+  | 'resource-wait'
+  | 'wrapped-waiting-for-post'
+  | 'post-handoff'
+  | 'release-ready'
+  | 'status-unavailable'
+
+/** How exactly the projection could resolve this picture's CURRENT worksite. */
+export type LotWorksiteResolution = 'exact' | 'none' | 'withheld'
+
+/**
+ * One exact-ID target a production names on the lot (recon §6.1). Selection
+ * changes information only; a consumer re-resolves by `productionId` against
+ * the newest snapshot at activation and never falls back to a former stage,
+ * a first array member, a nearest body, or a title.
+ */
+export type LotProductionTarget = {
+  relationship: 'current-work' | 'related'
+  resourceKind: 'facility' | 'set'
+  /** Facility id or set id — stable engine identity, never a display name. */
+  resourceId: string
+  /** Engine capability for a facility target; null for a set. */
+  capability: string | null
+  /** The engine's own name for the place/thing (§3.1). */
+  label: string
+  /** The exact world body, when uniquely resolvable; null withholds Locate. */
+  buildingId: BuildingId | null
+  locatable: boolean
+  /** The safe stated reason when `locatable` is false. */
+  reason: string | null
+}
+
+/** One current holder of a resource this picture is waiting on (queue truth, verbatim). */
+export type LotBlockerHolder = {
+  resourceId: string
+  ownerId: string
+  title: string
+  activity: string
+  /** PROJECTED weeks until release, or null when the answer is not a countdown. */
+  freesInWeeks: number | null
+}
+
+/**
+ * One remedy ROUTE (recon §6.2): P05 remedies open/navigate to the canonical
+ * Queue/Set/Scenery owner with exact context. They are never constructed into
+ * commands from label text; commitment happens only in the owning surface.
+ * `wait-for-holder` is process information, never a control.
+ */
+export type LotProductionRemedyRoute = {
+  kind: 'open-queue' | 'open-scenery-shop' | 'open-set' | 'wait-for-holder'
+  label: string
+  /** Exact set for open-set repair/strike routes; null otherwise. */
+  setId: string | null
+  /** Exact holder for wait rows; null otherwise. */
+  holderId: string | null
+  /** PROJECTED weeks for wait rows; null otherwise or when unknown. */
+  freesInWeeks: number | null
+}
+
+/**
+ * The typed blocker anatomy (recon §5.3, annex §F): effect → cause →
+ * consequence → holders → projected timing → remedy routes. Composed verbatim
+ * from the engine's own queue/scenery truth.
+ */
+export type LotProductionBlockerAnatomy = {
+  kind:
+    | 'facility-capacity'
+    | 'set-unavailable'
+    | 'director-dispatch'
+    | 'scenery-load-in'
+    | 'take-scheduling'
+  /** EFFECT — what cannot happen. */
+  headline: string
+  /** CAUSE — the exact refusing fact. */
+  detail: string
+  /** CONSEQUENCE — what holding means. */
+  consequence: string
+  holders: LotBlockerHolder[]
+  /** PROJECTED weeks until the wait clears, or null when not a countdown. */
+  projectedWeeks: number | null
+  remedies: LotProductionRemedyRoute[]
+}
+
+/** A current-week or historical Wrap receipt — history, never current occupancy. */
+export type LotProductionWrapReceipt = {
+  wrappedWeek: number
+  stageFacilityId: string
+  setId: string | null
+  /** True exactly when the receipt was stamped in the snapshot's own week. */
+  currentWeek: boolean
+}
+
+/** Closed Stage presentation states (recon §5.5, §7.2). */
+export type LotStagePresentationState =
+  | 'withheld'
+  | 'dark'
+  | 'rehearsal'
+  | 'load-in'
+  | 'blocked'
+  | 'shooting'
+  | 'wrap'
+
+/** The structured load-in logistics cue — exact endpoints, never a route claim. */
+export type LotStageLogisticsCue = {
+  kind: 'scenery-load-in'
+  fromFacilityId: string
+  toFacilityId: string
+  distance: number
+  weeksTotal: number
+  weeksRemaining: number
+  arrived: boolean
+}
+
+/**
+ * One Stage-local row, keyed by exact Stage `facilityId` (recon §5.5). Unity's
+ * N-Stage registry binds each row to its exact world body and withholds on
+ * ambiguity without corrupting unrelated rows.
+ */
+export type LotStageProductionState = {
+  stageFacilityId: string
+  /** The exact world body, or null when no unambiguous body stands. */
+  stageBuildingId: BuildingId | null
+  facilityLabel: string
+  /** The exact CURRENT holder, or null. Current ownership beats Wrap history. */
+  holderProductionId: string | null
+  holderTitle: string | null
+  /** The live current Set, or null (explicit-grandfather live stages have none). */
+  currentSetId: string | null
+  presentationState: LotStagePresentationState
+  /** TS-authored one-line holder copy for the nameplate, or null. */
+  holderCopy: string | null
+  /** Exact ids into `weekTheater.subjects` that concern THIS stage. */
+  theaterSubjectIds: string[]
+  /** Exact talentIds provably present at THIS stage for the current holder. */
+  presenceTalentIds: string[]
+  logistics: LotStageLogisticsCue | null
+  /** A bounded historical receipt; never proof of current ownership. */
+  wrapReceipt: LotProductionWrapReceipt | null
+  /** Optional semantic presentation hint (e.g. reduced activity), TS-authored. */
+  presentationHint: string | null
+}
+
 /**
  * One narrow production-operations projection. `locationBuildingId` is already
  * resolved at the adapter boundary from the authoritative phase/reservation; the
@@ -415,6 +577,41 @@ export type ProductionOperationsState = {
   } | null
   attention: AttentionState
   currentCommand: LotProductionCommand | null
+  // ── P05A W2 closed-row extension (recon §5.3) ──────────────────────────────
+  //
+  // Additive. `studioLotSnapshot()` ALWAYS emits every field below (the wire
+  // schema REQUIRES them, so an unemitted field fails closed at the bridge
+  // boundary); they are optional here only so older hand-authored presentation
+  // fixtures stay source-compatible, exactly like `leadId`/`companyMembers`.
+  /** The concept behind the picture — exact id, already public on the board. */
+  conceptId?: string
+  /** One of the fourteen closed operational states. */
+  operationalState?: LotProductionOperationalState
+  /** TS-authored player copy for the operational state. */
+  stateLabel?: string
+  /** State-appropriate weeks (e.g. transit weeks remaining), or null. */
+  stateWeeksRemaining?: number | null
+  /** TS-authored next-milestone copy — never a percentage. */
+  nextMilestone?: string
+  worksiteResolution?: LotWorksiteResolution
+  /** Exact currently OWNED worksites (live reservations), engine order. */
+  ownedWorksites?: LotProductionTarget[]
+  /** The policy-defined primary current work target, or null. */
+  primaryWorkTarget?: LotProductionTarget | null
+  /** Exact related (non-owned) targets: bound set, scenery source, queue rooms. */
+  relatedTargets?: LotProductionTarget[]
+  /** Everything Locate may offer for this picture, in stable order. */
+  locateTargets?: LotProductionTarget[]
+  /** The live Stage facility this picture currently holds, or null. */
+  stageFacilityId?: string | null
+  /** Its exact world body, or null when unresolvable (Locate withholds). */
+  stageBuildingId?: BuildingId | null
+  /** The live current Set, or null (explicit grandfather keeps null lawfully). */
+  currentSetId?: string | null
+  /** Full blocker anatomy, or null. Present exactly when `blocker` is. */
+  blockerAnatomy?: LotProductionBlockerAnatomy | null
+  /** Wrap receipt — history beside, never instead of, current occupancy. */
+  wrapReceipt?: LotProductionWrapReceipt | null
 }
 
 /** Coarse theater presence (addendum §1). No payment counts, no revenue — presence only. */
@@ -985,11 +1182,18 @@ type StudioLotOperationsProjection =
       operationsMode: 'managed'
       stageAssignmentAuthority: 'engine'
       productionOperations: ProductionOperationsState[]
+      /**
+       * P05A W2 — the Stage-local collection, keyed by exact Stage facilityId
+       * (recon §5.5), one row per soundstage this studio has. `studioLotSnapshot()`
+       * always emits it in managed mode; optional only for older fixtures.
+       */
+      stageProductions?: LotStageProductionState[]
     }
   | {
       operationsMode?: 'legacy'
       stageAssignmentAuthority?: 'presentation'
       productionOperations?: ProductionOperationsState[]
+      stageProductions?: LotStageProductionState[]
     }
 
 export type StudioLotSnapshot = StudioLotSnapshotBase & StudioLotOperationsProjection

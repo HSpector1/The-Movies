@@ -83,6 +83,11 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // SaveV15 cutover" (also c056f2b, a same-day generator fix that reproduces
   // the identical hash — one P04A-interim value, not two).
   ['sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4', 'projection-v10'],
+  // projection-v11: the P04A.3-accepted / P05A-static-contract-gate identity —
+  // the OUTGOING schema of the P05A W2 projection bump to v12 (the schema-bump
+  // law: at every projection/schema bump, append the outgoing identity here so
+  // durable checkpoints written under it keep migrating).
+  ['sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e', 'projection-v11'],
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({
