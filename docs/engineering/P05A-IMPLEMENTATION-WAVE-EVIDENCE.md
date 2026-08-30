@@ -526,3 +526,52 @@ state recorded clean at every act — same walk on real pixels; the transition r
   (`LOCATE CASTING ▸` ok). Recorded as a seed/timing artifact, not a product regression. A bonus
   regression datum from the two-ready-screenplay seed: the P04A.3 choose-first law fired exactly
   ("Choose which screenplay to cast." — the card refuses to open until an explicit choice).
+
+## W7 HOSTILE-REVIEW CORRECTION — REJECT remediated (findings F1–F13) — TS `e7151b4` / Unity `29895df`
+
+The fresh hostile reviewer answered all twenty charter questions and returned **REJECT** — the
+floors and the exact-consumer lock held (re-run independently), but the runtime evidence was bound
+to superseded binaries, a second stage-truth authority survived, and a real cross-production leak
+reproduced. Every finding fixed at root in its owning wave; see the two correction commit bodies
+for the per-finding record. Highlights and honest notes:
+
+- **F4 was a real leak** (the reviewer reproduced it on the suite's own walk): holder rows'
+  theater subjects now join by OWNER AND facility; killed by a 14-week contention walk. That walk
+  also surfaced a genuine ENGINE defect: the sets invariant read the wrapped-released record
+  (setId kept, stageFacilityId null, per the release law) as tenancy and killed a lawful state on
+  read under Post contention — the mounted-on agreement now applies only to a HELD stage.
+- **F3**: the legacy `Resolve()` second authority has no live product caller — vehicle, ambient
+  department, and ActiveProduction binding all speak the closed stage-a row through the one
+  resolver, withheld-consistent with the registry when the collection is absent. The earlier
+  "vehicle keeps legacy truth" deviation understated scope and is retracted.
+- **F1/F9/F10 — the sealed evidence set.** ONE binary (exe sha `3a7e2ba9…`) built from the clean
+  final tips, every runtime gate re-run against it: Oracle ×6 (`Evidence/P05-Oracle-Sealed/`,
+  50/50 machine assertions, 22 artifacts), 4M machine journey 17/17, 4H HID journey 15/15
+  (`Evidence/P05-Journey-Sealed/`), the sealed casting-journey proof PASS, and the sealed P04A.1
+  owner-input HID proof **PASS — 0 failed steps** (`OwnerInputProof-…-sealed2-…`; the launcher now
+  waits for the element map before driving — the prior first-step misses were boot-timing, proven
+  by a black first-frame screenshot). Every run-binding.json carries the exe sha, app pid, BOTH
+  source commits, runner/driver source sha, exact args, and a copied build-manifest snapshot;
+  every sealed run shows the identical sha and the exact tip commits. EVIDENCE STATUS restated:
+  the p05regress run (24 failures, wrong-repo integrity gate) and p05regress2 (no report written)
+  are FAILED/ABSENT evidence retained for the record and cited for nothing; the earlier
+  P05-Oracle-Final set is SUPERSEDED by the sealed set (its dispositions guided fixes; the sealed
+  set carries its own fresh visual verdicts).
+- **The sealed stage-visual proof — bounded supersession, recorded.** Its vocabulary gates were
+  aligned (exact-identity presenter binding; the split-vocabulary rehearsal milestone, sealed
+  envelope VALUES unchanged) and milestone 1 now passes. Milestones 2–5 are UNREACHABLE BY LAW in
+  its authored world: W1's due-at-call settlement means the founding shop's one-week transit no
+  longer blocks (the legacy LoadIn window it photographed no longer exists), and after its picture
+  releases, the sealed P04 journey law stops the clock at the commission step (replayed TS-side:
+  week 22, decision null, only commissionScreenplay offered — pre-existing P04 behavior). The
+  successor evidence for that visual family is the oracle itself: s3 (a REAL 3-week placed-shop
+  transit, exact 25/3/2/1), s5 (shooting + isolation), s6 (wrap), s1 (dark) — each stronger than
+  the superseded milestones (exact ledger IDs, frozen cameras, independent byte-opened review).
+  This supersession is a deliberate recorded deviation for the reviewer's judgment.
+- **F6** reached the journey card (the same over-claim class as the workspace header): a standing
+  Director call now reads DIRECTOR CALL REQUIRED, never the phase's happy milestone.
+- **F5/F7/F8/F11/F12/F13** fixed as commits describe; the sibling sweep now catches the
+  `ExactOne<presenter>` spelling (the fourth consumer class).
+
+Floors after correction: TS full suite green (+1 test), EditMode **646/646**, generator
+re-validated byte-identical. Delta visual review of the sealed set: pending.
