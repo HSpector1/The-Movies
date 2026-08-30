@@ -446,12 +446,15 @@ export function studioWeekTheater(state: GameState): StudioWeekTheater {
   // The next-boundary settlement law clears the blocker in the same produced
   // state in which the trip becomes due, so the standing-blocker loop above can
   // no longer play the arrival. The arrival week is read instead off the
-  // engine's OWN `sceneryArrived` row — witness, never input — for exactly the
-  // settled window: the tick sink stamps `currentWeek - 1` (the advance that
-  // produced this week) and the Director-call sink stamps `currentWeek`. The
-  // cue is additionally bounded by the settlement's direct product — a take
-  // still `ready` — so a scheduled or advanced picture never replays it, and
-  // the same state renders the same subjects on every load (Class A).
+  // engine's OWN `sceneryArrived` row — witness, never input. The tick sink
+  // stamps `currentWeek - 1` (the advance that produced this week) and the
+  // Director-call sink stamps `currentWeek`; the two stamps are
+  // indistinguishable from state one week on, so the window below is EXACTLY
+  // one week for a tick-settled arrival and a BOUNDED TWO weeks for an
+  // action-settled one whose take is still unscheduled (W1 review residual R1
+  // — accepted and recorded; cosmetic, deterministic, Class A: the same state
+  // renders the same subjects on every load). Scheduling the take ends the cue
+  // immediately either way.
   for (const workflow of state.operations.workflows) {
     if (!isObject(workflow) || !isNonEmptyString(workflow.productionId)) continue
     if (workflow.blocker !== null) continue

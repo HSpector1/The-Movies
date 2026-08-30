@@ -200,6 +200,22 @@ describe('P05A W1 — the theater plays the arrival week', () => {
     ])
     expect(arrivalSubject(scheduled, start.productionId)).toBeUndefined()
   })
+
+  // W1 final-disposition residual R1, pinned honestly: the action-settled cue
+  // with a still-unscheduled take survives exactly ONE further advance (the
+  // two sink stamps are indistinguishable from state one week on) and is gone
+  // the week after. Bounded, deterministic, cosmetic — and now asserted.
+  it('bounds the unscheduled due-at-call cue to exactly two weeks', () => {
+    const start = pictureBeforeCall('w1-theater-r1-window')
+    const called = callDirector(start.state, start.productionId)
+    expect(workflowOf(called, start.productionId).shootingTask?.status).toBe('ready')
+    expect(arrivalSubject(called, start.productionId)).toBeDefined()
+    const oneWeekOn = tick(called)
+    expect(workflowOf(oneWeekOn, start.productionId).shootingTask?.status).toBe('ready')
+    expect(arrivalSubject(oneWeekOn, start.productionId)).toBeDefined()
+    const twoWeeksOn = tick(oneWeekOn)
+    expect(arrivalSubject(twoWeeksOn, start.productionId)).toBeUndefined()
+  })
 })
 
 // ── the classifier itself ────────────────────────────────────────────────────

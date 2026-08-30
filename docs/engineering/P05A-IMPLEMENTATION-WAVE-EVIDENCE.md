@@ -97,7 +97,7 @@ blocked fixtures retain route/sweep coverage), presence canon (unchanged; in-tra
 pinned as work-not-waiting in the new suite).
 
 **Focused evidence.**
-- New: `tests/p05a-w1-scenery-truth.test.ts` — 15 tests at the seal, 22 after the review
+- New: `tests/p05a-w1-scenery-truth.test.ts` — 15 tests at the seal, 21 after the review
   correction wave (classifier five-way, Clear legality incl. forged and withheld,
   exactly-once settlement at the call and at the exact remaining-one boundary, tick-sink vs
   action-sink event chronology, save round-trip classification stability, in-transit
@@ -132,10 +132,13 @@ and fixed at root in the owning wave:
   (`decision-required` + retired copy). Folded onto `sceneryLoadInDecision` with the four
   closed outcomes; pair-tested.
 - **F3 (MED)** the next-boundary law made the Week Theater's arrival beats unreachable.
-  Fixed: a bounded arrival subject is read off the engine's own `sceneryArrived` row for
-  exactly the settled window (tick stamp `week-1`, action stamp `week`), gated by the
-  settlement's direct product (a take still `ready`); tested for both settlement paths,
-  including no-replay after the window or a scheduled take.
+  Fixed: a bounded arrival subject is read off the engine's own `sceneryArrived` row,
+  gated by the settlement's direct product (a take still `ready`). Window: exactly one
+  week for a tick-settled arrival; a bounded TWO weeks for an action-settled arrival whose
+  take stays unscheduled (final-disposition residual R1, accepted and recorded — the two
+  sink stamps are indistinguishable from state one week on; cosmetic, deterministic,
+  Class A). Scheduling the take ends the cue immediately; tested for both settlement
+  paths including the unscheduled-advance replay bound.
 - **F4 (MED)** the founding-lot journey walk kept a dead clear-branch; the grandfathered
   `LOAD-IN BLOCKED` journey (reserved-facility naming law) had lost all coverage. Fixed:
   dead branch is now a loud settlement-regression trap; a dedicated grandfathered-journey
