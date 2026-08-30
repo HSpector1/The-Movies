@@ -39,11 +39,17 @@ function deepClone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T
 }
 
-/** Recursively vandalize every string leaf so any retained alias would be visible. */
+/** Recursively vandalize EVERY leaf (string, number, boolean) so any retained alias is visible. */
 function vandalize(value: unknown): void {
+  const wreck = (leaf: unknown): unknown =>
+    typeof leaf === 'string' ? 'VANDALIZED'
+    : typeof leaf === 'number' ? -987654321
+    : typeof leaf === 'boolean' ? !leaf
+    : undefined
   if (Array.isArray(value)) {
     for (let index = 0; index < value.length; index++) {
-      if (typeof value[index] === 'string') value[index] = 'VANDALIZED'
+      const wrecked = wreck(value[index])
+      if (wrecked !== undefined) value[index] = wrecked
       else vandalize(value[index])
     }
     return
@@ -51,7 +57,8 @@ function vandalize(value: unknown): void {
   if (typeof value === 'object' && value !== null) {
     const record = value as Record<string, unknown>
     for (const key of Object.keys(record)) {
-      if (typeof record[key] === 'string') record[key] = 'VANDALIZED'
+      const wrecked = wreck(record[key])
+      if (wrecked !== undefined) record[key] = wrecked
       else vandalize(record[key])
     }
   }
@@ -165,9 +172,27 @@ describe('W0 snapshot build context — envelope isolation and determinism', () 
     const session = new BridgeSession(state)
     const first = session.snapshot()
     const pristine = deepClone(withoutTimings(first))
+    const pristineBytes = (first.metrics as { payloadBytes: number }).payloadBytes
     vandalize(first)
     const second = session.snapshot()
     expect(withoutTimings(second)).toEqual(pristine)
+    expect((second.metrics as { payloadBytes: number }).payloadBytes).toBe(pristineBytes)
+  })
+
+  // W0 review finding 1: the founding branch serves `founding.projection` and
+  // founding intents rebuilt per call — this guard pins that law so a future
+  // memoization of `resolveFounding` cannot silently alias served envelopes.
+  it('serves founding envelopes that never alias a later poll either', () => {
+    const session = new BridgeSession(newGame(SEED))
+    const first = session.snapshot()
+    expect(first.founding).not.toBeNull()
+    const pristine = deepClone(withoutTimings(first))
+    const pristineBytes = (first.metrics as { payloadBytes: number }).payloadBytes
+    vandalize(first)
+    const second = session.snapshot()
+    expect(withoutTimings(second)).toEqual(pristine)
+    // payloadBytes is part of the stability claim (serializationMs is timing).
+    expect((second.metrics as { payloadBytes: number }).payloadBytes).toBe(pristineBytes)
   })
 
   it('keeps command legality intact after a served envelope is vandalized', () => {
@@ -196,12 +221,14 @@ describe('W0 snapshot build context — envelope isolation and determinism', () 
     expect(withoutTimings(left.snapshot())).toEqual(withoutTimings(right.snapshot()))
   })
 
-  it('keeps intent identity stable between the memoized digest and a fresh resolution', () => {
-    const state = createManagedBridgeState(SEED)
-    const session = new BridgeSession(state)
+  it('keeps intent identity stable against a structurally identical FRESH state', () => {
+    // W0 review finding 2: resolving on the same state object shares the memo
+    // and proves nothing. A second, independently built state object shares no
+    // WeakMap entry, so this genuinely re-derives digest and intent ids.
+    const session = new BridgeSession(createManagedBridgeState(SEED))
     const served = session.snapshot().availableIntents.map((intent) => intent.intentId)
-    const resolved = availableIntents(state).map((intent) => intent.intentId)
-    expect(served).toEqual(resolved)
+    const fresh = availableIntents(createManagedBridgeState(SEED)).map((intent) => intent.intentId)
+    expect(served).toEqual(fresh)
   })
 
   it('restores loaded-state facts freshly and exactly on load', () => {
