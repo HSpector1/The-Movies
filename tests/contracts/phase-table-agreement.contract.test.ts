@@ -84,8 +84,8 @@ function phaseWalk(seed: string): PhaseSnapshot[] {
 
   const productionId = state.studio.activeProductions[0]!.id
   const directorId = state.studio.activeProductions[0]!.directorId
+  // P05A W1: due-at-call settles inside the Director call itself.
   state = applyActions(state, [{ kind: 'assignShootingDirector', productionId, directorId }])
-  state = applyActions(state, [{ kind: 'clearSceneryLoadIn', productionId }])
   state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId }])
   state = tick(state)
   snap() // shooting, 4

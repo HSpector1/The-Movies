@@ -98,13 +98,13 @@ function advanceManagedProductionToRelease(state: GameState): GameState {
       (candidate) => candidate.productionId === production.id,
     )!
     if (workflow.phase === 'shooting' && workflow.shootingTask?.status === 'unassigned') {
+      // P05A W1: due-at-call settles inside the Director call itself.
       next = applyActions(next, [
         {
           kind: 'assignShootingDirector',
           productionId: production.id,
           directorId: production.directorId,
         },
-        { kind: 'clearSceneryLoadIn', productionId: production.id },
         { kind: 'scheduleShootingTake', productionId: production.id },
       ])
     }

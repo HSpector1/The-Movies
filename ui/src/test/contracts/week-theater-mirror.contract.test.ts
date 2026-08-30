@@ -46,15 +46,22 @@ function walked(seed: string, weeks: number): GameState[] {
       const production = state.studio.activeProductions.find(
         (candidate) => candidate.id === workflow.productionId,
       )!
+      // P05A W1: due-at-call settles inside the Director call itself.
       state = applyActions(state, [
         {
           kind: 'assignShootingDirector',
           productionId: production.id,
           directorId: production.directorId,
         },
-        { kind: 'clearSceneryLoadIn', productionId: production.id },
-        { kind: 'scheduleShootingTake', productionId: production.id },
       ])
+      const settled = state.operations.workflows.find(
+        (candidate) => candidate.productionId === production.id,
+      )
+      if (settled?.shootingTask?.status === 'ready') {
+        state = applyActions(state, [
+          { kind: 'scheduleShootingTake', productionId: production.id },
+        ])
+      }
     }
     state = advance(state, 1)
     seen.push(state)

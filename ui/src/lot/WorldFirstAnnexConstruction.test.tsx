@@ -201,7 +201,8 @@ function commandedStage7Studio(seed: string): GameState {
 
 function scheduledStage7Studio(seed: string): GameState {
   let state = commandedStage7Studio(seed)
-  for (let step = 0; step < 3; step++) {
+  // P05A W1: two commands — the Director call settles due-at-call load-in.
+  for (let step = 0; step < 2; step++) {
     const command = productionDecision(state)?.command
     if (!command) throw new Error(`expected Stage 7 command ${String(step + 1)}`)
     const result = runProductionCommand(state, command)

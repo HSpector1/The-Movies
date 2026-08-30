@@ -2400,7 +2400,7 @@ describe('HollywoodScene snapshot authority', () => {
     expect(unselectedTalent.label.visible).toBe(false)
   })
 
-  it('keeps the exact successor command legal while the cosmetic director route is still moving', () => {
+  it('keeps the exact successor command legal after the call settles the load-in in its own transaction', () => {
     const unassignedState = advanceEngineState(
       greenlightEngineFilm(foundManagedEngineState('hollywood-route-command-independence')),
       4,
@@ -2414,25 +2414,29 @@ describe('HollywoodScene snapshot authority', () => {
     if (!assigned.ok) throw new Error(assigned.error)
 
     const { scene } = harness(unassignedSnapshot)
-    const blockedSnapshot = studioLotSnapshot(assigned.next)
-    scene.applySnapshot(blockedSnapshot)
-    expect(scene.debugState().routeProductionId).toBe(unassignedOperation.productionId)
-    const blockedOperation = blockedSnapshot.productionOperations!.find(
+    const settledSnapshot = studioLotSnapshot(assigned.next)
+    scene.applySnapshot(settledSnapshot)
+    // P05A W1: the founding-lot trip is due at the call and settles inside the
+    // call's own transaction — there is no blocked window, so no cosmetic
+    // director route spawns from this engine walk. Blocked-window route and
+    // sweep behavior stays proven by this file's synthetic blocked fixtures.
+    expect(scene.debugState().routeProductionId).toBeNull()
+    const settledOperation = settledSnapshot.productionOperations!.find(
       (candidate) => candidate.productionId === unassignedOperation.productionId,
     )!
-    expect(blockedOperation.taskStatus).toBe('blocked')
-    expect(blockedOperation.currentCommand?.kind).toBe('clearSceneryLoadIn')
+    expect(settledOperation.taskStatus).toBe('ready')
+    expect(settledOperation.currentCommand?.kind).toBe('scheduleShootingTake')
 
     const inputBefore = JSON.stringify(assigned.next)
-    const whileRoute = runProductionCommand(assigned.next, blockedOperation.currentCommand!)
-    const withoutRoute = runProductionCommand(assigned.next, blockedOperation.currentCommand!)
-    expect(JSON.stringify(whileRoute)).toBe(JSON.stringify(withoutRoute))
+    const first = runProductionCommand(assigned.next, settledOperation.currentCommand!)
+    const second = runProductionCommand(assigned.next, settledOperation.currentCommand!)
+    expect(JSON.stringify(first)).toBe(JSON.stringify(second))
     expect(JSON.stringify(assigned.next)).toBe(inputBefore)
-    if (!whileRoute.ok) throw new Error(whileRoute.error)
+    if (!first.ok) throw new Error(first.error)
 
-    scene.applySnapshot(studioLotSnapshot(whileRoute.next))
+    scene.applySnapshot(studioLotSnapshot(first.next))
     expect(scene.debugState().routeProductionId).toBeNull()
-    expect(scene.debugState().stage7Operation?.taskStatus).toBe('ready')
+    expect(scene.debugState().stage7Operation?.taskStatus).toBe('scheduled')
   })
 
   it('paints direct blocked and ready scenery truth without replaying a sweep or announcement', () => {

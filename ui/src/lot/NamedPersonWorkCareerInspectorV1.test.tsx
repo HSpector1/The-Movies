@@ -421,14 +421,13 @@ describe('World-First Named Person Work & Career Inspector V1', () => {
 
     fireEvent.click(screen.getByTestId(`hollywood-select-person-${director.id}`))
     fireEvent.click(screen.getByTestId('hollywood-production-command-assignShootingDirector'))
-    const clear = await screen.findByTestId('hollywood-production-command-clearSceneryLoadIn')
-    await waitFor(() => expect(clear).toHaveFocus())
-
-    // Clear and Schedule belong to the picture, not exclusively to its Director.
-    fireEvent.click(screen.getByTestId(`hollywood-select-person-${lead.id}`))
-    fireEvent.click(clear)
+    // P05A W1: the Director call settles the due-at-call load-in inside its own
+    // transaction, so the next control is the take schedule — no manual clear.
     const schedule = await screen.findByTestId('hollywood-production-command-scheduleShootingTake')
     await waitFor(() => expect(schedule).toHaveFocus())
+
+    // Schedule belongs to the picture, not exclusively to its Director.
+    fireEvent.click(screen.getByTestId(`hollywood-select-person-${lead.id}`))
     fireEvent.click(schedule)
 
     const personStatus = screen.getByTestId('hollywood-person-inspector-status')
@@ -436,7 +435,6 @@ describe('World-First Named Person Work & Career Inspector V1', () => {
     expect(screen.queryByTestId(/^hollywood-task-status-/)).not.toBeInTheDocument()
     expect(dispatched).toEqual([
       'assignShootingDirector',
-      'clearSceneryLoadIn',
       'scheduleShootingTake',
     ])
   })

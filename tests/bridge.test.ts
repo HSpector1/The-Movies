@@ -289,7 +289,11 @@ describe('Current-game Unity adoption bridge', () => {
       'resolveProductionBlocker',
       'advanceWeek',
     ])
-    expect(kinds.filter((kind) => kind === 'resolveProductionBlocker').length).toBeGreaterThanOrEqual(3)
+    // P05A W1: the walk resolves exactly TWO production commands per movie —
+    // the Director call (which settles the due-at-call load-in inside its own
+    // transaction) and the take schedule. The manual clear no longer exists on
+    // a current picture.
+    expect(kinds.filter((kind) => kind === 'resolveProductionBlocker').length).toBe(2)
     for (const played of bootstrap.movieOneIntents) {
       expect(played.afterDigest).not.toBe(played.beforeDigest)
       expect(played.option.intentId).toMatch(/^intent-v4-[0-9a-f]{64}$/)
@@ -409,11 +413,14 @@ describe('Current-game Unity adoption bridge', () => {
       'post-production',
       'release-ready',
     ]))
+    // P05A W1: the founding-lot trip is due at the Director call and settles
+    // inside that transaction, so no polled snapshot ever shows the
+    // scenery-load-in blocker on this walk — only the two decision states.
     expect([...blockerKinds]).toEqual(expect.arrayContaining([
       'director-dispatch',
-      'scenery-load-in',
       'take-scheduling',
     ]))
+    expect([...blockerKinds]).not.toContain('scenery-load-in')
     expectOrderedSubsequence(intentKinds, [
       'startConstruction',
       'commissionScreenplay',

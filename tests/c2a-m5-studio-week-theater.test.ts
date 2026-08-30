@@ -104,20 +104,31 @@ function walkedStudio(seed: string, weeks: number): GameState[] {
   const weeksSeen: GameState[] = [state]
   for (let i = 0; i < weeks; i++) {
     // Issue only the shooting commands the week is waiting on — no theater input.
+    // P05A W1: a due-at-call load-in settles inside the Director call itself and
+    // a travelling one is never a click, so the walk follows the engine's own
+    // task status instead of scripting the retired manual clear.
     for (const workflow of state.operations.workflows) {
-      if (workflow.phase !== 'shooting' || workflow.shootingTask?.status !== 'unassigned') continue
+      if (workflow.phase !== 'shooting') continue
       const production = state.studio.activeProductions.find(
         (candidate) => candidate.id === workflow.productionId,
       )!
-      state = applyActions(state, [
-        {
-          kind: 'assignShootingDirector',
-          productionId: production.id,
-          directorId: production.directorId,
-        },
-        { kind: 'clearSceneryLoadIn', productionId: production.id },
-        { kind: 'scheduleShootingTake', productionId: production.id },
-      ])
+      if (workflow.shootingTask?.status === 'unassigned') {
+        state = applyActions(state, [
+          {
+            kind: 'assignShootingDirector',
+            productionId: production.id,
+            directorId: production.directorId,
+          },
+        ])
+      }
+      const current = state.operations.workflows.find(
+        (candidate) => candidate.productionId === production.id,
+      )
+      if (current?.shootingTask?.status === 'ready') {
+        state = applyActions(state, [
+          { kind: 'scheduleShootingTake', productionId: production.id },
+        ])
+      }
     }
     state = advance(state, 1)
     weeksSeen.push(state)

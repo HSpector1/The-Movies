@@ -651,13 +651,13 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     state = tick(state) // Rehearsal → Shooting
     snapshots.set('shooting', studioLotSnapshot(state))
 
+    // P05A W1: due-at-call settles inside the Director call itself.
     state = applyActions(state, [
       {
         kind: 'assignShootingDirector',
         productionId,
         directorId: state.studio.activeProductions[0]!.directorId,
       },
-      { kind: 'clearSceneryLoadIn', productionId },
       { kind: 'scheduleShootingTake', productionId },
     ])
     state = tick(state) // scheduled Shooting take completes; still Shooting
@@ -751,23 +751,16 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     ])
     snap = studioLotSnapshot(state)
     op = operation(snap, production.id)
-    expect(op.taskStatus).toBe('blocked')
-    expect(op.blocker?.kind).toBe('scenery-load-in')
+    // P05A W1: the founding-lot trip is due at the call, and the call's own
+    // transaction settles it — the projection shows the READY truth with the
+    // take-scheduling decision, never a manual clear.
+    expect(op.taskStatus).toBe('ready')
+    expect(op.blocker?.kind).toBe('take-scheduling')
     expect(op.currentCommand).toMatchObject({
-      kind: 'clearSceneryLoadIn',
+      kind: 'scheduleShootingTake',
       productionId: production.id,
     })
     expect(stage(snap, op.locationBuildingId).attentionReason).toBe(op.blocker?.headline)
-    expect(snap.activeProductions[0]).toMatchObject({
-      active: false,
-      stageState: 'decision-required',
-    })
-
-    state = applyActions(state, [
-      { kind: 'clearSceneryLoadIn', productionId: production.id },
-    ])
-    snap = studioLotSnapshot(state)
-    expect(operation(snap, production.id).taskStatus).toBe('ready')
     expect(snap.activeProductions[0]).toMatchObject({
       active: false,
       stageState: 'decision-required',
@@ -804,13 +797,13 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     state = greenlightFilm(state, 1, 1)
     state = advance(state, 4)
     for (const production of state.studio.activeProductions) {
+      // P05A W1: due-at-call settles inside the Director call itself.
       state = applyActions(state, [
         {
           kind: 'assignShootingDirector',
           productionId: production.id,
           directorId: production.directorId,
         },
-        { kind: 'clearSceneryLoadIn', productionId: production.id },
         { kind: 'scheduleShootingTake', productionId: production.id },
       ])
     }

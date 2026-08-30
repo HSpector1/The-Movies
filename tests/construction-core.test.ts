@@ -636,13 +636,13 @@ describe('Development & Casting Annex V1 core lifecycle', () => {
     state = advance(state, 4)
     const shooting = state.studio.activeProductions[0]!
     expect(state.operations.workflows[0]!.phase).toBe('shooting')
+    // P05A W1: due-at-call settles inside the Director call itself.
     state = applyActions(state, [
       {
         kind: 'assignShootingDirector',
         productionId: shooting.id,
         directorId: shooting.directorId,
       },
-      { kind: 'clearSceneryLoadIn', productionId: shooting.id },
       { kind: 'scheduleShootingTake', productionId: shooting.id },
     ])
     state = advance(state, 5)

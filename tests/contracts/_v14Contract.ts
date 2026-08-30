@@ -568,7 +568,12 @@ export function buildHeadlineFixtures(seed: string): HeadlineFixture[] {
 
   const productionId = state.studio.activeProductions[0]!.id
   const directorId = state.studio.activeProductions[0]!.directorId
-  const atShootingBlocked = applyActions(state, [
+  // P05A W1: on a current (non-grandfathered) workflow the Director call now
+  // settles a due-at-call trip inside its own transaction, so the blocked
+  // scenery state this matrix needs is built on the GRANDFATHERED arm — the
+  // exact provenance every T9 fixture is converted to before use anyway, and
+  // the only provenance whose load-in remains a click.
+  const atShootingBlocked = applyActions(grandfatheredBindings(atShootingUnassigned), [
     { kind: 'assignShootingDirector', productionId, directorId },
   ])
   let taken = applyActions(atShootingBlocked, [{ kind: 'clearSceneryLoadIn', productionId }])

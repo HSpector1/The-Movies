@@ -673,7 +673,8 @@ describe('StudioLotScreen — World-First Live Week Advance V1 host boundary', (
     setOperationHollywoodOverride(true)
     let scheduled = advance(greenlightFilm(foundManagedStudio('lot-week-stage-7-recording')), 4)
     const productionId = scheduled.studio.activeProductions[0]!.id
-    for (let i = 0; i < 3; i++) {
+    // P05A W1: two commands — the Director call settles due-at-call load-in.
+    for (let i = 0; i < 2; i++) {
       const command = studioLotSnapshot(scheduled).productionOperations?.find(
         (operation) => operation.productionId === productionId,
       )?.currentCommand
@@ -917,10 +918,8 @@ describe('StudioLotScreen — authoritative Hollywood operations host', () => {
     const assign = getByTestId('hollywood-production-command-assignShootingDirector')
     assign.focus()
     fireEvent.click(assign)
-    const clear = await findByTestId('hollywood-production-command-clearSceneryLoadIn')
-    await waitFor(() => expect(clear).toHaveFocus())
-
-    fireEvent.click(clear)
+    // P05A W1: the Director call settles the due-at-call load-in inside its own
+    // transaction — the successor control is the take schedule, never a clear.
     const schedule = await findByTestId('hollywood-production-command-scheduleShootingTake')
     await waitFor(() => expect(schedule).toHaveFocus())
 

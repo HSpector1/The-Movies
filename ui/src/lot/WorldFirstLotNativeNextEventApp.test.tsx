@@ -368,8 +368,9 @@ function managedWithLegacyDevelopment(seed: string): GameState {
 }
 
 function resolveShootingChain(state: GameState): GameState {
+  // P05A W1: two commands — the Director call settles due-at-call load-in.
   let current = state
-  for (let step = 0; step < 3; step += 1) {
+  for (let step = 0; step < 2; step += 1) {
     const command = productionDecision(current)?.command
     if (command === null || command === undefined) {
       throw new Error(`setup: expected shooting command ${String(step + 1)}`)
@@ -464,7 +465,8 @@ function stage12DecisionBefore(seed: string): GameState {
     throw new Error('setup: expected the earlier Stage 7 decision')
   }
   state = firstStop.next
-  for (let step = 0; step < 3; step += 1) {
+  // P05A W1: two commands — the Director call settles due-at-call load-in.
+  for (let step = 0; step < 2; step += 1) {
     const decision = productionDecision(state)
     if (decision?.command === null || decision === null) {
       throw new Error(`setup: expected Stage 7 command ${String(step + 1)}`)

@@ -64,15 +64,24 @@ function driveTakes(state: GameState): GameState {
     const production = state.studio.activeProductions.find(
       (candidate) => candidate.id === workflow.productionId,
     )!
+    // P05A W1: a due-at-call load-in settles inside the Director call itself;
+    // the walk follows the engine's own task status instead of scripting the
+    // retired manual clear, and schedules whichever takes are ready.
     next = applyActions(next, [
       {
         kind: 'assignShootingDirector',
         productionId: production.id,
         directorId: production.directorId,
       },
-      { kind: 'clearSceneryLoadIn', productionId: production.id },
-      { kind: 'scheduleShootingTake', productionId: production.id },
     ])
+    const settled = next.operations.workflows.find(
+      (candidate) => candidate.productionId === production.id,
+    )
+    if (settled?.shootingTask?.status === 'ready') {
+      next = applyActions(next, [
+        { kind: 'scheduleShootingTake', productionId: production.id },
+      ])
+    }
   }
   return next
 }

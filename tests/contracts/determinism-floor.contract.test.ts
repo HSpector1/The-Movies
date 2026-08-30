@@ -114,8 +114,8 @@ function scriptedRun(seed: string): { save: SaveFileV15; trace: WeekTrace[] } {
   step(tick(state)) // rehearsal → shooting, with all three owner kinds live behind it
   const productionId = state.studio.activeProductions[0]!.id
   const directorId = state.studio.activeProductions[0]!.directorId
+  // P05A W1: due-at-call settles inside the Director call itself.
   step(applyActions(state, [{ kind: 'assignShootingDirector', productionId, directorId }]))
-  step(applyActions(state, [{ kind: 'clearSceneryLoadIn', productionId }]))
   step(applyActions(state, [{ kind: 'scheduleShootingTake', productionId }]))
   step(tick(state)) // shooting week two
   step(tick(state)) // → postProduction

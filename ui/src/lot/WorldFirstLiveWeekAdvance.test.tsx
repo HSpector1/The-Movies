@@ -114,7 +114,8 @@ function scheduledStage7State(seed: string): GameState {
     if (decision?.command?.kind === 'assignShootingDirector') break
     state = advanceWeek(state).next
   }
-  for (let i = 0; i < 3; i++) {
+  // P05A W1: two commands — the Director call settles due-at-call load-in.
+  for (let i = 0; i < 2; i++) {
     const command = productionDecision(state)?.command
     if (!command) throw new Error(`expected shooting command ${String(i + 1)}`)
     const result = runProductionCommand(state, command)

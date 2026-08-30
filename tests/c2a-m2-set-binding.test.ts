@@ -313,7 +313,7 @@ describe('C2a-M2 — wrap, wear, and what reaches the audience', () => {
     state = applyActions(state, [
       { kind: 'assignShootingDirector', productionId, directorId },
     ])
-    state = applyActions(state, [{ kind: 'clearSceneryLoadIn', productionId }])
+    // P05A W1: the due-at-call trip settles inside the Director call itself.
     state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId }])
     state = tick(state) // the take completes
     return state
@@ -402,7 +402,7 @@ describe('C2a-M2 — wrap, wear, and what reaches the audience', () => {
       state = applyActions(state, [
         { kind: 'assignShootingDirector', productionId, directorId },
       ])
-      state = applyActions(state, [{ kind: 'clearSceneryLoadIn', productionId }])
+      // P05A W1: due-at-call settles inside the Director call itself.
       state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId }])
       while (state.studio.releasedFilms.length === 0) state = tick(state)
       return state

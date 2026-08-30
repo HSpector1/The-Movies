@@ -184,17 +184,20 @@ describe('Presence Projection V1 — scenario walk', () => {
       credit: 'craft',
     })
 
-    // A scenery-load-in blocker is work on site, NOT a capacity queue.
+    // P05A W1: the founding-lot trip is due at the call, so the call's own
+    // transaction settles the load-in — presence reads the settled ready state.
+    // (In-transit presence — work on site, not a capacity queue — is proven in
+    // p05a-w1-scenery-truth.test.ts on a genuinely travelling fixture.)
     state = applyActions(state, [
       { kind: 'assignShootingDirector', productionId, directorId: director.id },
     ])
-    expect(state.operations.workflows[0]!.blocker).toMatchObject({ kind: 'scenery-load-in' })
+    expect(state.operations.workflows[0]!.blocker).toBeNull()
+    expect(state.operations.workflows[0]!.shootingTask?.status).toBe('ready')
     presence = studioPresence(state)
     expect(at(presence, director.id).blockedReason).toBeNull()
     expect(at(presence, director.id).beats).not.toContain('waiting')
 
     state = applyActions(state, [
-      { kind: 'clearSceneryLoadIn', productionId },
       { kind: 'scheduleShootingTake', productionId },
     ])
     state = tick(state)

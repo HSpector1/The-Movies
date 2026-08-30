@@ -54,13 +54,21 @@ function driveTakes(state: GameState): GameState {
       (candidate) => candidate.id === workflow.productionId,
     )!
     if (workflow.shootingTask.status === 'unassigned') {
+      // P05A W1: due-at-call settles inside the Director call; schedule follows
+      // the engine's own task status rather than a scripted clear.
       next = applyActions(next, [
         {
           kind: 'assignShootingDirector',
           productionId: production.id,
           directorId: production.directorId,
         },
-        { kind: 'clearSceneryLoadIn', productionId: production.id },
+      ])
+    }
+    const settled = next.operations.workflows.find(
+      (candidate) => candidate.productionId === production.id,
+    )
+    if (settled?.shootingTask?.status === 'ready') {
+      next = applyActions(next, [
         { kind: 'scheduleShootingTake', productionId: production.id },
       ])
     }

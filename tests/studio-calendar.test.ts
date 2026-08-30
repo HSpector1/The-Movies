@@ -434,14 +434,18 @@ describe('Studio Calendar V1 — authoritative read model', () => {
       status: 'decision-required',
     })
 
+    // P05A W1: the governed chain is now TWO commands — the Director call
+    // settles the due-at-call load-in inside its own transaction, so no manual
+    // clear ever appears between call and schedule.
     let onSchedule = weekFour
-    for (let index = 0; index < 3; index++) {
+    const chain: string[] = []
+    for (let guard = 0; guard < 4; guard++) {
       const decision = nextStudioDecision(onSchedule)
-      if (decision?.kind !== 'productionOperation') {
-        throw new Error('expected the governed shooting command chain')
-      }
+      if (decision?.kind !== 'productionOperation') break
+      chain.push(decision.command.kind)
       onSchedule = applyActions(onSchedule, [decision.command])
     }
+    expect(chain).toEqual(['assignShootingDirector', 'scheduleShootingTake'])
     const secondShootingWeek = tick(onSchedule)
     expect(studioCalendar(secondShootingWeek).productionOutlook[0]).toMatchObject({
       phase: 'shooting',

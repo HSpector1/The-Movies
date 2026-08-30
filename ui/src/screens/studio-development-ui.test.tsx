@@ -111,8 +111,10 @@ function managedWithLegacyDevelopment(seed: string): GameState {
 }
 
 function resolveShootingChain(state: GameState): GameState {
+  // P05A W1: the governed chain is TWO commands — the Director call settles the
+  // due-at-call load-in inside its own transaction; no manual clear exists.
   let next = state
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 2; i++) {
     const decision = productionDecision(next)
     if (decision?.command === null || decision === null) {
       throw new Error(`expected shooting command ${String(i + 1)}`)

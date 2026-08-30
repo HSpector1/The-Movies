@@ -403,14 +403,18 @@ describe('First Film Journey V1 — the guided chain', () => {
         (candidate) => candidate.productionId === production.id,
       )
       if (workflow?.phase === 'rehearsal') {
-        const loadIn = firstFilmJourney(state)
-        expect(loadIn).toMatchObject({
+        // P05A W1: Rehearsal is company/stage preparation — `LOAD-IN` is
+        // reserved for the exact Shooting scenery transit (Package 05 §8). The
+        // wire beat stays `load-in` until W2's governed schema bump adds the
+        // exact `rehearsal` member; the player-facing copy is corrected now.
+        const rehearsing = firstFilmJourney(state)
+        expect(rehearsing).toMatchObject({
           beat: 'load-in',
-          headline: 'LOAD-IN',
+          headline: 'REHEARSAL',
           blocked: null,
         })
-        expect(loadIn.waiting?.reason).toContain('Stage and scenery load-in continues.')
-        expect(loadIn.waiting?.reason).not.toContain('Rehearsals continue')
+        expect(rehearsing.waiting?.reason).toContain('Rehearsal continues.')
+        expect(rehearsing.waiting?.reason).not.toContain('load-in')
         calmLoadInSeen = true
       }
       if (workflow?.phase === 'shooting') break
@@ -476,7 +480,16 @@ describe('First Film Journey V1 — the guided chain', () => {
       }
       state = applyActions(state, [decision.command])
     }
-    expect(sceneryStepsSeen).toBe(1)
+    // P05A W1: on the founding lot the derived trip is already due at the
+    // Director call, and the call's own transaction settles it — the scenery
+    // step is no longer a player decision anywhere in this walk. The arrival
+    // still happened, exactly once, in the studio's own history.
+    expect(sceneryStepsSeen).toBe(0)
+    expect(
+      state.studioEvents.rows.filter(
+        (row) => row.kind === 'sceneryArrived' && row.productionId === production.id,
+      ),
+    ).toHaveLength(1)
     const resolved = firstFilmJourney(state)
     seen.push(resolved)
     expect(resolved).toMatchObject({ stage: 'in-production', blocked: null })

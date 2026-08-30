@@ -242,12 +242,8 @@ describe('Production Operations V1 UI boundary', () => {
     )
     assign.focus()
     fireEvent.click(assign)
-    const clear = await screen.findByTestId(
-      `production-command-clearSceneryLoadIn-${productionId}`,
-    )
-    await waitFor(() => expect(clear).toHaveFocus())
-
-    fireEvent.click(clear)
+    // P05A W1: the Director call settles the due-at-call load-in inside its own
+    // transaction — the next control is the take schedule, never a manual clear.
     const schedule = await screen.findByTestId(
       `production-command-scheduleShootingTake-${productionId}`,
     )
@@ -349,7 +345,7 @@ describe('Production Operations V1 UI boundary', () => {
     }
   })
 
-  it('runs the three-command shooting chain through engine actions and advances only once scheduled', () => {
+  it('runs the two-command shooting chain through engine actions and advances only once scheduled', () => {
     let state = advanceToNextEvent(greenlitManagedGame('ops-ui-chain')).next
     const heldRemaining = state.studio.activeProductions[0]!.remainingTicks
 
@@ -358,15 +354,8 @@ describe('Production Operations V1 UI boundary', () => {
     expect(assigned.ok).toBe(true)
     if (!assigned.ok) return
     state = assigned.next
-    expect(productionDecision(state)?.command?.kind).toBe('clearSceneryLoadIn')
-    expect(productionDecision(state)?.shootingTaskStatus).toBe('blocked')
-    expect(productionDecision(state)?.blocker?.detail).toContain('Soundstage 7')
-    expect(productionDecision(state)?.blocker?.detail).not.toContain('Scenery Shop')
-
-    const clear = runProductionCommand(state, productionDecision(state)!.command!)
-    expect(clear.ok).toBe(true)
-    if (!clear.ok) return
-    state = clear.next
+    // P05A W1: the Director call settled the due-at-call load-in in its own
+    // transaction — the chain is two commands, and no clear ever appears.
     expect(productionDecision(state)?.command?.kind).toBe('scheduleShootingTake')
     expect(productionDecision(state)?.shootingTaskStatus).toBe('ready')
     expect(productionDecision(state)?.blocker?.detail).toContain('Soundstage 7')
