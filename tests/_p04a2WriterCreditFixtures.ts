@@ -164,6 +164,7 @@ export function driveTakes(state: GameState): GameState {
         },
       ])
     }
+    const justAssigned = workflow.shootingTask.status === 'unassigned'
     const settled = next.operations.workflows.find(
       (candidate) => candidate.productionId === production.id,
     )
@@ -171,6 +172,9 @@ export function driveTakes(state: GameState): GameState {
       next = applyActions(next, [
         { kind: 'scheduleShootingTake', productionId: production.id },
       ])
+    } else if (justAssigned && settled?.shootingTask?.status === 'blocked') {
+      // P05A W1 (review finding F9): a founding-lot call settles due-at-call.
+      throw new Error('due-at-call settlement regressed: just-assigned take is still blocked')
     }
   }
   return next

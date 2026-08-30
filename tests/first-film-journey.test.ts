@@ -456,25 +456,14 @@ describe('First Film Journey V1 — the guided chain', () => {
       expect(blocked.blocked).not.toBeNull()
       expect(blocked.next).toMatchObject({ kind: 'resolve-production' })
       if (decision.command.kind === 'clearSceneryLoadIn') {
-        // The scenery beat is NOT at the soundstage alone — the lot flags the Scenery &
-        // Service ground beside the stage — so the step names the picture's own reserved
-        // facilities, in the same words the blocked-week reason uses.
-        const facilities = state.operations.workflows
-          .find((workflow) => workflow.productionId === production.id)!
-          .reservations.map(
-            (reservation) =>
-              state.operations.facilities.find(
-                (facility) => facility.id === reservation.facilityId,
-              )!.name,
-          )
-        expect(facilities.length).toBeGreaterThan(1)
-        expect(blocked.next!.label).toBe(
-          `Clear the scenery load-in at ${facilities.join(' + ')}`,
+        // P05A W1 (review finding F4): unreachable on the founding lot — the
+        // Director call settles the due-at-call trip in its own transaction.
+        // Reaching here means the settlement law regressed; fail loudly. The
+        // grandfathered clear journey (LOAD-IN BLOCKED, reserved-facility
+        // naming) is pinned in tests/p05a-w1-scenery-truth.test.ts.
+        throw new Error(
+          'founding-lot walk saw a manual scenery clear — due-at-call settlement regressed',
         )
-        expect(blocked.next!.label).not.toContain('at the soundstage')
-        expect(blocked).toMatchObject({ beat: 'load-in', headline: 'LOAD-IN BLOCKED' })
-        expect(blocked.next!.site).toBe('post')
-        sceneryStepsSeen += 1
       } else {
         expect(blocked.next!.site).toBe('stage')
       }

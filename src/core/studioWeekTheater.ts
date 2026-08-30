@@ -441,6 +441,46 @@ export function studioWeekTheater(state: GameState): StudioWeekTheater {
     })
   }
 
+  // ── 2b. THE TRUCKS ARRIVE (P05A W1, review finding F3) ────────────────────
+  //
+  // The next-boundary settlement law clears the blocker in the same produced
+  // state in which the trip becomes due, so the standing-blocker loop above can
+  // no longer play the arrival. The arrival week is read instead off the
+  // engine's OWN `sceneryArrived` row — witness, never input — for exactly the
+  // settled window: the tick sink stamps `currentWeek - 1` (the advance that
+  // produced this week) and the Director-call sink stamps `currentWeek`. The
+  // cue is additionally bounded by the settlement's direct product — a take
+  // still `ready` — so a scheduled or advanced picture never replays it, and
+  // the same state renders the same subjects on every load (Class A).
+  for (const workflow of state.operations.workflows) {
+    if (!isObject(workflow) || !isNonEmptyString(workflow.productionId)) continue
+    if (workflow.blocker !== null) continue
+    if (workflow.phase !== 'shooting' || workflow.shootingTask?.status !== 'ready') continue
+    const arrivedRow = state.studioEvents.rows.find(
+      (row) =>
+        row.kind === 'sceneryArrived' &&
+        row.productionId === workflow.productionId &&
+        (row.week === currentWeek - 1 || row.week === currentWeek),
+    )
+    if (arrivedRow === undefined) continue
+    const stage = workflow.reservations.find(
+      (reservation) => reservation.capability === 'soundstage',
+    )
+    if (stage === undefined) continue
+    drafts.push({
+      kind: 'scenery-in-transit',
+      id: `scenery-in-transit:${workflow.productionId}`,
+      facilityId: stage.facilityId,
+      productionId: workflow.productionId,
+      phase: 'shooting',
+      setId: workflow.bindings?.setId ?? null,
+      weeksRemaining: 0,
+      distance: null,
+      reason: null,
+      beats: arrivalWeek(),
+    })
+  }
+
   // ── 3. WRAP CLEARING THE STAGE, and a set coming down ─────────────────────
   //
   // Read off the engine's OWN Tier-D rows. Witness, never input: nothing this

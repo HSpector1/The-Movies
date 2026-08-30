@@ -10,6 +10,7 @@ import {
 } from './operations.js'
 import { nextStudioDecision } from './scriptReadModel.js'
 import type { StudioDecisionView } from './scriptReadModel.js'
+import { sceneryLoadInDecision } from './sceneryLoadIn.js'
 import { blueprintById, placedStudioFacility, studioConstructionView } from './placement.js'
 import type { StudioConstructionView } from './placement.js'
 import { TUNING } from './tuning.js'
@@ -616,13 +617,58 @@ function productionBlocker(
     }
   }
   if (task?.status === 'blocked' && workflow.blocker?.kind === 'scenery-load-in') {
+    // P05A W1 (review finding F2): the one scenery classifier owns this arm.
+    // Only the explicitly grandfathered click is a decision; a current derived
+    // trip — travelling or already due — is held waiting work the engine
+    // settles, and withheld provenance offers nothing.
+    const decision = sceneryLoadInDecision(state, workflow, state.market.tick)
+    if (decision.kind === 'manual-clear') {
+      return {
+        status: 'decision-required',
+        statusLabel: 'Legacy load-in needs acknowledgment',
+        blocker: {
+          kind: 'scenery-load-in',
+          headline: 'Legacy load-in needs acknowledgment',
+          detail: 'Legacy load-in · travel duration was not recorded. Clear it to ready the camera.',
+          consequence: PRODUCTION_HOLD_CONSEQUENCE,
+        },
+      }
+    }
+    if (decision.kind === 'in-transit') {
+      const remaining = decision.loadIn.weeksRemaining
+      return {
+        status: 'held',
+        statusLabel: 'Scenery in transit',
+        blocker: {
+          kind: 'scenery-load-in',
+          headline: 'Scenery in transit',
+          detail:
+            `Scenery is en route to the reserved soundstage · ${String(remaining)} ` +
+            `${remaining === 1 ? 'week' : 'weeks'} remaining. Arrival is automatic.`,
+          consequence: PRODUCTION_HOLD_CONSEQUENCE,
+        },
+      }
+    }
+    if (decision.kind === 'arrived-pending') {
+      return {
+        status: 'held',
+        statusLabel: 'Scenery arrived',
+        blocker: {
+          kind: 'scenery-load-in',
+          headline: 'Scenery arrived — preparing camera',
+          detail:
+            'Scenery has arrived. The load-in settles on the next authoritative week — no acknowledgment is required.',
+          consequence: PRODUCTION_HOLD_CONSEQUENCE,
+        },
+      }
+    }
     return {
-      status: 'decision-required',
-      statusLabel: 'Scenery load-in blocking camera',
+      status: 'held',
+      statusLabel: 'Production details unavailable',
       blocker: {
         kind: 'scenery-load-in',
-        headline: 'Scenery load-in blocking camera',
-        detail: 'The reserved camera mark is blocked by scenery load-in.',
+        headline: 'Scenery load-in status unavailable',
+        detail: 'The load-in provenance could not be derived exactly.',
         consequence: PRODUCTION_HOLD_CONSEQUENCE,
       },
     }

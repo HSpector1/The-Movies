@@ -14,6 +14,8 @@ import { describe, expect, it } from 'vitest'
 import {
   applyActions,
   exportSave,
+  firstFilmJourney,
+  studioWeekTheater,
   importSave,
   makeSave,
   migrateToV15,
@@ -29,19 +31,30 @@ import { contendedStudio } from './_m4Fixtures.js'
 
 // ── fixtures (same public-action walk the sealed C2a-M5 suite uses) ──────────
 
-function pictureBeforeCall(seed: string): { state: GameState; productionId: string } {
+function pictureBeforeCall(
+  seed: string,
+  pick: 'first' | 'journey-winner' = 'first',
+): { state: GameState; productionId: string } {
   let state = contendedStudio(seed).state
-  let workflow: ProductionWorkflow | undefined
+  let candidates: ProductionWorkflow[] = []
   for (let i = 0; i < 16; i++) {
-    workflow = state.operations.workflows.find(
+    candidates = state.operations.workflows.filter(
       (candidate) =>
         candidate.phase === 'shooting' && candidate.shootingTask?.status === 'unassigned',
     )
-    if (workflow !== undefined) break
+    if (candidates.length > 0) break
     state = advance(state, 1)
   }
-  expect(workflow, 'the fixture must reach an unassigned shooting task').toBeDefined()
-  return { state, productionId: workflow!.productionId }
+  expect(candidates.length, 'the fixture must reach an unassigned shooting task').toBeGreaterThan(0)
+  if (pick === 'first') return { state, productionId: candidates[0]!.productionId }
+  // The guided journey's no-decision production sort: newest startTick, then
+  // DESCENDING id — pick the candidate the journey itself would guide.
+  const byJourneyRank = [...candidates].sort((a, b) => {
+    const pa = state.studio.activeProductions.find((p) => p.id === a.productionId)!
+    const pb = state.studio.activeProductions.find((p) => p.id === b.productionId)!
+    return pb.startTick - pa.startTick || (pb.id < pa.id ? -1 : pb.id > pa.id ? 1 : 0)
+  })
+  return { state, productionId: byJourneyRank[0]!.productionId }
 }
 
 function callDirector(state: GameState, productionId: string): GameState {
@@ -83,8 +96,11 @@ function moveStage(state: GameState, productionId: string, origin: { gx: number;
 }
 
 /** Current derived trip, genuinely travelling: far stage, then the call. */
-function inTransit(seed: string): { state: GameState; productionId: string } {
-  const start = pictureBeforeCall(seed)
+function inTransit(
+  seed: string,
+  pick: 'first' | 'journey-winner' = 'first',
+): { state: GameState; productionId: string } {
+  const start = pictureBeforeCall(seed, pick)
   const far = moveStage(start.state, start.productionId, { gx: 0, gy: 4 })
   const called = callDirector(far, start.productionId)
   const workflow = called.operations.workflows.find(
@@ -95,8 +111,11 @@ function inTransit(seed: string): { state: GameState; productionId: string } {
 }
 
 /** The reconnect/old-save window: derived trip due while the blocker stands. */
-function arrivedPending(seed: string): { state: GameState; productionId: string } {
-  const transit = inTransit(seed)
+function arrivedPending(
+  seed: string,
+  pick: 'first' | 'journey-winner' = 'first',
+): { state: GameState; productionId: string } {
+  const transit = inTransit(seed, pick)
   const state = moveStage(transit.state, transit.productionId, 'authored')
   const workflow = state.operations.workflows.find(
     (candidate) => candidate.productionId === transit.productionId,
@@ -134,6 +153,54 @@ function arrivalRows(state: GameState, productionId: string) {
     (row) => row.kind === 'sceneryArrived' && row.productionId === productionId,
   )
 }
+
+
+// ── the world plays the trucks arriving (review finding F3) ──────────────────
+
+describe('P05A W1 — the theater plays the arrival week', () => {
+  function arrivalSubject(state: GameState, productionId: string) {
+    return studioWeekTheater(state).subjects.find(
+      (subject) =>
+        subject.kind === 'scenery-in-transit' && subject.productionId === productionId,
+    )
+  }
+
+  it('plays travel weeks, then the arrival beats in the settled week, then stops', () => {
+    const { state, productionId } = inTransit('w1-theater-arrival')
+    let current = state
+    // Travelling weeks: the subject is on the road.
+    const travelling = arrivalSubject(current, productionId)
+    expect(travelling).toBeDefined()
+    expect(travelling!.beats.every((beat) => beat === 'travel')).toBe(true)
+    // Walk to the settled week.
+    for (let guard = 0; guard < 8; guard++) {
+      if (workflowOf(current, productionId).shootingTask?.status === 'ready') break
+      current = tick(current)
+    }
+    expect(workflowOf(current, productionId).shootingTask?.status).toBe('ready')
+    const arriving = arrivalSubject(current, productionId)
+    expect(arriving, 'the settled week must play the arrival').toBeDefined()
+    expect(arriving!.weeksRemaining).toBe(0)
+    expect(arriving!.beats[0]).toBe('travel')
+    expect(arriving!.beats).toContain('working')
+    // The cue is bounded: it does not replay after the window closes.
+    const later = tick(current)
+    expect(arrivalSubject(later, productionId)).toBeUndefined()
+  })
+
+  it('plays the arrival for a due-at-call settlement and stops once the take is scheduled', () => {
+    const start = pictureBeforeCall('w1-theater-due-at-call')
+    const called = callDirector(start.state, start.productionId)
+    expect(workflowOf(called, start.productionId).shootingTask?.status).toBe('ready')
+    const arriving = arrivalSubject(called, start.productionId)
+    expect(arriving).toBeDefined()
+    expect(arriving!.weeksRemaining).toBe(0)
+    const scheduled = applyActions(called, [
+      { kind: 'scheduleShootingTake', productionId: start.productionId },
+    ])
+    expect(arrivalSubject(scheduled, start.productionId)).toBeUndefined()
+  })
+})
 
 // ── the classifier itself ────────────────────────────────────────────────────
 
@@ -267,6 +334,143 @@ describe('P05A W1 — settlement is exactly-once at exact boundaries', () => {
     expect(rows[0]!.week).toBe(called.market.tick)
     // Idempotence across the boundary: the next tick adds nothing.
     expect(arrivalRows(tick(called), start.productionId)).toHaveLength(1)
+  })
+})
+
+
+
+/**
+ * The guided journey ranks advancing screenplays above productions and, among
+ * productions, the newest start (descending id on ties). For journey-guidance
+ * tests the contended studio's spare READY screenplays are retired so the
+ * in-production picture is the guided one.
+ */
+function withoutAdvancingScripts(state: GameState): GameState {
+  return {
+    ...state,
+    scriptDevelopment: {
+      ...state.scriptDevelopment,
+      projects: state.scriptDevelopment.projects.filter(
+        (project) => project.status === 'inProduction' || project.status === 'produced',
+      ),
+    },
+  }
+}
+
+// ── journey guidance (review findings F4/F5) ─────────────────────────────────
+
+describe('P05A W1 — journey guidance for the scenery states', () => {
+  it('speaks honest transit guidance on the advance-week path', () => {
+    const { state, productionId } = inTransit('w1-journey-transit', 'journey-winner')
+    // Settle the OTHER leader's decisions so the guided picture is ours.
+    let current = state
+    for (const production of current.studio.activeProductions) {
+      if (production.id === productionId) continue
+      const workflow = workflowOf(current, production.id)
+      if (workflow.phase === 'shooting' && workflow.shootingTask?.status === 'unassigned') {
+        current = applyActions(current, [
+          {
+            kind: 'assignShootingDirector',
+            productionId: production.id,
+            directorId: production.directorId,
+          },
+          { kind: 'scheduleShootingTake', productionId: production.id },
+        ])
+      }
+    }
+    current = withoutAdvancingScripts(current)
+    const journey = firstFilmJourney(current)
+    expect(journey.productionId).toBe(productionId)
+    expect(journey).toMatchObject({
+      stage: 'in-production',
+      beat: 'load-in',
+      headline: 'LOAD-IN',
+      blocked: null,
+    })
+    expect(journey.next).toMatchObject({ kind: 'advance-week', site: null })
+    expect(journey.next!.label).toBe('Scenery is on the road — advance the week')
+    expect(journey.whyItMatters).toBe(
+      'Scenery arrival is not a player decision — the engine settles the load-in itself.',
+    )
+    const loadIn = sceneryLoadInFor(
+      current,
+      workflowOf(current, productionId),
+      current.market.tick,
+    )
+    expect(isSceneryLoadIn(loadIn)).toBe(true)
+    if (!isSceneryLoadIn(loadIn)) return
+    expect(journey.waiting?.reason).toContain('Scenery is en route to ')
+    expect(journey.waiting?.reason).toContain(
+      `${String(loadIn.weeksRemaining)} ${loadIn.weeksRemaining === 1 ? 'week' : 'weeks'} remaining`,
+    )
+    expect(journey.waiting?.untilWeek).toBe(current.market.tick + loadIn.weeksRemaining)
+  })
+
+  it('speaks arrival guidance for the arrived-current reconnect window', () => {
+    const pending = arrivedPending('w1-journey-pending', 'journey-winner')
+    let current = pending.state
+    for (const production of current.studio.activeProductions) {
+      if (production.id === pending.productionId) continue
+      const workflow = workflowOf(current, production.id)
+      if (workflow.phase === 'shooting' && workflow.shootingTask?.status === 'unassigned') {
+        current = applyActions(current, [
+          {
+            kind: 'assignShootingDirector',
+            productionId: production.id,
+            directorId: production.directorId,
+          },
+          { kind: 'scheduleShootingTake', productionId: production.id },
+        ])
+      }
+    }
+    current = withoutAdvancingScripts(current)
+    const journey = firstFilmJourney(current)
+    expect(journey.productionId).toBe(pending.productionId)
+    expect(journey.headline).toBe('LOAD-IN')
+    expect(journey.next!.label).toBe('Scenery has arrived — advance the week')
+    expect(journey.waiting?.reason).toContain('Scenery has arrived at ')
+    expect(journey.waiting?.untilWeek).toBe(current.market.tick + 1)
+  })
+
+  it('keeps the grandfathered clear journey exact: LOAD-IN BLOCKED at the named facilities', () => {
+    const { state, productionId } = inTransit('w1-journey-grandfather')
+    const grandfathered = withWorkflowBindings(state, productionId, (workflow) => ({
+      ...workflow,
+      bindings: { ...workflow.bindings, requiresSetBinding: false },
+    }))
+    // Settle the other leader so the guided decision is the grandfathered clear.
+    let current = grandfathered
+    for (const production of current.studio.activeProductions) {
+      if (production.id === productionId) continue
+      const workflow = workflowOf(current, production.id)
+      if (workflow.phase === 'shooting' && workflow.shootingTask?.status === 'unassigned') {
+        current = applyActions(current, [
+          {
+            kind: 'assignShootingDirector',
+            productionId: production.id,
+            directorId: production.directorId,
+          },
+          { kind: 'scheduleShootingTake', productionId: production.id },
+        ])
+      }
+    }
+    const journey = firstFilmJourney(current)
+    expect(journey.productionId).toBe(productionId)
+    expect(journey).toMatchObject({ beat: 'load-in', headline: 'LOAD-IN BLOCKED' })
+    expect(journey.next).toMatchObject({ kind: 'resolve-production', site: 'post' })
+    // The step names the picture's own reserved facilities (red-team law) —
+    // never "at the soundstage" alone.
+    const facilities = workflowOf(current, productionId).reservations.map(
+      (reservation) =>
+        current.operations.facilities.find(
+          (facility) => facility.id === reservation.facilityId,
+        )!.name,
+    )
+    expect(facilities.length).toBeGreaterThan(1)
+    expect(journey.next!.label).toBe(
+      `Clear the scenery load-in at ${facilities.join(' + ')}`,
+    )
+    expect(journey.next!.label).not.toContain('at the soundstage')
   })
 })
 

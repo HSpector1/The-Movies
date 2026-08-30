@@ -97,12 +97,15 @@ blocked fixtures retain route/sweep coverage), presence canon (unchanged; in-tra
 pinned as work-not-waiting in the new suite).
 
 **Focused evidence.**
-- New: `tests/p05a-w1-scenery-truth.test.ts` — 19 tests (classifier five-way, Clear legality
-  incl. forged and withheld, exactly-once settlement at the call and at the exact
-  remaining-one boundary, tick-sink vs action-sink event chronology, save round-trip
-  classification stability, in-transit presence). `ui/src/test/contracts/
-  p05a-w1-scenery-alignment.contract.test.ts` — 4 pair tests (command AND sentence agree
-  across board card, decision selector, and action legality for all four truths).
+- New: `tests/p05a-w1-scenery-truth.test.ts` — 15 tests at the seal, 22 after the review
+  correction wave (classifier five-way, Clear legality incl. forged and withheld,
+  exactly-once settlement at the call and at the exact remaining-one boundary, tick-sink vs
+  action-sink event chronology, save round-trip classification stability, in-transit
+  presence, journey transit/arrival/grandfather guidance, theater arrival weeks).
+  `ui/src/test/contracts/p05a-w1-scenery-alignment.contract.test.ts` — 4 pair tests at the
+  seal, 8 after the correction wave (command AND sentence agreement across board card,
+  decision selector, action legality, lot attention, and the studio calendar for all four
+  truths).
 - Governed fixture updates across 24 existing files (commit `cc2d514`): every scripted
   assign→clear→schedule walk now follows the engine's own task status; T9 builds its
   scenery-blocked cell on the explicitly grandfathered arm; bridge journey pins move from three
@@ -115,3 +118,42 @@ pinned as work-not-waiting in the new suite).
 
 **Truth freeze.** `sceneryLoadInDecision` and the settlement boundaries are frozen; W2 builds the
 closed projection on top of them and may not re-derive scenery legality anywhere else.
+
+### W1 correction wave — independent range review findings (REJECT → remedied)
+
+A fresh read-only reviewer REJECTED the W1 range with nine findings; every one was accepted
+and fixed at root in the owning wave:
+
+- **F1 (HIGH)** `adapter.ts::operationsAttention` re-derived decision-hood from
+  `blocker !== null` and painted `DECISION REQUIRED` over no-decision transit states. Fixed:
+  `decision-required` iff the card carries a command; a blocker without a command is
+  `warning` (waiting information). Pair-tested for all four scenery truths.
+- **F2 (MED-HIGH)** `src/core/studioCalendar.ts` classified the scenery blocker independently
+  (`decision-required` + retired copy). Folded onto `sceneryLoadInDecision` with the four
+  closed outcomes; pair-tested.
+- **F3 (MED)** the next-boundary law made the Week Theater's arrival beats unreachable.
+  Fixed: a bounded arrival subject is read off the engine's own `sceneryArrived` row for
+  exactly the settled window (tick stamp `week-1`, action stamp `week`), gated by the
+  settlement's direct product (a take still `ready`); tested for both settlement paths,
+  including no-replay after the window or a scheduled take.
+- **F4 (MED)** the founding-lot journey walk kept a dead clear-branch; the grandfathered
+  `LOAD-IN BLOCKED` journey (reserved-facility naming law) had lost all coverage. Fixed:
+  dead branch is now a loud settlement-regression trap; a dedicated grandfathered-journey
+  test pins the exact label, beat, headline, and site.
+- **F5 (MED)** the new journey transit guidance had zero coverage. Fixed: transit and
+  arrived-pending journey tests pin copy, `untilWeek`, and the advance-week path.
+- **F6 (LOW-MED, recorded)** withheld provenance is a permanent absorbing state (no clear,
+  no settlement). Unreachable from valid saves (the save boundary rejects non-boolean
+  provenance; founding bodies are authored; placement ids are unique) — fail-closed by
+  design, and now recorded as such: a withheld picture can never finish.
+- **F7 (LOW)** the in-code grandfather comment claimed the migrator is the only `false`
+  producer; corrected — the live engine lawfully mints `false` for a no-set-demand world
+  (`deriveBindings`: `state.nextSetId > 0`).
+- **F8 (LOW)** this document's W1 test count was wrong (19 ≠ 15+4 double-count); corrected
+  above.
+- **F9 (LOW)** seven walk fixtures became silently permissive; each now throws loudly if a
+  just-assigned founding-lot take is still blocked (due-at-call settlement regression trap).
+
+Also recorded from the review's clean list: the tick-settled arrival stamp is one week
+before the derived due week (evaluation moved to `currentTick+1`, the stamp stays
+`currentTick` per the accepted chronology law); nothing joins the two today.

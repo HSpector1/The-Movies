@@ -187,12 +187,14 @@ export function sceneryLoadInFor(
 ): SceneryLoadIn | SceneryLoadInWithholding {
   if (workflow.blocker?.kind !== 'scenery-load-in') return 'not-blocked'
   const bindings = workflow.bindings as ProductionWorkflow['bindings'] | undefined
-  // P05A W1: THE GRANDFATHER IS EXACT `false` AND NOTHING ELSE. The V14 migrator
-  // mints `requiresSetBinding: false` for every in-flight save it grandfathers,
-  // and the live engine mints `true`; those are the only two provenances an
-  // honest save can carry. Absent bindings and a non-boolean flag are neither —
-  // they are withheld as their own classifications, never folded into the
-  // grandfather (whose whole meaning is "the migration explicitly ruled this").
+  // P05A W1: THE GRANDFATHER IS EXACT `false` AND NOTHING ELSE. Exact `false`
+  // has exactly two honest producers — the V14 migrator (every grandfathered
+  // in-flight save) and the live engine itself for a workflow greenlit with no
+  // set demand (`deriveBindings` mints `state.nextSetId > 0`; the legacy
+  // `greenlight` door in a world that never minted a set lawfully mints
+  // `false`). Everything else the engine greenlights carries exact `true`.
+  // Absent bindings and a non-boolean flag are NEITHER provenance — they are
+  // withheld as their own classifications, never folded into the grandfather.
   if (bindings === undefined) return 'no-bindings'
   if (bindings.requiresSetBinding === false) return 'grandfathered'
   if (bindings.requiresSetBinding !== true) return 'malformed-provenance'

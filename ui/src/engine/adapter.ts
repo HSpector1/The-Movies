@@ -6285,8 +6285,13 @@ export function studioWeekTheaterView(state: GameState): LotWeekTheater | undefi
 }
 
 function operationsAttention(card: ProductionBoardCardView): AttentionState {
-  if (card.blocker?.kind === 'facility-capacity') return 'warning'
-  if (card.blocker !== null || card.command !== null) return 'decision-required'
+  // P05A W1 (review finding F1): `decision-required` is the CARD COMMAND's
+  // truth and nobody else's. A blocker with no command — scenery in transit,
+  // arrival pending, withheld provenance, capacity or set waits — is waiting
+  // information, never a decision; painting "DECISION REQUIRED" over it was the
+  // exact offered-vs-refused disagreement law 1 forbids.
+  if (card.command !== null) return 'decision-required'
+  if (card.blocker !== null) return 'warning'
   if (card.phase === 'releaseReady') return 'positive'
   return 'active'
 }

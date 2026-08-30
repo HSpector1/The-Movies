@@ -12,9 +12,10 @@ import { describe, expect, it } from 'vitest'
 import {
   applyActions,
   INITIAL_PROPERTY,
+  studioCalendar,
 } from '../../../../src/core/index.ts'
 import type { GameState, ProductionWorkflow } from '../../../../src/core/index.ts'
-import { productionBoard, studioDecision } from '../../engine/adapter.ts'
+import { productionBoard, studioDecision, studioLotSnapshot } from '../../engine/adapter.ts'
 import { contendedStudio } from '../../../../tests/_m4Fixtures.ts'
 import { advance } from '../../../../tests/contracts/_contractFixtures.ts'
 
@@ -176,5 +177,74 @@ describe('P05A W1 — every sibling consumer reads the one classifier', () => {
     expect(() =>
       applyActions(malformed, [{ kind: 'clearSceneryLoadIn', productionId }]),
     ).toThrow(/provenance is withheld/)
+  })
+})
+
+// ── review findings F1/F2: attention and the calendar read the ONE classifier ─
+
+describe('P05A W1 — attention and calendar agree with the classifier', () => {
+  function lotRow(state: GameState, productionId: string) {
+    const snapshot = studioLotSnapshot(state)
+    return snapshot.productionOperations!.find(
+      (row) => row.productionId === productionId,
+    )!
+  }
+
+  function calendarRow(state: GameState, productionId: string) {
+    return studioCalendar(state).productionOutlook.find(
+      (row) => row.productionId === productionId,
+    )!
+  }
+
+  it('in-transit: waiting information — warning attention, held calendar, no decision', () => {
+    const { state, productionId } = inTransit('w1-f1-transit')
+    const row = lotRow(state, productionId)
+    expect(row.currentCommand).toBeNull()
+    expect(row.attention).toBe('warning')
+    const calendar = calendarRow(state, productionId)
+    expect(calendar.status).toBe('held')
+    expect(calendar.statusLabel).toBe('Scenery in transit')
+    expect(calendar.blocker?.detail).toMatch(/Arrival is automatic/)
+  })
+
+  it('arrived-pending: still not a decision anywhere', () => {
+    const { state, productionId } = arrivedPending('w1-f1-pending')
+    const row = lotRow(state, productionId)
+    expect(row.currentCommand).toBeNull()
+    expect(row.attention).toBe('warning')
+    const calendar = calendarRow(state, productionId)
+    expect(calendar.status).toBe('held')
+    expect(calendar.statusLabel).toBe('Scenery arrived')
+  })
+
+  it('grandfathered: the one true decision — decision-required attention and calendar', () => {
+    const { state, productionId } = inTransit('w1-f1-grandfather')
+    const grandfathered = withWorkflowBindings(state, productionId, (workflow) => ({
+      ...workflow,
+      bindings: { ...workflow.bindings, requiresSetBinding: false },
+    }))
+    const row = lotRow(grandfathered, productionId)
+    expect(row.currentCommand?.kind).toBe('clearSceneryLoadIn')
+    expect(row.attention).toBe('decision-required')
+    const calendar = calendarRow(grandfathered, productionId)
+    expect(calendar.status).toBe('decision-required')
+    expect(calendar.statusLabel).toBe('Legacy load-in needs acknowledgment')
+  })
+
+  it('withheld: held and unavailable — never a decision, never a guess', () => {
+    const { state, productionId } = inTransit('w1-f1-withheld')
+    const malformed = withWorkflowBindings(state, productionId, (workflow) => ({
+      ...workflow,
+      bindings: {
+        ...workflow.bindings,
+        requiresSetBinding: 'yes' as unknown as boolean,
+      },
+    }))
+    const row = lotRow(malformed, productionId)
+    expect(row.currentCommand).toBeNull()
+    expect(row.attention).toBe('warning')
+    const calendar = calendarRow(malformed, productionId)
+    expect(calendar.status).toBe('held')
+    expect(calendar.statusLabel).toBe('Production details unavailable')
   })
 })

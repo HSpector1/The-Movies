@@ -61,6 +61,9 @@ function walked(seed: string, weeks: number): GameState[] {
         state = applyActions(state, [
           { kind: 'scheduleShootingTake', productionId: production.id },
         ])
+      } else if (settled?.shootingTask?.status === 'blocked') {
+        // P05A W1 (review finding F9): a founding-lot call settles due-at-call.
+        throw new Error('due-at-call settlement regressed: just-assigned take is still blocked')
       }
     }
     state = advance(state, 1)
