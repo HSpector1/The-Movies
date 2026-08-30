@@ -6,7 +6,6 @@ import {
   advanceWeek,
   castingSessionsBoard,
   commissionScriptAction,
-  exportSaveJson,
   financeCard,
   findConcept,
   findTalent,
@@ -30,7 +29,6 @@ import {
   startDevelopmentCastingAnnexAction,
   studioDecision,
   studioDevelopment,
-  studioLotSnapshot,
   studioPool,
 } from '../ui/src/engine/adapter.ts'
 import type {
@@ -64,6 +62,7 @@ import {
   type HydratedBridgeRuntimeJournalEntry,
 } from './runtime-checkpoint.ts'
 import { canonicalJson } from './schema/canonical.ts'
+import { snapshotBuildContextFor } from './snapshot-build-context.ts'
 import type {
   BridgeAcceptedCommandResponse,
   BridgeAcceptedSaveResponse,
@@ -84,10 +83,9 @@ import type {
 import { projectStudioProjectionBundle } from './schema/runtime.ts'
 import {
   commissionQuoteSnapshot,
-  developmentProjection,
   draftToEngine,
 } from './development.ts'
-import { castingDraftToEngine, castingProjection, castingQuoteSnapshot } from './casting.ts'
+import { castingDraftToEngine, castingQuoteSnapshot } from './casting.ts'
 
 type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
@@ -258,8 +256,12 @@ export function createManagedBridgeState(seed = 'current-game-unity-adoption-v2'
   return requireSuccess(foundManagedStudioAction(state), 'found managed studio')
 }
 
+// W0 (CF-07): digest, canonical save JSON, the lot selector, and the two board
+// projections are shared through one per-state build context instead of being
+// recomputed by every consumer in the same request/poll. Values are unchanged —
+// the context runs exactly the same pure functions, at most once per state.
 export function authoritativeDigest(state: GameState): string {
-  return createHash('sha256').update(exportSaveJson(state)).digest('hex')
+  return snapshotBuildContextFor(state).stateDigest()
 }
 
 function opaqueIntentId(stateDigest: string, descriptor: unknown): string {
@@ -607,7 +609,7 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
   const stateDigest = authoritativeDigest(state)
   const founding = resolveFounding(state, stateDigest)
   if (founding !== null) return founding.intents
-  const snapshot = studioLotSnapshot(state)
+  const snapshot = snapshotBuildContextFor(state).lotSnapshot()
   const journey = snapshot.firstFilmJourney
   if (journey === undefined) throw new Error('Current studio lot snapshot omitted firstFilmJourney.')
   const resolved: IntentApplication[] = []
@@ -958,7 +960,7 @@ export function playNextMovieThroughAvailableIntents(
   for (let guard = 0; guard < 128; guard++) {
     if (state.studio.releasedFilms.length > releasedBefore) return { state, played }
     const candidates = availableIntents(state).filter((candidate) => candidate.kind !== 'startConstruction')
-    const journey = studioLotSnapshot(state).firstFilmJourney
+    const journey = snapshotBuildContextFor(state).lotSnapshot().firstFilmJourney
     const selected = selectJourneyIntent(candidates, journey)
     if (selected === undefined) {
       throw new Error(
@@ -1115,7 +1117,11 @@ export class BridgeSession {
   static fromSaveJson(saveJson: string, sessionId: string = randomUUID()): BridgeSession {
     const imported = importSaveJsonV15(saveJson)
     if (!imported.ok) throw new Error(imported.error)
-    return new BridgeSession(imported.state, sessionId, exportSaveJson(imported.state))
+    return new BridgeSession(
+      imported.state,
+      sessionId,
+      snapshotBuildContextFor(imported.state).saveJson(),
+    )
   }
 
   static createRuntime(
@@ -1154,7 +1160,7 @@ export class BridgeSession {
     return createBridgeRuntimeCheckpoint({
       sessionId: this.sessionId,
       stateRevision: this.revision,
-      currentSaveJson: exportSaveJson(this.state),
+      currentSaveJson: snapshotBuildContextFor(this.state).saveJson(),
       savedSaveJson: this.savedJson,
       journal: this.journal,
     }, this.runtimeLimits)
@@ -1163,7 +1169,7 @@ export class BridgeSession {
   rolloverRuntime(
     limits: BridgeRuntimeCheckpointLimits = this.runtimeLimits,
   ): BridgeSession {
-    const currentSaveJson = exportSaveJson(this.state)
+    const currentSaveJson = snapshotBuildContextFor(this.state).saveJson()
     const imported = importSaveJsonV15(currentSaveJson)
     if (!imported.ok) throw new Error(imported.error)
     return new BridgeSession(imported.state, randomUUID(), this.savedJson, { limits })
@@ -1171,15 +1177,17 @@ export class BridgeSession {
 
   private snapshotFor(state: GameState, revision: number): SnapshotEnvelope {
     const started = performance.now()
+    const context = snapshotBuildContextFor(state)
     // P03A/P04A: the Development and Casting boards ride the broad selector
     // result into the bundle at the bridge boundary, so the browser's own
-    // snapshot stays untouched.
+    // snapshot stays untouched. The bundle projection deep-copies every input,
+    // so the shared context facts never reach a served envelope by reference.
     const snapshot = projectStudioProjectionBundle({
-      ...studioLotSnapshot(state),
-      development: developmentProjection(state),
-      casting: castingProjection(state),
+      ...context.lotSnapshot(),
+      development: context.development(),
+      casting: context.casting(),
     })
-    const stateDigest = authoritativeDigest(state)
+    const stateDigest = context.stateDigest()
     // One founding resolution serves both surfaces, so an arrival's intentId can
     // never disagree with the availableIntents list of the same envelope.
     const founding = resolveFounding(state, stateDigest)
@@ -1427,7 +1435,7 @@ export class BridgeSession {
     const started = performance.now()
     const guarded = this.guardControl('save', control, started)
     if (guarded !== null) return guarded as SaveResponse
-    const savedJson = exportSaveJson(this.state)
+    const savedJson = snapshotBuildContextFor(this.state).saveJson()
     const accepted: AcceptedSaveResponse = {
       protocolVersion: PROTOCOL_VERSION,
       schemaId: SCHEMA_ID,
@@ -1633,7 +1641,7 @@ export class BridgeSession {
     const checkpointInput = {
       sessionId: this.sessionId,
       stateRevision: nextRevision,
-      currentSaveJson: exportSaveJson(nextState),
+      currentSaveJson: snapshotBuildContextFor(nextState).saveJson(),
       savedSaveJson: nextSavedJson,
     }
     let prospective: BridgeRuntimeCheckpointV1
