@@ -3175,3 +3175,212 @@ Development remains closed. **STOPPED — before P05, awaiting the Owner's playt
 cd "/Users/bruce/The Movies - Unity Production Convergence 80H"
 npm run play
 ```
+
+## 2026-08-30 — P04A.3 sealed: the office stopped guessing, and the Greenlight button stopped lying
+
+**Owner rejection this answers.** P04A.2's foundation was kept, but P04 acceptance
+was refused for exactly two real-campaign failures: *"Greenlight remains disabled
+after all five distinct people are selected"* and *"clicking the Casting Office
+does not independently provide a working route into Casting; I had to click
+right-side project cards in a particular order."*
+
+Both were reproduced, root-caused and fixed against a **copy of the Owner's own
+durable profile** — not the synthetic first-film fixture that had passed while the
+real profile failed. That distinction is the whole methodological point of this
+checkpoint: the P04A.2 floor was green on a world that could not exhibit either
+defect.
+
+### What the Owner's profile actually contained
+
+Recovered from `bridge-runtime-v1.json` (session `5951a9d6`, revision 5, week 4):
+three READY screenplays (`script-0000` *Echoes of Undertow* complete,
+`script-0001` *The Reluctant Cornerstone* in review, `script-0002` *The Vanished
+Constellation* not started), one writer `t-wri-02` (Alma Radcliffe) **contracted
+to week 104**, `t-act-04` unavailable — *"Drafting The Bitter Migration"* — and
+Development & Casting at 1 of 2 slots free.
+
+The engine log of the Owner's own session shows six accepted `quoteCasting`
+commands and **no `greenlight` command at all**. The authority's published
+`packageReadiness` for `script-0000` was `{"blockers":[],"knownGatesClear":true,
+"willQueue":false}` — completely clear. Driving that exact state headlessly, a
+complete greenlight package is **accepted**, `startsNow: true`, cash 18,869,228 →
+13,895,905. The product was legal. The client would not dispatch it.
+
+So neither of the two hypotheses the charter offered was the Owner's cause:
+capacity was not full, and the credited Writer was not out of contract.
+
+### Failure 2 — the Casting Office bound `board.projects[0]`
+
+`StudioCastingInspectorCard.Evaluate` bound
+`board.projects.FirstOrDefault(candidate => candidate != null)` — the first entry
+by ARRAY POSITION. With three ready screenplays the building could only ever open
+screenplay one, and the right-hand rail could not help because
+`StudioLocateAction.Locate("casting")` merely re-selects the same building.
+Screenplays two and three were unreachable from the world.
+
+The card now covers the four cases: bind-and-open when there is exactly one; a
+compact chooser keyed by **exact projectId** when there are several, with OPEN
+CASTING inert until the player picks; an honest *"NO SCREENPLAY READY FOR
+CASTING"* empty state; and a remembered choice dropped the moment it leaves the
+board. A still-valid choice survives snapshot refreshes and looking away — the
+old card re-derived its binding every frame and could remember nothing.
+
+Two smaller corrections fell out: `HandleOpenClicked` could return silently from a
+permanently-enabled button, and a board entry with an empty `projectId` satisfied
+the non-null test and rendered an enabled control wired to `""`.
+
+### Failure 1 — two independent causes, both required
+
+**(a) The headline described the wrong thing.** `RenderReadiness` printed
+`"{filled} OF 5 ROLES FILLED"` whenever any gap existed, so a complete cast with
+no budgets read **"5 OF 5 ROLES FILLED" beside a dead button** — the player was
+told the thing that was fine and not the thing that was missing.
+
+**(b) `Confirm Greenlight` could latch disabled forever.** Its gate was
+`decision && client.ActionsEnabled && armed`, applied only inside
+`RenderGreenlightReview`, which runs on EVENTS and not per frame.
+`client.ActionsEnabled` is false for the duration of every snapshot poll, so a
+render landing inside a poll set the button disabled and nothing re-enabled it.
+Measured on the Owner's profile: over 80 samples the gate's own terms read
+`decision=true/actions=true/armed=true/quote=fresh` while the control reported
+disabled. The fix is to apply the gate EVERY FRAME.
+`client.ActionsEnabled` stays in the expression — an experiment that removed it
+produced something worse, a control that looked live and silently refused, three
+presses in a row at 3456×2234 with no command on the wire, because the host's own
+dispatch requires it. The term was never the defect; applying it only on render
+events was.
+
+Both are pre-existing defects, not P04A.3 regressions.
+
+`DecideGreenlight()` is now the single source of truth for the headline, the
+detail line, both button labels, both enabled states and the diagnostics, in the
+charter's fixed order. Unity also consults the authority for the first time —
+`knownGatesClear || willQueue`, using fields the wire already carried, so **no
+projection or schema bump** (still protocol 4 / projection 11). The gate is
+deliberately widened by one clause: a refusal this client cannot NAME is a refusal
+it must not make.
+
+### The Writer credit, in both layers
+
+`writerBlockers(..., 'package')` now returns `[]`; `applyGreenlight`'s D-11.12
+eligibility and D-11.10 fee set excludes the credited writer; and
+`applyGreenlightScriptProject`'s own `isContracted(writerId)` throw — which
+predated D-11.12 — went with them. Fixing only the projection would have been
+strictly worse than the deadlock it replaced: the board would have offered a
+greenlight the engine refused, with no warning anywhere.
+
+Real writing WORK is untouched: commission and rewrite still require a contracted,
+idle writer.
+
+**Financial effect, measured.** An out-of-contract credited writer is no longer
+charged a freelancer fee at greenlight: `d17a-adv-cliff` emits 5 fee rows instead
+of 6, and `d17a-regime`'s debit falls 3,304,713 → 3,160,749 — a delta of
+**143,964**, exactly that writer's fee. Director, cast and Craft costs are
+unchanged, asserted by comparing their fee rows before and after a writer's
+contract lapses. `ui/src/engine/adapter.ts::salarySum` follows the engine down
+**both** branches — the writer is still summed on the legacy D-1 path, which still
+debits `writer.salary` — because its contract is that the number the player reads
+is the number the engine takes.
+
+### Making the failing route provable at all
+
+No proof could previously click the Casting building: every published rect belonged
+to a UI surface, so every casting journey reached Casting through
+`rail-locate-casting` — the exact prerequisite the Owner objected to. The failing
+route had never been exercised by anything. World selectables now publish
+`world-selectable-<stableId>` rects, gated on the element map, replacing the
+hand-calibrated `PROOF_WORLD_CLICKS_JSON` points the P04A.1 harness needed. And
+`PROOF_RUNTIME_SEED` boots a proof from a COPY of a real checkpoint, so a run can
+start in the Owner's own world without ever opening the Owner's profile.
+
+### Evidence
+
+`Tools/p04a3-proof-journey.mjs`, **0 failed steps at all four viewports**
+(1280×800, 1440×900, 1720×1045 and true native 3456×2234 fullscreen), every run
+bound to player `abfd6670…` and refusing to run at all against a dirty worktree. The rail is never clicked. Each run enters by the
+building, refuses to guess among three screenplays, opens `script-0002` — the LAST
+board entry, which the old card could never reach — closes, re-enters by the
+building, opens `script-0000`, fills five distinct seats, and stands in the Owner's
+exact failure state, where the strip now reads **"BUDGETS INCOMPLETE / Choose a
+Production Budget. Also missing: Choose a Marketing Budget."** One press then
+dispatches a real greenlight (revision 6) with the receipt *"Echoes of Undertow
+greenlit — production formed · $3,654,495 committed"*.
+
+Regression floor, all on the Owner's profile copy: the P04A.2 cast-role clarity
+journey PASS; menu journeys `cd`/`dload`/`dquit`/`equit`/`ecmdq`/`esc` all PASS;
+EditMode **570/570** (547 + 23 new); TypeScript **344 files / 4667 passed / 5
+skipped / 0 failed** and all ten gates at `EXIT=0`. CF-06: **0 raw bearer
+capabilities** across every P04A.3 evidence directory, 4138 digest-only references.
+
+### Honest failure record
+
+The first journey run failed 39 steps; the second 35; then 16; then 4; then 2.
+Every one of those was a defect this checkpoint then fixed — three of them in the
+harness (a predicate written for an object that received a string, a `rect` field
+that is called `screenRect`, and aiming before the world had loaded), and three in
+the product (the chooser rebuilt every frame so its buttons never had a resolved
+layout; the latched commit control; the blinking commit control). The failed runs
+are retained under `Evidence/S/` rather than deleted.
+
+`p04a2-proof-journey` and `p04a1-proof-menu-journeys` both needed a new step:
+the office no longer guesses, so a journey must choose a screenplay before opening
+one. They encoded the behaviour §9 removes.
+
+### Known non-blockers
+
+* The Casting Office card abuts the legacy IMGUI "LOT SELECTION" receipt at the
+  bottom-right at every viewport. Readable and clickable, but the two
+  right-anchored surfaces are adjacent rather than composed.
+* **Two** other controls still carry the same `client.ActionsEnabled` term the
+  greenlight control just shed: `casting-slate-start` (the screen-test commit,
+  `StudioCastingWorkspace.cs:2038`) and `casting-review-continue` (`:2199`).
+  Neither was touched — out of this checkpoint's scope — and they are the most
+  likely places the same latch/blink still lives. The screen-test path is
+  exercised green by the `p04a2` clarity journey, so it is not currently
+  blocking, but the mechanism is identical.
+* `castingPackageReadModel` filters `package-staffing` out of the wire's blocker
+  list and replaces it with finer per-pool blockers. The two predicates are
+  computed differently and can in principle disagree; forcing the coarse one back
+  in would risk a false refusal, so it was deliberately left alone.
+* `CommitGreenlightQuote` refuses when `liveStateRevision()` is null while the
+  enable gate treats a null revision as fresh. Unreachable in the packaged player
+  (a revision always exists once a snapshot has applied) and it now explains
+  itself, but the asymmetry remains.
+* The writer-CREDIT / cross-picture SEAT exclusivity hazard disclosed at the
+  P04A.2 seal (`productionCompany.ts` / `adapter.ts`) is **still open**. It was
+  not this checkpoint's subject.
+
+### Hostile review
+
+One fresh Opus reviewer, one pass: **REJECT**, ten findings. All ten were acted
+on rather than argued with. The three that mattered:
+
+* **A disabled control explained by the thing that was fine.** For the 0.7 s arm
+  window a freshly arrived quote restarts, `Confirm Greenlight` is deliberately
+  dead — and the line beside it read *"Every role and budget is set. Confirm to
+  greenlight this picture."* That is the precise shape the Owner rejected P04
+  for, reintroduced by this checkpoint's own fix. Two of the three terms in that
+  control's gate live outside the decision and had no sentence of their own;
+  `CommitGateReason` now answers for whichever term is actually false.
+* **`QuoteStale` stood in for "never asked".** On a dead connection the panel sat
+  permanently on *"Review the package again for fresh terms"* — an instruction
+  that could never succeed. `QuoteAbsent` is now a state of its own. The
+  diagnostics had always distinguished the two; the decision had not, which
+  contradicted the single-source claim.
+* **No retained EditMode evidence.** 854 lines of new Unity tests, and nothing on
+  disk showed they had ever compiled. Retained now under
+  `Evidence/S/HeadlessGates-P04A3-*`.
+
+Also fixed: the chooser's rebuild signature ignored the phase text each row
+renders, so rows went stale across a week; the journey had no dirty-worktree
+check; the Writer-credit step asserted only that a name was non-null; and two
+fee assertions in `p04a3-greenlight-law` were vacuous because every seat in the
+fixture was contracted, so `[].not.toContain(writer)` could not fail. Both are
+now mutation-checked — reverting either fix fails them.
+
+The reviewer also confirmed, against the producer rather than the comment, that
+`AuthorityMaySubmit`'s third clause is defensive and not permissive
+(`knownGatesClear || willQueue` ≡ "every blocker is facility-capacity" ≡ the
+core's dropped `canSubmitGreenlightIntent`), that no test was weakened across ten
+changed files, that the geometry publisher is inert without the element map, and
+that no evidence directory contains a raw bearer capability.
