@@ -32,6 +32,7 @@ interface CliOptions {
   readonly attestationPath?: string | undefined
   readonly editModeResult?: string | undefined
   readonly editModeLog?: string | undefined
+  readonly hostileReviewVerdict?: 'ACCEPT' | undefined
   readonly evidenceRoot?: string | undefined
   readonly saveVersion: number
 }
@@ -50,6 +51,7 @@ const VALUE_OPTIONS = new Set([
   '--verify-attestation',
   '--editmode-result',
   '--editmode-log',
+  '--hostile-review-verdict',
   '--evidence-root',
   '--save-version',
 ])
@@ -67,6 +69,7 @@ function usage(): string {
     '  ...same sealed arguments... --attestation-output <external-path>',
     '    --editmode-result <contract-gate-editmode.xml>',
     '    --editmode-log <contract-gate-editmode.log> --save-version 15',
+    '    --hostile-review-verdict ACCEPT',
     '',
     'Immutable re-verification:',
     '  vite-node scripts/verify-bridge-contract-consumer.ts',
@@ -115,7 +118,13 @@ export function parseCliOptions(argv: readonly string[]): CliOptions {
   const typescriptRoot = resolve(required(values, '--typescript-root'))
   const unityRoot = resolve(required(values, '--unity-root'))
   if (operation === 'verify-attestation') {
-    if (values.has('--typescript-commit') || values.has('--unity-commit') || values.has('--typescript-ref') || values.has('--unity-ref')) {
+    if (
+      values.has('--typescript-commit')
+      || values.has('--unity-commit')
+      || values.has('--typescript-ref')
+      || values.has('--unity-ref')
+      || values.has('--hostile-review-verdict')
+    ) {
       throw new Error('immutable verification reads commits and seal-time refs only from the attestation')
     }
     return {
@@ -135,11 +144,23 @@ export function parseCliOptions(argv: readonly string[]): CliOptions {
   const rawSaveVersion = values.get('--save-version')
   const saveVersion = rawSaveVersion === undefined ? CURRENT_ACCEPTED_SAVE_VERSION : Number(rawSaveVersion)
   if (!Number.isSafeInteger(saveVersion) || saveVersion < 1) throw new Error('--save-version must be a positive integer')
+  const hostileReviewVerdict = values.get('--hostile-review-verdict')
   if (operation === 'attest' && (values.get('--editmode-result') === undefined || values.get('--editmode-log') === undefined)) {
     throw new Error('--attestation-output requires --editmode-result and --editmode-log')
   }
-  if (operation === 'verify' && (values.has('--editmode-result') || values.has('--editmode-log') || values.has('--save-version'))) {
-    throw new Error('EditMode evidence and --save-version are valid only with --attestation-output')
+  if (operation === 'attest' && hostileReviewVerdict !== 'ACCEPT') {
+    throw new Error('--attestation-output requires --hostile-review-verdict ACCEPT')
+  }
+  if (
+    operation === 'verify'
+    && (
+      values.has('--editmode-result')
+      || values.has('--editmode-log')
+      || values.has('--save-version')
+      || values.has('--hostile-review-verdict')
+    )
+  ) {
+    throw new Error('EditMode evidence, --save-version, and hostile review are valid only with --attestation-output')
   }
   return {
     operation,
@@ -157,6 +178,7 @@ export function parseCliOptions(argv: readonly string[]): CliOptions {
     attestationOutput: attestationOutput === undefined ? undefined : resolve(attestationOutput),
     editModeResult: values.get('--editmode-result') === undefined ? undefined : resolve(values.get('--editmode-result')!),
     editModeLog: values.get('--editmode-log') === undefined ? undefined : resolve(values.get('--editmode-log')!),
+    hostileReviewVerdict: hostileReviewVerdict as 'ACCEPT' | undefined,
     saveVersion,
   }
 }
@@ -205,6 +227,7 @@ export function runCli(argv: readonly string[]): unknown {
     const attestation = createAttestation({
       ...pair,
       saveVersion: options.saveVersion,
+      hostileReviewVerdict: options.hostileReviewVerdict!,
       attestationPath: options.attestationOutput!,
       editModeEvidence: {
         resultPath: options.editModeResult!,

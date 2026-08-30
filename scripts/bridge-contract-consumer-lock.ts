@@ -94,6 +94,7 @@ const ATTESTATION_KEYS = [
   'fixtureCorpusVersion',
   'generatorSourceSha256',
   'generatorVersion',
+  'hostileReviewVerdict',
   'projectionVersion',
   'protocolVersion',
   'saveVersion',
@@ -270,6 +271,7 @@ export interface ContractGateAttestationV1 {
   readonly generatorVersion: number
   readonly generatorSourceSha256: string
   readonly verifierSourceSha256: string
+  readonly hostileReviewVerdict: 'ACCEPT'
   readonly fixtureCorpusVersion: number
   readonly fixtureCorpusSourceSha256: string
   readonly typescriptRepository: string
@@ -1752,6 +1754,7 @@ function verificationCommand(input: {
 export function createAttestation(
   request: ContractPairRequest & {
     readonly saveVersion: number
+    readonly hostileReviewVerdict: 'ACCEPT'
     readonly attestationPath: string
     readonly editModeEvidence: EditModeEvidence
   },
@@ -1763,6 +1766,15 @@ export function createAttestation(
       remediation: 'Emit an attestation only while both exact pushed WIP commits are checked out and clean.',
     })
   }
+  compare(
+    'CF09_ATTESTATION_HASH_MISMATCH',
+    'attestation',
+    'verifier',
+    'ACCEPT',
+    request.hostileReviewVerdict,
+    'Obtain one fresh hostile-review ACCEPT before emitting the closed attestation.',
+    { path: 'hostileReviewVerdict' },
+  )
   compare('CF09_ATTESTATION_HASH_MISMATCH', 'attestation', 'typescript',
     CURRENT_ACCEPTED_SAVE_VERSION, request.saveVersion,
     'Record the accepted save version without an unauthorized bump.')
@@ -1805,6 +1817,7 @@ export function createAttestation(
     generatorVersion: facts.generatorVersion,
     generatorSourceSha256: facts.generatorSourceSha256,
     verifierSourceSha256: executingVerifier,
+    hostileReviewVerdict: request.hostileReviewVerdict,
     fixtureCorpusVersion: FIXTURE_CORPUS_VERSION,
     fixtureCorpusSourceSha256: facts.fixtureCorpusSourceSha256,
     typescriptRepository: TYPESCRIPT_REPOSITORY,
@@ -1917,6 +1930,7 @@ export function verifyAttestation(request: {
     && attestation.unityGeneratedFixturePath === UNITY_FIXTURE_PATH
     && attestation.saveVersion === CURRENT_ACCEPTED_SAVE_VERSION
     && attestation.fixtureCorpusVersion === FIXTURE_CORPUS_VERSION
+    && attestation.hostileReviewVerdict === 'ACCEPT'
     && attestation.verificationResult === 'PASS'
     && attestation.typescriptClean === true
     && attestation.unityClean === true

@@ -321,6 +321,7 @@ function attest(pair: PairFixture): ContractGateAttestationV1 {
   return createAttestation({
     ...pair.request,
     saveVersion: CURRENT_ACCEPTED_SAVE_VERSION,
+    hostileReviewVerdict: 'ACCEPT',
     attestationPath: join(pair.evidenceRoot, 'contract-gate-attestation.json'),
     editModeEvidence: {
       resultPath: join(pair.evidenceRoot, 'contract-gate-editmode.xml'),
@@ -647,6 +648,35 @@ describe('CF-09 sealed pair', () => {
 })
 
 describe('CF-09 post-commit attestation', () => {
+  test('CLI cannot emit an attestation before hostile-review ACCEPT', () => {
+    const pair = makePair()
+    expect(() => runCli([
+      '--attestation-output', join(pair.evidenceRoot, 'contract-gate-attestation.json'),
+      '--typescript-root', pair.typescript.root,
+      '--typescript-commit', pair.typescript.commit,
+      '--typescript-ref', `refs/heads/${pair.typescript.branch}`,
+      '--unity-root', pair.unity.root,
+      '--unity-commit', pair.unity.commit,
+      '--unity-ref', `refs/heads/${pair.unity.branch}`,
+      '--editmode-result', join(pair.evidenceRoot, 'contract-gate-editmode.xml'),
+      '--editmode-log', join(pair.evidenceRoot, 'contract-gate-editmode.log'),
+    ])).toThrow('--attestation-output requires --hostile-review-verdict ACCEPT')
+  })
+
+  test('requires a fresh hostile-review ACCEPT before emission', () => {
+    const pair = makePair()
+    expectCode(() => createAttestation({
+      ...pair.request,
+      saveVersion: CURRENT_ACCEPTED_SAVE_VERSION,
+      hostileReviewVerdict: 'REJECT' as 'ACCEPT',
+      attestationPath: join(pair.evidenceRoot, 'contract-gate-attestation.json'),
+      editModeEvidence: {
+        resultPath: join(pair.evidenceRoot, 'contract-gate-editmode.xml'),
+        logPath: join(pair.evidenceRoot, 'contract-gate-editmode.log'),
+      },
+    }), 'CF09_ATTESTATION_HASH_MISMATCH')
+  })
+
   test('emits deterministic immutable facts only after both sealed commits exist', () => {
     const pair = makePair()
     const first = attest(pair)
@@ -655,6 +685,7 @@ describe('CF-09 post-commit attestation', () => {
     expect(first.typescriptSourceCommit).toBe(pair.typescript.commit)
     expect(first.unityConsumerCommit).toBe(pair.unity.commit)
     expect(first.saveVersion).toBe(15)
+    expect(first.hostileReviewVerdict).toBe('ACCEPT')
     expect(first.compiledFixtureEditModeTestCount).toBe(12)
     expect(first.compiledFixtureEditModePassedCount).toBe(11)
     expect(first.compiledFixtureEditModeSkippedCount).toBe(1)
@@ -674,6 +705,7 @@ describe('CF-09 post-commit attestation', () => {
     expectCode(() => createAttestation({
       ...pair.request,
       saveVersion: CURRENT_ACCEPTED_SAVE_VERSION,
+      hostileReviewVerdict: 'ACCEPT',
       attestationPath: join(pair.evidenceRoot, 'contract-gate-attestation.json'),
       editModeEvidence: {
         resultPath: join(pair.evidenceRoot, 'contract-gate-editmode.xml'),
@@ -689,6 +721,7 @@ describe('CF-09 post-commit attestation', () => {
     expectCode(() => createAttestation({
       ...pair.request,
       saveVersion: CURRENT_ACCEPTED_SAVE_VERSION,
+      hostileReviewVerdict: 'ACCEPT',
       attestationPath: join(pair.evidenceRoot, 'contract-gate-attestation.json'),
       editModeEvidence: {
         resultPath: wrongResult,

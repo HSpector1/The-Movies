@@ -18,5 +18,10 @@
     "rootDir": "."
   },
   "include": ["src/**/*.ts", "tests/**/*.ts"],
-  "exclude": ["node_modules", "dist", "tests/bridge*.test.ts"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests/bridge*.test.ts",
+    "tests/fixtures/bridge-contract-union-fixtures.ts"
+  ]
 }
