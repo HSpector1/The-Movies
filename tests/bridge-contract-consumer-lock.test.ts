@@ -61,6 +61,8 @@ interface PairFixture {
 const fixtureRoots: string[] = []
 const executingSourceRoot = realpathSync.native(process.cwd())
 const verifierSourcePaths = new Set<string>(VERIFIER_SOURCE_PATHS)
+const generatedFixtureSuite = 'Studio.Tests.EditMode.StudioBridgeGeneratedUnionFixtureTests'
+const generatedFixtureSentinel = 'F12_ProductionStateUnionRoundTripsAllMembers'
 
 afterEach(() => {
   while (fixtureRoots.length > 0) {
@@ -144,6 +146,57 @@ function schemaId(value: unknown): string {
   return `sha256:${sha256(JSON.stringify(sorted(value)))}`
 }
 
+function editModeCase(method: string, result: 'Passed' | 'Skipped' = 'Passed'): string {
+  return [
+    `    <test-case name="${method}"`,
+    ` fullname="${generatedFixtureSuite}.${method}"`,
+    ` methodname="${method}" result="${result}" />`,
+  ].join('')
+}
+
+function successfulEditModeXml(): string {
+  const passedMethods = [
+    generatedFixtureSentinel,
+    ...Array.from({ length: 10 }, (_, index) => `PassingFixtureMethod${String(index + 1).padStart(2, '0')}`),
+  ]
+  const cases = [
+    ...passedMethods.map((method) => editModeCase(method)),
+    editModeCase('SkippedFixtureMethod', 'Skipped'),
+  ]
+  return [
+    '<?xml version="1.0" encoding="utf-8"?>',
+    '<test-run testcasecount="12" result="Passed" passed="11" failed="0" skipped="1" inconclusive="0">',
+    `  <test-suite type="TestFixture" name="StudioBridgeGeneratedUnionFixtureTests" fullname="${generatedFixtureSuite}" result="Passed">`,
+    ...cases,
+    '  </test-suite>',
+    '</test-run>',
+    '',
+  ].join('\n')
+}
+
+function workflowRunSources(workflow: string): readonly string[] {
+  const lines = workflow.split('\n')
+  const sources: string[] = []
+  for (let index = 0; index < lines.length; index += 1) {
+    const match = /^(\s*)run:\s*(.*)$/.exec(lines[index]!)
+    if (match === null) continue
+    const indentation = match[1]!.length
+    const source = [match[2]!]
+    for (index += 1; index < lines.length; index += 1) {
+      const line = lines[index]!
+      const content = line.trim()
+      const lineIndentation = line.length - line.trimStart().length
+      if (content.length > 0 && lineIndentation <= indentation) {
+        index -= 1
+        break
+      }
+      source.push(line)
+    }
+    sources.push(source.join('\n'))
+  }
+  return sources
+}
+
 function sourceHash(root: string, paths: readonly string[]): string {
   return sourceBundleSha256(new Map(paths.map((path) => [path, readFileSync(file(root, path))])))
 }
@@ -209,12 +262,7 @@ function makePair(): PairFixture {
   commit(unity, 'fixture Unity consumer')
   const evidenceRoot = join(ownerRoot, 'evidence')
   mkdirSync(evidenceRoot)
-  writeFileSync(join(evidenceRoot, 'contract-gate-editmode.xml'), [
-    '<?xml version="1.0" encoding="utf-8"?>',
-    '<test-run testcasecount="12" result="Passed" passed="11" failed="0" skipped="1" inconclusive="0">',
-    '</test-run>',
-    '',
-  ].join('\n'))
+  writeFileSync(join(evidenceRoot, 'contract-gate-editmode.xml'), successfulEditModeXml())
   writeFileSync(join(evidenceRoot, 'contract-gate-editmode.log'), 'full EditMode PASS\n')
   const request: ContractPairRequest = {
     mode: 'seal',
@@ -287,6 +335,22 @@ function writeAttestation(pair: PairFixture, value: ContractGateAttestationV1 | 
   return path
 }
 
+function reverify(
+  pair: PairFixture,
+  attestationPath: string,
+  evidenceRoot = pair.evidenceRoot,
+): ContractGateAttestationV1 {
+  return verifyAttestation({
+    attestationPath,
+    typescriptRoot: pair.typescript.root,
+    typescriptRemote: pair.typescript.remoteName,
+    unityRoot: pair.unity.root,
+    unityRemote: pair.unity.remoteName,
+    evidenceRoot,
+    runGeneratorCheck: false,
+  })
+}
+
 describe('CF-09 source bundle and repository identity', () => {
   test('uses a length-delimited, order-independent source envelope', () => {
     const first = sourceBundleSha256(new Map([
@@ -328,7 +392,7 @@ describe('CF-09 source bundle and repository identity', () => {
     ])).toThrow('--typescript-root must be the checkout executing this verifier')
   })
 
-  test('keeps workflow-dispatch inputs out of every executable shell source in the exact-consumer job', () => {
+  test('keeps workflow-dispatch inputs out of every executable shell source and preserves explicit remotes', () => {
     const workflow = readFileSync(
       file(executingSourceRoot, '.github/workflows/bridge-contract.yml'),
       'utf8',
@@ -337,14 +401,15 @@ describe('CF-09 source bundle and repository identity', () => {
     expect(start).toBeGreaterThanOrEqual(0)
     const job = workflow.slice(start)
     expect(job).toContain('    env:')
-    const steps = job.split('\n      - name: ')
-    const shellSources = steps
-      .filter((step) => step.includes('\n        run:'))
-      .map((step) => step.slice(step.indexOf('\n        run:')))
+    const shellSources = workflowRunSources(workflow)
     expect(shellSources.length).toBeGreaterThan(0)
     for (const shellSource of shellSources) {
-      expect(shellSource).not.toMatch(/\$\{\{\s*inputs\./)
+      expect(shellSource).not.toMatch(/\$\{\{\s*(?:inputs|github\.event\.inputs)\./)
     }
+    expect(job).toContain('git -C typescript fetch origin "$P05A_TS_REF"')
+    expect(job).toContain('git -C unity fetch origin "$P05A_UNITY_REF"')
+    expect(job).toContain('--typescript-remote origin')
+    expect(job).toContain('--unity-remote origin')
   })
 })
 
@@ -462,6 +527,38 @@ describe('CF-09 sealed pair', () => {
     expectCode(() => verifyContractPair(pair.request), 'CF09_UNITY_DIRTY')
   })
 
+  test('rejects TypeScript worktree bytes hidden with assume-unchanged', () => {
+    const pair = makePair()
+    git(pair.typescript.root, ['update-index', '--assume-unchanged', TYPESCRIPT_CONTRACT_PATH])
+    appendFileSync(file(pair.typescript.root, TYPESCRIPT_CONTRACT_PATH), '// hidden drift\n')
+    const error = expectCode(() => verifyContractPair(pair.request), 'CF09_TYPESCRIPT_DIRTY')
+    expect(error.diagnostic.path).toBe(TYPESCRIPT_CONTRACT_PATH)
+    expect(error.diagnostic.observed).toBe('assume-unchanged')
+  })
+
+  test('rejects Unity worktree bytes hidden with skip-worktree', () => {
+    const pair = makePair()
+    git(pair.unity.root, ['update-index', '--skip-worktree', UNITY_FIXTURE_PATH])
+    appendFileSync(file(pair.unity.root, UNITY_FIXTURE_PATH), '// hidden drift\n')
+    const error = expectCode(() => verifyContractPair(pair.request), 'CF09_UNITY_DIRTY')
+    expect(error.diagnostic.path).toBe(UNITY_FIXTURE_PATH)
+    expect(error.diagnostic.observed).toBe('skip-worktree')
+  })
+
+  test('rejects a hidden index flag anywhere in the TypeScript repository', () => {
+    const pair = makePair()
+    git(pair.typescript.root, ['update-index', '--assume-unchanged', SCHEMA_PATH])
+    const error = expectCode(() => verifyContractPair(pair.request), 'CF09_TYPESCRIPT_DIRTY')
+    expect(error.diagnostic.path).toBe(SCHEMA_PATH)
+  })
+
+  test('rejects a hidden index flag anywhere in the Unity repository', () => {
+    const pair = makePair()
+    git(pair.unity.root, ['update-index', '--skip-worktree', UNITY_CONTRACT_PATH])
+    const error = expectCode(() => verifyContractPair(pair.request), 'CF09_UNITY_DIRTY')
+    expect(error.diagnostic.path).toBe(UNITY_CONTRACT_PATH)
+  })
+
   test('rejects a missing committed consumer without filename fallback', () => {
     const pair = makePair()
     unlinkSync(file(pair.unity.root, UNITY_CONTRACT_PATH))
@@ -570,6 +667,36 @@ describe('CF-09 post-commit attestation', () => {
     expect(first).not.toHaveProperty('attestedUtc')
   })
 
+  test('rejects seal-time log evidence outside the inferred canonical evidence root', () => {
+    const pair = makePair()
+    const outsideLog = join(pair.ownerRoot, 'contract-gate-editmode.log')
+    writeFileSync(outsideLog, 'full EditMode PASS\n')
+    expectCode(() => createAttestation({
+      ...pair.request,
+      saveVersion: CURRENT_ACCEPTED_SAVE_VERSION,
+      attestationPath: join(pair.evidenceRoot, 'contract-gate-attestation.json'),
+      editModeEvidence: {
+        resultPath: join(pair.evidenceRoot, 'contract-gate-editmode.xml'),
+        logPath: outsideLog,
+      },
+    }), 'CF09_PATH_INVALID')
+  })
+
+  test('rejects a noncanonical seal-time XML filename', () => {
+    const pair = makePair()
+    const wrongResult = join(pair.evidenceRoot, 'editmode.xml')
+    writeFileSync(wrongResult, successfulEditModeXml())
+    expectCode(() => createAttestation({
+      ...pair.request,
+      saveVersion: CURRENT_ACCEPTED_SAVE_VERSION,
+      attestationPath: join(pair.evidenceRoot, 'contract-gate-attestation.json'),
+      editModeEvidence: {
+        resultPath: wrongResult,
+        logPath: join(pair.evidenceRoot, 'contract-gate-editmode.log'),
+      },
+    }), 'CF09_PATH_INVALID')
+  })
+
   test('re-verifies immutable commit blobs even after both HEADs move', () => {
     const pair = makePair()
     const attestation = attest(pair)
@@ -658,6 +785,40 @@ describe('CF-09 post-commit attestation', () => {
     }), 'CF09_ATTESTATION_HASH_MISMATCH')
   })
 
+  test.each([
+    ['result traversal', 'compiledFixtureEditModeResultPath', '../contract-gate-editmode.xml'],
+    ['absolute result', 'compiledFixtureEditModeResultPath', '/tmp/contract-gate-editmode.xml'],
+    ['nested result', 'compiledFixtureEditModeResultPath', 'nested/contract-gate-editmode.xml'],
+    ['wrong result name', 'compiledFixtureEditModeResultPath', 'editmode.xml'],
+    ['log traversal', 'compiledFixtureEditModeLogPath', '../contract-gate-editmode.log'],
+    ['absolute log', 'compiledFixtureEditModeLogPath', '/tmp/contract-gate-editmode.log'],
+    ['nested log', 'compiledFixtureEditModeLogPath', 'nested/contract-gate-editmode.log'],
+    ['wrong log name', 'compiledFixtureEditModeLogPath', 'editmode.log'],
+  ] as const)('rejects an attested %s path before resolving it', (_kind, field, value) => {
+    const pair = makePair()
+    const path = writeAttestation(pair, { ...attest(pair), [field]: value })
+    const error = expectCode(() => reverify(pair, path), 'CF09_PATH_INVALID')
+    expect(error.diagnostic.path).toBe(value)
+  })
+
+  test('does not re-root a traversal path around the caller evidence root', () => {
+    const pair = makePair()
+    writeFileSync(join(pair.ownerRoot, 'contract-gate-editmode.xml'), successfulEditModeXml())
+    const path = writeAttestation(pair, {
+      ...attest(pair),
+      compiledFixtureEditModeResultPath: '../contract-gate-editmode.xml',
+    })
+    expectCode(() => reverify(pair, path), 'CF09_PATH_INVALID')
+  })
+
+  test('rejects a symlinked caller evidence root', () => {
+    const pair = makePair()
+    const path = writeAttestation(pair, attest(pair))
+    const linkedRoot = join(pair.ownerRoot, 'linked-evidence')
+    symlinkSync(pair.evidenceRoot, linkedRoot)
+    expectCode(() => reverify(pair, path, linkedRoot), 'CF09_PATH_REDIRECTED')
+  })
+
   test('rejects symlinked evidence redirection', () => {
     const pair = makePair()
     const path = writeAttestation(pair, attest(pair))
@@ -674,6 +835,60 @@ describe('CF-09 post-commit attestation', () => {
       evidenceRoot: pair.evidenceRoot,
       runGeneratorCheck: false,
     }), 'CF09_PATH_REDIRECTED')
+  })
+
+  test('rejects symlinked XML evidence redirection', () => {
+    const pair = makePair()
+    const path = writeAttestation(pair, attest(pair))
+    const external = join(pair.ownerRoot, 'external.xml')
+    writeFileSync(external, successfulEditModeXml())
+    unlinkSync(join(pair.evidenceRoot, 'contract-gate-editmode.xml'))
+    symlinkSync(external, join(pair.evidenceRoot, 'contract-gate-editmode.xml'))
+    expectCode(() => reverify(pair, path), 'CF09_PATH_REDIRECTED')
+  })
+
+  test.each([
+    ['zero/no-op counts', '<test-run testcasecount="0" result="Passed" passed="0" failed="0" skipped="0" inconclusive="0"></test-run>'],
+    ['comment-spoofed passing root', [
+      '<!-- <test-run testcasecount="1" result="Passed" passed="1" failed="0" skipped="0" inconclusive="0"> -->',
+      '<test-run testcasecount="1" result="Failed" passed="0" failed="1" skipped="0" inconclusive="0">',
+      '  <test-case name="Failure" fullname="Wrong.Failure" methodname="Failure" result="Failed" />',
+      '</test-run>',
+    ].join('\n')],
+    ['comment-spoofed generated suite and sentinel', [
+      '<test-run testcasecount="1" result="Passed" passed="1" failed="0" skipped="0" inconclusive="0">',
+      `  <!-- <test-suite fullname="${generatedFixtureSuite}" result="Passed"><test-case name="${generatedFixtureSentinel}" fullname="${generatedFixtureSuite}.${generatedFixtureSentinel}" methodname="${generatedFixtureSentinel}" result="Passed" /></test-suite> -->`,
+      '  <test-case name="Unrelated" fullname="Wrong.Unrelated" methodname="Unrelated" result="Passed" />',
+      '</test-run>',
+    ].join('\n')],
+    ['multiple document roots', `${successfulEditModeXml()}${successfulEditModeXml()}`],
+    ['failing document root', successfulEditModeXml().replace(
+      '<test-run testcasecount="12" result="Passed"',
+      '<test-run testcasecount="12" result="Failed"',
+    )],
+    ['malformed XML', successfulEditModeXml().replace('</test-run>', '</test-suite>')],
+    ['wrong generated fixture suite', successfulEditModeXml().replaceAll(generatedFixtureSuite, 'Studio.Tests.EditMode.WrongFixtureTests')],
+    ['wrong generated fixture suite type', successfulEditModeXml().replace('type="TestFixture"', 'type="TestSuite"')],
+    ['wrong sentinel method', successfulEditModeXml().replaceAll(generatedFixtureSentinel, 'F11_WrongSentinel')],
+    ['sentinel nested beneath the wrong suite', successfulEditModeXml().replace(
+      editModeCase(generatedFixtureSentinel),
+      [
+        '    <test-suite type="TestFixture" name="WrongFixture" fullname="Studio.Tests.EditMode.WrongFixture" result="Passed">',
+        editModeCase(generatedFixtureSentinel),
+        '    </test-suite>',
+      ].join('\n'),
+    )],
+    ['skipped sentinel method', successfulEditModeXml()
+      .replace('passed="11" failed="0" skipped="1"', 'passed="10" failed="0" skipped="2"')
+      .replace(`methodname="${generatedFixtureSentinel}" result="Passed"`, `methodname="${generatedFixtureSentinel}" result="Skipped"`)],
+    ['failing generated fixture suite', successfulEditModeXml().replace(
+      `fullname="${generatedFixtureSuite}" result="Passed"`,
+      `fullname="${generatedFixtureSuite}" result="Failed"`,
+    )],
+  ] as const)('rejects %s EditMode XML', (_kind, xml) => {
+    const pair = makePair()
+    writeFileSync(join(pair.evidenceRoot, 'contract-gate-editmode.xml'), xml)
+    expectCode(() => attest(pair), 'CF09_EDITMODE_EVIDENCE_INVALID')
   })
 
   test('rejects failed or internally inconsistent full EditMode XML', () => {

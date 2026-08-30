@@ -14,6 +14,7 @@ import { createHash } from 'node:crypto'
 import { isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { tmpdir } from 'node:os'
 import { fileURLToPath } from 'node:url'
+import { SaxesParser } from 'saxes'
 
 export const TYPESCRIPT_REPOSITORY = 'HSpector1/The-Movies'
 export const UNITY_REPOSITORY = 'HSpector1/project-studio-unity-visual-spike'
@@ -30,6 +31,11 @@ export const GENERATOR_VERSION = 1
 export const ATTESTATION_VERSION = 1
 export const FIXTURE_CORPUS_VERSION = 1
 export const CURRENT_ACCEPTED_SAVE_VERSION = 15
+
+const EDITMODE_RESULT_NAME = 'contract-gate-editmode.xml'
+const EDITMODE_LOG_NAME = 'contract-gate-editmode.log'
+const GENERATED_FIXTURE_SUITE = 'Studio.Tests.EditMode.StudioBridgeGeneratedUnionFixtureTests'
+const GENERATED_FIXTURE_SENTINEL = 'F12_ProductionStateUnionRoundTripsAllMembers'
 
 const EXECUTING_TYPESCRIPT_ROOT = realpathSync.native(resolve(fileURLToPath(import.meta.url), '../..'))
 
@@ -846,6 +852,37 @@ function verifyWorktreePath(root: string, path: string, role: 'typescript' | 'un
 }
 
 function cleanStatus(root: string, role: 'typescript' | 'unity', commit: string): string {
+  const index = git(root, ['ls-files', '-v', '-z', '--cached', '--'], {
+    code: role === 'typescript' ? 'CF09_TYPESCRIPT_DIRTY' : 'CF09_UNITY_DIRTY',
+    stage: 'clean-tree',
+    role,
+    root,
+    commit,
+    expected: 'readable index flags',
+    observed: 'git ls-files failed',
+    remediation: 'Repair the isolated worktree index before verification.',
+  })
+  for (const record of index.toString('utf8').split('\0')) {
+    if (record.length === 0) continue
+    const tag = record[0]!
+    const path = record.startsWith(`${tag} `) ? record.slice(2) : '<invalid-index-entry>'
+    const flag = tag === 'S'
+      ? 'skip-worktree'
+      : tag === 's' ? 'assume-unchanged+skip-worktree' : /^[a-z]$/.test(tag) ? 'assume-unchanged' : null
+    if (flag !== null) {
+      fail({
+        code: role === 'typescript' ? 'CF09_TYPESCRIPT_DIRTY' : 'CF09_UNITY_DIRTY',
+        stage: 'clean-tree',
+        role,
+        root,
+        commit,
+        path,
+        expected: 'no assume-unchanged or skip-worktree index flags',
+        observed: flag,
+        remediation: 'Clear every hidden index flag and restore or commit the actual worktree bytes.',
+      })
+    }
+  }
   const status = git(root, [
     'status',
     '--porcelain=v1',
@@ -875,6 +912,28 @@ function cleanStatus(root: string, role: 'typescript' | 'unity', commit: string)
     })
   }
   return sha256(status)
+}
+
+function verifySealWorktreeBlob(
+  context: RepositoryContext,
+  path: string,
+  committed: GitBlob,
+): void {
+  verifyWorktreePath(context.root, path, context.role)
+  const worktreeBytes = readFileSync(join(context.root, ...path.split('/')))
+  if (!worktreeBytes.equals(committed.bytes)) {
+    fail({
+      code: context.role === 'typescript' ? 'CF09_TYPESCRIPT_DIRTY' : 'CF09_UNITY_DIRTY',
+      stage: 'clean-tree',
+      role: context.role,
+      root: context.root,
+      commit: context.commit,
+      path,
+      expected: sha256(committed.bytes),
+      observed: sha256(worktreeBytes),
+      remediation: 'Restore the exact committed generated worktree bytes before compiling or sealing.',
+    })
+  }
 }
 
 interface TreeEntry {
@@ -1398,6 +1457,13 @@ export function verifyContractPair(request: ContractPairRequest): ContractPairFa
     'Copy and commit the exact generated fixture bytes into the fixed Unity test consumer.',
     { root: unity.root, commit: unity.commit, path: UNITY_FIXTURE_PATH })
 
+  if (request.mode === 'seal') {
+    verifySealWorktreeBlob(typescript, TYPESCRIPT_CONTRACT_PATH, tsContract)
+    verifySealWorktreeBlob(typescript, TYPESCRIPT_FIXTURE_PATH, tsFixture)
+    verifySealWorktreeBlob(unity, UNITY_CONTRACT_PATH, unityContract)
+    verifySealWorktreeBlob(unity, UNITY_FIXTURE_PATH, unityFixture)
+  }
+
   const fixtureSource = sourceBundleFromCommit(
     typescript, FIXTURE_SOURCE_PATHS, 'CF09_FIXTURE_SOURCE_MISMATCH',
   )
@@ -1405,6 +1471,10 @@ export function verifyContractPair(request: ContractPairRequest): ContractPairFa
   if (request.runGeneratorCheck !== false) runGenerator(typescript.root, typescript.commit, request.mode)
 
   if (request.mode === 'seal') {
+    verifySealWorktreeBlob(typescript, TYPESCRIPT_CONTRACT_PATH, tsContract)
+    verifySealWorktreeBlob(typescript, TYPESCRIPT_FIXTURE_PATH, tsFixture)
+    verifySealWorktreeBlob(unity, UNITY_CONTRACT_PATH, unityContract)
+    verifySealWorktreeBlob(unity, UNITY_FIXTURE_PATH, unityFixture)
     compare('CF09_TYPESCRIPT_DIRTY', 'clean-tree', 'typescript', typescriptClean,
       cleanStatus(typescript.root, 'typescript', typescript.commit),
       'Do not mutate the TypeScript checkout during verification.',
@@ -1451,37 +1521,52 @@ export function verifyContractPair(request: ContractPairRequest): ContractPairFa
   }
 }
 
-function evidenceFile(path: string, expectedName: string): Buffer {
-  if (!isAbsolute(path) || path.split(sep).at(-1) !== expectedName) {
+function requireCanonicalEvidenceName(value: unknown, expectedName: string): string {
+  if (value !== expectedName) {
     fail({
       code: 'CF09_PATH_INVALID',
       stage: 'editmode-evidence',
       role: 'evidence',
-      path,
+      path: typeof value === 'string' ? value : '<non-string>',
       expected: expectedName,
-      observed: path,
+      observed: typeof value === 'string' ? value : typeof value,
+      remediation: 'Use the exact canonical bare evidence filename without absolute paths or traversal.',
+    })
+  }
+  return value
+}
+
+function evidenceFile(path: string, expectedName: string): Buffer {
+  if (!isAbsolute(path) || path.split(sep).at(-1) !== expectedName) {
+    fail({
+      code: 'CF09_PATH_INVALID', stage: 'editmode-evidence', role: 'evidence', path,
+      expected: `absolute path ending in ${expectedName}`, observed: path,
       remediation: 'Use the canonical artifact filename beneath the explicit evidence root.',
     })
   }
-  const parent = resolve(path, '..')
+  const parent = canonicalRootForEvidence(resolve(path, '..'))
   verifyExternalPath(parent, path, expectedName)
   return readFileSync(path)
 }
 
-function verifyExternalPath(root: string, absolutePath: string, relativeName: string): void {
-  let canonicalRoot: string
-  try {
-    canonicalRoot = realpathSync.native(root)
-  } catch {
+function evidenceFileUnderRoot(root: string, path: string, expectedName: string): Buffer {
+  const canonicalRoot = canonicalRootForEvidence(root)
+  verifyExternalPath(canonicalRoot, path, expectedName)
+  return readFileSync(path)
+}
+
+function verifyExternalPath(canonicalRoot: string, absolutePath: string, relativeName: string): void {
+  const expectedPath = join(canonicalRoot, relativeName)
+  if (!isAbsolute(absolutePath) || absolutePath !== expectedPath) {
     fail({
-      code: 'CF09_PATH_INVALID', stage: 'path-preflight', role: 'evidence', root,
-      path: relativeName, expected: 'existing evidence root', observed: 'missing',
-      remediation: 'Supply the retained external evidence root.',
+      code: 'CF09_PATH_INVALID', stage: 'path-preflight', role: 'evidence', root: canonicalRoot,
+      path: relativeName, expected: expectedPath, observed: absolutePath,
+      remediation: 'Use the exact canonical artifact path directly beneath the caller-supplied evidence root.',
     })
   }
-  if (resolve(root) !== canonicalRoot || !pathInside(canonicalRoot, resolve(absolutePath))) {
+  if (!pathInside(canonicalRoot, absolutePath)) {
     fail({
-      code: 'CF09_PATH_REDIRECTED', stage: 'path-preflight', role: 'evidence', root,
+      code: 'CF09_PATH_REDIRECTED', stage: 'path-preflight', role: 'evidence', root: canonicalRoot,
       path: relativeName, expected: 'contained nonsymlinked evidence path', observed: absolutePath,
       remediation: 'Use the physical retained evidence directory and canonical artifact name.',
     })
@@ -1494,14 +1579,14 @@ function verifyExternalPath(root: string, absolutePath: string, relativeName: st
       stat = lstatSync(cursor)
     } catch {
       fail({
-        code: 'CF09_EDITMODE_EVIDENCE_INVALID', stage: 'editmode-evidence', role: 'evidence', root,
+        code: 'CF09_EDITMODE_EVIDENCE_INVALID', stage: 'editmode-evidence', role: 'evidence', root: canonicalRoot,
         path: relativeName, expected: 'retained regular evidence file', observed: 'missing',
         remediation: 'Retain the exact Unity EditMode XML and log.',
       })
     }
     if (stat.isSymbolicLink()) {
       fail({
-        code: 'CF09_PATH_REDIRECTED', stage: 'path-preflight', role: 'evidence', root,
+        code: 'CF09_PATH_REDIRECTED', stage: 'path-preflight', role: 'evidence', root: canonicalRoot,
         path: relativeName, expected: 'nonsymlinked evidence path', observed: 'symbolic link',
         remediation: 'Use regular retained evidence files without redirection.',
       })
@@ -1509,51 +1594,131 @@ function verifyExternalPath(root: string, absolutePath: string, relativeName: st
   }
   if (!lstatSync(absolutePath).isFile()) {
     fail({
-      code: 'CF09_EDITMODE_EVIDENCE_INVALID', stage: 'editmode-evidence', role: 'evidence', root,
+      code: 'CF09_EDITMODE_EVIDENCE_INVALID', stage: 'editmode-evidence', role: 'evidence', root: canonicalRoot,
       path: relativeName, expected: 'regular evidence file', observed: 'not a file',
       remediation: 'Retain the exact Unity EditMode XML and log.',
     })
   }
 }
 
-function xmlAttribute(attributes: string, name: string): string | null {
-  const match = new RegExp(`(?:^|\\s)${name}="([^"]*)"`).exec(attributes)
-  return match?.[1] ?? null
-}
-
 function parseEditModeCounts(bytes: Buffer, path: string): TestCounts {
-  const root = /<test-run\b([^>]*)>/.exec(bytes.toString('utf8'))
-  if (root === null) {
-    fail({
-      code: 'CF09_EDITMODE_EVIDENCE_INVALID', stage: 'editmode-evidence', role: 'evidence', path,
-      expected: 'Unity NUnit test-run result', observed: 'missing test-run root',
-      remediation: 'Retain the exact successful full EditMode test XML.',
-    })
+  const invalid = (expected: string, observed: string): never => fail({
+    code: 'CF09_EDITMODE_EVIDENCE_INVALID', stage: 'editmode-evidence', role: 'evidence', path,
+    expected, observed,
+    remediation: 'Run and retain the exact successful full Unity EditMode result containing the generated fixture sentinel.',
+  })
+  let xml = ''
+  try {
+    xml = new TextDecoder('utf-8', { fatal: true }).decode(bytes)
+  } catch {
+    invalid('well-formed UTF-8 Unity NUnit XML', 'invalid UTF-8')
   }
+
+  let parseFailed = false
+  let sawDoctype = false
+  let depth = 0
+  let rootCount = 0
+  let rootName = '<missing>'
+  let rootAttributes: Readonly<Record<string, string>> = {}
+  let capturedRootAttributes = false
+  let fixtureSuiteCount = 0
+  let fixtureSuiteValidCount = 0
+  let sentinelCount = 0
+  let testCaseCount = 0
+  let testCasePassed = 0
+  let testCaseFailed = 0
+  let testCaseSkipped = 0
+  let testCaseInconclusive = 0
+  const elementStack: Array<{ readonly name: string; readonly suiteFullName: string | null }> = []
+  const parser = new SaxesParser({ fragment: false, xmlns: false })
+  parser.on('error', () => { parseFailed = true })
+  parser.on('doctype', () => { sawDoctype = true })
+  parser.on('opentag', (tag) => {
+    depth += 1
+    if (depth === 1) {
+      rootCount += 1
+      rootName = tag.name
+      rootAttributes = { ...tag.attributes }
+      capturedRootAttributes = true
+    }
+    const suiteFullName = tag.name === 'test-suite'
+      ? (tag.attributes['fullname'] ?? null)
+      : null
+    if (tag.name === 'test-suite' && suiteFullName === GENERATED_FIXTURE_SUITE) {
+      fixtureSuiteCount += 1
+      if (
+        tag.attributes['type'] === 'TestFixture'
+        && tag.attributes['name'] === 'StudioBridgeGeneratedUnionFixtureTests'
+        && tag.attributes['result'] === 'Passed'
+      ) fixtureSuiteValidCount += 1
+    }
+    if (tag.name === 'test-case') {
+      testCaseCount += 1
+      switch (tag.attributes['result']) {
+        case 'Passed': testCasePassed += 1; break
+        case 'Failed': testCaseFailed += 1; break
+        case 'Skipped': testCaseSkipped += 1; break
+        case 'Inconclusive': testCaseInconclusive += 1; break
+      }
+      const owningSuite = [...elementStack].reverse().find((element) => element.name === 'test-suite')
+      if (
+        owningSuite?.suiteFullName === GENERATED_FIXTURE_SUITE
+        && tag.attributes['name'] === GENERATED_FIXTURE_SENTINEL
+        && tag.attributes['methodname'] === GENERATED_FIXTURE_SENTINEL
+        && tag.attributes['fullname'] === `${GENERATED_FIXTURE_SUITE}.${GENERATED_FIXTURE_SENTINEL}`
+        && tag.attributes['result'] === 'Passed'
+      ) sentinelCount += 1
+    }
+    elementStack.push({ name: tag.name, suiteFullName })
+  })
+  parser.on('closetag', () => {
+    elementStack.pop()
+    depth -= 1
+  })
+  try {
+    parser.write(xml).close()
+  } catch {
+    parseFailed = true
+  }
+  if (parseFailed || sawDoctype || rootCount !== 1 || depth !== 0 || rootName !== 'test-run' || !capturedRootAttributes) {
+    invalid('one well-formed test-run document root without a doctype', 'malformed or wrong-root XML')
+  }
+
   const integerAttribute = (name: string): number => {
-    const raw = xmlAttribute(root[1]!, name)
-    const value = raw === null ? Number.NaN : Number(raw)
+    const raw = rootAttributes[name]
+    const value = raw !== undefined && /^(0|[1-9][0-9]*)$/.test(raw) ? Number(raw) : Number.NaN
     if (!Number.isSafeInteger(value) || value < 0) {
-      fail({
-        code: 'CF09_EDITMODE_EVIDENCE_INVALID', stage: 'editmode-evidence', role: 'evidence', path,
-        expected: `nonnegative ${name}`, observed: raw ?? 'missing',
-        remediation: 'Retain a complete Unity NUnit EditMode result.',
-      })
+      invalid(`canonical nonnegative ${name}`, raw ?? 'missing')
     }
     return value
   }
   const total = integerAttribute('testcasecount')
   const passed = integerAttribute('passed')
   const failed = integerAttribute('failed')
-  const skipped = integerAttribute('skipped') + integerAttribute('inconclusive')
-  const result = xmlAttribute(root[1]!, 'result')
-  if (result !== 'Passed' || failed !== 0 || passed + failed + skipped !== total) {
-    fail({
-      code: 'CF09_EDITMODE_EVIDENCE_INVALID', stage: 'editmode-evidence', role: 'evidence', path,
-      expected: 'result=Passed, failed=0, internally consistent counts',
-      observed: `result=${result ?? 'missing'} total=${String(total)} passed=${String(passed)} failed=${String(failed)} skipped=${String(skipped)}`,
-      remediation: 'Run the single authorized full non-interactive Unity EditMode pass successfully.',
-    })
+  const inconclusive = integerAttribute('inconclusive')
+  const skipped = integerAttribute('skipped') + inconclusive
+  const result = rootAttributes['result']
+  const countsValid = total > 0
+    && passed > 0
+    && result === 'Passed'
+    && failed === 0
+    && passed + failed + skipped === total
+    && testCaseCount === total
+    && testCasePassed === passed
+    && testCaseFailed === failed
+    && testCaseSkipped + testCaseInconclusive === skipped
+    && testCaseInconclusive === inconclusive
+  if (!countsValid) {
+    invalid(
+      'nonzero consistent Passed counts with failed=0',
+      `result=${result ?? 'missing'} total=${String(total)}/${String(testCaseCount)} passed=${String(passed)}/${String(testCasePassed)} failed=${String(failed)}/${String(testCaseFailed)} skipped=${String(skipped)}/${String(testCaseSkipped + testCaseInconclusive)}`,
+    )
+  }
+  if (fixtureSuiteCount !== 1 || fixtureSuiteValidCount !== 1 || sentinelCount !== 1) {
+    invalid(
+      `one Passed ${GENERATED_FIXTURE_SUITE} suite containing one exact Passed ${GENERATED_FIXTURE_SENTINEL} method`,
+      `suite=${String(fixtureSuiteCount)} suiteValid=${String(fixtureSuiteValidCount)} sentinel=${String(sentinelCount)}`,
+    )
   }
   return { total, passed, failed, skipped }
 }
@@ -1616,13 +1781,18 @@ export function createAttestation(
   compare('CF09_VERIFIER_SOURCE_MISMATCH', 'source-validation', 'verifier', verifierAtCommit,
     executingVerifier, 'Run the exact verifier source committed in the attested TypeScript commit.')
 
-  const resultBytes = evidenceFile(request.editModeEvidence.resultPath, 'contract-gate-editmode.xml')
-  const logBytes = evidenceFile(request.editModeEvidence.logPath, 'contract-gate-editmode.log')
-  const evidenceRoot = resolve(request.editModeEvidence.resultPath, '..')
-  compare('CF09_PATH_INVALID', 'editmode-evidence', 'evidence', evidenceRoot,
-    resolve(request.editModeEvidence.logPath, '..'),
-    'Keep the retained EditMode XML and log under one explicit evidence root.')
-  const counts = parseEditModeCounts(resultBytes, 'contract-gate-editmode.xml')
+  const evidenceRoot = canonicalRootForEvidence(resolve(request.editModeEvidence.resultPath, '..'))
+  const resultBytes = evidenceFileUnderRoot(
+    evidenceRoot,
+    request.editModeEvidence.resultPath,
+    EDITMODE_RESULT_NAME,
+  )
+  const logBytes = evidenceFileUnderRoot(
+    evidenceRoot,
+    request.editModeEvidence.logPath,
+    EDITMODE_LOG_NAME,
+  )
+  const counts = parseEditModeCounts(resultBytes, EDITMODE_RESULT_NAME)
   return {
     attestationVersion: ATTESTATION_VERSION,
     contractManifestPath: MANIFEST_PATH,
@@ -1661,9 +1831,9 @@ export function createAttestation(
     unityGeneratedFixturePath: UNITY_FIXTURE_PATH,
     unityGeneratedFixtureGitBlob: facts.unityGeneratedFixtureGitBlob,
     unityGeneratedFixtureSha256: facts.unityGeneratedFixtureSha256,
-    compiledFixtureEditModeResultPath: 'contract-gate-editmode.xml',
+    compiledFixtureEditModeResultPath: EDITMODE_RESULT_NAME,
     compiledFixtureEditModeResultSha256: sha256(resultBytes),
-    compiledFixtureEditModeLogPath: 'contract-gate-editmode.log',
+    compiledFixtureEditModeLogPath: EDITMODE_LOG_NAME,
     compiledFixtureEditModeLogSha256: sha256(logBytes),
     compiledFixtureEditModeTestCount: counts.total,
     compiledFixtureEditModePassedCount: counts.passed,
@@ -1728,6 +1898,14 @@ export function verifyAttestation(request: {
 }): ContractGateAttestationV1 {
   const attestationBytes = evidenceFile(request.attestationPath, request.attestationPath.split(sep).at(-1) ?? '')
   const attestation = parseAttestation(attestationBytes, request.attestationPath)
+  const resultName = requireCanonicalEvidenceName(
+    attestation.compiledFixtureEditModeResultPath,
+    EDITMODE_RESULT_NAME,
+  )
+  const logName = requireCanonicalEvidenceName(
+    attestation.compiledFixtureEditModeLogPath,
+    EDITMODE_LOG_NAME,
+  )
   const basicValid = attestation.attestationVersion === ATTESTATION_VERSION
     && attestation.contractId === CONTRACT_ID
     && attestation.typescriptRepository === TYPESCRIPT_REPOSITORY
@@ -1813,11 +1991,11 @@ export function verifyAttestation(request: {
     'Run immutable verification with the exact attested verifier source bundle.')
 
   const evidenceRoot = canonicalRootForEvidence(request.evidenceRoot)
-  const resultPath = join(evidenceRoot, attestation.compiledFixtureEditModeResultPath)
-  const logPath = join(evidenceRoot, attestation.compiledFixtureEditModeLogPath)
-  const resultBytes = evidenceFile(resultPath, 'contract-gate-editmode.xml')
-  const logBytes = evidenceFile(logPath, 'contract-gate-editmode.log')
-  const counts = parseEditModeCounts(resultBytes, 'contract-gate-editmode.xml')
+  const resultPath = join(evidenceRoot, resultName)
+  const logPath = join(evidenceRoot, logName)
+  const resultBytes = evidenceFileUnderRoot(evidenceRoot, resultPath, EDITMODE_RESULT_NAME)
+  const logBytes = evidenceFileUnderRoot(evidenceRoot, logPath, EDITMODE_LOG_NAME)
+  const counts = parseEditModeCounts(resultBytes, EDITMODE_RESULT_NAME)
   assertAttestationField('compiledFixtureEditModeResultSha256', sha256(resultBytes), attestation.compiledFixtureEditModeResultSha256)
   assertAttestationField('compiledFixtureEditModeLogSha256', sha256(logBytes), attestation.compiledFixtureEditModeLogSha256)
   assertAttestationField('compiledFixtureEditModeTestCount', counts.total, attestation.compiledFixtureEditModeTestCount)
@@ -1836,8 +2014,13 @@ function canonicalRootForEvidence(root: string): string {
     })
   }
   let canonical: string
+  let rootIsDirectory = false
+  let rootIsSymbolicLink = false
   try {
     canonical = realpathSync.native(root)
+    const stat = lstatSync(root)
+    rootIsDirectory = stat.isDirectory()
+    rootIsSymbolicLink = stat.isSymbolicLink()
   } catch {
     fail({
       code: 'CF09_PATH_INVALID', stage: 'path-preflight', role: 'evidence', root,
@@ -1845,11 +2028,18 @@ function canonicalRootForEvidence(root: string): string {
       remediation: 'Pass the retained Unity evidence directory.',
     })
   }
-  if (resolve(root) !== canonical || lstatSync(root).isSymbolicLink()) {
+  if (root !== canonical || rootIsSymbolicLink) {
     fail({
       code: 'CF09_PATH_REDIRECTED', stage: 'path-preflight', role: 'evidence', root,
-      expected: canonical, observed: resolve(root),
+      expected: canonical, observed: root,
       remediation: 'Pass the physical nonsymlinked evidence directory.',
+    })
+  }
+  if (!rootIsDirectory) {
+    fail({
+      code: 'CF09_PATH_INVALID', stage: 'path-preflight', role: 'evidence', root,
+      expected: 'evidence directory', observed: 'not a directory',
+      remediation: 'Pass the physical retained evidence directory.',
     })
   }
   return canonical
