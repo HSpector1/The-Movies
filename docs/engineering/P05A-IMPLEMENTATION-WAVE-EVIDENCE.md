@@ -575,3 +575,15 @@ for the per-finding record. Highlights and honest notes:
 
 Floors after correction: TS full suite green (+1 test), EditMode **646/646**, generator
 re-validated byte-identical. Delta visual review of the sealed set: pending.
+
+**Sealed set v2 (the FINAL evidence).** The first sealed delta review verified fixes A
+(closed-state workspace header — systemic) and C (DIRECTOR CALL REQUIRED guidance card) in
+pixels, and correctly found fix B PARTIAL: min-height let the ScrollView shrink but never CLIP,
+so tall section stacks still painted past the panel border (pixel-probed). The panel, detail
+pane, and detail ScrollView are now hard clip boundaries (Unity `c8d6698`), and EVERY runtime
+gate re-ran once more against one fresh binary — exe sha `91838e22…`, Unity `c8d6698` / TS
+`4242b17` in every run-binding: Oracle ×6 (50/50 assertions), 4M 17/17, 4H 15/15, casting proof
+PASS, P04A.1 owner-input **PASS — 0 failed steps** (boot-wait harness), sealed stage-visual at
+its recorded supersession point (milestone 1 lawful, 2–5 superseded by oracle s3/s5/s6/s1).
+EditMode **646/646** at the tip. The v1 sealed runs (exe `3a7e2ba9…`) are SUPERSEDED evidence
+retained beside v2. Delta confirmation of fix B on the v2 bytes: pending.
