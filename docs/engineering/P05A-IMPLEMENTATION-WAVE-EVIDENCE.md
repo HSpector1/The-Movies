@@ -492,3 +492,37 @@ legacy READY FOR CASTING card at the frozen route camera, the world-side rehears
 channel is thin (plate + occupied-low light only — the charter advisory confirmed with the
 mechanism named), and the legacy guidance card can advertise a different picture than the stage
 plate beside it.
+
+## W7 — floors + journeys (running record)
+
+**TS floors at `5049705`:** full vitest 353 files / 4857 passed / 5 skipped / 0 failed; `tsc`,
+`ui tsc`, `tsconfig.bridge` clean; `check:bridge-contract` + `:fixtures` PASS; browser build,
+`build:studio`, `audit:studio-packaged` PASS; repo hygiene 1093 files PASS; 3D-asset audit 0 hard
+violations; `npm audit` 0 vulnerabilities.
+
+**Unity floor at `c8e8d8c`:** full EditMode **645/645**.
+
+**4M machine journey (Unity `0ad870c`):** complete, 17/17 — the Owner journey at the semantic
+layer with the generic memo hidden throughout (world entry by exact stage-b selection → entry
+card closed copy → OpenProduction route → decided operation with bounded poll-window retry →
+truthful transition at a new revision → the other picture's row byte-identical → Esc one layer →
+clean reopen).
+
+**4H HID journey (Unity `c83ba3b`):** complete, 15/15 real CGEventPost clicks/keys with modifier
+state recorded clean at every act — same walk on real pixels; the transition read
+"Director call required → Ready to schedule the take" in the workspace's own copy.
+
+**P04 regressions on changed seams (same build):**
+- Sealed casting-journey machine proof (`p04a-run-casting-proof.sh -castingJourneyDirect`):
+  **complete** — the P04 casting walk survives the P05 host/status changes.
+- Sealed P04A.1 owner-input HID proof, seeded (this worktree pair has no Owner profile; the
+  sealed proof world was reconstructed as a scratch one-screenplay checkpoint): the FULL casting
+  walk — Locate, inspector card, five role choices, budgets, PACKAGE READY, Review Greenlight —
+  **passed with the exact wire ids** (`greenlightPackage` carrying precisely the five clicked
+  talent ids and both budgets, read off the recording proxy). One step failed: the rail's LOCATE
+  CASTING zone was absent at FIRST map read on the week-1 synthetic seed; the journey's own
+  designed fallback route (Development card → GO TO CASTING) engaged and completed the walk, and
+  a separate run seeded from the s1 oracle world showed the rail zone present and clickable
+  (`LOCATE CASTING ▸` ok). Recorded as a seed/timing artifact, not a product regression. A bonus
+  regression datum from the two-ready-screenplay seed: the P04A.3 choose-first law fired exactly
+  ("Choose which screenplay to cast." — the card refuses to open until an explicit choice).
