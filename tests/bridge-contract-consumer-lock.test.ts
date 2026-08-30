@@ -40,6 +40,7 @@ import {
   type ContractManifestV1,
   type ContractPairRequest,
 } from '../scripts/bridge-contract-consumer-lock.ts'
+import { runCli } from '../scripts/verify-bridge-contract-consumer.ts'
 
 interface FixtureRepository {
   readonly root: string
@@ -58,6 +59,8 @@ interface PairFixture {
 }
 
 const fixtureRoots: string[] = []
+const executingSourceRoot = realpathSync.native(process.cwd())
+const verifierSourcePaths = new Set<string>(VERIFIER_SOURCE_PATHS)
 
 afterEach(() => {
   while (fixtureRoots.length > 0) {
@@ -184,7 +187,15 @@ function makePair(): PairFixture {
     ...VERIFIER_SOURCE_PATHS,
     ...FIXTURE_SOURCE_PATHS,
   ])
-  for (const path of allSources) write(typescript.root, path, `fixture source ${path}\n`)
+  for (const path of allSources) {
+    write(
+      typescript.root,
+      path,
+      verifierSourcePaths.has(path)
+        ? readFileSync(file(executingSourceRoot, path))
+        : `fixture source ${path}\n`,
+    )
+  }
   const schemaValue = schema()
   write(typescript.root, SCHEMA_PATH, canonicalJson(schemaValue))
   const contractBytes = Buffer.from('// exact generated C#\n', 'utf8')
@@ -302,6 +313,38 @@ describe('CF-09 source bundle and repository identity', () => {
     ['file:///tmp/The-Movies.git', null],
   ])('normalizes only canonical GitHub forms: %s', (remote, expected) => {
     expect(normalizeGithubRepository(remote)).toBe(expected)
+  })
+
+  test('rejects a caller-supplied TypeScript root different from the executing verifier checkout', () => {
+    const pair = makePair()
+    expect(() => runCli([
+      '--verify-only',
+      '--typescript-root', pair.typescript.root,
+      '--typescript-commit', pair.typescript.commit,
+      '--typescript-ref', `refs/heads/${pair.typescript.branch}`,
+      '--unity-root', pair.unity.root,
+      '--unity-commit', pair.unity.commit,
+      '--unity-ref', `refs/heads/${pair.unity.branch}`,
+    ])).toThrow('--typescript-root must be the checkout executing this verifier')
+  })
+
+  test('keeps workflow-dispatch inputs out of every executable shell source in the exact-consumer job', () => {
+    const workflow = readFileSync(
+      file(executingSourceRoot, '.github/workflows/bridge-contract.yml'),
+      'utf8',
+    )
+    const start = workflow.indexOf('  verify-exact-unity-consumer:')
+    expect(start).toBeGreaterThanOrEqual(0)
+    const job = workflow.slice(start)
+    expect(job).toContain('    env:')
+    const steps = job.split('\n      - name: ')
+    const shellSources = steps
+      .filter((step) => step.includes('\n        run:'))
+      .map((step) => step.slice(step.indexOf('\n        run:')))
+    expect(shellSources.length).toBeGreaterThan(0)
+    for (const shellSource of shellSources) {
+      expect(shellSource).not.toMatch(/\$\{\{\s*inputs\./)
+    }
   })
 })
 
@@ -578,21 +621,11 @@ describe('CF-09 post-commit attestation', () => {
     }), 'CF09_ATTESTATION_HASH_MISMATCH')
   })
 
-  test('rejects verifier-source drift', () => {
+  test('rejects an attested verifier bundle that differs from the executing verifier', () => {
     const pair = makePair()
-    const attestation = attest(pair)
-    const path = writeAttestation(pair, attestation)
     appendFileSync(file(pair.typescript.root, 'scripts/verify-bridge-contract-consumer.ts'), '// drift\n')
-    updateCommit(pair, 'typescript', 'later verifier drift')
-    expectCode(() => verifyAttestation({
-      attestationPath: path,
-      typescriptRoot: pair.typescript.root,
-      typescriptRemote: pair.typescript.remoteName,
-      unityRoot: pair.unity.root,
-      unityRemote: pair.unity.remoteName,
-      evidenceRoot: pair.evidenceRoot,
-      runGeneratorCheck: false,
-    }), 'CF09_VERIFIER_SOURCE_MISMATCH')
+    updateCommit(pair, 'typescript', 'attested verifier drift')
+    expectCode(() => attest(pair), 'CF09_VERIFIER_SOURCE_MISMATCH')
   })
 
   test('rejects fixture-corpus source drift named by the attestation', () => {

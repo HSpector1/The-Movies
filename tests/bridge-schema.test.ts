@@ -583,15 +583,33 @@ describe('canonical Unity bridge schema', () => {
     expect(generatedCsharp).toContain(
       '[JsonProperty("remedy", Required = Required.Always)]',
     )
-    // P04A wire-correctness fix: `StudioQuoteSnapshot` flattens the
-    // commissionQuote/castingQuote union into ONE C# class. `noFeeLine` is
-    // `nonEmptyText()` on the commission member but `nullable(text())` on the
-    // casting member — the merge must keep it required-present but loosen it
-    // to nullable (the LOOSEST across members), never pin the first member's
-    // non-null schema, or a legal `greenlightPicture` quote (`noFeeLine: null`)
-    // would throw during Unity-side deserialization.
+    // CF-08: the quote response is a closed discriminated base with concrete
+    // commission/casting members. Member-specific nullability remains on its
+    // member rather than being widened across an aggregate.
+    expect(generatedCsharp).toContain('public abstract partial class StudioQuoteSnapshot')
+    expect(generatedCsharp).toContain(
+      'public sealed partial class StudioCommissionQuoteSnapshot : StudioQuoteSnapshot',
+    )
+    expect(generatedCsharp).toContain(
+      'public sealed partial class StudioCastingQuoteSnapshot : StudioQuoteSnapshot',
+    )
+    expect(generatedCsharp).toContain('public sealed class StudioQuoteSnapshotJsonConverter')
     expect(generatedCsharp).toContain(
       '[JsonProperty("noFeeLine", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]',
+    )
+    expect(generatedCsharp).toContain(
+      '[JsonProperty("noFeeLine", Required = Required.Always)]',
+    )
+    expect(generatedCsharp).toContain(
+      'public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest',
+    )
+    expect(generatedCsharp).toContain('public StudioCastingDraftPayload draft;')
+    expect(generatedCsharp).toContain(
+      'public sealed partial class StudioQuoteCommissionRequest : StudioBridgeQuoteRequest',
+    )
+    expect(generatedCsharp).toContain('public StudioCommissionDraftPayload draft;')
+    expect(generatedCsharp).toContain(
+      'public sealed partial class StudioAssignShootingDirectorCommand : StudioProductionCommandSnapshot',
     )
   })
 

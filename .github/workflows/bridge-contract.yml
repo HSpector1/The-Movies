@@ -3,6 +3,24 @@ name: TypeScript validation
 on:
   pull_request:
   push:
+  workflow_dispatch:
+    inputs:
+      typescript_commit:
+        description: Exact 40-character TypeScript contract commit
+        required: true
+        type: string
+      typescript_ref:
+        description: Exact TypeScript ref resolving to that commit
+        required: true
+        type: string
+      unity_commit:
+        description: Exact 40-character Unity consumer commit
+        required: true
+        type: string
+      unity_ref:
+        description: Exact Unity ref resolving to that commit
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -41,6 +59,11 @@ jobs:
         run: npm run audit:repo-hygiene
       - name: Verify generated bridge contract
         run: npm run check:bridge-contract
+      - name: Test contract generator and consumer lock
+        run: >-
+          npx vitest run
+          tests/bridge-contract-generator.test.ts
+          tests/bridge-contract-consumer-lock.test.ts
       - name: Typecheck bridge
         run: npm run typecheck:bridge
       - name: Typecheck application
@@ -53,3 +76,66 @@ jobs:
         run: npm run build
       - name: Audit adopted 3D assets
         run: npm run audit:3d-assets
+
+  verify-exact-unity-consumer:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      P05A_TS_COMMIT: ${{ inputs.typescript_commit }}
+      P05A_TS_REF: ${{ inputs.typescript_ref }}
+      P05A_UNITY_COMMIT: ${{ inputs.unity_commit }}
+      P05A_UNITY_REF: ${{ inputs.unity_ref }}
+    steps:
+      - name: Check out exact TypeScript commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          path: typescript
+          persist-credentials: false
+          ref: ${{ inputs.typescript_commit }}
+          fetch-depth: 0
+      - name: Check out exact Unity commit
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: HSpector1/project-studio-unity-visual-spike
+          path: unity
+          persist-credentials: false
+          ref: ${{ inputs.unity_commit }}
+          fetch-depth: 0
+      - name: Materialize the asserted immutable refs
+        shell: bash
+        run: |
+          [[ "$P05A_TS_COMMIT" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$P05A_UNITY_COMMIT" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$P05A_TS_REF" == refs/heads/* ]]
+          [[ "$P05A_UNITY_REF" == refs/heads/* ]]
+          git check-ref-format "$P05A_TS_REF"
+          git check-ref-format "$P05A_UNITY_REF"
+          git -C typescript fetch origin "$P05A_TS_REF"
+          test "$(git -C typescript rev-parse FETCH_HEAD)" = "$P05A_TS_COMMIT"
+          git -C typescript switch -C "${P05A_TS_REF#refs/heads/}" "$P05A_TS_COMMIT"
+          git -C unity fetch origin "$P05A_UNITY_REF"
+          test "$(git -C unity rev-parse FETCH_HEAD)" = "$P05A_UNITY_COMMIT"
+          git -C unity switch -C "${P05A_UNITY_REF#refs/heads/}" "$P05A_UNITY_COMMIT"
+      - name: Configure Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: typescript/package-lock.json
+      - name: Install locked verifier dependencies
+        working-directory: typescript
+        run: npm ci
+      - name: Verify committed blobs in the actual Unity consumer
+        working-directory: typescript
+        run: >-
+          npm run verify:bridge-contract-consumer --
+          --verify-only
+          --typescript-root "${{ github.workspace }}/typescript"
+          --typescript-commit "$P05A_TS_COMMIT"
+          --typescript-ref "$P05A_TS_REF"
+          --typescript-remote origin
+          --unity-root "${{ github.workspace }}/unity"
+          --unity-commit "$P05A_UNITY_COMMIT"
+          --unity-ref "$P05A_UNITY_REF"
+          --unity-remote origin

@@ -5,8 +5,10 @@
 
 using System;
 using System.Globalization;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 
 namespace Studio.Runtime.Data
 {
@@ -122,7 +124,7 @@ namespace Studio.Runtime.Data
                 Culture = CultureInfo.InvariantCulture,
                 CheckAdditionalContent = true,
                 MaxDepth = 128,
-                Converters = { new StringEnumConverter() },
+                Converters = { new StringEnumConverter(), new StudioBridgeQuoteRequestJsonConverter(), new StudioProductionCommandSnapshotJsonConverter(), new StudioQuoteSnapshotJsonConverter() },
             };
 
         public static void RequireCompatible(int protocolVersion, string schemaId, int projectionVersion)
@@ -716,6 +718,8 @@ namespace Studio.Runtime.Data
     {
         public const string CommissionScreenplay = "commissionScreenplay";
         public const string CommissionOriginalScreenplay = "commissionOriginalScreenplay";
+        public const string StartAuditions = "startAuditions";
+        public const string GreenlightPicture = "greenlightPicture";
     }
 
     public static class StudioReleasedFilmSnapshotReceptionValues
@@ -813,19 +817,39 @@ namespace Studio.Runtime.Data
 
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public sealed partial class StudioAssignShootingDirectorCommand
+    public sealed partial class StudioAssignShootingDirectorCommand : StudioProductionCommandSnapshot
     {
         [JsonProperty("directorId", Required = Required.Always)]
         public string directorId;
 
+        private const string ExpectedKind = "assignShootingDirector";
+        private string kindValue = ExpectedKind;
+
         [JsonProperty("kind", Required = Required.Always)]
-        public string kind;
+        public string kind
+        {
+            get => kindValue;
+            private set
+            {
+                if (!String.Equals(value, ExpectedKind, StringComparison.Ordinal))
+                    throw new JsonSerializationException("C# union StudioProductionCommandSnapshot member StudioAssignShootingDirectorCommand requires discriminator kind=assignShootingDirector.");
+                kindValue = value;
+            }
+        }
 
-        [JsonProperty("label", Required = Required.Always)]
-        public string label;
+        [OnDeserialized]
+        private void ValidateUnionMemberAfterDeserialization(StreamingContext context) =>
+            ValidateUnionMember();
 
-        [JsonProperty("productionId", Required = Required.Always)]
-        public string productionId;
+        [OnSerializing]
+        private void ValidateUnionMemberBeforeSerialization(StreamingContext context) =>
+            ValidateUnionMember();
+
+        private void ValidateUnionMember()
+        {
+            if (!(String.Equals(kindValue, "assignShootingDirector", StringComparison.Ordinal)))
+                throw new JsonSerializationException("C# union StudioProductionCommandSnapshot member StudioAssignShootingDirectorCommand requires discriminator kind=assignShootingDirector.");
+        }
     }
 
     [Serializable]
@@ -1017,13 +1041,10 @@ namespace Studio.Runtime.Data
 
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public sealed partial class StudioBridgeQuoteRequest
+    public abstract partial class StudioBridgeQuoteRequest
     {
         [JsonProperty("commandId", Required = Required.Always)]
         public string commandId;
-
-        [JsonProperty("draft", Required = Required.Always)]
-        public StudioCommissionDraftPayload draft;
 
         [JsonProperty("expectedStateRevision", Required = Required.Always)]
         public int expectedStateRevision;
@@ -1036,9 +1057,6 @@ namespace Studio.Runtime.Data
 
         [JsonProperty("sessionId", Required = Required.Always)]
         public string sessionId;
-
-        [JsonProperty("type", Required = Required.Always)]
-        public string type;
     }
 
     [Serializable]
@@ -1563,7 +1581,7 @@ namespace Studio.Runtime.Data
 
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public sealed partial class StudioCastingQuoteSnapshot
+    public sealed partial class StudioCastingQuoteSnapshot : StudioQuoteSnapshot
     {
         [JsonProperty("affordable", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public bool? affordable;
@@ -1574,20 +1592,27 @@ namespace Studio.Runtime.Data
         [JsonProperty("cashBefore", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public int? cashBefore;
 
-        [JsonProperty("commitLabel", Required = Required.Always)]
-        public string commitLabel;
-
         [JsonProperty("forecastLine", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public string forecastLine;
 
         [JsonProperty("freelancerFees", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public int? freelancerFees;
 
-        [JsonProperty("intentId", Required = Required.Always)]
-        public string intentId;
+        private string kindValue;
 
         [JsonProperty("kind", Required = Required.Always)]
-        public string kind;
+        public string kind
+        {
+            get => kindValue;
+            set
+            {
+                if (!(String.Equals(value, "startAuditions", StringComparison.Ordinal) ||
+                    String.Equals(value, "greenlightPicture", StringComparison.Ordinal)))
+                    throw new JsonSerializationException(
+                        $"C# union StudioQuoteSnapshot member StudioCastingQuoteSnapshot requires discriminator \"kind\" in [startAuditions, greenlightPicture]; received \"{value ?? "<null>"}\".");
+                kindValue = value;
+            }
+        }
 
         [JsonProperty("marketing", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public int? marketing;
@@ -1604,20 +1629,11 @@ namespace Studio.Runtime.Data
         [JsonProperty("projectId", Required = Required.Always)]
         public string projectId;
 
-        [JsonProperty("queueNote", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
-        public string queueNote;
-
-        [JsonProperty("queues", Required = Required.Always)]
-        public bool queues;
-
         [JsonProperty("setDemandLine", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public string setDemandLine;
 
         [JsonProperty("slotLine", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public string slotLine;
-
-        [JsonProperty("startsNow", Required = Required.Always)]
-        public bool startsNow;
 
         [JsonProperty("strongestAssignmentLine", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public string strongestAssignmentLine;
@@ -1636,6 +1652,21 @@ namespace Studio.Runtime.Data
 
         [JsonProperty("weekLine", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public string weekLine;
+
+        [OnDeserialized]
+        private void ValidateUnionMemberAfterDeserialization(StreamingContext context) =>
+            ValidateUnionMember();
+
+        [OnSerializing]
+        private void ValidateUnionMemberBeforeSerialization(StreamingContext context) =>
+            ValidateUnionMember();
+
+        private void ValidateUnionMember()
+        {
+            if (!(String.Equals(kindValue, "startAuditions", StringComparison.Ordinal) ||
+                String.Equals(kindValue, "greenlightPicture", StringComparison.Ordinal)))
+                throw new JsonSerializationException("C# union StudioQuoteSnapshot member StudioCastingQuoteSnapshot requires discriminator \"kind\" in [startAuditions, greenlightPicture].");
+        }
     }
 
     [Serializable]
@@ -1701,16 +1732,36 @@ namespace Studio.Runtime.Data
 
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public sealed partial class StudioClearSceneryLoadInCommand
+    public sealed partial class StudioClearSceneryLoadInCommand : StudioProductionCommandSnapshot
     {
+        private const string ExpectedKind = "clearSceneryLoadIn";
+        private string kindValue = ExpectedKind;
+
         [JsonProperty("kind", Required = Required.Always)]
-        public string kind;
+        public string kind
+        {
+            get => kindValue;
+            private set
+            {
+                if (!String.Equals(value, ExpectedKind, StringComparison.Ordinal))
+                    throw new JsonSerializationException("C# union StudioProductionCommandSnapshot member StudioClearSceneryLoadInCommand requires discriminator kind=clearSceneryLoadIn.");
+                kindValue = value;
+            }
+        }
 
-        [JsonProperty("label", Required = Required.Always)]
-        public string label;
+        [OnDeserialized]
+        private void ValidateUnionMemberAfterDeserialization(StreamingContext context) =>
+            ValidateUnionMember();
 
-        [JsonProperty("productionId", Required = Required.Always)]
-        public string productionId;
+        [OnSerializing]
+        private void ValidateUnionMemberBeforeSerialization(StreamingContext context) =>
+            ValidateUnionMember();
+
+        private void ValidateUnionMember()
+        {
+            if (!(String.Equals(kindValue, "clearSceneryLoadIn", StringComparison.Ordinal)))
+                throw new JsonSerializationException("C# union StudioProductionCommandSnapshot member StudioClearSceneryLoadInCommand requires discriminator kind=clearSceneryLoadIn.");
+        }
     }
 
     [Serializable]
@@ -1887,22 +1938,29 @@ namespace Studio.Runtime.Data
 
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public sealed partial class StudioCommissionQuoteSnapshot
+    public sealed partial class StudioCommissionQuoteSnapshot : StudioQuoteSnapshot
     {
-        [JsonProperty("commitLabel", Required = Required.Always)]
-        public string commitLabel;
-
         [JsonProperty("consequence", Required = Required.Always)]
         public string consequence;
 
         [JsonProperty("draftWeeks", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public int? draftWeeks;
 
-        [JsonProperty("intentId", Required = Required.Always)]
-        public string intentId;
+        private string kindValue;
 
         [JsonProperty("kind", Required = Required.Always)]
-        public string kind;
+        public string kind
+        {
+            get => kindValue;
+            set
+            {
+                if (!(String.Equals(value, "commissionScreenplay", StringComparison.Ordinal) ||
+                    String.Equals(value, "commissionOriginalScreenplay", StringComparison.Ordinal)))
+                    throw new JsonSerializationException(
+                        $"C# union StudioQuoteSnapshot member StudioCommissionQuoteSnapshot requires discriminator \"kind\" in [commissionScreenplay, commissionOriginalScreenplay]; received \"{value ?? "<null>"}\".");
+                kindValue = value;
+            }
+        }
 
         [JsonProperty("noFeeLine", Required = Required.Always)]
         public string noFeeLine;
@@ -1913,26 +1971,32 @@ namespace Studio.Runtime.Data
         [JsonProperty("paceNote", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public string paceNote;
 
-        [JsonProperty("queueNote", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
-        public string queueNote;
-
-        [JsonProperty("queues", Required = Required.Always)]
-        public bool queues;
-
         [JsonProperty("reviewWeek", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public int? reviewWeek;
 
         [JsonProperty("richnessNote", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public string richnessNote;
 
-        [JsonProperty("startsNow", Required = Required.Always)]
-        public bool startsNow;
-
         [JsonProperty("title", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public string title;
 
         [JsonProperty("writerName", Required = Required.Always)]
         public string writerName;
+
+        [OnDeserialized]
+        private void ValidateUnionMemberAfterDeserialization(StreamingContext context) =>
+            ValidateUnionMember();
+
+        [OnSerializing]
+        private void ValidateUnionMemberBeforeSerialization(StreamingContext context) =>
+            ValidateUnionMember();
+
+        private void ValidateUnionMember()
+        {
+            if (!(String.Equals(kindValue, "commissionScreenplay", StringComparison.Ordinal) ||
+                String.Equals(kindValue, "commissionOriginalScreenplay", StringComparison.Ordinal)))
+                throw new JsonSerializationException("C# union StudioQuoteSnapshot member StudioCommissionQuoteSnapshot requires discriminator \"kind\" in [commissionScreenplay, commissionOriginalScreenplay].");
+        }
     }
 
     [Serializable]
@@ -2806,14 +2870,8 @@ namespace Studio.Runtime.Data
 
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public sealed partial class StudioProductionCommandSnapshot
+    public abstract partial class StudioProductionCommandSnapshot
     {
-        [JsonProperty("directorId", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string directorId;
-
-        [JsonProperty("kind", Required = Required.Always)]
-        public string kind;
-
         [JsonProperty("label", Required = Required.Always)]
         public string label;
 
@@ -3025,110 +3083,87 @@ namespace Studio.Runtime.Data
 
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public sealed partial class StudioQuoteCastingRequest
+    public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest
     {
-        [JsonProperty("commandId", Required = Required.Always)]
-        public string commandId;
-
         [JsonProperty("draft", Required = Required.Always)]
         public StudioCastingDraftPayload draft;
 
-        [JsonProperty("expectedStateRevision", Required = Required.Always)]
-        public int expectedStateRevision;
-
-        [JsonProperty("protocolVersion", Required = Required.Always)]
-        public int protocolVersion;
-
-        [JsonProperty("schemaId", Required = Required.Always)]
-        public string schemaId;
-
-        [JsonProperty("sessionId", Required = Required.Always)]
-        public string sessionId;
+        private const string ExpectedType = "quoteCasting";
+        private string typeValue = ExpectedType;
 
         [JsonProperty("type", Required = Required.Always)]
-        public string type;
+        public string type
+        {
+            get => typeValue;
+            private set
+            {
+                if (!String.Equals(value, ExpectedType, StringComparison.Ordinal))
+                    throw new JsonSerializationException("C# union StudioBridgeQuoteRequest member StudioQuoteCastingRequest requires discriminator type=quoteCasting.");
+                typeValue = value;
+            }
+        }
+
+        [OnDeserialized]
+        private void ValidateUnionMemberAfterDeserialization(StreamingContext context) =>
+            ValidateUnionMember();
+
+        [OnSerializing]
+        private void ValidateUnionMemberBeforeSerialization(StreamingContext context) =>
+            ValidateUnionMember();
+
+        private void ValidateUnionMember()
+        {
+            if (!(String.Equals(typeValue, "quoteCasting", StringComparison.Ordinal)))
+                throw new JsonSerializationException("C# union StudioBridgeQuoteRequest member StudioQuoteCastingRequest requires discriminator type=quoteCasting.");
+        }
     }
 
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public sealed partial class StudioQuoteCommissionRequest
+    public sealed partial class StudioQuoteCommissionRequest : StudioBridgeQuoteRequest
     {
-        [JsonProperty("commandId", Required = Required.Always)]
-        public string commandId;
-
         [JsonProperty("draft", Required = Required.Always)]
         public StudioCommissionDraftPayload draft;
 
-        [JsonProperty("expectedStateRevision", Required = Required.Always)]
-        public int expectedStateRevision;
-
-        [JsonProperty("protocolVersion", Required = Required.Always)]
-        public int protocolVersion;
-
-        [JsonProperty("schemaId", Required = Required.Always)]
-        public string schemaId;
-
-        [JsonProperty("sessionId", Required = Required.Always)]
-        public string sessionId;
+        private const string ExpectedType = "quoteCommission";
+        private string typeValue = ExpectedType;
 
         [JsonProperty("type", Required = Required.Always)]
-        public string type;
+        public string type
+        {
+            get => typeValue;
+            private set
+            {
+                if (!String.Equals(value, ExpectedType, StringComparison.Ordinal))
+                    throw new JsonSerializationException("C# union StudioBridgeQuoteRequest member StudioQuoteCommissionRequest requires discriminator type=quoteCommission.");
+                typeValue = value;
+            }
+        }
+
+        [OnDeserialized]
+        private void ValidateUnionMemberAfterDeserialization(StreamingContext context) =>
+            ValidateUnionMember();
+
+        [OnSerializing]
+        private void ValidateUnionMemberBeforeSerialization(StreamingContext context) =>
+            ValidateUnionMember();
+
+        private void ValidateUnionMember()
+        {
+            if (!(String.Equals(typeValue, "quoteCommission", StringComparison.Ordinal)))
+                throw new JsonSerializationException("C# union StudioBridgeQuoteRequest member StudioQuoteCommissionRequest requires discriminator type=quoteCommission.");
+        }
     }
 
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public sealed partial class StudioQuoteSnapshot
+    public abstract partial class StudioQuoteSnapshot
     {
-        [JsonProperty("affordable", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public bool? affordable;
-
-        [JsonProperty("cashAfter", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public int? cashAfter;
-
-        [JsonProperty("cashBefore", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public int? cashBefore;
-
         [JsonProperty("commitLabel", Required = Required.Always)]
         public string commitLabel;
 
-        [JsonProperty("consequence", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string consequence;
-
-        [JsonProperty("draftWeeks", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public int? draftWeeks;
-
-        [JsonProperty("forecastLine", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public string forecastLine;
-
-        [JsonProperty("freelancerFees", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public int? freelancerFees;
-
         [JsonProperty("intentId", Required = Required.Always)]
         public string intentId;
-
-        [JsonProperty("kind", Required = Required.Always)]
-        public string kind;
-
-        [JsonProperty("marketing", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public int? marketing;
-
-        [JsonProperty("negative", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public int? negative;
-
-        [JsonProperty("noFeeLine", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
-        public string noFeeLine;
-
-        [JsonProperty("noHoldLine", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public string noHoldLine;
-
-        [JsonProperty("officeUpliftLine", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public string officeUpliftLine;
-
-        [JsonProperty("paceNote", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public string paceNote;
-
-        [JsonProperty("projectId", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string projectId;
 
         [JsonProperty("queueNote", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public string queueNote;
@@ -3136,41 +3171,8 @@ namespace Studio.Runtime.Data
         [JsonProperty("queues", Required = Required.Always)]
         public bool queues;
 
-        [JsonProperty("reviewWeek", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public int? reviewWeek;
-
-        [JsonProperty("richnessNote", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public string richnessNote;
-
-        [JsonProperty("setDemandLine", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public string setDemandLine;
-
-        [JsonProperty("slotLine", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public string slotLine;
-
         [JsonProperty("startsNow", Required = Required.Always)]
         public bool startsNow;
-
-        [JsonProperty("strongestAssignmentLine", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public string strongestAssignmentLine;
-
-        [JsonProperty("title", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
-        public string title;
-
-        [JsonProperty("totalImmediate", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public int? totalImmediate;
-
-        [JsonProperty("uniquePeople", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public int? uniquePeople;
-
-        [JsonProperty("weakestAssignmentLine", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public string weakestAssignmentLine;
-
-        [JsonProperty("weekLine", Required = Required.Default, NullValueHandling = NullValueHandling.Ignore)]
-        public string weekLine;
-
-        [JsonProperty("writerName", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public string writerName;
     }
 
     [Serializable]
@@ -3247,16 +3249,36 @@ namespace Studio.Runtime.Data
 
     [Serializable]
     [JsonObject(MemberSerialization.OptIn)]
-    public sealed partial class StudioScheduleShootingTakeCommand
+    public sealed partial class StudioScheduleShootingTakeCommand : StudioProductionCommandSnapshot
     {
+        private const string ExpectedKind = "scheduleShootingTake";
+        private string kindValue = ExpectedKind;
+
         [JsonProperty("kind", Required = Required.Always)]
-        public string kind;
+        public string kind
+        {
+            get => kindValue;
+            private set
+            {
+                if (!String.Equals(value, ExpectedKind, StringComparison.Ordinal))
+                    throw new JsonSerializationException("C# union StudioProductionCommandSnapshot member StudioScheduleShootingTakeCommand requires discriminator kind=scheduleShootingTake.");
+                kindValue = value;
+            }
+        }
 
-        [JsonProperty("label", Required = Required.Always)]
-        public string label;
+        [OnDeserialized]
+        private void ValidateUnionMemberAfterDeserialization(StreamingContext context) =>
+            ValidateUnionMember();
 
-        [JsonProperty("productionId", Required = Required.Always)]
-        public string productionId;
+        [OnSerializing]
+        private void ValidateUnionMemberBeforeSerialization(StreamingContext context) =>
+            ValidateUnionMember();
+
+        private void ValidateUnionMember()
+        {
+            if (!(String.Equals(kindValue, "scheduleShootingTake", StringComparison.Ordinal)))
+                throw new JsonSerializationException("C# union StudioProductionCommandSnapshot member StudioScheduleShootingTakeCommand requires discriminator kind=scheduleShootingTake.");
+        }
     }
 
     [Serializable]
@@ -3537,6 +3559,144 @@ namespace Studio.Runtime.Data
 
         [JsonProperty("weeksRemaining", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public int? weeksRemaining;
+    }
+
+    public sealed class StudioBridgeQuoteRequestJsonConverter : JsonConverter
+    {
+        public override bool CanConvert(Type objectType) => objectType == typeof(StudioBridgeQuoteRequest);
+
+        public override bool CanWrite => false;
+
+        public override object ReadJson(
+            JsonReader reader,
+            Type objectType,
+            object existingValue,
+            JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            JObject value;
+            try
+            {
+                value = JObject.Load(reader, new JsonLoadSettings
+                {
+                    DuplicatePropertyNameHandling = DuplicatePropertyNameHandling.Error,
+                });
+            }
+            catch (JsonReaderException exception)
+            {
+                throw new JsonSerializationException("C# union StudioBridgeQuoteRequest contains duplicate discriminator \"type\".", exception);
+            }
+            var discriminator = value["type"];
+            if (discriminator == null || discriminator.Type != JTokenType.String)
+                throw new JsonSerializationException("C# union StudioBridgeQuoteRequest requires string discriminator \"type\".");
+            switch (discriminator.Value<string>())
+            {
+                case "quoteCommission":
+                    return value.ToObject<StudioQuoteCommissionRequest>(serializer);
+                case "quoteCasting":
+                    return value.ToObject<StudioQuoteCastingRequest>(serializer);
+                default:
+                    throw new JsonSerializationException(
+                        $"C# union StudioBridgeQuoteRequest has unknown discriminator \"{discriminator.Value<string>() ?? "<null>"}\"; expected [quoteCommission, quoteCasting].");
+            }
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) =>
+            throw new NotSupportedException();
+    }
+
+    public sealed class StudioProductionCommandSnapshotJsonConverter : JsonConverter
+    {
+        public override bool CanConvert(Type objectType) => objectType == typeof(StudioProductionCommandSnapshot);
+
+        public override bool CanWrite => false;
+
+        public override object ReadJson(
+            JsonReader reader,
+            Type objectType,
+            object existingValue,
+            JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            JObject value;
+            try
+            {
+                value = JObject.Load(reader, new JsonLoadSettings
+                {
+                    DuplicatePropertyNameHandling = DuplicatePropertyNameHandling.Error,
+                });
+            }
+            catch (JsonReaderException exception)
+            {
+                throw new JsonSerializationException("C# union StudioProductionCommandSnapshot contains duplicate discriminator \"kind\".", exception);
+            }
+            var discriminator = value["kind"];
+            if (discriminator == null || discriminator.Type != JTokenType.String)
+                throw new JsonSerializationException("C# union StudioProductionCommandSnapshot requires string discriminator \"kind\".");
+            switch (discriminator.Value<string>())
+            {
+                case "assignShootingDirector":
+                    return value.ToObject<StudioAssignShootingDirectorCommand>(serializer);
+                case "clearSceneryLoadIn":
+                    return value.ToObject<StudioClearSceneryLoadInCommand>(serializer);
+                case "scheduleShootingTake":
+                    return value.ToObject<StudioScheduleShootingTakeCommand>(serializer);
+                default:
+                    throw new JsonSerializationException(
+                        $"C# union StudioProductionCommandSnapshot has unknown discriminator \"{discriminator.Value<string>() ?? "<null>"}\"; expected [assignShootingDirector, clearSceneryLoadIn, scheduleShootingTake].");
+            }
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) =>
+            throw new NotSupportedException();
+    }
+
+    public sealed class StudioQuoteSnapshotJsonConverter : JsonConverter
+    {
+        public override bool CanConvert(Type objectType) => objectType == typeof(StudioQuoteSnapshot);
+
+        public override bool CanWrite => false;
+
+        public override object ReadJson(
+            JsonReader reader,
+            Type objectType,
+            object existingValue,
+            JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            JObject value;
+            try
+            {
+                value = JObject.Load(reader, new JsonLoadSettings
+                {
+                    DuplicatePropertyNameHandling = DuplicatePropertyNameHandling.Error,
+                });
+            }
+            catch (JsonReaderException exception)
+            {
+                throw new JsonSerializationException("C# union StudioQuoteSnapshot contains duplicate discriminator \"kind\".", exception);
+            }
+            var discriminator = value["kind"];
+            if (discriminator == null || discriminator.Type != JTokenType.String)
+                throw new JsonSerializationException("C# union StudioQuoteSnapshot requires string discriminator \"kind\".");
+            switch (discriminator.Value<string>())
+            {
+                case "commissionScreenplay":
+                    return value.ToObject<StudioCommissionQuoteSnapshot>(serializer);
+                case "commissionOriginalScreenplay":
+                    return value.ToObject<StudioCommissionQuoteSnapshot>(serializer);
+                case "startAuditions":
+                    return value.ToObject<StudioCastingQuoteSnapshot>(serializer);
+                case "greenlightPicture":
+                    return value.ToObject<StudioCastingQuoteSnapshot>(serializer);
+                default:
+                    throw new JsonSerializationException(
+                        $"C# union StudioQuoteSnapshot has unknown discriminator \"{discriminator.Value<string>() ?? "<null>"}\"; expected [commissionScreenplay, commissionOriginalScreenplay, startAuditions, greenlightPicture].");
+            }
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) =>
+            throw new NotSupportedException();
     }
 
 }

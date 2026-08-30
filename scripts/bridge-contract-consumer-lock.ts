@@ -13,6 +13,7 @@ import {
 import { createHash } from 'node:crypto'
 import { isAbsolute, join, relative, resolve, sep } from 'node:path'
 import { tmpdir } from 'node:os'
+import { fileURLToPath } from 'node:url'
 
 export const TYPESCRIPT_REPOSITORY = 'HSpector1/The-Movies'
 export const UNITY_REPOSITORY = 'HSpector1/project-studio-unity-visual-spike'
@@ -30,7 +31,10 @@ export const ATTESTATION_VERSION = 1
 export const FIXTURE_CORPUS_VERSION = 1
 export const CURRENT_ACCEPTED_SAVE_VERSION = 15
 
+const EXECUTING_TYPESCRIPT_ROOT = realpathSync.native(resolve(fileURLToPath(import.meta.url), '../..'))
+
 export const GENERATOR_SOURCE_PATHS = [
+  'bridge/schema/bridge-schema.ts',
   'bridge/schema/canonical.ts',
   'bridge/schema/dsl.ts',
   'package-lock.json',
@@ -1607,7 +1611,7 @@ export function createAttestation(
     'CF09_VERIFIER_SOURCE_MISMATCH',
   )
   const executingVerifier = workingSourceBundle(
-    canonicalRoot(request.typescriptRoot, 'typescript'), VERIFIER_SOURCE_PATHS, 'CF09_VERIFIER_SOURCE_MISMATCH',
+    EXECUTING_TYPESCRIPT_ROOT, VERIFIER_SOURCE_PATHS, 'CF09_VERIFIER_SOURCE_MISMATCH',
   )
   compare('CF09_VERIFIER_SOURCE_MISMATCH', 'source-validation', 'verifier', verifierAtCommit,
     executingVerifier, 'Run the exact verifier source committed in the attested TypeScript commit.')
@@ -1799,7 +1803,7 @@ export function verifyAttestation(request: {
     tsContext, VERIFIER_SOURCE_PATHS, 'CF09_VERIFIER_SOURCE_MISMATCH',
   )
   const executingVerifier = workingSourceBundle(
-    tsContext.root, VERIFIER_SOURCE_PATHS, 'CF09_VERIFIER_SOURCE_MISMATCH',
+    EXECUTING_TYPESCRIPT_ROOT, VERIFIER_SOURCE_PATHS, 'CF09_VERIFIER_SOURCE_MISMATCH',
   )
   compare('CF09_VERIFIER_SOURCE_MISMATCH', 'source-validation', 'verifier', verifierAtCommit,
     attestation.verifierSourceSha256,

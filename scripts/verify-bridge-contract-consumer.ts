@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { resolve } from 'node:path'
+import { realpathSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
 import {
@@ -182,6 +183,13 @@ function pairRequest(options: CliOptions): ContractPairRequest {
 
 export function runCli(argv: readonly string[]): unknown {
   const options = parseCliOptions(argv)
+  const executingTypescriptRoot = realpathSync.native(resolve(fileURLToPath(import.meta.url), '../..'))
+  const requestedTypescriptRoot = realpathSync.native(options.typescriptRoot)
+  if (executingTypescriptRoot !== requestedTypescriptRoot) {
+    throw new Error(
+      `--typescript-root must be the checkout executing this verifier: expected ${executingTypescriptRoot}, received ${requestedTypescriptRoot}`,
+    )
+  }
   if (options.operation === 'verify-attestation') {
     return verifyAttestation({
       attestationPath: options.attestationPath!,
