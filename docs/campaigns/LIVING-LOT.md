@@ -3384,3 +3384,70 @@ The reviewer also confirmed, against the producer rather than the comment, that
 core's dropped `canSubmitGreenlightIntent`), that no test was weakened across ten
 changed files, that the geometry publisher is inert without the element map, and
 that no evidence directory contains a raw bearer capability.
+
+### OWNER ACCEPTANCE — 2026-08-30 09:08Z (11:08 CEST)
+
+**Owner verdict: ACCEPTED — KEEP. P04 IS CLOSED.**
+
+This is the **first final Owner acceptance in the P04 arc**. It does not
+retroactively accept anything before it. **Four** prior checkpoints — P04A, P04A
+REOPEN, P04A.1 and P04A.2 — each reached a technical KEEP: machine-green,
+hostile-reviewed to ACCEPT, sealed and pushed, each reported as a KEEP candidate
+with "Owner acceptance still pending". Each was then **rejected by the Owner's
+own playtest**, which found defects the automated floor did not. That history
+above stands as written and is not revised by this acceptance.
+
+**Accepted authority pair (full, 40-character):**
+
+| | |
+|---|---|
+| TypeScript `campaign/living-lot-ts` | `71521efed5dd113a3911c85410d0729eab13918f` |
+| Unity `campaign/living-lot-client` | `5076af43fcd6a279f26e15a46a8389689b69db74` |
+| Player executable | `abfd667044854c746d2f9381760325783805335bd641ae2cee4c94ddb5d20260` |
+| Assembly-CSharp | `a282a3e4ea64b6a7ed0d973a541b87b46b8bdad9523375696f338454fb69c7f0` |
+| Engine bundle | `e485a54a17054ae6f146039195fd4fab82b80f471f72cd57c3b291c3caf3c069` |
+| schema / protocol / projection | `sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e` / 4 / 11 |
+
+Local equals remote on both campaign branches; both tracked worktrees clean; no
+pending P04 implementation changes; the build manifest records exactly this pair
+with `dirty: false` on both repositories, so the accepted commits and the tested
+bytes are the same artefact.
+
+**The real-player route the Owner ran, and what passed:**
+
+* the physical Casting Office **independently** led into Casting;
+* multiple ready screenplays were reachable **without using the Production Rail
+  first**;
+* cast assignments were clear;
+* missing budgets were explicitly identified;
+* Review Greenlight became available when the package was complete;
+* Greenlight successfully dispatched;
+* the credited Writer remained separate from Production staffing and could
+  continue Development work;
+* Save, Load, Esc, Quit and relaunch worked.
+
+**P04 closed. P05 not started.** No further P04 product changes; P04 research is
+not reopened.
+
+**Next authorized checkpoint: `P05A-STATIC-CONTRACT-GATE-01` — CF-08 and CF-09
+ONLY.** Both are filed *P2 / High, classification "B. FIX BEFORE P05 STARTS"* in
+`docs/engineering/CODEX-CURRENT-FORWARD-CODEBASE-STATIC-AUDIT-01.md` (on branch
+`codex/current-forward-codebase-static-audit-01`, which is not checked out in any
+worktree — that is why a search of the checked-out trees finds nothing):
+
+* **CF-08** — union-to-C# generation silently takes the first object member, so a
+  valid new union member can pass TypeScript schema checks while silently
+  disappearing or receiving the wrong C# type. A protocol-evolution trap.
+* **CF-09** — the default contract verification compares the TypeScript schema
+  against the copy *inside the TypeScript repository*; the actual Unity consumer
+  is checked only when an optional path is supplied. CI can be green while the
+  separately consumed Unity DTO is stale. A proof-gap finding, not current drift —
+  all three copies were identical when audited.
+
+Both findings explicitly say to land after the P04 seal and before P05 adds
+contract surface, which is exactly this moment. P04A.3 introduced **no** schema
+or projection change (still protocol 4 / projection 11), so neither finding was
+disturbed by it.
+
+The durable engineering record for this arc is
+`docs/engineering/P04-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md`.
