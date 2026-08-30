@@ -297,3 +297,15 @@ read it (it still answers the PHASE's home building, which recon §6.1 forbids a
 Non-blocking review note recorded: `resolveAvailableIntents` speculatively executes
 `runProductionCommand` once per deciding production per call — accepted for W2 (bounded by
 the deciding-card count); candidate for a future fold if profiling warrants.
+
+**FINAL DISPOSITION (same reviewer): ACCEPT** at TS `91e90af` / Unity `f450123`. The reviewer
+independently re-ran all eight mutations in an isolated copy (8/8 KILLED, each killing exactly one
+test), re-verified the byte-exact regeneration and both stale pins, re-ran the full floors (353
+files / 4857 passed / 0 failed; all typechecks; both contract checks), and confirmed the
+engine-invariant unreachability claims by driving each contradictory state through the full
+pipeline. Carry-forward advisories recorded for later waves: (1) if a future wave relaxes the
+operations/placement invariants, the liveStageOf/facilityBuildingIdOf unit proofs stop covering the
+end-to-end path — the wave touching those invariants owes the walk; (2) F8 remains documentation,
+not enforcement — a grep gate or removal of `locationBuildingId` would be stronger (W3+ concern);
+(3) `projection-v12-stale-urn` in the prior-identity map never shipped outside the WIP branch —
+labelled so a reader does not mistake it for a released projection.
