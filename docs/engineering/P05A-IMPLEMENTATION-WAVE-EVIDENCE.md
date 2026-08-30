@@ -370,3 +370,37 @@ peel; draft-free close; board-empty keeps the all-active workspace open honestly
 including single-flight dispatch and honest removal, 2 source laws). The remaining W5 charter
 proofs (Esc order end-to-end, Save/Load/Quit coexistence, memo-hidden operability, responsive
 hierarchy at runtime) are Level-4 packaged-journey obligations and land in W7 on the final build.
+
+## W3–W5 CORRECTION — range review REJECT remediated (findings F1–F14) — Unity `be83c61`
+
+The independent W3–W5 range review (Unity `6aacb79..ca0cba0`) returned **REJECT** with 14
+findings; the reviewer independently re-ran EditMode (625/625 exact) and proved F1/F2/F5/F8 with
+probes against unmodified code. All findings are fixed at root in their owning waves (commit
+`be83c61`); see its body for the per-finding record. Corrections to CLAIMS this document made:
+
+- **The W3 claim "presenter on both stage bodies" was false in the shipped scene** — only
+  stage-a carried a presenter; ConfigureStageIdentity had zero callers. TRUE NOW: the regenerated
+  canonical scene authors a complete Stage B channel set (presenter with exact identity `stage-b`,
+  beacon/spill/indicators/practicals, per-state cue roots, restrained dark preview) and the scene
+  validator enforces the N-Stage law (unique identities, ≥2 presenters, one effects per presenter)
+  instead of its pre-W3 singleton assumption.
+- **"THE BAKED LIE DIES AT THE ROOT" overstated the W4 fix** — the sealed scene bytes still
+  carried both authored SHOOTING strings, visible pre-connection and on a dead bridge. TRUE NOW:
+  the regenerated scene serializes "Stage activity withheld" on both stage selectables (0
+  occurrences of the baked strings in the file).
+- The recorded W4 deviation list gains one entry the review caught: the decorative first-presenter
+  pick (now exact-identity, fail-closed) had silently outlived the guard W3 deleted.
+
+**Recorded deliberate deviations (review F12/F14), now explicit:** the two source-law tests
+follow the sealed source-text idiom (behavioral Esc-grammar proof lands with the W7 packaged HID
+journey); the workspace's phase rail is the closed two-line status + next-milestone (design
+§10.2's fuller rail/forecast/known-drivers sections are P05-bounded out; forecast exposure is not
+rendered); remedy routes render read-only because their canonical owners publish no exact opaque
+intent in P05A (recon §6.2's navigation clause awaits those owners).
+
+**Floors after correction:** Unity EditMode **638/638** (13 new correction tests: gate cadence,
+per-production latch + rejection release with verbatim engine copy, locateTargets consumption,
+locate-refusal notice, entry-card withheld, placard out-of-vocabulary fail-closed,
+OffersOpenProduction, registry Diagnostic messages, shared-resolver law, decorative
+exact-identity + duplicate-ambiguity, door-crew clamp, zero-budget equivalence). Canonical scene
+validation: **0 errors** (2 presenters / 2 effects; hero wiring exact 7/5/3; stage-b never hot).
