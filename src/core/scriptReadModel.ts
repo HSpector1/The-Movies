@@ -22,6 +22,7 @@ import {
   hasQueuedPoolCommissionForConcept,
 } from './productionQueue.js'
 import { roleOVR } from './talentSummary.js'
+import { sceneryLoadInDecision } from './sceneryLoadIn.js'
 import {
   beatsForGenre,
   blueprintForConcept,
@@ -1234,7 +1235,16 @@ function nextProductionOperationsDecision(
       workflow.blocker?.kind === 'scenery-load-in' &&
       workflow.blocker.taskId === task.id
     ) {
-      command = { kind: 'clearSceneryLoadIn', productionId: production.id }
+      // P05A W1: the one scenery classifier owns whether this blocker is a
+      // decision at all. Only the explicitly grandfathered click is a command.
+      // A current derived trip — travelling or already due — is waiting work
+      // the engine settles; withheld provenance offers nothing. Publishing
+      // `clearSceneryLoadIn` for those states advertised an action the engine
+      // rejects (in transit) or performs itself (due), and paused Living Time
+      // behind a non-decision.
+      if (sceneryLoadInDecision(state, workflow, state.market.tick).kind === 'manual-clear') {
+        command = { kind: 'clearSceneryLoadIn', productionId: production.id }
+      }
     } else if (task.status === 'ready' && workflow.blocker === null) {
       command = { kind: 'scheduleShootingTake', productionId: production.id }
     }

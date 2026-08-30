@@ -65,7 +65,7 @@ import { clamp } from './math.js'
 import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
 import { advanceManagedProductions, arriveDueScenery } from './operations.js'
 import { admitQueuedIntents } from './queueAdmission.js'
-import { isSceneryLoadIn, sceneryLoadInFor } from './sceneryLoadIn.js'
+import { sceneryLoadInDecision } from './sceneryLoadIn.js'
 import {
   assertSetsInvariants,
   completeDueSets,
@@ -249,12 +249,19 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // GRANDFATHERED PICTURES ARE UNTOUCHED (`sceneryLoadIn.ts` header): a migrated
   // in-flight production never bound a set, so it is never told how far its shop
   // is, and its load-in stays exactly the click it has always been.
+  //
+  // P05A W1 — THE NEXT-BOUNDARY LAW. This tick PRODUCES week `currentTick + 1`,
+  // so arrival is evaluated at that week: a trip with one week remaining settles
+  // during the very advance that reaches its due week, and the produced state
+  // can never show a derived trip as "arrived" while its blocker still stands.
+  // (Evaluating at `currentTick` — the pre-advance week — left exactly that
+  // contradiction standing for a full player-visible week.) The one classifier
+  // in `sceneryLoadIn.ts` owns the answer; `arrived-pending` is its name for
+  // "due, blocker standing, settle now".
   const operationsAfterLoadIn = arriveDueScenery(
     state.operations,
-    (workflow) => {
-      const loadIn = sceneryLoadInFor(state, workflow, currentTick)
-      return isSceneryLoadIn(loadIn) && loadIn.arrived
-    },
+    (workflow) =>
+      sceneryLoadInDecision(state, workflow, currentTick + 1).kind === 'arrived-pending',
     events,
   )
   const stateAfterLoadIn: GameState =

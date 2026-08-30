@@ -50,6 +50,7 @@ import { castingSessionForProject } from './castingSessions.js'
 import { castingSessionsReadModel, type CastingProjectView } from './castingReadModel.js'
 import { productionPhaseForRemainingTicks } from './operations.js'
 import { queueInPriorityOrder } from './productionQueue.js'
+import { sceneryLoadInDecision } from './sceneryLoadIn.js'
 import {
   nextStudioDecision,
   scriptProjectsReadModel,
@@ -166,10 +167,16 @@ const SITE_PLACE: Record<JourneySite, string> = {
   admin: 'Administration',
 }
 
+// P05A W1: Rehearsal is company/stage PREPARATION — `LOAD-IN` is reserved for
+// the exact Shooting scenery transit, which cannot begin before the Director
+// call creates it (Package 05 §8). The wire `beat` enumeration is closed at
+// projection v11 and carries no `rehearsal` member, so `PHASE_BEAT.rehearsal`
+// deliberately keeps `'load-in'` until W2's governed schema transaction adds
+// the exact value; the player-facing copy is corrected now.
 const PHASE_HEADLINE: Record<ProductionPhase, string> = {
   development: 'PICTURE GREENLIT',
   preProduction: 'PRE-PRODUCTION',
-  rehearsal: 'LOAD-IN',
+  rehearsal: 'REHEARSAL',
   shooting: 'SHOOTING',
   postProduction: 'POST-PRODUCTION',
   releaseReady: 'RELEASE READY',
@@ -187,7 +194,7 @@ const PHASE_BEAT: Record<ProductionPhase, PictureJourneyBeat> = {
 const PHASE_MILESTONE: Record<ProductionPhase, string> = {
   development: 'The picture was greenlit.',
   preProduction: 'The cast and crew package is locked.',
-  rehearsal: 'The picture reached the stage and scenery load-in.',
+  rehearsal: 'The picture took its stage and the company is rehearsing.',
   shooting: 'Principal photography started.',
   postProduction: 'Principal photography wrapped.',
   releaseReady: 'The final cut is complete.',
@@ -196,7 +203,7 @@ const PHASE_MILESTONE: Record<ProductionPhase, string> = {
 const PHASE_SIGNIFICANCE: Record<ProductionPhase, string> = {
   development: 'The committed cast and crew are preparing the picture for production.',
   preProduction: 'Departments are preparing the stage, scenery, and shooting company.',
-  rehearsal: 'The stage and scenery must be ready before the camera can turn.',
+  rehearsal: 'The company is preparing on its own stage before the camera can turn.',
   shooting: 'The director, cast, and crew are working on set. No production action is required unless the card names one.',
   postProduction: 'Editorial and finishing are turning the photographed material into the release cut.',
   releaseReady: 'No production work remains. The picture is ready to reach audiences.',
@@ -205,7 +212,7 @@ const PHASE_SIGNIFICANCE: Record<ProductionPhase, string> = {
 const PHASE_CONTINUES: Record<ProductionPhase, string> = {
   development: 'Development continues',
   preProduction: 'Pre-production continues',
-  rehearsal: 'Stage and scenery load-in continues',
+  rehearsal: 'Rehearsal continues',
   shooting: 'Shooting continues',
   postProduction: 'Post-production continues',
   releaseReady: 'The picture is ready to release',
@@ -1005,6 +1012,57 @@ function inProductionView(
       next: { kind: 'resolve-production', label: guidance.label, site },
       waiting: null,
       blocked: { reason: guidance.reason },
+    }
+  }
+
+  // P05A W1 — HONEST TRANSIT GUIDANCE. A current derived load-in publishes no
+  // command (the one classifier owns that), so the journey must say what the
+  // waiting IS instead of a generic "shooting continues": where the scenery is
+  // going, how many authoritative weeks remain, and that arrival is the
+  // engine's own settlement. `arrived-pending` (old save / reconnect window)
+  // reads as arrival, settling at the next boundary. Withheld provenance keeps
+  // the plain phase guidance — W2's closed operational states own that truth.
+  if (phase === 'shooting') {
+    const workflow = state.operations.workflows.find(
+      (candidate) => candidate.productionId === production.id,
+    )
+    const decision = workflow === undefined
+      ? null
+      : sceneryLoadInDecision(state, workflow, state.market.tick)
+    if (decision !== null && (decision.kind === 'in-transit' || decision.kind === 'arrived-pending')) {
+      const where = stageFacilityLabel(state, production.id) ?? 'its stage'
+      const inTransit = decision.kind === 'in-transit'
+      const remaining = inTransit ? decision.loadIn.weeksRemaining : 0
+      return {
+        stage: 'in-production',
+        beat: 'load-in',
+        productionId: production.id,
+        scriptProjectId,
+        pictureTitle: title,
+        ordinal,
+        headline: 'LOAD-IN',
+        whatHappened: defaultMilestone,
+        whyItMatters:
+          'Scenery arrival is not a player decision — the engine settles the load-in itself.',
+        detail,
+        next: {
+          kind: 'advance-week',
+          label: inTransit
+            ? 'Scenery is on the road — advance the week'
+            : 'Scenery has arrived — advance the week',
+          site: null,
+        },
+        waiting: {
+          untilWeek: state.market.tick + (inTransit ? remaining : 1),
+          reason: waitOut(
+            inTransit
+              ? `Scenery is en route to ${where} · ` +
+                `${String(remaining)} ${plural(remaining, 'week', 'weeks')} remaining`
+              : `Scenery has arrived at ${where} · the camera is being prepared`,
+          ),
+        },
+        blocked: null,
+      }
     }
   }
 

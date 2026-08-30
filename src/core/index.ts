@@ -781,10 +781,16 @@ export {
   facilityBodyCentre,
   gridDistance,
   isSceneryLoadIn,
+  sceneryLoadInDecision,
   sceneryLoadInFor,
   sceneryLoadInWeeksForDistance,
 } from './sceneryLoadIn.js'
-export type { SceneryLoadIn, SceneryLoadInWithholding } from './sceneryLoadIn.js'
+export type {
+  SceneryLoadIn,
+  SceneryLoadInDecision,
+  SceneryLoadInWithheldReason,
+  SceneryLoadInWithholding,
+} from './sceneryLoadIn.js'
 
 // ── Studio Week Theater V1 (C2a-M5, charter §4.2) ────────────────────────────
 // The manufacturing loop as beat tracks over the engine's own ten-beat week —

@@ -50,6 +50,8 @@ import type { GameState, LotCell, ProductionWorkflow } from './types.js'
 export type SceneryLoadInWithholding =
   | 'not-blocked'
   | 'grandfathered'
+  | 'no-bindings'
+  | 'malformed-provenance'
   | 'no-stage-reservation'
   | 'no-scenery-reservation'
   | 'no-held-since-week'
@@ -185,9 +187,15 @@ export function sceneryLoadInFor(
 ): SceneryLoadIn | SceneryLoadInWithholding {
   if (workflow.blocker?.kind !== 'scenery-load-in') return 'not-blocked'
   const bindings = workflow.bindings as ProductionWorkflow['bindings'] | undefined
-  // THE GRANDFATHER. See the header: a picture that was never required to bind a
-  // set is a picture from before this law, and its load-in stays a click.
-  if (bindings === undefined || bindings.requiresSetBinding !== true) return 'grandfathered'
+  // P05A W1: THE GRANDFATHER IS EXACT `false` AND NOTHING ELSE. The V14 migrator
+  // mints `requiresSetBinding: false` for every in-flight save it grandfathers,
+  // and the live engine mints `true`; those are the only two provenances an
+  // honest save can carry. Absent bindings and a non-boolean flag are neither —
+  // they are withheld as their own classifications, never folded into the
+  // grandfather (whose whole meaning is "the migration explicitly ruled this").
+  if (bindings === undefined) return 'no-bindings'
+  if (bindings.requiresSetBinding === false) return 'grandfathered'
+  if (bindings.requiresSetBinding !== true) return 'malformed-provenance'
   const stageFacilityId = bindings.stageFacilityId
   if (typeof stageFacilityId !== 'string' || stageFacilityId.length === 0) {
     return 'no-stage-reservation'
@@ -224,4 +232,54 @@ export function isSceneryLoadIn(
   value: SceneryLoadIn | SceneryLoadInWithholding,
 ): value is SceneryLoadIn {
   return typeof value !== 'string'
+}
+
+// ── P05A W1 — THE ONE SCENERY LEGALITY CLASSIFIER ────────────────────────────
+//
+// Every producer and every enforcer of the scenery seam reads THIS answer:
+// the tick's natural-arrival step, the Director-call due-at-call settlement,
+// `applyClearSceneryLoadIn`'s legality, `nextProductionOperationsDecision`'s
+// command choice, the journey's guidance, and the board card's copy. There is
+// exactly one classification, so a surface can never offer what the engine
+// refuses or refuse what the engine offers.
+
+/** A provenance failure: the load-in exists but its trip cannot be derived. */
+export type SceneryLoadInWithheldReason = Exclude<
+  SceneryLoadInWithholding,
+  'not-blocked' | 'grandfathered'
+>
+
+export type SceneryLoadInDecision =
+  /** No scenery-load-in blocker stands on this workflow. */
+  | { kind: 'none' }
+  /**
+   * A current derived trip is still on the road. Waiting work, not a decision:
+   * no player command exists, and the authoritative next-week boundary is the
+   * only thing that moves it.
+   */
+  | { kind: 'in-transit'; loadIn: SceneryLoadIn }
+  /**
+   * A current derived trip is already due while the blocker still stands —
+   * reachable only through an old save or a reconnect into the pre-settlement
+   * window. The engine settles it (Director-call transaction or the next tick
+   * boundary); a manual Clear is never legal here.
+   */
+  | { kind: 'arrived-pending'; loadIn: SceneryLoadIn }
+  /** Explicitly grandfathered (`requiresSetBinding === false`): the legacy click remains. */
+  | { kind: 'manual-clear' }
+  /** Provenance cannot be derived; everything is withheld and nothing is offered. */
+  | { kind: 'withheld'; reason: SceneryLoadInWithheldReason }
+
+export function sceneryLoadInDecision(
+  state: GameState,
+  workflow: ProductionWorkflow,
+  week: number,
+): SceneryLoadInDecision {
+  const loadIn = sceneryLoadInFor(state, workflow, week)
+  if (loadIn === 'not-blocked') return { kind: 'none' }
+  if (loadIn === 'grandfathered') return { kind: 'manual-clear' }
+  if (typeof loadIn === 'string') return { kind: 'withheld', reason: loadIn }
+  return loadIn.arrived
+    ? { kind: 'arrived-pending', loadIn }
+    : { kind: 'in-transit', loadIn }
 }

@@ -233,6 +233,8 @@ import {
   setIsUnderRepair as coreSetIsUnderRepair,
   setIsUsable as coreSetIsUsable,
   setTypeLabel as coreSetTypeLabel,
+  // P05A W1 — the one scenery legality classifier; the board attaches copy only.
+  sceneryLoadInDecision,
 } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
@@ -912,18 +914,62 @@ function managedProductionBoardCard(state: GameState, production: Production): P
     }
     statusLabel = 'Decision required'
   } else if (task?.status === 'blocked' && workflow.blocker?.kind === 'scenery-load-in') {
-    blocker = {
-      kind: 'scenery-load-in',
-      headline: 'Scenery load-in blocking camera',
-      detail: `The camera mark at ${taskDestination} is blocked by scenery load-in.`,
-      consequence: PRODUCTION_HOLD_CONSEQUENCE,
+    // P05A W1: the one scenery classifier (`sceneryLoadInDecision`) owns which
+    // of the four truths this blocker is; the card only attaches copy. A current
+    // derived trip carries NO command — the engine settles arrival at the
+    // authoritative boundary — so the board can no longer advertise a Clear the
+    // engine rejects (in transit) or performs itself (already due).
+    const decision = sceneryLoadInDecision(state, workflow, state.market.tick)
+    if (decision.kind === 'manual-clear') {
+      blocker = {
+        kind: 'scenery-load-in',
+        headline: 'Legacy load-in needs acknowledgment',
+        detail:
+          `Legacy load-in at ${taskDestination} · travel duration was not recorded. ` +
+          'Clear it to ready the camera.',
+        consequence: PRODUCTION_HOLD_CONSEQUENCE,
+      }
+      command = {
+        kind: 'clearSceneryLoadIn',
+        productionId: production.id,
+        label: 'Clear scenery load-in',
+      }
+      statusLabel = 'Production hold'
+    } else if (decision.kind === 'in-transit') {
+      const from =
+        reservedFacilities.find((facility) => facility.id === decision.loadIn.fromFacilityId)
+          ?.name ?? decision.loadIn.fromFacilityId
+      const remaining = decision.loadIn.weeksRemaining
+      blocker = {
+        kind: 'scenery-load-in',
+        headline: 'Scenery in transit',
+        detail:
+          `Scenery is en route from ${from} to ${taskDestination} · ` +
+          `${String(remaining)} ${remaining === 1 ? 'week' : 'weeks'} remaining. ` +
+          'Arrival is automatic — no action is required.',
+        consequence: PRODUCTION_HOLD_CONSEQUENCE,
+      }
+      statusLabel = 'Scenery in transit'
+    } else if (decision.kind === 'arrived-pending') {
+      blocker = {
+        kind: 'scenery-load-in',
+        headline: 'Scenery arrived — preparing camera',
+        detail:
+          `Scenery has arrived at ${taskDestination}. The load-in settles on the next ` +
+          'authoritative week — no acknowledgment is required.',
+        consequence: PRODUCTION_HOLD_CONSEQUENCE,
+      }
+      statusLabel = 'Scenery arrived'
+    } else {
+      blocker = {
+        kind: 'scenery-load-in',
+        headline: 'Scenery load-in status unavailable',
+        detail:
+          'The load-in provenance could not be derived exactly. Production details unavailable.',
+        consequence: PRODUCTION_HOLD_CONSEQUENCE,
+      }
+      statusLabel = 'Production details unavailable'
     }
-    command = {
-      kind: 'clearSceneryLoadIn',
-      productionId: production.id,
-      label: 'Clear scenery load-in',
-    }
-    statusLabel = 'Production hold'
   } else if (task?.status === 'ready') {
     blocker = {
       kind: 'take-scheduling',

@@ -81,6 +81,7 @@ import {
 import { propertyOf } from './lot.js'
 import {
   addManagedProductionWorkflow,
+  arriveDueScenery,
   assignShootingDirector,
   clearSceneryLoadIn,
   initialManagedStudioOperations,
@@ -88,7 +89,7 @@ import {
   scheduleShootingTake,
 } from './operations.js'
 import { publicityLiftAt } from './publicity.js'
-import { isSceneryLoadIn, sceneryLoadInFor } from './sceneryLoadIn.js'
+import { sceneryLoadInDecision } from './sceneryLoadIn.js'
 import {
   ENDOWED_NEXT_SET_ID,
   assertSetsInvariants,
@@ -1853,9 +1854,29 @@ function applyAssignShootingDirector(
     action.productionId,
     'assignShootingDirector',
   )
+  const operations = assignShootingDirector(state.operations, production, action.directorId)
+  // P05A W1 — DUE-AT-CALL SETTLEMENT. `calledWeek` is the stage-acquisition week,
+  // and the Director call can happen after this week's arrival step has already
+  // run, so the derived trip may be due the instant the blocker is created. That
+  // arrival is not a player choice at this boundary any more than at the tick
+  // boundary: the same transaction settles it — same transition, same single
+  // `sceneryArrived` row — instead of exposing a one-week acknowledgment click.
+  // Only this action's own production is examined; every other workflow belongs
+  // to the tick's next-boundary step.
+  const intermediate: GameState = { ...state, operations }
+  const events = studioEventSinkFor(state)
+  const settled = arriveDueScenery(
+    operations,
+    (workflow) =>
+      workflow.productionId === action.productionId &&
+      sceneryLoadInDecision(intermediate, workflow, state.market.tick).kind === 'arrived-pending',
+    events,
+  )
+  if (settled === operations) return intermediate
   return {
     ...state,
-    operations: assignShootingDirector(state.operations, production, action.directorId),
+    operations: settled,
+    studioEvents: commitStudioEvents(state.studioEvents, events, state.market.tick),
   }
 }
 
@@ -1864,25 +1885,35 @@ function applyClearSceneryLoadIn(
   action: Action & { kind: 'clearSceneryLoadIn' },
 ): GameState {
   requireActiveProductionForOperations(state, action.productionId, 'clearSceneryLoadIn')
-  // C2a-M5 (charter §4.2): THE SCENERY IS NOT THERE YET.
+  // P05A W1 — MANUAL CLEAR IS THE GRANDFATHER'S CLICK AND NOBODY ELSE'S.
   //
-  // Load-in has a distance now, so "clear the load-in" stopped being something a
-  // player can assert into being true. A picture whose scenery is still on the
-  // road is refused here, in the loud posture every other illegal command uses,
-  // and the engine ends the load-in itself the week the trucks arrive
-  // (`arriveDueScenery`, tick step 0.7).
-  //
-  // The refusal is scoped exactly as narrowly as the mechanic: a GRANDFATHERED
-  // picture (no set binding — every migrated in-flight save) yields a withholding
-  // rather than a load-in, so it is never refused and its click is untouched.
+  // The one classifier in `sceneryLoadIn.ts` owns legality here. A current
+  // derived trip is never manually clearable: in transit it is refused as
+  // before; already due, the engine settles it itself (Director-call
+  // transaction or the next tick boundary) and an acknowledgment would mint a
+  // duplicate decision for a non-choice. A workflow whose provenance cannot be
+  // derived (absent bindings, malformed flag, missing body) is refused too —
+  // fail closed, never guessed. Only the explicitly grandfathered picture
+  // (`requiresSetBinding === false`, minted by the V14 migration) keeps the
+  // click it has always had.
   const inFlight = state.operations.workflows.find(
     (workflow) => workflow.productionId === action.productionId,
   )
   if (inFlight !== undefined) {
-    const loadIn = sceneryLoadInFor(state, inFlight, state.market.tick)
-    if (isSceneryLoadIn(loadIn) && !loadIn.arrived) {
+    const decision = sceneryLoadInDecision(state, inFlight, state.market.tick)
+    if (decision.kind === 'in-transit') {
       throw new Error(
-        `applyActions: clearSceneryLoadIn rejected — productionId "${action.productionId}" scenery is still in transit (${String(loadIn.weeksRemaining)} week(s) out)`,
+        `applyActions: clearSceneryLoadIn rejected — productionId "${action.productionId}" scenery is still in transit (${String(decision.loadIn.weeksRemaining)} week(s) out)`,
+      )
+    }
+    if (decision.kind === 'arrived-pending') {
+      throw new Error(
+        `applyActions: clearSceneryLoadIn rejected — productionId "${action.productionId}" scenery has already arrived; the engine settles the load-in and no acknowledgment is required`,
+      )
+    }
+    if (decision.kind === 'withheld') {
+      throw new Error(
+        `applyActions: clearSceneryLoadIn rejected — productionId "${action.productionId}" load-in provenance is withheld (${decision.reason}); manual clear is reserved for explicitly grandfathered pictures`,
       )
     }
   }
