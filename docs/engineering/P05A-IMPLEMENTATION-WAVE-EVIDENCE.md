@@ -227,3 +227,73 @@ the W3 entry gate.
 
 **Shape freeze.** The closed row, the Stage-local collection, the v12 wire identities, and
 the all-active intent family are frozen; W3+ consume them and may not re-derive.
+
+## W2 CORRECTION — range review REJECT remediated (findings F1–F8)
+
+The independent read-only W2 range review returned **REJECT** with eight findings. All are
+fixed at root in the owning wave; final disposition was requested from the same reviewer.
+The v12 identities recorded in the W2 section above are **superseded** by this correction.
+
+**F1 (HIGH) — `rehearsal` lit the wrong guidance chapter.** `journeyChapter` in
+`LotPictureGuidanceCard.tsx` has a load-bearing `default` (the screenplay beats), so the
+new beat fell through to Script while the headline read REHEARSAL — wrong rail highlight
+and wrong `aria-current` for screen readers. Fixed with an explicit `case 'rehearsal'` →
+Prep, and closed as a class: a 15-row table test now maps EVERY member of the frozen beat
+vocabulary to its chapter through the rendered rail's own `is-current`/`aria-current`
+marks (`LotPictureGuidanceCard.test.tsx`).
+
+**F2 (MEDIUM-HIGH) — canonical `$id` URN left at projection-11.** Bumped to
+`urn:project-studio:bridge:protocol-4:projection-12` and regenerated through the
+transaction. **Corrected frozen v12 identities:** schema id
+`sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b`, generated C#
+sha256 `97628f3d4565801549c27a76b30827f193cb13a8c37e954fee7fd0362fbc0a0b` (git blob
+`253f01029fa384b474ee33e8b2c423becafb5bf7`), `generatorSourceSha256`
+`7d65bf78723e0376efa2a2ae29a8c9c9b9add4469b28e428c7e273009a7eeccf` (bridge-schema.ts is a
+bundle member; nothing else changed). Protocol 4 / save 15 unchanged. Per the schema-bump
+law the outgoing WIP-intermediate identity `sha256:a481d14f…` was appended to
+`SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS` (now eleven, literal pin updated) — it never
+shipped in any campaign branch or player build, but W2–W4 dev/proof checkpoints carry it.
+The stale-URN pins the review called out (`bridge-schema.test.ts`,
+`bridge-contract-consumer-lock.test.ts`) now assert projection-12.
+
+**F3 (MEDIUM) — raw enum identifiers in the capacity cause line.** The
+`PRODUCTION_PHASE_LABEL`/`FACILITY_CAPABILITY_LABEL` display maps moved from the adapter
+into `productionOperationsProjection.ts` (exported; the adapter imports them back), and
+the blocker anatomy's detail line now speaks them. Pinned exactly: the walk test asserts
+`"No Post Building slot was available for the transition to Post-production."` and sweeps
+every closed copy surface (anatomy, remedies, targets, holder copy) for raw identifiers.
+
+**F4 (MEDIUM) — five surviving mutations.** New suite
+`ui/src/test/contracts/p05a-w2-invariant-kills.contract.test.ts` (7 tests). Mutation
+verification re-ran all five review mutations plus the F1/F3 reverts in a fresh isolated
+copy: **eight of eight KILLED.** Two honesty notes the verification surfaced, now
+recorded: (a) the ≥3-production regime really is the only one where the W2 sort acts, and
+the new test walks it; (b) three of the five guards protect states the ENGINE's own
+invariant sweep (`assertStudioOperationsInvariants`/`assertPropertyInvariants`, asserted
+by `studioCalendar` inside every composition path, including `composeClosedProduction`'s
+own `studioQueueView` call) rejects loudly on every path — they are defense-in-depth, so
+their laws are proven by direct unit call on the exported `liveStageOf` /
+`facilityBuildingIdOf`, with the unreachability itself documented in the suite. The
+duplicate-holder law is proven END-TO-END via an engine-lawful capacity-2 stage collision
+— the exact future (bigger stages) the law exists for.
+
+**F5 (LOW) — vacuous stage-row guard removed** (both arms returned the same value and its
+condition could not fire).
+
+**F6 (LOW) — orphaned pin re-pointed.** The Movie-#2 walk now asserts
+`resolveProductionBlocker` intents carry the exact `productionId` (the family's new
+binding) instead of silently short-circuiting on the always-null `projectId`.
+
+**F7 (LOW) — blocker totality guard.** `closedOperationalState` now switches exhaustively
+over the `ProductionBlocker` union with a compile-time `never` arm that fails typecheck on
+a fourth blocker kind and fails CLOSED (`status-unavailable`, never a working state) at
+runtime.
+
+**F8 (LOW) — superseded field marked.** `ProductionOperationsState.locationBuildingId` is
+documented as superseded for placement by the closed worksite model; no new consumer may
+read it (it still answers the PHASE's home building, which recon §6.1 forbids as a
+"where is the work" answer).
+
+Non-blocking review note recorded: `resolveAvailableIntents` speculatively executes
+`runProductionCommand` once per deciding production per call — accepted for W2 (bounded by
+the deciding-card count); candidate for a future fold if profiling warrants.

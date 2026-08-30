@@ -70,6 +70,7 @@ function journeyChapter(beat: PictureJourneyBeat): JourneyChapter {
       return 'casting'
     case 'greenlit':
     case 'pre-production':
+    case 'rehearsal':
     case 'load-in':
       return 'prep'
     case 'shooting':

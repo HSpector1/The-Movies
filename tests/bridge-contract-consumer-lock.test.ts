@@ -123,7 +123,7 @@ function commit(repository: FixtureRepository, message: string): string {
 function schema(): Record<string, unknown> {
   return {
     $defs: {},
-    $id: 'urn:project-studio:bridge:protocol-4:projection-11',
+    $id: 'urn:project-studio:bridge:protocol-4:projection-12',
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     oneOf: [],
     'x-project-studio': {

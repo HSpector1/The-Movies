@@ -349,6 +349,12 @@ describe('Current-game Unity adoption bridge', () => {
       if (movieTwoProjectId !== null && intent.projectId !== null) {
         expect(intent.projectId).toBe(movieTwoProjectId)
       }
+      // W2: production commands moved off the journey binding — they carry a
+      // null projectId and an exact productionId instead, so the pin above no
+      // longer covers this family. This one does.
+      if (intent.kind === 'resolveProductionBlocker' && movieTwoProductionId !== null) {
+        expect(intent.productionId).toBe(movieTwoProductionId)
+      }
       if (intent.kind === 'resolveProductionBlocker') {
         const operation = before.snapshot.productions.productionOperations?.find(
           (candidate) => candidate.productionId === movieTwoProductionId,

@@ -17,7 +17,9 @@ import {
   studioQueueView,
 } from '../../../src/core/index.ts'
 import type {
+  FacilityCapability,
   GameState,
+  ProductionPhase,
   ProductionWorkflow,
   SceneryLoadInDecision,
   StudioQueueRemedy,
@@ -41,6 +43,28 @@ import type {
   LotWorksiteResolution,
   ProductionOperationsState,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
+
+/**
+ * Engine-owned display vocabulary for the two enums that reach player copy.
+ * Player-facing strings NEVER interpolate a raw enum identifier — the W2
+ * range review caught `postProduction`/`post` leaking into the blocker
+ * anatomy's cause line exactly because these maps lived elsewhere.
+ */
+export const PRODUCTION_PHASE_LABEL: Record<ProductionPhase, string> = {
+  development: 'Development',
+  preProduction: 'Pre-production',
+  rehearsal: 'Rehearsal',
+  shooting: 'Shooting',
+  postProduction: 'Post-production',
+  releaseReady: 'Release Ready',
+}
+
+export const FACILITY_CAPABILITY_LABEL: Record<FacilityCapability, string> = {
+  'development-casting': 'Development & Casting',
+  soundstage: 'Soundstage',
+  'set-scenery': 'Scenery Shop',
+  post: 'Post Building',
+}
 
 /** Everything the closed-row extension adds to one base production row. */
 export type ClosedProductionRowExtension = Required<
@@ -115,6 +139,11 @@ const NEXT_MILESTONE: Record<LotProductionOperationalState, string> = {
   'status-unavailable': 'Production details unavailable',
 }
 
+function unreachableBlockerState(blocker: never): LotProductionOperationalState {
+  void blocker
+  return 'status-unavailable'
+}
+
 /**
  * The closed operational state (recon §5.4). Derived from phase + task + the
  * ONE scenery classifier + the persisted blocker; never from copy or history.
@@ -124,12 +153,25 @@ export function closedOperationalState(
   scenery: SceneryLoadInDecision,
 ): LotProductionOperationalState {
   const blocker = workflow.blocker
-  if (blocker?.kind === 'facility-capacity') {
-    return workflow.phase === 'shooting' && blocker.targetPhase === 'postProduction'
-      ? 'wrapped-waiting-for-post'
-      : 'resource-wait'
+  if (blocker !== null) {
+    switch (blocker.kind) {
+      case 'facility-capacity':
+        return workflow.phase === 'shooting' && blocker.targetPhase === 'postProduction'
+          ? 'wrapped-waiting-for-post'
+          : 'resource-wait'
+      case 'set-unavailable':
+        return 'resource-wait'
+      case 'scenery-load-in':
+        // Spoken by the ONE scenery classifier via the phase switch below —
+        // never re-derived from the persisted blocker.
+        break
+      default:
+        // Compile-time totality: a fourth ProductionBlocker arm fails to
+        // typecheck here, and at runtime a blocked picture reads withheld —
+        // never a working state (charter §5).
+        return unreachableBlockerState(blocker)
+    }
   }
-  if (blocker?.kind === 'set-unavailable') return 'resource-wait'
   switch (workflow.phase) {
     case 'development':
       return 'development-working'
@@ -181,7 +223,14 @@ function facilityNameOf(state: GameState, facilityId: string): string {
  * then placements. Contradictory truth (two bodies claiming one facility)
  * yields null — Locate withholds rather than guesses.
  */
-function facilityBuildingIdOf(state: GameState, facilityId: string): BuildingId | null {
+/**
+ * Exported for the W2 correction contract suite ONLY: the ambiguous-provider
+ * arm below (two structures claiming one facility -> null, never a guess)
+ * guards a state the engine's own placement invariant ("facility is provided
+ * by both ...") rejects on every composition path — defense-in-depth,
+ * provable only by direct call.
+ */
+export function facilityBuildingIdOf(state: GameState, facilityId: string): BuildingId | null {
   const structures = state.property?.structures
   if (Array.isArray(structures)) {
     const housing = structures.filter(
@@ -338,7 +387,13 @@ function wrapReceiptFor(
 }
 
 /** The live Stage tuple, proven by reservation + binding agreement (recon §4.2). */
-function liveStageOf(
+/**
+ * Exported for the W2 correction contract suite ONLY: the two withhold arms
+ * below guard states the engine's own invariant sweep (asserted by
+ * studioCalendar, which every composition entry path runs) already rejects
+ * loudly — so they are defense-in-depth, provable only by direct call.
+ */
+export function liveStageOf(
   workflow: ProductionWorkflow,
 ): { stageFacilityId: string; currentSetId: string | null } | 'none' | 'withheld' {
   const stages = workflow.reservations.filter(
@@ -498,7 +553,7 @@ export function composeClosedProduction(
             operationalState === 'wrapped-waiting-for-post'
               ? 'Wrapped — waiting for Post capacity'
               : 'Held for studio capacity',
-          detail: `No ${blocker.capability} slot was available for the transition to ${blocker.targetPhase}.`,
+          detail: `No ${FACILITY_CAPABILITY_LABEL[blocker.capability]} slot was available for the transition to ${PRODUCTION_PHASE_LABEL[blocker.targetPhase]}.`,
           consequence,
         },
         queue,
@@ -723,10 +778,7 @@ export function composeClosedProduction(
       holderProductionId: holder.productionId,
       holderTitle: holder.title,
       currentSetId: holder.currentSetId,
-      presentationState:
-        presentationState === 'withheld' && buildingId === null
-          ? 'withheld'
-          : presentationState,
+      presentationState,
       holderCopy: `${holder.title} · ${
         holder.operationalState === 'status-unavailable'
           ? STATE_LABEL['status-unavailable']

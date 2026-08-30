@@ -277,7 +277,11 @@ import type {
   ProductionOperationsState,
 } from '../lot/snapshot/StudioLotSnapshot.ts'
 // P05A W2: the bounded closed-Production composition (recon §5.3–§5.5).
-import { composeClosedProduction } from './productionOperationsProjection.ts'
+import {
+  composeClosedProduction,
+  FACILITY_CAPABILITY_LABEL,
+  PRODUCTION_PHASE_LABEL,
+} from './productionOperationsProjection.ts'
 import {
   FOUNDING_BUILDING_IDS,
   LOT_PRESENCE_STATIC_BEAT,
@@ -679,22 +683,6 @@ export function runPublicity(state: GameState, tier: PublicityTier): ActionOutco
 // facility reservation, ShootingTask, or raw operations object and never infers legality.
 // The only command emitted by a card is the action the engine will accept in that exact
 // state. Legacy saves stay explicitly labelled as the frozen countdown they still run.
-
-const PRODUCTION_PHASE_LABEL: Record<ProductionPhase, string> = {
-  development: 'Development',
-  preProduction: 'Pre-production',
-  rehearsal: 'Rehearsal',
-  shooting: 'Shooting',
-  postProduction: 'Post-production',
-  releaseReady: 'Release Ready',
-}
-
-const FACILITY_CAPABILITY_LABEL: Record<FacilityCapability, string> = {
-  'development-casting': 'Development & Casting',
-  soundstage: 'Soundstage',
-  'set-scenery': 'Scenery Shop',
-  post: 'Post Building',
-}
 
 export type ProductionCommandView =
   | {

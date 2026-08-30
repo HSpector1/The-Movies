@@ -547,6 +547,13 @@ export type ProductionOperationsState = {
   weeksRemaining: number
   /** Authoritative normalized cycle progress for presentation only. */
   progress01: number
+  /**
+   * SUPERSEDED for placement by the W2 closed worksite model
+   * (`worksiteResolution`/`primaryWorkTarget`): this legacy field still names
+   * the PHASE's home building (e.g. `post` while merely queued for Post),
+   * which recon §6.1 forbids as a "where is the work" answer. Retained for the
+   * pre-W2 rail/receipt surfaces only; no new consumer may read it.
+   */
   locationBuildingId: BuildingId
   facilityLabel: string
   directorId: string

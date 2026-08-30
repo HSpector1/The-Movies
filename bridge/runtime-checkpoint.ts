@@ -88,6 +88,12 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // law: at every projection/schema bump, append the outgoing identity here so
   // durable checkpoints written under it keep migrating).
   ['sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e', 'projection-v11'],
+  // projection-v12-stale-urn: the P05A W2 WIP-branch intermediate — v12
+  // content under a canonical $id still reading projection-11 (the W2 range
+  // review's F2). Never in any campaign branch or player build; appended per
+  // the schema-bump law because checkpoints written by W2–W4 dev/proof runs
+  // on the WIP branch carry it.
+  ['sha256:a481d14f3810ffbafcba2bbf509db7340263f3f0fd665a059507a1567d98923d', 'projection-v12-stale-urn'],
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({

@@ -559,3 +559,40 @@ describe('LotPictureGuidanceCard — persistent P0 guidance', () => {
     expect(screen.getByTestId('lot-picture-guidance').className).toContain('is-reduced-motion')
   })
 })
+
+// ── W2 correction (range review F1): the rail lights the RIGHT chapter ────────
+//
+// `journeyChapter` has a load-bearing `default` (the four screenplay beats), so
+// a beat added to the union without an explicit case silently lights Script —
+// exactly what happened to 'rehearsal'. This table closes that class: every
+// member of the frozen beat vocabulary maps to its chapter, asserted through
+// the rendered rail's own `is-current` / `aria-current="step"` marks.
+describe('LotPictureGuidanceCard — chapter rail truth for every beat', () => {
+  const chapterByBeat: ReadonlyArray<[FirstFilmJourneyView['beat'], string]> = [
+    ['no-picture', 'Script'],
+    ['screenplay-writing', 'Script'],
+    ['screenplay-review', 'Script'],
+    ['screenplay-ready', 'Script'],
+    ['auditions-running', 'Tests'],
+    ['auditions-ready', 'Tests'],
+    ['auditions-reviewed', 'Cast'],
+    ['greenlit', 'Prep'],
+    ['pre-production', 'Prep'],
+    ['rehearsal', 'Prep'],
+    ['load-in', 'Prep'],
+    ['shooting', 'Shoot'],
+    ['post-production', 'Finish'],
+    ['release-ready', 'Finish'],
+    ['released', 'Finish'],
+  ]
+
+  it.each(chapterByBeat)('beat %s lights exactly the %s chapter', (beat, label) => {
+    renderCard(journey({ beat }))
+    const rail = screen.getByTestId('lot-picture-guidance-rail')
+    const current = rail.querySelectorAll('li.is-current')
+    expect(current).toHaveLength(1)
+    expect(current[0]).toHaveTextContent(label)
+    expect(current[0]).toHaveAttribute('aria-current', 'step')
+    expect(rail.querySelectorAll('li[aria-current="step"]')).toHaveLength(1)
+  })
+})
