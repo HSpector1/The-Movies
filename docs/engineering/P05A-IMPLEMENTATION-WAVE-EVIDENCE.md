@@ -418,3 +418,16 @@ locate-refusal notice, entry-card withheld, placard out-of-vocabulary fail-close
 OffersOpenProduction, registry Diagnostic messages, shared-resolver law, decorative
 exact-identity + duplicate-ambiguity, door-crew clamp, zero-budget equivalence). Canonical scene
 validation: **0 errors** (2 presenters / 2 effects; hero wiring exact 7/5/3; stage-b never hot).
+
+**FINAL DISPOSITION (same reviewer): ACCEPT** for the Unity W3–W5 range `6aacb79..6df7c25`.
+The reviewer re-ran their own surviving mutations against the FULL suite (both killed by exactly
+the right new guard), attacked the standing sweep law itself (a synthetic fourth consumer fails by
+existing), verified the follow-up scene regen is a pure re-serialization (stableId/guid/object
+censuses identical), and confirmed zero test weakening across both correction rounds. Explicitly a
+technical hostile ACCEPT of the range only — not Owner acceptance, and not discharging W6/W7/W8.
+Carried forward: (1) sweep hardened to the FindAnyObjectByType variant (done, follow-up commit);
+(2) W6 advisory — hero-stage Rehearsal is the thinnest state read (activity root + occupied-low
+light, no dedicated cue root) and scenario 2's CAM-MEDIUM-A-V1 disposition should judge it
+deliberately; (3) process note — the W6 fixture-ledger commit landed while this range review was
+in flight (it touches zero W1–W5 product code); (4) the W8 evidence-binding obligation for the
+gitignored scene-validation JSON stands.
