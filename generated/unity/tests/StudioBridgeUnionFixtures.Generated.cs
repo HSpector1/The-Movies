@@ -727,7 +727,7 @@ namespace ProjectStudio.Bridge.GeneratedFixtures
                     return value.ToObject<F04Beta>(serializer);
                 default:
                     throw new JsonSerializationException(
-                        $"C# union F04ProbeUnion has unknown discriminator \"{discriminator.Value<string>() ?? "<null>"}\"; expected [alpha, beta].");
+                        "C# union F04ProbeUnion has unknown discriminator \"" + (discriminator.Value<string>() ?? "<null>") + "\"; expected [alpha, beta].");
             }
         }
 
@@ -771,7 +771,7 @@ namespace ProjectStudio.Bridge.GeneratedFixtures
                     return value.ToObject<F09ItemB>(serializer);
                 default:
                     throw new JsonSerializationException(
-                        $"C# union F09ItemUnion has unknown discriminator \"{discriminator.Value<string>() ?? "<null>"}\"; expected [a, b].");
+                        "C# union F09ItemUnion has unknown discriminator \"" + (discriminator.Value<string>() ?? "<null>") + "\"; expected [a, b].");
             }
         }
 
@@ -823,7 +823,7 @@ namespace ProjectStudio.Bridge.GeneratedFixtures
                     return value.ToObject<F12FixtureWithheldState>(serializer);
                 default:
                     throw new JsonSerializationException(
-                        $"C# union F12FixtureP05ProductionState has unknown discriminator \"{discriminator.Value<string>() ?? "<null>"}\"; expected [rehearsalWorking, sceneryInTransit, resourceWait, shootingWorking, wrappedWaitingForPost, withheld].");
+                        "C# union F12FixtureP05ProductionState has unknown discriminator \"" + (discriminator.Value<string>() ?? "<null>") + "\"; expected [rehearsalWorking, sceneryInTransit, resourceWait, shootingWorking, wrappedWaitingForPost, withheld].");
             }
         }
 

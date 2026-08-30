@@ -1609,7 +1609,7 @@ namespace Studio.Runtime.Data
                 if (!(String.Equals(value, "startAuditions", StringComparison.Ordinal) ||
                     String.Equals(value, "greenlightPicture", StringComparison.Ordinal)))
                     throw new JsonSerializationException(
-                        $"C# union StudioQuoteSnapshot member StudioCastingQuoteSnapshot requires discriminator \"kind\" in [startAuditions, greenlightPicture]; received \"{value ?? "<null>"}\".");
+                        "C# union StudioQuoteSnapshot member StudioCastingQuoteSnapshot requires discriminator \"kind\" in [startAuditions, greenlightPicture]; received \"" + (value ?? "<null>") + "\".");
                 kindValue = value;
             }
         }
@@ -1957,7 +1957,7 @@ namespace Studio.Runtime.Data
                 if (!(String.Equals(value, "commissionScreenplay", StringComparison.Ordinal) ||
                     String.Equals(value, "commissionOriginalScreenplay", StringComparison.Ordinal)))
                     throw new JsonSerializationException(
-                        $"C# union StudioQuoteSnapshot member StudioCommissionQuoteSnapshot requires discriminator \"kind\" in [commissionScreenplay, commissionOriginalScreenplay]; received \"{value ?? "<null>"}\".");
+                        "C# union StudioQuoteSnapshot member StudioCommissionQuoteSnapshot requires discriminator \"kind\" in [commissionScreenplay, commissionOriginalScreenplay]; received \"" + (value ?? "<null>") + "\".");
                 kindValue = value;
             }
         }
@@ -2558,10 +2558,10 @@ namespace Studio.Runtime.Data
         public string sceneSeed;
 
         [JsonProperty("sets", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public StudioSetSnapshot[] sets = Array.Empty<StudioSetSnapshot>();
+        public StudioSetSnapshot[] sets;
 
         [JsonProperty("stages", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public StudioStageSnapshot[] stages = Array.Empty<StudioStageSnapshot>();
+        public StudioStageSnapshot[] stages;
 
         [JsonProperty("studioName", Required = Required.Always)]
         public string studioName;
@@ -2910,7 +2910,7 @@ namespace Studio.Runtime.Data
         public StudioProductionBlockerSnapshot blocker;
 
         [JsonProperty("companyMembers", Required = Required.DisallowNull, NullValueHandling = NullValueHandling.Ignore)]
-        public StudioProductionCompanyMemberSnapshot[] companyMembers = Array.Empty<StudioProductionCompanyMemberSnapshot>();
+        public StudioProductionCompanyMemberSnapshot[] companyMembers;
 
         [JsonProperty("currentCommand", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Include)]
         public StudioProductionCommandSnapshot currentCommand;
@@ -3597,7 +3597,7 @@ namespace Studio.Runtime.Data
                     return value.ToObject<StudioQuoteCastingRequest>(serializer);
                 default:
                     throw new JsonSerializationException(
-                        $"C# union StudioBridgeQuoteRequest has unknown discriminator \"{discriminator.Value<string>() ?? "<null>"}\"; expected [quoteCommission, quoteCasting].");
+                        "C# union StudioBridgeQuoteRequest has unknown discriminator \"" + (discriminator.Value<string>() ?? "<null>") + "\"; expected [quoteCommission, quoteCasting].");
             }
         }
 
@@ -3643,7 +3643,7 @@ namespace Studio.Runtime.Data
                     return value.ToObject<StudioScheduleShootingTakeCommand>(serializer);
                 default:
                     throw new JsonSerializationException(
-                        $"C# union StudioProductionCommandSnapshot has unknown discriminator \"{discriminator.Value<string>() ?? "<null>"}\"; expected [assignShootingDirector, clearSceneryLoadIn, scheduleShootingTake].");
+                        "C# union StudioProductionCommandSnapshot has unknown discriminator \"" + (discriminator.Value<string>() ?? "<null>") + "\"; expected [assignShootingDirector, clearSceneryLoadIn, scheduleShootingTake].");
             }
         }
 
@@ -3691,7 +3691,7 @@ namespace Studio.Runtime.Data
                     return value.ToObject<StudioCastingQuoteSnapshot>(serializer);
                 default:
                     throw new JsonSerializationException(
-                        $"C# union StudioQuoteSnapshot has unknown discriminator \"{discriminator.Value<string>() ?? "<null>"}\"; expected [commissionScreenplay, commissionOriginalScreenplay, startAuditions, greenlightPicture].");
+                        "C# union StudioQuoteSnapshot has unknown discriminator \"" + (discriminator.Value<string>() ?? "<null>") + "\"; expected [commissionScreenplay, commissionOriginalScreenplay, startAuditions, greenlightPicture].");
             }
         }
 
