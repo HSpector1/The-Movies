@@ -37,6 +37,10 @@ import {
   type CastingProjectView,
   type CastingSlate,
   type GameState,
+  freelancerMarketRefreshWeek,
+  hiringMarketView,
+  type ContractOfferView,
+  type HiringCandidateView,
   type PackageCandidateView,
   type RolePoolView,
 } from '../src/core/index.ts'
@@ -46,6 +50,7 @@ import {
   findConcept,
   greenlightScriptProject,
   productionDemandView,
+  signContractAction,
   startCastingSessionAction,
   type ActionOutcome,
   type AssignmentFit,
@@ -112,6 +117,7 @@ function candidateSnapshot(candidate: PackageCandidateView): BridgeCastingCandid
     available: candidate.available,
     availabilityLabel: candidate.availabilityLabel,
     currentWorkLabel: candidate.currentWorkLabel,
+    returnWeek: candidate.returnWeek,
     projectCostAmount: candidate.projectCostAmount,
     projectCostLabel: candidate.projectCostLabel,
     signals: candidate.signals.map((signal) => ({ kind: signal.kind, text: signal.text })),
@@ -345,6 +351,9 @@ export function castingProjection(state: GameState): BridgeCastingSnapshot {
       `${capacity.capacity === 1 ? 'slot' : 'slots'} available.`,
     projects,
     expiryNotices: expiryNotices(state),
+    // P05A.3 §8/§13: the signable market + the authoritative rotation week.
+    hiringCandidates: hiringMarketView(state).map(hiringCandidateSnapshot),
+    freelancerMarketRefreshWeek: freelancerMarketRefreshWeek(state),
   }
   return { mode: 'managed', board }
 }
@@ -354,7 +363,7 @@ export function castingProjection(state: GameState): BridgeCastingSnapshot {
 export type CastingDraftConversion =
   | {
       ok: true
-      kind: 'startAuditions' | 'greenlightPicture'
+      kind: 'startAuditions' | 'greenlightPicture' | 'signContract'
       apply: (state: GameState) => ActionOutcome
       commitLabel: string
       projectTitle: string
@@ -467,6 +476,48 @@ function greenlightConversion(
   }
 }
 
+function hiringCandidateSnapshot(view: HiringCandidateView) {
+  return {
+    talentId: view.talentId,
+    name: view.name,
+    professionLabel: view.professionLabel,
+    role: view.role,
+    ovr: view.ovr,
+    starPower: Math.round(view.starPower),
+    genreExperienceLabel: view.genreExperienceLabel,
+    kind: view.kind,
+    availabilityLabel: view.availabilityLabel,
+    offers: view.offers.map((offer: ContractOfferView) => ({ ...offer })),
+  }
+}
+
+// ── P05A.3 §8/§10: the sign-actor conversion — existing contract authority ──
+
+function signActorConversion(
+  state: GameState,
+  draft: BridgeCastingDraftPayload,
+): CastingDraftConversion {
+  const market = hiringMarketView(state)
+  const candidate = market.find((entry) => entry.talentId === draft.signTalentId)
+  if (draft.signTalentId === null || candidate === undefined) {
+    return {
+      ok: false,
+      error: `"${draft.signTalentId ?? '<none>'}" is not currently signable — not a free agent or hiring-market candidate.`,
+    }
+  }
+  const offer = candidate.offers.find((entry) => entry.termWeeks === draft.signTermWeeks)
+  if (draft.signTermWeeks === null || offer === undefined) {
+    return { ok: false, error: 'Choose a published contract term before signing.' }
+  }
+  return {
+    ok: true,
+    kind: 'signContract',
+    apply: (current) => signContractAction(current, candidate.talentId, offer.termWeeks),
+    commitLabel: `Sign ${candidate.name} — ${offer.termLabel}`,
+    projectTitle: candidate.name,
+  }
+}
+
 /**
  * The ONLY conversion from a player's screen-test slate or greenlight package
  * selection to an engine payload. Refusals here are player-facing sentences;
@@ -478,6 +529,7 @@ export function castingDraftToEngine(
   state: GameState,
   draft: BridgeCastingDraftPayload,
 ): CastingDraftConversion {
+  if (draft.kind === 'signActor') return signActorConversion(state, draft)
   const view = requirePackageProject(state, draft.projectId)
   if (view === undefined) {
     return { ok: false, error: 'This screenplay is not currently Ready to cast.' }
@@ -532,6 +584,10 @@ function screenTestQuoteSnapshot(
     forecastLine: null,
     setDemandLine: null,
     queueNote: queues ? AUDITION_QUEUE_NOTE : null,
+    signTalentName: null,
+    signTermWeeks: null,
+    signWeeklySalary: null,
+    signGuaranteedComp: null,
   }
 }
 
@@ -619,6 +675,10 @@ function greenlightQuoteSnapshot(
       `(expected ${formatMoney(profit.profit.expected)}).`,
     setDemandLine: demand.consequence,
     queueNote: queues ? GREENLIGHT_QUEUE_NOTE : null,
+    signTalentName: null,
+    signTermWeeks: null,
+    signWeeklySalary: null,
+    signGuaranteedComp: null,
   }
 }
 
@@ -629,6 +689,55 @@ function greenlightQuoteSnapshot(
  * is re-derived. NO burn, NO runway, NO recurring delta anywhere on this
  * snapshot (omission is law this checkpoint).
  */
+// P05A.3 §10 — the sign-contract quote: the authoritative preview of exactly
+// what signing commits, from the DISCARDED preflight successor. The signing
+// bonus is the immediate D-12 commitment (cashBefore − cashAfter); the weekly
+// salary joins payroll, so the successor's own runway is the honest
+// after-signing runway.
+function signContractQuoteSnapshot(
+  state: GameState,
+  draft: BridgeCastingDraftPayload,
+  conversion: Extract<CastingDraftConversion, { ok: true }>,
+  successor: GameState,
+  intentId: string,
+): BridgeCastingQuoteSnapshot {
+  const candidate = hiringMarketView(state).find((entry) => entry.talentId === draft.signTalentId)
+  const offer = candidate?.offers.find((entry) => entry.termWeeks === draft.signTermWeeks)
+  const cashBefore = state.studio.cash
+  const cashAfter = successor.studio.cash
+  const totalImmediate = Math.max(0, cashBefore - cashAfter)
+  return {
+    intentId,
+    kind: 'signContract',
+    commitLabel: conversion.commitLabel,
+    startsNow: true,
+    queues: false,
+    projectId: draft.projectId,
+    title: conversion.projectTitle,
+    weekLine: null,
+    slotLine: null,
+    noFeeLine: null,
+    noHoldLine: null,
+    uniquePeople: null,
+    negative: null,
+    marketing: null,
+    freelancerFees: null,
+    totalImmediate,
+    cashBefore,
+    cashAfter,
+    affordable: cashAfter >= 0,
+    strongestAssignmentLine: null,
+    weakestAssignmentLine: null,
+    forecastLine: null,
+    setDemandLine: null,
+    queueNote: null,
+    signTalentName: candidate?.name ?? null,
+    signTermWeeks: offer?.termWeeks ?? null,
+    signWeeklySalary: offer?.weeklySalary ?? null,
+    signGuaranteedComp: offer?.guaranteedComp ?? null,
+  }
+}
+
 export function castingQuoteSnapshot(
   state: GameState,
   draft: BridgeCastingDraftPayload,
@@ -636,6 +745,8 @@ export function castingQuoteSnapshot(
   successor: GameState,
   intentId: string,
 ): BridgeCastingQuoteSnapshot {
+  if (conversion.kind === 'signContract')
+    return signContractQuoteSnapshot(state, draft, conversion, successor, intentId)
   return conversion.kind === 'startAuditions'
     ? screenTestQuoteSnapshot(state, draft, conversion, successor, intentId)
     : greenlightQuoteSnapshot(state, draft, conversion, successor, intentId)

@@ -21,7 +21,7 @@ export const PROTOCOL_VERSION = 4 as const
 // collection, and the exact `rehearsal` journey beat) extends the wire shape,
 // so the projection identity advances 11 → 12. Protocol stays 4; save stays 15
 // (no saved byte changed).
-export const PROJECTION_VERSION = 12 as const
+export const PROJECTION_VERSION = 13 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1045,6 +1045,12 @@ const StudioCastingCandidateSnapshot = object('StudioCastingCandidateSnapshot', 
   available: bool(),
   availabilityLabel: nonEmptyText(),
   currentWorkLabel: nullable(text()),
+  /**
+   * P05A.3 §12: the authoritative week the person's current engagement ends
+   * (production wrap / writing due), when the engine knows it. Null when not
+   * busy or when no completion week is authoritative — never invented.
+   */
+  returnWeek: nullable(nonNegativeInteger()),
   projectCostAmount: nonNegativeInteger(),
   projectCostLabel: nonEmptyText(),
   signals: array(reference('StudioCastingSignalSnapshot', StudioCastingSignalSnapshot)),
@@ -1118,10 +1124,50 @@ const StudioCastingExpiryNoticeSnapshot = object('StudioCastingExpiryNoticeSnaps
   reviewActionLabel: nonEmptyText(),
 })
 
+/**
+ * P05A.3 §10 — one authoritative contract-term offer (Core D-11.6 economics,
+ * computed by contractOfferOptions; never re-derived client-side).
+ */
+const StudioContractOfferSnapshot = object('StudioContractOfferSnapshot', {
+  termWeeks: nonNegativeInteger(),
+  termLabel: nonEmptyText(),
+  annualSalary: nonNegativeInteger(),
+  signingBonus: nonNegativeInteger(),
+  weeklySalary: nonNegativeInteger(),
+  /** Weekly salary × term — the full guaranteed compensation of the contract. */
+  guaranteedComp: nonNegativeInteger(),
+  /** Signing bonus + guaranteed compensation: the total obligation signed into. */
+  totalObligation: nonNegativeInteger(),
+})
+
+/**
+ * P05A.3 §8/§11 — one signable person from the authoritative hiring market
+ * (free agents first, then the rotating epoch sample). A hiring candidate is
+ * NOT castable until a contract is accepted — the `kind` says which side of
+ * that line they stand on.
+ */
+const StudioHiringCandidateSnapshot = object('StudioHiringCandidateSnapshot', {
+  talentId: nonEmptyText(),
+  name: nonEmptyText(),
+  professionLabel: nonEmptyText(),
+  /** The primary role key ('actor' | 'writer' | 'director' | 'craft'). */
+  role: nonEmptyText(),
+  ovr: nonNegativeInteger(),
+  starPower: nonNegativeInteger(),
+  genreExperienceLabel: nonEmptyText(),
+  kind: enumeration(['free-agent', 'hiring-market']),
+  availabilityLabel: nonEmptyText(),
+  offers: array(reference('StudioContractOfferSnapshot', StudioContractOfferSnapshot)),
+})
+
 const StudioCastingBoardSnapshot = object('StudioCastingBoardSnapshot', {
   capacityLine: nonEmptyText(),
   projects: array(reference('StudioCastingProjectSnapshot', StudioCastingProjectSnapshot)),
   expiryNotices: array(reference('StudioCastingExpiryNoticeSnapshot', StudioCastingExpiryNoticeSnapshot)),
+  /** P05A.3 §8: every currently signable person (free agents + hiring market). */
+  hiringCandidates: array(reference('StudioHiringCandidateSnapshot', StudioHiringCandidateSnapshot)),
+  /** P05A.3 §13: the authoritative week the freelancer-market epoch next rotates. */
+  freelancerMarketRefreshWeek: nonNegativeInteger(),
 })
 
 const StudioCastingSnapshot = object('StudioCastingSnapshot', {
@@ -1188,7 +1234,7 @@ const StudioQuoteCommissionRequest = object('StudioQuoteCommissionRequest', {
 // language refusal enforced by `castingDraftToEngine` against the live read
 // models, not a JSON Schema structural constraint.
 const StudioCastingDraftPayload = object('StudioCastingDraftPayload', {
-  kind: enumeration(['screenTest', 'greenlightPackage']),
+  kind: enumeration(['screenTest', 'greenlightPackage', 'signActor']),
   projectId: nonEmptyText(),
   /** Required exactly when kind is `screenTest`; exactly 2 IDs each, enforced server-side. */
   slateLead: nullable(array(nonEmptyText())),
@@ -1203,6 +1249,9 @@ const StudioCastingDraftPayload = object('StudioCastingDraftPayload', {
   /** Must equal a published negative/marketing menu amount — enforced server-side. */
   budgetNegative: nullable(nonNegativeInteger()),
   budgetMarketing: nullable(nonNegativeInteger()),
+  /** Required exactly when kind is `signActor`: a published hiring candidate + a published term. */
+  signTalentId: nullable(text()),
+  signTermWeeks: nullable(nonNegativeInteger()),
 })
 
 const StudioQuoteCastingRequest = object('StudioQuoteCastingRequest', {
@@ -1223,7 +1272,7 @@ const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
 const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
   /** The ONE opaque digest-bound commit intent this quote mints. */
   intentId: nonEmptyText(),
-  kind: enumeration(['startAuditions', 'greenlightPicture']),
+  kind: enumeration(['startAuditions', 'greenlightPicture', 'signContract']),
   commitLabel: nonEmptyText(),
   startsNow: bool(),
   queues: bool(),
@@ -1250,6 +1299,13 @@ const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
   forecastLine: nullable(text()),
   setDemandLine: nullable(text()),
   queueNote: nullable(text()),
+  // Sign-contract consequence (P05A.3 §10) — null when kind !== 'signContract'.
+  // totalImmediate carries the signing bonus; cashBefore/cashAfter/affordable
+  // carry the D-12 read exactly as the greenlight quote does.
+  signTalentName: nullable(text()),
+  signTermWeeks: nullable(nonNegativeInteger()),
+  signWeeklySalary: nullable(nonNegativeInteger()),
+  signGuaranteedComp: nullable(nonNegativeInteger()),
 })
 
 const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
@@ -1368,6 +1424,7 @@ export const AVAILABLE_INTENT_KINDS = [
   'resolveProductionBlocker',
   'startConstruction',
   'commissionOriginalScreenplay',
+  'signContract',
 ] as const
 
 export const REJECTION_CODES = [
@@ -1599,6 +1656,8 @@ const definitions = {
   StudioDevelopmentSnapshot,
   StudioCastingSignalSnapshot,
   StudioCastingEvidenceSnapshot,
+  StudioContractOfferSnapshot,
+  StudioHiringCandidateSnapshot,
   StudioBudgetOptionSnapshot,
   StudioCastingBlockerSnapshot,
   StudioCastingCandidateSnapshot,
@@ -1645,7 +1704,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-12',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-13',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [
@@ -1708,6 +1767,8 @@ export type BridgeCommissionDraftPayload = InferSchema<typeof StudioCommissionDr
 export type BridgeCommissionQuoteSnapshot = InferSchema<typeof StudioCommissionQuoteSnapshot>
 export type BridgeCastingDraftPayload = InferSchema<typeof StudioCastingDraftPayload>
 export type BridgeCastingQuoteSnapshot = InferSchema<typeof StudioCastingQuoteSnapshot>
+export type BridgeContractOfferSnapshot = InferSchema<typeof StudioContractOfferSnapshot>
+export type BridgeHiringCandidateSnapshot = InferSchema<typeof StudioHiringCandidateSnapshot>
 export type BridgeQuoteCommissionRequest = InferSchema<typeof StudioQuoteCommissionRequest>
 export type BridgeQuoteCastingRequest = InferSchema<typeof StudioQuoteCastingRequest>
 export type BridgeQuoteRequest = InferSchema<typeof StudioBridgeQuoteRequest>

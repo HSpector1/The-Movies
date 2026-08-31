@@ -94,6 +94,9 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // the schema-bump law because checkpoints written by W2–W4 dev/proof runs
   // on the WIP branch carry it.
   ['sha256:a481d14f3810ffbafcba2bbf509db7340263f3f0fd665a059507a1567d98923d', 'projection-v12-stale-urn'],
+  // projection-v12: 93895b7..e2ab80d "P05A closed Production projection"
+  // through P05A.2 — the identity every P05-era Owner checkpoint carries.
+  ['sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b', 'projection-v12'],
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({

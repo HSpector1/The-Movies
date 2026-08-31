@@ -148,7 +148,7 @@ type PendingQuote =
       family: 'casting'
       draft: BridgeCastingDraftPayload
       stateDigest: string
-      kind: 'startAuditions' | 'greenlightPicture'
+      kind: 'startAuditions' | 'greenlightPicture' | 'signContract'
       commitLabel: string
     }
 

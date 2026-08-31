@@ -127,7 +127,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 12,
+          "const": 13,
           "type": "integer"
         },
         "stateDigest": {
@@ -243,7 +243,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 12,
+          "const": 13,
           "type": "integer"
         },
         "stateDigest": {
@@ -307,7 +307,8 @@
             "greenlightPicture",
             "resolveProductionBlocker",
             "startConstruction",
-            "commissionOriginalScreenplay"
+            "commissionOriginalScreenplay",
+            "signContract"
           ],
           "type": "string"
         },
@@ -721,7 +722,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 12,
+          "const": 13,
           "type": "integer"
         },
         "stateDigest": {
@@ -790,7 +791,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 12,
+          "const": 13,
           "type": "integer"
         },
         "stateDigest": {
@@ -999,6 +1000,17 @@
           },
           "type": "array"
         },
+        "freelancerMarketRefreshWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "hiringCandidates": {
+          "items": {
+            "$ref": "#/$defs/StudioHiringCandidateSnapshot"
+          },
+          "type": "array"
+        },
         "projects": {
           "items": {
             "$ref": "#/$defs/StudioCastingProjectSnapshot"
@@ -1009,6 +1021,8 @@
       "required": [
         "capacityLine",
         "expiryNotices",
+        "freelancerMarketRefreshWeek",
+        "hiringCandidates",
         "projects"
       ],
       "type": "object",
@@ -1097,6 +1111,18 @@
           "minLength": 1,
           "type": "string"
         },
+        "returnWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "signals": {
           "items": {
             "$ref": "#/$defs/StudioCastingSignalSnapshot"
@@ -1129,6 +1155,7 @@
         "professionLabel",
         "projectCostAmount",
         "projectCostLabel",
+        "returnWeek",
         "signals",
         "starPower",
         "talentId"
@@ -1216,13 +1243,36 @@
         "kind": {
           "enum": [
             "screenTest",
-            "greenlightPackage"
+            "greenlightPackage",
+            "signActor"
           ],
           "type": "string"
         },
         "projectId": {
           "minLength": 1,
           "type": "string"
+        },
+        "signTalentId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signTermWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "slateAntagonist": {
           "anyOf": [
@@ -1277,6 +1327,8 @@
         "directorId",
         "kind",
         "projectId",
+        "signTalentId",
+        "signTermWeeks",
         "slateAntagonist",
         "slateLead",
         "slateSupport"
@@ -1656,7 +1708,8 @@
         "kind": {
           "enum": [
             "startAuditions",
-            "greenlightPicture"
+            "greenlightPicture",
+            "signContract"
           ],
           "type": "string"
         },
@@ -1725,6 +1778,52 @@
           "anyOf": [
             {
               "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signGuaranteedComp": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signTalentName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signTermWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signWeeklySalary": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
             },
             {
               "type": "null"
@@ -1820,6 +1919,10 @@
         "queueNote",
         "queues",
         "setDemandLine",
+        "signGuaranteedComp",
+        "signTalentName",
+        "signTermWeeks",
+        "signWeeklySalary",
         "slotLine",
         "startsNow",
         "strongestAssignmentLine",
@@ -2584,6 +2687,56 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioConstructionProjection"
+    },
+    "StudioContractOfferSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "annualSalary": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "guaranteedComp": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "signingBonus": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "termLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "termWeeks": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "totalObligation": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "weeklySalary": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "annualSalary",
+        "guaranteedComp",
+        "signingBonus",
+        "termLabel",
+        "termWeeks",
+        "totalObligation",
+        "weeklySalary"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioContractOfferSnapshot"
     },
     "StudioDevelopmentAttentionSnapshot": {
       "additionalProperties": false,
@@ -3644,6 +3797,72 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioGridRectSnapshot"
+    },
+    "StudioHiringCandidateSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "availabilityLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "genreExperienceLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "free-agent",
+            "hiring-market"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "offers": {
+          "items": {
+            "$ref": "#/$defs/StudioContractOfferSnapshot"
+          },
+          "type": "array"
+        },
+        "ovr": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "professionLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "role": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "starPower": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "availabilityLabel",
+        "genreExperienceLabel",
+        "kind",
+        "name",
+        "offers",
+        "ovr",
+        "professionLabel",
+        "role",
+        "starPower",
+        "talentId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioHiringCandidateSnapshot"
     },
     "StudioJourneyBlockedSnapshot": {
       "additionalProperties": false,
@@ -6356,7 +6575,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-12",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-13",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -6397,7 +6616,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 12,
+    "projectionVersion": 13,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",
