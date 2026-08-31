@@ -726,8 +726,9 @@ export function composeClosedProduction(
     const facilityScopedSubjects = (input.weekTheater?.subjects ?? []).filter(
       (subject) => subject.facilityId === stage.facilityId,
     )
+    // ('withheld' already returned above — by here the holder is a fact or absent.)
     const holderProductionIdForSubjects =
-      holder === undefined || holder === 'withheld' ? null : holder.productionId
+      holder === undefined ? null : holder.productionId
     const theaterSubjectIds = (holderProductionIdForSubjects === null
       ? facilityScopedSubjects
       : facilityScopedSubjects.filter(
