@@ -54,6 +54,8 @@ function greenlightDraftFor(state: GameState, projectId: string): BridgeCastingD
     craftLeadId: available(view.craftCandidates),
     budgetNegative: view.negativeOptions[0]!.amount,
     budgetMarketing: view.marketingOptions[0]!.amount,
+    signTalentId: null,
+    signTermWeeks: null,
   }
 }
 

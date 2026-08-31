@@ -61,6 +61,8 @@ function greenlightDraft(overrides: Partial<BridgeCastingDraftPayload> = {}): Br
     craftLeadId: CRAFT,
     budgetNegative: NEG_075,
     budgetMarketing: MKT_MIN,
+    signTalentId: null,
+    signTermWeeks: null,
     ...overrides,
   }
 }

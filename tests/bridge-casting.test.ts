@@ -180,6 +180,8 @@ function greenlightDraftFor(state: GameState, projectId: string): BridgeCastingD
     craftLeadId: available(view.craftCandidates),
     budgetNegative: view.negativeOptions[0]!.amount,
     budgetMarketing: view.marketingOptions[0]!.amount,
+    signTalentId: null,
+    signTermWeeks: null,
   }
 }
 
@@ -202,6 +204,8 @@ describe('P04A Casting bridge — quote seam and board', () => {
       craftLeadId: null,
       budgetNegative: null,
       budgetMarketing: null,
+      signTalentId: null,
+      signTermWeeks: null,
     }
     expect(view.leadCandidates.map((c) => c.talentId)).toContain(actors[0]!.id)
 
@@ -374,6 +378,8 @@ describe('P04A Casting bridge — quote seam and board', () => {
       craftLeadId: null,
       budgetNegative: null,
       budgetMarketing: null,
+      signTalentId: null,
+      signTermWeeks: null,
     }
     const quoted = session.quote(castingQuoteEnvelope(session, 'queue-screentest-quote', draft))
     expect(quoted.accepted).toBe(true)
@@ -468,6 +474,8 @@ describe('P04A Casting bridge — quote seam and board', () => {
       craftLeadId: null,
       budgetNegative: null,
       budgetMarketing: null,
+      signTalentId: null,
+      signTermWeeks: null,
     }
     const quoted = session.quote(castingQuoteEnvelope(session, 'invalidate-quote-1', draft))
     expect(quoted.accepted).toBe(true)
@@ -539,6 +547,8 @@ describe('P04A Casting bridge — quote seam and board', () => {
         craftLeadId: null,
         budgetNegative: null,
         budgetMarketing: null,
+        signTalentId: null,
+        signTermWeeks: null,
       } as unknown as BridgeCastingDraftPayload),
     )
     expect(oneId.accepted).toBe(false)
@@ -558,6 +568,8 @@ describe('P04A Casting bridge — quote seam and board', () => {
         craftLeadId: null,
         budgetNegative: null,
         budgetMarketing: null,
+        signTalentId: null,
+        signTermWeeks: null,
       }),
     )
     expect(unknownId.accepted).toBe(false)
