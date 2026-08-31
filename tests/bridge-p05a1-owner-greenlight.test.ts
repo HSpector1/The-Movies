@@ -135,8 +135,9 @@ describe('P05A.1 — the Owner-profile Queue Greenlight state, replayed', () => 
     if (!committed.accepted) throw new Error(`expected commit acceptance, got: ${committed.message}`)
     const envelopeAfter = session.snapshot()
     expect(envelopeAfter.treasury.cash).toBe(envelopeBefore.treasury.cash)
-    const boardProject = envelopeAfter.snapshot.casting.casting.board.projects
-      .find((entry) => entry.projectId === PROJECT)
+    const board = envelopeAfter.snapshot.casting.casting.board
+    if (board === null) throw new Error('the casting board must be published after a queued greenlight')
+    const boardProject = board.projects.find((entry) => entry.projectId === PROJECT)
     expect(boardProject?.greenlightQueued).toBe(true)
     expect(envelopeAfter.snapshot.productions.activeProductions.length)
       .toBe(envelopeBefore.snapshot.productions.activeProductions.length)
