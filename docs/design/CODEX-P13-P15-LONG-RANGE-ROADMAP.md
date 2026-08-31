@@ -852,3 +852,39 @@ P16+: ownership transactions, co-productions, acquisitions, mergers, library/IP 
 **PRELIMINARY RECOMMENDATION:** Owner approves or revises this boundary before any P13 implementation reconnaissance. The next authorized action from this document is review, not implementation.
 
 **POST-UPSTREAM OWNER-ACCEPTED REFRESH REQUIRED.**
+
+---
+
+## 26. Owner approval — 2026-08-31
+
+**OWNER APPROVED ROADMAP — DOCUMENTATION / PRODUCT-DIRECTION AUTHORITY ONLY.** The Owner approved
+this P13–P15 package spine at research commit
+`2a7ff0d973391f9433d19ec2cb7f6c5582d1e44f`. The durable ruling is recorded in
+`docs/design/CODEX-P13-P15-OWNER-RULINGS.md`. This approval section supersedes the preliminary
+status and Owner-decision-required wording above; it does not silently resolve any decision that
+the ruling keeps open.
+
+- **P13 — Eras, Technology & Studio Innovation:** one global catalogue and shared industry
+  timeline, studio-relative research/adoption, concrete consequences, symmetric rival use,
+  eventual public standardization, and the bounded synchronized-sound P13A proof.
+- **P14 — Talent Market, Relationships & Career Lifecycle:** P10 person/contract/career authority,
+  P12 employer/studio authority, immutable `PersonId`, proposal-before-resolution, one-employer
+  exclusivity, transparent terms, work-derived relationships, preserved alumni history, and the
+  bounded free/expiring-professional P14A proof.
+- **P15 — Corporate Hollywood, Shared Market & Studio Legacy:** a frozen-batch symmetric market
+  with exact self-exclusion and pressure/decay, Power Ranking separate from Standing, P12 retaining
+  canonical operating-state ownership, P15 distress/closure/later-entry behavior, and an actual-
+  history, nonexclusive-archetype 2040 legacy with no overall score. P15A remains market-only.
+
+Licensing, patents, royalties, technology-rights transfers, advanced mobility/buyouts, corporate
+ownership transactions, co-productions, library/IP transfers, and every other item in the approved
+P16+ parking lot remain deferred. The exact historical and standardization windows, technology
+skip/acceleration rules, deeper contract/agency/relationship/lifecycle laws, shared-market and Power
+Ranking formulas, closure/later-entry policy, finale presentation, and post-2040 mode remain open
+Owner decisions. Endless Mode is undecided.
+
+The **Corporate Hollywood** title grants no acquisition, merger, stake, subsidiary, co-production,
+or library/IP-transfer authority. This approval authorizes no implementation, Unity work, schema,
+DTO, save, dependency, or implementation-branch change. Every package still requires its normal
+post-upstream changed-path refresh, implementation reconnaissance against then-current authority,
+and separate Owner implementation approval before coding.
