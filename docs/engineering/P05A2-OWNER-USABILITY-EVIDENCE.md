@@ -119,4 +119,93 @@ string was a head/tail splice). Protocol 4 / projection 12 / schema
   crash the lock exposed in the HID driver (screenshot helper threw instead
   of failing soft) is fixed.
 
-<!-- unlock re-runs + visuals + hostile review recorded below -->
+## Post-unlock re-runs
+
+4H and the WriterCredit journey re-ran green after the session unlocked
+(hid-20260831T143439Z complete failures=0; WriterCredit complete with
+save/load + writer-credit laws intact at exe `20569ec7…`). The
+`-castingJourneyNavigation` variant still failed on the unlocked session and
+was BISECTED at the preserved P05A.1 binary (exe `5ef97f1f…`): byte-identical
+failure ("Timed out waiting for the auditionee's live world anchor",
+navTalentId t-act-02) — **pre-existing, not caused by P05A.2**; carried
+forward as a known non-blocker (likely the W7-ratified exact-zone body law;
+the round-1 hostile reviewer independently corroborated the exe/asm pair
+against the P05A.1 manifests). Provenance-hygiene note (hostile F5): the
+bisect run's regenerated build-manifest recorded the LIVE checkout rather
+than the swapped binary's source — the reviewer's independent corroboration,
+not that manifest, is the binding evidence; manifest regeneration after an
+app swap is now a recorded anti-pattern.
+
+## Visual / responsive review (§19)
+
+Oracle s2–s6 re-run; the casting flow captured at 1280×800 / 1440×900 /
+1720×1045 / 3456×2234-fullscreen; the clarity walk at 1280×800 / 1440×900 /
+3456×2234. Key frames inspected at the extremes: the OPTIONAL offer fits
+cleanly at 1280×800; the queued underway panel at 3456 fullscreen carries the
+six reads + the amber next-action; the review at 1280 shows every
+expected-vs-observed pair, WHAT THE TEST CHANGED, and "Continue to final
+casting". Scrollbar discoverability: content reachable by wheel — recorded
+as polish per the Owner's §19 instruction, not fixed.
+
+## Hostile review round 1 — REJECT (F1–F5), all corrected at root
+
+The fresh reviewer verified the whole floor and journeys, confirmed the
+lie-removal is real (projectFit provably never reads audition evidence),
+found NO criterion tripped among 1–9/11–16/18 — and REJECTED on:
+
+- **F1 (blocking)**: `NowSentence` used `row.facilityLabel` — the JOINED
+  reserved-facility list — so the checkpoint's own frames read "on their way
+  to Soundstage 7 + Scenery Shop 2" (the scenery's ORIGIN named as its
+  destination) and "Cameras are rolling on Soundstage 7 + Scenery Shop",
+  each contradicted by the rows beneath. Fixed (Unity `89bd882`): the
+  sentence takes the RESOLVED single stage label (StageRowByFacilityId — the
+  same resolution STAGE & SET and WrapHandoffLine use); the unit fixture now
+  carries the real joined wire value.
+- **F2 (blocking)**: `ActionNextLine` ("Once submitted — {nextMilestone}")
+  asserted an unpublished temporal claim that was tautological in all three
+  reachable states. DELETED; a reflection pin keeps the method gone.
+- **F3**: criterion 17 was unenforced at the row level (an additive
+  fabrication passed 673/673). The review-row assertions are now EXACT
+  equality.
+- **F4**: the planner week-law line rendered below the fold at 1280×800 and
+  1720×1045. Moved above the fold (top region, planner-gated); the
+  owner-tests journey now asserts on-screen GEOMETRY, not just text.
+- **F5**: the bisect-manifest provenance note above.
+
+## Hostile review round 2 — ACCEPT (inheriting verifier; round-1 transcript lost)
+
+The round-2 verifier (fresh context, explicitly inheriting the round-1
+verdict per the campaign's established precedent) re-ran the full floor
+(673/673 measured), verified every fix at root and IN PIXELS at the new
+binary, ran five mutations (the headline re-introduction of the joined label
+KILLED by the fixture), and returned **ACCEPT** with non-blocking findings —
+all closed before seal (Unity `31d3800`):
+
+- **F6**: the clarity journey now pins the workspace sentence to the
+  stage-resolved expectation (a call-site regression of F1 fails the
+  packaged journey, not just the unit fixture).
+- **F7**: exact-equality evidence pins extended to ALL THREE roles plus the
+  Fit label.
+- **F8 (ruled acceptable by the reviewer)**: the name-based F2 pin does not
+  bar a renamed tautology; the shipped section contains only published
+  facts, and absence-of-arbitrary-invention is not pinnable by name.
+  Recorded.
+- **F9**: this document completed (this revision).
+- **F10**: the F4 fix re-proved at 1720×1045 (a round-1 defect viewport);
+  the 3456 fullscreen equivalent is the same ~1720-logical layout at the
+  ratified 2.009 scale and its earlier capture stands.
+- **R5** stale comment fixed; **R6** the oracle set re-unified at the seal
+  binary (rehearsal/blocked-waiting/wrap re-captured); **R2/R3/R7**
+  recorded: the pre-existing "Package draft · not committed" badge beside a
+  formed receipt; the deliberately quiet skip-button styling; the
+  root-relative (not viewport-relative) geometry gate.
+
+## FINAL floors — seal binary `7e418c0542fc74a19066268ea4aac1c7c71bd6ecd5654111f6703d43324fd48b` (Unity `31d3800` / TS `694aae9`+docs)
+
+EditMode 673/673 (after the last code change). At the seal binary: oracle
+rehearsal/scenery-load-in/blocked-waiting/shooting/wrap; owner-tests journey
+at 1440×900, 1280×800, AND 1720×1045 (geometry-asserted week-law); clarity
+walk (F6 pin live, single-stage sentences); 4M; P05A.1 owner-repro — all
+PASS. 4H at the seal binary recorded on the next unlocked session (it passed
+at the two predecessor binaries of this range; the seal delta is
+tests/comment/runner only).
