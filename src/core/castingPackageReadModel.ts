@@ -180,9 +180,18 @@ const POOL_LABEL: Record<RolePoolView['role'], string> = {
 }
 
 // Every `ScriptPlayerBlockerKind` mapped onto the richer casting-package blocker
-// role vocabulary. `package-staffing` is never emitted here — this projection
-// replaces it with the finer per-pool emptiness blockers below, which name WHICH
-// role is short rather than bundling every shortage into one sentence.
+// role vocabulary.
+//
+// P05A.3: `package-staffing` IS emitted here. The old law dropped it on the
+// theory that per-pool emptiness blockers replace it — but per-pool blockers
+// fire only on an EMPTY pool and are blind to CROSS-POOL DISTINCTNESS: with
+// two actors shared by all three acting pools, every pool is non-empty, no
+// blocker fired, knownGatesClear published true, and the board declared READY
+// a package the engine's own M16.3 three-distinct-actors law can never
+// greenlight. That silent deadlock is the Owner-reported P05A.3 failure. The
+// staffing blocker is the ONE sentence that counts the shortage ("Actors
+// (2 of 3 available)…") and names the acquisition remedy — it rides with its
+// detail so the counts reach the wire.
 const SCRIPT_BLOCKER_ROLE: Record<ScriptPlayerBlockerKind, PackageBlockerView['role']> = {
   'script-mode': 'project',
   'operations-mode': 'project',
@@ -493,12 +502,13 @@ function buildProjectView(state: GameState, pkg: ReadyScriptPackageView): Castin
   )
 
   const mappedBlockers: PackageBlockerView[] = pkg.availability.blockers
-    .filter((b) => b.kind !== 'package-staffing')
     .map((b) => ({
       code: b.kind,
       role: SCRIPT_BLOCKER_ROLE[b.kind],
       talentId: null,
-      message: b.headline,
+      // P05A.3: the staffing blocker's DETAIL carries the exact counts
+      // ("Actors (2 of 3 available)…") — the one fact the player must see.
+      message: b.kind === 'package-staffing' ? `${b.headline}. ${b.detail}` : b.headline,
       currentHolderId: null,
       remedy: b.remedy,
     }))
