@@ -193,6 +193,37 @@ export function richFoundedStudio(
   return applyActions(state, [{ kind: 'foundStudio' }])
 }
 
+/**
+ * P05A.3 §18 — the REAL player floor: a studio founded with EXACTLY the
+ * founding minimums (3 Actors / 1 Director / 1 Writer / 1 Craft Lead) and no
+ * reserve. Every proof before P05A.3 ran on `richFoundedStudio` (≥6 Actors —
+ * double the player minimum) or signed the bridge's optional reserve Actor,
+ * so no test ever exercised a 3-Actor studio post-founding; that structural
+ * gap is how the casting deadlock the Owner hit survived every suite. Use
+ * THIS fixture for any proof about roster scarcity.
+ */
+export function minimalFoundedStudio(seed: string): GameState {
+  let state = beginFounding(generateWorld(seed))
+  const applicants = state.founding!.applicantIds.map(
+    (id) => state.talent.find((person) => person.id === id)!,
+  )
+  for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
+    for (const person of byRole(applicants, role).slice(0, FOUNDING_MINIMUMS[role])) {
+      state = applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks: 104 }])
+    }
+  }
+  return applyActions(state, [{ kind: 'foundStudio' }])
+}
+
+/** The minimal studio with all three Development & Casting systems active. */
+export function minimalManagedStudio(seed: string): GameState {
+  return applyActions(minimalFoundedStudio(seed), [
+    { kind: 'activateStudioOperations' },
+    { kind: 'activateScriptDevelopment' },
+    { kind: 'activateCastingSessions' },
+  ])
+}
+
 /** Studio Operations only — the plain `greenlight` door, script development legacy. */
 export function operationsStudio(seed: string): GameState {
   return applyActions(richFoundedStudio(seed), [{ kind: 'activateStudioOperations' }])
