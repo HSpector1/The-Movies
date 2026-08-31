@@ -717,13 +717,15 @@ export type {
 
 // Casting Package V1 — the role-first package-assembly projection (director/
 // lead/antagonist/support/craftLead pools, closed budget menus, readiness).
-export { castingPackageReadModel } from './castingPackageReadModel.js'
+export { castingPackageReadModel, freelancerMarketRefreshWeek, hiringMarketView } from './castingPackageReadModel.js'
 export type {
   PackageCandidateView,
   PublicSignalView,
   AuditionEvidenceRef,
   RolePoolView,
   CastingPackageProjectView,
+  ContractOfferView,
+  HiringCandidateView,
   PackageBlockerView,
 } from './castingPackageReadModel.js'
 

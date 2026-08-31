@@ -35,10 +35,14 @@
 import {
   assignmentProjectCost,
   busyTalentIds,
+  contractOfferOptions,
   economyEngaged,
   freelancerMarketIds,
+  hiringMarketIds,
   isContracted,
+  type ContractOffer,
 } from './employment.js'
+import { TUNING } from './tuning.js'
 import { requiredNegative } from './filmPackage.js'
 import { NEGATIVE_BUDGET_MULTIPLIERS } from './grid.js'
 import { marketingLevelsFor } from './marketingMenu.js'
@@ -98,6 +102,12 @@ export type PackageCandidateView = {
   available: boolean
   availabilityLabel: string
   currentWorkLabel: string | null
+  /**
+   * P05A.3 §12: the authoritative week the person's current engagement ends
+   * (production wrap or writing due), when the engine knows it; null when
+   * not busy or unknowable — never invented.
+   */
+  returnWeek: number | null
   projectCostAmount: number
   projectCostLabel: string
   signals: PublicSignalView[]
@@ -291,6 +301,34 @@ function currentWorkLabel(state: GameState, talentId: string): string | null {
   return 'Currently otherwise engaged'
 }
 
+/**
+ * P05A.3 §12 — the authoritative completion week of a busy person's current
+ * engagement: a production seat frees at wrap (week + remainingTicks); a
+ * writing assignment frees at its due week when the assignment publishes one.
+ * Null when not busy or when no completion week is authoritative.
+ */
+function returnWeek(state: GameState, talentId: string): number | null {
+  if (!busyTalentIds(state).has(talentId)) return null
+  const week = state.market.tick
+  const production = state.studio.activeProductions.find(
+    (p) =>
+      p.directorId === talentId ||
+      p.cast.lead === talentId ||
+      p.cast.antagonist === talentId ||
+      p.cast.support === talentId ||
+      p.craftIds.includes(talentId),
+  )
+  if (production !== undefined) return week + Math.max(0, production.remainingTicks)
+  const writing = activeScriptWriterAssignments(state.scriptDevelopment, state.concepts).find(
+    (assignment) => assignment.talentId === talentId,
+  )
+  if (writing !== undefined) {
+    const project = state.scriptDevelopment.projects.find((entry) => entry.id === writing.projectId)
+    if (project !== undefined && typeof project.dueWeek === 'number') return project.dueWeek
+  }
+  return null
+}
+
 function genreExperienceLabel(exp: number): string {
   if (exp >= 70) return 'Extensive genre experience'
   if (exp >= 40) return 'Some genre experience'
@@ -406,6 +444,7 @@ function buildCandidate(
     available: availability.available,
     availabilityLabel: availability.label,
     currentWorkLabel: currentWorkLabel(state, talentId),
+    returnWeek: returnWeek(state, talentId),
     projectCostAmount: cost.amount,
     projectCostLabel: cost.label,
     signals: buildSignals({
@@ -450,9 +489,19 @@ function buildPool(
     }
   }
 
+  // P05A.3 §12: a BUSY person of the right primary role stays VISIBLE in the
+  // pool as an unavailable row (exact reason + return week) instead of
+  // vanishing — the Owner's deadlock was invisible precisely because every
+  // busy actor was omitted entirely. The locked writer (F2) and
+  // out-of-market idle talent (F4 — the hiring market's job) remain omitted.
+  const busy = busyTalentIds(state)
   const eligibleIds = state.talent
     .filter((t) => t.role === requiredRole)
-    .filter((t) => poolAvailability(state, t.id, requiredRole, writerId).available)
+    .filter((t) => {
+      if (t.id === writerId) return false
+      if (busy.has(t.id)) return true
+      return poolAvailability(state, t.id, requiredRole, writerId).available
+    })
     .map((t) => t.id)
 
   const allIds = new Set<string>(eligibleIds)
@@ -490,6 +539,80 @@ function poolBlocker(pool: RolePoolView): PackageBlockerView | null {
     currentHolderId: null,
     remedy: `Sign a ${label}, or wait for one to become available in the studio roster or freelancer market.`,
   }
+}
+
+// ── P05A.3 §8: the hiring market, as authoritative view rows ────────────────
+
+export type ContractOfferView = {
+  termWeeks: number
+  termLabel: string
+  annualSalary: number
+  signingBonus: number
+  weeklySalary: number
+  guaranteedComp: number
+  totalObligation: number
+}
+
+export type HiringCandidateView = {
+  talentId: string
+  name: string
+  professionLabel: string
+  role: CreativeRole
+  ovr: number
+  starPower: number
+  genreExperienceLabel: string
+  kind: 'free-agent' | 'hiring-market'
+  availabilityLabel: string
+  offers: ContractOfferView[]
+}
+
+function contractOfferView(offer: ContractOffer): ContractOfferView {
+  const weeklySalary = Math.round(offer.annualSalary / 52)
+  const guaranteedComp = weeklySalary * offer.termWeeks
+  const years = offer.termWeeks / 52
+  return {
+    termWeeks: offer.termWeeks,
+    termLabel: years === 1 ? '1 year' : `${years} years`,
+    annualSalary: offer.annualSalary,
+    signingBonus: offer.signingBonus,
+    weeklySalary,
+    guaranteedComp,
+    totalObligation: offer.signingBonus + guaranteedComp,
+  }
+}
+
+/**
+ * Every currently signable person — free agents first (always signable),
+ * then the rotating hiring-market sample — with the exact D-11.6 contract
+ * economics per published term. Deterministic order: the employment module's
+ * own ordering (free agents, then the epoch sample), never re-sorted.
+ */
+export function hiringMarketView(state: GameState): HiringCandidateView[] {
+  const freeAgents = new Set(state.freeAgents)
+  return hiringMarketIds(state).map((talentId) => {
+    const talent = requireTalent(state, talentId)
+    const discipline = ROLE_TO_DISCIPLINE[talent.role]
+    return {
+      talentId,
+      name: talent.name,
+      professionLabel: PROFESSION_LABEL[talent.role],
+      role: talent.role,
+      ovr: roleOVR(talent, discipline),
+      starPower: talent.fame,
+      genreExperienceLabel: `Work history: ${workHistoryCount(talent, discipline)} picture(s)`,
+      kind: freeAgents.has(talentId) ? 'free-agent' : 'hiring-market',
+      availabilityLabel: freeAgents.has(talentId)
+        ? 'Free agent — immediately signable'
+        : 'In the hiring market — requires a contract before casting',
+      offers: contractOfferOptions(state, talentId).map(contractOfferView),
+    }
+  })
+}
+
+/** P05A.3 §13: the authoritative week the freelancer-market epoch next rotates. */
+export function freelancerMarketRefreshWeek(state: GameState): number {
+  const rotation = TUNING.HIRING_MARKET_ROTATION_WEEKS
+  return (Math.floor(state.market.tick / rotation) + 1) * rotation
 }
 
 function buildProjectView(state: GameState, pkg: ReadyScriptPackageView): CastingPackageProjectView {
