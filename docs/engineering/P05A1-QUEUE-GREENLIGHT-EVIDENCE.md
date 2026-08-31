@@ -163,16 +163,45 @@ genuine:
   projects (`typecheck` root + ui, `typecheck:bridge`) clean;
   exact-consumer contract verify PASS (blob `253f0102…` identical both
   sides).
-- Unity EditMode: full-floor number recorded from the post-correction run
-  (661 expected: 657 + 4 new guards). Mutations M1/M2/M3 killed (round 1);
-  the reviewer's own MUT-A/B/D killed; MUT-C/E/F now killed by the F4/F5
-  guards (verified in the correction round).
-- Packaged journeys, all at exe `0a2234b6…` (Unity `71f30c3` / TS `5021759`):
+- Unity EditMode: RECORDED 661/661 at `4c74967` (the reviewer re-measured it
+  independently), then **663/663 at `00a5f7e`** after the round-2 F8/F9
+  corrections — both full-floor runs executed AFTER the last code change
+  they cover. Mutations M1/M2/M3 killed (round 1); the reviewer's MUT-A/B/D
+  killed; MUT-C/E/F killed by the F4/F5 guards (reviewer re-verified);
+  reviewer's MUT-G/H/I killed (F3 both halves + the narrowed id pin).
+## Hostile review round 2 — REJECT (F8–F10), corrected
+
+Round 2 confirmed every round-1 fix (six mutations re-run, all killed) and
+found: **F9 (blocker)** — the F3 latch held a refusal across authoritative
+revision changes, refusing a now-legal package on a stale sentence forever;
+**F8 (medium)** — the commit-reject leg selected exact copy but never
+latched, falling back to READY TO QUEUE and re-asking the refused draft;
+**F10 (doc)** — packaged floors recorded at a superseded binary, one F6
+wording leftover, and an "expected" verb in a floors section. Corrections
+(Unity `00a5f7e`): the refusal is latched WITH the revision the authority
+spoke it at — the decision falls through once the world moves, and the
+maintain tick releases the latch for EXACTLY one fresh ask (re-refusal
+re-latches with the current sentence); the commit leg latches identically
+(same law, same release); two new moving-revision tests pin both. This
+section and the floors above are the F10 correction.
+
+## FINAL packaged floors — exe `e04d9fb41221439a6e499a2da76beb085207f04cd4edb37acdd0b1777858de93` (TS `0a50ac9` / Unity `00a5f7e`)
+
+- Owner-repro journey PASS (CastingJourney runs of 2026-08-31T09:38Z-);
+  P04 casting direct PASS; P05 4M PASS; P05 4H complete failures=0 first
+  try. The remedy line in the pixels names the least-disruptive correction
+  (the affordable pair keeping the most ambition — the F6-corrected
+  description).
+
+## SUPERSEDED packaged sweeps (retained)
+
+- exe `0a2234b6…` (Unity `71f30c3` / TS `5021759`) — superseded by the
+  round-1 corrections; and before it the interim runs listed below:
   - **Owner-repro (§7F)**: PASS — board reached at the exact failure state
     (revision 2, digest `1d139f96…`, cash 4,826,401, 0/2 slots); the Owner's
     exact five + 1× negative read OVER BUDGET with
-    "$5,317,286 — cash is $4,826,401, a $490,885 shortfall" and the smallest
-    affordable pair as remedy, review REFUSED, no wire ask (pixels:
+    "$5,317,286 — cash is $4,826,401, a $490,885 shortfall" and the
+    least-disruptive affordable pair as remedy, review REFUSED, no wire ask (pixels:
     `owner-repro-unaffordable.png`); 0.75× queued — receipt "Greenlight
     queued — no production, budget, slot, or talent commitment exists until
     admission", revision 3, cash byte-identical (`owner-repro-queued.png`).
