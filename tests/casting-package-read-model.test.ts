@@ -206,7 +206,7 @@ describe('castingPackageReadModel — pool legality', () => {
     }
   })
 
-  it('busy talent with no evidence is excluded; busy talent WITH evidence remains, marked unavailable', () => {
+  it('busy talent stays VISIBLE as unavailable rows with a return week; evidence rides along when it exists', () => {
     const { state, projectAId, actorIds } = buildContendedFixture('cpr-busy-pool-legality')
     const view = castingPackageReadModel(state)
     const project = view.projects.find((p) => p.projectId === projectAId)!
@@ -215,12 +215,19 @@ describe('castingPackageReadModel — pool legality', () => {
     const antagonistPool = project.pools.find((p) => p.role === 'antagonist')!
     const supportPool = project.pools.find((p) => p.role === 'support')!
 
-    // actors[3]/[4] became busy on project B and were NEVER tested for project A —
-    // they must not appear in ANY of project A's pools.
+    // P05A.3 §12 overturned the old exclusion law: actors[3]/[4] became busy on
+    // project B and were NEVER tested for project A — before P05A.3 they were
+    // omitted entirely, and the Owner could not see WHO was coming back WHEN.
+    // Now every busy same-role actor is a visible row: unavailable, no
+    // evidence, and carrying the authoritative return week.
     const busyUntested = [actorIds[3]!, actorIds[4]!]
-    for (const pool of project.pools) {
+    for (const pool of [leadPool, antagonistPool, supportPool]) {
       for (const id of busyUntested) {
-        expect(pool.candidates.some((c) => c.talentId === id)).toBe(false)
+        const row = pool.candidates.find((c) => c.talentId === id)
+        expect(row, `busy actor ${id} must be a visible row in ${pool.role}`).toBeDefined()
+        expect(row!.available).toBe(false)
+        expect(row!.evidence).toBeNull()
+        expect(row!.returnWeek).not.toBeNull()
       }
     }
 

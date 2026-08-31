@@ -72,10 +72,10 @@ describe('canonical Unity bridge schema', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
       protocolVersion: 4,
-      projectionVersion: 12,
+      projectionVersion: 13,
       transport: 'http-json-localhost',
     })
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-12')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-13')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
@@ -323,8 +323,8 @@ describe('canonical Unity bridge schema', () => {
     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
 
     const oldProjection = { ...clone(envelope), snapshotVersion: 5 }
-    expect(PROJECTION_VERSION).toBe(12)
-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 12/)
+    expect(PROJECTION_VERSION).toBe(13)
+    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 13/)
 
     const missingSection = clone(envelope)
     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
@@ -559,7 +559,7 @@ describe('canonical Unity bridge schema', () => {
     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
     expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 12;')
+    expect(generatedCsharp).toContain('public const int ProjectionVersion = 13;')
     expect(generatedCsharp).toContain('public int protocolVersion;')
     expect(generatedCsharp).toContain('public int snapshotVersion;')
     expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)
@@ -707,6 +707,8 @@ describe('canonical Unity bridge schema', () => {
       craftLeadId: null,
       budgetNegative: null,
       budgetMarketing: null,
+    signTalentId: null,
+      signTermWeeks: null,
     }
     const greenlightDraft = {
       kind: 'greenlightPackage' as const,
@@ -721,6 +723,8 @@ describe('canonical Unity bridge schema', () => {
       craftLeadId: 'talent-0005',
       budgetNegative: 1_000_000,
       budgetMarketing: 200_000,
+    signTalentId: null,
+      signTermWeeks: null,
     }
 
     it('validates a quoteCommission and a quoteCasting request through the SAME StudioBridgeQuoteRequest union', () => {
@@ -821,6 +825,10 @@ describe('canonical Unity bridge schema', () => {
         forecastLine: null,
         setDemandLine: null,
         queueNote: null,
+        signTalentName: null,
+        signTermWeeks: null,
+        signWeeklySalary: null,
+        signGuaranteedComp: null,
       }
       const greenlightQuote = {
         intentId: 'intent-3',
@@ -847,6 +855,10 @@ describe('canonical Unity bridge schema', () => {
         forecastLine: 'Forecast profit: $1 to $2 (expected $3).',
         setDemandLine: 'Adequately funded.',
         queueNote: null,
+        signTalentName: null,
+        signTermWeeks: null,
+        signWeeklySalary: null,
+        signGuaranteedComp: null,
       }
       expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, commissionQuote)).toEqual(commissionQuote)
       expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, screenTestQuote)).toEqual(screenTestQuote)
