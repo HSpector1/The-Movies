@@ -303,7 +303,10 @@ describe('First Film Journey V1 — the guided chain', () => {
       blocked: null,
     })
     expect(auditioning.whyItMatters).toBe(
-      'The casting sheet keeps the observed estimate and range. Role Fit updates for this screenplay; strengths and concerns explain that observed range in plain language.',
+      // P05A.2: the old line claimed "Role Fit updates for this screenplay" —
+      // false; projectFit never reads audition evidence. The card now states
+      // only what the engine records.
+      'The casting sheet keeps the observed estimate and range for each read. The tests assign no role and change no one — the evidence informs your choice alongside Fit, Star Power, availability, and cost.',
     )
     expect(auditioning.waiting).toEqual({
       untilWeek: session.dueWeek,

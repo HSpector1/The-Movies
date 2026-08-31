@@ -641,7 +641,7 @@ function auditioningView(
     headline: 'CAMERA TESTS UNDERWAY',
     whatHappened: 'The audition slate was sent to Casting.',
     whyItMatters:
-      'The casting sheet keeps the observed estimate and range. Role Fit updates for this screenplay; strengths and concerns explain that observed range in plain language.',
+      'The casting sheet keeps the observed estimate and range for each read. The tests assign no role and change no one — the evidence informs your choice alongside Fit, Star Power, availability, and cost.',
     detail: joinDetail([
       `Camera tests are running at ${SITE_PLACE.casting}`,
       due === null ? null : `Results due Week ${String(due)}`,
