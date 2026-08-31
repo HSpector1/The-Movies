@@ -185,6 +185,37 @@ re-latches with the current sentence); the commit leg latches identically
 (same law, same release); two new moving-revision tests pin both. This
 section and the floors above are the F10 correction.
 
+## Hostile review round 3 — FINAL DISPOSITION: ACCEPT
+
+The same reviewer returned **ACCEPT** after independently re-measuring the
+full floor (EditMode 663/663 first try, all three TS typecheck projects,
+full vitest, contract verify), running EIGHT mutations of their own against
+the F8/F9 fixes (six killed by exactly the guard that claims each — including
+a sign-flip and a commit-leg-only un-stamp; two survivors triaged: one
+provably-inert defensive clear, one the F11 residual below), and driving an
+independent behavioral probe harsher than the shipped tests (five ticks per
+revision across four world moves + a re-refusal: asks 1→1→2→2→3→3, re-latch
+carries the CURRENT sentence). They also proved the engine-side invariant
+that makes the release sound: an ENGINE_REJECTED can only be minted at the
+revision the client is already on.
+
+Residuals, both closed before integration (Unity `e2ab80d`):
+
+- **F11 (low)**: the unknown-revision fail-closed default was unpinned —
+  now asserted in the F9 test (unknown live revision → the latch HOLDS and
+  never earns an ask).
+- **F12 (low)**: an untracked Burst/mono crash dump sat unignored in the
+  worktree — `mono_crash.*.json` added to .gitignore (the dump itself
+  retained; nothing deleted).
+
+**Recorded behavioral note for the Owner (reviewer's own observation, not a
+defect):** on a draft the engine refuses PERMANENTLY, with the clock
+running, the strip alternates once per authoritative week — GREENLIGHT
+REFUSED → one fresh ask ("Asking the studio for terms…") → GREENLIGHT
+REFUSED with the current sentence. The commit control is never armed in
+that window and nothing is committed. This is the correct consequence of
+refusing to hold a stale sentence over a new world.
+
 ## FINAL packaged floors — exe `e04d9fb41221439a6e499a2da76beb085207f04cd4edb37acdd0b1777858de93` (TS `0a50ac9` / Unity `00a5f7e`)
 
 - Owner-repro journey PASS (CastingJourney runs of 2026-08-31T09:38Z-);
