@@ -68,11 +68,16 @@ queue decision; deferral was not invented)
 - `DecideGreenlight()` — the ONE decision — gains `SelectedTalentUnavailable`
   ("<Name> is no longer available for <Role>." + "Replace <Role>."),
   `Unaffordable` (exact total/cash/shortfall from published wire numbers —
-  the same arithmetic the engine's quote publishes — plus the smallest
-  affordable published budget pair as remedy), `QuoteRejected` (the engine's
-  sentence VERBATIM; never re-asked until the draft changes; never labelled
-  QUEUE GREENLIGHT), and names a retained budget amount that left the
-  published menu as invalidated rather than empty.
+  the same arithmetic the engine's quote publishes — with, as remedy, the
+  LEAST-DISRUPTIVE correction: the affordable published budget pair that
+  keeps the most of the current ambition, i.e. the largest affordable total;
+  hostile-review F6 corrected this document's earlier "smallest pair"
+  wording), `QuoteRejected` (the engine's sentence VERBATIM; never re-asked
+  until the draft changes — and, hostile-review F3, the refusal SURVIVES
+  closing and reopening the review panel: the readiness strip reads
+  GREENLIGHT REFUSED with the exact sentence until the draft is edited;
+  never labelled QUEUE GREENLIGHT), and names a retained budget amount that
+  left the published menu as invalidated rather than empty.
 - `MaintainGreenlightQuote` and `CommitGreenlightQuote` consume the same
   decision (`MayQuote`/`MayCommit`): an illegal or refused draft never
   reaches the wire.
@@ -113,13 +118,55 @@ queue decision; deferral was not invented)
   BEFORE any wire ask, review refused, then the 0.75× correction quoting,
   QUEUEING, committing one row, cash byte-identical.
 
-## Floors at the P05A.1 pair (TS `5021759` / Unity `71f30c3` + fix commits)
+## Hostile review round 1 — REJECT (F1–F7), all corrected at root
 
-- TS full suite 354 files / 4865 passed / 5 skipped; typecheck (both
-  projects) clean; exact-consumer contract verify PASS (blob `253f0102…`
-  identical both sides).
-- Unity EditMode 657/657. Mutations M1/M2/M3 each killed by exactly the
-  guard that claims them.
+The fresh hostile reviewer REJECTED the first-cut range and every finding was
+genuine:
+
+- **F1 (blocker)**: the claimed "EditMode 657/657" did NOT cover the final
+  journey-runner commit — the run predated it, and that commit broke two
+  pre-existing P04A pin tests (the six-variant-flag gate literal, and the
+  no-hard-coded-talent-id law that the owner-repro's exact-identity seats
+  table lawfully collides with). Corrected by EXTENDING both pins: the
+  variant-gate law now counts `OwnerReproFlag` and its dispatch case; the
+  hard-coded-id law now permits EXACTLY ONE occurrence — the owner-repro
+  antagonist seat literal — and still bans every other hard-coded id.
+- **F2 (blocker)**: the new TS suite itself broke the third typecheck
+  project (`typecheck:bridge`, nullable board access) under a "typecheck
+  clean" headline — the same claim-class this checkpoint exists to correct.
+  Fixed (null-guard); ALL THREE typecheck scripts verified green.
+- **F3 (high)**: the QuoteRejected truth previously lived only inside the
+  open review — closing the panel re-advertised a refused draft as
+  ready/queueable. The refused state is now decided ABOVE the review-open
+  split, survives close/reopen (reopening never re-asks), and the strip
+  carries the exact sentence until the draft changes.
+- **F4 (medium)**: the MayQuote/MayCommit gates were shipped without a test
+  that reaches them (the reviewer's mutations deleting them SURVIVED). Two
+  new tests make each load-bearing: a dirty-flag re-arm plus a same-revision
+  cash collapse must not quote; a held fresh quote plus a same-revision cash
+  collapse must not commit.
+- **F5 (medium)**: the affordability boundary was unpinned. New test:
+  cash == total is LEGAL (cash-after zero, matching the engine's D-12
+  strictly-below-zero law) and cash == total − 1 refuses with the exact
+  "$1 shortfall".
+- **F6 (low)**: this document's "smallest pair" remedy wording contradicted
+  the shipped (correct) largest-affordable-total behavior — fixed above.
+- **F7 (low, recorded)**: in the legacy `!economyEngaged` open-pool regime
+  the engine's D-1 debit includes salaries the client's fee sum does not.
+  The regime is unreachable in a founded studio and the divergence can only
+  UNDER-block (never refuses a legal package); recorded as a known bounded
+  divergence, not fixed, to keep this checkpoint in scope.
+
+## Floors at the corrected P05A.1 pair
+
+- TS full suite 354 files / 4865 passed / 5 skipped; ALL THREE typecheck
+  projects (`typecheck` root + ui, `typecheck:bridge`) clean;
+  exact-consumer contract verify PASS (blob `253f0102…` identical both
+  sides).
+- Unity EditMode: full-floor number recorded from the post-correction run
+  (661 expected: 657 + 4 new guards). Mutations M1/M2/M3 killed (round 1);
+  the reviewer's own MUT-A/B/D killed; MUT-C/E/F now killed by the F4/F5
+  guards (verified in the correction round).
 - Packaged journeys, all at exe `0a2234b6…` (Unity `71f30c3` / TS `5021759`):
   - **Owner-repro (§7F)**: PASS — board reached at the exact failure state
     (revision 2, digest `1d139f96…`, cash 4,826,401, 0/2 slots); the Owner's
