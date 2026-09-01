@@ -56,6 +56,7 @@ import { initialProperty } from './lot.js'
 import { emptyStudioOperations } from './operations.js'
 import { emptyScriptDevelopment } from './scriptDevelopment.js'
 import { emptyStudioEventLog } from './studioEvents.js'
+import { initialReleaseAuthority } from './releaseAuthority.js'
 import { stream } from './rng.js'
 import { RngStream } from './rng.js'
 import {
@@ -719,5 +720,8 @@ export function generateWorld(seed: string): GameState {
     productionQueue: [],
     originalScreenplays: { nextOrdinal: 0, blueprints: [] },
     studioEvents: emptyStudioEventLog(),
+    // P06A: every generated world starts with the empty release authority —
+    // absence of a commitment row means uncommitted (charter W1).
+    releaseAuthority: initialReleaseAuthority(),
   }
 }

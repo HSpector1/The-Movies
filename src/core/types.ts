@@ -1454,6 +1454,9 @@ export type StudioEvent =
       setId: string | null
     }
   | { seq: number; week: number; kind: 'premiere'; filmId: string }
+  // P06A: the ONE permanent commitment witness — deduplicates every world dispatch
+  // cue and truthfully records command order without ever ordering the release batch.
+  | { seq: number; week: number; kind: 'releaseCommitted'; productionId: string }
   | { seq: number; week: number; kind: 'constructionCompleted'; placementId: string }
   | { seq: number; week: number; kind: 'setBuilt'; setId: string }
   | { seq: number; week: number; kind: 'setRetired'; setId: string; refund: number }
@@ -1511,7 +1514,31 @@ export type GameStateV14 = GameStateV13 & {
 // difference of its own.
 export type GameStateV15 = GameStateV14
 
-export type GameState = GameStateV15
+// ── P06A release authority (charter W1; frozen design = P06A recon r2 §6) ────
+// One exact-ID current-authority root. A row exists only for an active
+// `releaseReady` tick-1 Production; ABSENCE MEANS UNCOMMITTED. Rows serialize in
+// canonical ascending-productionId order; insertion/click order is never
+// semantic. The row is removed atomically when its Production releases; durable
+// history lives in `studioEvents` ('releaseCommitted') and `releasedFilms`.
+export type ReleaseCommitment = {
+  /** Exact active Production id (never a title, never an index). */
+  productionId: string
+  /** Deterministic: `release-commitment-<productionId>`; no RNG/clock/order input. */
+  commitmentId: string
+  /** Authoritative studio week when the commitment was accepted. */
+  committedAtWeek: number
+}
+
+export type StudioReleaseAuthority = {
+  commitments: readonly ReleaseCommitment[]
+}
+
+// V16 mints exactly one new root (the placement/property precedent).
+export type GameStateV16 = GameStateV15 & {
+  releaseAuthority: StudioReleaseAuthority
+}
+
+export type GameState = GameStateV16
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
@@ -1627,6 +1654,8 @@ export type Action =
   | { kind: 'commissionSet'; commission: CommissionSetPayload }
   | { kind: 'repairSet'; setId: string }
   | { kind: 'strikeSet'; setId: string }
+  // ── P06A release authority (charter W1) — the ONE explicit release commitment ──
+  | { kind: 'commitPictureToRelease'; productionId: string }
 
 // §10 Authored talent — extended per D-9.14 (creation budget). `actual` persona
 // stays fully player-chosen; potential/workEthic/skillBias/secondary share a

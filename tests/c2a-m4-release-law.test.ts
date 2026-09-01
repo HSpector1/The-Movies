@@ -329,7 +329,7 @@ describe('C2a-M4 `00E`.5 — a completed phase releases, even with nowhere to go
       'prod-0102',
     ])
 
-    const advanced = advanceManagedProductions(operations, productions, week)
+    const advanced = advanceManagedProductions(operations, productions, week, new Set<string>())
     const phaseOf = (productionId: string) =>
       advanced.operations.workflows.find(
         (workflow) => workflow.productionId === productionId,

@@ -1307,26 +1307,50 @@ export type ManagedProductionAdvance = {
   operations: StudioOperations
   /** The sets root after this advance — wear at wrap is the only thing that moves it. */
   sets: readonly StudioSet[]
+  /**
+   * P06A admission witness (charter W1): exactly the production ids this advance
+   * moved 1→0 — i.e. the committed Release Ready pictures admitted to this
+   * week's release batch. EPHEMERAL: derived from the pre-advance release
+   * authority, consumed once by tick.ts's pre-reception equality check, never
+   * serialized, never a second authority.
+   */
+  admittedReleaseIds: readonly string[]
 }
 
 export function advanceManagedProductions(
   operations: StudioOperations,
   productions: readonly Production[],
   currentTick: number,
+  /**
+   * P06A (charter W1): the exact committed-release id set derived from the
+   * pre-advance `state.releaseAuthority`. REQUIRED — release admission is
+   * player law, and a silent default would be the old auto-release wearing a
+   * new signature. An uncommitted Release Ready picture (remainingTicks 1)
+   * HOLDS at 1 in BOTH arms; only a committed one may reach 0.
+   */
+  committedReleaseIds: ReadonlySet<string>,
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
   events: StudioEventSink = disabledStudioEventSink(),
   binding?: SetBindingContext,
 ): ManagedProductionAdvance {
+  const admittedReleaseIds: string[] = []
   let sets: readonly StudioSet[] = binding?.sets ?? []
   if (operations.mode !== 'managed') {
     return {
-      productions: productions.map((production) =>
-        production.startTick < currentTick
-          ? { ...production, remainingTicks: production.remainingTicks - 1 }
-          : production,
-      ),
+      productions: productions.map((production) => {
+        if (production.startTick >= currentTick) return production
+        // P06A: the legacy arm decrements blindly EXCEPT at the release
+        // boundary — an uncommitted Release Ready picture holds at tick 1
+        // (no workflow is invented for it; legacy worlds carry none).
+        if (production.remainingTicks === 1) {
+          if (!committedReleaseIds.has(production.id)) return production
+          admittedReleaseIds.push(production.id)
+        }
+        return { ...production, remainingTicks: production.remainingTicks - 1 }
+      }),
       operations,
       sets,
+      admittedReleaseIds,
     }
   }
 
@@ -1401,6 +1425,16 @@ export function advanceManagedProductions(
     const nextRemaining = production.remainingTicks - 1
     if (nextRemaining === 0) {
       settled.add(production.id)
+      // P06A RELEASE GATE (charter W1): the 1→0 edge is no longer
+      // unconditional. An uncommitted Release Ready picture HOLDS — ticks stay
+      // 1, the workflow stays (phase `releaseReady`, zero reservations), no
+      // transition is recorded and no capacity is returned, because none was
+      // held. Only the player's persisted commitment admits the picture to the
+      // batch tick.ts collects.
+      if (!committedReleaseIds.has(production.id)) {
+        continue
+      }
+      admittedReleaseIds.push(production.id)
       byId.set(production.id, { ...production, remainingTicks: 0 })
       // The workflow leaves with the picture. `releaseReady` requires no
       // capability, so today this releases nothing and records nothing — it is
@@ -1462,5 +1496,6 @@ export function advanceManagedProductions(
     productions: productions.map((production) => byId.get(production.id)!),
     operations: nextOperations,
     sets,
+    admittedReleaseIds,
   }
 }

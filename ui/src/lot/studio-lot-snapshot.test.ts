@@ -603,6 +603,7 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
       configuredOperations,
       state.studio.activeProductions,
       state.market.tick,
+      new Set<string>(),
     )
     state = {
       ...state,

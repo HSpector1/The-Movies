@@ -107,6 +107,10 @@ import {
   type SetRefusalCopy,
 } from './sets.js'
 import {
+  commitPictureToReleaseRefusal,
+  withReleaseCommitment,
+} from './releaseAuthority.js'
+import {
   commitStudioEvents,
   disabledStudioEventSink,
   StudioEventSink,
@@ -2811,6 +2815,34 @@ function applyPublicity(state: GameState, action: Action & { kind: 'publicity' }
 }
 
 // ── §3 applyActions ──────────────────────────────────────────────────────────
+// ── P06A commitPictureToRelease (charter W1; frozen design = recon r2 §6) ───
+// The ONE explicit release commitment. Package 06 law, enforced here:
+//   * legality comes from the ONE shared law (`commitPictureToReleaseRefusal`)
+//     — an exact active Release Ready (tick-1) production with no existing row;
+//   * acceptance persists ONE canonical-order commitment row and ONE permanent
+//     `releaseCommitted` studio event (the world-cue deduplication witness);
+//   * it advances NO time, consumes NO RNG, moves NO cash, touches NO
+//     reservation/presence/result — the weekly batch stays tick.ts's alone;
+//   * a duplicate names the existing commitment and refuses (ALREADY_COMMITTED
+//     semantics for the bridge's engine-rejection envelope).
+function applyCommitPictureToRelease(
+  state: GameState,
+  action: Action & { kind: 'commitPictureToRelease' },
+): GameState {
+  const refusal = commitPictureToReleaseRefusal(state, action.productionId)
+  if (refusal !== null) {
+    throw new Error(`applyActions: commitPictureToRelease rejected — ${refusal}`)
+  }
+  const week = state.market.tick
+  const commitEvents = studioEventSinkFor(state)
+  commitEvents.append({ kind: 'releaseCommitted', productionId: action.productionId }, week)
+  return {
+    ...state,
+    releaseAuthority: withReleaseCommitment(state.releaseAuthority, action.productionId, week),
+    studioEvents: commitStudioEvents(state.studioEvents, commitEvents, week),
+  }
+}
+
 export function applyActions(state: GameState, actions: Action[]): GameState {
   // B3 — at most one greenlight per call. Reject two loudly (a harness abort).
   let greenlightCount = 0
@@ -2928,6 +2960,9 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         break
       case 'strikeSet':
         next = applyStrikeSet(next, action)
+        break
+      case 'commitPictureToRelease':
+        next = applyCommitPictureToRelease(next, action)
         break
       default: {
         // Exhaustiveness guard: an unknown action kind is a loud abort (M16).

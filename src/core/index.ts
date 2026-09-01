@@ -102,6 +102,9 @@ export type {
   GameStateV13,
   GameStateV14,
   GameStateV15,
+  GameStateV16,
+  ReleaseCommitment,
+  StudioReleaseAuthority,
   SetTypeId,
   StudioSet,
   WorkflowBindings,
@@ -1104,6 +1107,7 @@ export {
   validateSaveV13,
   validateSaveV14,
   validateSaveV15,
+  validateSaveV16,
   makeSave,
   makeSaveV1,
   makeSaveV2,
@@ -1120,6 +1124,7 @@ export {
   makeSaveV13,
   makeSaveV14,
   makeSaveV15,
+  makeSaveV16,
   loadSave,
   exportSave,
   importSave,
@@ -1173,6 +1178,10 @@ export {
   // expiry: `subjectId` on `queueIntentExpired`), deterministic + idempotent.
   convertV14ToV15,
   migrateToV15,
+  // P06A (charter W1) — live V15 → NEW V16 + migrateToV16 (the release-
+  // commitment authority root; empty on migration = explicitly uncommitted).
+  convertV15ToV16,
+  migrateToV16,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -1190,10 +1199,25 @@ export type {
   SaveFileV13,
   SaveFileV14,
   SaveFileV15,
+  SaveFileV16,
   SaveFile,
   TalentV1,
   GameStateV1,
 } from './save.js'
+
+// ── P06A Release Authority (charter W1) ──────────────────────────────────────
+export {
+  initialReleaseAuthority,
+  mintReleaseCommitmentId,
+  releaseCommitmentFor,
+  committedReleaseIds,
+  commitPictureToReleaseRefusal,
+  withReleaseCommitment,
+  pruneReleasedCommitments,
+  assertReleaseAuthorityInvariants,
+  releaseHoldBusyTalentIds,
+  RELEASE_COMMITMENT_NAMESPACE,
+} from './releaseAuthority.js'
 
 // ── D-14 Talent Career Impact — Star Power progression + frozen career events ──
 export {

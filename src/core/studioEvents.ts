@@ -22,7 +22,8 @@
 //
 //   4. TWO TIERS, and the tier is a property of the KIND:
 //        Tier D — identity-bearing, PERMANENT: premiere, wrapped,
-//                 constructionCompleted, setBuilt, setRetired.
+//                 releaseCommitted (P06A), constructionCompleted, setBuilt,
+//                 setRetired.
 //        Tier W — WINDOWED by `TUNING.STUDIO_EVENT_WINDOW_WEEKS`: reservation
 //                 grants/releases, phase entries, scenery arrivals, queue
 //                 admissions and expiries.
@@ -63,6 +64,7 @@ import type {
 export const TIER_D_STUDIO_EVENT_KINDS: readonly StudioEventKind[] = Object.freeze([
   'wrapped',
   'premiere',
+  'releaseCommitted',
   'constructionCompleted',
   'setBuilt',
   'setRetired',
@@ -88,6 +90,7 @@ export function emptyStudioEventLog(): StudioEventLog {
 export type StudioEventDraft =
   | { kind: 'wrapped'; productionId: string; stageFacilityId: string; setId: string | null }
   | { kind: 'premiere'; filmId: string }
+  | { kind: 'releaseCommitted'; productionId: string }
   | { kind: 'constructionCompleted'; placementId: string }
   | { kind: 'setBuilt'; setId: string }
   | { kind: 'setRetired'; setId: string; refund: number }

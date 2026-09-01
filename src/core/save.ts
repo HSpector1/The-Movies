@@ -37,6 +37,7 @@ import {
   SKILL_ORDER,
   TUNING,
 } from "./tuning.js";
+import { assertReleaseAuthorityInvariants } from './releaseAuthority.js'
 import type {
   BroadcastItem,
   Ceilings,
@@ -53,6 +54,7 @@ import type {
   GameStateV13,
   GameStateV14,
   GameStateV15,
+  GameStateV16,
   GameStateV2,
   GameStateV3,
   GameStateV4,
@@ -324,6 +326,15 @@ export type SaveFileV15 = {
   broadcastCache: BroadcastItem[];
 };
 
+// P06A (charter W1) — the LIVE envelope. V16 mints exactly one new root,
+// `releaseAuthority`; everything else is the frozen V15 shape.
+export type SaveFileV16 = {
+  saveVersion: 16;
+  seed: string;
+  state: GameStateV16;
+  broadcastCache: BroadcastItem[];
+};
+
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
   | SaveFileV1
@@ -340,7 +351,8 @@ export type SaveFile =
   | SaveFileV12
   | SaveFileV13
   | SaveFileV14
-  | SaveFileV15;
+  | SaveFileV15
+  | SaveFileV16;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -4688,6 +4700,102 @@ export function validateSaveV15(save: unknown): SaveFileV15 {
   return save as SaveFileV15;
 }
 
+// P06A validateSaveV16 (charter W1). The V15 allowlist plus the ONE new root.
+// Frozen-V15 validity is checked by stripping `releaseAuthority` and delegating
+// to validateSaveV15 (the exact discipline V15 used over V14); then the new
+// root is validated STRICTLY — exact row keys, canonical ascending-productionId
+// order, deterministic commitment identity, and full semantic invariants
+// (orphan / non-ready / zero-tick refusals) via assertReleaseAuthorityInvariants.
+export function validateSaveV16(save: unknown): SaveFileV16 {
+  if (!isRecord(save)) {
+    throw new Error("validateSaveV16: save is not a plain object");
+  }
+  v12ExactKeys(save, ["saveVersion", "seed", "state", "broadcastCache"], "save");
+  if (save.saveVersion !== 16) {
+    throw new Error(
+      `validateSaveV16: expected saveVersion 16, got ${JSON.stringify(save.saveVersion)}`,
+    );
+  }
+  const state = v14Record(checkEnvelope(save, "validateSaveV16"), "state");
+  if (!Object.prototype.hasOwnProperty.call(state, "releaseAuthority")) {
+    throw new Error("validateSaveV16: state.releaseAuthority is missing");
+  }
+  const { releaseAuthority: rawAuthority, ...v15State } = state;
+  // The V15 discipline, repeated: strip what the frozen validators cannot know
+  // — V16's own `releaseCommitted` event rows — before delegating, then
+  // validate the stripped rows under V16's own law below. The frozen V14
+  // event-kind allowlist stays exactly what it was.
+  const rawStudioEventsV16 = v15State.studioEvents;
+  if (!isRecord(rawStudioEventsV16) || !Array.isArray(rawStudioEventsV16.rows)) {
+    throw new Error("validateSaveV16: state.studioEvents.rows is missing or not an array");
+  }
+  const commitmentRows: unknown[] = [];
+  const nonCommitmentRows = rawStudioEventsV16.rows.filter((row) => {
+    if (isRecord(row) && row.kind === "releaseCommitted") {
+      commitmentRows.push(row);
+      return false;
+    }
+    return true;
+  });
+  try {
+    validateSaveV15({
+      saveVersion: 15,
+      seed: save.seed,
+      state: {
+        ...v15State,
+        studioEvents: { ...rawStudioEventsV16, rows: nonCommitmentRows },
+      },
+      broadcastCache: save.broadcastCache,
+    });
+  } catch (error) {
+    throw new Error(
+      `validateSaveV16: frozen V15 state is invalid — ${(error as Error).message}`,
+    );
+  }
+  for (let i = 0; i < commitmentRows.length; i++) {
+    const row = commitmentRows[i];
+    const label = `state.studioEvents releaseCommitted row ${String(i)}`;
+    if (!isRecord(row)) throw new Error(`validateSaveV16: ${label} is not an object`);
+    v12ExactKeys(row, ["seq", "week", "kind", "productionId"], label);
+    if (!Number.isInteger(row.seq) || (row.seq as number) < 0) {
+      throw new Error(`validateSaveV16: ${label}.seq must be a non-negative integer`);
+    }
+    if (!Number.isInteger(row.week) || (row.week as number) < 0) {
+      throw new Error(`validateSaveV16: ${label}.week must be a non-negative integer`);
+    }
+    if (typeof row.productionId !== "string" || row.productionId.length === 0) {
+      throw new Error(`validateSaveV16: ${label}.productionId must be a non-empty string`);
+    }
+  }
+  if (!isRecord(rawAuthority)) {
+    throw new Error("validateSaveV16: state.releaseAuthority is not a plain object");
+  }
+  v12ExactKeys(rawAuthority, ["commitments"], "state.releaseAuthority");
+  if (!Array.isArray(rawAuthority.commitments)) {
+    throw new Error("validateSaveV16: state.releaseAuthority.commitments is not an array");
+  }
+  for (let i = 0; i < rawAuthority.commitments.length; i++) {
+    const row = rawAuthority.commitments[i];
+    const label = `state.releaseAuthority.commitments[${String(i)}]`;
+    if (!isRecord(row)) {
+      throw new Error(`validateSaveV16: ${label} is not a plain object`);
+    }
+    v12ExactKeys(row, ["productionId", "commitmentId", "committedAtWeek"], label);
+    if (typeof row.productionId !== "string" || row.productionId.length === 0) {
+      throw new Error(`validateSaveV16: ${label}.productionId must be a non-empty string`);
+    }
+    if (typeof row.commitmentId !== "string" || row.commitmentId.length === 0) {
+      throw new Error(`validateSaveV16: ${label}.commitmentId must be a non-empty string`);
+    }
+    if (typeof row.committedAtWeek !== "number") {
+      throw new Error(`validateSaveV16: ${label}.committedAtWeek must be a number`);
+    }
+  }
+  const typed = save as SaveFileV16;
+  assertReleaseAuthorityInvariants(typed.state, "validateSaveV16");
+  return typed;
+}
+
 // ── Version-dispatching validation (LOUD rejection of unknown versions) ──────
 // Returns the correctly-narrowed envelope for a known version; throws for any
 // other saveVersion. Every version remains anchored to its own frozen or live
@@ -4712,6 +4820,7 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 13) return validateSaveV13(save);
   if (s.saveVersion === 14) return validateSaveV14(save);
   if (s.saveVersion === 15) return validateSaveV15(save);
+  if (s.saveVersion === 16) return validateSaveV16(save);
   throw new Error(
     `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 15 only)`,
   );
@@ -5621,7 +5730,7 @@ export function makeSaveV13(state: GameStateV13): SaveFileV13 {
 // envelope from live state is a downgrade in spirit, but this builder is kept
 // for the frozen historical-format test suites and internal migration chain,
 // exactly like every earlier `makeSaveVN`.
-export function makeSaveV14(state: GameState): SaveFileV14 {
+export function makeSaveV14(state: GameStateV14): SaveFileV14 {
   const currentState = projectStateV14(state);
   const save: SaveFileV14 = {
     saveVersion: 14,
@@ -5636,7 +5745,7 @@ export function makeSaveV14(state: GameState): SaveFileV14 {
 // `queueIntentExpired.subjectId` leaf (there is no new root to carry), so this
 // is a projection with no synthesis: nothing is invented on the way out. This
 // IS the `makeSave` default as of P04A — see `makeSave` below.
-export function makeSaveV15(state: GameState): SaveFileV15 {
+export function makeSaveV15(state: GameStateV15): SaveFileV15 {
   const currentState = projectStateV15(state);
   const save: SaveFileV15 = {
     saveVersion: 15,
@@ -5647,13 +5756,36 @@ export function makeSaveV15(state: GameState): SaveFileV15 {
   return validateSaveV15(save);
 }
 
-// makeSave — the P04A live boundary. Frozen V13/V14 values must cross their
-// respective convertVNToVN+1/migrateToVN+1 explicitly. V15 owns no new root
-// (§2.5): it is the same live GameState projection as V14, plus the widened
-// `queueIntentExpired.subjectId` leaf that this milestone's emission sites now
-// always populate, which V14's unchanged exact-key check cannot carry.
-export function makeSave(state: GameState): SaveFileV15 {
-  return makeSaveV15(state);
+function projectStateV16(state: GameStateV16): GameStateV16 {
+  return {
+    ...projectStateV15(state),
+    releaseAuthority: {
+      commitments: state.releaseAuthority.commitments.map((row) => ({
+        productionId: row.productionId,
+        commitmentId: row.commitmentId,
+        committedAtWeek: row.committedAtWeek,
+      })),
+    },
+  };
+}
+
+// P06A makeSaveV16 — the LIVE builder (charter W1).
+export function makeSaveV16(state: GameState): SaveFileV16 {
+  const currentState = projectStateV16(state);
+  const save: SaveFileV16 = {
+    saveVersion: 16,
+    seed: currentState.seed,
+    state: currentState,
+    broadcastCache: currentState.broadcastItems,
+  };
+  return validateSaveV16(save);
+}
+
+// makeSave — the LIVE boundary (P06A: V16). Frozen prior values must cross
+// their respective convertVNToVN+1/migrateToVN+1 explicitly. V16 owns exactly
+// one new root: `releaseAuthority` (absence of a row = uncommitted).
+export function makeSave(state: GameState): SaveFileV16 {
+  return makeSaveV16(state);
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -6658,11 +6790,45 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 16) {
+    throw new Error(
+      "migrateToV15: cannot downgrade SaveFileV16 or discard release-commitment authority",
+    );
+  }
   if (save.saveVersion === 15) return save;
   return convertV14ToV15(migrateToV14(save));
 }
 
+// P06A convertV15ToV16 (charter W1) — the pure, deterministic V15→V16 upgrader.
+// The new root arrives EMPTY: every active production imported from a pre-P06
+// envelope — including every Release Ready picture — is thereby EXPLICITLY
+// uncommitted. No legacy save is interpreted as implicitly committed merely
+// because the old engine would have auto-released it next week. Migration
+// mints no event, receipt, week, RNG movement or dispatch cue.
+export function convertV15ToV16(v15: SaveFileV15): SaveFileV16 {
+  const validated = validateSaveV15(v15);
+  const oldState = clonePlainJson(validated.state);
+  const newState: GameStateV16 = {
+    ...oldState,
+    releaseAuthority: { commitments: [] },
+  };
+  return makeSaveV16(newState);
+}
+
+// migrateToV16 — the LIVE load-to-play migration (P06A). V16 passes through by
+// identity (after validation at the call boundary); V1–V15 cross every frozen
+// boundary, then receive the empty release authority at the final V15→V16 step.
+export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 16) return save;
+  return convertV15ToV16(migrateToV15(save));
+}
+
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 16) {
+    throw new Error(
+      "migrateToV14: cannot downgrade SaveFileV16 or discard release-commitment authority",
+    );
+  }
   if (save.saveVersion === 15) {
     throw new Error(
       "migrateToV14: cannot downgrade SaveFileV15 or discard queue-intent-expiry subject identity",
@@ -6673,6 +6839,11 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 16) {
+    throw new Error(
+      "migrateToV13: cannot downgrade SaveFileV16 or discard release-commitment authority",
+    );
+  }
   if (save.saveVersion === 14 || save.saveVersion === 15) {
     throw new Error(
       `migrateToV13: cannot downgrade SaveFileV${String(save.saveVersion)} or discard set, queue, screenplay, and studio-history state`,

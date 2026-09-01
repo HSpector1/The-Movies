@@ -193,6 +193,7 @@ describe('Production Operations V1', () => {
       allocated,
       [{ ...production, startTick: -1 }],
       0,
+      new Set<string>(),
       oneSlotTaken,
     )
     expect(advanced.productions[0]!.remainingTicks).toBe(7)
@@ -370,6 +371,15 @@ describe('Production Operations V1', () => {
     state = tick(state)
     expect(state.operations.workflows[0]!.phase).toBe('releaseReady')
     expect(state.operations.workflows[0]!.reservations).toEqual([])
+    // P06A: an uncommitted Release Ready picture HOLDS through the tick — the
+    // eighth week releases nothing until the explicit commitment lands.
+    const held = tick(state)
+    expect(held.studio.activeProductions[0]!.remainingTicks).toBe(1)
+    expect(held.operations.workflows[0]!.phase).toBe('releaseReady')
+    expect(held.studio.releasedFilms).toEqual([])
+    state = applyActions(state, [
+      { kind: 'commitPictureToRelease', productionId: state.studio.activeProductions[0]!.id },
+    ])
     state = tick(state)
     expect(state.studio.activeProductions).toEqual([])
     expect(state.operations.workflows).toEqual([])
@@ -676,7 +686,16 @@ describe('Production Operations V1', () => {
     state = tickWithInvariant(state) // Post-production, week 1
     state = tickWithInvariant(state) // Post-production, week 2
     state = tickWithInvariant(state) // Release Ready
-    state = tickWithInvariant(state) // release
+    // P06A: Release Ready HOLDS until the explicit commitment — the old
+    // auto-release is gone. Commit BOTH exact pictures, then advance.
+    state = applyActions(
+      state,
+      state.studio.activeProductions.map((production) => ({
+        kind: 'commitPictureToRelease' as const,
+        productionId: production.id,
+      })),
+    )
+    state = tickWithInvariant(state) // release (committed pictures only)
     expect(state.studio.activeProductions).toEqual([])
     expect(state.operations.workflows).toEqual([])
     expect(state.studio.releasedFilms).toHaveLength(2)

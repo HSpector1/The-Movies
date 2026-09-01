@@ -47,6 +47,10 @@
 //          only; the release context is dropped at tick end.
 //   N10  — §6's "§9 gate" pointer is stale; there is no gate in this pipeline.
 
+import {
+  assertReleaseAuthorityInvariants,
+  pruneReleasedCommitments,
+} from './releaseAuthority.js'
 import { evaluateReleaseBroadcast, type ReleaseBroadcastInputs } from './broadcast.js'
 import {
   castingOccupiedFacilitySlots,
@@ -160,6 +164,15 @@ export type TickOptions = {
 export function tick(state: GameState, options?: TickOptions): GameState {
   const develop = options?.develop ?? false
   const currentTick = state.market.tick
+
+  // ── P06A RELEASE AUTHORITY (charter W1) — validate, then derive the ONE
+  // committed-id set this advance may release. Fail closed at the boundary:
+  // an orphan/duplicate/non-ready commitment row, or any active production
+  // already at remainingTicks 0, is a forged state a tick must never repair.
+  assertReleaseAuthorityInvariants(state, 'tick')
+  const committedReleaseIds = new Set(
+    state.releaseAuthority.commitments.map((row) => row.productionId),
+  )
 
   // Validate the whole placement/construction/accounting boundary before advancing
   // so a tick cannot repair malformed empty state, a missing debit, a forged clock,
@@ -291,6 +304,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     stateAfterLoadIn.operations,
     state.studio.activeProductions,
     currentTick,
+    committedReleaseIds,
     new Set([
       ...scriptOccupiedFacilitySlots(scriptDevelopment),
       ...castingOccupiedFacilitySlots(castingSessions),
@@ -425,6 +439,22 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   const releasing = advanced.filter((p) => p.remainingTicks === 0)
   const stillActive = advanced.filter((p) => p.remainingTicks !== 0)
   releasing.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
+
+  // ── P06A ADMISSION-WITNESS EQUALITY (charter W1) — BEFORE reception or any
+  // RNG/economy/result work. The zero-tick collection and the pre-advance
+  // commitment-derived witness must be the SAME exact id set; any mismatch is
+  // an uncommitted release or a lost admission, and the week fails closed.
+  {
+    const witness = new Set(productionAdvance.admittedReleaseIds)
+    const collected = new Set(releasing.map((p) => p.id))
+    if (witness.size !== collected.size || [...collected].some((id) => !witness.has(id))) {
+      throw new Error(
+        `tick: release batch disagrees with the commitment admission witness — ` +
+          `collected [${[...collected].sort().join(', ')}], ` +
+          `admitted [${[...witness].sort().join(', ')}]`,
+      )
+    }
+  }
 
   // ── 3. RECEPTION ───────────────────────────────────────────────────────────
   // For each releasing production IN ascending-id order: resolve reception (the
@@ -957,5 +987,13 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // it. Compaction is a pure function of that week: same log, same week, same
     // answer, on every replay.
     studioEvents: commitStudioEvents(state.studioEvents, events, currentTick + 1),
+    // P06A: prune EXACTLY the released commitment rows in the same atomic
+    // state that removes their productions — the public invariant (a row only
+    // for an active tick-1 picture) is restored in one step, and every
+    // unreleased commitment survives untouched.
+    releaseAuthority: pruneReleasedCommitments(
+      state.releaseAuthority,
+      new Set(releasing.map((p) => p.id)),
+    ),
   }
 }
