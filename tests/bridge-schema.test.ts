@@ -707,7 +707,7 @@ describe('canonical Unity bridge schema', () => {
       craftLeadId: null,
       budgetNegative: null,
       budgetMarketing: null,
-    signTalentId: null,
+      signTalentId: null,
       signTermWeeks: null,
     }
     const greenlightDraft = {
@@ -723,7 +723,7 @@ describe('canonical Unity bridge schema', () => {
       craftLeadId: 'talent-0005',
       budgetNegative: 1_000_000,
       budgetMarketing: 200_000,
-    signTalentId: null,
+      signTalentId: null,
       signTermWeeks: null,
     }
 

@@ -42,6 +42,7 @@ import {
   isContracted,
   type ContractOffer,
 } from './employment.js'
+import { offerObligation } from './economyView.js'
 import { TUNING } from './tuning.js'
 import { requiredNegative } from './filmPackage.js'
 import { NEGATIVE_BUDGET_MULTIPLIERS } from './grid.js'
@@ -567,17 +568,18 @@ export type HiringCandidateView = {
 }
 
 function contractOfferView(offer: ContractOffer): ContractOfferView {
-  const weeklySalary = Math.round(offer.annualSalary / 52)
-  const guaranteedComp = weeklySalary * offer.termWeeks
-  const years = offer.termWeeks / 52
+  // The engine's OWN salary derivation (D-11.4 weeklySalary via
+  // TUNING.TICKS_PER_YEAR, D-11.6 obligation math) — never re-derived here.
+  const obligation = offerObligation(offer)
+  const years = offer.termWeeks / TUNING.TICKS_PER_YEAR
   return {
     termWeeks: offer.termWeeks,
     termLabel: years === 1 ? '1 year' : `${years} years`,
     annualSalary: offer.annualSalary,
     signingBonus: offer.signingBonus,
-    weeklySalary,
-    guaranteedComp,
-    totalObligation: offer.signingBonus + guaranteedComp,
+    weeklySalary: obligation.weeklySalary,
+    guaranteedComp: obligation.guaranteedComp,
+    totalObligation: obligation.total,
   }
 }
 

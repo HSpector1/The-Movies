@@ -706,6 +706,10 @@ function signContractQuoteSnapshot(
   const cashBefore = state.studio.cash
   const cashAfter = successor.studio.cash
   const totalImmediate = Math.max(0, cashBefore - cashAfter)
+  // The SAME D-12 read the greenlight quote publishes — never a parallel
+  // restatement of solvency (preflight already refused the unaffordable case,
+  // so this is the engine agreeing with itself on the wire).
+  const affordable = commitmentPreview(state, totalImmediate).affordable
   return {
     intentId,
     kind: 'signContract',
@@ -725,7 +729,7 @@ function signContractQuoteSnapshot(
     totalImmediate,
     cashBefore,
     cashAfter,
-    affordable: cashAfter >= 0,
+    affordable,
     strongestAssignmentLine: null,
     weakestAssignmentLine: null,
     forecastLine: null,

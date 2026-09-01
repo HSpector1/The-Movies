@@ -619,11 +619,48 @@ describe('P04A Casting bridge — quote seam and board', () => {
     const quoted = session.quote(castingQuoteEnvelope(session, 'leak-quote', draft))
     expect(quoted.accepted).toBe(true)
 
-    const keys = allObjectKeys({ casting: castingSnapshot, quote: quoted.accepted ? quoted.quote : null })
+    // P05A.3: the sign-contract quote is the NEWEST casting wire surface —
+    // scan it with the same law (F7 of the hostile review: a leak test that
+    // never exercises the new quote kind proves nothing about it).
+    const marketActor = castingProjection(session.gameState).board!.hiringCandidates.find(
+      (candidate) => candidate.role === 'actor',
+    )
+    let signQuote: unknown = null
+    if (marketActor !== undefined) {
+      const signDraft = {
+        kind: 'signActor',
+        projectId,
+        slateLead: null,
+        slateAntagonist: null,
+        slateSupport: null,
+        directorId: null,
+        castLead: null,
+        castAntagonist: null,
+        castSupport: null,
+        craftLeadId: null,
+        budgetNegative: null,
+        budgetMarketing: null,
+        signTalentId: marketActor.talentId,
+        signTermWeeks: marketActor.offers[0]!.termWeeks,
+      } as BridgeCastingDraftPayload
+      const signQuoted = session.quote(castingQuoteEnvelope(session, 'leak-sign-quote', signDraft))
+      if (signQuoted.accepted) signQuote = signQuoted.quote
+    }
+
+    expect(signQuote, 'the leak scan must include a LIVE sign quote — a scan of nothing proves nothing').not.toBeNull()
+    const keys = allObjectKeys({
+      casting: castingSnapshot,
+      quote: quoted.accepted ? quoted.quote : null,
+      signQuote,
+    })
     for (const hidden of HIDDEN_KEY_NAMES) {
       expect(keys.has(hidden), `hidden key "${hidden}" crossed the wire boundary`).toBe(false)
     }
-    const raw = JSON.stringify({ casting: castingSnapshot, quote: quoted.accepted ? quoted.quote : null })
+    const raw = JSON.stringify({
+      casting: castingSnapshot,
+      quote: quoted.accepted ? quoted.quote : null,
+      signQuote,
+    })
     for (const banned of ['weeklyBurn', 'rngState', 'temperament', 'teamDirection', 'runway']) {
       expect(raw.toLowerCase().includes(banned.toLowerCase()), `banned substring "${banned}" appeared on the wire`).toBe(false)
     }
