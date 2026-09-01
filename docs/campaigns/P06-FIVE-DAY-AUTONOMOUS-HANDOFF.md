@@ -78,8 +78,9 @@ force, no rewrite:
 | §0 clock + this handoff | DONE (`da8b947`) |
 | §3 resolve exact P05 authority | DONE (above) |
 | §4 formal P05 closeout (ledger + lessons) | DONE (`f8dbe97` ledger, `59d9a2d` lessons) |
-| §5/§11 read P06 authorities; refresh gate/recon/charter to final r2 | IN PROGRESS — all five authority docs read in full; five parallel seam-recon lanes over the final code running |
-| §7 bounded research delta (≤12h, 4 lanes) | IN PROGRESS — lanes A/C/D launched (read-only); lane B follows evidence recon |
+| §5/§11 read P06 authorities; refresh gate/recon/charter to final r2 | DOCS WRITTEN on `codex/p06a-final-refresh-01` (`58fa9b3`); fresh hostile document review in flight; FF into campaign after disposition |
+| §7 bounded research delta (≤12h, 4 lanes) | DONE — all four lanes complete in ≈1.5h; `docs/research/P06-LIVING-STUDIO-REFERENCE-DELTA.md` (`4e9df1c`) |
+| §21 economic liveness audit | DONE EARLY — `docs/engineering/P06-ECONOMIC-LIVENESS-AUDIT.md`: INTENDED TEMPORARY CASH CONSTRAINT (attentive-player probe: −$314k trough → releases at wk13/14/17 → ~$14M peak; no trap state; visibility is the remedy and is already chartered) |
 | §12 create P06 WIP branches | PENDING |
 | §13–18 waves W0–W5 | PENDING |
 | §19 Living Studio Command Layer | PENDING |
@@ -107,3 +108,4 @@ force, no rewrite:
 | 2026-09-01 22:30 | Handoff created; P05 closeout docs in progress |
 | 2026-09-01 22:45 | P05 closeout committed+pushed. CF-09 re-verified at seal (Unity consumer = TS artifact = `9c3df11c…`). Owner profile baseline byte-copy taken: `~/Library/Application Support/Project Studio/bridge-runtime/bridge-runtime-v1.json` → `/Users/bruce/Project Studio Owner Profile Baselines/P06-campaign-start-20260901/` (sha256 `d949003e1874406170bfd3e7c8f4c6dc2dc92d24bb125376c435cdf21eec8b4b`, chmod 400). Real economic state: cash $74,470; 3 active productions (prod-0004 t5, prod-0005 t6, prod-0008 t8); 0 released films; overhead ≈$25.5k/wk. No stray processes; Owner caffeinate left running deliberately. |
 | 2026-09-01 23:00 | Five-lane final-code recon workflow + research lanes A/C/D running. P06 launch commands mapped: `npm run build:studio` → `node dist/studio/studio.mjs --unity-project <unity>`; floors: `npm test`, `typecheck`, `typecheck:bridge`, `test:bridge`, `verify:bridge-contract-consumer`. Decision: P06 implementation worktrees will live under durable `/Users/bruce/` paths (the P05 launcher itself warns `/private/tmp` dies on reboot). |
+| 2026-09-01 23:59 | Recon complete (5 lanes; lead re-verified `operations.ts` arms + `tick.ts` collector first-hand — the legacy arm DOES decrement blindly, r1 annex right, one recon lane corrected). r2-FINAL gate/recon/charter + research delta + §21 audit written, committed, pushed on `codex/p06a-final-refresh-01` (tip after audit commit). Release-authority design FROZEN (recon §6): V16 `releaseAuthority` root; `commitPictureToRelease` action+intent; both-arm gate + admission witness; decision tier 4 `release-review`; `automaticWeekRollEligible`; `release-committed` operationalState; projection 13→14 with `0474ceaf…` appended as prior. Fresh hostile document review running; FF to campaign after disposition, then §12 WIP branches → W1. |
