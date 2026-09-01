@@ -135,11 +135,80 @@ treasury projection remains the runway authority.
   run pending (the Owner's live game session holds the machine's heavy-
   process slot; batch runs start the moment it ends).
 
-## 6. OPEN ITEMS AT THIS WRITING
+## 6. THE SECOND HALF — what the drives found and fixed
 
-- Unity compile + EditMode run (blocked on the Owner's live session).
-- §16 owner-profile-copy journey (pre-fix red + post-fix full acquisition
-  walk incl. save/load) — needs the rebuilt pair.
-- §17 C/D/I/J/K/L matrix items on the client; §20 HID floors; §21 fresh
-  hostile reviewer (20 criteria); §23 FF integration + Desktop candidate;
-  §24 final report.
+### F-A: the client's hand-authored kind gate rejected the valid sign quote
+The first full 4H acquisition drive stranded on "could not be asked right
+now". Probe-captured truth: the ENGINE ACCEPTED Gloria Underwood's sign quote
+(every field present, exact figures) — and the client dropped it.
+`StudioBridgeProtocol.cs` — `StudioCastingQuoteSnapshot.NormalizeAndValidate`
+— recognized only `startAuditions`/`greenlightPicture`; the valid
+`signContract` response threw and LATCHED A PROTOCOL MISMATCH, silencing the
+whole quote channel. **Law extended: the enum-append law applies to
+hand-authored kind gates, not just generated enums.** New protocol test
+parses the exact probe-captured wire shape. (Unity `08ba867`.)
+
+### F-B: the one-shot dispatch had no retry
+The casting-quote channel legitimately returns null inside its single-flight/
+poll windows. `MaintainSignQuote` (host Update cadence, the P05A.1 maintain
+pattern) re-asks while the offer layer is open with no held quote, no ask in
+flight, and no standing engine refusal — the refusal latch releases for
+exactly one fresh ask when the revision moves.
+
+### F-C: the machine journeys adapted to the visible-busy-row world
+Three stand-in-behaves-like-a-human adaptations, no law weakened
+(Unity `4cba979`): wait out the maintain tick's auto-quote before
+OpenGreenlightReview (the decision rightly refuses review mid-ask; the UI
+button is disabled in the same window); re-pick a budget the week advance
+honestly drifted off the published menu (the aged-quote law under proof
+untouched); slate/draft picks filter `candidate.available` (pools now carry
+busy rows by §12 law, and the engine rightly refuses slating busy people).
+The 4H transition retry loop records probe-quiet attempts (`d6b42af`).
+
+### Fixture law: migration re-mints session ids
+The P05 oracle checkpoints (v12) failed the machine journey's named-session
+pin at the v13 engine; regenerated from their generator at projection-13,
+same scenarios, same named sessions (TS `29786d6`).
+
+## 7. §16/§20 — THE JOURNEYS
+
+**RED (pre-fix), old sealed pair** (v12 engine rebuilt from `9361542` in a
+scratch worktree + the P05A.2 sealed exe `7e418c05…`):
+`Evidence/P05A3-Journey-Red/hid-20260901T070031Z` — complete, 0 failures.
+The Owner's real profile copy, casting open on The Bitter Migration: NO
+shortage element anywhere, NO hiring route anywhere, and the readiness strip
+says *"0 OF 5 ROLES FILLED | Choose a Director. Also missing: Choose a Lead,
+Choose a Antagonist, Choose a Support…"* — the client instructs the Owner to
+choose actors that cannot exist. That is the failure, photographed.
+
+**ACQUISITION (post-fix), seal binary:**
+`Evidence/P05A3-Journey/hid-20260901T073949Z` — complete, 0 failures. Real
+HID on the Owner-profile copy (migrated v12→v13 at boot, digest preserved
+`a3550efd…`): CASTING SHORTAGE banner with the engine sentence verbatim →
+FIND AN ACTOR → TALENT MARKET — ACTORS (rotation Week 13 copy) → Vera
+Cortland's offer REFUSED with the full D-12 sentence ("this 180203 commitment
+would leave cash at -32310…") → back → wheel-scroll → Gloria Underwood
+REVIEW OFFER ($6,040/wk · $56,536 bonus · treasury after $91,357) → SIGN
+ACTOR → receipt "Signed Gloria Underwood — 1 year." → back on the exact
+casting context; the banner honestly downgrades to FREELANCERS COVER THIS
+PICTURE.
+
+**PERSISTENCE:** a fresh engine on that journey's own durable checkpoint
+(revision 1): three distinct available Actors, staffing blocker gone, Gloria
+out of the market and in the pools —
+`Evidence/P05A3-Journey/hid-20260901T073949Z/persistence-verdict.json`
+pass=true.
+
+## 8. FLOORS AT THE SEAL BINARY `c8f935105a611b10…` (Unity client, final)
+
+| Floor | Verdict |
+|---|---|
+| EditMode | **698/698** |
+| TS suite + typecheck ×3 | **356 files / 4,878 passed, 5 skipped** |
+| Casting journeys ×7 (Direct/Tests/Stale/Memoless/WriterCredit + seeded OwnerRepro/OwnerTests) | all **complete** |
+| 4M machine journey (s5, migrated) | **complete** |
+| Visual oracle ×6 scenarios | all **exit 0** |
+| 4H HID production journey | **complete, failures=0** |
+| P05A.3 acquisition HID journey | **complete, failures=0** |
+| P05A.3 red journey (old pair) | **complete, failures=0** |
+| Persistence probe | **pass** |
