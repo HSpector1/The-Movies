@@ -237,6 +237,6 @@ CommitGateReason law) + EditMode pin. F5 `contractOfferView` uses the
 engine's `offerObligation` (no inlined /52). F6 the sign quote's
 `affordable` is `commitmentPreview`'s own read. F7 the hidden-truth wire
 scan includes a LIVE sign quote with a vacuity guard. F8 the drive asserts
-the same project title after signing. F9 editor droppings reverted/untracked.
+the same project title after signing. F9 the ProjectSettings preloadedAssets hunk reverted to base; `Assets/Resources.meta` is deliberately KEPT TRACKED (the folder exists — untracking its meta would leave the tree perpetually un-porcelain, breaking the seal law; the folder is the Unity test framework's own, holding regenerated run-info JSON that stays untracked). Round-2 reviewer note: the first record misstated this as 'untracked' — corrected here.
 F10 indentation. TS `a994de3`, Unity `784f2d5`, `4cba979`→`d6b42af` context
 in §6.
