@@ -69,7 +69,13 @@ Facts NOT already settled by Package 06 research, with rulings:
 2. **No always-on portfolio exists.** The only multi-picture list is inside the
    Production workspace and omits Development/Casting pictures entirely
    (009-market-open.png). The LSCL movie rail is the FIRST full-portfolio
-   surface in the product; it must include all lifecycle stages.
+   surface in the product and must include all ACTIVE lifecycle stages.
+   Scope note: Package 06 design §16.3 says P06A "must not build the whole
+   portfolio"; the Owner campaign order §19 explicitly authorizes this bounded
+   rail over existing truth and supersedes that restriction for this surface —
+   the rail carries active-lifecycle rows only (no released/theatrical/result
+   rows, which remain P07's), so the §16.3 future unified portfolio remains
+   unbuilt.
 3. **Building attention is rotated world-space roof text; roof color encodes
    TYPE, never STATE** (idle vs shooting stages are identical in a colorless
    read). W4/LSCL attention markers must be camera-angle-independent shaped
