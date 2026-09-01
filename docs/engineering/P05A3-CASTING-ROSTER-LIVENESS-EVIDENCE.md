@@ -199,16 +199,44 @@ out of the market and in the pools —
 `Evidence/P05A3-Journey/hid-20260901T073949Z/persistence-verdict.json`
 pass=true.
 
-## 8. FLOORS AT THE SEAL BINARY `c8f935105a611b10…` (Unity client, final)
+## 8. FLOORS AT THE SEAL BINARY — corrected after hostile round 1
 
-| Floor | Verdict |
-|---|---|
-| EditMode | **698/698** |
-| TS suite + typecheck ×3 | **356 files / 4,878 passed, 5 skipped** |
-| Casting journeys ×7 (Direct/Tests/Stale/Memoless/WriterCredit + seeded OwnerRepro/OwnerTests) | all **complete** |
-| 4M machine journey (s5, migrated) | **complete** |
-| Visual oracle ×6 scenarios | all **exit 0** |
-| 4H HID production journey | **complete, failures=0** |
-| P05A.3 acquisition HID journey | **complete, failures=0** |
-| P05A.3 red journey (old pair) | **complete, failures=0** |
-| Persistence probe | **pass** |
+**Round-1 F1/F2 (BLOCKER/MAJOR), owned:** the first §8 claimed all seven
+casting journeys ran at one binary; their own run bindings showed a smear of
+wave binaries, and that binary was a dirty-tree build. Both remedied: the
+seal binary is a **clean-tree** build at the sealed commits, and every
+runtime floor below binds to it via its own copied `build-manifest.json` /
+`run-binding.json`.
+
+**Seal pair:** TS `a994de3` / Unity `784f2d5` (both porcelain-clean).
+**Seal binary:** exe `b5108a78895acb727f74fe23931ceaab76c6b36c06bdff603fd76f3d45fdd09e`
+(manifest `dirty: false`, sha `784f2d5`).
+**Seal order law (learned this round):** the editor touches tracked generated
+assets on load, so EditMode runs BEFORE the player build; no editor session
+between the build and the runtime floors.
+
+| Floor | Verdict | Bound to |
+|---|---|---|
+| EditMode | **699/699** | commit `784f2d5`, clean tree (`evidence/p05a3-editmode-seal.xml`; full progression preserved incl. the 4-red first run) |
+| TS suite + typecheck ×3 | **356 files / 4,878 passed, 5 skipped** | commit `a994de3` |
+| Casting journeys ×7 (Direct/Tests/Stale/Memoless/WriterCredit + seeded OwnerRepro/OwnerTests) | all **complete** | exe `b5108a78` (each run's own manifest) |
+| 4M machine journey | **complete** | exe `b5108a78` (`machine-20260901T081731Z`) |
+| Visual oracle ×6 | all **exit 0** | exe `b5108a78` (`*-2026 0901T0817*Z`) |
+| 4H HID production journey | **complete, failures=0** | exe `b5108a78` (`hid-20260901T081815Z`) |
+| Acquisition HID journey | **complete, failures=0** | exe `b5108a78` (`P05A3-Journey/hid-20260901T081843Z`) |
+| Persistence probe | **pass** (revision 1, 3 distinct available, blocker gone) | that run's own checkpoint |
+| RED journey (pre-fix) | **complete, failures=0** | the OLD sealed pair `7e418c05…` — deliberately (`P05A3-Journey-Red/hid-20260901T070031Z`) |
+
+## 9. HOSTILE ROUND 1 — REJECT, remediated
+
+F1 (BLOCKER) floors smear → re-run at one clean binary (above). F2 (MAJOR)
+dirty-tree seal build → clean rebuild, seal-order law recorded. F3 EditMode
+records placed in the shared evidence tree. F4 the disabled SIGN primary now
+speaks its exact gate reason (`casting-sign-gate-reason`, the greenlight
+CommitGateReason law) + EditMode pin. F5 `contractOfferView` uses the
+engine's `offerObligation` (no inlined /52). F6 the sign quote's
+`affordable` is `commitmentPreview`'s own read. F7 the hidden-truth wire
+scan includes a LIVE sign quote with a vacuity guard. F8 the drive asserts
+the same project title after signing. F9 editor droppings reverted/untracked.
+F10 indentation. TS `a994de3`, Unity `784f2d5`, `4cba979`→`d6b42af` context
+in §6.
