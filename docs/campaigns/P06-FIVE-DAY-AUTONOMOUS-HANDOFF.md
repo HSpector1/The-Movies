@@ -1,0 +1,107 @@
+# P06 Five-Day Autonomous Campaign — Durable Handoff
+
+**Campaign:** P05 Owner closeout → P06 Post/Release → Living Studio Command Layer
+**Authority:** Owner order of 2026-09-01 (P05A.3 ACCEPTED — KEEP; P05 CLOSED; 120-hour
+autonomous window authorized). This document is the campaign's durable memory and must
+remain resumable from GitHub without chat history.
+
+---
+
+## 0. Campaign clock
+
+| | |
+|---|---|
+| Local start | Tue 2026-09-01 22:00:45 CEST |
+| UTC start | Tue 2026-09-01 20:00:45 UTC |
+| Hard deadline (+120h) | Sun 2026-09-06 22:00:45 CEST (20:00:45 UTC) |
+| Machine | Mac15,9 (Apple Silicon, arm64) |
+| OS | macOS 26.6.2 (build 25G83) |
+| Unity Editor | 6000.3.22f1 |
+| Node | v24.16.0 |
+| Free disk at start | 650 Gi |
+| Display | 3456 × 2234 Retina |
+
+## 1. Repositories and canonical paths
+
+| Repo | Path | Remote |
+|---|---|---|
+| TypeScript (authority) | main checkout `/Users/bruce/The Movies - Github Push Test`; campaign worktree `/Users/bruce/The Movies - P06 Campaign TS` (branch `campaign/living-lot-ts`) | `hspector-github` → github.com/HSpector1/The-Movies |
+| Unity client | `/private/tmp/studio-p05a-impl-01/unity` (P05A.3 worktree; P06 will use fresh worktrees) | `origin` → github.com/HSpector1/project-studio-unity-visual-spike |
+
+## 2. P05 final authority — RESOLVED AND INTEGRATED (2026-09-01 ~22:15 CEST)
+
+The campaign order required exact resolution before any P06 work. Findings:
+
+**Sealed product pair (full 40-char), from the hostile-review-corrected evidence doc
+§8 (`docs/engineering/P05A3-CASTING-ROSTER-LIVENESS-EVIDENCE.md`) and the candidate
+`build-manifest.json`:**
+
+| | |
+|---|---|
+| TypeScript product seal | `a994de38e8f87b8680f5ab4bd6fb62e7b594c5db` |
+| Unity product seal | `784f2d52e2459f2cf7a12cbde49319f2bb81df6c` |
+| Player executable sha256 | `b5108a78895acb727f74fe23931ceaab76c6b36c06bdff603fd76f3d45fdd09e` |
+| Assembly-CSharp sha256 | `73a245e50d2e1b8db67b4e967d8259d6c4fe4517db23b6d1f6d63604a9dd70fa` |
+| Engine bundle sha256 | `dba4e48b4bcc82e75bc8d20b194e26dbc6cb5c6739c710ae97a2f8da496056c3` |
+| Preserved candidate | `~/Desktop/P05A3-Owner-Candidate-a90d1c6-784f2d5` (exe hash re-verified byte-identical at campaign start) |
+
+The candidate folder abbreviation `a90d1c6` names the docs-inclusive WIP tip at
+preservation time; commits `a90d1c6` and `18ab9b6` after the product seal `a994de3`
+touch only the evidence document (verified by `git diff --name-only`). The TS
+campaign tip therefore carries the seal plus its evidence record.
+
+**Discrepancy found and remedied at campaign start:** P05A.3 was NOT integrated.
+
+- TS: local WIP `wip/p05a3-casting-roster-liveness-ts` tip `18ab9b6…` held 11 commits
+  absent from the remote (remote WIP was at `aa5f385…`); `campaign/living-lot-ts` was
+  still at the P05A.2 authority `9361542131b1feb28a1e14cf3bdefd0a99781d9e`.
+- Unity: the ENTIRE P05A.3 implementation (10 commits, `31d3800…→784f2d5…`) existed
+  only locally; remote WIP and remote campaign were both at
+  `31d38004f485a1fedb21c6274b7abf266a94ba82`.
+
+All Section-3 requirements were verified (manifest SHAs, executable hash byte-match,
+clean porcelain in both worktrees, docs-only trailing delta, ordinary fast-forward
+ancestry both repos), then remedied by NORMAL pushes and FF-only ref updates — no
+force, no rewrite:
+
+| Ref | Before | After (local = remote, verified via ls-remote) |
+|---|---|---|
+| TS `wip/p05a3-casting-roster-liveness-ts` (remote) | `aa5f385` | `18ab9b6459e90b16b4455ea4695a0938e8f6a87d` |
+| TS `campaign/living-lot-ts` (local+remote) | `9361542` | `18ab9b6459e90b16b4455ea4695a0938e8f6a87d` |
+| Unity `wip/p05a3-casting-roster-liveness-client` (remote) | `31d3800` | `784f2d52e2459f2cf7a12cbde49319f2bb81df6c` |
+| Unity `campaign/living-lot-client` (local was already FF'd; remote) | `31d3800` | `784f2d52e2459f2cf7a12cbde49319f2bb81df6c` |
+
+## 3. Campaign plan of record (Owner order sections → status)
+
+| Step | Status |
+|---|---|
+| §0 clock + this handoff | DONE (this commit) |
+| §3 resolve exact P05 authority | DONE (above) |
+| §4 formal P05 closeout (ledger + lessons) | IN PROGRESS |
+| §5/§11 read P06 authorities; refresh gate/recon/charter to final r2 | PENDING |
+| §7 bounded research delta (≤12h, 4 lanes) | PENDING |
+| §12 create P06 WIP branches | PENDING |
+| §13–18 waves W0–W5 | PENDING |
+| §19 Living Studio Command Layer | PENDING |
+| §21 economic liveness audit | PENDING |
+| §22–25 proof pyramid + 6-scene visual oracle + real-profile copy + HID | PENDING |
+| §28–30 hostile review → quality convergence → seal + candidate | PENDING |
+
+## 4. Key prior authorities (for resume without chat)
+
+- P06 design: branch `codex/post-release-research-06` @ `8ccd8acc253901aadaa2175656c1e0f7d1a2df23`
+  (`docs/design/CODEX-POST-RELEASE-PACKAGE-06.md` + `-BUILDER-ANNEX.md`)
+- P06 provisional launch package: branch `codex/p06a-launch-package-01` @
+  `c74cf79037fe9712247898c340834d0379c8b04c` (readiness gate 00, recon, provisional charter)
+- Visual Direction Package: `728781dcfdcf32a13d3d3978cdc333b8c9a5e8a7`
+- P05 lessons: `docs/engineering/P05-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md`
+- P04 lessons: `docs/engineering/P04-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md`
+- Campaign ledger: `docs/campaigns/LIVING-LOT.md`
+
+## 5. Update log
+
+| When (local) | Event |
+|---|---|
+| 2026-09-01 22:00 | Campaign start; clock + environment recorded |
+| 2026-09-01 22:15 | P05 authority resolved; P05A.3 integrated and pushed (see §2) |
+| 2026-09-01 22:30 | Handoff created; P05 closeout docs in progress |
