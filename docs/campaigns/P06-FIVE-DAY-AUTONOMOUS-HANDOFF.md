@@ -81,8 +81,8 @@ force, no rewrite:
 | §5/§11 read P06 authorities; refresh gate/recon/charter to final r2 | **DONE — hostile review round-3 FINAL ACCEPT** (rounds: 12 findings → remediated `d4acc18` → 2 residuals → remediated `fc8800a` → ACCEPT; reviewer independently re-ran both econ probes and reproduced the audit to the dollar). Integrated into `campaign/living-lot-ts` by clean cherry-pick (campaign had one interleaved handoff commit, so direct FF was impossible; the six docs-only commits `1f5c459..fc8800a` on `codex/p06a-final-refresh-01` re-landed as `a44d0bb..e978186` — all seven reviewed files verified byte-identical to the ACCEPTed tip). Launch package is binding W0–W8 authority; the review record lives in this transcript and the refresh branch is preserved as pushed. |
 | §7 bounded research delta (≤12h, 4 lanes) | DONE — all four lanes complete in ≈1.5h; `docs/research/P06-LIVING-STUDIO-REFERENCE-DELTA.md` (`4e9df1c`) |
 | §21 economic liveness audit | DONE EARLY — `docs/engineering/P06-ECONOMIC-LIVENESS-AUDIT.md`: INTENDED TEMPORARY CASH CONSTRAINT (attentive-player probe: −$314k trough → releases at wk13/14/17 → ~$14M peak; no trap state; visibility is the remedy and is already chartered) |
-| §12 create P06 WIP branches | PENDING |
-| §13–18 waves W0–W5 | PENDING |
+| §12 create P06 WIP branches | DONE — starting pair: TS `wip/p06a-post-release-living-studio-01-ts` @ `ba55b779f82d51ddd4a20d278eb7a3680b0b64f8` (docs-inclusive campaign tip); Unity `wip/p06a-post-release-living-studio-01-client` @ `784f2d52e2459f2cf7a12cbde49319f2bb81df6c`. Both pushed+verified. Durable worktrees: `/Users/bruce/The Movies - P06A Impl TS`, `/Users/bruce/The Movies - P06A Impl Unity`. |
+| §13–18 waves W0–W5 | W0 DONE (frozen design = recon §6, hostile-ACCEPTed). W1 IN PROGRESS. |
 | §19 Living Studio Command Layer | PENDING |
 | §21 economic liveness audit | PENDING |
 | §22–25 proof pyramid + 6-scene visual oracle + real-profile copy + HID | PENDING |
