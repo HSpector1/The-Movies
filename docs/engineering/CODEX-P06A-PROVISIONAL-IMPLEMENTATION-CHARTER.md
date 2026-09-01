@@ -138,8 +138,9 @@ Exact paths: `bridge/schema/bridge-schema.ts` (`release-committed` state,
 `commitPictureToRelease` intent kind with required non-empty productionId,
 release-review projection, `automaticWeekRollEligible`, PROJECTION_VERSION 14),
 `bridge/snapshot-build-context.ts` (`release()` fact), `bridge/session.ts`
-(intent resolution incl. the release-review manual-advance carve-out;
-projection wiring), `bridge/runtime-checkpoint.ts` (append `0474ceaf…` →
+(projection wiring + resolution of the new release projection/intent; the
+manual-advance carve-out is W1's, already landed — W2 does not re-own it),
+`bridge/runtime-checkpoint.ts` (append `0474ceaf…` →
 `projection-v13` prior), `ui/src/engine/productionOperationsProjection.ts` +
 `ui/src/lot/snapshot/StudioLotSnapshot.ts` + `ui/src/lot/snapshot/nextEvent.ts`
 (closed-shape extensions; `releaseReview` stop reason),
@@ -149,12 +150,13 @@ generate:bridge-contract` + fixtures + `verify:bridge-contract-consumer`
 against the pinned Unity consumer. Never hand-edit generated files. CF-08
 generator tests must stay green; no same-named cross-member property additions
 without a failing-closed generator proof. **Sequencing law (hostile-review
-F10):** between W2 (eligibility fact on the wire) and W5 (Living Time consumes
-it), a regenerated dev build would auto-roll through release decisions — the
-sealed client still treats `advanceWeek` presence as permission — so no
-runtime time-behavior proof may run against a P06 build until W5's consumer
-lands. Cross-version safety is closed by the schema mint (`SCHEMA_MISMATCH` +
-the governed prior-checkpoint path).
+F10, tightened by round-2 R2):** from W1 (the carve-out publishes `advanceWeek`
+during a release-review decision, while the P05 schema `0474ceaf…` remains
+current — so the sealed P05 client stays fully compatible and would auto-roll
+through the decision with no `SCHEMA_MISMATCH` protection) through W5 (Living
+Time consumes `automaticWeekRollEligible`), NO runtime time-behavior proof may
+run against any P06 build or the sealed client on a P06 engine. Cross-version
+safety exists only from the W2 schema mint onward; in-repo safety only from W5.
 
 ### W3 — Production / Post world owner (Unity World owner)
 
