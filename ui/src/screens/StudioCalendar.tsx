@@ -80,6 +80,14 @@ function decisionCopy(
         label: 'Open Production Board',
         route: { kind: 'production', productionId: decision.productionId },
       }
+    // P06A: the release decision — exact title, honest choice, production route.
+    case 'releaseReview':
+      return {
+        headline: `${decision.title} is Release Ready`,
+        detail: 'Commit it to release, or knowingly hold. Releasing happens on the next studio week.',
+        label: 'Open Production Board',
+        route: { kind: 'production', productionId: decision.productionId },
+      }
   }
 }
 

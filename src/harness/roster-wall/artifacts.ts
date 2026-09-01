@@ -27,6 +27,7 @@ import {
   expectedWeeklyRunRevenue,
   exportSave,
   importSave,
+  migrateToV16,
   renewalWindowOpen,
   stableStringify,
   weeklySalary,
@@ -3250,7 +3251,7 @@ export function verifyRosterWallAcceptedArtifactDirectory(
     ) {
       throw new Error(`roster-wall artifacts: ${label} disagrees with its exact Week-196 save`)
     }
-    const importedState = imported.state
+    const importedState = migrateToV16(imported).state
     assertAcceptedEntryPayload(row, fact, label, importedState)
     if (fact.mode === 'current') {
       shadowEntryAuthorities.set(

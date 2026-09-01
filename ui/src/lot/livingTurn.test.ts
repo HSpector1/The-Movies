@@ -50,6 +50,7 @@ const EMPTY_DETAIL: SimStopDetail = {
   completedRuns: [],
   wrapped: [],
   productionDecision: null,
+  releaseDecision: null,
   scriptDecision: null,
   castingDecision: null,
   constructionCompletion: null,

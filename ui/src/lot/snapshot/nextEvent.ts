@@ -247,6 +247,7 @@ const EXACT_STOP_REASON_LIST = [
   'scriptReview',
   'castingReview',
   'productionDecision',
+  'releaseReview', // P06A (charter W1)
   'wrap', // C2a-M5 (§4.3-M5)
   'constructionCompleted',
   'runCompleted',
@@ -736,6 +737,18 @@ function targetFor(
         current?.kind !== 'productionDecision' ||
         result.productionDecision === null ||
         !sameClosedValue(result.productionDecision, current.decision)
+      ) return null
+      return productionTarget(result.next, current.decision)
+    }
+    // P06A (charter W1): the release decision points at the picture's current
+    // world owner through the SAME production-target resolver — the receipt
+    // follows the authoritative location mapping wherever it stands.
+    case 'releaseReview': {
+      const current = studioDecision(result.next)
+      if (
+        current?.kind !== 'releaseReview' ||
+        result.releaseDecision === null ||
+        !sameClosedValue(result.releaseDecision, current.decision)
       ) return null
       return productionTarget(result.next, current.decision)
     }

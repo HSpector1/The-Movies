@@ -117,6 +117,7 @@ function simResult(
     productionDecision: null,
     scriptDecision: null,
     castingDecision: null,
+  releaseDecision: null,
     constructionCompletion: completion,
     stopMessage: 'Stopped at a governed event.',
     guardHit: false,

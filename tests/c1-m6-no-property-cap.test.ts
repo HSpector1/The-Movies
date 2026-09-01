@@ -37,7 +37,7 @@ import {
   makeSave,
   makeSaveV13,
   migrateToV14,
-  migrateToV15,
+  migrateToV16,
   moveFacility,
   parcelAt,
   placementWouldSeverLot,
@@ -91,7 +91,7 @@ const entry = manifest.fixtures.find((candidate) => candidate.id === FIXTURE_ID)
 const fixtureBytes = readFileSync(join(FIXTURE_DIRECTORY, entry.file), 'utf8')
 
 function farPropertyStudio(): GameState {
-  return migrateToV14(importSave(fixtureBytes)).state
+  return migrateToV16(importSave(fixtureBytes)).state
 }
 
 /** Cash adjustment that keeps the cash/ledger reconciliation true. */
@@ -148,7 +148,7 @@ describe('C1-M6 (2) — the committed far-property fixture', () => {
     // down the frozen V13 builder without moving a byte.
     const reloaded = migrateToV14(importSave(fixtureBytes))
     expect(exportSave(makeSaveV13(reloaded.state))).toBe(fixtureBytes)
-    expect(() => assertStudioPlacementInvariants(reloaded.state)).not.toThrow()
+    expect(() => assertStudioPlacementInvariants(migrateToV16(reloaded).state)).not.toThrow()
   })
 
   it('carries a property far beyond the founding counts', () => {
@@ -319,7 +319,7 @@ describe('C1-M6 (2) — composition, legality, completion, move, demolish, save,
 
     // …and the whole thing round-trips byte-identically.
     const json = exportSave(makeSave(operational))
-    const reloaded = migrateToV15(importSave(json))
+    const reloaded = migrateToV16(importSave(json))
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(stableStringify(reloaded.state.property)).toBe(stableStringify(operational.property))
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)
@@ -406,7 +406,7 @@ describe('C1-M6 (2) — composition, legality, completion, move, demolish, save,
 
     // …and the survivors, on a property this size, still round-trip byte-identically.
     const json = exportSave(makeSave(demolished))
-    const reloaded = migrateToV15(importSave(json))
+    const reloaded = migrateToV16(importSave(json))
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(reloaded.state.property.parcels).toHaveLength(demolished.property.parcels.length)
     expect(reloaded.state.property.structures).toHaveLength(demolished.property.structures.length)

@@ -42,7 +42,7 @@ import {
   migrateToV10,
   makeSaveV11,
   migrateToV11,
-  migrateToV15,
+  migrateToV16,
   stableStringify,
   validateSave,
   validateSaveV11,
@@ -235,7 +235,7 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
 
     for (const state of states) {
       const json = exportSave(makeSave(state));
-      const imported = migrateToV15(importSave(json)).state;
+      const imported = migrateToV16(importSave(json)).state;
       expect(exportSave(makeSave(imported))).toBe(json);
       expect(exportSave(makeSave(tick(imported)))).toBe(
         exportSave(makeSave(tick(state))),

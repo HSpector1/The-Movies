@@ -787,6 +787,12 @@ function lotNextEventEligibility(state: GameState): {
             pending.decision.blocker?.headline ?? pending.decision.command?.label ?? pending.decision.statusLabel
           } at ${pending.decision.currentFacility}. Resolve this production problem before simming to another event.`,
         }
+      // P06A: an uncommitted Release Ready picture is the current decision.
+      case 'releaseReview':
+        return {
+          eligible: false,
+          reason: `${pending.decision.title} is Release Ready. Commit it to release, or knowingly hold, before simming to another event.`,
+        }
     }
   } catch {
     return {

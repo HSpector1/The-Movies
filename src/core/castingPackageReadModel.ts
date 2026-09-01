@@ -43,6 +43,7 @@ import {
   type ContractOffer,
 } from './employment.js'
 import { offerObligation } from './economyView.js'
+import { releaseCommitmentFor } from './releaseAuthority.js'
 import { TUNING } from './tuning.js'
 import { requiredNegative } from './filmPackage.js'
 import { NEGATIVE_BUDGET_MULTIPLIERS } from './grid.js'
@@ -303,12 +304,16 @@ function currentWorkLabel(state: GameState, talentId: string): string | null {
 }
 
 /**
- * P05A.3 §12 — the authoritative completion week of a busy person's current
- * engagement: a production seat frees at wrap (week + remainingTicks); a
- * writing assignment frees at its due week when the assignment publishes one.
- * Null when not busy or when no completion week is authoritative.
+ * P05A.3 §12, corrected at P06A (hostile F4) — the authoritative completion
+ * week of a busy person's current engagement. A production seat frees at
+ * RELEASE (`busyTalentIds` is phase-blind), so: an UNCOMMITTED picture held at
+ * Release Ready promises NO week (holding is indefinite — `week +
+ * remainingTicks` would say "next week" forever, a standing false claim); a
+ * COMMITTED one frees next week; earlier phases keep the conditional
+ * `week + remainingTicks` estimate. A writing assignment frees at its due
+ * week when published. Null when not busy or when no week is authoritative.
  */
-function returnWeek(state: GameState, talentId: string): number | null {
+export function returnWeek(state: GameState, talentId: string): number | null {
   if (!busyTalentIds(state).has(talentId)) return null
   const week = state.market.tick
   const production = state.studio.activeProductions.find(
@@ -319,7 +324,14 @@ function returnWeek(state: GameState, talentId: string): number | null {
       p.cast.support === talentId ||
       p.craftIds.includes(talentId),
   )
-  if (production !== undefined) return week + Math.max(0, production.remainingTicks)
+  if (production !== undefined) {
+    if (production.remainingTicks === 1) {
+      const committed =
+        releaseCommitmentFor(state.releaseAuthority, production.id) !== null
+      return committed ? week + 1 : null
+    }
+    return week + Math.max(0, production.remainingTicks)
+  }
   const writing = activeScriptWriterAssignments(state.scriptDevelopment, state.concepts).find(
     (assignment) => assignment.talentId === talentId,
   )

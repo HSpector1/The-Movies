@@ -4822,7 +4822,7 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 15) return validateSaveV15(save);
   if (s.saveVersion === 16) return validateSaveV16(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 15 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 16 only)`,
   );
 }
 

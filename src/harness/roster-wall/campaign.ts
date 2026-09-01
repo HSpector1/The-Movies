@@ -22,6 +22,7 @@ import {
   freelancerMarketIds,
   generateWorld,
   importSave,
+  initialReleaseAuthority,
   isContracted,
   makeSave,
   makeSaveV14,
@@ -48,6 +49,7 @@ import type {
   CreativeRole,
   FacilityCapability,
   GameState,
+  GameStateV14,
   GreenlightScriptProjectPayload,
   LedgerEntry,
   ReceptionInputs,
@@ -126,6 +128,7 @@ export type RosterWallPolicyIntentKind =
   | 'casting-acknowledgement'
   | 'production-greenlight'
   | 'production-operation'
+  | 'release-commitment'
 
 export type RosterWallPolicyIntentProjection = {
   week: number
@@ -386,7 +389,12 @@ function sha256(value: string): string {
   return createHash('sha256').update(value).digest('hex')
 }
 
-function stateHash(state: GameState): string {
+// Accepts the live GameState AND the frozen GameStateV14 shape: `harvestSave`'s
+// exact-fidelity check hashes a genuine SaveFileV14 round trip (P06A's new
+// `releaseAuthority` root has no V14 home), so this is a pure serialization hash
+// with no live-only field dependency — widening it here does not relax the
+// live call sites, which still pass a real `GameState`.
+function stateHash(state: GameState | GameStateV14): string {
   return sha256(stableStringify(state))
 }
 
@@ -673,6 +681,18 @@ function resolveDecisions(runtime: CampaignRuntime): void {
         'casting-acknowledgement',
         decision.sessionId,
         { kind: 'acknowledgeCastingSession', sessionId: decision.sessionId },
+      )
+      if (!result.accepted) return
+      continue
+    }
+    if (decision.kind === 'releaseReview') {
+      // P06A harness POLICY (not product law): commit promptly — see the
+      // facilities observatory's identical arm for the rationale.
+      const result = attemptAction(
+        runtime,
+        'release-commitment',
+        decision.productionId,
+        { kind: 'commitPictureToRelease', productionId: decision.productionId },
       )
       if (!result.accepted) return
       continue
@@ -1498,7 +1518,14 @@ export function runRosterWallEntryCampaign(
   if (execution.runtime.preEntryWindowEve === null) {
     throw new Error('roster-wall observatory: Week-195 window-eve boundary was not captured')
   }
-  const cohort = cohortAtEntry(harvested.entrySave.state)
+  // `harvested.entrySave` stays pinned at the frozen SaveFileV14 shape (the whole
+  // point of the harvest); this call site alone widens the READ to the live
+  // GameState shape with an explicit, empty release authority — `cohortAtEntry`
+  // never reads it, so this cannot mask a real commitment.
+  const cohort = cohortAtEntry({
+    ...harvested.entrySave.state,
+    releaseAuthority: initialReleaseAuthority(),
+  })
   if (
     cohort.some(
       (member) =>

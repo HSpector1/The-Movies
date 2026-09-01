@@ -21,9 +21,10 @@ import {
   exportSave,
   generateWorld,
   importSave,
+  initialReleaseAuthority,
   makeSave,
   migrateToV14,
-  migrateToV15,
+  migrateToV16,
   setById,
   setMountedOn,
   stableStringify,
@@ -150,7 +151,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
     expect(state.ledger.some((entry) => entry.kind === 'setDemolitionRefund')).toBe(true)
 
     const json = exportSave(makeSave(state))
-    const reloaded = migrateToV15(importSave(json)).state
+    const reloaded = migrateToV16(importSave(json)).state
     expect(exportSave(makeSave(reloaded))).toBe(json)
     expect(reloaded.sets).toEqual(state.sets)
     expect(reloaded.nextSetId).toBe(state.nextSetId)
@@ -227,9 +228,13 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
     const inFlight = migrated.operations.workflows[0]!.productionId
     expect(migrated.operations.workflows[0]!.bindings.requiresSetBinding).toBe(false)
 
-    // THE GATE: the migrated studio greenlights a NEW picture.
-    let played = applyActions(migrated, [
-      { kind: 'greenlight', production: productionPayload(migrated, 1) },
+    // THE GATE: the migrated studio greenlights a NEW picture. `migrated` stays
+    // pinned at the frozen GameStateV14 shape for the endowment assertions above;
+    // only this live boundary call gains P06A's release authority — empty, since
+    // nothing in this migrated save was ever a committed release.
+    const liveMigrated: GameState = { ...migrated, releaseAuthority: initialReleaseAuthority() }
+    let played = applyActions(liveMigrated, [
+      { kind: 'greenlight', production: productionPayload(liveMigrated, 1) },
     ])
     const fresh = played.studio.activeProductions.find(
       (production) => production.id !== inFlight,
@@ -263,7 +268,10 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
   it('lets a migrated studio BUILD a set on the stage it just cleared', () => {
     const native = operationsStudio('m2-gate-build')
     const migrated = migrateToV14(v13TwinOf(grandfatheredBindings(native)) as unknown as Parameters<typeof migrateToV14>[0]).state
-    let played = applyActions(migrated, [{ kind: 'strikeSet', setId: 'set-1' }])
+    // `migrated` (frozen GameStateV14) gains P06A's release authority — empty,
+    // since nothing in this migrated save was ever a committed release.
+    const liveMigrated: GameState = { ...migrated, releaseAuthority: initialReleaseAuthority() }
+    let played = applyActions(liveMigrated, [{ kind: 'strikeSet', setId: 'set-1' }])
     expect(setMountedOn(played.sets, STAGE_12)).toBeNull()
     played = applyActions(played, [
       {

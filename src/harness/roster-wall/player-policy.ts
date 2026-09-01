@@ -13,6 +13,7 @@ import {
   exportSave,
   importSave,
   makeSaveV14,
+  migrateToV16,
   renewalWindowOpen,
   stableStringify,
   weeklyOverhead,
@@ -24,6 +25,7 @@ import type {
   ContractOffer,
   CreativeRole,
   GameState,
+  GameStateV14,
   LedgerEntry,
   SaveFileV14,
 } from '../../core/index.js'
@@ -431,7 +433,10 @@ function sha256(value: string): string {
   return createHash('sha256').update(value).digest('hex')
 }
 
-function hashState(state: GameState): string {
+// Accepts the live GameState AND the frozen GameStateV14 shape: `exactSave` hashes
+// a genuine SaveFileV14 round trip (P06A's new `releaseAuthority` root has no V14
+// home) — a pure serialization hash with no live-only field dependency.
+function hashState(state: GameState | GameStateV14): string {
   return sha256(stableStringify(state))
 }
 
@@ -521,8 +526,12 @@ function transitionOutflow(
 }
 
 /** Exact V11 cash authority, including the optional historical checkpoint seam. */
+// Accepts the live GameState AND the frozen GameStateV14 shape: `exactSave`
+// checks reconciliation on a genuine SaveFileV14 round trip. Only
+// ledger/cash/checkpoint fields are read — none of them P06A's new
+// `releaseAuthority` root — so widening this is a pure type relaxation.
 export function reconcilePlayerPolicyCash(
-  state: GameState,
+  state: GameState | GameStateV14,
 ): PlayerPolicyCashReconciliation {
   const checkpoint = state.cashLedgerCheckpoint ?? null
   const ledgerStart = checkpoint?.ledgerLength ?? 0
@@ -558,7 +567,7 @@ export function reconcilePlayerPolicyCash(
   }
 }
 
-function assertCashReconciles(state: GameState, label: string): void {
+function assertCashReconciles(state: GameState | GameStateV14, label: string): void {
   const reconciliation = reconcilePlayerPolicyCash(state)
   if (!reconciliation.exact) {
     throw new Error(
@@ -667,7 +676,11 @@ function exactSave(state: GameState): {
     hash: sha256(bytes),
     stateHash: hashState(importedState),
     imported,
-    importedState,
+    // `imported`/`importedState` above stay pinned at the frozen SaveFileV14
+    // shape; only the returned `importedState` field (declared live GameState)
+    // gains P06A's release authority — empty, since nothing in a Week-196 entry
+    // was ever a committed release under the new root.
+    importedState: migrateToV16(imported).state,
   }
 }
 
@@ -1106,9 +1119,17 @@ function executePlayerPolicy(
       'roster-wall player policy: continuation did not fresh-load the immutable entry bytes',
     )
   }
-  state = freshEntry.state
+  // `freshEntry` stays pinned at the frozen SaveFileV14 shape for this exact-bytes
+  // check; `state` (live GameState, continued below) gains P06A's release
+  // authority — empty, since nothing in a Week-196 entry was ever a committed
+  // release under the new root.
+  const freshEntryState = freshEntry.state
+  state = migrateToV16(freshEntry).state
   memory = createRenewalPolicyMemory(ROSTER_WALL_ENTRY_WEEK)
-  if (hashState(state) !== entry.stateHash || state.rngState !== entry.rngState) {
+  if (
+    hashState(freshEntryState) !== entry.stateHash ||
+    freshEntryState.rngState !== entry.rngState
+  ) {
     throw new Error('roster-wall player policy: continuation did not start from entry bytes')
   }
 
@@ -1344,7 +1365,10 @@ function exactPlayerPolicyEntryState(result: RosterWallPlayerPolicyResult): Game
   }
   const importedState = imported.state
   assertCashReconciles(importedState, 'serialized Week 196 entry')
-  return importedState
+  // The checks above stay pinned to the frozen SaveFileV14 shape; only the
+  // returned live GameState gains P06A's release authority — empty, since
+  // nothing in a Week-196 entry was ever a committed release under the new root.
+  return migrateToV16(imported).state
 }
 
 /** Full contract-governed Week-196 player-policy entry projection. */

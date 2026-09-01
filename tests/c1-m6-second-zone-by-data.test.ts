@@ -39,7 +39,7 @@ import {
   makeSave,
   makeSaveV13,
   migrateToV14,
-  migrateToV15,
+  migrateToV16,
   parcelById,
   parcelHasRoadFrontage,
   placementWouldSeverLot,
@@ -108,7 +108,7 @@ const fixtureBytes = readFileSync(join(FIXTURE_DIRECTORY, entry.file), 'utf8')
 
 /** The fixture world, through the live import boundary — never a hand-built state. */
 function southYardStudio(): GameState {
-  return migrateToV14(importSave(fixtureBytes)).state
+  return migrateToV16(importSave(fixtureBytes)).state
 }
 
 /** The founding property's own answer to the same question, for the contrast. */
@@ -183,10 +183,10 @@ describe('C1-M6 (1) — the committed second-zone fixture is what the generator 
     const reloaded = migrateToV14(importSave(fixtureBytes))
     expect(reloaded.saveVersion).toBe(14)
     expect(exportSave(makeSaveV13(reloaded.state))).toBe(fixtureBytes)
-    // …and the live V15 envelope round-trips byte-identically too, twice over.
-    const liveJson = exportSave(makeSave(reloaded.state))
-    expect(exportSave(makeSave(migrateToV15(importSave(liveJson)).state))).toBe(liveJson)
-    expect(() => assertStudioPlacementInvariants(reloaded.state)).not.toThrow()
+    // …and the live V16 envelope round-trips byte-identically too, twice over.
+    const liveJson = exportSave(makeSave(migrateToV16(reloaded).state))
+    expect(exportSave(makeSave(migrateToV16(importSave(liveJson)).state))).toBe(liveJson)
+    expect(() => assertStudioPlacementInvariants(migrateToV16(reloaded).state)).not.toThrow()
   })
 })
 
@@ -312,7 +312,7 @@ describe('C1-M6 (1) — placement legality accepts a build in the second zone', 
 
     // …and the whole grown world round-trips at the live boundary.
     const json = exportSave(makeSave(operational))
-    const reloaded = migrateToV15(importSave(json))
+    const reloaded = migrateToV16(importSave(json))
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(stableStringify(reloaded.state.property)).toBe(stableStringify(operational.property))
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)

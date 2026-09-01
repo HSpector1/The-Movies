@@ -37,6 +37,8 @@ import {
   migrateToV11,
   convertV12ToV13,
   convertV13ToV14,
+  convertV14ToV15,
+  convertV15ToV16,
   makeSaveV12,
   migrateToV12,
   stableStringify,
@@ -597,7 +599,7 @@ describe('Placement Core V12 — the V11 → V12 migration', () => {
     expect(v12.state.placement).toEqual(initialManagedStudioPlacement())
     expect(v12.state.construction).toEqual(initialManagedStudioConstruction())
     // The legacy parcel is genuinely free: the Annex can still be started.
-    const started = applyActions(convertV13ToV14(convertV12ToV13(v12)).state, [{ kind: 'startDevelopmentCastingAnnex' }])
+    const started = applyActions(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(v12)))).state, [{ kind: 'startDevelopmentCastingAnnex' }])
     expect(started.placement.facilities[0]).toMatchObject({
       parcelId: ANNEX_PARCEL_ID,
       facilityId: ANNEX_FACILITY_ID,
@@ -642,7 +644,7 @@ describe('Placement Core V12 — the V11 → V12 migration', () => {
     expect(v12.state.market.tick).toBe(v11.state.market.tick)
     // …and the remaining weeks still complete on the original committed week.
     const completed = advance(
-      convertV13ToV14(convertV12ToV13(v12)).state,
+      convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(v12)))).state,
       ANNEX_DURATION_WEEKS - v12.state.market.tick,
     )
     expect(completed.market.tick).toBe(ANNEX_DURATION_WEEKS)
@@ -670,7 +672,7 @@ describe('Placement Core V12 — the V11 → V12 migration', () => {
     // No operating charge is back-dated onto the migrated history.
     expect(v12.state.ledger.filter((entry) => entry.kind === 'facilityOpex')).toEqual([])
     // The charge starts on the next advance, not retroactively.
-    const next = tick(convertV13ToV14(convertV12ToV13(v12)).state)
+    const next = tick(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(v12)))).state)
     expect(next.ledger.filter((entry) => entry.kind === 'facilityOpex')).toHaveLength(1)
   })
 

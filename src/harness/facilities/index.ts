@@ -165,6 +165,7 @@ export type FacilitiesIntentKind =
   | 'casting-session'
   | 'casting-acknowledgement'
   | 'production-greenlight'
+  | 'release-commitment'
   | 'production-operation'
   | 'production-transition'
   | 'contract-renewal'
@@ -1202,6 +1203,20 @@ function resolveDecisions(runtime: ArmRuntime): void {
         'casting-acknowledgement',
         decision.sessionId,
         { kind: 'acknowledgeCastingSession', sessionId: decision.sessionId },
+      )
+      if (!result.accepted) return
+      continue
+    }
+    if (decision.kind === 'releaseReview') {
+      // P06A harness POLICY (not product law): the observatory commits a ready
+      // picture promptly — its measurements need the full release economy, and
+      // an autonomous world that held forever would starve them. The product
+      // default remains HOLD until the player commits.
+      const result = attemptAction(
+        runtime,
+        'release-commitment',
+        decision.productionId,
+        { kind: 'commitPictureToRelease', productionId: decision.productionId },
       )
       if (!result.accepted) return
       continue

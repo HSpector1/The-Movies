@@ -38,7 +38,7 @@ import type {
   FoundingApplicantRow,
   GameState,
 } from '../ui/src/engine/adapter.ts'
-import { importSave, migrateToV15 } from '../src/core/index.js'
+import { importSave, migrateToV16 } from '../src/core/index.js'
 import {
   PROTOCOL_VERSION,
   SCHEMA_ID,
@@ -92,18 +92,15 @@ type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
   | { ok: false; error: string }
 
-// P04A (§2.5) STEP 0: the bridge's live-boundary save import, routed to the
-// live V15 migrator. `ui/src/engine/adapter.ts`'s own `importSaveJson` remains
-// hard-wired to `migrateToV14` (out of this lane's allowed files — the ui/**
-// boundary is off-limits here), so this local, contract-identical wrapper is
-// the bridge-owned half of the "one coordinated change" §2.5 describes: same
-// `ImportOutcome` shape, same semantics, migrating to V15 (the current
-// `GameState` live shape) instead of the now-historical V14.
-function importSaveJsonV15(json: string): ImportOutcome {
+// P06A (charter W1): the bridge's live-boundary save import, routed to the
+// live V16 migrator — every pre-P06 envelope (including every Release Ready
+// picture in it) arrives EXPLICITLY uncommitted. Same `ImportOutcome` shape
+// and semantics as every prior live wrapper.
+function importSaveJsonV16(json: string): ImportOutcome {
   try {
     const save = importSave(json)
-    const converted = save.saveVersion !== 15
-    return { ok: true, state: migrateToV15(save).state, converted }
+    const converted = save.saveVersion !== 16
+    return { ok: true, state: migrateToV16(save).state, converted }
   } catch (error) {
     return { ok: false, error: (error as Error).message }
   }
@@ -896,6 +893,31 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
     return resolved
   }
 
+  // ── P06A W1 — THE MANUAL-ADVANCE CARVE-OUT (charter W1 / hostile F7) ────────
+  // The release-review decision pauses everything automatic (`studioDecision`
+  // is non-null, so no other branch publishes `advanceWeek`), but HOLDING is a
+  // lawful player choice: explicit manual Advance Week stays published, with
+  // hold-honest copy. This is the ONE deliberate exception to the
+  // decision-suppresses-advance rule; every other decision kind keeps it.
+  // The commit intent itself arrives with W2's schema — until then the direct
+  // core action and this hold path are the interface.
+  if (next.kind === 'release-review') {
+    const fields: Omit<AvailableIntent, 'intentId'> = {
+      kind: 'advanceWeek',
+      label: `Hold ${journey.pictureTitle ?? 'the picture'} at Release Ready — advance the week`,
+      detail:
+        'Holding is a choice: payroll and overhead continue and the company stays busy. The picture releases only after you commit it.',
+      projectId: journey.scriptProjectId,
+      castingSessionId: null,
+      productionId: journey.productionId,
+    }
+    resolved.push({
+      option: option(stateDigest, fields, { kind: 'advanceWeek' }),
+      apply: advanceOutcome,
+    })
+    return resolved
+  }
+
   if (next.kind === 'script-review' && journey.scriptProjectId !== null) {
     const decision = board.nextDecision
     if (decision?.projectId === journey.scriptProjectId) {
@@ -1127,7 +1149,7 @@ export class BridgeSession {
   }
 
   static fromSaveJson(saveJson: string, sessionId: string = randomUUID()): BridgeSession {
-    const imported = importSaveJsonV15(saveJson)
+    const imported = importSaveJsonV16(saveJson)
     if (!imported.ok) throw new Error(imported.error)
     return new BridgeSession(
       imported.state,
@@ -1146,7 +1168,7 @@ export class BridgeSession {
     hydrated: HydratedBridgeRuntimeCheckpoint,
     limits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
   ): BridgeSession {
-    const imported = importSaveJsonV15(hydrated.checkpoint.currentSaveJson)
+    const imported = importSaveJsonV16(hydrated.checkpoint.currentSaveJson)
     if (!imported.ok) throw new Error(imported.error)
     return new BridgeSession(
       imported.state,
@@ -1182,7 +1204,7 @@ export class BridgeSession {
     limits: BridgeRuntimeCheckpointLimits = this.runtimeLimits,
   ): BridgeSession {
     const currentSaveJson = snapshotBuildContextFor(this.state).saveJson()
-    const imported = importSaveJsonV15(currentSaveJson)
+    const imported = importSaveJsonV16(currentSaveJson)
     if (!imported.ok) throw new Error(imported.error)
     return new BridgeSession(imported.state, randomUUID(), this.savedJson, { limits })
   }
@@ -1483,7 +1505,7 @@ export class BridgeSession {
       this.remember('load', control, rejected)
       return rejected
     }
-    const loaded = importSaveJsonV15(this.savedJson)
+    const loaded = importSaveJsonV16(this.savedJson)
     if (!loaded.ok) {
       const rejected = this.reject(control.commandId, 'SAVE_REJECTED', loaded.error, started)
       this.remember('load', control, rejected)

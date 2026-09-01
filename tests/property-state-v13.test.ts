@@ -32,6 +32,8 @@ import {
   commitPlacement,
   convertV12ToV13,
   convertV13ToV14,
+  convertV14ToV15,
+  convertV15ToV16,
   exportSave,
   generateWorld,
   groundOccupiedCellKeys,
@@ -44,7 +46,7 @@ import {
   makeSaveV11,
   makeSaveV12,
   migrateToV13,
-  migrateToV15,
+  migrateToV16,
   occupiedCellKeys,
   parcelAt,
   parcelById,
@@ -353,7 +355,7 @@ describe('C1-M1a (a) — the property IS the constants, in a new representation'
     expect(v12.saveVersion).toBe(12)
     expect('property' in v12.state).toBe(false)
 
-    const migrated = convertV13ToV14(convertV12ToV13(v12)).state
+    const migrated = convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(v12)))).state
     // Migration reconstructs the property V12 held implicitly — nothing else.
     expect(migrated.property).toEqual(INITIAL_PROPERTY)
     expect(stableStringify(migrated)).toBe(stableStringify(native))
@@ -468,8 +470,8 @@ describe('C1-M1a (b) — nothing assumes eight structures or a small placement c
 
     // And it all round-trips byte-identically at the live boundary.
     const json = exportSave(makeSave(operational))
-    const reloaded = migrateToV15(importSave(json))
-    expect(reloaded.saveVersion).toBe(15)
+    const reloaded = migrateToV16(importSave(json))
+    expect(reloaded.saveVersion).toBe(16)
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(reloaded.state.property).toEqual(INITIAL_PROPERTY)
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)
@@ -517,7 +519,7 @@ describe('C1-M1a (b) — nothing assumes eight structures or a small placement c
     expect(() => assertStudioPlacementInvariants(operational)).not.toThrow()
 
     const json = exportSave(makeSave(operational))
-    expect(exportSave(makeSave(migrateToV15(importSave(json)).state))).toBe(json)
+    expect(exportSave(makeSave(migrateToV16(importSave(json)).state))).toBe(json)
   })
 })
 
@@ -597,7 +599,7 @@ describe('C1-M1a (c) — a bigger property works with no code change', () => {
 
     // And an expanded property persists and round-trips like any other.
     const json = exportSave(makeSave(operational))
-    const reloaded = migrateToV15(importSave(json))
+    const reloaded = migrateToV16(importSave(json))
     expect(reloaded.state.property.bounds).toEqual({ width: 34, depth: 26 })
     expect(reloaded.state.property.parcels).toHaveLength(11)
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
@@ -636,13 +638,13 @@ describe('C1-M1a (d) — SaveFileV13', () => {
       const save = makeSave(state)
       // P04A: the LIVE envelope is now V15. The property root and every claim
       // this case makes about it are unchanged — only which version writes it.
-      expect(save.saveVersion).toBe(15)
+      expect(save.saveVersion).toBe(16)
       expect(validateSave(save)).toBe(save)
       expect(validateSaveV15(save)).toBe(save)
       expect(save.state.property).toEqual(INITIAL_PROPERTY)
       const json = exportSave(save)
       expect(exportSave(importSave(json))).toBe(json)
-      expect(exportSave(migrateToV15(importSave(json)))).toBe(json)
+      expect(exportSave(migrateToV16(importSave(json)))).toBe(json)
     }
   })
 

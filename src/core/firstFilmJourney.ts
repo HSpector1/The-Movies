@@ -50,6 +50,7 @@ import { castingSessionForProject } from './castingSessions.js'
 import { castingSessionsReadModel, type CastingProjectView } from './castingReadModel.js'
 import { productionPhaseForRemainingTicks } from './operations.js'
 import { queueInPriorityOrder } from './productionQueue.js'
+import { releaseCommitmentFor } from './releaseAuthority.js'
 import { sceneryLoadInDecision } from './sceneryLoadIn.js'
 import {
   nextStudioDecision,
@@ -120,6 +121,7 @@ export type JourneyTargetKind =
   | 'open-package'
   | 'review-casting-blocker'
   | 'resolve-production'
+  | 'release-review' // P06A (charter W1): the explicit release decision
   | 'advance-week'
 
 export type JourneySite = 'development' | 'casting' | 'stage' | 'post' | 'admin'
@@ -206,7 +208,7 @@ const PHASE_SIGNIFICANCE: Record<ProductionPhase, string> = {
   rehearsal: 'The company is preparing on its own stage before the camera can turn.',
   shooting: 'The director, cast, and crew are working on set. No production action is required unless the card names one.',
   postProduction: 'Editorial and finishing are turning the photographed material into the release cut.',
-  releaseReady: 'No production work remains. The picture is ready to reach audiences.',
+  releaseReady: 'No production work remains. Releasing is now your explicit call — nothing happens until you commit.',
 }
 
 const PHASE_CONTINUES: Record<ProductionPhase, string> = {
@@ -215,7 +217,7 @@ const PHASE_CONTINUES: Record<ProductionPhase, string> = {
   rehearsal: 'Rehearsal continues',
   shooting: 'Shooting continues',
   postProduction: 'Post-production continues',
-  releaseReady: 'The picture is ready to release',
+  releaseReady: 'The picture holds at Release Ready until you commit it',
 }
 
 /** Ranks the "most advanced screenplay still in the player's hands" tie-break. */
@@ -1083,6 +1085,59 @@ function inProductionView(
         },
         blocked: null,
       }
+    }
+  }
+
+  // ── P06A (charter W1): Release Ready is the ONE release decision ─────────
+  // An uncommitted picture HOLDS — the journey names the review, the place
+  // (Production & Post) and the choice, and promises no week. A committed
+  // picture releases on the next authoritative week, and says exactly that.
+  if (phase === 'releaseReady') {
+    const committed = releaseCommitmentFor(state.releaseAuthority, production.id) !== null
+    if (committed) {
+      return {
+        stage: 'in-production',
+        beat: defaultBeat,
+        productionId: production.id,
+        scriptProjectId,
+        pictureTitle: title,
+        ordinal,
+        headline: 'COMMITTED TO RELEASE',
+        whatHappened: `${title ?? 'The picture'} is committed to release.`,
+        whyItMatters:
+          'The commitment is irreversible. The next studio week releases the picture and its results follow.',
+        detail,
+        next: {
+          kind: 'advance-week',
+          label: 'The picture releases on the next studio week — advance the week',
+          site: null,
+        },
+        waiting: {
+          untilWeek: state.market.tick + 1,
+          reason: waitOut('Committed to release · resolves on the next studio week'),
+        },
+        blocked: null,
+      }
+    }
+    return {
+      stage: 'in-production',
+      beat: defaultBeat,
+      productionId: production.id,
+      scriptProjectId,
+      pictureTitle: title,
+      ordinal,
+      headline,
+      whatHappened: defaultMilestone,
+      whyItMatters: defaultSignificance,
+      detail,
+      next: {
+        kind: 'release-review',
+        label: 'Review the release at Production & Post — commit, or hold',
+        site: 'post',
+      },
+      // No promised week: an uncommitted picture holds for as long as you hold it.
+      waiting: null,
+      blocked: null,
     }
   }
 

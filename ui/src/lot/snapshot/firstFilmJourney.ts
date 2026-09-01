@@ -57,6 +57,7 @@ export type JourneyTargetKind =
   | 'review-casting-blocker'
   | 'open-package'
   | 'resolve-production'
+  | 'release-review' // P06A (charter W1)
   | 'advance-week'
 
 /** Semantic destinations. NOT building ids — see the mapping below. */
@@ -121,6 +122,7 @@ const JOURNEY_TARGET_KINDS: readonly JourneyTargetKind[] = [
   'review-casting-blocker',
   'open-package',
   'resolve-production',
+  'release-review', // P06A (charter W1)
   'advance-week',
 ]
 

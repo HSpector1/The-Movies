@@ -93,6 +93,10 @@ const PRIMARY_CUES: Record<SimStopReason, CueShape> = {
   scriptReview: { tier: 2, sound: 'select', motion: 'emphasis' },
   castingReview: { tier: 2, sound: 'select', motion: 'emphasis' },
   productionDecision: { tier: 2, sound: 'select', motion: 'emphasis' },
+  // P06A: the release decision — ordinary decision grammar. The ceremonial
+  // tier-1 release sting stays reserved for the picture actually reaching
+  // audiences on the following week.
+  releaseReview: { tier: 2, sound: 'select', motion: 'emphasis' },
   // C2a-M5 — THE RESERVED WRAP SLOT, FILLED (PF1 §10 item 2, appendix; charter
   // §4.3-M5). Tier 2, deliberately: tier 1 is "reserved and small" and names
   // exactly three moments — a picture reaches audiences, a picture is formed, a

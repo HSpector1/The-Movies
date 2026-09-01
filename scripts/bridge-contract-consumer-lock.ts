@@ -30,7 +30,7 @@ export const UNITY_FIXTURE_PATH = 'Assets/Studio/Tests/EditMode/Generated/Studio
 export const GENERATOR_VERSION = 1
 export const ATTESTATION_VERSION = 1
 export const FIXTURE_CORPUS_VERSION = 1
-export const CURRENT_ACCEPTED_SAVE_VERSION = 15
+export const CURRENT_ACCEPTED_SAVE_VERSION = 16
 
 const EDITMODE_RESULT_NAME = 'contract-gate-editmode.xml'
 const EDITMODE_LOG_NAME = 'contract-gate-editmode.log'

@@ -9,6 +9,7 @@ import {
   productionPhaseForRemainingTicks,
 } from './operations.js'
 import { nextStudioDecision } from './scriptReadModel.js'
+import { releaseCommitmentFor } from './releaseAuthority.js'
 import type { StudioDecisionView } from './scriptReadModel.js'
 import { sceneryLoadInDecision } from './sceneryLoadIn.js'
 import { blueprintById, placedStudioFacility, studioConstructionView } from './placement.js'
@@ -24,6 +25,7 @@ export type StudioCalendarDecisionView =
   | { kind: 'scriptReview'; projectId: string; title: string }
   | { kind: 'castingReview'; sessionId: string; projectId: string; title: string }
   | { kind: 'productionOperation'; productionId: string }
+  | { kind: 'releaseReview'; productionId: string; title: string }
 
 export type StudioCalendarOccupantView = {
   owner: 'production' | 'script' | 'casting'
@@ -137,7 +139,7 @@ export type StudioCalendarProductionView = {
   phase: ProductionPhase | 'legacy'
   phaseLabel: string
   remainingTicks: number
-  conditionalReleaseWeek: number
+  conditionalReleaseWeek: number | null
   facilities: StudioCalendarProductionFacilityView[]
   status: 'on-schedule' | 'decision-required' | 'held' | 'legacy-countdown'
   statusLabel: string
@@ -215,7 +217,11 @@ const COMMITMENT_KIND_ORDER: Record<StudioCalendarCommitmentView['kind'], number
 }
 
 const CONDITIONAL_RELEASE_ASSUMPTION =
-  'Conditional on every required command being resolved before advance and every current and future facility allocation succeeding; a hold moves release later.'
+  'Conditional on every required command being resolved before advance, every current and future facility allocation succeeding, and your explicit release commitment at Release Ready; a hold moves release later.'
+
+// P06A (charter W1): a HELD picture has no truthful week at all.
+const HELD_RELEASE_ASSUMPTION =
+  'Held at Release Ready — the picture releases only on the studio week after you explicitly commit it.'
 
 const PRODUCTION_HOLD_CONSEQUENCE =
   'The production countdown will hold while payroll and studio overhead continue each week.'
@@ -258,6 +264,10 @@ function decisionView(decision: StudioDecisionView | null): StudioCalendarDecisi
       }
     case 'productionOperation':
       return { kind: decision.kind, productionId: decision.productionId }
+    case 'releaseReview':
+      // P06A: the uncommitted Release Ready decision reaches the calendar
+      // exactly like every other stop — exact id, honest title, no command.
+      return { kind: decision.kind, productionId: decision.productionId, title: decision.title }
   }
 }
 
@@ -703,8 +713,15 @@ function productionViews(state: GameState): StudioCalendarProductionView[] {
     .sort((a, b) => compareId(a.id, b.id))
     .map((production): StudioCalendarProductionView => {
       const title = requireConceptTitle(state, production.conceptId, `production "${production.id}"`)
-      const conditionalReleaseWeek =
-        currentWeek + production.remainingTicks + (production.startTick >= currentWeek ? 1 : 0)
+      // P06A (charter W1): an UNCOMMITTED Release Ready picture holds — the
+      // calendar publishes NO week rather than a false one. A committed one
+      // releases next week (the unchanged formula already says so).
+      const heldUncommitted =
+        production.remainingTicks === 1 &&
+        releaseCommitmentFor(state.releaseAuthority, production.id) === null
+      const conditionalReleaseWeek = heldUncommitted
+        ? null
+        : currentWeek + production.remainingTicks + (production.startTick >= currentWeek ? 1 : 0)
       if (state.operations.mode === 'legacy') {
         return {
           certainty: 'conditional',
@@ -759,7 +776,9 @@ function productionViews(state: GameState): StudioCalendarProductionView[] {
         conditionalReleaseWeek,
         facilities,
         ...status,
-        releaseAssumption: CONDITIONAL_RELEASE_ASSUMPTION,
+        releaseAssumption: heldUncommitted
+          ? HELD_RELEASE_ASSUMPTION
+          : CONDITIONAL_RELEASE_ASSUMPTION,
       }
     })
 }

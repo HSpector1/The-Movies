@@ -28,6 +28,7 @@ import {
   makeSave,
   exportSave,
   importSave,
+  migrateToV16,
   makeSaveV1,
   convertV1ToV2,
   roleOVR,
@@ -410,8 +411,8 @@ describe('RULING A — development survives save round-trips without duplication
     const released = runOneFilm('A-save-3', true).released
     const reloaded = importSave(exportSave(makeSave(released)))
     // The reloaded state is the live SaveFileV11; drive it forward, no greenlights.
-    if (reloaded.saveVersion !== 15) throw new Error('expected V15 save')
-    const advanced = advanceDev(reloaded.state, 5)
+    if (reloaded.saveVersion !== 16) throw new Error('expected V16 save')
+    const advanced = advanceDev(migrateToV16(reloaded).state, 5)
     expect(advanced.talent).toEqual(reloaded.state.talent)
   })
 })

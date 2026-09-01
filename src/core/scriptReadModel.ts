@@ -264,6 +264,18 @@ export type StudioDecisionView =
   | ScriptReviewDecisionView
   | import('./castingReadModel.js').CastingReviewDecisionView
   | ProductionOperationsDecisionView
+  | ReleaseReviewDecisionView
+
+// ── P06A (charter W1): the fourth decision tier ──────────────────────────────
+// An UNCOMMITTED Release Ready picture is a genuine studio decision — the ONE
+// P06A decision stop. Ascending exact production id; the projection carries no
+// command because the legal actions (commit / knowingly hold) are the player's
+// choice, not a resolvable operation.
+export type ReleaseReviewDecisionView = {
+  kind: 'releaseReview'
+  productionId: string
+  title: string
+}
 
 export type ScriptLotAttentionView = {
   kind: 'review-required' | 'capacity-constraint' | 'active-work' | 'ready-script' | 'idle'
@@ -1285,7 +1297,29 @@ export function nextStudioDecision(state: GameState): StudioDecisionView | null 
       title: requireConcept(state, project.conceptId).title,
     }
   }
-  return nextProductionOperationsDecision(state)
+  const operationsDecision = nextProductionOperationsDecision(state)
+  if (operationsDecision !== null) return operationsDecision
+  return nextReleaseReviewDecision(state)
+}
+
+/**
+ * P06A tier 4 (charter W1): the first UNCOMMITTED Release Ready picture in
+ * ascending exact-id order. A committed picture is no longer a decision — it
+ * resolves on the next authoritative week. Legacy and managed worlds share
+ * this law (remainingTicks === 1 is the phase truth in both).
+ */
+export function nextReleaseReviewDecision(state: GameState): ReleaseReviewDecisionView | null {
+  const committed = new Set(state.releaseAuthority.commitments.map((row) => row.productionId))
+  const ready = state.studio.activeProductions
+    .filter((production) => production.remainingTicks === 1 && !committed.has(production.id))
+    .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
+  const first = ready[0]
+  if (first === undefined) return null
+  return {
+    kind: 'releaseReview',
+    productionId: first.id,
+    title: requireConcept(state, first.conceptId).title,
+  }
 }
 
 // ── P03A: TypeScript-authored review evidence — explanation and rewrite preview ─

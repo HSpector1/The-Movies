@@ -23,7 +23,7 @@ import {
   generateWorld,
   importSave,
   makeSave,
-  migrateToV15,
+  migrateToV16,
   RngStream,
   stableStringify,
   tick,
@@ -318,15 +318,15 @@ describe('D-17A/B — odd dollars: whole-dollar determinism and a governed tie-b
     const first = stableStringify(allocateFixedCosts(s))
     expect(stableStringify(allocateFixedCosts(s))).toBe(first)
 
-    // Property State V13 (C1-M1a): the live load-to-play entry is migrateToV15.
-    const reloaded = migrateToV15(validateSave(importSave(exportSave(makeSave(s)))))
-    expect(reloaded.saveVersion).toBe(15)
+    // Property State V13 (C1-M1a): the live load-to-play entry is migrateToV16.
+    const reloaded = migrateToV16(validateSave(importSave(exportSave(makeSave(s)))))
+    expect(reloaded.saveVersion).toBe(16)
     expect(stableStringify(allocateFixedCosts(reloaded.state))).toBe(first)
 
     // …and the hostile schedule survives the same trip.
     const h = hostileRun('adv-b-roundtrip', 5)
     const hFirst = stableStringify(allocateFixedCosts(h))
-    const hBack = migrateToV15(validateSave(importSave(exportSave(makeSave(h)))))
+    const hBack = migrateToV16(validateSave(importSave(exportSave(makeSave(h)))))
     expect(stableStringify(allocateFixedCosts(hBack.state))).toBe(hFirst)
   })
 })

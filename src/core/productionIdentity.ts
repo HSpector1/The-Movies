@@ -34,6 +34,9 @@ export function persistedProductionIds(state: GameState): Set<string> {
     add(workflow.shootingTask?.productionId)
   }
   for (const project of state.scriptDevelopment.projects) add(project.productionId)
+  // P06A (charter W1, law 20): the release authority names productions; its
+  // rows join the walk the week the root lands.
+  for (const row of state.releaseAuthority.commitments) add(row.productionId)
   // C2a-M1 (charter §8.2, law 20): every new root that can carry a production
   // identity joins this walk in BOTH directions the week it lands.
   //

@@ -3,8 +3,9 @@ import { createHash, randomUUID } from 'node:crypto'
 import {
   exportSave,
   importSave,
-  migrateToV15,
+  migrateToV16,
   type SaveFileV15,
+  type SaveFileV16,
 } from '../src/core/index.js'
 import { exportSaveJson } from '../ui/src/engine/adapter.ts'
 import {
@@ -170,8 +171,8 @@ export type HydratedBridgeRuntimeJournalEntry =
 
 export type HydratedBridgeRuntimeCheckpoint = {
   checkpoint: BridgeRuntimeCheckpointV1
-  currentSave: SaveFileV15
-  savedSave: SaveFileV15 | null
+  currentSave: CurrentEnvelopeSave
+  savedSave: CurrentEnvelopeSave | null
   journal: readonly HydratedBridgeRuntimeJournalEntry[]
   checkpointBytes: number
   journalBytes: number
@@ -347,11 +348,22 @@ function parseCanonicalJson(json: string, path: string): unknown {
   return parsed
 }
 
-function validateCanonicalV15(
+// P06A (charter W1) COMPATIBILITY WINDOW: while the P05 bridge schema
+// (`0474ceaf…`) remains the CURRENT identity, a current-schema checkpoint may
+// carry either the frozen V15 bytes it was written with (every pre-P06 Owner
+// checkpoint) or the live V16 bytes the P06 session writes. Each is validated
+// byte-canonical AGAINST ITS OWN VERSION — digests bind stored bytes, so
+// nothing is rewritten here; the SESSION migrates to V16 on import
+// (`importSaveJsonV16`), which is what makes every imported ready picture
+// explicitly uncommitted. When W2 mints the P06 schema and registers the P05
+// identity as prior, this acceptance narrows back to V16 only.
+type CurrentEnvelopeSave = SaveFileV15 | SaveFileV16
+
+function validateCanonicalCurrentSave(
   saveJson: string,
   path: string,
-  cache: Map<string, SaveFileV15>,
-): SaveFileV15 {
+  cache: Map<string, CurrentEnvelopeSave>,
+): CurrentEnvelopeSave {
   const cached = cache.get(saveJson)
   if (cached !== undefined) return cached
   let imported
@@ -360,13 +372,13 @@ function validateCanonicalV15(
   } catch (error) {
     fail(path, `is not a valid TypeScript save: ${(error as Error).message}`)
   }
-  if (imported.saveVersion !== 15) {
-    fail(path, `must be a current V15 save, received V${String(imported.saveVersion)}`)
+  if (imported.saveVersion !== 15 && imported.saveVersion !== 16) {
+    fail(path, `must be a current V15/V16 save, received V${String(imported.saveVersion)}`)
   }
   if (exportSave(imported) !== saveJson) {
-    fail(path, 'must preserve the canonical V15 save bytes exactly')
+    fail(path, `must preserve the canonical V${String(imported.saveVersion)} save bytes exactly`)
   }
-  const current = imported as SaveFileV15
+  const current = imported as CurrentEnvelopeSave
   cache.set(saveJson, current)
   return current
 }
@@ -422,7 +434,7 @@ function hydrateEntry(
   index: number,
   sessionId: string,
   stateRevision: number,
-  saveCache: Map<string, SaveFileV15>,
+  saveCache: Map<string, CurrentEnvelopeSave>,
 ): HydratedBridgeRuntimeJournalEntry {
   const path = `checkpoint.journal[${String(index)}]`
   const record = exactRecord(value, path, JOURNAL_ENTRY_KEYS)
@@ -465,7 +477,7 @@ function hydrateEntry(
     }
     if (route === 'save') {
       const acceptedSave = response as BridgeAcceptedSaveResponse
-      validateCanonicalV15(acceptedSave.saveJson, `${path}.responseJson.saveJson`, saveCache)
+      validateCanonicalCurrentSave(acceptedSave.saveJson, `${path}.responseJson.saveJson`, saveCache)
       if (digest(acceptedSave.saveJson) !== acceptedSave.stateDigest) {
         fail(path, 'accepted save response digest does not match its V15 bytes')
       }
@@ -610,17 +622,17 @@ function migrateLegacyProtocol3Checkpoint(
     )
   }
 
-  const saveCache = new Map<string, SaveFileV15>()
-  const currentSave = validateCanonicalV15(currentSaveJson, 'checkpoint.currentSaveJson', saveCache)
+  const saveCache = new Map<string, CurrentEnvelopeSave>()
+  const currentSave = validateCanonicalCurrentSave(currentSaveJson, 'checkpoint.currentSaveJson', saveCache)
   if (digest(currentSaveJson) !== currentStateDigest) {
     fail('checkpoint.currentStateDigest', 'does not match currentSaveJson')
   }
   if ((savedSaveJson === null) !== (savedStateDigest === null)) {
     fail('checkpoint.savedStateDigest', 'must be null exactly when savedSaveJson is null')
   }
-  let savedSave: SaveFileV15 | null = null
+  let savedSave: CurrentEnvelopeSave | null = null
   if (savedSaveJson !== null) {
-    savedSave = validateCanonicalV15(savedSaveJson, 'checkpoint.savedSaveJson', saveCache)
+    savedSave = validateCanonicalCurrentSave(savedSaveJson, 'checkpoint.savedSaveJson', saveCache)
     if (digest(savedSaveJson) !== savedStateDigest) {
       fail('checkpoint.savedStateDigest', 'does not match savedSaveJson')
     }
@@ -743,20 +755,20 @@ function migrateLegacyProtocol3Checkpoint(
 }
 
 // Parse then live-migrate a prior save slot through the EXISTING core save
-// path — `importSave` then `migrateToV15` (accepts V1..V15, refuses malformed
+// path — `importSave` then `migrateToV16` (accepts V1..V16, refuses malformed
 // or unknown versions loudly; the same two-step chain `bridge/session.ts`'s
-// own `importSaveJsonV15` wraps, and what the ui adapter's `importSaveJson`
-// mirrors for V1..V14) — then re-serialize via `exportSaveJson`. This is the
+// own `importSaveJsonV16` wraps, and what the ui adapter's `importSaveJson`
+// mirrors) — then re-serialize via `exportSaveJson`. This is the
 // ONLY place a prior identity's save bytes are interpreted; the surrounding
 // checkpoint envelope and journal are handled as opaque bytes (see
 // migratePriorProtocol4Checkpoint below).
 function importPriorSaveViaCanonicalChain(
   json: string,
   path: string,
-): { json: string; state: SaveFileV15['state'] } {
-  let migrated: SaveFileV15
+): { json: string; state: SaveFileV16['state'] } {
+  let migrated: SaveFileV16
   try {
-    migrated = migrateToV15(importSave(json))
+    migrated = migrateToV16(importSave(json))
   } catch (error) {
     fail(path, `is not a save the current save contract can import: ${(error as Error).message}`)
   }
@@ -983,8 +995,8 @@ export function hydrateBridgeRuntimeCheckpoint(
     )
   }
 
-  const saveCache = new Map<string, SaveFileV15>()
-  const currentSave = validateCanonicalV15(currentSaveJson, 'checkpoint.currentSaveJson', saveCache)
+  const saveCache = new Map<string, CurrentEnvelopeSave>()
+  const currentSave = validateCanonicalCurrentSave(currentSaveJson, 'checkpoint.currentSaveJson', saveCache)
   if (digest(currentSaveJson) !== currentStateDigest) {
     fail('checkpoint.currentStateDigest', 'does not match currentSaveJson')
   }
@@ -993,7 +1005,7 @@ export function hydrateBridgeRuntimeCheckpoint(
   }
   const savedSave = savedSaveJson === null
     ? null
-    : validateCanonicalV15(savedSaveJson, 'checkpoint.savedSaveJson', saveCache)
+    : validateCanonicalCurrentSave(savedSaveJson, 'checkpoint.savedSaveJson', saveCache)
   if (savedSaveJson !== null && digest(savedSaveJson) !== savedStateDigest) {
     fail('checkpoint.savedStateDigest', 'does not match savedSaveJson')
   }

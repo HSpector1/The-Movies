@@ -103,7 +103,7 @@ import {
   makeSave,
   exportSave,
   importSave,
-  migrateToV15,
+  migrateToV16,
   convertV4ToV5,
   convertV5ToV6,
   convertV6ToV7,
@@ -114,6 +114,8 @@ import {
   convertV11ToV12,
   convertV12ToV13,
   convertV13ToV14,
+  convertV14ToV15,
+  convertV15ToV16,
   importLegacyV2ToV4,
   importLegacyV1ToV4,
   // ── D-11 employment / contracts / roster / freelancer market ──
@@ -1033,6 +1035,9 @@ export type PlayerStudioDecision =
   | { kind: 'scriptReview'; decision: NonNullable<ScriptProjectsReadModel['nextDecision']> }
   | { kind: 'castingReview'; decision: CastingReviewDecisionView }
   | { kind: 'productionDecision'; decision: ProductionBoardCardView }
+  // P06A: the release-review decision carries the picture's own board card —
+  // its command is null (commit/hold is a choice, not a resolvable operation).
+  | { kind: 'releaseReview'; decision: ProductionBoardCardView }
 
 /**
  * Resolve the core's one cross-system decision into the richer UI card it names.
@@ -1047,6 +1052,17 @@ export function studioDecision(state: GameState): PlayerStudioDecision | null {
   }
   if (decision.kind === 'castingReview') {
     return { kind: 'castingReview', decision }
+  }
+  if (decision.kind === 'releaseReview') {
+    const card = productionBoard(state).cards.find(
+      (candidate) => candidate.productionId === decision.productionId,
+    )
+    if (card === undefined) {
+      throw new Error(
+        `studioDecision: core selected release-ready productionId "${decision.productionId}" without a board card`,
+      )
+    }
+    return { kind: 'releaseReview', decision: card }
   }
   const card = productionBoard(state).cards.find(
     (candidate) => candidate.productionId === decision.productionId,
@@ -2516,6 +2532,10 @@ export type SimStopReason =
   | 'scriptReview'
   | 'castingReview'
   | 'productionDecision'
+  // P06A (charter W1): an UNCOMMITTED Release Ready picture is the release
+  // decision stop — after every other decision, ahead of the informational
+  // stops. Next Event may never spin past it (annex H11B).
+  | 'releaseReview'
   // C2a-M5 (charter §4.3): wrap is the authoritative completion of SHOOTING —
   // automatic, never a player command. Its position in this union is stated by
   // the charter to the member: immediately after `productionDecision`, before
@@ -2559,6 +2579,8 @@ export type SimResult = {
   productionDecision: ProductionBoardCardView | null
   scriptDecision: ScriptProjectsReadModel['nextDecision']
   castingDecision: CastingReviewDecisionView | null
+  /** P06A: set exactly when stopReason === 'releaseReview'. */
+  releaseDecision: ProductionBoardCardView | null
   // Orthogonal to the primary stop reason. If Annex completion shares a tick
   // with a release, decision, run ending, cash crossing, or contract boundary,
   // that primary event keeps its established priority while the completion is
@@ -2607,6 +2629,8 @@ export type SimStopDetail = {
   productionDecision: ProductionBoardCardView | null
   scriptDecision: ScriptProjectsReadModel['nextDecision']
   castingDecision: CastingReviewDecisionView | null
+  /** P06A: the uncommitted Release Ready picture's card when reason === 'releaseReview'. */
+  releaseDecision: ProductionBoardCardView | null
   /**
    * ORTHOGONAL (the co-tick law, `cuesForSimResult`): carried whenever a build
    * completed across this tick, whatever the primary reason turned out to be.
@@ -2621,6 +2645,7 @@ const NO_STOP_PAYLOAD = {
   productionDecision: null,
   scriptDecision: null,
   castingDecision: null,
+  releaseDecision: null,
 } as const
 
 /**
@@ -2708,6 +2733,17 @@ function simStopDetailWith(
       productionDecision: nextStudioDecision.decision,
     }
   }
+  // P06A (charter W1): an uncommitted Release Ready picture is the release
+  // decision. It outranks wrap and every informational stop; only earlier
+  // decisions and a same-tick release precede it.
+  if (nextStudioDecision?.kind === 'releaseReview') {
+    return {
+      ...NO_STOP_PAYLOAD,
+      ...carried,
+      reason: 'releaseReview',
+      releaseDecision: nextStudioDecision.decision,
+    }
+  }
   // C2a-M5 (§4.3): PRINCIPAL PHOTOGRAPHY WRAPPED. Automatic, never a command, and
   // unconditional under the resource-release law (`00E`.5) — it fires when shooting
   // completes whether or not Post has room.
@@ -2793,6 +2829,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
       productionDecision: null,
       scriptDecision: existingScriptDecision,
       castingDecision: null,
+      releaseDecision: null,
       constructionCompletion: null,
       stopMessage: simStopMessage('scriptReview', fromWeek, {
         released: [],
@@ -2822,6 +2859,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
       productionDecision: null,
       scriptDecision: null,
       castingDecision: existingCastingDecision,
+      releaseDecision: null,
       constructionCompletion: null,
       stopMessage: simStopMessage('castingReview', fromWeek, {
         released: [],
@@ -2839,6 +2877,37 @@ export function advanceToNextEvent(state: GameState): SimResult {
   // A decision that already exists is the next event. Do not charge a hidden week merely
   // because the player asked to find it. `periodSummary` deliberately accepts an empty
   // [from, from-1] interval and returns a zero movement report.
+  if (existingStudioDecision?.kind === 'releaseReview') {
+    const existingRelease = existingStudioDecision.decision
+    return {
+      preTick: state,
+      next: state,
+      released: [],
+      completedRuns: [],
+      wrapped: [],
+      fromWeek,
+      toWeek: fromWeek,
+      weeks: 0,
+      stopReason: 'releaseReview',
+      productionDecision: null,
+      scriptDecision: null,
+      castingDecision: null,
+      releaseDecision: existingRelease,
+      constructionCompletion: null,
+      stopMessage: simStopMessage('releaseReview', fromWeek, {
+        released: [],
+        completedRuns: [],
+        wrapped: [],
+        guardHit: false,
+        productionDecision: null,
+        scriptDecision: null,
+        castingDecision: null,
+        releaseDecision: existingRelease,
+      }),
+      guardHit: false,
+      summary: corePeriodSummary(state, fromWeek, fromWeek - 1),
+    }
+  }
   if (existingStudioDecision?.kind === 'productionDecision') {
     const existingDecision = existingStudioDecision.decision
     return {
@@ -2854,6 +2923,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
       productionDecision: existingDecision,
       scriptDecision: null,
       castingDecision: null,
+      releaseDecision: null,
       constructionCompletion: null,
       stopMessage: simStopMessage('productionDecision', fromWeek, {
         released: [],
@@ -2904,6 +2974,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
   const stoppedProductionDecision = stop?.productionDecision ?? null
   const stoppedScriptDecision = stop?.scriptDecision ?? null
   const stoppedCastingDecision = stop?.castingDecision ?? null
+  const stoppedReleaseDecision = stop?.releaseDecision ?? null
   const toWeek = cur.market.tick
   // Ledger entries + releaseTick are stamped with the PRE-increment week, so the ticks
   // processed span weeks [fromWeek, toWeek − 1] (tick.ts:114/437).
@@ -2916,6 +2987,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
     productionDecision: stoppedProductionDecision,
     scriptDecision: stoppedScriptDecision,
     castingDecision: stoppedCastingDecision,
+    releaseDecision: stoppedReleaseDecision,
   })
   return {
     preTick: preStop,
@@ -2930,6 +3002,7 @@ export function advanceToNextEvent(state: GameState): SimResult {
     productionDecision: stoppedProductionDecision,
     scriptDecision: stoppedScriptDecision,
     castingDecision: stoppedCastingDecision,
+    releaseDecision: stoppedReleaseDecision,
     constructionCompletion,
     stopMessage,
     guardHit,
@@ -2950,6 +3023,7 @@ function simStopMessage(
     productionDecision: ProductionBoardCardView | null
     scriptDecision: ScriptProjectsReadModel['nextDecision']
     castingDecision: CastingReviewDecisionView | null
+    releaseDecision?: ProductionBoardCardView | null
   },
 ): string {
   const at = `Stopped at Week ${toWeek}`
@@ -2976,6 +3050,13 @@ function simStopMessage(
       return decision === null
         ? `${at}: audition results need studio review.`
         : `${at}: ${decision.title} has audition results waiting in the Casting Room.`
+    }
+    // P06A: the release decision speaks the exact title and the exact choice.
+    case 'releaseReview': {
+      const decision = ctx.releaseDecision ?? null
+      return decision === null
+        ? `${at}: a finished picture is Release Ready and awaits your commitment.`
+        : `${at}: ${decision.title} is Release Ready — commit it to release, or hold.`
     }
     // C2a-M5 (§4.3): before this arm existed, a `wrap` stop fell into `default:`
     // and printed the 520-week-guard sentence — the G12 violation the charter names
@@ -3573,14 +3654,14 @@ export type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
   | { ok: false; error: string }
 
-// Import a save. Accepts V15 (current) and every legacy version V1–V14, all deterministic.
+// Import a save. Accepts V16 (current) and every legacy version V1–V15, all deterministic.
 // `converted` tells the caller a legacy save was upgraded so the UI can inform the player
-// — their original file is never overwritten (a fresh V15 is returned).
+// — their original file is never overwritten (a fresh V16 is returned).
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const converted = save.saveVersion !== 15
-    return { ok: true, state: migrateToV15(save).state, converted }
+    const converted = save.saveVersion !== 16
+    return { ok: true, state: migrateToV16(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -3592,7 +3673,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json))))))))))).state,
+      state: convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json))))))))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -3606,7 +3687,7 @@ export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json))))))))))).state,
+      state: convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json))))))))))))).state,
       converted: true,
     }
   } catch (e) {

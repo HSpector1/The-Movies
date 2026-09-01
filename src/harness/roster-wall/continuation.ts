@@ -13,6 +13,7 @@ import {
   exportSave,
   importSave,
   makeSaveV14,
+  migrateToV16,
   renewalWindowOpen,
   stableStringify,
   weeklyOverhead,
@@ -21,6 +22,7 @@ import {
 import type {
   CreativeRole,
   GameState,
+  GameStateV14,
   LedgerEntry,
 } from '../../core/index.js'
 import {
@@ -450,7 +452,11 @@ function sha256(bytes: string): string {
   return createHash('sha256').update(bytes).digest('hex')
 }
 
-function stateHash(state: GameState): string {
+// Accepts the live GameState AND the frozen GameStateV14 shape: `loadFreshEntry`
+// hashes a genuine SaveFileV14 import to check it against the pinned harvest hash
+// (P06A's new `releaseAuthority` root has no V14 home) — a pure serialization
+// hash with no live-only field dependency.
+function stateHash(state: GameState | GameStateV14): string {
   return sha256(stableStringify(state))
 }
 
@@ -535,7 +541,10 @@ function loadFreshEntry(harvest: RosterWallEntryHarvest): GameState {
     throw new Error('roster-wall continuation: fresh entry state hash disagrees with harvest')
   }
   rosterWallCashReconciliation(importedState)
-  return structuredClone(importedState)
+  // The pinned SaveFileV14 checks above stay unmigrated; only the returned live
+  // starting state gains P06A's release authority (empty — nothing in the frozen
+  // entry was ever a committed release under the new root).
+  return structuredClone(migrateToV16(imported).state)
 }
 
 function commonRecord(
@@ -1295,7 +1304,10 @@ function pairRecord(
   const cohortIds = input.harvest.cohort.map((member) => member.talentId).sort(compareId)
   const baselineRetained = retainedIds(baseline, cohortIds)
   const comparedRetained = retainedIds(compared, cohortIds)
-  const entryState = input.harvest.entrySave.state
+  // `input.harvest.entrySave` stays pinned at the frozen SaveFileV14 shape; this
+  // whole block is a read-only evidence projection off it, so it widens to the
+  // live GameState shape with an explicit, empty release authority.
+  const entryState = migrateToV16(input.harvest.entrySave).state
   const entryOverhead = overheadParts(entryState)
   const entryReadiness = rosterWallPackageReadiness(
     entryState,

@@ -32,7 +32,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { importSave, migrateToV14 } from '../../core/index.js'
+import { importSave, migrateToV16 } from '../../core/index.js'
 import type { GameState } from '../../core/index.js'
 import { runOne } from './driver.js'
 import { policyByName } from './policies.js'
@@ -121,7 +121,7 @@ function stableJson(v: unknown, indent = 0): string {
 
 /** Load the owner save READ-ONLY through the shipped import path. */
 function loadOwnerState(path: string): GameState {
-  const save = migrateToV14(importSave(readFileSync(path, 'utf8')))
+  const save = migrateToV16(importSave(readFileSync(path, 'utf8')))
   return save.state
 }
 

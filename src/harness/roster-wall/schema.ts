@@ -7,11 +7,13 @@ import {
   FOUNDING_MINIMUMS,
   TUNING,
   expectedWeeklyRunRevenue,
+  migrateToV16,
   weeklySalary,
 } from '../../core/index.js'
 import type {
   CreativeRole,
   GameState,
+  GameStateV14,
   LedgerEntry,
 } from '../../core/index.js'
 import type {
@@ -149,7 +151,13 @@ function orderedLedgerFold(openingCash: number, entries: readonly LedgerEntry[])
 }
 
 /** Reconcile native and historical-checkpoint V11 cash in authoritative array order. */
-export function rosterWallCashReconciliation(state: GameState): RosterWallCashReconciliation {
+// Accepts the live GameState AND the frozen GameStateV14 shape: several callers
+// feed it a genuine SaveFileV14 entry read straight off the pinned Week-196
+// harvest. Only ledger/cash/market fields are read — none of them P06A's new
+// `releaseAuthority` root — so widening this is a pure type relaxation.
+export function rosterWallCashReconciliation(
+  state: GameState | GameStateV14,
+): RosterWallCashReconciliation {
   const checkpoint = state.cashLedgerCheckpoint
   const ledgerLength = state.ledger.length
   const fullLedgerTotal = orderedLedgerFold(0, state.ledger)
@@ -440,7 +448,11 @@ export function makeRosterWallEntryRecord(
   mode: 'current' | 'player-policy',
 ): RosterWallEntryRecord {
   const entryId = rosterWallEntryId(harvest, foundingTermPolicyId)
-  const state = harvest.entrySave.state
+  // `harvest.entrySave` stays pinned at the frozen SaveFileV14 shape; this read
+  // model needs the live GameState shape (core's `expectedWeeklyRunRevenue`
+  // requires it) with an explicit, empty release authority — this projection
+  // never reads it, so this cannot mask a real commitment.
+  const state = migrateToV16(harvest.entrySave).state
   const activeTheatricalRuns = state.theatricalRuns
     .filter((run) => run.status === 'active')
     .map((run) => structuredClone(run))

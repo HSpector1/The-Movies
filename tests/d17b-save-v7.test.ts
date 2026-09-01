@@ -42,6 +42,8 @@ import {
   convertV11ToV12,
   convertV12ToV13,
   convertV13ToV14,
+  convertV14ToV15,
+  convertV15ToV16,
 } from '../src/core/index.js'
 import type {
   CreativeRole,
@@ -232,7 +234,7 @@ describe('D-17B/E4 — migrateToV7 lifts every known version, and the chain stil
     for (let i = 0; i < 6; i++) a = tick(a)
     const reloaded = importSave(exportSave(makeSaveV7(toV7(a))))
     if (reloaded.saveVersion !== 7) throw new Error('expected V7')
-    let split = convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(reloaded))))))).state
+    let split = convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(reloaded))))))))).state
     let continuous = a
     for (let i = 0; i < 6; i++) {
       split = tick(split)

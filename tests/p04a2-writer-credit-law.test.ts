@@ -39,7 +39,7 @@ import {
   importSave,
   isContracted,
   makeSave,
-  migrateToV15,
+  migrateToV16,
   QueueableCapacityRefusal,
   scriptCapacityView,
   scriptProjectsReadModel,
@@ -777,7 +777,7 @@ describe('P04A.2 §19G — the split needs no save migration and survives reload
     )
 
     const json = exportSave(save)
-    const reloaded = migrateToV15(importSave(json)).state as GameState
+    const reloaded: GameState = migrateToV16(importSave(json)).state
 
     // BOTH facts, simultaneously, after the reload:
     //   the film A writer credit…
