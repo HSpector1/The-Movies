@@ -69,7 +69,7 @@ the lead first-hand.
 | Dependency | Class | Final verdict |
 |---|---|---|
 | **Authoritative Wrap condition** | A | **DELIVERED.** `src/core/operations.ts` `enterPhase()` (≈line 1099) calls `releaseCompletedPhase()` unconditionally before allocation; emits the ONLY `wrapped` event (`{kind:'wrapped', productionId, stageFacilityId, setId}`, ≈1153) exactly when shooting completes with released resources. |
-| **Exact Stage/Set/scenery release** | A | **DELIVERED.** Wrapped waiter law is invariant-enforced (operations.ts ≈926): `workflow.phase==='shooting'`, `reservations=[]`, `shootingTask=null`, `blocker={kind:'facility-capacity',capability:'post',targetPhase:'postProduction'}`, `remainingTicks` held at 4. Bindings survive as non-occupancy provenance; reception reads them from the pre-advance operations root (tick.ts ≈474). |
+| **Exact Stage/Set/scenery release** | A | **DELIVERED.** Wrapped waiter shape — `workflow.phase==='shooting'`, `reservations=[]`, `shootingTask=null`, `blocker={kind:'facility-capacity',capability:'post',targetPhase:'postProduction'}`, `remainingTicks` held at 4 — guaranteed by the producing path (`enterPhase`/`allocateForPhase`); the invariant at operations.ts ≈908–928 checks a non-null next-phase blocker only (shape unpinned). Bindings survive as non-occupancy provenance; reception reads them from the pre-advance operations root (tick.ts ≈474). |
 | **Exact production ID surviving Wrap** | A | **DELIVERED.** `productionIdentity.ts` unchanged; the closed 14-state `operationalState` (`wrapped-waiting-for-post`, `post-handoff`, `release-ready`) rides `ProductionOperationsState` on the wire keyed by exact id. |
 | **Current world owner after Wrap** | A | **DELIVERED with one chartered REPLACE.** Waiting/active Post map to building `post`. But `ui/src/engine/adapter.ts` `managedWorkflowLocation` maps `releaseReady` → `'theater'` and `managedProductionBoardCard.currentFacility` says `'Theater / release desk (no facility reservation)'` — exactly the presentation Package 06 rules against. Chartered as the W1/W2 coordinated REPLACE (ready/committed belong to Production / Post). This is scheduled work, not ambiguity: the current owner is explicit and wrong per new law. |
 | **Post facility need / waiting reason** | A | **DELIVERED.** `studioQueueView.ts` (needs/occupiedBy/freesInWeeks/remedies, `CAPABILITY_LABEL.post='Post Building'`, `PHASE_LABEL` incl. `releaseReady='Release Ready'`) + `LotProductionBlockerAnatomy` (effect/cause/consequence/holders/projectedWeeks/remedies). |
@@ -112,7 +112,14 @@ reference. Add from the P05 closeout (`P05-IMPLEMENTATION-AND-OWNER-PLAYTEST-LES
 
 ## 5. GO adjudication
 
-Every r1 GO criterion is now satisfied: P05 sealed AND Owner-accepted (citable);
+Every r1 GO criterion is satisfied **except one, which is explicitly waived
+rather than claimed**: the r1 clause requiring the reusable evidence manifest to
+already distinguish valid/stale/unreadable/absent artifacts is NOT met — no such
+vocabulary exists in either repository (verified). Under the Owner campaign
+order (which requires that vocabulary as P06 proof-wave output, §22/§26), this
+clause is waived at the gate and reassigned to W7 as new work; a P06 seal
+without it remains a NO-GO at seal time. Every other criterion is satisfied:
+P05 sealed AND Owner-accepted (citable);
 final SHAs/branches pushed, clean, remote-equal; changed paths supplied; versions +
 generated hashes agree under the sealed manifest; Wrap/resource release proven and
 invariant-enforced; exact id survives into the closed projection; post-Wrap owner
@@ -120,10 +127,14 @@ explicit (with the one chartered REPLACE); waiting/capability/facility facts
 projected; N-Stage registry + extension seam pinned; rail/workspace/menu/input
 owners pinned; person/body index + presence routing pinned; one snapshot-build
 context with a named extension point; Living Time/Next Event seams pinned with the
-W0-frozen split; evidence manifest reusable (with the honestly-declared status-vocabulary
-gap assigned to W7); test counts + sealing artifacts named; no unresolved
-P05-dependent placeholder in gate, recon, or charter; no same-level conflict with
-the Package 06 design/annex.
+W0-frozen split; evidence manifest reusable; test counts + sealing artifacts
+named; no unresolved P05-dependent placeholder in gate, recon, or charter; and
+no unresolved same-level conflict with the Package 06 design/annex — the one
+surface-level tension (design §16.3 "must not build the whole portfolio" vs the
+LSCL movie rail) is resolved by explicit supersession: the Owner campaign order
+§19 authorizes the rail as a bounded presentation layer over existing truth,
+and the rail carries active-lifecycle rows only (no released/theatrical/result
+rows, which remain P07).
 
 **Adjudication: GO FOR AUTHORIZED IMPLEMENTATION.** Owner authorization exists (the
 2026-09-01 five-day campaign order explicitly authorizes P06 implementation), so the

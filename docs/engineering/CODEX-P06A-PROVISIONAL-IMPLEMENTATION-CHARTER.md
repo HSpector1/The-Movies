@@ -107,9 +107,19 @@ validation, witness equality before RECEPTION, atomic prune),
 `src/core/productionIdentity.ts` (commitment coverage),
 `src/core/scriptReadModel.ts` (tier 4), `src/core/firstFilmJourney.ts`
 (Review/Hold/Commit guidance, site `post`), `src/core/studioCalendar.ts`
-(truthful ready/committed release-week semantics), `ui/src/engine/adapter.ts`
-(live save wiring, ladder + `releaseReview` stop), `bridge/session.ts` +
-`bridge/runtime-checkpoint.ts` live-save arms only,
+(truthful ready/committed release-week semantics),
+`src/core/castingPackageReadModel.ts` (`returnWeek` truthful-release-week sweep
+— hostile-review F4: a held uncommitted picture's company has NO truthful
+return week and must publish the held-for-release fact instead of
+`week + remainingTicks`, which would otherwise promise "next week" forever;
+committed → next week; wire copies/labels in `bridge/casting.ts` follow),
+`ui/src/engine/adapter.ts` (live save wiring, ladder + `releaseReview` stop),
+`bridge/session.ts` — live-save arms PLUS the one-line intent-gate carve-out
+(publish manual `advanceWeek` when the only unresolved decision is
+release-review; hostile-review F7: landing tier 4 without this carve-out in the
+same coordinated cutover would strip manual advance from a held studio,
+violating §2.3's carried law inside the WIP branch) — and
+`bridge/runtime-checkpoint.ts` live-save arms,
 `scripts/bridge-contract-consumer-lock.ts` (`CURRENT_ACCEPTED_SAVE_VERSION`
 16), plus focused tests (transition truth table; V1–V15→V16 all-ready-
 uncommitted; V16 committed round-trip; managed AND legacy hold across weeks;
@@ -138,7 +148,13 @@ projection wiring), `bridge/runtime-checkpoint.ts` (append `0474ceaf…` →
 generate:bridge-contract` + fixtures + `verify:bridge-contract-consumer`
 against the pinned Unity consumer. Never hand-edit generated files. CF-08
 generator tests must stay green; no same-named cross-member property additions
-without a failing-closed generator proof.
+without a failing-closed generator proof. **Sequencing law (hostile-review
+F10):** between W2 (eligibility fact on the wire) and W5 (Living Time consumes
+it), a regenerated dev build would auto-roll through release decisions — the
+sealed client still treats `advanceWeek` presence as permission — so no
+runtime time-behavior proof may run against a P06 build until W5's consumer
+lands. Cross-version safety is closed by the schema mint (`SCHEMA_MISMATCH` +
+the governed prior-checkpoint path).
 
 ### W3 — Production / Post world owner (Unity World owner)
 
@@ -231,3 +247,72 @@ This FINAL charter: no unresolved placeholder; state AUTHORIZED with the exact
 authorization instrument named; every wave has owner/paths/permits/forbids/
 tests/runtime/stop/rollback; Oracle six scenes; Owner journey stops before P07;
 no hard exclusion in any wave; Package 06 product law unchanged.
+
+---
+
+## Appendix A — The 25 hostile-review rejection criteria (campaign order §28, committed verbatim so W8 is executable from the repository alone)
+
+The W8 fresh reviewer must be asked to reject for:
+
+1. Release Ready still auto-releases without commitment.
+2. Commit advances time.
+3. Uncommitted movie enters release batch.
+4. Duplicate/stale commitment releases twice.
+5. Click order changes batch/RNG/economy.
+6. Post invents editing subphases.
+7. Greenlight outlook is mislabeled final quality.
+8. Marketing is charged twice.
+9. Production/Post building depends on rail priming.
+10. Several movies bind by array position/title.
+11. Waiting movie disappears.
+12. Wrong Post facility/body.
+13. Cast appears editing without authority.
+14. Current movie leaks into another row/building.
+15. Side rail becomes gameplay authority.
+16. Visible action silently no-ops.
+17. Disabled reason is wrong.
+18. Polling latches Release.
+19. P07 results leak into P06.
+20. P05 Casting/Talent/Production regresses.
+21. Economy is retuned without authority.
+22. Screenshots are not exact-binary bound.
+23. Real-profile copy was skipped.
+24. Comments/reports contradict final code.
+25. Proof proves only authored happy fixtures.
+
+Disposition law: fix every genuine finding at the owning seam, rerun affected
+proof, return to the SAME reviewer for final disposition. No reviewer-shopping.
+
+## Appendix B — Living Studio Command Layer requirements (campaign order §19, committed so W5b is executable from the repository alone)
+
+Authorized bounded cross-cutting presentation refinement over EXISTING accepted
+authority (Development, Casting, Production, Talent, Post, Release Ready). No
+new simulation mechanics.
+
+**Movie progress rail** — compact portfolio of every active movie; each exact
+row: title, current phase, current department/building, time-or-waiting state
+when authoritative, action-required indicator, blocked/queue state, exact
+Locate, details/open affordance. Lifecycle vocabulary: DEVELOPMENT / CASTING /
+PRODUCTION / POST / RELEASE READY / COMMITTED. No P07 result interpretation, no
+generic progress percentage, no spreadsheet overload. Peripheral shortcut
+layer; never required before clicking the physical world owner.
+
+**Talent access** — preserve the Casting shortage → Find an Actor route; where
+safe, one discoverable persistent Talent entry point owned by an existing world
+location or compact side button, exposing contracted people, freelancers,
+hiring candidates, busy people, return week, exact current assignment. No broad
+HR game; a hiring candidate never appears currently available; no contract-
+authority bypass.
+
+**Top HUD** — preserve readable date/week, Pause/1×/2×/4×, cash, truthful
+current decision/pause reason. No ungoverned financial forecasts.
+
+**Building attention** — attention belongs to the place that owns the work;
+restrained signals for screenplay review, casting shortage/results, production
+action, post waiting/ready, hiring opportunity where relevant; no repeated
+global alerts.
+
+**Lot life** — people/equipment make existing authoritative work visible;
+decorative bodies have no authoritative person ID, carry no payroll/progress/
+blocker/outcome meaning, may be reduced to zero without changing simulation,
+and never masquerade as named talent.

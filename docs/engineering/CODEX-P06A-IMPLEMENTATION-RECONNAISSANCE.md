@@ -36,10 +36,15 @@ successor for it.
 
 `enterPhase()` (≈1099) calls `releaseCompletedPhase()` (≈1059) unconditionally
 before allocation. Shooting→postProduction with released resources emits the ONE
-`wrapped` event (≈1153) and applies set wear. A wrapped waiter is
-invariant-enforced (≈926): phase stays `'shooting'`, `reservations=[]`,
-`shootingTask=null`, `blocker={kind:'facility-capacity', capability:'post',
-targetPhase:'postProduction'}`, `remainingTicks` held at 4.
+`wrapped` event (≈1153) and applies set wear. A wrapped waiter's shape — phase
+stays `'shooting'`, `reservations=[]`, `shootingTask=null`,
+`blocker={kind:'facility-capacity', capability:'post',
+targetPhase:'postProduction'}`, `remainingTicks` held at 4 — is guaranteed by
+the producing path (`enterPhase`/`allocateForPhase`); the invariant at ≈908–928
+checks only a non-null blocker passing `isNextPhaseBlocker` (facility-capacity
+OR set-unavailable, capability/targetPhase unpinned). P06 laws that need the
+exact shape must rely on the producing path or add their own assertion, not on
+this invariant's strength.
 
 ### 1.3 The unconditional release edge — the surgical site
 
@@ -83,7 +88,8 @@ order and reads set-uplift provenance from the **pre-advance** operations root
 construction, 1.6 placement, 1.7 sets, 2 RELEASE, 3 RECEPTION, 3.5 weekly
 theatrical revenue, 4 STANDING, 5 BROADCAST, 5.5 awareness drift, 6 development,
 7 payroll, 7.5 overhead, 7.6 placed-facility opex, 8 contract expiration.
-P05-era insertions (1.05/1.6/1.7/0.7/5.5) were insertions, not reorderings.
+Steps 1.05/1.6/1.7/0.7/5.5 were insertions into this order, never reorderings
+(their own comments date them to C2a, V12 and D-17B — several predate P05).
 
 ### 1.5 Decision ladder (`src/core/scriptReadModel.ts`)
 
@@ -126,9 +132,10 @@ truthful release week; a committed one belongs to the next week).
 ### 1.9 Save law (`src/core/save.ts` + `src/core/index.ts`, unchanged since P04)
 
 Live version **V15**; `GameStateV15 = GameStateV14` (no new roots since V14).
-Precedent: every capability milestone since V12 minted exactly one new
-top-level GameState root with its version (V12 placement, V13 property, V14
-sets/queue/originalScreenplays/studioEvents). **V16 mints `releaseAuthority`.**
+Precedent: each capability milestone minted its new top-level GameState root(s)
+with its own version (V12 placement, V13 property, V14 several roots landing
+together). **V16 mints exactly one: `releaseAuthority`** — a TypeScript storage
+decision the design (§13.2) explicitly grants.
 A V16 bump touches: `SaveFileV16` + union (≈338–343), `GameStateV16` in
 types.ts, `validateSaveV16`/`makeSaveV16`/`migrateToV16`, the generic
 dispatchers, `index.ts` re-export blocks (≈1091–1176), adapter
@@ -145,10 +152,10 @@ coordinated W1 cutover; only one wave owns the V16 mint.
 | Seam | Final verified truth | P06 cut |
 |---|---|---|
 | `bridge/snapshot-build-context.ts` | `snapshotBuildContextFor(state)`: WeakMap-memoized lazy facts (saveJson/stateDigest/lotSnapshot/development/casting). | Add a `release()` lazy fact; fold into `projectStudioProjectionBundle` exactly as casting is. |
-| `bridge/schema/bridge-schema.ts` | `PROTOCOL_VERSION=4`, `PROJECTION_VERSION=13`. `StudioProductionOperationsSnapshot` (≈295–382) carries `phase` AND the closed 14-member `operationalState` ending `wrapped-waiting-for-post` / `post-handoff` / `release-ready`. `AVAILABLE_INTENT_KINDS` (13 members) includes `signContract`; `StudioBridgeIntentOption` already carries nullable `productionId` (how `resolveProductionBlocker` keys per-production commands). `REJECTION_CODES`: 12 members incl. STALE_REVISION / COMMAND_ID_REUSE / INTENT_NOT_AVAILABLE / ENGINE_REJECTED. | Add `release-committed` as the 15th `operationalState` member; add intent kind `commitPictureToRelease` (productionId REQUIRED non-empty for this arm); add the smallest closed release-review projection (§4 of the charter); bump `PROJECTION_VERSION` → 14. |
+| `bridge/schema/bridge-schema.ts` | `PROTOCOL_VERSION=4`, `PROJECTION_VERSION=13`. `StudioProductionOperationsSnapshot` (≈295–382) carries `phase` AND the closed 14-member `operationalState` whose members 11–13 are `wrapped-waiting-for-post` / `post-handoff` / `release-ready` (literal final member: `status-unavailable`). `AVAILABLE_INTENT_KINDS` (13 members) includes `signContract`; `StudioBridgeIntentOption` already carries nullable `productionId` (how `resolveProductionBlocker` keys per-production commands). `REJECTION_CODES`: 12 members incl. STALE_REVISION / COMMAND_ID_REUSE / INTENT_NOT_AVAILABLE / ENGINE_REJECTED. | Add `release-committed` as the 15th `operationalState` member; add intent kind `commitPictureToRelease` (productionId REQUIRED non-empty for this arm); add the smallest closed release-review projection (§4 of the charter); bump `PROJECTION_VERSION` → 14. |
 | `bridge/protocol.ts` | `SCHEMA_ID = schemaIdentity(BRIDGE_SCHEMA)`; currently `sha256:0474ceaf…`. | New id mints automatically from the schema change. |
 | `bridge/session.ts` | `resolveAvailableIntents` (≈609–953): founding priority, then per-project intents; every managed production with a board command emits `resolveProductionBlocker` in ascending id; **`advanceWeek` is published only when `studioDecision(state)===null`** — no separate auto-roll fact exists. `command()` (≈1227–1287): session → idempotent replay → revision → availability → apply; accepted commands clear `pendingQuotes` (digest-bound) and journal once. Quote cache: one shared cap-16 map, kinds incl. casting `signContract`. `rolloverRuntime` re-imports via `importSaveJsonV15` + fresh sessionId, discards journal. | Release uses available-intent + `/command` — **no quote family** (nothing variable to draft; r1 §4.1 ruling confirmed). Publish the release decision + `automaticWeekRollEligible:false` + keep manual `advanceWeek` published when the only unresolved decision is release-review (the one deliberate change to the `studioDecision===null` gate). |
-| `bridge/runtime-checkpoint.ts` | `SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS`: 8 entries through projection-v12; **current `0474ceaf…` NOT among them** (it is live). Prior-schema migration treats the old journal as opaque discarded history: revision→0, journal→[], re-imports the two save slots via the canonical chain; fails closed mid-founding. | Same change that bumps the schema appends `0474ceaf…` → `'projection-v13'`. W1 keeps the P05 schema on the CURRENT decode path (journal preserved); only after W2 mints the P06 id does P05 become prior (journal-discard semantics are the law for prior schemas). |
+| `bridge/runtime-checkpoint.ts` | `SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS`: 12 entries (v4-early, v4, v5, v6, v7, v8, v9-early, v9, v10, v11, v12-stale-urn, v12); **current `0474ceaf…` NOT among them** (it is live). Prior-schema migration treats the old journal as opaque discarded history: revision→0, journal→[], re-imports the two save slots via the canonical chain; fails closed mid-founding. | Same change that bumps the schema appends `0474ceaf…` → `'projection-v13'`. W1 keeps the P05 schema on the CURRENT decode path (journal preserved); only after W2 mints the P06 id does P05 become prior (journal-discard semantics are the law for prior schemas). |
 | `ui/src/engine/adapter.ts` | `advanceWeek` (≈2430) = tick + released detection + `simStopDetailFor`; `advanceToNextEvent` (≈2776) stops at first decision/stop-ladder event. `managedProductionBoardCard.currentFacility` for releaseReady = `'Theater / release desk (no facility reservation)'` (≈847); `managedWorkflowLocation` case `'releaseReady'` → `'theater'` (≈6108). | REPLACE both mappings: ready AND committed → `'post'` / Production & Post copy. Add the release decision to the ladder + a `releaseReview` stop. |
 | `ui/src/engine/productionOperationsProjection.ts` | `closedOperationalState` (≈151–213) derives the 14 states; `wrapped-waiting-for-post` from the shooting+facility-capacity(post) blocker; `postProduction`→`post-handoff`; `releaseReady`→`release-ready`. `STATE_LABEL`/`NEXT_MILESTONE` cover all 14. Nothing models committed/released. | Extend the same closed enum with `release-committed`; labels/milestones for ready (uncommitted, "Next: release decision") and committed ("Releases next studio week"). |
 | Contract pipeline | `npm run generate:bridge-contract` (writes schema.json + generated C# + manifest, `--check` mode), `generate:bridge-contract:fixtures`, `verify:bridge-contract-consumer` (real two-repo pinned-consumer verification + attestation modes; CF-09), CF-08 deterministic union ordering + generator tests sealed at the static gate. `test:bridge` runs checks + bridge tests. | Run the full pipeline on every wire change; regenerate, never hand-edit; keep generator tests green; re-verify the exact Unity consumer. |
@@ -165,11 +172,20 @@ truth** — `ProductionOperationsState.operationalState` + `stateLabel` +
 - `studioQueueView` is the single need/holder/estimate/remedy authority;
   `CAPABILITY_LABEL.post='Post Building'`; waiting-for-Post copy sources here.
 - Casting liveness is end-to-end wired: `castingPackageReadModel.returnWeek`
-  (production wrap week via `market.tick + remainingTicks`, or script dueWeek),
+  (the week the seat frees at RELEASE — `market.tick + remainingTicks`; the
+  code comment's "wrap week" label is wrong, since `busyTalentIds` is
+  phase-blind and holds the company through release — or script dueWeek),
   busy-but-visible pool rows, `package-staffing` shortage with exact counts;
   `bridge/casting.ts` copies `returnWeek/availabilityLabel/currentWorkLabel`
-  verbatim; `hiringCandidateSnapshot` is the separate market row. The
-  P06 talent entry point renders these; zero new engine truth.
+  verbatim; `hiringCandidateSnapshot` is the separate market row.
+  **Hold-law truth seam (hostile-review F4):** once W1 pins an uncommitted
+  ready picture at tick 1, `week + remainingTicks` would promise "returns next
+  week" every held week, forever — a standing false availability claim on the
+  wire. `returnWeek` (and its wire copies/labels) is therefore part of W1's
+  truthful-release-week sweep alongside `studioCalendar`: a held uncommitted
+  picture's company has NO truthful return week (publish the held-for-release
+  fact, not a week); a committed picture's returns next week. With that sweep,
+  the P06 talent entry point renders existing truth; no other new engine truth.
 - `publicityOffers` ride the snapshot field-for-field (`LotPublicityOffer`);
   `marketingLevelsFor`/`Production.budget.marketing` single-source the
   Release-Review marketing rows. Render-only.
@@ -225,8 +241,9 @@ truth** — `ProductionOperationsState.operationalState` + `stateLabel` +
   capability-scoped env, health poll, cursor-park before boot, 3s reactivation
   cadence, post-run exe re-verification, scrubbed logs, `run-binding.json`
   (checkpoint sha, exe sha, both commits, runner-source sha, PID, viewport,
-  exit). P06 launchers are copy-adapts with fresh ports (used: 43230/43261/
-  43251/43253/43254/43298).
+  exit). P06 launchers are copy-adapts with fresh ports. In-use across Tools/:
+  43200/43210/43217/43219 (p03a/p04a/cp9 scripts) and 43230/43261/43251/43253/
+  43254/43298 (P05 family).
 - **HID driver:** `Tools/p05-proof-journey.mjs` + `p05a3-acquisition-journey.mjs`
   — real CGEventPost via `Tools/ownerinput`; element-map + contentRect/backing-
   scale coordinate model (calibrated — copy, never re-derive); per-step
