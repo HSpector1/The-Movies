@@ -47,6 +47,17 @@ Output:
 
 `FND-02__seed-196613` receives the learned-jury label `MACHINE-REJECTED` for the corroborated `SEVERE_FOREGROUND_AND_PROMPT_MISMATCH_SIGNAL`. This does not alter its inherited V2 technical status. The two historical V2 exclusions remain excluded for their original unchanged reasons and do not appear in the 22-row jury output.
 
+## Canonical and R1 result
+
+The canonical jury processed the 122 sources that cleared V3 technical screening. It retained 113 without severe machine mismatch and marked nine `MACHINE-REJECTED`. The five sub-threshold families received their sole R1 rescue round.
+
+The R1 jury processed only the 11 technically eligible rescue sources, using a 41-row comparison register containing the 36 canonical prompt families plus five R1 revisions. It marked seven eligible and four rejected for severe mismatch. Joined with the nine technical R1 rejections, the R1 result is seven eligible, thirteen rejected, and zero pending. Four families pass after R1; `NHY-04` remains `FAMILY NEEDS OWNER / HUMAN AUDIO DIRECTION`.
+
+- R1 jury CSV: `/Users/bruce/Project Studio Audio Foundry Marathon 01/03_analysis/rescue-r1-machine-jury.csv`
+- R1 jury CSV SHA-256: `ca8f389978ff9a61ba34d647c9f1d931f99eb9da2088a15d0831161555afbb07`
+- R1 reconciliation SHA-256: `38f3d7a4f43d9031653e9c8a5cb6c3447ba7737c2a6d36fc6ec58f8ada4766b6`
+- R1 family status SHA-256: `319d416785fc1b5d362b2c6e0d4acd75e8df2aa55500edc8c410d0e9987833fd`
+
 ## Limitations
 
 The numeric fields are ranking signals, not calibrated probabilities. CLAP association cannot establish historical authenticity, instrumentation fact, audible artifact severity, originality, protected-reference safety, cultural acceptance, or long-session quality. The protected-reference field is only a prompt-wording check; it is explicitly not a copyright detector. No automated result establishes copyrightability, exclusivity, non-infringement, commercial clearance, Owner approval, or readiness for production import.

@@ -28,6 +28,8 @@ Each epoch will contain exactly four musically distinct prompt families and four
 | Existing automatic exclusions | 2 | preserved; not primary-pick eligible |
 | New canonical candidates | 120 | generated, immutable, unique hashes; V3 screening in progress |
 | Canonical total | 144 | reconciled: 36 families × four primary seeds |
+| Bounded R1 rescue candidates | 20 | immutable; one revision each for five weak families; no R2 |
+| Canonical plus rescue raw | 164 | 164 unique IDs and 164 unique SHA-256 values |
 
 The authoritative read-only inventory is external:
 
@@ -64,6 +66,21 @@ The complete 144-row commissioning matrix is external at `/Users/bruce/Project S
 - All-144 inventory SHA-256: `13f2b4c2e3cc19ca568956ad7c384ba0ca621526e8eec048bb100895ac8faa95`
 - Generation log SHA-256: `d652500c6d0ec97153f73496e1c1568cd1684f9f00dc1b393c2bd578d5e5b394`
 - Generator mode: sequential, reduced process priority, offline, atomic publish, no overwrite
+
+## Screening V3 and bounded rescue
+
+- Canonical technical eligible: 122/144
+- Canonical final machine eligible: 113/144
+- Canonical families passing without rescue: 31/36
+- R1 raw generated: 20/20
+- R1 technical eligible: 11/20
+- R1 final machine eligible: 7/20
+- Families passing after R1: 4/5
+- Total families passing: 35/36
+- Remaining weak family: `NHY-04` — `FAMILY NEEDS OWNER / HUMAN AUDIO DIRECTION`
+- Further rescue rounds: 0
+
+The combined inventory is `/Users/bruce/Project Studio Audio Foundry Marathon 01/01_catalogue/canonical-plus-rescue-164-inventory.csv`, SHA-256 `d939efff6f25119362cc63a79fbf1fe9ced3d5c50acc9467221e1a15b345a6a4`.
 
 ## Status vocabulary
 

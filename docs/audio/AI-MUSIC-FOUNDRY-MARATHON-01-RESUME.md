@@ -23,4 +23,6 @@ Resume law:
 7. Continue independent CPU-light work if Unity, Project: Studio, batchmode, or a known P05 proof process is active.
 8. Atomically update state after each completed phase with `tools/audio_foundry_marathon_01/state_update.py`.
 
-At this checkpoint Phase A, Phase B/C, the 36-family catalogue, and all 120 new canonical generations are complete. Screening V3 is the next resumable phase. Its technical mode consumes `/Users/bruce/Project Studio Audio Foundry Marathon 01/01_catalogue/all-canonical-144-inventory.csv`, then the CLAP jury runs on the jury-ready inventory before final family/rescue reconciliation.
+At this checkpoint Phase A, Phase B/C, the 36-family catalogue, all 120 new canonical generations, canonical Screening V3, and the sole 20-candidate R1 rescue round are complete. Thirty-five families pass the machine gate. `NHY-04` is frozen as `FAMILY NEEDS OWNER / HUMAN AUDIO DIRECTION`; there is no R2 route. The next resumable step is to freeze the canonical-plus-R1 shortlist jury table, render the 27 primaries and alternates, then build the bounded refinement, radio-demo, endurance, audition-app, and return-package derivatives.
+
+The isolated worktree was recovered from pushed SHA `6d83a382a7da7ddac99dca0c574f978dbc084812` after a quarantined radio self-test cleanup defect emptied that directory. External audio/evidence was unaffected. Never reintroduce recursive staging cleanup; the corrected radio and endurance tools preserve failed staging and only publish via exact-path atomic rename.

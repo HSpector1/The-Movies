@@ -325,6 +325,9 @@ def analyze(args: argparse.Namespace) -> None:
     started = time.time()
     inventory = read_csv(args.inventory)
     eligible = [row for row in inventory if row.get("screening_status", "MACHINE_ELIGIBLE") != "MACHINE_REJECTED"]
+    if args.candidate_id_regex:
+        candidate_pattern = re.compile(args.candidate_id_regex)
+        eligible = [row for row in eligible if candidate_pattern.search(row.get("candidate_id", ""))]
     if args.expected_count is not None and len(eligible) != args.expected_count:
         raise SystemExit(f"expected {args.expected_count} eligible candidates, found {len(eligible)}")
 
@@ -346,7 +349,14 @@ def analyze(args: argparse.Namespace) -> None:
     era_texts = [ERA_DESCRIPTIONS[name] for name in era_names]
     family_texts_by_epoch: dict[str, list[tuple[str, str]]] = defaultdict(list)
     for prompt_id, prompt in prompts.items():
-        epoch = next((row.get("epoch", "") for row in prompt_rows if text_fields(row)[0] == prompt_id), "")
+        epoch = next(
+            (
+                row.get("epoch") or row.get("epoch_alias", "")
+                for row in prompt_rows
+                if text_fields(row)[0] == prompt_id
+            ),
+            "",
+        )
         family_texts_by_epoch[epoch].append((prompt_id, f"instrumental {prompt['family']} for restrained studio management background music"))
 
     rows: list[dict[str, Any]] = []
@@ -566,6 +576,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model-dir", type=Path, default=MODEL_DIR)
     parser.add_argument("--screening-csv", type=Path, action="append", default=[DEFAULT_V1, DEFAULT_V2])
     parser.add_argument("--expected-count", type=int, default=22)
+    parser.add_argument(
+        "--candidate-id-regex",
+        default="",
+        help="Optionally analyze only inventory rows whose candidate_id matches this regular expression.",
+    )
     return parser.parse_args()
 
 

@@ -57,9 +57,9 @@ Technical and learned-model analysis is `ANALYSIS SIGNAL ONLY`. It cannot establ
 |---|---|---|
 | A — preserve/reconcile | PASS | External inventories and reconciliation JSON |
 | B/C — machine jury/existing 22 | PASS | 22-row external CSV; one learned-jury rejection; inherited V2 history unchanged |
-| D — nine-epoch generation | RAW COMPLETE | 120/120 new; canonical 144 reconciled; V3 screening active |
-| E/F — shortlists/refinement | PENDING | Pending |
-| G/H — scripts/TTS/radio demos | IN PROGRESS | 126-unit script bank complete; speech prototypes pending |
+| D — nine-epoch generation | SCREENED + R1 CLOSED | 120/120 new; canonical 144 reconciled; 20/20 bounded R1 rescue raws; 35/36 families pass |
+| E/F — shortlists/refinement | IN PROGRESS | Combined jury input freezing; derivatives pending |
+| G/H — scripts/TTS/radio demos | IN PROGRESS | 126-unit script bank and 30 clean/period voice pairs complete; reels pending shortlist |
 | I — endurance/audition/return package | PENDING | Pending |
 
 ## Phase B/C — local analysis jury
@@ -77,3 +77,7 @@ The original fictional script bank is complete: 126 units, exactly 14 for each o
 The commissioning catalogue contains exactly 36 distinct families and four fixed primary seeds per family. The six pilot prompts are byte-identical to their source register. Sequential offline Small-Music generation produced all 120 missing candidates without a failed job or destination collision. Combined with the immutable pilot pool, the canonical library now contains 144 unique IDs and 144 unique raw hashes.
 
 Generation used the pinned route, no guide audio, no LoRA, no network model access, no cloud generation, no named-artist prompting, and reduced process priority. Each file was generated to a temporary destination, checked as stereo 44.1 kHz PCM16 at exactly 120 seconds, atomically published, made read-only, hashed, and logged.
+
+Screening V3 found 122/144 canonical sources technically eligible and 113/144 eligible after the learned-jury mismatch gate. Five families therefore received their single authorized R1 prompt revision and four fixed rescue seeds. All 20 R1 renders completed. Eleven cleared technical V3; seven of those also cleared the jury mismatch gate. Four weak families passed after R1. `NHY-04` did not and is frozen as `FAMILY NEEDS OWNER / HUMAN AUDIO DIRECTION`; no second rescue round exists.
+
+At `2026-09-01T21:07Z`, a radio-mixer self-test cleanup bug emptied only this isolated documentation worktree. External raw audio and evidence were outside the affected path and remained intact. The tracked tree was restored from pushed SHA `6d83a382a7da7ddac99dca0c574f978dbc084812`; bounded uncommitted marathon tools were reconstructed from agent context, and the offending recursive cleanup path was removed before any further use. The incident and recovery remain recorded in the external state rather than being hidden.
