@@ -680,7 +680,7 @@ def reconcile(inputs: Inputs, allowed_roots: tuple[Path, ...] | None = None) -> 
             "rescue_r1": [
                 {
                     "candidate_id": row["candidate_id"],
-                    "reason": row.get("automatic_failure_reasons", ""),
+                    "reason": rescue_reconciliation_reasons(row),
                     "source_sha256": row["source_sha256"],
                 }
                 for row in sorted(rescue_rejected, key=lambda item: item["candidate_id"])

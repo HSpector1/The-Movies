@@ -848,6 +848,11 @@ def ensure_spectrogram(
     tools: dict[str, str],
 ) -> dict[str, Any]:
     width, height = 1600, 900
+    # On the pinned macOS FFmpeg 8.0.1 build, `legend=1` appends a fixed
+    # 284-pixel legend column and 128-pixel scale/footer to the requested plot.
+    # The earlier validator incorrectly compared the full canvas to the plot
+    # dimensions and stopped after publishing an otherwise valid first image.
+    canvas_width, canvas_height = 1884, 1028
 
     def command(temp: Path) -> list[str]:
         return [
@@ -880,7 +885,7 @@ def ensure_spectrogram(
         parameters={"width": width, "height": height, "frequency_scale": "LOG", "color": "VIRIDIS"},
         tools=tools,
         command_builder=command,
-        validator=lambda path: validate_png(path, width, height),
+        validator=lambda path: validate_png(path, canvas_width, canvas_height),
         estimated_bytes=12 * 1024**2,
     )
 

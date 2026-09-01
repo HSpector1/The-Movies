@@ -28,7 +28,7 @@ from pathlib import Path
 from typing import Any
 
 
-PIPELINE_VERSION = "studio-radio-demo-builder-v1"
+PIPELINE_VERSION = "studio-radio-demo-builder-v2"
 STATUS = "RADIO CONCEPT PROTOTYPE"
 RIGHTS_STATUS = "PROTOTYPE_ONLY"
 MUSIC_STATUS = "PROTOTYPE_READY_FOR_OWNER_AUDITION"
@@ -37,7 +37,7 @@ MARATHON_ROOT = Path("/Users/bruce/Project Studio Audio Foundry Marathon 01")
 DEFAULT_SHORTLIST = MARATHON_ROOT / "05_shortlists" / "provisional-machine-shortlist.csv"
 DEFAULT_VOICE_MANIFEST = MARATHON_ROOT / "06_radio/voice-prototypes/VOICE-PROTOTYPE-MANIFEST.json"
 DEFAULT_SCRIPT_BANK = MARATHON_ROOT / "06_radio/script-bank/STUDIO-RADIO-SCRIPT-BANK-01.json"
-DEFAULT_OUTPUT_ROOT = MARATHON_ROOT / "06_radio/demos"
+DEFAULT_OUTPUT_ROOT = MARATHON_ROOT / "06_radio/demos-v2"
 FFMPEG = Path("/opt/homebrew/bin/ffmpeg")
 FFPROBE = Path("/opt/homebrew/bin/ffprobe")
 
@@ -489,7 +489,7 @@ def filter_graph(
     )
     parts.append(
         "[ducked_music][voice_mix]amix=inputs=2:duration=longest:dropout_transition=0:normalize=0,"
-        f"alimiter=limit=0.84:attack=5:release=50,aresample=48000,"
+        f"alimiter=limit=0.80:attack=5:release=50:level=false,aresample=48000,"
         f"atrim=start=0:duration={program_seconds:g}[out]"
     )
     return ";".join(parts)
@@ -825,7 +825,8 @@ def render_program(
             "ducking": "MUSIC_ONLY_SIDECHAIN_COMPRESSION_TRIGGERED_BY_SPEECH_STEM",
             "speech_gain_db": SPEECH_GAIN_DB,
             "sidechain": SIDECHAIN,
-            "master_protection": "FFMPEG_ALIMITER_0.84; NOT_A_COMMERCIAL_MASTER",
+            "master_protection": "FFMPEG_ALIMITER_0.80_LEVEL_FALSE; NOT_A_COMMERCIAL_MASTER",
+            "technical_revision": "V2 disables FFmpeg alimiter automatic level compensation after the preserved V1 concept renders measured up to 0.0 dBTP.",
         },
         "filter_complex": graph,
         "tooling": tools,
