@@ -23,5 +23,4 @@ Resume law:
 7. Continue independent CPU-light work if Unity, Project: Studio, batchmode, or a known P05 proof process is active.
 8. Atomically update state after each completed phase with `tools/audio_foundry_marathon_01/state_update.py`.
 
-At this checkpoint Phase A is complete and Phase B/C is next.
-
+At this checkpoint Phase A, Phase B/C, the 36-family catalogue, and all 120 new canonical generations are complete. Screening V3 is the next resumable phase. Its technical mode consumes `/Users/bruce/Project Studio Audio Foundry Marathon 01/01_catalogue/all-canonical-144-inventory.csv`, then the CLAP jury runs on the jury-ready inventory before final family/rescue reconciliation.

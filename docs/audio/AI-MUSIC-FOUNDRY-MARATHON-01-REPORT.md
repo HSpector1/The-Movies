@@ -56,9 +56,24 @@ Technical and learned-model analysis is `ANALYSIS SIGNAL ONLY`. It cannot establ
 | Phase | Status | Evidence |
 |---|---|---|
 | A — preserve/reconcile | PASS | External inventories and reconciliation JSON |
-| B/C — machine jury/existing 22 | IN PROGRESS | Pending |
-| D — nine-epoch generation | PENDING | Pending |
+| B/C — machine jury/existing 22 | PASS | 22-row external CSV; one learned-jury rejection; inherited V2 history unchanged |
+| D — nine-epoch generation | RAW COMPLETE | 120/120 new; canonical 144 reconciled; V3 screening active |
 | E/F — shortlists/refinement | PENDING | Pending |
-| G/H — scripts/TTS/radio demos | IN PROGRESS | External script-bank lane |
+| G/H — scripts/TTS/radio demos | IN PROGRESS | 126-unit script bank complete; speech prototypes pending |
 | I — endurance/audition/return package | PENDING | Pending |
 
+## Phase B/C — local analysis jury
+
+One official local learned model was adopted: LAION CLAP `laion/clap-htsat-unfused` at exact revision `8fa0f1c6d0433df6e97c127f64b2a1d6c0dcda8a`, with an Apache-2.0 model card. It runs offline alongside deterministic signal analysis and is used only for relative analysis signals.
+
+The required existing-22 table is complete at `/Users/bruce/Project Studio Audio Foundry Marathon 01/03_analysis/existing-22-machine-jury.csv`. It contains six family-level preferred labels, six alternates, nine further eligible labels, and one learned-jury rejection. The learned rejection does not rewrite the inherited V2 screening record.
+
+## Phase G — script bank
+
+The original fictional script bank is complete: 126 units, exactly 14 for each of nine epochs. Every unit has a stable ID, verbatim caption, function/archetype/pace/formality tags, epoch performance grammar, and `PROTOTYPE_ONLY` status. Validation found 126 unique IDs and 126 unique normalized transcripts.
+
+## Phase D — nine-epoch canonical pool
+
+The commissioning catalogue contains exactly 36 distinct families and four fixed primary seeds per family. The six pilot prompts are byte-identical to their source register. Sequential offline Small-Music generation produced all 120 missing candidates without a failed job or destination collision. Combined with the immutable pilot pool, the canonical library now contains 144 unique IDs and 144 unique raw hashes.
+
+Generation used the pinned route, no guide audio, no LoRA, no network model access, no cloud generation, no named-artist prompting, and reduced process priority. Each file was generated to a temporary destination, checked as stereo 44.1 kHz PCM16 at exactly 120 seconds, atomically published, made read-only, hashed, and logged.

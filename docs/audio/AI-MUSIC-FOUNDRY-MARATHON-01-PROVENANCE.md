@@ -56,3 +56,31 @@ External Phase A records:
 
 No automated model, hash, prompt register, machine score, output-ownership clause, or successful generation establishes copyrightability, exclusivity, non-infringement, commercial clearance, cultural acceptance, or human listening quality. Generated and derived assets remain `PROTOTYPE_ONLY` or, after packaging, `PROTOTYPE_READY_FOR_OWNER_AUDITION`.
 
+## Local analysis model
+
+- Model: `laion/clap-htsat-unfused`
+- Revision: `8fa0f1c6d0433df6e97c127f64b2a1d6c0dcda8a`
+- Model-card license: Apache-2.0
+- Official code license: CC0-1.0
+- Model files: 617,901,754 bytes, below the combined 8 GB jury cap
+- Network during inference: disabled through Hugging Face and Transformers offline modes
+- Classification: `ANALYSIS SIGNAL ONLY`
+
+The external machine-jury summary contains hashes for all ten retained non-cache model files. The primary 614,525,833-byte model weight is SHA-256 `1cd3c601bc4afe0fa87be3de4c13dd2cfadd249fac1e29acf74a9b296c3219bb`.
+
+## Marathon canonical generation
+
+The 120 new canonical sources were generated sequentially under the same route lock. No raw pilot source was copied or regenerated.
+
+| Record | SHA-256 |
+|---|---|
+| 144-row prompt catalogue CSV | `193d5f56a6b3fb6de59d89129f46b9a9e203c43ea4ea8c9be49d5c7dac49f8e5` |
+| New-120 raw inventory CSV | `09ae58ebb8f01acbb75ee77ccb26fd7e823b0818cf8107164565dc9a7f15d3f2` |
+| Combined canonical-144 inventory CSV | `13f2b4c2e3cc19ca568956ad7c384ba0ca621526e8eec048bb100895ac8faa95` |
+| Canonical generation JSONL | `d652500c6d0ec97153f73496e1c1568cd1684f9f00dc1b393c2bd578d5e5b394` |
+
+Every new raw WAV is read-only, exactly 120 seconds, PCM16, stereo, 44.1 kHz, and uniquely identified by SHA-256. Generation stdout/stderr and exact argv are retained per candidate under the external marathon logs.
+
+## Preserved-evidence pointer note
+
+The historical V2 `screening-summary.json` still contains two pointers to superseded pre-correction evidence hashes. Both named historical files remain preserved in the 428-file reconciliation manifest, and the current canonical V2 files were independently hashed. The marathon does not edit old screening history merely to refresh those pointers.
