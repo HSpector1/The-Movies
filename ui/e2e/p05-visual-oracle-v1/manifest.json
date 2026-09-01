@@ -46,9 +46,9 @@
       "checkpoint": {
         "file": "s1-idle-stage.checkpoint.json",
         "byteLength": 272512,
-        "sha256": "1c97a8217d2445fba9514e4ee5ed015fd904940d9f8e20507ed8089f7ae3ca0f",
+        "sha256": "071ff1a7b302c5e507c89cf9307aa543c7e0c581405764b49499b418ed1f4b00",
         "sessionId": "p05-oracle-idle-stage",
-        "schemaId": "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+        "schemaId": "sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f",
         "stateDigest": "55f5fcdda8debd25a57f29f119d9803beceda047c44f6c4eb131eeb578d9dd38"
       },
       "publicActionDerivation": [
@@ -75,9 +75,9 @@
       "checkpoint": {
         "file": "s2-rehearsal.checkpoint.json",
         "byteLength": 278034,
-        "sha256": "680d2d326ffeb79bcf8486d7d5d8cde97af3459b646da77c7df7d51fe41fc97e",
+        "sha256": "8e0c95c78805798c0ffbf1861ba24409cb152dc95f3b4b6fa4a7696e049c9086",
         "sessionId": "p05-oracle-rehearsal",
-        "schemaId": "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+        "schemaId": "sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f",
         "stateDigest": "e537315c0fc0eb5ff069bc2891cf7864721bd796b3216478284239af6346d532"
       },
       "publicActionDerivation": [
@@ -141,9 +141,9 @@
       "checkpoint": {
         "file": "s3-scenery-load-in.checkpoint.json",
         "byteLength": 282174,
-        "sha256": "753ee1563572b726e2a00d4608ce231126451ca109102d7ad92ebf34f8c5e6af",
+        "sha256": "5f23d2e3794c732b05eb3b2a0ce5a059c3488df0db86dccc23986503ea27c35e",
         "sessionId": "p05-oracle-scenery-load-in",
-        "schemaId": "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+        "schemaId": "sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f",
         "stateDigest": "082a87fb6544d091f0cf4bfd8d4e2e65d9dd2032dadeb985be34f857db6825b1"
       },
       "publicActionDerivation": [
@@ -208,9 +208,9 @@
       "checkpoint": {
         "file": "s4-blocked-waiting.checkpoint.json",
         "byteLength": 278704,
-        "sha256": "16f92e65dcd6c238180be115446b26c1b390dfc2f1e0be48fcccbac7a0348fc1",
+        "sha256": "4bf3f6a07156b9c9c2e34c987791e3c7b0fa46b37dbe6e9c8918fdc4fb325cbf",
         "sessionId": "p05-oracle-blocked-waiting",
-        "schemaId": "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+        "schemaId": "sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f",
         "stateDigest": "f29e31ee09c9055158306324111575bc04d30a870b87196cf24cb9e02f0b86dc"
       },
       "publicActionDerivation": [
@@ -273,9 +273,9 @@
       "checkpoint": {
         "file": "s5-shooting.checkpoint.json",
         "byteLength": 284874,
-        "sha256": "2f53371b34e70cf61bb6f5e5176f6def6bbd1b5cff7475d011972e258545f056",
+        "sha256": "1a836e65fe8144e0532480d810dda54145191f3d6c16049f217d1daeb40a47a3",
         "sessionId": "p05-oracle-shooting",
-        "schemaId": "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+        "schemaId": "sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f",
         "stateDigest": "77662a2d5444e4bf3859b00360a2055fd91c9ccfa509f9e97585cfb42a57dd56"
       },
       "publicActionDerivation": [
@@ -371,9 +371,9 @@
       "checkpoint": {
         "file": "s6-wrap.checkpoint.json",
         "byteLength": 278635,
-        "sha256": "5d394910b8a3671fcef80a7a0c498bff9679aac8ab7389d719322b8f1dd4e153",
+        "sha256": "8150aa177be80a062cccef8de2e57bf6a4225cd864f85ae2d439675274231534",
         "sessionId": "p05-oracle-wrap",
-        "schemaId": "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+        "schemaId": "sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f",
         "stateDigest": "396cc8f4d0e97f6ba45013d89d643a4ea3f78e5ffc600d106d1de8ef3f7e2336"
       },
       "publicActionDerivation": [
