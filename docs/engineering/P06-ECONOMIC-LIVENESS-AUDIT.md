@@ -5,8 +5,10 @@ or needed; no tuning touched.**
 
 **Method:** headless probes over a byte-copy of the Owner's post-P05-acceptance
 profile (baseline sha256 `d949003e…`; the durable profile untouched), run on the
-sealed engine at TS `a994de3…`. Probe scripts retained in the campaign
-scratchpad; trajectories reproduced below.
+sealed engine at TS `a994de3…`. Probe scripts are committed beside this audit
+(`docs/engineering/evidence/p06-econ-probe/probe-v1-naive.mts`,
+`probe-v2-attentive.mts`; run from a sealed TS checkout with
+`npx vite-node <script>`); trajectories reproduced below.
 
 ## Observed starting state (the Owner's real position, game week 8)
 

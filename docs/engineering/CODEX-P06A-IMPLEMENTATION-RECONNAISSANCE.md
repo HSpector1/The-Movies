@@ -397,8 +397,8 @@ r1 §10 + the machine-readable handoff checklist stand unchanged.
 
 | Concern | Owner | Exact locked paths |
 |---|---|---|
-| Core release + V16 cutover (W1) | Core Release owner | `src/core/types.ts`, new `src/core/releaseAuthority.ts`, `operations.ts` (both arms), `tick.ts`, `actions.ts`, `save.ts`, `index.ts`, `productionIdentity.ts`, `scriptReadModel.ts`, `firstFilmJourney.ts`, `studioCalendar.ts`, `ui/src/engine/adapter.ts` (save + ladder seams), `bridge/session.ts` + `bridge/runtime-checkpoint.ts` live-save arms, focused tests |
-| Projection/contract (W2) | Contract owner | `bridge-schema.ts`, `snapshot-build-context.ts` (release fact), `session.ts` projection/intent arms, generated outputs + manifest, `productionOperationsProjection.ts`, `StudioLotSnapshot.ts` extensions, contract tests |
+| Core release + V16 cutover (W1) | Core Release owner | `src/core/types.ts`, new `src/core/releaseAuthority.ts`, `operations.ts` (both arms), `tick.ts`, `actions.ts`, `save.ts`, `index.ts`, `productionIdentity.ts`, `scriptReadModel.ts`, `firstFilmJourney.ts`, `studioCalendar.ts`, `castingPackageReadModel.ts` (`returnWeek` truth sweep), `ui/src/engine/adapter.ts` (save + ladder seams), `bridge/session.ts` live-save arms + the one-line manual-advance intent-gate carve-out (charter W1/F7), `bridge/runtime-checkpoint.ts` live-save arms, `bridge/casting.ts` returnWeek wire labels, focused tests |
+| Projection/contract (W2) | Contract owner | `bridge-schema.ts`, `snapshot-build-context.ts` (release fact), `session.ts` projection/intent arms (EXCLUDING the W1-owned manual-advance carve-out line), generated outputs + manifest, `productionOperationsProjection.ts`, `StudioLotSnapshot.ts` extensions, contract tests |
 | Unity registry/world (W3/W4) | Unity World owner | new `StudioPostPresentationRegistry.cs`, new Post presenter, authoring additions, focused EditMode tests |
 | Unity workspace/time (W5) | Unity Workspace owner | new Release workspace + contracts + UXML/USS, `StudioLivingTime*.cs`, rail extension, focused tests |
 | Continuity/proof (W6/W7) | Proof owner | `bridge/proof.ts`, fixtures generator, runners/launchers/sidecars |

@@ -116,8 +116,10 @@ Every r1 GO criterion is satisfied **except one, which is explicitly waived
 rather than claimed**: the r1 clause requiring the reusable evidence manifest to
 already distinguish valid/stale/unreadable/absent artifacts is NOT met — no such
 vocabulary exists in either repository (verified). Under the Owner campaign
-order (which requires that vocabulary as P06 proof-wave output, §22/§26), this
-clause is waived at the gate and reassigned to W7 as new work; a P06 seal
+order — whose proof law requires per-scene state sidecars and forbids blaming
+the product for unreadable or stale evidence, which together demand exactly
+this vocabulary as P06 proof-wave output — the clause is waived at the gate and
+reassigned to W7 as new work; a P06 seal
 without it remains a NO-GO at seal time. Every other criterion is satisfied:
 P05 sealed AND Owner-accepted (citable);
 final SHAs/branches pushed, clean, remote-equal; changed paths supplied; versions +
