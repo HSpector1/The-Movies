@@ -75,11 +75,11 @@ force, no rewrite:
 
 | Step | Status |
 |---|---|
-| §0 clock + this handoff | DONE (this commit) |
+| §0 clock + this handoff | DONE (`da8b947`) |
 | §3 resolve exact P05 authority | DONE (above) |
-| §4 formal P05 closeout (ledger + lessons) | IN PROGRESS |
-| §5/§11 read P06 authorities; refresh gate/recon/charter to final r2 | PENDING |
-| §7 bounded research delta (≤12h, 4 lanes) | PENDING |
+| §4 formal P05 closeout (ledger + lessons) | DONE (`f8dbe97` ledger, `59d9a2d` lessons) |
+| §5/§11 read P06 authorities; refresh gate/recon/charter to final r2 | IN PROGRESS — all five authority docs read in full; five parallel seam-recon lanes over the final code running |
+| §7 bounded research delta (≤12h, 4 lanes) | IN PROGRESS — lanes A/C/D launched (read-only); lane B follows evidence recon |
 | §12 create P06 WIP branches | PENDING |
 | §13–18 waves W0–W5 | PENDING |
 | §19 Living Studio Command Layer | PENDING |
@@ -105,3 +105,5 @@ force, no rewrite:
 | 2026-09-01 22:00 | Campaign start; clock + environment recorded |
 | 2026-09-01 22:15 | P05 authority resolved; P05A.3 integrated and pushed (see §2) |
 | 2026-09-01 22:30 | Handoff created; P05 closeout docs in progress |
+| 2026-09-01 22:45 | P05 closeout committed+pushed. CF-09 re-verified at seal (Unity consumer = TS artifact = `9c3df11c…`). Owner profile baseline byte-copy taken: `~/Library/Application Support/Project Studio/bridge-runtime/bridge-runtime-v1.json` → `/Users/bruce/Project Studio Owner Profile Baselines/P06-campaign-start-20260901/` (sha256 `d949003e1874406170bfd3e7c8f4c6dc2dc92d24bb125376c435cdf21eec8b4b`, chmod 400). Real economic state: cash $74,470; 3 active productions (prod-0004 t5, prod-0005 t6, prod-0008 t8); 0 released films; overhead ≈$25.5k/wk. No stray processes; Owner caffeinate left running deliberately. |
+| 2026-09-01 23:00 | Five-lane final-code recon workflow + research lanes A/C/D running. P06 launch commands mapped: `npm run build:studio` → `node dist/studio/studio.mjs --unity-project <unity>`; floors: `npm test`, `typecheck`, `typecheck:bridge`, `test:bridge`, `verify:bridge-contract-consumer`. Decision: P06 implementation worktrees will live under durable `/Users/bruce/` paths (the P05 launcher itself warns `/private/tmp` dies on reboot). |
