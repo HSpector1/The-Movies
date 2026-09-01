@@ -3451,3 +3451,78 @@ disturbed by it.
 
 The durable engineering record for this arc is
 `docs/engineering/P04-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md`.
+
+---
+
+## P05 ARC — PRODUCTION / SHOOTING, OWNER USABILITY, CASTING ROSTER LIVENESS
+
+*(Appended 2026-09-01 at the P06 campaign opening. This section summarizes the P05 arc
+from its own sealed evidence documents; the full records are
+`docs/engineering/P05A-IMPLEMENTATION-ENTRY-RECORD.md`,
+`P05A-IMPLEMENTATION-WAVE-EVIDENCE.md`, `P05A1-QUEUE-GREENLIGHT-EVIDENCE.md`,
+`P05A2-OWNER-USABILITY-EVIDENCE.md` and `P05A3-CASTING-ROSTER-LIVENESS-EVIDENCE.md`.
+Nothing below revises those records.)*
+
+The arc ran five checkpoints:
+
+1. **P05A static contract gate** (CF-08 union soundness, CF-09 exact Unity consumer
+   binding) — sealed TS `7811377` / Unity `29aea89`; never put to the Owner; it was the
+   readiness gate the P04 acceptance ordered.
+2. **P05A implementation** (W0–W7: snapshot-build context, closed Production projection,
+   N-Stage registry, Production workspace, visual oracle) — technical KEEP at
+   TS `4242b17` / Unity `c8d6698`, projection 12; Owner acceptance pending.
+3. **P05A.1 queue/greenlight** — **Owner REJECTED** the P05A candidate on the real
+   profile: the engine's D-12 solvency gate correctly refused an unaffordable greenlight,
+   but the client hid the exact refusal behind a generic "could not be asked right now."
+   Fixed; hostile round-3 FINAL ACCEPT at TS `0a50ac9` / Unity `00a5f7e`.
+4. **P05A.2 owner usability** — the Owner kept the foundation but could not answer basic
+   questions (Camera Tests optionality, what a week buys, what Back discards, phase
+   meanings). Clarity remediation sealed at TS `694aae9`→`9361542` / Unity `31d3800`,
+   accepted by the inheriting hostile verifier.
+5. **P05A.3 casting roster liveness** — **Owner REJECTED** on *The Bitter Migration*:
+   only two distinct available Actors existed across three required role pools; the
+   engine's legal hiring route (`signContract`) was unreachable from the player surface;
+   the staffing-shortage blocker was filtered off the wire; busy actors were hidden
+   without return weeks. Root causes RC-1/RC-2/RC-3 fixed at the owning seams; bridge
+   moved to projection 13 with the hiring market, sign-actor lane and busy-row
+   `returnWeek` on the casting wire; hostile rounds 1–2 remediated to ACCEPT.
+
+### OWNER ACCEPTANCE — 2026-09-01 (received ~22:00 CEST with the P06 campaign order)
+
+**Owner verdict: P05A.3 ACCEPTED — KEEP. P05 IS CLOSED.**
+
+The Owner's playtest confirmed, in normal play: CASTING SHORTAGE explained the exact
+two-of-three Actor shortfall; FIND AN ACTOR was discoverable; the Talent Market exposed
+real candidates and contract costs; signing a third Actor worked; the player returned to
+the correct Casting project; three distinct roles could then be filled; Camera Tests /
+skip, Casting, Greenlight, Production presentation, Stage access, Locate/Back, Save/Load,
+menu and quit were usable; multiple movies visibly progressed around the lot. The Owner
+lacked cash to immediately begin another movie; this is an observed economic state under
+audit in P06 (§21 of the campaign order), not a ruled defect.
+
+**Accepted authority pair (full, 40-character):**
+
+| | |
+|---|---|
+| TypeScript product seal | `a994de38e8f87b8680f5ab4bd6fb62e7b594c5db` |
+| Unity product seal | `784f2d52e2459f2cf7a12cbde49319f2bb81df6c` |
+| TypeScript `campaign/living-lot-ts` tip (seal + evidence docs) | `18ab9b6459e90b16b4455ea4695a0938e8f6a87d` |
+| Unity `campaign/living-lot-client` tip | `784f2d52e2459f2cf7a12cbde49319f2bb81df6c` |
+| Player executable | `b5108a78895acb727f74fe23931ceaab76c6b36c06bdff603fd76f3d45fdd09e` |
+| Assembly-CSharp | `73a245e50d2e1b8db67b4e967d8259d6c4fe4517db23b6d1f6d63604a9dd70fa` |
+| Engine bundle | `dba4e48b4bcc82e75bc8d20b194e26dbc6cb5c6739c710ae97a2f8da496056c3` |
+| schema / protocol / projection / save | `sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f` / 4 / 13 / V15 |
+| Generated contract (TS artifact = Unity consumer) | `9c3df11c993f6615e25bb55463008c5d4a45d99bab2de4fe8ee8a0ca44d2f705` |
+
+Integration note: at P05A.3 acceptance the candidate existed only on the build machine —
+11 TS and 10 Unity commits were unpushed and both campaign branches were behind. The P06
+campaign opening verified every Section-3 requirement of the campaign order (manifest
+SHAs, byte-identical executable, clean worktrees, docs-only trailing delta, ordinary
+fast-forward ancestry) and integrated by normal pushes: TS campaign `9361542`→`18ab9b6`,
+Unity campaign `31d3800`→`784f2d5`; local verified equal to remote on both.
+
+**P05 closed. P06 authorized** by the Owner's five-day campaign order (P06 Post/Release +
+Living Studio Command Layer; P07 gameplay prohibited before P06 Owner acceptance).
+
+The durable engineering record for this arc is
+`docs/engineering/P05-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md`.
