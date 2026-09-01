@@ -78,7 +78,7 @@ force, no rewrite:
 | §0 clock + this handoff | DONE (`da8b947`) |
 | §3 resolve exact P05 authority | DONE (above) |
 | §4 formal P05 closeout (ledger + lessons) | DONE (`f8dbe97` ledger, `59d9a2d` lessons) |
-| §5/§11 read P06 authorities; refresh gate/recon/charter to final r2 | DOCS WRITTEN on `codex/p06a-final-refresh-01` (`58fa9b3`); fresh hostile document review in flight; FF into campaign after disposition |
+| §5/§11 read P06 authorities; refresh gate/recon/charter to final r2 | **DONE — hostile review round-3 FINAL ACCEPT** (rounds: 12 findings → remediated `d4acc18` → 2 residuals → remediated `fc8800a` → ACCEPT; reviewer independently re-ran both econ probes and reproduced the audit to the dollar). Integrated into `campaign/living-lot-ts` by clean cherry-pick (campaign had one interleaved handoff commit, so direct FF was impossible; the six docs-only commits `1f5c459..fc8800a` on `codex/p06a-final-refresh-01` re-landed as `a44d0bb..e978186` — all seven reviewed files verified byte-identical to the ACCEPTed tip). Launch package is binding W0–W8 authority; the review record lives in this transcript and the refresh branch is preserved as pushed. |
 | §7 bounded research delta (≤12h, 4 lanes) | DONE — all four lanes complete in ≈1.5h; `docs/research/P06-LIVING-STUDIO-REFERENCE-DELTA.md` (`4e9df1c`) |
 | §21 economic liveness audit | DONE EARLY — `docs/engineering/P06-ECONOMIC-LIVENESS-AUDIT.md`: INTENDED TEMPORARY CASH CONSTRAINT (attentive-player probe: −$314k trough → releases at wk13/14/17 → ~$14M peak; no trap state; visibility is the remedy and is already chartered) |
 | §12 create P06 WIP branches | PENDING |
