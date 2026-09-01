@@ -58,6 +58,39 @@ The R1 jury processed only the 11 technically eligible rescue sources, using a 4
 - R1 reconciliation SHA-256: `38f3d7a4f43d9031653e9c8a5cb6c3447ba7737c2a6d36fc6ec58f8ada4766b6`
 - R1 family status SHA-256: `319d416785fc1b5d362b2c6e0d4acd75e8df2aa55500edc8c410d0e9987833fd`
 
+## Frozen shortlist jury pool
+
+The final candidate-level reconciliation includes all 133 canonical or rescue sources that cleared technical V3. It marks 120 shortlist-eligible and retains 13 severe-jury rejections; the other 31 sources remain excluded by technical screening and are not silently discarded from the wider rejection record. Thirty-five of 36 families are represented.
+
+- CSV: `/Users/bruce/Project Studio Audio Foundry Marathon 01/03_analysis/shortlist-ready-all-candidates-v3-machine-jury-final-v2.csv`
+- Rows: 133
+- Shortlist eligible: 120
+- Severe jury rejection: 13
+- Technical exclusions outside this table: 31
+- CSV SHA-256: `6e898008c3018573df8bdb172153929dc46c1d10d2a01288b090bc71c688f4c3`
+
+The downstream selection uses diversity-constrained utility within each epoch. It selected six candidates per epoch—three provisional picks and three alternates—with three different primary families in every epoch. Selection remains a machine-curation result, not listening acceptance.
+
+## Refinement comparison
+
+The one-shot refinement lane selected each epoch's highest-ranked source, diagnosed one weakest machine-measurable dimension, and applied one documented prompt revision with one fresh seed. Nine new sources were generated; eight passed technical V3 and received the same offline jury protocol with zero severe mismatches. The ninth, `LFU-03-F1__seed-1400033`, failed for negative stereo correlation and was not juried.
+
+The comparison retained originals and revisions. Three revisions improved the selected target without a contrary overall signal; three showed target/overall tradeoffs; two showed no machine improvement; one was technically rejected. No revision automatically replaced a shortlist pick.
+
+- Comparison CSV: `/Users/bruce/Project Studio Audio Foundry Marathon 01/03_analysis/refinement-f1/refinement-vs-original.csv`
+- Comparison CSV SHA-256: `6205e3b621eb183effd5f3f5a6de53e36bdc6f2fbb052588537a7869d05cb3e4`
+- Integrity manifest SHA-256: `7f236fe922faa7c1c1f660da87504c2a5ba2f6ca34c45d6a67c3fb5853db9ecb`
+
+## Small-versus-Medium challenge
+
+The same jury protocol analyzed the 15 of 18 Medium comparisons that cleared technical V3. No eligible Medium candidate received a severe mismatch. Eight were labeled `MACHINE-PREFERRED` and seven `MACHINE-ALTERNATE` within their two-seed Medium families.
+
+The comparison joins each Medium candidate to the exact Small PICK-01 prompt family. Nine of 15 eligible Medium rows have a higher composite machine score than Small; considering the best eligible Medium result per epoch, Medium is higher in six epochs. Three Medium candidates failed technical gates, including both E09 candidates, so the lane does not support a blanket model-quality conclusion. No automatic shortlist replacement occurred.
+
+- Comparison CSV: `/Users/bruce/Project Studio Audio Foundry Marathon 01/03_analysis/medium-challenge/small-vs-medium-comparison.csv`
+- Comparison CSV SHA-256: `07098797c071623817892a5d3c7324936fe162d8fd30d4c89efc40d02f71fcc4`
+- Classification: `ANALYSIS SIGNAL ONLY`
+
 ## Limitations
 
 The numeric fields are ranking signals, not calibrated probabilities. CLAP association cannot establish historical authenticity, instrumentation fact, audible artifact severity, originality, protected-reference safety, cultural acceptance, or long-session quality. The protected-reference field is only a prompt-wording check; it is explicitly not a copyright detector. No automated result establishes copyrightability, exclusivity, non-infringement, commercial clearance, Owner approval, or readiness for production import.

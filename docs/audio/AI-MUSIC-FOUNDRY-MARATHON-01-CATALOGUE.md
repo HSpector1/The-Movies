@@ -1,6 +1,6 @@
 # Project: Studio — AI Music Foundry Marathon 01 Catalogue
 
-**Status:** IN PROGRESS  
+**Status:** PROVISIONAL MACHINE CATALOGUE COMPLETE
 **All listed/generated assets:** `PROTOTYPE_ONLY`
 
 ## Commissioning aliases
@@ -26,10 +26,11 @@ Each epoch will contain exactly four musically distinct prompt families and four
 | Existing canonical raw candidates | 24 | immutable and hash-verified |
 | Existing automatic-gate eligible | 22 | eligible for machine jury; human review absent |
 | Existing automatic exclusions | 2 | preserved; not primary-pick eligible |
-| New canonical candidates | 120 | generated, immutable, unique hashes; V3 screening in progress |
+| New canonical candidates | 120 | generated, immutable, unique hashes; V3 screening complete |
 | Canonical total | 144 | reconciled: 36 families × four primary seeds |
 | Bounded R1 rescue candidates | 20 | immutable; one revision each for five weak families; no R2 |
 | Canonical plus rescue raw | 164 | 164 unique IDs and 164 unique SHA-256 values |
+| One-shot refinement candidates | 9 | one per epoch; originals retained; no automatic replacement |
 
 The authoritative read-only inventory is external:
 
@@ -81,6 +82,44 @@ The complete 144-row commissioning matrix is external at `/Users/bruce/Project S
 - Further rescue rounds: 0
 
 The combined inventory is `/Users/bruce/Project Studio Audio Foundry Marathon 01/01_catalogue/canonical-plus-rescue-164-inventory.csv`, SHA-256 `d939efff6f25119362cc63a79fbf1fe9ced3d5c50acc9467221e1a15b345a6a4`.
+
+## Provisional machine shortlist
+
+The combined canonical-plus-R1 jury yielded 120 shortlist-eligible candidates and 44 rejected candidates across the 164-source pool. The shortlist contains 27 primaries and 27 alternates, exactly six selections per epoch. Every primary set uses three different prompt families.
+
+| Epoch | Families | Canonical | R1 | Eligible | Rejected | Three provisional picks |
+|---|---|---:|---:|---:|---:|---|
+| E01 | `FND-01`…`FND-04` | 16 | 0 | 13 | 3 | `FND-03__seed-130363`; `FND-02__seed-130363`; `FND-01__seed-155921` |
+| E02 | `NSD-01`…`NSD-04` | 16 | 4 | 16 | 4 | `NSD-04__seed-196613`; `NSD-03-R1__seed-262147`; `NSD-01__seed-130363` |
+| E03 | `THF-01`…`THF-04` | 16 | 0 | 16 | 0 | `THF-03__seed-104729`; `THF-04__seed-104729`; `THF-01__seed-130363` |
+| E04 | `MFM-01`…`MFM-04` | 16 | 0 | 14 | 2 | `MFM-01__seed-130363`; `MFM-03__seed-196613`; `MFM-04__seed-196613` |
+| E05 | `FPL-01`…`FPL-04` | 16 | 0 | 16 | 0 | `FPL-01__seed-130363`; `FPL-03__seed-155921`; `FPL-04__seed-130363` |
+| E06 | `DFG-01`…`DFG-04` | 16 | 0 | 14 | 2 | `DFG-01__seed-130363`; `DFG-02__seed-196613`; `DFG-03__seed-104729` |
+| E07 | `NHY-01`…`NHY-04` | 16 | 4 | 10 | 10 | `NHY-01__seed-104729`; `NHY-02__seed-130363`; `NHY-03__seed-155921` |
+| E08 | `SPL-01`…`SPL-04` | 16 | 0 | 13 | 3 | `SPL-02__seed-155921`; `SPL-01__seed-155921`; `SPL-03__seed-155921` |
+| E09 | `LFU-01`…`LFU-04` | 16 | 12 | 8 | 20 | `LFU-03__seed-196613`; `LFU-04__seed-196613`; `LFU-01__seed-130363` |
+
+The authoritative shortlist CSV is `/Users/bruce/Project Studio Audio Foundry Marathon 01/05_shortlists/provisional-machine-shortlist.csv`, SHA-256 `bc3d565e645509932e40282300a7086eb4cac7ec1765b8d80e976d94def252bb`. Every primary has a normalized 48 kHz/24-bit WAV, a 114-second loop derivative, a 12-second seam audition, AAC preview, waveform, spectrogram, metadata, prompt/provenance pointer, and machine-score explanation.
+
+## Bounded refinement
+
+Exactly one fresh-seed refinement was generated for each epoch against the highest machine-ranked original. Eight cleared technical V3 and the offline jury; `LFU-03-F1__seed-1400033` was rejected for negative stereo correlation. Three revisions improved their selected target signal without a contrary overall signal, three had mixed tradeoffs, two showed no machine improvement, and one was technically rejected. Both original and revision remain preserved, and none replaced the provisional shortlist automatically.
+
+The comparison CSV is `/Users/bruce/Project Studio Audio Foundry Marathon 01/03_analysis/refinement-f1/refinement-vs-original.csv`, SHA-256 `6205e3b621eb183effd5f3f5a6de53e36bdc6f2fbb052588537a7869d05cb3e4`.
+
+## Optional Medium quality challenge
+
+The official pinned Medium MLX route passed the optional gate. Two fixed seeds were applied to the PICK-01 prompt family in each epoch, producing 18 immutable 120-second comparison sources. Fifteen passed technical V3; three were retained as machine rejections. The 15 eligible candidates received the same offline CLAP jury with zero severe mismatches.
+
+Nine of the 15 eligible Medium rows exceeded the matched Small PICK-01 composite signal, and the best eligible Medium candidate exceeded Small in six of nine epochs. E09 had no technically eligible Medium trial. These comparisons are machine signals only: the Small shortlist remains unchanged and every Medium candidate awaits human listening.
+
+| Medium record | SHA-256 |
+|---|---|
+| 18-row inventory | `dd382bac7708f8ca7e9d90a8459f64745607bc038a1ed84a8e60e4ef548a73f0` |
+| Screening V3 CSV | `67ac5efd6f6949063b98ccbd343c10280d1e235de31774099505724ad62789c2` |
+| CLAP jury CSV | `e6a44911938d0e8bb695ad7b335f7e27df5a7d751a47a5c6d8c9f119dcedeb0f` |
+| Small-versus-Medium comparison | `07098797c071623817892a5d3c7324936fe162d8fd30d4c89efc40d02f71fcc4` |
+| Integrity manifest | `206514b89edf3a88fa6ab6435089a9370c91d88bb525a00b7a1a11f64e7f9739` |
 
 ## Status vocabulary
 
