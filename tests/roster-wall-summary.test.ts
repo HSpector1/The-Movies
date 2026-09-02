@@ -38,7 +38,7 @@ const SOURCE: RosterWallSourceProvenance = {
   tree: '2'.repeat(40),
   worktreeDirty: false as const,
   runtime: 'node test',
-  saveVersion: 14 as const,
+  saveVersion: 16 as const,
   productionAuthorityCommit: '8b7e95eb92f6f809522a595b4b458d4f19e26852',
   productionAuthorityTree: '3'.repeat(40),
   authorityDiffPaths: ['src/harness/roster-wall/summary.ts'],

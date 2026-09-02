@@ -42,7 +42,11 @@ export type RosterWallSourceProvenance = {
   // C2a-M1: the observatory records the save format its evidence was produced
   // under. The bump is mechanical — the roster-wall world never activates managed
   // operations, so its four V14 roots are empty and its arithmetic is untouched.
-  saveVersion: 14
+  // P06A (charter W1): bumped again to V16. A lawfully played roster-wall world
+  // can now carry real `releaseAuthority` commitments (`releaseReview` decisions
+  // are resolved by committing promptly), which SaveFileV14 cannot represent at
+  // all — every harvest needs the V16 interchange to survive serialization.
+  saveVersion: 16
   productionAuthorityCommit: string
   productionAuthorityTree: string
   authorityDiffPaths: string[]
@@ -295,7 +299,7 @@ export function rosterWallSourceProvenance(
     tree,
     worktreeDirty: false,
     runtime: options.runtime ?? `node ${process.version}`,
-    saveVersion: 14,
+    saveVersion: 16,
     productionAuthorityCommit: authorityCommit,
     productionAuthorityTree: authorityTree,
     authorityDiffPaths,

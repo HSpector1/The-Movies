@@ -82,9 +82,19 @@ beforeAll(async () => {
   let state = withCash(operationsStudio('c2a-m1-events'), 50_000_000)
   state = applyActions(state, [{ kind: 'greenlight', production: productionPayload(state) }])
   managed = runScriptedWeeks(state, 40)
+  // P06A: the played world now carries `releaseCommitted` rows (V16-only Tier
+  // D). This suite FORGES V14 envelopes to probe the frozen V14 shape law, so
+  // its base envelope is a hand-projected V14 twin: same world, log filtered
+  // to the kinds a real V14 file could carry — exactly the v13TwinOf
+  // discipline one version on. The V16-only rows' own law is tested at the
+  // live boundary (validateSaveV16), not here.
+  const v14RepresentableLog = {
+    ...managed.studioEvents,
+    rows: managed.studioEvents.rows.filter((row) => row.kind !== 'releaseCommitted'),
+  }
   managedSave = (
     requireFunction(core, 'makeSaveV14', '§8.1') as unknown as (s: GameState) => Envelope
-  )(managed)
+  )({ ...managed, studioEvents: v14RepresentableLog })
 })
 
 function requireCore(): SaveModule {
@@ -105,6 +115,26 @@ function withLog(rows: readonly Record<string, unknown>[], nextSeq: number): Env
   const forged = clone(managedSave)
   forged.state.studioEvents = { nextSeq, rows: clone(rows) }
   return forged
+}
+
+// P06A: `releaseCommitted` is a V16-only Tier-D kind — the frozen V14 boundary
+// RIGHTLY refuses it, so its shape law is proven at ITS OWN boundary (the live
+// V16 validator) through the same forged-log discipline. Every pre-existing
+// kind keeps its V14-boundary probe untouched.
+function validateAtOwningBoundary(kind: string, rows: readonly Record<string, unknown>[], nextSeq: number): void {
+  if (kind === 'releaseCommitted') {
+    const makeSaveLive = requireFunction(requireCore(), 'makeSave', 'P06A live boundary') as unknown as (
+      s: GameState,
+    ) => { state: Record<string, unknown> }
+    const validateLive = requireFunction(requireCore(), 'validateSaveV16', 'P06A live boundary') as unknown as (
+      save: unknown,
+    ) => unknown
+    const forged = clone(makeSaveLive(managed) as unknown as Envelope)
+    forged.state.studioEvents = { nextSeq, rows: clone(rows) }
+    validateLive(forged)
+    return
+  }
+  validateV14(withLog(rows, nextSeq))
 }
 
 function currentWeek(): number {
@@ -159,7 +189,7 @@ describe('C2a-M1 · events (B) — every row carries exactly the keys §8.1 give
     expect(TIER_D_EVENT_KINDS.length + TIER_W_EVENT_KINDS.length).toBe(
       CHARTER_STUDIO_EVENT_KINDS.length,
     )
-    expect(CHARTER_STUDIO_EVENT_KINDS.length).toBe(11)
+    expect(CHARTER_STUDIO_EVENT_KINDS.length).toBe(12)
     for (const kind of CHARTER_STUDIO_EVENT_KINDS) {
       expect(isTierD(kind) !== isTierW(kind), `${kind} is in neither tier or in both`).toBe(true)
       expect(Object.keys(STUDIO_EVENT_ROW_KEYS), `${kind} has no §8.1 key list`).toContain(kind)
@@ -178,27 +208,36 @@ describe('C2a-M1 · events (B) — every row carries exactly the keys §8.1 give
       const row = charterStudioEventRow(kind, 0, week)
       expect(Object.keys(row).sort()).toEqual([...STUDIO_EVENT_ROW_KEYS[kind]!].sort())
 
-      // The shape the charter states is the shape the boundary accepts…
-      expect(() => validateV14(withLog([row], 1)), `${kind} row refused`).not.toThrow()
+      // The shape the charter states is the shape ITS OWN boundary accepts…
+      expect(() => validateAtOwningBoundary(kind, [row], 1), `${kind} row refused`).not.toThrow()
 
       // …and §5.1's prohibition is enforced by an EXACT key list, which is the
       // only form of "never" a later maintainer cannot quietly widen.
       for (const forbidden of FORBIDDEN_EVENT_ROW_KEYS) {
         const forged = { ...row, [forbidden]: false }
         expect(
-          () => validateV14(withLog([forged], 1)),
+          () => validateAtOwningBoundary(kind, [forged], 1),
           `a ${kind} row carrying "${forbidden}" was accepted — §5.1 forbids it forever`,
         ).toThrow()
       }
     })
   }
 
-  it('accepts all eleven kinds in one log, so no kind is legal only alone', () => {
+  it('accepts every kind in one log at its owning boundary, so no kind is legal only alone', () => {
     const week = currentWeek()
-    const rows = CHARTER_STUDIO_EVENT_KINDS.map((kind, index) =>
-      charterStudioEventRow(kind, index, week),
+    // The eleven V14-representable kinds together at the frozen V14 boundary…
+    const v14Rows = CHARTER_STUDIO_EVENT_KINDS.filter((kind) => kind !== 'releaseCommitted').map(
+      (kind, index) => charterStudioEventRow(kind, index, week),
     )
-    expect(() => validateV14(withLog(rows, rows.length))).not.toThrow()
+    expect(() => validateV14(withLog(v14Rows, v14Rows.length))).not.toThrow()
+    // …and all twelve together at the live V16 boundary (P06A). The V15+
+    // boundary demands the widened queueIntentExpired subjectId leaf, so the
+    // live form of that one row carries its honest null.
+    const allRows = CHARTER_STUDIO_EVENT_KINDS.map((kind, index) => {
+      const row = charterStudioEventRow(kind, index, week)
+      return row.kind === 'queueIntentExpired' ? { ...row, subjectId: null } : row
+    })
+    expect(() => validateAtOwningBoundary('releaseCommitted', allRows, allRows.length)).not.toThrow()
   })
 })
 
@@ -288,7 +327,7 @@ describe('C2a-M1 · events (D) — Tier W is windowed, Tier D is permanent', () 
     // Week 0 is older than any window the studio will ever have.
     for (const kind of TIER_D_EVENT_KINDS) {
       expect(
-        () => validateV14(withLog([charterStudioEventRow(kind, 0, 0)], 1)),
+        () => validateAtOwningBoundary(kind, [charterStudioEventRow(kind, 0, 0)], 1),
         `${kind} is the identity-bearing tier and may never be pruned`,
       ).not.toThrow()
     }

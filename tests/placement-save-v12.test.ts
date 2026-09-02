@@ -527,13 +527,13 @@ describe('Placement Core V12 — historical boundary guards (law 19)', () => {
   it('refuses to downgrade a V13 save through migrateToV12 or any earlier boundary', () => {
     const v13 = makeSave(building('save-v13-downgrade'))
     expect(() => migrateToV12(v13)).toThrow(
-      /migrateToV12: cannot downgrade SaveFileV15 or discard property, set, queue, screenplay, and studio-history state/,
+      /migrateToV12: cannot downgrade SaveFileV16 or discard property, set, queue, screenplay, and studio-history state/,
     )
     expect(() => migrateToV11(v13)).toThrow(
-      /cannot downgrade SaveFileV15 or discard placement and property state/,
+      /cannot downgrade SaveFileV16 or discard placement and property state/,
     )
     expect(() => migrateToV10(v13)).toThrow(
-      /migrateToV10: cannot downgrade SaveFileV15/,
+      /migrateToV10: cannot downgrade SaveFileV16/,
     )
   })
 

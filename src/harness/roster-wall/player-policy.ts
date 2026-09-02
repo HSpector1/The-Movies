@@ -12,8 +12,7 @@ import {
   expectedWeeklyRunRevenue,
   exportSave,
   importSave,
-  makeSaveV14,
-  migrateToV16,
+  makeSave,
   renewalWindowOpen,
   stableStringify,
   weeklyOverhead,
@@ -27,7 +26,7 @@ import type {
   GameState,
   GameStateV14,
   LedgerEntry,
-  SaveFileV14,
+  SaveFileV16,
 } from '../../core/index.js'
 import {
   ROSTER_WALL_ENTRY_WEEK,
@@ -306,7 +305,7 @@ export type PlayerPolicyOwnerCadence = {
 
 export type PlayerPolicyEntryHarvest = {
   week: typeof ROSTER_WALL_ENTRY_WEEK
-  save: SaveFileV14
+  save: SaveFileV16
   saveBytes: string
   saveHash: string
   stateHash: string
@@ -649,23 +648,23 @@ function entryRoster(state: GameState): PlayerPolicyEntryRosterMember[] {
 }
 
 function exactSave(state: GameState): {
-  save: SaveFileV14
+  save: SaveFileV16
   bytes: string
   hash: string
   stateHash: string
-  imported: SaveFileV14
+  imported: SaveFileV16
   importedState: GameState
 } {
-  const save = makeSaveV14(structuredClone(state))
+  const save = makeSave(structuredClone(state))
   const bytes = exportSave(save)
   const imported = importSave(bytes)
-  if (imported.saveVersion !== 14) {
-    throw new Error('roster-wall player policy: entry did not import as SaveFileV14')
+  if (imported.saveVersion !== 16) {
+    throw new Error('roster-wall player policy: entry did not import as SaveFileV16')
   }
   if (exportSave(imported) !== bytes) {
     throw new Error('roster-wall player policy: entry import/re-export changed bytes')
   }
-  if (exportSave(makeSaveV14(structuredClone(imported.state))) !== bytes) {
+  if (exportSave(makeSave(structuredClone(imported.state))) !== bytes) {
     throw new Error('roster-wall player policy: remade entry save changed bytes')
   }
   const importedState = imported.state
@@ -676,11 +675,9 @@ function exactSave(state: GameState): {
     hash: sha256(bytes),
     stateHash: hashState(importedState),
     imported,
-    // `imported`/`importedState` above stay pinned at the frozen SaveFileV14
-    // shape; only the returned `importedState` field (declared live GameState)
-    // gains P06A's release authority — empty, since nothing in a Week-196 entry
-    // was ever a committed release under the new root.
-    importedState: migrateToV16(imported).state,
+    // `imported` is already the live SaveFileV16 shape, so `.state` is already a
+    // full `GameState` — no migration needed.
+    importedState: imported.state,
   }
 }
 
@@ -1078,7 +1075,7 @@ function executePlayerPolicy(
     input.operatingPolicyId,
     'round-robin-mixed',
   )
-  const initialSaveHash = sha256(exportSave(makeSaveV14(structuredClone(state))))
+  const initialSaveHash = sha256(exportSave(makeSave(structuredClone(state))))
   const founders = foundingCohort(state)
   const foundingTalentIds = new Set(founders.map((founder) => founder.talentId))
   const episodes = new Map<string, MutableRenewalEpisode>()
@@ -1111,7 +1108,7 @@ function executePlayerPolicy(
   // descriptive harness memory at this seam cannot change the public policy.
   const freshEntry = importSave(entry.saveBytes)
   if (
-    freshEntry.saveVersion !== 14 ||
+    freshEntry.saveVersion !== 16 ||
     exportSave(freshEntry) !== entry.saveBytes ||
     sha256(exportSave(freshEntry)) !== entry.saveHash
   ) {
@@ -1119,12 +1116,10 @@ function executePlayerPolicy(
       'roster-wall player policy: continuation did not fresh-load the immutable entry bytes',
     )
   }
-  // `freshEntry` stays pinned at the frozen SaveFileV14 shape for this exact-bytes
-  // check; `state` (live GameState, continued below) gains P06A's release
-  // authority — empty, since nothing in a Week-196 entry was ever a committed
-  // release under the new root.
+  // `freshEntry` is already the live SaveFileV16 shape, so `.state` is already a
+  // full `GameState` — no migration needed for the continuation below.
   const freshEntryState = freshEntry.state
-  state = migrateToV16(freshEntry).state
+  state = freshEntry.state
   memory = createRenewalPolicyMemory(ROSTER_WALL_ENTRY_WEEK)
   if (
     hashState(freshEntryState) !== entry.stateHash ||
@@ -1349,8 +1344,8 @@ function playerPolicyEntryId(result: RosterWallPlayerPolicyResult): string {
 
 function exactPlayerPolicyEntryState(result: RosterWallPlayerPolicyResult): GameState {
   const imported = importSave(result.entry.saveBytes)
-  if (imported.saveVersion !== 14) {
-    throw new Error('roster-wall player policy evidence: entry is not SaveFileV14')
+  if (imported.saveVersion !== 16) {
+    throw new Error('roster-wall player policy evidence: entry is not SaveFileV16')
   }
   const reexported = exportSave(imported)
   if (
@@ -1365,10 +1360,9 @@ function exactPlayerPolicyEntryState(result: RosterWallPlayerPolicyResult): Game
   }
   const importedState = imported.state
   assertCashReconciles(importedState, 'serialized Week 196 entry')
-  // The checks above stay pinned to the frozen SaveFileV14 shape; only the
-  // returned live GameState gains P06A's release authority — empty, since
-  // nothing in a Week-196 entry was ever a committed release under the new root.
-  return migrateToV16(imported).state
+  // `imported` is already the live SaveFileV16 shape, so `.state` is already a
+  // full `GameState` — no migration needed.
+  return imported.state
 }
 
 /** Full contract-governed Week-196 player-policy entry projection. */

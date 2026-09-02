@@ -1,6 +1,6 @@
 // Week-208 roster-wall exact-entry continuation observatory.
 //
-// ANALYSIS ONLY. Every arm imports the immutable Week-196 SaveFileV14 bytes afresh,
+// ANALYSIS ONLY. Every arm imports the immutable Week-196 SaveFileV16 bytes afresh,
 // applies one C0-C6 renewal policy before the unchanged operating controller, and
 // advances only through the public tick. Nothing in this module mutates production
 // constants, save authority, or a harvested entry object.
@@ -12,8 +12,7 @@ import {
   contractOffer,
   exportSave,
   importSave,
-  makeSaveV14,
-  migrateToV16,
+  makeSave,
   renewalWindowOpen,
   stableStringify,
   weeklyOverhead,
@@ -453,9 +452,8 @@ function sha256(bytes: string): string {
 }
 
 // Accepts the live GameState AND the frozen GameStateV14 shape: `loadFreshEntry`
-// hashes a genuine SaveFileV14 import to check it against the pinned harvest hash
-// (P06A's new `releaseAuthority` root has no V14 home) — a pure serialization
-// hash with no live-only field dependency.
+// hashes a genuine SaveFileV16 import to check it against the pinned harvest hash
+// — a pure serialization hash with no live-only field dependency.
 function stateHash(state: GameState | GameStateV14): string {
   return sha256(stableStringify(state))
 }
@@ -502,8 +500,8 @@ function missingRoles(coverage: RosterWallRoleCoverage): CreativeRole[] {
 }
 
 function assertSource(source: RosterWallSourceProvenance): void {
-  if (source.worktreeDirty !== false || source.saveVersion !== 14) {
-    throw new Error('roster-wall continuation: accepted source must be clean SaveFileV14 authority')
+  if (source.worktreeDirty !== false || source.saveVersion !== 16) {
+    throw new Error('roster-wall continuation: accepted source must be clean SaveFileV16 authority')
   }
 }
 
@@ -526,8 +524,8 @@ function loadFreshEntry(harvest: RosterWallEntryHarvest): GameState {
   // `importSave` is intentionally called for every execution. Do not replace this
   // with harvest.entrySave.state or a clone of a prior arm.
   const imported = importSave(harvest.entrySaveBytes)
-  if (imported.saveVersion !== 14) {
-    throw new Error('roster-wall continuation: immutable entry is not SaveFileV14')
+  if (imported.saveVersion !== 16) {
+    throw new Error('roster-wall continuation: immutable entry is not SaveFileV16')
   }
   const reexported = exportSave(imported)
   if (reexported !== harvest.entrySaveBytes || sha256(reexported) !== harvest.entrySaveHash) {
@@ -541,10 +539,10 @@ function loadFreshEntry(harvest: RosterWallEntryHarvest): GameState {
     throw new Error('roster-wall continuation: fresh entry state hash disagrees with harvest')
   }
   rosterWallCashReconciliation(importedState)
-  // The pinned SaveFileV14 checks above stay unmigrated; only the returned live
-  // starting state gains P06A's release authority (empty — nothing in the frozen
-  // entry was ever a committed release under the new root).
-  return structuredClone(migrateToV16(imported).state)
+  // `imported` is already the live SaveFileV16 shape, so its `.state` is already
+  // a full `GameState` (including whatever real `releaseAuthority` commitments
+  // the frozen entry carried) — no migration is needed.
+  return structuredClone(imported.state)
 }
 
 function commonRecord(
@@ -776,7 +774,7 @@ function executeContinuation(
   assertHorizon(input.continuationPolicyId, horizonWeeks)
   let state = loadFreshEntry(input.harvest)
   const freshImportStateHash = stateHash(state)
-  const freshImportSaveHash = sha256(exportSave(makeSaveV14(state)))
+  const freshImportSaveHash = sha256(exportSave(makeSave(state)))
   const cohortIds = new Set(input.harvest.cohort.map((member) => member.talentId))
   const originalContractKeyByTalentId = new Map(
     input.harvest.cohort.map((member) => [
@@ -1036,7 +1034,7 @@ function executeContinuation(
   if (state.market.tick !== horizonWeeks) {
     throw new Error('roster-wall continuation: final arrival disagrees with requested horizon')
   }
-  const finalSaveBytes = exportSave(makeSaveV14(state))
+  const finalSaveBytes = exportSave(makeSave(state))
   const finalActive = new Set(activeContractIds(state))
   const expiry = originalExpiryBoundary
   const retainedAtExpiry = (
@@ -1304,10 +1302,9 @@ function pairRecord(
   const cohortIds = input.harvest.cohort.map((member) => member.talentId).sort(compareId)
   const baselineRetained = retainedIds(baseline, cohortIds)
   const comparedRetained = retainedIds(compared, cohortIds)
-  // `input.harvest.entrySave` stays pinned at the frozen SaveFileV14 shape; this
-  // whole block is a read-only evidence projection off it, so it widens to the
-  // live GameState shape with an explicit, empty release authority.
-  const entryState = migrateToV16(input.harvest.entrySave).state
+  // `input.harvest.entrySave` is the live SaveFileV16 shape; this whole block is
+  // a read-only evidence projection off its `.state`, already a full `GameState`.
+  const entryState = input.harvest.entrySave.state
   const entryOverhead = overheadParts(entryState)
   const entryReadiness = rosterWallPackageReadiness(
     entryState,

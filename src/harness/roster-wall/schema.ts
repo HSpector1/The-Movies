@@ -7,7 +7,6 @@ import {
   FOUNDING_MINIMUMS,
   TUNING,
   expectedWeeklyRunRevenue,
-  migrateToV16,
   weeklySalary,
 } from '../../core/index.js'
 import type {
@@ -151,10 +150,11 @@ function orderedLedgerFold(openingCash: number, entries: readonly LedgerEntry[])
 }
 
 /** Reconcile native and historical-checkpoint V11 cash in authoritative array order. */
-// Accepts the live GameState AND the frozen GameStateV14 shape: several callers
-// feed it a genuine SaveFileV14 entry read straight off the pinned Week-196
-// harvest. Only ledger/cash/market fields are read — none of them P06A's new
-// `releaseAuthority` root — so widening this is a pure type relaxation.
+// Accepts the live GameState AND the frozen GameStateV14 shape. Callers now
+// feed it a genuine SaveFileV16 entry read straight off the Week-196 harvest;
+// the V14 arm of the union is kept only because this is a pure ledger/cash/
+// market read with no dependency on P06A's `releaseAuthority` root, so
+// widening it costs nothing and there is no reason to narrow it back.
 export function rosterWallCashReconciliation(
   state: GameState | GameStateV14,
 ): RosterWallCashReconciliation {
@@ -345,7 +345,7 @@ export type RosterWallEnvelopeInput = {
 function assertAcceptedSource(source: RosterWallSourceProvenance): void {
   if (
     source.worktreeDirty !== false ||
-    source.saveVersion !== 14 ||
+    source.saveVersion !== 16 ||
     source.productionAuthorityCommit !== ROSTER_WALL_PRODUCTION_AUTHORITY ||
     source.branch.length === 0 ||
     source.commit.length === 0 ||
@@ -354,7 +354,7 @@ function assertAcceptedSource(source: RosterWallSourceProvenance): void {
     source.productionAuthorityTree.length === 0
   ) {
     throw new Error(
-      'roster-wall schema: serialized evidence requires an accepted clean SaveFileV14 source',
+      'roster-wall schema: serialized evidence requires an accepted clean SaveFileV16 source',
     )
   }
 }
@@ -448,11 +448,13 @@ export function makeRosterWallEntryRecord(
   mode: 'current' | 'player-policy',
 ): RosterWallEntryRecord {
   const entryId = rosterWallEntryId(harvest, foundingTermPolicyId)
-  // `harvest.entrySave` stays pinned at the frozen SaveFileV14 shape; this read
-  // model needs the live GameState shape (core's `expectedWeeklyRunRevenue`
-  // requires it) with an explicit, empty release authority — this projection
-  // never reads it, so this cannot mask a real commitment.
-  const state = migrateToV16(harvest.entrySave).state
+  // `harvest.entrySave` is the live SaveFileV16 shape `harvestSave` produces, so
+  // `.state` is already the live GameState core's `expectedWeeklyRunRevenue`
+  // needs — no migration required. This read model does not serialize
+  // `state.releaseAuthority` (it is not one of the fields below), so whether the
+  // harvested entry carries a real release commitment is simply not represented
+  // in this record.
+  const state = harvest.entrySave.state
   const activeTheatricalRuns = state.theatricalRuns
     .filter((run) => run.status === 'active')
     .map((run) => structuredClone(run))

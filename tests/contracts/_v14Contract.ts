@@ -95,6 +95,7 @@ export const CHARTER_GENRES = [
 export const STUDIO_EVENT_ROW_KEYS: Readonly<Record<string, readonly string[]>> = {
   wrapped: ['seq', 'week', 'kind', 'productionId', 'stageFacilityId', 'setId'],
   premiere: ['seq', 'week', 'kind', 'filmId'],
+  releaseCommitted: ['seq', 'week', 'kind', 'productionId'], // P06A
   constructionCompleted: ['seq', 'week', 'kind', 'placementId'],
   setBuilt: ['seq', 'week', 'kind', 'setId'],
   setRetired: ['seq', 'week', 'kind', 'setId', 'refund'],
@@ -814,6 +815,8 @@ export function charterStudioEventRow(
       return { ...base, productionId: 'production-0001', stageFacilityId: 'facility-soundstage-07', setId: null }
     case 'premiere':
       return { ...base, filmId: 'film-0001' }
+    case 'releaseCommitted': // P06A: the permanent commitment witness
+      return { ...base, productionId: 'production-0001' }
     case 'constructionCompleted':
       return { ...base, placementId: 'placement-0001' }
     case 'setBuilt':

@@ -6691,7 +6691,8 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
     save.saveVersion === 12 ||
     save.saveVersion === 13 ||
     save.saveVersion === 14 ||
-    save.saveVersion === 15
+    save.saveVersion === 15 ||
+    save.saveVersion === 16
   ) {
     throw new Error(
       `migrateToV8: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
@@ -6711,7 +6712,8 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
     save.saveVersion === 12 ||
     save.saveVersion === 13 ||
     save.saveVersion === 14 ||
-    save.saveVersion === 15
+    save.saveVersion === 15 ||
+    save.saveVersion === 16
   ) {
     throw new Error(
       `migrateToV9: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
@@ -6730,7 +6732,8 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
     save.saveVersion === 12 ||
     save.saveVersion === 13 ||
     save.saveVersion === 14 ||
-    save.saveVersion === 15
+    save.saveVersion === 15 ||
+    save.saveVersion === 16
   ) {
     throw new Error(
       `migrateToV10: cannot downgrade SaveFileV${String(save.saveVersion)} or discard construction, placement, and property state`,
@@ -6750,7 +6753,8 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
     save.saveVersion === 12 ||
     save.saveVersion === 13 ||
     save.saveVersion === 14 ||
-    save.saveVersion === 15
+    save.saveVersion === 15 ||
+    save.saveVersion === 16
   ) {
     throw new Error(
       `migrateToV11: cannot downgrade SaveFileV${String(save.saveVersion)} or discard placement and property state`,
@@ -6765,7 +6769,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
 // their own validated construction history implies at the final V11→V12 step.
 // V13 is rejected, never downgraded: a property that has grown has no V12 home.
 export function migrateToV12(save: SaveFile): SaveFileV12 {
-  if (save.saveVersion === 13 || save.saveVersion === 14 || save.saveVersion === 15) {
+  if (save.saveVersion === 13 || save.saveVersion === 14 || save.saveVersion === 15 || save.saveVersion === 16) {
     throw new Error(
       `migrateToV12: cannot downgrade SaveFileV${String(save.saveVersion)} or discard property, set, queue, screenplay, and studio-history state`,
     );

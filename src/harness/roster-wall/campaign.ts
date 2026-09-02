@@ -22,10 +22,8 @@ import {
   freelancerMarketIds,
   generateWorld,
   importSave,
-  initialReleaseAuthority,
   isContracted,
   makeSave,
-  makeSaveV14,
   marketingLevelsFor,
   nextStudioDecision,
   readyScriptPerceivedStrength,
@@ -34,7 +32,7 @@ import {
   runway,
   stableStringify,
   tick,
-  validateSaveV14,
+  validateSaveV16,
   weeklyOverhead,
   weeklyPayroll,
   weeklySalary,
@@ -53,7 +51,7 @@ import type {
   GreenlightScriptProjectPayload,
   LedgerEntry,
   ReceptionInputs,
-  SaveFileV14,
+  SaveFileV16,
   ScriptProject,
   Talent,
 } from '../../core/index.js'
@@ -282,7 +280,7 @@ export type RosterWallEntryHarvest = {
   foundingTermWeeks: typeof ROSTER_WALL_FOUNDING_TERM_WEEKS
   initialSaveHash: string
   initialStateHash: string
-  entrySave: SaveFileV14
+  entrySave: SaveFileV16
   entrySaveBytes: string
   entrySaveHash: string
   entryStateHash: string
@@ -390,10 +388,9 @@ function sha256(value: string): string {
 }
 
 // Accepts the live GameState AND the frozen GameStateV14 shape: `harvestSave`'s
-// exact-fidelity check hashes a genuine SaveFileV14 round trip (P06A's new
-// `releaseAuthority` root has no V14 home), so this is a pure serialization hash
-// with no live-only field dependency — widening it here does not relax the
-// live call sites, which still pass a real `GameState`.
+// exact-fidelity check now hashes a genuine SaveFileV16 round trip, so this is
+// a pure serialization hash with no live-only field dependency — widening it
+// here does not relax the live call sites, which still pass a real `GameState`.
 function stateHash(state: GameState | GameStateV14): string {
   return sha256(stableStringify(state))
 }
@@ -1421,31 +1418,31 @@ function executeEntryCampaign(
 }
 
 function harvestSave(state: GameState): {
-  entrySave: SaveFileV14
+  entrySave: SaveFileV16
   entrySaveBytes: string
   entrySaveHash: string
   entryStateHash: string
 } {
   const stateHashBefore = stateHash(state)
-  const made = makeSaveV14(structuredClone(state))
+  const made = makeSave(structuredClone(state))
   const entrySaveBytes = exportSave(made)
   const imported = importSave(entrySaveBytes)
-  if (imported.saveVersion !== 14) {
-    throw new Error('roster-wall observatory: Week-196 import did not return SaveFileV14')
+  if (imported.saveVersion !== 16) {
+    throw new Error('roster-wall observatory: Week-196 import did not return SaveFileV16')
   }
-  const validated = validateSaveV14(imported)
+  const validated = validateSaveV16(imported)
   const importedReexport = exportSave(validated)
   if (importedReexport !== entrySaveBytes) {
-    throw new Error('roster-wall observatory: imported SaveFileV14 re-export changed bytes')
+    throw new Error('roster-wall observatory: imported SaveFileV16 re-export changed bytes')
   }
-  const remade = makeSaveV14(structuredClone(validated.state))
+  const remade = makeSave(structuredClone(validated.state))
   const remadeReexport = exportSave(remade)
   if (remadeReexport !== entrySaveBytes) {
-    throw new Error('roster-wall observatory: re-made SaveFileV14 changed entry bytes')
+    throw new Error('roster-wall observatory: re-made SaveFileV16 changed entry bytes')
   }
   const entryStateHash = stateHash(validated.state)
   if (entryStateHash !== stateHashBefore) {
-    throw new Error('roster-wall observatory: SaveFileV14 replay changed entry state')
+    throw new Error('roster-wall observatory: SaveFileV16 replay changed entry state')
   }
   return {
     entrySave: validated,
@@ -1508,7 +1505,7 @@ function parityProjection(
 /**
  * Build the canonical all-208 founding campaign, apply the optional real Annex
  * public action at Week 0, run the frozen film policy without renewals, and harvest
- * the exact validated/replayed Week-196 SaveFileV14 entry.
+ * the exact validated/replayed Week-196 SaveFileV16 entry.
  */
 export function runRosterWallEntryCampaign(
   input: RunRosterWallEntryCampaignInput,
@@ -1518,14 +1515,10 @@ export function runRosterWallEntryCampaign(
   if (execution.runtime.preEntryWindowEve === null) {
     throw new Error('roster-wall observatory: Week-195 window-eve boundary was not captured')
   }
-  // `harvested.entrySave` stays pinned at the frozen SaveFileV14 shape (the whole
-  // point of the harvest); this call site alone widens the READ to the live
-  // GameState shape with an explicit, empty release authority — `cohortAtEntry`
-  // never reads it, so this cannot mask a real commitment.
-  const cohort = cohortAtEntry({
-    ...harvested.entrySave.state,
-    releaseAuthority: initialReleaseAuthority(),
-  })
+  // `harvested.entrySave` is the live SaveFileV16 shape (the whole point of the
+  // harvest); its `.state` is already a full `GameState`, so `cohortAtEntry` can
+  // read it directly with no gap-filling.
+  const cohort = cohortAtEntry(harvested.entrySave.state)
   if (
     cohort.some(
       (member) =>

@@ -795,7 +795,7 @@ describe('roster-wall artifact infrastructure', () => {
   it('rejects the former skeletal smoke counterfeit before semantic acceptance', () => {
     const fixture = createGitFixture()
     expect(() => writeAcceptedSmokeArtifact(fixture, 'semantic-smoke')).toThrow(
-      /same governed repository|production authority failed|summary\.json lacks denominators|governed entry projection|projection disagrees|accepted clean SaveFileV14 provenance/,
+      /same governed repository|production authority failed|summary\.json lacks denominators|governed entry projection|projection disagrees|accepted clean SaveFileV16 provenance/,
     )
   })
 
@@ -879,7 +879,7 @@ describe('roster-wall artifact infrastructure', () => {
     expect(() => new RosterWallArtifactWriter(root, 'stale')).toThrow(/not empty/)
 
     const writer = new RosterWallArtifactWriter(root, 'immutable')
-    const saveJson = exportSave(makeSaveV14(generateWorld('immutable-save')))
+    const saveJson = exportSave(makeSave(generateWorld('immutable-save')))
     writer.writeEntry({ entryId: 'same', row: { entryId: 'same' }, saveJson })
     expect(() =>
       writer.writeEntry({ entryId: 'same', row: { entryId: 'same' }, saveJson }),
