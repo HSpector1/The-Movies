@@ -43,3 +43,46 @@ Per the project law: a gap is reported, not silently filled.
   the first-film-journey guidance (and any phase-based picture card) read `operationalState` for
   the wrapped-waiting and release-ready families so the card, rail, and building speak with one
   voice. Tracked here so it is findable, not lost.
+
+## F3 — the release-commit control is reachable, via the workflow memo (functional) — **VERIFIED, with a placement observation**
+
+- **What:** an early literal search for `commitPictureToRelease` in Unity presentation found only the
+  pure contract, which momentarily looked like the packaged player had no way to commit a release
+  (the P04 lesson-4 defect). Re-checked: it is reachable and FUNCTIONAL. The workflow memo
+  (`StudioBridgeClient.OnGUI`) renders every non-ceded available intent as a `PlayerWorkflowButton`
+  and dispatches it through `SubmitPlayerWorkflowIntent` → `SubmitIntent` on click. The
+  `commitPictureToRelease` intent is not ceded (unlike founding/development/time/casting, which the
+  memo cedes to their world surfaces), so "Commit &lt;title&gt; to release" is a real, dispatching
+  button — confirmed in the release-ready and multi-picture oracle frames, and the machine
+  real-profile journey exercises the same core action end-to-end (25/25).
+- **Observation (not a defect):** by the codebase's own principle (development/casting/founding/time
+  are ceded from the memo to world surfaces), the release commitment could also be ceded to a world
+  surface — the Production/Post building's retained workspace — rather than living in the workflow
+  memo. W5 shipped the `StudioReleaseContracts.Decide` decision contract and the reachable-via-memo
+  control; a bespoke world release-commit surface that cedes the memo button is a reasonable future
+  refinement. Not blocking: the capability is reachable, visible, and dispatches (so hostile #16
+  does not fire).
+
+## F4 — HID (synthetic macOS input) journey is blocked by the session display, not by the product — **BLOCKER (documented), compensating proof at four levels**
+
+- **What:** the required HID journey drives the P06 commit via real CGEventPost input on the
+  packaged player. `Tools/ownerinput` builds and is accessibility-trusted (`AXIsProcessTrusted=true`),
+  but the packaged player, launched in this autonomous session, creates **no on-screen window** the
+  Window Server tracks (window enumeration lists only loginwindow / Chrome / Menubar; a full-screen
+  `loginwindow` at layer 2004 indicates a locked/inactive display). `screencapture` captures the
+  desktop, not the player. The Visual Oracle still works because it captures the app's INTERNAL
+  framebuffer via `ScreenCapture.CaptureScreenshot`, which needs no window — but real HID clicks
+  require an on-screen window to land on.
+- **Why it is environmental, not product:** the same direct-exe launch renders the full game UI
+  (seven real oracle frames inspected). The app renders; the session simply does not present its
+  window for OS-level input. Resolving it needs an interactive GUI session / unlocked display —
+  Owner/operator territory, not an autonomous code change.
+- **Compensating proof that the commit flow is reachable and correct** (what the HID journey would
+  have shown): (1) machine real-profile journey 25/25 — the full Wrap→Ready→Hold→Commit→dispatch→
+  Save/Load walk on the real profile; (2) six-scene Visual Oracle — the commit button renders at
+  Release Ready, the committed state renders, all image-inspected; (3) browser E2E (`App.test`)
+  clicks `release-commit` and dispatches; (4) code-verified functional dispatch (F3).
+- **Disposition:** SAFE-terminal-state environmental blocker. To run the HID journey, launch on an
+  interactive/unlocked GUI session; the harness (`Tools/ownerinput`, the p05 HID pattern) is ready
+  and the commit control is the memo's `PlayerWorkflowButton` for the `commitPictureToRelease`
+  intent.
