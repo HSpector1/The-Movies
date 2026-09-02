@@ -86,3 +86,26 @@ Per the project law: a gap is reported, not silently filled.
   interactive/unlocked GUI session; the harness (`Tools/ownerinput`, the p05 HID pattern) is ready
   and the commit control is the memo's `PlayerWorkflowButton` for the `commitPictureToRelease`
   intent.
+- **EXACT NEXT COMMAND (run on an interactive, unlocked macOS GUI session):**
+  ```zsh
+  cd "/Users/bruce/The Movies - P06A Impl Unity"
+  OI=Tools/ownerinput/ownerinput; swiftc -O -o "$OI" "$OI.swift" 2>/dev/null; "$OI" trusted   # expect AXIsProcessTrusted=true
+  RUNTIME=$(mktemp -d /tmp/p06-hid.XXXXXX)
+  cp "/Users/bruce/The Movies - P06A Impl TS/ui/e2e/p06-visual-oracle-v1/s4-release-ready.checkpoint.json" "$RUNTIME/bridge-runtime-v1.json"
+  CAP=$(python3 -c 'import secrets;print(secrets.token_urlsafe(32))'); PORT=43270
+  PROJECT_STUDIO_BRIDGE_CAPABILITY="$CAP" PROJECT_STUDIO_BRIDGE_PORT="$PORT" PROJECT_STUDIO_BRIDGE_RUNTIME_DIR="$RUNTIME" \
+    node "/Users/bruce/The Movies - P06A Impl TS/dist/studio/engine.mjs" >"$RUNTIME/engine.log" 2>&1 &
+  # after GET /health 200 with the x-project-studio-capability header:
+  caffeinate -dimsu & "$OI" move 720 500
+  PROJECT_STUDIO_BRIDGE_URL="http://127.0.0.1:$PORT" PROJECT_STUDIO_BRIDGE_CAPABILITY="$CAP" \
+    "Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike" \
+    -screen-width 1440 -screen-height 900 -screen-fullscreen 0 >"$RUNTIME/app.log" 2>&1 &
+  APP=$!; sleep 12; "$OI" activate "$APP"; "$OI" releasemods; "$OI" windows   # confirm an on-screen player window exists
+  # then click the top-left workflow-memo "Commit <title> to release" button (bind the window rect first,
+  # per Tools/p05-proof-journey.mjs contentRect/toPoint), and verify the s4 release decision flips to
+  # authorityState=committed (re-poll the bridge snapshot or screenshot the COMMITTED state).
+  ```
+  Verified on this build: exe sha `aabc41f80295c2c6…`; the memo renders the non-ceded
+  `commitPictureToRelease` intent and dispatches it via `SubmitPlayerWorkflowIntent`. The ONLY thing
+  missing here was an on-screen window; on an unlocked GUI session `"$OI" windows` will list the
+  player and the click lands.
