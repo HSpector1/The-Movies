@@ -16,6 +16,7 @@ import {
   signContractAction,
   startCastingSessionAction,
   studioCalendarBoard,
+  studioDecision,
 } from '../engine/adapter.ts'
 import type {
   CommissionScriptPayload,
@@ -24,6 +25,7 @@ import type {
   GameState,
   StudioCalendarView,
 } from '../engine/adapter.ts'
+import { applyActions } from '../../../src/core/index.ts'
 import { StudioCalendar, StudioCalendarPreview } from './StudioCalendar.tsx'
 import { newFoundedGame } from '../test/founding.ts'
 import { App } from '../App.tsx'
@@ -181,6 +183,15 @@ function theatricalRunStudio(seed: string): GameState {
   state = greenlit.next
   for (let guard = 0; guard < 24; guard++) {
     if (state.theatricalRuns.some((run) => run.status === 'active')) return state
+    // P06A (W1): a Release Ready picture HOLDS until committed — resolve it before
+    // advancing, or the run never opens.
+    const decision = studioDecision(state)
+    if (decision?.kind === 'releaseReview') {
+      state = applyActions(state, [
+        { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+      ])
+      continue
+    }
     state = advanceWeek(state).next
   }
   throw new Error('setup: theatrical run did not open')

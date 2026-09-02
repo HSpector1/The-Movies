@@ -231,6 +231,12 @@ describe('C2a-M5 §4.3 — the wrap member', () => {
   it('is declared immediately after `productionDecision` and before `constructionCompleted`', () => {
     // The charter states the POSITION, to the member. Pinned against the source
     // itself because declaration order is not observable at runtime.
+    //
+    // P06A (charter W1): 'releaseReview' — the uncommitted Release Ready decision —
+    // is declared immediately after `productionDecision` and before `wrap` (annex
+    // H11B: it outranks every informational stop, `wrap` included). `wrap`'s own
+    // charter position is otherwise unchanged: still directly before
+    // `constructionCompleted`.
     const union = ADAPTER_SOURCE.slice(
       ADAPTER_SOURCE.indexOf('export type SimStopReason ='),
       ADAPTER_SOURCE.indexOf("| 'limit'"),
@@ -238,7 +244,8 @@ describe('C2a-M5 §4.3 — the wrap member', () => {
     const members = [...union.matchAll(/\|\s*'([a-zA-Z]+)'/g)].map((m) => m[1])
     const at = members.indexOf('wrap')
     expect(at).toBeGreaterThan(0)
-    expect(members[at - 1]).toBe('productionDecision')
+    expect(members[at - 1]).toBe('releaseReview')
+    expect(members[at - 2]).toBe('productionDecision')
     expect(members[at + 1]).toBe('constructionCompleted')
   })
 

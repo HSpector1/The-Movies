@@ -17,9 +17,23 @@ import {
   theatricalRuns,
   studioRevenueForFilm,
   selectReleasedFilms,
+  selectActiveProductions,
 } from '../engine/adapter.ts'
 import type { DraftPackage, GameState } from '../engine/adapter.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
+import { applyActions } from '../../../src/core/index.ts'
+
+// P06A (charter W1): a production HOLDS at remainingTicks===1 until the player commits
+// it to release; commit any ready picture before an advancing tick so release-driving
+// fixtures keep releasing under the truthful hold law. Commit advances no time.
+function commitReady(s: GameState): GameState {
+  const ready = selectActiveProductions(s).filter((p) => p.remainingTicks === 1)
+  if (ready.length === 0) return s
+  return applyActions(
+    s,
+    ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+  )
+}
 
 afterEach(cleanup)
 
@@ -52,7 +66,7 @@ function foundedWithActiveRun(seed: string): GameState {
   const g = greenlight(state, legalPackage(state))
   if (!g.ok) throw new Error(`greenlight failed: ${g.error}`)
   state = g.next
-  for (let i = 0; i < 40 && theatricalRuns(state).length === 0; i++) state = advanceWeek(state).next
+  for (let i = 0; i < 40 && theatricalRuns(state).length === 0; i++) state = advanceWeek(commitReady(state)).next
   if (theatricalRuns(state).length === 0) throw new Error('no active run after advancing')
   return state
 }

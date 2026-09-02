@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { applyActions } from '../../../src/core/index.ts'
 import {
   advanceWeek,
   assessDiscoveryExposure,
@@ -148,6 +149,14 @@ function releaseManagedProduction(state: GameState): {
       const result = runProductionCommand(current, command)
       if (!result.ok) throw new Error(result.error)
       current = result.next
+      continue
+    }
+    // P06A W1: a Release Ready picture HOLDS until explicitly committed — resolve the
+    // decision the instant it appears so this walk still finds a real release.
+    if (decision?.kind === 'releaseReview') {
+      current = applyActions(current, [
+        { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+      ])
       continue
     }
     const step = advanceWeek(current)

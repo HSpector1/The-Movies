@@ -14,7 +14,7 @@ import {
   requiredNegative,
   exportSaveJson,
 } from '../engine/adapter.ts'
-import { personaToExpression, castContribution, safeCosine } from '../../../src/core/index.ts'
+import { personaToExpression, castContribution, safeCosine, applyActions } from '../../../src/core/index.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
 import type { CastSlot, DraftPackage } from '../engine/adapter.ts'
 
@@ -83,7 +83,16 @@ describe('D-12 Team Direction Preview', () => {
     }
     const g = greenlight(state, pkg)
     if (!g.ok) throw new Error(g.error)
-    const rel = advanceToNextEvent(g.next)
+    let rel = advanceToNextEvent(g.next)
+    // P06A (W1): a Release Ready picture HOLDS at 'releaseReview' until committed —
+    // resolve it, then re-invoke to reach the true 'release' stop.
+    if (rel.stopReason === 'releaseReview' && rel.releaseDecision) {
+      rel = advanceToNextEvent(
+        applyActions(rel.next, [
+          { kind: 'commitPictureToRelease', productionId: rel.releaseDecision.productionId },
+        ]),
+      )
+    }
     const film = rel.released[0]!
     const view = explainRelease(rel.preTick, rel.next.studio.standing, film)
     const autopsyBand = deliveredAlignmentReport(view).band // 'Weak' | 'Mixed' | 'Strong'

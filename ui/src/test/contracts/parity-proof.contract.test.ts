@@ -31,6 +31,7 @@
 // DETERMINISM: no Math.random, no Date.now, no timers, no real playback.
 
 import { describe, expect, it } from 'vitest'
+import { applyActions } from '../../../../src/core/index.ts'
 import {
   advanceToNextEvent,
   advanceWeek,
@@ -211,15 +212,26 @@ function playParityScript(p: Punctuation): RunTrace {
   p.formation(week(state))
   receipts++
 
-  // 6 — play forward through governed stops. Eight steps reaches the first
-  // productionDecision, its three commands, the release, the run's end, the cash
-  // crossing and a renewal window: every tier the grammar can speak in.
-  for (let step = 0; step < 8; step++) {
+  // 6 — play forward through governed stops. Nine steps reaches the first
+  // productionDecision, its three commands, the Release Ready commit (P06A —
+  // charter W1), the release, the run's end, the cash crossing and a renewal
+  // window: every tier the grammar can speak in.
+  for (let step = 0; step < 9; step++) {
     const decision = studioDecision(state)
     if (decision?.kind === 'productionDecision' && decision.decision.command !== null) {
       const commanded = runProductionCommand(state, decision.decision.command)
       if (!commanded.ok) throw new Error(`parity script: command failed — ${commanded.error}`)
       state = commanded.next
+      p.commit('package-step', week(state))
+      receipts++
+      continue
+    }
+    // P06A W1: a Release Ready picture HOLDS until explicitly committed — resolve
+    // the decision the instant it appears so the walk still reaches the release.
+    if (decision?.kind === 'releaseReview') {
+      state = applyActions(state, [
+        { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+      ])
       p.commit('package-step', week(state))
       receipts++
       continue

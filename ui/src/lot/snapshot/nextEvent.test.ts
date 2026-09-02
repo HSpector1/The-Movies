@@ -23,7 +23,7 @@ import type {
   SimResult,
   StartCastingSessionPayload,
 } from '../../engine/adapter.ts'
-import { generateWorld } from '../../../../src/core/index.ts'
+import { applyActions, generateWorld } from '../../../../src/core/index.ts'
 import { foundedRosterIds, newFoundedGame } from '../../test/founding.ts'
 import {
   acceptedLotNextEventConstructionCompletion,
@@ -179,12 +179,31 @@ function productionResult(seed: string): { before: GameState; result: SimResult 
   return { before, result: advanceToNextEvent(before) }
 }
 
+// P06A W1: a Release Ready picture HOLDS — advanceToNextEvent stops ZERO-WEEK at
+// 'releaseReview' before the true (later) 'release' stop. Resolve that decision by
+// committing the exact production the engine named, then keep walking, bounded, to
+// reach the 'release' stop these fixtures are actually about.
+function advanceToRelease(state: GameState): SimResult {
+  let current = advanceToNextEvent(state)
+  for (let guard = 0; guard < 5 && current.stopReason === 'releaseReview'; guard++) {
+    const productionId = current.releaseDecision?.productionId
+    if (productionId === undefined) {
+      throw new Error('setup: releaseReview stop missing releaseDecision.productionId')
+    }
+    const committed = applyActions(current.next, [
+      { kind: 'commitPictureToRelease', productionId },
+    ])
+    current = advanceToNextEvent(committed)
+  }
+  return current
+}
+
 function completedRunsResult(
   seed: string,
   count = 1,
 ): { before: GameState; result: SimResult } {
   const greenlit = greenlitLegacy(seed, count)
-  const release = advanceToNextEvent(greenlit)
+  const release = advanceToRelease(greenlit)
   if (release.stopReason !== 'release') throw new Error('setup: expected release')
   const before = release.next
   return { before, result: advanceToNextEvent(before) }
@@ -332,7 +351,7 @@ describe('strict Lot next-event presentation boundary', () => {
 
   it('keeps release and zero-week preflight outside exact receipts and accepts only the 520 guard neutral', () => {
     const releaseBefore = greenlitLegacy('next-event-receipt-release')
-    const release = advanceToNextEvent(releaseBefore)
+    const release = advanceToRelease(releaseBefore)
     expect(release.stopReason).toBe('release')
     expect(acceptedLotNextEventReceipt(releaseBefore, release)).toBeNull()
 

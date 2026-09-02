@@ -27,6 +27,7 @@ import {
   explainRelease,
   autopsyCompare,
   requiredNegative,
+  selectActiveProductions,
 } from '../engine/adapter.ts'
 import type {
   GameState,
@@ -36,6 +37,7 @@ import type {
   AutopsyCompareView,
 } from '../engine/adapter.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
+import { applyActions } from '../../../src/core/index.ts'
 
 afterEach(cleanup)
 
@@ -159,6 +161,15 @@ function playToRelease(seed: string): { view: AutopsyView; compare: AutopsyCompa
   let preTick = state
   let postStanding = state.studio.standing
   for (let i = 0; i < 20 && released.length === 0; i++) {
+    // P06A (charter W1): a production HOLDS at remainingTicks===1 until committed —
+    // commit any ready picture before this advance so the fixture keeps releasing.
+    const ready = selectActiveProductions(state).filter((p) => p.remainingTicks === 1)
+    if (ready.length > 0) {
+      state = applyActions(
+        state,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
     const step = advanceWeek(state)
     preTick = step.preTick
     state = step.next

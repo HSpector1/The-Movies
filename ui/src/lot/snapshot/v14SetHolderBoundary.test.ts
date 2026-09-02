@@ -41,7 +41,9 @@ describe('C2a-M2 — a save round-trips as V15, roots and all', () => {
   it('exports V15 and imports it back with the four C2a roots intact', () => {
     const state = activatedStudio()
     const json = exportSaveJson(state)
-    expect(JSON.parse(json).saveVersion).toBe(15)
+    // P06A W1/W2: the live save version is V16 (releaseAuthority root); a fresh
+    // makeSave/export is current, not a conversion, and pins to 16 here.
+    expect(JSON.parse(json).saveVersion).toBe(16)
 
     const outcome = importSaveJson(json)
     expect(outcome.ok).toBe(true)

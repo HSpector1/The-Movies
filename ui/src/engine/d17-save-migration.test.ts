@@ -53,6 +53,16 @@ function headless(seed: string, weeks: number): GameState {
   let s = generateWorld(seed)
   for (let i = 0; i < weeks; i++) {
     s = applyActions(s, OracleAgent.chooseActions(s))
+    // P06A W1: a picture at remainingTicks===1 HOLDS until explicitly committed to
+    // release — commit every such picture immediately before the tick that would
+    // otherwise have released it, so this headless walk still releases films.
+    const ready = s.studio.activeProductions.filter((p) => p.remainingTicks === 1)
+    if (ready.length > 0) {
+      s = applyActions(
+        s,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
     s = tick(s)
   }
   return s
@@ -118,7 +128,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
   it('a CURRENT-version save round-trips through the adapter as NOT converted', () => {
     const state = newFoundedGame('d17-adapter-v10')
     const json = exportSaveJson(state)
-    expect(JSON.parse(json).saveVersion).toBe(15) // P04A: new games save as SaveFileV15
+    expect(JSON.parse(json).saveVersion).toBe(16) // P06A: new games save as SaveFileV16
 
     const r = importSaveJson(json)
     expect(r.ok).toBe(true)
@@ -128,7 +138,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
     expect(exportSaveJson(r.state)).toBe(json)
   })
 
-  it('a literal V8 save upgrades to V15 with legacy screenplay, casting, construction, placement, and property state', () => {
+  it('a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state', () => {
     const state = newFoundedGame('d17-adapter-v8')
     const json = exportSave(makeSaveV8(toV8(state)))
     const parsed = JSON.parse(json)
@@ -142,7 +152,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
     expect(r.state.operations).toEqual(state.operations)
     expect(r.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
     expect(r.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
-    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(15) // P04A
+    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(16) // P04A
   })
 
   it('a V5 file with a hand-added economyEngagedEver is still read as V5 (the flag is recomputed)', () => {

@@ -17,7 +17,14 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { useLayoutEffect, type ComponentProps } from 'react'
 import type StudioLotScreenType from '../lot/StudioLotScreen.tsx'
 import { App } from '../App.tsx'
-import { advanceWeek, exportSaveJson, greenlight, requiredNegative } from '../engine/adapter.ts'
+import { applyActions } from '../../../src/core/index.ts'
+import {
+  advanceWeek,
+  exportSaveJson,
+  greenlight,
+  requiredNegative,
+  studioDecision,
+} from '../engine/adapter.ts'
 import type { CreativeRole, DraftPackage, GameState } from '../engine/adapter.ts'
 import { ACTIVE_SESSION_KEY, hasActiveSession, saveActiveSession } from '../engine/session.ts'
 import { setStudioLotOverviewOverride } from '../flags.ts'
@@ -201,6 +208,14 @@ function releasedStudio(seed: string): GameState {
   if (!g.ok) throw new Error(g.error)
   let s = g.next
   for (let guard = 0; guard < 60 && s.studio.releasedFilms.length === 0; guard++) {
+    // P06A W1: a Release Ready picture HOLDS until explicitly committed — resolve
+    // the decision the instant it appears so this walk still finds a real release.
+    const decision = studioDecision(s)
+    if (decision?.kind === 'releaseReview') {
+      s = applyActions(s, [
+        { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+      ])
+    }
     s = advanceWeek(s).next
   }
   if (s.studio.releasedFilms.length === 0) throw new Error('no release')

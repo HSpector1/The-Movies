@@ -31,9 +31,11 @@ import {
   importSaveJson,
   SPECIALIZATION_POINTS,
   TUNING,
+  selectActiveProductions,
 } from '../engine/adapter.ts'
 import type { GameState, FilmResult, NewspaperView, DraftPackage } from '../engine/adapter.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
+import { applyActions } from '../../../src/core/index.ts'
 
 afterEach(cleanup)
 
@@ -71,6 +73,15 @@ function releaseOneFilm(seed: string): { state: GameState; film: FilmResult } {
   state = g.next
   let film: FilmResult | null = null
   for (let i = 0; i < TUNING.PRODUCTION_TICKS + 5 && film === null; i++) {
+    // P06A (charter W1): a production HOLDS at remainingTicks===1 until committed —
+    // commit any ready picture before this advance so the fixture keeps releasing.
+    const ready = selectActiveProductions(state).filter((p) => p.remainingTicks === 1)
+    if (ready.length > 0) {
+      state = applyActions(
+        state,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
     const step = advanceWeek(state)
     state = step.next
     if (step.released.length > 0) film = step.released[0]!

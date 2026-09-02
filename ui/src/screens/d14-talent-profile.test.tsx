@@ -48,7 +48,19 @@ function releaseOneFilm(s0: GameState): { s: GameState; pid: string; preRelease:
   const pid = s.studio.activeProductions[s.studio.activeProductions.length - 1]!.id
   let preRelease = s
   for (let k = 0; k < TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS + 8; k++) {
-    const before = s
+    // P06A (W1): a ready picture HOLDS at remainingTicks===1 until committed —
+    // commit every ready active production before advancing, or the run never opens.
+    const committed = new Set(s.releaseAuthority.commitments.map((r) => r.productionId))
+    const ready = s.studio.activeProductions.filter(
+      (p) => p.remainingTicks === 1 && !committed.has(p.id),
+    )
+    if (ready.length > 0) {
+      s = applyActions(
+        s,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
+    const before = s // the (possibly just-committed) state immediately before this tick
     s = tick(s, { develop: true })
     if (!before.studio.releasedFilms.some((f) => f.productionId === pid) && s.studio.releasedFilms.some((f) => f.productionId === pid)) {
       preRelease = before // the state just BEFORE this film released (for exact autopsy)

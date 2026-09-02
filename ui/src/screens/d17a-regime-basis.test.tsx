@@ -24,6 +24,7 @@ import {
   releaseScorecard,
   requiredNegative,
   selectReleasedFilms,
+  studioDecision,
   TUNING,
 } from '../engine/adapter.ts'
 import type { DraftPackage, GameState } from '../engine/adapter.ts'
@@ -102,6 +103,15 @@ describe('D-17A fix-pass — a never-engaged studio is priced at 100% of gross, 
     let s = g.next
     let preTick = s
     for (let k = 0; k < 40 && selectReleasedFilms(s).length === 0; k++) {
+      // P06A (W1): a Release Ready picture HOLDS until committed.
+      const decision = studioDecision(s)
+      if (decision?.kind === 'releaseReview') {
+        preTick = s
+        s = applyActions(s, [
+          { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+        ])
+        continue
+      }
       preTick = s
       s = advanceWeek(s).next
     }

@@ -131,6 +131,12 @@ describe('App end-to-end loop', () => {
     for (let i = 0; i < 20 && !releasedCard; i++) {
       // We may be on dashboard or release screen; ensure we advance from dashboard.
       resolveProductionCommands()
+      // P06A: a Release Ready picture holds until the player commits it — the
+      // browser now renders that exact control. Click it the way a player would.
+      const commit = screen.queryByTestId('release-commit')
+      if (commit) {
+        fireEvent.click(commit)
+      }
       const advance = screen.queryByTestId('advance-week')
       if (advance) {
         fireEvent.click(advance)

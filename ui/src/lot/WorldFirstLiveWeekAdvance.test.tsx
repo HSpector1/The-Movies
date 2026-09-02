@@ -10,6 +10,7 @@ import {
   productionDecision,
   requiredNegative,
   runProductionCommand,
+  studioDecision,
   studioLotSnapshot,
 } from '../engine/adapter.ts'
 import type { CreativeRole, DraftPackage, GameState } from '../engine/adapter.ts'
@@ -132,6 +133,14 @@ function scheduledStage7State(seed: string): GameState {
 function releaseNextState(seed: string): GameState {
   let state = greenlightOne(newFoundedGame(seed))
   for (let guard = 0; guard < 30; guard++) {
+    // P06A W1: a Release Ready picture HOLDS until explicitly committed — resolve the
+    // decision the instant it appears so the walk still finds a real release-next week.
+    const decision = studioDecision(state)
+    if (decision?.kind === 'releaseReview') {
+      state = applyActions(state, [
+        { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+      ])
+    }
     const step = advanceWeek(state)
     if (step.released.length > 0) return state
     state = step.next

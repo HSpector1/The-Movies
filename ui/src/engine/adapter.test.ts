@@ -3,6 +3,7 @@
 // pure adapter logic (no DOM needed for most).
 
 import { describe, it, expect } from 'vitest'
+import { applyActions } from '../../../src/core/index.ts'
 import {
   newGame,
   standingChannels,
@@ -18,6 +19,7 @@ import {
   exportSaveJson,
   importSaveJson,
   predictedProductionId,
+  studioDecision,
   AUTHORED_START,
   CAST_SLOTS,
   findTalent,
@@ -235,6 +237,14 @@ describe('adapter: full loop + autopsy reconstruction', () => {
     let preTick = state
     let postStanding = state.studio.standing
     for (let i = 0; i < 20 && released.length === 0; i++) {
+      // P06A W1: a Release Ready picture HOLDS until explicitly committed — resolve the
+      // decision the instant it appears so the loop still finds a real release.
+      const decision = studioDecision(state)
+      if (decision?.kind === 'releaseReview') {
+        state = applyActions(state, [
+          { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+        ])
+      }
       const step = advanceWeek(state)
       preTick = step.preTick
       state = step.next

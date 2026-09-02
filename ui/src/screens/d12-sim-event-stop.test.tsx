@@ -14,6 +14,7 @@ import {
   exportSaveJson,
   importSaveJson,
   selectActiveProductions,
+  studioDecision,
 } from '../engine/adapter.ts'
 import type { GameState, DraftPackage, CastSlot } from '../engine/adapter.ts'
 import { generateWorld, beginFounding, applyActions, tick, roleOVR, ROLE_TO_DISCIPLINE } from '../../../src/core/index.ts'
@@ -53,6 +54,36 @@ const gl = (s: GameState, p: DraftPackage) => {
   if (!g.ok) throw new Error(g.error)
   return g.next
 }
+// P06A (charter W1): a production HOLDS at remainingTicks===1 until the player commits
+// it to release; commit every ready picture before each advancing tick so release-driving
+// fixtures keep releasing under the truthful hold law. Bounded by the caller's own guard.
+function commitReady(s: GameState): GameState {
+  const ready = selectActiveProductions(s).filter((p) => p.remainingTicks === 1)
+  if (ready.length === 0) return s
+  return applyActions(
+    s,
+    ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+  )
+}
+// For `advanceToNextEvent` walks: resolve every intervening 'releaseReview' stop by
+// committing the named picture, then re-invoke to reach the stop the caller actually
+// wants. Bounded — a failure to converge throws instead of spinning forever.
+function advanceToNextEventCommitting(s: GameState) {
+  let cur = s
+  for (let i = 0; i < 60; i++) {
+    const result = advanceToNextEvent(cur)
+    cur = result.next
+    const decision = studioDecision(cur)
+    if (decision?.kind === 'releaseReview') {
+      cur = applyActions(cur, [
+        { kind: 'commitPictureToRelease' as const, productionId: decision.decision.productionId },
+      ])
+      continue
+    }
+    return result
+  }
+  throw new Error('advanceToNextEventCommitting: did not converge after 60 iterations')
+}
 // Advance to the state where TWO runs are active at payment 1 of 6, no productions (the owner's Week 22).
 function stageTwoRunsAtPayment1(seed: string): GameState {
   let s = foundedTwoCrews(seed)
@@ -61,7 +92,7 @@ function stageTwoRunsAtPayment1(seed: string): GameState {
   for (let k = 0; k < 60; k++) {
     const runs = theatricalRuns(s)
     if (runs.length === 2 && runs.every((r) => r.weekIndex === 1)) break
-    s = tick(s, { develop: true })
+    s = tick(commitReady(s), { develop: true })
   }
   return s
 }
@@ -81,7 +112,7 @@ describe('D-12 P1 — Sim to Next Event stop semantics', () => {
   it('(1,3,4,5) one run at payment 1 of 6 stops at the run end; final payment + payroll/overhead applied once', () => {
     let s = newFoundedGame('sim-one')
     s = gl(s, oneRunPkg(s))
-    s = advanceToNextEvent(s).next // to release (run opens)
+    s = advanceToNextEventCommitting(s).next // to release (run opens)
     const run = s.theatricalRuns.find((r) => r.status === 'active')!
     expect(run.weekIndex).toBe(1) // payment 1 of 6
     const segStart = s.market.tick
@@ -114,7 +145,7 @@ describe('D-12 P1 — Sim to Next Event stop semantics', () => {
   it('(6) a run ending is detected even though the completed run stays in the collection (status completed)', () => {
     let s = newFoundedGame('sim-detect')
     s = gl(s, oneRunPkg(s))
-    s = advanceToNextEvent(s).next
+    s = advanceToNextEventCommitting(s).next
     const run = s.theatricalRuns.find((r) => r.status === 'active')!
     const seg = advanceToNextEvent(s)
     // The run is NOT removed — it remains with status 'completed' — yet it was detected as the stop event.
@@ -126,7 +157,7 @@ describe('D-12 P1 — Sim to Next Event stop semantics', () => {
   it('(7) a film release still stops correctly', () => {
     let s = newFoundedGame('sim-release')
     s = gl(s, oneRunPkg(s))
-    const seg = advanceToNextEvent(s)
+    const seg = advanceToNextEventCommitting(s)
     expect(seg.stopReason).toBe('release')
     expect(seg.released.length).toBe(1)
   })
@@ -159,7 +190,7 @@ describe('D-12 P1 — Sim to Next Event stop semantics', () => {
   it('(10) reloading after the run-completed event preserves the stop week and payments', () => {
     let s = newFoundedGame('sim-reload')
     s = gl(s, oneRunPkg(s))
-    s = advanceToNextEvent(s).next
+    s = advanceToNextEventCommitting(s).next
     const seg = advanceToNextEvent(s)
     const round = importSaveJson(exportSaveJson(seg.next))
     expect(round.ok).toBe(true)

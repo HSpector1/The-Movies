@@ -18,7 +18,9 @@ import {
   advanceWeek,
   explainRelease,
   requiredNegative,
+  selectActiveProductions,
 } from '../engine/adapter.ts'
+import { applyActions } from '../../../src/core/index.ts'
 import type {
   GameState,
   AutopsyView,
@@ -172,6 +174,15 @@ describe('D-11.A — autopsy / record render the film\'s OWN participants', () =
     let preTick = cur
     let film = null as GameState['studio']['releasedFilms'][number] | null
     for (let i = 0; i < 20 && !film; i++) {
+      // P06A (charter W1): a production HOLDS at remainingTicks===1 until committed —
+      // commit any ready picture before this advance so the fixture keeps releasing.
+      const ready = selectActiveProductions(cur).filter((p) => p.remainingTicks === 1)
+      if (ready.length > 0) {
+        cur = applyActions(
+          cur,
+          ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+        )
+      }
       preTick = cur
       const step = advanceWeek(cur)
       cur = step.next

@@ -38,6 +38,7 @@ import type {
 } from '../engine/adapter.ts'
 import { money, moneyExact, pct } from '../format.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
+import { applyActions } from '../../../src/core/index.ts'
 
 // The cheapest legal package from the contracted roster — used to build a deliberately
 // UNSUPPORTED film (unknown cast, minimum marketing) for the exposed branch.
@@ -835,7 +836,18 @@ describe('D-17A/T8 — the autopsy narrates the confidence channel on its REAL b
     if (!g.ok) throw new Error(g.error)
     s = g.next
     let rel = advanceToNextEvent(s)
-    for (let i = 0; i < 30 && rel.released.length === 0; i++) rel = advanceToNextEvent(rel.next)
+    for (let i = 0; i < 30 && rel.released.length === 0; i++) {
+      // P06A (W1): a Release Ready picture HOLDS at 'releaseReview' until committed.
+      if (rel.stopReason === 'releaseReview' && rel.releaseDecision) {
+        rel = advanceToNextEvent(
+          applyActions(rel.next, [
+            { kind: 'commitPictureToRelease', productionId: rel.releaseDecision.productionId },
+          ]),
+        )
+        continue
+      }
+      rel = advanceToNextEvent(rel.next)
+    }
     const film = rel.released[0]!
     const view = explainRelease(rel.preTick, rel.next.studio.standing, film)
 

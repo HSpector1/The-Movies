@@ -4,6 +4,7 @@
 // witnesses, proving that the Chronicle correlates by productionId rather than position.
 
 import { describe, expect, it } from 'vitest'
+import { applyActions } from '../../../src/core/index.ts'
 import {
   advanceWeek,
   commissionScriptAction,
@@ -168,6 +169,14 @@ function advanceManagedProduction(state: GameState): {
       current = result.next
       continue
     }
+    // P06A W1: a Release Ready picture HOLDS until explicitly committed — resolve the
+    // decision the instant it appears so this walk still finds a real release.
+    if (decision?.kind === 'releaseReview') {
+      current = applyActions(current, [
+        { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+      ])
+      continue
+    }
     const step = advanceWeek(current)
     if (step.released.length > 0) return { state: step.next, film: step.released[0]! }
     current = step.next
@@ -276,7 +285,7 @@ describe('Film Chronicle V1 — real adapter wiring', () => {
     const before = releaseNewspaper(state, film)
     expect(before).not.toBeNull()
     const json = exportSaveJson(state)
-    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(15) // P04A
+    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(16) // P06A
     const imported = importSaveJson(json)
     expect(imported.ok).toBe(true)
     if (!imported.ok) return

@@ -30,8 +30,10 @@ import {
   assessExecutionConfidence,
   assessProfitRange,
   assessPackageDelta,
+  studioDecision,
 } from '../engine/adapter.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
+import { applyActions } from '../../../src/core/index.ts'
 import type {
   DraftPackage,
   GameState,
@@ -93,6 +95,15 @@ function playToRelease(state: GameState, pkg: DraftPackage): FilmResult {
   let cur = g.next
   let released: FilmResult[] = []
   for (let i = 0; i < 30 && released.length === 0; i++) {
+    // P06A (W1): a Release Ready picture HOLDS until committed — resolve it before
+    // advancing, or the run never opens.
+    const decision = studioDecision(cur)
+    if (decision?.kind === 'releaseReview') {
+      cur = applyActions(cur, [
+        { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+      ])
+      continue
+    }
     const step = advanceWeek(cur)
     cur = step.next
     released = step.released

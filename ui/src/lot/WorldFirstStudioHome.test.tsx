@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { useLayoutEffect, type ComponentProps } from 'react'
 import type StudioLotScreenType from './StudioLotScreen.tsx'
 import { App } from '../App.tsx'
+import { applyActions } from '../../../src/core/index.ts'
 import {
   advanceWeek,
   exportSaveJson,
@@ -11,6 +12,7 @@ import {
   newGame,
   requiredNegative,
   signContractAction,
+  studioDecision,
 } from '../engine/adapter.ts'
 import type { CreativeRole, DraftPackage, GameState } from '../engine/adapter.ts'
 import {
@@ -186,12 +188,28 @@ function legalPackage(state: GameState): DraftPackage {
   }
 }
 
+// P06A: a Release Ready picture HOLDS until `commitPictureToRelease` — so a hand-driven
+// walk toward a release must commit every ready picture before each advancing tick, or
+// it sits at remainingTicks===1 forever and never sees a release. Bounded, never spins.
+function commitReleaseReady(state: GameState): GameState {
+  let next = state
+  for (let guard = 0; guard < 8; guard++) {
+    const decision = studioDecision(next)
+    if (decision?.kind !== 'releaseReview') return next
+    next = applyActions(next, [
+      { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+    ])
+  }
+  return next
+}
+
 function releasedHistoryState(seed: string): GameState {
   const initial = newFoundedGame(seed)
   const greenlit = greenlight(initial, legalPackage(initial))
   if (!greenlit.ok) throw new Error(greenlit.error)
   let current = greenlit.next
   for (let guard = 0; guard < 40; guard++) {
+    current = commitReleaseReady(current)
     const step = advanceWeek(current)
     if (step.released.length > 0) return step.next
     current = step.next

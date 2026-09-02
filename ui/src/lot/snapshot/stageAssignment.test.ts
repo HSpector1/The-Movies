@@ -73,8 +73,17 @@ function twoFilmTimeline(seed: string): { snaps: StudioLotSnapshot[]; filmBId: s
   s = greenlightFilm(s, 1, 1)
   snaps.push(studioLotSnapshot(s))
   const filmBId = studioLotSnapshot(s).activeProductions.find((p) => p.stageId === 'stage-b')!.id
-  // tick until only one production remains (film A has released and been spliced out)
+  // tick until only one production remains (film A has released and been spliced out).
+  // P06A W1: a picture at remainingTicks===1 HOLDS until explicitly committed to
+  // release, so commit any ready picture before the tick that would have released it.
   for (let i = 0; i < 20; i++) {
+    const ready = s.studio.activeProductions.filter((p) => p.remainingTicks === 1)
+    if (ready.length > 0) {
+      s = applyActions(
+        s,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
     s = tick(s)
     snaps.push(studioLotSnapshot(s))
     const live = studioLotSnapshot(s).activeProductions

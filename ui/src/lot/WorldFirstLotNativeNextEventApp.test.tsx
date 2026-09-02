@@ -21,6 +21,7 @@ import {
   runScriptProjectAction,
   scriptProjectsBoard,
   startDevelopmentCastingAnnexAction,
+  studioDecision,
   studioDevelopment,
   studioLotSnapshot,
   type CreativeRole,
@@ -403,6 +404,16 @@ function releaseConstructionCoevent(seed: string): GameState {
   ) {
     throw new Error('setup: expected release/Annex completion on the next tick')
   }
+  // P06A: Release Ready HOLDS until committed — commit here, in setup, so this fixture's
+  // release fires on the very next tick exactly as it always did. Committing advances no
+  // time and changes no releaseTick, so this changes nothing about the co-event under test.
+  const decision = studioDecision(state)
+  if (decision?.kind !== 'releaseReview') {
+    throw new Error('setup: expected the release-review decision to be owed')
+  }
+  state = applyActions(state, [
+    { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+  ])
   return state
 }
 

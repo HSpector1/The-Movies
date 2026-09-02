@@ -26,6 +26,7 @@ import {
   selectActiveProductions,
   requiredNegative,
   deliveredAlignmentReport,
+  studioDecision,
 } from '../engine/adapter.ts'
 import type {
   GameState,
@@ -35,6 +36,29 @@ import type {
   NewspaperView,
 } from '../engine/adapter.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
+import { applyActions } from '../../../src/core/index.ts'
+
+// P06A (charter W1): a production HOLDS at remainingTicks===1 until the player commits
+// it to release. For `advanceToNextEvent` walks, resolve every intervening
+// 'releaseReview' stop by committing the named picture, then re-invoke to reach the
+// stop the caller actually wants. Bounded — a failure to converge throws rather than
+// spinning forever.
+function advanceToNextEventCommitting(s: GameState) {
+  let cur = s
+  for (let i = 0; i < 60; i++) {
+    const result = advanceToNextEvent(cur)
+    cur = result.next
+    const decision = studioDecision(cur)
+    if (decision?.kind === 'releaseReview') {
+      cur = applyActions(cur, [
+        { kind: 'commitPictureToRelease' as const, productionId: decision.decision.productionId },
+      ])
+      continue
+    }
+    return result
+  }
+  throw new Error('advanceToNextEventCommitting: did not converge after 60 iterations')
+}
 
 afterEach(cleanup)
 
@@ -258,7 +282,7 @@ describe('A7/A8: autopsy Expected-vs-Actual labels and plain-English alignment',
   function releasedView(seed: string) {
     let s = newFoundedGame(seed)
     s = (greenlight(s, pkgOf(s)) as { ok: true; next: GameState }).next
-    const rel = advanceToNextEvent(s)
+    const rel = advanceToNextEventCommitting(s)
     const film = rel.released[0]!
     const view = explainRelease(rel.preTick, rel.next.studio.standing, film)
     const compare = autopsyCompare(rel.preTick, film)
@@ -328,7 +352,7 @@ describe('A9: same-week secondary releases carry full reception + financials', (
   it('a secondary story shows title, critic, audience, opening, paid, projected totals and an autopsy link', () => {
     let s = newFoundedGame('ux-a9-secondary')
     s = (greenlight(s, pkgOf(s)) as { ok: true; next: GameState }).next
-    const rel = advanceToNextEvent(s)
+    const rel = advanceToNextEventCommitting(s)
     const film = rel.released[0]!
     const primary = releaseNewspaper(rel.next, film)!
     // A distinct second front page with recognizable financials (pure-presentation stand-in).

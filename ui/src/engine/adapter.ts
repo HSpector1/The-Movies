@@ -3802,6 +3802,20 @@ export function releaseTalentAction(state: GameState, talentId: string): ActionO
   }
 }
 
+// P06A W5 (browser player route): the ONE explicit release commitment for the
+// browser surface — the exact-title action the release decision names. Legality
+// lives in the core; a refusal returns its exact sentence.
+export function commitPictureToReleaseAction(
+  state: GameState,
+  productionId: string,
+): ActionOutcome {
+  try {
+    return { ok: true, next: applyActions(state, [{ kind: 'commitPictureToRelease', productionId }]) }
+  } catch (e) {
+    return { ok: false, error: (e as Error).message }
+  }
+}
+
 // ── engagement / founding selectors ──
 // Roster-informational ONLY: "does this studio employ anybody right now?". Do NOT use it to
 // decide how a film is staffed or priced — that is the persisted economic regime below.

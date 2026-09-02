@@ -34,10 +34,42 @@ import {
   foundingApplicantCards,
   signContractAction,
   foundStudioAction,
+  studioDecision,
 } from '../engine/adapter.ts'
 import type { DraftPackage, GameState, CreativeRole } from '../engine/adapter.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
-import { FOUNDING_MINIMUMS } from '../../../src/core/index.ts'
+import { FOUNDING_MINIMUMS, applyActions } from '../../../src/core/index.ts'
+
+// P06A (charter W1): a production HOLDS at remainingTicks===1 until the player commits
+// it to release; commit any ready picture before an advancing tick so release-driving
+// fixtures keep releasing under the truthful hold law. Commit advances no time.
+function commitReady(s: GameState): GameState {
+  const ready = selectActiveProductions(s).filter((p) => p.remainingTicks === 1)
+  if (ready.length === 0) return s
+  return applyActions(
+    s,
+    ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+  )
+}
+// For `advanceToNextEvent` walks: resolve every intervening 'releaseReview' stop by
+// committing the named picture, then re-invoke to reach the stop the caller actually
+// wants. Bounded — a failure to converge throws instead of spinning forever.
+function advanceToNextEventCommitting(s: GameState) {
+  let cur = s
+  for (let i = 0; i < 60; i++) {
+    const result = advanceToNextEvent(cur)
+    cur = result.next
+    const decision = studioDecision(cur)
+    if (decision?.kind === 'releaseReview') {
+      cur = applyActions(cur, [
+        { kind: 'commitPictureToRelease' as const, productionId: decision.decision.productionId },
+      ])
+      continue
+    }
+    return result
+  }
+  throw new Error('advanceToNextEventCommitting: did not converge after 60 iterations')
+}
 
 // A studio founded with EXACTLY the legal minimum roster (enough for ONE film) — so greenlighting
 // one film exhausts the team and a second cannot be staffed unless a freelancer is available.
@@ -150,7 +182,7 @@ describe('D-12 beta P1: Review forecast == persisted greenlight snapshot (same-w
   it('P1: Sim to Next Event STOPS when a single theatrical run ends, applying the final payment once', () => {
     let s = newFoundedGame('beta-sim-runcomplete')
     s = (greenlight(s, pkgFrom(s, { writer: 0, director: 0, actors: [0, 1, 2], craft: 0 })) as { ok: true; next: GameState }).next
-    const toRelease = advanceToNextEvent(s)
+    const toRelease = advanceToNextEventCommitting(s)
     expect(toRelease.stopReason).toBe('release')
     s = toRelease.next
     expect(selectActiveProductions(s).length).toBe(0) // nothing in production
@@ -180,7 +212,7 @@ describe('D-12 beta P1: Review forecast == persisted greenlight snapshot (same-w
   it('P3: opening newspaper separates PAID-this-week from PROJECTED full-run totals', () => {
     let s = newFoundedGame('beta-news-open')
     s = (greenlight(s, pkgFrom(s, { writer: 0, director: 0, actors: [0, 1, 2], craft: 0, marketing: 1_000_000 })) as { ok: true; next: GameState }).next
-    const rel = advanceToNextEvent(s)
+    const rel = advanceToNextEventCommitting(s)
     expect(rel.stopReason).toBe('release')
     const film = rel.released[0]!
     const f = releaseNewspaper(rel.next, film)!.financial
@@ -199,7 +231,7 @@ describe('D-12 beta P1: Review forecast == persisted greenlight snapshot (same-w
   it('P4: autopsy vocabulary — gross not called Revenue, brief coherence ≠ delivered alignment, no contradiction', () => {
     let s = newFoundedGame('beta-autopsy')
     s = (greenlight(s, pkgFrom(s, { writer: 0, director: 0, actors: [0, 1, 2], craft: 0 })) as { ok: true; next: GameState }).next
-    const rel = advanceToNextEvent(s)
+    const rel = advanceToNextEventCommitting(s)
     const film = rel.released[0]!
     const view = explainRelease(rel.preTick, rel.next.studio.standing, film)
     const simple = accessibleAutopsy(view, autopsyCompare(rel.preTick, film))
@@ -228,7 +260,7 @@ describe('D-12 beta P1: Review forecast == persisted greenlight snapshot (same-w
     for (let i = 0; i < 30; i++) {
       let s = newFoundedGame(`beta-autopsy-vague-${i}`)
       s = (greenlight(s, pkgFrom(s, { writer: 0, director: 0, actors: [0, 1, 2], craft: 0, vague: true })) as { ok: true; next: GameState }).next
-      const rel = advanceToNextEvent(s)
+      const rel = advanceToNextEventCommitting(s)
       const film = rel.released[0]
       if (!film) continue
       const view = explainRelease(rel.preTick, rel.next.studio.standing, film)
@@ -271,7 +303,7 @@ describe('D-12 beta P1: Review forecast == persisted greenlight snapshot (same-w
 
     // Availability RESTORES once the film releases and frees the team.
     let s = blocked!.state
-    for (let k = 0; k < 40 && !assemblyAvailability(s).canAssemble; k++) s = advanceWeek(s).next
+    for (let k = 0; k < 40 && !assemblyAvailability(s).canAssemble; k++) s = advanceWeek(commitReady(s)).next
     expect(assemblyAvailability(s).canAssemble).toBe(true)
   })
 
@@ -297,7 +329,7 @@ describe('D-12 P5: the studio-wide standing delta is labeled honestly when films
   it('a single-release week is not shared; a co-release is flagged and listed without changing the delta', () => {
     let s = newFoundedGame('p5-attr')
     s = (greenlight(s, pkgFrom(s, { writer: 0, director: 0, actors: [0, 1, 2], craft: 0 })) as { ok: true; next: GameState }).next
-    const rel = advanceToNextEvent(s)
+    const rel = advanceToNextEventCommitting(s)
     const film = rel.released[0]!
     // Single release → the delta is attributable to this film's week alone.
     const solo = explainRelease(rel.preTick, rel.next.studio.standing, film)
@@ -318,7 +350,7 @@ describe('D-12 P6: active-run projection and released-film scorecard are engine-
   it('an active run projects Contribution = full-run Studio Revenue − direct commitment, with a signed label', () => {
     let s = newFoundedGame('p6-run')
     s = (greenlight(s, pkgFrom(s, { writer: 0, director: 0, actors: [0, 1, 2], craft: 0 })) as { ok: true; next: GameState }).next
-    s = advanceToNextEvent(s).next // to the release → a run opens
+    s = advanceToNextEventCommitting(s).next // to the release → a run opens
     const runs = theatricalRuns(s)
     expect(runs.length).toBeGreaterThan(0)
     const run = runs[0]!
@@ -331,7 +363,7 @@ describe('D-12 P6: active-run projection and released-film scorecard are engine-
   it('a released film scorecard keeps profit, critics and audiences as separate, consistent truths', () => {
     let s = newFoundedGame('p6-card')
     s = (greenlight(s, pkgFrom(s, { writer: 0, director: 0, actors: [0, 1, 2], craft: 0 })) as { ok: true; next: GameState }).next
-    for (let k = 0; k < 40 && selectReleasedFilms(s).length === 0; k++) s = advanceWeek(s).next
+    for (let k = 0; k < 40 && selectReleasedFilms(s).length === 0; k++) s = advanceWeek(commitReady(s)).next
     const film = selectReleasedFilms(s)[0]!
     const card = releaseScorecard(s, film)
     expect(card.critic).toBe(film.criticScore) // critics unchanged
@@ -365,7 +397,7 @@ describe('D-12 P7: profitable films always get an engine-derived commercial stre
     for (let i = 0; i < 30 && found < 3; i++) {
       let s = newFoundedGame(`p7-commercial-${i}`)
       s = (greenlight(s, pkgFrom(s, { writer: 0, director: 0, actors: [0, 1, 2], craft: 0 })) as { ok: true; next: GameState }).next
-      const rel = advanceToNextEvent(s)
+      const rel = advanceToNextEventCommitting(s)
       const film = rel.released[0]
       if (!film) continue
       const view = explainRelease(rel.preTick, rel.next.studio.standing, film)

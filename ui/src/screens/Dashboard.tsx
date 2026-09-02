@@ -63,6 +63,7 @@ export function Dashboard({
   onOpenClipping,
   onPublicize,
   onProductionCommand,
+  onCommitPictureToRelease,
   focusProductionId,
   focusRunId,
   focusSection,
@@ -104,6 +105,7 @@ export function Dashboard({
   onOpenClipping?: (film: FilmResult) => void
   onPublicize?: (tier: PublicityTier) => void
   onProductionCommand?: (command: ProductionCommandView) => void
+  onCommitPictureToRelease?: (productionId: string) => void
   /** Navigation-only handoffs from the Studio Calendar. */
   focusProductionId?: string
   focusRunId?: string
@@ -134,6 +136,11 @@ export function Dashboard({
     pendingDecision?.kind === 'castingReview' ? pendingDecision.decision : null
   const pendingProductionDecision =
     pendingDecision?.kind === 'productionDecision' ? pendingDecision.decision : null
+  // P06A W5 (browser player route): the exact Release Ready picture awaiting the
+  // player's explicit commitment. Its card carries the exact title; commit/hold
+  // is a choice, so it renders its OWN control (never a production command).
+  const pendingReleaseDecision =
+    pendingDecision?.kind === 'releaseReview' ? pendingDecision.decision : null
   const managedScripts = scripts.mode === 'managed'
   const capacityHold = board.cards.find((card) => card.blocker?.kind === 'facility-capacity') ?? null
   const runRefs = useRef(new Map<string, HTMLElement>())
@@ -255,13 +262,23 @@ export function Dashboard({
             <button className="primary" onClick={onAdvance} data-testid="advance-week">
               Advance one week
             </button>
+            {pendingReleaseDecision !== null && onCommitPictureToRelease && (
+              <button
+                className="accent"
+                onClick={() => onCommitPictureToRelease(pendingReleaseDecision.productionId)}
+                data-testid="release-commit"
+              >
+                Commit {pendingReleaseDecision.title} to release
+              </button>
+            )}
             <button
               className="primary"
               onClick={onSimToEvent}
               disabled={
                 pendingScriptDecision !== null ||
                 pendingCastingDecision !== null ||
-                pendingProductionDecision !== null
+                pendingProductionDecision !== null ||
+                pendingReleaseDecision !== null
               }
               data-testid="sim-to-event"
             >
@@ -284,6 +301,8 @@ export function Dashboard({
                 ? 'The studio will not sim ahead: the camera-test evidence is waiting to be reviewed. Acknowledgement is always legal and never selects a winner.'
               : pendingProductionDecision
               ? 'The studio will not sim ahead: a command on the Production Board is waiting to be resolved. You may still advance a single week deliberately — the film holds where it is, and studio costs continue.'
+              : pendingReleaseDecision
+              ? `${pendingReleaseDecision.title} is Release Ready. Commit it to release, or advance a single week deliberately to hold — the picture holds where it is, and studio costs continue until you commit.`
               : capacityHold
                 ? 'The Production Board shows the capacity warning. Advance or Sim to retry it while payroll and studio overhead continue.'
               : 'Sim to next event runs weeks in order — applying payroll, overhead, and theatrical revenue — and stops at a screenplay review, casting review, production decision, release, run ending, contract change, or cash going negative.'}

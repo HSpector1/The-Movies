@@ -123,7 +123,17 @@ function gameOne(seed: string): { states: GameState[]; survivorId: string } {
   s = greenlightFilm(s, 1, 1)
   const states: GameState[] = [s]
   const survivorId = studioLotSnapshot(s).activeProductions.find((p) => p.stageId === 'stage-b')!.id
+  // P06A W1: a picture at remainingTicks===1 HOLDS until explicitly committed to
+  // release — commit any ready picture before the tick that would have released it,
+  // so film A still releases and the timeline still lands on "survivor alone".
   for (let i = 0; i < 20; i++) {
+    const ready = s.studio.activeProductions.filter((p) => p.remainingTicks === 1)
+    if (ready.length > 0) {
+      s = applyActions(
+        s,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
     s = tick(s)
     states.push(s)
     const live = studioLotSnapshot(s).activeProductions

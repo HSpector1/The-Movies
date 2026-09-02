@@ -61,6 +61,7 @@ import {
   releaseNewspaper,
   talentProfile,
   runPublicity,
+  commitPictureToReleaseAction,
   runProductionCommand,
   runScriptProjectAction,
   startDevelopmentCastingAnnexAction,
@@ -3100,6 +3101,21 @@ export function App() {
     return executePublicity(tier)
   }
 
+  // P06A W5 (browser player route): commit an exact Release Ready picture. The
+  // release decision is a player choice, not a resolvable production command, so
+  // it gets its own handler; holding is the ordinary Advance Week already wired.
+  function handleCommitPictureToRelease(productionId: string) {
+    if (!state) return
+    const result = commitPictureToReleaseAction(state, productionId)
+    if (result.ok) {
+      replaceAuthoritativeState(result.next)
+    } else {
+      punctuateRefusal(state.market.tick)
+      showNotice(result.error)
+    }
+    return result
+  }
+
   function handleProductionCommand(
     command: ProductionCommandView,
     source: StudioActionSource = 'supporting-dashboard',
@@ -4579,6 +4595,7 @@ export function App() {
           onOpenClipping={(film) => openClippingForFilm(film, dashboardDeepReturnContext)}
           onPublicize={handleDashboardPublicity}
           onProductionCommand={handleProductionCommand}
+          onCommitPictureToRelease={handleCommitPictureToRelease}
           {...(screen.focusProductionId ? { focusProductionId: screen.focusProductionId } : {})}
           {...(screen.focusRunId ? { focusRunId: screen.focusRunId } : {})}
           {...(screen.focusSection ? { focusSection: screen.focusSection } : {})}

@@ -14,6 +14,7 @@ import {
   exportSaveJson,
   selectActiveProductions,
   requiredNegative,
+  studioDecision,
 } from './engine/adapter.ts'
 import type { DraftPackage, GameState, CreativeRole } from './engine/adapter.ts'
 import {
@@ -69,6 +70,40 @@ const gl = (s: GameState, p: DraftPackage) => {
   if (!g.ok) throw new Error(g.error)
   return g.next
 }
+// P06A (W1+W2): a production HOLDS at remainingTicks===1 until the player commits it
+// to release; `advanceWeek`/`advanceToNextEvent` never advance a held picture on their
+// own. These bounded helpers commit every ready picture before continuing so
+// release-driving fixtures keep releasing under the truthful hold law.
+function commitReady(s: GameState): GameState {
+  const ready = selectActiveProductions(s).filter((p) => p.remainingTicks === 1)
+  if (ready.length === 0) return s
+  return applyActions(
+    s,
+    ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+  )
+}
+function advanceWeekCommitting(s: GameState): GameState {
+  return advanceWeek(commitReady(s)).next
+}
+// For `advanceToNextEvent` walks: resolve every intervening 'releaseReview' stop by
+// committing the named picture, then re-invoke to reach the stop the caller actually
+// wants. Bounded — a failure to converge throws instead of spinning forever.
+function advanceToNextEventCommitting(s: GameState) {
+  let cur = s
+  for (let i = 0; i < 60; i++) {
+    const result = advanceToNextEvent(cur)
+    cur = result.next
+    const decision = studioDecision(cur)
+    if (decision?.kind === 'releaseReview') {
+      cur = applyActions(cur, [
+        { kind: 'commitPictureToRelease' as const, productionId: decision.decision.productionId },
+      ])
+      continue
+    }
+    return result
+  }
+  throw new Error('advanceToNextEventCommitting: did not converge after 60 iterations')
+}
 // Restore = re-serialize the LOADED state and compare to the original's serialization (byte-identical
 // ⇒ exact restore, incl. runs/ledger/cash).
 function assertExactRestore(original: GameState) {
@@ -119,7 +154,7 @@ describe('D-12 active-session recovery — exact round-trip', () => {
 
   it('restores a theatrical run mid-flight — week, payments received/remaining, no duplicate', () => {
     let s = gl(newFoundedGame('rec-run'), pkg(newFoundedGame('rec-run')))
-    s = advanceToNextEvent(s).next // to the release (a run opens)
+    s = advanceToNextEventCommitting(s).next // to the release (a run opens)
     s = advanceWeek(s).next // one weekly payment applied
     const run = s.theatricalRuns[0]!
     expect(run.status).toBe('active')
@@ -140,7 +175,7 @@ describe('D-12 active-session recovery — exact round-trip', () => {
 
   it('restores completed releases + their film records', () => {
     let s = gl(newFoundedGame('rec-done'), pkg(newFoundedGame('rec-done')))
-    for (let k = 0; k < 40 && s.studio.releasedFilms.length === 0; k++) s = advanceWeek(s).next
+    for (let k = 0; k < 40 && s.studio.releasedFilms.length === 0; k++) s = advanceWeekCommitting(s)
     expect(s.studio.releasedFilms.length).toBeGreaterThan(0)
     const restored = assertExactRestore(s)!
     expect(restored.studio.releasedFilms.map((f) => f.productionId)).toEqual(
@@ -205,7 +240,7 @@ describe('D-12 active-session recovery — App startup', () => {
   it('keeps restored Chronicle, Clipping, and session-only Autopsy as three honest paths', () => {
     let state = gl(newFoundedGame('film-chronicle-restored-app'), pkg(newFoundedGame('film-chronicle-restored-app')))
     for (let guard = 0; guard < 40 && state.studio.releasedFilms.length === 0; guard++) {
-      state = advanceWeek(state).next
+      state = advanceWeekCommitting(state)
     }
     const film = state.studio.releasedFilms[0]!
     expect(film).toBeDefined()
@@ -294,7 +329,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
 
     // …and re-saving it writes a V14 envelope that loads back UNCONVERTED.
     saveActiveSession(loaded.state)
-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(15) // P04A: live saves are SaveFileV15.
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(16) // P06A: live saves are SaveFileV16.
     const again = loadActiveSession()
     expect(again.ok).toBe(true)
     if (!again.ok) return
@@ -322,7 +357,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
 
     // Round-trip: saved as V14, reloaded unconverted, still not engaged.
     saveActiveSession(loaded.state)
-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(15) // P04A: live saves are SaveFileV15.
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(16) // P06A: live saves are SaveFileV16.
     const again = loadActiveSession()
     expect(again.ok).toBe(true)
     if (!again.ok) return
@@ -349,7 +384,7 @@ describe('Script Projects V1 — a stored V8 autosave migrates on load', () => {
 
     saveActiveSession(loaded.state)
     const parsedV11 = JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!)
-    expect(parsedV11.saveVersion).toBe(15) // P04A: live saves are SaveFileV15.
+    expect(parsedV11.saveVersion).toBe(16) // P06A: live saves are SaveFileV16.
     expect(parsedV11.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
     expect(parsedV11.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
     expect(parsedV11.state.construction).toEqual({ mode: 'legacy', parcels: [], projects: [] })

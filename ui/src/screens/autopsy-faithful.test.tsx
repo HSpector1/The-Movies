@@ -23,7 +23,9 @@ import {
   explainRelease,
   autopsyCompare,
   requiredNegative,
+  studioDecision,
 } from '../engine/adapter.ts'
+import { applyActions } from '../../../src/core/index.ts'
 import type {
   DraftPackage,
   GameState,
@@ -82,6 +84,15 @@ function playToRelease(seed: string): {
   let preTick = state
   let postStanding = state.studio.standing
   for (let i = 0; i < 20 && released.length === 0; i++) {
+    // P06A (W1): a Release Ready picture HOLDS until committed — resolve the
+    // releaseReview stop before advancing, or the run never opens.
+    const decision = studioDecision(state)
+    if (decision?.kind === 'releaseReview') {
+      state = applyActions(state, [
+        { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+      ])
+      continue
+    }
     const step = advanceWeek(state)
     preTick = step.preTick
     state = step.next

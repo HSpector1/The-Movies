@@ -27,6 +27,7 @@ import {
   projectSkillWeights,
   resolveShape,
   DISCIPLINES,
+  selectActiveProductions,
 } from '../engine/adapter.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
 import type {
@@ -37,7 +38,7 @@ import type {
   FilmShape,
   FilmPromise,
 } from '../engine/adapter.ts'
-import { generateWorld } from '../../../src/core/index.ts'
+import { generateWorld, applyActions } from '../../../src/core/index.ts'
 import type { Talent as CoreTalent } from '../../../src/core/index.ts'
 import { ReleaseResult } from './ReleaseResult.tsx'
 import { TalentHub } from './TalentHub.tsx'
@@ -86,6 +87,15 @@ function advanceToRelease(seed: string): {
   if (!g.ok) throw new Error(g.error)
   state = g.next
   for (let i = 0; i < 20; i++) {
+    // P06A (charter W1): a production HOLDS at remainingTicks===1 until committed —
+    // commit any ready picture before this advance so the fixture keeps releasing.
+    const ready = selectActiveProductions(state).filter((p) => p.remainingTicks === 1)
+    if (ready.length > 0) {
+      state = applyActions(
+        state,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
     const step = advanceWeek(state)
     if (step.released.length > 0) {
       return {

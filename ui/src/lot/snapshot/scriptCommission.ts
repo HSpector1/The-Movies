@@ -1,6 +1,6 @@
 import {
   canonicalScriptProjectId,
-  makeSaveV14,
+  makeSave,
 } from '../../../../src/core/index.ts'
 import { scriptProjectsBoard } from '../../engine/adapter.ts'
 import type {
@@ -300,12 +300,13 @@ function sameClosedFieldsExcept(
 }
 
 // C2a-M1/M2 — "is this a canonical, undecorated live state?" is answered by projecting it
-// through the LIVE save builder and comparing key-for-key. That builder is now makeSaveV14:
+// through the LIVE save builder and comparing key-for-key. That builder is the live one (P06A: makeSave → V16):
 // V13 is a frozen historical format that cannot see the sets, queue, screenplay or history
 // roots a live state carries, so asking it would report every ordinary studio as decorated.
+// P06A: the live builder is makeSave (V16) — makeSaveV14 strips releaseAuthority and would
 // The assertion is unchanged — only the name of "current" moved.
 function isClosedCanonicalState(state: GameState): boolean {
-  const projected = makeSaveV14(state).state
+  const projected = makeSave(state).state
   return sameClosedValue(state, projected)
 }
 

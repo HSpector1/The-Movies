@@ -19,12 +19,28 @@ import {
   releaseScorecard,
   requiredNegative,
   selectReleasedFilms,
+  studioDecision,
   studioRevenueForFilm,
   TUNING,
 } from '../engine/adapter.ts'
 import type { DraftPackage, GameState } from '../engine/adapter.ts'
 import { moneyExact } from '../format.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
+import { applyActions } from '../../../src/core/index.ts'
+
+/**
+ * P06A (W1): a Release Ready picture HOLDS until COMMIT — resolve the
+ * releaseReview stop before advancing, or the run never opens. Bounded.
+ */
+function advanceCommittingReady(state: GameState): GameState {
+  const decision = studioDecision(state)
+  if (decision?.kind === 'releaseReview') {
+    return applyActions(state, [
+      { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+    ])
+  }
+  return advanceWeek(state).next
+}
 
 afterEach(cleanup)
 const noop = () => {}
@@ -54,7 +70,7 @@ function atRelease(seed: string): GameState {
   const g = greenlight(newFoundedGame(seed), pkgOf(newFoundedGame(seed)))
   if (!g.ok) throw new Error(g.error)
   let s = g.next
-  for (let k = 0; k < 40 && selectReleasedFilms(s).length === 0; k++) s = advanceWeek(s).next
+  for (let k = 0; k < 40 && selectReleasedFilms(s).length === 0; k++) s = advanceCommittingReady(s)
   expect(selectReleasedFilms(s).length).toBe(1)
   return s
 }
@@ -166,7 +182,7 @@ describe('D-17A fix-pass — retrospective profit/break-even labels name their b
       let preTick = s
       for (let k = 0; k < 40 && selectReleasedFilms(s).length === 0; k++) {
         preTick = s
-        s = advanceWeek(s).next
+        s = advanceCommittingReady(s)
       }
       const view = explainRelease(preTick, s.studio.standing, film)
       const acc = accessibleAutopsy(view, null)

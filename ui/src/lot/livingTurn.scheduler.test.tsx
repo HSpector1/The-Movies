@@ -23,6 +23,7 @@ import {
   productionDecision,
   requiredNegative,
   runProductionCommand,
+  studioDecision,
 } from '../engine/adapter.ts'
 import type { CreativeRole, DraftPackage, GameState, SimStopReason } from '../engine/adapter.ts'
 import { clearActiveSession, loadActiveSession, saveActiveSession } from '../engine/session.ts'
@@ -124,6 +125,24 @@ function answerBoard(state: GameState): GameState {
 }
 
 /**
+ * P06A: a Release Ready picture HOLDS until `commitPictureToRelease`. A hand-driven
+ * walk that never commits would sit at remainingTicks===1 forever and never reach a
+ * week with a release in it — so every ready picture is committed, bounded, before
+ * each advancing tick (same law as the release-driving fixtures elsewhere).
+ */
+function commitReadyPictures(state: GameState): GameState {
+  let next = state
+  for (let guard = 0; guard < 8; guard++) {
+    const decision = studioDecision(next)
+    if (decision?.kind !== 'releaseReview') return next
+    next = applyActions(next, [
+      { kind: 'commitPictureToRelease', productionId: decision.decision.productionId },
+    ])
+  }
+  return next
+}
+
+/**
  * Walk a studio forward BY HAND — answering decisions exactly as a player would —
  * until `done` is satisfied, and hand back the state one week before it. Every
  * expectation in this file is anchored on a walk like this, so the test asserts
@@ -136,7 +155,7 @@ function walkToWeekBefore(
 ): GameState {
   let state = start
   for (let weeks = 0; weeks < limit; weeks++) {
-    const answered = answerBoard(state)
+    const answered = commitReadyPictures(answerBoard(state))
     const step = advanceWeek(answered)
     if (done(step)) return answered
     state = step.next

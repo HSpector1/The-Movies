@@ -18,9 +18,10 @@ import {
   requiredNegative,
   selectWeek,
   selectCash,
+  selectActiveProductions,
   TUNING,
 } from './engine/adapter.ts'
-import { tick as coreTick } from '../../src/core/index.ts'
+import { tick as coreTick, applyActions } from '../../src/core/index.ts'
 import { newFoundedGame, foundedRosterIds } from './test/founding.ts'
 import type { DraftPackage, GameState, FilmResult } from './engine/adapter.ts'
 import { money } from './format.ts'
@@ -75,6 +76,18 @@ function foundViaUi() {
   signInGroup('writer', 2)
   signInGroup('craft', 2) // a craft lead is required to cast a film (D-11.13)
   fireEvent.click(screen.getByTestId('found-studio'))
+}
+
+// P06A (charter W1): a production HOLDS at remainingTicks===1 until the player commits
+// it to release; commit any ready picture BEFORE advancing so a bare advanceWeek loop
+// still reaches release the way it did before the hold law. Commit advances no time.
+function commitReady(state: GameState): GameState {
+  const ready = selectActiveProductions(state).filter((p) => p.remainingTicks === 1)
+  if (ready.length === 0) return state
+  return applyActions(
+    state,
+    ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+  )
 }
 
 function resolveProductionCommands() {
@@ -147,6 +160,7 @@ describe('simulation: release timing follows PRODUCTION_TICKS exactly', () => {
     let releaseSeen: FilmResult | null = null
     for (let guard = 0; guard < TUNING.PRODUCTION_TICKS + 5 && releaseSeen === null; guard++) {
       const currentTick = selectWeek(state) // tick() resolves releases at this value
+      state = commitReady(state) // P06A: commit the ready picture; advances no time
       const step = advanceWeek(state)
       state = step.next
       if (currentTick < releaseWeek) {
@@ -180,6 +194,7 @@ describe('simulation: release timing follows PRODUCTION_TICKS exactly', () => {
     let prev: number = TUNING.PRODUCTION_TICKS
     let firstAdvance = true
     for (let i = 0; i < TUNING.PRODUCTION_TICKS + 2; i++) {
+      state = commitReady(state) // P06A: commit the ready picture; advances no time
       state = advanceWeek(state).next
       const active = state.studio.activeProductions[0]
       if (!active) break // released — countdown reached 0 and it left the active list
@@ -232,6 +247,7 @@ describe('simulation: cash and standing on the dashboard reflect the engine post
     state = g.next
     let released: ReturnType<typeof advanceWeek>['released'] = []
     for (let i = 0; i < 20 && released.length === 0; i++) {
+      state = commitReady(state) // P06A: commit the ready picture; advances no time
       const step = advanceWeek(state)
       state = step.next
       released = step.released
@@ -259,7 +275,9 @@ describe('simulation: cash and standing on the dashboard reflect the engine post
 describe('simulation: NO Broadcast presentation or feed appears anywhere in the UI', () => {
   it('driving the whole loop through the UI produces no broadcast/headline/feed elements', () => {
     render(<App />)
-    fireEvent.change(screen.getByTestId('seed-input'), { target: { value: 'sim-nobroadcast' } })
+    // P06A: the seed itself is shown verbatim on the dashboard header — it must not
+    // accidentally contain any of the forbidden substrings this test guards against.
+    fireEvent.change(screen.getByTestId('seed-input'), { target: { value: 'sim-guard-ui-check' } })
     fireEvent.click(screen.getByTestId('new-game'))
     foundViaUi() // D-11.2: found the studio to reach the dashboard
 

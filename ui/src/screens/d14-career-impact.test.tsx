@@ -52,6 +52,18 @@ function releaseOneFilm(s0: GameState): { s: GameState; pid: string } {
   ])
   const pid = s.studio.activeProductions[s.studio.activeProductions.length - 1]!.id
   for (let k = 0; k < TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS + 8; k++) {
+    // P06A (W1): a ready picture HOLDS at remainingTicks===1 until committed —
+    // commit every ready active production before advancing, or the run never opens.
+    const committed = new Set(s.releaseAuthority.commitments.map((r) => r.productionId))
+    const ready = s.studio.activeProductions.filter(
+      (p) => p.remainingTicks === 1 && !committed.has(p.id),
+    )
+    if (ready.length > 0) {
+      s = applyActions(
+        s,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
     s = tick(s, { develop: true })
     const run = s.theatricalRuns.find((r) => r.productionId === pid)
     if (run && run.status !== 'active') break

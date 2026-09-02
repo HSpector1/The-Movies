@@ -19,6 +19,7 @@ import {
 } from '../engine/adapter.ts'
 import type { DraftPackage, GameState, CreativeRole } from '../engine/adapter.ts'
 import { newFoundedGame, foundedRosterIds } from '../test/founding.ts'
+import { applyActions } from '../../../src/core/index.ts'
 
 const SHARE = TUNING.STUDIO_RENTAL_BLENDED
 
@@ -48,7 +49,16 @@ describe('D-12 autopsy arithmetic reconciles with the locked greenlight snapshot
     // Read the PERSISTED greenlight forecast snapshot before release.
     const persistedExpectedTotal = selectActiveProductions(s)[0]!.forecastSnapshot.expectedTotal
 
-    const rel = advanceToNextEvent(s)
+    let rel = advanceToNextEvent(s)
+    // P06A (W1): a Release Ready picture HOLDS at 'releaseReview' until committed —
+    // resolve it, then re-invoke to reach the true 'release' stop.
+    if (rel.stopReason === 'releaseReview' && rel.releaseDecision) {
+      rel = advanceToNextEvent(
+        applyActions(rel.next, [
+          { kind: 'commitPictureToRelease', productionId: rel.releaseDecision.productionId },
+        ]),
+      )
+    }
     const film = rel.released[0]!
     const view = explainRelease(rel.preTick, rel.next.studio.standing, film)
     const compare = autopsyCompare(rel.preTick, film)!

@@ -27,6 +27,7 @@ import { setStudioLotOverviewOverride } from '../flags.ts'
 import { App } from '../App.tsx'
 import { Dashboard } from './Dashboard.tsx'
 import { WeeklySummary } from './WeeklySummary.tsx'
+import { applyActions } from '../../../src/core/index.ts'
 
 vi.mock('../lot/StudioLotView.ts', () => ({
   StudioLotView: class {
@@ -143,6 +144,11 @@ function releaseConstructionCoevent(seed: string): GameState {
   for (let i = 0; i < 4; i++) state = advanceWeek(state).next
   expect(studioDevelopment(state).completedAdvances).toBe(12)
   expect(state.studio.activeProductions[0]?.remainingTicks).toBe(1)
+  // P06A (charter W1): Release Ready HOLDS until committed. Commit here — this changes
+  // no releaseTick/remainingTicks value and advances no time — so the caller's next
+  // advance actually releases the picture as this fixture always intended.
+  const readyId = state.studio.activeProductions[0]!.id
+  state = applyActions(state, [{ kind: 'commitPictureToRelease', productionId: readyId }])
   return state
 }
 
