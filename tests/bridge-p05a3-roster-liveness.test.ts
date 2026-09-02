@@ -26,11 +26,11 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 import { createHash } from 'node:crypto'
-import { BridgeSession, authoritativeDigest } from '../bridge/session.ts'
+import { BridgeSession } from '../bridge/session.ts'
 import { castingProjection } from '../bridge/casting.ts'
 import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
-import { importSave, migrateToV16 } from '../src/core/index.ts'
+import { importSave, migrateToV16, type GameState } from '../src/core/index.ts'
 
 const OWNER_SAVE_JSON = readFileSync(
   join(__dirname, 'fixtures', 'p05a3-owner-profile-rev10.save.json'),

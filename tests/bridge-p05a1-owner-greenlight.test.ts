@@ -19,7 +19,7 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 import { createHash } from 'node:crypto'
-import { BridgeSession, authoritativeDigest } from '../bridge/session.ts'
+import { BridgeSession } from '../bridge/session.ts'
 import { castingDraftToEngine } from '../bridge/casting.ts'
 import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'

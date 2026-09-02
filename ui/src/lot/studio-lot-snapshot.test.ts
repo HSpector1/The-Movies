@@ -174,9 +174,22 @@ function productionAndDraftingScript(seed: string): GameState {
   state = greenlightReadyScript(state, 'script-0000')
   return commissionScript(state, 1, 1)
 }
+// P06A W1: a picture at remainingTicks===1 HOLDS until explicitly committed to
+// release — commit every such picture immediately before the tick that would
+// otherwise have released it, mirroring tests/c2a-m2-set-binding.test.ts's
+// tickCommittingReady pattern, so release-driving fixtures keep releasing.
 function advance(s: GameState, n: number): GameState {
   let out = s
-  for (let i = 0; i < n; i++) out = tick(out)
+  for (let i = 0; i < n; i++) {
+    const ready = out.studio.activeProductions.filter((p) => p.remainingTicks === 1)
+    if (ready.length > 0) {
+      out = applyActions(
+        out,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
+    out = tick(out)
+  }
   return out
 }
 const stage = (snap: ReturnType<typeof studioLotSnapshot>, id: string) => snap.buildings.find((b) => b.id === id)!
@@ -674,7 +687,10 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
       rehearsal: 'stage-a',
       shooting: 'stage-a',
       postProduction: 'post',
-      releaseReady: 'theater',
+      // P06A W1: a releaseReady picture HOLDS in Production & Post until committed —
+      // it does not appear in the theater until the player commits and it actually
+      // releases (the theater is correct only after a real release).
+      releaseReady: 'post',
     } as const
 
     for (const [phase, location] of Object.entries(expectedLocation)) {
