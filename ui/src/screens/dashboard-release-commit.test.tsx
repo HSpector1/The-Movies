@@ -15,9 +15,6 @@ import {
   beginFounding,
   FOUNDING_MINIMUMS,
   generateWorld,
-  initialManagedStudioConstruction,
-  initialManagedStudioOperations,
-  initialManagedStudioPlacement,
   nextStudioDecision,
   tick,
 } from '../../../src/core/index.ts'
@@ -91,7 +88,7 @@ describe('P06A — the browser release-commit affordance', () => {
     expect(decision?.kind).toBe('releaseReview')
 
     const onCommit = vi.fn()
-    render(<Dashboard state={state} onCommitPictureToRelease={onCommit} onAdvance={() => {}} />)
+    render(<Dashboard state={state} onCommitPictureToRelease={onCommit} onAdvance={() => {}} onAssemble={() => {}} onSimToEvent={() => {}} onCreateTalent={() => {}} onSaves={() => {}} onOpenAutopsy={() => {}} />)
 
     const commit = screen.getByTestId('release-commit')
     expect(commit.textContent).toContain('to release')
@@ -107,7 +104,7 @@ describe('P06A — the browser release-commit affordance', () => {
 
   it('shows no commit control when nothing is Release Ready', () => {
     const state = foundedManaged('dash-no-release')
-    render(<Dashboard state={state} onCommitPictureToRelease={() => {}} onAdvance={() => {}} />)
+    render(<Dashboard state={state} onCommitPictureToRelease={() => {}} onAdvance={() => {}} onAssemble={() => {}} onSimToEvent={() => {}} onCreateTalent={() => {}} onSaves={() => {}} onOpenAutopsy={() => {}} />)
     expect(screen.queryByTestId('release-commit')).not.toBeInTheDocument()
   })
 })

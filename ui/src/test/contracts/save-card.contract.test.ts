@@ -34,6 +34,7 @@ import { describe, expect, it } from 'vitest'
 import { deriveSaveCard } from '../../shell/saveCard.ts'
 import {
   advanceWeek,
+  commitPictureToReleaseAction,
   exportSaveJson,
   greenlight,
   newGame,
@@ -41,6 +42,7 @@ import {
   selectCash,
   selectReleasedFilms,
   selectWeek,
+  studioDecision,
 } from '../../engine/adapter.ts'
 import type { CreativeRole, DraftPackage, GameState } from '../../engine/adapter.ts'
 import { foundedRosterIds, newFoundedGame } from '../founding.ts'
@@ -84,6 +86,14 @@ function stateWithARelease(seed: string): GameState {
   if (!greenlit.ok) throw new Error(`save-card fixture: greenlight failed — ${greenlit.error}`)
   let state = greenlit.next
   for (let guard = 0; guard < 40 && selectReleasedFilms(state).length === 0; guard += 1) {
+    // P06A: Release Ready holds until the explicit commitment — the fixture
+    // commits its exact picture the way a player does, then advances.
+    const decision = studioDecision(state)
+    if (decision?.kind === 'releaseReview') {
+      const committed = commitPictureToReleaseAction(state, decision.decision.productionId)
+      if (!committed.ok) throw new Error(`save-card fixture: commit failed — ${committed.error}`)
+      state = committed.next
+    }
     state = advanceWeek(state).next
   }
   if (selectReleasedFilms(state).length === 0) {
