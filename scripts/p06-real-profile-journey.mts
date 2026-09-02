@@ -3,6 +3,12 @@
 // data using CORE primitives, round-trip Save/Load, and prove the durable
 // original is never mutated. Works only on an in-memory copy; the on-disk
 // baseline is read-only and its sha256 is re-checked at the end.
+//
+// RUN (imports are repo-root-relative, so run from the repo root with vite-node,
+// NOT tsx — tsx cannot resolve the `.ts` extensions these modules import):
+//   cd "/Users/bruce/The Movies - P06A Impl TS"
+//   node_modules/.bin/vite-node scripts/p06-real-profile-journey.mts
+// Expected: "=== REAL-PROFILE JOURNEY: 25 passed, 0 failed ===".
 import { readFileSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import { execSync } from 'node:child_process'
