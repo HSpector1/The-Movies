@@ -88,6 +88,8 @@ force, no rewrite:
 | §22–25 proof pyramid + 6-scene visual oracle + real-profile copy + HID | IN PROGRESS — TS core floor 2232/2232, contract checks verified, EditMode 722/722; ui-project floor repair (187 hold-law fixture fails) 2/4 lanes landed; six-scene oracle FIXTURE GENERATOR being authored (level-1 machine assertions, self-verifying). Packaged-player build + visual capture + HID + real-profile-copy journeys remain the heaviest lift. |
 | §28–30 hostile review → quality convergence → seal + candidate | PENDING |
 
+**FLOOR STATUS (all green):** TS core 2232/2232, TS ui **2671/2671** (WIP tip after browser-commit fix), bridge/contract verified, EditMode **722/722** (Unity tip `63cb828`). Browser release-commit affordance landed (adapter action + Dashboard `release-commit` control + App wiring + E2E) — closed a real P04-lesson-4 deadlock the repair lanes refused to paper over. Shared closed-canonical read-model checks moved to the live V16 builder. Six-scene oracle FIXTURE generator still authoring (background).
+
 ### Resume pointers (exact next actions if interrupted)
 1. **ui floor:** await the 2 running repair lanes (screens-a/screens-b or lot-a/lot-b), then `cd "/Users/bruce/The Movies - P06A Impl TS" && npx vitest run --project ui`; fix stragglers with the bounded commit-at-ready drive idiom (`tickCommittingReady`), commit, push.
 2. **oracle fixtures:** verify `scripts/gen-p06-visual-oracle-fixtures.mts` output (`ui/e2e/p06-visual-oracle-v1/`, 6 save+checkpoint+manifest, byte-identical reruns), commit.
