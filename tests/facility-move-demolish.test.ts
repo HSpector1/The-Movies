@@ -48,7 +48,7 @@ import {
   studioCalendar,
   tick,
   validateSave,
-  validateSaveV15,
+  validateSaveV16,
 } from '../src/core/index.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -777,7 +777,7 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     const save = makeSave(state)
     expect(save.saveVersion).toBe(16)
     expect(validateSave(save)).toBe(save)
-    expect(validateSaveV15(save)).toBe(save)
+    expect(validateSaveV16(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json))).toBe(json)
     const reloaded = migrateToV16(importSave(json)).state
@@ -809,6 +809,11 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     delete forgedV11.state.productionQueue
     delete forgedV11.state.originalScreenplays
     delete forgedV11.state.studioEvents
+    // P06A (charter W1): strip the new release-authority root too, for the same
+    // reason as the V14 roots above — otherwise the exact-keys allowlist trips on
+    // "unknown field releaseAuthority" before the walk ever reaches the demolition
+    // refund boundary this test is about.
+    delete forgedV11.state.releaseAuthority
     forgedV11.saveVersion = 11
     expect(() => validateSave(forgedV11)).toThrow(
       /SaveFileV13 facility demolition authority|facilityDemolitionRefund/,

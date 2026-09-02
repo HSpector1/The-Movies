@@ -149,6 +149,26 @@ function genreOf(state: GameState, productionId: string): Genre {
   return state.concepts.find((concept) => concept.id === production.conceptId)!.genre
 }
 
+
+// P06A (charter W1): the hold law means "tick until released" spins forever
+// without the explicit commitment. This drive commits every ready picture
+// before each advance and is BOUNDED — a failure to converge is a loud throw,
+// never a hung worker.
+function tickCommittingReady(state: GameState): GameState {
+  const committed = new Set(state.releaseAuthority.commitments.map((r) => r.productionId))
+  const ready = state.studio.activeProductions.filter(
+    (p) => p.remainingTicks === 1 && !committed.has(p.id),
+  )
+  const next =
+    ready.length === 0
+      ? state
+      : applyActions(
+          state,
+          ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+        )
+  return tick(next)
+}
+
 describe('C2a-M2 — the marker at greenlight', () => {
   it('is true for a managed greenlight, and stays false where the charter says it must', () => {
     const state = withCash(operationsStudio('m2-marker'), 60_000_000)
@@ -347,7 +367,10 @@ describe('C2a-M2 — wrap, wear, and what reaches the audience', () => {
     state = tick(state) // wrap
     // Wrapping does not deplete: the audience has not seen anything yet.
     expect(setById(state.sets, boundSetId)!.novelty).toBe(noveltyAtBind)
-    while (state.studio.activeProductions.length > 0) state = tick(state)
+    for (let guard = 0; state.studio.activeProductions.length > 0; guard++) {
+      if (guard > 50) throw new Error('m2-novelty: never released in 50 weeks')
+      state = tickCommittingReady(state)
+    }
     expect(setById(state.sets, boundSetId)!.novelty).toBe(
       noveltyAtBind - TUNING.SET_NOVELTY_DEPLETION_PER_RELEASE,
     )
@@ -404,7 +427,10 @@ describe('C2a-M2 — wrap, wear, and what reaches the audience', () => {
       ])
       // P05A W1: due-at-call settles inside the Director call itself.
       state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId }])
-      while (state.studio.releasedFilms.length === 0) state = tick(state)
+      for (let guard = 0; state.studio.releasedFilms.length === 0; guard++) {
+        if (guard > 50) throw new Error('m2-lever: never released in 50 weeks')
+        state = tickCommittingReady(state)
+      }
       return state
     }
 

@@ -541,6 +541,16 @@ describe('First Film Journey V1 — the guided chain', () => {
         state = applyActions(state, [decision.command])
         continue
       }
+      // P06A (charter W1): Release Ready now HOLDS until an explicit commit — the
+      // journey names this as its own decision tier (`releaseReview`) precisely
+      // because it carries no resolvable command. Honor it the same way a real
+      // player would before advancing the week.
+      if (decision !== null && decision.kind === 'releaseReview') {
+        state = applyActions(state, [
+          { kind: 'commitPictureToRelease', productionId: decision.productionId },
+        ])
+        continue
+      }
       state = tick(state)
     }
     expect(state.studio.activeProductions).toHaveLength(0)

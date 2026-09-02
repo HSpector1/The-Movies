@@ -160,7 +160,20 @@ function playToRelease(
   const preTick = greenlightState(state, pkg)
   let cur = preTick
   let released: FilmResultLike[] = []
+  // P06A (charter W1): releaseReady (remainingTicks===1) now HOLDS until an explicit
+  // commitPictureToRelease. Commit every ready-and-uncommitted picture before each
+  // advance so the drive still converges — bounded at the pre-existing 30-tick window.
   for (let i = 0; i < 30 && released.length === 0; i++) {
+    const committed = new Set(cur.releaseAuthority.commitments.map((r) => r.productionId))
+    const ready = cur.studio.activeProductions.filter(
+      (p) => p.remainingTicks === 1 && !committed.has(p.id),
+    )
+    if (ready.length > 0) {
+      cur = applyActions(
+        cur,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
     const before = cur.studio.releasedFilms.length
     cur = tick(cur, { develop: false })
     released = cur.studio.releasedFilms.slice(before) as unknown as FilmResultLike[]

@@ -781,7 +781,20 @@ function validProducedState(seed: string): { state: GameState; productionId: str
   const production = clone(state.studio.activeProductions[0]!);
   expect(production.startTick).toBe(1);
 
+  // P06A (charter W1): releaseReady (remainingTicks===1) HOLDS until an explicit
+  // commitPictureToRelease. Commit every ready-and-uncommitted picture before each
+  // advance so the drive still converges — bounded at the pre-existing 20-tick window.
   for (let i = 0; i < 20 && state.studio.activeProductions.length > 0; i++) {
+    const committed = new Set(state.releaseAuthority.commitments.map((r) => r.productionId));
+    const ready = state.studio.activeProductions.filter(
+      (p) => p.remainingTicks === 1 && !committed.has(p.id),
+    );
+    if (ready.length > 0) {
+      state = applyActions(
+        state,
+        ready.map((p) => ({ kind: "commitPictureToRelease" as const, productionId: p.id })),
+      );
+    }
     state = tick(state);
   }
   const released = state.studio.releasedFilms.find(
@@ -907,7 +920,7 @@ describe("Film Chronicle V1 — SaveFileV11 durability", () => {
 
     const restored = importSave(exportSave(envelope));
     expect(restored.saveVersion).toBe(16);
-    if (restored.saveVersion !== 15) return;
+    if (restored.saveVersion !== 16) return;
     const after = buildFilmChronicle(inputFromState(migrateToV16(restored).state, productionId));
 
     expect(after).toEqual(before);

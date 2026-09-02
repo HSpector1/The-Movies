@@ -180,6 +180,28 @@ export function driveTakes(state: GameState): GameState {
   return next
 }
 
+/**
+ * P06A (charter W1): a picture at Release Ready (remainingTicks === 1) now HOLDS
+ * until an explicit `commitPictureToRelease` — otherwise `tick` alone never
+ * releases it. Commit every ready-and-uncommitted picture before each advance so
+ * callers waiting on a release (or on any phase reachable only past one) still
+ * converge.
+ */
+function commitReadyProductions(state: GameState): GameState {
+  const committed = new Set(state.releaseAuthority.commitments.map((row) => row.productionId))
+  const ready = state.studio.activeProductions.filter(
+    (production) => production.remainingTicks === 1 && !committed.has(production.id),
+  )
+  if (ready.length === 0) return state
+  return applyActions(
+    state,
+    ready.map((production) => ({
+      kind: 'commitPictureToRelease' as const,
+      productionId: production.id,
+    })),
+  )
+}
+
 /** Tick (driving takes each week) until `ready` holds, or throw. */
 export function runUntil(
   state: GameState,
@@ -190,6 +212,7 @@ export function runUntil(
   for (let i = 0; i < limit; i++) {
     if (ready(next)) return next
     next = driveTakes(next)
+    next = commitReadyProductions(next)
     next = tick(next)
   }
   if (!ready(next)) throw new Error('runUntil: condition not reached')
