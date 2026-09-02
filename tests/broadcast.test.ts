@@ -605,6 +605,17 @@ describe('§8 broadcast is INERT in the natural M0A corpus (contract-forced)', (
         let state = generateWorld(`${seed}-${label}`)
         for (let t = 0; t < TUNING.TICKS_PER_YEAR; t++) {
           state = applyActions(state, agent.chooseActions(state))
+          // P06A W1 hold law: a production at remainingTicks===1 HOLDS until an
+          // explicit commitPictureToRelease. Neither corpus agent knows about the
+          // hold (§13 agents only ever greenlight-or-nothing), so this drive commits
+          // every ready picture before each tick — committing advances no time.
+          const ready = state.studio.activeProductions.filter((p) => p.remainingTicks === 1)
+          if (ready.length > 0) {
+            state = applyActions(
+              state,
+              ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+            )
+          }
           state = tick(state)
         }
         // At least one film released, or the assertion is vacuous.

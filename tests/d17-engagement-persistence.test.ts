@@ -100,9 +100,23 @@ function greenlightOneFilm(s: GameState): GameState {
   ])
 }
 
+// P06A (charter W1): the hold law means "tick until released" spins forever without the
+// explicit commitment. This commits every ready picture before each tick so these fixtures
+// still release on their original timeline — committing at the ready week adds NO week
+// (P06A W1).
+function tickCommittingReady(s: GameState): GameState {
+  const committed = new Set(s.releaseAuthority.commitments.map((r) => r.productionId))
+  const ready = s.studio.activeProductions.filter((p) => p.remainingTicks === 1 && !committed.has(p.id))
+  const next =
+    ready.length === 0
+      ? s
+      : applyActions(s, ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })))
+  return tick(next)
+}
+
 function advance(s: GameState, n: number): GameState {
   let cur = s
-  for (let i = 0; i < n; i++) cur = tick(cur)
+  for (let i = 0; i < n; i++) cur = tickCommittingReady(cur)
   return cur
 }
 
@@ -122,7 +136,7 @@ function headlessRun(seed: string, weeks: number): GameState {
   let s = generateWorld(seed)
   for (let i = 0; i < weeks; i++) {
     s = applyActions(s, OracleAgent.chooseActions(s))
-    s = tick(s)
+    s = tickCommittingReady(s)
   }
   return s
 }
@@ -442,10 +456,10 @@ describe('D-17A/R2: a V6 save without an explicit engagement fact is rejected LO
     expect(() => validateSaveV6(bad)).toThrow(/economyEngagedEver/)
   })
 
-  it('new games save as V15 and carry the fact', () => {
-    // Annex V1: makeSave writes V11; the R2 fact is still carried.
+  it('new games save as V16 and carry the fact', () => {
+    // P06A (W1): makeSave now writes the live V16; the R2 fact is still carried.
     const save = makeSave(foundStudio('d17-newgame'))
-    expect(save.saveVersion).toBe(15)
+    expect(save.saveVersion).toBe(16)
     expect(save.state.economyEngagedEver).toBe(true)
   })
 })

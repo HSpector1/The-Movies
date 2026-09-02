@@ -109,11 +109,25 @@ function attemptGreenlightWithNoRoster(s: GameState): string {
   return '' // no rejection at all
 }
 
+// P06A (charter W1): the hold law means "tick until released" spins forever without the
+// explicit commitment. This commits every ready picture immediately before each tick so
+// the hostile schedules below still release on their original timeline — committing at the
+// ready week adds NO week (P06A W1).
+function tickCommittingReady(s: GameState): GameState {
+  const committed = new Set(s.releaseAuthority.commitments.map((r) => r.productionId))
+  const ready = s.studio.activeProductions.filter((p) => p.remainingTicks === 1 && !committed.has(p.id))
+  const next =
+    ready.length === 0
+      ? s
+      : applyActions(s, ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })))
+  return tick(next)
+}
+
 /** Advance, asserting the persisted regime fact never flips on the way. */
 function advanceEngaged(s: GameState, n: number): GameState {
   let out = s
   for (let i = 0; i < n; i++) {
-    out = tick(out)
+    out = tickCommittingReady(out)
     expect(economyEngaged(out)).toBe(true)
   }
   return out

@@ -247,12 +247,12 @@ describe("§17 / §15.7 — export→import→export round-trips byte-identicall
 
 describe("§17 — loud rejection of an unknown saveVersion", () => {
   it("throws on an unknown saveVersion (e.g. 17)", () => {
-    // Source: §17 "loud rejection of unknown versions". Versions 1–14 are known;
-    // P04A SaveFileV15 (§2.5) moved the unknown boundary from 14 to 15, so the
+    // Source: §17 "loud rejection of unknown versions". Versions 1–15 are known;
+    // P06A SaveFileV16 moved the unknown boundary from 15 to 16, so the
     // sentinel this test reaches for one version past the known ceiling moves
-    // with it — 15 to 16.
+    // with it — 16 to 17.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: 16 } as unknown as SaveFileV14;
+    const bad = { ...save, saveVersion: 17 } as unknown as SaveFileV14;
     expect(() => loadSave(bad)).toThrow();
   });
 });

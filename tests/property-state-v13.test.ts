@@ -59,7 +59,7 @@ import {
   studioPlacementView,
   tick,
   validateSave,
-  validateSaveV15,
+  validateSaveV16,
   assertStudioPlacementInvariants,
   expectedWeeklyOperatingCostAt,
 } from '../src/core/index.js'
@@ -640,7 +640,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
       // this case makes about it are unchanged — only which version writes it.
       expect(save.saveVersion).toBe(16)
       expect(validateSave(save)).toBe(save)
-      expect(validateSaveV15(save)).toBe(save)
+      expect(validateSaveV16(save)).toBe(save)
       expect(save.state.property).toEqual(INITIAL_PROPERTY)
       const json = exportSave(save)
       expect(exportSave(importSave(json))).toBe(json)
@@ -737,7 +737,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV15(bad)).toThrow(expected)
+      expect(() => validateSaveV16(bad)).toThrow(expected)
     }
   })
 
@@ -806,7 +806,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV15(bad)).toThrow(expected)
+      expect(() => validateSaveV16(bad)).toThrow(expected)
     }
   })
 
@@ -818,7 +818,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     const forged = clone(makeSave(state))
     // Move the Theater onto the Annex's ground. Nothing may stand in a body.
     forged.state.property.structures.find((s) => s.id === 'theater')!.origin = { gx: 7, gy: 15 }
-    expect(() => validateSaveV15(forged)).toThrow(
+    expect(() => validateSaveV16(forged)).toThrow(
       /placed facility 1 overlaps property structure "theater"/,
     )
   })
@@ -879,10 +879,10 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     }
   })
 
-  it('moves the unknown-version boundary from 15 to 16', () => {
+  it('moves the unknown-version boundary from 16 to 17', () => {
     const live = makeSave(managedStudio('c1-m1a-unknown'))
-    expect(() => validateSave({ ...live, saveVersion: 16 })).toThrow(
-      /unknown saveVersion 16.*versions 1 through 15 only/,
+    expect(() => validateSave({ ...live, saveVersion: 17 })).toThrow(
+      /unknown saveVersion 17.*versions 1 through 16 only/,
     )
   })
 })

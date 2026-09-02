@@ -110,6 +110,7 @@ export const STUDIO_EVENT_ROW_KEYS: Readonly<Record<string, readonly string[]>> 
 export const TIER_D_EVENT_KINDS = [
   'premiere',
   'wrapped',
+  'releaseCommitted', // P06A (charter W1): the permanent commitment witness
   'constructionCompleted',
   'setBuilt',
   'setRetired',
@@ -375,6 +376,9 @@ export function rowIdentity(row: StudioEventRow): string {
 export function projectToV13State(state: GameState): Record<string, unknown> {
   const raw = clone(state) as unknown as Record<string, unknown>
   for (const root of V14_STATE_ROOTS) delete raw[root]
+  // P06A (charter W1): the V16 root is version-younger than everything this
+  // twin models — a genuine V13 file never carried it, so the twin must not.
+  delete raw.releaseAuthority
 
   const operations = raw.operations as Record<string, unknown> | undefined
   if (operations !== undefined && Array.isArray(operations.workflows)) {
@@ -654,6 +658,26 @@ export function scriptedWeek(state: GameState): GameState {
       out = applyActions(out, [
         { kind: 'scheduleShootingTake', productionId: workflow.productionId },
       ])
+    }
+  }
+  // P06A (charter W1): the scripted player resolves the release decision the
+  // way a real one does — commit every uncommitted Release Ready picture
+  // before the advance. Applied symmetrically to both sides of every parity
+  // run; the commitment row and its event live entirely ABOVE the V13 surface
+  // (`projectToV13State` strips both), so V13-visible parity is untouched.
+  {
+    const committed = new Set(out.releaseAuthority.commitments.map((r) => r.productionId))
+    const ready = out.studio.activeProductions.filter(
+      (production) => production.remainingTicks === 1 && !committed.has(production.id),
+    )
+    if (ready.length > 0) {
+      out = applyActions(
+        out,
+        ready.map((production) => ({
+          kind: 'commitPictureToRelease' as const,
+          productionId: production.id,
+        })),
+      )
     }
   }
   return tick(out)

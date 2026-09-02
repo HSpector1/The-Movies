@@ -208,7 +208,20 @@ describe('Studio Calendar V1 — authoritative read model', () => {
     state = applyActions(state, [
       { kind: 'greenlight', production: rawProductionPayload(state, 0) },
     ])
-    for (let guard = 0; guard < 12 && state.theatricalRuns.length === 0; guard++) {
+    // P06A W1: a picture at remainingTicks===1 HOLDS until an explicit
+    // commitPictureToRelease — commit every ready picture before each advance,
+    // bounded so a real failure to converge throws loudly instead of hanging.
+    for (let guard = 0; guard < 60 && state.theatricalRuns.length === 0; guard++) {
+      const committed = new Set(state.releaseAuthority.commitments.map((r) => r.productionId))
+      const ready = state.studio.activeProductions.filter(
+        (p) => p.remainingTicks === 1 && !committed.has(p.id),
+      )
+      if (ready.length > 0) {
+        state = applyActions(
+          state,
+          ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+        )
+      }
       state = tick(state)
     }
     expect(state.theatricalRuns[0]?.status).toBe('active')
@@ -467,13 +480,21 @@ describe('Studio Calendar V1 — authoritative read model', () => {
       ],
     })
     onSchedule = tick(tick(firstPostWeek))
+    // P06A (charter W1): an UNCOMMITTED Release Ready picture holds — the
+    // calendar publishes NO week rather than a false one, so
+    // conditionalReleaseWeek is null here rather than the old fixed week 9.
     expect(studioCalendar(onSchedule).productionOutlook[0]).toMatchObject({
       phase: 'releaseReady',
       remainingTicks: 1,
-      conditionalReleaseWeek: 9,
+      conditionalReleaseWeek: null,
       status: 'on-schedule',
     })
-    const released = tick(onSchedule)
+    // P06A W1: release HOLDS at Release Ready until an explicit
+    // commitPictureToRelease — commit the ready picture before the release tick.
+    const committedForRelease = applyActions(onSchedule, [
+      { kind: 'commitPictureToRelease', productionId },
+    ])
+    const released = tick(committedForRelease)
     expect(released.market.tick).toBe(9)
     expect(studioCalendar(released).productionOutlook).toEqual([])
   })

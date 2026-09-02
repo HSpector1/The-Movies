@@ -98,6 +98,20 @@ function greenlight(
 
 const withCash = (s: GameState, cash: number): GameState => ({ ...s, studio: { ...s.studio, cash } })
 
+// P06A (charter W1): the hold law means "tick until released" spins forever without the
+// explicit commitment. This commits every ready picture before each tick so a slot can be
+// reused by the next greenlight on schedule — committing at the ready week adds NO week
+// (P06A W1).
+function tickCommittingReady(s: GameState): GameState {
+  const committed = new Set(s.releaseAuthority.commitments.map((r) => r.productionId))
+  const ready = s.studio.activeProductions.filter((p) => p.remainingTicks === 1 && !committed.has(p.id))
+  const next =
+    ready.length === 0
+      ? s
+      : applyActions(s, ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })))
+  return tick(next)
+}
+
 // ── hand-derived package figures (from the grid + resolveShape, not the selector) ──
 
 /** Least budget-demand multiplier over ALL 36 legal story shapes (real resolveShape). */
@@ -283,7 +297,7 @@ describe('D-17A/A — the reported figures are hand-derivable from the grid and 
     const cheapId = cheapestConceptId(s)
     budgets.forEach(([negative, marketing], i) => {
       s = greenlight(s, cheapId, i % 2, negative, marketing)
-      for (let k = 0; k < 9; k++) s = tick(s)
+      for (let k = 0; k < 9; k++) s = tickCommittingReady(s)
     })
     expect(s.studio.releasedFilms.length).toBe(4)
 

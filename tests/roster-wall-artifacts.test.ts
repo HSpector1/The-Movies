@@ -15,7 +15,7 @@ import {
   exportSave,
   generateWorld,
   importSave,
-  makeSaveV14,
+  makeSave,
   stableStringify,
 } from '../src/core/index.js'
 import {
@@ -253,9 +253,9 @@ function writeAcceptedSmokeArtifact(
   const entryIndex: RosterWallAcceptedArtifactManifest['entryIndex'] = []
   const state = generateWorld('accepted-smoke-entry')
   state.market.tick = 196
-  const saveJson = exportSave(makeSaveV14(state))
+  const saveJson = exportSave(makeSave(state))
   const imported = importSave(saveJson)
-  if (imported.saveVersion !== 14) throw new Error('test fixture did not produce SaveFileV14')
+  if (imported.saveVersion !== 16) throw new Error('test fixture did not produce SaveFileV16')
   const entrySaveHash = rosterWallSha256(saveJson)
   const entryStateHash = rosterWallSha256(stableStringify(imported.state))
 
@@ -576,7 +576,7 @@ function writeAcceptedSmokeArtifact(
 function writeExampleArtifact(root: string, runName: string, cash = 123): void {
   const writer = new RosterWallArtifactWriter(root, runName)
   const state = generateWorld(`fixture-seed-${String(cash)}`)
-  const saveJson = exportSave(makeSaveV14(state))
+  const saveJson = exportSave(makeSave(state))
   writer.writeEntry({
     entryId: 'entry-a',
     row: {
@@ -620,7 +620,7 @@ describe('roster-wall provenance gates', () => {
       tree: git(fixture.root, ['rev-parse', 'HEAD^{tree}']),
       worktreeDirty: false,
       runtime: 'node provenance-test',
-      saveVersion: 14,
+      saveVersion: 16,
       productionAuthorityCommit: fixture.authority,
       productionAuthorityTree: git(fixture.root, [
         'rev-parse',
@@ -779,7 +779,7 @@ describe('roster-wall artifact infrastructure', () => {
       productionAuthority: accepted.authority,
     })
     const writer = new RosterWallArtifactWriter(accepted.root, 'accepted')
-    const saveJson = exportSave(makeSaveV14(generateWorld('accepted-finalization')))
+    const saveJson = exportSave(makeSave(generateWorld('accepted-finalization')))
     writer.writeEntry({ entryId: 'entry-a', row: { entryId: 'entry-a' }, saveJson })
     writer.writeRow({ recordType: 'weekly' })
     const acceptedFinalization = acceptedTestFinalization(source)

@@ -183,6 +183,16 @@ function fourFilms(seed: string): { multiple: number; contributions: number[] } 
       committed[s.studio.activeProductions[s.studio.activeProductions.length - 1]!.id] = negative + marketing
       conceptIdx++
     }
+    // P06A W1 hold law: a production at remainingTicks===1 HOLDS until an explicit
+    // commitPictureToRelease. Commit every ready picture before each tick so the
+    // slate keeps moving — committing advances no time (bounded by TEST_SLATE_BOUND).
+    const ready = s.studio.activeProductions.filter((p) => p.remainingTicks === 1)
+    if (ready.length > 0) {
+      s = applyActions(
+        s,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
     s = tick(s, { develop: true })
     const ids = Object.keys(committed)
     if (ids.length >= 4 && ids.every((id) => { const r = s.theatricalRuns.find((x) => x.productionId === id); return r && r.status !== 'active' })) break

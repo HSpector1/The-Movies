@@ -46,7 +46,7 @@ import {
   validateSave,
   validateSaveV11,
   validateSaveV12,
-  validateSaveV15,
+  validateSaveV16,
 } from '../src/core/index.js'
 import type {
   GameState,
@@ -404,13 +404,13 @@ describe('Placement Core V12 — the frozen envelope', () => {
       { blueprintId: ANNEX, origin: { gx: 0, gy: 12 } },
     )
     const valid = makeSave(twoPlacements)
-    expect(validateSaveV15(valid)).toBe(valid)
+    expect(validateSaveV16(valid)).toBe(valid)
 
     const overlapped = clone(valid)
     overlapped.state.placement.facilities[1]!.origin = { gx: 0, gy: 9 }
     overlapped.state.placement.facilities[1]!.cells =
       overlapped.state.placement.facilities[0]!.cells.map((cell) => ({ ...cell }))
-    expect(() => validateSaveV15(overlapped)).toThrow(/overlaps placed facility 1/)
+    expect(() => validateSaveV16(overlapped)).toThrow(/overlaps placed facility 1/)
 
     const tooClose = clone(valid)
     tooClose.state.placement.facilities[1]!.origin = { gx: 0, gy: 11 }
@@ -422,27 +422,27 @@ describe('Placement Core V12 — the frozen envelope', () => {
       { gx: 1, gy: 12 },
       { gx: 2, gy: 12 },
     ]
-    expect(() => validateSaveV15(tooClose)).toThrow(/violates its clearance ring/)
+    expect(() => validateSaveV16(tooClose)).toThrow(/violates its clearance ring/)
   })
 
   it('rejects a forged operating charge that disagrees with the operational facilities', () => {
     const operational = advance(building('save-v12-opex'), ANNEX_DURATION_WEEKS + 2)
     const valid = makeSave(operational)
-    expect(validateSaveV15(valid)).toBe(valid)
+    expect(validateSaveV16(valid)).toBe(valid)
 
     const doubled = clone(valid)
     const row = doubled.state.ledger.find((entry) => entry.kind === 'facilityOpex')!
     const before = row.amount
     row.amount = before * 2
     doubled.state.studio.cash += before
-    expect(() => validateSaveV15(doubled)).toThrow(
+    expect(() => validateSaveV16(doubled)).toThrow(
       /facility operating cost at week .* disagrees/,
     )
 
     const early = clone(valid)
     const earliest = early.state.ledger.find((entry) => entry.kind === 'facilityOpex')!
     earliest.week = 1 // before the facility existed
-    expect(() => validateSaveV15(early)).toThrow(
+    expect(() => validateSaveV16(early)).toThrow(
       /facility operating cost at week 1 disagrees/,
     )
   })

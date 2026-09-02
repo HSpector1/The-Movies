@@ -228,7 +228,20 @@ function producedState(seed: string): GameState {
   let state = generateWorld(seed);
   state = applyActions(state, OracleAgent.chooseActions(state));
   const production = clone(state.studio.activeProductions[0]!);
-  for (let i = 0; i < 12 && state.studio.activeProductions.length > 0; i++) {
+  // P06A W1: a picture at remainingTicks===1 HOLDS until an explicit
+  // commitPictureToRelease — commit every ready picture before each advance,
+  // bounded so a real failure to converge throws loudly instead of hanging.
+  for (let i = 0; i < 60 && state.studio.activeProductions.length > 0; i++) {
+    const committed = new Set(state.releaseAuthority.commitments.map((r) => r.productionId));
+    const ready = state.studio.activeProductions.filter(
+      (p) => p.remainingTicks === 1 && !committed.has(p.id),
+    );
+    if (ready.length > 0) {
+      state = applyActions(
+        state,
+        ready.map((p) => ({ kind: "commitPictureToRelease" as const, productionId: p.id })),
+      );
+    }
     state = tick(state);
   }
   expect(state.studio.activeProductions).toHaveLength(0);
@@ -397,13 +410,13 @@ describe("Script Projects V1 — SaveFileV9", () => {
     expect(migrateToV9(current)).toBe(current);
   });
 
-  it("rejects unknown version 16 and refuses to downgrade V9 through migrateToV8", () => {
+  it("rejects unknown version 17 and refuses to downgrade V9 through migrateToV8", () => {
     const save = makeSaveV9(generateWorld("save-v9-boundary"));
-    expect(() => validateSave({ ...save, saveVersion: 16 })).toThrow(
-      /unknown saveVersion 16/,
+    expect(() => validateSave({ ...save, saveVersion: 17 })).toThrow(
+      /unknown saveVersion 17/,
     );
-    expect(() => validateSave({ ...save, saveVersion: 16 })).toThrow(
-      /versions 1 through 15 only/,
+    expect(() => validateSave({ ...save, saveVersion: 17 })).toThrow(
+      /versions 1 through 16 only/,
     );
     expect(() => migrateToV8(save)).toThrow(/cannot downgrade SaveFileV9/);
   });
@@ -507,7 +520,15 @@ describe("Script Projects V1 — SaveFileV9", () => {
       blocker: null,
       bindings: emptyWorkflowBindings(),
     };
-    const released = tick(releaseReady);
+    // P06A W1: a picture at remainingTicks===1 HOLDS until an explicit
+    // commitPictureToRelease — commit is required before the release tick.
+    const committed = applyActions(releaseReady, [
+      {
+        kind: "commitPictureToRelease",
+        productionId: releaseReady.studio.activeProductions[0]!.id,
+      },
+    ]);
+    const released = tick(committed);
     expect(released.scriptDevelopment.projects[0]!.status).toBe("produced");
     // C2a-M1: the release recorded a Tier-D `premiere`, which a V9 envelope
     // cannot carry and the migrator could never put back. The frozen builder

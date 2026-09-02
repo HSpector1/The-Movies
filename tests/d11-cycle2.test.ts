@@ -79,9 +79,21 @@ function rosterByRole(s: GameState, role: CreativeRole): Talent[] {
   return rosterTalent(s).filter((t) => t.role === role)
 }
 
+// P06A W1 hold law: a production at remainingTicks===1 HOLDS until an explicit
+// commitPictureToRelease. Commit every ready picture before each tick so a plain
+// N-tick drive still reaches release — committing advances no time.
 function advance(s: GameState, n: number, develop = false): GameState {
   let cur = s
-  for (let i = 0; i < n; i++) cur = tick(cur, { develop })
+  for (let i = 0; i < n; i++) {
+    const ready = cur.studio.activeProductions.filter((p) => p.remainingTicks === 1)
+    if (ready.length > 0) {
+      cur = applyActions(
+        cur,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
+    cur = tick(cur, { develop })
+  }
   return cur
 }
 

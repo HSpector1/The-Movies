@@ -847,7 +847,7 @@ function managedProductionBoardCard(state: GameState, production: Production): P
     facilities.length > 0
       ? facilities.join(' + ')
       : workflow.phase === 'releaseReady'
-        ? 'Theater / release desk (no facility reservation)'
+        ? 'Production & Post (Release Ready — no facility reservation)'
         : 'No facility reserved'
   const director = productionDirector(state, production)
   const task = workflow.shootingTask
@@ -6187,7 +6187,11 @@ function managedWorkflowLocation(
     case 'postProduction':
       return 'post'
     case 'releaseReady':
-      return 'theater'
+      // P06A W2 (the chartered REPLACE): an unreleased picture NEVER belongs
+      // to the Theater. Ready and committed are owned by Production & Post;
+      // the Theater changes only when the next authoritative week actually
+      // releases (Package 06 §9 / annex B1).
+      return 'post'
   }
 }
 

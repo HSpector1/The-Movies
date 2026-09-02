@@ -118,7 +118,8 @@ const STATE_LABEL: Record<LotProductionOperationalState, string> = {
   'resource-wait': 'Waiting for studio capacity',
   'wrapped-waiting-for-post': 'Wrapped — waiting for Post',
   'post-handoff': 'Post-production under way',
-  'release-ready': 'Ready for release',
+  'release-ready': 'Release Ready — awaiting your commitment',
+  'release-committed': 'Committed to release',
   'status-unavailable': 'Production details unavailable',
 }
 
@@ -135,7 +136,8 @@ const NEXT_MILESTONE: Record<LotProductionOperationalState, string> = {
   'resource-wait': 'Next: the missing capacity frees',
   'wrapped-waiting-for-post': 'Next: Post begins',
   'post-handoff': 'Next: release ready',
-  'release-ready': 'Next: release',
+  'release-ready': 'Next: your release decision',
+  'release-committed': 'Releases on the next studio week',
   'status-unavailable': 'Production details unavailable',
 }
 
@@ -151,6 +153,8 @@ function unreachableBlockerState(blocker: never): LotProductionOperationalState 
 export function closedOperationalState(
   workflow: ProductionWorkflow,
   scenery: SceneryLoadInDecision,
+  /** P06A W2: the exact-ID commitment fact — presentation never re-derives it. */
+  releaseCommitted: boolean,
 ): LotProductionOperationalState {
   const blocker = workflow.blocker
   if (blocker !== null) {
@@ -207,7 +211,9 @@ export function closedOperationalState(
     case 'postProduction':
       return 'post-handoff'
     case 'releaseReady':
-      return 'release-ready'
+      // P06A W2: ready and committed are DISTINCT closed states — the world,
+      // the rail and the workspace all read this one derivation.
+      return releaseCommitted ? 'release-committed' : 'release-ready'
   }
   return 'status-unavailable'
 }
@@ -439,7 +445,13 @@ export function composeClosedProduction(
       )
     }
     const scenery = sceneryLoadInDecision(state, workflow, week)
-    const operationalState = closedOperationalState(workflow, scenery)
+    const operationalState = closedOperationalState(
+      workflow,
+      scenery,
+      state.releaseAuthority.commitments.some(
+        (row) => row.productionId === production.id,
+      ),
+    )
     const title =
       state.concepts.find((concept) => concept.id === production.conceptId)?.title ??
       production.conceptId

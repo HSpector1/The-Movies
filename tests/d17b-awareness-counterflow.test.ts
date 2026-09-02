@@ -147,6 +147,20 @@ describe('D-17B §1/E1 — M0A byte-identity by construction (headless spot-run)
         const before = state.studio.standing
         const beforeCount = state.studio.releasedFilms.length
         state = applyActions(state, OracleAgent.chooseActions(state))
+        // P06A (charter W1): the hold law means a Release Ready picture
+        // (remainingTicks === 1) HOLDS until an explicit commit. This spot-run
+        // drives the commit itself, exactly as the roster-wall/facilities
+        // harnesses already do — committing at the ready week adds NO week.
+        const committed = new Set(state.releaseAuthority.commitments.map((r) => r.productionId))
+        const ready = state.studio.activeProductions.filter(
+          (p) => p.remainingTicks === 1 && !committed.has(p.id),
+        )
+        if (ready.length > 0) {
+          state = applyActions(
+            state,
+            ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+          )
+        }
         state = tick(state)
         // the regime never flips in a headless world — the split can only ever pick 0.58
         expect(economyEngaged(state)).toBe(false)
@@ -323,7 +337,19 @@ function releaseWeek(base: GameState, awareness: number, confidence: number): Re
       standing: { audienceAwareness: awareness, industryPrestige: 40, commercialConfidence: confidence },
     },
   }
-  const out = tick(armed)
+  // P06A (charter W1): remainingTicks === 1 HOLDS until an explicit commit.
+  // `preReleaseWorld` guarantees exactly one production sits at that ready week,
+  // so commit it before the single tick this fixture makes — committing adds NO
+  // week, so the release still lands on this exact tick.
+  const ready = armed.studio.activeProductions.filter((p) => p.remainingTicks === 1)
+  const committed =
+    ready.length === 0
+      ? armed
+      : applyActions(
+          armed,
+          ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+        )
+  const out = tick(committed)
   expect(out.studio.releasedFilms.length).toBe(1)
   return {
     aired: out.broadcastItems.length > base.broadcastItems.length,

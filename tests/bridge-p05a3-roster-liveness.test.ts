@@ -25,11 +25,12 @@ import { join } from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
+import { createHash } from 'node:crypto'
 import { BridgeSession, authoritativeDigest } from '../bridge/session.ts'
 import { castingProjection } from '../bridge/casting.ts'
 import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
-import { importSave, type GameState } from '../src/core/index.ts'
+import { importSave, migrateToV16 } from '../src/core/index.ts'
 
 const OWNER_SAVE_JSON = readFileSync(
   join(__dirname, 'fixtures', 'p05a3-owner-profile-rev10.save.json'),
@@ -54,7 +55,8 @@ const GLORIA = 't-act-17' // Gloria Underwood, cheapest signable actor
 const GLORIA_1YR = { weekly: 6040, guaranteed: 314080, bonus: 56536 }
 
 function ownerState(): GameState {
-  return importSave(OWNER_SAVE_JSON).state as GameState
+  // P06A: the P05-era fixture migrates to the LIVE state — the old cast hid it.
+  return migrateToV16(importSave(OWNER_SAVE_JSON)).state
 }
 
 function projectView(state: GameState) {
@@ -120,7 +122,11 @@ function commandEnvelope(session: BridgeSession, commandId: string, intentId: st
 describe('P05A.3 — the two-actor deadlock is a NAMED blocker, never a silent READY', () => {
   it('the fixture IS the deadlock state', () => {
     const state = ownerState()
-    expect(authoritativeDigest(state).startsWith(OWNER_STATE_DIGEST)).toBe(true)
+    // P06A: pin the RAW FIXTURE BYTES (immutable); the live V16 migration moved
+    // the state digest, not the historical artifact.
+    expect(
+      createHash('sha256').update(OWNER_SAVE_JSON).digest('hex').startsWith(OWNER_STATE_DIGEST),
+    ).toBe(true)
     const project = projectView(state)
     expect(project?.title).toBe('The Bitter Migration')
     // Exactly two distinct available actors across all three acting pools.

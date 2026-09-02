@@ -546,10 +546,10 @@ describe('CF-08 sound union-to-C# generation', () => {
 
       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 13 })
       expect(generated).toContain(
-        '// Schema identity: sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f',
+        '// Schema identity: sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f',
+        'sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -614,8 +614,8 @@ describe('CF-08 sound union-to-C# generation', () => {
         F03_COMPATIBLE_OBJECTS: '99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68',
         F04_DISCRIMINATED_OBJECTS: 'd878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b',
         F09_ARRAY_ITEM_UNION: '7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b',
-        F10_CURRENT_QUOTE_UNIONS: '79354fc4f328b22d8db9448dbc480fc7f35ebd0de0a240a91e275d6e306f67d2',
-        F11_CURRENT_COMMAND_UNION: '79354fc4f328b22d8db9448dbc480fc7f35ebd0de0a240a91e275d6e306f67d2',
+        F10_CURRENT_QUOTE_UNIONS: '040fbd5576bea912b411752340a26c62d216199395bf548423beb1fadd10b5e6',
+        F11_CURRENT_COMMAND_UNION: '040fbd5576bea912b411752340a26c62d216199395bf548423beb1fadd10b5e6',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

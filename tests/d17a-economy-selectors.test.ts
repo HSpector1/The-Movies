@@ -56,6 +56,19 @@ function openFounding(seed: string): GameState {
 function foundStudio(seed: string): GameState {
   return applyActions(openFounding(seed), [{ kind: 'foundStudio' }])
 }
+// P06A (charter W1): the hold law means "tick until released" spins forever without the
+// explicit commitment. This commits every ready picture before each tick so a fixture that
+// needs an actual release still gets one on the original timeline — committing at the ready
+// week adds NO week (P06A W1).
+function tickCommittingReady(s: GameState): GameState {
+  const committed = new Set(s.releaseAuthority.commitments.map((r) => r.productionId))
+  const ready = s.studio.activeProductions.filter((p) => p.remainingTicks === 1 && !committed.has(p.id))
+  const next =
+    ready.length === 0
+      ? s
+      : applyActions(s, ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })))
+  return tick(next)
+}
 function rosterIds(s: GameState, role: CreativeRole): string[] {
   return s.contracts
     .map((c) => s.talent.find((t) => t.id === c.talentId)!)
@@ -244,7 +257,7 @@ describe('D-17A/T4 — affordabilityScopes', () => {
   it('is BIT-IDENTICAL to the recap position it was extracted from (engaged fixture)', () => {
     let s = foundStudio('d17a-t4-a')
     s = greenlightOneFilm(s)
-    for (let i = 0; i < 20; i++) s = tick(s)
+    for (let i = 0; i < 20; i++) s = tickCommittingReady(s)
     const recap = studioRunRecap(s)
     const scopes = affordabilityScopes(s)
     expect(recap.summary.releasedFilmCount).toBeGreaterThan(0) // the fixture really is engaged

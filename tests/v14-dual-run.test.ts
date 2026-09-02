@@ -49,7 +49,6 @@ import type {
 } from '../src/core/index.js'
 
 import {
-  advance,
   operationsStudio,
   productionPayload,
   withCash,
@@ -138,6 +137,19 @@ function scriptedRun(seed: string, weeks: number): { weeks: Week[]; final: GameS
       }
     }
     state = driveShooting(state)
+    // P06A (charter W1): a picture at remainingTicks===1 HOLDS until an
+    // explicit commitPictureToRelease — commit every ready picture before the
+    // tick that would otherwise have released it.
+    const committed = new Set(state.releaseAuthority.commitments.map((r) => r.productionId))
+    const ready = state.studio.activeProductions.filter(
+      (p) => p.remainingTicks === 1 && !committed.has(p.id),
+    )
+    if (ready.length > 0) {
+      state = applyActions(
+        state,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
     const before = state
     const after = tick(state)
     captured.push({
@@ -382,6 +394,19 @@ describe('C2a-M1 · presentation parity — the ledger is a witness, never an in
           }
         }
         state = driveShooting(state)
+        // P06A (charter W1): a picture at remainingTicks===1 HOLDS until an
+        // explicit commitPictureToRelease — commit every ready picture before
+        // the tick that would otherwise have released it (mirrors scriptedRun).
+        const committed = new Set(state.releaseAuthority.commitments.map((r) => r.productionId))
+        const ready = state.studio.activeProductions.filter(
+          (p) => p.remainingTicks === 1 && !committed.has(p.id),
+        )
+        if (ready.length > 0) {
+          state = applyActions(
+            state,
+            ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+          )
+        }
         state = tick(state)
         // Read it hard: serialise it, project it, count it, sort a copy of it.
         stableStringify(state.studioEvents)
@@ -411,7 +436,24 @@ describe('C2a-M1 · presentation parity — the ledger is a witness, never an in
     // across this bump without being re-baselined.
     const headless = generateWorld('c2a-m1-parity-legacy')
     expect(headless.operations.mode).toBe('legacy')
-    const played = advance(applyActions(headless, OracleAgent.chooseActions(headless)), 12)
+    // P06A (charter W1): a picture at remainingTicks===1 HOLDS until an
+    // explicit commitPictureToRelease — a local bounded drive stands in for
+    // the shared `advance` helper (which does not know the hold law) so the
+    // legacy arm's single greenlit picture still reaches release.
+    let played = applyActions(headless, OracleAgent.chooseActions(headless))
+    for (let week = 0; week < 12; week++) {
+      const committed = new Set(played.releaseAuthority.commitments.map((r) => r.productionId))
+      const ready = played.studio.activeProductions.filter(
+        (p) => p.remainingTicks === 1 && !committed.has(p.id),
+      )
+      if (ready.length > 0) {
+        played = applyActions(
+          played,
+          ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+        )
+      }
+      played = tick(played)
+    }
     expect(played.studio.releasedFilms.length, 'the legacy arm never released a film').toBeGreaterThan(
       0,
     )

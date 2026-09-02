@@ -67,6 +67,16 @@ function releaseOneFilm(s0: GameState, leadId: string, negative = 5_000_000, mar
   ])
   const pid = s.studio.activeProductions[s.studio.activeProductions.length - 1]!.id
   for (let k = 0; k < TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS + 8; k++) {
+    // P06A W1 hold law: a production at remainingTicks===1 HOLDS until an explicit
+    // commitPictureToRelease. Commit every ready picture before each tick so the
+    // drive still reaches release — committing advances no time.
+    const ready = s.studio.activeProductions.filter((p) => p.remainingTicks === 1)
+    if (ready.length > 0) {
+      s = applyActions(
+        s,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
     s = tick(s, { develop: true })
     const run = s.theatricalRuns.find((r) => r.productionId === pid)
     if (run && run.status !== 'active') break

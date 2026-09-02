@@ -67,11 +67,27 @@ import {
 
 const SEGMENT_IDS: SegmentId[] = ['youngAdult', 'family', 'adult', 'prestige']
 
+// P06A (charter W1): a picture at remainingTicks===1 HOLDS until an explicit
+// commitPictureToRelease — every driving fixture below must commit each
+// ready picture before the tick that would otherwise have released it.
+function commitReadyPictures(state: GameState): GameState {
+  const committed = new Set(state.releaseAuthority.commitments.map((r) => r.productionId))
+  const ready = state.studio.activeProductions.filter(
+    (p) => p.remainingTicks === 1 && !committed.has(p.id),
+  )
+  if (ready.length === 0) return state
+  return applyActions(
+    state,
+    ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+  )
+}
+
 // One full simulated year from generateWorld(seed) under `agent`.
 function runYear(seed: string, agent: Agent): GameState {
   let state = generateWorld(seed)
   for (let t = 0; t < TUNING.TICKS_PER_YEAR; t++) {
     state = applyActions(state, agent.chooseActions(state))
+    state = commitReadyPictures(state)
     state = tick(state)
   }
   return state
@@ -95,6 +111,7 @@ function collectYear(
         snapshots.push(p.forecastSnapshot)
       }
     }
+    state = commitReadyPictures(state)
     state = tick(state)
   }
   return { releases: state.studio.releasedFilms, snapshots }

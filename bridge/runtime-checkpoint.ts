@@ -4,7 +4,6 @@ import {
   exportSave,
   importSave,
   migrateToV16,
-  type SaveFileV15,
   type SaveFileV16,
 } from '../src/core/index.js'
 import { exportSaveJson } from '../ui/src/engine/adapter.ts'
@@ -98,6 +97,10 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // projection-v12: 93895b7..e2ab80d "P05A closed Production projection"
   // through P05A.2 — the identity every P05-era Owner checkpoint carries.
   ['sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b', 'projection-v12'],
+  // P06A W2 (the schema-bump law above, obeyed): the P05A.3-sealed identity —
+  // the one the final-P05 Owner checkpoint carries — became prior the moment
+  // projection 14 minted the P06 identity.
+  ['sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f', 'projection-v13'],
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({
@@ -348,16 +351,13 @@ function parseCanonicalJson(json: string, path: string): unknown {
   return parsed
 }
 
-// P06A (charter W1) COMPATIBILITY WINDOW: while the P05 bridge schema
-// (`0474ceaf…`) remains the CURRENT identity, a current-schema checkpoint may
-// carry either the frozen V15 bytes it was written with (every pre-P06 Owner
-// checkpoint) or the live V16 bytes the P06 session writes. Each is validated
-// byte-canonical AGAINST ITS OWN VERSION — digests bind stored bytes, so
-// nothing is rewritten here; the SESSION migrates to V16 on import
-// (`importSaveJsonV16`), which is what makes every imported ready picture
-// explicitly uncommitted. When W2 mints the P06 schema and registers the P05
-// identity as prior, this acceptance narrows back to V16 only.
-type CurrentEnvelopeSave = SaveFileV15 | SaveFileV16
+// P06A W2: the W1 compatibility window is CLOSED. The P06 schema identity is
+// minted (projection 14) and the P05A.3 identity (`0474ceaf…`) is registered
+// prior above — every pre-P06 checkpoint now takes the governed prior path
+// (journal discarded as opaque history, saves re-imported through the
+// canonical chain). A CURRENT-schema checkpoint is therefore always written
+// by this build and always carries live V16 bytes.
+type CurrentEnvelopeSave = SaveFileV16
 
 function validateCanonicalCurrentSave(
   saveJson: string,
@@ -372,11 +372,11 @@ function validateCanonicalCurrentSave(
   } catch (error) {
     fail(path, `is not a valid TypeScript save: ${(error as Error).message}`)
   }
-  if (imported.saveVersion !== 15 && imported.saveVersion !== 16) {
-    fail(path, `must be a current V15/V16 save, received V${String(imported.saveVersion)}`)
+  if (imported.saveVersion !== 16) {
+    fail(path, `must be a current V16 save, received V${String(imported.saveVersion)}`)
   }
   if (exportSave(imported) !== saveJson) {
-    fail(path, `must preserve the canonical V${String(imported.saveVersion)} save bytes exactly`)
+    fail(path, 'must preserve the canonical V16 save bytes exactly')
   }
   const current = imported as CurrentEnvelopeSave
   cache.set(saveJson, current)

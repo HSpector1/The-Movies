@@ -29,7 +29,7 @@ import {
   setMountedOn,
   stableStringify,
   tick,
-  validateSaveV15,
+  validateSaveV16,
 } from '../src/core/index.js'
 import type { CastSlot, CreativeRole, GameState, SegmentId, Talent } from '../src/core/index.js'
 import { grandfatheredBindings, v13TwinOf } from './contracts/_v14Contract.js'
@@ -159,12 +159,12 @@ describe('C2a-M2 — sets across the save boundary', () => {
     expect(stableStringify(advance(reloaded, 5))).toBe(stableStringify(advance(state, 5)))
   })
 
-  it('refuses, at the V15 boundary, every state the sets authority forbids', () => {
+  it('refuses, at the V16 boundary, every state the sets authority forbids', () => {
     const state = livedInStudio('m2-save-refusals')
     const envelope = JSON.parse(exportSave(makeSave(state))) as {
       state: { sets: Record<string, unknown>[]; nextSetId: number }
     }
-    expect(() => validateSaveV15(envelope)).not.toThrow()
+    expect(() => validateSaveV16(envelope)).not.toThrow()
 
     const forge = (mutate: (sets: Record<string, unknown>[]) => void): unknown => {
       const copy = JSON.parse(JSON.stringify(envelope)) as typeof envelope
@@ -174,7 +174,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
 
     // Two sets on one stage.
     expect(() =>
-      validateSaveV15(
+      validateSaveV16(
         forge((sets) => {
           sets[2]!.mountedOn = STAGE_7
         }),
@@ -183,7 +183,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
 
     // A standing set with no condition — the build/repair discriminator broken.
     expect(() =>
-      validateSaveV15(
+      validateSaveV16(
         forge((sets) => {
           sets[0]!.condition = 0
         }),
@@ -192,7 +192,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
 
     // A set under work that no scenery crew is on.
     expect(() =>
-      validateSaveV15(
+      validateSaveV16(
         forge((sets) => {
           sets[0]!.status = 'under-construction'
           sets[0]!.completesWeek = 400
@@ -262,7 +262,7 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
     }
 
     // And the whole thing is a legal V15 file at every step.
-    expect(() => validateSaveV15(JSON.parse(exportSave(makeSave(played))))).not.toThrow()
+    expect(() => validateSaveV16(JSON.parse(exportSave(makeSave(played))))).not.toThrow()
   })
 
   it('lets a migrated studio BUILD a set on the stage it just cleared', () => {

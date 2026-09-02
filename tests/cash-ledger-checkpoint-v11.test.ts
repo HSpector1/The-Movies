@@ -45,7 +45,6 @@ import {
   makeSaveV10,
   migrateToV11,
   migrateToV14,
-  migrateToV15,
   validateSaveV16,
   migrateToV16,
   stableStringify,
@@ -53,7 +52,6 @@ import {
   validateSaveV2,
   validateSaveV10,
   validateSaveV11,
-  validateSaveV15,
   type SaveFile,
   type SaveFileV10,
   type SaveFileV11,
@@ -236,13 +234,13 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
     const reconciled = makeSave(played);
     expect(reconciled.state.ledger).toHaveLength(1);
     expect("cashLedgerCheckpoint" in reconciled.state).toBe(false);
-    expect(validateSaveV15(reconciled)).toBe(reconciled);
+    expect(validateSaveV16(reconciled)).toBe(reconciled);
 
     const json = exportSave(reconciled);
     const imported = importSave(json);
     expect(exportSave(imported)).toBe(json);
     expect("cashLedgerCheckpoint" in imported.state).toBe(false);
-    expect(migrateToV15(imported)).toBe(imported);
+    expect(migrateToV16(imported)).toBe(imported);
   });
 
   it("rejects malformed and redundant checkpoints at the exact V11 boundary", () => {
@@ -288,7 +286,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
       cash: redundant.state.studio.cash,
       ledgerLength: redundant.state.ledger.length,
     };
-    expect(() => validateSaveV15(redundant)).toThrow(
+    expect(() => validateSaveV16(redundant)).toThrow(
       /checkpoint must encode a genuine historical reconciliation boundary/,
     );
   });
@@ -299,7 +297,23 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
     const migrated = migrateToV16(playedV2("checkpoint-frozen-projection"));
     const checkpoint = migrated.state.cashLedgerCheckpoint!;
     let continued = migrated.state;
-    for (let week = 0; week < 30 && continued.studio.activeProductions.length > 0; week++) {
+    // P06A W1: a picture at remainingTicks===1 HOLDS until an explicit
+    // commitPictureToRelease — this drive commits every ready picture before
+    // each advance, bounded so a real failure to converge throws loudly
+    // instead of hanging.
+    for (let week = 0; week < 60 && continued.studio.activeProductions.length > 0; week++) {
+      const committed = new Set(
+        continued.releaseAuthority.commitments.map((r) => r.productionId),
+      );
+      const ready = continued.studio.activeProductions.filter(
+        (p) => p.remainingTicks === 1 && !committed.has(p.id),
+      );
+      if (ready.length > 0) {
+        continued = applyActions(
+          continued,
+          ready.map((p) => ({ kind: "commitPictureToRelease" as const, productionId: p.id })),
+        );
+      }
       continued = tick(continued);
     }
     expect(continued.studio.activeProductions).toHaveLength(0);
@@ -452,25 +466,25 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
 
     const changedAnchor = clone(valid);
     changedAnchor.state.cashLedgerCheckpoint!.cash += 1;
-    expect(() => validateSaveV15(changedAnchor)).toThrow(
+    expect(() => validateSaveV16(changedAnchor)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
 
     const changedCash = clone(valid);
     changedCash.state.studio.cash += 1;
-    expect(() => validateSaveV15(changedCash)).toThrow(
+    expect(() => validateSaveV16(changedCash)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
 
     const movedBoundary = clone(valid);
     movedBoundary.state.cashLedgerCheckpoint!.ledgerLength += 1;
-    expect(() => validateSaveV15(movedBoundary)).toThrow(
+    expect(() => validateSaveV16(movedBoundary)).toThrow(
       /construction capex cannot predate the V11 cash-ledger checkpoint/,
     );
 
     const changedSuffix = clone(valid);
     changedSuffix.state.ledger[overheadIndex]!.amount -= 1;
-    expect(() => validateSaveV15(changedSuffix)).toThrow(
+    expect(() => validateSaveV16(changedSuffix)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
   });

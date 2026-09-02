@@ -47,12 +47,28 @@ import {
 import type { Agent, GameState } from '../src/core/index.js'
 import { makeLegacySaveV1, toLegacyTalent } from './_legacyV1Fixtures.js'
 
+// P06A (charter W1): a picture at remainingTicks===1 HOLDS until an explicit
+// commitPictureToRelease — every driving fixture in this file must commit
+// each ready picture before the tick that would otherwise have released it.
+function commitReadyPictures(state: GameState): GameState {
+  const committed = new Set(state.releaseAuthority.commitments.map((r) => r.productionId))
+  const ready = state.studio.activeProductions.filter(
+    (p) => p.remainingTicks === 1 && !committed.has(p.id),
+  )
+  if (ready.length === 0) return state
+  return applyActions(
+    state,
+    ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+  )
+}
+
 // One full simulated year from generateWorld(seed): every tick, the agent chooses,
 // applyActions applies, tick advances. Ticks 0..TICKS_PER_YEAR-1 (52). Per the brief.
 function runYear(seed: string, agent: Agent): GameState {
   let state = generateWorld(seed)
   for (let t = 0; t < TUNING.TICKS_PER_YEAR; t++) {
     state = applyActions(state, agent.chooseActions(state))
+    state = commitReadyPictures(state)
     state = tick(state)
   }
   return state
@@ -63,6 +79,7 @@ function runYearDeveloping(seed: string, agent: Agent): GameState {
   let state = generateWorld(seed)
   for (let t = 0; t < TUNING.TICKS_PER_YEAR; t++) {
     state = applyActions(state, agent.chooseActions(state))
+    state = commitReadyPictures(state)
     state = tick(state, { develop: true })
   }
   return state
@@ -73,6 +90,7 @@ function advance(start: GameState, n: number, agent: Agent, develop: boolean): G
   let state = start
   for (let t = 0; t < n; t++) {
     state = applyActions(state, agent.chooseActions(state))
+    state = commitReadyPictures(state)
     state = tick(state, { develop })
   }
   return state
@@ -107,6 +125,9 @@ describe('§15.7/M9 — sim stream advances IFF a release is received that tick'
 
     for (let t = 0; t < TUNING.TICKS_PER_YEAR; t++) {
       state = applyActions(state, OracleAgent.chooseActions(state))
+      // P06A W1: commit every ready picture before the tick that would
+      // otherwise have released it — commitment itself does not touch rngState.
+      state = commitReadyPictures(state)
       const before = state.rngState
       const releasedBefore = state.studio.releasedFilms.length
       state = tick(state)

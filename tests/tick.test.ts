@@ -154,6 +154,12 @@ describe('§3/M1 skip-first-tick + release timing', () => {
     // market.tick has advanced to PRODUCTION_TICKS after 8 calls.
     expect(s.market.tick).toBe(TUNING.PRODUCTION_TICKS)
 
+    // P06A W1 hold law: the picture sits at remainingTicks===1 (Release Ready) and
+    // HOLDS there until explicitly committed. Committing advances no time (§ W1).
+    s = applyActions(s, [
+      { kind: 'commitPictureToRelease', productionId: s.studio.activeProductions[0]!.id },
+    ])
+
     // 9th call: the film releases DURING this tick, stamped releaseTick = 8.
     s = tick(s)
     expect(s.studio.releasedFilms).toHaveLength(1)
@@ -187,6 +193,10 @@ describe('§3/M9 reception is the ONLY sim-stream consumer', () => {
     const { state: g } = greenlight(world)
     let s = g
     for (let i = 0; i < TUNING.PRODUCTION_TICKS; i++) s = tick(s)
+    // P06A W1 hold law: commit the Release Ready picture before the releasing tick.
+    s = applyActions(s, [
+      { kind: 'commitPictureToRelease', productionId: s.studio.activeProductions[0]!.id },
+    ])
     const before = s.rngState
     const released = tick(s) // 9th call: reception resolves the film
     expect(released.studio.releasedFilms).toHaveLength(1)
@@ -200,6 +210,10 @@ describe('§3/D-1 cash credit on release', () => {
     const { state: g } = greenlight(world)
     let s = g
     for (let i = 0; i < TUNING.PRODUCTION_TICKS; i++) s = tick(s)
+    // P06A W1 hold law: commit the Release Ready picture before the releasing tick.
+    s = applyActions(s, [
+      { kind: 'commitPictureToRelease', productionId: s.studio.activeProductions[0]!.id },
+    ])
     // The releasing tick is a SINGLE-release tick (one production only).
     const cashBefore = s.studio.cash
     const releasedCountBefore = s.studio.releasedFilms.length
@@ -225,6 +239,9 @@ describe('§6/B12 tick threads updateStanding correctly (cross-check)', () => {
     const prod = s.studio.activeProductions[0]
     const snap = prod.forecastSnapshot
     const prevStanding = { ...s.studio.standing }
+
+    // P06A W1 hold law: commit the Release Ready picture before the releasing tick.
+    s = applyActions(s, [{ kind: 'commitPictureToRelease', productionId: prod.id }])
 
     const after = tick(s)
     expect(after.studio.releasedFilms).toHaveLength(1)
@@ -289,6 +306,16 @@ describe('§3/M1/B2/B3 exact 10-release timeline + 2 unfinished (D-2 cadence)', 
         const { state } = greenlight(s, conceptIdx)
         conceptIdx += 1
         s = state
+      }
+      // P06A W1 hold law: commit every Release Ready picture before the tick that
+      // would otherwise release it — committing advances no time (bounded: at most
+      // TEST_SLATE_BOUND productions can ever be ready in the same tick).
+      const ready = s.studio.activeProductions.filter((p) => p.remainingTicks === 1)
+      if (ready.length > 0) {
+        s = applyActions(
+          s,
+          ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+        )
       }
       s = tick(s)
       const now = s.studio.releasedFilms.length

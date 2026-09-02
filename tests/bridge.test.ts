@@ -164,7 +164,7 @@ function expectOrderedSubsequence<T>(actual: readonly T[], expected: readonly T[
 describe('Current-game Unity adoption bridge', () => {
   it('pins protocol v4/projection v8 and fingerprints named projections and exact intent fields', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(SNAPSHOT_VERSION).toBe(13)
+    expect(SNAPSHOT_VERSION).toBe(14)
     expect(SCHEMA_ID).toMatch(/^sha256:[0-9a-f]{64}$/)
     expect(Object.keys(
       BRIDGE_CONTRACT.$defs.StudioBridgeIntentOption.properties as Record<string, unknown>,
@@ -180,6 +180,7 @@ describe('Current-game Unity adoption bridge', () => {
       'lot',
       'people',
       'productions',
+      'release', // P06A W2: the closed Release projection joins the bundle
       'releaseResults',
     ])
     expect(BRIDGE_CONTRACT.$defs.StudioFirstFilmJourneySnapshot.required).toEqual(

@@ -38,7 +38,7 @@ import type {
   FoundingApplicantRow,
   GameState,
 } from '../ui/src/engine/adapter.ts'
-import { importSave, migrateToV16 } from '../src/core/index.js'
+import { applyActions, importSave, migrateToV16 } from '../src/core/index.js'
 import {
   PROTOCOL_VERSION,
   SCHEMA_ID,
@@ -199,6 +199,14 @@ export function selectJourneyIntent(
       return candidates.find(
         (candidate) =>
           candidate.kind === 'resolveProductionBlocker' &&
+          candidate.productionId === journey.productionId,
+      )
+    // P06A W2: the journey's release-review step selects the EXACT-ID commit
+    // intent — the same exact-id discipline resolve-production already keeps.
+    case 'release-review':
+      return candidates.find(
+        (candidate) =>
+          candidate.kind === 'commitPictureToRelease' &&
           candidate.productionId === journey.productionId,
       )
     default:
@@ -840,6 +848,52 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
     }
   }
 
+  // ── P06A W2 — the explicit release commitment, per exact picture ──────────
+  // One intent per UNCOMMITTED Release Ready production, ascending exact id.
+  // The option's productionId is ALWAYS non-empty for this kind; the applied
+  // action is the ONE core `commitPictureToRelease` — legality lives there,
+  // never here. Published in managed AND legacy worlds (the hold law binds
+  // both arms), and never gated by `studioDecision` — the release decision IS
+  // the decision this intent resolves.
+  {
+    const committedIds = new Set(
+      state.releaseAuthority.commitments.map((row) => row.productionId),
+    )
+    const readyUncommitted = state.studio.activeProductions
+      .filter(
+        (production) => production.remainingTicks === 1 && !committedIds.has(production.id),
+      )
+      .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
+    for (const production of readyUncommitted) {
+      const concept = state.concepts.find(
+        (candidate) => candidate.id === production.conceptId,
+      )
+      const title = concept?.title ?? production.id
+      const fields: Omit<AvailableIntent, 'intentId'> = {
+        kind: 'commitPictureToRelease',
+        label: `Commit ${title} to release`,
+        detail:
+          'Irreversible. Advances no time; the picture releases on the next studio week.',
+        projectId: null,
+        castingSessionId: null,
+        productionId: production.id,
+      }
+      pushIfAccepted(state, resolved, {
+        option: option(stateDigest, fields, {
+          kind: 'commitPictureToRelease',
+          productionId: production.id,
+        }),
+        apply: (current) =>
+          caught(() => ({
+            ok: true,
+            next: applyActions(current, [
+              { kind: 'commitPictureToRelease', productionId: production.id },
+            ]),
+          })),
+      })
+    }
+  }
+
   const next = journey.next
   if (next === null) return resolved
   if (next.kind === 'commission') return resolved
@@ -1220,6 +1274,7 @@ export class BridgeSession {
       ...context.lotSnapshot(),
       development: context.development(),
       casting: context.casting(),
+      release: context.release(),
     })
     const stateDigest = context.stateDigest()
     // One founding resolution serves both surfaces, so an arrival's intentId can

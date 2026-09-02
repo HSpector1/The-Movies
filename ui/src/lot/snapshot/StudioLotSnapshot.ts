@@ -396,6 +396,7 @@ export type LotProductionOperationalState =
   | 'wrapped-waiting-for-post'
   | 'post-handoff'
   | 'release-ready'
+  | 'release-committed'
   | 'status-unavailable'
 
 /** How exactly the projection could resolve this picture's CURRENT worksite. */

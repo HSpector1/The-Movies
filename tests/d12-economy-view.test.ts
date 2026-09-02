@@ -67,9 +67,21 @@ function greenlightOneFilm(s: GameState): GameState {
     },
   ])
 }
+// P06A W1 hold law: a production at remainingTicks===1 HOLDS until an explicit
+// commitPictureToRelease. Commit every ready picture before each tick so a plain
+// N-tick drive still reaches release — committing advances no time.
 function advance(s: GameState, n: number): GameState {
   let out = s
-  for (let i = 0; i < n; i++) out = tick(out)
+  for (let i = 0; i < n; i++) {
+    const ready = out.studio.activeProductions.filter((p) => p.remainingTicks === 1)
+    if (ready.length > 0) {
+      out = applyActions(
+        out,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
+    }
+    out = tick(out)
+  }
   return out
 }
 // A founded studio advanced to just past its first release → exactly one ACTIVE run.

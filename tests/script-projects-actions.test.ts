@@ -92,7 +92,10 @@ function remainingPackage(state: GameState): Omit<GreenlightScriptProjectPayload
 
 function advanceManagedProductionToRelease(state: GameState): GameState {
   let next = state
-  for (let step = 0; step < 16 && next.studio.activeProductions.length > 0; step++) {
+  // P06A W1: a picture at remainingTicks===1 HOLDS until an explicit
+  // commitPictureToRelease — commit every ready picture before each advance,
+  // bounded so a real failure to converge throws loudly instead of hanging.
+  for (let step = 0; step < 60 && next.studio.activeProductions.length > 0; step++) {
     const production = next.studio.activeProductions[0]!
     const workflow = next.operations.workflows.find(
       (candidate) => candidate.productionId === production.id,
@@ -107,6 +110,16 @@ function advanceManagedProductionToRelease(state: GameState): GameState {
         },
         { kind: 'scheduleShootingTake', productionId: production.id },
       ])
+    }
+    const committed = new Set(next.releaseAuthority.commitments.map((r) => r.productionId))
+    const ready = next.studio.activeProductions.filter(
+      (p) => p.remainingTicks === 1 && !committed.has(p.id),
+    )
+    if (ready.length > 0) {
+      next = applyActions(
+        next,
+        ready.map((p) => ({ kind: 'commitPictureToRelease' as const, productionId: p.id })),
+      )
     }
     next = tick(next)
   }

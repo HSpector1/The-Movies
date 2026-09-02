@@ -21,7 +21,10 @@ export const PROTOCOL_VERSION = 4 as const
 // collection, and the exact `rehearsal` journey beat) extends the wire shape,
 // so the projection identity advances 11 → 12. Protocol stays 4; save stays 15
 // (no saved byte changed).
-export const PROJECTION_VERSION = 13 as const
+// P06A W2 (charter W2): 13 → 14 — the Release projection joins the bundle,
+// `release-committed` joins the closed operational-state vocabulary, and the
+// explicit `commitPictureToRelease` intent kind joins the wire.
+export const PROJECTION_VERSION = 14 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -97,6 +100,7 @@ const StudioJourneyNextSnapshot = object('StudioJourneyNextSnapshot', {
     'review-casting-blocker',
     'open-package',
     'resolve-production',
+    'release-review',
     'advance-week',
   ]),
   label: nonEmptyText(),
@@ -349,6 +353,7 @@ const StudioProductionOperationsSnapshot = object('StudioProductionOperationsSna
     'wrapped-waiting-for-post',
     'post-handoff',
     'release-ready',
+    'release-committed',
     'status-unavailable',
   ]),
   stateLabel: nonEmptyText(),
@@ -1400,6 +1405,41 @@ export const StudioCastingProjectionSchema = object('StudioCastingProjection', {
   casting: studioLotSnapshotProperties.casting,
 })
 
+// ── P06A W2 — the closed Release projection (recon r2 §6.3) ─────────────────
+const StudioReleaseDecisionSnapshot = object('StudioReleaseDecisionSnapshot', {
+  productionId: nonEmptyText(),
+  title: nonEmptyText(),
+  genreLabel: nonEmptyText(),
+  authorityState: enumeration(['ready-uncommitted', 'committed']),
+  commitmentId: nullable(text()),
+  committedAtWeek: nullable(nonNegativeInteger()),
+  legalCommit: bool(),
+  refusal: nullable(text()),
+  expectedCriticScore: number({}),
+  expectedOpening: number({}),
+  expectedTotal: number({}),
+  alreadyPaidProduction: number({ minimum: 0 }),
+  alreadyPaidMarketing: number({ minimum: 0 }),
+  holdBusyTalentIds: array(text()),
+  holdBusyTalentNames: array(text()),
+})
+
+const StudioReleaseBoard = object('StudioReleaseBoard', {
+  decisions: array(reference('StudioReleaseDecisionSnapshot', StudioReleaseDecisionSnapshot)),
+  // TypeScript-authored auto-roll fact: false while ANY decision stop is live.
+  // Unity's Living Time consumes THIS — intent presence is never permission (W5).
+  automaticWeekRollEligible: bool(),
+  nextDecisionKind: nullable(
+    enumeration(['scriptReview', 'castingReview', 'productionOperation', 'releaseReview']),
+  ),
+})
+
+export const StudioReleaseProjectionSchema = object('StudioReleaseProjection', {
+  // The house sectioning pattern: each bundle section wraps its content under
+  // its own wire key and is projected from the flat composed source.
+  release: reference('StudioReleaseBoard', StudioReleaseBoard),
+})
+
 export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
   lot: reference('StudioLotProjection', StudioLotProjectionSchema),
   productions: reference('StudioProductionsProjection', StudioProductionsProjectionSchema),
@@ -1409,6 +1449,7 @@ export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
   releaseResults: reference('StudioReleaseResultsProjection', StudioReleaseResultsProjectionSchema),
   development: reference('StudioDevelopmentProjection', StudioDevelopmentProjectionSchema),
   casting: reference('StudioCastingProjection', StudioCastingProjectionSchema),
+  release: reference('StudioReleaseProjection', StudioReleaseProjectionSchema),
 })
 
 export const AVAILABLE_INTENT_KINDS = [
@@ -1425,6 +1466,10 @@ export const AVAILABLE_INTENT_KINDS = [
   'startConstruction',
   'commissionOriginalScreenplay',
   'signContract',
+  // P06A W2: the ONE explicit release commitment. Its option ALWAYS carries a
+  // non-empty productionId (enforced at resolution and at the exact-ID client
+  // matcher; the shared option shape stays nullable for every other kind).
+  'commitPictureToRelease',
 ] as const
 
 export const REJECTION_CODES = [
@@ -1686,6 +1731,9 @@ const definitions = {
   StudioReleaseResultsProjection: StudioReleaseResultsProjectionSchema,
   StudioDevelopmentProjection: StudioDevelopmentProjectionSchema,
   StudioCastingProjection: StudioCastingProjectionSchema,
+  StudioReleaseDecisionSnapshot,
+  StudioReleaseBoard,
+  StudioReleaseProjection: StudioReleaseProjectionSchema,
   StudioProjectionBundle: StudioProjectionBundleSchema,
   StudioBridgeIntentOption,
   StudioBridgeMetrics,
@@ -1704,7 +1752,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-13',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-14',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [

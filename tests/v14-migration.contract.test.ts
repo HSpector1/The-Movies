@@ -37,6 +37,8 @@ import {
   assertStudioOperationsInvariants,
   generateWorld,
   makeSaveV13,
+  migrateToV16,
+  validateSave,
   stableStringify,
   tick,
   validateSaveV13,
@@ -256,7 +258,11 @@ describe('C2a-M1 · T9 (B) — every held phase × blocker kind migrates and pla
       const { native } = fixtureFor(cell.key)
       const twin = v13TwinOf(native)
 
-      let fromMigrated = stateOf(module.migrateToV14(twin))
+      // P06A: the LIVE engine demands the V16 root — the twin migrates the
+      // rest of the way to live before playing. The weekly comparison still
+      // projects BOTH sides down to the V13 surface, so the claim under test
+      // (V13-visible behavior identical) is exactly what it always was.
+      let fromMigrated = migrateToV16(validateSave(module.migrateToV14(twin))).state
       let fromNative = native
 
       const startWeek = native.market.tick

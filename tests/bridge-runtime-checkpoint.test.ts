@@ -30,6 +30,7 @@ import {
 import {
   BridgeSession,
   createBridgeInitialState,
+  createManagedBridgeState,
 } from '../bridge/session.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
 import { exportSaveJson } from '../ui/src/engine/adapter.ts'
@@ -151,9 +152,15 @@ function previousProtocol4Bytes(checkpoint: BridgeRuntimeCheckpointV1): string {
 // under an old protocol-4 schema would be shaped: the save slots are genuine,
 // versioned save bytes; the journal is deliberately NOT current-contract-
 // shaped, because the new import path must never parse it.
-
+//
+// Seeded with `createManagedBridgeState` (founding resolved, no picture
+// played through to release) rather than `createBridgeInitialState` — a
+// genuine prior-era protocol-4 world predates the `releaseCommitted` studio
+// event kind, so its state can never legally contain a release drive. Using
+// the full first-movie playthrough here would mint a `releaseCommitted` row
+// that the frozen V14 validator correctly refuses.
 function v14CurrentSaveJson(seed: string): string {
-  return exportSave(makeSaveV14(createBridgeInitialState(seed)))
+  return exportSave(makeSaveV14(createManagedBridgeState(seed)))
 }
 
 function opaqueJournalEntry(commandId: string, tag: string): BridgeRuntimeJournalEntryV1 {
@@ -220,8 +227,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
     })
     expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(source.currentSaveJson))
     expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(source.savedSaveJson))
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(15)
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(15)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(16)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(16)
     expect(() => decodeBridgeRuntimeCheckpoint(
       encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint),
     )).not.toThrow()
@@ -257,8 +264,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
       savedStateDigest: sha256(source.savedSaveJson),
       journal: [],
     })
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(15)
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(15)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(16)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(16)
 
     const corrupted = JSON.parse(priorBytes) as Record<string, unknown>
     corrupted.journalDigest = '0'.repeat(64)
@@ -319,8 +326,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
     const hydrated = decodeBridgeRuntimeCheckpoint(encoded)
     expect(hydrated.checkpoint).toEqual(source.checkpoint)
     expect(encodeBridgeRuntimeCheckpoint(hydrated.checkpoint)).toBe(encoded)
-    expect(hydrated.currentSave.saveVersion).toBe(15)
-    expect(hydrated.savedSave?.saveVersion).toBe(15)
+    expect(hydrated.currentSave.saveVersion).toBe(16)
+    expect(hydrated.savedSave?.saveVersion).toBe(16)
     expect(hydrated.checkpoint.currentSaveJson).toBe(source.currentSaveJson)
     expect(hydrated.checkpoint.savedSaveJson).toBe(source.savedSaveJson)
     expect(hydrated.checkpoint.currentStateDigest).toBe(sha256(source.currentSaveJson))
@@ -419,7 +426,7 @@ describe('BridgeRuntimeCheckpointV1', () => {
       currentSaveJson: nonCanonicalSave,
       savedSaveJson: checkpoint.savedSaveJson,
       journal: checkpoint.journal,
-    })).toThrow(/canonical V15 save bytes exactly/)
+    })).toThrow(/canonical V16 save bytes exactly/)
 
     const forgedSave = JSON.parse(checkpoint.currentSaveJson) as Record<string, unknown>
     forgedSave['bridgeJournal'] = []
@@ -659,7 +666,7 @@ describe('BridgeRuntimeCheckpointV1', () => {
 
 describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => {
   it('migrates a v4-identity (f84ae77e) checkpoint with a V14 current save and an opaque 2-entry journal', () => {
-    const seedState = createBridgeInitialState('prior-p4-v4-basic')
+    const seedState = createManagedBridgeState('prior-p4-v4-basic')
     const currentSaveJson = exportSave(makeSaveV14(seedState))
     const priorBytes = priorProtocol4Bytes({
       schemaId: V4_SCHEMA_ID,
@@ -682,21 +689,21 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
     expect(loaded.hydrated.checkpoint.stateRevision).toBe(0)
     expect(loaded.hydrated.checkpoint.journal).toEqual([])
 
-    // save now V15, digests recomputed correctly.
+    // save now V16, digests recomputed correctly.
     expect(loaded.hydrated.checkpoint.schemaId).toBe(SCHEMA_ID)
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(15)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(16)
     expect(loaded.hydrated.checkpoint.currentStateDigest)
       .toBe(sha256(loaded.hydrated.checkpoint.currentSaveJson))
 
-    // (4) V14 -> V15 content preservation, field-level.
+    // (4) V14 -> V16 content preservation, field-level.
     expect(loaded.hydrated.currentSave.state.market.tick).toBe(seedState.market.tick)
     expect(loaded.hydrated.currentSave.state.studio.cash).toBe(seedState.studio.cash)
     expect(loaded.hydrated.currentSave.state.founding).toBeNull()
   })
 
   it('preserves and migrates a non-null savedSaveJson slot for a prior protocol-4 identity', () => {
-    const currentState = createBridgeInitialState('prior-p4-v4-saved-current')
-    const savedState = createBridgeInitialState('prior-p4-v4-saved-saved')
+    const currentState = createManagedBridgeState('prior-p4-v4-saved-current')
+    const savedState = createManagedBridgeState('prior-p4-v4-saved-saved')
     const currentSaveJson = exportSave(makeSaveV14(currentState))
     const savedSaveJson = exportSave(makeSaveV14(savedState))
     const priorBytes = priorProtocol4Bytes({
@@ -712,7 +719,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
 
     expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
     expect(loaded.hydrated.checkpoint.savedSaveJson).not.toBeNull()
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(15)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(16)
     expect(loaded.hydrated.savedSave?.state.market.tick).toBe(savedState.market.tick)
     expect(loaded.hydrated.savedSave?.state.studio.cash).toBe(savedState.studio.cash)
     expect(loaded.hydrated.checkpoint.savedStateDigest)
@@ -724,7 +731,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
   it.each(Array.from(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.entries()))(
     'accepts and migrates the enumerated %s (%s) identity',
     (schemaId, era) => {
-      const seedState = createBridgeInitialState(`prior-p4-each-${era}`)
+      const seedState = createManagedBridgeState(`prior-p4-each-${era}`)
       const currentSaveJson = exportSave(makeSaveV14(seedState))
       const priorBytes = priorProtocol4Bytes({
         schemaId,
@@ -740,7 +747,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
       expect(loaded.hydrated.checkpoint.schemaId).toBe(SCHEMA_ID)
       expect(loaded.hydrated.checkpoint.stateRevision).toBe(0)
       expect(loaded.hydrated.checkpoint.journal).toEqual([])
-      expect(loaded.hydrated.currentSave.saveVersion).toBe(15)
+      expect(loaded.hydrated.currentSave.saveVersion).toBe(16)
     },
   )
 
@@ -907,7 +914,7 @@ describe('prior protocol-4 acceptance boundary pins', () => {
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
   })
 
-  it('is exactly the twelve historical protocol-4 identities, pinned as literals', () => {
+  it('is exactly the thirteen historical protocol-4 identities, pinned as literals', () => {
     // Load-bearing completeness: iterating the map cannot catch a wrong or
     // missing hash; these literals were re-derived independently from the
     // generated-header history during hostile review. A projection bump must
@@ -917,10 +924,13 @@ describe('prior protocol-4 acceptance boundary pins', () => {
     // (range-review F2, the canonical $id URN bump) appended the WIP-branch
     // intermediate v12-stale-urn identity the same way.
     // P05A.3 appended the outgoing projection-v12 identity (a6f37459…) when
-    // v13 put the hiring market on the casting wire.
+    // v13 put the hiring market on the casting wire. P06A W2 appended the
+    // outgoing projection-v13 identity (0474ceaf…) when the W2 contract mint
+    // moved the running schema to V16 / projection-14.
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([
       'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e',
       'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5',
+      'sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f',
       'sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587',
       'sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c',
       'sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c',

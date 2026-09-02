@@ -18,11 +18,12 @@ import { join } from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
+import { createHash } from 'node:crypto'
 import { BridgeSession, authoritativeDigest } from '../bridge/session.ts'
 import { castingDraftToEngine } from '../bridge/casting.ts'
 import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
-import { busyTalentIds, importSave, type GameState } from '../src/core/index.ts'
+import { busyTalentIds, importSave, migrateToV16, type GameState } from '../src/core/index.ts'
 
 const OWNER_SAVE_JSON = readFileSync(
   join(__dirname, 'fixtures', 'p05a1-owner-profile-rev2.save.json'),
@@ -44,7 +45,8 @@ const NEG_1X = 3580570
 const MKT_MIN = 449734
 
 function ownerState(): GameState {
-  return importSave(OWNER_SAVE_JSON).state as GameState
+  // P06A: the P05-era fixture migrates to the LIVE state — the old cast hid it.
+  return migrateToV16(importSave(OWNER_SAVE_JSON)).state
 }
 
 function greenlightDraft(overrides: Partial<BridgeCastingDraftPayload> = {}): BridgeCastingDraftPayload {
@@ -81,7 +83,10 @@ function quoteEnvelope(session: BridgeSession, commandId: string, draft: BridgeC
 
 describe('P05A.1 — the Owner-profile Queue Greenlight state, replayed', () => {
   it('the fixture IS the failure state (digest pinned)', () => {
-    expect(authoritativeDigest(ownerState())).toBe(OWNER_STATE_DIGEST)
+    // P06A: the immutable pin is the RAW FIXTURE BYTES — the exact save the
+    // Owner's failure produced. The live state now migrates to V16 on load, so
+    // the state digest legitimately moved; the historical artifact did not.
+    expect(createHash('sha256').update(OWNER_SAVE_JSON).digest('hex')).toBe(OWNER_STATE_DIGEST)
   })
 
   // §7A — VALID CAPACITY-ONLY QUEUE: complete distinct legal package, both

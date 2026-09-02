@@ -538,7 +538,7 @@ describe('D-11 — determinism & live saves', () => {
     // Split: advance 3, export/import at the live version, advance 3 more.
     const mid = advanceWeeks(s0, 3)
     const reloaded = importSave(exportSave(makeSave(mid)))
-    if (reloaded.saveVersion !== 15) throw new Error('expected V15')
+    if (reloaded.saveVersion !== 16) throw new Error('expected V16')
     const split = advanceWeeks(migrateToV16(reloaded).state, 3)
     expect(split.studio.cash).toBe(continuous.studio.cash)
     expect(split.ledger.length).toBe(continuous.ledger.length)

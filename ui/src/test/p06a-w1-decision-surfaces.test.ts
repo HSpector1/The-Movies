@@ -18,17 +18,17 @@ import {
   returnWeek,
   studioCalendar,
   tick,
-} from '../src/core/index.js'
-import { firstFilmJourney } from '../src/core/firstFilmJourney.js'
-import { nextReleaseReviewDecision } from '../src/core/scriptReadModel.js'
-import { advanceToNextEvent, advanceWeek, studioDecision } from '../ui/src/engine/adapter.js'
-import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
+} from '../../../src/core/index.js'
+import { firstFilmJourney } from '../../../src/core/firstFilmJourney.js'
+import { nextReleaseReviewDecision } from '../../../src/core/scriptReadModel.js'
+import { advanceToNextEvent, advanceWeek, studioDecision } from '../engine/adapter'
+import type { CastSlot, GameState, SegmentId } from '../../../src/core/index.js'
 import {
   generateWorld,
   initialManagedStudioConstruction,
   initialManagedStudioOperations,
   initialManagedStudioPlacement,
-} from '../src/core/index.js'
+} from '../../../src/core/index.js'
 
 // The managed drive fixture (same vocabulary as p06a-w1-release-authority).
 function assignment(state: GameState, offset = 0) {
