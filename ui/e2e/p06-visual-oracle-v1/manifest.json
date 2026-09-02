@@ -1,0 +1,596 @@
+{
+  "fixtureId": "p06-visual-oracle-v1",
+  "generator": "scripts/gen-p06-visual-oracle-fixtures.mts",
+  "generatorSourceSha256": "c4726dd76ebad2c155f0b188e882e8525cf95bdd9a38fa8cb430ec2e9e75a18d",
+  "seed": "p06-visual-oracle-v1",
+  "ledger": {
+    "productionA": "prod-0000",
+    "productionB": "prod-0001",
+    "productionC": "prod-0002",
+    "postFacility": "facility-post-building",
+    "postBuildingId": "post",
+    "placedStageFacility": "facility-stage-1",
+    "placedSceneryFacility": "facility-scenery-shop-2",
+    "writerA": "t-p06-writer-a",
+    "writerB": "t-p06-writer-b",
+    "writerC": "t-p06-writer-c",
+    "companyA": {
+      "director": "t-p06-director-a",
+      "lead": "t-p06-lead-a",
+      "antagonist": "t-p06-antagonist-a",
+      "support": "t-p06-support-a",
+      "craft": "t-p06-craft-a"
+    },
+    "companyB": {
+      "director": "t-p06-director-b",
+      "lead": "t-p06-lead-b",
+      "antagonist": "t-p06-antagonist-b",
+      "support": "t-p06-support-b",
+      "craft": "t-p06-craft-b"
+    },
+    "companyC": {
+      "director": "t-p06-director-c",
+      "lead": "t-p06-lead-c",
+      "antagonist": "t-p06-antagonist-c",
+      "support": "t-p06-support-c",
+      "craft": "t-p06-craft-c"
+    }
+  },
+  "normalizationLaw": "Exact-token rewrite onto the P06 fixture ledger, longest-token-first, pre-image counts asserted, target collisions refused, re-imported through importSaveJson; every machine assertion runs on the NORMALIZED state. The ledger identities are not mintable through public seams (production ids derive from the greenlight tick, talent ids from worldgen/authored/createTalent streams).",
+  "fixtures": [
+    {
+      "ordinal": 1,
+      "scenarioId": "idle-post",
+      "week": 21,
+      "save": {
+        "file": "s1-idle-post.save.json",
+        "byteLength": 246978,
+        "sha256": "4f495dc44b241f12fafec5e4095077902a2f6f18e3ee7886ef46aeb3c4ec824b"
+      },
+      "checkpoint": {
+        "file": "s1-idle-post.checkpoint.json",
+        "byteLength": 279316,
+        "sha256": "af45edb5dfc7cd6526e88cb4939bc9d185296c913a70ee28ec0186017baa1c71",
+        "sessionId": "p06-oracle-idle-post",
+        "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+        "stateDigest": "4f495dc44b241f12fafec5e4095077902a2f6f18e3ee7886ef46aeb3c4ec824b"
+      },
+      "derivation": [
+        "base → greenlight ready screenplay at week 16",
+        "advance undriven to week 20, then drive one week (assign + schedule)",
+        "normalize onto the ledger (prod-0000 + company + writer)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0016",
+          "to": "prod-0000",
+          "occurrences": 17
+        },
+        {
+          "from": "t-dir-00",
+          "to": "t-p06-director-a",
+          "occurrences": 7
+        },
+        {
+          "from": "t-act-01",
+          "to": "t-p06-lead-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-03",
+          "to": "t-p06-antagonist-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-04",
+          "to": "t-p06-support-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-cra-06",
+          "to": "t-p06-craft-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-wri-03",
+          "to": "t-p06-writer-a",
+          "occurrences": 7
+        }
+      ],
+      "machineAssertions": [
+        "no productionOperations row has operationalState in the post family",
+        "no workflow anywhere holds a `post` capability reservation",
+        "production prod-0000 is actively shooting (phase=shooting)"
+      ],
+      "inMemoryProofAnchors": []
+    },
+    {
+      "ordinal": 2,
+      "scenarioId": "wrapped-waiting-for-post",
+      "week": 35,
+      "save": {
+        "file": "s2-wrapped-waiting-for-post.save.json",
+        "byteLength": 251469,
+        "sha256": "f35f91b31712afb6e0a1c38c51cf13549069b9c6aebbc31f357a6cde5e396350"
+      },
+      "checkpoint": {
+        "file": "s2-wrapped-waiting-for-post.checkpoint.json",
+        "byteLength": 284512,
+        "sha256": "98999f51b2b204ee72843bd09e41570b6a02e8f5dacedc20476dc60f6a82bf7a",
+        "sessionId": "p06-oracle-wrapped-waiting-for-post",
+        "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+        "stateDigest": "f35f91b31712afb6e0a1c38c51cf13549069b9c6aebbc31f357a6cde5e396350"
+      },
+      "derivation": [
+        "deep-founded studio at CONTENDED_DEPTH (3/3/9/6) — the founding roster ceiling; no createTalent top-up needed",
+        "place stage-standard@(23,20) and scenery-shop@(6,2); commission a standing set on the placed stage once it completes (wk20)",
+        "greenlight occupant A and occupant B the same week on the two founding stages",
+        "once A/B reach rehearsal (dev-casting frees), greenlight C on the placed stage+scenery",
+        "park all three at shooting/unassigned; wait out the worst-case scenery transit (5wk); release together",
+        "drive to the first week C reads wrapped-waiting-for-post — A and B both already hold Post (2/2 slots)",
+        "normalize onto the ledger (prod-0000/0001/0002 + three companies + three writers)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0006-1",
+          "to": "prod-0001",
+          "occurrences": 11
+        },
+        {
+          "from": "prod-0006",
+          "to": "prod-0000",
+          "occurrences": 11
+        },
+        {
+          "from": "prod-0026",
+          "to": "prod-0002",
+          "occurrences": 16
+        },
+        {
+          "from": "t-dir-01",
+          "to": "t-p06-director-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-05",
+          "to": "t-p06-lead-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-08",
+          "to": "t-p06-antagonist-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-09",
+          "to": "t-p06-support-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-cra-00",
+          "to": "t-p06-craft-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-wri-01",
+          "to": "t-p06-writer-a",
+          "occurrences": 7
+        },
+        {
+          "from": "t-dir-04",
+          "to": "t-p06-director-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-13",
+          "to": "t-p06-lead-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-14",
+          "to": "t-p06-antagonist-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-19",
+          "to": "t-p06-support-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-cra-01",
+          "to": "t-p06-craft-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-wri-03",
+          "to": "t-p06-writer-b",
+          "occurrences": 7
+        },
+        {
+          "from": "t-dir-05",
+          "to": "t-p06-director-c",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-22",
+          "to": "t-p06-lead-c",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-25",
+          "to": "t-p06-antagonist-c",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-27",
+          "to": "t-p06-support-c",
+          "occurrences": 4
+        },
+        {
+          "from": "t-cra-09",
+          "to": "t-p06-craft-c",
+          "occurrences": 4
+        },
+        {
+          "from": "t-wri-04",
+          "to": "t-p06-writer-c",
+          "occurrences": 7
+        }
+      ],
+      "machineAssertions": [
+        "C: phase shooting, zero reservations, facility-capacity(post) blocker, remainingTicks held at 4",
+        "closed state wrapped-waiting-for-post for C",
+        "A and B: closed state post-handoff, each holding a DISTINCT post reservation slot (Post is 2-for-2 full)"
+      ],
+      "inMemoryProofAnchors": []
+    },
+    {
+      "ordinal": 3,
+      "scenarioId": "active-finishing",
+      "week": 21,
+      "save": {
+        "file": "s3-active-finishing.save.json",
+        "byteLength": 247079,
+        "sha256": "2f0c96e5e7f3d44cdcebea8dc3508decc07024d1b52f45d1af2d605d468e2967"
+      },
+      "checkpoint": {
+        "file": "s3-active-finishing.checkpoint.json",
+        "byteLength": 279468,
+        "sha256": "c1c16d6b8c2f72bfacd8ddec921715681c0391bf22c14bb660e7f3d9700955d8",
+        "sessionId": "p06-oracle-active-finishing",
+        "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+        "stateDigest": "2f0c96e5e7f3d44cdcebea8dc3508decc07024d1b52f45d1af2d605d468e2967"
+      },
+      "derivation": [
+        "base → greenlight at week 15; drive at week 19 (assign + schedule); one tick completes the take",
+        "one more tick: the wrap fires and Post is free, so the wrap hands off IMMEDIATELY (remainingTicks 3)",
+        "normalize onto the ledger (prod-0000 + company + writer)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0015",
+          "to": "prod-0000",
+          "occurrences": 19
+        },
+        {
+          "from": "t-dir-03",
+          "to": "t-p06-director-a",
+          "occurrences": 6
+        },
+        {
+          "from": "t-act-00",
+          "to": "t-p06-lead-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-03",
+          "to": "t-p06-antagonist-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-05",
+          "to": "t-p06-support-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-cra-02",
+          "to": "t-p06-craft-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-wri-04",
+          "to": "t-p06-writer-a",
+          "occurrences": 7
+        }
+      ],
+      "machineAssertions": [
+        "workflow phase postProduction, remainingTicks 3",
+        "closed state post-handoff",
+        "presence: exactly Director + craft at facility-post-building; cast and writer never"
+      ],
+      "inMemoryProofAnchors": []
+    },
+    {
+      "ordinal": 4,
+      "scenarioId": "release-ready",
+      "week": 23,
+      "save": {
+        "file": "s4-release-ready.save.json",
+        "byteLength": 247406,
+        "sha256": "eb84e97dbd270524ccf5589328b4f7793667eff1a48c9849bcb66ac1348b82eb"
+      },
+      "checkpoint": {
+        "file": "s4-release-ready.checkpoint.json",
+        "byteLength": 279838,
+        "sha256": "74e4f4a7b2eda36b1f08a29d44a227f697c2aa768ee04218f1ff508ce91f8c13",
+        "sessionId": "p06-oracle-release-ready",
+        "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+        "stateDigest": "eb84e97dbd270524ccf5589328b4f7793667eff1a48c9849bcb66ac1348b82eb"
+      },
+      "derivation": [
+        "base → greenlight at week 15; drive+wrap to Post at week 21 (see active-finishing)",
+        "advance undriven to week 23 (postProduction 3→2→1, releaseReady entered)",
+        "normalize onto the ledger (prod-0000 + company + writer)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0015",
+          "to": "prod-0000",
+          "occurrences": 20
+        },
+        {
+          "from": "t-dir-03",
+          "to": "t-p06-director-a",
+          "occurrences": 6
+        },
+        {
+          "from": "t-act-00",
+          "to": "t-p06-lead-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-p06-antagonist-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-03",
+          "to": "t-p06-support-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-cra-02",
+          "to": "t-p06-craft-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-wri-02",
+          "to": "t-p06-writer-a",
+          "occurrences": 7
+        }
+      ],
+      "machineAssertions": [
+        "workflow phase releaseReady, remainingTicks 1",
+        "releaseAuthority.commitments empty (uncommitted)",
+        "closed state release-ready; projection row authorityState=ready-uncommitted, legalCommit=true, commitmentId=null"
+      ],
+      "inMemoryProofAnchors": [
+        "tick(fixture) → remainingTicks stays 1, releaseAuthority stays empty, production remains active and unreleased (the P06A hold law)"
+      ]
+    },
+    {
+      "ordinal": 5,
+      "scenarioId": "committed-to-release",
+      "week": 23,
+      "save": {
+        "file": "s5-committed-to-release.save.json",
+        "byteLength": 247504,
+        "sha256": "73020b56651f29041808583be62ffb356ead219c62dcffb3c929a579994a4617"
+      },
+      "checkpoint": {
+        "file": "s5-committed-to-release.checkpoint.json",
+        "byteLength": 279973,
+        "sha256": "987f1dc52fc981041cc0c87a8d942b6bdda7851fea2e1d5a2095559d13ef39bc",
+        "sessionId": "p06-oracle-committed-to-release",
+        "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+        "stateDigest": "73020b56651f29041808583be62ffb356ead219c62dcffb3c929a579994a4617"
+      },
+      "derivation": [
+        "base → greenlight at week 15; drive+wrap to Post at week 21; advance to week 23 (Release Ready)",
+        "commitPictureToRelease — persists one commitment row and one releaseCommitted event; no tick",
+        "normalize onto the ledger (prod-0000 + company + writer)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0015",
+          "to": "prod-0000",
+          "occurrences": 23
+        },
+        {
+          "from": "t-dir-04",
+          "to": "t-p06-director-a",
+          "occurrences": 6
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-p06-lead-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-03",
+          "to": "t-p06-antagonist-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-05",
+          "to": "t-p06-support-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-cra-04",
+          "to": "t-p06-craft-a",
+          "occurrences": 5
+        },
+        {
+          "from": "t-wri-03",
+          "to": "t-p06-writer-a",
+          "occurrences": 7
+        }
+      ],
+      "machineAssertions": [
+        "commit advances no time (market.tick unchanged)",
+        "exactly one releaseAuthority row, commitmentId=release-commitment-prod-0000",
+        "closed state release-committed; a releaseCommitted studioEvent exists for the exact production",
+        "projection row authorityState=committed, legalCommit=false, exact commitmentId"
+      ],
+      "inMemoryProofAnchors": [
+        "tick(committed fixture) → releasedFilms gains exactly prod-0000, activeProductions loses it, the commitment row is pruned"
+      ]
+    },
+    {
+      "ordinal": 6,
+      "scenarioId": "multi-picture-contention",
+      "week": 36,
+      "save": {
+        "file": "s6-multi-picture-contention.save.json",
+        "byteLength": 266321,
+        "sha256": "36db305f4d3fedde71f40237d20aa1fbb18c8da6ae01bf13a9a85a68cbaaf9d1"
+      },
+      "checkpoint": {
+        "file": "s6-multi-picture-contention.checkpoint.json",
+        "byteLength": 301378,
+        "sha256": "e0b48b1ace52504a6c8ba3e64d3f94f9f8fc962c6616d6e6685e52b9f7b21a9e",
+        "sessionId": "p06-oracle-multi-picture-contention",
+        "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+        "stateDigest": "36db305f4d3fedde71f40237d20aa1fbb18c8da6ae01bf13a9a85a68cbaaf9d1"
+      },
+      "derivation": [
+        "deep-founded studio (4 directors/3+1 craft/12+... actors — top up craft+actor by exactly the founding ceiling shortfall via createTalent+signContract)",
+        "place stage-standard@(23,20) + scenery-shop@(6,2); seed the placed stage with a standing set once it completes",
+        "greenlight R alone first; drive to Release Ready and hold uncommitted (wraps + frees its stage/scenery long before the trio starts)",
+        "greenlight the active occupant + a filler occupant the same week on the two now-free founding stages",
+        "once the active occupant reaches rehearsal, greenlight the blocked production on the placed stage+scenery",
+        "park the trio at shooting/unassigned; wait out worst-case scenery transit; release together",
+        "drive to the first week the blocked production reads wrapped-waiting-for-post — R still sits at Release Ready throughout",
+        "isolation proof (pre-normalization): commitPictureToRelease on R leaves the active/blocked rows byte-identical",
+        "normalize onto the ledger (prod-0000/0001/0002 + three companies + three writers; the filler occupant keeps its raw engine id)"
+      ],
+      "idNormalization": [
+        {
+          "from": "authored-0001",
+          "to": "t-p06-support-c",
+          "occurrences": 5
+        },
+        {
+          "from": "authored-0000",
+          "to": "t-p06-craft-c",
+          "occurrences": 5
+        },
+        {
+          "from": "prod-0007",
+          "to": "prod-0000",
+          "occurrences": 12
+        },
+        {
+          "from": "prod-0024",
+          "to": "prod-0001",
+          "occurrences": 38
+        },
+        {
+          "from": "prod-0027",
+          "to": "prod-0002",
+          "occurrences": 16
+        },
+        {
+          "from": "t-dir-00",
+          "to": "t-p06-director-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-04",
+          "to": "t-p06-lead-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-05",
+          "to": "t-p06-antagonist-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-07",
+          "to": "t-p06-support-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-cra-05",
+          "to": "t-p06-craft-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-wri-00",
+          "to": "t-p06-writer-a",
+          "occurrences": 7
+        },
+        {
+          "from": "t-dir-02",
+          "to": "t-p06-director-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-08",
+          "to": "t-p06-lead-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-09",
+          "to": "t-p06-antagonist-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-10",
+          "to": "t-p06-support-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-cra-06",
+          "to": "t-p06-craft-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-wri-04",
+          "to": "t-p06-writer-b",
+          "occurrences": 7
+        },
+        {
+          "from": "t-dir-05",
+          "to": "t-p06-director-c",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-25",
+          "to": "t-p06-lead-c",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-26",
+          "to": "t-p06-antagonist-c",
+          "occurrences": 4
+        },
+        {
+          "from": "t-wri-09",
+          "to": "t-p06-writer-c",
+          "occurrences": 7
+        }
+      ],
+      "machineAssertions": [
+        "A (prod-0000): release-ready, uncommitted, projection ready-uncommitted/legalCommit=true",
+        "B (prod-0001): post-handoff (active, holding a post reservation)",
+        "C (prod-0002): wrapped-waiting-for-post, zero reservations, facility-capacity(post) blocker, remainingTicks held at 4",
+        "three distinct exact production ids, each independently verified by its own id"
+      ],
+      "inMemoryProofAnchors": [
+        "commitPictureToRelease(A) leaves the B and C operations rows byte-identical (exact-ID isolation)"
+      ]
+    }
+  ]
+}
