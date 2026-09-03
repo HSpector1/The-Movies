@@ -4,7 +4,18 @@
 > Nothing meaningful may live only in scratch, /private/tmp, a process, chat, or an unpushed tree.
 > **Isolated successor candidate — NO campaign integration** (§24). P06B is the byte-preserved control.
 
-## Status: PRIORITY ZERO fixed · MOVIE RAIL grouped · PEOPLE strip added (all EditMode-green + captured)
+## Status: SEALED — P06C COMPARISON CANDIDATE READY (hostile ACCEPT) — OWNER COMPARISON PENDING
+
+Terminal state (§25 terminal A): Priority Zero fixed at the state owner + regression-tested + proven in
+pixels; grouped movie pipeline rail (SCRIPTS/MAKING MOVIES/POST & RELEASE, primary target) + bounded
+People/Talent strip, both EditMode-proven + captured live; all floors green (TS 4904/0 · EditMode 750/750
+· oracle 6/6 · real-profile 25/25 · **real HID PASS**); **fresh hostile review ACCEPT (0 blocking)**;
+isolated candidate preserved at `~/Desktop/P06C-Comparison-Candidate-d66b7ab-438feb2/` (P06B control NOT
+overwritten — `130a13a0` intact; P06A `aabc41f8` intact); **campaign branches UNCHANGED**
+(`campaign/living-lot-ts`=`04b67ec`, `campaign/living-lot-client`=`18a2887`); worktrees clean; caffeinate
+stopped; NO P07. §15/§16/deeper §8/§17-20 documented in `P06C-NEXT-WAVES-BACKLOG.md`. Owner next: run the
+`P06C-OWNER-COMPARISON-PLAYTEST.md` walk against the P06B control and ACCEPT P06C or report the exact
+worse step. Sealed player exe `2c235c39` · asmC# `12478c05` · engine `c00cbfd5`.
 
 ## 1. Campaign clock & environment (§3)
 
