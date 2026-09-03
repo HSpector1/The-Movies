@@ -4,7 +4,7 @@
 > Nothing meaningful may live only in scratch, /private/tmp, a process, chat, or an unpushed tree.
 > **Isolated successor candidate — NO campaign integration** (§24). P06B is the byte-preserved control.
 
-## Status: PRIORITY ZERO FIXED; MOVIE RAIL GROUPED (code+EditMode green, building for visual proof)
+## Status: PRIORITY ZERO fixed · MOVIE RAIL grouped · PEOPLE strip added (all EditMode-green + captured)
 
 ## 1. Campaign clock & environment (§3)
 
@@ -92,7 +92,14 @@ picture until a Post reservation frees). Root cause was the state owner, not a s
       (new StudioMovieSlateContractsTests + 3 signature-pinned guards updated faithfully). No
       engine/contract/DTO/save change. **Building the player now for visual capture + review (§4).**
 - [ ] §8–§13,§17–§18 rail row anatomy / lifecycle / attention / interaction / responsive / perf (as needed after capture)
-- [ ] §14 People/Talent awareness (bounded)
+- [x] §14 People/Talent awareness (bounded) — `StudioPeopleRailHud` + pure `StudioPeopleRailContracts`
+      (Unity 7bb4bf4 + a working/available-reserve refinement). Read-only right-column strip below the
+      movie rail; reads only `snapshot.people.presence.people[]` (NO engine/DTO change, no casting-pool
+      coupling → no hidden-skill leak, no invented return-week); shows COMPANY count + who's working on
+      which movie + reserved rows for available talent + "Hire more at the Casting building" (existing
+      shortage→Find route untouched); yields to workspace/card/inspection; wired into the camera-input
+      world-pick guard. **Captured live** beside the grouped rail (`evidence/p06c/rail-people/`).
+      EditMode 749/749 (StudioPeopleRailContractsTests).
 - [ ] §15 Building-card convergence (bounded)
 - [ ] §16 Workspace/guidance convergence (smallest shared)
 - [ ] §17,§19 Accessibility/responsive stress + before/after capture matrix

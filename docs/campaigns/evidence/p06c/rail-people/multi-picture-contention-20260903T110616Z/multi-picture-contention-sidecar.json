@@ -1,0 +1,161 @@
+{
+    "schemaVersion": 1,
+    "status": "complete",
+    "failure": "",
+    "scenarioId": "multi-picture-contention",
+    "fixtureWeek": 36,
+    "sessionId": "p06-oracle-multi-picture-contention",
+    "runtimeInstanceId": "p06-oracle-multi-picture-contention",
+    "stateRevision": 0,
+    "stateDigest": "36db305f4d3fedde71f40237d20aa1fbb18c8da6ae01bf13a9a85a68cbaaf9d1",
+    "gameWeek": 36,
+    "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+    "protocolVersion": 4,
+    "snapshotVersion": 14,
+    "viewportWidth": 1440,
+    "viewportHeight": 900,
+    "viewportKind": "landscape",
+    "capturedUtc": "2026-09-03T11:06:22.2269370Z",
+    "mutationsSubmitted": 0,
+    "noMutationScope": "The isolation proof (commit leaves the other rows byte-identical) is a fixture-authoring fact; this runner submits no intent and only reads the three exact ids.",
+    "visualQuestions": [
+        "Can a viewer read three distinct Post states at once — one ready, one/two finishing, one waiting — with Post's two active slots visibly full?",
+        "Does the dominant cue foreground the stranded waiter without hiding the others?",
+        "Is there any cross-picture leakage of identity, state, or attendance?"
+    ],
+    "visualReviewStatus": "pending",
+    "machineAssertions": [
+        {
+            "name": "prod-0000 release-ready",
+            "passed": true,
+            "detail": "release-ready"
+        },
+        {
+            "name": "prod-0001 post-handoff",
+            "passed": true,
+            "detail": "post-handoff"
+        },
+        {
+            "name": "prod-0002 wrapped-waiting-for-post",
+            "passed": true,
+            "detail": "wrapped-waiting-for-post"
+        },
+        {
+            "name": "three distinct operational states",
+            "passed": true,
+            "detail": "release-ready/post-handoff/wrapped-waiting-for-post"
+        },
+        {
+            "name": "prod-0000 stable on re-read",
+            "passed": true,
+            "detail": "release-ready"
+        },
+        {
+            "name": "prod-0001 stable on re-read",
+            "passed": true,
+            "detail": "post-handoff"
+        },
+        {
+            "name": "prod-0002 stable on re-read",
+            "passed": true,
+            "detail": "wrapped-waiting-for-post"
+        },
+        {
+            "name": "prod-0000 authorityState ready-uncommitted",
+            "passed": true,
+            "detail": "ready-uncommitted"
+        },
+        {
+            "name": "prod-0000 legalCommit true",
+            "passed": true,
+            "detail": "True"
+        },
+        {
+            "name": "waiter blocker kind facility-capacity",
+            "passed": true,
+            "detail": "facility-capacity"
+        },
+        {
+            "name": "blocker anatomy names the post capacity holder",
+            "passed": true,
+            "detail": "facility-post-building:0,facility-post-building:1"
+        },
+        {
+            "name": "post board waiting-count 1",
+            "passed": true,
+            "detail": "1"
+        },
+        {
+            "name": "post board ready-count 1",
+            "passed": true,
+            "detail": "1"
+        },
+        {
+            "name": "post board active-count 2 (named active + Post-slot filler)",
+            "passed": true,
+            "detail": "2"
+        },
+        {
+            "name": "derived dominant cue WaitingForPost",
+            "passed": true,
+            "detail": "WaitingForPost"
+        },
+        {
+            "name": "presenter dominant cue WaitingForPost",
+            "passed": true,
+            "detail": "WaitingForPost"
+        }
+    ],
+    "artifacts": [
+        {
+            "cameraId": "CAM-MGMT-POST-V1",
+            "label": "management",
+            "relativePath": "multi-picture-contention-management.png",
+            "sha256": "7b3969c5b4ddf0543632675e2cd26def7781f2b00afeeef83016d13fb2da6200",
+            "bytes": 1123888,
+            "width": 1440,
+            "height": 900,
+            "mediaType": "image/png",
+            "revisionAtCapture": 0,
+            "digestAtCapture": "36db305f4d3fedde71f40237d20aa1fbb18c8da6ae01bf13a9a85a68cbaaf9d1",
+            "mutationsBeforeCapture": 0,
+            "mutationsAfterCapture": 0,
+            "renderedCameraPosition": {
+                "x": -42.78050994873047,
+                "y": 80.61180114746094,
+                "z": -45.659523010253909
+            },
+            "renderedCameraEulerAngles": {
+                "x": 43.0000114440918,
+                "y": 22.0,
+                "z": 0.0
+            },
+            "renderedFieldOfView": 36.0
+        },
+        {
+            "cameraId": "CAM-MEDIUM-POST-V1",
+            "label": "medium",
+            "relativePath": "multi-picture-contention-medium.png",
+            "sha256": "0fdc65b347a27aae1b71738007d91c461036a490979e2fc2401b82ca5aebb108",
+            "bytes": 1108276,
+            "width": 1440,
+            "height": 900,
+            "mediaType": "image/png",
+            "revisionAtCapture": 0,
+            "digestAtCapture": "36db305f4d3fedde71f40237d20aa1fbb18c8da6ae01bf13a9a85a68cbaaf9d1",
+            "mutationsBeforeCapture": 0,
+            "mutationsAfterCapture": 0,
+            "renderedCameraPosition": {
+                "x": -22.000003814697267,
+                "y": 28.86255645751953,
+                "z": -2.8545188903808595
+            },
+            "renderedCameraEulerAngles": {
+                "x": 36.000003814697269,
+                "y": 18.0,
+                "z": 0.0000010553222864473356
+            },
+            "renderedFieldOfView": 36.0
+        }
+    ]
+}

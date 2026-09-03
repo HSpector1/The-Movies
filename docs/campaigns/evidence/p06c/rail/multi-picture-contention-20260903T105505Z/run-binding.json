@@ -1,0 +1,32 @@
+{
+ "scenario": "multi-picture-contention",
+ "checkpoint": "/Users/bruce/The Movies - P06C Impl TS/ui/e2e/p06-visual-oracle-v1/s6-multi-picture-contention.checkpoint.json",
+ "checkpointSha256": "e0b48b1ace52504a6c8ba3e64d3f94f9f8fc962c6616d6e6685e52b9f7b21a9e",
+ "executable": "/Users/bruce/The Movies - P06C Impl Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+ "executableSha256": "c10549165105f9b041a7d81f605e369b631c100ec288c09d7819dd78445107c6",
+ "buildManifest": "build-manifest.json (copied beside this file)",
+ "tsCommit": "8f87882ec2253c53b20a3281b90a12614b719cac",
+ "unityCommit": "75ab8a96c67fa4ce9dc9de8e577acc3e3fb80405",
+ "unityVersion": "6000.3.22f1",
+ "oracleRunnerSourceSha256": "ca8d98779998267b073507f2afcdfb237ebb4b533d7b612693656a51656bcc06",
+ "appPid": 63703,
+ "runnerArgs": [
+  "-studioP06Oracle",
+  "-studioP06OracleScenario",
+  "multi-picture-contention",
+  "-studioP06OracleRoot",
+  "/Users/bruce/The Movies - P06C Impl TS/docs/campaigns/evidence/p06c/rail/multi-picture-contention-20260903T105505Z",
+  "-screen-width",
+  "1440",
+  "-screen-height",
+  "900",
+  "-screen-fullscreen",
+  "0"
+ ],
+ "viewport": [
+  1440,
+  900
+ ],
+ "playerExit": 0,
+ "stamp": "20260903T105505Z"
+}
