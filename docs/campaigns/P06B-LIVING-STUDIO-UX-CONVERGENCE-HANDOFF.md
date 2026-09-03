@@ -100,7 +100,13 @@ This session is unlocked/on-console, so the journey ran on the **byte-identical 
 - **§24 real-profile-copy machine journey: 25/25** (V15→V16 migrate, hold law, commit flow, save/load; durable original sha unchanged + still read-only).
 - **Unity EditMode: 731/731** (P06B, at Unity `af65577`).
 - **§26 L1 TS floor:** running (P06A worktree = byte-identical TS to P06B branch; docs-only delta verified).
-- **§25 real HID on P06B build:** pending (launcher `scratchpad/p06b-hid-launch.sh`, s4-release-ready, CF-02 exe-sha bound).
+- **§26 L1 TS floor: 4903 passed / 0 failed** (359 files, 5 skipped) — P06A worktree, docs-only-equivalent to P06B.
+- **§25 real HID on P06B build: PASS** — exe `adf9c0bf` (== manifest). Commit-to-release via real CGEventPost click (prod-0000 release-ready→release-committed, intent consumed, modifiers clean); physical Stage A click WITHOUT rail priming shows its building card (world independently operable). exe sha unchanged after run. Evidence `evidence/p06b-implementation/hid/`.
+- **§28 hostile review:** launched (fresh independent reviewer, 30 criteria, opens image bytes). Awaiting verdict.
+
+### §30 fast-forward viability (pre-checked)
+- **Unity: FF CLEAN** — `campaign/living-lot-client` (784f2d5) is an ancestor of P06B-client (af65577); 0 divergent commits. `git merge --ff-only` will just advance it.
+- **TS: doc-only reconcile needed** — `campaign/living-lot-ts` (828e606) has 9 doc-only commits not in P06B-ts, touching only `docs/campaigns/P06-FIVE-DAY-AUTONOMOUS-HANDOFF.md` + `docs/engineering/CODEX-P06A-READINESS-GATE-00.md`. Plan: at §30, merge `campaign/living-lot-ts` into P06B-ts (resolve the two doc conflicts, preserving both handoffs' intent), which makes campaign an ancestor → the campaign advance is then a pure `--ff-only`. No force-push, no history rewrite.
 
 ## 8. Exact next action
 
