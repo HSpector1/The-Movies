@@ -1242,8 +1242,8 @@ def verify_trace_contract(trace: dict[str, Any], scenario: str) -> None:
                 and events[0]["event_type"] == expected_speech_type and bus_is(events[0], expected_speech_bus)
                 and near(events[0]["gain"], 1.0) and events[0]["scheduler_api_accepted"] is False
                 and events[0].get("detail") == (
-                    ("URGENT_PA_INTERRUPTS_RADIO" if scenario == "pa_interrupting_radio"
-                     else "SCHEDULED_BY_PRIORITY_COOLDOWN_DAYPART")
+                    ("URGENT_PA_IMMEDIATE_STOP_INTERRUPTS_RADIO" if scenario == "pa_interrupting_radio"
+                     else "SCHEDULED_BY_CLASS_PRIORITY_COOLDOWN_DAYPART")
                     + ";POLICY_TARGET_ONLY_AUDIO_NOT_SCHEDULED_IN_ORACLE"
                 ),
                 f"radio/PA registered speech policy target failed: {scenario}")
