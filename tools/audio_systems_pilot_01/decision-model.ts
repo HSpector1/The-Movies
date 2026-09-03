@@ -224,13 +224,20 @@ export function decideAudioPresentation(
       refusalFallbackReason: "MISSING_FILE_OR_HASH_IDENTITY_FAIL_CLOSED_NO_SILENT_SUBSTITUTION",
     };
   }
-  const unchanged = state.currentBundleId === bundle.id && state.currentVariant === context && !state.simulatedDeviceReset;
+  const unchanged = state.currentBundleId === bundle.id && state.currentVariant === context;
   if (unchanged) {
     return {
       ...common,
       selectedCueBundle: bundle.id,
       selectedVariant: context,
-      requestedTransition: { type: "NONE", boundaryDsp: null, crossfadeSeconds: 0, reason: "CURRENT_CUE_CONTINUES" },
+      requestedTransition: {
+        type: "NONE",
+        boundaryDsp: null,
+        crossfadeSeconds: 0,
+        reason: state.simulatedDeviceReset
+          ? "CURRENT_CUE_CONTINUES_TRANSPORT_OWNS_DEVICE_RESET_RECOVERY"
+          : "CURRENT_CUE_CONTINUES",
+      },
       silenceDensityState: "PLAY",
       refusalFallbackReason: null,
     };
@@ -241,8 +248,8 @@ export function decideAudioPresentation(
     selectedCueBundle: bundle.id,
     selectedVariant: context,
     requestedTransition: phrase === null
-      ? { type: "SAFE_CROSSFADE", boundaryDsp: state.nowDsp + 0.1, crossfadeSeconds: 4, reason: state.simulatedDeviceReset ? "DEVICE_RESET_SAFE_REBUILD_LOW_CONFIDENCE" : "LOW_METADATA_CONFIDENCE" }
-      : { type: "PHRASE_ALIGNED", boundaryDsp: phrase, crossfadeSeconds: 2, reason: state.simulatedDeviceReset ? "DEVICE_RESET_SAFE_REBUILD" : "TRUSTWORTHY_PHRASE_METADATA" },
+      ? { type: "SAFE_CROSSFADE", boundaryDsp: state.nowDsp + 0.1, crossfadeSeconds: 2, reason: "LOW_METADATA_CONFIDENCE" }
+      : { type: "PHRASE_ALIGNED", boundaryDsp: phrase, crossfadeSeconds: 2, reason: "TRUSTWORTHY_PHRASE_METADATA" },
     silenceDensityState: "PLAY",
     refusalFallbackReason: null,
   };

@@ -86,6 +86,35 @@ describe("pure deterministic audio presentation", () => {
     expect(decision.requestedTransition.type).toBe("MIX_ONLY");
   });
 
+  it("leaves device-reset recovery to transport without restarting the selected cue", () => {
+    const decision = decideAudioPresentation(state({
+      currentBundleId: bundle.id,
+      currentVariant: "NORMAL",
+      currentFamily: bundle.family,
+      currentCueStartedDsp: 0,
+      simulatedDeviceReset: true,
+    }), [bundle]);
+    expect(decision.selectedCueBundle).toBe(bundle.id);
+    expect(decision.selectedVariant).toBe("NORMAL");
+    expect(decision.requestedTransition).toEqual({
+      type: "NONE",
+      boundaryDsp: null,
+      crossfadeSeconds: 0,
+      reason: "CURRENT_CUE_CONTINUES_TRANSPORT_OWNS_DEVICE_RESET_RECOVERY",
+    });
+  });
+
+  it("bounds a low-confidence handoff to the two-second safe fallback", () => {
+    const lowConfidence = {
+      ...bundle,
+      variants: bundle.variants.map((variant) => ({ ...variant, metadataConfidence: "LOW" as const })),
+    };
+    const decision = decideAudioPresentation(state(), [lowConfidence]);
+    expect(decision.requestedTransition.type).toBe("SAFE_CROSSFADE");
+    expect(decision.requestedTransition.crossfadeSeconds).toBe(2);
+    expect(decision.requestedTransition.reason).toBe("LOW_METADATA_CONFIDENCE");
+  });
+
   it("fails closed for missing catalogue identity", () => {
     const missing = { ...bundle, variants: bundle.variants.map((variant) => ({ ...variant, available: false })) };
     const decision = decideAudioPresentation(state(), [missing]);
