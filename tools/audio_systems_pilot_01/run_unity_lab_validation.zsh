@@ -308,8 +308,8 @@ if [[ -n "$(git -C "$UNITY_LAB_REPOSITORY" status --porcelain --untracked-files=
   print -u2 "Deterministic lab asset regeneration changed the clean Unity source tree."
   exit 7
 fi
-run_tests "editmode-final" "editmode" "ProjectStudio.AudioLab.Tests.EditMode" "editmode-final.xml" "editmode-final.log"
-run_tests "playmode-final" "playmode" "ProjectStudio.AudioLab.Tests.PlayMode" "playmode-final.xml" "playmode-final.log"
+run_tests "editmode-final" "EditMode" "ProjectStudio.AudioLab.Tests.EditMode" "editmode-final.xml" "editmode-final.log"
+run_tests "playmode-final" "PlayMode" "ProjectStudio.AudioLab.Tests.PlayMode" "playmode-final.xml" "playmode-final.log"
 run_editor_method "build-final" "ProjectStudio.AudioLab.Editor.AudioLabAssetBuilder.BuildMacOSLab" "build-final.log" "ALLOW"
 run_editor_method "oracle-final" "ProjectStudio.AudioLab.Editor.AudioOracleBatchRunner.RunAll" "oracle-final.log" "DISABLE"
 run_editor_method "validation-summary-final" "ProjectStudio.AudioLab.Editor.AudioLabValidationSummaryWriter.Write" "validation-summary-final.log" "DISABLE"

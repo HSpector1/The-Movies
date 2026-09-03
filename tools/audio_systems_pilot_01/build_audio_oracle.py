@@ -18,6 +18,7 @@ SUITE_PATH = PILOT_ROOT / "07_audio-oracle/AUDIO-ORACLE-SUITE.v1.json"
 SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json"
 RUNTIME_OBSERVATIONS = PILOT_ROOT / "09_unity-lab/RuntimeEvidence/audio-oracle-runtime-observations.json"
 PLAYLIST_SUITE = PILOT_ROOT / "02_music-bundles/simulations/FOUR-HOUR-DENSITY-SIMULATIONS.v2.json"
+RADIO_RUNTIME_INDEX = PILOT_ROOT / "06_radio/STUDIO-RADIO-RUNTIME-INDEX.v2.json"
 
 EXPECTED_SCENARIOS = (
     "early_era_normal",
@@ -426,7 +427,7 @@ def verify_trace_contract(trace: dict[str, Any], scenario: str) -> None:
                 and [event["event_type"] for event in replay_events] == ["REPLAY_A", "REPLAY_B"]
                 and len(fingerprints) == 2 and fingerprints[0] == fingerprints[1]
                 and all(event.get("source_id") == trace.get("selected_variant_id")
-                        and bus_is(event, "Score") and near(event.get("gain"), 1.0)
+                        and bus_is(event, "Score") and near(event.get("gain"), 0.8)
                         and near(event.get("requested_dsp_deadline"), 0.12)
                         and event.get("scheduler_api_accepted") is False for event in replay_events)
                 and re.fullmatch(r"[0-9a-f]{16}", fingerprints[0]) is not None
@@ -439,7 +440,7 @@ def verify_trace_contract(trace: dict[str, Any], scenario: str) -> None:
                 and trace.get("pause_or_reset_action") == "LOAD_INTO_DIFFERENT_ERA_REEVALUATE_ELIGIBILITY"
                 and len(events) == 1 and events[0].get("event_type") == "SAVE_LOAD_PRESENTATION_REEVALUATION"
                 and events[0].get("source_id") == trace.get("selected_variant_id")
-                and bus_is(events[0], "Score") and near(events[0].get("gain"), 1.0)
+                and bus_is(events[0], "Score") and near(events[0].get("gain"), 0.8)
                 and events[0].get("scheduler_api_accepted") is False,
                 "save/load presentation did not re-evaluate supplied eligibility without loading cue truth")
     expected_fallback = EXPECTED_FALLBACKS[scenario]
@@ -472,6 +473,52 @@ def verify() -> dict[str, Any]:
     system_items = system.get("items", [])
     system_by_id = {row.get("id"): row for row in system_items}
     require(None not in system_by_id and len(system_by_id) == len(system_items), "Oracle-bound system item IDs are duplicate/missing")
+    source_manifest_records = system.get("source_manifests")
+    require(isinstance(source_manifest_records, list), "Oracle-bound system source manifests are malformed")
+    source_manifest_by_path: dict[Path, dict[str, Any]] = {}
+    for record in source_manifest_records:
+        require(isinstance(record, dict) and set(record) == {"path", "sha256"},
+                "Oracle-bound system source-manifest record is malformed")
+        path = pilot_path(record["path"])
+        require(path not in source_manifest_by_path and sha256_file(path) == record["sha256"],
+                f"Oracle-bound system source manifest is duplicate or hash-mismatched: {path}")
+        source_manifest_by_path[path] = record
+    require(RADIO_RUNTIME_INDEX.resolve(strict=True) in source_manifest_by_path,
+            "Oracle-bound system register does not authenticate the radio runtime index")
+    radio_runtime = json.loads(RADIO_RUNTIME_INDEX.read_text(encoding="utf-8"))
+    require(radio_runtime.get("schema") == "project-studio-radio-runtime-index/v2"
+            and radio_runtime.get("status") == "PROTOTYPE_ONLY"
+            and radio_runtime.get("machine_verdict") == "PASS"
+            and isinstance(radio_runtime.get("demos"), list) and len(radio_runtime["demos"]) == 3,
+            "Oracle-bound radio runtime index failed its exact header/cardinality contract")
+    runtime_radio_by_id: dict[str, dict[str, Any]] = {}
+    for demo in radio_runtime["demos"]:
+        slug = demo.get("slug")
+        master = demo.get("master")
+        preview = demo.get("preview")
+        require(isinstance(slug, str) and slug and isinstance(master, dict) and isinstance(preview, dict),
+                "Oracle-bound radio demo row is malformed")
+        preview_path = pilot_path(preview["path"])
+        master_path = pilot_path(master["path"])
+        preview_relative = str(preview_path.relative_to(PILOT_ROOT.resolve(strict=True)))
+        master_relative = str(master_path.relative_to(PILOT_ROOT.resolve(strict=True)))
+        registered = [item for item in system_items if item.get("role") == "RADIO_DEMO"
+                      and item.get("relative_path") == preview_relative]
+        require(len(registered) == 1
+                and registered[0].get("sha256") == preview.get("sha256")
+                and preview_path.stat().st_size == preview.get("bytes")
+                and sha256_file(preview_path) == preview.get("sha256")
+                and probe_audio(preview_path) == preview.get("probe")
+                and master_path.stat().st_size == master.get("bytes")
+                and sha256_file(master_path) == master.get("sha256")
+                and probe_audio(master_path) == master.get("probe"),
+                f"Oracle radio runtime master/registered-preview relationship failed: {slug}")
+        runtime_id = f"{registered[0]['id']}-RUNTIME-WAV"
+        require(runtime_id not in runtime_radio_by_id, f"duplicate Oracle runtime radio identity: {runtime_id}")
+        runtime_radio_by_id[runtime_id] = {
+            "id": runtime_id, "relative_path": master_relative, "sha256": master["sha256"],
+            "role": "RADIO_DEMO_RUNTIME_WAV", "source_asset_id": registered[0]["id"],
+        }
     system_by_source_alias: dict[str, dict[str, Any]] = {}
     for item in system_items:
         for alias in (item["id"], item.get("source_asset_id")):
@@ -479,6 +526,9 @@ def verify() -> dict[str, Any]:
                 continue
             require(alias not in system_by_source_alias, f"system-register source alias is ambiguous: {alias}")
             system_by_source_alias[alias] = item
+    for alias, item in runtime_radio_by_id.items():
+        require(alias not in system_by_source_alias, f"runtime radio source alias is ambiguous: {alias}")
+        system_by_source_alias[alias] = item
     _, observations = load_verified(suite["runtime_observations"], schema="project-studio-audio-oracle-runtime-observations/v1")
     require(pilot_path(suite["runtime_observations"]["path"]) == RUNTIME_OBSERVATIONS.resolve(), "Oracle runtime-observation path mismatch")
     require(observations.get("observation_source") == "UNITY_PLAYMODE_OBSERVATION", "Oracle observations are not labelled Unity PlayMode evidence")
@@ -562,7 +612,7 @@ def verify() -> dict[str, Any]:
                         and len(decision_events) == 1
                         and near(decision_events[0].get("dsp_time"), 0.0)
                         and decision_events[0].get("source_id") == selected_item["id"]
-                        and bus_is(decision_events[0], "Score") and near(decision_events[0].get("gain"), 1.0)
+                        and bus_is(decision_events[0], "Score") and near(decision_events[0].get("gain"), 0.8)
                         and near(decision_events[0].get("requested_dsp_deadline"), 0.12),
                         f"decision scenario selected the wrong exact epoch/context/variant: {scenario}")
             elif scenario == "active_to_blocked_hysteresis":
