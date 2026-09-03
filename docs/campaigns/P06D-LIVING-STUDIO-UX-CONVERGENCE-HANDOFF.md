@@ -5,7 +5,17 @@
 > Nothing meaningful may live only in scratch, /private/tmp, a process, chat, or an unpushed tree.
 > **Isolated successor candidate — NO campaign integration** (§31). P06B and P06C are byte-preserved controls.
 
-## Status: INVESTIGATION DONE — committed design written; implementing next
+## Status: SEALED — P06D COMPARISON CANDIDATE READY (hostile ACCEPT) — OWNER COMPARISON PENDING
+
+Terminal state: isolated candidate at `~/Desktop/P06D-Comparison-Candidate-050b98e-23c000a/` (player exe
+`076e8c62` byte-verified · asmC# `2328c855` · engine `c00cbfd5` unchanged from P06C). All floors green — TS
+4905/0 · EditMode 762/762 · Oracle 8/8 · real-profile 25/25 · real HID OVERALL PASS. Fresh hostile review
+**ACCEPT (0 blocking, all 26 §30 items pass)**. P06C `2c235c39` + P06B `130a13a0` byte-preserved; campaign
+`04b67ec`/`18a2887` UNCHANGED (local==remote); worktrees clean; caffeinate stopped; no owned processes; no
+P07; NOT integrated. Owner next: `P06D-OWNER-COMPARISON-PLAYTEST.md` — compare P06C vs P06D, ACCEPT or report
+the worse step. Only a later explicit ruling authorizes integration.
+
+## (history) Status: INVESTIGATION DONE — committed design written; implementing next
 
 Setup + investigation complete. Both controls byte-stable; campaign frozen; P06D branches pushed from exact
 P06C tips; caches warmed; keep-awake up. An 8-mapper read-only Workflow mapped every touched surface; the
