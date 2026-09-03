@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
 from copy import deepcopy
@@ -137,6 +138,30 @@ def current_tool_binding() -> dict[str, Any]:
     }
 
 
+def reusable_tool_binding(manifest_path: Path, current: dict[str, Any]) -> dict[str, Any]:
+    """Reuse an immutable supplement's authenticated historical tool binding."""
+    if not os.path.lexists(manifest_path):
+        return current
+    payload, _ = read_contained_regular_bytes(PILOT_ROOT, manifest_path)
+    manifest = json.loads(payload.decode("utf-8"))
+    binding = manifest.get("repair_tool")
+    if not isinstance(binding, dict):
+        raise RuntimeError(f"existing archive supplement has no repair-tool binding: {manifest_path}")
+    commit = binding.get("commit")
+    if not isinstance(commit, str) or re.fullmatch(r"[0-9a-f]{40}", commit) is None:
+        raise RuntimeError(f"existing archive supplement tool commit is malformed: {manifest_path}")
+    committed = committed_blob(commit, REPAIR_TOOL)
+    expected = {
+        "commit": commit,
+        "path": REPAIR_TOOL,
+        "blob_sha256": hashlib.sha256(committed).hexdigest(),
+        "working_file_matches_commit": True,
+    }
+    if binding != expected:
+        raise RuntimeError(f"existing archive supplement tool binding failed: {manifest_path}")
+    return expected
+
+
 def archive_file_rows(manifest: dict[str, Any]) -> dict[str, dict[str, Any]]:
     rows = manifest.get("files", [])
     if not isinstance(rows, list) or not rows:
@@ -148,7 +173,7 @@ def archive_file_rows(manifest: dict[str, Any]) -> dict[str, dict[str, Any]]:
     return {row["relative_path"]: row for row in rows}
 
 
-def repair_run(run_root: Path, tool_binding: dict[str, Any]) -> dict[str, Any] | None:
+def repair_run(run_root: Path, tool_binding: dict[str, Any] | None) -> dict[str, Any] | None:
     if run_root.is_symlink() or not run_root.is_dir():
         raise RuntimeError(f"archive run root is unsafe: {run_root}")
     manifest_path = run_root / "ARCHIVE-MANIFEST.json"
@@ -160,6 +185,7 @@ def repair_run(run_root: Path, tool_binding: dict[str, Any]) -> dict[str, Any] |
     pointer_payload, _ = read_contained_regular_bytes(PILOT_ROOT, pointer_path)
     pointer = json.loads(pointer_payload.decode("utf-8"))
     run_id = run_root.name
+    supplement_root = SUPPLEMENT_ROOT / run_id
     if pointer.get("schema") != "project-studio-unity-validation-current-run/v1" or pointer.get("run_id") != run_id:
         raise RuntimeError(f"archived current pointer is malformed: {run_id}")
     authorization = AUTHORIZED_REPAIRS.get(run_id)
@@ -220,7 +246,13 @@ def repair_run(run_root: Path, tool_binding: dict[str, Any]) -> dict[str, Any] |
         })
     if not repair_plans:
         return None
-    supplement_root = SUPPLEMENT_ROOT / run_id
+    supplement_manifest_path = supplement_root / "SUPPLEMENT-MANIFEST.json"
+    if os.path.lexists(supplement_manifest_path):
+        tool_binding = reusable_tool_binding(supplement_manifest_path, {})
+    elif tool_binding is None:
+        tool_binding = current_tool_binding()
+    if tool_binding is None:
+        raise RuntimeError(f"archive supplement tool binding is unavailable: {run_id}")
     archived_validation_path = run_root / "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json"
     archived_validation_payload, _ = read_contained_regular_bytes(PILOT_ROOT, archived_validation_path)
     archived_validation = json.loads(archived_validation_payload.decode("utf-8"))
@@ -303,8 +335,7 @@ def main() -> None:
         if missing:
             raise RuntimeError(f"requested archive runs do not exist: {sorted(missing)}")
         roots = [path for path in roots if path.name in requested]
-    binding = current_tool_binding()
-    results = [result for root in roots if (result := repair_run(root, binding)) is not None]
+    results = [result for root in roots if (result := repair_run(root, None)) is not None]
     print(json.dumps({
         "schema": "project-studio-unity-validation-archive-repair-result/v1",
         "machine_verdict": "PASS",

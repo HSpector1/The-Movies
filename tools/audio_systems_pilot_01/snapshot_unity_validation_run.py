@@ -215,6 +215,20 @@ def build_snapshot() -> dict[str, Any]:
     if (None in pointer_paths or len(set(pointer_paths)) != len(pointer_paths)
             or set(pointer_paths) != EXPECTED_POINTER_PATHS):
         raise RuntimeError("current Unity run pointer contains duplicate or missing paths")
+    destination = COMPLETED_ROOT / run_id
+    if os.path.lexists(destination):
+        require_contained_directory(PILOT_ROOT, destination)
+        existing = verify_snapshot(destination, run_id)
+        if (existing.get("source_pointer", {}).get("sha256") != pointer_sha
+                or existing.get("source_pointer", {}).get("bytes") != len(pointer_payload)
+                or existing.get("documentation_sha") != documentation_sha
+                or existing.get("unity_sha") != unity_sha):
+            raise RuntimeError(f"completed Unity run destination already has a different identity: {run_id}")
+        return {
+            "run_id": run_id,
+            "reused": True,
+            "manifest_sha256": sha256_file(destination / "COMPLETED-RUN-MANIFEST.json"),
+        }
     sources: list[tuple[str, bytes, int, str, int]] = []
     source_payloads: dict[str, bytes] = {}
     for row in rows:
@@ -242,17 +256,7 @@ def build_snapshot() -> dict[str, Any]:
             or any(validation.get(name, {}).get("status") != "PASS" for name in required_components)):
         raise RuntimeError("current Unity validation is not a matching successful outcome")
 
-    completed = ensure_contained_directory(PILOT_ROOT, COMPLETED_ROOT)
-    destination = COMPLETED_ROOT / run_id
-    if os.path.lexists(destination):
-        require_contained_directory(PILOT_ROOT, destination)
-        existing = verify_snapshot(destination)
-        if (existing.get("source_pointer", {}).get("sha256") != pointer_sha
-                or existing.get("documentation_sha") != documentation_sha
-                or existing.get("unity_sha") != unity_sha):
-            raise RuntimeError(f"completed Unity run destination already has a different identity: {run_id}")
-        return {"run_id": run_id, "reused": True, "manifest_sha256": sha256_file(destination / "COMPLETED-RUN-MANIFEST.json")}
-
+    ensure_contained_directory(PILOT_ROOT, COMPLETED_ROOT)
     staging_parent = ensure_contained_directory(PILOT_ROOT, PILOT_ROOT / "12_logs")
     staging = staging_parent / f"unity-completed-run.{run_id}.{os.getpid()}.{os.urandom(12).hex()}"
     staging, staging_identity = create_contained_directory_once(PILOT_ROOT, staging)
