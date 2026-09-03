@@ -83,7 +83,7 @@ import {
 } from '../bridge/runtime-checkpoint.ts'
 import { releaseProjection } from '../bridge/release.ts'
 import { contendedStudio, freePackage, freePackageOrNull, commissionFor } from '../tests/_m4Fixtures.ts'
-import { managedStudio, withCash } from '../tests/contracts/_contractFixtures.ts'
+import { contractedByRole, managedStudio, withCash } from '../tests/contracts/_contractFixtures.ts'
 
 const GENERATOR = 'scripts/gen-p06-visual-oracle-fixtures.mts'
 const OUTPUT_DIRECTORY = 'ui/e2e/p06-visual-oracle-v1'
@@ -387,11 +387,20 @@ function deepFoundedStudio(
  * Commission + accept `count` concepts starting at `startIndex`, two at a time
  * (dev-casting capacity = 2). `startIndex` lets a scenario call this more than
  * once without re-claiming a concept/writer index an earlier call already used.
+ *
+ * By default each concept is written by a DISTINCT writer (writer index = concept
+ * index), which is what scenarios 2/6/7 need. `writerReuseCount`, when supplied,
+ * instead assigns writers cyclically (writer index = index % writerReuseCount) so a
+ * scenario can commission MORE screenplays than the founding writer pool holds —
+ * `commissionScript` only requires a writer whose prior draft has already completed,
+ * and each batch's tick finishes the previous batch before its writers are reused.
+ * Omitting it preserves the original distinct-writer behavior byte-for-byte.
  */
 function commissionAndAccept(
   state: GameState,
   count: number,
   startIndex = 0,
+  writerReuseCount?: number,
 ): { state: GameState; projectIds: string[] } {
   let next = state
   const alreadyKnown = new Set(next.scriptDevelopment.projects.map((p) => p.id))
@@ -401,8 +410,10 @@ function commissionAndAccept(
   while (index < endIndex) {
     const batch = Math.min(2, endIndex - index)
     for (let i = 0; i < batch; i++) {
+      const writerIndex =
+        writerReuseCount === undefined ? index + i : (index + i) % writerReuseCount
       next = applyActions(next, [
-        { kind: 'commissionScript', project: commissionFor(next, index + i, index + i) },
+        { kind: 'commissionScript', project: commissionFor(next, index + i, writerIndex) },
       ])
     }
     next = tick(next)
@@ -1247,6 +1258,58 @@ function scenario7(): ScenarioFixture {
   }
 }
 
+/** 8 — Scale Stress: a tall SCRIPTS rail (≥14 rows) to exercise the bounded scroll viewport. */
+function scenario8(): ScenarioFixture {
+  // The movie rail's SCRIPTS group renders every development-board screenplay whose
+  // section != 'productionHistory'. A commissioned-and-accepted screenplay that is
+  // NEVER greenlit sits at readyToPackage and shows as one SCRIPTS row — so committing
+  // MANY screenplays without greenlighting any yields MANY rows, the cheapest tall rail
+  // and, with no production ever created, no ledger identity to normalize.
+  //
+  // The founding writer applicant pool is HARD-capped at HIRING_DRAFT_WRITERS (6)
+  // regardless of the requested `writer` depth (richFoundedStudio can only sign the
+  // applicants that exist), so commissionAndAccept's default distinct-writer mapping
+  // tops out at 6 rows. commissionScript needs only a writer whose prior draft has
+  // completed, so scenario 8 reuses the signed writers cyclically (writerReuseCount) —
+  // making CONCEPTS (30 in worldgen) the real ceiling — to reach 14 accepted screenplays.
+  //
+  // N = 14 is the largest count compatible with the fixed freeze at week 12: each
+  // commission batch of two costs one tick, so 14 screenplays (7 batches) advance the
+  // clock from week 5 to exactly week 12, and the closing advanceTo(state, 12) is a
+  // no-op. N = 16 would land on week 13 and advanceTo would reject the overshoot.
+  const N = 14
+  let state = deepFoundedStudio('s8', { actor: 12, writer: 20, director: 4, craft: 3 }, 0, 0)
+  state = advanceTo(state, 5)
+
+  const writerReuseCount = contractedByRole(state, 'writer').length
+  const { state: withScreenplays } = commissionAndAccept(state, N, 0, writerReuseCount)
+  state = withScreenplays
+
+  state = advanceTo(state, 12) // fixed frozen week for determinism
+
+  const shown = state.scriptDevelopment.projects.filter((p) => p.section !== 'productionHistory')
+  assertTrue(
+    shown.length >= 12,
+    `s8: expected >=12 SCRIPTS rows on the development board (scroll-owner stress), got ${String(shown.length)}`,
+  )
+  assertEq(state.market.tick, 12, 's8: frozen at week 12 (matches advanceTo(state, 12))')
+  assertEq(state.studio.activeProductions.length, 0, 's8: no productions (none greenlit) — no ledger identity')
+
+  return {
+    scenarioId: 'scale-stress',
+    week: state.market.tick,
+    state,
+    normalization: [],
+    derivation: [
+      'deep-found s8 (writer depth 20 requested; founding pool caps signed writers at HIRING_DRAFT_WRITERS=6)',
+      'commission+accept 14 screenplays, none greenlit (writers reused cyclically; concepts, not writers, are the ceiling)',
+      'freeze at week 12',
+    ],
+    assertions: ['>=12 SCRIPTS rows on the development board (scroll-owner stress)'],
+    inMemoryProofAnchors: [],
+  }
+}
+
 // ── emission ─────────────────────────────────────────────────────────────────
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -1261,6 +1324,7 @@ const fixtures: ScenarioFixture[] = [
   scenario5(),
   scenario6(),
   scenario7(),
+  scenario8(),
 ]
 
 const manifestFixtures = fixtures.map((fixture, index) => {

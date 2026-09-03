@@ -1,7 +1,7 @@
 {
   "fixtureId": "p06-visual-oracle-v1",
   "generator": "scripts/gen-p06-visual-oracle-fixtures.mts",
-  "generatorSourceSha256": "8ff44cb25695578c993586f950359cabc10b0ea18fdc98b954398de815f0d978",
+  "generatorSourceSha256": "0f548a556f0cd5749c98cecc029f4ff2ec5694a90ec8fadef76c369ef5af7a57",
   "seed": "p06-visual-oracle-v1",
   "ledger": {
     "productionA": "prod-0000",
@@ -730,6 +730,34 @@
         "MAKING MOVIES: ≥2 rows — B (prod-0001) shooting-working + C (prod-0002) director-required",
         "POST & RELEASE: ≥2 rows — A (prod-0000) release-ready + the raw post-handoff picture",
         "every rail-visible row classified by the exact operationalState→group rules; all three groups non-empty at the frozen week"
+      ],
+      "inMemoryProofAnchors": []
+    },
+    {
+      "ordinal": 8,
+      "scenarioId": "scale-stress",
+      "week": 12,
+      "save": {
+        "file": "s8-scale-stress.save.json",
+        "byteLength": 240422,
+        "sha256": "4d3dde495bb6c701039e11445a31310b343ec8a865fccf4d1367e68daf0f6705"
+      },
+      "checkpoint": {
+        "file": "s8-scale-stress.checkpoint.json",
+        "byteLength": 272041,
+        "sha256": "8384159d54839b56ef029431bd7b4f488c3e2d40f7601e5c88fa9d8e69d0b361",
+        "sessionId": "p06-oracle-scale-stress",
+        "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+        "stateDigest": "4d3dde495bb6c701039e11445a31310b343ec8a865fccf4d1367e68daf0f6705"
+      },
+      "derivation": [
+        "deep-found s8 (writer depth 20 requested; founding pool caps signed writers at HIRING_DRAFT_WRITERS=6)",
+        "commission+accept 14 screenplays, none greenlit (writers reused cyclically; concepts, not writers, are the ceiling)",
+        "freeze at week 12"
+      ],
+      "idNormalization": [],
+      "machineAssertions": [
+        ">=12 SCRIPTS rows on the development board (scroll-owner stress)"
       ],
       "inMemoryProofAnchors": []
     }
