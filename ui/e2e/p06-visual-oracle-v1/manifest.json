@@ -1,7 +1,7 @@
 {
   "fixtureId": "p06-visual-oracle-v1",
   "generator": "scripts/gen-p06-visual-oracle-fixtures.mts",
-  "generatorSourceSha256": "c4726dd76ebad2c155f0b188e882e8525cf95bdd9a38fa8cb430ec2e9e75a18d",
+  "generatorSourceSha256": "8ff44cb25695578c993586f950359cabc10b0ea18fdc98b954398de815f0d978",
   "seed": "p06-visual-oracle-v1",
   "ledger": {
     "productionA": "prod-0000",
@@ -591,6 +591,147 @@
       "inMemoryProofAnchors": [
         "commitPictureToRelease(A) leaves the B and C operations rows byte-identical (exact-ID isolation)"
       ]
+    },
+    {
+      "ordinal": 7,
+      "scenarioId": "mixed-slate-hero",
+      "week": 37,
+      "save": {
+        "file": "s7-mixed-slate-hero.save.json",
+        "byteLength": 268842,
+        "sha256": "a559c89398558fc0ebe6d04952bb129d8ebec7668f1a2d7504cf1e0df0cbcbc4"
+      },
+      "checkpoint": {
+        "file": "s7-mixed-slate-hero.checkpoint.json",
+        "byteLength": 304213,
+        "sha256": "267f54eeb485104f1c101766c9b11c3d9444c4a8aaeceb0437b8228022d31a88",
+        "sessionId": "p06-oracle-mixed-slate-hero",
+        "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+        "stateDigest": "a559c89398558fc0ebe6d04952bb129d8ebec7668f1a2d7504cf1e0df0cbcbc4"
+      },
+      "derivation": [
+        "deep-founded studio (4 directors / 3+1 craft / 11+1 actors — top up craft+actor by exactly the founding ceiling shortfall via createTalent+signContract)",
+        "six screenplays: five accepted (Ready), one left un-accepted so it holds at review; four Ready become productions, the fifth Ready + the review screenplay stay on the board as the SCRIPTS rows",
+        "RR: greenlight first, drive to Release Ready, hold uncommitted (the P06A hold law parks it there)",
+        "place stage-standard@(23,20) + scenery-shop@(6,2); seed the placed stage with a standing set once it completes",
+        "DR + SH: greenlight on the remaining stages; DR is never driven (parks at director-required); SH is assigned + scenery-loaded but never scheduled (parks at ready-to-schedule)",
+        "PH: greenlight last, drive fully through shooting; the moment it reads post-handoff, schedule SH’s already-ready take (no tick) so only SH lifts to shooting-working — freezing the mixed slate",
+        "normalize onto the ledger (prod-0000/0001/0002 + three companies + three writers; the post-handoff picture keeps its raw engine id, scenario6’s filler idiom)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0024-1",
+          "to": "prod-0001",
+          "occurrences": 17
+        },
+        {
+          "from": "prod-0009",
+          "to": "prod-0000",
+          "occurrences": 14
+        },
+        {
+          "from": "prod-0024",
+          "to": "prod-0002",
+          "occurrences": 16
+        },
+        {
+          "from": "t-dir-01",
+          "to": "t-p06-director-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-01",
+          "to": "t-p06-lead-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-p06-antagonist-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-03",
+          "to": "t-p06-support-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-cra-00",
+          "to": "t-p06-craft-a",
+          "occurrences": 4
+        },
+        {
+          "from": "t-wri-02",
+          "to": "t-p06-writer-a",
+          "occurrences": 7
+        },
+        {
+          "from": "t-dir-07",
+          "to": "t-p06-director-b",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-15",
+          "to": "t-p06-lead-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-18",
+          "to": "t-p06-antagonist-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-23",
+          "to": "t-p06-support-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-cra-09",
+          "to": "t-p06-craft-b",
+          "occurrences": 4
+        },
+        {
+          "from": "t-wri-04",
+          "to": "t-p06-writer-b",
+          "occurrences": 7
+        },
+        {
+          "from": "t-dir-05",
+          "to": "t-p06-director-c",
+          "occurrences": 5
+        },
+        {
+          "from": "t-act-06",
+          "to": "t-p06-lead-c",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-12",
+          "to": "t-p06-antagonist-c",
+          "occurrences": 4
+        },
+        {
+          "from": "t-act-14",
+          "to": "t-p06-support-c",
+          "occurrences": 4
+        },
+        {
+          "from": "t-cra-02",
+          "to": "t-p06-craft-c",
+          "occurrences": 4
+        },
+        {
+          "from": "t-wri-03",
+          "to": "t-p06-writer-c",
+          "occurrences": 7
+        }
+      ],
+      "machineAssertions": [
+        "SCRIPTS: ≥1 screenplay row — needsReview (commissioned, un-accepted) + readyToPackage (accepted, un-greenlit)",
+        "MAKING MOVIES: ≥2 rows — B (prod-0001) shooting-working + C (prod-0002) director-required",
+        "POST & RELEASE: ≥2 rows — A (prod-0000) release-ready + the raw post-handoff picture",
+        "every rail-visible row classified by the exact operationalState→group rules; all three groups non-empty at the frozen week"
+      ],
+      "inMemoryProofAnchors": []
     }
   ]
 }

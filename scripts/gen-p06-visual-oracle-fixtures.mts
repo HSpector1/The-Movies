@@ -74,6 +74,7 @@ import type { GameState } from '../src/core/index.ts'
 import {
   exportSaveJson,
   importSaveJson,
+  scriptProjectsBoard,
   studioLotSnapshot,
 } from '../ui/src/engine/adapter.ts'
 import {
@@ -449,6 +450,24 @@ function driveRobust(state: GameState, ids: readonly string[]): GameState {
     }
   }
   return next
+}
+
+/**
+ * Assign the locked director to a shooting take ONLY if it is still unassigned —
+ * never schedules. Scene 7 uses this to load one picture's scenery and PARK it at
+ * `ready-to-schedule` without ever scheduling the take, so the final same-week
+ * `scheduleShootingTake` is the one action that lifts it to `shooting-working`.
+ */
+function assignShootingIfUnassigned(state: GameState, id: string): GameState {
+  if (state.operations.mode !== 'managed') return state
+  const workflow = state.operations.workflows.find((c) => c.productionId === id)
+  if (workflow === undefined || workflow.phase !== 'shooting' || workflow.shootingTask === null) return state
+  if (workflow.shootingTask.status !== 'unassigned') return state
+  const production = state.studio.activeProductions.find((p) => p.id === id)
+  if (production === undefined) return state
+  return applyActions(state, [
+    { kind: 'assignShootingDirector', productionId: id, directorId: production.directorId },
+  ])
 }
 
 function allParkedAtShootingUnassigned(state: GameState, ids: readonly string[]): boolean {
@@ -1025,6 +1044,209 @@ function scenario6(): ScenarioFixture {
   }
 }
 
+/** 7 — Mixed Slate Hero: ONE frozen week whose movie rail spans all three groups. */
+function scenario7(): ScenarioFixture {
+  // The three rail groups, by the exact operationalState→group rules the Unity
+  // contracts apply (`StudioMovieRailContracts.ProductionLifecycle` →
+  // `StudioMovieSlateContracts.ProductionGroup`).
+  const MAKING_MOVIES = new Set([
+    'pre-production-working',
+    'rehearsal-working',
+    'director-required',
+    'scenery-in-transit',
+    'scenery-arrival-pending',
+    'legacy-load-in-acknowledgment',
+    'ready-to-schedule',
+    'shooting-working',
+    'resource-wait',
+  ])
+  const POST_AND_RELEASE = new Set([
+    'wrapped-waiting-for-post',
+    'post-handoff',
+    'release-ready',
+    'release-committed',
+  ])
+
+  // FOUR concurrently-active pictures (release-ready · post-handoff · shooting ·
+  // director-required) each lock a director + three cast + one craft for their
+  // whole run (`activeProductionCompanyTalentIds`) — 4 directors / 12 actors / 4
+  // craft, one actor and one craft over the founding applicant ceiling
+  // (HIRING_DRAFT_ACTORS = 11, HIRING_DRAFT_CRAFT = 3). Top up by exactly the
+  // shortfall through the public createTalent + signContract doors (file header).
+  const depth = { actor: 12, writer: 6, director: 4, craft: 3 }
+  let state = deepFoundedStudio('s7', depth, 1, 1)
+  state = placeContentionFacilities(state)
+  // Idle clear of tick 0/1/2 before any greenlight so no raw production id can
+  // equal (or later collide against) the ledger's prod-0000/0001/0002 targets —
+  // the identical note scenarios 2 and 6 carry.
+  state = advanceTo(state, 5)
+
+  // Six screenplays. commissionAndAccept mints five ACCEPTED (Ready) screenplays;
+  // a sixth is commissioned and left un-accepted, so it drafts to `review` and
+  // HOLDS there. Four Ready ones become the four productions; the fifth Ready one
+  // and the review one stay on the board as the two SCRIPTS-group rows (both are
+  // stable: a commissioned-not-accepted screenplay sits at review, an accepted one
+  // sits at readyToPackage until it is greenlit).
+  const { state: withReady, projectIds } = commissionAndAccept(state, 5, 0)
+  state = withReady
+  state = applyActions(state, [
+    { kind: 'commissionScript', project: commissionFor(state, 5, 5) },
+  ])
+  state = tick(state)
+  const readyScreenplayId = projectIds[4]! // accepted, never greenlit → readyToPackage
+  const reviewScreenplay = state.scriptDevelopment.projects.find(
+    (p) => !projectIds.includes(p.id) && p.status === 'review',
+  )
+  if (reviewScreenplay === undefined) fail('s7: sixth screenplay never reached review')
+  const reviewScreenplayId = reviewScreenplay!.id
+
+  // RR — the Release Ready picture. Greenlight first, drive all the way to Release
+  // Ready and HOLD uncommitted (the P06A hold law parks it there forever).
+  const pkgRR = freePackageOrNull(state, projectIds[0]!)
+  if (pkgRR === null) fail('s7: RR package unavailable from the free roster')
+  state = applyActions(state, [{ kind: 'greenlightScriptProject', production: pkgRR }])
+  const idRR = state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id
+  for (let i = 0; i < 40 && operationsRow(state, idRR).operationalState !== 'release-ready'; i++) {
+    state = driveRobust(state, [idRR])
+    state = tick(state)
+  }
+  if (operationsRow(state, idRR).operationalState !== 'release-ready') fail('s7: RR never reached Release Ready')
+
+  // Wait for the placed stage to complete (16wk build), seed it with a standing
+  // set (the scenario2/6 idiom) so the third shooting picture binds a stage.
+  state = advanceTo(state, 20)
+  state = applyActions(state, [
+    {
+      kind: 'commissionSet',
+      commission: { blueprintId: 'set-house-generic', stageFacilityId: LEDGER.placedStageFacility },
+    },
+  ])
+  state = advanceTo(state, 24)
+
+  // DR + SH — two pictures that ENTER shooting on the remaining stages. DR is
+  // never driven, so it parks at `director-required` (task unassigned). SH is
+  // assigned and its scenery loaded, parking at `ready-to-schedule` (task ready)
+  // WITHOUT being scheduled.
+  const pkgDR = freePackageOrNull(state, projectIds[1]!)
+  if (pkgDR === null) fail('s7: DR package unavailable from the free roster')
+  state = applyActions(state, [{ kind: 'greenlightScriptProject', production: pkgDR }])
+  const idDR = state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id
+  const pkgSH = freePackageOrNull(state, projectIds[2]!)
+  if (pkgSH === null) fail('s7: SH package unavailable from the free roster')
+  state = applyActions(state, [{ kind: 'greenlightScriptProject', production: pkgSH }])
+  const idSH = state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id
+
+  for (let i = 0; i < 40; i++) {
+    const drParked = operationsRow(state, idDR).operationalState === 'director-required'
+    const shParked = operationsRow(state, idSH).operationalState === 'ready-to-schedule'
+    if (drParked && shParked) break
+    state = assignShootingIfUnassigned(state, idSH) // load SH's scenery; never schedule
+    state = tick(state)
+  }
+  if (operationsRow(state, idDR).operationalState !== 'director-required') fail('s7: DR never parked at director-required')
+  if (operationsRow(state, idSH).operationalState !== 'ready-to-schedule') fail('s7: SH never parked at ready-to-schedule')
+
+  // PH — the post-handoff picture. Greenlight LAST (the roster is now exactly one
+  // package deep) and drive it fully through shooting until it enters Post. SH
+  // holds at ready-to-schedule and DR at director-required across these ticks
+  // (an rt5 take advances only when it is `scheduled`), and RR holds at Release
+  // Ready — so the moment PH reads `post-handoff`, scheduling SH's already-ready
+  // take lifts ONLY SH to `shooting-working` with no tick, freezing the slate.
+  const pkgPH = freePackageOrNull(state, projectIds[3]!)
+  if (pkgPH === null) fail('s7: PH package unavailable from the free roster')
+  state = applyActions(state, [{ kind: 'greenlightScriptProject', production: pkgPH }])
+  const idPH = state.studio.activeProductions[state.studio.activeProductions.length - 1]!.id
+
+  let captureWeek: number | null = null
+  for (let i = 0; i < 40 && captureWeek === null; i++) {
+    state = driveRobust(state, [idPH])
+    state = tick(state)
+    const phState = operationsRow(state, idPH).operationalState
+    if (phState === 'post-handoff') {
+      state = applyActions(state, [{ kind: 'scheduleShootingTake', productionId: idSH }])
+      captureWeek = state.market.tick
+    } else if (phState === 'release-ready') {
+      fail('s7: PH overran Post before the capture window')
+    }
+  }
+  if (captureWeek === null) fail('s7: PH never reached post-handoff')
+
+  // Rename the three hero pictures onto the ledger; PH keeps its raw engine id
+  // (scenario6's filler idiom). DR and SH were greenlit the same week, so their
+  // raw ids are a base/`-1` sibling pair — renaming BOTH, longest-token-first,
+  // is what keeps the base rename from corrupting the suffixed sibling.
+  const renames: Rename[] = [
+    [idRR, LEDGER.productionA],
+    [idSH, LEDGER.productionB],
+    [idDR, LEDGER.productionC],
+    ...companyRenames(state, idRR, LEDGER.companyA, LEDGER.writerA),
+    ...companyRenames(state, idSH, LEDGER.companyB, LEDGER.writerB),
+    ...companyRenames(state, idDR, LEDGER.companyC, LEDGER.writerC),
+  ]
+  const { state: normalized, record } = normalize(state, renames)
+
+  // ── machine assertions: the slate spans all three rail groups ───────────────
+  const prodRows = managedSnapshot(normalized).productionOperations ?? []
+  const stateById = new Map(prodRows.map((r) => [r.productionId, r.operationalState]))
+  let makingCount = 0
+  let postCount = 0
+  let scriptsFromProductions = 0
+  for (const r of prodRows) {
+    if (r.operationalState === 'development-working') scriptsFromProductions++
+    else if (MAKING_MOVIES.has(r.operationalState)) makingCount++
+    else if (POST_AND_RELEASE.has(r.operationalState)) postCount++
+  }
+  const board = scriptProjectsBoard(normalized)
+  const screenplayRows =
+    board.sections.needsReview.length +
+    board.sections.inDevelopment.length +
+    board.sections.readyToPackage.length
+  const scriptsCount = screenplayRows + scriptsFromProductions
+  assertTrue(scriptsCount >= 1, `s7: ≥1 SCRIPTS-group row (got ${String(scriptsCount)})`)
+  assertTrue(makingCount >= 1, `s7: ≥1 MAKING MOVIES row (got ${String(makingCount)})`)
+  assertTrue(postCount >= 1, `s7: ≥1 POST & RELEASE row (got ${String(postCount)})`)
+
+  // the exact production states this hero claims
+  assertEq(stateById.get(LEDGER.productionA), 'release-ready', 's7: A (prod-0000) release-ready')
+  assertEq(stateById.get(LEDGER.productionB), 'shooting-working', 's7: B (prod-0001) shooting-working')
+  assertEq(stateById.get(LEDGER.productionC), 'director-required', 's7: C (prod-0002) director-required')
+  assertEq(operationsRow(normalized, idPH).operationalState, 'post-handoff', 's7: raw PH is post-handoff')
+
+  // the exact screenplay sections this hero claims
+  const readyToPackageIds = board.sections.readyToPackage.map((c) => c.projectId)
+  const needsReviewIds = board.sections.needsReview.map((c) => c.projectId)
+  assertTrue(readyToPackageIds.includes(readyScreenplayId), 's7: accepted screenplay sits at readyToPackage')
+  assertTrue(needsReviewIds.includes(reviewScreenplayId), 's7: commissioned screenplay sits at needsReview')
+
+  // the two MAKING MOVIES rows are distinct pictures; the two POST rows likewise
+  assertTrue(makingCount >= 2, 's7: two MAKING MOVIES rows (shooting-working + director-required)')
+  assertTrue(postCount >= 2, 's7: two POST & RELEASE rows (post-handoff + release-ready)')
+  assertTrue(screenplayRows >= 2, 's7: two SCRIPTS rows (needsReview + readyToPackage)')
+
+  return {
+    scenarioId: 'mixed-slate-hero',
+    week: captureWeek,
+    state: normalized,
+    normalization: record,
+    derivation: [
+      'deep-founded studio (4 directors / 3+1 craft / 11+1 actors — top up craft+actor by exactly the founding ceiling shortfall via createTalent+signContract)',
+      'six screenplays: five accepted (Ready), one left un-accepted so it holds at review; four Ready become productions, the fifth Ready + the review screenplay stay on the board as the SCRIPTS rows',
+      'RR: greenlight first, drive to Release Ready, hold uncommitted (the P06A hold law parks it there)',
+      'place stage-standard@(23,20) + scenery-shop@(6,2); seed the placed stage with a standing set once it completes',
+      'DR + SH: greenlight on the remaining stages; DR is never driven (parks at director-required); SH is assigned + scenery-loaded but never scheduled (parks at ready-to-schedule)',
+      'PH: greenlight last, drive fully through shooting; the moment it reads post-handoff, schedule SH’s already-ready take (no tick) so only SH lifts to shooting-working — freezing the mixed slate',
+      'normalize onto the ledger (prod-0000/0001/0002 + three companies + three writers; the post-handoff picture keeps its raw engine id, scenario6’s filler idiom)',
+    ],
+    assertions: [
+      'SCRIPTS: ≥1 screenplay row — needsReview (commissioned, un-accepted) + readyToPackage (accepted, un-greenlit)',
+      'MAKING MOVIES: ≥2 rows — B (prod-0001) shooting-working + C (prod-0002) director-required',
+      'POST & RELEASE: ≥2 rows — A (prod-0000) release-ready + the raw post-handoff picture',
+      'every rail-visible row classified by the exact operationalState→group rules; all three groups non-empty at the frozen week',
+    ],
+    inMemoryProofAnchors: [],
+  }
+}
+
 // ── emission ─────────────────────────────────────────────────────────────────
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -1038,6 +1260,7 @@ const fixtures: ScenarioFixture[] = [
   scenario4(),
   scenario5(),
   scenario6(),
+  scenario7(),
 ]
 
 const manifestFixtures = fixtures.map((fixture, index) => {
