@@ -4,7 +4,7 @@
 > Nothing meaningful may live only in scratch, /private/tmp, a process, chat, or an unpushed tree.
 > **Isolated successor candidate — NO campaign integration** (§24). P06B is the byte-preserved control.
 
-## Status: SETUP COMPLETE — iterating (Priority Zero next)
+## Status: PRIORITY ZERO FIXED + PROVEN — iterating (movie rail next)
 
 ## 1. Campaign clock & environment (§3)
 
@@ -56,18 +56,35 @@ One editing owner per checkout / collision-prone file. Campaign branches are not
 
 **Symptom (from the P06B report):** the movie rail can correctly show `POST · WAITING` while an
 unchanged Production *workspace* card still shows `SHOOTING` for the **same** wrapped/waiting movie.
-**Plan:** reproduce first → map exact authority + presentation seams → enforce single-source current
-state (current closed Post/Wrap handoff truth) across lot/rail/building card/Production workspace/Post
-workspace → add exact regression tests. **Not** a visible-string-only patch.
-_Status: investigation starting._
+**FIXED + PROVEN (commit 2240df8).** Reproduced visually on the control (P06B build, Oracle scenario 2):
+left guidance card said **SHOOTING** while the rail correctly said **POST · WAITING** for the same
+`prod-0002`. Seam map + a Unity grep proved the live *workspace/stage/post* surfaces already read
+`operationalState` (correct); the real live stale reader was the **left guidance card**, composed by
+`src/core/firstFilmJourney.ts` from the **raw `workflow.phase`** (which stays `'shooting'` for a wrapped
+picture until a Post reservation frees). Root cause was the state owner, not a string.
+
+- **Fix:** `inProductionView()` now detects `wrapped-waiting-for-post` from the same core facts
+  `closedOperationalState()` uses (phase + facility-capacity blocker → postProduction), ahead of the
+  phase-keyed branches, and emits agreeing copy (`WAITING FOR POST` / beat `post-production` /
+  "Principal photography wrapped."). Raw `phase` (oracle-pinned engine truth) untouched.
+- **Regression test:** `ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts` loads the
+  canonical scenario-2 fixture and asserts the rail projection AND `firstFilmJourney` agree (never
+  SHOOTING). 11/11 pass; 117/117 journey/guidance suites green.
+- **Visual proof:** `docs/campaigns/evidence/p06c/priority-zero/` — before(P06B)/after(P06C) at 1440×900
+  (left card flips SHOOTING → WAITING FOR POST), Oracle playerExit=0 (machine truth unchanged), DTO
+  snapshot, README.
+- **Latent (documented, no live reader):** the DTO still ships legacy phase-family display fields
+  (`phaseLabel`/`statusLabel`/`taskStatus`) + a dead `StudioStageProductionPresentation.Resolve()` that
+  reads `operation.phase`; grep confirms **no live Unity surface reads them**. Defense-in-depth hardening
+  is a tracked follow-up, not the live bug.
 
 ## 6. Wave ledger
 
 - [x] §1 Control preserved + identities resolved + integrity verified
 - [x] §2 P06C branches created + pushed; isolated worktrees
 - [x] §3 Clock + this handoff + caffeinate
-- [ ] §5 PRIORITY ZERO — truth contradiction reproduced + fixed + regression-tested
-- [ ] §6 Original The Movies IA comparison matrix
+- [x] §5 PRIORITY ZERO — truth contradiction reproduced + fixed + regression-tested + visually proven (2240df8)
+- [x] §6 Original The Movies IA comparison matrix (`docs/research/P06C-ORIGINAL-THE-MOVIES-IA-MATRIX.md`, 68b045a)
 - [ ] §7–§13,§17–§18 Movie rail IA / row anatomy / lifecycle / attention / interaction / responsive / perf
 - [ ] §14 People/Talent awareness (bounded)
 - [ ] §15 Building-card convergence (bounded)
