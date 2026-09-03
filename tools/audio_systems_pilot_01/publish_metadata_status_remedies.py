@@ -5,16 +5,21 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
-from common import DOC_REPO, PILOT_ROOT, atomic_write_json, sha256_file
+from common import (
+    DOC_REPO, PILOT_ROOT, contained_exclusive_lock, publish_immutable_bytes,
+    read_contained_regular_bytes, replace_contained_bytes, sha256_file,
+)
 
 
 SOURCE = PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v3.json"
 OUTPUT = PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v4.json"
+HISTORY_ROOT = PILOT_ROOT / "05_management-sfx/semantic-pack/history"
 CREATED_AT = "2026-09-03T00:00:00Z"
 
 
@@ -33,8 +38,21 @@ def source_binding() -> dict[str, Any]:
     return {"commit": commit, "path": relative, "blob_sha256": committed_hash, "working_file_matches_commit": True}
 
 
+def preserve_current_output() -> str | None:
+    """Retain the exact prior D-bound catalogue before atomically rebinding v4."""
+    if not os.path.lexists(OUTPUT):
+        return None
+    payload, _ = read_contained_regular_bytes(PILOT_ROOT, OUTPUT)
+    digest = hashlib.sha256(payload).hexdigest()
+    destination = HISTORY_ROOT / f"management-semantic-catalogue.v4-{digest}.json"
+    publish_immutable_bytes(PILOT_ROOT, destination, payload)
+    return digest
+
+
 def build() -> dict[str, Any]:
-    source = json.loads(SOURCE.read_text(encoding="utf-8"))
+    source_payload, _ = read_contained_regular_bytes(PILOT_ROOT, SOURCE)
+    source_sha = hashlib.sha256(source_payload).hexdigest()
+    source = json.loads(source_payload.decode("utf-8"))
     output = deepcopy(source)
     corrected = 0
     for row in output["vocabulary"]:
@@ -45,19 +63,27 @@ def build() -> dict[str, Any]:
         raise RuntimeError(f"expected 15 approval-language corrections, got {corrected}")
     for candidate in output["candidates"]:
         audio = Path(candidate["audio"]["path"])
-        if sha256_file(audio) != candidate["audio"]["sha256"]:
+        audio_payload, _ = read_contained_regular_bytes(PILOT_ROOT, audio)
+        if hashlib.sha256(audio_payload).hexdigest() != candidate["audio"]["sha256"]:
             raise RuntimeError(f"management candidate changed: {audio}")
         if candidate.get("human_disposition") != "PENDING":
             raise RuntimeError("management human disposition exceeds prototype boundary")
     output.update({
         "schema": "project-studio-management-audio-language/v4",
         "generated_at_utc": CREATED_AT,
-        "supersedes": {"path": str(SOURCE), "sha256": sha256_file(SOURCE), "reason": "Removes ambiguous approval language; audio and machine selections are unchanged."},
+        "supersedes": {"path": str(SOURCE), "sha256": source_sha, "reason": "Removes ambiguous approval language; audio and machine selections are unchanged."},
         "source_code": source_binding(),
         "approval_language_corrections": corrected,
         "machine_verdict": "PASS",
     })
-    atomic_write_json(OUTPUT, output)
+    lock_path = PILOT_ROOT / "12_logs/locks/evidence-publication.lock"
+    with contained_exclusive_lock(PILOT_ROOT, lock_path):
+        prior_sha = preserve_current_output()
+        replace_contained_bytes(
+            PILOT_ROOT, OUTPUT,
+            (json.dumps(output, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8"),
+            expected_existing_sha256=prior_sha,
+        )
     return output
 
 

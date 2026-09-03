@@ -41,13 +41,16 @@ Run from the isolated documentation worktree unless noted. The provenance-closin
 3. Publish responsive v2, transition v4, living-lot v3, radio v2, accessibility v4, and system-register v5 evidence.
 4. Run fresh hostile source/evidence review and apply every mechanical remedy before freezing SHA-bound artifacts.
 5. Freeze, commit, and push all documentation/tooling as documentation commit **D**. Confirm that worktree is clean and equals its upstream. No documentation/tooling bytes may change after this point without restarting at this step.
-6. From clean **D**, run `build_catalogue_identity_closure.py` and `publish_metadata_status_remedies.py`. Record the exact resulting management-v4 SHA. Update the additive Unity source pin to that exact SHA, commit and push Unity as commit **U**, and confirm the Unity worktree is clean and equals its upstream. This ordering is mandatory: management v4 embeds **D**, while Unity hard-pins the resulting manifest hash.
-7. From exact clean **D** and **U**, run the checked-in process-gated Unity chain below. It writes the exact final log/XML destinations expected by `AudioLabValidationSummaryWriter`, exports `PROJECT_STUDIO_AUDIO_DOCS_SHA`, builds without launching, emits the Oracle and archive register, and finally writes the validation summary. Exit 75 means another Unity process was observed and the chain must be retried without terminating it. A later Unity or documentation source change invalidates the build, observations, and Oracle and requires a restart at step 5.
+6. Before changing any **D**-bound external metadata, run `python3 tools/audio_systems_pilot_01/snapshot_unity_validation_run.py` to preserve the still-current successful pointer, then run `python3 tools/audio_systems_pilot_01/repair_unity_validation_archives.py` to publish/reuse the one committed non-destructive legacy supplement. This bootstrap ordering is mandatory for the current pilot evidence; both tools require their exact bytes to be committed at **D**.
+7. From clean **D**, run `build_catalogue_identity_closure.py` and `publish_metadata_status_remedies.py`. Record the exact resulting management-v4 SHA. Update the additive Unity source pin to that exact SHA, commit and push Unity as commit **U**, and confirm the Unity worktree is clean and equals its upstream. This ordering is mandatory: management v4 embeds **D**, while Unity hard-pins the resulting manifest hash.
+8. From exact clean **D** and **U**, run the checked-in process-gated Unity chain below. It writes the exact final log/XML destinations expected by `AudioLabValidationSummaryWriter`, exports `PROJECT_STUDIO_AUDIO_DOCS_SHA`, builds without launching, emits the Oracle and archive register, and finally writes the validation summary. Exit 75 means another Unity process was observed and the chain must be retried without terminating it. A later Unity or documentation source change invalidates the build, observations, and Oracle and requires a restart at step 5.
+
+The chain eagerly snapshots every current-run pointer byte only after the Unity summary is `PASS`. On the next run, archival reads only that immutable completed-run snapshot, validates every pointer size/hash, stages the archive on the same filesystem, rehashes it, and atomically promotes it. Content-addressed management-metadata history protects the SHA-rebinding boundary. A separately labelled supplement for the one pre-remedy archive inconsistency preserves the original archive unchanged, restores only its metadata pointer projection, and does not rehabilitate that historical run: its preserved Unity outcome remains `FAIL`.
 
 ```sh
 tools/audio_systems_pilot_01/run_unity_lab_validation.zsh
 ```
-8. From the same clean, pushed **D**, rerun the identity/status builders first as a byte-identical verification, then build the downstream Oracle/audition chain. Abort if either identity/status manifest changes after **U** was pinned:
+9. From the same clean, pushed **D**, rerun the identity/status builders first as a byte-identical verification, then build the downstream Oracle/audition chain. Abort if either identity/status manifest changes after **U** was pinned:
 
 ```sh
 python3 tools/audio_systems_pilot_01/build_catalogue_identity_closure.py
@@ -58,7 +61,7 @@ python3 tools/audio_systems_pilot_01/build_audition_app.py
 python3 tools/audio_systems_pilot_01/build_audition_app.py --verify-only
 ```
 
-9. Build a provisional complete register after the final Oracle/audition bytes, record its SHA-256, then run all eight final independent reviews against exact **D**, **U**, system-register hash, Oracle-suite hash, and that complete-register hash. If any review finds a source defect, return to step 4; do not package stale evidence. Freeze the eight reports, build their index, rebuild the complete register, and require its SHA-256 to remain byte-identical to the provisional value. Review prose/index must not introduce audio declarations; a changed final register restarts review against the new hash.
+10. Build a provisional complete register after the final Oracle/audition bytes, record its SHA-256, then run all eight final independent reviews against exact **D**, **U**, system-register hash, Oracle-suite hash, and that complete-register hash. If any review finds a source defect, return to step 4; do not package stale evidence. Freeze the eight reports, build their index, rebuild the complete register, and require its SHA-256 to remain byte-identical to the provisional value. Review prose/index must not introduce audio declarations; a changed final register restarts review against the new hash.
 
 ```sh
 python3 tools/audio_systems_pilot_01/build_complete_audio_file_register.py
@@ -70,20 +73,20 @@ python3 tools/audio_systems_pilot_01/build_complete_audio_file_register.py
 ```
 
 Every final report must contain the exact standardized documentation SHA, Unity SHA, system-register SHA-256, Audio Oracle suite SHA-256, and provisional/final complete-register SHA-256 binding lines. Any later hostile-review report change invalidates the index; rebuild and verify it before packaging.
-10. Atomically update `00_state/AUDIO-SYSTEMS-PILOT-STATE.json` to exact `IN_PROGRESS` / `READY_FOR_PACKAGING`, with clean **D/U**, all live counts (including `audition_items`, `unity_editmode_passed`, `unity_playmode_passed`, and `hostile_review_lanes`), unique/resolved `ERR-0001` through `ERR-0008`, unique `DEC-0001` through `DEC-0012`, a completion entry containing `clean-SHA Unity` and `Audio Oracle`, and a next action that names package creation.
+11. Atomically update `00_state/AUDIO-SYSTEMS-PILOT-STATE.json` to exact `IN_PROGRESS` / `READY_FOR_PACKAGING`, with clean **D/U**, all live counts (including `audition_items`, `unity_editmode_passed`, `unity_playmode_passed`, and `hostile_review_lanes`), unique/resolved `ERR-0001` through `ERR-0008`, unique `DEC-0001` through `DEC-0012`, a completion entry containing `clean-SHA Unity` and `Audio Oracle`, and a next action that names package creation.
 
 ```sh
 python3 tools/audio_systems_pilot_01/update_final_state.py READY_FOR_PACKAGING
 ```
 
-11. Create the return package once. Its preflight independently repeats Git scope/upstream, canonical manifest, Unity/build, Oracle, audition, review, complete-register, and state checks before the Desktop target is created:
+12. Create the return package once. Its preflight independently repeats Git scope/upstream, canonical manifest, Unity/build, Oracle, audition, review, complete-register, and state checks before the Desktop target is created:
 
 ```sh
 python3 tools/audio_systems_pilot_01/package_owner_return.py \
   --lab-app "/Users/bruce/Project Studio Audio Systems Pilot 01/09_unity-lab/Builds/macOS/Project Studio Audio Systems Pilot.app"
 ```
 
-12. After the package independently verifies, add its exact `return_package_files` count, set the canonical state to `IN_PROGRESS` / `READY_FOR_FINAL_VALIDATION` with final validation named as the next action, and run the fail-closed full reconciliation. On PASS, atomically close the state as `COMPLETE` / `FINAL_VALIDATION_COMPLETE`, set Owner listening as the sole next action, and run the same reconciliation once more to verify the closed state. `REOPEN_AFTER_FINAL_FAILURE` is deliberately narrow: it is available only when that post-close run records `FAIL` in state closure while the preserved immutable package, exact D/U, and every bound live artifact still pass. It restores `IN_PROGRESS` / `READY_FOR_FINAL_VALIDATION` and recomputes the canonical count map before the affected proof is repeated:
+13. After the package independently verifies, add its exact `return_package_files` count, set the canonical state to `IN_PROGRESS` / `READY_FOR_FINAL_VALIDATION` with final validation named as the next action, and run the fail-closed full reconciliation. On PASS, atomically close the state as `COMPLETE` / `FINAL_VALIDATION_COMPLETE`, set Owner listening as the sole next action, and run the same reconciliation once more to verify the closed state. `REOPEN_AFTER_FINAL_FAILURE` is deliberately narrow: it is available only when that post-close run records `FAIL` in state closure while the preserved immutable package, exact D/U, and every bound live artifact still pass. It restores `IN_PROGRESS` / `READY_FOR_FINAL_VALIDATION` and recomputes the canonical count map before the affected proof is repeated:
 
 ```sh
 python3 tools/audio_systems_pilot_01/update_final_state.py READY_FOR_FINAL_VALIDATION

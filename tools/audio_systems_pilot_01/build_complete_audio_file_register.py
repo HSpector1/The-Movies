@@ -87,6 +87,7 @@ GENERATOR_BINDINGS = {
     "accessibility_renders_v4": ["tools/audio_systems_pilot_01/build_accessibility_renders_v4.py"],
     "system_register_v5": ["tools/audio_systems_pilot_01/build_system_asset_register.py"],
     "identity_and_complete_provenance": [
+        "tools/audio_systems_pilot_01/common.py",
         "tools/audio_systems_pilot_01/build_catalogue_identity_closure.py",
         "tools/audio_systems_pilot_01/build_complete_audio_file_register.py",
         "tools/audio_systems_pilot_01/publish_metadata_status_remedies.py",
@@ -102,7 +103,9 @@ GENERATOR_BINDINGS = {
         "tools/audio_systems_pilot_01/audition_app_source/START-AUDITION.command",
         "tools/audio_systems_pilot_01/build_hostile_review_index.py",
         "tools/audio_systems_pilot_01/package_owner_return.py",
+        "tools/audio_systems_pilot_01/repair_unity_validation_archives.py",
         "tools/audio_systems_pilot_01/run_unity_lab_validation.zsh",
+        "tools/audio_systems_pilot_01/snapshot_unity_validation_run.py",
         "tools/audio_systems_pilot_01/update_final_state.py",
         "tools/audio_systems_pilot_01/validate_audio_systems_pilot.py",
     ],

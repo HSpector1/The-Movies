@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import ctypes
 import csv
 import hashlib
 import io
@@ -12,6 +13,7 @@ import os
 import plistlib
 import re
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -28,7 +30,11 @@ from build_complete_audio_file_register import (
     collect_declarations,
 )
 from build_hostile_review_index import verify as verify_hostile_reviews
-from common import DOC_REPO, PILOT_ROOT, atomic_write_json, atomic_write_text, canonical_contained, probe_audio, sha256_file, utc_now
+from common import (
+    DOC_REPO, PILOT_ROOT, atomic_write_json, atomic_write_text, canonical_contained,
+    probe_audio, read_contained_regular_bytes, require_contained_regular_file,
+    sha256_file, utc_now,
+)
 
 
 RETURN_ROOT = Path("/Users/bruce/Desktop/Project-Studio-Audio-Systems-Pilot-01")
@@ -142,8 +148,11 @@ BOUND_SOURCE_PATHS = (
     "tools/audio_systems_pilot_01/audition_app_source/START-AUDITION.command",
     "tools/audio_systems_pilot_01/build_complete_audio_file_register.py",
     "tools/audio_systems_pilot_01/build_hostile_review_index.py",
+    "tools/audio_systems_pilot_01/common.py",
     "tools/audio_systems_pilot_01/package_owner_return.py",
+    "tools/audio_systems_pilot_01/repair_unity_validation_archives.py",
     "tools/audio_systems_pilot_01/run_unity_lab_validation.zsh",
+    "tools/audio_systems_pilot_01/snapshot_unity_validation_run.py",
     "tools/audio_systems_pilot_01/update_final_state.py",
     "tools/audio_systems_pilot_01/validate_audio_systems_pilot.py",
 )
@@ -166,6 +175,21 @@ UNITY_ARTIFACT_PATHS = {
     "07_audio-oracle/AUDIO-ORACLE-SUITE.v1.json",
     "07_audio-oracle/AUDIO-ORACLE-EVIDENCE-ARCHIVE-REGISTER.v1.json",
     "05_management-sfx/semantic-pack/management-semantic-catalogue.v4.json",
+}
+AUTHORIZED_UNITY_ARCHIVE_REPAIRS = {
+    "20260903T133507Z-30281": {
+        "archive_manifest_sha256": "3edf36502e18c360adf47aa42cca9a7cac0f94c3402f1d327f9f0de89aed3c33",
+        "current_pointer_sha256": "d48d7c50fe15a901dde2806371b89e94b7baaee66a77e944768d7f4dfd924187",
+        "validation_sha256": "a2ea55aa0f49dcfb1e3775b7c7ea19ef0f88b685881560229180818882459db8",
+        "relative_path": "05_management-sfx/semantic-pack/management-semantic-catalogue.v4.json",
+        "archived_bytes": 139_956,
+        "archived_sha256": "6aaff305fd6d843f1334c8cf17164589de31d378858fe779c5732c286184c9fb",
+        "expected_bytes": 139_956,
+        "expected_sha256": "af47f60155e7e5453093174f375878e36536b95a2f591065b5a4ae4a06044ba8",
+        "pointer_documentation_sha": "14d1b412555e53e79b7b63efaf5f1f506a8ab298",
+        "archive_creation_documentation_sha": "df7c81e68e89655772ab645eb2af8aefd028e80c",
+        "historical_outcome": "FAIL",
+    },
 }
 IMMUTABLE_SOURCE_REFS = {
     "era_aware_audio_marathon_remote_tip": "c457c3a35a66b2ab4b72b0ca379f118b2f1fa1bf",
@@ -224,6 +248,23 @@ OWNER_NEXT_ACTION = "Owner launches the isolated Audio Lab, listens and rates th
 def require(condition: bool, message: str) -> None:
     if not condition:
         raise RuntimeError(message)
+
+
+def rename_directory_exclusive(source: Path, destination: Path) -> None:
+    """Atomically publish a same-filesystem directory without replacing anything."""
+    require(source.parent.resolve(strict=True) == destination.parent.resolve(strict=True),
+            "return package staging and destination are not same-parent entries")
+    libc = ctypes.CDLL(None, use_errno=True)
+    rename_exclusive = libc.renameatx_np
+    rename_exclusive.argtypes = [
+        ctypes.c_int, ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p, ctypes.c_uint,
+    ]
+    rename_exclusive.restype = ctypes.c_int
+    if rename_exclusive(
+        -2, os.fsencode(source), -2, os.fsencode(destination), 0x00000004
+    ) != 0:
+        error = ctypes.get_errno()
+        raise OSError(error, os.strerror(error), str(destination))
 
 
 def git(repo: Path, *arguments: str) -> str:
@@ -599,17 +640,316 @@ def verify_oracle_archive_register() -> dict[str, int]:
 
 def verify_unity_run_archives() -> dict[str, Any]:
     archive_root = PILOT_ROOT / "09_unity-lab/ArchivedRuns"
-    if not archive_root.exists():
-        return {"archived_unity_run_count": 0, "archive_manifest_set_sha256": hashlib.sha256(b"").hexdigest()}
-    require(archive_root.is_dir() and not archive_root.is_symlink(), "Unity run archive root is not a regular directory")
-    run_roots = sorted(archive_root.iterdir())
-    require(all(path.is_dir() and not path.is_symlink() for path in run_roots), "Unity run archive root contains a non-directory entry")
+    supplement_root = PILOT_ROOT / "09_unity-lab/ArchiveSupplements"
+    management_relative = "05_management-sfx/semantic-pack/management-semantic-catalogue.v4.json"
+    management_history_root = PILOT_ROOT / "05_management-sfx/semantic-pack/history"
+    repair_tool_path = "tools/audio_systems_pilot_01/repair_unity_validation_archives.py"
+    required_management_history_hashes: set[str] = set()
+    if not os.path.lexists(archive_root):
+        require(not os.path.lexists(supplement_root), "Unity archive supplements exist without archived runs")
+        run_roots: list[Path] = []
+    else:
+        require(archive_root.is_dir() and not archive_root.is_symlink(), "Unity run archive root is not a regular directory")
+        run_roots = sorted(archive_root.iterdir())
+        require(all(path.is_dir() and not path.is_symlink() for path in run_roots), "Unity run archive root contains a non-directory entry")
+    supplements: dict[str, dict[str, Any]] = {}
+    supplement_manifest_identities: list[str] = []
+    if os.path.lexists(supplement_root):
+        require(supplement_root.is_dir() and not supplement_root.is_symlink(), "Unity archive supplement root is unsafe")
+        for run_supplement_root in sorted(supplement_root.iterdir()):
+            require(run_supplement_root.is_dir() and not run_supplement_root.is_symlink(),
+                    "Unity archive supplement root contains a non-directory entry")
+            supplement_manifest_path = run_supplement_root / "SUPPLEMENT-MANIFEST.json"
+            supplement_manifest_payload, _ = read_contained_regular_bytes(
+                PILOT_ROOT, supplement_manifest_path
+            )
+            supplement = json.loads(supplement_manifest_payload.decode("utf-8"))
+            run_id = supplement.get("run_id")
+            require(supplement.get("schema") == "project-studio-unity-validation-run-archive-supplement/v1"
+                    and supplement.get("status") == "NONDESTRUCTIVE_POINTER_PROJECTION_REPAIR"
+                    and supplement.get("reason") == "The original run archive remains byte-for-byte intact; exact pointer-named metadata is supplied separately."
+                    and supplement.get("pointer_status_semantics") == "LEGACY_UNCONDITIONAL_STATUS_NOT_USED_AS_HISTORICAL_OUTCOME"
+                    and supplement.get("historical_run_outcome") in {"PASS", "FAIL"}
+                    and supplement.get("source_root") == str(PILOT_ROOT)
+                    and run_id == run_supplement_root.name
+                    and isinstance(run_id, str)
+                    and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", run_id) is not None
+                    and run_id not in supplements,
+                    f"Unity archive supplement identity is malformed: {run_supplement_root}")
+            authorization = AUTHORIZED_UNITY_ARCHIVE_REPAIRS.get(run_id)
+            require(authorization is not None and supplement.get("authorization") == authorization
+                    and supplement.get("disposition") == "HASH_AUTHENTICATED_DETERMINISTIC_RECONSTRUCTION_NOT_ORIGINAL_PRESERVED_BYTES; NOT_A_REVALIDATION; HISTORICAL_RUN_REMAINS_FAIL",
+                    f"Unity archive supplement lacks the exact committed authorization: {run_id}")
+            original_manifest_path = archive_root / run_id / "ARCHIVE-MANIFEST.json"
+            archived_pointer_path = archive_root / run_id / "09_unity-lab/CURRENT-VALIDATION-RUN.json"
+            archived_validation_path = archive_root / run_id / "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json"
+            original_manifest_payload, _ = read_contained_regular_bytes(PILOT_ROOT, original_manifest_path)
+            archived_pointer_payload, _ = read_contained_regular_bytes(PILOT_ROOT, archived_pointer_path)
+            archived_validation_payload, _ = read_contained_regular_bytes(PILOT_ROOT, archived_validation_path)
+            require(supplement.get("original_archive_manifest") == {
+                        "path": str(original_manifest_path.relative_to(PILOT_ROOT)),
+                        "bytes": len(original_manifest_payload),
+                        "sha256": authorization["archive_manifest_sha256"],
+                    }
+                    and hashlib.sha256(original_manifest_payload).hexdigest() == authorization["archive_manifest_sha256"]
+                    and supplement.get("archived_current_run_pointer") == {
+                        "path": str(archived_pointer_path.relative_to(PILOT_ROOT)),
+                        "bytes": len(archived_pointer_payload),
+                        "sha256": authorization["current_pointer_sha256"],
+                    }
+                    and hashlib.sha256(archived_pointer_payload).hexdigest() == authorization["current_pointer_sha256"]
+                    and supplement.get("archived_validation") == {
+                        "path": str(archived_validation_path.relative_to(PILOT_ROOT)),
+                        "bytes": len(archived_validation_payload),
+                        "sha256": authorization["validation_sha256"],
+                    }
+                    and hashlib.sha256(archived_validation_payload).hexdigest() == authorization["validation_sha256"],
+                    f"Unity archive supplement does not bind the untouched original evidence: {run_id}")
+            repairs = supplement.get("repairs")
+            require(isinstance(repairs, list) and repairs, f"Unity archive supplement contains no repairs: {run_id}")
+            repaired_paths = [row.get("relative_path") for row in repairs]
+            require(None not in repaired_paths and len(set(repaired_paths)) == len(repaired_paths)
+                    and set(repaired_paths) == {management_relative},
+                    f"Unity archive supplement exceeds the one supported metadata repair: {run_id}")
+            expected_blob_paths = {row.get("supplement_blob", {}).get("relative_path") for row in repairs}
+            require(None not in expected_blob_paths and len(expected_blob_paths) == len(repairs),
+                    f"Unity archive supplement blob paths are missing or duplicated: {run_id}")
+            actual_blob_files = {
+                str(path.relative_to(run_supplement_root)) for path in run_supplement_root.rglob("*")
+                if path.is_file() and not path.is_symlink() and path != supplement_manifest_path
+            }
+            actual_links = [path for path in run_supplement_root.rglob("*") if path.is_symlink()]
+            actual_directories = {
+                str(path.relative_to(run_supplement_root)) for path in run_supplement_root.rglob("*")
+                if path.is_dir() and not path.is_symlink()
+            }
+            expected_directories = {
+                str(parent)
+                for relative in expected_blob_paths
+                for parent in Path(str(relative)).parents
+                if str(parent) != "."
+            }
+            actual_specials = [
+                path for path in run_supplement_root.rglob("*")
+                if not (stat.S_ISREG(os.lstat(path).st_mode) or stat.S_ISDIR(os.lstat(path).st_mode)
+                        or stat.S_ISLNK(os.lstat(path).st_mode))
+            ]
+            require(not actual_links and not actual_specials and actual_blob_files == expected_blob_paths
+                    and actual_directories == expected_directories,
+                    f"Unity archive supplement tree contains orphaned, missing, or linked files: {run_id}")
+            for row in repairs:
+                expected = row.get("expected_pointer", {})
+                required_management_history_hashes.add(str(expected.get("sha256")))
+                blob = row.get("supplement_blob", {})
+                expected_blob_relative = f"blobs/{expected.get('sha256')}.json"
+                blob_path = require_contained_regular_file(
+                    PILOT_ROOT, run_supplement_root / str(blob.get("relative_path"))
+                )
+                blob_payload, blob_mode = read_contained_regular_bytes(PILOT_ROOT, blob_path)
+                require(blob.get("relative_path") == expected_blob_relative
+                        and len(blob_payload) == blob.get("bytes") == expected.get("bytes")
+                        and blob_mode == blob.get("mode") == 0o444
+                        and hashlib.sha256(blob_payload).hexdigest() == blob.get("sha256") == expected.get("sha256"),
+                        f"Unity archive supplement blob identity failed: {run_id}")
+                require(row.get("relative_path") == authorization["relative_path"]
+                        and expected == {
+                            "bytes": authorization["expected_bytes"],
+                            "sha256": authorization["expected_sha256"],
+                        }
+                        and row.get("original_archive") == {
+                            "bytes": authorization["archived_bytes"],
+                            "sha256": authorization["archived_sha256"],
+                        },
+                        f"Unity archive supplement row exceeds its committed authorization: {run_id}")
+                history = row.get("content_addressed_history", {})
+                history_lexical = Path(str(history.get("path")))
+                expected_history = management_history_root / f"management-semantic-catalogue.v4-{expected.get('sha256')}.json"
+                require(history_lexical == expected_history,
+                        f"Unity archive supplement history path is not the exact authorized path: {run_id}")
+                history_path = require_contained_regular_file(PILOT_ROOT, history_lexical)
+                history_payload, history_mode = read_contained_regular_bytes(PILOT_ROOT, history_path)
+                require(len(history_payload) == history.get("bytes") == expected.get("bytes")
+                        and history_mode == 0o444
+                        and hashlib.sha256(history_payload).hexdigest() == history.get("sha256") == expected.get("sha256"),
+                        f"Unity archive supplement history identity failed: {run_id}")
+                reconstruction = row.get("reconstruction", {})
+                historical_sha = reconstruction.get("documentation_sha")
+                generator_path = reconstruction.get("generator_path")
+                generator = subprocess.run(
+                    ["git", "show", f"{historical_sha}:{generator_path}"], cwd=DOC_REPO,
+                    check=False, capture_output=True,
+                )
+                require(reconstruction.get("type") == "DETERMINISTIC_METADATA_RECONSTRUCTION_FROM_ARCHIVED_DOCUMENTATION_SHA"
+                        and re.fullmatch(r"[0-9a-f]{40}", str(historical_sha)) is not None
+                        and generator_path == "tools/audio_systems_pilot_01/publish_metadata_status_remedies.py"
+                        and generator.returncode == 0
+                        and hashlib.sha256(generator.stdout).hexdigest() == reconstruction.get("generator_blob_sha256")
+                        and reconstruction.get("source_path") == str(PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v3.json")
+                        and reconstruction.get("source_sha256") == sha256_file(PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v3.json")
+                        and reconstruction.get("serializer") == "json.dumps(indent=2,sort_keys=True,ensure_ascii=False)+LF"
+                        and reconstruction.get("authorized_json_pointer_delta") == ["/source_code/commit"],
+                        f"Unity archive supplement reconstruction provenance failed: {run_id}")
+                archived_metadata_path = require_contained_regular_file(
+                    PILOT_ROOT, archive_root / run_id / management_relative
+                )
+                archived_metadata_payload, _ = read_contained_regular_bytes(PILOT_ROOT, archived_metadata_path)
+                archived_metadata = json.loads(archived_metadata_payload.decode("utf-8"))
+                require(len(archived_metadata_payload) == authorization["archived_bytes"]
+                        and hashlib.sha256(archived_metadata_payload).hexdigest() == authorization["archived_sha256"]
+                        and archived_metadata.get("source_code", {}).get("commit") == authorization["archive_creation_documentation_sha"],
+                        f"Unity archive supplement displaced metadata identity failed: {run_id}")
+                normalized_metadata = json.loads(json.dumps(archived_metadata))
+                normalized_metadata["source_code"]["commit"] = authorization["pointer_documentation_sha"]
+                reconstructed_bytes = (
+                    json.dumps(normalized_metadata, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
+                ).encode("utf-8")
+                require(reconstructed_bytes == blob_payload,
+                        f"Unity archive supplement changes more than the authorized JSON pointer: {run_id}")
+            repair_tool = supplement.get("repair_tool", {})
+            tool_commit = repair_tool.get("commit")
+            tool_content = subprocess.run(
+                ["git", "show", f"{tool_commit}:{repair_tool_path}"], cwd=DOC_REPO,
+                check=False, capture_output=True,
+            )
+            require(re.fullmatch(r"[0-9a-f]{40}", str(tool_commit)) is not None
+                    and repair_tool.get("path") == repair_tool_path
+                    and repair_tool.get("working_file_matches_commit") is True
+                    and tool_content.returncode == 0
+                    and hashlib.sha256(tool_content.stdout).hexdigest() == repair_tool.get("blob_sha256"),
+                    f"Unity archive supplement tool binding failed: {run_id}")
+            supplements[run_id] = supplement
+            supplement_manifest_identities.append(
+                f"supplement:{run_id}:{hashlib.sha256(supplement_manifest_payload).hexdigest()}"
+            )
+    completed_root = PILOT_ROOT / "09_unity-lab/CompletedRuns"
+    completed_runs: dict[str, dict[str, Any]] = {}
+    completed_manifest_identities: list[str] = []
+    if os.path.lexists(completed_root):
+        require(completed_root.is_dir() and not completed_root.is_symlink(), "Unity completed-run root is unsafe")
+        for completed_run_root in sorted(completed_root.iterdir()):
+            require(completed_run_root.is_dir() and not completed_run_root.is_symlink(),
+                    "Unity completed-run root contains a non-directory entry")
+            completed_manifest_path = completed_run_root / "COMPLETED-RUN-MANIFEST.json"
+            completed_manifest_payload, _ = read_contained_regular_bytes(
+                PILOT_ROOT, completed_manifest_path
+            )
+            completed = json.loads(completed_manifest_payload.decode("utf-8"))
+            run_id = completed.get("run_id")
+            rows = completed.get("files")
+            require(completed.get("schema") == "project-studio-unity-validation-completed-run/v1"
+                    and completed.get("status") == "VERIFIED_SUCCESSFUL_RUN_BYTES"
+                    and completed.get("validation_outcome") == "PASS"
+                    and completed.get("superseded_app_disposition") == "REPLACEABLE_DERIVED_APP_NOT_PRESERVED; BUILD_RECEIPT_PRESERVED"
+                    and run_id == completed_run_root.name and run_id not in completed_runs
+                    and isinstance(rows, list) and rows,
+                    f"Unity completed-run manifest identity failed: {completed_run_root}")
+            expected_files = {row.get("relative_path"): row for row in rows}
+            require(None not in expected_files and len(expected_files) == len(rows),
+                    f"Unity completed-run paths are duplicate or missing: {run_id}")
+            actual_files: dict[str, tuple[int, str, int]] = {}
+            actual_directories: set[str] = set()
+            for path in completed_run_root.rglob("*"):
+                mode = os.lstat(path).st_mode
+                relative = str(path.relative_to(completed_run_root))
+                if stat.S_ISLNK(mode):
+                    raise RuntimeError(f"Unity completed-run snapshot contains a refused symlink: {path}")
+                if stat.S_ISREG(mode):
+                    if path != completed_manifest_path:
+                        actual_files[relative] = (path.stat().st_size, sha256_file(path), path.stat().st_mode & 0o777)
+                elif stat.S_ISDIR(mode):
+                    actual_directories.add(relative)
+                else:
+                    raise RuntimeError(f"Unity completed-run snapshot contains a special node: {path}")
+            expected_directories = {
+                str(parent)
+                for relative in expected_files
+                for parent in Path(str(relative)).parents
+                if str(parent) != "."
+            }
+            require(set(actual_files) == set(expected_files) and actual_directories == expected_directories,
+                    f"Unity completed-run tree differs from manifest: {run_id}")
+            for relative, row in expected_files.items():
+                require(actual_files[relative] == (row.get("bytes"), row.get("sha256"), row.get("mode")),
+                        f"Unity completed-run file changed: {run_id}:{relative}")
+            pointer_relative = "09_unity-lab/CURRENT-VALIDATION-RUN.json"
+            pointer_path = require_contained_regular_file(
+                PILOT_ROOT, completed_run_root / pointer_relative
+            )
+            pointer_payload, _ = read_contained_regular_bytes(PILOT_ROOT, pointer_path)
+            pointer = json.loads(pointer_payload.decode("utf-8"))
+            source_pointer = completed.get("source_pointer", {})
+            require(source_pointer == {
+                        "relative_path": pointer_relative,
+                        "bytes": len(pointer_payload),
+                        "sha256": hashlib.sha256(pointer_payload).hexdigest(),
+                    }
+                    and pointer.get("schema") == "project-studio-unity-validation-current-run/v1"
+                    and pointer.get("status") == "PASS" and pointer.get("run_id") == run_id
+                    and pointer.get("documentation_sha") == completed.get("documentation_sha")
+                    and pointer.get("unity_sha") == completed.get("unity_sha"),
+                    f"Unity completed-run pointer identity failed: {run_id}")
+            pointer_rows = pointer.get("files")
+            pointer_paths = [row.get("relative_path") for row in pointer_rows] if isinstance(pointer_rows, list) else []
+            expected_current_paths = UNITY_ARTIFACT_PATHS | {
+                "09_unity-lab/Logs/validation-summary-final.log",
+                "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json",
+            }
+            require(pointer_rows and set(pointer_paths) == expected_current_paths
+                    and len(pointer_paths) == len(set(pointer_paths))
+                    and set(expected_files) == {pointer_relative, *expected_current_paths},
+                    f"Unity completed-run pointer file set failed: {run_id}")
+            for row in pointer_rows:
+                preserved = require_contained_regular_file(
+                    PILOT_ROOT, completed_run_root / row["relative_path"]
+                )
+                preserved_payload, _ = read_contained_regular_bytes(PILOT_ROOT, preserved)
+                require(len(preserved_payload) == row.get("bytes")
+                        and hashlib.sha256(preserved_payload).hexdigest() == row.get("sha256"),
+                        f"Unity completed-run pointer projection failed: {run_id}:{row['relative_path']}")
+            completed_validation_path = completed_run_root / "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json"
+            completed_validation_payload, _ = read_contained_regular_bytes(
+                PILOT_ROOT, completed_validation_path
+            )
+            validation = json.loads(completed_validation_payload.decode("utf-8"))
+            management_row = next(row for row in pointer_rows if row["relative_path"] == management_relative)
+            required_management_history_hashes.add(str(management_row.get("sha256")))
+            required_components = ("compile", "edit_mode", "play_mode", "build", "codesign", "audio_oracle", "process_gates")
+            require(validation.get("schema") == "project-studio-unity-audio-lab-validation/v1"
+                    and validation.get("machine_verdict") == "PASS"
+                    and validation.get("unity_git_sha") == completed.get("unity_sha")
+                    and validation.get("direct_pinned_management_sha256") == management_row.get("sha256")
+                    and all(validation.get(name, {}).get("status") == "PASS" for name in required_components),
+                    f"Unity completed-run validation outcome failed: {run_id}")
+            snapshot_tool = completed.get("snapshot_tool", {})
+            snapshot_commit = snapshot_tool.get("commit")
+            snapshot_path = "tools/audio_systems_pilot_01/snapshot_unity_validation_run.py"
+            snapshot_content = subprocess.run(
+                ["git", "show", f"{snapshot_commit}:{snapshot_path}"], cwd=DOC_REPO,
+                check=False, capture_output=True,
+            )
+            require(re.fullmatch(r"[0-9a-f]{40}", str(snapshot_commit)) is not None
+                    and snapshot_tool.get("path") == snapshot_path
+                    and snapshot_tool.get("working_file_matches_commit") is True
+                    and snapshot_content.returncode == 0
+                    and hashlib.sha256(snapshot_content.stdout).hexdigest() == snapshot_tool.get("blob_sha256"),
+                    f"Unity completed-run snapshot tool binding failed: {run_id}")
+            completed_runs[run_id] = completed
+            completed_manifest_identities.append(
+                f"completed:{run_id}:{hashlib.sha256(completed_manifest_payload).hexdigest()}"
+            )
     archived_by_ids: set[str] = set()
     manifest_identities: list[str] = []
+    successful_runs = 0
+    failed_runs = 0
+    unindexed_attempts = 0
+    supplemented_pointer_files = 0
     for run_root in run_roots:
         manifest_path = run_root / "ARCHIVE-MANIFEST.json"
-        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-        manifest_identities.append(f"{run_root.name}:{sha256_file(manifest_path)}")
+        manifest_payload, _ = read_contained_regular_bytes(PILOT_ROOT, manifest_path)
+        manifest = json.loads(manifest_payload.decode("utf-8"))
+        manifest_identities.append(
+            f"archive:{run_root.name}:{hashlib.sha256(manifest_payload).hexdigest()}"
+        )
         run_id = manifest.get("run_id")
         archived_by = manifest.get("archived_by_run_id")
         expected_attribution = ("UNINDEXED_PRIOR_BYTES_NO_CURRENT_RUN_INDEX"
@@ -637,9 +977,18 @@ def verify_unity_run_archives() -> dict[str, Any]:
         file_paths = [row.get("relative_path") for row in file_rows]
         link_paths = [row.get("relative_path") for row in link_rows]
         directory_paths = [row.get("relative_path") for row in directory_rows]
-        require(None not in file_paths + link_paths + directory_paths
+        require(file_rows and None not in file_paths + link_paths + directory_paths
                 and len(set(file_paths + link_paths + directory_paths)) == len(file_paths) + len(link_paths) + len(directory_paths),
                 f"Unity run archive manifest paths are missing or duplicated: {run_id}")
+        archived_management_rows = [
+            row for row in file_rows if row.get("relative_path") == management_relative
+        ]
+        require(len(archived_management_rows) <= 1,
+                f"Unity run archive duplicates management metadata: {run_id}")
+        if archived_management_rows:
+            required_management_history_hashes.add(
+                str(archived_management_rows[0].get("sha256"))
+            )
         for row in file_rows:
             path = canonical_contained(run_root, run_root / row["relative_path"])
             require(path.is_file() and not path.is_symlink() and path.stat().st_size == row.get("bytes")
@@ -656,6 +1005,12 @@ def verify_unity_run_archives() -> dict[str, Any]:
             path = canonical_contained(run_root, run_root / row["relative_path"])
             require(path.is_dir() and not path.is_symlink() and (path.stat().st_mode & 0o777) == row.get("mode"),
                     f"Unity run archived directory changed: {path}")
+        special_nodes = [
+            path for path in run_root.rglob("*")
+            if not (stat.S_ISREG(os.lstat(path).st_mode) or stat.S_ISDIR(os.lstat(path).st_mode)
+                    or stat.S_ISLNK(os.lstat(path).st_mode))
+        ]
+        require(not special_nodes, f"Unity run archive contains an undeclared special node: {run_id}")
         actual_files = {
             str(path.relative_to(run_root)) for path in run_root.rglob("*")
             if path.is_file() and not path.is_symlink() and path != manifest_path
@@ -669,24 +1024,171 @@ def verify_unity_run_archives() -> dict[str, Any]:
 
         prior_index = run_root / "09_unity-lab/CURRENT-VALIDATION-RUN.json"
         if expected_attribution == "PRIOR_CURRENT_RUN_INDEX":
-            prior = json.loads(prior_index.read_text(encoding="utf-8"))
+            prior_payload, _ = read_contained_regular_bytes(PILOT_ROOT, prior_index)
+            prior = json.loads(prior_payload.decode("utf-8"))
             require(prior.get("schema") == "project-studio-unity-validation-current-run/v1"
+                    and prior.get("status") == "PASS"
                     and prior.get("run_id") == run_id, f"Unity archived prior pointer is missing or misattributed: {run_id}")
             prior_rows = prior.get("files", [])
             prior_paths = [row.get("relative_path") for row in prior_rows]
-            require(None not in prior_paths and len(set(prior_paths)) == len(prior_paths),
+            expected_current_paths = UNITY_ARTIFACT_PATHS | {
+                "09_unity-lab/Logs/validation-summary-final.log",
+                "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json",
+            }
+            require(prior_rows and None not in prior_paths and len(set(prior_paths)) == len(prior_paths)
+                    and set(prior_paths) == expected_current_paths,
                     f"Unity archived prior pointer has duplicate/missing paths: {run_id}")
+            supplement = supplements.get(run_id)
+            repair_rows = {row["relative_path"]: row for row in supplement.get("repairs", [])} if supplement else {}
+            used_repairs: set[str] = set()
             for row in prior_rows:
-                archived_path = canonical_contained(run_root, run_root / row["relative_path"])
-                require(archived_path.is_file() and not archived_path.is_symlink()
-                        and archived_path.stat().st_size == row.get("bytes")
-                        and sha256_file(archived_path) == row.get("sha256"),
-                        f"Unity archived prior pointer does not project to the preserved bytes: {run_id}:{row['relative_path']}")
+                archived_path = run_root / row["relative_path"]
+                try:
+                    archived_payload, _ = read_contained_regular_bytes(PILOT_ROOT, archived_path)
+                except RuntimeError:
+                    archived_payload = None
+                if (archived_payload is not None
+                        and len(archived_payload) == row.get("bytes")
+                        and hashlib.sha256(archived_payload).hexdigest() == row.get("sha256")):
+                    require(row["relative_path"] not in repair_rows,
+                            f"Unity archive supplement claims an already exact pointer row: {run_id}:{row['relative_path']}")
+                    continue
+                repair = repair_rows.get(row["relative_path"])
+                require(row["relative_path"] == management_relative and repair is not None,
+                        f"Unity archived prior pointer lacks exact bytes or a bounded supplement: {run_id}:{row['relative_path']}")
+                archive_row = next((item for item in file_rows if item.get("relative_path") == row["relative_path"]), None)
+                require(repair.get("expected_pointer") == {"bytes": row.get("bytes"), "sha256": row.get("sha256")}
+                        and archive_row is not None
+                        and repair.get("original_archive") == {
+                            "bytes": archive_row.get("bytes"), "sha256": archive_row.get("sha256")
+                        }
+                        and repair.get("reconstruction", {}).get("documentation_sha") == prior.get("documentation_sha"),
+                        f"Unity archive supplement does not bind both sides of the discrepancy: {run_id}:{row['relative_path']}")
+                used_repairs.add(row["relative_path"])
+                supplemented_pointer_files += 1
+            require(set(repair_rows) == used_repairs,
+                    f"Unity archive supplement contains an unused pointer repair: {run_id}")
+            validation_path = run_root / "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json"
+            validation_payload, _ = read_contained_regular_bytes(PILOT_ROOT, validation_path)
+            validation = json.loads(validation_payload.decode("utf-8"))
+            historical_verdict = validation.get("machine_verdict")
+            management_pointer_row = next(row for row in prior_rows if row["relative_path"] == management_relative)
+            required_management_history_hashes.add(str(management_pointer_row.get("sha256")))
+            require(validation.get("schema") == "project-studio-unity-audio-lab-validation/v1"
+                    and validation.get("unity_git_sha") == prior.get("unity_sha")
+                    and validation.get("direct_pinned_management_sha256") == management_pointer_row.get("sha256")
+                    and historical_verdict in {"PASS", "FAIL"},
+                    f"archived Unity run outcome is unavailable or inconsistent: {run_id}")
+            require(supplement is None or supplement.get("historical_run_outcome") == historical_verdict,
+                    f"Unity archive supplement overstates the historical run outcome: {run_id}")
+            if historical_verdict == "PASS":
+                require(run_id in completed_runs,
+                        f"successful archived Unity run lacks its eager completed-run snapshot: {run_id}")
+                completed_pointer_path = (
+                    completed_root / run_id / "09_unity-lab/CURRENT-VALIDATION-RUN.json"
+                )
+                completed_pointer_payload, _ = read_contained_regular_bytes(
+                    PILOT_ROOT, completed_pointer_path
+                )
+                completed_source_pointer = completed_runs[run_id].get("source_pointer", {})
+                require(prior_payload == completed_pointer_payload
+                        and completed_source_pointer == {
+                            "relative_path": "09_unity-lab/CURRENT-VALIDATION-RUN.json",
+                            "bytes": len(prior_payload),
+                            "sha256": hashlib.sha256(prior_payload).hexdigest(),
+                        },
+                        f"successful Unity archive does not equal its eager snapshot pointer: {run_id}")
+                successful_runs += 1
+            else:
+                failed_runs += 1
         else:
-            require(not prior_index.exists(), f"unindexed Unity archive unexpectedly contains a current-run pointer: {run_id}")
+            require(not os.path.lexists(prior_index), f"unindexed Unity archive unexpectedly contains a current-run pointer: {run_id}")
+            require(run_id not in supplements, f"unindexed Unity archive may not have a pointer supplement: {run_id}")
+            unindexed_attempts += 1
 
-    aggregate = hashlib.sha256(("\n".join(manifest_identities) + ("\n" if manifest_identities else "")).encode("utf-8")).hexdigest()
-    return {"archived_unity_run_count": len(run_roots), "archive_manifest_set_sha256": aggregate}
+    require(set(supplements) == set(AUTHORIZED_UNITY_ARCHIVE_REPAIRS),
+            "Unity archive supplements do not exactly satisfy committed repair authorizations")
+    require(set(supplements).issubset({path.name for path in run_roots}),
+            "Unity archive supplement refers to a missing archived run")
+    current_run_id = None
+    current_pointer_payload = None
+    if os.path.lexists(UNITY_CURRENT_RUN):
+        current_pointer_payload, _ = read_contained_regular_bytes(PILOT_ROOT, UNITY_CURRENT_RUN)
+        current_pointer = json.loads(current_pointer_payload.decode("utf-8"))
+        current_run_id = current_pointer.get("run_id")
+        require(current_pointer.get("schema") == "project-studio-unity-validation-current-run/v1"
+                and current_pointer.get("status") == "PASS"
+                and isinstance(current_run_id, str)
+                and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", current_run_id) is not None,
+                "current Unity pointer is malformed")
+        current_pointer_rows = current_pointer.get("files")
+        require(isinstance(current_pointer_rows, list) and current_pointer_rows,
+                "current Unity pointer has no file rows")
+        current_management_rows = [
+            row for row in current_pointer_rows
+            if row.get("relative_path") == management_relative
+        ]
+        require(len(current_management_rows) == 1,
+                "current Unity pointer does not name exactly one management catalogue")
+        required_management_history_hashes.add(
+            str(current_management_rows[0].get("sha256"))
+        )
+    require(set(completed_runs).issubset({path.name for path in run_roots} | ({current_run_id} if current_run_id else set())),
+            "Unity completed-run snapshot is neither current nor archived")
+    if current_run_id is not None:
+        require(current_run_id in completed_runs, "current successful Unity run lacks its eager completed-run snapshot")
+        completed_pointer_path = (
+            completed_root / current_run_id / "09_unity-lab/CURRENT-VALIDATION-RUN.json"
+        )
+        completed_pointer_payload, _ = read_contained_regular_bytes(
+            PILOT_ROOT, completed_pointer_path
+        )
+        source_pointer = completed_runs[current_run_id].get("source_pointer", {})
+        require(current_pointer_payload == completed_pointer_payload
+                and source_pointer == {
+                    "relative_path": "09_unity-lab/CURRENT-VALIDATION-RUN.json",
+                    "bytes": len(current_pointer_payload),
+                    "sha256": hashlib.sha256(current_pointer_payload).hexdigest(),
+                }, "current Unity pointer does not equal its eager completed-run snapshot")
+    require(required_management_history_hashes
+            and all(re.fullmatch(r"[0-9a-f]{64}", digest) is not None
+                    for digest in required_management_history_hashes),
+            "Unity evidence contains malformed management-history identities")
+    require(os.path.lexists(management_history_root)
+            and management_history_root.is_dir() and not management_history_root.is_symlink(),
+            "management metadata history root is unavailable or unsafe")
+    expected_history_names = {
+        f"management-semantic-catalogue.v4-{digest}.json"
+        for digest in required_management_history_hashes
+    }
+    actual_history_names: set[str] = set()
+    for path in management_history_root.iterdir():
+        require(not path.is_symlink() and stat.S_ISREG(os.lstat(path).st_mode),
+                f"management metadata history contains a linked or special entry: {path}")
+        require(path.name in expected_history_names,
+                f"management metadata history contains an unreferenced file: {path.name}")
+        payload, mode = read_contained_regular_bytes(PILOT_ROOT, path)
+        digest = hashlib.sha256(payload).hexdigest()
+        require(path.name == f"management-semantic-catalogue.v4-{digest}.json"
+                and digest in required_management_history_hashes and mode == 0o444,
+                f"management metadata history identity failed: {path.name}")
+        actual_history_names.add(path.name)
+    require(actual_history_names == expected_history_names,
+            "management metadata history is missing a Unity-referenced identity")
+    evidence_identities = sorted([
+        *manifest_identities, *supplement_manifest_identities, *completed_manifest_identities,
+    ])
+    aggregate = hashlib.sha256(("\n".join(evidence_identities) + ("\n" if evidence_identities else "")).encode("utf-8")).hexdigest()
+    return {
+        "archived_unity_run_count": len(run_roots),
+        "archived_successful_run_count": successful_runs,
+        "archived_failed_run_count": failed_runs,
+        "archived_unindexed_attempt_count": unindexed_attempts,
+        "archive_supplement_count": len(supplements),
+        "supplemented_pointer_file_count": supplemented_pointer_files,
+        "completed_unity_run_snapshot_count": len(completed_runs),
+        "archive_manifest_set_sha256": aggregate,
+    }
 
 
 def verify_current_lab_proof(lab_app: Path, unity_sha: str | None = None) -> dict[str, Any]:
@@ -827,7 +1329,8 @@ def verify_current_lab_proof(lab_app: Path, unity_sha: str | None = None) -> dic
                 and bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z", gate.get("utc", "")))
                 and output_path.is_file() and output_path.stat().st_mtime_ns >= gate_path.stat().st_mtime_ns,
                 f"Unity process collision gate is missing, stale, or not PASS: {label}")
-    current_run = json.loads(UNITY_CURRENT_RUN.read_text(encoding="utf-8"))
+    current_run_payload, _ = read_contained_regular_bytes(PILOT_ROOT, UNITY_CURRENT_RUN)
+    current_run = json.loads(current_run_payload.decode("utf-8"))
     require(current_run.get("schema") == "project-studio-unity-validation-current-run/v1"
             and current_run.get("status") == "PASS"
             and current_run.get("documentation_sha") == git(DOC_REPO, "rev-parse", "HEAD")
@@ -1036,6 +1539,8 @@ def provenance_readme() -> str:
 # Provenance timing boundary
 
 `STATE-AT-PACKAGING.json` is the atomic source-state snapshot taken immediately before this immutable package was assembled. It is deliberately not labelled as the final state because package verification and final validation occur afterward. The canonical current state remains `/Users/bruce/Project Studio Audio Systems Pilot 01/00_state/AUDIO-SYSTEMS-PILOT-STATE.json` on the Owner machine.
+
+`unity-validation-evidence/` preserves the exact run archives, eager successful-run snapshots, and a separately labelled content-addressed supplement. The supplement restores one metadata pointer projection without modifying the original archive and does not rehabilitate that historical run: its preserved Unity verdict remains `FAIL`. Only the canonical current validation is the green authority.
 """
 
 
@@ -1326,6 +1831,10 @@ def package_copy_specs(root: Path) -> dict[str, list[tuple[str, Path, Path, bool
         ("TREE:AUDIO-LAB", LAB_APP, root / "AUDIO-LAB/Project Studio Audio Systems Pilot.app", True),
         ("TREE:AUDITION", AUDITION_APP, root / "AUDITION", True),
         ("TREE:COMPLETE-REGISTER-HISTORY", COMPLETE_HISTORY_ROOT, root / "PROVENANCE/complete-register-history", True),
+        ("TREE:MANAGEMENT-METADATA-HISTORY", PILOT_ROOT / "05_management-sfx/semantic-pack/history", root / "PROVENANCE/management-metadata-history", True),
+        ("TREE:UNITY-ARCHIVED-RUNS", PILOT_ROOT / "09_unity-lab/ArchivedRuns", root / "PROVENANCE/unity-validation-evidence/ArchivedRuns", True),
+        ("TREE:UNITY-ARCHIVE-SUPPLEMENTS", PILOT_ROOT / "09_unity-lab/ArchiveSupplements", root / "PROVENANCE/unity-validation-evidence/ArchiveSupplements", True),
+        ("TREE:UNITY-COMPLETED-RUNS", PILOT_ROOT / "09_unity-lab/CompletedRuns", root / "PROVENANCE/unity-validation-evidence/CompletedRuns", True),
     ]
     return {"files": file_specs, "trees": tree_specs}
 
@@ -1505,7 +2014,7 @@ def verify_package_projection_coverage(root: Path, bindings: dict[str, Any], man
 
 
 def build(lab_app: Path) -> dict[str, Any]:
-    if RETURN_ROOT.exists() or RETURN_ROOT.is_symlink():
+    if os.path.lexists(RETURN_ROOT):
         raise RuntimeError(f"return package already exists; verify or preserve it instead of overwriting: {RETURN_ROOT}")
     require(lab_app.resolve(strict=True) == LAB_APP.resolve(strict=True), "packaging refuses a noncanonical Audio Lab bundle")
     refs = verify_clean_pushed_sources()
@@ -1578,6 +2087,10 @@ def build(lab_app: Path) -> dict[str, Any]:
         copy_hostile_reviews(staging)
         copy_four_hour_simulations(staging)
         copy_tree(COMPLETE_HISTORY_ROOT, staging / "PROVENANCE/complete-register-history")
+        copy_tree(PILOT_ROOT / "05_management-sfx/semantic-pack/history", staging / "PROVENANCE/management-metadata-history")
+        copy_tree(PILOT_ROOT / "09_unity-lab/ArchivedRuns", staging / "PROVENANCE/unity-validation-evidence/ArchivedRuns")
+        copy_tree(PILOT_ROOT / "09_unity-lab/ArchiveSupplements", staging / "PROVENANCE/unity-validation-evidence/ArchiveSupplements")
+        copy_tree(PILOT_ROOT / "09_unity-lab/CompletedRuns", staging / "PROVENANCE/unity-validation-evidence/CompletedRuns")
         for name in DOC_NAMES:
             clone_file(DOC_REPO / "docs/audio" / name, staging / "PROVENANCE" / name)
         clone_file(DOC_REPO / "docs/audio/CODEX-ERA-TRANSITION-ATLAS-01.md", staging / "TRANSITIONS/ERA-TRANSITION-ATLAS.md")
@@ -1605,7 +2118,7 @@ def build(lab_app: Path) -> dict[str, Any]:
         }
         atomic_write_json(staging / "RETURN-PACKAGE-MANIFEST.json", manifest)
         verify_root(staging)
-        os.replace(staging, RETURN_ROOT)
+        rename_directory_exclusive(staging, RETURN_ROOT)
     except Exception:
         shutil.rmtree(staging, ignore_errors=True)
         raise

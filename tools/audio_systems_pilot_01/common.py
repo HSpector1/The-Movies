@@ -4,11 +4,15 @@
 from __future__ import annotations
 
 import hashlib
+import fcntl
 import json
 import os
+import secrets
 import shutil
+import stat
 import subprocess
 import tempfile
+from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -124,6 +128,476 @@ def materialize_verified(source: Path, destination: Path, expected_sha256: str) 
     finally:
         temp_path.unlink(missing_ok=True)
     return {"path": str(destination), "bytes": destination.stat().st_size, "sha256": expected_sha256, "reused": False}
+
+
+def _contained_relative(root: Path, candidate: Path, label: str) -> tuple[Path, Path, Path]:
+    lexical_root = Path(os.path.abspath(root))
+    lexical_candidate = Path(os.path.abspath(candidate))
+    try:
+        relative = lexical_candidate.relative_to(lexical_root)
+    except ValueError as error:
+        raise RuntimeError(f"{label} escapes its allowed lexical root: {candidate}") from error
+    if (not os.path.lexists(lexical_root) or lexical_root.is_symlink()
+            or not stat.S_ISDIR(os.lstat(lexical_root).st_mode)):
+        raise RuntimeError(f"allowed {label} root is not a real directory: {lexical_root}")
+    return lexical_root, lexical_candidate, relative
+
+
+def _open_contained_directory(
+    root: Path, directory: Path, *, create: bool, mode: int = 0o755
+) -> tuple[Path, int]:
+    """Open a child directory through no-follow dirfds, optionally creating it."""
+    lexical_root, lexical_directory, relative = _contained_relative(root, directory, "directory")
+    flags = os.O_RDONLY | os.O_DIRECTORY | getattr(os, "O_NOFOLLOW", 0)
+    descriptor = os.open(lexical_root, flags)
+    try:
+        for part in relative.parts:
+            if create:
+                try:
+                    os.mkdir(part, mode, dir_fd=descriptor)
+                except FileExistsError:
+                    pass
+            try:
+                child = os.open(part, flags, dir_fd=descriptor)
+            except OSError as error:
+                raise RuntimeError(
+                    f"directory component is missing, linked, or special: {lexical_directory}"
+                ) from error
+            os.close(descriptor)
+            descriptor = child
+        if not stat.S_ISDIR(os.fstat(descriptor).st_mode):
+            raise RuntimeError(f"opened storage path is not a directory: {lexical_directory}")
+        return lexical_directory, descriptor
+    except Exception:
+        os.close(descriptor)
+        raise
+
+
+def ensure_contained_directory(root: Path, directory: Path, mode: int = 0o755) -> Path:
+    """Create and open-check a lexical child directory without following links."""
+    lexical_directory, descriptor = _open_contained_directory(root, directory, create=True, mode=mode)
+    os.close(descriptor)
+    return lexical_directory
+
+
+def require_contained_directory(root: Path, directory: Path) -> Path:
+    """Return a lexical child directory after a no-follow component walk."""
+    lexical_directory, descriptor = _open_contained_directory(root, directory, create=False)
+    os.close(descriptor)
+    return lexical_directory
+
+
+def create_contained_directory_once(
+    root: Path, directory: Path, mode: int = 0o755
+) -> tuple[Path, tuple[int, int]]:
+    """Create exactly one child directory through its no-follow parent dirfd."""
+    lexical_root, lexical_directory, relative = _contained_relative(root, directory, "directory")
+    if not relative.parts:
+        raise RuntimeError("created directory may not replace its allowed root")
+    _, parent_descriptor = _open_contained_directory(
+        lexical_root, lexical_directory.parent, create=False
+    )
+    flags = os.O_RDONLY | os.O_DIRECTORY | getattr(os, "O_NOFOLLOW", 0)
+    try:
+        try:
+            os.mkdir(lexical_directory.name, mode, dir_fd=parent_descriptor)
+        except FileExistsError as error:
+            raise RuntimeError(f"directory already exists: {lexical_directory}") from error
+        child_descriptor = os.open(lexical_directory.name, flags, dir_fd=parent_descriptor)
+        try:
+            identity = os.fstat(child_descriptor)
+        finally:
+            os.close(child_descriptor)
+        os.fsync(parent_descriptor)
+    finally:
+        os.close(parent_descriptor)
+    return lexical_directory, (identity.st_dev, identity.st_ino)
+
+
+def remove_contained_directory(
+    root: Path, directory: Path, expected_identity: tuple[int, int]
+) -> None:
+    """Remove one owned tree by dirfd only when its exact directory identity matches."""
+    if not getattr(shutil.rmtree, "avoids_symlink_attacks", False):
+        raise RuntimeError("safe directory-tree removal is unavailable on this host")
+    lexical_root, lexical_directory, relative = _contained_relative(root, directory, "directory")
+    if not relative.parts:
+        raise RuntimeError("refusing to remove the allowed directory root")
+    _, parent_descriptor = _open_contained_directory(
+        lexical_root, lexical_directory.parent, create=False
+    )
+    try:
+        actual = os.stat(lexical_directory.name, dir_fd=parent_descriptor, follow_symlinks=False)
+        if (not stat.S_ISDIR(actual.st_mode)
+                or (actual.st_dev, actual.st_ino) != expected_identity):
+            raise RuntimeError(f"owned directory identity changed before removal: {lexical_directory}")
+        shutil.rmtree(lexical_directory.name, dir_fd=parent_descriptor)
+        os.fsync(parent_descriptor)
+    finally:
+        os.close(parent_descriptor)
+
+
+def remove_contained_regular_file(
+    root: Path,
+    candidate: Path,
+    *,
+    expected_sha256: str | None = None,
+    missing_ok: bool = False,
+) -> bool:
+    """Unlink an observed regular file through a no-follow parent dirfd; callers serialize writers."""
+    lexical_root, lexical_candidate, relative = _contained_relative(root, candidate, "file")
+    if not relative.parts:
+        raise RuntimeError("refusing to remove the allowed root")
+    _, parent_descriptor = _open_contained_directory(
+        lexical_root, lexical_candidate.parent, create=False
+    )
+    try:
+        try:
+            descriptor = os.open(
+                lexical_candidate.name,
+                os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0),
+                dir_fd=parent_descriptor,
+            )
+        except FileNotFoundError:
+            if missing_ok:
+                return False
+            raise RuntimeError(f"file disappeared before removal: {lexical_candidate}")
+        except OSError as error:
+            raise RuntimeError(f"file is linked or inaccessible: {lexical_candidate}") from error
+        try:
+            before = os.fstat(descriptor)
+            if not stat.S_ISREG(before.st_mode):
+                raise RuntimeError(f"removal target is not regular: {lexical_candidate}")
+            digest = hashlib.sha256()
+            while chunk := os.read(descriptor, 1024 * 1024):
+                digest.update(chunk)
+        finally:
+            os.close(descriptor)
+        if expected_sha256 is not None and digest.hexdigest() != expected_sha256:
+            raise RuntimeError(f"removal target hash changed: {lexical_candidate}")
+        current = os.stat(
+            lexical_candidate.name, dir_fd=parent_descriptor, follow_symlinks=False
+        )
+        if (not stat.S_ISREG(current.st_mode)
+                or (current.st_dev, current.st_ino, current.st_size, current.st_mtime_ns)
+                != (before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns)):
+            raise RuntimeError(f"removal target identity changed: {lexical_candidate}")
+        os.unlink(lexical_candidate.name, dir_fd=parent_descriptor)
+        os.fsync(parent_descriptor)
+        return True
+    finally:
+        os.close(parent_descriptor)
+
+
+def _open_contained_regular_file(root: Path, candidate: Path) -> tuple[Path, int]:
+    lexical_root, lexical_candidate, relative = _contained_relative(root, candidate, "file")
+    if not relative.parts:
+        raise RuntimeError(f"file path names the allowed directory root: {candidate}")
+    _, parent_descriptor = _open_contained_directory(
+        lexical_root, lexical_candidate.parent, create=False
+    )
+    flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0)
+    try:
+        try:
+            descriptor = os.open(relative.name, flags, dir_fd=parent_descriptor)
+        except OSError as error:
+            raise RuntimeError(f"file is missing, linked, or inaccessible: {lexical_candidate}") from error
+    finally:
+        os.close(parent_descriptor)
+    if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+        os.close(descriptor)
+        raise RuntimeError(f"file is not regular: {lexical_candidate}")
+    return lexical_candidate, descriptor
+
+
+def require_contained_regular_file(root: Path, candidate: Path) -> Path:
+    """Return a lexical child file after a no-follow component walk."""
+    lexical_candidate, descriptor = _open_contained_regular_file(root, candidate)
+    os.close(descriptor)
+    return lexical_candidate
+
+
+def read_contained_regular_bytes(root: Path, candidate: Path) -> tuple[bytes, int]:
+    """Read one stable snapshot of a contained regular file and return bytes/mode."""
+    lexical_candidate, descriptor = _open_contained_regular_file(root, candidate)
+    try:
+        before = os.fstat(descriptor)
+        chunks: list[bytes] = []
+        while chunk := os.read(descriptor, 1024 * 1024):
+            chunks.append(chunk)
+        after = os.fstat(descriptor)
+    finally:
+        os.close(descriptor)
+    if ((before.st_dev, before.st_ino, before.st_size, before.st_mtime_ns)
+            != (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns)):
+        raise RuntimeError(f"file changed while it was read: {lexical_candidate}")
+    payload = b"".join(chunks)
+    if len(payload) != after.st_size:
+        raise RuntimeError(f"file size changed while it was read: {lexical_candidate}")
+    return payload, after.st_mode & 0o777
+
+
+def publish_immutable_bytes(
+    allowed_root: Path, destination: Path, payload: bytes, mode: int = 0o444
+) -> dict[str, Any]:
+    """Create a regular file exactly once through a no-follow parent dirfd."""
+    if mode < 0 or mode > 0o777:
+        raise RuntimeError(f"invalid immutable-file mode: {oct(mode)}")
+    lexical_root, lexical_destination, relative = _contained_relative(
+        allowed_root, destination, "immutable destination"
+    )
+    if not relative.parts:
+        raise RuntimeError("immutable destination may not replace its allowed root")
+    _, parent_descriptor = _open_contained_directory(
+        lexical_root, lexical_destination.parent, create=True
+    )
+    expected_sha256 = hashlib.sha256(payload).hexdigest()
+
+    def verify_existing() -> dict[str, Any]:
+        existing, existing_mode = read_contained_regular_bytes(lexical_root, lexical_destination)
+        if (existing != payload or existing_mode != mode):
+            raise RuntimeError(
+                f"immutable destination already differs or is unsafe: {lexical_destination}"
+            )
+        return {
+            "path": str(lexical_destination), "bytes": len(payload),
+            "sha256": expected_sha256, "reused": True,
+        }
+
+    temp_name = f".{lexical_destination.name}.{os.getpid()}.{secrets.token_hex(12)}.tmp"
+    descriptor = -1
+    try:
+        try:
+            descriptor = os.open(
+                temp_name,
+                os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0),
+                0o600,
+                dir_fd=parent_descriptor,
+            )
+        except FileExistsError as error:
+            raise RuntimeError("unrepeatable immutable temporary-name collision") from error
+        with os.fdopen(descriptor, "wb") as handle:
+            descriptor = -1
+            handle.write(payload)
+            handle.flush()
+            os.fsync(handle.fileno())
+            os.fchmod(handle.fileno(), mode)
+        try:
+            os.link(
+                temp_name,
+                lexical_destination.name,
+                src_dir_fd=parent_descriptor,
+                dst_dir_fd=parent_descriptor,
+                follow_symlinks=False,
+            )
+        except FileExistsError:
+            return verify_existing()
+        os.fsync(parent_descriptor)
+    finally:
+        if descriptor >= 0:
+            os.close(descriptor)
+        try:
+            os.unlink(temp_name, dir_fd=parent_descriptor)
+        except FileNotFoundError:
+            pass
+        os.close(parent_descriptor)
+    return {
+        "path": str(lexical_destination), "bytes": len(payload),
+        "sha256": expected_sha256, "reused": False,
+    }
+
+
+def replace_contained_bytes(
+    allowed_root: Path,
+    destination: Path,
+    payload: bytes,
+    *,
+    expected_existing_sha256: str | None,
+    mode: int = 0o644,
+) -> dict[str, Any]:
+    """Atomically replace one mutable file; existing-target callers hold the shared writer lock."""
+    if mode < 0 or mode > 0o777:
+        raise RuntimeError(f"invalid replacement-file mode: {oct(mode)}")
+    lexical_root, lexical_destination, relative = _contained_relative(
+        allowed_root, destination, "replacement destination"
+    )
+    if not relative.parts:
+        raise RuntimeError("replacement destination may not replace its allowed root")
+    _, parent_descriptor = _open_contained_directory(
+        lexical_root, lexical_destination.parent, create=True
+    )
+    temp_name = f".{lexical_destination.name}.{os.getpid()}.{secrets.token_hex(12)}.tmp"
+    descriptor = -1
+    original_identity: tuple[int, int, int, int, str] | None = None
+    try:
+        try:
+            existing_descriptor = os.open(
+                lexical_destination.name,
+                os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0),
+                dir_fd=parent_descriptor,
+            )
+        except FileNotFoundError:
+            existing_descriptor = -1
+        except OSError as error:
+            raise RuntimeError(
+                f"replacement destination is linked or inaccessible: {lexical_destination}"
+            ) from error
+        if existing_descriptor >= 0:
+            try:
+                existing_stat = os.fstat(existing_descriptor)
+                if not stat.S_ISREG(existing_stat.st_mode):
+                    raise RuntimeError(
+                        f"replacement destination is not regular: {lexical_destination}"
+                    )
+                digest = hashlib.sha256()
+                size = 0
+                while chunk := os.read(existing_descriptor, 1024 * 1024):
+                    digest.update(chunk)
+                    size += len(chunk)
+                after = os.fstat(existing_descriptor)
+                if ((existing_stat.st_dev, existing_stat.st_ino, existing_stat.st_size,
+                     existing_stat.st_mtime_ns)
+                        != (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns)
+                        or size != after.st_size):
+                    raise RuntimeError(
+                        f"replacement destination changed while read: {lexical_destination}"
+                    )
+                actual_existing = digest.hexdigest()
+                original_identity = (
+                    after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns,
+                    actual_existing,
+                )
+            finally:
+                os.close(existing_descriptor)
+            if expected_existing_sha256 is None or actual_existing != expected_existing_sha256:
+                raise RuntimeError(
+                    f"replacement destination changed before publication: {lexical_destination}"
+                )
+        elif expected_existing_sha256 is not None:
+            raise RuntimeError(
+                f"expected replacement destination disappeared: {lexical_destination}"
+            )
+        descriptor = os.open(
+            temp_name,
+            os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0),
+            0o600,
+            dir_fd=parent_descriptor,
+        )
+        with os.fdopen(descriptor, "wb") as handle:
+            descriptor = -1
+            handle.write(payload)
+            handle.flush()
+            os.fchmod(handle.fileno(), mode)
+            os.fsync(handle.fileno())
+        try:
+            current_descriptor = os.open(
+                lexical_destination.name,
+                os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0),
+                dir_fd=parent_descriptor,
+            )
+        except FileNotFoundError:
+            current_descriptor = -1
+        except OSError as error:
+            raise RuntimeError(
+                f"replacement destination became linked or inaccessible: {lexical_destination}"
+            ) from error
+        if current_descriptor >= 0:
+            try:
+                current_stat = os.fstat(current_descriptor)
+                current_digest = hashlib.sha256()
+                current_size = 0
+                while chunk := os.read(current_descriptor, 1024 * 1024):
+                    current_digest.update(chunk)
+                    current_size += len(chunk)
+                current_after = os.fstat(current_descriptor)
+            finally:
+                os.close(current_descriptor)
+            current_identity = (
+                current_after.st_dev, current_after.st_ino, current_after.st_size,
+                current_after.st_mtime_ns, current_digest.hexdigest(),
+            )
+            if (not stat.S_ISREG(current_after.st_mode)
+                    or current_size != current_after.st_size
+                    or (current_stat.st_dev, current_stat.st_ino, current_stat.st_size,
+                        current_stat.st_mtime_ns)
+                    != (current_after.st_dev, current_after.st_ino, current_after.st_size,
+                        current_after.st_mtime_ns)
+                    or current_identity != original_identity):
+                raise RuntimeError(
+                    f"replacement destination changed during publication: {lexical_destination}"
+                )
+        elif original_identity is not None:
+            raise RuntimeError(
+                f"replacement destination disappeared during publication: {lexical_destination}"
+            )
+        if original_identity is None:
+            try:
+                os.link(
+                    temp_name,
+                    lexical_destination.name,
+                    src_dir_fd=parent_descriptor,
+                    dst_dir_fd=parent_descriptor,
+                    follow_symlinks=False,
+                )
+            except FileExistsError as error:
+                raise RuntimeError(
+                    f"replacement destination appeared during publication: {lexical_destination}"
+                ) from error
+        else:
+            os.rename(
+                temp_name,
+                lexical_destination.name,
+                src_dir_fd=parent_descriptor,
+                dst_dir_fd=parent_descriptor,
+            )
+        os.fsync(parent_descriptor)
+    finally:
+        if descriptor >= 0:
+            os.close(descriptor)
+        try:
+            os.unlink(temp_name, dir_fd=parent_descriptor)
+        except FileNotFoundError:
+            pass
+        os.close(parent_descriptor)
+    return {
+        "path": str(lexical_destination),
+        "bytes": len(payload),
+        "sha256": hashlib.sha256(payload).hexdigest(),
+    }
+
+
+@contextmanager
+def contained_exclusive_lock(root: Path, lock_path: Path):
+    """Serialize cooperating writers with a no-follow lock file under a trusted root."""
+    lexical_root, lexical_lock, relative = _contained_relative(root, lock_path, "lock file")
+    if not relative.parts:
+        raise RuntimeError("lock file may not name its allowed root")
+    _, parent_descriptor = _open_contained_directory(
+        lexical_root, lexical_lock.parent, create=True
+    )
+    try:
+        try:
+            descriptor = os.open(
+                lexical_lock.name,
+                os.O_RDWR | os.O_CREAT | getattr(os, "O_NOFOLLOW", 0),
+                0o600,
+                dir_fd=parent_descriptor,
+            )
+        except OSError as error:
+            raise RuntimeError(f"lock file is linked or inaccessible: {lexical_lock}") from error
+        try:
+            if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+                raise RuntimeError(f"lock path is not a regular file: {lexical_lock}")
+            try:
+                fcntl.flock(descriptor, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError as error:
+                raise RuntimeError(f"another evidence publisher holds the lock: {lexical_lock}") from error
+            yield
+        finally:
+            fcntl.flock(descriptor, fcntl.LOCK_UN)
+            os.close(descriptor)
+    finally:
+        os.close(parent_descriptor)
 
 
 def collision_processes() -> list[str]:
