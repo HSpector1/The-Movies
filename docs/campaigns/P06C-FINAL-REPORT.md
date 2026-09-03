@@ -3,7 +3,8 @@
 ## P06C ITERATION STATUS
 **COMPARISON CANDIDATE — isolated, NOT integrated.** Three surfaces delivered to a proven candidate:
 Priority Zero (rail↔guidance-card state-truth fix), the grouped movie pipeline rail (primary target),
-and a bounded People/Talent awareness strip. All proof floors green; fresh hostile review: **<PENDING>**.
+and a bounded People/Talent awareness strip. All proof floors green; **fresh hostile review: ACCEPT
+(0 blocking)**.
 
 ## CAMPAIGN WINDOW & ENVIRONMENT
 - Start 2026-09-03 12:00:43 CEST · hard deadline 20:00:43 CEST (+8h).
@@ -106,7 +107,25 @@ bars, released/earning rows on the active rail (P07).
   BLOCKED, not regressions). `evidence/p06c/hid/owner-input-proof-report.txt`.
 
 ## HOSTILE REVIEW (§23)
-**<PENDING — fresh reviewer running; verdict + any remediation to be recorded here.>**
+**VERDICT: ACCEPT — 0 blocking findings.** A fresh independent reviewer verified all three claims against
+source, tests, and image bytes in both worktrees; re-ran the TS floor (**4904/0**) and the Priority-Zero
+§5 contract test (**11/11**); opened the before/after and oracle PNGs; and confirmed the three
+signature-pinned guard-test edits track a real API change and were **not weakened**. It confirmed: the
+Priority Zero fix reads `workflow.blocker + phase` (the state owner, not a relabel) via the identical
+predicate the rail uses; the rail renders/hit-tests/heights from ONE shared slate (no disagreement),
+keys same-title movies distinctly, shows no P07/Released/earnings group, and uses a discrete track (no %);
+the People strip carries no hidden ratings (the DTO has none), invents no return week, surfaces available
+talent (reserve), is read-only, and leaves the casting shortage→Find route intact.
+- **Non-blocking observations (accepted, none require a code change):**
+  1. The slate joins entry→row by a per-frame array index, not a stable id — safe because render + hit-test
+     rebuild+read the same list within one `RailWanted()` pass. **Addressed** with an explicit INVARIANT
+     comment (`StudioProductionRailHud`, source-only — sealed binary unchanged).
+  2. No single oracle image shows all three group headers at once (the P06 oracle fixtures are
+     Post/Release-heavy; two groups appear in `committed-to-release`); the full three-group ordering is
+     unit-proven by `StudioMovieSlateContractsTests`. A mixed-slate hero capture is backlog (§19).
+  3. "Attention never dropped" holds until attention rows alone exceed the cap (6); beyond that even
+     attention rows overflow, reported honestly in `hidden`. Inherent to any capped list; not reachable
+     in the evidence. Backlog notes a scroll/expand owner for >6 movies.
 
 ## COMPARISON CANDIDATE PATH (§24)
 `~/Desktop/P06C-Comparison-Candidate-d66b7ab-438feb2/` — sealed app + one-command launcher + manifest +
