@@ -291,6 +291,43 @@ describe('P05A W2 — closed operational states across the lifecycle', () => {
     expect(journey.whatHappened).not.toMatch(/Principal photography started/)
     expect(journey.next.label).not.toMatch(/Shooting continues/)
   })
+
+  // ── P06D item 2: rail ↔ world Stage card ↔ workspace ↔ guidance agreement ──
+  // For the SAME exact subject at the SAME revision, all four surfaces must agree.
+  // The rail and the Production workspace both read `operationalState`; the world
+  // Stage card reads `stageProductions[].presentationState`; the guidance card is
+  // firstFilmJourney. A wrapped picture keeps raw workflow.phase === 'shooting',
+  // so this pins that NO surface re-introduces a SHOOTING reading for a POST-waiting
+  // picture — the exact cross-surface contradiction the checkpoint forbids.
+  it('the rail, the world Stage card, the workspace source and the guidance card all agree for the wrapped-waiting picture (P06D item 2)', () => {
+    const fixture = 'e2e/p06-visual-oracle-v1/s2-wrapped-waiting-for-post.save.json'
+    const fixturePath = [`ui/${fixture}`, fixture].find(existsSync)
+    expect(fixturePath, 'wrapped-waiting oracle fixture must exist').toBeDefined()
+    const state = (loadSave(JSON.parse(readFileSync(fixturePath!, 'utf8')) as unknown) as { state: GameState }).state
+    const waiting = 'prod-0002'
+    const snapshot = managedSnapshot(state)
+
+    // Rail + workspace source: the single authoritative operationalState is POST-family.
+    const row = rowOf(snapshot, waiting)
+    expect(row.operationalState).toBe('wrapped-waiting-for-post')
+    // The legacy raw phase may still read 'shooting' (engine truth) — proving the closed
+    // operationalState is what every live surface reads, never the raw phase.
+    expect(row.phase).toBe('shooting')
+
+    // World Stage card: no stage presents this picture as actively shooting/rehearsing — it wrapped.
+    for (const stage of snapshot.stageProductions) {
+      if (stage.holderProductionId === waiting) {
+        expect(['wrap', 'dark']).toContain(stage.presentationState)
+        expect(stage.presentationState).not.toBe('shooting')
+      }
+    }
+
+    // Guidance card: same subject, agreeing current truth.
+    const journey = firstFilmJourney(state)
+    expect(journey.productionId).toBe(waiting)
+    expect(journey.headline).toBe('WAITING FOR POST')
+    expect(journey.headline).not.toBe('SHOOTING')
+  })
 })
 
 describe('P05A W2 — the Stage-local collection', () => {
