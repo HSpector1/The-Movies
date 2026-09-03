@@ -1,0 +1,52 @@
+P04A.1 OWNER INPUT PROOF — 1440x900 — 2026-09-03T11:16:22.587Z
+ts=a4913c63a1af650dffa03ddbf036de4aff081462 unity=438feb2b7446eaa7fedf63992aa4c2049af30b3e
+OVERALL: PASS
+
+element map available: yes
+calibration: PASS (rail-locate-casting @ [621,158])
+
+journey A: 24/24 attempted steps passed, 5 blocked
+journey E: 4/4 attempted steps passed, 0 blocked
+journey F: 1/1 attempted steps passed, 0 blocked
+
+STEPS:
+  [A] locate-casting-office :: ok :: rail-locate-casting @ [621,158]
+  [A] open-casting-workspace :: ok :: casting-inspector-open @ [638,420.8]
+  [A] select-role-director :: ok :: casting-role-director @ [484.8,204.8]
+  [A] inspect-candidate-director :: ok :: casting-candidate-t-dir-03 @ [484.8,287]
+  [A] inspecting-badge-director :: ok :: casting-row-inspecting-t-dir-03
+  [A] choose-director-t-dir-03 :: ok :: casting-row-choose-t-dir-03 @ [320,301.3]
+  [A] selected-badge-director :: ok :: casting-row-selected-t-dir-03
+  [A] select-role-lead :: ok :: casting-role-lead @ [484.8,160.8]
+  [A] inspect-candidate-lead :: ok :: casting-candidate-t-act-20 @ [484.8,287]
+  [A] inspecting-badge-lead :: ok :: casting-row-inspecting-t-act-20
+  [A] choose-lead-t-act-20 :: ok :: casting-row-choose-t-act-20 @ [315.5,301.3]
+  [A] selected-badge-lead :: ok :: casting-row-selected-t-act-20
+  [A] select-role-antagonist :: ok :: casting-role-antagonist @ [484.8,180.8]
+  [A] inspect-candidate-antagonist :: ok :: casting-candidate-t-act-02 @ [484.8,271.5]
+  [A] inspecting-badge-antagonist :: ok :: casting-row-inspecting-t-act-02
+  [A] choose-antagonist-t-act-02 :: ok :: casting-row-choose-t-act-02 @ [324,280.3]
+  [A] selected-badge-antagonist :: ok :: casting-row-selected-t-act-02
+  [A] select-role-support :: BLOCKED :: casting-role-support
+      element "casting-role-support" not present in the current element map — element exists in the tree but is not clickable (visible=false, rect=[0,900,0,0]) after waiting 2500ms — never clicked a degenerate/invisible rect
+  [A] select-role-craft :: BLOCKED :: casting-role-craft
+      element "casting-role-craft" not present in the current element map — element exists in the tree but is not clickable (visible=false, rect=[0,900,0,0]) after waiting 2500ms — never clicked a degenerate/invisible rect
+  [A] reselect-role-lead :: BLOCKED :: casting-role-lead
+      element "casting-role-lead" not present in the current element map — element exists in the tree but is not clickable (visible=false, rect=[0,900,0,0]) after waiting 2500ms — never clicked a degenerate/invisible rect
+  [A] inspect-replace-candidate-lead :: ok :: casting-candidate-t-act-02 @ [484.8,279.3]
+  [A] replace-lead-t-act-02 :: ok :: casting-row-choose-t-act-02 @ [324,280.3]
+  [A] replace-selected-badge-lead :: ok :: casting-row-selected-t-act-02
+  [A] remove-lead-t-act-02 :: ok :: casting-row-remove-t-act-02 @ [443.5,280.3]
+  [A] reinspect-original-lead :: ok :: casting-candidate-t-act-20 @ [484.8,171.3]
+  [A] rechoose-lead-t-act-20 :: ok :: casting-row-choose-t-act-20 @ [324,187.3]
+  [A] rechoose-selected-badge-lead :: BLOCKED :: casting-row-selected-t-act-20
+      element "casting-row-selected-t-act-20" not present in the current element map — tried [casting-row-selected-t-act-20], none became visible within 2000ms
+  [A] no-budget-options-negative :: BLOCKED :: casting-budget-negative-option-*
+      element "casting-budget-negative-option-*" not present in the current element map — no clickable budget option chips appeared within the wait window
+  [A] choose-budget-marketing :: ok :: casting-budget-marketing-option-460113 @ [292,313.3]
+  [A] wire-assert-quoteCasting-draft :: BLOCKED
+      no quoteCasting captured on the wire — likely because the draft is incomplete (see BLOCKED role steps above)
+  [E] open-studio-menu :: ok :: studio-menu-open @ [690,106]
+  [E] menu-quit-to-desktop :: ok :: studio-menu-quit @ [360,309]
+  [E] quit-confirm-message :: ok :: studio-menu-message
+  [E] command-q-exits-app :: ok
