@@ -1,6 +1,6 @@
 {
   "schema": "p04a1-build-manifest/1",
-  "generatedAtUtc": "2026-09-03T08:40:52Z",
+  "generatedAtUtc": "2026-09-03T08:54:02Z",
   "player": {
     "app": "/Users/bruce/The Movies - P06B Impl Unity/Builds/macOS/Project Studio Visual Spike.app",
     "executable": "/Users/bruce/The Movies - P06B Impl Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
@@ -10,9 +10,9 @@
   },
   "unity": {
     "repo": "/Users/bruce/The Movies - P06B Impl Unity",
-    "sha": "af65577ad6803167b88cdee17173e86cc7f7e730",
+    "sha": "18a288715bb88281dcc51f4252858f2fbabff404",
     "branch": "wip/p06b-living-studio-ux-convergence-01-client",
-    "dirty": true
+    "dirty": false
   },
   "typescript": {
     "repo": "/Users/bruce/The Movies - P06A Impl TS",
@@ -22,8 +22,8 @@
     "engineBundleSha256": "a74ed0dde22a365eac0b14b8cae168f28dac13b87856e584301a1e15546b9aab"
   },
   "sources": {
-    "newestTrackedAssetsFile": "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
-    "newestTrackedAssetsAtUtc": "2026-09-03T08:39:54Z"
+    "newestTrackedAssetsFile": "Assets/Studio/Generated/Animation/carry-wardrobe.controller",
+    "newestTrackedAssetsAtUtc": "2026-09-03T08:41:19Z"
   },
   "toolVersions": {
     "unityEditor": "6000.3.22f1",

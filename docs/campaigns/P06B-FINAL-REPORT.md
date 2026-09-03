@@ -23,7 +23,11 @@ visual language — presentation-only, fully proven, fresh-hostile-reviewer **AC
 - TypeScript product/impl branch `wip/p06b-living-studio-ux-convergence-01-ts` (hspector-github).
 - Unity product/impl branch `wip/p06b-living-studio-ux-convergence-01-client` (origin) tip `18a2887`.
 - Sealed P06B player: exe sha256 `130a13a0f19e688fc2bb4b8ba4bd9282430b3d62ecd105f3ff7ad4651d534d49`,
-  Assembly-C# `765dfc00…`, engine bundle `a74ed0dd…` (engine unchanged from P06A), Unity `18a2887`.
+  Assembly-C# sha256 `3ba5ba105bd2c4d757b0dbdb8695bb98f278c5a24cbc8ed5c92ed22d502ff623`, engine bundle
+  `a74ed0dde22a365e…` (engine unchanged from P06A), Unity `18a288715bb88281dcc51f4252858f2fbabff404`.
+  (The managed-code hash 765dfc00→3ba5ba10 vs the pre-FitTitle build is itself proof the N1 fix
+  shipped — C# lives in Assembly-CSharp.dll, not the Mach-O exe. build-manifest regenerated clean at
+  18a2887; all oracle/HID run-bindings share exe 130a13a0.)
 - Campaign fast-forward tips: **[FINALIZED AT §30 SEAL]**.
 
 ## REFERENCE DELTA (§6/§8)

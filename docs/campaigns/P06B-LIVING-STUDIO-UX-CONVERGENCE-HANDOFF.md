@@ -94,7 +94,7 @@ This session is unlocked/on-console, so the journey ran on the **byte-identical 
   post-founding heartbeat coverage test — strengthened, not weakened). No engine/contract/save/economy.
 
 ### Proof status (updating)
-- **Player build:** P06B `Builds/macOS` exe sha `adf9c0bf…`, Assembly-C# `765dfc00…`, Unity `af65577`, clean; build-manifest written.
+- **Sealed player build (post N1 fix):** exe sha `130a13a0…`, Assembly-C# `3ba5ba10…`, engine bundle `a74ed0dd…`, Unity `18a288715bb88281` (build-manifest regenerated clean at 18a2887). (The prior pre-FitTitle build was exe `adf9c0bf…`/asmC# `765dfc00…`/af65577 — superseded.)
 - **Unity delta vs base 7d6d974:** 7 files, +298/-97, **presentation-only** (no Generated DTOs / contract / engine) → CF-09 contract layer unaffected (§26 L2 N/A).
 - **§23 Visual Oracle rerun (6/6 GREEN):** idle-post, wrapped-waiting, active-finishing, release-ready, committed, multi-picture — playerExit=0 (machine assertions pass), all image bytes inspected: unified rail + phase track + no truncation, commit affordance at Release Ready, committed=green "releases next week" (no P07 leak), all 4 movies shown with exact-ID isolation, world dominant. Evidence `scratchpad/p06b-oracle/`.
 - **§24 real-profile-copy machine journey: 25/25** (V15→V16 migrate, hold law, commit flow, save/load; durable original sha unchanged + still read-only).
