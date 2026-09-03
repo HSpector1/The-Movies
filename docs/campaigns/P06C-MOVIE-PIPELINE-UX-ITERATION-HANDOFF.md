@@ -4,7 +4,7 @@
 > Nothing meaningful may live only in scratch, /private/tmp, a process, chat, or an unpushed tree.
 > **Isolated successor candidate — NO campaign integration** (§24). P06B is the byte-preserved control.
 
-## Status: PRIORITY ZERO FIXED + PROVEN — iterating (movie rail next)
+## Status: PRIORITY ZERO FIXED; MOVIE RAIL GROUPED (code+EditMode green, building for visual proof)
 
 ## 1. Campaign clock & environment (§3)
 
@@ -85,7 +85,13 @@ picture until a Post reservation frees). Root cause was the state owner, not a s
 - [x] §3 Clock + this handoff + caffeinate
 - [x] §5 PRIORITY ZERO — truth contradiction reproduced + fixed + regression-tested + visually proven (2240df8)
 - [x] §6 Original The Movies IA comparison matrix (`docs/research/P06C-ORIGINAL-THE-MOVIES-IA-MATRIX.md`, 68b045a)
-- [ ] §7–§13,§17–§18 Movie rail IA / row anatomy / lifecycle / attention / interaction / responsive / perf
+- [~] §7 Movie rail GROUPING — SCRIPTS / MAKING MOVIES / POST & RELEASE headers (Unity 75ab8a9).
+      New pure `StudioMovieSlateContracts` (grouping + header-per-nonempty-group + attention-priority
+      cap, action-required never dropped §10); HUD render+hit-test+height driven by ONE shared slate;
+      screenplay draw extracted; RailWanted → single overflow out-param. EditMode **740/740**
+      (new StudioMovieSlateContractsTests + 3 signature-pinned guards updated faithfully). No
+      engine/contract/DTO/save change. **Building the player now for visual capture + review (§4).**
+- [ ] §8–§13,§17–§18 rail row anatomy / lifecycle / attention / interaction / responsive / perf (as needed after capture)
 - [ ] §14 People/Talent awareness (bounded)
 - [ ] §15 Building-card convergence (bounded)
 - [ ] §16 Workspace/guidance convergence (smallest shared)
