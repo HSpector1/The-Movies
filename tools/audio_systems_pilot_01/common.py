@@ -218,8 +218,6 @@ def remove_contained_directory(
     root: Path, directory: Path, expected_identity: tuple[int, int]
 ) -> None:
     """Remove one owned tree by dirfd only when its exact directory identity matches."""
-    if not getattr(shutil.rmtree, "avoids_symlink_attacks", False):
-        raise RuntimeError("safe directory-tree removal is unavailable on this host")
     lexical_root, lexical_directory, relative = _contained_relative(root, directory, "directory")
     if not relative.parts:
         raise RuntimeError("refusing to remove the allowed directory root")
@@ -231,10 +229,79 @@ def remove_contained_directory(
         if (not stat.S_ISDIR(actual.st_mode)
                 or (actual.st_dev, actual.st_ino) != expected_identity):
             raise RuntimeError(f"owned directory identity changed before removal: {lexical_directory}")
-        shutil.rmtree(lexical_directory.name, dir_fd=parent_descriptor)
+        _remove_directory_entry(
+            parent_descriptor, lexical_directory.name, expected_identity, lexical_directory
+        )
         os.fsync(parent_descriptor)
     finally:
         os.close(parent_descriptor)
+
+
+def _remove_directory_entry(
+    parent_descriptor: int,
+    name: str,
+    expected_identity: tuple[int, int],
+    display_path: Path,
+) -> None:
+    """Recursively unlink one already-identified directory without following names."""
+    flags = os.O_RDONLY | os.O_DIRECTORY | getattr(os, "O_NOFOLLOW", 0)
+    try:
+        directory_descriptor = os.open(name, flags, dir_fd=parent_descriptor)
+    except OSError as error:
+        raise RuntimeError(f"owned directory became linked or inaccessible: {display_path}") from error
+    try:
+        opened = os.fstat(directory_descriptor)
+        if (not stat.S_ISDIR(opened.st_mode)
+                or (opened.st_dev, opened.st_ino) != expected_identity):
+            raise RuntimeError(f"owned directory identity changed during removal: {display_path}")
+        for child_name in os.listdir(directory_descriptor):
+            child_path = display_path / child_name
+            observed = os.stat(
+                child_name, dir_fd=directory_descriptor, follow_symlinks=False
+            )
+            child_identity = (observed.st_dev, observed.st_ino)
+            if stat.S_ISDIR(observed.st_mode):
+                _remove_directory_entry(
+                    directory_descriptor, child_name, child_identity, child_path
+                )
+                continue
+            if not stat.S_ISREG(observed.st_mode):
+                raise RuntimeError(
+                    f"owned directory cleanup refuses a linked or special child: {child_path}"
+                )
+            try:
+                child_descriptor = os.open(
+                    child_name,
+                    os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0),
+                    dir_fd=directory_descriptor,
+                )
+            except OSError as error:
+                raise RuntimeError(
+                    f"owned directory child became linked or inaccessible: {child_path}"
+                ) from error
+            try:
+                opened_child = os.fstat(child_descriptor)
+            finally:
+                os.close(child_descriptor)
+            current_child = os.stat(
+                child_name, dir_fd=directory_descriptor, follow_symlinks=False
+            )
+            identity_fields = ("st_dev", "st_ino", "st_mode", "st_size", "st_mtime_ns")
+            if (not stat.S_ISREG(opened_child.st_mode)
+                    or any(getattr(opened_child, field) != getattr(observed, field)
+                           for field in identity_fields)
+                    or any(getattr(current_child, field) != getattr(observed, field)
+                           for field in identity_fields)):
+                raise RuntimeError(f"owned directory child identity changed: {child_path}")
+            os.unlink(child_name, dir_fd=directory_descriptor)
+        os.fsync(directory_descriptor)
+    finally:
+        os.close(directory_descriptor)
+    current = os.stat(name, dir_fd=parent_descriptor, follow_symlinks=False)
+    if (not stat.S_ISDIR(current.st_mode)
+            or (current.st_dev, current.st_ino) != expected_identity):
+        raise RuntimeError(f"owned directory identity changed before final removal: {display_path}")
+    os.rmdir(name, dir_fd=parent_descriptor)
 
 
 def remove_contained_regular_file(
