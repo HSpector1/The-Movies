@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Project: Studio — Audio Systems Pilot 01</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#player">Skip to audition player</a>
+  <header class="masthead">
+    <div>
+      <p class="eyebrow">Project: Studio · isolated offline prototype</p>
+      <h1>Audio Systems Pilot 01</h1>
+    </div>
+    <div class="status-row">
+      <span class="pill">Offline</span>
+      <span class="pill warning">Prototype only</span>
+      <span id="progress">0 / 0 rated</span>
+    </div>
+  </header>
+
+  <section class="notice" aria-label="Decision boundary">
+    <strong>Listening gate, not shipping approval.</strong>
+    Nothing here is final, Owner-approved, commercially cleared, or part of the production game.
+    No music theory is required: rate the experience you actually hear.
+  </section>
+
+  <main class="layout">
+    <aside class="catalogue" aria-label="Audition catalogue">
+      <div class="filters">
+        <label>Collection
+          <select id="collection-filter"><option value="ALL">All collections</option></select>
+        </label>
+        <label>Find
+          <input id="search-filter" type="search" placeholder="Title, era, context">
+        </label>
+      </div>
+      <p id="catalogue-summary" class="muted"></p>
+      <ol id="item-list" class="item-list"></ol>
+    </aside>
+
+    <section id="player" class="player" tabindex="-1">
+      <div id="empty-state" class="empty-state">
+        <h2>Loading verified local catalogue…</h2>
+        <p>If this persists, use the supplied launcher rather than opening the HTML file directly.</p>
+      </div>
+
+      <div id="audition-card" hidden>
+        <p id="item-kicker" class="eyebrow"></p>
+        <h2 id="item-title"></h2>
+        <p id="item-detail" class="detail"></p>
+        <audio id="audio" controls preload="metadata"></audio>
+        <p id="caption" class="caption" role="status" aria-live="polite"></p>
+        <dl id="metadata" class="metadata"></dl>
+
+        <section class="ratings" aria-labelledby="ratings-title">
+          <div class="section-heading">
+            <div><p class="eyebrow">Listening card</p><h3 id="ratings-title">Rate this item</h3></div>
+            <span>1 low · 5 high</span>
+          </div>
+          <div id="rating-grid" class="rating-grid"></div>
+          <fieldset class="verdict">
+            <legend>Decision</legend>
+            <div>
+              <button type="button" data-verdict="keep">Keep</button>
+              <button type="button" data-verdict="maybe">Maybe</button>
+              <button type="button" data-verdict="reject">Reject</button>
+            </div>
+          </fieldset>
+          <label class="notes">Owner notes
+            <textarea id="notes" rows="4" placeholder="Moments, fatigue, transition, copy, mix, or revision direction…"></textarea>
+          </label>
+          <p class="save-note">Saved automatically on this Mac. Export creates the transferable record.</p>
+        </section>
+      </div>
+    </section>
+
+    <aside class="review-panel" aria-label="Review controls">
+      <h2>Review controls</h2>
+      <p>Keyboard: <kbd>J</kbd>/<kbd>K</kbd> next/previous, <kbd>Space</kbd> play/pause, <kbd>1</kbd>–<kbd>5</kbd> score the focused category.</p>
+      <p>Controller: D-pad moves through the queue; primary button plays or pauses.</p>
+      <button id="export-csv" type="button">Export CSV</button>
+      <button id="export-json" type="button">Export JSON</button>
+      <button id="clear-ratings" class="quiet" type="button">Clear local ratings</button>
+      <hr>
+      <h3>Accessibility</h3>
+      <label class="toggle"><input id="captions-enabled" type="checkbox" checked> Captions / important-sound text</label>
+      <label>Audition level <input id="audition-volume" type="range" min="0" max="1" value="0.8" step="0.05"></label>
+      <p class="muted">The Unity Audio Lab provides independent category buses, Force Mono, Night, Speech First, Music Light, and Music Off presets.</p>
+      <hr>
+      <p class="privacy">No login · no telemetry · no cloud · localhost only</p>
+    </aside>
+  </main>
+
+  <footer>
+    <span id="catalogue-hash">Catalogue hash pending</span>
+    <span>All ratings remain local until you export them.</span>
+  </footer>
+  <script src="app.js" defer></script>
+</body>
+</html>
