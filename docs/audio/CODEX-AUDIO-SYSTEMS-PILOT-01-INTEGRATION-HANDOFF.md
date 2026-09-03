@@ -138,6 +138,8 @@ The pilot catalogue is external:
 
 `/Users/bruce/Project Studio Audio Systems Pilot 01/01_catalogue/AudioPrototypeCatalogue.v1.json`
 
+The additive lab derives its bounded playable surface from `10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json`. Its current 147 entries include 24 item-level radio/PA voice variants and one milestone sting in addition to the prior music, transition, ambience, management, and whole-programme preview evidence. This is a prototype manifest shape, not a final production API.
+
 That absolute path is evidence/Owner-machine context only and must not appear in production-facing code. Lab configuration resolves the approved root from `PROJECT_STUDIO_AUDIO_PILOT_ROOT` or an explicit local JSON configuration outside Git.
 
 Minimum prototype entry fields:
@@ -230,6 +232,8 @@ spokenText
 The owning domain produces truth. Audio validates, schedules, ducks, captions, transcribes, coalesces through approved templates, or refuses/omits. Spoken and caption forms derive from the same resolved payload. No voice callback mutates the simulation.
 
 Decorative radio remains separately identifiable and optional. PA/help, functional bulletin, host, advertisement, ident, and milestone sting keep distinct arbitration behavior.
+
+Prototype item-level voice entries bind exact schedule text/payload, presenter and speaker, treatment, source metadata, derivative identity, audio path/hash/format/duration, and destination bus. Whole-programme baked renders are offline-audition-only because their voice, PA, music, and timed captions cannot be controlled independently. A future integration may not use a baked master as fallback for failed item audio, and must add word-timed caption segments before claiming delivered-word parity for interrupted speech.
 
 ## System menu and settings integration
 

@@ -76,7 +76,7 @@ The hostile-index/complete-register two-pass tail is intentionally omitted here;
 - Radio: 126 audited units, 108 decorative-eligible, 18 functional-template units withheld, three typed fixtures, three 660-second programmes, three 30-minute simulations, three presenters.
 - Accessibility: eight isolated bus contributions and six final-sum preset renders.
 - Audio Oracle: eighteen required scenarios plus two supplemental authority-compatibility scenarios; exactly two current Unity Editor offline output-processor marker renders, explicitly not runtime mix captures. State records the earlier content phase as 124 generated/113 derived files, the two Oracle markers separately, AAC audition derivatives separately, and the whole bounded total dynamically.
-- Runtime system register: 122 items. The complete audio-file count is intentionally recomputed after Oracle/audition output and must match the bounded filesystem rather than a remembered number.
+- Runtime system register: 147 items: the prior 122, 18 item-level Radio Voice, six item-level PA Voice, and one milestone sting. Baked full programmes are offline-audition-only in Unity. The complete audio-file count is intentionally recomputed after Oracle/audition output and must match the bounded filesystem rather than a remembered number.
 
 ## Failure classification
 

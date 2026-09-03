@@ -67,6 +67,8 @@ Requirements:
 
 Functional `captionText` and `spokenText` derive from the same resolved typed payload. A factual-token or quantity mismatch rejects both projections before playback. A pronunciation-only voice transformation must retain logged equivalence.
 
+The pilot supplies whole-item captions, not word-timed segments. When a PA interrupts an item, the caption is cleared with the stopped voice and the transcript records the incoming PA and interruption time; because the source caption was displayed as a whole before the cut, this is not evidence that every displayed word was audibly delivered. Word-timed/truncated caption segmentation remains a human-facing follow-up gate.
+
 ## Transcript history
 
 The lab transcript records:
@@ -154,7 +156,7 @@ The superseded v3 render manifest mixed only three sources and self-attested sev
 
 The current external signal evidence is `07_audio-oracle/accessibility-renders-v4/ACCESSIBILITY-PRESETS.v4.json`, SHA-256 `0cd521819de83474cd952b2a7ad2299bc5135c72933ccd60923e438421d5f46b`. It contains six 45-second demonstrations: Standard, Speech First, Night / Limited Dynamic Range, Music Light, Music Off, and Force Mono. Eight separately rendered, hash-bound bus contributions—score, radio music, ambience, active SFX, UI, radio voice, PA/help, and milestone stings—are mixed first; limiting/compression and Force Mono are then applied to the final sum. Force Mono is recorded as a composable overlay on Standard rather than a state replacement. The Force Mono result probes as one channel; the other five probe as stereo at 48 kHz. Music Off retains six nonmusic buses.
 
-The v4 machine render verdict covers only source hashes, isolated bus contributions, final-sum routing, duration, and channel count. Caption readiness, transcript behavior, keyboard/controller reachability, Radio Off, and no-audio-only behavior are explicitly labelled `NOT_EVIDENCED_BY_OFFLINE_RENDER` and require Unity runtime/test evidence plus human review. Accessibility acceptance remains `PENDING_RUNTIME_PROOF_AND_HUMAN_REVIEW`; intelligibility, comfort, caption usability, controller usability, mono semantic distinction, and conformance are not claimed.
+The v4 machine render verdict covers only source hashes, isolated bus contributions, final-sum routing, duration, and channel count. Caption readiness, transcript behavior, keyboard/controller reachability, Radio Off, and no-audio-only behavior are explicitly labelled `NOT_EVIDENCED_BY_OFFLINE_RENDER`; their separate Unity tests do not enlarge the render claim. The runtime register now supplies 18 Radio Voice and six PA Voice items plus one milestone sting on independent buses. Caption-visible time is recorded before a voice attempt, while a separate DSP timestamp and audibility state are set only after exact validation and successful scheduling. Suppressed, unavailable, interrupted, and completed presentations remain distinguishable. Baked 660-second programmes are offline-audition-only and cannot bypass those controls or timed-caption policy in Unity. Accessibility acceptance remains `PENDING_RUNTIME_PROOF_AND_HUMAN_REVIEW`; intelligibility, comfort, caption usability, controller usability, mono semantic distinction, and conformance are not claimed.
 
 ### Automated and noninteractive checks
 

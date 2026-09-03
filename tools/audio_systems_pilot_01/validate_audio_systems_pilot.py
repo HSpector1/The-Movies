@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -85,6 +86,7 @@ AUDITION = PILOT_ROOT / "08_audition-app/v2/AUDITION-BUILD-MANIFEST.json"
 UNITY_VALIDATION = PILOT_ROOT / "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json"
 BUILD_RECEIPT = PILOT_ROOT / "09_unity-lab/Builds/macOS/Project Studio Audio Systems Pilot.app.build-receipt.json"
 SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json"
+SYSTEM_REGISTER_SHA256 = "896828b23707e0283e98e0cad5971aff341655aafccc3766461331aabe0c38e7"
 ASSET_INDEX = PILOT_ROOT / "10_provenance/audio-assets-index.v4.json"
 ASSET_VALIDATION = PILOT_ROOT / "10_provenance/audio-assets-validation.v4.json"
 DERIVATIVES = PILOT_ROOT / "10_provenance/audio-derivative-source-register.v4.json"
@@ -95,6 +97,21 @@ AUDITION_PREVIEW_HISTORY = PILOT_ROOT / "11_return-package/audition-previews-v2/
 AUDITION_APP_HISTORY = PILOT_ROOT / "08_audition-app/AUDITION-APP-HISTORY.v1.json"
 
 ALLOWED_STATUS = {"PROTOTYPE_ONLY", "PROTOTYPE_READY_FOR_OWNER_AUDITION"}
+EXPECTED_SYSTEM_REGISTER_ITEMS = 147
+EXPECTED_SYSTEM_ROLE_COUNTS = {
+    "ERA_PICK": 27,
+    "ERA_TRANSITION": 9,
+    "LIVING_ERA_PRESENTATION": 3,
+    "LIVING_LAYER": 3,
+    "LIVING_MIX": 5,
+    "LOT_DETAIL_SFX": 15,
+    "MANAGEMENT_CANDIDATE": 45,
+    "MILESTONE_STING": 1,
+    "PA_VOICE": 6,
+    "RADIO_DEMO": 3,
+    "RADIO_VOICE": 18,
+    "RESPONSIVE_VARIANT": 12,
+}
 AUDIO_SUFFIXES = {".wav", ".m4a", ".mp3", ".aac", ".flac", ".ogg", ".aif", ".aiff"}
 EXPECTED_EPOCHS = {
     "acoustic_electrical_1920_1932", "format_plurality_1975_1986", "streaming_plural_2015_2029"
@@ -125,6 +142,29 @@ EXPECTED_RADIO_DEMOS = {
     "POSTWAR-PERSONALITY-TAPE-HIFI-V2": "tape_hifi_1946_1959",
     "DIGITAL-NETWORKED-HYBRID-V2": "networked_hybrid_2000_2014",
 }
+EXPECTED_REGISTER_RADIO = {
+    "E02": {
+        "slug": "EARLY-NETWORK-GOLDEN-STUDIO-V2", "epoch": "network_sound_1933_1945",
+        "presenter": "PRESENTER-MAE-CALDER", "daypart": "MORNING",
+        "functional": ("P13_AUDIO_LAB_FIXTURE", "LAB-E02-FUNCTIONAL-BULLETIN", "LAB-RECEIPT-E02-0001"),
+        "pa": ("PA_HELP_AUDIO_LAB_FIXTURE", "LAB-PA-E02-ACCESS-PAUSED", "LAB-RECEIPT-PA-E02-0001"),
+    },
+    "E03": {
+        "slug": "POSTWAR-PERSONALITY-TAPE-HIFI-V2", "epoch": "tape_hifi_1946_1959",
+        "presenter": "PRESENTER-ARTHUR-VALE", "daypart": "AFTERNOON",
+        "functional": ("P05_AUDIO_LAB_FIXTURE", "LAB-E03-FUNCTIONAL-BULLETIN", "LAB-RECEIPT-E03-0001"),
+        "pa": ("PA_HELP_AUDIO_LAB_FIXTURE", "LAB-PA-E03-ACCESS-PAUSED", "LAB-RECEIPT-PA-E03-0001"),
+    },
+    "E07": {
+        "slug": "DIGITAL-NETWORKED-HYBRID-V2", "epoch": "networked_hybrid_2000_2014",
+        "presenter": "PRESENTER-RINA-SHORE", "daypart": "EVENING",
+        "functional": ("P06_AUDIO_LAB_FIXTURE", "LAB-E07-FUNCTIONAL-BULLETIN", "LAB-RECEIPT-E07-0001"),
+        "pa": ("PA_HELP_AUDIO_LAB_FIXTURE", "LAB-PA-E07-ACCESS-PAUSED", "LAB-RECEIPT-PA-E07-0001"),
+    },
+}
+MILESTONE_STING_SHA256 = "8b4e0b9a4e609737d91a3fc95fe313213c496d531c00e802628c62457f02acd6"
+MILESTONE_CAPTION = "[important sound] Milestone sting. No mechanical change."
+BAKED_FULL_MIX_REFUSAL = "BAKED_FULL_MIX_REFUSED_IN_AUDIO_LAB_INDEPENDENT_BUSES_AND_TIMED_CAPTIONS_UNAVAILABLE"
 EXPECTED_RADIO_PRESENTERS = {
     "PRESENTER-MAE-CALDER": {
         "display_name": "Mae Calder", "local_voice": "Kathy",
@@ -596,18 +636,286 @@ def check_radio_accessibility() -> dict[str, Any]:
     return {"radio_scripts": 126, "decorative_eligible": 108, "functional_templates_withheld": 18, "typed_fixtures": 3, "radio_demos": 3, "radio_demo_seconds_each": 660, "radio_simulations": 3, "presenters": 3, "accessibility_presets": 6}
 
 
-def check_system_oracle_apps(lab_app: Path, return_root: Path) -> dict[str, Any]:
-    require(return_root == RETURN_ROOT.resolve(strict=True), "final validation refuses a noncanonical return-package root")
+def verified_system_register() -> dict[str, Any]:
     system = load(SYSTEM_REGISTER, "project-studio-system-audio-asset-register/v5")
-    require(system["status"] in ALLOWED_STATUS and len(system["items"]) == 122 and sum(system["counts"].values()) == 122, "system register failed")
+    canonical_system_bytes = (json.dumps(system, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
+    require(sha256_file(SYSTEM_REGISTER) == SYSTEM_REGISTER_SHA256
+            and hashlib.sha256(canonical_system_bytes).hexdigest() == SYSTEM_REGISTER_SHA256,
+            "system register frozen byte identity failed")
+    require(system["status"] in ALLOWED_STATUS
+            and len(system["items"]) == EXPECTED_SYSTEM_REGISTER_ITEMS
+            and sum(system["counts"].values()) == EXPECTED_SYSTEM_REGISTER_ITEMS, "system register failed")
+    require(system.get("human_acceptance") == "NONE_RECORDED"
+            and system.get("commercial_clearance") == "NOT_CLAIMED"
+            and system.get("loading_law") == "EXPLICIT_PATH_AND_SHA256_ONLY; NO_RECURSIVE_SCAN; NO_NETWORK; FAIL_CLOSED"
+            and system.get("limitations") == [
+                "The register expresses prototype presentation eligibility only; it owns no era, activity, production, blocker, result, or save truth."
+            ], "system register top-level boundary failed")
+    require(system["counts"] == EXPECTED_SYSTEM_ROLE_COUNTS, "system register role counts failed")
     require("NO_RECURSIVE_SCAN" in system["loading_law"] and "NO_NETWORK" in system["loading_law"] and "FAIL_CLOSED" in system["loading_law"], "external-loading law incomplete")
+    expected_source_paths = {
+        ASSET_INDEX,
+        CATALOGUE_BASE,
+        RADIO,
+        TRANSITIONS,
+        LIVING,
+        DERIVATIVES,
+        ASSET_VALIDATION,
+        PILOT_ROOT / "02_music-bundles/responsive/responsive-anchor-authority.v2.json",
+        PILOT_ROOT / "10_provenance/sfx-route-gate.v2.json",
+    }
+    for binding in EXPECTED_REGISTER_RADIO.values():
+        demo_root = PILOT_ROOT / "06_radio/demos-v2" / binding["slug"]
+        expected_source_paths.add(demo_root / "SCHEDULE.v2.json")
+        expected_source_paths.add(demo_root / "CAPTIONS.v2.vtt")
+        for voice_role in ("OPENING", "FUNCTIONAL", "INTERRUPTIBLE", "PA"):
+            expected_source_paths.add(demo_root / "voice" / voice_role / "metadata.v2.json")
+    source_records = system.get("source_manifests")
+    require(isinstance(source_records, list) and len(source_records) == len(expected_source_paths),
+            "system register source-manifest cardinality failed")
+    actual_source_paths = [Path(record.get("path", "")) for record in source_records if isinstance(record, dict)]
+    require(len(actual_source_paths) == len(source_records)
+            and len(set(actual_source_paths)) == len(actual_source_paths)
+            and set(actual_source_paths) == expected_source_paths,
+            "system register source-manifest set failed")
     for record in system["source_manifests"]:
         verified_path(record)
+    schedule_cache = {
+        epoch_code: json.loads((PILOT_ROOT / "06_radio/demos-v2" / binding["slug"] / "SCHEDULE.v2.json").read_text(encoding="utf-8"))
+        for epoch_code, binding in EXPECTED_REGISTER_RADIO.items()
+    }
     ids = [row["id"] for row in system["items"]]
     require(len(ids) == len(set(ids)), "duplicate system ID")
+    recomputed_role_counts = dict(sorted(Counter(row.get("role") for row in system["items"]).items()))
+    require(recomputed_role_counts == EXPECTED_SYSTEM_ROLE_COUNTS,
+            f"system register item-role counts failed: {recomputed_role_counts}")
+    source_index = json.loads(ASSET_INDEX.read_text(encoding="utf-8"))
+    transition_source = json.loads(TRANSITIONS.read_text(encoding="utf-8"))
+    catalogue_source = json.loads(CATALOGUE_BASE.read_text(encoding="utf-8"))
+    category_roles = {
+        "LIVING_LOT_LAYER": "LIVING_LAYER",
+        "LIVING_LOT_FIXTURE_PRESENTATION": "LIVING_MIX",
+        "LIVING_LOT_ERA_PRESENTATION": "LIVING_ERA_PRESENTATION",
+        "GENERATED_LOT_DETAIL_SFX": "LOT_DETAIL_SFX",
+        "MANAGEMENT_SEMANTIC_SFX": "MANAGEMENT_CANDIDATE",
+    }
+    expected_role_ids: dict[str, set[str]] = {role: set() for role in EXPECTED_SYSTEM_ROLE_COUNTS}
+    expected_role_ids["RESPONSIVE_VARIANT"] = {
+        row["stable_bundle_variant_id"] for row in source_index["responsive_selections"]
+    }
+    expected_role_ids["ERA_TRANSITION"] = {
+        row["stable_prototype_id"] for row in transition_source["renders"]
+    }
+    for asset in source_index["audio_assets"]:
+        if asset.get("category") in category_roles:
+            expected_role_ids[category_roles[asset["category"]]].add(asset["stable_prototype_id"])
+    expected_role_ids["ERA_PICK"] = {
+        entry["stable_prototype_id"] for entry in catalogue_source["entries"]
+        if any(derivative.get("selection_role") == "PRIMARY"
+            and derivative.get("derivative_type") == "aac_preview"
+            for derivative in entry.get("derivatives", []))
+    }
+    expected_role_ids["RADIO_DEMO"] = {
+        f"ASP01-RADIO-{slug}" for slug in EXPECTED_RADIO_DEMOS
+    }
+    expected_role_ids["MILESTONE_STING"] = {"ASP01-RADIO-MILESTONE-STING-01"}
+    for epoch_code in EXPECTED_REGISTER_RADIO:
+        for voice_role in ("OPENING", "FUNCTIONAL", "INTERRUPTIBLE", "PA"):
+            role = "PA_VOICE" if voice_role == "PA" else "RADIO_VOICE"
+            for treatment in ("CLEAN", "PERIOD"):
+                expected_role_ids[role].add(
+                    f"ASP01-RADIO-VOICE-{epoch_code}-{voice_role}-{treatment}"
+                )
+    actual_role_ids = {
+        role: {row["id"] for row in system["items"] if row.get("role") == role}
+        for role in EXPECTED_SYSTEM_ROLE_COUNTS
+    }
+    require(actual_role_ids == expected_role_ids, "system register item ID-to-role projection failed")
     for row in system["items"]:
         require(row["rights_status"] in ALLOWED_STATUS and row["human_disposition"] == "PENDING", "system status boundary violated")
-        verified_path(row)
+        declared_path = verified_path(row)
+        relative_path = Path(row.get("relative_path", ""))
+        require(bool(str(relative_path)) and not relative_path.is_absolute() and ".." not in relative_path.parts,
+                f"system item relative path is not a contained relative path: {row.get('id')}")
+        require(declared_path == canonical_contained(PILOT_ROOT, PILOT_ROOT / relative_path),
+                f"system item absolute/relative path projection failed: {row.get('id')}")
+        if row["role"] in {"RADIO_VOICE", "PA_VOICE"}:
+            identity = re.fullmatch(r"ASP01-RADIO-VOICE-(E02|E03|E07)-(OPENING|FUNCTIONAL|INTERRUPTIBLE|PA)-(CLEAN|PERIOD)", row["id"])
+            require(identity is not None, f"radio voice ID shape failed: {row.get('id')}")
+            epoch_code, voice_role, treatment = identity.groups()
+            authority = EXPECTED_REGISTER_RADIO[epoch_code]
+            expected_bus = "PA_HELP" if row["role"] == "PA_VOICE" else "RADIO_VOICE"
+            expected_register_role = "PA_VOICE" if voice_role == "PA" else "RADIO_VOICE"
+            expected_speech_owner = "PA_HELP" if voice_role == "PA" else "RADIO_VOICE"
+            expected_caption_context = "OVER_PA" if voice_role == "PA" else "OVER_RADIO"
+            expected_content_type = "PA_HELP" if voice_role == "PA" else "FUNCTIONAL" if voice_role == "FUNCTIONAL" else "DECORATIVE"
+            expected_presenter = "PRESENTER-RINA-SHORE" if voice_role == "PA" else authority["presenter"]
+            expected_speaker = EXPECTED_RADIO_PRESENTERS[expected_presenter]["display_name"]
+            expected_schedule_id = (authority["pa"][1] if voice_role == "PA"
+                else f"{authority['functional'][1]}@{authority['functional'][2]}" if voice_role == "FUNCTIONAL"
+                else f"{authority['slug']}-{voice_role}")
+            expected_file = "CLEAN.wav" if treatment == "CLEAN" else "PERIOD-TREATED.wav"
+            expected_relative = f"06_radio/demos-v2/{authority['slug']}/voice/{voice_role}/{expected_file}"
+            expected_metadata_path = PILOT_ROOT / "06_radio/demos-v2" / authority["slug"] / "voice" / voice_role / "metadata.v2.json"
+            require(row.get("bus") == expected_bus
+                    and row.get("role") == expected_register_role
+                    and row.get("treatment") == treatment
+                    and row.get("voice_role") == voice_role
+                    and row.get("classification") == "HASH_BOUND_ITEM_LEVEL_GENERIC_SYNTHETIC_VOICE_PROTOTYPE"
+                    and row.get("epoch_code") == epoch_code
+                    and row.get("epoch") == authority["epoch"]
+                    and row.get("program_slug") == authority["slug"]
+                    and row.get("program_presenter_id") == authority["presenter"]
+                    and row.get("presenter_id") == expected_presenter
+                    and row.get("presenter_display_name") == expected_speaker
+                    and row.get("content_type") == expected_content_type
+                    and row.get("schedule_item_id") == expected_schedule_id
+                    and row.get("schedule_speech_owner") == expected_speech_owner
+                    and row.get("relative_path") == expected_relative
+                    and row.get("spoken_text")
+                    and hashlib.sha256(row["spoken_text"].encode("utf-8")).hexdigest() == row.get("spoken_text_sha256"),
+                    f"radio voice identity failed: {row.get('id')}")
+            require(row["format"] == probe_audio(Path(row["path"])), f"radio voice format changed: {row['id']}")
+            verified_path(row["source_metadata"])
+            require(Path(row["source_metadata"]["path"]) == expected_metadata_path
+                    and row["source_metadata"]["sha256"] == sha256_file(expected_metadata_path),
+                    f"radio source-metadata path projection failed: {row['id']}")
+            require(row.get("schedule_presenter_ids") == [row.get("program_presenter_id")]
+                    and row.get("caption_text") == row.get("spoken_text"),
+                    f"radio schedule presenter/text projection failed: {row['id']}")
+            schedule = schedule_cache[epoch_code]
+            event_matches = [event for event in schedule.get("events", [])
+                if event.get("item", {}).get("id") == expected_schedule_id]
+            delivery_matches = [event for event in schedule.get("deliveredVoiceEvents", [])
+                if event.get("item", {}).get("id") == expected_schedule_id]
+            require(len(event_matches) == 1 and len(delivery_matches) == 1,
+                    f"radio schedule/delivery source mapping failed: {row['id']}")
+            source_event = event_matches[0]
+            source_item = source_event["item"]
+            source_delivery = delivery_matches[0]
+            expected_delivery_projection = {
+                "at_seconds": source_delivery["atSeconds"],
+                "end_seconds": source_delivery["endSeconds"],
+                "declared_duration_seconds": source_delivery["declaredDurationSeconds"],
+                "audio_played_seconds": source_delivery["audioPlayedSeconds"],
+                "delivery_status": source_delivery["deliveryStatus"],
+                "caption_context": source_delivery["captionContext"],
+                "speech_owner": source_delivery["speechOwner"],
+                "speaker": source_delivery["speaker"],
+                "interrupted_item_id": source_delivery.get("interruptedItemId"),
+            }
+            require(source_event.get("speechOwner") == row.get("schedule_speech_owner")
+                    and source_item.get("presenters") == row.get("schedule_presenter_ids")
+                    and source_item.get("contentType") == row.get("content_type")
+                    and source_item.get("captionText") == row.get("caption_text")
+                    and source_item.get("spokenText") == row.get("spoken_text")
+                    and abs(float(source_item.get("durationSeconds", -1.0)) - float(row["duration_seconds"])) <= 0.000001
+                    and source_delivery.get("item") == source_item
+                    and row.get("source_delivery") == expected_delivery_projection,
+                    f"radio full schedule/delivery source projection failed: {row['id']}")
+            delivery = row.get("source_delivery")
+            require(isinstance(delivery, dict)
+                    and delivery.get("speech_owner") == expected_speech_owner
+                    and delivery.get("caption_context") == expected_caption_context
+                    and delivery.get("speaker") == expected_speaker
+                    and delivery.get("delivery_status") == ("INTERRUPTED_BY_PA" if voice_role == "INTERRUPTIBLE" else "PLAYED")
+                    and isinstance(delivery.get("at_seconds"), (int, float))
+                    and isinstance(delivery.get("end_seconds"), (int, float))
+                    and isinstance(delivery.get("declared_duration_seconds"), (int, float))
+                    and isinstance(delivery.get("audio_played_seconds"), (int, float))
+                    and abs(float(delivery["declared_duration_seconds"]) - float(row["duration_seconds"])) <= 0.000001
+                    and abs(float(delivery["end_seconds"]) - float(delivery["at_seconds"])
+                            - float(delivery["audio_played_seconds"])) <= 0.000001
+                    and 0.0 < float(delivery["audio_played_seconds"]) <= float(delivery["declared_duration_seconds"])
+                    and (voice_role == "INTERRUPTIBLE") == (float(delivery["audio_played_seconds"]) < float(delivery["declared_duration_seconds"])),
+                    f"radio source-delivery projection failed: {row['id']}")
+            require((delivery.get("interrupted_item_id") == f"{authority['slug']}-INTERRUPTIBLE") if voice_role == "PA"
+                    else delivery.get("interrupted_item_id") is None,
+                    f"radio source-delivery interruption identity failed: {row['id']}")
+            if voice_role in {"FUNCTIONAL", "PA"}:
+                payload = row.get("functional_payload")
+                expected_owner, expected_event, expected_receipt = authority[voice_role.lower()]
+                require(isinstance(payload, dict) and FUNCTIONAL_FIELDS.issubset(payload)
+                        and all(isinstance(payload[field], str) and payload[field].strip()
+                                for field in FUNCTIONAL_FIELDS - {"priority"})
+                        and type(payload.get("priority")) is int
+                        and payload["ownerDomain"] == expected_owner
+                        and payload["eventId"] == expected_event
+                        and payload["receiptId"] == expected_receipt
+                        and payload["expiresAt"] == "2099-01-01T00:00:00Z"
+                        and payload["captionText"] == row["caption_text"]
+                        and payload["spokenText"] == row["spoken_text"]
+                        and payload == source_item.get("payload")
+                        and row["schedule_item_id"] == (expected_event if voice_role == "PA"
+                            else f"{expected_event}@{expected_receipt}"),
+                        f"radio typed payload projection failed: {row['id']}")
+            else:
+                require(row.get("functional_payload") is None and source_item.get("payload") is None,
+                        f"decorative voice unexpectedly owns a functional payload: {row['id']}")
+            if row["treatment"] == "PERIOD":
+                source = row.get("derivative_source")
+                expected_clean_path = canonical_contained(
+                    PILOT_ROOT,
+                    PILOT_ROOT / f"06_radio/demos-v2/{authority['slug']}/voice/{voice_role}/CLEAN.wav",
+                )
+                require(isinstance(source, dict)
+                        and source.get("id") == row["id"].removesuffix("-PERIOD") + "-CLEAN"
+                        and canonical_contained(PILOT_ROOT, Path(source.get("path", ""))) == expected_clean_path,
+                        f"period voice derivative source identity failed: {row['id']}")
+                verified_path(source)
+            else:
+                require(row.get("derivative_source") is None, f"clean voice must not claim a derivative source: {row['id']}")
+        elif row["role"] == "MILESTONE_STING":
+            require(row.get("bus") == "MILESTONE_STINGS"
+                    and row.get("caption_text") == MILESTONE_CAPTION
+                    and row.get("sha256") == MILESTONE_STING_SHA256
+                    and row.get("source_audio_identity") == {
+                        "sha256": MILESTONE_STING_SHA256,
+                        "binding": "EXACT_PINNED_SHA256_IN_COMMITTED_REGISTER_BUILDER",
+                    }
+                    and row.get("schedule_item_ids") == ["LAB-STING-E02-V2", "LAB-STING-E03-V2", "LAB-STING-E07-V2"]
+                    and row["format"] == probe_audio(Path(row["path"])), "milestone sting contract failed")
+            authorities = row.get("caption_authorities")
+            require(isinstance(authorities, list) and len(authorities) == 3, "milestone caption authorities failed")
+            expected_caption_paths = {
+                f"06_radio/demos-v2/{binding['slug']}/CAPTIONS.v2.vtt"
+                for binding in EXPECTED_REGISTER_RADIO.values()
+            }
+            actual_caption_paths: set[str] = set()
+            for authority in authorities:
+                verified_path(authority)
+                path = Path(authority["path"])
+                actual_caption_paths.add(str(path.relative_to(PILOT_ROOT)))
+                require(authority.get("cue_text") == MILESTONE_CAPTION
+                        and path.read_text(encoding="utf-8").splitlines().count(MILESTONE_CAPTION) == 1,
+                        f"milestone caption text authority failed: {path}")
+            require(actual_caption_paths == expected_caption_paths, "milestone caption path authorities failed")
+        elif row["role"] == "RADIO_DEMO":
+            slug = row["id"].removeprefix("ASP01-RADIO-")
+            require(slug in EXPECTED_RADIO_DEMOS
+                    and row.get("epoch") == EXPECTED_RADIO_DEMOS[slug]
+                    and row.get("presenter_id") == EXPECTED_DEMO_PRESENTERS[slug]
+                    and row.get("classification") == "SCHEDULER_RENDERED_BAKED_FULL_PROGRAMME_OFFLINE_AUDITION_ONLY"
+                    and row.get("playback_policy") == "OFFLINE_AUDITION_ONLY"
+                    and row.get("permitted_lab_contexts") == ["OFFLINE_AUDITION"]
+                    and row.get("runtime_refusal_reason") == BAKED_FULL_MIX_REFUSAL,
+                    f"baked radio demo playback policy failed: {row['id']}")
+            verified_path(row["caption_track"])
+            verified_path(row["transcript"])
+    voice_items = [row for row in system["items"] if row["role"] in {"RADIO_VOICE", "PA_VOICE"}]
+    for clean in [row for row in voice_items if row["treatment"] == "CLEAN"]:
+        period = next((row for row in voice_items if row["id"] == clean["id"].removesuffix("-CLEAN") + "-PERIOD"), None)
+        require(period is not None
+                and period["spoken_text_sha256"] == clean["spoken_text_sha256"]
+                and period["duration_seconds"] == clean["duration_seconds"]
+                and period["derivative_source"]["sha256"] == clean["sha256"],
+                f"radio clean/period pair failed: {clean['id']}")
+    return system
+
+
+def check_system_oracle_apps(lab_app: Path, return_root: Path) -> dict[str, Any]:
+    require(return_root == RETURN_ROOT.resolve(strict=True), "final validation refuses a noncanonical return-package root")
+    system = verified_system_register()
     oracle = verify_oracle()
     unity_proof = verify_current_lab_proof(lab_app, git(UNITY_REPO, "rev-parse", "HEAD"))
     receipt = load(BUILD_RECEIPT, "project-studio-audio-lab-build-receipt/v1")
@@ -640,20 +948,11 @@ def check_system_oracle_apps(lab_app: Path, return_root: Path) -> dict[str, Any]
     for launcher in (return_root / "AUDIO-LAB/START-AUDIO-LAB.command", return_root / "AUDITION/START-AUDITION.command"):
         require(launcher.is_file() and bool(launcher.stat().st_mode & 0o111), f"launcher not executable: {launcher}")
     subprocess.run(["codesign", "--verify", "--deep", "--strict", str(return_root / "AUDIO-LAB/Project Studio Audio Systems Pilot.app")], check=True, capture_output=True, text=True)
-    return {"system_items": 122, "oracle_required_scenarios": 18, "oracle_total_scenarios": oracle["total_scenarios"], "oracle_offline_processor_marker_renders": oracle["offline_processor_marker_renders"], "audition_items": audition["counts"]["items"], "return_files": len(package["files"]), "return_manifest_sha256": sha256_file(return_root / "RETURN-PACKAGE-MANIFEST.json"), "editmode_passed": unity_proof["editmode_passed"], "playmode_passed": unity_proof["playmode_passed"], "codesign": "PASS"}
+    return {"system_items": EXPECTED_SYSTEM_REGISTER_ITEMS, "oracle_required_scenarios": 18, "oracle_total_scenarios": oracle["total_scenarios"], "oracle_offline_processor_marker_renders": oracle["offline_processor_marker_renders"], "audition_items": audition["counts"]["items"], "return_files": len(package["files"]), "return_manifest_sha256": sha256_file(return_root / "RETURN-PACKAGE-MANIFEST.json"), "editmode_passed": unity_proof["editmode_passed"], "playmode_passed": unity_proof["playmode_passed"], "codesign": "PASS"}
 
 
 def check_prepackage_system_oracle_and_audition(lab_app: Path) -> dict[str, Any]:
-    system = load(SYSTEM_REGISTER, "project-studio-system-audio-asset-register/v5")
-    require(system["status"] in ALLOWED_STATUS and len(system["items"]) == 122 and sum(system["counts"].values()) == 122, "system register failed")
-    require("NO_RECURSIVE_SCAN" in system["loading_law"] and "NO_NETWORK" in system["loading_law"] and "FAIL_CLOSED" in system["loading_law"], "external-loading law incomplete")
-    ids = [row["id"] for row in system["items"]]
-    require(len(ids) == len(set(ids)), "duplicate system ID")
-    for record in system["source_manifests"]:
-        verified_path(record)
-    for row in system["items"]:
-        require(row["rights_status"] in ALLOWED_STATUS and row["human_disposition"] == "PENDING", "system status boundary violated")
-        verified_path(row)
+    system = verified_system_register()
     oracle = verify_oracle()
     unity = verify_current_lab_proof(lab_app, git(UNITY_REPO, "rev-parse", "HEAD"))
     source = load(AUDITION_SOURCE, "project-studio-audio-systems-audition-source/v2")
@@ -664,7 +963,7 @@ def check_prepackage_system_oracle_and_audition(lab_app: Path) -> dict[str, Any]
     for record in source["source_manifests"]:
         verified_path(record)
     return {
-        "system_items": 122, "oracle_total_scenarios": oracle["total_scenarios"],
+        "system_items": EXPECTED_SYSTEM_REGISTER_ITEMS, "oracle_total_scenarios": oracle["total_scenarios"],
         "audition_items": audition["counts"]["items"], "editmode_passed": unity["editmode_passed"],
         "playmode_passed": unity["playmode_passed"], "codesign": "PASS",
     }

@@ -73,7 +73,7 @@ python3 tools/audio_systems_pilot_01/build_complete_audio_file_register.py
 ```
 
 Every final report must contain the exact standardized documentation SHA, Unity SHA, system-register SHA-256, Audio Oracle suite SHA-256, and provisional/final complete-register SHA-256 binding lines. Any later hostile-review report change invalidates the index; rebuild and verify it before packaging.
-11. Atomically update `00_state/AUDIO-SYSTEMS-PILOT-STATE.json` to exact `IN_PROGRESS` / `READY_FOR_PACKAGING`, with clean **D/U**, all live counts (including `audition_items`, `unity_editmode_passed`, `unity_playmode_passed`, and `hostile_review_lanes`), unique/resolved `ERR-0001` through `ERR-0008`, unique `DEC-0001` through `DEC-0012`, a completion entry containing `clean-SHA Unity` and `Audio Oracle`, and a next action that names package creation.
+11. Atomically update `00_state/AUDIO-SYSTEMS-PILOT-STATE.json` to exact `IN_PROGRESS` / `READY_FOR_PACKAGING`, with clean **D/U**, all live counts (including `audition_items`, `unity_editmode_passed`, `unity_playmode_passed`, and `hostile_review_lanes`), unique/resolved `ERR-0001` through `ERR-0010`, unique `DEC-0001` through `DEC-0013`, a completion entry containing `clean-SHA Unity` and `Audio Oracle`, and a next action that names package creation.
 
 ```sh
 python3 tools/audio_systems_pilot_01/update_final_state.py READY_FOR_PACKAGING
@@ -128,6 +128,12 @@ The package builder refuses to overwrite an existing return root. Verification i
 | Final reconciliation | `10_provenance/FINAL-VALIDATION.v2.json` |
 
 Older evidence remains preserved but is not a current consumer input.
+
+System-register v5 contains 147 explicit items. The 25 additions at the final hostile-review remedy are 18 Radio Voice files, six PA Voice files, and one milestone sting. `build_system_asset_register.py` accepts a voice only after its exact programme/role path, full schedule event, delivered-voice event, typed payload IDs and expiry where applicable, per-role metadata, clean/period identities, audio probes, exact audio hashes, spoken-text hash, caption/spoken equality, duration, eligible presenter, delivered speaker, caption context, speech owner, and intended bus agree. A composite opening remains one item. Equal-content PA clean files retain distinct path IDs while sharing an acknowledged content hash; no claim of distinct audio is made. The sting is pinned to SHA-256 `8b4e0b9a4e609737d91a3fc95fe313213c496d531c00e802628c62457f02acd6`; its one important-sound caption is taken verbatim from all three hash-bound caption tracks.
+
+The register names all 27 manifests it consumes or directly projects, including the transition catalogue, three schedules, twelve voice metadata records, and three caption tracks. Final validation freezes the complete canonical register at SHA-256 `896828b23707e0283e98e0cad5971aff341655aafccc3766461331aabe0c38e7`, requires that exact path/hash set, recomputes item-role/ID projections, and independently re-projects each radio item’s full typed payload and delivered-voice timing/context from its schedule. Missing manifests, cross-program path substitution (including equal-hash PA files), role or responsive-honesty drift, payload drift, delivery-time drift, and approval/clearance overclaims fail closed.
+
+The three whole-programme radio masters remain joined to their registered preview and runtime-index identities for offline feedback, but the normalized entries are `OFFLINE_AUDITION_ONLY`. The Unity service refuses them as Audio Lab playback because baked Radio Music/Radio Voice/PA balance and timed functional captions cannot be controlled independently. Item-level failure never falls back to a baked master.
 
 ## Determinism and immutable identity
 

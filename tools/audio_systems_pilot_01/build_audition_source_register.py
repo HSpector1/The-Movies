@@ -24,6 +24,7 @@ PREVIEW_ROOT = PILOT_ROOT / "11_return-package/audition-previews-v2"
 OUTPUT_PATH = PILOT_ROOT / "11_return-package/AUDITION-SOURCE-REGISTER.v2.json"
 CONVERSION_MANIFEST = PREVIEW_ROOT / "AUDITION-PREVIEW-DERIVATIVES.json"
 HISTORY_MANIFEST = PREVIEW_ROOT / "AUDITION-PREVIEW-HISTORY.v1.json"
+EXPECTED_SYSTEM_REGISTER_ITEMS = 147
 ENCODING_PROFILE = {
     "container": "m4a",
     "codec": "aac",
@@ -420,7 +421,8 @@ def build() -> dict[str, Any]:
     system = json.loads(SYSTEM_REGISTER.read_text(encoding="utf-8"))
     if (system.get("schema") != "project-studio-system-audio-asset-register/v5"
             or system.get("status") not in {"PROTOTYPE_ONLY", "PROTOTYPE_READY_FOR_OWNER_AUDITION"}
-            or len(system.get("items", [])) != 122 or sum(system.get("counts", {}).values()) != 122):
+            or len(system.get("items", [])) != EXPECTED_SYSTEM_REGISTER_ITEMS
+            or sum(system.get("counts", {}).values()) != EXPECTED_SYSTEM_REGISTER_ITEMS):
         raise RuntimeError("unexpected systems register schema")
     source_items = system["items"]
     source_ids = [row.get("id") for row in source_items]

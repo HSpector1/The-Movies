@@ -199,7 +199,25 @@ def build(mode: str) -> dict[str, Any]:
         prior = existing.get(error_id, {"id": error_id, "classification": "FINAL_EVIDENCE_RECONCILIATION"})
         upsert_by_id(errors, {**prior, "correction": correction, "focused_proof": proof, "status": "RESOLVED"})
     upsert_by_id(errors, {
-        "id": "ERR-0008",
+        **existing.get("ERR-0008", {
+            "id": "ERR-0008", "classification": "HOSTILE_REVIEW_RADIO_PRESENTER_IDENTITY_DRIFT",
+            "hypothesis": "The Unity fixture retained presenter IDs that did not match the canonical external ensemble.",
+        }),
+        "correction": "Replaced the additive Unity fixtures with the canonical Mae Calder, Arthur Vale, and Rina Shore identities and cross-checked programme and delivered-speaker roles.",
+        "focused_proof": "Focused fixture/scheduler tests plus the clean-SHA full Unity and eight-lane hostile-review proof pass.",
+        "status": "RESOLVED",
+    })
+    upsert_by_id(errors, {
+        **existing.get("ERR-0009", {
+            "id": "ERR-0009", "classification": "HOSTILE_REVIEW_RADIO_ACCESSIBILITY_AND_ROUTING",
+            "hypothesis": "Baked full-programme playback bypassed independent voice/PA controls and the transcript conflated caption display with audible scheduling.",
+        }),
+        "correction": "Registered exact item-level clean/period voice and sting assets; bound programme/role paths, schedule and delivered-speaker identity, speech ownership, exact typed IDs/expiry, and one hash-pinned important-sound caption; rebuilt fixtures from those authorities; made baked masters canonically offline-audition-only; and recorded explicit caption/DSP/audibility/interruption lifecycle.",
+        "focused_proof": "The deterministic 147-item register and independent validator, tamper-focused radio/accessibility tests, clean-SHA full Unity proof, and hostile accessibility re-review pass; word-timed interrupted captions remain explicitly deferred.",
+        "status": "RESOLVED",
+    })
+    upsert_by_id(errors, {
+        "id": "ERR-0010",
         "classification": "FINAL_VALIDATOR_FALSE_GREEN_AND_RETRY_AUDIT",
         "hypothesis": "Early final consumers trusted top-level PASS flags, mutable mappings, or fixed retry paths more than independently recomputed evidence.",
         "correction": "Added exact semantic projections, source/branch/build bindings, content-addressed Oracle evidence, eager successful-run snapshots, staged/hash-checked archives, one bounded non-destructive legacy metadata supplement, state upserts, and one-shot package preflight.",
@@ -214,6 +232,11 @@ def build(mode: str) -> dict[str, Any]:
         "id": "DEC-0012",
         "decision": "Keep generated/derived counts explicitly scoped and classify Oracle WAVs as two Editor offline marker renders, never runtime mix captures.",
         "reason": "This preserves exact accounting without overstating the origin or listening value of machine marker evidence.",
+    })
+    upsert_by_id(decisions, {
+        "id": "DEC-0013",
+        "decision": "Use only exact item-level voice/sting assets for Unity runtime radio and keep baked programme masters offline-audition-only.",
+        "reason": "Independent Radio Voice/PA controls, caption timing, and audibility lifecycle cannot be provided honestly for a baked composite mix.",
     })
     completed = state.get("completed_work", [])
     marker = "Completed clean-SHA Unity compile, EditMode, PlayMode, isolated build/codesign, Audio Oracle, offline audition, provenance, and eight-lane hostile-review proof."

@@ -153,6 +153,7 @@ BOUND_SOURCE_PATHS = (
     "tools/audio_systems_pilot_01/audition_app_source/START-AUDITION.command",
     "tools/audio_systems_pilot_01/build_complete_audio_file_register.py",
     "tools/audio_systems_pilot_01/build_hostile_review_index.py",
+    "tools/audio_systems_pilot_01/build_system_asset_register.py",
     "tools/audio_systems_pilot_01/common.py",
     "tools/audio_systems_pilot_01/package_owner_return.py",
     "tools/audio_systems_pilot_01/repair_unity_validation_archives.py",
@@ -229,7 +230,7 @@ CORE_STATE_COUNTS = {
     "radio_thirty_minute_simulations": 3,
     "accessibility_demo_renders": 6,
     "four_hour_density_traces": 12,
-    "system_register_items": 122,
+    "system_register_items": 147,
     "master_index_audio_assets": 152,
     "derivative_source_relationships": 80,
     "phase_asset_generated_audio_files": 124,
@@ -1488,14 +1489,14 @@ def verify_state_record(doc_sha: str, unity_sha: str, allowed_pairs: set[tuple[s
     errors = state.get("errors")
     require(isinstance(errors, list) and all(isinstance(error, dict) for error in errors), "state error ledger is malformed")
     error_ids = [error.get("id") for error in errors]
-    require(len(error_ids) == len(set(error_ids)) and {f"ERR-{number:04d}" for number in range(1, 9)} <= set(error_ids), "state error ledger lost or duplicated recovery history")
+    require(len(error_ids) == len(set(error_ids)) and {f"ERR-{number:04d}" for number in range(1, 11)} <= set(error_ids), "state error ledger lost or duplicated recovery history")
     require(all(error.get("status") == "RESOLVED" for error in errors), "packaging state has an unresolved ordinary failure")
     decisions = state.get("decisions", [])
     require(isinstance(decisions, list) and all(isinstance(row, dict) for row in decisions), "state decision ledger is malformed")
     raw_decision_ids = [row.get("id") for row in decisions]
     require(len(raw_decision_ids) == len(set(raw_decision_ids)), "state decision IDs are duplicated")
     decision_ids = set(raw_decision_ids)
-    require({f"DEC-{number:04d}" for number in range(1, 13)} <= decision_ids, "state is missing a recorded pilot decision")
+    require({f"DEC-{number:04d}" for number in range(1, 14)} <= decision_ids, "state is missing a recorded pilot decision")
     completed = state.get("completed_work", [])
     require(any("clean-SHA Unity" in row and "Audio Oracle" in row for row in completed), "state lacks final clean-SHA/Oracle completion record")
     next_action = state.get("next_resumable_action", "")
@@ -1610,7 +1611,7 @@ def known_limitations() -> str:
 - Period treatment is not one universal “old radio” filter; nevertheless all three approaches remain provisional.
 - Unity batch proof validates code, scene structure, schedules, files, and rendered signal properties. It cannot prove audibility on every device or subjective mix quality.
 - The Audio Oracle contains scenario-labelled Unity evidence for all required scenarios: PlayMode observations where available, plus batch policy/validator execution and frozen-trace revalidation. Force Mono and Night carry Unity Editor-generated offline output-processor marker renders; these are not AudioSource, mixer, built-player, or hardware-output captures. No scenario is presented as a mixed listening demonstration.
-- The lab scheduler exposes separate Radio Music, Radio Voice, and PA/Help bus targets, but individual scratch voice units are not v5 runtime-register entries. Scheduled missing voice fails visibly to captions/transcript. The three audible radio demos are baked full mixes on Radio Music, so their internal voice/bed balance cannot be adjusted independently.
+- The v5 runtime register exposes 18 item-level Radio Voice files, six PA Voice files, and one milestone sting on independent buses. Missing or mismatched item audio fails visibly to caption/transcript-only presentation with no duck. The three whole-programme demos are baked full mixes, so Unity refuses their audible playback and keeps them in the offline audition desk with their caption/transcript files. Interrupted items retain whole-source rather than word-timed caption text and are explicitly marked interrupted.
 - Radio, PA, score, ambience, SFX, and UI never mutate mechanics. Functional bulletins use typed lab fixture payloads until their future owner contracts exist.
 - The Small-SFX path uses an exact public optimized prototype weight and existing approved shared components. It does not create commercial clearance.
 - The Audio Lab APIs and integration proposal are provisional. Production integration was prepared but not executed.
@@ -2044,12 +2045,12 @@ def verify_package_source_bindings(root: Path, bindings: dict[str, Any]) -> dict
     decisions = state_snapshot.get("decisions", [])
     require(isinstance(errors, list) and all(isinstance(row, dict) for row in errors)
             and len({row.get("id") for row in errors}) == len(errors)
-            and {f"ERR-{number:04d}" for number in range(1, 9)} <= {row.get("id") for row in errors}
+            and {f"ERR-{number:04d}" for number in range(1, 11)} <= {row.get("id") for row in errors}
             and all(row.get("status") == "RESOLVED" for row in errors),
             "return package packaging-state error ledger is malformed, duplicated, or unresolved")
     require(isinstance(decisions, list) and all(isinstance(row, dict) for row in decisions)
             and len({row.get("id") for row in decisions}) == len(decisions)
-            and {f"DEC-{number:04d}" for number in range(1, 13)} <= {row.get("id") for row in decisions},
+            and {f"DEC-{number:04d}" for number in range(1, 14)} <= {row.get("id") for row in decisions},
             "return package packaging-state decision ledger is malformed or duplicated")
     return {"bound_files": len(rows), "bound_trees": len(tree_rows), "documentation_sha": doc_sha, "unity_sha": unity_sha}
 

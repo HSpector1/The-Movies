@@ -240,7 +240,7 @@ The implementation is bound to:
 - anchor authority: `/Users/bruce/Project Studio Audio Systems Pilot 01/02_music-bundles/responsive/responsive-anchor-authority.v2.json`, SHA-256 `90ff6232dbae0e23fce6afabf8fba38b21b1e224fc6334b03a43c5b36e36d723`;
 - generated-audio index: `/Users/bruce/Project Studio Audio Systems Pilot 01/10_provenance/audio-assets-index.v4.json`, SHA-256 `8a62dd08bbce692b597f6eb33974fd7c1af66e0d7d9d935832c3f7dd3d799693`;
 - generated-audio validation: `/Users/bruce/Project Studio Audio Systems Pilot 01/10_provenance/audio-assets-validation.v4.json`, SHA-256 `7839cea3a427f0cbf3966740ac1ff99e538766e147e263d21005b3d62a757b47`;
-- current cross-system audition register: `/Users/bruce/Project Studio Audio Systems Pilot 01/10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json`, SHA-256 `5b08e72e58564d0e096b69a46903c0792d153158376a5fcf3a865e118ebe9982`.
+- current cross-system audition register: `/Users/bruce/Project Studio Audio Systems Pilot 01/10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json`, SHA-256 `896828b23707e0283e98e0cad5971aff341655aafccc3766461331aabe0c38e7`.
 
 Each selected context supplies a 60-second normalized full mix, 54-second derived loop, 8-second entry, 8-second exit, and AAC preview. Generated timing confidence remains low, so real cue transitions use safe crossfades. Audio Oracle’s phrase-alignment case uses a declared synthetic trustworthy-grid fixture; it is transport proof, not a claim about these generated files.
 
