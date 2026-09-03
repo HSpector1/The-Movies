@@ -1,0 +1,37 @@
+{
+ "kind": "p06b-real-hid (\u00a725)",
+ "result": "PASS",
+ "build": "P06B af65577",
+ "executableSha256": "adf9c0bfc1a520182326024682c9404acbbfba1c4195616dbe9fc8b00aa4b848",
+ "viewport": [
+  1440,
+  900
+ ],
+ "checkpoint": "s4-release-ready",
+ "commitFlow": {
+  "picture": "prod-0000 City of Gambit",
+  "clickScreenPoint": [
+   107,
+   280
+  ],
+  "operationalStateBefore": "release-ready",
+  "operationalStateAfter": "release-committed",
+  "commitIntentBefore": "available",
+  "commitIntentAfter": "consumed",
+  "modifiersBefore": "clean",
+  "modifiersAfter": "clean"
+ },
+ "worldWithoutRailPriming": {
+  "click": "world-selectable-stage-a (437,134)",
+  "result": "production-entry-card shown: Soundstage 7 \u00b7 Available"
+ },
+ "evidence": [
+  "before-click.png",
+  "after-commit.png",
+  "world-click-stagea.png",
+  "snapshot-before.json",
+  "snapshot-after.json",
+  "engine.log",
+  "app.log"
+ ]
+}
