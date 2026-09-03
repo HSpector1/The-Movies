@@ -4,9 +4,16 @@
 > compaction/long run/hostile review/final integration/blocker stop, and at least every 4h.
 > Nothing meaningful may live only in scratch, /private/tmp, a process, chat, or an unpushed tree.
 
-## Status: ENTRY COMPLETE · P06A HID BASELINE PASSED · P06B WAVES BEGINNING
+## Status: SEALED — KEEP CANDIDATE, OWNER ACCEPTANCE PENDING
 
-Current status line: **IN PROGRESS — KEEP CANDIDATE not yet minted.**
+Terminal state (SUCCESS): P06A HID baseline completed; the Living Studio UI/UX pass (W0 tokens, W1
+executive HUD incl. the 1280×800 heartbeat fix, W2 movie rail = primary) implemented and proven;
+all floors green (TS 4903/0, EditMode 731/731, oracle 6/6, profile 25/25, real HID PASS); **two
+independent hostile reviews ACCEPT** (0 blocking; the one genuine finding fixed + re-proven); campaign
+branches fast-forwarded and pushed (TS `48c419d`, Unity `18a2887`, local==upstream==remote);
+Owner candidate preserved at `~/Desktop/P06B-Owner-Candidate-48c419d-18a2887/` (P06A candidate NOT
+overwritten); worktrees clean; owned processes stopped; **no P07 gameplay begun.**
+Final status: **KEEP CANDIDATE — OWNER ACCEPTANCE PENDING.**
 
 ## 1. Campaign clock & environment
 

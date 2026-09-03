@@ -28,7 +28,10 @@ visual language — presentation-only, fully proven, fresh-hostile-reviewer **AC
   (The managed-code hash 765dfc00→3ba5ba10 vs the pre-FitTitle build is itself proof the N1 fix
   shipped — C# lives in Assembly-CSharp.dll, not the Mach-O exe. build-manifest regenerated clean at
   18a2887; all oracle/HID run-bindings share exe 130a13a0.)
-- Campaign fast-forward tips: **[FINALIZED AT §30 SEAL]**.
+- **Campaign fast-forward tips (§30 SEAL):** `campaign/living-lot-ts` == `48c419d` (== TS WIP);
+  `campaign/living-lot-client` == `18a288715bb88281…` (== Unity WIP). Pure fast-forwards (Unity clean;
+  TS via a disclosed docs-only reconcile merge `48c419d`) — no merge commit at either campaign tip, no
+  force-push, no history rewrite. **local == upstream == remote verified for all four branches.**
 
 ## REFERENCE DELTA (§6/§8)
 `docs/research/P06B-LIVING-STUDIO-UX-REFERENCE-DELTA.md` (+ full synthesis). Lead decision: adopt the
@@ -86,7 +89,7 @@ idle-post · wrapped-waiting-for-post · active-finishing · release-ready · co
 multi-picture-contention. All **playerExit=0** (machine assertions pass), **all image bytes inspected**:
 unified rail + lifecycle track + no truncation, commit affordance at Release Ready, committed=green
 "releases next week" (no P07 leak), all active movies shown with exact-ID isolation, world dominant.
-Bound to the sealed exe. **[RE-RUN ON exe 130a13a0 — RESULT AT §30 SEAL]**
+Bound to the sealed exe. **RE-RUN on the sealed exe 130a13a0: 6/6 playerExit=0, all image bytes re-inspected (incl. graceful title ellipsis).**
 
 ## UX CAPTURE SET (§22) — before/after
 `docs/campaigns/evidence/p06b-implementation/ux/` — BEFORE(P06A) vs AFTER(P06B) at 1440 + 1280.
@@ -96,8 +99,8 @@ floating boxes with clipped titles (before) → one unified portfolio with full 
 ## TEST FLOOR (§26)
 - TypeScript: **4903 passed / 0 failed** (5 skipped, 359 files) — P06B TS is docs-only over P06A.
 - Bridge/contract: **CF-09 unaffected** — no DTO/Generated/projection change (presentation-only delta).
-- Unity EditMode: **731/731** (added a post-founding heartbeat coverage test; updated one source pin to
-  the corrected call — strengthened, not weakened). **[RE-CONFIRMED ON 18a2887 — AT §30 SEAL]**
+- Unity EditMode: **731/731** — re-confirmed on the sealed build 18a2887 (added a post-founding heartbeat
+  coverage test; updated one source pin to the corrected call — strengthened, not weakened).
 - Machine (profile 25/25) · Visual (oracle 6/6) · HID (§25 PASS) — each a separate layer.
 
 ## HOSTILE REVIEW (§28)
@@ -105,12 +108,14 @@ One fresh independent reviewer, 30 criteria, opened 9 PNG byte files, verified d
 traces to snapshot. **VERDICT: ACCEPT — 0 blocking, 0 regressions.** Non-blockers: N1 longest-title
 clip (**FIXED** — graceful ellipsis, this build) ; N2 the unchanged P06A *workspace* copy lags the
 correct rail on wrapped-waiting (F2 family, out of presentation-rail scope) ; N3 one capture caught a
-transient bridge-refresh (re-captured clean). **[ROUND-2 CONFIRMATION OF N1 FIX — AT §30 SEAL]**
+transient bridge-refresh (re-captured clean). **Round-2 (fresh independent reviewer) CONFIRMED ACCEPT on the sealed build 18a2887 / exe 130a13a0**: N1 resolved (ellipsis verified in image bytes), FitTitle is draw-only with no regression; it also caught a stale Assembly-C# hash in this report (now corrected to 3ba5ba10).
 
 ## FINAL CANDIDATE
 `~/Desktop/P06B-Owner-Candidate-<ts>-<unity>/` — sealed app, launcher, manifest, exe/engine/Assembly-C#
 hashes, contract identity, evidence index, six Oracle images, key before/after UX images, Owner
-playtest. **P06A candidate NOT overwritten.** **[CREATED AT §30]**
+playtest. **P06A candidate NOT overwritten** (verified intact, exe `aabc41f8`). **CREATED:**
+`~/Desktop/P06B-Owner-Candidate-48c419d-18a2887/` — sealed app + one-command launcher (bundled demo
++ your-profile arg) + build-manifest + oracle/HID/UX evidence + docs.
 
 ## KNOWN NON-BLOCKERS
 - N2 (F2 family): the P06A Production *workspace* card can say "SHOOTING" for a wrapped-waiting picture
@@ -120,5 +125,15 @@ playtest. **P06A candidate NOT overwritten.** **[CREATED AT §30]**
 - W3–W9 deeper waves are documented future scope; the primary goal (rail) + P1 HUD fix + shared tokens
   are delivered and proven.
 
-## REMOTE / WORKTREE / PROCESS STATUS · OWNER PLAYTEST · LAUNCH · NEXT ACTION
-**[FINALIZED AT §30 SEAL]** — Owner playtest script: `docs/campaigns/P06B-OWNER-PLAYTEST-SCRIPT.md`.
+## REMOTE / WORKTREE / PROCESS STATUS
+- **Remotes:** all four branches local == upstream == remote (TS 48c419d, Unity 18a2887).
+- **Worktrees:** P06B TS + Unity clean; P06 Campaign TS at 48c419d. No meaningful untracked work.
+- **Owned processes:** the campaign `caffeinate -dimsu` was stopped at seal. No engine/player/Unity processes left running.
+- **P07:** not begun — no P07 gameplay implemented; the boundary was not crossed.
+
+## OWNER PLAYTEST · LAUNCH · NEXT ACTION
+- Playtest: `docs/campaigns/P06B-OWNER-PLAYTEST-SCRIPT.md` (also in the candidate `docs/`).
+- **Launch:** `zsh "~/Desktop/P06B-Owner-Candidate-48c419d-18a2887/launcher/launch.sh"` (bundled demo),
+  or pass your own `bridge-runtime-v1.json` as the first argument.
+- **NEXT ACTION (Owner):** run the play-test walk and either ACCEPT the P06B candidate or report the
+  exact step that failed. No P07 work proceeds without fresh Owner authorization.
