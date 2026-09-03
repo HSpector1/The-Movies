@@ -114,8 +114,28 @@ per checkout / collision-prone file. Campaign branches are not edited. No end me
   title column. Evidence: `Evidence/P06D-build{1,2,3}-*` (Unity worktree).
 - Sealed P06D exe after #48: `fad37ee1…` (rail changed; not the final seal). P06B/P06C controls untouched;
   campaign refs still `04b67ec` / `18a2887`.
+- **#49 rail scale + ONE scroll owner + cap law (§10–11) — DONE + committed (Unity `10ac5e8`), proven in
+  pixels.** Single `BeginScrollView` owner; NO silent cap (all rows reachable — §11); bounded viewport
+  (never overruns the lot); content-space hit-test + screen-space LOCATE publish (HID-safe) + withheld when
+  scrolled out; wheel + PageUp/Down/End (arrows/Home stay with the camera). Tuned so a ~6-row slate fits
+  unscrolled at 1440×900 (clean hero) while 8+/14 scroll. EditMode 758/758 (+3 viewport-law tests).
+  Scale-stress oracle scenario (14 rows) proves bounded scrolling (playerExit 0); hero proven unscrolled.
+- **#47b scale-stress fixture — DONE + committed (TS `67c6352`).** Generator scenario 8 `scale-stress` (week
+  12, 14 readyToPackage screenplays, no productions); additive `writerReuseCount` param keeps s1–s7 byte-
+  identical (verified).
+- **#53 accessibility / visible focus (§21) — DONE + committed (Unity `538b9ae`).** Rail: Tab/Shift+Tab blue
+  focus ring (wrapping, visible order) + brass selection ring (selected != focused, both outline shapes),
+  Enter/Space activates (Locate), focused/selected auto-scroll into view. UI-Toolkit workspaces: visible
+  `Button:focus` outline. New `StudioUiTokens.Focus`. EditMode 760/760 (+2 focus-advance-law tests). The
+  interactive rings are input-driven → their visual confirmation comes from the real-HID proof (§29); the
+  static oracle capture is unchanged (no regression). People-strip focus rides the §54 pass.
+- **#55 docs (§24 adaptation, §25 Hollywood Wire/P07 future seam, §27 rail performance) — DONE + committed
+  (TS `e16f87d`).** §27 honestly notes IMGUI BeginScrollView clips but does not virtualize → drawn work is
+  O(total rows); virtualization recommended as a future option. RowHeight is 96f (code-true).
+- Sealed P06D exe after #53: `a129eb3d…` (not the final seal).
 
-### Next: #49 rail scale + scroll owner (§10–11)
+### In progress: #52 workspace convergence (§19) + #51 building cards (§13–18) + #54 People (§23) — via subagent
+### Remaining: #56 before/after matrix + full proof floors (§28/§29) · #57 hostile ACCEPT (§30) · #58 seal (§31–33)
 
 ## 9. Owned processes
 
