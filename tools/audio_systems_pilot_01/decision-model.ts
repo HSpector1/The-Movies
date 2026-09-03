@@ -128,7 +128,7 @@ function nextPhraseBoundary(nowDsp: number, variant: CueVariant): number | null 
 function densityGap(state: AudioPresentationState): boolean {
   if (state.density === "FULL_MUSIC") return false;
   if (state.density === "OFF") return true;
-  const threshold = state.density === "BALANCED" ? 0.27 : 0.62;
+  const threshold = state.density === "BALANCED" ? 0.18 : 0.42;
   return deterministicUnit(`${state.deterministicPresentationSeed}:density:${state.historyBundleIds.length}`) < threshold;
 }
 
@@ -249,9 +249,7 @@ export function decideAudioPresentation(
 }
 
 export function deterministicGapSeconds(mode: DensityMode, seed: string, sequence: number): number {
-  if (mode === "FULL_MUSIC") return 0;
   if (mode === "OFF") return Number.POSITIVE_INFINITY;
-  const [minimum, maximum] = mode === "BALANCED" ? [18, 48] : [55, 150];
+  const [minimum, maximum] = mode === "FULL_MUSIC" ? [8, 20] : mode === "BALANCED" ? [35, 95] : [120, 300];
   return Math.round(minimum + deterministicUnit(`${seed}:gap:${sequence}`) * (maximum - minimum));
 }
-

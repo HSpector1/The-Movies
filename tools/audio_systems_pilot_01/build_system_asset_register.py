@@ -10,16 +10,16 @@ from typing import Any
 from common import PILOT_ROOT, atomic_write_json, probe_audio, sha256_file, utc_now
 
 
-INDEX_PATH = PILOT_ROOT / "10_provenance/audio-assets-index.v3.json"
+INDEX_PATH = PILOT_ROOT / "10_provenance/audio-assets-index.v4.json"
 CATALOGUE_PATH = PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.v1.json"
-RADIO_INDEX_PATH = PILOT_ROOT / "06_radio/STUDIO-RADIO-RUNTIME-INDEX.json"
-TRANSITION_PATH = PILOT_ROOT / "03_transitions/rendered-transition-catalogue.v3.json"
-LIVING_PATH = PILOT_ROOT / "04_living-lot/living-lot-soundscape-catalogue.v2.json"
-DERIVATIVE_PATH = PILOT_ROOT / "10_provenance/audio-derivative-source-register.v3.json"
-VALIDATION_PATH = PILOT_ROOT / "10_provenance/audio-assets-validation.v3.json"
+RADIO_INDEX_PATH = PILOT_ROOT / "06_radio/STUDIO-RADIO-RUNTIME-INDEX.v2.json"
+TRANSITION_PATH = PILOT_ROOT / "03_transitions/rendered-transition-catalogue.v4.json"
+LIVING_PATH = PILOT_ROOT / "04_living-lot/living-lot-soundscape-catalogue.v3.json"
+DERIVATIVE_PATH = PILOT_ROOT / "10_provenance/audio-derivative-source-register.v4.json"
+VALIDATION_PATH = PILOT_ROOT / "10_provenance/audio-assets-validation.v4.json"
 ANCHOR_PATH = PILOT_ROOT / "02_music-bundles/responsive/responsive-anchor-authority.v2.json"
 SFX_GATE_PATH = PILOT_ROOT / "10_provenance/sfx-route-gate.v2.json"
-OUTPUT_PATH = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v3.json"
+OUTPUT_PATH = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json"
 
 
 def require(path: Path, expected: str) -> None:
@@ -46,7 +46,7 @@ def base_item(record: dict[str, Any], role: str) -> dict[str, Any]:
 def build() -> dict[str, Any]:
     existing_output = json.loads(OUTPUT_PATH.read_text(encoding="utf-8")) if OUTPUT_PATH.is_file() else None
     source_index = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
-    if source_index.get("schema") != "project-studio-audio-assets-index/v3":
+    if source_index.get("schema") != "project-studio-audio-assets-index/v4":
         raise RuntimeError("unexpected generated audio index schema")
     for manifest in source_index["source_manifests"]:
         require(Path(manifest["path"]), manifest["sha256"])
@@ -74,6 +74,7 @@ def build() -> dict[str, Any]:
             "contextual_differentiation": selection.get(
                 "contextual_differentiation", "NOT_PROVEN_REQUIRES_OWNER_LISTENING"
             ),
+            "transition_metadata": selection["transition_metadata"],
             "preview": {
                 "id": preview_id,
                 "path": str(preview_path),
@@ -96,6 +97,7 @@ def build() -> dict[str, Any]:
             "treatment": transition["treatment"],
             "classification": transition["classification"],
             "honesty": transition["honesty"],
+            "natural_ending_claimed": transition["natural_ending_claimed"],
         })
         items.append(item)
 
@@ -120,7 +122,14 @@ def build() -> dict[str, Any]:
         elif category == "LIVING_LOT_ERA_PRESENTATION":
             item = base_item(record, "LIVING_ERA_PRESENTATION")
             item["presentation"] = record["presentation"]
-            item["classification"] = "LAB_PRESENTATION_COLOR_ONLY_NO_ERA_TRUTH"
+            authority = next(
+                row for row in living_manifest["era_presentations"]
+                if row["stable_prototype_id"] == record["stable_prototype_id"]
+            )
+            item["classification"] = authority["classification"]
+            item["era_proof_eligible"] = authority["era_proof_eligible"]
+            item["historical_disposition"] = authority["historical_disposition"]
+            item["cultural_review"] = authority["cultural_review"]
             items.append(item)
         elif category == "GENERATED_LOT_DETAIL_SFX":
             item = base_item(record, "LOT_DETAIL_SFX")
@@ -185,7 +194,8 @@ def build() -> dict[str, Any]:
             "human_disposition": "PENDING",
             "epoch": demo["epoch_alias"],
             "presenter_id": demo["presenter_id"],
-            "classification": "RUNTIME_PACED_RADIO_DEMO",
+            "classification": "SCHEDULER_PRODUCED_RUNTIME_PACED_RADIO_DEMO",
+            "scheduler_evidence": demo["scheduler_evidence"],
             "caption_text": "Full caption file and transcript are supplied beside this program.",
             "caption_track": demo["captions"],
             "transcript": demo["transcript"],
@@ -209,7 +219,7 @@ def build() -> dict[str, Any]:
     if any(counts.get(role) != count for role, count in expected.items()):
         raise RuntimeError(f"system audio asset count mismatch: expected={expected}, actual={counts}")
     output = {
-        "schema": "project-studio-system-audio-asset-register/v3",
+        "schema": "project-studio-system-audio-asset-register/v5",
         "generated_utc": existing_output["generated_utc"] if existing_output else utc_now(),
         "status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
         "human_acceptance": "NONE_RECORDED",
@@ -225,6 +235,7 @@ def build() -> dict[str, Any]:
             {"path": str(SFX_GATE_PATH), "sha256": sha256_file(SFX_GATE_PATH)},
         ],
         "counts": counts,
+        "responsive_policy": source_index["responsive_policy"],
         "items": sorted(items, key=lambda item: (item["role"], item["id"])),
         "loading_law": "EXPLICIT_PATH_AND_SHA256_ONLY; NO_RECURSIVE_SCAN; NO_NETWORK; FAIL_CLOSED",
         "limitations": ["The register expresses prototype presentation eligibility only; it owns no era, activity, production, blocker, result, or save truth."],

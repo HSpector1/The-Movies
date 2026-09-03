@@ -1,6 +1,6 @@
 # Project: Studio — Responsive Music Bundles 01
 
-**Document status:** PROTOTYPE DESIGN AUTHORITY
+**Document status:** IMPLEMENTED ISOLATED LAB PROTOTYPE
 
 **Audio status:** `PROTOTYPE_ONLY` / `PROTOTYPE_READY_FOR_OWNER_AUDITION` only
 
@@ -49,11 +49,11 @@ The generation ceiling is 36 initial candidates: three candidates for each of fo
 
 | Bundle | `NORMAL` IDs | `ACTIVE` IDs | `BLOCKED` IDs | `WORKSPACE_LOW_DENSITY` IDs |
 |---|---|---|---|---|
-| `RMB-EARLY-01` | `RMB-EARLY-N-01..03` | `RMB-EARLY-A-01..03` | `RMB-EARLY-B-01..03` | `RMB-EARLY-W-01..03` |
-| `RMB-MID-01` | `RMB-MID-N-01..03` | `RMB-MID-A-01..03` | `RMB-MID-B-01..03` | `RMB-MID-W-01..03` |
-| `RMB-MODERN-01` | `RMB-MODERN-N-01..03` | `RMB-MODERN-A-01..03` | `RMB-MODERN-B-01..03` | `RMB-MODERN-W-01..03` |
+| `RMB-EARLY-01` | `ASP01-RMV-EARLY-NORMAL-C1..C3` | `ASP01-RMV-EARLY-ACTIVE-C1..C3` | `ASP01-RMV-EARLY-BLOCKED-C1..C3` | `ASP01-RMV-EARLY-WORKSPACE-C1..C3` |
+| `RMB-MID-01` | `ASP01-RMV-MID-NORMAL-C1..C3` | `ASP01-RMV-MID-ACTIVE-C1..C3` | `ASP01-RMV-MID-BLOCKED-C1..C3` | `ASP01-RMV-MID-WORKSPACE-C1..C3` |
+| `RMB-MODERN-01` | `ASP01-RMV-MODERN-NORMAL-C1..C3` | `ASP01-RMV-MODERN-ACTIVE-C1..C3` | `ASP01-RMV-MODERN-BLOCKED-C1..C3` | `ASP01-RMV-MODERN-WORKSPACE-C1..C3` |
 
-Every executed render must receive an immutable generation record containing its exact prompt text and revision, recorded seed, pinned model/code/weight identities, run timestamp, raw path and SHA-256, duration, channel layout, sample rate, measured loudness, technical disposition, machine disposition, and human disposition `PENDING`. Reserved IDs do not establish that a render exists.
+All 36 initial renders were executed with seeds `271003`, `271019`, and `271043`. The generation register records the exact prompt, negative prompt, pinned model/code/weight identities, raw path and SHA-256, format, measured signal evidence, and disposition. Thirty-two passed the technical screen. Four modern candidates were excluded for trailing silence; none was selected. Every context retained an eligible candidate, so no rescue generation was used.
 
 ### Shared prompt law
 
@@ -105,7 +105,7 @@ Selection is deterministic and evidence-bound:
 2. Exclude technical failures and machine-excluded candidates.
 3. Group candidates by bundle and context.
 4. Rank only among eligible candidates using recorded machine signals.
-5. Assign at most one provisional machine pick and one alternate per context.
+5. Assign one provisional file-fitness selection per context; contextual musical differentiation remains unproven.
 6. Keep human disposition `PENDING` until Owner listening.
 7. If no candidate passes, report `NO_ELIGIBLE_VARIANT`; do not substitute another context or era silently.
 
@@ -180,9 +180,9 @@ The model must not calculate or persist calendar year, public era, technology av
 - Immediate asset and family repeats are forbidden when at least two alternatives exist.
 - The recent-history window is `min(2, eligibleCount - 2)` and cannot produce the same full permutation twice in succession.
 - If constraints cannot all be satisfied, relaxation order and reason are emitted in the trace; identity and rights eligibility are never relaxed.
-- Minimum musical dwell target is 90 seconds plus two trustworthy phrases before elective context change.
-- Default entry hysteresis targets are 30 seconds for sustained `ACTIVE` and 20 seconds for sustained `BLOCKED`.
-- Default release hysteresis is 20 seconds.
+- Minimum musical dwell is 45 seconds before an elective context change.
+- Entry hysteresis is 8 seconds for sustained `ACTIVE` and 5 seconds for sustained `BLOCKED`.
+- `NORMAL` release has no extra context timer after minimum dwell; transport still waits for the chosen safe boundary.
 - A higher-priority speech or pause lifecycle event may change gains immediately but does not force a cue restart.
 - Workspace entry normally adjusts density/gain and waits for the next safe boundary; it does not force a new cue.
 
@@ -197,7 +197,9 @@ These durations are prototype presentation constants, not simulation rules, and 
 | `SPARSE` | Reduced cue starts | Longer deterministic gaps and more natural endings | Radio voice may occur over ambience with score absent |
 | `OFF` | No score starts; running score exits safely | Indefinite score silence | Ambience, active SFX, UI, radio, and PA remain independently available |
 
-After a cue ends, the scheduler computes a seeded gap inside the mode’s configured bounds. It must not immediately restart the same cue or treat activity as a command for continuous music. Four-hour deterministic simulations are required for each mode, but their results must be linked from evidence rather than asserted in this design document.
+After a cue ends, the scheduler computes a seeded gap inside one shared policy: Full Music 8–20 seconds with a 1.0 start probability; Balanced 35–95 seconds with 0.82 probability; Sparse 120–300 seconds with 0.58 probability; Off never starts score. A declined Balanced/Sparse start advances to another deterministic gap. It must not immediately restart the same cue or treat activity as a command for continuous music.
+
+The external v2 suite supplies 12 four-hour fixed-epoch traces—three epochs by four density modes—with exact cue IDs, families, gaps, source hashes, pitch/tempo scale, shuffle cycles, and any relaxation reason. All 12 pass structural anti-repeat and timing assertions. The suite is `02_music-bundles/simulations/FOUR-HOUR-DENSITY-SIMULATIONS.v2.json`, SHA-256 `05dff9a82a7c600d6e22462af0733a1699ed7f64e68d1d84725ac9551c7d1219`. It uses three current provisional era picks with distinct families in each fixed epoch. It proves a long-session era-pick shuffle policy, not melodic continuity among responsive variants and not four-hour comfort. Unity runtime capture remains a separate evidence lane.
 
 ## Transport contract
 
@@ -229,21 +231,18 @@ The lab transport uses paired A/B `AudioSource` instances and the Unity DSP cloc
 
 No transition claims phase alignment between independently generated variants. Even a musically pleasant crossfade remains a prototype listening judgment.
 
-## Planned evidence
+## Implemented evidence
 
-The following evidence is required before this document can report implementation success:
+The implementation is bound to:
 
-- generation register for all attempted candidates and any bounded rescue;
-- raw/derivative hash manifest;
-- technical screen and machine disposition table;
-- selected provisional pick and alternate per context;
-- phrase/bar confidence analysis and fallback decisions;
-- deterministic transition traces, including cancellation and reset;
-- four-hour traces for all four density modes;
-- exported mixed demonstrations where rendering is available;
-- Owner feedback export.
+- generation register: `/Users/bruce/Project Studio Audio Systems Pilot 01/02_music-bundles/responsive/responsive-generation-register.v2.json`, SHA-256 `a21a0a09f123833b8fac3795fe0cb96810a63bbb72e1e967827af415542a536e`;
+- bundle catalogue: `/Users/bruce/Project Studio Audio Systems Pilot 01/02_music-bundles/responsive/responsive-bundle-catalogue.v2.json`, SHA-256 `c32d4bd5006750eea3d24eb59e6a4b3d4a32c1b982827330e72750b9bcbe1460`;
+- anchor authority: `/Users/bruce/Project Studio Audio Systems Pilot 01/02_music-bundles/responsive/responsive-anchor-authority.v2.json`, SHA-256 `90ff6232dbae0e23fce6afabf8fba38b21b1e224fc6334b03a43c5b36e36d723`;
+- generated-audio index: `/Users/bruce/Project Studio Audio Systems Pilot 01/10_provenance/audio-assets-index.v4.json`, SHA-256 `8a62dd08bbce692b597f6eb33974fd7c1af66e0d7d9d935832c3f7dd3d799693`;
+- generated-audio validation: `/Users/bruce/Project Studio Audio Systems Pilot 01/10_provenance/audio-assets-validation.v4.json`, SHA-256 `7839cea3a427f0cbf3966740ac1ff99e538766e147e263d21005b3d62a757b47`;
+- current cross-system audition register: `/Users/bruce/Project Studio Audio Systems Pilot 01/10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json`, SHA-256 `5b08e72e58564d0e096b69a46903c0792d153158376a5fcf3a865e118ebe9982`.
 
-At publication of this design document, these Audio Systems Pilot outputs are **planned unless an exact evidence path and hash is subsequently added**. Prior marathon artifacts prove only their own recorded generation and analysis.
+Each selected context supplies a 60-second normalized full mix, 54-second derived loop, 8-second entry, 8-second exit, and AAC preview. Generated timing confidence remains low, so real cue transitions use safe crossfades. Audio Oracle’s phrase-alignment case uses a declared synthetic trustworthy-grid fixture; it is transport proof, not a claim about these generated files.
 
 ## Acceptance boundary
 

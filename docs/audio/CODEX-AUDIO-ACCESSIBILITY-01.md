@@ -148,7 +148,15 @@ Audio preferences are save-independent user preferences, not campaign truth. The
 
 Invalid or corrupt preferences fall back to accessible documented defaults, with captions enabled before functional voice and no assumed gameplay state. No preference file contains credentials, tokens, Owner profile data, authoritative saves, or telemetry.
 
-## Planned tests
+## Implemented lab evidence and remaining human tests
+
+The superseded v3 render manifest mixed only three sources and self-attested several non-render properties; hostile review rejected it as accessibility evidence. It remains preserved but is not canonical.
+
+The current external signal evidence is `07_audio-oracle/accessibility-renders-v4/ACCESSIBILITY-PRESETS.v4.json`, SHA-256 `0cd521819de83474cd952b2a7ad2299bc5135c72933ccd60923e438421d5f46b`. It contains six 45-second demonstrations: Standard, Speech First, Night / Limited Dynamic Range, Music Light, Music Off, and Force Mono. Eight separately rendered, hash-bound bus contributions—score, radio music, ambience, active SFX, UI, radio voice, PA/help, and milestone stings—are mixed first; limiting/compression and Force Mono are then applied to the final sum. Force Mono is recorded as a composable overlay on Standard rather than a state replacement. The Force Mono result probes as one channel; the other five probe as stereo at 48 kHz. Music Off retains six nonmusic buses.
+
+The v4 machine render verdict covers only source hashes, isolated bus contributions, final-sum routing, duration, and channel count. Caption readiness, transcript behavior, keyboard/controller reachability, Radio Off, and no-audio-only behavior are explicitly labelled `NOT_EVIDENCED_BY_OFFLINE_RENDER` and require Unity runtime/test evidence plus human review. Accessibility acceptance remains `PENDING_RUNTIME_PROOF_AND_HUMAN_REVIEW`; intelligibility, comfort, caption usability, controller usability, mono semantic distinction, and conformance are not claimed.
+
+### Automated and noninteractive checks
 
 ### Independent buses
 
@@ -187,7 +195,7 @@ Invalid or corrupt preferences fall back to accessible documented defaults, with
 - 4× retains unchanged audio pitch and tempo.
 - Preference corruption falls back safely.
 
-Test results must be linked to exact build, catalogue, fixture, seed, and Audio Oracle evidence. This document does not assert they are currently green.
+Final test results are linked from the Unity validation record and Audio Oracle index to the exact build, catalogue, fixture, seed, and source hashes. Human-facing checks below remain pending even when noninteractive tests are green.
 
 ## Human review gate
 

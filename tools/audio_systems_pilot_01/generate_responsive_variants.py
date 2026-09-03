@@ -44,6 +44,16 @@ SEEDS = (271_003, 271_019, 271_043)
 CONTEXTS = ("NORMAL", "ACTIVE", "BLOCKED", "WORKSPACE")
 
 
+def _candidate_dispositions(analysis: dict[str, Any]) -> dict[str, str]:
+    passed = bool(analysis.get("automatic_pass"))
+    return {
+        "technical_disposition": "TECHNICAL_PASS" if passed else "TECHNICAL_EXCLUDED",
+        "machine_disposition": "MACHINE_ELIGIBLE" if passed else "MACHINE_EXCLUDED",
+        "human_disposition": "PENDING",
+        "rights_status": "PROTOTYPE_ONLY",
+    }
+
+
 EPOCHS: dict[str, dict[str, Any]] = {
     "acoustic_electrical_1920_1932": {
         "code": "EARLY",
@@ -321,6 +331,7 @@ def _generate_candidate(
             "raw": file_record(raw),
             "analysis": existing,
             "reused": True,
+            **_candidate_dispositions(existing),
         }
 
     raw.parent.mkdir(parents=True, exist_ok=True)
@@ -427,6 +438,7 @@ def _generate_candidate(
         "raw": file_record(raw),
         "analysis": analysis,
         "reused": False,
+        **_candidate_dispositions(analysis),
     }
 
 
@@ -483,7 +495,7 @@ def _select_and_derive(epoch: str, epoch_data: dict[str, Any], context: str, row
             "estimated_bpm": selected["analysis"].get("estimated_bpm"),
             "estimated_bpm_confidence": selected["analysis"].get("bpm_confidence_signal"),
             "minimum_dwell_seconds": 45,
-            "hysteresis_seconds": 8,
+            "hysteresis_seconds": 8 if context == "ACTIVE" else 5 if context == "BLOCKED" else 0,
             "melodic_continuity_claimed": False,
             "phase_alignment_claimed": False,
         },

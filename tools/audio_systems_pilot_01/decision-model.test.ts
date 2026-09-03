@@ -87,8 +87,11 @@ describe("pure deterministic audio presentation", () => {
   });
 
   it("uses silence law and never changes pitch or tempo at 4x", () => {
+    expect(deterministicGapSeconds("FULL_MUSIC", "S", 1)).toBeGreaterThanOrEqual(8);
+    expect(deterministicGapSeconds("FULL_MUSIC", "S", 1)).toBeLessThanOrEqual(20);
     expect(deterministicGapSeconds("BALANCED", "S", 1)).toBe(deterministicGapSeconds("BALANCED", "S", 1));
-    expect(deterministicGapSeconds("SPARSE", "S", 1)).toBeGreaterThanOrEqual(55);
+    expect(deterministicGapSeconds("SPARSE", "S", 1)).toBeGreaterThanOrEqual(120);
+    expect(deterministicGapSeconds("SPARSE", "S", 1)).toBeLessThanOrEqual(300);
     const decision = decideAudioPresentation(state({ gameSpeed: 4 }), [bundle]);
     expect([decision.pitchScale, decision.tempoScale]).toEqual([1, 1]);
     expect(decideAudioPresentation(state({ density: "OFF" }), [bundle]).silenceDensityState).toBe("MUSIC_OFF");
@@ -110,21 +113,30 @@ const payload: FunctionalPayload = {
   expiresAt: "2099-01-01T00:00:00Z",
   captionText: "Same text.",
   spokenText: "Same text.",
+  source: "EXPLICIT_AUDIO_LAB_FIXTURE",
+  fixtureVersion: "v1",
+  locale: "en-US",
+  createdAt: "2026-09-03T00:00:00Z",
+  deterministicSeed: "TEST-SEED",
 };
 
 function radio(id: string, contentType: RadioItem["contentType"], priority: number, overrides: Partial<RadioItem> = {}): RadioItem {
   return {
     id,
     contentType,
+    category: contentType,
     dayparts: ["MORNING"],
     presenters: ["P"],
     priority,
     cooldownSeconds: 100,
+    categoryCooldownSeconds: 0,
+    durationSeconds: 20,
     expiresAt: null,
     coalesceKey: null,
     captionText: "Same text.",
     spokenText: "Same text.",
     payload: contentType === "FUNCTIONAL" ? payload : null,
+    streamerSafeEligible: true,
     ...overrides,
   };
 }
@@ -137,12 +149,12 @@ describe("runtime radio scheduler", () => {
       nowIso: "2026-09-03T00:00:00Z",
       daypart: "MORNING",
       presenterId: "P",
-      history: [{ id: "D", playedAtSeconds: 150 }],
+      history: [{ id: "D", playedAtSeconds: 100 }],
       radioEnabled: true,
       streamerSafe: false,
     });
     expect(decision.item?.id).toBe("PA");
-    expect(decision.reason).toBe("PA_PREEMPTS_RADIO");
+    expect(decision.reason).toBe("PA_SELECTED");
     expect(decision.mechanicsMutated).toBe(false);
   });
 
@@ -162,5 +174,33 @@ describe("runtime radio scheduler", () => {
     const decision = scheduleRadio({ items: [], nowSeconds: 0, nowIso: "2026-01-01T00:00:00Z", daypart: "MORNING", presenterId: "P", history: [], radioEnabled: false, streamerSafe: false });
     expect(decision.reason).toMatch(/MECHANICS_UNCHANGED/);
   });
-});
 
+  it("enforces global spacing and rolling voice and elective budgets", () => {
+    const base = { items: [radio("D2", "DECORATIVE", 20)], nowIso: "2026-09-03T00:00:00Z", daypart: "MORNING", presenterId: "P", radioEnabled: true, streamerSafe: false } as const;
+    expect(scheduleRadio({ ...base, nowSeconds: 50, history: [{ id: "D1", playedAtSeconds: 0, contentType: "DECORATIVE", category: "OTHER", durationSeconds: 20 }] }).reason).toBe("SPEECH_BUDGET_REQUIRES_SILENCE");
+    const history = [
+      { id: "D1", playedAtSeconds: 0, contentType: "DECORATIVE" as const, category: "A", durationSeconds: 30 },
+      { id: "D0", playedAtSeconds: 100, contentType: "DECORATIVE" as const, category: "B", durationSeconds: 30 },
+    ];
+    const budgeted = scheduleRadio({ ...base, nowSeconds: 200, history });
+    expect(budgeted.item).toBeNull();
+    expect(budgeted.candidateEvaluations[0].reason).toBe("ROLLING_ELECTIVE_START_BUDGET");
+  });
+
+  it("lets PA preempt the one active radio owner and records the victim", () => {
+    const decision = scheduleRadio({
+      items: [radio("PA", "PA_HELP", 100)], nowSeconds: 610, nowIso: "2026-09-03T00:00:00Z",
+      daypart: "MORNING", presenterId: "P", history: [], radioEnabled: true, streamerSafe: false,
+      activeSpeech: { itemId: "QUEUED-RADIO", owner: "RADIO_VOICE", endsAtSeconds: 630 },
+    });
+    expect(decision.reason).toBe("PA_PREEMPTS_RADIO");
+    expect(decision.interruptedItemId).toBe("QUEUED-RADIO");
+  });
+
+  it("fails closed for invalid typed functional parity before selection", () => {
+    const invalid = radio("F", "FUNCTIONAL", 70, { payload: { ...payload, captionText: "Different" } });
+    const decision = scheduleRadio({ items: [invalid], nowSeconds: 200, nowIso: "2026-09-03T00:00:00Z", daypart: "MORNING", presenterId: "P", history: [], radioEnabled: true, streamerSafe: false });
+    expect(decision.item).toBeNull();
+    expect(decision.candidateEvaluations[0].reason).toBe("FUNCTIONAL_PAYLOAD_INVALID_OR_DIVERGENT");
+  });
+});

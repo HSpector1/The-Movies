@@ -1,14 +1,14 @@
 # Project: Studio — Studio Radio Runtime 01
 
-**Document status:** PROTOTYPE DESIGN AUTHORITY
+**Document status:** IMPLEMENTED ISOLATED-LAB PROTOTYPE CONTRACT
 
 **Source script bank:** 126 marathon prototype units
 
-**Runtime scheduler evidence:** PLANNED UNTIL LINKED
+**Runtime scheduler evidence:** THREE 660-SECOND RENDERS; THREE 1,800-SECOND DETERMINISTIC TRACES
 
 **Voice status:** GENERIC LOCAL SCRATCH PROTOTYPE ONLY
 
-**Simulation authority:** NONE
+**Simulation authority:** EXPLICIT LAB FIXTURES ONLY; NONE OVER GAME TRUTH
 
 ## Purpose
 
@@ -22,7 +22,9 @@ The AI Music Foundry Marathon contains 126 original prototype script units: 14 f
 
 The prior audit identified spoken meta-fiction vocabulary such as `fictional`, `imaginary`, and `make-believe`. Those words may remain in metadata, rights notes, test fixtures, or safety classifications, but they must not puncture an in-world broadcast unless the actual subject requires the word. Cleanup must preserve the invented world meaning without substituting real people, brands, institutions, or false historical claims.
 
-This document defines the audit and runtime contracts. It does not claim that all 126 units have already passed the new linter. A clean result requires an exact machine-readable audit report and hash.
+All 126 units were processed by deterministic cleanup and the expanded v2 linter. The source pass reported 324 field findings: 284 spoken-meta-fiction hits and 40 placeholder-legal-language hits. The cleaned bank reports zero registered-pattern findings and zero caption-parity failures. The remaining “whenever our story allows” leak from v1 is removed. The immutable clean bank is `06_radio/script-bank/STUDIO-RADIO-SCRIPT-BANK-01-CLEAN.v2.json`, SHA-256 `d0c65741c6b72509292904d24f9e3716df823f12d13350a6d38482adb60245fb`; its location-bearing report is `RADIO-COPY-LINT.v2.json`, SHA-256 `58fbe531856a2561677609caf9d115af0fefd7bf25a3df4f92d217e3542dc2f2`.
+
+The v2 content boundary admits 108 decorative units. All 18 technology/workflow units are `FUNCTIONAL_TEMPLATE_WITHHELD`, runtime-ineligible, and marked `REQUIRES_TYPED_P13_PAYLOAD_AND_EDITORIAL_SOURCE`. They were not silently relabelled as decorative chatter. This machine result proves only the registered patterns, exact finding locations, and byte parity; editorial, historical, cultural, localization, performance, naming/mark, and legal review remain pending.
 
 ## Content classes
 
@@ -76,7 +78,7 @@ FunctionalRadioPayload
   spokenText
 ```
 
-Lab records also carry `source: LAB_FIXTURE`, fixture version, locale, created time, and deterministic test seed, but those annotations do not weaken the required identity.
+Lab records also carry `source: EXPLICIT_AUDIO_LAB_FIXTURE`, fixture version, locale, created time, and deterministic test seed, but those annotations do not weaken the required identity. The three schema-validated records are in `06_radio/functional-fixtures.v2.json`, SHA-256 `43a6076bc0fba38f5820ce2e6c60b37b8df72f10a6bfcfe9dad963a4994c0eb3`.
 
 Rules:
 
@@ -112,19 +114,19 @@ The prototype uses three recurring, explicitly fictional presenter identities ac
 
 | Presenter ID | Working identity | Core role | Performance grammar | Avoid |
 |---|---|---|---|---|
-| `PRESENTER-MARA-VENN` | Mara Venn | Measured service anchor; functional handoffs and calm daypart continuity | Clear breath groups, economical syntax, moderate pace, precise nouns, restrained warmth | Newsreader impersonation, faux-authoritative accent, melodramatic urgency |
-| `PRESENTER-ELI-MERCER` | Eli Mercer | Studio-life and production-culture host | Conversational rhythm, short observational links, lightly dry energy, specific but invented detail | Stand-up density, constant jokes, decade caricature, real DJ imitation |
-| `PRESENTER-NORA-SOL` | Nora Sol | Music/format host and later-network continuity | Flexible energy, concise music links, contemporary clarity with formality adjusted by programme grammar | Trend slang as era shorthand, celebrity cadence, protected-character similarity |
+| `PRESENTER-MAE-CALDER` | Mae Calder | Service anchor across six eligible campaign grammars | Measured warmth, clear consonants, practical curiosity; moderate pace and precise nouns | Newsreader impersonation, faux-authoritative accent, melodramatic urgency |
+| `PRESENTER-ARTHUR-VALE` | Arthur Vale | Studio-life and production-culture host across seven eligible grammars | Dry observational timing, steady breath groups, low sales pressure | Stand-up density, constant jokes, decade caricature, real DJ imitation |
+| `PRESENTER-RINA-SHORE` | Rina Shore | Music/format host and network continuity across seven eligible grammars | Direct, humane, lightly energetic delivery with deliberate room for silence | Trend slang as era shorthand, celebrity cadence, protected-character similarity |
 
 These identities persist while syntax, pacing, diction, vocabulary, formality, energy, and breath grouping adapt to the eligible programme grammar. They are not assigned one voice per decade.
 
-Prototype rendering uses generic local/system voices only. No voice cloning, guide voice, celebrity likeness, broadcaster imitation, or protected-character target is permitted. Each accepted unit preserves:
+Prototype rendering used the generic local macOS voices `Kathy`, `Ralph`, and `Samantha` only. No voice cloning, guide voice, celebrity likeness, broadcaster imitation, or protected-character target was used. The canonical v2 demonstrations contain 12 clean voice units and 12 separately treated derivatives: four accepted voice playouts per programme. The failed v1 lane’s 24-plus-24 files remain preserved but are not current evidence. Each v2 unit preserves:
 
 1. a clean voice master;
 2. a separately identified period-treated derivative;
-3. exact voice-route and OS/tool provenance;
+3. exact voice-route, OS build, executable hashes, FFmpeg version, and reproducible command template;
 4. treatment settings and hashes;
-5. a statement that the system voice is scratch-only and may not be redistributable.
+5. a statement that system-voice redistribution has not been resolved and the renders must remain local scratch prototypes.
 
 Treatment may add bounded mono presentation, bandwidth shaping, compression, mild saturation, and room/speaker color. Static, hiss, crackle, noise, or distortion cannot be the primary historical signal.
 
@@ -252,27 +254,29 @@ Exact gain, attack, hold, and release values belong to lab mix metadata and must
 
 ## Three runtime-paced demo programmes
 
-Each programme targets approximately 10–12 minutes so all required elements can appear while respecting the rolling budget. Exact schedules and renders are planned until linked to evidence.
+Each current programme is exactly 660 seconds and carries a rendered 48 kHz, 24-bit stereo WAV, AAC audition preview, scheduler decision trace, schedule, labelled WebVTT captions, transcript with delivery status, and metadata. They are machine-produced fixture demonstrations, not broadcast masters or listening acceptance.
 
 | Programme ID | Eligible creative grammar | Required programme contents | Key proof |
 |---|---|---|---|
-| `RADIO-DEMO-EARLY-NETWORK-01` | Early network / golden studio; principally `network_sound_1933_1945` with only explicitly eligible adjacent material | Music and silence; one continuous service-ident/host/decorative opening; one fictional ad break; one typed functional fixture; a later PA priority event; captions/transcript | Formal-to-personal presenter continuity without propaganda parody or static shorthand |
-| `RADIO-DEMO-POSTWAR-FORMAT-01` | Postwar personality / format transition; eligible `tape_hifi_1946_1959` and explicitly mapped adjacent transition material | Same required elements, including a format-neutral ident and PA over a radio-music bed | Performance grammar carries period change before treatment; no tape-stop or caricature |
-| `RADIO-DEMO-DIGITAL-NETWORK-01` | Digital / networked hybrid; eligible `sampled_digital_1987_1999` and `networked_hybrid_2000_2014` fixture mapping | Same required elements with Streamer Safe substitution demonstration | Radio bed, score, voice, PA, silence, and substitution remain independently controlled |
+| `EARLY-NETWORK-GOLDEN-STUDIO-V2` | `network_sound_1933_1945`; Mae Calder | Music and silence; combined station/host/ad/decorative opening; typed `P13_AUDIO_LAB_FIXTURE` bulletin; later active radio link interrupted by PA; captions/transcript | `06_radio/demos-v2/EARLY-NETWORK-GOLDEN-STUDIO-V2/` |
+| `POSTWAR-PERSONALITY-TAPE-HIFI-V2` | `tape_hifi_1946_1959`; Arthur Vale | Correct postwar anchor; same required elements; typed `P05_AUDIO_LAB_FIXTURE`; PA over an active radio-music presentation | `06_radio/demos-v2/POSTWAR-PERSONALITY-TAPE-HIFI-V2/` |
+| `DIGITAL-NETWORKED-HYBRID-V2` | `networked_hybrid_2000_2014`; Rina Shore | Same required elements; typed `P06_AUDIO_LAB_FIXTURE`; separately identified radio bed, voice, PA, and silence | `06_radio/demos-v2/DIGITAL-NETWORKED-HYBRID-V2/` |
 
-A compliant 10–12 minute example may use four automatic starts while retaining at most three inside every rolling ten-minute window: a combined ident/host/decorative opening, an ad break, a functional bulletin, and a sufficiently later PA demonstration. Starts remain at least 60 seconds apart; total and elective voiced seconds remain within their caps. PA priority can also be demonstrated by evicting queued radio and ducking an active radio-music bed rather than violating the voice-start law.
+Each v2 example uses accepted playouts at 10, 275, 330, 590, and 610 seconds. The 330-second event is a non-voice milestone sting. The 610-second PA is the sole start-spacing exception: it interrupts the still-active 590-second radio voice. Because the ten-minute window is half-open, the 10-second opening has aged out at 610; the PA is still only the third voiced start in that rolling window. Every programme remains below three voiced starts, 120 voiced seconds, two elective starts, and 75 elective seconds per rolling ten minutes. The PA occurs inside the 585–650-second music window and therefore exercises actual bed ducking.
 
 Each demo includes cue sheet, source/payload IDs, DSP times, voice starts, silence windows, gains, captions, transcript, interruption decisions, cooldown state, and render hash where a mix is produced.
 
 ## Thirty-minute simulations
 
-Create one deterministic 30-minute schedule per anchor programme:
+One deterministic 30-minute schedule exists per anchor programme:
 
 - `RADIO-SIM-30-EARLY-01`
 - `RADIO-SIM-30-POSTWAR-01`
 - `RADIO-SIM-30-DIGITAL-01`
 
-The simulations test eligibility, silence, daypart, presenter rotation, exact/category cooldowns, repeat history, expiry, coalescing, queue length, PA arbitration, captions, and deterministic replay. They do not need rendered voice to validate scheduler structure and do not establish listening comfort.
+Each trace contains six accepted events at 30, 330, 630, 930, 1230, and 1530 seconds plus decision-only suppression probes. Each reports full text, presenter, speech owner, gains, typed payload identity where applicable, and candidate evaluations. The traces prove chronological ordering, exact-ID non-repeat, category cooldowns, rolling budgets, a functional fixture, PA, milestone sting, receipt coalescing, repeat suppression, and no mechanical mutation. They do not establish listening comfort.
+
+Canonical scheduler evidence is `06_radio/scheduler-evidence/RADIO-SCHEDULER-EVIDENCE.v2.json`, SHA-256 `206988fc110ac97307d7aa067a9bf6f3a14e9325ddf180c45f11b19f803bcb51`. It is emitted by the TypeScript `scheduleRadio` implementation rather than by hard-coded render metadata. Two consecutive rebuilds were byte-identical. The current runtime index is SHA-256 `85ba975ab9acd1cda46c57d2e8dd645f8e25c0a0551fd54ab7eaad6a1d9c9abc`.
 
 ## Failure behavior
 
@@ -289,17 +293,20 @@ The simulations test eligibility, silence, daypart, presenter rotation, exact/ca
 | Device reset/pause | Preserve queue/history logically; do not replay completed voice |
 | Streamer-safe source unavailable | Fade to silence and report reason |
 
-## Required evidence and human gate
+## Evidence status and human gate
 
-Completion requires:
+The isolated prototype now provides:
 
-- a new script-linter report covering every existing spoken/caption unit;
-- exact corrected-script hashes and an exception register;
-- typed functional fixture validation and caption/spoken equivalence results;
+- a script-linter report covering all 126 spoken/caption units;
+- the exact corrected-bank hash and zero unresolved registered-pattern findings;
+- three typed functional lab fixtures with caption/spoken equivalence;
 - deterministic scheduler unit tests and three 30-minute traces;
-- three 8–12 minute runtime-paced programme cue sheets and, where feasible, renders;
-- clean and period-treated voice provenance;
-- ducking, PA arbitration, transcript, Radio Off, Streamer Safe, mono, Night, and Speech First evidence;
+- three 600-second runtime-paced programme schedules and renders;
+- 24 clean and 24 period-treated scratch-voice units with provenance;
+- rendered ducking and PA demonstrations plus captions and transcript artifacts;
+- separate Audio Lab controls for Radio Off, Streamer Safe presentation, mono, Night, and Speech First.
+
+The canonical evidence entry point is `06_radio/STUDIO-RADIO-RUNTIME-INDEX.json` in `/Users/bruce/Project Studio Audio Systems Pilot 01`. The index reports a limited machine `PASS`; it is not a credibility, casting, fatigue, or accessibility verdict.
 - Owner ratings for copy credibility, presenter performance, repetition, ducking, fatigue, and accessibility.
 
 No automated result can approve casting, historical treatment, comedy density, cultural credibility, or production use.

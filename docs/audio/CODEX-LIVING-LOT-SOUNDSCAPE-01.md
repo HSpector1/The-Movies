@@ -1,10 +1,10 @@
 # Project: Studio — Living-Lot Soundscape 01
 
-**Document status:** PROTOTYPE DESIGN AUTHORITY
+**Document status:** IMPLEMENTED ISOLATED LAB PROTOTYPE
 
-**Soundscape duration target:** 600 seconds per deterministic run
+**Soundscape duration:** 600 seconds per layer and presentation
 
-**Rendered audio status:** PLANNED UNTIL EVIDENCE-LINKED
+**Rendered audio status:** `PROTOTYPE_READY_FOR_OWNER_AUDITION`
 
 **Gameplay authority:** NONE
 
@@ -24,7 +24,7 @@ The pilot uses five explicit lab fixtures. They are test inputs, not claims abou
 - Leave intelligibility space for radio voice, PA/help, UI, and important-sound captions.
 - Use silence, low event density, and masked distance as authored material.
 - Avoid creating constant “busy studio” evidence when the upstream fixture is idle or blocked.
-- Express era through eligible machinery, traffic, room, and production practices—not a universal noise/filter layer.
+- Reserve era differentiation for eligible machinery, traffic, communications, room, material, and production-practice assets—not a universal noise/filter layer. The current EQ/width renders are diagnostics only and are not era evidence.
 - Keep one-shot events sparse, localized, deterministic, and concurrency-limited.
 - Remain satisfying in `Music Off`, `Force Mono`, `Speech First`, and Night/Limited Dynamic Range presets.
 
@@ -84,7 +84,7 @@ All fixture records carry `source: LAB_FIXTURE`, a stable fixture ID, a determin
 
 ## Ten-minute deterministic form
 
-The soundscape is interactive, but an evidence run uses a fixed 600-second scenario so traces and renders are comparable. The example form below is a scheduler plan, not proof of a completed render.
+The soundscape is interactive, while the evidence set uses fixed 600-second layers and presentations so traces and renders are comparable. The form below remains the runtime audition plan; the external catalogue separately proves the rendered sources and fixtures.
 
 | Time | Fixture | Default zoom | Presentation purpose |
 |---|---|---|---|
@@ -133,7 +133,7 @@ Zoom is a crossfade among presentations of the same fixture, not a hard scene ch
 
 Force Mono is applied at the mix output/preset layer and must not change event eligibility. Zoom must remain distinguishable in mono through density, direct-to-room ratio, spectral distance, and event choice rather than stereo position alone.
 
-## Era and activity variants
+## Era eligibility and mix diagnostics
 
 Era variants are catalogue eligibility tags, not locally calculated years. An asset may declare compatible creative aliases and a neutral fallback class.
 
@@ -145,13 +145,18 @@ Era variants are catalogue eligibility tags, not locally calculated years. An as
 
 Activity only gates presentation opportunities. The absence of a sound does not mean the absence of authoritative activity, and hearing a decorative sound cannot create gameplay state.
 
+The three retained narrow/intermediate/wide bandwidth-and-spatial renders reuse the same source layers. They are explicitly `BANDWIDTH_AND_SPATIAL_MIX_DIAGNOSTIC_ONLY`, have no commissioning alias, are not eligible as era proof, and carry no P13 technology or era truth. Their older EARLY/MID/MODERN labels survive only as legacy provenance in the v3 manifest. Distinct era proof was not implemented in this pilot: it requires separately commissioned and reviewed machinery, traffic, communications, material, and production-practice sets plus typed P13 eligibility.
+
 ## Source and synthesis policy
 
-The optional official Stable Audio Small-SFX MLX route may be used only after its exact code/model/weight revisions, terms posture, required download size, hashes, and no-new-acceptance status pass the project gate. If it does not pass, the pilot continues using:
+The official Stable Audio Small-SFX MLX prototype route passed the bounded gate with code commit `c3909628db1ae2b57bed40a493c73c67ad674dc5`, public optimized revision `b5182df73f4aca4336c5c1b642ca6c44d5b085ec`, and one 919,193,814-byte SFX weight at SHA-256 `7e702d2640699a57fe436ca975fda16832040ba568c1e092c2ae826987558118`. It required no credentials, payment, cloud execution, system installation, or new terms acceptance. The canonical SFX license endpoints returned HTTP 401, so the pilot records the supplied license-equivalence authority without claiming an independent direct comparison. The route gate is `/Users/bruce/Project Studio Audio Systems Pilot 01/10_provenance/sfx-route-gate.v2.json`.
 
-- deterministic procedural beds and UI-independent synthesis;
-- clearly identified existing eligible prototype sources;
-- documented silent/placeholding catalogue rows for unavailable ambience/SFX.
+The implemented soundscape combines:
+
+- three deterministic procedural campus/zone/detail beds;
+- 15 generated and hash-bound lot-detail sounds;
+- sparse deterministic schedules of 12 Wide, 25 Medium, and 28 Close detail events;
+- five fixture mixes and three bandwidth/spatial diagnostic mixes that are explicitly excluded from era proof.
 
 Every generated or derived file is external to Git and retains `PROTOTYPE_ONLY`. Raw authorities are never normalized or overwritten in place. Derivatives identify their source and exact hash.
 
@@ -185,18 +190,15 @@ Decorative ambience does not require continuous captions. Important-sound captio
 
 Captions must not infer unseen people, causes, or outcomes. A decorative cart pass should not be captioned as a delivery completion. Transcript history is reserved for spoken items, while important-sound caption history may record meaningful non-speech events.
 
-## Required evidence and acceptance
+## Implemented evidence and acceptance boundary
 
-Before claiming completion, the pilot must link:
+The current evidence is:
 
-- a 600-second scheduler trace and, where feasible, mixed demonstration;
-- exact catalogue and source hashes for every scheduled asset;
-- separate Wide, Medium, and Close stems or event traces used only as evidence layers—not claimed as production stems;
-- fixture and zoom transition timings;
-- peak, loudness, voice-count, silence-window, and repetition metrics;
-- Music Off, Force Mono, Night, and Speech First traces;
-- missing-file and hash-mismatch fail-closed results;
-- deterministic replay comparison;
-- Owner feedback on ambience quality, zoom distinction, era fit, irritation, and fatigue.
+- `/Users/bruce/Project Studio Audio Systems Pilot 01/04_living-lot/living-lot-soundscape-catalogue.v3.json`, SHA-256 `d12d3b912570962ee6e7ef46ffa817a618817e9aa16e0f97f410e79977f0aac3`;
+- three independent, time-compatible presentation layers (`WIDE`, `MEDIUM`, `CLOSE`), five activity-fixture mixes, three non-era bandwidth/spatial diagnostics, and 15 explicit fixture/layer bindings;
+- all eleven current WAVs are exactly 600 seconds, stereo, 48 kHz, PCM-24;
+- 65 scheduled detail-event relationships naming exact source IDs, paths, hashes, times, duration, and gain;
+- spectral-profile and non-duplicate machine checks in the v4 asset validation;
+- v3 Accessibility Music Off demonstration; runtime Audio Oracle evidence is a separate final gate.
 
-This design document does not assert that those renders or tests currently exist. Machine proof cannot establish acoustic realism, historical correctness, cultural acceptance, or long-session satisfaction.
+The evidence calls these layers, never production stems. Their synchronized duration permits a lab mix but does not prove perceptual zoom distinction. Only Owner listening can determine acoustic realism, wall-of-noise risk, historical/semantic credibility, irritation, fatigue, and whether Music Off remains satisfying.
