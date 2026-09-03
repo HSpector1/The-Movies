@@ -224,6 +224,14 @@ def build(mode: str) -> dict[str, Any]:
         "focused_proof": "Python and Unity mutation tests reject a stale four-hour source-register hash/path; JavaScript/zsh/static tests, exact archive/snapshot/supplement tree verification, and fresh independent hostile review report zero open mechanical findings before package creation; superseded failed evidence remains preserved.",
         "status": "RESOLVED",
     })
+    upsert_by_id(errors, {
+        "id": "ERR-0011",
+        "classification": "MANAGEMENT_RUNTIME_UNREGISTERED_FALLBACK",
+        "hypothesis": "A pre-catalogue procedural audition path survived after the lab adopted exact v5 asset identities, so missing catalogue evidence could still synthesize and play an unregistered 44.1 kHz semantic clip.",
+        "correction": "Removed runtime procedural candidate creation and fallback playback; management requests now require the validated exact-hash catalogue and otherwise retain the visual equivalent while refusing audio without advancing selection, cooldown, pending-load, or active-voice state. Exact eligible candidate IDs now use a seeded per-family shuffle bag with cycle-boundary repeat repair instead of occurrence-ordered C1/C2/C3 traversal.",
+        "focused_proof": "Targeted PlayMode proof rejects missing and unvalidated catalogue requests with exact visible reasons, silence, zero load attempts, and zero state mutation; pure tests prove deterministic complete bags, no immediate repeat, and no complete ordinal/reverse ladder; indexed pause/cooldown proof uses a validated external candidate; clean-SHA full Unity and fresh hostile review pass.",
+        "status": "RESOLVED",
+    })
     if any(row.get("status") != "RESOLVED" for row in errors):
         raise RuntimeError("state still contains an unresolved ordinary failure")
 
