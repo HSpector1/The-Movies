@@ -38,8 +38,9 @@ OLD_CODE = TOOLING_ROOT / "stable-audio-3"
 OLD_WEIGHTS = OLD_CODE / "optimized/mlx/models/mlx"
 TOOLCHAIN = PILOT_ROOT / f"10_provenance/toolchain/stable-audio-3-{CODE_COMMIT}"
 LICENSE_DIR = PILOT_ROOT / "10_provenance/sfx-route/licenses"
-GATE_PATH = PILOT_ROOT / "10_provenance/sfx-route-gate.json"
-LOG_PATH = PILOT_ROOT / "12_logs/sfx-route-gate.log"
+GATE_V1_PATH = PILOT_ROOT / "10_provenance/sfx-route-gate.json"
+GATE_PATH = PILOT_ROOT / "10_provenance/sfx-route-gate.v2.json"
+LOG_PATH = PILOT_ROOT / "12_logs/sfx-route-gate.v2.log"
 MODEL_DIR = TOOLCHAIN / "optimized/mlx/models/mlx"
 
 OPTIMIZED_REPO_ID = "stabilityai/stable-audio-3-optimized"
@@ -55,6 +56,21 @@ OPTIMIZED_LICENSE_URL = (
 OPTIMIZED_GEMMA_URL = (
     "https://huggingface.co/stabilityai/stable-audio-3-optimized/resolve/"
     + OPTIMIZED_REVISION
+    + "/LICENSE_GEMMA.md"
+)
+MUSIC_LICENSE_URL = (
+    "https://huggingface.co/stabilityai/stable-audio-3-small-music/resolve/"
+    + MUSIC_CANONICAL_REVISION
+    + "/LICENSE.md"
+)
+SFX_LICENSE_URL = (
+    "https://huggingface.co/stabilityai/stable-audio-sfx/resolve/"
+    + SFX_CANONICAL_REVISION
+    + "/LICENSE.md"
+)
+SFX_GEMMA_URL = (
+    "https://huggingface.co/stabilityai/stable-audio-sfx/resolve/"
+    + SFX_CANONICAL_REVISION
     + "/LICENSE_GEMMA.md"
 )
 SFX_WEIGHT_URL = (
@@ -107,6 +123,38 @@ def _request_bytes(url: str) -> tuple[bytes, dict[str, str], int]:
     except urllib.error.HTTPError as error:
         body = error.read()
         raise RuntimeError(f"HTTP {error.code} for {url}: {body[:240]!r}") from error
+
+
+def _request_status(url: str) -> dict[str, Any]:
+    request = urllib.request.Request(
+        url,
+        headers={"User-Agent": "Project-Studio-Audio-Systems-Pilot/1.0"},
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=60) as response:
+            payload = response.read()
+            return {
+                "http_status": int(response.status),
+                "bytes": len(payload),
+                "sha256": __import__("hashlib").sha256(payload).hexdigest(),
+                "headers": {
+                    key.lower(): value
+                    for key, value in response.headers.items()
+                    if key.lower() in {"etag", "x-repo-commit", "content-length", "date"}
+                },
+            }
+    except urllib.error.HTTPError as error:
+        payload = error.read()
+        return {
+            "http_status": int(error.code),
+            "bytes": len(payload),
+            "sha256": __import__("hashlib").sha256(payload).hexdigest(),
+            "headers": {
+                key.lower(): value
+                for key, value in error.headers.items()
+                if key.lower() in {"etag", "x-repo-commit", "content-length", "date", "x-error-code"}
+            },
+        }
 
 
 def _publish_bytes(path: Path, payload: bytes, expected_sha256: str) -> dict[str, Any]:
@@ -252,21 +300,82 @@ def _download_sfx_weight() -> dict[str, Any]:
     return {**file_record(destination), "reused": False, "url": SFX_WEIGHT_URL}
 
 
+def verify_gate_data(data: dict[str, Any]) -> None:
+    if data.get("status") != "PASSED" or data.get("schema_version") != 2:
+        raise RuntimeError("SFX route manifest is not a v2 pass")
+    identities = data.get("official_identities", {})
+    expected_identities = {
+        "code_repository": "Stability-AI/stable-audio-3",
+        "code_commit": CODE_COMMIT,
+        "canonical_small_music_repository": "stabilityai/stable-audio-3-small-music",
+        "canonical_small_music_revision": MUSIC_CANONICAL_REVISION,
+        "canonical_small_sfx_repository": "stabilityai/stable-audio-sfx",
+        "canonical_small_sfx_revision": SFX_CANONICAL_REVISION,
+        "optimized_repository": OPTIMIZED_REPO_ID,
+        "optimized_revision": OPTIMIZED_REVISION,
+    }
+    if identities != expected_identities:
+        raise RuntimeError("SFX route identity mismatch")
+    if data["route_checks"].get("optimized_repository_gated") is not False:
+        raise RuntimeError("optimized repository gated status is not exact false")
+    if data["route_checks"].get("optimized_repository_private") is not False:
+        raise RuntimeError("optimized repository private status is not exact false")
+
+    toolchain = Path(data["toolchain"]["path"])
+    actual_commit = subprocess.run(
+        ["git", "rev-parse", "HEAD"], cwd=toolchain, check=True, capture_output=True, text=True
+    ).stdout.strip()
+    if actual_commit != CODE_COMMIT:
+        raise RuntimeError(f"toolchain commit mismatch: {actual_commit}")
+    tracked_changes = subprocess.run(
+        ["git", "status", "--porcelain", "--untracked-files=no"],
+        cwd=toolchain,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    if tracked_changes:
+        raise RuntimeError(f"toolchain tracked files changed: {tracked_changes}")
+
+    for key in (
+        "optimized_license",
+        "optimized_gemma_license",
+        "canonical_small_music_license",
+        "prior_approved_license",
+        "prior_approved_gemma_license",
+    ):
+        record = data["license_evidence"][key]
+        path = require_file(Path(record["path"]), record["sha256"])
+        if path.stat().st_size != record["bytes"] or path.is_symlink():
+            raise RuntimeError(f"license evidence size/type mismatch: {path}")
+    metadata_record = data["route_checks"]["optimized_api_snapshot"]
+    require_file(Path(metadata_record["path"]), metadata_record["sha256"])
+
+    for record in data["shared_weights"]:
+        destination = require_file(Path(record["path"]), record["sha256"])
+        source = require_file(Path(record["source"]), record["sha256"])
+        if destination.is_symlink() or source.is_symlink():
+            raise RuntimeError(f"shared weight symlink detected: {destination}")
+        source_stat = source.stat()
+        destination_stat = destination.stat()
+        if source_stat.st_dev == destination_stat.st_dev and source_stat.st_ino == destination_stat.st_ino:
+            raise RuntimeError(f"shared weight hardlink detected: {destination}")
+    sfx_weight = require_file(Path(data["small_sfx_weight"]["path"]), SFX_WEIGHT_SHA256)
+    if sfx_weight.stat().st_size != SFX_WEIGHT_BYTES or sfx_weight.is_symlink():
+        raise RuntimeError("SFX weight size/type mismatch")
+
+
 def run_gate() -> dict[str, Any]:
     if GATE_PATH.exists():
         existing = json.loads(GATE_PATH.read_text(encoding="utf-8"))
-        if existing.get("status") != "PASSED":
-            raise RuntimeError(f"existing route gate is not passed; refusing overwrite: {GATE_PATH}")
-        require_file(Path(existing["small_sfx_weight"]["path"]), SFX_WEIGHT_SHA256)
-        for record in existing["shared_weights"]:
-            require_file(Path(record["path"]), record["sha256"])
+        verify_gate_data(existing)
         return existing
 
     errors: list[dict[str, Any]] = []
     metadata_bytes, metadata_headers, metadata_status = _request_bytes(OPTIMIZED_API)
     metadata = json.loads(metadata_bytes)
     metadata_record = _publish_bytes(
-        PILOT_ROOT / "10_provenance/sfx-route/optimized-repository-api.json",
+        PILOT_ROOT / "10_provenance/sfx-route/optimized-repository-api.v2.json",
         json.dumps(metadata, indent=2, sort_keys=True).encode("utf-8") + b"\n",
         __import__("hashlib").sha256(
             json.dumps(metadata, indent=2, sort_keys=True).encode("utf-8") + b"\n"
@@ -274,7 +383,7 @@ def run_gate() -> dict[str, Any]:
     )
     if metadata_status != 200 or metadata.get("sha") != OPTIMIZED_REVISION:
         raise RuntimeError("optimized repository API did not resolve the exact requested revision")
-    if metadata.get("gated") not in (False, None) or metadata.get("private") is not False:
+    if metadata.get("gated") is not False or metadata.get("private") is not False:
         raise RuntimeError("optimized repository is not publicly accessible and ungated")
 
     license_bytes, license_headers, _ = _request_bytes(OPTIMIZED_LICENSE_URL)
@@ -287,6 +396,17 @@ def run_gate() -> dict[str, Any]:
     )
     if len(license_bytes) != COMMUNITY_LICENSE_BYTES or len(gemma_bytes) != GEMMA_LICENSE_BYTES:
         raise RuntimeError("official optimized license byte size changed")
+
+    music_license_bytes, music_license_headers, _ = _request_bytes(MUSIC_LICENSE_URL)
+    if len(music_license_bytes) != COMMUNITY_LICENSE_BYTES:
+        raise RuntimeError("canonical Small-Music license byte size changed")
+    canonical_music_license = _publish_bytes(
+        LICENSE_DIR / "canonical-small-music-LICENSE.md",
+        music_license_bytes,
+        COMMUNITY_LICENSE_SHA256,
+    )
+    canonical_sfx_license_probe = _request_status(SFX_LICENSE_URL)
+    canonical_sfx_gemma_probe = _request_status(SFX_GEMMA_URL)
 
     # The prior approved Small-Music route preserved these exact official bytes.
     # Direct anonymous access to canonical model repositories is intentionally not
@@ -333,7 +453,7 @@ def run_gate() -> dict[str, Any]:
         )
 
     result: dict[str, Any] = {
-        "schema_version": 1,
+        "schema_version": 2,
         "generated_at_utc": utc_now(),
         "status": "PASSED",
         "decision": "USE_PUBLIC_OPTIMIZED_MLX_SFX_WEIGHT_WITH_EXISTING_APPROVED_SHARED_COMPONENTS",
@@ -354,6 +474,7 @@ def run_gate() -> dict[str, Any]:
             "optimized_repository_private": metadata.get("private"),
             "optimized_repository_gated": metadata.get("gated"),
             "optimized_api_http_status": metadata_status,
+            "optimized_api_snapshot": metadata_record,
             "optimized_api_response_headers": {
                 key.lower(): value
                 for key, value in metadata_headers.items()
@@ -367,15 +488,21 @@ def run_gate() -> dict[str, Any]:
             "system_install": False,
         },
         "license_evidence": {
-            "small_sfx_and_small_music_community_license_byte_identical": True,
+            "user_supplied_authority_statement_small_sfx_and_small_music_license_byte_identical": True,
+            "canonical_small_sfx_and_small_music_license_byte_identity_independently_captured_this_run": False,
+            "independent_comparison_status": "NOT_CAPTURED_CANONICAL_SMALL_SFX_REPOSITORY_RETURNED_HTTP_401",
+            "optimized_route_and_canonical_small_music_community_license_byte_identical": True,
             "community_license_sha256": COMMUNITY_LICENSE_SHA256,
             "community_license_bytes": COMMUNITY_LICENSE_BYTES,
             "basis": [
-                "Canonical Small-SFX and Small-Music repository LICENSE.md entries resolve to the same Stability AI Community License byte identity in the pinned authority record.",
-                "The public optimized repository copy and the locally preserved prior-approved canonical copy are independently hash-verified here.",
+                "The user-supplied binding authority states that Small-SFX and Small-Music license files are byte-identical; that statement is recorded, not upgraded to independent proof.",
+                "The pinned canonical Small-Music license, public optimized repository license, and locally preserved prior-approved copy are independently byte-identical here.",
+                "The pinned canonical Small-SFX LICENSE and Gemma endpoints returned HTTP 401 without credentials, so their bytes were not captured and no terms were accepted.",
                 "No inference about commercial clearance is made from byte identity.",
             ],
-            "canonical_repository_anonymous_access": "GATED_NOT_REQUIRED_FOR_SELECTED_ROUTE",
+            "canonical_small_sfx_license_probe": canonical_sfx_license_probe,
+            "canonical_small_sfx_gemma_probe": canonical_sfx_gemma_probe,
+            "canonical_small_music_license": canonical_music_license,
             "optimized_license": optimized_license,
             "optimized_gemma_license": optimized_gemma,
             "prior_approved_license": preserved_license,
@@ -390,6 +517,11 @@ def run_gate() -> dict[str, Any]:
                 for key, value in gemma_headers.items()
                 if key.lower() in {"etag", "x-repo-commit", "content-length", "date"}
             },
+            "canonical_small_music_license_headers": {
+                key.lower(): value
+                for key, value in music_license_headers.items()
+                if key.lower() in {"etag", "x-repo-commit", "content-length", "date"}
+            },
         },
         "toolchain": toolchain,
         "shared_weights": shared_weights,
@@ -398,10 +530,17 @@ def run_gate() -> dict[str, Any]:
         "errors": errors,
         "limitations": [
             "The gate proves exact files, code identity, public route availability, and bounded download size only.",
+            "Canonical Small-SFX license bytes were not independently captured because anonymous pinned endpoints returned HTTP 401; only the public optimized route is selected.",
             "It does not establish copyrightability, non-infringement, exclusivity, commercial clearance, historical accuracy, or listening quality.",
             "All generated outputs remain PROTOTYPE_ONLY pending Owner and rights review.",
         ],
     }
+    if GATE_V1_PATH.exists():
+        result["supersedes"] = {
+            **file_record(GATE_V1_PATH),
+            "reason": "v1 overstated independent canonical Small-SFX license comparison and had a shallow verifier",
+        }
+    verify_gate_data(result)
     atomic_write_json(GATE_PATH, result)
     LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
     log_payload = (
@@ -424,11 +563,7 @@ def main() -> int:
     args = parser.parse_args()
     if args.verify_only:
         data = json.loads(GATE_PATH.read_text(encoding="utf-8"))
-        if data.get("status") != "PASSED":
-            raise RuntimeError("SFX route manifest is not passed")
-        require_file(Path(data["small_sfx_weight"]["path"]), SFX_WEIGHT_SHA256)
-        for record in data["shared_weights"]:
-            require_file(Path(record["path"]), record["sha256"])
+        verify_gate_data(data)
         print(json.dumps({"status": "PASSED", "manifest": str(GATE_PATH)}, sort_keys=True))
         return 0
     result = run_gate()

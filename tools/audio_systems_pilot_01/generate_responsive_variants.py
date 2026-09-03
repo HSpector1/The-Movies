@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import os
 import subprocess
@@ -34,6 +35,11 @@ ANALYSIS_ROOT = ROOT / "analysis"
 LOG_ROOT = PILOT_ROOT / "12_logs/responsive-generation"
 REGISTER = ROOT / "responsive-generation-register.json"
 BUNDLE_CATALOGUE = ROOT / "responsive-bundle-catalogue.json"
+ANCHOR_AUTHORITY = ROOT / "responsive-anchor-authority.v2.json"
+CANONICAL_CATALOGUE = PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.v1.json"
+CANONICAL_CATALOGUE_SHA256 = "0ee5d956763c70db305bdf9b5066cac0bfb77c499fbed07b6df5b87b8acfdade"
+PROMPT_CATALOGUE = Path("/Users/bruce/Project Studio Audio Foundry Marathon 01/01_catalogue/nine-epoch-small-music-prompt-catalogue.csv")
+PROMPT_CATALOGUE_SHA256 = "193d5f56a6b3fb6de59d89129f46b9a9e203c43ea4ea8c9be49d5c7dac49f8e5"
 SEEDS = (271_003, 271_019, 271_043)
 CONTEXTS = ("NORMAL", "ACTIVE", "BLOCKED", "WORKSPACE")
 
@@ -45,6 +51,13 @@ EPOCHS: dict[str, dict[str, Any]] = {
         "anchor_seed": 130_363,
         "anchor_raw_sha256": "4771707e00bfa67d71c1daf947047f736358844a309b60fb56b28913dd53ef7b",
         "anchor_estimated_bpm": 92.285,
+        "history_interpretation_boundary": (
+            "Stride, blues, jazz ensemble exchange, call-and-response, and blue-note language are historical "
+            "anchors; this bounded prompt cannot authenticate or represent the full traditions."
+        ),
+        "inherited_human_review_gate": (
+            "Mandatory Black creator and music-history review before any commission; machine alignment is never cultural acceptance."
+        ),
         "brief": (
             "Instrumental management background music with a cautious late-1920s to early-1930s "
             "acoustic-to-electrical studio palette: stride-influenced piano, cornet, clarinet, acoustic "
@@ -58,6 +71,13 @@ EPOCHS: dict[str, dict[str, Any]] = {
         "anchor_seed": 130_363,
         "anchor_raw_sha256": "02b5a57900e1f77f704bb9d73209f2d5a0de0ce0a49fa1f99e636504ac98e813",
         "anchor_estimated_bpm": 99.384,
+        "history_interpretation_boundary": (
+            "Funk, soul, and fusion are distinct Black-led practices with overlapping musicians and technologies. "
+            "Their combination here is a bounded commissioning lane rather than a decade-wide summary."
+        ),
+        "inherited_human_review_gate": (
+            "Mandatory Black creator and music-history review; human listening must assess groove lineage, imitation risk, density, and long-session fatigue."
+        ),
         "brief": (
             "Instrumental management background music with a late-1970s to mid-1980s studio palette: "
             "live drums, syncopated electric bass, clavinet, electric piano, clean guitar, compact horns "
@@ -71,6 +91,13 @@ EPOCHS: dict[str, dict[str, Any]] = {
         "anchor_seed": 155_921,
         "anchor_raw_sha256": "2e3ae7cb9ada747846e2502bc05618dc941bb11456a60d966672f094bf130246",
         "anchor_estimated_bpm": 83.354,
+        "history_interpretation_boundary": (
+            "Alternative R&B and neo-soul are plural Black musical practices, not mood presets. Facts stop in 2026; "
+            "later years are near-future Project interpretation."
+        ),
+        "inherited_human_review_gate": (
+            "Mandatory relevant Black creator/music-history review and human similarity listening; no model output proves cultural acceptance or originality."
+        ),
         "brief": (
             "Instrumental management background music with a 2015-to-2029 networked studio palette: dry "
             "live and programmed drums, rounded bass, electric piano, muted guitar, soft modular synth and "
@@ -110,6 +137,73 @@ NEGATIVE_PROMPT = (
 )
 
 
+def verify_anchor_authorities() -> dict[str, Any]:
+    require_file(CANONICAL_CATALOGUE, CANONICAL_CATALOGUE_SHA256)
+    require_file(PROMPT_CATALOGUE, PROMPT_CATALOGUE_SHA256)
+    canonical = json.loads(CANONICAL_CATALOGUE.read_text(encoding="utf-8"))
+    with PROMPT_CATALOGUE.open(newline="", encoding="utf-8") as handle:
+        prompt_rows = list(csv.DictReader(handle))
+    evidence: list[dict[str, Any]] = []
+    for epoch, authority in EPOCHS.items():
+        matches = [
+            row for row in canonical["entries"]
+            if row["source_candidate_id"] == authority["anchor_id"]
+        ]
+        if len(matches) != 1:
+            raise RuntimeError(f"anchor identity did not resolve exactly once: {authority['anchor_id']}")
+        entry = matches[0]
+        raw = entry["raw"]
+        raw_path = Path(raw["absolute_authoritative_path"])
+        require_file(raw_path, authority["anchor_raw_sha256"])
+        disposition = entry["machine_disposition"]
+        if (
+            raw["sha256"] != authority["anchor_raw_sha256"]
+            or disposition.get("disposition") != "MACHINE-PREFERRED"
+            or disposition.get("screening_status") != "MACHINE_ELIGIBLE"
+            or disposition.get("severe_mismatch") is not False
+        ):
+            raise RuntimeError(f"anchor is no longer eligible authority: {authority['anchor_id']}")
+        prompt_id = authority["anchor_id"].split("__", 1)[0]
+        prompt_matches = [row for row in prompt_rows if row["prompt_id"] == prompt_id]
+        if not prompt_matches:
+            raise RuntimeError(f"anchor prompt authority is missing: {prompt_id}")
+        prompt_row = prompt_matches[0]
+        if (
+            prompt_row["history_interpretation_boundary"] != authority["history_interpretation_boundary"]
+            or prompt_row["human_cultural_review_notes"] != authority["inherited_human_review_gate"]
+        ):
+            raise RuntimeError(f"anchor cultural/history review authority drifted: {prompt_id}")
+        evidence.append(
+            {
+                "commissioning_alias": epoch,
+                "source_candidate_id": authority["anchor_id"],
+                "source_path": str(raw_path),
+                "source_sha256": raw["sha256"],
+                "source_bytes": raw["bytes"],
+                "machine_disposition": disposition,
+                "history_interpretation_boundary": authority["history_interpretation_boundary"],
+                "inherited_human_review_gate": authority["inherited_human_review_gate"],
+                "audio_used_as_generation_guide": False,
+                "brief_derivation": "WRITTEN_NON_AUDIO_BRIEF_ONLY",
+            }
+        )
+    payload = {
+        "schema": "project-studio-responsive-anchor-authority/v2",
+        "generated_at_utc": utc_now(),
+        "status": "HASH_AND_ELIGIBILITY_VERIFIED",
+        "canonical_catalogue": file_record(CANONICAL_CATALOGUE),
+        "prompt_catalogue": file_record(PROMPT_CATALOGUE),
+        "anchors": evidence,
+        "human_review_gate": "REQUIRED_NOT_PERFORMED",
+        "rights_status": "PROTOTYPE_ONLY",
+    }
+    if ANCHOR_AUTHORITY.exists():
+        existing = json.loads(ANCHOR_AUTHORITY.read_text(encoding="utf-8"))
+        payload["generated_at_utc"] = existing["generated_at_utc"]
+    write_manifest(ANCHOR_AUTHORITY, payload)
+    return payload
+
+
 def _safe_environment() -> dict[str, str]:
     env = dict(os.environ)
     for key in ("HF_TOKEN", "HUGGING_FACE_HUB_TOKEN"):
@@ -136,11 +230,34 @@ def _candidate_paths(epoch: str, context: str, candidate_id: str) -> tuple[Path,
     return raw, analysis, log
 
 
-def _verify_existing(raw: Path, analysis_path: Path) -> dict[str, Any] | None:
+def _verify_existing(
+    raw: Path,
+    analysis_path: Path,
+    *,
+    candidate_id: str,
+    epoch: str,
+    context: str,
+    seed: int,
+) -> dict[str, Any] | None:
     if not raw.exists() and not analysis_path.exists():
         return None
-    if not raw.is_file() or not analysis_path.is_file():
-        raise RuntimeError(f"partial candidate evidence exists; refusing overwrite: {raw}")
+    if not raw.is_file():
+        raise RuntimeError(f"candidate analysis exists without its raw file: {raw}")
+    if not analysis_path.exists():
+        recovered = technical_screen(raw, expected_duration_seconds=60.0, expected_channels=2, music=True)
+        recovered.update(
+            {
+                "candidate_id": candidate_id,
+                "epoch": epoch,
+                "context": context,
+                "seed": seed,
+                "generation_elapsed_seconds": None,
+                "recovery_classification": "ANALYSIS_RECONSTRUCTED_AFTER_INTERRUPTED_ATOMIC_PUBLISH",
+            }
+        )
+        write_manifest(analysis_path, recovered)
+    if not analysis_path.is_file():
+        raise RuntimeError(f"candidate analysis is not a regular file: {analysis_path}")
     existing = json.loads(analysis_path.read_text(encoding="utf-8"))
     if existing.get("sha256") != sha256_file(raw):
         raise RuntimeError(f"candidate evidence hash mismatch: {raw}")
@@ -152,7 +269,14 @@ def _generate_candidate(
 ) -> dict[str, Any]:
     candidate_id = _candidate_id(epoch_data["code"], context, index, seed)
     raw, analysis_path, log_path = _candidate_paths(epoch, context, candidate_id)
-    existing = _verify_existing(raw, analysis_path)
+    existing = _verify_existing(
+        raw,
+        analysis_path,
+        candidate_id=candidate_id,
+        epoch=epoch,
+        context=context,
+        seed=seed,
+    )
     prompt = (
         epoch_data["brief"]
         + " "
@@ -160,6 +284,33 @@ def _generate_candidate(
         + " This is a newly generated horizontal full-mix variant. Do not imply melodic continuity with any other cue."
     )
     if existing is not None:
+        if not log_path.exists():
+            write_manifest(
+                log_path,
+                {
+                    "status": "RECOVERED_FROM_HASH_VERIFIED_RAW_AND_RECOMPUTED_ANALYSIS",
+                    "candidate_id": candidate_id,
+                    "prompt": prompt,
+                    "negative_prompt": NEGATIVE_PROMPT,
+                    "generation_parameters": {
+                        "dit": "sm-music",
+                        "decoder": "same-s",
+                        "seconds": 60,
+                        "steps": 8,
+                        "seed": seed,
+                        "init_noise_level": 1.0,
+                        "cfg": 2.0,
+                        "apg": 1.0,
+                        "dit_dtype": "fp16",
+                        "guide_audio": False,
+                    },
+                    "raw": file_record(raw),
+                    "analysis_sha256": sha256_file(analysis_path),
+                    "original_process_stdout_stderr": "NOT_AVAILABLE_AFTER_INTERRUPTED_PUBLISH",
+                },
+            )
+        elif not log_path.is_file():
+            raise RuntimeError(f"generation log is not a regular file: {log_path}")
         return {
             "candidate_id": candidate_id,
             "epoch": epoch,
@@ -290,8 +441,31 @@ def _select_and_derive(epoch: str, epoch_data: dict[str, Any], context: str, row
     candidate_path = Path(selected["raw"]["path"])
     context_dir = BUNDLE_ROOT / epoch / context.lower()
     normalized_path = context_dir / f"{selected['candidate_id']}__normalized-48k-24bit.wav"
-    normalize_record = normalize_music(candidate_path, normalized_path)
-    derivatives = derive_music_assets(normalized_path, context_dir)
+    normalize_record = normalize_music(
+        candidate_path,
+        normalized_path,
+        expected_existing_sha256=(sha256_file(normalized_path) if normalized_path.is_file() else None),
+    )
+    prior: dict[str, Any] = {}
+    expected_derivative_paths = {
+        "loop": context_dir / "loop-54s-qsin.wav",
+        "entry": context_dir / "entry-8s-derived.wav",
+        "exit": context_dir / "exit-8s-derived.wav",
+        "preview": context_dir / "preview-192k-aac.m4a",
+    }
+    for role, path in expected_derivative_paths.items():
+        if path.is_file():
+            prior[role] = {"sha256": sha256_file(path)}
+    derivatives = derive_music_assets(normalized_path, context_dir, prior=prior)
+    normalized_screen = technical_screen(
+        normalized_path, expected_duration_seconds=60.0, expected_channels=2, music=True
+    )
+    if not normalized_screen["automatic_pass"]:
+        raise RuntimeError(f"selected normalized variant failed technical screen: {normalized_path}")
+    expected_durations = {"loop": 54.0, "entry": 8.0, "exit": 8.0, "preview": 54.0}
+    for role, duration in expected_durations.items():
+        if abs(derivatives[role]["probe"]["duration_seconds"] - duration) > 0.025:
+            raise RuntimeError(f"responsive derivative duration mismatch: {role}: {normalized_path}")
     return {
         "stable_bundle_variant_id": f"ASP01-BUNDLE-{epoch_data['code']}-{context}",
         "epoch": epoch,
@@ -322,7 +496,7 @@ def _verify_completed() -> dict[str, Any] | None:
     if not REGISTER.exists() and not BUNDLE_CATALOGUE.exists():
         return None
     if not REGISTER.is_file() or not BUNDLE_CATALOGUE.is_file():
-        raise RuntimeError("partial responsive manifests exist; refusing overwrite")
+        return None
     register = json.loads(REGISTER.read_text(encoding="utf-8"))
     bundles = json.loads(BUNDLE_CATALOGUE.read_text(encoding="utf-8"))
     if len(register.get("candidates", [])) != 36 or len(bundles.get("variants", [])) != 12:
@@ -337,9 +511,12 @@ def _verify_completed() -> dict[str, Any] | None:
 
 
 def run() -> dict[str, Any]:
+    verify_anchor_authorities()
     completed = _verify_completed()
     if completed is not None:
         return {"status": "PASSED_REUSED", **completed}
+    existing_register = json.loads(REGISTER.read_text(encoding="utf-8")) if REGISTER.is_file() else None
+    existing_bundle = json.loads(BUNDLE_CATALOGUE.read_text(encoding="utf-8")) if BUNDLE_CATALOGUE.is_file() else None
     require_file(PYTHON)
     require_file(GENERATOR)
     require_file(TOOLCHAIN / "optimized/mlx/models/mlx/dit_sm-music_f16.npz")
@@ -365,7 +542,9 @@ def run() -> dict[str, Any]:
     if len(set(hashes)) != len(hashes):
         raise RuntimeError("responsive candidate audio hashes are not unique")
 
-    generated = utc_now()
+    generated = (
+        existing_register or existing_bundle or {"generated_at_utc": utc_now()}
+    )["generated_at_utc"]
     register = {
         "schema": "project-studio-responsive-generation-register/v1",
         "generated_at_utc": generated,
@@ -412,6 +591,10 @@ def run() -> dict[str, Any]:
         "rights_status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
         "human_acceptance": "NONE_RECORDED",
     }
+    if existing_register is not None:
+        register = existing_register
+    if existing_bundle is not None:
+        bundle_catalogue = existing_bundle
     write_manifest(REGISTER, register)
     write_manifest(BUNDLE_CATALOGUE, bundle_catalogue)
     return {"status": "PASSED", "register": register, "bundles": bundle_catalogue}
@@ -422,6 +605,7 @@ def main() -> int:
     parser.add_argument("--verify-only", action="store_true")
     args = parser.parse_args()
     if args.verify_only:
+        verify_anchor_authorities()
         completed = _verify_completed()
         if completed is None:
             raise RuntimeError("responsive generation is not complete")

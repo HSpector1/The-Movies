@@ -29,12 +29,15 @@ from audio_dsp import (
     write_stream_atomic,
 )
 from common import DOC_REPO, PILOT_ROOT, TOOLING_ROOT, probe_audio, sha256_file, utc_now
+from generate_responsive_variants import verify_anchor_authorities
 from sfx_route import (
     CODE_COMMIT,
+    GATE_PATH as SFX_GATE_PATH,
     OPTIMIZED_REVISION,
     SFX_CANONICAL_REVISION,
     SFX_WEIGHT_SHA256,
     TOOLCHAIN,
+    verify_gate_data,
 )
 
 
@@ -47,8 +50,18 @@ MANAGEMENT_ROOT = PILOT_ROOT / "05_management-sfx/semantic-pack"
 LIVING_ROOT = PILOT_ROOT / "04_living-lot"
 TRANSITION_ROOT = PILOT_ROOT / "03_transitions"
 LOG_ROOT = PILOT_ROOT / "12_logs/audio-asset-build"
-MASTER_INDEX = PILOT_ROOT / "10_provenance/audio-assets-index.v1.json"
-VALIDATION_PATH = PILOT_ROOT / "10_provenance/audio-assets-validation.json"
+MASTER_V1_INDEX = PILOT_ROOT / "10_provenance/audio-assets-index.v1.json"
+MASTER_V2_INDEX = PILOT_ROOT / "10_provenance/audio-assets-index.v2.json"
+MASTER_INDEX = PILOT_ROOT / "10_provenance/audio-assets-index.v3.json"
+VALIDATION_V1_PATH = PILOT_ROOT / "10_provenance/audio-assets-validation.json"
+VALIDATION_V2_PATH = PILOT_ROOT / "10_provenance/audio-assets-validation.v2.json"
+VALIDATION_PATH = PILOT_ROOT / "10_provenance/audio-assets-validation.v3.json"
+DERIVATIVE_REGISTER = PILOT_ROOT / "10_provenance/audio-derivative-source-register.v3.json"
+MANAGEMENT_V2_CATALOGUE = MANAGEMENT_ROOT / "management-semantic-catalogue.v2.json"
+MANAGEMENT_CATALOGUE = MANAGEMENT_ROOT / "management-semantic-catalogue.v3.json"
+TRANSITION_V1_CATALOGUE = TRANSITION_ROOT / "rendered-transition-catalogue.json"
+TRANSITION_V2_CATALOGUE = TRANSITION_ROOT / "rendered-transition-catalogue.v2.json"
+TRANSITION_CATALOGUE = TRANSITION_ROOT / "rendered-transition-catalogue.v3.json"
 RESPONSIVE_CATALOGUE = PILOT_ROOT / "02_music-bundles/responsive/responsive-bundle-catalogue.json"
 RESPONSIVE_REGISTER = PILOT_ROOT / "02_music-bundles/responsive/responsive-generation-register.json"
 CANONICAL_CATALOGUE = PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.v1.json"
@@ -404,7 +417,7 @@ def _close_stream(events: list[tuple[int, np.ndarray]]) -> Iterable[np.ndarray]:
         cursor += frames
 
 
-def build_living_lot() -> dict[str, Any]:
+def _load_or_build_living_lot_v1() -> dict[str, Any]:
     manifest_path = LIVING_ROOT / "living-lot-soundscape-catalogue.json"
     if manifest_path.exists():
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -550,8 +563,310 @@ def build_living_lot() -> dict[str, Any]:
     return manifest
 
 
+def _resampled_clip(path: Path) -> np.ndarray:
+    audio, sample_rate = sf.read(path, dtype="float32", always_2d=True)
+    if audio.shape[1] == 1:
+        audio = np.repeat(audio, 2, axis=1)
+    elif audio.shape[1] != 2:
+        raise RuntimeError(f"detail SFX must be mono or stereo: {path}")
+    if sample_rate == SAMPLE_RATE:
+        return audio
+    output_frames = int(round(len(audio) * SAMPLE_RATE / sample_rate))
+    source_positions = np.arange(len(audio), dtype=np.float64)
+    target_positions = np.linspace(0, len(audio) - 1, output_frames)
+    return np.stack(
+        [np.interp(target_positions, source_positions, audio[:, channel]) for channel in range(2)],
+        axis=1,
+    ).astype(np.float32)
+
+
+def _detail_schedule(items: list[dict[str, Any]], layer: str) -> tuple[list[dict[str, Any]], list[tuple[int, np.ndarray]]]:
+    repeats = {"WIDE": 4, "MEDIUM": 5, "CLOSE": 4}[layer]
+    count = len(items) * repeats
+    rng = np.random.default_rng({"WIDE": 505_011, "MEDIUM": 505_031, "CLOSE": 505_051}[layer])
+    nominal = np.linspace(22.0, 570.0, count)
+    event_items = [items[index % len(items)] for index in range(count)]
+    rng.shuffle(event_items)
+    descriptions: list[dict[str, Any]] = []
+    rendered: list[tuple[int, np.ndarray]] = []
+    gain = {"WIDE": 0.10, "MEDIUM": 0.20, "CLOSE": 0.24}[layer]
+    for index, (nominal_time, item) in enumerate(zip(nominal, event_items, strict=True)):
+        start_seconds = float(np.clip(nominal_time + rng.uniform(-3.0, 3.0), 3.0, 589.0))
+        clip = _resampled_clip(Path(item["audio"]["path"])) * gain
+        start_frame = int(round(start_seconds * SAMPLE_RATE))
+        descriptions.append(
+            {
+                "event_index": index,
+                "layer": layer,
+                "source_sfx_id": item["stable_prototype_id"],
+                "source_path": item["audio"]["path"],
+                "source_sha256": item["audio"]["sha256"],
+                "start_seconds": round(start_seconds, 6),
+                "duration_seconds": round(len(clip) / SAMPLE_RATE, 6),
+                "gain_linear": gain,
+            }
+        )
+        rendered.append((start_frame, clip))
+    descriptions.sort(key=lambda row: row["start_seconds"])
+    rendered.sort(key=lambda row: row[0])
+    return descriptions, rendered
+
+
+def _overlay_stream(base_path: Path, events: list[tuple[int, np.ndarray]], base_gain: float) -> Iterable[np.ndarray]:
+    chunk_frames = SAMPLE_RATE * 10
+    cursor = 0
+    with sf.SoundFile(base_path) as base:
+        if base.samplerate != SAMPLE_RATE or base.channels != 2 or base.frames != int(TEN_MINUTES * SAMPLE_RATE):
+            raise RuntimeError(f"v1 procedural base format mismatch: {base_path}")
+        while cursor < base.frames:
+            block = base.read(chunk_frames, dtype="float32", always_2d=True) * base_gain
+            block_end = cursor + len(block)
+            for event_start, clip in events:
+                event_end = event_start + len(clip)
+                overlap_start = max(cursor, event_start)
+                overlap_end = min(block_end, event_end)
+                if overlap_start < overlap_end:
+                    block[overlap_start - cursor:overlap_end - cursor] += clip[
+                        overlap_start - event_start:overlap_end - event_start
+                    ]
+            yield np.clip(block, -0.88, 0.88)
+            cursor = block_end
+
+
+def build_living_lot() -> dict[str, Any]:
+    """Build v2 acoustic zoom with sparse, hash-bound semantic detail overlays."""
+
+    manifest_path = LIVING_ROOT / "living-lot-soundscape-catalogue.v2.json"
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        for record in manifest["all_audio_files"]:
+            require_file(Path(record["path"]), record["sha256"])
+        return manifest
+
+    base = _load_or_build_living_lot_v1()
+    lot_sfx = generate_lot_sfx()
+    v2_root = LIVING_ROOT / "v2"
+    base_by_layer = {row["zoom"]: row for row in base["layers"]}
+    sfx_by_layer = {
+        layer: [row for row in lot_sfx["items"] if row["zoom"] == layer]
+        for layer in ("WIDE", "MEDIUM", "CLOSE")
+    }
+    base_gains = {"WIDE": 0.62, "MEDIUM": 0.30, "CLOSE": 0.52}
+    layers: list[dict[str, Any]] = []
+    full_schedule: list[dict[str, Any]] = []
+    for layer in ("WIDE", "MEDIUM", "CLOSE"):
+        schedule, rendered = _detail_schedule(sfx_by_layer[layer], layer)
+        full_schedule.extend(schedule)
+        base_record = base_by_layer[layer]
+        path = v2_root / "layers" / f"ASP01-LIVING-{layer}-DETAIL-v2-600s.wav"
+        sidecar = path.with_suffix(".json")
+        if path.exists() or sidecar.exists():
+            if not path.is_file() or not sidecar.is_file():
+                raise RuntimeError(f"partial v2 living layer exists; refusing overwrite: {path}")
+            record = json.loads(sidecar.read_text(encoding="utf-8"))
+            require_file(path, record["audio"]["sha256"])
+        else:
+            audio = write_stream_atomic(
+                path,
+                _overlay_stream(Path(base_record["audio"]["path"]), rendered, base_gains[layer]),
+                SAMPLE_RATE,
+                2,
+                subtype="PCM_24",
+            )
+            screen = technical_screen(path, expected_duration_seconds=TEN_MINUTES, expected_channels=2, music=False)
+            if not screen["automatic_pass"]:
+                raise RuntimeError(f"v2 living layer screen failed: {layer}: {screen['failure_reasons']}")
+            record = {
+                "stable_prototype_id": f"ASP01-LIVING-{layer}-DETAIL-V2",
+                "zoom": layer,
+                "audio": audio,
+                "analysis": screen,
+                "generation": "DETERMINISTIC_PROCEDURAL_BASE_PLUS_FIXED_HASHED_GENERATED_DETAIL_OVERLAYS",
+                "procedural_base": {
+                    "stable_prototype_id": base_record["stable_prototype_id"],
+                    "path": base_record["audio"]["path"],
+                    "sha256": base_record["audio"]["sha256"],
+                    "gain_linear": base_gains[layer],
+                },
+                "scheduled_detail_event_count": len(schedule),
+                "scheduled_detail_sources": [
+                    {
+                        "stable_prototype_id": item["stable_prototype_id"],
+                        "path": item["audio"]["path"],
+                        "sha256": item["audio"]["sha256"],
+                    }
+                    for item in sfx_by_layer[layer]
+                ],
+                "duration_seconds": TEN_MINUTES,
+                "rights_status": "PROTOTYPE_ONLY",
+            }
+            write_manifest(sidecar, record)
+        layers.append(record)
+
+    layer_paths = [Path(row["audio"]["path"]) for row in layers]
+    fixture_specs = {
+        "IDLE": (0.82, 0.18, 0.06, "explicit lab fixture; no authoritative activity"),
+        "ACTIVE_PRODUCTION": (0.72, 0.58, 0.46, "explicit lab fixture; no Production truth"),
+        "LOAD_IN": (0.68, 0.54, 0.72, "explicit lab fixture; no load-in truth"),
+        "BLOCKED_PRODUCTION": (0.80, 0.14, 0.10, "explicit lab fixture; no blocker legality or truth"),
+        "CLOSE_STAGE_INSPECTION": (0.34, 0.50, 0.96, "explicit lab fixture; no Stage or inspection truth"),
+    }
+    fixture_records: list[dict[str, Any]] = []
+    for name, (gw, gm, gc, disclaimer) in fixture_specs.items():
+        path = v2_root / "fixture-presentations" / f"ASP01-LIVING-FIXTURE-{name}-v2-600s.wav"
+        sidecar = path.with_suffix(".json")
+        expected_hash = None
+        if sidecar.is_file():
+            expected_hash = json.loads(sidecar.read_text(encoding="utf-8"))["audio"]["sha256"]
+        elif path.is_file():
+            expected_hash = sha256_file(path)
+        audio = ffmpeg_atomic(
+            [
+                "-i", layer_paths[0], "-i", layer_paths[1], "-i", layer_paths[2],
+                "-filter_complex",
+                f"[0:a]volume={gw}[w];[1:a]volume={gm}[m];[2:a]volume={gc}[c];"
+                "[w][m][c]amix=inputs=3:normalize=0,alimiter=limit=0.88[out]",
+                "-map", "[out]", "-map_metadata", "-1", "-ar", str(SAMPLE_RATE), "-ac", "2",
+                "-c:a", "pcm_s24le", "-f", "wav",
+            ],
+            path,
+            expected_existing_sha256=expected_hash,
+        )
+        row = {
+                "stable_prototype_id": f"ASP01-LIVING-FIXTURE-{name}-V2",
+                "fixture": name,
+                "audio": audio,
+                "layer_gains_linear": [gw, gm, gc],
+                "source_layer_ids": [row["stable_prototype_id"] for row in layers],
+                "truth_boundary": disclaimer,
+            }
+        write_manifest(sidecar, row)
+        fixture_records.append(row)
+
+    era_specs = {
+        "EARLY_PRESENTATION": (0.78, 0.28, 0.30, "lowpass=f=6500,stereotools=mlev=1:slev=0.22"),
+        "MID_PRESENTATION": (0.72, 0.48, 0.48, "lowpass=f=12000,stereotools=mlev=1:slev=0.65"),
+        "MODERN_PRESENTATION": (0.68, 0.50, 0.58, "stereotools=mlev=1:slev=0.9"),
+    }
+    era_records: list[dict[str, Any]] = []
+    for name, (gw, gm, gc, treatment) in era_specs.items():
+        path = v2_root / "era-presentations" / f"ASP01-LIVING-{name}-v2-600s.wav"
+        sidecar = path.with_suffix(".json")
+        expected_hash = None
+        if sidecar.is_file():
+            expected_hash = json.loads(sidecar.read_text(encoding="utf-8"))["audio"]["sha256"]
+        elif path.is_file():
+            expected_hash = sha256_file(path)
+        audio = ffmpeg_atomic(
+            [
+                "-i", layer_paths[0], "-i", layer_paths[1], "-i", layer_paths[2],
+                "-filter_complex",
+                f"[0:a]volume={gw}[w];[1:a]volume={gm}[m];[2:a]volume={gc}[c];"
+                f"[w][m][c]amix=inputs=3:normalize=0,{treatment},alimiter=limit=0.88[out]",
+                "-map", "[out]", "-map_metadata", "-1", "-ar", str(SAMPLE_RATE), "-ac", "2",
+                "-c:a", "pcm_s24le", "-f", "wav",
+            ],
+            path,
+            expected_existing_sha256=expected_hash,
+        )
+        row = {
+                "stable_prototype_id": f"ASP01-LIVING-{name}-V2",
+                "presentation": name,
+                "audio": audio,
+                "layer_gains_linear": [gw, gm, gc],
+                "source_layer_ids": [row["stable_prototype_id"] for row in layers],
+                "treatment": treatment,
+                "era_truth": "NONE; LAB PRESENTATION COLOR ONLY",
+            }
+        write_manifest(sidecar, row)
+        era_records.append(row)
+
+    fixture_layer_bindings: list[dict[str, Any]] = []
+    for fixture, values in fixture_specs.items():
+        for index, layer in enumerate(layers):
+            audio = layer["audio"]
+            fixture_layer_bindings.append(
+                {
+                    "stable_prototype_id": f"ASP01-LIVING-BINDING-{fixture}-{layer['zoom']}-V2",
+                    "commissioning_alias": None,
+                    "era_truth": "NONE_LAB_FIXTURE_ONLY",
+                    "fixture": fixture,
+                    "layer": layer["zoom"],
+                    "relative_path": str(Path(audio["path"]).relative_to(PILOT_ROOT)),
+                    "sha256": audio["sha256"],
+                    "format": audio["probe"],
+                    "gain_linear": values[index],
+                    "permitted_contexts": ["AUDIO_LAB", "LIVING_LOT_FIXTURE"],
+                    "activity_truth_owned": False,
+                }
+            )
+    all_audio = [row["audio"] for row in layers] + [row["audio"] for row in fixture_records] + [row["audio"] for row in era_records]
+    manifest = {
+        "schema": "project-studio-living-lot-soundscape/v2",
+        "generated_at_utc": utc_now(),
+        "status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
+        "supersedes": {
+            **file_record(LIVING_ROOT / "living-lot-soundscape-catalogue.json"),
+            "reason": "v1 did not schedule the generated semantic lot-detail library into WIDE/MEDIUM/CLOSE",
+        },
+        "duration_seconds": TEN_MINUTES,
+        "sample_rate_hz": SAMPLE_RATE,
+        "layers": layers,
+        "detail_sfx_schedule": sorted(full_schedule, key=lambda row: (row["start_seconds"], row["layer"])),
+        "fixture_presentations": fixture_records,
+        "era_presentations": era_records,
+        "fixture_layer_bindings": fixture_layer_bindings,
+        "all_audio_files": all_audio,
+        "semantic_detail_counts": {layer: len([row for row in full_schedule if row["layer"] == layer]) for layer in ("WIDE", "MEDIUM", "CLOSE")},
+        "music_off_coherent_world": "OWNER_LISTENING_GATE_PENDING",
+        "activity_truth_owned": False,
+        "zoom_changes_presentation_only": True,
+        "rights_status": "PROTOTYPE_ONLY",
+        "limitations": [
+            "Sparse schedules prove named source/event presence, not perceptual credibility, comfort, or absence of a wall-of-noise effect.",
+            "Owner listening remains required for acoustic-zoom distinction, fatigue, level, and semantic credibility.",
+            "Fixtures and era colors are audition presentation only and never manufacture simulation or P13 truth.",
+        ],
+    }
+    write_manifest(manifest_path, manifest)
+    return manifest
+
+
+def _management_technical_restraint_proxy(candidate: dict[str, Any]) -> dict[str, Any]:
+    """Rank file fitness only; this intentionally cannot score semantic or listening quality."""
+
+    signal = candidate["analysis"]["signal"]
+    duration = float(candidate["analysis"]["format"]["duration_seconds"])
+    peak_dbfs = float(signal["peak_dbfs"])
+    rms_dbfs = float(signal["rms_dbfs"])
+    leading = float(signal["leading_silence_seconds"])
+    trailing = float(signal["trailing_silence_seconds"])
+    headroom_db = -peak_dbfs
+    duration_penalty = duration * 30.0
+    loudness_penalty = max(0.0, rms_dbfs + 18.0) * 2.0
+    low_headroom_penalty = max(0.0, 6.0 - headroom_db) * 3.0
+    edge_silence_penalty = max(0.0, leading - 0.015) * 100.0 + max(0.0, trailing - 0.020) * 100.0
+    score = 100.0 - duration_penalty - loudness_penalty - low_headroom_penalty - edge_silence_penalty
+    return {
+        "score_higher_is_more_technically_restrained": round(score, 6),
+        "duration_seconds": duration,
+        "peak_dbfs": peak_dbfs,
+        "rms_dbfs": rms_dbfs,
+        "headroom_db": round(headroom_db, 6),
+        "leading_silence_seconds": leading,
+        "trailing_silence_seconds": trailing,
+        "formula": (
+            "100 - 30*duration_seconds - 2*max(0,rms_dbfs+18) "
+            "- 3*max(0,6-headroom_db) - 100*max(0,leading_silence_seconds-0.015) "
+            "- 100*max(0,trailing_silence_seconds-0.020)"
+        ),
+        "proof_scope": "BOUNDED_TECHNICAL_RESTRAINT_PROXY_ONLY",
+    }
+
+
 def build_management_pack() -> dict[str, Any]:
-    manifest_path = MANAGEMENT_ROOT / "management-semantic-catalogue.json"
+    v1_path = MANAGEMENT_ROOT / "management-semantic-catalogue.json"
+    manifest_path = MANAGEMENT_CATALOGUE
     if manifest_path.exists():
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         if len(manifest.get("candidates", [])) != 45:
@@ -559,6 +874,56 @@ def build_management_pack() -> dict[str, Any]:
         for item in manifest["candidates"]:
             require_file(Path(item["audio"]["path"]), item["audio"]["sha256"])
         return manifest
+    if MANAGEMENT_V2_CATALOGUE.exists():
+        manifest = json.loads(MANAGEMENT_V2_CATALOGUE.read_text(encoding="utf-8"))
+        manifest["schema"] = "project-studio-management-audio-language/v3"
+        manifest["generated_at_utc"] = utc_now()
+        manifest["supersedes"] = {
+            **file_record(MANAGEMENT_V2_CATALOGUE),
+            "reason": "v2 used fixed audition ordering and did not satisfy the required machine-provisional technical selection",
+        }
+        candidates_by_family: dict[str, list[dict[str, Any]]] = {}
+        for candidate in manifest["candidates"]:
+            candidate["technical_restraint_proxy"] = _management_technical_restraint_proxy(candidate)
+            candidates_by_family.setdefault(candidate["semantic_event"], []).append(candidate)
+        selections = []
+        for semantic in SEMANTICS:
+            ranked = sorted(
+                candidates_by_family[semantic["id"]],
+                key=lambda row: (
+                    -row["technical_restraint_proxy"]["score_higher_is_more_technically_restrained"],
+                    row["stable_prototype_id"],
+                ),
+            )
+            selections.append(
+                {
+                    "semantic_event": semantic["id"],
+                    "provisional_pick": ranked[0]["stable_prototype_id"],
+                    "alternate": ranked[1]["stable_prototype_id"],
+                    "selection_disposition": "MACHINE_PROVISIONAL_TECHNICAL_PROXY_PENDING_HUMAN_LISTENING",
+                    "selection_basis": (
+                        "deterministic bounded technical-restraint proxy using measured duration, peak/RMS headroom, "
+                        "and edge silence; stable ID is tie-break only"
+                    ),
+                    "ranked_candidate_ids": [row["stable_prototype_id"] for row in ranked],
+                    "ranked_scores": [
+                        row["technical_restraint_proxy"]["score_higher_is_more_technically_restrained"]
+                        for row in ranked
+                    ],
+                }
+            )
+        manifest["selections"] = selections
+        manifest["machine_selection_scope"] = "TECHNICAL_RESTRAINT_PROXY_ONLY"
+        manifest["limitations"] = [
+            "The proxy compares technical restraint only; it does not establish meaning, quality, usability, or listener preference.",
+            "All candidates require listening for semantic clarity, restraint, fatigue, repetition, and casino-like associations.",
+        ]
+        write_manifest(manifest_path, manifest)
+        return manifest
+    if v1_path.exists():
+        raise RuntimeError(
+            f"immutable v2 management catalogue must exist before v3 technical-proxy migration: {MANAGEMENT_V2_CATALOGUE}"
+        )
 
     candidates: list[dict[str, Any]] = []
     selections: list[dict[str, Any]] = []
@@ -600,13 +965,13 @@ def build_management_pack() -> dict[str, Any]:
                 "rights_status": "PROTOTYPE_ONLY",
                 "human_disposition": "PENDING",
             }
+            row["technical_restraint_proxy"] = _management_technical_restraint_proxy(row)
             semantic_rows.append(row)
             candidates.append(row)
         ranked = sorted(
             semantic_rows,
             key=lambda row: (
-                abs(row["analysis"]["signal"]["peak_dbfs"] + 7.5),
-                row["analysis"]["format"]["duration_seconds"],
+                -row["technical_restraint_proxy"]["score_higher_is_more_technically_restrained"],
                 row["stable_prototype_id"],
             ),
         )
@@ -615,8 +980,13 @@ def build_management_pack() -> dict[str, Any]:
                 "semantic_event": semantic["id"],
                 "provisional_pick": ranked[0]["stable_prototype_id"],
                 "alternate": ranked[1]["stable_prototype_id"],
-                "selection_disposition": "MACHINE_PROVISIONAL_PENDING_HUMAN_LISTENING",
-                "selection_basis": "deterministic restraint proxy: moderate peak then shortest duration",
+                "selection_disposition": "MACHINE_PROVISIONAL_TECHNICAL_PROXY_PENDING_HUMAN_LISTENING",
+                "selection_basis": "deterministic bounded technical-restraint proxy; human listening remains required",
+                "ranked_candidate_ids": [row["stable_prototype_id"] for row in ranked],
+                "ranked_scores": [
+                    row["technical_restraint_proxy"]["score_higher_is_more_technically_restrained"]
+                    for row in ranked
+                ],
             }
         )
     if len(candidates) != 45 or len({row["audio"]["sha256"] for row in candidates}) != 45:
@@ -636,7 +1006,7 @@ def build_management_pack() -> dict[str, Any]:
             }
         )
     manifest = {
-        "schema": "project-studio-management-audio-language/v1",
+        "schema": "project-studio-management-audio-language/v3",
         "generated_at_utc": utc_now(),
         "status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
         "semantic_family_count": len(SEMANTICS),
@@ -645,16 +1015,22 @@ def build_management_pack() -> dict[str, Any]:
         "vocabulary": vocabulary,
         "candidates": candidates,
         "selections": selections,
+        "machine_selection_scope": "TECHNICAL_RESTRAINT_PROXY_ONLY",
         "critical_information_audio_only": False,
         "rights_status": "PROTOTYPE_ONLY",
-        "limitations": ["Machine restraint proxies do not establish comfort, clarity, meaning, or listening acceptance."],
+        "limitations": [
+            "The technical proxy cannot establish meaning, quality, usability, or listener preference.",
+            "All candidates require listening for semantic clarity, restraint, fatigue, repetition, and casino-like associations.",
+        ],
     }
     write_manifest(manifest_path, manifest)
     return manifest
 
 
 def build_transitions() -> dict[str, Any]:
-    manifest_path = TRANSITION_ROOT / "rendered-transition-catalogue.json"
+    v1_path = TRANSITION_V1_CATALOGUE
+    v2_path = TRANSITION_V2_CATALOGUE
+    manifest_path = TRANSITION_CATALOGUE
     if manifest_path.exists():
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         if len(manifest.get("renders", [])) != 9:
@@ -662,7 +1038,9 @@ def build_transitions() -> dict[str, Any]:
         for row in manifest["renders"]:
             require_file(Path(row["audio"]["path"]), row["audio"]["sha256"])
         return manifest
-    wide = LIVING_ROOT / "layers/ASP01-LIVING-WIDE-600s.wav"
+    living = build_living_lot()
+    wide_record = next(row for row in living["layers"] if row["zoom"] == "WIDE")
+    wide = Path(wide_record["audio"]["path"])
     require_file(wide)
     renders: list[dict[str, Any]] = []
     for boundary in TRANSITIONS:
@@ -685,20 +1063,20 @@ def build_transitions() -> dict[str, Any]:
                 "No phrase or phase alignment claimed",
             ),
             (
-                "PHRASE-BOUNDARY-CROSSFADE",
+                "SAFE-UNVERIFIED-WINDOW-CROSSFADE",
                 [
                     "-i", outgoing, "-i", incoming,
                     "-filter_complex",
-                    "[0:a]atrim=start=88:end=108,asetpts=PTS-STARTPTS[o];"
-                    "[1:a]atrim=start=0:end=20,asetpts=PTS-STARTPTS[i];"
+                    "[0:a]atrim=start=87.5:end=107.5,asetpts=PTS-STARTPTS[o];"
+                    "[1:a]atrim=start=0.5:end=20.5,asetpts=PTS-STARTPTS[i];"
                     "[o][i]acrossfade=d=8:c1=qsin:c2=qsin[out]",
                     "-map", "[out]", "-map_metadata", "-1", "-ar", "48000", "-ac", "2", "-c:a", "pcm_s24le", "-f", "wav",
                 ],
-                "ESTIMATED_PHRASE_WINDOW_CROSSFADE",
-                "Audition estimate only; BPM metadata does not prove downbeat/bar/phrase",
+                "SAFE_UNVERIFIED_WINDOW_CROSSFADE",
+                "Fixed audition windows only; no BPM, downbeat, bar, or phrase boundary is claimed",
             ),
             (
-                "BESPOKE-EXIT-ENTRY",
+                "GENERIC-DERIVED-EXIT-ENTRY",
                 [
                     "-i", outgoing, "-i", wide, "-i", incoming,
                     "-filter_complex",
@@ -708,46 +1086,71 @@ def build_transitions() -> dict[str, Any]:
                     "[o][a][i]concat=n=3:v=0:a=1[out]",
                     "-map", "[out]", "-map_metadata", "-1", "-ar", "48000", "-ac", "2", "-c:a", "pcm_s24le", "-f", "wav",
                 ],
-                "BESPOKE_SHORT_EXIT_AMBIENCE_ENTRY_TREATMENT",
-                "Derived full-mix treatment; not a stem or authored shared session",
+                "GENERIC_DERIVED_EXIT_AMBIENCE_ENTRY_TREATMENT",
+                "One generic recipe across boundaries; not bespoke, a stem, or an authored shared session",
             ),
         )
         for treatment_id, args, classification, honesty in specs:
-            path = output_dir / f"ASP01-TRANSITION-{boundary['id']}-{treatment_id}.wav"
-            audio = ffmpeg_atomic(args, path)
+            path = output_dir / f"ASP01-TRANSITION-{boundary['id']}-{treatment_id}-v2.wav"
+            sidecar = path.with_suffix(".v3.json")
+            sidecar_record = json.loads(sidecar.read_text(encoding="utf-8")) if sidecar.is_file() else None
+            audio = ffmpeg_atomic(
+                args,
+                path,
+                expected_existing_sha256=(sidecar_record["audio"]["sha256"] if sidecar_record is not None else None),
+            )
             screen = technical_screen(path, expected_channels=2, music=False)
             if not screen["automatic_pass"]:
                 raise RuntimeError(f"transition render screen failed: {path}: {screen['failure_reasons']}")
-            renders.append(
-                {
+            row = {
                     "stable_prototype_id": f"ASP01-TRANSITION-{boundary['id']}-{treatment_id}",
                     "boundary_id": boundary["id"],
                     "outgoing_alias": boundary["out_alias"],
                     "incoming_alias": boundary["in_alias"],
                     "outgoing_source": {"candidate_id": boundary["out_id"], "path": str(outgoing), "sha256": boundary["out_sha256"]},
                     "incoming_source": {"candidate_id": boundary["in_id"], "path": str(incoming), "sha256": boundary["in_sha256"]},
+                    "ambience_source": (
+                        {
+                            "stable_prototype_id": wide_record["stable_prototype_id"],
+                            "path": str(wide),
+                            "sha256": wide_record["audio"]["sha256"],
+                        }
+                        if treatment_id in {"NATURAL-ENDING-AMBIENCE-BRIDGE", "GENERIC-DERIVED-EXIT-ENTRY"}
+                        else None
+                    ),
                     "treatment": treatment_id,
+                    "owner_facing_filename_uses_honest_treatment_token": True,
                     "classification": classification,
                     "honesty": honesty,
+                    "phrase_boundary_claimed": False,
+                    "bespoke_claimed": False,
                     "audio": audio,
                     "analysis": screen,
                     "human_disposition": "PENDING",
                     "rights_status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
                 }
-            )
+            write_manifest(sidecar, row)
+            renders.append(row)
     if len(renders) != 9 or len({row["audio"]["sha256"] for row in renders}) != 9:
         raise RuntimeError("transition cardinality/unique hash proof failed")
     manifest = {
-        "schema": "project-studio-rendered-era-transitions/v1",
+        "schema": "project-studio-rendered-era-transitions/v3",
         "generated_at_utc": utc_now(),
         "boundary_count": 3,
         "treatments_per_boundary": 3,
         "render_count": 9,
         "renders": renders,
         "source_separation_or_fake_stems": False,
+        "phrase_boundary_claimed_for_rendered_files": False,
+        "bespoke_boundary_specific_edit_claimed": False,
         "human_acceptance": "NONE_RECORDED",
         "rights_status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
     }
+    if v2_path.exists():
+        manifest["supersedes"] = {
+            **file_record(v2_path),
+            "reason": "v2 metadata was honest but retained overstated legacy phrase/bespoke tokens in Owner-facing audio filenames",
+        }
     write_manifest(manifest_path, manifest)
     return manifest
 
@@ -772,6 +1175,10 @@ def build_master_index(
     management = management or build_management_pack()
     transitions = transitions or build_transitions()
     responsive = json.loads(RESPONSIVE_CATALOGUE.read_text(encoding="utf-8"))
+    responsive_register = json.loads(RESPONSIVE_REGISTER.read_text(encoding="utf-8"))
+    responsive_analysis = {
+        row["candidate_id"]: row["analysis"] for row in responsive_register["candidates"]
+    }
 
     assets: list[dict[str, Any]] = []
     known_ids: set[str] = set()
@@ -846,6 +1253,13 @@ def build_master_index(
                 "classification": variant["classification"],
                 "selected_candidate_id": variant["selected_candidate_id"],
                 "asset_ids": asset_ids,
+                "machine_proof_scope": "FILE_FITNESS_ONLY",
+                "contextual_differentiation": "NOT_PROVEN_REQUIRES_OWNER_LISTENING",
+                "selected_file_fitness_metrics": {
+                    "rms_dbfs": responsive_analysis[variant["selected_candidate_id"]]["signal"]["rms_dbfs"],
+                    "onset_density_per_second": responsive_analysis[variant["selected_candidate_id"]]["signal"]["onset_density_per_second"],
+                    "automatic_pass": responsive_analysis[variant["selected_candidate_id"]]["automatic_pass"],
+                },
             }
         )
 
@@ -867,7 +1281,7 @@ def build_master_index(
         )
     for item in living["fixture_presentations"]:
         add_asset(
-            f"ASP01-LIVING-FIXTURE-{item['fixture']}",
+            item["stable_prototype_id"],
             item["audio"],
             category="LIVING_LOT_FIXTURE_PRESENTATION",
             rights_status="PROTOTYPE_ONLY",
@@ -875,7 +1289,7 @@ def build_master_index(
         )
     for item in living["era_presentations"]:
         add_asset(
-            f"ASP01-LIVING-{item['presentation']}",
+            item["stable_prototype_id"],
             item["audio"],
             category="LIVING_LOT_ERA_PRESENTATION",
             rights_status="PROTOTYPE_ONLY",
@@ -905,13 +1319,16 @@ def build_master_index(
 
     source_manifests = [
         RESPONSIVE_CATALOGUE,
+        PILOT_ROOT / "02_music-bundles/responsive/responsive-anchor-authority.v2.json",
         SFX_ROOT / "lot-detail-sfx-catalogue.json",
-        LIVING_ROOT / "living-lot-soundscape-catalogue.json",
-        MANAGEMENT_ROOT / "management-semantic-catalogue.json",
-        TRANSITION_ROOT / "rendered-transition-catalogue.json",
+        LIVING_ROOT / "living-lot-soundscape-catalogue.v2.json",
+        MANAGEMENT_CATALOGUE,
+        TRANSITION_CATALOGUE,
+        DERIVATIVE_REGISTER,
+        SFX_GATE_PATH,
     ]
     index = {
-        "schema": "project-studio-audio-assets-index/v1",
+        "schema": "project-studio-audio-assets-index/v3",
         "generated_at_utc": utc_now(),
         "status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
         "approved_root": str(PILOT_ROOT),
@@ -926,8 +1343,187 @@ def build_master_index(
         "human_acceptance": "NONE_RECORDED",
         "commercial_clearance": "NOT_CLAIMED",
     }
+    if MASTER_V2_INDEX.exists():
+        index["supersedes"] = {
+            **file_record(MASTER_V2_INDEX),
+            "reason": "v3 consumes machine-proxy management selections and honestly named versioned transition renders",
+        }
     write_manifest(MASTER_INDEX, index)
     return index
+
+
+def build_derivative_source_register() -> dict[str, Any]:
+    """Name and hash every source used by an edited/mixed audio derivative."""
+
+    if DERIVATIVE_REGISTER.exists():
+        register = json.loads(DERIVATIVE_REGISTER.read_text(encoding="utf-8"))
+        for relation in register["relationships"]:
+            require_file(Path(relation["derivative"]["path"]), relation["derivative"]["sha256"])
+            for source in relation["sources"]:
+                require_file(Path(source["path"]), source["sha256"])
+        return register
+
+    responsive = json.loads(RESPONSIVE_CATALOGUE.read_text(encoding="utf-8"))
+    living = json.loads((LIVING_ROOT / "living-lot-soundscape-catalogue.v2.json").read_text(encoding="utf-8"))
+    transitions = json.loads(TRANSITION_CATALOGUE.read_text(encoding="utf-8"))
+    relationships: list[dict[str, Any]] = []
+
+    def source_record(stable_id: str, record: dict[str, Any], role: str) -> dict[str, Any]:
+        return {
+            "stable_prototype_id": stable_id,
+            "role": role,
+            "path": record["path"],
+            "sha256": record["sha256"],
+        }
+
+    def add_relation(
+        derivative_id: str,
+        derivative: dict[str, Any],
+        role: str,
+        sources: list[dict[str, Any]],
+        method: str,
+    ) -> None:
+        require_file(Path(derivative["path"]), derivative["sha256"])
+        for source in sources:
+            require_file(Path(source["path"]), source["sha256"])
+        relationships.append(
+            {
+                "derivative": {
+                    "stable_prototype_id": derivative_id,
+                    "role": role,
+                    "path": derivative["path"],
+                    "sha256": derivative["sha256"],
+                },
+                "sources": sources,
+                "method": method,
+                "phase_or_stem_alignment_claimed": False,
+            }
+        )
+
+    for variant in responsive["variants"]:
+        prefix = variant["stable_bundle_variant_id"]
+        raw_source = source_record(prefix + "-RAW", variant["source"], "GENERATED_FULL_MIX_SOURCE")
+        normalized_record = variant["derivatives"]["normalized"]
+        normalized_source = source_record(prefix + "-NORMALIZED", normalized_record, "NORMALIZED_FULL_MIX")
+        loop_record = variant["derivatives"]["loop"]
+        loop_source = source_record(prefix + "-LOOP", loop_record, "DERIVED_CROSSFADED_FULL_MIX_LOOP")
+        add_relation(
+            prefix + "-NORMALIZED",
+            normalized_record,
+            "LOUDNESS_NORMALIZED_FULL_MIX",
+            [raw_source],
+            "two-pass loudness normalization; 48 kHz stereo PCM-24",
+        )
+        for role in ("loop", "entry", "exit"):
+            add_relation(
+                prefix + "-" + role.upper(),
+                variant["derivatives"][role],
+                role.upper(),
+                [normalized_source],
+                "bounded full-mix editorial derivative; no source separation",
+            )
+        add_relation(
+            prefix + "-PREVIEW",
+            variant["derivatives"]["preview"],
+            "AAC_AUDITION_PREVIEW",
+            [loop_source],
+            "192 kb/s AAC audition encode of the derived loop",
+        )
+
+    for layer in living["layers"]:
+        base_source = {
+            **layer["procedural_base"],
+            "role": "PROCEDURAL_BASE",
+        }
+        detail_sources = [
+            {**source, "role": "SCHEDULED_GENERATED_DETAIL_SFX"}
+            for source in layer["scheduled_detail_sources"]
+        ]
+        add_relation(
+            layer["stable_prototype_id"],
+            layer["audio"],
+            "LIVING_LOT_DETAIL_LAYER",
+            [base_source, *detail_sources],
+            "deterministic sparse hash-bound detail overlays on preserved procedural base",
+        )
+
+    living_sources = [
+        source_record(layer["stable_prototype_id"], layer["audio"], layer["zoom"])
+        for layer in living["layers"]
+    ]
+    for presentation in living["fixture_presentations"]:
+        add_relation(
+            presentation["stable_prototype_id"],
+            presentation["audio"],
+            "LIVING_LOT_FIXTURE_MIX",
+            [
+                {**source, "gain_linear": presentation["layer_gains_linear"][index]}
+                for index, source in enumerate(living_sources)
+            ],
+            "deterministic three-layer fixture mix; presentation only and no activity truth",
+        )
+    for presentation in living["era_presentations"]:
+        add_relation(
+            presentation["stable_prototype_id"],
+            presentation["audio"],
+            "LIVING_LOT_ERA_PRESENTATION_MIX",
+            [
+                {**source, "gain_linear": presentation["layer_gains_linear"][index]}
+                for index, source in enumerate(living_sources)
+            ],
+            f"deterministic three-layer mix plus {presentation['treatment']}; presentation only and no era truth",
+        )
+
+    for transition in transitions["renders"]:
+        sources = [
+            {
+                "stable_prototype_id": transition["outgoing_source"]["candidate_id"],
+                "role": "OUTGOING_FULL_MIX",
+                "path": transition["outgoing_source"]["path"],
+                "sha256": transition["outgoing_source"]["sha256"],
+            },
+            {
+                "stable_prototype_id": transition["incoming_source"]["candidate_id"],
+                "role": "INCOMING_FULL_MIX",
+                "path": transition["incoming_source"]["path"],
+                "sha256": transition["incoming_source"]["sha256"],
+            },
+        ]
+        if transition["treatment"] in {
+            "NATURAL-ENDING-AMBIENCE-BRIDGE",
+            "GENERIC-DERIVED-EXIT-ENTRY",
+        }:
+            ambience = transition["ambience_source"]
+            sources.append(
+                {
+                    "stable_prototype_id": ambience["stable_prototype_id"],
+                    "role": "AMBIENCE_BRIDGE",
+                    "path": ambience["path"],
+                    "sha256": ambience["sha256"],
+                }
+            )
+        add_relation(
+            transition["stable_prototype_id"],
+            transition["audio"],
+            "ERA_TRANSITION_DEMO",
+            sources,
+            transition["classification"],
+        )
+
+    derivative_ids = [row["derivative"]["stable_prototype_id"] for row in relationships]
+    if len(relationships) != 80 or len(derivative_ids) != len(set(derivative_ids)):
+        raise RuntimeError("derivative source relationship cardinality/identity proof failed")
+    register = {
+        "schema": "project-studio-audio-derivative-source-register/v3",
+        "generated_at_utc": utc_now(),
+        "status": "HASH_VERIFIED",
+        "relationship_count": len(relationships),
+        "relationships": relationships,
+        "rights_status": "PROTOTYPE_ONLY_OR_PROTOTYPE_READY_FOR_OWNER_AUDITION",
+        "honesty": "All relationships identify full-mix, procedural-layer, or editorial sources. No source is represented as a production stem.",
+    }
+    write_manifest(DERIVATIVE_REGISTER, register)
+    return register
 
 
 def _streaming_mono_correlation(left_path: Path, right_path: Path) -> float:
@@ -955,21 +1551,55 @@ def _streaming_mono_correlation(left_path: Path, right_path: Path) -> float:
     return covariance / math.sqrt(variance_x * variance_y)
 
 
+def _spectral_band_fractions(path: Path, seconds: int = 60) -> dict[str, float]:
+    energy = np.zeros(3, dtype=np.float64)
+    with sf.SoundFile(path) as handle:
+        if handle.samplerate != SAMPLE_RATE:
+            raise RuntimeError(f"living spectral proof sample-rate mismatch: {path}")
+        for _ in range(seconds):
+            block = handle.read(SAMPLE_RATE, dtype="float64", always_2d=True)
+            if not len(block):
+                break
+            mono = np.mean(block, axis=1)
+            mono *= np.hanning(len(mono))
+            power = np.square(np.abs(np.fft.rfft(mono)))
+            frequencies = np.fft.rfftfreq(len(mono), 1.0 / SAMPLE_RATE)
+            energy[0] += float(np.sum(power[frequencies < 150]))
+            energy[1] += float(np.sum(power[(frequencies >= 150) & (frequencies < 2_000)]))
+            energy[2] += float(np.sum(power[frequencies >= 2_000]))
+    total = float(np.sum(energy))
+    if total <= 0:
+        raise RuntimeError(f"living spectral proof found no signal: {path}")
+    return {
+        "below_150_hz": round(float(energy[0] / total), 7),
+        "150_to_2000_hz": round(float(energy[1] / total), 7),
+        "above_2000_hz": round(float(energy[2] / total), 7),
+    }
+
+
 def validate_evidence() -> dict[str, Any]:
+    existing_validation: dict[str, Any] | None = None
     if VALIDATION_PATH.exists():
-        validation = json.loads(VALIDATION_PATH.read_text(encoding="utf-8"))
-        if validation.get("status") != "PASS" or not all(validation.get("checks", {}).values()):
+        existing_validation = json.loads(VALIDATION_PATH.read_text(encoding="utf-8"))
+        if existing_validation.get("status") != "PASS" or not all(
+            existing_validation.get("checks", {}).values()
+        ):
             raise RuntimeError("existing asset validation is not a complete pass")
-        return validation
 
     master = json.loads(MASTER_INDEX.read_text(encoding="utf-8"))
     responsive = json.loads(RESPONSIVE_CATALOGUE.read_text(encoding="utf-8"))
     register = json.loads(RESPONSIVE_REGISTER.read_text(encoding="utf-8"))
-    living = json.loads((LIVING_ROOT / "living-lot-soundscape-catalogue.json").read_text(encoding="utf-8"))
-    management = json.loads((MANAGEMENT_ROOT / "management-semantic-catalogue.json").read_text(encoding="utf-8"))
-    transitions = json.loads((TRANSITION_ROOT / "rendered-transition-catalogue.json").read_text(encoding="utf-8"))
+    anchor_authority = verify_anchor_authorities()
+    living = json.loads((LIVING_ROOT / "living-lot-soundscape-catalogue.v2.json").read_text(encoding="utf-8"))
+    living_v1 = json.loads((LIVING_ROOT / "living-lot-soundscape-catalogue.json").read_text(encoding="utf-8"))
+    management = json.loads(MANAGEMENT_CATALOGUE.read_text(encoding="utf-8"))
+    transitions = json.loads(TRANSITION_CATALOGUE.read_text(encoding="utf-8"))
+    transitions_v1 = json.loads(TRANSITION_V1_CATALOGUE.read_text(encoding="utf-8"))
     lot_sfx = json.loads((SFX_ROOT / "lot-detail-sfx-catalogue.json").read_text(encoding="utf-8"))
     canonical = json.loads(CANONICAL_CATALOGUE.read_text(encoding="utf-8"))
+    derivative_register = build_derivative_source_register()
+    sfx_gate = json.loads(SFX_GATE_PATH.read_text(encoding="utf-8"))
+    verify_gate_data(sfx_gate)
 
     asset_ids: list[str] = []
     asset_paths: list[str] = []
@@ -994,6 +1624,91 @@ def validate_evidence() -> dict[str, Any]:
         stat = path.stat()
         asset_inodes.append((stat.st_dev, stat.st_ino))
 
+    all_audio_by_path: dict[str, dict[str, Any]] = {
+        asset["relative_path"]: {
+            "stable_prototype_id": asset["stable_prototype_id"],
+            "sha256": asset["sha256"],
+        }
+        for asset in master["audio_assets"]
+    }
+    responsive_candidate_evidence_complete = True
+    for candidate in register["candidates"]:
+        raw_path = Path(candidate["raw"]["path"])
+        relative = str(raw_path.relative_to(PILOT_ROOT))
+        all_audio_by_path.setdefault(
+            relative,
+            {"stable_prototype_id": candidate["candidate_id"], "sha256": candidate["raw"]["sha256"]},
+        )
+        analysis_path = (
+            PILOT_ROOT
+            / "02_music-bundles/responsive/analysis"
+            / candidate["epoch"]
+            / candidate["context"].lower()
+            / f"{candidate['candidate_id']}.json"
+        )
+        log_path = (
+            PILOT_ROOT
+            / "12_logs/responsive-generation"
+            / candidate["epoch"]
+            / candidate["context"].lower()
+            / f"{candidate['candidate_id']}.log"
+        )
+        if not analysis_path.is_file() or not log_path.is_file():
+            responsive_candidate_evidence_complete = False
+            continue
+        analysis = json.loads(analysis_path.read_text(encoding="utf-8"))
+        responsive_candidate_evidence_complete &= (
+            analysis.get("candidate_id") == candidate["candidate_id"]
+            and analysis.get("sha256") == candidate["raw"]["sha256"]
+        )
+    for layer in living_v1["layers"]:
+        path = Path(layer["audio"]["path"])
+        all_audio_by_path.setdefault(
+            str(path.relative_to(PILOT_ROOT)),
+            {"stable_prototype_id": layer["stable_prototype_id"] + "-V1-PRESERVED", "sha256": layer["audio"]["sha256"]},
+        )
+    for presentation in living_v1["fixture_presentations"]:
+        path = Path(presentation["audio"]["path"])
+        all_audio_by_path.setdefault(
+            str(path.relative_to(PILOT_ROOT)),
+            {"stable_prototype_id": f"ASP01-LIVING-FIXTURE-{presentation['fixture']}-V1-PRESERVED", "sha256": presentation["audio"]["sha256"]},
+        )
+    for presentation in living_v1["era_presentations"]:
+        path = Path(presentation["audio"]["path"])
+        all_audio_by_path.setdefault(
+            str(path.relative_to(PILOT_ROOT)),
+            {"stable_prototype_id": f"ASP01-LIVING-{presentation['presentation']}-V1-PRESERVED", "sha256": presentation["audio"]["sha256"]},
+        )
+    for transition in transitions_v1["renders"]:
+        path = Path(transition["audio"]["path"])
+        all_audio_by_path.setdefault(
+            str(path.relative_to(PILOT_ROOT)),
+            {
+                "stable_prototype_id": transition["stable_prototype_id"] + "-V1-PRESERVED",
+                "sha256": transition["audio"]["sha256"],
+            },
+        )
+
+    all_known_audio_hashes_match = True
+    all_known_audio_ids: list[str] = []
+    all_known_audio_hashes: list[str] = []
+    all_known_audio_inodes: list[tuple[int, int]] = []
+    for relative, record in all_audio_by_path.items():
+        unresolved = PILOT_ROOT / relative
+        resolved = unresolved.resolve(strict=True)
+        try:
+            resolved.relative_to(PILOT_ROOT.resolve(strict=True))
+        except ValueError:
+            all_known_audio_hashes_match = False
+        actual_hash = sha256_file(resolved)
+        all_known_audio_hashes_match &= (
+            unresolved.is_file() and not unresolved.is_symlink() and actual_hash == record["sha256"]
+        )
+        all_known_audio_ids.append(record["stable_prototype_id"])
+        all_known_audio_hashes.append(actual_hash)
+        stat = resolved.stat()
+        all_known_audio_inodes.append((stat.st_dev, stat.st_ino))
+
     raw_errors: list[str] = []
     for entry in canonical["entries"]:
         raw = entry["raw"]
@@ -1013,6 +1728,19 @@ def validate_evidence() -> dict[str, Any]:
         "WIDE_MEDIUM": round(_streaming_mono_correlation(layer_paths["WIDE"], layer_paths["MEDIUM"]), 9),
         "WIDE_CLOSE": round(_streaming_mono_correlation(layer_paths["WIDE"], layer_paths["CLOSE"]), 9),
         "MEDIUM_CLOSE": round(_streaming_mono_correlation(layer_paths["MEDIUM"], layer_paths["CLOSE"]), 9),
+    }
+    spectral_profiles = {
+        layer: _spectral_band_fractions(path)
+        for layer, path in layer_paths.items()
+    }
+    spectral_vectors = {
+        layer: np.asarray(list(profile.values()), dtype=np.float64)
+        for layer, profile in spectral_profiles.items()
+    }
+    spectral_distances = {
+        "WIDE_MEDIUM": round(float(np.linalg.norm(spectral_vectors["WIDE"] - spectral_vectors["MEDIUM"])), 7),
+        "WIDE_CLOSE": round(float(np.linalg.norm(spectral_vectors["WIDE"] - spectral_vectors["CLOSE"])), 7),
+        "MEDIUM_CLOSE": round(float(np.linalg.norm(spectral_vectors["MEDIUM"] - spectral_vectors["CLOSE"])), 7),
     }
 
     owned_commit = subprocess.run(
@@ -1075,19 +1803,29 @@ def validate_evidence() -> dict[str, Any]:
     }
     checks = {
         "master_index_has_exactly_152_audio_assets": len(master["audio_assets"]) == 152,
-        "all_new_audio_ids_unique": len(asset_ids) == len(set(asset_ids)),
-        "all_new_audio_paths_unique": len(asset_paths) == len(set(asset_paths)),
-        "all_new_audio_hashes_unique": len(asset_hashes) == len(set(asset_hashes)),
-        "all_new_audio_hashes_match": all_asset_hashes_match,
-        "all_new_audio_paths_contained": all_asset_paths_contained,
-        "all_new_audio_regular_not_symlink": all_assets_regular_not_symlink,
-        "all_new_audio_inodes_unique": len(asset_inodes) == len(set(asset_inodes)),
+        "all_indexed_audio_ids_unique": len(asset_ids) == len(set(asset_ids)),
+        "all_indexed_audio_paths_unique": len(asset_paths) == len(set(asset_paths)),
+        "all_indexed_audio_hashes_unique": len(asset_hashes) == len(set(asset_hashes)),
+        "all_indexed_audio_hashes_match": all_asset_hashes_match,
+        "all_indexed_audio_paths_contained": all_asset_paths_contained,
+        "all_indexed_audio_regular_not_symlink": all_assets_regular_not_symlink,
+        "all_indexed_audio_inodes_unique": len(asset_inodes) == len(set(asset_inodes)),
+        "all_196_current_and_preserved_new_audio_files_explicitly_rehashed": len(all_audio_by_path) == 196,
+        "all_current_and_preserved_new_audio_ids_unique": len(all_known_audio_ids) == len(set(all_known_audio_ids)),
+        "all_current_and_preserved_new_audio_hashes_unique": len(all_known_audio_hashes) == len(set(all_known_audio_hashes)),
+        "all_current_and_preserved_new_audio_hashes_match": all_known_audio_hashes_match,
+        "all_current_and_preserved_new_audio_inodes_unique": len(all_known_audio_inodes) == len(set(all_known_audio_inodes)),
         "all_191_raw_music_and_12_motif_hashes_unchanged": (
             sum(row["asset_type"] == "MUSIC_SOURCE_CANDIDATE" for row in canonical["entries"]) == 191
             and sum(row["asset_type"] == "MOTIF_SHAPE_SKETCH" for row in canonical["entries"]) == 12
             and not raw_errors
         ),
         "responsive_exactly_36_candidates": len(register["candidates"]) == 36,
+        "responsive_all_36_raw_hashes_and_sidecar_logs_verified": responsive_candidate_evidence_complete,
+        "responsive_three_anchor_hashes_eligibility_and_review_gates_verified": (
+            len(anchor_authority["anchors"]) == 3
+            and all(row["inherited_human_review_gate"] for row in anchor_authority["anchors"])
+        ),
         "responsive_exactly_12_selected_context_variants": len(responsive["variants"]) == 12,
         "responsive_every_context_has_technical_eligible_candidate": len(eligible_contexts) == 12,
         "responsive_all_selected_candidates_technical_pass": selected_candidate_ids <= eligible_candidate_ids,
@@ -1100,13 +1838,43 @@ def validate_evidence() -> dict[str, Any]:
         "living_exactly_five_fixture_presentations": len(living["fixture_presentations"]) == 5,
         "living_exactly_three_era_presentations": len(living["era_presentations"]) == 3,
         "living_fixture_layer_bindings_exactly_5x3": len(living["fixture_layer_bindings"]) == 15,
-        "living_layers_signal_distinct": all(abs(value) < 0.10 for value in correlations.values()),
+        "living_layer_signals_not_duplicates": all(abs(value) < 0.10 for value in correlations.values()),
+        "living_layer_spectral_profiles_measurably_different": all(value > 0.05 for value in spectral_distances.values()),
+        "living_semantic_detail_schedule_exactly_w12_m25_c28": living["semantic_detail_counts"] == {"WIDE": 12, "MEDIUM": 25, "CLOSE": 28},
+        "living_owner_listening_gate_not_overclaimed": living["music_off_coherent_world"] == "OWNER_LISTENING_GATE_PENDING",
         "management_exactly_15x3": len(management["vocabulary"]) == 15 and len(management["candidates"]) == 45,
         "management_pick_and_alternate_each_family": len(management["selections"]) == 15 and all(row["provisional_pick"] != row["alternate"] for row in management["selections"]),
+        "management_machine_provisional_uses_bounded_technical_proxy": (
+            management["machine_selection_scope"] == "TECHNICAL_RESTRAINT_PROXY_ONLY"
+            and all(
+                row["selection_disposition"]
+                == "MACHINE_PROVISIONAL_TECHNICAL_PROXY_PENDING_HUMAN_LISTENING"
+                for row in management["selections"]
+            )
+            and all("technical_restraint_proxy" in row for row in management["candidates"])
+        ),
         "management_never_audio_only": management["critical_information_audio_only"] is False,
         "transitions_exactly_3x3": transitions["boundary_count"] == 3 and len(transitions["renders"]) == 9,
         "transitions_no_fake_stems": transitions["source_separation_or_fake_stems"] is False,
+        "transitions_no_unproven_phrase_or_bespoke_claim": (
+            transitions["phrase_boundary_claimed_for_rendered_files"] is False
+            and transitions["bespoke_boundary_specific_edit_claimed"] is False
+            and all(row["phrase_boundary_claimed"] is False and row["bespoke_claimed"] is False for row in transitions["renders"])
+        ),
+        "transition_owner_facing_paths_use_only_honest_versioned_tokens": all(
+            row["owner_facing_filename_uses_honest_treatment_token"] is True
+            and row["treatment"] in Path(row["audio"]["path"]).name
+            and Path(row["audio"]["path"]).name.endswith("-v2.wav")
+            and "PHRASE-BOUNDARY-CROSSFADE" not in Path(row["audio"]["path"]).name
+            and "BESPOKE-EXIT-ENTRY" not in Path(row["audio"]["path"]).name
+            for row in transitions["renders"]
+        ),
+        "every_edited_or_mixed_derivative_names_hash_bound_sources": (
+            derivative_register["relationship_count"] == 80
+            and all(row["sources"] for row in derivative_register["relationships"])
+        ),
         "small_sfx_exactly_15_technical_pass": len(lot_sfx["items"]) == 15 and all(row["analysis"]["automatic_pass"] for row in lot_sfx["items"]),
+        "small_sfx_v2_gate_comprehensively_verified": sfx_gate["schema_version"] == 2 and sfx_gate["status"] == "PASSED",
         "no_forbidden_acceptance_or_shipping_claim": not any(term in serialized for term in forbidden_claims),
         "no_audio_or_model_weights_committed_by_pilot": not owned_commit_audio,
         "owned_commit_contains_only_four_authorized_scripts": set(filter(None, owned_commit_paths)) == expected_owned_paths,
@@ -1115,13 +1883,16 @@ def validate_evidence() -> dict[str, Any]:
         failures = [key for key, passed in checks.items() if not passed]
         raise RuntimeError(f"audio asset validation failed without weakening checks: {failures}")
     validation = {
-        "schema": "project-studio-audio-assets-validation/v1",
-        "generated_at_utc": utc_now(),
+        "schema": "project-studio-audio-assets-validation/v3",
+        "generated_at_utc": (
+            existing_validation["generated_at_utc"] if existing_validation is not None else utc_now()
+        ),
         "status": "PASS",
         "checks": checks,
         "counts": {
             "master_index_audio_assets": len(asset_ids),
-            "unique_audio_hashes": len(set(asset_hashes)),
+            "all_current_and_preserved_new_audio_files": len(all_audio_by_path),
+            "unique_current_and_preserved_new_audio_hashes": len(set(all_known_audio_hashes)),
             "canonical_raw_entries_rehashed": len(canonical["entries"]),
             "responsive_candidates": len(register["candidates"]),
             "responsive_technically_eligible_candidates": len(eligible_candidate_ids),
@@ -1133,15 +1904,33 @@ def validate_evidence() -> dict[str, Any]:
             "living_era_presentations": len(living["era_presentations"]),
             "management_candidates": len(management["candidates"]),
             "transition_renders": len(transitions["renders"]),
+            "derivative_source_relationships": derivative_register["relationship_count"],
         },
         "living_layer_mono_correlations": correlations,
+        "living_layer_spectral_band_fractions_first_60s": spectral_profiles,
+        "living_layer_spectral_profile_distances": spectral_distances,
         "responsive_machine_exclusions": excluded_candidates,
         "raw_hash_errors": raw_errors,
         "owned_scripts_commit": owned_commit,
         "master_index": file_record(MASTER_INDEX),
         "source_catalogue": file_record(CANONICAL_CATALOGUE),
+        "responsive_anchor_authority": file_record(
+            PILOT_ROOT / "02_music-bundles/responsive/responsive-anchor-authority.v2.json"
+        ),
+        "derivative_source_register": file_record(DERIVATIVE_REGISTER),
+        "sfx_route_gate": file_record(SFX_GATE_PATH),
         "machine_proof_limit": "No validation check establishes listening acceptance, quality, comfort, historical correctness, copyrightability, exclusivity, non-infringement, or commercial clearance.",
     }
+    if VALIDATION_V2_PATH.exists():
+        validation["supersedes"] = {
+            **file_record(VALIDATION_V2_PATH),
+            "reason": "v3 additionally verifies honest Owner-facing transition filenames and machine-proxy management selections",
+        }
+    if existing_validation is not None and validation != existing_validation:
+        raise RuntimeError(
+            "fresh validation differs from immutable prior evidence; refusing overwrite: "
+            f"{VALIDATION_PATH}"
+        )
     write_manifest(VALIDATION_PATH, validation)
     return validation
 
@@ -1153,6 +1942,8 @@ def verify_all() -> dict[str, Any]:
         "management": build_management_pack(),
         "transitions": build_transitions(),
     }
+    verify_anchor_authorities()
+    derivative_register = build_derivative_source_register()
     master = build_master_index(
         result["lot_sfx"], result["living_lot"], result["management"], result["transitions"]
     )
@@ -1165,6 +1956,7 @@ def verify_all() -> dict[str, Any]:
         "living_era_presentation_count": len(result["living_lot"]["era_presentations"]),
         "management_candidate_count": len(result["management"]["candidates"]),
         "transition_render_count": len(result["transitions"]["renders"]),
+        "derivative_source_relationship_count": derivative_register["relationship_count"],
         "master_index_audio_asset_count": master["audio_asset_count"],
         "validation_status": validation["status"],
     }
@@ -1189,6 +1981,8 @@ def main() -> int:
     elif args.target == "transitions":
         payload = {"status": "PASSED", "render_count": len(build_transitions()["renders"])}
     elif args.target == "index":
+        verify_anchor_authorities()
+        build_derivative_source_register()
         payload = {"status": "PASSED", "audio_asset_count": build_master_index()["audio_asset_count"]}
     elif args.target == "validation":
         data = validate_evidence()
