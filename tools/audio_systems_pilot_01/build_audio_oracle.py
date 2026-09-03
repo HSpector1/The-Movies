@@ -360,6 +360,22 @@ def load_verified(record: dict[str, Any], *, schema: str | None = None, required
     return path, payload
 
 
+def verify_four_hour_source_register(playlist: dict[str, Any]) -> None:
+    source = playlist.get("source_register")
+    require(
+        isinstance(source, dict)
+        and set(source) == {"path", "sha256"}
+        and isinstance(source.get("path"), str)
+        and re.fullmatch(r"[0-9a-f]{64}", source.get("sha256", "")) is not None,
+        "four-hour source-register identity is malformed",
+    )
+    require(
+        pilot_path(source["path"]) == SYSTEM_REGISTER.resolve()
+        and source["sha256"] == sha256_file(SYSTEM_REGISTER),
+        "four-hour source-register identity is stale",
+    )
+
+
 def trace_assertions_pass(value: Any) -> bool:
     return (
         isinstance(value, list)
@@ -1787,6 +1803,7 @@ def verify() -> dict[str, Any]:
     _, playlist = load_verified(playlist_record, schema="project-studio-four-hour-density-simulations/v2")
     require(pilot_path(playlist_record["path"]) == PLAYLIST_SUITE.resolve(), "Oracle long-session suite path mismatch")
     require(playlist.get("trace_count") == 12 and playlist.get("machine_verdict") == "PASS", "four-hour suite incomplete")
+    verify_four_hour_source_register(playlist)
     for row in playlist["traces"]:
         path = pilot_path(row["path"])
         require(sha256_file(path) == row["sha256"], f"four-hour child trace mismatch: {path}")
@@ -1820,6 +1837,16 @@ def self_test() -> dict[str, Any]:
 
     refuse(lambda: strict_json_loads('{"schema":"v2","schema":"forged"}', "duplicate-key-mutation"),
            "json:duplicate-object-key")
+    current_playlist = strict_json_file(PLAYLIST_SUITE)
+    verify_four_hour_source_register(current_playlist)
+    stale_playlist_source = copy.deepcopy(current_playlist)
+    stale_playlist_source["source_register"]["sha256"] = "0" * 64
+    refuse(lambda: verify_four_hour_source_register(stale_playlist_source),
+           "four-hour:stale-source-register-hash")
+    escaped_playlist_source = copy.deepcopy(current_playlist)
+    escaped_playlist_source["source_register"]["path"] = str(PILOT_ROOT / "02_music-bundles/simulations")
+    refuse(lambda: verify_four_hour_source_register(escaped_playlist_source),
+           "four-hour:wrong-source-register-path")
     synthetic_timing = {
         "event_type": "SYNTHETIC_IN_MEMORY_TRANSPORT_SCHEDULE_OBSERVED",
         "timing_basis": TIMING_SYNTHETIC_SEQUENCE,

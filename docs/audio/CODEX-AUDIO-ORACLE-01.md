@@ -99,6 +99,7 @@ The Python consumer reconstructs the exact float32 recipe and PCM16 quantization
 
 The Oracle binds `02_music-bundles/simulations/FOUR-HOUR-DENSITY-SIMULATIONS.v2.json` plus every one of its twelve child hashes. Unity independently checks:
 
+- the manifest's exact contained v5 system-register path and current SHA-256;
 - the exact Cartesian set of three explicitly supplied fixed epochs by Full Music, Balanced, Sparse, and Off;
 - exactly 14,400 seconds per trace;
 - child trace hashes and event identity/order integrity;

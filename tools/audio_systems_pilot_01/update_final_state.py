@@ -219,9 +219,9 @@ def build(mode: str) -> dict[str, Any]:
     upsert_by_id(errors, {
         "id": "ERR-0010",
         "classification": "FINAL_VALIDATOR_FALSE_GREEN_AND_RETRY_AUDIT",
-        "hypothesis": "Early final consumers trusted top-level PASS flags, mutable mappings, or fixed retry paths more than independently recomputed evidence.",
-        "correction": "Added exact semantic projections, source/branch/build bindings, content-addressed Oracle evidence, eager successful-run snapshots, staged/hash-checked archives, one bounded non-destructive legacy metadata supplement, state upserts, and one-shot package preflight.",
-        "focused_proof": "Python/JavaScript/zsh/static tests, exact archive/snapshot/supplement tree verification, and fresh independent hostile review report zero open mechanical findings before package creation; the supplemented historical run remains classified FAIL.",
+        "hypothesis": "Early final consumers trusted top-level PASS flags, mutable mappings, fixed retry paths, or a hash-authenticated parent without dereferencing its nested source-register identity.",
+        "correction": "Added exact semantic projections, nested source-register path/hash validation, source/branch/build bindings, content-addressed Oracle evidence, eager successful-run snapshots, staged/hash-checked archives, one bounded non-destructive legacy metadata supplement, state upserts, and one-shot package preflight.",
+        "focused_proof": "Python and Unity mutation tests reject a stale four-hour source-register hash/path; JavaScript/zsh/static tests, exact archive/snapshot/supplement tree verification, and fresh independent hostile review report zero open mechanical findings before package creation; superseded failed evidence remains preserved.",
         "status": "RESOLVED",
     })
     if any(row.get("status") != "RESOLVED" for row in errors):

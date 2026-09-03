@@ -1906,6 +1906,11 @@ def four_hour_copy_pairs(root: Path) -> list[tuple[Path, Path]]:
     require(suite.get("schema") == "project-studio-four-hour-density-simulations/v2"
             and suite.get("machine_verdict") == "PASS" and suite.get("trace_count") == 12
             and len(suite.get("traces", [])) == 12, "four-hour suite failed before package copy")
+    source_register = suite.get("source_register")
+    require(isinstance(source_register, dict) and set(source_register) == {"path", "sha256"}
+            and pilot_path(source_register.get("path", "")) == SYSTEM_REGISTER.resolve()
+            and source_register.get("sha256") == sha256_file(SYSTEM_REGISTER),
+            "four-hour suite source-register identity is stale before package copy")
     destination = root / "PROVENANCE/four-hour-density"
     pairs = [(suite_path, destination / suite_path.name)]
     copied: set[Path] = set()

@@ -573,6 +573,12 @@ def check_responsive_and_playlists() -> dict[str, Any]:
             verified_path(record)
     playlists = load(PLAYLISTS, "project-studio-four-hour-density-simulations/v2")
     require(playlists["machine_verdict"] == "PASS" and playlists["trace_count"] == 12 and playlists["duration_seconds_each"] == 14_400, "four-hour suite failed")
+    playlist_source = playlists.get("source_register")
+    require(isinstance(playlist_source, dict) and set(playlist_source) == {"path", "sha256"}
+            and pilot_path(playlist_source.get("path", "")) == SYSTEM_REGISTER.resolve()
+            and playlist_source.get("sha256") == SYSTEM_REGISTER_SHA256
+            and sha256_file(SYSTEM_REGISTER) == SYSTEM_REGISTER_SHA256,
+            "four-hour suite source-register identity is stale")
     require(set(playlists["densities"]) == {"FULL_MUSIC", "BALANCED", "SPARSE", "OFF"} and set(playlists["epochs"]) == EXPECTED_EPOCHS, "density suite coverage mismatch")
     for row in playlists["traces"]:
         path, trace = load_record_json(row)
