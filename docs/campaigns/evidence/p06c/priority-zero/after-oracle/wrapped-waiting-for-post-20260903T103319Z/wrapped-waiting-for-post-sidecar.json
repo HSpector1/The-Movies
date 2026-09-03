@@ -1,0 +1,116 @@
+{
+    "schemaVersion": 1,
+    "status": "complete",
+    "failure": "",
+    "scenarioId": "wrapped-waiting-for-post",
+    "fixtureWeek": 35,
+    "sessionId": "p06-oracle-wrapped-waiting-for-post",
+    "runtimeInstanceId": "p06-oracle-wrapped-waiting-for-post",
+    "stateRevision": 0,
+    "stateDigest": "f35f91b31712afb6e0a1c38c51cf13549069b9c6aebbc31f357a6cde5e396350",
+    "gameWeek": 35,
+    "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+    "protocolVersion": 4,
+    "snapshotVersion": 14,
+    "viewportWidth": 1440,
+    "viewportHeight": 900,
+    "viewportKind": "landscape",
+    "capturedUtc": "2026-09-03T10:33:25.7107190Z",
+    "mutationsSubmitted": 0,
+    "noMutationScope": "No resolve, no capacity build-out, no advance; the waiter is photographed exactly as the authority holds it. The runner submits no intent.",
+    "visualQuestions": [
+        "Is a wrapped picture stranded for Post capacity unmistakable at management distance?",
+        "Does the world show waiting WITHOUT inventing finishing activity for the waiter?",
+        "Is the who/why of the block (facility capacity at Post) legible without the memo?"
+    ],
+    "visualReviewStatus": "pending",
+    "machineAssertions": [
+        {
+            "name": "exactly one wrapped-waiting-for-post row",
+            "passed": true,
+            "detail": "prod-0002"
+        },
+        {
+            "name": "prod-0002 wrapped-waiting-for-post",
+            "passed": true,
+            "detail": "wrapped-waiting-for-post"
+        },
+        {
+            "name": "waiter phase still shooting",
+            "passed": true,
+            "detail": "shooting"
+        },
+        {
+            "name": "waiter is located at the post body",
+            "passed": true,
+            "detail": "post"
+        },
+        {
+            "name": "waiter blocker kind facility-capacity",
+            "passed": true,
+            "detail": "facility-capacity"
+        },
+        {
+            "name": "waiter blockerAnatomy kind facility-capacity",
+            "passed": true,
+            "detail": "facility-capacity"
+        },
+        {
+            "name": "blocker anatomy names the post capacity holder",
+            "passed": true,
+            "detail": "facility-post-building:0,facility-post-building:1"
+        },
+        {
+            "name": "prod-0000 post-handoff",
+            "passed": true,
+            "detail": "post-handoff"
+        },
+        {
+            "name": "prod-0001 post-handoff",
+            "passed": true,
+            "detail": "post-handoff"
+        },
+        {
+            "name": "derived post cue WaitingForPost",
+            "passed": true,
+            "detail": "WaitingForPost"
+        },
+        {
+            "name": "waiting cue speaks the exact waiter",
+            "passed": true,
+            "detail": "prod-0002"
+        },
+        {
+            "name": "presenter post cue WaitingForPost",
+            "passed": true,
+            "detail": "WaitingForPost"
+        }
+    ],
+    "artifacts": [
+        {
+            "cameraId": "CAM-MGMT-POST-V1",
+            "label": "management",
+            "relativePath": "wrapped-waiting-for-post-management.png",
+            "sha256": "5bf8f9ed833ba8f3682b9e10387ad92e98100fe5abad46b26339ee2706e1069f",
+            "bytes": 1234254,
+            "width": 1440,
+            "height": 900,
+            "mediaType": "image/png",
+            "revisionAtCapture": 0,
+            "digestAtCapture": "f35f91b31712afb6e0a1c38c51cf13549069b9c6aebbc31f357a6cde5e396350",
+            "mutationsBeforeCapture": 0,
+            "mutationsAfterCapture": 0,
+            "renderedCameraPosition": {
+                "x": -42.78050994873047,
+                "y": 80.61180114746094,
+                "z": -45.659523010253909
+            },
+            "renderedCameraEulerAngles": {
+                "x": 43.0000114440918,
+                "y": 22.0,
+                "z": 0.0
+            },
+            "renderedFieldOfView": 36.0
+        }
+    ]
+}

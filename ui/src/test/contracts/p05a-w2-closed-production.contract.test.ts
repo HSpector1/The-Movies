@@ -8,9 +8,12 @@
 // current holder before Wrap history, explicit-grandfather null Set); presence
 // joins by exact owner+facility; same-title isolation; wrap receipts.
 
+import { existsSync, readFileSync } from 'node:fs'
 import { describe, expect, it } from 'vitest'
 import {
   applyActions,
+  firstFilmJourney,
+  loadSave,
   tick,
 } from '../../../../src/core/index.ts'
 import type { GameState, ProductionWorkflow } from '../../../../src/core/index.ts'
@@ -253,6 +256,40 @@ describe('P05A W2 — closed operational states across the lifecycle', () => {
     expect(row.wrapReceipt!.currentWeek).toBe(true)
     expect(row.currentSetId).toBeNull()
     expect(row.stageFacilityId).toBeNull()
+  })
+
+  // ── P06C Priority Zero (§5): rail ↔ guidance-card state agreement ──────────
+  // A wrapped picture keeps workflow.phase === 'shooting' until a Post slot frees
+  // up. The rail reads that as 'wrapped-waiting-for-post' (POST · WAITING); the
+  // guidance card (firstFilmJourney) must speak the SAME current truth for the
+  // identical productionId, never the raw 'shooting' phase. This is the exact
+  // contradiction P06C §5 names; the test pins cross-surface agreement so it can
+  // never silently regress.
+  it('the guidance card agrees with the rail on the wrapped-waiting oracle fixture — never SHOOTING (P06C §5)', () => {
+    // The canonical wrapped-waiting-for-post scenario (Visual Oracle scenario 2):
+    // a picture that has wrapped but keeps workflow.phase === 'shooting' while it
+    // waits for a Post slot. This is the exact state the P06B report flagged.
+    const fixture = 'e2e/p06-visual-oracle-v1/s2-wrapped-waiting-for-post.save.json'
+    const fixturePath = [`ui/${fixture}`, fixture].find(existsSync)
+    expect(fixturePath, 'wrapped-waiting oracle fixture must exist').toBeDefined()
+    const raw = JSON.parse(readFileSync(fixturePath!, 'utf8')) as unknown
+    const state = (loadSave(raw) as { state: GameState }).state
+    const waiting = 'prod-0002'
+
+    // Rail side: the authoritative current state.
+    expect(rowOf(managedSnapshot(state), waiting).operationalState).toBe('wrapped-waiting-for-post')
+
+    // Guidance-card side: firstFilmJourney focuses on the attention picture and
+    // MUST speak the same current truth — never the raw 'shooting' phase.
+    const journey = firstFilmJourney(state)
+    expect(journey.productionId).toBe(waiting)
+    expect(journey.headline).toBe('WAITING FOR POST')
+    expect(journey.headline).not.toBe('SHOOTING')
+    expect(journey.beat).toBe('post-production')
+    expect(journey.whatHappened).toBe('Principal photography wrapped.')
+    // No surface may re-introduce the raw shooting narrative for a wrapped picture.
+    expect(journey.whatHappened).not.toMatch(/Principal photography started/)
+    expect(journey.next.label).not.toMatch(/Shooting continues/)
   })
 })
 

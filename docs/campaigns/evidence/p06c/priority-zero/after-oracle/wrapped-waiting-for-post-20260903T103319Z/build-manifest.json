@@ -1,0 +1,32 @@
+{
+  "schema": "p04a1-build-manifest/1",
+  "generatedAtUtc": "2026-09-03T08:54:02Z",
+  "player": {
+    "app": "/Users/bruce/The Movies - P06B Impl Unity/Builds/macOS/Project Studio Visual Spike.app",
+    "executable": "/Users/bruce/The Movies - P06B Impl Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+    "executableSha256": "130a13a0f19e688fc2bb4b8ba4bd9282430b3d62ecd105f3ff7ad4651d534d49",
+    "assemblyCSharpSha256": "3ba5ba105bd2c4d757b0dbdb8695bb98f278c5a24cbc8ed5c92ed22d502ff623",
+    "builtAtUtc": "2026-09-03T08:40:02Z"
+  },
+  "unity": {
+    "repo": "/Users/bruce/The Movies - P06B Impl Unity",
+    "sha": "18a288715bb88281dcc51f4252858f2fbabff404",
+    "branch": "wip/p06b-living-studio-ux-convergence-01-client",
+    "dirty": false
+  },
+  "typescript": {
+    "repo": "/Users/bruce/The Movies - P06A Impl TS",
+    "sha": "493ca8091c9df669a6363555a68419731625449e",
+    "branch": "wip/p06a-post-release-living-studio-01-ts",
+    "dirty": false,
+    "engineBundleSha256": "a74ed0dde22a365eac0b14b8cae168f28dac13b87856e584301a1e15546b9aab"
+  },
+  "sources": {
+    "newestTrackedAssetsFile": "Assets/Studio/Generated/Animation/carry-wardrobe.controller",
+    "newestTrackedAssetsAtUtc": "2026-09-03T08:41:19Z"
+  },
+  "toolVersions": {
+    "unityEditor": "6000.3.22f1",
+    "node": "v24.16.0"
+  }
+}

@@ -994,6 +994,52 @@ function inProductionView(
       ? 'The package is committed and the studio is carrying the picture toward release.'
       : PHASE_SIGNIFICANCE[phase]
 
+  const workflow = state.operations.workflows.find(
+    (candidate) => candidate.productionId === production.id,
+  )
+
+  // ── P06C Priority Zero (§5): wrapped, waiting for a Post slot ──────────────
+  // The resource-release law keeps `workflow.phase === 'shooting'` AFTER the
+  // shoot has wrapped, until a Post reservation is acquired — so the raw phase
+  // still reads 'shooting' for a picture that is done shooting. The rail derives
+  // `wrapped-waiting-for-post` → POST · WAITING from (phase + a facility-capacity
+  // blocker whose targetPhase is postProduction); the guidance card MUST speak
+  // that same current truth or the two surfaces contradict for the identical
+  // productionId (the exact defect §5 names). Derived from the same engine facts
+  // `closedOperationalState()` uses — never the raw phase copy — and placed ahead
+  // of every phase-keyed branch so the wrapped truth always wins.
+  if (
+    phase === 'shooting' &&
+    workflow !== undefined &&
+    workflow.blocker !== null &&
+    workflow.blocker.kind === 'facility-capacity' &&
+    workflow.blocker.targetPhase === 'postProduction'
+  ) {
+    return {
+      stage: 'in-production',
+      beat: 'post-production',
+      productionId: production.id,
+      scriptProjectId,
+      pictureTitle: title,
+      ordinal,
+      headline: 'WAITING FOR POST',
+      whatHappened: 'Principal photography wrapped.',
+      whyItMatters:
+        'No Post building slot is free yet. The picture holds until one opens — the studio retries automatically, and no production action is required.',
+      detail,
+      next: {
+        kind: 'advance-week',
+        label: 'Waiting for a Post slot — advance the week',
+        site: null,
+      },
+      waiting: {
+        untilWeek: null,
+        reason: waitOut('Wrapped — waiting for a Post slot'),
+      },
+      blocked: null,
+    }
+  }
+
   if (command !== null) {
     const site: JourneySite =
       command.kind === 'clearSceneryLoadIn' || phase === 'postProduction' ? 'post' : 'stage'
@@ -1045,9 +1091,6 @@ function inProductionView(
   // reads as arrival, settling at the next boundary. Withheld provenance keeps
   // the plain phase guidance — W2's closed operational states own that truth.
   if (phase === 'shooting') {
-    const workflow = state.operations.workflows.find(
-      (candidate) => candidate.productionId === production.id,
-    )
     const decision = workflow === undefined
       ? null
       : sceneryLoadInDecision(state, workflow, state.market.tick)
