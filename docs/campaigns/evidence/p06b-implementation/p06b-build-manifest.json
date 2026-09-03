@@ -1,18 +1,18 @@
 {
   "schema": "p04a1-build-manifest/1",
-  "generatedAtUtc": "2026-09-03T08:17:44Z",
+  "generatedAtUtc": "2026-09-03T08:40:52Z",
   "player": {
     "app": "/Users/bruce/The Movies - P06B Impl Unity/Builds/macOS/Project Studio Visual Spike.app",
     "executable": "/Users/bruce/The Movies - P06B Impl Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
-    "executableSha256": "adf9c0bfc1a520182326024682c9404acbbfba1c4195616dbe9fc8b00aa4b848",
-    "assemblyCSharpSha256": "765dfc00a933d940631792e74c062aa5e62a22e51d826a759fd644ee99532bc2",
-    "builtAtUtc": "2026-09-03T08:12:22Z"
+    "executableSha256": "130a13a0f19e688fc2bb4b8ba4bd9282430b3d62ecd105f3ff7ad4651d534d49",
+    "assemblyCSharpSha256": "3ba5ba105bd2c4d757b0dbdb8695bb98f278c5a24cbc8ed5c92ed22d502ff623",
+    "builtAtUtc": "2026-09-03T08:40:02Z"
   },
   "unity": {
     "repo": "/Users/bruce/The Movies - P06B Impl Unity",
     "sha": "af65577ad6803167b88cdee17173e86cc7f7e730",
     "branch": "wip/p06b-living-studio-ux-convergence-01-client",
-    "dirty": false
+    "dirty": true
   },
   "typescript": {
     "repo": "/Users/bruce/The Movies - P06A Impl TS",
@@ -23,7 +23,7 @@
   },
   "sources": {
     "newestTrackedAssetsFile": "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
-    "newestTrackedAssetsAtUtc": "2026-09-03T08:12:13Z"
+    "newestTrackedAssetsAtUtc": "2026-09-03T08:39:54Z"
   },
   "toolVersions": {
     "unityEditor": "6000.3.22f1",

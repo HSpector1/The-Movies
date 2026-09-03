@@ -1,8 +1,8 @@
 {
  "kind": "p06b-real-hid (\u00a725)",
  "result": "PASS",
- "build": "P06B af65577",
- "executableSha256": "adf9c0bfc1a520182326024682c9404acbbfba1c4195616dbe9fc8b00aa4b848",
+ "build": "P06B 18a2887",
+ "executableSha256": "130a13a0f19e688fc2bb4b8ba4bd9282430b3d62ecd105f3ff7ad4651d534d49",
  "viewport": [
   1440,
   900
@@ -19,7 +19,8 @@
   "commitIntentBefore": "available",
   "commitIntentAfter": "consumed",
   "modifiersBefore": "clean",
-  "modifiersAfter": "clean"
+  "modifiersAfter": "clean",
+  "reverifiedOnSealedExe": true
  },
  "worldWithoutRailPriming": {
   "click": "world-selectable-stage-a (437,134)",

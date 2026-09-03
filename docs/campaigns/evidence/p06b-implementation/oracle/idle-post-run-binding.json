@@ -3,19 +3,19 @@
  "checkpoint": "/Users/bruce/The Movies - P06A Impl TS/ui/e2e/p06-visual-oracle-v1/s1-idle-post.checkpoint.json",
  "checkpointSha256": "af45edb5dfc7cd6526e88cb4939bc9d185296c913a70ee28ec0186017baa1c71",
  "executable": "/Users/bruce/The Movies - P06B Impl Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
- "executableSha256": "adf9c0bfc1a520182326024682c9404acbbfba1c4195616dbe9fc8b00aa4b848",
+ "executableSha256": "130a13a0f19e688fc2bb4b8ba4bd9282430b3d62ecd105f3ff7ad4651d534d49",
  "buildManifest": "build-manifest.json (copied beside this file)",
  "tsCommit": "493ca8091c9df669a6363555a68419731625449e",
- "unityCommit": "af65577ad6803167b88cdee17173e86cc7f7e730",
+ "unityCommit": "18a288715bb88281dcc51f4252858f2fbabff404",
  "unityVersion": "6000.3.22f1",
  "oracleRunnerSourceSha256": "ca8d98779998267b073507f2afcdfb237ebb4b533d7b612693656a51656bcc06",
- "appPid": 6029,
+ "appPid": 28992,
  "runnerArgs": [
   "-studioP06Oracle",
   "-studioP06OracleScenario",
   "idle-post",
   "-studioP06OracleRoot",
-  "/private/tmp/claude-501/-Users-bruce-The-Movies---Github-Push-Test/b79ce21c-06f9-446a-9f4e-c6635666d29d/scratchpad/p06b-oracle/idle-post-20260903T081812Z",
+  "/private/tmp/claude-501/-Users-bruce-The-Movies---Github-Push-Test/b79ce21c-06f9-446a-9f4e-c6635666d29d/scratchpad/p06b-oracle2/idle-post-20260903T084254Z",
   "-screen-width",
   "1440",
   "-screen-height",
@@ -28,5 +28,5 @@
   900
  ],
  "playerExit": 0,
- "stamp": "20260903T081812Z"
+ "stamp": "20260903T084254Z"
 }
