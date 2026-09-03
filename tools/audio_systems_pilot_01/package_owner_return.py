@@ -17,6 +17,7 @@ import stat
 import subprocess
 import sys
 import tempfile
+import wave
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
@@ -76,7 +77,54 @@ PROHIBITED_COMMITTED_NAMES = {
     "private_key", "token.txt",
 }
 MAX_COMMITTED_BLOB_BYTES = 1_048_576
-SECRET_PATTERN = re.compile(r"(?:hf_[A-Za-z0-9]{20,}|Bearer\s+[A-Za-z0-9._-]{20,}|BEGIN (?:RSA|OPENSSH|EC) PRIVATE KEY)")
+SECRET_PATTERN = re.compile(
+    r"(?:"
+    r"hf_[A-Za-z0-9]{20,}"
+    r"|(?:Bearer|Basic)\s+[A-Za-z0-9+/._=-]{20,}"
+    r"|BEGIN (?:(?:RSA|OPENSSH|EC|DSA|PGP)\s+)?PRIVATE KEY"
+    r"|(?:AKIA|ASIA)[A-Z0-9]{16}"
+    r"|AIza[0-9A-Za-z_-]{30,}"
+    r"|github_pat_[0-9A-Za-z_]{20,}"
+    r"|gh[pousr]_[0-9A-Za-z]{20,}"
+    r"|xox[baprs]-[0-9A-Za-z-]{10,}"
+    r"|sk-(?:proj-)?[0-9A-Za-z_-]{20,}"
+    r"|(?:sk|rk)_(?:live|test)_[0-9A-Za-z]{16,}"
+    r"|eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}"
+    r"|[A-Za-z][A-Za-z0-9+.-]*://[^\s/:@]{1,128}:[^\s/@]{8,128}@"
+    r"|(?:api[_-]?key|access[_-]?token|auth[_-]?token|refresh[_-]?token|session[_-]?token|"
+    r"client[_-]?secret|private[_-]?key|secret(?:[_-]?(?:key|token))?|password|passwd)"
+    r"\s*[\"']?\s*[:=]\s*[\"']?[A-Za-z0-9+/._=-]{12,}"
+    r")",
+    re.IGNORECASE,
+)
+STAGED_TEXT_SUFFIXES = {
+    ".command", ".conf", ".css", ".csv", ".html", ".ini", ".js", ".json", ".log",
+    ".md", ".plist", ".py", ".sh", ".toml", ".ts", ".txt", ".xml", ".yaml", ".yml",
+}
+PROHIBITED_STAGED_NAMES = {
+    ".env", ".env.local", ".env.production", "account.json", "credentials.json", "credentials.ini",
+    "huggingface-token", "private-key", "private_key", "secrets.json", "token.txt",
+}
+PROHIBITED_STAGED_PARTS = {
+    "private-legal-evidence", "private_legal_evidence", "terms-acceptance", "terms_acceptance",
+    "license-acceptance", "license_acceptance", "account-evidence", "account_evidence",
+}
+COMPLETE_ROLE_TAG_FRAGMENTS = (
+    ("responsive", "RESPONSIVE_MUSIC"),
+    ("library", "ERA_PICK_LIBRARY"),
+    ("transitions", "ERA_TRANSITION"),
+    ("living-lot", "LIVING_LOT"),
+    ("management", "MANAGEMENT_SFX"),
+    ("lot-detail", "LOT_DETAIL_SFX"),
+    ("radio", "STUDIO_RADIO"),
+    ("voice", "VOICE"),
+    ("accessibility", "ACCESSIBILITY_RENDER"),
+    ("audio-oracle", "AUDIO_ORACLE"),
+    ("milestone-sting", "MILESTONE_STING"),
+)
+COMPLETE_ERA_BEARING_TAGS = frozenset({
+    "RESPONSIVE_MUSIC", "ERA_PICK_LIBRARY", "ERA_TRANSITION", "STUDIO_RADIO",
+})
 REQUIRED_DIRS = (
     "AUDIO-LAB", "MUSIC/EARLY", "MUSIC/MID", "MUSIC/MODERN", "TRANSITIONS", "LIVING-LOT",
     "MANAGEMENT-SFX", "RADIO/EARLY", "RADIO/POSTWAR", "RADIO/DIGITAL", "ACCESSIBILITY",
@@ -155,6 +203,8 @@ BOUND_SOURCE_PATHS = (
     "tools/audio_systems_pilot_01/build_hostile_review_index.py",
     "tools/audio_systems_pilot_01/build_system_asset_register.py",
     "tools/audio_systems_pilot_01/common.py",
+    "tools/audio_systems_pilot_01/reconcile_catalogue.py",
+    "tools/audio_systems_pilot_01/sfx_route.py",
     "tools/audio_systems_pilot_01/package_owner_return.py",
     "tools/audio_systems_pilot_01/repair_unity_validation_archives.py",
     "tools/audio_systems_pilot_01/run_unity_lab_validation.zsh",
@@ -282,6 +332,80 @@ def pilot_path(value: str) -> Path:
     if not candidate.is_absolute():
         candidate = PILOT_ROOT / candidate
     return canonical_contained(PILOT_ROOT, candidate)
+
+
+def expected_complete_file_policy(relative_path: str) -> dict[str, Any]:
+    """Recompute policy fields from the canonical path, independently of the publisher."""
+    candidate = Path(relative_path)
+    require(not candidate.is_absolute() and candidate.as_posix() == relative_path
+            and "." not in candidate.parts and ".." not in candidate.parts,
+            f"complete-register relative path is not canonical: {relative_path}")
+    lowered = relative_path.lower()
+    tags = sorted({tag for fragment, tag in COMPLETE_ROLE_TAG_FRAGMENTS if fragment in lowered}
+                  or {"UNCLASSIFIED_AUDIO"})
+    era_bearing = bool(set(tags) & COMPLETE_ERA_BEARING_TAGS)
+    return {
+        "role_tags": tags,
+        "historical_review": "PENDING" if era_bearing else "NOT_APPLICABLE_OR_NOT_ERA_BEARING",
+        "cultural_review": "PENDING" if era_bearing else "NOT_APPLICABLE_OR_NOT_ERA_BEARING",
+        "redistribution_status": (
+            "UNRESOLVED_LOCAL_SCRATCH_DO_NOT_DISTRIBUTE"
+            if "VOICE" in tags else "NOT_CLEARED_PROTOTYPE_ONLY"
+        ),
+    }
+
+
+def verify_complete_file_policy(row: dict[str, Any]) -> None:
+    expected = expected_complete_file_policy(row.get("relative_path", ""))
+    for field, value in expected.items():
+        require(row.get(field) == value,
+                f"complete-register {field} is stale or permissive: {row.get('relative_path')}")
+
+
+def staged_path_is_prohibited(relative: Path) -> bool:
+    lowered_parts = tuple(part.lower() for part in relative.parts)
+    if any(part in PROHIBITED_STAGED_PARTS for part in lowered_parts):
+        return True
+    name = relative.name.lower()
+    if name in PROHIBITED_STAGED_NAMES or name.startswith(".env."):
+        return True
+    normalized_parts = tuple(re.sub(r"[^a-z0-9]+", "-", part).strip("-") for part in lowered_parts)
+    prohibited_phrases = (
+        "private-legal-evidence", "terms-acceptance", "license-acceptance", "account-evidence",
+        "credentials", "credential", "secrets", "secret", "private-key", "auth-token", "api-key",
+        "token", "tokens", "password", "passwd",
+    )
+    if any(any(f"-{phrase}-" in f"-{part}-" for phrase in prohibited_phrases)
+           for part in normalized_parts):
+        return True
+    return False
+
+
+def verify_staged_external_hygiene(root: Path) -> dict[str, int]:
+    """Scan staged evidence text and every staged name for private/credential material."""
+    root = root.resolve(strict=True)
+    paths_scanned = 0
+    text_files_scanned = 0
+    for path in sorted(root.rglob("*"), key=lambda candidate: str(candidate)):
+        relative = path.relative_to(root)
+        paths_scanned += 1
+        require(not staged_path_is_prohibited(relative),
+                f"return package contains a prohibited private-evidence/credential path: {relative}")
+        if path.is_symlink() or not path.is_file() or path.suffix.lower() not in STAGED_TEXT_SUFFIXES:
+            continue
+        raw = path.read_bytes()
+        if path.suffix.lower() == ".plist" and raw.startswith(b"bplist"):
+            continue
+        try:
+            text = raw.decode("utf-8")
+        except UnicodeDecodeError:
+            # Some signed Unity/Mono support text is legacy single-byte encoded.
+            # Latin-1 preserves every byte for credential-pattern inspection.
+            text = raw.decode("latin-1")
+        text_files_scanned += 1
+        match = SECRET_PATTERN.search(text)
+        require(match is None, f"credential/key-like content found in staged external evidence: {relative}")
+    return {"paths_scanned": paths_scanned, "text_files_scanned": text_files_scanned}
 
 
 def verify_committed_delta_policy(repo: Path, revision: str, paths: list[str]) -> None:
@@ -426,6 +550,7 @@ def verify_complete_predecessor_chain(payload: dict[str, Any]) -> dict[str, Any]
                 and predecessor.get("audio_files") == prior_count and child_count >= prior_count,
                 f"complete-register predecessor contract/count regression failed: {path}")
         for row in records:
+            verify_complete_file_policy(row)
             audio = _resolve_preserved_complete_audio(row)
             require(audio.is_file() and not audio.is_symlink() and audio.stat().st_size == row.get("bytes")
                     and sha256_file(audio) == row.get("sha256") and probe_audio(audio) == row.get("format"),
@@ -511,6 +636,7 @@ def verify_complete_audio_register(doc_sha: str, unity_sha: str) -> dict[str, An
         require(path.stat().st_size == row["bytes"] and sha256_file(path) == row["sha256"], f"complete-register file changed: {path}")
         require(probe_audio(path) == row.get("format"), f"complete-register format probe changed: {path}")
         require(row.get("rights_status") == "PROTOTYPE_ONLY" and row.get("human_disposition") == "PENDING", "complete-register status boundary violated")
+        verify_complete_file_policy(row)
         expected_declarations = declarations.get(path, [])
         require(expected_declarations and row.get("declarations") == expected_declarations,
                 f"complete-register declaration projection is empty or stale: {path}")
@@ -2192,6 +2318,7 @@ def build(lab_app: Path) -> dict[str, Any]:
         clone_file(DOC_REPO / "docs/audio/CODEX-STUDIO-RADIO-RUNTIME-01.md", staging / "RADIO/README.md")
         clone_file(PILOT_ROOT / "07_audio-oracle/accessibility-renders-v4/ACCESSIBILITY-PRESETS.v4.json", staging / "ACCESSIBILITY/ACCESSIBILITY-PRESETS.v4.json")
 
+        verify_staged_external_hygiene(staging)
         subprocess.run(["codesign", "--verify", "--deep", "--strict", str(staging / "AUDIO-LAB/Project Studio Audio Systems Pilot.app")], check=True, capture_output=True, text=True)
         tree = manifest_tree(staging)
         manifest = {
@@ -2227,6 +2354,7 @@ def verify_root(root: Path) -> dict[str, Any]:
         raise RuntimeError("return package status/schema boundary mismatch")
     if manifest.get("telemetry") is not False or manifest.get("cloud") is not False or manifest.get("production_integration") != "PREPARED_NOT_EXECUTED":
         raise RuntimeError("return package offline/integration policy mismatch")
+    verify_staged_external_hygiene(root)
     clean_refs = verify_clean_pushed_sources()
     source_binding_proof = verify_package_source_bindings(root, manifest.get("source_bindings", {}))
     require(source_binding_proof["documentation_sha"] == clean_refs["documentation_sha"]
@@ -2312,12 +2440,146 @@ def verify() -> dict[str, Any]:
     return verify_root(RETURN_ROOT)
 
 
+def self_test() -> dict[str, int | str]:
+    global PILOT_ROOT, COMPLETE_HISTORY_ROOT
+
+    mutations = 0
+
+    def expect_rejection(label: str, operation: Any) -> None:
+        nonlocal mutations
+        mutations += 1
+        try:
+            operation()
+        except RuntimeError:
+            return
+        raise AssertionError(f"package/provenance mutation was accepted: {label}")
+
+    voice_path = "06_radio/demos-v2/E02/voice/FUNCTIONAL/PERIOD.wav"
+    voice = {"relative_path": voice_path, **expected_complete_file_policy(voice_path)}
+    verify_complete_file_policy(voice)
+    for field, replacement in (
+        ("role_tags", ["STUDIO_RADIO"]),
+        ("redistribution_status", "NOT_CLEARED_PROTOTYPE_ONLY"),
+        ("historical_review", "NOT_APPLICABLE_OR_NOT_ERA_BEARING"),
+        ("cultural_review", "APPROVED"),
+    ):
+        mutated = dict(voice)
+        mutated[field] = replacement
+        expect_rejection(f"voice {field}", lambda row=mutated: verify_complete_file_policy(row))
+
+    predecessor_mutation = dict(voice)
+    predecessor_mutation["redistribution_status"] = "NOT_CLEARED_PROTOTYPE_ONLY"
+    expect_rejection(
+        "predecessor voice redistribution",
+        lambda: verify_complete_file_policy(predecessor_mutation),
+    )
+
+    original_pilot_root = PILOT_ROOT
+    original_history_root = COMPLETE_HISTORY_ROOT
+    with tempfile.TemporaryDirectory(prefix="package-predecessor-policy-self-test-") as temporary:
+        PILOT_ROOT = Path(temporary)
+        try:
+            audio = PILOT_ROOT / voice_path
+            audio.parent.mkdir(parents=True)
+            with wave.open(str(audio), "wb") as output:
+                output.setnchannels(1)
+                output.setsampwidth(2)
+                output.setframerate(48_000)
+                output.writeframes(b"\0\0" * 480)
+            valid_row = {
+                "relative_path": voice_path,
+                "bytes": audio.stat().st_size,
+                "sha256": sha256_file(audio),
+                "format": probe_audio(audio),
+                **expected_complete_file_policy(voice_path),
+            }
+
+            def chain_for(row: dict[str, Any], history_name: str) -> dict[str, Any]:
+                global COMPLETE_HISTORY_ROOT
+                COMPLETE_HISTORY_ROOT = PILOT_ROOT / history_name
+                COMPLETE_HISTORY_ROOT.mkdir(parents=True)
+                COMPLETE_HISTORY_ROOT = COMPLETE_HISTORY_ROOT.resolve(strict=True)
+                prior = {
+                    "schema": "project-studio-complete-audio-file-register/v1",
+                    "status": "PROTOTYPE_ONLY",
+                    "machine_verdict": "PASS",
+                    "counts": {"audio_files": 1},
+                    "files": [row],
+                }
+                raw = (json.dumps(prior, indent=2, sort_keys=True, ensure_ascii=False) + "\n").encode("utf-8")
+                digest = hashlib.sha256(raw).hexdigest()
+                path = COMPLETE_HISTORY_ROOT / f"COMPLETE-AUDIO-FILE-REGISTER.v1-{digest}.json"
+                path.write_bytes(raw)
+                return {
+                    "counts": {"audio_files": 1},
+                    "predecessor": {
+                        "path": str(path), "sha256": digest, "bytes": len(raw), "audio_files": 1,
+                    },
+                }
+
+            verify_complete_predecessor_chain(chain_for(valid_row, "valid-history"))
+            tampered_row = dict(valid_row)
+            tampered_row["redistribution_status"] = "NOT_CLEARED_PROTOTYPE_ONLY"
+            expect_rejection(
+                "full predecessor-chain voice redistribution",
+                lambda: verify_complete_predecessor_chain(chain_for(tampered_row, "tampered-history")),
+            )
+        finally:
+            PILOT_ROOT = original_pilot_root
+            COMPLETE_HISTORY_ROOT = original_history_root
+
+    ambience_path = "04_living-lot/layers/WIDE.wav"
+    ambience = {"relative_path": ambience_path, **expected_complete_file_policy(ambience_path)}
+    mutated_ambience = dict(ambience)
+    mutated_ambience["redistribution_status"] = "UNRESOLVED_LOCAL_SCRATCH_DO_NOT_DISTRIBUTE"
+    expect_rejection("nonvoice redistribution", lambda: verify_complete_file_policy(mutated_ambience))
+
+    with tempfile.TemporaryDirectory(prefix="audio-return-hygiene-self-test-") as temporary:
+        root = Path(temporary)
+        clean = root / "PROVENANCE/clean.json"
+        clean.parent.mkdir(parents=True)
+        clean.write_text('{"status":"PROTOTYPE_ONLY","cloud":false}\n', encoding="utf-8")
+        verify_staged_external_hygiene(root)
+        secret_samples = (
+            "hf_" + "1234567890ABCDEFGHIJ1234567890",
+            "Authorization: Bearer " + "abcdefghijklmnopqrstuvwxyz012345",
+            "aws_access_key=" + "AKIA" + "1234567890ABCDEF",
+            "api_key = '" + "abcdefghijklmnopqrstuvwx'",
+            "-----BEGIN OPENSSH" + " PRIVATE KEY-----",
+            "https://audio-user:" + "supersecretvalue@example.invalid/private",
+        )
+        for index, secret in enumerate(secret_samples):
+            clean.write_text(secret + "\n", encoding="utf-8")
+            expect_rejection(
+                f"staged secret {index}",
+                lambda: verify_staged_external_hygiene(root),
+            )
+        clean.write_text("clean\n", encoding="utf-8")
+        for filename in (
+            "private-legal-evidence.json",
+            "backup Private Legal Evidence old.txt",
+            "owner-auth-token-backup.txt",
+        ):
+            prohibited = root / "PROVENANCE" / filename
+            prohibited.write_text("{}\n", encoding="utf-8")
+            expect_rejection(
+                f"private/credential filename {filename}",
+                lambda: verify_staged_external_hygiene(root),
+            )
+            prohibited.unlink()
+
+    return {"status": "PASSED", "mutation_tests": mutations}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--lab-app", type=Path)
     parser.add_argument("--verify-only", action="store_true")
+    parser.add_argument("--self-test", action="store_true")
     args = parser.parse_args()
-    if args.verify_only:
+    if args.self_test:
+        result = self_test()
+    elif args.verify_only:
         result = verify()
     else:
         if args.lab_app is None:

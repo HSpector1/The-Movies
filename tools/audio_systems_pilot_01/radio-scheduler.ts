@@ -33,6 +33,14 @@ export interface RadioItem {
   readonly captionText: string;
   readonly spokenText: string;
   readonly payload: FunctionalPayload | null;
+  readonly ownerDomain: string | null;
+  readonly eventId: string | null;
+  readonly receiptId: string | null;
+  readonly headline: string | null;
+  readonly body: string | null;
+  readonly speakerId: string;
+  readonly speakerDisplayName: string;
+  readonly speakerRole: "PROGRAMME_PRESENTER" | "PA_HELP_SPEAKER";
   readonly streamerSafeEligible: boolean;
 }
 
@@ -131,12 +139,38 @@ function validInstant(value: string): boolean {
 }
 
 export function validatePayloadParity(payload: FunctionalPayload): boolean {
-  return payload.captionText === payload.spokenText &&
-    payload.ownerDomain.length > 0 && payload.eventId.length > 0 && payload.receiptId.length > 0 &&
-    payload.headline.length > 0 && payload.body.length > 0 && Number.isFinite(payload.priority) &&
-    validInstant(payload.expiresAt) && payload.source === "EXPLICIT_AUDIO_LAB_FIXTURE" &&
-    payload.fixtureVersion.length > 0 && payload.locale.length > 0 && validInstant(payload.createdAt) &&
-    payload.deterministicSeed.length > 0;
+  const nonEmpty = (value: unknown): value is string => typeof value === "string" && value.length > 0;
+  return payload !== null && typeof payload === "object" &&
+    nonEmpty(payload.captionText) && payload.captionText === payload.spokenText &&
+    nonEmpty(payload.ownerDomain) && nonEmpty(payload.eventId) && nonEmpty(payload.receiptId) &&
+    nonEmpty(payload.headline) && nonEmpty(payload.body) && Number.isFinite(payload.priority) &&
+    nonEmpty(payload.expiresAt) && validInstant(payload.expiresAt) && payload.source === "EXPLICIT_AUDIO_LAB_FIXTURE" &&
+    nonEmpty(payload.fixtureVersion) && nonEmpty(payload.locale) &&
+    nonEmpty(payload.createdAt) && validInstant(payload.createdAt) &&
+    nonEmpty(payload.deterministicSeed);
+}
+
+function isTypedVoiceItem(item: RadioItem): boolean {
+  return item.contentType === "FUNCTIONAL" || item.contentType === "PA_HELP";
+}
+
+function validateSpeakerRole(item: RadioItem): boolean {
+  return item.speakerId.length > 0 && item.speakerDisplayName.length > 0 &&
+    item.speakerRole === (item.contentType === "PA_HELP" ? "PA_HELP_SPEAKER" : "PROGRAMME_PRESENTER");
+}
+
+export function validateRadioItemPayloadContract(item: RadioItem): boolean {
+  if (!isTypedVoiceItem(item)) {
+    return item.payload === null && item.ownerDomain === null && item.eventId === null &&
+      item.receiptId === null && item.headline === null && item.body === null;
+  }
+  const payload = item.payload;
+  if (payload === null || !validatePayloadParity(payload)) return false;
+  return item.ownerDomain === payload.ownerDomain && item.eventId === payload.eventId &&
+    item.receiptId === payload.receiptId && item.headline === payload.headline &&
+    item.body === payload.body && item.priority === payload.priority &&
+    item.expiresAt === payload.expiresAt && item.captionText === payload.captionText &&
+    item.spokenText === payload.spokenText && item.coalesceKey === `${payload.ownerDomain}:${payload.eventId}`;
 }
 
 function emptyDecision(
@@ -208,8 +242,11 @@ export function scheduleRadio(input: RadioScheduleInput): RadioScheduleDecision 
     if (!input.radioEnabled && item.contentType !== "PA_HELP" && item.contentType !== "MILESTONE_STING") reason = "RADIO_DISABLED_ITEM_SUPPRESSED";
     else if (!item.dayparts.includes(input.daypart)) reason = "DAYPART_INELIGIBLE";
     else if (!item.presenters.includes(input.presenterId) && item.contentType !== "PA_HELP" && item.contentType !== "MILESTONE_STING") reason = "PRESENTER_INELIGIBLE";
+    else if (!validateSpeakerRole(item)) reason = "SPEAKER_ROLE_INVALID";
+    else if (!validateRadioItemPayloadContract(item)) reason = isTypedVoiceItem(item)
+      ? "TYPED_PAYLOAD_INVALID_OR_DIVERGENT"
+      : "NONFUNCTIONAL_ITEM_OWNS_FUNCTIONAL_FIELDS";
     else if (item.expiresAt !== null && (!validInstant(item.expiresAt) || Date.parse(item.expiresAt) <= nowEpoch)) reason = "EXPIRED";
-    else if (item.contentType === "FUNCTIONAL" && (item.payload === null || !validatePayloadParity(item.payload))) reason = "FUNCTIONAL_PAYLOAD_INVALID_OR_DIVERGENT";
     else if (item.captionText !== item.spokenText) reason = "CAPTION_SPOKEN_DIVERGENCE";
     else if (item.durationSeconds < 0 || !Number.isFinite(item.durationSeconds)) reason = "INVALID_DURATION";
     else if (input.streamerSafe && !item.streamerSafeEligible) reason = "STREAMER_SAFE_INELIGIBLE";

@@ -28,6 +28,7 @@ from common import (
 
 
 TOOL_VERSION = "audio-systems-catalogue-reconciler-v1"
+SOURCE_AUTHORITY_SNAPSHOT_UTC = "2026-09-03T19:46:12Z"
 RIGHTS_STATUS = "PROTOTYPE_ONLY"
 HUMAN_DISPOSITION = "PENDING"
 CATALOGUE_PATH = PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.v1.json"
@@ -58,6 +59,32 @@ VOICE_MANIFEST = MARATHON_ROOT / "06_radio/voice-prototypes/VOICE-PROTOTYPE-MANI
 RADIO_INDEX = MARATHON_ROOT / "06_radio/demos-v2/RADIO-DEMO-INDEX.json"
 ENDURANCE_INDEX = MARATHON_ROOT / "08_endurance/endurance-index.json"
 MARATHON_STATE = MARATHON_ROOT / "00_state/MARATHON-STATE.json"
+LOCAL_TTS_ROUTE_GATE = MARATHON_ROOT / "09_provenance/local-tts-route-gate.json"
+
+
+def publish_authority_hash_manifest() -> dict[str, Any]:
+    """Publish the deterministic frozen source-authority projection.
+
+    The timestamp records the explicit amended 19-source authority snapshot rather
+    than this invocation. Keeping it fixed makes the manifest reproducible before
+    and after the documentation commit that binds its complete byte identity.
+    """
+    authority_paths = list(INVENTORIES) + list(SCREENINGS) + list(JURIES) + [
+        SELECTED_CATALOGUE, SHORTLIST, MOTIFS, SCRIPT_BANK, VOICE_MANIFEST,
+        RADIO_INDEX, ENDURANCE_INDEX, MARATHON_STATE, LOCAL_TTS_ROUTE_GATE,
+    ]
+    authority_hashes = [
+        {"path": str(path), "bytes": path.stat().st_size, "sha256": sha256_file(path)}
+        for path in authority_paths
+    ]
+    payload = {
+        "schema": "project-studio-audio-source-authority-hashes/v1",
+        "generated_utc": SOURCE_AUTHORITY_SNAPSHOT_UTC,
+        "status": "HASH_VERIFIED",
+        "artifacts": authority_hashes,
+    }
+    atomic_write_json(AUTHORITY_HASH_PATH, payload)
+    return payload
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -268,9 +295,19 @@ def motif_entries() -> list[dict[str, Any]]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--pilot-root", type=Path, default=PILOT_ROOT)
+    parser.add_argument("--authority-only", action="store_true")
     args = parser.parse_args()
     if args.pilot_root.resolve() != PILOT_ROOT.resolve():
         raise RuntimeError("set PROJECT_STUDIO_AUDIO_PILOT_ROOT before import to override the root")
+    if args.authority_only:
+        authority = publish_authority_hash_manifest()
+        print(json.dumps({
+            "path": str(AUTHORITY_HASH_PATH),
+            "bytes": AUTHORITY_HASH_PATH.stat().st_size,
+            "sha256": sha256_file(AUTHORITY_HASH_PATH),
+            "artifacts": len(authority["artifacts"]),
+        }, indent=2, sort_keys=True))
+        return
 
     selected_catalogue = json.loads(SELECTED_CATALOGUE.read_text(encoding="utf-8"))
     selected: dict[str, dict[str, dict[str, Any]]] = {}
@@ -298,20 +335,7 @@ def main() -> None:
     if excluded_picks:
         raise RuntimeError(f"machine-excluded candidate presented as primary: {excluded_picks}")
 
-    authority_paths = list(INVENTORIES) + list(SCREENINGS) + list(JURIES) + [
-        SELECTED_CATALOGUE, SHORTLIST, MOTIFS, SCRIPT_BANK, VOICE_MANIFEST,
-        RADIO_INDEX, ENDURANCE_INDEX, MARATHON_STATE,
-    ]
-    authority_hashes = [
-        {"path": str(path), "bytes": path.stat().st_size, "sha256": sha256_file(path)}
-        for path in authority_paths
-    ]
-    atomic_write_json(AUTHORITY_HASH_PATH, {
-        "schema": "project-studio-audio-source-authority-hashes/v1",
-        "generated_utc": utc_now(),
-        "status": "HASH_VERIFIED",
-        "artifacts": authority_hashes,
-    })
+    publish_authority_hash_manifest()
 
     script_bank = json.loads(SCRIPT_BANK.read_text(encoding="utf-8"))
     voice_manifest = json.loads(VOICE_MANIFEST.read_text(encoding="utf-8"))

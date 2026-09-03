@@ -41,7 +41,7 @@ Each bundle exposes the following roles:
 | `ENTRY` | Optional short introduction into a bundle | Sparse-to-target | Used only when metadata and selected cue support it |
 | `EXIT` | Optional authored way out of a running cue | Target-to-sparse | May lead to silence, ambience, radio, or another bundle |
 
-`ENTRY` and `EXIT` are presentation assets, not additional simulation states. If no compatible treatment exists, the transport uses a safe equal-power crossfade or a natural ending plus ambience. It must not fabricate an authored cadence by truncating audio.
+`ENTRY` and `EXIT` are presentation assets, not additional simulation states. If no compatible treatment exists, the current transport uses its bounded two-second linear-gain paired A/B DSP crossfade or a natural ending plus ambience. Whether that crossfade sounds acceptable remains pending Owner listening. The transport must not fabricate an authored cadence by truncating audio.
 
 ## Targeted generation matrix
 
@@ -176,10 +176,11 @@ The model must not calculate or persist calendar year, public era, technology av
 
 ## Selection, dwell, and hysteresis
 
-- A deterministic shuffle bag operates only over currently eligible variants.
-- Immediate asset and family repeats are forbidden when at least two alternatives exist.
-- The recent-history window is `min(2, eligibleCount - 2)` and cannot produce the same full permutation twice in succession.
-- If constraints cannot all be satisfied, relaxation order and reason are emitted in the trace; identity and rights eligibility are never relaxed.
+- Runtime responsive selection first filters the currently eligible bundles against recent bundle IDs, then avoids the most recent family when an alternative remains, and makes the remaining choice deterministically from presentation seed, context, and history.
+- The lab controller retains the four most recent bundle IDs and four most recent families. If those filters exhaust the eligible set, selection falls back only within that already identity- and rights-eligible set.
+- The current lab exposes one selected responsive anchor for each epoch/context. That sole eligible anchor may recur only when the density scheduler opens a new entry after an authored silence gap; the decision records `ENTRY_REQUESTED_SINGLE_ANCHOR_REUSE_AFTER_AUTHORED_GAP`. It is not presented as a multi-item shuffle bag.
+- Separately, the native four-hour `PlaylistSimulator` uses a deterministic shuffle bag over supplied eligible candidates. It prevents an immediate cue repeat and, when another family is available, an immediate family repeat. It does not guarantee that two complete shuffled permutations differ.
+- The external Python fixed-epoch traces use their own deterministic shuffle cycles and repair only a cycle-boundary immediate cue repeat. Their three source families also make the asserted immediate family anti-repeat true; they do not prove a no-repeated-permutation rule.
 - Minimum musical dwell is 45 seconds before an elective context change.
 - Entry hysteresis is 8 seconds for sustained `ACTIVE` and 5 seconds for sustained `BLOCKED`.
 - `NORMAL` release has no extra context timer after minimum dwell; transport still waits for the chosen safe boundary.
@@ -199,7 +200,7 @@ These durations are prototype presentation constants, not simulation rules, and 
 
 After a cue ends, the scheduler computes a seeded gap inside one shared policy: Full Music 8–20 seconds with a 1.0 start probability; Balanced 35–95 seconds with 0.82 probability; Sparse 120–300 seconds with 0.58 probability; Off never starts score. A declined Balanced/Sparse start advances to another deterministic gap. It must not immediately restart the same cue or treat activity as a command for continuous music.
 
-The external v2 suite supplies 12 four-hour fixed-epoch traces—three epochs by four density modes—with exact cue IDs, families, gaps, source hashes, pitch/tempo scale, shuffle cycles, and any relaxation reason. All 12 pass structural anti-repeat and timing assertions. The suite is `02_music-bundles/simulations/FOUR-HOUR-DENSITY-SIMULATIONS.v2.json`, SHA-256 `05dff9a82a7c600d6e22462af0733a1699ed7f64e68d1d84725ac9551c7d1219`. It uses three current provisional era picks with distinct families in each fixed epoch. It proves a long-session era-pick shuffle policy, not melodic continuity among responsive variants and not four-hour comfort. Unity runtime capture remains a separate evidence lane.
+The external v2 suite supplies 12 four-hour fixed-epoch traces—three epochs by four density modes—with exact cue IDs, families, gaps, source hashes, pitch/tempo scale, shuffle cycles, and any relaxation reason. All 12 pass the asserted immediate-repeat and timing checks. The suite is `02_music-bundles/simulations/FOUR-HOUR-DENSITY-SIMULATIONS.v2.json`, SHA-256 `05dff9a82a7c600d6e22462af0733a1699ed7f64e68d1d84725ac9551c7d1219`. It uses three current provisional era picks with distinct families in each fixed epoch. It proves a long-session era-pick shuffle policy with cycle-boundary immediate-repeat repair; complete permutations may recur. It does not prove melodic continuity among responsive variants or four-hour comfort. Unity runtime capture remains a separate evidence lane.
 
 ## Transport contract
 
@@ -207,7 +208,7 @@ The lab transport uses paired A/B `AudioSource` instances and the Unity DSP cloc
 
 - Schedule starts with `AudioSettings.dspTime`/scheduled playback, never frame-count stitching.
 - Prefer a validated phrase boundary, then a validated bar boundary.
-- If metadata confidence is inadequate, use a bounded safe equal-power crossfade.
+- If metadata confidence is inadequate, use the implemented bounded two-second linear-gain paired A/B DSP crossfade. Its listening quality remains pending Owner review.
 - If an authored natural ending is available, it may lead to ambience or silence.
 - Loop start/end are explicit frame positions and exclude the end frame.
 - Entry/exit treatments require exact compatible metadata; otherwise they are refused.
@@ -222,7 +223,7 @@ The lab transport uses paired A/B `AudioSource` instances and the Unity DSP cloc
 
 | Request | Preferred boundary | Low-confidence fallback | Refusal examples |
 |---|---|---|---|
-| `NORMAL → ACTIVE` | Next validated phrase after hysteresis and dwell | 3–6 second equal-power A/B crossfade | Target missing/hash-invalid; no eligible target |
+| `NORMAL → ACTIVE` | Next validated phrase after hysteresis and dwell | Two-second linear-gain paired A/B DSP crossfade | Target missing/hash-invalid; no eligible target |
 | `ACTIVE → BLOCKED` | Next validated bar/phrase after blocked hysteresis | Reduce score, ambience bridge, then crossfade | Upstream blocked fixture absent; request expired |
 | `BLOCKED → NORMAL` | Natural phrase release after upstream state clears | Brief ambience gap then target start | Minimum dwell not met without higher-priority reason |
 | `ANY → WORKSPACE_LOW_DENSITY` | Next safe boundary without restarting if current asset can simply reduce | Gain/density reduction; later optional variant change | Workspace depth alone requests a hard restart |
@@ -240,9 +241,9 @@ The implementation is bound to:
 - anchor authority: `/Users/bruce/Project Studio Audio Systems Pilot 01/02_music-bundles/responsive/responsive-anchor-authority.v2.json`, SHA-256 `90ff6232dbae0e23fce6afabf8fba38b21b1e224fc6334b03a43c5b36e36d723`;
 - generated-audio index: `/Users/bruce/Project Studio Audio Systems Pilot 01/10_provenance/audio-assets-index.v4.json`, SHA-256 `8a62dd08bbce692b597f6eb33974fd7c1af66e0d7d9d935832c3f7dd3d799693`;
 - generated-audio validation: `/Users/bruce/Project Studio Audio Systems Pilot 01/10_provenance/audio-assets-validation.v4.json`, SHA-256 `7839cea3a427f0cbf3966740ac1ff99e538766e147e263d21005b3d62a757b47`;
-- current cross-system audition register: `/Users/bruce/Project Studio Audio Systems Pilot 01/10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json`, SHA-256 `896828b23707e0283e98e0cad5971aff341655aafccc3766461331aabe0c38e7`.
+- current cross-system audition register: `/Users/bruce/Project Studio Audio Systems Pilot 01/10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json`, SHA-256 `d26df18eddfb299d9332ad82402c836c6234342b51ed4fb44b5294d0a78b334e`.
 
-Each selected context supplies a 60-second normalized full mix, 54-second derived loop, 8-second entry, 8-second exit, and AAC preview. Generated timing confidence remains low, so real cue transitions use safe crossfades. Audio Oracle’s phrase-alignment case uses a declared synthetic trustworthy-grid fixture; it is transport proof, not a claim about these generated files.
+Each selected context supplies a 60-second normalized full mix, 54-second derived loop, 8-second entry, 8-second exit, and AAC preview. Generated timing confidence remains low, so real cue transitions use the bounded two-second linear-gain paired A/B DSP fallback; its musical quality remains pending Owner listening. Audio Oracle’s phrase-alignment case uses a declared synthetic trustworthy-grid fixture; it is transport proof, not a claim about these generated files.
 
 ## Acceptance boundary
 

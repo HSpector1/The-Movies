@@ -3,11 +3,14 @@
 
 from __future__ import annotations
 
+import argparse
+import copy
 import hashlib
 import json
 import os
 import subprocess
 import tempfile
+import wave
 from collections import defaultdict
 from pathlib import Path
 from typing import Any, Iterator
@@ -88,6 +91,8 @@ GENERATOR_BINDINGS = {
     "system_register_v5": ["tools/audio_systems_pilot_01/build_system_asset_register.py"],
     "identity_and_complete_provenance": [
         "tools/audio_systems_pilot_01/common.py",
+        "tools/audio_systems_pilot_01/reconcile_catalogue.py",
+        "tools/audio_systems_pilot_01/sfx_route.py",
         "tools/audio_systems_pilot_01/build_catalogue_identity_closure.py",
         "tools/audio_systems_pilot_01/build_complete_audio_file_register.py",
         "tools/audio_systems_pilot_01/publish_metadata_status_remedies.py",
@@ -235,6 +240,33 @@ def role_tags(relative_path: str) -> list[str]:
     return sorted(set(tags or ["UNCLASSIFIED_AUDIO"]))
 
 
+def file_policy(relative_path: str) -> dict[str, Any]:
+    candidate = Path(relative_path)
+    if (candidate.is_absolute() or candidate.as_posix() != relative_path
+            or "." in candidate.parts or ".." in candidate.parts):
+        raise RuntimeError(f"complete-register relative path is not canonical: {relative_path}")
+    tags = role_tags(relative_path)
+    era_bearing = any(tag in tags for tag in (
+        "RESPONSIVE_MUSIC", "ERA_PICK_LIBRARY", "ERA_TRANSITION", "STUDIO_RADIO",
+    ))
+    return {
+        "role_tags": tags,
+        "historical_review": "PENDING" if era_bearing else "NOT_APPLICABLE_OR_NOT_ERA_BEARING",
+        "cultural_review": "PENDING" if era_bearing else "NOT_APPLICABLE_OR_NOT_ERA_BEARING",
+        "redistribution_status": (
+            "UNRESOLVED_LOCAL_SCRATCH_DO_NOT_DISTRIBUTE"
+            if "VOICE" in tags else "NOT_CLEARED_PROTOTYPE_ONLY"
+        ),
+    }
+
+
+def validate_file_policy(row: dict[str, Any]) -> None:
+    expected = file_policy(row.get("relative_path", ""))
+    for field, value in expected.items():
+        if row.get(field) != value:
+            raise RuntimeError(f"complete-register {field} is stale or permissive: {row.get('relative_path')}")
+
+
 def _preserved_audio_path(row: dict[str, Any]) -> Path:
     original = PILOT_ROOT / row["relative_path"]
     if original.exists():
@@ -266,6 +298,7 @@ def _validate_prior_for_preservation(payload: dict[str, Any]) -> None:
     if not isinstance(records, list) or payload.get("counts", {}).get("audio_files") != len(records):
         raise RuntimeError("prior complete register has inconsistent file counts")
     for row in records:
+        validate_file_policy(row)
         path = _preserved_audio_path(row)
         if (not path.is_file() or path.is_symlink() or path.stat().st_size != row.get("bytes")
                 or sha256_file(path) != row.get("sha256") or probe_audio(path) != row.get("format")):
@@ -324,6 +357,7 @@ def build(_archived_predecessor: dict[str, Any] | None = None) -> dict[str, Any]
             file_id = f"APS01-FILE-{hashlib.sha256(relative.encode('utf-8')).hexdigest()[:24].upper()}"
             source_declarations = declarations.get(resolved, [])
             current = any(row["current_manifest"] for row in source_declarations)
+            policy = file_policy(relative)
             record = {
                 "file_id": file_id,
                 "content_id": f"SHA256:{digest}",
@@ -332,13 +366,13 @@ def build(_archived_predecessor: dict[str, Any] | None = None) -> dict[str, Any]
                 "bytes": resolved.stat().st_size,
                 "sha256": digest,
                 "format": probe_audio(resolved),
-                "role_tags": role_tags(relative),
+                "role_tags": policy["role_tags"],
                 "evidence_status": "CURRENT_CANONICAL_SOURCE_OR_DERIVATIVE" if current else "PRESERVED_SUPERSEDED_OR_NONCANONICAL_EVIDENCE",
                 "rights_status": "PROTOTYPE_ONLY",
                 "human_disposition": "PENDING",
-                "historical_review": "PENDING" if any(tag in role_tags(relative) for tag in ("RESPONSIVE_MUSIC", "ERA_PICK_LIBRARY", "ERA_TRANSITION", "STUDIO_RADIO")) else "NOT_APPLICABLE_OR_NOT_ERA_BEARING",
-                "cultural_review": "PENDING" if any(tag in role_tags(relative) for tag in ("RESPONSIVE_MUSIC", "ERA_PICK_LIBRARY", "ERA_TRANSITION", "STUDIO_RADIO")) else "NOT_APPLICABLE_OR_NOT_ERA_BEARING",
-                "redistribution_status": "UNRESOLVED_LOCAL_SCRATCH_DO_NOT_DISTRIBUTE" if "VOICE" in role_tags(relative) else "NOT_CLEARED_PROTOTYPE_ONLY",
+                "historical_review": policy["historical_review"],
+                "cultural_review": policy["cultural_review"],
+                "redistribution_status": policy["redistribution_status"],
                 "declarations": source_declarations,
             }
             files.append(record)
@@ -430,7 +464,74 @@ def build(_archived_predecessor: dict[str, Any] | None = None) -> dict[str, Any]
     return output
 
 
+def self_test() -> dict[str, Any]:
+    global PILOT_ROOT
+
+    voice_path = "06_radio/demos-v2/E02/voice/FUNCTIONAL/PERIOD.wav"
+    valid = {"relative_path": voice_path, **file_policy(voice_path)}
+    validate_file_policy(valid)
+    mutations = 0
+    for field, replacement in (
+        ("role_tags", ["STUDIO_RADIO"]),
+        ("redistribution_status", "NOT_CLEARED_PROTOTYPE_ONLY"),
+        ("historical_review", "NOT_APPLICABLE_OR_NOT_ERA_BEARING"),
+        ("cultural_review", "APPROVED"),
+    ):
+        row = dict(valid)
+        row[field] = replacement
+        mutations += 1
+        try:
+            validate_file_policy(row)
+        except RuntimeError:
+            continue
+        raise AssertionError(f"complete-register publisher policy mutation was accepted: {field}")
+    original_pilot_root = PILOT_ROOT
+    with tempfile.TemporaryDirectory(prefix="complete-register-prior-policy-") as temporary:
+        PILOT_ROOT = Path(temporary)
+        try:
+            audio = PILOT_ROOT / voice_path
+            audio.parent.mkdir(parents=True)
+            with wave.open(str(audio), "wb") as output:
+                output.setnchannels(1)
+                output.setsampwidth(2)
+                output.setframerate(48_000)
+                output.writeframes(b"\0\0" * 480)
+            prior_row = {
+                "relative_path": voice_path,
+                "bytes": audio.stat().st_size,
+                "sha256": sha256_file(audio),
+                "format": probe_audio(audio),
+                **file_policy(voice_path),
+            }
+            prior = {
+                "schema": "project-studio-complete-audio-file-register/v1",
+                "status": "PROTOTYPE_ONLY",
+                "machine_verdict": "PASS",
+                "counts": {"audio_files": 1},
+                "files": [prior_row],
+            }
+            _validate_prior_for_preservation(prior)
+            tampered_prior = copy.deepcopy(prior)
+            tampered_prior["files"][0]["redistribution_status"] = "NOT_CLEARED_PROTOTYPE_ONLY"
+            mutations += 1
+            try:
+                _validate_prior_for_preservation(tampered_prior)
+            except RuntimeError:
+                pass
+            else:
+                raise AssertionError("tampered prior policy was accepted for archival")
+        finally:
+            PILOT_ROOT = original_pilot_root
+    return {"status": "PASSED", "mutation_tests": mutations}
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--self-test", action="store_true")
+    args = parser.parse_args()
+    if args.self_test:
+        print(json.dumps(self_test(), indent=2, sort_keys=True))
+        return
     output = build()
     print(json.dumps({
         "path": str(OUTPUT),

@@ -39,8 +39,31 @@ RULES: tuple[Rule, ...] = (
     ),
     (
         "INTERNAL_OR_DEBUG_ID",
-        re.compile(r"\b(?:SR-E\d\d-[A-Z]{2,4}-\d\d|APS01-[A-Z0-9_-]+|LAB-(?:RECEIPT|TECH|PRODUCTION|RELEASE|PA|STING)-[A-Z0-9_-]+|FIXTURE-[A-Z0-9_-]+|(?:DEBUG|DEV|INTERNAL)[-_][A-Z0-9_-]+)\b", re.I),
+        re.compile(
+            r"\b(?:SR-E\d\d-[A-Z]{2,4}-\d\d|APS01-[A-Z0-9_-]+|LAB-[A-Z0-9]+(?:-[A-Z0-9]+){2,}|"
+            r"(?:P05|P06|P13|PA_HELP)_AUDIO_LAB_FIXTURE|FIXTURE-[A-Z0-9_-]+|"
+            r"(?:DEBUG|DEV|INTERNAL)[-_][A-Z0-9_-]+)\b",
+            re.I,
+        ),
         "Internal identities belong in payload metadata, not speech.",
+    ),
+    (
+        "INTERNAL_PATH_OR_URI",
+        re.compile(
+            r"(?:\bfile:///?[^\s]+|/(?:Users|home|var|tmp|Volumes)/[^\s]+|"
+            r"\b[A-Za-z]:\\[^\s]+|\b(?:Assets|docs|tools)/[A-Za-z0-9_./-]+)",
+            re.I,
+        ),
+        "Filesystem and repository paths belong in evidence metadata, not speech.",
+    ),
+    (
+        "SCHEMA_OR_UUID",
+        re.compile(
+            r"\b(?:project-studio-[a-z0-9_-]+/v\d+|schema[_ -]?version\s*[:=]?\s*v?\d+|"
+            r"[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})\b",
+            re.I,
+        ),
+        "Machine schema and UUID identities belong in typed metadata, not speech.",
     ),
     (
         "UNCAPTURED_VARIABLE",
@@ -50,9 +73,11 @@ RULES: tuple[Rule, ...] = (
     (
         "PLACEHOLDER_LEGAL_LANGUAGE",
         re.compile(
-            r"\b(?:placeholder legal|for legal|rights pending|clearance pending|authoritative (?:system|implementation|design|game data)|"
+            r"\b(?:placeholder(?:\s+(?:legal|copy|text|disclaimer|voice|line|content))?|legal (?:placeholder|copy)|for legal|"
+            r"rights pending|clearance pending|not for (?:broadcast|air|release|distribution)|"
+            r"authoritative (?:system|implementation|design|game data)|"
             r"not (?:a|an) (?:real|production|studio)|no (?:real|actual) |concept bulletin|narrative color|grants? no clearance|"
-            r"prototype only|owner approval pending|no gameplay state)\b",
+            r"prototype[_ -]?only|owner approval pending|no gameplay state)\b",
             re.I,
         ),
         "Rights and implementation caveats belong in metadata.",
@@ -70,7 +95,12 @@ RULES: tuple[Rule, ...] = (
     ),
     (
         "REAL_PERSON_IMPERSONATION_CUE",
-        re.compile(r"\b(?:imitat(?:e|es|ing|ion)|impersonat(?:e|es|ing|ion)|in the (?:voice|style|manner) of|sound(?:s|ing)? like|voice clone of)\b", re.I),
+        re.compile(
+            r"\b(?:imitat(?:e|es|ing|ion)|impersonat(?:e|es|ing|ion)|in the (?:voice|style|manner) of|"
+            r"sound(?:s|ing)? like|voice clone of|(?:celebrity|broadcaster|protected character) (?:voice|cadence|impression)|"
+            r"soundalike)\b",
+            re.I,
+        ),
         "No real-person, celebrity, broadcaster, or protected-character target is allowed.",
     ),
     (
@@ -231,10 +261,23 @@ def self_test() -> None:
         "UNSUPPORTED_MECHANIC_OR_STATE": "This awards your game score.",
         "REAL_PERSON_IMPERSONATION_CUE": "Speak in the voice of a broadcaster.",
         "REAL_WORLD_CLAIM_CUE": "Officially endorsed by the actual network.",
+        "INTERNAL_PATH_OR_URI": "Read /Users/operator/private/radio.json on air.",
+        "SCHEMA_OR_UUID": "Use project-studio-radio/v2 and 123e4567-e89b-12d3-a456-426614174000.",
     }
     for expected, sample in adversarial.items():
         found = {item["rule"] for item in lint_text("TEST", "spokenText", sample)}
         assert expected in found, (expected, found)
+    internal_samples = (
+        "LAB-E02-FUNCTIONAL-BULLETIN",
+        "P13_AUDIO_LAB_FIXTURE",
+        "FIXTURE-RADIO-01",
+    )
+    for sample in internal_samples:
+        assert "INTERNAL_OR_DEBUG_ID" in {item["rule"] for item in lint_text("TEST", "spokenText", sample)}
+    legal_samples = ("PROTOTYPE_ONLY", "placeholder copy", "legal copy", "not for broadcast")
+    for sample in legal_samples:
+        assert "PLACEHOLDER_LEGAL_LANGUAGE" in {item["rule"] for item in lint_text("TEST", "captionText", sample)}
+    assert "INTERNAL_PATH_OR_URI" in {item["rule"] for item in lint_text("TEST", "spokenText", r"C:\\studio\\internal.json")}
     assert not lint_text("TEST", "spokenText", "The picture lot opens for another working day.")
 
 

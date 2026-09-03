@@ -6,7 +6,14 @@ import {
   type AudioPresentationState,
   type CueBundle,
 } from "./decision-model";
-import { coalesce, scheduleRadio, validatePayloadParity, type FunctionalPayload, type RadioItem } from "./radio-scheduler";
+import {
+  coalesce,
+  scheduleRadio,
+  validatePayloadParity,
+  validateRadioItemPayloadContract,
+  type FunctionalPayload,
+  type RadioItem,
+} from "./radio-scheduler";
 
 const hash = "a".repeat(64);
 const bundle: CueBundle = {
@@ -121,6 +128,16 @@ const payload: FunctionalPayload = {
 };
 
 function radio(id: string, contentType: RadioItem["contentType"], priority: number, overrides: Partial<RadioItem> = {}): RadioItem {
+  const typed = contentType === "FUNCTIONAL" || contentType === "PA_HELP";
+  const defaultPayload: FunctionalPayload | null = typed ? {
+    ...payload,
+    eventId: id,
+    receiptId: `${id}-R1`,
+    headline: `${id} headline`,
+    body: `${id} body`,
+    priority,
+  } : null;
+  const selectedPayload = overrides.payload === undefined ? defaultPayload : overrides.payload;
   return {
     id,
     contentType,
@@ -131,11 +148,19 @@ function radio(id: string, contentType: RadioItem["contentType"], priority: numb
     cooldownSeconds: 100,
     categoryCooldownSeconds: 0,
     durationSeconds: 20,
-    expiresAt: null,
-    coalesceKey: null,
-    captionText: "Same text.",
-    spokenText: "Same text.",
-    payload: contentType === "FUNCTIONAL" ? payload : null,
+    expiresAt: selectedPayload?.expiresAt ?? null,
+    coalesceKey: selectedPayload === null ? null : `${selectedPayload.ownerDomain}:${selectedPayload.eventId}`,
+    captionText: selectedPayload?.captionText ?? "Same text.",
+    spokenText: selectedPayload?.spokenText ?? "Same text.",
+    payload: selectedPayload,
+    ownerDomain: selectedPayload?.ownerDomain ?? null,
+    eventId: selectedPayload?.eventId ?? null,
+    receiptId: selectedPayload?.receiptId ?? null,
+    headline: selectedPayload?.headline ?? null,
+    body: selectedPayload?.body ?? null,
+    speakerId: contentType === "PA_HELP" ? "PA" : "P",
+    speakerDisplayName: contentType === "PA_HELP" ? "PA Speaker" : "Presenter",
+    speakerRole: contentType === "PA_HELP" ? "PA_HELP_SPEAKER" : "PROGRAMME_PRESENTER",
     streamerSafeEligible: true,
     ...overrides,
   };
@@ -201,6 +226,45 @@ describe("runtime radio scheduler", () => {
     const invalid = radio("F", "FUNCTIONAL", 70, { payload: { ...payload, captionText: "Different" } });
     const decision = scheduleRadio({ items: [invalid], nowSeconds: 200, nowIso: "2026-09-03T00:00:00Z", daypart: "MORNING", presenterId: "P", history: [], radioEnabled: true, streamerSafe: false });
     expect(decision.item).toBeNull();
-    expect(decision.candidateEvaluations[0].reason).toBe("FUNCTIONAL_PAYLOAD_INVALID_OR_DIVERGENT");
+    expect(decision.candidateEvaluations[0].reason).toBe("TYPED_PAYLOAD_INVALID_OR_DIVERGENT");
+  });
+
+  it("requires the same exact typed payload contract for PA/help", () => {
+    const valid = radio("PA", "PA_HELP", 100);
+    expect(validateRadioItemPayloadContract(valid)).toBe(true);
+    const missing = radio("PA", "PA_HELP", 100, { payload: null });
+    const decision = scheduleRadio({ items: [missing], nowSeconds: 200, nowIso: "2026-09-03T00:00:00Z", daypart: "MORNING", presenterId: "P", history: [], radioEnabled: true, streamerSafe: false });
+    expect(decision.item).toBeNull();
+    expect(decision.candidateEvaluations[0].reason).toBe("TYPED_PAYLOAD_INVALID_OR_DIVERGENT");
+  });
+
+  it("refuses every top-level divergence from a typed payload", () => {
+    const valid = radio("F", "FUNCTIONAL", 70);
+    const corruptions: readonly Partial<RadioItem>[] = [
+      { ownerDomain: "WRONG_OWNER" },
+      { eventId: "WRONG_EVENT" },
+      { receiptId: "WRONG_RECEIPT" },
+      { headline: "Wrong headline" },
+      { body: "Wrong body" },
+      { priority: 71 },
+      { expiresAt: "2098-01-01T00:00:00Z" },
+      { captionText: "Wrong caption" },
+      { spokenText: "Wrong speech" },
+      { coalesceKey: "WRONG:KEY" },
+    ];
+    for (const corruption of corruptions) {
+      const decision = scheduleRadio({ items: [{ ...valid, ...corruption }], nowSeconds: 200, nowIso: "2026-09-03T00:00:00Z", daypart: "MORNING", presenterId: "P", history: [], radioEnabled: true, streamerSafe: false });
+      expect(decision.item).toBeNull();
+      expect(decision.candidateEvaluations[0].reason).toBe("TYPED_PAYLOAD_INVALID_OR_DIVERGENT");
+    }
+  });
+
+  it("refuses functional fields on decorative and milestone items", () => {
+    for (const contentType of ["DECORATIVE", "MILESTONE_STING"] as const) {
+      const invalid = radio("NONFUNCTIONAL", contentType, 20, { payload, ownerDomain: payload.ownerDomain });
+      const decision = scheduleRadio({ items: [invalid], nowSeconds: 200, nowIso: "2026-09-03T00:00:00Z", daypart: "MORNING", presenterId: "P", history: [], radioEnabled: true, streamerSafe: false });
+      expect(decision.item).toBeNull();
+      expect(decision.candidateEvaluations[0].reason).toBe("NONFUNCTIONAL_ITEM_OWNS_FUNCTIONAL_FIELDS");
+    }
   });
 });

@@ -14,6 +14,7 @@ from common import PILOT_ROOT, atomic_write_json, canonical_contained, probe_aud
 INDEX_PATH = PILOT_ROOT / "10_provenance/audio-assets-index.v4.json"
 CATALOGUE_PATH = PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.v1.json"
 RADIO_INDEX_PATH = PILOT_ROOT / "06_radio/STUDIO-RADIO-RUNTIME-INDEX.v2.json"
+RADIO_PRESENTER_PATH = PILOT_ROOT / "06_radio/presenter-ensemble.v2.json"
 TRANSITION_PATH = PILOT_ROOT / "03_transitions/rendered-transition-catalogue.v4.json"
 LIVING_PATH = PILOT_ROOT / "04_living-lot/living-lot-soundscape-catalogue.v3.json"
 DERIVATIVE_PATH = PILOT_ROOT / "10_provenance/audio-derivative-source-register.v4.json"
@@ -33,6 +34,8 @@ RADIO_AUTHORITIES = {
         "epoch_alias": "network_sound_1933_1945",
         "presenter_id": "PRESENTER-MAE-CALDER",
         "presenter_display_name": "Mae Calder",
+        "pa_presenter_id": "PRESENTER-RINA-SHORE",
+        "pa_presenter_display_name": "Rina Shore",
         "daypart": "MORNING",
         "functional": ("P13_AUDIO_LAB_FIXTURE", "LAB-E02-FUNCTIONAL-BULLETIN", "LAB-RECEIPT-E02-0001"),
         "pa": ("PA_HELP_AUDIO_LAB_FIXTURE", "LAB-PA-E02-ACCESS-PAUSED", "LAB-RECEIPT-PA-E02-0001"),
@@ -42,6 +45,8 @@ RADIO_AUTHORITIES = {
         "epoch_alias": "tape_hifi_1946_1959",
         "presenter_id": "PRESENTER-ARTHUR-VALE",
         "presenter_display_name": "Arthur Vale",
+        "pa_presenter_id": "PRESENTER-RINA-SHORE",
+        "pa_presenter_display_name": "Rina Shore",
         "daypart": "AFTERNOON",
         "functional": ("P05_AUDIO_LAB_FIXTURE", "LAB-E03-FUNCTIONAL-BULLETIN", "LAB-RECEIPT-E03-0001"),
         "pa": ("PA_HELP_AUDIO_LAB_FIXTURE", "LAB-PA-E03-ACCESS-PAUSED", "LAB-RECEIPT-PA-E03-0001"),
@@ -51,6 +56,8 @@ RADIO_AUTHORITIES = {
         "epoch_alias": "networked_hybrid_2000_2014",
         "presenter_id": "PRESENTER-RINA-SHORE",
         "presenter_display_name": "Rina Shore",
+        "pa_presenter_id": "PRESENTER-RINA-SHORE",
+        "pa_presenter_display_name": "Rina Shore",
         "daypart": "EVENING",
         "functional": ("P06_AUDIO_LAB_FIXTURE", "LAB-E07-FUNCTIONAL-BULLETIN", "LAB-RECEIPT-E07-0001"),
         "pa": ("PA_HELP_AUDIO_LAB_FIXTURE", "LAB-PA-E07-ACCESS-PAUSED", "LAB-RECEIPT-PA-E07-0001"),
@@ -68,6 +75,32 @@ RADIO_EVENT_ROLE = {
 FUNCTIONAL_STRING_FIELDS = {
     "ownerDomain", "eventId", "receiptId", "headline", "body", "expiresAt", "captionText", "spokenText",
 }
+TYPED_PROJECTION_FIELDS = (
+    "ownerDomain", "eventId", "receiptId", "headline", "body", "priority", "expiresAt", "captionText", "spokenText",
+)
+
+
+def presenter_authority(radio_index: dict[str, Any]) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
+    reference = radio_index.get("presenters", {})
+    path = canonical_contained(PILOT_ROOT, Path(reference.get("path", "")))
+    expected_path = canonical_contained(PILOT_ROOT, RADIO_PRESENTER_PATH)
+    if path != expected_path:
+        raise RuntimeError("radio presenter authority path mismatch")
+    require(path, reference.get("sha256", ""))
+    manifest = json.loads(path.read_text(encoding="utf-8"))
+    rows = manifest.get("presenters", [])
+    by_id = {row.get("presenter_id"): row for row in rows}
+    if (manifest.get("schema") != "project-studio-radio-presenter-ensemble/v2"
+            or set(by_id) != {"PRESENTER-MAE-CALDER", "PRESENTER-ARTHUR-VALE", "PRESENTER-RINA-SHORE"}
+            or len(rows) != len(by_id)):
+        raise RuntimeError("radio presenter authority cardinality/schema mismatch")
+    for epoch_code, authority in RADIO_AUTHORITIES.items():
+        programme = by_id[authority["presenter_id"]].get("role_scoped_eligibility", {})
+        pa = by_id[authority["pa_presenter_id"]].get("role_scoped_eligibility", {})
+        if (epoch_code not in programme.get("PROGRAMME_PRESENTER", [])
+                or epoch_code not in pa.get("PA_HELP_SPEAKER", [])):
+            raise RuntimeError(f"radio presenter role eligibility mismatch: {epoch_code}")
+    return by_id, {"path": str(path), "sha256": sha256_file(path)}
 
 
 def require(path: Path, expected: str) -> None:
@@ -96,8 +129,8 @@ def validated_functional_payload(
 ) -> dict[str, Any] | None:
     payload = event.get("payload")
     if voice_role not in {"functional", "pa"}:
-        if payload is not None:
-            raise RuntimeError(f"decorative radio item unexpectedly owns a typed payload: {event.get('id')}")
+        if payload is not None or any(event.get(field) is not None for field in TYPED_PROJECTION_FIELDS[:5]):
+            raise RuntimeError(f"nonfunctional radio item unexpectedly owns typed fields: {event.get('id')}")
         return None
     if (not isinstance(payload, dict)
             or any(not isinstance(payload.get(field), str) or not payload[field].strip()
@@ -114,12 +147,16 @@ def validated_functional_payload(
             or event.get("spokenText") != payload["spokenText"]
             or event.get("expiresAt") != payload["expiresAt"]
             or event.get("priority") != payload["priority"]
+            or any(event.get(field) != payload[field] for field in TYPED_PROJECTION_FIELDS)
+            or event.get("coalesceKey") != f"{payload['ownerDomain']}:{payload['eventId']}"
             or payload["expiresAt"] != "2099-01-01T00:00:00Z"):
         raise RuntimeError(f"radio functional payload identity mismatch: {event.get('id')}")
     return payload
 
 
-def radio_voice_items(demos: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+def radio_voice_items(
+    demos: list[dict[str, Any]], presenters: dict[str, dict[str, Any]]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """Bind the existing item-level voice units without inferring stems from a baked mix."""
     items: list[dict[str, Any]] = []
     source_manifests: list[dict[str, Any]] = []
@@ -204,13 +241,16 @@ def radio_voice_items(demos: list[dict[str, Any]]) -> tuple[list[dict[str, Any]]
             schedule_presenters = event.get("presenters", [])
             if schedule_presenters != [demo["presenter_id"]]:
                 raise RuntimeError(f"radio schedule programme-presenter mismatch: {slug}:{voice_role}")
-            if (voice_role == "pa" and metadata.get("presenter_id") != "PRESENTER-RINA-SHORE"):
+            expected_presenter_id = authority["pa_presenter_id"] if voice_role == "pa" else authority["presenter_id"]
+            expected_presenter_role = "PA_HELP_SPEAKER" if voice_role == "pa" else "PROGRAMME_PRESENTER"
+            if metadata.get("presenter_id") != expected_presenter_id:
                 raise RuntimeError(f"radio PA speaker identity mismatch: {slug}")
-            if (voice_role != "pa" and metadata.get("presenter_id") != demo["presenter_id"]):
-                raise RuntimeError(f"radio programme voice speaker identity mismatch: {slug}:{voice_role}")
-            expected_speaker = (RADIO_AUTHORITIES["E07"]["presenter_display_name"]
-                if voice_role == "pa" else authority["presenter_display_name"])
-            if metadata.get("presenter_display_name") != expected_speaker:
+            expected_speaker = presenters[expected_presenter_id]["display_name"]
+            if (expected_speaker != authority[f"{'pa_' if voice_role == 'pa' else ''}presenter_display_name"]
+                    or metadata.get("presenter_display_name") != expected_speaker
+                    or event.get("speakerId") != expected_presenter_id
+                    or event.get("speakerDisplayName") != expected_speaker
+                    or event.get("speakerRole") != expected_presenter_role):
                 raise RuntimeError(f"radio delivered-speaker display identity mismatch: {slug}:{voice_role}")
             matching_deliveries = [row for row in delivered_rows if row.get("item", {}).get("id") == event.get("id")]
             if len(matching_deliveries) != 1:
@@ -222,6 +262,8 @@ def radio_voice_items(demos: list[dict[str, Any]]) -> tuple[list[dict[str, Any]]
             if (delivery.get("item") != event
                     or delivery.get("speechOwner") != expected_speech_owner
                     or delivery.get("captionContext") != expected_caption_context
+                    or delivery.get("speakerId") != expected_presenter_id
+                    or delivery.get("speakerRole") != expected_presenter_role
                     or delivery.get("speaker") != expected_speaker
                     or delivery.get("deliveryStatus") != expected_delivery_status
                     or abs(float(delivery.get("declaredDurationSeconds", -1.0)) - declared_duration) > 0.000001
@@ -273,6 +315,8 @@ def radio_voice_items(demos: list[dict[str, Any]]) -> tuple[list[dict[str, Any]]
                     },
                     "schedule_item_id": event["id"],
                     "schedule_presenter_ids": schedule_presenters,
+                    "schedule_speaker_id": event["speakerId"],
+                    "schedule_speaker_role": event["speakerRole"],
                     "schedule_speech_owner": event_row["speechOwner"],
                     "content_type": event["contentType"],
                     "caption_text": event["captionText"],
@@ -285,6 +329,8 @@ def radio_voice_items(demos: list[dict[str, Any]]) -> tuple[list[dict[str, Any]]
                         "delivery_status": delivery["deliveryStatus"],
                         "caption_context": delivery["captionContext"],
                         "speech_owner": delivery["speechOwner"],
+                        "speaker_id": delivery["speakerId"],
+                        "speaker_role": delivery["speakerRole"],
                         "speaker": delivery["speaker"],
                         "interrupted_item_id": delivery.get("interruptedItemId"),
                     },
@@ -429,7 +475,8 @@ def build() -> dict[str, Any]:
         })
 
     radio_index = json.loads(RADIO_INDEX_PATH.read_text(encoding="utf-8"))
-    voice_items, radio_voice_source_manifests = radio_voice_items(radio_index["demos"])
+    presenters, presenter_source_manifest = presenter_authority(radio_index)
+    voice_items, radio_voice_source_manifests = radio_voice_items(radio_index["demos"], presenters)
     items.extend(voice_items)
     require(MILESTONE_STING_PATH, MILESTONE_STING_SHA256)
     sting_probe = probe_audio(MILESTONE_STING_PATH)
@@ -456,6 +503,9 @@ def build() -> dict[str, Any]:
                 or sting_rows[0]["item"].get("captionText") != ""
                 or sting_rows[0]["item"].get("spokenText") != ""
                 or sting_rows[0]["item"].get("payload") is not None
+                or any(sting_rows[0]["item"].get(field) is not None for field in TYPED_PROJECTION_FIELDS[:5])
+                or sting_rows[0]["item"].get("speakerId") != authority["presenter_id"]
+                or sting_rows[0]["item"].get("speakerRole") != "PROGRAMME_PRESENTER"
                 or abs(float(sting_rows[0]["item"].get("durationSeconds", 0.0)) - float(sting_probe["duration_seconds"])) > 0.000001):
             raise RuntimeError(f"milestone sting schedule contract mismatch: {demo['slug']}")
         sting_schedule_ids.append(sting_rows[0]["item"]["id"])
@@ -556,7 +606,7 @@ def build() -> dict[str, Any]:
             {"path": str(VALIDATION_PATH), "sha256": sha256_file(VALIDATION_PATH)},
             {"path": str(ANCHOR_PATH), "sha256": sha256_file(ANCHOR_PATH)},
             {"path": str(SFX_GATE_PATH), "sha256": sha256_file(SFX_GATE_PATH)},
-        ] + sorted(radio_voice_source_manifests + [
+        ] + sorted([presenter_source_manifest] + radio_voice_source_manifests + [
             {"path": row["path"], "sha256": row["sha256"]}
             for row in sting_caption_authorities
         ], key=lambda row: row["path"]),

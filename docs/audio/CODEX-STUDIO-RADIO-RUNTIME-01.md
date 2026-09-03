@@ -78,16 +78,16 @@ FunctionalRadioPayload
   spokenText
 ```
 
-Lab records also carry `source: EXPLICIT_AUDIO_LAB_FIXTURE`, fixture version, locale, created time, and deterministic test seed, but those annotations do not weaken the required identity. The three schema-validated records are in `06_radio/functional-fixtures.v2.json`, SHA-256 `43a6076bc0fba38f5820ce2e6c60b37b8df72f10a6bfcfe9dad963a4994c0eb3`.
+Lab records also carry `source: EXPLICIT_AUDIO_LAB_FIXTURE`, fixture version, locale, created time, and deterministic test seed, but those annotations do not weaken the required identity. Three functional and three PA/help records are schema-validated in `06_radio/functional-fixtures.v2.json`; its hash is rebound after the final evidence rebuild.
 
 Rules:
 
 - `ownerDomain`, `eventId`, and `receiptId` form the immutable source identity.
 - The same resolved payload produces the spoken and caption representations.
 - Template resolution occurs once before enqueue. No uncaptured placeholder may reach voice or caption.
-- `captionText` may include accessibility punctuation/line breaks and `spokenText` may contain pronunciation markup only through an explicitly traced resolver; their factual tokens and quantities must remain equivalent.
-- A duplicate `receiptId` is never voiced twice.
-- Missing identity, expired payload, unresolved field, caption/spoken divergence, unsupported owner domain, or absent visual receipt fails closed.
+- The current prototype requires byte-identical `captionText` and `spokenText`; no pronunciation-markup exception is implemented.
+- Exact-item history suppresses a previously played item ID, while same-owner/event candidates are coalesced to highest priority and then lexicographically newest receipt ID before eligibility. This is not a general authoritative receipt ledger.
+- Missing identity, expired payload, unresolved field, any top-level/payload projection divergence, or caption/spoken divergence fails closed. The three fixture owner domains are exact evidence authorities; a future product owner-domain registry remains outside this lab.
 - Functional priority orders already-authoritative receipts; it does not alter their game priority.
 
 ## Spoken-copy linter
@@ -96,15 +96,18 @@ The linter inspects spoken/caption fields separately from metadata and reports f
 
 | Rule | Spoken/caption trigger | Required disposition |
 |---|---|---|
-| `RADIO_META_FICTION` | `fictional`, `imaginary`, `make-believe` and normalized hyphen variants | Rewrite in-world or document why the actual subject requires it |
-| `RADIO_PLACEHOLDER_LEGAL` | `placeholder`, `legal copy`, `rights pending`, `not for broadcast`, `prototype only`, disclaimer boilerplate | Remove from spoken copy; retain appropriate metadata |
-| `RADIO_INTERNAL_ID` | prototype IDs, receipt/debug labels, UUID-like tokens, paths, schema names | Replace through resolved player-facing copy; never read internal identity aloud |
-| `RADIO_TODO` | `TODO`, `TBD`, `FIXME`, `TK`, bracketed drafting notes | Reject item |
-| `RADIO_UNSUPPORTED_MECHANIC` | claims that radio changes ratings, legality, funds, unlocks, outcomes, blockers, time, or player obligations | Reject pending owning-domain evidence and copy review |
-| `RADIO_UNCAPTURED_VARIABLE` | `{name}`, `${name}`, `%s`, `{{name}}`, angle/bracket placeholder conventions | Reject before enqueue |
-| `RADIO_REAL_PERSON_IMITATION` | `in the voice/style of`, `sounds like`, `impersonate`, celebrity/broadcaster target tags, protected-character directions | Reject voice direction and escalate for human review |
-| `RADIO_REAL_WORLD_CLAIM` | unverified real brand, person, event, station, date, award, or technology claim in an invented item | Reject or move to sourced editorial review outside this prototype |
-| `RADIO_CAPTION_DIVERGENCE` | normalized factual tokens/quantities differ between resolved caption and spoken forms | Reject both outputs |
+| `SPOKEN_META_FICTION` | `fictional`, `imaginary`, `make-believe` and normalized hyphen variants | Rewrite in-world or document why the actual subject requires it |
+| `PLACEHOLDER_LEGAL_LANGUAGE` | placeholder/legal-copy forms, rights/clearance boilerplate, `not for broadcast`, and `PROTOTYPE_ONLY` variants | Remove from spoken copy; retain appropriate metadata |
+| `INTERNAL_OR_DEBUG_ID` | script/lab/receipt/debug IDs and fixture-owner identifiers | Replace through resolved player-facing copy; never read internal identity aloud |
+| `INTERNAL_PATH_OR_URI` | local filesystem, repository, or file-URI paths | Reject before enqueue |
+| `SCHEMA_OR_UUID` | schema identifiers/versions and canonical UUIDs | Reject before enqueue |
+| `DRAFT_PLACEHOLDER` | `TODO`, `TBD`, `FIXME`, `TK` | Reject item |
+| `UNSUPPORTED_MECHANIC_OR_STATE` | claims that radio changes game state, funds, outcomes, objectives, or saves | Reject pending owning-domain evidence and copy review |
+| `UNCAPTURED_VARIABLE` | `{name}`, `${name}`, `%s`, `{{name}}`, angle/bracket placeholder conventions | Reject before enqueue |
+| `REAL_PERSON_IMPERSONATION_CUE` | imitation/impersonation, voice/style-of, soundalike, celebrity/broadcaster/protected-character directions | Reject voice direction and escalate for human review |
+| `REAL_WORLD_CLAIM_CUE` | registered unverified real-world endorsement or breaking-news claim forms | Reject or move to sourced editorial review outside this prototype |
+
+Caption/spoken byte divergence is enforced by the typed scheduler contract rather than represented as a linter regex.
 
 Quoted test fixtures and metadata fields are allow-listed by schema, not by suppressing the rule globally. The audit output must report total files, units, rule hits, reviewed exceptions, corrected units, and unresolved blockers.
 
@@ -116,7 +119,7 @@ The prototype uses three recurring, explicitly fictional presenter identities ac
 |---|---|---|---|---|
 | `PRESENTER-MAE-CALDER` | Mae Calder | Service anchor across six eligible campaign grammars | Measured warmth, clear consonants, practical curiosity; moderate pace and precise nouns | Newsreader impersonation, faux-authoritative accent, melodramatic urgency |
 | `PRESENTER-ARTHUR-VALE` | Arthur Vale | Studio-life and production-culture host across seven eligible grammars | Dry observational timing, steady breath groups, low sales pressure | Stand-up density, constant jokes, decade caricature, real DJ imitation |
-| `PRESENTER-RINA-SHORE` | Rina Shore | Music/format host and network continuity across seven eligible grammars | Direct, humane, lightly energetic delivery with deliberate room for silence | Trend slang as era shorthand, celebrity cadence, protected-character similarity |
+| `PRESENTER-RINA-SHORE` | Rina Shore | Music/format host across seven programme grammars; explicitly eligible as the PA/help speaker for `E02`, `E03`, and `E07` | Direct, humane, lightly energetic delivery with deliberate room for silence | Trend slang as era shorthand, celebrity cadence, protected-character similarity |
 
 These identities persist while syntax, pacing, diction, vocabulary, formality, energy, and breath grouping adapt to the eligible programme grammar. They are not assigned one voice per decade.
 
@@ -128,54 +131,52 @@ Prototype rendering used the generic local macOS voices `Kathy`, `Ralph`, and `S
 4. treatment settings and hashes;
 5. a statement that system-voice redistribution has not been resolved and the renders must remain local scratch prototypes.
 
+The v2 builder never accepts an existing voice, programme master, or preview merely because a file or old sidecar exists. Build mode atomically rerenders every voice stage and every programme/preview from an exact recipe binding the presenter, local voice, speaking rate, clean and period filters, tool environment, source hashes, scheduler schedule, filter graph, and commands. The read-only verifier independently reruns the scheduler and fresh-renders all 12 voice pairs and all three programme/preview pairs into temporary paths, then byte/hash/probe-compares them with the frozen outputs. Presenter, rate, filter, schedule-time, duplicate-JSON-key, and replaced-output mutations fail closed.
+
 Treatment may add bounded mono presentation, bandwidth shaping, compression, mild saturation, and room/speaker color. Static, hiss, crackle, noise, or distortion cannot be the primary historical signal.
 
 ## Scheduler input
 
 The deterministic scheduler consumes:
 
-- current allowed creative alias/programme grammar from a future P13-owned mapping or explicit lab fixture;
+- a caller-prefiltered set for the explicit lab programme (a future P13 mapping remains outside the scheduler);
 - daypart fixture;
 - eligible presenter and content IDs;
 - typed functional and PA receipts;
-- item priority, created time, expiry, and category;
+- item class, priority, receipt identity, expiry, and category;
 - cooldown and repeat history;
-- current speech owner and radio-music state;
-- Radio mode, Streamer Safe, caption, accessibility, and bus settings;
-- presentation-only deterministic seed.
+- current speech owner;
+- Radio Enabled and Streamer Safe flags;
+- a presentation seed retained in evidence metadata (the TypeScript selector does not use it as a shuffle source).
 
 It does not consume raw mutable game objects or calculate calendar/era truth.
 
 ## Scheduler output
 
-For every decision it emits:
+For every TypeScript decision it emits:
 
 - selected or refused item ID;
 - content class and category;
 - source payload identity where functional;
-- presenter;
-- planned DSP start/end;
+- the scheduler-eligibility presenter and separately resolved speaker identity/role in each item;
 - voice, radio-music, and score gains;
 - interruption/coalescing action;
-- caption event and transcript record;
-- cooldown/history mutation in presentation state;
+- the selected item's resolved caption/spoken core for the evidence layer to record;
+- the supplied history/budget state; the caller records accepted playouts;
 - expiry/refusal/suppression reason;
-- deterministic decision digest.
+- a stable reason and candidate-evaluation list. No decision digest is implemented.
 
 ## Eligibility and deterministic selection
 
-1. Reject malformed, expired, duplicate, unresolved, or ineligible content.
-2. Resolve highest speech-arbitration class.
-3. Coalesce compatible simultaneous functional receipts only through an approved template that retains every source receipt ID.
-4. Apply daypart and presenter eligibility.
-5. Apply global speech budget, Radio mode, category, exact-item, and speaker cooldowns.
-6. Use a deterministic priority queue: priority descending, expiry ascending, created time ascending, stable item ID ascending.
-7. Retain at most one unstarted spoken item.
-8. Select decorative alternatives through a seeded shuffle bag with no immediate item or presenter repeat where alternatives exist.
-9. Resolve caption and transcript entry before scheduling audio.
-10. Schedule or return an exact suppression/refusal.
+1. Coalesce keyed candidates by highest priority, then lexicographically newest receipt ID.
+2. Reject a typed `FUNCTIONAL` or `PA_HELP` item unless its complete payload is valid and its duplicated owner/event/receipt/headline/body/priority/expiry/caption/spoken projection is exact; reject functional fields on `DECORATIVE` and `MILESTONE_STING`.
+3. Apply Radio mode, daypart, programme-presenter eligibility, expiry, exact-item and category cooldown, Streamer Safe, start spacing, rolling budgets, and the one active speech owner.
+4. Sort eligible items by speech class, priority, lexicographically newest receipt ID, then stable item ID.
+5. Return the first item or an exact suppression/refusal and silence.
 
-Radio selection does not consume game RNG and does not persist to authoritative save truth. Presentation preferences/history may persist separately as save-independent user data.
+This TypeScript scheduler is deterministic because all ordering keys and inputs are explicit. It has no seeded shuffle, presenter-repeat history, persisted queue, expiry-as-a-sort-key, or created-time tie-break. The current evidence caller appends accepted events to presentation-only history. Unity has its own lab scheduler and trace; neither implementation is represented here as a final production contract.
+
+Radio selection does not consume game RNG and does not persist to authoritative save truth. Persistence of radio history/preferences is a future integration requirement, not an implemented claim of this lab scheduler.
 
 ## Speech budget and cooldowns
 
@@ -186,19 +187,16 @@ One global automatic-speech budget covers PA, functional bulletins, hosts, adver
 - no more than three automatic starts in any rolling ten minutes;
 - no more than 120 voiced seconds in any rolling ten minutes;
 - elective radio in `FULL` is capped at two starts and 75 voiced seconds in that window;
-- `REDUCED` doubles elective cooldowns and permits at most one elective start and 45 voiced seconds per rolling ten minutes;
-- `OFF` schedules no elective radio voice or radio bed;
-- `Reduce Repetitive Voice` doubles exact-item and category cooldowns again.
+- `Radio Off` suppresses decorative and functional radio items in this lab decision, while PA/help and milestone presentation retain their separate arbitration; it does not change mechanics.
 
 Exact-repeat floors:
 
 - host item: 120 minutes;
 - advertisement: 90 minutes;
-- ident: 60 minutes and at most two per real-time hour;
-- same category: 15 minutes, except a higher-priority operational PA;
-- never the same presenter back-to-back when another eligible presenter exists.
+- ident: 60 minutes;
+- each current decorative category: 15 minutes.
 
-Categories remain exactly `operational_pa`, `receipt_bulletin`, `host_lot`, `host_industry`, `advert_break`, and `service_ident` for the authority-compatible scheduler. Decorative subtypes are tags, not new cooldown categories.
+These floors are authored on the current fixture items. No presenter anti-repeat or category-normalization guarantee is implemented or claimed.
 
 ## Interruption and arbitration law
 
@@ -213,13 +211,12 @@ Speech priority is:
 Rules:
 
 - There is one speech owner; voices never overlap.
-- A new PA or higher-priority receipt evicts a lower-priority queued item.
-- An already playing lower-priority voice is not cut casually. If immediate PA presentation is authorized, fade it at an edited word/sentence boundary within two seconds, preserve its partial transcript state, then obey the global start budget. If the budget prevents new voice, the visual receipt carries truth and the trace records `VOICE_OMITTED_BUDGET`.
+- The TypeScript selector gives PA/help the highest class; in the demonstrated active-radio case it records `PA_PREEMPTS_RADIO` and the interrupted item ID. It does not own a persisted queue.
+- The current offline render hard-trims the interruptible source at exactly 20.0 seconds when PA begins. The Unity lab stops the current radio source immediately for urgent PA. Neither path proves a fade, sentence/word-boundary edit, or pleasant interruption; the whole-item caption is explicitly marked interrupted and listening acceptance remains pending.
 - A PA may immediately interrupt/duck radio music or an unstarted radio programme without violating the single-voice law.
 - Functional items may interrupt elective radio-music beds but should not interrupt a voice merely to create drama.
-- Milestone stings are deferred during PA or functional voice, suppressed when Music/Stings are disabled, and never replace the visual receipt.
-- A setting change cancels newly ineligible queued speech and fades an already playing elective item at an edited boundary within two seconds.
-- Save/Load expires unstarted elective material; receipt-bound material must be revalidated rather than replayed stale.
+- Milestone stings are non-voice and deferred while the active speech owner is busy; they never replace a visual receipt. A future Stings Enabled input remains an integration requirement.
+- Save/Load queue restoration and setting-change fades are future production requirements, not mechanically proved here.
 
 ## Ducking and buses
 
@@ -235,9 +232,9 @@ Exact gain, attack, hold, and release values belong to lab mix metadata and must
 ## Streamer Safe and disabled radio
 
 - `Streamer Safe` admits only content with positive streaming/VOD authorization.
-- If an ineligible bed is already playing, apply a short safe fade/mute and use an eligible owned bed or silence; do not wait for cue end.
+- The current selector suppresses a Streamer-Safe-ineligible candidate before selection. Already-playing-bed replacement/fade behavior is a future runtime requirement.
 - A missing safe substitute produces silence with a visible diagnostic, never an uncleared fallback.
-- `Radio Off` cancels elective queued voice and bed, safely fades an elective item, and leaves functional truth in visual receipts/transcript where authorized.
+- `Radio Off` suppresses radio selection without changing mechanics; queue cancellation and a safe fade of already-playing material are not proved by this scheduler.
 - PA/help remains a separate setting and bus.
 - Radio choices never change mechanics or the source payload.
 
@@ -249,7 +246,7 @@ Exact gain, attack, hold, and release values belong to lab mix metadata and must
 - The transcript stores resolved text, presenter/context, source type, timestamp, and receipt identity for functional items.
 - Functional caption and voice are emitted from the same resolved payload.
 - Partial interruption records the whole-item caption that was shown, the incoming PA, and interruption time; it never fabricates a completed bulletin. Word-timed segment accounting is deferred and explicitly not claimed by this pilot.
-- Player-invoked transcript/replay may bypass automatic-start quota but still uses the single speech arbiter and cannot change truth.
+- Player-invoked transcript replay is a future requirement; it is not an implemented quota bypass in this scheduler.
 - No warning, blocker, milestone, task, or result exists only in voice.
 
 ## Three runtime-paced demo programmes
@@ -276,7 +273,7 @@ One deterministic 30-minute schedule exists per anchor programme:
 
 Each trace contains six accepted events at 30, 330, 630, 930, 1230, and 1530 seconds plus decision-only suppression probes. Each reports full text, presenter, speech owner, gains, typed payload identity where applicable, and candidate evaluations. The traces prove chronological ordering, exact-ID non-repeat, category cooldowns, rolling budgets, a functional fixture, PA, milestone sting, receipt coalescing, repeat suppression, and no mechanical mutation. They do not establish listening comfort.
 
-Canonical scheduler evidence is `06_radio/scheduler-evidence/RADIO-SCHEDULER-EVIDENCE.v2.json`, SHA-256 `206988fc110ac97307d7aa067a9bf6f3a14e9325ddf180c45f11b19f803bcb51`. It is emitted by the TypeScript `scheduleRadio` implementation rather than by hard-coded render metadata. Two consecutive rebuilds were byte-identical. The current runtime index is SHA-256 `85ba975ab9acd1cda46c57d2e8dd645f8e25c0a0551fd54ab7eaad6a1d9c9abc`.
+Canonical scheduler evidence is `06_radio/scheduler-evidence/RADIO-SCHEDULER-EVIDENCE.v2.json`, SHA-256 `b404ffbda0e0db347c8f6bd6ad133739cb45b557832cd8ddad747c04ea8d6ffa`. It is emitted by the TypeScript `scheduleRadio` implementation rather than by hard-coded render metadata. Two consecutive rebuilds were byte-identical. The current runtime index is SHA-256 `600482fcfc3994a739fe3ad70470113c4534dc14366f26d63cd93a2974fa2719`.
 
 ## Failure behavior
 
@@ -314,6 +311,6 @@ The three 660-second renders remain baked full mixes. Their hash-bound WAV ident
 
 One limitation remains explicit: each interruptible item has exact whole-source caption text, while the demonstration PA cuts its source before the natural end. The transcript records `Interrupted`, incoming PA identity, and interruption time, but this pilot does not provide word-timed/truncated caption segments and therefore does not claim delivered-word parity after the cut.
 
-The canonical evidence entry point is `06_radio/STUDIO-RADIO-RUNTIME-INDEX.v2.json` in `/Users/bruce/Project Studio Audio Systems Pilot 01`, SHA-256 `85ba975ab9acd1cda46c57d2e8dd645f8e25c0a0551fd54ab7eaad6a1d9c9abc`. The index reports a limited machine `PASS`; it is not a credibility, casting, fatigue, historical, cultural, rights, or accessibility verdict. Owner ratings remain required for copy credibility, presenter performance, repetition, ducking, fatigue, and accessibility.
+The canonical evidence entry point is `06_radio/STUDIO-RADIO-RUNTIME-INDEX.v2.json` in `/Users/bruce/Project Studio Audio Systems Pilot 01`, SHA-256 `600482fcfc3994a739fe3ad70470113c4534dc14366f26d63cd93a2974fa2719`. The index reports a limited machine `PASS`; it is not a credibility, casting, fatigue, historical, cultural, rights, or accessibility verdict. Owner ratings remain required for copy credibility, presenter performance, repetition, ducking, fatigue, and accessibility.
 
 No automated result can approve casting, historical treatment, comedy density, cultural credibility, or production use.

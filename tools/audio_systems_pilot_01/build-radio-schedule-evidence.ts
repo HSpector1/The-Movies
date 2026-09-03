@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import {
   RADIO_LAWS,
   scheduleRadio,
-  validatePayloadParity,
+  validateRadioItemPayloadContract,
   type ActiveSpeech,
   type RadioHistoryItem,
   type RadioItem,
@@ -177,7 +177,9 @@ function buildDemo(plan: DemoPlan) {
     exactRepeatSuppressed: repeat.item === null && repeat.candidateEvaluations.some((row) => row.reason === "EXACT_ITEM_COOLDOWN"),
     expiredSuppressed: expiry.item === null && expiry.candidateEvaluations.some((row) => row.reason === "EXPIRED"),
     newestFunctionalReceiptSelected: functional.item?.id === plan.items.functionalNew.id && functional.coalescedItemIds.includes(plan.items.functionalOld.id),
-    functionalPayloadValidated: plan.items.functionalNew.payload !== null && validatePayloadParity(plan.items.functionalNew.payload),
+    typedPayloadProjectionValidated: events
+      .filter((event) => event.item.contentType === "FUNCTIONAL" || event.item.contentType === "PA_HELP")
+      .every((event) => validateRadioItemPayloadContract(event.item)),
     radioDisabledNoMechanics: radioOff.item === null && radioOff.reason === "RADIO_DISABLED_MECHANICS_UNCHANGED" && radioOff.mechanicsMutated === false,
     streamerUnsafeSuppressed: streamer.item === null && streamer.candidateEvaluations.some((row) => row.reason === "STREAMER_SAFE_INELIGIBLE"),
     paActuallyPreemptsActiveRadio: pa.reason === "PA_PREEMPTS_RADIO" && pa.interruptedItemId === plan.items.interruptible.id,
@@ -265,7 +267,9 @@ function buildSimulation(plan: DemoPlan) {
     exactItemNoRepeat: new Set(exactIds).size === exactIds.length,
     categoryCooldowns: voiced.every((event, index) => voiced.slice(0, index).every((prior) => prior.item.category !== event.item.category || event.atSeconds - prior.atSeconds >= event.item.categoryCooldownSeconds)),
     rollingBudgetsAndSpacing: rolling.pass,
-    typedFunctionalIdentity: accepted.filter((event) => event.item.contentType === "FUNCTIONAL").every((event) => event.item.payload !== null && validatePayloadParity(event.item.payload)),
+    typedFunctionalAndPaIdentity: accepted
+      .filter((event) => event.item.contentType === "FUNCTIONAL" || event.item.contentType === "PA_HELP")
+      .every((event) => validateRadioItemPayloadContract(event.item)),
     fullResolvedTextAndOwnership: accepted.every((event) => event.item.captionText === event.item.spokenText && event.presenterId.length > 0 && event.speechOwner.length > 0),
     repeatProbeSuppressed: decisions.some((decision) => decision.purpose === "REPEAT_SUPPRESSION_PROBE_NO_PLAYOUT" && decision.decision.item === null),
     noMechanicalMutation: decisions.every((decision) => decision.decision.mechanicsMutated === false),

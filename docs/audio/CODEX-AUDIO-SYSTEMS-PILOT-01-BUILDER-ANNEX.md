@@ -27,10 +27,13 @@ All Unity changes are additive beneath `Assets/ProjectStudioAudioLab/`. No gener
 | Era-aware direction and builder annex | `f803164357ad417cea3162cb2c329890868f2b19` |
 | Pilot/calibration authority | remote tip `65596e47f9e7b9de33bd9530ee573390416d329e` at pilot start |
 | Audio marathon authority and branch base | `c457c3a35a66b2ab4b72b0ca379f118b2f1fa1bf` |
+| Amended external source-authority snapshot | 19 exact path/byte/SHA-256 rows in `10_provenance/source-authority-hashes.json`, deterministic snapshot time `2026-09-03T19:46:12Z`; includes the local-TTS route gate |
 | P13/P15 long-range research | `2a7ff0d973391f9433d19ec2cb7f6c5582d1e44f` |
 | Accepted pre-P05 Unity baseline | `29aea89a706a7f0961f5a460afc5bdb4d38d8395` |
 
 P13 retains era/technology truth. P05/P06 and their future accepted contracts retain lot activity and gameplay truth. Audio receives typed fixtures/projections; it never manufactures those facts.
+
+The nineteenth authority is the marathon `09_provenance/local-tts-route-gate.json`, 3,555 bytes at SHA-256 `6cc9058e72d3e2a73e7fedc992759a7c6a496ec5147314b4ab7913b00aa22d9d`. It records zero third-party TTS downloads and rejects all three investigated third-party routes. The retained fallback is generic built-in macOS `/usr/bin/say` scratch delivery only: no cloning or real-person target, no cloud/payment/new terms, `PROTOTYPE_ONLY`, and explicitly non-redistributable pending later rights review.
 
 ## Rebuild order
 
@@ -61,7 +64,7 @@ python3 tools/audio_systems_pilot_01/build_audition_app.py
 python3 tools/audio_systems_pilot_01/build_audition_app.py --verify-only
 ```
 
-10. Build a provisional complete register after the final Oracle/audition bytes, record its SHA-256, then run all eight final independent reviews against exact **D**, **U**, system-register hash, Oracle-suite hash, and that complete-register hash. If any review finds a source defect, return to step 4; do not package stale evidence. Freeze the eight reports, build their index, rebuild the complete register, and require its SHA-256 to remain byte-identical to the provisional value. Review prose/index must not introduce audio declarations; a changed final register restarts review against the new hash.
+10. Build a provisional complete register after the final Oracle/audition bytes, record its SHA-256, then run all eight final independent reviews against exact **D**, **U**, system-register hash, Oracle-suite hash, and that complete-register hash. The publisher refuses a prior register before archival unless every path-derived role tag and historical, cultural, and redistribution disposition still equals its recomputed policy; the independent package verifier repeats that check for the current register and every predecessor. If any review finds a source defect, return to step 4; do not package stale evidence. Freeze the eight reports, build their index, rebuild the complete register, and require its SHA-256 to remain byte-identical to the provisional value. Review prose/index must not introduce audio declarations; a changed final register restarts review against the new hash.
 
 ```sh
 python3 tools/audio_systems_pilot_01/build_complete_audio_file_register.py
@@ -79,7 +82,7 @@ Every final report must contain the exact standardized documentation SHA, Unity 
 python3 tools/audio_systems_pilot_01/update_final_state.py READY_FOR_PACKAGING
 ```
 
-12. Create the return package once. Its preflight independently repeats Git scope/upstream, canonical manifest, Unity/build, Oracle, audition, review, complete-register, and state checks before the Desktop target is created:
+12. Create the return package once. Its preflight independently repeats Git scope/upstream, canonical manifest, Unity/build, Oracle, audition, review, complete-register, and state checks before the Desktop target is created. The builder then scans every staged path for prohibited private-evidence/credential naming and every staged textual evidence file for credential, token, password, URL-userinfo, and private-key forms; this complements rather than replaces the committed-history audit:
 
 ```sh
 python3 tools/audio_systems_pilot_01/package_owner_return.py \
@@ -131,9 +134,11 @@ Older evidence remains preserved but is not a current consumer input.
 
 System-register v5 contains 147 explicit items. The 25 additions at the final hostile-review remedy are 18 Radio Voice files, six PA Voice files, and one milestone sting. `build_system_asset_register.py` accepts a voice only after its exact programme/role path, full schedule event, delivered-voice event, typed payload IDs and expiry where applicable, per-role metadata, clean/period identities, audio probes, exact audio hashes, spoken-text hash, caption/spoken equality, duration, eligible presenter, delivered speaker, caption context, speech owner, and intended bus agree. A composite opening remains one item. Equal-content PA clean files retain distinct path IDs while sharing an acknowledged content hash; no claim of distinct audio is made. The sting is pinned to SHA-256 `8b4e0b9a4e609737d91a3fc95fe313213c496d531c00e802628c62457f02acd6`; its one important-sound caption is taken verbatim from all three hash-bound caption tracks.
 
-The register names all 27 manifests it consumes or directly projects, including the transition catalogue, three schedules, twelve voice metadata records, and three caption tracks. Final validation freezes the complete canonical register at SHA-256 `896828b23707e0283e98e0cad5971aff341655aafccc3766461331aabe0c38e7`, requires that exact path/hash set, recomputes item-role/ID projections, and independently re-projects each radio item’s full typed payload and delivered-voice timing/context from its schedule. Missing manifests, cross-program path substitution (including equal-hash PA files), role or responsive-honesty drift, payload drift, delivery-time drift, and approval/clearance overclaims fail closed.
+The register names all 27 manifests it consumes or directly projects, including the transition catalogue, three schedules, twelve voice metadata records, and three caption tracks. Final validation freezes the complete canonical register at SHA-256 `d26df18eddfb299d9332ad82402c836c6234342b51ed4fb44b5294d0a78b334e`, requires that exact path/hash set, recomputes item-role/ID projections, and independently re-projects each radio item’s full typed payload and delivered-voice timing/context from its schedule. Missing manifests, cross-program path substitution (including equal-hash PA files), role or responsive-honesty drift, payload drift, delivery-time drift, and approval/clearance overclaims fail closed.
 
 The three whole-programme radio masters remain joined to their registered preview and runtime-index identities for offline feedback, but the normalized entries are `OFFLINE_AUDITION_ONLY`. The Unity service refuses them as Audio Lab playback because baked Radio Music/Radio Voice/PA balance and timed functional captions cannot be controlled independently. Item-level failure never falls back to a baked master.
+
+Radio build mode unconditionally and atomically rerenders every clean/period voice stage and every programme WAV/M4A; existence is never a cache-validity test. Canonical recipes bind presenter, local voice, rate, filters, tool identities, source hashes, schedule projection, filter graph, and commands. The top-level read-only validator reruns the scheduler and independently rerenders all 12 voice pairs plus all three programme/preview pairs to temporary files before exact byte/hash/probe comparison. Its mutation suite rejects presenter, rate, filter, schedule-time, duplicate-key, and replaced-output drift.
 
 ## Determinism and immutable identity
 

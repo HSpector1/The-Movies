@@ -10,6 +10,8 @@ the already-approved shared weights.  No token is read or sent.
 from __future__ import annotations
 
 import argparse
+import copy
+import datetime as dt
 import json
 import os
 import shutil
@@ -33,6 +35,18 @@ COMMUNITY_LICENSE_BYTES = 11_852
 COMMUNITY_LICENSE_SHA256 = "d6f6b1a4dce5c852bd6d7d9482d002baf0ccdb71e662250b73be9eec8764ee8d"
 GEMMA_LICENSE_BYTES = 10_541
 GEMMA_LICENSE_SHA256 = "e77acc0d3163bb7534675045c584b4d04b387b529239fc4b3647da0a01ba4745"
+OPTIMIZED_API_SNAPSHOT_BYTES = 12_527
+OPTIMIZED_API_SNAPSHOT_SHA256 = "31c097a11eee9daadf12ae8f1c13dd6c1d46b5ae4eaad419ebc564040a16ca60"
+CANONICAL_SFX_PROBE_BYTES = 29
+CANONICAL_SFX_PROBE_SHA256 = "45b71fe98efe5f530b825dce6f5049d738e9c16869f10be4370ab81a9912d4a6"
+EXPECTED_DECISION = "USE_PUBLIC_OPTIMIZED_MLX_SFX_WEIGHT_WITH_EXISTING_APPROVED_SHARED_COMPONENTS"
+EXPECTED_TERMS_DECISION = "NO_NEW_TERMS_ACCEPTED; NO_CANONICAL_GATED_CHECKPOINT_DOWNLOADED"
+EXPECTED_LIMITATIONS = [
+    "The gate proves exact files, code identity, public route availability, and bounded download size only.",
+    "Canonical Small-SFX license bytes were not independently captured because anonymous pinned endpoints returned HTTP 401; only the public optimized route is selected.",
+    "It does not establish copyrightability, non-infringement, exclusivity, commercial clearance, historical accuracy, or listening quality.",
+    "All generated outputs remain PROTOTYPE_ONLY pending Owner and rights review.",
+]
 
 OLD_CODE = TOOLING_ROOT / "stable-audio-3"
 OLD_WEIGHTS = OLD_CODE / "optimized/mlx/models/mlx"
@@ -301,8 +315,24 @@ def _download_sfx_weight() -> dict[str, Any]:
 
 
 def verify_gate_data(data: dict[str, Any]) -> None:
-    if data.get("status") != "PASSED" or data.get("schema_version") != 2:
+    expected_top_keys = {
+        "schema_version", "generated_at_utc", "status", "decision", "rights_status", "terms_decision",
+        "official_identities", "route_checks", "license_evidence", "toolchain", "shared_weights",
+        "small_sfx_weight", "download_url", "errors", "limitations", "supersedes",
+    }
+    if set(data) != expected_top_keys or data.get("status") != "PASSED" or data.get("schema_version") != 2:
         raise RuntimeError("SFX route manifest is not a v2 pass")
+    try:
+        dt.datetime.fromisoformat(str(data["generated_at_utc"]).replace("Z", "+00:00"))
+    except ValueError as error:
+        raise RuntimeError("SFX route generated timestamp is malformed") from error
+    if (data.get("decision") != EXPECTED_DECISION
+            or data.get("rights_status") != "PROTOTYPE_ONLY"
+            or data.get("terms_decision") != EXPECTED_TERMS_DECISION
+            or data.get("limitations") != EXPECTED_LIMITATIONS
+            or data.get("errors") != []
+            or data.get("download_url") != SFX_WEIGHT_URL):
+        raise RuntimeError("SFX route decision/status/terms/limitations contract mismatch")
     identities = data.get("official_identities", {})
     expected_identities = {
         "code_repository": "Stability-AI/stable-audio-3",
@@ -316,12 +346,52 @@ def verify_gate_data(data: dict[str, Any]) -> None:
     }
     if identities != expected_identities:
         raise RuntimeError("SFX route identity mismatch")
-    if data["route_checks"].get("optimized_repository_gated") is not False:
-        raise RuntimeError("optimized repository gated status is not exact false")
-    if data["route_checks"].get("optimized_repository_private") is not False:
-        raise RuntimeError("optimized repository private status is not exact false")
+    route = data.get("route_checks", {})
+    expected_route_scalars = {
+        "official_optimized_repository_ungated": True,
+        "optimized_repository_private": False,
+        "optimized_repository_gated": False,
+        "optimized_api_http_status": 200,
+        "additional_weight_download_bytes": SFX_WEIGHT_BYTES,
+        "additional_weight_download_limit_bytes": 1_500_000_000,
+        "within_download_limit": True,
+        "network_or_cloud_inference": False,
+        "paid_service": False,
+        "system_install": False,
+    }
+    if (set(route) != {*expected_route_scalars, "optimized_api_snapshot", "optimized_api_response_headers"}
+            or any(route.get(key) is not value if isinstance(value, bool) else route.get(key) != value
+                   for key, value in expected_route_scalars.items())):
+        raise RuntimeError("SFX route public/download/no-cloud decision checks are not exact")
+    api_headers = route.get("optimized_api_response_headers", {})
+    if (api_headers.get("content-length") != "9315"
+            or api_headers.get("etag") != 'W/"2463-QlDgHVmWoduKXNuatDSqRdBo+7A"'):
+        raise RuntimeError("SFX route optimized API response identity mismatch")
+    metadata_record = route["optimized_api_snapshot"]
+    expected_metadata_path = PILOT_ROOT / "10_provenance/sfx-route/optimized-repository-api.v2.json"
+    if metadata_record != {
+        "path": str(expected_metadata_path), "bytes": OPTIMIZED_API_SNAPSHOT_BYTES,
+        "sha256": OPTIMIZED_API_SNAPSHOT_SHA256, "reused": False,
+    }:
+        raise RuntimeError("SFX route optimized API snapshot record mismatch")
+    metadata_path = require_file(expected_metadata_path, OPTIMIZED_API_SNAPSHOT_SHA256)
+    if metadata_path.stat().st_size != OPTIMIZED_API_SNAPSHOT_BYTES or metadata_path.is_symlink():
+        raise RuntimeError("SFX route optimized API snapshot size/type mismatch")
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    siblings = {row.get("rfilename") for row in metadata.get("siblings", []) if isinstance(row, dict)}
+    if (metadata.get("id") != OPTIMIZED_REPO_ID or metadata.get("modelId") != OPTIMIZED_REPO_ID
+            or metadata.get("sha") != OPTIMIZED_REVISION or metadata.get("private") is not False
+            or metadata.get("gated") is not False or metadata.get("disabled") is not False
+            or metadata.get("library_name") != "stable-audio-3" or metadata.get("pipeline_tag") != "text-to-audio"
+            or not {"LICENSE.md", "LICENSE_GEMMA.md", "MLX/dit_sm-sfx_f16.npz"} <= siblings):
+        raise RuntimeError("SFX route optimized API snapshot content mismatch")
 
-    toolchain = Path(data["toolchain"]["path"])
+    toolchain_record = data.get("toolchain", {})
+    if (toolchain_record.get("path") != str(TOOLCHAIN) or toolchain_record.get("commit") != CODE_COMMIT
+            or toolchain_record.get("source_checkout_head") != CODE_COMMIT
+            or not isinstance(toolchain_record.get("reused"), bool)):
+        raise RuntimeError("SFX route toolchain record mismatch")
+    toolchain = Path(toolchain_record["path"])
     actual_commit = subprocess.run(
         ["git", "rev-parse", "HEAD"], cwd=toolchain, check=True, capture_output=True, text=True
     ).stdout.strip()
@@ -337,32 +407,103 @@ def verify_gate_data(data: dict[str, Any]) -> None:
     if tracked_changes:
         raise RuntimeError(f"toolchain tracked files changed: {tracked_changes}")
 
-    for key in (
-        "optimized_license",
-        "optimized_gemma_license",
-        "canonical_small_music_license",
-        "prior_approved_license",
-        "prior_approved_gemma_license",
-    ):
-        record = data["license_evidence"][key]
-        path = require_file(Path(record["path"]), record["sha256"])
-        if path.stat().st_size != record["bytes"] or path.is_symlink():
+    license_evidence = data.get("license_evidence", {})
+    expected_license_records = {
+        "optimized_license": (LICENSE_DIR / "stable-audio-3-optimized-LICENSE.md", COMMUNITY_LICENSE_BYTES, COMMUNITY_LICENSE_SHA256),
+        "optimized_gemma_license": (LICENSE_DIR / "stable-audio-3-optimized-LICENSE_GEMMA.md", GEMMA_LICENSE_BYTES, GEMMA_LICENSE_SHA256),
+        "canonical_small_music_license": (LICENSE_DIR / "canonical-small-music-LICENSE.md", COMMUNITY_LICENSE_BYTES, COMMUNITY_LICENSE_SHA256),
+        "prior_approved_license": (LICENSE_DIR / "prior-approved-canonical-LICENSE.md", COMMUNITY_LICENSE_BYTES, COMMUNITY_LICENSE_SHA256),
+        "prior_approved_gemma_license": (LICENSE_DIR / "prior-approved-Gemma-LICENSE.md", GEMMA_LICENSE_BYTES, GEMMA_LICENSE_SHA256),
+    }
+    expected_basis = [
+        "The user-supplied binding authority states that Small-SFX and Small-Music license files are byte-identical; that statement is recorded, not upgraded to independent proof.",
+        "The pinned canonical Small-Music license, public optimized repository license, and locally preserved prior-approved copy are independently byte-identical here.",
+        "The pinned canonical Small-SFX LICENSE and Gemma endpoints returned HTTP 401 without credentials, so their bytes were not captured and no terms were accepted.",
+        "No inference about commercial clearance is made from byte identity.",
+    ]
+    expected_license_scalars = {
+        "user_supplied_authority_statement_small_sfx_and_small_music_license_byte_identical": True,
+        "canonical_small_sfx_and_small_music_license_byte_identity_independently_captured_this_run": False,
+        "independent_comparison_status": "NOT_CAPTURED_CANONICAL_SMALL_SFX_REPOSITORY_RETURNED_HTTP_401",
+        "optimized_route_and_canonical_small_music_community_license_byte_identical": True,
+        "community_license_sha256": COMMUNITY_LICENSE_SHA256,
+        "community_license_bytes": COMMUNITY_LICENSE_BYTES,
+        "basis": expected_basis,
+    }
+    expected_license_keys = {
+        *expected_license_scalars, *expected_license_records,
+        "canonical_small_sfx_license_probe", "canonical_small_sfx_gemma_probe",
+        "optimized_license_headers", "optimized_gemma_headers", "canonical_small_music_license_headers",
+    }
+    if set(license_evidence) != expected_license_keys or any(license_evidence.get(key) != value for key, value in expected_license_scalars.items()):
+        raise RuntimeError("SFX route license decision evidence mismatch")
+    for key, (expected_path, expected_bytes, expected_hash) in expected_license_records.items():
+        record = license_evidence[key]
+        if (set(record) != {"path", "bytes", "sha256", "reused"}
+                or record.get("path") != str(expected_path) or record.get("bytes") != expected_bytes
+                or record.get("sha256") != expected_hash or not isinstance(record.get("reused"), bool)):
+            raise RuntimeError(f"license evidence role record mismatch: {key}")
+        path = require_file(expected_path, expected_hash)
+        if path.stat().st_size != expected_bytes or path.is_symlink():
             raise RuntimeError(f"license evidence size/type mismatch: {path}")
-    metadata_record = data["route_checks"]["optimized_api_snapshot"]
-    require_file(Path(metadata_record["path"]), metadata_record["sha256"])
+    expected_probes = {
+        "canonical_small_sfx_license_probe": 401,
+        "canonical_small_sfx_gemma_probe": 401,
+    }
+    for key, status in expected_probes.items():
+        probe = license_evidence[key]
+        if (probe.get("http_status") != status or probe.get("bytes") != CANONICAL_SFX_PROBE_BYTES
+                or probe.get("sha256") != CANONICAL_SFX_PROBE_SHA256
+                or probe.get("headers", {}).get("content-length") != str(CANONICAL_SFX_PROBE_BYTES)):
+            raise RuntimeError(f"canonical Small-SFX HTTP probe mismatch: {key}")
+    expected_header_projections = {
+        "optimized_license_headers": (str(COMMUNITY_LICENSE_BYTES), OPTIMIZED_REVISION, '"1d9ce2ee1067327543544de197291726e4fc57a4"'),
+        "optimized_gemma_headers": (str(GEMMA_LICENSE_BYTES), OPTIMIZED_REVISION, '"d483de1f58e5de355d8d184f6a7bf42f05875b63"'),
+        "canonical_small_music_license_headers": (str(COMMUNITY_LICENSE_BYTES), MUSIC_CANONICAL_REVISION, '"1d9ce2ee1067327543544de197291726e4fc57a4"'),
+    }
+    for key, (length, commit, etag) in expected_header_projections.items():
+        headers = license_evidence[key]
+        if headers.get("content-length") != length or headers.get("x-repo-commit") != commit or headers.get("etag") != etag:
+            raise RuntimeError(f"license response-header identity mismatch: {key}")
 
-    for record in data["shared_weights"]:
-        destination = require_file(Path(record["path"]), record["sha256"])
-        source = require_file(Path(record["source"]), record["sha256"])
+    shared = data.get("shared_weights", [])
+    if len(shared) != len(SHARED_WEIGHTS) or {Path(row.get("path", "")).name for row in shared} != set(SHARED_WEIGHTS):
+        raise RuntimeError("shared weight identities are incomplete or duplicate")
+    for record in shared:
+        name = Path(record["path"]).name
+        expected_bytes, expected_hash = SHARED_WEIGHTS[name]
+        expected_destination = MODEL_DIR / name
+        expected_source = OLD_WEIGHTS / name
+        if (record.get("path") != str(expected_destination) or record.get("source") != str(expected_source)
+                or record.get("bytes") != expected_bytes or record.get("source_bytes") != expected_bytes
+                or record.get("sha256") != expected_hash or record.get("copy_on_write_or_copy") is not True
+                or record.get("hardlink") is not False or record.get("symlink") is not False
+                or not isinstance(record.get("reused"), bool)):
+            raise RuntimeError(f"shared weight record mismatch: {name}")
+        destination = require_file(expected_destination, expected_hash)
+        source = require_file(expected_source, expected_hash)
         if destination.is_symlink() or source.is_symlink():
             raise RuntimeError(f"shared weight symlink detected: {destination}")
         source_stat = source.stat()
         destination_stat = destination.stat()
         if source_stat.st_dev == destination_stat.st_dev and source_stat.st_ino == destination_stat.st_ino:
             raise RuntimeError(f"shared weight hardlink detected: {destination}")
-    sfx_weight = require_file(Path(data["small_sfx_weight"]["path"]), SFX_WEIGHT_SHA256)
+    weight_record = data.get("small_sfx_weight", {})
+    expected_weight_path = MODEL_DIR / "dit_sm-sfx_f16.npz"
+    if (weight_record.get("path") != str(expected_weight_path) or weight_record.get("bytes") != SFX_WEIGHT_BYTES
+            or weight_record.get("sha256") != SFX_WEIGHT_SHA256 or weight_record.get("url") != SFX_WEIGHT_URL
+            or not isinstance(weight_record.get("reused"), bool)):
+        raise RuntimeError("SFX weight record/download identity mismatch")
+    sfx_weight = require_file(expected_weight_path, SFX_WEIGHT_SHA256)
     if sfx_weight.stat().st_size != SFX_WEIGHT_BYTES or sfx_weight.is_symlink():
         raise RuntimeError("SFX weight size/type mismatch")
+    supersedes = data.get("supersedes", {})
+    if supersedes != {
+        "path": str(GATE_V1_PATH), "bytes": 7_343,
+        "sha256": "b53c7a9fef6b7bf13bb5dbeeb42284d9826a24c7f9bfc409cba0c94f36c4d699",
+        "reason": "v1 overstated independent canonical Small-SFX license comparison and had a shallow verifier",
+    }:
+        raise RuntimeError("SFX route superseded evidence identity mismatch")
 
 
 def run_gate() -> dict[str, Any]:
@@ -557,10 +698,51 @@ def run_gate() -> dict[str, Any]:
     return result
 
 
+def self_test() -> None:
+    original = json.loads(GATE_PATH.read_text(encoding="utf-8"))
+    verify_gate_data(original)
+    mutations: list[tuple[str, tuple[str, ...], Any]] = [
+        ("decision", ("decision",), "USE_UNREVIEWED_ROUTE"),
+        ("rights", ("rights_status",), "CLEARED_FOR_SHIP"),
+        ("terms", ("terms_decision",), "TERMS_ACCEPTED"),
+        ("ungated", ("route_checks", "official_optimized_repository_ungated"), False),
+        ("http", ("route_checks", "optimized_api_http_status"), 204),
+        ("snapshot", ("route_checks", "optimized_api_snapshot", "sha256"), "0" * 64),
+        ("download bytes", ("route_checks", "additional_weight_download_bytes"), 1),
+        ("download limit", ("route_checks", "additional_weight_download_limit_bytes"), 2_000_000_000),
+        ("download result", ("route_checks", "within_download_limit"), False),
+        ("cloud", ("route_checks", "network_or_cloud_inference"), True),
+        ("paid", ("route_checks", "paid_service"), True),
+        ("install", ("route_checks", "system_install"), True),
+        ("download URL", ("download_url",), "https://example.invalid/weight"),
+        ("limitations", ("limitations",), []),
+        ("license role path", ("license_evidence", "optimized_gemma_license", "path"), str(LICENSE_DIR / "stable-audio-3-optimized-LICENSE.md")),
+        ("license role bytes", ("license_evidence", "prior_approved_gemma_license", "bytes"), COMMUNITY_LICENSE_BYTES),
+        ("probe status", ("license_evidence", "canonical_small_sfx_license_probe", "http_status"), 200),
+        ("weight URL", ("small_sfx_weight", "url"), "https://example.invalid/sfx"),
+    ]
+    for label, path, replacement in mutations:
+        candidate = copy.deepcopy(original)
+        target: dict[str, Any] = candidate
+        for key in path[:-1]:
+            target = target[key]
+        target[path[-1]] = replacement
+        try:
+            verify_gate_data(candidate)
+        except RuntimeError:
+            continue
+        raise AssertionError(f"SFX gate mutation was accepted: {label}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--verify-only", action="store_true", help="verify an existing completed gate")
+    parser.add_argument("--self-test", action="store_true", help="run adversarial verifier mutations")
     args = parser.parse_args()
+    if args.self_test:
+        self_test()
+        print(json.dumps({"status": "PASSED", "mutation_tests": 18}, sort_keys=True))
+        return 0
     if args.verify_only:
         data = json.loads(GATE_PATH.read_text(encoding="utf-8"))
         verify_gate_data(data)

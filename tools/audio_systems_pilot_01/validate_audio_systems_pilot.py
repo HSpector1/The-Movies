@@ -14,8 +14,12 @@ from pathlib import Path
 from typing import Any, Callable
 
 from build_audio_oracle import verify as verify_oracle
+from build_accessibility_renders_v4 import verify as verify_accessibility_renders
 from build_audition_app import verify as verify_audition
 from build_hostile_review_index import verify as verify_hostile_reviews
+from build_radio_runtime_v2 import recipe_self_test as verify_radio_recipe_mutations
+from build_radio_runtime_v2 import tool_environment as radio_tool_environment
+from build_radio_runtime_v2 import verify_current_outputs as verify_radio_runtime_outputs
 from package_owner_return import (
     verify as verify_package,
     verify_committed_history_policy,
@@ -25,7 +29,7 @@ from package_owner_return import (
     verify_state_record,
     verify_unity_run_archives,
 )
-from common import DOC_REPO, PILOT_ROOT, atomic_write_json, canonical_contained, probe_audio, sha256_file, utc_now
+from common import DOC_REPO, MARATHON_ROOT, PILOT_ROOT, atomic_write_json, canonical_contained, probe_audio, sha256_file, utc_now
 
 
 DOC_BASE = "c457c3a35a66b2ab4b72b0ca379f118b2f1fa1bf"
@@ -38,10 +42,14 @@ PREPACKAGE_OUTPUT = PILOT_ROOT / "10_provenance/PREPACKAGE-VALIDATION.v1.json"
 CATALOGUE_BASE = PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.v1.json"
 PHASE_A_RECEIPT = PILOT_ROOT / "10_provenance/phase-a-reconciliation.json"
 SOURCE_AUTHORITY_HASHES = PILOT_ROOT / "10_provenance/source-authority-hashes.json"
+SOURCE_AUTHORITY_SNAPSHOT_UTC = "2026-09-03T19:46:12Z"
+LOCAL_TTS_ROUTE_GATE = MARATHON_ROOT / "09_provenance/local-tts-route-gate.json"
+LOCAL_TTS_ROUTE_GATE_BYTES = 3_555
+LOCAL_TTS_ROUTE_GATE_SHA256 = "6cc9058e72d3e2a73e7fedc992759a7c6a496ec5147314b4ab7913b00aa22d9d"
 PHASE_A_RECEIPT_BYTES = 1_670
 PHASE_A_RECEIPT_SHA256 = "24bcc57527760c04a0c158f77df91ab1c920bdf7c0c5f50c217a1cd40e518397"
-SOURCE_AUTHORITY_HASHES_BYTES = 4_414
-SOURCE_AUTHORITY_HASHES_SHA256 = "c6530734ccfb4931a2e0bbc8daa1f5a74549eef1b832264509f3115a432abee8"
+SOURCE_AUTHORITY_HASHES_BYTES = 4_642
+SOURCE_AUTHORITY_HASHES_SHA256 = "a4ce856dc541778b802aaf3044e614adc6186acd9e4681c4329913d09eb1ada7"
 CATALOGUE_BASE_BYTES = 727_015
 CATALOGUE_BASE_SHA256 = "0ee5d956763c70db305bdf9b5066cac0bfb77c499fbed07b6df5b87b8acfdade"
 EXPECTED_PHASE_A_CHECKS = {
@@ -77,7 +85,9 @@ LIVING = PILOT_ROOT / "04_living-lot/living-lot-soundscape-catalogue.v3.json"
 MANAGEMENT = PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v4.json"
 RADIO = PILOT_ROOT / "06_radio/STUDIO-RADIO-RUNTIME-INDEX.v2.json"
 RADIO_LINT = PILOT_ROOT / "06_radio/script-bank/RADIO-COPY-LINT.v2.json"
+RADIO_SCRIPT_BANK = PILOT_ROOT / "06_radio/script-bank/STUDIO-RADIO-SCRIPT-BANK-01-CLEAN.v2.json"
 RADIO_FIXTURES = PILOT_ROOT / "06_radio/functional-fixtures.v2.json"
+RADIO_SCHEDULER_INPUT = PILOT_ROOT / "06_radio/scheduler-evidence/RADIO-SCHEDULER-INPUT.v2.json"
 RADIO_SCHEDULER = PILOT_ROOT / "06_radio/scheduler-evidence/RADIO-SCHEDULER-EVIDENCE.v2.json"
 PRESENTERS = PILOT_ROOT / "06_radio/presenter-ensemble.v2.json"
 ACCESSIBILITY = PILOT_ROOT / "07_audio-oracle/accessibility-renders-v4/ACCESSIBILITY-PRESETS.v4.json"
@@ -86,7 +96,7 @@ AUDITION = PILOT_ROOT / "08_audition-app/v2/AUDITION-BUILD-MANIFEST.json"
 UNITY_VALIDATION = PILOT_ROOT / "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json"
 BUILD_RECEIPT = PILOT_ROOT / "09_unity-lab/Builds/macOS/Project Studio Audio Systems Pilot.app.build-receipt.json"
 SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json"
-SYSTEM_REGISTER_SHA256 = "896828b23707e0283e98e0cad5971aff341655aafccc3766461331aabe0c38e7"
+SYSTEM_REGISTER_SHA256 = "d26df18eddfb299d9332ad82402c836c6234342b51ed4fb44b5294d0a78b334e"
 ASSET_INDEX = PILOT_ROOT / "10_provenance/audio-assets-index.v4.json"
 ASSET_VALIDATION = PILOT_ROOT / "10_provenance/audio-assets-validation.v4.json"
 DERIVATIVES = PILOT_ROOT / "10_provenance/audio-derivative-source-register.v4.json"
@@ -137,6 +147,11 @@ EXPECTED_FUNCTIONAL_IDENTITIES = {
     "LAB-E03-FUNCTIONAL-BULLETIN": "P05_AUDIO_LAB_FIXTURE",
     "LAB-E07-FUNCTIONAL-BULLETIN": "P06_AUDIO_LAB_FIXTURE",
 }
+EXPECTED_PA_IDENTITIES = {
+    "LAB-PA-E02-ACCESS-PAUSED": "PA_HELP_AUDIO_LAB_FIXTURE",
+    "LAB-PA-E03-ACCESS-PAUSED": "PA_HELP_AUDIO_LAB_FIXTURE",
+    "LAB-PA-E07-ACCESS-PAUSED": "PA_HELP_AUDIO_LAB_FIXTURE",
+}
 EXPECTED_RADIO_DEMOS = {
     "EARLY-NETWORK-GOLDEN-STUDIO-V2": "network_sound_1933_1945",
     "POSTWAR-PERSONALITY-TAPE-HIFI-V2": "tape_hifi_1946_1959",
@@ -146,18 +161,21 @@ EXPECTED_REGISTER_RADIO = {
     "E02": {
         "slug": "EARLY-NETWORK-GOLDEN-STUDIO-V2", "epoch": "network_sound_1933_1945",
         "presenter": "PRESENTER-MAE-CALDER", "daypart": "MORNING",
+        "pa_presenter": "PRESENTER-RINA-SHORE",
         "functional": ("P13_AUDIO_LAB_FIXTURE", "LAB-E02-FUNCTIONAL-BULLETIN", "LAB-RECEIPT-E02-0001"),
         "pa": ("PA_HELP_AUDIO_LAB_FIXTURE", "LAB-PA-E02-ACCESS-PAUSED", "LAB-RECEIPT-PA-E02-0001"),
     },
     "E03": {
         "slug": "POSTWAR-PERSONALITY-TAPE-HIFI-V2", "epoch": "tape_hifi_1946_1959",
         "presenter": "PRESENTER-ARTHUR-VALE", "daypart": "AFTERNOON",
+        "pa_presenter": "PRESENTER-RINA-SHORE",
         "functional": ("P05_AUDIO_LAB_FIXTURE", "LAB-E03-FUNCTIONAL-BULLETIN", "LAB-RECEIPT-E03-0001"),
         "pa": ("PA_HELP_AUDIO_LAB_FIXTURE", "LAB-PA-E03-ACCESS-PAUSED", "LAB-RECEIPT-PA-E03-0001"),
     },
     "E07": {
         "slug": "DIGITAL-NETWORKED-HYBRID-V2", "epoch": "networked_hybrid_2000_2014",
         "presenter": "PRESENTER-RINA-SHORE", "daypart": "EVENING",
+        "pa_presenter": "PRESENTER-RINA-SHORE",
         "functional": ("P06_AUDIO_LAB_FIXTURE", "LAB-E07-FUNCTIONAL-BULLETIN", "LAB-RECEIPT-E07-0001"),
         "pa": ("PA_HELP_AUDIO_LAB_FIXTURE", "LAB-PA-E07-ACCESS-PAUSED", "LAB-RECEIPT-PA-E07-0001"),
     },
@@ -169,14 +187,26 @@ EXPECTED_RADIO_PRESENTERS = {
     "PRESENTER-MAE-CALDER": {
         "display_name": "Mae Calder", "local_voice": "Kathy",
         "campaign_eligibility": {"E01", "E02", "E03", "E04", "E05", "E08"},
+        "role_scoped_eligibility": {
+            "PROGRAMME_PRESENTER": {"E01", "E02", "E03", "E04", "E05", "E08"},
+            "PA_HELP_SPEAKER": set(),
+        },
     },
     "PRESENTER-ARTHUR-VALE": {
         "display_name": "Arthur Vale", "local_voice": "Ralph",
         "campaign_eligibility": {"E02", "E03", "E04", "E05", "E06", "E07", "E09"},
+        "role_scoped_eligibility": {
+            "PROGRAMME_PRESENTER": {"E02", "E03", "E04", "E05", "E06", "E07", "E09"},
+            "PA_HELP_SPEAKER": set(),
+        },
     },
     "PRESENTER-RINA-SHORE": {
         "display_name": "Rina Shore", "local_voice": "Samantha",
         "campaign_eligibility": {"E01", "E04", "E05", "E06", "E07", "E08", "E09"},
+        "role_scoped_eligibility": {
+            "PROGRAMME_PRESENTER": {"E01", "E04", "E05", "E06", "E07", "E08", "E09"},
+            "PA_HELP_SPEAKER": {"E02", "E03", "E07"},
+        },
     },
 }
 EXPECTED_DEMO_PRESENTERS = {
@@ -186,15 +216,20 @@ EXPECTED_DEMO_PRESENTERS = {
 }
 EXPECTED_RADIO_DEMO_ASSERTIONS = {
     "schedulerProducedEveryPlayout", "openingContainsRequiredRoles", "exactRepeatSuppressed",
-    "expiredSuppressed", "newestFunctionalReceiptSelected", "functionalPayloadValidated",
+    "expiredSuppressed", "newestFunctionalReceiptSelected", "typedPayloadProjectionValidated",
     "radioDisabledNoMechanics", "streamerUnsafeSuppressed", "paActuallyPreemptsActiveRadio",
     "paOccursOverActiveMusicWindow", "captionsShareResolvedCore", "rollingBudgetsAndSpacing",
     "noMechanicalMutation",
 }
 EXPECTED_RADIO_SIM_ASSERTIONS = {
     "chronological", "exactItemNoRepeat", "categoryCooldowns", "rollingBudgetsAndSpacing",
-    "typedFunctionalIdentity", "fullResolvedTextAndOwnership", "repeatProbeSuppressed",
+    "typedFunctionalAndPaIdentity", "fullResolvedTextAndOwnership", "repeatProbeSuppressed",
     "noMechanicalMutation",
+}
+EXPECTED_RADIO_LINT_RULES = {
+    "SPOKEN_META_FICTION", "DRAFT_PLACEHOLDER", "INTERNAL_OR_DEBUG_ID", "INTERNAL_PATH_OR_URI",
+    "SCHEMA_OR_UUID", "UNCAPTURED_VARIABLE", "PLACEHOLDER_LEGAL_LANGUAGE",
+    "UNSUPPORTED_MECHANIC_OR_STATE", "REAL_PERSON_IMPERSONATION_CUE", "REAL_WORLD_CLAIM_CUE",
 }
 EXPECTED_ACCESSIBILITY_PRESETS = {
     "STANDARD", "SPEECH_FIRST", "NIGHT_LIMITED_DYNAMIC_RANGE", "MUSIC_LIGHT", "MUSIC_OFF", "FORCE_MONO",
@@ -202,7 +237,7 @@ EXPECTED_ACCESSIBILITY_PRESETS = {
 EXPECTED_ACCESSIBILITY_CHECKS = {
     "all_duration_45_seconds", "force_mono_final_sum_one_channel",
     "music_off_keeps_six_non_music_buses", "other_final_sums_stereo", "six_renders",
-    "source_register_hash_bound",
+    "source_register_hash_bound", "all_render_recipes_bound",
 }
 FINAL_CHECK_ORDER = (
     "git_isolation_and_push",
@@ -278,6 +313,31 @@ def collect_presenter_ids(value: Any) -> set[str]:
         for child in value:
             found.update(collect_presenter_ids(child))
     return found
+
+
+def require_radio_item_contract(item: dict[str, Any]) -> None:
+    content_type = item.get("contentType")
+    typed = content_type in {"FUNCTIONAL", "PA_HELP"}
+    payload = item.get("payload")
+    projection_fields = ("ownerDomain", "eventId", "receiptId", "headline", "body", "priority", "expiresAt", "captionText", "spokenText")
+    expected_speaker_role = "PA_HELP_SPEAKER" if content_type == "PA_HELP" else "PROGRAMME_PRESENTER"
+    require(isinstance(item.get("speakerId"), str) and item["speakerId"]
+            and isinstance(item.get("speakerDisplayName"), str) and item["speakerDisplayName"]
+            and item.get("speakerRole") == expected_speaker_role,
+            f"radio speaker-role projection failed: {item.get('id')}")
+    if typed:
+        require(isinstance(payload, dict) and FUNCTIONAL_FIELDS.issubset(payload)
+                and all(isinstance(payload[field], str) and payload[field].strip()
+                        for field in FUNCTIONAL_FIELDS - {"priority"})
+                and type(payload.get("priority")) is int
+                and all(item.get(field) == payload[field] for field in projection_fields)
+                and payload["captionText"] == payload["spokenText"]
+                and item.get("coalesceKey") == f"{payload['ownerDomain']}:{payload['eventId']}",
+                f"radio typed payload exact projection failed: {item.get('id')}")
+    else:
+        require(payload is None
+                and all(item.get(field) is None for field in ("ownerDomain", "eventId", "receiptId", "headline", "body")),
+                f"radio nonfunctional item owns typed fields: {item.get('id')}")
 
 
 def check_git_and_scope() -> dict[str, Any]:
@@ -359,7 +419,8 @@ def check_catalogue() -> dict[str, Any]:
     authority = load(SOURCE_AUTHORITY_HASHES, "project-studio-audio-source-authority-hashes/v1")
     authority_rows = authority.get("artifacts")
     require(authority.get("status") == "HASH_VERIFIED"
-            and isinstance(authority_rows, list) and len(authority_rows) == 18
+            and authority.get("generated_utc") == SOURCE_AUTHORITY_SNAPSHOT_UTC
+            and isinstance(authority_rows, list) and len(authority_rows) == 19
             and all(isinstance(row, dict) and set(row) == {"path", "bytes", "sha256"} for row in authority_rows),
             "source-authority register semantics or cardinality changed")
     authority_paths = [row["path"] for row in authority_rows]
@@ -369,6 +430,38 @@ def check_catalogue() -> dict[str, Any]:
         require(path.is_absolute() and path.is_file() and not path.is_symlink()
                 and path.stat().st_size == row["bytes"] and sha256_file(path) == row["sha256"],
                 f"source authority changed: {path}")
+    tts_authority = {
+        row["path"]: (row["bytes"], row["sha256"])
+        for row in authority_rows
+    }.get(str(LOCAL_TTS_ROUTE_GATE))
+    require(tts_authority == (LOCAL_TTS_ROUTE_GATE_BYTES, LOCAL_TTS_ROUTE_GATE_SHA256),
+            "local-TTS route gate is absent from or changed in the source-authority register")
+    tts_gate = load(LOCAL_TTS_ROUTE_GATE, "project-studio-local-tts-route-gate/v1")
+    fallback = tts_gate.get("fallback", {})
+    routes = tts_gate.get("routes", [])
+    require(
+        tts_gate.get("classification") == "ANALYSIS SIGNAL ONLY"
+        and tts_gate.get("status") == "NO_THIRD_PARTY_ROUTE_PASSED_ALL_GATES"
+        and tts_gate.get("routes_researched") == 3
+        and tts_gate.get("routes_adopted") == 0
+        and tts_gate.get("downloaded_third_party_tts_bytes") == 0
+        and isinstance(routes, list) and len(routes) == 3
+        and all(route.get("gate_result") == "REJECTED" for route in routes)
+        and fallback.get("route") == "macOS built-in Speech Synthesis Manager via /usr/bin/say"
+        and fallback.get("status") == "SCRATCH_DELIVERY_PROTOTYPE"
+        and fallback.get("rights_status") == "PROTOTYPE_ONLY"
+        and fallback.get("installed_generic_voice_labels") == ["Samantha", "Kathy", "Ralph"]
+        and fallback.get("voice_cloning") is False
+        and fallback.get("real_person_target") is False
+        and fallback.get("cloud") is False
+        and fallback.get("payment") is False
+        and fallback.get("new_terms_acceptance") is False
+        and fallback.get("license_boundary") == (
+            "No independently pin-able or redistributable voice-model license is exposed by the installed "
+            "system component; outputs are retained only for local Owner audition and require later rights review."
+        ),
+        "local-TTS authority no longer proves a generic local macOS-only, zero-download, non-redistributable route",
+    )
 
     base = load(CATALOGUE_BASE, "project-studio-audio-prototype-catalogue/v1")
     current = load(CATALOGUE, "project-studio-audio-prototype-catalogue-identity-closure/v3")
@@ -399,7 +492,7 @@ def check_catalogue() -> dict[str, Any]:
     return {
         "entries": 203, "raw_hashes_reverified": 203, "primary_picks": 27,
         "motif_no-randomness_dispositions": 12, "phase_a_receipt_sha256": PHASE_A_RECEIPT_SHA256,
-        "source_authorities_reverified": 18, "source_authority_register_sha256": SOURCE_AUTHORITY_HASHES_SHA256,
+        "source_authorities_reverified": 19, "source_authority_register_sha256": SOURCE_AUTHORITY_HASHES_SHA256,
     }
 
 
@@ -553,20 +646,44 @@ def check_radio_accessibility() -> dict[str, Any]:
     lint = load(RADIO_LINT, "project-studio-radio-copy-lint/v2")
     require(lint["status"] == "PASS" and lint["source_units"] == lint["cleaned_units"] == 126, "radio lint coverage failed")
     require(lint["cleaned_finding_count"] == 0 and not lint["caption_parity_failures"] and not lint["unresolved_blockers"], "radio clean copy failed")
+    require({row.get("rule") for row in lint.get("registered_rules", [])} == EXPECTED_RADIO_LINT_RULES,
+            "radio linter rule coverage is incomplete or divergent")
+    radio_script_bank = load(RADIO_SCRIPT_BANK)
+    require(radio_script_bank.get("schema_version") == "project-studio-radio-clean-copy/v2",
+            "radio clean-copy bank schema is not exact")
+    radio_environment = radio_tool_environment()
+    require(verify_radio_recipe_mutations(radio_environment) == 11,
+            "radio recipe mutation-refusal suite failed")
+    exact_radio = verify_radio_runtime_outputs(radio_script_bank, radio_environment)
+    require(exact_radio == {"voices": 12, "demos": 3},
+            "independent radio recipe/source/schedule/output reconstruction failed")
     fixtures = load(RADIO_FIXTURES, "project-studio-radio-functional-fixtures/v2")
-    expected_fixture_checks = {"annotations_present", "base_fields_present", "caption_spoken_core_parity"}
+    expected_fixture_checks = {"annotations_present", "base_fields_present", "caption_spoken_core_parity", "generated_spoken_and_caption_lint"}
     require(fixtures["lab_fixture_only"] is True and len(fixtures["payloads"]) == 3
+            and len(fixtures.get("pa_help_payloads", [])) == 3
             and set(fixtures.get("validation", {})) == expected_fixture_checks
             and all(value is True for value in fixtures["validation"].values()), "typed functional fixture proof failed")
     require({payload.get("eventId"): payload.get("ownerDomain") for payload in fixtures["payloads"]}
             == EXPECTED_FUNCTIONAL_IDENTITIES, "functional fixture identities/owners are not exact")
     require(len({payload.get("receiptId") for payload in fixtures["payloads"]}) == 3, "functional receipt IDs are missing or duplicate")
-    for payload in fixtures["payloads"]:
+    require({payload.get("eventId"): payload.get("ownerDomain") for payload in fixtures["pa_help_payloads"]}
+            == EXPECTED_PA_IDENTITIES, "PA/help fixture identities/owners are not exact")
+    for payload in fixtures["payloads"] + fixtures["pa_help_payloads"]:
         require(FUNCTIONAL_FIELDS <= set(payload)
                 and all(isinstance(payload[field], str) and payload[field].strip() for field in FUNCTIONAL_FIELDS - {"priority"})
                 and isinstance(payload["priority"], int) and not isinstance(payload["priority"], bool)
                 and payload["captionText"] == payload["spokenText"], "functional caption/spoken identity failed")
     scheduler = load(RADIO_SCHEDULER, "project-studio-radio-scheduler-evidence/v2")
+    scheduler_input = load(RADIO_SCHEDULER_INPUT, "project-studio-radio-scheduler-input/v2")
+    require(scheduler.get("schedulerInput", {}).get("path") == str(RADIO_SCHEDULER_INPUT)
+            and scheduler.get("schedulerInput", {}).get("sha256") == sha256_file(RADIO_SCHEDULER_INPUT),
+            "radio scheduler input binding failed")
+    for plan in scheduler_input.get("plans", []):
+        for item in plan.get("items", {}).values():
+            require_radio_item_contract(item)
+        for slot in plan.get("simulationSlots", []):
+            for item in slot.get("items", []):
+                require_radio_item_contract(item)
     require(scheduler["machineVerdict"] == "PASS" and len(scheduler["demos"]) == len(scheduler["simulations"]) == 3, "radio scheduler evidence failed")
     require({row.get("slug"): row.get("epochAlias") for row in scheduler["demos"]} == EXPECTED_RADIO_DEMOS,
             "radio scheduler demo slug/epoch identities are not exact")
@@ -582,6 +699,8 @@ def check_radio_accessibility() -> dict[str, Any]:
             "radio scheduler simulation assertions are missing, extra, or failed")
     radio = load(RADIO, "project-studio-radio-runtime-index/v2")
     require(radio["machine_verdict"] == "PASS" and radio["scripts_audited"] == 126 and radio["decorative_runtime_eligible"] == 108 and radio["technology_templates_withheld"] == 18, "radio runtime classification failed")
+    require(radio.get("generated_runtime_copy_lint", {}).get("status") == "PASS", "generated runtime copy lint coverage failed")
+    require(verified_path(radio["presenters"]) == PRESENTERS, "radio presenter manifest binding failed")
     require(len(radio["demos"]) == len(radio["thirty_minute_simulations"]) == 3
             and {row.get("slug"): row.get("epoch_alias") for row in radio["demos"]} == EXPECTED_RADIO_DEMOS
             and {row.get("epoch_alias") for row in radio["thirty_minute_simulations"]} == set(EXPECTED_RADIO_DEMOS.values())
@@ -590,9 +709,15 @@ def check_radio_accessibility() -> dict[str, Any]:
                     for row in radio["thirty_minute_simulations"]),
             "radio programme/simulation identity failed")
     for demo in radio["demos"]:
+        expected_programme_presenter = EXPECTED_DEMO_PRESENTERS[demo["slug"]]
         require(demo["duration_seconds"] == 660 and demo["machine_verdict"] == "PASS"
                 and set(demo.get("features", {})) == EXPECTED_RADIO_DEMO_ASSERTIONS
-                and all(value is True for value in demo["features"].values()), "radio demo failed")
+                and all(value is True for value in demo["features"].values())
+                and demo.get("generated_copy_lint", {}).get("status") == "PASS"
+                and demo.get("presenter_roles") == {
+                    "programme_presenter": expected_programme_presenter,
+                    "pa_help_speaker": "PRESENTER-RINA-SHORE",
+                }, "radio demo failed")
         for record in (demo["master"], demo["preview"], demo["captions"], demo["transcript"]):
             verified_path(record)
     presenters = load(PRESENTERS, "project-studio-radio-presenter-ensemble/v2")
@@ -601,6 +726,9 @@ def check_radio_accessibility() -> dict[str, Any]:
         row.get("presenter_id"): {
             "display_name": row.get("display_name"), "local_voice": row.get("local_voice"),
             "campaign_eligibility": set(row.get("campaign_eligibility", [])),
+            "role_scoped_eligibility": {
+                role: set(epochs) for role, epochs in row.get("role_scoped_eligibility", {}).items()
+            },
         }
         for row in presenter_rows
     }
@@ -619,13 +747,20 @@ def check_radio_accessibility() -> dict[str, Any]:
     for row in scheduler["demos"]:
         require(collect_presenter_ids(row) == {EXPECTED_DEMO_PRESENTERS[row["slug"]]},
                 f"scheduler demo presenter cross-reference failed: {row['slug']}")
+        for event in row.get("events", []):
+            require_radio_item_contract(event["item"])
+            expected_speaker = "PRESENTER-RINA-SHORE" if event["item"]["contentType"] == "PA_HELP" else EXPECTED_DEMO_PRESENTERS[row["slug"]]
+            require(event["item"]["speakerId"] == expected_speaker,
+                    f"scheduler demo speaker cross-reference failed: {row['slug']}")
     presenter_by_epoch = {
         EXPECTED_RADIO_DEMOS[slug]: presenter_id for slug, presenter_id in EXPECTED_DEMO_PRESENTERS.items()
     }
     for row in scheduler["simulations"]:
         require(collect_presenter_ids(row) == {presenter_by_epoch[row["epochAlias"]]},
                 f"scheduler simulation presenter cross-reference failed: {row['epochAlias']}")
-    accessibility = load(ACCESSIBILITY, "project-studio-audio-accessibility-presets/v4")
+        for event in row.get("acceptedEvents", []):
+            require_radio_item_contract(event["item"])
+    accessibility = verify_accessibility_renders()
     require(accessibility["machine_render_verdict"] == "PASS" and len(accessibility["renders"]) == 6
             and {render.get("preset") for render in accessibility["renders"]} == EXPECTED_ACCESSIBILITY_PRESETS
             and set(accessibility.get("render_checks", {})) == EXPECTED_ACCESSIBILITY_CHECKS
@@ -633,7 +768,7 @@ def check_radio_accessibility() -> dict[str, Any]:
     require(accessibility["accessibility_acceptance"] == "PENDING_RUNTIME_PROOF_AND_HUMAN_REVIEW", "accessibility acceptance overclaim")
     for render in accessibility["renders"]:
         verified_path(render)
-    return {"radio_scripts": 126, "decorative_eligible": 108, "functional_templates_withheld": 18, "typed_fixtures": 3, "radio_demos": 3, "radio_demo_seconds_each": 660, "radio_simulations": 3, "presenters": 3, "accessibility_presets": 6}
+    return {"radio_scripts": 126, "decorative_eligible": 108, "functional_templates_withheld": 18, "typed_functional_fixtures": 3, "typed_pa_help_fixtures": 3, "radio_demos": 3, "radio_demo_seconds_each": 660, "radio_simulations": 3, "presenters": 3, "radio_recipe_mutation_refusals": 11, "radio_fresh_voice_reconstructions": exact_radio["voices"], "radio_fresh_demo_reconstructions": exact_radio["demos"], "accessibility_presets": 6}
 
 
 def verified_system_register() -> dict[str, Any]:
@@ -657,6 +792,7 @@ def verified_system_register() -> dict[str, Any]:
         ASSET_INDEX,
         CATALOGUE_BASE,
         RADIO,
+        PRESENTERS,
         TRANSITIONS,
         LIVING,
         DERIVATIVES,
@@ -749,7 +885,8 @@ def verified_system_register() -> dict[str, Any]:
             expected_speech_owner = "PA_HELP" if voice_role == "PA" else "RADIO_VOICE"
             expected_caption_context = "OVER_PA" if voice_role == "PA" else "OVER_RADIO"
             expected_content_type = "PA_HELP" if voice_role == "PA" else "FUNCTIONAL" if voice_role == "FUNCTIONAL" else "DECORATIVE"
-            expected_presenter = "PRESENTER-RINA-SHORE" if voice_role == "PA" else authority["presenter"]
+            expected_presenter = authority["pa_presenter"] if voice_role == "PA" else authority["presenter"]
+            expected_speaker_role = "PA_HELP_SPEAKER" if voice_role == "PA" else "PROGRAMME_PRESENTER"
             expected_speaker = EXPECTED_RADIO_PRESENTERS[expected_presenter]["display_name"]
             expected_schedule_id = (authority["pa"][1] if voice_role == "PA"
                 else f"{authority['functional'][1]}@{authority['functional'][2]}" if voice_role == "FUNCTIONAL"
@@ -771,6 +908,8 @@ def verified_system_register() -> dict[str, Any]:
                     and row.get("content_type") == expected_content_type
                     and row.get("schedule_item_id") == expected_schedule_id
                     and row.get("schedule_speech_owner") == expected_speech_owner
+                    and row.get("schedule_speaker_id") == expected_presenter
+                    and row.get("schedule_speaker_role") == expected_speaker_role
                     and row.get("relative_path") == expected_relative
                     and row.get("spoken_text")
                     and hashlib.sha256(row["spoken_text"].encode("utf-8")).hexdigest() == row.get("spoken_text_sha256"),
@@ -801,11 +940,15 @@ def verified_system_register() -> dict[str, Any]:
                 "delivery_status": source_delivery["deliveryStatus"],
                 "caption_context": source_delivery["captionContext"],
                 "speech_owner": source_delivery["speechOwner"],
+                "speaker_id": source_delivery["speakerId"],
+                "speaker_role": source_delivery["speakerRole"],
                 "speaker": source_delivery["speaker"],
                 "interrupted_item_id": source_delivery.get("interruptedItemId"),
             }
             require(source_event.get("speechOwner") == row.get("schedule_speech_owner")
                     and source_item.get("presenters") == row.get("schedule_presenter_ids")
+                    and source_item.get("speakerId") == row.get("schedule_speaker_id")
+                    and source_item.get("speakerRole") == row.get("schedule_speaker_role")
                     and source_item.get("contentType") == row.get("content_type")
                     and source_item.get("captionText") == row.get("caption_text")
                     and source_item.get("spokenText") == row.get("spoken_text")
@@ -817,6 +960,8 @@ def verified_system_register() -> dict[str, Any]:
             require(isinstance(delivery, dict)
                     and delivery.get("speech_owner") == expected_speech_owner
                     and delivery.get("caption_context") == expected_caption_context
+                    and delivery.get("speaker_id") == expected_presenter
+                    and delivery.get("speaker_role") == expected_speaker_role
                     and delivery.get("speaker") == expected_speaker
                     and delivery.get("delivery_status") == ("INTERRUPTED_BY_PA" if voice_role == "INTERRUPTIBLE" else "PLAYED")
                     and isinstance(delivery.get("at_seconds"), (int, float))
@@ -846,11 +991,14 @@ def verified_system_register() -> dict[str, Any]:
                         and payload["captionText"] == row["caption_text"]
                         and payload["spokenText"] == row["spoken_text"]
                         and payload == source_item.get("payload")
+                        and all(source_item.get(field) == payload[field] for field in FUNCTIONAL_FIELDS)
+                        and source_item.get("coalesceKey") == f"{payload['ownerDomain']}:{payload['eventId']}"
                         and row["schedule_item_id"] == (expected_event if voice_role == "PA"
                             else f"{expected_event}@{expected_receipt}"),
                         f"radio typed payload projection failed: {row['id']}")
             else:
-                require(row.get("functional_payload") is None and source_item.get("payload") is None,
+                require(row.get("functional_payload") is None and source_item.get("payload") is None
+                        and all(source_item.get(field) is None for field in ("ownerDomain", "eventId", "receiptId", "headline", "body")),
                         f"decorative voice unexpectedly owns a functional payload: {row['id']}")
             if row["treatment"] == "PERIOD":
                 source = row.get("derivative_source")
