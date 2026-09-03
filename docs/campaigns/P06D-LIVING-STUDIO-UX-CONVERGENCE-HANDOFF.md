@@ -93,11 +93,29 @@ per checkout / collision-prone file. Campaign branches are not edited. No end me
 ## 7. Test state
 
 - Baseline inherited from P06C seal: TS 4904/0 · Unity EditMode 750/750 · oracle 6/6 · real-profile 25/25 ·
-  real HID PASS. To be re-established green on the P06D build before seal.
+  real HID PASS.
+- **After row-anatomy loop (#48):** Unity EditMode **755/755** (+5 new §6/§8 rail-contract tests). Oracle
+  (incl. new **s7 mixed-slate-hero**) playerExit 0 on the P06D build. TS floor + full matrix + HID re-run
+  scheduled for the proof phase (§29).
 
-## 8. Screenshots / hostile findings / final candidate
+## 8. Progress log (loops kept)
 
-- (To be filled per loop under `docs/campaigns/evidence/p06d/…` and `~/Desktop/P06D-Comparison-Candidate-…/`.)
+- **#47 mixed-slate hero fixture (§12) — DONE + committed (TS `a96df6c`).** Generator scenario 7
+  `mixed-slate-hero` (week 37): SCRIPTS (script-0004 readyToPackage + script-0005 needsReview), MAKING
+  MOVIES (prod-0001 shooting + prod-0002 director-required), POST & RELEASE (prod-0000 release-ready +
+  prod-0029 post-handoff). s1–s6 byte-identical (verified). Public actions only; no law change.
+- **#48 rail row anatomy (§6–9) — DONE + committed (Unity `71e3373`), proven in pixels.** Title-first
+  hierarchy; plain-language SECONDARY state (`stateLabel`); TERTIARY `facilityLabel · N weeks left`
+  (authoritative — big win vs P06C which drew no location); six distinct §8 attention states via new
+  `AttentionOf` (WAITING slate ≠ BLOCKED amber; RELEASE READY/ACTION ▸ + thicker accent; COMMITTED green;
+  AUTONOMOUS calm); discrete 6-seg track kept; truncated-title tooltip (§7); new `StudioUiTokens.Waiting`
+  + `.Focus`. Wired s7 into the oracle (runner + shell) for §29 mixed-slate machine proof. Two §5
+  revise-loops: (a) long state wrapped past the plate → clip+no-wrap; (b) state ran under LOCATE → clip to
+  title column. Evidence: `Evidence/P06D-build{1,2,3}-*` (Unity worktree).
+- Sealed P06D exe after #48: `fad37ee1…` (rail changed; not the final seal). P06B/P06C controls untouched;
+  campaign refs still `04b67ec` / `18a2887`.
+
+### Next: #49 rail scale + scroll owner (§10–11)
 
 ## 9. Owned processes
 
