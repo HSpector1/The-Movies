@@ -103,9 +103,12 @@ picture until a Post reservation frees). Root cause was the state owner, not a s
 - [ ] §15 Building-card convergence (bounded)
 - [ ] §16 Workspace/guidance convergence (smallest shared)
 - [ ] §17,§19 Accessibility/responsive stress + before/after capture matrix
-- [ ] §22 Test/proof pyramid
-- [ ] §23 Fresh hostile review → ACCEPT
-- [ ] §24–§25 Preserve P06C comparison candidate + final report
+- [x] §22 Test/proof pyramid — **all green**: TS floor 4904/0 · Unity EditMode 750/750 · Visual Oracle
+      6/6 playerExit=0 (final build exe `2c235c39`) · real-profile-copy journey 25/25 (original untouched
+      + read-only) · **real owner-input HID OVERALL PASS** (element map on; calibrated on the rail's own
+      `rail-locate-casting`; journeys A 24/24, E 4/4, F 1/1). Contract/DTO unaffected (no wire change).
+- [~] §23 Fresh hostile review → running (fresh reviewer, full §23 reject list, opens image bytes).
+- [ ] §24–§25 Preserve P06C comparison candidate + final report (after hostile ACCEPT)
 
 ## 7. Owned processes
 
