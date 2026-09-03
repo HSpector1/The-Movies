@@ -134,8 +134,29 @@ per checkout / collision-prone file. Campaign branches are not edited. No end me
   O(total rows); virtualization recommended as a future option. RowHeight is 96f (code-true).
 - Sealed P06D exe after #53: `a129eb3d…` (not the final seal).
 
-### In progress: #52 workspace convergence (§19) + #51 building cards (§13–18) + #54 People (§23) — via subagent
-### Remaining: #56 before/after matrix + full proof floors (§28/§29) · #57 hostile ACCEPT (§30) · #58 seal (§31–33)
+- **#52 workspace convergence (§19) + #51 building-card truth (§13–18) + #54 People (§23) — DONE + committed
+  (Unity `23c000a`).** §19: Casting Back de-emphasised (`.workspace-back`, no longer `.primary-action` — forward
+  outranks Back, CONFIRMED in the HID Casting-workspace capture); Production disabled-CTA styling; Production
+  blocker → left-rule amber danger callout; Production primary CTA pinned in a persistent action strip (never
+  scrolls off). §51: rail↔world-card↔workspace↔guidance TRUTH agreement proven by a new contract test (TS
+  `050b98e`); the Casting entry STATUS *sentence* was SKIPPED honestly (no authoritative sentence field — would
+  fabricate state). §54 People: footer is now an actionable "Open Talent" affordance + keyboard focus ring.
+  §7 identity: duplicate-title + same-suffix rows proven distinct by exact id.
+
+## PROOF (§29) — ALL GREEN on the final build (exe `076e8c62`, ts `050b98e`, unity `23c000a`)
+- **TS floor 4905/0** (+item-2 truth test) · **Unity EditMode 762/762** (+5 §6/§8 rail, +3 scroll, +2 focus, +2 identity) ·
+  **Visual Oracle 8/8** playerExit 0 (incl. s7 hero + s8 scale-stress) · **real-profile journey 25/25** (original
+  untouched + read-only) · **real owner-input HID OVERALL PASS** (calibration PASS on the reworked
+  rail-locate-casting; journey A 24/24 attempted / 5 state-gated BLOCKED = not regressions; E 4/4; F 1/1) ·
+  bridge/CF-09 unaffected (no wire change).
+- **a11y runtime (§21 item 4) CONFIRMED in pixels:** the HID click-selection capture shows the blue focus ring
+  on the clicked rail row; camera not hijacked; Tab moves focus only (no camera, no activation — EditMode + code).
+- **Seven pre-hostile proofs all PASS:** no cap hides selected/blocked/ready/action rows (scroll owner = no cap);
+  "+N more" not used live (no omission); one scroll owner at 10–15 (scale-stress 14 + viewport law); rail/card/
+  workspace truth agrees (item-2 test); no P07 state on the rail (lifecycle stops at COMMITTED); P06C `2c235c39`
+  + P06B `130a13a0` byte-preserved; campaign `04b67ec`/`18a2887` unchanged.
+
+### Remaining: §22 responsive captures (1280/1720/native) · #57 hostile ACCEPT (§30) · #58 seal + owner comparison (§31–33)
 
 ## 9. Owned processes
 
