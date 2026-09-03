@@ -93,6 +93,15 @@ This session is unlocked/on-console, so the journey ran on the **byte-identical 
 - **Guards:** EditMode 731/731 (updated one TimeVerb source-pin to the corrected call + added a
   post-founding heartbeat coverage test — strengthened, not weakened). No engine/contract/save/economy.
 
+### Proof status (updating)
+- **Player build:** P06B `Builds/macOS` exe sha `adf9c0bf…`, Assembly-C# `765dfc00…`, Unity `af65577`, clean; build-manifest written.
+- **Unity delta vs base 7d6d974:** 7 files, +298/-97, **presentation-only** (no Generated DTOs / contract / engine) → CF-09 contract layer unaffected (§26 L2 N/A).
+- **§23 Visual Oracle rerun (6/6 GREEN):** idle-post, wrapped-waiting, active-finishing, release-ready, committed, multi-picture — playerExit=0 (machine assertions pass), all image bytes inspected: unified rail + phase track + no truncation, commit affordance at Release Ready, committed=green "releases next week" (no P07 leak), all 4 movies shown with exact-ID isolation, world dominant. Evidence `scratchpad/p06b-oracle/`.
+- **§24 real-profile-copy machine journey: 25/25** (V15→V16 migrate, hold law, commit flow, save/load; durable original sha unchanged + still read-only).
+- **Unity EditMode: 731/731** (P06B, at Unity `af65577`).
+- **§26 L1 TS floor:** running (P06A worktree = byte-identical TS to P06B branch; docs-only delta verified).
+- **§25 real HID on P06B build:** pending (launcher `scratchpad/p06b-hid-launch.sh`, s4-release-ready, CF-02 exe-sha bound).
+
 ## 8. Exact next action
 
 Build finishing → capture s4/s6 at 1440 + 1280 with the P06B player (`scratchpad/p06b-capture.sh`),
