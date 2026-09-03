@@ -5,12 +5,19 @@
 > Nothing meaningful may live only in scratch, /private/tmp, a process, chat, or an unpushed tree.
 > **Isolated successor candidate — NO campaign integration** (§31). P06B and P06C are byte-preserved controls.
 
-## Status: ENTRY — environment set up, investigation next
+## Status: INVESTIGATION DONE — committed design written; implementing next
 
-Setup complete: both controls verified byte-stable; campaign branches confirmed frozen (local==remote);
-P06D branches created + pushed from the exact P06C WIP tips; isolated clean worktrees with COW-warmed
-caches; keep-awake started; this handoff written + pushed. Investigation of every touched surface is the
-next loop (feeds a committed design; no source-only improvement claims — §5).
+Setup + investigation complete. Both controls byte-stable; campaign frozen; P06D branches pushed from exact
+P06C tips; caches warmed; keep-awake up. An 8-mapper read-only Workflow mapped every touched surface; the
+committed design is in **`docs/campaigns/P06D-COMMITTED-DESIGN.md`** (every decision cites an authoritative
+fact — no source-only claims). Headline findings: (1) rows never draw location/plain-state though
+`facilityLabel`/`stateLabel`/`nextMilestone`/`weeksRemaining` are authoritative → title-first rework; (2) no
+scroll owner (cap silently drops >6 movies) → one scroll owner; (3) no focus system anywhere → smallest
+shared focus ring; (4) money ABSENT from rail/card DTOs → §26 amounts not renderable without a forbidden wire
+change (no fabrication); (5) real workspace defects (Production CTA scrolls off; Casting Back styled primary);
+(6) Post building has no card; (7) fixtures are digest-bound → mixed-slate hero added to the generator.
+Implementation order: hero fixture → rail row anatomy → scroll owner + identity → a11y focus → workspace
+convergence → building-card truth agreement → guidance → People/economy → docs → matrix/proof → hostile → seal.
 
 ## 1. Campaign clock & environment
 
