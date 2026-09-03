@@ -306,7 +306,8 @@ The isolated prototype now provides:
 - rendered ducking and PA demonstrations plus captions and transcript artifacts;
 - separate Audio Lab controls for Radio Off, Streamer Safe presentation, mono, Night, and Speech First.
 
-The canonical evidence entry point is `06_radio/STUDIO-RADIO-RUNTIME-INDEX.v2.json` in `/Users/bruce/Project Studio Audio Systems Pilot 01`, SHA-256 `85ba975ab9acd1cda46c57d2e8dd645f8e25c0a0551fd54ab7eaad6a1d9c9abc`. The index reports a limited machine `PASS`; it is not a credibility, casting, fatigue, historical, cultural, rights, or accessibility verdict.
-- Owner ratings for copy credibility, presenter performance, repetition, ducking, fatigue, and accessibility.
+The current v5 runtime register does not expose the 24 individual clean/treated scratch voice files as playable entries. The lab therefore preserves scheduler, arbitration, independent Radio Music/Radio Voice/PA bus targets, captions, transcripts, and exact visible missing-voice refusal, while the three directly auditionable 660-second radio renders remain baked full mixes on the Radio Music bus. Unity exposes the corresponding WAV masters only as three distinct lab-derived `-RUNTIME-WAV` IDs joined to the registered base M4A previews and runtime index; it does not replace or add items to the canonical 122-entry register. Their internal voice/bed balance cannot be changed independently. This is an explicit prototype limitation, not evidence of item-level audible voice/music separation.
+
+The canonical evidence entry point is `06_radio/STUDIO-RADIO-RUNTIME-INDEX.v2.json` in `/Users/bruce/Project Studio Audio Systems Pilot 01`, SHA-256 `85ba975ab9acd1cda46c57d2e8dd645f8e25c0a0551fd54ab7eaad6a1d9c9abc`. The index reports a limited machine `PASS`; it is not a credibility, casting, fatigue, historical, cultural, rights, or accessibility verdict. Owner ratings remain required for copy credibility, presenter performance, repetition, ducking, fatigue, and accessibility.
 
 No automated result can approve casting, historical treatment, comedy density, cultural credibility, or production use.

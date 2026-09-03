@@ -164,11 +164,20 @@ def update_state(
             state["completed_work"].append(item)
     for item in errors or []:
         entry = {"at_utc": utc_now(), "message": item} if isinstance(item, str) else item
-        if entry not in state["errors"]:
+        entry_id = entry.get("id") if isinstance(entry, dict) else None
+        existing_index = next((index for index, value in enumerate(state["errors"])
+            if entry_id is not None and isinstance(value, dict) and value.get("id") == entry_id), None)
+        if existing_index is not None:
+            state["errors"][existing_index] = entry
+        elif entry not in state["errors"]:
             state["errors"].append(entry)
-    known_decisions = {item.get("id") for item in state["decisions"]}
     for item in decisions or []:
-        if item.get("id") not in known_decisions:
+        item_id = item.get("id")
+        existing_index = next((index for index, value in enumerate(state["decisions"])
+            if item_id is not None and value.get("id") == item_id), None)
+        if existing_index is not None:
+            state["decisions"][existing_index] = item
+        else:
             state["decisions"].append(item)
     state["counts"].update(counts or {})
     if next_action is not None:
@@ -178,4 +187,3 @@ def update_state(
     if unity_repo is not None:
         state["git"]["unity_sha"] = git_head(unity_repo)
     atomic_write_json(STATE_PATH, state)
-

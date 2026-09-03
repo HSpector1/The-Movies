@@ -39,9 +39,15 @@ Run from the isolated documentation worktree unless noted. The provenance-closin
 1. Confirm the Unity-process collision gate and both isolated branches.
 2. Build or verify bounded source audio with the already pinned local environments; never regenerate a broad catalogue.
 3. Publish responsive v2, transition v4, living-lot v3, radio v2, accessibility v4, and system-register v5 evidence.
-4. Build the isolated Unity scene, run EditMode and bounded PlayMode, build the macOS lab explicitly, and export Unity runtime observations/Oracle traces.
-5. Commit and push all small source/documentation on both branches.
-6. From the clean, pushed documentation commit, run:
+4. Run fresh hostile source/evidence review and apply every mechanical remedy before freezing SHA-bound artifacts.
+5. Freeze, commit, and push all documentation/tooling as documentation commit **D**. Confirm that worktree is clean and equals its upstream. No documentation/tooling bytes may change after this point without restarting at this step.
+6. From clean **D**, run `build_catalogue_identity_closure.py` and `publish_metadata_status_remedies.py`. Record the exact resulting management-v4 SHA. Update the additive Unity source pin to that exact SHA, commit and push Unity as commit **U**, and confirm the Unity worktree is clean and equals its upstream. This ordering is mandatory: management v4 embeds **D**, while Unity hard-pins the resulting manifest hash.
+7. From exact clean **D** and **U**, run the checked-in process-gated Unity chain below. It writes the exact final log/XML destinations expected by `AudioLabValidationSummaryWriter`, exports `PROJECT_STUDIO_AUDIO_DOCS_SHA`, builds without launching, emits the Oracle and archive register, and finally writes the validation summary. Exit 75 means another Unity process was observed and the chain must be retried without terminating it. A later Unity or documentation source change invalidates the build, observations, and Oracle and requires a restart at step 5.
+
+```sh
+tools/audio_systems_pilot_01/run_unity_lab_validation.zsh
+```
+8. From the same clean, pushed **D**, rerun the identity/status builders first as a byte-identical verification, then build the downstream Oracle/audition chain. Abort if either identity/status manifest changes after **U** was pinned:
 
 ```sh
 python3 tools/audio_systems_pilot_01/build_catalogue_identity_closure.py
@@ -50,26 +56,53 @@ python3 tools/audio_systems_pilot_01/build_audio_oracle.py
 python3 tools/audio_systems_pilot_01/build_audition_source_register.py
 python3 tools/audio_systems_pilot_01/build_audition_app.py
 python3 tools/audio_systems_pilot_01/build_audition_app.py --verify-only
-python3 tools/audio_systems_pilot_01/build_complete_audio_file_register.py
 ```
 
-7. Atomically update `00_state/AUDIO-SYSTEMS-PILOT-STATE.json` with the exact clean Git SHAs, counts, dispositions, and next action.
-8. Create the return package once:
+9. Build a provisional complete register after the final Oracle/audition bytes, record its SHA-256, then run all eight final independent reviews against exact **D**, **U**, system-register hash, Oracle-suite hash, and that complete-register hash. If any review finds a source defect, return to step 4; do not package stale evidence. Freeze the eight reports, build their index, rebuild the complete register, and require its SHA-256 to remain byte-identical to the provisional value. Review prose/index must not introduce audio declarations; a changed final register restarts review against the new hash.
+
+```sh
+python3 tools/audio_systems_pilot_01/build_complete_audio_file_register.py
+# Record COMPLETE-AUDIO-FILE-REGISTER.v1.json SHA-256; run/freeze all eight reports here.
+python3 tools/audio_systems_pilot_01/build_hostile_review_index.py
+python3 tools/audio_systems_pilot_01/build_hostile_review_index.py --verify-only
+python3 tools/audio_systems_pilot_01/build_complete_audio_file_register.py
+# Require the complete-register SHA-256 to equal the recorded provisional hash.
+```
+
+Every final report must contain the exact standardized documentation SHA, Unity SHA, system-register SHA-256, Audio Oracle suite SHA-256, and provisional/final complete-register SHA-256 binding lines. Any later hostile-review report change invalidates the index; rebuild and verify it before packaging.
+10. Atomically update `00_state/AUDIO-SYSTEMS-PILOT-STATE.json` to exact `IN_PROGRESS` / `READY_FOR_PACKAGING`, with clean **D/U**, all live counts (including `audition_items`, `unity_editmode_passed`, `unity_playmode_passed`, and `hostile_review_lanes`), unique/resolved `ERR-0001` through `ERR-0008`, unique `DEC-0001` through `DEC-0012`, a completion entry containing `clean-SHA Unity` and `Audio Oracle`, and a next action that names package creation.
+
+```sh
+python3 tools/audio_systems_pilot_01/update_final_state.py READY_FOR_PACKAGING
+```
+
+11. Create the return package once. Its preflight independently repeats Git scope/upstream, canonical manifest, Unity/build, Oracle, audition, review, complete-register, and state checks before the Desktop target is created:
 
 ```sh
 python3 tools/audio_systems_pilot_01/package_owner_return.py \
   --lab-app "/Users/bruce/Project Studio Audio Systems Pilot 01/09_unity-lab/Builds/macOS/Project Studio Audio Systems Pilot.app"
 ```
 
-9. Run the fail-closed full reconciliation:
+12. After the package independently verifies, add its exact `return_package_files` count, set the canonical state to `IN_PROGRESS` / `READY_FOR_FINAL_VALIDATION` with final validation named as the next action, and run the fail-closed full reconciliation. On PASS, atomically close the state as `COMPLETE` / `FINAL_VALIDATION_COMPLETE`, set Owner listening as the sole next action, and run the same reconciliation once more to verify the closed state. `REOPEN_AFTER_FINAL_FAILURE` is deliberately narrow: it is available only when that post-close run records `FAIL` in state closure while the preserved immutable package, exact D/U, and every bound live artifact still pass. It restores `IN_PROGRESS` / `READY_FOR_FINAL_VALIDATION` and recomputes the canonical count map before the affected proof is repeated:
 
 ```sh
+python3 tools/audio_systems_pilot_01/update_final_state.py READY_FOR_FINAL_VALIDATION
+python3 tools/audio_systems_pilot_01/validate_audio_systems_pilot.py \
+  --lab-app "/Users/bruce/Project Studio Audio Systems Pilot 01/09_unity-lab/Builds/macOS/Project Studio Audio Systems Pilot.app" \
+  --return-root "/Users/bruce/Desktop/Project-Studio-Audio-Systems-Pilot-01"
+python3 tools/audio_systems_pilot_01/update_final_state.py COMPLETE
 python3 tools/audio_systems_pilot_01/validate_audio_systems_pilot.py \
   --lab-app "/Users/bruce/Project Studio Audio Systems Pilot 01/09_unity-lab/Builds/macOS/Project Studio Audio Systems Pilot.app" \
   --return-root "/Users/bruce/Desktop/Project-Studio-Audio-Systems-Pilot-01"
 ```
 
-The package builder refuses to overwrite an existing return root. Verification is separate from creation. If a failed staging directory exists, inspect the exact error; never delete preserved evidence to make a test green.
+Only after that post-`COMPLETE` validation writes a state-closure `FAIL`, with package and D/U evidence still valid, reopen before remedy/reproof; do not run `COMPLETE` again until a fresh `READY_FOR_FINAL_VALIDATION` validation has passed:
+
+```sh
+python3 tools/audio_systems_pilot_01/update_final_state.py REOPEN_AFTER_FINAL_FAILURE
+```
+
+The package builder refuses to overwrite an existing return root. Verification is separate from creation. A package-integrity or stale-D/U failure is not eligible for the narrow reopen operation: preserve the immutable package and resolve that as an explicitly versioned recovery rather than overwriting evidence. If a failed staging directory exists, inspect the exact error; never delete preserved evidence to make a test green.
 
 ## Canonical current manifests
 
@@ -84,7 +117,7 @@ The package builder refuses to overwrite an existing return root. Verification i
 | Management vocabulary | `05_management-sfx/semantic-pack/management-semantic-catalogue.v4.json` |
 | Runtime radio | `06_radio/STUDIO-RADIO-RUNTIME-INDEX.v2.json` |
 | Accessibility renders | `07_audio-oracle/accessibility-renders-v4/ACCESSIBILITY-PRESETS.v4.json` |
-| Unity-observed Oracle | `07_audio-oracle/AUDIO-ORACLE-SUITE.v1.json` |
+| Scenario-labelled Unity Oracle | `07_audio-oracle/AUDIO-ORACLE-SUITE.v1.json` |
 | Unity validation | `09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json` |
 | Runtime load register | `10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json` |
 | Complete bounded audio inventory | `10_provenance/COMPLETE-AUDIO-FILE-REGISTER.v1.json` |
@@ -103,11 +136,13 @@ Older evidence remains preserved but is not a current consumer input.
 - Generated responsive variants are independent horizontal full mixes. They are never called stems.
 - The radio scheduler and presentation decision model consume injected seeds and presentation history, never gameplay RNG.
 - Four-hour simulations remain fixed to one supplied epoch per trace and exercise Full Music, Balanced, Sparse, and Off.
-- Unity Oracle traces must be runtime observations with assertion results. The Python Oracle tool verifies them and cannot author events.
+- Unity Oracle traces must be scenario-labelled Unity evidence with an exact `evidence_source` and assertion results; the Python verifier cannot author events. Reserve `UNITY_PLAYMODE_OBSERVATION` for the five actually observed PlayMode scenarios. Pure policy/scheduler, external-file validation, frozen-trace revalidation, and Editor offline marker evidence keep their narrower labels.
 
 ## External loader law
 
 The Audio Lab resolves only the v5 system-register entries beneath an explicitly approved root. It canonicalizes the root and candidate, rejects absolute catalogue-relative paths, traversal, symlink escape, unsupported formats, duplicate IDs, missing files, hash mismatch, and every network URL. A refusal is visible and exact. There is no silent substitution, token, cloud request, or directory discovery.
+
+Management vocabulary v4 is additionally direct-pinned because it is a status-language-only successor to the v3 manifest named by asset index v4. The adapter may bypass only that stale manifest-name equality after proving the complete v4 candidate path/SHA/byte and provisional-selection projections equal v3. All other v5/index bindings remain strict.
 
 `PROJECT_STUDIO_AUDIO_PILOT_ROOT` is lab-only configuration. No absolute Owner path is embedded in production-facing source.
 
@@ -122,7 +157,7 @@ The Audio Lab resolves only the v5 system-register entries beneath an explicitly
 
 ## Validation layers
 
-Pure TypeScript tests cover deterministic decision and radio scheduling. Unity EditMode covers catalogue parsing, security, selection, transport math/state, radio, accessibility policy, and controls. Bounded PlayMode and engine capture cover runtime lifecycle/event observation and final-output processor markers where batch audio permits. Code-sign verification binds the packaged macOS app. The complete-file register and final reconciliation rehash current/preserved media and all return-package files.
+Pure TypeScript tests cover deterministic decision and radio scheduling. Unity EditMode covers catalogue parsing, security, selection, transport math/state, radio, accessibility policy, and controls. Bounded PlayMode covers runtime lifecycle/event observation, while Unity Editor offline processor renders exercise final-output markers where batch audio permits. The latter are not AudioSource, mixer, built-player, or hardware-output captures. Code-sign verification binds the packaged macOS app. The complete-file register and final reconciliation rehash current/preserved media and all return-package files.
 
 No machine layer judges musical quality, era fit, historical/cultural acceptance, voice performance, long-session comfort, accessibility conformance, copyrightability, exclusivity, non-infringement, or commercial clearance.
 

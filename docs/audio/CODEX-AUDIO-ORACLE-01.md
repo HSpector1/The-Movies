@@ -1,6 +1,6 @@
 # Project: Studio — Audio Oracle 01
 
-**Evidence class:** deterministic Unity runtime observation plus bounded PCM marker capture
+**Evidence class:** scenario-labelled Unity PlayMode observation, Unity batch policy execution, frozen-trace revalidation, and bounded Unity Editor offline output-processor marker render
 
 **Acceptance class:** machine proof only
 
@@ -17,15 +17,17 @@ The canonical entry point is:
 
 The suite binds the exact documentation SHA, Unity lab SHA, macOS executable SHA-256, v5 system-register SHA-256, runtime-observation file, fixture, seed, trace files, source-audio hashes, and the frozen twelve-trace four-hour density suite.
 
-## Observation chain
+## Evidence chain
 
 ```text
-Unity runtime/test fixture
-  → actual decision / transport / mixer / radio component
-  → runtime observation recorder
-  → assertion results and DSP/event sequence
-  → one immutable trace per scenario
-  → suite manifest with path + SHA-256
+explicit lab fixture + exact source identities
+  → Unity PlayMode transport/lifecycle observation
+     OR Unity batch decision/radio/file-validation execution
+     OR frozen four-hour trace revalidation in Unity batch
+     OR Unity Editor offline output-processor marker render
+  → scenario-specific evidence-source label + assertions + DSP/event sequence
+  → one current content-addressed trace pointer per scenario
+  → preserved content-addressed prior trace generations plus suite manifest path/SHA-256
   → independent Python verifier
 ```
 
@@ -45,8 +47,8 @@ The verifier at `tools/audio_systems_pilot_01/build_audio_oracle.py` is intentio
 | 8 | `radio_voice_ducking` | single speech owner and target bus gains are observed |
 | 9 | `pa_interrupting_radio` | PA/help priority preempts lower radio presentation and preserves caption/transcript identity |
 | 10 | `music_off_with_living_ambience` | score remains off while the supplied lot fixture remains present |
-| 11 | `force_mono` | final-output processor marker and mono PCM capture |
-| 12 | `night_mix` | limited-dynamic-range processor marker and PCM capture |
+| 11 | `force_mono` | final-output processor marker and mono offline render |
+| 12 | `night_mix` | limited-dynamic-range processor marker and offline render |
 | 13 | `pause_resume` | logical playback cursor/history is retained and resumed without duplicate ownership |
 | 14 | `simulated_device_reset` | sources recover from retained logical cursor with exact diagnostic |
 | 15 | `four_x_simulation_unchanged_pitch_tempo` | game-speed fixture becomes 4× while audio pitch/rate remain 1.0 |
@@ -54,7 +56,7 @@ The verifier at `tools/audio_systems_pilot_01/build_audio_oracle.py` is intentio
 | 17 | `missing_file_fail_closed` | missing identity refuses with no substitution |
 | 18 | `deterministic_replay` | same seed/input produces an exact decision/event fingerprint |
 
-Two supplemental hostile-input scenarios exercise traversal and hash/identity refusal. They increase total scenario count without weakening or replacing the required eighteen.
+Two supplemental authority-compatibility scenarios exercise a 1940 Normal request without audio-owned era mapping and save/load compatibility across an era transition without audio owning authoritative save truth. They increase total scenario count without weakening or replacing the required eighteen.
 
 ## Trace record
 
@@ -71,44 +73,43 @@ Every trace contains, directly or through a hash-bound suite field:
 - caption/transcript identity where speech exists;
 - refusal reason where playback is impossible;
 - named assertions with pass/fail results;
-- an explicit runtime observation source;
-- optional engine PCM capture identity.
+- an explicit scenario-specific evidence-source class;
+- optional Unity Editor offline output-processor marker-render identity.
 
-Trace schemas and hashes are verified independently after Unity exits. Any failed assertion, stale Git SHA, missing trace, mismatched binary/catalogue/audio hash, duplicate scenario, non-runtime observation label, incomplete long-session binding, or malformed capture fails the suite.
+Trace schemas and hashes are verified independently after Unity exits. Any failed assertion, stale Git SHA, missing trace, mismatched binary/catalogue/audio hash, duplicate scenario, unrecognized or overstated evidence-source label, incomplete long-session binding, or malformed marker render fails the suite.
 
 ## Phrase-boundary honesty
 
 Generated responsive cues carry only estimated BPM with low confidence. They do not have a trusted downbeat/bar/phrase grid. Scenario 4 therefore uses a declared synthetic timing fixture to prove scheduling mathematics and queue behavior. Normal runtime handling for these generated files is `SAFE_CROSSFADE`; the Oracle does not convert an estimate into phrase certainty or melodic continuity.
 
-## Runtime PCM captures
+## Offline processor marker renders
 
-Batch execution does not guarantee access to the Owner’s real audio device. The suite therefore retains event/assertion traces for every required scenario and adds two engine-produced PCM marker captures where a final-output processor can be proved noninteractively:
+Batch execution does not guarantee access to the Owner’s real audio device. The suite therefore retains event/assertion traces for every required scenario and adds two PCM marker renders generated offline by the Unity Editor through the final-output processor:
 
 - Force Mono: final output is one channel and contains the runtime processor marker.
 - Night / Limited Dynamic Range: final output contains the bounded processor marker and remains a machine signal demonstration.
 
-These small captures prove code-path execution and file identity. They are not musical mix approvals and do not pretend to be full mixed demonstrations for all eighteen scenarios.
+These small renders prove output-processor code-path execution and file identity. They are not AudioSource, AudioMixer, built-player, or hardware-output captures; they are not musical mix approvals and do not pretend to be full mixed demonstrations for all eighteen scenarios.
 
 ## Four-hour evidence
 
 The Oracle binds `02_music-bundles/simulations/FOUR-HOUR-DENSITY-SIMULATIONS.v2.json` plus every one of its twelve child hashes. Unity independently checks:
 
-- three explicitly supplied fixed epochs;
-- Full Music, Balanced, Sparse, and Off;
+- the exact Cartesian set of three explicitly supplied fixed epochs by Full Music, Balanced, Sparse, and Off;
 - exactly 14,400 seconds per trace;
-- no immediate cue or family repeat where alternatives exist;
-- deterministic gap bounds and shuffle-cycle behavior;
-- Score absent in Off while ambience remains eligible;
-- pitch and tempo scale fixed at 1.0.
+- child trace hashes and event identity/order integrity;
+- no immediate cue or family repeat and at least three represented cue families in music-bearing traces;
+- a fixed supplied epoch and no responsive-context switching in every trace;
+- pitch and tempo scale fixed at 1.0 throughout.
 
-This is a scheduler endurance proof, not a four-hour listening test. Irritation, fatigue, musical flow, and silence quality remain Owner/human gates.
+This is a scheduler endurance proof, not a four-hour listening test. It does not independently prove authored gap bounds, shuffle-cycle completeness, or ambience eligibility in Music Off. Irritation, fatigue, musical flow, and silence quality remain Owner/human gates.
 
 ## Evidence locations
 
 - Suite: `07_audio-oracle/AUDIO-ORACLE-SUITE.v1.json`
 - Per-scenario traces: `07_audio-oracle/traces/`
-- Runtime PCM captures: `07_audio-oracle/captures/`
-- Raw Unity runtime observations: `09_unity-lab/RuntimeEvidence/audio-oracle-runtime-observations.json`
+- Offline processor marker renders: `07_audio-oracle/captures/`
+- Raw Unity PlayMode observations: `09_unity-lab/RuntimeEvidence/audio-oracle-runtime-observations.json`
 - Unity validation: `09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json`
 - Build receipt: `09_unity-lab/Builds/macOS/Project Studio Audio Systems Pilot.app.build-receipt.json`
 - Final independent verification: `10_provenance/FINAL-VALIDATION.v2.json`

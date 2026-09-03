@@ -25,20 +25,70 @@ const ui = Object.fromEntries([
   "transcript-panel", "transcript",
 ].map((id) => [id.replaceAll("-", "_"), document.getElementById(id)]));
 
-let catalogue = { items: [], catalogueSha256: "" };
+let catalogue = { items: [], sourceRegisterSha256: "" };
 let visible = [];
 let selectedId = null;
-let ratings = readRatings();
+let storedRatingsEnvelope = readStoredRatings();
+let ratings = {};
+let storageNotice = "";
 let gamepadButtons = [];
 let activeRatingKey = DIMENSIONS[0][0];
 let activeRatingIndex = 0;
 let selectionGeneration = 0;
 
-function readRatings() {
+function readStoredRatings() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
   catch { return {}; }
 }
-function persist() { localStorage.setItem(STORAGE_KEY, JSON.stringify(ratings)); }
+function itemHashProjection(items) { return Object.fromEntries(items.map((item) => [item.id, item.sha256])); }
+function ratingsEnvelope(value, payload) {
+  return {
+    schema: "project-studio-audio-systems-local-ratings/v1",
+    sourceRegisterSha256: value.sourceRegisterSha256,
+    itemAudioSha256: itemHashProjection(value.items),
+    ratings: payload,
+  };
+}
+function installRatingsEnvelope(envelope) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(envelope));
+    storedRatingsEnvelope = envelope;
+    return true;
+  } catch {
+    storedRatingsEnvelope = envelope;
+    storageNotice = `${storageNotice ? `${storageNotice} ` : ""}Browser storage is unavailable; export before closing.`;
+    return false;
+  }
+}
+function initializeRatings(value) {
+  const expectedHashes = itemHashProjection(value.items);
+  const current = storedRatingsEnvelope?.schema === "project-studio-audio-systems-local-ratings/v1"
+    && storedRatingsEnvelope.sourceRegisterSha256 === value.sourceRegisterSha256
+    && JSON.stringify(storedRatingsEnvelope.itemAudioSha256) === JSON.stringify(expectedHashes);
+  if (current) {
+    ratings = storedRatingsEnvelope.ratings && typeof storedRatingsEnvelope.ratings === "object"
+      ? storedRatingsEnvelope.ratings : {};
+    return;
+  }
+  const priorRatings = storedRatingsEnvelope?.ratings ?? storedRatingsEnvelope;
+  if (priorRatings && typeof priorRatings === "object" && Object.keys(priorRatings).length) {
+    const priorIdentity = String(storedRatingsEnvelope?.sourceRegisterSha256 ?? "legacy-unbound").replaceAll(/[^A-Za-z0-9._-]/g, "_");
+    try {
+      localStorage.setItem(`${STORAGE_KEY}:archived:${priorIdentity}:${Date.now()}`, JSON.stringify(storedRatingsEnvelope));
+      storageNotice = "Prior ratings were archived because their source-register/audio identity differs from this build.";
+    } catch {
+      storageNotice = "Prior identity-mismatched ratings could not be archived because browser storage is full.";
+    }
+  }
+  ratings = {};
+  // Remove the stale primary before installing the fresh identity. This prevents
+  // repeated archival on every reload even when the storage quota is exhausted.
+  try { localStorage.removeItem(STORAGE_KEY); } catch { /* storage may be disabled */ }
+  installRatingsEnvelope(ratingsEnvelope(value, ratings));
+}
+function persist() {
+  installRatingsEnvelope(ratingsEnvelope(catalogue, ratings));
+}
 function csvCell(value) { return `"${String(value ?? "").replaceAll('"', '""')}"`; }
 function download(name, content, type) {
   const url = URL.createObjectURL(new Blob([content], { type }));
@@ -66,7 +116,7 @@ function applyFilters() {
     (ui.collection_filter.value === "ALL" || item.collection === ui.collection_filter.value) &&
     (!query || [item.title, item.epoch, item.context, item.collection, item.id].join(" ").toLowerCase().includes(query)),
   );
-  ui.catalogue_summary.textContent = `${visible.length} verified local audition items`;
+  ui.catalogue_summary.textContent = `${visible.length} verified local audition items${storageNotice ? ` · ${storageNotice}` : ""}`;
   if (!visible.some((item) => item.id === selectedId)) selectedId = visible[0]?.id ?? null;
   renderList(); renderSelection();
 }
@@ -166,15 +216,17 @@ function renderRatings() {
 function exportJson() {
   download(`project-studio-audio-systems-feedback-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify({
     schema: "project-studio-audio-systems-owner-feedback/v1", exportedAt: new Date().toISOString(),
-    catalogueSha256: catalogue.catalogueSha256, status: "OWNER_FEEDBACK_NOT_PRODUCTION_OR_RIGHTS_ACCEPTANCE", ratings,
+    sourceRegisterSha256: catalogue.sourceRegisterSha256,
+    itemAudioSha256: itemHashProjection(catalogue.items),
+    status: "OWNER_FEEDBACK_NOT_PRODUCTION_OR_RIGHTS_ACCEPTANCE", ratings,
   }, null, 2) + "\n", "application/json");
 }
 function exportCsv() {
-  const headers = ["item_id", "collection", "epoch", "context", ...DIMENSIONS.map(([key]) => key), "verdict", "notes", "saved_at"];
+  const headers = ["item_id", "source_register_sha256", "item_audio_sha256", "collection", "epoch", "context", ...DIMENSIONS.map(([key]) => key), "verdict", "notes", "saved_at"];
   const rows = [headers.map(csvCell).join(",")];
   for (const item of catalogue.items) {
     const rating = ratings[item.id] ?? {};
-    rows.push([item.id, item.collection, item.epoch, item.context, ...DIMENSIONS.map(([key]) => rating[key]), rating.verdict, rating.notes, rating.savedAt].map(csvCell).join(","));
+    rows.push([item.id, catalogue.sourceRegisterSha256, item.sha256, item.collection, item.epoch, item.context, ...DIMENSIONS.map(([key]) => rating[key]), rating.verdict, rating.notes, rating.savedAt].map(csvCell).join(","));
   }
   download(`project-studio-audio-systems-feedback-${new Date().toISOString().slice(0, 10)}.csv`, rows.join("\n") + "\n", "text/csv;charset=utf-8");
 }
@@ -235,8 +287,9 @@ fetch("data/catalogue.json", { cache: "no-store" }).then((response) => {
   return response.json();
 }).then((value) => {
   if (value.schema !== "project-studio-audio-systems-audition/v2" || value.telemetry !== false || value.networkRequired !== false) throw new Error("catalogue policy mismatch");
+  initializeRatings(value);
   catalogue = value; selectedId = value.items[0]?.id ?? null;
-  ui.catalogue_hash.textContent = `Catalogue SHA-256 ${value.catalogueSha256}`;
+  ui.catalogue_hash.textContent = `Source register SHA-256 ${value.sourceRegisterSha256}`;
   renderFilters(); applyFilters(); updateProgress(); pollGamepad();
 }).catch((error) => {
   ui.empty_state.innerHTML = "";
