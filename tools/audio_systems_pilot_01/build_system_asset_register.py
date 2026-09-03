@@ -236,8 +236,10 @@ def radio_voice_items(
                     or event.get("dayparts") != [authority["daypart"]]):
                 raise RuntimeError(f"radio schedule item/owner/daypart mismatch: {slug}:{voice_role}")
             if (event.get("spokenText") != spoken_text or event.get("captionText") != spoken_text
-                    or abs(float(event.get("durationSeconds", 0.0)) - float(metadata["clean"]["probe"]["duration_seconds"])) > 0.000001):
-                raise RuntimeError(f"radio schedule text/duration parity mismatch: {slug}:{voice_role}")
+                    or abs(float(event.get("durationSeconds", 0.0)) - float(metadata["clean"]["probe"]["duration_seconds"])) > 0.000001
+                    or event.get("streamerSafeEligible") is not False
+                    or event.get("streamingVodAuthorizationRecordSha256") is not None):
+                raise RuntimeError(f"radio schedule text/duration/streamer-rights parity mismatch: {slug}:{voice_role}")
             schedule_presenters = event.get("presenters", [])
             if schedule_presenters != [demo["presenter_id"]]:
                 raise RuntimeError(f"radio schedule programme-presenter mismatch: {slug}:{voice_role}")
@@ -336,6 +338,12 @@ def radio_voice_items(
                     },
                     "classification": "HASH_BOUND_ITEM_LEVEL_GENERIC_SYNTHETIC_VOICE_PROTOTYPE",
                     "redistribution_caveat": metadata["redistribution_caveat"],
+                    "streamer_safe_eligible": False,
+                    "streamer_safe_authorization": {
+                        "status": "NOT_AUTHORIZED",
+                        "asset_sha256": audio["sha256"],
+                        "authority_record_sha256": None,
+                    },
                 })
     return items, source_manifests
 
@@ -475,6 +483,14 @@ def build() -> dict[str, Any]:
         })
 
     radio_index = json.loads(RADIO_INDEX_PATH.read_text(encoding="utf-8"))
+    if radio_index.get("streamer_safe_policy") != {
+            "current_positive_authorization_records": 0,
+            "current_audio_eligibility": "NONE",
+            "mode_behavior": "UNAUTHORIZED_ITEM_SUPPRESSION_AND_RADIO_MUSIC_SILENCE",
+            "functional_fallback": "CAPTION_AND_TRANSCRIPT_FROM_THE_SAME_TYPED_PAYLOAD",
+            "future_positive_authorization": "REQUIRES_A_CONTAINED_HASH_VERIFIED_RIGHTS_RECORD_NOT_IMPLEMENTED_BY_V2",
+    }:
+        raise RuntimeError("radio runtime index Streamer Safe policy is absent or permissive")
     presenters, presenter_source_manifest = presenter_authority(radio_index)
     voice_items, radio_voice_source_manifests = radio_voice_items(radio_index["demos"], presenters)
     items.extend(voice_items)
@@ -500,12 +516,14 @@ def build() -> dict[str, Any]:
                 or sting_rows[0]["item"].get("id") != expected_sting_id
                 or sting_rows[0]["item"].get("presenters") != [authority["presenter_id"]]
                 or sting_rows[0]["item"].get("dayparts") != [authority["daypart"]]
-                or sting_rows[0]["item"].get("captionText") != ""
+                or sting_rows[0]["item"].get("captionText") != MILESTONE_CAPTION
                 or sting_rows[0]["item"].get("spokenText") != ""
                 or sting_rows[0]["item"].get("payload") is not None
                 or any(sting_rows[0]["item"].get(field) is not None for field in TYPED_PROJECTION_FIELDS[:5])
                 or sting_rows[0]["item"].get("speakerId") != authority["presenter_id"]
                 or sting_rows[0]["item"].get("speakerRole") != "PROGRAMME_PRESENTER"
+                or sting_rows[0]["item"].get("streamerSafeEligible") is not False
+                or sting_rows[0]["item"].get("streamingVodAuthorizationRecordSha256") is not None
                 or abs(float(sting_rows[0]["item"].get("durationSeconds", 0.0)) - float(sting_probe["duration_seconds"])) > 0.000001):
             raise RuntimeError(f"milestone sting schedule contract mismatch: {demo['slug']}")
         sting_schedule_ids.append(sting_rows[0]["item"]["id"])
@@ -543,6 +561,12 @@ def build() -> dict[str, Any]:
         },
         "caption_authorities": sorted(sting_caption_authorities, key=lambda row: row["path"]),
         "schedule_item_ids": sorted(sting_schedule_ids),
+        "streamer_safe_eligible": False,
+        "streamer_safe_authorization": {
+            "status": "NOT_AUTHORIZED",
+            "asset_sha256": MILESTONE_STING_SHA256,
+            "authority_record_sha256": None,
+        },
     })
     for demo in radio_index["demos"]:
         preview = demo["preview"]
@@ -612,9 +636,18 @@ def build() -> dict[str, Any]:
         ], key=lambda row: row["path"]),
         "counts": counts,
         "responsive_policy": source_index["responsive_policy"],
+        "streamer_safe_policy": {
+            "current_positive_authorization_records": 0,
+            "current_radio_voice_and_sting_audio_eligible": False,
+            "mode_behavior": "SILENCE_UNCLEARED_AUDIO_AND_RETAIN_FUNCTIONAL_VISUAL_TEXT",
+            "future_positive_authorization_requirement": "CONTAINED_RECORD_PATH_EXACT_SHA256_ITEM_AUDIO_SCOPE_AND_STREAMING_VOD_GRANT",
+        },
         "items": sorted(items, key=lambda item: (item["role"], item["id"])),
         "loading_law": "EXPLICIT_PATH_AND_SHA256_ONLY; NO_RECURSIVE_SCAN; NO_NETWORK; FAIL_CLOSED",
-        "limitations": ["The register expresses prototype presentation eligibility only; it owns no era, activity, production, blocker, result, or save truth."],
+        "limitations": [
+            "The register expresses prototype presentation eligibility only; it owns no era, activity, production, blocker, result, or save truth.",
+            "No current voice or milestone-sting item has positive streaming/VOD authorization; Streamer Safe must therefore refuse that audio while retaining functional visual text.",
+        ],
     }
     atomic_write_json(OUTPUT_PATH, output)
     return output

@@ -79,6 +79,7 @@ Prototype code should retain the isolated `ProjectStudioAudioLab.*` namespace. R
 | Cue, variant, gap, recent history | Audio presentation | Deterministic selection within eligible content |
 | DSP schedule, loop, fade, ducking | Audio transport/mix | Full presentation ownership |
 | Radio content priority | Source receipt priority plus audio arbiter | Queue, coalesce approved payloads, schedule or omit voice |
+| Streaming/VOD authorization | Future rights authority and contained authorization records | Admit only an exact asset ID/hash with explicit `STREAMING_VOD` scope; otherwise silence audio and retain required visual text |
 | User audio preferences | Save-independent settings owner | Read/apply levels, density, radio, captions, mono, Night, Speech First |
 | Gameplay save | Existing save owners | No audio truth written; only separately versioned presentation history if authorized |
 
@@ -154,9 +155,10 @@ Minimum prototype entry fields:
 - machine disposition;
 - `humanDisposition: PENDING`;
 - `rightsStatus: PROTOTYPE_ONLY` or `PROTOTYPE_READY_FOR_OWNER_AUDITION`;
+- streaming/VOD eligibility plus a contained authority-record path and exact record SHA-256 when positively authorized;
 - permitted lab contexts.
 
-A future production catalogue requires a new approved schema/version and only Owner/rights-authorized assets. Prototype IDs may be migration source references, not permanent runtime IDs.
+A future production catalogue requires a new approved schema/version and only Owner/rights-authorized assets. `PROTOTYPE_ONLY` and `PROTOTYPE_READY_FOR_OWNER_AUDITION` are not streaming/VOD grants. Prototype IDs may be migration source references, not permanent runtime IDs.
 
 ## External file security
 
@@ -235,13 +237,15 @@ Decorative radio remains separately identifiable and optional. PA/help, function
 
 Prototype item-level voice entries bind exact schedule text/payload, presenter and speaker, treatment, source metadata, derivative identity, audio path/hash/format/duration, and destination bus. Whole-programme baked renders are offline-audition-only because their voice, PA, music, and timed captions cannot be controlled independently. A future integration may not use a baked master as fallback for failed item audio, and must add word-timed caption segments before claiming delivered-word parity for interrupted speech.
 
+The pilot's Radio Streamer Safe posture is intentionally closed-world. No current radio voice, PA/help voice, milestone sting, or radio-music bed has a positive streaming/VOD authorization record, so the mode silences all of that audio, stops any already-playing current source, clears its presentation ducks, and retains exact functional/PA visual receipts, captions, transcripts, and milestone important-sound text. A future integration may make an item audible only after loading a contained authority record, verifying that record's exact SHA-256, matching the exact asset ID and audio SHA-256, and confirming an explicit `STREAMING_VOD` grant. The pilot has no positive-authority loader; a boolean, status label, or uncontained digest cannot authorize playback.
+
 ## System menu and settings integration
 
 The pilot does not modify the current system menu. After P05 acceptance and changed-path refresh, a settings owner may integrate:
 
 - eight independent category controls;
 - Full/Balanced/Sparse/Off music density;
-- Radio Off/Reduced/Full and Reduce Repetitive Voice;
+- Radio Off/Reduced/Full, Reduce Repetitive Voice, and an explicitly described Radio Streamer Safe rights gate whose current prototype result is silent radio/PA/sting/bed audio plus retained functional/important visual text;
 - Standard, Speech First, Night, Music Light, Music Off, and Force Mono presentation controls;
 - captions, important-sound captions, text scale/background/opacity, transcript history;
 - assistive-technology speech preference.
@@ -256,6 +260,7 @@ A versioned user-audio profile may store:
 - accessibility and radio preferences;
 - last two cue IDs, previous shuffle-bag digest, and last motif exposure;
 - radio item/category/presenter cooldown timestamps;
+- Radio Streamer Safe preference, without caching or inferring authorization;
 - transcript preference and bounded local history where privacy review permits.
 
 It must not store or infer year, era truth, Production status, receipts as authoritative facts, milestones, results, finances, game RNG, or mutable save entities. Missing/corrupt data cold-starts with captions enabled, documented accessible mix defaults, a fresh presentation bag, and no assumed milestone.
@@ -280,7 +285,7 @@ Prototype timings remain audition values. They become production defaults only t
 
 1. Owner auditions and exports ratings; no listening acceptance is inferred from machine evidence.
 2. Human editorial review identifies candidate revisions and rejects weak/clichéd/fatiguing assets.
-3. Rights review records permitted platform, synchronization, master, performance, editing, streaming/VOD, territory, term, attribution, and archival use.
+3. Rights review records permitted platform, synchronization, master, performance, editing, streaming/VOD, territory, term, attribution, and archival use; any positive Streamer Safe decision is serialized as a contained authority record keyed to the exact asset ID/audio hash and explicit `STREAMING_VOD` scope.
 4. Freeze an Owner-authorized source manifest with hashes and intended roles.
 5. Reconcile current P05/P06/P13 production contracts and paths.
 6. Design a production catalogue and import/content-delivery strategy.
@@ -317,7 +322,7 @@ The old pre-P05 baseline is valid for the isolated laboratory only and cannot ju
 | Production/Stage registry | Untouched | Audio privately aggregating mutable state | Consume one owner-published closed projection only |
 | Visual Oracle | Untouched | Evidence overlap and false authority | Keep Audio Oracle separate; reference shared build identity only |
 | Build settings | Untouched | Lab scene entering production build | Continue explicit lab build; later production scenes owned by build owner |
-| Audio assets | External only | Binary bloat, rights ambiguity, stale hash | Import/deliver only Owner- and rights-authorized hash manifest |
+| Audio assets | External only | Binary bloat, rights ambiguity, stale hash, prototype status mistaken for Streamer Safe permission | Import/deliver only Owner- and rights-authorized hash manifest; require contained exact-scope authorization before Streamer Safe playback |
 | User profile/save | Untouched | Audio presentation state contaminating save truth | Use approved save-independent preference service |
 
 ## Validation required after future integration
@@ -331,6 +336,7 @@ The old pre-P05 baseline is valid for the isolated laboratory only and cannot ju
 - P05/P06 state is consumed only through its accepted projection.
 - Functional spoken/caption output matches the same receipt.
 - Radio Off and Music Off lose no mechanics.
+- Radio Streamer Safe rejects absent, fabricated, mismatched, or insufficient-scope authorization; suppresses every unauthorized voice/PA/sting/bed; stops an already-playing unauthorized source and clears its ducks; and retains functional/important visual text.
 - Mono, Night, Speech First, captions, transcript, and independent buses pass.
 - Save/Load, pause/focus, device reset, missing file, and deterministic replay pass.
 - Existing P05/P06/P13 and save tests remain green.

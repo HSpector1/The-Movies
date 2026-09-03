@@ -99,7 +99,7 @@ AUDITION = PILOT_ROOT / "08_audition-app/v2/AUDITION-BUILD-MANIFEST.json"
 UNITY_VALIDATION = PILOT_ROOT / "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json"
 BUILD_RECEIPT = PILOT_ROOT / "09_unity-lab/Builds/macOS/Project Studio Audio Systems Pilot.app.build-receipt.json"
 SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json"
-SYSTEM_REGISTER_SHA256 = "d26df18eddfb299d9332ad82402c836c6234342b51ed4fb44b5294d0a78b334e"
+SYSTEM_REGISTER_SHA256 = "6c1be5d6e638f365adcd47689dbe0a0ad6579f097b128db5cabd7a629f0e74d1"
 ASSET_INDEX = PILOT_ROOT / "10_provenance/audio-assets-index.v4.json"
 ASSET_VALIDATION = PILOT_ROOT / "10_provenance/audio-assets-validation.v4.json"
 DERIVATIVES = PILOT_ROOT / "10_provenance/audio-derivative-source-register.v4.json"
@@ -220,9 +220,20 @@ EXPECTED_DEMO_PRESENTERS = {
 EXPECTED_RADIO_DEMO_ASSERTIONS = {
     "schedulerProducedEveryPlayout", "openingContainsRequiredRoles", "exactRepeatSuppressed",
     "expiredSuppressed", "newestFunctionalReceiptSelected", "typedPayloadProjectionValidated",
-    "radioDisabledNoMechanics", "streamerUnsafeSuppressed", "paActuallyPreemptsActiveRadio",
+    "radioDisabledNoMechanics", "streamerUnsafeSuppressed",
+    "streamerSafeOpeningAudioSuppressed", "streamerSafeFunctionalVisualPayloadRetained",
+    "streamerSafePaVisualPayloadRetained", "streamerSafeMilestoneImportantCaptionRetained",
+    "streamerSafeRadioMusicSilenced",
+    "currentItemsHaveNoPositiveStreamingVodAuthorization", "paActuallyPreemptsActiveRadio",
     "paOccursOverActiveMusicWindow", "captionsShareResolvedCore", "rollingBudgetsAndSpacing",
     "noMechanicalMutation",
+}
+EXPECTED_STREAMER_SAFE_TRACE_ITEMS = {
+    "STREAMER_SAFE_INELIGIBLE_ITEM_SUPPRESSION": "streamerUnsafe",
+    "STREAMER_SAFE_ACTUAL_OPENING_AUDIO_SUPPRESSION": "opening",
+    "STREAMER_SAFE_FUNCTIONAL_VISUAL_ONLY_DELIVERY": "functionalNew",
+    "STREAMER_SAFE_PA_VISUAL_ONLY_DELIVERY": "pa",
+    "STREAMER_SAFE_MILESTONE_IMPORTANT_CAPTION_ONLY": "milestone",
 }
 EXPECTED_RADIO_SIM_ASSERTIONS = {
     "chronological", "exactItemNoRepeat", "categoryCooldowns", "rollingBudgetsAndSpacing",
@@ -328,6 +339,9 @@ def require_radio_item_contract(item: dict[str, Any]) -> None:
             and isinstance(item.get("speakerDisplayName"), str) and item["speakerDisplayName"]
             and item.get("speakerRole") == expected_speaker_role,
             f"radio speaker-role projection failed: {item.get('id')}")
+    require(item.get("streamerSafeEligible") is False
+            and item.get("streamingVodAuthorizationRecordSha256") is None,
+            f"radio Streamer Safe authorization must be closed-world false/null: {item.get('id')}")
     if typed:
         require(isinstance(payload, dict) and FUNCTIONAL_FIELDS.issubset(payload)
                 and all(isinstance(payload[field], str) and payload[field].strip()
@@ -341,6 +355,42 @@ def require_radio_item_contract(item: dict[str, Any]) -> None:
         require(payload is None
                 and all(item.get(field) is None for field in ("ownerDomain", "eventId", "receiptId", "headline", "body")),
                 f"radio nonfunctional item owns typed fields: {item.get('id')}")
+        if content_type == "MILESTONE_STING":
+            require(item.get("captionText") == MILESTONE_CAPTION and item.get("spokenText") == "",
+                    f"milestone important-sound caption contract failed: {item.get('id')}")
+        else:
+            require(isinstance(item.get("captionText"), str) and item["captionText"]
+                    and item.get("captionText") == item.get("spokenText"),
+                    f"decorative caption/spoken parity failed: {item.get('id')}")
+
+
+def require_streamer_safe_visual_delivery(decision: dict[str, Any], expected_item: dict[str, Any]) -> None:
+    delivery = decision.get("visualOnlyDelivery")
+    require(decision.get("item") is None
+            and decision.get("reason") == "STREAMER_SAFE_AUDIO_NOT_AUTHORIZED_VISUAL_ONLY"
+            and decision.get("speechOwner") == "NONE"
+            and decision.get("radioMusicGainDb") == -80
+            and decision.get("mechanicsMutated") is False
+            and isinstance(delivery, dict)
+            and delivery.get("item") == expected_item
+            and delivery.get("captionText") == expected_item.get("captionText")
+            and delivery.get("payload") == expected_item.get("payload")
+            and delivery.get("importantSound") == (expected_item.get("contentType") == "MILESTONE_STING")
+            and delivery.get("deliveryStatus") == "VISUAL_ONLY_STREAMER_SAFE_RIGHTS_UNAVAILABLE"
+            and any(row.get("id") == expected_item.get("id")
+                    and row.get("eligible") is False
+                    and row.get("reason") == "STREAMER_SAFE_INELIGIBLE"
+                    for row in decision.get("candidateEvaluations", [])),
+            f"Streamer Safe visual-only projection failed: {expected_item.get('id')}")
+    require_radio_item_contract(delivery["item"])
+    if expected_item.get("contentType") in {"FUNCTIONAL", "PA_HELP"}:
+        require(isinstance(delivery.get("payload"), dict)
+                and delivery["captionText"] == delivery["payload"].get("captionText"),
+                f"Streamer Safe typed visual payload diverged: {expected_item.get('id')}")
+    if expected_item.get("contentType") == "MILESTONE_STING":
+        require(delivery.get("captionText") == MILESTONE_CAPTION
+                and expected_item.get("spokenText") == "",
+                f"Streamer Safe milestone visual caption diverged: {expected_item.get('id')}")
 
 
 def check_git_and_scope() -> dict[str, Any]:
@@ -702,12 +752,28 @@ def check_radio_accessibility() -> dict[str, Any]:
                 and set(row.get("assertions", {})) == EXPECTED_RADIO_DEMO_ASSERTIONS
                 and all(value is True for value in row["assertions"].values()) for row in scheduler["demos"]),
             "radio scheduler demo assertions are missing, extra, or failed")
+    plan_by_slug = {row["slug"]: row for row in scheduler_input["plans"]}
+    for demo in scheduler["demos"]:
+        trace_by_purpose = {row.get("purpose"): row for row in demo.get("decisionTrace", [])}
+        plan = plan_by_slug[demo["slug"]]
+        for purpose, item_key in EXPECTED_STREAMER_SAFE_TRACE_ITEMS.items():
+            trace = trace_by_purpose.get(purpose)
+            require(isinstance(trace, dict) and trace.get("playout") is False,
+                    f"Streamer Safe trace missing or incorrectly marked as audio playout: {demo['slug']} / {purpose}")
+            require_streamer_safe_visual_delivery(trace["decision"], plan["items"][item_key])
     require(all(row.get("machineVerdict") == "PASS" and row.get("durationSeconds") == 1800
                 and set(row.get("assertions", {})) == EXPECTED_RADIO_SIM_ASSERTIONS
                 and all(value is True for value in row["assertions"].values()) for row in scheduler["simulations"]),
             "radio scheduler simulation assertions are missing, extra, or failed")
     radio = load(RADIO, "project-studio-radio-runtime-index/v2")
     require(radio["machine_verdict"] == "PASS" and radio["scripts_audited"] == 126 and radio["decorative_runtime_eligible"] == 108 and radio["technology_templates_withheld"] == 18, "radio runtime classification failed")
+    require(radio.get("streamer_safe_policy") == {
+        "current_positive_authorization_records": 0,
+        "current_audio_eligibility": "NONE",
+        "mode_behavior": "UNAUTHORIZED_ITEM_SUPPRESSION_AND_RADIO_MUSIC_SILENCE",
+        "functional_fallback": "CAPTION_AND_TRANSCRIPT_FROM_THE_SAME_TYPED_PAYLOAD",
+        "future_positive_authorization": "REQUIRES_A_CONTAINED_HASH_VERIFIED_RIGHTS_RECORD_NOT_IMPLEMENTED_BY_V2",
+    }, "radio runtime Streamer Safe policy failed closed")
     require(radio.get("generated_runtime_copy_lint", {}).get("status") == "PASS", "generated runtime copy lint coverage failed")
     require(verified_path(radio["presenters"]) == PRESENTERS, "radio presenter manifest binding failed")
     require(len(radio["demos"]) == len(radio["thirty_minute_simulations"]) == 3
@@ -793,7 +859,8 @@ def verified_system_register() -> dict[str, Any]:
             and system.get("commercial_clearance") == "NOT_CLAIMED"
             and system.get("loading_law") == "EXPLICIT_PATH_AND_SHA256_ONLY; NO_RECURSIVE_SCAN; NO_NETWORK; FAIL_CLOSED"
             and system.get("limitations") == [
-                "The register expresses prototype presentation eligibility only; it owns no era, activity, production, blocker, result, or save truth."
+                "The register expresses prototype presentation eligibility only; it owns no era, activity, production, blocker, result, or save truth.",
+                "No current voice or milestone-sting item has positive streaming/VOD authorization; Streamer Safe must therefore refuse that audio while retaining functional visual text.",
             ], "system register top-level boundary failed")
     require(system["counts"] == EXPECTED_SYSTEM_ROLE_COUNTS, "system register role counts failed")
     require("NO_RECURSIVE_SCAN" in system["loading_law"] and "NO_NETWORK" in system["loading_law"] and "FAIL_CLOSED" in system["loading_law"], "external-loading law incomplete")
@@ -834,6 +901,12 @@ def verified_system_register() -> dict[str, Any]:
     recomputed_role_counts = dict(sorted(Counter(row.get("role") for row in system["items"]).items()))
     require(recomputed_role_counts == EXPECTED_SYSTEM_ROLE_COUNTS,
             f"system register item-role counts failed: {recomputed_role_counts}")
+    require(system.get("streamer_safe_policy") == {
+        "current_positive_authorization_records": 0,
+        "current_radio_voice_and_sting_audio_eligible": False,
+        "mode_behavior": "SILENCE_UNCLEARED_AUDIO_AND_RETAIN_FUNCTIONAL_VISUAL_TEXT",
+        "future_positive_authorization_requirement": "CONTAINED_RECORD_PATH_EXACT_SHA256_ITEM_AUDIO_SCOPE_AND_STREAMING_VOD_GRANT",
+    }, "system register Streamer Safe policy failed closed")
     source_index = json.loads(ASSET_INDEX.read_text(encoding="utf-8"))
     transition_source = json.loads(TRANSITIONS.read_text(encoding="utf-8"))
     catalogue_source = json.loads(CATALOGUE_BASE.read_text(encoding="utf-8"))
@@ -919,6 +992,12 @@ def verified_system_register() -> dict[str, Any]:
                     and row.get("schedule_speech_owner") == expected_speech_owner
                     and row.get("schedule_speaker_id") == expected_presenter
                     and row.get("schedule_speaker_role") == expected_speaker_role
+                    and row.get("streamer_safe_eligible") is False
+                    and row.get("streamer_safe_authorization") == {
+                        "status": "NOT_AUTHORIZED",
+                        "asset_sha256": row.get("sha256"),
+                        "authority_record_sha256": None,
+                    }
                     and row.get("relative_path") == expected_relative
                     and row.get("spoken_text")
                     and hashlib.sha256(row["spoken_text"].encode("utf-8")).hexdigest() == row.get("spoken_text_sha256"),
@@ -961,6 +1040,8 @@ def verified_system_register() -> dict[str, Any]:
                     and source_item.get("contentType") == row.get("content_type")
                     and source_item.get("captionText") == row.get("caption_text")
                     and source_item.get("spokenText") == row.get("spoken_text")
+                    and source_item.get("streamerSafeEligible") is False
+                    and source_item.get("streamingVodAuthorizationRecordSha256") is None
                     and abs(float(source_item.get("durationSeconds", -1.0)) - float(row["duration_seconds"])) <= 0.000001
                     and source_delivery.get("item") == source_item
                     and row.get("source_delivery") == expected_delivery_projection,
@@ -1031,6 +1112,12 @@ def verified_system_register() -> dict[str, Any]:
                         "binding": "EXACT_PINNED_SHA256_IN_COMMITTED_REGISTER_BUILDER",
                     }
                     and row.get("schedule_item_ids") == ["LAB-STING-E02-V2", "LAB-STING-E03-V2", "LAB-STING-E07-V2"]
+                    and row.get("streamer_safe_eligible") is False
+                    and row.get("streamer_safe_authorization") == {
+                        "status": "NOT_AUTHORIZED",
+                        "asset_sha256": row.get("sha256"),
+                        "authority_record_sha256": None,
+                    }
                     and row["format"] == probe_audio(Path(row["path"])), "milestone sting contract failed")
             authorities = row.get("caption_authorities")
             require(isinstance(authorities, list) and len(authorities) == 3, "milestone caption authorities failed")
@@ -1047,6 +1134,13 @@ def verified_system_register() -> dict[str, Any]:
                         and path.read_text(encoding="utf-8").splitlines().count(MILESTONE_CAPTION) == 1,
                         f"milestone caption text authority failed: {path}")
             require(actual_caption_paths == expected_caption_paths, "milestone caption path authorities failed")
+            for epoch_code, binding in EXPECTED_REGISTER_RADIO.items():
+                source_stings = [event.get("item", {}) for event in schedule_cache[epoch_code].get("events", [])
+                    if event.get("item", {}).get("id") == f"LAB-STING-{epoch_code}-V2"]
+                require(len(source_stings) == 1
+                        and source_stings[0].get("streamerSafeEligible") is False
+                        and source_stings[0].get("streamingVodAuthorizationRecordSha256") is None,
+                        f"milestone streamer-rights source projection failed: {binding['slug']}")
         elif row["role"] == "RADIO_DEMO":
             slug = row["id"].removeprefix("ASP01-RADIO-")
             require(slug in EXPECTED_RADIO_DEMOS

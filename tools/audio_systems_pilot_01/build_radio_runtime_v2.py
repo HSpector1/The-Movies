@@ -33,6 +33,7 @@ FIXTURE_PATH = RADIO_ROOT / "functional-fixtures.v2.json"
 PRESENTER_PATH = RADIO_ROOT / "presenter-ensemble.v2.json"
 INDEX_PATH = RADIO_ROOT / "STUDIO-RADIO-RUNTIME-INDEX.v2.json"
 CLEAN_VOICE_FILTER = "highpass=f=65,lowpass=f=15500,alimiter=limit=0.88"
+MILESTONE_CAPTION = "[important sound] Milestone sting. No mechanical change."
 
 
 @dataclass(frozen=True)
@@ -313,16 +314,27 @@ def radio_item(
     priority: int,
     cooldown: int,
     category_cooldown: int,
+    spoken_text: str | None = None,
     speaker_id: str | None = None,
     payload: dict[str, Any] | None = None,
     coalesce_key: str | None = None,
     expires_at: str | None = None,
-    streamer_safe: bool = True,
+    streamer_safe: bool = False,
+    streaming_vod_authorization_record_sha256: str | None = None,
 ) -> dict[str, Any]:
     typed = content_type in ("FUNCTIONAL", "PA_HELP")
     if typed != (payload is not None):
         raise RuntimeError(f"typed payload ownership mismatch: {item_id}/{content_type}")
-    require_clean_resolved_fields(item_id, {"captionText": text, "spokenText": text})
+    resolved_spoken_text = text if spoken_text is None else spoken_text
+    is_nonverbal_milestone = (
+        content_type == "MILESTONE_STING" and bool(text.strip()) and resolved_spoken_text == ""
+    )
+    if text != resolved_spoken_text and not is_nonverbal_milestone:
+        raise RuntimeError(f"caption/spoken divergence is only valid for a nonverbal milestone: {item_id}")
+    require_clean_resolved_fields(
+        item_id,
+        {"captionText": text, **({"spokenText": resolved_spoken_text} if resolved_spoken_text else {})},
+    )
     projected = {
         "ownerDomain": payload["ownerDomain"] if payload else None,
         "eventId": payload["eventId"] if payload else None,
@@ -343,6 +355,10 @@ def radio_item(
     resolved_speaker_id = speaker_id or presenter_id
     if resolved_speaker_id not in PRESENTERS:
         raise RuntimeError(f"unknown speaker: {resolved_speaker_id}")
+    if streamer_safe or streaming_vod_authorization_record_sha256 is not None:
+        raise RuntimeError(
+            f"positive streaming/VOD authorization is unsupported without a contained authority-record loader: {item_id}"
+        )
     return {
         "id": item_id,
         "contentType": content_type,
@@ -356,13 +372,14 @@ def radio_item(
         "expiresAt": expires_at,
         "coalesceKey": coalesce_key,
         "captionText": text,
-        "spokenText": text,
+        "spokenText": resolved_spoken_text,
         "payload": payload,
         **projected,
         "speakerId": resolved_speaker_id,
         "speakerDisplayName": PRESENTERS[resolved_speaker_id]["display_name"],
         "speakerRole": "PA_HELP_SPEAKER" if content_type == "PA_HELP" else "PROGRAMME_PRESENTER",
         "streamerSafeEligible": streamer_safe,
+        "streamingVodAuthorizationRecordSha256": streaming_vod_authorization_record_sha256,
     }
 
 
@@ -634,7 +651,7 @@ def build_plan(
         ),
         "milestone": radio_item(
             item_id=f"LAB-STING-{spec.epoch_code}-V2", content_type="MILESTONE_STING", category="milestone_sting",
-            text="", presenter_id=spec.presenter_id, daypart=spec.daypart, duration=1.25,
+            text=MILESTONE_CAPTION, spoken_text="", presenter_id=spec.presenter_id, daypart=spec.daypart, duration=1.25,
             priority=60, cooldown=1800, category_cooldown=900,
         ),
         "interruptible": radio_item(
@@ -657,7 +674,6 @@ def build_plan(
             item_id=f"{spec.slug}-STREAMER-UNSAFE", content_type="DECORATIVE", category="licensed_music_link",
             text=queue_text, presenter_id=spec.presenter_id, daypart=spec.daypart,
             duration=estimate_duration(queue_text, spec.base_rate_wpm), priority=30, cooldown=3600, category_cooldown=900,
-            streamer_safe=False,
         ),
     }
     simulation_units = [
@@ -937,7 +953,7 @@ def render_demo(
             event["item"]["spokenText"],
             "",
         ])
-    caption_rows.append((330.0, 331.25, "[important sound] Milestone sting. No mechanical change."))
+    caption_rows.append((330.0, 331.25, MILESTONE_CAPTION))
     caption_rows.sort(key=lambda row: row[0])
     captions = ["WEBVTT", ""]
     for index, (start, end, display) in enumerate(caption_rows, start=1):
@@ -947,7 +963,7 @@ def render_demo(
     rendered_schedule = {
         **schedule,
         "deliveredVoiceEvents": delivered,
-        "captionLaw": "Display label adds speaker/context; captionText and spokenText retain byte-identical resolved core.",
+        "captionLaw": "Voiced captionText/spokenText retain a byte-identical resolved core; the nonverbal milestone retains one hash-bound important-sound caption.",
         "audioRender": "Every voiced playout derives from a scheduler-accepted event. INTERRUPTIBLE is hard-trimmed at exactly 20.0 seconds when urgent PA begins; no fade or word-boundary alignment is asserted.",
     }
     atomic_write_json(root / "SCHEDULE.v2.json", rendered_schedule)
@@ -1261,12 +1277,20 @@ def main() -> None:
             }
             for simulation in evidence["simulations"]
         ],
+        "streamer_safe_policy": {
+            "current_positive_authorization_records": 0,
+            "current_audio_eligibility": "NONE",
+            "mode_behavior": "UNAUTHORIZED_ITEM_SUPPRESSION_AND_RADIO_MUSIC_SILENCE",
+            "functional_fallback": "CAPTION_AND_TRANSCRIPT_FROM_THE_SAME_TYPED_PAYLOAD",
+            "future_positive_authorization": "REQUIRES_A_CONTAINED_HASH_VERIFIED_RIGHTS_RECORD_NOT_IMPLEMENTED_BY_V2",
+        },
         "machine_verdict": "PASS" if len(demos) == 3 and all(demo["machine_verdict"] == "PASS" for demo in demos) else "NOT_RENDERED" if args.skip_audio_render else "FAIL",
         "limitations": [
             "All technology script-bank templates remain withheld pending typed P13 truth and editorial sourcing.",
             "All voice, historical, cultural, fatigue, name/mark, rights, and listening dispositions remain PENDING.",
             "Machine scheduler and render proof is not human broadcaster credibility or acceptance.",
             "The urgent-PA demonstration uses an exact hard cut, not a proved edited fade or word-timed transition.",
+            "No current radio voice, PA voice, sting, or music bed has positive streaming/VOD authorization. Streamer Safe therefore fails closed to silence for audio while functional visual text remains available.",
         ],
     }
     atomic_write_json(INDEX_PATH, index)
@@ -1285,6 +1309,8 @@ def main() -> None:
                     assert item["coalesceKey"] == f"{payload['ownerDomain']}:{payload['eventId']}"
                 else:
                     assert all(item[field] is None for field in ("ownerDomain", "eventId", "receiptId", "headline", "body"))
+                assert item["streamerSafeEligible"] is False
+                assert item["streamingVodAuthorizationRecordSha256"] is None
             assert plan["items"]["pa"]["speakerId"] == "PRESENTER-RINA-SHORE"
             assert plan["items"]["pa"]["speakerRole"] == "PA_HELP_SPEAKER"
         for spec, schedule in zip(DEMOS, evidence["demos"], strict=True):

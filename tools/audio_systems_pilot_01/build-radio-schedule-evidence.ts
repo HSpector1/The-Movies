@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
 import {
+  MILESTONE_IMPORTANT_SOUND_CAPTION,
   RADIO_LAWS,
   scheduleRadio,
   validateRadioItemPayloadContract,
@@ -149,7 +150,6 @@ function buildDemo(plan: DemoPlan) {
     trace.push({ requestedAtSeconds: atSeconds, purpose, playout: false, decision });
     return decision;
   };
-
   play(10, "COALESCED_STATION_HOST_ADVERTISEMENT_DECORATIVE_OPENING", [plan.items.opening]);
   const repeat = inspect(70, "EXACT_REPEAT_AND_START_SPACING_SUPPRESSION", [plan.items.opening]);
   const expiry = inspect(200, "EXPIRED_ITEM_SUPPRESSION", [plan.items.expired]);
@@ -161,6 +161,10 @@ function buildDemo(plan: DemoPlan) {
   play(330, "MILESTONE_STING_PRESENTATION_ONLY", [plan.items.milestone]);
   const radioOff = inspect(450, "RADIO_DISABLED_MECHANICS_UNCHANGED", [plan.items.queuedDecorative], { radioEnabled: false });
   const streamer = inspect(510, "STREAMER_SAFE_INELIGIBLE_ITEM_SUPPRESSION", [plan.items.streamerUnsafe], { streamerSafe: true });
+  const streamerOpening = inspect(515, "STREAMER_SAFE_ACTUAL_OPENING_AUDIO_SUPPRESSION", [plan.items.opening], { streamerSafe: true });
+  const streamerFunctional = inspect(520, "STREAMER_SAFE_FUNCTIONAL_VISUAL_ONLY_DELIVERY", [plan.items.functionalNew], { streamerSafe: true });
+  const streamerPa = inspect(525, "STREAMER_SAFE_PA_VISUAL_ONLY_DELIVERY", [plan.items.pa], { streamerSafe: true });
+  const streamerMilestone = inspect(530, "STREAMER_SAFE_MILESTONE_IMPORTANT_CAPTION_ONLY", [plan.items.milestone], { streamerSafe: true });
   const interruptible = play(590, "INTERRUPTIBLE_RADIO_LINK", [plan.items.interruptible]);
   const activeSpeech: ActiveSpeech = {
     itemId: interruptible.item?.id ?? "MISSING",
@@ -171,6 +175,16 @@ function buildDemo(plan: DemoPlan) {
   const pa = play(610, "PA_PREEMPTS_ACTIVE_RADIO_AND_DUCKS_ACTIVE_MUSIC_BED", [plan.items.pa, plan.items.queuedDecorative], activeSpeech);
 
   const rolling = rollingChecks(events);
+  const streamerSafeProbes = [streamer, streamerOpening, streamerFunctional, streamerPa, streamerMilestone];
+  const suppressedExactly = (decision: RadioScheduleDecision, item: RadioItem) =>
+    decision.item === null &&
+    decision.reason === "STREAMER_SAFE_AUDIO_NOT_AUTHORIZED_VISUAL_ONLY" &&
+    decision.candidateEvaluations.some((row) => row.id === item.id && row.reason === "STREAMER_SAFE_INELIGIBLE") &&
+    decision.visualOnlyDelivery?.item.id === item.id &&
+    decision.visualOnlyDelivery.captionText === item.captionText &&
+    decision.visualOnlyDelivery.deliveryStatus === "VISUAL_ONLY_STREAMER_SAFE_RIGHTS_UNAVAILABLE" &&
+    decision.speechOwner === "NONE" &&
+    decision.mechanicsMutated === false;
   const assertions = {
     schedulerProducedEveryPlayout: events.length === 5 && trace.filter((decision) => decision.playout).length === 5,
     openingContainsRequiredRoles: ["station_id", "host_link", "fictional_advertisement", "decorative_item"].every((role) => plan.items.opening.category.includes(role)),
@@ -181,10 +195,27 @@ function buildDemo(plan: DemoPlan) {
       .filter((event) => event.item.contentType === "FUNCTIONAL" || event.item.contentType === "PA_HELP")
       .every((event) => validateRadioItemPayloadContract(event.item)),
     radioDisabledNoMechanics: radioOff.item === null && radioOff.reason === "RADIO_DISABLED_MECHANICS_UNCHANGED" && radioOff.mechanicsMutated === false,
-    streamerUnsafeSuppressed: streamer.item === null && streamer.candidateEvaluations.some((row) => row.reason === "STREAMER_SAFE_INELIGIBLE"),
+    streamerUnsafeSuppressed: suppressedExactly(streamer, plan.items.streamerUnsafe),
+    streamerSafeOpeningAudioSuppressed: suppressedExactly(streamerOpening, plan.items.opening),
+    streamerSafeFunctionalVisualPayloadRetained: suppressedExactly(streamerFunctional, plan.items.functionalNew) &&
+      streamerFunctional.visualOnlyDelivery?.payload === plan.items.functionalNew.payload &&
+      streamerFunctional.visualOnlyDelivery?.captionText === plan.items.functionalNew.payload?.captionText,
+    streamerSafePaVisualPayloadRetained: suppressedExactly(streamerPa, plan.items.pa) &&
+      streamerPa.visualOnlyDelivery?.payload === plan.items.pa.payload &&
+      streamerPa.visualOnlyDelivery?.captionText === plan.items.pa.payload?.captionText,
+    streamerSafeMilestoneImportantCaptionRetained: suppressedExactly(streamerMilestone, plan.items.milestone) &&
+      streamerMilestone.visualOnlyDelivery?.importantSound === true &&
+      streamerMilestone.visualOnlyDelivery?.captionText === MILESTONE_IMPORTANT_SOUND_CAPTION &&
+      plan.items.milestone.spokenText === "",
+    streamerSafeRadioMusicSilenced: streamerSafeProbes.every((decision) =>
+      decision.item === null && decision.radioMusicGainDb === -80),
+    currentItemsHaveNoPositiveStreamingVodAuthorization: Object.values(plan.items).every((item) =>
+      item.streamerSafeEligible === false && item.streamingVodAuthorizationRecordSha256 === null),
     paActuallyPreemptsActiveRadio: pa.reason === "PA_PREEMPTS_RADIO" && pa.interruptedItemId === plan.items.interruptible.id,
     paOccursOverActiveMusicWindow: 610 >= 585 && 610 < 650,
-    captionsShareResolvedCore: events.every((event) => event.item.captionText === event.item.spokenText),
+    captionsShareResolvedCore: events.every((event) => event.item.contentType === "MILESTONE_STING"
+      ? event.item.captionText === MILESTONE_IMPORTANT_SOUND_CAPTION && event.item.spokenText === ""
+      : event.item.captionText === event.item.spokenText),
     rollingBudgetsAndSpacing: rolling.pass,
     noMechanicalMutation: trace.every((decision) => decision.decision.mechanicsMutated === false),
   };
@@ -270,7 +301,11 @@ function buildSimulation(plan: DemoPlan) {
     typedFunctionalAndPaIdentity: accepted
       .filter((event) => event.item.contentType === "FUNCTIONAL" || event.item.contentType === "PA_HELP")
       .every((event) => validateRadioItemPayloadContract(event.item)),
-    fullResolvedTextAndOwnership: accepted.every((event) => event.item.captionText === event.item.spokenText && event.presenterId.length > 0 && event.speechOwner.length > 0),
+    fullResolvedTextAndOwnership: accepted.every((event) =>
+      (event.item.contentType === "MILESTONE_STING"
+        ? event.item.captionText === MILESTONE_IMPORTANT_SOUND_CAPTION && event.item.spokenText === ""
+        : event.item.captionText === event.item.spokenText) &&
+      event.presenterId.length > 0 && event.speechOwner.length > 0),
     repeatProbeSuppressed: decisions.some((decision) => decision.purpose === "REPEAT_SUPPRESSION_PROBE_NO_PLAYOUT" && decision.decision.item === null),
     noMechanicalMutation: decisions.every((decision) => decision.decision.mechanicsMutated === false),
   };

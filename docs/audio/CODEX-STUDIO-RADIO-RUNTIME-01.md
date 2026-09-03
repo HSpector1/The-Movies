@@ -6,7 +6,7 @@
 
 **Runtime scheduler evidence:** THREE 660-SECOND RENDERS; THREE 1,800-SECOND DETERMINISTIC TRACES
 
-**Voice status:** GENERIC LOCAL SCRATCH PROTOTYPE ONLY
+**Voice status:** GENERIC LOCAL SCRATCH PROTOTYPE ONLY; NOT STREAMING/VOD AUTHORIZED
 
 **Simulation authority:** EXPLICIT LAB FIXTURES ONLY; NONE OVER GAME TRUTH
 
@@ -147,6 +147,7 @@ The deterministic scheduler consumes:
 - cooldown and repeat history;
 - current speech owner;
 - Radio Enabled and Streamer Safe flags;
+- per-item streaming/VOD authorization identity;
 - a presentation seed retained in evidence metadata (the TypeScript selector does not use it as a shuffle source).
 
 It does not consume raw mutable game objects or calculate calendar/era truth.
@@ -162,6 +163,7 @@ For every TypeScript decision it emits:
 - voice, radio-music, and score gains;
 - interruption/coalescing action;
 - the selected item's resolved caption/spoken core for the evidence layer to record;
+- any rights-suppressed functional/PA visual receipt or important-sound caption retained without audio;
 - the supplied history/budget state; the caller records accepted playouts;
 - expiry/refusal/suppression reason;
 - a stable reason and candidate-evaluation list. No decision digest is implemented.
@@ -170,7 +172,7 @@ For every TypeScript decision it emits:
 
 1. Coalesce keyed candidates by highest priority, then lexicographically newest receipt ID.
 2. Reject a typed `FUNCTIONAL` or `PA_HELP` item unless its complete payload is valid and its duplicated owner/event/receipt/headline/body/priority/expiry/caption/spoken projection is exact; reject functional fields on `DECORATIVE` and `MILESTONE_STING`.
-3. Apply Radio mode, daypart, programme-presenter eligibility, expiry, exact-item and category cooldown, Streamer Safe, start spacing, rolling budgets, and the one active speech owner.
+3. Validate the closed-world streaming/VOD authorization identity, then apply Radio mode, daypart, programme-presenter eligibility, expiry, exact-item and category cooldown, Streamer Safe, start spacing, rolling budgets, and the one active speech owner.
 4. Sort eligible items by speech class, priority, lexicographically newest receipt ID, then stable item ID.
 5. Return the first item or an exact suppression/refusal and silence.
 
@@ -215,7 +217,7 @@ Rules:
 - The current offline render hard-trims the interruptible source at exactly 20.0 seconds when PA begins. The Unity lab stops the current radio source immediately for urgent PA. Neither path proves a fade, sentence/word-boundary edit, or pleasant interruption; the whole-item caption is explicitly marked interrupted and listening acceptance remains pending.
 - A PA may immediately interrupt/duck radio music or an unstarted radio programme without violating the single-voice law.
 - Functional items may interrupt elective radio-music beds but should not interrupt a voice merely to create drama.
-- Milestone stings are non-voice and deferred while the active speech owner is busy; they never replace a visual receipt. A future Stings Enabled input remains an integration requirement.
+- Milestone stings are non-voice and deferred while the active speech owner is busy; they never replace a visual receipt. Streamer Safe suppresses the current unauthorized sting audio while retaining its important-sound caption. A future Stings Enabled input remains an integration requirement.
 - Save/Load queue restoration and setting-change fades are future production requirements, not mechanically proved here.
 
 ## Ducking and buses
@@ -231,9 +233,11 @@ Exact gain, attack, hold, and release values belong to lab mix metadata and must
 
 ## Streamer Safe and disabled radio
 
-- `Streamer Safe` admits only content with positive streaming/VOD authorization.
-- The current selector suppresses a Streamer-Safe-ineligible candidate before selection. Already-playing-bed replacement/fade behavior is a future runtime requirement.
-- A missing safe substitute produces silence with a visible diagnostic, never an uncleared fallback.
+- `PROTOTYPE_ONLY` and `PROTOTYPE_READY_FOR_OWNER_AUDITION` are workflow labels, not streaming/VOD grants and not evidence that an asset is Streamer Safe.
+- The current closed-world register contains zero positive streaming/VOD authorization records. Every current radio voice, PA/help voice, milestone sting, and radio-music bed is therefore ineligible for audio presentation while `Radio Streamer Safe` is enabled.
+- Enabling `Radio Streamer Safe` suppresses those candidates before selection, stops an already-playing current radio voice/PA/sting/bed, clears presentation ducking, and produces silence with an exact visible reason. It never substitutes an uncleared file or treats a boolean/digest-shaped value as authorization.
+- Functional bulletins and urgent PA/help retain their same typed visual receipt, caption, and transcript entry without audio. A suppressed milestone sting retains its important-sound caption. No mechanic is lost or mutated.
+- Future positive eligibility requires a contained, hash-verified authority record keyed to the exact asset ID and audio SHA-256 and explicitly granting `STREAMING_VOD` scope. No positive-authority loader is implemented in v2, so fabricated or uncontained records fail closed.
 - `Radio Off` suppresses radio selection without changing mechanics; queue cancellation and a safe fade of already-playing material are not proved by this scheduler.
 - PA/help remains a separate setting and bus.
 - Radio choices never change mechanics or the source payload.
@@ -251,7 +255,7 @@ Exact gain, attack, hold, and release values belong to lab mix metadata and must
 
 ## Three runtime-paced demo programmes
 
-Each current programme is exactly 660 seconds and carries a rendered 48 kHz, 24-bit stereo WAV, AAC audition preview, scheduler decision trace, schedule, labelled WebVTT captions, transcript with delivery status, and metadata. They are machine-produced fixture demonstrations, not broadcast masters or listening acceptance.
+Each current programme is exactly 660 seconds and carries a rendered 48 kHz, 24-bit stereo WAV, AAC audition preview, scheduler decision trace, schedule, labelled WebVTT captions, transcript with delivery status, and metadata. They are machine-produced fixture demonstrations for ordinary prototype audition, not Streamer-Safe versions, broadcast masters, or listening acceptance.
 
 | Programme ID | Eligible creative grammar | Required programme contents | Key proof |
 |---|---|---|---|
@@ -271,9 +275,9 @@ One deterministic 30-minute schedule exists per anchor programme, keyed in the c
 - `tape_hifi_1946_1959`
 - `networked_hybrid_2000_2014`
 
-Each trace contains six accepted events at 30, 330, 630, 930, 1230, and 1530 seconds plus decision-only suppression probes. Each reports full text, presenter, speech owner, gains, typed payload identity where applicable, and candidate evaluations. The traces prove chronological ordering, exact-ID non-repeat, category cooldowns, rolling budgets, a functional fixture, PA, milestone sting, receipt coalescing, repeat suppression, and no mechanical mutation. They do not establish listening comfort.
+Each trace contains six accepted events at 30, 330, 630, 930, 1230, and 1530 seconds plus decision-only suppression probes. Each reports full text, presenter, speech owner, gains, typed payload identity where applicable, and candidate evaluations. The probes include actual current decorative, functional, PA/help, and milestone items under Radio Streamer Safe: all audio is suppressed, radio-music gain is silent, functional/PA typed visual projections remain exact, the important-sound caption remains available, and no mechanic changes. The traces also prove chronological ordering, exact-ID non-repeat, category cooldowns, rolling budgets, receipt coalescing, repeat suppression, and no mechanical mutation. They do not establish listening comfort or positive streaming/VOD rights.
 
-Canonical scheduler evidence is `06_radio/scheduler-evidence/RADIO-SCHEDULER-EVIDENCE.v2.json`, SHA-256 `b404ffbda0e0db347c8f6bd6ad133739cb45b557832cd8ddad747c04ea8d6ffa`. It is emitted by the TypeScript `scheduleRadio` implementation rather than by hard-coded render metadata. Two consecutive rebuilds were byte-identical. The current runtime index is SHA-256 `36dec905c38f4577b68dc97ad1d2d6a5646b2b5efa6071bc5c37b42cdb56ef14`.
+Canonical scheduler evidence is `06_radio/scheduler-evidence/RADIO-SCHEDULER-EVIDENCE.v2.json`. It is emitted by the TypeScript `scheduleRadio` implementation rather than by hard-coded render metadata. The current exact scheduler-evidence and runtime-index hashes are recorded by the rebuilt runtime index and final validation; this document does not predict post-remedy hashes.
 
 ## Failure behavior
 
@@ -288,7 +292,8 @@ Canonical scheduler evidence is `06_radio/scheduler-evidence/RADIO-SCHEDULER-EVI
 | Expired item | Drop and record expiry; never voice stale news |
 | Duplicate receipt/item | Deduplicate and trace |
 | Device reset/pause | Preserve queue/history logically; do not replay completed voice |
-| Streamer-safe source unavailable | Fade to silence and report reason |
+| Radio Streamer Safe enabled with the current catalogue | Suppress all current radio/PA/sting/bed audio, stop any already-playing current source, clear its ducks, retain functional/important visual text, and report the exact absent-authorization reason |
+| Fabricated/uncontained positive authorization | Reject identity; do not select or load audio |
 
 ## Evidence status and human gate
 
@@ -301,9 +306,10 @@ The isolated prototype now provides:
 - three 660-second runtime-paced programme schedules and renders;
 - 12 clean and 12 period-treated current scratch-voice units with provenance; the failed v1 lane remains preserved and noncurrent;
 - rendered ducking and PA demonstrations plus captions and transcript artifacts;
-- separate Audio Lab controls for Radio Off, Streamer Safe presentation, mono, Night, and Speech First.
+- separate Audio Lab controls for Radio Off, fail-closed Radio Streamer Safe presentation, mono, Night, and Speech First;
+- decision probes showing current decorative, functional, PA/help, milestone, and radio-music audio all fail closed under Radio Streamer Safe while required visual text remains.
 
-The v5 runtime register exposes all 24 current clean/period-treated voice units as exact item-level WAV entries: 18 `RADIO_VOICE` entries and six `PA_VOICE` entries. It also exposes the one independent `MILESTONE_STING` WAV. Each voice entry binds an exact programme/role path, schedule item, eligible presenter, delivered speaker, speech owner, caption context, delivery result, typed payload identity/expiry where applicable, treatment, bus, spoken-text SHA-256, source-metadata SHA-256, format, duration, path, and audio SHA-256. The sting has a fixed source hash and one important-sound caption shared verbatim by all three hash-bound caption tracks. Together with the prior 122 entries, the register contains 147 items. Unity reconstructs only the four voiced roles that these files actually support—one composite opening, functional bulletin, interruptible link, and PA per programme—and never aliases them to the older unmatched placeholder IDs or pretends that the composite opening is four separable recordings.
+The v5 runtime register exposes all 24 current clean/period-treated voice units as exact item-level WAV entries: 18 `RADIO_VOICE` entries and six `PA_VOICE` entries. It also exposes the one independent `MILESTONE_STING` WAV. Each voice entry binds an exact programme/role path, schedule item, eligible presenter, delivered speaker, speech owner, caption context, delivery result, typed payload identity/expiry where applicable, treatment, bus, spoken-text SHA-256, source-metadata SHA-256, format, duration, path, and audio SHA-256. Each current voice and sting entry also carries an explicit negative authorization record whose asset SHA-256 matches that exact entry, whose authority-record SHA-256 is null, and whose status is `NOT_AUTHORIZED`; the current radio-music beds likewise have no positive streaming/VOD authority. The sting has a fixed source hash and one important-sound caption shared verbatim by all three hash-bound caption tracks. Together with the prior 122 entries, the register contains 147 items. Unity reconstructs only the four voiced roles that these files actually support—one composite opening, functional bulletin, interruptible link, and PA per programme—and never aliases them to the older unmatched placeholder IDs or pretends that the composite opening is four separable recordings.
 
 Caption/transcript state is created before an audio attempt. A voice becomes `AudibleScheduled` only after exact file validation, decode, bus acquisition, and successful DSP scheduling; otherwise it remains explicitly caption/transcript-only with the refusal reason and no duck. The speaker is distinct from presenter eligibility, so the shared Rina Shore PA performance is identified honestly in the early and postwar fixtures. Natural completion, suppression, and PA interruption update the same bounded transcript entry instead of treating caption time as proof of audible start.
 
@@ -311,6 +317,6 @@ The three 660-second renders remain baked full mixes. Their hash-bound WAV ident
 
 One limitation remains explicit: each interruptible item has exact whole-source caption text, while the demonstration PA cuts its source before the natural end. The transcript records `Interrupted`, incoming PA identity, and interruption time, but this pilot does not provide word-timed/truncated caption segments and therefore does not claim delivered-word parity after the cut.
 
-The canonical evidence entry point is `06_radio/STUDIO-RADIO-RUNTIME-INDEX.v2.json` in `/Users/bruce/Project Studio Audio Systems Pilot 01`, SHA-256 `36dec905c38f4577b68dc97ad1d2d6a5646b2b5efa6071bc5c37b42cdb56ef14`. The index reports a limited machine `PASS`; it is not a credibility, casting, fatigue, historical, cultural, rights, or accessibility verdict. Owner ratings remain required for copy credibility, presenter performance, repetition, ducking, fatigue, and accessibility.
+The canonical evidence entry point is `06_radio/STUDIO-RADIO-RUNTIME-INDEX.v2.json` in `/Users/bruce/Project Studio Audio Systems Pilot 01`; final validation records its exact post-remedy SHA-256. The index reports a limited machine `PASS`; it is not a credibility, casting, fatigue, historical, cultural, rights, or accessibility verdict. In particular, it records zero current positive streaming/VOD authorization records rather than treating prototype status as permission. Owner ratings remain required for copy credibility, presenter performance, repetition, ducking, fatigue, and accessibility.
 
 No automated result can approve casting, historical treatment, comedy density, cultural credibility, or production use.

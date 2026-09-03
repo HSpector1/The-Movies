@@ -437,7 +437,7 @@ def render_demo(spec: DemoSpec, bank: dict[str, Any], sting: Path) -> dict[str, 
         "milestone_sting": {"start_seconds": 332.0, "content_type": "MILESTONE_STING", "mechanical_mutation": "NONE"},
         "arbitration": "PA_HELP > FUNCTIONAL > DECORATIVE; one global speech owner",
         "disabled_radio_behavior": "No radio voice or radio music; mechanics and visible text remain available.",
-        "streamer_safe_substitution": "RADIO_MUSIC may be replaced with approved silence/ambience without changing voice payloads.",
+        "streamer_safe_substitution": "LEGACY_V1_NOT_AUTHORITY; current v2 fails closed to silence unless exact streaming/VOD authorization exists.",
     })
     metadata = {
         "schema": "project-studio-runtime-radio-demo/v1",
@@ -608,7 +608,7 @@ def main() -> None:
             "interruption": "PA_HELP interrupts radio; functional queues ahead of decorative; milestone sting never mutates truth",
             "ducking": "one global speech owner controls presentation-only gains",
             "disabled_radio": "mechanics and visible text remain; radio buses silent",
-            "streamer_safe": "radio music substitutes silence or approved safe music without changing payload",
+            "streamer_safe": "LEGACY_V1_NOT_AUTHORITY; use v2 closed-world rights validation and silence unauthorized audio",
         },
         "machine_verdict": "PASS" if len(demos) == 3 and len(simulations) == 3 else "FAIL",
         "limitations": [

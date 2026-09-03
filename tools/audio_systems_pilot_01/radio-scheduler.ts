@@ -42,6 +42,7 @@ export interface RadioItem {
   readonly speakerDisplayName: string;
   readonly speakerRole: "PROGRAMME_PRESENTER" | "PA_HELP_SPEAKER";
   readonly streamerSafeEligible: boolean;
+  readonly streamingVodAuthorizationRecordSha256: string | null;
 }
 
 export interface RadioHistoryItem {
@@ -77,8 +78,17 @@ export interface CandidateEvaluation {
   readonly reason: string;
 }
 
+export interface VisualOnlyRadioDelivery {
+  readonly item: RadioItem;
+  readonly captionText: string;
+  readonly payload: FunctionalPayload | null;
+  readonly importantSound: boolean;
+  readonly deliveryStatus: "VISUAL_ONLY_STREAMER_SAFE_RIGHTS_UNAVAILABLE";
+}
+
 export interface RadioScheduleDecision {
   readonly item: RadioItem | null;
+  readonly visualOnlyDelivery: VisualOnlyRadioDelivery | null;
   readonly speechOwner: SpeechOwner;
   readonly radioMusicGainDb: number;
   readonly scoreGainDb: number;
@@ -104,6 +114,8 @@ export const RADIO_LAWS = {
   maxElectiveVoicedSeconds: 75,
   minimumStartSpacingSeconds: 60,
 } as const;
+
+export const MILESTONE_IMPORTANT_SOUND_CAPTION = "[important sound] Milestone sting. No mechanical change.";
 
 const typePriority: Record<RadioContentType, number> = {
   PA_HELP: 4,
@@ -159,6 +171,19 @@ function validateSpeakerRole(item: RadioItem): boolean {
     item.speakerRole === (item.contentType === "PA_HELP" ? "PA_HELP_SPEAKER" : "PROGRAMME_PRESENTER");
 }
 
+function hasExactAuthorizationRecordIdentity(item: RadioItem): boolean {
+  // v2 has no contained authority-record loader, so it cannot honestly turn any
+  // digest-shaped string into positive streaming/VOD authorization.
+  return item.streamerSafeEligible === false && item.streamingVodAuthorizationRecordSha256 === null;
+}
+
+function hasExactCaptionContract(item: RadioItem): boolean {
+  if (item.contentType === "MILESTONE_STING") {
+    return item.captionText === MILESTONE_IMPORTANT_SOUND_CAPTION && item.spokenText === "";
+  }
+  return item.captionText.length > 0 && item.captionText === item.spokenText;
+}
+
 export function validateRadioItemPayloadContract(item: RadioItem): boolean {
   if (!isTypedVoiceItem(item)) {
     return item.payload === null && item.ownerDomain === null && item.eventId === null &&
@@ -179,9 +204,11 @@ function emptyDecision(
   evaluations: readonly CandidateEvaluation[],
   coalescedItemIds: readonly string[],
   budget: RadioScheduleDecision["rollingBudget"],
+  visualOnlyDelivery: VisualOnlyRadioDelivery | null = null,
 ): RadioScheduleDecision {
   return {
     item: null,
+    visualOnlyDelivery,
     speechOwner: "NONE",
     radioMusicGainDb: input.streamerSafe || !input.radioEnabled ? -80 : 0,
     scoreGainDb: 0,
@@ -204,6 +231,23 @@ function isElective(item: RadioItem): boolean {
 
 function historyType(item: RadioHistoryItem): RadioContentType {
   return item.contentType ?? "DECORATIVE";
+}
+
+function compareItems(left: RadioItem, right: RadioItem): number {
+  return typePriority[right.contentType] - typePriority[left.contentType] ||
+    right.priority - left.priority ||
+    newestReceipt(right).localeCompare(newestReceipt(left)) ||
+    left.id.localeCompare(right.id);
+}
+
+function asVisualOnlyDelivery(item: RadioItem): VisualOnlyRadioDelivery {
+  return {
+    item,
+    captionText: item.captionText,
+    payload: item.payload,
+    importantSound: item.contentType === "MILESTONE_STING",
+    deliveryStatus: "VISUAL_ONLY_STREAMER_SAFE_RIGHTS_UNAVAILABLE",
+  };
 }
 
 export function scheduleRadio(input: RadioScheduleInput): RadioScheduleDecision {
@@ -237,17 +281,19 @@ export function scheduleRadio(input: RadioScheduleInput): RadioScheduleDecision 
 
   const evaluations: CandidateEvaluation[] = [];
   const eligible: RadioItem[] = [];
+  const streamerSafeSuppressed: RadioItem[] = [];
   for (const item of coalesced) {
     let reason = "ELIGIBLE";
     if (!input.radioEnabled && item.contentType !== "PA_HELP" && item.contentType !== "MILESTONE_STING") reason = "RADIO_DISABLED_ITEM_SUPPRESSED";
     else if (!item.dayparts.includes(input.daypart)) reason = "DAYPART_INELIGIBLE";
     else if (!item.presenters.includes(input.presenterId) && item.contentType !== "PA_HELP" && item.contentType !== "MILESTONE_STING") reason = "PRESENTER_INELIGIBLE";
     else if (!validateSpeakerRole(item)) reason = "SPEAKER_ROLE_INVALID";
+    else if (!hasExactAuthorizationRecordIdentity(item)) reason = "STREAMER_SAFE_AUTHORIZATION_IDENTITY_INVALID";
     else if (!validateRadioItemPayloadContract(item)) reason = isTypedVoiceItem(item)
       ? "TYPED_PAYLOAD_INVALID_OR_DIVERGENT"
       : "NONFUNCTIONAL_ITEM_OWNS_FUNCTIONAL_FIELDS";
     else if (item.expiresAt !== null && (!validInstant(item.expiresAt) || Date.parse(item.expiresAt) <= nowEpoch)) reason = "EXPIRED";
-    else if (item.captionText !== item.spokenText) reason = "CAPTION_SPOKEN_DIVERGENCE";
+    else if (!hasExactCaptionContract(item)) reason = "CAPTION_SPOKEN_DIVERGENCE";
     else if (item.durationSeconds < 0 || !Number.isFinite(item.durationSeconds)) reason = "INVALID_DURATION";
     else if (input.streamerSafe && !item.streamerSafeEligible) reason = "STREAMER_SAFE_INELIGIBLE";
     else if (input.nowSeconds - (latestById.get(item.id) ?? -Infinity) < item.cooldownSeconds) reason = "EXACT_ITEM_COOLDOWN";
@@ -264,20 +310,21 @@ export function scheduleRadio(input: RadioScheduleInput): RadioScheduleDecision 
     else if (input.activeSpeech !== undefined && input.activeSpeech !== null && input.activeSpeech.endsAtSeconds > input.nowSeconds && item.contentType !== "PA_HELP") reason = "GLOBAL_SPEECH_OWNER_BUSY";
     evaluations.push({ id: item.id, eligible: reason === "ELIGIBLE", reason });
     if (reason === "ELIGIBLE") eligible.push(item);
+    else if (reason === "STREAMER_SAFE_INELIGIBLE") streamerSafeSuppressed.push(item);
   }
 
-  eligible.sort((left, right) =>
-    typePriority[right.contentType] - typePriority[left.contentType] ||
-    right.priority - left.priority ||
-    newestReceipt(right).localeCompare(newestReceipt(left)) ||
-    left.id.localeCompare(right.id),
-  );
+  eligible.sort(compareItems);
   const item = eligible[0] ?? null;
   if (item === null) {
-    const reason = !input.radioEnabled ? "RADIO_DISABLED_MECHANICS_UNCHANGED" :
+    streamerSafeSuppressed.sort(compareItems);
+    const visualOnlyDelivery = streamerSafeSuppressed[0] === undefined
+      ? null
+      : asVisualOnlyDelivery(streamerSafeSuppressed[0]);
+    const reason = visualOnlyDelivery !== null ? "STREAMER_SAFE_AUDIO_NOT_AUTHORIZED_VISUAL_ONLY" :
+      !input.radioEnabled ? "RADIO_DISABLED_MECHANICS_UNCHANGED" :
       evaluations.some((entry) => entry.reason.includes("BUDGET") || entry.reason === "GLOBAL_START_SPACING") ? "SPEECH_BUDGET_REQUIRES_SILENCE" :
       "NO_ELIGIBLE_ITEM_SILENCE";
-    return emptyDecision(reason, input, evaluations, coalescedItemIds, budget);
+    return emptyDecision(reason, input, evaluations, coalescedItemIds, budget, visualOnlyDelivery);
   }
 
   const speechOwner: SpeechOwner = item.contentType === "PA_HELP" ? "PA_HELP" : item.contentType === "MILESTONE_STING" ? "NONE" : "RADIO_VOICE";
@@ -289,6 +336,7 @@ export function scheduleRadio(input: RadioScheduleInput): RadioScheduleDecision 
     : `${item.contentType}_SELECTED`;
   return {
     item,
+    visualOnlyDelivery: null,
     speechOwner,
     radioMusicGainDb: input.streamerSafe ? -80 : speechOwner === "PA_HELP" ? -22 : speechOwner === "RADIO_VOICE" ? -15 : 0,
     scoreGainDb: speechOwner === "PA_HELP" ? -18 : speechOwner === "RADIO_VOICE" ? -12 : 0,

@@ -7,6 +7,7 @@ import {
   type CueBundle,
 } from "./decision-model";
 import {
+  MILESTONE_IMPORTANT_SOUND_CAPTION,
   coalesce,
   scheduleRadio,
   validatePayloadParity,
@@ -218,7 +219,8 @@ function radio(id: string, contentType: RadioItem["contentType"], priority: numb
     speakerId: contentType === "PA_HELP" ? "PA" : "P",
     speakerDisplayName: contentType === "PA_HELP" ? "PA Speaker" : "Presenter",
     speakerRole: contentType === "PA_HELP" ? "PA_HELP_SPEAKER" : "PROGRAMME_PRESENTER",
-    streamerSafeEligible: true,
+    streamerSafeEligible: false,
+    streamingVodAuthorizationRecordSha256: null,
     ...overrides,
   };
 }
@@ -255,6 +257,85 @@ describe("runtime radio scheduler", () => {
     expect(validatePayloadParity({ ...payload, captionText: "Different" })).toBe(false);
     const decision = scheduleRadio({ items: [], nowSeconds: 0, nowIso: "2026-01-01T00:00:00Z", daypart: "MORNING", presenterId: "P", history: [], radioEnabled: false, streamerSafe: false });
     expect(decision.reason).toMatch(/MECHANICS_UNCHANGED/);
+  });
+
+  it("suppresses every current audio kind in Streamer Safe while retaining exact visual-only meaning", () => {
+    const currentItems = [
+      radio("OPENING", "DECORATIVE", 20),
+      radio("FUNCTIONAL", "FUNCTIONAL", 70),
+      radio("PA", "PA_HELP", 100),
+      radio("MILESTONE", "MILESTONE_STING", 60, {
+        captionText: MILESTONE_IMPORTANT_SOUND_CAPTION,
+        spokenText: "",
+      }),
+    ] as const;
+    for (const unresolved of currentItems) {
+      const suppressed = scheduleRadio({
+        items: [unresolved], nowSeconds: 200, nowIso: "2026-09-03T00:00:00Z",
+        daypart: "MORNING", presenterId: "P",
+        history: [{
+          id: unresolved.id,
+          playedAtSeconds: 150,
+          contentType: unresolved.contentType,
+          category: unresolved.category,
+          durationSeconds: unresolved.durationSeconds,
+        }],
+        radioEnabled: true, streamerSafe: true,
+      });
+      expect(suppressed.item).toBeNull();
+      expect(suppressed.reason).toBe("STREAMER_SAFE_AUDIO_NOT_AUTHORIZED_VISUAL_ONLY");
+      expect(suppressed.candidateEvaluations).toEqual([
+        { id: unresolved.id, eligible: false, reason: "STREAMER_SAFE_INELIGIBLE" },
+      ]);
+      expect(suppressed.visualOnlyDelivery?.item).toEqual(unresolved);
+      expect(suppressed.visualOnlyDelivery?.captionText).toBe(unresolved.captionText);
+      expect(suppressed.visualOnlyDelivery?.payload).toEqual(unresolved.payload);
+      expect(suppressed.visualOnlyDelivery?.importantSound).toBe(unresolved.contentType === "MILESTONE_STING");
+      expect(suppressed.visualOnlyDelivery?.deliveryStatus).toBe("VISUAL_ONLY_STREAMER_SAFE_RIGHTS_UNAVAILABLE");
+      expect(suppressed.radioMusicGainDb).toBe(-80);
+      expect(suppressed.speechOwner).toBe("NONE");
+      expect(suppressed.mechanicsMutated).toBe(false);
+    }
+
+    const typedVisuals = currentItems.filter((item) => item.contentType === "FUNCTIONAL" || item.contentType === "PA_HELP");
+    expect(typedVisuals.every((item) => item.payload !== null && item.captionText === item.payload.captionText)).toBe(true);
+    expect(currentItems[3].captionText).toBe(MILESTONE_IMPORTANT_SOUND_CAPTION);
+    expect(currentItems[3].spokenText).toBe("");
+
+    const expiredPayload = { ...payload, expiresAt: "2025-01-01T00:00:00Z" };
+    const expired = radio("EXPIRED-SAFE", "FUNCTIONAL", 70, { payload: expiredPayload });
+    const expiredDecision = scheduleRadio({
+      items: [expired], nowSeconds: 200, nowIso: "2026-09-03T00:00:00Z",
+      daypart: "MORNING", presenterId: "P", history: [], radioEnabled: true, streamerSafe: true,
+    });
+    expect(expiredDecision.item).toBeNull();
+    expect(expiredDecision.visualOnlyDelivery).toBeNull();
+    expect(expiredDecision.candidateEvaluations[0].reason).toBe("EXPIRED");
+  });
+
+  it("rejects fabricated positive Streamer Safe authorization identities", () => {
+    const unsupportedPositiveClaim = radio("UNSUPPORTED", "DECORATIVE", 20, {
+      streamerSafeEligible: true,
+      streamingVodAuthorizationRecordSha256: "a".repeat(64),
+    });
+    const refused = scheduleRadio({
+      items: [unsupportedPositiveClaim], nowSeconds: 200, nowIso: "2026-09-03T00:00:00Z",
+      daypart: "MORNING", presenterId: "P", history: [], radioEnabled: true, streamerSafe: false,
+    });
+    expect(refused.item).toBeNull();
+    expect(refused.visualOnlyDelivery).toBeNull();
+    expect(refused.candidateEvaluations[0].reason).toBe("STREAMER_SAFE_AUTHORIZATION_IDENTITY_INVALID");
+
+    const digestOnNegativeClaim = radio("UNSUPPORTED-NEGATIVE", "DECORATIVE", 20, {
+      streamingVodAuthorizationRecordSha256: "b".repeat(64),
+    });
+    const refusedNegative = scheduleRadio({
+      items: [digestOnNegativeClaim], nowSeconds: 200, nowIso: "2026-09-03T00:00:00Z",
+      daypart: "MORNING", presenterId: "P", history: [], radioEnabled: true, streamerSafe: true,
+    });
+    expect(refusedNegative.item).toBeNull();
+    expect(refusedNegative.visualOnlyDelivery).toBeNull();
+    expect(refusedNegative.candidateEvaluations[0].reason).toBe("STREAMER_SAFE_AUTHORIZATION_IDENTITY_INVALID");
   });
 
   it("enforces global spacing and rolling voice and elective budgets", () => {

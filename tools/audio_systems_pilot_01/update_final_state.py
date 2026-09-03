@@ -232,6 +232,14 @@ def build(mode: str) -> dict[str, Any]:
         "focused_proof": "Targeted PlayMode proof rejects missing and unvalidated catalogue requests with exact visible reasons, silence, zero load attempts, and zero state mutation; pure tests prove deterministic complete bags, no immediate repeat, and no complete ordinal/reverse ladder; indexed pause/cooldown proof uses a validated external candidate; clean-SHA full Unity and fresh hostile review pass.",
         "status": "RESOLVED",
     })
+    upsert_by_id(errors, {
+        "id": "ERR-0012",
+        "classification": "HOSTILE_REVIEW_STREAMER_SAFE_RIGHTS_OVERCLAIM",
+        "hypothesis": "The prototype treated local lab playback eligibility as streaming/VOD authorization, so Streamer Safe could still play generic system voices and a milestone sting whose output is expressly local, non-redistributable scratch.",
+        "correction": "Made radio schema v2 closed-world for streaming/VOD rights: every current item carries false/null authorization, the system register binds each voice and sting to an exact-hash NOT_AUTHORIZED record, fabricated positive claims fail validation, and Radio Streamer Safe silences every current voice, PA, sting, and music bed while retaining functional and important visual text/transcripts without changing mechanics.",
+        "focused_proof": "TypeScript and Unity mutation tests reject unverified positive claims; actual decorative, functional, PA, and milestone fixtures are suppressed with zero clip loads, -80 dB radio music, stopped speech/sting sources, cleared ducking, and exact visual-only payload/caption retention; clean-SHA full Unity proof and fresh eight-lane hostile review pass.",
+        "status": "RESOLVED",
+    })
     if any(row.get("status") != "RESOLVED" for row in errors):
         raise RuntimeError("state still contains an unresolved ordinary failure")
 
