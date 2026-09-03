@@ -34,14 +34,14 @@ label { display: grid; gap: .35rem; color: var(--muted); font-size: .82rem; }
 select, input[type="search"], textarea { width: 100%; padding: .58rem; }
 #catalogue-summary { padding: 0 .9rem; }
 .item-list { overflow: auto; margin: 0; padding: 0; list-style: none; }
-.item-list button { display: grid; grid-template-columns: 3.2rem 1fr .8rem; width: 100%; gap: .65rem; padding: .78rem .9rem; text-align: left; border: 0; border-radius: 0; border-top: 1px solid #2d342f; background: transparent; }
+.item-list button { display: grid; grid-template-columns: 3.2rem 1fr auto; width: 100%; gap: .65rem; padding: .78rem .9rem; text-align: left; border: 0; border-radius: 0; border-top: 1px solid #2d342f; background: transparent; }
 .item-list button:hover { background: #293029; }
 .item-list button.selected { background: #34352c; box-shadow: inset 3px 0 var(--accent); }
 .index { color: var(--accent); font-variant-numeric: tabular-nums; }
 .item-copy strong, .item-copy small { display: block; }
 .item-copy small { margin-top: .18rem; color: var(--muted); }
-.decision-dot { align-self: center; width: .65rem; height: .65rem; border-radius: 50%; background: #4a504c; }
-.decision-dot.keep { background: #6ebb91; }.decision-dot.maybe { background: var(--accent); }.decision-dot.reject { background: var(--danger); }
+.decision-marker { align-self: center; min-width: 4.2rem; padding: .14rem .32rem; border: 1px solid #626a65; border-radius: 999px; color: var(--muted); text-align: center; font-size: .66rem; text-transform: uppercase; }
+.decision-marker.keep { color: #bce2cf; border-color: #6ebb91; }.decision-marker.maybe { color: #f5d99e; border-color: var(--accent); }.decision-marker.reject { color: #ffc0b9; border-color: var(--danger); }
 .player { padding: clamp(1rem, 2.5vw, 2.2rem); }
 .player h2 { margin: .35rem 0 .2rem; font-family: Georgia, serif; font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 500; }
 .detail, .muted, .save-note, .privacy { color: var(--muted); }

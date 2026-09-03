@@ -18,10 +18,11 @@ from common import DOC_REPO, PILOT_ROOT, atomic_write_json, atomic_write_text, s
 
 
 RETURN_ROOT = Path("/Users/bruce/Desktop/Project-Studio-Audio-Systems-Pilot-01")
-AUDITION_SOURCE = PILOT_ROOT / "11_return-package/AUDITION-SOURCE-REGISTER.json"
-SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v3.json"
+AUDITION_SOURCE = PILOT_ROOT / "11_return-package/AUDITION-SOURCE-REGISTER.v2.json"
+SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json"
 ORACLE_ROOT = PILOT_ROOT / "07_audio-oracle"
-AUDITION_APP = PILOT_ROOT / "08_audition-app"
+ORACLE_SUITE = ORACLE_ROOT / "AUDIO-ORACLE-SUITE.v1.json"
+AUDITION_APP = PILOT_ROOT / "08_audition-app/v2"
 REQUIRED_DIRS = (
     "AUDIO-LAB", "MUSIC/EARLY", "MUSIC/MID", "MUSIC/MODERN", "TRANSITIONS", "LIVING-LOT",
     "MANAGEMENT-SFX", "RADIO/EARLY", "RADIO/POSTWAR", "RADIO/DIGITAL", "ACCESSIBILITY",
@@ -93,7 +94,7 @@ Open `AUDITION/START-AUDITION.command`. It starts a loopback-only local page and
 2. Three treatments at each rendered era boundary.
 3. Living Lot with Score off, then Wide/Medium/Close and the five activity fixtures.
 4. Management sounds repeatedly, paying attention to irritation and restraint.
-5. All three ten-minute Studio Radio programs with captions.
+5. All three eleven-minute Studio Radio programs with captions.
 6. Speech First, Night, Music Light, Music Off, and Force Mono.
 7. Audio Oracle renders and traces.
 
@@ -114,6 +115,7 @@ def known_limitations() -> str:
 - Generic local synthetic presenter voices are scratch prototypes. Names, casting, performance, pronunciation, historical delivery, and treatment need human review.
 - Period treatment is not one universal “old radio” filter; nevertheless all three approaches remain provisional.
 - Unity batch proof validates code, scene structure, schedules, files, and rendered signal properties. It cannot prove audibility on every device or subjective mix quality.
+- The Audio Oracle contains Unity-observed traces for all required scenarios, but only Force Mono and Night currently carry engine-produced PCM marker captures; the remaining scenarios are runtime event/assertion evidence, not mixed listening demonstrations.
 - Radio, PA, score, ambience, SFX, and UI never mutate mechanics. Functional bulletins use typed lab fixture payloads until their future owner contracts exist.
 - The Small-SFX path uses an exact public optimized prototype weight and existing approved shared components. It does not create commercial clearance.
 - The Audio Lab APIs and integration proposal are provisional. Production integration was prepared but not executed.
@@ -126,12 +128,17 @@ set -euo pipefail
 SCRIPT_DIR="${0:A:h}"
 PILOT_ROOT_DEFAULT="/Users/bruce/Project Studio Audio Systems Pilot 01"
 export PROJECT_STUDIO_AUDIO_PILOT_ROOT="${PROJECT_STUDIO_AUDIO_PILOT_ROOT:-$PILOT_ROOT_DEFAULT}"
-if [[ ! -f "$PROJECT_STUDIO_AUDIO_PILOT_ROOT/01_catalogue/AudioPrototypeCatalogue.v1.json" ]]; then
+if [[ ! -f "$PROJECT_STUDIO_AUDIO_PILOT_ROOT/10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json" ]]; then
   print -u2 "Audio Lab refused: catalogue unavailable under $PROJECT_STUDIO_AUDIO_PILOT_ROOT"
   print -u2 "Set PROJECT_STUDIO_AUDIO_PILOT_ROOT to the preserved Audio Systems Pilot root and retry."
   exit 2
 fi
-exec /usr/bin/open "$SCRIPT_DIR/Project Studio Audio Systems Pilot.app"
+LAB_EXECUTABLE="$SCRIPT_DIR/Project Studio Audio Systems Pilot.app/Contents/MacOS/Project Studio Audio Systems Pilot"
+if [[ ! -x "$LAB_EXECUTABLE" ]]; then
+  print -u2 "Audio Lab refused: packaged executable unavailable at $LAB_EXECUTABLE"
+  exit 3
+fi
+exec "$LAB_EXECUTABLE"
 """
 
 
@@ -169,15 +176,28 @@ def package_item(item: dict[str, Any], root: Path) -> None:
 
 def copy_radio(root: Path) -> None:
     mappings = {
-        "EARLY": "EARLY-NETWORK-GOLDEN-STUDIO",
-        "POSTWAR": "POSTWAR-PERSONALITY-FORMAT-TRANSITION",
-        "DIGITAL": "DIGITAL-NETWORKED-HYBRID",
+        "EARLY": "EARLY-NETWORK-GOLDEN-STUDIO-V2",
+        "POSTWAR": "POSTWAR-PERSONALITY-TAPE-HIFI-V2",
+        "DIGITAL": "DIGITAL-NETWORKED-HYBRID-V2",
     }
     for destination_name, slug in mappings.items():
-        source_root = PILOT_ROOT / "06_radio/demos" / slug
+        source_root = PILOT_ROOT / "06_radio/demos-v2" / slug
         destination_root = root / "RADIO" / destination_name
-        for name in (f"{slug}-RUNTIME-DEMO.m4a", "CAPTIONS.vtt", "TRANSCRIPT.md", "SCHEDULE.json", "METADATA.json", "THIRTY-MINUTE-SIMULATION.json"):
+        for name in (f"{slug}-RUNTIME-DEMO.m4a", f"{slug}-RUNTIME-DEMO.wav", "CAPTIONS.v2.vtt", "TRANSCRIPT.v2.md", "SCHEDULE.v2.json", "METADATA.v2.json", "THIRTY-MINUTE-SIMULATION.v2.json"):
             clone_file(source_root / name, destination_root / name)
+
+
+def copy_current_oracle(root: Path) -> None:
+    """Package only current Unity-observed Oracle evidence, never superseded authored traces."""
+    clone_file(ORACLE_SUITE, root / "AUDIO-ORACLE" / ORACLE_SUITE.name)
+    copy_tree(ORACLE_ROOT / "traces", root / "AUDIO-ORACLE/traces")
+    copy_tree(ORACLE_ROOT / "captures", root / "AUDIO-ORACLE/captures")
+    for relative in (
+        "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json",
+        "09_unity-lab/RuntimeEvidence/audio-oracle-runtime-observations.json",
+        "09_unity-lab/Builds/macOS/Project Studio Audio Systems Pilot.app.build-receipt.json",
+    ):
+        clone_file(PILOT_ROOT / relative, root / "AUDIO-ORACLE" / Path(relative).name)
 
 
 def manifest_tree(root: Path) -> dict[str, Any]:
@@ -203,14 +223,16 @@ def build(lab_app: Path) -> dict[str, Any]:
     if RETURN_ROOT.exists():
         raise RuntimeError(f"return package already exists; verify or preserve it instead of overwriting: {RETURN_ROOT}")
     source_register = json.loads(AUDITION_SOURCE.read_text(encoding="utf-8"))
-    if source_register.get("schema") != "project-studio-audio-systems-audition-source/v1":
+    if source_register.get("schema") != "project-studio-audio-systems-audition-source/v2":
         raise RuntimeError("unexpected audition source register")
     for item in source_register["items"]:
         if sha256_file(Path(item["source_path"])) != item["sha256"]:
             raise RuntimeError(f"audition source changed before packaging: {item['id']}")
-    oracle_index = json.loads((ORACLE_ROOT / "AUDIO-ORACLE-INDEX.json").read_text(encoding="utf-8"))
-    if oracle_index.get("scenario_count") != 18 or oracle_index.get("machine_verdict") != "PASS":
-        raise RuntimeError("Audio Oracle is not a complete 18-scenario pass")
+    oracle_index = json.loads(ORACLE_SUITE.read_text(encoding="utf-8"))
+    if oracle_index.get("schema") != "project-studio-audio-oracle-suite/v1" or oracle_index.get("machine_verdict") != "PASS":
+        raise RuntimeError("Audio Oracle is not a Unity-observed machine pass")
+    if int(oracle_index.get("required_scenario_count", 0)) != 18 or int(oracle_index.get("scenario_count", 0)) < 18:
+        raise RuntimeError("Audio Oracle does not contain all 18 required scenarios")
     subprocess.run(["codesign", "--verify", "--deep", "--strict", str(lab_app)], check=True, capture_output=True, text=True)
 
     staging = Path(tempfile.mkdtemp(prefix=".Project-Studio-Audio-Systems-Pilot-01.", dir=RETURN_ROOT.parent))
@@ -233,32 +255,35 @@ Use `START-AUDIO-LAB.command`. The application loads only explicit, SHA-256-boun
         for item in source_register["items"]:
             package_item(item, staging)
         copy_radio(staging)
-        copy_tree(ORACLE_ROOT, staging / "AUDIO-ORACLE")
+        copy_current_oracle(staging)
         copy_tree(AUDITION_APP, staging / "AUDITION")
 
         for source in (
             PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.v1.json",
+            PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.identity-closure.v3.json",
             SYSTEM_REGISTER,
             AUDITION_SOURCE,
-            PILOT_ROOT / "10_provenance/audio-assets-index.v3.json",
+            PILOT_ROOT / "10_provenance/audio-assets-index.v4.json",
             PILOT_ROOT / "02_music-bundles/responsive/responsive-anchor-authority.v2.json",
-            PILOT_ROOT / "02_music-bundles/responsive/responsive-generation-register.json",
-            PILOT_ROOT / "02_music-bundles/responsive/responsive-bundle-catalogue.json",
-            PILOT_ROOT / "03_transitions/rendered-transition-catalogue.v3.json",
-            PILOT_ROOT / "04_living-lot/living-lot-soundscape-catalogue.v2.json",
+            PILOT_ROOT / "02_music-bundles/responsive/responsive-generation-register.v2.json",
+            PILOT_ROOT / "02_music-bundles/responsive/responsive-bundle-catalogue.v2.json",
+            PILOT_ROOT / "02_music-bundles/simulations/FOUR-HOUR-DENSITY-SIMULATIONS.v2.json",
+            PILOT_ROOT / "03_transitions/rendered-transition-catalogue.v4.json",
+            PILOT_ROOT / "04_living-lot/living-lot-soundscape-catalogue.v3.json",
             PILOT_ROOT / "05_management-sfx/generated-lot-detail/lot-detail-sfx-catalogue.json",
-            PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v3.json",
-            PILOT_ROOT / "06_radio/STUDIO-RADIO-RUNTIME-INDEX.json",
-            PILOT_ROOT / "07_audio-oracle/accessibility-renders-v3/ACCESSIBILITY-PRESETS.v3.json",
-            PILOT_ROOT / "07_audio-oracle/AUDIO-ORACLE-INDEX.json",
+            PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v4.json",
+            PILOT_ROOT / "06_radio/STUDIO-RADIO-RUNTIME-INDEX.v2.json",
+            PILOT_ROOT / "07_audio-oracle/accessibility-renders-v4/ACCESSIBILITY-PRESETS.v4.json",
+            ORACLE_SUITE,
         ):
             clone_file(source, staging / "CATALOGUE" / source.name)
         provenance_files = (
             PILOT_ROOT / "10_provenance/phase-a-reconciliation.json",
             PILOT_ROOT / "10_provenance/source-authority-hashes.json",
             PILOT_ROOT / "10_provenance/sfx-route-gate.v2.json",
-            PILOT_ROOT / "10_provenance/audio-assets-validation.v3.json",
-            PILOT_ROOT / "10_provenance/audio-derivative-source-register.v3.json",
+            PILOT_ROOT / "10_provenance/audio-assets-validation.v4.json",
+            PILOT_ROOT / "10_provenance/audio-derivative-source-register.v4.json",
+            PILOT_ROOT / "10_provenance/COMPLETE-AUDIO-FILE-REGISTER.v1.json",
             PILOT_ROOT / "00_state/AUDIO-SYSTEMS-PILOT-STATE.json",
         )
         for source in provenance_files:
@@ -270,7 +295,7 @@ Use `START-AUDIO-LAB.command`. The application loads only explicit, SHA-256-boun
         clone_file(DOC_REPO / "docs/audio/CODEX-LIVING-LOT-SOUNDSCAPE-01.md", staging / "LIVING-LOT/README.md")
         clone_file(DOC_REPO / "docs/audio/CODEX-MANAGEMENT-AUDIO-LANGUAGE-01.md", staging / "MANAGEMENT-SFX/README.md")
         clone_file(DOC_REPO / "docs/audio/CODEX-STUDIO-RADIO-RUNTIME-01.md", staging / "RADIO/README.md")
-        clone_file(PILOT_ROOT / "07_audio-oracle/accessibility-renders-v3/ACCESSIBILITY-PRESETS.v3.json", staging / "ACCESSIBILITY/ACCESSIBILITY-PRESETS.v3.json")
+        clone_file(PILOT_ROOT / "07_audio-oracle/accessibility-renders-v4/ACCESSIBILITY-PRESETS.v4.json", staging / "ACCESSIBILITY/ACCESSIBILITY-PRESETS.v4.json")
 
         subprocess.run(["codesign", "--verify", "--deep", "--strict", str(staging / "AUDIO-LAB/Project Studio Audio Systems Pilot.app")], check=True, capture_output=True, text=True)
         tree = manifest_tree(staging)
@@ -284,7 +309,7 @@ Use `START-AUDIO-LAB.command`. The application loads only explicit, SHA-256-boun
             "cloud": False,
             "files": tree["files"],
             "symlinks": tree["symlinks"],
-            "counts": {"files": len(tree["files"]), "symlinks": len(tree["symlinks"]), "audition_items": len(source_register["items"]), "oracle_scenarios": 18},
+            "counts": {"files": len(tree["files"]), "symlinks": len(tree["symlinks"]), "audition_items": len(source_register["items"]), "oracle_scenarios": oracle_index["scenario_count"], "required_oracle_scenarios": 18},
         }
         atomic_write_json(staging / "RETURN-PACKAGE-MANIFEST.json", manifest)
         os.replace(staging, RETURN_ROOT)

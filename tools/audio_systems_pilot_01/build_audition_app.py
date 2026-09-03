@@ -9,6 +9,7 @@ import io
 import json
 import os
 import shutil
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -16,8 +17,8 @@ from common import PILOT_ROOT, atomic_write_json, atomic_write_text, canonical_c
 
 
 SOURCE_ROOT = Path(__file__).resolve().parent / "audition_app_source"
-DEFAULT_REGISTER = PILOT_ROOT / "11_return-package/AUDITION-SOURCE-REGISTER.json"
-OUTPUT_ROOT = PILOT_ROOT / "08_audition-app"
+DEFAULT_REGISTER = PILOT_ROOT / "11_return-package/AUDITION-SOURCE-REGISTER.v2.json"
+OUTPUT_ROOT = PILOT_ROOT / "08_audition-app/v2"
 REQUIRED_COLLECTIONS = {
     "ERA_LIBRARY",
     "RESPONSIVE_MUSIC",
@@ -60,7 +61,7 @@ def build(register_path: Path) -> dict[str, Any]:
     existing_manifest_path = OUTPUT_ROOT / "AUDITION-BUILD-MANIFEST.json"
     existing_manifest = json.loads(existing_manifest_path.read_text(encoding="utf-8")) if existing_manifest_path.is_file() else None
     register = json.loads(register_path.read_text(encoding="utf-8"))
-    if register.get("schema") != "project-studio-audio-systems-audition-source/v1":
+    if register.get("schema") != "project-studio-audio-systems-audition-source/v2":
         raise RuntimeError("unexpected audition source-register schema")
     if register.get("status") not in {"PROTOTYPE_ONLY", "PROTOTYPE_READY_FOR_OWNER_AUDITION"}:
         raise RuntimeError("audition source register has a prohibited status")
@@ -134,7 +135,7 @@ def build(register_path: Path) -> dict[str, Any]:
     ]
     source_register_hash = sha256_file(register_path)
     public_catalogue = {
-        "schema": "project-studio-audio-systems-audition/v1",
+        "schema": "project-studio-audio-systems-audition/v2",
         "generatedUtc": existing_manifest.get("public_catalogue_generated_utc", utc_now()) if existing_manifest else utc_now(),
         "status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
         "humanAcceptance": "NONE_RECORDED",
@@ -146,7 +147,7 @@ def build(register_path: Path) -> dict[str, Any]:
     catalogue_path = OUTPUT_ROOT / "data/catalogue.json"
     atomic_write_json(catalogue_path, public_catalogue)
     manifest = {
-        "schema": "project-studio-audio-systems-audition-build/v1",
+        "schema": "project-studio-audio-systems-audition-build/v2",
         "generated_utc": existing_manifest["generated_utc"] if existing_manifest else utc_now(),
         "public_catalogue_generated_utc": public_catalogue["generatedUtc"],
         "machine_verdict": "PASS",
@@ -169,6 +170,8 @@ def build(register_path: Path) -> dict[str, Any]:
 def verify() -> dict[str, Any]:
     manifest_path = OUTPUT_ROOT / "AUDITION-BUILD-MANIFEST.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("schema") != "project-studio-audio-systems-audition-build/v2" or manifest.get("machine_verdict") != "PASS":
+        raise RuntimeError("audition build manifest failed")
     for record in [*manifest["static_assets"], *manifest["audio_assets"]]:
         target = canonical_contained(OUTPUT_ROOT, OUTPUT_ROOT / record["relative_path"])
         if sha256_file(target) != record["sha256"]:
@@ -176,7 +179,33 @@ def verify() -> dict[str, Any]:
     catalogue = Path(manifest["catalogue"]["path"])
     if sha256_file(catalogue) != manifest["catalogue"]["sha256"]:
         raise RuntimeError("audition catalogue hash mismatch")
-    return {"machine_verdict": "PASS", "items": manifest["counts"]["items"], "audio_assets": len(manifest["audio_assets"])}
+    public = json.loads(catalogue.read_text(encoding="utf-8"))
+    if public.get("schema") != "project-studio-audio-systems-audition/v2" or public.get("telemetry") is not False or public.get("networkRequired") is not False:
+        raise RuntimeError("audition public policy mismatch")
+    if len(public.get("items", [])) != manifest["counts"]["items"]:
+        raise RuntimeError("audition public item count mismatch")
+    if any(str(item.get("audio", "")).startswith(("http://", "https://", "//")) for item in public["items"]):
+        raise RuntimeError("audition catalogue contains a network audio source")
+    register_path = Path(manifest["source_register"]["path"])
+    if sha256_file(register_path) != manifest["source_register"]["sha256"]:
+        raise RuntimeError("audition source register changed")
+    register = json.loads(register_path.read_text(encoding="utf-8"))
+    for record in register.get("source_manifests", []):
+        if sha256_file(Path(record["path"])) != record["sha256"]:
+            raise RuntimeError(f"audition upstream manifest changed: {record['path']}")
+    javascript = OUTPUT_ROOT / "app.js"
+    completed = subprocess.run(["node", "--check", str(javascript)], check=False, capture_output=True, text=True)
+    if completed.returncode != 0:
+        raise RuntimeError(f"audition JavaScript syntax failed: {completed.stderr}")
+    source_text = javascript.read_text(encoding="utf-8")
+    required_tokens = ("localStorage", "exportCsv", "exportJson", "getGamepads", "captions_enabled", "decision-marker")
+    if not all(token in source_text for token in required_tokens):
+        raise RuntimeError("audition local-rating/accessibility controls are incomplete")
+    return {
+        "machine_verdict": "PASS", "items": manifest["counts"]["items"],
+        "audio_assets": len(manifest["audio_assets"]), "javascript_syntax": "PASS",
+        "network_audio_sources": 0, "telemetry": False,
+    }
 
 
 def write_blank_feedback(path: Path) -> None:

@@ -1001,7 +1001,7 @@ def build_management_pack() -> dict[str, Any]:
             {
                 **semantic,
                 "maximum_concurrency": semantic.pop("concurrency") if False else semantic["concurrency"],
-                "repeat_variation": "shuffle among approved candidates; no immediate repeat",
+                "repeat_variation": "shuffle among eligible provisional candidates; no immediate repeat",
                 "volume_range_db": [-24, -12] if semantic["priority"] < 50 else [-21, -10],
                 "bus": "UI",
                 "visual_text_equivalent": f"visible state/text for {semantic['meaning']}; never audio-only",

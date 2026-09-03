@@ -13,12 +13,12 @@ from typing import Any
 from common import PILOT_ROOT, atomic_write_json, probe_audio, sha256_file, utc_now
 
 
-SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v3.json"
-ACCESSIBILITY_INDEX = PILOT_ROOT / "07_audio-oracle/accessibility-renders-v3/ACCESSIBILITY-PRESETS.v3.json"
-ORACLE_INDEX = PILOT_ROOT / "07_audio-oracle/AUDIO-ORACLE-INDEX.json"
-MANAGEMENT_CATALOGUE = PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v3.json"
-PREVIEW_ROOT = PILOT_ROOT / "11_return-package/audition-previews"
-OUTPUT_PATH = PILOT_ROOT / "11_return-package/AUDITION-SOURCE-REGISTER.json"
+SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json"
+ACCESSIBILITY_INDEX = PILOT_ROOT / "07_audio-oracle/accessibility-renders-v4/ACCESSIBILITY-PRESETS.v4.json"
+ORACLE_INDEX = PILOT_ROOT / "07_audio-oracle/AUDIO-ORACLE-SUITE.v1.json"
+MANAGEMENT_CATALOGUE = PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v4.json"
+PREVIEW_ROOT = PILOT_ROOT / "11_return-package/audition-previews-v2"
+OUTPUT_PATH = PILOT_ROOT / "11_return-package/AUDITION-SOURCE-REGISTER.v2.json"
 CONVERSION_MANIFEST = PREVIEW_ROOT / "AUDITION-PREVIEW-DERIVATIVES.json"
 
 
@@ -34,7 +34,7 @@ def preview(source: Path, expected_hash: str, stable_id: str, duration: float) -
         return {"path": str(source), "sha256": expected_hash, "duration_seconds": probe_audio(source)["duration_seconds"], "derivation": "EXISTING_VERIFIED_AAC_PREVIEW"}
     if duration <= 2:
         return {"path": str(source), "sha256": expected_hash, "duration_seconds": probe_audio(source)["duration_seconds"], "derivation": "SHORT_VERIFIED_PCM_SOURCE"}
-    destination = PREVIEW_ROOT / f"{stable_id}.m4a"
+    destination = PREVIEW_ROOT / f"{stable_id}--{expected_hash[:16]}.m4a"
     if not destination.exists():
         destination.parent.mkdir(parents=True, exist_ok=True)
         descriptor, name = tempfile.mkstemp(prefix=f".{stable_id}.", suffix=".m4a", dir=destination.parent)
@@ -91,7 +91,7 @@ def build() -> dict[str, Any]:
     existing_output = json.loads(OUTPUT_PATH.read_text(encoding="utf-8")) if OUTPUT_PATH.is_file() else None
     existing_conversion = json.loads(CONVERSION_MANIFEST.read_text(encoding="utf-8")) if CONVERSION_MANIFEST.is_file() else None
     system = json.loads(SYSTEM_REGISTER.read_text(encoding="utf-8"))
-    if system.get("schema") != "project-studio-system-audio-asset-register/v3":
+    if system.get("schema") != "project-studio-system-audio-asset-register/v5":
         raise RuntimeError("unexpected systems register schema")
     source_items = system["items"]
     items: list[dict[str, Any]] = []
@@ -141,13 +141,15 @@ def build() -> dict[str, Any]:
         conversions.append({"id": f"ASP01-ACCESSIBILITY-{render['preset']}", **source})
 
     oracle = json.loads(ORACLE_INDEX.read_text(encoding="utf-8"))
-    for trace in oracle["traces"]:
-        render = trace.get("render")
+    if oracle.get("schema") != "project-studio-audio-oracle-suite/v1" or oracle.get("machine_verdict") != "PASS":
+        raise RuntimeError("Unity-observed Audio Oracle suite unavailable or failed")
+    for trace in oracle["scenarios"]:
+        render = trace.get("capture")
         if not render:
             continue
         item_id = f"ASP01-ORACLE-{trace['number']:02d}"
         source = preview(Path(render["path"]), render["sha256"], item_id, render["probe"]["duration_seconds"])
-        add_item(items, source=source, item_id=item_id, title=f"Audio Oracle {trace['number']:02d} · {trace['scenario'].replace('_', ' ').title()}", collection="AUDIO_ORACLE", context=trace["scenario"], classification="MACHINE_EVIDENCE_LISTENING_DEMONSTRATION", bus="MASTER", caption=f"Audio Oracle demonstration: {trace['scenario'].replace('_', ' ').lower()}.", rights_status=oracle["status"])
+        add_item(items, source=source, item_id=item_id, title=f"Audio Oracle {trace['number']:02d} · {trace['scenario'].replace('_', ' ').title()}", collection="AUDIO_ORACLE", context=trace["scenario"], classification="UNITY_RUNTIME_PCM_CAPTURE_LISTENING_DEMONSTRATION", bus="MASTER", caption=f"Unity runtime PCM capture: {trace['scenario'].replace('_', ' ').lower()}.", rights_status=oracle["status"])
         conversions.append({"id": item_id, **source})
 
     ids = [item["id"] for item in items]
@@ -155,17 +157,17 @@ def build() -> dict[str, Any]:
         raise RuntimeError("audition source register contains duplicate IDs")
     counts = {collection: sum(item["collection"] == collection for item in items) for collection in sorted({item["collection"] for item in items})}
     expected = {"ERA_LIBRARY": 27, "RESPONSIVE_MUSIC": 12, "ERA_TRANSITIONS": 9, "LIVING_LOT": 11, "MANAGEMENT_SFX": 45, "STUDIO_RADIO": 3, "ACCESSIBILITY": 6}
-    if any(counts.get(key) != value for key, value in expected.items()) or counts.get("AUDIO_ORACLE", 0) < 8:
+    if any(counts.get(key) != value for key, value in expected.items()) or counts.get("AUDIO_ORACLE", 0) < 2:
         raise RuntimeError(f"audition coverage incomplete: {counts}")
     conversion_output = {
-        "schema": "project-studio-audition-preview-derivatives/v1",
+        "schema": "project-studio-audition-preview-derivatives/v2",
         "generated_utc": existing_conversion["generated_utc"] if existing_conversion else utc_now(),
         "status": "PROTOTYPE_READY_FOR_OWNER_AUDITION", "records": conversions,
         "source_relationships_explicit": True,
     }
     atomic_write_json(CONVERSION_MANIFEST, conversion_output)
     output = {
-        "schema": "project-studio-audio-systems-audition-source/v1",
+        "schema": "project-studio-audio-systems-audition-source/v2",
         "generated_utc": existing_output["generated_utc"] if existing_output else utc_now(),
         "status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
         "human_acceptance": "NONE_RECORDED",
@@ -173,7 +175,14 @@ def build() -> dict[str, Any]:
         "telemetry": False,
         "counts": counts,
         "items": items,
+        "source_manifests": [
+            {"path": str(SYSTEM_REGISTER), "sha256": sha256_file(SYSTEM_REGISTER)},
+            {"path": str(MANAGEMENT_CATALOGUE), "sha256": sha256_file(MANAGEMENT_CATALOGUE)},
+            {"path": str(ACCESSIBILITY_INDEX), "sha256": sha256_file(ACCESSIBILITY_INDEX)},
+            {"path": str(ORACLE_INDEX), "sha256": sha256_file(ORACLE_INDEX)},
+        ],
         "derivative_manifest": {"path": str(CONVERSION_MANIFEST), "sha256": sha256_file(CONVERSION_MANIFEST)},
+        "honesty": "Audio Oracle audition entries are Unity runtime PCM captures only; metadata-only traces are not presented as audible proof.",
     }
     atomic_write_json(OUTPUT_PATH, output)
     return output

@@ -1,6 +1,6 @@
 "use strict";
 
-const STORAGE_KEY = "project-studio-audio-systems-pilot-01-ratings-v1";
+const STORAGE_KEY = "project-studio-audio-systems-pilot-01-ratings-v2";
 const DIMENSIONS = [
   ["musicalQuality", "Musical quality"],
   ["eraFit", "Era fit"],
@@ -31,6 +31,7 @@ let selectedId = null;
 let ratings = readRatings();
 let gamepadButtons = [];
 let activeRatingKey = DIMENSIONS[0][0];
+let activeRatingIndex = 0;
 let selectionGeneration = 0;
 
 function readRatings() {
@@ -83,8 +84,10 @@ function renderList() {
     const strong = document.createElement("strong"); strong.textContent = item.title;
     const small = document.createElement("small"); small.textContent = [item.epoch, item.context].filter(Boolean).join(" · ");
     copy.append(strong, small);
-    const dot = document.createElement("span"); dot.className = `decision-dot ${ratings[item.id]?.verdict ?? ""}`;
-    button.append(idx, copy, dot);
+    const decision = ratings[item.id]?.verdict ?? "unrated";
+    const marker = document.createElement("span"); marker.className = `decision-marker ${decision}`;
+    marker.textContent = decision[0].toUpperCase() + decision.slice(1);
+    button.append(idx, copy, marker);
     button.addEventListener("click", () => select(item.id));
     li.append(button); ui.item_list.append(li);
   });
@@ -149,7 +152,10 @@ function renderRatings() {
       button.type = "button"; button.textContent = String(score); button.dataset.ratingKey = key;
       button.className = rating[key] === score ? "active" : "";
       button.setAttribute("aria-label", `${label}: ${score}`);
-      button.addEventListener("focus", () => { activeRatingKey = key; });
+      button.addEventListener("focus", () => {
+        activeRatingKey = key;
+        activeRatingIndex = DIMENSIONS.findIndex(([candidate]) => candidate === key);
+      });
       button.addEventListener("click", () => updateRating({ [key]: score })); row.append(button);
     }
     fieldset.append(legend, row); ui.rating_grid.append(fieldset);
@@ -177,12 +183,33 @@ function move(delta) {
   const index = Math.max(0, visible.findIndex((item) => item.id === selectedId));
   select(visible[(index + delta + visible.length) % visible.length].id);
 }
+function moveRatingDimension(delta) {
+  activeRatingIndex = (activeRatingIndex + delta + DIMENSIONS.length) % DIMENSIONS.length;
+  activeRatingKey = DIMENSIONS[activeRatingIndex][0];
+  ui.rating_grid.children[activeRatingIndex]?.querySelector("button")?.focus();
+}
+function adjustScore(delta) {
+  const item = selected(); if (!item) return;
+  const current = Number(ratings[item.id]?.[activeRatingKey] ?? 3);
+  updateRating({ [activeRatingKey]: Math.max(1, Math.min(5, current + delta)) });
+}
+function cycleVerdict() {
+  const item = selected(); if (!item) return;
+  const values = ["keep", "maybe", "reject"];
+  const current = ratings[item.id]?.verdict;
+  updateRating({ verdict: values[(values.indexOf(current) + 1) % values.length] });
+}
 function pollGamepad() {
   const pad = navigator.getGamepads?.()[0];
   if (pad) {
     const pressed = pad.buttons.map((button) => button.pressed);
     if (pressed[12] && !gamepadButtons[12]) move(-1);
     if (pressed[13] && !gamepadButtons[13]) move(1);
+    if (pressed[14] && !gamepadButtons[14]) adjustScore(-1);
+    if (pressed[15] && !gamepadButtons[15]) adjustScore(1);
+    if (pressed[4] && !gamepadButtons[4]) moveRatingDimension(-1);
+    if (pressed[5] && !gamepadButtons[5]) moveRatingDimension(1);
+    if (pressed[2] && !gamepadButtons[2]) cycleVerdict();
     if (pressed[0] && !gamepadButtons[0]) ui.audio.paused ? ui.audio.play().catch(() => {}) : ui.audio.pause();
     gamepadButtons = pressed;
   }
@@ -207,7 +234,7 @@ fetch("data/catalogue.json", { cache: "no-store" }).then((response) => {
   if (!response.ok) throw new Error(`catalogue HTTP ${response.status}`);
   return response.json();
 }).then((value) => {
-  if (value.schema !== "project-studio-audio-systems-audition/v1" || value.telemetry !== false || value.networkRequired !== false) throw new Error("catalogue policy mismatch");
+  if (value.schema !== "project-studio-audio-systems-audition/v2" || value.telemetry !== false || value.networkRequired !== false) throw new Error("catalogue policy mismatch");
   catalogue = value; selectedId = value.items[0]?.id ?? null;
   ui.catalogue_hash.textContent = `Catalogue SHA-256 ${value.catalogueSha256}`;
   renderFilters(); applyFilters(); updateProgress(); pollGamepad();

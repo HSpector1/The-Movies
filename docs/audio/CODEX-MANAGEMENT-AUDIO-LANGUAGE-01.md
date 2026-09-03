@@ -107,7 +107,7 @@ ManagementAudioRequest
   captionText?
 ```
 
-The audio layer validates the semantic ID, deduplicates `receiptId`, applies user settings/cooldown/concurrency, selects from the deterministic approved variation bag, and returns `PLAYED`, `SUPPRESSED_BY_SETTING`, `SUPPRESSED_BY_COOLDOWN`, `SUPPRESSED_BY_PRIORITY`, or an exact refusal. It does not call back into gameplay to mark success.
+The audio layer validates the semantic ID, deduplicates `receiptId`, applies user settings/cooldown/concurrency, selects from the deterministic eligible provisional variation bag, and returns `PLAYED`, `SUPPRESSED_BY_SETTING`, `SUPPRESSED_BY_COOLDOWN`, `SUPPRESSED_BY_PRIORITY`, or an exact refusal. It does not call back into gameplay to mark success.
 
 ## Accessibility and caption behavior
 
@@ -122,6 +122,6 @@ The audio layer validates the semantic ID, deduplicates `receiptId`, applies use
 
 ## Implemented evidence
 
-The canonical register is `/Users/bruce/Project Studio Audio Systems Pilot 01/05_management-sfx/semantic-pack/management-semantic-catalogue.v3.json`, SHA-256 `2c0b8d794d05039c5a818ee7e801709b097822bff100af11b75bee1c8a0feb9d`. It contains 15 vocabulary rows, 45 hash-bound candidates, and 15 provisional/alternate selection pairs. The v3 asset validation proves identity, format, uniqueness, and technical proxy mechanics. Unity tests cover cooldown, priority, concurrency, deterministic variation, missing-file refusal, and duck requests; accessibility renders cover Mono, Night, and Speech First presentation.
+The canonical status-language view is `/Users/bruce/Project Studio Audio Systems Pilot 01/05_management-sfx/semantic-pack/management-semantic-catalogue.v4.json`. It supersedes and hash-binds v3, changes only 15 ambiguous “approved candidates” phrases to “eligible provisional candidates,” and leaves all audio hashes and machine-provisional selections unchanged. It contains 15 vocabulary rows, 45 hash-bound candidates, and 15 provisional/alternate selection pairs. The bounded v4 asset validation remains the audio-file proof; the complete audio register and v4 semantic view close final identity/status scope. Unity tests cover cooldown, priority, concurrency, deterministic variation, missing-file refusal, and duck requests; accessibility renders cover Mono, Night, and Speech First presentation.
 
 Owner ratings for restraint, irritation, semantic clarity, repetition, and accessibility remain the next gate. No automated result equals Owner acceptance or production clearance.

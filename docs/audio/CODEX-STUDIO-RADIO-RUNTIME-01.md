@@ -301,12 +301,12 @@ The isolated prototype now provides:
 - the exact corrected-bank hash and zero unresolved registered-pattern findings;
 - three typed functional lab fixtures with caption/spoken equivalence;
 - deterministic scheduler unit tests and three 30-minute traces;
-- three 600-second runtime-paced programme schedules and renders;
-- 24 clean and 24 period-treated scratch-voice units with provenance;
+- three 660-second runtime-paced programme schedules and renders;
+- 12 clean and 12 period-treated current scratch-voice units with provenance; the failed v1 lane remains preserved and noncurrent;
 - rendered ducking and PA demonstrations plus captions and transcript artifacts;
 - separate Audio Lab controls for Radio Off, Streamer Safe presentation, mono, Night, and Speech First.
 
-The canonical evidence entry point is `06_radio/STUDIO-RADIO-RUNTIME-INDEX.json` in `/Users/bruce/Project Studio Audio Systems Pilot 01`. The index reports a limited machine `PASS`; it is not a credibility, casting, fatigue, or accessibility verdict.
+The canonical evidence entry point is `06_radio/STUDIO-RADIO-RUNTIME-INDEX.v2.json` in `/Users/bruce/Project Studio Audio Systems Pilot 01`, SHA-256 `85ba975ab9acd1cda46c57d2e8dd645f8e25c0a0551fd54ab7eaad6a1d9c9abc`. The index reports a limited machine `PASS`; it is not a credibility, casting, fatigue, historical, cultural, rights, or accessibility verdict.
 - Owner ratings for copy credibility, presenter performance, repetition, ducking, fatigue, and accessibility.
 
 No automated result can approve casting, historical treatment, comedy density, cultural credibility, or production use.
