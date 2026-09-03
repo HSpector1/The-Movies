@@ -51,6 +51,11 @@ def _asset_destination(item: dict[str, Any]) -> Path:
     return OUTPUT_ROOT / "assets" / item["collection"].lower().replace("_", "-") / f"{safe_id}{suffix}"
 
 
+def _related_destination(item: dict[str, Any], relation: str, source: Path) -> Path:
+    safe_id = "".join(character if character.isalnum() or character in "-_" else "-" for character in item["id"])
+    return OUTPUT_ROOT / "assets" / "radio-text" / f"{safe_id}--{relation}{source.suffix.lower()}"
+
+
 def build(register_path: Path) -> dict[str, Any]:
     register = json.loads(register_path.read_text(encoding="utf-8"))
     if register.get("schema") != "project-studio-audio-systems-audition-source/v1":
@@ -92,6 +97,21 @@ def build(register_path: Path) -> dict[str, Any]:
             "id": item["id"], "relative_path": str(destination.relative_to(OUTPUT_ROOT)),
             "sha256": expected_hash, "bytes": materialized["bytes"], "source_path": str(source),
         })
+        related_public: dict[str, str | None] = {"captionTrack": None, "transcript": None}
+        for source_key, public_key in (("caption_track", "captionTrack"), ("transcript", "transcript")):
+            relation = item.get(source_key)
+            if relation is None:
+                continue
+            related_source = canonical_contained(PILOT_ROOT, Path(relation["path"]))
+            related_destination = _related_destination(item, source_key, related_source)
+            related_materialized = materialize_verified(related_source, related_destination, relation["sha256"])
+            relative_path = str(related_destination.relative_to(OUTPUT_ROOT))
+            manifest_assets.append({
+                "id": f"{item['id']}--{source_key}", "relative_path": relative_path,
+                "sha256": relation["sha256"], "bytes": related_materialized["bytes"],
+                "source_path": str(related_source),
+            })
+            related_public[public_key] = relative_path
         public_items.append({
             "id": item["id"], "title": item["title"], "collection": item["collection"],
             "epoch": item.get("epoch"), "context": item.get("context"),
@@ -100,6 +120,7 @@ def build(register_path: Path) -> dict[str, Any]:
             "durationSeconds": probe["duration_seconds"], "audio": str(destination.relative_to(OUTPUT_ROOT)),
             "sha256": expected_hash, "rightsStatus": status,
             "status": item.get("status", "PENDING_OWNER_AUDITION"),
+            **related_public,
         })
 
     static_assets = [

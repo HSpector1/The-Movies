@@ -10,11 +10,16 @@ from typing import Any
 from common import PILOT_ROOT, atomic_write_json, probe_audio, sha256_file, utc_now
 
 
-INDEX_PATH = PILOT_ROOT / "10_provenance/audio-assets-index.v1.json"
+INDEX_PATH = PILOT_ROOT / "10_provenance/audio-assets-index.v2.json"
 CATALOGUE_PATH = PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.v1.json"
 RADIO_INDEX_PATH = PILOT_ROOT / "06_radio/STUDIO-RADIO-RUNTIME-INDEX.json"
-TRANSITION_PATH = PILOT_ROOT / "03_transitions/rendered-transition-catalogue.json"
-OUTPUT_PATH = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.json"
+TRANSITION_PATH = PILOT_ROOT / "03_transitions/rendered-transition-catalogue.v2.json"
+LIVING_PATH = PILOT_ROOT / "04_living-lot/living-lot-soundscape-catalogue.v2.json"
+DERIVATIVE_PATH = PILOT_ROOT / "10_provenance/audio-derivative-source-register.v2.json"
+VALIDATION_PATH = PILOT_ROOT / "10_provenance/audio-assets-validation.v2.json"
+ANCHOR_PATH = PILOT_ROOT / "02_music-bundles/responsive/responsive-anchor-authority.v2.json"
+SFX_GATE_PATH = PILOT_ROOT / "10_provenance/sfx-route-gate.v2.json"
+OUTPUT_PATH = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v2.json"
 
 
 def require(path: Path, expected: str) -> None:
@@ -40,7 +45,7 @@ def base_item(record: dict[str, Any], role: str) -> dict[str, Any]:
 
 def build() -> dict[str, Any]:
     source_index = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
-    if source_index.get("schema") != "project-studio-audio-assets-index/v1":
+    if source_index.get("schema") != "project-studio-audio-assets-index/v2":
         raise RuntimeError("unexpected generated audio index schema")
     for manifest in source_index["source_manifests"]:
         require(Path(manifest["path"]), manifest["sha256"])
@@ -64,6 +69,10 @@ def build() -> dict[str, Any]:
             "family": selection["commissioning_alias"],
             "selected_candidate_id": selection["selected_candidate_id"],
             "trusted_phrase_grid": False,
+            "machine_proof_scope": selection.get("machine_proof_scope", "FILE_FITNESS_ONLY"),
+            "contextual_differentiation": selection.get(
+                "contextual_differentiation", "NOT_PROVEN_REQUIRES_OWNER_LISTENING"
+            ),
             "preview": {
                 "id": preview_id,
                 "path": str(preview_path),
@@ -89,12 +98,18 @@ def build() -> dict[str, Any]:
         })
         items.append(item)
 
+    living_manifest = json.loads(LIVING_PATH.read_text(encoding="utf-8"))
+    living_layers = {row["stable_prototype_id"]: row for row in living_manifest["layers"]}
     for record in records:
         category = record["category"]
         if category == "LIVING_LOT_LAYER":
             item = base_item(record, "LIVING_LAYER")
             item["layer"] = record["stable_prototype_id"].removeprefix("ASP01-LIVING-")
             item["fixture"] = "BASE"
+            authority = living_layers[record["stable_prototype_id"]]
+            item["scheduled_detail_event_count"] = authority["scheduled_detail_event_count"]
+            item["scheduled_detail_sources"] = authority["scheduled_detail_sources"]
+            item["classification"] = authority["generation"]
             items.append(item)
         elif category == "LIVING_LOT_FIXTURE_PRESENTATION":
             item = base_item(record, "LIVING_MIX")
@@ -171,6 +186,8 @@ def build() -> dict[str, Any]:
             "presenter_id": demo["presenter_id"],
             "classification": "RUNTIME_PACED_RADIO_DEMO",
             "caption_text": "Full caption file and transcript are supplied beside this program.",
+            "caption_track": demo["captions"],
+            "transcript": demo["transcript"],
         })
 
     ids = [item["id"] for item in items]
@@ -191,7 +208,7 @@ def build() -> dict[str, Any]:
     if any(counts.get(role) != count for role, count in expected.items()):
         raise RuntimeError(f"system audio asset count mismatch: expected={expected}, actual={counts}")
     output = {
-        "schema": "project-studio-system-audio-asset-register/v1",
+        "schema": "project-studio-system-audio-asset-register/v2",
         "generated_utc": utc_now(),
         "status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
         "human_acceptance": "NONE_RECORDED",
@@ -200,6 +217,11 @@ def build() -> dict[str, Any]:
             {"path": str(INDEX_PATH), "sha256": sha256_file(INDEX_PATH)},
             {"path": str(CATALOGUE_PATH), "sha256": sha256_file(CATALOGUE_PATH)},
             {"path": str(RADIO_INDEX_PATH), "sha256": sha256_file(RADIO_INDEX_PATH)},
+            {"path": str(LIVING_PATH), "sha256": sha256_file(LIVING_PATH)},
+            {"path": str(DERIVATIVE_PATH), "sha256": sha256_file(DERIVATIVE_PATH)},
+            {"path": str(VALIDATION_PATH), "sha256": sha256_file(VALIDATION_PATH)},
+            {"path": str(ANCHOR_PATH), "sha256": sha256_file(ANCHOR_PATH)},
+            {"path": str(SFX_GATE_PATH), "sha256": sha256_file(SFX_GATE_PATH)},
         ],
         "counts": counts,
         "items": sorted(items, key=lambda item: (item["role"], item["id"])),

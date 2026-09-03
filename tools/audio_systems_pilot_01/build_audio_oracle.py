@@ -17,7 +17,7 @@ from common import DOC_REPO, PILOT_ROOT, atomic_write_json, canonical_contained,
 
 
 UNITY_REPO = Path("/Users/bruce/Project Studio - Audio Systems Pilot 01 Client")
-DEFAULT_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.json"
+DEFAULT_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v2.json"
 OUTPUT_ROOT = PILOT_ROOT / "07_audio-oracle"
 CATALOGUE_PATH = PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.v1.json"
 EXPECTED_SCENARIOS = (
@@ -248,7 +248,7 @@ def make_trace(
 
 def build(register_path: Path, app_path: Path) -> dict[str, Any]:
     register = json.loads(register_path.read_text(encoding="utf-8"))
-    if register.get("schema") != "project-studio-system-audio-asset-register/v1":
+    if register.get("schema") != "project-studio-system-audio-asset-register/v2":
         raise RuntimeError("unexpected system asset register schema")
     items = register["items"]
     binary = require_binary(app_path)

@@ -22,6 +22,7 @@ const ui = Object.fromEntries([
   "empty-state", "audition-card", "item-kicker", "item-title", "item-detail", "audio", "caption",
   "metadata", "rating-grid", "notes", "export-csv", "export-json", "clear-ratings",
   "captions-enabled", "audition-volume", "catalogue-hash",
+  "transcript-panel", "transcript",
 ].map((id) => [id.replaceAll("-", "_"), document.getElementById(id)]));
 
 let catalogue = { items: [], catalogueSha256: "" };
@@ -29,6 +30,8 @@ let visible = [];
 let selectedId = null;
 let ratings = readRatings();
 let gamepadButtons = [];
+let activeRatingKey = DIMENSIONS[0][0];
+let selectionGeneration = 0;
 
 function readRatings() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
@@ -100,9 +103,28 @@ function renderSelection() {
   ui.item_title.textContent = item.title;
   ui.item_detail.textContent = [item.epoch, item.context, item.durationSeconds ? `${Math.round(item.durationSeconds)} seconds` : null].filter(Boolean).join(" · ");
   ui.audio.src = item.audio;
+  ui.audio.querySelectorAll("track").forEach((track) => track.remove());
+  if (item.captionTrack) {
+    const track = document.createElement("track");
+    track.kind = "captions"; track.label = "English"; track.srclang = "en";
+    track.src = item.captionTrack; track.default = ui.captions_enabled.checked;
+    ui.audio.append(track);
+  }
   ui.audio.volume = Number(ui.audition_volume.value);
   ui.caption.textContent = ui.captions_enabled.checked ? item.captionText || item.importantSoundCaption || "Audio preview." : "Captions hidden by local preference.";
   ui.metadata.replaceChildren();
+  selectionGeneration += 1;
+  const generation = selectionGeneration;
+  ui.transcript_panel.hidden = !item.transcript;
+  ui.transcript.textContent = item.transcript ? "Loading local transcript…" : "";
+  if (item.transcript) fetch(item.transcript, { cache: "no-store" }).then((response) => {
+    if (!response.ok) throw new Error(`transcript HTTP ${response.status}`);
+    return response.text();
+  }).then((value) => {
+    if (generation === selectionGeneration) ui.transcript.textContent = value;
+  }).catch((error) => {
+    if (generation === selectionGeneration) ui.transcript.textContent = `Transcript unavailable: ${error.message}`;
+  });
   for (const [label, value] of [["Prototype ID", item.id], ["Classification", item.classification], ["Bus", item.bus], ["Hash", item.sha256], ["Rights", item.rightsStatus]]) {
     if (!value) continue;
     const row = document.createElement("div"), dt = document.createElement("dt"), dd = document.createElement("dd");
@@ -127,6 +149,7 @@ function renderRatings() {
       button.type = "button"; button.textContent = String(score); button.dataset.ratingKey = key;
       button.className = rating[key] === score ? "active" : "";
       button.setAttribute("aria-label", `${label}: ${score}`);
+      button.addEventListener("focus", () => { activeRatingKey = key; });
       button.addEventListener("click", () => updateRating({ [key]: score })); row.append(button);
     }
     fieldset.append(legend, row); ui.rating_grid.append(fieldset);
@@ -176,6 +199,7 @@ document.addEventListener("keydown", (event) => {
   if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
   if (event.key.toLowerCase() === "j") move(1);
   if (event.key.toLowerCase() === "k") move(-1);
+  if (/^[1-5]$/.test(event.key)) updateRating({ [activeRatingKey]: Number(event.key) });
   if (event.code === "Space") { event.preventDefault(); ui.audio.paused ? ui.audio.play().catch(() => {}) : ui.audio.pause(); }
 });
 

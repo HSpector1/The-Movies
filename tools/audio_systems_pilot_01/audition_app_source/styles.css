@@ -47,6 +47,9 @@ select, input[type="search"], textarea { width: 100%; padding: .58rem; }
 .detail, .muted, .save-note, .privacy { color: var(--muted); }
 audio { width: 100%; margin: 1.2rem 0 .55rem; }
 .caption { min-height: 2.7rem; padding: .65rem .8rem; color: #f5e7c7; background: #0f1211; border-left: 3px solid var(--accent-2); }
+details { margin: .65rem 0; padding: .65rem .8rem; background: #191d1b; border: 1px solid var(--line); border-radius: .35rem; }
+details summary { cursor: pointer; color: var(--accent-2); }
+details pre { max-height: 18rem; overflow: auto; white-space: pre-wrap; color: var(--ink); font: .82rem/1.45 ui-monospace, SFMono-Regular, Menlo, monospace; }
 .metadata { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .4rem 1rem; padding: .8rem; background: #191d1b; }
 .metadata div { display: grid; grid-template-columns: 7rem 1fr; gap: .5rem; }.metadata dt { color: var(--muted); }.metadata dd { margin: 0; overflow-wrap: anywhere; }
 .ratings { margin-top: 1.3rem; border-top: 1px solid var(--line); padding-top: 1.2rem; }
