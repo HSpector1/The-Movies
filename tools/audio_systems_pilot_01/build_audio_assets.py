@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 import numpy as np
+import soundfile as sf
 
 from audio_dsp import (
     ffmpeg_atomic,
@@ -27,7 +28,7 @@ from audio_dsp import (
     write_manifest,
     write_stream_atomic,
 )
-from common import PILOT_ROOT, TOOLING_ROOT, probe_audio, sha256_file, utc_now
+from common import DOC_REPO, PILOT_ROOT, TOOLING_ROOT, probe_audio, sha256_file, utc_now
 from sfx_route import (
     CODE_COMMIT,
     OPTIMIZED_REVISION,
@@ -47,7 +48,10 @@ LIVING_ROOT = PILOT_ROOT / "04_living-lot"
 TRANSITION_ROOT = PILOT_ROOT / "03_transitions"
 LOG_ROOT = PILOT_ROOT / "12_logs/audio-asset-build"
 MASTER_INDEX = PILOT_ROOT / "10_provenance/audio-assets-index.v1.json"
+VALIDATION_PATH = PILOT_ROOT / "10_provenance/audio-assets-validation.json"
 RESPONSIVE_CATALOGUE = PILOT_ROOT / "02_music-bundles/responsive/responsive-bundle-catalogue.json"
+RESPONSIVE_REGISTER = PILOT_ROOT / "02_music-bundles/responsive/responsive-generation-register.json"
+CANONICAL_CATALOGUE = PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.v1.json"
 
 
 LOT_SFX: tuple[tuple[str, str, str], ...] = (
@@ -926,6 +930,222 @@ def build_master_index(
     return index
 
 
+def _streaming_mono_correlation(left_path: Path, right_path: Path) -> float:
+    sums = {"x": 0.0, "y": 0.0, "xx": 0.0, "yy": 0.0, "xy": 0.0}
+    count = 0
+    with sf.SoundFile(left_path) as left, sf.SoundFile(right_path) as right:
+        if left.frames != right.frames or left.samplerate != right.samplerate:
+            raise RuntimeError("living layers are not sample-aligned")
+        while True:
+            left_block = left.read(262_144, dtype="float64", always_2d=True)
+            right_block = right.read(262_144, dtype="float64", always_2d=True)
+            if not len(left_block):
+                break
+            x = np.mean(left_block, axis=1)
+            y = np.mean(right_block, axis=1)
+            count += len(x)
+            sums["x"] += float(np.sum(x))
+            sums["y"] += float(np.sum(y))
+            sums["xx"] += float(np.dot(x, x))
+            sums["yy"] += float(np.dot(y, y))
+            sums["xy"] += float(np.dot(x, y))
+    covariance = sums["xy"] - sums["x"] * sums["y"] / count
+    variance_x = sums["xx"] - sums["x"] * sums["x"] / count
+    variance_y = sums["yy"] - sums["y"] * sums["y"] / count
+    return covariance / math.sqrt(variance_x * variance_y)
+
+
+def validate_evidence() -> dict[str, Any]:
+    if VALIDATION_PATH.exists():
+        validation = json.loads(VALIDATION_PATH.read_text(encoding="utf-8"))
+        if validation.get("status") != "PASS" or not all(validation.get("checks", {}).values()):
+            raise RuntimeError("existing asset validation is not a complete pass")
+        return validation
+
+    master = json.loads(MASTER_INDEX.read_text(encoding="utf-8"))
+    responsive = json.loads(RESPONSIVE_CATALOGUE.read_text(encoding="utf-8"))
+    register = json.loads(RESPONSIVE_REGISTER.read_text(encoding="utf-8"))
+    living = json.loads((LIVING_ROOT / "living-lot-soundscape-catalogue.json").read_text(encoding="utf-8"))
+    management = json.loads((MANAGEMENT_ROOT / "management-semantic-catalogue.json").read_text(encoding="utf-8"))
+    transitions = json.loads((TRANSITION_ROOT / "rendered-transition-catalogue.json").read_text(encoding="utf-8"))
+    lot_sfx = json.loads((SFX_ROOT / "lot-detail-sfx-catalogue.json").read_text(encoding="utf-8"))
+    canonical = json.loads(CANONICAL_CATALOGUE.read_text(encoding="utf-8"))
+
+    asset_ids: list[str] = []
+    asset_paths: list[str] = []
+    asset_hashes: list[str] = []
+    asset_inodes: list[tuple[int, int]] = []
+    all_asset_hashes_match = True
+    all_asset_paths_contained = True
+    all_assets_regular_not_symlink = True
+    for asset in master["audio_assets"]:
+        unresolved_path = PILOT_ROOT / asset["relative_path"]
+        path = unresolved_path.resolve(strict=True)
+        try:
+            path.relative_to(PILOT_ROOT.resolve(strict=True))
+        except ValueError:
+            all_asset_paths_contained = False
+        all_assets_regular_not_symlink &= unresolved_path.is_file() and not unresolved_path.is_symlink()
+        actual_hash = sha256_file(path)
+        all_asset_hashes_match &= actual_hash == asset["sha256"]
+        asset_ids.append(asset["stable_prototype_id"])
+        asset_paths.append(asset["relative_path"])
+        asset_hashes.append(actual_hash)
+        stat = path.stat()
+        asset_inodes.append((stat.st_dev, stat.st_ino))
+
+    raw_errors: list[str] = []
+    for entry in canonical["entries"]:
+        raw = entry["raw"]
+        path = Path(raw["absolute_authoritative_path"])
+        if (
+            not path.is_file()
+            or path.stat().st_size != raw["bytes"]
+            or sha256_file(path) != raw["sha256"]
+        ):
+            raw_errors.append(entry["stable_prototype_id"])
+
+    layer_paths = {
+        layer["zoom"]: Path(layer["audio"]["path"])
+        for layer in living["layers"]
+    }
+    correlations = {
+        "WIDE_MEDIUM": round(_streaming_mono_correlation(layer_paths["WIDE"], layer_paths["MEDIUM"]), 9),
+        "WIDE_CLOSE": round(_streaming_mono_correlation(layer_paths["WIDE"], layer_paths["CLOSE"]), 9),
+        "MEDIUM_CLOSE": round(_streaming_mono_correlation(layer_paths["MEDIUM"], layer_paths["CLOSE"]), 9),
+    }
+
+    owned_commit = subprocess.run(
+        ["git", "log", "-1", "--format=%H", "--", "tools/audio_systems_pilot_01/audio_dsp.py"],
+        cwd=DOC_REPO,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    owned_commit_paths = subprocess.run(
+        ["git", "show", "--pretty=format:", "--name-only", owned_commit],
+        cwd=DOC_REPO,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.splitlines()
+    expected_owned_paths = {
+        "tools/audio_systems_pilot_01/audio_dsp.py",
+        "tools/audio_systems_pilot_01/sfx_route.py",
+        "tools/audio_systems_pilot_01/generate_responsive_variants.py",
+        "tools/audio_systems_pilot_01/build_audio_assets.py",
+    }
+    owned_commit_audio = [
+        path
+        for path in owned_commit_paths
+        if Path(path).suffix.lower() in {".wav", ".aac", ".m4a", ".mp3", ".npz"}
+    ]
+
+    serialized = json.dumps(
+        {"master": master, "responsive": responsive, "management": management, "transitions": transitions},
+        sort_keys=True,
+    ).upper()
+    forbidden_claims = (
+        "OWNER_APPROVED",
+        "OWNER APPROVED",
+        "SHIP_READY",
+        "SHIP READY",
+        "CLEARED_FOR_SHIP",
+        "COMMERCIAL_MASTER",
+        "PRODUCTION_STEM",
+    )
+    selected_candidate_ids = {row["selected_candidate_id"] for row in responsive["variants"]}
+    eligible_candidate_ids = {
+        row["candidate_id"] for row in register["candidates"] if row["analysis"]["automatic_pass"]
+    }
+    excluded_candidates = [
+        {
+            "candidate_id": row["candidate_id"],
+            "epoch": row["epoch"],
+            "context": row["context"],
+            "failure_reasons": row["analysis"]["failure_reasons"],
+        }
+        for row in register["candidates"]
+        if not row["analysis"]["automatic_pass"]
+    ]
+    eligible_contexts = {
+        (row["epoch"], row["context"])
+        for row in register["candidates"]
+        if row["analysis"]["automatic_pass"]
+    }
+    checks = {
+        "master_index_has_exactly_152_audio_assets": len(master["audio_assets"]) == 152,
+        "all_new_audio_ids_unique": len(asset_ids) == len(set(asset_ids)),
+        "all_new_audio_paths_unique": len(asset_paths) == len(set(asset_paths)),
+        "all_new_audio_hashes_unique": len(asset_hashes) == len(set(asset_hashes)),
+        "all_new_audio_hashes_match": all_asset_hashes_match,
+        "all_new_audio_paths_contained": all_asset_paths_contained,
+        "all_new_audio_regular_not_symlink": all_assets_regular_not_symlink,
+        "all_new_audio_inodes_unique": len(asset_inodes) == len(set(asset_inodes)),
+        "all_191_raw_music_and_12_motif_hashes_unchanged": (
+            sum(row["asset_type"] == "MUSIC_SOURCE_CANDIDATE" for row in canonical["entries"]) == 191
+            and sum(row["asset_type"] == "MOTIF_SHAPE_SKETCH" for row in canonical["entries"]) == 12
+            and not raw_errors
+        ),
+        "responsive_exactly_36_candidates": len(register["candidates"]) == 36,
+        "responsive_exactly_12_selected_context_variants": len(responsive["variants"]) == 12,
+        "responsive_every_context_has_technical_eligible_candidate": len(eligible_contexts) == 12,
+        "responsive_all_selected_candidates_technical_pass": selected_candidate_ids <= eligible_candidate_ids,
+        "responsive_no_machine_excluded_candidate_selected": not selected_candidate_ids.intersection(
+            row["candidate_id"] for row in register["candidates"] if not row["analysis"]["automatic_pass"]
+        ),
+        "responsive_is_text_only_no_guide_audio": register["text_only"] is True and register["guide_audio"] is False,
+        "responsive_honestly_horizontal_not_stems": responsive["classification"] == "HORIZONTAL_VARIANT_BUNDLE" and responsive["fake_stems"] is False,
+        "living_exactly_three_aligned_ten_minute_layers": len(living["layers"]) == 3 and all(abs(row["audio"]["probe"]["duration_seconds"] - 600.0) <= 0.025 for row in living["layers"]),
+        "living_exactly_five_fixture_presentations": len(living["fixture_presentations"]) == 5,
+        "living_exactly_three_era_presentations": len(living["era_presentations"]) == 3,
+        "living_fixture_layer_bindings_exactly_5x3": len(living["fixture_layer_bindings"]) == 15,
+        "living_layers_signal_distinct": all(abs(value) < 0.10 for value in correlations.values()),
+        "management_exactly_15x3": len(management["vocabulary"]) == 15 and len(management["candidates"]) == 45,
+        "management_pick_and_alternate_each_family": len(management["selections"]) == 15 and all(row["provisional_pick"] != row["alternate"] for row in management["selections"]),
+        "management_never_audio_only": management["critical_information_audio_only"] is False,
+        "transitions_exactly_3x3": transitions["boundary_count"] == 3 and len(transitions["renders"]) == 9,
+        "transitions_no_fake_stems": transitions["source_separation_or_fake_stems"] is False,
+        "small_sfx_exactly_15_technical_pass": len(lot_sfx["items"]) == 15 and all(row["analysis"]["automatic_pass"] for row in lot_sfx["items"]),
+        "no_forbidden_acceptance_or_shipping_claim": not any(term in serialized for term in forbidden_claims),
+        "no_audio_or_model_weights_committed_by_pilot": not owned_commit_audio,
+        "owned_commit_contains_only_four_authorized_scripts": set(filter(None, owned_commit_paths)) == expected_owned_paths,
+    }
+    if not all(checks.values()):
+        failures = [key for key, passed in checks.items() if not passed]
+        raise RuntimeError(f"audio asset validation failed without weakening checks: {failures}")
+    validation = {
+        "schema": "project-studio-audio-assets-validation/v1",
+        "generated_at_utc": utc_now(),
+        "status": "PASS",
+        "checks": checks,
+        "counts": {
+            "master_index_audio_assets": len(asset_ids),
+            "unique_audio_hashes": len(set(asset_hashes)),
+            "canonical_raw_entries_rehashed": len(canonical["entries"]),
+            "responsive_candidates": len(register["candidates"]),
+            "responsive_technically_eligible_candidates": len(eligible_candidate_ids),
+            "responsive_machine_excluded_candidates": len(excluded_candidates),
+            "responsive_selected_variants": len(responsive["variants"]),
+            "lot_sfx": len(lot_sfx["items"]),
+            "living_layers": len(living["layers"]),
+            "living_fixture_presentations": len(living["fixture_presentations"]),
+            "living_era_presentations": len(living["era_presentations"]),
+            "management_candidates": len(management["candidates"]),
+            "transition_renders": len(transitions["renders"]),
+        },
+        "living_layer_mono_correlations": correlations,
+        "responsive_machine_exclusions": excluded_candidates,
+        "raw_hash_errors": raw_errors,
+        "owned_scripts_commit": owned_commit,
+        "master_index": file_record(MASTER_INDEX),
+        "source_catalogue": file_record(CANONICAL_CATALOGUE),
+        "machine_proof_limit": "No validation check establishes listening acceptance, quality, comfort, historical correctness, copyrightability, exclusivity, non-infringement, or commercial clearance.",
+    }
+    write_manifest(VALIDATION_PATH, validation)
+    return validation
+
+
 def verify_all() -> dict[str, Any]:
     result = {
         "lot_sfx": generate_lot_sfx(),
@@ -936,6 +1156,7 @@ def verify_all() -> dict[str, Any]:
     master = build_master_index(
         result["lot_sfx"], result["living_lot"], result["management"], result["transitions"]
     )
+    validation = validate_evidence()
     return {
         "status": "PASSED",
         "lot_sfx_count": len(result["lot_sfx"]["items"]),
@@ -945,6 +1166,7 @@ def verify_all() -> dict[str, Any]:
         "management_candidate_count": len(result["management"]["candidates"]),
         "transition_render_count": len(result["transitions"]["renders"]),
         "master_index_audio_asset_count": master["audio_asset_count"],
+        "validation_status": validation["status"],
     }
 
 
@@ -954,7 +1176,7 @@ def main() -> int:
         "target",
         nargs="?",
         default="all",
-        choices=("all", "lot-sfx", "living-lot", "management", "transitions", "index", "verify"),
+        choices=("all", "lot-sfx", "living-lot", "management", "transitions", "index", "validation", "verify"),
     )
     args = parser.parse_args()
     if args.target == "lot-sfx":
@@ -968,6 +1190,9 @@ def main() -> int:
         payload = {"status": "PASSED", "render_count": len(build_transitions()["renders"])}
     elif args.target == "index":
         payload = {"status": "PASSED", "audio_asset_count": build_master_index()["audio_asset_count"]}
+    elif args.target == "validation":
+        data = validate_evidence()
+        payload = {"status": data["status"], **data["counts"]}
     else:
         payload = verify_all()
     print(json.dumps(payload, sort_keys=True))
