@@ -1,0 +1,81 @@
+{
+    "schemaVersion": 1,
+    "status": "complete",
+    "failure": "",
+    "scenarioId": "idle-post",
+    "fixtureWeek": 21,
+    "sessionId": "p06-oracle-idle-post",
+    "runtimeInstanceId": "p06-oracle-idle-post",
+    "stateRevision": 0,
+    "stateDigest": "4f495dc44b241f12fafec5e4095077902a2f6f18e3ee7886ef46aeb3c4ec824b",
+    "gameWeek": 21,
+    "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+    "protocolVersion": 4,
+    "snapshotVersion": 14,
+    "viewportWidth": 1440,
+    "viewportHeight": 900,
+    "viewportKind": "landscape",
+    "capturedUtc": "2026-09-03T11:10:14.7797180Z",
+    "mutationsSubmitted": 0,
+    "noMutationScope": "No waiting, finishing, release-ready, or committed Post journey; the runner submits no intent and this static idle state is photographed as-is.",
+    "visualQuestions": [
+        "Does an idle Production & Post read as available, not broken or empty-by-error?",
+        "Is any finishing crew, activity, or now-showing claim invented at Post?",
+        "Is the idle state legible in a colorless still before opening details?"
+    ],
+    "visualReviewStatus": "pending",
+    "machineAssertions": [
+        {
+            "name": "no post-family operational state anywhere",
+            "passed": true,
+            "detail": ""
+        },
+        {
+            "name": "prod-0000 present",
+            "passed": true,
+            "detail": "prod-0000"
+        },
+        {
+            "name": "prod-0000 phase shooting",
+            "passed": true,
+            "detail": "shooting"
+        },
+        {
+            "name": "derived post cue Idle",
+            "passed": true,
+            "detail": "Idle"
+        },
+        {
+            "name": "presenter post cue Idle",
+            "passed": true,
+            "detail": "Idle"
+        }
+    ],
+    "artifacts": [
+        {
+            "cameraId": "CAM-MGMT-POST-V1",
+            "label": "management",
+            "relativePath": "idle-post-management.png",
+            "sha256": "38ffc1351a628237071c969abde094364456f1a568072eda81e697c73bab4ced",
+            "bytes": 1210179,
+            "width": 1440,
+            "height": 900,
+            "mediaType": "image/png",
+            "revisionAtCapture": 0,
+            "digestAtCapture": "4f495dc44b241f12fafec5e4095077902a2f6f18e3ee7886ef46aeb3c4ec824b",
+            "mutationsBeforeCapture": 0,
+            "mutationsAfterCapture": 0,
+            "renderedCameraPosition": {
+                "x": -42.78050994873047,
+                "y": 80.61180114746094,
+                "z": -45.659523010253909
+            },
+            "renderedCameraEulerAngles": {
+                "x": 43.0000114440918,
+                "y": 22.0,
+                "z": 0.0
+            },
+            "renderedFieldOfView": 36.0
+        }
+    ]
+}

@@ -1,0 +1,106 @@
+{
+    "schemaVersion": 1,
+    "status": "complete",
+    "failure": "",
+    "scenarioId": "committed-to-release",
+    "fixtureWeek": 23,
+    "sessionId": "p06-oracle-committed-to-release",
+    "runtimeInstanceId": "p06-oracle-committed-to-release",
+    "stateRevision": 0,
+    "stateDigest": "73020b56651f29041808583be62ffb356ead219c62dcffb3c929a579994a4617",
+    "gameWeek": 23,
+    "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+    "protocolVersion": 4,
+    "snapshotVersion": 14,
+    "viewportWidth": 1440,
+    "viewportHeight": 900,
+    "viewportKind": "landscape",
+    "capturedUtc": "2026-09-03T11:10:37.0923810Z",
+    "mutationsSubmitted": 0,
+    "noMutationScope": "No tick that would release the picture; the committed-but-not-yet-released state is photographed as-is. The runner submits no intent.",
+    "visualQuestions": [
+        "Is 'committed, releases next studio week' a settled acknowledgment, not a result claim?",
+        "Is the commit control absent (nothing to press again)?",
+        "Does committed read distinctly from release-ready in a colorless still?"
+    ],
+    "visualReviewStatus": "pending",
+    "machineAssertions": [
+        {
+            "name": "prod-0000 release-committed",
+            "passed": true,
+            "detail": "release-committed"
+        },
+        {
+            "name": "release decision row present",
+            "passed": true,
+            "detail": ""
+        },
+        {
+            "name": "authorityState committed",
+            "passed": true,
+            "detail": "committed"
+        },
+        {
+            "name": "legalCommit false once committed",
+            "passed": true,
+            "detail": "False"
+        },
+        {
+            "name": "exact commitmentId release-commitment-prod-0000",
+            "passed": true,
+            "detail": "release-commitment-prod-0000"
+        },
+        {
+            "name": "decision has control",
+            "passed": true,
+            "detail": "True"
+        },
+        {
+            "name": "decision reports committed",
+            "passed": true,
+            "detail": "True"
+        },
+        {
+            "name": "no commit control enabled once committed",
+            "passed": true,
+            "detail": "False"
+        },
+        {
+            "name": "derived post cue Committed",
+            "passed": true,
+            "detail": "Committed"
+        },
+        {
+            "name": "presenter post cue Committed",
+            "passed": true,
+            "detail": "Committed"
+        }
+    ],
+    "artifacts": [
+        {
+            "cameraId": "CAM-MGMT-POST-V1",
+            "label": "management",
+            "relativePath": "committed-to-release-management.png",
+            "sha256": "36c88da05b3d5cfef277bf065be572cf77aeec4c841a2d467cf03dd3d0639d6b",
+            "bytes": 1194758,
+            "width": 1440,
+            "height": 900,
+            "mediaType": "image/png",
+            "revisionAtCapture": 0,
+            "digestAtCapture": "73020b56651f29041808583be62ffb356ead219c62dcffb3c929a579994a4617",
+            "mutationsBeforeCapture": 0,
+            "mutationsAfterCapture": 0,
+            "renderedCameraPosition": {
+                "x": -42.78050994873047,
+                "y": 80.61180114746094,
+                "z": -45.659523010253909
+            },
+            "renderedCameraEulerAngles": {
+                "x": 43.0000114440918,
+                "y": 22.0,
+                "z": 0.0
+            },
+            "renderedFieldOfView": 36.0
+        }
+    ]
+}

@@ -1,0 +1,106 @@
+{
+    "schemaVersion": 1,
+    "status": "complete",
+    "failure": "",
+    "scenarioId": "active-finishing",
+    "fixtureWeek": 21,
+    "sessionId": "p06-oracle-active-finishing",
+    "runtimeInstanceId": "p06-oracle-active-finishing",
+    "stateRevision": 0,
+    "stateDigest": "2f0c96e5e7f3d44cdcebea8dc3508decc07024d1b52f45d1af2d605d468e2967",
+    "gameWeek": 21,
+    "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+    "protocolVersion": 4,
+    "snapshotVersion": 14,
+    "viewportWidth": 1440,
+    "viewportHeight": 900,
+    "viewportKind": "landscape",
+    "capturedUtc": "2026-09-03T11:10:25.9422160Z",
+    "mutationsSubmitted": 0,
+    "noMutationScope": "No tick to release-ready, no release; the finishing state is photographed as-is. The runner submits no intent.",
+    "visualQuestions": [
+        "Is Post actively finishing a picture, distinct from waiting/ready/committed?",
+        "Does the exact Director + craft attendance read at Post without inventing cast?",
+        "Is finishing legible without a quality or now-showing claim?"
+    ],
+    "visualReviewStatus": "pending",
+    "machineAssertions": [
+        {
+            "name": "prod-0000 post-handoff",
+            "passed": true,
+            "detail": "post-handoff"
+        },
+        {
+            "name": "prod-0000 phase postProduction",
+            "passed": true,
+            "detail": "postProduction"
+        },
+        {
+            "name": "active picture is located at the post body",
+            "passed": true,
+            "detail": "post"
+        },
+        {
+            "name": "derived post cue ActiveFinishing",
+            "passed": true,
+            "detail": "ActiveFinishing"
+        },
+        {
+            "name": "active cue shows attendance",
+            "passed": true,
+            "detail": "True"
+        },
+        {
+            "name": "presenter post cue ActiveFinishing",
+            "passed": true,
+            "detail": "ActiveFinishing"
+        },
+        {
+            "name": "Director present at post",
+            "passed": true,
+            "detail": "craft,director"
+        },
+        {
+            "name": "craft present at post",
+            "passed": true,
+            "detail": "craft,director"
+        },
+        {
+            "name": "no cast (actor) at post",
+            "passed": true,
+            "detail": "craft,director"
+        },
+        {
+            "name": "no writer at post",
+            "passed": true,
+            "detail": "craft,director"
+        }
+    ],
+    "artifacts": [
+        {
+            "cameraId": "CAM-MGMT-POST-V1",
+            "label": "management",
+            "relativePath": "active-finishing-management.png",
+            "sha256": "20fdf16ef17bb495de08615d8e4b6031a54c9cbed130ea9a115760cee0ff4963",
+            "bytes": 1191620,
+            "width": 1440,
+            "height": 900,
+            "mediaType": "image/png",
+            "revisionAtCapture": 0,
+            "digestAtCapture": "2f0c96e5e7f3d44cdcebea8dc3508decc07024d1b52f45d1af2d605d468e2967",
+            "mutationsBeforeCapture": 0,
+            "mutationsAfterCapture": 0,
+            "renderedCameraPosition": {
+                "x": -42.78050994873047,
+                "y": 80.61180114746094,
+                "z": -45.659523010253909
+            },
+            "renderedCameraEulerAngles": {
+                "x": 43.0000114440918,
+                "y": 22.0,
+                "z": 0.0
+            },
+            "renderedFieldOfView": 36.0
+        }
+    ]
+}

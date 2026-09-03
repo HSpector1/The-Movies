@@ -1,0 +1,106 @@
+{
+    "schemaVersion": 1,
+    "status": "complete",
+    "failure": "",
+    "scenarioId": "release-ready",
+    "fixtureWeek": 23,
+    "sessionId": "p06-oracle-release-ready",
+    "runtimeInstanceId": "p06-oracle-release-ready",
+    "stateRevision": 0,
+    "stateDigest": "eb84e97dbd270524ccf5589328b4f7793667eff1a48c9849bcb66ac1348b82eb",
+    "gameWeek": 23,
+    "schemaId": "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+    "protocolVersion": 4,
+    "snapshotVersion": 14,
+    "viewportWidth": 1440,
+    "viewportHeight": 900,
+    "viewportKind": "landscape",
+    "capturedUtc": "2026-09-03T11:10:31.5398500Z",
+    "mutationsSubmitted": 0,
+    "noMutationScope": "No commit is submitted (the hold law: a tick would leave it ready and uncommitted); the runner reads the decision through the pure contract only.",
+    "visualQuestions": [
+        "Is release-ready a positive, non-urgent attention cue, distinct from active finishing?",
+        "Does the world read 'ready to decide' without asserting the picture has released?",
+        "Is the commit decision surfaced as available (not forced, not already done)?"
+    ],
+    "visualReviewStatus": "pending",
+    "machineAssertions": [
+        {
+            "name": "prod-0000 release-ready",
+            "passed": true,
+            "detail": "release-ready"
+        },
+        {
+            "name": "release decision row present",
+            "passed": true,
+            "detail": ""
+        },
+        {
+            "name": "authorityState ready-uncommitted",
+            "passed": true,
+            "detail": "ready-uncommitted"
+        },
+        {
+            "name": "legalCommit true",
+            "passed": true,
+            "detail": "True"
+        },
+        {
+            "name": "commitmentId null (uncommitted)",
+            "passed": true,
+            "detail": ""
+        },
+        {
+            "name": "decision has control",
+            "passed": true,
+            "detail": "True"
+        },
+        {
+            "name": "decision not committed",
+            "passed": true,
+            "detail": "False"
+        },
+        {
+            "name": "commit control enabled",
+            "passed": true,
+            "detail": ""
+        },
+        {
+            "name": "derived post cue ReleaseReady",
+            "passed": true,
+            "detail": "ReleaseReady"
+        },
+        {
+            "name": "presenter post cue ReleaseReady",
+            "passed": true,
+            "detail": "ReleaseReady"
+        }
+    ],
+    "artifacts": [
+        {
+            "cameraId": "CAM-MGMT-POST-V1",
+            "label": "management",
+            "relativePath": "release-ready-management.png",
+            "sha256": "0263b14ad1b448c1344a6196ad3160e1c6144ef6dba074ebdb372a2fe11af909",
+            "bytes": 1172757,
+            "width": 1440,
+            "height": 900,
+            "mediaType": "image/png",
+            "revisionAtCapture": 0,
+            "digestAtCapture": "eb84e97dbd270524ccf5589328b4f7793667eff1a48c9849bcb66ac1348b82eb",
+            "mutationsBeforeCapture": 0,
+            "mutationsAfterCapture": 0,
+            "renderedCameraPosition": {
+                "x": -42.78050994873047,
+                "y": 80.61180114746094,
+                "z": -45.659523010253909
+            },
+            "renderedCameraEulerAngles": {
+                "x": 43.0000114440918,
+                "y": 22.0,
+                "z": 0.0
+            },
+            "renderedFieldOfView": 36.0
+        }
+    ]
+}
