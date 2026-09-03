@@ -1,0 +1,59 @@
+{
+ "kind": "p06a-hid-baseline (\u00a74)",
+ "result": "PASS",
+ "stampUtc": "2026-09-03T07:xx (campaign day)",
+ "checkpoint": "s4-release-ready (sessionId p06-oracle-release-ready)",
+ "picture": {
+  "id": "prod-0000",
+  "title": "City of Gambit"
+ },
+ "transition": {
+  "operationalStateBefore": "release-ready",
+  "operationalStateAfter": "release-committed",
+  "commitIntentBefore": "present",
+  "commitIntentAfter": "consumed",
+  "advanceBefore": "Hold City of Gambit at Release Ready \u2014 advance the week",
+  "advanceAfter": "No action is required this week \u2014 advance the week",
+  "railBefore": "RELEASE READY \u00b7 City of Gambit \u00b7 Ready \u2014 your decision",
+  "railAfter": "COMMITTED \u00b7 City of Gambit \u00b7 Releases next week"
+ },
+ "input": {
+  "method": "CGEventPost via Tools/ownerinput",
+  "clickScreenPoint": [
+   107,
+   280
+  ],
+  "modifiersBeforeClick": "clean",
+  "modifiersAfterClick": "clean"
+ },
+ "window": {
+  "id": 5523,
+  "boundsPts": [
+   0,
+   33,
+   720,
+   478
+  ],
+  "backingScale": 2.0,
+  "viewport": [
+   1440,
+   900
+  ]
+ },
+ "executableSha256": "aabc41f80295c2c6030a46ac276801ff5286a178c5e75611d1731cecd08a00cf",
+ "assemblyCSharpSha256": "43188ee0a543f3d43f3be3279fec91cb4162c6cba3f90bfba8c88b0f4e22a0d6",
+ "unityCommit": "7d6d974850054f67f44ec038e1288d1deffb2e10",
+ "tsEngineCommit": "501859dc9947249da5711d4bbfffe79a313f1a6a",
+ "tsWipTip": "493ca8091c9df669a6363555a68419731625449e",
+ "engineBundleSha256": "a74ed0dde22a365eac0b14b8cae168f28dac13b87856e584301a1e15546b9aab",
+ "evidence": [
+  "snapshot-before.json",
+  "snapshot-after.json",
+  "before-click.png",
+  "after-click.png",
+  "memo-crop.png",
+  "engine.log",
+  "app.log"
+ ],
+ "note": "Environment blocker from P06A F4 is RESOLVED: session is unlocked/on-console; window presented; screencapture+CGEventPost both landed. This is a technical baseline, NOT Owner acceptance."
+}
