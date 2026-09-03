@@ -68,15 +68,33 @@ This session is unlocked/on-console, so the journey ran on the **byte-identical 
 - [x] Entry / baseline / preservation (§1, §3)
 - [x] P06A HID baseline (§4) — PASS
 - [x] P06B branches created + pushed (§5)
-- [ ] Authorities read + reference delta (§6, §8)
-- [ ] Baseline UX audit (§9)
-- [ ] W0 visual system · W1 HUD · W2 movie rail (primary) · W3 Talent · W4 building cards · W5–W9
+- [x] Authorities read + reference delta (§6, §8) — `docs/research/P06B-LIVING-STUDIO-UX-REFERENCE-DELTA.md` (+ full synthesis)
+- [x] Baseline UX audit (§9) — `docs/ux/P06B-BASELINE-UX-AUDIT.md` (no P0; P1 = narrow-HUD-vanish + rail title clip)
+- [x] **W0 visual system + W1 HUD + W2 movie rail (PRIMARY) — code-complete, EditMode 731/731, committed Unity `75d7467`**
+- [ ] Visual capture/iterate of W0/W1/W2 (player building) — then W4 building cards, W3 talent
 - [ ] Visual review + oracle rerun + UX capture set (§22–23)
 - [ ] Profile-copy journey + real HID on P06B build (§24–25)
 - [ ] Full test pyramid (§26)
 - [ ] Hostile review → ACCEPT (§28)
 - [ ] Final integration + candidate + report (§30, §34)
 
+### W0/W1/W2 — what landed (Unity `75d7467`)
+- **W0** `StudioUiTokens.cs` (Infrastructure): one shared semantic language — type ladder, spacing,
+  greyscale-safe palette (colour always rides a word + shape), light-family surfaces. No dark reskin.
+- **W1** `StudioLivingTimeHud.cs`: fixed the executive-heartbeat disappearing at 1280×800 (chip was
+  height-suppressed to clear a *founding* confirm sheet absent post-founding). Added
+  `ChipShownForPlay` (post-founding band; NOT an overload, so reflection guards stay exact); HUD +
+  Development card branch founding-aware via `ChipShownNow`. Active speed/pause = filled brass chip;
+  transport min-height 22→30. Founding-time reserve + `ChipMinimumHeight` derivation UNCHANGED.
+- **W2** `StudioProductionRailHud.cs` + geometry consts: unified container behind rows; widened
+  264→304 (titles stop clipping); row 74→84 seats a **six-segment lifecycle track** (discrete phase
+  truth, never a %); semantic left-accent + coloured time line; committed=green. All behavioural pins
+  preserved (Locate-only, commits nothing, exact-ID, statusLabel/title/GhostShield markers intact).
+- **Guards:** EditMode 731/731 (updated one TimeVerb source-pin to the corrected call + added a
+  post-founding heartbeat coverage test — strengthened, not weakened). No engine/contract/save/economy.
+
 ## 8. Exact next action
 
-Read controlling authorities (§6) and run the bounded reference delta (§8, ≤75 min), then produce the ranked baseline UX audit (§9) from actual screenshots of the P06A candidate at four viewports.
+Build finishing → capture s4/s6 at 1440 + 1280 with the P06B player (`scratchpad/p06b-capture.sh`),
+inspect the actual image bytes, iterate the rail/HUD if weak; then W4 building-card convergence and
+the W3 talent entry point, then the proof pyramid (§22–26), hostile review (§28), integration (§30).
