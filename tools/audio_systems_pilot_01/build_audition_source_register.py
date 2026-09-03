@@ -13,10 +13,10 @@ from typing import Any
 from common import PILOT_ROOT, atomic_write_json, probe_audio, sha256_file, utc_now
 
 
-SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v2.json"
-ACCESSIBILITY_INDEX = PILOT_ROOT / "07_audio-oracle/accessibility-renders-v2/ACCESSIBILITY-PRESETS.v2.json"
+SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v3.json"
+ACCESSIBILITY_INDEX = PILOT_ROOT / "07_audio-oracle/accessibility-renders-v3/ACCESSIBILITY-PRESETS.v3.json"
 ORACLE_INDEX = PILOT_ROOT / "07_audio-oracle/AUDIO-ORACLE-INDEX.json"
-MANAGEMENT_CATALOGUE = PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v2.json"
+MANAGEMENT_CATALOGUE = PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v3.json"
 PREVIEW_ROOT = PILOT_ROOT / "11_return-package/audition-previews"
 OUTPUT_PATH = PILOT_ROOT / "11_return-package/AUDITION-SOURCE-REGISTER.json"
 CONVERSION_MANIFEST = PREVIEW_ROOT / "AUDITION-PREVIEW-DERIVATIVES.json"
@@ -88,8 +88,10 @@ def add_item(
 
 
 def build() -> dict[str, Any]:
+    existing_output = json.loads(OUTPUT_PATH.read_text(encoding="utf-8")) if OUTPUT_PATH.is_file() else None
+    existing_conversion = json.loads(CONVERSION_MANIFEST.read_text(encoding="utf-8")) if CONVERSION_MANIFEST.is_file() else None
     system = json.loads(SYSTEM_REGISTER.read_text(encoding="utf-8"))
-    if system.get("schema") != "project-studio-system-audio-asset-register/v2":
+    if system.get("schema") != "project-studio-system-audio-asset-register/v3":
         raise RuntimeError("unexpected systems register schema")
     source_items = system["items"]
     items: list[dict[str, Any]] = []
@@ -156,14 +158,15 @@ def build() -> dict[str, Any]:
     if any(counts.get(key) != value for key, value in expected.items()) or counts.get("AUDIO_ORACLE", 0) < 8:
         raise RuntimeError(f"audition coverage incomplete: {counts}")
     conversion_output = {
-        "schema": "project-studio-audition-preview-derivatives/v1", "generated_utc": utc_now(),
+        "schema": "project-studio-audition-preview-derivatives/v1",
+        "generated_utc": existing_conversion["generated_utc"] if existing_conversion else utc_now(),
         "status": "PROTOTYPE_READY_FOR_OWNER_AUDITION", "records": conversions,
         "source_relationships_explicit": True,
     }
     atomic_write_json(CONVERSION_MANIFEST, conversion_output)
     output = {
         "schema": "project-studio-audio-systems-audition-source/v1",
-        "generated_utc": utc_now(),
+        "generated_utc": existing_output["generated_utc"] if existing_output else utc_now(),
         "status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
         "human_acceptance": "NONE_RECORDED",
         "network_required": False,

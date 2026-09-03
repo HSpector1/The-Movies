@@ -57,6 +57,8 @@ def _related_destination(item: dict[str, Any], relation: str, source: Path) -> P
 
 
 def build(register_path: Path) -> dict[str, Any]:
+    existing_manifest_path = OUTPUT_ROOT / "AUDITION-BUILD-MANIFEST.json"
+    existing_manifest = json.loads(existing_manifest_path.read_text(encoding="utf-8")) if existing_manifest_path.is_file() else None
     register = json.loads(register_path.read_text(encoding="utf-8"))
     if register.get("schema") != "project-studio-audio-systems-audition-source/v1":
         raise RuntimeError("unexpected audition source-register schema")
@@ -133,7 +135,7 @@ def build(register_path: Path) -> dict[str, Any]:
     source_register_hash = sha256_file(register_path)
     public_catalogue = {
         "schema": "project-studio-audio-systems-audition/v1",
-        "generatedUtc": utc_now(),
+        "generatedUtc": existing_manifest.get("public_catalogue_generated_utc", utc_now()) if existing_manifest else utc_now(),
         "status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
         "humanAcceptance": "NONE_RECORDED",
         "networkRequired": False,
@@ -145,7 +147,8 @@ def build(register_path: Path) -> dict[str, Any]:
     atomic_write_json(catalogue_path, public_catalogue)
     manifest = {
         "schema": "project-studio-audio-systems-audition-build/v1",
-        "generated_utc": utc_now(),
+        "generated_utc": existing_manifest["generated_utc"] if existing_manifest else utc_now(),
+        "public_catalogue_generated_utc": public_catalogue["generatedUtc"],
         "machine_verdict": "PASS",
         "source_register": {"path": str(register_path), "sha256": source_register_hash},
         "catalogue": {"path": str(catalogue_path), "sha256": sha256_file(catalogue_path)},

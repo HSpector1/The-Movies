@@ -10,16 +10,16 @@ from typing import Any
 from common import PILOT_ROOT, atomic_write_json, probe_audio, sha256_file, utc_now
 
 
-INDEX_PATH = PILOT_ROOT / "10_provenance/audio-assets-index.v2.json"
+INDEX_PATH = PILOT_ROOT / "10_provenance/audio-assets-index.v3.json"
 CATALOGUE_PATH = PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.v1.json"
 RADIO_INDEX_PATH = PILOT_ROOT / "06_radio/STUDIO-RADIO-RUNTIME-INDEX.json"
-TRANSITION_PATH = PILOT_ROOT / "03_transitions/rendered-transition-catalogue.v2.json"
+TRANSITION_PATH = PILOT_ROOT / "03_transitions/rendered-transition-catalogue.v3.json"
 LIVING_PATH = PILOT_ROOT / "04_living-lot/living-lot-soundscape-catalogue.v2.json"
-DERIVATIVE_PATH = PILOT_ROOT / "10_provenance/audio-derivative-source-register.v2.json"
-VALIDATION_PATH = PILOT_ROOT / "10_provenance/audio-assets-validation.v2.json"
+DERIVATIVE_PATH = PILOT_ROOT / "10_provenance/audio-derivative-source-register.v3.json"
+VALIDATION_PATH = PILOT_ROOT / "10_provenance/audio-assets-validation.v3.json"
 ANCHOR_PATH = PILOT_ROOT / "02_music-bundles/responsive/responsive-anchor-authority.v2.json"
 SFX_GATE_PATH = PILOT_ROOT / "10_provenance/sfx-route-gate.v2.json"
-OUTPUT_PATH = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v2.json"
+OUTPUT_PATH = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v3.json"
 
 
 def require(path: Path, expected: str) -> None:
@@ -44,8 +44,9 @@ def base_item(record: dict[str, Any], role: str) -> dict[str, Any]:
 
 
 def build() -> dict[str, Any]:
+    existing_output = json.loads(OUTPUT_PATH.read_text(encoding="utf-8")) if OUTPUT_PATH.is_file() else None
     source_index = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
-    if source_index.get("schema") != "project-studio-audio-assets-index/v2":
+    if source_index.get("schema") != "project-studio-audio-assets-index/v3":
         raise RuntimeError("unexpected generated audio index schema")
     for manifest in source_index["source_manifests"]:
         require(Path(manifest["path"]), manifest["sha256"])
@@ -104,7 +105,7 @@ def build() -> dict[str, Any]:
         category = record["category"]
         if category == "LIVING_LOT_LAYER":
             item = base_item(record, "LIVING_LAYER")
-            item["layer"] = record["stable_prototype_id"].removeprefix("ASP01-LIVING-")
+            item["layer"] = record["zoom"]
             item["fixture"] = "BASE"
             authority = living_layers[record["stable_prototype_id"]]
             item["scheduled_detail_event_count"] = authority["scheduled_detail_event_count"]
@@ -113,12 +114,12 @@ def build() -> dict[str, Any]:
             items.append(item)
         elif category == "LIVING_LOT_FIXTURE_PRESENTATION":
             item = base_item(record, "LIVING_MIX")
-            item["fixture"] = record["stable_prototype_id"].removeprefix("ASP01-LIVING-FIXTURE-")
+            item["fixture"] = record["fixture"]
             item["classification"] = "TEN_MINUTE_LIVING_LOT_FIXTURE_PRESENTATION"
             items.append(item)
         elif category == "LIVING_LOT_ERA_PRESENTATION":
             item = base_item(record, "LIVING_ERA_PRESENTATION")
-            item["presentation"] = record["stable_prototype_id"].removeprefix("ASP01-LIVING-").removesuffix("-PRESENTATION")
+            item["presentation"] = record["presentation"]
             item["classification"] = "LAB_PRESENTATION_COLOR_ONLY_NO_ERA_TRUTH"
             items.append(item)
         elif category == "GENERATED_LOT_DETAIL_SFX":
@@ -208,8 +209,8 @@ def build() -> dict[str, Any]:
     if any(counts.get(role) != count for role, count in expected.items()):
         raise RuntimeError(f"system audio asset count mismatch: expected={expected}, actual={counts}")
     output = {
-        "schema": "project-studio-system-audio-asset-register/v2",
-        "generated_utc": utc_now(),
+        "schema": "project-studio-system-audio-asset-register/v3",
+        "generated_utc": existing_output["generated_utc"] if existing_output else utc_now(),
         "status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
         "human_acceptance": "NONE_RECORDED",
         "commercial_clearance": "NOT_CLAIMED",

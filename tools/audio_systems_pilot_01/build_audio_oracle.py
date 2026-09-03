@@ -17,9 +17,10 @@ from common import DOC_REPO, PILOT_ROOT, atomic_write_json, canonical_contained,
 
 
 UNITY_REPO = Path("/Users/bruce/Project Studio - Audio Systems Pilot 01 Client")
-DEFAULT_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v2.json"
+DEFAULT_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v3.json"
 OUTPUT_ROOT = PILOT_ROOT / "07_audio-oracle"
 CATALOGUE_PATH = PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.v1.json"
+EARLY_RADIO_VOICE_ROOT = PILOT_ROOT / "06_radio/demos/EARLY-NETWORK-GOLDEN-STUDIO/voice"
 EXPECTED_SCENARIOS = (
     "EARLY_ERA_NORMAL",
     "MID_ERA_ACTIVE",
@@ -75,6 +76,25 @@ def choose(items: list[dict[str, Any]], role: str, **fields: str) -> dict[str, A
     if sha256_file(path) != item["sha256"]:
         raise RuntimeError(f"source asset hash mismatch: {item['id']}")
     return {**item, "path": str(path)}
+
+
+def radio_voice(voice_id: str) -> dict[str, Any]:
+    metadata_path = canonical_contained(EARLY_RADIO_VOICE_ROOT, EARLY_RADIO_VOICE_ROOT / voice_id / "metadata.json")
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    if metadata.get("voice_id") != voice_id or metadata.get("route") != "macOS built-in speech; scratch delivery prototype":
+        raise RuntimeError(f"unexpected scratch voice authority: {voice_id}")
+    treated = metadata["period_treated"]
+    path = canonical_contained(PILOT_ROOT, Path(treated["path"]))
+    if sha256_file(path) != treated["sha256"]:
+        raise RuntimeError(f"scratch voice hash mismatch: {voice_id}")
+    return {
+        "id": voice_id,
+        "path": str(path),
+        "sha256": treated["sha256"],
+        "duration_seconds": treated["probe"]["duration_seconds"],
+        "spoken_text": metadata["spoken_text"],
+        "metadata": {"path": str(metadata_path), "sha256": sha256_file(metadata_path)},
+    }
 
 
 def dsp_event(sequence: int, dsp_time: float, event_type: str, source_id: str | None, bus: str, gain_db: float, detail: str) -> dict[str, Any]:
@@ -150,6 +170,37 @@ def pause_render(source: dict[str, Any], scenario_number: int) -> dict[str, Any]
         "[0:a]atrim=start=10:end=20,asetpts=PTS-STARTPTS[b];"
         "[a][s][b]concat=n=3:v=0:a=1[out]",
         "-map", "[out]", "-ar", "48000", "-ac", "2", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart",
+    ], destination)
+
+
+def ducking_render(score: dict[str, Any], voice: dict[str, Any], scenario_number: int) -> dict[str, Any]:
+    destination = OUTPUT_ROOT / "renders" / f"{scenario_number:02d}-radio-voice-ducking.m4a"
+    return run_ffmpeg([
+        "-stream_loop", "-1", "-i", score["path"], "-i", voice["path"],
+        "-filter_complex",
+        "[0:a]atrim=duration=24,asetpts=PTS-STARTPTS,volume=0.48[score];"
+        "[1:a]volume=0.92,adelay=6000|6000,asplit=2[voice][sidechain];"
+        "[sidechain]apad=whole_dur=24[control];"
+        "[score][control]sidechaincompress=threshold=0.018:ratio=12:attack=15:release=700[ducked];"
+        "[ducked][voice]amix=inputs=2:normalize=0:duration=longest,alimiter=limit=0.9[out]",
+        "-map", "[out]", "-t", "24", "-ar", "48000", "-ac", "2", "-c:a", "aac", "-b:a", "192k",
+        "-movflags", "+faststart",
+    ], destination)
+
+
+def pa_interrupt_render(
+    score: dict[str, Any], radio_host: dict[str, Any], pa_voice: dict[str, Any], scenario_number: int
+) -> dict[str, Any]:
+    destination = OUTPUT_ROOT / "renders" / f"{scenario_number:02d}-pa-interrupts-radio.m4a"
+    return run_ffmpeg([
+        "-stream_loop", "-1", "-i", score["path"], "-i", radio_host["path"], "-i", pa_voice["path"],
+        "-filter_complex",
+        "[0:a]atrim=duration=18,asetpts=PTS-STARTPTS,volume=0.25[score];"
+        "[1:a]atrim=start=0:end=5.1,asetpts=PTS-STARTPTS,afade=t=out:st=4.95:d=0.15,volume=0.85,adelay=1000|1000[radio];"
+        "[2:a]volume=0.96,adelay=6000|6000[pa];"
+        "[score][radio][pa]amix=inputs=3:normalize=0:duration=longest,alimiter=limit=0.9[out]",
+        "-map", "[out]", "-t", "18", "-ar", "48000", "-ac", "2", "-c:a", "aac", "-b:a", "192k",
+        "-movflags", "+faststart",
     ], destination)
 
 
@@ -247,8 +298,19 @@ def make_trace(
 
 
 def build(register_path: Path, app_path: Path) -> dict[str, Any]:
+    existing_index = OUTPUT_ROOT / "AUDIO-ORACLE-INDEX.json"
+    if existing_index.exists():
+        verified = verify()
+        existing = json.loads(existing_index.read_text(encoding="utf-8"))
+        binary = require_binary(app_path)
+        if (
+            existing["asset_register"]["sha256"] != sha256_file(register_path)
+            or existing["lab_binary"]["sha256"] != sha256_file(binary)
+        ):
+            raise RuntimeError("existing immutable Audio Oracle was built from different lab/register inputs")
+        return existing
     register = json.loads(register_path.read_text(encoding="utf-8"))
-    if register.get("schema") != "project-studio-system-audio-asset-register/v2":
+    if register.get("schema") != "project-studio-system-audio-asset-register/v3":
         raise RuntimeError("unexpected system asset register schema")
     items = register["items"]
     binary = require_binary(app_path)
@@ -263,7 +325,9 @@ def build(register_path: Path, app_path: Path) -> dict[str, Any]:
     early_active = choose(items, "RESPONSIVE_VARIANT", epoch=aliases["early"], context="ACTIVE")
     mid_active = choose(items, "RESPONSIVE_VARIANT", epoch=aliases["mid"], context="ACTIVE")
     modern_blocked = choose(items, "RESPONSIVE_VARIANT", epoch=aliases["modern"], context="BLOCKED")
-    radio = choose(items, "RADIO_DEMO", epoch="network_sound_1933_1945")
+    functional_voice = radio_voice("LAB-TECH-ELECTRICAL-PICKUP-TRIAL")
+    host_voice = radio_voice("SR-E02-LNK-01")
+    pa_voice = radio_voice("LAB-PA-E02-0001")
     living = choose(items, "LIVING_MIX", fixture="IDLE")
     adjacent = sorted([item for item in items if item.get("role") == "ERA_TRANSITION"], key=lambda item: item["id"])[0]
     adjacent = choose(items, "ERA_TRANSITION", id=adjacent["id"])
@@ -274,8 +338,8 @@ def build(register_path: Path, app_path: Path) -> dict[str, Any]:
         3: simple_render(modern_blocked, 3, "modern-blocked"),
         4: crossfade_render(early_normal, early_active, 4, "trusted-grid-fixture"),
         6: simple_render(adjacent, 6, "adjacent-era-transition"),
-        8: simple_render(radio, 8, "radio-ducking", "volume=0.8"),
-        9: simple_render(radio, 9, "pa-priority", "volume=0.72", start_seconds=414),
+        8: ducking_render(early_normal, functional_voice, 8),
+        9: pa_interrupt_render(early_normal, host_voice, pa_voice, 9),
         10: simple_render(living, 10, "music-off-living-lot"),
         11: simple_render(early_normal, 11, "force-mono", channels=1),
         12: simple_render(early_normal, 12, "night-mix", "acompressor=threshold=-24dB:ratio=4:attack=20:release=220,alimiter=limit=0.72"),
@@ -291,8 +355,8 @@ def build(register_path: Path, app_path: Path) -> dict[str, Any]:
     add(number=5, scenario=EXPECTED_SCENARIOS[4], fixture="ACTIVE_TO_BLOCKED_STABILITY_WINDOW", seed=105, sources=[mid_active], selected_cue=mid_active["id"], variant="ACTIVE_THEN_BLOCKED", transition_boundary="SAFE_CROSSFADE_AFTER_HYSTERESIS", events=[dsp_event(1, 102, "CONTEXT_HELD", mid_active["id"], "SCORE", 0, "BLOCKED_STABLE_2S_BELOW_5S_THRESHOLD"), dsp_event(2, 106, "TRANSITION_ACCEPTED", mid_active["id"], "SCORE", 0, "HYSTERESIS_SATISFIED")], gains=base_gains, buses=["SCORE"])
     add(number=6, scenario=EXPECTED_SCENARIOS[5], fixture="REPRESENTATIVE_ADJACENT_BOUNDARY", seed=106, sources=[adjacent], selected_cue=adjacent["id"], variant=adjacent.get("treatment"), transition_boundary="AUTHORED_TRANSITION_TREATMENT", events=[dsp_event(1, 100.12, "TRANSITION_DEMO", adjacent["id"], "SCORE", 0, adjacent.get("treatment", "PROTOTYPE"))], gains=base_gains, buses=["SCORE", "AMBIENCE"], render=rendered[6])
     add(number=7, scenario=EXPECTED_SCENARIOS[6], fixture="WORKSPACE_DEPTH_2", seed=107, sources=[early_normal], selected_cue=early_normal["id"], variant="NORMAL_CONTINUES", transition_boundary="NONE", events=[dsp_event(1, 100, "MIX_ONLY", early_normal["id"], "SCORE", -4, "WORKSPACE_CONTINUITY_NO_RESTART")], gains={**base_gains, "SCORE": -4}, buses=["SCORE"])
-    add(number=8, scenario=EXPECTED_SCENARIOS[7], fixture="RADIO_VOICE_GLOBAL_SPEECH_OWNER", seed=108, sources=[radio], selected_cue=early_normal["id"], variant="NORMAL", events=[dsp_event(1, 100, "DUCK_ATTACK", radio["id"], "RADIO_VOICE", 0, "SCORE_TO_MINUS_12_DB"), dsp_event(2, 101, "VOICE", radio["id"], "RADIO_VOICE", 0, "CAPTION_ACTIVE")], gains={**base_gains, "SCORE": -12, "RADIO_MUSIC": -15}, buses=["SCORE", "RADIO_MUSIC", "RADIO_VOICE"], speech=[radio["id"]], captions=["Caption derives from the same resolved payload."], render=rendered[8])
-    add(number=9, scenario=EXPECTED_SCENARIOS[8], fixture="PA_PREEMPTS_RADIO", seed=109, sources=[radio], selected_cue=radio["id"], variant="PA_PRIORITY", events=[dsp_event(1, 100, "RADIO_PAUSED", radio["id"], "RADIO_VOICE", -12, "PA_HELP_TAKES_SPEECH_OWNERSHIP"), dsp_event(2, 100.015, "PA_PLAY", "LAB-PA-E02-0001", "PA_HELP", 0, "VISIBLE_TEXT_EQUIVALENT_PRESENT")], gains={**base_gains, "SCORE": -18, "RADIO_MUSIC": -22, "RADIO_VOICE": -12}, buses=["RADIO_VOICE", "PA_HELP"], speech=["LAB-PA-E02-0001"], captions=["Stage access is paused; the same notice is available on screen."], render=rendered[9])
+    add(number=8, scenario=EXPECTED_SCENARIOS[7], fixture="RADIO_VOICE_GLOBAL_SPEECH_OWNER", seed=108, sources=[early_normal, functional_voice], selected_cue=early_normal["id"], variant="NORMAL", events=[dsp_event(1, 106, "DUCK_ATTACK", functional_voice["id"], "RADIO_VOICE", 0, "SCORE_SIDECHAIN_DUCK"), dsp_event(2, 106, "VOICE", functional_voice["id"], "RADIO_VOICE", 0, "CAPTION_ACTIVE"), dsp_event(3, 114.062104, "DUCK_RELEASE", functional_voice["id"], "SCORE", 0, "700_MS_RELEASE")], gains={**base_gains, "SCORE": -12, "RADIO_MUSIC": -15}, buses=["SCORE", "RADIO_MUSIC", "RADIO_VOICE"], speech=[functional_voice["id"]], captions=[functional_voice["spoken_text"]], render=rendered[8])
+    add(number=9, scenario=EXPECTED_SCENARIOS[8], fixture="PA_PREEMPTS_ACTIVE_RADIO_VOICE", seed=109, sources=[early_normal, host_voice, pa_voice], selected_cue=early_normal["id"], variant="PA_PRIORITY", events=[dsp_event(1, 101, "RADIO_VOICE_START", host_voice["id"], "RADIO_VOICE", 0, "RADIO_OWNS_SPEECH"), dsp_event(2, 106, "RADIO_INTERRUPTED", host_voice["id"], "RADIO_VOICE", -80, "PA_HELP_TAKES_SPEECH_OWNERSHIP"), dsp_event(3, 106, "PA_PLAY", pa_voice["id"], "PA_HELP", 0, "VISIBLE_TEXT_EQUIVALENT_PRESENT")], gains={**base_gains, "SCORE": -18, "RADIO_MUSIC": -22, "RADIO_VOICE": -80, "PA_HELP": 0}, buses=["SCORE", "RADIO_VOICE", "PA_HELP"], speech=[host_voice["id"], pa_voice["id"]], captions=[host_voice["spoken_text"], pa_voice["spoken_text"]], render=rendered[9])
     add(number=10, scenario=EXPECTED_SCENARIOS[9], fixture="IDLE_LOT_MUSIC_OFF", seed=110, sources=[living], transition_boundary="STOP_AT_SAFE_BOUNDARY", events=[dsp_event(1, 100, "SCORE_STOP", None, "SCORE", -80, "MUSIC_OFF"), dsp_event(2, 100, "AMBIENCE_CONTINUES", living["id"], "AMBIENCE", 0, "WIDE_MEDIUM_CLOSE_WORLD_REMAINS")], gains={**base_gains, "SCORE": -80}, buses=["AMBIENCE"], render=rendered[10])
     add(number=11, scenario=EXPECTED_SCENARIOS[10], fixture="FORCE_MONO_PRESET", seed=111, sources=[early_normal], selected_cue=early_normal["id"], variant="NORMAL", events=[dsp_event(1, 100, "MIX_PRESET", early_normal["id"], "MASTER", 0, "FORCE_MONO_DOWNMIX")], gains=base_gains, buses=["MASTER", "SCORE"], render=rendered[11])
     add(number=12, scenario=EXPECTED_SCENARIOS[11], fixture="NIGHT_LIMITED_DYNAMIC_RANGE_PRESET", seed=112, sources=[early_normal], selected_cue=early_normal["id"], variant="NORMAL", events=[dsp_event(1, 100, "MIX_PRESET", early_normal["id"], "MASTER", -3, "LIMITED_DYNAMIC_RANGE")], gains={**base_gains, "SCORE": -3, "AMBIENCE": -5, "ACTIVE_SFX": -6}, buses=["MASTER", "SCORE"], render=rendered[12])
@@ -349,8 +413,16 @@ def build(register_path: Path, app_path: Path) -> dict[str, Any]:
 def verify() -> dict[str, Any]:
     index_path = OUTPUT_ROOT / "AUDIO-ORACLE-INDEX.json"
     index = json.loads(index_path.read_text(encoding="utf-8"))
-    if index.get("scenario_count") != 18 or index.get("required_scenarios") != list(EXPECTED_SCENARIOS):
+    if (
+        index.get("machine_verdict") != "PASS"
+        or index.get("scenario_count") != 18
+        or index.get("required_scenarios") != list(EXPECTED_SCENARIOS)
+    ):
         raise RuntimeError("Audio Oracle index scenario coverage mismatch")
+    for authority in (index["lab_binary"], index["catalogue"], index["asset_register"]):
+        if sha256_file(Path(authority["path"])) != authority["sha256"]:
+            raise RuntimeError(f"Audio Oracle authority changed: {authority['path']}")
+    rendered_count = 0
     for record in index["traces"]:
         path = OUTPUT_ROOT / "traces" / f"{record['number']:02d}-{record['scenario']}.json"
         trace = json.loads(path.read_text(encoding="utf-8"))
@@ -359,9 +431,28 @@ def verify() -> dict[str, Any]:
             trace.pop("replay_comparison")
         if record_hash(trace) != fingerprint:
             raise RuntimeError(f"trace fingerprint mismatch: {path}")
+        for source in trace["source_audio"]:
+            source_path = canonical_contained(PILOT_ROOT, Path(source["path"]))
+            if sha256_file(source_path) != source["sha256"]:
+                raise RuntimeError(f"trace source changed: {source_path}")
+        if trace["lab_binary"]["sha256"] != index["lab_binary"]["sha256"]:
+            raise RuntimeError(f"trace binary identity diverges: {path}")
+        if trace["catalogue_sha256"] != index["catalogue"]["sha256"]:
+            raise RuntimeError(f"trace catalogue identity diverges: {path}")
         render = record.get("render")
         if render and sha256_file(Path(render["path"])) != render["sha256"]:
             raise RuntimeError(f"oracle render hash mismatch: {render['path']}")
+        if render:
+            rendered_count += 1
+    if rendered_count != 12:
+        raise RuntimeError(f"Audio Oracle listening-render coverage mismatch: {rendered_count}")
+    for simulation in index["four_hour_playlist_simulations"]:
+        path = Path(simulation["path"])
+        if sha256_file(path) != simulation["sha256"]:
+            raise RuntimeError(f"playlist simulation changed: {path}")
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if payload.get("machine_verdict") != "PASS" or payload.get("duration_seconds") != 14_400:
+            raise RuntimeError(f"playlist simulation verdict/duration mismatch: {path}")
     return {"machine_verdict": "PASS", "scenario_count": 18, "index_sha256": sha256_file(index_path)}
 
 

@@ -13,9 +13,9 @@ from typing import Any
 from common import PILOT_ROOT, atomic_write_json, probe_audio, sha256_file, utc_now
 
 
-REGISTER_PATH = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v2.json"
-OUTPUT_ROOT = PILOT_ROOT / "07_audio-oracle/accessibility-renders-v2"
-PRESET_PATH = OUTPUT_ROOT / "ACCESSIBILITY-PRESETS.v2.json"
+REGISTER_PATH = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v3.json"
+OUTPUT_ROOT = PILOT_ROOT / "07_audio-oracle/accessibility-renders-v3"
+PRESET_PATH = OUTPUT_ROOT / "ACCESSIBILITY-PRESETS.v3.json"
 
 
 PRESETS: dict[str, dict[str, Any]] = {
@@ -99,9 +99,10 @@ def render_mix(score: dict[str, Any], ambience: dict[str, Any], radio: dict[str,
 
 
 def build() -> dict[str, Any]:
+    existing_output = json.loads(PRESET_PATH.read_text(encoding="utf-8")) if PRESET_PATH.is_file() else None
     register = json.loads(REGISTER_PATH.read_text(encoding="utf-8"))
-    if register.get("schema") != "project-studio-system-audio-asset-register/v2":
-        raise RuntimeError("unexpected v2 system asset register schema")
+    if register.get("schema") != "project-studio-system-audio-asset-register/v3":
+        raise RuntimeError("unexpected v3 system asset register schema")
     items = register["items"]
     score = pick(items, "RESPONSIVE_VARIANT", epoch="acoustic_electrical_1920_1932", context="NORMAL")
     ambience = pick(items, "LIVING_MIX", fixture="IDLE")
@@ -115,8 +116,8 @@ def build() -> dict[str, Any]:
             raise RuntimeError(f"accessibility channel-count mismatch: {name}")
         renders.append({"preset": name, **record})
     output = {
-        "schema": "project-studio-audio-accessibility-presets/v2",
-        "generated_utc": utc_now(),
+        "schema": "project-studio-audio-accessibility-presets/v3",
+        "generated_utc": existing_output["generated_utc"] if existing_output else utc_now(),
         "status": "PROTOTYPE_READY_FOR_OWNER_AUDITION",
         "human_acceptance": "NONE_RECORDED",
         "independent_controls": ["MASTER", "SCORE", "RADIO_MUSIC", "RADIO_VOICE", "PA_HELP", "AMBIENCE", "ACTIVE_SFX", "UI"],

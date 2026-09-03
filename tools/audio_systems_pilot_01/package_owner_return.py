@@ -19,7 +19,7 @@ from common import DOC_REPO, PILOT_ROOT, atomic_write_json, atomic_write_text, s
 
 RETURN_ROOT = Path("/Users/bruce/Desktop/Project-Studio-Audio-Systems-Pilot-01")
 AUDITION_SOURCE = PILOT_ROOT / "11_return-package/AUDITION-SOURCE-REGISTER.json"
-SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v2.json"
+SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v3.json"
 ORACLE_ROOT = PILOT_ROOT / "07_audio-oracle"
 AUDITION_APP = PILOT_ROOT / "08_audition-app"
 REQUIRED_DIRS = (
@@ -240,22 +240,37 @@ Use `START-AUDIO-LAB.command`. The application loads only explicit, SHA-256-boun
             PILOT_ROOT / "01_catalogue/AudioPrototypeCatalogue.v1.json",
             SYSTEM_REGISTER,
             AUDITION_SOURCE,
-            PILOT_ROOT / "10_provenance/audio-assets-index.v2.json",
+            PILOT_ROOT / "10_provenance/audio-assets-index.v3.json",
+            PILOT_ROOT / "02_music-bundles/responsive/responsive-anchor-authority.v2.json",
+            PILOT_ROOT / "02_music-bundles/responsive/responsive-generation-register.json",
+            PILOT_ROOT / "02_music-bundles/responsive/responsive-bundle-catalogue.json",
+            PILOT_ROOT / "03_transitions/rendered-transition-catalogue.v3.json",
+            PILOT_ROOT / "04_living-lot/living-lot-soundscape-catalogue.v2.json",
+            PILOT_ROOT / "05_management-sfx/generated-lot-detail/lot-detail-sfx-catalogue.json",
+            PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v3.json",
+            PILOT_ROOT / "06_radio/STUDIO-RADIO-RUNTIME-INDEX.json",
+            PILOT_ROOT / "07_audio-oracle/accessibility-renders-v3/ACCESSIBILITY-PRESETS.v3.json",
+            PILOT_ROOT / "07_audio-oracle/AUDIO-ORACLE-INDEX.json",
         ):
             clone_file(source, staging / "CATALOGUE" / source.name)
         provenance_files = (
             PILOT_ROOT / "10_provenance/phase-a-reconciliation.json",
             PILOT_ROOT / "10_provenance/source-authority-hashes.json",
             PILOT_ROOT / "10_provenance/sfx-route-gate.v2.json",
-            PILOT_ROOT / "10_provenance/audio-assets-validation.v2.json",
-            PILOT_ROOT / "10_provenance/audio-derivative-source-register.v2.json",
+            PILOT_ROOT / "10_provenance/audio-assets-validation.v3.json",
+            PILOT_ROOT / "10_provenance/audio-derivative-source-register.v3.json",
             PILOT_ROOT / "00_state/AUDIO-SYSTEMS-PILOT-STATE.json",
         )
         for source in provenance_files:
             clone_file(source, staging / "PROVENANCE" / source.name)
         for name in DOC_NAMES:
             clone_file(DOC_REPO / "docs/audio" / name, staging / "PROVENANCE" / name)
-        clone_file(PILOT_ROOT / "07_audio-oracle/accessibility-renders-v2/ACCESSIBILITY-PRESETS.v2.json", staging / "ACCESSIBILITY/ACCESSIBILITY-PRESETS.v2.json")
+        clone_file(DOC_REPO / "docs/audio/CODEX-ERA-TRANSITION-ATLAS-01.md", staging / "TRANSITIONS/ERA-TRANSITION-ATLAS.md")
+        clone_file(DOC_REPO / "docs/audio/CODEX-RESPONSIVE-MUSIC-BUNDLES-01.md", staging / "MUSIC/README.md")
+        clone_file(DOC_REPO / "docs/audio/CODEX-LIVING-LOT-SOUNDSCAPE-01.md", staging / "LIVING-LOT/README.md")
+        clone_file(DOC_REPO / "docs/audio/CODEX-MANAGEMENT-AUDIO-LANGUAGE-01.md", staging / "MANAGEMENT-SFX/README.md")
+        clone_file(DOC_REPO / "docs/audio/CODEX-STUDIO-RADIO-RUNTIME-01.md", staging / "RADIO/README.md")
+        clone_file(PILOT_ROOT / "07_audio-oracle/accessibility-renders-v3/ACCESSIBILITY-PRESETS.v3.json", staging / "ACCESSIBILITY/ACCESSIBILITY-PRESETS.v3.json")
 
         subprocess.run(["codesign", "--verify", "--deep", "--strict", str(staging / "AUDIO-LAB/Project Studio Audio Systems Pilot.app")], check=True, capture_output=True, text=True)
         tree = manifest_tree(staging)
