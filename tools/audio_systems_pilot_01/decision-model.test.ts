@@ -80,6 +80,34 @@ describe("pure deterministic audio presentation", () => {
     expect(decision.requestedTransition.type).toBe("NONE");
   });
 
+  it("applies Active and Blocked hysteresis before entry from silence", () => {
+    for (const probe of [
+      { broadLotActivity: "ACTIVE_PRODUCTION" as const, before: 7.999, boundary: 8, expected: "ACTIVE" as const },
+      { broadLotActivity: "BLOCKED_PRODUCTION" as const, before: 4.999, boundary: 5, expected: "BLOCKED" as const },
+    ]) {
+      const waiting = decideAudioPresentation(state({
+        broadLotActivity: probe.broadLotActivity,
+        contextStableSeconds: probe.before,
+      }), [bundle]);
+      expect(waiting.selectedCueBundle).toBeNull();
+      expect(waiting.selectedVariant).toBeNull();
+      expect(waiting.requestedTransition).toEqual({
+        type: "NONE",
+        boundaryDsp: null,
+        crossfadeSeconds: 0,
+        reason: "CONTEXT_HYSTERESIS_WAIT_BEFORE_SILENT_ENTRY",
+      });
+
+      const entering = decideAudioPresentation(state({
+        broadLotActivity: probe.broadLotActivity,
+        contextStableSeconds: probe.boundary,
+      }), [bundle]);
+      expect(entering.selectedCueBundle).toBe(bundle.id);
+      expect(entering.selectedVariant).toBe(probe.expected);
+      expect(entering.requestedTransition.type).toBe("PHRASE_ALIGNED");
+    }
+  });
+
   it("keeps workspace continuity without a cue restart", () => {
     const decision = decideAudioPresentation(state({ currentBundleId: bundle.id, currentVariant: "ACTIVE", workspaceDepth: 2 }), [bundle]);
     expect(decision.selectedVariant).toBe("ACTIVE");

@@ -210,6 +210,21 @@ export function decideAudioPresentation(
   }
   const hysteresis = context === "BLOCKED" ? BLOCKED_HYSTERESIS_SECONDS : context === "ACTIVE" ? ACTIVE_HYSTERESIS_SECONDS : 0;
   const dwell = state.currentCueStartedDsp === null ? Number.POSITIVE_INFINITY : state.nowDsp - state.currentCueStartedDsp;
+  if (state.currentVariant === null && state.contextStableSeconds < hysteresis) {
+    return {
+      ...common,
+      selectedCueBundle: null,
+      selectedVariant: null,
+      requestedTransition: {
+        type: "NONE",
+        boundaryDsp: null,
+        crossfadeSeconds: 0,
+        reason: "CONTEXT_HYSTERESIS_WAIT_BEFORE_SILENT_ENTRY",
+      },
+      silenceDensityState: "DETERMINISTIC_GAP",
+      refusalFallbackReason: null,
+    };
+  }
   if (state.currentVariant !== null && context !== state.currentVariant && (state.contextStableSeconds < hysteresis || dwell < MINIMUM_DWELL_SECONDS)) {
     context = state.currentVariant;
   }

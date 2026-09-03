@@ -259,17 +259,17 @@ Each current programme is exactly 660 seconds and carries a rendered 48 kHz, 24-
 | `POSTWAR-PERSONALITY-TAPE-HIFI-V2` | `tape_hifi_1946_1959`; Arthur Vale | Correct postwar anchor; same required elements; typed `P05_AUDIO_LAB_FIXTURE`; PA over an active radio-music presentation | `06_radio/demos-v2/POSTWAR-PERSONALITY-TAPE-HIFI-V2/` |
 | `DIGITAL-NETWORKED-HYBRID-V2` | `networked_hybrid_2000_2014`; Rina Shore | Same required elements; typed `P06_AUDIO_LAB_FIXTURE`; separately identified radio bed, voice, PA, and silence | `06_radio/demos-v2/DIGITAL-NETWORKED-HYBRID-V2/` |
 
-Each v2 example uses accepted playouts at 10, 275, 330, 590, and 610 seconds. The 330-second event is a non-voice milestone sting. The 610-second PA is the sole start-spacing exception: it interrupts the still-active 590-second radio voice. Because the ten-minute window is half-open, the 10-second opening has aged out at 610; the PA is still only the third voiced start in that rolling window. Every programme remains below three voiced starts, 120 voiced seconds, two elective starts, and 75 elective seconds per rolling ten minutes. The PA occurs inside the 585–650-second music window and therefore exercises actual bed ducking.
+Each v2 example uses accepted playouts at 10, 275, 330, 590, and 610 seconds. The 330-second event is a non-voice milestone sting. The 610-second PA is the sole start-spacing exception: it interrupts the still-active 590-second radio voice. Because the ten-minute window is half-open, the 10-second opening has aged out at 610; the PA is still only the third voiced start in that rolling window. Every programme remains at or below three voiced starts, 120 voiced seconds, two elective starts, and 75 elective seconds per rolling ten minutes. The PA occurs inside the 585–650-second music window and therefore exercises actual bed ducking.
 
 Each demo includes cue sheet, source/payload IDs, DSP times, voice starts, silence windows, gains, captions, transcript, interruption decisions, cooldown state, and render hash where a mix is produced.
 
 ## Thirty-minute simulations
 
-One deterministic 30-minute schedule exists per anchor programme:
+One deterministic 30-minute schedule exists per anchor programme, keyed in the current v2 evidence by its exact `epochAlias` rather than by a separate simulation ID:
 
-- `RADIO-SIM-30-EARLY-01`
-- `RADIO-SIM-30-POSTWAR-01`
-- `RADIO-SIM-30-DIGITAL-01`
+- `network_sound_1933_1945`
+- `tape_hifi_1946_1959`
+- `networked_hybrid_2000_2014`
 
 Each trace contains six accepted events at 30, 330, 630, 930, 1230, and 1530 seconds plus decision-only suppression probes. Each reports full text, presenter, speech owner, gains, typed payload identity where applicable, and candidate evaluations. The traces prove chronological ordering, exact-ID non-repeat, category cooldowns, rolling budgets, a functional fixture, PA, milestone sting, receipt coalescing, repeat suppression, and no mechanical mutation. They do not establish listening comfort.
 
