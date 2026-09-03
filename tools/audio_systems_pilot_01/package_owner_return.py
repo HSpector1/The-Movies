@@ -35,6 +35,7 @@ from common import (
     probe_audio, read_contained_regular_bytes, require_contained_regular_file,
     sha256_file, utc_now,
 )
+from publish_metadata_status_remedies import catalogue_bytes, catalogue_for_binding
 
 
 RETURN_ROOT = Path("/Users/bruce/Desktop/Project-Studio-Audio-Systems-Pilot-01")
@@ -44,6 +45,9 @@ UNITY_BASE = "29aea89a706a7f0961f5a460afc5bdb4d38d8395"
 AUDITION_SOURCE = PILOT_ROOT / "11_return-package/AUDITION-SOURCE-REGISTER.v2.json"
 SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json"
 MANAGEMENT_CATALOGUE = PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v4.json"
+MANAGEMENT_SOURCE_CATALOGUE = PILOT_ROOT / "05_management-sfx/semantic-pack/management-semantic-catalogue.v3.json"
+MANAGEMENT_HISTORY_ROOT = PILOT_ROOT / "05_management-sfx/semantic-pack/history"
+MANAGEMENT_HISTORY_REGISTER = PILOT_ROOT / "05_management-sfx/semantic-pack/MANAGEMENT-METADATA-HISTORY.v1.json"
 ORACLE_ROOT = PILOT_ROOT / "07_audio-oracle"
 ORACLE_SUITE = ORACLE_ROOT / "AUDIO-ORACLE-SUITE.v1.json"
 ORACLE_ARCHIVE_REGISTER = ORACLE_ROOT / "AUDIO-ORACLE-EVIDENCE-ARCHIVE-REGISTER.v1.json"
@@ -122,6 +126,7 @@ PROVENANCE_SOURCES = (
     PILOT_ROOT / "10_provenance/sfx-route-gate.v2.json",
     PILOT_ROOT / "10_provenance/audio-assets-validation.v4.json",
     PILOT_ROOT / "10_provenance/audio-derivative-source-register.v4.json",
+    MANAGEMENT_HISTORY_REGISTER,
     COMPLETE_AUDIO,
     PILOT_ROOT / "11_return-package/audition-previews-v2/AUDITION-PREVIEW-DERIVATIVES.json",
     AUDITION_PREVIEW_HISTORY,
@@ -638,11 +643,116 @@ def verify_oracle_archive_register() -> dict[str, int]:
     return {"archived_suite_count": len(archived)}
 
 
+def verify_management_metadata_history(required_hashes: set[str]) -> dict[str, Any]:
+    """Verify the exact registered set of immutable commit-bound management catalogues."""
+    register_payload, register_mode = read_contained_regular_bytes(
+        PILOT_ROOT, MANAGEMENT_HISTORY_REGISTER
+    )
+    register = json.loads(register_payload.decode("utf-8"))
+    entries = register.get("entries")
+    source_binding = register.get("source_code", {})
+    source_path = "tools/audio_systems_pilot_01/publish_metadata_status_remedies.py"
+    source_commit = source_binding.get("commit")
+    committed_source = subprocess.run(
+        ["git", "show", f"{source_commit}:{source_path}"],
+        cwd=DOC_REPO, check=False, capture_output=True,
+    )
+    current_doc_sha = git(DOC_REPO, "rev-parse", "HEAD")
+    require(register_mode == 0o644
+            and register.get("schema") == "project-studio-management-metadata-history/v1"
+            and register.get("status") == "PRESERVED_D_BOUND_METADATA_BYTES"
+            and register.get("machine_verdict") == "PASS"
+            and isinstance(entries, list) and entries
+            and register.get("counts") == {"catalogues": len(entries)},
+            "management metadata history register contract failed")
+    require(source_binding.get("path") == source_path
+            and source_binding.get("working_file_matches_commit") is True
+            and source_commit == current_doc_sha
+            and committed_source.returncode == 0
+            and hashlib.sha256(committed_source.stdout).hexdigest() == source_binding.get("blob_sha256")
+            and sha256_file(DOC_REPO / source_path) == source_binding.get("blob_sha256"),
+            "management metadata history register source binding failed")
+    require(os.path.lexists(MANAGEMENT_HISTORY_ROOT)
+            and MANAGEMENT_HISTORY_ROOT.is_dir()
+            and not MANAGEMENT_HISTORY_ROOT.is_symlink(),
+            "management metadata history root is unavailable or unsafe")
+    source_payload, _ = read_contained_regular_bytes(PILOT_ROOT, MANAGEMENT_SOURCE_CATALOGUE)
+    source_sha = hashlib.sha256(source_payload).hexdigest()
+    source_catalogue = json.loads(source_payload.decode("utf-8"))
+    source_candidates = source_catalogue.get("candidates")
+    require(source_catalogue.get("schema") == "project-studio-management-audio-language/v3"
+            and source_catalogue.get("rights_status") == "PROTOTYPE_ONLY"
+            and isinstance(source_candidates, list) and source_candidates
+            and source_catalogue.get("candidate_count") == len(source_candidates),
+            "management metadata history v3 source contract failed")
+    for candidate in source_candidates:
+        audio_path = require_contained_regular_file(PILOT_ROOT, Path(candidate["audio"]["path"]))
+        audio_payload, _ = read_contained_regular_bytes(PILOT_ROOT, audio_path)
+        require(hashlib.sha256(audio_payload).hexdigest() == candidate["audio"]["sha256"]
+                and candidate.get("human_disposition") == "PENDING"
+                and candidate.get("rights_status") == "PROTOTYPE_ONLY",
+                f"management metadata history candidate identity failed: {audio_path}")
+    registered_hashes: set[str] = set()
+    registered_names: set[str] = set()
+    for row in entries:
+        digest = row.get("sha256")
+        expected_name = f"management-semantic-catalogue.v4-{digest}.json"
+        expected_path = MANAGEMENT_HISTORY_ROOT / expected_name
+        require(re.fullmatch(r"[0-9a-f]{64}", str(digest)) is not None
+                and row.get("absolute_path") == str(expected_path)
+                and row.get("relative_path") == str(expected_path.relative_to(PILOT_ROOT))
+                and row.get("mode") == 0o444
+                and digest not in registered_hashes,
+                "management metadata history register contains a malformed or duplicate row")
+        payload, mode = read_contained_regular_bytes(PILOT_ROOT, expected_path)
+        catalogue = json.loads(payload.decode("utf-8"))
+        catalogue_binding = catalogue.get("source_code", {})
+        historical_commit = catalogue_binding.get("commit")
+        historical_source = subprocess.run(
+            ["git", "show", f"{historical_commit}:{source_path}"],
+            cwd=DOC_REPO, check=False, capture_output=True,
+        )
+        require(len(payload) == row.get("bytes")
+                and hashlib.sha256(payload).hexdigest() == digest
+                and mode == row.get("mode") == 0o444,
+                f"management metadata history bytes changed: {expected_name}")
+        require(row.get("catalogue_source_code") == catalogue_binding
+                and catalogue_binding.get("path") == source_path
+                and catalogue_binding.get("working_file_matches_commit") is True
+                and re.fullmatch(r"[0-9a-f]{40}", str(historical_commit)) is not None
+                and historical_source.returncode == 0
+                and hashlib.sha256(historical_source.stdout).hexdigest()
+                    == catalogue_binding.get("blob_sha256"),
+                f"management metadata history Git binding failed: {expected_name}")
+        expected_catalogue_payload = catalogue_bytes(
+            catalogue_for_binding(source_catalogue, source_sha, catalogue_binding)
+        )
+        require(payload == expected_catalogue_payload,
+                f"management metadata history is not the exact deterministic v3-to-v4 projection: {expected_name}")
+        registered_hashes.add(str(digest))
+        registered_names.add(expected_name)
+    actual_names: set[str] = set()
+    for path in MANAGEMENT_HISTORY_ROOT.iterdir():
+        mode = os.lstat(path).st_mode
+        require(not path.is_symlink() and stat.S_ISREG(mode)
+                and re.fullmatch(r"management-semantic-catalogue\.v4-[0-9a-f]{64}\.json", path.name) is not None,
+                f"management metadata history contains a linked, special, or malformed entry: {path}")
+        actual_names.add(path.name)
+    require(actual_names == registered_names,
+            "management metadata history differs from its exact register")
+    require(required_hashes.issubset(registered_hashes),
+            "management metadata history is missing a Unity-referenced identity")
+    return {
+        "registered_management_metadata_count": len(registered_hashes),
+        "management_metadata_history_register_sha256": hashlib.sha256(register_payload).hexdigest(),
+    }
+
+
 def verify_unity_run_archives() -> dict[str, Any]:
     archive_root = PILOT_ROOT / "09_unity-lab/ArchivedRuns"
     supplement_root = PILOT_ROOT / "09_unity-lab/ArchiveSupplements"
     management_relative = "05_management-sfx/semantic-pack/management-semantic-catalogue.v4.json"
-    management_history_root = PILOT_ROOT / "05_management-sfx/semantic-pack/history"
+    management_history_root = MANAGEMENT_HISTORY_ROOT
     repair_tool_path = "tools/audio_systems_pilot_01/repair_unity_validation_archives.py"
     required_management_history_hashes: set[str] = set()
     if not os.path.lexists(archive_root):
@@ -1154,27 +1264,7 @@ def verify_unity_run_archives() -> dict[str, Any]:
             and all(re.fullmatch(r"[0-9a-f]{64}", digest) is not None
                     for digest in required_management_history_hashes),
             "Unity evidence contains malformed management-history identities")
-    require(os.path.lexists(management_history_root)
-            and management_history_root.is_dir() and not management_history_root.is_symlink(),
-            "management metadata history root is unavailable or unsafe")
-    expected_history_names = {
-        f"management-semantic-catalogue.v4-{digest}.json"
-        for digest in required_management_history_hashes
-    }
-    actual_history_names: set[str] = set()
-    for path in management_history_root.iterdir():
-        require(not path.is_symlink() and stat.S_ISREG(os.lstat(path).st_mode),
-                f"management metadata history contains a linked or special entry: {path}")
-        require(path.name in expected_history_names,
-                f"management metadata history contains an unreferenced file: {path.name}")
-        payload, mode = read_contained_regular_bytes(PILOT_ROOT, path)
-        digest = hashlib.sha256(payload).hexdigest()
-        require(path.name == f"management-semantic-catalogue.v4-{digest}.json"
-                and digest in required_management_history_hashes and mode == 0o444,
-                f"management metadata history identity failed: {path.name}")
-        actual_history_names.add(path.name)
-    require(actual_history_names == expected_history_names,
-            "management metadata history is missing a Unity-referenced identity")
+    history_proof = verify_management_metadata_history(required_management_history_hashes)
     evidence_identities = sorted([
         *manifest_identities, *supplement_manifest_identities, *completed_manifest_identities,
     ])
@@ -1188,6 +1278,7 @@ def verify_unity_run_archives() -> dict[str, Any]:
         "supplemented_pointer_file_count": supplemented_pointer_files,
         "completed_unity_run_snapshot_count": len(completed_runs),
         "archive_manifest_set_sha256": aggregate,
+        **history_proof,
     }
 
 
@@ -1831,7 +1922,7 @@ def package_copy_specs(root: Path) -> dict[str, list[tuple[str, Path, Path, bool
         ("TREE:AUDIO-LAB", LAB_APP, root / "AUDIO-LAB/Project Studio Audio Systems Pilot.app", True),
         ("TREE:AUDITION", AUDITION_APP, root / "AUDITION", True),
         ("TREE:COMPLETE-REGISTER-HISTORY", COMPLETE_HISTORY_ROOT, root / "PROVENANCE/complete-register-history", True),
-        ("TREE:MANAGEMENT-METADATA-HISTORY", PILOT_ROOT / "05_management-sfx/semantic-pack/history", root / "PROVENANCE/management-metadata-history", True),
+        ("TREE:MANAGEMENT-METADATA-HISTORY", MANAGEMENT_HISTORY_ROOT, root / "PROVENANCE/management-metadata-history", True),
         ("TREE:UNITY-ARCHIVED-RUNS", PILOT_ROOT / "09_unity-lab/ArchivedRuns", root / "PROVENANCE/unity-validation-evidence/ArchivedRuns", True),
         ("TREE:UNITY-ARCHIVE-SUPPLEMENTS", PILOT_ROOT / "09_unity-lab/ArchiveSupplements", root / "PROVENANCE/unity-validation-evidence/ArchiveSupplements", True),
         ("TREE:UNITY-COMPLETED-RUNS", PILOT_ROOT / "09_unity-lab/CompletedRuns", root / "PROVENANCE/unity-validation-evidence/CompletedRuns", True),
@@ -2087,7 +2178,7 @@ def build(lab_app: Path) -> dict[str, Any]:
         copy_hostile_reviews(staging)
         copy_four_hour_simulations(staging)
         copy_tree(COMPLETE_HISTORY_ROOT, staging / "PROVENANCE/complete-register-history")
-        copy_tree(PILOT_ROOT / "05_management-sfx/semantic-pack/history", staging / "PROVENANCE/management-metadata-history")
+        copy_tree(MANAGEMENT_HISTORY_ROOT, staging / "PROVENANCE/management-metadata-history")
         copy_tree(PILOT_ROOT / "09_unity-lab/ArchivedRuns", staging / "PROVENANCE/unity-validation-evidence/ArchivedRuns")
         copy_tree(PILOT_ROOT / "09_unity-lab/ArchiveSupplements", staging / "PROVENANCE/unity-validation-evidence/ArchiveSupplements")
         copy_tree(PILOT_ROOT / "09_unity-lab/CompletedRuns", staging / "PROVENANCE/unity-validation-evidence/CompletedRuns")
@@ -2145,6 +2236,9 @@ def verify_root(root: Path) -> dict[str, Any]:
     require(exact_tree_snapshot(root / "PROVENANCE/complete-register-history")
             == exact_tree_snapshot(COMPLETE_HISTORY_ROOT),
             "return package complete-register predecessor history differs from current preserved chain")
+    require(exact_tree_snapshot(root / "PROVENANCE/management-metadata-history")
+            == exact_tree_snapshot(MANAGEMENT_HISTORY_ROOT),
+            "return package management-metadata history differs from its registered preserved set")
     for relative in REQUIRED_DIRS:
         if not (root / relative).is_dir():
             raise RuntimeError(f"return package missing required directory: {relative}")
