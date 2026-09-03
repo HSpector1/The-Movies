@@ -39,6 +39,32 @@ def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
     return digest.hexdigest()
 
 
+def verify_exact_file_reference(
+    record: Any, expected_path: Path, allowed_root: Path, *, label: str
+) -> Path:
+    """Verify one exact path/hash record through the shared no-follow reader."""
+    if (not isinstance(record, dict) or set(record) != {"path", "sha256"}
+            or not isinstance(record.get("path"), str)
+            or not isinstance(record.get("sha256"), str)
+            or len(record["sha256"]) != 64
+            or any(character not in "0123456789abcdef" for character in record["sha256"])):
+        raise RuntimeError(f"{label} identity is malformed")
+    candidate = Path(record["path"])
+    if not candidate.is_absolute():
+        candidate = allowed_root / candidate
+    lexical_candidate = Path(os.path.abspath(candidate))
+    lexical_expected = Path(os.path.abspath(expected_path))
+    if lexical_candidate != lexical_expected:
+        raise RuntimeError(f"{label} path is not the exact expected file: {lexical_candidate}")
+    payload, _ = read_contained_regular_bytes(allowed_root, lexical_candidate)
+    actual_sha256 = hashlib.sha256(payload).hexdigest()
+    if record["sha256"] != actual_sha256:
+        raise RuntimeError(
+            f"{label} hash mismatch: declared={record['sha256']};actual={actual_sha256}"
+        )
+    return lexical_candidate
+
+
 def atomic_write_text(path: Path, payload: str, mode: int | None = None) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     wanted_mode = mode if mode is not None else (path.stat().st_mode & 0o777 if path.exists() else 0o644)

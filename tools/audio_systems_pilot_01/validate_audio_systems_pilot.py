@@ -29,7 +29,10 @@ from package_owner_return import (
     verify_state_record,
     verify_unity_run_archives,
 )
-from common import DOC_REPO, MARATHON_ROOT, PILOT_ROOT, atomic_write_json, canonical_contained, probe_audio, sha256_file, utc_now
+from common import (
+    DOC_REPO, MARATHON_ROOT, PILOT_ROOT, atomic_write_json, canonical_contained,
+    probe_audio, sha256_file, utc_now, verify_exact_file_reference,
+)
 
 
 DOC_BASE = "c457c3a35a66b2ab4b72b0ca379f118b2f1fa1bf"
@@ -573,12 +576,12 @@ def check_responsive_and_playlists() -> dict[str, Any]:
             verified_path(record)
     playlists = load(PLAYLISTS, "project-studio-four-hour-density-simulations/v2")
     require(playlists["machine_verdict"] == "PASS" and playlists["trace_count"] == 12 and playlists["duration_seconds_each"] == 14_400, "four-hour suite failed")
-    playlist_source = playlists.get("source_register")
-    require(isinstance(playlist_source, dict) and set(playlist_source) == {"path", "sha256"}
-            and pilot_path(playlist_source.get("path", "")) == SYSTEM_REGISTER.resolve()
-            and playlist_source.get("sha256") == SYSTEM_REGISTER_SHA256
-            and sha256_file(SYSTEM_REGISTER) == SYSTEM_REGISTER_SHA256,
-            "four-hour suite source-register identity is stale")
+    verify_exact_file_reference(
+        playlists.get("source_register"), SYSTEM_REGISTER, PILOT_ROOT,
+        label="four-hour suite source register in final validation",
+    )
+    require(sha256_file(SYSTEM_REGISTER) == SYSTEM_REGISTER_SHA256,
+            "final validator's system-register source pin is stale")
     require(set(playlists["densities"]) == {"FULL_MUSIC", "BALANCED", "SPARSE", "OFF"} and set(playlists["epochs"]) == EXPECTED_EPOCHS, "density suite coverage mismatch")
     for row in playlists["traces"]:
         path, trace = load_record_json(row)

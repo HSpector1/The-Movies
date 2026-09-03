@@ -18,7 +18,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from common import DOC_REPO, PILOT_ROOT, canonical_contained, probe_audio, sha256_file
+from common import (
+    DOC_REPO, PILOT_ROOT, canonical_contained, probe_audio, sha256_file,
+    verify_exact_file_reference,
+)
 from build_accessibility_renders_v4 import verify as verify_accessibility_renders
 
 
@@ -361,18 +364,9 @@ def load_verified(record: dict[str, Any], *, schema: str | None = None, required
 
 
 def verify_four_hour_source_register(playlist: dict[str, Any]) -> None:
-    source = playlist.get("source_register")
-    require(
-        isinstance(source, dict)
-        and set(source) == {"path", "sha256"}
-        and isinstance(source.get("path"), str)
-        and re.fullmatch(r"[0-9a-f]{64}", source.get("sha256", "")) is not None,
-        "four-hour source-register identity is malformed",
-    )
-    require(
-        pilot_path(source["path"]) == SYSTEM_REGISTER.resolve()
-        and source["sha256"] == sha256_file(SYSTEM_REGISTER),
-        "four-hour source-register identity is stale",
+    verify_exact_file_reference(
+        playlist.get("source_register"), SYSTEM_REGISTER, PILOT_ROOT,
+        label="four-hour source register",
     )
 
 

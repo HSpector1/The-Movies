@@ -34,7 +34,7 @@ from build_hostile_review_index import verify as verify_hostile_reviews
 from common import (
     DOC_REPO, PILOT_ROOT, atomic_write_json, atomic_write_text, canonical_contained,
     probe_audio, read_contained_regular_bytes, require_contained_regular_file,
-    sha256_file, utc_now,
+    sha256_file, utc_now, verify_exact_file_reference,
 )
 from publish_metadata_status_remedies import catalogue_bytes, catalogue_for_binding
 
@@ -1906,11 +1906,10 @@ def four_hour_copy_pairs(root: Path) -> list[tuple[Path, Path]]:
     require(suite.get("schema") == "project-studio-four-hour-density-simulations/v2"
             and suite.get("machine_verdict") == "PASS" and suite.get("trace_count") == 12
             and len(suite.get("traces", [])) == 12, "four-hour suite failed before package copy")
-    source_register = suite.get("source_register")
-    require(isinstance(source_register, dict) and set(source_register) == {"path", "sha256"}
-            and pilot_path(source_register.get("path", "")) == SYSTEM_REGISTER.resolve()
-            and source_register.get("sha256") == sha256_file(SYSTEM_REGISTER),
-            "four-hour suite source-register identity is stale before package copy")
+    verify_exact_file_reference(
+        suite.get("source_register"), SYSTEM_REGISTER, PILOT_ROOT,
+        label="four-hour suite source register before package copy",
+    )
     destination = root / "PROVENANCE/four-hour-density"
     pairs = [(suite_path, destination / suite_path.name)]
     copied: set[Path] = set()
@@ -2458,6 +2457,32 @@ def self_test() -> dict[str, int | str]:
         except RuntimeError:
             return
         raise AssertionError(f"package/provenance mutation was accepted: {label}")
+
+    four_hour = json.loads((
+        PILOT_ROOT / "02_music-bundles/simulations/FOUR-HOUR-DENSITY-SIMULATIONS.v2.json"
+    ).read_text(encoding="utf-8"))
+    verify_exact_file_reference(
+        four_hour.get("source_register"), SYSTEM_REGISTER, PILOT_ROOT,
+        label="four-hour suite source register before package copy",
+    )
+    stale_four_hour_source = dict(four_hour["source_register"])
+    stale_four_hour_source["sha256"] = "0" * 64
+    expect_rejection(
+        "four-hour stale source-register hash",
+        lambda: verify_exact_file_reference(
+            stale_four_hour_source, SYSTEM_REGISTER, PILOT_ROOT,
+            label="four-hour suite source register before package copy",
+        ),
+    )
+    wrong_four_hour_source = dict(four_hour["source_register"])
+    wrong_four_hour_source["path"] = str(PILOT_ROOT / "02_music-bundles/simulations")
+    expect_rejection(
+        "four-hour wrong source-register path",
+        lambda: verify_exact_file_reference(
+            wrong_four_hour_source, SYSTEM_REGISTER, PILOT_ROOT,
+            label="four-hour suite source register before package copy",
+        ),
+    )
 
     voice_path = "06_radio/demos-v2/E02/voice/FUNCTIONAL/PERIOD.wav"
     voice = {"relative_path": voice_path, **expected_complete_file_policy(voice_path)}
