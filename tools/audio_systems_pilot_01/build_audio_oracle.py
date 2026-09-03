@@ -67,8 +67,15 @@ REQUIRED_EVENT_TYPES = {
     "active_to_blocked_hysteresis": {"HYSTERESIS_REFUSAL", "HYSTERESIS_ACCEPTANCE"},
     "adjacent_era_transition": {"ADJACENT_RENDER_ACCEPTED"},
     "workspace_continuity_without_restart": {"KEEP_CURRENT"},
-    "radio_voice_ducking": {"RADIO_VOICE_TARGET", "SCORE_DUCK_TARGET"},
-    "pa_interrupting_radio": {"PA_SPEECH_TARGET", "SCORE_DUCK_TARGET", "RADIO_INTERRUPTED_BY_PA"},
+    "radio_voice_ducking": {
+        "REGISTERED_RADIO_VOICE_TARGET_PENDING_RUNTIME_SCHEDULE",
+        "SCORE_DUCK_POLICY_TARGET",
+    },
+    "pa_interrupting_radio": {
+        "REGISTERED_PA_VOICE_TARGET_PENDING_RUNTIME_SCHEDULE",
+        "SCORE_DUCK_POLICY_TARGET",
+        "RADIO_INTERRUPT_POLICY_TARGET_BY_PA",
+    },
     "music_off_with_living_ambience": {"MIX_APPLIED"},
     "force_mono": {"MIX_APPLIED"},
     "night_mix": {"MIX_APPLIED"},
@@ -113,8 +120,17 @@ REQUIRED_ASSERTION_IDS = {
     "active_to_blocked_hysteresis": {"BLOCKED_HELD_BEFORE_5S", "BLOCKED_ACCEPTED_AT_5S_AFTER_45S_DWELL"},
     "adjacent_era_transition": {"ERA_TRUTH_NOT_MANUFACTURED", "HONEST_RENDER_TREATMENT"},
     "workspace_continuity_without_restart": {"NO_RESTART"},
-    "radio_voice_ducking": {"SPEECH_AND_SCORE_DUCK_BUS_TARGETS_EXPLICIT", "VOICE_DUCKS_SCORE", "CAPTION_AND_SPOKEN_DERIVE_FROM_TYPED_PAYLOAD"},
-    "pa_interrupting_radio": {"SPEECH_AND_SCORE_DUCK_BUS_TARGETS_EXPLICIT", "PA_INTERRUPTION_DISPOSITION_EXPLICIT", "PA_INTERRUPTS", "CAPTION_AND_SPOKEN_DERIVE_FROM_TYPED_PAYLOAD"},
+    "radio_voice_ducking": {
+        "SPEECH_AND_SCORE_DUCK_POLICY_TARGETS_EXPLICIT",
+        "VOICE_DUCK_POLICY_SELECTED",
+        "CAPTION_AND_SPOKEN_DERIVE_FROM_TYPED_PAYLOAD",
+    },
+    "pa_interrupting_radio": {
+        "SPEECH_AND_SCORE_DUCK_POLICY_TARGETS_EXPLICIT",
+        "PA_INTERRUPTION_POLICY_DISPOSITION_EXPLICIT",
+        "PA_INTERRUPT_POLICY_SELECTED",
+        "CAPTION_AND_SPOKEN_DERIVE_FROM_TYPED_PAYLOAD",
+    },
     "music_off_with_living_ambience": {"EXPLICIT_SCORE_AND_AMBIENCE_BUS_TARGET_EVENTS", "MUSIC_OFF_AMBIENCE_REMAINS"},
     "force_mono": {"EXPLICIT_SCORE_AND_AMBIENCE_BUS_TARGET_EVENTS", "FORCE_MONO_ENABLED", "PCM_MARKER_DETECTED_WITHIN_ONE_FRAME", "OFFLINE_RUNTIME_FORCE_MONO_CHANNEL_EQUALITY"},
     "night_mix": {"EXPLICIT_SCORE_AND_AMBIENCE_BUS_TARGET_EVENTS", "NIGHT_LIMITER_ENABLED", "PCM_MARKER_DETECTED_WITHIN_ONE_FRAME", "OFFLINE_RUNTIME_NIGHT_PEAK_REDUCTION"},
@@ -295,30 +311,41 @@ def verify_trace_contract(trace: dict[str, Any], scenario: str) -> None:
         require(speech and captions and len(speech) == len(captions)
                 and all(nonempty_string(value) for value in (*speech, *captions)), f"radio/PA speech-caption proof missing: {scenario}")
         require(all(nonempty_string(trace.get(key)) for key in ("owner_domain", "event_id", "receipt_id")), f"radio/PA typed payload identity missing: {scenario}")
-        expected_speech_type = "PA_SPEECH_TARGET" if scenario == "pa_interrupting_radio" else "RADIO_VOICE_TARGET"
+        expected_speech_type = ("REGISTERED_PA_VOICE_TARGET_PENDING_RUNTIME_SCHEDULE"
+                                if scenario == "pa_interrupting_radio"
+                                else "REGISTERED_RADIO_VOICE_TARGET_PENDING_RUNTIME_SCHEDULE")
         expected_speech_bus = "PaHelp" if scenario == "pa_interrupting_radio" else "RadioVoice"
         expected_duck = 10 ** ((-12.0 if scenario == "pa_interrupting_radio" else -8.0) / 20.0)
-        expected_event_order = (["PA_SPEECH_TARGET", "SCORE_DUCK_TARGET", "RADIO_INTERRUPTED_BY_PA"]
+        expected_event_order = (["REGISTERED_PA_VOICE_TARGET_PENDING_RUNTIME_SCHEDULE",
+                                 "SCORE_DUCK_POLICY_TARGET", "RADIO_INTERRUPT_POLICY_TARGET_BY_PA"]
                                 if scenario == "pa_interrupting_radio"
-                                else ["RADIO_VOICE_TARGET", "SCORE_DUCK_TARGET"])
+                                else ["REGISTERED_RADIO_VOICE_TARGET_PENDING_RUNTIME_SCHEDULE",
+                                      "SCORE_DUCK_POLICY_TARGET"])
         require([event["event_type"] for event in events] == expected_event_order
                 and all(near(event.get("dsp_time"), 0.0) and near(event.get("requested_dsp_deadline"), 0.0)
                         for event in events)
                 and events[0].get("source_id") == speech[0]
                 and events[1].get("source_id") == speech[0]
                 and events[0]["event_type"] == expected_speech_type and bus_is(events[0], expected_speech_bus)
-                and near(events[0]["gain"], 1.0) and events[0]["scheduler_api_accepted"] is True,
-                f"radio/PA explicit speech-bus target failed: {scenario}")
-        require(events[1]["event_type"] == "SCORE_DUCK_TARGET" and bus_is(events[1], "Score")
-                and near(events[1]["gain"], expected_duck) and events[1]["scheduler_api_accepted"] is True,
-                f"radio/PA explicit Score duck target failed: {scenario}")
-        require({"SPEECH_AND_SCORE_DUCK_BUS_TARGETS_EXPLICIT", "CAPTION_AND_SPOKEN_DERIVE_FROM_TYPED_PAYLOAD"} <= assertion_ids,
+                and near(events[0]["gain"], 1.0) and events[0]["scheduler_api_accepted"] is False
+                and str(events[0].get("detail", "")).endswith(";POLICY_TARGET_ONLY_AUDIO_NOT_SCHEDULED_IN_ORACLE"),
+                f"radio/PA registered speech policy target failed: {scenario}")
+        require(events[1]["event_type"] == "SCORE_DUCK_POLICY_TARGET" and bus_is(events[1], "Score")
+                and near(events[1]["gain"], expected_duck) and events[1]["scheduler_api_accepted"] is False
+                and events[1].get("detail") == ("POLICY_ONLY_NOT_ARMED;score_duck_decibels=-12"
+                                                  if scenario == "pa_interrupting_radio"
+                                                  else "POLICY_ONLY_NOT_ARMED;score_duck_decibels=-8"),
+                f"radio/PA explicit Score duck policy target failed: {scenario}")
+        require({"SPEECH_AND_SCORE_DUCK_POLICY_TARGETS_EXPLICIT",
+                 "CAPTION_AND_SPOKEN_DERIVE_FROM_TYPED_PAYLOAD"} <= assertion_ids,
                 f"radio/PA semantic assertions missing: {scenario}")
         if scenario == "pa_interrupting_radio":
-            require(events[2]["event_type"] == "RADIO_INTERRUPTED_BY_PA" and bus_is(events[2], "RadioVoice")
-                    and near(events[2]["gain"], 0.0) and events[2]["scheduler_api_accepted"] is True
-                    and "PA_INTERRUPTION_DISPOSITION_EXPLICIT" in assertion_ids,
-                    "PA interruption disposition is not explicit")
+            require(events[2]["event_type"] == "RADIO_INTERRUPT_POLICY_TARGET_BY_PA"
+                    and bus_is(events[2], "RadioVoice")
+                    and near(events[2]["gain"], 0.0) and events[2]["scheduler_api_accepted"] is False
+                    and events[2].get("detail") == "CURRENT_RADIO_RELEASED_TO_URGENT_PA"
+                    and {"PA_INTERRUPTION_POLICY_DISPOSITION_EXPLICIT", "PA_INTERRUPT_POLICY_SELECTED"} <= assertion_ids,
+                    "PA interruption policy disposition is not explicit")
     if scenario in {"music_off_with_living_ambience", "force_mono", "night_mix"}:
         require(any(event["event_type"] == "BUS_TARGET_GAIN" and bus_is(event, "Score") for event in events)
                 and any(event["event_type"] == "BUS_TARGET_GAIN" and bus_is(event, "Ambience") for event in events)
