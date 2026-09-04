@@ -110,6 +110,29 @@ rulings D0–D10 (P07A-OWNER-RULINGS handoff). This file tracks execution wave-b
     Fixed a latent hit-test mis-index (the non-Production `else` assumed Screenplay). EditMode **769/769**
     (+7 new W3 contract tests). **Visual/HID proof deferred to W7** per charter.
 - W3 — done (see above).
+- **W4a — pure result-presentation contract — DONE (Unity `63d897b`).**
+  `StudioReleaseResultContracts.Build(StudioFilmResultSnapshot) → ResultView`: CRITICS / AUDIENCE /
+  BUSINESS as three INDEPENDENT display channels (no universal score, D3); Unity classifies nothing
+  (maps the TS-decided bands/tiers/labels). GROSS distinct from STUDIO REVENUE; live runs marked
+  "projected" (not banked), D2. Compact deterministic money formatter. EditMode **773/773** (+4).
+- **W4b — pending (NEXT): the result WORKSPACE + rail DETAILS wiring.** Build `StudioReleaseResultWorkspace`
+  (a C# VisualElement tree + USS, modeled on `StudioProductionWorkspace` — chrome heading + BACK, a body
+  with three channel sections, Bind via StudioReleaseResultContracts; restrained, no forced cinematic, D7);
+  host route `StudioWorkspaceHost.OpenReleaseResult(result)` (mirror OpenProduction); rail DETAILS click
+  (StudioProductionRailHud ReleasedResult branch → OpenReleaseResult). D4: available at the tick truth
+  exists; non-blocking. Named elements for the W7 oracle. EditMode-verify; pixel/HID in W7.
+
+### SESSION CHECKPOINT 2 (2026-09-04)
+- **SEALED + pushed (both repos): D0 · branches · W0 · W1 · W2 · W3 · W4a.** TS floor 4920/5-skip;
+  core/bridge/ui tsc clean; **Unity EditMode 773/773**; Unity DTO mirror byte-identical. TS WIP tip `5f74b6a`;
+  Unity WIP tip `63d897b` (local==remote). The full TS authoritative core+contract, the Unity IN THEATERS
+  rail lifecycle, and the pure result-presentation model are done + EditMode/floor-proven. No V17; no P06
+  boundary crossed; campaign refs UNMOVED (P07A on WIP only; FF only at W8 seal).
+- **REMAINING: W4b (result workspace UI + rail DETAILS wiring) · W5 (legacy memo hygiene D9 / chronicle
+  read-only D8) · W6 (save-load / exact-ID / migration — trivial, no V17) · W7 (new released-mid-run TS
+  fixture + visual oracle + real HID + owner-profile journey) · W8 (fresh hostile review + technical seal +
+  campaign FF).** These are proof-heavy (Unity build + oracle + real HID + hostile review + integration) and
+  are the session-spanning tail — to be completed without reducing proof quality.
 - W4 — pending (result workspace/reveal consumer).
 - W5 — pending (legacy/boundary hygiene).
 - W6 — pending (continuity/save-load/exact-ID/migration proof).
