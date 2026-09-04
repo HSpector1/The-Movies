@@ -207,3 +207,25 @@ Do not claim P06 Owner acceptance.
 - **REMAINING: HID journey G re-run → W8** (full final floor incl. verify:bridge-contract-consumer,
   fresh hostile review, remediation, technical seal, campaign FF, ~/Desktop/P07A-Owner-Candidate).
   §8 supplemental viewports (1280×800 / 1720×1045 / fullscreen knob added `ade3325`) still to run.
+
+### SESSION CHECKPOINT 4 (2026-09-04) — W7 COMPLETE; W8 underway
+- **HID journey G — OVERALL PASS (run 6)**: `Evidence/S/OwnerInputProof-1440x900-p07-result-route-6-20260904T164941Z`
+  (ts `d0953e5` / unity `c4c65db`): G **15/15** — calibration-menu neutralize → rail-details published →
+  REAL click opens the exact film's workspace → identity "IN THEATERS" → three channel sections →
+  "Tracking toward" projected language → exact-id reselect to prod-0701 (identity switches to The
+  Distant Insurgent) → BACK → workspace gone → menu Save + Resume; E 5/5 (menu→quit-confirm→real
+  process exit); F pass. Three real root causes fixed en route (`c4c65db`): unseeded engine in the
+  runner (PROOF_RUNTIME_SEED honored), calibration leaving the Studio Menu owning the frame
+  (journey-G neutralizer via the menu's own Resume), and the FULL-zone rect published for a
+  viewport-straddling row (publisher now emits the VISIBLE INTERSECTION, <24px withdraws; G
+  wheel-scrolls the sliver in like a player). Failed runs 1–5 preserved in Evidence/S (honest trail).
+- **Oracle: 6/6 green THIRD run on the final binary** (exe `c3372eb5…`, 44 asserts, 0 mutations) +
+  **§8 supplemental viewports all green**: divided-response + run-complete at **1280×800** and
+  **1720×1046**, and divided-response at **TRUE NATIVE FULLSCREEN 3456×2234** (fullscreen knob).
+  Known non-blocker: at 1280×800 the legacy top time-band overdraws the workspace heading's top-left
+  by a few px (legacy-IMGUI-above-UITK layering, pre-existing family); all content legible.
+- **W8 progress:** typecheck + typecheck:bridge + check:bridge-contract(+fixtures) PASS;
+  **CF-09 verify-only PASS at the exact WIP pair** — TS `d0953e5` × Unity `c4c65db`, generated
+  contract git blob byte-identical (`84d9c9a8…`), projection 15 / protocol 4 / schema `ddce1c39…`.
+  Full TS floor re-running for the final binding. REMAINING: fresh hostile review → remediation →
+  candidate `~/Desktop/P07A-Owner-Candidate-*` → campaign FF (both repos) → final report.
