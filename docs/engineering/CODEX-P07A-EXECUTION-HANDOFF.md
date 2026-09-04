@@ -175,3 +175,35 @@ rulings D0–D10 (P07A-OWNER-RULINGS handoff). This file tracks execution wave-b
 Result computation stays in TS (Unity never computes). No runtime LLM; no editorial feedback into sim. No
 Hollywood Wire runtime dependency (emit typed receipts only). No P08. Campaign refs move only at technical seal.
 Do not claim P06 Owner acceptance.
+
+### SESSION CHECKPOINT 3 (2026-09-04) — W7 nearly complete; HID journey G one fix away
+- **W6 — DONE** (`85bfa26` bridge-p07a-w6-result-continuity: 6 families; floor 4926/5-skip).
+- **W7 — fixtures/oracle/profile DONE; HID G pending.**
+  - Fixtures `ui/e2e/p07-visual-oracle-v1` (`d76b433`): six §7 scenarios, all level-1 asserts green.
+  - Oracle: SIX scenarios ran GREEN TWICE (44 machine asserts, 0 fails, 0 mutations) — run 2 on the
+    corrected binary (exe `c3ff2b77…`, Unity `61c4eee`) after the one visual defect (DETAILS wrapping
+    "DETAIL/S") was root-caused (GUI.skin.label wordWrap) and fixed via DetailsZoneWidth 78 + no-wrap
+    style (draw + hit-test share the constant). Evidence `Evidence/P07-Oracle/*-2026…152358Z+`.
+  - Real-profile journey (`386c196` scripts/p07-real-profile-journey.mts): **30/30**, baseline sha
+    unchanged + read-only.
+  - Consumer handoff doc committed (`117578b` P07-AUTHORITATIVE-RESULT-CONSUMER-HANDOFF.md; no Wire).
+  - **HID:** run-1 FAIL = harness race (map window 20s < ~28s first-connect through the proxy); fixed
+    (90s, env PROOF_MAP_WAIT_MS, `ade3325`). Run-2: map + calibration + E 5/5 (menu→quit-confirm→real
+    exit) + F PASS; **journey G BLOCKED** — `rail-details-prod-0700` absent at journey time (293
+    elements). Controlled repro PROVES the publisher works (both `rail-details-*` rects present ~6s
+    after connect, correct 78×96 zones). **Hypothesis:** the calibration click on `rail-locate-casting`
+    Locates/focuses the Casting building → camera IsInspecting → the rail stands down (deep-surface
+    yield) before G runs. **NEXT:** start journey G by restoring the lot view (end inspection — e.g.
+    the world's own Esc/deselect route), re-assert `rail-details-*`, then the full G route; evidence
+    `Evidence/S/OwnerInputProof-1440x900-p07-result-route-2-20260904T153629Z`.
+- **OWNER DIRECTION RECEIVED (mid-P07A, 2026-09-04):** the Owner pointed at
+  `~/Desktop/big swing art/` (The Movies 2005 screenshots + mechanics bible + comparative design
+  register): *"The UI/UX is what we are aiming towards. Push hard to match as much of that as we can."*
+  Reference anatomy (e.g. the Apr-1956 lot shot): persistent LEFT edge strip of talent portrait chips
+  with status bars; persistent RIGHT edge strip of script/movie/PR cards; date+speed+cash top band —
+  everything in flight glanceable over the live lot. P07A's rail + People strip already follow this
+  shape; the full match is a VISUAL/UX PACKAGE of its own (see docs/design Visual Direction Package
+  01) and must NOT be improvised into the P07A seal. Carry into the next package charter.
+- **REMAINING: HID journey G re-run → W8** (full final floor incl. verify:bridge-contract-consumer,
+  fresh hostile review, remediation, technical seal, campaign FF, ~/Desktop/P07A-Owner-Candidate).
+  §8 supplemental viewports (1280×800 / 1720×1045 / fullscreen knob added `ade3325`) still to run.
