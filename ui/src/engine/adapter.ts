@@ -258,6 +258,7 @@ import type {
   FoundingBuildingId,
   ProductionCard,
   ReleasedCard,
+  FilmResultCard,
   CashBand,
   StandingBand,
   ReleasePresence,
@@ -3690,6 +3691,43 @@ export function filmResultView(state: GameState, film: FilmResult): FilmResultVi
       totalWeeks: run ? run.totalWeeks : 0,
       weeksCredited: run ? run.weekIndex : 0,
     },
+  }
+}
+
+// P07A W2 — wire-shaped per-film result snapshot (StudioFilmResultSnapshot). A pure map of
+// filmResultView + the film's concept title + weeks-since-release. Per-segment order follows the
+// canonical market-segment order for a deterministic wire.
+export function filmResultSnapshot(state: GameState, film: FilmResult, week: number): FilmResultCard {
+  const v = filmResultView(state, film)
+  const title = findConcept(state, film.conceptId)?.title ?? film.conceptId
+  return {
+    id: v.productionId,
+    title,
+    releaseWeek: film.releaseTick,
+    weeksAgo: Math.max(0, week - film.releaseTick),
+    criticScore: v.critic.score,
+    criticStars: v.critic.stars,
+    criticBand: v.critic.band,
+    criticTier: v.critic.tier,
+    audienceAggregate: v.audience.aggregate,
+    audienceTier: v.audience.tier,
+    audiencePerSegment: state.market.segments.map((s) => ({
+      segment: s.id,
+      score: v.audience.perSegment[s.id] ?? 0,
+    })),
+    boxOfficeOpening: v.business.boxOfficeOpening,
+    boxOfficeGrossTotal: v.business.boxOfficeGrossTotal,
+    studioRevenueTotal: v.business.studioRevenueTotal,
+    studioRevenuePaidToDate: v.business.studioRevenuePaidToDate,
+    grossPaidToDate: v.business.grossPaidToDate,
+    committedCost: v.business.committedCost,
+    contribution: v.business.contribution,
+    roi: v.business.roi,
+    projected: v.business.projected,
+    resultLabel: v.business.resultLabel,
+    runStatus: v.business.runStatus,
+    totalWeeks: v.business.totalWeeks,
+    weeksCredited: v.business.weeksCredited,
   }
 }
 
@@ -7841,6 +7879,8 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
       : {}),
     activeProductions,
     releasedFilms,
+    // P07A W2 — rich per-film results for the release-results projection (durable inspection).
+    results: released.map((f) => filmResultSnapshot(state, f, week)),
     releasePresence,
     latestReleaseTitle,
     people: [...peopleById.values()],

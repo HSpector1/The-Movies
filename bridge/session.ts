@@ -1271,6 +1271,8 @@ export class BridgeSession {
     // snapshot stays untouched. The bundle projection deep-copies every input,
     // so the shared context facts never reach a served envelope by reference.
     const snapshot = projectStudioProjectionBundle({
+      // P07A W2 — `results` now rides inside context.lotSnapshot() (the builder owns the
+      // derivation, mirroring releasedFilms), so the projection partition invariant holds.
       ...context.lotSnapshot(),
       development: context.development(),
       casting: context.casting(),

@@ -24,7 +24,11 @@ export const PROTOCOL_VERSION = 4 as const
 // P06A W2 (charter W2): 13 → 14 — the Release projection joins the bundle,
 // `release-committed` joins the closed operational-state vocabulary, and the
 // explicit `commitPictureToRelease` intent kind joins the wire.
-export const PROJECTION_VERSION = 14 as const
+// P07A W2 (charter W2): 14 → 15 — the release-results projection gains the rich per-film
+// `results` (StudioFilmResultSnapshot: three independent critic/audience/business channels,
+// gross vs studio revenue, banked-vs-projected). Additive; protocol stays 4; save stays V16
+// (result truth is DERIVED from already-persisted state — no saved byte changed).
+export const PROJECTION_VERSION = 15 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -89,6 +93,49 @@ const StudioReleasedFilmSnapshot = object('StudioReleasedFilmSnapshot', {
   title: nonEmptyText(),
   reception: enumeration(['flop', 'mixed', 'hit', 'smash']),
   weeksAgo: nonNegativeInteger(),
+})
+
+// P07A W2 — the rich per-film numeric result (the durable result-inspection surface).
+// Three INDEPENDENT channels (D3): CRITICS, AUDIENCE, BUSINESS — never one quality score.
+// BOX OFFICE GROSS is kept distinct from STUDIO REVENUE, and "…PaidToDate" (actually credited)
+// is distinct from the locked full-run totals (D2 truthfulness). Money lives here, NOT on the
+// rail rows (D5). Every value is DERIVED in TS from persisted state; Unity only renders it.
+const StudioFilmSegmentScore = object('StudioFilmSegmentScore', {
+  segment: enumeration(['youngAdult', 'family', 'adult', 'prestige']),
+  score: number(),
+})
+const StudioFilmResultSnapshot = object('StudioFilmResultSnapshot', {
+  id: nonEmptyText(),
+  title: nonEmptyText(),
+  releaseWeek: nonNegativeInteger(),
+  weeksAgo: nonNegativeInteger(),
+  criticScore: number(),
+  criticStars: number(),
+  criticBand: enumeration(['flop', 'mixed', 'hit', 'smash']),
+  criticTier: enumeration(['pan', 'mixed', 'favorable', 'strong', 'rave']),
+  audienceAggregate: number(),
+  audienceTier: enumeration(['hated', 'disliked', 'divided', 'liked', 'loved']),
+  audiencePerSegment: array(reference('StudioFilmSegmentScore', StudioFilmSegmentScore)),
+  boxOfficeOpening: number(),
+  boxOfficeGrossTotal: number(),
+  studioRevenueTotal: number(),
+  studioRevenuePaidToDate: number(),
+  grossPaidToDate: number(),
+  committedCost: number(),
+  contribution: number(),
+  roi: number(),
+  projected: bool(),
+  resultLabel: enumeration([
+    'Profit',
+    'Loss',
+    'Break-even',
+    'Projected profit',
+    'Projected loss',
+    'Projected break-even',
+  ]),
+  runStatus: enumeration(['active', 'completed', 'legacyCompleted', 'none']),
+  totalWeeks: nonNegativeInteger(),
+  weeksCredited: nonNegativeInteger(),
 })
 
 const StudioJourneyNextSnapshot = object('StudioJourneyNextSnapshot', {
@@ -1339,6 +1386,8 @@ const studioLotSnapshotProperties = {
   buildings: array(reference('StudioBuildingSnapshot', StudioBuildingSnapshot)),
   activeProductions: array(reference('StudioProductionSnapshot', StudioProductionSnapshot)),
   releasedFilms: array(reference('StudioReleasedFilmSnapshot', StudioReleasedFilmSnapshot)),
+  // P07A W2 — rich per-film results (owned by the release-results projection); see D2/D3/D5.
+  results: array(reference('StudioFilmResultSnapshot', StudioFilmResultSnapshot)),
   productionOperations: array(reference(
     'StudioProductionOperationsSnapshot',
     StudioProductionOperationsSnapshot,
@@ -1395,6 +1444,9 @@ export const StudioJourneyNoticesProjectionSchema = object('StudioJourneyNotices
 
 export const StudioReleaseResultsProjectionSchema = object('StudioReleaseResultsProjection', {
   releasedFilms: studioLotSnapshotProperties.releasedFilms,
+  // P07A W2: rich per-film results (durable inspection), owned once here — same partition
+  // pattern as releasedFilms. The coarse `releasedFilms` band is retained (D10 additive).
+  results: studioLotSnapshotProperties.results,
 })
 
 export const StudioDevelopmentProjectionSchema = object('StudioDevelopmentProjection', {
@@ -1635,6 +1687,8 @@ const definitions = {
   StudioBuildingSnapshot,
   StudioProductionSnapshot,
   StudioReleasedFilmSnapshot,
+  StudioFilmSegmentScore,
+  StudioFilmResultSnapshot,
   StudioJourneyNextSnapshot,
   StudioJourneyWaitingSnapshot,
   StudioJourneyBlockedSnapshot,
@@ -1752,7 +1806,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-14',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-15',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [

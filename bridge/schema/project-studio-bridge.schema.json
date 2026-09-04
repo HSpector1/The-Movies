@@ -127,7 +127,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 14,
+          "const": 15,
           "type": "integer"
         },
         "stateDigest": {
@@ -243,7 +243,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 14,
+          "const": 15,
           "type": "integer"
         },
         "stateDigest": {
@@ -723,7 +723,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 14,
+          "const": 15,
           "type": "integer"
         },
         "stateDigest": {
@@ -792,7 +792,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 14,
+          "const": 15,
           "type": "integer"
         },
         "stateDigest": {
@@ -3203,6 +3203,181 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioDevelopmentSnapshot"
+    },
+    "StudioFilmResultSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "audienceAggregate": {
+          "type": "number"
+        },
+        "audiencePerSegment": {
+          "items": {
+            "$ref": "#/$defs/StudioFilmSegmentScore"
+          },
+          "type": "array"
+        },
+        "audienceTier": {
+          "enum": [
+            "hated",
+            "disliked",
+            "divided",
+            "liked",
+            "loved"
+          ],
+          "type": "string"
+        },
+        "boxOfficeGrossTotal": {
+          "type": "number"
+        },
+        "boxOfficeOpening": {
+          "type": "number"
+        },
+        "committedCost": {
+          "type": "number"
+        },
+        "contribution": {
+          "type": "number"
+        },
+        "criticBand": {
+          "enum": [
+            "flop",
+            "mixed",
+            "hit",
+            "smash"
+          ],
+          "type": "string"
+        },
+        "criticScore": {
+          "type": "number"
+        },
+        "criticStars": {
+          "type": "number"
+        },
+        "criticTier": {
+          "enum": [
+            "pan",
+            "mixed",
+            "favorable",
+            "strong",
+            "rave"
+          ],
+          "type": "string"
+        },
+        "grossPaidToDate": {
+          "type": "number"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "projected": {
+          "type": "boolean"
+        },
+        "releaseWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "resultLabel": {
+          "enum": [
+            "Profit",
+            "Loss",
+            "Break-even",
+            "Projected profit",
+            "Projected loss",
+            "Projected break-even"
+          ],
+          "type": "string"
+        },
+        "roi": {
+          "type": "number"
+        },
+        "runStatus": {
+          "enum": [
+            "active",
+            "completed",
+            "legacyCompleted",
+            "none"
+          ],
+          "type": "string"
+        },
+        "studioRevenuePaidToDate": {
+          "type": "number"
+        },
+        "studioRevenueTotal": {
+          "type": "number"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "totalWeeks": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "weeksAgo": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "weeksCredited": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "audienceAggregate",
+        "audiencePerSegment",
+        "audienceTier",
+        "boxOfficeGrossTotal",
+        "boxOfficeOpening",
+        "committedCost",
+        "contribution",
+        "criticBand",
+        "criticScore",
+        "criticStars",
+        "criticTier",
+        "grossPaidToDate",
+        "id",
+        "projected",
+        "releaseWeek",
+        "resultLabel",
+        "roi",
+        "runStatus",
+        "studioRevenuePaidToDate",
+        "studioRevenueTotal",
+        "title",
+        "totalWeeks",
+        "weeksAgo",
+        "weeksCredited"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFilmResultSnapshot"
+    },
+    "StudioFilmSegmentScore": {
+      "additionalProperties": false,
+      "properties": {
+        "score": {
+          "type": "number"
+        },
+        "segment": {
+          "enum": [
+            "youngAdult",
+            "family",
+            "adult",
+            "prestige"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "score",
+        "segment"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFilmSegmentScore"
     },
     "StudioFirstFilmJourneySnapshot": {
       "additionalProperties": false,
@@ -5706,10 +5881,17 @@
             "$ref": "#/$defs/StudioReleasedFilmSnapshot"
           },
           "type": "array"
+        },
+        "results": {
+          "items": {
+            "$ref": "#/$defs/StudioFilmResultSnapshot"
+          },
+          "type": "array"
         }
       },
       "required": [
-        "releasedFilms"
+        "releasedFilms",
+        "results"
       ],
       "type": "object",
       "x-csharp-name": "StudioReleaseResultsProjection"
@@ -6739,7 +6921,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-14",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-15",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -6780,7 +6962,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 14,
+    "projectionVersion": 15,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

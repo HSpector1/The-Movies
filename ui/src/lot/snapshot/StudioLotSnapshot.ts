@@ -311,6 +311,39 @@ export type ReleasedCard = {
   weeksAgo: number
 }
 
+/**
+ * P07A W2 — the rich per-film result (the durable result-inspection surface). Three
+ * INDEPENDENT channels (critics / audience / business); never one universal quality score.
+ * BOX OFFICE GROSS is distinct from STUDIO REVENUE; "…PaidToDate" (actually credited) is
+ * distinct from the locked full-run totals. All values are DERIVED from persisted state.
+ */
+export type FilmResultCard = {
+  id: string
+  title: string
+  releaseWeek: number
+  weeksAgo: number
+  criticScore: number
+  criticStars: number
+  criticBand: ReceptionBand
+  criticTier: 'pan' | 'mixed' | 'favorable' | 'strong' | 'rave'
+  audienceAggregate: number
+  audienceTier: 'hated' | 'disliked' | 'divided' | 'liked' | 'loved'
+  audiencePerSegment: { segment: 'youngAdult' | 'family' | 'adult' | 'prestige'; score: number }[]
+  boxOfficeOpening: number
+  boxOfficeGrossTotal: number
+  studioRevenueTotal: number
+  studioRevenuePaidToDate: number
+  grossPaidToDate: number
+  committedCost: number
+  contribution: number
+  roi: number
+  projected: boolean
+  resultLabel: 'Profit' | 'Loss' | 'Break-even' | 'Projected profit' | 'Projected loss' | 'Projected break-even'
+  runStatus: 'active' | 'completed' | 'legacyCompleted' | 'none'
+  totalWeeks: number
+  weeksCredited: number
+}
+
 /** A named person the Hollywood district can stage without exposing a core Talent object. */
 export type LotPersonState = {
   id: string
@@ -1161,6 +1194,13 @@ type StudioLotSnapshotBase = {
   activeProductions: ProductionCard[]
   /** Recent releases — drives the theater marquee. */
   releasedFilms: ReleasedCard[]
+  /**
+   * P07A W2 — rich per-film results (owned by the release-results projection). The real
+   * `studioLotSnapshot` builder ALWAYS provides this (empty array when no films); it is
+   * TS-optional only so hand-built unit-test fixtures need not restate it. The wire schema
+   * (StudioReleaseResultsProjection.results) enforces it as required at the projection boundary.
+   */
+  results?: FilmResultCard[]
   /** Coarse theater presence (none / released / now-showing). */
   releasePresence: ReleasePresence
   /** Latest relevant release title for the marquee, or null. */

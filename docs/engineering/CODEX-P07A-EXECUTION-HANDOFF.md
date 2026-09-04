@@ -56,7 +56,30 @@ rulings D0–D10 (P07A-OWNER-RULINGS handoff). This file tracks execution wave-b
     verdicts (criticStars/criticBand/criticTier/audienceTier) + per-segment audience + banked-vs-projected
     split. Three INDEPENDENT channels; GROSS≠STUDIO REVENUE kept truthful; legacy/no-run films settle to
     gross (never a fabricated partial). Test `ui/src/screens/p07a-film-result-view.test.tsx` (5).
-- W2 — pending (projection 15 + DTO/consumer).
+- **W2 — projection 15 + generated DTO/consumer — DONE.**
+  - Schema: new `StudioFilmResultSnapshot` (+ `StudioFilmSegmentScore`) DTO carrying the three
+    INDEPENDENT channels (critic score/stars/band/tier; audience aggregate/tier/per-segment; business
+    gross/studioRevenue/paid-to-date/committedCost/contribution/roi/projected/resultLabel/runStatus) —
+    GROSS distinct from STUDIO REVENUE, banked-vs-projected distinct (D2). Added to
+    `StudioReleaseResultsProjection.results` (coarse `releasedFilms` band retained, D10 additive).
+    **PROJECTION_VERSION 14→15** (protocol 4, save V16 unchanged — result is derived).
+  - Mapper `filmResultSnapshot(state, film, week)` (adapter, pure) → wire shape; wired into the bridge
+    bundle input in `session.ts` (`results: releasedFilms.map(...)`). D5: money is on the result
+    projection, NOT the rail rows.
+  - Regenerated `generated/unity/{StudioBridgeDtos.Generated.cs, project-studio-bridge.contract-manifest.json,
+    tests/StudioBridgeUnionFixtures.Generated.cs}` + `bridge/schema/project-studio-bridge.schema.json`.
+    check:bridge-contract + fixtures PASS.
+  - Architecture: `results` is owned by the MASTER `studioLotSnapshotProperties` (like `releasedFilms`) and
+    the projection references `studioLotSnapshotProperties.results` — so the projection-partition invariant
+    (`bridge-schema.test.ts` "owns every legacy projection field exactly once") holds. The `studioLotSnapshot`
+    builder produces `results` (TS type `FilmResultCard[]`, optional on the type only for test-fixture ergonomics;
+    the wire schema requires it). Schema `$id` bumped to `…projection-15`.
+  - **Unity mirror synced BYTE-IDENTICAL** into the Unity WIP worktree
+    (`Assets/Studio/Runtime/Data/Generated/StudioBridgeDtos.Generated.cs` +
+    `Assets/Studio/Tests/EditMode/Generated/StudioBridgeUnionFixtures.Generated.cs`). Commit BOTH repos.
+    (Full cross-repo consumer attestation `verify:bridge-contract-consumer` is a W8 seal gate.)
+  - Version pins bumped 14→15 (bridge-schema.test.ts ×4 incl. `$id`, generated-C# ProjectionVersion; bridge.test.ts).
+    Tests: `ui/src/screens/p07a-result-projection.test.tsx` (mapper↔schema alignment). core/bridge/ui tsc clean.
 - W3 — pending (IN THEATERS lifecycle + rail/world truth).
 - W4 — pending (result workspace/reveal consumer).
 - W5 — pending (legacy/boundary hygiene).
