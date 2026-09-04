@@ -6,6 +6,12 @@
 > discoverability FAIL). Live work: branch `first-movie-journey-v1`; authority chain:
 > `FIRST-MOVIE-JOURNEY-LOG.md` → `TYCOON-WORLD-CONVERSION-HANDOFF.md` → this file.
 
+> **P06 TECHNICAL PROMOTION (2026-09-04): TECHNICALLY PROMOTED — P06D.1 LINEAGE.**
+> `campaign/living-lot-ts`=`72217af`, `campaign/living-lot-client`=`b0c780b` (fast-forward only).
+> **P06 OWNER STATUS: OWNER GAMEPLAY ACCEPTANCE PENDING** — not accepted/closed/golden until the Owner plays
+> (`docs/campaigns/P06-FUTURE-OWNER-ACCEPTANCE.md`). Authority: `docs/campaigns/P06-TECHNICAL-PROMOTION-P06D1.md`.
+> Rollback candidates P06B/P06C/P06D/P06D.1 preserved. P07 readiness underway (`docs/engineering/CODEX-P07A-*`).
+
 Updated: 2026-08-16 (marathon record below); era banner 2026-08-17
 
 Branch: `operation-hollywood-autonomous-marathon`
