@@ -32,6 +32,16 @@ explicit lab fixture + exact source identities
   → independent Python verifier
 ```
 
+## ERR-0013: failed/unpublished trace generation
+
+One preserved Oracle execution is deliberately not a suite. Its process gate at `2026-09-03T21:07:38Z` bound documentation commit `8015aab13ece86664885125f837b043a8b4c5924` and Unity commit `199aa643c53dce124a58c813767f15277c54457e`. That Unity source wrote twenty content-addressed traces before archive-register validation and suite publication. Publication then stopped on the exact exception `ORACLE_ARCHIVE_REGISTER_PRIOR_INTEGRITY_FAILED:ARCHIVED_ORACLE_SCENARIO_ID_INVALID:early_era_normal`. No suite or current-run pointer was published for those exact traces.
+
+`07_audio-oracle/AUDIO-ORACLE-FAILED-ATTEMPT-REGISTER.v1.json` is the preservation-only register for this event. Its committed generator/verifier hard-codes the exact twenty path/hash/byte identities and authenticates the containing archive manifest, process gate, failure log, matching runtime observation, matching build receipt, historical D/U commits, executable hash, and catalogue pin. The archive container is explicitly mixed prior state: its `UNITY-AUDIO-LAB-VALIDATION.json` names an earlier Unity commit and is excluded rather than projected as this attempt's result. Individual trace-level `PASS` values are retained as facts about those files; the register's suite-level verdict is null and cannot make the failed execution current, archived, or passing.
+
+The global trace-tree check now requires exact equality among current-suite traces, archived-suite traces, and this one committed failed-attempt allowlist. An added, missing, duplicated, mutated, or reclassified record fails closed. The package exposes the register and twenty bytes only under `PROVENANCE/oracle-failed-attempts/`; `AUDIO-ORACLE/` remains current-suite evidence only. The next successful Unity pointer must hash-bind the register as a documentation-owned preservation input.
+
+Recurrence is guarded at both sides of the publication boundary. The documentation validation chain publishes/verifies the exact register before launching Unity. The Unity runner must validate the existing archive register before writing any new trace; if that preflight fails, it writes no new trace generation. The failed-attempt verifier's temporary-root mutation suite rejects trace, manifest, gate, log, runtime, receipt, identity, allowlist-expansion, and fabricated suite-PASS changes.
+
 The verifier at `tools/audio_systems_pilot_01/build_audio_oracle.py` is intentionally misnamed for compatibility with the earlier lane: it only verifies the Unity-produced suite and cannot author a passing trace. It independently reconstructs the fixed decision inputs/replay projections and the declared PCM marker recipe, then compares the resulting hashes, fields, and samples to Unity’s output; that reconstruction is a consumer check, not a substitute runtime result.
 
 ## Required scenarios
@@ -113,6 +123,7 @@ This is a scheduler endurance proof, not a four-hour listening test. It does not
 
 - Suite: `07_audio-oracle/AUDIO-ORACLE-SUITE.v1.json`
 - Per-scenario traces: `07_audio-oracle/traces/`
+- Failed/unpublished-attempt register: `07_audio-oracle/AUDIO-ORACLE-FAILED-ATTEMPT-REGISTER.v1.json`
 - Offline processor marker renders: `07_audio-oracle/captures/`
 - Raw Unity PlayMode observations: `09_unity-lab/RuntimeEvidence/audio-oracle-runtime-observations.json`
 - Unity validation: `09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json`

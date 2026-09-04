@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Atomically derive the three final Audio Systems Pilot state transitions."""
+"""Atomically derive final and bounded failure-recovery Audio Systems Pilot transitions."""
 
 from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -16,6 +17,7 @@ from package_owner_return import (
     verify_unity_run_archives,
     verify_complete_predecessor_chain,
 )
+from failed_oracle_attempts import verify as verify_failed_oracle_attempts
 
 
 UNITY_REPO = Path("/Users/bruce/Project Studio - Audio Systems Pilot 01 Client")
@@ -27,6 +29,11 @@ REVIEWS = PILOT_ROOT / "12_logs/hostile-review/HOSTILE-REVIEW-FINAL-INDEX.json"
 FINAL_VALIDATION = PILOT_ROOT / "10_provenance/FINAL-VALIDATION.v2.json"
 AUDITION_PREVIEW_HISTORY = PILOT_ROOT / "11_return-package/audition-previews-v2/AUDITION-PREVIEW-HISTORY.v1.json"
 AUDITION_APP_HISTORY = PILOT_ROOT / "08_audition-app/AUDITION-APP-HISTORY.v1.json"
+REMEDIATION_NEXT_ACTION = (
+    "Complete the ERR-0013 failed/unpublished Oracle-attempt remedy, commit and push the "
+    "Unity trace-publication preflight guard, run a fresh clean-SHA Unity validation, "
+    "regenerate all D/U-bound proof and eight hostile-review lanes, then return to READY_FOR_PACKAGING."
+)
 
 TRANSITIONS = {
     "READY_FOR_PACKAGING": (
@@ -45,6 +52,10 @@ TRANSITIONS = {
         "IN_PROGRESS", "READY_FOR_FINAL_VALIDATION",
         VALIDATION_NEXT_ACTION,
     ),
+    "REOPEN_AFTER_PREPACKAGE_FAILURE": (
+        "IN_PROGRESS", "PHASE_G_HOSTILE_REVIEW_REMEDIATION",
+        REMEDIATION_NEXT_ACTION,
+    ),
 }
 ALLOWED_PREDECESSORS = {
     "READY_FOR_PACKAGING": {
@@ -55,6 +66,10 @@ ALLOWED_PREDECESSORS = {
     },
     "COMPLETE": {("IN_PROGRESS", "READY_FOR_FINAL_VALIDATION")},
     "REOPEN_AFTER_FINAL_FAILURE": {("COMPLETE", "FINAL_VALIDATION_COMPLETE")},
+    "REOPEN_AFTER_PREPACKAGE_FAILURE": {
+        ("IN_PROGRESS", "READY_FOR_PACKAGING"),
+        ("IN_PROGRESS", "PHASE_G_HOSTILE_REVIEW_REMEDIATION"),
+    },
 }
 FINAL_CHECK_IDS = (
     "git_isolation_and_push",
@@ -91,12 +106,104 @@ def require_unique_ledger(rows: Any, label: str) -> list[dict[str, Any]]:
     return rows
 
 
+def reopen_after_prepackage_failure(state: dict[str, Any]) -> dict[str, Any]:
+    """Durably reopen without trusting now-stale D/U-bound green artifacts."""
+    if RETURN_ROOT.exists() or RETURN_ROOT.is_symlink():
+        raise RuntimeError("prepackage-failure reopen requires that no immutable return root was published")
+    documentation_sha = git_head(DOC_REPO)
+    unity_sha = git_head(UNITY_REPO)
+    doc_status = subprocess.run(
+        ["git", "status", "--porcelain", "--untracked-files=all"], cwd=DOC_REPO,
+        check=True, capture_output=True, text=True,
+    ).stdout
+    upstream = subprocess.run(
+        ["git", "rev-parse", "@{upstream}"], cwd=DOC_REPO,
+        check=True, capture_output=True, text=True,
+    ).stdout.strip()
+    if doc_status or upstream != documentation_sha:
+        raise RuntimeError("prepackage-failure reopen requires committed, pushed documentation/tooling")
+    failed_attempt = verify_failed_oracle_attempts()
+    if (failed_attempt.get("attempt_count") != 1
+            or failed_attempt.get("registered_trace_count") != 20
+            or failed_attempt.get("registered_capture_count") != 0
+            or failed_attempt.get("registered_audio_file_count") != 0
+            or failed_attempt.get("suite_level_machine_verdict") is not None):
+        raise RuntimeError("prepackage-failure reopen requires the exact preservation-only failed-attempt register")
+
+    errors = require_unique_ledger(state.get("errors", []), "error")
+    upsert_by_id(errors, {
+        "id": "ERR-0013",
+        "classification": "PREPACKAGE_ORACLE_UNPUBLISHED_TRACE_REACHABILITY",
+        "observed_exception": (
+            "RuntimeError: Oracle trace tree differs from current-plus-archived reachability"
+        ),
+        "hypothesis": (
+            "Unity commit 199aa643c53dce124a58c813767f15277c54457e wrote all twenty "
+            "content-addressed trace files before validating the prior archive register and "
+            "publishing the suite; archive validation then raised "
+            "ORACLE_ARCHIVE_REGISTER_PRIOR_INTEGRITY_FAILED:"
+            "ARCHIVED_ORACLE_SCENARIO_ID_INVALID:early_era_normal, leaving one exact trace "
+            "generation outside current-plus-archived reachability."
+        ),
+        "correction": (
+            "Preserve and hash-authenticate the exact failed/unpublished attempt separately, "
+            "admit only its committed twenty-file allowlist to global trace reachability, bind "
+            "the register into the next current-run and package provenance, and preflight the "
+            "archive register before any future trace write."
+        ),
+        "focused_proof": (
+            "Pending fresh clean-SHA Unity, D/U-bound downstream rebuild, eight-lane hostile "
+            "review, prepackage validation, and return-package verification."
+        ),
+        "status": "UNRESOLVED",
+    })
+    decisions = require_unique_ledger(state.get("decisions", []), "decision")
+    upsert_by_id(decisions, {
+        "id": "DEC-0014",
+        "decision": (
+            "Register exact failed/unpublished Oracle trace generations as preservation-only "
+            "evidence, never as current or archived suites."
+        ),
+        "reason": (
+            "Trace-level PASS bytes can diagnose a failed execution but cannot create the suite "
+            "or current-run publication that never occurred."
+        ),
+    })
+    counts = dict(state.get("counts", {}))
+    counts["failed_unpublished_oracle_attempts"] = failed_attempt["attempt_count"]
+    counts["failed_unpublished_oracle_traces"] = failed_attempt["registered_trace_count"]
+    completed = list(state.get("completed_work", []))
+    marker = (
+        "Classified ERR-0013 and preserved one exact failed/unpublished twenty-trace Oracle "
+        "attempt without manufacturing a suite-level PASS."
+    )
+    if marker not in completed:
+        completed.append(marker)
+    state.update({
+        "phase": "PHASE_G_HOSTILE_REVIEW_REMEDIATION",
+        "status": "IN_PROGRESS",
+        "updated_utc": utc_now(),
+        "completed_work": completed,
+        "counts": counts,
+        "count_scopes": STATE_COUNT_SCOPES,
+        "errors": errors,
+        "decisions": decisions,
+        "next_resumable_action": REMEDIATION_NEXT_ACTION,
+    })
+    state.setdefault("git", {})["documentation_sha"] = documentation_sha
+    state["git"]["unity_sha"] = unity_sha
+    atomic_write_json(STATE_PATH, state)
+    return state
+
+
 def build(mode: str) -> dict[str, Any]:
     status, phase, next_action = TRANSITIONS[mode]
     state = load(STATE_PATH)
     predecessor = (state.get("status"), state.get("phase"))
     if predecessor not in ALLOWED_PREDECESSORS[mode]:
         raise RuntimeError(f"illegal final-state transition {predecessor} -> {mode}")
+    if mode == "REOPEN_AFTER_PREPACKAGE_FAILURE":
+        return reopen_after_prepackage_failure(state)
     if mode == "REOPEN_AFTER_FINAL_FAILURE":
         final = load(FINAL_VALIDATION)
         final_checks = final.get("checks", {})
@@ -157,6 +264,9 @@ def build(mode: str) -> dict[str, Any]:
             "complete_audio_register_sha256": sha256_file(COMPLETE),
             "complete_predecessor_chain_sha256": predecessor["predecessor_chain_sha256"],
             "audio_oracle_suite_sha256": sha256_file(ORACLE),
+            "audio_oracle_failed_attempt_register_sha256": sha256_file(
+                PILOT_ROOT / "07_audio-oracle/AUDIO-ORACLE-FAILED-ATTEMPT-REGISTER.v1.json"
+            ),
             "hostile_review_index_sha256": sha256_file(REVIEWS),
             "unity_validation_sha256": sha256_file(UNITY_VALIDATION),
             "unity_current_run_sha256": sha256_file(PILOT_ROOT / "09_unity-lab/CURRENT-VALIDATION-RUN.json"),
@@ -208,6 +318,30 @@ def build(mode: str) -> dict[str, Any]:
         "status": "RESOLVED",
     })
     upsert_by_id(errors, {
+        **existing.get("ERR-0013", {
+            "id": "ERR-0013",
+            "classification": "PREPACKAGE_ORACLE_UNPUBLISHED_TRACE_REACHABILITY",
+            "observed_exception": (
+                "RuntimeError: Oracle trace tree differs from current-plus-archived reachability"
+            ),
+            "hypothesis": (
+                "A failed Oracle execution wrote trace bytes before archive-register validation "
+                "and suite/current-pointer publication."
+            ),
+        }),
+        "correction": (
+            "Preserved and authenticated the exact twenty traces as one failed/unpublished "
+            "attempt, admitted only that allowlist to reachability, bound it through current-run "
+            "and package provenance, and moved archive-register validation before trace writes."
+        ),
+        "focused_proof": (
+            "Exact-register mutation self-test, fresh clean-SHA Unity/current-run proof, rebuilt "
+            "D/U-bound metadata, eight fresh hostile-review lanes, prepackage validation, and "
+            "return-package verification all pass."
+        ),
+        "status": "RESOLVED",
+    })
+    upsert_by_id(errors, {
         **existing.get("ERR-0009", {
             "id": "ERR-0009", "classification": "HOSTILE_REVIEW_RADIO_ACCESSIBILITY_AND_ROUTING",
             "hypothesis": "Baked full-programme playback bypassed independent voice/PA controls and the transcript conflated caption display with audible scheduling.",
@@ -253,6 +387,17 @@ def build(mode: str) -> dict[str, Any]:
         "id": "DEC-0013",
         "decision": "Use only exact item-level voice/sting assets for Unity runtime radio and keep baked programme masters offline-audition-only.",
         "reason": "Independent Radio Voice/PA controls, caption timing, and audibility lifecycle cannot be provided honestly for a baked composite mix.",
+    })
+    upsert_by_id(decisions, {
+        "id": "DEC-0014",
+        "decision": (
+            "Register exact failed/unpublished Oracle trace generations as preservation-only "
+            "evidence, never as current or archived suites."
+        ),
+        "reason": (
+            "Trace-level PASS bytes can diagnose a failed execution but cannot create the suite "
+            "or current-run publication that never occurred."
+        ),
     })
     completed = state.get("completed_work", [])
     marker = "Completed clean-SHA Unity compile, EditMode, PlayMode, isolated build/codesign, Audio Oracle, offline audition, provenance, and eight-lane hostile-review proof."

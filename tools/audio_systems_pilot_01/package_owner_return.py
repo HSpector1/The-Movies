@@ -31,6 +31,12 @@ from build_complete_audio_file_register import (
     collect_declarations,
 )
 from build_hostile_review_index import verify as verify_hostile_reviews
+from failed_oracle_attempts import (
+    REGISTER_PATH as ORACLE_FAILED_ATTEMPT_REGISTER,
+    REGISTER_RELATIVE_PATH as ORACLE_FAILED_ATTEMPT_REGISTER_RELATIVE,
+    TOOL_PATH as FAILED_ATTEMPT_TOOL_PATH,
+    verify as verify_failed_oracle_attempts,
+)
 from common import (
     DOC_REPO, PILOT_ROOT, atomic_write_json, atomic_write_text, canonical_contained,
     probe_audio, read_contained_regular_bytes, require_contained_regular_file,
@@ -179,6 +185,7 @@ PROVENANCE_SOURCES = (
     PILOT_ROOT / "11_return-package/audition-previews-v2/AUDITION-PREVIEW-DERIVATIVES.json",
     AUDITION_PREVIEW_HISTORY,
     AUDITION_APP_HISTORY,
+    ORACLE_FAILED_ATTEMPT_REGISTER,
     PREPACKAGE_VALIDATION,
 )
 FEEDBACK_FIELDS = (
@@ -203,6 +210,7 @@ BOUND_SOURCE_PATHS = (
     "tools/audio_systems_pilot_01/build_hostile_review_index.py",
     "tools/audio_systems_pilot_01/build_system_asset_register.py",
     "tools/audio_systems_pilot_01/common.py",
+    FAILED_ATTEMPT_TOOL_PATH,
     "tools/audio_systems_pilot_01/reconcile_catalogue.py",
     "tools/audio_systems_pilot_01/sfx_route.py",
     "tools/audio_systems_pilot_01/package_owner_return.py",
@@ -288,6 +296,8 @@ CORE_STATE_COUNTS = {
     "oracle_offline_processor_marker_renders": 2,
     "audio_oracle_scenarios": 20,
     "hostile_review_lanes": 8,
+    "failed_unpublished_oracle_attempts": 1,
+    "failed_unpublished_oracle_traces": 20,
 }
 STATE_COUNT_SCOPES = {
     "phase_asset_generated_audio_files": "Bounded content-generation phase outputs before Unity Oracle markers and audition-preview materialization.",
@@ -295,6 +305,8 @@ STATE_COUNT_SCOPES = {
     "oracle_offline_processor_marker_renders": "Exactly the two current Unity Editor offline processor marker WAVs; not runtime mix captures.",
     "audition_preview_derivative_files": "Current AAC audition derivatives whose conversion register explicitly reports AAC_AUDITION_DERIVATIVE.",
     "bounded_audio_files": "All current and preserved audio files under the complete register's bounded media roots.",
+    "failed_unpublished_oracle_attempts": "One exact hash-authenticated failed Oracle execution; it published no suite or current-run pointer.",
+    "failed_unpublished_oracle_traces": "Twenty preserved trace-level PASS records from that failed execution; they are not a suite-level PASS and add no audio files.",
 }
 PACKAGING_NEXT_ACTION = "Create and independently verify the immutable Owner return package."
 VALIDATION_NEXT_ACTION = "Run fail-closed final validation against the immutable Owner return package."
@@ -325,6 +337,21 @@ def rename_directory_exclusive(source: Path, destination: Path) -> None:
 
 def git(repo: Path, *arguments: str) -> str:
     return subprocess.run(["git", *arguments], cwd=repo, check=True, capture_output=True, text=True).stdout.strip()
+
+
+def expected_unity_pointer_paths(documentation_sha: str) -> set[str]:
+    """Version the exact pointer set without retroactively invalidating preserved runs."""
+    paths = UNITY_ARTIFACT_PATHS | {
+        "09_unity-lab/Logs/validation-summary-final.log",
+        "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json",
+    }
+    source_exists = subprocess.run(
+        ["git", "cat-file", "-e", f"{documentation_sha}:{FAILED_ATTEMPT_TOOL_PATH}"],
+        cwd=DOC_REPO, check=False, capture_output=True,
+    ).returncode == 0
+    if source_exists:
+        paths.add(ORACLE_FAILED_ATTEMPT_REGISTER_RELATIVE)
+    return paths
 
 
 def pilot_path(value: str) -> Path:
@@ -683,7 +710,13 @@ def _verify_test_xml(component: dict[str, Any], expected_relative: str) -> None:
     require(component.get("sha256") == sha256_file(path), f"Unity test component hash mismatch: {expected_relative}")
 
 
-def verify_oracle_archive_register() -> dict[str, int]:
+def verify_oracle_archive_register() -> dict[str, Any]:
+    failed_attempt = verify_failed_oracle_attempts()
+    require(failed_attempt.get("registered_capture_count") == 0
+            and failed_attempt.get("registered_audio_file_count") == 0
+            and failed_attempt.get("capture_relationship_count") == 2
+            and failed_attempt.get("suite_level_machine_verdict") is None,
+            "failed/unpublished Oracle attempt overstates suite, capture, or audio evidence")
     register = json.loads(ORACLE_ARCHIVE_REGISTER.read_text(encoding="utf-8"))
     require(register.get("schema") == "project-studio-audio-oracle-evidence-archive-register/v1"
             and register.get("status") == "PROTOTYPE_ONLY", "Oracle archive-register schema/status mismatch")
@@ -761,13 +794,32 @@ def verify_oracle_archive_register() -> dict[str, int]:
                     and capture.get("evidence_class") == "UNITY_EDITOR_OFFLINE_OUTPUT_PROCESSOR_MARKER_RENDER",
                     f"archived Oracle capture evidence class overclaims runtime evidence: {scenario}")
             require(capture.get("probe") == probe_audio(capture_path), f"archived Oracle capture probe mismatch: {scenario}")
+    failed_trace_files: set[Path] = set()
+    for row in failed_attempt["trace_records"]:
+        path = register_evidence(
+            row, trace_root, failed_trace_files,
+            f"registered failed/unpublished Oracle trace {row['scenario']}",
+        )
+        trace = json.loads(path.read_text(encoding="utf-8"))
+        require(trace.get("scenario") == row["scenario"],
+                f"registered failed/unpublished Oracle trace scenario changed: {row['scenario']}")
+    require(len(failed_trace_files) == failed_attempt["registered_trace_count"] == 20
+            and not (failed_trace_files & reachable_trace_files),
+            "failed/unpublished Oracle trace allowlist overlaps or has a stale count")
+    reachable_trace_files.update(failed_trace_files)
     actual_archive_files = {path.resolve() for path in archive_root.rglob("*") if path.is_file()} if archive_root.is_dir() else set()
     actual_trace_files = {path.resolve() for path in trace_root.rglob("*") if path.is_file()} if trace_root.is_dir() else set()
     actual_capture_files = {path.resolve() for path in capture_root.rglob("*") if path.is_file()} if capture_root.is_dir() else set()
     require(actual_archive_files == registered_suite_files, "Oracle archive suite tree contains orphaned or missing files")
-    require(actual_trace_files == reachable_trace_files, "Oracle trace tree differs from current-plus-archived reachability")
+    require(actual_trace_files == reachable_trace_files,
+            "Oracle trace tree differs from current-plus-archived-plus-registered-failed-attempt reachability")
     require(actual_capture_files == reachable_capture_files, "Oracle capture tree differs from current-plus-archived reachability")
-    return {"archived_suite_count": len(archived)}
+    return {
+        "archived_suite_count": len(archived),
+        "failed_unpublished_attempt_count": failed_attempt["attempt_count"],
+        "failed_unpublished_trace_count": failed_attempt["registered_trace_count"],
+        "failed_unpublished_register_sha256": failed_attempt["register_sha256"],
+    }
 
 
 def verify_management_metadata_history(required_hashes: set[str]) -> dict[str, Any]:
@@ -1127,10 +1179,7 @@ def verify_unity_run_archives() -> dict[str, Any]:
                     f"Unity completed-run pointer identity failed: {run_id}")
             pointer_rows = pointer.get("files")
             pointer_paths = [row.get("relative_path") for row in pointer_rows] if isinstance(pointer_rows, list) else []
-            expected_current_paths = UNITY_ARTIFACT_PATHS | {
-                "09_unity-lab/Logs/validation-summary-final.log",
-                "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json",
-            }
+            expected_current_paths = expected_unity_pointer_paths(pointer.get("documentation_sha", ""))
             require(pointer_rows and set(pointer_paths) == expected_current_paths
                     and len(pointer_paths) == len(set(pointer_paths))
                     and set(expected_files) == {pointer_relative, *expected_current_paths},
@@ -1268,10 +1317,7 @@ def verify_unity_run_archives() -> dict[str, Any]:
                     and prior.get("run_id") == run_id, f"Unity archived prior pointer is missing or misattributed: {run_id}")
             prior_rows = prior.get("files", [])
             prior_paths = [row.get("relative_path") for row in prior_rows]
-            expected_current_paths = UNITY_ARTIFACT_PATHS | {
-                "09_unity-lab/Logs/validation-summary-final.log",
-                "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json",
-            }
+            expected_current_paths = expected_unity_pointer_paths(prior.get("documentation_sha", ""))
             require(prior_rows and None not in prior_paths and len(set(prior_paths)) == len(prior_paths)
                     and set(prior_paths) == expected_current_paths,
                     f"Unity archived prior pointer has duplicate/missing paths: {run_id}")
@@ -1562,10 +1608,7 @@ def verify_current_lab_proof(lab_app: Path, unity_sha: str | None = None) -> dic
         current_paths.add(relative)
         require(path.is_file() and not path.is_symlink() and path.stat().st_size == row.get("bytes")
                 and sha256_file(path) == row.get("sha256"), f"Unity current-run artifact changed: {relative}")
-    expected_current_paths = UNITY_ARTIFACT_PATHS | {
-        "09_unity-lab/Logs/validation-summary-final.log",
-        "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json",
-    }
+    expected_current_paths = expected_unity_pointer_paths(current_run.get("documentation_sha", ""))
     require(current_paths == expected_current_paths, "Unity current-run artifact set is missing, extra, or stale")
     subprocess.run(["codesign", "--verify", "--deep", "--strict", str(app)], check=True, capture_output=True, text=True)
     return {"unity_sha": unity_sha, "executable_sha256": receipt["executable_sha256"],
@@ -1580,6 +1623,7 @@ def expected_state_counts(*, include_return_package: bool) -> dict[str, int]:
     unity = json.loads(UNITY_VALIDATION.read_text(encoding="utf-8"))
     oracle = json.loads(ORACLE_SUITE.read_text(encoding="utf-8"))
     reviews = json.loads((PILOT_ROOT / "12_logs/hostile-review/HOSTILE-REVIEW-FINAL-INDEX.json").read_text(encoding="utf-8"))
+    failed_attempt = verify_failed_oracle_attempts()
     counts = dict(CORE_STATE_COUNTS)
     counts.update({
         "bounded_audio_files": complete["audio_files"],
@@ -1592,6 +1636,8 @@ def expected_state_counts(*, include_return_package: bool) -> dict[str, int]:
         "unity_playmode_passed": unity["play_mode"]["passed"],
         "audio_oracle_scenarios": oracle["scenario_count"],
         "hostile_review_lanes": reviews["lane_count"],
+        "failed_unpublished_oracle_attempts": failed_attempt["attempt_count"],
+        "failed_unpublished_oracle_traces": failed_attempt["registered_trace_count"],
     })
     if include_return_package:
         package = json.loads((RETURN_ROOT / "RETURN-PACKAGE-MANIFEST.json").read_text(encoding="utf-8"))
@@ -1615,14 +1661,14 @@ def verify_state_record(doc_sha: str, unity_sha: str, allowed_pairs: set[tuple[s
     errors = state.get("errors")
     require(isinstance(errors, list) and all(isinstance(error, dict) for error in errors), "state error ledger is malformed")
     error_ids = [error.get("id") for error in errors]
-    require(len(error_ids) == len(set(error_ids)) and {f"ERR-{number:04d}" for number in range(1, 11)} <= set(error_ids), "state error ledger lost or duplicated recovery history")
+    require(len(error_ids) == len(set(error_ids)) and {f"ERR-{number:04d}" for number in range(1, 14)} <= set(error_ids), "state error ledger lost or duplicated recovery history")
     require(all(error.get("status") == "RESOLVED" for error in errors), "packaging state has an unresolved ordinary failure")
     decisions = state.get("decisions", [])
     require(isinstance(decisions, list) and all(isinstance(row, dict) for row in decisions), "state decision ledger is malformed")
     raw_decision_ids = [row.get("id") for row in decisions]
     require(len(raw_decision_ids) == len(set(raw_decision_ids)), "state decision IDs are duplicated")
     decision_ids = set(raw_decision_ids)
-    require({f"DEC-{number:04d}" for number in range(1, 14)} <= decision_ids, "state is missing a recorded pilot decision")
+    require({f"DEC-{number:04d}" for number in range(1, 15)} <= decision_ids, "state is missing a recorded pilot decision")
     completed = state.get("completed_work", [])
     require(any("clean-SHA Unity" in row and "Audio Oracle" in row for row in completed), "state lacks final clean-SHA/Oracle completion record")
     next_action = state.get("next_resumable_action", "")
@@ -1737,6 +1783,7 @@ def known_limitations() -> str:
 - Period treatment is not one universal “old radio” filter; nevertheless all three approaches remain provisional.
 - Unity batch proof validates code, scene structure, schedules, files, and rendered signal properties. It cannot prove audibility on every device or subjective mix quality.
 - The Audio Oracle contains scenario-labelled Unity evidence for all required scenarios: PlayMode observations where available, plus batch policy/validator execution and frozen-trace revalidation. Force Mono and Night carry Unity Editor-generated offline output-processor marker renders; these are not AudioSource, mixer, built-player, or hardware-output captures. No scenario is presented as a mixed listening demonstration.
+- `PROVENANCE/AUDIO-ORACLE-FAILED-ATTEMPT-REGISTER.v1.json` and `PROVENANCE/oracle-failed-attempts/` preserve twenty exact trace bytes from one Oracle execution that failed before suite/current-pointer publication. Their trace-level PASS fields are not a suite-level PASS. The mixed prior-byte Unity archive's stale validation PASS is expressly excluded from that attempt.
 - The v5 runtime register exposes 18 item-level Radio Voice files, six PA Voice files, and one milestone sting on independent buses. Missing or mismatched item audio fails visibly to caption/transcript-only presentation with no duck. The three whole-programme demos are baked full mixes, so Unity refuses their audible playback and keeps them in the offline audition desk with their caption/transcript files. Interrupted items retain whole-source rather than word-timed caption text and are explicitly marked interrupted.
 - Radio, PA, score, ambience, SFX, and UI never mutate mechanics. Functional bulletins use typed lab fixture payloads until their future owner contracts exist.
 - The Small-SFX path uses an exact public optimized prototype weight and existing approved shared components. It does not create commercial clearance.
@@ -1759,6 +1806,8 @@ def provenance_readme() -> str:
 `STATE-AT-PACKAGING.json` is the atomic source-state snapshot taken immediately before this immutable package was assembled. It is deliberately not labelled as the final state because package verification and final validation occur afterward. The canonical current state remains `/Users/bruce/Project Studio Audio Systems Pilot 01/00_state/AUDIO-SYSTEMS-PILOT-STATE.json` on the Owner machine.
 
 `unity-validation-evidence/` preserves the exact run archives, eager successful-run snapshots, and a separately labelled content-addressed supplement. The supplement restores one metadata pointer projection without modifying the original archive and does not rehabilitate that historical run: its preserved Unity verdict remains `FAIL`. Only the canonical current validation is the green authority.
+
+`AUDIO-ORACLE-FAILED-ATTEMPT-REGISTER.v1.json` and `oracle-failed-attempts/` preserve an exact twenty-trace failed/unpublished Oracle generation. The register authenticates its process gate, failure log, internally matching runtime/build evidence, and source identities. It publishes no suite-level PASS, adds no audio files, and does not attribute the stale validation PASS found among the archive container's mixed prior bytes to that execution.
 """
 
 
@@ -1926,6 +1975,22 @@ def copy_four_hour_simulations(root: Path) -> None:
         clone_file(source, destination)
 
 
+def failed_oracle_attempt_copy_pairs(root: Path) -> list[tuple[Path, Path]]:
+    """Expose failed-attempt traces as provenance, never as current Oracle output."""
+    proof = verify_failed_oracle_attempts()
+    destination = root / "PROVENANCE/oracle-failed-attempts" / proof["attempt_id"] / "traces"
+    pairs: list[tuple[Path, Path]] = []
+    for row in proof["trace_records"]:
+        source = canonical_contained(PILOT_ROOT, PILOT_ROOT / row["path"])
+        pairs.append((source, destination / source.name))
+    return pairs
+
+
+def copy_failed_oracle_attempt(root: Path) -> None:
+    for source, destination in failed_oracle_attempt_copy_pairs(root):
+        clone_file(source, destination)
+
+
 def current_oracle_copy_pairs(root: Path) -> list[tuple[Path, Path]]:
     """Package only current scenario-labelled Unity Oracle evidence, never superseded traces."""
     pairs = [(ORACLE_SUITE, root / "AUDIO-ORACLE" / ORACLE_SUITE.name)]
@@ -2033,6 +2098,8 @@ def package_copy_specs(root: Path) -> dict[str, list[tuple[str, Path, Path, bool
     for source, destination in hostile_review_copy_pairs(root):
         add_file(source, destination)
     for source, destination in four_hour_copy_pairs(root):
+        add_file(source, destination)
+    for source, destination in failed_oracle_attempt_copy_pairs(root):
         add_file(source, destination)
     for name in DOC_NAMES:
         add_file(DOC_REPO / "docs/audio" / name, root / "PROVENANCE" / name)
@@ -2175,12 +2242,12 @@ def verify_package_source_bindings(root: Path, bindings: dict[str, Any]) -> dict
     decisions = state_snapshot.get("decisions", [])
     require(isinstance(errors, list) and all(isinstance(row, dict) for row in errors)
             and len({row.get("id") for row in errors}) == len(errors)
-            and {f"ERR-{number:04d}" for number in range(1, 11)} <= {row.get("id") for row in errors}
+            and {f"ERR-{number:04d}" for number in range(1, 14)} <= {row.get("id") for row in errors}
             and all(row.get("status") == "RESOLVED" for row in errors),
             "return package packaging-state error ledger is malformed, duplicated, or unresolved")
     require(isinstance(decisions, list) and all(isinstance(row, dict) for row in decisions)
             and len({row.get("id") for row in decisions}) == len(decisions)
-            and {f"DEC-{number:04d}" for number in range(1, 14)} <= {row.get("id") for row in decisions},
+            and {f"DEC-{number:04d}" for number in range(1, 15)} <= {row.get("id") for row in decisions},
             "return package packaging-state decision ledger is malformed or duplicated")
     return {"bound_files": len(rows), "bound_trees": len(tree_rows), "documentation_sha": doc_sha, "unity_sha": unity_sha}
 
@@ -2270,6 +2337,7 @@ def build(lab_app: Path) -> dict[str, Any]:
         raise RuntimeError("Audio Oracle is not a current scenario-labelled Unity machine pass")
     if int(oracle_index.get("required_scenario_count", 0)) != 18 or int(oracle_index.get("scenario_count", 0)) != 20:
         raise RuntimeError("Audio Oracle does not contain exactly 18 required and two supplemental scenarios")
+    failed_attempt = verify_failed_oracle_attempts()
     subprocess.run(["codesign", "--verify", "--deep", "--strict", str(lab_app)], check=True, capture_output=True, text=True)
 
     staging = Path(tempfile.mkdtemp(prefix=".Project-Studio-Audio-Systems-Pilot-01.", dir=RETURN_ROOT.parent))
@@ -2308,6 +2376,7 @@ def build(lab_app: Path) -> dict[str, Any]:
         write_markdown(staging / "PROVENANCE/README.md", provenance_readme())
         copy_hostile_reviews(staging)
         copy_four_hour_simulations(staging)
+        copy_failed_oracle_attempt(staging)
         copy_tree(COMPLETE_HISTORY_ROOT, staging / "PROVENANCE/complete-register-history")
         copy_tree(MANAGEMENT_HISTORY_ROOT, staging / "PROVENANCE/management-metadata-history")
         copy_tree(PILOT_ROOT / "09_unity-lab/ArchivedRuns", staging / "PROVENANCE/unity-validation-evidence/ArchivedRuns")
@@ -2337,7 +2406,13 @@ def build(lab_app: Path) -> dict[str, Any]:
             "files": tree["files"],
             "symlinks": tree["symlinks"],
             "directories": tree["directories"],
-            "counts": {"files": len(tree["files"]), "symlinks": len(tree["symlinks"]), "directories": len(tree["directories"]), "audition_items": len(source_register["items"]), "oracle_scenarios": oracle_index["scenario_count"], "required_oracle_scenarios": 18},
+            "counts": {
+                "files": len(tree["files"]), "symlinks": len(tree["symlinks"]),
+                "directories": len(tree["directories"]), "audition_items": len(source_register["items"]),
+                "oracle_scenarios": oracle_index["scenario_count"], "required_oracle_scenarios": 18,
+                "failed_unpublished_oracle_attempts": failed_attempt["attempt_count"],
+                "failed_unpublished_oracle_traces": failed_attempt["registered_trace_count"],
+            },
         }
         atomic_write_json(staging / "RETURN-PACKAGE-MANIFEST.json", manifest)
         verify_root(staging)
@@ -2401,6 +2476,8 @@ def verify_root(root: Path) -> dict[str, Any]:
     oracle_suite = json.loads((root / "AUDIO-ORACLE/AUDIO-ORACLE-SUITE.v1.json").read_text(encoding="utf-8"))
     if (counts.get("audition_items") != audition_manifest.get("counts", {}).get("items")
             or counts.get("oracle_scenarios") != 20 or counts.get("required_oracle_scenarios") != 18
+            or counts.get("failed_unpublished_oracle_attempts") != 1
+            or counts.get("failed_unpublished_oracle_traces") != 20
             or oracle_suite.get("scenario_count") != 20 or oracle_suite.get("required_scenario_count") != 18):
         raise RuntimeError("return package audition/Oracle counts are stale")
     expected_collections = {

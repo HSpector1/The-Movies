@@ -1199,7 +1199,7 @@ def check_system_oracle_apps(lab_app: Path, return_root: Path) -> dict[str, Any]
     for launcher in (return_root / "AUDIO-LAB/START-AUDIO-LAB.command", return_root / "AUDITION/START-AUDITION.command"):
         require(launcher.is_file() and bool(launcher.stat().st_mode & 0o111), f"launcher not executable: {launcher}")
     subprocess.run(["codesign", "--verify", "--deep", "--strict", str(return_root / "AUDIO-LAB/Project Studio Audio Systems Pilot.app")], check=True, capture_output=True, text=True)
-    return {"system_items": EXPECTED_SYSTEM_REGISTER_ITEMS, "oracle_required_scenarios": 18, "oracle_total_scenarios": oracle["total_scenarios"], "oracle_offline_processor_marker_renders": oracle["offline_processor_marker_renders"], "audition_items": audition["counts"]["items"], "return_files": len(package["files"]), "return_manifest_sha256": sha256_file(return_root / "RETURN-PACKAGE-MANIFEST.json"), "editmode_passed": unity_proof["editmode_passed"], "playmode_passed": unity_proof["playmode_passed"], "codesign": "PASS"}
+    return {"system_items": EXPECTED_SYSTEM_REGISTER_ITEMS, "oracle_required_scenarios": 18, "oracle_total_scenarios": oracle["total_scenarios"], "oracle_offline_processor_marker_renders": oracle["offline_processor_marker_renders"], "failed_unpublished_oracle_attempts": unity_proof["failed_unpublished_attempt_count"], "failed_unpublished_oracle_traces": unity_proof["failed_unpublished_trace_count"], "failed_unpublished_oracle_register_sha256": unity_proof["failed_unpublished_register_sha256"], "audition_items": audition["counts"]["items"], "return_files": len(package["files"]), "return_manifest_sha256": sha256_file(return_root / "RETURN-PACKAGE-MANIFEST.json"), "editmode_passed": unity_proof["editmode_passed"], "playmode_passed": unity_proof["playmode_passed"], "codesign": "PASS"}
 
 
 def check_prepackage_system_oracle_and_audition(lab_app: Path) -> dict[str, Any]:
@@ -1217,6 +1217,9 @@ def check_prepackage_system_oracle_and_audition(lab_app: Path) -> dict[str, Any]
         "system_items": EXPECTED_SYSTEM_REGISTER_ITEMS, "oracle_total_scenarios": oracle["total_scenarios"],
         "audition_items": audition["counts"]["items"], "editmode_passed": unity["editmode_passed"],
         "playmode_passed": unity["playmode_passed"], "codesign": "PASS",
+        "failed_unpublished_oracle_attempts": unity["failed_unpublished_attempt_count"],
+        "failed_unpublished_oracle_traces": unity["failed_unpublished_trace_count"],
+        "failed_unpublished_oracle_register_sha256": unity["failed_unpublished_register_sha256"],
     }
 
 
@@ -1278,6 +1281,9 @@ def final_evidence_bindings() -> dict[str, str]:
         "complete_audio_register_sha256": sha256_file(COMPLETE_AUDIO),
         "complete_predecessor_chain_sha256": predecessor["predecessor_chain_sha256"],
         "audio_oracle_suite_sha256": sha256_file(PILOT_ROOT / "07_audio-oracle/AUDIO-ORACLE-SUITE.v1.json"),
+        "audio_oracle_failed_attempt_register_sha256": sha256_file(
+            PILOT_ROOT / "07_audio-oracle/AUDIO-ORACLE-FAILED-ATTEMPT-REGISTER.v1.json"
+        ),
         "hostile_review_index_sha256": sha256_file(HOSTILE_REVIEW_INDEX),
         "unity_validation_sha256": sha256_file(UNITY_VALIDATION),
         "unity_current_run_sha256": sha256_file(PILOT_ROOT / "09_unity-lab/CURRENT-VALIDATION-RUN.json"),

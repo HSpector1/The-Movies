@@ -23,9 +23,11 @@ CURRENT_POINTER = PILOT_ROOT / "09_unity-lab/CURRENT-VALIDATION-RUN.json"
 COMPLETED_ROOT = PILOT_ROOT / "09_unity-lab/CompletedRuns"
 UNITY_REPO = Path("/Users/bruce/Project Studio - Audio Systems Pilot 01 Client")
 TOOL_PATH = "tools/audio_systems_pilot_01/snapshot_unity_validation_run.py"
+FAILED_ATTEMPT_TOOL_PATH = "tools/audio_systems_pilot_01/failed_oracle_attempts.py"
+FAILED_ATTEMPT_REGISTER_RELATIVE = "07_audio-oracle/AUDIO-ORACLE-FAILED-ATTEMPT-REGISTER.v1.json"
 VALIDATION_RELATIVE = "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json"
 MANAGEMENT_RELATIVE = "05_management-sfx/semantic-pack/management-semantic-catalogue.v4.json"
-EXPECTED_POINTER_PATHS = {
+LEGACY_POINTER_PATHS = {
     "09_unity-lab/Logs/compile-final.log",
     "09_unity-lab/Logs/editmode-final.log",
     "09_unity-lab/Logs/playmode-final.log",
@@ -55,6 +57,17 @@ def canonical_json_bytes(value: Any) -> bytes:
 
 def git(repo: Path, *arguments: str, check: bool = True) -> subprocess.CompletedProcess[bytes]:
     return subprocess.run(["git", *arguments], cwd=repo, check=check, capture_output=True)
+
+
+def expected_pointer_paths(documentation_sha: str) -> set[str]:
+    """Use the committed D schema to distinguish legacy from current pointer rows."""
+    paths = set(LEGACY_POINTER_PATHS)
+    if git(
+        DOC_REPO, "cat-file", "-e", f"{documentation_sha}:{FAILED_ATTEMPT_TOOL_PATH}",
+        check=False,
+    ).returncode == 0:
+        paths.add(FAILED_ATTEMPT_REGISTER_RELATIVE)
+    return paths
 
 
 def tool_binding() -> dict[str, Any]:
@@ -151,8 +164,8 @@ def verify_snapshot(root: Path, expected_run_id: str | None = None) -> dict[str,
             or pointer.get("unity_sha") != manifest.get("unity_sha")
             or not pointer_rows or None in pointer_paths
             or len(pointer_paths) != len(set(pointer_paths))
-            or set(pointer_paths) != EXPECTED_POINTER_PATHS
-            or set(expected) != {pointer_relative, *EXPECTED_POINTER_PATHS}):
+            or set(pointer_paths) != expected_pointer_paths(pointer.get("documentation_sha", ""))
+            or set(expected) != {pointer_relative, *expected_pointer_paths(pointer.get("documentation_sha", ""))}):
         raise RuntimeError(f"completed Unity run pointer semantics failed: {root}")
     for row in pointer_rows:
         snapshot_row = expected.get(row["relative_path"])
@@ -213,7 +226,7 @@ def build_snapshot() -> dict[str, Any]:
         raise RuntimeError("current Unity run pointer Git identities are unavailable")
     pointer_paths = [row.get("relative_path") for row in rows]
     if (None in pointer_paths or len(set(pointer_paths)) != len(pointer_paths)
-            or set(pointer_paths) != EXPECTED_POINTER_PATHS):
+            or set(pointer_paths) != expected_pointer_paths(documentation_sha)):
         raise RuntimeError("current Unity run pointer contains duplicate or missing paths")
     destination = COMPLETED_ROOT / run_id
     if os.path.lexists(destination):

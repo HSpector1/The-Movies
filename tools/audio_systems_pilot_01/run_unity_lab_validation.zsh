@@ -278,6 +278,7 @@ if [[ ! -f "$CURRENT_RUN_INDEX" ]]; then
   "09_unity-lab/RuntimeEvidence/audio-oracle-runtime-observations.json" \
   "09_unity-lab/Builds/macOS/Project Studio Audio Systems Pilot.app.build-receipt.json" \
   "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json" \
+  "07_audio-oracle/AUDIO-ORACLE-FAILED-ATTEMPT-REGISTER.v1.json" \
   "09_unity-lab/CURRENT-VALIDATION-RUN.json"
   do
     archive_prior_file "$relative"
@@ -486,6 +487,13 @@ remove_contained_regular_file(PILOT_ROOT, Path(sys.argv[1]), missing_ok=True)
 PY
 fi
 
+# Publish and independently verify the preservation-only failed-attempt register
+# before Unity writes any new trace bytes. The register is later bound by the
+# successful current-run pointer but is not a current or archived Oracle suite.
+/usr/bin/python3 \
+  "$DOCUMENTATION_REPOSITORY/tools/audio_systems_pilot_01/failed_oracle_attempts.py" \
+  --publish
+
 process_gate() {
   local label="$1"
   local next_command="$2"
@@ -593,6 +601,7 @@ relatives = [
     "09_unity-lab/UNITY-AUDIO-LAB-VALIDATION.json",
     "07_audio-oracle/AUDIO-ORACLE-SUITE.v1.json",
     "07_audio-oracle/AUDIO-ORACLE-EVIDENCE-ARCHIVE-REGISTER.v1.json",
+    "07_audio-oracle/AUDIO-ORACLE-FAILED-ATTEMPT-REGISTER.v1.json",
     "05_management-sfx/semantic-pack/management-semantic-catalogue.v4.json",
 ]
 files = []

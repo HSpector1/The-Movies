@@ -18,6 +18,7 @@ SOURCE_PATH = "tools/audio_systems_pilot_01/build_hostile_review_index.py"
 UNITY_REPO = Path("/Users/bruce/Project Studio - Audio Systems Pilot 01 Client")
 SYSTEM_REGISTER = PILOT_ROOT / "10_provenance/SYSTEM-AUDIO-ASSET-REGISTER.v5.json"
 ORACLE_SUITE = PILOT_ROOT / "07_audio-oracle/AUDIO-ORACLE-SUITE.v1.json"
+ORACLE_FAILED_ATTEMPT_REGISTER = PILOT_ROOT / "07_audio-oracle/AUDIO-ORACLE-FAILED-ATTEMPT-REGISTER.v1.json"
 COMPLETE_AUDIO = PILOT_ROOT / "10_provenance/COMPLETE-AUDIO-FILE-REGISTER.v1.json"
 REPORTS = (
     ("LANE-01", "Unity technical audio architecture", "LANE-01-UNITY-TECHNICAL-AUDIO-ARCHITECTURE-FINAL.md"),
@@ -73,6 +74,7 @@ def evidence_bindings() -> dict[str, str]:
         ).stdout.strip(),
         "system_register_sha256": sha256_file(SYSTEM_REGISTER),
         "audio_oracle_suite_sha256": sha256_file(ORACLE_SUITE),
+        "audio_oracle_failed_attempt_register_sha256": sha256_file(ORACLE_FAILED_ATTEMPT_REGISTER),
         "complete_audio_register_sha256": sha256_file(COMPLETE_AUDIO),
     }
 
@@ -83,6 +85,7 @@ def required_binding_lines(bindings: dict[str, str]) -> tuple[str, ...]:
         f"Unity SHA: `{bindings['unity_sha']}`",
         f"System register SHA-256: `{bindings['system_register_sha256']}`",
         f"Audio Oracle suite SHA-256: `{bindings['audio_oracle_suite_sha256']}`",
+        f"Audio Oracle failed-attempt register SHA-256: `{bindings['audio_oracle_failed_attempt_register_sha256']}`",
         f"Complete audio register SHA-256: `{bindings['complete_audio_register_sha256']}`",
     )
 
