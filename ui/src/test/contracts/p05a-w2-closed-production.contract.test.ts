@@ -289,7 +289,7 @@ describe('P05A W2 — closed operational states across the lifecycle', () => {
     expect(journey.whatHappened).toBe('Principal photography wrapped.')
     // No surface may re-introduce the raw shooting narrative for a wrapped picture.
     expect(journey.whatHappened).not.toMatch(/Principal photography started/)
-    expect(journey.next.label).not.toMatch(/Shooting continues/)
+    expect(journey.next!.label).not.toMatch(/Shooting continues/)
   })
 
   // ── P06D item 2: rail ↔ world Stage card ↔ workspace ↔ guidance agreement ──

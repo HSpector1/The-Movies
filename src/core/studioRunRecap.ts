@@ -20,7 +20,6 @@
 
 import type {
   GameState,
-  FilmResult,
   TheatricalRun,
   TalentCareerEvent,
   Genre,
@@ -29,6 +28,7 @@ import type {
   CastSlot,
 } from './types.js'
 import { resolveShape } from './shape.js'
+import { filmCommittedCost, filmAudienceScore } from './receptionVerdict.js'
 import { NEGATIVE_BUDGET_MULTIPLIERS } from './grid.js'
 import { marketingLevelsFor } from './marketingMenu.js'
 import {
@@ -354,24 +354,9 @@ function median(xs: number[]): number | null {
   return s.length % 2 ? s[m]! : (s[m - 1]! + s[m]!) / 2
 }
 
-/** committed cost of one released film = −Σ ledger[production|freelancerFee] for its id
- *  (D-12 §3: negative + marketing + engaged freelancer fees). */
-function filmCommittedCost(state: GameState, productionId: string): number {
-  let c = 0
-  for (const e of state.ledger) {
-    if (e.productionId === productionId && (e.kind === 'production' || e.kind === 'freelancerFee')) {
-      c -= e.amount
-    }
-  }
-  return c
-}
-
-/** share-weighted audience score (matches the UI's filmAudienceScore). */
-function filmAudienceScore(state: GameState, film: FilmResult): number {
-  let was = 0
-  for (const seg of state.market.segments) was += seg.share * (film.segmentScores[seg.id] ?? 0)
-  return was
-}
+// filmCommittedCost / filmAudienceScore are now the canonical helpers in
+// ./receptionVerdict.js (P07A W0 — consolidated from the identical body that also
+// lived in ui/src/engine/adapter.ts). Imported at the top of this file.
 
 function minConcept(state: GameState): GameState['concepts'][number] | null {
   return [...state.concepts].sort(

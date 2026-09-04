@@ -9,7 +9,14 @@
 //
 // No RNG, no wall-clock, no state mutation. The underlying critic score is never changed.
 
-import { clamp } from './math.js'
+import {
+  criticStars,
+  criticTier,
+  audienceTier,
+  aggregateAudienceScore,
+  AUDIENCE_LABEL,
+} from './receptionVerdict.js'
+import type { AudienceTier, CriticRating, CriticTier } from './receptionVerdict.js'
 import type {
   FilmParticipant,
   FilmParticipants,
@@ -23,48 +30,12 @@ import type {
 // Original fictional entertainment-industry newspaper (not a real publication).
 export const NEWSPAPER_MASTHEAD = 'The Silver Screen Gazette'
 
-// ── critic stars (D-11.C) — 0–5 in half-star steps from the 0–100 critic score ─
-export type CriticRating = { stars: number; score: number }
-export function criticStars(criticScore: number): number {
-  const raw = criticScore / 20
-  const half = Math.round(raw * 2) / 2 // nearest half
-  return clamp(half, 0, 5)
-}
-
-// ── audience reaction (D-11.C) — from the supported segment aggregate ──────────
-export type AudienceTier = 'hated' | 'disliked' | 'divided' | 'liked' | 'loved'
-const AUDIENCE_LABEL: Record<AudienceTier, string> = {
-  hated: 'Audiences hated it',
-  disliked: 'Audiences disliked it',
-  divided: 'Audiences were divided',
-  liked: 'Audiences liked it',
-  loved: 'Audiences loved it',
-}
-export function audienceTier(aggregateScore: number): AudienceTier {
-  if (aggregateScore < 30) return 'hated'
-  if (aggregateScore < 45) return 'disliked'
-  if (aggregateScore < 57) return 'divided'
-  if (aggregateScore < 72) return 'liked'
-  return 'loved'
-}
-
-// Share-weighted aggregate of the per-segment scores (the supported aggregate; the full
-// autopsy keeps the per-segment detail). Falls back to a plain mean if shares are absent.
-export function aggregateAudienceScore(
-  segmentScores: Record<SegmentId, number>,
-  shares: Record<SegmentId, number>,
-): number {
-  let sum = 0
-  let wsum = 0
-  for (const id of Object.keys(segmentScores) as SegmentId[]) {
-    const w = shares[id] ?? 0
-    sum += (segmentScores[id] ?? 0) * w
-    wsum += w
-  }
-  if (wsum > 0) return sum / wsum
-  const vals = Object.values(segmentScores)
-  return vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0
-}
+// ── reception verdicts (P07A W0) — canonical source: ./receptionVerdict.js ─────
+// criticStars / audienceTier / aggregateAudienceScore and the AudienceTier / CriticRating
+// types are re-exported here so the public core/index.ts surface is unchanged. The
+// threshold logic and labels now live in the single canonical module (D3).
+export { criticStars, audienceTier, aggregateAudienceScore }
+export type { AudienceTier, CriticRating }
 
 // ── Film Chronicle V1 — pure, durable released-film identity ────────────────
 // This is deliberately a narrow projection rather than a GameState selector. The
@@ -369,15 +340,7 @@ export function buildFilmChronicle(input: FilmChronicleInput): FilmChronicleView
   }
 }
 
-// ── critic tier (internal, for headline selection) ────────────────────────────
-type CriticTier = 'pan' | 'mixed' | 'favorable' | 'strong' | 'rave'
-function criticTier(score: number): CriticTier {
-  if (score < 35) return 'pan'
-  if (score < 55) return 'mixed'
-  if (score < 70) return 'favorable'
-  if (score < 85) return 'strong'
-  return 'rave'
-}
+// ── critic tier — canonical source: ./receptionVerdict.js (imported above) ─────
 
 type Delta = 'better' | 'worse' | 'asExpected'
 function deltaOf(actual: number, expected: number, tol: number): Delta {

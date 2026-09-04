@@ -237,7 +237,13 @@ import {
   setTypeLabel as coreSetTypeLabel,
   // P05A W1 — the one scenery legality classifier; the board attaches copy only.
   sceneryLoadInDecision,
+  // P07A W0 — canonical reception-verdict + film-finance helpers (single source).
+  criticBand,
+  filmCommittedCost,
+  filmAudienceScore,
 } from '../../../src/core/index.ts'
+// Re-export for existing external consumers that imported filmCommittedCost from the adapter.
+export { filmCommittedCost } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
 // type module (imports nothing, no Phaser); the value import (ALL_BUILDING_IDS) adds
@@ -251,7 +257,6 @@ import type {
   ReleasedCard,
   CashBand,
   StandingBand,
-  ReceptionBand,
   ReleasePresence,
   AttentionState,
   LotPersonState,
@@ -3553,16 +3558,8 @@ function productionCommittedCost(state: GameState, prod: Production): number {
 // see a released film's multi-axis result. Direct commitment is the film's own ledger entries (Production
 // Budget + Marketing + Freelancer Fees) — the SAME basis the autopsy/newspaper use — read by productionId,
 // so it works for a running or completed film without the live Production object.
-export function filmCommittedCost(state: GameState, productionId: string): number {
-  return state.ledger
-    .filter((e) => e.productionId === productionId && (e.kind === 'production' || e.kind === 'freelancerFee'))
-    .reduce((a, e) => a - e.amount, 0)
-}
-function filmAudienceScore(state: GameState, film: FilmResult): number {
-  let was = 0
-  for (const seg of state.market.segments) was += seg.share * (film.segmentScores[seg.id] ?? 0)
-  return was
-}
+// filmCommittedCost / filmAudienceScore are now the canonical helpers in
+// src/core/receptionVerdict.ts (P07A W0); imported (and filmCommittedCost re-exported) above.
 export type RunProjection = {
   commitment: number
   projectedContribution: number // projected FULL-RUN Studio Revenue − direct commitment (NOT realized)
@@ -5956,13 +5953,8 @@ function lotStandingBand(s: { audienceAwareness: number; industryPrestige: numbe
   return 'prestige'
 }
 
-/** Critical reception band from the authoritative criticScore (0..100) — NOT box office. */
-function lotReceptionBand(criticScore: number): ReceptionBand {
-  if (criticScore < 40) return 'flop'
-  if (criticScore < 60) return 'mixed'
-  if (criticScore < 80) return 'hit'
-  return 'smash'
-}
+// Critical reception band = the canonical `criticBand` (P07A W0, src/core/receptionVerdict.ts) —
+// critic-only, NOT box office. Imported above; call sites use criticBand(criticScore) directly.
 
 function titleCaseGenre(g: string): string {
   return g.length ? g[0]!.toUpperCase() + g.slice(1) : g
@@ -7467,7 +7459,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
   const releasedFilms: ReleasedCard[] = sortedByRecency.slice(0, 4).map((f) => ({
     id: f.productionId,
     title: findConcept(state, f.conceptId)?.title ?? f.conceptId,
-    reception: lotReceptionBand(f.criticScore),
+    reception: criticBand(f.criticScore),
     weeksAgo: Math.max(0, week - f.releaseTick),
   }))
   const latestWeeksAgo = latest ? Math.max(0, week - latest.releaseTick) : Number.POSITIVE_INFINITY

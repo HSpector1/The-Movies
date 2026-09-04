@@ -1,0 +1,58 @@
+# Project: Studio — P07A Execution Handoff (live)
+
+**P07A = Reception / Release Outcomes / Box-Office Result Truth.** Implementation authorized under Owner
+rulings D0–D10 (P07A-OWNER-RULINGS handoff). This file tracks execution wave-by-wave. Authority docs:
+`CODEX-P07A-READINESS-GATE-00.md`, `…IMPLEMENTATION-RECONNAISSANCE.md`, `…IMPLEMENTATION-CHARTER.md`.
+
+## Bases + branches
+- TS WIP: `wip/p07a-reception-outcomes-01-ts` (hspector-github), based `campaign/living-lot-ts` = `005fbe24f9721811d79fd486b54fbc1a47a025c0` (product `050b98e`).
+- Unity WIP: `wip/p07a-reception-outcomes-01-client` (origin), based `campaign/living-lot-client` = `b0c780bb7abd1c81e1c30b59391b7effb86f490f`.
+- Worktrees: `~/The Movies - P07A TS`, `~/The Movies - P07A Unity`.
+- Versions at base: **save V16 · protocol 4 · projection 14**.
+
+## Owner-law digest (do not reopen from preference)
+- **D1** persist immutable audience primitives on FilmResult ONLY if computed-and-discarded (additive optional → V17); don't duplicate sufficient per-segment truth; derive display/labels/bands.
+- **D2** persist minimum immutable business primitives where authority exists; **NO economy redesign, NO distributor/exhibitor split, preserve cash timing**; distinguish BOX OFFICE GROSS vs STUDIO REVENUE/PROFIT truthfully; never fabricate cost allocation.
+- **D3** NO universal quality score; three channels (critics/audience/business) may disagree; ONE canonical TS reception-verdict helper; converge forks; preserve accepted thresholds unless proved bug.
+- **D4** result available at the exact authoritative tick truth first exists; restrained non-blocking; no auto-camera/modal/time-consume.
+- **D5** no revenue-timing rewrite; rail stays operational/status (no gross/profit/ROI per row); financial detail in the result workspace; HUD is cash authority.
+- **D6** lifecycle COMMITTED → IN THEATERS → RUN COMPLETE/HISTORICAL; rail groups + IN THEATERS; run-complete leaves active rail → Film Library; released film may have NO physical lot owner (Locate absent/unavailable; Details opens result); don't invent a building.
+- **D7** restrained presentation; no mandatory cinematic/celebration/full-screen; optional Open Result; optional box-office curve animation (no RNG/state, skippable/reduced-motion, never delays truth); no fake intermediate data.
+- **D8** do NOT merge/adopt FILM-CHRONICLE-V1/marathon branch; read-only inspect for ideas; P07 V1 owns minimum durable history.
+- **D9** legacy IMGUI reception memo grandfathered, not extended; new consumer is normal route; remove memo once discoverability proven; no two competing authorities.
+- **D10** P07 owns release occurrence + critic/audience/business result + theatrical lifecycle + durable FilmResult history + reveal; NOT awards/era/Wire/Chronicle/rival/economy-redesign; prefer additive save evolution (V17 only where truly required); all joins by exact IDs, never title; same-title films independently selectable.
+
+## D0 — campaign upstream safety (DONE)
+- `campaign/living-lot-ts` was tracking `hspector-github/main` (unsafe) → repointed to `hspector-github/campaign/living-lot-ts`.
+- `campaign/living-lot-client` had no upstream → set to `origin/campaign/living-lot-client`.
+- Verified local==remote-tracking==advertised==`005fbe2` (TS) / `b0c780b` (client). `main` untouched (`c902a704`). No force.
+- ⚠️ Standing rule: always push campaign/WIP with an **explicit refspec**; never a bare `git push`.
+
+## Wave log
+- **W0 — canonical reception semantics — DONE (pending full-floor confirm + commit).**
+  - New pure module `src/core/receptionVerdict.ts`: the single source of `criticStars`, `criticBand`
+    (was ui adapter `lotReceptionBand`, 40/60/80 → the bridged lot reception), `criticTier` (was
+    newspaper, 35/55/70/85), `audienceTier` (30/45/57/72), `aggregateAudienceScore`, `filmAudienceScore`
+    + `filmCommittedCost` (consolidated the two identical dups in studioRunRecap.ts + adapter.ts).
+    Thresholds/labels copied VERBATIM (D3: no retune). Named threshold consts for the single source.
+  - Rewired: `newspaper.ts` (imports+re-exports; removed local defs), `ui/src/engine/adapter.ts`
+    (`lotReceptionBand`→`criticBand`; dup finance helpers→import; `filmCommittedCost` re-exported for
+    external test importers), `src/core/studioRunRecap.ts` (dup helpers→import), `src/core/index.ts`
+    (exports `criticBand`/`filmCommittedCost`/`filmAudienceScore` + type `ReceptionBand`).
+  - Bridge path converges automatically (its lot snapshot comes through the ui adapter's `studioLotSnapshot`).
+  - Characterization test `tests/reception-verdict-canonical.test.ts` (boundary values) pins behavior.
+  - Pre-existing latent fix (not W0-caused): `ui/.../p05a-w2-closed-production.contract.test.ts` `journey.next!.label`
+    (the P06D floor gated via vitest, not `tsc -p ui`); both typechecks now clean.
+- W1 — pending (FilmResult completeness / V17 iff needed).
+- W2 — pending (projection 15 + DTO/consumer).
+- W3 — pending (IN THEATERS lifecycle + rail/world truth).
+- W4 — pending (result workspace/reveal consumer).
+- W5 — pending (legacy/boundary hygiene).
+- W6 — pending (continuity/save-load/exact-ID/migration proof).
+- W7 — pending (visual oracle + HID + owner-profile journey).
+- W8 — pending (hostile review + technical seal).
+
+## Standing constraints
+Result computation stays in TS (Unity never computes). No runtime LLM; no editorial feedback into sim. No
+Hollywood Wire runtime dependency (emit typed receipts only). No P08. Campaign refs move only at technical seal.
+Do not claim P06 Owner acceptance.
