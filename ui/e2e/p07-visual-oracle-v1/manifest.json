@@ -1,0 +1,259 @@
+{
+  "fixtureId": "p07-visual-oracle-v1",
+  "generator": "scripts/gen-p07-visual-oracle-fixtures.mts",
+  "generatorSourceSha256": "30f714a9d630aee12e1a2b384f0798ef0377cf15a96ffa3a34f0bc7b03519f1d",
+  "seed": "p07-visual-oracle-v1",
+  "ledger": {
+    "filmAlpha": "prod-0700",
+    "filmBeta": "prod-0701",
+    "filmDivided": "prod-0710",
+    "twinTitle": "The Midnight Reel"
+  },
+  "normalizationLaw": "Exact-token rewrite onto the P07 fixture ledger, longest-token-first, pre-image counts asserted, target collisions refused, re-imported through importSaveJson; every machine assertion runs on the NORMALIZED state. The ledger identities are not mintable through public seams.",
+  "fixtures": [
+    {
+      "ordinal": 1,
+      "scenarioId": "p07-committed-not-released",
+      "week": 10,
+      "save": {
+        "file": "s1-p07-committed-not-released.save.json",
+        "byteLength": 240748,
+        "sha256": "1656958b404d54dc90589b1e1a73620b2bd6344164d6ed61d9e10813b214dd4e"
+      },
+      "checkpoint": {
+        "file": "s1-p07-committed-not-released.checkpoint.json",
+        "byteLength": 272337,
+        "sha256": "5628ceb230ea040f6cd5140045b01afcf14f03ffd3a1be20fe96f92680ddb17b",
+        "sessionId": "p07-oracle-p07-committed-not-released",
+        "schemaId": "sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99",
+        "stateDigest": "1656958b404d54dc90589b1e1a73620b2bd6344164d6ed61d9e10813b214dd4e"
+      },
+      "derivation": [
+        "contendedStudio('p07-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the §7 moments",
+        "third picture greenlit with an oversized 40,000,000 marketing commitment (divided-response)",
+        "scenario 6 only: the twin CONCEPT titles renamed to the ledger twin title (data, not identity)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0701",
+          "occurrences": 20
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0700",
+          "occurrences": 23
+        }
+      ],
+      "machineAssertions": [
+        "zero results on the wire; Alpha committed and unreleased; tick(fixture) releases Alpha exactly once"
+      ]
+    },
+    {
+      "ordinal": 2,
+      "scenarioId": "p07-newly-in-theaters",
+      "week": 11,
+      "save": {
+        "file": "s2-p07-newly-in-theaters.save.json",
+        "byteLength": 238387,
+        "sha256": "b4fee86730aa7ead9ddc98d962e38b8269f362d70c8971bd725801cb912a52ed"
+      },
+      "checkpoint": {
+        "file": "s2-p07-newly-in-theaters.checkpoint.json",
+        "byteLength": 269641,
+        "sha256": "261b33d9449f52a1e65ab5bb724079902e928d9c3b64d2d0f886cf590df01c80",
+        "sessionId": "p07-oracle-p07-newly-in-theaters",
+        "schemaId": "sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99",
+        "stateDigest": "b4fee86730aa7ead9ddc98d962e38b8269f362d70c8971bd725801cb912a52ed"
+      },
+      "derivation": [
+        "contendedStudio('p07-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the §7 moments",
+        "third picture greenlit with an oversized 40,000,000 marketing commitment (divided-response)",
+        "scenario 6 only: the twin CONCEPT titles renamed to the ledger twin title (data, not identity)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0701",
+          "occurrences": 23
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0700",
+          "occurrences": 23
+        }
+      ],
+      "machineAssertions": [
+        "Alpha card: runStatus active, weeksAgo 1 (newest visible), weeksCredited 1, projected, \"Projected …\" label"
+      ]
+    },
+    {
+      "ordinal": 3,
+      "scenarioId": "p07-active-run",
+      "week": 13,
+      "save": {
+        "file": "s3-p07-active-run.save.json",
+        "byteLength": 239214,
+        "sha256": "5403e9f4c2306ab4a905976b74b3e9c31801291425bfe847c6d231c0abdbab90"
+      },
+      "checkpoint": {
+        "file": "s3-p07-active-run.checkpoint.json",
+        "byteLength": 270573,
+        "sha256": "179060d10055b344142a37264dad16737436b3ffdf5cc7fbd7f5980990d96d89",
+        "sessionId": "p07-oracle-p07-active-run",
+        "schemaId": "sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99",
+        "stateDigest": "5403e9f4c2306ab4a905976b74b3e9c31801291425bfe847c6d231c0abdbab90"
+      },
+      "derivation": [
+        "contendedStudio('p07-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the §7 moments",
+        "third picture greenlit with an oversized 40,000,000 marketing commitment (divided-response)",
+        "scenario 6 only: the twin CONCEPT titles renamed to the ledger twin title (data, not identity)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0701",
+          "occurrences": 25
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0700",
+          "occurrences": 25
+        }
+      ],
+      "machineAssertions": [
+        "Alpha mid-run: weeksCredited in [3, totalWeeks), banked-to-date strictly below totals"
+      ]
+    },
+    {
+      "ordinal": 4,
+      "scenarioId": "p07-divided-response",
+      "week": 26,
+      "save": {
+        "file": "s4-p07-divided-response.save.json",
+        "byteLength": 246692,
+        "sha256": "e955626a8e2e2f0708173b4b6f217e36a8abc7a1b8508bd6fc65cec49360120f"
+      },
+      "checkpoint": {
+        "file": "s4-p07-divided-response.checkpoint.json",
+        "byteLength": 279077,
+        "sha256": "7e2268d62876658566aa080d4b1922c5cf0835fbca8cea492a33339ed6d64683",
+        "sessionId": "p07-oracle-p07-divided-response",
+        "schemaId": "sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99",
+        "stateDigest": "e955626a8e2e2f0708173b4b6f217e36a8abc7a1b8508bd6fc65cec49360120f"
+      },
+      "derivation": [
+        "contendedStudio('p07-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the §7 moments",
+        "third picture greenlit with an oversized 40,000,000 marketing commitment (divided-response)",
+        "scenario 6 only: the twin CONCEPT titles renamed to the ledger twin title (data, not identity)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0701",
+          "occurrences": 28
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0700",
+          "occurrences": 28
+        },
+        {
+          "from": "prod-0016",
+          "to": "prod-0710",
+          "occurrences": 24
+        }
+      ],
+      "machineAssertions": [
+        "divided: resultLabel \"Projected loss\" while criticBand=hit / audienceTier=liked — the three channels disagree without contradiction"
+      ]
+    },
+    {
+      "ordinal": 5,
+      "scenarioId": "p07-run-complete",
+      "week": 16,
+      "save": {
+        "file": "s5-p07-run-complete.save.json",
+        "byteLength": 240451,
+        "sha256": "b855173dab51a3ee1793f7d97297f35339d2fc5f85e298e88ea432430efd2145"
+      },
+      "checkpoint": {
+        "file": "s5-p07-run-complete.checkpoint.json",
+        "byteLength": 271980,
+        "sha256": "111a7b0d2e5ad0c368454c2c0dc5ed0bbbfff13c24da06be8a720fe8c217ca12",
+        "sessionId": "p07-oracle-p07-run-complete",
+        "schemaId": "sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99",
+        "stateDigest": "b855173dab51a3ee1793f7d97297f35339d2fc5f85e298e88ea432430efd2145"
+      },
+      "derivation": [
+        "contendedStudio('p07-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the §7 moments",
+        "third picture greenlit with an oversized 40,000,000 marketing commitment (divided-response)",
+        "scenario 6 only: the twin CONCEPT titles renamed to the ledger twin title (data, not identity)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0701",
+          "occurrences": 28
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0700",
+          "occurrences": 28
+        }
+      ],
+      "machineAssertions": [
+        "both leaders completed: zero active cards, final labels, paid == totals"
+      ]
+    },
+    {
+      "ordinal": 6,
+      "scenarioId": "p07-same-title-twins",
+      "week": 26,
+      "save": {
+        "file": "s6-p07-same-title-twins.save.json",
+        "byteLength": 246692,
+        "sha256": "bf08caf32cf2b0d174b1889f24477b588325ba79d9574d844f1de7cda0792a52"
+      },
+      "checkpoint": {
+        "file": "s6-p07-same-title-twins.checkpoint.json",
+        "byteLength": 279077,
+        "sha256": "787124cc0e4f6104689984d9ede5e0c297483e3851704705bb01d56665e309b9",
+        "sessionId": "p07-oracle-p07-same-title-twins",
+        "schemaId": "sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99",
+        "stateDigest": "bf08caf32cf2b0d174b1889f24477b588325ba79d9574d844f1de7cda0792a52"
+      },
+      "derivation": [
+        "contendedStudio('p07-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the §7 moments",
+        "third picture greenlit with an oversized 40,000,000 marketing commitment (divided-response)",
+        "scenario 6 only: the twin CONCEPT titles renamed to the ledger twin title (data, not identity)"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0701",
+          "occurrences": 28
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0700",
+          "occurrences": 28
+        },
+        {
+          "from": "prod-0016",
+          "to": "prod-0710",
+          "occurrences": 24
+        }
+      ],
+      "machineAssertions": [
+        "two result cards share the twin title with distinct exact ids; one active, one completed"
+      ]
+    }
+  ]
+}
