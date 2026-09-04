@@ -30,9 +30,10 @@ FINAL_VALIDATION = PILOT_ROOT / "10_provenance/FINAL-VALIDATION.v2.json"
 AUDITION_PREVIEW_HISTORY = PILOT_ROOT / "11_return-package/audition-previews-v2/AUDITION-PREVIEW-HISTORY.v1.json"
 AUDITION_APP_HISTORY = PILOT_ROOT / "08_audition-app/AUDITION-APP-HISTORY.v1.json"
 REMEDIATION_NEXT_ACTION = (
-    "Complete the ERR-0013 failed/unpublished Oracle-attempt remedy, commit and push the "
-    "Unity trace-publication preflight guard, run a fresh clean-SHA Unity validation, "
-    "regenerate all D/U-bound proof and eight hostile-review lanes, then return to READY_FOR_PACKAGING."
+    "From clean pushed documentation, regenerate D-bound metadata; update and push Unity's "
+    "direct metadata pin while retaining the trace-publication preflight guard; run a fresh "
+    "clean-SHA Unity validation; regenerate all D/U-bound proof and eight hostile-review lanes; "
+    "then return to READY_FOR_PACKAGING."
 )
 
 TRANSITIONS = {
