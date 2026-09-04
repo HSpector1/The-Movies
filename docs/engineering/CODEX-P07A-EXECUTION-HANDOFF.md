@@ -115,12 +115,44 @@ rulings D0–D10 (P07A-OWNER-RULINGS handoff). This file tracks execution wave-b
   BUSINESS as three INDEPENDENT display channels (no universal score, D3); Unity classifies nothing
   (maps the TS-decided bands/tiers/labels). GROSS distinct from STUDIO REVENUE; live runs marked
   "projected" (not banked), D2. Compact deterministic money formatter. EditMode **773/773** (+4).
-- **W4b — pending (NEXT): the result WORKSPACE + rail DETAILS wiring.** Build `StudioReleaseResultWorkspace`
-  (a C# VisualElement tree + USS, modeled on `StudioProductionWorkspace` — chrome heading + BACK, a body
-  with three channel sections, Bind via StudioReleaseResultContracts; restrained, no forced cinematic, D7);
-  host route `StudioWorkspaceHost.OpenReleaseResult(result)` (mirror OpenProduction); rail DETAILS click
-  (StudioProductionRailHud ReleasedResult branch → OpenReleaseResult). D4: available at the tick truth
-  exists; non-blocking. Named elements for the W7 oracle. EditMode-verify; pixel/HID in W7.
+- **W4b — DONE (Unity `96b97f7`): the result WORKSPACE + exact rail DETAILS route.**
+  - `StudioReleaseResultWorkspace` (Presentation/UI, read-only): one wire-ordered list split
+    **IN THEATERS** above **FILM HISTORY** (the §6 durable run-complete inspection route — never
+    re-sorted in Unity) beside one exact detail pane rendering `StudioReleaseResultContracts`
+    verbatim — RELEASE context, then CRITICS / AUDIENCE (per-segment) / BUSINESS as three visually
+    EQUAL `ps-production-section`s (no universal score, D4). Selection/routing by exact immutable id
+    (D1); same-title twins disambiguate via the release-week context line, never a decorated title.
+    Shares the frozen production USS classes (no new sheet); unique `release-result-*` names feed the
+    element map/oracle automatically.
+  - Contract growth (§3E): `OpeningLine` + banked-to-date lines + state-aware totals — active runs say
+    "Tracking toward (gross)" / "Projected studio revenue" (+ a restrained projected note); complete
+    runs say "Final box office (gross)" / "Studio revenue". A projection is never labeled final.
+    Plus `ContextLine`/`HistoryStateLine` (recency, never money), channel score lines, segment labels.
+  - Host: `OpenReleaseResult(resultId)` beside Casting/Production (mutually exclusive display; no
+    draft so BACK/Esc close immediately; snapshot rebind keeps the selected id — including a run
+    completing and migrating groups); `TryConsumeCancel` guard extended. Rail: keyboard activation
+    AND the DETAILS-zone click open the exact result by id; a row-BODY click only selects/focuses —
+    result availability stays non-blocking (§3F), and nothing ever moves the camera.
+  - EditMode **783/783** (+10: 3 contract, 7 workspace — anatomy, wire-order split, never-money list,
+    same-title exact-id routing, projected-vs-final language, per-segment labels, selection
+    stationarity/honest empty, BACK seam).
+- **W5 — DONE (adjudications + drift guard).**
+  - **B1 legacy IMGUI reception memo (D9): GRANDFATHERED, not extended.** The memo
+    (`StudioBridgeClient.OnGUI` first-film-journey Released beat) already speaks ONLY the wire's own
+    critic band for the exact journey productionId (ambiguity ⇒ silent), carries no audience/business/
+    money truth, never force-opens or moves the camera, and is load-bearing in sealed onboarding
+    proofs (`StudioBridgePlayerWorkflowTests` pins it) — so removal now would regress a sealed
+    journey for zero player gain. The Film Result workspace is the one NORMAL product route for full
+    results (rail DETAILS/Enter). New drift-guard test
+    `ReleaseReceptionMemo_StaysCriticOnly_NeverAudienceBusinessOrMoney` fails the moment anyone
+    teaches this legacy surface audience/business/money truth. Removal/suppression is deliberately
+    deferred to a future package once the Owner has played the new route (the D9 "remove once the
+    new route is proven" bar is OWNER-proof, not self-certification).
+  - **FILM-CHRONICLE-V1 (D8): baseline CONFIRMED, untouched, unmerged.** P07A's only contact is
+    `src/core/newspaper.ts` threshold plumbing (W0 re-exports; behavior pinned verbatim by the
+    canonical reception test). `buildFilmChronicle` + the browser reveal chain
+    (ReleaseResult/NewspaperReveal, per `docs/FILM-CHRONICLE-V1-CONTRACT.md`) are unmodified; no
+    marathon branch merged; no Hollywood Wire.
 
 ### SESSION CHECKPOINT 2 (2026-09-04)
 - **SEALED + pushed (both repos): D0 · branches · W0 · W1 · W2 · W3 · W4a.** TS floor 4920/5-skip;
@@ -133,8 +165,8 @@ rulings D0–D10 (P07A-OWNER-RULINGS handoff). This file tracks execution wave-b
   fixture + visual oracle + real HID + owner-profile journey) · W8 (fresh hostile review + technical seal +
   campaign FF).** These are proof-heavy (Unity build + oracle + real HID + hostile review + integration) and
   are the session-spanning tail — to be completed without reducing proof quality.
-- W4 — pending (result workspace/reveal consumer).
-- W5 — pending (legacy/boundary hygiene).
+- W4 — done (W4a contract + W4b workspace/route; see above).
+- W5 — done (B1 grandfathered + drift guard; chronicle baseline confirmed; see above).
 - W6 — pending (continuity/save-load/exact-ID/migration proof).
 - W7 — pending (visual oracle + HID + owner-profile journey).
 - W8 — pending (hostile review + technical seal).
