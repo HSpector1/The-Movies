@@ -498,9 +498,22 @@ def verify_suite_schema_shape(suite: Any) -> None:
 
 
 def parse_utc(value: Any, label: str) -> datetime:
-    require(isinstance(value, str) and value.endswith("Z"), f"{label} must be an explicit UTC timestamp")
+    require(isinstance(value, str), f"{label} must be an explicit UTC timestamp")
+    match = re.fullmatch(
+        r"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(?:\.(\d+))?Z",
+        value,
+    )
+    require(match is not None, f"{label} must be an explicit UTC timestamp")
+    # Unity/.NET round-trip timestamps can carry a seventh, 100 ns fractional
+    # digit. Python 3.9's fromisoformat accepts at most microseconds, so discard
+    # only the sub-microsecond tail before parsing. No ordering check in this
+    # verifier depends on precision below one microsecond.
+    fraction = match.group(2)
+    normalized = match.group(1)
+    if fraction:
+        normalized += "." + fraction[:6]
     try:
-        parsed = datetime.fromisoformat(value[:-1] + "+00:00")
+        parsed = datetime.fromisoformat(normalized + "+00:00")
     except ValueError as error:
         raise RuntimeError(f"{label} is not parseable: {value}") from error
     require(parsed.tzinfo is not None and parsed.utcoffset() == timezone.utc.utcoffset(parsed),
@@ -1831,6 +1844,11 @@ def self_test() -> dict[str, Any]:
 
     refuse(lambda: strict_json_loads('{"schema":"v2","schema":"forged"}', "duplicate-key-mutation"),
            "json:duplicate-object-key")
+    dotnet_round_trip = parse_utc("2026-09-03T23:56:39.3801670Z", "dotnet-round-trip")
+    require(dotnet_round_trip.microsecond == 380_167,
+            "Unity/.NET 100 ns timestamps must normalize deterministically to Python microseconds")
+    refuse(lambda: parse_utc("2026-09-03T23:56:39.3801670+00:00", "offset-mutation"),
+           "timestamp:non-Z-offset")
     current_playlist = strict_json_file(PLAYLIST_SUITE)
     verify_four_hour_source_register(current_playlist)
     stale_playlist_source = copy.deepcopy(current_playlist)
