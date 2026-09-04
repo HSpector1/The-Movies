@@ -857,8 +857,8 @@ export {
   NEWSPAPER_MASTHEAD,
 } from './newspaper.js'
 // ── P07A W0 canonical reception-verdict module (single source of the verdict logic) ─
-export { criticBand, filmCommittedCost, filmAudienceScore } from './receptionVerdict.js'
-export type { ReceptionBand } from './receptionVerdict.js'
+export { criticBand, criticTier, filmCommittedCost, filmAudienceScore } from './receptionVerdict.js'
+export type { ReceptionBand, CriticTier } from './receptionVerdict.js'
 export type {
   NewspaperView,
   NewspaperInput,

@@ -43,7 +43,19 @@ rulings D0–D10 (P07A-OWNER-RULINGS handoff). This file tracks execution wave-b
   - Characterization test `tests/reception-verdict-canonical.test.ts` (boundary values) pins behavior.
   - Pre-existing latent fix (not W0-caused): `ui/.../p05a-w2-closed-production.contract.test.ts` `journey.next!.label`
     (the P06D floor gated via vitest, not `tsc -p ui`); both typechecks now clean.
-- W1 — pending (FilmResult completeness / V17 iff needed).
+- **W1 — FilmResult completeness — DONE. NO V17 (save V16 unchanged).**
+  - Decision: everything the P07 result surface needs is DERIVABLE from already-persisted state
+    (D1/D2: don't duplicate; V17 only where truly required). Audience aggregate ← persisted
+    `segmentScores` × static market shares (no drift). Business: GROSS ← `FilmResult.boxOffice.opening/total`
+    (persisted); STUDIO REVENUE ← `TheatricalRun.studioShare` (0.52 blended rental; already distinct from
+    gross — no distributor/exhibitor split added, D2) + `cumulative*Paid` (persisted); committed cost ←
+    `filmCommittedCost` over the append-only, never-pruned ledger. Nothing is computed-and-discarded that
+    isn't reconstructable → no new FilmResult field, no save bump.
+  - New pure read-model `filmResultView(state, film)` in `ui/src/engine/adapter.ts` (bridge-accessible),
+    composing the authoritative `releaseScorecard`/`runProjection`/`studioRevenueForFilm` with the canonical
+    verdicts (criticStars/criticBand/criticTier/audienceTier) + per-segment audience + banked-vs-projected
+    split. Three INDEPENDENT channels; GROSS≠STUDIO REVENUE kept truthful; legacy/no-run films settle to
+    gross (never a fabricated partial). Test `ui/src/screens/p07a-film-result-view.test.tsx` (5).
 - W2 — pending (projection 15 + DTO/consumer).
 - W3 — pending (IN THEATERS lifecycle + rail/world truth).
 - W4 — pending (result workspace/reveal consumer).

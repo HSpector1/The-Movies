@@ -237,11 +237,14 @@ import {
   setTypeLabel as coreSetTypeLabel,
   // P05A W1 — the one scenery legality classifier; the board attaches copy only.
   sceneryLoadInDecision,
-  // P07A W0 — canonical reception-verdict + film-finance helpers (single source).
+  // P07A W0/W1 — canonical reception-verdict + film-finance helpers (single source).
+  // (criticStars, audienceTier, AudienceTier are already imported from core above.)
   criticBand,
+  criticTier,
   filmCommittedCost,
   filmAudienceScore,
 } from '../../../src/core/index.ts'
+import type { ReceptionBand, CriticTier } from '../../../src/core/index.ts'
 // Re-export for existing external consumers that imported filmCommittedCost from the adapter.
 export { filmCommittedCost } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
@@ -3623,6 +3626,70 @@ export function releaseScorecard(state: GameState, film: FilmResult): ReleaseSco
     roi,
     projected,
     resultLabel,
+  }
+}
+
+// ── P07A W1 — the canonical three-channel film-result read-model ───────────────
+// Composes the authoritative `releaseScorecard`/`runProjection` derivation with the
+// canonical reception verdicts (receptionVerdict.ts) into ONE bridge-shaped result view.
+// Purely DERIVED from already-persisted state (D1/D2: no new persistence, no V17). Three
+// INDEPENDENT channels — critics / audience / business — never a single quality score (D3).
+// BOX OFFICE GROSS and STUDIO REVENUE are kept distinct and truthful; "paid to date" is the
+// actually-credited figure, "total" is the locked full-run figure — never conflated (D2).
+export type FilmResultView = {
+  productionId: string
+  releaseTick: number
+  critic: { score: number; stars: number; band: ReceptionBand; tier: CriticTier }
+  audience: { aggregate: number; tier: AudienceTier; perSegment: Record<SegmentId, number> }
+  business: {
+    boxOfficeOpening: number // opening-week theatrical GROSS
+    boxOfficeGrossTotal: number // locked full-run theatrical GROSS
+    studioRevenueTotal: number // STUDIO REVENUE for the full run (run's locked share × gross; legacy = gross)
+    studioRevenuePaidToDate: number // STUDIO REVENUE actually credited to cash so far
+    grossPaidToDate: number // theatrical GROSS credited so far
+    committedCost: number // direct film commitment (production + marketing + freelancer fees)
+    contribution: number // studioRevenueTotal − committedCost (projected while the run is live)
+    roi: number
+    projected: boolean // true while the run is still ACTIVE (full-run figures not yet banked)
+    resultLabel: ReleaseScorecard['resultLabel']
+    runStatus: 'active' | 'completed' | 'legacyCompleted' | 'none'
+    totalWeeks: number
+    weeksCredited: number
+  }
+}
+export function filmResultView(state: GameState, film: FilmResult): FilmResultView {
+  const sc = releaseScorecard(state, film)
+  const run = state.theatricalRuns.find((r) => r.productionId === film.productionId)
+  return {
+    productionId: film.productionId,
+    releaseTick: film.releaseTick,
+    critic: {
+      score: film.criticScore,
+      stars: criticStars(film.criticScore),
+      band: criticBand(film.criticScore),
+      tier: criticTier(film.criticScore),
+    },
+    audience: {
+      aggregate: sc.audience,
+      tier: audienceTier(sc.audience),
+      perSegment: film.segmentScores,
+    },
+    business: {
+      boxOfficeOpening: film.boxOffice.opening,
+      boxOfficeGrossTotal: film.boxOffice.total,
+      studioRevenueTotal: sc.studioRevenue,
+      // No run record ⇒ a legacy/M0A film already fully settled: paid == total (never fabricate a partial).
+      studioRevenuePaidToDate: run ? run.cumulativeStudioRevenuePaid : sc.studioRevenue,
+      grossPaidToDate: run ? run.cumulativeGrossPaid : film.boxOffice.total,
+      committedCost: filmCommittedCost(state, film.productionId),
+      contribution: sc.contribution,
+      roi: sc.roi,
+      projected: sc.projected,
+      resultLabel: sc.resultLabel,
+      runStatus: run ? run.status : 'none',
+      totalWeeks: run ? run.totalWeeks : 0,
+      weeksCredited: run ? run.weekIndex : 0,
+    },
   }
 }
 
