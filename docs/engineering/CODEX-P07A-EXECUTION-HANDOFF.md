@@ -80,6 +80,24 @@ rulings D0–D10 (P07A-OWNER-RULINGS handoff). This file tracks execution wave-b
     (Full cross-repo consumer attestation `verify:bridge-contract-consumer` is a W8 seal gate.)
   - Version pins bumped 14→15 (bridge-schema.test.ts ×4 incl. `$id`, generated-C# ProjectionVersion; bridge.test.ts).
     Tests: `ui/src/screens/p07a-result-projection.test.tsx` (mapper↔schema alignment). core/bridge/ui tsc clean.
+  - **W2 cross-repo proof:** Unity EditMode **762/762** (0 failed) on the P07A Unity worktree with the new
+    generated DTO — the projection-15 contract compiles + passes on BOTH sides.
+
+### SESSION CHECKPOINT (2026-09-04)
+- **SEALED + pushed (both repos): D0 · WIP branches · W0 · W1 · W2** — the complete TS-side authoritative
+  core + contract for P07A. TS floor **4920 passed / 5 skipped**; core/bridge/ui **tsc clean**; Unity EditMode
+  **762/762**; Unity DTO mirror **byte-identical**. TS WIP tip `da84822`; Unity WIP tip `8e97fbc` (local==remote).
+  The P07 result truth (three independent channels; GROSS≠STUDIO REVENUE; banked-vs-projected) is now DERIVED
+  from persisted state and carried on the wire (projection 15). No V17 (derive-only). No P06 boundary crossed;
+  campaign refs UNMOVED (P07A lives on WIP only; move only at W8 technical seal).
+- **REMAINING: W3–W8** — the Unity CONSUMER + proofs + seal. Next actionable: **W3** — extend the single
+  Unity seam (`StudioMovieSlateContracts.RailGroup` + `StudioProductionRailHud`) to compose an **IN THEATERS**
+  group from `releaseResults.results` (runStatus 'active'); run-complete films (runStatus 'completed') LEAVE
+  the active rail → Film Library; released films may have NO physical world owner (Locate absent/unavailable;
+  Details opens the result) — do NOT invent a building (D6). Then W4 result workspace/reveal (D4/D7), W5 legacy
+  memo hygiene (D9)/chronicle read-only (D8), W6 continuity/save-load/exact-ID (no V17 so migration is trivial),
+  W7 visual oracle + real HID + owner-profile journey, W8 hostile review + technical seal + campaign FF.
+
 - W3 — pending (IN THEATERS lifecycle + rail/world truth).
 - W4 — pending (result workspace/reveal consumer).
 - W5 — pending (legacy/boundary hygiene).
