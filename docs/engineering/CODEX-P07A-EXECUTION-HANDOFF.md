@@ -98,7 +98,18 @@ rulings D0–D10 (P07A-OWNER-RULINGS handoff). This file tracks execution wave-b
   memo hygiene (D9)/chronicle read-only (D8), W6 continuity/save-load/exact-ID (no V17 so migration is trivial),
   W7 visual oracle + real HID + owner-profile journey, W8 hostile review + technical seal + campaign FF.
 
-- W3 — pending (IN THEATERS lifecycle + rail/world truth).
+- **W3 — IN THEATERS lifecycle + rail/world truth (D6) — DONE (Unity `534c743`).**
+  - Single seam extended past COMMITTED: `Lifecycle.InTheaters` + `RailGroup.InTheaters` +
+    `SlateKind.ReleasedResult` (StudioMovieRailContracts + StudioMovieSlateContracts). Released films
+    with an ACTIVE run become IN THEATERS rows from `releaseResults.results`, in their own group after
+    POST & RELEASE; run-complete films are withheld (→ Film Library). World law: a released row has NO
+    Locate (no physical owner) — DETAILS opens the result (wired W4); NO money on the row (D5).
+  - Helpers `ReleasedRowWanted`/`ReleasedLifecycle`/`ReleasedStateLine` ("Now showing · week N of M",
+    never money). `StudioProductionRailHud` populates `ResultRows` from the snapshot, calls the 5-arg
+    Assemble, and draws `DrawReleasedRow` (title-first, calm neutral accent, DETAILS affordance).
+    Fixed a latent hit-test mis-index (the non-Production `else` assumed Screenplay). EditMode **769/769**
+    (+7 new W3 contract tests). **Visual/HID proof deferred to W7** per charter.
+- W3 — done (see above).
 - W4 — pending (result workspace/reveal consumer).
 - W5 — pending (legacy/boundary hygiene).
 - W6 — pending (continuity/save-load/exact-ID/migration proof).
