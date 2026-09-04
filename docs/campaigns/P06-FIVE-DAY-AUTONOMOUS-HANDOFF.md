@@ -1,5 +1,11 @@
 # P06 Five-Day Autonomous Campaign — Durable Handoff
 
+> **CURRENT STATUS — P06 OWNER ACCEPTED — CLOSED. Verdict: ACCEPTED / KEEP / CLOSED.**
+> Accepted 2026-09-04 through the combined P06/P07 Owner journey; recorded at 19:51:49Z
+> (21:51:49 CEST). Actual playtest time was not supplied. Prior pending/open instructions below
+> are historical and do not request a replay. The final authority and findings disposition are
+> in [the P06 acceptance closeout](P06-TECHNICAL-PROMOTION-P06D1.md#owner-acceptance-closeout--2026-09-04).
+
 **Campaign:** P05 Owner closeout → P06 Post/Release → Living Studio Command Layer
 **Authority:** Owner order of 2026-09-01 (P05A.3 ACCEPTED — KEEP; P05 CLOSED; 120-hour
 autonomous window authorized). This document is the campaign's durable memory and must
@@ -125,3 +131,34 @@ force, no rewrite:
 | 2026-09-01 23:59 | Recon complete (5 lanes; lead re-verified `operations.ts` arms + `tick.ts` collector first-hand — the legacy arm DOES decrement blindly, r1 annex right, one recon lane corrected). r2-FINAL gate/recon/charter + research delta + §21 audit written, committed, pushed on `codex/p06a-final-refresh-01` (tip after audit commit). Release-authority design FROZEN (recon §6): V16 `releaseAuthority` root; `commitPictureToRelease` action+intent; both-arm gate + admission witness; decision tier 4 `release-review`; `automaticWeekRollEligible`; `release-committed` operationalState; projection 13→14 with `0474ceaf…` appended as prior. Fresh hostile document review running; FF to campaign after disposition, then §12 WIP branches → W1. |
 | 2026-09-02 → 09-03 | **Implementation through oracle capture.** Impl worktrees: TS `/Users/bruce/The Movies - P06A Impl TS` @ `2130ae8` (branch `wip/p06a-post-release-living-studio-01-ts`); Unity `/Users/bruce/The Movies - P06A Impl Unity` @ `85ae22f` (branch `wip/p06a-post-release-living-studio-01-client`). **W0–W5 DONE** (release authority, closed projection, Post building world owner, Post world life, retained workspace+ReleaseDecisionState). Floors green: TS core 2232/2232, ui 2671/2671, bridge/contract verified, Unity EditMode **730/730**, all typechecks clean. **LSCL (§19) DONE**: movie rail now carries every active production across DEVELOPMENT/CASTING/PRODUCTION/POST/RELEASE READY/COMMITTED (`StudioMovieRailContracts` + rail HUD extension, 8 tests); items 2–5 (HUD, per-building attention, persistent Casting-Office talent access, LL-CP7 lot life) satisfied by prior accepted waves — see `docs/engineering/CODEX-P06A-W5B-LSCL-{EXECUTION-PLAN,COMPLETION}.md`. **Six-scene Visual Oracle**: fixtures `ui/e2e/p06-visual-oracle-v1` (6 save+checkpoint, manifest self-verifies); runner `StudioPostReleaseOracleRunner.cs` (bootstrap-registered) + launcher `Tools/p06-run-visual-oracle.sh` (CF-02 family). All six runner assertions pre-verified by projecting each frozen checkpoint through the real bridge (found+fixed a runner ActiveCount bug for scene 6's Post-slot filler). Player rebuilt with runner+LSCL (0 errors, 160MB, exe sha `283a730a…`), build-manifest generated. **release-ready scene captured: status complete, 10/10 machine assertions, 0 mutations, stateDigest `eb84e97d…` = frozen fixture; image inspected — all 3 visual questions pass, LSCL rail renders the RELEASE READY ▸ chip.** Remaining 5 scenes capturing. **RESUME NEXT:** inspect the 5 remaining scene images → real-Owner-profile-copy journey (read-only baseline at `/Users/bruce/Project Studio Owner Profile Baselines/P06-campaign-start-20260901/`, NEVER the durable original) + HID journey → fresh hostile review (25 criteria, charter Appendix A) → FF campaign branches + preserve `~/Desktop/P06A-Owner-Candidate-<ts>-<unity>/` + final report `KEEP CANDIDATE — OWNER ACCEPTANCE PENDING`. No P07. |
 | 2026-09-03 (TERMINAL) | **SAFE TERMINAL STATE — KEEP CANDIDATE — OWNER ACCEPTANCE PENDING.** Impl tips: TS `465ab45` (pushed → `hspector-github/wip/p06a-post-release-living-studio-01-ts`), Unity `7d6d974` (pushed → `origin/wip/p06a-post-release-living-studio-01-client`). Sealed player exe sha `aabc41f80295c2c6…`. **All six oracle scenes re-captured on the final build: complete, 63 machine assertions, 0 mutations, digests == fixtures; every image inspected — all visual questions pass** (F1 rail tofu-glyph found+fixed via inspection). **Real-Owner-profile-copy journey 25/25** (`scripts/p06-real-profile-journey.mts`; original sha unchanged + still read-only). **Floors green: TS 4903/0 + typecheck clean + bridge contract/fixtures/CF-09 consumer verify + Unity EditMode 730/730.** **Fresh adversarial hostile review = ACCEPT, 25/25, 0 blocking rejects** (`docs/engineering/CODEX-P06A-HOSTILE-REVIEW-DISPOSITION.md`). Owner candidate durably preserved: `~/Desktop/P06A-Owner-Candidate-465ab45-7d6d974/` (README + player + 6-scene evidence + docs + proof, exe sha verified). **HID journey = documented environmental blocker (F4): the packaged player presents no OS-trackable on-screen window in this autonomous session (locked/inactive display); ownerinput is built + AX-trusted; four-level compensating proof.** Campaign branches deliberately UNMOVED (not a full seal). Worktrees clean; no owned processes running; **no P07 gameplay implemented.** Open for Owner: human visual sign-off, F2 scope ruling, HID re-run on an interactive GUI session. |
+
+## Final P06 execution disposition — Owner accepted, closed
+
+Owner verdict **ACCEPTED / KEEP / CLOSED**, acceptance date 2026-09-04; recording time
+19:51:49Z (21:51:49 CEST), actual playtest time not supplied. P06 technical promotion
+preceded this explicit acceptance. The inherited P06D.1 accepted authority is:
+
+- TS accepted product/source checkpoint: `050b98ee15d83883b209b4e0700a06e064a4eb60`.
+- TS P06 documentation/campaign seal: `72217af1fb580d9d3ae7557e2cdb280a6f29eb11`.
+- Unity product: `23c000a7e0aa1d61d3ad4a620b5dfea7d7ac0bde`; clean build/campaign:
+  `b0c780bb7abd1c81e1c30b59391b7effb86f490f`.
+- Preserved P06D.1 candidate: `~/Desktop/P06D1-Clean-Comparison-Candidate-050b98e-23c000a/`;
+  executable `7c2213ba732d761c3f7cb23ab28f7ce92edc11105e6ea7ec50dce14bca19e9c3`.
+
+The actual accepted combined journey used `~/Desktop/P07A-Owner-Candidate-a6f4f82-c4c65db/`,
+executable `c3372eb566304a14e599811d3e9872759c134aa703a150e17a25cc02e92ef813`.
+The Owner understood the lot/grouped rail, used physical Production/Post without rail priming,
+held Release Ready, committed the exact title without time advance, and released it on the
+next authoritative week. Results, Save/Load, durable completed-film inspection, Talent,
+workspaces, Back/Locate/focus, Menu, and Quit passed. The Owner did not separately replay
+P06D.1; the historical pending instructions above are superseded.
+
+The [final findings register](P06-TECHNICAL-PROMOTION-P06D1.md#findings-disposition-at-acceptance)
+classifies every carried P06 observation as FIXED, DEFERRED NON-BLOCKER, SUPERSEDED, or FUTURE
+PACKAGE. In particular the open-panel screenshot remains absent, memo-placement and People
+wording remain non-blockers, prior blocked HID evidence remains recorded, and remaining
+P06B/P06C backlog/profiling ideas are future scope. No unresolved polish is silently cleared.
+Rollback candidates remain preserved. No owned Unity/player/engine/bridge/supervisor/proof
+processes or pending P06 execution remain. P06/P07 are closed; next is P08A planning/reconciliation
+under [the final factual handoff](../engineering/P07-TO-P08-FINAL-AUTHORITY-HANDOFF.md).
+P08 production implementation is **NOT YET AUTHORIZED**.

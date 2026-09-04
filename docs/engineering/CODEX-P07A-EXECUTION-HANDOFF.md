@@ -1,5 +1,10 @@
 # Project: Studio — P07A Execution Handoff (live)
 
+> Current closeout, 2026-09-04: **P07 OWNER ACCEPTED — KEEP — CLOSED**; P06 is also
+> **OWNER ACCEPTED — KEEP — CLOSED**. The historical checkpoints below retain
+> their original pending/rejection/remediation state. The appended Owner
+> closeout governs current status and corrects source/build identity labels.
+
 **P07A = Reception / Release Outcomes / Box-Office Result Truth.** Implementation authorized under Owner
 rulings D0–D10 (P07A-OWNER-RULINGS handoff). This file tracks execution wave-by-wave. Authority docs:
 `CODEX-P07A-READINESS-GATE-00.md`, `…IMPLEMENTATION-RECONNAISSANCE.md`, `…IMPLEMENTATION-CHARTER.md`.
@@ -250,3 +255,77 @@ Do not claim P06 Owner acceptance.
 - **Campaign integration:** fast-forward ONLY, both repos, after this commit (no merge/squash/
   force/history rewrite; main untouched; no Golden tag). P06 remains TECHNICALLY PROMOTED — OWNER
   GAMEPLAY ACCEPTANCE PENDING; P07A is NOT Owner-accepted; no P08; no Hollywood Wire/Studio Radio.
+
+## Owner acceptance closeout — 2026-09-04
+
+**P07 OWNER ACCEPTED — KEEP — CLOSED. P06 OWNER ACCEPTED — KEEP — CLOSED.**
+The Owner explicitly accepted the actual combined representative P06/P07
+playtest. The ruling was recorded at `2026-09-04T19:51:49Z`; the exact playtest
+time was not supplied. Technical KEEP/promotion preceded this ruling and was not
+Owner acceptance at that earlier point. No replay was requested.
+
+Accepted candidate: `/Users/bruce/Desktop/P07A-Owner-Candidate-a6f4f82-c4c65db/`.
+It remains preserved without candidate mutation or rebuild. Its exact executable
+SHA-256 is `c3372eb566304a14e599811d3e9872759c134aa703a150e17a25cc02e92ef813`.
+
+The accepted TS runtime/product commit is
+`da848225516fe3ced9a421548d0f5e7cbc8b5b88`. The previously reported
+`85bfa26d834f31091020e55fda962f7835051a6e` is a tests/documentation checkpoint,
+not the last runtime source change. The player build manifest binds TS
+`d0953e52d6b446137d3141a0310fd98b170e8cc1`; candidate packaging is checkpoint
+`a6f4f82d35916f9f0cad205a5f478219bad6480e`. The accepted pre-closeout technical
+seal/campaign tip is `4bbf26353c9b168f551e4a18ca190eceea201cb9`. Unity product and
+campaign authority is `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6`.
+Protocol/projection/save remain `4 / 15 / V16`.
+
+The documentation-inclusive post-closeout TS tip is the commit introducing this
+appendix on `docs/p06-p07-owner-acceptance-closeout-01`, then fast-forwarded to
+`campaign/living-lot-ts`. The exact full SHA is Git-resolved and reported at
+delivery; the document cannot self-embed its own commit SHA. The [final authority
+handoff](P07-TO-P08-FINAL-AUTHORITY-HANDOFF.md) records all hashes and contract
+identity separately. The [Owner receipt](../campaigns/P07-OWNER-ACCEPTANCE-RECEIPT.md)
+records preservation/evidence reconciliation and the final repository/process audit.
+
+The Owner passed the lot and grouped rail journey; found Scripts, Making Movies,
+Post & Release, and In Theaters useful; used the physical Production/Post building
+without rail priming; held Release Ready safely; committed the exact title without
+advancing time; released it on the next authoritative week; opened the exact film
+through Details; understood Critics/Audience/Business independently without a
+universal Movie Quality score; understood projected/final and gross/revenue/profit
+language; preserved the same result through Save/Load; and inspected completed
+theatrical history. Cards, workspaces, Talent, Back, Locate, focus, Menu, and Quit
+remained usable. No P08 Awards, Hollywood Wire, or Studio Radio gameplay leaked
+into P07. This acceptance supplements, rather than rewrites, the earlier proof.
+
+### Disposition of known items
+
+| Item | Disposition | Closeout meaning |
+| --- | --- | --- |
+| DETAILS word wrapping | FIXED | Final accepted Unity contract uses the shared 78px details width and no-wrap presentation. |
+| First-connect proof-map timeout | FIXED | Recorded harness timeout remediation; initial failure retained. |
+| HID runtime seed, calibration menu ownership, and partial visible row hit rectangle | FIXED | Accepted journey G completed 15/15 on final Unity authority; runs 1–5 remain in evidence. |
+| 1280×800 legacy time-band overlap at Film Result heading edge | DEFERRED NON-BLOCKER | Disclosed, content remains legible; no UI change in closeout. |
+| Harness OVERALL PASS despite entirely BLOCKED journey | DEFERRED NON-BLOCKER | Step trail remains authoritative; tighten summary semantics in a future harness pass. |
+| Living lot continues advancing weeks while the player reads at running speed | DEFERRED NON-BLOCKER | Accepted normal simulation behavior; opening the workspace itself charges no time. No pause behavior is changed. |
+| Newest result reads “1 wk ago” on its first visible week | DEFERRED NON-BLOCKER | `weeksAgo` counts snapshot weeks relative to the release batch; preserve the existing convention and exact release week. |
+| Grandfathered critic-only legacy IMGUI memo | FUTURE PACKAGE | New route is now Owner-proven; removal/suppression still requires authorized product work, with existing drift guard preserved. |
+| Broader 2005-inspired visual/UX match | FUTURE PACKAGE | Carry the documented visual direction into its own charter. |
+| Independent always-visible history entrance / future world owner | FUTURE PACKAGE | P07 provides durable records and FILM HISTORY inside the result workspace; do not claim a separate shipped launch control. |
+| Earlier W6/W7/W8 and Owner-acceptance-pending checkpoints | SUPERSEDED | Later technical seal and this Owner ruling govern current state; original chronology is retained. |
+| Canonical same-title Oracle directory absent from candidate copy | DEFERRED NON-BLOCKER | Candidate contains five canonical directories; the sixth run remains externally preserved with matching build identity and seven passing checks. |
+
+The sixth canonical Oracle run is
+`/Users/bruce/The Movies - P07A Unity/Evidence/P07-Oracle/p07-same-title-twins-20260904T164902Z`.
+Together with the five candidate-contained canonical runs, the preserved evidence
+covers the six scenarios and 44 checks. Supplemental viewport fixtures remain
+distinct from canonical scenarios. Actual supplemental dimensions include
+`1720×1046` and native fullscreen `3456×2234`; do not relabel these as a requested
+logical viewport or conceal Retina/physical dimensions.
+
+This closeout starts no Unity/player/engine/bridge/supervisor/proof process; final
+absence of owned processes is recorded by the closeout audit. No gameplay changed,
+no main movement or Golden tag is authorized, and Unity remains at accepted P07
+authority. P08 production implementation is **NOT STARTED / NOT YET AUTHORIZED**.
+Next: P08A planning/reconciliation against the [final P07 → P08 handoff](P07-TO-P08-FINAL-AUTHORITY-HANDOFF.md),
+with Current Ops PM reviewing any available Future Ops package before issuing an
+implementation order. The Future Ops plan itself is not implementation authority.

@@ -1,5 +1,11 @@
 # P06D — Living Studio UX Convergence II — HANDOFF
 
+> **CURRENT STATUS — P06 OWNER ACCEPTED — CLOSED. Verdict: ACCEPTED / KEEP / CLOSED.**
+> Accepted 2026-09-04 through the combined P06/P07 journey; recorded 19:51:49Z (21:51:49
+> CEST), actual playtest time not supplied. Original comparison/pending/process instructions
+> below are retained history. They are superseded by the appended final handoff and do not
+> request a replay or restart P06 execution.
+
 > Durable campaign memory (§4). Updated + pushed after Entry, after every coherent loop, before
 > compaction, before the full visual matrix, before hostile review, before stopping.
 > Nothing meaningful may live only in scratch, /private/tmp, a process, chat, or an unpushed tree.
@@ -177,3 +183,35 @@ per checkout / collision-prone file. Campaign branches are not edited. No end me
 Run the investigation loop: map the rail HUD internals, the five building-card HUDs, the Production and
 Post/Release workspaces, the guidance card, the current focus/accessibility handling, and the
 capture/oracle tooling + fixture path — to commit a design before any edit.
+
+## Final Owner-accepted handoff — 2026-09-04
+
+**P06 OWNER ACCEPTED — CLOSED; Owner verdict ACCEPTED / KEEP / CLOSED.** The technical
+promotion preceded Owner acceptance. Accepted P06D.1 authority: TypeScript product/source
+checkpoint `050b98ee15d83883b209b4e0700a06e064a4eb60`, documentation/campaign seal
+`72217af1fb580d9d3ae7557e2cdb280a6f29eb11`; Unity product
+`23c000a7e0aa1d61d3ad4a620b5dfea7d7ac0bde`, clean build/campaign
+`b0c780bb7abd1c81e1c30b59391b7effb86f490f`. Preserved clean candidate:
+`~/Desktop/P06D1-Clean-Comparison-Candidate-050b98e-23c000a/`, executable SHA256
+`7c2213ba732d761c3f7cb23ab28f7ce92edc11105e6ea7ec50dce14bca19e9c3`.
+
+The actual combined playtest used `~/Desktop/P07A-Owner-Candidate-a6f4f82-c4c65db/`, executable
+`c3372eb566304a14e599811d3e9872759c134aa703a150e17a25cc02e92ef813`. Its inherited P06
+journey passed: readable lot/grouped rail, independent physical Production/Post access,
+safe Release Ready hold, exact-title commitment with no time advance, next-week release,
+correct result/history/Save-Load, and usable Talent/cards/workspaces/Back/Locate/focus/Menu/Quit.
+Acceptance of both packages is explicit; no separate replay of the old comparison is claimed.
+Recording time: 2026-09-04 19:51:49Z (21:51:49 CEST); actual playtest time was not supplied.
+
+[The final findings register](P06-TECHNICAL-PROMOTION-P06D1.md#findings-disposition-at-acceptance)
+retains and classifies all P06 findings. The Production open-panel screenshot gap, People footer
+wording, click-selection/focus observation, and optional memo-placement refinement are DEFERRED
+NON-BLOCKER; earlier blocked HID/reviewer-coverage observations are SUPERSEDED for acceptance,
+not relabeled in their original evidence. P06D.1's three evidence-index/identity nits are FIXED;
+unshipped backlog, missing authoritative fields, broader accessibility, and profiling ideas
+remain FUTURE PACKAGE. Rollback candidates remain preserved; no candidate was modified.
+
+No owned Unity/player/engine/bridge/supervisor/proof processes remain; the historical keep-awake
+instructions above are inactive. Next is P08A planning/reconciliation through
+[the final P07 → P08 handoff](../engineering/P07-TO-P08-FINAL-AUTHORITY-HANDOFF.md).
+P08 production implementation is **NOT YET AUTHORIZED**. No gameplay change, main merge, or tag.

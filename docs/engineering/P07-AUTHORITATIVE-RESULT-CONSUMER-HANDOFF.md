@@ -1,5 +1,10 @@
 # P07 — Authoritative Result Facts: Consumer Handoff (V1)
 
+> Current closeout, 2026-09-04: **P06 and P07 OWNER ACCEPTED — KEEP — CLOSED**.
+> The original V1 record below is preserved. The appended reconciliation and
+> [final P07 → P08 handoff](P07-TO-P08-FINAL-AUTHORITY-HANDOFF.md) govern current
+> identity precision, historical limits, and P08 entry authority.
+
 **Status:** documentation only. Hollywood Wire is NOT integrated; no runtime
 dependency exists or is added here. This page records exactly which release
 /reception/result facts P07 makes authoritative, so a FUTURE consumer
@@ -76,3 +81,61 @@ recomputed after greenlight.
 5. Hollywood Wire may consume these facts later; it may not modify them.
    Studio Radio remains downstream from Hollywood Wire. No runtime dependency
    is added by this document.
+
+## Final Owner closeout and consumer reconciliation — 2026-09-04
+
+The Owner accepted the actual combined P06/P07 journey: safe Release Ready hold,
+exact-title commitment with no time advance, release on the next authoritative
+week, truthful In Theaters state, correct Details result, independent Critics /
+Audience / Business, projected/final and gross/revenue distinctions, Save/Load,
+and completed-run inspection. **P06 and P07 are ACCEPTED — KEEP — CLOSED.**
+Acceptance was recorded at `2026-09-04T19:51:49Z`; exact playtest time was not
+supplied. Prior technical promotion was not prior Owner acceptance.
+
+The [final authority handoff](P07-TO-P08-FINAL-AUTHORITY-HANDOFF.md) records the
+accepted runtime, build-manifest, candidate, technical-seal, and documentation
+identities independently. In particular, TS runtime authority is
+`da848225516fe3ced9a421548d0f5e7cbc8b5b88`; the earlier reported
+`85bfa26d834f31091020e55fda962f7835051a6e` is tests/docs only. Accepted Unity
+authority is `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6`; protocol/projection/save
+remain `4 / 15 / V16`. The preserved candidate and exact hashes are recorded in
+the [Owner receipt](../campaigns/P07-OWNER-ACCEPTANCE-RECEIPT.md).
+
+Precision for downstream consumers:
+
+- Persisted `FilmResult.productionId` is the result identity; wire `id` equals
+  it. Title is derived by concept lookup, not frozen on FilmResult. Release week
+  and recency provide the current visible same-title context.
+- `filmResultSnapshot` in `ui/src/engine/adapter.ts` maps the derived result to
+  the wire. Audience aggregate is derived over existing market shares from the
+  persisted segment scores, not stored as a separate historical primitive.
+- FILM HISTORY is a group inside `StudioReleaseResultWorkspace`, reached by
+  `StudioWorkspaceHost.OpenReleaseResult(exactId)` and exact-ID selection. There
+  is no separate always-visible history launch control in accepted P07. An
+  unknown preferred ID during Bind can fall back to the first available row;
+  consumers must not misidentify that fallback as their requested film.
+- Existing managed `studioEvents` may supply permanent `releaseCommitted` and
+  `premiere` receipts with seq/week/kind/subject, but no universal external
+  dispatch event-ID contract is frozen. Absent old-save receipts, participants,
+  forecasts, historical Standing changes, and other unrecorded facts must not
+  be reconstructed as if recorded. Future “Not Recorded” is an absence law,
+  not a P07 schema/UI feature claim.
+- The old no-run settled/full-gross legacy treatment remains authoritative;
+  no synthetic run progress, historical review, or revenue split is added.
+- Gross, Studio Revenue, and direct-film contribution retain separate bases.
+  Locked full-run figures remain projected until settlement. No consumer may
+  expose hidden future amounts as settled truth or introduce a universal score.
+
+Known polish, legacy-memo retirement, history-entry limits, failed HID runs, and
+the externally preserved sixth canonical Oracle directory remain explicitly
+classified in the [execution closeout](CODEX-P07A-EXECUTION-HANDOFF.md#owner-acceptance-closeout--2026-09-04).
+Nothing was silently removed or implemented as part of this record.
+
+P07 creates release/result facts. P08 may create Standing/history/award facts
+within its own future authorization, without rewriting P07. Hollywood Wire later
+interprets factual receipts; Studio Radio remains downstream. Next is P08A
+planning/reconciliation; any Future Ops draft remains advisory. P08 production
+implementation is **NOT STARTED / NOT YET AUTHORIZED**. This documentation
+closeout owns no gameplay/proof process; final process checks are recorded in
+the Owner receipt. No candidate mutation, gameplay rebuild, main movement, or
+Golden tag is part of this closeout.

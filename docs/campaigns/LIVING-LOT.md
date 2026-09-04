@@ -3526,3 +3526,103 @@ Living Studio Command Layer; P07 gameplay prohibited before P06 Owner acceptance
 
 The durable engineering record for this arc is
 `docs/engineering/P05-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md`.
+
+---
+
+## P06 / P07 — combined Owner acceptance closeout, 2026-09-04
+
+**Owner ruling: P06 ACCEPTED — KEEP — CLOSED. P07 ACCEPTED — KEEP — CLOSED.**
+Recorded 2026-09-04 19:51:49 UTC (21:51:49 CEST). The Owner supplied the date and
+explicit successful journey; the exact playtest time was not supplied. This timestamp
+records the closeout, not a reconstructed play session. No Golden status is claimed.
+
+This entry is appended after the earlier arc history. It does not rewrite a technical
+seal, rejection, reopen, remediation, or earlier pending-acceptance statement.
+P06 technical promotion and P07 technical KEEP preceded the Owner's acceptance;
+machine floors and hostile review were never substitutes for it. P07's later execution
+order and technical seal are retained as their own historical authority. The initial
+P06 order's earlier gate is not retroactively described as already Owner-satisfied.
+
+### P06 — accepted inherited P06D.1 lineage
+
+| Authority | Exact value |
+|---|---|
+| Accepted TS product/source-and-test checkpoint, clean build source | `050b98ee15d83883b209b4e0700a06e064a4eb60` |
+| Last P06 runtime-source change before that checkpoint | `2240df8e7705fd5ecf84802f352818158380b4a4` |
+| TS P06 technical-promotion campaign / documentation seal | `72217af1fb580d9d3ae7557e2cdb280a6f29eb11` |
+| TS subsequent P06 readiness docs / P07 campaign base | `005fbe24f9721811d79fd486b54fbc1a47a025c0` |
+| Unity P06 product | `23c000a7e0aa1d61d3ad4a620b5dfea7d7ac0bde` |
+| Unity P06 clean-build / campaign source | `b0c780bb7abd1c81e1c30b59391b7effb86f490f` |
+| Preserved clean P06D.1 player SHA-256 | `7c2213ba732d761c3f7cb23ab28f7ce92edc11105e6ea7ec50dce14bca19e9c3` |
+
+Clean candidate: `/Users/bruce/Desktop/P06D1-Clean-Comparison-Candidate-050b98e-23c000a/`.
+P06D.1 repaired source provenance and cleanly re-sealed the P06D comparison lineage;
+the Unity clean-build commit adds missing test asset metadata after the product commit.
+The Owner accepted the inherited behavior in the combined P07 candidate below, not a
+claimed separate replay of the P06D.1 binary. The lot, grouped rail, department handoffs,
+independent physical Production/Post building, Release Ready hold, exact commitment
+without time advance, Talent access, Back/Locate/focus, Save/Load, Menu, and Quit passed.
+P06 is OWNER ACCEPTED — CLOSED. Its unresolved polish is retained with dispositions in
+the final P06 handoff and lessons document; no screenshot or implementation repair is invented.
+
+P06B, P06C, original P06D, and clean P06D.1 rollback candidates remain preserved.
+Verified rollback player SHA-256 values: P06B
+`130a13a0f19e688fc2bb4b8ba4bd9282430b3d62ecd105f3ff7ad4651d534d49`;
+P06C `2c235c390ae7fc8dce28ae62ab7c8e0b8479cac3706523c4200f04bec9f6474a`;
+original P06D `076e8c62906de5d7c643f86938439c978523db46e2445a89cd63da0f057d0aee`.
+
+### P07 — accepted release/result authority
+
+| Authority | Exact value |
+|---|---|
+| TS last runtime/contract-affecting product commit | `da848225516fe3ced9a421548d0f5e7cbc8b5b88` |
+| Reported TS product-source checkpoint, resolved as tests/docs only | `85bfa26d834f31091020e55fda962f7835051a6e` |
+| TS actual player build-bound commit | `d0953e52d6b446137d3141a0310fd98b170e8cc1` |
+| TS candidate-assembly documentation commit | `a6f4f82d35916f9f0cad205a5f478219bad6480e` |
+| TS technical-seal / pre-closeout campaign commit | `4bbf26353c9b168f551e4a18ca190eceea201cb9` |
+| Unity product / build / unchanged campaign commit | `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6` |
+| Player executable SHA-256 | `c3372eb566304a14e599811d3e9872759c134aa703a150e17a25cc02e92ef813` |
+| Engine SHA-256 | `b92dc8e6edde05e4da86a3c75d3a1657170646045366c234f942b8b5934a2a0a` |
+| Assembly-CSharp SHA-256 | `52229807aa64c9a7d1a135360c6db656a75b8e33b2c5dcdda3cfc87aac7064ac` |
+| Generated-contract Git blob | `84d9c9a814ad4cc92d8a882205baa2f484ff8527` |
+| Generated-contract SHA-256 | `045fccce1ae318cbd338779fd52bd805302c1b8ad5ed033cb24d08eab590047f` |
+| Schema ID | `sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99` |
+| Protocol / projection / save | `4 / 15 / V16` |
+
+The accepted candidate remains
+`/Users/bruce/Desktop/P07A-Owner-Candidate-a6f4f82-c4c65db/`.
+P07 is OWNER ACCEPTED — CLOSED. The Owner confirmed the next authoritative week released
+the committed exact movie; it entered In Theaters truthfully; Details selected its
+correct result; Critics, Audience, and Business were separately understandable; no
+universal Movie Quality score appeared. Projected/final wording and gross versus
+Studio Revenue/Profit were understood. Save/Load preserved exact film/result identity,
+and completed runs remained historically inspectable. The normal lot/rail/cards/workspaces,
+Talent, Back/Locate/focus, Menu, and Quit remained usable. All tested steps passed.
+No P08 Awards, Hollywood Wire, or Studio Radio gameplay leaked into P07.
+
+The post-Owner-closeout TS campaign commit is the introducing commit of
+`docs/campaigns/P07-OWNER-ACCEPTANCE-RECEIPT.md` on
+`docs/p06-p07-owner-acceptance-closeout-01`, resolved exactly by
+`git log --diff-filter=A --format=%H -- docs/campaigns/P07-OWNER-ACCEPTANCE-RECEIPT.md`.
+Its full SHA is recorded in the final response after commit and ordinary fast-forward
+push. This self-identification keeps the new documentation tip separate from every
+product/build/technical-seal SHA above. Only the TS campaign moves; Unity is unchanged.
+
+The [acceptance receipt](P07-OWNER-ACCEPTANCE-RECEIPT.md) records the exact manifest
+hashes, candidate-byte inventory, recovered sixth Oracle evidence location, reported
+technical floors, clean scoped worktrees, advertised remote equality, and process audit.
+The candidate is runnable and byte-valid; its bundled Oracle archive has five scenarios,
+with the sixth preserved in the original Unity evidence tree at the identical build.
+The reported floors remain TS 4,926/5 skipped, three clean TS configurations, Unity
+784/784, Oracle 6/6, HID G 15/15, Owner-profile-copy 30/30, hostile review ACCEPT 28/28.
+No full matrix was rerun for documentation closeout.
+
+Lessons: [P06](../engineering/P06-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md)
+and [P07](../engineering/P07-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md).
+Next-package facts: [P07 → P08 final authority handoff](../engineering/P07-TO-P08-FINAL-AUTHORITY-HANDOFF.md).
+
+**P08 production implementation NOT STARTED and NOT YET AUTHORIZED.** Next is P08A
+planning/reconciliation, including read-only review of any Future Ops
+`docs/p08a-launch-package-01` branch after this closeout. A Future Ops draft is not a
+binding implementation order. No main movement, merge commit, force, history rewrite,
+Golden tag, or owned runtime process belongs to this closeout.

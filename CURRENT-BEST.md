@@ -1,5 +1,64 @@
 # Project: Studio — Current Best
 
+## Current accepted authority — 2026-09-04
+
+**P06 ACCEPTED — KEEP — CLOSED. P07 ACCEPTED — KEEP — CLOSED.** The Owner accepted
+the actual combined representative journey on the preserved P07 candidate. Recording
+time: 2026-09-04 19:51:49 UTC / 21:51:49 CEST; exact playtest time was not supplied.
+The era banners and previous-best entries below are historical, including their
+then-pending Owner status. They do not override this acceptance.
+
+### CURRENT ACCEPTED PRODUCT PAIR
+
+| Identity | Exact value |
+|---|---|
+| TypeScript last runtime/contract product commit | `da848225516fe3ced9a421548d0f5e7cbc8b5b88` |
+| Unity product and unchanged campaign commit | `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6` |
+| Actual player build-bound TypeScript commit | `d0953e52d6b446137d3141a0310fd98b170e8cc1` |
+| Candidate assembly-bound TypeScript documentation commit | `a6f4f82d35916f9f0cad205a5f478219bad6480e` |
+| Reported TS product-source checkpoint (tests/docs only; not last runtime change) | `85bfa26d834f31091020e55fda962f7835051a6e` |
+| Player executable SHA-256 | `c3372eb566304a14e599811d3e9872759c134aa703a150e17a25cc02e92ef813` |
+| Engine SHA-256 | `b92dc8e6edde05e4da86a3c75d3a1657170646045366c234f942b8b5934a2a0a` |
+| Assembly-CSharp SHA-256 | `52229807aa64c9a7d1a135360c6db656a75b8e33b2c5dcdda3cfc87aac7064ac` |
+| Schema ID | `sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99` |
+| Protocol / projection / save | `4 / 15 / V16` |
+
+### DOCUMENTATION-INCLUSIVE CAMPAIGN TIP
+
+The accepted TS technical-seal campaign commit is
+`4bbf26353c9b168f551e4a18ca190eceea201cb9`. The post-Owner-closeout campaign tip is
+the documentation commit introducing
+`docs/campaigns/P07-OWNER-ACCEPTANCE-RECEIPT.md`, on
+`docs/p06-p07-owner-acceptance-closeout-01`, fast-forwarded to `campaign/living-lot-ts`.
+Its exact full SHA is resolved by
+`git log --diff-filter=A --format=%H -- docs/campaigns/P07-OWNER-ACCEPTANCE-RECEIPT.md`
+and recorded in the final closeout response after commit/push. It cannot be written
+literally into its own commit. Neither campaign documentation tip is a replacement
+identity for the product or the player build. Unity remains at the exact product/campaign
+SHA above; it needs no documentation-only symmetry change.
+
+Preserved candidate: `/Users/bruce/Desktop/P07A-Owner-Candidate-a6f4f82-c4c65db/`.
+No candidate mutation or rebuild. [Acceptance receipt](docs/campaigns/P07-OWNER-ACCEPTANCE-RECEIPT.md)
+records full manifests, hashes, proof provenance, and the five-of-six bundled Oracle
+archive limitation; the sixth scenario remains separately preserved with the same build binding.
+
+P06 inherited lineage remains separately recorded: accepted TS checkpoint
+`050b98ee15d83883b209b4e0700a06e064a4eb60`, P06 promotion campaign seal
+`72217af1fb580d9d3ae7557e2cdb280a6f29eb11`, Unity product
+`23c000a7e0aa1d61d3ad4a620b5dfea7d7ac0bde`, clean-build/campaign
+`b0c780bb7abd1c81e1c30b59391b7effb86f490f`, clean P06D.1 player
+`7c2213ba732d761c3f7cb23ab28f7ce92edc11105e6ea7ec50dce14bca19e9c3`.
+This is lineage acceptance through the combined P07 journey, not a claim of an additional
+P06D.1 replay. Rollback candidates and all rejection/reopen/remediation history remain preserved.
+
+Next package: **P08A planning/reconciliation — Standing & Studio History Spine V1**,
+subject to Current Ops PM review of the Future Ops package. **P08 production implementation:
+NOT YET AUTHORIZED; NOT STARTED.** No Awards, Hollywood Wire, or Studio Radio implementation.
+The [final factual handoff](docs/engineering/P07-TO-P08-FINAL-AUTHORITY-HANDOFF.md)
+defines what future consumers may read. No main merge, force, or Golden tag.
+
+## Prior best-build history (preserved)
+
 > **CURRENT ERA (2026-08-17): FIRST MOVIE JOURNEY.** The marathon record below is
 > historical. Current best = Tycoon World V1, sealed at `b58e6f8` on
 > `tycoon-world-conversion-12h` (Owner ruling: architecture PASS / first-movie

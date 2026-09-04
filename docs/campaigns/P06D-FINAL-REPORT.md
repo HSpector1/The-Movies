@@ -1,5 +1,10 @@
 # P06D — Living Studio UX Convergence II — FINAL REPORT (§33)
 
+> **CURRENT STATUS — P06 OWNER ACCEPTED — CLOSED. Verdict: ACCEPTED / KEEP / CLOSED.**
+> The Owner accepted the combined P06/P07 journey on 2026-09-04. Recorded 19:51:49Z
+> (21:51:49 CEST); actual playtest time not supplied. The original comparison report below
+> is retained, including its then-pending status. The appended closeout replaces its next action.
+
 ## P06D STATUS: **COMPARISON CANDIDATE READY** — isolated, NOT integrated · hostile review **ACCEPT (0 blocking)**
 
 An isolated successor to P06C addressing its four deferred areas (rail row anatomy/lifecycle/attention/scale,
@@ -111,3 +116,35 @@ re-run headless by the reviewer). None require a change.
 ## NEXT ACTION
 Owner compares P06C and P06D (`P06D-OWNER-COMPARISON-PLAYTEST.md`) and chooses the replacement candidate.
 Then STOP. Only a later explicit Owner ruling authorizes P06D integration.
+
+## Owner closeout addendum — accepted P06D.1 lineage
+
+**P06 OWNER ACCEPTED — CLOSED; ACCEPTED / KEEP / CLOSED.** Technical promotion was earlier;
+this explicit Owner acceptance is dated 2026-09-04 and recorded 19:51:49Z (21:51:49 CEST).
+The actual playtest time was not supplied. Accepted lineage:
+
+| Identity | Exact authority |
+|---|---|
+| P06 TS accepted product/source checkpoint | `050b98ee15d83883b209b4e0700a06e064a4eb60` |
+| P06 TS documentation/campaign seal | `72217af1fb580d9d3ae7557e2cdb280a6f29eb11` |
+| P06 Unity product | `23c000a7e0aa1d61d3ad4a620b5dfea7d7ac0bde` |
+| P06 Unity clean build/campaign | `b0c780bb7abd1c81e1c30b59391b7effb86f490f` |
+| P06D.1 clean executable | `7c2213ba732d761c3f7cb23ab28f7ce92edc11105e6ea7ec50dce14bca19e9c3` |
+
+The clean P06D.1 candidate remains at
+`~/Desktop/P06D1-Clean-Comparison-Candidate-050b98e-23c000a/`. The actual accepted combined
+P06/P07 candidate is `~/Desktop/P07A-Owner-Candidate-a6f4f82-c4c65db/`, executable
+`c3372eb566304a14e599811d3e9872759c134aa703a150e17a25cc02e92ef813`; no separate P06D.1
+replay is claimed. The Owner accepted the lot/grouped rail, independent Production/Post building,
+Release Ready hold, exact-title/no-time commitment, next-week release and exact result/history,
+Save/Load, and normal Talent/workspace/navigation/Menu/Quit usability.
+
+The [final findings register](P06-TECHNICAL-PROMOTION-P06D1.md#findings-disposition-at-acceptance)
+gives each known finding a FIXED, DEFERRED NON-BLOCKER, SUPERSEDED, or FUTURE PACKAGE disposition.
+The absent Production open-panel screenshot and disclosed wording/placement observations are
+still recorded; blocked HID runs retain their original status; P06D.1 provenance nits were fixed;
+broader unimplemented backlog remains future scope. All comparison/rollback candidates are
+preserved, with executable hashes verified. No owned Unity/player/engine/bridge/supervisor/proof
+processes remain. Next is P08A planning/reconciliation through
+[the final factual handoff](../engineering/P07-TO-P08-FINAL-AUTHORITY-HANDOFF.md).
+P08 production implementation is **NOT YET AUTHORIZED**; no rebuild, main merge, or tag occurred here.
