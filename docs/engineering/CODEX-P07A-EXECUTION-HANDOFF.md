@@ -229,3 +229,24 @@ Do not claim P06 Owner acceptance.
   contract git blob byte-identical (`84d9c9a8…`), projection 15 / protocol 4 / schema `ddce1c39…`.
   Full TS floor re-running for the final binding. REMAINING: fresh hostile review → remediation →
   candidate `~/Desktop/P07A-Owner-Candidate-*` → campaign FF (both repos) → final report.
+
+### TECHNICAL SEAL (2026-09-04) — P07A KEEP CANDIDATE — OWNER ACCEPTANCE PENDING
+- **Fresh hostile review: ACCEPT — 28/28 criteria PASS** (one fresh high-capability reviewer; no
+  reviewer-shopping; it independently re-ran the full TS floor 4926/5-skip, the W6 suite, the
+  real-profile journey 30/30, re-hashed the DTO blobs at both HEADs, and opened 9 evidence PNGs).
+  Findings, both non-blocking, recorded: **MINOR** — at 1280×800 the legacy IMGUI time band
+  overdraws the FILM RESULT heading's top edge (pre-existing legacy-above-UITK layering family,
+  disclosed, all content legible). **NIT** — the HID harness can stamp OVERALL: PASS on a run whose
+  journey was entirely BLOCKED (blocked≠failed semantics); the step trail stays honest and the
+  team treated such runs as failures; tighten in a future harness pass.
+- **Final identities:** Unity PRODUCT commit `c4c65db` (= final client tip; exe `c3372eb5…`,
+  Assembly-CSharp `52229807…`, EditMode 784/784). TS PRODUCT src last changed `85bfa26`; fixtures
+  `d76b433`; real-profile journey `386c196`; consumer handoff `117578b`; this seal commit = final
+  TS tip. Engine bundle `b92dc8e6…` (projection 15 / protocol 4 / save V16 / schema `ddce1c39…`;
+  CF-09 verify-only PASS, contract blob `84d9c9a8…` byte-identical in both repos).
+- **Owner candidate:** `~/Desktop/P07A-Owner-Candidate-a6f4f82-c4c65db/` (player + launcher + three
+  demo profiles + all oracle/viewport/HID/profile evidence incl. the failed-run trail + playtest
+  script). P06 candidates untouched.
+- **Campaign integration:** fast-forward ONLY, both repos, after this commit (no merge/squash/
+  force/history rewrite; main untouched; no Golden tag). P06 remains TECHNICALLY PROMOTED — OWNER
+  GAMEPLAY ACCEPTANCE PENDING; P07A is NOT Owner-accepted; no P08; no Hollywood Wire/Studio Radio.
