@@ -914,7 +914,7 @@ describe('prior protocol-4 acceptance boundary pins', () => {
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
   })
 
-  it('is exactly the sixteen historical protocol-4 identities, pinned as literals', () => {
+  it('is exactly the seventeen historical protocol-4 identities, pinned as literals', () => {
     // Load-bearing completeness: iterating the map cannot catch a wrong or
     // missing hash; these literals were re-derived independently from the
     // generated-header history during hostile review. A projection bump must
@@ -949,6 +949,7 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb',
       'sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399',
       'sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99',
+      'sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25',
       'sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61',
     ])
   })

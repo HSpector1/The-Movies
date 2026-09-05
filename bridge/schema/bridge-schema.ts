@@ -637,6 +637,16 @@ const StudioStageSnapshot = object('StudioStageSnapshot', {
   standing: bool(),
 })
 
+const StudioSetCatalogEntrySnapshot = object('StudioSetCatalogEntrySnapshot', {
+  blueprintId: nonEmptyText(),
+  name: nonEmptyText(),
+  setType: nonEmptyText(),
+  quality: number({ minimum: 0, maximum: 100 }),
+  cost: nonNegativeInteger(),
+  buildWeeks: nonNegativeInteger(),
+  affordable: bool(),
+})
+
 const StudioSetSnapshot = object('StudioSetSnapshot', {
   id: nonEmptyText(),
   name: nonEmptyText(),
@@ -1375,10 +1385,36 @@ const StudioQuotePlacementRequest = object('StudioQuotePlacementRequest', {
   draft: reference('StudioPlacementDraftPayload', StudioPlacementDraftPayload),
 })
 
+// P09A W5 — a Set commission preview: a set blueprint on a named soundstage.
+const SET_COMMISSION_REFUSAL_KINDS = [
+  'notManaged',
+  'unknownBlueprint',
+  'unknownStage',
+  'stageAlreadyDressed',
+  'noSceneryCapacity',
+  'insufficientFunds',
+] as const
+
+const StudioSetCommissionDraftPayload = object('StudioSetCommissionDraftPayload', {
+  blueprintId: nonEmptyText(),
+  stageFacilityId: nonEmptyText(),
+})
+
+const StudioQuoteSetCommissionRequest = object('StudioQuoteSetCommissionRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION),
+  schemaId: nonEmptyText(),
+  sessionId: nonEmptyText(),
+  commandId: nonEmptyText(),
+  expectedStateRevision: nonNegativeInteger(),
+  type: literal('quoteSetCommission'),
+  draft: reference('StudioSetCommissionDraftPayload', StudioSetCommissionDraftPayload),
+})
+
 const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
   reference('StudioQuoteCommissionRequest', StudioQuoteCommissionRequest),
   reference('StudioQuoteCastingRequest', StudioQuoteCastingRequest),
   reference('StudioQuotePlacementRequest', StudioQuotePlacementRequest),
+  reference('StudioQuoteSetCommissionRequest', StudioQuoteSetCommissionRequest),
 ] as const)
 
 const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
@@ -1467,10 +1503,40 @@ const StudioPlacementQuoteSnapshot = object('StudioPlacementQuoteSnapshot', {
   consequence: nonEmptyText(),
 })
 
+const StudioSetCommissionQuoteSnapshot = object('StudioSetCommissionQuoteSnapshot', {
+  /** The union's shared identity slot; REGISTERED for commit only when `ok`. */
+  intentId: nonEmptyText(),
+  kind: literal('commissionSet'),
+  commitLabel: nonEmptyText(),
+  /** Set construction starts the moment a legal quote is committed (never queued). */
+  startsNow: bool(),
+  queues: bool(),
+  queueNote: nullable(text()),
+  ok: bool(),
+  blueprintId: nonEmptyText(),
+  name: nonEmptyText(),
+  setType: nonEmptyText(),
+  quality: number({ minimum: 0, maximum: 100 }),
+  cost: nonNegativeInteger(),
+  buildWeeks: nonNegativeInteger(),
+  completesOnWeek: nonNegativeInteger(),
+  stageFacilityId: nonEmptyText(),
+  stageName: nullable(text()),
+  /** The engine's own refusal code, or null when the commission is legal. */
+  refusal: nullable(enumeration(SET_COMMISSION_REFUSAL_KINDS)),
+  refusalReason: nullable(text()),
+  refusalRemedy: nullable(text()),
+  cashBefore: integer(),
+  cashAfter: integer(),
+  affordable: bool(),
+  consequence: nonEmptyText(),
+})
+
 const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
   reference('StudioCommissionQuoteSnapshot', StudioCommissionQuoteSnapshot),
   reference('StudioCastingQuoteSnapshot', StudioCastingQuoteSnapshot),
   reference('StudioPlacementQuoteSnapshot', StudioPlacementQuoteSnapshot),
+  reference('StudioSetCommissionQuoteSnapshot', StudioSetCommissionQuoteSnapshot),
 ] as const)
 
 const StudioBridgeQuoteResponse = object('StudioBridgeQuoteResponse', {
@@ -1513,6 +1579,8 @@ const studioLotSnapshotProperties = {
   weekTheater: optional(reference('StudioWeekTheaterSnapshot', StudioWeekTheaterSnapshot)),
   stages: optional(array(reference('StudioStageSnapshot', StudioStageSnapshot))),
   sets: optional(array(reference('StudioSetSnapshot', StudioSetSnapshot))),
+  /** P09A W5: the authored Set catalogue (managed mode), so a Sets route can offer what the engine can build. */
+  setCatalog: optional(array(reference('StudioSetCatalogEntrySnapshot', StudioSetCatalogEntrySnapshot))),
   firstFilmJourney: reference('StudioFirstFilmJourneySnapshot', StudioFirstFilmJourneySnapshot),
   development: reference('StudioDevelopmentSnapshot', StudioDevelopmentSnapshot),
   casting: reference('StudioCastingSnapshot', StudioCastingSnapshot),
@@ -1528,6 +1596,7 @@ export const StudioLotProjectionSchema = object('StudioLotProjection', {
   property: studioLotSnapshotProperties.property,
   stages: studioLotSnapshotProperties.stages,
   sets: studioLotSnapshotProperties.sets,
+  setCatalog: studioLotSnapshotProperties.setCatalog,
 })
 
 export const StudioProductionsProjectionSchema = object('StudioProductionsProjection', {
@@ -1738,6 +1807,8 @@ export const AVAILABLE_INTENT_KINDS = [
   // P09 §18: the ONE construction commit, minted only by an accepted, legal
   // placement quote (digest-bound); commit revalidates against the live state.
   'placeFacility',
+  // P09A W5: the ONE Set commission, minted only by an accepted, legal Set quote.
+  'commissionSet',
 ] as const
 
 export const REJECTION_CODES = [
@@ -1939,6 +2010,7 @@ const definitions = {
   StudioWeekTheaterSnapshot,
   StudioStageSnapshot,
   StudioSetSnapshot,
+  StudioSetCatalogEntrySnapshot,
   StudioFoundingArrivalSnapshot,
   StudioFoundingRoleProgressSnapshot,
   StudioFoundingSignedSnapshot,
@@ -1990,12 +2062,15 @@ const definitions = {
   StudioQuoteCommissionRequest,
   StudioQuoteCastingRequest,
   StudioPlacementDraftPayload,
+  StudioSetCommissionDraftPayload,
   StudioQuotePlacementRequest,
+  StudioQuoteSetCommissionRequest,
   StudioBridgeQuoteRequest,
   StudioCastingQuoteSnapshot,
   StudioPlacementCellVerdictSnapshot,
   StudioPlacementUnmetRequirementSnapshot,
   StudioPlacementQuoteSnapshot,
+  StudioSetCommissionQuoteSnapshot,
   StudioQuoteSnapshot,
   StudioBridgeQuoteResponse,
   StudioLotProjection: StudioLotProjectionSchema,
@@ -2106,6 +2181,9 @@ export type BridgeQuoteCommissionRequest = InferSchema<typeof StudioQuoteCommiss
 export type BridgeQuoteCastingRequest = InferSchema<typeof StudioQuoteCastingRequest>
 export type BridgePlacementDraftPayload = InferSchema<typeof StudioPlacementDraftPayload>
 export type BridgeQuotePlacementRequest = InferSchema<typeof StudioQuotePlacementRequest>
+export type BridgeSetCommissionDraftPayload = InferSchema<typeof StudioSetCommissionDraftPayload>
+export type BridgeQuoteSetCommissionRequest = InferSchema<typeof StudioQuoteSetCommissionRequest>
+export type BridgeSetCommissionQuoteSnapshot = InferSchema<typeof StudioSetCommissionQuoteSnapshot>
 export type BridgePlacementQuoteSnapshot = InferSchema<typeof StudioPlacementQuoteSnapshot>
 export type BridgeQuoteRequest = InferSchema<typeof StudioBridgeQuoteRequest>
 export type BridgeQuoteResponse = InferSchema<typeof StudioBridgeQuoteResponse>

@@ -112,6 +112,9 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // family), superseded within the same ProjectionVersion=17 label by W1b (roads +
   // bare-lot journey beat); a checkpoint written in that window carries this hash.
   ['sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399', 'projection-v17-early'],
+  // projection-v17-w1b: 33a362d — roads on the wire + the bare-lot journey beat;
+  // superseded within ProjectionVersion=17 by W5 (the Set commission family).
+  ['sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25', 'projection-v17-w1b'],
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({

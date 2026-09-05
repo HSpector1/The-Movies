@@ -316,6 +316,19 @@ function buildFixtures(): ScenarioFixture[] {
       ['four operational bodies', `released week ${String(releaseWeek)}`, `cash floor $${String(Math.round(cashFloor))} (never below zero)`, 'P08 history: studioFounded + filmReleased'])
   }
 
+  // s12 — the stage stands, the shop runs, no Set yet (the Sets route's preview state).
+  {
+    let ready = officeOpen
+    for (const id of ['scenery-shop', 'stage-standard']) ready = commit(ready, id)
+    ready = ticks(ready, 16)
+    const stage = ready.operations.facilities.find((f) => f.capability === 'soundstage')
+    assertTrue(stage !== undefined && ready.operations.facilities.some((f) => f.capability === 'set-scenery'), 's12: stage + scenery operational')
+    assertEq(ready.sets.length, 0, 's12: no Set yet')
+    assertEq(queryPlacement(ready, { blueprintId: 'post-building', origin: ORIGINS['post-building']! }).ok, true, 's12: the lot can still grow')
+    add('stage-ready-no-set', ready, ['office operational week 14; scenery-shop (16,14) + stage-standard (26,4) committed on week 14; sixteen advances: both operational, no Set commissioned'],
+      ['placed-1 office, placed-2 scenery, placed-3 soundstage all operational', 'no Set on the stage', 'a House Set quote on the stage is legal ($150,000)'])
+  }
+
   // s11 — an endowed studio that built.
   {
     let endowed = ticks(foundMinimum(generateWorld(SEED)), 1)

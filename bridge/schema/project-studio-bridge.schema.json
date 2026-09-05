@@ -310,7 +310,8 @@
             "commissionOriginalScreenplay",
             "signContract",
             "commitPictureToRelease",
-            "placeFacility"
+            "placeFacility",
+            "commissionSet"
           ],
           "type": "string"
         },
@@ -439,6 +440,9 @@
         },
         {
           "$ref": "#/$defs/StudioQuotePlacementRequest"
+        },
+        {
+          "$ref": "#/$defs/StudioQuoteSetCommissionRequest"
         }
       ],
       "x-csharp-name": "StudioBridgeQuoteRequest"
@@ -4482,6 +4486,12 @@
           "minLength": 1,
           "type": "string"
         },
+        "setCatalog": {
+          "items": {
+            "$ref": "#/$defs/StudioSetCatalogEntrySnapshot"
+          },
+          "type": "array"
+        },
         "sets": {
           "items": {
             "$ref": "#/$defs/StudioSetSnapshot"
@@ -6435,6 +6445,50 @@
       "type": "object",
       "x-csharp-name": "StudioQuotePlacementRequest"
     },
+    "StudioQuoteSetCommissionRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/StudioSetCommissionDraftPayload"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "quoteSetCommission",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commandId",
+        "draft",
+        "expectedStateRevision",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioQuoteSetCommissionRequest"
+    },
     "StudioQuoteSnapshot": {
       "anyOf": [
         {
@@ -6445,6 +6499,9 @@
         },
         {
           "$ref": "#/$defs/StudioPlacementQuoteSnapshot"
+        },
+        {
+          "$ref": "#/$defs/StudioSetCommissionQuoteSnapshot"
         }
       ],
       "x-csharp-name": "StudioQuoteSnapshot"
@@ -7082,6 +7139,235 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioScriptRewriteCardSnapshot"
+    },
+    "StudioSetCatalogEntrySnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "affordable": {
+          "type": "boolean"
+        },
+        "blueprintId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "buildWeeks": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "cost": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "quality": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "setType": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "affordable",
+        "blueprintId",
+        "buildWeeks",
+        "cost",
+        "name",
+        "quality",
+        "setType"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioSetCatalogEntrySnapshot"
+    },
+    "StudioSetCommissionDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "blueprintId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "stageFacilityId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "blueprintId",
+        "stageFacilityId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioSetCommissionDraftPayload"
+    },
+    "StudioSetCommissionQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "affordable": {
+          "type": "boolean"
+        },
+        "blueprintId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "buildWeeks": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "cashAfter": {
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "type": "integer"
+        },
+        "cashBefore": {
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "type": "integer"
+        },
+        "commitLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "completesOnWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "consequence": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cost": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "const": "commissionSet",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "quality": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "queueNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queues": {
+          "type": "boolean"
+        },
+        "refusal": {
+          "anyOf": [
+            {
+              "enum": [
+                "notManaged",
+                "unknownBlueprint",
+                "unknownStage",
+                "stageAlreadyDressed",
+                "noSceneryCapacity",
+                "insufficientFunds"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "refusalReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "refusalRemedy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "setType": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "stageFacilityId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "stageName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "startsNow": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "affordable",
+        "blueprintId",
+        "buildWeeks",
+        "cashAfter",
+        "cashBefore",
+        "commitLabel",
+        "completesOnWeek",
+        "consequence",
+        "cost",
+        "intentId",
+        "kind",
+        "name",
+        "ok",
+        "quality",
+        "queueNote",
+        "queues",
+        "refusal",
+        "refusalReason",
+        "refusalRemedy",
+        "setType",
+        "stageFacilityId",
+        "stageName",
+        "startsNow"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioSetCommissionQuoteSnapshot"
     },
     "StudioSetSnapshot": {
       "additionalProperties": false,

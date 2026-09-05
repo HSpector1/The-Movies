@@ -249,7 +249,8 @@ import {
 import type { ReceptionBand, CriticTier } from '../../../src/core/index.ts'
 // Re-export for existing external consumers that imported filmCommittedCost from the adapter.
 export { filmCommittedCost } from '../../../src/core/index.ts'
-import { legacyAnnexOffered as coreLegacyAnnexOffered } from '../../../src/core/index.ts'
+import { canAfford as coreCanAfford, legacyAnnexOffered as coreLegacyAnnexOffered } from '../../../src/core/index.ts'
+import { SET_BLUEPRINTS } from '../../../src/core/tuning.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
 // type module (imports nothing, no Phaser); the value import (ALL_BUILDING_IDS) adds
@@ -275,6 +276,7 @@ import type {
   LotPlacedFacilityState,
   LotPlacementProjection,
   LotPropertyProjection,
+  LotSetCatalogEntry,
   LotWorldBuilding,
   LotPresenceBeat,
   LotPresencePerson,
@@ -6840,6 +6842,19 @@ function managedRosterPresence(
  *     Annex, the `expansion` place already owns that ground and paints its own lifecycle,
  *     and a second body there would be two owners for one piece of ground (shift law 10).
  */
+/** P09A W5 — the authored Set catalogue a Sets route can offer (data from tuning, affordability from the treasury). */
+function lotSetCatalog(state: GameState): LotSetCatalogEntry[] {
+  return SET_BLUEPRINTS.map((blueprint) => ({
+    blueprintId: blueprint.id,
+    name: blueprint.name,
+    setType: blueprint.setType,
+    quality: blueprint.quality,
+    cost: blueprint.capex,
+    buildWeeks: blueprint.buildWeeks,
+    affordable: coreCanAfford(state, blueprint.capex).ok,
+  }))
+}
+
 function lotPropertyProjection(
   state: GameState,
   placement: LotPlacementProjection,
@@ -7892,7 +7907,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     // mode only, for the same reason `stages` is: a legacy world holds no sets and keeps
     // no studio history, so there is nothing honest to claim about either.
     ...(state.operations.mode === 'managed'
-      ? { sets: lotSetStates(state), weekEvents: lotWeekEvents(state) }
+      ? { sets: lotSetStates(state), weekEvents: lotWeekEvents(state), setCatalog: lotSetCatalog(state) }
       : {}),
     activeProductions,
     releasedFilms,

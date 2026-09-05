@@ -243,6 +243,17 @@ export type LotStageIdentity = {
  * Nothing here is a rule. The lot paints a set's name, its location, its condition and
  * its work; it decides no legality and it invents no set the engine did not record.
  */
+/** One row of the authored Set catalogue (P09A W5). */
+export type LotSetCatalogEntry = {
+  blueprintId: string
+  name: string
+  setType: string
+  quality: number
+  cost: number
+  buildWeeks: number
+  affordable: boolean
+}
+
 export type LotSetState = {
   /** The engine set id — `set-0`. Stable, never recycled. */
   id: string
@@ -1204,6 +1215,11 @@ type StudioLotSnapshotBase = {
    * on this studio's stages, which is a fact the world states rather than hides.
    */
   sets?: LotSetState[]
+  /**
+   * P09A W5: the authored Set catalogue (managed mode), so a Sets route offers exactly what
+   * the engine can build at the engine's own price. Optional for fixture compatibility.
+   */
+  setCatalog?: LotSetCatalogEntry[]
   /**
    * The permanent things that happened to this studio THIS week (§4.2 Class A).
    *

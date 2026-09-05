@@ -84,6 +84,9 @@ import type {
   BridgePlacementDraftPayload,
   BridgeQuotePlacementRequest,
   BridgePlacementQuoteSnapshot,
+  BridgeSetCommissionDraftPayload,
+  BridgeQuoteSetCommissionRequest,
+  BridgeSetCommissionQuoteSnapshot,
 } from './schema/bridge-schema.ts'
 import { projectStudioProjectionBundle } from './schema/runtime.ts'
 import {
@@ -92,6 +95,7 @@ import {
 } from './development.ts'
 import { castingDraftToEngine, castingQuoteSnapshot } from './casting.ts'
 import { placementDraftToEngine, placementQuoteSnapshot } from './placement.ts'
+import { setCommissionDraftToEngine, setCommissionQuoteSnapshot } from './setCommission.ts'
 
 type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
@@ -161,6 +165,14 @@ type PendingQuote =
       draft: BridgePlacementDraftPayload
       stateDigest: string
       kind: 'placeFacility'
+      commitLabel: string
+    }
+  | {
+      // P09A W5: a LEGAL Set preview mints the one Set commission commit.
+      family: 'setCommission'
+      draft: BridgeSetCommissionDraftPayload
+      stateDigest: string
+      kind: 'commissionSet'
       commitLabel: string
     }
 
@@ -1408,7 +1420,9 @@ export class BridgeSession {
       ? draftToEngine(this.state, pending.draft)
       : pending.family === 'casting'
         ? castingDraftToEngine(this.state, pending.draft)
-        : placementDraftToEngine(this.state, pending.draft)
+        : pending.family === 'placement'
+          ? placementDraftToEngine(this.state, pending.draft)
+          : setCommissionDraftToEngine(this.state, pending.draft)
     if (!conversion.ok) {
       return {
         option: { intentId, ...fields },
@@ -1422,6 +1436,13 @@ export class BridgeSession {
       return {
         option: { intentId, ...fields },
         apply: () => ({ ok: false, error: `This placement is no longer legal (${reason}).` }),
+      }
+    }
+    // P09A W5: a Set quote that is no longer legal fails closed at commit the same way.
+    if (conversion.kind === 'commissionSet' && conversion.refusal !== null) {
+      return {
+        option: { intentId, ...fields },
+        apply: () => ({ ok: false, error: `This Set commission is no longer legal (${conversion.refusal!.code}).` }),
       }
     }
     return { option: { intentId, ...fields }, apply: conversion.apply }
@@ -1491,6 +1512,7 @@ export class BridgeSession {
   quote(request: BridgeQuoteCommissionRequest): AcceptedQuoteResponseFor<BridgeCommissionQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteCastingRequest): AcceptedQuoteResponseFor<BridgeCastingQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuotePlacementRequest): AcceptedQuoteResponseFor<BridgePlacementQuoteSnapshot> | RejectedResponse
+  quote(request: BridgeQuoteSetCommissionRequest): AcceptedQuoteResponseFor<BridgeSetCommissionQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteRequest): QuoteResponse
   quote(request: BridgeQuoteRequest): QuoteResponse {
     const started = performance.now()
@@ -1527,6 +1549,37 @@ export class BridgeSession {
         draft: request.draft,
         stateDigest,
         kind: 'placeFacility',
+        commitLabel: quote.commitLabel,
+      })
+      this.capPendingQuotes()
+      return this.mintQuoteResponse(request, started, stateDigest, quote)
+    }
+
+    if (request.type === 'quoteSetCommission') {
+      // P09A W5: a refused Set preview is an ACCEPTED answer (`ok:false`, the engine's
+      // own reason + remedy); only a legal one is preflighted and registered for commit.
+      const conversion = setCommissionDraftToEngine(this.state, request.draft)
+      if (!conversion.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', conversion.error, started)
+      }
+      const stateDigest = authoritativeDigest(this.state)
+      const intentId = opaqueIntentId(stateDigest, { setCommissionDraft: request.draft })
+      if (conversion.refusal !== null) {
+        return this.mintQuoteResponse(
+          request, started, stateDigest,
+          setCommissionQuoteSnapshot(this.state, request.draft, conversion, intentId),
+        )
+      }
+      const preflight = caught(() => conversion.apply(this.state))
+      if (!preflight.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
+      }
+      const quote = setCommissionQuoteSnapshot(this.state, request.draft, conversion, intentId)
+      this.pendingQuotes.set(intentId, {
+        family: 'setCommission',
+        draft: request.draft,
+        stateDigest,
+        kind: 'commissionSet',
         commitLabel: quote.commitLabel,
       })
       this.capPendingQuotes()

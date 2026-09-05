@@ -51,7 +51,7 @@ function commitOffice(state: GameState): GameState {
 describe('P09A W1b — the bare lot on the wire', () => {
   it('R1: the journey names the missing capacity, routes to Build, then waits for the office, then starts a picture', () => {
     let state = founded('p09-w1b-journey', 'bare-lot')
-    let journey = studioLotSnapshot(state).firstFilmJourney
+    let journey = studioLotSnapshot(state).firstFilmJourney!
     expect(journey.stage).toBe('no-capacity')
     expect(journey.beat).toBe('no-capacity')
     expect(journey.headline).toBe('NO DEVELOPMENT & CASTING CAPACITY')
@@ -60,14 +60,14 @@ describe('P09A W1b — the bare lot on the wire', () => {
     expect(journey.whyItMatters).toContain('operational Development & Casting Office')
 
     state = commitOffice(state)
-    journey = studioLotSnapshot(state).firstFilmJourney
+    journey = studioLotSnapshot(state).firstFilmJourney!
     expect(journey.stage).toBe('no-capacity')
     expect(journey.next).toEqual({ kind: 'advance-week', label: 'Advance the week', site: null })
     expect(journey.waiting).toEqual({ untilWeek: 14, reason: 'Waits until the Development & Casting Office is operational.' })
     expect(journey.whatHappened).toContain('opens on Week 14')
 
     for (let week = 0; week < 14; week++) state = tick(state)
-    journey = studioLotSnapshot(state).firstFilmJourney
+    journey = studioLotSnapshot(state).firstFilmJourney!
     expect(journey.stage).toBe('no-picture')
     expect(journey.next?.kind).toBe('commission')
     expect(journey.next?.site).toBe('development')
@@ -128,7 +128,7 @@ describe('P09A W1b — the bare lot on the wire', () => {
   })
 
   it('R4: the endowed journey is unchanged (no capacity beat, no build route)', () => {
-    const journey = studioLotSnapshot(founded('p09-w1b-endowed')).firstFilmJourney
+    const journey = studioLotSnapshot(founded('p09-w1b-endowed')).firstFilmJourney!
     expect(journey.stage).toBe('no-picture')
     expect(journey.next?.kind).toBe('commission')
     expect(journey.next?.site).toBe('development')

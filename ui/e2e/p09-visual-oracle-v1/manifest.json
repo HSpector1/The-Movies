@@ -1,7 +1,7 @@
 {
   "fixtureId": "p09-visual-oracle-v1",
   "generator": "scripts/gen-p09-visual-oracle-fixtures.mts",
-  "generatorSourceSha256": "ee4df25c4668b8ccd76fce46cbeb904780c27baa3732bc251f0f9f7c52487f14",
+  "generatorSourceSha256": "b9ae49ab323a50396740c240a4ce5fff01f424820651385cafc9f9afb7caed36",
   "seed": "p09-visual-oracle-v1",
   "origins": {
     "development-casting-office": {
@@ -35,9 +35,9 @@
       "checkpoint": {
         "file": "s1-p09-migrated-endowed-unchanged.checkpoint.json",
         "byteLength": 251866,
-        "sha256": "9f9fcfea695d961c18fbadc66dc337950c7d577ab6e2a1bf38479dbe43b5a72f",
+        "sha256": "cc7217d65eb7d50e94c81250a4f9d3eba639bd7b2f95582a84e29a25e37fba8b",
         "sessionId": "p09-oracle-p09-migrated-endowed-unchanged",
-        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "schemaId": "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
         "stateDigest": "982e4a32d7b6bd51706c55fd73bb573c016ffff9d8bcb41765fa3d0ac906bc6c"
       },
       "lot": {
@@ -152,9 +152,9 @@
       "checkpoint": {
         "file": "s2-p09-sparse-start.checkpoint.json",
         "byteLength": 246831,
-        "sha256": "4e1d2d18f895b9e0989ff4bd7242895dca26e44a500188c1de4500ec6beb7ae9",
+        "sha256": "10ecac7bbcd72ea07a1a8bf5c3655154f0cbb31b87666c7bb649fda903ed5647",
         "sessionId": "p09-oracle-p09-sparse-start",
-        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "schemaId": "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
         "stateDigest": "c3e11475a75bad05cf93500f88279a9f731fbe2417e5838b3792d633a921c608"
       },
       "lot": {
@@ -277,9 +277,9 @@
       "checkpoint": {
         "file": "s3-p09-valid-placement.checkpoint.json",
         "byteLength": 246834,
-        "sha256": "36b7e2c6be1b082e5e1f70875740506024bfe6766b6b43a9f414508991108cb5",
+        "sha256": "2f0b977ff97999eba5dffd428ebf702218b5c1cbd1eb5ad657131945015cee9a",
         "sessionId": "p09-oracle-p09-valid-placement",
-        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "schemaId": "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
         "stateDigest": "c3e11475a75bad05cf93500f88279a9f731fbe2417e5838b3792d633a921c608"
       },
       "lot": {
@@ -403,9 +403,9 @@
       "checkpoint": {
         "file": "s4-p09-invalid-placement.checkpoint.json",
         "byteLength": 246836,
-        "sha256": "2fe79ec5250c8362018836ff59f9acba25d1cda3af261033c144e420cd58a131",
+        "sha256": "bbe04efe4e8a88d8503643936d72f5848fc3deb2e9fbb22bff542659f1bcceee",
         "sessionId": "p09-oracle-p09-invalid-placement",
-        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "schemaId": "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
         "stateDigest": "c3e11475a75bad05cf93500f88279a9f731fbe2417e5838b3792d633a921c608"
       },
       "lot": {
@@ -531,9 +531,9 @@
       "checkpoint": {
         "file": "s5-p09-office-rising.checkpoint.json",
         "byteLength": 251394,
-        "sha256": "7f29cb97ddd9107be19d77949b10def1c21f430384ca0b8baecde1e16dd19ec7",
+        "sha256": "44f4fdb74d1cac8443acb875e5b600cbb3ec5996c7ecc09a1d72b56c6bf04a60",
         "sessionId": "p09-oracle-p09-office-rising",
-        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "schemaId": "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
         "stateDigest": "30f7269019b3b0110bc051e6510b84f46a5e5dc19ce4e665fce689bfb69d7810"
       },
       "lot": {
@@ -668,9 +668,9 @@
       "checkpoint": {
         "file": "s6-p09-multi-site.checkpoint.json",
         "byteLength": 262589,
-        "sha256": "19d8e0cf28c0cdd4770580176b41a9055c031a6bb57308c71f506387562528ec",
+        "sha256": "4fc64c6b5f5cceca7be746d8e7e7f052415535b5410e67d6156fd6c4a5572844",
         "sessionId": "p09-oracle-p09-multi-site",
-        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "schemaId": "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
         "stateDigest": "e054946875f9b5f871ffe5b8a97df2c0f2521679672fcd47a51193f6c6091fff"
       },
       "lot": {
@@ -828,9 +828,9 @@
       "checkpoint": {
         "file": "s7-p09-reconnect-same-ids.checkpoint.json",
         "byteLength": 262597,
-        "sha256": "eca47d3b4eefaf33d5bf80363ceafa7c104acbecda32e8a118de8757bfd02c46",
+        "sha256": "73357bdf03eba112b408b4abf89891087c63b325ced94c67a143c48e6622ea65",
         "sessionId": "p09-oracle-p09-reconnect-same-ids",
-        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "schemaId": "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
         "stateDigest": "e054946875f9b5f871ffe5b8a97df2c0f2521679672fcd47a51193f6c6091fff"
       },
       "lot": {
@@ -990,9 +990,9 @@
       "checkpoint": {
         "file": "s8-p09-same-week-completion.checkpoint.json",
         "byteLength": 273229,
-        "sha256": "0f75dd042904967bf89c55f9ab4b63325678debad465eaea9afd3e7adf1ad65b",
+        "sha256": "86b532d944087067cb928067ff15e09e8b245fac9c65619cff63a4d21bb0a493",
         "sessionId": "p09-oracle-p09-same-week-completion",
-        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "schemaId": "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
         "stateDigest": "c6b13fbb78fb82c6dda052ce5b81e2316a4290f741409fae08cc0e971d2303fa"
       },
       "lot": {
@@ -1135,9 +1135,9 @@
       "checkpoint": {
         "file": "s9-p09-save-load-mid-construction.checkpoint.json",
         "byteLength": 253011,
-        "sha256": "4a77251de766d5a4703459ee0920162f74dfc9ca08446c73cef737b9947ec70a",
+        "sha256": "d6810cdf1eba70d94d76f75f6500a7709a66f5371616e90c96cda9db0e67a435",
         "sessionId": "p09-oracle-p09-save-load-mid-construction",
-        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "schemaId": "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
         "stateDigest": "b3ae3c68e87038aea6a96f5208f34767512338eff7e79c3807f24ab2fb676d6e"
       },
       "lot": {
@@ -1270,9 +1270,9 @@
       "checkpoint": {
         "file": "s10-p09-first-film-released.checkpoint.json",
         "byteLength": 291913,
-        "sha256": "8f77e76f1c989bca08a845e1885b708e38fdef6d50d8ddfdb2e6cb64571dfd15",
+        "sha256": "13e17c1d4d9670de6b2c288ca876e531e9f049d395e387085ca35f84ca879b61",
         "sessionId": "p09-oracle-p09-first-film-released",
-        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "schemaId": "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
         "stateDigest": "3b95deaea65d79db39d0fad8f0e4854201f302439ddfee3630f79d7a1dc8c8cf"
       },
       "lot": {
@@ -1419,19 +1419,165 @@
     },
     {
       "ordinal": 11,
+      "scenarioId": "p09-stage-ready-no-set",
+      "week": 30,
+      "save": {
+        "file": "s11-p09-stage-ready-no-set.save.json",
+        "byteLength": 243440,
+        "sha256": "48e12c1975a316a41f63baf3ecedb19e9ff6d0693b23d49d4a1f7641de34cb54"
+      },
+      "checkpoint": {
+        "file": "s11-p09-stage-ready-no-set.checkpoint.json",
+        "byteLength": 275123,
+        "sha256": "652f47d48b1fd74d1d9f53e3899438f6c459643027bd2f7c7d506239b89b076c",
+        "sessionId": "p09-oracle-p09-stage-ready-no-set",
+        "schemaId": "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
+        "stateDigest": "48e12c1975a316a41f63baf3ecedb19e9ff6d0693b23d49d4a1f7641de34cb54"
+      },
+      "lot": {
+        "regime": "bare-lot",
+        "foundingPhase": "satisfied",
+        "journey": {
+          "stage": "no-picture",
+          "headline": "START A PICTURE",
+          "next": "commission",
+          "waitingUntilWeek": null
+        },
+        "bodies": [
+          "admin",
+          "gate",
+          "placed-1",
+          "placed-2",
+          "placed-3"
+        ],
+        "placements": [
+          {
+            "id": 1,
+            "blueprintId": "development-casting-office",
+            "status": "operational",
+            "placedWeek": 0,
+            "completesWeek": 14,
+            "origin": {
+              "gx": 12,
+              "gy": 14
+            }
+          },
+          {
+            "id": 2,
+            "blueprintId": "scenery-shop",
+            "status": "operational",
+            "placedWeek": 14,
+            "completesWeek": 25,
+            "origin": {
+              "gx": 16,
+              "gy": 14
+            }
+          },
+          {
+            "id": 3,
+            "blueprintId": "stage-standard",
+            "status": "operational",
+            "placedWeek": 14,
+            "completesWeek": 30,
+            "origin": {
+              "gx": 26,
+              "gy": 4
+            }
+          }
+        ],
+        "catalogue": [
+          {
+            "blueprintId": "development-casting-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-hall",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-2",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-3",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Requires an operational Development Office II."
+            ]
+          },
+          {
+            "blueprintId": "craft-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "stage-standard",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "post-building",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "scenery-shop",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-office",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          }
+        ],
+        "cash": 13108270
+      },
+      "derivation": [
+        "office operational week 14; scenery-shop (16,14) + stage-standard (26,4) committed on week 14; sixteen advances: both operational, no Set commissioned"
+      ],
+      "machineAssertions": [
+        "placed-1 office, placed-2 scenery, placed-3 soundstage all operational",
+        "no Set on the stage",
+        "a House Set quote on the stage is legal ($150,000)"
+      ]
+    },
+    {
+      "ordinal": 12,
       "scenarioId": "p09-endowed-build",
       "week": 3,
       "save": {
-        "file": "s11-p09-endowed-build.save.json",
+        "file": "s12-p09-endowed-build.save.json",
         "byteLength": 223851,
         "sha256": "abd96846ad4aff47ac2b8708c288599dc9008a72275e52bf1693fd8835dc5526"
       },
       "checkpoint": {
-        "file": "s11-p09-endowed-build.checkpoint.json",
+        "file": "s12-p09-endowed-build.checkpoint.json",
         "byteLength": 253191,
-        "sha256": "e1c7520d4a6310e587ebbc7c54e6fcf23de13f4b544b134b72da6e81513e5430",
+        "sha256": "27b33e0f5d5f4866f6a0d8eb1088f3d0fa4e7a22fb6f6602d64b1487ccd4985a",
         "sessionId": "p09-oracle-p09-endowed-build",
-        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "schemaId": "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
         "stateDigest": "abd96846ad4aff47ac2b8708c288599dc9008a72275e52bf1693fd8835dc5526"
       },
       "lot": {
