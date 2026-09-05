@@ -1,0 +1,17 @@
+{
+  "generatedFrom": "ui/e2e/p09-visual-oracle-v1/s1-p09-migrated-endowed-unchanged.checkpoint.json",
+  "fixtures": [
+    {
+      "ordinal": 1,
+      "scenarioId": "p10-person-inspector",
+      "file": "s1-p10-person-inspector.checkpoint.json",
+      "byteLength": 251856,
+      "sha256": "de43781e966368e72dab9565610b0dfce19f792598d11eac7dd2165f8f2ee334",
+      "sessionId": "p10-oracle-p10-person-inspector",
+      "schemaId": "sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4",
+      "protocolVersion": 4,
+      "stateDigest": "982e4a32d7b6bd51706c55fd73bb573c016ffff9d8bcb41765fa3d0ac906bc6c",
+      "source": "ui/e2e/p09-visual-oracle-v1/s1-p09-migrated-endowed-unchanged.checkpoint.json"
+    }
+  ]
+}
