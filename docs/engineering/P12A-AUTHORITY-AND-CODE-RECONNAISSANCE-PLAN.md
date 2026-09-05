@@ -105,6 +105,7 @@ All three packages remain **UNSEALED FORWARD EVIDENCE** for P12 planning. None i
 | People/employment | persistent `talentId`; player-relative contracts and presence/career facts | no employer authority added through captured tips | P10 public Profile/Roster/employer-facing projection; P12 contract identity and one authoritative cross-studio employer |
 | Finance | singleton player cash/ledger/economy facts | P09 consumes player cash for construction; no rival account | final P11 finance handoff, then minimum conserved rival money/obligations without exposing private cash |
 | Competition | `competingSlate` exists but starts empty; `competitionFactor` is `1.0` | unchanged | no penalty may be invented in P12A; future shared-market authority belongs later |
+| Property/franchise/cross-media ownership | no P12 authority creates a Story Property, continuation/franchise relationship, or television operation | no such authority added through captured tips | P12 preserves immutable source-work identities only; P16 later establishes each exact `StoryProperty`, Film Library, origin-work, chain-of-title, rights/license/restoration/reissue, and ownership authority without inferring it from a P12 work or presentation; P17 consumes exact P16 identities/rights for continuation, explicit parent/child continuation-work lineage, franchise state keyed to P16 property identity, Story DNA, crossover, and shared-universe behavior; P18 retains television/streaming/cross-media and platform/distribution behavior, including television/platform licensing and production workflows under exact P16 grants |
 | Unity | player lot, rails, workspaces, exact-ID film result route | P08 History workspace and P09 contract/property vocabulary | P10 people routes, then P12 inspect-only Industry route; TypeScript remains truth owner |
 
 ## 4. Old Package 12 code claims revalidated
@@ -263,6 +264,12 @@ Only after Gates A and B may Current Ops decide whether a P12 implementation cha
 - confirm one-employer exclusivity before founding/hiring/assignment views are opened;
 - map shared versus lower-detail lifecycle rules and every conserved resource;
 - keep rival cash/policies/private forecasts/hidden skills/RNG state out of the public projection;
+- preserve the P16 `StoryProperty`/library/rights/license/ownership authority, the P17 explicit
+  parent/child continuation-work lineage and franchise/Story DNA/shared-universe consumer boundary,
+  and the P18 television/streaming/cross-media and platform/distribution boundary; require P17
+  franchise state to key to exact P16 property identity; reject property or ownership inference
+  from titles, genres, casts, release order, studio association, similar concepts, presentation
+  copy, or array position; and prevent P17/P18 from duplicating P16 legal rights/license records;
 - measure 6,240-week tick cost, projection cost, save growth, history growth, indexes, migration time, and Industry filtering before sealing;
 - verify Unity consumes TypeScript truth, exact drill-down/Back/Save/Load/reconnect work, and no rival lot or fake market penalty appears;
 - produce `FINAL_P12_CHANGED_PATHS` and a final collision/one-owner assignment before any edit.

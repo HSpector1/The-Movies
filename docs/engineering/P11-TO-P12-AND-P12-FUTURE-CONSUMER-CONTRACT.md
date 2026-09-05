@@ -298,7 +298,7 @@ The table does not promise every receipt in P12A. It prevents a later consumer f
 | **PUBLIC APPROXIMATE** | A typed, source-backed band or estimate only after a scouting/disclosure authority defines its basis, confidence, and as-of time. P12A must not invent approximate cash, salary, quality, or release dates as a substitute for missing authority. |
 | **PUBLIC AFTER EVENT** | Release/result, completed employment move, cancellation, milestone, closure, or ownership change only after the authoritative event occurs and its visibility permits publication. |
 | **HIDDEN** | Exact cash, ledger, reserve target, private salary/contract terms, internal policy weights, private forecasts, internal quality/result inputs, unrevealed slate, future decisions, and RNG/debug state. |
-| **NOT YET AUTHORIZED** | Rival Contribution/ROI/profit; rumors without a typed rumor/intelligence producer; Power Ranking before P15A.2; distress/closure claims before P15B; private future release estimates; ownership/rights claims before P16+. |
+| **NOT YET AUTHORIZED** | Rival Contribution/ROI/profit; rumors without a typed rumor/intelligence producer; Power Ranking before P15A.2; distress/closure claims before P15B; private future release estimates; `StoryProperty`, library, ownership, or rights claims before P16 authority. |
 
 Observed identity is derived from disclosed behavior. “Known for Drama” requires a typed sample/window; a hidden genre-policy coefficient cannot be rendered as public biography. No player-facing surface receives omniscient access merely because TypeScript stores the fact.
 
@@ -372,27 +372,62 @@ P15 may not manufacture missing films, awards, careers, finances, innovation, ra
 
 ## 15. P12 → P16, P17, and P18
 
-The durable Owner ruling places these systems in a **P16+ parking lot** only. Current advisory Future Ops documentation names the sequence `P16 Library/Rights → P17 Franchises/Continuations → P18 Television/Cross-Media`. That numbering is a planning seam, not implementation approval or a promise that each system ships.
+The durable Owner ruling parks these future systems collectively in **P16+**. This Revision 02
+clarification makes their documentation ownership boundary exact: `P16 Library/Rights → P17
+Franchises/Continuations → P18 Television/Cross-Media`. The allocation is not implementation
+approval or a promise that any system ships; every package remains separately gated.
 
 ### P16 — Library/Rights and future ownership transactions
 
 P12 preserves:
 
-- immutable studio, project, film, and person IDs after closure or ownership change;
-- original creating studio distinct from later current owner;
-- dated additive ownership-history seams;
-- durable filmography, release, credit, and archival studio facts;
-- room for future multi-party finance/rights shares without changing film identity.
+- immutable studio, film, project, person, and credit identities after closure or ownership change;
+- the exact original creating studio for every work;
+- durable filmography, release, credit, and archival studio facts; and
+- additive source-reference seams without claiming a property, right, owner, or continuation.
 
-P16+ may later own library/IP rights, acquisitions, mergers, valuation, stakes, labels/subsidiaries, co-productions, contract assumption/consent, and ownership transactions only after a separate Owner charter. P12A owns none of that behavior.
+P16 establishes the durable `StoryProperty` and Film Library identities behind one or more exact
+works. P16 owns origin-work relationships, chain of title, rights ownership, rights licensing,
+restoration and reissue authority, dated ownership history, and ownership transactions and
+acquisitions where later authorized. It may also later own mergers, valuation, stakes,
+labels/subsidiaries, co-productions, contract assumption/consent, and multi-party rights/finance
+shares under a separate Owner charter. P12A creates none of those identities, relationships,
+rights, or behaviors.
+
+A P12 concept, project, film, title, studio association, credit, or archive entry is not itself a
+`StoryProperty`, Film Library, origin-work relationship, or rights fact. Under later separate
+authority, P16 must create each property/library identity and origin-work relationship explicitly
+by exact ID; it may not infer or bulk-mint them from resemblance or presentation data.
 
 ### P17 — Franchises/Continuations
 
-P12 preserves stable project/film/concept identities, durable titles/genre/results/credits, studio association, and exact lineage/source-reference seams. P17 may later consume P16 rights/library facts and P12 film history for sequels, remakes, continuations, or franchise strategy. It may not infer a Story Property, ownership right, or continuation relationship merely from a title, genre, cast, or studio.
+P17 consumes exact P16 `StoryProperty`, Film Library, chain-of-title, rights, and licensing
+authority plus P12's exact work history. P17 owns continuation proposals; direct sequels,
+prequels, remakes, reboots, legacy sequels, and spinoffs; explicit parent/child continuation-work lineage;
+continuity branches; franchise condition and development behavior; franchise trust, heat, fatigue,
+identity, reach, and related later-approved franchise state; Story DNA expansion; crossovers; and
+shared-universe behavior.
+
+Any P17 franchise identity is an operational aggregate keyed to an exact P16 `StoryProperty` ID,
+never a second property or rights identity.
+
+P17 may not create or infer a `StoryProperty` from title, genre, cast, release order, current
+studio, similar concepts, presentation copy, or array position. It may not create a right or
+licensing authority merely because a franchise behavior wants to use one. Rights licensing remains
+P16 authority; P17 governs only authorized franchise use of owned or licensed rights.
 
 ### P18 — Television/Cross-Media
 
-P12 preserves studio/person/project identity, employer/availability, credits, abstract capability/capacity, public event, and finance-link seams. P18 may later consume P10/P14 availability for writers, directors, performers, and showrunners plus P13 technology and P16 rights. It may not infer availability from an old credit or invent television/streaming operations, distribution, revenue, audience, or rights law.
+P12 preserves studio/person/project identity, employer/availability, credits, abstract
+capability/capacity, public-event, and finance-link seams. P18 may later consume P10/P14
+availability for writers, directors, performers, and showrunners plus P13 technology, P15 market
+facts, and exact P16 rights/licenses. P18 owns television; limited and ongoing series; seasons;
+renewals and cancellations; streaming; cross-media operations; platform/distribution behavior;
+and television/platform licensing and production where applicable. The latter is a domain
+workflow under exact P16 grants: P16 remains the sole author of the underlying legal right/license,
+parties, scope/media, territory, term, exclusivity, and consideration. P18 may not infer
+availability from an old credit, duplicate P16's rights authority, or invent television/streaming
+facts before its own charter.
 
 ## 16. Consumer matrix
 
@@ -404,9 +439,9 @@ P12 preserves studio/person/project identity, employer/availability, credits, ab
 | P15A/A.2 | exact releases/disclosure/history cohort | shared market and Power Ranking | releases, P08 Standing, result law |
 | P15B/C | registry/state contract, finance/capacity/roster/history facts | fate behavior/orchestration and Legacy interpretation | canonical P12 state commit or missing history |
 | Hollywood Wire | public typed receipts | narrative selection/rendering | any simulation fact or visibility escalation |
-| P16+ | stable identities, creator/owner seam, archives | rights/ownership transactions if authorized | reminting or destructive reassignment |
-| P17 | stable film/concept/history/rights references | franchise/continuation law if authorized | story property or lineage by inference |
-| P18 | studios, people, projects, capacity, credits, finance references | television/cross-media law if authorized | availability, rights, revenue, or audience facts by inference |
+| P16 | P12's stable work/studio/person/credit identities, original creating-studio facts, and archives | `StoryProperty`, Film Library, origin-work, chain-of-title, rights/licensing/restoration/reissue, dated ownership, and authorized transactions/acquisitions | source-work identity or history; no other package duplicates P16 property/rights authority |
+| P17 | exact P16 `StoryProperty`/rights plus P12 work history | continuation proposals and explicit parent/child continuation-work lineage; sequels/prequels/remakes/reboots/legacy sequels/spinoffs; franchise state/behavior keyed to P16 property ID; Story DNA; crossovers/shared universes | property, ownership, or rights by title/genre/cast/release/studio/concept/presentation/list inference |
+| P18 | exact P16 rights/licenses plus studios, people, projects, availability, capacity, credits, technology, P15 market, and finance references | television/series/seasons/renewal/cancellation, streaming/cross-media, and platform/distribution behavior; television/platform licensing workflow and production under exact P16 grants | P16 legal rights/license authority or availability/revenue/audience facts by inference |
 
 ## 17. Proof obligations for every handoff
 

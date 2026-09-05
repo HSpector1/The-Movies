@@ -132,7 +132,8 @@ core checkpoint is preserved.
   or other invented market penalty;
 - no Power Ranking, universal Studio score, fourth Standing channel, or client-side average;
 - no Awards simulation, technology race, closure/recovery/entry behavior, acquisitions, mergers,
-  co-productions, libraries/IP, franchises, diplomacy, sabotage, crime, television, or streaming;
+  co-productions, P16 StoryProperty/library/rights/ownership behavior, P17 continuation/franchise
+  behavior, diplomacy, sabotage, crime, or P18 television/streaming/cross-media behavior;
 - no rival physical lots or copying player placement/pathing/room code;
 - no random timer films, result directly from archetype, desired difficulty, random quality roll,
   UI demand, or story-generation need;
@@ -255,9 +256,18 @@ listed in section 11.
 | P15A.2 | consumes public comparative history and Standing changes; P15 owns Power Ranking formula/snapshots/reasons, never a fourth Standing channel |
 | P15B | consumes P11 finance and P12 canonical operating state; P15 owns condition/remedy/eligibility behavior and proposes/co-ordinates transitions; P12 remains canonical active/dormant/closed registry and event committer |
 | Hollywood Wire | consumes eligible factual receipts and may select/template previews, recaps, threads and era presentation; it creates no film, move, Standing, result, closure, or money |
-| P16+ | consumes immutable studio/film/person and original/current ownership seams for later authorized transactions; acquisitions, co-productions, libraries/IP and advanced mobility remain parked |
-| P17 | consumes film/studio identity and lineage seams for franchises, sequels and Story Properties |
-| P18 | consumes studio/film/person identity for later television/streaming operations |
+| P16 | consumes P12's immutable studio/film/project/person/credit and original creating-studio identities; later establishes durable `StoryProperty` and Film Library identity, origin-work relationships, chain of title, rights ownership and licensing authority, restoration/reissue authority, dated ownership history, and authorized ownership transactions/acquisitions |
+| P17 | consumes exact P16 `StoryProperty` and rights authority plus P12 work history; later owns continuation proposals, sequels/prequels/remakes/reboots/legacy sequels/spinoffs, explicit parent/child continuation-work lineage and continuity branches, franchise condition/development/trust/heat/fatigue/identity/reach keyed to P16 property identity, Story DNA expansion, crossovers, and shared universes; it never mints or infers the underlying property from presentation or resemblance |
+| P18 | consumes exact P16 rights/licenses plus P12/P10/P13/P14/P15 facts; later owns television, limited and ongoing series, seasons, renewals/cancellations, streaming, cross-media operations, platform/distribution behavior, and television/platform licensing and production workflows where applicable under exact P16 grants; P16 remains the legal rights/license authority |
+
+P12 creates none of those later authorities. In particular, P12 preserves stable source identities
+only; P16 establishes `StoryProperty`, library, rights, chain-of-title, and ownership authority;
+P17 consumes those exact identities and rights for continuation/franchise behavior; and P18 retains
+television/streaming/cross-media ownership. A P12 concept, film, title, studio association, credit,
+or archive entry is not automatically a property or rights fact: P16 must create exact property and
+origin-work identities under separate authority. P17 may not infer or mint them from a title,
+genre, cast, release sequence, current studio, similar concept, presentation copy, or array position.
+No package may duplicate P16's underlying legal rights/license record merely because it consumes it.
 
 ## 10. Proof and endurance gate
 
@@ -308,7 +318,7 @@ caused a simultaneous Hollywood founding wave.
 since` copy; block `founded`/`entered` language and entry-event production until ruled.
 
 **DEPENDENT PACKAGES:** P08 adapters; P12A migration/history; Hollywood Wire; P15B entry; P15C
-Legacy; P16+ ownership history.
+Legacy; P16 ownership history.
 
 No other new Owner decision is required for P12A pre-readiness. Rival count, immutable identity,
 player naming, minimum labor seam, fictional-Hollywood direction, campaign horizon, no Power
