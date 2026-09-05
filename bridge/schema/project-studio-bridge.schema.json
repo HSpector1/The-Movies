@@ -127,7 +127,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 17,
+          "const": 18,
           "type": "integer"
         },
         "stateDigest": {
@@ -243,7 +243,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 17,
+          "const": 18,
           "type": "integer"
         },
         "stateDigest": {
@@ -731,7 +731,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 17,
+          "const": 18,
           "type": "integer"
         },
         "stateDigest": {
@@ -800,7 +800,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 17,
+          "const": 18,
           "type": "integer"
         },
         "stateDigest": {
@@ -4574,6 +4574,65 @@
       "type": "object",
       "x-csharp-name": "StudioParcelSnapshot"
     },
+    "StudioPeopleAttentionCohortSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentIds": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "tier": {
+          "enum": [
+            "info",
+            "attention",
+            "decision",
+            "blocking"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "label",
+        "talentIds",
+        "tier"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPeopleAttentionCohortSnapshot"
+    },
+    "StudioPeopleAttentionSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "cohorts": {
+          "items": {
+            "$ref": "#/$defs/StudioPeopleAttentionCohortSnapshot"
+          },
+          "type": "array"
+        },
+        "currentWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cohorts",
+        "currentWeek"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPeopleAttentionSnapshot"
+    },
     "StudioPeopleProjection": {
       "additionalProperties": false,
       "properties": {
@@ -4592,6 +4651,651 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioPeopleProjection"
+    },
+    "StudioPersonAttentionSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "cohort": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tier": {
+          "anyOf": [
+            {
+              "enum": [
+                "info",
+                "attention",
+                "decision",
+                "blocking"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "cohort",
+        "reason",
+        "tier"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonAttentionSnapshot"
+    },
+    "StudioPersonCareerRowSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "discipline": {
+          "enum": [
+            "acting",
+            "writing",
+            "directing",
+            "craft"
+          ],
+          "type": "string"
+        },
+        "eventId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "filmId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "filmTitle": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "genre": {
+          "enum": [
+            "comedy",
+            "drama",
+            "crime",
+            "romance",
+            "horror",
+            "adventure"
+          ],
+          "type": "string"
+        },
+        "genreExpAfter": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "genreExpBefore": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "ovrAfter": {
+          "maximum": 99,
+          "minimum": 0,
+          "type": "number"
+        },
+        "ovrBefore": {
+          "maximum": 99,
+          "minimum": 0,
+          "type": "number"
+        },
+        "reasonCodes": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "releaseWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "resultAvailable": {
+          "type": "boolean"
+        },
+        "roleLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "starPowerAfter": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "starPowerBefore": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "starPowerDelta": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "discipline",
+        "eventId",
+        "filmId",
+        "filmTitle",
+        "genre",
+        "genreExpAfter",
+        "genreExpBefore",
+        "ovrAfter",
+        "ovrBefore",
+        "reasonCodes",
+        "releaseWeek",
+        "resultAvailable",
+        "roleLabel",
+        "starPowerAfter",
+        "starPowerBefore",
+        "starPowerDelta"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonCareerRowSnapshot"
+    },
+    "StudioPersonCareerSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "creditsWithoutEvents": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "provenance": {
+          "enum": [
+            "recorded",
+            "partial",
+            "notRecorded",
+            "none"
+          ],
+          "type": "string"
+        },
+        "provenanceNotice": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/StudioPersonCareerRowSnapshot"
+          },
+          "type": "array"
+        },
+        "uncapturedFilms": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "creditsWithoutEvents",
+        "provenance",
+        "provenanceNotice",
+        "rows",
+        "uncapturedFilms"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonCareerSnapshot"
+    },
+    "StudioPersonContractSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "annualSalary": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "endWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "guaranteedRemaining": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "remainingWeeks": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "renewalLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "renewalOpen": {
+          "type": "boolean"
+        },
+        "signingBonus": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "startWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "termWeeks": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "terminationCost": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "weeklySalary": {
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "annualSalary",
+        "endWeekExclusive",
+        "guaranteedRemaining",
+        "remainingWeeks",
+        "renewalLine",
+        "renewalOpen",
+        "signingBonus",
+        "startWeek",
+        "termWeeks",
+        "terminationCost",
+        "weeklySalary"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonContractSnapshot"
+    },
+    "StudioPersonDisciplineSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "capableButUnproven": {
+          "type": "boolean"
+        },
+        "discipline": {
+          "enum": [
+            "acting",
+            "writing",
+            "directing",
+            "craft"
+          ],
+          "type": "string"
+        },
+        "isEstimate": {
+          "const": true,
+          "type": "boolean"
+        },
+        "isPrimary": {
+          "type": "boolean"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "ovr": {
+          "maximum": 99,
+          "minimum": 0,
+          "type": "number"
+        },
+        "potentialHigh": {
+          "maximum": 99,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "potentialLow": {
+          "maximum": 99,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "potentialTier": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "proven": {
+          "type": "boolean"
+        },
+        "tier": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "workHistory": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "capableButUnproven",
+        "discipline",
+        "isEstimate",
+        "isPrimary",
+        "label",
+        "ovr",
+        "potentialHigh",
+        "potentialLow",
+        "potentialTier",
+        "proven",
+        "tier",
+        "workHistory"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonDisciplineSnapshot"
+    },
+    "StudioPersonEmploymentSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "availability": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contract": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioPersonContractSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "freelancerFee": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "marketRatePerProduction": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "offersAvailable": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "contracted",
+            "engagedFreelancer",
+            "availableFreelancer",
+            "freeAgent",
+            "unavailable"
+          ],
+          "type": "string"
+        },
+        "statusLabel": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "availability",
+        "contract",
+        "freelancerFee",
+        "marketRatePerProduction",
+        "offersAvailable",
+        "status",
+        "statusLabel"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonEmploymentSnapshot"
+    },
+    "StudioPersonPresenceSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "blockedReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "canLocate": {
+          "type": "boolean"
+        },
+        "credit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "engagement": {
+          "anyOf": [
+            {
+              "enum": [
+                "production",
+                "script",
+                "casting",
+                "roster"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "facilityId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "facilityName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "locateReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "onLot": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "blockedReason",
+        "canLocate",
+        "credit",
+        "engagement",
+        "facilityId",
+        "facilityName",
+        "locateReason",
+        "onLot"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonPresenceSnapshot"
+    },
+    "StudioPersonProfileSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "age": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "attention": {
+          "$ref": "#/$defs/StudioPersonAttentionSnapshot"
+        },
+        "authored": {
+          "type": "boolean"
+        },
+        "capableButUnproven": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "career": {
+          "$ref": "#/$defs/StudioPersonCareerSnapshot"
+        },
+        "careerIdentityLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "disciplines": {
+          "items": {
+            "$ref": "#/$defs/StudioPersonDisciplineSnapshot"
+          },
+          "type": "array"
+        },
+        "employment": {
+          "$ref": "#/$defs/StudioPersonEmploymentSnapshot"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "nameShared": {
+          "type": "boolean"
+        },
+        "potentialNotice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "presence": {
+          "$ref": "#/$defs/StudioPersonPresenceSnapshot"
+        },
+        "primaryDiscipline": {
+          "enum": [
+            "acting",
+            "writing",
+            "directing",
+            "craft"
+          ],
+          "type": "string"
+        },
+        "profession": {
+          "enum": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "type": "string"
+        },
+        "professionLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "specialties": {
+          "items": {
+            "$ref": "#/$defs/StudioPersonSpecialtySnapshot"
+          },
+          "type": "array"
+        },
+        "specialtyLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "starPower": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "starPowerDefinition": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "temperament": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "work": {
+          "$ref": "#/$defs/StudioPersonWorkSnapshot"
+        },
+        "workEthic": {
+          "maximum": 99,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "workEthicEffect": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "workEthicLabel": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "age",
+        "attention",
+        "authored",
+        "capableButUnproven",
+        "career",
+        "careerIdentityLabel",
+        "disciplines",
+        "employment",
+        "name",
+        "nameShared",
+        "potentialNotice",
+        "presence",
+        "primaryDiscipline",
+        "profession",
+        "professionLabel",
+        "specialties",
+        "specialtyLine",
+        "starPower",
+        "starPowerDefinition",
+        "talentId",
+        "temperament",
+        "work",
+        "workEthic",
+        "workEthicEffect",
+        "workEthicLabel"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonProfileSnapshot"
     },
     "StudioPersonSnapshot": {
       "additionalProperties": false,
@@ -4650,6 +5354,114 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioPersonSnapshot"
+    },
+    "StudioPersonSpecialtySnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "discipline": {
+          "enum": [
+            "acting",
+            "writing",
+            "directing",
+            "craft"
+          ],
+          "type": "string"
+        },
+        "genre": {
+          "enum": [
+            "comedy",
+            "drama",
+            "crime",
+            "romance",
+            "horror",
+            "adventure"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "perceived": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "discipline",
+        "genre",
+        "label",
+        "perceived"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonSpecialtySnapshot"
+    },
+    "StudioPersonWorkSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "assignmentId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "assignmentKind": {
+          "anyOf": [
+            {
+              "enum": [
+                "production",
+                "script"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "kind": {
+          "enum": [
+            "available",
+            "assigned",
+            "ambiguous"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "assignmentId",
+        "assignmentKind",
+        "kind",
+        "label",
+        "reason"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonWorkSnapshot"
     },
     "StudioPlacedFacilitySnapshot": {
       "additionalProperties": false,
@@ -6183,6 +6995,9 @@
         },
         "releaseResults": {
           "$ref": "#/$defs/StudioReleaseResultsProjection"
+        },
+        "talent": {
+          "$ref": "#/$defs/StudioTalentProjection"
         }
       },
       "required": [
@@ -6195,7 +7010,8 @@
         "people",
         "productions",
         "release",
-        "releaseResults"
+        "releaseResults",
+        "talent"
       ],
       "type": "object",
       "x-csharp-name": "StudioProjectionBundle"
@@ -6815,6 +7631,256 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioRewritePreviewSnapshot"
+    },
+    "StudioRosterCountsSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "employed": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "freelancer": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "known": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "withAttention": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "employed",
+        "freelancer",
+        "known",
+        "withAttention"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRosterCountsSnapshot"
+    },
+    "StudioRosterOvrSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "discipline": {
+          "enum": [
+            "acting",
+            "writing",
+            "directing",
+            "craft"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "ovr": {
+          "maximum": 99,
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "discipline",
+        "label",
+        "ovr"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRosterOvrSnapshot"
+    },
+    "StudioRosterRowSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "attentionReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attentionTier": {
+          "anyOf": [
+            {
+              "enum": [
+                "info",
+                "attention",
+                "decision",
+                "blocking"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "availability": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "canLocate": {
+          "type": "boolean"
+        },
+        "careerIdentityLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contractEndWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "contractLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "currentWork": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "nameShared": {
+          "type": "boolean"
+        },
+        "ovr": {
+          "maximum": 99,
+          "minimum": 0,
+          "type": "number"
+        },
+        "ovrByDiscipline": {
+          "items": {
+            "$ref": "#/$defs/StudioRosterOvrSnapshot"
+          },
+          "type": "array"
+        },
+        "ovrDiscipline": {
+          "enum": [
+            "acting",
+            "writing",
+            "directing",
+            "craft"
+          ],
+          "type": "string"
+        },
+        "ovrDisciplineLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "ovrTier": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "population": {
+          "enum": [
+            "employed",
+            "freelancer",
+            "known"
+          ],
+          "type": "string"
+        },
+        "profession": {
+          "enum": [
+            "actor",
+            "director",
+            "writer",
+            "craft"
+          ],
+          "type": "string"
+        },
+        "professionLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "specialtyLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "starPower": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "status": {
+          "enum": [
+            "contracted",
+            "engagedFreelancer",
+            "availableFreelancer",
+            "freeAgent",
+            "unavailable"
+          ],
+          "type": "string"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "attentionReason",
+        "attentionTier",
+        "availability",
+        "canLocate",
+        "careerIdentityLabel",
+        "contractEndWeek",
+        "contractLine",
+        "currentWork",
+        "name",
+        "nameShared",
+        "ovr",
+        "ovrByDiscipline",
+        "ovrDiscipline",
+        "ovrDisciplineLabel",
+        "ovrTier",
+        "population",
+        "profession",
+        "professionLabel",
+        "specialtyLine",
+        "starPower",
+        "status",
+        "talentId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRosterRowSnapshot"
+    },
+    "StudioRosterSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "counts": {
+          "$ref": "#/$defs/StudioRosterCountsSnapshot"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/StudioRosterRowSnapshot"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "counts",
+        "rows"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioRosterSnapshot"
     },
     "StudioScheduleShootingTakeCommand": {
       "additionalProperties": false,
@@ -7898,6 +8964,43 @@
       "type": "object",
       "x-csharp-name": "StudioStandingValues"
     },
+    "StudioTalentProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "talent": {
+          "$ref": "#/$defs/StudioTalentSnapshot"
+        }
+      },
+      "required": [
+        "talent"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTalentProjection"
+    },
+    "StudioTalentSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "attention": {
+          "$ref": "#/$defs/StudioPeopleAttentionSnapshot"
+        },
+        "profiles": {
+          "items": {
+            "$ref": "#/$defs/StudioPersonProfileSnapshot"
+          },
+          "type": "array"
+        },
+        "roster": {
+          "$ref": "#/$defs/StudioRosterSnapshot"
+        }
+      },
+      "required": [
+        "attention",
+        "profiles",
+        "roster"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioTalentSnapshot"
+    },
     "StudioTreasurySnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -8157,7 +9260,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-17",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-18",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -8198,7 +9301,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 17,
+    "projectionVersion": 18,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

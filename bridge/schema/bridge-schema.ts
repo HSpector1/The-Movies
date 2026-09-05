@@ -28,7 +28,7 @@ export const PROTOCOL_VERSION = 4 as const
 // `results` (StudioFilmResultSnapshot: three independent critic/audience/business channels,
 // gross vs studio revenue, banked-vs-projected). Additive; protocol stays 4; save stays V16
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
-export const PROJECTION_VERSION = 17 as const
+export const PROJECTION_VERSION = 18 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1605,6 +1605,193 @@ export const StudioProductionsProjectionSchema = object('StudioProductionsProjec
   stageProductions: studioLotSnapshotProperties.stageProductions,
 })
 
+// ── P10A W0 — the player-safe PEOPLE projection (projection 18) ────────────
+// Producers per docs/engineering/P10-INFORMATION-VISIBILITY-TABLE.md. Nothing hidden
+// (actual skills, ceilings, devRate, actual genre experience, the seed) has a field.
+const disciplineEnum = () => enumeration(['acting', 'writing', 'directing', 'craft'])
+const genreEnum = () => enumeration(['comedy', 'drama', 'crime', 'romance', 'horror', 'adventure'])
+const professionEnum = () => enumeration(['actor', 'director', 'writer', 'craft'])
+const attentionTierEnum = () => enumeration(['info', 'attention', 'decision', 'blocking'])
+const employmentStatusEnum = () =>
+  enumeration(['contracted', 'engagedFreelancer', 'availableFreelancer', 'freeAgent', 'unavailable'])
+const StudioPersonDisciplineSnapshot = object('StudioPersonDisciplineSnapshot', {
+  discipline: disciplineEnum(),
+  label: nonEmptyText(),
+  isPrimary: bool(),
+  ovr: number({ minimum: 0, maximum: 99 }),
+  tier: nonEmptyText(),
+  proven: bool(),
+  capableButUnproven: bool(),
+  potentialLow: integer({ minimum: 0, maximum: 99 }),
+  potentialHigh: integer({ minimum: 0, maximum: 99 }),
+  potentialTier: nonEmptyText(),
+  isEstimate: literal(true),
+  workHistory: nonNegativeInteger(),
+})
+const StudioPersonSpecialtySnapshot = object('StudioPersonSpecialtySnapshot', {
+  discipline: disciplineEnum(),
+  genre: genreEnum(),
+  label: nonEmptyText(),
+  perceived: number({ minimum: 0, maximum: 100 }),
+})
+const StudioPersonContractSnapshot = object('StudioPersonContractSnapshot', {
+  annualSalary: number({ minimum: 0 }),
+  weeklySalary: number({ minimum: 0 }),
+  signingBonus: number({ minimum: 0 }),
+  startWeek: nonNegativeInteger(),
+  endWeekExclusive: nonNegativeInteger(),
+  termWeeks: integer({ minimum: 1 }),
+  remainingWeeks: nonNegativeInteger(),
+  guaranteedRemaining: number({ minimum: 0 }),
+  terminationCost: number({ minimum: 0 }),
+  renewalOpen: bool(),
+  renewalLine: nonEmptyText(),
+})
+const StudioPersonEmploymentSnapshot = object('StudioPersonEmploymentSnapshot', {
+  status: employmentStatusEnum(),
+  statusLabel: nonEmptyText(),
+  availability: nonEmptyText(),
+  contract: nullable(reference('StudioPersonContractSnapshot', StudioPersonContractSnapshot)),
+  marketRatePerProduction: number({ minimum: 0 }),
+  freelancerFee: nullable(number({ minimum: 0 })),
+  offersAvailable: bool(),
+})
+const StudioPersonWorkSnapshot = object('StudioPersonWorkSnapshot', {
+  kind: enumeration(['available', 'assigned', 'ambiguous']),
+  assignmentKind: nullable(enumeration(['production', 'script'])),
+  assignmentId: nullable(text()),
+  label: nullable(text()),
+  reason: nullable(text()),
+})
+const StudioPersonPresenceSnapshot = object('StudioPersonPresenceSnapshot', {
+  onLot: bool(),
+  engagement: nullable(enumeration(['production', 'script', 'casting', 'roster'])),
+  credit: nullable(text()),
+  facilityId: nullable(text()),
+  facilityName: nullable(text()),
+  blockedReason: nullable(text()),
+  canLocate: bool(),
+  locateReason: nullable(text()),
+})
+const StudioPersonAttentionSnapshot = object('StudioPersonAttentionSnapshot', {
+  tier: nullable(attentionTierEnum()),
+  reason: nullable(text()),
+  cohort: nullable(text()),
+})
+const StudioPersonCareerRowSnapshot = object('StudioPersonCareerRowSnapshot', {
+  eventId: nonEmptyText(),
+  filmId: nonEmptyText(),
+  filmTitle: nonEmptyText(),
+  releaseWeek: nonNegativeInteger(),
+  genre: genreEnum(),
+  roleLabel: nonEmptyText(),
+  discipline: disciplineEnum(),
+  ovrBefore: number({ minimum: 0, maximum: 99 }),
+  ovrAfter: number({ minimum: 0, maximum: 99 }),
+  starPowerBefore: number({ minimum: 0, maximum: 100 }),
+  starPowerAfter: number({ minimum: 0, maximum: 100 }),
+  starPowerDelta: number(),
+  genreExpBefore: number({ minimum: 0, maximum: 100 }),
+  genreExpAfter: number({ minimum: 0, maximum: 100 }),
+  reasonCodes: array(nonEmptyText()),
+  resultAvailable: bool(),
+})
+const StudioPersonCareerSnapshot = object('StudioPersonCareerSnapshot', {
+  rows: array(reference('StudioPersonCareerRowSnapshot', StudioPersonCareerRowSnapshot)),
+  creditsWithoutEvents: nonNegativeInteger(),
+  uncapturedFilms: nonNegativeInteger(),
+  provenance: enumeration(['recorded', 'partial', 'notRecorded', 'none']),
+  provenanceNotice: nullable(text()),
+})
+const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
+  talentId: nonEmptyText(),
+  name: nonEmptyText(),
+  nameShared: bool(),
+  profession: professionEnum(),
+  professionLabel: nonEmptyText(),
+  primaryDiscipline: disciplineEnum(),
+  age: number({ minimum: 0 }),
+  authored: bool(),
+  careerIdentityLabel: nonEmptyText(),
+  capableButUnproven: array(nonEmptyText()),
+  disciplines: array(reference('StudioPersonDisciplineSnapshot', StudioPersonDisciplineSnapshot)),
+  specialties: array(reference('StudioPersonSpecialtySnapshot', StudioPersonSpecialtySnapshot)),
+  specialtyLine: nonEmptyText(),
+  workEthic: integer({ minimum: 1, maximum: 99 }),
+  workEthicLabel: nonEmptyText(),
+  workEthicEffect: nonEmptyText(),
+  temperament: nonEmptyText(),
+  starPower: number({ minimum: 0, maximum: 100 }),
+  starPowerDefinition: nonEmptyText(),
+  potentialNotice: nonEmptyText(),
+  employment: reference('StudioPersonEmploymentSnapshot', StudioPersonEmploymentSnapshot),
+  work: reference('StudioPersonWorkSnapshot', StudioPersonWorkSnapshot),
+  presence: reference('StudioPersonPresenceSnapshot', StudioPersonPresenceSnapshot),
+  attention: reference('StudioPersonAttentionSnapshot', StudioPersonAttentionSnapshot),
+  career: reference('StudioPersonCareerSnapshot', StudioPersonCareerSnapshot),
+})
+const StudioRosterOvrSnapshot = object('StudioRosterOvrSnapshot', {
+  discipline: disciplineEnum(),
+  label: nonEmptyText(),
+  ovr: number({ minimum: 0, maximum: 99 }),
+})
+const StudioRosterRowSnapshot = object('StudioRosterRowSnapshot', {
+  talentId: nonEmptyText(),
+  name: nonEmptyText(),
+  nameShared: bool(),
+  profession: professionEnum(),
+  professionLabel: nonEmptyText(),
+  careerIdentityLabel: nonEmptyText(),
+  ovr: number({ minimum: 0, maximum: 99 }),
+  ovrDiscipline: disciplineEnum(),
+  ovrDisciplineLabel: nonEmptyText(),
+  ovrTier: nonEmptyText(),
+  ovrByDiscipline: array(reference('StudioRosterOvrSnapshot', StudioRosterOvrSnapshot)),
+  starPower: number({ minimum: 0, maximum: 100 }),
+  specialtyLine: nonEmptyText(),
+  currentWork: nonEmptyText(),
+  availability: nonEmptyText(),
+  status: employmentStatusEnum(),
+  contractLine: nonEmptyText(),
+  contractEndWeek: nullable(nonNegativeInteger()),
+  attentionTier: nullable(attentionTierEnum()),
+  attentionReason: nullable(text()),
+  canLocate: bool(),
+  population: enumeration(['employed', 'freelancer', 'known']),
+})
+const StudioRosterCountsSnapshot = object('StudioRosterCountsSnapshot', {
+  employed: nonNegativeInteger(),
+  freelancer: nonNegativeInteger(),
+  known: nonNegativeInteger(),
+  withAttention: nonNegativeInteger(),
+})
+const StudioRosterSnapshot = object('StudioRosterSnapshot', {
+  rows: array(reference('StudioRosterRowSnapshot', StudioRosterRowSnapshot)),
+  counts: reference('StudioRosterCountsSnapshot', StudioRosterCountsSnapshot),
+})
+const StudioPeopleAttentionCohortSnapshot = object('StudioPeopleAttentionCohortSnapshot', {
+  key: nonEmptyText(),
+  label: nonEmptyText(),
+  tier: attentionTierEnum(),
+  talentIds: array(nonEmptyText()),
+})
+const StudioPeopleAttentionSnapshot = object('StudioPeopleAttentionSnapshot', {
+  cohorts: array(reference('StudioPeopleAttentionCohortSnapshot', StudioPeopleAttentionCohortSnapshot)),
+  currentWeek: nonNegativeInteger(),
+})
+
+// P10A W0 (projection 18): the player-safe profiles, the roster and grouped attention ride
+// their OWN additive bundle section (like P08's `history`), so the legacy lot-snapshot
+// partition invariant (every people-section field is a legacy field) stays intact.
+const StudioTalentSnapshot = object('StudioTalentSnapshot', {
+  profiles: array(reference('StudioPersonProfileSnapshot', StudioPersonProfileSnapshot)),
+  roster: reference('StudioRosterSnapshot', StudioRosterSnapshot),
+  attention: reference('StudioPeopleAttentionSnapshot', StudioPeopleAttentionSnapshot),
+})
+export const StudioTalentProjectionSchema = object('StudioTalentProjection', {
+  talent: reference('StudioTalentSnapshot', StudioTalentSnapshot),
+})
+
 export const StudioPeopleProjectionSchema = object('StudioPeopleProjection', {
   people: studioLotSnapshotProperties.people,
   presence: studioLotSnapshotProperties.presence,
@@ -1784,6 +1971,8 @@ export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
   release: reference('StudioReleaseProjection', StudioReleaseProjectionSchema),
   // P08A W2: the Standing & Studio History section (additive; projection 16).
   history: reference('StudioHistoryProjection', StudioHistoryProjectionSchema),
+  // P10A W0: the player-safe Talent section — profiles, roster, grouped attention (additive; projection 18).
+  talent: reference('StudioTalentProjection', StudioTalentProjectionSchema),
 })
 
 export const AVAILABLE_INTENT_KINDS = [
@@ -2094,6 +2283,24 @@ const definitions = {
   StudioStandingBoardSnapshot,
   StudioHistorySnapshot,
   StudioHistoryProjection: StudioHistoryProjectionSchema,
+  StudioPersonDisciplineSnapshot,
+  StudioPersonSpecialtySnapshot,
+  StudioPersonContractSnapshot,
+  StudioPersonEmploymentSnapshot,
+  StudioPersonWorkSnapshot,
+  StudioPersonPresenceSnapshot,
+  StudioPersonAttentionSnapshot,
+  StudioPersonCareerRowSnapshot,
+  StudioPersonCareerSnapshot,
+  StudioPersonProfileSnapshot,
+  StudioRosterOvrSnapshot,
+  StudioRosterRowSnapshot,
+  StudioRosterCountsSnapshot,
+  StudioRosterSnapshot,
+  StudioPeopleAttentionCohortSnapshot,
+  StudioPeopleAttentionSnapshot,
+  StudioTalentSnapshot,
+  StudioTalentProjection: StudioTalentProjectionSchema,
   StudioProjectionBundle: StudioProjectionBundleSchema,
   StudioBridgeIntentOption,
   StudioBridgeMetrics,
@@ -2112,7 +2319,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-17',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-18',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [

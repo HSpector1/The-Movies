@@ -115,6 +115,9 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // projection-v17-w1b: 33a362d — roads on the wire + the bare-lot journey beat;
   // superseded within ProjectionVersion=17 by W5 (the Set commission family).
   ['sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25', 'projection-v17-w1b'],
+  // projection-v17: fee206fa — the sealed P09 projection-17 identity (Set commission quote
+  // family, lot.setCatalog); superseded by projection 18 (P10A W0, people profiles/roster).
+  ['sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78', 'projection-v17'],
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({

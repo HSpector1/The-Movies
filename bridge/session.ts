@@ -1309,6 +1309,8 @@ export class BridgeSession {
       release: context.release(),
       // P08A W2: the Standing & Studio History section rides the same context.
       history: context.history(),
+      // P10A W0: the player-safe Talent section (profiles / roster / grouped attention).
+      talent: context.people(),
     })
     const stateDigest = context.stateDigest()
     // One founding resolution serves both surfaces, so an arrival's intentId can
