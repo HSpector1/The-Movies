@@ -1,0 +1,1189 @@
+{
+  "fixtureId": "p08-visual-oracle-v1",
+  "generator": "scripts/gen-p08-visual-oracle-fixtures.mts",
+  "generatorSourceSha256": "7c7d07176a90e299584a2bc96261e7cb093f02ac5e4634114cec5985aed74feb",
+  "seed": "p08-visual-oracle-v1",
+  "ledger": {
+    "filmAlpha": "prod-0800",
+    "filmBeta": "prod-0801",
+    "departedLead": "t-act-0800",
+    "twinTitle": "The Long Exposure"
+  },
+  "walkNotes": [
+    "release-divergent: prod-0002 deltas A -1.60 / P 10.00 / C -0.74",
+    "no-current-location: releaseTalent(t-act-02) at week 16"
+  ],
+  "normalizationLaw": "Exact-token rewrite onto the P08 fixture ledger, longest-token-first, pre-image counts asserted, target collisions refused, re-imported through importSaveJson; every machine assertion runs on the NORMALIZED state through the shipped historyProjection. The ledger identities are not mintable through public seams.",
+  "fixtures": [
+    {
+      "ordinal": 1,
+      "scenarioId": "p08-recording-just-begun",
+      "week": 2,
+      "save": {
+        "file": "s1-p08-recording-just-begun.save.json",
+        "byteLength": 238064,
+        "sha256": "ff0b85ebff41470a280f36dd866802802745c349446263627ea237393c2422fc"
+      },
+      "checkpoint": {
+        "file": "s1-p08-recording-just-begun.checkpoint.json",
+        "byteLength": 269167,
+        "sha256": "26209bcce2bbc5c959173c0f4ecc56e5d5cd028bb01ab6502fd3cdaf6e6ac273",
+        "sessionId": "p08-oracle-p08-recording-just-begun",
+        "schemaId": "sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236",
+        "stateDigest": "ff0b85ebff41470a280f36dd866802802745c349446263627ea237393c2422fc"
+      },
+      "history": {
+        "recordingStartedWeek": 0,
+        "notRecordedNotice": null,
+        "channels": [
+          {
+            "key": "audienceAwareness",
+            "value": 39.608,
+            "recordedChange": -0.392000000000003
+          },
+          {
+            "key": "industryPrestige",
+            "value": 40,
+            "recordedChange": 0
+          },
+          {
+            "key": "commercialConfidence",
+            "value": 50,
+            "recordedChange": 0
+          }
+        ],
+        "receipts": 2,
+        "timeline": 1,
+        "films": [],
+        "people": []
+      },
+      "derivation": [
+        "contendedStudio('p08-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the P08 §13 moments",
+        "one Whisper publicity campaign the week after the first divergent release",
+        "scenario 6 only: the two leader CONCEPT titles renamed to the ledger twin title (data, not identity)",
+        "scenario 7 only: releaseTalent on Alpha's captured lead (D-11.9; termination cost paid from real cash)",
+        "scenario 8 only: the last pre-release state stripped to a V16 save (makeSaveV16), Alpha released in that stripped world, stripped again and re-imported through the shipped migration; Beta committed only after the boundary"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0801",
+          "occurrences": 7
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0800",
+          "occurrences": 7
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-act-0800",
+          "occurrences": 4
+        }
+      ],
+      "machineAssertions": [
+        "three channels, recording since week 0, 2 routine receipt(s), 1 timeline row(s), no absence notice"
+      ]
+    },
+    {
+      "ordinal": 2,
+      "scenarioId": "p08-release-divergent",
+      "week": 11,
+      "save": {
+        "file": "s2-p08-release-divergent.save.json",
+        "byteLength": 246941,
+        "sha256": "e58a428b2fffe4c94d04ed7c38d3248dfc4487cd9ca2080ea983fbfdf4161ff7"
+      },
+      "checkpoint": {
+        "file": "s2-p08-release-divergent.checkpoint.json",
+        "byteLength": 279157,
+        "sha256": "4d08dd7caf77ec6a54bc4b6bbdd14b15aabf6a223e4689836194228d9135f891",
+        "sessionId": "p08-oracle-p08-release-divergent",
+        "schemaId": "sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236",
+        "stateDigest": "e58a428b2fffe4c94d04ed7c38d3248dfc4487cd9ca2080ea983fbfdf4161ff7"
+      },
+      "history": {
+        "recordingStartedWeek": 0,
+        "notRecordedNotice": null,
+        "channels": [
+          {
+            "key": "audienceAwareness",
+            "value": 35.56835780010471,
+            "recordedChange": -4.431642199895293
+          },
+          {
+            "key": "industryPrestige",
+            "value": 58.97504674949872,
+            "recordedChange": 18.975046749498723
+          },
+          {
+            "key": "commercialConfidence",
+            "value": 49.19125206963275,
+            "recordedChange": -0.8087479303672467
+          }
+        ],
+        "receipts": 13,
+        "timeline": 5,
+        "films": [
+          {
+            "id": "prod-0800",
+            "title": "Ghosts of Boulevard",
+            "releaseWeek": 10,
+            "historyRecorded": true
+          },
+          {
+            "id": "prod-0801",
+            "title": "Fires of Archipelago",
+            "releaseWeek": 10,
+            "historyRecorded": true
+          }
+        ],
+        "people": [
+          {
+            "id": "t-act-08",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-0800",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-10",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-12",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-20",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-21",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-01",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-02",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-03",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-05",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-01",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-07",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          }
+        ]
+      },
+      "derivation": [
+        "contendedStudio('p08-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the P08 §13 moments",
+        "one Whisper publicity campaign the week after the first divergent release",
+        "scenario 6 only: the two leader CONCEPT titles renamed to the ledger twin title (data, not identity)",
+        "scenario 7 only: releaseTalent on Alpha's captured lead (D-11.9; termination cost paid from real cash)",
+        "scenario 8 only: the last pre-release state stripped to a V16 save (makeSaveV16), Alpha released in that stripped world, stripped again and re-imported through the shipped migration; Beta committed only after the boundary"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0801",
+          "occurrences": 27
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0800",
+          "occurrences": 27
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-act-0800",
+          "occurrences": 3
+        }
+      ],
+      "machineAssertions": [
+        "release receipt for prod-0800: deltas A -1.60 / P 10.00 / C -0.74 (non-uniform signs), three reason lines"
+      ]
+    },
+    {
+      "ordinal": 3,
+      "scenarioId": "p08-publicity",
+      "week": 11,
+      "save": {
+        "file": "s3-p08-publicity.save.json",
+        "byteLength": 247686,
+        "sha256": "314d7949373e7d2f5d24fe68c6678e1864650b92a076e93e8734f8f7f5a969f8"
+      },
+      "checkpoint": {
+        "file": "s3-p08-publicity.checkpoint.json",
+        "byteLength": 279980,
+        "sha256": "c23b15346322499fbdd786cc5b95d689c9a50d11126051a5a784b42355051a06",
+        "sessionId": "p08-oracle-p08-publicity",
+        "schemaId": "sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236",
+        "stateDigest": "314d7949373e7d2f5d24fe68c6678e1864650b92a076e93e8734f8f7f5a969f8"
+      },
+      "history": {
+        "recordingStartedWeek": 0,
+        "notRecordedNotice": null,
+        "channels": [
+          {
+            "key": "audienceAwareness",
+            "value": 36.85621499456912,
+            "recordedChange": -3.1437850054308782
+          },
+          {
+            "key": "industryPrestige",
+            "value": 58.97504674949872,
+            "recordedChange": 18.975046749498723
+          },
+          {
+            "key": "commercialConfidence",
+            "value": 49.19125206963275,
+            "recordedChange": -0.8087479303672467
+          }
+        ],
+        "receipts": 14,
+        "timeline": 6,
+        "films": [
+          {
+            "id": "prod-0800",
+            "title": "Ghosts of Boulevard",
+            "releaseWeek": 10,
+            "historyRecorded": true
+          },
+          {
+            "id": "prod-0801",
+            "title": "Fires of Archipelago",
+            "releaseWeek": 10,
+            "historyRecorded": true
+          }
+        ],
+        "people": [
+          {
+            "id": "t-act-08",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-0800",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-10",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-12",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-20",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-21",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-01",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-02",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-03",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-05",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-01",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-07",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          }
+        ]
+      },
+      "derivation": [
+        "contendedStudio('p08-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the P08 §13 moments",
+        "one Whisper publicity campaign the week after the first divergent release",
+        "scenario 6 only: the two leader CONCEPT titles renamed to the ledger twin title (data, not identity)",
+        "scenario 7 only: releaseTalent on Alpha's captured lead (D-11.9; termination cost paid from real cash)",
+        "scenario 8 only: the last pre-release state stripped to a V16 save (makeSaveV16), Alpha released in that stripped world, stripped again and re-imported through the shipped migration; Beta committed only after the boundary"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0801",
+          "occurrences": 27
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0800",
+          "occurrences": 27
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-act-0800",
+          "occurrences": 3
+        }
+      ],
+      "machineAssertions": [
+        "publicity receipt week 11: awareness 1.29, prestige/confidence 0, reason \"A Whisper campaign cost $1,200,000 and lifted awareness by +1.3.\""
+      ]
+    },
+    {
+      "ordinal": 4,
+      "scenarioId": "p08-weekly-settling",
+      "week": 112,
+      "save": {
+        "file": "s4-p08-weekly-settling.save.json",
+        "byteLength": 290967,
+        "sha256": "fcc0363cd04caebd15caf6a53b87a098d8e500853ce98ede0221ba0542d1fb4f"
+      },
+      "checkpoint": {
+        "file": "s4-p08-weekly-settling.checkpoint.json",
+        "byteLength": 328275,
+        "sha256": "cb3e3ea77b510df0b0eab7a2edf622f2b63b919b4185bf664399a44f3299a08e",
+        "sessionId": "p08-oracle-p08-weekly-settling",
+        "schemaId": "sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236",
+        "stateDigest": "fcc0363cd04caebd15caf6a53b87a098d8e500853ce98ede0221ba0542d1fb4f"
+      },
+      "history": {
+        "recordingStartedWeek": 0,
+        "notRecordedNotice": null,
+        "channels": [
+          {
+            "key": "audienceAwareness",
+            "value": 35.03006234216678,
+            "recordedChange": -6.41420426821724
+          },
+          {
+            "key": "industryPrestige",
+            "value": 58.97504674949872,
+            "recordedChange": 37.95009349899745
+          },
+          {
+            "key": "commercialConfidence",
+            "value": 49.19125206963275,
+            "recordedChange": -1.6174958607344934
+          }
+        ],
+        "receipts": 64,
+        "timeline": 8,
+        "films": [
+          {
+            "id": "prod-0800",
+            "title": "Ghosts of Boulevard",
+            "releaseWeek": 10,
+            "historyRecorded": true
+          },
+          {
+            "id": "prod-0801",
+            "title": "Fires of Archipelago",
+            "releaseWeek": 10,
+            "historyRecorded": true
+          }
+        ],
+        "people": [
+          {
+            "id": "t-act-08",
+            "onLot": false,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-0800",
+            "onLot": false,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-10",
+            "onLot": false,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-12",
+            "onLot": false,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-20",
+            "onLot": false,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-21",
+            "onLot": false,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-01",
+            "onLot": false,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-02",
+            "onLot": false,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-03",
+            "onLot": false,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-05",
+            "onLot": false,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-01",
+            "onLot": false,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-07",
+            "onLot": false,
+            "present": true,
+            "credits": 1
+          }
+        ]
+      },
+      "derivation": [
+        "contendedStudio('p08-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the P08 §13 moments",
+        "one Whisper publicity campaign the week after the first divergent release",
+        "scenario 6 only: the two leader CONCEPT titles renamed to the ledger twin title (data, not identity)",
+        "scenario 7 only: releaseTalent on Alpha's captured lead (D-11.9; termination cost paid from real cash)",
+        "scenario 8 only: the last pre-release state stripped to a V16 save (makeSaveV16), Alpha released in that stripped world, stripped again and re-imported through the shipped migration; Beta committed only after the boundary"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0801",
+          "occurrences": 19
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0800",
+          "occurrences": 19
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-act-0800",
+          "occurrences": 3
+        }
+      ],
+      "machineAssertions": [
+        "week 112: 1 folded summary(ies) (0–51×52), 60 unfolded routine receipts"
+      ]
+    },
+    {
+      "ordinal": 5,
+      "scenarioId": "p08-sparse-timeline",
+      "week": 16,
+      "save": {
+        "file": "s5-p08-sparse-timeline.save.json",
+        "byteLength": 253280,
+        "sha256": "1abce0d6d3f37c271e91cba53d30b9b15cebda08413c245d5e16043d2faa1b4f"
+      },
+      "checkpoint": {
+        "file": "s5-p08-sparse-timeline.checkpoint.json",
+        "byteLength": 286236,
+        "sha256": "237972a4ea9655d7c90591c4a7b73fdee52bcf8925bd1f1e3882af6d205a7118",
+        "sessionId": "p08-oracle-p08-sparse-timeline",
+        "schemaId": "sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236",
+        "stateDigest": "1abce0d6d3f37c271e91cba53d30b9b15cebda08413c245d5e16043d2faa1b4f"
+      },
+      "history": {
+        "recordingStartedWeek": 0,
+        "notRecordedNotice": null,
+        "channels": [
+          {
+            "key": "audienceAwareness",
+            "value": 36.513507027447396,
+            "recordedChange": -3.486492972552604
+          },
+          {
+            "key": "industryPrestige",
+            "value": 58.97504674949872,
+            "recordedChange": 18.975046749498723
+          },
+          {
+            "key": "commercialConfidence",
+            "value": 49.19125206963275,
+            "recordedChange": -0.8087479303672467
+          }
+        ],
+        "receipts": 19,
+        "timeline": 8,
+        "films": [
+          {
+            "id": "prod-0800",
+            "title": "Ghosts of Boulevard",
+            "releaseWeek": 10,
+            "historyRecorded": true
+          },
+          {
+            "id": "prod-0801",
+            "title": "Fires of Archipelago",
+            "releaseWeek": 10,
+            "historyRecorded": true
+          }
+        ],
+        "people": [
+          {
+            "id": "t-act-08",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-0800",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-10",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-12",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-20",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-21",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-01",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-02",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-03",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-05",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-01",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-07",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          }
+        ]
+      },
+      "derivation": [
+        "contendedStudio('p08-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the P08 §13 moments",
+        "one Whisper publicity campaign the week after the first divergent release",
+        "scenario 6 only: the two leader CONCEPT titles renamed to the ledger twin title (data, not identity)",
+        "scenario 7 only: releaseTalent on Alpha's captured lead (D-11.9; termination cost paid from real cash)",
+        "scenario 8 only: the last pre-release state stripped to a V16 save (makeSaveV16), Alpha released in that stripped world, stripped again and re-imported through the shipped migration; Beta committed only after the boundary"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0801",
+          "occurrences": 34
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0800",
+          "occurrences": 34
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-act-0800",
+          "occurrences": 3
+        }
+      ],
+      "machineAssertions": [
+        "timeline 8 rows over significances {landmark, major, standard}; 19 receipts; 2 films"
+      ]
+    },
+    {
+      "ordinal": 6,
+      "scenarioId": "p08-same-title-twins",
+      "week": 16,
+      "save": {
+        "file": "s6-p08-same-title-twins.save.json",
+        "byteLength": 253275,
+        "sha256": "6583686a0acc07dc5f69cc511b6d4b41d3922316f34b6e5b7903f5f5527c95b0"
+      },
+      "checkpoint": {
+        "file": "s6-p08-same-title-twins.checkpoint.json",
+        "byteLength": 286232,
+        "sha256": "fb8bbf8bb14678a3019cc480ef9227c92155d975b96668000378ef820eeed9ef",
+        "sessionId": "p08-oracle-p08-same-title-twins",
+        "schemaId": "sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236",
+        "stateDigest": "6583686a0acc07dc5f69cc511b6d4b41d3922316f34b6e5b7903f5f5527c95b0"
+      },
+      "history": {
+        "recordingStartedWeek": 0,
+        "notRecordedNotice": null,
+        "channels": [
+          {
+            "key": "audienceAwareness",
+            "value": 36.513507027447396,
+            "recordedChange": -3.486492972552604
+          },
+          {
+            "key": "industryPrestige",
+            "value": 58.97504674949872,
+            "recordedChange": 18.975046749498723
+          },
+          {
+            "key": "commercialConfidence",
+            "value": 49.19125206963275,
+            "recordedChange": -0.8087479303672467
+          }
+        ],
+        "receipts": 19,
+        "timeline": 8,
+        "films": [
+          {
+            "id": "prod-0800",
+            "title": "The Long Exposure",
+            "releaseWeek": 10,
+            "historyRecorded": true
+          },
+          {
+            "id": "prod-0801",
+            "title": "The Long Exposure",
+            "releaseWeek": 10,
+            "historyRecorded": true
+          }
+        ],
+        "people": [
+          {
+            "id": "t-act-08",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-0800",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-10",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-12",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-20",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-21",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-01",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-02",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-03",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-05",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-01",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-07",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          }
+        ]
+      },
+      "derivation": [
+        "contendedStudio('p08-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the P08 §13 moments",
+        "one Whisper publicity campaign the week after the first divergent release",
+        "scenario 6 only: the two leader CONCEPT titles renamed to the ledger twin title (data, not identity)",
+        "scenario 7 only: releaseTalent on Alpha's captured lead (D-11.9; termination cost paid from real cash)",
+        "scenario 8 only: the last pre-release state stripped to a V16 save (makeSaveV16), Alpha released in that stripped world, stripped again and re-imported through the shipped migration; Beta committed only after the boundary"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0801",
+          "occurrences": 34
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0800",
+          "occurrences": 34
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-act-0800",
+          "occurrences": 3
+        }
+      ],
+      "machineAssertions": [
+        "two film rows share the twin title with distinct exact ids; both durable results, both recorded"
+      ]
+    },
+    {
+      "ordinal": 7,
+      "scenarioId": "p08-no-current-location",
+      "week": 17,
+      "save": {
+        "file": "s7-p08-no-current-location.save.json",
+        "byteLength": 254059,
+        "sha256": "11ec65a84730107a4e730d3d4df986a8d4f79259b698003244ef8011651cd6f8"
+      },
+      "checkpoint": {
+        "file": "s7-p08-no-current-location.checkpoint.json",
+        "byteLength": 287111,
+        "sha256": "e2f56655b38d10d5ce67d035118c9eae2387ec44747eefbf10633566ad7db0ec",
+        "sessionId": "p08-oracle-p08-no-current-location",
+        "schemaId": "sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236",
+        "stateDigest": "11ec65a84730107a4e730d3d4df986a8d4f79259b698003244ef8011651cd6f8"
+      },
+      "history": {
+        "recordingStartedWeek": 0,
+        "notRecordedNotice": null,
+        "channels": [
+          {
+            "key": "audienceAwareness",
+            "value": 36.4529667463495,
+            "recordedChange": -3.547033253650497
+          },
+          {
+            "key": "industryPrestige",
+            "value": 58.97504674949872,
+            "recordedChange": 18.975046749498723
+          },
+          {
+            "key": "commercialConfidence",
+            "value": 49.19125206963275,
+            "recordedChange": -0.8087479303672467
+          }
+        ],
+        "receipts": 20,
+        "timeline": 8,
+        "films": [
+          {
+            "id": "prod-0800",
+            "title": "Ghosts of Boulevard",
+            "releaseWeek": 10,
+            "historyRecorded": true
+          },
+          {
+            "id": "prod-0801",
+            "title": "Fires of Archipelago",
+            "releaseWeek": 10,
+            "historyRecorded": true
+          }
+        ],
+        "people": [
+          {
+            "id": "t-act-08",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-0800",
+            "onLot": false,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-10",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-12",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-20",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-21",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-01",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-02",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-03",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-05",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-01",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-07",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          }
+        ]
+      },
+      "derivation": [
+        "contendedStudio('p08-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the P08 §13 moments",
+        "one Whisper publicity campaign the week after the first divergent release",
+        "scenario 6 only: the two leader CONCEPT titles renamed to the ledger twin title (data, not identity)",
+        "scenario 7 only: releaseTalent on Alpha's captured lead (D-11.9; termination cost paid from real cash)",
+        "scenario 8 only: the last pre-release state stripped to a V16 save (makeSaveV16), Alpha released in that stripped world, stripped again and re-imported through the shipped migration; Beta committed only after the boundary"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0801",
+          "occurrences": 34
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0800",
+          "occurrences": 34
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-act-0800",
+          "occurrences": 4
+        }
+      ],
+      "machineAssertions": [
+        "t-act-0800 (Actor): onLot=false, present=true, 1 credit(s); contrast person on the lot exists"
+      ]
+    },
+    {
+      "ordinal": 8,
+      "scenarioId": "p08-old-save-not-recorded",
+      "week": 17,
+      "save": {
+        "file": "s8-p08-old-save-not-recorded.save.json",
+        "byteLength": 245960,
+        "sha256": "0ede24d464377291a2bf676b499fa7f73458fd93d9b3d45ad4a8c9ef19bfd594"
+      },
+      "checkpoint": {
+        "file": "s8-p08-old-save-not-recorded.checkpoint.json",
+        "byteLength": 278086,
+        "sha256": "0e17f48950b24dd03f2ff31a9f47039056dc0b7723340681911933c60169e960",
+        "sessionId": "p08-oracle-p08-old-save-not-recorded",
+        "schemaId": "sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236",
+        "stateDigest": "0ede24d464377291a2bf676b499fa7f73458fd93d9b3d45ad4a8c9ef19bfd594"
+      },
+      "history": {
+        "recordingStartedWeek": 11,
+        "notRecordedNotice": "Detailed Standing/history changes were not recorded before Week 11.",
+        "channels": [
+          {
+            "key": "audienceAwareness",
+            "value": 35.37139398767079,
+            "recordedChange": -1.2852804131522078
+          },
+          {
+            "key": "industryPrestige",
+            "value": 58.97504674949872,
+            "recordedChange": 8.975046749498723
+          },
+          {
+            "key": "commercialConfidence",
+            "value": 49.141926864838496,
+            "recordedChange": -0.11904412965363065
+          }
+        ],
+        "receipts": 7,
+        "timeline": 4,
+        "films": [
+          {
+            "id": "prod-0800",
+            "title": "Ghosts of Boulevard",
+            "releaseWeek": 10,
+            "historyRecorded": false
+          },
+          {
+            "id": "prod-0801",
+            "title": "Fires of Archipelago",
+            "releaseWeek": 11,
+            "historyRecorded": true
+          }
+        ],
+        "people": [
+          {
+            "id": "t-act-08",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-0800",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-10",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-12",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-20",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-act-21",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-01",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-cra-02",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-03",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-dir-05",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-01",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          },
+          {
+            "id": "t-wri-07",
+            "onLot": true,
+            "present": true,
+            "credits": 1
+          }
+        ]
+      },
+      "derivation": [
+        "contendedStudio('p08-visual-oracle-v1') — founded, economy-engaged, two leader pictures in flight",
+        "commit each leader at Release Ready (the P06A hold law); cuts at the P08 §13 moments",
+        "one Whisper publicity campaign the week after the first divergent release",
+        "scenario 6 only: the two leader CONCEPT titles renamed to the ledger twin title (data, not identity)",
+        "scenario 7 only: releaseTalent on Alpha's captured lead (D-11.9; termination cost paid from real cash)",
+        "scenario 8 only: the last pre-release state stripped to a V16 save (makeSaveV16), Alpha released in that stripped world, stripped again and re-imported through the shipped migration; Beta committed only after the boundary"
+      ],
+      "idNormalization": [
+        {
+          "from": "prod-0002-1",
+          "to": "prod-0801",
+          "occurrences": 34
+        },
+        {
+          "from": "prod-0002",
+          "to": "prod-0800",
+          "occurrences": 30
+        },
+        {
+          "from": "t-act-02",
+          "to": "t-act-0800",
+          "occurrences": 3
+        }
+      ],
+      "machineAssertions": [
+        "recording since week 11; notice \"Detailed Standing/history changes were not recorded before Week 11.\"; Alpha historyRecorded=false, Beta historyRecorded=true; zero pre-boundary receipts"
+      ]
+    }
+  ]
+}
