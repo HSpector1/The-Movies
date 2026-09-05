@@ -914,7 +914,7 @@ describe('prior protocol-4 acceptance boundary pins', () => {
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
   })
 
-  it('is exactly the thirteen historical protocol-4 identities, pinned as literals', () => {
+  it('is exactly the fourteen historical protocol-4 identities, pinned as literals', () => {
     // Load-bearing completeness: iterating the map cannot catch a wrong or
     // missing hash; these literals were re-derived independently from the
     // generated-header history during hostile review. A projection bump must
@@ -926,7 +926,10 @@ describe('prior protocol-4 acceptance boundary pins', () => {
     // P05A.3 appended the outgoing projection-v12 identity (a6f37459…) when
     // v13 put the hiring market on the casting wire. P06A W2 appended the
     // outgoing projection-v13 identity (0474ceaf…) when the W2 contract mint
-    // moved the running schema to V16 / projection-14.
+    // moved the running schema to V16 / projection-14. P08A W2 appended the
+    // outgoing projection-v15 identity (ddce1c39…, the P07-accepted schema) when
+    // the Standing & Studio History section moved the running schema to
+    // V17 / projection-16.
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([
       'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e',
       'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5',
@@ -940,6 +943,7 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b',
       'sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f',
       'sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb',
+      'sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99',
       'sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61',
     ])
   })

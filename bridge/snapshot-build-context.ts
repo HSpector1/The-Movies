@@ -8,11 +8,13 @@ import type { GameState } from '../ui/src/engine/adapter.ts'
 import { developmentProjection } from './development.ts'
 import { castingProjection } from './casting.ts'
 import { releaseProjection } from './release.ts'
+import { historyProjection } from './history.ts'
 
 type StudioLotSnapshotResult = ReturnType<typeof studioLotSnapshot>
 type DevelopmentProjectionResult = ReturnType<typeof developmentProjection>
 type CastingProjectionResult = ReturnType<typeof castingProjection>
 type ReleaseProjectionResult = ReturnType<typeof releaseProjection>
+type HistoryProjectionResult = ReturnType<typeof historyProjection>
 
 /**
  * W0 (CF-07 folding). One shared, lazily-computed set of validated
@@ -46,6 +48,7 @@ export type SnapshotBuildContext = {
   casting(): CastingProjectionResult
   /** P06A W2: the closed Release projection, computed at most once per state. */
   release(): ReleaseProjectionResult
+  history(): HistoryProjectionResult
 }
 
 /**
@@ -60,6 +63,7 @@ export const snapshotBuildDiagnostics = {
   developmentComputes: 0,
   castingComputes: 0,
   releaseComputes: 0,
+  historyComputes: 0,
 }
 
 export function resetSnapshotBuildDiagnostics(): void {
@@ -121,6 +125,10 @@ export function snapshotBuildContextFor(state: GameState): SnapshotBuildContext 
     release: lazyFact(() => {
       snapshotBuildDiagnostics.releaseComputes += 1
       return releaseProjection(state)
+    }),
+    history: lazyFact(() => {
+      snapshotBuildDiagnostics.historyComputes += 1
+      return historyProjection(state)
     }),
   }
   contexts.set(state, context)

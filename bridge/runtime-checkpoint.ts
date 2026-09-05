@@ -101,6 +101,11 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // the one the final-P05 Owner checkpoint carries — became prior the moment
   // projection 14 minted the P06 identity.
   ['sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f', 'projection-v13'],
+  // projection-v15: the P07-accepted identity (campaign c4c65db4 / TS da848225,
+  // schema ddce1c39…) — the OUTGOING schema of the P08A W2 projection bump to
+  // v16 (the schema-bump law, obeyed): every accepted P07 profile and candidate
+  // checkpoint carries it and keeps migrating.
+  ['sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99', 'projection-v15'],
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({

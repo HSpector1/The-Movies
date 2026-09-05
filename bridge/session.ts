@@ -1279,6 +1279,8 @@ export class BridgeSession {
       development: context.development(),
       casting: context.casting(),
       release: context.release(),
+      // P08A W2: the Standing & Studio History section rides the same context.
+      history: context.history(),
     })
     const stateDigest = context.stateDigest()
     // One founding resolution serves both surfaces, so an arrival's intentId can

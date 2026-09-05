@@ -127,7 +127,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 15,
+          "const": 16,
           "type": "integer"
         },
         "stateDigest": {
@@ -243,7 +243,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 15,
+          "const": 16,
           "type": "integer"
         },
         "stateDigest": {
@@ -723,7 +723,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 15,
+          "const": 16,
           "type": "integer"
         },
         "stateDigest": {
@@ -792,7 +792,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 15,
+          "const": 16,
           "type": "integer"
         },
         "stateDigest": {
@@ -4040,6 +4040,320 @@
       "type": "object",
       "x-csharp-name": "StudioHiringCandidateSnapshot"
     },
+    "StudioHistoryCreditSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "productionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "roleLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "productionId",
+        "roleLabel",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioHistoryCreditSnapshot"
+    },
+    "StudioHistoryEventSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "buildingId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "detail": {
+          "type": "string"
+        },
+        "eventId": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "filmId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "headline": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "studioFounded",
+            "standingChanged",
+            "standingDriftFolded",
+            "filmReleased",
+            "theatricalRunCompleted",
+            "facilityCommitted",
+            "facilityCompleted",
+            "facilityDemolished",
+            "facilityMoved",
+            "careerMilestone"
+          ],
+          "type": "string"
+        },
+        "personId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "significance": {
+          "enum": [
+            "landmark",
+            "major",
+            "standard",
+            "routine"
+          ],
+          "type": "string"
+        },
+        "subjectId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "subjectKind": {
+          "enum": [
+            "studio",
+            "film",
+            "person",
+            "facility"
+          ],
+          "type": "string"
+        },
+        "subjectLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "subjectLocation": {
+          "enum": [
+            "current",
+            "historical",
+            "none"
+          ],
+          "type": "string"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "buildingId",
+        "detail",
+        "eventId",
+        "filmId",
+        "headline",
+        "kind",
+        "personId",
+        "significance",
+        "subjectId",
+        "subjectKind",
+        "subjectLabel",
+        "subjectLocation",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioHistoryEventSnapshot"
+    },
+    "StudioHistoryFilmSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "historyEventIds": {
+          "items": {
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "integer"
+          },
+          "type": "array"
+        },
+        "historyRecorded": {
+          "type": "boolean"
+        },
+        "productionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "releaseWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "resultAvailable": {
+          "type": "boolean"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "historyEventIds",
+        "historyRecorded",
+        "productionId",
+        "releaseWeek",
+        "resultAvailable",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioHistoryFilmSnapshot"
+    },
+    "StudioHistoryPersonSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "credits": {
+          "items": {
+            "$ref": "#/$defs/StudioHistoryCreditSnapshot"
+          },
+          "type": "array"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "onLot": {
+          "type": "boolean"
+        },
+        "present": {
+          "type": "boolean"
+        },
+        "roleLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "uncapturedFilms": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "credits",
+        "name",
+        "onLot",
+        "present",
+        "roleLabel",
+        "talentId",
+        "uncapturedFilms"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioHistoryPersonSnapshot"
+    },
+    "StudioHistoryProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "history": {
+          "$ref": "#/$defs/StudioHistorySnapshot"
+        }
+      },
+      "required": [
+        "history"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioHistoryProjection"
+    },
+    "StudioHistorySnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "currentWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "films": {
+          "items": {
+            "$ref": "#/$defs/StudioHistoryFilmSnapshot"
+          },
+          "type": "array"
+        },
+        "notRecordedNotice": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "people": {
+          "items": {
+            "$ref": "#/$defs/StudioHistoryPersonSnapshot"
+          },
+          "type": "array"
+        },
+        "recordingStartedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "recordsAvailable": {
+          "type": "boolean"
+        },
+        "recordsNotice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "standing": {
+          "$ref": "#/$defs/StudioStandingBoardSnapshot"
+        },
+        "timeline": {
+          "items": {
+            "$ref": "#/$defs/StudioHistoryEventSnapshot"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "currentWeek",
+        "films",
+        "notRecordedNotice",
+        "people",
+        "recordingStartedWeek",
+        "recordsAvailable",
+        "recordsNotice",
+        "standing",
+        "timeline"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioHistorySnapshot"
+    },
     "StudioJourneyBlockedSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -5486,6 +5800,9 @@
         "development": {
           "$ref": "#/$defs/StudioDevelopmentProjection"
         },
+        "history": {
+          "$ref": "#/$defs/StudioHistoryProjection"
+        },
         "journeyNotices": {
           "$ref": "#/$defs/StudioJourneyNoticesProjection"
         },
@@ -5509,6 +5826,7 @@
         "casting",
         "construction",
         "development",
+        "history",
         "journeyNotices",
         "lot",
         "people",
@@ -6662,6 +6980,223 @@
       "type": "object",
       "x-csharp-name": "StudioStageSnapshot"
     },
+    "StudioStandingBoardSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "channels": {
+          "items": {
+            "$ref": "#/$defs/StudioStandingChannelSnapshot"
+          },
+          "type": "array"
+        },
+        "receipts": {
+          "items": {
+            "$ref": "#/$defs/StudioStandingReceiptSnapshot"
+          },
+          "type": "array"
+        },
+        "routineWindowWeeks": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "channels",
+        "receipts",
+        "routineWindowWeeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioStandingBoardSnapshot"
+    },
+    "StudioStandingChannelSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "enum": [
+            "audienceAwareness",
+            "industryPrestige",
+            "commercialConfidence"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "meaning": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "recordedChange": {
+          "type": "number"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "key",
+        "label",
+        "meaning",
+        "recordedChange",
+        "value"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioStandingChannelSnapshot"
+    },
+    "StudioStandingReceiptSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "after": {
+          "$ref": "#/$defs/StudioStandingValues"
+        },
+        "before": {
+          "$ref": "#/$defs/StudioStandingValues"
+        },
+        "count": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deltas": {
+          "$ref": "#/$defs/StudioStandingValues"
+        },
+        "eventId": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "filmId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "formulaVersion": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "reasonLines": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "significance": {
+          "enum": [
+            "landmark",
+            "major",
+            "standard",
+            "routine"
+          ],
+          "type": "string"
+        },
+        "sourceId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sourceKind": {
+          "enum": [
+            "releaseResult",
+            "publicity",
+            "awarenessDrift",
+            "settled"
+          ],
+          "type": "string"
+        },
+        "sourceLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "weekEnd": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "weekStart": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "after",
+        "before",
+        "count",
+        "deltas",
+        "eventId",
+        "filmId",
+        "formulaVersion",
+        "reasonLines",
+        "significance",
+        "sourceId",
+        "sourceKind",
+        "sourceLabel",
+        "week",
+        "weekEnd",
+        "weekStart"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioStandingReceiptSnapshot"
+    },
+    "StudioStandingValues": {
+      "additionalProperties": false,
+      "properties": {
+        "audienceAwareness": {
+          "type": "number"
+        },
+        "commercialConfidence": {
+          "type": "number"
+        },
+        "industryPrestige": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "audienceAwareness",
+        "commercialConfidence",
+        "industryPrestige"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioStandingValues"
+    },
     "StudioTreasurySnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -6921,7 +7456,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-15",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-16",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -6962,7 +7497,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 15,
+    "projectionVersion": 16,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

@@ -27,6 +27,7 @@ import {
 import { studioLotSnapshot } from '../ui/src/engine/adapter.ts'
 import { developmentProjection } from '../bridge/development.ts'
 import { releaseProjection } from '../bridge/release.ts'
+import { historyProjection } from '../bridge/history.ts'
 import { castingProjection } from '../bridge/casting.ts'
 
 function clone<T>(value: T): T {
@@ -73,10 +74,10 @@ describe('canonical Unity bridge schema', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
       protocolVersion: 4,
-      projectionVersion: 15,
+      projectionVersion: 16,
       transport: 'http-json-localhost',
     })
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-15')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-16')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
@@ -88,6 +89,7 @@ describe('canonical Unity bridge schema', () => {
       development: developmentProjection(state),
       casting: castingProjection(state),
       release: releaseProjection(state),
+      history: historyProjection(state),
     }
     const projected = projectStudioLotSnapshot(broadSnapshot)
     const bundle = projectStudioProjectionBundle(broadSnapshot)
@@ -325,8 +327,8 @@ describe('canonical Unity bridge schema', () => {
     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
 
     const oldProjection = { ...clone(envelope), snapshotVersion: 5 }
-    expect(PROJECTION_VERSION).toBe(15)
-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 15/)
+    expect(PROJECTION_VERSION).toBe(16)
+    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 16/)
 
     const missingSection = clone(envelope)
     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
@@ -561,7 +563,7 @@ describe('canonical Unity bridge schema', () => {
     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
     expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 15;')
+    expect(generatedCsharp).toContain('public const int ProjectionVersion = 16;')
     expect(generatedCsharp).toContain('public int protocolVersion;')
     expect(generatedCsharp).toContain('public int snapshotVersion;')
     expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)

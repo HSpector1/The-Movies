@@ -28,7 +28,7 @@ export const PROTOCOL_VERSION = 4 as const
 // `results` (StudioFilmResultSnapshot: three independent critic/audience/business channels,
 // gross vs studio revenue, banked-vs-projected). Additive; protocol stays 4; save stays V16
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
-export const PROJECTION_VERSION = 15 as const
+export const PROJECTION_VERSION = 16 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1457,6 +1457,109 @@ export const StudioCastingProjectionSchema = object('StudioCastingProjection', {
   casting: studioLotSnapshotProperties.casting,
 })
 
+// ── P08A W2 — the closed Standing & Studio History projection (charter P08 §12) ──
+// Every value is a direct read of the recorded `studioHistory` root and the P07
+// authorities it references: exact ids, frozen before/after/deltas, the formula
+// identity, and player-safe driver facts already public in the accepted game.
+// Nothing here is recomputed by the consumer; routine settling detail is folded
+// server-side and the timeline carries material rows only.
+const StudioStandingValues = object('StudioStandingValues', {
+  audienceAwareness: number(),
+  industryPrestige: number(),
+  commercialConfidence: number(),
+})
+const StudioStandingChannelSnapshot = object('StudioStandingChannelSnapshot', {
+  key: enumeration(['audienceAwareness', 'industryPrestige', 'commercialConfidence']),
+  label: nonEmptyText(),
+  meaning: nonEmptyText(),
+  value: number(),
+  recordedChange: number(),
+})
+const StudioStandingReceiptSnapshot = object('StudioStandingReceiptSnapshot', {
+  eventId: nonNegativeInteger(),
+  week: nonNegativeInteger(),
+  sourceKind: enumeration(['releaseResult', 'publicity', 'awarenessDrift', 'settled']),
+  sourceId: nullable(text()),
+  sourceLabel: nonEmptyText(),
+  significance: enumeration(['landmark', 'major', 'standard', 'routine']),
+  before: reference('StudioStandingValues', StudioStandingValues),
+  after: reference('StudioStandingValues', StudioStandingValues),
+  deltas: reference('StudioStandingValues', StudioStandingValues),
+  reasonLines: array(text()),
+  formulaVersion: nonEmptyText(),
+  filmId: nullable(text()),
+  weekStart: nullable(nonNegativeInteger()),
+  weekEnd: nullable(nonNegativeInteger()),
+  count: nullable(nonNegativeInteger()),
+})
+const StudioHistoryEventSnapshot = object('StudioHistoryEventSnapshot', {
+  eventId: nonNegativeInteger(),
+  week: nonNegativeInteger(),
+  kind: enumeration([
+    'studioFounded',
+    'standingChanged',
+    'standingDriftFolded',
+    'filmReleased',
+    'theatricalRunCompleted',
+    'facilityCommitted',
+    'facilityCompleted',
+    'facilityDemolished',
+    'facilityMoved',
+    'careerMilestone',
+  ]),
+  significance: enumeration(['landmark', 'major', 'standard', 'routine']),
+  headline: nonEmptyText(),
+  detail: text(),
+  subjectKind: enumeration(['studio', 'film', 'person', 'facility']),
+  subjectId: nullable(text()),
+  subjectLabel: nonEmptyText(),
+  subjectLocation: enumeration(['current', 'historical', 'none']),
+  filmId: nullable(text()),
+  personId: nullable(text()),
+  buildingId: nullable(text()),
+})
+const StudioHistoryFilmSnapshot = object('StudioHistoryFilmSnapshot', {
+  productionId: nonEmptyText(),
+  title: nonEmptyText(),
+  releaseWeek: nonNegativeInteger(),
+  historyRecorded: bool(),
+  resultAvailable: bool(),
+  historyEventIds: array(nonNegativeInteger()),
+})
+const StudioHistoryCreditSnapshot = object('StudioHistoryCreditSnapshot', {
+  productionId: nonEmptyText(),
+  title: nonEmptyText(),
+  roleLabel: nonEmptyText(),
+})
+const StudioHistoryPersonSnapshot = object('StudioHistoryPersonSnapshot', {
+  talentId: nonEmptyText(),
+  name: nonEmptyText(),
+  roleLabel: nonEmptyText(),
+  credits: array(reference('StudioHistoryCreditSnapshot', StudioHistoryCreditSnapshot)),
+  uncapturedFilms: nonNegativeInteger(),
+  onLot: bool(),
+  present: bool(),
+})
+const StudioStandingBoardSnapshot = object('StudioStandingBoardSnapshot', {
+  channels: array(reference('StudioStandingChannelSnapshot', StudioStandingChannelSnapshot)),
+  receipts: array(reference('StudioStandingReceiptSnapshot', StudioStandingReceiptSnapshot)),
+  routineWindowWeeks: integer({ minimum: 1 }),
+})
+const StudioHistorySnapshot = object('StudioHistorySnapshot', {
+  recordingStartedWeek: nonNegativeInteger(),
+  currentWeek: nonNegativeInteger(),
+  notRecordedNotice: nullable(text()),
+  standing: reference('StudioStandingBoardSnapshot', StudioStandingBoardSnapshot),
+  timeline: array(reference('StudioHistoryEventSnapshot', StudioHistoryEventSnapshot)),
+  films: array(reference('StudioHistoryFilmSnapshot', StudioHistoryFilmSnapshot)),
+  people: array(reference('StudioHistoryPersonSnapshot', StudioHistoryPersonSnapshot)),
+  recordsAvailable: bool(),
+  recordsNotice: nonEmptyText(),
+})
+export const StudioHistoryProjectionSchema = object('StudioHistoryProjection', {
+  history: reference('StudioHistorySnapshot', StudioHistorySnapshot),
+})
+
 // ── P06A W2 — the closed Release projection (recon r2 §6.3) ─────────────────
 const StudioReleaseDecisionSnapshot = object('StudioReleaseDecisionSnapshot', {
   productionId: nonEmptyText(),
@@ -1502,6 +1605,8 @@ export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
   development: reference('StudioDevelopmentProjection', StudioDevelopmentProjectionSchema),
   casting: reference('StudioCastingProjection', StudioCastingProjectionSchema),
   release: reference('StudioReleaseProjection', StudioReleaseProjectionSchema),
+  // P08A W2: the Standing & Studio History section (additive; projection 16).
+  history: reference('StudioHistoryProjection', StudioHistoryProjectionSchema),
 })
 
 export const AVAILABLE_INTENT_KINDS = [
@@ -1788,6 +1893,16 @@ const definitions = {
   StudioReleaseDecisionSnapshot,
   StudioReleaseBoard,
   StudioReleaseProjection: StudioReleaseProjectionSchema,
+  StudioStandingValues,
+  StudioStandingChannelSnapshot,
+  StudioStandingReceiptSnapshot,
+  StudioHistoryEventSnapshot,
+  StudioHistoryFilmSnapshot,
+  StudioHistoryCreditSnapshot,
+  StudioHistoryPersonSnapshot,
+  StudioStandingBoardSnapshot,
+  StudioHistorySnapshot,
+  StudioHistoryProjection: StudioHistoryProjectionSchema,
   StudioProjectionBundle: StudioProjectionBundleSchema,
   StudioBridgeIntentOption,
   StudioBridgeMetrics,
@@ -1806,7 +1921,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-15',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-16',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [
@@ -1875,6 +1990,7 @@ export type BridgeQuoteCommissionRequest = InferSchema<typeof StudioQuoteCommiss
 export type BridgeQuoteCastingRequest = InferSchema<typeof StudioQuoteCastingRequest>
 export type BridgeQuoteRequest = InferSchema<typeof StudioBridgeQuoteRequest>
 export type BridgeQuoteResponse = InferSchema<typeof StudioBridgeQuoteResponse>
+export type BridgeHistorySnapshot = InferSchema<typeof StudioHistorySnapshot>
 
 export const AVAILABLE_INTENT_KEYS = Object.keys(
   StudioBridgeIntentOption.properties as Record<string, unknown>,
