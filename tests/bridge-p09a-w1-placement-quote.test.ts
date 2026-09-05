@@ -404,7 +404,7 @@ describe('P09A W1 — placement quote family over the bridge', () => {
     expect(endowedState.foundingRegime).toBe('endowed')
 
     // W0's proven bare-lot founding origin: legal on the bare lot, not on the endowed lot.
-    const officeOrigin = { gx: 1, gy: 5 }
+    const officeOrigin = { gx: 12, gy: 14 }
     const bareQuote = quoteOrThrow(bareSession, 'regime-bare-office', draft('development-casting-office', officeOrigin))
     const endowedQuote = quoteOrThrow(endowedSession, 'regime-endowed-office', draft('development-casting-office', officeOrigin))
     expectDirectRead(bareQuote.quote, bareState, 'development-casting-office', officeOrigin)

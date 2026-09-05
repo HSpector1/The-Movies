@@ -85,10 +85,10 @@ const bareLot = (seed: string) => foundMinimum(generateWorld(seed, { regime: 'ba
 const endowed = (seed: string) => foundMinimum(generateWorld(seed))
 
 const ORIGINS: Record<string, LotCell> = {
-  'development-casting-office': { gx: 1, gy: 5 }, // North-West Yard, fronting the avenue
-  'scenery-shop': { gx: 5, gy: 5 }, // same yard, one clear cell east of the office
-  'stage-standard': { gx: 16, gy: 3 }, // North Stage Yard, fronting the avenue and the stage road
-  'post-building': { gx: 16, gy: 9 }, // East Yard, fronting the avenue
+  'development-casting-office': { gx: 12, gy: 14 }, // Gate Court West, fronting the Crossroad
+  'scenery-shop': { gx: 16, gy: 14 }, // same court, one clear cell east of the office
+  'stage-standard': { gx: 26, gy: 4 }, // North Yard, east of the Boulevard's line
+  'post-building': { gx: 30, gy: 14 }, // Gate Court East, fronting the Crossroad
 }
 
 function commit(state: GameState, blueprintId: string): GameState {
@@ -308,7 +308,7 @@ describe('P09 R4 — the minimum plant fits and completes on its committed weeks
     a = commit(a, 'development-casting-office')
     for (let week = 0; week < 14; week++) a = tick(a) // the founding office opens; the gate lifts
     // A second office is a real blueprint again, and the Post Building is 14 weeks too: the same completion week.
-    a = applyActions(a, [{ kind: 'placeFacility', placement: { blueprintId: 'development-casting-office', origin: { gx: 16, gy: 3 } } }])
+    a = applyActions(a, [{ kind: 'placeFacility', placement: { blueprintId: 'development-casting-office', origin: { gx: 2, gy: 2 } } }])
     a = commit(a, 'post-building')
     for (let week = 0; week < 5; week++) a = tick(a)
     let b = migrateToV18(importSave(exportSave(makeSave(a)))).state

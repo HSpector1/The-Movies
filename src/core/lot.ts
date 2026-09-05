@@ -308,87 +308,71 @@ export function initialProperty(): PropertyState {
 // ── P09 — THE AUTHORED BARE-LOT PROPERTY (charter §16/§17) ───────────────────
 //
 // A SEPARATE authored property for the sparse 1920 start. `INITIAL_PROPERTY` is
-// never edited or repurposed (§16); this is new data on the same 28×26 grid and
-// the same authored circulation, so the accepted world anchors (the Gate arch
-// astride the boulevard, Administration at the north court) stand exactly where
-// the endowed lot has them and every presenter that reads the grid keeps its
-// origin.
+// never edited or repurposed (§16); this is NEW data on its OWN grid.
+//
+// P09 W1c — the ground is authored to the world the player actually sees. The
+// accepted Unity lot (`StudioLot.unity`) is a hand-composed 1948 layout, not a
+// rendering of the endowed 28×26 grid, so a bare lot that reused that grid would
+// put its engine ground under the wrong art. The bare lot is instead measured
+// from the scene's authored ground plane (`Studio Property Ground`, 178 × 114
+// world units) at ONE cell size — the Gate Boulevard's authored width over the
+// Gate's three-cell footprint (12.5 / 3 ≈ 4.1667 units per cell) — which gives
+// a 42 × 27 grid whose Gate arch stands astride the authored boulevard exactly
+// where the scene has it, whose Administration sits on the authored
+// Administration pad, and whose roads trace the authored circulation
+// (Gate Boulevard, the Production Crossroad, the Stage Service Road). A Unity
+// grid presenter anchored on the Gate then places every engine cell on the
+// ground the art already shows; nothing about legality is read from art.
 //
 // What it contains, and nothing else (§17): the two civic LANDMARKS (Gate,
 // Administration — no engine capacity), the authored roads, and OWNED buildable
 // ground sized so the minimum first-film plant (office 3×2, scenery 3×2,
 // soundstage 4×4, post 3×2, every one with a clearance ring and road frontage)
-// fits with room to grow. The two blocked parcels of the endowed lot stay
-// blocked dressing here too: the ground is the same ground.
+// fits with room to grow.
 //
 // What it deliberately does NOT contain: any `founding` structure (so
 // `foundingFacilitiesOf` yields nothing and the managed operations root starts
 // EMPTY), the Theater, and the legacy `expansion` parcel id (whose reserved
 // Annex contract belongs to the endowed lot's history, not to open ground).
+export const BARE_LOT_WIDTH = 42
+export const BARE_LOT_DEPTH = 27
+
+/** The bare lot's circulation, tracing the authored scene roads (half-open cell rects). */
+export const BARE_LOT_ROADS: readonly LotRect[] = [
+  { x0: 21, y0: 10, x1: 23, y1: 26 }, // Gate Boulevard: the plaza → the Gate arch (three cells wide)
+  { x0: 0, y0: 11, x1: 40, y1: 13 }, // Production Crossroad: the east–west avenue
+  { x0: 39, y0: 0, x1: 40, y1: 13 }, // Stage Service Road: north–south along the east edge
+]
+
 export const BARE_LOT_PARCELS: readonly LotParcel[] = [
   {
-    id: 'north-west-yard',
-    label: 'North-West Yard',
+    id: 'north-yard',
+    label: 'North Yard',
     terrain: 'buildable',
-    rect: { x0: 0, y0: 0, x1: 8, y1: 6 },
+    rect: { x0: 0, y0: 0, x1: 38, y1: 10 },
     ownedFromStart: true,
-  },
+  }, // north of the Crossroad, fronting it and the Service Road
   {
-    id: 'north-stage-yard',
-    label: 'North Stage Yard',
+    id: 'west-yard',
+    label: 'West Yard',
     terrain: 'buildable',
-    rect: { x0: 15, y0: 0, x1: 27, y1: 6 },
+    rect: { x0: 0, y0: 14, x1: 7, y1: 25 },
     ownedFromStart: true,
-  },
+  }, // west of Administration, fronting the Crossroad
   {
-    id: 'west-lot',
-    label: 'West Lot',
+    id: 'gate-court-west',
+    label: 'Gate Court West',
     terrain: 'buildable',
-    rect: { x0: 0, y0: 9, x1: 6, y1: 18 },
+    rect: { x0: 11, y0: 14, x1: 20, y1: 25 },
     ownedFromStart: true,
-  },
+  }, // between Administration and the Boulevard
   {
-    id: 'courtyard',
-    label: 'Central Courtyard',
-    terrain: 'blocked',
-    rect: { x0: 7, y0: 10, x1: 11, y1: 14 },
-    ownedFromStart: true,
-  },
-  {
-    id: 'east-yard',
-    label: 'East Yard',
+    id: 'gate-court-east',
+    label: 'Gate Court East',
     terrain: 'buildable',
-    rect: { x0: 15, y0: 9, x1: 27, y1: 13 },
+    rect: { x0: 24, y0: 14, x1: 41, y1: 25 },
     ownedFromStart: true,
-  },
-  {
-    id: 'service-yard',
-    label: 'Scenery & Service Yard',
-    terrain: 'blocked',
-    rect: { x0: 21, y0: 16, x1: 26, y1: 18 },
-    ownedFromStart: true,
-  },
-  {
-    id: 'stage-south',
-    label: 'Stage South Pad',
-    terrain: 'buildable',
-    rect: { x0: 15, y0: 16, x1: 17, y1: 20 },
-    ownedFromStart: true,
-  },
-  {
-    id: 'south-lawn',
-    label: 'South Lawn',
-    terrain: 'buildable',
-    rect: { x0: 3, y0: 19, x1: 8, y1: 22 },
-    ownedFromStart: true,
-  },
-  {
-    id: 'backlot-apron',
-    label: 'Back-Lot Apron',
-    terrain: 'buildable',
-    rect: { x0: 23, y0: 20, x1: 26, y1: 24 },
-    ownedFromStart: true,
-  },
+  }, // east of the Boulevard to the property edge
 ]
 
 export const BARE_LOT_STRUCTURES: readonly PropertyStructure[] = [
@@ -396,7 +380,7 @@ export const BARE_LOT_STRUCTURES: readonly PropertyStructure[] = [
     id: 'gate',
     label: 'Studio Gate',
     role: 'landmark',
-    origin: { gx: 8, gy: 23 },
+    origin: { gx: 21, gy: 26 }, // astride the Boulevard's southern end — the authored arch
     footprint: { width: 3, depth: 1 },
     providesFacilityIds: [],
   },
@@ -404,15 +388,15 @@ export const BARE_LOT_STRUCTURES: readonly PropertyStructure[] = [
     id: 'admin',
     label: 'Administration',
     role: 'landmark',
-    origin: { gx: 9, gy: 2 },
+    origin: { gx: 8, gy: 18 }, // the authored Administration pad, west of the Boulevard
     footprint: { width: 3, depth: 3 },
     providesFacilityIds: [],
   },
 ]
 
 export const BARE_LOT_PROPERTY: PropertyState = deepFreezeProperty({
-  bounds: { width: LOT_WIDTH, depth: LOT_DEPTH },
-  roads: LOT_ROADS.map((road) => ({ ...road })),
+  bounds: { width: BARE_LOT_WIDTH, depth: BARE_LOT_DEPTH },
+  roads: BARE_LOT_ROADS.map((road) => ({ ...road })),
   parcels: BARE_LOT_PARCELS.map((parcel) => ({ ...parcel, rect: { ...parcel.rect } })),
   structures: BARE_LOT_STRUCTURES.map((structure) => ({
     ...structure,

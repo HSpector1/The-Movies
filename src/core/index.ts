@@ -202,7 +202,10 @@ export type {
 // ── Placement Core V12 + Property State (C1-M1a) ─────────────────────────────
 export {
   INITIAL_PROPERTY,
+  BARE_LOT_DEPTH,
   BARE_LOT_PROPERTY,
+  BARE_LOT_ROADS,
+  BARE_LOT_WIDTH,
   BARE_LOT_PARCELS,
   BARE_LOT_STRUCTURES,
   bareLotProperty,
