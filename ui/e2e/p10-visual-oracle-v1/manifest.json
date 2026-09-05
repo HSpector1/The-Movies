@@ -12,6 +12,18 @@
       "protocolVersion": 4,
       "stateDigest": "982e4a32d7b6bd51706c55fd73bb573c016ffff9d8bcb41765fa3d0ac906bc6c",
       "source": "ui/e2e/p09-visual-oracle-v1/s1-p09-migrated-endowed-unchanged.checkpoint.json"
+    },
+    {
+      "ordinal": 2,
+      "scenarioId": "p10-person-history",
+      "file": "s2-p10-person-history.checkpoint.json",
+      "byteLength": 291908,
+      "sha256": "14b0ae8028536bdf740763714ca59b63679e02c7fa8c2b0680df9f7d61f8d512",
+      "sessionId": "p10-oracle-p10-person-history",
+      "schemaId": "sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4",
+      "protocolVersion": 4,
+      "stateDigest": "3b95deaea65d79db39d0fad8f0e4854201f302439ddfee3630f79d7a1dc8c8cf",
+      "source": "ui/e2e/p09-visual-oracle-v1/s1-p09-migrated-endowed-unchanged.checkpoint.json"
     }
   ]
 }

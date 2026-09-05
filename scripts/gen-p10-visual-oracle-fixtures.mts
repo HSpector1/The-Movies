@@ -19,11 +19,21 @@ const OUT_DIR = 'ui/e2e/p10-visual-oracle-v1'
 
 type P10Fixture = { scenarioId: string; sessionId: string; sourceSaveJson: string }
 
+const P09_FIRST_FILM = 'ui/e2e/p09-visual-oracle-v1/s10-p09-first-film-released.checkpoint.json'
+
 const fixtures: P10Fixture[] = [
   {
     scenarioId: 'person-inspector',
     sessionId: 'p10-oracle-p10-person-inspector',
     sourceSaveJson: (JSON.parse(readFileSync(P09_ENDOWED, 'utf8')) as { currentSaveJson: string }).currentSaveJson,
+  },
+  {
+    // The cross-stack person<->history adapters need a studio with a released film and captured
+    // participants. The accepted P09 first-film-released state has exactly that (six credited
+    // people in P08 history, each a partial-provenance credit without a frozen career event).
+    scenarioId: 'person-history',
+    sessionId: 'p10-oracle-p10-person-history',
+    sourceSaveJson: (JSON.parse(readFileSync(P09_FIRST_FILM, 'utf8')) as { currentSaveJson: string }).currentSaveJson,
   },
 ]
 
