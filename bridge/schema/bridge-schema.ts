@@ -140,6 +140,8 @@ const StudioFilmResultSnapshot = object('StudioFilmResultSnapshot', {
 
 const StudioJourneyNextSnapshot = object('StudioJourneyNextSnapshot', {
   kind: enumeration([
+    // P09 W1b: a bare lot's first step is a BUILD, not a commission.
+    'build',
     'commission',
     'script-review',
     'plan-auditions',
@@ -151,7 +153,7 @@ const StudioJourneyNextSnapshot = object('StudioJourneyNextSnapshot', {
     'advance-week',
   ]),
   label: nonEmptyText(),
-  site: nullable(enumeration(['development', 'casting', 'stage', 'post', 'admin'])),
+  site: nullable(enumeration(['development', 'casting', 'stage', 'post', 'admin', 'build'])),
 })
 
 const StudioJourneyWaitingSnapshot = object('StudioJourneyWaitingSnapshot', {
@@ -165,6 +167,8 @@ const StudioJourneyBlockedSnapshot = object('StudioJourneyBlockedSnapshot', {
 
 const StudioFirstFilmJourneySnapshot = object('StudioFirstFilmJourneySnapshot', {
   stage: enumeration([
+    // P09 W1b: a bare lot with no operational Development & Casting capacity.
+    'no-capacity',
     'no-picture',
     'drafting',
     'script-review',
@@ -175,6 +179,7 @@ const StudioFirstFilmJourneySnapshot = object('StudioFirstFilmJourneySnapshot', 
     'released',
   ]),
   beat: enumeration([
+    'no-capacity',
     'no-picture',
     'screenplay-writing',
     'screenplay-review',
@@ -585,6 +590,8 @@ const StudioPropertySnapshot = object('StudioPropertySnapshot', {
   buildings: array(reference('StudioPropertyBuildingSnapshot', StudioPropertyBuildingSnapshot)),
   /** P09 §16: the persisted founding regime — exact history, never inferred from the buildings. */
   regime: enumeration(['endowed', 'bare-lot']),
+  /** P09 W1b: the engine's road rectangles (half-open), the ground road-frontage is judged against. */
+  roads: array(reference('StudioGridRectSnapshot', StudioGridRectSnapshot)),
 })
 
 const StudioWeekTheaterSubjectSnapshot = object('StudioWeekTheaterSubjectSnapshot', {

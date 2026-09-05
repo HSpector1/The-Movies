@@ -46,6 +46,7 @@
 // invented here (operational law 12) — `next.site` is a semantic site and the
 // renderer maps it to whatever building it actually has.
 
+import { FOUNDING_OFFICE_BLUEPRINT_ID, foundingPhaseOf } from './blueprintRequirements.js'
 import { castingSessionForProject } from './castingSessions.js'
 import { castingSessionsReadModel, type CastingProjectView } from './castingReadModel.js'
 import { productionPhaseForRemainingTicks } from './operations.js'
@@ -75,6 +76,7 @@ import type {
 // ── frozen public shape ─────────────────────────────────────────────────────
 
 export type FirstFilmJourneyStage =
+  | 'no-capacity' // P09 W1b: bare lot, no operational Development & Casting capacity
   | 'no-picture'
   // ONE stage for "the screenplay is being written": both the `drafting` and `rewriting`
   // project statuses land here, and the stage's HEADLINE is where the two are told apart
@@ -97,6 +99,7 @@ export type FirstFilmJourneyStage =
  * truth already owned by the engine.
  */
 export type PictureJourneyBeat =
+  | 'no-capacity'
   | 'no-picture'
   | 'screenplay-writing'
   | 'screenplay-review'
@@ -114,6 +117,7 @@ export type PictureJourneyBeat =
   | 'released'
 
 export type JourneyTargetKind =
+  | 'build' // P09 W1b: open the Build catalogue
   | 'commission'
   | 'script-review'
   | 'plan-auditions'
@@ -124,7 +128,7 @@ export type JourneyTargetKind =
   | 'release-review' // P06A (charter W1): the explicit release decision
   | 'advance-week'
 
-export type JourneySite = 'development' | 'casting' | 'stage' | 'post' | 'admin'
+export type JourneySite = 'development' | 'casting' | 'stage' | 'post' | 'admin' | 'build'
 
 export interface FirstFilmJourneyNext {
   kind: JourneyTargetKind
@@ -168,6 +172,7 @@ const SITE_PLACE: Record<JourneySite, string> = {
   stage: 'the soundstage',
   post: 'the Post Building',
   admin: 'Administration',
+  build: 'the Build catalogue', // P09 W1b
 }
 
 // P05A W1/W2: Rehearsal is company/stage PREPARATION — `LOAD-IN` is reserved
@@ -532,6 +537,13 @@ function noPictureView(
       blocked,
     }
   }
+  // P09 W1b (design §7.2 / §24 beats 2–5): on a bare lot the first real problem is
+  // missing Development & Casting capacity, explained from the lot — a blocker
+  // explanation and a route to Build, never a purchase and never a tutorial modal.
+  const foundingPhase = foundingPhaseOf(state)
+  if (foundingPhase === 'office-needed' || foundingPhase === 'office-building') {
+    return noCapacityView(state, foundingPhase, nextOrdinal, blocked)
+  }
   return {
     stage: 'no-picture',
     beat: 'no-picture',
@@ -545,6 +557,42 @@ function noPictureView(
     detail: 'The studio has no picture in the works. Every picture starts with a screenplay.',
     next: commissionNext(blocked),
     waiting: null,
+    blocked,
+  }
+}
+
+/** The bare-lot founding beat: no office yet (Open Build), or the office rising (wait for its week). */
+function noCapacityView(
+  state: GameState,
+  phase: 'office-needed' | 'office-building',
+  ordinal: number,
+  blocked: FirstFilmJourneyView['blocked'],
+): FirstFilmJourneyView {
+  const office = state.placement.facilities.find(
+    (placed) => placed.blueprintId === FOUNDING_OFFICE_BLUEPRINT_ID && placed.status === 'underConstruction',
+  )
+  const rising = phase === 'office-building' && office !== undefined
+  return {
+    stage: 'no-capacity',
+    beat: 'no-capacity',
+    productionId: null,
+    scriptProjectId: null,
+    pictureTitle: null,
+    ordinal,
+    headline: 'NO DEVELOPMENT & CASTING CAPACITY',
+    whatHappened: rising
+      ? `The Development & Casting Office is under construction and opens on Week ${String(office.completesWeek)}.`
+      : 'The studio has no Development & Casting Office.',
+    whyItMatters: 'Active development and auditions need an operational Development & Casting Office.',
+    detail: rising
+      ? 'Construction advances only on the weekly clock. Development opens the week the office completes.'
+      : 'Build one from the Build catalogue. No screenplay can be developed until it is operational.',
+    next: rising
+      ? { kind: 'advance-week', label: 'Advance the week', site: null }
+      : { kind: 'build', label: 'Open Build', site: 'build' },
+    waiting: rising
+      ? { untilWeek: office.completesWeek, reason: 'Waits until the Development & Casting Office is operational.' }
+      : null,
     blocked,
   }
 }

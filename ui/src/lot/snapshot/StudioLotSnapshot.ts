@@ -1076,6 +1076,13 @@ export type LotPropertyProjection = {
   buildings: LotWorldBuilding[]
   /** P09 §16: the persisted founding regime — exact history, never inferred from the buildings. */
   regime: 'endowed' | 'bare-lot'
+  /**
+   * P09 W1b: the engine's road rectangles (half-open cell rects), so a world can draw
+   * the circulation that road-frontage legality is judged against — never inferred
+   * from art. Optional ONLY so older hand-authored fixtures stay source-compatible;
+   * the adapter always emits it.
+   */
+  roads?: { x0: number; y0: number; x1: number; y1: number }[]
 }
 
 /** The id prefix every non-legacy placed facility is addressed by. */

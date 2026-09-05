@@ -249,6 +249,7 @@ import {
 import type { ReceptionBand, CriticTier } from '../../../src/core/index.ts'
 // Re-export for existing external consumers that imported filmCommittedCost from the adapter.
 export { filmCommittedCost } from '../../../src/core/index.ts'
+import { legacyAnnexOffered as coreLegacyAnnexOffered } from '../../../src/core/index.ts'
 import { money } from '../format.ts'
 // Gate D1: presentation-only snapshot types for the Studio Lot. This is a pure leaf
 // type module (imports nothing, no Phaser); the value import (ALL_BUILDING_IDS) adds
@@ -6879,6 +6880,7 @@ function lotPropertyProjection(
     buildings,
     // P09 §16: exact founding history rides with the property; never inferred here.
     regime: state.foundingRegime,
+    roads: property.roads.map((road) => ({ x0: road.x0, y0: road.y0, x1: road.x1, y1: road.y1 })),
   }
 }
 
@@ -7834,8 +7836,16 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     }
   }
 
+  // P09 W1b: the world lists only bodies the PROPERTY actually carries. An endowed
+  // studio has every founding structure and the legacy Annex parcel; a bare lot has
+  // its two landmarks and nothing else — no phantom "Stage A available" on empty ground.
+  const propertyForBodies = corePropertyOf(state)
+  const propertyCarries = (id: BuildingId): boolean =>
+    id === 'expansion'
+      ? coreLegacyAnnexOffered(propertyForBodies)
+      : propertyForBodies.structures.some((structure) => structure.id === id)
   const buildings: BuildingState[] = [
-    ...FOUNDING_BUILDING_IDS.map(buildingState),
+    ...FOUNDING_BUILDING_IDS.filter(propertyCarries).map(buildingState),
     ...placementProjection.placements
       .filter((placed) => placed.parcelId !== LEGACY_EXPANSION_PARCEL_ID)
       .map(placedBuildingState),

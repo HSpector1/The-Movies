@@ -23,6 +23,7 @@ import { FOUNDING_STAGE_BUILDING_IDS, lotStageBuildingIds } from './stageIdentit
 // ── The frozen projection contract ────────────────────────────────────────────
 
 export type FirstFilmJourneyStage =
+  | 'no-capacity'
   | 'no-picture'
   | 'drafting'
   | 'script-review'
@@ -33,6 +34,7 @@ export type FirstFilmJourneyStage =
   | 'released'
 
 export type PictureJourneyBeat =
+  | 'no-capacity'
   | 'no-picture'
   | 'screenplay-writing'
   | 'screenplay-review'
@@ -50,6 +52,7 @@ export type PictureJourneyBeat =
   | 'released'
 
 export type JourneyTargetKind =
+  | 'build'
   | 'commission'
   | 'script-review'
   | 'plan-auditions'
@@ -61,7 +64,7 @@ export type JourneyTargetKind =
   | 'advance-week'
 
 /** Semantic destinations. NOT building ids — see the mapping below. */
-export type JourneySite = 'development' | 'casting' | 'stage' | 'post' | 'admin'
+export type JourneySite = 'development' | 'casting' | 'stage' | 'post' | 'admin' | 'build'
 
 export interface FirstFilmJourneyNext {
   kind: JourneyTargetKind
@@ -86,6 +89,7 @@ export interface FirstFilmJourneyView {
 }
 
 const JOURNEY_STAGES: readonly FirstFilmJourneyStage[] = [
+  'no-capacity',
   'no-picture',
   'drafting',
   'script-review',
@@ -97,6 +101,7 @@ const JOURNEY_STAGES: readonly FirstFilmJourneyStage[] = [
 ]
 
 const JOURNEY_BEATS: readonly PictureJourneyBeat[] = [
+  'no-capacity',
   'no-picture',
   'screenplay-writing',
   'screenplay-review',
@@ -115,6 +120,7 @@ const JOURNEY_BEATS: readonly PictureJourneyBeat[] = [
 ]
 
 const JOURNEY_TARGET_KINDS: readonly JourneyTargetKind[] = [
+  'build', // P09 W1b: a bare lot's first step
   'commission',
   'script-review',
   'plan-auditions',
@@ -132,6 +138,7 @@ const JOURNEY_SITES: readonly JourneySite[] = [
   'stage',
   'post',
   'admin',
+  'build', // P09 W1b: the Build catalogue, not a building
 ]
 
 // ── Semantic site → physical building ─────────────────────────────────────────
@@ -156,7 +163,7 @@ export function journeyStageBuildingIds(snapshot: StudioLotSnapshot): readonly B
  * absent on purpose: which soundstage a picture occupies is a fact about the current
  * production set, not a constant.
  */
-export const JOURNEY_SITE_BUILDING: Readonly<Record<Exclude<JourneySite, 'stage'>, BuildingId>> = {
+export const JOURNEY_SITE_BUILDING: Readonly<Record<Exclude<JourneySite, 'stage' | 'build'>, BuildingId>> = {
   development: 'writers',
   casting: 'casting',
   post: 'post',
@@ -212,6 +219,8 @@ export function journeyTargetBuildingId(
   snapshot: StudioLotSnapshot,
 ): BuildingId | null {
   if (site === null) return null
+  // P09 W1b: Build is a catalogue route, not a body on the lot — the world points at nothing.
+  if (site === 'build') return null
   if (site === 'stage') {
     // The stage a picture is PROVABLY in wins. With none proved, the guidance points at
     // the studio's FIRST soundstage — first in the engine's own facility order, i.e.

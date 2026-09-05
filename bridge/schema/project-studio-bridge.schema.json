@@ -3388,6 +3388,7 @@
       "properties": {
         "beat": {
           "enum": [
+            "no-capacity",
             "no-picture",
             "screenplay-writing",
             "screenplay-review",
@@ -3477,6 +3478,7 @@
         },
         "stage": {
           "enum": [
+            "no-capacity",
             "no-picture",
             "drafting",
             "script-review",
@@ -4377,6 +4379,7 @@
       "properties": {
         "kind": {
           "enum": [
+            "build",
             "commission",
             "script-review",
             "plan-auditions",
@@ -4401,7 +4404,8 @@
                 "casting",
                 "stage",
                 "post",
-                "admin"
+                "admin",
+                "build"
               ],
               "type": "string"
             },
@@ -6282,12 +6286,19 @@
             "bare-lot"
           ],
           "type": "string"
+        },
+        "roads": {
+          "items": {
+            "$ref": "#/$defs/StudioGridRectSnapshot"
+          },
+          "type": "array"
         }
       },
       "required": [
         "bounds",
         "buildings",
-        "regime"
+        "regime",
+        "roads"
       ],
       "type": "object",
       "x-csharp-name": "StudioPropertySnapshot"

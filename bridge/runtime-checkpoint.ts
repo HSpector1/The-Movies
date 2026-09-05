@@ -108,6 +108,10 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   ['sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99', 'projection-v15'],
   // P08A W2 — projection 16 (Standing & Studio History section); superseded by P09's projection 17.
   ['sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236', 'projection-v16'],
+  // projection-v17-early: 71a879be — the first projection-17 identity (placement quote
+  // family), superseded within the same ProjectionVersion=17 label by W1b (roads +
+  // bare-lot journey beat); a checkpoint written in that window carries this hash.
+  ['sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399', 'projection-v17-early'],
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({
