@@ -15,7 +15,7 @@
 | `FINAL_DOCS_SHA` | `72ca8e797e5185a5dec13ac4c4311e391b8e96e3` |
 | Owner durable profile | `d949003e…` unchanged (hash-checked at C5; P09 automation ran only on fixture checkpoints) |
 | P08 seal record | `docs/campaigns/P08-TECHNICAL-CHECKPOINT.md`; hostile review verbatim `docs/campaigns/P08-HOSTILE-REVIEW-CORE.md`; candidate `~/Desktop/P08-Core-Technical-Candidate-8a23cb3-64dab80/` |
-| P09 seal record | `docs/campaigns/P09-TECHNICAL-CHECKPOINT.md`; candidate `~/Desktop/P09-Core-Technical-Candidate-fee206f-a8f4c1a/` (player, engine, 12 fixtures, docs, oracle run 7 + viewports + prior run 6, EditMode XML, TS floor, CF-09, proof scripts); real-HID Build flow and hostile review recorded in the checkpoint §5/§9 as they close |
+| P09 seal record | `docs/campaigns/P09-TECHNICAL-CHECKPOINT.md`; candidate `~/Desktop/P09-Core-Technical-Candidate-fee206f-f7cf20a/` (player, engine, 12 fixtures, docs, oracle run 7 + viewports + prior run 6, EditMode XML, TS floor, CF-09, proof scripts); real-HID Build flow and hostile review recorded in the checkpoint §5/§9 as they close |
 | Next concrete command | P10 core Wave 0: read `docs/engineering/CODEX-P08-P10-AUTONOMOUS-STACK-CURRENT-REFRESH.md` §7 (P10 design) and the execution order §25–§31; the green starting point is `cd "/Users/bruce/The Movies - P08-P10 Stack TS" && npx vitest run tests/p09a-w0-founding-regime.test.ts tests/bridge-p09a-w5-bare-lot-first-film.test.ts`; do not begin P10 until the P09 HID gate has a recorded result (pass or recorded failure) and the hostile review is dispositioned |
 
 ## CHECKPOINT HISTORY (append-only)
