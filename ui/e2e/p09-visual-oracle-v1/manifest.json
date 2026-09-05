@@ -1,7 +1,7 @@
 {
   "fixtureId": "p09-visual-oracle-v1",
   "generator": "scripts/gen-p09-visual-oracle-fixtures.mts",
-  "generatorSourceSha256": "ce31e9ec616d5b429cb3e72b638e92121ae7ba3e1d98e2d491056b3de5b6ca75",
+  "generatorSourceSha256": "ee4df25c4668b8ccd76fce46cbeb904780c27baa3732bc251f0f9f7c52487f14",
   "seed": "p09-visual-oracle-v1",
   "origins": {
     "development-casting-office": {
@@ -34,9 +34,9 @@
       },
       "checkpoint": {
         "file": "s1-p09-migrated-endowed-unchanged.checkpoint.json",
-        "byteLength": 251862,
-        "sha256": "a99a463605871c82b1e9318c5b151ed3aa739189c0f17a65b44fa6aa9c19c257",
-        "sessionId": "p09-oracle-migrated-endowed-unchanged",
+        "byteLength": 251866,
+        "sha256": "9f9fcfea695d961c18fbadc66dc337950c7d577ab6e2a1bf38479dbe43b5a72f",
+        "sessionId": "p09-oracle-p09-migrated-endowed-unchanged",
         "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
         "stateDigest": "982e4a32d7b6bd51706c55fd73bb573c016ffff9d8bcb41765fa3d0ac906bc6c"
       },
@@ -151,9 +151,9 @@
       },
       "checkpoint": {
         "file": "s2-p09-sparse-start.checkpoint.json",
-        "byteLength": 246827,
-        "sha256": "68ccbecfea74ab02c1d4ca77dac78ebdbf40fde267650a7acb7b0773aacd4040",
-        "sessionId": "p09-oracle-sparse-start",
+        "byteLength": 246831,
+        "sha256": "4e1d2d18f895b9e0989ff4bd7242895dca26e44a500188c1de4500ec6beb7ae9",
+        "sessionId": "p09-oracle-p09-sparse-start",
         "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
         "stateDigest": "c3e11475a75bad05cf93500f88279a9f731fbe2417e5838b3792d633a921c608"
       },
@@ -276,9 +276,9 @@
       },
       "checkpoint": {
         "file": "s3-p09-valid-placement.checkpoint.json",
-        "byteLength": 246830,
-        "sha256": "89eb1a08fca9f90430748758bf7d28798771cebbd6426de81efdb1316e66ad71",
-        "sessionId": "p09-oracle-valid-placement",
+        "byteLength": 246834,
+        "sha256": "36b7e2c6be1b082e5e1f70875740506024bfe6766b6b43a9f414508991108cb5",
+        "sessionId": "p09-oracle-p09-valid-placement",
         "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
         "stateDigest": "c3e11475a75bad05cf93500f88279a9f731fbe2417e5838b3792d633a921c608"
       },
@@ -402,9 +402,9 @@
       },
       "checkpoint": {
         "file": "s4-p09-invalid-placement.checkpoint.json",
-        "byteLength": 246832,
-        "sha256": "4975fd268ece91c09bde0d5a3ef99979b5692cf6e52c9937102c84d618d9f83d",
-        "sessionId": "p09-oracle-invalid-placement",
+        "byteLength": 246836,
+        "sha256": "2fe79ec5250c8362018836ff59f9acba25d1cda3af261033c144e420cd58a131",
+        "sessionId": "p09-oracle-p09-invalid-placement",
         "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
         "stateDigest": "c3e11475a75bad05cf93500f88279a9f731fbe2417e5838b3792d633a921c608"
       },
@@ -530,9 +530,9 @@
       },
       "checkpoint": {
         "file": "s5-p09-office-rising.checkpoint.json",
-        "byteLength": 251390,
-        "sha256": "b6ae2a3e56caa1477e4747e1f9fb83b5c2de49fc1f57e2f861c8ebc81e425df9",
-        "sessionId": "p09-oracle-office-rising",
+        "byteLength": 251394,
+        "sha256": "7f29cb97ddd9107be19d77949b10def1c21f430384ca0b8baecde1e16dd19ec7",
+        "sessionId": "p09-oracle-p09-office-rising",
         "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
         "stateDigest": "30f7269019b3b0110bc051e6510b84f46a5e5dc19ce4e665fce689bfb69d7810"
       },
@@ -667,9 +667,9 @@
       },
       "checkpoint": {
         "file": "s6-p09-multi-site.checkpoint.json",
-        "byteLength": 262585,
-        "sha256": "7ef3dbabbdf4e20529863aac1f49f1a5c537071ea8e67a161ba3bdaee8e5d3a7",
-        "sessionId": "p09-oracle-multi-site",
+        "byteLength": 262589,
+        "sha256": "19d8e0cf28c0cdd4770580176b41a9055c031a6bb57308c71f506387562528ec",
+        "sessionId": "p09-oracle-p09-multi-site",
         "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
         "stateDigest": "e054946875f9b5f871ffe5b8a97df2c0f2521679672fcd47a51193f6c6091fff"
       },
@@ -827,9 +827,9 @@
       },
       "checkpoint": {
         "file": "s7-p09-reconnect-same-ids.checkpoint.json",
-        "byteLength": 262595,
-        "sha256": "07b6b193752bf18fb021fc0e6a369376be614a93825ac9e46c3f60d17c3f36a5",
-        "sessionId": "p09-oracle-reconnect-same-ids-b",
+        "byteLength": 262597,
+        "sha256": "eca47d3b4eefaf33d5bf80363ceafa7c104acbecda32e8a118de8757bfd02c46",
+        "sessionId": "p09-oracle-p09-reconnect-same-ids",
         "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
         "stateDigest": "e054946875f9b5f871ffe5b8a97df2c0f2521679672fcd47a51193f6c6091fff"
       },
@@ -989,9 +989,9 @@
       },
       "checkpoint": {
         "file": "s8-p09-same-week-completion.checkpoint.json",
-        "byteLength": 273225,
-        "sha256": "6caed725022380586eaeba21a18a8f336b62ef9751249b87b5d0e160b6170e80",
-        "sessionId": "p09-oracle-same-week-completion",
+        "byteLength": 273229,
+        "sha256": "0f75dd042904967bf89c55f9ab4b63325678debad465eaea9afd3e7adf1ad65b",
+        "sessionId": "p09-oracle-p09-same-week-completion",
         "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
         "stateDigest": "c6b13fbb78fb82c6dda052ce5b81e2316a4290f741409fae08cc0e971d2303fa"
       },
@@ -1134,9 +1134,9 @@
       },
       "checkpoint": {
         "file": "s9-p09-save-load-mid-construction.checkpoint.json",
-        "byteLength": 253007,
-        "sha256": "4432dd546ebf150b52f4fbdf2455854639c0a0bdb3aa18a25fb0fac65d0426e6",
-        "sessionId": "p09-oracle-save-load-mid-construction",
+        "byteLength": 253011,
+        "sha256": "4a77251de766d5a4703459ee0920162f74dfc9ca08446c73cef737b9947ec70a",
+        "sessionId": "p09-oracle-p09-save-load-mid-construction",
         "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
         "stateDigest": "b3ae3c68e87038aea6a96f5208f34767512338eff7e79c3807f24ab2fb676d6e"
       },
@@ -1269,9 +1269,9 @@
       },
       "checkpoint": {
         "file": "s10-p09-first-film-released.checkpoint.json",
-        "byteLength": 291909,
-        "sha256": "0086d9ef119bb1a104eb3c7c82861fd6691bcc0ef795e09ee98137f9820ba400",
-        "sessionId": "p09-oracle-first-film-released",
+        "byteLength": 291913,
+        "sha256": "8f77e76f1c989bca08a845e1885b708e38fdef6d50d8ddfdb2e6cb64571dfd15",
+        "sessionId": "p09-oracle-p09-first-film-released",
         "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
         "stateDigest": "3b95deaea65d79db39d0fad8f0e4854201f302439ddfee3630f79d7a1dc8c8cf"
       },
@@ -1428,9 +1428,9 @@
       },
       "checkpoint": {
         "file": "s11-p09-endowed-build.checkpoint.json",
-        "byteLength": 253187,
-        "sha256": "4fb3a94b5aa06d66e19ec1fb979c803df88905d3533a2707fe48bce0f79e547f",
-        "sessionId": "p09-oracle-endowed-build",
+        "byteLength": 253191,
+        "sha256": "e1c7520d4a6310e587ebbc7c54e6fcf23de13f4b544b134b72da6e81513e5430",
+        "sessionId": "p09-oracle-p09-endowed-build",
         "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
         "stateDigest": "abd96846ad4aff47ac2b8708c288599dc9008a72275e52bf1693fd8835dc5526"
       },

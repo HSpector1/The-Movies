@@ -197,7 +197,8 @@ type ScenarioFixture = {
 
 function buildFixtures(): ScenarioFixture[] {
   const fixtures: ScenarioFixture[] = []
-  const add = (scenarioId: string, state: GameState, derivation: string[], assertions: string[], sessionId = `p09-oracle-${scenarioId}`) =>
+  // The runner gates on `SessionPrefix + scenarioId` exactly ("p09-oracle-" + "p09-…").
+  const add = (scenarioId: string, state: GameState, derivation: string[], assertions: string[], sessionId = `p09-oracle-p09-${scenarioId}`) =>
     fixtures.push({ scenarioId, week: state.market.tick, state, sessionId, derivation, assertions })
 
   // s1 — endowed, migrated through the shipped path.
@@ -277,7 +278,8 @@ function buildFixtures(): ScenarioFixture[] {
     const derivation = ['office committed week 0, operational week 14; scenery-shop (16,14), stage-standard (26,4), post-building (30,14) committed on week 14 at the engine\'s prices; two weekly advances']
     const facts = ['placed-1 operational', 'placed-2 scenery 2/11', 'placed-3 soundstage 2/16', 'placed-4 post 2/14', 'chip BUILD · 3 ACTIVE']
     add('multi-site', multi, derivation, facts)
-    add('reconnect-same-ids', multi, [...derivation, 'the same state served under a second session id'], [...facts, 'identities are the persisted placement ids'], 'p09-oracle-reconnect-same-ids-b')
+    // The same state under a SECOND session id (its own scenario id ⇒ its own session).
+    add('reconnect-same-ids', multi, [...derivation, 'the same state served under a second session id'], [...facts, 'identities are the persisted placement ids'])
   }
 
   // s7 — same-week completion.
