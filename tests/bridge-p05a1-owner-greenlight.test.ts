@@ -23,7 +23,7 @@ import { BridgeSession } from '../bridge/session.ts'
 import { castingDraftToEngine } from '../bridge/casting.ts'
 import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
-import { busyTalentIds, importSave, migrateToV16, type GameState } from '../src/core/index.ts'
+import { busyTalentIds, importSave, migrateToV17, type GameState } from '../src/core/index.ts'
 
 const OWNER_SAVE_JSON = readFileSync(
   join(__dirname, 'fixtures', 'p05a1-owner-profile-rev2.save.json'),
@@ -46,7 +46,7 @@ const MKT_MIN = 449734
 
 function ownerState(): GameState {
   // P06A: the P05-era fixture migrates to the LIVE state — the old cast hid it.
-  return migrateToV16(importSave(OWNER_SAVE_JSON)).state
+  return migrateToV17(importSave(OWNER_SAVE_JSON)).state
 }
 
 function greenlightDraft(overrides: Partial<BridgeCastingDraftPayload> = {}): BridgeCastingDraftPayload {

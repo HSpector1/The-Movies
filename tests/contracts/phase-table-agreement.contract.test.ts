@@ -25,13 +25,13 @@ import {
   productionPhaseForRemainingTicks as operationsPhaseForRemainingTicks,
   stableStringify,
   tick,
-  validateSaveV16,
+  validateSaveV17,
 } from '../../src/core/index.js'
 import type {
   FacilityReservation,
   GameState,
   ProductionPhase,
-  SaveFileV16,
+  SaveFileV17,
 } from '../../src/core/index.js'
 import {
   CHARTER_NEXT_PHASE,
@@ -99,9 +99,9 @@ function phaseWalk(seed: string): PhaseSnapshot[] {
   return snapshots
 }
 
-function saveOf(state: GameState): SaveFileV16 {
+function saveOf(state: GameState): SaveFileV17 {
   const save = makeSave(state)
-  expect(validateSaveV16(save)).toBe(save)
+  expect(validateSaveV17(save)).toBe(save)
   return save
 }
 
@@ -221,13 +221,13 @@ describe('C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal', () 
 
       // Substring form on purpose: a required multiset is joined with " + ",
       // which is a quantifier if it is read as a pattern.
-      expect(() => validateSaveV16(forged), `${snapshot.phase} forged`).toThrow(
+      expect(() => validateSaveV17(forged), `${snapshot.phase} forged`).toThrow(
         `must provide exactly ${expectedNaming} for ${snapshot.phase}`,
       )
       // The legal twin is untouched and still passes — the refusal is the
       // collision, not the fixture.
       expect(stableStringify(legal)).toBe(before)
-      expect(validateSaveV16(legal)).toBe(legal)
+      expect(validateSaveV17(legal)).toBe(legal)
     }
   })
 
@@ -243,7 +243,7 @@ describe('C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal', () 
         capability: 'development-casting',
         targetPhase: wrongTarget,
       }
-      expect(() => validateSaveV16(forged), `${snapshot.phase} → ${wrongTarget}`).toThrow(
+      expect(() => validateSaveV17(forged), `${snapshot.phase} → ${wrongTarget}`).toThrow(
         /blocker\.targetPhase must be the next scheduled phase/,
       )
     }
@@ -263,7 +263,7 @@ describe('C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal', () 
       capability: unrelated,
       targetPhase: next,
     }
-    expect(() => validateSaveV16(forged)).toThrow(
+    expect(() => validateSaveV17(forged)).toThrow(
       /blocker\.capability is not required by its target phase/,
     )
   })

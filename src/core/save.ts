@@ -38,6 +38,7 @@ import {
   TUNING,
 } from "./tuning.js";
 import { assertReleaseAuthorityInvariants } from './releaseAuthority.js'
+import { assertStudioHistoryInvariants, migratedStudioHistory } from './studioHistory.js'
 import type {
   BroadcastItem,
   Ceilings,
@@ -55,6 +56,7 @@ import type {
   GameStateV14,
   GameStateV15,
   GameStateV16,
+  GameStateV17,
   GameStateV2,
   GameStateV3,
   GameStateV4,
@@ -335,6 +337,16 @@ export type SaveFileV16 = {
   broadcastCache: BroadcastItem[];
 };
 
+// P08A — the LIVE envelope. V17 mints exactly one new root, `studioHistory`
+// (the additive forward-recording history authority); everything else is the
+// frozen V16 shape.
+export type SaveFileV17 = {
+  saveVersion: 17;
+  seed: string;
+  state: GameStateV17;
+  broadcastCache: BroadcastItem[];
+};
+
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
   | SaveFileV1
@@ -352,7 +364,8 @@ export type SaveFile =
   | SaveFileV13
   | SaveFileV14
   | SaveFileV15
-  | SaveFileV16;
+  | SaveFileV16
+  | SaveFileV17;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -4796,6 +4809,91 @@ export function validateSaveV16(save: unknown): SaveFileV16 {
   return typed;
 }
 
+// P08A validateSaveV17. The V16 allowlist plus the ONE new root. Frozen-V16
+// validity is checked by stripping `studioHistory` and delegating to
+// validateSaveV16 (the exact discipline V16 used over V15); then the new root is
+// validated STRICTLY — exact keys, ascending monotonic eventIds, the recording
+// boundary, exact-delta receipts — via assertStudioHistoryInvariants.
+export function validateSaveV17(save: unknown): SaveFileV17 {
+  if (!isRecord(save)) {
+    throw new Error("validateSaveV17: save is not a plain object");
+  }
+  v12ExactKeys(save, ["saveVersion", "seed", "state", "broadcastCache"], "save");
+  if (save.saveVersion !== 17) {
+    throw new Error(
+      `validateSaveV17: expected saveVersion 17, got ${JSON.stringify(save.saveVersion)}`,
+    );
+  }
+  const state = v14Record(checkEnvelope(save, "validateSaveV17"), "state");
+  if (!Object.prototype.hasOwnProperty.call(state, "studioHistory")) {
+    throw new Error("validateSaveV17: state.studioHistory is missing");
+  }
+  const { studioHistory: rawHistory, ...v16State } = state;
+  try {
+    validateSaveV16({
+      saveVersion: 16,
+      seed: save.seed,
+      state: v16State,
+      broadcastCache: save.broadcastCache,
+    });
+  } catch (error) {
+    throw new Error(
+      `validateSaveV17: frozen V16 state is invalid — ${(error as Error).message}`,
+    );
+  }
+  if (!isRecord(rawHistory)) {
+    throw new Error("validateSaveV17: state.studioHistory is not a plain object");
+  }
+  v12ExactKeys(rawHistory, ["recordingStartedWeek", "nextEventId", "rows"], "state.studioHistory");
+  if (!Array.isArray(rawHistory.rows)) {
+    throw new Error("validateSaveV17: state.studioHistory.rows is not an array");
+  }
+  for (let i = 0; i < rawHistory.rows.length; i++) {
+    const row = rawHistory.rows[i];
+    const label = `state.studioHistory.rows[${String(i)}]`;
+    if (!isRecord(row)) throw new Error(`validateSaveV17: ${label} is not a plain object`);
+    if (typeof row.kind !== "string" || !STUDIO_HISTORY_KINDS.includes(row.kind)) {
+      throw new Error(`validateSaveV17: ${label}.kind ${JSON.stringify(row.kind)} is not a known history kind`);
+    }
+    if (typeof row.significance !== "string" || !STUDIO_HISTORY_SIGNIFICANCES.includes(row.significance)) {
+      throw new Error(`validateSaveV17: ${label}.significance is not a known class`);
+    }
+    if (!Array.isArray(row.subjects)) throw new Error(`validateSaveV17: ${label}.subjects is not an array`);
+    const keys = STUDIO_HISTORY_ROW_KEYS[row.kind as keyof typeof STUDIO_HISTORY_ROW_KEYS];
+    v12ExactKeys(row, keys, label);
+  }
+  const typed = save as SaveFileV17;
+  assertStudioHistoryInvariants(typed.state.studioHistory, "validateSaveV17");
+  return typed;
+}
+
+const STUDIO_HISTORY_KINDS: readonly string[] = [
+  "studioFounded",
+  "standingChanged",
+  "standingDriftFolded",
+  "filmReleased",
+  "theatricalRunCompleted",
+  "facilityCommitted",
+  "facilityCompleted",
+  "facilityDemolished",
+  "facilityMoved",
+  "careerMilestone",
+];
+const STUDIO_HISTORY_SIGNIFICANCES: readonly string[] = ["landmark", "major", "standard", "routine"];
+const HISTORY_BASE_KEYS = ["eventId", "week", "kind", "significance", "subjects"] as const;
+const STUDIO_HISTORY_ROW_KEYS = {
+  studioFounded: [...HISTORY_BASE_KEYS],
+  standingChanged: [...HISTORY_BASE_KEYS, "source", "before", "after", "deltas", "formulaVersion", "facts"],
+  standingDriftFolded: [...HISTORY_BASE_KEYS, "weekStart", "weekEnd", "count", "before", "after", "deltas", "formulaVersion"],
+  filmReleased: [...HISTORY_BASE_KEYS, "productionId", "conceptId", "title", "firstRelease"],
+  theatricalRunCompleted: [...HISTORY_BASE_KEYS, "productionId", "totalWeeks"],
+  facilityCommitted: [...HISTORY_BASE_KEYS, "placementId", "facilityId", "blueprintId", "name"],
+  facilityCompleted: [...HISTORY_BASE_KEYS, "placementId", "facilityId", "blueprintId", "name"],
+  facilityDemolished: [...HISTORY_BASE_KEYS, "placementId", "facilityId", "blueprintId", "name"],
+  facilityMoved: [...HISTORY_BASE_KEYS, "placementId", "facilityId", "blueprintId", "name"],
+  careerMilestone: [...HISTORY_BASE_KEYS, "talentId", "careerEventId", "filmId", "personName"],
+} as const;
+
 // ── Version-dispatching validation (LOUD rejection of unknown versions) ──────
 // Returns the correctly-narrowed envelope for a known version; throws for any
 // other saveVersion. Every version remains anchored to its own frozen or live
@@ -4821,8 +4919,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 14) return validateSaveV14(save);
   if (s.saveVersion === 15) return validateSaveV15(save);
   if (s.saveVersion === 16) return validateSaveV16(save);
+  if (s.saveVersion === 17) return validateSaveV17(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 16 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 17 only)`,
   );
 }
 
@@ -5769,8 +5868,32 @@ function projectStateV16(state: GameStateV16): GameStateV16 {
   };
 }
 
-// P06A makeSaveV16 — the LIVE builder (charter W1).
-export function makeSaveV16(state: GameState): SaveFileV16 {
+function projectStateV17(state: GameStateV17): GameStateV17 {
+  return {
+    ...projectStateV16(state),
+    studioHistory: {
+      recordingStartedWeek: state.studioHistory.recordingStartedWeek,
+      nextEventId: state.studioHistory.nextEventId,
+      rows: state.studioHistory.rows.map((row) => clonePlainJson(row)),
+    },
+  };
+}
+
+// P08A makeSaveV17 — the LIVE builder.
+export function makeSaveV17(state: GameState): SaveFileV17 {
+  const currentState = projectStateV17(state);
+  const save: SaveFileV17 = {
+    saveVersion: 17,
+    seed: currentState.seed,
+    state: currentState,
+    broadcastCache: currentState.broadcastItems,
+  };
+  return validateSaveV17(save);
+}
+
+// P06A makeSaveV16 — the frozen V16 builder (a V17 state projects down: the
+// history root is simply not carried, exactly as makeSaveV15 drops releaseAuthority).
+export function makeSaveV16(state: GameStateV16): SaveFileV16 {
   const currentState = projectStateV16(state);
   const save: SaveFileV16 = {
     saveVersion: 16,
@@ -5781,11 +5904,11 @@ export function makeSaveV16(state: GameState): SaveFileV16 {
   return validateSaveV16(save);
 }
 
-// makeSave — the LIVE boundary (P06A: V16). Frozen prior values must cross
-// their respective convertVNToVN+1/migrateToVN+1 explicitly. V16 owns exactly
-// one new root: `releaseAuthority` (absence of a row = uncommitted).
-export function makeSave(state: GameState): SaveFileV16 {
-  return makeSaveV16(state);
+// makeSave — the LIVE boundary (P08A: V17). Frozen prior values must cross
+// their respective convertVNToVN+1/migrateToVN+1 explicitly. V17 owns exactly
+// one new root: `studioHistory` (forward-recorded from an explicit boundary).
+export function makeSave(state: GameState): SaveFileV17 {
+  return makeSaveV17(state);
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -6692,7 +6815,8 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
     save.saveVersion === 13 ||
     save.saveVersion === 14 ||
     save.saveVersion === 15 ||
-    save.saveVersion === 16
+    save.saveVersion === 16 ||
+    save.saveVersion === 17
   ) {
     throw new Error(
       `migrateToV8: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
@@ -6713,7 +6837,8 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
     save.saveVersion === 13 ||
     save.saveVersion === 14 ||
     save.saveVersion === 15 ||
-    save.saveVersion === 16
+    save.saveVersion === 16 ||
+    save.saveVersion === 17
   ) {
     throw new Error(
       `migrateToV9: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
@@ -6733,7 +6858,8 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
     save.saveVersion === 13 ||
     save.saveVersion === 14 ||
     save.saveVersion === 15 ||
-    save.saveVersion === 16
+    save.saveVersion === 16 ||
+    save.saveVersion === 17
   ) {
     throw new Error(
       `migrateToV10: cannot downgrade SaveFileV${String(save.saveVersion)} or discard construction, placement, and property state`,
@@ -6754,7 +6880,8 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
     save.saveVersion === 13 ||
     save.saveVersion === 14 ||
     save.saveVersion === 15 ||
-    save.saveVersion === 16
+    save.saveVersion === 16 ||
+    save.saveVersion === 17
   ) {
     throw new Error(
       `migrateToV11: cannot downgrade SaveFileV${String(save.saveVersion)} or discard placement and property state`,
@@ -6769,7 +6896,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
 // their own validated construction history implies at the final V11→V12 step.
 // V13 is rejected, never downgraded: a property that has grown has no V12 home.
 export function migrateToV12(save: SaveFile): SaveFileV12 {
-  if (save.saveVersion === 13 || save.saveVersion === 14 || save.saveVersion === 15 || save.saveVersion === 16) {
+  if (save.saveVersion === 13 || save.saveVersion === 14 || save.saveVersion === 15 || save.saveVersion === 16 || save.saveVersion === 17) {
     throw new Error(
       `migrateToV12: cannot downgrade SaveFileV${String(save.saveVersion)} or discard property, set, queue, screenplay, and studio-history state`,
     );
@@ -6794,6 +6921,11 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 17) {
+    throw new Error(
+      "migrateToV15: cannot downgrade SaveFileV17 or discard recorded studio history",
+    );
+  }
   if (save.saveVersion === 16) {
     throw new Error(
       "migrateToV15: cannot downgrade SaveFileV16 or discard release-commitment authority",
@@ -6819,15 +6951,46 @@ export function convertV15ToV16(v15: SaveFileV15): SaveFileV16 {
   return makeSaveV16(newState);
 }
 
-// migrateToV16 — the LIVE load-to-play migration (P06A). V16 passes through by
-// identity (after validation at the call boundary); V1–V15 cross every frozen
-// boundary, then receive the empty release authority at the final V15→V16 step.
+// P08A convertV16ToV17 — recording begins NOW. The migrated studio receives an
+// EMPTY history whose boundary is the current week: no Standing change, film,
+// founding, facility, or career row is reconstructed for anything before it
+// (P08-REQ-006). Current Standing values are untouched.
+export function convertV16ToV17(v16: SaveFileV16): SaveFileV17 {
+  const validated = validateSaveV16(v16);
+  const oldState = clonePlainJson(validated.state);
+  const newState: GameStateV17 = {
+    ...oldState,
+    studioHistory: migratedStudioHistory(oldState.market.tick),
+  };
+  return makeSaveV17(newState);
+}
+
+// migrateToV17 — the LIVE load-to-play migration (P08A). V17 passes through by
+// identity (after validation at the call boundary); V1–V16 cross every frozen
+// boundary, then receive the empty history root at the final V16→V17 step.
+export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === 17) return save;
+  return convertV16ToV17(migrateToV16(save));
+}
+
+// migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
+// be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 17) {
+    throw new Error(
+      "migrateToV16: cannot downgrade SaveFileV17 or discard recorded studio history",
+    );
+  }
   if (save.saveVersion === 16) return save;
   return convertV15ToV16(migrateToV15(save));
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 17) {
+    throw new Error(
+      "migrateToV14: cannot downgrade SaveFileV17 or discard recorded studio history",
+    );
+  }
   if (save.saveVersion === 16) {
     throw new Error(
       "migrateToV14: cannot downgrade SaveFileV16 or discard release-commitment authority",
@@ -6843,6 +7006,11 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 17) {
+    throw new Error(
+      "migrateToV13: cannot downgrade SaveFileV17 or discard recorded studio history",
+    );
+  }
   if (save.saveVersion === 16) {
     throw new Error(
       "migrateToV13: cannot downgrade SaveFileV16 or discard release-commitment authority",

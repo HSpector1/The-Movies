@@ -8,7 +8,7 @@ import {
   initialManagedStudioConstruction,
   initialManagedStudioOperations,
   makeSaveV7,
-  migrateToV16,
+  migrateToV17,
   nextStudioDecision,
   openTheatricalRun,
   stableStringify,
@@ -228,7 +228,7 @@ describe('Studio Calendar V1 — authoritative read model', () => {
     state = applyActions(state, [
       { kind: 'greenlight', production: rawProductionPayload(state, 1) },
     ])
-    const migrated = migrateToV16(makeSaveV7(state))
+    const migrated = migrateToV17(makeSaveV7(state))
     const before = exportSave(migrated)
 
     const calendar = studioCalendar(migrated.state)

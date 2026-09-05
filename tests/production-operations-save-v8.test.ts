@@ -6,6 +6,7 @@
 // because it controls the production countdown and action legality.
 
 import { describe, expect, it } from "vitest";
+import { expectForwardHistoryTwin } from "./_p08HistoryTwins.js";
 import {
   applyActions,
   beginFounding,
@@ -24,13 +25,13 @@ import {
   convertV13ToV14,
   convertV14ToV15,
   convertV15ToV16,
+  convertV16ToV17,
   emptyLegacyOperations,
   exportSave,
   FOUNDING_MINIMUMS,
   generateWorld,
   importSave,
   initialManagedStudioOperations,
-  makeSave,
   makeSaveV8,
   makeSaveV1,
   makeSaveV2,
@@ -488,14 +489,14 @@ describe("Production Operations V1 — frozen V7 to live V8 migration", () => {
     expect(migrated.operations).toEqual(emptyLegacyOperations());
 
     let continuous = greenlit;
-    let resumed = convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(makeSaveV8(migrated))))))))).state;
+    let resumed = convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(makeSaveV8(migrated)))))))))).state;
+    const boundaryWeek1 = resumed.market.tick;
     for (let week = 0; week < 10; week++) {
       continuous = tick(continuous);
       resumed = tick(resumed);
     }
-    expect(exportSave(makeSave(resumed))).toBe(
-      exportSave(makeSave(continuous)),
-    );
+    // P08A: pre-P08 bytes identical; history recorded forward from the reload week.
+    expectForwardHistoryTwin(resumed, continuous, boundaryWeek1);
   });
 });
 
@@ -522,7 +523,8 @@ describe("Production Operations V1 — managed state validation and continuation
     );
 
     let continuous = state;
-    let resumed = convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(imported)))))))).state;
+    let resumed = convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(imported))))))))).state;
+    const boundaryWeek2 = resumed.market.tick;
     const actions = [
       { kind: "clearSceneryLoadIn", productionId: production.id } as const,
       { kind: "scheduleShootingTake", productionId: production.id } as const,
@@ -533,9 +535,8 @@ describe("Production Operations V1 — managed state validation and continuation
       continuous = tick(continuous);
       resumed = tick(resumed);
     }
-    expect(exportSave(makeSave(resumed))).toBe(
-      exportSave(makeSave(continuous)),
-    );
+    // P08A: pre-P08 bytes identical; history recorded forward from the reload week.
+    expectForwardHistoryTwin(resumed, continuous, boundaryWeek2);
   });
 
   it("rejects facility truth drift plus orphaned, missing, and phase-mismatched workflows", () => {

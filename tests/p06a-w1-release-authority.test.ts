@@ -27,11 +27,11 @@ import {
   makeSave,
   makeSaveV15,
   migrateToV15,
-  migrateToV16,
+  migrateToV17,
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV16,
+  validateSaveV17,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 
@@ -399,8 +399,8 @@ describe('P06A W1 — save law', () => {
     const v15 = makeSaveV15(v15State)
     expect(v15.saveVersion).toBe(15)
 
-    const live = migrateToV16(v15)
-    expect(live.saveVersion).toBe(16)
+    const live = migrateToV17(v15)
+    expect(live.saveVersion).toBe(17)
     expect(live.state.releaseAuthority).toEqual({ commitments: [] })
 
     // The migrated world HOLDS — the legacy auto-release does not survive import.
@@ -413,16 +413,16 @@ describe('P06A W1 — save law', () => {
     const ready = foundedToReleaseReady('p06a-roundtrip')
     const committed = commit(ready, ready.studio.activeProductions[0]!.id)
     const save = makeSave(committed)
-    expect(save.saveVersion).toBe(16)
+    expect(save.saveVersion).toBe(17)
 
-    const reimported = migrateToV16(importSave(exportSave(save)))
+    const reimported = migrateToV17(importSave(exportSave(save)))
     expect(stableStringify(reimported)).toBe(stableStringify(save))
     expect(reimported.state.releaseAuthority.commitments).toHaveLength(1)
 
-    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV16/)
+    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV17/)
   })
 
-  it('validateSaveV16 rejects forged authority at the save boundary', () => {
+  it('validateSaveV17 rejects forged authority at the save boundary', () => {
     const ready = foundedToReleaseReady('p06a-save-forge')
     const id = ready.studio.activeProductions[0]!.id
     const good = makeSave(commit(ready, id))
@@ -431,12 +431,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV16(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV17(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV16(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV17(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

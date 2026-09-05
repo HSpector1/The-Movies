@@ -353,7 +353,7 @@ describe('C2a-M3 — a writer goes to work and hands the studio a new movie', ()
       { kind: 'commissionOriginalScreenplay', screenplay: originalPayload(state, 'crime') },
     ])
     const save = makeSave(state)
-    expect(save.saveVersion).toBe(16)
+    expect(save.saveVersion).toBe(17)
     expect(save.state.originalScreenplays.blueprints).toHaveLength(1)
     expect(save.state.concepts.at(-1)!.id).toBe(`${ORIGINAL_CONCEPT_ID_PREFIX}0000`)
   })

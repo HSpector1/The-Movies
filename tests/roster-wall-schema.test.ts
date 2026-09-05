@@ -21,7 +21,7 @@ const SOURCE: RosterWallSourceProvenance = {
   tree: 'schema-test-tree',
   worktreeDirty: false,
   runtime: 'vitest',
-  saveVersion: 16,
+  saveVersion: 17,
   productionAuthorityCommit: '8b7e95eb92f6f809522a595b4b458d4f19e26852',
   productionAuthorityTree: 'schema-test-authority-tree',
   authorityDiffPaths: ['src/harness/roster-wall/schema.ts'],

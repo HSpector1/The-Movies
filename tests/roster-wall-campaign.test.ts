@@ -58,7 +58,7 @@ describe('Week-208 roster-wall campaign entry harvest', () => {
     })
 
     expect(harvest.entryWeek).toBe(196)
-    expect(harvest.entrySave.saveVersion).toBe(16)
+    expect(harvest.entrySave.saveVersion).toBe(17)
     expect(exportSave(importSave(harvest.entrySaveBytes))).toBe(harvest.entrySaveBytes)
     expect(harvest.replay).toEqual({
       importedSaveVersion: 12,

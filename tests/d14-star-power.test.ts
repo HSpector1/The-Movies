@@ -12,7 +12,7 @@ import {
   importSave,
   makeSave,
   makeSaveV4,
-  migrateToV16,
+  migrateToV17,
   starPowerRoleWeight,
   tick,
   TUNING,
@@ -217,11 +217,11 @@ describe('D-14 Star Power lifecycle (real engine)', () => {
 
     // Round-trip: export → import. Career events preserved byte-identically.
     const reloaded = importSave(exportSave(makeSave(s)))
-    if (reloaded.saveVersion !== 16) throw new Error('expected V16')
+    if (reloaded.saveVersion !== 17) throw new Error('expected V17')
     expect(reloaded.state.careerEvents).toEqual(s.careerEvents)
 
     // Advancing the reloaded state with NO new release adds NO new events (no re-apply).
-    let s2 = migrateToV16(reloaded).state
+    let s2 = migrateToV17(reloaded).state
     for (let k = 0; k < 5; k++) s2 = tick(s2, { develop: true })
     expect(s2.careerEvents.length).toBe(eventsBefore)
   })

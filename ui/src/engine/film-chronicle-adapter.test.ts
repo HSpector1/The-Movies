@@ -285,7 +285,7 @@ describe('Film Chronicle V1 — real adapter wiring', () => {
     const before = releaseNewspaper(state, film)
     expect(before).not.toBeNull()
     const json = exportSaveJson(state)
-    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(16) // P06A
+    expect((JSON.parse(json) as { saveVersion: number }).saveVersion).toBe(17) // P06A
     const imported = importSaveJson(json)
     expect(imported.ok).toBe(true)
     if (!imported.ok) return

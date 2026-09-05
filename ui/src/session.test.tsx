@@ -329,7 +329,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
 
     // …and re-saving it writes a V14 envelope that loads back UNCONVERTED.
     saveActiveSession(loaded.state)
-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(16) // P06A: live saves are SaveFileV16.
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(17) // P08A: live saves are SaveFileV17.
     const again = loadActiveSession()
     expect(again.ok).toBe(true)
     if (!again.ok) return
@@ -357,7 +357,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
 
     // Round-trip: saved as V14, reloaded unconverted, still not engaged.
     saveActiveSession(loaded.state)
-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(16) // P06A: live saves are SaveFileV16.
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(17) // P08A: live saves are SaveFileV17.
     const again = loadActiveSession()
     expect(again.ok).toBe(true)
     if (!again.ok) return
@@ -384,7 +384,7 @@ describe('Script Projects V1 — a stored V8 autosave migrates on load', () => {
 
     saveActiveSession(loaded.state)
     const parsedV11 = JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!)
-    expect(parsedV11.saveVersion).toBe(16) // P06A: live saves are SaveFileV16.
+    expect(parsedV11.saveVersion).toBe(17) // P08A: live saves are SaveFileV17.
     expect(parsedV11.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
     expect(parsedV11.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
     expect(parsedV11.state.construction).toEqual({ mode: 'legacy', parcels: [], projects: [] })

@@ -37,7 +37,7 @@ import {
   assertStudioOperationsInvariants,
   generateWorld,
   makeSaveV13,
-  migrateToV16,
+  migrateToV17,
   validateSave,
   stableStringify,
   tick,
@@ -262,7 +262,7 @@ describe('C2a-M1 · T9 (B) — every held phase × blocker kind migrates and pla
       // rest of the way to live before playing. The weekly comparison still
       // projects BOTH sides down to the V13 surface, so the claim under test
       // (V13-visible behavior identical) is exactly what it always was.
-      let fromMigrated = migrateToV16(validateSave(module.migrateToV14(twin))).state
+      let fromMigrated = migrateToV17(validateSave(module.migrateToV14(twin))).state
       let fromNative = native
 
       const startWeek = native.market.tick

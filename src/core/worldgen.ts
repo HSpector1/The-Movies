@@ -57,6 +57,7 @@ import { emptyStudioOperations } from './operations.js'
 import { emptyScriptDevelopment } from './scriptDevelopment.js'
 import { emptyStudioEventLog } from './studioEvents.js'
 import { initialReleaseAuthority } from './releaseAuthority.js'
+import { initialStudioHistory } from './studioHistory.js'
 import { stream } from './rng.js'
 import { RngStream } from './rng.js'
 import {
@@ -723,5 +724,8 @@ export function generateWorld(seed: string): GameState {
     // P06A: every generated world starts with the empty release authority —
     // absence of a commitment row means uncommitted (charter W1).
     releaseAuthority: initialReleaseAuthority(),
+    // P08A: a fresh world records its history from week 0 (empty until the economy
+    // engages; the headless corpus never appends a row — see studioHistory.ts pin 5).
+    studioHistory: initialStudioHistory(),
   }
 }

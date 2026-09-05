@@ -41,14 +41,14 @@ import {
   importSave,
   makeSave,
   makeSaveV12,
-  migrateToV16,
+  migrateToV17,
   moveFacility,
   queryPlacement,
   stableStringify,
   studioCalendar,
   tick,
   validateSave,
-  validateSaveV16,
+  validateSaveV17,
 } from '../src/core/index.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -775,12 +775,12 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     state = advance(state, 2)
 
     const save = makeSave(state)
-    expect(save.saveVersion).toBe(16)
+    expect(save.saveVersion).toBe(17)
     expect(validateSave(save)).toBe(save)
-    expect(validateSaveV16(save)).toBe(save)
+    expect(validateSaveV17(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json))).toBe(json)
-    const reloaded = migrateToV16(importSave(json)).state
+    const reloaded = migrateToV17(importSave(json)).state
     expect(exportSave(makeSave(reloaded))).toBe(json)
     expect(reloaded.placement.facilities).toEqual(state.placement.facilities)
     expect(refundRows(reloaded)).toHaveLength(1)
@@ -814,6 +814,8 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     // "unknown field releaseAuthority" before the walk ever reaches the demolition
     // refund boundary this test is about.
     delete forgedV11.state.releaseAuthority
+    // P08A: strip the forward-recorded history root too, for the same reason.
+    delete forgedV11.state.studioHistory
     forgedV11.saveVersion = 11
     expect(() => validateSave(forgedV11)).toThrow(
       /SaveFileV13 facility demolition authority|facilityDemolitionRefund/,

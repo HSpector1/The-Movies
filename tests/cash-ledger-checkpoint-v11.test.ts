@@ -45,8 +45,8 @@ import {
   makeSaveV10,
   migrateToV11,
   migrateToV14,
-  validateSaveV16,
-  migrateToV16,
+  validateSaveV17,
+  migrateToV17,
   stableStringify,
   validateSaveV1,
   validateSaveV2,
@@ -59,6 +59,7 @@ import {
 import { tick } from "../src/core/tick.js";
 import { studioRunRecap } from "../src/core/studioRunRecap.js";
 import { initialReleaseAuthority } from "../src/core/releaseAuthority.js";
+import { initialStudioHistory } from "../src/core/studioHistory.js";
 import type { CreativeRole, GameState } from "../src/core/types.js";
 import { generateWorld } from "../src/core/worldgen.js";
 import {
@@ -224,8 +225,8 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
     const nativeWorld = generateWorld("checkpoint-native-omission");
     const native = makeSave(nativeWorld);
     expect("cashLedgerCheckpoint" in native.state).toBe(false);
-    expect(validateSaveV16(native)).toBe(native);
-    expect(migrateToV16(native)).toBe(native);
+    expect(validateSaveV17(native)).toBe(native);
+    expect(migrateToV17(native)).toBe(native);
 
     const played = applyActions(
       nativeWorld,
@@ -234,13 +235,13 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
     const reconciled = makeSave(played);
     expect(reconciled.state.ledger).toHaveLength(1);
     expect("cashLedgerCheckpoint" in reconciled.state).toBe(false);
-    expect(validateSaveV16(reconciled)).toBe(reconciled);
+    expect(validateSaveV17(reconciled)).toBe(reconciled);
 
     const json = exportSave(reconciled);
     const imported = importSave(json);
     expect(exportSave(imported)).toBe(json);
     expect("cashLedgerCheckpoint" in imported.state).toBe(false);
-    expect(migrateToV16(imported)).toBe(imported);
+    expect(migrateToV17(imported)).toBe(imported);
   });
 
   it("rejects malformed and redundant checkpoints at the exact V11 boundary", () => {
@@ -286,7 +287,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
       cash: redundant.state.studio.cash,
       ledgerLength: redundant.state.ledger.length,
     };
-    expect(() => validateSaveV16(redundant)).toThrow(
+    expect(() => validateSaveV17(redundant)).toThrow(
       /checkpoint must encode a genuine historical reconciliation boundary/,
     );
   });
@@ -294,7 +295,7 @@ describe("SaveFileV11 cash/ledger checkpoint — historical migration", () => {
 
 describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () => {
   it("prevents every frozen builder from moving a checkpoint after later gameplay", () => {
-    const migrated = migrateToV16(playedV2("checkpoint-frozen-projection"));
+    const migrated = migrateToV17(playedV2("checkpoint-frozen-projection"));
     const checkpoint = migrated.state.cashLedgerCheckpoint!;
     let continued = migrated.state;
     // P06A W1: a picture at remainingTicks===1 HOLDS until an explicit
@@ -374,6 +375,7 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
           originalScreenplays: { nextOrdinal: 0, blueprints: [] },
           studioEvents: { nextSeq: 0, rows: [] },
           releaseAuthority: initialReleaseAuthority(),
+          studioHistory: initialStudioHistory(),
         }),
       ).toThrow(
         /cannot downgrade or repair a semantically invalid V11 cash-ledger checkpoint/,
@@ -405,7 +407,7 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
     });
     expect(historical.state.ledger.length).toBeGreaterThan(0);
 
-    const live = migrateToV16(migrated).state;
+    const live = migrateToV17(migrated).state;
     const totals = financeTotals(live);
     const recap = studioRunRecap(live);
     const impliedOpening = Math.round(
@@ -427,7 +429,7 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
       /cannot discard the historical ledger prefix required by the V11 cash-ledger checkpoint/,
     );
 
-    const liveState = migrateToV16(migrated).state;
+    const liveState = migrateToV17(migrated).state;
     const ledgerBuilders: ReadonlyArray<(state: GameState) => SaveFile> = [
       makeSaveV3,
       makeSaveV4,
@@ -449,7 +451,7 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
   });
 
   it("anchors cash and rejects checkpoint, cash, boundary, and suffix tampering", () => {
-    const migrated = migrateToV16(
+    const migrated = migrateToV17(
       managedMismatchedV10("checkpoint-tampering"),
     );
     const started = applyActions(migrated.state, [
@@ -466,31 +468,31 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
 
     const changedAnchor = clone(valid);
     changedAnchor.state.cashLedgerCheckpoint!.cash += 1;
-    expect(() => validateSaveV16(changedAnchor)).toThrow(
+    expect(() => validateSaveV17(changedAnchor)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
 
     const changedCash = clone(valid);
     changedCash.state.studio.cash += 1;
-    expect(() => validateSaveV16(changedCash)).toThrow(
+    expect(() => validateSaveV17(changedCash)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
 
     const movedBoundary = clone(valid);
     movedBoundary.state.cashLedgerCheckpoint!.ledgerLength += 1;
-    expect(() => validateSaveV16(movedBoundary)).toThrow(
+    expect(() => validateSaveV17(movedBoundary)).toThrow(
       /construction capex cannot predate the V11 cash-ledger checkpoint/,
     );
 
     const changedSuffix = clone(valid);
     changedSuffix.state.ledger[overheadIndex]!.amount -= 1;
-    expect(() => validateSaveV16(changedSuffix)).toThrow(
+    expect(() => validateSaveV17(changedSuffix)).toThrow(
       /studio cash must equal the historical checkpoint plus the ordered post-checkpoint ledger/,
     );
   });
 
   it("preserves exact checkpoint reconciliation through managed payroll and overhead suffixes", () => {
-    const migrated = migrateToV16(
+    const migrated = migrateToV17(
       foundedManagedMismatchedV10("checkpoint-managed-suffix"),
     );
     const checkpoint = clone(migrated.state.cashLedgerCheckpoint!);
@@ -511,7 +513,7 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
   it("starts and completes the Annex from a mismatched managed V10 with exactly one post-checkpoint capex", () => {
     const source = managedMismatchedV10("checkpoint-annex-lifecycle");
     const sourceBefore = stableStringify(source);
-    const migrated = migrateToV16(source);
+    const migrated = migrateToV17(source);
     const checkpoint = migrated.state.cashLedgerCheckpoint!;
 
     expect(checkpoint).toEqual({
@@ -557,7 +559,7 @@ describe("SaveFileV11 cash/ledger checkpoint — post-migration authority", () =
       const json = exportSave(makeSave(state));
       const imported = importSave(json);
       expect(exportSave(imported)).toBe(json);
-      expect(exportSave(migrateToV16(imported))).toBe(json);
+      expect(exportSave(migrateToV17(imported))).toBe(json);
     }
   });
 });

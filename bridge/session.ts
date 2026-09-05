@@ -38,7 +38,7 @@ import type {
   FoundingApplicantRow,
   GameState,
 } from '../ui/src/engine/adapter.ts'
-import { applyActions, importSave, migrateToV16 } from '../src/core/index.js'
+import { applyActions, importSave, migrateToV17 } from '../src/core/index.js'
 import {
   PROTOCOL_VERSION,
   SCHEMA_ID,
@@ -96,11 +96,13 @@ type ImportOutcome =
 // live V16 migrator — every pre-P06 envelope (including every Release Ready
 // picture in it) arrives EXPLICITLY uncommitted. Same `ImportOutcome` shape
 // and semantics as every prior live wrapper.
-function importSaveJsonV16(json: string): ImportOutcome {
+// P08A: the live save version is V17; every prior version live-migrates through
+// the canonical chain (the same two-step the ui adapter's importSaveJson mirrors).
+function importSaveJsonCurrent(json: string): ImportOutcome {
   try {
     const save = importSave(json)
-    const converted = save.saveVersion !== 16
-    return { ok: true, state: migrateToV16(save).state, converted }
+    const converted = save.saveVersion !== 17
+    return { ok: true, state: migrateToV17(save).state, converted }
   } catch (error) {
     return { ok: false, error: (error as Error).message }
   }
@@ -1203,7 +1205,7 @@ export class BridgeSession {
   }
 
   static fromSaveJson(saveJson: string, sessionId: string = randomUUID()): BridgeSession {
-    const imported = importSaveJsonV16(saveJson)
+    const imported = importSaveJsonCurrent(saveJson)
     if (!imported.ok) throw new Error(imported.error)
     return new BridgeSession(
       imported.state,
@@ -1222,7 +1224,7 @@ export class BridgeSession {
     hydrated: HydratedBridgeRuntimeCheckpoint,
     limits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
   ): BridgeSession {
-    const imported = importSaveJsonV16(hydrated.checkpoint.currentSaveJson)
+    const imported = importSaveJsonCurrent(hydrated.checkpoint.currentSaveJson)
     if (!imported.ok) throw new Error(imported.error)
     return new BridgeSession(
       imported.state,
@@ -1258,7 +1260,7 @@ export class BridgeSession {
     limits: BridgeRuntimeCheckpointLimits = this.runtimeLimits,
   ): BridgeSession {
     const currentSaveJson = snapshotBuildContextFor(this.state).saveJson()
-    const imported = importSaveJsonV16(currentSaveJson)
+    const imported = importSaveJsonCurrent(currentSaveJson)
     if (!imported.ok) throw new Error(imported.error)
     return new BridgeSession(imported.state, randomUUID(), this.savedJson, { limits })
   }
@@ -1562,7 +1564,7 @@ export class BridgeSession {
       this.remember('load', control, rejected)
       return rejected
     }
-    const loaded = importSaveJsonV16(this.savedJson)
+    const loaded = importSaveJsonCurrent(this.savedJson)
     if (!loaded.ok) {
       const rejected = this.reject(control.commandId, 'SAVE_REJECTED', loaded.error, started)
       this.remember('load', control, rejected)

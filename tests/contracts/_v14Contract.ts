@@ -380,6 +380,8 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
   // P06A (charter W1): the V16 root is version-younger than everything this
   // twin models — a genuine V13 file never carried it, so the twin must not.
   delete raw.releaseAuthority
+  // P08A: the forward-recorded history root is V17-only.
+  delete raw.studioHistory
 
   const operations = raw.operations as Record<string, unknown> | undefined
   if (operations !== undefined && Array.isArray(operations.workflows)) {

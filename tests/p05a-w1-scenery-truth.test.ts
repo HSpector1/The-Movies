@@ -18,7 +18,7 @@ import {
   studioWeekTheater,
   importSave,
   makeSave,
-  migrateToV16,
+  migrateToV17,
   sceneryLoadInDecision,
   sceneryLoadInFor,
   isSceneryLoadIn,
@@ -513,7 +513,7 @@ describe('P05A W1 — in-transit presence stays work, not waiting', () => {
 
 describe('P05A W1 — reload keeps the classification', () => {
   function roundTrip(state: GameState): GameState {
-    return migrateToV16(importSave(exportSave(makeSave(state)))).state
+    return migrateToV17(importSave(exportSave(makeSave(state)))).state
   }
 
   it('an in-transit trip reloads as the same in-transit trip', () => {

@@ -1538,7 +1538,132 @@ export type GameStateV16 = GameStateV15 & {
   releaseAuthority: StudioReleaseAuthority
 }
 
-export type GameState = GameStateV16
+// ── P08A Standing & Studio History Spine V1 (charter P08 §9–§11) ──────────────
+//
+// A NEW additive root, `studioHistory`, rather than a widening of the frozen
+// shared `StudioEvent` union. It records FORWARD, from an explicit recording
+// boundary, the sparse durable history of the studio: exact Standing-change
+// receipts at every authoritative mutation site, film releases and settled
+// theatrical results, the founding fact where authoritative, and — once their
+// producers exist (P09/P10) — exact facility and person milestones.
+//
+// Laws (P08-REQ-004/006/007/008/009/010/020):
+//   • monotonic `eventId`, append order == ascending id, weeks non-decreasing;
+//   • exact source ids (productionId / talentId / placementId), never titles;
+//   • frozen minimal display facts so a row survives later renames/removal;
+//   • deterministic significance decided by the engine (never presentation);
+//   • NO seen/read state (a consumer's cursor lives outside GameState);
+//   • nothing before `recordingStartedWeek` is ever reconstructed;
+//   • routine weekly settling receipts are bounded: after HISTORY_ROUTINE_WINDOW_WEEKS
+//     they fold into one exact per-window summary row (aggregate provenance is kept;
+//     per-week detail is what the window trades). Milestone rows are permanent.
+export type StandingChannelKey = 'audienceAwareness' | 'industryPrestige' | 'commercialConfidence'
+
+/** The three exact producers of a Standing change in the accepted engine. */
+export type StandingChangeSource =
+  | { kind: 'releaseResult'; productionId: string }
+  | { kind: 'publicity'; tier: PublicityTier; sourceId: string }
+  | { kind: 'awarenessDrift' }
+
+/** Player-safe driver facts captured at the mutation (already-public quantities; no hidden state). */
+export type StandingChangeFacts =
+  | {
+      kind: 'releaseResult'
+      reach01: number // clamped normalized audience reach (box office ÷ market ÷ AWARENESS_REACH_SCALE)
+      reachNeutral: number // the regime pivot the reach was measured against
+      starAttention01: number // mean cast Star Power / 100
+      criticScore: number
+      prestigeBenchmark: number
+      roi: number // (gross − committed cost) ÷ committed cost, floored basis
+      budgetOverrun01: number
+    }
+  | { kind: 'publicity'; tier: PublicityTier; cost: number; lift: number }
+  | { kind: 'awarenessDrift'; anchor: number; rate: number; excessBefore: number }
+
+export type StudioHistorySignificance = 'landmark' | 'major' | 'standard' | 'routine'
+
+export type StudioHistorySubject =
+  | { kind: 'studio' }
+  | { kind: 'film'; productionId: string }
+  | { kind: 'person'; talentId: string }
+  | { kind: 'facility'; placementId: number; facilityId: string }
+
+type StudioHistoryRowBase = {
+  eventId: number
+  week: number
+  significance: StudioHistorySignificance
+  subjects: readonly StudioHistorySubject[]
+}
+
+export type StudioHistoryEvent =
+  | (StudioHistoryRowBase & { kind: 'studioFounded' })
+  | (StudioHistoryRowBase & {
+      kind: 'standingChanged'
+      source: StandingChangeSource
+      before: Standing
+      after: Standing
+      deltas: Standing
+      formulaVersion: string
+      facts: StandingChangeFacts
+    })
+  | (StudioHistoryRowBase & {
+      kind: 'standingDriftFolded'
+      weekStart: number
+      weekEnd: number
+      count: number
+      before: Standing
+      after: Standing
+      deltas: Standing
+      formulaVersion: string
+    })
+  | (StudioHistoryRowBase & {
+      kind: 'filmReleased'
+      productionId: string
+      conceptId: string
+      title: string // display title frozen AT RELEASE (identity is productionId)
+      firstRelease: boolean
+    })
+  | (StudioHistoryRowBase & {
+      kind: 'theatricalRunCompleted'
+      productionId: string
+      totalWeeks: number
+    })
+  // P09 producers (exact placement identity). Typed here so the adapter contract is
+  // fixed before the producer lands; no row of these kinds exists until P09 emits it.
+  | (StudioHistoryRowBase & {
+      kind: 'facilityCommitted' | 'facilityCompleted' | 'facilityDemolished' | 'facilityMoved'
+      placementId: number
+      facilityId: string
+      blueprintId: string
+      name: string
+    })
+  // P10 producer (exact frozen career event identity). No row exists until P10 emits it.
+  | (StudioHistoryRowBase & {
+      kind: 'careerMilestone'
+      talentId: string
+      careerEventId: string
+      filmId: string
+      personName: string // frozen at the milestone
+    })
+
+export type StudioHistoryEventKind = StudioHistoryEvent['kind']
+
+export type StudioHistoryState = {
+  /** The first week from which changes were recorded. Nothing earlier is reconstructed. */
+  recordingStartedWeek: number
+  /** Monotonic. NEVER rewinds. */
+  nextEventId: number
+  /** Append order == ascending eventId; weeks non-decreasing. */
+  rows: readonly StudioHistoryEvent[]
+}
+
+// SaveFileV16 remains recursively frozen above. SaveFileV17 mints exactly one new
+// root: `studioHistory` (the additive forward-recording history authority).
+export type GameStateV17 = GameStateV16 & {
+  studioHistory: StudioHistoryState
+}
+
+export type GameState = GameStateV17
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

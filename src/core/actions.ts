@@ -89,6 +89,15 @@ import {
   scheduleShootingTake,
 } from './operations.js'
 import { publicityLiftAt } from './publicity.js'
+import { STANDING_FORMULA_VERSION } from './standing.js'
+import {
+  appendStudioHistory,
+  cloneStanding,
+  historyDraft,
+  standingDeltas,
+  studioSubject,
+  studioHistoryRecording,
+} from './studioHistory.js'
 import { sceneryLoadInDecision } from './sceneryLoadIn.js'
 import {
   ENDOWED_NEXT_SET_ID,
@@ -1338,7 +1347,19 @@ function applyFoundStudio(state: GameState, _action: Action & { kind: 'foundStud
       `applyActions: foundStudio rejected — required roster incomplete (missing actors:${gaps.actor} directors:${gaps.director} writers:${gaps.writer} craft:${gaps.craft}) (D-11.2)`,
     )
   }
-  return { ...state, founding: null }
+  // P08A: the founding fact — a LANDMARK, recorded exactly once at the week the
+  // draft closes. Founding opens the engaged economy (beginFounding), so the
+  // recording gate is on; a migrated save that was founded before its recording
+  // boundary receives no row (honest absence, never a reconstructed past).
+  const week = state.market.tick
+  const studioHistory = studioHistoryRecording(state)
+    ? appendStudioHistory(
+        state.studioHistory,
+        [historyDraft({ week, kind: 'studioFounded', subjects: studioSubject() })],
+        week,
+      )
+    : state.studioHistory
+  return { ...state, founding: null, studioHistory }
 }
 
 // ── Production Operations V1 actions ────────────────────────────────────────
@@ -2796,21 +2817,49 @@ function applyPublicity(state: GameState, action: Action & { kind: 'publicity' }
     note: `publicity: ${tier}`,
   }
 
+  const standingAfter = {
+    ...state.studio.standing,
+    audienceAwareness: clamp(awareness + lift, 0, 100),
+  }
+  // P08A receipt (mutation site 3 of 3): the paid campaign's exact effect, frozen
+  // with the ledger-row identity (`publicity-<week>-<tier>` is unique: the global
+  // cooldown admits at most one campaign per week). Publicity is engaged-only, so
+  // the recording gate is always on here; a zero-lift purchase at the ceiling
+  // still records nothing because nothing changed.
+  const studioHistory =
+    studioHistoryRecording(state) && standingAfter.audienceAwareness !== awareness
+      ? appendStudioHistory(
+          state.studioHistory,
+          [
+            historyDraft({
+              week,
+              kind: 'standingChanged',
+              subjects: studioSubject(),
+              source: { kind: 'publicity', tier, sourceId: `publicity-${String(week)}-${tier}` },
+              before: cloneStanding(state.studio.standing),
+              after: cloneStanding(standingAfter),
+              deltas: standingDeltas(state.studio.standing, standingAfter),
+              formulaVersion: STANDING_FORMULA_VERSION,
+              facts: { kind: 'publicity', tier, cost, lift: standingAfter.audienceAwareness - awareness },
+            }),
+          ],
+          week,
+        )
+      : state.studioHistory
+
   return {
     ...state,
     studio: {
       ...state.studio,
       cash: state.studio.cash - cost,
-      standing: {
-        ...state.studio.standing,
-        audienceAwareness: clamp(awareness + lift, 0, 100),
-      },
+      standing: standingAfter,
     },
     ledger: [...state.ledger, entry],
     publicity: {
       lastUsedWeek: week,
       byTier: { ...state.publicity.byTier, [tier]: week },
     },
+    studioHistory,
   }
 }
 

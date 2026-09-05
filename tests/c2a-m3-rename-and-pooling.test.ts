@@ -211,7 +211,7 @@ describe('C2a-M3 — renaming a screenplay', () => {
     )
     // Still saveable: the invariant is "never renamed ⇒ still the generated
     // title", not "the title never changes".
-    expect(makeSave(state).saveVersion).toBe(16)
+    expect(makeSave(state).saveVersion).toBe(17)
   })
 
   it('leaves the TWO frozen-history surfaces frozen, BY DESIGN', () => {
@@ -360,7 +360,7 @@ describe('C2a-M3 — the bounded writer pool (00E.9)', () => {
         },
       ]),
     ).toThrow(/maximum of 5 writers/)
-    expect(makeSave(state).saveVersion).toBe(16)
+    expect(makeSave(state).saveVersion).toBe(17)
   })
 
   it('is refused on a screenplay that is not being drafted', () => {

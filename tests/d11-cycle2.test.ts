@@ -14,7 +14,7 @@ import {
   importSave,
   isContracted,
   makeSave,
-  migrateToV16,
+  migrateToV17,
   previewCustomTalent,
   roleOVR,
   ROLE_TO_DISCIPLINE,
@@ -224,12 +224,12 @@ describe('D-11.A — each released film keeps its OWN immutable participants', (
   it('save/reload (V3) preserves each film\'s distinct participant history', () => {
     const { s } = twoFilms('c2-part-5')
     const reloaded = importSave(exportSave(makeSave(s)))
-    if (reloaded.saveVersion !== 16) throw new Error('expected V16')
+    if (reloaded.saveVersion !== 17) throw new Error('expected V17')
     const before = s.studio.releasedFilms.map((f) => f.participants!.writer.talentId).sort()
     const after = reloaded.state.studio.releasedFilms.map((f) => f.participants!.writer.talentId).sort()
     expect(after).toEqual(before)
     // byte-identical round-trip including participants
-    expect(exportSave(makeSave(migrateToV16(reloaded).state))).toBe(exportSave(makeSave(s)))
+    expect(exportSave(makeSave(migrateToV17(reloaded).state))).toBe(exportSave(makeSave(s)))
   })
 })
 

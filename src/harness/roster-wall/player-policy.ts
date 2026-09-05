@@ -26,7 +26,7 @@ import type {
   GameState,
   GameStateV14,
   LedgerEntry,
-  SaveFileV16,
+  SaveFileV17,
 } from '../../core/index.js'
 import {
   ROSTER_WALL_ENTRY_WEEK,
@@ -305,7 +305,7 @@ export type PlayerPolicyOwnerCadence = {
 
 export type PlayerPolicyEntryHarvest = {
   week: typeof ROSTER_WALL_ENTRY_WEEK
-  save: SaveFileV16
+  save: SaveFileV17
   saveBytes: string
   saveHash: string
   stateHash: string
@@ -648,18 +648,18 @@ function entryRoster(state: GameState): PlayerPolicyEntryRosterMember[] {
 }
 
 function exactSave(state: GameState): {
-  save: SaveFileV16
+  save: SaveFileV17
   bytes: string
   hash: string
   stateHash: string
-  imported: SaveFileV16
+  imported: SaveFileV17
   importedState: GameState
 } {
   const save = makeSave(structuredClone(state))
   const bytes = exportSave(save)
   const imported = importSave(bytes)
-  if (imported.saveVersion !== 16) {
-    throw new Error('roster-wall player policy: entry did not import as SaveFileV16')
+  if (imported.saveVersion !== 17) {
+    throw new Error('roster-wall player policy: entry did not import as SaveFileV17')
   }
   if (exportSave(imported) !== bytes) {
     throw new Error('roster-wall player policy: entry import/re-export changed bytes')
@@ -675,7 +675,7 @@ function exactSave(state: GameState): {
     hash: sha256(bytes),
     stateHash: hashState(importedState),
     imported,
-    // `imported` is already the live SaveFileV16 shape, so `.state` is already a
+    // `imported` is already the live SaveFileV17 shape, so `.state` is already a
     // full `GameState` — no migration needed.
     importedState: imported.state,
   }
@@ -1108,7 +1108,7 @@ function executePlayerPolicy(
   // descriptive harness memory at this seam cannot change the public policy.
   const freshEntry = importSave(entry.saveBytes)
   if (
-    freshEntry.saveVersion !== 16 ||
+    freshEntry.saveVersion !== 17 ||
     exportSave(freshEntry) !== entry.saveBytes ||
     sha256(exportSave(freshEntry)) !== entry.saveHash
   ) {
@@ -1116,7 +1116,7 @@ function executePlayerPolicy(
       'roster-wall player policy: continuation did not fresh-load the immutable entry bytes',
     )
   }
-  // `freshEntry` is already the live SaveFileV16 shape, so `.state` is already a
+  // `freshEntry` is already the live SaveFileV17 shape, so `.state` is already a
   // full `GameState` — no migration needed for the continuation below.
   const freshEntryState = freshEntry.state
   state = freshEntry.state
@@ -1344,8 +1344,8 @@ function playerPolicyEntryId(result: RosterWallPlayerPolicyResult): string {
 
 function exactPlayerPolicyEntryState(result: RosterWallPlayerPolicyResult): GameState {
   const imported = importSave(result.entry.saveBytes)
-  if (imported.saveVersion !== 16) {
-    throw new Error('roster-wall player policy evidence: entry is not SaveFileV16')
+  if (imported.saveVersion !== 17) {
+    throw new Error('roster-wall player policy evidence: entry is not SaveFileV17')
   }
   const reexported = exportSave(imported)
   if (
@@ -1360,7 +1360,7 @@ function exactPlayerPolicyEntryState(result: RosterWallPlayerPolicyResult): Game
   }
   const importedState = imported.state
   assertCashReconciles(importedState, 'serialized Week 196 entry')
-  // `imported` is already the live SaveFileV16 shape, so `.state` is already a
+  // `imported` is already the live SaveFileV17 shape, so `.state` is already a
   // full `GameState` — no migration needed.
   return imported.state
 }

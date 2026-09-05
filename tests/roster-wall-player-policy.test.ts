@@ -19,7 +19,7 @@ const SOURCE: RosterWallSourceProvenance = {
   tree: 'player-policy-test-tree',
   worktreeDirty: false,
   runtime: 'vitest',
-  saveVersion: 16,
+  saveVersion: 17,
   productionAuthorityCommit: '8b7e95eb92f6f809522a595b4b458d4f19e26852',
   productionAuthorityTree: 'player-policy-test-authority-tree',
   authorityDiffPaths: ['src/harness/roster-wall/player-policy.ts'],
@@ -57,7 +57,7 @@ describe('Week-208 roster-wall mixed-founding-term player policy', () => {
 
   it('harvests and reloads exact validated Week-196 SaveFileV16 bytes', () => {
     expect(run.entry.week).toBe(196)
-    expect(run.entry.save.saveVersion).toBe(16)
+    expect(run.entry.save.saveVersion).toBe(17)
     expect(exportSave(importSave(run.entry.saveBytes))).toBe(run.entry.saveBytes)
     expect(run.entry.replay).toMatchObject({
       importedSaveVersion: 12,

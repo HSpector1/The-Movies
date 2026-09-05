@@ -34,6 +34,7 @@ import {
   convertV13ToV14,
   convertV14ToV15,
   convertV15ToV16,
+  convertV16ToV17,
   exportSave,
   generateWorld,
   groundOccupiedCellKeys,
@@ -46,7 +47,7 @@ import {
   makeSaveV11,
   makeSaveV12,
   migrateToV13,
-  migrateToV16,
+  migrateToV17,
   occupiedCellKeys,
   parcelAt,
   parcelById,
@@ -59,7 +60,7 @@ import {
   studioPlacementView,
   tick,
   validateSave,
-  validateSaveV16,
+  validateSaveV17,
   assertStudioPlacementInvariants,
   expectedWeeklyOperatingCostAt,
 } from '../src/core/index.js'
@@ -355,7 +356,7 @@ describe('C1-M1a (a) — the property IS the constants, in a new representation'
     expect(v12.saveVersion).toBe(12)
     expect('property' in v12.state).toBe(false)
 
-    const migrated = convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(v12)))).state
+    const migrated = convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(v12))))).state
     // Migration reconstructs the property V12 held implicitly — nothing else.
     expect(migrated.property).toEqual(INITIAL_PROPERTY)
     expect(stableStringify(migrated)).toBe(stableStringify(native))
@@ -470,8 +471,8 @@ describe('C1-M1a (b) — nothing assumes eight structures or a small placement c
 
     // And it all round-trips byte-identically at the live boundary.
     const json = exportSave(makeSave(operational))
-    const reloaded = migrateToV16(importSave(json))
-    expect(reloaded.saveVersion).toBe(16)
+    const reloaded = migrateToV17(importSave(json))
+    expect(reloaded.saveVersion).toBe(17)
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(reloaded.state.property).toEqual(INITIAL_PROPERTY)
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)
@@ -519,7 +520,7 @@ describe('C1-M1a (b) — nothing assumes eight structures or a small placement c
     expect(() => assertStudioPlacementInvariants(operational)).not.toThrow()
 
     const json = exportSave(makeSave(operational))
-    expect(exportSave(makeSave(migrateToV16(importSave(json)).state))).toBe(json)
+    expect(exportSave(makeSave(migrateToV17(importSave(json)).state))).toBe(json)
   })
 })
 
@@ -599,7 +600,7 @@ describe('C1-M1a (c) — a bigger property works with no code change', () => {
 
     // And an expanded property persists and round-trips like any other.
     const json = exportSave(makeSave(operational))
-    const reloaded = migrateToV16(importSave(json))
+    const reloaded = migrateToV17(importSave(json))
     expect(reloaded.state.property.bounds).toEqual({ width: 34, depth: 26 })
     expect(reloaded.state.property.parcels).toHaveLength(11)
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
@@ -638,13 +639,13 @@ describe('C1-M1a (d) — SaveFileV13', () => {
       const save = makeSave(state)
       // P04A: the LIVE envelope is now V15. The property root and every claim
       // this case makes about it are unchanged — only which version writes it.
-      expect(save.saveVersion).toBe(16)
+      expect(save.saveVersion).toBe(17)
       expect(validateSave(save)).toBe(save)
-      expect(validateSaveV16(save)).toBe(save)
+      expect(validateSaveV17(save)).toBe(save)
       expect(save.state.property).toEqual(INITIAL_PROPERTY)
       const json = exportSave(save)
       expect(exportSave(importSave(json))).toBe(json)
-      expect(exportSave(migrateToV16(importSave(json)))).toBe(json)
+      expect(exportSave(migrateToV17(importSave(json)))).toBe(json)
     }
   })
 
@@ -737,7 +738,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV16(bad)).toThrow(expected)
+      expect(() => validateSaveV17(bad)).toThrow(expected)
     }
   })
 
@@ -806,7 +807,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV16(bad)).toThrow(expected)
+      expect(() => validateSaveV17(bad)).toThrow(expected)
     }
   })
 
@@ -818,7 +819,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     const forged = clone(makeSave(state))
     // Move the Theater onto the Annex's ground. Nothing may stand in a body.
     forged.state.property.structures.find((s) => s.id === 'theater')!.origin = { gx: 7, gy: 15 }
-    expect(() => validateSaveV16(forged)).toThrow(
+    expect(() => validateSaveV17(forged)).toThrow(
       /placed facility 1 overlaps property structure "theater"/,
     )
   })
@@ -881,8 +882,8 @@ describe('C1-M1a (d) — SaveFileV13', () => {
 
   it('moves the unknown-version boundary from 16 to 17', () => {
     const live = makeSave(managedStudio('c1-m1a-unknown'))
-    expect(() => validateSave({ ...live, saveVersion: 17 })).toThrow(
-      /unknown saveVersion 17.*versions 1 through 16 only/,
+    expect(() => validateSave({ ...live, saveVersion: 18 })).toThrow(
+      /unknown saveVersion 18.*versions 1 through 17 only/,
     )
   })
 })

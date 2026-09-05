@@ -684,7 +684,7 @@ describe('CF-09 post-commit attestation', () => {
     expect(canonicalJson(first)).toBe(canonicalJson(second))
     expect(first.typescriptSourceCommit).toBe(pair.typescript.commit)
     expect(first.unityConsumerCommit).toBe(pair.unity.commit)
-    expect(first.saveVersion).toBe(16)
+    expect(first.saveVersion).toBe(17)
     expect(first.hostileReviewVerdict).toBe('ACCEPT')
     expect(first.compiledFixtureEditModeTestCount).toBe(12)
     expect(first.compiledFixtureEditModePassedCount).toBe(11)

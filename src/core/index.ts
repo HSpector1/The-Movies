@@ -1185,6 +1185,11 @@ export {
   // commitment authority root; empty on migration = explicitly uncommitted).
   convertV15ToV16,
   migrateToV16,
+  // P08A — live V16 → NEW V17 + migrateToV17 (the studio-history root).
+  convertV16ToV17,
+  migrateToV17,
+  makeSaveV17,
+  validateSaveV17,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -1203,6 +1208,7 @@ export type {
   SaveFileV14,
   SaveFileV15,
   SaveFileV16,
+  SaveFileV17,
   SaveFile,
   TalentV1,
   GameStateV1,
@@ -1231,3 +1237,42 @@ export {
   flattenParticipants,
 } from './starPower.js'
 export type { StarPowerInput, StarPowerResult, CareerEventInput } from './starPower.js'
+
+// ── P08A Standing & Studio History Spine V1 ──────────────────────────────────
+export {
+  initialStudioHistory,
+  migratedStudioHistory,
+  historyRecordedAt,
+  StudioHistorySink,
+  disabledStudioHistorySink,
+  standingDeltas,
+  standingChanged,
+  classifyHistorySignificance,
+  historyDraft,
+  commitStudioHistory,
+  appendStudioHistory,
+  foldRoutineHistory,
+  assertStudioHistoryInvariants,
+  studioHistoryChronology,
+  standingReceipts,
+  studioHistoryTimeline,
+  studioHistoryRecording,
+  filmSubject,
+  studioSubject,
+  cloneStanding,
+  HISTORY_ROUTINE_WINDOW_WEEKS,
+  HISTORY_STANDING_MAJOR_DELTA,
+} from './studioHistory.js'
+export type { StudioHistoryDraft, StudioHistoryFacts } from './studioHistory.js'
+export { releaseStandingDrivers, STANDING_FORMULA_VERSION } from './standing.js'
+export type {
+  StandingChannelKey,
+  StandingChangeSource,
+  StandingChangeFacts,
+  StudioHistorySignificance,
+  StudioHistorySubject,
+  StudioHistoryEvent,
+  StudioHistoryEventKind,
+  StudioHistoryState,
+  GameStateV17,
+} from './types.js'

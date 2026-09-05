@@ -3,8 +3,8 @@ import { createHash, randomUUID } from 'node:crypto'
 import {
   exportSave,
   importSave,
-  migrateToV16,
-  type SaveFileV16,
+  migrateToV17,
+  type SaveFileV17,
 } from '../src/core/index.js'
 import { exportSaveJson } from '../ui/src/engine/adapter.ts'
 import {
@@ -357,7 +357,7 @@ function parseCanonicalJson(json: string, path: string): unknown {
 // (journal discarded as opaque history, saves re-imported through the
 // canonical chain). A CURRENT-schema checkpoint is therefore always written
 // by this build and always carries live V16 bytes.
-type CurrentEnvelopeSave = SaveFileV16
+type CurrentEnvelopeSave = SaveFileV17
 
 function validateCanonicalCurrentSave(
   saveJson: string,
@@ -372,11 +372,11 @@ function validateCanonicalCurrentSave(
   } catch (error) {
     fail(path, `is not a valid TypeScript save: ${(error as Error).message}`)
   }
-  if (imported.saveVersion !== 16) {
-    fail(path, `must be a current V16 save, received V${String(imported.saveVersion)}`)
+  if (imported.saveVersion !== 17) {
+    fail(path, `must be a current V17 save, received V${String(imported.saveVersion)}`)
   }
   if (exportSave(imported) !== saveJson) {
-    fail(path, 'must preserve the canonical V16 save bytes exactly')
+    fail(path, 'must preserve the canonical V17 save bytes exactly')
   }
   const current = imported as CurrentEnvelopeSave
   cache.set(saveJson, current)
@@ -755,9 +755,9 @@ function migrateLegacyProtocol3Checkpoint(
 }
 
 // Parse then live-migrate a prior save slot through the EXISTING core save
-// path — `importSave` then `migrateToV16` (accepts V1..V16, refuses malformed
+// path — `importSave` then `migrateToV17` (accepts V1..V17, refuses malformed
 // or unknown versions loudly; the same two-step chain `bridge/session.ts`'s
-// own `importSaveJsonV16` wraps, and what the ui adapter's `importSaveJson`
+// own `importSaveJsonCurrent` wraps, and what the ui adapter's `importSaveJson`
 // mirrors) — then re-serialize via `exportSaveJson`. This is the
 // ONLY place a prior identity's save bytes are interpreted; the surrounding
 // checkpoint envelope and journal are handled as opaque bytes (see
@@ -765,10 +765,10 @@ function migrateLegacyProtocol3Checkpoint(
 function importPriorSaveViaCanonicalChain(
   json: string,
   path: string,
-): { json: string; state: SaveFileV16['state'] } {
-  let migrated: SaveFileV16
+): { json: string; state: SaveFileV17['state'] } {
+  let migrated: SaveFileV17
   try {
-    migrated = migrateToV16(importSave(json))
+    migrated = migrateToV17(importSave(json))
   } catch (error) {
     fail(path, `is not a save the current save contract can import: ${(error as Error).message}`)
   }

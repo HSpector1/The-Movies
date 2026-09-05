@@ -91,6 +91,53 @@ function committedCost(ctx: StandingContext): number {
   return ctx.actualNegative + ctx.marketing + ctx.salaries
 }
 
+// ── P08A — Standing provenance ───────────────────────────────────────────────
+// The formula-set identity frozen onto every Standing-change receipt. It names
+// the accepted laws these formulas implement (D-6 channel meanings; D-17B §1 E1
+// engaged reach pivot + weekly drift). It changes ONLY when a formula changes,
+// which this package does not do (P08 law: never retune the channels).
+export const STANDING_FORMULA_VERSION = 'standing/d6-2026-07-26+d17b-e1' as const
+
+/**
+ * The player-safe DRIVER FACTS behind one release-driven Standing update —
+ * exactly the intermediate quantities `updateStanding` computes, exposed so a
+ * receipt can freeze WHY each channel moved without re-running a formula in a
+ * consumer. Pure; byte-for-byte the same arithmetic as `updateStanding`.
+ * Consistency between the two is pinned by test.
+ */
+export function releaseStandingDrivers(
+  r: FilmResult,
+  ctx: StandingContext,
+): {
+  reach01: number
+  reachNeutral: number
+  starAttention01: number
+  criticScore: number
+  prestigeBenchmark: number
+  roi: number
+  budgetOverrun01: number
+} {
+  const reach = clamp(
+    r.boxOffice.total / Math.max(ctx.baseMarketValue, 1) / TUNING.AWARENESS_REACH_SCALE,
+    0,
+    1,
+  )
+  const reachNeutral = ctx.engaged
+    ? TUNING.AWARENESS_REACH_NEUTRAL_ENGAGED
+    : TUNING.AWARENESS_REACH_NEUTRAL
+  const cost = Math.max(committedCost(ctx), TUNING.CONFIDENCE_COST_FLOOR)
+  const roi = (r.boxOffice.total - committedCost(ctx)) / cost
+  return {
+    reach01: reach,
+    reachNeutral,
+    starAttention01: starAttention(ctx),
+    criticScore: r.criticScore,
+    prestigeBenchmark: TUNING.PRESTIGE_CRITIC_BENCHMARK,
+    roi,
+    budgetOverrun01: clamp(budgetOverrun(ctx), 0, 1),
+  }
+}
+
 // §6 updateStanding — D-6. Each delta clamped to its channel's TUNING cap; each
 // channel value clamped to 0..100. INITIAL_STANDING (40/40/50) is unchanged.
 export function updateStanding(

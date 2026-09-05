@@ -123,10 +123,10 @@ function withLog(rows: readonly Record<string, unknown>[], nextSeq: number): Env
 // kind keeps its V14-boundary probe untouched.
 function validateAtOwningBoundary(kind: string, rows: readonly Record<string, unknown>[], nextSeq: number): void {
   if (kind === 'releaseCommitted') {
-    const makeSaveLive = requireFunction(requireCore(), 'makeSave', 'P06A live boundary') as unknown as (
+    const makeSaveLive = requireFunction(requireCore(), 'makeSave', 'P08A live boundary') as unknown as (
       s: GameState,
     ) => { state: Record<string, unknown> }
-    const validateLive = requireFunction(requireCore(), 'validateSaveV16', 'P06A live boundary') as unknown as (
+    const validateLive = requireFunction(requireCore(), 'validateSaveV17', 'P08A live boundary') as unknown as (
       save: unknown,
     ) => unknown
     const forged = clone(makeSaveLive(managed) as unknown as Envelope)

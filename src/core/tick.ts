@@ -97,7 +97,25 @@ import { FACILITY_OPEX_LEDGER_NOTE, TUNING } from './tuning.js'
 import { buildFilmResult, resolveReception, type ReceptionInputs } from './reception.js'
 import { RngStream, stream } from './rng.js'
 import { resolveShape } from './shape.js'
-import { updateStanding, type ReleaseBenchmarks, type StandingContext } from './standing.js'
+import {
+  releaseStandingDrivers,
+  STANDING_FORMULA_VERSION,
+  updateStanding,
+  type ReleaseBenchmarks,
+  type StandingContext,
+} from './standing.js'
+import {
+  assertStudioHistoryInvariants,
+  commitStudioHistory,
+  disabledStudioHistorySink,
+  filmSubject,
+  historyDraft,
+  cloneStanding,
+  standingChanged,
+  standingDeltas,
+  studioSubject,
+  StudioHistorySink,
+} from './studioHistory.js'
 import type {
   BroadcastItem,
   CastSlot,
@@ -170,6 +188,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // an orphan/duplicate/non-ready commitment row, or any active production
   // already at remainingTicks 0, is a forged state a tick must never repair.
   assertReleaseAuthorityInvariants(state, 'tick')
+  // P08A: the history root is validated at the same boundary; a tick never repairs it.
+  assertStudioHistoryInvariants(state.studioHistory, 'tick')
   const committedReleaseIds = new Set(
     state.releaseAuthority.commitments.map((row) => row.productionId),
   )
@@ -211,6 +231,10 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     state.operations.mode === 'managed'
       ? new StudioEventSink(currentTick, true)
       : disabledStudioEventSink()
+  // P08A — the studio's sparse durable history (studioHistory.ts pin 5): recorded
+  // only on the engaged economy, so the headless corpus appends nothing and stays
+  // byte-identical. Rows are collected in pipeline order and stamped at finalize.
+  const history = economyEngaged(state) ? new StudioHistorySink(true) : disabledStudioHistorySink()
 
   // ── 0.5 SCRIPT DEVELOPMENT ────────────────────────────────────────────────
   // A commission/rewrite made in week t is due at t+1 and completes during the
@@ -580,6 +604,20 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       : baseFilmResult
 
     releasedFilms.push(filmResult)
+    // P08A: the release fact, frozen with its display title AT RELEASE (identity is
+    // the production id; the title may collide). The first film the studio ever
+    // released is a landmark; every later release is a major moment.
+    history.append(
+      historyDraft({
+        week: currentTick,
+        kind: 'filmReleased',
+        subjects: filmSubject(prod.id),
+        productionId: prod.id,
+        conceptId: prod.conceptId,
+        title: concept.title,
+        firstRelease: state.studio.releasedFilms.length === 0 && releasedFilms.length === 1,
+      }),
+    )
     // D-12: when the economy is engaged, OPEN a multi-week theatrical run instead of the
     // single-lump credit. Its first week is paid by the WEEKLY THEATRICAL REVENUE step
     // (3.5) in this same tick — release resolution itself credits NO Studio Revenue. When
@@ -712,7 +750,20 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       run.cumulativeGrossPaid += wg
       run.cumulativeStudioRevenuePaid += rev
       run.weekIndex += 1
-      if (run.weekIndex >= run.totalWeeks) run.status = 'completed'
+      if (run.weekIndex >= run.totalWeeks) {
+        run.status = 'completed'
+        // P08A: the settled result — the run has paid its last week; the final
+        // gross/revenue language becomes truthful from here (P07 §5C).
+        history.append(
+          historyDraft({
+            week: currentTick,
+            kind: 'theatricalRunCompleted',
+            subjects: filmSubject(run.productionId),
+            productionId: run.productionId,
+            totalWeeks: run.totalWeeks,
+          }),
+        )
+      }
       ledger.push({
         week: currentTick,
         kind: 'studioRevenue',
@@ -728,7 +779,28 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // already in release order). Start from start-of-tick standing.
   let standing: Standing = startOfTickStanding
   for (const rec of records) {
+    const before = standing
     standing = updateStanding(standing, rec.filmResult, rec.benchmarks, rec.ctx)
+    // P08A receipt (mutation site 1 of 3): the exact before/after/deltas of THIS
+    // film's update, the source id, the formula identity, and the public driver
+    // facts — frozen here, never recomputed by a consumer. A no-op update (every
+    // delta clamped to 0) is not a change and records nothing.
+    if (standingChanged(before, standing)) {
+      const drivers = releaseStandingDrivers(rec.filmResult, rec.ctx)
+      history.append(
+        historyDraft({
+          week: currentTick,
+          kind: 'standingChanged',
+          subjects: filmSubject(rec.filmResult.productionId),
+          source: { kind: 'releaseResult', productionId: rec.filmResult.productionId },
+          before: cloneStanding(before),
+          after: cloneStanding(standing),
+          deltas: standingDeltas(before, standing),
+          formulaVersion: STANDING_FORMULA_VERSION,
+          facts: { kind: 'releaseResult', ...drivers },
+        }),
+      )
+    }
   }
 
   // ── 5. BROADCAST ───────────────────────────────────────────────────────────
@@ -774,6 +846,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   if (engaged) {
     const excess = Math.max(0, standing.audienceAwareness - TUNING.AWARENESS_DRIFT_ANCHOR)
     if (excess > 0) {
+      const beforeDrift = standing
       standing = {
         ...standing,
         audienceAwareness: clamp(
@@ -781,6 +854,28 @@ export function tick(state: GameState, options?: TickOptions): GameState {
           0,
           100,
         ),
+      }
+      // P08A receipt (mutation site 2 of 3): weekly settling. ROUTINE detail —
+      // kept in full for the bounded window, then folded (studioHistory.ts pin 6).
+      if (standingChanged(beforeDrift, standing)) {
+        history.append(
+          historyDraft({
+            week: currentTick,
+            kind: 'standingChanged',
+            subjects: studioSubject(),
+            source: { kind: 'awarenessDrift' },
+            before: cloneStanding(beforeDrift),
+            after: cloneStanding(standing),
+            deltas: standingDeltas(beforeDrift, standing),
+            formulaVersion: STANDING_FORMULA_VERSION,
+            facts: {
+              kind: 'awarenessDrift',
+              anchor: TUNING.AWARENESS_DRIFT_ANCHOR,
+              rate: TUNING.AWARENESS_DRIFT_RATE,
+              excessBefore: excess,
+            },
+          }),
+        )
       }
     }
   }
@@ -995,5 +1090,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       state.releaseAuthority,
       new Set(releasing.map((p) => p.id)),
     ),
+    // P08A: stamp this advance's history rows in pipeline order and fold routine
+    // detail that aged past the window — against the week this advance PRODUCES.
+    studioHistory: commitStudioHistory(state.studioHistory, history, currentTick + 1),
   }
 }

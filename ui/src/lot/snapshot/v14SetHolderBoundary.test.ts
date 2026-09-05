@@ -43,7 +43,7 @@ describe('C2a-M2 — a save round-trips as V15, roots and all', () => {
     const json = exportSaveJson(state)
     // P06A W1/W2: the live save version is V16 (releaseAuthority root); a fresh
     // makeSave/export is current, not a conversion, and pins to 16 here.
-    expect(JSON.parse(json).saveVersion).toBe(16)
+    expect(JSON.parse(json).saveVersion).toBe(17)
 
     const outcome = importSaveJson(json)
     expect(outcome.ok).toBe(true)

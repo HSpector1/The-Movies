@@ -26,6 +26,7 @@ import {
   convertV13ToV14,
   convertV14ToV15,
   convertV15ToV16,
+  convertV16ToV17,
   canAfford,
   convertV3ToV4,
   economyEngaged,
@@ -37,7 +38,7 @@ import {
   legacyTheatricalRun,
   makeSave,
   makeSaveV3,
-  migrateToV16,
+  migrateToV17,
   openTheatricalRun,
   theatricalSchedule,
   tick,
@@ -254,9 +255,9 @@ describe('D-12: V3→V4 migration records released films as legacyCompleted (no 
     const legacyRev = (st: GameState) =>
       st.ledger.filter((e) => e.kind === 'studioRevenue' && released.some((f) => f.productionId === e.productionId)).length
     // Annex V1: cross every frozen boundary into live V13; history stays legacy.
-    const liveState = convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(
+    const liveState = convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(
       convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(v4))))),
-    ))))))).state
+    )))))))).state
     const before = legacyRev(liveState)
     const advanced = advance(liveState, 6)
     expect(legacyRev(advanced)).toBe(before) // no NEW legacy credit — no double-pay
@@ -275,8 +276,8 @@ describe('D-12: reload equals continuous play with an active run straddling the 
 
     const continuous = advance(midRun, 6)
     const reloaded = importSave(exportSave(makeSave(midRun)))
-    if (reloaded.saveVersion !== 16) throw new Error('expected V16')
-    const split = advance(migrateToV16(reloaded).state, 6)
+    if (reloaded.saveVersion !== 17) throw new Error('expected V17')
+    const split = advance(migrateToV17(reloaded).state, 6)
 
     expect(exportSave(makeSave(split))).toBe(exportSave(makeSave(continuous)))
   })

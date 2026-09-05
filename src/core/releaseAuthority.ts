@@ -20,7 +20,7 @@
 // event sequence, insertion position or click order, so identical worlds
 // commit to identical identities on every machine and every replay.
 
-import type { GameState, ReleaseCommitment, StudioReleaseAuthority } from './types.js'
+import type { GameState, GameStateV16, ReleaseCommitment, StudioReleaseAuthority } from './types.js'
 
 export const RELEASE_COMMITMENT_NAMESPACE = 'release-commitment' as const
 
@@ -138,7 +138,9 @@ export function pruneReleasedCommitments(
  *   I4 no active production sits at remainingTicks === 0 (a zero-tick picture
  *      must have been collected by the same tick that produced it).
  */
-export function assertReleaseAuthorityInvariants(state: GameState, context: string): void {
+// Accepts the frozen V16 shape (and therefore every later shape) so the frozen
+// validateSaveV16 can keep delegating to it after later roots are added.
+export function assertReleaseAuthorityInvariants(state: GameStateV16, context: string): void {
   const { commitments } = state.releaseAuthority
   for (let i = 0; i < commitments.length; i++) {
     const row = commitments[i]!

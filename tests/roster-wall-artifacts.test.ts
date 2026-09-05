@@ -255,7 +255,7 @@ function writeAcceptedSmokeArtifact(
   state.market.tick = 196
   const saveJson = exportSave(makeSave(state))
   const imported = importSave(saveJson)
-  if (imported.saveVersion !== 16) throw new Error('test fixture did not produce SaveFileV16')
+  if (imported.saveVersion !== 17) throw new Error('test fixture did not produce SaveFileV17')
   const entrySaveHash = rosterWallSha256(saveJson)
   const entryStateHash = rosterWallSha256(stableStringify(imported.state))
 
@@ -620,7 +620,7 @@ describe('roster-wall provenance gates', () => {
       tree: git(fixture.root, ['rev-parse', 'HEAD^{tree}']),
       worktreeDirty: false,
       runtime: 'node provenance-test',
-      saveVersion: 16,
+      saveVersion: 17,
       productionAuthorityCommit: fixture.authority,
       productionAuthorityTree: git(fixture.root, [
         'rev-parse',
@@ -795,7 +795,7 @@ describe('roster-wall artifact infrastructure', () => {
   it('rejects the former skeletal smoke counterfeit before semantic acceptance', () => {
     const fixture = createGitFixture()
     expect(() => writeAcceptedSmokeArtifact(fixture, 'semantic-smoke')).toThrow(
-      /same governed repository|production authority failed|summary\.json lacks denominators|governed entry projection|projection disagrees|accepted clean SaveFileV16 provenance/,
+      /same governed repository|production authority failed|summary\.json lacks denominators|governed entry projection|projection disagrees|accepted clean SaveFileV17 provenance/,
     )
   })
 

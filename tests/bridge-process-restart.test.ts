@@ -792,9 +792,9 @@ it('restores one durable logical bridge session and exact HTTP replay after SIGK
       laterCommandRaw.body,
       loadRaw.body,
     ])
-    expect(hydrated.currentSave.saveVersion).toBe(16)
+    expect(hydrated.currentSave.saveVersion).toBe(17)
     expect(exportSave(hydrated.currentSave)).toBe(hydrated.checkpoint.currentSaveJson)
-    expect(hydrated.savedSave?.saveVersion).toBe(16)
+    expect(hydrated.savedSave?.saveVersion).toBe(17)
     expect(hydrated.savedSave === null ? null : exportSave(hydrated.savedSave)).toBe(
       hydrated.checkpoint.savedSaveJson,
     )

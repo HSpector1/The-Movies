@@ -10,6 +10,7 @@
 // unknown-version boundary that has MOVED to 8, and the frozen V6 shape staying frozen.
 
 import { describe, expect, it } from 'vitest'
+import { expectForwardHistoryTwin } from './_p08HistoryTwins.js'
 import {
   applyActions,
   beginFounding,
@@ -22,7 +23,6 @@ import {
   FOUNDING_MINIMUMS,
   generateWorld,
   importSave,
-  makeSave,
   makeSaveV5,
   makeSaveV6,
   makeSaveV7,
@@ -44,6 +44,7 @@ import {
   convertV13ToV14,
   convertV14ToV15,
   convertV15ToV16,
+  convertV16ToV17,
 } from '../src/core/index.js'
 import type {
   CreativeRole,
@@ -142,7 +143,7 @@ describe('D-17B/E4 — the frozen V7 envelope remains valid and isolated', () =>
   it('V7 through V16 are known, so the unknown-version boundary is now 17', () => {
     const save = makeSaveV7(toV7(foundStudio('d17b-v7-boundary')))
     expect(() => validateSave({ ...save, saveVersion: 18 })).toThrow(/unknown saveVersion 18/)
-    expect(() => validateSave({ ...save, saveVersion: 17 })).toThrow(/unknown saveVersion 17/)
+    expect(() => validateSave({ ...save, saveVersion: 18 })).toThrow(/unknown saveVersion 18/)
     // P06A (W1): 16 is now a KNOWN, LIVE version — dispatch reaches validateSaveV16, which
     // fails on this V7 payload's real shape mismatch (no releaseAuthority), not the
     // unknown-version boundary.
@@ -238,13 +239,16 @@ describe('D-17B/E4 — migrateToV7 lifts every known version, and the chain stil
     for (let i = 0; i < 6; i++) a = tick(a)
     const reloaded = importSave(exportSave(makeSaveV7(toV7(a))))
     if (reloaded.saveVersion !== 7) throw new Error('expected V7')
-    let split = convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(reloaded))))))))).state
+    let split = convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(reloaded)))))))))).state
     let continuous = a
+    const boundaryWeek = split.market.tick
     for (let i = 0; i < 6; i++) {
       split = tick(split)
       continuous = tick(continuous)
     }
-    expect(exportSave(makeSave(split))).toBe(exportSave(makeSave(continuous)))
+    // P08A: every pre-P08 byte is identical; the history records forward from
+    // the reload week (see tests/_p08HistoryTwins.ts).
+    expectForwardHistoryTwin(split, continuous, boundaryWeek)
   })
 })
 
