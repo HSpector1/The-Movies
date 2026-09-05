@@ -1,103 +1,66 @@
 # Project: Studio
 
-Project: Studio is an in-development studio-management simulation and a modern successor to
-*The Movies* (2005).
+Project: Studio is an in-development studio-management simulation and a modern successor to *The Movies* (2005). The Studio Lot is the primary game surface. TypeScript owns gameplay law and durable state; Unity and the browser client present that authority.
 
-The product north star is deliberately direct:
+## Repository status — 2026-09-05 snapshot
 
-> "This is *The Movies*."
->
-> "Holy shit, this is what *The Movies* should be today."
+| Classification | What it means now |
+| --- | --- |
+| **ACCEPTED PRODUCT** | Public TypeScript repository `HSpector1/The-Movies`, discovery branch `campaign/living-lot-ts`: runtime/product `da848225516fe3ced9a421548d0f5e7cbc8b5b88`, documentation-inclusive accepted campaign `2753e18ba8fb5f65b936c22cde9531646fecc6cd`. Private Unity repository `HSpector1/project-studio-unity-visual-spike`, discovery branch `campaign/living-lot-client`: product/campaign `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6`. P06 and P07 are Owner accepted, KEEP, and closed. |
+| **ACTIVE IMPLEMENTATION** | `OPS-P08P10-20260905-01` governs public TS branch `wip/p08-p10-autonomous-stack-01-ts` and private Unity branch `wip/p08-p10-autonomous-stack-01-client`. The dated snapshots are TS `9bc01ea3682e597ec65acfc624afc41e4f48004a` and Unity `26a543a1604eb519df11a81c0b6f894179b2349a`. This work is unsealed and not Owner accepted. A branch pointer is discovery information, **not permission to edit it**. |
+| **FUTURE PLANNING** | Public branches `docs/p11a-launch-package-01`, `docs/p12a-pre-readiness-01`, and `codex/p13-p15-long-range-research-01` preserve P11A Revision 02, corrected P12 pre-readiness, and P13–P15 direction. These are planning sources, not implementation grants. See the package index. |
+| **HISTORICAL REFERENCE** | `main` at the snapshot (`c902a704eb948cc576083d0973c8c23e59937dc1`), old campaign ledgers, milestone contracts, and preserved agent instructions remain evidence. They do not override an applicable current task authorization. |
 
-The Studio Lot is the primary game surface. Players should understand the studio as a
-place they operate, build, expand, and read through the world itself, with overlays only
-where the decision complexity earns them.
+The single identity and authority register is [Project Studio source register — 2026-09-05](docs/operations/PROJECT-STUDIO-SOURCE-REGISTER-2026-09-05.md). The cross-branch design and package map is [docs/PACKAGES.md](docs/PACKAGES.md).
 
-The engine state is authoritative. Presentation reacts to simulation truth; presentation
-never owns, creates, or persists simulation truth. Determinism, seeded simulation, and
-versioned saves are product constraints, not implementation details.
+## Start correctly
 
-## Quickstart
+1. Read [START-HERE.md](START-HERE.md).
+2. Locate the issued task authorization named there. If no current authorization names your scope, base, branch, and mutation boundary, remain read-only.
+3. Confirm repository identity and immutable commits from the source register. Treat discovery branches as movable pointers only.
+4. Use an owned branch and isolated worktree. Never switch, clean, reset, or write into an active shared checkout unless the task explicitly assigns it.
 
-Install dependencies:
+Planning, research, pre-readiness, technical KEEP, and a passing foundation slice do not by themselves authorize implementation or establish Owner acceptance.
+
+## Product and engineering laws
+
+- The Studio Lot is the primary game surface; deep management views support it.
+- TypeScript is the only authority for gameplay state, time, legality, finance, identities, persistence, and deterministic random draws.
+- Presentation renders truth and submits intent. It does not create a parallel simulation.
+- Use stable exact IDs, seeded deterministic paths, and explicit save migrations.
+- Reuse existing Project: Studio systems and source evidence before adding parallel machinery.
+- Never claim a test, private-source inspection, build, playtest, or acceptance that did not occur.
+
+## Development entry points
+
+Install the pinned dependencies in the checkout assigned by the task:
 
 ```bash
 npm ci
 ```
 
-Run the browser development client (Three.js reference/debug surface):
+The Three.js browser application is the reference/debug surface, not the native production player:
 
 ```bash
 npm run dev -- --host 127.0.0.1
 ```
 
-Open `http://127.0.0.1:5173/`.
+Run it only when runtime use is within the issued task. Native Unity launch has separate private-repository, build, process, and disposable-profile prerequisites in [START-HERE.md](START-HERE.md); it is not the cold-start onboarding test.
 
-On the Unity production-convergence campaign line, the native owner launch is:
-
-```bash
-npm run play
-```
-
-It emits and audits the production studio package (`dist/studio`), then
-supervises the emitted TypeScript engine together with the sibling Unity
-production client. See `START-HERE.md` for the exact preconditions.
-
-Run the test suite:
+Common validation routes are documented in [START-HERE.md](START-HERE.md). The broad TypeScript checks remain:
 
 ```bash
 npm test
-```
-
-Run typecheck:
-
-```bash
 npm run typecheck
-```
-
-Additional scripts:
-
-```bash
-npm run test:core
-npm run test:ui
 npm run build
-npm run preview
 ```
 
-## Major Docs
+## Durable references
 
-Start with the current repository docs, not the GitHub landing branch if it is stale.
+- [PROJECT-STUDIO-SUCCESS-BLUEPRINT.md](PROJECT-STUDIO-SUCCESS-BLUEPRINT.md) — destination and permanent product laws.
+- [THE-MOVIES-PARITY-MASTER-PLAN.md](THE-MOVIES-PARITY-MASTER-PLAN.md) — sequence and parity framing; not a task authorization.
+- [CURRENT-BEST.md at the accepted campaign](https://github.com/HSpector1/The-Movies/blob/2753e18ba8fb5f65b936c22cde9531646fecc6cd/CURRENT-BEST.md) — accepted-product record, not the live WIP ledger.
+- [CLAUDE.md](CLAUDE.md) — concise repository agent rules.
+- [Shared authority guide](docs/agent/SHARED-AUTHORITY-GUIDE.md) — common instructions consumed by repository subagents.
 
-- [PROJECT-STUDIO-SUCCESS-BLUEPRINT.md](PROJECT-STUDIO-SUCCESS-BLUEPRINT.md) - destination, product bar, permanent development laws, and long-term successor standard.
-- [THE-MOVIES-PARITY-MASTER-PLAN.md](THE-MOVIES-PARITY-MASTER-PLAN.md) - sequencing, parity gaps, campaign framing, and test gates.
-- [CLAUDE.md](CLAUDE.md) - standing agent and engineering instructions, including historical notes and current authority warnings.
-- [START-HERE.md](START-HERE.md) - local launch notes and project orientation.
-
-For original-derived mechanics, contributors must consult the canonical Mechanics Bible
-maintained with the project research corpus before changing behavior. It defines the
-historical floor referenced by the Blueprint.
-
-## Current Development Rule
-
-Contributors must:
-
-- branch from the explicitly assigned authority;
-- never directly push to `main`;
-- never work on the active shared implementation branch unless assigned;
-- use their own branch or worktree;
-- submit work for review;
-- preserve deterministic simulation;
-- read the Mechanics Bible before changing original-derived mechanics.
-
-Do not use a broad planning document as permission to implement a feature. Current scope
-comes from the active charter, current Owner rulings, and the branch authority assigned
-for the work.
-
-## Engineering Boundaries
-
-- Keep simulation logic in the engine. UI and rendering are presentation layers.
-- Use seeded deterministic paths only; do not introduce unseeded randomness.
-- Prefer existing Project: Studio systems before adding parallel machinery.
-- Preserve save compatibility and migration discipline when touching persisted state.
-- Keep documentation changes separate from code changes unless the assigned task says
-  otherwise.
+For original-derived mechanics, consult the canonical Mechanics Bible in the authorized project research corpus before changing behavior. It is not committed in either product repository; the [source register records the access boundary](docs/operations/PROJECT-STUDIO-SOURCE-REGISTER-2026-09-05.md#external-research-source-limitation). If it is inaccessible, record the limitation and do not reconstruct it from memory.

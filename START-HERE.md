@@ -1,106 +1,140 @@
 # Project: Studio — Start Here
 
-> **Native owner launch (local CP21 candidate, not formal CURRENT BEST / Golden M5):** from this
-> repository run `npm run play`, or double-click `PLAY_PROJECT_STUDIO.command`. It preflights the
-> sibling macOS Unity build, emits and audits the production studio package (`dist/studio`), and
-> supervises the emitted engine — never the development loader — with the private durable default
-> profile. An empty profile opens at `START A STUDIO`; an existing profile resumes the same
-> authoritative studio.
+Use this page to orient a new contributor or agent without launching the game or relying on another person's Downloads folder.
 
-> **Current-branch notice:** the setup/status narrative below describes the original M0A launch and
-> is retained for provenance. It is not current authority for
-> `operation-hollywood-autonomous-marathon`. Begin with `CURRENT-BEST.md`, `PROGRESS.md`,
-> `DECISIONS.md`, `NEXT-HIGHEST-LEVERAGE.md`, `MARATHON-LOG.md`, and
-> `AUTONOMOUS-MARATHON-HANDOFF.md`, then current Git. The game is now playable, SaveFileV13 is the
-> current writer, and the Owner has ruled that **THE STUDIO LOT IS THE PRIMARY GAME SURFACE**.
+The exact repository, commit, branch, and status snapshot is in the [dated source register](docs/operations/PROJECT-STUDIO-SOURCE-REGISTER-2026-09-05.md). Package designs and their separate implementation/acceptance states are in [docs/PACKAGES.md](docs/PACKAGES.md).
 
-## Historical browser launch
+## 1. Find the authority that applies to the task
 
-From this repository root:
+Mutation authority is task-specific. Apply this order:
+
+1. the Owner's explicit current instruction and product rulings;
+2. the applicable Current Ops issued execution or repair order;
+3. accepted producer/consumer contracts and exact accepted candidate evidence;
+4. the package charter or requirement register named by that order;
+5. repository-wide engineering and agent guidance; then
+6. historical plans and research as evidence only.
+
+For the active P08–P10 work, the applicable authorization is `OPS-P08P10-20260905-01`, preserved in the [execution order](https://github.com/HSpector1/The-Movies/blob/9bc01ea3682e597ec65acfc624afc41e4f48004a/docs/operations/OPS-P08P10-20260905-01-EXECUTION-ORDER.md) and [Current Ops delta](https://github.com/HSpector1/The-Movies/blob/9bc01ea3682e597ec65acfc624afc41e4f48004a/docs/operations/OPS-P08P10-20260905-01-CURRENT-OPS-DELTA.md). These links identify the 2026-09-05 snapshot; later work must resolve a newer explicit order rather than assume this one applies.
+
+If no issued task names the permitted scope, source base, owned branch/worktree, and stopping boundary, inspect read-only and ask for authority before writing. Research, pre-readiness, a draft prompt, a discovery branch, or technical KEEP is not implementation permission.
+
+## 2. Confirm repository and branch ownership
+
+There are two product repositories:
+
+| Layer | Repository | Access and role |
+| --- | --- | --- |
+| TypeScript simulation and public documentation | `https://github.com/HSpector1/The-Movies.git` | Public. TypeScript owns gameplay law, state, time, RNG, actions, saves, and the generated wire contract. |
+| Unity production presentation | `https://github.com/HSpector1/project-studio-unity-visual-spike.git` | Private. Explicit GitHub access is required. Unity consumes generated facts and emits intent; it does not own gameplay law. |
+
+The accepted TypeScript runtime/product is `da848225516fe3ced9a421548d0f5e7cbc8b5b88`; the documentation-inclusive accepted campaign/base is `2753e18ba8fb5f65b936c22cde9531646fecc6cd`; and the accepted Unity product/campaign is `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6`. The [Owner acceptance receipt](https://github.com/HSpector1/The-Movies/blob/2753e18ba8fb5f65b936c22cde9531646fecc6cd/docs/campaigns/P07-OWNER-ACCEPTANCE-RECEIPT.md) distinguishes runtime, build, technical-seal, and documentation identities.
+
+Before writing:
+
+- resolve the advertised discovery ref without switching a checkout;
+- verify the immutable commit and repository identity;
+- inspect existing worktrees and the issued ownership assignment;
+- create a new owned branch/worktree from the exact authorized base; and
+- never clean, reset, rebase, or reuse an active implementation worktree merely because its branch is named in a document.
+
+A safe retrieval pattern from an owned clone is:
 
 ```bash
-npm install
+git ls-remote https://github.com/HSpector1/The-Movies.git refs/heads/BRANCH
+git -C /absolute/path/to/owned-clone fetch --no-tags origin SHA
+git -C /absolute/path/to/owned-clone cat-file -e 'SHA^{commit}'
+git -C /absolute/path/to/owned-clone show 'SHA:PATH'
+```
+
+The branch is a movable discovery pointer. The commit is the immutable evidence identity. Use the analogous private URL only when the account has Unity repository access; otherwise record the source-access limitation.
+
+## 3. Know which application surface you are using
+
+- `src/`, the bridge, and save/migration code are the authoritative TypeScript simulation and transport.
+- The private Unity repository is the production presentation client for the accepted pair.
+- The Three.js/Vite browser application in `ui/` is a reference and debugging surface. It is useful for bounded development checks, but it is not proof of the native player.
+- A Unity screen, animation, movement, or enabled control is evidence of presentation only unless it consumes the exact TypeScript authority and accepted wire identity.
+
+For browser-only work that is explicitly authorized:
+
+```bash
+npm ci
 npm run dev -- --host 127.0.0.1
 ```
 
-Open `http://127.0.0.1:5173/`. Stop with `Ctrl+C` in the terminal that owns Vite.
+Open `http://127.0.0.1:5173/`. Do not report this as a native-player run.
 
-Studio Lot and Operation Hollywood are adopted ordinary-player content and default on. If an old
-QA session deliberately rolled either back, remove these two localStorage keys and reload:
+## 4. Native launch is an explicit, protected operation
 
-```js
-localStorage.removeItem('project-studio.flags.studio-lot-overview')
-localStorage.removeItem('project-studio.flags.operation-hollywood')
-location.reload()
+Do not use `npm run play` as a cold-start check. On this campaign line its default profile is the user's durable Project: Studio profile.
+
+Native launch requires all of the following:
+
+- the current task explicitly authorizes launching the engine and Unity player;
+- the exact compatible TypeScript and private Unity commits are checked out in owned worktrees;
+- dependencies, generated consumer, protocol, projection, schema, and save compatibility are verified;
+- the required macOS Unity player build already exists and is bound to those commits;
+- no other session owns the target profile, bridge, supervisor, player, port, or proof process; and
+- an isolated disposable or authorized profile copy is selected. Never use the Owner's durable original for onboarding or automation.
+
+When an authorized task deliberately uses the packaged native route, select the isolated profile explicitly:
+
+```bash
+PROJECT_STUDIO_PROFILE_ROOT="/absolute/path/to/private-disposable-profile" npm run play
 ```
 
-The app is local and deterministic. For a clean checkout prefer `npm ci`; `npm install` is retained
-above because it is safe for this existing worktree. The autonomous marathon is sealed; do not
-begin a successor feature without fresh Owner authorization.
+The profile directory must be dedicated to the run and private to the current user. The current task must also verify the script's sibling Unity-project expectation; the command name alone does not select an accepted product pair. Launching Unity, building a player, or copying a private profile requires separate task authority.
 
-A studio management sim, spiritual successor to *The Movies* (2005). Private project.
+## 5. Validation routes already present
 
-## Historical: original two-folder setup
+Choose the smallest route that covers the authorized change. Report what actually ran.
 
+Focused TypeScript examples:
+
+```bash
+npx vitest run tests/declarations.test.ts
+npm run test:core
+npm run test:ui
 ```
-studio-project/
-├── studio/           ← OPEN THIS in VS Code
-└── design-archive/   ← reference only, NEVER opened in VS Code
+
+Package and contract checks:
+
+```bash
+npm run test:bridge
+npm run check:bridge-contract
+npm run typecheck:bridge
 ```
 
-Claude Code reads everything in the workspace you open. If it can see the design
-archive it will build systems that are deliberately a long way off. **Open `studio/`.**
+The accepted campaign also defines `npm run check:bridge-contract:fixtures` and `npm run verify:bridge-contract-consumer`; the latter needs the authorized private Unity checkout or an explicit access limitation.
 
-## Historical original setup — provenance only
+Full TypeScript routes:
 
-Needs **VS Code 1.94+**, a paid Claude subscription (no API key), and **Node.js LTS**
-from nodejs.org. Node is for the project, not for Claude — the extension bundles its
-own CLI.
+```bash
+npm test
+npm run typecheck
+npm run build
+npm run audit:repo-hygiene
+npm run audit:3d-assets
+```
 
-1. Put `studio-project` somewhere plain. Avoid OneDrive/Dropbox-synced folders.
-2. **File → Open Folder → `studio`.** Not `studio-project`. The sidebar should show
-   only `CLAUDE.md` and `docs/`. If you see `Downloads` or `Library`, wrong folder.
-3. Install the extension: `Cmd/Ctrl+Shift+X`, search "Claude Code", Install.
-   Open it with **✱ Claude Code** in the status bar, bottom-right.
-4. Set Plan mode as default: `Cmd/Ctrl+,` → Extensions → Claude Code →
-   **Initial Permission Mode** → `plan`.
-5. In VS Code's terminal (`` Ctrl+` ``), once:
-   ```
-   git init
-   git add .
-   git commit -m "Build contract and agent instructions"
-   ```
+The private Unity repository's [accepted validation record](https://github.com/HSpector1/project-studio-unity-visual-spike/blob/c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6/EXPERIMENT.md) documents its full EditMode route with editor `6000.3.22f1`; the link requires authorized access. From an authorized Unity worktree, use the equivalent parameterized route below and do not add `-quit`:
 
-New session: the `+` at the top of the Claude panel, or `Cmd+Shift+Esc`.
-`Cmd+Esc` toggles your cursor between the editor and Claude's prompt box.
+```bash
+"$PROJECT_STUDIO_UNITY_EDITOR" -batchmode -nographics -runTests \
+  -projectPath "$PROJECT_STUDIO_UNITY_PROJECT" \
+  -testPlatform EditMode \
+  -testResults "$PROJECT_STUDIO_UNITY_RESULTS" \
+  -logFile "$PROJECT_STUDIO_UNITY_LOG"
+```
 
-Then paste the kickoff prompt (`KICKOFF-PROMPT.md`).
+For documentation-only work, use changed-path allowlisting, a task-local link/commit/path verifier, instruction-consistency review, and `git diff --check`. The repository has no native Markdown link-check command, so do not invent or claim one. A full runtime suite is not required merely to validate Markdown unless the issued task says otherwise.
 
-## Historical: original two undo buttons
+## 6. Evidence and handoff discipline
 
-- **Rewind** — hover any message → rewind → "Rewind code to here". Reverts the file
-  changes, keeps the conversation. Use for "no, not like that."
-- **Git** — for whole sessions. Just say *"commit my changes with a descriptive message."*
-
-## Historical: what was happening at the M0A launch
-
-**M0A.** A headless simulation harness. Nothing is playable yet, on purpose. Its only
-output is a report telling you whether the game's core maths produce interesting
-decisions. Everything downstream depends on that answer.
-
-The agent works autonomously through the whole M0A loop — implement, run, read flags,
-tune, re-run — and stops before building any UI. That stop is where your judgment is
-needed, not the model's.
-
-**Expect failing tests.** The numbers in the contract are first guesses. §15 tests
-failing is the instrument working, not a broken build.
-
-## Historical: where the M0A files were
-
-| Path | What |
-|---|---|
-| `studio/docs/build-contract.md` | the spec being implemented now |
-| `studio/CLAUDE.md` | standing instructions, read automatically each session |
-| `ROADMAP.md` | the whole staged plan, M0A → M1A → M0B → V1 |
-| `design-archive/design-spec.md` | why the design is what it is |
-| `design-archive/next-contracts/` | what gets built after M0A, numbered in order |
+- Separate accepted product, active WIP, future planning, and historical evidence in every handoff.
+- Cite immutable commits and exact paths; do not make another person's local filesystem the only retrieval route.
+- Preserve exact IDs, save compatibility, deterministic seeded behavior, and TypeScript ownership.
+- A blocked or inaccessible private source is a limitation, not a pass.
+- Technical proof is not Owner acceptance. An active branch is not accepted until an actual acceptance/integration record says so.
+- Do not implement a research or pre-readiness package without a newer explicit execution order.
