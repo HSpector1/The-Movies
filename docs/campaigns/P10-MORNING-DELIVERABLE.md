@@ -44,9 +44,11 @@ Save/Load mid-construction. Evidence `Evidence/P09-on-P10-reverify/`.
   history adapters, no-hidden-info law, same-name distinctness, presence-honest Locate.
 - IMPLEMENTED BUT UNPROVEN (visually): the full CAREER row → exact P07 result deep link (EditMode-proven;
   needs a careerEvents-populated save to capture — the accepted fixtures release films without frozen
-  career events, so only the honest partial-provenance state is oracle-captured); a real-HID P10 people
-  journey (world→inspector→Profile→Roster→filter→Back→Locate→Save/Load) — the oracle proves the visible
-  route, HID is the fuller §11 proof.
+  career events, so only the honest partial-provenance state is oracle-captured). The real-HID journey
+  is DONE for the Roster route + Save/Load (25/33 real-input passes); the world-body direct-click →
+  inspector card and the footer LOCATE remain HID-precision gaps on a small body beside a building,
+  covered by the Oracle (world-select→card→Profile, 22/22). The person route is thus proven by the
+  UNION of the two proofs.
 - DEPENDENCY-BLOCKED: material contract actions (renew/release) — no `renewContract`/`releaseContract`/
   `terminateContract` bridge command producer exists. The Profile shows the contract read-only.
 - OWNER-BLOCKED: Star badge / Star threshold (not produced; Star Power shown as a value + definition).
@@ -58,8 +60,8 @@ P09's real-Builder obligation was satisfied in P09 (real-HID Build flow 30/30 on
 d41c0d4b) and re-verified at the oracle level on the projection-18 P10 player (Build placement 12/12).
 
 ## EXACT REFS (fill final)
-- TS product `af8c19c` (docs/fixtures tip `05139c1`) | Unity product `68d20c1`
-- Player exe `1212fe63…` | Assembly-CSharp `1cbdf382…` | engine `3b9e3432…` (== the final committed TS engine, byte-verified) | generated contract `6c26f13e…`
+- TS product `af8c19c` (docs/fixtures tip `0cf3f2d`) | Unity product `fcfcbb8`
+- Player exe `a8f4390c…` | engine `3b9e3432…` (== the final committed TS engine, byte-verified) | generated contract `6c26f13e…`
 - Save V18 / protocol 4 / projection 18 (schema `ea5d645f…`)
 
 ## INTERMEDIATE CANDIDATES AND COMPATIBLE SAVES
@@ -68,8 +70,8 @@ d41c0d4b) and re-verified at the oracle level on the projection-18 P10 player (B
 - P10 person route (projection 18): `~/Desktop/P10-...` (this delivery)
 
 ## COMBINED CANDIDATE PATH + ONE VERIFIED LAUNCH COMMAND
-- `~/Desktop/P10-Person-Route-Candidate-af8c19c-68d20c1/` — launch:
-  `"$HOME/Desktop/P10-Person-Route-Candidate-af8c19c-68d20c1/playtest.sh" endowed`
+- `~/Desktop/P10-Person-Route-Candidate-af8c19c-fcfcbb8/` — launch:
+  `"$HOME/Desktop/P10-Person-Route-Candidate-af8c19c-fcfcbb8/playtest.sh" endowed`
 
 ## SHORT OWNER PLAYTEST (convenient saved entry points)
 1. `playtest.sh endowed` — a full studio, 60 people. Click a person on the lot → inspector → OPEN
