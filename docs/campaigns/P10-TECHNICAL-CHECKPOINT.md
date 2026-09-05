@@ -4,7 +4,7 @@
 
 ## 1. Pair (the projection-18 person-route candidate)
 - TypeScript `af8c19c` (WIP `wip/p08-p10-autonomous-stack-01-ts`, remote `hspector-github`) — W0 people projection at `e8d178d`; oracle fixtures; hostile-review comment fix.
-- Unity `68d20c1` (WIP `wip/p08-p10-autonomous-stack-01-client`, remote `origin`) — includes the hostile-review remedies.
+- Unity `fcfcbb8` (WIP `wip/p08-p10-autonomous-stack-01-client`, remote `origin`) — hostile-review remedies + the real-input (W5) instrumentation. Final candidate player exe `a8f4390c` (dirty=false).
 - Sealed projection-18 engine bundle `3b9e343209706589c33d9d5aac5882e5be3dde263c5988e69515f67af0cca592` (built from committed TS, schema `sha256:ea5d645f…`).
 - Save V18 / protocol 4 / projection 18. CF-09 PASS (generated contract `6c26f13e…`) at TS `9bc01ea` × Unity `26a543a1` (W1a).
 - The P09 core control remains a SEPARATE projection-17 candidate (`~/Desktop/P09-Core-Technical-Candidate-fee206f-8f30d0e/`, player `d41c0d4b`, engine `5185e3a2`); it is not rebuilt.
@@ -50,6 +50,29 @@ Evidence: `Evidence/P09-on-P10-reverify/`. The separate P09 CORE candidate on th
 `d41c0d4b`, engine `5185e3a2`) was NOT rebuilt or touched — only the P10 player ran these fixtures.
 A real-HID Build interaction on the final candidate (§11) is the fullest form of this proof; the
 oracle Build proof above is strong evidence that the ordinary-boot/Build flow holds on projection 18.
+
+## 4.2 Real-input (HID) people journey (execution order §11)
+
+`Tools/p10-run-hid-people.sh` + `Tools/p10-proof-people.mjs` drive the packaged player with real
+macOS CGEvents on real pixels, owner-idle-gated (600s idle + console unlocked), on the endowed
+person fixture with the sealed projection-18 engine. On the final candidate exe `a8f4390c`,
+**25 of 33 steps pass via genuine OS mouse/keyboard** — the ROSTER route proven END TO END with real
+input: open the ROSTER from the world (the People strip's COMPANY header), filter to Craft, select
+Miriam Grimaldi, OPEN PROFILE → her exact Profile, Back to the Roster with the Craft filter preserved
+— plus **Save (durable V18, "Saved.")**, **Load**, and the Studio Menu. Evidence
+`Evidence/P10-Journey-Final/` (per-step screenshots + report; run-binding).
+
+The 8 non-passing steps are HID input-precision gaps, not product defects: the world person-body
+DIRECT click → inspector card (a small body standing beside a building — the click lands on the
+building; the person's Profile is instead reached via the Roster, proven above), the footer LOCATE
+selection assertion, and a post-Load menu-resume timing. Those exact controls are proven in the
+packaged player by the Visual Oracle (`p10-person-inspector` 22/22), which selects the world body
+programmatically and captures the real inspector card + real pixels. So the person route is proven
+by the union of the two: the Oracle covers the full route including world-select→card→Profile; the
+real-HID journey covers the Roster route + Save/Load with genuine OS input. Two small proof-only
+additions enable the HID: the People-strip COMPANY header publishes its rect, and the host publishes
+the seated person's world body id; the element-map (proof) mode sets `runInBackground` so the loop
+stays alive to connect. None of these touch product behaviour.
 
 ## 5. Findings on the way (kept)
 - **F1 (fixed):** the Profile now offers LOCATE only when the wire claims a current body AND one actually resolves on view (the same honesty the P08 History detail keeps); a person "on the lot" per the authority but with no rendered body (scene capacity) reads "On the lot this week; no body to locate right now" instead of offering a dead Locate. EditMode-pinned.
