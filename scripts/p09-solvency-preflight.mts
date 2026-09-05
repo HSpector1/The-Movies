@@ -113,7 +113,7 @@ const plan = [
 ]
 const capexTotal = plan.reduce((s, p) => s + p.b.capex, 0)
 const opexTotal = plan.reduce((s, p) => s + p.b.weeklyOperatingCost, 0)
-console.log(`\nbare-lot minimum plant (FACILITY_BLUEPRINTS, ordinary sequence: all four committed at founding while cash allows):`)
+console.log(`\nbare-lot minimum plant (FACILITY_BLUEPRINTS, MODEL sequence: all four committed at founding while cash allows — NOT the engine's founding-phase law, which allows only the office until it is operational; the engine's own gate therefore releases later (week 37 on this seed) than this floor model (week 25)):`)
 for (const p of plan) console.log(`  ${p.b.name.padEnd(30)} capex ${money(p.b.capex).padStart(12)}  ${String(p.b.buildWeeks).padStart(2)} wks  opex ${money(p.b.weeklyOperatingCost).padStart(8)}/wk  +${p.b.capacity} ${p.b.capability}  footprint ${p.b.footprint.width}×${p.b.footprint.depth}`)
 console.log(`  capex total ${money(capexTotal)}; opex total ${money(opexTotal)}/wk once all four stand; house set commission $150,000 (SET_BLUEPRINTS set-house-generic, ${TUNING.SET_BUILD_WEEKS_BAND_LOW} wks)`)
 
