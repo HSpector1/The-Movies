@@ -52,3 +52,6 @@
 - Real HID: run 1 FAILED (session at the login window at launch; Save/Load half passed once unlocked; preserved); run 2 on exe `32262dbf…` 43/44 (one harness false negative) and the presence/body catch; run 3 on the sealed exe `043ae03e…`: pending the next ≥10-minute idle window (the machine is in active human use; the harness seizes the pointer) — result appended as a C3 addendum when it lands.
 - Campaign branches, TS `main`, and the Owner profile verified unchanged. No P08 Owner acceptance is claimed. Non-blocking backlog for the next change windows is enumerated in the checkpoint §9.
 
+#### C3 addendum — 2026-09-05 09:28Z — HID run 3 on the sealed exe
+- Real HID run 3 (exe `043ae03e…`, Unity `64dab80e`, driver from `64dab80e`): 43/44 steps green — the whole P08 route with real input (Administration click → card → OPEN STUDIO HISTORY → STANDING drivers → TIMELINE filter/milestone → FILMS exact row → OPEN FILM RESULT detour → Esc back to the same film → PEOPLE exact person → Locate disabled with the §6.6 reason → BACK → Save → Load → arrow-key pan → route reopens with the same film row). The single failed step is the driver's framing self-report (harness ordering; product steps all green) — same as run 2. Evidence copied into the candidate `proof/hid/run3-43of44-sealed-exe/`.
+
