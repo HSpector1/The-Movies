@@ -29,6 +29,28 @@
   - `p10-person-history` **9/9** — the Profile's STUDIO HISTORY and the P08 history person subject's OPEN PROFILE both render, on the first-film-released fixture (P08 history + P09 lot + P10 people coexisting on one player).
   - Evidence: `Evidence/P10-Oracle*/p10-person-*` (sidecar assertions + the actual open panels).
 
+## 4.1 P09 live-boot / Build regression re-verified on the projection-18 player (Current Ops addendum item 4)
+
+The accepted P09 Build scenarios were re-enveloped at projection 18 (same states, same
+`p09-oracle-` session identities; `scripts/gen-p09-p18-reverify-fixtures.mts` →
+`ui/e2e/p09-visual-oracle-v1-p18/`) and rerun on the projection-18 P10 player via the shipped
+p09 runner (`Tools/p09-run-visual-oracle.sh`, `P09_FIXTURES` override). **6/6 scenarios,
+69/69 assertions, all green** — the P10 people changes did not regress the P09 floor:
+
+| Scenario | Proves | Assertions |
+|---|---|---|
+| `p09-sparse-start` | ordinary boot → the correct bare founding lot (bare-lot art law, no generic bodies, OPEN BUILD offered) | 25/25 |
+| `p09-valid-placement` | Build: legal preview → explicit placement commit | 12/12 |
+| `p09-office-rising` | construction in progress (office rising on its footprint) | 14/14 |
+| `p09-migrated-endowed-unchanged` | migration: a migrated P07 endowed profile carried to projection 18, authored art intact | 13/13 |
+| `p09-reconnect-same-ids` | reconnect / engine replacement preserves exact ids | 3/3 |
+| `p09-save-load-mid-construction` | Save/Load mid-construction survives projection 18 | 2/2 |
+
+Evidence: `Evidence/P09-on-P10-reverify/`. The separate P09 CORE candidate on the Desktop (player
+`d41c0d4b`, engine `5185e3a2`) was NOT rebuilt or touched — only the P10 player ran these fixtures.
+A real-HID Build interaction on the final candidate (§11) is the fullest form of this proof; the
+oracle Build proof above is strong evidence that the ordinary-boot/Build flow holds on projection 18.
+
 ## 5. Findings on the way (kept)
 - **F1 (fixed):** the Profile now offers LOCATE only when the wire claims a current body AND one actually resolves on view (the same honesty the P08 History detail keeps); a person "on the lot" per the authority but with no rendered body (scene capacity) reads "On the lot this week; no body to locate right now" instead of offering a dead Locate. EditMode-pinned.
 - **F2 (minor, open):** at short viewport heights (≈700px) the Profile heading + LOCATE chrome underlap the top time-control bar (UITK vs IMGUI scale independently). BACK stays visible; content readable. Cosmetic; not fixed to avoid a fragile cross-scaling hack.
