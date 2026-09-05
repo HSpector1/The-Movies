@@ -305,6 +305,128 @@ export function initialProperty(): PropertyState {
   return clonePropertyState(INITIAL_PROPERTY)
 }
 
+// ── P09 — THE AUTHORED BARE-LOT PROPERTY (charter §16/§17) ───────────────────
+//
+// A SEPARATE authored property for the sparse 1920 start. `INITIAL_PROPERTY` is
+// never edited or repurposed (§16); this is new data on the same 28×26 grid and
+// the same authored circulation, so the accepted world anchors (the Gate arch
+// astride the boulevard, Administration at the north court) stand exactly where
+// the endowed lot has them and every presenter that reads the grid keeps its
+// origin.
+//
+// What it contains, and nothing else (§17): the two civic LANDMARKS (Gate,
+// Administration — no engine capacity), the authored roads, and OWNED buildable
+// ground sized so the minimum first-film plant (office 3×2, scenery 3×2,
+// soundstage 4×4, post 3×2, every one with a clearance ring and road frontage)
+// fits with room to grow. The two blocked parcels of the endowed lot stay
+// blocked dressing here too: the ground is the same ground.
+//
+// What it deliberately does NOT contain: any `founding` structure (so
+// `foundingFacilitiesOf` yields nothing and the managed operations root starts
+// EMPTY), the Theater, and the legacy `expansion` parcel id (whose reserved
+// Annex contract belongs to the endowed lot's history, not to open ground).
+export const BARE_LOT_PARCELS: readonly LotParcel[] = [
+  {
+    id: 'north-west-yard',
+    label: 'North-West Yard',
+    terrain: 'buildable',
+    rect: { x0: 0, y0: 0, x1: 8, y1: 6 },
+    ownedFromStart: true,
+  },
+  {
+    id: 'north-stage-yard',
+    label: 'North Stage Yard',
+    terrain: 'buildable',
+    rect: { x0: 15, y0: 0, x1: 27, y1: 6 },
+    ownedFromStart: true,
+  },
+  {
+    id: 'west-lot',
+    label: 'West Lot',
+    terrain: 'buildable',
+    rect: { x0: 0, y0: 9, x1: 6, y1: 18 },
+    ownedFromStart: true,
+  },
+  {
+    id: 'courtyard',
+    label: 'Central Courtyard',
+    terrain: 'blocked',
+    rect: { x0: 7, y0: 10, x1: 11, y1: 14 },
+    ownedFromStart: true,
+  },
+  {
+    id: 'east-yard',
+    label: 'East Yard',
+    terrain: 'buildable',
+    rect: { x0: 15, y0: 9, x1: 27, y1: 13 },
+    ownedFromStart: true,
+  },
+  {
+    id: 'service-yard',
+    label: 'Scenery & Service Yard',
+    terrain: 'blocked',
+    rect: { x0: 21, y0: 16, x1: 26, y1: 18 },
+    ownedFromStart: true,
+  },
+  {
+    id: 'stage-south',
+    label: 'Stage South Pad',
+    terrain: 'buildable',
+    rect: { x0: 15, y0: 16, x1: 17, y1: 20 },
+    ownedFromStart: true,
+  },
+  {
+    id: 'south-lawn',
+    label: 'South Lawn',
+    terrain: 'buildable',
+    rect: { x0: 3, y0: 19, x1: 8, y1: 22 },
+    ownedFromStart: true,
+  },
+  {
+    id: 'backlot-apron',
+    label: 'Back-Lot Apron',
+    terrain: 'buildable',
+    rect: { x0: 23, y0: 20, x1: 26, y1: 24 },
+    ownedFromStart: true,
+  },
+]
+
+export const BARE_LOT_STRUCTURES: readonly PropertyStructure[] = [
+  {
+    id: 'gate',
+    label: 'Studio Gate',
+    role: 'landmark',
+    origin: { gx: 8, gy: 23 },
+    footprint: { width: 3, depth: 1 },
+    providesFacilityIds: [],
+  },
+  {
+    id: 'admin',
+    label: 'Administration',
+    role: 'landmark',
+    origin: { gx: 9, gy: 2 },
+    footprint: { width: 3, depth: 3 },
+    providesFacilityIds: [],
+  },
+]
+
+export const BARE_LOT_PROPERTY: PropertyState = deepFreezeProperty({
+  bounds: { width: LOT_WIDTH, depth: LOT_DEPTH },
+  roads: LOT_ROADS.map((road) => ({ ...road })),
+  parcels: BARE_LOT_PARCELS.map((parcel) => ({ ...parcel, rect: { ...parcel.rect } })),
+  structures: BARE_LOT_STRUCTURES.map((structure) => ({
+    ...structure,
+    origin: { ...structure.origin },
+    footprint: { ...structure.footprint },
+    providesFacilityIds: [...structure.providesFacilityIds],
+  })),
+})
+
+/** A fresh, fully mutable deep copy of the authored bare-lot property. */
+export function bareLotProperty(): PropertyState {
+  return clonePropertyState(BARE_LOT_PROPERTY)
+}
+
 /** A deep copy of any property. Pure data in, pure data out. */
 export function clonePropertyState(property: PropertyState): PropertyState {
   return {

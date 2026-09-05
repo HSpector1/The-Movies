@@ -23,7 +23,7 @@ import {
   generateWorld,
   importSave,
   makeSave,
-  migrateToV17,
+  migrateToV18,
   operationalPlacedFacilities,
   periodSummary,
   placedStudioFacility,
@@ -109,7 +109,7 @@ describe('Placement Core V12 — completion flips capacity exactly once, on its 
     let split = start
     for (let week = 0; week < BUILD_WEEKS; week++) {
       const json = exportSave(makeSave(split))
-      const reloaded = migrateToV17(importSave(json))
+      const reloaded = migrateToV18(importSave(json))
       expect(exportSave(reloaded)).toBe(json)
       split = tick(reloaded.state)
     }
@@ -345,7 +345,7 @@ describe('Placement Core V12 — determinism', () => {
     const continuous = advance(start, 12)
 
     const json = exportSave(makeSave(start))
-    const reloaded = migrateToV17(importSave(json))
+    const reloaded = migrateToV18(importSave(json))
     expect(exportSave(reloaded)).toBe(json)
     const resumed = advance(reloaded.state, 12)
 

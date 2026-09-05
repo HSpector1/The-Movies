@@ -528,6 +528,8 @@ describe('CF-08 sound union-to-C# generation', () => {
       ])).toEqual([
         ['StudioQuoteCastingRequest', ['quoteCasting'], ['draft', 'type']],
         ['StudioQuoteCommissionRequest', ['quoteCommission'], ['draft', 'type']],
+        // P09 W1: the placement quote family joins the SAME union envelope.
+        ['StudioQuotePlacementRequest', ['quotePlacement'], ['draft', 'type']],
       ])
 
       const response = discriminatedUnion(schema, 'StudioQuoteSnapshot')
@@ -546,10 +548,10 @@ describe('CF-08 sound union-to-C# generation', () => {
 
       const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 13 })
       expect(generated).toContain(
-        '// Schema identity: sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236',
+        '// Schema identity: sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236',
+        'sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -614,8 +616,8 @@ describe('CF-08 sound union-to-C# generation', () => {
         F03_COMPATIBLE_OBJECTS: '99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68',
         F04_DISCRIMINATED_OBJECTS: 'd878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b',
         F09_ARRAY_ITEM_UNION: '7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b',
-        F10_CURRENT_QUOTE_UNIONS: '088fa487fe776a5e3912823ab397450ab6086e59e89f96786a2e4b0a83b2c46f',
-        F11_CURRENT_COMMAND_UNION: '088fa487fe776a5e3912823ab397450ab6086e59e89f96786a2e4b0a83b2c46f',
+        F10_CURRENT_QUOTE_UNIONS: '4a9cf01955445c49404130292f6352c84d33559025e0745f6734f0845b5879bc',
+        F11_CURRENT_COMMAND_UNION: '4a9cf01955445c49404130292f6352c84d33559025e0745f6734f0845b5879bc',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {
@@ -644,6 +646,9 @@ describe('CF-08 sound union-to-C# generation', () => {
       expect(requestCases.get('StudioQuoteCommissionRequest')?.properties
         .find((property) => property.wireName === 'draft')?.storage.csharpType)
         .toBe('StudioCommissionDraftPayload')
+      expect(requestCases.get('StudioQuotePlacementRequest')?.properties
+        .find((property) => property.wireName === 'draft')?.storage.csharpType)
+        .toBe('StudioPlacementDraftPayload')
       expect(command.promotedProperties.map((property) => property.wireName)).not.toContain('directorId')
       const commandCases = new Map(command.cases.map((member) => [member.className, member]))
       expect(commandCases.get('StudioAssignShootingDirectorCommand')?.properties

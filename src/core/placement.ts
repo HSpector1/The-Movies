@@ -108,10 +108,11 @@ import {
 } from './construction.js'
 import { persistedProductionIds } from './productionIdentity.js'
 import {
-  blueprintAtInstanceLimit,
   blueprintInstanceCount,
-  blueprintMaxInstances,
   evaluateBlueprintRequirements,
+  blueprintAtInstanceLimitFor,
+  blueprintNeededNow,
+  effectiveBlueprintMaxInstances,
 } from './blueprintRequirements.js'
 import {
   LEGACY_EXPANSION_PARCEL_ID,
@@ -145,6 +146,7 @@ import type {
   PlacementCellVerdict,
   PlacementQuote,
   PlacementRejection,
+  ProductionWorkflow,
   PlacementRequest,
   PlacementQueryOptions,
   PlacementMutationRefusal,
@@ -157,7 +159,7 @@ import type {
   StudioOperations,
   StudioPlacement,
 } from './types.js'
-import { INITIAL_STUDIO_FACILITIES } from './operations.js'
+import { INITIAL_STUDIO_FACILITIES, foundingFacilitiesOf } from './operations.js'
 
 /** The binding legality order. `primary` is the first entry present. */
 export const PLACEMENT_REJECTION_ORDER: readonly PlacementRejection[] = [
@@ -617,7 +619,7 @@ export function quoteForBlueprint(
     ? { available: true, unmet: [] }
     : evaluateBlueprintRequirements(state, blueprint, FACILITY_BLUEPRINTS)
   if (!availability.available) found.add('requirementsUnmet')
-  if (!isMove && blueprintAtInstanceLimit(state.placement, blueprint)) {
+  if (!isMove && blueprintAtInstanceLimitFor(state, blueprint)) {
     found.add('instanceLimit')
   }
 
@@ -652,7 +654,7 @@ export function quoteForBlueprint(
     primary: rejections[0] ?? null,
     unmetRequirements: availability.unmet,
     instanceCount: blueprintInstanceCount(state.placement, blueprint.id),
-    maxInstances: blueprintMaxInstances(blueprint),
+    maxInstances: effectiveBlueprintMaxInstances(state, blueprint),
   }
 }
 
@@ -1504,7 +1506,7 @@ export function assertStudioPlacementInvariants(
     invariant(opexRows.length === 0, 'legacy mode cannot have facility operating cost')
     assertStudioConstructionInvariants(state, {
       facilityPolicy: 'placement-v12',
-      ...(configured ? {} : { expectedFacilities: [] }),
+      ...(configured ? {} : { expectedFacilities: [], foundingFacilities: foundingFacilitiesOf(property) }),
     })
     return
   }
@@ -1814,10 +1816,26 @@ export function assertStudioPlacementInvariants(
         productionDebits.length === 1 && productionDebits[0]!.week === production.startTick,
         `production "${workflow.productionId}" placed-facility reservation disagrees with its authoritative greenlight week`,
       )
-      invariant(
-        productionDebits[0]!.week >= availableWeek,
-        `production "${workflow.productionId}" cannot reserve the Annex before Week ${String(availableWeek)}`,
-      )
+      // P09 W1 correction: the reservation-time evidence depends on WHEN a
+      // capability is acquired. Development & Casting is taken in the
+      // development phase at greenlight and sticky-retained (the V11 Annex law,
+      // verbatim); a soundstage is taken at rehearsal entry and stamped
+      // (`bindings.heldSinceWeek`) — a picture greenlit while its stage was still
+      // rising legitimately holds it from the stamp, never from the greenlight
+      // week. A capability whose acquisition week is not persisted (post) has no
+      // evidence to judge and is not judged here — recorded as a P09 deferred
+      // item, not silently laundered.
+      const evidenceWeek = placedReservationEvidenceWeek(workflow, placed.facilityId, productionDebits[0]!.week)
+      if (evidenceWeek !== null) {
+        invariant(
+          evidenceWeek >= availableWeek,
+          `production "${workflow.productionId}" cannot reserve ${
+            placed.blueprintId === DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.id
+              ? 'the Annex'
+              : (blueprintById(placed.blueprintId)?.name ?? placed.facilityId)
+          } before Week ${String(availableWeek)}`,
+        )
+      }
     }
     for (const screenplay of state.scriptDevelopment.projects) {
       if (screenplay.reservation?.facilityId !== placed.facilityId) continue
@@ -1846,10 +1864,40 @@ export function assertStudioPlacementInvariants(
     ...(configured
       ? {}
       : {
+          foundingFacilities: foundingFacilitiesOf(property),
           expectedFacilities:
             capacityProvidingPlacedFacilities(placement).map(placedStudioFacility),
         }),
   })
+}
+
+/**
+ * The week a production's reservation of ONE placed facility can be evidenced
+ * to have begun, or null when the engine does not persist it:
+ *   • development-casting → the greenlight week (acquired in the development
+ *     phase, sticky-retained across later phases);
+ *   • soundstage → `bindings.heldSinceWeek` when the binding names this facility,
+ *     else the greenlight week (a soundstage reservation without a stamp is
+ *     judged conservatively);
+ *   • anything else → null (no persisted acquisition week).
+ */
+function placedReservationEvidenceWeek(
+  workflow: ProductionWorkflow,
+  facilityId: string,
+  greenlightWeek: number,
+): number | null {
+  const reservation = workflow.reservations.find((entry) => entry.facilityId === facilityId)
+  if (reservation === undefined) return null
+  switch (reservation.capability) {
+    case 'development-casting':
+      return greenlightWeek
+    case 'soundstage':
+      return workflow.bindings.stageFacilityId === facilityId && workflow.bindings.heldSinceWeek !== null
+        ? workflow.bindings.heldSinceWeek
+        : greenlightWeek
+    default:
+      return null
+  }
 }
 
 // ── read model ───────────────────────────────────────────────────────────────
@@ -1865,6 +1913,26 @@ export function legacyAnnexPlacementRequest(property: PropertyState): PlacementR
   if (parcel === null) {
     throw new Error('placement: the legacy expansion parcel is missing from the lot')
   }
+  return {
+    blueprintId: DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.id,
+    origin: { gx: parcel.rect.x0, gy: parcel.rect.y0 },
+  }
+}
+
+/**
+ * P09 §16 (property-driven law): the legacy Annex shortcut is an ENDOWED-lot
+ * affordance — it exists exactly when the property carries the reserved legacy
+ * expansion parcel. A bare lot has no such parcel, so the shortcut is simply not
+ * offered there (the Build catalogue is the one construction path), and the read
+ * model must say so rather than throw.
+ */
+export function legacyAnnexOffered(property: PropertyState): boolean {
+  return parcelById(property, LEGACY_EXPANSION_PARCEL_ID) !== null
+}
+
+function legacyAnnexPlacementRequestOrNull(property: PropertyState): PlacementRequest | null {
+  const parcel = parcelById(property, LEGACY_EXPANSION_PARCEL_ID)
+  if (parcel === null) return null
   return {
     blueprintId: DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.id,
     origin: { gx: parcel.rect.x0, gy: parcel.rect.y0 },
@@ -1949,11 +2017,16 @@ export function studioConstructionView(
   const currentDevelopmentCastingCapacity = state.operations.facilities
     .filter((facility) => facility.capability === 'development-casting')
     .reduce((sum, facility) => sum + facility.capacity, 0)
+  // P09 §16: on a lot without the reserved legacy parcel the shortcut is not
+  // offered at all — never a thrown snapshot, never a phantom parcel id.
+  const property = propertyOf(state)
+  const annexRequest = legacyAnnexPlacementRequestOrNull(property)
+  const offered = annexRequest !== null
 
   return {
     mode: state.placement.mode,
     status,
-    parcelId: state.placement.mode === 'managed' ? LEGACY_EXPANSION_PARCEL_ID : null,
+    parcelId: state.placement.mode === 'managed' && offered ? LEGACY_EXPANSION_PARCEL_ID : null,
     projectId: placed?.projectId ?? null,
     facilityId: placed?.facilityId ?? null,
     name: blueprint.name,
@@ -1964,9 +2037,10 @@ export function studioConstructionView(
     cashAfter: state.studio.cash - blueprint.capex,
     affordability,
     canStart:
+      annexRequest !== null &&
       placementRegimeReady(state) &&
       annexCanonicalProductionIdCollision(state) === null &&
-      queryPlacement(state, legacyAnnexPlacementRequest(propertyOf(state))).ok,
+      queryPlacement(state, annexRequest).ok,
     startedWeek: placed?.placedWeek ?? null,
     dueWeek: placed?.completesWeek ?? null,
     completedWeek: placed === null || placed.status !== 'operational' ? null : placed.completesWeek,
@@ -1977,7 +2051,9 @@ export function studioConstructionView(
     consequence:
       status === 'legacy'
         ? 'Studio Development becomes available after managed studio operations are activated.'
-        : status === 'vacant'
+        : status === 'vacant' && !offered
+          ? 'This lot has no reserved Annex parcel. Development & Casting capacity is built from the Build catalogue.'
+          : status === 'vacant'
           ? 'Build one additional shared Development & Casting slot. This does not raise the production ceiling or guarantee another release.'
           : status === 'building'
             ? 'Construction is committed. The Annex becomes available after the completing weekly advance; no work is reallocated during that advance.'
@@ -2049,6 +2125,11 @@ export type PlacementCatalogView = {
    * reason — it simply stops promising something it would not deliver.
    */
   supersededBy: string | null
+  /**
+   * P09 §10.3 — the ONE row a bare lot must build next (its founding office while
+   * none is committed). A sorting/tagging fact from the engine, never an unlock.
+   */
+  neededNow: boolean
   /**
    * True when the entry is buildable somewhere in principle right now: unlocked,
    * within its allowance, and affordable. It deliberately says nothing about
@@ -2139,7 +2220,7 @@ export function studioPlacementView(state: GameState): StudioPlacementView {
     placements,
     catalog: FACILITY_BLUEPRINTS.map((blueprint) => {
       const availability = evaluateBlueprintRequirements(state, blueprint, FACILITY_BLUEPRINTS)
-      const atLimit = blueprintAtInstanceLimit(state.placement, blueprint)
+      const atLimit = blueprintAtInstanceLimitFor(state, blueprint)
       const affordable = canAfford(state, blueprint.capex).ok
       return {
         blueprintId: blueprint.id,
@@ -2156,10 +2237,11 @@ export function studioPlacementView(state: GameState): StudioPlacementView {
         available: availability.available,
         unmet: availability.unmet,
         instanceCount: blueprintInstanceCount(state.placement, blueprint.id),
-        maxInstances: blueprintMaxInstances(blueprint),
+        maxInstances: effectiveBlueprintMaxInstances(state, blueprint),
         atInstanceLimit: atLimit,
         supersededBy: supersedingOperationalBlueprintId(state, blueprint.id),
         buildable: availability.available && !atLimit && affordable,
+        neededNow: blueprintNeededNow(state, blueprint),
       }
     }),
     weeklyOperatingCost: weeklyPlacementOperatingCost(state.placement),

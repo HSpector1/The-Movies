@@ -202,6 +202,10 @@ export type {
 // ── Placement Core V12 + Property State (C1-M1a) ─────────────────────────────
 export {
   INITIAL_PROPERTY,
+  BARE_LOT_PROPERTY,
+  BARE_LOT_PARCELS,
+  BARE_LOT_STRUCTURES,
+  bareLotProperty,
   INITIAL_PROPERTY_STRUCTURES,
   LOT_DEPTH,
   LOT_PARCELS,
@@ -243,7 +247,15 @@ export {
   blueprintRequirementReason,
   evaluateBlueprintRequirements,
   requirementIsAttainable,
+  FOUNDING_OFFICE_BLUEPRINT_ID,
+  FOUNDING_OFFICE_REQUIREMENT_REASON,
+  foundingPhaseOf,
+  foundingPhaseRequirementsFor,
+  effectiveBlueprintMaxInstances,
+  blueprintAtInstanceLimitFor,
+  blueprintNeededNow,
 } from './blueprintRequirements.js'
+export type { FoundingPhase } from './blueprintRequirements.js'
 export {
   PLACEMENT_REJECTION_ORDER,
   RESERVED_PARCEL_BLUEPRINTS,
@@ -258,6 +270,7 @@ export {
   footprintCells,
   initialManagedStudioPlacement,
   legacyAnnexPlacement,
+  legacyAnnexOffered,
   legacyAnnexPlacementRequest,
   groundOccupiedCellKeys,
   occupiedCellKeys,
@@ -446,6 +459,7 @@ export type { RngPurpose } from './rng.js'
 
 // §9 world generation (phase 3) + the §10-shared salary curve (B7)
 export { generateWorld, salaryCurve } from './worldgen.js'
+export type { GenerateWorldOptions } from './worldgen.js'
 
 // ── C2a-M3 — Renewable Screenplay Generation V1 (charter §3.5) ───────────────
 // The authored vocabulary, the mint, the set demand, the writer-speed law, and
@@ -498,6 +512,7 @@ export { applyActions, previewCustomTalent, previewBalancedTalent, balancedBoost
 // Production Operations V1 — authoritative phase/facility/task helpers.
 export {
   INITIAL_STUDIO_FACILITIES,
+  foundingFacilitiesOf,
   emptyStudioOperations,
   initialManagedStudioOperations,
   addManagedProductionWorkflow,
@@ -1190,6 +1205,11 @@ export {
   migrateToV17,
   makeSaveV17,
   validateSaveV17,
+  // P09 — live V17 → NEW V18 + migrateToV18 (the founding-regime root).
+  convertV17ToV18,
+  migrateToV18,
+  makeSaveV18,
+  validateSaveV18,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -1209,6 +1229,7 @@ export type {
   SaveFileV15,
   SaveFileV16,
   SaveFileV17,
+  SaveFileV18,
   SaveFile,
   TalentV1,
   GameStateV1,
@@ -1275,4 +1296,6 @@ export type {
   StudioHistoryEventKind,
   StudioHistoryState,
   GameStateV17,
+  GameStateV18,
+  FoundingRegime,
 } from './types.js'

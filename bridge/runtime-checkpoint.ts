@@ -3,8 +3,8 @@ import { createHash, randomUUID } from 'node:crypto'
 import {
   exportSave,
   importSave,
-  migrateToV17,
-  type SaveFileV17,
+  migrateToV18,
+  type SaveFileV18,
 } from '../src/core/index.js'
 import { exportSaveJson } from '../ui/src/engine/adapter.ts'
 import {
@@ -106,6 +106,8 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // v16 (the schema-bump law, obeyed): every accepted P07 profile and candidate
   // checkpoint carries it and keeps migrating.
   ['sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99', 'projection-v15'],
+  // P08A W2 — projection 16 (Standing & Studio History section); superseded by P09's projection 17.
+  ['sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236', 'projection-v16'],
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({
@@ -362,7 +364,7 @@ function parseCanonicalJson(json: string, path: string): unknown {
 // (journal discarded as opaque history, saves re-imported through the
 // canonical chain). A CURRENT-schema checkpoint is therefore always written
 // by this build and always carries live V16 bytes.
-type CurrentEnvelopeSave = SaveFileV17
+type CurrentEnvelopeSave = SaveFileV18
 
 function validateCanonicalCurrentSave(
   saveJson: string,
@@ -377,11 +379,11 @@ function validateCanonicalCurrentSave(
   } catch (error) {
     fail(path, `is not a valid TypeScript save: ${(error as Error).message}`)
   }
-  if (imported.saveVersion !== 17) {
-    fail(path, `must be a current V17 save, received V${String(imported.saveVersion)}`)
+  if (imported.saveVersion !== 18) {
+    fail(path, `must be a current V18 save, received V${String(imported.saveVersion)}`)
   }
   if (exportSave(imported) !== saveJson) {
-    fail(path, 'must preserve the canonical V17 save bytes exactly')
+    fail(path, 'must preserve the canonical V18 save bytes exactly')
   }
   const current = imported as CurrentEnvelopeSave
   cache.set(saveJson, current)
@@ -770,10 +772,10 @@ function migrateLegacyProtocol3Checkpoint(
 function importPriorSaveViaCanonicalChain(
   json: string,
   path: string,
-): { json: string; state: SaveFileV17['state'] } {
-  let migrated: SaveFileV17
+): { json: string; state: SaveFileV18['state'] } {
+  let migrated: SaveFileV18
   try {
-    migrated = migrateToV17(importSave(json))
+    migrated = migrateToV18(importSave(json))
   } catch (error) {
     fail(path, `is not a save the current save contract can import: ${(error as Error).message}`)
   }

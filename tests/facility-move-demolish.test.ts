@@ -41,14 +41,14 @@ import {
   importSave,
   makeSave,
   makeSaveV12,
-  migrateToV17,
+  migrateToV18,
   moveFacility,
   queryPlacement,
   stableStringify,
   studioCalendar,
   tick,
   validateSave,
-  validateSaveV17,
+  validateSaveV18,
 } from '../src/core/index.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -775,12 +775,12 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     state = advance(state, 2)
 
     const save = makeSave(state)
-    expect(save.saveVersion).toBe(17)
+    expect(save.saveVersion).toBe(18)
     expect(validateSave(save)).toBe(save)
-    expect(validateSaveV17(save)).toBe(save)
+    expect(validateSaveV18(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json))).toBe(json)
-    const reloaded = migrateToV17(importSave(json)).state
+    const reloaded = migrateToV18(importSave(json)).state
     expect(exportSave(makeSave(reloaded))).toBe(json)
     expect(reloaded.placement.facilities).toEqual(state.placement.facilities)
     expect(refundRows(reloaded)).toHaveLength(1)
@@ -816,6 +816,8 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     delete forgedV11.state.releaseAuthority
     // P08A: strip the forward-recorded history root too, for the same reason.
     delete forgedV11.state.studioHistory
+    // P09: and the founding-regime root.
+    delete forgedV11.state.foundingRegime
     forgedV11.saveVersion = 11
     expect(() => validateSave(forgedV11)).toThrow(
       /SaveFileV13 facility demolition authority|facilityDemolitionRefund/,

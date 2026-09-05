@@ -38,7 +38,8 @@ import type {
   FoundingApplicantRow,
   GameState,
 } from '../ui/src/engine/adapter.ts'
-import { applyActions, importSave, migrateToV17 } from '../src/core/index.js'
+import { applyActions, importSave, migrateToV18 } from '../src/core/index.js'
+import type { FoundingRegime } from '../src/core/index.js'
 import {
   PROTOCOL_VERSION,
   SCHEMA_ID,
@@ -80,6 +81,9 @@ import type {
   BridgeRejectedResponse,
   BridgeSnapshotEnvelope,
   BridgeTreasurySnapshot,
+  BridgePlacementDraftPayload,
+  BridgeQuotePlacementRequest,
+  BridgePlacementQuoteSnapshot,
 } from './schema/bridge-schema.ts'
 import { projectStudioProjectionBundle } from './schema/runtime.ts'
 import {
@@ -87,6 +91,7 @@ import {
   draftToEngine,
 } from './development.ts'
 import { castingDraftToEngine, castingQuoteSnapshot } from './casting.ts'
+import { placementDraftToEngine, placementQuoteSnapshot } from './placement.ts'
 
 type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
@@ -102,7 +107,7 @@ function importSaveJsonCurrent(json: string): ImportOutcome {
   try {
     const save = importSave(json)
     const converted = save.saveVersion !== 17
-    return { ok: true, state: migrateToV17(save).state, converted }
+    return { ok: true, state: migrateToV18(save).state, converted }
   } catch (error) {
     return { ok: false, error: (error as Error).message }
   }
@@ -148,6 +153,14 @@ type PendingQuote =
       draft: BridgeCastingDraftPayload
       stateDigest: string
       kind: 'startAuditions' | 'greenlightPicture' | 'signContract'
+      commitLabel: string
+    }
+  | {
+      // P09 §18: a LEGAL placement preview mints the one construction commit.
+      family: 'placement'
+      draft: BridgePlacementDraftPayload
+      stateDigest: string
+      kind: 'placeFacility'
       commitLabel: string
     }
 
@@ -1216,8 +1229,11 @@ export class BridgeSession {
 
   static createRuntime(
     limits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
+    regime: FoundingRegime = 'endowed',
   ): BridgeSession {
-    return new BridgeSession(newGame('current-game-unity-adoption-v2'), undefined, null, { limits })
+    // P09 §16: the regime is written at creation, from the runtime's explicit
+    // configuration — never inferred, never applied to an existing profile.
+    return new BridgeSession(newGame('current-game-unity-adoption-v2', { regime }), undefined, null, { limits })
   }
 
   static fromRuntimeCheckpoint(
@@ -1390,11 +1406,22 @@ export class BridgeSession {
     } as const
     const conversion = pending.family === 'commission'
       ? draftToEngine(this.state, pending.draft)
-      : castingDraftToEngine(this.state, pending.draft)
+      : pending.family === 'casting'
+        ? castingDraftToEngine(this.state, pending.draft)
+        : placementDraftToEngine(this.state, pending.draft)
     if (!conversion.ok) {
       return {
         option: { intentId, ...fields },
         apply: () => ({ ok: false, error: conversion.error }),
+      }
+    }
+    // P09 §18 (commit revalidates): a placement quote that is no longer legal
+    // on the live state must fail closed at commit, never charge, never build.
+    if (conversion.kind === 'placeFacility' && !conversion.quote.ok) {
+      const reason = conversion.quote.primary ?? 'illegal placement'
+      return {
+        option: { intentId, ...fields },
+        apply: () => ({ ok: false, error: `This placement is no longer legal (${reason}).` }),
       }
     }
     return { option: { intentId, ...fields }, apply: conversion.apply }
@@ -1463,11 +1490,48 @@ export class BridgeSession {
    */
   quote(request: BridgeQuoteCommissionRequest): AcceptedQuoteResponseFor<BridgeCommissionQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteCastingRequest): AcceptedQuoteResponseFor<BridgeCastingQuoteSnapshot> | RejectedResponse
+  quote(request: BridgeQuotePlacementRequest): AcceptedQuoteResponseFor<BridgePlacementQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteRequest): QuoteResponse
   quote(request: BridgeQuoteRequest): QuoteResponse {
     const started = performance.now()
     const guarded = this.quoteGuard(request, started)
     if (guarded !== null) return guarded
+    if (request.type === 'quotePlacement') {
+      // P09 §18: a PREVIEW is a first-class answer. The engine's legality
+      // authority never throws; an illegal spot is an ACCEPTED quote with
+      // `ok:false`, per-cell verdicts and the ordered reasons — and no
+      // REGISTERED intent (the id it carries is never accepted for commit).
+      // Only a legal quote is preflighted (the commit path must succeed on the
+      // state that quoted it) and registered for the digest-bound commit.
+      const conversion = placementDraftToEngine(this.state, request.draft)
+      if (!conversion.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', conversion.error, started)
+      }
+      const stateDigest = authoritativeDigest(this.state)
+      const intentId = opaqueIntentId(stateDigest, { placementDraft: request.draft })
+      if (!conversion.quote.ok) {
+        // Illegal preview: an accepted answer, NOT a registered intent — the id
+        // is never accepted by the authority if a client submits it anyway.
+        return this.mintQuoteResponse(
+          request, started, stateDigest,
+          placementQuoteSnapshot(this.state, request.draft, conversion, intentId),
+        )
+      }
+      const preflight = caught(() => conversion.apply(this.state))
+      if (!preflight.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
+      }
+      const quote = placementQuoteSnapshot(this.state, request.draft, conversion, intentId)
+      this.pendingQuotes.set(intentId, {
+        family: 'placement',
+        draft: request.draft,
+        stateDigest,
+        kind: 'placeFacility',
+        commitLabel: quote.commitLabel,
+      })
+      this.capPendingQuotes()
+      return this.mintQuoteResponse(request, started, stateDigest, quote)
+    }
 
     if (request.type === 'quoteCommission') {
       const conversion = draftToEngine(this.state, request.draft)

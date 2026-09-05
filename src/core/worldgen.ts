@@ -52,7 +52,7 @@ import { clamp } from './math.js'
 import { emptyCastingSessions } from './castingSessions.js'
 import { emptyStudioConstruction } from './construction.js'
 import { emptyStudioPlacement } from './placement.js'
-import { initialProperty } from './lot.js'
+import { bareLotProperty, initialProperty } from './lot.js'
 import { emptyStudioOperations } from './operations.js'
 import { emptyScriptDevelopment } from './scriptDevelopment.js'
 import { emptyStudioEventLog } from './studioEvents.js'
@@ -97,6 +97,7 @@ import type {
   Studio,
   Talent,
   WorkHistory,
+  FoundingRegime,
 } from './types.js'
 import {
   FIRST_NAMES,
@@ -639,7 +640,13 @@ function generateMarket(seed: string): MarketState {
 }
 
 // ── §9 entry point ───────────────────────────────────────────────────────────
-export function generateWorld(seed: string): GameState {
+export type GenerateWorldOptions = {
+  /** P09: the founding regime written ONCE at creation. Default `endowed` (byte-identical to every prior world). */
+  regime?: FoundingRegime
+}
+
+export function generateWorld(seed: string, options?: GenerateWorldOptions): GameState {
+  const regime: FoundingRegime = options?.regime ?? 'endowed'
   // era (B10): neutral era; the three non-costScale fields are inert data here.
   const era: EraConfig = {
     soundRequired: true,
@@ -708,7 +715,10 @@ export function generateWorld(seed: string): GameState {
     // property. A fresh state gets a deep COPY of the initial authored property,
     // never the frozen constant, so state is always independently mutable and no
     // world can reach back and edit the authored source of truth.
-    property: initialProperty(),
+    // P09 §16: the property and the regime are written together, once. The
+    // endowed default is the authored lot every prior world played on.
+    property: regime === 'bare-lot' ? bareLotProperty() : initialProperty(),
+    foundingRegime: regime,
     // ── C2a-M1 SaveFileV14 ──────────────────────────────────────────────────
     // A headless world owns no physical production capacity beyond its legacy
     // countdown: no sets are endowed until a founded studio activates managed

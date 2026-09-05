@@ -28,7 +28,7 @@ export const PROTOCOL_VERSION = 4 as const
 // `results` (StudioFilmResultSnapshot: three independent critic/audience/business channels,
 // gross vs studio revenue, banked-vs-projected). Additive; protocol stays 4; save stays V16
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
-export const PROJECTION_VERSION = 16 as const
+export const PROJECTION_VERSION = 17 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -516,6 +516,13 @@ const StudioPlacedFacilitySnapshot = object('StudioPlacedFacilitySnapshot', {
   mutation: optional(reference('StudioPlacementMutationSnapshot', StudioPlacementMutationSnapshot)),
 })
 
+/** One unmet requirement in the engine's own player copy (P09 §10.3 / C1-M5). */
+const StudioPlacementUnmetRequirementSnapshot = object('StudioPlacementUnmetRequirementSnapshot', {
+  kind: nonEmptyText(),
+  reason: nonEmptyText(),
+  notYetAttainable: bool(),
+})
+
 const StudioPlacementCatalogEntrySnapshot = object('StudioPlacementCatalogEntrySnapshot', {
   blueprintId: nonEmptyText(),
   name: nonEmptyText(),
@@ -530,9 +537,15 @@ const StudioPlacementCatalogEntrySnapshot = object('StudioPlacementCatalogEntryS
   affordable: bool(),
   effectSummary: nonEmptyText(),
   available: bool(),
+  /** P09 §10.3: the exact engine-published reasons a row is unavailable, in order. */
+  unmet: array(reference('StudioPlacementUnmetRequirementSnapshot', StudioPlacementUnmetRequirementSnapshot)),
   maxInstances: nullable(nonNegativeInteger()),
+  /** The allowance in force is used up — a separately worded lock. */
+  atInstanceLimit: bool(),
   buildable: bool(),
   instanceCount: nonNegativeInteger(),
+  /** P09 §10.3: the ONE row a bare lot must build next (a tag, never an unlock). */
+  neededNow: bool(),
 })
 
 const StudioPlacementSnapshot = object('StudioPlacementSnapshot', {
@@ -570,6 +583,8 @@ const StudioPropertyBuildingSnapshot = object('StudioPropertyBuildingSnapshot', 
 const StudioPropertySnapshot = object('StudioPropertySnapshot', {
   bounds: reference('StudioPropertyBoundsSnapshot', StudioPropertyBoundsSnapshot),
   buildings: array(reference('StudioPropertyBuildingSnapshot', StudioPropertyBuildingSnapshot)),
+  /** P09 §16: the persisted founding regime — exact history, never inferred from the buildings. */
+  regime: enumeration(['endowed', 'bare-lot']),
 })
 
 const StudioWeekTheaterSubjectSnapshot = object('StudioWeekTheaterSubjectSnapshot', {
@@ -1316,9 +1331,47 @@ const StudioQuoteCastingRequest = object('StudioQuoteCastingRequest', {
   draft: reference('StudioCastingDraftPayload', StudioCastingDraftPayload),
 })
 
+// ── P09 §18 — the placement quote family ─────────────────────────────────────
+// A PREVIEW is a first-class answer (P09-REQ-013/015): an illegal spot returns an
+// ACCEPTED quote with `ok:false`, every cell's verdict, the ordered rejections,
+// the primary reason in player words, and NO commit intent. A legal spot mints
+// the ONE digest-bound commit intent (`placeFacility`); commit revalidates.
+const PLACEMENT_REJECTION_KINDS = [
+  'unknownBlueprint',
+  'offLot',
+  'notOwned',
+  'terrainUnbuildable',
+  'groundReserved',
+  'occupied',
+  'clearanceRing',
+  'noRoadAccess',
+  'seversLot',
+  'requirementsUnmet',
+  'instanceLimit',
+  'insufficientFunds',
+] as const
+
+const StudioPlacementDraftPayload = object('StudioPlacementDraftPayload', {
+  /** Build (P09 core). Move/demolish are P09-R4 and are refused until then. */
+  verb: enumeration(['build']),
+  blueprintId: nonEmptyText(),
+  origin: reference('StudioGridCellSnapshot', StudioGridCellSnapshot),
+})
+
+const StudioQuotePlacementRequest = object('StudioQuotePlacementRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION),
+  schemaId: nonEmptyText(),
+  sessionId: nonEmptyText(),
+  commandId: nonEmptyText(),
+  expectedStateRevision: nonNegativeInteger(),
+  type: literal('quotePlacement'),
+  draft: reference('StudioPlacementDraftPayload', StudioPlacementDraftPayload),
+})
+
 const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
   reference('StudioQuoteCommissionRequest', StudioQuoteCommissionRequest),
   reference('StudioQuoteCastingRequest', StudioQuoteCastingRequest),
+  reference('StudioQuotePlacementRequest', StudioQuotePlacementRequest),
 ] as const)
 
 const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
@@ -1360,9 +1413,57 @@ const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
   signGuaranteedComp: nullable(nonNegativeInteger()),
 })
 
+const StudioPlacementCellVerdictSnapshot = object('StudioPlacementCellVerdictSnapshot', {
+  cell: reference('StudioGridCellSnapshot', StudioGridCellSnapshot),
+  ok: bool(),
+  rejection: nullable(enumeration(PLACEMENT_REJECTION_KINDS)),
+})
+
+const StudioPlacementQuoteSnapshot = object('StudioPlacementQuoteSnapshot', {
+  /**
+   * The ONE opaque digest-bound intent id (the union's shared identity slot). It is
+   * REGISTERED for commit only when `ok` is true; an illegal preview's id is never
+   * accepted by the authority (INTENT_NOT_AVAILABLE), so `ok` is the commit truth.
+   */
+  intentId: nonEmptyText(),
+  kind: literal('placeFacility'),
+  commitLabel: nonEmptyText(),
+  /** Construction starts the moment a legal quote is committed (never queued). */
+  startsNow: bool(),
+  queues: bool(),
+  queueNote: nullable(text()),
+  ok: bool(),
+  blueprintId: nonEmptyText(),
+  name: nonEmptyText(),
+  effectSummary: nonEmptyText(),
+  origin: reference('StudioGridCellSnapshot', StudioGridCellSnapshot),
+  footprint: reference('StudioFootprintSnapshot', StudioFootprintSnapshot),
+  parcelId: nullable(text()),
+  cells: array(reference('StudioGridCellSnapshot', StudioGridCellSnapshot)),
+  cellLegality: array(reference('StudioPlacementCellVerdictSnapshot', StudioPlacementCellVerdictSnapshot)),
+  cost: nonNegativeInteger(),
+  weeklyOperatingCost: nonNegativeInteger(),
+  buildWeeks: nonNegativeInteger(),
+  completesOnWeek: nonNegativeInteger(),
+  capability: nullable(text()),
+  capacityDelta: nonNegativeInteger(),
+  rejections: array(enumeration(PLACEMENT_REJECTION_KINDS)),
+  primary: nullable(enumeration(PLACEMENT_REJECTION_KINDS)),
+  /** The primary rejection in the player's words; null when legal. */
+  primaryReason: nullable(text()),
+  unmetRequirements: array(reference('StudioPlacementUnmetRequirementSnapshot', StudioPlacementUnmetRequirementSnapshot)),
+  instanceCount: nonNegativeInteger(),
+  maxInstances: nullable(nonNegativeInteger()),
+  cashBefore: integer(),
+  cashAfter: integer(),
+  affordable: bool(),
+  consequence: nonEmptyText(),
+})
+
 const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
   reference('StudioCommissionQuoteSnapshot', StudioCommissionQuoteSnapshot),
   reference('StudioCastingQuoteSnapshot', StudioCastingQuoteSnapshot),
+  reference('StudioPlacementQuoteSnapshot', StudioPlacementQuoteSnapshot),
 ] as const)
 
 const StudioBridgeQuoteResponse = object('StudioBridgeQuoteResponse', {
@@ -1627,6 +1728,9 @@ export const AVAILABLE_INTENT_KINDS = [
   // non-empty productionId (enforced at resolution and at the exact-ID client
   // matcher; the shared option shape stays nullable for every other kind).
   'commitPictureToRelease',
+  // P09 §18: the ONE construction commit, minted only by an accepted, legal
+  // placement quote (digest-bound); commit revalidates against the live state.
+  'placeFacility',
 ] as const
 
 export const REJECTION_CODES = [
@@ -1878,8 +1982,13 @@ const definitions = {
   StudioCastingDraftPayload,
   StudioQuoteCommissionRequest,
   StudioQuoteCastingRequest,
+  StudioPlacementDraftPayload,
+  StudioQuotePlacementRequest,
   StudioBridgeQuoteRequest,
   StudioCastingQuoteSnapshot,
+  StudioPlacementCellVerdictSnapshot,
+  StudioPlacementUnmetRequirementSnapshot,
+  StudioPlacementQuoteSnapshot,
   StudioQuoteSnapshot,
   StudioBridgeQuoteResponse,
   StudioLotProjection: StudioLotProjectionSchema,
@@ -1921,7 +2030,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-16',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-17',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [
@@ -1988,6 +2097,9 @@ export type BridgeContractOfferSnapshot = InferSchema<typeof StudioContractOffer
 export type BridgeHiringCandidateSnapshot = InferSchema<typeof StudioHiringCandidateSnapshot>
 export type BridgeQuoteCommissionRequest = InferSchema<typeof StudioQuoteCommissionRequest>
 export type BridgeQuoteCastingRequest = InferSchema<typeof StudioQuoteCastingRequest>
+export type BridgePlacementDraftPayload = InferSchema<typeof StudioPlacementDraftPayload>
+export type BridgeQuotePlacementRequest = InferSchema<typeof StudioQuotePlacementRequest>
+export type BridgePlacementQuoteSnapshot = InferSchema<typeof StudioPlacementQuoteSnapshot>
 export type BridgeQuoteRequest = InferSchema<typeof StudioBridgeQuoteRequest>
 export type BridgeQuoteResponse = InferSchema<typeof StudioBridgeQuoteResponse>
 export type BridgeHistorySnapshot = InferSchema<typeof StudioHistorySnapshot>

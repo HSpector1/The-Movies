@@ -151,7 +151,7 @@ function orderedLedgerFold(openingCash: number, entries: readonly LedgerEntry[])
 
 /** Reconcile native and historical-checkpoint V11 cash in authoritative array order. */
 // Accepts the live GameState AND the frozen GameStateV14 shape. Callers now
-// feed it a genuine SaveFileV17 entry read straight off the Week-196 harvest;
+// feed it a genuine SaveFileV18 entry read straight off the Week-196 harvest;
 // the V14 arm of the union is kept only because this is a pure ledger/cash/
 // market read with no dependency on P06A's `releaseAuthority` root, so
 // widening it costs nothing and there is no reason to narrow it back.
@@ -345,7 +345,7 @@ export type RosterWallEnvelopeInput = {
 function assertAcceptedSource(source: RosterWallSourceProvenance): void {
   if (
     source.worktreeDirty !== false ||
-    source.saveVersion !== 17 ||
+    source.saveVersion !== 18 ||
     source.productionAuthorityCommit !== ROSTER_WALL_PRODUCTION_AUTHORITY ||
     source.branch.length === 0 ||
     source.commit.length === 0 ||
@@ -354,7 +354,7 @@ function assertAcceptedSource(source: RosterWallSourceProvenance): void {
     source.productionAuthorityTree.length === 0
   ) {
     throw new Error(
-      'roster-wall schema: serialized evidence requires an accepted clean SaveFileV17 source',
+      'roster-wall schema: serialized evidence requires an accepted clean SaveFileV18 source',
     )
   }
 }
@@ -448,7 +448,7 @@ export function makeRosterWallEntryRecord(
   mode: 'current' | 'player-policy',
 ): RosterWallEntryRecord {
   const entryId = rosterWallEntryId(harvest, foundingTermPolicyId)
-  // `harvest.entrySave` is the live SaveFileV17 shape `harvestSave` produces, so
+  // `harvest.entrySave` is the live SaveFileV18 shape `harvestSave` produces, so
   // `.state` is already the live GameState core's `expectedWeeklyRunRevenue`
   // needs — no migration required. This read model does not serialize
   // `state.releaseAuthority` (it is not one of the fields below), so whether the

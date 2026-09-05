@@ -37,7 +37,7 @@ import {
   facilityEngagements,
   facilityMoveRefusal,
   importSave,
-  migrateToV17,
+  migrateToV18,
   moveFacility,
   queryPlacement,
   stableStringify,
@@ -116,7 +116,7 @@ function placementOf(state: GameState, id: number): PlacedFacility {
  *   • annex B in the SOUTH YARD (the NEW zone), operational and idle.
  */
 function twoAnnexStudio(): { state: GameState; engagedId: number; idleId: number } {
-  let state = migrateToV17(importSave(fixtureBytes)).state
+  let state = migrateToV18(importSave(fixtureBytes)).state
   // `foundManagedStudio` already activates the managed roots this fixture needs; the
   // activation is conditional so the fixture can gain or lose one without this file
   // silently asserting a mode it never checked.

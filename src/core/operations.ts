@@ -39,6 +39,7 @@ import type {
   StudioOperations,
   StudioSet,
   WorkflowBindings,
+  PropertyState,
 } from './types.js'
 
 /**
@@ -114,12 +115,37 @@ export function emptyStudioOperations(): StudioOperations {
   return { mode: 'legacy', facilities: [], workflows: [] }
 }
 
-export function initialManagedStudioOperations(): StudioOperations {
+export function initialManagedStudioOperations(
+  foundingFacilities: readonly StudioFacility[] = INITIAL_STUDIO_FACILITIES,
+): StudioOperations {
   return {
     mode: 'managed',
-    facilities: INITIAL_STUDIO_FACILITIES.map((facility) => ({ ...facility })),
+    facilities: foundingFacilities.map((facility) => ({ ...facility })),
     workflows: [],
   }
+}
+
+/**
+ * P09 — the founding plant a PROPERTY provides: the `INITIAL_STUDIO_FACILITIES`
+ * entries named by its `founding` structures, in the initial facility order.
+ *
+ * This is the one bridge between authored ground and engine capacity, and it is
+ * a function of the property, never of a constant: the endowed lot names all
+ * five founding facilities (so every existing save answers exactly as it always
+ * has), the bare lot names none (so a managed studio may lawfully start with an
+ * EMPTY facility root and build its way up). A structure naming an id the
+ * initial truth does not know is a property fault and is refused where the
+ * property is validated, not here.
+ */
+export function foundingFacilitiesOf(property: PropertyState): StudioFacility[] {
+  const provided = new Set<string>()
+  for (const structure of property.structures) {
+    if (structure.role !== 'founding') continue
+    for (const id of structure.providesFacilityIds) provided.add(id)
+  }
+  return INITIAL_STUDIO_FACILITIES.filter((facility) => provided.has(facility.id)).map(
+    (facility) => ({ ...facility }),
+  )
 }
 
 // The countdown→phase and phase→capability tables now live in ONE place
@@ -679,6 +705,12 @@ export function assertStudioOperationsInvariants(
   options?: {
     facilityPolicy?: 'initial-v1' | 'configured' | 'annex-v1' | 'placement-v12'
     annexOperational?: boolean
+    // P09: the founding plant this studio's PROPERTY provides (see
+    // `foundingFacilitiesOf`). Absent ⇒ the initial truth, which is what every
+    // pre-P09 policy meant; the `configured` policy defers the whole facility-set
+    // law (founding and capability presence alike) to the placement authority
+    // that proves it immediately afterwards.
+    foundingFacilities?: readonly StudioFacility[]
     // Required with `placement-v12`: the exact operational placed facilities that
     // must follow the initial five, in weekly-completion append order.
     placedFacilities?: readonly StudioFacility[]
@@ -710,24 +742,34 @@ export function assertStudioOperationsInvariants(
     facilityIds.add(facility.id)
     facilityCapabilities.add(facility.capability)
   }
+  const facilityPolicy = options?.facilityPolicy ?? 'initial-v1'
+  // P09: the capabilities a managed studio MUST carry are exactly those its
+  // founding plant provides — all four on the endowed lot (the law every
+  // pre-P09 save was proved under), none on the bare lot, whose studio earns
+  // each capability by building it. Under `configured` the facility-set law is
+  // the placement authority's to prove (it runs right after this), so nothing
+  // about the set is asserted here.
+  const founding = options?.foundingFacilities
+    ?? (facilityPolicy === 'configured' ? [] : INITIAL_STUDIO_FACILITIES)
+  const requiredCapabilities = new Set(founding.map((facility) => facility.capability))
   for (const capability of [
     'development-casting',
     'soundstage',
     'set-scenery',
     'post',
   ] as const) {
+    if (!requiredCapabilities.has(capability)) continue
     invariant(facilityCapabilities.has(capability), `managed operations have no ${capability} facility`)
   }
 
-  const facilityPolicy = options?.facilityPolicy ?? 'initial-v1'
   if (facilityPolicy === 'initial-v1') {
     invariant(
-      operations.facilities.length === INITIAL_STUDIO_FACILITIES.length,
+      operations.facilities.length === founding.length,
       'managed V1 facility count differs from the initial facility truth',
     )
-    for (let i = 0; i < INITIAL_STUDIO_FACILITIES.length; i++) {
+    for (let i = 0; i < founding.length; i++) {
       const actual = operations.facilities[i]!
-      const expected = INITIAL_STUDIO_FACILITIES[i]!
+      const expected = founding[i]!
       invariant(
         actual.id === expected.id &&
           actual.name === expected.name &&
@@ -742,8 +784,8 @@ export function assertStudioOperationsInvariants(
       'annex-v1 policy requires an exact annexOperational lifecycle fact',
     )
     const expected = options.annexOperational
-      ? [...INITIAL_STUDIO_FACILITIES, DEVELOPMENT_CASTING_ANNEX_FACILITY]
-      : INITIAL_STUDIO_FACILITIES
+      ? [...founding, DEVELOPMENT_CASTING_ANNEX_FACILITY]
+      : founding
     invariant(
       operations.facilities.length === expected.length,
       'managed Annex V1 facility count disagrees with construction lifecycle',
@@ -768,7 +810,7 @@ export function assertStudioOperationsInvariants(
       placed !== undefined,
       'placement-v12 policy requires the exact operational placed facility list',
     )
-    const expected = [...INITIAL_STUDIO_FACILITIES, ...placed]
+    const expected = [...founding, ...placed]
     invariant(
       operations.facilities.length === expected.length,
       'managed V12 facility count disagrees with the placement lifecycle',

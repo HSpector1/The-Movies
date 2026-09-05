@@ -27,6 +27,7 @@ import {
   applyActions,
   beginFounding,
   convertV16ToV17,
+  convertV17ToV18,
   exportSave,
   FOUNDING_MINIMUMS,
   generateWorld,
@@ -39,7 +40,7 @@ import {
   migrateToV14,
   migrateToV15,
   migrateToV16,
-  migrateToV17,
+  migrateToV18,
   releaseStandingDrivers,
   STANDING_FORMULA_VERSION,
   standingReceipts,
@@ -47,7 +48,7 @@ import {
   tick,
   TUNING,
   updateStanding,
-  validateSaveV17,
+  validateSaveV18,
 } from '../src/core/index.js'
 import type {
   CastSlot,
@@ -378,19 +379,26 @@ describe('P08A H6 — V16→V17 migration invents nothing and every downgrade is
     const { studioHistory: _h, ...rest17 } = v17.state
     // JSON-normalized: the migrator's plain-JSON clone folds −0 to 0 exactly as a save does.
     expect(JSON.parse(JSON.stringify(rest17))).toEqual(JSON.parse(JSON.stringify(v16.state)))
-    // The live chain reaches the same answer, and V17 round-trips byte-identically.
-    expect(migrateToV17(v16)).toEqual(v17)
-    const json = exportSave(v17)
+    // The live chain (P09: V18) reaches the same history answer on top of the
+    // V17 conversion, and the live envelope round-trips byte-identically.
+    const live = convertV17ToV18(v17)
+    expect(live.saveVersion).toBe(18)
+    expect(live.state.studioHistory).toEqual(v17.state.studioHistory)
+    expect(migrateToV18(v16)).toEqual(live)
+    const json = exportSave(live)
     expect(exportSave(importSave(json))).toBe(json)
-    // Downgrades are refused, each boundary in its own voice.
+    // Downgrades are refused, each boundary in its own voice — for the frozen
+    // V17 envelope and for the live V18 one.
     expect(() => migrateToV16(v17)).toThrow(/cannot downgrade SaveFileV17/)
     expect(() => migrateToV15(v17)).toThrow(/cannot downgrade SaveFileV17/)
     expect(() => migrateToV14(v17)).toThrow(/cannot downgrade SaveFileV17/)
     expect(() => migrateToV13(v17)).toThrow(/cannot downgrade SaveFileV17/)
+    expect(() => migrateToV16(live)).toThrow(/cannot downgrade SaveFileV18/)
+    expect(() => migrateToV15(live)).toThrow(/cannot downgrade SaveFileV18/)
   })
   it('a migrated studio records forward from the boundary and never back-fills', () => {
     const { after } = releaseOne('p08-h6-forward')
-    const migrated = migrateToV17(makeSaveV16(after)).state
+    const migrated = migrateToV18(makeSaveV16(after)).state
     // The film released BEFORE the boundary is absent from history (honest absence)…
     expect(rowsOf(migrated, 'filmReleased')).toHaveLength(0)
     // …and a NEW release after the boundary is recorded, as a MAJOR (not the
@@ -409,7 +417,7 @@ describe('P08A H7 — save/load mid-run continues with identical history', () =>
   it('reloaded branch equals the unbroken branch byte-for-byte after more releases', () => {
     const { after } = releaseOne('p08-h7-continuity')
     let continuous = greenlightOneFilm(after, 1)
-    let reloaded = migrateToV17(importSave(exportSave(makeSave(continuous)))).state
+    let reloaded = migrateToV18(importSave(exportSave(makeSave(continuous)))).state
     expect(bytes(reloaded)).toBe(bytes(continuous))
     continuous = advance(continuous, TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS + 2)
     reloaded = advance(reloaded, TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS + 2)
@@ -428,7 +436,7 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
   it('refuses out-of-order ids, pre-boundary rows, lying deltas, and unknown kinds', () => {
     const { after } = releaseOne('p08-h8-forge')
     const legal = makeSave(after)
-    expect(validateSaveV17(clone(legal))).toBeTruthy()
+    expect(validateSaveV18(clone(legal))).toBeTruthy()
 
     const swapped = clone(legal)
     const rows = [...swapped.state.studioHistory.rows]
@@ -437,18 +445,18 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
       rows[0] = b
       rows[1] = a
       ;(swapped.state.studioHistory as unknown as { rows: unknown[] }).rows = rows
-      expect(() => validateSaveV17(swapped)).toThrow(/ascending eventId/)
+      expect(() => validateSaveV18(swapped)).toThrow(/ascending eventId/)
     }
 
     const early = clone(legal)
     ;(early.state.studioHistory as { recordingStartedWeek: number }).recordingStartedWeek = 10_000
-    expect(() => validateSaveV17(early)).toThrow(/recording boundary/)
+    expect(() => validateSaveV18(early)).toThrow(/recording boundary/)
 
     const lying = clone(legal)
     const receipt = lying.state.studioHistory.rows.find((r) => r.kind === 'standingChanged')
     if (receipt !== undefined && receipt.kind === 'standingChanged') {
       ;(receipt.deltas as { audienceAwareness: number }).audienceAwareness += 1
-      expect(() => validateSaveV17(lying)).toThrow(/after − before/)
+      expect(() => validateSaveV18(lying)).toThrow(/after − before/)
     }
 
     const unknown = clone(legal)
@@ -460,6 +468,6 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
       subjects: [{ kind: 'studio' }],
     })
     ;(unknown.state.studioHistory as { nextEventId: number }).nextEventId += 1
-    expect(() => validateSaveV17(unknown)).toThrow(/not a known history kind/)
+    expect(() => validateSaveV18(unknown)).toThrow(/not a known history kind/)
   })
 })

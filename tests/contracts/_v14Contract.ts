@@ -382,6 +382,7 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
   delete raw.releaseAuthority
   // P08A: the forward-recorded history root is V17-only.
   delete raw.studioHistory
+  delete raw.foundingRegime
 
   const operations = raw.operations as Record<string, unknown> | undefined
   if (operations !== undefined && Array.isArray(operations.workflows)) {

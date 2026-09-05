@@ -905,6 +905,12 @@ export type BlueprintRequirement =
   | { kind: 'facility'; blueprintId: string }
   /** A named property structure exists (founding or landmark). */
   | { kind: 'structure'; structureId: string }
+  /**
+   * P09 §10.3 (regime-derived, never authored on a blueprint): on a bare lot the
+   * founding Development & Casting Office must be OPERATIONAL before any other
+   * facility may be quoted. Endowed studios never carry it.
+   */
+  | { kind: 'foundingOffice' }
   /** Studio Rank gate. The rank system lands in C3. */
   | { kind: 'rank'; tier: string }
   /** Achievement Certificate gate. Certificates land in C3. */
@@ -1663,7 +1669,24 @@ export type GameStateV17 = GameStateV16 & {
   studioHistory: StudioHistoryState
 }
 
-export type GameState = GameStateV17
+// ── P09 — the founding regime (charter §16) ───────────────────────────────────
+// WHY A PERSISTED ROOT: "how was this studio founded" is exact immutable history,
+// never a guess from the current building count or an empty-looking property.
+// `endowed` is every save that existed before P09 (the authored founding plant:
+// five founding bodies, two house sets) and every new game that asks for it;
+// `bare-lot` is the sparse 1920 start (Gate + Administration + owned ground,
+// EMPTY operations roots at activation — nothing minted, nothing hidden).
+// The regime is written ONCE at world creation and never changes.
+export type FoundingRegime = 'endowed' | 'bare-lot'
+
+// SaveFileV17 remains recursively frozen above. SaveFileV18 mints exactly one new
+// root: `foundingRegime` (the immutable founding history). Every pre-V18 save
+// migrates to `endowed` with no other change.
+export type GameStateV18 = GameStateV17 & {
+  foundingRegime: FoundingRegime
+}
+
+export type GameState = GameStateV18
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

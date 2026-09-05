@@ -26,7 +26,7 @@ import {
   importSave,
   initialReleaseAuthority,
   makeSave,
-  migrateToV17,
+  migrateToV18,
   periodSummary,
   publicityLiftAt,
   publicityOffer,
@@ -383,10 +383,10 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
     const s = buy(studioAt('pub-roundtrip', { week: 9 }), 'whisper')
     const json = exportSave(makeSave(s))
     const back = importSave(json)
-    if (back.saveVersion !== 17) throw new Error('expected V17')
+    if (back.saveVersion !== 18) throw new Error('expected V18')
     expect(back.state.publicity).toEqual(s.publicity)
     expect(back.state.studio.cash).toBe(s.studio.cash)
-    expect(exportSave(makeSave(migrateToV17(back).state))).toBe(json)
+    expect(exportSave(makeSave(migrateToV18(back).state))).toBe(json)
   })
 
   it('a mixed sequence of ticks and campaigns replays identically from the same seed', () => {
@@ -411,8 +411,8 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
     const mid = buy(base, 'push')
 
     const reloaded = importSave(exportSave(makeSave(mid)))
-    if (reloaded.saveVersion !== 17) throw new Error('expected V17')
-    let split = migrateToV17(reloaded).state
+    if (reloaded.saveVersion !== 18) throw new Error('expected V18')
+    let split = migrateToV18(reloaded).state
     let continuous = mid
     for (let w = 0; w < 8; w++) {
       split = tick(split)
@@ -424,7 +424,7 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
   it('the cooldown clocks survive a reload — a reload cannot buy a second campaign early', () => {
     const s = buy(studioAt('pub-reload-cd', { week: 30 }), 'blitz')
     const back = importSave(exportSave(makeSave(s)))
-    if (back.saveVersion !== 17) throw new Error('expected V17')
+    if (back.saveVersion !== 18) throw new Error('expected V18')
     const soon = {
       ...back.state,
       market: { ...back.state.market, tick: 31 },

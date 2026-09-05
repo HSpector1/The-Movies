@@ -48,7 +48,7 @@ export type RosterWallSourceProvenance = {
   // all — every harvest needs the V16 interchange to survive serialization.
   // P08A: bumped again to V17 — a lawfully played world now carries the recorded
   // `studioHistory` root, which SaveFileV16 cannot represent.
-  saveVersion: 17
+  saveVersion: 18
   productionAuthorityCommit: string
   productionAuthorityTree: string
   authorityDiffPaths: string[]
@@ -301,7 +301,7 @@ export function rosterWallSourceProvenance(
     tree,
     worktreeDirty: false,
     runtime: options.runtime ?? `node ${process.version}`,
-    saveVersion: 17,
+    saveVersion: 18,
     productionAuthorityCommit: authorityCommit,
     productionAuthorityTree: authorityTree,
     authorityDiffPaths,

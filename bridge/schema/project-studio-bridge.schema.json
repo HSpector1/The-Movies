@@ -127,7 +127,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 16,
+          "const": 17,
           "type": "integer"
         },
         "stateDigest": {
@@ -243,7 +243,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 16,
+          "const": 17,
           "type": "integer"
         },
         "stateDigest": {
@@ -309,7 +309,8 @@
             "startConstruction",
             "commissionOriginalScreenplay",
             "signContract",
-            "commitPictureToRelease"
+            "commitPictureToRelease",
+            "placeFacility"
           ],
           "type": "string"
         },
@@ -435,6 +436,9 @@
         },
         {
           "$ref": "#/$defs/StudioQuoteCastingRequest"
+        },
+        {
+          "$ref": "#/$defs/StudioQuotePlacementRequest"
         }
       ],
       "x-csharp-name": "StudioBridgeQuoteRequest"
@@ -723,7 +727,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 16,
+          "const": 17,
           "type": "integer"
         },
         "stateDigest": {
@@ -792,7 +796,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 16,
+          "const": 17,
           "type": "integer"
         },
         "stateDigest": {
@@ -4730,6 +4734,9 @@
         "affordable": {
           "type": "boolean"
         },
+        "atInstanceLimit": {
+          "type": "boolean"
+        },
         "available": {
           "type": "boolean"
         },
@@ -4792,8 +4799,17 @@
           "minLength": 1,
           "type": "string"
         },
+        "neededNow": {
+          "type": "boolean"
+        },
         "requiresRoadAccess": {
           "type": "boolean"
+        },
+        "unmet": {
+          "items": {
+            "$ref": "#/$defs/StudioPlacementUnmetRequirementSnapshot"
+          },
+          "type": "array"
         },
         "weeklyOperatingCost": {
           "maximum": 2147483647,
@@ -4803,6 +4819,7 @@
       },
       "required": [
         "affordable",
+        "atInstanceLimit",
         "available",
         "blueprintId",
         "buildWeeks",
@@ -4816,11 +4833,80 @@
         "instanceCount",
         "maxInstances",
         "name",
+        "neededNow",
         "requiresRoadAccess",
+        "unmet",
         "weeklyOperatingCost"
       ],
       "type": "object",
       "x-csharp-name": "StudioPlacementCatalogEntrySnapshot"
+    },
+    "StudioPlacementCellVerdictSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "cell": {
+          "$ref": "#/$defs/StudioGridCellSnapshot"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "rejection": {
+          "anyOf": [
+            {
+              "enum": [
+                "unknownBlueprint",
+                "offLot",
+                "notOwned",
+                "terrainUnbuildable",
+                "groundReserved",
+                "occupied",
+                "clearanceRing",
+                "noRoadAccess",
+                "seversLot",
+                "requirementsUnmet",
+                "instanceLimit",
+                "insufficientFunds"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "cell",
+        "ok",
+        "rejection"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPlacementCellVerdictSnapshot"
+    },
+    "StudioPlacementDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "blueprintId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "origin": {
+          "$ref": "#/$defs/StudioGridCellSnapshot"
+        },
+        "verb": {
+          "enum": [
+            "build"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "blueprintId",
+        "origin",
+        "verb"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPlacementDraftPayload"
     },
     "StudioPlacementMutationBlockSnapshot": {
       "additionalProperties": false,
@@ -4874,6 +4960,246 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioPlacementMutationSnapshot"
+    },
+    "StudioPlacementQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "affordable": {
+          "type": "boolean"
+        },
+        "blueprintId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "buildWeeks": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "capability": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "capacityDelta": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "cashAfter": {
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "type": "integer"
+        },
+        "cashBefore": {
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "type": "integer"
+        },
+        "cellLegality": {
+          "items": {
+            "$ref": "#/$defs/StudioPlacementCellVerdictSnapshot"
+          },
+          "type": "array"
+        },
+        "cells": {
+          "items": {
+            "$ref": "#/$defs/StudioGridCellSnapshot"
+          },
+          "type": "array"
+        },
+        "commitLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "completesOnWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "consequence": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cost": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "effectSummary": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "footprint": {
+          "$ref": "#/$defs/StudioFootprintSnapshot"
+        },
+        "instanceCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "const": "placeFacility",
+          "type": "string"
+        },
+        "maxInstances": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "origin": {
+          "$ref": "#/$defs/StudioGridCellSnapshot"
+        },
+        "parcelId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "primary": {
+          "anyOf": [
+            {
+              "enum": [
+                "unknownBlueprint",
+                "offLot",
+                "notOwned",
+                "terrainUnbuildable",
+                "groundReserved",
+                "occupied",
+                "clearanceRing",
+                "noRoadAccess",
+                "seversLot",
+                "requirementsUnmet",
+                "instanceLimit",
+                "insufficientFunds"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "primaryReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queueNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queues": {
+          "type": "boolean"
+        },
+        "rejections": {
+          "items": {
+            "enum": [
+              "unknownBlueprint",
+              "offLot",
+              "notOwned",
+              "terrainUnbuildable",
+              "groundReserved",
+              "occupied",
+              "clearanceRing",
+              "noRoadAccess",
+              "seversLot",
+              "requirementsUnmet",
+              "instanceLimit",
+              "insufficientFunds"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "startsNow": {
+          "type": "boolean"
+        },
+        "unmetRequirements": {
+          "items": {
+            "$ref": "#/$defs/StudioPlacementUnmetRequirementSnapshot"
+          },
+          "type": "array"
+        },
+        "weeklyOperatingCost": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "affordable",
+        "blueprintId",
+        "buildWeeks",
+        "capability",
+        "capacityDelta",
+        "cashAfter",
+        "cashBefore",
+        "cellLegality",
+        "cells",
+        "commitLabel",
+        "completesOnWeek",
+        "consequence",
+        "cost",
+        "effectSummary",
+        "footprint",
+        "instanceCount",
+        "intentId",
+        "kind",
+        "maxInstances",
+        "name",
+        "ok",
+        "origin",
+        "parcelId",
+        "primary",
+        "primaryReason",
+        "queueNote",
+        "queues",
+        "rejections",
+        "startsNow",
+        "unmetRequirements",
+        "weeklyOperatingCost"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPlacementQuoteSnapshot"
     },
     "StudioPlacementSnapshot": {
       "additionalProperties": false,
@@ -4940,6 +5266,29 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioPlacementSnapshot"
+    },
+    "StudioPlacementUnmetRequirementSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "notYetAttainable": {
+          "type": "boolean"
+        },
+        "reason": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "notYetAttainable",
+        "reason"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPlacementUnmetRequirementSnapshot"
     },
     "StudioPresencePersonSnapshot": {
       "additionalProperties": false,
@@ -5926,11 +6275,19 @@
             "$ref": "#/$defs/StudioPropertyBuildingSnapshot"
           },
           "type": "array"
+        },
+        "regime": {
+          "enum": [
+            "endowed",
+            "bare-lot"
+          ],
+          "type": "string"
         }
       },
       "required": [
         "bounds",
-        "buildings"
+        "buildings",
+        "regime"
       ],
       "type": "object",
       "x-csharp-name": "StudioPropertySnapshot"
@@ -6023,6 +6380,50 @@
       "type": "object",
       "x-csharp-name": "StudioQuoteCommissionRequest"
     },
+    "StudioQuotePlacementRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/StudioPlacementDraftPayload"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "quotePlacement",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commandId",
+        "draft",
+        "expectedStateRevision",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioQuotePlacementRequest"
+    },
     "StudioQuoteSnapshot": {
       "anyOf": [
         {
@@ -6030,6 +6431,9 @@
         },
         {
           "$ref": "#/$defs/StudioCastingQuoteSnapshot"
+        },
+        {
+          "$ref": "#/$defs/StudioPlacementQuoteSnapshot"
         }
       ],
       "x-csharp-name": "StudioQuoteSnapshot"
@@ -7456,7 +7860,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-16",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-17",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -7497,7 +7901,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 16,
+    "projectionVersion": 17,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

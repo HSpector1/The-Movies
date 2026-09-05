@@ -57,6 +57,7 @@ import type {
   GameStateV15,
   GameStateV16,
   GameStateV17,
+  GameStateV18,
   GameStateV2,
   GameStateV3,
   GameStateV4,
@@ -347,6 +348,15 @@ export type SaveFileV17 = {
   broadcastCache: BroadcastItem[];
 };
 
+// P09 — the LIVE envelope. V18 mints exactly one new root, `foundingRegime`
+// (the immutable founding history); everything else is the frozen V17 shape.
+export type SaveFileV18 = {
+  saveVersion: 18;
+  seed: string;
+  state: GameStateV18;
+  broadcastCache: BroadcastItem[];
+};
+
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
   | SaveFileV1
@@ -365,7 +375,8 @@ export type SaveFile =
   | SaveFileV14
   | SaveFileV15
   | SaveFileV16
-  | SaveFileV17;
+  | SaveFileV17
+  | SaveFileV18;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -2492,15 +2503,23 @@ function checkOperationsState(
     }
     facilities.set(id, { capability, capacity: raw.capacity });
   }
-  for (const capability of OPERATIONS_CAPABILITIES) {
-    if (
-      ![...facilities.values()].some(
-        (facility) => facility.capability === capability,
-      )
-    ) {
-      throw new Error(
-        `${label}: managed operations have no facility for ${capability}`,
-      );
+  // The four-capability presence law is a fact about the ENDOWED founding plant,
+  // which is the only plant V8–V11 histories can carry. Under a placement-aware
+  // policy this is the nested frozen projection of a V12+ save, and the exact
+  // facility set — founding (as the PROPERTY provides it, P09) plus placed — is
+  // proved immediately afterwards by the placement authority, which is the one
+  // law a bare-lot studio (empty until it builds) answers to.
+  if (!placementAwarePolicy(policy)) {
+    for (const capability of OPERATIONS_CAPABILITIES) {
+      if (
+        ![...facilities.values()].some(
+          (facility) => facility.capability === capability,
+        )
+      ) {
+        throw new Error(
+          `${label}: managed operations have no facility for ${capability}`,
+        );
+      }
     }
   }
 
@@ -4894,6 +4913,63 @@ const STUDIO_HISTORY_ROW_KEYS = {
   careerMilestone: [...HISTORY_BASE_KEYS, "talentId", "careerEventId", "filmId", "personName"],
 } as const;
 
+// P09 validateSaveV18 — strip-and-delegate: the ONE new root is validated
+// here; the remainder is the frozen V17 shape and is proved by the frozen V17
+// validator on the stripped state (which carries the property, so the
+// property-driven founding-facility law judges a bare lot correctly).
+export function validateSaveV18(save: unknown): SaveFileV18 {
+  if (!isRecord(save)) {
+    throw new Error("validateSaveV18: save is not a plain object");
+  }
+  v12ExactKeys(save, ["saveVersion", "seed", "state", "broadcastCache"], "save");
+  if (save.saveVersion !== 18) {
+    throw new Error(
+      `validateSaveV18: expected saveVersion 18, got ${JSON.stringify(save.saveVersion)}`,
+    );
+  }
+  const state = v14Record(checkEnvelope(save, "validateSaveV18"), "state");
+  if (!Object.prototype.hasOwnProperty.call(state, "foundingRegime")) {
+    throw new Error("validateSaveV18: state.foundingRegime is missing");
+  }
+  const { foundingRegime, ...v17State } = state;
+  try {
+    validateSaveV17({
+      saveVersion: 17,
+      seed: save.seed,
+      state: v17State,
+      broadcastCache: save.broadcastCache,
+    });
+  } catch (error) {
+    throw new Error(
+      `validateSaveV18: frozen V17 state is invalid — ${(error as Error).message}`,
+    );
+  }
+  if (foundingRegime !== "endowed" && foundingRegime !== "bare-lot") {
+    throw new Error(
+      `validateSaveV18: state.foundingRegime ${JSON.stringify(foundingRegime)} is not a known founding regime`,
+    );
+  }
+  // The regime is exact immutable history and must agree with the authored
+  // ground: a bare lot was founded with NO founding structure, an endowed lot
+  // with at least one. Neither may be laundered into the other.
+  const property = v14Record(state.property, "state.property");
+  const structures = Array.isArray(property.structures) ? property.structures : [];
+  const foundingStructures = structures.filter(
+    (structure) => isRecord(structure) && structure.role === "founding",
+  ).length;
+  if (foundingRegime === "bare-lot" && foundingStructures !== 0) {
+    throw new Error(
+      "validateSaveV18: a bare-lot studio cannot carry founding structures on its property",
+    );
+  }
+  if (foundingRegime === "endowed" && foundingStructures === 0) {
+    throw new Error(
+      "validateSaveV18: an endowed studio must carry its founding structures on its property",
+    );
+  }
+  return save as SaveFileV18;
+}
+
 // ── Version-dispatching validation (LOUD rejection of unknown versions) ──────
 // Returns the correctly-narrowed envelope for a known version; throws for any
 // other saveVersion. Every version remains anchored to its own frozen or live
@@ -4920,8 +4996,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 15) return validateSaveV15(save);
   if (s.saveVersion === 16) return validateSaveV16(save);
   if (s.saveVersion === 17) return validateSaveV17(save);
+  if (s.saveVersion === 18) return validateSaveV18(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 17 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 18 only)`,
   );
 }
 
@@ -5879,8 +5956,29 @@ function projectStateV17(state: GameStateV17): GameStateV17 {
   };
 }
 
-// P08A makeSaveV17 — the LIVE builder.
-export function makeSaveV17(state: GameState): SaveFileV17 {
+// P09 — the LIVE V18 projection: positive enumeration of exactly the roots V18 owns.
+function projectStateV18(state: GameStateV18): GameStateV18 {
+  return {
+    ...projectStateV17(state),
+    foundingRegime: state.foundingRegime,
+  };
+}
+
+// P09 makeSaveV18 — the LIVE builder.
+export function makeSaveV18(state: GameState): SaveFileV18 {
+  const currentState = projectStateV18(state);
+  const save: SaveFileV18 = {
+    saveVersion: 18,
+    seed: currentState.seed,
+    state: currentState,
+    broadcastCache: currentState.broadcastItems,
+  };
+  return validateSaveV18(save);
+}
+
+// P08A makeSaveV17 — the frozen V17 builder (a V18 state projects down: the
+// regime root is simply not carried, exactly as makeSaveV16 drops the history).
+export function makeSaveV17(state: GameStateV17): SaveFileV17 {
   const currentState = projectStateV17(state);
   const save: SaveFileV17 = {
     saveVersion: 17,
@@ -5904,11 +6002,11 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
   return validateSaveV16(save);
 }
 
-// makeSave — the LIVE boundary (P08A: V17). Frozen prior values must cross
-// their respective convertVNToVN+1/migrateToVN+1 explicitly. V17 owns exactly
-// one new root: `studioHistory` (forward-recorded from an explicit boundary).
-export function makeSave(state: GameState): SaveFileV17 {
-  return makeSaveV17(state);
+// makeSave — the LIVE boundary (P09: V18). Frozen prior values must cross
+// their respective convertVNToVN+1/migrateToVN+1 explicitly. V18 owns exactly
+// one new root: `foundingRegime` (immutable founding history).
+export function makeSave(state: GameState): SaveFileV18 {
+  return makeSaveV18(state);
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -6816,7 +6914,8 @@ export function migrateToV8(save: SaveFile): SaveFileV8 {
     save.saveVersion === 14 ||
     save.saveVersion === 15 ||
     save.saveVersion === 16 ||
-    save.saveVersion === 17
+    save.saveVersion === 17 ||
+    save.saveVersion === 18
   ) {
     throw new Error(
       `migrateToV8: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
@@ -6838,7 +6937,8 @@ export function migrateToV9(save: SaveFile): SaveFileV9 {
     save.saveVersion === 14 ||
     save.saveVersion === 15 ||
     save.saveVersion === 16 ||
-    save.saveVersion === 17
+    save.saveVersion === 17 ||
+    save.saveVersion === 18
   ) {
     throw new Error(
       `migrateToV9: cannot downgrade SaveFileV${String(save.saveVersion)} or discard newer authoritative state`,
@@ -6859,7 +6959,8 @@ export function migrateToV10(save: SaveFile): SaveFileV10 {
     save.saveVersion === 14 ||
     save.saveVersion === 15 ||
     save.saveVersion === 16 ||
-    save.saveVersion === 17
+    save.saveVersion === 17 ||
+    save.saveVersion === 18
   ) {
     throw new Error(
       `migrateToV10: cannot downgrade SaveFileV${String(save.saveVersion)} or discard construction, placement, and property state`,
@@ -6881,7 +6982,8 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
     save.saveVersion === 14 ||
     save.saveVersion === 15 ||
     save.saveVersion === 16 ||
-    save.saveVersion === 17
+    save.saveVersion === 17 ||
+    save.saveVersion === 18
   ) {
     throw new Error(
       `migrateToV11: cannot downgrade SaveFileV${String(save.saveVersion)} or discard placement and property state`,
@@ -6896,7 +6998,7 @@ export function migrateToV11(save: SaveFile): SaveFileV11 {
 // their own validated construction history implies at the final V11→V12 step.
 // V13 is rejected, never downgraded: a property that has grown has no V12 home.
 export function migrateToV12(save: SaveFile): SaveFileV12 {
-  if (save.saveVersion === 13 || save.saveVersion === 14 || save.saveVersion === 15 || save.saveVersion === 16 || save.saveVersion === 17) {
+  if (save.saveVersion === 13 || save.saveVersion === 14 || save.saveVersion === 15 || save.saveVersion === 16 || save.saveVersion === 17 || save.saveVersion === 18) {
     throw new Error(
       `migrateToV12: cannot downgrade SaveFileV${String(save.saveVersion)} or discard property, set, queue, screenplay, and studio-history state`,
     );
@@ -6921,6 +7023,11 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 18) {
+    throw new Error(
+      "migrateToV15: cannot downgrade SaveFileV18 or discard the founding regime",
+    );
+  }
   if (save.saveVersion === 17) {
     throw new Error(
       "migrateToV15: cannot downgrade SaveFileV17 or discard recorded studio history",
@@ -6965,10 +7072,35 @@ export function convertV16ToV17(v16: SaveFileV16): SaveFileV17 {
   return makeSaveV17(newState);
 }
 
-// migrateToV17 — the LIVE load-to-play migration (P08A). V17 passes through by
-// identity (after validation at the call boundary); V1–V16 cross every frozen
-// boundary, then receive the empty history root at the final V16→V17 step.
+// convertV17ToV18 — P09 §16: every pre-P09 save is an ENDOWED studio. The
+// regime root is written and NOTHING else changes: property, facilities, sets,
+// workflows, ids, money, events, RNG, and history are carried verbatim.
+export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
+  const validated = validateSaveV17(v17);
+  const oldState = clonePlainJson(validated.state);
+  const newState: GameStateV18 = {
+    ...oldState,
+    foundingRegime: "endowed",
+  };
+  return makeSaveV18(newState);
+}
+
+// migrateToV18 — the LIVE load-to-play migration (P09). V18 passes through by
+// identity (after validation at the call boundary); V1–V17 cross every frozen
+// boundary, then receive `endowed` at the final V17→V18 step.
+export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === 18) return save;
+  return convertV17ToV18(migrateToV17(save));
+}
+
+// migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
+// be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === 18) {
+    throw new Error(
+      "migrateToV17: cannot downgrade SaveFileV18 or discard the founding regime",
+    );
+  }
   if (save.saveVersion === 17) return save;
   return convertV16ToV17(migrateToV16(save));
 }
@@ -6976,6 +7108,11 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 18) {
+    throw new Error(
+      "migrateToV16: cannot downgrade SaveFileV18 or discard the founding regime",
+    );
+  }
   if (save.saveVersion === 17) {
     throw new Error(
       "migrateToV16: cannot downgrade SaveFileV17 or discard recorded studio history",
@@ -6986,6 +7123,11 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 18) {
+    throw new Error(
+      "migrateToV14: cannot downgrade SaveFileV18 or discard the founding regime",
+    );
+  }
   if (save.saveVersion === 17) {
     throw new Error(
       "migrateToV14: cannot downgrade SaveFileV17 or discard recorded studio history",
@@ -7006,6 +7148,11 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 18) {
+    throw new Error(
+      "migrateToV13: cannot downgrade SaveFileV18 or discard the founding regime",
+    );
+  }
   if (save.saveVersion === 17) {
     throw new Error(
       "migrateToV13: cannot downgrade SaveFileV17 or discard recorded studio history",

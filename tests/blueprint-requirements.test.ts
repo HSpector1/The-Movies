@@ -132,6 +132,7 @@ const ALL_KINDS: readonly BlueprintRequirementKind[] = [
   'date',
   'facility',
   'structure',
+  'foundingOffice',
   'rank',
   'certificate',
   'award',
@@ -141,13 +142,14 @@ const ALL_KINDS: readonly BlueprintRequirementKind[] = [
 
 describe('C1-M2 — requirement kinds evaluate honestly', () => {
   it('covers every declared kind, and separates live ones from not-yet-attainable', () => {
-    expect([...LIVE_REQUIREMENT_KINDS].sort()).toEqual(['date', 'facility', 'structure'])
+    expect([...LIVE_REQUIREMENT_KINDS].sort()).toEqual(['date', 'facility', 'foundingOffice', 'structure'])
     // The union and the test's own checklist agree: a ninth kind added without a
     // test would fail here rather than silently going unexercised.
     const sample: Record<BlueprintRequirementKind, BlueprintRequirement> = {
       date: { kind: 'date', week: 1 },
       facility: { kind: 'facility', blueprintId: ANNEX },
       structure: { kind: 'structure', structureId: 'writers' },
+      foundingOffice: { kind: 'foundingOffice' },
       rank: { kind: 'rank', tier: 'Respected Studio Head' },
       certificate: { kind: 'certificate', certificateId: 'First Hit' },
       award: { kind: 'award', awardId: 'Best Picture' },
@@ -159,6 +161,13 @@ describe('C1-M2 — requirement kinds evaluate honestly', () => {
       const attainable = requirementIsAttainable(sample[kind])
       expect(attainable).toBe((LIVE_REQUIREMENT_KINDS as readonly string[]).includes(kind))
     }
+  })
+
+  it('P09 §10.3: the founding-office gate is met wherever it does not exist (endowed) and is never authored', () => {
+    const state = managedStudio('c1-m2-founding-office')
+    expect(state.foundingRegime).toBe('endowed')
+    expect(blueprintRequirementMet(state, { kind: 'foundingOffice' })).toBe(true)
+    expect(FACILITY_BLUEPRINTS.every((b) => b.requires.every((r) => r.kind !== 'foundingOffice'))).toBe(true)
   })
 
   it('meets and fails a date requirement on the exact week boundary', () => {

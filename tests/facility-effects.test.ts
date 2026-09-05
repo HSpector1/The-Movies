@@ -28,7 +28,7 @@ import {
   hasOperationalBlueprint,
   importSave,
   makeSave,
-  migrateToV17,
+  migrateToV18,
   operationalBlueprintCount,
   queryPlacement,
   stableStringify,
@@ -517,7 +517,7 @@ describe('C1-M4 — the whole catalog standing at once', () => {
   it('round-trips the whole estate byte-identically and replays deterministically', () => {
     const estate = fullEstate('m4-estate-save')
     const json = exportSave(makeSave(estate))
-    const reloaded = migrateToV17(importSave(json)).state
+    const reloaded = migrateToV18(importSave(json)).state
     expect(exportSave(makeSave(reloaded))).toBe(json)
     expect(reloaded.placement.facilities).toEqual(estate.placement.facilities)
     // A reloaded world continues identically to one that never stopped.

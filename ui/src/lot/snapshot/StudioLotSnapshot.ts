@@ -938,6 +938,12 @@ export type LotWeekTheater = {
 /** One buildable blueprint the catalog offers. */
 /** One unmet requirement, in the engine's own player copy (C1-M5). */
 export type LotBlueprintUnmet = {
+  /**
+   * The engine's requirement kind (`facility`, `foundingOffice`, …). Optional ONLY
+   * so the older hand-authored fixtures stay source-compatible; the adapter always
+   * emits it and the bridge contract requires it.
+   */
+  kind?: string
   /** The sentence to SHOW, verbatim. Never a code name, never re-worded here. */
   reason: string
   /**
@@ -992,6 +998,12 @@ export type LotBlueprintState = {
   buildable: boolean
   /** The same count as `instanceCount`, told apart so the list can be honest. */
   owned: LotBlueprintOwned
+  /**
+   * P09 §10.3 — the ONE row a bare lot must build next, said by the engine. Optional
+   * ONLY so the older hand-authored fixtures stay source-compatible; the adapter
+   * always emits it.
+   */
+  neededNow?: boolean
 }
 
 // ── Property Geometry V1 (C1-M1b) — WHAT stands on the lot, and WHERE ────────
@@ -1062,6 +1074,8 @@ export type LotPropertyProjection = {
    * placement id. Ids are unique.
    */
   buildings: LotWorldBuilding[]
+  /** P09 §16: the persisted founding regime — exact history, never inferred from the buildings. */
+  regime: 'endowed' | 'bare-lot'
 }
 
 /** The id prefix every non-legacy placed facility is addressed by. */

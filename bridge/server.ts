@@ -24,11 +24,13 @@ import {
   type QuoteResponse,
   type RejectedResponse,
   type SaveResponse,
+  BridgeSession,
 } from './session.ts'
 import {
   openBridgeCheckpointStore,
   type BridgeCheckpointStore,
 } from './runtime/checkpoint-store.ts'
+import type { FoundingRegime } from '../src/core/index.js'
 import {
   createBridgeRuntimeCoordinator,
   type BridgeRuntimeCoordinator,
@@ -531,8 +533,18 @@ async function main(): Promise<void> {
   )
   const { store, durable } = await createCheckpointStore()
   let requestFatalShutdown: (() => void) | null = null
+  // P09 §16: a FRESH runtime (no checkpoint in the runtime directory) may be
+  // created as a sparse 1920 bare-lot campaign by explicit configuration. An
+  // existing checkpoint is never touched by this: the regime is exact history
+  // written once at world creation.
+  const configuredRegime = process.env.PROJECT_STUDIO_NEW_GAME_REGIME?.trim()
+  if (configuredRegime !== undefined && configuredRegime !== '' && configuredRegime !== 'endowed' && configuredRegime !== 'bare-lot') {
+    throw new Error("PROJECT_STUDIO_NEW_GAME_REGIME must be 'endowed' or 'bare-lot'.")
+  }
+  const newGameRegime: FoundingRegime = configuredRegime === 'bare-lot' ? 'bare-lot' : 'endowed'
   const runtime = await createBridgeRuntimeCoordinator({
     store,
+    createFreshSession: (limits) => BridgeSession.createRuntime(limits, newGameRegime),
     fatal: (error) => {
       console.error(`[bridge] fatal runtime failure: ${(error as Error).message}`)
       process.exitCode = 1

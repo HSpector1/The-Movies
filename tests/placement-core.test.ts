@@ -663,6 +663,8 @@ describe('Placement Core V12 — the build-mode read model', () => {
         // family, so it is never superseded — the field is present and null.
         supersededBy: null,
         buildable: true,
+        // P09 §10.3: an endowed studio has no founding phase, so nothing is NEEDED NOW.
+        neededNow: false,
       },
     ])
     const expansion = empty.parcels.find((parcel) => parcel.id === 'expansion')!

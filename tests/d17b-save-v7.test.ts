@@ -45,6 +45,7 @@ import {
   convertV14ToV15,
   convertV15ToV16,
   convertV16ToV17,
+  convertV17ToV18,
 } from '../src/core/index.js'
 import type {
   CreativeRole,
@@ -140,10 +141,10 @@ describe('D-17B/E4 — the frozen V7 envelope remains valid and isolated', () =>
     expect(() => validateSaveV7({ ...save, saveVersion: 6 })).toThrow(/expected saveVersion 7/)
   })
 
-  it('V7 through V16 are known, so the unknown-version boundary is now 17', () => {
+  it('V7 through V16 are known, so the unknown-version boundary is now 18', () => {
     const save = makeSaveV7(toV7(foundStudio('d17b-v7-boundary')))
-    expect(() => validateSave({ ...save, saveVersion: 18 })).toThrow(/unknown saveVersion 18/)
-    expect(() => validateSave({ ...save, saveVersion: 18 })).toThrow(/unknown saveVersion 18/)
+    expect(() => validateSave({ ...save, saveVersion: 19 })).toThrow(/unknown saveVersion 19/)
+    expect(() => validateSave({ ...save, saveVersion: 19 })).toThrow(/unknown saveVersion 19/)
     // P06A (W1): 16 is now a KNOWN, LIVE version — dispatch reaches validateSaveV16, which
     // fails on this V7 payload's real shape mismatch (no releaseAuthority), not the
     // unknown-version boundary.
@@ -239,7 +240,7 @@ describe('D-17B/E4 — migrateToV7 lifts every known version, and the chain stil
     for (let i = 0; i < 6; i++) a = tick(a)
     const reloaded = importSave(exportSave(makeSaveV7(toV7(a))))
     if (reloaded.saveVersion !== 7) throw new Error('expected V7')
-    let split = convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(reloaded)))))))))).state
+    let split = convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(reloaded))))))))))).state
     let continuous = a
     const boundaryWeek = split.market.tick
     for (let i = 0; i < 6; i++) {

@@ -29,7 +29,7 @@ import {
   makeSave,
   tick,
 } from '../../src/core/index.js'
-import type { GameState, SaveFileV17 } from '../../src/core/index.js'
+import type { GameState, SaveFileV18 } from '../../src/core/index.js'
 import {
   auditionSlate,
   availableConceptId,
@@ -81,7 +81,7 @@ function commission(state: GameState): GameState {
  * ONE action script, run from a fresh world every time. No wall clock, no
  * ambient input, no branch on anything but the state the script itself made.
  */
-function scriptedRun(seed: string): { save: SaveFileV17; trace: WeekTrace[] } {
+function scriptedRun(seed: string): { save: SaveFileV18; trace: WeekTrace[] } {
   const trace: WeekTrace[] = []
   let state = withCash(managedStudio(seed), 50_000_000)
   const step = (next: GameState): void => {
@@ -138,8 +138,8 @@ describe('C2a-M0 · §12-M0 gate — same seed, same actions, same bytes', () =>
   it('round-trips through the load door without moving a byte', () => {
     const { save } = scriptedRun(SEED)
     const json = exportSave(save)
-    expect(exportSave(importSave(json) as SaveFileV17)).toBe(json)
-    expect(save.state.rngState).toBe((importSave(json) as SaveFileV17).state.rngState)
+    expect(exportSave(importSave(json) as SaveFileV18)).toBe(json)
+    expect(save.state.rngState).toBe((importSave(json) as SaveFileV18).state.rngState)
   })
 
   it('is non-vacuous: managed phase transitions ran while screenplay AND audition slots were held', () => {

@@ -103,7 +103,8 @@ import {
   makeSave,
   exportSave,
   importSave,
-  migrateToV17,
+  migrateToV18,
+  convertV17ToV18,
   convertV4ToV5,
   convertV5ToV6,
   convertV6ToV7,
@@ -426,6 +427,7 @@ import type {
   FacilityMoveRequest,
   FacilityDemolitionRequest,
   LotCell,
+  FoundingRegime,
 } from '../../../src/core/index.ts'
 // C2a-M3 — the screenplay boundary module is the address for "who wrote it".
 // A one-way edge: `screenplay.ts` imports only the `ActionOutcome` TYPE from here,
@@ -592,8 +594,8 @@ export {
 // A new PLAYER game opens in the founding draft (D-11.2): generateWorld builds the
 // employment-free world, beginFounding selects the bounded applicant pool and seeds
 // the recruitment fund. The player hires an initial roster, then founds the studio.
-export function newGame(seed: string): GameState {
-  return beginFounding(generateWorld(seed))
+export function newGame(seed: string, options?: { regime?: FoundingRegime }): GameState {
+  return beginFounding(generateWorld(seed, options))
 }
 
 // ── Dashboard selectors ──────────────────────────────────────────────────────
@@ -3763,8 +3765,8 @@ export type ImportOutcome =
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const converted = save.saveVersion !== 17
-    return { ok: true, state: migrateToV17(save).state, converted }
+    const converted = save.saveVersion !== 18
+    return { ok: true, state: migrateToV18(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -3776,7 +3778,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))))))))))).state,
+      state: convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json))))))))))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -3790,7 +3792,7 @@ export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))))))))))).state,
+      state: convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json))))))))))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -6875,6 +6877,8 @@ function lotPropertyProjection(
   return {
     bounds: { width: property.bounds.width, depth: property.bounds.depth },
     buildings,
+    // P09 §16: exact founding history rides with the property; never inferred here.
+    regime: state.foundingRegime,
   }
 }
 
@@ -7046,9 +7050,11 @@ function lotPlacementProjection(state: GameState): LotPlacementProjection {
       effectSummary: blueprintById(blueprint.blueprintId)?.effectSummary ?? '',
       available: blueprint.available,
       unmet: blueprint.unmet.map((entry) => ({
+        kind: entry.requirement.kind,
         reason: entry.reason,
         notYetAttainable: entry.notYetAttainable,
       })),
+      neededNow: blueprint.neededNow,
       instanceCount: blueprint.instanceCount,
       maxInstances: blueprint.maxInstances,
       atInstanceLimit: blueprint.atInstanceLimit,

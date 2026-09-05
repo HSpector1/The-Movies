@@ -85,6 +85,7 @@ import {
   assignShootingDirector,
   clearSceneryLoadIn,
   initialManagedStudioOperations,
+  foundingFacilitiesOf,
   removeManagedProductionWorkflow,
   scheduleShootingTake,
 } from './operations.js'
@@ -1415,9 +1416,16 @@ function applyActivateStudioOperations(
       'applyActions: activateStudioOperations rejected — legacy set state is not an empty slate',
     )
   }
+  // P09 §16/§17: the founding plant is whatever the PROPERTY provides — the five
+  // founding facilities on the endowed lot (byte-identical to every prior
+  // activation), NOTHING on the bare lot. The regime is read from the persisted
+  // root, never inferred from the building count.
+  const bareLot = state.foundingRegime === 'bare-lot'
   return {
     ...state,
-    operations: initialManagedStudioOperations(),
+    operations: initialManagedStudioOperations(foundingFacilitiesOf(state.property)),
+    // The V12 managed construction root is the frozen shape (its one registry row
+    // holds no project and no ground); placement owns every build on both lots.
     construction: initialManagedStudioConstruction(),
     placement: initialManagedStudioPlacement(),
     // C2a-M1 (charter §3.1): the founding endowment — TWO generic house sets,
@@ -1425,8 +1433,10 @@ function applyActivateStudioOperations(
     // INITIAL_STUDIO_FACILITIES and synthesized identically by `migrateToV14`
     // for managed-mode saves, so an activated studio and a migrated one are the
     // same studio. Ordinals 0 and 1 are consumed and never handed out again.
-    sets: endowedHouseSets(),
-    nextSetId: ENDOWED_NEXT_SET_ID,
+    // P09: a bare lot has no founding soundstage to mount a house set on, so it
+    // starts with NO sets and ordinal 0 unspent — nothing hidden is minted.
+    sets: bareLot ? [] : endowedHouseSets(),
+    nextSetId: bareLot ? 0 : ENDOWED_NEXT_SET_ID,
   }
 }
 

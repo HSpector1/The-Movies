@@ -103,6 +103,10 @@ export type ConstructionInvariantOptions = {
   // OMITTING it selects the research observatory's configured-capacity arm, the
   // same behaviour-neutral escape hatch the V11 `configured` policy provided.
   expectedFacilities?: readonly StudioFacility[]
+  // P09: the founding plant the PROPERTY provides (`foundingFacilitiesOf`),
+  // threaded to the operations law so the expected set is founding + placed on
+  // the endowed lot and placed-only on the bare lot. Omitted ⇒ the initial truth.
+  foundingFacilities?: readonly StudioFacility[]
 }
 
 // Shared action/tick/read/save boundary. Outer exact-key checking belongs to the
@@ -188,7 +192,13 @@ export function assertStudioConstructionInvariants(
       state.studio.activeProductions,
       expectedFacilities === undefined
         ? { facilityPolicy: 'configured' }
-        : { facilityPolicy: 'placement-v12', placedFacilities: expectedFacilities },
+        : {
+            facilityPolicy: 'placement-v12',
+            placedFacilities: expectedFacilities,
+            ...(options?.foundingFacilities === undefined
+              ? {}
+              : { foundingFacilities: options.foundingFacilities }),
+          },
     )
   } else if (construction.mode === 'legacy') {
     invariant(construction.parcels.length === 0, 'legacy mode must have no parcels')

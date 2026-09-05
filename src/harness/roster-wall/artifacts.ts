@@ -980,7 +980,7 @@ function parseAcceptedSource(value: unknown, label: string): RosterWallSourcePro
     value['productionAuthorityTree'] !== ROSTER_WALL_PRODUCTION_AUTHORITY_TREE ||
     !Array.isArray(value['authorityDiffPaths'])
   ) {
-    throw new Error(`roster-wall artifacts: ${label} is not accepted clean SaveFileV17 provenance`)
+    throw new Error(`roster-wall artifacts: ${label} is not accepted clean SaveFileV18 provenance`)
   }
   const authorityDiffPaths = value['authorityDiffPaths']
   if (
@@ -1007,7 +1007,7 @@ function parseAcceptedSource(value: unknown, label: string): RosterWallSourcePro
     tree: value['tree'],
     worktreeDirty: false,
     runtime: value['runtime'],
-    saveVersion: 17,
+    saveVersion: 18,
     productionAuthorityCommit: value['productionAuthorityCommit'],
     productionAuthorityTree: value['productionAuthorityTree'],
     authorityDiffPaths: [...authorityDiffPaths] as string[],
@@ -1499,8 +1499,8 @@ function assertCanonicalEntrySaves(
 
 function assertExactSaveV11(saveJson: string, label: string): void {
   const imported = importSave(saveJson)
-  if (imported.saveVersion !== 17) {
-    throw new Error(`roster-wall artifacts: ${label} must be an exact SaveFileV17`)
+  if (imported.saveVersion !== 18) {
+    throw new Error(`roster-wall artifacts: ${label} must be an exact SaveFileV18`)
   }
   const replay = exportSave(imported)
   if (replay !== saveJson) {
@@ -3243,7 +3243,7 @@ export function verifyRosterWallAcceptedArtifactDirectory(
     const imported = importSave(saveJson)
     const stateHash = rosterWallSha256(stableStringify(imported.state))
     if (
-      imported.saveVersion !== 17 ||
+      imported.saveVersion !== 18 ||
       imported.state.market.tick !== 196 ||
       rosterWallSha256(saveJson) !== fact.entrySaveHash ||
       stateHash !== fact.entryStateHash

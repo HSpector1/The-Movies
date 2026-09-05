@@ -26,6 +26,7 @@ import {
   convertV14ToV15,
   convertV15ToV16,
   convertV16ToV17,
+  convertV17ToV18,
   emptyLegacyOperations,
   exportSave,
   FOUNDING_MINIMUMS,
@@ -489,7 +490,7 @@ describe("Production Operations V1 — frozen V7 to live V8 migration", () => {
     expect(migrated.operations).toEqual(emptyLegacyOperations());
 
     let continuous = greenlit;
-    let resumed = convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(makeSaveV8(migrated)))))))))).state;
+    let resumed = convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(makeSaveV8(migrated))))))))))).state;
     const boundaryWeek1 = resumed.market.tick;
     for (let week = 0; week < 10; week++) {
       continuous = tick(continuous);
@@ -523,7 +524,7 @@ describe("Production Operations V1 — managed state validation and continuation
     );
 
     let continuous = state;
-    let resumed = convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(imported))))))))).state;
+    let resumed = convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(imported)))))))))).state;
     const boundaryWeek2 = resumed.market.tick;
     const actions = [
       { kind: "clearSceneryLoadIn", productionId: production.id } as const,

@@ -50,6 +50,7 @@ export const LIVE_REQUIREMENT_KINDS: readonly BlueprintRequirement['kind'][] = [
   'date',
   'facility',
   'structure',
+  'foundingOffice',
 ]
 
 /**
@@ -107,6 +108,8 @@ export function blueprintRequirementReason(
       return `Requires an operational ${blueprintName(context.catalog, requirement.blueprintId)}.`
     case 'structure':
       return `Requires the ${structureLabel(context.property, requirement.structureId)}.`
+    case 'foundingOffice':
+      return FOUNDING_OFFICE_REQUIREMENT_REASON
     case 'rank':
       return `Requires ${requirement.tier} rank. ${NOT_YET_ATTAINABLE_KINDS.rank!}`
     case 'certificate':
@@ -144,6 +147,12 @@ export function blueprintRequirementMet(
       return propertyOf(state).structures.some(
         (structure) => structure.id === requirement.structureId,
       )
+    case 'foundingOffice': {
+      // Met wherever the gate does not exist (endowed) or is satisfied (bare lot
+      // with operational Development & Casting capacity).
+      const phase = foundingPhaseOf(state)
+      return phase === 'none' || phase === 'satisfied'
+    }
     // Declared, evaluatable, not yet attainable. These are UNMET on purpose: the
     // systems that would satisfy them land in C3/C4, and each activates here by
     // reading the state root its system adds — one case, no new kind, no new
@@ -178,7 +187,13 @@ export function evaluateBlueprintRequirements(
 ): BlueprintAvailability {
   const property = propertyOf(state)
   const unmet: UnmetRequirement[] = []
-  for (const requirement of blueprint.requires) {
+  // P09 §10.3: the regime-derived founding gate is evaluated FIRST so a bare lot's
+  // catalogue leads with the one true reason, then the authored list in its order.
+  const requirements: readonly BlueprintRequirement[] = [
+    ...foundingPhaseRequirementsFor(state, blueprint),
+    ...blueprint.requires,
+  ]
+  for (const requirement of requirements) {
     if (blueprintRequirementMet(state, requirement)) continue
     unmet.push({
       requirement,
@@ -224,4 +239,73 @@ export function blueprintAtInstanceLimit(
   const max = blueprintMaxInstances(blueprint)
   if (max === null) return false
   return blueprintInstanceCount(placement, blueprint.id) >= max
+}
+
+// ── P09 §10.3 — the bare-lot founding phase (a TypeScript law, never a client filter) ──
+
+/** The one blueprint that opens a bare lot. Its id is authored in `tuning.ts`. */
+export const FOUNDING_OFFICE_BLUEPRINT_ID = 'development-casting-office'
+
+/** The exact engine-published sentence for every other row while the office is not yet operational. */
+export const FOUNDING_OFFICE_REQUIREMENT_REASON = 'Complete the founding Development & Casting Office'
+
+/**
+ * Where a bare lot stands on its founding office:
+ *   • `none`            — endowed regime: the gate does not exist;
+ *   • `office-needed`   — no founding office committed yet (the row is NEEDED NOW);
+ *   • `office-building` — one is committed and under construction (a second is refused);
+ *   • `satisfied`       — Development & Casting capacity is operational; the wider
+ *                          catalogue uses its real authored requirements.
+ * Read from the persisted regime and the operational plant — never inferred from art.
+ */
+export type FoundingPhase = 'none' | 'office-needed' | 'office-building' | 'satisfied'
+
+export function foundingPhaseOf(state: GameState): FoundingPhase {
+  if (state.foundingRegime !== 'bare-lot') return 'none'
+  if (state.operations.facilities.some((facility) => facility.capability === 'development-casting')) {
+    return 'satisfied'
+  }
+  const office = state.placement.facilities.some(
+    (placed) => placed.blueprintId === FOUNDING_OFFICE_BLUEPRINT_ID,
+  )
+  return office ? 'office-building' : 'office-needed'
+}
+
+/** The regime-derived requirements a blueprint carries RIGHT NOW (empty off a bare lot). */
+export function foundingPhaseRequirementsFor(
+  state: GameState,
+  blueprint: FacilityBlueprint,
+): readonly BlueprintRequirement[] {
+  const phase = foundingPhaseOf(state)
+  if (phase === 'none' || phase === 'satisfied') return []
+  if (blueprint.id === FOUNDING_OFFICE_BLUEPRINT_ID) return []
+  return [{ kind: 'foundingOffice' }]
+}
+
+/**
+ * The allowance in force: during the founding phase the office is ONE (a second
+ * founding-office purchase is not offered before the first is operational);
+ * otherwise the authored allowance.
+ */
+export function effectiveBlueprintMaxInstances(
+  state: GameState,
+  blueprint: FacilityBlueprint,
+): number | null {
+  const phase = foundingPhaseOf(state)
+  if (blueprint.id === FOUNDING_OFFICE_BLUEPRINT_ID && (phase === 'office-needed' || phase === 'office-building')) {
+    return 1
+  }
+  return blueprintMaxInstances(blueprint)
+}
+
+/** `blueprintAtInstanceLimit` against the allowance IN FORCE for this state. */
+export function blueprintAtInstanceLimitFor(state: GameState, blueprint: FacilityBlueprint): boolean {
+  const max = effectiveBlueprintMaxInstances(state, blueprint)
+  if (max === null) return false
+  return blueprintInstanceCount(state.placement, blueprint.id) >= max
+}
+
+/** True for the ONE row a bare lot must build next. */
+export function blueprintNeededNow(state: GameState, blueprint: FacilityBlueprint): boolean {
+  return blueprint.id === FOUNDING_OFFICE_BLUEPRINT_ID && foundingPhaseOf(state) === 'office-needed'
 }
