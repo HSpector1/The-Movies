@@ -7,14 +7,15 @@
 
 | Item | Value |
 |---|---|
-| Package / wave | **P08A — Wave 3 (Unity `StudioHistoryWorkspace` + inspector card + host route) IN PROGRESS**; Waves 0/1/2 committed |
-| TS WIP `wip/p08-p10-autonomous-stack-01-ts` | worktree `/Users/bruce/The Movies - P08-P10 Stack TS`; remote `hspector-github` |
-| Unity WIP `wip/p08-p10-autonomous-stack-01-client` | worktree `/Users/bruce/The Movies - P08-P10 Stack Unity`; remote `origin`; tip `685f113e480ee18ea242ad8a341e7710523f840f` (Wave 2 DTO sync) |
-| Save / protocol / projection | **V17** (new `studioHistory` root) / 4 / **16** (schema id `sha256:85a6d125…`; CF-09 PASS TS `90a3635e` × Unity `685f113e`) |
-| Accepted base (frozen) | TS `2753e18ba8fb5f65b936c22cde9531646fecc6cd` · Unity `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6` |
+| Package / wave | **P08 CORE — TECHNICAL KEEP (OWNER ACCEPTANCE PENDING)**; P08-R1..R4 not built (R2 after P09, R3 after P10); next = **P09 core** |
+| TS WIP `wip/p08-p10-autonomous-stack-01-ts` | worktree `/Users/bruce/The Movies - P08-P10 Stack TS`; remote `hspector-github`; product tip `8a23cb3b3c8e9d4780417ca44c60312b1bfd12bc`; documentation tip = the commit carrying this line (see C3) |
+| Unity WIP `wip/p08-p10-autonomous-stack-01-client` | worktree `/Users/bruce/The Movies - P08-P10 Stack Unity`; remote `origin`; product tip `64dab80e4dfd80fc4c0a559bc1a4034c44b5cc9e` (sealed player exe `043ae03e…`) |
+| Save / protocol / projection | **V17** / 4 / **16** (schema id `sha256:85a6d125…`; CF-09 PASS TS `90a3635e` × Unity `685f113e`, contract untouched since) |
+| Accepted base (frozen) | TS `2753e18ba8fb5f65b936c22cde9531646fecc6cd` · Unity `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6` — both campaign branches and TS `main` verified unchanged on the remotes at C3; Unity `origin` has no `main` |
 | `FINAL_DOCS_SHA` | `72ca8e797e5185a5dec13ac4c4311e391b8e96e3` |
-| TS WIP tip | `90a3635e175013d2b3833c389bdebe985e1babf2` (Wave 2) ← `15113a026213fdcb575d5905fa6a8d312d37fe74` (Wave 0/1) |
-| Next concrete command | Unity Wave 3: add `Assets/Studio/Runtime/Presentation/UI/StudioHistoryWorkspace.cs` (+ USS, inspector card, host route) → EditMode run `-runTests -testPlatform EditMode` → commit/push → Wave 4 proofs |
+| Owner durable profile | `d949003e…` unchanged (hash-checked before/after every proof; automation only ever read a copy) |
+| P08 seal record | `docs/campaigns/P08-TECHNICAL-CHECKPOINT.md`; hostile review verbatim `docs/campaigns/P08-HOSTILE-REVIEW-CORE.md`; candidate `~/Desktop/P08-Core-Technical-Candidate-8a23cb3-64dab80/` |
+| Next concrete command | P09 core Wave 0: read `docs/engineering/CODEX-P08-P10-AUTONOMOUS-STACK-CURRENT-REFRESH.md` §6 (P09 design: `foundingRegime` V18 / projection 17, `BARE_LOT_PROPERTY`, `quotePlacement`/`quoteSet`), then `cd "/Users/bruce/The Movies - P08-P10 Stack TS" && npx vitest run tests/p08a-w0-studio-history.test.ts` as the green starting point; first TS change window also carries the P08 non-blocking backlog (checkpoint §9) |
 
 ## CHECKPOINT HISTORY (append-only)
 
@@ -40,4 +41,14 @@
 - Generated contract regenerated (`generated/unity/StudioBridgeDtos.Generated.cs` sha256 `8aad2079…`, git blob `223564d1…`) and landed byte-identical in the Unity WIP with normalize partials + `StudioHistoryTestFixtures.EmptyHistoryProjection()` wired into the three existing fixture builders.
 - Floors: TS 365 files / 4944 passed / 5 skipped, tsc + bridge tsc clean; Unity EditMode 784/784. CF-09 `verify:bridge-contract-consumer --verify-only` PASS (report `cf09-w2-report.json`, both blobs `223564d1…`).
 - Campaign branches and `main` unchanged; Owner profile untouched; no acceptance claimed.
+
+### C3 — 2026-09-05 — P08 CORE TECHNICAL CHECKPOINT (sealed) — TS `8a23cb3b` (product) × Unity `64dab80e`
+- W3 (Unity `04267dd8`): `StudioHistoryWorkspace` + contracts + retained context + USS; host route `OpenStudioHistory`, Film Result detour peels back to History, one-layer Esc; Administration card = the world-first route ([OPEN STUDIO HISTORY] + a three-channel Standing row; no engine intent; pinned test updated to say exactly that); 22 EditMode tests → 806/806.
+- W4 (TS `8a23cb3b`): 8 deterministic oracle fixtures (`ui/e2e/p08-visual-oracle-v1`, generator `scripts/gen-p08-visual-oracle-fixtures.mts`, three refusals recorded in its comments) + `scripts/p08-real-profile-journey.mts` (35/35, baseline read-only, sha unchanged). Final TS floor at the product tip: 365 files / 4944 passed / 5 skipped; typecheck, typecheck:bridge, contract checks clean.
+- W4 (Unity `9f64006` → `fded233` → `64dab80`): oracle runner P08 scenarios + history/selection steps; `Tools/p08-*` oracle + HID harnesses; oracle run 1 caught two visual defects (IMGUI card over the workspace; long lines clipping — root cause the shared `VisualElement { flex-shrink: 0 }` guard pinning the detail pane wide), both fixed and pinned; HID run 2 caught the People-pane presence/body contradiction, fixed in `64dab80` (wording + reason, pinned). EditMode 808/808 at `64dab80`.
+- Visual Oracle canonical run 5 on exe `043ae03e…` (Unity `64dab80` clean): 8/8, 120 machine assertions, 0 failed, 0 mutations, 19 captures; run 4 identical on the prior sealed exe; runs 1–3 preserved and indexed in the checkpoint.
+- Growth re-measured from the product tip (the C1 figures above came from an uncommitted W1 state — kept as written there, corrected in the checkpoint §5): 6,240 weeks → save 2,039,441 B; history 624,990 B; 999 rows; 52 unfolded routine at every checkpoint; 118 folded; timeline 829; 0.281 ms/tick.
+- Hostile review (fresh reviewer, read-only): first verdict REJECT of the checkpoint AS CLAIMED — code passed every law tested; blocking items were the HID gate standing as a failed run, the wrong oracle run cited, and non-reproducing growth figures — all three resolved in the checkpoint (§5/§9); 12 non-blocking findings dispositioned (§9), none changed under the seal.
+- Real HID: run 1 FAILED (session at the login window at launch; Save/Load half passed once unlocked; preserved); run 2 on exe `32262dbf…` 43/44 (one harness false negative) and the presence/body catch; run 3 on the sealed exe `043ae03e…`: pending the next ≥10-minute idle window (the machine is in active human use; the harness seizes the pointer) — result appended as a C3 addendum when it lands.
+- Campaign branches, TS `main`, and the Owner profile verified unchanged. No P08 Owner acceptance is claimed. Non-blocking backlog for the next change windows is enumerated in the checkpoint §9.
 
