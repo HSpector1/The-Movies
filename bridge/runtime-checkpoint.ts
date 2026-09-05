@@ -42,7 +42,9 @@ export const PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID =
 // generated/unity/StudioBridgeDtos.Generated.cs (`git log --format=%h -- <path>`,
 // then `git show <sha>:<path> | grep -m1 "Schema identity"` for each commit) and
 // collecting every DISTINCT value, excluding the current running schema
-// (SCHEMA_ID, sha256:01f15efc...) and the protocol-3 legacy identity
+// (SCHEMA_ID, whatever the generator mints at HEAD — do not hardcode its hash
+// here; earlier such hashes become PRIOR ids in the list below) and the
+// protocol-3 legacy identity
 // (LEGACY_BRIDGE_RUNTIME_SCHEMA_ID above). The era label mirrors the
 // generator's ProjectionVersion constant at the introducing commit. Two
 // commits can share a ProjectionVersion number yet still mint distinct schema
