@@ -3,8 +3,8 @@
 **Status:** P10A W1a/W0 + W1b + W2 + W3 + cross-stack person↔history **TECHNICAL KEEP FOR AUTHORIZED READY SCOPE — OWNER ACCEPTANCE PENDING.** Projection 18. Proven in the packaged player by the Visual Oracle. Ready extension R4 (career/history) built; R1 contract actions dependency-blocked (no producer); R1 grouped attention served by the Roster; R2/R3 reuse existing authorities. Not built: material contract mutation (renew/release), Star badge (Owner-blocked). Campaign branches and `main` unchanged; no P10 Owner acceptance claimed.
 
 ## 1. Pair (the projection-18 person-route candidate)
-- TypeScript `396d08c` (WIP `wip/p08-p10-autonomous-stack-01-ts`, remote `hspector-github`) — W0 people projection at `e8d178d`; oracle fixtures.
-- Unity `6494cef` (WIP `wip/p08-p10-autonomous-stack-01-client`, remote `origin`).
+- TypeScript `af8c19c` (WIP `wip/p08-p10-autonomous-stack-01-ts`, remote `hspector-github`) — W0 people projection at `e8d178d`; oracle fixtures; hostile-review comment fix.
+- Unity `68d20c1` (WIP `wip/p08-p10-autonomous-stack-01-client`, remote `origin`) — includes the hostile-review remedies.
 - Sealed projection-18 engine bundle `3b9e343209706589c33d9d5aac5882e5be3dde263c5988e69515f67af0cca592` (built from committed TS, schema `sha256:ea5d645f…`).
 - Save V18 / protocol 4 / projection 18. CF-09 PASS (generated contract `6c26f13e…`) at TS `9bc01ea` × Unity `26a543a1` (W1a).
 - The P09 core control remains a SEPARATE projection-17 candidate (`~/Desktop/P09-Core-Technical-Candidate-fee206f-8f30d0e/`, player `d41c0d4b`, engine `5185e3a2`); it is not rebuilt.
@@ -69,5 +69,22 @@ oracle Build proof above is strong evidence that the ordinary-boot/Build flow ho
 - The presence seating limits how many on-lot people carry a selectable body (a pre-existing living-lot behaviour); the world inspector card therefore appears only for a seated person, while the Profile and Roster (opened by exact id) work for everyone.
 - Star badge / Star threshold: NOT produced (Owner-blocked). Star Power is shown as a value with its definition, never a rank or badge.
 
-## 8. Hostile-review disposition
-_(the fresh cross-stack hostile review and its remedies are appended here on completion)_
+## 8. Hostile-review disposition (verbatim in `P10-HOSTILE-REVIEW-CORE.md`)
+
+Fresh independent cross-stack hostile review (7 adversarial attack dimensions → per-finding adversarial
+verify, 33 agents). **26 raw findings → 15 confirmed / 11 refuted. No BLOCKERs.** All 4 MAJOR + the
+actionable MINOR/NOTE findings were remedied at Unity `68d20c1` × TS `af8c19c`; three NOTEs are
+documented as design-acceptable; the 11 refuted findings confirm the information-visibility law, the
+same-name/same-title identity discipline, the deep-link no-silent-fallback rule, and build-pair
+integrity all hold.
+
+MAJOR remedies: (1) attention tiers arrive lower-case but four C# sites compared UPPERCASE — "Attention
+first" sort and every attention colour cue were dead; now case-insensitive at all sites, with the
+masking test corrected to the wire's lower-case + a dedicated case test. (2) the Roster selection
+footer (its only OPEN PROFILE affordance) was pushed below the overflow-clip — `.roster-list` now caps
+(`min-height:0`/`width:100%`) so the footer stays on screen (confirmed in the P10-Remedy capture).
+(3) the Roster footer LOCATE gated on the wire flag alone (a dead control for an on-lot-but-unseated
+person) — now gates on the resolvable body like the Profile. MINOR: retained scroll is now actually
+implemented and the list rebuilds only on a real change. The remedy pair re-passes EditMode 873/873,
+the oracle (`p10-person-inspector` 22/22, `p10-person-history` 9/9), and the P09 boot/Build re-verify.
+The remedies were re-verified by returning to the same reviewer (remedy-verification pass).
