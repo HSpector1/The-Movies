@@ -13,7 +13,7 @@ const OUT = 'ui/e2e/p09-visual-oracle-v1-p18'
 mkdirSync(OUT, { recursive: true })
 
 // The bare-lot boot (s2), the Build placement (s3), and the office rising (s5).
-const files = ['s2-p09-sparse-start', 's3-p09-valid-placement', 's5-p09-office-rising']
+const files = ['s2-p09-sparse-start', 's3-p09-valid-placement', 's5-p09-office-rising', 's7-p09-reconnect-same-ids', 's9-p09-save-load-mid-construction', 's1-p09-migrated-endowed-unchanged']
 for (const name of files) {
   const src = JSON.parse(readFileSync(join(SRC, `${name}.checkpoint.json`), 'utf8')) as { currentSaveJson: string; sessionId: string }
   const checkpoint = createBridgeRuntimeCheckpoint({
