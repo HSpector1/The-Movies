@@ -1,0 +1,1550 @@
+{
+  "fixtureId": "p09-visual-oracle-v1",
+  "generator": "scripts/gen-p09-visual-oracle-fixtures.mts",
+  "generatorSourceSha256": "ce31e9ec616d5b429cb3e72b638e92121ae7ba3e1d98e2d491056b3de5b6ca75",
+  "seed": "p09-visual-oracle-v1",
+  "origins": {
+    "development-casting-office": {
+      "gx": 12,
+      "gy": 14
+    },
+    "scenery-shop": {
+      "gx": 16,
+      "gy": 14
+    },
+    "stage-standard": {
+      "gx": 26,
+      "gy": 4
+    },
+    "post-building": {
+      "gx": 30,
+      "gy": 14
+    }
+  },
+  "law": "Every fixture is an ordinary-player state reached with the shipped actions on the studio's own cash: no hidden cash, no free facility, no waived payroll, no proof-only staff. Machine assertions run on the emitted state through the shipped studioLotSnapshot / queryPlacement.",
+  "fixtures": [
+    {
+      "ordinal": 1,
+      "scenarioId": "p09-migrated-endowed-unchanged",
+      "week": 2,
+      "save": {
+        "file": "s1-p09-migrated-endowed-unchanged.save.json",
+        "byteLength": 222675,
+        "sha256": "982e4a32d7b6bd51706c55fd73bb573c016ffff9d8bcb41765fa3d0ac906bc6c"
+      },
+      "checkpoint": {
+        "file": "s1-p09-migrated-endowed-unchanged.checkpoint.json",
+        "byteLength": 251862,
+        "sha256": "a99a463605871c82b1e9318c5b151ed3aa739189c0f17a65b44fa6aa9c19c257",
+        "sessionId": "p09-oracle-migrated-endowed-unchanged",
+        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "stateDigest": "982e4a32d7b6bd51706c55fd73bb573c016ffff9d8bcb41765fa3d0ac906bc6c"
+      },
+      "lot": {
+        "regime": "endowed",
+        "foundingPhase": "none",
+        "journey": {
+          "stage": "no-picture",
+          "headline": "START A PICTURE",
+          "next": "commission",
+          "waitingUntilWeek": null
+        },
+        "bodies": [
+          "admin",
+          "writers",
+          "casting",
+          "stage-a",
+          "stage-b",
+          "post",
+          "theater",
+          "gate",
+          "expansion"
+        ],
+        "placements": [],
+        "catalogue": [
+          {
+            "blueprintId": "development-casting-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-hall",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-2",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-3",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Requires an operational Development Office II."
+            ]
+          },
+          {
+            "blueprintId": "craft-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "stage-standard",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "post-building",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "scenery-shop",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-office",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          }
+        ],
+        "cash": 19864418
+      },
+      "derivation": [
+        "foundMinimum(generateWorld(SEED)) on the endowed lot, two weeks, makeSaveV17 → migrateToV18 (the shipped path)"
+      ],
+      "machineAssertions": [
+        "regime endowed",
+        "8 founding structures",
+        "no NEEDED NOW row",
+        "legacy Annex parcel offered"
+      ]
+    },
+    {
+      "ordinal": 2,
+      "scenarioId": "p09-sparse-start",
+      "week": 0,
+      "save": {
+        "file": "s2-p09-sparse-start.save.json",
+        "byteLength": 218326,
+        "sha256": "c3e11475a75bad05cf93500f88279a9f731fbe2417e5838b3792d633a921c608"
+      },
+      "checkpoint": {
+        "file": "s2-p09-sparse-start.checkpoint.json",
+        "byteLength": 246827,
+        "sha256": "68ccbecfea74ab02c1d4ca77dac78ebdbf40fde267650a7acb7b0773aacd4040",
+        "sessionId": "p09-oracle-sparse-start",
+        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "stateDigest": "c3e11475a75bad05cf93500f88279a9f731fbe2417e5838b3792d633a921c608"
+      },
+      "lot": {
+        "regime": "bare-lot",
+        "foundingPhase": "office-needed",
+        "journey": {
+          "stage": "no-capacity",
+          "headline": "NO DEVELOPMENT & CASTING CAPACITY",
+          "next": "build",
+          "waitingUntilWeek": null
+        },
+        "bodies": [
+          "admin",
+          "gate"
+        ],
+        "placements": [],
+        "catalogue": [
+          {
+            "blueprintId": "development-casting-annex",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-casting-hall",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-office-2",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-office-3",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office",
+              "Requires an operational Development Office II."
+            ]
+          },
+          {
+            "blueprintId": "craft-annex",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "stage-standard",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "post-building",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "scenery-shop",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-casting-office",
+            "available": true,
+            "neededNow": true,
+            "atInstanceLimit": false,
+            "unmet": []
+          }
+        ],
+        "cash": 20000000
+      },
+      "derivation": [
+        "foundMinimum(generateWorld(SEED, { regime: \"bare-lot\" })) — the exact ordinary founding on the sparse lot"
+      ],
+      "machineAssertions": [
+        "regime bare-lot",
+        "no placements",
+        "journey no-capacity → Open Build",
+        "office NEEDED NOW, every other row locked by \"Complete the founding Development & Casting Office\""
+      ]
+    },
+    {
+      "ordinal": 3,
+      "scenarioId": "p09-valid-placement",
+      "week": 0,
+      "save": {
+        "file": "s3-p09-valid-placement.save.json",
+        "byteLength": 218326,
+        "sha256": "c3e11475a75bad05cf93500f88279a9f731fbe2417e5838b3792d633a921c608"
+      },
+      "checkpoint": {
+        "file": "s3-p09-valid-placement.checkpoint.json",
+        "byteLength": 246830,
+        "sha256": "89eb1a08fca9f90430748758bf7d28798771cebbd6426de81efdb1316e66ad71",
+        "sessionId": "p09-oracle-valid-placement",
+        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "stateDigest": "c3e11475a75bad05cf93500f88279a9f731fbe2417e5838b3792d633a921c608"
+      },
+      "lot": {
+        "regime": "bare-lot",
+        "foundingPhase": "office-needed",
+        "journey": {
+          "stage": "no-capacity",
+          "headline": "NO DEVELOPMENT & CASTING CAPACITY",
+          "next": "build",
+          "waitingUntilWeek": null
+        },
+        "bodies": [
+          "admin",
+          "gate"
+        ],
+        "placements": [],
+        "catalogue": [
+          {
+            "blueprintId": "development-casting-annex",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-casting-hall",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-office-2",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-office-3",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office",
+              "Requires an operational Development Office II."
+            ]
+          },
+          {
+            "blueprintId": "craft-annex",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "stage-standard",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "post-building",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "scenery-shop",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-casting-office",
+            "available": true,
+            "neededNow": true,
+            "atInstanceLimit": false,
+            "unmet": []
+          }
+        ],
+        "cash": 20000000
+      },
+      "derivation": [
+        "foundMinimum(generateWorld(SEED, { regime: \"bare-lot\" })) — the exact ordinary founding on the sparse lot"
+      ],
+      "machineAssertions": [
+        "regime bare-lot",
+        "no placements",
+        "journey no-capacity → Open Build",
+        "office NEEDED NOW, every other row locked by \"Complete the founding Development & Casting Office\"",
+        "office at (12,14): ok"
+      ]
+    },
+    {
+      "ordinal": 4,
+      "scenarioId": "p09-invalid-placement",
+      "week": 0,
+      "save": {
+        "file": "s4-p09-invalid-placement.save.json",
+        "byteLength": 218326,
+        "sha256": "c3e11475a75bad05cf93500f88279a9f731fbe2417e5838b3792d633a921c608"
+      },
+      "checkpoint": {
+        "file": "s4-p09-invalid-placement.checkpoint.json",
+        "byteLength": 246832,
+        "sha256": "4975fd268ece91c09bde0d5a3ef99979b5692cf6e52c9937102c84d618d9f83d",
+        "sessionId": "p09-oracle-invalid-placement",
+        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "stateDigest": "c3e11475a75bad05cf93500f88279a9f731fbe2417e5838b3792d633a921c608"
+      },
+      "lot": {
+        "regime": "bare-lot",
+        "foundingPhase": "office-needed",
+        "journey": {
+          "stage": "no-capacity",
+          "headline": "NO DEVELOPMENT & CASTING CAPACITY",
+          "next": "build",
+          "waitingUntilWeek": null
+        },
+        "bodies": [
+          "admin",
+          "gate"
+        ],
+        "placements": [],
+        "catalogue": [
+          {
+            "blueprintId": "development-casting-annex",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-casting-hall",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-office-2",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-office-3",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office",
+              "Requires an operational Development Office II."
+            ]
+          },
+          {
+            "blueprintId": "craft-annex",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "stage-standard",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "post-building",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "scenery-shop",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-casting-office",
+            "available": true,
+            "neededNow": true,
+            "atInstanceLimit": false,
+            "unmet": []
+          }
+        ],
+        "cash": 20000000
+      },
+      "derivation": [
+        "foundMinimum(generateWorld(SEED, { regime: \"bare-lot\" })) — the exact ordinary founding on the sparse lot"
+      ],
+      "machineAssertions": [
+        "regime bare-lot",
+        "no placements",
+        "journey no-capacity → Open Build",
+        "office NEEDED NOW, every other row locked by \"Complete the founding Development & Casting Office\"",
+        "office at (8,18): notOwned",
+        "office at (44,3): offLot",
+        "office at (21,12): notOwned"
+      ]
+    },
+    {
+      "ordinal": 5,
+      "scenarioId": "p09-office-rising",
+      "week": 5,
+      "save": {
+        "file": "s5-p09-office-rising.save.json",
+        "byteLength": 222374,
+        "sha256": "30f7269019b3b0110bc051e6510b84f46a5e5dc19ce4e665fce689bfb69d7810"
+      },
+      "checkpoint": {
+        "file": "s5-p09-office-rising.checkpoint.json",
+        "byteLength": 251390,
+        "sha256": "b6ae2a3e56caa1477e4747e1f9fb83b5c2de49fc1f57e2f861c8ebc81e425df9",
+        "sessionId": "p09-oracle-office-rising",
+        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "stateDigest": "30f7269019b3b0110bc051e6510b84f46a5e5dc19ce4e665fce689bfb69d7810"
+      },
+      "lot": {
+        "regime": "bare-lot",
+        "foundingPhase": "office-building",
+        "journey": {
+          "stage": "no-capacity",
+          "headline": "NO DEVELOPMENT & CASTING CAPACITY",
+          "next": "advance-week",
+          "waitingUntilWeek": 14
+        },
+        "bodies": [
+          "admin",
+          "gate",
+          "placed-1"
+        ],
+        "placements": [
+          {
+            "id": 1,
+            "blueprintId": "development-casting-office",
+            "status": "underConstruction",
+            "placedWeek": 0,
+            "completesWeek": 14,
+            "origin": {
+              "gx": 12,
+              "gy": 14
+            }
+          }
+        ],
+        "catalogue": [
+          {
+            "blueprintId": "development-casting-annex",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-casting-hall",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-office-2",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-office-3",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office",
+              "Requires an operational Development Office II."
+            ]
+          },
+          {
+            "blueprintId": "craft-annex",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "stage-standard",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "post-building",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "scenery-shop",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-casting-office",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": true,
+            "unmet": []
+          }
+        ],
+        "cash": 18161045
+      },
+      "derivation": [
+        "sparse start; placeFacility development-casting-office at (12,14) on week 0 ($1,500,000 from the studio's own cash); five weekly advances"
+      ],
+      "machineAssertions": [
+        "one site placed-1 under construction, progress 5/14, opens week 14",
+        "journey no-capacity waiting until week 14",
+        "second office refused: instanceLimit"
+      ]
+    },
+    {
+      "ordinal": 6,
+      "scenarioId": "p09-multi-site",
+      "week": 16,
+      "save": {
+        "file": "s6-p09-multi-site.save.json",
+        "byteLength": 232292,
+        "sha256": "e054946875f9b5f871ffe5b8a97df2c0f2521679672fcd47a51193f6c6091fff"
+      },
+      "checkpoint": {
+        "file": "s6-p09-multi-site.checkpoint.json",
+        "byteLength": 262585,
+        "sha256": "7ef3dbabbdf4e20529863aac1f49f1a5c537071ea8e67a161ba3bdaee8e5d3a7",
+        "sessionId": "p09-oracle-multi-site",
+        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "stateDigest": "e054946875f9b5f871ffe5b8a97df2c0f2521679672fcd47a51193f6c6091fff"
+      },
+      "lot": {
+        "regime": "bare-lot",
+        "foundingPhase": "satisfied",
+        "journey": {
+          "stage": "no-picture",
+          "headline": "START A PICTURE",
+          "next": "commission",
+          "waitingUntilWeek": null
+        },
+        "bodies": [
+          "admin",
+          "gate",
+          "placed-1",
+          "placed-2",
+          "placed-3",
+          "placed-4"
+        ],
+        "placements": [
+          {
+            "id": 1,
+            "blueprintId": "development-casting-office",
+            "status": "operational",
+            "placedWeek": 0,
+            "completesWeek": 14,
+            "origin": {
+              "gx": 12,
+              "gy": 14
+            }
+          },
+          {
+            "id": 2,
+            "blueprintId": "scenery-shop",
+            "status": "underConstruction",
+            "placedWeek": 14,
+            "completesWeek": 25,
+            "origin": {
+              "gx": 16,
+              "gy": 14
+            }
+          },
+          {
+            "id": 3,
+            "blueprintId": "stage-standard",
+            "status": "underConstruction",
+            "placedWeek": 14,
+            "completesWeek": 30,
+            "origin": {
+              "gx": 26,
+              "gy": 4
+            }
+          },
+          {
+            "id": 4,
+            "blueprintId": "post-building",
+            "status": "underConstruction",
+            "placedWeek": 14,
+            "completesWeek": 28,
+            "origin": {
+              "gx": 30,
+              "gy": 14
+            }
+          }
+        ],
+        "catalogue": [
+          {
+            "blueprintId": "development-casting-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-hall",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-2",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-3",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Requires an operational Development Office II."
+            ]
+          },
+          {
+            "blueprintId": "craft-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "stage-standard",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "post-building",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "scenery-shop",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-office",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          }
+        ],
+        "cash": 13004344
+      },
+      "derivation": [
+        "office committed week 0, operational week 14; scenery-shop (16,14), stage-standard (26,4), post-building (30,14) committed on week 14 at the engine's prices; two weekly advances"
+      ],
+      "machineAssertions": [
+        "placed-1 operational",
+        "placed-2 scenery 2/11",
+        "placed-3 soundstage 2/16",
+        "placed-4 post 2/14",
+        "chip BUILD · 3 ACTIVE"
+      ]
+    },
+    {
+      "ordinal": 7,
+      "scenarioId": "p09-reconnect-same-ids",
+      "week": 16,
+      "save": {
+        "file": "s7-p09-reconnect-same-ids.save.json",
+        "byteLength": 232292,
+        "sha256": "e054946875f9b5f871ffe5b8a97df2c0f2521679672fcd47a51193f6c6091fff"
+      },
+      "checkpoint": {
+        "file": "s7-p09-reconnect-same-ids.checkpoint.json",
+        "byteLength": 262595,
+        "sha256": "07b6b193752bf18fb021fc0e6a369376be614a93825ac9e46c3f60d17c3f36a5",
+        "sessionId": "p09-oracle-reconnect-same-ids-b",
+        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "stateDigest": "e054946875f9b5f871ffe5b8a97df2c0f2521679672fcd47a51193f6c6091fff"
+      },
+      "lot": {
+        "regime": "bare-lot",
+        "foundingPhase": "satisfied",
+        "journey": {
+          "stage": "no-picture",
+          "headline": "START A PICTURE",
+          "next": "commission",
+          "waitingUntilWeek": null
+        },
+        "bodies": [
+          "admin",
+          "gate",
+          "placed-1",
+          "placed-2",
+          "placed-3",
+          "placed-4"
+        ],
+        "placements": [
+          {
+            "id": 1,
+            "blueprintId": "development-casting-office",
+            "status": "operational",
+            "placedWeek": 0,
+            "completesWeek": 14,
+            "origin": {
+              "gx": 12,
+              "gy": 14
+            }
+          },
+          {
+            "id": 2,
+            "blueprintId": "scenery-shop",
+            "status": "underConstruction",
+            "placedWeek": 14,
+            "completesWeek": 25,
+            "origin": {
+              "gx": 16,
+              "gy": 14
+            }
+          },
+          {
+            "id": 3,
+            "blueprintId": "stage-standard",
+            "status": "underConstruction",
+            "placedWeek": 14,
+            "completesWeek": 30,
+            "origin": {
+              "gx": 26,
+              "gy": 4
+            }
+          },
+          {
+            "id": 4,
+            "blueprintId": "post-building",
+            "status": "underConstruction",
+            "placedWeek": 14,
+            "completesWeek": 28,
+            "origin": {
+              "gx": 30,
+              "gy": 14
+            }
+          }
+        ],
+        "catalogue": [
+          {
+            "blueprintId": "development-casting-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-hall",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-2",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-3",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Requires an operational Development Office II."
+            ]
+          },
+          {
+            "blueprintId": "craft-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "stage-standard",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "post-building",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "scenery-shop",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-office",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          }
+        ],
+        "cash": 13004344
+      },
+      "derivation": [
+        "office committed week 0, operational week 14; scenery-shop (16,14), stage-standard (26,4), post-building (30,14) committed on week 14 at the engine's prices; two weekly advances",
+        "the same state served under a second session id"
+      ],
+      "machineAssertions": [
+        "placed-1 operational",
+        "placed-2 scenery 2/11",
+        "placed-3 soundstage 2/16",
+        "placed-4 post 2/14",
+        "chip BUILD · 3 ACTIVE",
+        "identities are the persisted placement ids"
+      ]
+    },
+    {
+      "ordinal": 8,
+      "scenarioId": "p09-same-week-completion",
+      "week": 28,
+      "save": {
+        "file": "s8-p09-same-week-completion.save.json",
+        "byteLength": 241784,
+        "sha256": "c6b13fbb78fb82c6dda052ce5b81e2316a4290f741409fae08cc0e971d2303fa"
+      },
+      "checkpoint": {
+        "file": "s8-p09-same-week-completion.checkpoint.json",
+        "byteLength": 273225,
+        "sha256": "6caed725022380586eaeba21a18a8f336b62ef9751249b87b5d0e160b6170e80",
+        "sessionId": "p09-oracle-same-week-completion",
+        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "stateDigest": "c6b13fbb78fb82c6dda052ce5b81e2316a4290f741409fae08cc0e971d2303fa"
+      },
+      "lot": {
+        "regime": "bare-lot",
+        "foundingPhase": "satisfied",
+        "journey": {
+          "stage": "no-picture",
+          "headline": "START A PICTURE",
+          "next": "commission",
+          "waitingUntilWeek": null
+        },
+        "bodies": [
+          "admin",
+          "gate",
+          "placed-1",
+          "placed-2",
+          "placed-3"
+        ],
+        "placements": [
+          {
+            "id": 1,
+            "blueprintId": "development-casting-office",
+            "status": "operational",
+            "placedWeek": 0,
+            "completesWeek": 14,
+            "origin": {
+              "gx": 12,
+              "gy": 14
+            }
+          },
+          {
+            "id": 2,
+            "blueprintId": "development-casting-office",
+            "status": "operational",
+            "placedWeek": 14,
+            "completesWeek": 28,
+            "origin": {
+              "gx": 2,
+              "gy": 2
+            }
+          },
+          {
+            "id": 3,
+            "blueprintId": "post-building",
+            "status": "operational",
+            "placedWeek": 14,
+            "completesWeek": 28,
+            "origin": {
+              "gx": 30,
+              "gy": 14
+            }
+          }
+        ],
+        "catalogue": [
+          {
+            "blueprintId": "development-casting-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-hall",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-2",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-3",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Requires an operational Development Office II."
+            ]
+          },
+          {
+            "blueprintId": "craft-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "stage-standard",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "post-building",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "scenery-shop",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-office",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          }
+        ],
+        "cash": 13874852
+      },
+      "derivation": [
+        "office operational week 14; a second office (2,2) and post-building (30,14) committed together on week 14 (both 14 weeks); fourteen advances"
+      ],
+      "machineAssertions": [
+        "placed-2 and placed-3 both operational since week 28",
+        "operations: development-casting ×2 + post"
+      ]
+    },
+    {
+      "ordinal": 9,
+      "scenarioId": "p09-save-load-mid-construction",
+      "week": 7,
+      "save": {
+        "file": "s9-p09-save-load-mid-construction.save.json",
+        "byteLength": 223802,
+        "sha256": "b3ae3c68e87038aea6a96f5208f34767512338eff7e79c3807f24ab2fb676d6e"
+      },
+      "checkpoint": {
+        "file": "s9-p09-save-load-mid-construction.checkpoint.json",
+        "byteLength": 253007,
+        "sha256": "4432dd546ebf150b52f4fbdf2455854639c0a0bdb3aa18a25fb0fac65d0426e6",
+        "sessionId": "p09-oracle-save-load-mid-construction",
+        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "stateDigest": "b3ae3c68e87038aea6a96f5208f34767512338eff7e79c3807f24ab2fb676d6e"
+      },
+      "lot": {
+        "regime": "bare-lot",
+        "foundingPhase": "office-building",
+        "journey": {
+          "stage": "no-capacity",
+          "headline": "NO DEVELOPMENT & CASTING CAPACITY",
+          "next": "advance-week",
+          "waitingUntilWeek": 14
+        },
+        "bodies": [
+          "admin",
+          "gate",
+          "placed-1"
+        ],
+        "placements": [
+          {
+            "id": 1,
+            "blueprintId": "development-casting-office",
+            "status": "underConstruction",
+            "placedWeek": 0,
+            "completesWeek": 14,
+            "origin": {
+              "gx": 12,
+              "gy": 14
+            }
+          }
+        ],
+        "catalogue": [
+          {
+            "blueprintId": "development-casting-annex",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-casting-hall",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-office-2",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-office-3",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office",
+              "Requires an operational Development Office II."
+            ]
+          },
+          {
+            "blueprintId": "craft-annex",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "stage-standard",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "post-building",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "scenery-shop",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Complete the founding Development & Casting Office"
+            ]
+          },
+          {
+            "blueprintId": "development-casting-office",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": true,
+            "unmet": []
+          }
+        ],
+        "cash": 18025463
+      },
+      "derivation": [
+        "scenario 5 continued to week 7, exportSaveJson → importSaveJson (the shipped save path)"
+      ],
+      "machineAssertions": [
+        "one site placed-1, progress 7/14, opens week 14, byte-identical after load"
+      ]
+    },
+    {
+      "ordinal": 10,
+      "scenarioId": "p09-first-film-released",
+      "week": 42,
+      "save": {
+        "file": "s10-p09-first-film-released.save.json",
+        "byteLength": 258303,
+        "sha256": "3b95deaea65d79db39d0fad8f0e4854201f302439ddfee3630f79d7a1dc8c8cf"
+      },
+      "checkpoint": {
+        "file": "s10-p09-first-film-released.checkpoint.json",
+        "byteLength": 291909,
+        "sha256": "0086d9ef119bb1a104eb3c7c82861fd6691bcc0ef795e09ee98137f9820ba400",
+        "sessionId": "p09-oracle-first-film-released",
+        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "stateDigest": "3b95deaea65d79db39d0fad8f0e4854201f302439ddfee3630f79d7a1dc8c8cf"
+      },
+      "lot": {
+        "regime": "bare-lot",
+        "foundingPhase": "satisfied",
+        "journey": {
+          "stage": "released",
+          "headline": "PICTURE RELEASED",
+          "next": "commission",
+          "waitingUntilWeek": null
+        },
+        "bodies": [
+          "admin",
+          "gate",
+          "placed-1",
+          "placed-2",
+          "placed-3",
+          "placed-4"
+        ],
+        "placements": [
+          {
+            "id": 1,
+            "blueprintId": "development-casting-office",
+            "status": "operational",
+            "placedWeek": 0,
+            "completesWeek": 14,
+            "origin": {
+              "gx": 12,
+              "gy": 14
+            }
+          },
+          {
+            "id": 2,
+            "blueprintId": "scenery-shop",
+            "status": "operational",
+            "placedWeek": 14,
+            "completesWeek": 25,
+            "origin": {
+              "gx": 16,
+              "gy": 14
+            }
+          },
+          {
+            "id": 3,
+            "blueprintId": "stage-standard",
+            "status": "operational",
+            "placedWeek": 14,
+            "completesWeek": 30,
+            "origin": {
+              "gx": 26,
+              "gy": 4
+            }
+          },
+          {
+            "id": 4,
+            "blueprintId": "post-building",
+            "status": "operational",
+            "placedWeek": 14,
+            "completesWeek": 28,
+            "origin": {
+              "gx": 30,
+              "gy": 14
+            }
+          }
+        ],
+        "catalogue": [
+          {
+            "blueprintId": "development-casting-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-hall",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-2",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-3",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Requires an operational Development Office II."
+            ]
+          },
+          {
+            "blueprintId": "craft-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "stage-standard",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "post-building",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "scenery-shop",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-office",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          }
+        ],
+        "cash": 8515027
+      },
+      "derivation": [
+        "the P09 HARD-STOP journey on the sparse lot: office → screenplay (queued) → scenery/stage/post → set → greenlight → release; release week 37; cash floor $7234936"
+      ],
+      "machineAssertions": [
+        "four operational bodies",
+        "released week 37",
+        "cash floor $7234936 (never below zero)",
+        "P08 history: studioFounded + filmReleased"
+      ]
+    },
+    {
+      "ordinal": 11,
+      "scenarioId": "p09-endowed-build",
+      "week": 3,
+      "save": {
+        "file": "s11-p09-endowed-build.save.json",
+        "byteLength": 223851,
+        "sha256": "abd96846ad4aff47ac2b8708c288599dc9008a72275e52bf1693fd8835dc5526"
+      },
+      "checkpoint": {
+        "file": "s11-p09-endowed-build.checkpoint.json",
+        "byteLength": 253187,
+        "sha256": "4fb3a94b5aa06d66e19ec1fb979c803df88905d3533a2707fe48bce0f79e547f",
+        "sessionId": "p09-oracle-endowed-build",
+        "schemaId": "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+        "stateDigest": "abd96846ad4aff47ac2b8708c288599dc9008a72275e52bf1693fd8835dc5526"
+      },
+      "lot": {
+        "regime": "endowed",
+        "foundingPhase": "none",
+        "journey": {
+          "stage": "no-picture",
+          "headline": "START A PICTURE",
+          "next": "commission",
+          "waitingUntilWeek": null
+        },
+        "bodies": [
+          "admin",
+          "writers",
+          "casting",
+          "stage-a",
+          "stage-b",
+          "post",
+          "theater",
+          "gate",
+          "expansion",
+          "placed-1"
+        ],
+        "placements": [
+          {
+            "id": 1,
+            "blueprintId": "craft-annex",
+            "status": "underConstruction",
+            "placedWeek": 1,
+            "completesWeek": 7,
+            "origin": {
+              "gx": 0,
+              "gy": 9
+            }
+          }
+        ],
+        "catalogue": [
+          {
+            "blueprintId": "development-casting-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-hall",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-2",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-office-3",
+            "available": false,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": [
+              "Requires an operational Development Office II."
+            ]
+          },
+          {
+            "blueprintId": "craft-annex",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": true,
+            "unmet": []
+          },
+          {
+            "blueprintId": "stage-standard",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "post-building",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "scenery-shop",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          },
+          {
+            "blueprintId": "development-casting-office",
+            "available": true,
+            "neededNow": false,
+            "atInstanceLimit": false,
+            "unmet": []
+          }
+        ],
+        "cash": 19396627
+      },
+      "derivation": [
+        "endowed founded studio; craft-annex committed at (0,9) on week 1; two advances"
+      ],
+      "machineAssertions": [
+        "regime endowed, founding art untouched",
+        "one generic body placed-1 (craft) rising 2/6",
+        "ground map off outside Build mode"
+      ]
+    }
+  ]
+}
