@@ -19,7 +19,7 @@
 |---|---|---|---|
 | 01 | superseded on this branch | accepted P07 base only | Initial package |
 | 02 | `90b349a8272f17ad7ea541cdddc777d36c1d861d` | coding-agent local recon, TS `908879a9c5fa73d2015985834e951db84c69ab8a` × Unity `685f113e480ee18ea242ad8a341e7710523f840f`, validated 2026-09-05T08:25:39Z | Incorporated local recon: P08 Wave 2 committed; P09/P10 not begun |
-| 03 | this commit | observed P08–P10 WIP pair above, inspected 2026-09-06 | Replaced the "P09/P10 not begun" current state with dated, commit-bound observations; froze one compatible TS/Unity pair; reclassified facility Opex (STILL PRESENT); recorded reused versus missing producer interfaces; corrected the cancel and Upcoming rules; added the audit → P11 entry gate (§11) and the final-refresh checklist (§12) |
+| 03 | `7c96a7a3b482790a06ae84518430e7405ed0627a` (+ this drift note) | observed P08–P10 WIP pair above, inspected 2026-09-06 | Replaced the "P09/P10 not begun" current state with dated, commit-bound observations; froze one compatible TS/Unity pair; reclassified facility Opex (STILL PRESENT); recorded reused versus missing producer interfaces; corrected the cancel and Upcoming rules; added the audit → P11 entry gate (§11) and the final-refresh checklist (§12) |
 
 Revision 02 remains readable at its immutable commit. Its snapshot facts are preserved below as historical evidence, never rewritten.
 
@@ -81,6 +81,7 @@ Preserved as evidence, not current state: at TS `908879a9…` × Unity `685f113e
 - This refresh ran no tests, no build, no Unity, no bridge and no gameplay. Every floor and journey figure is EVIDENCE REPORTED unless marked ARTIFACT INSPECTED.
 - The Owner's durable profile (`d949003e…`) was not opened; "original untouched" claims are EVIDENCE REPORTED.
 - The compatible pair may move again before acceptance. This document does not poll the branches further; the final refresh (§12) re-freezes against the accepted identities.
+- **Post-freeze drift, observed once at 2026-09-06T20:41Z while verifying that no other refs had moved:** TS WIP tip advanced to `1ff018c25805e23ba1aa87618d3418afb4719603` (20:33Z, docs: "two-repairs … final pair identities, sweep 46/46 — checkpoint before the real-input runs") and Unity WIP tip advanced to `f760d5d17db7dba12346781e2181be6502b1c688` (20:24Z, tools) over `c71ffff8…` (20:22Z, **product**: "fix(selection): occlusion follows what is drawn — no footprint exemption; placed bodies occlude"). The frozen pair above therefore documents the last committed candidate identities at inspection time, not the branch tips; the named precondition on the world-body direct-click gate (close-gates §0.1 finding 1) appears to be in progress. Nothing in this revision was re-derived against those later commits.
 
 ## 3. Gate status
 
