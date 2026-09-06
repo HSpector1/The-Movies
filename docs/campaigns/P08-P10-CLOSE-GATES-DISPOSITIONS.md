@@ -112,6 +112,35 @@ the implementer — is the party that classified Finding 1 as non-blocking to th
 remains pending; the world-body DIRECT-click gate and the four minor/note follow-ups are the carried
 items.
 
+## 0.2 Current Ops disposition of 2026-09-06 (evening): the two remaining repairs — SUPERSEDES §0/§0.1 where they differ
+
+Current Ops did NOT approve the completion claim above: "'No previously green gate became red' is not the
+completion criterion." Two required technical issues were reopened and repaired; the full trail, the
+corrected code, the successor build pair and the final gate table live in
+**`docs/campaigns/P08-P10-TWO-REPAIRS-2026-09-06.md`**. What changes in THIS document's record:
+
+- **§2.1 / §0.1 Finding 1 — the "doorstep rule" is RETIRED, not down-qualified.** The rule was built on a
+  misread of the body probe: sample 2 (the "person on the doorstep, drawn in front of the facade") stood
+  at world (−5.17, 1.25, 48.26), 4.3 m BEHIND the Post's back wall under its mass, so its `post` pick was
+  correct. The corrected law (`StudioSelectionManager.SightLineBlocked`, Unity `c71ffff`): a person is
+  occluded by any opaque collider the exact ray meets before the person's own body surface — no
+  containment or porch exemption; and placed P09 bodies now carry a Default-layer occluder mirroring
+  their drawn enclosure (they previously occluded nobody). Focused EditMode cases (real Post geometry,
+  frozen Post cameras, placed bodies through the real presenter) fail 5/19 on the pre-fix code and pass
+  with it; EditMode 892/892.
+- **§3.1 — the `p09-valid-placement` disposition ("client-ghost artifact, MINOR") is WITHDRAWN.** The
+  failing runs' `notOwned` was the ENGINE's honest answer for the WRONG cell: the UP arrow was held at
+  the OS level (a lost synthetic keyup from an earlier real-input run) and the placement driver's arrow
+  nudge moved the ghost north off the parcel — four quotes where every passing run ever issued two. The
+  saves inside the original and re-enveloped checkpoints are byte-identical; the sealed engine answers
+  ok:true at (12,14) on both over raw HTTP. Class C (harness/environment); reproduced under the held key
+  on the intermediate candidate's own executable, released, and passing twice on the same executable,
+  then passing on the final pair with a new oracle assertion that names any ghost drift. The oracle and
+  real-input launchers now refuse / release held OS input (`Tools/input-state.py`).
+- **§3 gate table and §3.1 sweep figures are HISTORICAL.** Every retained runtime run pre-dates the
+  intermediate candidate's executable (`1358fd1f…`); the successor's evidence is re-run on the FINAL pair
+  (player `ab1fa09b…` at Unity `f760d5d`, engine `189326b6…` at TS `a2baa1d`) and tabulated only there.
+
 ## 1. Correction of the prior readiness claim
 
 The morning report of 2026-09-06 called the P10 person route "TECHNICAL KEEP / combined candidate
