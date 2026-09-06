@@ -107,3 +107,37 @@
 - **Real-HID people journey (order §11)**: `Tools/p10-run-hid-people.sh` + `p10-proof-people.mjs` drive the packaged player with real macOS CGEvents (owner-idle-gated). On the final exe `a8f4390c`: **25/33 steps pass via genuine OS input** — the ROSTER route END TO END (open from the People strip → filter Craft → select Miriam Grimaldi → OPEN PROFILE → her exact Profile → Back with the filter preserved) + **Save V18 + Load + Menu**. The 8 non-passing steps are HID input-precision gaps (a small person body beside a building; the footer LOCATE), covered by the Oracle (`p10-person-inspector` 22/22 selects the world body programmatically + captures the real card). Two proof-only additions enabled it (People-strip header rect published; seated person's world body id published) plus `runInBackground` in the element-map proof mode so the loop connects; none touch product behaviour. Attempt log in the commits (runInBackground Update→Awake; an element-map JSON fix; move-then-click; head-aim). Evidence `Evidence/P10-Journey-Final/`.
 - **Final candidate** `~/Desktop/P10-Person-Route-Candidate-af8c19c-fcfcbb8/` (player `a8f4390c`, engine `3b9e3432` == final committed TS engine byte-verified, Unity `fcfcbb8` dirty=false, contract `6c26f13e`), with player/engine/saves/docs/evidence(P10 oracle + P09 re-verify + the real-input journey)/proof/playtest.sh/README. Re-verified on the final exe: p10 oracle 2/2, P09 re-verify 4/4.
 - Terminal state: **P08–P10 TECHNICAL KEEP FOR AUTHORIZED READY SCOPE; OWNER ACCEPTANCE PENDING.** Campaign branches `2753e18b`/`c4c65db4` and `main` unchanged; P09 CORE candidate untouched; no P10 acceptance claimed; no force-push/rebase/Golden-tag/promotion.
+
+### C10 — 2026-09-06 — CLOSE-GATES-01: contract/career/facility-history/shortage READY work + real-input completion
+
+Continuation of `OPS-P08P10-CLOSE-GATES-01` (rejecting the prior "combined candidate READY" claim).
+Implemented and proved the authorized READY-scope that was outstanding:
+
+- **P10-R1 contract consequence (material action) — DONE & PROVEN, incl. real input.** New `bridge/contract.ts`
+  (`contractActionDecisions` / `contractDraftToEngine` / `contractQuoteSnapshot`) wired into the session as
+  the `contract` quote family; schema `StudioQuoteContractRequest` / `StudioContractQuoteSnapshot` + contract
+  actions on the person contract snapshot; intent kinds `renewContract` + `releaseTalent`; projection 18→19.
+  Core D-11 actions UNCHANGED. Unity: chrome REVIEW buttons + a Root-level always-visible consequence-sheet
+  band. Real-input renewal COMMITS on the final pair (receipt "Renewed through Week 144", $37,375 bonus debit,
+  one ledger row, revision +1, window closed; CANCEL state-neutral; Save/Load preserves) — `hid-…151126Z`, 0 fail.
+- **P09-REQ-040 / P08-R2 facility history — DONE & PROVEN.** `facilityCommitted/Completed/Demolished/Moved`
+  rows at the one mutation site of each; Unity History facility state line + LOCATE gating; a placed building's
+  LOT SELECTION offers STUDIO HISTORY ▸. Tests `bridge-p09a-r2-facility-history-rows` (5).
+- **P10-R2 shortage → EXACT-profession prefiltered Roster; P10-R3 Casting FIND TALENT entrance — DONE & PROVEN.**
+- **P10-R4 career row → exact P07 result → back — DONE & PROVEN** (fixture driven by the bridge's own intents).
+- **Owner-profile PRIVATE COPY (§4) — DONE.** In-memory continuity (48 checks) + real sealed-engine
+  migrate-on-boot / save / engine replacement (11 checks); original `d949003e…` untouched.
+- **Compatibility boundary (§9) — mapped on both real engines** (`scripts/p10-compat-boundary-probe.sh`).
+- **Real-Builder disposition CORRECTED** back to P09-REQ-039 DEPENDENCY-BLOCKED (the 30/30 real-HID BUILD
+  proved the real-input Build FLOW, not a Builder SYSTEM). Nothing invented.
+
+Gates: EditMode 882/882; TS floor 5004 passed; CF-09 projection-19 seal; oracle sweep 45/46 (the one
+`p09-valid-placement` re-envelope failure is a client Build-ghost artifact — the sealed engine answers ok
+over real HTTP — recorded MINOR, the P09 placement gate met by the real-input Build + sealed core). Real
+input on the final pair: contract renewal §5 GREEN, Roster/Locate/Save-Load, P09 Build §3; the world-body
+DIRECT click → inspector card is FAIL(harness)/product-proven (doorstep + pick-tolerance fixes are
+EditMode-proven; Oracle proves the route). Full detail: `docs/campaigns/P08-P10-CLOSE-GATES-DISPOSITIONS.md`.
+
+Final pair: player `1358fd1f…` (Unity `1d304f8`, dirty=false) · engine `189326b6…` (projection 19,
+schema `6a2c01fe…`) · TS `7b4d8ff` · save V18. Candidate `~/Desktop/P08-P10-Combined-Candidate-7b4d8ff-1d304f8`.
+Campaign refs frozen (TS `2753e18b`, Unity `c4c65db4`); main untouched; the P09 CORE candidate untouched.
