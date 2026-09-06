@@ -1,0 +1,62 @@
+{
+  "generatedFrom": "ui/e2e/p08-visual-oracle-v1",
+  "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+  "fixtures": [
+    {
+      "file": "s1-p08-recording-just-begun.checkpoint.json",
+      "sessionId": "p08-oracle-p08-recording-just-begun",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+      "sha256": "d87d9b31b1e0655c2eaa0dfccf0553f5d308b524ff3e8f7b898dfd468421245a",
+      "gameWeek": 2
+    },
+    {
+      "file": "s2-p08-release-divergent.checkpoint.json",
+      "sessionId": "p08-oracle-p08-release-divergent",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+      "sha256": "95bd69cfff4520df8fcbbc9e4f92aa8c5ee97a40065b316f948d7bf8e89bdc3b",
+      "gameWeek": 11
+    },
+    {
+      "file": "s3-p08-publicity.checkpoint.json",
+      "sessionId": "p08-oracle-p08-publicity",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+      "sha256": "84421ca9583bcce89a042fa9e1fd399efda4d1382da13d3adc1c78beabd45ff9",
+      "gameWeek": 11
+    },
+    {
+      "file": "s4-p08-weekly-settling.checkpoint.json",
+      "sessionId": "p08-oracle-p08-weekly-settling",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+      "sha256": "a13fbbc520ce2ec01458f5b5bb72288974c39f7dba467d7957d67c0a841c3234",
+      "gameWeek": 112
+    },
+    {
+      "file": "s5-p08-sparse-timeline.checkpoint.json",
+      "sessionId": "p08-oracle-p08-sparse-timeline",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+      "sha256": "eb33c48f291e90f137d4342e79fc06c922837c541e8daa1afb5df8ea5b4b2637",
+      "gameWeek": 16
+    },
+    {
+      "file": "s6-p08-same-title-twins.checkpoint.json",
+      "sessionId": "p08-oracle-p08-same-title-twins",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+      "sha256": "5d820b70380c97b1d545d12092389da0145e14d6962d05bafb715085dfca0c37",
+      "gameWeek": 16
+    },
+    {
+      "file": "s7-p08-no-current-location.checkpoint.json",
+      "sessionId": "p08-oracle-p08-no-current-location",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+      "sha256": "67da1c3042eae6c353e6f7e02a197b8fe7d804aefa492503d414b28504588a20",
+      "gameWeek": 17
+    },
+    {
+      "file": "s8-p08-old-save-not-recorded.checkpoint.json",
+      "sessionId": "p08-oracle-p08-old-save-not-recorded",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+      "sha256": "245229eebf23dcc96a7af334f15b34ec16bf64561ff88d5c4ec5eff423efcf68",
+      "gameWeek": 17
+    }
+  ]
+}
