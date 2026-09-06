@@ -79,6 +79,27 @@ So:
 - **Walking target:** the person moves between marks; the driver waits for the rect to settle and
   retries across the walk cycle (six attempts) — a stale rect on a moving body is not a defect.
 
+### 2.2 Second-order findings from the reruns on the final pair
+
+- **Run `hid-20260906T085950Z` (people, pair `d531df53…`)**: three of six world clicks were aimed
+  where the probe said the person was pickable, yet the real click selected the building behind
+  (`selectionAfter` = `post` / `casting`), and the Locate that followed selected Miriam but no
+  BACK TO STUDIO control appeared while the camera kept moving between two screenshots eight
+  seconds apart with no driver input. Cause: **FOCUS / INPUT (harness)** — a framing burst's
+  arrow `keyup` was lost (the window's focus flickers under the 3-second activation cadence),
+  leaving an arrow HELD: the tycoon camera pans continuously, clears every navigation origin each
+  frame (`TycoonCameraController`: "the player just took the camera into their own hands"), so
+  the Locate's Back promise cannot exist, and every published rect drifts between the map read
+  and the click. Fix (driver): release all four arrows after every burst and before any
+  camera-dependent step; click only inside a measured still window (rect steady < 1 px for
+  300 ms, move+click within ~90 ms); assert a building rect holds still before the Locate.
+- **PRODUCT INTERACTION (selection ergonomics), second fix at the pick seam:** a person at
+  management zoom is a ~10-point target that walks between marks. `Pick` now asks the exact ray
+  first and, only when it resolves no Person, an 8-px ring of rays; the nearest Person in the
+  ring wins; a click on a building with no person nearby still selects the building
+  (EditMode `PickWithPeopleTolerance_ANearMissOnASmallPerson_StillSelectsThePerson`). Applies to
+  every player; no collider moved; no proof-only advantage.
+
 Resolution proof: the real-input people journey rerun on the FINAL pair (§3).
 
 ## 3. Gate table (PASS / FAIL / BLOCKED / NOT RUN — never converted across evidence classes)
