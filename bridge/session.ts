@@ -87,6 +87,9 @@ import type {
   BridgeSetCommissionDraftPayload,
   BridgeQuoteSetCommissionRequest,
   BridgeSetCommissionQuoteSnapshot,
+  BridgeContractDraftPayload,
+  BridgeQuoteContractRequest,
+  BridgeContractQuoteSnapshot,
 } from './schema/bridge-schema.ts'
 import { projectStudioProjectionBundle } from './schema/runtime.ts'
 import {
@@ -96,6 +99,7 @@ import {
 import { castingDraftToEngine, castingQuoteSnapshot } from './casting.ts'
 import { placementDraftToEngine, placementQuoteSnapshot } from './placement.ts'
 import { setCommissionDraftToEngine, setCommissionQuoteSnapshot } from './setCommission.ts'
+import { contractDraftToEngine, contractQuoteSnapshot } from './contract.ts'
 
 type ImportOutcome =
   | { ok: true; state: GameState; converted: boolean }
@@ -173,6 +177,14 @@ type PendingQuote =
       draft: BridgeSetCommissionDraftPayload
       stateDigest: string
       kind: 'commissionSet'
+      commitLabel: string
+    }
+  | {
+      // P10-R1: a LEGAL contract preview (renewal / early release) mints the one commit.
+      family: 'contract'
+      draft: BridgeContractDraftPayload
+      stateDigest: string
+      kind: 'renewContract' | 'releaseTalent'
       commitLabel: string
     }
 
@@ -1424,7 +1436,9 @@ export class BridgeSession {
         ? castingDraftToEngine(this.state, pending.draft)
         : pending.family === 'placement'
           ? placementDraftToEngine(this.state, pending.draft)
-          : setCommissionDraftToEngine(this.state, pending.draft)
+          : pending.family === 'setCommission'
+            ? setCommissionDraftToEngine(this.state, pending.draft)
+            : contractDraftToEngine(this.state, pending.draft)
     if (!conversion.ok) {
       return {
         option: { intentId, ...fields },
@@ -1438,6 +1452,14 @@ export class BridgeSession {
       return {
         option: { intentId, ...fields },
         apply: () => ({ ok: false, error: `This placement is no longer legal (${reason}).` }),
+      }
+    }
+    // P10-R1: a contract quote that is no longer legal on the live state fails closed at
+    // commit the same way — never charges, never renews, never releases.
+    if ((conversion.kind === 'renewContract' || conversion.kind === 'releaseTalent') && conversion.refusal !== null) {
+      return {
+        option: { intentId, ...fields },
+        apply: () => ({ ok: false, error: `This contract action is no longer legal (${conversion.refusal!.code}): ${conversion.refusal!.reason}` }),
       }
     }
     // P09A W5: a Set quote that is no longer legal fails closed at commit the same way.
@@ -1515,6 +1537,7 @@ export class BridgeSession {
   quote(request: BridgeQuoteCastingRequest): AcceptedQuoteResponseFor<BridgeCastingQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuotePlacementRequest): AcceptedQuoteResponseFor<BridgePlacementQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteSetCommissionRequest): AcceptedQuoteResponseFor<BridgeSetCommissionQuoteSnapshot> | RejectedResponse
+  quote(request: BridgeQuoteContractRequest): AcceptedQuoteResponseFor<BridgeContractQuoteSnapshot> | RejectedResponse
   quote(request: BridgeQuoteRequest): QuoteResponse
   quote(request: BridgeQuoteRequest): QuoteResponse {
     const started = performance.now()
@@ -1582,6 +1605,37 @@ export class BridgeSession {
         draft: request.draft,
         stateDigest,
         kind: 'commissionSet',
+        commitLabel: quote.commitLabel,
+      })
+      this.capPendingQuotes()
+      return this.mintQuoteResponse(request, started, stateDigest, quote)
+    }
+
+    if (request.type === 'quoteContract') {
+      // P10-R1: a refused contract preview is an ACCEPTED answer (`ok:false`, the engine's
+      // own reason + remedy); only a legal one is preflighted and registered for commit.
+      const conversion = contractDraftToEngine(this.state, request.draft)
+      if (!conversion.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', conversion.error, started)
+      }
+      const stateDigest = authoritativeDigest(this.state)
+      const intentId = opaqueIntentId(stateDigest, { contractDraft: request.draft })
+      if (conversion.refusal !== null) {
+        return this.mintQuoteResponse(
+          request, started, stateDigest,
+          contractQuoteSnapshot(this.state, request.draft, conversion, intentId),
+        )
+      }
+      const preflight = caught(() => conversion.apply(this.state))
+      if (!preflight.ok) {
+        return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
+      }
+      const quote = contractQuoteSnapshot(this.state, request.draft, conversion, intentId)
+      this.pendingQuotes.set(intentId, {
+        family: 'contract',
+        draft: request.draft,
+        stateDigest,
+        kind: conversion.kind,
         commitLabel: quote.commitLabel,
       })
       this.capPendingQuotes()

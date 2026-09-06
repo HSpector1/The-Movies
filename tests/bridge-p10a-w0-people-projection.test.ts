@@ -301,10 +301,11 @@ describe('P10A W0 — people projection', () => {
       expect(cohort.key).toMatch(/^(work-ambiguous|presence-blocked|renewal-open|contract-ends-26|contract-ends-52)$/)
   })
 
-  it('R9 the served section is projection 18 and the projection-17 identity stays accepted', () => {
+  it('R9 the served section is projection 19 and the projection-17/18 identities stay accepted', () => {
     const state = foundStudio('p10-w0-schema')
-    expect(PROJECTION_VERSION).toBe(18)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-18')
+    // P10-R1 moved the wire to projection 19 (contract actions + the contract quote family).
+    expect(PROJECTION_VERSION).toBe(19)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-19')
     const context = snapshotBuildContextFor(state)
     const bundle = projectStudioProjectionBundle({ ...context.lotSnapshot(), development: context.development(), casting: context.casting(), release: context.release(), history: context.history(), talent: context.people() })
     expect(bundle.talent.talent.profiles.length).toBe(state.talent.length)
@@ -313,6 +314,7 @@ describe('P10A W0 — people projection', () => {
     const text = JSON.stringify(bundle.talent)
     for (const key of HIDDEN_KEYS) expect(text, key).not.toContain(key)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78')).toBe('projection-v17')
+    expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4')).toBe('projection-v18')
   })
 
   it('R10 a large roster projects deterministically and survives the V16 → V18 strip-and-migrate', () => {

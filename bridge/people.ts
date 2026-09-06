@@ -35,6 +35,8 @@ import type { GameState, TalentProfile } from '../ui/src/engine/adapter.ts'
 import { studioPresence } from '../src/core/presence.ts'
 import { DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE } from '../src/core/tuning.ts'
 import { guaranteedComp, activeContract, renewalWindowOpen } from '../src/core/employment.ts'
+import { contractActionDecisions } from './contract.ts'
+import type { BridgePersonContractActionsSnapshot } from './schema/bridge-schema.ts'
 import type {
   CreativeRole,
   Discipline,
@@ -88,6 +90,8 @@ export type BridgePersonContractSnapshot = {
   renewalOpen: boolean
   /** `Not open` · `Opens in N weeks` · `Renewal open` */
   renewalLine: string
+  /** P10-R1: the two material actions, their legal windows, and the published renewal terms. */
+  actions: BridgePersonContractActionsSnapshot
 }
 
 export type BridgePersonEmploymentSnapshot = {
@@ -489,6 +493,9 @@ function buildEmployment(state: GameState, talent: Talent, week: number): Bridge
           terminationCost: info.contract.terminationCost,
           renewalOpen: info.contract.renewalOpen,
           renewalLine: renewalLine(contract.endWeekExclusive, week, renewalWindowOpen(contract, week)),
+          // P10-R1: the two material actions and their legal windows, decided by the same
+          // authorities the quote family re-asks (the sheet can never disagree with the Profile).
+          actions: contractActionDecisions(state, talent.id),
         }
       : null
   return {

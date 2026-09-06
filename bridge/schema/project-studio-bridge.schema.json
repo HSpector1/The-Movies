@@ -127,7 +127,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 18,
+          "const": 19,
           "type": "integer"
         },
         "stateDigest": {
@@ -243,7 +243,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 18,
+          "const": 19,
           "type": "integer"
         },
         "stateDigest": {
@@ -311,7 +311,9 @@
             "signContract",
             "commitPictureToRelease",
             "placeFacility",
-            "commissionSet"
+            "commissionSet",
+            "renewContract",
+            "releaseTalent"
           ],
           "type": "string"
         },
@@ -443,6 +445,9 @@
         },
         {
           "$ref": "#/$defs/StudioQuoteSetCommissionRequest"
+        },
+        {
+          "$ref": "#/$defs/StudioQuoteContractRequest"
         }
       ],
       "x-csharp-name": "StudioBridgeQuoteRequest"
@@ -731,7 +736,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 18,
+          "const": 19,
           "type": "integer"
         },
         "stateDigest": {
@@ -800,7 +805,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 18,
+          "const": 19,
           "type": "integer"
         },
         "stateDigest": {
@@ -2697,6 +2702,41 @@
       "type": "object",
       "x-csharp-name": "StudioConstructionProjection"
     },
+    "StudioContractDraftPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "termWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "verb": {
+          "enum": [
+            "renew",
+            "release"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "talentId",
+        "termWeeks",
+        "verb"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioContractDraftPayload"
+    },
     "StudioContractOfferSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -2746,6 +2786,268 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioContractOfferSnapshot"
+    },
+    "StudioContractQuoteSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "affordable": {
+          "type": "boolean"
+        },
+        "annualSalary": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cashAfter": {
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "type": "integer"
+        },
+        "cashBefore": {
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "type": "integer"
+        },
+        "commitLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "consequence": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "cost": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "currentEndWeekExclusive": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "currentRemainingWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "guaranteedRemaining": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "intentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "renewContract",
+            "releaseTalent"
+          ],
+          "type": "string"
+        },
+        "newEndWeekExclusive": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ok": {
+          "type": "boolean"
+        },
+        "queueNote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "queues": {
+          "type": "boolean"
+        },
+        "refusal": {
+          "anyOf": [
+            {
+              "enum": [
+                "unknownTalent",
+                "noActiveContract",
+                "renewalWindowClosed",
+                "unpublishedTerm",
+                "insufficientFunds",
+                "onScreenplayTask"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "refusalReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "refusalRemedy": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "renewalOpen": {
+          "type": "boolean"
+        },
+        "signingBonus": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "startsNow": {
+          "type": "boolean"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentName": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "termLabel": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "termWeeks": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "terminationCost": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "verb": {
+          "enum": [
+            "renew",
+            "release"
+          ],
+          "type": "string"
+        },
+        "weeklySalary": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "affordable",
+        "annualSalary",
+        "cashAfter",
+        "cashBefore",
+        "commitLabel",
+        "consequence",
+        "cost",
+        "currentEndWeekExclusive",
+        "currentRemainingWeeks",
+        "guaranteedRemaining",
+        "intentId",
+        "kind",
+        "newEndWeekExclusive",
+        "ok",
+        "queueNote",
+        "queues",
+        "refusal",
+        "refusalReason",
+        "refusalRemedy",
+        "renewalOpen",
+        "signingBonus",
+        "startsNow",
+        "talentId",
+        "talentName",
+        "termLabel",
+        "termWeeks",
+        "terminationCost",
+        "verb",
+        "weeklySalary"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioContractQuoteSnapshot"
     },
     "StudioDevelopmentAttentionSnapshot": {
       "additionalProperties": false,
@@ -4858,9 +5160,58 @@
       "type": "object",
       "x-csharp-name": "StudioPersonCareerSnapshot"
     },
+    "StudioPersonContractActionsSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "releaseAvailable": {
+          "type": "boolean"
+        },
+        "releaseReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "renewAvailable": {
+          "type": "boolean"
+        },
+        "renewReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "renewalTerms": {
+          "items": {
+            "$ref": "#/$defs/StudioPersonRenewalTermSnapshot"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "releaseAvailable",
+        "releaseReason",
+        "renewAvailable",
+        "renewReason",
+        "renewalTerms"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonContractActionsSnapshot"
+    },
     "StudioPersonContractSnapshot": {
       "additionalProperties": false,
       "properties": {
+        "actions": {
+          "$ref": "#/$defs/StudioPersonContractActionsSnapshot"
+        },
         "annualSalary": {
           "minimum": 0,
           "type": "number"
@@ -4910,6 +5261,7 @@
         }
       },
       "required": [
+        "actions",
         "annualSalary",
         "endWeekExclusive",
         "guaranteedRemaining",
@@ -5296,6 +5648,47 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioPersonProfileSnapshot"
+    },
+    "StudioPersonRenewalTermSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "annualSalary": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "endWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "signingBonus": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "termLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "termWeeks": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "weeklySalary": {
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "annualSalary",
+        "endWeekExclusive",
+        "signingBonus",
+        "termLabel",
+        "termWeeks",
+        "weeklySalary"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPersonRenewalTermSnapshot"
     },
     "StudioPersonSnapshot": {
       "additionalProperties": false,
@@ -7217,6 +7610,50 @@
       "type": "object",
       "x-csharp-name": "StudioQuoteCommissionRequest"
     },
+    "StudioQuoteContractRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/StudioContractDraftPayload"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "quoteContract",
+          "type": "string"
+        }
+      },
+      "required": [
+        "commandId",
+        "draft",
+        "expectedStateRevision",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioQuoteContractRequest"
+    },
     "StudioQuotePlacementRequest": {
       "additionalProperties": false,
       "properties": {
@@ -7318,6 +7755,9 @@
         },
         {
           "$ref": "#/$defs/StudioSetCommissionQuoteSnapshot"
+        },
+        {
+          "$ref": "#/$defs/StudioContractQuoteSnapshot"
         }
       ],
       "x-csharp-name": "StudioQuoteSnapshot"
@@ -9260,7 +9700,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-18",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-19",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -9301,7 +9741,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 18,
+    "projectionVersion": 19,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

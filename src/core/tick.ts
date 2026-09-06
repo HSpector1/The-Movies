@@ -59,6 +59,7 @@ import {
 import { completeDueConstruction } from './construction.js'
 import {
   assertStudioPlacementInvariants,
+  blueprintById,
   completeDuePlacements,
   weeklyPlacementOperatingCost,
 } from './placement.js'
@@ -110,6 +111,8 @@ import {
   disabledStudioHistorySink,
   filmSubject,
   historyDraft,
+  facilitySubject,
+  type StudioHistoryDraft,
   cloneStanding,
   standingChanged,
   standingDeltas,
@@ -124,6 +127,7 @@ import type {
   FilmResult,
   GameState,
   LedgerEntry,
+  PlacedFacility,
   Production,
   Standing,
   Talent,
@@ -1092,6 +1096,27 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     ),
     // P08A: stamp this advance's history rows in pipeline order and fold routine
     // detail that aged past the window — against the week this advance PRODUCES.
-    studioHistory: commitStudioHistory(state.studioHistory, history, currentTick + 1),
+    studioHistory: commitStudioHistory(state.studioHistory, history, currentTick + 1, facilityCompletionDrafts(placementCompletion.completed)),
   }
+}
+
+/**
+ * P09-REQ-040 / P08-R2: a building OPENED is a matter of record. One `facilityCompleted`
+ * row per completion, stamped with the placement's own committed completion week (the
+ * week this advance produces — the same week the studio-events row and the lot show it
+ * opening), appended AFTER every row of the week being advanced so the chronology never
+ * runs backwards. Exact placement identity; P08 never derives construction truth.
+ */
+function facilityCompletionDrafts(completed: readonly PlacedFacility[]): readonly StudioHistoryDraft[] {
+  return completed.map((facility) =>
+    historyDraft({
+      week: facility.completesWeek,
+      kind: 'facilityCompleted',
+      subjects: facilitySubject(facility.id, facility.facilityId),
+      placementId: facility.id,
+      facilityId: facility.facilityId,
+      blueprintId: facility.blueprintId,
+      name: blueprintById(facility.blueprintId)?.name ?? facility.blueprintId,
+    }),
+  )
 }

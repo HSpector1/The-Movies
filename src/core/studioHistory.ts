@@ -194,6 +194,11 @@ export function filmSubject(productionId: string): readonly StudioHistorySubject
   return [{ kind: 'film', productionId }]
 }
 
+/** P09-REQ-040: exact placement identity — the placement id AND the facility id it reserved. */
+export function facilitySubject(placementId: number, facilityId: string): readonly StudioHistorySubject[] {
+  return [{ kind: 'facility', placementId, facilityId }]
+}
+
 /**
  * Stamp and append everything a sink collected, in append order, then fold any
  * routine rows that have aged past the window. `nextEventId` only ever counts up.
@@ -202,8 +207,10 @@ export function commitStudioHistory(
   history: StudioHistoryState,
   sink: StudioHistorySink,
   currentWeek: number,
+  /** P09-REQ-040: rows stamped at the week this advance PRODUCES, appended after the sink's. */
+  trailing: readonly StudioHistoryDraft[] = [],
 ): StudioHistoryState {
-  const collected = sink.drain()
+  const collected = sink.enabled ? [...sink.drain(), ...trailing] : sink.drain()
   if (collected.length === 0) return foldRoutineHistory(history, currentWeek)
   return appendStudioHistory(history, collected, currentWeek)
 }

@@ -1,29 +1,83 @@
 {
-  "generatedFrom": "ui/e2e/p09-visual-oracle-v1/s1-p09-migrated-endowed-unchanged.checkpoint.json",
+  "generatedFrom": "scripts/gen-p10-visual-oracle-fixtures.mts",
   "fixtures": [
     {
       "ordinal": 1,
       "scenarioId": "p10-person-inspector",
       "file": "s1-p10-person-inspector.checkpoint.json",
       "byteLength": 251856,
-      "sha256": "de43781e966368e72dab9565610b0dfce19f792598d11eac7dd2165f8f2ee334",
+      "sha256": "d8a88f20565fd8462757405f80ee96239892d8081bf4052f71526dc5aca1f105",
       "sessionId": "p10-oracle-p10-person-inspector",
-      "schemaId": "sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
       "protocolVersion": 4,
       "stateDigest": "982e4a32d7b6bd51706c55fd73bb573c016ffff9d8bcb41765fa3d0ac906bc6c",
-      "source": "ui/e2e/p09-visual-oracle-v1/s1-p09-migrated-endowed-unchanged.checkpoint.json"
+      "source": "ui/e2e/p09-visual-oracle-v1/s1-p09-migrated-endowed-unchanged.checkpoint.json",
+      "gameWeek": 2
     },
     {
       "ordinal": 2,
       "scenarioId": "p10-person-history",
       "file": "s2-p10-person-history.checkpoint.json",
       "byteLength": 291908,
-      "sha256": "14b0ae8028536bdf740763714ca59b63679e02c7fa8c2b0680df9f7d61f8d512",
+      "sha256": "4f8c0233eee26d22f00db58d680ec74366ebac7c7cadd65e1470a56a11a1d289",
       "sessionId": "p10-oracle-p10-person-history",
-      "schemaId": "sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
       "protocolVersion": 4,
       "stateDigest": "3b95deaea65d79db39d0fad8f0e4854201f302439ddfee3630f79d7a1dc8c8cf",
-      "source": "ui/e2e/p09-visual-oracle-v1/s1-p09-migrated-endowed-unchanged.checkpoint.json"
+      "source": "ui/e2e/p09-visual-oracle-v1/s10-p09-first-film-released.checkpoint.json",
+      "gameWeek": 42
+    },
+    {
+      "ordinal": 3,
+      "scenarioId": "p10-contract-actions",
+      "file": "s3-p10-contract-actions.checkpoint.json",
+      "byteLength": 282624,
+      "sha256": "d598c3bbe5835603eb2dcc601d84acc13cba2d51edf0f1f1b24cd2a2f3a7aae6",
+      "sessionId": "p10-oracle-p10-contract-actions",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+      "protocolVersion": 4,
+      "stateDigest": "737873048341ce2981a1305ce351711e83635ad0ebefa93c958237cda49d08dd",
+      "source": "ordinary actions: endowed founding at 52-week terms, ticked into the renewal window",
+      "gameWeek": 40
+    },
+    {
+      "ordinal": 4,
+      "scenarioId": "p10-career-linked",
+      "file": "s4-p10-career-linked.checkpoint.json",
+      "byteLength": 310749,
+      "sha256": "54ebef3f8984471bb66b5b3a362b3fb1fbbe9f80fed7e477fbc679e0c3e4fd7b",
+      "sessionId": "p10-oracle-p10-career-linked",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+      "protocolVersion": 4,
+      "stateDigest": "5161a6a7bbe45b3b43d4ed4be10c1bbdbafbcf9f4ac4be5bad0a72ffcb6e426b",
+      "source": "ui/e2e/p09-visual-oracle-v1/s10-p09-first-film-released.checkpoint.json driven by its own decisions to a release with frozen career events",
+      "gameWeek": 53
+    },
+    {
+      "ordinal": 5,
+      "scenarioId": "p10-facility-history",
+      "file": "s5-p10-facility-history.checkpoint.json",
+      "byteLength": 271155,
+      "sha256": "c194d0848879e5eab0da606f54dffd6bbba29383f6d04a92a105ddf61256acc3",
+      "sessionId": "p10-oracle-p10-facility-history",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+      "protocolVersion": 4,
+      "stateDigest": "8ee0d5eb20d6159d3afcfa0270687465270c5b99fef35e7f3368267281b97a6d",
+      "source": "ordinary actions: bare lot; office built+opened; scenery shop built+opened+demolished",
+      "gameWeek": 25
+    },
+    {
+      "ordinal": 6,
+      "scenarioId": "p10-shortage-roster",
+      "file": "s6-p10-shortage-roster.checkpoint.json",
+      "byteLength": 259955,
+      "sha256": "438b1b4b06a4e1b387d4e6d1f8eff749faefe195491a21fdafb5399baba2b193",
+      "sessionId": "p10-oracle-p10-shortage-roster",
+      "schemaId": "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+      "protocolVersion": 4,
+      "stateDigest": "65272c779eea507ee3aa645b47184dcdbfd6e07e5b60ccb069b2992ddf8aef58",
+      "source": "ordinary actions: the P05A.3 player floor at the staffing wall",
+      "gameWeek": 2
     }
   ]
 }

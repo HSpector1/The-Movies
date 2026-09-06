@@ -68,6 +68,7 @@ import {
 } from './construction.js'
 import {
   assertStudioPlacementInvariants,
+  blueprintById,
   commitPlacement,
   demolishFacility,
   facilityDemolitionRefusal,
@@ -94,6 +95,7 @@ import { STANDING_FORMULA_VERSION } from './standing.js'
 import {
   appendStudioHistory,
   cloneStanding,
+  facilitySubject,
   historyDraft,
   standingDeltas,
   studioSubject,
@@ -208,6 +210,7 @@ import type {
   LedgerEntry,
   FacilityEngagement,
   PlacementMutationRefusal,
+  PlacedFacility,
   PlacementRequest,
   PotentialTier,
   Production,
@@ -1482,7 +1485,41 @@ function rejectIllegalPlacement(
       `applyActions: ${actionName} rejected — the commit refused a placement its own query accepted`,
     )
   }
-  return next
+  return withFacilityHistoryRow(next, 'facilityCommitted', next.placement.facilities[next.placement.facilities.length - 1]!)
+}
+
+/**
+ * P09-REQ-040 / P08-R2: the exact construction/facility milestones P08 history records —
+ * commit (Construction started), demolition, move — appended at the ONE mutation site of
+ * each, gated by the same recording law every other row obeys (a migrated save that was
+ * never engaged records nothing; nothing is reconstructed). Completion rows are stamped
+ * by the tick that opens the building. Exact placement identity, never a name lookup.
+ */
+function withFacilityHistoryRow(
+  state: GameState,
+  kind: 'facilityCommitted' | 'facilityDemolished' | 'facilityMoved',
+  placed: PlacedFacility,
+): GameState {
+  if (!studioHistoryRecording(state)) return state
+  const week = state.market.tick
+  return {
+    ...state,
+    studioHistory: appendStudioHistory(
+      state.studioHistory,
+      [
+        historyDraft({
+          week,
+          kind,
+          subjects: facilitySubject(placed.id, placed.facilityId),
+          placementId: placed.id,
+          facilityId: placed.facilityId,
+          blueprintId: placed.blueprintId,
+          name: blueprintById(placed.blueprintId)?.name ?? placed.blueprintId,
+        }),
+      ],
+      week,
+    ),
+  }
 }
 
 function applyPlaceFacility(
@@ -1535,24 +1572,28 @@ function applyMoveFacility(
   state: GameState,
   action: Action & { kind: 'moveFacility' },
 ): GameState {
-  return rejectRefusedMutation(
+  const next = rejectRefusedMutation(
     state,
     'moveFacility',
     facilityMoveRefusal(state, action.move),
     (current) => moveFacility(current, action.move),
   )
+  const moved = next.placement.facilities.find((placed) => placed.id === action.move.placementId)
+  return moved === undefined ? next : withFacilityHistoryRow(next, 'facilityMoved', moved)
 }
 
 function applyDemolishFacility(
   state: GameState,
   action: Action & { kind: 'demolishFacility' },
 ): GameState {
-  return rejectRefusedMutation(
+  const demolished = state.placement.facilities.find((placed) => placed.id === action.demolition.placementId)
+  const next = rejectRefusedMutation(
     state,
     'demolishFacility',
     facilityDemolitionRefusal(state, action.demolition),
     (current) => demolishFacility(current, action.demolition),
   )
+  return demolished === undefined ? next : withFacilityHistoryRow(next, 'facilityDemolished', demolished)
 }
 
 // The retained V11 action, now an ALIAS: it commits the Annex blueprint at the

@@ -28,7 +28,7 @@ export const PROTOCOL_VERSION = 4 as const
 // `results` (StudioFilmResultSnapshot: three independent critic/audience/business channels,
 // gross vs studio revenue, banked-vs-projected). Additive; protocol stays 4; save stays V16
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
-export const PROJECTION_VERSION = 18 as const
+export const PROJECTION_VERSION = 19 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1410,11 +1410,45 @@ const StudioQuoteSetCommissionRequest = object('StudioQuoteSetCommissionRequest'
   draft: reference('StudioSetCommissionDraftPayload', StudioSetCommissionDraftPayload),
 })
 
+// ── P10-R1 — the contract quote family (renew / early release) ────────────────
+// The existing D-11 actions (`renewContract`, `releaseTalent`) reached the client
+// through no route. This family is that route: a consequence PREVIEW is an ACCEPTED
+// quote (`ok:false` carries the engine's own refusal + reason — a closed renewal
+// window, an unpublished term, the D-12 solvency gate, a screenplay task in
+// progress); a legal preview mints the ONE digest-bound intent, and the commit
+// re-asks the same authorities against the live state. The client never prices.
+const CONTRACT_REFUSAL_KINDS = [
+  'unknownTalent',
+  'noActiveContract',
+  'renewalWindowClosed',
+  'unpublishedTerm',
+  'insufficientFunds',
+  'onScreenplayTask',
+] as const
+
+const StudioContractDraftPayload = object('StudioContractDraftPayload', {
+  verb: enumeration(['renew', 'release']),
+  talentId: nonEmptyText(),
+  /** Required exactly when verb is `renew`: one of the person's PUBLISHED renewal terms. */
+  termWeeks: nullable(nonNegativeInteger()),
+})
+
+const StudioQuoteContractRequest = object('StudioQuoteContractRequest', {
+  protocolVersion: literal(PROTOCOL_VERSION),
+  schemaId: nonEmptyText(),
+  sessionId: nonEmptyText(),
+  commandId: nonEmptyText(),
+  expectedStateRevision: nonNegativeInteger(),
+  type: literal('quoteContract'),
+  draft: reference('StudioContractDraftPayload', StudioContractDraftPayload),
+})
+
 const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
   reference('StudioQuoteCommissionRequest', StudioQuoteCommissionRequest),
   reference('StudioQuoteCastingRequest', StudioQuoteCastingRequest),
   reference('StudioQuotePlacementRequest', StudioQuotePlacementRequest),
   reference('StudioQuoteSetCommissionRequest', StudioQuoteSetCommissionRequest),
+  reference('StudioQuoteContractRequest', StudioQuoteContractRequest),
 ] as const)
 
 const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
@@ -1532,11 +1566,52 @@ const StudioSetCommissionQuoteSnapshot = object('StudioSetCommissionQuoteSnapsho
   consequence: nonEmptyText(),
 })
 
+// P10-R1: the contract consequence sheet Unity renders verbatim. `ok:false` is an
+// accepted preview carrying the engine's refusal; only `ok:true` is a registered commit.
+const StudioContractQuoteSnapshot = object('StudioContractQuoteSnapshot', {
+  /** The union's shared identity slot; REGISTERED for commit only when `ok`. */
+  intentId: nonEmptyText(),
+  kind: enumeration(['renewContract', 'releaseTalent']),
+  commitLabel: nonEmptyText(),
+  /** Both actions take effect the moment they are committed (never queued). */
+  startsNow: bool(),
+  queues: bool(),
+  queueNote: nullable(text()),
+  ok: bool(),
+  verb: enumeration(['renew', 'release']),
+  talentId: nonEmptyText(),
+  talentName: nonEmptyText(),
+  /** The CURRENT contract as it stands this week (null only for a refused draft on a person with no contract). */
+  currentEndWeekExclusive: nullable(nonNegativeInteger()),
+  currentRemainingWeeks: nullable(nonNegativeInteger()),
+  renewalOpen: bool(),
+  // Renewal consequence — null when verb !== 'renew' or the draft is refused before pricing.
+  termWeeks: nullable(integer({ minimum: 1 })),
+  termLabel: nullable(text()),
+  annualSalary: nullable(number({ minimum: 0 })),
+  weeklySalary: nullable(number({ minimum: 0 })),
+  signingBonus: nullable(number({ minimum: 0 })),
+  newEndWeekExclusive: nullable(nonNegativeInteger()),
+  // Release consequence — null when verb !== 'release' or refused before pricing.
+  terminationCost: nullable(number({ minimum: 0 })),
+  guaranteedRemaining: nullable(number({ minimum: 0 })),
+  /** The one immediate cash effect of committing (signing bonus, or termination cost). */
+  cost: number({ minimum: 0 }),
+  refusal: nullable(enumeration(CONTRACT_REFUSAL_KINDS)),
+  refusalReason: nullable(text()),
+  refusalRemedy: nullable(text()),
+  cashBefore: integer(),
+  cashAfter: integer(),
+  affordable: bool(),
+  consequence: nonEmptyText(),
+})
+
 const StudioQuoteSnapshot = union('StudioQuoteSnapshot', [
   reference('StudioCommissionQuoteSnapshot', StudioCommissionQuoteSnapshot),
   reference('StudioCastingQuoteSnapshot', StudioCastingQuoteSnapshot),
   reference('StudioPlacementQuoteSnapshot', StudioPlacementQuoteSnapshot),
   reference('StudioSetCommissionQuoteSnapshot', StudioSetCommissionQuoteSnapshot),
+  reference('StudioContractQuoteSnapshot', StudioContractQuoteSnapshot),
 ] as const)
 
 const StudioBridgeQuoteResponse = object('StudioBridgeQuoteResponse', {
@@ -1634,6 +1709,29 @@ const StudioPersonSpecialtySnapshot = object('StudioPersonSpecialtySnapshot', {
   label: nonEmptyText(),
   perceived: number({ minimum: 0, maximum: 100 }),
 })
+// P10-R1 (projection 19): the PUBLISHED legal renewal terms — the engine's own
+// offers (contractOfferOptions), one per authorized term. The client picks one; it
+// never prices anything.
+const StudioPersonRenewalTermSnapshot = object('StudioPersonRenewalTermSnapshot', {
+  termWeeks: integer({ minimum: 1 }),
+  termLabel: nonEmptyText(),
+  annualSalary: number({ minimum: 0 }),
+  weeklySalary: number({ minimum: 0 }),
+  signingBonus: number({ minimum: 0 }),
+  /** The contract's new end week (exclusive) if renewed on this term THIS week. */
+  endWeekExclusive: nonNegativeInteger(),
+})
+// P10-R1 (projection 19): the two material contract actions and their legal windows,
+// decided by the existing employment authorities (renewalWindowOpen, the D-12
+// solvency gate on the signing bonus, the screenplay-task guard on release). A
+// closed window carries its exact reason; the client renders it and asks nothing.
+const StudioPersonContractActionsSnapshot = object('StudioPersonContractActionsSnapshot', {
+  renewAvailable: bool(),
+  renewReason: nullable(text()),
+  renewalTerms: array(reference('StudioPersonRenewalTermSnapshot', StudioPersonRenewalTermSnapshot)),
+  releaseAvailable: bool(),
+  releaseReason: nullable(text()),
+})
 const StudioPersonContractSnapshot = object('StudioPersonContractSnapshot', {
   annualSalary: number({ minimum: 0 }),
   weeklySalary: number({ minimum: 0 }),
@@ -1646,6 +1744,7 @@ const StudioPersonContractSnapshot = object('StudioPersonContractSnapshot', {
   terminationCost: number({ minimum: 0 }),
   renewalOpen: bool(),
   renewalLine: nonEmptyText(),
+  actions: reference('StudioPersonContractActionsSnapshot', StudioPersonContractActionsSnapshot),
 })
 const StudioPersonEmploymentSnapshot = object('StudioPersonEmploymentSnapshot', {
   status: employmentStatusEnum(),
@@ -1998,6 +2097,10 @@ export const AVAILABLE_INTENT_KINDS = [
   'placeFacility',
   // P09A W5: the ONE Set commission, minted only by an accepted, legal Set quote.
   'commissionSet',
+  // P10-R1: the two material contract actions, minted only by an accepted, legal
+  // contract quote (renewal in its window / early release); commit revalidates.
+  'renewContract',
+  'releaseTalent',
 ] as const
 
 export const REJECTION_CODES = [
@@ -2254,12 +2357,15 @@ const definitions = {
   StudioSetCommissionDraftPayload,
   StudioQuotePlacementRequest,
   StudioQuoteSetCommissionRequest,
+  StudioContractDraftPayload,
+  StudioQuoteContractRequest,
   StudioBridgeQuoteRequest,
   StudioCastingQuoteSnapshot,
   StudioPlacementCellVerdictSnapshot,
   StudioPlacementUnmetRequirementSnapshot,
   StudioPlacementQuoteSnapshot,
   StudioSetCommissionQuoteSnapshot,
+  StudioContractQuoteSnapshot,
   StudioQuoteSnapshot,
   StudioBridgeQuoteResponse,
   StudioLotProjection: StudioLotProjectionSchema,
@@ -2285,6 +2391,8 @@ const definitions = {
   StudioHistoryProjection: StudioHistoryProjectionSchema,
   StudioPersonDisciplineSnapshot,
   StudioPersonSpecialtySnapshot,
+  StudioPersonRenewalTermSnapshot,
+  StudioPersonContractActionsSnapshot,
   StudioPersonContractSnapshot,
   StudioPersonEmploymentSnapshot,
   StudioPersonWorkSnapshot,
@@ -2319,7 +2427,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-18',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-19',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [
@@ -2391,6 +2499,12 @@ export type BridgeQuotePlacementRequest = InferSchema<typeof StudioQuotePlacemen
 export type BridgeSetCommissionDraftPayload = InferSchema<typeof StudioSetCommissionDraftPayload>
 export type BridgeQuoteSetCommissionRequest = InferSchema<typeof StudioQuoteSetCommissionRequest>
 export type BridgeSetCommissionQuoteSnapshot = InferSchema<typeof StudioSetCommissionQuoteSnapshot>
+export type BridgeContractDraftPayload = InferSchema<typeof StudioContractDraftPayload>
+export type BridgeQuoteContractRequest = InferSchema<typeof StudioQuoteContractRequest>
+export type BridgeContractQuoteSnapshot = InferSchema<typeof StudioContractQuoteSnapshot>
+export type BridgeContractRefusalKind = (typeof CONTRACT_REFUSAL_KINDS)[number]
+export type BridgePersonRenewalTermSnapshot = InferSchema<typeof StudioPersonRenewalTermSnapshot>
+export type BridgePersonContractActionsSnapshot = InferSchema<typeof StudioPersonContractActionsSnapshot>
 export type BridgePlacementQuoteSnapshot = InferSchema<typeof StudioPlacementQuoteSnapshot>
 export type BridgeQuoteRequest = InferSchema<typeof StudioBridgeQuoteRequest>
 export type BridgeQuoteResponse = InferSchema<typeof StudioBridgeQuoteResponse>

@@ -573,7 +573,16 @@ describe('Placement Core V12 — the action boundary', () => {
       { kind: 'placeFacility', placement: ORIGIN.legacyExpansion },
     ])
     const viaHelper = commitPlacement(state, ORIGIN.legacyExpansion)
-    expect(stableStringify(viaAction)).toBe(stableStringify(viaHelper))
+    // P09-REQ-040: the action boundary is the ONE commit implementation PLUS the one
+    // Studio History row it records (Construction started, exact placement identity).
+    // Everything but that row is byte-identical to the helper's result.
+    const { studioHistory: actionHistory, ...viaActionRest } = viaAction
+    const { studioHistory: helperHistory, ...viaHelperRest } = viaHelper
+    expect(stableStringify(viaActionRest)).toBe(stableStringify(viaHelperRest))
+    const placed = viaAction.placement.facilities[viaAction.placement.facilities.length - 1]!
+    const added = actionHistory.rows.slice(helperHistory.rows.length)
+    expect(added.map((row) => row.kind)).toEqual(['facilityCommitted'])
+    expect(added[0]).toMatchObject({ placementId: placed.id, facilityId: placed.facilityId, blueprintId: placed.blueprintId })
   })
 
   it('makes the legacy Annex action an alias for the same commit', () => {
