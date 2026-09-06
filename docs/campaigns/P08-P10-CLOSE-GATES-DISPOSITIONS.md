@@ -87,7 +87,44 @@ Resolution proof: the real-input people journey rerun on the FINAL pair (§3).
 
 ## 4. Requirement dispositions — the READY-extension rows (traceability matrix)
 
-`<<FILLED AT THE END OF THE RUN>>`
+Classes: **IMPLEMENTED AND PROVEN** (code + automated proof in the packaged player and/or real
+input on the final pair) · **IMPLEMENTED BUT UNPROVEN** · **AUTHORIZED READY WORK REMAINING** ·
+**GENUINELY DEPENDENCY-BLOCKED** · **OWNER-BLOCKED** · **ORIGINALLY DEFERRED**. Evidence paths are
+under the final candidate's `evidence/` unless stated.
+
+### P08 (Standing & Studio History)
+| Row / extension | Disposition | Evidence |
+|---|---|---|
+| P08-R1 long-save navigation + non-blocking attention (REQ-018/019) | IMPLEMENTED AND PROVEN at P08 core (tabs, filters, retained scroll; attention non-pausing) — unchanged here | P08 checkpoint §; P08 oracles rerun on the final pair (`P10-Oracle-Sweep/p08`, 8 scenarios) |
+| P08-R2 facility-history adapter (REQ-013, P09-REQ-040) | **IMPLEMENTED AND PROVEN (this run).** Producer: `facilityCommitted/Completed/Demolished/Moved` rows at the one mutation site of each (`src/core/actions.ts` commit/move/demolish, `src/core/tick.ts` completion), exact placement identity, same recording law. Adapter: TS timeline rows current/historical with `buildingId`; Unity History facility rows carry the state line + LOCATE gated on a resolvable body; the P09 subject (a placed building's LOT SELECTION) offers STUDIO HISTORY ▸ to its latest row; unknown/stale ids open the timeline unselected | `tests/bridge-p09a-r2-facility-history-rows.test.ts` (5); oracle `p10-facility-history` (3 steps: from-building current, demolished historical, unknown building) |
+| P08-R3 person-history adapter (REQ-012, P10-REQ-025/031) | IMPLEMENTED AND PROVEN (P10A cross-stack; both directions) | oracle `p10-person-history`; EditMode `StudioP08AHistoryWorkspaceTests` |
+| P08-R4 fact-backed records (REQ-021) | IMPLEMENTED at core (records only from complete facts; partial provenance labelled) — unchanged | P08 checkpoint; `p10-career-linked` shows a recorded row vs the partial-provenance case on the older fixture |
+| REQ-032 / REQ-033 (Legacy inputs; Wire/Radio never dependencies) | IMPLEMENTED (contract review; no runtime dependency) — unchanged | static audit in the P08 checkpoint |
+
+### P09 (Founding Flip & construction)
+| Row / extension | Disposition | Evidence |
+|---|---|---|
+| P09-R1 Build Here (REQ-010) + all blueprints | PARTIAL, unchanged: "Build here" from the parcel chooser is built; world-native parcel selection is AUTHORIZED READY WORK REMAINING | P09 checkpoint §8 |
+| P09-R2 N-site + grouped completion (REQ-020) | core built and proven; the portfolio/attention surface is AUTHORIZED READY WORK REMAINING | P09 checkpoint §8 |
+| P09-R3 Stage/Set lifecycle (REQ-027) | Set commission BUILT + proven (pulled into core); repair/strike AUTHORIZED READY WORK REMAINING | P09 checkpoint §3.1.3 |
+| P09-R4 move + demolish (REQ-029/030) | core actions exist and now RECORD HISTORY (this run); the Unity consequence-sheet routes are AUTHORIZED READY WORK REMAINING | `bridge-p09a-r2-facility-history-rows` (move/demolish rows) |
+| P09-REQ-040 construction milestones for P08 | **IMPLEMENTED AND PROVEN (this run)** — see P08-R2 | as above |
+| P09-REQ-039 REAL BUILDER SYSTEM | **GENUINELY DEPENDENCY-BLOCKED** (worker taxonomy / capacity / P10 people authority; Owner/system decision) — see §5 | execution order §5.4 |
+| Real-input BUILD FLOW on the FINAL pair (§3 of this order) | see gate table §3 | `P09-Journey-CloseGates` |
+
+### P10 (People, Profile, Roster)
+| Row / extension | Disposition | Evidence |
+|---|---|---|
+| P10-R1 contract consequence (REQ-018) | **IMPLEMENTED (this run)**: `quoteContract` family → `StudioContractQuoteSnapshot`; Profile REVIEW RENEWAL / REVIEW EARLY RELEASE → consequence sheet → CONFIRM (only a fresh legal quote on the live revision) / CANCEL; receipt; refusals verbatim; the engine prices and decides everything. PROVEN: bridge tests (legal renew/release, closed window, stale revision, missing/changed contract, duplicate command, engine refusals, once-only debit, credit retention, cancel neutral); EditMode sheet tests; oracle `p10-contract-actions` (sheets + cancel neutral); the real-input contract journey (see §3) | `tests/bridge-p10a-r1-contract-quote.test.ts` (8); `StudioP10AR1ContractSheetTests` (5); `P10-Contract-Journey-CloseGates` |
+| P10-R1 grouped attention (REQ-019) | IMPLEMENTED AND PROVEN (Roster attention filter / attention-first sort / horizon cycle; attention cohorts on the wire) | oracle `p10-person-inspector`; real-input contract journey enters through the attention filter |
+| P10-R2 shortage → prefiltered Roster (REQ-027) | **IMPLEMENTED AND PROVEN (this run)**: the CASTING SHORTAGE banner offers VIEW ROSTER — <the EXACT profession the package's own pools are short of> beside FIND AN ACTOR; the Roster opens prefiltered; Back returns to the same casting context | oracle `p10-shortage-roster`; `StudioP10AR2ShortageRosterTests` |
+| P10-R2 existing market reuse (REQ-026) | IMPLEMENTED (the one market; released people re-enter it as free agents) | `bridge-p10a-r1-contract-quote` R2 |
+| P10-R2 ability percentile as market context (REQ-024) | AUTHORIZED READY WORK REMAINING (not entered; never a rank) | — |
+| P10-R3 facility-native recruitment (REQ-028) | **IMPLEMENTED AND PROVEN (this run)**: the Casting building card offers FIND TALENT → the same market lane (presentation-only; gated like OPEN CASTING) | oracle `p10-shortage-roster` step 2 |
+| P10-R4 career records + P08 links (REQ-029, REQ-020/025) | **IMPLEMENTED AND PROVEN (this run)**: a frozen career row → the EXACT P07 result → Back to the same person; legacy partial-provenance kept as its own case | oracle `p10-career-linked` (fixture from the bridge's own intents) + `p10-person-history` |
+| Star badge/threshold (REQ-016) | OWNER-BLOCKED (value + definition shown; no badge) | — |
+| REQ-032..036 (morale, relationships, training, aging, retirement) | GENUINELY DEPENDENCY-BLOCKED / ORIGINALLY DEFERRED — not entered | visibility table |
+| REQ-038/039 (rankings, momentum) | ORIGINALLY DEFERRED TO A NAMED PACKAGE — not entered | matrix |
 
 ## 5. Corrected Real-Builder disposition (execution order §5.4)
 
