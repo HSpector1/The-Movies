@@ -12,8 +12,105 @@ Every authored READY-scope gate passes, including the required real-input CONTRA
 route, the real-input P09 Build chain (§3), the Owner-profile private-copy migration on the real
 sealed engine, and the compatibility boundary. The ONE mandatory real-input gate NOT green is the
 world-body DIRECT click → inspector card, which is FAIL (harness/environment) with the product
-proven by the Visual Oracle and EditMode (doorstep + pick-tolerance); it is recorded as an
-outstanding real-input gate, not downgraded. Campaign branches and main are frozen and untouched.
+proven by the Visual Oracle and EditMode (doorstep + pick-tolerance) [DOWN-QUALIFIED 2026-09-06 —
+see §0.1: the EditMode proof covers the front-doorstep and separate-wall cases only, NOT the
+within-authored-footprint-but-behind case]; it is recorded as an outstanding real-input gate, not
+downgraded. Campaign branches and main are frozen and untouched.
+
+## 0.1 Independent cross-stack review verdict + corrections applied (2026-09-06)
+
+**This block is the newest §0 status and supersedes the paragraph above where they differ.**
+
+The SAME independent cross-stack reviewer that was asked to close the loop (no verdict-shopping)
+attacked the code directly — TS `wip/p08-p10-autonomous-stack-01-ts` @ `475be99` (identical game
+code to the candidate's `7b4d8ff`; every commit after `475be99` on this branch is doc-only) and
+Unity `wip/p08-p10-autonomous-stack-01-client` @ `1d304f8` — and spot-checked every load-bearing
+test rather than trusting the Oracle/EditMode labels.
+
+**VERDICT: COMBINED P08–P10 TECHNICAL KEEP FOR AUTHORIZED READY SCOPE — OWNER ACCEPTANCE PENDING.**
+The reviewer's own words: "No blocker touches the authorized scope, and no gate the doc claims
+**green** is actually refuted — the P10-R1 and facility-history tests are genuine and un-loosened."
+
+### Findings, and what was done with each
+
+1. **MAJOR (does NOT sink a green gate) — the doorstep rule x-rays a person standing *within an
+   authored building's footprint AABB but behind its rendered mass.*** `SightLineBlocked`
+   (`StudioSelectionManager.cs`) decides an occluder is "the ground they stand on" from the
+   occluder collider's axis-aligned bounds; for an AUTHORED building whose layer-0 physical box
+   spans the whole footprint, a person at the *back* of that box (fully hidden behind the facade)
+   is also treated as not-occluded, so a management-zoom click on the near face can ray through to
+   that person. **Scope caveat (reviewer-verified):** this is specific to AUTHORED buildings with a
+   layer-0 physical box; **placed P09 buildings never occlude anyone at all** — their coarse box
+   sits on the selection layer, which `OcclusionMask` excludes — so the x-ray cannot affect placed
+   construction. The defect lives *inside* the world-body DIRECT-click gate that this document
+   already records as **FAIL (harness/environment) / not-green**; it does not turn any green gate
+   red. **Correction applied (the reviewer's prescription):** the wording "product PROVEN by
+   EditMode (doorstep + pick-tolerance)" is **DOWN-QUALIFIED** — the EditMode proof
+   (`ResolvePick_APersonOnABuildingDoorstep_IsNotOccludedByTheBuildingsOwnEnvelope` + the
+   separate-thin-wall control) proves only the FRONT-doorstep person and a person behind a
+   *separate* wall; it does NOT cover the within-footprint-but-behind case, which the same rule
+   mishandles. That case is now a **documented limitation** of the doorstep rule. A targeted
+   EditMode case for it — and the corresponding product tightening (require render occlusion, not
+   only footprint containment, before waiving the sight-line block) — is recorded as the **NAMED
+   PRECONDITION (AUTHORIZED-READY-REMAINING)** before the world-body DIRECT-click path may ever be
+   promoted to green. No shipped selection code was changed in this close-out: the fix is not
+   needed for the authorized keep (the gate is already not-green), and changing a proven rule now
+   would risk the front-doorstep proof; it is filed against the not-green gate, not smuggled in.
+
+2. **MINOR — the 8px people pick-tolerance overrides a deliberate click on a small non-person
+   target,** and among ring hits picks the person nearest the CAMERA, not nearest the pointer.
+   Intentional design tradeoff (people are ~10-pt targets); recorded for completeness, does not
+   gate.
+
+3. **MINOR/NOTE — two declared contract refusal codes are unreachable on the wire.**
+   `CONTRACT_REFUSAL_KINDS` (`bridge/schema/bridge-schema.ts`) lists `unknownTalent` and
+   `unpublishedTerm`, but `contractDraftToEngine` (`bridge/contract.ts`) turns both into hard
+   `ENGINE_REJECTED` rejections — the snapshot `refusal.code` can only ever be
+   `noActiveContract | renewalWindowClosed | onScreenplayTask | insufficientFunds`. Harmless (both
+   fail closed; test R6 confirms the rejection path); the wire enum is a superset of what is
+   emitted. Follow-up: trim the enum or emit those codes. Does not gate.
+
+4. **NOTE — STUDIO HISTORY placement identity rides a `placed-` string-prefix convention** on both
+   ends (`StudioHud.cs` gates on `StableId.StartsWith("placed-")`; TS derives
+   `buildingId = placed-${placementId}`). Safe in practice (the TS `current` guard also requires a
+   `facilityId` match, so a reused placement id cannot cross-link); flagged as a string-prefix
+   rather than a structural flag. Does not gate.
+
+5. **NOTE — the D-12 renewal-solvency refusal is exercised only at the pure-function level**
+   (test R6 forges `cash:0` at the module level). The core D-12 gate (`src/core/actions.ts`) is the
+   authority and is genuinely tested; this is a coverage note. Does not gate.
+
+### What held up under direct code attack (reviewer-verified, not taken on faith)
+
+Information-visibility law (no `actual` / `ceilings` / `devRate` / `seed` / `genreExperience.*.actual`
+on the contract snapshot or the people projection; renewal terms are the engine's own public
+`contractOfferOptions`, schema-negative assertion present); client-side authority (the sheet is
+phrased purely from wire fields, `CommitEnabled` never uses a client-computed cost/eligibility, the
+client submits the opaque `intentId` and the server reconstructs the action from its OWN stored
+`pending.draft`); replay/stale/digest defenses (digest equality, revision guard, `pendingQuotes`
+cleared on every accepted command, `commandId` idempotency → reused intent `INTENT_NOT_AVAILABLE`,
+stale revision `STALE_REVISION`, one ledger row, revision +1 — R1–R7 un-loosened); domain
+preservation (`applyRenewContract`/`applyReleaseTalent` UNCHANGED this cycle — the `actions.ts` diff
+touches only imports and the facility-history sites; no new affordability rule; release correctly
+NOT solvency-gated; no morale/loyalty/reputation in the consequence text); facility history (exact
+`facilitySubject(placementId, facilityId)` identity, captured pre/post state, recording law honored,
+unknown/stale id opens the timeline UNSELECTED); honest disabled reasons (buttons reset every render;
+a blocked action shows disabled with its exact wire reason; shortage banner renders no dead control);
+build-pair integrity (projection **19** byte-consistent across TS schema `sha256:6a2c01fe…`, the TS
+DTO, and the Unity DTO `urn:…projection-19`; the prior-schema map holds exactly 19 identities
+including the outgoing projection-18 `ea5d645f…`; the player refuses a mismatched schema).
+
+### Disposition of this review
+
+The TECHNICAL KEEP stands for the authorized READY scope. Findings 2–5 are minor/notes and do not
+gate. Finding 1 is corrected in the record (the doorstep wording is down-qualified and the
+within-footprint x-ray is documented with its exact authored-building scope) and does not gate the
+keep, because the gate it lives in is already recorded FAIL / not-green and is NOT promoted here. No
+mandatory gate was reclassified by the implementation agent: the world-body DIRECT-click gate remains
+FAIL (harness/environment) with a now-narrower product-proof claim, and the independent reviewer — not
+the implementer — is the party that classified Finding 1 as non-blocking to the keep. Owner acceptance
+remains pending; the world-body DIRECT-click gate and the four minor/note follow-ups are the carried
+items.
 
 ## 1. Correction of the prior readiness claim
 
@@ -127,7 +224,7 @@ Unity `d6b4494` (HID drivers only).
 | P10-R2 shortage → exact-profession Roster (EditMode) | **PASS** — 2 tests (short profession from the pools; label) | `StudioP10AR2ShortageRosterTests` |
 | **Real-input CONTRACT (P10-R1, §5): renewal committed via real input** | **PASS** — 0 failures: attention filter → select the renewal-open person → OPEN PROFILE → REVIEW RENEWAL → sheet priced by the engine → CANCEL state-neutral (revision unchanged) → REVIEW → pick the 2-year term (priced: $37,375 bonus, new end Week 144) → CONFIRM → receipt "Renewed through Week 144", exact debit, ONE ledger row, revision +1, window closed → Save V18 (term 104) → Load (term 104) → re-read confirms | `Evidence/P10-Contract-Journey-CloseGates/hid-…` (run14, exit 0) |
 | Real-input ROSTER route + Locate/Back + Save/Load/Menu (P10, §2 C/D) | **PASS** — Roster attention filter, select, OPEN PROFILE (exact person), Back with filter kept, LOCATE selects the body + camera inspects, BACK TO STUDIO reopens the Roster, Save V18, Load, Menu/Resume — all real macOS input | `Evidence/P10-Journey-CloseGates/hid-…` |
-| Real-input WORLD-BODY DIRECT click → inspector card (P10, §2 A/B) | **FAIL (harness/environment); product PROVEN by Oracle+EditMode** — see §2/§2.1/§2.2. The seated fixture person walks and projects under the People-strip HUD; held-arrow keyups are lost under the window focus-flicker. No product defect: the two ergonomics defects it surfaced (building-doorstep occlusion; small-target pick tolerance) are fixed and EditMode-proven, and world-select→card→Profile is Oracle-proven (`p10-person-inspector` 22/22, real pixels, the exact ResolvePick path). | `Evidence/P10-Journey-CloseGates/hid-…`; `StudioSelectionSemanticsTests` (doorstep + tolerance) |
+| Real-input WORLD-BODY DIRECT click → inspector card (P10, §2 A/B) | **FAIL (harness/environment); product PROVEN by Oracle+EditMode** — see §2/§2.1/§2.2. The seated fixture person walks and projects under the People-strip HUD; held-arrow keyups are lost under the window focus-flicker. No product defect: the two ergonomics defects it surfaced (building-doorstep occlusion; small-target pick tolerance) are fixed and EditMode-proven [DOWN-QUALIFIED 2026-09-06 — see §0.1 Finding 1: the doorstep EditMode proof covers the front-doorstep + separate-wall cases only; the within-authored-footprint-but-behind x-ray is a documented limitation and a named precondition before this gate may be promoted to green], and world-select→card→Profile is Oracle-proven (`p10-person-inspector` 22/22, real pixels, the exact ResolvePick path). | `Evidence/P10-Journey-CloseGates/hid-…`; `StudioSelectionSemanticsTests` (doorstep + tolerance) |
 | Real-input P09 BUILD on the final pair (§3) | **PASS** — ordinary launch → bare lot → discover Build → parcel → catalogue → preview → VALID SITE → commit (exact $1.5M cash debit) → site placed-1 stands → Esc peel → Save V18 (bare-lot regime + 1 placement) → Load preserves the site. (A supplementary post-Load re-click of the site is world-click-limited; §3's chain is met without it.) | `Evidence/P09-Journey-CloseGates/hid-…` |
 | Owner-profile PRIVATE COPY (§4): in-memory continuity | **PASS** — 48 checks (V15→V18 migration, exact people/contracts/ledger/productions/facilities, P08 boundary, P10 profiles, contract actions, projection-19 wire); original untouched (sha `d949003e…` before/after) | `scripts/p10-owner-profile-copy.mts` |
 | Owner-profile copy on the REAL sealed engine (§4): migrate-on-boot / save / engine replacement | **PASS** — 11 checks (first engine migrates + serves projection 19; renewal preview = accepted refusal; authority save; second engine resumes same session/state; original untouched) | `scripts/p10-run-owner-copy-engine.sh` |
