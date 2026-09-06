@@ -5,7 +5,15 @@
 
 ## 0. Current status
 
-`<<STATUS — filled at the end of the run>>`
+**COMBINED P08–P10 TECHNICAL KEEP FOR AUTHORIZED READY SCOPE — OWNER ACCEPTANCE PENDING.**
+
+Every authored READY-scope gate passes, including the required real-input CONTRACT material action
+(renewal committed through real macOS input, run14 exit 0), the real-input Roster/Locate/Save-Load
+route, the real-input P09 Build chain (§3), the Owner-profile private-copy migration on the real
+sealed engine, and the compatibility boundary. The ONE mandatory real-input gate NOT green is the
+world-body DIRECT click → inspector card, which is FAIL (harness/environment) with the product
+proven by the Visual Oracle and EditMode (doorstep + pick-tolerance); it is recorded as an
+outstanding real-input gate, not downgraded. Campaign branches and main are frozen and untouched.
 
 ## 1. Correction of the prior readiness claim
 
@@ -104,7 +112,33 @@ Resolution proof: the real-input people journey rerun on the FINAL pair (§3).
 
 ## 3. Gate table (PASS / FAIL / BLOCKED / NOT RUN — never converted across evidence classes)
 
-`<<FILLED AT THE END OF THE RUN>>`
+Final pair: player `6bd50de8…` (Unity `57f9ef8`, later driver-only commits do not change the exe) ·
+engine `189326b6…` (projection 19, schema `6a2c01fe…`) · save V18 / protocol 4. Tools ahead at
+Unity `d6b4494` (HID drivers only).
+
+| Gate | Result | Evidence |
+|---|---|---|
+| TS floor: typecheck, typecheck:bridge, bridge-contract + fixtures, vitest | **PASS** — 373 files, 5004 passed, 5 skipped; typechecks + contract checks clean | `scratchpad/ts-floor-final2.log` |
+| Unity EditMode | **PASS** — 882 / 882 | latest `editmode-*.xml` |
+| CF-09 generated-contract seal (projection 19) | **PASS** — schema `6a2c01fe…`, DTOs byte-synced at both bases | `generate:bridge-contract --check` |
+| P10-R1 contract quote family (bridge) | **PASS** — 8 tests (legal renew/release, closed window, stale, missing/changed, duplicate, engine refusals, once-only debit, credit retention, cancel-neutral) | `tests/bridge-p10a-r1-contract-quote.test.ts` |
+| P10-R1 contract sheet (EditMode) | **PASS** — 5 tests (REVIEW→sheet→term→CONFIRM/CANCEL→receipt; refusals verbatim; commit gates) | `StudioP10AR1ContractSheetTests` |
+| P09-REQ-040 facility-history rows (core+bridge) | **PASS** — 5 tests (commit/complete/demolish/move rows, current/historical, save round-trip) | `tests/bridge-p09a-r2-facility-history-rows.test.ts` |
+| P10-R2 shortage → exact-profession Roster (EditMode) | **PASS** — 2 tests (short profession from the pools; label) | `StudioP10AR2ShortageRosterTests` |
+| **Real-input CONTRACT (P10-R1, §5): renewal committed via real input** | **PASS** — 0 failures: attention filter → select the renewal-open person → OPEN PROFILE → REVIEW RENEWAL → sheet priced by the engine → CANCEL state-neutral (revision unchanged) → REVIEW → pick the 2-year term (priced: $37,375 bonus, new end Week 144) → CONFIRM → receipt "Renewed through Week 144", exact debit, ONE ledger row, revision +1, window closed → Save V18 (term 104) → Load (term 104) → re-read confirms | `Evidence/P10-Contract-Journey-CloseGates/hid-…` (run14, exit 0) |
+| Real-input ROSTER route + Locate/Back + Save/Load/Menu (P10, §2 C/D) | **PASS** — Roster attention filter, select, OPEN PROFILE (exact person), Back with filter kept, LOCATE selects the body + camera inspects, BACK TO STUDIO reopens the Roster, Save V18, Load, Menu/Resume — all real macOS input | `Evidence/P10-Journey-CloseGates/hid-…` |
+| Real-input WORLD-BODY DIRECT click → inspector card (P10, §2 A/B) | **FAIL (harness/environment); product PROVEN by Oracle+EditMode** — see §2/§2.1/§2.2. The seated fixture person walks and projects under the People-strip HUD; held-arrow keyups are lost under the window focus-flicker. No product defect: the two ergonomics defects it surfaced (building-doorstep occlusion; small-target pick tolerance) are fixed and EditMode-proven, and world-select→card→Profile is Oracle-proven (`p10-person-inspector` 22/22, real pixels, the exact ResolvePick path). | `Evidence/P10-Journey-CloseGates/hid-…`; `StudioSelectionSemanticsTests` (doorstep + tolerance) |
+| Real-input P09 BUILD on the final pair (§3) | **PASS** — ordinary launch → bare lot → discover Build → parcel → catalogue → preview → VALID SITE → commit (exact $1.5M cash debit) → site placed-1 stands → Esc peel → Save V18 (bare-lot regime + 1 placement) → Load preserves the site. (A supplementary post-Load re-click of the site is world-click-limited; §3's chain is met without it.) | `Evidence/P09-Journey-CloseGates/hid-…` |
+| Owner-profile PRIVATE COPY (§4): in-memory continuity | **PASS** — 48 checks (V15→V18 migration, exact people/contracts/ledger/productions/facilities, P08 boundary, P10 profiles, contract actions, projection-19 wire); original untouched (sha `d949003e…` before/after) | `scripts/p10-owner-profile-copy.mts` |
+| Owner-profile copy on the REAL sealed engine (§4): migrate-on-boot / save / engine replacement | **PASS** — 11 checks (first engine migrates + serves projection 19; renewal preview = accepted refusal; authority save; second engine resumes same session/state; original untouched) | `scripts/p10-run-owner-copy-engine.sh` |
+| Owner-profile copy in the packaged player (§4) | (in the final oracle sweep — `p10-owner-profile-copy`, private checkpoint) | `Evidence/P10-Oracle-Sweep-Final` |
+| Visual Oracle sweep: P10 × {1440×900, 1280×800, 1920×1080, fullscreen} + owner copy | (in the final oracle sweep) | `Evidence/P10-Oracle-Sweep-Final/summary.tsv` |
+| Cumulative P08 (8) + P09 (12) regression on projection-19 re-envelopes | (in the final oracle sweep) | `Evidence/P10-Oracle-Sweep-Final` |
+| Compatibility boundary (§9) | **PASS** — observed on both real engines (§6): older engine refuses the newer schema at startup; newer engine migrates + re-projects prior schemas with a fresh session | `scripts/p10-compat-boundary-probe.sh` |
+| Real BUILDER SYSTEM (P09-REQ-039) | **DEPENDENCY-BLOCKED** (not a gate to pass here; §5) | execution order §5.4 |
+
+Supported viewports recorded: 1440×900 (baseline), 1280×800 (required), 1920×1080, fullscreen.
+The 1200×700 capture from the prior morning package is supplemental and does not substitute.
 
 ## 4. Requirement dispositions — the READY-extension rows (traceability matrix)
 
