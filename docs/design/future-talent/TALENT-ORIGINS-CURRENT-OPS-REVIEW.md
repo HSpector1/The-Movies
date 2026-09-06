@@ -2,15 +2,15 @@
 
 ## Current Ops review and executive recommendation
 
-> **FUTURE PRODUCT RESEARCH AND IMPLEMENTATION-PLANNING CANDIDATE**
+> **CURRENT OPS REVIEWED — RETAINED AS UNSCHEDULED FUTURE PLANNING**
 >
-> **OWNER INTEREST CONFIRMED — SPECIFIC MECHANICS NOT YET APPROVED**
+> **TARGETED REVIEW CLARIFICATIONS RECORDED**
 >
-> **NOT SCHEDULED**
+> **SPECIFIC MECHANICS NOT APPROVED**
 >
-> **NOT AUTHORIZED FOR GAMEPLAY IMPLEMENTATION**
+> **GAMEPLAY IMPLEMENTATION NOT AUTHORIZED**
 >
-> **SUBJECT TO CURRENT OPS REVIEW AND ACCEPTED-BASE REFRESH**
+> **ACCEPTED-BASE REFRESH REQUIRED BEFORE ACTIVATION**
 
 This is the entry point for a five-document research and planning set:
 
@@ -20,9 +20,11 @@ This is the entry point for a five-document research and planning set:
 4. [Family-Entertainment Brand and TV Handoff](FAMILY-ENTERTAINMENT-BRAND-AND-TV-HANDOFF.md).
 5. [Implementation Plan and Requirement Register](TALENT-ORIGINS-IMPLEMENTATION-PLAN-AND-REQUIREMENT-REGISTER.md).
 
+Current Ops reviewed all five documents at `207d06d4d3b6c665bd532bcbd3982d1bf0cb654f`. This follow-up records five targeted disposition clarifications only. Current Ops did **not** independently reverify the external research sources and did **not** run tests, runtime profiles, or gameplay validation. The three companion designs remain unchanged; where their original wording conflicts with these reviewed clarifications, this hub and the [implementation/requirement register](TALENT-ORIGINS-IMPLEMENTATION-PLAN-AND-REQUIREMENT-REGISTER.md) qualify that wording for any future activation review.
+
 The recommendation is to preserve the Owner's full longitudinal ambition but build it through independently useful decisions. Adult crossover entry can stand on the film/talent spine. A supported young-performer production needs production-level protection and finance law before it needs a decades-long career simulator. Longitudinal aging waits for lifecycle authority. Recurring series wait for television and rights authority. A family label follows a portfolio of real work. Owning a channel or platform remains an explicit, later business-model decision; it is neither implied nor discarded.
 
-No implementation order, package number, schema version, save version, or numerical balance law is assigned here.
+No implementation order, package number, schema version, save version, numerical balance law, or new Owner-decision round is assigned here.
 
 ---
 
@@ -36,8 +38,8 @@ Acceptance has **not** advanced from the historical references supplied by the O
 |---|---|---:|---|
 | `HSpector1/The-Movies` | `campaign/living-lot-ts` | `2753e18ba8fb5f65b936c22cde9531646fecc6cd` | **ACCEPTED BASELINE** for current code facts |
 | `HSpector1/project-studio-unity-visual-spike` | `campaign/living-lot-client` | `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6` | **ACCEPTED BASELINE** for current client facts |
-| `HSpector1/The-Movies` | frozen later inspection | `0a641f584ac6dc4c8a812145582a4f97344a8595` | **UNSEALED FORWARD EVIDENCE** only |
-| `HSpector1/project-studio-unity-visual-spike` | frozen later inspection | `01e089812930c772890b0ccd165ab36f9108f109` | **UNSEALED FORWARD EVIDENCE** only |
+| `HSpector1/The-Movies` | 2026-09-06 frozen later inspection | `0a641f584ac6dc4c8a812145582a4f97344a8595` | **UNSEALED FORWARD EVIDENCE** only |
+| `HSpector1/project-studio-unity-visual-spike` | 2026-09-06 frozen later inspection | `01e089812930c772890b0ccd165ab36f9108f109` | **UNSEALED FORWARD EVIDENCE** only |
 | Active-stack authorization | Owner-supplied authority | `OPS-P08P10-20260905-01` | Bounded current work; not redirected here |
 | Onboarding repair candidate | `docs/agent-onboarding-repair-01` | `83f09ef50d0ee2b32274d0c2eb5f55941ad258b1` | Read-only candidate; not landed or activated |
 
@@ -75,14 +77,17 @@ Every consequential assertion in this set is one of:
 
 ### 2.1 What the accepted game already has
 
-- A permanent talent identity and credited career/event spine, with deterministic projections and no fabricated history.
-- Acting skill, role Fit/audition evidence, work-derived development, screen-specific Star Power, contracts, salary/availability, project participation, release outcomes, audience segments, Standing, and history views.
+- A permanent talent identity, durable film results, and recorded career facts, with deterministic projections and no fabricated history.
+- Acting skill, role Fit/audition evidence, work-derived development, screen-specific Star Power, contracts, salary/availability, project participation, release outcomes, audience segments, and Standing.
 - Production phases, resource reservations, facilities, finance seams, and deterministic inspection boundaries.
+
+At the inspected accepted P07 baseline, those durable results and career facts do **not** establish that the broader P08 Studio History authority or its world entrance had shipped. Source domains retain their own authoritative facts.
 
 These are strong foundations. Replacing them with a `crossover fame`, `child potential`, `training`, or `studio family` subsystem would create duplicate truth.
 
 ### 2.2 What is planned but not shipped
 
+- P08 governed Studio History recording/presentation and its world entrance at this inspected accepted P07 baseline; Hollywood Wire remains a separate downstream editorial consumer rather than a history source.
 - P14 career lifecycle: birth-derived chronological age, life phases, bounded cohort entry, retirement, alumni, and permanent identity through transitions.
 - P13 historical/era capability and policy ownership beyond the accepted inert configuration.
 - P16 rights/library and underlying-property authority, P17 continuation behavior, and P18 pilots/series/seasons/platform workflows.
@@ -112,24 +117,27 @@ flowchart LR
     CAST --> P5[P05/P06: production schedule and capacity]
     ELIG --> P5
     P11[P11: compensation and obligations] --> P5
-    P5 --> P7[P07: reception and commercial result]
-    P7 --> P8[P08 / Hollywood Wire: history and narration]
+    P5 --> P7[P07: reception and durable FilmResult]
+    P7 --> P8[P08: governed Studio History record / presentation]
+    P10 --> P8
+    P8 --> WIRE[Hollywood Wire: downstream editorial consumer]
     P16[P16: property, library, rights] --> P18[P18: pilot, series, season, outlet]
     P17[P17: continuation / Story DNA] --> P18
     LIFE --> P18
     AVAIL --> P18
 ```
 
-The boxes name existing ownership or the Owner-supplied future boundary. They do not assert that P13–P18 are implemented.
+The boxes name accepted source domains or Owner-supplied future ownership boundaries; they do not assert that every named interface is implemented. P07 and P10 retain authoritative result/career facts. P08 records and presents the history it governs when accepted. Hollywood Wire is a separate editorial consumer: it does not create or mutate simulation facts and does not replace P08.
 
 | Proposed feature | Coverage classification | Planning disposition | Existing owner / seam | Required action |
 |---|---|---|---|---|
 | Immutable identity through field, employer, age, and profession changes | **ALREADY COVERED** | **EXISTING AUTHORITY** | P10 identity; P14 lifecycle consumes it | Reuse one `PersonId`; forbid replacement-person transitions. |
-| Credited screen history and work-derived development | **ALREADY COVERED** | **EXISTING AUTHORITY** | P10; P08 presentation | Extend event vocabulary only when a real new event exists. |
-| Crossover origin and evidence provenance | **GENUINELY NEW** | **OWNER DECISION REQUIRED** | Recommended P10 profile fact, with P14 market provenance | Decide one source owner and projection; never fabricate seasons/catalogues. |
-| Origin audience overlap | **GENUINELY NEW** | **OWNER DECISION REQUIRED** | P07 consumer; P10/P14 source fact undecided | Approve one provenance-aware union/cap and input path after a final formula audit. |
+| Durable film results, credited career facts, and work-derived development | **ALREADY COVERED** | **EXISTING AUTHORITY** | P07 FilmResult facts; P10 person/career/development facts | Preserve source ownership; extend event vocabulary only when a real new event exists. |
+| Broader P08 Studio History and world entrance | **PLANNED BUT UNDERSPECIFIED** | **READY AFTER NAMED DEPENDENCY** | P08 records/presents governed history; Wire consumes downstream | Do not infer shipment from a future-owner diagram or later WIP observation. |
+| Crossover origin and evidence provenance | **GENUINELY NEW** | **RECOMMENDED FIRST STAGE** | P10/P14 record-owner alternatives remain implementation proposals | Current Ops/implementation lead resolves placement after product rules are approved; never fabricate seasons/catalogues. |
+| Origin audience overlap | **GENUINELY NEW** | **OWNER DECISION REQUIRED** | P07 consumer; P10/P14 source fact undecided | Decide whether/how origin appeal affects demand. If an effect is approved, audit a provenance-aware one-entry input path; no transfer rate, cap, sign, or recalibration is approved. |
 | Screen test for a crossover candidate | **PLANNED BUT UNDERSPECIFIED** | **RECOMMENDED FIRST STAGE** | P04 auditions/Fit | Extend evidence context; preserve uncertainty and deterministic inspection. |
-| Outside tour/season/broadcast commitments | **PLANNED BUT UNDERSPECIFIED** | **OWNER DECISION REQUIRED** | P12 interval/exclusivity; P10 availability projection | Add bounded commitments, not a parallel career simulator or employer system. |
+| Outside tour/season/broadcast commitments | **PLANNED BUT UNDERSPECIFIED** | **RECOMMENDED FIRST STAGE** | P12 interval/exclusivity plus a P10- or P14-projected availability representation | Retain bounded-interval alternatives for Current Ops/implementation-lead choice; escalate only a material scope or authority conflict. |
 | Chronological aging and career phase | **PLANNED BUT UNDERSPECIFIED** | **READY AFTER NAMED DEPENDENCY** | P14 lifecycle | Wait for accepted lifecycle law; add no static-age workaround. |
 | Character age, apparent playing band, and young-role eligibility | **GENUINELY NEW** | **RECOMMENDED FIRST STAGE** | P04/P05 with P10 public profile | Decide public/hidden boundaries and presentation standard. |
 | Daily legal/welfare feasibility beneath a weekly turn | **GENUINELY NEW** | **RECOMMENDED FIRST STAGE** | P05 production; P13 versioned policy; P09 capacity if facilities are needed | Choose deterministic day-template representation and exact explanation. |
@@ -138,10 +146,10 @@ The boxes name existing ownership or the Owner-supplied future boundary. They do
 | Optional coaching/mentorship | **REQUIRES SEPARATE PRODUCT DECISION** | **OWNER DECISION REQUIRED** | P10/P14 if approved | Measure existing work development first; no hidden prerequisite/training bar. |
 | Protected compensation | **GENUINELY NEW** | **READY AFTER NAMED DEPENDENCY** | P11 | One gross compensation obligation with settlement legs that reconcile exactly. |
 | Adult contracting transition | **PLANNED BUT UNDERSPECIFIED** | **READY AFTER NAMED DEPENDENCY** | P10/P12/P14 | Adult assent for a new agreement or renewal that requires it; preserve and correctly resolve valid commitments/options and history. |
-| Family films | **ALREADY COVERED** | **EXISTING AUTHORITY** | P04–P08 | Add age-appropriate roles only when youth support exists. |
-| Youth/family production label | **GENUINELY NEW** | **OWNER DECISION REQUIRED** | No accepted owner; recommended P16+ corporate/rights parking candidate for stable identity/associations, P18 slate projection, and P15/P07 derived reputation | Do not implement as a facility, captive roster, or fame multiplier. |
-| Recurring family series for an outside outlet | **PLANNED BUT UNDERSPECIFIED** | **READY AFTER NAMED DEPENDENCY** | P16/P17/P18 plus P10/P12/P14 | Wait for accepted property/continuation/TV workflow. |
-| Performer film/TV/music partnership | **GENUINELY NEW** | **READY AFTER NAMED DEPENDENCY** | P10 person/contract; P11 obligations; P12 intervals; P14 choice; P16 rights; P18 projects/outlets; FAM-015 music owner decision where applicable | Use explicit offers and outside interfaces; no record-label simulation. |
+| Family films | **ALREADY COVERED** | **EXISTING AUTHORITY** | Accepted P04–P07 casting/production/result owners; P08 only when its governed-history presentation is accepted | Add age-appropriate roles only when youth support exists. |
+| Youth/family production label | **GENUINELY NEW** | **OWNER DECISION REQUIRED** | Product promise/consumer behavior need approval; record-owner alternatives remain implementation proposals | A film-only slice needs actual family films plus approved label, association, and consumer interfaces—not television by default. Do not implement as a facility, captive roster, or fame multiplier. |
+| Recurring family series for an outside outlet | **PLANNED BUT UNDERSPECIFIED** | **READY AFTER NAMED DEPENDENCY** | P16/P17/P18 plus applicable P10/P11/P12/P07; Stage B only if minors work and Stage C only for a lifelong youth-development claim | Wait for accepted property/continuation/TV workflow; do not impose youth dependencies on an adult-only series. |
+| Performer film/TV/music partnership | **GENUINELY NEW** | **READY AFTER NAMED DEPENDENCY** | Capabilities of the selected medium/partner: P10 person/contract, P11 obligations, P12 intervals, P14 choice, P16 rights, P18 only for TV/outlet use, and FAM-015 before music | Use explicit offers and outside interfaces; no record-label simulation or universal P18 dependency. |
 | Owned channel/network/platform | **REQUIRES SEPARATE PRODUCT DECISION** | **DEFERRED WITH NAMED RETURN CONDITION** | Later P18/P16/P11/P13/P15 business model | Preserve for a separate authorization with schedule/catalogue/distribution economics. |
 | Sexualized body scoring, scandal farming, profitable neglect, person ownership | **CONFLICTS WITH EXISTING AUTHORITY** | **REJECTED DESIGN ALTERNATIVE** | Owner safeguards; P10 person agency | Reject. |
 
@@ -162,11 +170,21 @@ The Owner's named examples produce different evidence:
 
 These are **SOURCE FACTS** followed by bounded career-stage **INFERENCES**. None supplies a general conversion rate. The detailed fact check and fictional mechanics appear in the [crossover design](CROSSOVER-TALENT-AND-SCREEN-CAREERS-DESIGN.md).
 
+Current Ops retains the proposed one-entry audience rule subject to this compatibility gate:
+
+> **With no origin contribution, the new path preserves accepted result behavior and RNG behavior unless a separate recalibration has been explicitly approved.**
+
+The eventual differential proof must cover absent, zero, and non-applicable origin contribution where its representation supports those states, using identical relevant starting state and RNG state against the then-accepted P07 baseline. Relevant outputs and actual RNG state/draw behavior must match; matching seeds alone is insufficient. Stored historical `FilmResult` values are never recomputed or rewritten. The formula audit must distinguish the same audience reach counted twice from genuinely different causal effects that must remain distinct. A union/cap proposal does not authorize rewriting existing awareness, Star Power, marketing, demand, or revenue calculations. No transfer rate, cap, signed effect, or recalibration is approved.
+
 ### 4.2 Young-performer law cannot be represented by a weekly average
 
 Current California and England examples independently constrain daily work, time at the place of performance, education, rest, turnaround, supervision, and consecutive days. Satisfying a weekly total does not prove that any given day is lawful ([California §11760](https://www.dir.ca.gov/t8/11760.html), [DLSE chart](https://www.dir.ca.gov/dlse/MinorsSummaryCharts_HoursofWork.pdf), [England SI 2014/3309](https://www.legislation.gov.uk/uksi/2014/3309/pdfs/uksi_20143309_en.pdf)). Jurisdictions and effective periods differ; these current examples must not be projected unchanged over 1920–2040.
 
 The game therefore needs a deterministic production-level daily feasibility plan beneath its coarser turn. The player chooses a suitable cast, production pattern, support capacity, and slate; routine compliant allocation can auto-resolve. If blocked, the interface names the limiting rule and offers lawful alternatives. It never offers a neglect/evasion toggle.
+
+Eligibility is not evaluated in a project silo. For each performer it aggregates applicable work across concurrent productions and relevant outside commitments before daily, weekly, consecutive-day, education, rest, turnaround, and other selected-profile constraints are evaluated. Two plans that pass separately may fail together. Supervision and education capacity also reconcile across projects; the same provider cannot satisfy conflicting reservations. A compatible combined plan remains permissible.
+
+Stopping new youth engagements is not itself a safe rollback for committed work. Existing work retains its governing eligibility, supervision, education, rest, capacity, and settlement obligations through completion or a safe, explicit hold/cancellation resolution. It may not resume under an older binary or disabled capability that cannot enforce those obligations. Restoring a compatible pre-change checkpoint is a separate rollback path; preserving credits and compensation alone is insufficient.
 
 ### 4.3 Producing family work, running a label, and owning an outlet are different businesses
 
@@ -178,38 +196,56 @@ Project Studio should first produce family work, later organize a coherent label
 
 ## 5. Recommended sequence
 
-These are working stages, **not** package numbers and **not** an implementation order.
+These are working stages, **not** package numbers and **not** an implementation order. The table separates hard capability gates from dependencies that apply only when a selected variant uses youth, series, cross-media, label, or outlet functionality. The original B–F path remains a useful combined youth-and-series journey, not an unconditional dependency chain.
 
 | Stage | Player-facing proof | Entry dependencies | Relative effort | Product / technical risk |
 |---|---|---|---|---|
-| **A — adult crossover entry** | Compare a known outsider with uncertain screen craft against a skilled unknown; test, cast, defer, or decline; one real screen-career transition persists. | Owner-accepted P08–P10 base refresh; P04/P05/P07; accepted P11/P12 offer, money and interval seams; ownership decisions for origin reach and commitments | Medium | Medium / medium–high |
-| **B — one supported young-performer production** | Cast one supported 14–17-year-old fictional performer; routine protection resolves; an invalid plan explains and offers alternatives. | Accepted P10 identity and P14 birth/age-at-date law; P04 character-age/Fit; P05/P06 day-level scheduling and capacity; P11 settlement; P12 employment; P13 era/jurisdiction policy; qualified support capacity; accepted-client refresh and age-appropriate world/UI plan | Large | High / high |
-| **C — longitudinal youth-to-adult continuity** | The same `PersonId` ages, changes ambitions, pauses or continues, and retains every credit. | Stage B; accepted P14 lifecycle/phase/cohort/alumni law; P10 career/development/profession; P11 obligations; P12 intervals; P08 history; bounded long-horizon orchestration | Very large | High / high |
-| **D — recurring family-series development** | Pilot/order/season/renewal/departure decisions operate through real contracts and rights. | Stages B/C for youth continuity; accepted P16 StoryProperty/rights, P17 continuation/Story DNA and P18 television workflow; P10/P11/P12/P14 and P07/P08 seams | Very large | High / very high |
-| **E — family label and cross-media partnerships** | A coherent portfolio creates opportunities without owning people; music/other media use explicit partners. | Multiple real family projects; Stage D/P18 for series; P16 rights plus stable label/association owner; P15/P07 reputation; P10/P11/P12/P14 offer/availability; era-appropriate external-partner interface; resolved FAM-015 music owner if music is included in the bounded proof | Very large | Very high / very high |
-| **F — owned channel/platform** | Operate a separately modeled outlet with programming/catalogue and economic obligations. | Separate Owner business-model authorization; accepted P13/P15/P16/P18/P11 interfaces; proven Stage E multi-project label; enough actual content for catalogue/schedule proof; new historical/economic research | Extreme | Very high / extreme |
+| **A — adult crossover entry** | Compare a known outsider with uncertain screen craft against a skilled unknown; test, cast, defer, or decline; one real screen-career transition persists. | **Hard:** accepted P04/P05/P07/P10/P11/P12 seams and accepted-base refresh; Owner product decision on whether/how origin appeal affects demand. **Conditional:** accepted P08 only if governed Studio History presentation is selected. No youth, lifecycle, or television dependency. | Medium | Medium / medium–high |
+| **B — one supported young-performer production** | Cast one supported 14–17-year-old fictional performer; routine protection resolves; an invalid plan explains and offers alternatives. | **Hard:** P10 identity; the minimum accepted P14 birth-provenance and age-at-scheduled-work source/representation seam; P04 role/Fit; P05/P06 cross-project scheduling; P11/P12/P13; shared support capacity; accepted-client and age-appropriate presentation. The broader P14 lifecycle/cohort system is not required. | Large | High / high |
+| **C — longitudinal youth-to-adult continuity** | The same `PersonId` ages, changes ambitions, pauses or continues, and retains every credit. | **Hard:** Stage B protection for the youth path; broader accepted P14 lifecycle/phase/cohort/alumni authority; P10/P11/P12; bounded long-horizon orchestration. **Conditional:** accepted P08 for the governed complete-history presentation. | Very large | High / high |
+| **D — recurring family-series development** | Pilot/order/season/renewal/departure decisions operate through real contracts and rights. | **Hard:** accepted P16 property/rights, P17 continuation/Story DNA, P18 television, and applicable P10/P11/P12/P07 seams. **Conditional:** Stage B whenever minors work; Stage C only when the slice claims a lifelong youth-development experience. An adult-cast family series has neither youth dependency. | Very large | High / very high |
+| **E — family label and cross-media partnerships** | A coherent portfolio creates opportunities without owning people; selected series/music/other components use their actual capabilities. | **Hard for a film-only label:** actual family films plus approved label identity, project-association, and concrete consumer/presentation interfaces; accepted P04–P07 project/result law. **Conditional:** Stage D/P16–P18 for series components; actual partner/rights/availability/payment capability for cross-media components; FAM-015 resolution if music is selected; Stage B if the selected work uses minors; Stage C if the slice claims a lifelong youth-development experience. | Very large | Very high / very high |
+| **F — owned channel/platform** | Operate a separately modeled outlet with programming/catalogue and economic obligations. | **Hard:** separate Owner business-model authorization, accepted interfaces for the chosen outlet, enough rights-cleared content, and new historical/economic research. **Conditional:** Stage E only if the approved outlet proposition relies on that label/cross-media capability. No label, film, or series success automatically authorizes an outlet. | Extreme | Very high / extreme |
 
-Adult crossover does not wait for youth or TV. Stage B proves one protected production, not a childhood career. Stage D proves recurring production, not a channel. The complete stage contracts and acceptance journeys are in the [implementation plan](TALENT-ORIGINS-IMPLEMENTATION-PLAN-AND-REQUIREMENT-REGISTER.md).
+Removing a false dependency does not schedule a feature earlier, waive its actual gates, or approve its mechanics. Adult crossover does not wait for youth or TV. Stage B proves one protected production, not a childhood career. Stage D can prove recurring production with adults; a minor-cast variant invokes Stage B, and a lifelong youth-development claim invokes Stage C. A film-only label does not inherit television dependencies merely because the illustrative combined journey uses them. Stage D still does not prove a channel. The complete stage contracts and acceptance journeys are in the [implementation plan](TALENT-ORIGINS-IMPLEMENTATION-PLAN-AND-REQUIREMENT-REGISTER.md).
 
 ---
 
-## 6. Genuine product decisions
+## 6. Decision docket after Current Ops review
 
-| Decision | Options | Recommendation | Why it remains open |
+### 6.1 Owner product decisions
+
+These are choices for the Owner because they materially alter the intended player experience, cost, or scope. The current recommendation in each row remains a proposal, not approval.
+
+| Product decision | Live options | Current recommendation | Why it remains open |
 |---|---|---|---|
-| Initial young-performer range | 14–17; 9–17; broader | **14–17 first**, with 9–13 and younger explicitly returned after presentation and additional age-band capacity proof | 9–17 is research-defensible, but 14–17 proves two minor bands and the transition to majority with less world/policy scope. Owner has not approved the cut. |
-| Origin fact owner | P10 profile fact + P14 provenance; or P14 market fact projected through P10 | **P10 owns durable authored origin on the person; P14 owns changing market evidence; P07 consumes a bounded projection** | Must be reconciled against the accepted P10/P14 boundary at implementation refresh. |
-| Outside commitment owner | P10 availability event validated by P12; or P14 lifecycle commitment projected to P12 | **P10 projection with P12 interval/exclusivity validation** | No parallel origin-industry employer or contract graph may be introduced. |
-| External following entry point | Broaden Star Power; separate additive marketing bonus; one origin-overlap component | **One bounded origin component inside a provenance-aware P07 reach union/cap with screen awareness, earned Star Power and paid marketing; never free Star Power/craft** | Exact de-duplication, cap and decay need Owner approval and evidence-backed calibration. |
-| Daily feasibility engine | Authored day templates; general deterministic solver | **Templates first** | They are explainable and bounded; a solver should follow only if actual production variety proves it necessary. |
-| Welfare across eras | Exact historical laws only; modern rules everywhere; stable floor + researched profiles | **Stable fictional welfare floor plus versioned jurisdiction/era profiles that may add constraints** | Requires naming and clear UI disclosure; it must never claim legal exactness where research is incomplete. |
-| Optional coaching | No new system; role preparation; persistent coaching/mentorship | **Use role preparation and existing work-derived growth first; decide persistent coaching later** | No credible universal growth conversion law; avoid a training bar. |
-| Majority transition | Automatic new agreement; cancel all terms at 18; adult assent where a new agreement/renewal requires it while honoring surviving terms/options | **Affirmative choice with contract-specific continuity** | “Every minor contract ends at 18” is legally false in at least some regimes. |
-| Label semantics | Building; roster bonus; portfolio/brand promise | **Portfolio/brand promise** | Success/reputation formula and governance need later proof. |
-| Music capability and career-evidence owner | Assume current P10; extend P10; create a later music-domain owner | **Decide the owner before any music-career extension; do not treat music as an accepted P10 discipline today** | P10 currently owns Actor, Director, Writer and Craft disciplines; partnership, rights, availability and payment seams do not themselves own music capability. |
-| Owned outlet | Drop; unlock after one series; separately authorize | **Preserve and separately authorize** | Network/platform operations require programming, distribution, catalogue, revenue, cost, rights, and era law. |
+| Supported youth age coverage | 14–17; 9–17; broader | **Propose 14–17 first**, with younger ranges preserved behind named return conditions | The cut materially changes roles, presentation, protection profiles, and production scope. |
+| Intended career experience | One supported production; multi-year youth-to-adult path; recurring series; label/cross-media institution; owned outlet | Preserve the complete A–F ambition through independently useful slices | The emotional destination is confirmed, but no particular slice or mechanics are approved. |
+| Welfare abstraction | Exact-law simulation; modern rules everywhere; stable floor plus versioned profiles; degree of routine automation | Stable fictional welfare floor plus researched profiles, with routine valid arrangements automated | This defines player responsibility, historical framing, scope, and safety. |
+| Persistent coaching | No persistent system; project preparation only; later mentorship/craft system | Use project preparation and existing work-derived development first; decide persistent coaching later | A new long-term development loop materially changes play and risks a training bar. |
+| Family-label and eventual outlet ambition | Film-only label; label with selected series/cross-media components; linear outlet; DTC outlet; staged combinations | Portfolio/brand promise first; preserve owned outlet for separate authorization | Label reputation/consumer behavior and outlet economics are product mechanics, not storage choices. |
+| Whether and how outside fame affects demand | No origin contribution; bounded project-specific contribution; another explicitly justified effect | Preserve the one-entry principle if an effect is approved; no free craft or screen Star Power | Transfer rate, cap, sign, decay, and recalibration are unapproved; this choice changes demand behavior. Any asking-price or rival-valuation effect remains independent-review follow-up. |
+| Majority-transition experience | New adult choice plus contract-specific continuity; a different legally supported interaction | Affirmative adult choice where required while resolving surviving terms under actual law | The interaction materially affects career agency and contract play. |
+| Cross-media partnership scope | No partnership slice; selected film/TV/music/creative partner interfaces; later broader business simulation | Bounded, voluntary partner offers only; no silent record-label/tour/platform simulator | Selected media, rights, costs, and player decisions materially change scope. |
 
-These are recommendations, not Owner approvals.
+Other choices escalate to the Owner only when they have a comparable material consequence or expose an unresolved authority conflict.
+
+### 6.2 Current Ops / implementation-lead recommendations
+
+These are engineering or ownership-placement proposals within whatever product rules are eventually approved. They are retained as proposals; Current Ops does not automatically replace them with an independent reviewer's preferred owner, and Howard is not asked to choose a storage location merely because several sound implementations exist.
+
+| Implementation question | Retained proposal or alternatives | Current Ops disposition |
+|---|---|---|
+| Origin record ownership | P10 durable person-profile fact with P14 changing market provenance and P07 consumption; alternatively a P14 fact projected through P10 | Reconcile against then-accepted P10/P14/P07 authority during activation. Escalate only a material product effect or owner conflict. |
+| Outside commitment and interval representation | P10 availability projection validated by P12, or P14 lifecycle commitment projected to P12 | Preserve bounded intervals and one employment/contract truth. Exact placement is an implementation-lead recommendation. |
+| Support-capacity representation | P05 shared reservation first; P09 only for an approved physical facility and P10 only for an accepted named-provider fact | Choose the smallest owner-consistent representation after the product welfare rule is approved. |
+| Feasibility engine | Authored deterministic day templates before a general solver | Retain as an explainability/complexity recommendation, not an Owner product decision. |
+| Adapter and read-model placement | Authoritative simulation in accepted TypeScript owners; client projection remains read-only | Choose exact adapters after accepted contracts/symbols are refreshed; inspection still consumes no RNG. |
+| History and editorial placement | Source domains retain facts; P08 records/presents governed history; Hollywood Wire consumes downstream | Never let Wire create/mutate facts or replace P08. P08 shipment must be verified rather than inferred from a diagram. |
+| Label identity, associations, and reputation record | Stable identity/project associations plus a named P07/P15/P18 consumer where selected; a film-only slice may be explicitly presentation-only | Select record placement after label product semantics are approved; do not impose P16–P18 on every film-only slice. |
+| Music capability/career evidence | Proposed P10 extension versus a later music-domain owner | First decide whether a music-career feature belongs; implementation lead then recommends placement unless authority conflicts. |
+
+A changed review classification is not implementation approval and creates no new decision round or package work.
 
 ---
 
@@ -225,7 +261,17 @@ These are recommendations, not Owner approvals.
 - Star Power, origin reach, audience awareness, Standing, marketing, and revenue are not duplicated.
 - Actor, character, contract, representative, employer, producer, commissioner, rightsholder, label, and outlet remain distinct.
 
-### 7.2 Important source limitations
+### 7.2 Targeted Current Ops clarification record
+
+1. **Product decisions versus engineering:** Owner escalation is reserved for material gameplay, cost, scope, or authority consequences; record ownership, interval form, capacity representation, solver/template choice, and adapter placement remain Current Ops/implementation-lead recommendations.
+2. **Conditional dependencies:** A is independent; B needs the minimum age source, C the broader lifecycle, adult-only D does not need youth, and film-only E does not need television. Selected minor, longitudinal, series, cross-media, and outlet variants acquire only their actual dependencies.
+3. **Concurrent protection and safe rollback:** Youth eligibility and support capacity reconcile across productions and relevant outside commitments. Stopping new engagements is distinct from safely resolving committed work or restoring a compatible checkpoint.
+4. **P07 preservation:** absent/zero/non-applicable origin contribution preserves then-accepted results and RNG behavior unless separately recalibrated; no stored result is rewritten and no numeric or signed origin law is approved.
+5. **Accepted facts and history owners:** the inspected P07 baseline has durable film results and career facts, not proof that broader P08 Studio History/world entrance shipped; P08 and Hollywood Wire retain distinct record/presentation and editorial-consumer roles.
+
+This record qualifies conflicting wording in the unchanged companion research. It is a disposition review, not independent external-source verification or test evidence.
+
+### 7.3 Important source limitations
 
 - Corporate and celebrity biographies emphasize successes and may be promotional.
 - Peer-reviewed star research is aggregate and not a crossover conversion model; some full text may require subscription.
@@ -242,13 +288,17 @@ These are sufficient limits for product planning: the design can preserve uncert
 
 | Question | Disposition |
 |---|---|
+| Did Current Ops review the complete five-document set? | **Yes, at `207d06d4d3b6c665bd532bcbd3982d1bf0cb654f`; this follow-up records the five targeted clarifications.** |
 | Is the vision compatible with the existing architecture? | **Yes, if implemented as extensions to P04/P05/P07/P10/P11/P12/P13/P14/P16/P17/P18 rather than duplicate systems.** |
 | Is any implementation authorized? | **No.** |
-| Is adult crossover independently buildable? | **Yes, only after the accepted P04/P05/P07/P08–P12 owners exist, an accepted-base refresh is complete, and the origin-reach/commitment decisions are resolved. It does not wait for youth or television.** |
+| Is adult crossover independently buildable? | **Yes, only after the accepted P04/P05/P07/P10/P11/P12 seams exist, an accepted-base refresh is complete, and material origin-demand scope is approved. P08 is conditional on selecting its governed history presentation. Stage A does not wait for youth or television.** |
 | Is one youth fixture enough to claim a longitudinal system? | **No.** |
+| Does an adult-only family series require Stage B or C? | **No. Stage B applies when minors work; Stage C applies when a lifelong youth-development experience is claimed.** |
+| Does a film-only family label require television infrastructure? | **No. It requires actual family films and approved label, project-association, and concrete consumer/presentation interfaces.** |
 | Is one recurring series enough to claim a family channel? | **No.** |
 | Is the broader channel ambition preserved? | **Yes; deferred with explicit return conditions, not dropped.** |
+| Did Current Ops independently reverify sources or execute tests? | **No. The reviewed research and citations are preserved; no test or runtime evidence is claimed.** |
 | Are P11/P12 packages modified or reopened? | **No. Their existing ownership is consumed, not changed.** |
 | Were production code, tests, schemas, saves, generated DTOs, assets, or runtime state changed? | **No.** |
 
-The next action is Future Ops and Current Ops review of the five-document set. Any later implementation effort must begin with an accepted-base refresh and a scoped Owner decision; this document is not authorization to build.
+The five-document set remains retained as unscheduled future planning. This clarification follow-up now stops for Current Ops review. Any later activation must begin with an accepted-base refresh and the applicable scoped product decisions; this document is not authorization to build.
