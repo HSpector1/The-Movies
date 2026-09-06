@@ -12,7 +12,7 @@
 >
 > **CURRENT OPS REVIEW AND ACCEPTED-BASE REFRESH REQUIRED**
 
-Navigation: [Talent Origins Current Ops hub](TALENT-ORIGINS-CURRENT-OPS-REVIEW.md) · [Young-performer foundation](YOUNG-PERFORMERS-AND-CAREER-DEVELOPMENT-DESIGN.md) · [Talent Origins implementation register](TALENT-ORIGINS-IMPLEMENTATION-PLAN-AND-REQUIREMENT-REGISTER.md) · [Family/TV handoff](FAMILY-ENTERTAINMENT-BRAND-AND-TV-HANDOFF.md)
+Navigation: [Talent Origins Current Ops hub](TALENT-ORIGINS-CURRENT-OPS-REVIEW.md) · [Young-performer foundation](YOUNG-PERFORMERS-AND-CAREER-DEVELOPMENT-DESIGN.md) · [Talent Origins implementation register](TALENT-ORIGINS-IMPLEMENTATION-PLAN-AND-REQUIREMENT-REGISTER.md) · [Family/TV handoff](FAMILY-ENTERTAINMENT-BRAND-AND-TV-HANDOFF.md) · [Talent pathways integration plan](TALENT-DEVELOPMENT-OUTREACH-AND-CASTING-INTEGRATION-PLAN.md)
 
 Exact inspected five-document package: [`2980bcbd1367e23575a51008a011143e3a0d9653`](https://github.com/HSpector1/The-Movies/tree/2980bcbd1367e23575a51008a011143e3a0d9653/docs/design/future-talent). That documentation revision preserves the originally reviewed research commit `207d06d4d3b6c665bd532bcbd3982d1bf0cb654f` and records Current Ops' five targeted clarifications. This addendum is based on that compatible documentation descendant on the isolated branch `docs/young-performers-program-research-01`. Its underlying accepted TypeScript product baseline is `2753e18ba8fb5f65b936c22cde9531646fecc6cd`; planning commits named below remain planning, not shipped capability.
 
@@ -523,6 +523,21 @@ The product boundary—not a storage preference—is firm: P10 is the only autho
 ## 10. Staged implementation proposal
 
 These are working stages, not package numbers, schedules, or implementation authority. Relative effort is comparative only.
+
+### 10.1 Shared-pathway handoff
+
+The linked Talent Pathways integration plan proposes proving this addendum's Option B through adults first. That is a reusable P10 development refinement, not a replacement ladder or youth proof.
+
+| This addendum | Shared-pathway mapping | Authority boundary |
+|---|---|---|
+| **YPP 1** | Reuse role-backed briefs, contact evidence, watch/defer, and Profile links. | Still adds the approved youth intake source, voluntary participation/authorized-adult context, and program capacity. |
+| **Original B** | Use an existing real support role where suitable. | Requires age-at-date, protection, aggregate support/scheduling, youth compensation, and age-appropriate presentation; it has no coaching or program-intake dependency. |
+| **YPP 2** | Add program development to Original B's protected real-work capability only after separate approval; reuse adult coaching only if Option B is selected. | Still requires YPP 1 participation and every Original B protection; expanded roles are optional. |
+| **Original C** | Carry one identity and real youth-work history into adulthood. | Requires the broader P14 lifecycle and adult-choice law; it has no program dependency. |
+| **YPP 3** | Carry one identity and shared program-development evidence into broader role-specific progression. | Still requires YPP 2 plus broader P14 lifecycle/cohort law; genuine childhood scope requires approved younger coverage. |
+| **YPP 4** | Consume the same Profile/history facts for a mature program and alumni view. | Rival, named-mentor, TV, label, cross-media, and outlet behavior remain conditional under their existing owners. |
+
+This mapping changes no YPP requirement/proof ID or approval status. Adult coaching does not prove youth welfare; additional named roles, family television, a label, and an owned outlet remain separate capabilities.
 
 ### Stage 1 — limited intake and capacity foundation
 
