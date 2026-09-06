@@ -33,9 +33,53 @@ Retained report `hid-20260905T223535Z` (candidate `af8c19c-fcfcbb8`), 33 steps, 
 | 25 | LOCATE selected the exact body | cascade of 24 (same assertion) | — | PASS (as above) |
 | 32 | click `studio-menu-resume` after Load | **PRECONDITION (driver sequencing)** | after a Load the Studio Menu stays OPEN reporting "Studio loaded." with Resume offered (the P04A.1 menu law; screenshot 029). The driver's post-Load predicate ignored the open menu, then clicked MENU again — toggling it CLOSED — and looked for Resume | driver waits for "Studio loaded." then presses the real Resume and asserts the menu closed + world live — **PASS on the final pair** (steps 34–36) |
 
-### 2.1 World person-body click (steps 3–7)
+### 2.1 World person-body click (steps 3–7) — classified from the pick probe
 
-`<<PENDING: pick-probe classification — filled from Tools/p10-run-body-probe.sh evidence>>`
+Evidence: `Tools/p10-run-body-probe.sh` → `Evidence/P10-Body-Probe-CloseGates/hid-20260906T084618Z`
+(`p10-body-probe.json`, four samples; the host publishes `diag.seatedPersonBodyProbe`: the body's
+renderer bounds, the pick camera's projection of feet/chest/head, and the stable id the EXACT
+pointer pick — `StudioSelectionManager.PickAtScreenPoint` — resolves at the chest, head and AABB
+centre; observation only, nothing is selected).
+
+Facts observed (the seated craft person `t-cra-04`, walking its authored marks around the
+Production/Post building at management zoom, 1440×900):
+
+| Sample | Published AABB (Unity px) | Renderer bounds (m) | Pick at chest / head / centre | Where the person stood |
+|---|---|---|---|---|
+| 0 | 21.6 × 23.7 | 1.62 × 1.48 × 1.69 | `t-cra-04` / `t-cra-04` / `t-cra-04` | beside the building, in the clear |
+| 1 | 19.7 × 21.5 | 1.68 × 1.43 × 1.65 | `t-cra-04` × 3 | in the clear |
+| 2 | 20.4 × 21.4 | 1.72 × 1.49 × 1.78 | **`post` × 3** | on the building's doorstep, drawn in front of the facade |
+| 3 | 21.1 × 21.6 | 1.62 × 1.47 × 1.69 | `facility-scenery-shop` × 3 | **under the left HUD card** (the framing parked the person beneath it) |
+
+So:
+
+- **Actual rendered body and selectable collider / world-to-screen mapping / logical-vs-pixel
+  coordinates: CORRECT.** The published rect is the body's own tight AABB (~20×22 px ≈ 10×11
+  points at the retina scale); the driver's aim point and the host's own chest projection agree
+  within 2 px; the pick camera resolves the person at the published points whenever the person
+  stands clear. No coordinate-transform defect exists (the retained run's clicks at (245–276,
+  198–274) are exactly where the rect projected at those instants).
+- **Step 7 (and its cascade 8–11) — PRIMARY: PRODUCT INTERACTION (selection ergonomics), LAYOUT /
+  OCCLUSION class.** The person's authored marks include the Post building's doorstep. The
+  building carries a coarse box collider that encloses its porch; a person standing there is drawn
+  in front of the facade yet sits inside the box, and the pick's sight-line test
+  (`SightLineBlocked`) counted the building as an occluder — every real click on a visible person
+  at that mark resolved `post` (sample 2; the retained run's screenshots 002/005 show exactly that
+  doorstep). **Fixed at the owning seam** (`StudioSelectionManager.SightLineBlocked`, the doorstep
+  rule): a collider whose volume contains the person's feet or chest is the ground they stand on,
+  not something between the camera and them; anything else ahead on the ray still blocks
+  (EditMode `ResolvePick_APersonOnABuildingDoorstep_IsNotOccludedByTheBuildingsOwnEnvelope` +
+  the wall control case). No collider was moved, no person relocated, no proof-only advantage.
+- **SECONDARY: HARNESS AIM (UI pointer interception).** One framing parked the person under the
+  left studio card (sample 3): a real click there lands on the card. The driver's framing now treats
+  an aim point covered by any visible published UI element as "not framed" and pans away from the
+  card's side before clicking (`Tools/p10-proof-people.mjs`), which is what a player does.
+- **Deterministic overlap / selection priority: not implicated.** Person-over-Place ranking already
+  holds; the doorstep case was the occlusion test, not the ranking.
+- **Walking target:** the person moves between marks; the driver waits for the rect to settle and
+  retries across the walk cycle (six attempts) — a stale rect on a moving body is not a defect.
+
+Resolution proof: the real-input people journey rerun on the FINAL pair (§3).
 
 ## 3. Gate table (PASS / FAIL / BLOCKED / NOT RUN — never converted across evidence classes)
 
