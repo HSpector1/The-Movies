@@ -4,7 +4,7 @@
 
 > **CURRENT OPS REVIEWED — RETAINED AS UNSCHEDULED FUTURE PLANNING**
 >
-> **TARGETED REVIEW CLARIFICATIONS RECORDED**
+> **INTEGRATED TALENT-PATHWAYS VISION RETAINED**
 >
 > **SPECIFIC MECHANICS NOT APPROVED**
 >
@@ -21,6 +21,8 @@ This is the entry point for a five-document research and planning set:
 5. [Implementation Plan and Requirement Register](TALENT-ORIGINS-IMPLEMENTATION-PLAN-AND-REQUIREMENT-REGISTER.md).
 
 Current Ops reviewed all five documents at `207d06d4d3b6c665bd532bcbd3982d1bf0cb654f`. This follow-up records five targeted disposition clarifications only. Current Ops did **not** independently reverify the external research sources and did **not** run tests, runtime profiles, or gameplay validation. The three companion designs remain unchanged; where their original wording conflicts with these reviewed clarifications, this hub and the [implementation/requirement register](TALENT-ORIGINS-IMPLEMENTATION-PLAN-AND-REQUIREMENT-REGISTER.md) qualify that wording for any future activation review.
+
+Current Ops subsequently reviewed the integrated talent-pathways planning on branch `docs/talent-pathways-integration-01` at exact commit `c5d50a370d2bc6ddbb9925457a3aeb44f17f0e8d`: the [Talent Development, Outreach, and Casting Integration Plan](TALENT-DEVELOPMENT-OUTREACH-AND-CASTING-INTEGRATION-PLAN.md) and its minimal mapping in the [Young Performers Program addendum](YOUNG-PERFORMERS-PROGRAM-DESIGN-AND-IMPLEMENTATION-ADDENDUM.md). The final disposition is **RETAIN AS REVIEWED, UNSCHEDULED FUTURE PLANNING**. Where either reviewed document still says Current Ops review is required, this disposition records that document review as complete; its unapproved-mechanics, accepted-base-refresh, and separate-authorization gates remain in force. This disposition records document review only; it does not claim renewed research, independent source verification, testing, or gameplay validation.
 
 The recommendation is to preserve the Owner's full longitudinal ambition but build it through independently useful decisions. Adult crossover entry can stand on the film/talent spine. A supported young-performer production needs production-level protection and finance law before it needs a decades-long career simulator. Longitudinal aging waits for lifecycle authority. Recurring series wait for television and rights authority. A family label follows a portfolio of real work. Owning a channel or platform remains an explicit, later business-model decision; it is neither implied nor discarded.
 
@@ -143,7 +145,7 @@ The boxes name accepted source domains or Owner-supplied future ownership bounda
 | Daily legal/welfare feasibility beneath a weekly turn | **GENUINELY NEW** | **RECOMMENDED FIRST STAGE** | P05 production; P13 versioned policy; P09 capacity if facilities are needed | Choose deterministic day-template representation and exact explanation. |
 | Required supervision and education | **GENUINELY NEW** | **RECOMMENDED FIRST STAGE** | P05 production capacity; P13 policy | Routine valid setup may auto-resolve; never merge it with skill training. |
 | Role preparation | **PLANNED BUT UNDERSPECIFIED** | **RECOMMENDED FIRST STAGE** | P04/P05; P10 work development | First stage: project-specific readiness only, no permanent bonus. |
-| Optional coaching/mentorship | **REQUIRES SEPARATE PRODUCT DECISION** | **OWNER DECISION REQUIRED** | P10/P14 if approved | Measure existing work development first; no hidden prerequisite/training bar. |
+| Optional coaching/mentorship | **REQUIRES SEPARATE PRODUCT DECISION** | **OWNER DECISION REQUIRED** | P10 development; P05/P06 time/capacity and P11/P12 cost/conflict as selected; P14 only for a named-mentorship/relationship or lifecycle variant | Measure existing work development first; no hidden prerequisite/training bar. |
 | Protected compensation | **GENUINELY NEW** | **READY AFTER NAMED DEPENDENCY** | P11 | One gross compensation obligation with settlement legs that reconcile exactly. |
 | Adult contracting transition | **PLANNED BUT UNDERSPECIFIED** | **READY AFTER NAMED DEPENDENCY** | P10/P12/P14 | Adult assent for a new agreement or renewal that requires it; preserve and correctly resolve valid commitments/options and history. |
 | Family films | **ALREADY COVERED** | **EXISTING AUTHORITY** | Accepted P04–P07 casting/production/result owners; P08 only when its governed-history presentation is accepted | Add age-appropriate roles only when youth support exists. |
@@ -200,7 +202,7 @@ These are working stages, **not** package numbers and **not** an implementation 
 
 | Stage | Player-facing proof | Entry dependencies | Relative effort | Product / technical risk |
 |---|---|---|---|---|
-| **A — adult crossover entry** | Compare a known outsider with uncertain screen craft against a skilled unknown; test, cast, defer, or decline; one real screen-career transition persists. | **Hard:** accepted P04/P05/P07/P10/P11/P12 seams and accepted-base refresh; Owner product decision on whether/how origin appeal affects demand. **Conditional:** accepted P08 only if governed Studio History presentation is selected. No youth, lifecycle, or television dependency. | Medium | Medium / medium–high |
+| **A — adult crossover entry** | Compare a known outsider with uncertain screen craft against a skilled unknown; test, cast, defer, or decline; one real screen-career transition persists. | **Hard:** accepted P04/P05/P07/P10/P11/P12 seams and accepted-base refresh. **Conditional:** Owner product decision on whether/how origin appeal affects demand only if that commercial variant is selected; accepted P08 only if governed Studio History presentation is selected. No youth, lifecycle, or television dependency. | Medium | Medium / medium–high |
 | **B — one supported young-performer production** | Cast one supported 14–17-year-old fictional performer; routine protection resolves; an invalid plan explains and offers alternatives. | **Hard:** P10 identity; the minimum accepted P14 birth-provenance and age-at-scheduled-work source/representation seam; P04 role/Fit; P05/P06 cross-project scheduling; P11/P12/P13; shared support capacity; accepted-client and age-appropriate presentation. The broader P14 lifecycle/cohort system is not required. | Large | High / high |
 | **C — longitudinal youth-to-adult continuity** | The same `PersonId` ages, changes ambitions, pauses or continues, and retains every credit. | **Hard:** Stage B protection for the youth path; broader accepted P14 lifecycle/phase/cohort/alumni authority; P10/P11/P12; bounded long-horizon orchestration. **Conditional:** accepted P08 for the governed complete-history presentation. | Very large | High / high |
 | **D — recurring family-series development** | Pilot/order/season/renewal/departure decisions operate through real contracts and rights. | **Hard:** accepted P16 property/rights, P17 continuation/Story DNA, P18 television, and applicable P10/P11/P12/P07 seams. **Conditional:** Stage B whenever minors work; Stage C only when the slice claims a lifelong youth-development experience. An adult-cast family series has neither youth dependency. | Very large | High / very high |
@@ -222,7 +224,7 @@ These are choices for the Owner because they materially alter the intended playe
 | Supported youth age coverage | 14–17; 9–17; broader | **Propose 14–17 first**, with younger ranges preserved behind named return conditions | The cut materially changes roles, presentation, protection profiles, and production scope. |
 | Intended career experience | One supported production; multi-year youth-to-adult path; recurring series; label/cross-media institution; owned outlet | Preserve the complete A–F ambition through independently useful slices | The emotional destination is confirmed, but no particular slice or mechanics are approved. |
 | Welfare abstraction | Exact-law simulation; modern rules everywhere; stable floor plus versioned profiles; degree of routine automation | Stable fictional welfare floor plus researched profiles, with routine valid arrangements automated | This defines player responsibility, historical framing, scope, and safety. |
-| Persistent coaching | No persistent system; project preparation only; later mentorship/craft system | Use project preparation and existing work-derived development first; decide persistent coaching later | A new long-term development loop materially changes play and risks a training bar. |
+| Persistent coaching | No persistent system; project preparation only; later mentorship/craft system | Keep coaching out of the outreach foundation; if persistent coaching is selected, prove the shared adult loop before a youth Option B variant | A new long-term development loop materially changes play and risks a training bar. |
 | Family-label and eventual outlet ambition | Film-only label; label with selected series/cross-media components; linear outlet; DTC outlet; staged combinations | Portfolio/brand promise first; preserve owned outlet for separate authorization | Label reputation/consumer behavior and outlet economics are product mechanics, not storage choices. |
 | Whether and how outside fame affects demand | No origin contribution; bounded project-specific contribution; another explicitly justified effect | Preserve the one-entry principle if an effect is approved; no free craft or screen Star Power | Transfer rate, cap, sign, decay, and recalibration are unapproved; this choice changes demand behavior. Any asking-price or rival-valuation effect remains independent-review follow-up. |
 | Majority-transition experience | New adult choice plus contract-specific continuity; a different legally supported interaction | Affirmative adult choice where required while resolving surviving terms under actual law | The interaction materially affects career agency and contract play. |
@@ -282,6 +284,30 @@ This record qualifies conflicting wording in the unchanged companion research. I
 
 These are sufficient limits for product planning: the design can preserve uncertainty and refuse unsupported numerical claims. More biography collection would not justify a general success probability.
 
+### 7.4 Final Current Ops disposition for the integrated pathways
+
+The reviewed integration preserves one connected vision: shared adult development, two-way talent outreach, real script-supported career opportunities, and later youth-program and lifelong-career capabilities. It supplements the original requirements; it does not renumber, delete, weaken, or approve the Talent Origins, YPP, or TPI requirement/proof sets.
+
+Capability dependencies remain specific to the selected slice:
+
+- Outreach plus an existing support role can prove a first genuine screen-career transition without persistent coaching, additional named roles, or commercial origin-audience formulas.
+- Persistent coaching remains a separate product decision. Additional named roles and genuinely shorter bookings remain conditional extensions.
+- Youth production does not require academy membership or coaching merely because the performer is young. Adult development proves only the reusable development loop; it does not fulfill youth safeguards, childhood development, adult transition, or lifelong continuity.
+- A family-film label does not inherently require television, cross-media operation, or an owned outlet. Television, cross-media partnerships, and channel/platform ownership retain their own capability and authorization gates.
+
+Commercial origin effects; origin transfer rates or overlap formulas; asking-price or fame surcharges; negative persona-mismatch modifiers; coaching formulas, caps, rates, or cycle tuning; expanded-role mechanics, role counts, or short-booking formulas; youth age coverage; welfare-policy details; family-label effects; and owned-channel/platform scope all remain explicitly **unapproved**. Current Ops retention is not Owner approval.
+
+The integration plan's analytical walkthrough remains paper analysis, not a human playtest, production-balance proof, or evidence of player enjoyment. Its illustrative surplus values are not tuning targets.
+
+Any later implementation requires, in order:
+
+1. Identification of the then-accepted product and client bases.
+2. A changed-path and authority refresh against those accepted bases.
+3. Resolution of only the product decisions required for the selected capability slice.
+4. A separate Current Ops execution order.
+
+Unrelated later capabilities are not prerequisites merely because the full vision preserves them.
+
 ---
 
 ## 8. Current Ops disposition
@@ -289,9 +315,10 @@ These are sufficient limits for product planning: the design can preserve uncert
 | Question | Disposition |
 |---|---|
 | Did Current Ops review the complete five-document set? | **Yes, at `207d06d4d3b6c665bd532bcbd3982d1bf0cb654f`; this follow-up records the five targeted clarifications.** |
+| Did Current Ops review the integrated talent-pathways planning? | **Yes, on `docs/talent-pathways-integration-01` at `c5d50a370d2bc6ddbb9925457a3aeb44f17f0e8d`; it is retained as reviewed, unscheduled future planning.** |
 | Is the vision compatible with the existing architecture? | **Yes, if implemented as extensions to P04/P05/P07/P10/P11/P12/P13/P14/P16/P17/P18 rather than duplicate systems.** |
 | Is any implementation authorized? | **No.** |
-| Is adult crossover independently buildable? | **Yes, only after the accepted P04/P05/P07/P10/P11/P12 seams exist, an accepted-base refresh is complete, and material origin-demand scope is approved. P08 is conditional on selecting its governed history presentation. Stage A does not wait for youth or television.** |
+| Is adult crossover independently buildable? | **Yes, after the accepted P04/P05/P07/P10/P11/P12 seams exist and an accepted-base refresh is complete. Origin-demand approval is required only if that commercial variant is selected; P08 is conditional on governed history presentation. Stage A does not wait for youth or television.** |
 | Is one youth fixture enough to claim a longitudinal system? | **No.** |
 | Does an adult-only family series require Stage B or C? | **No. Stage B applies when minors work; Stage C applies when a lifelong youth-development experience is claimed.** |
 | Does a film-only family label require television infrastructure? | **No. It requires actual family films and approved label, project-association, and concrete consumer/presentation interfaces.** |
@@ -301,4 +328,4 @@ These are sufficient limits for product planning: the design can preserve uncert
 | Are P11/P12 packages modified or reopened? | **No. Their existing ownership is consumed, not changed.** |
 | Were production code, tests, schemas, saves, generated DTOs, assets, or runtime state changed? | **No.** |
 
-The five-document set remains retained as unscheduled future planning. This clarification follow-up now stops for Current Ops review. Any later activation must begin with an accepted-base refresh and the applicable scoped product decisions; this document is not authorization to build.
+The five-document set and reviewed integration remain retained as unscheduled future planning. Any later activation follows the four-step law in §7.4; this document is not authorization to build.

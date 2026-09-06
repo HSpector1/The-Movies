@@ -2,7 +2,7 @@
 
 > **CURRENT OPS REVIEWED — RETAINED AS UNSCHEDULED FUTURE PLANNING**
 >
-> **TARGETED REVIEW CLARIFICATIONS RECORDED**
+> **INTEGRATED TALENT-PATHWAYS VISION RETAINED**
 >
 > **SPECIFIC MECHANICS NOT APPROVED**
 >
@@ -10,11 +10,13 @@
 >
 > **ACCEPTED-BASE REFRESH REQUIRED BEFORE ACTIVATION**
 
-Navigation: [Current Ops review](TALENT-ORIGINS-CURRENT-OPS-REVIEW.md) · [Crossover talent](CROSSOVER-TALENT-AND-SCREEN-CAREERS-DESIGN.md) · [Young performers](YOUNG-PERFORMERS-AND-CAREER-DEVELOPMENT-DESIGN.md) · [Family/TV handoff](FAMILY-ENTERTAINMENT-BRAND-AND-TV-HANDOFF.md)
+Navigation: [Current Ops review](TALENT-ORIGINS-CURRENT-OPS-REVIEW.md) · [Crossover talent](CROSSOVER-TALENT-AND-SCREEN-CAREERS-DESIGN.md) · [Young performers](YOUNG-PERFORMERS-AND-CAREER-DEVELOPMENT-DESIGN.md) · [Family/TV handoff](FAMILY-ENTERTAINMENT-BRAND-AND-TV-HANDOFF.md) · [Young Performers Program addendum](YOUNG-PERFORMERS-PROGRAM-DESIGN-AND-IMPLEMENTATION-ADDENDUM.md) · [Integrated talent pathways](TALENT-DEVELOPMENT-OUTREACH-AND-CASTING-INTEGRATION-PLAN.md)
 
 Current Ops reviewed all five documents at `207d06d4d3b6c665bd532bcbd3982d1bf0cb654f`. This follow-up records five targeted disposition clarifications only; it does not independently reverify external sources or report test execution. The companion designs remain unchanged, and this register plus the Current Ops hub qualify conflicting original wording for future activation review.
 
 The five reviewed clarifications govern: product decisions versus implementation recommendations; hard versus feature-conditional dependencies; concurrent youth protection and safe rollback; preservation of accepted P07 behavior when origin contribution is absent; and separation of accepted source facts, future P08 history authority, and Hollywood Wire editorial consumption.
+
+Current Ops subsequently reviewed branch `docs/talent-pathways-integration-01` at exact commit `c5d50a370d2bc6ddbb9925457a3aeb44f17f0e8d`, covering the [integrated talent-pathways plan](TALENT-DEVELOPMENT-OUTREACH-AND-CASTING-INTEGRATION-PLAN.md) and its minimal [Young Performers Program mapping](YOUNG-PERFORMERS-PROGRAM-DESIGN-AND-IMPLEMENTATION-ADDENDUM.md). Its disposition is **RETAIN AS REVIEWED, UNSCHEDULED FUTURE PLANNING**. Where either reviewed document still says Current Ops review is required, this disposition records that document review as complete; its unapproved-mechanics, accepted-base-refresh, and separate-authorization gates remain in force. Current Ops did not independently reverify its external sources, run tests, or establish player enjoyment or production balance.
 
 This document translates the retained research into bounded future stages. The stages are planning labels, not package numbers, work orders, campaign redirections, or authority to modify code. No schema name, DTO, save version, formula, balance value, or engineering-hour estimate is frozen.
 
@@ -104,7 +106,7 @@ Each row explicitly records the requested architecture fields. Names are concept
 |---|---|
 | **Player-facing outcome** | Discover an adult fictional outsider, compare known origin reach and uncertain screen craft against an established skilled unknown, inspect/test, make a bounded offer, respect a real outside commitment, cast or decline, and observe one authentic screen-career event on the same `PersonId`. |
 | **Entry dependencies** | Owner acceptance of the relevant P04/P05/P07/P10/P11/P12 seams and an accepted-base refresh; deterministic inspection. The Owner must decide whether/how origin appeal affects demand if that variant is selected. P08 is conditional on selecting governed Studio History presentation. Stage A does **not** require youth, lifecycle aging, television, a label, or a channel. |
-| **Material decisions** | **Owner product:** intended crossover experience and whether/how origin appeal affects demand. **Current Ops / implementation lead:** origin-record placement, external-commitment interval placement, and adapter shape after authority refresh. Public evidence vocabulary and whether a screen test is required remain product-scope questions if they materially change play. No transfer rate, cap, signed effect, decay, or recalibration is approved. |
+| **Material decisions** | **Owner product:** intended crossover experience and, only if the commercial variant is selected, whether/how origin appeal affects demand. **Current Ops / implementation lead:** origin-record placement, external-commitment interval placement, and adapter shape after authority refresh. Public evidence vocabulary and whether a screen test is required remain product-scope questions if they materially change play. No transfer rate, cap, signed effect, decay, or recalibration is approved. |
 | **Existing owners** | P10 identity/craft/Star Power/career; P04 audition/Fit; P05 production; P07 demand/result; P11 money; P12 employment/availability. P08, when accepted, records/presents governed history; Hollywood Wire is a separate downstream editorial consumer and never authors facts. |
 | **Bounded deliverables** | One era-available adult origin; authored evidence/provenance; one commitment interval; P04-compatible test; support/ensemble/vehicle/against-type/decline choices sufficient for one fixture; if approved, one provenance-aware audience contribution with a de-duplicated explanation; mandatory absent/zero/non-applicable compatibility path; one career event; rival eligibility under the same rules; UI read model. |
 | **Exact scope exclusions** | No minor; no age progression; no full sports/music/comedy/modelling/online simulation; no record label/tour; no generic celebrity stat; no new contract system; no biographies of real people; no schema reserved here. |
@@ -146,7 +148,7 @@ Stage B proves a protected production, not a full youth-to-adult career.
 |---|---|
 | **Player-facing outcome** | Follow the same fictional person across years: real work development, changing role evidence and interests, an adult contracting decision, optional pause/education/exit/return, and a later adult or behind-camera opportunity with complete history. |
 | **Entry dependencies** | Accepted Stage B protection for the youth path; the broader accepted P14 lifecycle/phase/cohort/alumni and long-horizon authority; P10 career/development/profession; P12 intervals; P11 obligations; accepted P08 only when its governed history presentation is part of the slice. |
-| **Material decisions** | Adult confirmation event and valid existing-option treatment; playing-range refresh cadence/evidence; expressed-interest representation; optional coaching (recommended still deferred); cohort bounds; behind-camera skill entry. |
+| **Material decisions** | Adult confirmation event and valid existing-option treatment; playing-range refresh cadence/evidence; expressed-interest representation; coaching only if separately selected under the shared-development proposal, not as a Stage C dependency; cohort bounds; behind-camera skill entry. |
 | **Existing owners** | P10 registers people, craft, credits, and career facts; P14 derives age/phase/choices/cohorts; P12 owns employer/interval; P11 settles obligations. P08, when accepted, records/presents governed history; Hollywood Wire separately consumes facts editorially and never authors them. |
 | **Bounded deliverables** | One `PersonId` across minor/adult phases; age-at-date and playing-range evidence; adult assent for a new agreement or renewal that requires it, with surviving terms/options resolved separately; pause/exit/return; real work-derived development; one separately evidenced profession transition; bounded career events/history; cohort limits through a long campaign fixture. |
 | **Exact scope exclusions** | No mortality/family/domestic-needs simulator; no deterministic puberty; no exact potential; no automatic decline/scandal; no full agency/social graph; no series unless Stage D exists. |
@@ -404,7 +406,7 @@ An in-flight youth production may not resume under an older binary or disabled c
 | Project-silo scheduling misses combined work | Two separately valid plans can become illegal/unsafe together | Aggregate each performer's concurrent productions and relevant outside commitments before every applicable check; templates-first remains an implementation proposal | Stage B |
 | Shared support capacity can be double-booked | One supervisor/education provider could falsely satisfy conflicting productions | Reconcile one atomic cross-project reservation; P05-first/P09/P10 placement remains an implementation recommendation | Stage B |
 | Protected-money accounting duplicates compensation | Cash corruption or studio benefits from performer money | P11 one gross settlement decomposition and exact receipt | Stage B |
-| Coaching scope pressure | Training bar/duplicate P10 development | No persistent coaching first; separate Owner decision after measurement | Stage C or later |
+| Coaching scope pressure | Training bar/duplicate P10 development | No coaching in the outreach foundation; require a separate Owner decision plus accepted-factor/capacity audit before any optional adult or YPP Option B coaching slice | Optional adult-development refinement / selected YPP Option B variant |
 | Majority transition oversimplified | Automatic ownership or false contract cancellation | Adult assent where a new agreement/renewal requires it plus contract-specific surviving terms/options | Stage C |
 | P16–P18 are planned, not shipped | Series design could freeze against nonexistent contracts | Wait for accepted owners and refresh; adult-only series uses the TV/rights stack, with Stage B/C added only for selected youth/lifelong variants | Stage D and series variants |
 | Label product consumer and record placement are unresolved | A label could become a meaningless bonus or duplicate corporate/Standing/rightsholder truth | Owner approves proposition/concrete consumer or presentation-only slice; implementation lead then resolves identity/association placement. Film-only label has no automatic TV dependency. | Stage E selected slice |
@@ -458,6 +460,30 @@ Existing engineering proposals remain proposals. Independent-review record-owner
 
 Where these questions overlap the five clarifications, the reviewed Current Ops disposition above controls. None mandates a mechanic or storage choice.
 
+### 13.4 Current Ops final disposition — integrated talent pathways
+
+| Review item | Recorded disposition |
+|---|---|
+| Reviewed integration | `docs/talent-pathways-integration-01` at `c5d50a370d2bc6ddbb9925457a3aeb44f17f0e8d`: [integration plan](TALENT-DEVELOPMENT-OUTREACH-AND-CASTING-INTEGRATION-PLAN.md) plus [Young Performers addendum mapping](YOUNG-PERFORMERS-PROGRAM-DESIGN-AND-IMPLEMENTATION-ADDENDUM.md) |
+| Integrated vision | **Retained:** shared adult development + two-way talent outreach + real script-supported career opportunities + later youth-program and lifelong-career capabilities |
+| First independent slice | Outreach plus an existing support role may prove one genuine screen-career transition without coaching, expanded named roles, short bookings, or commercial origin-audience formulas. |
+| Conditional extensions | Persistent coaching remains a separate product decision. Additional named roles and genuinely shorter bookings require their own approved capability extensions. |
+| Youth boundary | Youth production does not require academy membership or coaching merely because the performer is young. Adult development proves no youth safeguard, childhood-development, adult-transition, or lifelong-continuity capability. |
+| Family and media boundary | A family-film label has no inherent television, cross-media, or outlet dependency. Television, partnerships, and channel/platform ownership keep separate capability and authorization gates. |
+| Identity and safeguards | Existing Talent Origins, YPP, and TPI requirement/proof IDs, alternative strategies, return conditions, migration/rollback protections, legacy compatibility, and RNG protections remain unchanged. |
+| Evidence limit | The analytical walkthrough is not a human playtest and proves neither enjoyment nor production balance. Its illustrative surplus values are not tuning targets. |
+
+The following remain explicitly **unapproved**: commercial origin effects; origin transfer rates or audience-overlap formulas; asking-price or fame surcharges; negative persona-mismatch modifiers; coaching formulas, caps, rates, or cycle tuning; expanded-role mechanics, role counts, or short-booking formulas; youth age coverage; welfare-policy details; family-label effects; and owned-channel/platform scope. Retaining the plan does not infer Owner approval for any item.
+
+Activation requires all four of the following:
+
+1. Identify the then-accepted product and client bases.
+2. Refresh changed paths and authority against those accepted bases.
+3. Resolve only the product decisions required for the selected capability slice.
+4. Receive a separate Current Ops execution order.
+
+No unrelated later capability becomes a prerequisite merely because it remains part of the full vision.
+
 ---
 
 ## 14. Deferred, not dropped
@@ -481,4 +507,4 @@ The full emotional destination survives: decades later, the studio's history can
 
 ## 15. Stop condition
 
-This package supplies research and a staged implementation candidate. Current Ops reviewed the five-document set at `207d06d4d3b6c665bd532bcbd3982d1bf0cb654f`, and this targeted clarification follow-up now stops for Current Ops review. It does not authorize gameplay implementation, prototypes, Unity/game launch, tests, schemas, saves, DTOs, assets, package starts, or active-stack changes. Any later authorized effort begins with a new accepted-base refresh and a deliberately bounded stage charter.
+This package supplies research and a staged implementation candidate. Current Ops reviewed the five-document set at `207d06d4d3b6c665bd532bcbd3982d1bf0cb654f` and the integrated talent-pathways planning at `c5d50a370d2bc6ddbb9925457a3aeb44f17f0e8d`. Both remain unscheduled future planning. This disposition does not authorize gameplay implementation, prototypes, Unity/game launch, tests, schemas, saves, DTOs, assets, package starts, or active-stack changes. Any later effort must satisfy the four-step activation law in §13.4.
