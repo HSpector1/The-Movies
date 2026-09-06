@@ -88,7 +88,7 @@ function submit(session: BridgeSession, commandId: string, intentId: string, rev
 const ledgerRows = (state: GameState, kind: string, talentId: string) =>
   state.ledger.filter((row) => row.kind === kind && row.talentId === talentId)
 
-function originalPayload(state: GameState, writerId: string, genre: Genre): CommissionOriginalScreenplayPayload {
+function originalPayload(writerId: string, genre: Genre): CommissionOriginalScreenplayPayload {
   return {
     writerId,
     genre,
@@ -334,7 +334,7 @@ describe('P10-R1 — contract renewal / early release over the bridge', () => {
     }
     // A writer at work on a screenplay cannot be released until the task closes (existing D-11.9 guard).
     const writer = state.talent.find((t) => t.role === 'writer' && activeContract(state, t.id) !== undefined)!
-    const drafting = applyActions(state, [{ kind: 'commissionOriginalScreenplay', screenplay: originalPayload(state, writer.id, 'drama') }])
+    const drafting = applyActions(state, [{ kind: 'commissionOriginalScreenplay', screenplay: originalPayload(writer.id, 'drama') }])
     expect(writerOnTask(drafting).some((a) => a.talentId === writer.id)).toBe(true)
     const taskSession = new BridgeSession(drafting, 'p10-r1-task')
     const refused = quoteContract(taskSession, 'q-task', { verb: 'release', talentId: writer.id, termWeeks: null })
