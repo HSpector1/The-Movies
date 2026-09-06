@@ -1,279 +1,200 @@
 # P11A Financial Truth and Code Reconnaissance
 
 
-**Status:** PROVISIONAL — ACTIVE P08–P10 DEPENDENCIES
-**Review state:** READY FOR CURRENT OPS PM REVIEW — LOCAL RECON INCORPORATED
-**Implementation:** NOT AUTHORIZED FOR IMPLEMENTATION
-**Accepted TypeScript base:** `2753e18ba8fb5f65b936c22cde9531646fecc6cd`
-**Accepted Unity base:** `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6`
-**Starting protocol / projection / save:** `4 / 15 / V16`
-**Starting schema:** `sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99`
+**Status:** PROVISIONAL — OBSERVED P08–P10 STACK REFRESH (REVISION 03)
+**Review state:** READY FOR CURRENT OPS DOCUMENT REVIEW
+**Refresh state:** PROVISIONAL OBSERVED-STACK REFRESH COMPLETE · FINAL ACCEPTED-BASE REFRESH PENDING
+**Implementation:** P11 IMPLEMENTATION NOT AUTHORIZED
+**Accepted P07 baseline:** TS `2753e18ba8fb5f65b936c22cde9531646fecc6cd` · Unity `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6` · 4 / 15 / V16 · schema `sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99`
+**Observed P08–P10 WIP snapshot (this revision):** TS product `7b4d8ffebeb0b7978763780420fdc8542df68b5f` (docs tip `a2baa1d9b3ffb2666732dba55823e09cc76c7352`) × Unity `1d304f89a29ffca160129b705d7d627543adfb4d` · 4 / 19 / V18 · schema `sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9` · inspected 2026-09-06 20:16Z–20:30Z · OWNER ACCEPTANCE PENDING · UNSEALED
+**Final accepted P08–P10 base:** PENDING
 **Original P11 research:** `codex/finance-executive-ux-research-11@d6c38546d19fbb23533af496e0f62b9c340b7ce5`
-**Active stack:** `OPS-P08P10-20260905-01`; all active work is **UNSEALED FORWARD EVIDENCE**
+**Revision 02 (immutable):** `90b349a8272f17ad7ea541cdddc777d36c1d861d` · **Hub:** `P11A-READINESS-AND-DEPENDENCY-GATE.md`
 
+
+## 0. Revision log
+
+| Revision | Change |
+|---|---|
+| 02 | Reconciled the accepted P07 source with the original P11 findings; recorded the 2026-09-05 local recon snapshot (P08 Wave 2, P09/P10 not begun) |
+| 03 | Re-traced facility Opex at the observed pair (STILL PRESENT, now on the wire and the Administration card); recorded observed P08/P09/P10 seams and new ledger kinds; added the seven-field disclosure for every proposed Finance number and the four time classes (§4.0); corrected the cancel rule and the Upcoming public-information rule (§10); listed the precise proposed W0 repairs (§3.3) without implementing them |
 
 ## 1. Purpose and evidence boundary
 
-This is a read-only reconciliation of the accepted P07 TypeScript source, the original P11 research, and the active P08–P10 planning/WIP evidence. It changes no code and does not certify unsealed implementation.
-
-The original P11 product law is preserved. Its August code findings are reclassified below against the accepted source instead of being repeated as assumptions.
+Read-only reconciliation of the accepted P07 source, the original P11 research, and the observed P08–P10 WIP pair. It changes no code, runs no tests, launches nothing, and certifies no unsealed implementation. Every current-state claim names its snapshot; "observed" means read in git at TS `7b4d8ff…` / Unity `1d304f8…` on 2026-09-06 unless stated otherwise.
 
 ## 2. Exact sources inspected
 
-### Accepted product authority
+### Accepted product authority (unchanged from Revision 02)
 
-- `campaign/living-lot-ts@2753e18ba8fb5f65b936c22cde9531646fecc6cd`
-- `CURRENT-BEST.md`
-- `docs/engineering/P07-TO-P08-FINAL-AUTHORITY-HANDOFF.md`
-- `docs/engineering/P06-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md`
-- `docs/engineering/P07-IMPLEMENTATION-AND-OWNER-PLAYTEST-LESSONS-LEARNED.md`
-- `src/core/types.ts`
-- `src/core/employment.ts`
-- `src/core/economyView.ts`
-- `src/core/fixedCostAllocation.ts`
-- `src/core/placement.ts`
-- `src/core/sets.ts`
-- `src/core/tick.ts`
+`campaign/living-lot-ts@2753e18b…`; `CURRENT-BEST.md`; `docs/engineering/P07-TO-P08-FINAL-AUTHORITY-HANDOFF.md`; P06/P07 lessons; `src/core/types.ts`, `employment.ts`, `economyView.ts`, `fixedCostAllocation.ts`, `placement.ts`, `sets.ts`, `tick.ts`.
 
 ### P11 product/design authority
 
-- `codex/finance-executive-ux-research-11@d6c38546d19fbb23533af496e0f62b9c340b7ce5`
-- `docs/design/CODEX-FINANCE-EXECUTIVE-UX-PACKAGE-11.md`
-- `docs/design/CODEX-FINANCE-EXECUTIVE-UX-PACKAGE-11-BUILDER-ANNEX.md`
+`codex/finance-executive-ux-research-11@d6c38546…` — `docs/design/CODEX-FINANCE-EXECUTIVE-UX-PACKAGE-11.md` (§§16, 23, 24, 35, 38 re-read this revision) and `…-BUILDER-ANNEX.md` (C2, C3, D5, M re-read).
 
-### Active producer planning / forward evidence
+### Observed producer stack (Revision 03)
 
-- `docs/p08-p10-autonomous-stack-launch-01@72ca8e797e5185a5dec13ac4c4311e391b8e96e3`
-- Current Ops authorization `OPS-P08P10-20260905-01`
-- coding-agent local recon snapshot: TS `908879a9c5fa73d2015985834e951db84c69ab8a`; Unity `685f113e480ee18ea242ad8a341e7710523f840f`; validated `2026-09-05T08:25:39Z`
-- `docs/operations/OPS-P08P10-20260905-01-CURRENT-OPS-DELTA.md`
-- `docs/engineering/CODEX-P08-P10-AUTONOMOUS-STACK-CURRENT-REFRESH.md`
-- `docs/campaigns/P08-P10-AUTONOMOUS-STACK-HANDOFF.md`
+- TS `wip/p08-p10-autonomous-stack-01-ts@a2baa1d9…` (product `7b4d8ff…`): `src/core/economyView.ts`, `fixedCostAllocation.ts`, `tick.ts` (7.x), `placement.ts` (`weeklyPlacementOperatingCost`, `completeDuePlacements`, `expectedWeeklyOperatingCostAt`, move/demolish/refund), `actions.ts` (`applySignContract`, `applyRenewContract`, `applyReleaseTalent`, facility-history rows), `studioHistory.ts`, `types.ts` (ledger kinds, history events, `CashLedgerCheckpoint`), `save.ts` (`validateSaveV18`, `makeSave`); `bridge/placement.ts`, `setCommission.ts`, `contract.ts`, `people.ts`, `history.ts`, `session.ts` (quote map), `server.ts` (routes), `schema/bridge-schema.ts` (`StudioTreasurySnapshot`, P07 result, placed facility, contract snapshots), `runtime-checkpoint.ts` (`SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS`); `generated/unity/*`; `scripts/p09-solvency-preflight.mts`; `tests/bridge-p09a-w5-bare-lot-first-film.test.ts`.
+- Committed records at the same tip: `docs/campaigns/P08-P10-AUTONOMOUS-STACK-HANDOFF.md` (C0–C10), `P08-P10-CLOSE-GATES-DISPOSITIONS.md`, `P08/P09/P10-TECHNICAL-CHECKPOINT.md`, `docs/engineering/P10-INFORMATION-VISIBILITY-TABLE.md`, `P10-FUTURE-CONSUMER-CONTRACT.md`, `docs/operations/OPS-P08P10-20260905-01-*`.
+- Unity `wip/p08-p10-autonomous-stack-01-client@1d304f8…`: `StudioWorkspaceHost.cs`, `StudioFoundingCardHud.cs` (Administration card), `StudioProfileWorkspace.cs`, `StudioRosterWorkspace.cs`, `StudioHistoryWorkspace.cs`, `StudioBuildWorkspace.cs`, `StudioLotGrowthPresentation.cs`, `StudioSelectionManager.cs`, `StudioLocateAction.cs`, the generated DTO.
+- Preserved candidate `~/Desktop/P08-P10-Combined-Candidate-7b4d8ff-1d304f8/`: `player/build-manifest.json`, `engine/engine.mjs` (hash recomputed), `evidence/P10-Contract-Journey/*` (report + run binding), `evidence/P10-Owner-Profile-Copy/*` (reports), `evidence/P10-Oracle-Sweep/summary.tsv`, `evidence/P10-Compat-Boundary/*` (present, not parsed); `evidence/P09-Build-Journey/` and `evidence/P10-People-Journey/` are empty. Real-input Build/People run reports were read from the active Unity worktree's `Evidence/*-CloseGates/` folders (read-only; nothing modified).
 
-The active WIP is **UNSEALED FORWARD EVIDENCE**. Its current symbols may move before acceptance.
-
-The local recon packet is Owner-supplied implementation-adjacent evidence, not accepted campaign authority. It verified private Unity ownership and worktree state read-only; this document does not claim independent reproduction of those local facts.
+The WIP is **UNSEALED FORWARD EVIDENCE**. The Owner's durable profile was not opened.
 
 ## 3. Highest-consequence finding
 
-### Facility Opex projection status: STILL PRESENT
+### 3.1 Facility Opex projection status: **STILL PRESENT** (observed 2026-09-06 at TS `7b4d8ff…`)
 
-The old P11 defect remains present at the accepted P07 source:
+`git diff --quiet 2753e18b 7b4d8ff -- src/core/economyView.ts src/core/fixedCostAllocation.ts src/core/employment.ts src/core/sets.ts` reports no change: the four files are byte-identical to the accepted P07 base. The trace:
 
-| Layer | Current behavior |
-|---|---|
-| Authoritative tick | Debits payroll, ordinary overhead and operational facility Opex separately; the latter is step 7.6 |
-| Signed ledger | Appends `facilityOpex` as its own kind |
-| All-time totals | Maps `facilityOpex` into the overhead reporting bucket |
-| Period summary | Explicitly counts `facilityOpex` under overhead |
-| `weeklyBurn()` | Payroll + ordinary overhead only; facility Opex omitted |
-| `runway()` / `financeView()` | Use incomplete `weeklyBurn()` |
-| `commitmentPreview()` | Uses incomplete `weeklyBurn()` |
-| `prospectiveCycleFixedCost()` | Uses incomplete `weeklyBurn()` outside founding |
-| `postSigningRunway()` | Starts from incomplete `weeklyBurn()` |
-| `ledgerFixedCostByWeek()` | Reads only `payroll` and `overhead`, omitting `facilityOpex` |
+| Layer | Observed behavior at `7b4d8ff…` | Class |
+|---|---|---|
+| Authoritative tick | Step 7 payroll (`weeklyPayroll`), 7.5 ordinary overhead (`OVERHEAD_BASE + OVERHEAD_PER_EMPLOYEE × contracts`), 7.6 `weeklyPlacementOperatingCost(state.placement)` for facilities **operational at the start of the advance**; each writes its own signed ledger row (`payroll`, `overhead`, `facilityOpex`) — `src/core/tick.ts` ~985–1020 | SOURCE OBSERVED |
+| Construction completion / Opex onset | `commitPlacement` → `status: 'underConstruction'`; `completeDuePlacements` flips to `operational` when `completesWeek <= tick`; first Opex charge lands on the **next** advance after completion (tick comment); `expectedWeeklyOperatingCostAt(placement, ledger, week)` reconstructs the lawful charge for any week including demolished facilities | SOURCE OBSERVED |
+| All-time totals / period summary | `financeTotals()` maps `facilityOpex` → overhead bucket (`economyView.ts:470`); `periodSummary()` counts it (`:545`) | SOURCE OBSERVED |
+| `weeklyBurn()` | `founding !== null ? 0 : weeklyPayroll + weeklyOverhead` — facility Opex omitted (`economyView.ts:60–63`) | SOURCE OBSERVED |
+| `runway()` / `runwayOf()` / `financeView()` | consume `weeklyBurn` (`:115–127`, `:618–632`) | SOURCE OBSERVED |
+| `commitmentPreview()`, `prospectiveCycleFixedCost()` (non-founding branch), `postSigningRunway()` | consume `weeklyBurn` (`:159–167`, `:215–223`, `:340–366`) | SOURCE OBSERVED |
+| `ledgerFixedCostByWeek()` | ledger `payroll` + `overhead` only (`fixedCostAllocation.ts:131`) — managerial allocator, out of P11A scope by design §38 | SOURCE OBSERVED |
+| **Wire** | `StudioTreasurySnapshot { cash, weeklyBurn, weeklyPayroll, netWeeklyCash, runwayWeeks, runwayInfinite }` from `financeView`/`runway` (`ui/src/engine/adapter.ts:2485`, `:4445`) — inherits the omission | SOURCE OBSERVED |
+| **Player surface** | Post-founding Administration card rows "Cash / Weekly payroll / Weekly burn / Net weekly / Runway" (`StudioFoundingCardHud.cs` ~1083–1093); HUD direction arrow from `netWeeklyCash` (`StudioLivingTimeHud.cs:136`) | SOURCE OBSERVED |
+| Contract activation / renewal / release | `applySignContract` (bonus from the recruitment fund during founding, cash otherwise), `applyRenewContract` → `signingBonus` ledger row, `applyReleaseTalent` → `termination` ledger row (`actions.ts` ~2705–2775); payroll picks up the new/extended contract at the next tick through `weeklyPayroll` | SOURCE OBSERVED |
+| Current pace / next-period / runway | all built on the incomplete `weeklyBurn` | SOURCE OBSERVED |
 
-The fix, if still needed after P08–P10, is a **behavior-neutral read-model repair**. It must not change the debit, timing, blueprint cost, starting cash, or any other economy tuning.
+**Reclassification:** STILL PRESENT. Not FIXED, not PARTIALLY FIXED. Verifiable (source is public in the repository).
 
-### Active P09 implication
+### 3.2 Why P09's solvency evidence stands
 
-P09's Current Ops order requires an ordinary-player solvency proof covering facility Opex and the wait to actual receipts. Any solver or report that uses current `weeklyBurn`, `runway`, `prospectiveCycleFixedCost` or `postSigningRunway` without separately adding operational facility Opex can understate the true recurring burden.
+- `scripts/p09-solvency-preflight.mts` (§15A gate) models "capex at commit, opex from completion" explicitly and excludes `payroll/overhead/facilityOpex` from picture spend by kind — it never used `weeklyBurn`. Its VERDICT SOLVENT (modelled floor $6,713,185) is EVIDENCE REPORTED in the P09 checkpoint §5.
+- `tests/bridge-p09a-w5-bare-lot-first-film.test.ts` drives the real engine over the wire, asserts `facilityOpex` among the ledger kinds seen, asserts no fixture adjustment rows, and asserts `final.studio.cash === INITIAL_CASH + Σ ledger amounts` (lines 106–110). The reported result (release week 37, floor $8,864,638, final $9,374,658) is a **complete measured cash-ledger journey**.
+- Therefore the incomplete summary selector does not invalidate the solvency proof. What it does invalidate is any **displayed** "Weekly burn / Net weekly / Runway" on a lot with operational placed facilities, which the observed Administration card now shows. That is a presentation-truth limitation of the P08–P10 candidate, recorded for Current Ops in the register §4.B; it is not an escalation to the running stack and not a P09 tuning defect.
 
-At the recon snapshot, P09 implementation and its solvency proof had **not** begun. Therefore **NO CURRENT OPS ESCALATION** was required. The finding becomes a mandatory P09 entry/final-solvency watch item and a P11 W0 prerequisite, not a reason to interrupt current P08 work.
+### 3.3 Precise proposed P11 W0 repairs (proposal only — not implemented, not an instruction to Fable)
+
+1. Add one core selector `weeklyFacilityOperatingCost(state)` = `state.founding === null && engaged ? weeklyPlacementOperatingCost(state.placement) : 0`, mirroring tick 7.6's gate and timing (facilities operational at the start of the next advance).
+2. Make `weeklyBurn(state)` = payroll + ordinary overhead + `weeklyFacilityOperatingCost`, preserving the founding-draft zero. This aligns the D-17A/T1 contract comment ("the ACTUAL weekly charge") with the tick; it changes no debit, timing, blueprint cost or tuning.
+3. Extend `FinanceView` additively with `weeklyFacilityOperatingCost` and `weeklyOverhead` components so `weeklyOperatingCost` can publish its basis; keep `weeklyPayroll` unchanged.
+4. Leave `ledgerFixedCostByWeek()` untouched in W0 (design §38 item 1; register `P11-REQ-035` CONDITIONAL).
+5. Tests: selector↔tick↔ledger reconciliation on (a) endowed lot, (b) bare lot with one operational and one rising facility across the completion boundary, (c) demolition boundary via `expectedWeeklyOperatingCostAt`, (d) founding draft = 0; mutation guard that no observation touches state or RNG.
+6. Wire: `StudioTreasurySnapshot.weeklyBurn` and `netWeeklyCash` become complete automatically; whether to add a named `weeklyFacilityOperatingCost` field to the treasury snapshot is a W2 additive-schema choice.
+
+Any of the above requires its own authorized scope and independent verification; Current Ops may also choose to block the affected P11 rows instead.
 
 ## 4. Financial truth catalogue
 
-### 4.1 Current and recurring facts
+### 4.0 Time classes and the seven-field disclosure
 
-| Name | Definition | Source file / symbol | Period / units | Persisted or derived | Public or hidden | Historical coverage | Limitations |
+Every Finance number belongs to exactly one time class:
+
+| Class | Meaning | Source law |
+|---|---|---|
+| **A. Recorded past cash movement** | A signed ledger row (or a checkpoint boundary) for an exact week | `GameState.ledger`, `CashLedgerCheckpoint` |
+| **B. Current recurring operating cost** | The charge the **next** authoritative advance will apply given current state | tick steps 7 / 7.5 / 7.6 selectors |
+| **C. Next-period effect of a current commitment** | A first charge/receipt that lands on a later, already-determined advance (facility completion, renewal end week, run remainder) | `completesWeek`, `endWeekExclusive`, run counters |
+| **D. Conditional current-pacing estimate** | Arithmetic over B and the next scheduled receipt; never a guarantee | `runwayOf` after repair |
+
+Recommended default time basis (for Current Ops adoption): B is "the debit the next advance will charge given the current tick and current state"; A is an inclusive ledger week range; C names the exact week and says "from the following advance" where the tick law charges one advance later; D is labelled "at current pace" with its basis and exclusions.
+
+For each proposed Finance number: DEFINITION · SOURCE · TIME BASIS · INCLUDED · EXCLUSIONS · HISTORICAL COVERAGE · PUBLIC-INFORMATION BASIS.
+
+| Number | Definition | Source (observed) | Time basis | Included | Exclusions | Historical coverage | Public-information basis |
 |---|---|---|---|---|---|---|---|
-| Cash | Literal `state.studio.cash` now. | `src/core/types.ts::Studio.cash`; action/tick mutations | Instant / whole dollars | Persisted | Public | Complete current state; pre-ledger movement detail may be incomplete | Not net worth, available cash, reserves or profit. |
-| Payroll | Sum of weekly salary for contracts active at the authoritative week. | `employment.ts::weeklySalary`, `weeklyPayroll`; tick step 7 | One authoritative week / whole dollars | Derived from persisted contracts; ledgered when charged | Public | Current and recorded payroll rows after ledger boundary | Founding draft is not charged; freelancers are not payroll. |
-| Ordinary overhead | Base plus per-contract overhead charged by current law. | `economyView.ts::weeklyOverhead`; tick step 7.5 | One authoritative week / whole dollars | Derived; ledgered as `overhead` when charged | Public | Current and recorded after ledger boundary | Not complete Studio Operations because facility Opex is separate. |
-| Facility operating cost | Sum of blueprint Opex for operational placed facilities at start of advance. | `placement.ts::weeklyPlacementOperatingCost`; tick step 7.6 | One authoritative week / whole dollars | Derived; ledgered as `facilityOpex` | Public | Complete for placed facilities represented by current state/ledger | First charge occurs on the advance after completion; omitted by current `weeklyBurn`. |
-| Weekly operating cost | Payroll + ordinary overhead + operational facility Opex. | Must compose `weeklyPayroll`, `weeklyOverhead`, `weeklyPlacementOperatingCost` in one core selector | Next authoritative week / whole dollars | Derived | Public | Current only; recorded period derives from ledger | Current accepted selector `weeklyBurn` is incomplete. |
-| Next scheduled Studio Revenue | Receipt due from already-active theatrical runs on next tick. | `economyView.ts::expectedWeeklyRunRevenue`; `runNextWeekRevenue` | Next authoritative week / whole dollars | Derived from persisted runs | Public only under accepted P07 projected/paid language | Current active runs only | Not an average forecast or banked cash. |
-| Net weekly cashflow | Next scheduled Studio Revenue minus complete Weekly operating cost. | Future complete finance selector; current `financeView.netWeeklyCash` uses incomplete burn | Next authoritative week / whole dollars | Derived | Public | Current commitments only | Not last week’s movement, profit, or long-range forecast. |
-| Approx. runway at current pace | Floor of Cash divided by current recurring deficit, with explicit positive/steady/in-red states. | `economyView.ts::runwayOf`/`runway`, after complete recurring basis | Current-pacing estimate / whole weeks | Derived | Public with basis/exclusions | Current only | Not a failure date; current accepted input omits facility Opex. |
+| Cash | literal `state.studio.cash` | `types.ts::Studio.cash`; on the wire as `StudioTreasurySnapshot.cash` | instant | the balance | obligations, reserves, net worth | current state only | already public on the lot HUD |
+| Payroll (weekly) | Σ `weeklySalary` of contracts active at the current tick | `employment.ts::weeklyPayroll`; wire `treasury.weeklyPayroll`, per-person `contract.weeklySalary` | B | contracted salaries | founding draft (not charged), freelancer fees, bonuses | ledger `payroll` rows after the recording boundary | public: person contract sheet already shows salary |
+| Ordinary overhead (weekly) | `OVERHEAD_BASE + OVERHEAD_PER_EMPLOYEE × contracts` | `economyView.ts::weeklyOverhead`; tick 7.5 | B | base + per-contract | facility Opex | ledger `overhead` rows | public: component of the displayed burn |
+| Facility operating cost (weekly) | Σ blueprint `weeklyOperatingCost` of facilities operational at the start of the advance | `placement.ts::weeklyPlacementOperatingCost`; tick 7.6; wire per-facility `StudioPlacedFacilitySnapshot.weeklyOperatingCost` | B (first charge the advance after completion) | operational placed facilities | rising facilities, Sets (weekly Set maintenance tuning is 0), demolished facilities | ledger `facilityOpex` rows; `expectedWeeklyOperatingCostAt` reconstructs any week | public: per-facility Opex is already on the wire and the Build catalogue |
+| **Weekly operating cost** | payroll + ordinary overhead + facility operating cost | **missing** as one selector; proposed W0 `weeklyBurn` repair | B | the three recurring components | every one-time movement (capex, Set capex/repair, bonuses, termination, Greenlight, publicity) | current only; recorded periods derive from A | public: composed only of public components |
+| Next scheduled Studio Revenue | receipt due on the next advance from active locked runs | `economyView.ts::expectedWeeklyRunRevenue` | C (next advance) | active runs' next-week studio share | unreleased films, averages, forecasts | active runs only | public in aggregate: `netWeeklyCash + weeklyBurn` on the wire equals it |
+| Net weekly cashflow | next scheduled Studio Revenue − Weekly operating cost | `financeView.netWeeklyCash` after repair | B/C (next advance) | the two lines above | one-time movements, last week's actuals | current commitments only | public (already on the wire, understated today) |
+| Runway at current pace | floor(Cash ÷ recurring deficit); positive/steady/in-red states | `economyView.ts::runwayOf` after repair | D | Cash, net weekly cashflow | any future decision, receipts beyond active runs | current only | public (already on the wire and the Administration card) |
+| Last recorded period | opening Cash + Σ signed rows in range = closing Cash | `economyView.ts::periodSummary` over `ledger` | A | every retained ledger row in the inclusive range | rows before the recording boundary | from the checkpoint/ledger boundary onward | public: ledger kinds are typed, no hidden subject |
+| Payroll detail | per-contract weekly salary, end week, remaining guarantee | `bridge/people.ts` `BridgePersonContractSnapshot` (`annualSalary`, `weeklySalary`, `endWeekExclusive`, `remainingWeeks`, `guaranteedRemaining`, `terminationCost`) | B + C | active contracts | hidden skills/ceilings (schema-negative tests) | current contracts | public per the P10 visibility table |
+| Obligations (compact) | Σ `guaranteedRemaining` across active contracts, shown beside Cash | `employment.ts::guaranteedComp` via `people.ts` | C (through each `endWeekExclusive`) | remaining guaranteed salary | signing bonuses already paid, freelance fees, capex | current contracts | public (same field the Profile shows) |
+| Studio Operations detail | ordinary overhead + per-facility Opex with exact facility links | `weeklyOverhead` + `StudioPlacedFacilitySnapshot` rows | B | operational facilities, base/per-contract overhead | payroll, capital | current | public |
+| Construction capital spending | immediate build debit at commit | `placement.ts::commitPlacement`; ledger `constructionCapex`; quote `cost`, `cashBefore/After` | A on commit; preview is a pure quote | blueprint capex | Opex, refunds | ledger rows | public (quote already rendered by the Build dock) |
+| Facility Opex onset (preview) | `+weeklyOperatingCost/week` from the advance after `completesOnWeek` | `bridge/placement.ts` `placementQuoteSnapshot.weeklyOperatingCost`, `buildWeeks`, `completesOnWeek` | C | the blueprint's Opex | capex, capacity value | n/a | public (already on the quote) |
+| Contract action consequence | bonus now / termination now, cash after, guarantee context | `bridge/contract.ts` `contractQuoteSnapshot` (`cost`, `cashBefore/After`, `affordable`, `guaranteedRemaining`, `newEndWeekExclusive`, `consequence`) | A on commit; C for the extended term | the engine's own offer/termination law | payroll delta beyond the offer's weekly salary, morale/reputation | n/a | public (rendered verbatim on the Profile sheet) |
+| Theatrical Gross (opening, full-run, paid to date) | audience spend | P07 `boxOfficeOpening`, `boxOfficeGrossTotal`, `grossPaidToDate` | A/C by run status | gross only | studio share | where a `FilmResult` exists | public under P07 |
+| Studio Revenue received / scheduled / full-run | locked share credited to date / remaining / total | P07 `studioRevenuePaidToDate`, `studioRevenueTotal` (+ `projected` flag), `runStatus`, `totalWeeks`, `weeksCredited` | A (received) / C (scheduled) | the active run's locked schedule | per-week future amounts (not on the wire) | current and legacy runs with path provenance | received: public; scheduled remainder: public as `total − paidToDate` while `projected`; **per-week future amounts: not public** |
+| Direct film commitment | production + marketing + correlated freelancer fees | P07 `committedCost`; ledger rows by `productionId` | A | authored budget paid at Greenlight, freelancer fees | studio payroll/overhead/facility Opex | where correlated rows exist; historic split may be unavailable | public under P07 |
+| Film Contribution (projected/final) | full-run Studio Revenue − direct film commitment | P07 `contribution`, `projected`; P11 Finance restates with explicit exclusions | C while projected; A when final | the two lines above | studio-wide costs, Builder economics (`not modeled`) | per result | public under P07; P07 labels untouched |
 
-### 4.2 One-time movements and obligations
+### 4.1 Ledger kinds observed at `7b4d8ff…`
 
-| Name | Definition | Source file / symbol | Period / units | Persisted or derived | Public or hidden | Historical coverage | Limitations |
-|---|---|---|---|---|---|---|---|
-| Construction capital spending | Immediate authoritative facility build debit. | `placement.ts::queryPlacement`/`commitPlacement`; ledger `constructionCapex` | Action week / whole dollars | Quote derived; accepted debit persisted | Public | Recorded after ledger boundary | P09 owns action; P11 only presents consequence. |
-| Facility demolition refund | Positive capital recovered when a legal facility is demolished. | `placement.ts`; ledger `facilityDemolitionRefund` | Action week / whole dollars | Derived then persisted on commit | Public | Recorded after kind exists | Not operating revenue or negative expense. |
-| Set capital / strike refund | Set build debit or lossy strike credit. | `sets.ts`; ledger `setCapex` / `setDemolitionRefund` | Action week / whole dollars | Persisted | Public | Recorded after V14 authority | Not facility Opex. |
-| Set repair | One-time repair debit when repair is ordered. | `sets.ts`; ledger `setMaintenance`; `TUNING.SET_REPAIR_COST` | Action week / whole dollars | Persisted | Public | Recorded after set authority | Current weekly set-maintenance tuning is zero; do not include in recurring cost. |
-| Signing bonus | Immediate contract/founding commitment under current source rules. | `employment.ts::contractOffer`; action law; ledger `signingBonus` where cash-funded | Action week / whole dollars | Offer derived; payment persisted | Public | Recorded after ledger boundary | Founding recruitment fund is separate from Cash. |
-| Weekly salary | Rounded annual salary divided by 52. | `employment.ts::weeklySalary` | Per week / whole dollars | Derived from persisted contract | Public | Current contract term | Do not confuse with signing bonus or freelancer fee. |
-| Remaining guaranteed salary | Weekly salary × remaining active term. | `employment.ts::guaranteedComp`; `economyView.ts::offerObligation` | From current week to contract end / whole dollars | Derived | Public | Current contract only | Obligation, not reserved cash or amount due today. |
-| Termination payment | Current-law fraction of remaining guarantee for early release. | `employment.ts::terminationCost`; owning action | Action week / whole dollars | Derived then persisted if action succeeds | Public | Current eligible contract | Current action can take cash negative; do not apply ordinary affordability rule blindly. |
-| Production commitment | Authored negative-production spend paid at Greenlight. | `Production.budget.negative`; Greenlight action; ledger `production` | Greenlight / whole dollars | Persisted in live Production; combined ledger row persists | Public | Exact while Production exists; historical split may be unavailable | Not rolling spend-to-date. |
-| Marketing commitment | Authored marketing spend paid at Greenlight under current law. | `Production.budget.marketing`; Greenlight action; combined ledger `production` | Greenlight / whole dollars | Persisted in live Production; combined historical row | Public | Split may disappear after Production deletion | P11 must not move marketing to Release. |
-| Freelancer fee | One-film fee for noncontracted talent in engaged mode. | `employment.ts::freelancerFee`, `assignmentProjectCost`; ledger `freelancerFee` | Greenlight / whole dollars | Derived then persisted | Public | Recorded by production ID | Direct film cost, not payroll. |
-| Publicity purchase | One-time studio-level publicity campaign debit. | Current publicity action; ledger `publicity` | Action week / whole dollars | Persisted | Public | Recorded after D-17B | No production ID; never assign to a film by coincidence. |
+`LedgerKind` = V10 kinds (`payroll`, `overhead`, `publicity`, `production`, `studioRevenue`, `signingBonus`, `freelancerFee`, `termination`, …) + `constructionCapex` (V11) + `facilityOpex` (V12) + `facilityDemolitionRefund` (V13) + `setCapex`, `setMaintenance`, `setDemolitionRefund`. No new ledger kind was added by P08–P10; renewal reuses `signingBonus`, release reuses `termination`. `CashLedgerCheckpoint` (`types.ts:836`) is unchanged.
 
-### 4.3 Film and theatrical facts
+### 4.2–4.4 One-time movements, film facts, history facts
 
-| Name | Definition | Source file / symbol | Period / units | Persisted or derived | Public or hidden | Historical coverage | Limitations |
-|---|---|---|---|---|---|---|---|
-| Opening theatrical gross | Audience spend in opening result. | `FilmResult.boxOffice.opening`; P07 `boxOfficeOpening` | Release result / whole dollars | Persisted | Public | Complete where FilmResult exists | Gross, not studio cash. |
-| Full-run theatrical gross | Locked gross for the theatrical run. | `FilmResult.boxOffice.total`; `TheatricalRun.weeklyGross`; P07 `boxOfficeGrossTotal` | Full run / whole dollars | Persisted | Public as projected while active, final when settled | Complete for current runs; legacy path carries its own provenance | Do not expose internal future truth as settled. |
-| Gross paid to date | Cumulative audience gross credited through current run week. | `TheatricalRun.cumulativeGrossPaid`; P07 `grossPaidToDate` | Through current week / whole dollars | Persisted | Public | Active/completed runs | Not studio cash. |
-| Studio Revenue received | Cumulative locked studio share actually credited to cash. | `TheatricalRun.cumulativeStudioRevenuePaid`; ledger `studioRevenue`; P07 field | Through current week / whole dollars | Persisted | Public | Active/completed run; legacy lump distinct | Banked cash, not full-run total. |
-| Studio Revenue scheduled | Remaining receipts of already-active locked run. | `economyView.ts::runRemainingRevenue`; P07 projected fields | Future locked run weeks / whole dollars | Derived from persisted run | Public under accepted P07 projection law | Active runs only | Not current cash; not general forecast. |
-| Full-run Studio Revenue | Locked studio share × full-run gross. | `runView.totalStudioRevenue`; P07 `studioRevenueTotal` | Full run / whole dollars | Derived from persisted run/legacy basis | Public as projected/final according to run status | Current/legacy path-specific | Do not change accepted share or result semantics. |
-| Direct film commitment | Production + marketing + correlated freelancer fees for exact production ID. | Core `filmCommittedCost`; ledger by `productionId` | At Greenlight / whole dollars | Derived from retained ledger; split partially persisted | Public | Available where correlated rows exist | Excludes studio payroll and operations. |
-| Film Contribution | Full-run Studio Revenue − Direct film commitment. | P07 result projection / centralized future P11 selector | Full run / whole dollars | Derived | Public as projected/final | Depends on current authoritative cost and run facts | Not Net Profit or total studio profitability. |
-| P07 result label / ROI | Accepted P07 direct-film business interpretation. | P07 `resultLabel`, `roi`, `projected` | Release/run status | Derived in accepted P07 result projection | Public on accepted P07 surface | Accepted P07 semantics | P11 Finance should not propagate it as all-in studio profit; harmonization is a controlled presentation change. |
-
-### 4.4 History and reconciliation facts
-
-| Name | Definition | Source file / symbol | Period / units | Persisted or derived | Public or hidden | Historical coverage | Limitations |
-|---|---|---|---|---|---|---|---|
-| Signed ledger entry | One authoritative cash movement with week, kind, amount and allowed subject correlation. | `GameState.ledger`; `LedgerEntry` | Exact action/tick week / whole dollars | Persisted | Public through bounded projection | Complete only from ledger/checkpoint recording boundary | Notes are not a universal historical title or event contract. |
-| This Week / period summary | Exact signed category aggregation for inclusive week range. | `economyView.ts::periodSummary` | Inclusive week range / whole dollars | Derived | Public | Only retained ledger rows in range | Current `otherCash` must be split in deep detail. |
-| All-time finance totals | Whole retained-ledger totals by category. | `economyView.ts::financeTotals` | Recorded lifetime / whole dollars | Derived | Public in detail, not default dashboard | Ledger boundary onward | Construction bucket is net capital committed/recovered, not asset value. |
-| Cash-ledger checkpoint | Migration-only starting cash and ledger position for pre-ledger saves. | `CashLedgerCheckpoint`; save validation | Migration boundary | Persisted only when needed | Public as provenance, not a transaction | Establishes complete reconciliation from checkpoint onward | Never fabricate balancing transaction or itemized past. |
-| Finance history coverage | The earliest week/position for which exact movement detail is recorded. | Cash-ledger checkpoint + ledger + final P08 history boundary where relevant | Recorded boundary | Derived/persisted provenance | Public | Exact after boundary | Do not imply every surviving ledger equals entire studio lifetime. |
-| Major financial milestone link | P08-owned sparse historical interpretation referencing finance source IDs. | Final P08 `studioHistory` seam after acceptance | Event week | Persisted by P08 if significant | Public | Forward-recorded only | P11 links to it; P11 does not create a second history ledger. |
+The Revision 02 tables remain accurate at the observed snapshot and are not repeated; the only additions are recorded in 4.1 and in §6 (history kinds). Set repair remains one-time (`setMaintenance`, `TUNING.SET_REPAIR_COST`), not recurring.
 
 ## 5. Accepted P07 wording versus original P11 terminology
 
-The P11 research predates accepted P07. The two packages now differ in one important presentation area:
+Unchanged from Revision 02: preserve P07 `Profit` / `Loss` / `Break-even` and `Projected …` labels on the P07 result surface; P11 Finance uses Film Contribution with explicit scope; join films by `productionId`; title resolves from the current concept; `Not recorded` where absent; result route through `OpenReleaseResult(resultId)`.
 
-| Topic | Accepted P07 | Original P11 recommendation | P11 launch treatment |
-|---|---|---|---|
-| Business summary | P07 wire contains `contribution`, `roi`, `projected`, and a TS-authored `resultLabel` using projected/final Profit/Loss/Break-even language on the accepted direct-film basis | P11 Finance may introduce **Direct Film Commitment** and **Projected/Final Film Contribution** for its own explicit accounting scope | Preserve accepted P07 `Profit` / `Loss` / `Break-even` labels on the P07 result surface. P11 must not make relabeling that surface a hidden prerequisite. Any harmonization is a separate Current Ops/Owner-facing regression scope. |
-| Active full-run values | Public as projected while active; paid-to-date remains separate | Same principle | Reuse exactly; no settled wording before run completion |
-| Historical title | Resolved from current concept by `conceptId`; not frozen on FilmResult | P11 originally assumed stable film identity and exact links | Join by production/result ID. Never treat current title lookup as a frozen historical title fact. |
-| Participants/forecast | Optional where captured | P11 wants deep links/film detail where authoritative | Local `Not recorded` when absent; no backfill |
-| Result route | FILM HISTORY lives inside Release Result workspace; no always-visible history entrance was shipped by P07 | P11 expects Finance deep link to film history/result | Use the final accepted P08/P10 route after refresh. Unknown exact-ID selection may not be treated as successful fallback. |
+Recommended terminology default (for Current Ops adoption): Finance says **Weekly operating cost** (not "burn") for the complete recurring figure; the existing wire field name `weeklyBurn` is retained until an additive W2 field publishes the complete basis; **Studio Revenue** ≠ **Theatrical Gross**; **Film Contribution** ≠ profit; **Runway at current pace** carries "at current pace" in the label.
 
-## 6. P08–P10 dependency reconciliation
+## 6. P08–P10 dependency reconciliation (observed)
 
-### P08
+### P08 — `src/core/studioHistory.ts`, `bridge/history.ts`, save V17 chain
 
-P11 should consume:
+P11 consumes: the recording boundary (`migratedStudioHistory(currentWeek)`, `notRecordedNotice`), exact film/person/facility rows (`subjectKind`, `subjectId`, `filmId`, `personId`, `buildingId`), `historyRecorded` / `resultAvailable` per film. P11 must not duplicate `studioHistory`, receipts, significance, or a timeline. Observed kinds: `studioFounded`, `standingChanged`, `standingDriftFolded`, `filmReleased`, `theatricalRunCompleted`, `facilityCommitted/Completed/Demolished/Moved`. **No finance milestone rows exist**; a "major financial milestone link" (Revision 02 §4.4) has no producer and stays a link-only expectation.
 
-- the final authoritative Studio History recording boundary;
-- sparse significant financial-event references where P08 actually records them;
-- Administration/History navigation and exact film/person/facility links;
-- old-save `Not recorded` semantics.
+### P09 — `src/core/placement.ts`, `bridge/placement.ts`, `bridge/setCommission.ts`
 
-P11 must not duplicate:
+P11 consumes the placement quote verbatim (fields in §4.0), the digest-bound `placeFacility` / `commissionSet` intents, `StudioPlacedFacilitySnapshot` (status, `placedWeek`, `completesWeek`, `weeksRemaining`, `weeklyOperatingCost`), `facilityId`/`placementId` identity and `buildingId = placed-<placementId>`. Move/demolish/refund exist in core (`moveFacility`, `demolishFacility`, `facilityDemolitionRefund`, ledger `facilityDemolitionRefund`) and now write history rows, but are **not on the wire** ("Move/demolish are P09-R4 and are refused until then", `bridge-schema.ts` ~1372; `canDemolish` flag only). P11 must not create placement legality, a second quote, a second site lifecycle, or a facility registry.
 
-- `studioHistory` rows;
-- Standing change receipts;
-- significance classification;
-- a second historical timeline.
+### P10 — `bridge/people.ts`, `bridge/contract.ts`
 
-At the local recon snapshot TS `908879a9c5fa73d2015985834e951db84c69ab8a` × Unity `685f113e480ee18ea242ad8a341e7710523f840f`, P08 had committed Wave 2: forward-recorded `studioHistory`, exact Standing receipts, Save V17, Projection 16, synchronized generated consumer and deterministic retention/folding. Unity Wave 3 work was actively owned and dirty, so the recon agent did not run tests or launch Unity. All of this remains unsealed.
-
-### P09
-
-P11 should consume:
-
-- final `quotePlacement` / `quoteSet` envelope and opaque intent/revision identity;
-- exact blueprint, site, footprint, cost, completion, operational Opex onset and capacity;
-- placement/facility/project IDs;
-- move/demolition/refund decisions;
-- actual facility owner/Locate routes.
-
-P11 must not create:
-
-- placement legality;
-- a second construction quote;
-- a second site lifecycle;
-- a duplicate facility registry.
-
-### P10
-
-P11 should consume:
-
-- exact public person/profile/roster routes;
-- current active contract and salary truth;
-- current work/availability;
-- grouped contract attention and quote families only where the final stack actually implements them.
-
-P11 must not create:
-
-- person identity;
-- hidden skill/potential disclosure;
-- contract legality;
-- employment state;
-- career facts.
+P11 consumes profiles/roster/attention (public fields per `P10-INFORMATION-VISIBILITY-TABLE.md`), the contract snapshot, and the contract quote family: intent kinds **`renewContract`** and **`releaseTalent`** (release is present under that identifier; `releaseContract` / `terminateContract` do not exist and their absence proves nothing). Hiring uses `signContract` through `bridge/casting.ts`. P11 must not create person identity, hidden disclosure, contract legality, employment state or career facts.
 
 ## 7. New persistence recommendation
 
-**Default recommendation: P11A should require no new simulation-history save root and no save-version increase.** It should derive current and recorded Finance views from:
-
-- literal cash;
-- retained signed ledger/checkpoint;
-- contracts;
-- placement/facility state;
-- Production and FilmResult;
-- TheatricalRun;
-- final P08 historical references.
-
-A save bump becomes justified only if Current Ops explicitly accepts a new durable fact that does not exist, such as:
-
-- a frozen historic negative/marketing split after Production deletion;
-- a new authoritative known-flow event;
-- a genuinely persisted finance summary needed for measured scale;
-- a material action receipt not already owned by P09/P10.
-
-UI filters, chart state, expanded rows and `seen` flags are not finance simulation truth.
-
-## 7.1 Local recon conclusions that bind the launch plan
-
-1. **No second Finance persistence root:** P11A core remains derivable from Cash, ledger/checkpoint, contracts, placement, runs/results and final P08 context.
-2. **P08 is contextual, not accounting authority:** its current Studio History rows do not provide comprehensive ledger-row identity or a complete cash history.
-3. **P09 owns construction truth:** P11 composes cash and recurring consequences around the final quote but does not own footprint, legality, duration, commit, idempotence or receipt.
-4. **P10 routes are pending:** accepted contract arithmetic can be reused, but general Profile/Roster/attention/deep-link authority must be refreshed after P10.
-5. **Builder economics are absent:** they are `not modeled`, not zero.
-6. **Accepted P07 labels survive:** P11 Finance may use Film Contribution; P07 result labels are not silently rewritten.
+Unchanged: **no new simulation-history save root and no P11 save-version increase by default.** Nothing observed at `7b4d8ff…` reveals a missing durable fact for the core. The observed additive roots (`studioHistory` V17, `foundingRegime` V18) are producers, not Finance state.
 
 ## 8. P11A projection recommendation
 
-After the active stack, extend the existing projection with one closed Finance read model rather than embedding raw ledger history into the atomic lot snapshot.
-
-Conceptually it needs:
-
-- `asOfWeek` and history coverage;
-- Cash;
-- recurring components and complete operating total;
-- next scheduled active-run receipt;
-- Net weekly cashflow;
-- Runway state;
-- last recorded period reconciliation;
-- compact Payroll / Studio Operations / obligations summaries;
-- bounded exact-entry drill-down or query route;
-- selected Film Economics;
-- exact IDs and route capabilities;
-- consequence-preview reference to the owning P09/P10 action.
-
-Exact schema fields, paging strategy, projection number and query boundary require final changed-path reconnaissance.
+Unchanged in shape (Annex C2): one closed Finance read model beside `StudioTreasurySnapshot`, not raw ledger history inside every lot snapshot; deep history through a bounded query/page. Observed precedent: the Talent section rides its own additive bundle section (C5), which is the pattern to follow.
 
 ## 9. Current unknowns that must remain placeholders
 
-- final P08 history types, compaction and world route;
-- final P09 quote/intent and Opex-onset fields;
-- final P10 contract IDs, obligation views and Profile route;
-- final bridge query versus bundle decision;
-- final Unity workspace host and focus owner;
-- final save/schema/projection/protocol versions;
-- final private Owner-profile migration behavior;
-- final P09 solvency result using complete facility Opex.
+- final accepted P08–P10 identities; whether the frozen pair survives acceptance unchanged;
+- final P09-R4 move/demolish wire route (absent today);
+- final bridge query versus bundle decision for deep history;
+- final Unity Finance workspace host and focus owner (no Finance workspace exists; `StudioWorkspaceHost` is the observed host);
+- final private Owner-profile migration on the accepted base;
+- whether Current Ops repairs the treasury understatement inside the P08–P10 cycle or leaves it to P11 W0.
 
-## 10. Read-only conclusion
+## 10. Corrections to the two draft ambiguities
 
-- Facility Opex omission: **STILL PRESENT at accepted P07 source and recon snapshot**; no current P08 interruption, mandatory P09 solvency/P11 W0 guard.
-- Set repair: **one-time**, not recurring.
-- P11A recommendation: **CONFIRMED**, but construction preview must reuse final P09 authority.
+### 10.1 Cancel
+
+**Rule:** Cancel submits no committed domain action and creates no debit, site, employment change, or obligation.
+
+Observed mechanics: previews are `POST /quote` responses; the session keeps a cap-16 `pendingQuotes` map keyed by minted `intentId`, digest-bound to the quoting state, cleared on any accepted command or load, never journaled (`bridge/session.ts` ~143–160, ~1205–1222, `capPendingQuotes`). There is no cancel route and no cancel command (`bridge/server.ts` routes: `/health`, `/contract`, `/session`, `/snapshot`, `/command`, `/quote`, `/save`, `/load`). A legitimate read-only quote request therefore **may already have occurred** when the player cancels; the temporary quote entry is session bookkeeping, not durable gameplay state. Proof must distinguish: revision unchanged, cash unchanged, ledger length unchanged, no placement/contract mutation, save bytes unchanged — and must **not** reject ordinary preview traffic as a cancellation failure. The real-input contract journey records exactly this ("CANCEL state-neutral, revision 0 → 0").
+
+### 10.2 Upcoming
+
+**Rule:** list only dates and amounts that are both player-public and authoritatively committed, with exact source and public-field evidence. A locked internal theatrical schedule is not automatically public; Finance must not leak future receipts because it can read them in memory.
+
+| Candidate row | Public field evidence at `7b4d8ff…` | Disposition |
+|---|---|---|
+| Facility opens Week N; +$X/week operating cost from the following advance | `StudioPlacedFacilitySnapshot.completesWeek`, `.weeklyOperatingCost` | ALLOWED |
+| Renewal window opens Week N / contract ends Week N (person) | `BridgePersonContractSnapshot.endWeekExclusive`, `renewalOpen`, `renewalLine`; `actions.renewReason` names the opening week | ALLOWED (facts only; renewal cost is a current quote, not a future debit) |
+| Next-week Studio Revenue from active runs (aggregate) | derivable from wire `netWeeklyCash + weeklyBurn`; P07 `projected` flag | ALLOWED as an aggregate next-advance figure, labelled projected |
+| Remaining scheduled Studio Revenue for an active run (total) | P07 `studioRevenueTotal − studioRevenuePaidToDate`, `totalWeeks − weeksCredited`, `projected` | ALLOWED as "remaining, projected", with the remaining week count |
+| Per-week future receipt amounts for an active run | not on the wire; internal `TheatricalRun` schedule only | **BLOCKED** — recommend a separate disclosure decision; do not expose silently |
+| Set completion Week N | `StudioSetSnapshot.completesWeek` | ALLOWED (no recurring cost; weekly Set maintenance tuning is 0) |
+| Unproduced/unreleased film receipts, unsigned contracts, automatic renewals | no producer | NEVER |
+
+Recommended default (Current Ops adoption): implement Upcoming with the ALLOWED rows only; carry the label "Does not include new films or uncommitted decisions"; treat per-week receipt rows as a later disclosure decision (register §4.E).
+
+## 11. Read-only conclusion
+
+- Facility Opex omission: **STILL PRESENT** at TS `7b4d8ff…`; reaches the wire treasury snapshot and the Administration card; P09 solvency evidence unaffected (complete ledger journey); P11 W0 repair proposed in §3.3, not implemented.
+- Producer seams for construction, Set, renewal, release, hire, profile, roster, history and facility rows are **observed and reusable**; move/demolish/refund and per-week receipt schedules are **missing on the wire**.
+- Cancel and Upcoming rules corrected (§10).
 - New P11 save root: **NOT RECOMMENDED by default**.
-- P08 history remains context, not accounting history; P09/P10 final routes remain placeholders.
-- Accepted P07 result labels remain unchanged by P11 planning.
 - Production code changed: **NONE**.
 
-POST-P08–P10 OWNER-ACCEPTED CHANGED-PATH REFRESH REQUIRED
+FINAL ACCEPTED-BASE CHANGED-PATH REFRESH REQUIRED BEFORE ANY P11 IMPLEMENTATION ORDER
