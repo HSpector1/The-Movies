@@ -23,7 +23,8 @@ import { describe, expect, it } from 'vitest'
 
 import { BridgeSession, authoritativeDigest } from '../bridge/session.ts'
 import { castingProjection } from '../bridge/casting.ts'
-import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
+import { BRIDGE_SCHEMA, PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
+import { parseWireValue } from '../bridge/schema/runtime.ts'
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
 import {
   applyActions,
@@ -302,23 +303,28 @@ describe('P04A Casting bridge — quote seam and board', () => {
     expect(projectAfterLoad.activeSlate).toEqual(expectedActiveSlate)
   })
 
-  it('quotes, mints, and commits a greenlight with the EXACT participants and budget; a later refusal changes NOTHING', () => {
+  it.each([0, 0.25])('quotes, mints, and commits exact greenlight with controlled fractional cash %s; later refusal changes NOTHING', fraction => {
     const { state, projectId } = readyProjectWithCompletedCasting('p04a-greenlight-happy')
-    const session = new BridgeSession(state, 'p04a-greenlight-happy')
+    // Controlled monetary-boundary case; the legal recovery trajectory separately
+    // establishes that ordinary theatrical receipts produce fractional cash.
+    const session = new BridgeSession(withCash(state, state.studio.cash + fraction), 'p04a-greenlight-happy')
     const draft = greenlightDraftFor(session.gameState, projectId)
     const cashBefore = session.gameState.studio.cash
 
+    const beforeQuote = session.gameState
     const quoted = session.quote(castingQuoteEnvelope(session, 'greenlight-quote-1', draft))
+    expect(session.gameState).toBe(beforeQuote)
     expect(quoted.accepted).toBe(true)
     if (!quoted.accepted) return
+    expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse, quoted)).toEqual(quoted)
     expect(quoted.quote.kind).toBe('greenlightPicture')
     expect(quoted.quote.commitLabel).toBe('Greenlight picture')
     expect(quoted.quote.startsNow).toBe(true)
     expect(quoted.quote.queues).toBe(false)
     expect(quoted.quote.negative).toBe(draft.budgetNegative)
     expect(quoted.quote.marketing).toBe(draft.budgetMarketing)
-    expect(quoted.quote.cashBefore).toBe(cashBefore)
-    expect(quoted.quote.cashAfter).toBe(cashBefore - quoted.quote.totalImmediate!)
+    expect(quoted.quote.cashBefore).toBe(Math.round(cashBefore))
+    expect(quoted.quote.cashAfter).toBe(Math.round(cashBefore - quoted.quote.totalImmediate!))
     expect(quoted.quote.affordable).toBe(true)
     expect(quoted.quote.strongestAssignmentLine).toBeTruthy()
     expect(quoted.quote.weakestAssignmentLine).toBeTruthy()
@@ -340,7 +346,7 @@ describe('P04A Casting bridge — quote seam and board', () => {
     })
     expect(production.craftIds).toEqual([draft.craftLeadId])
     expect(production.budget).toEqual({ negative: draft.budgetNegative, marketing: draft.budgetMarketing })
-    expect(session.gameState.studio.cash).toBe(quoted.quote.cashAfter)
+    expect(session.gameState.studio.cash).toBe(cashBefore - quoted.quote.totalImmediate!)
 
     // A refusal after this changes NOTHING: full state/save/revision/journal identity.
     const revisionBeforeRefusal = session.stateRevision
@@ -416,13 +422,17 @@ describe('P04A Casting bridge — quote seam and board', () => {
     })
   })
 
-  it('capacity-only greenlight quotes queues:true (cashAfter null) and commits with ZERO commitment', () => {
+  it.each([0, 0.25])('capacity-only greenlight at controlled fractional cash %s quotes queues:true and commits with ZERO commitment', fraction => {
     const fixture = contendedGreenlightStudio('p04a-greenlight-queue')
-    const session = new BridgeSession(fixture.state, 'p04a-greenlight-queue')
+    const session = new BridgeSession(withCash(fixture.state, fixture.state.studio.cash + fraction), 'p04a-greenlight-queue')
     const draft = greenlightDraftFor(session.gameState, fixture.targetProjectId)
+    const beforeQuote = session.gameState
     const quoted = session.quote(castingQuoteEnvelope(session, 'queue-greenlight-quote', draft))
+    expect(session.gameState).toBe(beforeQuote)
     expect(quoted.accepted).toBe(true)
     if (!quoted.accepted) return
+    expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse, quoted)).toEqual(quoted)
+    expect(quoted.quote.cashBefore).toBe(Math.round(session.gameState.studio.cash))
     expect(quoted.quote.queues).toBe(true)
     expect(quoted.quote.startsNow).toBe(false)
     expect(quoted.quote.cashAfter).toBeNull()

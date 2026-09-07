@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest'
 import { BridgeSession } from '../bridge/session.js'
 import { castingDraftToEngine, castingProjection } from '../bridge/casting.js'
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.js'
-import { PROTOCOL_VERSION, SCHEMA_ID, validateQuote } from '../bridge/protocol.js'
+import { BRIDGE_SCHEMA, PROTOCOL_VERSION, SCHEMA_ID, validateQuote } from '../bridge/protocol.js'
+import { parseWireValue } from '../bridge/schema/runtime.js'
 import { scriptProjectsReadModel } from '../src/core/index.js'
 import { foundationRecoveryStudio } from './contracts/_foundationRecoveryFixtures.js'
 
@@ -34,6 +35,7 @@ function hiringQuote(session: BridgeSession, role: 'writer' | 'actor') {
   const quote = session.quote(parsed.quote)
   expect(quote.accepted).toBe(true)
   if (!quote.accepted) throw new Error(quote.message)
+  expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse, quote), 'The actual legal fractional-cash response must cross the consumed wire contract').toEqual(quote)
   const consequence = quote.quote
   if (consequence.kind !== 'signContract') throw new Error('Hiring must return its own exact quote kind')
   return { candidate, offer, consequence }
@@ -75,6 +77,8 @@ describe('AUD-002: legal post-expiry recovery without a Ready screenplay', () =>
     const { candidate, offer, consequence } = hiringQuote(session, role)
     expect(session.gameState).toBe(before)
     expect(consequence.projectId).toBeNull()
+    expect(consequence.cashBefore).toBe(Math.round(before.studio.cash))
+    expect(consequence.cashAfter).toBe(Math.round(before.studio.cash - offer.signingBonus))
     const request = command(session, 'commit-recovery-hire', consequence.intentId)
     const receipt = session.command(request)
     expect(receipt.accepted).toBe(true)
