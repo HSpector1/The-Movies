@@ -9,6 +9,7 @@
 set -euo pipefail
 TS_REPO="$(cd "$(dirname "$0")/.." && pwd)"
 ENGINE_BUNDLE="${P10_ENGINE_BUNDLE:?P10_ENGINE_BUNDLE must be the sealed projection-19 engine bundle}"
+EXPECTED_SCHEMA=$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["schemaId"])' "$TS_REPO/generated/unity/project-studio-bridge.contract-manifest.json")
 PRIVATE="${P10_OWNER_COPY_DIR:-/Users/bruce/Project Studio Owner Profile Baselines/P10-close-gates-20260906}"
 MASTER="$PRIVATE/MASTER-bridge-runtime-v1.json"
 LIVE="$HOME/Library/Application Support/Project Studio/bridge-runtime/bridge-runtime-v1.json"
@@ -63,15 +64,16 @@ get /snapshot > "$EVIDENCE/10-snapshot-second.json"
 kill "$ENGINE_PID"; wait "$ENGINE_PID" 2>/dev/null || true; ENGINE_PID=""
 for l in first second; do sed "s/$CAP/<capability-scrubbed>/g" "$RUNTIME/engine-$l.log" > "$EVIDENCE/engine-$l.log"; done
 LIVE_AFTER=$(shasum -a 256 "$LIVE" | cut -d' ' -f1)
-python3 - "$EVIDENCE" "$ENGINE_SHA" "$LIVE_AFTER" "$EXPECT_SHA" "$(git -C "$TS_REPO" rev-parse HEAD)" <<'PY'
+python3 - "$EVIDENCE" "$ENGINE_SHA" "$LIVE_AFTER" "$EXPECT_SHA" "$(git -C "$TS_REPO" rev-parse HEAD)" "$EXPECTED_SCHEMA" <<'PY'
 import json,sys,hashlib,os
 E,engine_sha,live_after,expect,ts=sys.argv[1:6]
+expected_schema=sys.argv[6]
 L=lambda n: json.load(open(os.path.join(E,n)))
 s1=L('01-session-first.json'); snap1=L('02-snapshot-first.json'); q=L('04-quote-response.json'); sv=L('06-save-response.json'); s1b=L('07-session-after-save.json'); cp=L('08-checkpoint-after-first-engine.json'); s2=L('09-session-second.json'); snap2=L('10-snapshot-second.json')
 checks=[]
 def ck(name,cond,detail=''): checks.append({'name':name,'ok':bool(cond),'detail':str(detail)[:300]}); print(('  ✓ ' if cond else '  ✗ ')+name+('' if cond else f' :: {detail}'))
 t1=snap1['snapshot']['talent']['talent']; t2=snap2['snapshot']['talent']['talent']
-ck('first engine migrated the prior-schema copy on boot and serves the CURRENT schema', s1['schemaId']==snap1['schemaId'] and s1['schemaId'].startswith('sha256:6a2c01fe'), s1['schemaId'])
+ck('first engine migrated the prior-schema copy on boot and serves the bound contract schema', s1['schemaId']==snap1['schemaId']==expected_schema, s1['schemaId'])
 ck('served week 8 (the real profile week), 60 profiles, 60 roster rows', s1['gameWeek']==8 and len(t1['profiles'])==60 and len(t1['roster']['rows'])==60, [s1['gameWeek'],len(t1['profiles'])])
 ck('8 contracted people carry their exact contracts and published action decisions', sum(1 for p in t1['profiles'] if p['employment']['contract'])==8 and all('actions' in p['employment']['contract'] for p in t1['profiles'] if p['employment']['contract']))
 ck('the lot serves the real 5 buildings + the Annex site', len(snap1['snapshot']['lot']['buildings'])>=5, len(snap1['snapshot']['lot']['buildings']))
