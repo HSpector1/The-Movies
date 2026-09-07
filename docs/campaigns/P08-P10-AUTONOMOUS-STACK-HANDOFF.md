@@ -7,16 +7,15 @@
 
 | Item | Value |
 |---|---|
-| Package / wave | **P10A person route (W1b inspector + W2 Profile + W3 Roster + cross-stack person↔history) — TECHNICAL KEEP FOR AUTHORIZED READY SCOPE, hostile-reviewed, combined candidate READY**; projection 18; P09 core 9/9 retained + re-verified on the P10 player; P08 core KEEP retained. OWNER ACCEPTANCE PENDING. Next = owner playtest + acceptance decision; material contract actions remain dependency-blocked (no producer) |
-| TS WIP `wip/p08-p10-autonomous-stack-01-ts` | worktree `/Users/bruce/The Movies - P08-P10 Stack TS`; remote `hspector-github`; product tip `af8c19c`; docs/fixtures tip `05139c1` |
-| Unity WIP `wip/p08-p10-autonomous-stack-01-client` | worktree `/Users/bruce/The Movies - P08-P10 Stack Unity`; remote `origin`; tip `fcfcbb8` (remedies + W5 real-input). Final candidate player `a8f4390c` (dirty=false). P09 sealed player `d41c0d4b` at `~/Desktop/P09-Core-Technical-Candidate-fee206f-8f30d0e/` (untouched) |
-| Save / protocol / projection | **V18** / 4 / **18** (schema id `sha256:ea5d645f…`; CF-09 PASS TS `9bc01ea` × Unity `26a543a1`, contract `6c26f13e`; P09 control remains projection 17 `18de162d`) |
-| Accepted base (frozen) | TS `2753e18ba8fb5f65b936c22cde9531646fecc6cd` · Unity `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6` — both campaign branches and TS `main` (`c902a704…`) re-read unchanged on the remotes at C5; Unity `origin` has no `main` |
-| `FINAL_DOCS_SHA` | `72ca8e797e5185a5dec13ac4c4311e391b8e96e3` |
-| Owner durable profile | `d949003e…` unchanged (hash-checked at C5; P09 automation ran only on fixture checkpoints) |
-| P08 seal record | `docs/campaigns/P08-TECHNICAL-CHECKPOINT.md`; hostile review verbatim `docs/campaigns/P08-HOSTILE-REVIEW-CORE.md`; candidate `~/Desktop/P08-Core-Technical-Candidate-8a23cb3-64dab80/` |
-| P09 seal record | `docs/campaigns/P09-TECHNICAL-CHECKPOINT.md` (9/9); hostile review verbatim `docs/campaigns/P09-HOSTILE-REVIEW-CORE.md`; candidate `~/Desktop/P09-Core-Technical-Candidate-fee206f-8f30d0e/` (player `d41c0d4b`, sealed engine `5185e3a2`, 12 fixtures, docs, W7 oracle + viewports, EditMode `8f30d0ef`, the passing official HID `hid-20260905T150855Z` + the four prior failed HID runs, proof scripts) |
-| Next concrete command | OWNER: play `~/Desktop/P10-Person-Route-Candidate-af8c19c-fcfcbb8/playtest.sh endowed` (and `firstfilm`, `barelot`), then the acceptance decision. No further build step pending. Promote-to-main is a SEPARATE discussion (not this order). Material contract actions (renew/release) need a new bridge command producer first |
+| Package / wave | **P08–P10 CLOSE-GATES two-repairs package — FINAL-VERIFICATION-02 (successor lead, `OPS-P08P10-FINAL-VERIFICATION-HANDOFF-01`): COMBINED P08–P10 TECHNICAL KEEP FOR AUTHORIZED READY SCOPE — MANDATORY TECHNICAL GATES COMPLETE — OWNER ACCEPTANCE PENDING** (reviewer disposition: `docs/campaigns/P08-P10-FINAL-VERIFICATION-02-REVIEW.md`); projection 19 |
+| TS successor branch `wip/p08-p10-final-verification-02-ts` | worktree `/Users/bruce/The Movies - P08-P10 Stack TS`; remote `hspector-github`; docs-only on top of the preserved WIP `277dc48`; tip = the C11 docs commit (record + review + this handoff) |
+| Unity successor branch `wip/p08-p10-final-verification-02-client` | worktree `/Users/bruce/The Movies - P08-P10 Stack Unity`; remote `origin`; on top of the preserved WIP `039ece4`; **product commits `df79153` (roof occluders, MAJOR C/E) and `574339da31` (defect F: UI root picking restored after the Studio Menu)**; tools-only `75de360`…`41d94eb`; tip `41d94eb` |
+| Final pair (pair 2) | player **`f678cf539d067ab562d064458f6aef316fe61fabf0ba87cbf2c92e670ca9a9b0`** (Unity `574339da31`, dirty=false; Assembly-CSharp `75217bf0…`) · engine **`189326b6…`** (sealed projection 19, TS product `a2baa1d`, byte-identical to the previous candidate's engine) · scene `16629911…` · save V18 / protocol 4 / schema `6a2c01fe…` |
+| Candidate | `~/Desktop/P08-P10-Combined-Candidate-f536308-574339d/` (`playtest.sh endowed` verified 17:46Z; `PLAYTEST-README.md`; hashed `INVENTORY.sha256`, 2,216 files; pair-2 gate evidence + pair-1 diagnosis history inside). Previous candidates `…-7b4d8ff-1d304f8` (player `1358fd1f…`) and the control player `ab1fa09b…` (`Builds/control-ab1fa09b-f760d5d/`) untouched |
+| Accepted base (frozen) | TS `2753e18ba8fb5f65b936c22cde9531646fecc6cd` (`campaign/living-lot-ts`) · Unity `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6` (`campaign/living-lot-client`) · TS `main` `c902a704…` — re-read unchanged on both remotes at C11 (17:38Z) |
+| Owner durable profile | `d949003e…` unchanged (hash-checked at C11; every drive and sweep ran on fixture checkpoints / the private copy) |
+| Record | `docs/campaigns/P08-P10-FINAL-VERIFICATION-02.md` (§0 status, §1 handoff verification, §2 adjudication of all 33 findings, §3 corrections incl. §3.4 harness discovery and §3.5 defect F, §4.0 full runtime trail, §4.1 gate table G1–G13, §5 identities) + `docs/campaigns/evidence/P08-P10-FINAL-VERIFICATION-02-evidence-index-pair2.json` |
+| Next concrete command | OWNER: `~/Desktop/P08-P10-Combined-Candidate-f536308-574339d/playtest.sh endowed` (then `contracts`, `barelot`) — see `PLAYTEST-README.md` — then the acceptance decision. No build step pending. No main promotion, onboarding, P11, Wire or Radio; Real Builders remain P09-REQ-039 |
 
 ## CHECKPOINT HISTORY (append-only)
 
@@ -141,3 +140,39 @@ EditMode-proven; Oracle proves the route). Full detail: `docs/campaigns/P08-P10-
 Final pair: player `1358fd1f…` (Unity `1d304f8`, dirty=false) · engine `189326b6…` (projection 19,
 schema `6a2c01fe…`) · TS `7b4d8ff` · save V18. Candidate `~/Desktop/P08-P10-Combined-Candidate-7b4d8ff-1d304f8`.
 Campaign refs frozen (TS `2753e18b`, Unity `c4c65db4`); main untouched; the P09 CORE candidate untouched.
+
+### C11 — 2026-09-07 — FINAL-VERIFICATION-02: adjudication, roof + input fixes, real-input completion on a rebuilt pair
+
+Successor lead under `OPS-P08P10-FINAL-VERIFICATION-HANDOFF-01` (Fable released ownership at the interrupted
+two-repairs review). Everything below is in `P08-P10-FINAL-VERIFICATION-02.md`.
+
+- **Handoff verified** (TS `277dc48` / Unity `039ece4` preserved as controls; tested pair `f760d5d × a2baa1d`
+  player `ab1fa09b…` re-hashed; the WIP helper `osReleaseInput` inspected and NOT wired — a blind OS-level release
+  is what the order forbids).
+- **All 33 retained findings adjudicated** with source + reproduction: MAJOR A refuted (record error, corrected),
+  B remediated (harness gates), **C confirmed + fixed** (placed-body roof slab occluder + envelope), D preserved as
+  a limitation + captured prospectively, **E confirmed + fixed** (Stage A barrel roof / gable MeshColliders, gable
+  occluder to the roof sheet, navmesh bake excluded); 28 MINOR / NOTE dispositioned. Product commit `df79153`;
+  scene regenerated and reviewed semantically (7 objects, navmesh geometry unchanged); EditMode pre-fix 6/17 FAIL.
+- **Real-input harness finished without proof-only advantages:** owned-input ledger + human-input suspension,
+  independent drawn-geometry visibility oracle, still/in-window/HUD-clear/fresh/bound clicks with the exact
+  selection read back. Evening discoveries encoded: the player posts a null HID event every ≈9 s (listen-only
+  witness + attribution), the tycoon yaw clamps at ≈90°, world rects are renderer AABBs, HUD panels are
+  unpublished, tool hashes taken at launch.
+- **Defect F found by the real-input BUILD journey (pre-existing since P04A.1):** after the Studio Menu closed
+  (Save/Load/Resume) the UI root was forced to `PickingMode.Position` and every world click / orbit died. Fixed in
+  `574339da31` (restore the recorded picking mode; regression test fails on the old host 14/15, passes fixed;
+  EditMode 900/900) → **rebuilt pair 2** and the whole runtime evidence re-run on it.
+- **Pair-2 gates, all by real OS input:** PEOPLE `hid-20260907T172822Z` (0 failures), CONTRACT
+  `hid-20260907T173250Z` (0 failures), BUILD `hid-20260907T173427Z` (0 failures, incl. the post-Load site
+  re-select and the Administration control), oracle sweep 46/46, Stage-inspection camera auto-proof PASS.
+- **Reviewer disposition (independent, `P08-P10-FINAL-VERIFICATION-02-REVIEW.md`):** COMBINED P08–P10 TECHNICAL
+  KEEP FOR AUTHORIZED READY SCOPE — MANDATORY TECHNICAL GATES COMPLETE — OWNER ACCEPTANCE PENDING, every gate
+  G1–G13 verified from the pair-2 files; conditioned on record corrections (applied in the record) and carrying
+  exceptions e1–e7 for Current Ops; the only MAJOR aimed at the product (171809Z "receipt without authority") was
+  refuted from the frames; the two standing MAJORs (people-driver HUD blindness; the guard's ≈0.9 s slack) are
+  harness/record items corrected after the pair-2 runs (`b81dc0a`, `3226130`; witness binary bound `7e3813a`) and
+  exercised once on pair 2 by a proof-of-harness people drive (see the record §4.0, not a gate).
+- Protected: campaign refs, `main`, old WIP refs, control player, previous candidate, the real Owner profile —
+  all unchanged. Caveats disclosed in the record §0 (pair-1 binary overwritten by the pair-2 build; TS worktree
+  docs-dirty at manifest time; two pair-1 run-binding disclosures).
