@@ -188,6 +188,19 @@ adjustments of `74cef3b`: **899 / 899** (`editmode-final2-20260907T132458Z`).
 _(filled as the runtime queue completes; PASS / FAIL / BLOCKED / NOT RUN kept distinct; nothing is
 converted across evidence classes)_
 
+### 4.0 Runtime execution trail (append-only; every attempt retained, nothing relabelled)
+
+All runtime work ran behind the desktop safety gate (600 s Owner-idle, console unlocked) from detached,
+logged queue runners; the Owner was actively using the machine when the queue was armed, so the first
+gate opened at 13:56Z.
+
+| When (UTC) | Stage | Outcome | Cause / disposition |
+|---|---|---|---|
+| 13:56–14:04 | Oracle sweep, 46 runs (`Evidence/P10-Oracle-Sweep-FinalVerification02/`) | **26 P10 runs (6 scenarios × 4 viewports + Owner-profile copy × 2): exit 0, sidecars complete, every run-binding = exe `3558ddd4…` / build `75de360` / engine `189326b6…`.** 20 P08/P09 runs: the oracle completed (sidecars `complete`) but the launcher aborted at its binding step (`ENGINE_BUNDLE: parameter not set`) before writing `run-binding.json` — an unset-variable bug in the launcher change of `74cef3b` | Launchers corrected (`08b7be4`, `bcc1af9`, `33d551b`: the P08/P09 launchers define and launch the bound engine bundle); the 20 scenarios are re-run as stage 2 into the same sweep directory (`summary-p08p09-rerun.tsv`); the unbound first runs stay on disk as history only |
+| 14:14 | PEOPLE drive #1 (`P10-Journey-FinalVerification02/hid-20260907T140457Z`) | **SUSPENDED (exit 3)** 36 s in, 42 injected events, during framing: "OS idle 119 ms but our last event was 1545 ms ago"; player frontmost; OS held nothing | The guard did what the order requires; root cause found later (below): the flag followed the driver's own player activation |
+| 14:27 | CONTRACT drive #1 (`P10-Contract-Journey-FinalVerification02/hid-20260907T141542Z`) | **SUSPENDED (exit 3)** 5 events in: "idle 1034 ms but our last event 2175 ms ago" | **False positive, harness:** the driver's un-stamped `ownerinput releasemods` posts modifier key-ups through the HID tap and resets the OS idle counter (measured in isolation: 71 s → 720 ms). Fixed `2a98d6b` (stamped guard event) |
+| 14:36 | BUILD drive #1 (`P09-Journey-FinalVerification02/hid-20260907T142558Z`) | **SUSPENDED (exit 3)** after 17 events at the deselect key, with the whole material chain already proven on the successor pair: BUILD chip offered (visible+enabled), Administration card → OPEN BUILD → parcel → catalogue → preview answered **Valid site** with the commit enabled, commit at (11,14) with the exact $1,500,000 debit (20,000,000 → 18,500,000), Esc peels one layer each, real world click selects `placed-1`. Save/Load/post-Load re-select NOT reached | **Harness-caused idle reset:** every flag followed the driver's own `activate()` on the player (activation of Code/Finder does not reset the counter; activating the Unity player evidently can). Fixed `738cafa`: activation is a stamped guard event, performed only when the player is not already frontmost, in the driver and in the launcher's 3-second loop (which now stamps a file the guard reads). All three drives are re-run (stages 3–5) |
+
 ---
 
 ## 5. Identities
