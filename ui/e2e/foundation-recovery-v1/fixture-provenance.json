@@ -1,0 +1,18 @@
+{
+  "authorization": "OPS-P08P10-FOUNDATION-RECOVERY-01",
+  "generator": "scripts/generate-foundation-recovery-fixtures.ts",
+  "legalTrajectory": "minimum founding; commission/accept; legal greenlight and operations; Ready at9; hold to104; commit and release at105",
+  "seed": "p00p07-audit-contract-expiry",
+  "week": 105,
+  "cash": 7895754.951760456,
+  "contracts": 0,
+  "protocolVersion": 4,
+  "snapshotVersion": 20,
+  "schemaId": "sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b",
+  "saveVersion": 18,
+  "addedCash": 0,
+  "editedContracts": 0,
+  "forcedScreenplays": 0,
+  "checkpointSha256": "88049d4408573de3a36a56957c2b8d3aed36655b9b3dbadc68da7bef991a8510",
+  "saveSha256": "3445a9e3053e26e5aeafb5d2739fa5ae00bf6a4d5913dd359cde716e8bcb5921"
+}

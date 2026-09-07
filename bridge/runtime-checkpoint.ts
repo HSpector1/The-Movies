@@ -103,6 +103,10 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // the one the final-P05 Owner checkpoint carries — became prior the moment
   // projection 14 minted the P06 identity.
   ['sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f', 'projection-v13'],
+  // projection-v14: the accepted P06 identity, recorded in the P07 Owner
+  // acceptance receipt. P07 omitted it when projection 15 became current;
+  // AUD-001 restores the existing governed migration for those durable profiles.
+  ['sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b', 'projection-v14'],
   // projection-v15: the P07-accepted identity (campaign c4c65db4 / TS da848225,
   // schema ddce1c39…) — the OUTGOING schema of the P08A W2 projection bump to
   // v16 (the schema-bump law, obeyed): every accepted P07 profile and candidate
@@ -123,6 +127,10 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // projection-v18: af8c19c — the P10 person route (people profiles / roster / attention);
   // superseded by projection 19 (P10-R1 contract actions on the wire, the contract quote family).
   ['sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4', 'projection-v18'],
+  // projection-v19: frozen recovery base 1b5eb8f08c81c7d9c639058c3e28b21b9c1f8e84,
+  // independently pinned from its generated DTO header. Recovery projection 20
+  // widens the hiring context; existing profiles retain the governed prior path.
+  ['sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9', 'projection-v19'],
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({

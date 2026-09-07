@@ -408,7 +408,7 @@ function screenTestConversion(
     }
     slate[slot] = [ids[0]!, ids[1]!]
   }
-  const payload = { projectId: draft.projectId, slate: slate as CastingSlate }
+  const payload = { projectId: view.projectId, slate: slate as CastingSlate }
   return {
     ok: true,
     kind: 'startAuditions',
@@ -470,7 +470,7 @@ function greenlightConversion(
   return {
     ok: true,
     kind: 'greenlightPicture',
-    apply: (current) => greenlightScriptProject(current, draft.projectId, pkg),
+    apply: (current) => greenlightScriptProject(current, view.projectId, pkg),
     commitLabel: 'Greenlight picture',
     projectTitle: view.title,
   }
@@ -497,6 +497,9 @@ function signActorConversion(
   state: GameState,
   draft: BridgeCastingDraftPayload,
 ): CastingDraftConversion {
+  if (state.founding !== null) {
+    return { ok: false, error: 'Complete studio founding before opening the talent market.' }
+  }
   const market = hiringMarketView(state)
   const candidate = market.find((entry) => entry.talentId === draft.signTalentId)
   if (draft.signTalentId === null || candidate === undefined) {
@@ -530,6 +533,9 @@ export function castingDraftToEngine(
   draft: BridgeCastingDraftPayload,
 ): CastingDraftConversion {
   if (draft.kind === 'signActor') return signActorConversion(state, draft)
+  if (draft.projectId === null) {
+    return { ok: false, error: 'Choose the exact Ready screenplay before casting or greenlighting.' }
+  }
   const view = requirePackageProject(state, draft.projectId)
   if (view === undefined) {
     return { ok: false, error: 'This screenplay is not currently Ready to cast.' }
@@ -643,7 +649,7 @@ function greenlightQuoteSnapshot(
     budget: { negative, marketing },
   }
   const fit = assessPackageFit(state, pkg)
-  const profit = assessProfitRange(state, pkg, draft.projectId)
+  const profit = assessProfitRange(state, pkg, readyView.projectId)
   const demand = productionDemandView(state, concept, readyView.lockedShape, negative)
 
   return {

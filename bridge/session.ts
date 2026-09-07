@@ -706,12 +706,14 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
   const concept = board.commission.concepts.find(
     (candidate) => !queuedCommissionConceptIds.has(candidate.id),
   )
-  const writer = board.commission.writers.find(
+  const availableWriters = board.commission.writers.filter(
     (candidate) =>
       candidate.available &&
-      candidate.primaryRole === 'writer' &&
       !queuedCommissionWriterIds.has(candidate.id),
   )
+  // Prefer the usual discipline, but credit/commission eligibility belongs to
+  // the read model: another contracted writing-capable person is a legal remedy.
+  const writer = availableWriters.find(candidate => candidate.primaryRole === 'writer') ?? availableWriters[0]
   if (
     (board.commission.canStart || commissionCapacityOnly) &&
     concept !== undefined &&
@@ -935,9 +937,10 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
 
   const next = journey.next
   if (next === null) return resolved
-  if (next.kind === 'commission') return resolved
 
-  // Ready-to-package family: the screenplay is accepted and camera tests have not
+  // Commission guidance and the ready-to-package family must not stop a lawful
+  // manual week while receipts or construction continue. The screenplay is
+  // accepted and camera tests have not
   // been planned (`plan-auditions`), the finished package has not been opened
   // (`open-package`), or packaging is blocked (`review-casting-blocker`). The
   // guided next step above still points at Casting — that guidance is untouched —
@@ -949,6 +952,7 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
   // decision-pause law every other branch below already honors: nothing publishes
   // while the studio is actually stopped on a decision (`studioDecision`).
   if (
+    next.kind === 'commission' ||
     next.kind === 'plan-auditions' ||
     next.kind === 'open-package' ||
     next.kind === 'review-casting-blocker'

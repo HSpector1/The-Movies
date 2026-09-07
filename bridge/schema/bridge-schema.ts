@@ -28,7 +28,7 @@ export const PROTOCOL_VERSION = 4 as const
 // `results` (StudioFilmResultSnapshot: three independent critic/audience/business channels,
 // gross vs studio revenue, banked-vs-projected). Additive; protocol stays 4; save stays V16
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
-export const PROJECTION_VERSION = 19 as const
+export const PROJECTION_VERSION = 20 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1319,7 +1319,8 @@ const StudioQuoteCommissionRequest = object('StudioQuoteCommissionRequest', {
 // models, not a JSON Schema structural constraint.
 const StudioCastingDraftPayload = object('StudioCastingDraftPayload', {
   kind: enumeration(['screenTest', 'greenlightPackage', 'signActor']),
-  projectId: nonEmptyText(),
+  /** Hiring may have no screenplay; camera tests and greenlight require an exact Ready project. */
+  projectId: nullable(nonEmptyText()),
   /** Required exactly when kind is `screenTest`; exactly 2 IDs each, enforced server-side. */
   slateLead: nullable(array(nonEmptyText())),
   slateAntagonist: nullable(array(nonEmptyText())),
@@ -1458,7 +1459,7 @@ const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
   commitLabel: nonEmptyText(),
   startsNow: bool(),
   queues: bool(),
-  projectId: nonEmptyText(),
+  projectId: nullable(nonEmptyText()),
   title: nonEmptyText(),
   // Screen-test consequence — null when kind !== 'startAuditions'.
   weekLine: nullable(text()),
@@ -2427,7 +2428,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-19',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-20',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [

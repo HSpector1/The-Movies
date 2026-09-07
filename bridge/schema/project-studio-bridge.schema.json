@@ -127,7 +127,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 19,
+          "const": 20,
           "type": "integer"
         },
         "stateDigest": {
@@ -243,7 +243,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 19,
+          "const": 20,
           "type": "integer"
         },
         "stateDigest": {
@@ -736,7 +736,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 19,
+          "const": 20,
           "type": "integer"
         },
         "stateDigest": {
@@ -805,7 +805,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 19,
+          "const": 20,
           "type": "integer"
         },
         "stateDigest": {
@@ -1263,8 +1263,15 @@
           "type": "string"
         },
         "projectId": {
-          "minLength": 1,
-          "type": "string"
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "signTalentId": {
           "anyOf": [
@@ -1772,8 +1779,15 @@
           ]
         },
         "projectId": {
-          "minLength": 1,
-          "type": "string"
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "queueNote": {
           "anyOf": [
@@ -9700,7 +9714,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-19",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-20",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -9741,7 +9755,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 19,
+    "projectionVersion": 20,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

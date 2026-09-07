@@ -914,7 +914,7 @@ describe('prior protocol-4 acceptance boundary pins', () => {
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
   })
 
-  it('is exactly the nineteen historical protocol-4 identities, pinned as literals', () => {
+  it('contains exactly the independently pinned historical protocol-4 identities', () => {
     // Load-bearing completeness: iterating the map cannot catch a wrong or
     // missing hash; these literals were re-derived independently from the
     // generated-header history during hostile review. A projection bump must
@@ -937,6 +937,11 @@ describe('prior protocol-4 acceptance boundary pins', () => {
     // projection-18. P10-R1 appended the outgoing projection-v18 identity (ea5d645f…, the
     // P10 person-route candidate schema) when the contract actions / contract quote family
     // moved the running schema to projection-19.
+    // AUD-001: P07 missed the outgoing P06 projection-v14 identity. Its literal
+    // comes from the accepted receipt and frozen P06 checkpoint, independently
+    // exercised by bridge-p06-checkpoint-recovery.test.ts.
+    // Recovery projection20 registers the outgoing projection19 header frozen
+    // at recovery base1b5eb8f08c81c7d9c639058c3e28b21b9c1f8e84.
     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).toEqual([
       'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e',
       'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5',
@@ -944,6 +949,8 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587',
       'sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78',
       'sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c',
+      'sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9',
+      'sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b',
       'sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c',
       'sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47',
       'sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236',
