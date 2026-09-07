@@ -1,0 +1,1104 @@
+{
+ "exe": "f678cf539d067ab562d064458f6aef316fe61fabf0ba87cbf2c92e670ca9a9b0",
+ "build": "574339da31",
+ "engine": "189326b6fbd769bc9650d0ed43b92c9ba75c78565958f3074f4d5645605d065e",
+ "sweep": {
+  "summaryRows": 46,
+  "runs": [
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p08/p08-no-current-location-20260907T171638Z",
+    "scenario": "p08-no-current-location",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p08/p08-old-save-not-recorded-20260907T171645Z",
+    "scenario": "p08-old-save-not-recorded",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p08/p08-publicity-20260907T171607Z",
+    "scenario": "p08-publicity",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p08/p08-recording-just-begun-20260907T171551Z",
+    "scenario": "p08-recording-just-begun",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p08/p08-release-divergent-20260907T171559Z",
+    "scenario": "p08-release-divergent",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p08/p08-same-title-twins-20260907T171630Z",
+    "scenario": "p08-same-title-twins",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p08/p08-sparse-timeline-20260907T171622Z",
+    "scenario": "p08-sparse-timeline",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p08/p08-weekly-settling-20260907T171615Z",
+    "scenario": "p08-weekly-settling",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p09/p09-endowed-build-20260907T171544Z",
+    "scenario": "p09-endowed-build",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p09/p09-first-film-released-20260907T171529Z",
+    "scenario": "p09-first-film-released",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p09/p09-invalid-placement-20260907T171448Z",
+    "scenario": "p09-invalid-placement",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p09/p09-migrated-endowed-unchanged-20260907T171427Z",
+    "scenario": "p09-migrated-endowed-unchanged",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p09/p09-multi-site-20260907T171503Z",
+    "scenario": "p09-multi-site",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p09/p09-office-rising-20260907T171456Z",
+    "scenario": "p09-office-rising",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p09/p09-reconnect-same-ids-20260907T171511Z",
+    "scenario": "p09-reconnect-same-ids",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p09/p09-same-week-completion-20260907T171517Z",
+    "scenario": "p09-same-week-completion",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p09/p09-save-load-mid-construction-20260907T171523Z",
+    "scenario": "p09-save-load-mid-construction",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p09/p09-sparse-start-20260907T171434Z",
+    "scenario": "p09-sparse-start",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p09/p09-stage-ready-no-set-20260907T171535Z",
+    "scenario": "p09-stage-ready-no-set",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p09/p09-valid-placement-20260907T171442Z",
+    "scenario": "p09-valid-placement",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-career-linked-20260907T171123Z",
+    "scenario": "p10-career-linked",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-career-linked-20260907T171211Z",
+    "scenario": "p10-career-linked",
+    "viewport": [
+     1280,
+     800
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-career-linked-20260907T171300Z",
+    "scenario": "p10-career-linked",
+    "viewport": [
+     1920,
+     1080
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-career-linked-20260907T171349Z",
+    "scenario": "p10-career-linked",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "1",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-contract-actions-20260907T171114Z",
+    "scenario": "p10-contract-actions",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-contract-actions-20260907T171203Z",
+    "scenario": "p10-contract-actions",
+    "viewport": [
+     1280,
+     800
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-contract-actions-20260907T171251Z",
+    "scenario": "p10-contract-actions",
+    "viewport": [
+     1920,
+     1080
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-contract-actions-20260907T171339Z",
+    "scenario": "p10-contract-actions",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "1",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-facility-history-20260907T171131Z",
+    "scenario": "p10-facility-history",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-facility-history-20260907T171219Z",
+    "scenario": "p10-facility-history",
+    "viewport": [
+     1280,
+     800
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-facility-history-20260907T171307Z",
+    "scenario": "p10-facility-history",
+    "viewport": [
+     1920,
+     1080
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-facility-history-20260907T171356Z",
+    "scenario": "p10-facility-history",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "1",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-owner-profile-copy-20260907T171411Z",
+    "scenario": "p10-owner-profile-copy",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-owner-profile-copy-20260907T171419Z",
+    "scenario": "p10-owner-profile-copy",
+    "viewport": [
+     1280,
+     800
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-person-history-20260907T171107Z",
+    "scenario": "p10-person-history",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-person-history-20260907T171155Z",
+    "scenario": "p10-person-history",
+    "viewport": [
+     1280,
+     800
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-person-history-20260907T171243Z",
+    "scenario": "p10-person-history",
+    "viewport": [
+     1920,
+     1080
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-person-history-20260907T171332Z",
+    "scenario": "p10-person-history",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "1",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-person-inspector-20260907T171057Z",
+    "scenario": "p10-person-inspector",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-person-inspector-20260907T171146Z",
+    "scenario": "p10-person-inspector",
+    "viewport": [
+     1280,
+     800
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-person-inspector-20260907T171234Z",
+    "scenario": "p10-person-inspector",
+    "viewport": [
+     1920,
+     1080
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-person-inspector-20260907T171323Z",
+    "scenario": "p10-person-inspector",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "1",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-shortage-roster-20260907T171139Z",
+    "scenario": "p10-shortage-roster",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-shortage-roster-20260907T171227Z",
+    "scenario": "p10-shortage-roster",
+    "viewport": [
+     1280,
+     800
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-shortage-roster-20260907T171315Z",
+    "scenario": "p10-shortage-roster",
+    "viewport": [
+     1920,
+     1080
+    ],
+    "fullscreen": "0",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   },
+   {
+    "dir": "Evidence/P10-Oracle-Sweep-FinalVerification02-Rebuild/p10/p10-shortage-roster-20260907T171404Z",
+    "scenario": "p10-shortage-roster",
+    "viewport": [
+     1440,
+     900
+    ],
+    "fullscreen": "1",
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "playerExit": 0,
+    "sidecarStatus": "complete",
+    "sidecarFailure": ""
+   }
+  ],
+  "fullyOk": 46,
+  "nonZero": []
+ },
+ "journeys": {
+  "people": [
+   {
+    "dir": "Evidence/P10-Journey-FinalVerification02-Rebuild/hid-20260907T172023Z",
+    "status": "failed",
+    "failures": 1,
+    "steps": 43,
+    "driverUnchanged": true,
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "dumpSceneOk": true,
+    "exit": 2,
+    "events": 58,
+    "ownedAtEnd": {
+     "keys": []
+    },
+    "osStateAtEnd": {
+     "heldKeys": [],
+     "heldButtons": [],
+     "clean": true
+    },
+    "witnessed": {
+     "log": "/tmp/p10-hid.d2bJW3/hid-witness.jsonl",
+     "playerNullEvents": 21,
+     "foreignEvents": 0,
+     "attributedChecks": 12
+    },
+    "artifacts": {
+     "input-state-start.json": true,
+     "input-state-end.json": true,
+     "run-binding.json": true,
+     "build-manifest.json": true,
+     "app.log": true,
+     "engine.log": true,
+     "hid-witness.jsonl": true
+    },
+    "failedSteps": [
+     [
+      30,
+      "post-Locate camera drift sample (world-selectable-writers, 1.5 s)",
+      "{\"driftPx\":9.243916918709987,\"samples\":[{\"t\":0,\"rect\":[14679,-19052.7,67872.2,17940.9],\"backVisible\":true,\"suspended\":true,\"camera\":{\"originAvailable\":true,\"userInputObserved\":true,\"movement\":[0,0],\"z"
+     ]
+    ]
+   },
+   {
+    "dir": "Evidence/P10-Journey-FinalVerification02-Rebuild/hid-20260907T172822Z",
+    "status": "complete",
+    "failures": 0,
+    "steps": 41,
+    "driverUnchanged": true,
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "dumpSceneOk": true,
+    "exit": 0,
+    "events": 48,
+    "ownedAtEnd": {
+     "keys": []
+    },
+    "osStateAtEnd": {
+     "heldKeys": [],
+     "heldButtons": [],
+     "clean": true
+    },
+    "witnessed": {
+     "log": "/tmp/p10-hid.0NuQMr/hid-witness.jsonl",
+     "playerNullEvents": 5,
+     "foreignEvents": 0,
+     "attributedChecks": 4
+    },
+    "artifacts": {
+     "input-state-start.json": true,
+     "input-state-end.json": true,
+     "run-binding.json": true,
+     "build-manifest.json": true,
+     "app.log": true,
+     "engine.log": true,
+     "hid-witness.jsonl": true
+    },
+    "failedSteps": []
+   }
+  ],
+  "contract": [
+   {
+    "dir": "Evidence/P10-Contract-Journey-FinalVerification02-Rebuild/hid-20260907T171809Z",
+    "status": "failed",
+    "failures": 7,
+    "steps": 32,
+    "driverUnchanged": true,
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "dumpSceneOk": true,
+    "exit": 2,
+    "events": 83,
+    "ownedAtEnd": {
+     "keys": []
+    },
+    "osStateAtEnd": {
+     "heldKeys": [],
+     "heldButtons": [],
+     "clean": true
+    },
+    "witnessed": {
+     "log": "/tmp/p10-hid.MwV2xL/hid-witness.jsonl",
+     "playerNullEvents": 2,
+     "foreignEvents": 0,
+     "attributedChecks": 1
+    },
+    "artifacts": {
+     "input-state-start.json": true,
+     "input-state-end.json": true,
+     "run-binding.json": true,
+     "build-manifest.json": true,
+     "app.log": true,
+     "engine.log": true,
+     "hid-witness.jsonl": true
+    },
+    "failedSteps": [
+     [
+      17,
+      "wait renewal-receipt",
+      "timed out"
+     ],
+     [
+      18,
+      "scroll: profile-detail-scroller not published",
+      ""
+     ],
+     [
+      19,
+      "CONFIRM renewed the contract once at the quoted bonus: receipt shown, contract term 104, new end week, exact d",
+      "receipt=null term=52 end=52 cash 18196000 \u2192 18196000 ledger=0 revision=0"
+     ],
+     [
+      20,
+      "the Profile now shows the renewed contract and the renewal window closed",
+      "term=Under contract through Week 52 \u00b7 12 weeks remaining renewEnabled=true"
+     ],
+     [
+      25,
+      "Save landed: the durable save carries the renewed contract",
+      "message=\"Saved.\" term=52 end=52"
+     ],
+     [
+      28,
+      "Load restored the renewed contract (term 104, same end week); Resume returned to play",
+      "message=\"Studio loaded.\" term=52"
+     ],
+     [
+      31,
+      "after the Load the Profile reads the renewed contract back (window closed again)",
+      "term=Under contract through Week 52 \u00b7 12 weeks remaining"
+     ]
+    ]
+   },
+   {
+    "dir": "Evidence/P10-Contract-Journey-FinalVerification02-Rebuild/hid-20260907T172645Z",
+    "status": "failed",
+    "failures": 1,
+    "steps": 30,
+    "driverUnchanged": true,
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "dumpSceneOk": true,
+    "exit": 2,
+    "events": 35,
+    "ownedAtEnd": {
+     "keys": []
+    },
+    "osStateAtEnd": {
+     "heldKeys": [],
+     "heldButtons": [],
+     "clean": true
+    },
+    "witnessed": {
+     "log": "/tmp/p10-hid.nCRiJR/hid-witness.jsonl",
+     "playerNullEvents": 1,
+     "foreignEvents": 0,
+     "attributedChecks": 1
+    },
+    "artifacts": {
+     "input-state-start.json": true,
+     "input-state-end.json": true,
+     "run-binding.json": true,
+     "build-manifest.json": true,
+     "app.log": true,
+     "engine.log": true,
+     "hid-witness.jsonl": true
+    },
+    "failedSteps": [
+     [
+      10,
+      "the renewal consequence sheet stands with the engine's own terms (bonus now, new end week)",
+      "Pays a $40,365 signing bonus now. Anna Loewenthal stays under contract through Week 92 (1 year) at $4,312 a week \u2014 $224,249 a year. Nothing else about the person changes."
+     ]
+    ]
+   },
+   {
+    "dir": "Evidence/P10-Contract-Journey-FinalVerification02-Rebuild/hid-20260907T173250Z",
+    "status": "complete",
+    "failures": 0,
+    "steps": 30,
+    "driverUnchanged": true,
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "dumpSceneOk": true,
+    "exit": 0,
+    "events": 35,
+    "ownedAtEnd": {
+     "keys": []
+    },
+    "osStateAtEnd": {
+     "heldKeys": [],
+     "heldButtons": [],
+     "clean": true
+    },
+    "witnessed": {
+     "log": "/tmp/p10-hid.wY84xc/hid-witness.jsonl",
+     "playerNullEvents": 0,
+     "foreignEvents": 0,
+     "attributedChecks": 0
+    },
+    "artifacts": {
+     "input-state-start.json": true,
+     "input-state-end.json": true,
+     "run-binding.json": true,
+     "build-manifest.json": true,
+     "app.log": true,
+     "engine.log": true,
+     "hid-witness.jsonl": true
+    },
+    "failedSteps": []
+   }
+  ],
+  "build": [
+   {
+    "dir": "Evidence/P09-Journey-FinalVerification02-Rebuild/hid-20260907T172423Z",
+    "status": "failed",
+    "failures": 3,
+    "steps": 49,
+    "driverUnchanged": true,
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "dumpSceneOk": true,
+    "exit": 2,
+    "events": 61,
+    "ownedAtEnd": {
+     "keys": []
+    },
+    "osStateAtEnd": {
+     "heldKeys": [],
+     "heldButtons": [],
+     "clean": true
+    },
+    "witnessed": {
+     "log": "/tmp/p09-hid.sP9ScL/hid-witness.jsonl",
+     "playerNullEvents": 0,
+     "foreignEvents": 0,
+     "attributedChecks": 0
+    },
+    "artifacts": {
+     "input-state-start.json": true,
+     "input-state-end.json": true,
+     "run-binding.json": true,
+     "build-manifest.json": true,
+     "app.log": true,
+     "engine.log": true,
+     "hid-witness.jsonl": true
+    },
+    "failedSteps": [
+     [
+      25,
+      "real click on world-selectable-placed-1 (still 444 ms, in-window, clear of the HUD, aim 0.5 of the rect height",
+      "selection=admin"
+     ],
+     [
+      27,
+      "real click on world-selectable-placed-1 (still 437 ms, in-window, clear of the HUD, aim 0.5 of the rect height",
+      "selection=admin"
+     ],
+     [
+      29,
+      "real click on world-selectable-placed-1 (still 438 ms, in-window, clear of the HUD, aim 0.5 of the rect height",
+      "selection=admin"
+     ]
+    ]
+   },
+   {
+    "dir": "Evidence/P09-Journey-FinalVerification02-Rebuild/hid-20260907T173427Z",
+    "status": "complete",
+    "failures": 0,
+    "steps": 49,
+    "driverUnchanged": true,
+    "exeOk": true,
+    "buildOk": true,
+    "engineOk": true,
+    "dumpSceneOk": true,
+    "exit": 0,
+    "events": 59,
+    "ownedAtEnd": {
+     "keys": []
+    },
+    "osStateAtEnd": {
+     "heldKeys": [],
+     "heldButtons": [],
+     "clean": true
+    },
+    "witnessed": {
+     "log": "/tmp/p09-hid.TkYdgK/hid-witness.jsonl",
+     "playerNullEvents": 2,
+     "foreignEvents": 0,
+     "attributedChecks": 2
+    },
+    "artifacts": {
+     "input-state-start.json": true,
+     "input-state-end.json": true,
+     "run-binding.json": true,
+     "build-manifest.json": true,
+     "app.log": true,
+     "engine.log": true,
+     "hid-witness.jsonl": true
+    },
+    "failedSteps": []
+   }
+  ]
+ },
+ "cameraProof": [
+  {
+   "dir": "Evidence/P04A-Camera-Proof-FinalVerification02-Rebuild/camera-autoproof-20260907T171652Z",
+   "exeOk": true,
+   "buildOk": true,
+   "engineOk": true,
+   "playerExit": 0,
+   "failure": "",
+   "shots": [
+    {
+     "name": "management-overview",
+     "inspecting": null,
+     "targetObscured": false,
+     "cameraWasDisplaced": false,
+     "cameraDisplacementDistance": 0.0,
+     "collisionMaskMatchesContract": true,
+     "firstCollisionDistance": -1.0
+    },
+    {
+     "name": "stage-7-inspection",
+     "inspecting": null,
+     "targetObscured": false,
+     "cameraWasDisplaced": false,
+     "cameraDisplacementDistance": 0.0,
+     "collisionMaskMatchesContract": true,
+     "firstCollisionDistance": -1.0
+    },
+    {
+     "name": "administration-inspection",
+     "inspecting": null,
+     "targetObscured": false,
+     "cameraWasDisplaced": false,
+     "cameraDisplacementDistance": 0.0,
+     "collisionMaskMatchesContract": true,
+     "firstCollisionDistance": -1.0
+    },
+    {
+     "name": "management-return",
+     "inspecting": null,
+     "targetObscured": false,
+     "cameraWasDisplaced": false,
+     "cameraDisplacementDistance": 0.0,
+     "collisionMaskMatchesContract": true,
+     "firstCollisionDistance": -1.0
+    }
+   ],
+   "transitions": [
+    [
+     "management-start-settle",
+     null
+    ],
+    [
+     "management-to-stage-7",
+     null
+    ],
+    [
+     "stage-7-control-to-management",
+     null
+    ],
+    [
+     "management-to-administration",
+     null
+    ],
+    [
+     "administration-to-management",
+     null
+    ]
+   ]
+  }
+ ],
+ "generatedAtUtc": "2026-09-07T17:42:28Z"
+}
