@@ -2,6 +2,147 @@
 
 Authorization: **OPS-P08P10-FOUNDATION-RECOVERY-01**.
 
+**FOUNDATION RECOVERY COMPLETE. MANDATORY TECHNICAL GATES SATISFIED. OWNER ACCEPTANCE PENDING.**
+
+The accepted recovery repairs remain in the successor lineage. On the current player, the complete no-contract recovery, People routes, literal BUILD chip and construction persistence, Contract/CONFIRM, and bounded Stage inspection journeys have completed. The exact cumulative Oracle sweep also completed on this pair; its visual limitations and delivery checks are recorded below. Earlier failed attempts and older-player successes remain historical evidence. This is not Owner acceptance or a new broad foundation audit.
+
+## Current source, runtime and tools
+
+| Identity | Exact value |
+|---|---|
+| TypeScript repository / branch | HSpector1/The-Movies / wip/p08-p10-foundation-recovery-01-ts |
+| Engine source, unchanged | 91e760f328adcfd62de6ae576dcb959612af09e3 |
+| Engine SHA-256 | 419024a8a70ce84c15fbe0d3e1419610c2259f1740992475943f7b8d0eb035f6 |
+| Unity repository / branch | HSpector1/project-studio-unity-visual-spike / wip/p08-p10-foundation-recovery-01-client |
+| Actual player build source | 41d421dbca3007ee1f4a797918a194c8d55d4b67 |
+| Final runtime proof tools | 64ba79a56e628db4197c27048f2392d1cf6be43f |
+| Player executable SHA-256 | 0ab27d233f9f0db675ecfec51560974cd8cbe0d6e11123010a9d85c950c155b0 |
+| Assembly-CSharp.dll SHA-256 | ece9fd89c302970f99ded03771fcd6239effa05bed619c5ba02ece6e3b10fce4 |
+| Studio.Runtime.Data.dll SHA-256 | 000880bde0b2c8e9174da05dd90c0c2eac57d01a57159e68959ed4a8ff591c35 |
+| Protocol / projection / inner save | 4 / 20 / V18 |
+| Schema | sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b |
+| Actual build-manifest SHA-256 | a2bc67f76315d989b550998aa5db27eff7db273e7aef360c9c4374f28739c308 |
+| Manifest TS checkout context | c46366a16bdfc310be31c8ff74b36b2d96a47eb1 — documentation context, not engine source |
+
+The player was built at 2026-09-08T07:12:35Z from clean 41d421d, after clean EditMode10 completed **940/940** at 07:11:36–47Z. The manifest explicitly retains engineSourceSha=91e760f and engineRebuilt=false. It carries predecessor manifest c2f2406aed9c4c4c918094cf6b3ba64969337b606b53432677c7d66c9d14071c. Data.dll is independently hashed in the binding receipt; the build manifest itself does not contain that field. Every later Unity commit affects Tools only. Packaging does not rebuild either artifact.
+
+The new build adds opt-in development tracing for the existing screenplay commission control. Two ae5 attempts hired once but did not commission; their actual click eligibility was unrecorded. The trace observes native/IMGUI events, prior Repaint geometry, enabled state, handler, dispatch and authoritative outcome without changing commission or financial rules. The successful 41d journey does not establish a cause for those historical ae5 misses. The roof repairs, menu picking-mode restoration and ae5 BUILD-chip repair remain in this lineage.
+
+DTO 843e18b0c1767de6a6dcc35047ccddb3dab77fcbdd46dbca8555975704092520, scene 11d839354a7d55bff097be1d99a66caf05df0f3ae2149e1dec1a74d77b2f2286, NavMesh 8326fa21409bf7d38dc09179ac3ec4b857bc71f51282057769d8968d623b9deb, drawn geometry d1dfe2e7c2108faf3229e4de2f9f0144b5f9b512f67053b4843ca2eaf80fc4c3 and the engine/Data.dll are unchanged and rehashed.
+
+## Integrated gate table
+
+Current runtime evidence is rooted at `/Users/bruce/The Movies - P08-P10 Stack Unity/Evidence/`. Scratch receipts are under `/tmp/studio-foundation-recovery-01.hVpIA1/`. A component PASS below does not relabel the overall verdict of its original run.
+
+| Gate / requirement | Current evidence and disposition |
+|---|---|
+| AUD-001 predecessor checkpoint / migration / identity | PASS carried on byte-identical engine: packaged-p06-recovery-02/report.json 20/20; current-boundary-03/report.json 8/8; governed slot/session/journal and unknown/future non-destructive rejection coverage retained. |
+| AUD-002 complete recovery | PASS: Foundation-Recovery-Trace-HID/hid-20260908T071336Z, COMPLETE0. Explicit advance/pause → standalone FIND TALENT → one exact hire/debit → commission → advance/pause → Save/Load/Resume. |
+| AUD-003/005 actual snapshot/host/frame tests | PASS: clean final EditMode10 940/940. Current Recovery also witnesses SIGN disabled→enabled at unchanged revision/quote and one commitment. |
+| G1 visible body / exact inspector and Profile | PASS: Trace-People/hid-20260908T071623Z, exact Miriam Grimaldi/t-cra-04. |
+| G2 drawn-hidden person / opaque facade | QUALIFIED PASS: Trace-People/hid-20260908T082449Z COMPLETE0, one Post selection, no person inspector, unchanged gameplay. Snapshot/input timing limit below. |
+| G3 Roster selection/filter/Profile/Back | PASS component: People071623, Craft filter and exact retained Miriam. |
+| G4 Locate / suspend / settle / return | PASS component: People071623, same person, zero recorded camera drift over 1.5 seconds, retained Craft/Miriam context. |
+| G5 People Save/Load/Menu/Resume | PASS component: People071623. Complete current and saved payloads equal the bound public fixture after same-state Save/Load; scope is stated below. |
+| G6 literal BUILD chip / preview / one placement | PASS: Trace-Build/hid-20260908T075438Z COMPLETE0, unobstructed chip clicked directly, correct bare-lot fixture, one $1.5M debit/site. |
+| G7 site selection before Save and after Load / Admin control | PASS: same Build run, exact placed-1 and actual post-Load Administration/camera control. Two earlier Admin selection misses are retained. |
+| G8 Contract / cancellation / renewal / persistence / e7 | PASS: Trace-Contract/hid-20260908T082325Z COMPLETE0, no retry; one enabled CONFIRM handler/dispatch/acceptance, exact debit and Save/Load. |
+| G9 required exact 46 Oracle cases | MACHINE PASS: Foundation-Recovery-Oracle-Sweep-02, all46 individual exits0, complete46 sidecars,115 captures and669 assertions; strict bindings and continuous window pass. Separate visual review below. |
+| G10 Stage range / useful framing / return / e4 | QUALIFIED PASS: Trace-Stage/hid-20260908T080609Z COMPLETE0, all 11 actual captures reviewed; full supported controls and exact management return, with obstruction limits below. |
+| G11 authored/placed roofs | PASS automated floors plus current bounded occlusion/Build/Oracle evidence; e1 combined placed evidence remains accepted, e5 residuals deferred. |
+| G12 Studio Menu picking-mode restoration | PASS final EditMode and actual current post-Load site/Admin selection and navigation routes. |
+| G13 TS/bridge/contract/private continuity | PASS unchanged engine floors; required current private-copy player cases are accounted for in G9. |
+| Actual successor launcher / independent integrated review | PASS: actual Launch03 on copied current artifacts, independent integrated review, and independently checked public inventory. PUBLICATION.json binds the pushed report; final documentation changes are rehashed. |
+
+## Current runtime evidence and limits
+
+**Recovery.** Starting from the legal funded Week105 expired-contract/no-Ready-project fixture, the ordinary clock advances to Week106 and pauses while theatrical receipts continue. Standalone FIND TALENT hires Gene Zaleski/t-wri-04 for 52 weeks through existing contract authority, with exactly one $135,706 signing debit: cash 8,808,675.82588958 → 8,672,969.82588958. Commission command 58360868cff241efad6fda696d077c00 creates script-0001 once. After explicit Week107 advance/pause and Save→Load→Resume, both complete gameplay-save strings hash a141f48faf932e9a72ddb3f2d797074ee3305683cb477d05d8574ea86f28336c; person and screenplay remain at revision5. Development trace records the actual enabled commission down/up, one handler, dispatch and accepted response. Whole witness: 1,121 records, 181 owned events, 180 companions, eight inert player events, zero foreign input, clean final marker/held state.
+
+**People and G2.** People071623 remains FAILED1/exit2 overall because its G2 attempt timed out. Independently reviewed G1/G3–G5 compose with the later G2-only COMPLETE0 on identical runtime and fixture bytes. People Save/Load preserves all 60 talent and six contracts at Week2; current/saved complete objects equal the public fixture. This is a same-state Save/Load with no intervening mutation or restart, not a universal save-integrity claim. Its whole witness has 5,014 records, zero foreign input and clean finalization.
+
+The current G2 retake retains one movement refusal and one changed-occluder refusal before one qualified facade click. Independent geometry agrees on Post before the click and reports continued hiding afterward; actual selection is Post, with no person inspector. Current save bytes, revision0, empty journal and null saved slot remain unchanged. The 150ms/2px checks occur at JavaScript qualification. Exact moving-body overlap at the later DOWN is not certified: the intervening per-frame body path was not retained. This supports the same bounded qualified-observation/Post-selection component as the prior composite. Its map age was 75.437ms then; the native witness callback was 173ms later, making that publication approximately 248.4ms old at the callback. The native callback records integer coordinates 281,214; it is not an exact physical posting timestamp or subpixel measurement. Neither the screenshot nor these timestamps establishes instantaneous physical-down freshness. Whole witness: 415 records, 22 owned events, 21 companions, four inert player events, zero foreign input and clean finalization.
+
+**Build.** Current Build075438 uses the explicit bare-lot fixture: $20M, zero placements. The unobstructed chip receives the owned native click at 259,119 and directly opens the chooser. The first preview is already valid at Gate Court West (11,14); zero placement nudges occurred. One accepted command 625b09926072413c9c4842c8f446d243 creates numeric placement1 / view placed-1 and one constructionCapex −1,500,000 row. Cash becomes $18.5M. Current/saved complete save strings hash 43303a92c64db30def32fcbe9400eeb13c7a151b18e624b821c9938f39caa4d1 after Save/Load. The current Week0 site is scheduled to complete in Week14. Two pre-Save aims selected Administration before the third aimed site selection succeeded; all are retained. After Load, Administration selection, camera movement, and exact site selection succeed. Chip containment exercised empty→empty selection, not preservation of a preselected subject. Whole witness: 1,536 records, 307 owned events, 306 companions, nine inert player events, zero foreign input.
+
+**Contract and dropped CONFIRM.** Contract075201 remains FAILED1: its entry assertion combined different snapshots; the exact failed operand was not retained, although later transaction/cancellation/persistence were demonstrated. Contract080419 remains FAILED2: both CONFIRM pointer-downs were demonstrably disabled during polling, became enabled at pointer-up, and sent no command. The explicit retry is retained. Those cases are not enabled-button no-ops, and do not establish a cause for older uninstrumented misses.
+
+The narrow tool correction observes one exact-person map at entry, then hovers and waits for fresh current button geometry, the same subject/quote/intent/session/revision, and explicit absence of pending action before DOWN. It avoids a redundant pointer move/sleep while retaining the complete input barrier, dispatch legality and retry limits. An independent reviewer caught a null-control entry-gate issue before runtime; retained-trace inert tests then exercised 20 cases (two ready paths, 17 no-DOWN refusals, one polling recovery). These are mocked driver tests, not host/input evidence. The first moved-target test failure is retained; the fixed driver freezes its original aim before hover.
+
+Contract082325 subsequently completes with no retry. A real 52-week renewal consequence is cancelled without cash/revision mutation, followed by a deliberate second quote and 104-week term. Native CONFIRM down/up callbacks at 08:24:02.889/08:24:03.004 reach the exact control; Unity records an enabled down and same enabled instance handler at 03.017. Command 081a44316e9e41e699e4711bf786d59a is dispatched and accepted once. There is no separate UITK UP row after subtree replacement; native UP and handler evidence are recorded instead. Exact t-dir-06 receives the quoted 104-week contract through Week144, with one −37,375 ledger entry and cash 18,196,000 → 18,158,625. Save/Load retains both complete slots at digest 0be99e243c09661643b3049fc534c57813654e765f8a33faa929224926baf963. Journal contains only renewal, Save and Load. Whole witness: 834 records, 150 owned, 149 companions, six inert player events, no foreign or held input; eight outcome captures independently inspected.
+
+**Stage.** All 11 captures and 4,147 samples were independently inspected. Actual native double-click down callbacks are 412ms apart and enter exact StageSeven/stage-a. Controls demonstrate pitch −8° to 42°, distance 9–30 and a full yaw circuit. At high pitch, collision correction pulls the actual camera closer (roughly 15–16 units from pivot) despite distance control30; this is not a claim that its physical radius stayed30. Far/mid overhead obstruction and the high-yaw180 ceiling-edge-dominated view remain visible, consistent with the previously recorded bounded limitation. The interior is recovered and real Back restores exactly the recorded management position, rotation and FOV while retaining stage-a. This demonstrates no trapping on this route; 11 stills do not prove continuous absence of clipping or clear framing at every angle. targetObscured=false is unevaluated in these samples and is not a visibility proof. Whole witness: 11,757 records, 2,926 owned events, 2,925 companions, 59 inert player events, zero foreign input, clean finalization.
+
+## Oracle sweep and visual review
+
+Foundation-Recovery-Oracle-Sweep-02 contains exactly **46 successful case rows, 46 complete sidecars, 115 valid captures and 669 passing machine assertions**: P10 public24/private2, P09 twelve, P08 eight. Assertions partition as384 public P10,22 private,143 P09 and120 P08. All case fixtures, sessions, schema/projection, viewport bindings, executables, managed assemblies and the sealed engine pass the strict verifier. Independent reviewers also checked the actual files. The continuous window independently replays3,727 records over367.901seconds, one closing owned null and46 exactly admitted player nulls, zero physical/unknown/other-player input; all46 registrations match individual case PIDs, final marker3725 is acknowledged, the group drains and both held-input states are clean. Admission observed the session unlocked with146.46seconds idle.
+
+All64 public P10,26 P09,19 P08 and six private captures were inspected. Machine assertions are not universal visual or real-input proof. At1280, Company/clock content overlaps parts of Casting or upper Roster/Profile bands; OPEN CASTING is covered and FIND TALENT is partly affected in the fixed hiring capture. The current full hiring proof is on the normal1440 canvas; the overlap is retained as a known limitation rather than silently declared repaired. P10 Result/release-sheet/career evidence includes captures taken after returning to Profile, and the shortage capture shows Casting, so these images do not by themselves prove every intermediate view's readability. The exact-result-named assertion does not compare selected film IDs. Independent source tracing follows exact career event prod-0044:t-act04 to film prod-0044 through Profile, host and Result preferred-ID lookup; that supports the route without converting the weak assertion or absent Result capture into stronger runtime proof.
+
+P09 ground labels are inverted or partly obscured, some preview/site geometry is hidden behind Administration, and fixed sparse Admin OPEN BUILD is partly clipped. The5/14 and7/14 views do not establish visibly different construction phases; an endowed new site is partly cropped. Fixture-loaded reconnect/SaveLoad cases do not execute those interactions; current HID and core proofs supply them. P08 same-title films both show Week10, so the test's release-week-distinguishes wording overclaims. Independent comparison of Critics56, opening$2.7M, total$7.7M and audience segments62/64/73/76 identifies prod-0801 in the captured detour, with selection retained on return; no misroute was observed. Private cases each pass11 assertions with zero mutations; their actual captures and contents remain private.
+
+These are qualified inspection and assertion limits, not a new HUD, camera or broad proof-tool repair campaign. No new required-machine failure or mismatched runtime pair was found.
+
+## Current cumulative floors, safety and retained attempts
+
+The byte-identical engine permits carried clean91e results: TS375 files / **5,026 passed**, five unchanged conditional audio skips; typechecks, bridge, contract/fixture generation and actual consumed DTO validation PASS; wire/parser **38/38**; packaged P06 **20/20**; current/older boundary **8/8**; authorized private-copy engine continuity **11/11** with original binding context retained. No dirty manifest is retroactively relabeled clean. Final current player EditMode10 is **940/940**, zero skips, from committed41d; final player build07 succeeded. Earlier EditMode08/09 and all older build logs remain historical.
+
+Normal Mac unlock was observed passively. On this Mac the unlocked active-session record omits the conditional CGSSessionScreenIsLocked marker. The corrected parser still requires a Boolean root lock, one complete active on-console session, and rejects malformed/explicit-null marker values; either reported lock stops activity. This is an empirical rule for the retained observations, not a universal Apple guarantee about private keys. The historical locked projection is labeled reconstructed, not a fabricated raw capture. Per-action --lock-only avoids an unused idle query while performing the same fresh lock validation; admission still queries actual idle and requires 60 seconds. No authentication, lock setting or keep-awake change was made.
+
+Current console parser tests: **14 PASS**. Current isolated guard/window/geometry floor: **180 Node entries PASS** across console-lock-only-guard-floor-01.log (171) and console-lock-only-remaining-floor-01.log (9, including the legacy 61-check harness as one entry). These are replay/unit results, not physical interference demonstrations. Existing strict Oracle negatives11, Stage pure helpers13 and renewal/CONFIRM diagnosis15 remain separate. Foreign/unknown input stays sticky even next to owned injection; continuous witness, exact PID attribution, focus/held-input checks and guarded suspension remain intact.
+
+G2 tool work only removed duplicated observation latency and reused verified geometry for one candidate; independent geometry still has to agree before consumption, and all freshness, movement, same-occluder, UI/world bounds and DOWN safeguards remain. Failed current attempts are preserved at People071623, focused072817,073643 and074303; the later082449 retake passed without removing its40ms wait or weakening criteria. Earlier ae5 Build064323 passed independently; ae5 Recovery064547/070412 failed after hire without commissioning, and ae5 People065339 failed G2 qualification. None is relabeled as41d evidence.
+
+## Audit and Current Ops dispositions
+
+| Item | Final bounded disposition |
+|---|---|
+| AUD-001 | Reproduced and repaired earlier through existing governed predecessor migration; current engine boundary and packaged evidence retained. Exact accepted P06 identity derives from acceptance authority, not an allowlist self-comparison. |
+| AUD-002 | Reproduced and repaired; complete current player-facing no-contract/no-project hiring, commissioning, explicit clock and Save/Load recovery now demonstrated. |
+| AUD-003 | Reproduced and repaired at ordinary snapshot→host market refresh, preserving exact project/draft and offer validity; final host tests retained. |
+| AUD-005 | Reproduced and repaired at host/frame action availability, shared dispatch reasons retained; current SIGN recovery and separate real Profile CONFIRM evidence recorded. |
+| AUD-004 | Deferred core committed-cancellation integrity to core action/save owner before exposure. No new ordinary-current-command high-impact path established. |
+| AUD-006/007 | Deferred malformed-import validation to save-validation owner. |
+| AUD-008 | Deferred recurring-cost forecast to P11 W0; no P11 implementation here. |
+| AUD-009 | Deferred quote eviction to bridge owner. |
+| AUD-010 | Historical proof imports recorded; that entry point was not needed and was not repaired. |
+| e1 | Accepted combined placed-building occlusion evidence; current literal Build/world-selection regressions retained; no redundant placed-occluder HID scene. |
+| e2 | Historical EditMode timing limitation retained; current clean committed final940/940 supplied. |
+| e3 | Exact unchanged engine evidence carried with original dirty-manifest disclosures; no old-engine runtime claim for a changed engine. |
+| e4 | Not waived; current bounded Stage range, actual captures and return independently reviewed with explicit visual limits. |
+| e5 | Specifically enumerated hoarding/small-prop/canopy/cylinder residuals deferred; no broad collider cleanup or perfect-geometry claim. |
+| e6 | Earlier pair-2 HID acceptance based on independent whole-log review remains historical; current guard negative cases and current complete witnesses separately checked. |
+| e7 | Not waived; current disabled-click cases diagnosed, successful enabled CONFIRM independently demonstrated. Older insufficiently instrumented misses remain historically unresolved; unsupported “sheet moved” explanation is not retained as a cause. |
+
+Real Builders remains the separately preserved P09-REQ-039 obligation. P00 numbering is not a release gate. P06/P07 Owner acceptance remains recorded; P08–P10 Owner acceptance remains pending. No campaign/main promotion, onboarding activation, P11, Wire, Radio, new economy or Builder implementation occurred.
+
+## Delivery and Owner route
+
+Successor: `/Users/bruce/Desktop/P08-P10-Foundation-Recovery-Candidate-91e760f-41d421d/`. The prior ae5 candidate and a separate ae5 PARTIAL control remain byte-identical. The new artifact copy contains all184 exact current app files, unchanged engine and launcher, and nine public disposable fixtures. Private Owner-copy fixtures/captures/logs stay private and are excluded from publication. Candidate documentation and final inventories are assembled from the actual tested artifacts, without a documentation rebuild. Independent package review rehashed every included file, confirmed no symlinks/unlisted files or private payload copies, and verified report bytes against the owned TS checkout. The final publication metadata is included in the regenerated inventory.
+
+Actual launch verification PASS: Foundation-Recovery-Candidate-Launch-03-window. The byte-identical playtest.sh recovery command launched the new candidate through the reviewed observation-only PID shim, applied a snapshot and supplied45 advancing frame/map observations over8.127seconds. The actual own-window image was inspected. The supervised player was then deliberately stopped; launcher exit143 is retained as an owned shutdown after capture, not relabeled exit0. The monitor completed with its group drained, no interaction injection, clean final witness and held state. Launcher SHA-256 remains79557a25ff680b2fc0f4e2e526fbf27c8ba905286abdf9b80637f47b542ffeb9; capture SHA-256 f34ea8d2e05974964e6463236563aef931e73971303191b29c091b59df91fd55. The launcher remains normally usable without either observation variable.
+
+Owner command, after normal unlock and once no verification runner is active:
+
+```sh
+'/Users/bruce/Desktop/P08-P10-Foundation-Recovery-Candidate-91e760f-41d421d/playtest.sh' recovery
+```
+
+In the recovery studio, advance one week and pause; open Casting → FIND TALENT, hire an eligible person and confirm the displayed cost once; commission a screenplay in Development, advance, then Menu → Save → Load → Resume. Check the person and screenplay remain. Then inspect the hired person in Profile/Roster and use Locate when available, inspect Stage and return, and open BUILD for a preview before returning to the lot. Optional separate fixtures use the same launcher's `endowed` entry for a staffed studio; `barelot` for the visible BUILD chip, one affordable office and site Save/Load; `contracts` for deliberate renewal/cancellation. Each entry copies a public fixture into a disposable profile; the original Owner profile is never opened by this launcher. This concise playtest is for Owner acceptance, not a substitute for the recorded technical gates.
+
+Independent reviewers separately evaluated gameplay/finance, Unity interaction/visual evidence, and save/identity/input bindings. Independent integrated review found AUD-001/002/003/005 and G1–G13 supported within the authorized scope, with the stated G2, Stage and Oracle qualifications; it identified no additional mandatory runtime requirement. Final publication bytes are recorded in PUBLICATION.json after the delivery checks. Protected Owner hash remains d949003e1874406170bfd3e7c8f4c6dc2dc92d24bb125376c435cdf21eec8b4b. Both frozen campaigns and final-verification control refs, TS main and unrelated keep-awake remain unchanged. The missing historical pair-1 executable remains unavailable; no replacement was manufactured as original evidence.
+
+
+## Preserved handoff and detailed repair history
+
+The following is the published c46366a16bdfc310be31c8ff74b36b2d96a47eb1 report, retained as historical evidence. Its PARTIAL statuses, older candidate identities and resume commands are superseded by the current sections above. They are not current launch instructions. The original document remains immutable in Git.
+
+<details>
+<summary>Historical c46366a handoff, authority, detailed repairs and earlier evidence</summary>
+
+# P08–P10 Foundation Recovery 01
+
+Authorization: **OPS-P08P10-FOUNDATION-RECOVERY-01**.
+
 **PARTIAL / BLOCKED — ACTIVE MAC SESSION LOCKED. NEW-PLAYER RUNTIME GATES PENDING. OWNER ACCEPTANCE PENDING.**
 
 The completed recovery, People composite, Administration Build, Contract, Stage-range and exact46-case oracle results are preserved on player957ebcc/engine91e760f. Independent integrated review identified the original G6 BUILD-chip trigger as unproven. The chip was demonstrably covered by PROJECT; a narrow placement/input-guard repair is committed and its successor player passes940/940 clean EditMode tests.
@@ -339,3 +480,5 @@ The two private-copy player cases are mandatory; their protected fixture exists 
 After technical completion, run the verified candidate launcher with recovery: explicitly advance/pause; open Casting/FIND TALENT; review and sign one affordable hire; commission a screenplay; advance/pause; Save/Load and confirm both person and screenplay remain. Then use endowed/contracts/barelot entry points to inspect a person, Profile/Roster/Locate/Back, orbit Stage and return, review/cancel/commit one contract, and build/select/save/load one site through the visible BUILD chip, with the separate Administration control afterward.
 
 These entries use disposable copies; closing the player ends its owned engine. Current Ops retains triage of deferred audit/e5 work. Owner acceptance remains pending.
+
+</details>
