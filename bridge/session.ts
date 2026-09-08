@@ -128,6 +128,7 @@ type IntentApplication = {
 
 export type SnapshotMetrics = BridgeSnapshotEnvelope['metrics']
 export type SnapshotEnvelope = BridgeSnapshotEnvelope
+type SavedSlotMetadata = NonNullable<SnapshotEnvelope['savedSlot']>
 export type AcceptedCommandResponse = BridgeAcceptedCommandResponse
 export type RejectedResponse = BridgeRejectedResponse
 
@@ -1219,6 +1220,10 @@ export class BridgeSession {
   private readonly processed = new Map<string, RuntimeEntry>()
   private readonly journal: BridgeRuntimeJournalEntryV1[]
   private savedJson: string | null
+  private savedSlotCache: {
+    saveJson: string
+    metadata: SavedSlotMetadata | null
+  } | null = null
   private readonly runtimeLimits: BridgeRuntimeCheckpointLimits
 
   constructor(
@@ -1309,6 +1314,30 @@ export class BridgeSession {
     return new BridgeSession(imported.state, randomUUID(), this.savedJson, { limits })
   }
 
+  private savedSlotFor(savedJson: string | null): SavedSlotMetadata | null {
+    if (savedJson === null) return null
+    if (this.savedSlotCache === null || this.savedSlotCache.saveJson !== savedJson) {
+      // The saved checkpoint can differ from the current game without changing
+      // its revision. Key this derived metadata by the actual slot bytes.
+      const imported = importSaveJsonCurrent(savedJson)
+      const lot = imported.ok
+        ? snapshotBuildContextFor(imported.state).lotSnapshot()
+        : null
+      this.savedSlotCache = {
+        saveJson: savedJson,
+        // The existing selector owns the fixed brand and saved game week.
+        // Null means no readable metadata; never replace or repair saved bytes.
+        metadata: lot === null ? null : {
+          studioName: lot.studioName,
+          gameWeek: lot.week,
+        },
+      }
+    }
+    const metadata = this.savedSlotCache.metadata
+    // No served envelope may alias the retained cache object.
+    return metadata === null ? null : { ...metadata }
+  }
+
   private snapshotFor(state: GameState, revision: number): SnapshotEnvelope {
     const started = performance.now()
     const context = snapshotBuildContextFor(state)
@@ -1345,6 +1374,7 @@ export class BridgeSession {
       stateDigest,
       snapshot,
       founding: founding === null ? null : founding.projection,
+      savedSlot: this.savedSlotFor(this.savedJson),
       treasury: treasuryOf(state),
       availableIntents: intents,
     }
@@ -1719,6 +1749,9 @@ export class BridgeSession {
       gameWeek: this.state.market.tick,
       stateDigest: authoritativeDigest(this.state),
       saveJson: savedJson,
+      // This receipt describes the prospective bytes committed below, not the
+      // previous slot. A replay returns this historical receipt unchanged.
+      savedSlot: this.savedSlotFor(savedJson),
       processingMs: performance.now() - started,
     }
     const entry = this.prepareEntry(

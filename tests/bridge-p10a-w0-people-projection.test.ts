@@ -301,11 +301,11 @@ describe('P10A W0 — people projection', () => {
       expect(cohort.key).toMatch(/^(work-ambiguous|presence-blocked|renewal-open|contract-ends-26|contract-ends-52)$/)
   })
 
-  it('R9 the served section is projection 20 and the projection-17/18 identities stay accepted', () => {
+  it('R9 the served section is projection 21 and the projection-17/18 identities stay accepted', () => {
     const state = foundStudio('p10-w0-schema')
-    // P10-R1 moved the wire to projection 19 (contract actions + the contract quote family).
-    expect(PROJECTION_VERSION).toBe(20)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-20')
+    // Owner UX adds explicit public genre cells and saved-slot envelope metadata.
+    expect(PROJECTION_VERSION).toBe(21)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-21')
     const context = snapshotBuildContextFor(state)
     const bundle = projectStudioProjectionBundle({ ...context.lotSnapshot(), development: context.development(), casting: context.casting(), release: context.release(), history: context.history(), talent: context.people() })
     expect(bundle.talent.talent.profiles.length).toBe(state.talent.length)

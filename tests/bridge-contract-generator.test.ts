@@ -549,12 +549,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('title')
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('noFeeLine')
 
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 13 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 21 })
       expect(generated).toContain(
-        '// Schema identity: sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b',
+        '// Schema identity: sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b',
+        'sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -619,8 +619,8 @@ describe('CF-08 sound union-to-C# generation', () => {
         F03_COMPATIBLE_OBJECTS: '99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68',
         F04_DISCRIMINATED_OBJECTS: 'd878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b',
         F09_ARRAY_ITEM_UNION: '7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b',
-        F10_CURRENT_QUOTE_UNIONS: '3c8cbeb2b61fe8a7a25f3a35a408e67d7b7a1acdd7bc8eec9bf4617b3209ee50',
-        F11_CURRENT_COMMAND_UNION: '3c8cbeb2b61fe8a7a25f3a35a408e67d7b7a1acdd7bc8eec9bf4617b3209ee50',
+        F10_CURRENT_QUOTE_UNIONS: 'ea72f79d82a940cb7641b18803bb4ab21f3b400b47a03ab715f464d354088372',
+        F11_CURRENT_COMMAND_UNION: 'ea72f79d82a940cb7641b18803bb4ab21f3b400b47a03ab715f464d354088372',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

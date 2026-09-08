@@ -131,6 +131,10 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // independently pinned from its generated DTO header. Recovery projection 20
   // widens the hiring context; existing profiles retain the governed prior path.
   ['sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9', 'projection-v19'],
+  // projection-v20: outgoing recovery source 91e760f328adcfd62de6ae576dcb959612af09e3,
+  // independently pinned from its generated DTO header and retained public runtime.
+  // Owner UX projection 21 uses the existing governed prior-checkpoint migration.
+  ['sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b', 'projection-v20'],
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({

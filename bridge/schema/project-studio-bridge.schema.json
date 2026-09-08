@@ -115,6 +115,16 @@
           "const": 4,
           "type": "integer"
         },
+        "savedSlot": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioSavedSlotSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "schemaId": {
           "minLength": 1,
           "type": "string"
@@ -127,7 +137,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 20,
+          "const": 21,
           "type": "integer"
         },
         "stateDigest": {
@@ -153,6 +163,7 @@
         "metrics",
         "processingMs",
         "protocolVersion",
+        "savedSlot",
         "schemaId",
         "sessionId",
         "snapshot",
@@ -243,7 +254,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 20,
+          "const": 21,
           "type": "integer"
         },
         "stateDigest": {
@@ -677,6 +688,16 @@
           "minLength": 1,
           "type": "string"
         },
+        "savedSlot": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioSavedSlotSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "schemaId": {
           "minLength": 1,
           "type": "string"
@@ -703,6 +724,7 @@
         "processingMs",
         "protocolVersion",
         "saveJson",
+        "savedSlot",
         "schemaId",
         "sessionId",
         "stateDigest",
@@ -736,7 +758,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 20,
+          "const": 21,
           "type": "integer"
         },
         "stateDigest": {
@@ -793,6 +815,16 @@
           "const": 4,
           "type": "integer"
         },
+        "savedSlot": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioSavedSlotSnapshot"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "schemaId": {
           "minLength": 1,
           "type": "string"
@@ -805,7 +837,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 20,
+          "const": 21,
           "type": "integer"
         },
         "stateDigest": {
@@ -827,6 +859,7 @@
         "gameWeek",
         "metrics",
         "protocolVersion",
+        "savedSlot",
         "schemaId",
         "sessionId",
         "snapshot",
@@ -5553,6 +5586,12 @@
         "employment": {
           "$ref": "#/$defs/StudioPersonEmploymentSnapshot"
         },
+        "genreExperience": {
+          "items": {
+            "$ref": "#/$defs/StudioPersonSpecialtySnapshot"
+          },
+          "type": "array"
+        },
         "name": {
           "minLength": 1,
           "type": "string"
@@ -5642,6 +5681,7 @@
         "careerIdentityLabel",
         "disciplines",
         "employment",
+        "genreExperience",
         "name",
         "nameShared",
         "potentialNotice",
@@ -8336,6 +8376,26 @@
       "type": "object",
       "x-csharp-name": "StudioRosterSnapshot"
     },
+    "StudioSavedSlotSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "gameWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "studioName": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "gameWeek",
+        "studioName"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioSavedSlotSnapshot"
+    },
     "StudioScheduleShootingTakeCommand": {
       "additionalProperties": false,
       "properties": {
@@ -9714,7 +9774,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-20",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-21",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -9755,7 +9815,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 20,
+    "projectionVersion": 21,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

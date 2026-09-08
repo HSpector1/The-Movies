@@ -182,6 +182,8 @@ export type BridgePersonProfileSnapshot = {
   careerIdentityLabel: string
   capableButUnproven: string[]
   disciplines: BridgePersonDisciplineSnapshot[]
+  /** All discipline/genre perceived cells, including zero; not a specialty classification. */
+  genreExperience: BridgePersonSpecialtySnapshot[]
   specialties: BridgePersonSpecialtySnapshot[]
   specialtyLine: string
   workEthic: number
@@ -445,6 +447,18 @@ function buildProfile(
     careerIdentityLabel: identityLabel.length > 0 ? identityLabel : 'No credited identity yet',
     capableButUnproven: capableButUnprovenLabels(identity),
     disciplines,
+    // Reuse the perceived-only TalentProfile producer and its canonical genre order.
+    // Keep every discipline: an Actor commissioned to write needs Writing experience,
+    // while the existing specialties field remains the home-discipline summary.
+    genreExperience: DISCIPLINE_ORDER.flatMap((discipline) =>
+      profile.genreExperience[discipline].map((cell) => ({
+        discipline,
+        genre: cell.genre,
+        label: GENRE_LABEL[cell.genre],
+        // JSON has one zero: match initial and journal-replayed wire envelopes.
+        perceived: cell.perceived === 0 ? 0 : cell.perceived,
+      })),
+    ),
     specialties,
     specialtyLine,
     workEthic: talent.workEthic,

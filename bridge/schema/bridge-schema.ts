@@ -28,7 +28,9 @@ export const PROTOCOL_VERSION = 4 as const
 // `results` (StudioFilmResultSnapshot: three independent critic/audience/business channels,
 // gross vs studio revenue, banked-vs-projected). Additive; protocol stays 4; save stays V16
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
-export const PROJECTION_VERSION = 20 as const
+// Owner UX 01: public discipline/genre estimates and readable saved-slot metadata.
+// Protocol stays 4 and gameplay save stays V18; both fields derive existing authority.
+export const PROJECTION_VERSION = 21 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1815,6 +1817,7 @@ const StudioPersonProfileSnapshot = object('StudioPersonProfileSnapshot', {
   careerIdentityLabel: nonEmptyText(),
   capableButUnproven: array(nonEmptyText()),
   disciplines: array(reference('StudioPersonDisciplineSnapshot', StudioPersonDisciplineSnapshot)),
+  genreExperience: array(reference('StudioPersonSpecialtySnapshot', StudioPersonSpecialtySnapshot)),
   specialties: array(reference('StudioPersonSpecialtySnapshot', StudioPersonSpecialtySnapshot)),
   specialtyLine: nonEmptyText(),
   workEthic: integer({ minimum: 1, maximum: 99 }),
@@ -2140,6 +2143,11 @@ const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {
   productionId: nullable(text()),
 })
 
+const StudioSavedSlotSnapshot = object('StudioSavedSlotSnapshot', {
+  studioName: nonEmptyText(),
+  gameWeek: nonNegativeInteger(),
+})
+
 const StudioBridgeMetrics = object('StudioBridgeMetrics', {
   payloadBytes: nonNegativeInteger(),
   serializationMs: number({ minimum: 0 }),
@@ -2178,6 +2186,7 @@ const snapshotResponseProperties = {
   snapshot: reference('StudioProjectionBundle', StudioProjectionBundleSchema),
   /** Non-null exactly while the founding draft is open (LL-CP9 gate arrivals). */
   founding: nullable(reference('StudioFoundingSnapshot', StudioFoundingSnapshot)),
+  savedSlot: nullable(reference('StudioSavedSlotSnapshot', StudioSavedSlotSnapshot)),
   treasury: reference('StudioTreasurySnapshot', StudioTreasurySnapshot),
   availableIntents: array(reference('StudioBridgeIntentOption', StudioBridgeIntentOption)),
   metrics: reference('StudioBridgeMetrics', StudioBridgeMetrics),
@@ -2207,6 +2216,7 @@ const StudioBridgeSaveResponse = object('StudioBridgeSaveResponse', {
   gameWeek: nonNegativeInteger(),
   stateDigest: nonEmptyText(),
   saveJson: nonEmptyText(),
+  savedSlot: nullable(reference('StudioSavedSlotSnapshot', StudioSavedSlotSnapshot)),
   processingMs: number({ minimum: 0 }),
 })
 
@@ -2412,6 +2422,7 @@ const definitions = {
   StudioTalentProjection: StudioTalentProjectionSchema,
   StudioProjectionBundle: StudioProjectionBundleSchema,
   StudioBridgeIntentOption,
+  StudioSavedSlotSnapshot,
   StudioBridgeMetrics,
   StudioBridgeIntentPayload,
   StudioBridgeIntentRequest,
@@ -2428,7 +2439,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-20',
+  $id: 'urn:project-studio:bridge:protocol-4:projection-21',
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [
