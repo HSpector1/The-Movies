@@ -1,4 +1,4 @@
-// Proposed tests/bridge-owner-ux-projection20-migration.test.ts; scratch only, unexecuted.
+// OPS-P08P10-OWNER-UX-01: actual predecessor compatibility at the coordinator boundary.
 // Requires the two frozen gzip byte copies in tests/fixtures/ and both UX producers.
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
