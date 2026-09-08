@@ -1,5 +1,7 @@
 // Fixture-only tooling: validate governed predecessor migration, then create an
 // explicit synthetic oracle session. Never edits source fixtures or real profiles.
+// Owner UX: the frozen, individually hashed P19 fixtures enter the existing
+// governed migration directly; only its validated durable slots seed a new P21 oracle envelope.
 // vite-node scripts/rebind-foundation-oracle-fixtures.ts --public-output <new-dir>
 //   --private-input <authorized-oracle-copy> --private-output <new-private-dir>
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync, chmodSync } from 'node:fs'
@@ -11,7 +13,9 @@ import { SCHEMA_ID, PROJECTION_VERSION } from '../bridge/protocol.ts'
 const args = process.argv.slice(2)
 function argument(name: string) { const i = args.indexOf(name); assert.ok(i >= 0 && args[i + 1], `missing ${name}`); return resolve(args[i + 1]!) }
 const publicOutput = argument('--public-output'), privateInput = argument('--private-input'), privateOutput = argument('--private-output')
-assert.equal(PROJECTION_VERSION, 20)
+assert.equal(PROJECTION_VERSION, 21)
+// Exact generated contract-manifest pin at fc1cd0e400337f551ba77d908b614e9dbaab9c9f.
+assert.equal(SCHEMA_ID, 'sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1')
 assert.ok(publicOutput !== privateOutput && !publicOutput.startsWith(privateOutput + sep) && !privateOutput.startsWith(publicOutput + sep), 'public/private outputs must be disjoint')
 assert.ok(!existsSync(publicOutput) && !existsSync(privateOutput), 'outputs must be NEW directories')
 assert.ok(existsSync(privateInput), 'required authorized private fixture missing')
@@ -59,4 +63,4 @@ writeFileSync(join(publicOutput, 'manifest.json'), JSON.stringify({ schemaId: SC
 writeFileSync(join(privateOutput, 'ORACLE-p10-owner-profile-copy.checkpoint.json'), owner.output, { mode: 0o600 })
 writeFileSync(join(privateOutput, 'binding.json'), JSON.stringify(owner.receipt, null, 2) + '\n', { mode: 0o600 })
 chmodSync(publicOutput, 0o700); chmodSync(privateOutput, 0o700)
-console.log('PASS: 26 public + 1 authorized private oracle copies; governed migration and both V18 slot meanings checked; source bytes unchanged. No product/runtime launch.')
+console.log('PASS: projection21; 26 public + 1 authorized private oracle copies; governed migration and both V18 slot meanings checked; source bytes unchanged. No product/runtime launch.')
