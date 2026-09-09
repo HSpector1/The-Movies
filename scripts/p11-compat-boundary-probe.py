@@ -38,6 +38,9 @@ def probe(label,engine,source,healthy,migrate=False):
      for slot in ['currentSaveJson','savedSaveJson']:assert after[slot]==src[slot],(label,slot)
      if migrate:assert after['schemaId']!=src['schemaId'] and after['journal']==[]
     else:
+     assert p.poll() is not None and p.returncode != 0,(label,'expected nonzero startup refusal')
+     refusal='checkpoint.schemaId: does not match the running TypeScript bridge schema'
+     assert refusal in (root/'engine.log').read_text(),(label,'missing exact schema refusal')
      assert cp.read_bytes()==before and cp.stat().st_mtime_ns==beforemt
     report={'label':label,'passed':True,'engineSha256':sha(engine),'sourceSha256':sha(source),'sourceSchema':src['schemaId'],'afterSchema':after['schemaId'],'sourceSessionId':src['sessionId'],'afterSessionId':after['sessionId'],'sourceRevision':src['stateRevision'],'afterRevision':after['stateRevision'],'sourceJournalEntries':len(src['journal']),'afterJournalEntries':len(after['journal']),'healthy':bool(response),'currentAndSavedPreserved':all(src[s]==after[s] for s in ['currentSaveJson','savedSaveJson']),'refusalLeftBytesAndMtime':None if healthy else True}
    finally:
