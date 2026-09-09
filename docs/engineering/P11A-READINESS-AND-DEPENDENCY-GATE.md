@@ -18,12 +18,38 @@ AUD-008 remains **STILL PRESENT**, assigned inside P11 W0, not a circular prelau
 requirement to implement Finance first. Scope ceiling, budget and model settings
 remain unchosen; a separate execution order is required.
 
-**Reviewed outcome-first kit publication is BLOCKED:** the exact local
-`project-studio-p11-outcome-first-launch-01` archive was not found. The older
-revision-02 archive is not a substitute. This is a source-refresh publication,
-not a claim to have materialized, applied or reviewed the missing kit. Preserve
-all 45 requirements and five extension groups; do not reconstruct the approved
-method from the older draft or memory.
+**Reviewed outcome-first method approved for documentation publication.**
+The correct archive is now verified and reconciled with source-refresh446690f;
+publication no longer waits for that artifact. The compact launch draft and one
+reference/product-review kit govern the proposed execution cadence, subject to the
+separate coding order and explicit scope/budget/settings. All45 original requirements
+and five extension groups are preserved. Detailed identities and source findings stay
+in the linked accepted-source addendum, not the launch draft.
+
+## Outcome-first launch preparation — reconciled 2026-09-09
+
+The [compact launch draft](DRAFT-P11A-IMPLEMENTATION-PROMPT.md) and [reference/product-review kit](P11A-REFERENCE-AND-PRODUCT-REVIEW-KIT.md) supply the reviewed outcome-first method for the existing P11 scope, approved for publication under `OPS-P08P10-OWNER-CLOSEOUT-01`. This is not an issued coding order. All Revision03 source pairs, versions, gate results and “current/observed” claims below remain **historical inspection evidence**, not the final P11 base.
+
+`OPS-P08P10-OWNER-UX-01` is Owner accepted; [acceptance receipt](https://github.com/HSpector1/The-Movies/blob/f6ea836ab962eb4a62e9996d90011a5d00e5a9ac/docs/campaigns/P08-P10-OWNER-ACCEPTANCE-RECEIPT.md). The accepted-source addendum below preserves final recovery dispositions and qualified technical evidence. The earlier final-verification [handoff](https://github.com/HSpector1/The-Movies/blob/1b5eb8f08c81c7d9c639058c3e28b21b9c1f8e84/docs/campaigns/P08-P10-FINAL-VERIFICATION-02-HANDOFF.md) preserves a control, not a final base. The foundation [audit](https://github.com/HSpector1/The-Movies/blob/b07a99c6da6dc703d61ddf1f71ae2aadd5c50449/docs/engineering/P00-P07-ACCEPTED-FOUNDATION-AUDIT-01.md) assigned AUD-001/002/003/005 to recovery; consume their resulting dispositions in the accepted-source addendum, without replaying the broad audit or chasing moving tips.
+
+**AUD-008 is the existing REQ-006 facility-Opex omission, assigned by Current Ops to P11 W0.** Recheck the final source. If it remains, the issued P11 scope includes repair of the shared reporting basis before complete operating-cost/runway presentation and Gate A, not changes to actual debits, tuning or film allocation. This explicit W0 carry qualifies §11's general pre-launch “audit findings resolved” wording: it must not create a circular requirement to complete P11's assigned repair before authorizing P11. Other findings retain Current Ops' dispositions.
+
+### Final launch record — Current Ops completes before execution
+
+| Required field | Current value |
+|---|---|
+| Owner-UX acceptance and final recovery verification/exception dispositions | OWNER ACCEPTED — KEEP at f6ea836; qualified technical closeout764f27c and accepted-source addendum below |
+| Final accepted TS/Unity source, build, contract, schema/save and evidence identities | VERIFIED; accepted-source addendum and actual preserved candidate manifest below |
+| Final P11 changed-path refresh and existing owner routes | COMPLETE at446690f; retained below with reviewer corrections |
+| Adopted method and register §4.B defaults | Reviewed method approved for publication; separate order must set its execution authority and explicitly adopt/change the defaults |
+| Activated requirement IDs, conditional decisions and execution ceiling | PENDING |
+| Productive / elapsed / usage budget and verification reserve | PENDING; kit recommends 36 h / 48 h / Owner-set usage, ten-hour reserve |
+| Actual model, client, effective Max effort and runtime/review access | VERIFY AT LAUNCH; no configuration change authorized by this document |
+| Current Ops P11 execution order / document revision | NOT ISSUED |
+
+Kit §3 explicitly maps proposed process replacements. Gate A/B substantive evidence and all original requirements remain; early live previews are not KEEP candidates. Final refresh consumes actual standalone hiring, contract/market freshness, real button recovery, retained navigation and complete **outer durable-checkpoint** migration. Finance does not own hiring, clocks or migration. Onboarding and main promotion remain separately controlled.
+
+### Historical Revision03 source record (unchanged below)
 
 ### Historical Revision 03 record follows
 
@@ -329,7 +355,7 @@ Revision03 TS product7b4d8ff→fc1cd0e lists42 changed paths; Unity product57f9e
 lists162 including tools/evidence. These counts are not a claim to have audited all
 paths. Exact accepted source citations below bind all current observations.
 
-**Outcome-first publication blocker:** filename searches of Downloads, Desktop,
+**Historical pre-arrival blocker (446690f; resolved by publication reconciliation below):** filename searches of Downloads, Desktop,
 Documents, accessible home/temp locations and available app/cloud storage found no
 `project-studio-p11-outcome-first-launch-01` archive or its `materialize.py`.
 The existing `Downloads/project-studio-p11a-launch-package-01-rev02.zip` and its
@@ -483,10 +509,73 @@ overstates net weekly cash and can overstate runway. REQ-043 preserves the now
 accepted P09 cost/time envelope; it is not an invitation to retune it. Other Owner
 requests in the acceptance receipt are not added wholesale to P11.
 
-**Prelaunch disposition:** accepted upstream/source-refresh gate satisfied;
+**Historical pre-arrival disposition at446690f:** accepted upstream/source-refresh gate satisfied;
 reviewed-kit publication blocked by the exact missing local artifact; execution
 settings/order still unissued. AUD-008 is inside W0, and W0 must reconcile selectors,
 tick and ledger before Finance presents complete operating cost/runway. It is not
 a condition that P11 already be implemented before its coding session can launch.
 Campaign/main and the Owner-UX product refs remain frozen; only owned documentation
 branches are pushed. Implementation/runtime ownership is yielded after closeout.
+
+
+## Outcome-first publication reconciliation — 2026-09-09
+
+**Reviewed outcome-first kit reconciled with the accepted-source refresh;
+P11 IMPLEMENTATION NOT AUTHORIZED.** Current Ops supplied the correct archive
+following source-refresh446690f. The acceptance closeout
+`f6ea836ab962eb4a62e9996d90011a5d00e5a9ac` and refresh
+`446690fd5a778173ce368aad4f52f50eb253a060` remain preserved parent history.
+Their earlier missing-archive observations, including the unchanged financial-truth
+file's pre-arrival header, are superseded **only for kit availability/publication**
+by this reconciliation. All accepted-source findings and reviewer corrections,
+including AUD-008's direction and the distinct checkpoint migration paths, remain valid.
+
+- Supplied file: `project-studio-p11-outcome-first-launch-01(2).zip`, exactly40,621bytes;
+  SHA-256 `6da364ba9bbcb10aec680c37aaa79ddcbf11a5ca82e91f10550f1ba56eeacae0`.
+  All12 payload entries match `INTEGRITY-MANIFEST.json`; the older revision02 ZIP
+  was not substituted.
+- Publication README and `materialize.py` were inspected. The standard-library
+  helper only reads Git and writes a new external directory; it launches no game,
+  edits no checkout, fetches nothing and performs no commit/push. All six pinned
+  source blobs at328790a matched the edit plan, including the protected financial-truth
+  source. The helper produced six complete Markdown files and a complete patch.
+- The supplied materialized patch was checked and actually applied in a separate
+  owned disposable checkout of pinned328790a. The resulting six files matched the
+  materialization manifest byte-for-byte, with `git diff --check` clean. This is
+  actual document-patch validation, not the archive's earlier synthetic validation
+  or gameplay proof.
+- The planning branch had advanced to446690f. The old-base patch was **not** applied
+  to that newer tree. Its four method updates were reconciled with the current
+  acceptance/source addenda; obsolete preparation statuses were corrected. The
+  replacement launch remains **862 words** (only its resolved refresh status changed
+  from the supplied draft). The new reference/product-review kit retains the reviewed
+  method, six references and their honest evidence classes. No research or model
+  configuration work was reopened.
+- This publication commit changes exactly six paths: the concise launch draft,
+  new `P11A-REFERENCE-AND-PRODUCT-REVIEW-KIT.md`, and the existing readiness, charter,
+  handoff and requirement register. Financial truth remains byte-identical to446690f,
+  preserving its completed source refresh. The cumulative328790a→final history also
+  includes that earlier financial-truth refresh; it is not a seventh kit edit.
+  Packaging helpers/READMEs/manifests remain outside Git.
+- All45 original numbered requirement rows and all five original extension-group
+  rows remain byte-identical to328790a. Original four-document history and the
+  accepted-source financial/checkpoint findings are preserved; the replaced long
+  draft remains at immutable446690f rather than being appended to the compact draft.
+  Internal document links and the six-path publication boundary are checked. No
+  source/build/profile/candidate/ref promotion accompanies this publication.
+
+The current launch record above is factual: Owner acceptance, producer identities
+and changed-path refresh are complete. The reviewed method's publication is approved;
+Current Ops still must issue a separate coding order specifying selected core/extension
+IDs and exceptions, adopted/changed §4.B defaults, productive/elapsed/usage limits and
+verification reserve. The kit's **36 productive /48 elapsed hours and ten-hour final
+reserve are recommendations, not chosen budgets or a completion guarantee**.
+The actual Owner-selected model/client/effective effort, independent-review access
+and safe native runtime access remain to be verified at coding launch; no settings
+or entitlement are inferred or changed by this publication.
+
+Hidden per-week receipt disclosure and governed year/era boundaries affect only
+those extension outputs. No new calendar, history, campaign library, Builder or
+profit system enters P11 by implication. AUD-008 stays inside W0. Original candidate,
+private profile and protected main/campaign/WIP controls remain unchanged; documentation
+publication does not start a Finance implementation or runtime queue.

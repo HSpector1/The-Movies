@@ -18,12 +18,27 @@ AUD-008 remains **STILL PRESENT**, assigned inside P11 W0, not a circular prelau
 requirement to implement Finance first. Scope ceiling, budget and model settings
 remain unchosen; a separate execution order is required.
 
-**Reviewed outcome-first kit publication is BLOCKED:** the exact local
-`project-studio-p11-outcome-first-launch-01` archive was not found. The older
-revision-02 archive is not a substitute. This is a source-refresh publication,
-not a claim to have materialized, applied or reviewed the missing kit. Preserve
-all 45 requirements and five extension groups; do not reconstruct the approved
-method from the older draft or memory.
+**Reviewed outcome-first method approved for documentation publication.**
+The correct archive is now verified and reconciled with source-refresh446690f;
+publication no longer waits for that artifact. The compact launch draft and one
+reference/product-review kit govern the proposed execution cadence, subject to the
+separate coding order and explicit scope/budget/settings. All45 original requirements
+and five extension groups are preserved. Detailed identities and source findings stay
+in the linked accepted-source addendum, not the launch draft.
+
+## Outcome-first execution overlay — reconciled 2026-09-09
+
+The [launch draft](DRAFT-P11A-IMPLEMENTATION-PROMPT.md) and [review kit](P11A-REFERENCE-AND-PRODUCT-REVIEW-KIT.md) supply the reviewed method approved for publication, not an execution order. **All 45 original IDs, dispositions and counts below remain unchanged.** No new product requirement or automatically approved extension is introduced. The Revision03 producer-status column remains historical; the final accepted-base refresh is complete and linked above.
+
+Current Ops must issue the separate order for the reviewed method, explicitly adopt/change final defaults and select requirement IDs. Then track each existing row with an additional execution state in THIS register: REUSED, READY, IMPLEMENTED-UNPROVEN, PROVEN, CONDITIONAL or DEFERRED; attach source/evidence or blocker/return condition. Do not replace the original disposition with an execution state or call a time-limited unfinished feature dependency-blocked. REUSED still requires source and consumer verification.
+
+REQ-029/030/031/032/033 preserve Upcoming, charts, year/era summaries, additional consequences and portfolio depth. Revisit each activated extension after core; wrappers/adapters are work, not automatically missing authority. Existing requirements 034–042 retain their separate gates. A first cash/period preview does not satisfy the whole core; Gate A and Gate B remain substantive cumulative boundaries as enumerated in kit §6.
+
+**Updated Current Ops disposition:** AUD-008 is REQ-006's existing facility-Opex omission and belongs in P11 W0 if still present at the final accepted source. This supersedes the earlier §4.B choice of whether to send it back into P08–P10; that choice is not reopened. It does not authorize changing actual charges, economy tuning or the optional film allocator. No other deferred audit item is absorbed into P11.
+
+For §4.B, adopt or reject the proposed early vertical slice, three critique rounds, just-in-time reading, three review/build responsibilities and consolidated reporting in kit §3. For §4.C, no predicted projection number is reserved; derive it from the final accepted contract. Genuine launch choices are selected ready scope, method, budget and existing defaults—not a new Owner decision campaign. Per-week hidden theatrical receipts and new persistence remain unapproved.
+
+### Historical Revision03 scope/decision record (preserved below)
 
 ### Historical Revision 03 record follows
 

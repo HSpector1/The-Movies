@@ -18,12 +18,27 @@ AUD-008 remains **STILL PRESENT**, assigned inside P11 W0, not a circular prelau
 requirement to implement Finance first. Scope ceiling, budget and model settings
 remain unchosen; a separate execution order is required.
 
-**Reviewed outcome-first kit publication is BLOCKED:** the exact local
-`project-studio-p11-outcome-first-launch-01` archive was not found. The older
-revision-02 archive is not a substitute. This is a source-refresh publication,
-not a claim to have materialized, applied or reviewed the missing kit. Preserve
-all 45 requirements and five extension groups; do not reconstruct the approved
-method from the older draft or memory.
+**Reviewed outcome-first method approved for documentation publication.**
+The correct archive is now verified and reconciled with source-refresh446690f;
+publication no longer waits for that artifact. The compact launch draft and one
+reference/product-review kit govern the proposed execution cadence, subject to the
+separate coding order and explicit scope/budget/settings. All45 original requirements
+and five extension groups are preserved. Detailed identities and source findings stay
+in the linked accepted-source addendum, not the launch draft.
+
+## Outcome-first method — publication reconciled 2026-09-09
+
+Current Ops approved publication of the reviewed method. After its separate coding order, use the [compact launch draft](DRAFT-P11A-IMPLEMENTATION-PROMPT.md) and [reference/product-review kit](P11A-REFERENCE-AND-PRODUCT-REVIEW-KIT.md), especially kit §3's explicit replacement map. All original scope, financial definitions, requirement IDs, exclusions, ready extensions and final safeguards remain. Historical producer observations below do not establish the final accepted base.
+
+The §7 waves remain a **scope map**, not a waterfall barrier to product feedback: deliver a truthful vertical subset of W0/W1/W2/W3 as a live development preview, then complete the core before Gate A. No fabricated dashboard or preview-as-completion claim. The first preview is targeted at productive hour six; three evidence-based product critiques plus at most one additional polish pass replace indefinite criticism.
+
+The §6 lanes are responsibilities, not a requirement for six agents. Use one integrated builder, a separate read-only product critic and correctness reviewer; only one owns native input. Ordinary compile/test/layout failures are fixed within authorized work. Wave “Stop” clauses still prohibit unsafe progression or false proof, but are not routine requests for Owner permission; true authority, safety, migration or environment blockers pause dependent work.
+
+**Gate A and Gate B are retained in substance:** kit §6 enumerates the cumulative tests, exact consumer/build bindings, six visual families, real input, full outer-checkpoint/private-copy continuity and independent review. These checks occur at candidate boundaries, not after every spacing edit. Preserve the core control; present one recommended final Owner candidate. A budget overrun is PARTIAL, not a waived requirement.
+
+For §11 reporting use one execution log, the existing register and one generated final evidence index. Every original identity, rollback, test and finding remains available there. §8's predicted next projection is historical orientation only; the completed accepted-base refresh supplies current identity; actual P11 wire changes must justify future version work. AUD-008 is assigned P11 W0 after recheck; the fixed-cost allocator remains excluded. No P11 execution before readiness's completed final launch record and separate order.
+
+### Historical Revision03 charter record (unchanged below)
 
 ### Historical Revision 03 record follows
 

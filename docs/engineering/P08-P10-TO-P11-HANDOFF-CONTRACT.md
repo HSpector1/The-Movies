@@ -18,12 +18,27 @@ AUD-008 remains **STILL PRESENT**, assigned inside P11 W0, not a circular prelau
 requirement to implement Finance first. Scope ceiling, budget and model settings
 remain unchosen; a separate execution order is required.
 
-**Reviewed outcome-first kit publication is BLOCKED:** the exact local
-`project-studio-p11-outcome-first-launch-01` archive was not found. The older
-revision-02 archive is not a substitute. This is a source-refresh publication,
-not a claim to have materialized, applied or reviewed the missing kit. Preserve
-all 45 requirements and five extension groups; do not reconstruct the approved
-method from the older draft or memory.
+**Reviewed outcome-first method approved for documentation publication.**
+The correct archive is now verified and reconciled with source-refresh446690f;
+publication no longer waits for that artifact. The compact launch draft and one
+reference/product-review kit govern the proposed execution cadence, subject to the
+separate coding order and explicit scope/budget/settings. All45 original requirements
+and five extension groups are preserved. Detailed identities and source findings stay
+in the linked accepted-source addendum, not the launch draft.
+
+## Outcome-first launch dependency note — reconciled 2026-09-09
+
+Current Ops approves publication of this reviewed method, not implementation. The [compact draft](DRAFT-P11A-IMPLEMENTATION-PROMPT.md) and [review kit](P11A-REFERENCE-AND-PRODUCT-REVIEW-KIT.md) change execution cadence only. All producer fields, source pairs and proof results below are **historical Revision03 observations**; the completed accepted-source refresh linked above is current.
+
+`OPS-P08P10-OWNER-UX-01` is OWNER ACCEPTED — KEEP, recorded at closeoutf6ea836. Current accepted identities and recovery dispositions are in the linked readiness addendum. The [outgoing verification handoff](https://github.com/HSpector1/The-Movies/blob/1b5eb8f08c81c7d9c639058c3e28b21b9c1f8e84/docs/campaigns/P08-P10-FINAL-VERIFICATION-02-HANDOFF.md) is a preserved control. The [foundation audit](https://github.com/HSpector1/The-Movies/blob/b07a99c6da6dc703d61ddf1f71ae2aadd5c50449/docs/engineering/P00-P07-ACCEPTED-FOUNDATION-AUDIT-01.md) supplies assigned dependencies AUD-001/002/003/005; the accepted-source addendum records their final recovery dispositions; this method does not reopen the outgoing eight residual items.
+
+Before P11 launch, consume the resulting accepted owners: standalone hiring/progression without a Ready Casting project and its actual quote/action route; employee versus market membership; Profile/Roster/contract navigation; ordinary market refresh and stale-quote handling; material button enabled state and actual dispatch after polling/arming; **outer durable-checkpoint** migration with its current/explicit saved slots and session handling, not just extraction/import of the inner save. Use the final input/lock/idle infrastructure. Do not create Finance-owned hiring, Contracts, clocks, History or migration.
+
+AUD-008 is the existing facility-Opex reporting defect, mapped once to P11-REQ-006/W0. Correct actual debits/retrospective totals do not make incomplete recurring forecasts correct. Recheck final source, repair only the common reporting basis if needed, and leave Builder economics “not modeled” unless separately implemented. Other audit findings keep their Current Ops dispositions.
+
+Completed: recovery/Owner-UX verification, relevant Owner acceptance and final P11 source refresh. Next: scoped Current Ops execution order after settings/defaults are explicit. No moving WIP polls, new scope, final source claims, onboarding activation or main promotion arise from this note.
+
+### Historical Revision03 producer record (unchanged below)
 
 ### Historical Revision 03 record follows
 
