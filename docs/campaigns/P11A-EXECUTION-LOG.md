@@ -40,3 +40,11 @@ Usage snapshot before commit (2026-09-09):
 ## Astra/Ultra amendment and W0 start — 2026-09-09T14:36:22.370006+00:00
 
 Owner answered “Yes continue” to the explicit request to proceed with actual Astra/Ultra. Active turn reverified as `gpt-6-astra/ultra`; the model/effort blocker is resolved by this authorization. Saved configuration/permissions unchanged. Included allowance remains reported 47% remaining, no purchased credits. The earlier entry-blocked statements are historical. Source reviewer now owns independent correctness review; a separate product critic inspects references and accepted images; root owns product and all native input. W0 begins now.
+
+## W0 / development-slice build
+
+Complete recurring reporting now includes operational facility Opex. Independent correctness review found no code defect; added real bare-lot office and effect-only-property/hiring consumer checks as requested. Initial new test failures were fixture issues (negative zero assertions, protected legacy Annex demolition, unavailable hiring subject, non-genuine cash checkpoint); corrected fixtures retain the original engine legality. Five focused files now exercise reporting, actual ticks and migration coverage. Core/bridge TypeScript compile; native Unity development player builds successfully.
+
+Projection 22 adds current pace and last/current-period Finance. Outgoing accepted projection-21 schema registered through existing outer-checkpoint migration; no inner-save bump or new Finance persistence. The generated DTO was written directly to the actual Unity consumer. Native Administration has OPEN FINANCE and a retained read-only report. This is IMPLEMENTED-UNPROVEN pending actual input and product critique, not core completion.
+
+P11 foreground proof adapts the accepted Owner-UX launcher (60-second idle admission), preserving its lock/input witness and ownership safeguards. The earlier entry note citing the older P09 600-second launcher is historical; no admission threshold was modified. Root is sole foreground owner.

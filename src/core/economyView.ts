@@ -8,6 +8,7 @@
 
 import type { Contract, GameState, GameStateV3, TheatricalRun, LedgerKind } from './types.js'
 import { TUNING } from './tuning.js'
+import { weeklyPlacementOperatingCost } from './placement.js'
 import {
   economyEngaged,
   weeklyPayroll,
@@ -46,7 +47,15 @@ export function weeklyOverhead(state: GameState): number {
   return TUNING.OVERHEAD_BASE + TUNING.OVERHEAD_PER_EMPLOYEE * state.contracts.length
 }
 
-// Current weekly burn under EXISTING commitments ONLY: payroll + overhead. A production's
+// Operational property at the START of the next advance. Completion during that
+// advance only changes the following charge (tick step 7.6). This is reporting;
+// no action, charge, onset, blueprint tuning or managerial allocation changes.
+export function weeklyFacilityOperatingCost(state: GameState): number {
+  if (!economyEngaged(state) || state.founding !== null) return 0
+  return weeklyPlacementOperatingCost(state.placement)
+}
+
+// Current weekly burn under EXISTING commitments ONLY: payroll + overhead + facility Opex. A production's
 // negative + marketing are ONE-TIME debits paid at greenlight (already reflected in cash),
 // never a recurring weekly cost — so they are deliberately NOT in weekly burn (D-12.16).
 //
@@ -59,7 +68,7 @@ export function weeklyOverhead(state: GameState): number {
 // PROJECTION past that gate and is unchanged.
 export function weeklyBurn(state: GameState): number {
   if (state.founding !== null) return 0
-  return weeklyPayroll(state) + weeklyOverhead(state)
+  return weeklyPayroll(state) + weeklyOverhead(state) + weeklyFacilityOperatingCost(state)
 }
 
 // During FOUNDING (founding !== null) overhead is not yet charged (tick step 7.5 gates on
@@ -604,7 +613,8 @@ export type FinanceView = {
   cash: number
   weeklyPayroll: number // contracted payroll COMPONENT (not charged during a founding draft)
   weeklyOverhead: number // overhead COMPONENT (already 0 during a founding draft)
-  // D-17A/T1: the ACTUAL weekly charge — `weeklyBurn(state)`. Equals payroll + overhead once
+  weeklyFacilityOperatingCost: number // operational property charge on the next advance
+  // The ACTUAL weekly charge — `weeklyBurn(state)`. Payroll + overhead + facility Opex once
   // the studio is founded; 0 while a founding draft is open, when the tick charges neither.
   weeklyBurn: number
   expectedWeeklyRunRevenue: number
@@ -619,7 +629,7 @@ export function financeView(state: GameState): FinanceView {
   const payroll = weeklyPayroll(state)
   const overhead = weeklyOverhead(state)
   // D-17A/T1: the ONE authoritative burn (founding-guarded), not an inline re-add. Post-founding
-  // this is identical to payroll + overhead; during a founding draft the engine charges neither,
+  // this includes operational facility Opex; during a founding draft the engine charges nothing,
   // so burn is 0 while the payroll/overhead COMPONENTS still report the contracted amounts.
   const burn = weeklyBurn(state)
   const rev = expectedWeeklyRunRevenue(state)
@@ -627,6 +637,7 @@ export function financeView(state: GameState): FinanceView {
     cash: state.studio.cash,
     weeklyPayroll: payroll,
     weeklyOverhead: overhead,
+    weeklyFacilityOperatingCost: weeklyFacilityOperatingCost(state),
     weeklyBurn: burn,
     expectedWeeklyRunRevenue: rev,
     netWeeklyCash: rev - burn,

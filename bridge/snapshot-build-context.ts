@@ -10,6 +10,7 @@ import { castingProjection } from './casting.ts'
 import { releaseProjection } from './release.ts'
 import { historyProjection } from './history.ts'
 import { peopleProjection } from './people.ts'
+import { financeOverview } from '../src/core/financeReport.ts'
 
 type StudioLotSnapshotResult = ReturnType<typeof studioLotSnapshot>
 type DevelopmentProjectionResult = ReturnType<typeof developmentProjection>
@@ -50,6 +51,7 @@ export type SnapshotBuildContext = {
   casting(): CastingProjectionResult
   /** P06A W2: the closed Release projection, computed at most once per state. */
   release(): ReleaseProjectionResult
+  finance(): ReturnType<typeof financeOverview>
   history(): HistoryProjectionResult
   /** P10A W0: the player-safe people projection (profiles, roster, grouped attention). */
   people(): PeopleProjectionResult
@@ -131,6 +133,7 @@ export function snapshotBuildContextFor(state: GameState): SnapshotBuildContext 
       snapshotBuildDiagnostics.releaseComputes += 1
       return releaseProjection(state)
     }),
+    finance: lazyFact(() => financeOverview(state)),
     history: lazyFact(() => {
       snapshotBuildDiagnostics.historyComputes += 1
       return historyProjection(state)

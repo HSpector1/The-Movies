@@ -135,6 +135,8 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // independently pinned from its generated DTO header and retained public runtime.
   // Owner UX projection 21 uses the existing governed prior-checkpoint migration.
   ['sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b', 'projection-v20'],
+  // P11 outgoing accepted 4/21/V18, pinned by the Owner acceptance receipt.
+  ['sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1', 'projection-v21'],
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({

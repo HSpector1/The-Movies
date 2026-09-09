@@ -903,6 +903,7 @@ export { fameReach, theatricalSchedule, openTheatricalRun, legacyTheatricalRun }
 // payroll, solvency, runway). The sim never reads these.
 export {
   weeklyOverhead,
+  weeklyFacilityOperatingCost,
   projectedWeeklyOverhead,
   weeklyBurn,
   foundingRunwayPreview,

@@ -30,7 +30,7 @@ export const PROTOCOL_VERSION = 4 as const
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
 // Owner UX 01: public discipline/genre estimates and readable saved-slot metadata.
 // Protocol stays 4 and gameplay save stays V18; both fields derive existing authority.
-export const PROJECTION_VERSION = 21 as const
+export const PROJECTION_VERSION = 22 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2062,6 +2062,29 @@ export const StudioReleaseProjectionSchema = object('StudioReleaseProjection', {
   release: reference('StudioReleaseBoard', StudioReleaseBoard),
 })
 
+// P11: engine-authored current pace and bounded recorded cash explanation.
+const StudioFinanceCategory = object('StudioFinanceCategory', {
+  kind: nonEmptyText(), label: nonEmptyText(), amount: number(), entryCount: nonNegativeInteger(),
+})
+const StudioFinancePeriod = object('StudioFinancePeriod', {
+  id: nonEmptyText(), label: nonEmptyText(), fromWeek: nonNegativeInteger(), toWeekInclusive: nonNegativeInteger(),
+  complete: bool(), notice: nullable(text()), openingCash: nullable(number()), closingCash: nullable(number()),
+  netCash: number(), categories: array(reference('StudioFinanceCategory', StudioFinanceCategory)),
+})
+const StudioFinanceSnapshot = object('StudioFinanceSnapshot', {
+  asOfWeek: nonNegativeInteger(), cash: number(), weeklyPayroll: number({minimum: 0}),
+  weeklyOverhead: number({minimum: 0}), weeklyFacilityOperatingCost: number({minimum: 0}),
+  weeklyOperatingCost: number({minimum: 0}), nextScheduledStudioRevenue: number({minimum: 0}),
+  netWeeklyCashflow: number(), runwayState: enumeration(['inRed', 'positive', 'steady', 'finite', 'unavailable']),
+  runwayLabel: nonEmptyText(), runwayWeeks: nullable(nonNegativeInteger()), paceBasis: nonEmptyText(),
+  firstCompleteWeek: nullable(nonNegativeInteger()), coverageNotice: nullable(text()),
+  lastPeriod: nullable(reference('StudioFinancePeriod', StudioFinancePeriod)),
+  currentPeriod: reference('StudioFinancePeriod', StudioFinancePeriod),
+})
+export const StudioFinanceProjectionSchema = object('StudioFinanceProjection', {
+  finance: reference('StudioFinanceSnapshot', StudioFinanceSnapshot),
+})
+
 export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
   lot: reference('StudioLotProjection', StudioLotProjectionSchema),
   productions: reference('StudioProductionsProjection', StudioProductionsProjectionSchema),
@@ -2074,6 +2097,7 @@ export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
   release: reference('StudioReleaseProjection', StudioReleaseProjectionSchema),
   // P08A W2: the Standing & Studio History section (additive; projection 16).
   history: reference('StudioHistoryProjection', StudioHistoryProjectionSchema),
+  finance: reference('StudioFinanceProjection', StudioFinanceProjectionSchema),
   // P10A W0: the player-safe Talent section — profiles, roster, grouped attention (additive; projection 18).
   talent: reference('StudioTalentProjection', StudioTalentProjectionSchema),
 })
@@ -2421,6 +2445,10 @@ const definitions = {
   StudioTalentSnapshot,
   StudioTalentProjection: StudioTalentProjectionSchema,
   StudioProjectionBundle: StudioProjectionBundleSchema,
+  StudioFinanceProjection: StudioFinanceProjectionSchema,
+  StudioFinanceSnapshot,
+  StudioFinancePeriod,
+  StudioFinanceCategory,
   StudioBridgeIntentOption,
   StudioSavedSlotSnapshot,
   StudioBridgeMetrics,

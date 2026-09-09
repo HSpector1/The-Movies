@@ -1354,6 +1354,7 @@ export class BridgeSession {
       release: context.release(),
       // P08A W2: the Standing & Studio History section rides the same context.
       history: context.history(),
+      finance: context.finance(),
       // P10A W0: the player-safe Talent section (profiles / roster / grouped attention).
       talent: context.people(),
     })

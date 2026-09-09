@@ -216,6 +216,7 @@ export function projectStudioProjectionBundle(value: unknown): BridgeStudioProje
     casting: section('StudioCastingProjection', 'casting'),
     release: section('StudioReleaseProjection', 'release'),
     history: section('StudioHistoryProjection', 'history'),
+    finance: section('StudioFinanceProjection', 'finance'),
     talent: section('StudioTalentProjection', 'talent'),
   }
   return project(
