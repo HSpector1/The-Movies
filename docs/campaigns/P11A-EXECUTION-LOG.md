@@ -1,6 +1,6 @@
 # P11A execution log
 
-Authority: **OPS-P11A-OUTCOME-FIRST-20260909-01**. Status: **ENTRY SETTING BLOCKED; implementation authorization recorded, product work not started**.
+Authority: **OPS-P11A-OUTCOME-FIRST-20260909-01**. Status: **ACTIVE — W0 and live Finance slice**.
 Order read in full; SHA-256 `ff5bc0c45a844ef4784bfb41b9491061ce81bd0fc6c9c6813cd4e78ec55e1f87`.
 Receipt: 2026-09-09T14:24:46Z. Elapsed ceiling: 2026-09-11T14:24:46Z.
 
@@ -36,3 +36,7 @@ Usage snapshot before commit (2026-09-09):
 
 - lead: `gpt-6-astra/ultra`; reported cumulative token counters `{"input_tokens":910791,"cached_input_tokens":811008,"cache_write_input_tokens":0,"output_tokens":8018,"reasoning_output_tokens":670,"total_tokens":918809}`. These include repeated/cached inputs; they are usage telemetry, not unique prompt size or purchased billing.
 - delegated source check: `gpt-6-astra/ultra`; reported cumulative token counters `{"input_tokens":750556,"cached_input_tokens":678272,"cache_write_input_tokens":0,"output_tokens":4469,"reasoning_output_tokens":152,"total_tokens":755025}`. These include repeated/cached inputs; they are usage telemetry, not unique prompt size or purchased billing.
+
+## Astra/Ultra amendment and W0 start — 2026-09-09T14:36:22.370006+00:00
+
+Owner answered “Yes continue” to the explicit request to proceed with actual Astra/Ultra. Active turn reverified as `gpt-6-astra/ultra`; the model/effort blocker is resolved by this authorization. Saved configuration/permissions unchanged. Included allowance remains reported 47% remaining, no purchased credits. The earlier entry-blocked statements are historical. Source reviewer now owns independent correctness review; a separate product critic inspects references and accepted images; root owns product and all native input. W0 begins now.
