@@ -30,7 +30,7 @@ export const PROTOCOL_VERSION = 4 as const
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
 // Owner UX 01: public discipline/genre estimates and readable saved-slot metadata.
 // Protocol stays 4 and gameplay save stays V18; both fields derive existing authority.
-export const PROJECTION_VERSION = 24 as const
+export const PROJECTION_VERSION = 25 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2076,11 +2076,24 @@ export const StudioReleaseProjectionSchema = object('StudioReleaseProjection', {
 const StudioFinanceCategory = object('StudioFinanceCategory', {
   kind: nonEmptyText(), label: nonEmptyText(), amount: number(), entryCount: nonNegativeInteger(),
 })
+const StudioFinanceCapitalContributor = object('StudioFinanceCapitalContributor', {
+  ledgerIndex: nonNegativeInteger(), week: nonNegativeInteger(), amount: number(),
+  constructionProjectId: nonEmptyText(), name: text(), placementId: nullable(nonNegativeInteger()),
+  facilityId: nullable(nonEmptyText()), buildingId: nullable(nonEmptyText()),
+  historyEventId: nullable(nonNegativeInteger()), identityBasis: nonEmptyText(),
+})
+const StudioFinanceCapitalContributors = object('StudioFinanceCapitalContributors', {
+  // Producer caps this detail at 20 and reports every omitted payment in the remainder.
+  rows: array(reference('StudioFinanceCapitalContributor', StudioFinanceCapitalContributor)),
+  totalEntries: nonNegativeInteger(), displayedAmount: number(), remainingEntries: nonNegativeInteger(),
+  remainingAmount: number(), recordedAmount: number(), notice: nullable(text()),
+})
 const StudioFinancePeriod = object('StudioFinancePeriod', {
   id: nonEmptyText(), label: nonEmptyText(), fromWeek: nonNegativeInteger(), toWeekInclusive: nonNegativeInteger(),
   timeClass: literal('recordedCash'), coverage: enumeration(['complete','partial','unavailable']),
   complete: bool(), notice: nullable(text()), openingCash: nullable(number()), closingCash: nullable(number()),
   netCash: number(), categories: array(reference('StudioFinanceCategory', StudioFinanceCategory)),
+  capitalContributors: reference('StudioFinanceCapitalContributors', StudioFinanceCapitalContributors),
 })
 const StudioFinanceEmployee = object('StudioFinanceEmployee', {
   talentId: nonEmptyText(), name: nonEmptyText(), profession: nonEmptyText(), weeklySalary: number(), chargedNextAdvance: number(),
@@ -2482,6 +2495,8 @@ const definitions = {
   StudioFinanceSnapshot,
   StudioFinancePeriod,
   StudioFinanceCategory,
+  StudioFinanceCapitalContributor,
+  StudioFinanceCapitalContributors,
   StudioFinanceEmployee,
   StudioFinanceFacility,
   StudioFinanceFilm,

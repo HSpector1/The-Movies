@@ -14,7 +14,8 @@ import { BRIDGE_SCHEMA, PROJECTION_VERSION, PROTOCOL_VERSION, SCHEMA_ID } from '
 import { parseWireValue } from '../bridge/schema/runtime.ts'
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)))
-const OUTPUT = join(ROOT, 'ui/e2e/p11-core-v1')
+// Keep the authentic projection24 corpus used by the first native matrix immutable.
+const OUTPUT = join(ROOT, 'ui/e2e/p11-core-v2')
 const GENERATOR = 'scripts/generate-p11-core-fixtures.mts'
 const sha = (bytes: string | Buffer) => createHash('sha256').update(bytes).digest('hex')
 const sources = {

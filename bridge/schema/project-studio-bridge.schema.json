@@ -137,7 +137,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 24,
+          "const": 25,
           "type": "integer"
         },
         "stateDigest": {
@@ -254,7 +254,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 24,
+          "const": 25,
           "type": "integer"
         },
         "stateDigest": {
@@ -758,7 +758,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 24,
+          "const": 25,
           "type": "integer"
         },
         "stateDigest": {
@@ -837,7 +837,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 24,
+          "const": 25,
           "type": "integer"
         },
         "stateDigest": {
@@ -3736,6 +3736,146 @@
       "type": "object",
       "x-csharp-name": "StudioFilmSegmentScore"
     },
+    "StudioFinanceCapitalContributor": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "type": "number"
+        },
+        "buildingId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "constructionProjectId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "facilityId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "historyEventId": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "identityBasis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "ledgerIndex": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "placementId": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "amount",
+        "buildingId",
+        "constructionProjectId",
+        "facilityId",
+        "historyEventId",
+        "identityBasis",
+        "ledgerIndex",
+        "name",
+        "placementId",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceCapitalContributor"
+    },
+    "StudioFinanceCapitalContributors": {
+      "additionalProperties": false,
+      "properties": {
+        "displayedAmount": {
+          "type": "number"
+        },
+        "notice": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recordedAmount": {
+          "type": "number"
+        },
+        "remainingAmount": {
+          "type": "number"
+        },
+        "remainingEntries": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/StudioFinanceCapitalContributor"
+          },
+          "type": "array"
+        },
+        "totalEntries": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "displayedAmount",
+        "notice",
+        "recordedAmount",
+        "remainingAmount",
+        "remainingEntries",
+        "rows",
+        "totalEntries"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceCapitalContributors"
+    },
     "StudioFinanceCategory": {
       "additionalProperties": false,
       "properties": {
@@ -4050,6 +4190,9 @@
     "StudioFinancePeriod": {
       "additionalProperties": false,
       "properties": {
+        "capitalContributors": {
+          "$ref": "#/$defs/StudioFinanceCapitalContributors"
+        },
         "categories": {
           "items": {
             "$ref": "#/$defs/StudioFinanceCategory"
@@ -4124,6 +4267,7 @@
         }
       },
       "required": [
+        "capitalContributors",
         "categories",
         "closingCash",
         "complete",
@@ -10505,7 +10649,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-24",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-25",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -10546,7 +10690,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 24,
+    "projectionVersion": 25,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

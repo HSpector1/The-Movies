@@ -20,11 +20,21 @@ export const FINANCE_TIME_CLASSES = {
   currentPaceEstimate: 'Conditional estimate at current pace; not a forecast',
 } as const
 export type FinanceTimeClass = keyof typeof FINANCE_TIME_CLASSES
+export const FINANCE_CAPITAL_CONTRIBUTOR_LIMIT = 20
+export type FinanceCapitalContributor = {
+  ledgerIndex: number; week: number; amount: number; constructionProjectId: string; name: string;
+  placementId: number | null; facilityId: string | null; buildingId: string | null;
+  historyEventId: number | null; identityBasis: string;
+}
+export type FinanceCapitalContributors = {
+  rows: FinanceCapitalContributor[]; totalEntries: number; displayedAmount: number;
+  remainingEntries: number; remainingAmount: number; recordedAmount: number; notice: string | null;
+}
 export type FinancePeriod = {
   id: string; label: string; fromWeek: number; toWeekInclusive: number; complete: boolean;
   timeClass: 'recordedCash'; coverage: 'complete' | 'partial' | 'unavailable';
   notice: string | null; openingCash: number | null; closingCash: number | null;
-  netCash: number; categories: FinanceCategory[];
+  netCash: number; categories: FinanceCategory[]; capitalContributors: FinanceCapitalContributors;
 }
 export type FinanceHistoryWindow = {
   windowWeeks: 13 | 52; label: string; period: FinancePeriod; points: FinancePeriod[];
@@ -63,7 +73,8 @@ export function financeRecordingBoundary(state: GameState): { firstCompleteWeek:
 }
 
 function finishPeriod(state: GameState, fromWeek: number, toWeekInclusive: number, id: string, label: string,
-  opening: number, closing: number, netCash: number, byKind: Map<LedgerKind, FinanceCategory>): FinancePeriod {
+  opening: number, closing: number, netCash: number, byKind: Map<LedgerKind, FinanceCategory>,
+  capital: FinanceCapitalContributors): FinancePeriod {
   const boundary = financeRecordingBoundary(state)
   const validRange = Number.isInteger(fromWeek) && Number.isInteger(toWeekInclusive)
     && fromWeek >= 0 && fromWeek <= toWeekInclusive
@@ -77,11 +88,56 @@ function finishPeriod(state: GameState, fromWeek: number, toWeekInclusive: numbe
       : `${boundary.notice ?? 'This period is not yet recorded.'} Amounts shown are retained movements only; opening and closing Cash are not available for the whole period.`
   return { id, label, fromWeek, toWeekInclusive, complete, timeClass: 'recordedCash', coverage, notice,
     openingCash: complete ? opening : null, closingCash: complete ? closing : null,
-    netCash, categories: Object.keys(FINANCE_CATEGORIES).flatMap(k => {
+    netCash, capitalContributors: { ...capital, notice: [
+      ...(!complete ? ['Retained facility capital payments only; this period does not have complete recording coverage.'] : []),
+      ...(capital.remainingEntries > 0 ? [`Showing ${capital.rows.length} of ${capital.totalEntries} recorded payments. The remaining ${capital.remainingEntries} payments are included in the remainder amount.`] : []),
+    ].join(' ') || null },
+    categories: Object.keys(FINANCE_CATEGORIES).flatMap(k => {
       const value = byKind.get(k as LedgerKind)
       return value === undefined ? [] : [{ ...value }]
     }),
   }
+}
+
+/** Identity joins never supply money. Missing historical correlations stay missing. */
+function capitalIdentities(state: GameState) {
+  const committed = new Map(state.studioHistory.rows.flatMap(row =>
+    row.kind === 'facilityCommitted' ? [[row.placementId, row] as const] : []))
+  return new Map(state.placement.facilities.map(placed => {
+    const row = committed.get(placed.id)
+    const history = row?.facilityId === placed.facilityId && row.week === placed.placedWeek ? row : null
+    return [placed.projectId, { placed, history }] as const
+  }))
+}
+
+function emptyCapitalContributors(): FinanceCapitalContributors {
+  return { rows: [], totalEntries: 0, displayedAmount: 0, remainingEntries: 0,
+    remainingAmount: 0, recordedAmount: 0, notice: null }
+}
+
+function addCapitalContributor(capital: FinanceCapitalContributors, entry: LedgerEntry, ledgerIndex: number,
+  identities: ReturnType<typeof capitalIdentities>, limit: number): void {
+  if (entry.kind !== 'constructionCapex') return
+  capital.totalEntries++
+  capital.recordedAmount += entry.amount
+  if (capital.rows.length >= limit) {
+    capital.remainingEntries++
+    capital.remainingAmount += entry.amount
+    return
+  }
+  const identity = identities.get(entry.constructionProjectId)
+  // Exact matching commit week protects the link as well as the retained IDs.
+  const history = identity?.history?.week === entry.week ? identity.history : null
+  capital.displayedAmount += entry.amount
+  capital.rows.push({ ledgerIndex, week: entry.week, amount: entry.amount,
+    constructionProjectId: entry.constructionProjectId, name: history?.name ?? entry.note,
+    placementId: identity?.placed.id ?? null, facilityId: identity?.placed.facilityId ?? null,
+    buildingId: identity === undefined ? null : `placed-${identity.placed.id}`,
+    historyEventId: history?.eventId ?? null,
+    identityBasis: history !== null ? 'Name and exact construction event from recorded Studio History; amount and week from the cash ledger.'
+      : identity === undefined ? 'Recorded ledger description. Exact purchase identity cannot be established from retained records; no exact History link is available.'
+        : 'Recorded ledger description; site identity from the retained placement. No exact recorded construction event can be established for this payment; no exact History link is available.',
+  })
 }
 
 function addCategory(byKind: Map<LedgerKind, FinanceCategory>, entry: LedgerEntry): void {
@@ -91,12 +147,17 @@ function addCategory(byKind: Map<LedgerKind, FinanceCategory>, entry: LedgerEntr
   byKind.set(entry.kind, category)
 }
 
-export function recordedFinancePeriod(state: GameState, fromWeek: number, toWeekInclusive: number, id: string, label: string): FinancePeriod {
+export function recordedFinancePeriod(state: GameState, fromWeek: number, toWeekInclusive: number, id: string, label: string,
+  contributorLimit = FINANCE_CAPITAL_CONTRIBUTOR_LIMIT): FinancePeriod {
   const checkpoint = state.cashLedgerCheckpoint
   let opening = checkpoint?.cash ?? TUNING.INITIAL_CASH
   let closing = opening
   let netCash = 0
   const byKind = new Map<LedgerKind, FinanceCategory>()
+  const capital = emptyCapitalContributors()
+  const identities = capitalIdentities(state)
+  const limit = Number.isInteger(contributorLimit) && contributorLimit >= 0
+    ? Math.min(contributorLimit, FINANCE_CAPITAL_CONTRIBUTOR_LIMIT) : FINANCE_CAPITAL_CONTRIBUTOR_LIMIT
   // An ordered suffix is authoritative. Never reconstruct pre-checkpoint rows.
   for (let i = checkpoint?.ledgerLength ?? 0; i < state.ledger.length; i++) {
     const entry = state.ledger[i]!
@@ -107,8 +168,9 @@ export function recordedFinancePeriod(state: GameState, fromWeek: number, toWeek
     if (entry.week < fromWeek || entry.week > toWeekInclusive) continue
     netCash += entry.amount
     addCategory(byKind, entry)
+    addCapitalContributor(capital, entry, i, identities, limit)
   }
-  return finishPeriod(state, fromWeek, toWeekInclusive, id, label, opening, closing, netCash, byKind)
+  return finishPeriod(state, fromWeek, toWeekInclusive, id, label, opening, closing, netCash, byKind, capital)
 }
 
 /** One pass over the retained ledger, then at most 52 exact weekly points. */
@@ -116,20 +178,22 @@ export function financeHistory(state: GameState): FinanceHistory {
   const lastWeek = state.market.tick - 1
   const firstWeek = Math.max(0, state.market.tick - 52)
   const checkpoint = state.cashLedgerCheckpoint
+  const identities = capitalIdentities(state)
   let opening = checkpoint?.cash ?? TUNING.INITIAL_CASH
-  const byWeek = new Map<number, LedgerEntry[]>()
+  const byWeek = new Map<number, { entry: LedgerEntry; ledgerIndex: number }[]>()
   for (let i = checkpoint?.ledgerLength ?? 0; i < state.ledger.length; i++) {
     const entry = state.ledger[i]!
     if (entry.week < firstWeek) opening += entry.amount
     else if (entry.week <= lastWeek) {
       const entries = byWeek.get(entry.week) ?? []
-      entries.push(entry)
+      entries.push({ entry, ledgerIndex: i })
       byWeek.set(entry.week, entries)
     }
   }
   const windows = ([13, 52] as const).map((windowWeeks): FinanceHistoryWindow => {
     const fromWeek = Math.max(0, state.market.tick - windowWeeks)
     const categories = new Map<LedgerKind, FinanceCategory>()
+    const capital = emptyCapitalContributors()
     const points: FinancePeriod[] = []
     let cash = opening
     let windowOpening = opening
@@ -137,24 +201,27 @@ export function financeHistory(state: GameState): FinanceHistory {
     for (let week = firstWeek; week <= lastWeek; week++) {
       const weekOpening = cash
       const weekCategories = new Map<LedgerKind, FinanceCategory>()
+      const weekCapital = emptyCapitalContributors()
       let weekNet = 0
-      for (const entry of byWeek.get(week) ?? []) {
+      for (const { entry, ledgerIndex } of byWeek.get(week) ?? []) {
         cash += entry.amount
         if (week < fromWeek) continue
         weekNet += entry.amount
         windowNet += entry.amount
         addCategory(weekCategories, entry)
         addCategory(categories, entry)
+        addCapitalContributor(weekCapital, entry, ledgerIndex, identities, FINANCE_CAPITAL_CONTRIBUTOR_LIMIT)
+        addCapitalContributor(capital, entry, ledgerIndex, identities, FINANCE_CAPITAL_CONTRIBUTOR_LIMIT)
       }
       if (week < fromWeek) { windowOpening = cash; continue }
       points.push(finishPeriod(state, week, week, `week-${week}`, `Week ${week} · completed`,
-        weekOpening, cash, weekNet, weekCategories))
+        weekOpening, cash, weekNet, weekCategories, weekCapital))
     }
     const label = points.length === 0 ? 'No completed weeks yet'
       : points.length < windowWeeks ? `${points.length} of ${windowWeeks} completed weeks available`
         : `Last ${windowWeeks} completed weeks`
     const period = finishPeriod(state, fromWeek, lastWeek, `last${windowWeeks}Weeks`, label,
-      windowOpening, cash, windowNet, categories)
+      windowOpening, cash, windowNet, categories, capital)
     return { windowWeeks, label, period, points }
   })
   return { defaultWindowWeeks: 13, windows,

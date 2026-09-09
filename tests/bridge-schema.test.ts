@@ -76,10 +76,10 @@ describe('canonical Unity bridge schema', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
       protocolVersion: 4,
-      projectionVersion: 24,
+      projectionVersion: 25,
       transport: 'http-json-localhost',
     })
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-24')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-25')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
@@ -330,9 +330,9 @@ describe('canonical Unity bridge schema', () => {
     int32Overflow.stateRevision = 2_147_483_648
     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
 
-    const oldProjection = { ...clone(envelope), snapshotVersion: 20 }
-    expect(PROJECTION_VERSION).toBe(24)
-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 24/)
+    const oldProjection = { ...clone(envelope), snapshotVersion: 24 }
+    expect(PROJECTION_VERSION).toBe(25)
+    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 25/)
 
     const missingSection = clone(envelope)
     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
@@ -567,7 +567,7 @@ describe('canonical Unity bridge schema', () => {
     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
     expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 24;')
+    expect(generatedCsharp).toContain('public const int ProjectionVersion = 25;')
     expect(generatedCsharp).toContain('public int protocolVersion;')
     expect(generatedCsharp).toContain('public int snapshotVersion;')
     expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)
