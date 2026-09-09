@@ -1,0 +1,49 @@
+{
+  "kind": "p11-actual-long-portfolio-measurement",
+  "source": {
+    "path": "ui/e2e/p11-core-v3/s6-p11-positive-long-payroll.checkpoint.json",
+    "sha256": "5f295265b938507fc870943a5445c1466b4082e53433864af45b1b3ca9feb45e"
+  },
+  "classification": "Diagnostic from pinned public state plus actual owner actions/ticks; not native-input or private-profile evidence.6240 advances do not establish calendar-year or era boundaries.",
+  "initialWeek": 11,
+  "portfolioWeek": 258,
+  "finalWeek": 6498,
+  "additionalLongHistoryAdvances": 6240,
+  "realReleasedFilms": 21,
+  "portfolioRows": 21,
+  "ledgerEntries": 7007,
+  "saveBytes": 907144,
+  "checkpointBytes": 1036139,
+  "fullSnapshotBytes": 565629,
+  "financeBytes": 126740,
+  "historyQueryMilliseconds": [
+    0.9970830000002024,
+    0.30025000000023283,
+    0.24087499999995998,
+    0.24749999999994543,
+    0.20895799999971132
+  ],
+  "fullFinanceQueryMilliseconds": [
+    11.367208000000119,
+    5.948333000000275,
+    5.70641599999999,
+    5.972291999999925,
+    5.893625000000156
+  ],
+  "snapshotMilliseconds": 124.05762499999992,
+  "trajectoryMilliseconds": 193.01174999999995,
+  "totalMilliseconds": 1950.476042,
+  "schemaId": "sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1",
+  "projectionVersion": 26,
+  "historyPointCounts": [
+    13,
+    52
+  ],
+  "verification": {
+    "strictCurrentWire": true,
+    "validatedSaveV18": true,
+    "currentCheckpointDecoded": true,
+    "observationPreservesSaveAndRng": true,
+    "craftedMoneyOrFilmRows": false
+  }
+}

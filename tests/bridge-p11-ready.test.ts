@@ -204,6 +204,21 @@ describe('P11 ready Upcoming and discarded financial successors', () => {
 })
 
 describe('P11 recorded trends and full portfolio', () => {
+  it('serves the actual21-film/6240-advance public diagnostic as exact unique rows and52 completed history points', () => {
+    const state=fixture('s16-p11-long-portfolio','p11-core-v3'),session=new BridgeSession(state,'p11-real-scale-test')
+    const before=stableStringify(session.exportRuntimeCheckpoint()),snapshot=session.snapshot()
+    expect(()=>parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse,snapshot)).not.toThrow()
+    const report=snapshot.snapshot.finance.finance
+    expect(state.studio.releasedFilms).toHaveLength(21)
+    expect(report.portfolio.rows).toHaveLength(21)
+    expect(new Set(report.portfolio.rows.map(row=>row.id)).size).toBe(21)
+    expect(report.portfolio.rows.filter(row=>row.commitmentState==='recorded').length).toBeGreaterThanOrEqual(19)
+    expect(report.portfolio.rows.every(row=>state.studio.releasedFilms.some(film=>film.productionId===row.productionId))).toBe(true)
+    expect(report.history.windows.map(window=>window.points.length)).toEqual([13,52])
+    expect(report.history.windows[1]!.points.every(point=>point.complete)).toBe(true)
+    expect(report.history.windows[1]!.points.at(-1)!.closingCash).toBe(state.studio.cash)
+    expect(stableStringify(session.exportRuntimeCheckpoint())).toBe(before)
+  })
   it('covers Development/review, Ready Casting, Production, Post and Release Ready through actual fixture action chains', () => {
     for(const [id,phase,identity,decision] of [
       ['s9-p11-development-review','developmentPackage','scriptProject',true],
