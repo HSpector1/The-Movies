@@ -260,3 +260,14 @@ The separate [independent review receipt](P08-P10-OWNER-UX-01-REVIEW.md) evaluat
 Final source branches are `wip/p08-p10-owner-ux-01-ts` and `wip/p08-p10-owner-ux-01-client`; runtime/tool identities are listed at the top. The candidate’s `PUBLICATION.json` records the exact final TS documentation commit, report/review blobs and bytes, while `INVENTORY.sha256` binds the delivered files. The executed app, engine, fixtures, Owner launcher and retest text retain their verified bytes. No documentation-only rebuild occurs.
 
 The required future **named studio campaign/save library**, **governed progressing current year beside week**, and **opening-population career provenance** remain explicitly recorded and unimplemented. Current START1920/advancing WK and one-slot Load do not fulfill the first two. P08–P10 overall Owner acceptance remains pending; P06/P07 historical acceptance remains recorded. No main/campaign promotion, onboarding, P11, Wire, Radio, economy retuning or new Builder implementation occurred.
+
+
+## Superseding Owner acceptance — 2026-09-09
+
+Current Ops `OPS-P08P10-OWNER-CLOSEOUT-01` records Howard's explicit YES:
+**P08–P10 — OWNER ACCEPTED — KEEP**, for this exact delivered candidate's tested
+scope. [Acceptance receipt](P08-P10-OWNER-ACCEPTANCE-RECEIPT.md) separates the
+Owner evidence and recording time from technical proof and unspecified playtest time.
+Every earlier status, failure and qualified review above is preserved as history;
+the immutable candidate's pending-status metadata is not rewritten. Open requirements
+remain in the deferred register. This note does not authorize P11 execution or promotion.

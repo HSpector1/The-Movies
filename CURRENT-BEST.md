@@ -1,5 +1,29 @@
 # Project: Studio — Current Best
 
+## Current accepted authority — P08–P10, 2026-09-09
+
+**P08–P10 — OWNER ACCEPTED — KEEP.** Howard explicitly accepted the delivered
+scope under `OPS-P08P10-OWNER-CLOSEOUT-01`. Recorded 2026-09-09 07:52:05 UTC;
+exact playtest time was not supplied. The [acceptance receipt](docs/campaigns/P08-P10-OWNER-ACCEPTANCE-RECEIPT.md)
+records the Owner observations, exact hashes and retained open requirements.
+
+Accepted candidate: `$HOME/Desktop/P08-P10-Owner-UX-Candidate-fc1cd0e-761347c/`.
+TS runtime lineage `4aa3487eebd656958a880d492567fe4d5f379480`; engine build/source
+`fc1cd0e400337f551ba77d908b614e9dbaab9c9f`; Unity runtime/build source
+`761347c77fa59cafaa6ede45f9eeebf3a9dfda98`; later proof tools
+`28dd961e6a230a8d554bd7ab70fb3f766f9cedc9`; technical documentation
+`764f27c60f0eb7fac6430a8f897dd80dfdcb178b`. Contract: **4 / 21 / V18**, outer
+checkpoint format 1 with governed schema compatibility. Later closeout documentation
+is not a new build. The candidate stays byte-identical, including historical pending
+metadata; this receipt supersedes that status without rewriting it.
+
+P06/P07 remain accepted. The preceding accepted-authority entries below are preserved
+history. Campaign refs remain frozen at TS `2753e18ba8fb5f65b936c22cde9531646fecc6cd`
+and Unity `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6`; no main/campaign promotion.
+Current work is documentation closeout and P11 launch preparation only. P11 execution
+requires a separate order; no onboarding, Finance implementation or rebuild is authorized
+by this acceptance. The deferred register retains unimplemented Owner requirements.
+
 ## Current accepted authority — 2026-09-04
 
 **P06 ACCEPTED — KEEP — CLOSED. P07 ACCEPTED — KEEP — CLOSED.** The Owner accepted

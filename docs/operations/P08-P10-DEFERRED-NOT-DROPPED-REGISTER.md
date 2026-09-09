@@ -49,3 +49,29 @@ This register contains every mapped requirement that is not currently core or re
 - P10 market/rank: rival and era-aware talent-market facts exist under P12/P14.
 
 No deferred row may be silently promoted by the coding lead.
+
+## Owner acceptance addendum — 2026-09-09
+
+Authority: `OPS-P08P10-OWNER-CLOSEOUT-01`. P08–P10 is **OWNER ACCEPTED — KEEP**
+for the delivered fc1cd0e/761347c candidate. Acceptance does not remove the original
+rows above or implement the requests below. Existing requirement IDs are reused only
+where their scope matches; named follow-ups without a prior ID remain named here,
+not invented additions to the original numbered register or automatic P11 scope.
+
+| Requirement / existing authority | Retained disposition |
+|---|---|
+| Player-built roads/paths — `P09-REQ-034`, `P09-LATER-ROAD` | Required future network/cost/navigation/save authority; existing frontage does not implement a road editor. |
+| Better at-a-glance employee comparison — Owner closeout request | Open people-UX follow-up. Identifiable employees and improved market comparisons do not complete this request. |
+| Dropdown selectors instead of cycling options — Owner closeout request | Open interaction follow-up; keep exact selection and retained drafts. No dropdown implementation in closeout. |
+| Star Power filtering/sorting — Owner request; semantic law `P10-REQ-002` / `P10-REQ-015` | Open control requirement. Commercial recognition remains separate from discipline ability, awards and future rank. Existing ability sorting does not fulfill it. |
+| Named Save As checkpoints — distinct Owner requirement | Open separately authorized persistence interface within a campaign; existing one-slot Save/Load is acceptable now, not fulfillment. |
+| Named studio campaign/save library — Owner clarification retained in `P08-P10-OWNER-UX-01.md` | Required separate implementation: chosen campaign label, studio identity, recorded in-game date/save time where available, deliberate selection and cross-campaign isolation. Not merely named checkpoints. |
+| Visible progressing current year alongside week — Owner clarification and governed 1920-start ruling | Required calendar correction. Current `START 1920 · WK N` truthfully shows the start, not a progressing current year. Govern the missing date source; do not infer a weeks-per-year/aging/era law. |
+| Opening population career provenance — existing named Owner-UX requirement | Required governed pre-campaign experience/history, plausible newcomers and experienced professionals, no invented prior films or retrospective rewriting of existing saves. |
+| Real Builders — `P09-REQ-039` | Remains DEPENDENCY-BLOCKED; proving construction controls did not create worker identity/capacity/speed/payroll authority. |
+| Existing audit and authoring residuals | AUD-004 committed-cancellation integrity, AUD-006/007 malformed-import validation, AUD-009 quote recency and AUD-010 proof imports keep their recorded dispositions. AUD-008 recurring-cost reporting remains assigned to P11 W0. Enumerated e5 hoarding/small-prop/canopy/cylinder authoring residuals and qualified Stage/selection limitations remain in the technical report/review. |
+
+The complete original deferred/prohibited requirements remain in this register,
+the full-scope traceability matrix and the preserved technical evidence. None of
+these requests is completed, waived, made optional polish, or added wholesale to
+P11 by the acceptance. [Owner receipt](../campaigns/P08-P10-OWNER-ACCEPTANCE-RECEIPT.md).

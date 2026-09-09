@@ -3626,3 +3626,32 @@ planning/reconciliation, including read-only review of any Future Ops
 `docs/p08a-launch-package-01` branch after this closeout. A Future Ops draft is not a
 binding implementation order. No main movement, merge commit, force, history rewrite,
 Golden tag, or owned runtime process belongs to this closeout.
+
+
+## P08–P10 — Owner acceptance closeout, 2026-09-09
+
+**P08–P10 — OWNER ACCEPTED — KEEP.** Howard explicitly answered YES to the
+delivered/tested scope under `OPS-P08P10-OWNER-CLOSEOUT-01`. Recorded
+2026-09-09 07:52:05 UTC / 09:52:05 CEST; exact playtest time was not supplied.
+
+Accepted candidate: `$HOME/Desktop/P08-P10-Owner-UX-Candidate-fc1cd0e-761347c/`.
+TS runtime lineage `4aa3487eebd656958a880d492567fe4d5f379480`; engine build/source
+`fc1cd0e400337f551ba77d908b614e9dbaab9c9f`; player runtime/build
+`761347c77fa59cafaa6ede45f9eeebf3a9dfda98`; later tools
+`28dd961e6a230a8d554bd7ab70fb3f766f9cedc9`; technical documentation
+`764f27c60f0eb7fac6430a8f897dd80dfdcb178b`. Protocol/projection/save: 4/21/V18,
+outer checkpoint format 1 with governed compatibility.
+
+The Owner confirms catalogue scrolling, identifiable employees, improved hiring
+comparisons, helpful writer information before commission and acceptable existing
+Save/Load. The earlier recovery, construction, History and Stage observations remain
+recorded in the [acceptance receipt](P08-P10-OWNER-ACCEPTANCE-RECEIPT.md); precise
+termination arithmetic, renewal/cancellation and full viewport coverage are not
+new Owner claims. The original technical reports, failed attempts, qualified reviews
+and pending-status records remain historical.
+
+The candidate and profile are preserved. Only documentation closeout/P11 preparation
+is authorized here. Open roads, people controls/comparison, checkpoint/campaign-library,
+calendar, pre-campaign history, audit, authoring and Builder requirements are retained
+in the deferred register. AUD-008 stays in P11 W0. No P11 implementation, rebuild,
+runtime queue, onboarding or main/campaign promotion. P06/P07 acceptance is unchanged.
