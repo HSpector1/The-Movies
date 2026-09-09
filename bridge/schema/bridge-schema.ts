@@ -30,7 +30,7 @@ export const PROTOCOL_VERSION = 4 as const
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
 // Owner UX 01: public discipline/genre estimates and readable saved-slot metadata.
 // Protocol stays 4 and gameplay save stays V18; both fields derive existing authority.
-export const PROJECTION_VERSION = 23 as const
+export const PROJECTION_VERSION = 24 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2504,7 +2504,7 @@ const definitions = {
 
 export const BRIDGE_SCHEMA = {
   $schema: 'https://json-schema.org/draft/2020-12/schema',
-  $id: 'urn:project-studio:bridge:protocol-4:projection-21',
+  $id: `urn:project-studio:bridge:protocol-${PROTOCOL_VERSION}:projection-${PROJECTION_VERSION}`,
   title: 'Project Studio TypeScript to Unity Bridge',
   description: 'Canonical wire contract owned by the authoritative TypeScript runtime.',
   oneOf: [

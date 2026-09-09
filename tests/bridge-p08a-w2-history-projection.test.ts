@@ -1,3 +1,4 @@
+import { financeProjection } from '../bridge/finance.ts'
 // ── P08A W2 — the Standing & Studio History projection / exact wire contract ──
 //
 // The §12 laws under test, stated once:
@@ -92,6 +93,7 @@ function bundleOf(state: GameState) {
     release: releaseProjection(state),
     history: historyProjection(state),
     talent: peopleProjection(state),
+    finance: financeProjection(state, peopleProjection(state)),
   })
 }
 

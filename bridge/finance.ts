@@ -68,6 +68,11 @@ export function financeProjection(state: GameState, people: BridgePeopleProjecti
       contribution:null, contributionLabel:'Film Contribution not yet available',
       basis:'Direct commitments already paid. Revenue and Contribution are unavailable until release; no unreleased-film forecast is included in current pace.' })
   }
+  // JSON has one zero; preserve exact response replay across serialization.
+  for (const film of films) {
+    if (film.freelancerFees === 0) film.freelancerFees = 0
+    if (film.productionAndMarketing === 0) film.productionAndMarketing = 0
+  }
   return { ...overview, employees, facilities, films,
     guaranteedPayrollRemaining: employees.reduce((sum,e)=>sum+e.guaranteedRemaining,0),
     obligationsBasis:'Contract guarantees describe future payroll under existing terms. They are not an additional charge and are not subtracted from Cash. Signing bonuses already paid are excluded.',

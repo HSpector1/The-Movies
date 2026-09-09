@@ -15,8 +15,8 @@ function control(s: BridgeSession, commandId: string) {
 describe('Owner UX projection21 public field wire boundary', () => {
   it('pins the intended version and required envelope/profile fields independently', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(21)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-21')
+    expect(PROJECTION_VERSION).toBe(24)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-24')
     expect(BRIDGE_SCHEMA.$defs.StudioPersonProfileSnapshot.required).toContain('genreExperience')
     for (const definition of [BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse,
       BRIDGE_SCHEMA.$defs.StudioBridgeAcceptedCommandResponse, BRIDGE_SCHEMA.$defs.StudioBridgeSaveResponse]) {

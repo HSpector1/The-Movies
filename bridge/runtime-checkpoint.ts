@@ -136,6 +136,7 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
   // Owner UX projection 21 uses the existing governed prior-checkpoint migration.
   ['sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b', 'projection-v20'],
   // P11 outgoing accepted 4/21/V18, pinned by the Owner acceptance receipt.
+  ['sha256:1bad05a95c284e64ceaef54c276f2dd0ccad8ca3ef1b12198068bb61b85198c9', 'projection-v23'],
   ['sha256:b779faa92227bd1f2e623ad04d0899c87e7ddc60ce43f9ae9c39a7626c20a83d', 'projection-v22'],
   ['sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1', 'projection-v21'],
 ])
