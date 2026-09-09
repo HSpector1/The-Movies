@@ -100,7 +100,7 @@ type CompositionInput = {
   stageIdentities: readonly LotStageIdentity[]
   stageBodyByFacilityId: ReadonlyMap<string, BuildingId>
   /** The adapter's own exact per-production world resolution. */
-  locationBuildingIdByProductionId: ReadonlyMap<string, BuildingId>
+  locationBuildingIdByProductionId: ReadonlyMap<string, BuildingId | null>
   presence: LotPresenceProjection | undefined
   weekTheater: LotWeekTheater | undefined
 }
@@ -509,7 +509,9 @@ export function composeClosedProduction(
 
     const lawfullyNoSite =
       operationalState === 'wrapped-waiting-for-post' ||
-      operationalState === 'release-ready'
+      operationalState === 'release-ready' || operationalState === 'release-committed' ||
+      (operationalState === 'resource-wait' && workflow.phase === 'preProduction' && workflow.reservations.length === 0 &&
+        (workflow.blocker?.kind === 'facility-capacity' || workflow.blocker?.kind === 'set-unavailable') && workflow.blocker.targetPhase === 'rehearsal')
     const phasePrimaryCapability =
       workflow.phase === 'development' || workflow.phase === 'preProduction'
         ? 'development-casting'

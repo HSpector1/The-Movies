@@ -562,7 +562,8 @@ function productionTarget(
   // not one of THIS studio's soundstages still produces no target at all: that
   // silence was never about the founding two, it was about not naming a place the
   // studio does not have.
-  const identity = lotStageIdentityFor(snapshot, operation.locationBuildingId)
+  const identity = operation.locationBuildingId === null
+    ? null : lotStageIdentityFor(snapshot, operation.locationBuildingId)
   if (identity === null || !isNonEmptyString(identity.facilityName)) return null
   if (operation.locationBuildingId === FOUNDING_STAGE_SEVEN_BUILDING_ID) {
     const stage7 = stage7ProductionDetailContext(snapshot)

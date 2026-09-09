@@ -235,9 +235,10 @@ function currentStageProductionDetail(snapshot: StudioLotSnapshot) {
  */
 function stageNameForOperation(
   snapshot: StudioLotSnapshot,
-  operation: { locationBuildingId: string; facilityLabel: string },
+  operation: { locationBuildingId: string | null; facilityLabel: string },
 ): string {
-  const identity = lotStageIdentityFor(snapshot, operation.locationBuildingId as BuildingId)
+  const identity = operation.locationBuildingId === null
+    ? null : lotStageIdentityFor(snapshot, operation.locationBuildingId as BuildingId)
   return identity?.facilityName ?? operation.facilityLabel
 }
 import type { LotCellPoint } from './snapshot/StudioLotSnapshot.ts'

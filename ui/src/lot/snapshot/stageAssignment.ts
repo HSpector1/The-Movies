@@ -132,7 +132,7 @@ export class StageAssignment {
         ? {
             productionOperations: snap.productionOperations.map((operation) => {
               const slot = plan.get(operation.productionId)
-              return slot !== undefined && isStageSlot(operation.locationBuildingId)
+              return slot !== undefined && operation.locationBuildingId !== null && isStageSlot(operation.locationBuildingId)
                 ? { ...operation, locationBuildingId: slot }
                 : operation
             }),

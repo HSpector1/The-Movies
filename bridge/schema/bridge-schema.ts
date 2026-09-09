@@ -30,7 +30,7 @@ export const PROTOCOL_VERSION = 4 as const
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
 // Owner UX 01: public discipline/genre estimates and readable saved-slot metadata.
 // Protocol stays 4 and gameplay save stays V18; both fields derive existing authority.
-export const PROJECTION_VERSION = 26 as const
+export const PROJECTION_VERSION = 27 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -365,7 +365,7 @@ const StudioProductionOperationsSnapshot = object('StudioProductionOperationsSna
   phaseLabel: nonEmptyText(),
   weeksRemaining: nonNegativeInteger(),
   progress01: ratio(),
-  locationBuildingId: nonEmptyText(),
+  locationBuildingId: nullable(nonEmptyText()),
   facilityLabel: nonEmptyText(),
   directorId: nonEmptyText(),
   directorName: nonEmptyText(),

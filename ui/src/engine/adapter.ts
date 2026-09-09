@@ -295,6 +295,7 @@ import type {
 // P05A W2: the bounded closed-Production composition (recon §5.3–§5.5).
 import {
   composeClosedProduction,
+  facilityBuildingIdOf,
   FACILITY_CAPABILITY_LABEL,
   PRODUCTION_PHASE_LABEL,
 } from './productionOperationsProjection.ts'
@@ -6255,22 +6256,35 @@ function operationalAnnexProjection(calendar: StudioCalendarView): LotAnnexWork 
 }
 
 function managedWorkflowLocation(
+  state: GameState,
   workflow: ProductionWorkflow,
   stageBodyByFacilityId: ReadonlyMap<string, BuildingId>,
-): BuildingId {
+): BuildingId | null {
+  const authoredBody = (id: BuildingId): BuildingId | null =>
+    corePropertyOf(state).structures.some((structure) => structure.id === id) ? id : null
+  const reservedBody = (capability: 'development-casting' | 'post'): BuildingId => {
+    const reservations = workflow.reservations.filter((reservation) => reservation.capability === capability)
+    if (reservations.length !== 1) {
+      throw new Error(`studioLotSnapshot: managed productionId "${workflow.productionId}" has no unique ${capability} reservation`)
+    }
+    const body = facilityBuildingIdOf(state, reservations[0]!.facilityId)
+    if (body === null) {
+      throw new Error(`studioLotSnapshot: managed productionId "${workflow.productionId}" uses an unmapped ${capability} facility`)
+    }
+    return body
+  }
   switch (workflow.phase) {
     case 'development':
     case 'preProduction': {
-      const annexReservations = workflow.reservations.filter(
-        (reservation) => reservation.facilityId === LOT_ANNEX_FACILITY_ID,
-      )
-      if (annexReservations.length > 1) {
-        throw new Error(
-          `studioLotSnapshot: managed productionId "${workflow.productionId}" has duplicate Annex reservations`,
-        )
-      }
-      if (annexReservations.length === 1) return 'expansion'
-      return workflow.phase === 'development' ? 'writers' : 'casting'
+      if (workflow.phase === 'preProduction' && workflow.reservations.length === 0 &&
+        (workflow.blocker?.kind === 'facility-capacity' || workflow.blocker?.kind === 'set-unavailable') &&
+        workflow.blocker.targetPhase === 'rehearsal') return authoredBody('casting')
+      const body = reservedBody('development-casting')
+      // Preserve the authored endowed studio's phase-home presentation. A
+      // player-placed office has one exact body for both phases, never an alias.
+      return workflow.phase === 'preProduction' && body === 'writers'
+        ? authoredBody('casting') ?? body
+        : body
     }
     case 'rehearsal':
     case 'shooting': {
@@ -6281,11 +6295,10 @@ function managedWorkflowLocation(
         // A picture whose shooting COMPLETED releases the stage that week even
         // when Post has no room for it, so a `shooting` workflow with no stage
         // is not contradictory truth any more — it is a WRAPPED picture waiting
-        // at the Post door, holding nothing. It is placed at the room it is
-        // waiting for, because that is the only place on the lot its week is
-        // about; the Production Board says HELD beside it, and the queue view
-        // says what it is waiting for and who is in there.
-        if (workflow.phase === 'shooting' && workflow.blocker !== null) return 'post'
+        // at the Post door, holding nothing. Retain an authored Post phase-home
+        // address only where it exists. A placed-property studio has no exact
+        // current site here; do not guess which Post building it will acquire.
+        if (workflow.phase === 'shooting' && workflow.blocker !== null) return authoredBody('post')
         throw new Error(
           `studioLotSnapshot: managed ${workflow.phase} productionId "${workflow.productionId}" has no soundstage reservation`,
         )
@@ -6302,13 +6315,13 @@ function managedWorkflowLocation(
       return stage
     }
     case 'postProduction':
-      return 'post'
+      return reservedBody('post')
     case 'releaseReady':
       // P06A W2 (the chartered REPLACE): an unreleased picture NEVER belongs
       // to the Theater. Ready and committed are owned by Production & Post;
       // the Theater changes only when the next authoritative week actually
       // releases (Package 06 §9 / annex B1).
-      return 'post'
+      return authoredBody('post')
   }
 }
 
@@ -7313,6 +7326,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     const locationBuildingId =
       state.operations.mode === 'managed'
         ? managedWorkflowLocation(
+            state,
             workflow ??
               (() => {
                 throw new Error(
@@ -7442,7 +7456,7 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
           const stageId = operation.locationBuildingId
           // Derived membership, not a literal pair: a picture on the studio's THIRD
           // soundstage is on a soundstage, and this no longer throws when it is.
-          if (!stageBuildingIds.includes(stageId)) {
+          if (stageId === null || !stageBuildingIds.includes(stageId)) {
             // C2a-M4 (`00E`.5): a WRAPPED picture — shooting finished, stage
             // released, waiting for Post — is not on a stage, so it gets no stage
             // card and no REC light. That is the release law rendered: the crew

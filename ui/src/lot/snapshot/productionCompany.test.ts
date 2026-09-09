@@ -101,6 +101,21 @@ function snapshot(
 }
 
 describe('activeProductionCompanyContexts', () => {
+  it('retains a no-site company only for the lawful closed states or completed pre-production waiting on resources', () => {
+    const row = operation('a', { locationBuildingId: null, worksiteResolution: 'none',
+      primaryWorkTarget: null, ownedWorksites: [], operationalState: 'release-ready' })
+    for (const operationalState of ['release-ready', 'release-committed', 'wrapped-waiting-for-post'] as const) {
+      const current = { ...row, operationalState }
+      expect(activeProductionCompanyContexts(snapshot([current], peopleFor(current)))).toHaveLength(1)
+    }
+    const malformed = { ...row, operationalState: 'development-working' as const }
+    expect(activeProductionCompanyContexts(snapshot([malformed], peopleFor(malformed)))).toBeNull()
+    const waiting = { ...row, operationalState: 'resource-wait' as const, phase: 'preProduction' as const,
+      blocker: { kind: 'facility-capacity' as const, headline: 'Rehearsal held for Soundstage', detail: 'No soundstage is available.' } }
+    expect(activeProductionCompanyContexts(snapshot([waiting], peopleFor(waiting)))).toHaveLength(1)
+    const wrongPhase = { ...waiting, phase: 'shooting' as const }
+    expect(activeProductionCompanyContexts(snapshot([wrongPhase], peopleFor(wrongPhase)))).toBeNull()
+  })
   it('joins and canonically orders two complete same-title companies without mutating input', () => {
     const operationA = operation('a', { title: 'Same Picture' })
     const operationB = operation('b', { title: 'Same Picture' })

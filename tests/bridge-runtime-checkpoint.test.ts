@@ -951,6 +951,8 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:1bad05a95c284e64ceaef54c276f2dd0ccad8ca3ef1b12198068bb61b85198c9',
       // Authentic P11 projection24, also retained byte-for-byte in p11-core-v1 fixtures.
       'sha256:204a71924bd8c2e8ae9af47591226894b3e42f62457da3cc20ed6b106ede611a',
+      // Authentic outgoing ready26: d906's generated header and unchanged v3 corpus.
+      'sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1',
       'sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c',
       'sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1',
       'sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9',

@@ -28,7 +28,7 @@ export type LotPersonWorkContext =
   | (PersonProductionWorkBase & {
       kind: 'managed-production'
       productionFacilities: {
-        buildingId: BuildingId
+        buildingId: BuildingId | null
         facilityLabel: string
       }
     })

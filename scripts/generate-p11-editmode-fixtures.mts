@@ -9,6 +9,9 @@ import { BridgeSession } from '../bridge/session.ts'
 import { encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint } from '../bridge/runtime-checkpoint.ts'
 import { BRIDGE_SCHEMA, PROJECTION_VERSION, PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import { parseWireValue } from '../bridge/schema/runtime.ts'
+import { castingProjection } from '../bridge/casting.ts'
+import { applyActions } from '../src/core/index.ts'
+import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)))
 const unity = resolve(process.argv[2] ?? join(root, '../The Movies - P11A Executive Finance Unity'))
@@ -17,9 +20,9 @@ const sha = (value: string | Buffer) => createHash('sha256').update(value).diges
 const sparsePath = 'ui/e2e/p09-visual-oracle-v1/s2-p09-sparse-start.checkpoint.json'
 const hiringPath = 'tests/fixtures/p20-before-hire.checkpoint.json.gz'
 const sparse = readFileSync(join(root, sparsePath), 'utf8')
-const readyPath = 'ui/e2e/p11-core-v3/s6-p11-positive-long-payroll.checkpoint.json'
+const readyPath = 'ui/e2e/p11-core-v4/s6-p11-positive-long-payroll.checkpoint.json'
 const ready = readFileSync(join(root, readyPath), 'utf8')
-const readyManifest = JSON.parse(readFileSync(join(root, 'ui/e2e/p11-core-v3/manifest.json'), 'utf8'))
+const readyManifest = JSON.parse(readFileSync(join(root, 'ui/e2e/p11-core-v4/manifest.json'), 'utf8'))
 assert.equal(sha(ready), readyManifest.fixtures.find((f: { id: string }) => f.id === 's6-p11-positive-long-payroll').files.checkpointSha256)
 const hiring = gunzipSync(readFileSync(join(root, hiringPath))).toString('utf8')
 assert.equal(sha(sparse), '10ecac7bbcd72ea07a1a8bf5c3655154f0cbb31b87666c7bb649fda903ed5647')
@@ -64,10 +67,44 @@ parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse, sign)
 assert.deepEqual([sparseSession, hiringSession, readySession].map(session => sha(encodeBridgeRuntimeCheckpoint(session.exportRuntimeCheckpoint()))), before,
   'diagnostic snapshot/quote observation changed gameplay, RNG, saved slot, revision or journal')
 
+const packagePath = 'ui/e2e/p11-core-v4/s10-p11-ready-package.checkpoint.json'
+const packageBytes = readFileSync(join(root, packagePath), 'utf8'), packageSession = hydrate(packageBytes, 'placed-greenlight')
+const project = castingProjection(packageSession.gameState).board!.projects.find(p => p.projectId === 'script-0001')!
+const actors = project.leadCandidates.filter(p => p.available)
+const draft: BridgeCastingDraftPayload = { kind: 'greenlightPackage', projectId: project.projectId,
+  slateLead: null, slateAntagonist: null, slateSupport: null, signTalentId: null, signTermWeeks: null,
+  directorId: project.directorCandidates.find(p => p.available)!.talentId, craftLeadId: project.craftCandidates.find(p => p.available)!.talentId,
+  castLead: actors[0]!.talentId, castAntagonist: actors[1]!.talentId, castSupport: actors[2]!.talentId,
+  budgetNegative: project.negativeOptions[0]!.amount, budgetMarketing: project.marketingOptions[0]!.amount }
+const envelope = { protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, sessionId: packageSession.sessionId,
+  expectedStateRevision: packageSession.stateRevision }
+const greenlightQuote = packageSession.quote({ ...envelope, commandId: 'p11-placed-greenlight-quote', type: 'quoteCasting', draft })
+assert(greenlightQuote.accepted && greenlightQuote.quote.startsNow)
+const greenlight = packageSession.command({ ...envelope, commandId: 'p11-placed-greenlight-commit', type: 'submitIntent', payload: { intentId: greenlightQuote.quote.intentId } })
+assert(greenlight.accepted)
+parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeAcceptedCommandResponse, greenlight)
+assert.equal(greenlight.snapshot.productions.productionOperations[0]!.locationBuildingId, 'placed-1')
+const releasePath = 'ui/e2e/p11-core-v4/s13-p11-release-ready.checkpoint.json'
+const releaseBytes = readFileSync(join(root, releasePath), 'utf8'), releaseSession = hydrate(releaseBytes, 'release-ready-no-site')
+const releaseReady = releaseSession.snapshot()
+const committedState = applyActions(releaseSession.gameState, [{ kind: 'commitPictureToRelease', productionId: releaseSession.gameState.studio.activeProductions[0]!.id }])
+const releaseCommitted = new BridgeSession(committedState, 'p11-editmode-release-committed-no-site').snapshot()
+for (const value of [releaseReady, releaseCommitted]) {
+  parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, value)
+  assert.equal(value.snapshot.productions.productionOperations[0]!.locationBuildingId, null)
+  assert.equal(value.snapshot.productions.productionOperations[0]!.worksiteResolution, 'none')
+}
+
 mkdirSync(output, { recursive: true })
 const rows = [
+  { file: 'p11-placed-greenlight-accepted.json', value: greenlight, source: packagePath, sourceSha256: sha(packageBytes),
+    operation: 'Actual current BridgeSession Greenlight quote then one submitIntent on pinned public S10; complete accepted response, not HTTP/native capture' },
+  { file: 'p11-release-ready-no-site-snapshot.json', value: releaseReady, source: releasePath, sourceSha256: sha(releaseBytes),
+    operation: 'Actual current BridgeSession snapshot after governed public S13 hydration; no current reservation/site' },
+  { file: 'p11-release-committed-no-site-snapshot.json', value: releaseCommitted, source: releasePath, sourceSha256: sha(releaseBytes),
+    operation: 'Actual commitPictureToRelease action on public S13, then current BridgeSession snapshot; no invented worksite' },
   { file: 'p11-ready-finance-projection.json', value: readyFinance, source: readyPath, sourceSha256: sha(ready),
-    operation: 'BridgeSession.snapshot().snapshot.finance from current public v3 positive studio; complete multi-week chart points for queued-gamepad/consumer tests, not native input evidence' },
+    operation: 'BridgeSession.snapshot().snapshot.finance from current public v4 positive studio; complete multi-week chart points for queued-gamepad/consumer tests, not native input evidence' },
   { file: 'p11-finance-projection.json', value: finance, source: sparsePath, sourceSha256: sha(sparse),
     operation: 'BridgeSession.snapshot().snapshot.finance; complete TS-authored component for otherwise synthetic bundle parser fixtures' },
   { file: 'p11-placement-quote.json', value: placement, source: sparsePath, sourceSha256: sha(sparse),
@@ -86,9 +123,12 @@ const manifest = { kind: 'p11-current-typescript-authored-editmode-parser-fixtur
   protocolVersion: PROTOCOL_VERSION, projectionVersion: PROJECTION_VERSION, schemaId: SCHEMA_ID,
   hydration: 'Unmodified historical outer bytes → loadBridgeRuntimeCheckpoint → BridgeSession.fromRuntimeCheckpoint',
   verification: { strictCurrentWire: true, observationPreservesCheckpointsAndRng: true, financialAmountsEdited: false,
+    materialFixtureUsesAcceptedActions: true, observationPreservationScope: 'Snapshot/quote observations only; explicitly described Greenlight and release commitment fixture actions change their disposable sessions.',
     historicalHeadersRewritten: false, historicalCapturedQuoteFilesModified: false }, files: rows }
 writeFileSync(join(output, 'p11-editmode-fixtures.manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`)
 assert.equal(sha(readFileSync(join(root, readyPath))), sha(ready))
 assert.equal(sha(readFileSync(join(root, sparsePath))), sha(sparse))
+assert.equal(sha(readFileSync(join(root, packagePath))), sha(packageBytes))
+assert.equal(sha(readFileSync(join(root, releasePath))), sha(releaseBytes))
 assert.equal(sha(gunzipSync(readFileSync(join(root, hiringPath)))), sha(hiring))
 console.log(JSON.stringify({ output, projectionVersion: PROJECTION_VERSION, schemaId: SCHEMA_ID, files: rows }, null, 2))

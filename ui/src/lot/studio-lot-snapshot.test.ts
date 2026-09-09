@@ -753,7 +753,8 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
       directorId: production.directorId,
     })
     expect(op.attention).toBe('decision-required')
-    expect(stage(snap, op.locationBuildingId).attention).toBe('decision-required')
+    expect(op.locationBuildingId).not.toBeNull()
+    expect(stage(snap, op.locationBuildingId!).attention).toBe('decision-required')
     expect(snap.activeProductions[0]).toMatchObject({
       active: false,
       stageState: 'decision-required',
@@ -777,7 +778,8 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
       kind: 'scheduleShootingTake',
       productionId: production.id,
     })
-    expect(stage(snap, op.locationBuildingId).attentionReason).toBe(op.blocker?.headline)
+    expect(op.locationBuildingId).not.toBeNull()
+    expect(stage(snap, op.locationBuildingId!).attentionReason).toBe(op.blocker?.headline)
     expect(snap.activeProductions[0]).toMatchObject({
       active: false,
       stageState: 'decision-required',
@@ -843,7 +845,8 @@ describe('studioLotSnapshot — managed Production Operations truth', () => {
     // ...and the stage it left is genuinely free: the OTHER picture is the only
     // one on a stage, and one soundstage now carries nobody.
     const stagesInUse = new Set(snap.activeProductions.map((candidate) => candidate.stageId))
-    expect(stagesInUse.has(op.locationBuildingId)).toBe(false)
+    expect(op.locationBuildingId).not.toBeNull()
+    expect(stagesInUse.has(op.locationBuildingId!)).toBe(false)
   })
 
   it('keeps an empty managed studio idle and shows only its OWN employees, never a fabricated one', () => {

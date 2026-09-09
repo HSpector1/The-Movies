@@ -202,8 +202,12 @@ function completeManagedOperation(value: unknown): value is ProductionOperations
     Number.isFinite(value.progress01) &&
     value.progress01 >= 0 &&
     value.progress01 <= 1 &&
-    typeof value.locationBuildingId === 'string' &&
-    isLocatableBuildingId(value.locationBuildingId) &&
+    ((typeof value.locationBuildingId === 'string' && isLocatableBuildingId(value.locationBuildingId)) ||
+      (value.locationBuildingId === null && value.worksiteResolution === 'none' &&
+        (value.operationalState === 'wrapped-waiting-for-post' || value.operationalState === 'release-ready' || value.operationalState === 'release-committed' ||
+          (value.operationalState === 'resource-wait' && value.phase === 'preProduction' && isRecord(value.blocker) &&
+            (value.blocker.kind === 'facility-capacity' || value.blocker.kind === 'set-unavailable'))) &&
+        value.primaryWorkTarget === null && Array.isArray(value.ownedWorksites) && value.ownedWorksites.length === 0)) &&
     isNonEmptyString(value.facilityLabel) &&
     isNonEmptyString(value.directorId) &&
     isNonEmptyString(value.directorName) &&
