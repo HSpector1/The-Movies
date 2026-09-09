@@ -36,8 +36,14 @@ export type FinancePeriod = {
   notice: string | null; openingCash: number | null; closingCash: number | null;
   netCash: number; categories: FinanceCategory[]; capitalContributors: FinanceCapitalContributors;
 }
+export type FinanceCostPoint = {
+  week: number; amount: number | null; coverage: FinancePeriod['coverage']; notice: string | null;
+}
+export type FinanceCostSeries = {
+  kind: LedgerKind; label: string; periodAmount: number | null; points: FinanceCostPoint[];
+}
 export type FinanceHistoryWindow = {
-  windowWeeks: 13 | 52; label: string; period: FinancePeriod; points: FinancePeriod[];
+  windowWeeks: 13 | 52; label: string; period: FinancePeriod | null; points: FinancePeriod[]; costSeries: FinanceCostSeries[];
 }
 export type FinanceHistory = {
   defaultWindowWeeks: 13; windows: FinanceHistoryWindow[]; calendarNotice: string;
@@ -220,9 +226,17 @@ export function financeHistory(state: GameState): FinanceHistory {
     const label = points.length === 0 ? 'No completed weeks yet'
       : points.length < windowWeeks ? `${points.length} of ${windowWeeks} completed weeks available`
         : `Last ${windowWeeks} completed weeks`
-    const period = finishPeriod(state, fromWeek, lastWeek, `last${windowWeeks}Weeks`, label,
+    const period = points.length === 0 ? null : finishPeriod(state, fromWeek, lastWeek, `last${windowWeeks}Weeks`, label,
       windowOpening, cash, windowNet, categories, capital)
-    return { windowWeeks, label, period, points }
+    const costSeries = (Object.keys(FINANCE_CATEGORIES) as LedgerKind[])
+      .filter(kind => kind !== 'studioRevenue' && kind !== 'boxOffice')
+      .map((kind): FinanceCostSeries => ({ kind, label: FINANCE_CATEGORIES[kind],
+        periodAmount: period?.categories.find(c => c.kind === kind)?.amount ?? (period?.complete ? 0 : null),
+        points: points.map(point => ({ week: point.fromWeek,
+          amount: point.categories.find(c => c.kind === kind)?.amount ?? (point.complete ? 0 : null),
+          coverage: point.coverage, notice: point.notice })),
+      }))
+    return { windowWeeks, label, period, points, costSeries }
   })
   return { defaultWindowWeeks: 13, windows,
     calendarNotice: 'History uses recorded weeks. Calendar years and eras are not available from the current history.' }

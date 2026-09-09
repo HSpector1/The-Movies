@@ -17,6 +17,10 @@ const sha = (value: string | Buffer) => createHash('sha256').update(value).diges
 const sparsePath = 'ui/e2e/p09-visual-oracle-v1/s2-p09-sparse-start.checkpoint.json'
 const hiringPath = 'tests/fixtures/p20-before-hire.checkpoint.json.gz'
 const sparse = readFileSync(join(root, sparsePath), 'utf8')
+const readyPath = 'ui/e2e/p11-core-v3/s6-p11-positive-long-payroll.checkpoint.json'
+const ready = readFileSync(join(root, readyPath), 'utf8')
+const readyManifest = JSON.parse(readFileSync(join(root, 'ui/e2e/p11-core-v3/manifest.json'), 'utf8'))
+assert.equal(sha(ready), readyManifest.fixtures.find((f: { id: string }) => f.id === 's6-p11-positive-long-payroll').files.checkpointSha256)
 const hiring = gunzipSync(readFileSync(join(root, hiringPath))).toString('utf8')
 assert.equal(sha(sparse), '10ecac7bbcd72ea07a1a8bf5c3655154f0cbb31b87666c7bb649fda903ed5647')
 assert.equal(sha(hiring), '88049d4408573de3a36a56957c2b8d3aed36655b9b3dbadc68da7bef991a8510')
@@ -24,9 +28,14 @@ const hydrate = (bytes: string, name: string) => BridgeSession.fromRuntimeCheckp
   loadBridgeRuntimeCheckpoint(bytes, undefined, () => `p11-editmode-${name}`).hydrated)
 const sparseSession = hydrate(sparse, 'sparse')
 const hiringSession = hydrate(hiring, 'hiring')
-const before = [sparseSession, hiringSession].map(session => sha(encodeBridgeRuntimeCheckpoint(session.exportRuntimeCheckpoint())))
+const readySession = hydrate(ready, 'ready-finance')
+const before = [sparseSession, hiringSession, readySession].map(session => sha(encodeBridgeRuntimeCheckpoint(session.exportRuntimeCheckpoint())))
 const snapshot = sparseSession.snapshot()
 parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, snapshot)
+const readySnapshot = readySession.snapshot()
+parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, readySnapshot)
+const readyFinance = readySnapshot.snapshot.finance
+assert(readyFinance.finance.history.windows[0]!.points.filter(p => p.complete).length >= 3)
 const finance = snapshot.snapshot.finance
 parseWireValue(BRIDGE_SCHEMA.$defs.StudioFinanceProjection, finance)
 const placement = sparseSession.quote({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID,
@@ -52,11 +61,13 @@ assert.equal(sign.quote.signTalentName, 'Gene Zaleski')
 assert.equal(sign.quote.signTermWeeks, 52)
 assert.equal(sign.quote.affordable, true)
 parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeQuoteResponse, sign)
-assert.deepEqual([sparseSession, hiringSession].map(session => sha(encodeBridgeRuntimeCheckpoint(session.exportRuntimeCheckpoint()))), before,
+assert.deepEqual([sparseSession, hiringSession, readySession].map(session => sha(encodeBridgeRuntimeCheckpoint(session.exportRuntimeCheckpoint()))), before,
   'diagnostic snapshot/quote observation changed gameplay, RNG, saved slot, revision or journal')
 
 mkdirSync(output, { recursive: true })
 const rows = [
+  { file: 'p11-ready-finance-projection.json', value: readyFinance, source: readyPath, sourceSha256: sha(ready),
+    operation: 'BridgeSession.snapshot().snapshot.finance from current public v3 positive studio; complete multi-week chart points for queued-gamepad/consumer tests, not native input evidence' },
   { file: 'p11-finance-projection.json', value: finance, source: sparsePath, sourceSha256: sha(sparse),
     operation: 'BridgeSession.snapshot().snapshot.finance; complete TS-authored component for otherwise synthetic bundle parser fixtures' },
   { file: 'p11-placement-quote.json', value: placement, source: sparsePath, sourceSha256: sha(sparse),
@@ -77,6 +88,7 @@ const manifest = { kind: 'p11-current-typescript-authored-editmode-parser-fixtur
   verification: { strictCurrentWire: true, observationPreservesCheckpointsAndRng: true, financialAmountsEdited: false,
     historicalHeadersRewritten: false, historicalCapturedQuoteFilesModified: false }, files: rows }
 writeFileSync(join(output, 'p11-editmode-fixtures.manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`)
+assert.equal(sha(readFileSync(join(root, readyPath))), sha(ready))
 assert.equal(sha(readFileSync(join(root, sparsePath))), sha(sparse))
 assert.equal(sha(gunzipSync(readFileSync(join(root, hiringPath)))), sha(hiring))
 console.log(JSON.stringify({ output, projectionVersion: PROJECTION_VERSION, schemaId: SCHEMA_ID, files: rows }, null, 2))

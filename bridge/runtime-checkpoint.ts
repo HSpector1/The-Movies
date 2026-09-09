@@ -53,6 +53,8 @@ export const PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // P11 ready extensions: authentic outgoing core control 4/25/V18.
+  ['sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460', 'projection-v25'],
   // P11 core P2: authentic outgoing 4/24/V18; named recorded capital rows advance projection to 25.
   ['sha256:204a71924bd8c2e8ae9af47591226894b3e42f62457da3cc20ed6b106ede611a', 'projection-v24'],
   // projection-v4-early: 720826b "authenticate durable runtime sessions" — the

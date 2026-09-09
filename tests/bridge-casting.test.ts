@@ -615,7 +615,7 @@ describe('P04A Casting bridge — quote seam and board', () => {
     expect(second.quote.intentId).toBe(first.quote.intentId)
   })
 
-  it('wire JSON of the CASTING projection and quote never carries a hidden-truth key (burn/runway included)', () => {
+  it('wire JSON excludes hidden truth; P11 current-pacing runway stays in its explicit financial envelope', () => {
     const { state, projectId } = readyProjectWithCompletedCasting('p04a-leak')
     const session = new BridgeSession(state, 'p04a-leak')
     // Scoped to the casting projection + the casting quote specifically: the
@@ -671,9 +671,18 @@ describe('P04A Casting bridge — quote seam and board', () => {
       quote: quoted.accepted ? quoted.quote : null,
       signQuote,
     })
-    for (const banned of ['weeklyBurn', 'rngState', 'temperament', 'teamDirection', 'runway']) {
+    for (const banned of ['weeklyBurn', 'rngState', 'temperament', 'teamDirection']) {
       expect(raw.toLowerCase().includes(banned.toLowerCase()), `banned substring "${banned}" appeared on the wire`).toBe(false)
     }
+    // REQ032 activates conditional current-pacing previews, only in the shared
+    // financial envelope. The prior non-financial payload still carries no runway.
+    const stripFinancial = (value: unknown) => {
+      const { financial, ...original } = value as Record<string, unknown>
+      expect(financial).toMatchObject({ runwayAfter: expect.any(String), currentBasis: expect.any(String) })
+      return original
+    }
+    expect(JSON.stringify({ casting: castingSnapshot, quote: stripFinancial(quoted.accepted ? quoted.quote : null),
+      signQuote: stripFinancial(signQuote) }).toLowerCase()).not.toContain('runway')
   })
 
   it('a queueIntentExpired notice carries the exact projectId and survives save/load', () => {

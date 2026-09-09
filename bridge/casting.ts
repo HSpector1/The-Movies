@@ -22,10 +22,11 @@
 // (economy), and the Film Package assessment boundary (`assessPackageFit` /
 // `assessProfitRange` / `productionDemandView`) the greenlight-review UI
 // already uses. No hidden truth — `talent.actual`, persona, temperament
-// decomposition, RNG state, the run seed, hidden ceilings, burn, or runway — is
-// reachable from this module's outputs (NO burn/runway/recurring delta
-// anywhere on the casting quote wire — omission is law this checkpoint).
+// decomposition, RNG state, the run seed, or hidden ceilings — is reachable
+// from this module's outputs. P11's authorized financial envelope adds only
+// current recurring costs and conditional current-pacing runway.
 
+import { financialConsequence } from './finance-consequence.ts'
 import {
   assignmentProjectCost,
   CASTING_SESSION_CONSEQUENCE,
@@ -566,6 +567,7 @@ function screenTestQuoteSnapshot(
   return {
     intentId,
     kind: 'startAuditions',
+    financial: null,
     commitLabel: conversion.commitLabel,
     startsNow,
     queues,
@@ -655,6 +657,7 @@ function greenlightQuoteSnapshot(
   return {
     intentId,
     kind: 'greenlightPicture',
+    financial: financialConsequence(state, successor),
     commitLabel: conversion.commitLabel,
     startsNow,
     queues,
@@ -692,8 +695,8 @@ function greenlightQuoteSnapshot(
  * The TypeScript-authored consequence summary a casting quote answers with.
  * Built from the DISCARDED preflight successor, so every startsNow/queues fact
  * and every greenlight-consequence number is the engine's own — nothing here
- * is re-derived. NO burn, NO runway, NO recurring delta anywhere on this
- * snapshot (omission is law this checkpoint).
+ * is re-derived. P11 adds the common financial envelope from that same
+ * discarded successor; queued Greenlight commits no cash until admission.
  */
 // P05A.3 §10 — the sign-contract quote: the authoritative preview of exactly
 // what signing commits, from the DISCARDED preflight successor. The signing
@@ -719,6 +722,7 @@ function signContractQuoteSnapshot(
   return {
     intentId,
     kind: 'signContract',
+    financial: financialConsequence(state, successor),
     commitLabel: conversion.commitLabel,
     startsNow: true,
     queues: false,

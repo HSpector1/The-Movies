@@ -1665,7 +1665,7 @@ export class BridgeSession {
       if (!preflight.ok) {
         return this.reject(request.commandId, 'ENGINE_REJECTED', preflight.error, started)
       }
-      const quote = contractQuoteSnapshot(this.state, request.draft, conversion, intentId)
+      const quote = contractQuoteSnapshot(this.state, request.draft, conversion, intentId, preflight.next)
       this.pendingQuotes.set(intentId, {
         family: 'contract',
         draft: request.draft,

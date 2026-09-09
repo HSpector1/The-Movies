@@ -35,6 +35,7 @@ import {
   type GameState,
   type Talent,
 } from '../src/core/index.ts'
+import { financialConsequence } from './finance-consequence.ts'
 import { TUNING } from '../src/core/tuning.ts'
 import type { ActionOutcome } from '../ui/src/engine/adapter.ts'
 import type {
@@ -238,6 +239,7 @@ export function contractQuoteSnapshot(
   draft: BridgeContractDraftPayload,
   conversion: Extract<ContractDraftConversion, { ok: true }>,
   intentId: string,
+  successor: GameState | null = null,
 ): BridgeContractQuoteSnapshot {
   const { talent, contract, offer, refusal } = conversion
   const week = state.market.tick
@@ -254,6 +256,7 @@ export function contractQuoteSnapshot(
       ? `Pays a ${dollars(offer.signingBonus)} signing bonus now. ${talent.name} stays under contract through Week ${String(offer.endWeekExclusive)} (${contractTermLabel(offer.termWeeks)}) at ${dollars(weeklySalary(offer.annualSalary))} a week — ${dollars(offer.annualSalary)} a year. Nothing else about the person changes.`
       : `Pays ${dollars(cost)} in termination now (half of the ${dollars(guaranteed ?? 0)} still guaranteed through Week ${String(contract?.endWeekExclusive ?? week)}). ${talent.name} leaves the roster this week as a free agent. Recorded credits and career history stay on the record.`
   return {
+    financial: ok && successor !== null ? financialConsequence(state, successor) : null,
     intentId,
     kind: conversion.kind,
     commitLabel: conversion.commitLabel,

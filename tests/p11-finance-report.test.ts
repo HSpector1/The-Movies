@@ -90,7 +90,7 @@ describe('P11 recorded cash and current-pace report', () => {
     state = tick(state) as typeof state
     expect(financeOverview(state).lastPeriod).toMatchObject({ fromWeek: 21, complete: true, openingCash: boundaryCash, closingCash: state.studio.cash })
     const windows = financeHistory(state).windows
-    expect(windows.every(w => w.period.complete === false && w.period.openingCash === null)).toBe(true)
+    expect(windows.every(w => w.period!.complete === false && w.period!.openingCash === null)).toBe(true)
     expect(windows[1]!.points.find(p => p.fromWeek === 19)).toMatchObject({ coverage: 'unavailable', closingCash: null })
     expect(windows[1]!.points.find(p => p.fromWeek === 20)).toMatchObject({ coverage: 'partial', closingCash: null })
     expect(windows[1]!.points.find(p => p.fromWeek === 21)).toMatchObject({ coverage: 'complete', closingCash: state.studio.cash })
@@ -118,7 +118,7 @@ describe('P11 recorded cash and current-pace report', () => {
     expect(history.windows.map(w => w.points.length)).toEqual([13, 40])
     expect(history.windows.map(w => w.label)).toEqual(['Last 13 completed weeks', '40 of 52 completed weeks available'])
     for (const window of history.windows) {
-      const actual = recordedFinancePeriod(final, window.period.fromWeek, window.period.toWeekInclusive, window.period.id, window.period.label)
+      const actual = recordedFinancePeriod(final, window.period!.fromWeek, window.period!.toWeekInclusive, window.period!.id, window.period!.label)
       expect(window.period).toEqual(actual)
       for (const point of window.points) {
         expect(point).toEqual(recordedFinancePeriod(final, point.fromWeek, point.toWeekInclusive, point.id, point.label))
@@ -146,7 +146,7 @@ describe('P11 recorded cash and current-pace report', () => {
     expect(red.runwayWeeks).toBeNull()
     expect(red.runwayLabel).toBe('In the red')
     const history = financeHistory(state)
-    expect(history.windows.every(w => w.points.length === 0 && w.period.coverage === 'unavailable')).toBe(true)
+    expect(history.windows.every(w => w.points.length === 0 && w.period === null)).toBe(true)
     expect(history.windows.every(w => w.label === 'No completed weeks yet')).toBe(true)
     expect(recordedFinancePeriod(state, 0, 1, 'future', 'Future')).toMatchObject({ complete: false, openingCash: null, closingCash: null })
   })

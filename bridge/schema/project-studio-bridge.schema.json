@@ -137,7 +137,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 25,
+          "const": 26,
           "type": "integer"
         },
         "stateDigest": {
@@ -254,7 +254,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 25,
+          "const": 26,
           "type": "integer"
         },
         "stateDigest": {
@@ -758,7 +758,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 25,
+          "const": 26,
           "type": "integer"
         },
         "stateDigest": {
@@ -837,7 +837,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 25,
+          "const": 26,
           "type": "integer"
         },
         "stateDigest": {
@@ -1733,6 +1733,16 @@
           "minLength": 1,
           "type": "string"
         },
+        "financial": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFinancialConsequence"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "forecastLine": {
           "anyOf": [
             {
@@ -1968,6 +1978,7 @@
         "cashAfter",
         "cashBefore",
         "commitLabel",
+        "financial",
         "forecastLine",
         "freelancerFees",
         "intentId",
@@ -2897,6 +2908,16 @@
             }
           ]
         },
+        "financial": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFinancialConsequence"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "guaranteedRemaining": {
           "anyOf": [
             {
@@ -3072,6 +3093,7 @@
         "cost",
         "currentEndWeekExclusive",
         "currentRemainingWeeks",
+        "financial",
         "guaranteedRemaining",
         "intentId",
         "kind",
@@ -3905,6 +3927,89 @@
       "type": "object",
       "x-csharp-name": "StudioFinanceCategory"
     },
+    "StudioFinanceCostPoint": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "coverage": {
+          "enum": [
+            "complete",
+            "partial",
+            "unavailable"
+          ],
+          "type": "string"
+        },
+        "notice": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "amount",
+        "coverage",
+        "notice",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceCostPoint"
+    },
+    "StudioFinanceCostSeries": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "periodAmount": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "points": {
+          "items": {
+            "$ref": "#/$defs/StudioFinanceCostPoint"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind",
+        "label",
+        "periodAmount",
+        "points"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceCostSeries"
+    },
     "StudioFinanceEmployee": {
       "additionalProperties": false,
       "properties": {
@@ -4187,6 +4292,77 @@
       "type": "object",
       "x-csharp-name": "StudioFinanceFilm"
     },
+    "StudioFinanceHistory": {
+      "additionalProperties": false,
+      "properties": {
+        "calendarNotice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "defaultWindowWeeks": {
+          "const": 13,
+          "type": "integer"
+        },
+        "windows": {
+          "items": {
+            "$ref": "#/$defs/StudioFinanceHistoryWindow"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "calendarNotice",
+        "defaultWindowWeeks",
+        "windows"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceHistory"
+    },
+    "StudioFinanceHistoryWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "costSeries": {
+          "items": {
+            "$ref": "#/$defs/StudioFinanceCostSeries"
+          },
+          "type": "array"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "period": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFinancePeriod"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "points": {
+          "items": {
+            "$ref": "#/$defs/StudioFinancePeriod"
+          },
+          "type": "array"
+        },
+        "windowWeeks": {
+          "maximum": 52,
+          "minimum": 13,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "costSeries",
+        "label",
+        "period",
+        "points",
+        "windowWeeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceHistoryWindow"
+    },
     "StudioFinancePeriod": {
       "additionalProperties": false,
       "properties": {
@@ -4284,6 +4460,220 @@
       "type": "object",
       "x-csharp-name": "StudioFinancePeriod"
     },
+    "StudioFinancePortfolio": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "defaultSort": {
+          "const": "attentionPhaseTime",
+          "type": "string"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/StudioFinancePortfolioRow"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "basis",
+        "defaultSort",
+        "rows"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinancePortfolio"
+    },
+    "StudioFinancePortfolioRow": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "commitmentState": {
+          "enum": [
+            "uncommitted",
+            "recorded",
+            "notRecorded"
+          ],
+          "type": "string"
+        },
+        "contribution": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "contributionLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "decisionLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "directCommitment": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "hasDecisionOrBlocker": {
+          "type": "boolean"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "identityKind": {
+          "enum": [
+            "scriptProject",
+            "production"
+          ],
+          "type": "string"
+        },
+        "phase": {
+          "enum": [
+            "developmentPackage",
+            "production",
+            "postReleaseReady",
+            "inTheaters",
+            "completed"
+          ],
+          "type": "string"
+        },
+        "phaseLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "phaseWeeksRemaining": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "productionId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "projectId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "routes": {
+          "items": {
+            "$ref": "#/$defs/StudioFinanceRoute"
+          },
+          "type": "array"
+        },
+        "studioRevenueReceived": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "studioRevenueRemaining": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "studioRevenueTotal": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "timingLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "timingWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "basis",
+        "commitmentState",
+        "contribution",
+        "contributionLabel",
+        "decisionLine",
+        "directCommitment",
+        "hasDecisionOrBlocker",
+        "id",
+        "identityKind",
+        "phase",
+        "phaseLabel",
+        "phaseWeeksRemaining",
+        "productionId",
+        "projectId",
+        "routes",
+        "studioRevenueReceived",
+        "studioRevenueRemaining",
+        "studioRevenueTotal",
+        "timingLabel",
+        "timingWeek",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinancePortfolioRow"
+    },
     "StudioFinanceProjection": {
       "additionalProperties": false,
       "properties": {
@@ -4296,6 +4686,38 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioFinanceProjection"
+    },
+    "StudioFinanceRoute": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "profile",
+            "facilityHistory",
+            "casting",
+            "production",
+            "releaseResult",
+            "filmHistory",
+            "development"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "targetId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "label",
+        "targetId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceRoute"
     },
     "StudioFinanceSnapshot": {
       "additionalProperties": false,
@@ -4360,6 +4782,9 @@
         "guaranteedPayrollRemaining": {
           "type": "number"
         },
+        "history": {
+          "$ref": "#/$defs/StudioFinanceHistory"
+        },
         "lastPeriod": {
           "anyOf": [
             {
@@ -4393,6 +4818,9 @@
           "const": "currentPaceEstimate",
           "type": "string"
         },
+        "portfolio": {
+          "$ref": "#/$defs/StudioFinancePortfolio"
+        },
         "runwayLabel": {
           "minLength": 1,
           "type": "string"
@@ -4422,6 +4850,9 @@
         "scheduledRevenueTimeClass": {
           "const": "knownCommitment",
           "type": "string"
+        },
+        "upcoming": {
+          "$ref": "#/$defs/StudioFinanceUpcoming"
         },
         "weeklyCostTimeClass": {
           "const": "currentRecurringCost",
@@ -4455,6 +4886,7 @@
         "films",
         "firstCompleteWeek",
         "guaranteedPayrollRemaining",
+        "history",
         "lastPeriod",
         "netWeeklyCashflow",
         "nextScheduledStudioRevenue",
@@ -4462,10 +4894,12 @@
         "operationsBasis",
         "paceBasis",
         "paceTimeClass",
+        "portfolio",
         "runwayLabel",
         "runwayState",
         "runwayWeeks",
         "scheduledRevenueTimeClass",
+        "upcoming",
         "weeklyCostTimeClass",
         "weeklyFacilityOperatingCost",
         "weeklyOperatingCost",
@@ -4474,6 +4908,159 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioFinanceSnapshot"
+    },
+    "StudioFinanceUpcoming": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "defaultWindowWeeks": {
+          "const": 13,
+          "type": "integer"
+        },
+        "nextAdvanceStudioRevenue": {
+          "type": "number"
+        },
+        "remainingStudioRevenue": {
+          "type": "number"
+        },
+        "timeClass": {
+          "const": "knownCommitment",
+          "type": "string"
+        },
+        "windows": {
+          "items": {
+            "$ref": "#/$defs/StudioFinanceUpcomingWindow"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "basis",
+        "defaultWindowWeeks",
+        "nextAdvanceStudioRevenue",
+        "remainingStudioRevenue",
+        "timeClass",
+        "windows"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceUpcoming"
+    },
+    "StudioFinanceUpcomingEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "detail": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "facilityCompletion",
+            "facilityOpex",
+            "contractRenewal",
+            "contractExpiry",
+            "setCompletion"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "route": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFinanceRoute"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "weeklyOperatingCostChange": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "detail",
+        "id",
+        "kind",
+        "label",
+        "route",
+        "week",
+        "weeklyOperatingCostChange"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceUpcomingEvent"
+    },
+    "StudioFinanceUpcomingWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "fromWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "notice": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "remainingRows": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/StudioFinanceUpcomingEvent"
+          },
+          "type": "array"
+        },
+        "toWeekInclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "windowWeeks": {
+          "maximum": 52,
+          "minimum": 13,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "fromWeek",
+        "notice",
+        "remainingRows",
+        "rows",
+        "toWeekInclusive",
+        "windowWeeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceUpcomingWindow"
     },
     "StudioFinancialConsequence": {
       "additionalProperties": false,
@@ -10649,7 +11236,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-25",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-26",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -10690,7 +11277,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 25,
+    "projectionVersion": 26,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

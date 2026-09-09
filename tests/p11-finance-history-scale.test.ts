@@ -17,10 +17,13 @@ describe('P11 bounded history at long-save scale', () => {
     expect(state.ledger.length).toBeGreaterThanOrEqual(6_240)
     expect(history.windows.map(window => window.points.length)).toEqual([13, 52])
     for (const window of history.windows) {
-      expect(window.period.complete).toBe(true)
-      expect(window.period.closingCash).toBe(state.studio.cash)
-      expect(window.period).toEqual(recordedFinancePeriod(state, window.period.fromWeek,
-        window.period.toWeekInclusive, window.period.id, window.period.label))
+      const period = window.period
+      expect(period).not.toBeNull()
+      if (period === null) throw new Error('A completed 6,240-advance history must contain a period')
+      expect(period.complete).toBe(true)
+      expect(period.closingCash).toBe(state.studio.cash)
+      expect(period).toEqual(recordedFinancePeriod(state, period.fromWeek,
+        period.toWeekInclusive, period.id, period.label))
       expect(window.points.at(-1)!.closingCash).toBe(state.studio.cash)
     }
     expect(reportBytes).toBeLessThan(100_000)

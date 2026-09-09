@@ -30,7 +30,7 @@ export const PROTOCOL_VERSION = 4 as const
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
 // Owner UX 01: public discipline/genre estimates and readable saved-slot metadata.
 // Protocol stays 4 and gameplay save stays V18; both fields derive existing authority.
-export const PROJECTION_VERSION = 25 as const
+export const PROJECTION_VERSION = 26 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1454,7 +1454,17 @@ const StudioBridgeQuoteRequest = union('StudioBridgeQuoteRequest', [
   reference('StudioQuoteContractRequest', StudioQuoteContractRequest),
 ] as const)
 
+const StudioFinancialConsequence = object('StudioFinancialConsequence', {
+  cashBefore: number(), immediateCashChange: number(), cashAfter: number(),
+  weeklyOperatingCostBefore: number(), weeklyOperatingCostAfter: number(), weeklyPayrollChange: number(),
+  netWeeklyCashflowBefore: number(), netWeeklyCashflowAfter: number(), runwayAfter: nonEmptyText(),
+  guaranteesBefore: number(), guaranteesAfter: number(), currentBasis: nonEmptyText(),
+  laterBeginsWeek: nullable(nonNegativeInteger()), laterOperatingCost: nullable(number()),
+  laterNetWeeklyCashflow: nullable(number()), laterRunway: nullable(text()), laterBasis: nullable(text()), exclusions: nonEmptyText(),
+})
+
 const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
+  financial: nullable(reference('StudioFinancialConsequence', StudioFinancialConsequence)),
   /** The ONE opaque digest-bound commit intent this quote mints. */
   intentId: nonEmptyText(),
   kind: enumeration(['startAuditions', 'greenlightPicture', 'signContract']),
@@ -1469,9 +1479,8 @@ const StudioCastingQuoteSnapshot = object('StudioCastingQuoteSnapshot', {
   noFeeLine: nullable(text()),
   noHoldLine: nullable(text()),
   uniquePeople: nullable(nonNegativeInteger()),
-  // Greenlight consequence — null when kind !== 'greenlightPicture'. NO burn,
-  // NO runway, NO recurring delta anywhere on this snapshot — omission is law
-  // this checkpoint.
+  // Existing package-at-admission estimate. P11 financial uses the actual
+  // discarded successor, including zero current debit when Greenlight queues.
   negative: nullable(nonNegativeInteger()),
   marketing: nullable(nonNegativeInteger()),
   freelancerFees: nullable(nonNegativeInteger()),
@@ -1499,14 +1508,7 @@ const StudioPlacementCellVerdictSnapshot = object('StudioPlacementCellVerdictSna
   rejection: nullable(enumeration(PLACEMENT_REJECTION_KINDS)),
 })
 
-const StudioFinancialConsequence = object('StudioFinancialConsequence', {
-  cashBefore: number(), immediateCashChange: number(), cashAfter: number(),
-  weeklyOperatingCostBefore: number(), weeklyOperatingCostAfter: number(), weeklyPayrollChange: number(),
-  netWeeklyCashflowBefore: number(), netWeeklyCashflowAfter: number(), runwayAfter: nonEmptyText(),
-  guaranteesBefore: number(), guaranteesAfter: number(), currentBasis: nonEmptyText(),
-  laterBeginsWeek: nullable(nonNegativeInteger()), laterOperatingCost: nullable(number()),
-  laterNetWeeklyCashflow: nullable(number()), laterRunway: nullable(text()), laterBasis: nullable(text()), exclusions: nonEmptyText(),
-})
+
 
 const StudioPlacementQuoteSnapshot = object('StudioPlacementQuoteSnapshot', {
   financial: nullable(reference('StudioFinancialConsequence', StudioFinancialConsequence)),
@@ -1582,6 +1584,7 @@ const StudioSetCommissionQuoteSnapshot = object('StudioSetCommissionQuoteSnapsho
 // P10-R1: the contract consequence sheet Unity renders verbatim. `ok:false` is an
 // accepted preview carrying the engine's refusal; only `ok:true` is a registered commit.
 const StudioContractQuoteSnapshot = object('StudioContractQuoteSnapshot', {
+  financial: nullable(reference('StudioFinancialConsequence', StudioFinancialConsequence)),
   /** The union's shared identity slot; REGISTERED for commit only when `ok`. */
   intentId: nonEmptyText(),
   kind: enumeration(['renewContract', 'releaseTalent']),
@@ -2112,7 +2115,53 @@ const StudioFinanceFilm = object('StudioFinanceFilm', {
   remainingWeeks: nonNegativeInteger(), directCommitment: nullable(number()), productionAndMarketing: nullable(number()),
   freelancerFees: nullable(number()), contribution: nullable(number()), contributionLabel: nonEmptyText(), basis: nonEmptyText(),
 })
+const StudioFinanceRoute = object('StudioFinanceRoute', {
+  kind: enumeration(['profile','facilityHistory','casting','production','releaseResult','filmHistory','development']),
+  targetId: nonEmptyText(), label: nonEmptyText(),
+})
+const StudioFinanceUpcomingEvent = object('StudioFinanceUpcomingEvent', {
+  id: nonEmptyText(), kind: enumeration(['facilityCompletion','facilityOpex','contractRenewal','contractExpiry','setCompletion']),
+  week: nonNegativeInteger(), label: nonEmptyText(), detail: nonEmptyText(),
+  weeklyOperatingCostChange: nullable(number()), route: nullable(reference('StudioFinanceRoute', StudioFinanceRoute)),
+})
+const StudioFinanceUpcomingWindow = object('StudioFinanceUpcomingWindow', {
+  windowWeeks: integer({ minimum: 13, maximum: 52 }), fromWeek: nonNegativeInteger(), toWeekInclusive: nonNegativeInteger(),
+  rows: array(reference('StudioFinanceUpcomingEvent', StudioFinanceUpcomingEvent)), remainingRows: nonNegativeInteger(), notice: nullable(text()),
+})
+const StudioFinanceUpcoming = object('StudioFinanceUpcoming', {
+  timeClass: literal('knownCommitment'), defaultWindowWeeks: literal(13), nextAdvanceStudioRevenue: number(), remainingStudioRevenue: number(),
+  basis: nonEmptyText(), windows: array(reference('StudioFinanceUpcomingWindow', StudioFinanceUpcomingWindow)),
+})
+const StudioFinancePortfolioRow = object('StudioFinancePortfolioRow', {
+  id: nonEmptyText(), identityKind: enumeration(['scriptProject','production']), projectId: nullable(nonEmptyText()), productionId: nullable(nonEmptyText()),
+  title: nonEmptyText(), phase: enumeration(['developmentPackage','production','postReleaseReady','inTheaters','completed']),
+  phaseLabel: nonEmptyText(), timingWeek: nullable(nonNegativeInteger()), phaseWeeksRemaining: nullable(nonNegativeInteger()),
+  timingLabel: nonEmptyText(), hasDecisionOrBlocker: bool(), decisionLine: nonEmptyText(),
+  commitmentState: enumeration(['uncommitted','recorded','notRecorded']), directCommitment: nullable(number()),
+  studioRevenueReceived: nullable(number()), studioRevenueRemaining: nullable(number()), studioRevenueTotal: nullable(number()),
+  contribution: nullable(number()), contributionLabel: nonEmptyText(), basis: nonEmptyText(),
+  routes: array(reference('StudioFinanceRoute', StudioFinanceRoute)),
+})
+const StudioFinancePortfolio = object('StudioFinancePortfolio', {
+  defaultSort: literal('attentionPhaseTime'), basis: nonEmptyText(), rows: array(reference('StudioFinancePortfolioRow', StudioFinancePortfolioRow)),
+})
+const StudioFinanceCostPoint = object('StudioFinanceCostPoint', {
+  week: nonNegativeInteger(), amount: nullable(number()), coverage: enumeration(['complete','partial','unavailable']), notice: nullable(text()),
+})
+const StudioFinanceCostSeries = object('StudioFinanceCostSeries', {
+  kind: nonEmptyText(), label: nonEmptyText(), periodAmount: nullable(number()), points: array(reference('StudioFinanceCostPoint', StudioFinanceCostPoint)),
+})
+const StudioFinanceHistoryWindow = object('StudioFinanceHistoryWindow', {
+  windowWeeks: integer({ minimum: 13, maximum: 52 }), label: nonEmptyText(), period: nullable(reference('StudioFinancePeriod', StudioFinancePeriod)),
+  points: array(reference('StudioFinancePeriod', StudioFinancePeriod)), costSeries: array(reference('StudioFinanceCostSeries', StudioFinanceCostSeries)),
+})
+const StudioFinanceHistory = object('StudioFinanceHistory', {
+  defaultWindowWeeks: literal(13), calendarNotice: nonEmptyText(), windows: array(reference('StudioFinanceHistoryWindow', StudioFinanceHistoryWindow)),
+})
 const StudioFinanceSnapshot = object('StudioFinanceSnapshot', {
+  upcoming: reference('StudioFinanceUpcoming', StudioFinanceUpcoming),
+  portfolio: reference('StudioFinancePortfolio', StudioFinancePortfolio),
+  history: reference('StudioFinanceHistory', StudioFinanceHistory),
   employees: array(reference('StudioFinanceEmployee', StudioFinanceEmployee)),
   facilities: array(reference('StudioFinanceFacility', StudioFinanceFacility)),
   films: array(reference('StudioFinanceFilm', StudioFinanceFilm)),
@@ -2493,6 +2542,16 @@ const definitions = {
   StudioProjectionBundle: StudioProjectionBundleSchema,
   StudioFinanceProjection: StudioFinanceProjectionSchema,
   StudioFinanceSnapshot,
+  StudioFinanceRoute,
+  StudioFinanceUpcoming,
+  StudioFinanceUpcomingWindow,
+  StudioFinanceUpcomingEvent,
+  StudioFinancePortfolio,
+  StudioFinancePortfolioRow,
+  StudioFinanceHistory,
+  StudioFinanceHistoryWindow,
+  StudioFinanceCostSeries,
+  StudioFinanceCostPoint,
   StudioFinancePeriod,
   StudioFinanceCategory,
   StudioFinanceCapitalContributor,

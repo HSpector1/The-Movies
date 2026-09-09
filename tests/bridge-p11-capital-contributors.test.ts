@@ -21,7 +21,7 @@ function capitalStudio() {
 
 describe('P11 recorded facility capital contributors over the real bridge', () => {
   it('hydrates genuine outgoing projection24 and joins four original payments to exact construction events', () => {
-    expect(PROJECTION_VERSION).toBe(25)
+    expect(PROJECTION_VERSION).toBe(26)
     expect(SCHEMA_ID).not.toBe(oldSchema)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(oldSchema)).toBe('projection-v24')
     const session = capitalStudio()

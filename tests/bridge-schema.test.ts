@@ -76,10 +76,10 @@ describe('canonical Unity bridge schema', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
       protocolVersion: 4,
-      projectionVersion: 25,
+      projectionVersion: 26,
       transport: 'http-json-localhost',
     })
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-25')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-26')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
@@ -331,8 +331,8 @@ describe('canonical Unity bridge schema', () => {
     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
 
     const oldProjection = { ...clone(envelope), snapshotVersion: 24 }
-    expect(PROJECTION_VERSION).toBe(25)
-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 25/)
+    expect(PROJECTION_VERSION).toBe(26)
+    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 26/)
 
     const missingSection = clone(envelope)
     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
@@ -567,7 +567,7 @@ describe('canonical Unity bridge schema', () => {
     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
     expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 25;')
+    expect(generatedCsharp).toContain('public const int ProjectionVersion = 26;')
     expect(generatedCsharp).toContain('public int protocolVersion;')
     expect(generatedCsharp).toContain('public int snapshotVersion;')
     expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)
@@ -790,7 +790,7 @@ describe('canonical Unity bridge schema', () => {
       )
     })
 
-    it('validates a commission AND a casting quote through the SAME StudioQuoteSnapshot union, closed and burn/runway-free', () => {
+    it('validates a commission AND a casting quote through the SAME StudioQuoteSnapshot union, closed with P11 finances confined to the shared envelope', () => {
       const commissionQuote = {
         intentId: 'intent-1',
         kind: 'commissionScreenplay',
@@ -809,6 +809,7 @@ describe('canonical Unity bridge schema', () => {
         queueNote: null,
       }
       const screenTestQuote = {
+        financial: null,
         intentId: 'intent-2',
         kind: 'startAuditions',
         commitLabel: 'Start camera tests',
@@ -839,6 +840,7 @@ describe('canonical Unity bridge schema', () => {
         signGuaranteedComp: null,
       }
       const greenlightQuote = {
+        financial: null,
         intentId: 'intent-3',
         kind: 'greenlightPicture',
         commitLabel: 'Greenlight picture',
@@ -873,7 +875,7 @@ describe('canonical Unity bridge schema', () => {
       expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, greenlightQuote)).toEqual(greenlightQuote)
 
       // Structurally closed: neither member — nor the union — tolerates a
-      // burn/runway/recurring-delta field even if a caller tried to add one.
+      // flat burn/runway/recurring-delta field outside the shared P11 envelope.
       const withBurn = { ...greenlightQuote, weeklyBurn: 100 }
       expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioQuoteSnapshot, withBurn)).toThrow(
         BridgeSchemaError,
