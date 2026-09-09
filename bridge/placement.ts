@@ -1,3 +1,4 @@
+import { financialConsequence } from './finance-consequence.ts'
 // ── P09 §18 — the placement quote family: preview → text + geometry validity → commit ──
 //
 // The ONE conversion from a player's Build selections (a blueprint at an origin
@@ -159,7 +160,16 @@ export function placementQuoteSnapshot(
       (quote.unmetRequirements.length > 1
         ? ' ' + quote.unmetRequirements.slice(1).map((entry) => entry.reason).join(' ')
         : '')
+  const preflight = quote.ok ? conversion.apply(state) : null
+  const successor = preflight?.ok ? preflight.next : null
+  const financial = successor === null ? null : financialConsequence(state, successor, {
+    state: { ...successor, placement: { ...successor.placement, facilities: successor.placement.facilities.map(p =>
+      p.id === state.placement.nextPlacementId ? { ...p, status: 'operational' as const } : p) } },
+    beginsWeek: quote.completesOnWeek,
+    label: `Completes on arrival in Week ${quote.completesOnWeek}; its first operating debit is Week ${quote.completesOnWeek} → ${quote.completesOnWeek+1}.`,
+  })
   return {
+    financial,
     intentId,
     kind: 'placeFacility',
     commitLabel: conversion.commitLabel,

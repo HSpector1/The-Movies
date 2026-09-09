@@ -30,7 +30,7 @@ export const PROTOCOL_VERSION = 4 as const
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
 // Owner UX 01: public discipline/genre estimates and readable saved-slot metadata.
 // Protocol stays 4 and gameplay save stays V18; both fields derive existing authority.
-export const PROJECTION_VERSION = 22 as const
+export const PROJECTION_VERSION = 23 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1499,7 +1499,17 @@ const StudioPlacementCellVerdictSnapshot = object('StudioPlacementCellVerdictSna
   rejection: nullable(enumeration(PLACEMENT_REJECTION_KINDS)),
 })
 
+const StudioFinancialConsequence = object('StudioFinancialConsequence', {
+  cashBefore: number(), immediateCashChange: number(), cashAfter: number(),
+  weeklyOperatingCostBefore: number(), weeklyOperatingCostAfter: number(), weeklyPayrollChange: number(),
+  netWeeklyCashflowBefore: number(), netWeeklyCashflowAfter: number(), runwayAfter: nonEmptyText(),
+  guaranteesBefore: number(), guaranteesAfter: number(), currentBasis: nonEmptyText(),
+  laterBeginsWeek: nullable(nonNegativeInteger()), laterOperatingCost: nullable(number()),
+  laterNetWeeklyCashflow: nullable(number()), laterRunway: nullable(text()), laterBasis: nullable(text()), exclusions: nonEmptyText(),
+})
+
 const StudioPlacementQuoteSnapshot = object('StudioPlacementQuoteSnapshot', {
+  financial: nullable(reference('StudioFinancialConsequence', StudioFinancialConsequence)),
   /**
    * The ONE opaque digest-bound intent id (the union's shared identity slot). It is
    * REGISTERED for commit only when `ok` is true; an illegal preview's id is never
@@ -2068,10 +2078,33 @@ const StudioFinanceCategory = object('StudioFinanceCategory', {
 })
 const StudioFinancePeriod = object('StudioFinancePeriod', {
   id: nonEmptyText(), label: nonEmptyText(), fromWeek: nonNegativeInteger(), toWeekInclusive: nonNegativeInteger(),
+  timeClass: literal('recordedCash'), coverage: enumeration(['complete','partial','unavailable']),
   complete: bool(), notice: nullable(text()), openingCash: nullable(number()), closingCash: nullable(number()),
   netCash: number(), categories: array(reference('StudioFinanceCategory', StudioFinanceCategory)),
 })
+const StudioFinanceEmployee = object('StudioFinanceEmployee', {
+  talentId: nonEmptyText(), name: nonEmptyText(), profession: nonEmptyText(), weeklySalary: number(), chargedNextAdvance: number(),
+  endWeekExclusive: nonNegativeInteger(), remainingWeeks: nonNegativeInteger(), guaranteedRemaining: number(),
+  terminationCost: number(), renewalOpen: bool(), renewalLine: text(),
+})
+const StudioFinanceFacility = object('StudioFinanceFacility', {
+  placementId: nonNegativeInteger(), buildingId: nonEmptyText(), facilityId: nonEmptyText(), projectId: nonEmptyText(),
+  name: nonEmptyText(), status: enumeration(['underConstruction','operational']), completesWeek: nonNegativeInteger(),
+  weeklyOperatingCost: number(), chargedNextAdvance: number(), capacity: nonNegativeInteger(), capability: nullable(text()), onsetLine: nonEmptyText(),
+})
+const StudioFinanceFilm = object('StudioFinanceFilm', {
+  productionId: nonEmptyText(), title: nonEmptyText(), status: enumeration(['inProduction','releasing','settled','legacy']),
+  releaseWeek: nullable(nonNegativeInteger()), resultAvailable: bool(), theatricalGross: nullable(number()),
+  studioRevenueReceived: number(), studioRevenueTotal: nullable(number()), studioRevenueRemaining: nullable(number()),
+  remainingWeeks: nonNegativeInteger(), directCommitment: nullable(number()), productionAndMarketing: nullable(number()),
+  freelancerFees: nullable(number()), contribution: nullable(number()), contributionLabel: nonEmptyText(), basis: nonEmptyText(),
+})
 const StudioFinanceSnapshot = object('StudioFinanceSnapshot', {
+  employees: array(reference('StudioFinanceEmployee', StudioFinanceEmployee)),
+  facilities: array(reference('StudioFinanceFacility', StudioFinanceFacility)),
+  films: array(reference('StudioFinanceFilm', StudioFinanceFilm)),
+  guaranteedPayrollRemaining: number(), obligationsBasis: nonEmptyText(), operationsBasis: nonEmptyText(), attention: array(text()),
+  weeklyCostTimeClass: literal('currentRecurringCost'), scheduledRevenueTimeClass: literal('knownCommitment'), paceTimeClass: literal('currentPaceEstimate'),
   asOfWeek: nonNegativeInteger(), cash: number(), weeklyPayroll: number({minimum: 0}),
   weeklyOverhead: number({minimum: 0}), weeklyFacilityOperatingCost: number({minimum: 0}),
   weeklyOperatingCost: number({minimum: 0}), nextScheduledStudioRevenue: number({minimum: 0}),
@@ -2449,6 +2482,10 @@ const definitions = {
   StudioFinanceSnapshot,
   StudioFinancePeriod,
   StudioFinanceCategory,
+  StudioFinanceEmployee,
+  StudioFinanceFacility,
+  StudioFinanceFilm,
+  StudioFinancialConsequence,
   StudioBridgeIntentOption,
   StudioSavedSlotSnapshot,
   StudioBridgeMetrics,

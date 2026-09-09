@@ -137,7 +137,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 22,
+          "const": 23,
           "type": "integer"
         },
         "stateDigest": {
@@ -254,7 +254,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 22,
+          "const": 23,
           "type": "integer"
         },
         "stateDigest": {
@@ -758,7 +758,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 22,
+          "const": 23,
           "type": "integer"
         },
         "stateDigest": {
@@ -837,7 +837,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 22,
+          "const": 23,
           "type": "integer"
         },
         "stateDigest": {
@@ -3765,6 +3765,288 @@
       "type": "object",
       "x-csharp-name": "StudioFinanceCategory"
     },
+    "StudioFinanceEmployee": {
+      "additionalProperties": false,
+      "properties": {
+        "chargedNextAdvance": {
+          "type": "number"
+        },
+        "endWeekExclusive": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "guaranteedRemaining": {
+          "type": "number"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "profession": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "remainingWeeks": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "renewalLine": {
+          "type": "string"
+        },
+        "renewalOpen": {
+          "type": "boolean"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "terminationCost": {
+          "type": "number"
+        },
+        "weeklySalary": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "chargedNextAdvance",
+        "endWeekExclusive",
+        "guaranteedRemaining",
+        "name",
+        "profession",
+        "remainingWeeks",
+        "renewalLine",
+        "renewalOpen",
+        "talentId",
+        "terminationCost",
+        "weeklySalary"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceEmployee"
+    },
+    "StudioFinanceFacility": {
+      "additionalProperties": false,
+      "properties": {
+        "buildingId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "capability": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "capacity": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "chargedNextAdvance": {
+          "type": "number"
+        },
+        "completesWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "facilityId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "onsetLine": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "placementId": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "projectId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "underConstruction",
+            "operational"
+          ],
+          "type": "string"
+        },
+        "weeklyOperatingCost": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "buildingId",
+        "capability",
+        "capacity",
+        "chargedNextAdvance",
+        "completesWeek",
+        "facilityId",
+        "name",
+        "onsetLine",
+        "placementId",
+        "projectId",
+        "status",
+        "weeklyOperatingCost"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceFacility"
+    },
+    "StudioFinanceFilm": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "contribution": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "contributionLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "directCommitment": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "freelancerFees": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "productionAndMarketing": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "productionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "releaseWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "remainingWeeks": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "resultAvailable": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "inProduction",
+            "releasing",
+            "settled",
+            "legacy"
+          ],
+          "type": "string"
+        },
+        "studioRevenueReceived": {
+          "type": "number"
+        },
+        "studioRevenueRemaining": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "studioRevenueTotal": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "theatricalGross": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "basis",
+        "contribution",
+        "contributionLabel",
+        "directCommitment",
+        "freelancerFees",
+        "productionAndMarketing",
+        "productionId",
+        "releaseWeek",
+        "remainingWeeks",
+        "resultAvailable",
+        "status",
+        "studioRevenueReceived",
+        "studioRevenueRemaining",
+        "studioRevenueTotal",
+        "theatricalGross",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceFilm"
+    },
     "StudioFinancePeriod": {
       "additionalProperties": false,
       "properties": {
@@ -3786,6 +4068,14 @@
         },
         "complete": {
           "type": "boolean"
+        },
+        "coverage": {
+          "enum": [
+            "complete",
+            "partial",
+            "unavailable"
+          ],
+          "type": "string"
         },
         "fromWeek": {
           "maximum": 2147483647,
@@ -3823,6 +4113,10 @@
             }
           ]
         },
+        "timeClass": {
+          "const": "recordedCash",
+          "type": "string"
+        },
         "toWeekInclusive": {
           "maximum": 2147483647,
           "minimum": 0,
@@ -3833,12 +4127,14 @@
         "categories",
         "closingCash",
         "complete",
+        "coverage",
         "fromWeek",
         "id",
         "label",
         "netCash",
         "notice",
         "openingCash",
+        "timeClass",
         "toWeekInclusive"
       ],
       "type": "object",
@@ -3865,6 +4161,12 @@
           "minimum": 0,
           "type": "integer"
         },
+        "attention": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
         "cash": {
           "type": "number"
         },
@@ -3881,6 +4183,24 @@
         "currentPeriod": {
           "$ref": "#/$defs/StudioFinancePeriod"
         },
+        "employees": {
+          "items": {
+            "$ref": "#/$defs/StudioFinanceEmployee"
+          },
+          "type": "array"
+        },
+        "facilities": {
+          "items": {
+            "$ref": "#/$defs/StudioFinanceFacility"
+          },
+          "type": "array"
+        },
+        "films": {
+          "items": {
+            "$ref": "#/$defs/StudioFinanceFilm"
+          },
+          "type": "array"
+        },
         "firstCompleteWeek": {
           "anyOf": [
             {
@@ -3892,6 +4212,9 @@
               "type": "null"
             }
           ]
+        },
+        "guaranteedPayrollRemaining": {
+          "type": "number"
         },
         "lastPeriod": {
           "anyOf": [
@@ -3910,8 +4233,20 @@
           "minimum": 0,
           "type": "number"
         },
+        "obligationsBasis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "operationsBasis": {
+          "minLength": 1,
+          "type": "string"
+        },
         "paceBasis": {
           "minLength": 1,
+          "type": "string"
+        },
+        "paceTimeClass": {
+          "const": "currentPaceEstimate",
           "type": "string"
         },
         "runwayLabel": {
@@ -3940,6 +4275,14 @@
             }
           ]
         },
+        "scheduledRevenueTimeClass": {
+          "const": "knownCommitment",
+          "type": "string"
+        },
+        "weeklyCostTimeClass": {
+          "const": "currentRecurringCost",
+          "type": "string"
+        },
         "weeklyFacilityOperatingCost": {
           "minimum": 0,
           "type": "number"
@@ -3959,17 +4302,27 @@
       },
       "required": [
         "asOfWeek",
+        "attention",
         "cash",
         "coverageNotice",
         "currentPeriod",
+        "employees",
+        "facilities",
+        "films",
         "firstCompleteWeek",
+        "guaranteedPayrollRemaining",
         "lastPeriod",
         "netWeeklyCashflow",
         "nextScheduledStudioRevenue",
+        "obligationsBasis",
+        "operationsBasis",
         "paceBasis",
+        "paceTimeClass",
         "runwayLabel",
         "runwayState",
         "runwayWeeks",
+        "scheduledRevenueTimeClass",
+        "weeklyCostTimeClass",
         "weeklyFacilityOperatingCost",
         "weeklyOperatingCost",
         "weeklyOverhead",
@@ -3977,6 +4330,127 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioFinanceSnapshot"
+    },
+    "StudioFinancialConsequence": {
+      "additionalProperties": false,
+      "properties": {
+        "cashAfter": {
+          "type": "number"
+        },
+        "cashBefore": {
+          "type": "number"
+        },
+        "currentBasis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "exclusions": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "guaranteesAfter": {
+          "type": "number"
+        },
+        "guaranteesBefore": {
+          "type": "number"
+        },
+        "immediateCashChange": {
+          "type": "number"
+        },
+        "laterBasis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "laterBeginsWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "laterNetWeeklyCashflow": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "laterOperatingCost": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "laterRunway": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "netWeeklyCashflowAfter": {
+          "type": "number"
+        },
+        "netWeeklyCashflowBefore": {
+          "type": "number"
+        },
+        "runwayAfter": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "weeklyOperatingCostAfter": {
+          "type": "number"
+        },
+        "weeklyOperatingCostBefore": {
+          "type": "number"
+        },
+        "weeklyPayrollChange": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "cashAfter",
+        "cashBefore",
+        "currentBasis",
+        "exclusions",
+        "guaranteesAfter",
+        "guaranteesBefore",
+        "immediateCashChange",
+        "laterBasis",
+        "laterBeginsWeek",
+        "laterNetWeeklyCashflow",
+        "laterOperatingCost",
+        "laterRunway",
+        "netWeeklyCashflowAfter",
+        "netWeeklyCashflowBefore",
+        "runwayAfter",
+        "weeklyOperatingCostAfter",
+        "weeklyOperatingCostBefore",
+        "weeklyPayrollChange"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinancialConsequence"
     },
     "StudioFirstFilmJourneySnapshot": {
       "additionalProperties": false,
@@ -6550,6 +7024,16 @@
           "minLength": 1,
           "type": "string"
         },
+        "financial": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFinancialConsequence"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "footprint": {
           "$ref": "#/$defs/StudioFootprintSnapshot"
         },
@@ -6695,6 +7179,7 @@
         "consequence",
         "cost",
         "effectSummary",
+        "financial",
         "footprint",
         "instanceCount",
         "intentId",
@@ -10061,7 +10546,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 22,
+    "projectionVersion": 23,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",
