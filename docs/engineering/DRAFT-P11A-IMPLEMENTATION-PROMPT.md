@@ -1,3 +1,12 @@
+> **2026-09-09 — historical draft, not the approved outcome-first execution kit.**
+> P08–P10 is now Owner accepted at engine fc1cd0e / player 761347c (4/21/V18).
+> The [accepted-source refresh](P11A-READINESS-AND-DEPENDENCY-GATE.md#accepted-source-addendum--2026-09-09)
+> replaces the old source placeholders and prelaunch assumptions as a factual map.
+> The reviewed `project-studio-p11-outcome-first-launch-01` archive is unavailable
+> locally; its publication is blocked. Do not execute this older prompt as a substitute,
+> rebuild the missing method from memory, or treat suggested scope/budget/model values
+> as selected. No P11 implementation order has been issued. Original draft follows unchanged.
+
 DRAFT FOR CURRENT OPS REVIEW — NOT AUTHORIZED FOR EXECUTION
 
 **Revision 03 (observed-stack refresh, 2026-09-06).** Observed snapshot: TS product `7b4d8ffebeb0b7978763780420fdc8542df68b5f` (docs tip `a2baa1d9b3ffb2666732dba55823e09cc76c7352`) × Unity `1d304f89a29ffca160129b705d7d627543adfb4d` (product `57f9ef857a5955a604a56c1526733f2302efabc8`) · protocol 4 / projection 19 / save V18 · schema `sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9` · OWNER ACCEPTANCE PENDING · UNSEALED. Final accepted P08–P10 base: PENDING. Revision 02 immutable at `90b349a8272f17ad7ea541cdddc777d36c1d861d`. Hub: `P11A-READINESS-AND-DEPENDENCY-GATE.md`.

@@ -1,5 +1,31 @@
 # P11A Provisional Implementation Charter
 
+## Current status — accepted-source refresh, 2026-09-09
+
+**P08–P10 OWNER ACCEPTED — KEEP. Final changed-path source refresh complete.**
+Authority: `OPS-P08P10-OWNER-CLOSEOUT-01`, documentation/prelaunch only.
+Accepted engine build/source `fc1cd0e400337f551ba77d908b614e9dbaab9c9f`
+(runtime lineage `4aa3487eebd656958a880d492567fe4d5f379480`), player runtime/build
+`761347c77fa59cafaa6ede45f9eeebf3a9dfda98`, later tools
+`28dd961e6a230a8d554bd7ab70fb3f766f9cedc9`, technical closeout
+`764f27c60f0eb7fac6430a8f897dd80dfdcb178b`; contract **4 / 21 / V18**.
+
+The [accepted-source addendum](P11A-READINESS-AND-DEPENDENCY-GATE.md#accepted-source-addendum--2026-09-09)
+is the current source/identity/gate map. Revision 03 text and its observed/PENDING
+statements below are retained history, superseded only where this refresh says so.
+No gameplay tests, builds, runtime queue or P11 implementation were performed.
+AUD-008 remains **STILL PRESENT**, assigned inside P11 W0, not a circular prelaunch
+requirement to implement Finance first. Scope ceiling, budget and model settings
+remain unchosen; a separate execution order is required.
+
+**Reviewed outcome-first kit publication is BLOCKED:** the exact local
+`project-studio-p11-outcome-first-launch-01` archive was not found. The older
+revision-02 archive is not a substitute. This is a source-refresh publication,
+not a claim to have materialized, applied or reviewed the missing kit. Preserve
+all 45 requirements and five extension groups; do not reconstruct the approved
+method from the older draft or memory.
+
+### Historical Revision 03 record follows
 
 **Status:** PROVISIONAL — OBSERVED P08–P10 STACK REFRESH (REVISION 03)
 **Review state:** READY FOR CURRENT OPS DOCUMENT REVIEW

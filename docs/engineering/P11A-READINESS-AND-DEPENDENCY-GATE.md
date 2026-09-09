@@ -1,5 +1,31 @@
 # P11A Readiness and Dependency Gate
 
+## Current status — accepted-source refresh, 2026-09-09
+
+**P08–P10 OWNER ACCEPTED — KEEP. Final changed-path source refresh complete.**
+Authority: `OPS-P08P10-OWNER-CLOSEOUT-01`, documentation/prelaunch only.
+Accepted engine build/source `fc1cd0e400337f551ba77d908b614e9dbaab9c9f`
+(runtime lineage `4aa3487eebd656958a880d492567fe4d5f379480`), player runtime/build
+`761347c77fa59cafaa6ede45f9eeebf3a9dfda98`, later tools
+`28dd961e6a230a8d554bd7ab70fb3f766f9cedc9`, technical closeout
+`764f27c60f0eb7fac6430a8f897dd80dfdcb178b`; contract **4 / 21 / V18**.
+
+The [accepted-source addendum](P11A-READINESS-AND-DEPENDENCY-GATE.md#accepted-source-addendum--2026-09-09)
+is the current source/identity/gate map. Revision 03 text and its observed/PENDING
+statements below are retained history, superseded only where this refresh says so.
+No gameplay tests, builds, runtime queue or P11 implementation were performed.
+AUD-008 remains **STILL PRESENT**, assigned inside P11 W0, not a circular prelaunch
+requirement to implement Finance first. Scope ceiling, budget and model settings
+remain unchosen; a separate execution order is required.
+
+**Reviewed outcome-first kit publication is BLOCKED:** the exact local
+`project-studio-p11-outcome-first-launch-01` archive was not found. The older
+revision-02 archive is not a substitute. This is a source-refresh publication,
+not a claim to have materialized, applied or reviewed the missing kit. Preserve
+all 45 requirements and five extension groups; do not reconstruct the approved
+method from the older draft or memory.
+
+### Historical Revision 03 record follows
 
 **Status:** PROVISIONAL — OBSERVED P08–P10 STACK REFRESH (REVISION 03)
 **Review state:** READY FOR CURRENT OPS DOCUMENT REVIEW
@@ -252,3 +278,215 @@ P11 implementation then also requires: material audit findings resolved; P11 ref
 **Production code changed by this package:** NONE.
 
 FINAL ACCEPTED-BASE CHANGED-PATH REFRESH REQUIRED BEFORE ANY P11 IMPLEMENTATION ORDER
+
+
+## Accepted-source addendum — 2026-09-09
+
+This is the final bounded source refresh authorized by
+`OPS-P08P10-OWNER-CLOSEOUT-01`. It supersedes Revision 03's unsealed/PENDING source
+map, not its historical evidence or the original P11 requirements. Howard explicitly
+accepted the delivered/tested scope: **P08–P10 — OWNER ACCEPTED — KEEP**.
+The [acceptance receipt](https://github.com/HSpector1/The-Movies/blob/f6ea836ab962eb4a62e9996d90011a5d00e5a9ac/docs/campaigns/P08-P10-OWNER-ACCEPTANCE-RECEIPT.md)
+records the actual Owner observations and unspecified playtest time. No new product
+verification was run for this documentation task.
+
+### Verified inputs and publication boundary
+
+| Identity | Accepted value |
+|---|---|
+| TS runtime/contract lineage | `4aa3487eebd656958a880d492567fe4d5f379480` |
+| Engine build/source checkpoint | `fc1cd0e400337f551ba77d908b614e9dbaab9c9f` |
+| Player runtime/build source | `761347c77fa59cafaa6ede45f9eeebf3a9dfda98` |
+| Later Unity tools | `28dd961e6a230a8d554bd7ab70fb3f766f9cedc9` |
+| Technical documentation / TS Owner-UX tip | `764f27c60f0eb7fac6430a8f897dd80dfdcb178b` |
+| Manifest's TS checkout context | `1a6551e63ab5d96dab4772c1fd2d18274894616e`, distinct from engine source |
+| Protocol / projection / gameplay save / outer format | `4 / 21 / V18 / 1` |
+| Schema | `sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1` |
+| Actual Unity DTO Git blob / SHA-256 | `ad6f6c263dd4d6d43683d8a68940bb12ccf3d071` / `320408fd66328f224bade2ff98d254900a9b0f2bd46403a121b4e6ea5d1d67af` |
+| Engine SHA-256 | `67e03bc67a7105917cec07dca707d4ed5028ce65ebb54dc1985623d1220cf697` |
+| Player executable SHA-256 | `b39b8d531ea726be44374677129d3889eccdc0ad548f9c29a1a55521eb28280d` |
+| Assembly-CSharp SHA-256 | `6c5e6c89e169ac91c9647dc50f503dbf904ff6a5dd5147c37c955894a76812fc` |
+| Studio.Runtime.Data SHA-256 | `1d38e78a4e1801342f0399bcb00d9707463307ead741446424b33a0eacf953dc` |
+| Manifest SHA-256 | `728487da2c788f29ed66cc262a18944d8b74054e0439a5e1c4b87f74f4d8b8fa` |
+| Preserved candidate | `$HOME/Desktop/P08-P10-Owner-UX-Candidate-fc1cd0e-761347c/` |
+| Inventory SHA-256 | `96687a5e0bda3891cc6ec137e1cc24f3cbe94cd6a1b48383dbe9c60de03ea169`; all259 entries /260 physical files verified |
+
+Actual candidate binaries/managed assemblies, not just a repository copy, were
+hashed against the manifest. Ancestry confirms 4aa3487→fc1cd0e is tests/docs only,
+fc1cd0e→764f27c is documentation plus a fixture proof tool, and761347c→28dd961 is
+tools only. The actual generated consumer remains
+`Assets/Studio/Runtime/Data/Generated/StudioBridgeDtos.Generated.cs`; compare it
+with TS `generated/unity/StudioBridgeDtos.Generated.cs` and the canonical schema.
+No guessed projection22 or gameplay-save bump is selected. A later wire change
+must justify its version and register the outgoing21 checkpoint schema through
+existing governance; a finance view alone does not justify new save persistence.
+
+The planning remote was verified at pinned base
+`328790ad8d8f859da77a13f8e8837afda4e038db`. This refresh uses a separate owned
+checkout on `docs/p11a-launch-package-01`; it does not merge product ancestry.
+Source comparison was bounded to the relevant changed owners/direct dependencies:
+Revision03 TS product7b4d8ff→fc1cd0e lists42 changed paths; Unity product57f9ef8→761347c
+lists162 including tools/evidence. These counts are not a claim to have audited all
+paths. Exact accepted source citations below bind all current observations.
+
+**Outcome-first publication blocker:** filename searches of Downloads, Desktop,
+Documents, accessible home/temp locations and available app/cloud storage found no
+`project-studio-p11-outcome-first-launch-01` archive or its `materialize.py`.
+The existing `Downloads/project-studio-p11a-launch-package-01-rev02.zip` and its
+expanded temporary copy contain the older six-document package, not the approved
+outcome-first kit. No missing materializer/README/patch was reconstructed or run.
+Publication approval remains valid, but the supplied artifact must become available
+before inspecting its materializer, verifying its other pins, materializing the
+complete documents, reviewing/applying/checking its six-file patch, and verifying
+45 requirements/five extension groups. This branch publishes only the accepted-source
+refresh. The original older prompt remains historical and is not the approved
+outcome-first method or permission to start Finance.
+
+### Current dependency map
+
+Source citations are TS at fc1cd0e and Unity at761347c unless marked historical.
+The existing producers remain the owners; a future Finance route composes them.
+
+| System | Authoritative owner → existing consumer → P11 consequence |
+|---|---|
+| Administration | Unity `Assets/Studio/Runtime/Presentation/StudioFoundingCardHud.cs:1070–1121`, `DrawAdminOperations`: treasury, History and conditional Build entrances. Finance entrance/workspace remains new (`P11-REQ-002/010/011`); preserve existing card sizing and routes. |
+| People / market | Unity `Assets/Studio/Runtime/Presentation/UI/StudioWorkspaceHost.cs:719–860`: retained My Studio/Talent Market/All Known, explicit `OpenMyStudio`, project-independent hiring and exact Profile/Roster→existing offer review. Employment, known-person status and an eligible current offer remain distinct. |
+| Back / Profile / contracts | `UI/StudioProfileWorkspaceContext.cs:13–21` supports World/Roster/History/Commission/TalentMarket, not Finance. `StudioWorkspaceHost.CloseWorkspace:1266–1339` peels those contexts. `StudioProfileWorkspace.cs:221–241,628–636` refreshes confirmation gates each frame and requotes stale sheets. P11 must add its explicit return context while reusing `signContract`, `renewContract`, `releaseTalent`; never silently replace Locate or issue a new action while a prior result is uncertain. |
+| Writer choice | `StudioDevelopmentCardHud.cs:503–556,1280–1349`: exact writer ID, public writing/genre estimate, primary profession and availability; Profile detour retains the whole creative brief. Actor writers remain eligible under core law. No new Fit score. |
+| Saved-checkpoint interface | `StudioSystemMenuHud.cs:113–143,290–326` reviews the actual saved studio/week and draft-loss consequence; Cancel retains drafts, changed review refuses before discard. `Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs:1559–1580` refreshes saved metadata even without a gameplay-revision change. One explicit saved slot; no recorded timestamp, named campaigns or Save As manager. |
+| History / results | TS `bridge/history.ts:171`, `historyProjection`, preserves `studioHistory` context/recording coverage and exact IDs. P08 history is not an accounting ledger. Reuse result/film links and truthful absent Locate; keep the accepted received/projected, Gross/Studio Revenue and Film Contribution distinctions. |
+
+Presentation paths above share `Assets/Studio/Runtime/Presentation/` unless fully
+qualified. Market controls are labelled cycle buttons (`UI/StudioTalentMarketControls.cs:67–122`),
+not dropdowns. Employee/All Known sorts are OVR/name/contract horizon/attention
+(`UI/StudioRosterContracts.cs:20–26`); market's public salary/signing comparisons
+use common52-week offer terms without selecting a contract. Star Power is already
+public commercial recognition (`bridge/people.ts:468–469`), but the requested
+Star Power sorting and better employee comparison remain open. Public perceived
+writing/genre information (`bridge/people.ts:453–460`) is not actual hidden skill,
+a career biography or an invented earlier credit.
+
+### AUD-008 and financial law
+
+**STILL PRESENT at the accepted pair; assigned to P11 W0.**
+`src/core/economyView.ts` and `src/core/fixedCostAllocation.ts` are byte-identical
+to accepted2753e18. Current cash/debits are not wrong from this omission.
+
+| Producer → consumer | Exact accepted behavior / consequence |
+|---|---|
+| `src/core/placement.ts:626–650`, `queryPlacement` → `bridge/placement.ts:141–204`, `placementQuoteSnapshot` | Core legality/affordability, capex, weekly Opex, build duration and completion week are published with cash before/after and consequence text. `bridge/session.ts:1455–1482,1580–1614` binds quotes to exact state and revalidates at commit. |
+| `src/core/placement.ts:698–740`, `commitPlacement` | Requeries legality, creates one under-construction placement and correlated negative `constructionCapex` row, subtracting capex immediately. |
+| `src/core/tick.ts:431–437`; `placement.ts:762–814` | Completion uses arrival week `currentTick + 1`; operational capacity appears then. |
+| `src/core/tick.ts:974–1017` | Payroll, ordinary overhead and facility Opex are separate signed debits. Opex reads placements operational at the **start** of the advance. A newly completed site is charged on the following advance. |
+| `economyView.ts:60–63,125–126,618–636` → `bridge/session.ts:642–650` | `weeklyBurn` omits facility Opex; runway, `financeView.netWeeklyCash`, commitment/signing/cycle-cost previews and published treasury inherit the incomplete basis. |
+| Unity `StudioFoundingCardHud.cs:1083–1093`; `StudioLivingTimeHud.cs:120–127,234–238` | Administration and the clock's net-cash direction consume that incomplete projection. Cost is understated; net cashflow is overstated; runway can be overstated or falsely infinite. |
+| `fixedCostAllocation.ts:130–140` | Managerial fixed-cost allocation also excludes facility Opex. Retain its separately conditional requirement (`P11-REQ-035`); fixing recurring reporting does not authorize canonical profit allocation. |
+| `economyView.ts:464–470,532–546` | Retrospective totals/period reconciliation already include actual `facilityOpex` in overhead and all signed rows in period net cash. Do not claim every financial report omits it. |
+
+The founding-office rule remains `tuning.ts:722–725`: $1.5M,14weeks,$5,500/week,
+two slots. A Week0 purchase becomes operational on arrival at14; the first Opex
+debit is on14→15 and has ledger `week:14`. `expectedWeeklyOperatingCostAt`
+(`placement.ts:1386–1417`) uses that ledger-week basis, including historical
+demolition boundaries. W0 must reconcile this timing at construction/completion,
+contract expiry and founding boundaries, not merely compare a selector to its own
+payroll-plus-overhead helper. No capex, signing, termination, repair or film commitment
+is turned into a recurring cost, and no economy amount or action-specific legality
+is retuned.
+
+Public facility identity/status/completion/Opex is in
+`bridge/schema/bridge-schema.ts:508–523`; Unity
+`UI/StudioBuildWorkspace.cs:1129–1133` consumes the quoted cost/completion/Opex/cash.
+P07 result fields at schema109–140 distinguish Gross, Studio Revenue, paid-to-date,
+full-run totals and projected/run status. Internal next-receipt arithmetic reads
+`TheatricalRun.weeklyGross` (`economyView.ts:80–95`); the public result schema has no
+per-week future receipt schedule. Existing aggregate next-receipt information does
+not authorize publishing that schedule. P11 must use the existing public facts or
+obtain the exact disclosure decision for that row.
+
+### Checkpoint and contract compatibility
+
+`bridge/runtime-checkpoint.ts:1189–1230` distinguishes current exact schema,
+22 explicitly registered prior protocol4 schemas and the separate exact protocol3
+legacy path. Inner SaveV18 is not enough. Current exact-schema hydration validates
+canonical current/saved slots, independent digests, session/revision and the current
+closed-contract response journal. Registered prior protocol4 migration validates the original
+envelope/digests and opaque journal structure, then independently imports, migrates
+to V18 and canonically exports both gameplay slots. A null explicit saved slot stays
+null; a non-null slot is not replaced by current progress. Prior incompatible response
+bytes are not replayed: migration starts a governed fresh session, revision0 and
+empty journal. Unknown/future schema/protocol/outer format is rejected before the
+coordinator writes a successor. Open founding drafts retain their explicit migration
+refusal; no header rewriting, profile replacement or arbitrary allowlist expansion.
+The separate protocol3 legacy path has stricter current-V18 and rewritten-journal
+validation; it is not the generic prior-protocol4 import chain. Some comments still
+mention V15/V17; the executed importer path is V18. Successful migration writes a
+replacement checkpoint at coordinator startup, so a launch is not a read-only profile
+inspection. Invalid-load protection concerns checkpoint authority; owned startup lock
+metadata may change. Atomic backup/rename/fsync and explicit rollback failure handling
+are not an unconditional crash-proof promise.
+
+The accepted predecessor-registration/recovery fix and projection20→21 registration
+remain in this lineage. P11 must preserve full envelope migration and second-restart
+stability, not merely test `importSave` with a fabricated header. Saved metadata
+comes from the explicit slot and is distinct from current unsaved progress. Existing
+single-slot persistence is now Owner-acceptable, but named Save As checkpoints and
+separate named studio campaigns remain required separately authorized capabilities.
+
+### Evidence and disposition refresh
+
+The published technical closeout at764f27c and its independent review govern the
+qualified technical floor: 5,061 TS passes with five pre-existing conditional audio
+skips;1,035 clean-source EditMode passes; final761 Oracle46 exact successful rows,
+671 true assertions and115 independently inspected images, including the two private
+profile-copy cases. Oracle is programmatic evidence, not native input. Current761
+catalogue/recovery/ambient/launcher evidence and explicitly qualified carried3c6
+People/Build/Contract/Stage/writer/profile-hire components retain their original
+bindings. Failed attempts, Stage beam obstruction/collision corrections, sampled
+selection geometry limits and unresolved causes of old uninstrumented clicks remain
+recorded. No new all-green reinterpretation, runtime replay or byte relabelling occurs.
+
+The acceptance receipt supersedes Owner-pending status only. Current Ops' e1–e7
+rulings and AUD-004/006/007/009/010 deferred dispositions remain attached to their
+original evidence; no broad fresh audit or requirement to repair every residual is
+introduced. AUD-008 is planned W0 work. Private profile-copy continuity evidence is
+carried from the verified unchanged engine/final pair, and the real profile is
+hash-checked unchanged without launching it. Candidate/profile verification here is
+read-only preservation evidence, not another migration/playthrough proof.
+
+### Remaining launch choices and extension prerequisites
+
+Current Ops approved the reviewed outcome-first **publication method** only. The
+existing decision docket remains recommendations, not selected settings. Before a
+P11 execution order, Current Ops still needs to state the scope/extension ceiling,
+active-review/runtime budget and model settings, and explicitly adopt or change the
+recommended financial time/terminology/public-information/persistence defaults.
+No extra Owner economy decision is required if Current Ops adopts the bounded
+existing defaults; optional per-week future receipt disclosure remains a separate
+choice for that row only. The kit's absence is a publication blocker, not a request
+for new research. No implementation branches or Finance behavior are started here.
+
+| Existing extension group | Current recommendation / dependency |
+|---|---|
+| Known-flow Upcoming (`P11-REQ-029`) | Use existing public dated construction/contract/Set facts and published aggregate projected receipts. Do not expose an internal per-week future receipt schedule without explicit public-information authority. |
+| Hire/renew/release/Greenlight consequence previews (`P11-REQ-032`) | Reuse exact existing action quotes and action-specific affordability/negative-cash law; no second hiring, construction or employment system. |
+| Portfolio filters/deep links (`P11-REQ-033`) | Existing exact film/result/history IDs are available; preserve absent Locate truth. Activation is still a scope decision. |
+|13/52-week charts with text equivalents (`P11-REQ-030`) | Require complete W0 cost basis, actual recorded ledger coverage and bounded query/storage proof. A weeks-length chart does not establish a calendar-year conversion. |
+| Year/era summaries (`P11-REQ-031`) | Preserve the group, but current engine supplies gameWeek and a governed1920 start, not progressing current-year/era boundaries. Recommend explicitly label any permitted rolling-week summary by its true basis; calendar/era-labelled output needs governed date authority first. Do not implement calendar/aging/technology as incidental Finance work. |
+
+The 45 original requirement rows and five original extension-group rows remain
+byte-identical to328790a. Their historical producer-status column is interpreted with
+this accepted-source map: existing domain producers are reused; Finance-specific
+read models/workspaces remain new; conditional, dependency-blocked, Owner-blocked,
+deferred and prohibited requirements are not activated. In particular REQ-008/009
+must not inherit the old shorthand “understated”: missing cost understates burn,
+overstates net weekly cash and can overstate runway. REQ-043 preserves the now
+accepted P09 cost/time envelope; it is not an invitation to retune it. Other Owner
+requests in the acceptance receipt are not added wholesale to P11.
+
+**Prelaunch disposition:** accepted upstream/source-refresh gate satisfied;
+reviewed-kit publication blocked by the exact missing local artifact; execution
+settings/order still unissued. AUD-008 is inside W0, and W0 must reconcile selectors,
+tick and ledger before Finance presents complete operating cost/runway. It is not
+a condition that P11 already be implemented before its coding session can launch.
+Campaign/main and the Owner-UX product refs remain frozen; only owned documentation
+branches are pushed. Implementation/runtime ownership is yielded after closeout.
