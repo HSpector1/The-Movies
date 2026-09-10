@@ -1,0 +1,51 @@
+{
+  "kind": "independent-normal-shift-tab-correction-peer-review",
+  "outcome": "PASS_SOURCE_SCOPE_ONLY",
+  "reviewer": "/root/recovered_storage_review/package_runner_review",
+  "patchSha256": "583c3cb298037530e5320e14bf14bf045f7c793794be4b45bccaebfffed7dc21",
+  "baseUnityHead": "a5dfa20491b4a0f0a124f7d2310ec2c505d16cda",
+  "sourceSha256": {
+    "Tools/hid-guard.mjs": "7fd64956c50df199d8ab5ec8c63ea2eb6c84dc3440db53a713efb1d5d1612b02",
+    "Tools/ownerinput/ownerinput.swift": "a31735e7a422ab444ea747809cc238e94b82b9dbbcfaa62cde61ce05cf74a1d8",
+    "Tools/hid-guard-tests.mjs": "5f1554f1bc6e4e0df24879cd131fd808c389a7237b60e3922c2733541ab9e6f1"
+  },
+  "reviewedProperties": [
+    "Fresh admission rejects observed modifier bits and both Shift-key states in both global tables; helper repeats fresh checks before down.",
+    "Down uses source0/Tab48 and preserves fresh HID|session raw bits, adding only Shift.",
+    "Only a guard-verified tagged owned down with complete healthy nonforeign continuous witness permits clearing its synthetic Shift bit on protected owned Tab-up. Extra modifiers, foreign/incomplete/stale evidence and unverified recovered ownership preserve flags.",
+    "During-chord HID/session flags and key tables are explicitly not independent physical ownership witnesses; native22 showed synthetic contamination.",
+    "Before/intended/after helper receipts preserve diagnostic evidence. Successful release requires exact raw observed up flags equal intended flags and modifier mask0; no acceptance widening.",
+    "releaseVerified defaults false, resets on every down and becomes true only after successful exact receipt join outside preserve-session mode. Modifier resolution requires it plus fresh clear modifier and Shift-key states. Malformed/mismatched receipts or recovered preserving cleanup cannot produce clean finalization.",
+    "Witness primitive/companion/foreign classification remains unchanged; no Shift-key up or indiscriminate releasemods path added."
+  ],
+  "findingResolved": "New receipt validation originally ran outside the sticky postOne failure handler and could be swallowed by releaseOwned/finalize. The releaseVerified requirement now retains unresolved state on those paths.",
+  "testEvidence": {
+    "reviewerExecutedTests": false,
+    "producerRecordedTests": 86,
+    "producerRecordedPass": 86,
+    "producerRecordedFail": 0,
+    "beforeLogSha256": "a2ff404ecaff4fba89a5be761600640f54af8481233344ec2d80deba9a8e3d29",
+    "afterLogSha256": "ea31baf537c6f35348d694955b78dc6fdc63ad75f2124109af357b6d89adfb45",
+    "coverage": "Models actual native22 global flag/key-state contamination, raw-bit preservation, fresh held-state refusal, extra-modifier preservation, malformed/wrong-raw receipt and recovered clean-global-state refusal."
+  },
+  "native22": {
+    "status": "STOPPED_UNAVAILABLE_NOT_NATIVE_PASS",
+    "downSequence": 1057,
+    "upSequence": 1061,
+    "observedDownAndUpFlags": 537001984,
+    "observedSourceStateId": 0,
+    "finalMarkerSequence": 1063,
+    "finalWitnessSequence": 1064,
+    "modifierPending": true,
+    "supervisorExit": 143,
+    "reportSha256": "c89683772751d4648735ac3563cf2e33d5bc1b8093404f5a4d7240f13a38c559",
+    "witnessSha256": "c893cbf3ee5b40a0b728ff9d028a29b9773581d230302f5454069de5a4d18657"
+  },
+  "limits": [
+    "Reviewed private patch only; root must bind actual integrated/captured source and helper binary.",
+    "Corrected native source/flags propagation and Unity reverse focus remain unproven.",
+    "This normal continuous-witness patch cannot authorize clearing modifiers after native22 witness ended and a later observation gap; stale22 remains failed.",
+    "State reads and posting are not atomic; any foreign input remains a failed run.",
+    "No reviewer native input, hardware probe, build, compile, test execution or shared edits."
+  ]
+}

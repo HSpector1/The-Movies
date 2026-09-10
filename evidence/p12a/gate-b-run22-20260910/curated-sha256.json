@@ -1,0 +1,14 @@
+{
+  "003-entrant-100.png": "3b5772db5a19cf52807cd231c127f0fe90780f383e5ddd09ef19a501279ec8dd",
+  "004-entrant-200.png": "e1330ab3fde552a12116a44cb1cd436a3aefe013aaac5afe6cfc2908a3fdf00d",
+  "build-manifest.json": "0b1c7fbfe4d44333defdeb394aae21affa6e6387ddf5e0c62cbb8a1915d6a06b",
+  "current-correctness-applicability-partial.json": "16ae7eaa7af2a31a865b6be045c106e7a8bbaadb373dbcdbec2cf21ed267ad40",
+  "native-summary.json": "b176770bc067825ca84d73de7e09b6119b8626850e9930772742e369d7885b4a",
+  "normal-chord-compile-report.json": "76f3a41d1e95ea8f94b19b2e84f43660704d4f8de3541a4a64763bfd62391576",
+  "normal-chord-compile.log": "6e54e5e0dc65725f5a8b58d99f0ee6fab89f5b0f9d630ceaecc11cf9aabc09f1",
+  "normal-chord-independent-source-review.json": "d13654f5dcadc7ebee1b49b96a38112dae78a3c25ce9f6302a8bb48a193dc615",
+  "normal-chord-integrated-tests.log": "0082493d984cad288f0cc2bb922265fe8cde2b2915b13d0ac32bd3d19b6c8aa6",
+  "paired-contract.json": "9f9ce85752584a8ef3c9a90d13741ee0783e8322cc14da7819f5d7fce1466eef",
+  "product-review-wording-corrected-open.json": "ac8a452f91f9dcdaaf4da85f143162c222ff2fa27227339a7bf32721231356cd",
+  "register-preservation-review.json": "a54969ed23744983191313433d731cb7116cd6e7b2d9f6676b31a218f2997b07"
+}

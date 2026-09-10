@@ -1,0 +1,34 @@
+{
+  "schema": "p04a1-build-manifest/1",
+  "generatedAtUtc": "2026-09-10T21:06:45Z",
+  "player": {
+    "app": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app",
+    "executable": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+    "executableSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+    "assemblyCSharpSha256": "9a8dae63540f41fd5618bfccc6e52021458825280ba991fbf7ec6cad90a8155a",
+    "builtAtUtc": "2026-09-10T20:10:17Z"
+  },
+  "unity": {
+    "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+    "sha": "a5dfa20491b4a0f0a124f7d2310ec2c505d16cda",
+    "branch": "wip/p12a-living-hollywood-01-client",
+    "dirty": false
+  },
+  "typescript": {
+    "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+    "sha": "39c6401738f0f29700632acc4c03aeb6e3b5bc93",
+    "branch": "wip/p12a-living-hollywood-01-ts",
+    "dirty": false,
+    "engineBundleSha256": "6fec4a563bd2110dd564980a08096603e547941e579e929251b2bbc9d3c278aa",
+    "runtimeWorkerSha256": "8f198d95cd260a21fff26b16b7b55d256d04a3311338fa2a57ef95821cc941ec",
+    "runtimeWorkerSourceManifestSha256": "48dfcdcf5b38661ebb222fcea95fa2bed1fcbe086532ac6941bc99b131785127"
+  },
+  "sources": {
+    "newestTrackedAssetsFile": "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+    "newestTrackedAssetsAtUtc": "2026-09-10T20:10:08Z"
+  },
+  "toolVersions": {
+    "unityEditor": "6000.3.22f1",
+    "node": "v26.3.1"
+  }
+}

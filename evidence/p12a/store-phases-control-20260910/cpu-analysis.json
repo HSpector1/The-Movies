@@ -1,0 +1,1287 @@
+{
+  "kind": "scoped-Save-V8-sampling-summary",
+  "rawProfileSha256": "df50faeb59ea2bb9254cc00658cb78f01b1fc8614a88999dec590d39d0d5eddc",
+  "bundleSha256": "2774d1632d9c72c14a387abc941d0bf14d159609e3514163c67d6c9c85a2b06c",
+  "profileWallMs": 18226.573,
+  "observedDeltaMs": 18226.404,
+  "sampleCount": 12150,
+  "intervalRequestedUs": 1000,
+  "selfTimeTop": [
+    {
+      "function": "canonicalJson",
+      "source": "bridge/schema/canonical.ts",
+      "bundleLine": 609,
+      "sampledMs": 6221.701999999938,
+      "shareOfObservedSamples": 0.3413565286932046
+    },
+    {
+      "function": "build",
+      "source": "src/core/save.ts",
+      "bundleLine": 9204,
+      "sampledMs": 2618.811999999995,
+      "shareOfObservedSamples": 0.14368231934286077
+    },
+    {
+      "function": "importSave",
+      "source": "src/core/save.ts",
+      "bundleLine": 13599,
+      "sampledMs": 1249.543,
+      "shareOfObservedSamples": 0.06855674876953238
+    },
+    {
+      "function": "update",
+      "source": "(runtime)",
+      "bundleLine": 0,
+      "sampledMs": 1211.4609999999993,
+      "shareOfObservedSamples": 0.06646736240456425
+    },
+    {
+      "function": "(idle)",
+      "source": "(runtime)",
+      "bundleLine": 0,
+      "sampledMs": 973.2259999999999,
+      "shareOfObservedSamples": 0.05339649005914716
+    },
+    {
+      "function": "v8ExactKeys",
+      "source": "src/core/save.ts",
+      "bundleLine": 9692,
+      "sampledMs": 947.5119999999986,
+      "shareOfObservedSamples": 0.051985679676583414
+    },
+    {
+      "function": "validateHollywood",
+      "source": "src/core/hollywoodValidation.ts",
+      "bundleLine": 7933,
+      "sampledMs": 738.3109999999989,
+      "shareOfObservedSamples": 0.040507771033715646
+    },
+    {
+      "function": "parseCanonicalJson",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31181,
+      "sampledMs": 721.4279999999989,
+      "shareOfObservedSamples": 0.03958147750922227
+    },
+    {
+      "function": "(garbage collector)",
+      "source": "(runtime)",
+      "bundleLine": 0,
+      "sampledMs": 529.9779999999997,
+      "shareOfObservedSamples": 0.029077485608241745
+    },
+    {
+      "function": "v8CareerEvent",
+      "source": "src/core/save.ts",
+      "bundleLine": 10582,
+      "sampledMs": 262.86699999999985,
+      "shareOfObservedSamples": 0.014422318302611961
+    },
+    {
+      "function": "(anonymous)",
+      "source": "(runtime)",
+      "bundleLine": 0,
+      "sampledMs": 239.52999999999986,
+      "shareOfObservedSamples": 0.013141923113303089
+    },
+    {
+      "function": "makeSave",
+      "source": "src/core/save.ts",
+      "bundleLine": 13588,
+      "sampledMs": 192.86599999999987,
+      "shareOfObservedSamples": 0.010581681389263613
+    },
+    {
+      "function": "decodeBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31795,
+      "sampledMs": 184.7739999999998,
+      "shareOfObservedSamples": 0.010137710104527466
+    },
+    {
+      "function": "loadBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31815,
+      "sampledMs": 178.23099999999977,
+      "shareOfObservedSamples": 0.009778725413965354
+    },
+    {
+      "function": "summary",
+      "source": "bridge/runtime/campaign-library.ts",
+      "bundleLine": 36446,
+      "sampledMs": 175.43999999999994,
+      "shareOfObservedSamples": 0.009625595921170186
+    },
+    {
+      "function": "(program)",
+      "source": "(runtime)",
+      "bundleLine": 0,
+      "sampledMs": 173.1149999999999,
+      "shareOfObservedSamples": 0.00949803373172239
+    },
+    {
+      "function": "exact",
+      "source": "src/core/hollywoodValidation.ts",
+      "bundleLine": 7909,
+      "sampledMs": 150.8229999999999,
+      "shareOfObservedSamples": 0.008274972945842741
+    },
+    {
+      "function": "v8NumberRecord",
+      "source": "src/core/save.ts",
+      "bundleLine": 9765,
+      "sampledMs": 134.39100000000008,
+      "shareOfObservedSamples": 0.007373423742829364
+    },
+    {
+      "function": "career",
+      "source": "src/core/save.ts",
+      "bundleLine": 14311,
+      "sampledMs": 133.443,
+      "shareOfObservedSamples": 0.007321411288809357
+    },
+    {
+      "function": "post",
+      "source": "node:inspector",
+      "bundleLine": 115,
+      "sampledMs": 110.538,
+      "shareOfObservedSamples": 0.00606471797728175
+    },
+    {
+      "function": "validateSaveV19",
+      "source": "src/core/save.ts",
+      "bundleLine": 14290,
+      "sampledMs": 109.73800000000001,
+      "shareOfObservedSamples": 0.0060208256110201456
+    },
+    {
+      "function": "grouped",
+      "source": "src/core/hollywoodValidation.ts",
+      "bundleLine": 8353,
+      "sampledMs": 93.63399999999999,
+      "shareOfObservedSamples": 0.005137272278174016
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31193,
+      "sampledMs": 68.21700000000001,
+      "shareOfObservedSamples": 0.0037427569365849687
+    },
+    {
+      "function": "activeScriptWriterAssignments",
+      "source": "src/core/scriptDevelopment.ts",
+      "bundleLine": 5890,
+      "sampledMs": 60.10600000000001,
+      "shareOfObservedSamples": 0.003297743208150111
+    },
+    {
+      "function": "(anonymous)",
+      "source": "src/core/hollywoodValidation.ts",
+      "bundleLine": 7911,
+      "sampledMs": 54.176,
+      "shareOfObservedSamples": 0.002972391043235956
+    },
+    {
+      "function": "assertScriptDevelopmentInvariants",
+      "source": "src/core/scriptDevelopment.ts",
+      "bundleLine": 6026,
+      "sampledMs": 53.69200000000001,
+      "shareOfObservedSamples": 0.002945836161647685
+    },
+    {
+      "function": "v8Participant",
+      "source": "src/core/save.ts",
+      "bundleLine": 9905,
+      "sampledMs": 52.32899999999999,
+      "shareOfObservedSamples": 0.002871054542629473
+    },
+    {
+      "function": "isRecord",
+      "source": "src/core/save.ts",
+      "bundleLine": 9564,
+      "sampledMs": 52.037000000000006,
+      "shareOfObservedSamples": 0.0028550338289439875
+    },
+    {
+      "function": "v9ExactKeys",
+      "source": "src/core/save.ts",
+      "bundleLine": 11310,
+      "sampledMs": 50.87100000000001,
+      "shareOfObservedSamples": 0.002791060705117697
+    },
+    {
+      "function": "fsync",
+      "source": "(runtime)",
+      "bundleLine": 0,
+      "sampledMs": 33.392,
+      "shareOfObservedSamples": 0.0018320673677594333
+    },
+    {
+      "function": "(anonymous)",
+      "source": "src/core/hollywoodValidation.ts",
+      "bundleLine": 8324,
+      "sampledMs": 27.041,
+      "shareOfObservedSamples": 0.0014836168451001087
+    },
+    {
+      "function": "v8FilmResult",
+      "source": "src/core/save.ts",
+      "bundleLine": 10241,
+      "sampledMs": 25.582999999999995,
+      "shareOfObservedSamples": 0.0014036230075883315
+    },
+    {
+      "function": "theatricalSchedule",
+      "source": "src/core/economy.ts",
+      "bundleLine": 7850,
+      "sampledMs": 25.241000000000003,
+      "shareOfObservedSamples": 0.0013848590210114955
+    },
+    {
+      "function": "checkScriptDevelopmentShape",
+      "source": "src/core/save.ts",
+      "bundleLine": 11385,
+      "sampledMs": 21.09,
+      "shareOfObservedSamples": 0.0011571125055715873
+    },
+    {
+      "function": "v8Participants",
+      "source": "src/core/save.ts",
+      "bundleLine": 9937,
+      "sampledMs": 19.576,
+      "shareOfObservedSamples": 0.0010740462024214981
+    }
+  ],
+  "inclusiveTimeTop": [
+    {
+      "function": "(root)",
+      "source": "(runtime)",
+      "bundleLine": 0,
+      "sampledMs": 18226.404000000748,
+      "shareOfObservedSamples": 1.000000000000041
+    },
+    {
+      "function": "(anonymous)",
+      "source": "bridge/runtime/runtime-coordinator.ts",
+      "bundleLine": 36763,
+      "sampledMs": 16181.028000000184,
+      "shareOfObservedSamples": 0.887779509331637
+    },
+    {
+      "function": "(anonymous)",
+      "source": "bridge/runtime/runtime-coordinator.ts",
+      "bundleLine": 36888,
+      "sampledMs": 16130.926000000181,
+      "shareOfObservedSamples": 0.8850306401635881
+    },
+    {
+      "function": "proposeCampaign",
+      "source": "bridge/runtime/campaign-library.ts",
+      "bundleLine": 36586,
+      "sampledMs": 16099.526000000178,
+      "shareOfObservedSamples": 0.8833078647878199
+    },
+    {
+      "function": "saveActive",
+      "source": "bridge/runtime/campaign-library.ts",
+      "bundleLine": 36620,
+      "sampledMs": 12714.189000000079,
+      "shareOfObservedSamples": 0.6975698003841064
+    },
+    {
+      "function": "hydrateBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31643,
+      "sampledMs": 10494.721000000003,
+      "shareOfObservedSamples": 0.5757976724317098
+    },
+    {
+      "function": "createBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31851,
+      "sampledMs": 7455.755999999978,
+      "shareOfObservedSamples": 0.4090634663864566
+    },
+    {
+      "function": "encodeSession",
+      "source": "bridge/runtime/campaign-library.ts",
+      "bundleLine": 36436,
+      "sampledMs": 6995.605999999955,
+      "shareOfObservedSamples": 0.3838171259673579
+    },
+    {
+      "function": "canonicalJson",
+      "source": "bridge/schema/canonical.ts",
+      "bundleLine": 609,
+      "sampledMs": 6221.701999999938,
+      "shareOfObservedSamples": 0.3413565286932046
+    },
+    {
+      "function": "save",
+      "source": "bridge/runtime/campaign-library.ts",
+      "bundleLine": 36624,
+      "sampledMs": 5521.21199999998,
+      "shareOfObservedSamples": 0.30292382413996644
+    },
+    {
+      "function": "save",
+      "source": "bridge/session.ts",
+      "bundleLine": 36226,
+      "sampledMs": 5521.21199999998,
+      "shareOfObservedSamples": 0.30292382413996644
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31193,
+      "sampledMs": 5469.407000000032,
+      "shareOfObservedSamples": 0.3000815190972411
+    },
+    {
+      "function": "exportRuntimeCheckpoint",
+      "source": "bridge/session.ts",
+      "bundleLine": 35859,
+      "sampledMs": 4347.565000000006,
+      "shareOfObservedSamples": 0.238531144157674
+    },
+    {
+      "function": "prepareEntry",
+      "source": "bridge/session.ts",
+      "bundleLine": 36364,
+      "sampledMs": 4281.634,
+      "shareOfObservedSamples": 0.23491380965768127
+    },
+    {
+      "function": "encodeBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31790,
+      "sampledMs": 3712.108000000007,
+      "shareOfObservedSamples": 0.20366650492329738
+    },
+    {
+      "function": "exportSave",
+      "source": "src/core/save.ts",
+      "bundleLine": 13592,
+      "sampledMs": 3318.6889999999953,
+      "shareOfObservedSamples": 0.18208139137045332
+    },
+    {
+      "function": "validateSaveV19",
+      "source": "src/core/save.ts",
+      "bundleLine": 14290,
+      "sampledMs": 3269.303000000003,
+      "shareOfObservedSamples": 0.17937180587020915
+    },
+    {
+      "function": "validateHollywood",
+      "source": "src/core/hollywoodValidation.ts",
+      "bundleLine": 7933,
+      "sampledMs": 3104.2110000000002,
+      "shareOfObservedSamples": 0.17031395770663266
+    },
+    {
+      "function": "importSave",
+      "source": "src/core/save.ts",
+      "bundleLine": 13599,
+      "sampledMs": 2886.5420000000054,
+      "shareOfObservedSamples": 0.15837144836688608
+    },
+    {
+      "function": "checkpointBytes",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31307,
+      "sampledMs": 2846.126000000006,
+      "shareOfObservedSamples": 0.15615400602334978
+    },
+    {
+      "function": "recordFor",
+      "source": "bridge/runtime/campaign-library.ts",
+      "bundleLine": 36465,
+      "sampledMs": 2764.361999999999,
+      "shareOfObservedSamples": 0.15166798672958196
+    },
+    {
+      "function": "validateSave",
+      "source": "src/core/save.ts",
+      "bundleLine": 12894,
+      "sampledMs": 2681.0440000000044,
+      "shareOfObservedSamples": 0.14709670651435164
+    },
+    {
+      "function": "build",
+      "source": "src/core/save.ts",
+      "bundleLine": 9204,
+      "sampledMs": 2630.855999999995,
+      "shareOfObservedSamples": 0.14434311891692927
+    },
+    {
+      "function": "stableStringify",
+      "source": "src/core/save.ts",
+      "bundleLine": 9201,
+      "sampledMs": 2626.337999999995,
+      "shareOfObservedSamples": 0.14409523677846686
+    },
+    {
+      "function": "(anonymous)",
+      "source": "src/core/save.ts",
+      "bundleLine": 9214,
+      "sampledMs": 2347.8369999999945,
+      "shareOfObservedSamples": 0.1288151519081874
+    },
+    {
+      "function": "hydrateEntry",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31243,
+      "sampledMs": 2196.0559999999987,
+      "shareOfObservedSamples": 0.12048761785374662
+    },
+    {
+      "function": "hydrate",
+      "source": "bridge/runtime/campaign-library.ts",
+      "bundleLine": 36439,
+      "sampledMs": 1845.7600000000043,
+      "shareOfObservedSamples": 0.10126846743877753
+    },
+    {
+      "function": "loadBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31815,
+      "sampledMs": 1603.7870000000034,
+      "shareOfObservedSamples": 0.087992508012003
+    },
+    {
+      "function": "decodeBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31795,
+      "sampledMs": 1425.5560000000014,
+      "shareOfObservedSamples": 0.07821378259803752
+    },
+    {
+      "function": "update",
+      "source": "node:internal/crypto/hash",
+      "bundleLine": 134,
+      "sampledMs": 1211.4609999999993,
+      "shareOfObservedSamples": 0.06646736240456425
+    },
+    {
+      "function": "update",
+      "source": "(runtime)",
+      "bundleLine": 0,
+      "sampledMs": 1211.4609999999993,
+      "shareOfObservedSamples": 0.06646736240456425
+    },
+    {
+      "function": "career",
+      "source": "src/core/save.ts",
+      "bundleLine": 14311,
+      "sampledMs": 1174.7839999999994,
+      "shareOfObservedSamples": 0.0644550620078431
+    },
+    {
+      "function": "createBridgeRuntimeJournalEntry",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31869,
+      "sampledMs": 1173.4429999999975,
+      "shareOfObservedSamples": 0.06438148742889697
+    },
+    {
+      "function": "parseResponse",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31220,
+      "sampledMs": 1157.1329999999998,
+      "shareOfObservedSamples": 0.06348663181173861
+    },
+    {
+      "function": "parseCanonicalJson",
+      "source": "bridge/runtime-checkpoint.ts",
+      "bundleLine": 31181,
+      "sampledMs": 1155.7859999999998,
+      "shareOfObservedSamples": 0.06341272804004564
+    }
+  ],
+  "nearestSourceAncestorTime": [
+    {
+      "source": "bridge/schema/canonical.ts",
+      "sampledMs": 6221.701999999938,
+      "shareOfObservedSamples": 0.3413565286932046
+    },
+    {
+      "source": "src/core/save.ts",
+      "sampledMs": 6021.527000000031,
+      "shareOfObservedSamples": 0.33037383567268847
+    },
+    {
+      "source": "bridge/runtime-checkpoint.ts",
+      "sampledMs": 2372.9490000000023,
+      "shareOfObservedSamples": 0.13019293328513964
+    },
+    {
+      "source": "src/core/hollywoodValidation.ts",
+      "sampledMs": 1149.3099999999981,
+      "shareOfObservedSamples": 0.06305741933515784
+    },
+    {
+      "source": "(idle)",
+      "sampledMs": 973.2259999999999,
+      "shareOfObservedSamples": 0.05339649005914716
+    },
+    {
+      "source": "(garbage collector)",
+      "sampledMs": 529.9779999999997,
+      "shareOfObservedSamples": 0.029077485608241745
+    },
+    {
+      "source": "bridge/runtime/campaign-storage-codec.ts",
+      "sampledMs": 213.12499999999994,
+      "shareOfObservedSamples": 0.011693200699380962
+    },
+    {
+      "source": "bridge/runtime/campaign-library.ts",
+      "sampledMs": 175.43999999999994,
+      "shareOfObservedSamples": 0.009625595921170186
+    },
+    {
+      "source": "(program)",
+      "sampledMs": 173.1149999999999,
+      "shareOfObservedSamples": 0.00949803373172239
+    },
+    {
+      "source": "src/core/scriptDevelopment.ts",
+      "sampledMs": 140.836,
+      "shareOfObservedSamples": 0.007727031618524423
+    },
+    {
+      "source": "bridge/runtime/runtime-coordinator.ts",
+      "sampledMs": 110.538,
+      "shareOfObservedSamples": 0.00606471797728175
+    },
+    {
+      "source": "bridge/runtime/checkpoint-store.ts",
+      "sampledMs": 50.102,
+      "shareOfObservedSamples": 0.0027488691680487274
+    },
+    {
+      "source": "bridge/snapshot-build-context.ts",
+      "sampledMs": 34.60900000000001,
+      "shareOfObservedSamples": 0.0018988386299349017
+    },
+    {
+      "source": "src/core/economy.ts",
+      "sampledMs": 25.241000000000003,
+      "shareOfObservedSamples": 0.0013848590210114955
+    },
+    {
+      "source": "other/runtime",
+      "sampledMs": 17.015,
+      "shareOfObservedSamples": 0.0009335357649265319
+    },
+    {
+      "source": "src/core/starPower.ts",
+      "sampledMs": 6.018999999999999,
+      "shareOfObservedSamples": 0.00033023519066075786
+    },
+    {
+      "source": "ui/src/engine/adapter.ts",
+      "sampledMs": 3.0069999999999997,
+      "shareOfObservedSamples": 0.0001649804316858114
+    },
+    {
+      "source": "src/core/occupancy.ts",
+      "sampledMs": 2.637,
+      "shareOfObservedSamples": 0.00014468021228981868
+    },
+    {
+      "source": "src/core/placement.ts",
+      "sampledMs": 1.51,
+      "shareOfObservedSamples": 8.284684131878127e-05
+    },
+    {
+      "source": "src/core/rng.ts",
+      "sampledMs": 1.506,
+      "shareOfObservedSamples": 8.262737948747323e-05
+    },
+    {
+      "source": "src/core/operations.ts",
+      "sampledMs": 1.506,
+      "shareOfObservedSamples": 8.262737948747323e-05
+    },
+    {
+      "source": "bridge/session.ts",
+      "sampledMs": 1.506,
+      "shareOfObservedSamples": 8.262737948747323e-05
+    }
+  ],
+  "checkpointCallerContexts": [
+    {
+      "function": "proposeCampaign",
+      "source": "bridge/runtime/campaign-library.ts",
+      "inclusiveSampledMs": 16099.526000000178,
+      "parentPath": [
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "saveActive",
+      "source": "bridge/runtime/campaign-library.ts",
+      "inclusiveSampledMs": 12714.189000000079,
+      "parentPath": [
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "createBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 3108.191000000008,
+      "parentPath": [
+        "prepareEntry",
+        "save",
+        "save",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "recordFor",
+      "source": "bridge/runtime/campaign-library.ts",
+      "inclusiveSampledMs": 2764.361999999999,
+      "parentPath": [
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "hydrateBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 2706.201000000007,
+      "parentPath": [
+        "createBridgeRuntimeCheckpoint",
+        "prepareEntry",
+        "save",
+        "save",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "encodeSession",
+      "source": "bridge/runtime/campaign-library.ts",
+      "inclusiveSampledMs": 2343.1259999999984,
+      "parentPath": [
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "encodeSession",
+      "source": "bridge/runtime/campaign-library.ts",
+      "inclusiveSampledMs": 2331.210000000002,
+      "parentPath": [
+        "recordFor",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "encodeSession",
+      "source": "bridge/runtime/campaign-library.ts",
+      "inclusiveSampledMs": 2321.270000000003,
+      "parentPath": [
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "encodeBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1245.5070000000007,
+      "parentPath": [
+        "encodeSession",
+        "recordFor",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1244.4699999999978,
+      "parentPath": [
+        "hydrateBridgeRuntimeCheckpoint",
+        "createBridgeRuntimeCheckpoint",
+        "prepareEntry",
+        "save",
+        "save",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "encodeBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1235.8130000000012,
+      "parentPath": [
+        "encodeSession",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "encodeBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1230.788,
+      "parentPath": [
+        "encodeSession",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "createBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1112.337999999999,
+      "parentPath": [
+        "exportRuntimeCheckpoint",
+        "encodeSession",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "createBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1085.702999999999,
+      "parentPath": [
+        "exportRuntimeCheckpoint",
+        "encodeSession",
+        "recordFor",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "createBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1085.457,
+      "parentPath": [
+        "exportRuntimeCheckpoint",
+        "encodeSession",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "createBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1064.0670000000002,
+      "parentPath": [
+        "exportRuntimeCheckpoint",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "hydrateBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1006.828,
+      "parentPath": [
+        "createBridgeRuntimeCheckpoint",
+        "exportRuntimeCheckpoint",
+        "encodeSession",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "hydrateBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 978.4109999999996,
+      "parentPath": [
+        "createBridgeRuntimeCheckpoint",
+        "exportRuntimeCheckpoint",
+        "encodeSession",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "hydrateBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 974.8379999999996,
+      "parentPath": [
+        "encodeBridgeRuntimeCheckpoint",
+        "encodeSession",
+        "recordFor",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "hydrateBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 974.5789999999987,
+      "parentPath": [
+        "createBridgeRuntimeCheckpoint",
+        "exportRuntimeCheckpoint",
+        "encodeSession",
+        "recordFor",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "hydrateBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 968.5509999999985,
+      "parentPath": [
+        "decodeBridgeRuntimeCheckpoint",
+        "loadBridgeRuntimeCheckpoint",
+        "hydrate",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "hydrateBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 965.2809999999998,
+      "parentPath": [
+        "encodeBridgeRuntimeCheckpoint",
+        "encodeSession",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "hydrateBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 962.8129999999995,
+      "parentPath": [
+        "encodeBridgeRuntimeCheckpoint",
+        "encodeSession",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "hydrateBridgeRuntimeCheckpoint",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 957.2190000000002,
+      "parentPath": [
+        "createBridgeRuntimeCheckpoint",
+        "exportRuntimeCheckpoint",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 829.3829999999991,
+      "parentPath": [
+        "hydrateEntry",
+        "createBridgeRuntimeJournalEntry",
+        "prepareEntry",
+        "save",
+        "save",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 452.7329999999995,
+      "parentPath": [
+        "hydrateBridgeRuntimeCheckpoint",
+        "createBridgeRuntimeCheckpoint",
+        "exportRuntimeCheckpoint",
+        "encodeSession",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 426.9129999999997,
+      "parentPath": [
+        "hydrateBridgeRuntimeCheckpoint",
+        "encodeBridgeRuntimeCheckpoint",
+        "encodeSession",
+        "recordFor",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 423.6359999999997,
+      "parentPath": [
+        "hydrateBridgeRuntimeCheckpoint",
+        "createBridgeRuntimeCheckpoint",
+        "exportRuntimeCheckpoint",
+        "encodeSession",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 420.3499999999994,
+      "parentPath": [
+        "hydrateBridgeRuntimeCheckpoint",
+        "createBridgeRuntimeCheckpoint",
+        "exportRuntimeCheckpoint",
+        "encodeSession",
+        "recordFor",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 419.8079999999994,
+      "parentPath": [
+        "hydrateBridgeRuntimeCheckpoint",
+        "encodeBridgeRuntimeCheckpoint",
+        "encodeSession",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 417.6229999999995,
+      "parentPath": [
+        "hydrateBridgeRuntimeCheckpoint",
+        "encodeBridgeRuntimeCheckpoint",
+        "encodeSession",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 413.4029999999995,
+      "parentPath": [
+        "hydrateBridgeRuntimeCheckpoint",
+        "createBridgeRuntimeCheckpoint",
+        "exportRuntimeCheckpoint",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 409.2369999999998,
+      "parentPath": [
+        "hydrateBridgeRuntimeCheckpoint",
+        "decodeBridgeRuntimeCheckpoint",
+        "loadBridgeRuntimeCheckpoint",
+        "hydrate",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "pack",
+      "source": "bridge/runtime/campaign-storage-codec.ts",
+      "inclusiveSampledMs": 146.29200000000003,
+      "parentPath": [
+        "runMicrotasks",
+        "processTicksAndRejections",
+        "(root)"
+      ]
+    },
+    {
+      "function": "encodeCampaignStorage",
+      "source": "bridge/runtime/campaign-storage-codec.ts",
+      "inclusiveSampledMs": 31.4,
+      "parentPath": [
+        "encodeCampaignLibrary",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "pack",
+      "source": "bridge/runtime/campaign-storage-codec.ts",
+      "inclusiveSampledMs": 17.573,
+      "parentPath": [
+        "recordPack",
+        "(anonymous)",
+        "runMicrotasks",
+        "processTicksAndRejections",
+        "(root)"
+      ]
+    },
+    {
+      "function": "pack",
+      "source": "bridge/runtime/campaign-storage-codec.ts",
+      "inclusiveSampledMs": 14.834999999999997,
+      "parentPath": [
+        "(anonymous)",
+        "runMicrotasks",
+        "processTicksAndRejections",
+        "(root)"
+      ]
+    },
+    {
+      "function": "pack",
+      "source": "bridge/runtime/campaign-storage-codec.ts",
+      "inclusiveSampledMs": 9.006,
+      "parentPath": [
+        "recordPack",
+        "(anonymous)",
+        "encodeCampaignStorage",
+        "encodeCampaignLibrary",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "encodeCampaignStorage",
+      "source": "bridge/runtime/campaign-storage-codec.ts",
+      "inclusiveSampledMs": 3.025,
+      "parentPath": [
+        "runMicrotasks",
+        "processTicksAndRejections",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1.515,
+      "parentPath": [
+        "hydrateEntry",
+        "hydrateBridgeRuntimeCheckpoint",
+        "createBridgeRuntimeCheckpoint",
+        "exportRuntimeCheckpoint",
+        "encodeSession",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1.51,
+      "parentPath": [
+        "hydrateEntry",
+        "hydrateBridgeRuntimeCheckpoint",
+        "decodeBridgeRuntimeCheckpoint",
+        "loadBridgeRuntimeCheckpoint",
+        "hydrate",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1.509,
+      "parentPath": [
+        "hydrateEntry",
+        "hydrateBridgeRuntimeCheckpoint",
+        "createBridgeRuntimeCheckpoint",
+        "exportRuntimeCheckpoint",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1.506,
+      "parentPath": [
+        "hydrateEntry",
+        "hydrateBridgeRuntimeCheckpoint",
+        "encodeBridgeRuntimeCheckpoint",
+        "encodeSession",
+        "recordFor",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1.505,
+      "parentPath": [
+        "hydrateEntry",
+        "hydrateBridgeRuntimeCheckpoint",
+        "createBridgeRuntimeCheckpoint",
+        "exportRuntimeCheckpoint",
+        "encodeSession",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1.505,
+      "parentPath": [
+        "hydrateEntry",
+        "hydrateBridgeRuntimeCheckpoint",
+        "encodeBridgeRuntimeCheckpoint",
+        "encodeSession",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1.504,
+      "parentPath": [
+        "hydrateEntry",
+        "hydrateBridgeRuntimeCheckpoint",
+        "createBridgeRuntimeCheckpoint",
+        "prepareEntry",
+        "save",
+        "save",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)"
+      ]
+    },
+    {
+      "function": "validateCanonicalCurrentSave",
+      "source": "bridge/runtime-checkpoint.ts",
+      "inclusiveSampledMs": 1.297,
+      "parentPath": [
+        "hydrateEntry",
+        "hydrateBridgeRuntimeCheckpoint",
+        "encodeBridgeRuntimeCheckpoint",
+        "encodeSession",
+        "saveActive",
+        "proposeCampaign",
+        "(anonymous)",
+        "(anonymous)",
+        "(root)"
+      ]
+    }
+  ],
+  "qualifications": [
+    "Self-time groups partition observed sample deltas. Inclusive function/context totals overlap and must not be added. Recursive copies of one function key count at most once per sample in inclusiveTimeTop.",
+    "Function names and bundle lines come from V8 callframes; original source-file labels come from preceding esbuild source boundary comments, not a source map.",
+    "Sample nodes merge repeated calls at a call path; counts are samples, not function invocation counts.",
+    "This isolate sample cannot attribute libuv gzip-worker CPU. Idle is reported separately; observed deltas approximate wall intervals, not an OS process CPU counter.",
+    "Only the campaign Save was profiled. Its instrumented elapsed time is diagnostic, not a replacement percentile or new normal latency benchmark."
+  ]
+}

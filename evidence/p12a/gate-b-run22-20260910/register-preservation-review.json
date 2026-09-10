@@ -1,0 +1,37 @@
+{
+  "status": "PASS_BOUNDED_CURRENT_DISPOSITION_MAINTENANCE_NO_GATE_CERTIFICATION",
+  "reviewer": "/root/recovered_storage_review/package_runner_review",
+  "reviewMethod": "Read-only independent literal-cell and row-order comparison; selected current dispositions checked against already reviewed fixed-phase v2/native evidence. No tests, native, shared edits, or new audit.",
+  "patch": {
+    "path": "/tmp/p12a-register-current-2i7vw03z/register-current.patch",
+    "sha256": "31204cea269a5d6a8a85d8711d00f3000c28e70c3bd2f37a116754c2b758800b"
+  },
+  "patchedFile": {
+    "path": "/tmp/p12a-register-current-2i7vw03z/P12A-DECISION-AND-REQUIREMENT-REGISTER.md",
+    "sha256": "1aea369eaa225e7b56d3965559bfc2dcfc541f494e3242966ae9b9283c6b96a1"
+  },
+  "manifest": {
+    "path": "/tmp/p12a-register-current-2i7vw03z/delta-manifest.json",
+    "sha256": "e3daf1eeb3862d7ef813c276504c5e4b60157bc560ccd9c72fcfa01127e47985"
+  },
+  "preservation": {
+    "originalRows": 130,
+    "originalOrderUnchanged": true,
+    "allLiteralNonCurrentOriginalCellsEqual": true,
+    "opsChkWholeRowsExact": true,
+    "r05Rows": 4,
+    "r05OrderAndNonCurrentCellsExact": true,
+    "originalCurrentCellsChanged": 34,
+    "r05CurrentCellsChanged": 4,
+    "otherChanges": "Qualified latest-status prose only."
+  },
+  "dispositionChecks": {
+    "PERF007and010": "Explicit OPEN for repeated hydration/encoding; scoped CPU profile pending; rebaseline cannot waive repeated whole-save work.",
+    "PERF009": "Full-nine paired serialize+digest p95 199.524125 ms MISS 100 ms; parse+strict import p95 166.833166 ms meets 500 ms only for this fixed fixture; n20 plus3 warmups. Hollywood-root 37829874 B and film mean3146.43 B match v2 qualification. Formal rebaseline pending.",
+    "native22": "STOPPED with retained synthetic Shift; no clean-input, successful run, or relaunch claim.",
+    "candidate": "Unlaunched; current Unity2bc8d30 distinguished from candidate manifest a5dfa204/player built deca395.",
+    "Pulse": "Native21 ten Release/Announcement events only; no People/Studios events in13-week window; employment History and earlier/source grouping remain distinct.",
+    "acceptance": "Final Gate B/candidate/relaunch and Owner acceptance remain open."
+  },
+  "consequentialDefects": []
+}

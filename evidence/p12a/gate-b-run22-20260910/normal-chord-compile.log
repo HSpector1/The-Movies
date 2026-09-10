@@ -1,0 +1,9 @@
+/Users/bruce/The Movies - P12A Living Hollywood Unity/Tools/ownerinput/ownerinput.swift:386:36: warning: 'activateIgnoringOtherApps' was deprecated in macOS 14.0: ignoringOtherApps is deprecated in macOS 14 and will have no effect. [#DeprecatedDeclaration]
+384 | func activate(pid: Int) -> Bool {
+385 |     guard let app = NSRunningApplication(processIdentifier: pid_t(pid)) else { return false }
+386 |     return app.activate(options: [.activateIgnoringOtherApps])
+    |                                    `- warning: 'activateIgnoringOtherApps' was deprecated in macOS 14.0: ignoringOtherApps is deprecated in macOS 14 and will have no effect. [#DeprecatedDeclaration]
+387 | }
+388 | 
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>

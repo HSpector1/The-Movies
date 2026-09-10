@@ -1,0 +1,3240 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "kind": "fixed-fixture-phase-sampler",
+  "startedAt": "2026-09-10T21:15:52.186Z",
+  "completed": true,
+  "binding": {
+    "builtAt": "2026-09-10T21:15:52.101Z",
+    "commit": "39c6401738f0f29700632acc4c03aeb6e3b5bc93",
+    "files": 96,
+    "sourceSha256": "5197c8fb87399e2f9c6b34a418c905921fd4380ce64ee5dbaaa11d0c37a50cb3",
+    "probeSourceSha256": "d38be2ab8a804c289666e0f94c5a780ae9b139673582c09e4e466fb7797cb59a",
+    "bundleSha256": "41b0372433d0873d36d23787a29b85fa58cd1cf6053bc384c4de382ffc363f16"
+  },
+  "hardware": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64",
+    "cpu": "Apple M3 Max",
+    "logicalCpus": 16,
+    "totalMemoryBytes": 137438953472,
+    "heapSizeLimit": 4395630592
+  },
+  "runtime": {
+    "node": "v26.3.1",
+    "executable": "/opt/homebrew/Cellar/node/26.3.1/bin/node",
+    "execArgv": [],
+    "nodeOptionsPresent": false
+  },
+  "warmups": 3,
+  "repetitions": 20,
+  "percentile": "nearest-rank observed p95 (sorted index ceil(.95*n)-1); empirical n20, not population guarantee",
+  "fixtures": [
+    {
+      "label": "all-nine-entry",
+      "path": "/tmp/p12a-engineering-8788-P6KEMm/week-2548.save.json",
+      "sha256": "742a9b980b5ea43c7c72c53f8493302846c86929b1dbb9e5e8db93be448e040c",
+      "bytes": 10667175,
+      "seed": "r05-living-hollywood",
+      "week": 2548,
+      "counts": {
+        "rivals": 9,
+        "films": 800,
+        "liveFilms": 792,
+        "careerEvents": 4752,
+        "employment": 306,
+        "receipts": 2718,
+        "people": 84,
+        "activeProjects": 3
+      },
+      "phases": [
+        {
+          "name": "canonical-serialize-already-validated-detached-save",
+          "warmups": [
+            {
+              "elapsedMs": 45.912417000000005,
+              "heapBefore": 86245456,
+              "heapAfter": 122197888,
+              "rssAfter": 298844160
+            },
+            {
+              "elapsedMs": 46.293499999999995,
+              "heapBefore": 119278304,
+              "heapAfter": 162114408,
+              "rssAfter": 346996736
+            },
+            {
+              "elapsedMs": 53.678124999999966,
+              "heapBefore": 172783704,
+              "heapAfter": 105284088,
+              "rssAfter": 267862016
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 50.13579199999998,
+              "heapBefore": 97775480,
+              "heapAfter": 140690120,
+              "rssAfter": 325173248
+            },
+            {
+              "elapsedMs": 47.09862500000003,
+              "heapBefore": 151359512,
+              "heapAfter": 183579096,
+              "rssAfter": 383467520
+            },
+            {
+              "elapsedMs": 50.92029200000002,
+              "heapBefore": 194248832,
+              "heapAfter": 105481232,
+              "rssAfter": 288292864
+            },
+            {
+              "elapsedMs": 47.499416,
+              "heapBefore": 97731096,
+              "heapAfter": 140639280,
+              "rssAfter": 336789504
+            },
+            {
+              "elapsedMs": 46.46620800000005,
+              "heapBefore": 151308600,
+              "heapAfter": 183541640,
+              "rssAfter": 383746048
+            },
+            {
+              "elapsedMs": 72.14183400000002,
+              "heapBefore": 194210984,
+              "heapAfter": 118111640,
+              "rssAfter": 327008256
+            },
+            {
+              "elapsedMs": 47.232709,
+              "heapBefore": 128814736,
+              "heapAfter": 161078856,
+              "rssAfter": 374964224
+            },
+            {
+              "elapsedMs": 46.83262500000001,
+              "heapBefore": 171748848,
+              "heapAfter": 203999800,
+              "rssAfter": 421773312
+            },
+            {
+              "elapsedMs": 46.88854200000003,
+              "heapBefore": 214668952,
+              "heapAfter": 246870872,
+              "rssAfter": 473989120
+            },
+            {
+              "elapsedMs": 46.842500000000086,
+              "heapBefore": 257540080,
+              "heapAfter": 289818440,
+              "rssAfter": 532381696
+            },
+            {
+              "elapsedMs": 49.54529200000002,
+              "heapBefore": 300487592,
+              "heapAfter": 332679568,
+              "rssAfter": 590708736
+            },
+            {
+              "elapsedMs": 82.47033299999998,
+              "heapBefore": 343348928,
+              "heapAfter": 156094544,
+              "rssAfter": 417415168
+            },
+            {
+              "elapsedMs": 47.73433299999988,
+              "heapBefore": 152600808,
+              "heapAfter": 195563984,
+              "rssAfter": 466059264
+            },
+            {
+              "elapsedMs": 46.728791,
+              "heapBefore": 206233136,
+              "heapAfter": 238490696,
+              "rssAfter": 512819200
+            },
+            {
+              "elapsedMs": 47.354290999999876,
+              "heapBefore": 249169008,
+              "heapAfter": 281347832,
+              "rssAfter": 559579136
+            },
+            {
+              "elapsedMs": 47.42949999999996,
+              "heapBefore": 292017088,
+              "heapAfter": 324261904,
+              "rssAfter": 606339072
+            },
+            {
+              "elapsedMs": 46.66399999999999,
+              "heapBefore": 334931088,
+              "heapAfter": 367133256,
+              "rssAfter": 653099008
+            },
+            {
+              "elapsedMs": 46.628291999999874,
+              "heapBefore": 377802592,
+              "heapAfter": 410036752,
+              "rssAfter": 699924480
+            },
+            {
+              "elapsedMs": 46.94854200000009,
+              "heapBefore": 420706280,
+              "heapAfter": 452932864,
+              "rssAfter": 746749952
+            },
+            {
+              "elapsedMs": 79.4554169999999,
+              "heapBefore": 463602088,
+              "heapAfter": 129944184,
+              "rssAfter": 440696832
+            }
+          ],
+          "n": 20,
+          "medianMs": 47.29349999999994,
+          "p95Ms": 79.4554169999999,
+          "maxMs": 82.47033299999998,
+          "minMs": 46.46620800000005
+        },
+        {
+          "name": "sha256-existing-canonical-utf8-string",
+          "warmups": [
+            {
+              "elapsedMs": 4.27533399999993,
+              "heapBefore": 140692544,
+              "heapAfter": 140698784,
+              "rssAfter": 462077952
+            },
+            {
+              "elapsedMs": 3.8121249999999236,
+              "heapBefore": 140705432,
+              "heapAfter": 140706480,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.810958000000028,
+              "heapBefore": 140708176,
+              "heapAfter": 140709224,
+              "rssAfter": 462094336
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 3.8229160000000775,
+              "heapBefore": 140710920,
+              "heapAfter": 140711968,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.8014579999999114,
+              "heapBefore": 140713816,
+              "heapAfter": 140714960,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.757667000000083,
+              "heapBefore": 140716656,
+              "heapAfter": 140717472,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.799041999999872,
+              "heapBefore": 140719168,
+              "heapAfter": 140719984,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.7740830000000187,
+              "heapBefore": 140721680,
+              "heapAfter": 140722496,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.8162499999998545,
+              "heapBefore": 140724192,
+              "heapAfter": 140735336,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.8015000000000327,
+              "heapBefore": 140737096,
+              "heapAfter": 140738672,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.8045830000000933,
+              "heapBefore": 140740368,
+              "heapAfter": 140741368,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.7962499999998727,
+              "heapBefore": 140743064,
+              "heapAfter": 140743896,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.7816669999999704,
+              "heapBefore": 140745592,
+              "heapAfter": 140746424,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.788957999999866,
+              "heapBefore": 140748120,
+              "heapAfter": 140748952,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.819541000000072,
+              "heapBefore": 140750648,
+              "heapAfter": 140751480,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.8190420000000813,
+              "heapBefore": 140753176,
+              "heapAfter": 140754008,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.7527080000002115,
+              "heapBefore": 140755704,
+              "heapAfter": 140756536,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.80012499999998,
+              "heapBefore": 140758232,
+              "heapAfter": 140759064,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.8297090000000935,
+              "heapBefore": 140760760,
+              "heapAfter": 140761592,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.7874590000001263,
+              "heapBefore": 140763288,
+              "heapAfter": 140764120,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.7905419999999594,
+              "heapBefore": 140765816,
+              "heapAfter": 140766648,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.816500000000133,
+              "heapBefore": 140768704,
+              "heapAfter": 140769536,
+              "rssAfter": 462094336
+            },
+            {
+              "elapsedMs": 3.7574580000000424,
+              "heapBefore": 140771232,
+              "heapAfter": 140772064,
+              "rssAfter": 462094336
+            }
+          ],
+          "n": 20,
+          "medianMs": 3.799583499999926,
+          "p95Ms": 3.8229160000000775,
+          "maxMs": 3.8297090000000935,
+          "minMs": 3.7527080000002115
+        },
+        {
+          "name": "canonical-serialize-plus-sha256-paired",
+          "warmups": [
+            {
+              "elapsedMs": 51.943250000000035,
+              "heapBefore": 140807496,
+              "heapAfter": 170312512,
+              "rssAfter": 509919232
+            },
+            {
+              "elapsedMs": 51.77825000000007,
+              "heapBefore": 170315432,
+              "heapAfter": 223839040,
+              "rssAfter": 557662208
+            },
+            {
+              "elapsedMs": 51.34979099999987,
+              "heapBefore": 223841016,
+              "heapAfter": 266733992,
+              "rssAfter": 604422144
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 51.41574999999989,
+              "heapBefore": 266735968,
+              "heapAfter": 309612912,
+              "rssAfter": 651182080
+            },
+            {
+              "elapsedMs": 51.16995800000018,
+              "heapBefore": 309615040,
+              "heapAfter": 352508720,
+              "rssAfter": 697942016
+            },
+            {
+              "elapsedMs": 51.35808300000008,
+              "heapBefore": 352510696,
+              "heapAfter": 395404472,
+              "rssAfter": 744701952
+            },
+            {
+              "elapsedMs": 82.82616700000017,
+              "heapBefore": 395406504,
+              "heapAfter": 138757320,
+              "rssAfter": 462045184
+            },
+            {
+              "elapsedMs": 51.74737500000015,
+              "heapBefore": 138759352,
+              "heapAfter": 171787752,
+              "rssAfter": 509820928
+            },
+            {
+              "elapsedMs": 54.97587499999986,
+              "heapBefore": 171789672,
+              "heapAfter": 225281984,
+              "rssAfter": 557563904
+            },
+            {
+              "elapsedMs": 53.07670800000005,
+              "heapBefore": 225284080,
+              "heapAfter": 268177056,
+              "rssAfter": 604323840
+            },
+            {
+              "elapsedMs": 51.39499999999998,
+              "heapBefore": 268179032,
+              "heapAfter": 311139160,
+              "rssAfter": 651083776
+            },
+            {
+              "elapsedMs": 51.59587499999998,
+              "heapBefore": 311141136,
+              "heapAfter": 354007536,
+              "rssAfter": 697843712
+            },
+            {
+              "elapsedMs": 51.30904199999986,
+              "heapBefore": 354009512,
+              "heapAfter": 396878952,
+              "rssAfter": 744603648
+            },
+            {
+              "elapsedMs": 51.22937499999989,
+              "heapBefore": 27382016,
+              "heapAfter": 91788336,
+              "rssAfter": 458506240
+            },
+            {
+              "elapsedMs": 51.410167,
+              "heapBefore": 91790424,
+              "heapAfter": 134669880,
+              "rssAfter": 505266176
+            },
+            {
+              "elapsedMs": 80.515625,
+              "heapBefore": 134671912,
+              "heapAfter": 131888216,
+              "rssAfter": 462225408
+            },
+            {
+              "elapsedMs": 51.822165999999925,
+              "heapBefore": 131890304,
+              "heapAfter": 185424640,
+              "rssAfter": 510722048
+            },
+            {
+              "elapsedMs": 50.861625000000004,
+              "heapBefore": 185426616,
+              "heapAfter": 228312520,
+              "rssAfter": 557481984
+            },
+            {
+              "elapsedMs": 51.746083,
+              "heapBefore": 228314552,
+              "heapAfter": 271215616,
+              "rssAfter": 604241920
+            },
+            {
+              "elapsedMs": 50.84291699999994,
+              "heapBefore": 271217592,
+              "heapAfter": 314096536,
+              "rssAfter": 651001856
+            },
+            {
+              "elapsedMs": 51.17079199999989,
+              "heapBefore": 314098512,
+              "heapAfter": 357031480,
+              "rssAfter": 697761792
+            },
+            {
+              "elapsedMs": 82.28674999999976,
+              "heapBefore": 357033872,
+              "heapAfter": 138576160,
+              "rssAfter": 462110720
+            },
+            {
+              "elapsedMs": 50.5603329999999,
+              "heapBefore": 138578192,
+              "heapAfter": 171857080,
+              "rssAfter": 509886464
+            }
+          ],
+          "n": 20,
+          "medianMs": 51.412958499999945,
+          "p95Ms": 82.28674999999976,
+          "maxMs": 82.82616700000017,
+          "minMs": 50.5603329999999
+        },
+        {
+          "name": "strict-validate-already-parsed-v19",
+          "warmups": [
+            {
+              "elapsedMs": 29.80237500000021,
+              "heapBefore": 171919584,
+              "heapAfter": 177248152,
+              "rssAfter": 509902848
+            },
+            {
+              "elapsedMs": 25.68158299999959,
+              "heapBefore": 177250904,
+              "heapAfter": 189011736,
+              "rssAfter": 511655936
+            },
+            {
+              "elapsedMs": 26.656790999999885,
+              "heapBefore": 189013600,
+              "heapAfter": 166972536,
+              "rssAfter": 559316992
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 25.028084000000035,
+              "heapBefore": 166974400,
+              "heapAfter": 177723104,
+              "rssAfter": 560381952
+            },
+            {
+              "elapsedMs": 21.862082999999984,
+              "heapBefore": 177725064,
+              "heapAfter": 186758808,
+              "rssAfter": 560381952
+            },
+            {
+              "elapsedMs": 22.09958400000005,
+              "heapBefore": 186760616,
+              "heapAfter": 195654824,
+              "rssAfter": 560480256
+            },
+            {
+              "elapsedMs": 21.988916999999674,
+              "heapBefore": 167316072,
+              "heapAfter": 175811456,
+              "rssAfter": 560480256
+            },
+            {
+              "elapsedMs": 21.502042000000074,
+              "heapBefore": 175813264,
+              "heapAfter": 184859920,
+              "rssAfter": 560513024
+            },
+            {
+              "elapsedMs": 21.794582999999875,
+              "heapBefore": 184861728,
+              "heapAfter": 192868232,
+              "rssAfter": 560824320
+            },
+            {
+              "elapsedMs": 22.831832999999733,
+              "heapBefore": 193021168,
+              "heapAfter": 200040424,
+              "rssAfter": 560971776
+            },
+            {
+              "elapsedMs": 22.519582999999784,
+              "heapBefore": 170656736,
+              "heapAfter": 177322768,
+              "rssAfter": 561004544
+            },
+            {
+              "elapsedMs": 21.52054199999975,
+              "heapBefore": 177324576,
+              "heapAfter": 184558184,
+              "rssAfter": 561020928
+            },
+            {
+              "elapsedMs": 21.243666999999732,
+              "heapBefore": 184559992,
+              "heapAfter": 191091424,
+              "rssAfter": 561037312
+            },
+            {
+              "elapsedMs": 20.805917000000136,
+              "heapBefore": 191093232,
+              "heapAfter": 197507640,
+              "rssAfter": 561053696
+            },
+            {
+              "elapsedMs": 21.744416999999885,
+              "heapBefore": 197509448,
+              "heapAfter": 203788840,
+              "rssAfter": 561053696
+            },
+            {
+              "elapsedMs": 21.00525000000016,
+              "heapBefore": 174323048,
+              "heapAfter": 180295296,
+              "rssAfter": 561053696
+            },
+            {
+              "elapsedMs": 21.495332999999846,
+              "heapBefore": 180297104,
+              "heapAfter": 187234032,
+              "rssAfter": 561086464
+            },
+            {
+              "elapsedMs": 21.911000000000058,
+              "heapBefore": 187235840,
+              "heapAfter": 193734744,
+              "rssAfter": 561086464
+            },
+            {
+              "elapsedMs": 21.158957999999984,
+              "heapBefore": 193736552,
+              "heapAfter": 200248800,
+              "rssAfter": 561266688
+            },
+            {
+              "elapsedMs": 20.814000000000306,
+              "heapBefore": 200250608,
+              "heapAfter": 206383272,
+              "rssAfter": 561283072
+            },
+            {
+              "elapsedMs": 20.785750000000007,
+              "heapBefore": 178061008,
+              "heapAfter": 183913296,
+              "rssAfter": 561283072
+            },
+            {
+              "elapsedMs": 23.00520800000004,
+              "heapBefore": 183915464,
+              "heapAfter": 190509784,
+              "rssAfter": 561446912
+            },
+            {
+              "elapsedMs": 20.959166000000096,
+              "heapBefore": 190511592,
+              "heapAfter": 195693648,
+              "rssAfter": 561446912
+            }
+          ],
+          "n": 20,
+          "medianMs": 21.632479499999818,
+          "p95Ms": 23.00520800000004,
+          "maxMs": 25.028084000000035,
+          "minMs": 20.785750000000007
+        },
+        {
+          "name": "parse-and-strict-import-v19",
+          "warmups": [
+            {
+              "elapsedMs": 43.83149999999978,
+              "heapBefore": 195757640,
+              "heapAfter": 199543776,
+              "rssAfter": 561512448
+            },
+            {
+              "elapsedMs": 43.960959,
+              "heapBefore": 199546640,
+              "heapAfter": 203302696,
+              "rssAfter": 561692672
+            },
+            {
+              "elapsedMs": 42.789250000000266,
+              "heapBefore": 203304560,
+              "heapAfter": 239220360,
+              "rssAfter": 561725440
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 41.95408400000042,
+              "heapBefore": 212864264,
+              "heapAfter": 248950712,
+              "rssAfter": 561725440
+            },
+            {
+              "elapsedMs": 42.484084000000166,
+              "heapBefore": 248952672,
+              "heapAfter": 252712640,
+              "rssAfter": 561741824
+            },
+            {
+              "elapsedMs": 43.33891700000004,
+              "heapBefore": 252714504,
+              "heapAfter": 256716520,
+              "rssAfter": 561774592
+            },
+            {
+              "elapsedMs": 43.32929100000001,
+              "heapBefore": 256718384,
+              "heapAfter": 260540888,
+              "rssAfter": 561840128
+            },
+            {
+              "elapsedMs": 43.73524999999972,
+              "heapBefore": 260542752,
+              "heapAfter": 296857640,
+              "rssAfter": 561954816
+            },
+            {
+              "elapsedMs": 43.716791999999714,
+              "heapBefore": 267150208,
+              "heapAfter": 302721680,
+              "rssAfter": 561971200
+            },
+            {
+              "elapsedMs": 43.322625000000244,
+              "heapBefore": 302723632,
+              "heapAfter": 306181288,
+              "rssAfter": 562774016
+            },
+            {
+              "elapsedMs": 43.88170799999989,
+              "heapBefore": 306183152,
+              "heapAfter": 309603384,
+              "rssAfter": 574128128
+            },
+            {
+              "elapsedMs": 44.22808299999997,
+              "heapBefore": 309605248,
+              "heapAfter": 313613496,
+              "rssAfter": 585383936
+            },
+            {
+              "elapsedMs": 45.120750000000044,
+              "heapBefore": 313615360,
+              "heapAfter": 349525904,
+              "rssAfter": 596131840
+            },
+            {
+              "elapsedMs": 45.6740420000001,
+              "heapBefore": 321442408,
+              "heapAfter": 357279512,
+              "rssAfter": 611254272
+            },
+            {
+              "elapsedMs": 45.43125000000009,
+              "heapBefore": 357281320,
+              "heapAfter": 360498160,
+              "rssAfter": 622608384
+            },
+            {
+              "elapsedMs": 46.68133399999988,
+              "heapBefore": 360500024,
+              "heapAfter": 363905072,
+              "rssAfter": 647692288
+            },
+            {
+              "elapsedMs": 45.32041599999957,
+              "heapBefore": 363906936,
+              "heapAfter": 367543000,
+              "rssAfter": 662208512
+            },
+            {
+              "elapsedMs": 62.655666999999994,
+              "heapBefore": 367544920,
+              "heapAfter": 77608088,
+              "rssAfter": 579141632
+            },
+            {
+              "elapsedMs": 49.413290999999845,
+              "heapBefore": 77610008,
+              "heapAfter": 82437856,
+              "rssAfter": 579469312
+            },
+            {
+              "elapsedMs": 48.64295799999945,
+              "heapBefore": 82439720,
+              "heapAfter": 87397480,
+              "rssAfter": 579780608
+            },
+            {
+              "elapsedMs": 45.13875000000007,
+              "heapBefore": 87399344,
+              "heapAfter": 124293432,
+              "rssAfter": 580468736
+            },
+            {
+              "elapsedMs": 42.867457999999715,
+              "heapBefore": 95138568,
+              "heapAfter": 130930112,
+              "rssAfter": 580796416
+            },
+            {
+              "elapsedMs": 43.32104100000015,
+              "heapBefore": 130931920,
+              "heapAfter": 134436600,
+              "rssAfter": 580796416
+            }
+          ],
+          "n": 20,
+          "medianMs": 44.05489549999993,
+          "p95Ms": 49.413290999999845,
+          "maxMs": 62.655666999999994,
+          "minMs": 41.95408400000042
+        },
+        {
+          "name": "makeSave-detach-and-strict-validate",
+          "warmups": [
+            {
+              "elapsedMs": 52.766749999999774,
+              "heapBefore": 134525208,
+              "heapAfter": 148523504,
+              "rssAfter": 591626240
+            },
+            {
+              "elapsedMs": 52.91754200000014,
+              "heapBefore": 148527416,
+              "heapAfter": 162485040,
+              "rssAfter": 601997312
+            },
+            {
+              "elapsedMs": 53.5191249999998,
+              "heapBefore": 162486904,
+              "heapAfter": 208853920,
+              "rssAfter": 615301120
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 48.62491599999976,
+              "heapBefore": 179399736,
+              "heapAfter": 224605944,
+              "rssAfter": 626982912
+            },
+            {
+              "elapsedMs": 50.321249999999964,
+              "heapBefore": 224607904,
+              "heapAfter": 237144392,
+              "rssAfter": 637370368
+            },
+            {
+              "elapsedMs": 48.92670799999996,
+              "heapBefore": 237146256,
+              "heapAfter": 249615640,
+              "rssAfter": 647741440
+            },
+            {
+              "elapsedMs": 54.57999999999993,
+              "heapBefore": 28706832,
+              "heapAfter": 74379664,
+              "rssAfter": 594771968
+            },
+            {
+              "elapsedMs": 52.33495800000037,
+              "heapBefore": 74381584,
+              "heapAfter": 88121968,
+              "rssAfter": 605143040
+            },
+            {
+              "elapsedMs": 52.90904200000023,
+              "heapBefore": 88123832,
+              "heapAfter": 102096072,
+              "rssAfter": 615514112
+            },
+            {
+              "elapsedMs": 52.24912500000028,
+              "heapBefore": 102156560,
+              "heapAfter": 116228664,
+              "rssAfter": 626065408
+            },
+            {
+              "elapsedMs": 53.20366699999977,
+              "heapBefore": 116230528,
+              "heapAfter": 162338552,
+              "rssAfter": 636616704
+            },
+            {
+              "elapsedMs": 61.3993330000003,
+              "heapBefore": 162340472,
+              "heapAfter": 96509680,
+              "rssAfter": 594051072
+            },
+            {
+              "elapsedMs": 53.24183400000038,
+              "heapBefore": 64916904,
+              "heapAfter": 111005672,
+              "rssAfter": 604618752
+            },
+            {
+              "elapsedMs": 52.54975000000013,
+              "heapBefore": 111007480,
+              "heapAfter": 124425768,
+              "rssAfter": 614989824
+            },
+            {
+              "elapsedMs": 51.88062500000069,
+              "heapBefore": 124427688,
+              "heapAfter": 138139384,
+              "rssAfter": 625360896
+            },
+            {
+              "elapsedMs": 53.19995800000015,
+              "heapBefore": 138141248,
+              "heapAfter": 151931872,
+              "rssAfter": 635731968
+            },
+            {
+              "elapsedMs": 52.40537500000028,
+              "heapBefore": 151933736,
+              "heapAfter": 197959440,
+              "rssAfter": 646283264
+            },
+            {
+              "elapsedMs": 52.021584000000075,
+              "heapBefore": 168972976,
+              "heapAfter": 214776000,
+              "rssAfter": 656654336
+            },
+            {
+              "elapsedMs": 52.202416999999514,
+              "heapBefore": 214777808,
+              "heapAfter": 228097168,
+              "rssAfter": 667025408
+            },
+            {
+              "elapsedMs": 52.97829199999978,
+              "heapBefore": 228099032,
+              "heapAfter": 241643672,
+              "rssAfter": 677396480
+            },
+            {
+              "elapsedMs": 52.792709000000286,
+              "heapBefore": 241645536,
+              "heapAfter": 255584672,
+              "rssAfter": 687947776
+            },
+            {
+              "elapsedMs": 52.737334000000374,
+              "heapBefore": 255586896,
+              "heapAfter": 301597608,
+              "rssAfter": 698499072
+            },
+            {
+              "elapsedMs": 64.51908299999923,
+              "heapBefore": 301599528,
+              "heapAfter": 90887256,
+              "rssAfter": 594067456
+            }
+          ],
+          "n": 20,
+          "medianMs": 52.64354200000025,
+          "p95Ms": 61.3993330000003,
+          "maxMs": 64.51908299999923,
+          "minMs": 48.62491599999976
+        },
+        {
+          "name": "complete-export-current-state",
+          "warmups": [
+            {
+              "elapsedMs": 100.58333299999958,
+              "heapBefore": 90994280,
+              "heapAfter": 153342024,
+              "rssAfter": 647790592
+            },
+            {
+              "elapsedMs": 100.85599999999977,
+              "heapBefore": 150741656,
+              "heapAfter": 214322448,
+              "rssAfter": 711180288
+            },
+            {
+              "elapsedMs": 99.31383399999959,
+              "heapBefore": 224991728,
+              "heapAfter": 277913720,
+              "rssAfter": 773734400
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 105.49733400000059,
+              "heapBefore": 288583000,
+              "heapAfter": 97082888,
+              "rssAfter": 626868224
+            },
+            {
+              "elapsedMs": 101.67150000000038,
+              "heapBefore": 107754912,
+              "heapAfter": 152878880,
+              "rssAfter": 679886848
+            },
+            {
+              "elapsedMs": 98.93087500000001,
+              "heapBefore": 163548216,
+              "heapAfter": 216602256,
+              "rssAfter": 742440960
+            },
+            {
+              "elapsedMs": 105.69350000000031,
+              "heapBefore": 227271536,
+              "heapAfter": 97580760,
+              "rssAfter": 628097024
+            },
+            {
+              "elapsedMs": 99.1958340000001,
+              "heapBefore": 108252632,
+              "heapAfter": 153111440,
+              "rssAfter": 681115648
+            },
+            {
+              "elapsedMs": 96.79629100000056,
+              "heapBefore": 163780776,
+              "heapAfter": 216646456,
+              "rssAfter": 743669760
+            },
+            {
+              "elapsedMs": 103.92050000000017,
+              "heapBefore": 227315800,
+              "heapAfter": 88928912,
+              "rssAfter": 628097024
+            },
+            {
+              "elapsedMs": 106.93808399999944,
+              "heapBefore": 99600784,
+              "heapAfter": 152782856,
+              "rssAfter": 690651136
+            },
+            {
+              "elapsedMs": 98.41079099999934,
+              "heapBefore": 163452192,
+              "heapAfter": 216346480,
+              "rssAfter": 753205248
+            },
+            {
+              "elapsedMs": 97.625583,
+              "heapBefore": 227015760,
+              "heapAfter": 279956192,
+              "rssAfter": 815759360
+            },
+            {
+              "elapsedMs": 100.33929200000057,
+              "heapBefore": 290625584,
+              "heapAfter": 127219664,
+              "rssAfter": 664846336
+            },
+            {
+              "elapsedMs": 96.14704099999926,
+              "heapBefore": 137889056,
+              "heapAfter": 189391128,
+              "rssAfter": 717864960
+            },
+            {
+              "elapsedMs": 96.41070899999977,
+              "heapBefore": 200060408,
+              "heapAfter": 252962168,
+              "rssAfter": 780419072
+            },
+            {
+              "elapsedMs": 97.35083299999951,
+              "heapBefore": 263631504,
+              "heapAfter": 316519880,
+              "rssAfter": 842973184
+            },
+            {
+              "elapsedMs": 110.78870900000038,
+              "heapBefore": 327189216,
+              "heapAfter": 129119864,
+              "rssAfter": 659013632
+            },
+            {
+              "elapsedMs": 98.23883399999977,
+              "heapBefore": 126015080,
+              "heapAfter": 189624360,
+              "rssAfter": 717012992
+            },
+            {
+              "elapsedMs": 95.9872089999999,
+              "heapBefore": 200293640,
+              "heapAfter": 253134272,
+              "rssAfter": 774717440
+            },
+            {
+              "elapsedMs": 96.17549999999937,
+              "heapBefore": 263803608,
+              "heapAfter": 316659728,
+              "rssAfter": 832421888
+            },
+            {
+              "elapsedMs": 110.74245799999971,
+              "heapBefore": 327329424,
+              "heapAfter": 129154288,
+              "rssAfter": 658833408
+            },
+            {
+              "elapsedMs": 97.996666,
+              "heapBefore": 125881976,
+              "heapAfter": 189439896,
+              "rssAfter": 717045760
+            }
+          ],
+          "n": 20,
+          "medianMs": 98.67083299999967,
+          "p95Ms": 110.74245799999971,
+          "maxMs": 110.78870900000038,
+          "minMs": 95.9872089999999
+        },
+        {
+          "name": "indexed-studio-profile-first-page-50",
+          "warmups": [
+            {
+              "elapsedMs": 0.0711250000003929,
+              "heapBefore": 265546320,
+              "heapAfter": 265580152,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.054999999999381544,
+              "heapBefore": 265585288,
+              "heapAfter": 265618784,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.05187500000010914,
+              "heapBefore": 265620480,
+              "heapAfter": 265654432,
+              "rssAfter": 785825792
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 0.05320800000026793,
+              "heapBefore": 265656128,
+              "heapAfter": 265689680,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.050583000000187894,
+              "heapBefore": 265691528,
+              "heapAfter": 265725272,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.04883299999983137,
+              "heapBefore": 265726968,
+              "heapAfter": 265760496,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0479589999995369,
+              "heapBefore": 265762192,
+              "heapAfter": 265795768,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.05912499999976717,
+              "heapBefore": 265797464,
+              "heapAfter": 266035256,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.07191700000021228,
+              "heapBefore": 266036952,
+              "heapAfter": 266072384,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0702080000000933,
+              "heapBefore": 266074176,
+              "heapAfter": 266108400,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.06662500000038563,
+              "heapBefore": 266110096,
+              "heapAfter": 265988920,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.05008300000008603,
+              "heapBefore": 265990616,
+              "heapAfter": 266024368,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.042792000000190455,
+              "heapBefore": 266026064,
+              "heapAfter": 266059824,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.04141700000036508,
+              "heapBefore": 266061520,
+              "heapAfter": 266095272,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.040750000000116415,
+              "heapBefore": 266096968,
+              "heapAfter": 266130720,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.04804200000035053,
+              "heapBefore": 266132416,
+              "heapAfter": 266166168,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.04975000000013097,
+              "heapBefore": 266169416,
+              "heapAfter": 266203168,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.039791999999579275,
+              "heapBefore": 266204864,
+              "heapAfter": 266238616,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.06145899999955873,
+              "heapBefore": 266240312,
+              "heapAfter": 266275296,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.04979200000070705,
+              "heapBefore": 266295376,
+              "heapAfter": 266312440,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.039416999999957625,
+              "heapBefore": 266314136,
+              "heapAfter": 266347888,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.039292000000386906,
+              "heapBefore": 266349944,
+              "heapAfter": 266383696,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.03916699999990669,
+              "heapBefore": 266385392,
+              "heapAfter": 266419144,
+              "rssAfter": 785825792
+            }
+          ],
+          "n": 20,
+          "medianMs": 0.04929149999998117,
+          "p95Ms": 0.0702080000000933,
+          "maxMs": 0.07191700000021228,
+          "minMs": 0.03916699999990669
+        },
+        {
+          "name": "cached-industry-summary",
+          "warmups": [
+            {
+              "elapsedMs": 0.0279579999996713,
+              "heapBefore": 266510488,
+              "heapAfter": 266513792,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0023339999997915584,
+              "heapBefore": 266516304,
+              "heapAfter": 266517168,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0015000000003055902,
+              "heapBefore": 266518864,
+              "heapAfter": 266519728,
+              "rssAfter": 785825792
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 0.0015829999993002275,
+              "heapBefore": 266521424,
+              "heapAfter": 266522288,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.001291999999921245,
+              "heapBefore": 266524136,
+              "heapAfter": 266525000,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.001291000000492204,
+              "heapBefore": 266526696,
+              "heapAfter": 266527560,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.001209000000017113,
+              "heapBefore": 266529256,
+              "heapAfter": 266530120,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.001209000000017113,
+              "heapBefore": 266531816,
+              "heapAfter": 266532680,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.00204200000007404,
+              "heapBefore": 266534376,
+              "heapAfter": 266535584,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.003749999999854481,
+              "heapBefore": 266537328,
+              "heapAfter": 266538224,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.001750000000356522,
+              "heapBefore": 266539920,
+              "heapAfter": 266540912,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0006670000002486631,
+              "heapBefore": 266542608,
+              "heapAfter": 266543488,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0005000000001018634,
+              "heapBefore": 266545184,
+              "heapAfter": 266546064,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0004579999995257822,
+              "heapBefore": 266547760,
+              "heapAfter": 266548640,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0004170000001977314,
+              "heapBefore": 266550336,
+              "heapAfter": 266551216,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.00045899999986431794,
+              "heapBefore": 266552912,
+              "heapAfter": 266553792,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0004170000001977314,
+              "heapBefore": 266555488,
+              "heapAfter": 266556368,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0005840000003445311,
+              "heapBefore": 266558064,
+              "heapAfter": 266558944,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0004580000004352769,
+              "heapBefore": 266560640,
+              "heapAfter": 266563816,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0010419999998703133,
+              "heapBefore": 266564008,
+              "heapAfter": 266564888,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0006659999999101274,
+              "heapBefore": 266566584,
+              "heapAfter": 266567464,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.002583000000413449,
+              "heapBefore": 266569520,
+              "heapAfter": 266570400,
+              "rssAfter": 785825792
+            },
+            {
+              "elapsedMs": 0.0014169999994919635,
+              "heapBefore": 266574968,
+              "heapAfter": 266575904,
+              "rssAfter": 785825792
+            }
+          ],
+          "n": 20,
+          "medianMs": 0.0011254999999437132,
+          "p95Ms": 0.002583000000413449,
+          "maxMs": 0.003749999999854481,
+          "minMs": 0.0004170000001977314
+        }
+      ],
+      "firstUncachedIndustryPageMs": 106.00195799999983,
+      "firstPageUtf8Bytes": 16190,
+      "storageComponents": {
+        "unit": "uncompressed canonical UTF-8 bytes",
+        "hollywoodRootBytes": 10359865,
+        "exactWholeSaveIncrementForHollywoodRoot": 10359878,
+        "rootComponents": {
+          "activeEmploymentOrdinals": 121,
+          "businesses": 826708,
+          "calendarPolicy": 30,
+          "careerEvents": 5681991,
+          "chart": 1551,
+          "concepts": 561968,
+          "employment": 85335,
+          "films": 2519863,
+          "identities": 2214,
+          "nextReceipt": 4,
+          "origin": 7,
+          "originWeek": 1,
+          "playerStudioId": 24,
+          "previousChart": 1422,
+          "receipts": 678319,
+          "startingManifest": 27,
+          "version": 1,
+          "worldId": 16
+        },
+        "businessBytes": [
+          {
+            "studioId": "studio-e26cea4b-r01",
+            "bytes": 37229,
+            "components": {
+              "account": 12639,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 7,
+              "development": 17963,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 457,
+              "policy": 154,
+              "productions": 2,
+              "projects": 5619,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 103,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r02",
+            "bytes": 280613,
+            "components": {
+              "account": 14456,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 9,
+              "development": 197346,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 861,
+              "policy": 157,
+              "productions": 3920,
+              "projects": 63490,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 89,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r03",
+            "bytes": 34648,
+            "components": {
+              "account": 12676,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 7,
+              "development": 15986,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 457,
+              "policy": 157,
+              "productions": 2,
+              "projects": 4960,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 118,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r04",
+            "bytes": 33700,
+            "components": {
+              "account": 12668,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 7,
+              "development": 15269,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 457,
+              "policy": 156,
+              "productions": 2,
+              "projects": 4739,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 117,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r05",
+            "bytes": 214926,
+            "components": {
+              "account": 11524,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 9,
+              "development": 147937,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 718,
+              "policy": 156,
+              "productions": 3668,
+              "projects": 50540,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 89,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r06",
+            "bytes": 167030,
+            "components": {
+              "account": 8917,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 9,
+              "development": 114252,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 718,
+              "policy": 156,
+              "productions": 3712,
+              "projects": 38892,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 89,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r07",
+            "bytes": 35126,
+            "components": {
+              "account": 5235,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 7,
+              "development": 21654,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 457,
+              "policy": 157,
+              "productions": 2,
+              "projects": 7243,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 86,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r08",
+            "bytes": 22086,
+            "components": {
+              "account": 3585,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 7,
+              "development": 13144,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 457,
+              "policy": 157,
+              "productions": 2,
+              "projects": 4349,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 100,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r09",
+            "bytes": 1340,
+            "components": {
+              "account": 332,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 2,
+              "development": 32,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 457,
+              "policy": 156,
+              "productions": 2,
+              "projects": 2,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 72,
+              "studioId": 21
+            }
+          }
+        ],
+        "filmRows": {
+          "n": 800,
+          "sum": 2519062,
+          "average": 3148.8275,
+          "max": 3315
+        },
+        "p12AddedSharedPeople": {
+          "identityRule": "talent.id exact person-<non-player canonical studioId>- prefix minted by Hollywood; includes all matched shared talent records even if later departed",
+          "count": 24,
+          "bytes": 82560
+        },
+        "typedHistorySelectedSumBytes": 6445645,
+        "qualifications": [
+          "Component array punctuation is counted in each component value; per-row sums omit array punctuation.",
+          "Exact Hollywood root delta is whole canonical Save minus hypothetical field omission used only for size attribution; no such reduced Save is written/imported.",
+          "Added shared people are reported separately, not silently summed with potentially overlapping Hollywood career-credit references.",
+          "No permanent film/person/history/receipt record removed. These are full-target9-rival measurements, not synthetic12 stress."
+        ]
+      }
+    },
+    {
+      "label": "full-target-after-6240",
+      "path": "/tmp/p12a-core-resume-t7c16t09/week-8788.save.json",
+      "sha256": "cd0e3836332c4b4ffd87e637381c2d5e2d1e4c9db976c4df47b8683550de56d9",
+      "bytes": 38135529,
+      "seed": "r05-living-hollywood",
+      "week": 8788,
+      "counts": {
+        "rivals": 9,
+        "films": 2900,
+        "liveFilms": 2892,
+        "careerEvents": 17352,
+        "employment": 894,
+        "receipts": 9614,
+        "people": 84,
+        "activeProjects": 2
+      },
+      "phases": [
+        {
+          "name": "canonical-serialize-already-validated-detached-save",
+          "warmups": [
+            {
+              "elapsedMs": 167.96737500000017,
+              "heapBefore": 390129552,
+              "heapAfter": 547174600,
+              "rssAfter": 1075363840
+            },
+            {
+              "elapsedMs": 168.71029199999975,
+              "heapBefore": 585319240,
+              "heapAfter": 742561280,
+              "rssAfter": 1230323712
+            },
+            {
+              "elapsedMs": 174.37624999999935,
+              "heapBefore": 780699648,
+              "heapAfter": 360243648,
+              "rssAfter": 945045504
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 171.08445799999936,
+              "heapBefore": 398381960,
+              "heapAfter": 522333064,
+              "rssAfter": 1064108032
+            },
+            {
+              "elapsedMs": 168.90608299999985,
+              "heapBefore": 556717048,
+              "heapAfter": 718699304,
+              "rssAfter": 1218887680
+            },
+            {
+              "elapsedMs": 177.0457920000008,
+              "heapBefore": 753139560,
+              "heapAfter": 329978520,
+              "rssAfter": 907526144
+            },
+            {
+              "elapsedMs": 172.2670419999995,
+              "heapBefore": 368116776,
+              "heapAfter": 492062072,
+              "rssAfter": 1026801664
+            },
+            {
+              "elapsedMs": 170.36399999999958,
+              "heapBefore": 526473720,
+              "heapAfter": 688446712,
+              "rssAfter": 1181188096
+            },
+            {
+              "elapsedMs": 174.65137499999946,
+              "heapBefore": 726585024,
+              "heapAfter": 399612808,
+              "rssAfter": 982630400
+            },
+            {
+              "elapsedMs": 173.06745799999953,
+              "heapBefore": 437751120,
+              "heapAfter": 554561896,
+              "rssAfter": 1102364672
+            },
+            {
+              "elapsedMs": 170.4485420000001,
+              "heapBefore": 592700096,
+              "heapAfter": 716497336,
+              "rssAfter": 1218609152
+            },
+            {
+              "elapsedMs": 169.20474999999897,
+              "heapBefore": 754635536,
+              "heapAfter": 870058296,
+              "rssAfter": 1337409536
+            },
+            {
+              "elapsedMs": 177.18375000000015,
+              "heapBefore": 908196552,
+              "heapAfter": 361539040,
+              "rssAfter": 946110464
+            },
+            {
+              "elapsedMs": 172.46850000000086,
+              "heapBefore": 399677296,
+              "heapAfter": 523588904,
+              "rssAfter": 1063436288
+            },
+            {
+              "elapsedMs": 171.37420799999927,
+              "heapBefore": 561727160,
+              "heapAfter": 677095176,
+              "rssAfter": 1182466048
+            },
+            {
+              "elapsedMs": 181.52479099999982,
+              "heapBefore": 715233320,
+              "heapAfter": 264967640,
+              "rssAfter": 864796672
+            },
+            {
+              "elapsedMs": 170.33758399999897,
+              "heapBefore": 303108432,
+              "heapAfter": 426972112,
+              "rssAfter": 981663744
+            },
+            {
+              "elapsedMs": 174.09595799999988,
+              "heapBefore": 465110368,
+              "heapAfter": 580490296,
+              "rssAfter": 975536128
+            },
+            {
+              "elapsedMs": 181.43612500000017,
+              "heapBefore": 618628496,
+              "heapAfter": 305239312,
+              "rssAfter": 749371392
+            },
+            {
+              "elapsedMs": 172.01587499999914,
+              "heapBefore": 343377680,
+              "heapAfter": 458935464,
+              "rssAfter": 870203392
+            },
+            {
+              "elapsedMs": 180.414041,
+              "heapBefore": 497073720,
+              "heapAfter": 304970384,
+              "rssAfter": 749584384
+            },
+            {
+              "elapsedMs": 173.38787499999853,
+              "heapBefore": 343109112,
+              "heapAfter": 459173472,
+              "rssAfter": 870203392
+            },
+            {
+              "elapsedMs": 180.18683299999975,
+              "heapBefore": 497311728,
+              "heapAfter": 305090368,
+              "rssAfter": 749584384
+            }
+          ],
+          "n": 20,
+          "medianMs": 172.7679790000002,
+          "p95Ms": 181.43612500000017,
+          "maxMs": 181.52479099999982,
+          "minMs": 168.90608299999985
+        },
+        {
+          "name": "sha256-existing-canonical-utf8-string",
+          "warmups": [
+            {
+              "elapsedMs": 14.884833000000071,
+              "heapBefore": 343421120,
+              "heapAfter": 343422888,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.392582999998922,
+              "heapBefore": 343427176,
+              "heapAfter": 343428008,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.406750000000102,
+              "heapBefore": 343429704,
+              "heapAfter": 343430536,
+              "rssAfter": 825884672
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 13.529708000000028,
+              "heapBefore": 343432232,
+              "heapAfter": 343433064,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.442000000000917,
+              "heapBefore": 343434912,
+              "heapAfter": 343435744,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.385041999999885,
+              "heapBefore": 343437440,
+              "heapAfter": 343438272,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.475749999999607,
+              "heapBefore": 343439968,
+              "heapAfter": 343440800,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.491416999999274,
+              "heapBefore": 343442496,
+              "heapAfter": 343443328,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.38116699999955,
+              "heapBefore": 343445080,
+              "heapAfter": 343445912,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.38550000000032,
+              "heapBefore": 343447608,
+              "heapAfter": 343448440,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.384000000000015,
+              "heapBefore": 343450136,
+              "heapAfter": 343450968,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.393708999999944,
+              "heapBefore": 343452664,
+              "heapAfter": 343453496,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.444999999999709,
+              "heapBefore": 343455192,
+              "heapAfter": 343456024,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.388542000000598,
+              "heapBefore": 343457720,
+              "heapAfter": 343458552,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.402374999999665,
+              "heapBefore": 343460248,
+              "heapAfter": 343461080,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.395000000000437,
+              "heapBefore": 343462776,
+              "heapAfter": 343463608,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.392958000000363,
+              "heapBefore": 343465304,
+              "heapAfter": 343466136,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.386583999999857,
+              "heapBefore": 343467832,
+              "heapAfter": 343468664,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.50550000000112,
+              "heapBefore": 343470360,
+              "heapAfter": 343471192,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.405957999999373,
+              "heapBefore": 343472888,
+              "heapAfter": 343473720,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.429958999999144,
+              "heapBefore": 343475416,
+              "heapAfter": 343476248,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.392749999999069,
+              "heapBefore": 343478304,
+              "heapAfter": 343479136,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 13.535499999999956,
+              "heapBefore": 343480832,
+              "heapAfter": 343481664,
+              "rssAfter": 825884672
+            }
+          ],
+          "n": 20,
+          "medianMs": 13.398687500000051,
+          "p95Ms": 13.529708000000028,
+          "maxMs": 13.535499999999956,
+          "minMs": 13.38116699999955
+        },
+        {
+          "name": "canonical-serialize-plus-sha256-paired",
+          "warmups": [
+            {
+              "elapsedMs": 187.42304200000035,
+              "heapBefore": 343631032,
+              "heapAfter": 497242200,
+              "rssAfter": 946503680
+            },
+            {
+              "elapsedMs": 195.62304200000108,
+              "heapBefore": 497245464,
+              "heapAfter": 342809360,
+              "rssAfter": 825884672
+            },
+            {
+              "elapsedMs": 187.97495799999888,
+              "heapBefore": 342812176,
+              "heapAfter": 497335096,
+              "rssAfter": 946503680
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 186.22549999999865,
+              "heapBefore": 81121576,
+              "heapAfter": 319513912,
+              "rssAfter": 823836672
+            },
+            {
+              "elapsedMs": 189.79620799999975,
+              "heapBefore": 319516728,
+              "heapAfter": 473044120,
+              "rssAfter": 942653440
+            },
+            {
+              "elapsedMs": 185.86708400000134,
+              "heapBefore": 119051816,
+              "heapAfter": 357555048,
+              "rssAfter": 861536256
+            },
+            {
+              "elapsedMs": 187.93587500000103,
+              "heapBefore": 357557656,
+              "heapAfter": 511001128,
+              "rssAfter": 980566016
+            },
+            {
+              "elapsedMs": 195.27708299999904,
+              "heapBefore": 511003680,
+              "heapAfter": 294101576,
+              "rssAfter": 827162624
+            },
+            {
+              "elapsedMs": 186.57029200000034,
+              "heapBefore": 294106720,
+              "heapAfter": 442799472,
+              "rssAfter": 945225728
+            },
+            {
+              "elapsedMs": 188.47204099999908,
+              "heapBefore": 442802024,
+              "heapAfter": 604845056,
+              "rssAfter": 1063370752
+            },
+            {
+              "elapsedMs": 184.9542079999992,
+              "heapBefore": 604847608,
+              "heapAfter": 758273232,
+              "rssAfter": 1195180032
+            },
+            {
+              "elapsedMs": 219.31304199999977,
+              "heapBefore": 758275784,
+              "heapAfter": 374276496,
+              "rssAfter": 901775360
+            },
+            {
+              "elapsedMs": 189.05295899999874,
+              "heapBefore": 374279104,
+              "heapAfter": 522267816,
+              "rssAfter": 1022394368
+            },
+            {
+              "elapsedMs": 187.0989580000005,
+              "heapBefore": 522270368,
+              "heapAfter": 684317280,
+              "rssAfter": 1138638848
+            },
+            {
+              "elapsedMs": 197.7191670000011,
+              "heapBefore": 684319832,
+              "heapAfter": 337064264,
+              "rssAfter": 901775360
+            },
+            {
+              "elapsedMs": 188.1638750000002,
+              "heapBefore": 337069352,
+              "heapAfter": 499178656,
+              "rssAfter": 1021050880
+            },
+            {
+              "elapsedMs": 198.01404100000218,
+              "heapBefore": 499181264,
+              "heapAfter": 301181760,
+              "rssAfter": 898498560
+            },
+            {
+              "elapsedMs": 186.88466700000208,
+              "heapBefore": 301186848,
+              "heapAfter": 463122272,
+              "rssAfter": 1013923840
+            },
+            {
+              "elapsedMs": 199.5241249999999,
+              "heapBefore": 463124880,
+              "heapAfter": 616720736,
+              "rssAfter": 1132953600
+            },
+            {
+              "elapsedMs": 186.29379199999676,
+              "heapBefore": 119036600,
+              "heapAfter": 357637536,
+              "rssAfter": 937181184
+            },
+            {
+              "elapsedMs": 190.4559999999983,
+              "heapBefore": 357640144,
+              "heapAfter": 510976536,
+              "rssAfter": 1056210944
+            },
+            {
+              "elapsedMs": 195.6755000000012,
+              "heapBefore": 510979448,
+              "heapAfter": 294086728,
+              "rssAfter": 896630784
+            },
+            {
+              "elapsedMs": 188.3055000000022,
+              "heapBefore": 294091872,
+              "heapAfter": 442750576,
+              "rssAfter": 1014644736
+            }
+          ],
+          "n": 20,
+          "medianMs": 188.38877050000065,
+          "p95Ms": 199.5241249999999,
+          "maxMs": 219.31304199999977,
+          "minMs": 184.9542079999992
+        },
+        {
+          "name": "strict-validate-already-parsed-v19",
+          "warmups": [
+            {
+              "elapsedMs": 94.45208399999683,
+              "heapBefore": 442917464,
+              "heapAfter": 373970544,
+              "rssAfter": 939425792
+            },
+            {
+              "elapsedMs": 92.10383300000103,
+              "heapBefore": 373975128,
+              "heapAfter": 381262696,
+              "rssAfter": 941260800
+            },
+            {
+              "elapsedMs": 92.71716699999888,
+              "heapBefore": 381264688,
+              "heapAfter": 388652144,
+              "rssAfter": 943095808
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 92.09870799999771,
+              "heapBefore": 388654136,
+              "heapAfter": 396189808,
+              "rssAfter": 945537024
+            },
+            {
+              "elapsedMs": 91.75775000000067,
+              "heapBefore": 396191952,
+              "heapAfter": 403658992,
+              "rssAfter": 947978240
+            },
+            {
+              "elapsedMs": 92.47483400000056,
+              "heapBefore": 403660984,
+              "heapAfter": 411649192,
+              "rssAfter": 950419456
+            },
+            {
+              "elapsedMs": 89.6474580000031,
+              "heapBefore": 411651184,
+              "heapAfter": 417778000,
+              "rssAfter": 952238080
+            },
+            {
+              "elapsedMs": 84.96712499999921,
+              "heapBefore": 417779992,
+              "heapAfter": 418928072,
+              "rssAfter": 966246400
+            },
+            {
+              "elapsedMs": 82.38562500000262,
+              "heapBefore": 418930064,
+              "heapAfter": 421478992,
+              "rssAfter": 970686464
+            },
+            {
+              "elapsedMs": 82.38095800000156,
+              "heapBefore": 421480984,
+              "heapAfter": 424815600,
+              "rssAfter": 974438400
+            },
+            {
+              "elapsedMs": 82.25970800000141,
+              "heapBefore": 424817592,
+              "heapAfter": 428193368,
+              "rssAfter": 977715200
+            },
+            {
+              "elapsedMs": 84.33429199999955,
+              "heapBefore": 428195360,
+              "heapAfter": 432322584,
+              "rssAfter": 980582400
+            },
+            {
+              "elapsedMs": 77.94066699999894,
+              "heapBefore": 432324576,
+              "heapAfter": 429969608,
+              "rssAfter": 983072768
+            },
+            {
+              "elapsedMs": 83.64966699999786,
+              "heapBefore": 429971600,
+              "heapAfter": 461441560,
+              "rssAfter": 984580096
+            },
+            {
+              "elapsedMs": 84.92462499999965,
+              "heapBefore": 431816768,
+              "heapAfter": 463295400,
+              "rssAfter": 986185728
+            },
+            {
+              "elapsedMs": 84.53974999999991,
+              "heapBefore": 435744072,
+              "heapAfter": 467193984,
+              "rssAfter": 987873280
+            },
+            {
+              "elapsedMs": 86.4083329999994,
+              "heapBefore": 439690160,
+              "heapAfter": 471670360,
+              "rssAfter": 989806592
+            },
+            {
+              "elapsedMs": 83.17258299999958,
+              "heapBefore": 444159088,
+              "heapAfter": 474401800,
+              "rssAfter": 991395840
+            },
+            {
+              "elapsedMs": 88.8805829999983,
+              "heapBefore": 448192656,
+              "heapAfter": 480662080,
+              "rssAfter": 993804288
+            },
+            {
+              "elapsedMs": 82.9027500000011,
+              "heapBefore": 453029552,
+              "heapAfter": 484867440,
+              "rssAfter": 995835904
+            },
+            {
+              "elapsedMs": 80.95495899999878,
+              "heapBefore": 457364832,
+              "heapAfter": 489619336,
+              "rssAfter": 999817216
+            },
+            {
+              "elapsedMs": 82.02995799999917,
+              "heapBefore": 461960728,
+              "heapAfter": 496448552,
+              "rssAfter": 1001340928
+            },
+            {
+              "elapsedMs": 84.75958400000309,
+              "heapBefore": 465825328,
+              "heapAfter": 500402296,
+              "rssAfter": 1002848256
+            }
+          ],
+          "n": 20,
+          "medianMs": 84.43702099999973,
+          "p95Ms": 92.09870799999771,
+          "maxMs": 92.47483400000056,
+          "minMs": 77.94066699999894
+        },
+        {
+          "name": "parse-and-strict-import-v19",
+          "warmups": [
+            {
+              "elapsedMs": 168.19754199999807,
+              "heapBefore": 469814832,
+              "heapAfter": 521421808,
+              "rssAfter": 1005518848
+            },
+            {
+              "elapsedMs": 159.53391600000032,
+              "heapBefore": 521424528,
+              "heapAfter": 568688272,
+              "rssAfter": 1008222208
+            },
+            {
+              "elapsedMs": 159.22529100000247,
+              "heapBefore": 568690376,
+              "heapAfter": 615326552,
+              "rssAfter": 1049919488
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 158.90870800000266,
+              "heapBefore": 615328656,
+              "heapAfter": 661307152,
+              "rssAfter": 1093337088
+            },
+            {
+              "elapsedMs": 160.0580829999999,
+              "heapBefore": 661309408,
+              "heapAfter": 706681336,
+              "rssAfter": 1136721920
+            },
+            {
+              "elapsedMs": 166.8331659999967,
+              "heapBefore": 706683496,
+              "heapAfter": 150565184,
+              "rssAfter": 881000448
+            },
+            {
+              "elapsedMs": 160.60508400000253,
+              "heapBefore": 150567344,
+              "heapAfter": 196446696,
+              "rssAfter": 882753536
+            },
+            {
+              "elapsedMs": 160.2177499999998,
+              "heapBefore": 166981872,
+              "heapAfter": 212573656,
+              "rssAfter": 884506624
+            },
+            {
+              "elapsedMs": 171.41833300000144,
+              "heapBefore": 212575760,
+              "heapAfter": 145650104,
+              "rssAfter": 879738880
+            },
+            {
+              "elapsedMs": 160.28487499999756,
+              "heapBefore": 145654800,
+              "heapAfter": 192987088,
+              "rssAfter": 882327552
+            },
+            {
+              "elapsedMs": 158.8959590000013,
+              "heapBefore": 192989248,
+              "heapAfter": 238428184,
+              "rssAfter": 884965376
+            },
+            {
+              "elapsedMs": 159.64483400000245,
+              "heapBefore": 238430288,
+              "heapAfter": 283069168,
+              "rssAfter": 886882304
+            },
+            {
+              "elapsedMs": 157.88108400000056,
+              "heapBefore": 283071272,
+              "heapAfter": 327458112,
+              "rssAfter": 888799232
+            },
+            {
+              "elapsedMs": 159.1386249999996,
+              "heapBefore": 327460216,
+              "heapAfter": 371596672,
+              "rssAfter": 890716160
+            },
+            {
+              "elapsedMs": 157.98675000000003,
+              "heapBefore": 371598776,
+              "heapAfter": 415807112,
+              "rssAfter": 892633088
+            },
+            {
+              "elapsedMs": 157.71475000000282,
+              "heapBefore": 415809216,
+              "heapAfter": 459781952,
+              "rssAfter": 894435328
+            },
+            {
+              "elapsedMs": 158.84000000000015,
+              "heapBefore": 459784056,
+              "heapAfter": 504019072,
+              "rssAfter": 931463168
+            },
+            {
+              "elapsedMs": 161.12383300000147,
+              "heapBefore": 476133816,
+              "heapAfter": 520478640,
+              "rssAfter": 974684160
+            },
+            {
+              "elapsedMs": 160.42479200000162,
+              "heapBefore": 520480744,
+              "heapAfter": 565803624,
+              "rssAfter": 1018101760
+            },
+            {
+              "elapsedMs": 165.2218329999996,
+              "heapBefore": 565805784,
+              "heapAfter": 149605656,
+              "rssAfter": 1010253824
+            },
+            {
+              "elapsedMs": 158.64724999999817,
+              "heapBefore": 149607816,
+              "heapAfter": 194296136,
+              "rssAfter": 1011990528
+            },
+            {
+              "elapsedMs": 157.80316700000185,
+              "heapBefore": 167029352,
+              "heapAfter": 211353232,
+              "rssAfter": 1013727232
+            },
+            {
+              "elapsedMs": 156.91866700000173,
+              "heapBefore": 211355336,
+              "heapAfter": 256731712,
+              "rssAfter": 1015644160
+            }
+          ],
+          "n": 20,
+          "medianMs": 159.39172950000102,
+          "p95Ms": 166.8331659999967,
+          "maxMs": 171.41833300000144,
+          "minMs": 156.91866700000173
+        },
+        {
+          "name": "makeSave-detach-and-strict-validate",
+          "warmups": [
+            {
+              "elapsedMs": 186.03650000000198,
+              "heapBefore": 256904784,
+              "heapAfter": 337861840,
+              "rssAfter": 1082589184
+            },
+            {
+              "elapsedMs": 181.53041699999812,
+              "heapBefore": 337864656,
+              "heapAfter": 419364808,
+              "rssAfter": 1124679680
+            },
+            {
+              "elapsedMs": 181.36504199999763,
+              "heapBefore": 419366912,
+              "heapAfter": 500933712,
+              "rssAfter": 977666048
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 187.09720799999923,
+              "heapBefore": 500935872,
+              "heapAfter": 186692496,
+              "rssAfter": 905838592
+            },
+            {
+              "elapsedMs": 182.01162499999919,
+              "heapBefore": 186694808,
+              "heapAfter": 267703592,
+              "rssAfter": 946143232
+            },
+            {
+              "elapsedMs": 180.9757920000011,
+              "heapBefore": 267705752,
+              "heapAfter": 348335440,
+              "rssAfter": 985710592
+            },
+            {
+              "elapsedMs": 183.82845799999996,
+              "heapBefore": 321203656,
+              "heapAfter": 401694032,
+              "rssAfter": 1025277952
+            },
+            {
+              "elapsedMs": 180.12004199999865,
+              "heapBefore": 401696136,
+              "heapAfter": 482458496,
+              "rssAfter": 1064845312
+            },
+            {
+              "elapsedMs": 180.6041669999977,
+              "heapBefore": 482460600,
+              "heapAfter": 563128352,
+              "rssAfter": 1104412672
+            },
+            {
+              "elapsedMs": 181.98141699999906,
+              "heapBefore": 563130456,
+              "heapAfter": 644721512,
+              "rssAfter": 1144160256
+            },
+            {
+              "elapsedMs": 195.007708000001,
+              "heapBefore": 81365368,
+              "heapAfter": 162711200,
+              "rssAfter": 906493952
+            },
+            {
+              "elapsedMs": 181.84974999999758,
+              "heapBefore": 162713416,
+              "heapAfter": 243693944,
+              "rssAfter": 946061312
+            },
+            {
+              "elapsedMs": 183.27266699999745,
+              "heapBefore": 243696104,
+              "heapAfter": 324330152,
+              "rssAfter": 985628672
+            },
+            {
+              "elapsedMs": 191.70862500000294,
+              "heapBefore": 324332256,
+              "heapAfter": 186873328,
+              "rssAfter": 906641408
+            },
+            {
+              "elapsedMs": 182.03679099999863,
+              "heapBefore": 186877968,
+              "heapAfter": 267780848,
+              "rssAfter": 946208768
+            },
+            {
+              "elapsedMs": 180.32858300000225,
+              "heapBefore": 267783008,
+              "heapAfter": 348339424,
+              "rssAfter": 985776128
+            },
+            {
+              "elapsedMs": 180.23950000000332,
+              "heapBefore": 321216760,
+              "heapAfter": 401751448,
+              "rssAfter": 1025343488
+            },
+            {
+              "elapsedMs": 181.69054099999994,
+              "heapBefore": 401753552,
+              "heapAfter": 482376760,
+              "rssAfter": 1064910848
+            },
+            {
+              "elapsedMs": 180.294332999998,
+              "heapBefore": 482378864,
+              "heapAfter": 563113984,
+              "rssAfter": 1104478208
+            },
+            {
+              "elapsedMs": 181.15729199999987,
+              "heapBefore": 563116088,
+              "heapAfter": 644756616,
+              "rssAfter": 1144225792
+            },
+            {
+              "elapsedMs": 186.23733300000094,
+              "heapBefore": 644758776,
+              "heapAfter": 186699056,
+              "rssAfter": 906641408
+            },
+            {
+              "elapsedMs": 182.12270799999897,
+              "heapBefore": 186701576,
+              "heapAfter": 267802056,
+              "rssAfter": 946208768
+            },
+            {
+              "elapsedMs": 180.5847500000018,
+              "heapBefore": 267804216,
+              "heapAfter": 348359096,
+              "rssAfter": 985907200
+            }
+          ],
+          "n": 20,
+          "medianMs": 181.91558349999832,
+          "p95Ms": 191.70862500000294,
+          "maxMs": 195.007708000001,
+          "minMs": 180.12004199999865
+        },
+        {
+          "name": "complete-export-current-state",
+          "warmups": [
+            {
+              "elapsedMs": 353.5219169999982,
+              "heapBefore": 321461040,
+              "heapAfter": 603116128,
+              "rssAfter": 1184219136
+            },
+            {
+              "elapsedMs": 383.8114999999998,
+              "heapBefore": 641255448,
+              "heapAfter": 327208648,
+              "rssAfter": 1024802816
+            },
+            {
+              "elapsedMs": 361.1090409999997,
+              "heapBefore": 365349848,
+              "heapAfter": 567323144,
+              "rssAfter": 1181122560
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 358.1542499999996,
+              "heapBefore": 605461808,
+              "heapAfter": 804118008,
+              "rssAfter": 1337442304
+            },
+            {
+              "elapsedMs": 364.67062499999884,
+              "heapBefore": 842256824,
+              "heapAfter": 390993864,
+              "rssAfter": 1066696704
+            },
+            {
+              "elapsedMs": 361.1160000000018,
+              "heapBefore": 398095816,
+              "heapAfter": 640717232,
+              "rssAfter": 1263091712
+            },
+            {
+              "elapsedMs": 367.1179169999996,
+              "heapBefore": 678855896,
+              "heapAfter": 370662104,
+              "rssAfter": 1066090496
+            },
+            {
+              "elapsedMs": 358.8557919999985,
+              "heapBefore": 408803328,
+              "heapAfter": 612954296,
+              "rssAfter": 1224343552
+            },
+            {
+              "elapsedMs": 380.4905000000035,
+              "heapBefore": 651093016,
+              "heapAfter": 324539320,
+              "rssAfter": 999096320
+            },
+            {
+              "elapsedMs": 360.6740000000027,
+              "heapBefore": 338177104,
+              "heapAfter": 582184680,
+              "rssAfter": 1192476672
+            },
+            {
+              "elapsedMs": 381.6488329999993,
+              "heapBefore": 620323344,
+              "heapAfter": 294393888,
+              "rssAfter": 998916096
+            },
+            {
+              "elapsedMs": 365.90179200000057,
+              "heapBefore": 332535088,
+              "heapAfter": 538594736,
+              "rssAfter": 1156907008
+            },
+            {
+              "elapsedMs": 355.6279170000016,
+              "heapBefore": 559580424,
+              "heapAfter": 802176800,
+              "rssAfter": 1350287360
+            },
+            {
+              "elapsedMs": 380.12862499999756,
+              "heapBefore": 840315408,
+              "heapAfter": 326462608,
+              "rssAfter": 999374848
+            },
+            {
+              "elapsedMs": 362.2872920000009,
+              "heapBefore": 364603808,
+              "heapAfter": 570511136,
+              "rssAfter": 1155989504
+            },
+            {
+              "elapsedMs": 355.80749999999534,
+              "heapBefore": 598711160,
+              "heapAfter": 841340952,
+              "rssAfter": 1349369856
+            },
+            {
+              "elapsedMs": 360.86037499999657,
+              "heapBefore": 879479672,
+              "heapAfter": 507452752,
+              "rssAfter": 1155268608
+            },
+            {
+              "elapsedMs": 368.35737500000687,
+              "heapBefore": 514629592,
+              "heapAfter": 757336552,
+              "rssAfter": 1350533120
+            },
+            {
+              "elapsedMs": 356.7927920000002,
+              "heapBefore": 795475216,
+              "heapAfter": 996512864,
+              "rssAfter": 1508573184
+            },
+            {
+              "elapsedMs": 360.07133299999987,
+              "heapBefore": 1034651472,
+              "heapAfter": 1237968920,
+              "rssAfter": 1697480704
+            },
+            {
+              "elapsedMs": 365.4764170000053,
+              "heapBefore": 1260899432,
+              "heapAfter": 429125048,
+              "rssAfter": 1113571328
+            },
+            {
+              "elapsedMs": 357.4523749999935,
+              "heapBefore": 436206344,
+              "heapAfter": 678741352,
+              "rssAfter": 1309966336
+            },
+            {
+              "elapsedMs": 358.28741699999955,
+              "heapBefore": 716880016,
+              "heapAfter": 918017872,
+              "rssAfter": 1376485376
+            }
+          ],
+          "n": 20,
+          "medianMs": 360.9881874999992,
+          "p95Ms": 380.4905000000035,
+          "maxMs": 381.6488329999993,
+          "minMs": 355.6279170000016
+        },
+        {
+          "name": "indexed-studio-profile-first-page-50",
+          "warmups": [
+            {
+              "elapsedMs": 0.06766700000298442,
+              "heapBefore": 521921824,
+              "heapAfter": 521955416,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.047459000001254026,
+              "heapBefore": 521961232,
+              "heapAfter": 521994824,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.044500000003608875,
+              "heapBefore": 521996432,
+              "heapAfter": 522030024,
+              "rssAfter": 1142046720
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 0.04349999999976717,
+              "heapBefore": 522031624,
+              "heapAfter": 522065216,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.04291699999885168,
+              "heapBefore": 522066968,
+              "heapAfter": 522100560,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.04279099999985192,
+              "heapBefore": 522102160,
+              "heapAfter": 522135752,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.04266700000152923,
+              "heapBefore": 522137352,
+              "heapAfter": 522170944,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.04258300000219606,
+              "heapBefore": 522172544,
+              "heapAfter": 522206136,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.04270900000119582,
+              "heapBefore": 522207736,
+              "heapAfter": 522241328,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.04254200000286801,
+              "heapBefore": 522242928,
+              "heapAfter": 522276520,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.05016600000089966,
+              "heapBefore": 522278120,
+              "heapAfter": 522311712,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.04608300000109011,
+              "heapBefore": 522313312,
+              "heapAfter": 522346904,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.062334000002010725,
+              "heapBefore": 522348504,
+              "heapAfter": 522383256,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.04466699999466073,
+              "heapBefore": 522384856,
+              "heapAfter": 522418448,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.042625000001862645,
+              "heapBefore": 522420048,
+              "heapAfter": 522453640,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.052833000001555774,
+              "heapBefore": 522455240,
+              "heapAfter": 522488832,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.05162500000005821,
+              "heapBefore": 522490432,
+              "heapAfter": 522526080,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.04287499999918509,
+              "heapBefore": 522527680,
+              "heapAfter": 522561272,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.04237499999726424,
+              "heapBefore": 522562872,
+              "heapAfter": 522596464,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.06645800000114832,
+              "heapBefore": 522598064,
+              "heapAfter": 522670008,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.05912499999976717,
+              "heapBefore": 522671608,
+              "heapAfter": 522705200,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.047333000002254266,
+              "heapBefore": 522707160,
+              "heapAfter": 522740752,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.043958000002021436,
+              "heapBefore": 522742352,
+              "heapAfter": 522775944,
+              "rssAfter": 1142046720
+            }
+          ],
+          "n": 20,
+          "medianMs": 0.0437290000008943,
+          "p95Ms": 0.062334000002010725,
+          "maxMs": 0.06645800000114832,
+          "minMs": 0.04237499999726424
+        },
+        {
+          "name": "cached-industry-summary",
+          "warmups": [
+            {
+              "elapsedMs": 0.0012080000014975667,
+              "heapBefore": 523008752,
+              "heapAfter": 523009536,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0005410000012489036,
+              "heapBefore": 523011752,
+              "heapAfter": 523012536,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0004169999956502579,
+              "heapBefore": 523014136,
+              "heapAfter": 523014920,
+              "rssAfter": 1142046720
+            }
+          ],
+          "samples": [
+            {
+              "elapsedMs": 0.0013330000001587905,
+              "heapBefore": 523028168,
+              "heapAfter": 523028952,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0006250000005820766,
+              "heapBefore": 523104328,
+              "heapAfter": 523105112,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0005000000019208528,
+              "heapBefore": 523032872,
+              "heapAfter": 523028440,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0003749999959836714,
+              "heapBefore": 523030040,
+              "heapAfter": 523030824,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0003329999963170849,
+              "heapBefore": 523032424,
+              "heapAfter": 523033208,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.00029099999665049836,
+              "heapBefore": 523034808,
+              "heapAfter": 523035592,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.00029200000426499173,
+              "heapBefore": 523037192,
+              "heapAfter": 523037976,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0002499999973224476,
+              "heapBefore": 523039576,
+              "heapAfter": 523040360,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0002499999973224476,
+              "heapBefore": 523041960,
+              "heapAfter": 523042744,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0002499999973224476,
+              "heapBefore": 523044344,
+              "heapAfter": 523045128,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0002919999969890341,
+              "heapBefore": 523046728,
+              "heapAfter": 523047512,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.00029200000426499173,
+              "heapBefore": 523049112,
+              "heapAfter": 523049896,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0002919999969890341,
+              "heapBefore": 523051496,
+              "heapAfter": 523052280,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0002919999969890341,
+              "heapBefore": 523053880,
+              "heapAfter": 523054664,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0004999999946448952,
+              "heapBefore": 523056264,
+              "heapAfter": 523057048,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.00033399999665562063,
+              "heapBefore": 523058648,
+              "heapAfter": 523059432,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.00041599999531172216,
+              "heapBefore": 523062656,
+              "heapAfter": 523063440,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.0002499999973224476,
+              "heapBefore": 523065040,
+              "heapAfter": 523065824,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.00029099999665049836,
+              "heapBefore": 523067784,
+              "heapAfter": 523068568,
+              "rssAfter": 1142046720
+            },
+            {
+              "elapsedMs": 0.000291000003926456,
+              "heapBefore": 523070168,
+              "heapAfter": 523070952,
+              "rssAfter": 1142046720
+            }
+          ],
+          "n": 20,
+          "medianMs": 0.0002920000006270129,
+          "p95Ms": 0.0006250000005820766,
+          "maxMs": 0.0013330000001587905,
+          "minMs": 0.0002499999973224476
+        }
+      ],
+      "firstUncachedIndustryPageMs": 383.91729199999827,
+      "firstPageUtf8Bytes": 16122,
+      "storageComponents": {
+        "unit": "uncompressed canonical UTF-8 bytes",
+        "hollywoodRootBytes": 37829861,
+        "exactWholeSaveIncrementForHollywoodRoot": 37829874,
+        "rootComponents": {
+          "activeEmploymentOrdinals": 73,
+          "businesses": 2993505,
+          "calendarPolicy": 30,
+          "careerEvents": 21048426,
+          "chart": 1585,
+          "concepts": 2024227,
+          "employment": 247643,
+          "films": 9127558,
+          "identities": 2214,
+          "nextReceipt": 4,
+          "origin": 7,
+          "originWeek": 1,
+          "playerStudioId": 24,
+          "previousChart": 1582,
+          "receipts": 2382675,
+          "startingManifest": 27,
+          "version": 1,
+          "worldId": 16
+        },
+        "businessBytes": [
+          {
+            "studioId": "studio-e26cea4b-r01",
+            "bytes": 67503,
+            "components": {
+              "account": 42913,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 7,
+              "development": 17963,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 457,
+              "policy": 154,
+              "productions": 2,
+              "projects": 5619,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 103,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r02",
+            "bytes": 950558,
+            "components": {
+              "account": 49717,
+              "activeRunFilmOrdinals": 6,
+              "activeScriptOrdinals": 5,
+              "development": 679360,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 457,
+              "policy": 157,
+              "productions": 2,
+              "projects": 220063,
+              "releaseAuthority": 18,
+              "runs": 420,
+              "standing": 90,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r03",
+            "bytes": 65056,
+            "components": {
+              "account": 43084,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 7,
+              "development": 15986,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 457,
+              "policy": 157,
+              "productions": 2,
+              "projects": 4960,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 118,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r04",
+            "bytes": 63974,
+            "components": {
+              "account": 42942,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 7,
+              "development": 15269,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 457,
+              "policy": 156,
+              "productions": 2,
+              "projects": 4739,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 117,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r05",
+            "bytes": 863016,
+            "components": {
+              "account": 46829,
+              "activeRunFilmOrdinals": 6,
+              "activeScriptOrdinals": 9,
+              "development": 603325,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 881,
+              "policy": 156,
+              "productions": 3692,
+              "projects": 207327,
+              "releaseAuthority": 18,
+              "runs": 420,
+              "standing": 90,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r06",
+            "bytes": 816109,
+            "components": {
+              "account": 44191,
+              "activeRunFilmOrdinals": 6,
+              "activeScriptOrdinals": 9,
+              "development": 570693,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 881,
+              "policy": 156,
+              "productions": 3696,
+              "projects": 195685,
+              "releaseAuthority": 18,
+              "runs": 421,
+              "standing": 90,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r07",
+            "bytes": 65544,
+            "components": {
+              "account": 35653,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 7,
+              "development": 21654,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 457,
+              "policy": 157,
+              "productions": 2,
+              "projects": 7243,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 86,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r08",
+            "bytes": 52516,
+            "components": {
+              "account": 34015,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 7,
+              "development": 13144,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 457,
+              "policy": 157,
+              "productions": 2,
+              "projects": 4349,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 100,
+              "studioId": 21
+            }
+          },
+          {
+            "studioId": "studio-e26cea4b-r09",
+            "bytes": 49219,
+            "components": {
+              "account": 30731,
+              "activeRunFilmOrdinals": 2,
+              "activeScriptOrdinals": 7,
+              "development": 13129,
+              "entryKey": 27,
+              "nextDecisionWeek": 4,
+              "operations": 457,
+              "policy": 156,
+              "productions": 2,
+              "projects": 4350,
+              "releaseAuthority": 18,
+              "runs": 2,
+              "standing": 102,
+              "studioId": 21
+            }
+          }
+        ],
+        "filmRows": {
+          "n": 2900,
+          "sum": 9124657,
+          "average": 3146.4334482758622,
+          "max": 3319
+        },
+        "p12AddedSharedPeople": {
+          "identityRule": "talent.id exact person-<non-player canonical studioId>- prefix minted by Hollywood; includes all matched shared talent records even if later departed",
+          "count": 24,
+          "bytes": 82026
+        },
+        "typedHistorySelectedSumBytes": 23678744,
+        "qualifications": [
+          "Component array punctuation is counted in each component value; per-row sums omit array punctuation.",
+          "Exact Hollywood root delta is whole canonical Save minus hypothetical field omission used only for size attribution; no such reduced Save is written/imported.",
+          "Added shared people are reported separately, not silently summed with potentially overlapping Hollywood career-credit references.",
+          "No permanent film/person/history/receipt record removed. These are full-target9-rival measurements, not synthetic12 stress."
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "qualification": "Synthetic read-only fixed fixtures using current compiled production functions. Pure phases are isolated from runtime storage; no engine/Unity/native claim. Source fixture files are only read. No forced GC. No new authoritative advances or stress12 claim.",
+  "sourceChanges": [],
+  "finishedAt": "2026-09-10T21:16:29.125Z",
+  "processMemory": {
+    "rss": 1243627520,
+    "heapTotal": 745684992,
+    "heapUsed": 661418504,
+    "external": 119668005,
+    "arrayBuffers": 79375766,
+    "processHighWaterRssKiB": 1736416
+  }
+}

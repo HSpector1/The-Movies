@@ -1,0 +1,201 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "reviewedAt": "2026-09-10T21:24:08.928008+00:00",
+  "status": "PASS_WITH_EXPLICIT_METRIC_QUALIFICATIONS",
+  "independentReviewOfRootSampler": "/private/tmp/p12a-fixed-phase-to0ghkwi",
+  "rawReportSha256": "bd419cf457b0bc5b390d6287038afb78715f6db9b9e97eec0332be080e94f300",
+  "sourceBindingValid": true,
+  "compiledSourceCount": 96,
+  "sourceChanges": [],
+  "protectedFixturesUnchanged": true,
+  "statisticalSummaryErrors": [],
+  "rawSamplesChecked": 414,
+  "measurements": [
+    {
+      "fixture": "all-nine-entry",
+      "sha256": "742a9b980b5ea43c7c72c53f8493302846c86929b1dbb9e5e8db93be448e040c",
+      "counts": {
+        "rivals": 9,
+        "films": 800,
+        "liveFilms": 792,
+        "careerEvents": 4752,
+        "employment": 306,
+        "receipts": 2718,
+        "people": 84,
+        "activeProjects": 3
+      },
+      "phases": [
+        {
+          "name": "canonical-serialize-already-validated-detached-save",
+          "n": 20,
+          "medianMs": 47.29349999999994,
+          "p95Ms": 79.4554169999999,
+          "maxMs": 82.47033299999998
+        },
+        {
+          "name": "sha256-existing-canonical-utf8-string",
+          "n": 20,
+          "medianMs": 3.799583499999926,
+          "p95Ms": 3.8229160000000775,
+          "maxMs": 3.8297090000000935
+        },
+        {
+          "name": "canonical-serialize-plus-sha256-paired",
+          "n": 20,
+          "medianMs": 51.412958499999945,
+          "p95Ms": 82.28674999999976,
+          "maxMs": 82.82616700000017
+        },
+        {
+          "name": "strict-validate-already-parsed-v19",
+          "n": 20,
+          "medianMs": 21.632479499999818,
+          "p95Ms": 23.00520800000004,
+          "maxMs": 25.028084000000035
+        },
+        {
+          "name": "parse-and-strict-import-v19",
+          "n": 20,
+          "medianMs": 44.05489549999993,
+          "p95Ms": 49.413290999999845,
+          "maxMs": 62.655666999999994
+        },
+        {
+          "name": "makeSave-detach-and-strict-validate",
+          "n": 20,
+          "medianMs": 52.64354200000025,
+          "p95Ms": 61.3993330000003,
+          "maxMs": 64.51908299999923
+        },
+        {
+          "name": "complete-export-current-state",
+          "n": 20,
+          "medianMs": 98.67083299999967,
+          "p95Ms": 110.74245799999971,
+          "maxMs": 110.78870900000038
+        },
+        {
+          "name": "indexed-studio-profile-first-page-50",
+          "n": 20,
+          "medianMs": 0.04929149999998117,
+          "p95Ms": 0.0702080000000933,
+          "maxMs": 0.07191700000021228
+        },
+        {
+          "name": "cached-industry-summary",
+          "n": 20,
+          "medianMs": 0.0011254999999437132,
+          "p95Ms": 0.002583000000413449,
+          "maxMs": 0.003749999999854481
+        }
+      ],
+      "correctedProjectScope": {
+        "rawActiveProjectsActuallyActiveProductions": 3,
+        "activeScreenplayRecordsIncludingInProduction": 16,
+        "readyScreenplayRecords": 13
+      }
+    },
+    {
+      "fixture": "full-target-after-6240",
+      "sha256": "cd0e3836332c4b4ffd87e637381c2d5e2d1e4c9db976c4df47b8683550de56d9",
+      "counts": {
+        "rivals": 9,
+        "films": 2900,
+        "liveFilms": 2892,
+        "careerEvents": 17352,
+        "employment": 894,
+        "receipts": 9614,
+        "people": 84,
+        "activeProjects": 2
+      },
+      "phases": [
+        {
+          "name": "canonical-serialize-already-validated-detached-save",
+          "n": 20,
+          "medianMs": 172.7679790000002,
+          "p95Ms": 181.43612500000017,
+          "maxMs": 181.52479099999982
+        },
+        {
+          "name": "sha256-existing-canonical-utf8-string",
+          "n": 20,
+          "medianMs": 13.398687500000051,
+          "p95Ms": 13.529708000000028,
+          "maxMs": 13.535499999999956
+        },
+        {
+          "name": "canonical-serialize-plus-sha256-paired",
+          "n": 20,
+          "medianMs": 188.38877050000065,
+          "p95Ms": 199.5241249999999,
+          "maxMs": 219.31304199999977
+        },
+        {
+          "name": "strict-validate-already-parsed-v19",
+          "n": 20,
+          "medianMs": 84.43702099999973,
+          "p95Ms": 92.09870799999771,
+          "maxMs": 92.47483400000056
+        },
+        {
+          "name": "parse-and-strict-import-v19",
+          "n": 20,
+          "medianMs": 159.39172950000102,
+          "p95Ms": 166.8331659999967,
+          "maxMs": 171.41833300000144
+        },
+        {
+          "name": "makeSave-detach-and-strict-validate",
+          "n": 20,
+          "medianMs": 181.91558349999832,
+          "p95Ms": 191.70862500000294,
+          "maxMs": 195.007708000001
+        },
+        {
+          "name": "complete-export-current-state",
+          "n": 20,
+          "medianMs": 360.9881874999992,
+          "p95Ms": 380.4905000000035,
+          "maxMs": 381.6488329999993
+        },
+        {
+          "name": "indexed-studio-profile-first-page-50",
+          "n": 20,
+          "medianMs": 0.0437290000008943,
+          "p95Ms": 0.062334000002010725,
+          "maxMs": 0.06645800000114832
+        },
+        {
+          "name": "cached-industry-summary",
+          "n": 20,
+          "medianMs": 0.0002920000006270129,
+          "p95Ms": 0.0006250000005820766,
+          "maxMs": 0.0013330000001587905
+        }
+      ],
+      "correctedProjectScope": {
+        "rawActiveProjectsActuallyActiveProductions": 2,
+        "activeScreenplayRecordsIncludingInProduction": 17,
+        "readyScreenplayRecords": 15
+      }
+    }
+  ],
+  "qualifications": [
+    "Nearest-rank empirical n20 p95 recomputed independently from raw samples; not population guarantee.",
+    "Raw counts.activeProjects is mislabeled: implementation sums b.productions.length. Correct scoped counts are2548:3 active productions/16 active screenplay projects;8788:2 active productions/17 active screenplay projects (15 ready+2 inProduction). Preserve raw report; use this explicit corrected scope. Project stages must not be counted as separate projects.",
+    "First nine-entered fixture2548 has3 active productions; final8788 has2 active productions. Neither proves12 active rivals or48 concurrent projects. All9 business identities persist.",
+    "makeSave timing detaches and strictly validates; complete export includes that plus serialization. Serialize-only and digest-only phases correctly start with existing validated detached state/canonical UTF-8 string respectively. Paired serialize+digest is measured directly and is not a sum of separate percentiles.",
+    "Warmup loops, exact-output comparisons, fixture/import setup, file hashing and reporting are outside timed phases. No forced GC; before/after heap and RSS are endpoint observations, not total allocated bytes.",
+    "Original cached-industry-summary phase label is a misnomer: industrySummary directly creates a small bounded result; no cache exists in that production function.",
+    "Original indexed studio profile targets first business r01, not a busy producer. Supplementary separately source-bound r02/r06 observations are at /private/tmp/p12a-final-phase-1xpf7efb/profile-report.json.",
+    "Hollywood root whole-Save omission is an attribution-only arithmetic lower bound and no truncated Save is written or imported. Root delta37,829,874 B alone exceeds8 MB incremental target; shared-person or player-related deltas can only add relevant costs.",
+    "Whole business rows include permanent account periods, past projects and development histories. Do not equate their full size with a narrowly defined live working set without stating inclusion. Root business-component split is useful but active-rival100 KB scope still needs explicit disposition.",
+    "Actual durable film row sizes include film.result frozen receipts/participants plus explicit credits and all production-authority fields. Average3,146.43 B is measured against the entire persisted durable film, not whole save divided by film count.",
+    "Selected typed-history sum includes careerEvents, employment, receipts, not only annual-summary structures. Full selected sum23,678,744 B is a concrete measured attribution; exact ANN event/annual-summary category must be stated before asserting identical scope.",
+    "Matched minted shared-person prefix identifies24 added records; other60 people already came from baseline market/founding pool and may later be employed by rivals. Reuse of existing people must not be counted as60 newly added whole records.",
+    "Full8788 pure paired serialize+digest p95199.524125 ms misses100 ms; strict parsed validation p9592.098708 ms and parse+strict import166.833166 ms meet500 ms only at this fixed full9 world. Industry server warmed busy first pages meet10 ms in supplementary observations; first uncached400+ ms includes full index/digest initialization."
+  ],
+  "noOriginalMutation": true,
+  "noNativeOrEngineMainPlacementClaim": true,
+  "supersedesInterpretationOnly": "fixed-phase-independent-review.json (raw reports unchanged)"
+}

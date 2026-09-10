@@ -1,0 +1,160 @@
+{
+  "id": "r05-final-correctness-applicability-draft",
+  "kind": "correctness-review",
+  "outcome": "PARTIAL",
+  "provenance": "independent-review",
+  "reviewer": "/root/recovered_storage_review/package_runner_review",
+  "scope": "Bounded current-source and existing-evidence applicability review for final checker/register; not a new broad audit, runtime execution, product-critique round, or final Gate B certificate.",
+  "binding": {
+    "typescriptSource": "39c6401738f0f29700632acc4c03aeb6e3b5bc93",
+    "unityProductSource": "deca39521da1baeca61898d156a43f4ae6a7e035",
+    "unityObservedHead": "a5dfa20491b4a0f0a124f7d2310ec2c505d16cda",
+    "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+    "projectionVersion": 29,
+    "protocolVersion": 4,
+    "generatedContractSha256": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+    "finalCandidateBinding": null
+  },
+  "obstacles": [
+    "Current runtime/candidate and late corrected wording/reverse-keyboard closure were not yet proved.",
+    "Historical evidence-index source/reuse fields and evidence kind names are not a completed candidate binding.",
+    "Native22 correctly refused retained Shift on exact owned Tab-up; interrupted witness cleanup cannot be rounded into a native pass."
+  ],
+  "rechecks": [
+    "Compared current TS source to native21 and core/worker proof sources.",
+    "Compared Unity product roots to built deca395; reviewed latest Tools-only changes separately.",
+    "Read actual full TS08/Unity18 summaries and hashed their stored outputs.",
+    "Read third product-critique scope/closure requirements and previous independently reviewed campaign/launcher proofs.",
+    "Read Save proposal, rollover, commit and Unity receipt/rejoin source.",
+    "Checked native22 exact witness flags/ownership/finalization and kept failure explicit."
+  ],
+  "sourceApplicability": {
+    "typescript39VersusNative21": "Only product delta from3da8373 is bridge/industry.ts entrant recording-notice sentence; migration/incumbent notices, authority, finance, persistence and schema unchanged. Current working TS source equals39c6401.",
+    "core": "git diff6827293\u219239c6401 is empty for src/core; prior current-source entry/6240 continuation/resource-constraint evidence remains applicable to those unchanged laws.",
+    "worker": "All24 recorded worker patch/projection source records still match.103of104 compiled source inputs match; sole changed input bridge/industry.ts has recent Output newcomer/priorWeek correction and entrant notice. Runtime/session/library/codec/checkpoint paths unchanged since923eaee. Reuse functional persistence/worker-ownership results, not exact current worker binary identity.",
+    "unity": "Assets, Packages and ProjectSettings unchanged deca395\u2192observed a5dfa20. Changes are Tools only. From prior Gate A d03461c\u2192deca395 the runtime source changes are detached snapshot parser/client/diagnostics/displayed-intent integration and Industry empty guidance; campaign library client and campaign UI paths are unchanged.",
+    "contract": "Recorded3da8373/deca395 paired-contract PASS has current unchanged schema/DTO content. New final manifest must bind actual emitted39c6401 runtime and delivered app; old paired receipt alone is not a new candidate seal."
+  },
+  "reusableProofs": [
+    {
+      "family": "All-nine/calendar/authored-history/ordinary production/endurance",
+      "evidence": [
+        "core-entry-20260910/report.json",
+        "core-continuation-20260910/report.json"
+      ],
+      "reason": "Core source unchanged; independent fresh0\u21922548 all-five arrival boundaries and6240 further advances with exact prior final and reload/next-tick equality.",
+      "limits": "Ordinary nine-rival workload; not12-rival stress, simultaneous continued production by all nine, or native input. Finite-cash struggling studios remain lawful. Use real live releases separately from authored starters."
+    },
+    {
+      "family": "Causal money/talent/capacity and strict identity/retention laws",
+      "evidence": [
+        "resource-constraints-20260910/report.json",
+        "recovered-checks-20260910/ts-cumulative-08-entrant-wording.log"
+      ],
+      "reason": "Unchanged core and current cumulative regression. Independent withdrawal/restoration controls produced lawful delay/paid replacement and strict valid restored worlds.",
+      "limits": "Withdrawal controls are synthetic; do not label that attestation ordinary-progression to satisfy the live-production checker. Actual ordinary live-release proof comes from entry/continuation/native12."
+    },
+    {
+      "family": "Persistence/retry/isolation/worker placement",
+      "evidence": [
+        "storage-resume-20260910/report.json",
+        "worker-production-20260910/independent-applicability.json",
+        "worker-production-20260910/measured-summary.json"
+      ],
+      "reason": "Unchanged persistence authorities and24exact correction source records; large exact receipt replay after later tick/restart, failed-write preservation, inactive bytes and serialized worker ownership remain applicable.",
+      "limits": "Three late SaveAs branches are independent storage records, not three independently seeded NewGames; timing and binary bindings retain original fixture/source scope."
+    },
+    {
+      "family": "Independent campaign NewGame/SaveAs/native control",
+      "evidence": [
+        "gate-a-run11-20260910/native-summary.json",
+        "gate-a-run12-20260910/native-summary.json",
+        "gate-a-run14-20260910/product-closure.json",
+        "gate-a-play19-20-20260910/launch-relaunch-attestation.json"
+      ],
+      "reason": "Prior independent A/B/C creation and distinct saved worlds, Bcopy divergence, Save/rename/cancellation/context and exact preserved-control PLAY19\u219220 review can support unchanged campaign behavior.",
+      "limits": "C was independently created/saved at week0, not founded/progressed; R05 requires createC/save. Final environment still needs actual current candidate launch/relaunch bindings. Late longA/B/C SaveAs seed is not a replacement for this proof."
+    },
+    {
+      "family": "Native parser/UI applicability",
+      "evidence": [
+        "gate-a-run15-20260910/native-comparison.json",
+        "gate-b-run21-20260910/product-review-open.json",
+        "gate-b-run21-20260910/native-summary.json"
+      ],
+      "reason": "Actual detached parser threads, Profile/Back/Save/Quit and six native ready-group tasks on exact preview16 remain observed. Unity product unchanged; new entrant wording is the bounded TS delta.",
+      "limits": "Native21 is a paused late world; it did not exercise new production advancement, new-entry cohort, forced reconnect, ambiguous-name pairs, or physical controller. Existing corresponding law tests/prior native evidence remain separate. Third critique remains open for corrected wording/reverse keyboard."
+    },
+    {
+      "family": "Current cumulative tests",
+      "evidence": [
+        "recovered-checks-20260910/ts-cumulative-08-entrant-wording.log",
+        "recovered-checks-20260910/editmode-18-ready-label.xml"
+      ],
+      "reason": "TS394files/5160PASS/5SKIP172.25s; Unity1099/1099PASS15.9945613s. Typecheck/emitted build/dependency audit PASS recorded.",
+      "limits": "Five skips remain skips; historical Unity crashes/interrupted runs remain failed/interrupted. Tools changes require their separate inert and native boundary proof."
+    }
+  ],
+  "saveSessionReplacement": {
+    "observed": "Native21 campaignSave preserved week8794/public digest c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862 while logical session/revision changed fd0d35c2-e041-45cc-b35c-ad6e9f398d3e/1\u219287298026-b591-47b0-9c06-4d5dbb06a1af/0. Runtime identity stayed the same.",
+    "sourceCause": "campaign-library.saveActive first hydrates a fork preserving original session/revision. If save hits BridgeRuntimeCheckpointHistoryFullError it calls rolloverRuntime, which imports identical current canonical game state into a fresh session UUID/defaultrevision0, retaining saved slot; then retries Save. Thus observed logical replacement is consistent with bounded transport/journal rollover, not an engine restart or gameplay rewind.",
+    "durability": "Coordinator proposes off the live authority, awaits atomic encoded-library persistence, then publishes proposal.library/session. Failed writes preserve prior authority or stop on uncertain restoration. Campaign receipts preserve originating command/session/operation and exact retry response.",
+    "unityJoin": "Client checks exact commandId/originatingSessionId/operation, refreshes authenticated authority and catalogue, rejects contradictory revision/digest/week/active campaign, and clears unresolved operation only after actual receipt/world join.",
+    "limits": "Native timing does not separately prove which internal error was thrown; rollover explanation is a source+observed-session inference. Do not claim unchanged whole private library, same transport session, or no Save metadata changes."
+  },
+  "remainingAcceptance": [
+    {
+      "id": "INPUT-BOUNDARY",
+      "status": "OPEN",
+      "required": "Resolve native22 owned Shift-bit propagation and establish a freshly safe input state; current native22 is stopped/unavailable, supervisor143, no natural Quit0. Both global flag and Shift-key tables are contaminated, so they are not independent physical ownership evidence. Its ended witness plus later gap cannot authorize clearing current modifiers from a stale ledger."
+    },
+    {
+      "id": "THIRD-CRITIQUE",
+      "status": "OPEN",
+      "required": "Close the same third product critique with corrected entrant recording notice and actual reverse keyboard navigation under exact clean input finalization. Preserve unaffected native21 observations; do not start another broad critique or call interrupted22 a pass."
+    },
+    {
+      "id": "FINAL-CANDIDATE",
+      "status": "OPEN",
+      "required": "Actual recommended delivered launcher/runtime/app/manifest/schema/DTO/worker source binding, independent A/B/C plus Bcopy test environment, current launch and clean natural UIQuit/relaunch with same public authority/checkpoint provenance. Preserve Gate A control and original rollback."
+    },
+    {
+      "id": "PERFORMANCE",
+      "status": "OPEN",
+      "required": "Keep pending stress fixture/measurements and original provisional MISS/OPEN disposition explicit; documented evidence-based rebaseline is allowed, silent waiver is not. Native21 only has one Save, warmed30s and sampled RSS. Storage-specific hard50ms and retention laws remain binding; initial57ms in-memory presentation aggregate is not a measured storage violation or storage pass."
+    },
+    {
+      "id": "FINAL-EVIDENCE",
+      "status": "OPEN",
+      "required": "Bind every required proof kind to exact candidate or independently reviewed targetBinding reuse, publish compact safe artifacts and current register/index, then obtain final independent correctness disposition. This draft remainsPARTIAL."
+    },
+    {
+      "id": "OWNER",
+      "status": "OPEN_SEPARATE",
+      "required": "Owner playtest/verdict after a technical candidate; no reviewer or tests can substitute Owner enjoyment/acceptance."
+    }
+  ],
+  "checkerRegisterActions": [
+    "Keep indexPARTIAL/candidate null while native boundary/candidate/performance items remain open. evaluate() intentionally emits no warning forPARTIAL; this is not certification.",
+    "Refresh historical index sources/recovery latest-completed fields when final source pair exists; keep historical receipt identities intact. Current generic sources still list acceptedP11 and recovery old heads/latestnative20 despite later native21 entries.",
+    "Current attestation registry has seven historical entries with reuse.reviewed/applicable false; most newer evidence rows lack attestationId. Add real exact/reuse attestations for required final kinds rather than marking the indexCOMPLETE around them.",
+    "Checker names are exact: existing launch-verification/native-late-world rows do not automatically satisfy launch-binding/quit-relaunch/native-industry/ready-extensions. Point separately qualified typed attestations to the same underlying reviewed proof when appropriate.",
+    "Do not relabel synthetic resource controls as ordinary live production; provide a separate genuine ordinary-progression attestation with actualReleasedFilms and authoredFilmsExcluded.",
+    "Product/correctness attestations need independent reviewer plus obstacles/rechecks; native kinds need real-native-input/captureIds/clean witness; reused claims need reviewed applicable targetBinding and substantive reason.",
+    "Update PRF003/005 and ready-group rows with native21 scope and remaining reverse task; PRF012 should retain closed Gate A critique and open same third critique. PERF008/009 need native21 qualified review and explicit pending rebaseline/stress. Preserve all exclusions and historical failed evidence.",
+    "Hook remains INACTIVE/EXPLICIT-CHECKER FALLBACK by allowed R05 warning-only policy; optional hook availability is not itself a missing product gate."
+  ],
+  "safeHashes": {
+    "indexAtReview": "939625c8be6ff0fd31502ff0c5008ffb32e4dc7699d24a18c54c6e3cf31adac5",
+    "attestationsAtReview": "cc530540db90421be59a50aeefacebc078c3ed89ca01b6deb34c331f518c6e30",
+    "checkerSource": "651a421715f05055a255e86d13c3b92cca50ea34a1a9289a81ef5089cb0a4154",
+    "ts08Log": "995890f293c35b9e1e23762977a9be38e3236ddae22834ffa68b1b0c4acadf06",
+    "unity18Xml": "1b14ad245c6754399ed5e8b83ae8097a42cfba47b046e68c8dbcf9bd49937cab",
+    "pairedContract21": "86af396085fe0be99496a0c9e5272279f0da3e6fdff25d8ac8fe4b7ae7568383",
+    "thirdProductOpen": "04b31a049acc7a819f237bc33327c23fcfa4ca8922c9f8c25956f9e81f3c1920",
+    "independentPerformance21": "44c3c541e75154c99d82003997ea1488f9eefbaf90e572c6586dc4f693afbbd7",
+    "native22Report": "c89683772751d4648735ac3563cf2e33d5bc1b8093404f5a4d7240f13a38c559",
+    "native22Witness": "c893cbf3ee5b40a0b728ff9d028a29b9773581d230302f5454069de5a4d18657"
+  },
+  "activity": "Source/evidence reads and this private draft only. No engine/native/input/build/test/checker execution, no shared edits, no raw save/capability read, no checkpoint hashes or copies."
+}

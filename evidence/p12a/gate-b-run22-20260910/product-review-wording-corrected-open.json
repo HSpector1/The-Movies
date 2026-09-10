@@ -1,0 +1,836 @@
+{
+  "kind": "P12A-R05 required third product critique / full ready integration Gate B",
+  "reviewer": "/root/gate_b_product_review; independent read-only product critic",
+  "reviewedAtUtc": "2026-09-10T21:15:47.070197+00:00",
+  "status": "OPEN: entrant wording corrected and native22 captured; actual reverse-keyboard traversal remains pending after native22 guard refusal. Preserve completed native21 tasks through checked applicability.",
+  "scope": "Owner decisions sections 6\u20137 and the existing six-group task checklist. This is the required third critique, not an additional polish round, broad audit, technical Gate B certificate or Owner enjoyment acceptance.",
+  "activity": "Read approved bounded scope, prior Gate A closure/native15 comparison, native21 screenshots, coherent public maps and finalized report. Read exact limited Profile/industry sources for concrete observations. No shared edits, native input, builds, tests, engines, raw save inspection or capability access.",
+  "binding": {
+    "evidenceDirectory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z",
+    "reportSha256": "3f75acac7f8da8153e6d3bfc481eca34a58ba03e27d8241a289cf6c4e809fef1",
+    "manifestSha256": "8276549c35fbb59f95e14f05ea98d69f75985f94e5442ea9ffac42c5b5b4593a",
+    "launchBindingSha256": "651a801e180239025dfefd9700d60e530a77b6917446bb335d542ada9c2afcc4",
+    "manifest": {
+      "schema": "p04a1-build-manifest/1",
+      "generatedAtUtc": "2026-09-10T20:11:27Z",
+      "player": {
+        "app": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app",
+        "executable": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+        "executableSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "assemblyCSharpSha256": "9a8dae63540f41fd5618bfccc6e52021458825280ba991fbf7ec6cad90a8155a",
+        "builtAtUtc": "2026-09-10T20:10:17Z"
+      },
+      "unity": {
+        "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+        "sha": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "branch": "wip/p12a-living-hollywood-01-client",
+        "dirty": false
+      },
+      "typescript": {
+        "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+        "sha": "3da8373eec79de4923ce842eeb701849b65d0bfb",
+        "branch": "wip/p12a-living-hollywood-01-ts",
+        "dirty": false,
+        "engineBundleSha256": "ffdb1ac977a62236a48303e76426fdc0363dfe86d03ff5b4c565d0b57d34725b",
+        "runtimeWorkerSha256": "753f24c43b92044a2ee405cbb81e34fb0260b8c413569dffc5329718cfed8bb2",
+        "runtimeWorkerSourceManifestSha256": "4bfcb0c6f5f224e5e3b329252bca89a6c1fa9b513cfe1747ee5f1662020cad8d"
+      },
+      "sources": {
+        "newestTrackedAssetsFile": "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+        "newestTrackedAssetsAtUtc": "2026-09-10T20:10:08Z"
+      },
+      "toolVersions": {
+        "unityEditor": "6000.3.22f1",
+        "node": "v26.3.1"
+      }
+    },
+    "package": {
+      "root": "/Users/bruce/Desktop/P12A-Gate-B-Preview-3da8373-deca395",
+      "launcher": "/Users/bruce/Desktop/P12A-Gate-B-Preview-3da8373-deca395/PLAY_PROJECT_STUDIO.command",
+      "launcherSha256": "9db4565c70bc88c4d358f8095c1bcb7708f4bf39e773baf37ec2b44d8b4daed4",
+      "packageChecksumSha256": "7099aebbc7dc89f9947dc0e3189422b063b0b865763cf579ae0d1e1ade94e41e",
+      "verifiedImmutableFiles": 196,
+      "pairedContractVerificationSha256": "86af396085fe0be99496a0c9e5272279f0da3e6fdff25d8ac8fe4b7ae7568383"
+    },
+    "launchedPlayerSha256MatchesManifest": true,
+    "sourceQualification": "Manifest and report bindings read; actual package executable and producer correctness are independently owned by root/separate technical review. No retroactive certification of changed later bytes."
+  },
+  "actualWorld": {
+    "provenance": "Explicit engineering copy of existing emitted-worker late-world checkpoint; no prior native Quit claimed. Long A/B/C are Save As branches of one seed, not independent New Games. Earlier independent named-campaign proof remains a separate evidence family.",
+    "absoluteWeek": 8794,
+    "displayedDate": "2089 Week 7",
+    "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+    "all103RenderedMapsSameWeekDigestSchema": true,
+    "preSaveSessionId": "fd0d35c2-e041-45cc-b35c-ad6e9f398d3e",
+    "preSaveRevision": 1,
+    "postSaveSessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+    "postSaveRevision": 0,
+    "saveQualification": "Native100 Save followed by101 Campaign saved and authority replacement without a world change. Why campaign Save replaces authority requires separate source/persistence proof; this review does not infer private-library equality."
+  },
+  "sixGroups": [
+    {
+      "group": "Separate Charts and comparable movement",
+      "observed": "004\u2013009 separate Awareness/Prestige/Confidence/all-time Output/last52 Output. Awareness shows Rose Lantern Up1 and Blackthorn Down1 since2088 Week40 against dated2089 Week1 cohort10; player remains marked. Output includes real6 and0 recent releases. No combined Power score.010\u2013015 Movie measures preserve distinct critics/audience/opening/gross-earned/run status; exact r05:film:765 and859 occur consistently in Audience and earned-gross lists.",
+      "qualification": "Late real-producer comparison captured. New-entry/no-prior conditions did not occur in this paused8794 world; earlier observation/test applicability must remain explicit."
+    },
+    {
+      "group": "Grouped public activity",
+      "observed": "055\u2013057 show all10 real13-week material items under Releases and Announcements; ten unique event IDs unchanged after Refresh, no ordinary renewal or routine-phase spam.058 follows actual Blackthorn studio from event9612.",
+      "qualification": "No material People/Studios transition exists in the captured13-week window; no fabricated filler. Authority is unchanged while browsing. This was Refresh with no transport outage, not a forced reconnect/stale-page-recovery test."
+    },
+    {
+      "group": "Observed tendencies",
+      "observed": "024/027 Rose Lantern:9 of17 releases romance;156-week released-film basis2086Week8\u20132089Week7, authored films/plans excluded, no strategy forecast or promised future pace.066/070 Trailhead:0 recent releases, explicit too-small-sample qualification, no active announced production.",
+      "qualification": "Populated and too-small samples are actual late-world producers. No richer trend/scouting producer or future strategy is claimed."
+    },
+    {
+      "group": "Authoritative announcements",
+      "observed": "028/029 current r02:film:976 The Broken Sanctuary announced2089Week1/in production and all6 exact company links.031\u2013035 historical announcement event9605 resolves r02:film:975 The Restless Alchemist, announced2088Week44/released2088Week52, same six company/film credits and settled public results.",
+      "qualification": "The run browsed already-produced authoritative records; it did not newly greenlight or advance those films. Paid-cause/removal tests and native12 live chronology remain separate evidence."
+    },
+    {
+      "group": "History adapters",
+      "observed": "030/031 rival History clearly separates authored1915/1919 films from live releases/settlements and separate Standing changes.037/038 person/employment distinguish current contract from historical film credit; employment begins1920Week1.038/040/042/043 cover45 unique employment IDs over4 pages;045 reaches actual oldest contract-start row at200%.046\u2192047 Profile,052\u2192053 returns exact person and employment page4/bottom/event12 focus.095 visibly explains latest24 of976 career changes plus2authored credits;097 real PUBLIC CREDITS route opens exact978-credit Industry person;098 Back returns Profile.",
+      "qualification": "Profile is an explicitly labelled recent-career lens;048\u2013051 are not a whole978-credit-archive final-row pass. Player P08 History is not newly exercised in native21; retain separate checked applicability. No contract salary/private schedule disclosed in Industry."
+    },
+    {
+      "group": "Paging, archive and accessibility",
+      "observed": "015\u2013020 recent15-film archive page2/2, real finalrow Echoes of Inheritance at200%, exact-film drilldown and Back retain sort/period/page/scroll/focus/text.071\u2013077 complete Trailhead31-film all-time archive has12+12+7 distinct IDs over3 pages;200% finalrow is r07:film:0 The Wild Sanctuary1950Week13, Next disabled; film/Back restores exact context.021 Tab\u2192owner/022 Enter activates owner.078\u2013082 Tab walks owner\u2192scrollbar\u2192Previous\u2192Back\u2192Refresh without lot focus. Long headers/toolbars wrap at200%.060/061 populated6-person roster;067 empty roster truthfully omits nonexistent filter advice;070 empty recent-film view points to actual All recorded.",
+      "qualification": "Reverse Shift-Tab task remains pending. Native exact-ID drilldowns are established; no dedicated ambiguous same-title/same-name pair was exercised in this run. No physical-controller claim. Offscreen map geometry alone is never visible/native proof."
+    }
+  ],
+  "confirmedFinding": {
+    "id": "GATE-B-PRODUCT-ENTRANT-NOTICE",
+    "status": "CORRECTED: exact runtime string replacement and native22 screenshots003/004 visibly verified at100%/200%; overall native22 stopped, not a passed run.",
+    "actual": "058/060 Blackthorn founded1939 with866 films and065/066/075 Trailhead founded1950 with31 films still display New company in2089.",
+    "cause": "bridge/industry.ts87 selects this permanent recordingNotice using s.row>4, so every later entrant retains misleading present-tense newness.",
+    "minimalCorrection": "Entered during this campaign; film records come from actual releases.",
+    "scope": "Change notice only; preserve authored-incumbent and migration recording branches, simulation dates/IDs/resources and public boundaries. Replay the same third critique; no new round.",
+    "closureEvidence": "correctionReplay22"
+  },
+  "resolvedQuestions": [
+    {
+      "question": "Full Profile stops after24 rows despite978 credits.",
+      "disposition": "Explained recent-career lens, not data loss or an unlabelled cap. Actual095 coverage text and097 complete Industry route verified. No full-archive claim for the24-row pane."
+    },
+    {
+      "question": "Oversized synthesized Profile wheel deltas appeared not to move.",
+      "disposition": "Not a confirmed product defect.093\u2013095 bounded scrollbar steps reached coverage,096 ordinary+3 over detail moved to CURRENT normally. Do not claim stuck scrolling, nor count failed oversize attempts as successful traversal."
+    }
+  ],
+  "priorEvidence": {
+    "gateAClosure": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/gate-a-run14-20260910/product-closure.json",
+      "sha256": "353f487eb43fc2fdc23815a744fe712cbdc9b2e95e171dcda30d0aa97e8ef522",
+      "scope": "Existing Gate A product closure remains historical; this critic read it but did not repeat or broaden that critique."
+    },
+    "native15Comparison": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/gate-a-run15-20260910/native-comparison.json",
+      "sha256": "455c69306e0e237937826489f49af7ae7c3198dbadde60114bf291bc9a93585a",
+      "scope": "Separate detached-parse correction measurement; not substituted for current late-world frame/performance acceptance."
+    }
+  },
+  "finalNativeObservation": {
+    "status": "observation-complete",
+    "reason": "ui-quit",
+    "steps": 104,
+    "playerExit": {
+      "code": 0,
+      "signal": null
+    },
+    "supervisorStatus": "clean",
+    "supervisorExit": {
+      "code": 0,
+      "signal": null
+    },
+    "ownedIncarnationsAbsent": true,
+    "activeLeaseAbsent": true,
+    "checkpointLockAbsent": true,
+    "errors": [],
+    "inputStatus": "clean",
+    "witnessCounts": {
+      "tool": 524,
+      "markerCompanion": 523,
+      "playerNull": 100,
+      "playerOther": 0,
+      "physical": 0,
+      "unknown": 0
+    },
+    "foreignCount": 0,
+    "pendingCompanion": null,
+    "witnessPartial": false,
+    "finalWitnessSequence": 11343,
+    "lastWitnessUtc": "2026-09-10T20:46:55.848000+00:00",
+    "applicationQuitUtc": "2026-09-10T20:46:54.9468700Z",
+    "performanceSha256": "bb6e3b6c1c2e37d87225d75b628c4bb06a2002546b29a3271c19eb49049068b9",
+    "performanceQualification": "Through-Quit completion recorded; root/separate performance review owns actual timings and target disposition. Product review does not waive original targets."
+  },
+  "limitedSourceBindings": [
+    {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+      "commit": "3da8373eec79de4923ce842eeb701849b65d0bfb",
+      "path": "bridge/industry.ts",
+      "sha256": "66deee01adc7fbb17adf6481d7068e73e9b05e5735c36cf4d7a6dfdc43589744",
+      "sourceReadQualification": "Read only to resolve the two concrete native Profile/entrant observations; not a broader implementation correctness review."
+    },
+    {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+      "commit": "3da8373eec79de4923ce842eeb701849b65d0bfb",
+      "path": "bridge/people.ts",
+      "sha256": "74108eb9016e13d1c3446b6fef0b65faa98ec24224b53c9712e81d2fdde2daeb",
+      "sourceReadQualification": "Read only to resolve the two concrete native Profile/entrant observations; not a broader implementation correctness review."
+    },
+    {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+      "commit": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "path": "Assets/Studio/Runtime/Presentation/UI/StudioProfileWorkspace.cs",
+      "sha256": "b7eca56973f7bb2bbbb1e771d0e0dfddcd852ed445b183462056b075b8b0f6d0",
+      "sourceReadQualification": "Read only to resolve the two concrete native Profile/entrant observations; not a broader implementation correctness review."
+    },
+    {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+      "commit": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "path": "Assets/Studio/Runtime/Presentation/UI/StudioProfileWorkspaceContext.cs",
+      "sha256": "20186d1cd374e5d091a52325a28fcd4cda5307045290bc9de7f99c73869ba1bd",
+      "sourceReadQualification": "Read only to resolve the two concrete native Profile/entrant observations; not a broader implementation correctness review."
+    },
+    {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+      "commit": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "path": "Assets/Studio/Runtime/Presentation/UI/StudioPeopleWorkspaceLayout.cs",
+      "sha256": "0d9560f792234377f528cec6cd89abd54dcbc489cd90c65e4d98febe0a9a7d7a",
+      "sourceReadQualification": "Read only to resolve the two concrete native Profile/entrant observations; not a broader implementation correctness review."
+    }
+  ],
+  "artifacts": [
+    {
+      "step": 4,
+      "screenshot": "004-admin-open-industry.png",
+      "screenshotSha256": "0ee96e442b4ee8c36dd3706633ddccf4366a03a2480e518abb5448a43cce6b59",
+      "map": "004-map.json",
+      "mapSha256": "d12a533db523733bfc34bfc0102d5877c830cf72f28f48efb84fd166017f9025",
+      "visuallyInspected": true
+    },
+    {
+      "step": 5,
+      "screenshot": "005-industry-lane-industryPrestige.png",
+      "screenshotSha256": "97f409e7c6de23ef8f35e1cebb06b01bce68400391019e40984209d1fbf50316",
+      "map": "005-map.json",
+      "mapSha256": "6d2e72d25ed6a38222b10d148dcbe0dde4ad6e9246cd6918c632a3387c3f5f27",
+      "visuallyInspected": true
+    },
+    {
+      "step": 6,
+      "screenshot": "006-industry-lane-commercialConfidence.png",
+      "screenshotSha256": "01d988087a68011dabfb10f893a6adc071340cf1726a03c8aa6f08a2803cb91a",
+      "map": "006-map.json",
+      "mapSha256": "e0c00dbc854e3b5b2bc341f1838fadc00a733bd42537cf7d78a1ec72d6903737",
+      "visuallyInspected": true
+    },
+    {
+      "step": 8,
+      "screenshot": "008-industry-output-52.png",
+      "screenshotSha256": "5e591d34ab75110e369d7178b6ac17eb5c90fce0a020bf693951968237d22767",
+      "map": "008-map.json",
+      "mapSha256": "f571ebf3ce2ba62884e742c28da72e0159c6006dab5ea2e54c799be94ec50614",
+      "visuallyInspected": true
+    },
+    {
+      "step": 10,
+      "screenshot": "010-industry-tab-films.png",
+      "screenshotSha256": "51bea63ceeb407226ff09304beba70cfc1576c949fd47315dd44f1e0d29e7ea9",
+      "map": "010-map.json",
+      "mapSha256": "50bfb7b7c56d3d4e1421d7895d0eeb4637aa14047d762de164c507233fa2c63c",
+      "visuallyInspected": true
+    },
+    {
+      "step": 11,
+      "screenshot": "011-industry-lane-critics.png",
+      "screenshotSha256": "1d928f74bfb863b3e482242d8931b5050238b2c535bbc115791a2ea446da3544",
+      "map": "011-map.json",
+      "mapSha256": "eb9891bf01b80899054482e669eadc9688b2c2019dddec331e973fdae114ad26",
+      "visuallyInspected": true
+    },
+    {
+      "step": 12,
+      "screenshot": "012-industry-lane-audience.png",
+      "screenshotSha256": "16d88dc421bcf61977215f6c0e61a26f5b4b420988596eab7f8878cfceab8b89",
+      "map": "012-map.json",
+      "mapSha256": "b2af0eafdfc92440b1a9359be894d751f79009f54f8a4ca657fbda8dd4766d9e",
+      "visuallyInspected": true
+    },
+    {
+      "step": 14,
+      "screenshot": "014-industry-lane-total.png",
+      "screenshotSha256": "10e6bf146abaf6c6a5990ad0353555d8017d5e4411d785b01e6a5484dafc08e2",
+      "map": "014-map.json",
+      "mapSha256": "8ae8e9f08206aec46dd40d5ef1c43c5d3d138480bfdfbf81eaee3706f9ccec65",
+      "visuallyInspected": true
+    },
+    {
+      "step": 15,
+      "screenshot": "015-industry-period-recent.png",
+      "screenshotSha256": "2f407f5075d8e77ddc8b6a57b2e1c395a718a6c458a497bf491dcabcf43a2933",
+      "map": "015-map.json",
+      "mapSha256": "2576692c8ff3475b64fb75a5c22f8f093757be1080cbf96d82dea84823906604",
+      "visuallyInspected": true
+    },
+    {
+      "step": 16,
+      "screenshot": "016-industry-text-200.png",
+      "screenshotSha256": "a5243089786252bd2339924cea17bdae8244a0e8cb6106c200d1d236ca9d38da",
+      "map": "016-map.json",
+      "mapSha256": "a78680ee9b6826ebe0b245c006021599e8443f5a59067c0154d6ebeab096f137",
+      "visuallyInspected": true
+    },
+    {
+      "step": 17,
+      "screenshot": "017-industry-page-next.png",
+      "screenshotSha256": "74851ab3511e8f2616e254cea287720ce4dd4ef3c90c00e4be10aeda0c020de0",
+      "map": "017-map.json",
+      "mapSha256": "22cd3a9c799ee82ec2d0baff454b251535dc974815926d3fcbecac1db11a9343",
+      "visuallyInspected": true
+    },
+    {
+      "step": 18,
+      "screenshot": "018-industry-scroll.png",
+      "screenshotSha256": "770da0cfe31b05eeb02d1d548b5681e1b2b3d5c0823436ab16636747e3f49f17",
+      "map": "018-map.json",
+      "mapSha256": "a7b7628bda4f13756feff9fe3b43ef7b6b4f01a59966000b117bd9d3eafb4857",
+      "visuallyInspected": true
+    },
+    {
+      "step": 19,
+      "screenshot": "019-industry-film-studio-e26cea4b-r02-film-973.png",
+      "screenshotSha256": "e4923af3d162121669014536f9dd1f31c84a2df0d29df142e51dae65bf3b46ae",
+      "map": "019-map.json",
+      "mapSha256": "697959a4063eb9e023e5195a29b60a478658b9dacf01637320f47db1d80dcbe6",
+      "visuallyInspected": true
+    },
+    {
+      "step": 20,
+      "screenshot": "020-industry-back.png",
+      "screenshotSha256": "e13f6d95d4913555376eab55dd5e2e39951b5d862a2d56f85ffa74369d02dfe6",
+      "map": "020-map.json",
+      "mapSha256": "a9abf471dcde4f3daf20e0a4288d68270f08623796197bd2e60593d5ff846df2",
+      "visuallyInspected": true
+    },
+    {
+      "step": 21,
+      "screenshot": "021-tap.png",
+      "screenshotSha256": "0dd415753b16ad36b3c62f4b4c2fc6e3a4b5305f02e376b336d2415d0de5c4db",
+      "map": "021-map.json",
+      "mapSha256": "2e382dc67ed73d74ac071a9f57889c28127a1cf9011d9234ad5662ad3e7909d6",
+      "visuallyInspected": true
+    },
+    {
+      "step": 22,
+      "screenshot": "022-tap.png",
+      "screenshotSha256": "195b3009f48bba04c560fa35f7ca38d44fecc80a642209a6d92c207a4d3e6e72",
+      "map": "022-map.json",
+      "mapSha256": "412b474aeb54562684bce3dc718129c3f952c2f5d8ebd93ba73e306e0c9bd3e1",
+      "visuallyInspected": true
+    },
+    {
+      "step": 24,
+      "screenshot": "024-industry-scroll.png",
+      "screenshotSha256": "5277fabf71a3c61e987c3795fc7ed802ddb7ed53a4314d7cdaa9d5b9ae1bc2ad",
+      "map": "024-map.json",
+      "mapSha256": "29d2d557365ae5cb3fa694d0e9a1ef276f3a6acb5bfca581394e56dba43458fe",
+      "visuallyInspected": true
+    },
+    {
+      "step": 27,
+      "screenshot": "027-industry-scroll.png",
+      "screenshotSha256": "5f00f86374c8669d9809132c627c448e92bcc91d4444ea8cdbc13c60e7d40104",
+      "map": "027-map.json",
+      "mapSha256": "e184c0dedde42718c07e8971d78dd8c7e8eeb18fa82250e2b50fbbe7c91e5b8b",
+      "visuallyInspected": true
+    },
+    {
+      "step": 28,
+      "screenshot": "028-industry-project-studio-e26cea4b-r02-film-976.png",
+      "screenshotSha256": "09dbe39ba645f9232ef2e6711f8507f6c0931eedc4a35139caf09df5db2abc92",
+      "map": "028-map.json",
+      "mapSha256": "22737553ce1ac309f47a83fa0d7c0be292b09a55ba07458921907022bb169068",
+      "visuallyInspected": true
+    },
+    {
+      "step": 29,
+      "screenshot": "029-industry-scroll.png",
+      "screenshotSha256": "3fdc2e47aa2ef48d2c017e48097f7ceb638998c5f4c08f6955618cbc5d7f9487",
+      "map": "029-map.json",
+      "mapSha256": "7a33cddf062339c4cc203420af9eb5b73e0fbb78151fd7e4c175612c87bbd22b",
+      "visuallyInspected": true
+    },
+    {
+      "step": 30,
+      "screenshot": "030-industry-history-studio-e26cea4b-r02.png",
+      "screenshotSha256": "3427f8a0b135d42caddda1a0af11df69a98d5901d242eb9532de140e74a70e10",
+      "map": "030-map.json",
+      "mapSha256": "582bab0d4f173edc9f51562112cca8b4cb62ad113f90d25e344d9a6fda1567e3",
+      "visuallyInspected": true
+    },
+    {
+      "step": 31,
+      "screenshot": "031-industry-scroll.png",
+      "screenshotSha256": "7e11bd7e9753434a51321d246ce36ff482af04a13eb256cf8a0c077649fb3937",
+      "map": "031-map.json",
+      "mapSha256": "c72797dd2c752bc0b4d01bfd0100f771eacb4b6bf13f418b7d0a5f980a72680d",
+      "visuallyInspected": true
+    },
+    {
+      "step": 33,
+      "screenshot": "033-industry-event-project-industry-event-9605.png",
+      "screenshotSha256": "0d30b1e09fb8dec1f34e1c47b376d354aaaeb770b2e1634ca20437252db3cdc7",
+      "map": "033-map.json",
+      "mapSha256": "f7b7f6d68609099b730b7856a54bfd19e12e2cd1c9851bd47074293840aa1ea9",
+      "visuallyInspected": true
+    },
+    {
+      "step": 34,
+      "screenshot": "034-industry-scroll.png",
+      "screenshotSha256": "de2153ae45410297e7f5d1f56c9e4b71b13ffe3b10ff2a2de9951bd68cf1a469",
+      "map": "034-map.json",
+      "mapSha256": "e0b5e1f8846413ea6f86a4e2063f43cba3f8577f5688ad012d7d2c90172defb6",
+      "visuallyInspected": true
+    },
+    {
+      "step": 35,
+      "screenshot": "035-industry-film-studio-e26cea4b-r02-film-975.png",
+      "screenshotSha256": "2f7f0dd0cd566f1d773dc5cb2fdad2fc2be4f803104a170b5dc4f87524b89f07",
+      "map": "035-map.json",
+      "mapSha256": "f74c4e8e57de553a0628d4daf8de09f2f9a776baff36e980ba840a29862f6198",
+      "visuallyInspected": true
+    },
+    {
+      "step": 37,
+      "screenshot": "037-industry-credit-person-studio-e26cea4b-r02-5.png",
+      "screenshotSha256": "dac3d44c6861e5a47e969e79a00e87fe7318ae21b2045c6fbf6cefd7c5b4b5d7",
+      "map": "037-map.json",
+      "mapSha256": "b6f3857bc85c0fe432c211e0bff286e71c86fc30b5bb42ebe5fbe3fa889ed8d8",
+      "visuallyInspected": true
+    },
+    {
+      "step": 38,
+      "screenshot": "038-industry-employment-history-person-studio-e26cea4b-r02-5.png",
+      "screenshotSha256": "2f34758c6f958ad8d1aeb0e91be1df28be780bd8522686febc480e0d3581f5c2",
+      "map": "038-map.json",
+      "mapSha256": "59e11ff5de31f8f208785507eab709b7931c63d9c276a991a45e20f222e820f0",
+      "visuallyInspected": true
+    },
+    {
+      "step": 43,
+      "screenshot": "043-industry-page-next.png",
+      "screenshotSha256": "f30cfd97b0da3c84ff2f9a4a3dc6d3611f59b57c784743312ba925056a977a64",
+      "map": "043-map.json",
+      "mapSha256": "6cc552cebc2ccade8d5ef07afe8615eabd694576bd9297fb8dab258b245210da",
+      "visuallyInspected": true
+    },
+    {
+      "step": 45,
+      "screenshot": "045-industry-scroll.png",
+      "screenshotSha256": "6001d238b2976cdf80860cd73deaa6fac401ced0497f531e7fc1b3ae820147fd",
+      "map": "045-map.json",
+      "mapSha256": "927d64786c0c1f94ef0792a8300d60a7b0b448dd1ae8c302169f77f6a452ce02",
+      "visuallyInspected": true
+    },
+    {
+      "step": 46,
+      "screenshot": "046-industry-event-person-industry-event-12.png",
+      "screenshotSha256": "0a0cc14ca0c8a00ebd4708745c8a152bd1f88952dbac0cf41facc13b8a1dd39d",
+      "map": "046-map.json",
+      "mapSha256": "dea99b626f2e72a9cf2ffb0052acba4067df8a8da68886e365b658266e5fb8a2",
+      "visuallyInspected": true
+    },
+    {
+      "step": 47,
+      "screenshot": "047-industry-full-profile-person-studio-e26cea4b-r02-5.png",
+      "screenshotSha256": "595bc20befe41f13b2dc12802a170b3588ce310ac89365ab7eb4c8fff8ffa4ff",
+      "map": "047-map.json",
+      "mapSha256": "7dab53e8d67f9a2ee7605c3cdccb5a17628c5d65b4d8478b05a2b2e072392b0e",
+      "visuallyInspected": true
+    },
+    {
+      "step": 48,
+      "screenshot": "048-profile-detail.png",
+      "screenshotSha256": "1904cdb016d889038e1634e87f312e6f03ea1e424a1de670b07e5caa1dd12c34",
+      "map": "048-map.json",
+      "mapSha256": "c07913efd16a8d3701ea5464d57b11fc011abe20d92360cbe576bcf5e997b0be",
+      "visuallyInspected": true
+    },
+    {
+      "step": 49,
+      "screenshot": "049-profile-detail.png",
+      "screenshotSha256": "1ec14c9d593390ed00f674557b31af8a8cffdddd421be3fc6cd4df4196f58c2a",
+      "map": "049-map.json",
+      "mapSha256": "5b9b73318ea233c534b8849b12519a53d463e0926e0a8aa36c5b19d05bb44d3f",
+      "visuallyInspected": true
+    },
+    {
+      "step": 51,
+      "screenshot": "051-profile-detail.png",
+      "screenshotSha256": "acd84723132fb2d2f231bc305c4a7493de10f174ee2fc424452ad7311c05d542",
+      "map": "051-map.json",
+      "mapSha256": "ba78e3fee9334c2b0e8e2d4537366aed07a2d46103928fb502c7a9fd4c45a653",
+      "visuallyInspected": true
+    },
+    {
+      "step": 52,
+      "screenshot": "052-profile-back.png",
+      "screenshotSha256": "d1d951b73175f0253a63423e4f942904595e61f553175adfc549bbc17d1cf513",
+      "map": "052-map.json",
+      "mapSha256": "6c3dd41ee4d8391afb945ddcb6732afcf7e72a527e153c3fb83bd649d142888d",
+      "visuallyInspected": true
+    },
+    {
+      "step": 53,
+      "screenshot": "053-industry-back.png",
+      "screenshotSha256": "ba5362adbff6111e6998383ad248d6133390de10ef03d898ed4f8a5367b574ff",
+      "map": "053-map.json",
+      "mapSha256": "c89759351e74c49a0249c181eafcb8947aacddb1fc07bb97c9d07dd50a8dc97f",
+      "visuallyInspected": true
+    },
+    {
+      "step": 55,
+      "screenshot": "055-industry-tab-pulse.png",
+      "screenshotSha256": "9f8d073a1d7610fd465f856c5683a27806d475a38fbca42fbe2c826782feb8b1",
+      "map": "055-map.json",
+      "mapSha256": "ee59c3c0864d627dcab7717bc3f122ea25249950951741aa891c2018a45701a6",
+      "visuallyInspected": true
+    },
+    {
+      "step": 56,
+      "screenshot": "056-industry-scroll.png",
+      "screenshotSha256": "9da68350c351283d1c53352376929e90464f2e92c8a76f2abb47e07c6a0fd70e",
+      "map": "056-map.json",
+      "mapSha256": "081386f6d584580dff94360ac0b5ca4e6129d53365828be3195e166117d031e6",
+      "visuallyInspected": true
+    },
+    {
+      "step": 57,
+      "screenshot": "057-industry-refresh.png",
+      "screenshotSha256": "c6f49062d61547cdab06bc2679ee2f9000d13c93233fbd33bc8848a77ab778a2",
+      "map": "057-map.json",
+      "mapSha256": "43e2eda87de7373e147e4675e77c0bcc2921eae6a48fdfc5b805b828bd4f387e",
+      "visuallyInspected": true
+    },
+    {
+      "step": 58,
+      "screenshot": "058-industry-event-studio-industry-event-9612.png",
+      "screenshotSha256": "995ce3a5adde39a84ce74e1a19b3b82f22b41f2604381270f95265aa7fdb54f6",
+      "map": "058-map.json",
+      "mapSha256": "a3723bcb2956bcd6491a7c3ba45e6489e459ae6b93da63298f51df8fed12213f",
+      "visuallyInspected": true
+    },
+    {
+      "step": 60,
+      "screenshot": "060-industry-roster-studio-e26cea4b-r06.png",
+      "screenshotSha256": "4a33cb7637db4bfcdf4c240ce45a8342137235bcb85d2988379705b2347e4aa1",
+      "map": "060-map.json",
+      "mapSha256": "26561bea66266a69e0d71b1577dc8ba8318da00af28384c80019465594516c7d",
+      "visuallyInspected": true
+    },
+    {
+      "step": 61,
+      "screenshot": "061-industry-scroll.png",
+      "screenshotSha256": "312f031f41569a47715d555df7ad6650edf0627cc5797aab822f445f84408f82",
+      "map": "061-map.json",
+      "mapSha256": "621a0ba564a944d627b5e35776b91c4803c28f494bc667eb6ba51f2db5167abd",
+      "visuallyInspected": true
+    },
+    {
+      "step": 65,
+      "screenshot": "065-industry-studio-studio-e26cea4b-r07.png",
+      "screenshotSha256": "293417d76649d617a516387af7afd8d9c875d176bcaff2af6dece98df758e00a",
+      "map": "065-map.json",
+      "mapSha256": "505fb65f7ac97c283ca03959198f9953ff53875537ca9f521974356519c5b27b",
+      "visuallyInspected": true
+    },
+    {
+      "step": 66,
+      "screenshot": "066-industry-scroll.png",
+      "screenshotSha256": "6660f2f7b689ed223b2cfafbcad6e44932ba4ba6e51da3483598bc92536af3cd",
+      "map": "066-map.json",
+      "mapSha256": "a19bd880de515bdbad29d87e25d6e817f362693cadac5ede6eb53ce172fd4554",
+      "visuallyInspected": true
+    },
+    {
+      "step": 67,
+      "screenshot": "067-industry-roster-studio-e26cea4b-r07.png",
+      "screenshotSha256": "f4c729233251895fd6bdb31ca26566c347e2c6cbcf4067d5dccd1cee8aeaa1da",
+      "map": "067-map.json",
+      "mapSha256": "afdb6cd4a604b4d0ca54341f48df359a6738a294c5e1c7b7ba6389cb35d37d76",
+      "visuallyInspected": true
+    },
+    {
+      "step": 70,
+      "screenshot": "070-industry-scroll.png",
+      "screenshotSha256": "41499cc73d649c165441a78f9f93c1b9e9b97a0558d21e27995b9c8602a6976f",
+      "map": "070-map.json",
+      "mapSha256": "beed768ca66fdbb558f0bf308bf3f5c1f1326aab4f81b4b5f9e10ff9d7b52bd1",
+      "visuallyInspected": true
+    },
+    {
+      "step": 75,
+      "screenshot": "075-industry-scroll.png",
+      "screenshotSha256": "6b91ace9ecdd71e1230121262d0b679c9d5b2c695547bdd38e76b723887d1417",
+      "map": "075-map.json",
+      "mapSha256": "c6f31a8505391c862463dae2d2905529f1876f1de5fe7d6f7d3aec69096199df",
+      "visuallyInspected": true
+    },
+    {
+      "step": 76,
+      "screenshot": "076-industry-film-studio-e26cea4b-r07-film-0.png",
+      "screenshotSha256": "fb6b92ba7f76ccaa6ce89a4971f0c317eb764219d4a3318688bf7e581eb60a04",
+      "map": "076-map.json",
+      "mapSha256": "710d28d44eb58c8422775a7fb1e61a17413289553885051475ec5705fe95c541",
+      "visuallyInspected": true
+    },
+    {
+      "step": 77,
+      "screenshot": "077-industry-back.png",
+      "screenshotSha256": "9ba9eee418423bf4021b45d8c5422edba994be1b55d6657a950564ca82309175",
+      "map": "077-map.json",
+      "mapSha256": "241f447f45e41052705d3f6616c6a577df18f7e973f43d9bb0b17091db2bb1db",
+      "visuallyInspected": true
+    },
+    {
+      "step": 78,
+      "screenshot": "078-tap.png",
+      "screenshotSha256": "f320e89c13f953a7eae7c0a38bb79bc50d888686c38535bbdc9c52b52711a401",
+      "map": "078-map.json",
+      "mapSha256": "a0ff7d6394db787d4ec81d23ab324f6a8f0edfb1ea80ea3fb30227f49e0c79fc",
+      "visuallyInspected": true
+    },
+    {
+      "step": 79,
+      "screenshot": "079-tap.png",
+      "screenshotSha256": "b861815bcde1e86cc7977885406ebc50cae2236f1f5b91ddd45875c1985c975b",
+      "map": "079-map.json",
+      "mapSha256": "4a7c529d431a53bbae33278535382bc7328eef7eb90e7aee4993bde36c90cc50",
+      "visuallyInspected": true
+    },
+    {
+      "step": 80,
+      "screenshot": "080-tap.png",
+      "screenshotSha256": "94e2423ba7bc4ad75f11bf4618653ae133c1654bdaae66f6f2aaa94dbdb8d534",
+      "map": "080-map.json",
+      "mapSha256": "bcbe74887ea398b6fbbdb0d783323cc3fc309cce762950ae6ba60eb117386a51",
+      "visuallyInspected": true
+    },
+    {
+      "step": 81,
+      "screenshot": "081-tap.png",
+      "screenshotSha256": "37c287a6673bcb4812bdb3aa8d073f37c23a9a28400415cdf07723fc49dd0d95",
+      "map": "081-map.json",
+      "mapSha256": "ccb2edb7d214265f79603cd97f8bde53eb9fed8cc31bba703715cd2e9b9ed65e",
+      "visuallyInspected": true
+    },
+    {
+      "step": 82,
+      "screenshot": "082-tap.png",
+      "screenshotSha256": "0c65e9a0d2f60ff444ac8b5a74fbd61bfb685cea0a3edb46d7ec2f9e0e5aa0f1",
+      "map": "082-map.json",
+      "mapSha256": "e014109afc7618358e2460ebe3438ae666f384e76deeaf2392fd7b5262a97f07",
+      "visuallyInspected": true
+    },
+    {
+      "step": 95,
+      "screenshot": "095-profile-detail-scroller.png",
+      "screenshotSha256": "d2241bdd405ae4d751e8f74f5c548cc3ce0542a2401215ba3496d48ef8d73bf0",
+      "map": "095-map.json",
+      "mapSha256": "5d59937ffb0fd71b17568d482ae6fc926fc5ac760469abe3230a76b03680196f",
+      "visuallyInspected": true
+    },
+    {
+      "step": 96,
+      "screenshot": "096-profile-detail.png",
+      "screenshotSha256": "8f4d5261b25e551713afe9a19c78849e928c8f931ef6e8f6720d96b70bffc0b2",
+      "map": "096-map.json",
+      "mapSha256": "6b020d8a780c0898067c771a9e381a049b0f39fe29dc11ae6dddb6bbd45226d1",
+      "visuallyInspected": true
+    },
+    {
+      "step": 97,
+      "screenshot": "097-profile-industry-record.png",
+      "screenshotSha256": "e806df2557098fbe541a7784e5313d1b7079fb161d4932f941b1eb9f29194540",
+      "map": "097-map.json",
+      "mapSha256": "5a5281667ec45e1b20ffa1dfd45d425717da782e751bd1e0989861c864df8b25",
+      "visuallyInspected": true
+    },
+    {
+      "step": 98,
+      "screenshot": "098-industry-back.png",
+      "screenshotSha256": "8db1277305f1c059cc89c3d5caf3ddb3d85b9fd4d9dd4862135cfd33e002f711",
+      "map": "098-map.json",
+      "mapSha256": "55b15131434e84cd20ff0e9d84149307b3c8393d10a76af034531c70bb17002e",
+      "visuallyInspected": true
+    },
+    {
+      "step": 101,
+      "screenshot": "101-observe.png",
+      "screenshotSha256": "768f499a68e467cc964deff3e4b5ee0480aadf807c17660b4a154fb61d95eab2",
+      "map": "101-map.json",
+      "mapSha256": "ab8efea75f2bc2983c4ac4fbf9d6f91d24bbc7562c7a9d41113d594e53e6f56c",
+      "visuallyInspected": true
+    },
+    {
+      "step": 102,
+      "screenshot": "102-studio-menu-quit.png",
+      "screenshotSha256": "428ea49fcefd4401e4bdf01ee288ffa26c5e5f175261d2f01de49337a50720bb",
+      "map": "102-map.json",
+      "mapSha256": "71566abffc81cc0ea0db2ab4ccbde97158f43f08f8d7ad72bf6d5a7917c83445",
+      "visuallyInspected": true
+    }
+  ],
+  "closureRequirements": [
+    "Complete actual reverse-keyboard navigation under the corrected root HID guard; retain failednative22.",
+    "Bind the final delivered package and further changes with explicit applicability.",
+    "Do not convert this bounded product review into whole R05 technical completion, independent campaign proof or Owner enjoyment acceptance."
+  ],
+  "hook": "EXPLICIT-CHECKER FALLBACK; automatic hook inactive.",
+  "correctionReplay22": {
+    "reviewScope": "Narrow corrective replay within the same required third critique; no new polish round.",
+    "priorPrivateReviewSha256": "04b31a049acc7a819f237bc33327c23fcfa4ca8922c9f8c25956f9e81f3c1920",
+    "evidenceDirectory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T21-07-34-170Z",
+    "reportSha256": "c89683772751d4648735ac3563cf2e33d5bc1b8093404f5a4d7240f13a38c559",
+    "manifestSha256": "0b1c7fbfe4d44333defdeb394aae21affa6e6387ddf5e0c62cbb8a1915d6a06b",
+    "launchBindingSha256": "640e22dc0fe8ca3d0e997bb34c69e63c82eaab72e52260d0f977325652cceb3b",
+    "typescriptCommit": "39c6401738f0f29700632acc4c03aeb6e3b5bc93",
+    "unityCommit": "a5dfa20491b4a0f0a124f7d2310ec2c505d16cda",
+    "nativeStatus": "stopped",
+    "nativeReason": "WitnessUnavailable: HID witness unavailable \u2014 automation stopped (Shift-Tab: HID witness unavailable \u2014 automation stopped (Owned acknowledgement has unexpected modifier flags))",
+    "completedCapturedSteps": 5,
+    "qualification": "003/004 are completed captured observations before first Shift-Tab guard rejection. This is not an overall run pass, reverse-keyboard pass, clean Quit/relaunch proof or technical acceptance. Later runner guard correction does not erase this interruption.",
+    "wordingObservation": "Blackthorn shows Entered during this campaign; film records come from actual releases. It remains correctly founded1939Week1 with866 campaign films in2089Week7, readable at100% and200%.",
+    "artifacts": [
+      {
+        "step": 3,
+        "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T21-07-34-170Z/003-industry-studio-studio-e26cea4b-r06.png",
+        "screenshotSha256": "3b5772db5a19cf52807cd231c127f0fe90780f383e5ddd09ef19a501279ec8dd",
+        "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T21-07-34-170Z/003-map.json",
+        "mapSha256": "38ee6921782848a5cf51d28a26c6e4f624cff4567e3c21cfcfeffd3e675e169a",
+        "visuallyInspected": true,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+          "successfulSnapshotPollCount": 26,
+          "connectionState": "Reconnecting",
+          "transportOutageCount": 0,
+          "retainingViewAfterTransportFailure": false
+        },
+        "recordingNotice": "Entered during this campaign; film records come from actual releases. Showing 6 of 6 current people; open the complete roster for every member."
+      },
+      {
+        "step": 4,
+        "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T21-07-34-170Z/004-industry-text-200.png",
+        "screenshotSha256": "e1330ab3fde552a12116a44cb1cd436a3aefe013aaac5afe6cfc2908a3fdf00d",
+        "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T21-07-34-170Z/004-map.json",
+        "mapSha256": "d5672c67fb11f1d754f75fcd4260987386d197c7507b86eda51f2a3fcb9c1e69",
+        "visuallyInspected": true,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+          "successfulSnapshotPollCount": 34,
+          "connectionState": "Live",
+          "transportOutageCount": 0,
+          "retainingViewAfterTransportFailure": false
+        },
+        "recordingNotice": "Entered during this campaign; film records come from actual releases. Showing 6 of 6 current people; open the complete roster for every member."
+      }
+    ],
+    "currentPackageBytes": [
+      {
+        "kind": "playerExecutable",
+        "path": "/private/tmp/p12a-current-largeworld-98zmq2_r/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+        "sha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "matchesNative22Manifest": true
+      },
+      {
+        "kind": "assemblyCSharp",
+        "path": "/private/tmp/p12a-current-largeworld-98zmq2_r/Project Studio Visual Spike.app/Contents/Resources/Data/Managed/Assembly-CSharp.dll",
+        "sha256": "9a8dae63540f41fd5618bfccc6e52021458825280ba991fbf7ec6cad90a8155a",
+        "matchesNative22Manifest": true
+      },
+      {
+        "kind": "engineBundle",
+        "path": "/private/tmp/p12a-current-largeworld-98zmq2_r/runtime/engine.mjs",
+        "sha256": "6fec4a563bd2110dd564980a08096603e547941e579e929251b2bbc9d3c278aa",
+        "matchesNative22Manifest": true
+      },
+      {
+        "kind": "runtimeWorker",
+        "path": "/private/tmp/p12a-current-largeworld-98zmq2_r/runtime/runtime-worker.mjs",
+        "sha256": "8f198d95cd260a21fff26b16b7b55d256d04a3311338fa2a57ef95821cc941ec",
+        "matchesNative22Manifest": true
+      },
+      {
+        "kind": "workerSourceManifest",
+        "path": "/private/tmp/p12a-current-largeworld-98zmq2_r/runtime/runtime-worker-source.json",
+        "sha256": "48dfcdcf5b38661ebb222fcea95fa2bed1fcbe086532ac6941bc99b131785127",
+        "matchesNative22Manifest": true
+      }
+    ]
+  },
+  "checkedNative21ReuseForCurrentPackage": {
+    "status": "CHECKED for completed product tasks; overall third critique OPEN pending reverse-keyboard evidence.",
+    "from": {
+      "typescriptCommit": "3da8373eec79de4923ce842eeb701849b65d0bfb",
+      "unityCommit": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "nativeReportSha256": "3f75acac7f8da8153e6d3bfc481eca34a58ba03e27d8241a289cf6c4e809fef1"
+    },
+    "to": {
+      "typescriptCommit": "39c6401738f0f29700632acc4c03aeb6e3b5bc93",
+      "unityCommit": "a5dfa20491b4a0f0a124f7d2310ec2c505d16cda",
+      "package": "/private/tmp/p12a-current-largeworld-98zmq2_r"
+    },
+    "onlyChangedTypeScriptRuntimePaths": [
+      "bridge/industry.ts"
+    ],
+    "exactRuntimeDifference": "Single recordingNotice string replacement. Branch conditions, projection schema, sorting/paging/movement/tendencies/announcements/History and simulation producers are byte-identical otherwise.",
+    "unityChangedPaths": [
+      "Tools/hid-guard-tests.mjs",
+      "Tools/hid-guard.mjs",
+      "Tools/hid-witness-state.mjs",
+      "Tools/ownerinput/ownerinput.swift",
+      "Tools/p12a-native-preview.mjs"
+    ],
+    "identicalUnityProductTrees": [
+      {
+        "path": "Assets",
+        "native21AndNative22IdenticalGitTree": "8e3e4e948b8766429124d3c07d7bfa77ab8b2877"
+      },
+      {
+        "path": "Packages",
+        "native21AndNative22IdenticalGitTree": "53850b446e3c66aca699f8258d9f8505ec5b4071"
+      },
+      {
+        "path": "ProjectSettings",
+        "native21AndNative22IdenticalGitTree": "bd634b92218127f72e2801f4c62a1700d217ab55"
+      }
+    ],
+    "actualExecutableAndAssemblyMatchNative21": true,
+    "reusableCompletedTasks": [
+      "Native21 separate charts/comparable movement and Movie measures",
+      "GroupedPulse, populated/empty tendencies and public qualifications",
+      "Current/historical announcements with exact film/company joins",
+      "RivalHistory, complete employment archive, Profile/Industry/Back routes",
+      "Complete31-film archive and15-film recent subset, finalrow/drilldown/Back at200%",
+      "Populated/empty roster and qualified recent-film empty state",
+      "Native21 forwardTab/Enter under its original successful guard binding"
+    ],
+    "limits": [
+      "Native21 is not relabelled as newly captured under the current package.",
+      "New engine/worker binaries require their own source/build/technical bindings; only string-only product behavior applicability is reused here.",
+      "Changed nativeTools need their own review/smoke. Earlier forward traversal does not certify the reversechord path.",
+      "No retroactive private-save, independentcampaign, performance target, failednative22, futurecandidate or Owner-enjoyment certification."
+    ]
+  }
+}

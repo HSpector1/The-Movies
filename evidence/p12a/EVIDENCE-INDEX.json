@@ -212,9 +212,44 @@
       "path": "gate-b-run21-20260910/independent-performance-review.json",
       "sha256": "44c3c541e75154c99d82003997ea1488f9eefbaf90e572c6586dc4f693afbbd7",
       "applicability": "Independent actualnative21 finaltiming+2049RSSsamples; no newhardstorageviolation established by57msinmemorypresentation. OriginalprovisionaltargetsMISS/OPEN and measuredrebaseline remainexplicit; nofullGateBcertification."
+    },
+    {
+      "kind": "native-corrective-attempt",
+      "outcome": "INTERRUPTED",
+      "path": "gate-b-run22-20260910/native-summary.json",
+      "sha256": "b176770bc067825ca84d73de7e09b6119b8626850e9930772742e369d7885b4a",
+      "applicability": "Current39c6401/a5dfa20 actual entrant wording verified; Shift-Tab refused on retained synthetic modifier. No reverse/Quit/relaunch pass. Pending Owner physical cleanup and normal-chord correction native replay."
+    },
+    {
+      "kind": "product-review-full",
+      "outcome": "PARTIAL",
+      "path": "gate-b-run22-20260910/product-review-wording-corrected-open.json",
+      "sha256": "ac8a452f91f9dcdaaf4da85f143162c222ff2fa27227339a7bf32721231356cd",
+      "applicability": "Same third critique: entrant wording corrected100/200; exact currentproduct reuse checked; actualreverse traversal remains open."
+    },
+    {
+      "kind": "correctness-review",
+      "outcome": "PARTIAL",
+      "path": "gate-b-run22-20260910/current-correctness-applicability-partial.json",
+      "sha256": "16ae7eaa7af2a31a865b6be045c106e7a8bbaadb373dbcdbec2cf21ed267ad40",
+      "applicability": "Independent currentcore/worker/product reuse and Save-session replacement review; final native/candidate/performance/current attestations remain open."
+    },
+    {
+      "kind": "performance",
+      "outcome": "PARTIAL",
+      "path": "fixed-phases-20260910/independent-review.json",
+      "sha256": "b581eb6f28548ed3bb3da724b735f29ae08fe05480b2c09e289d1f32c734fae2",
+      "applicability": "Current39c6401 production functions on protected2548/8788 fixtures:3warmups+20samples for9separatephases each,414raw observations reviewed. Full strictimportp95166.833ms meets500ms; serialize+digest199.524ms misses100ms; Hollywood-root37,829,874B exceeds8MB. Busy r02/r06 indexed50-row pages measured separately. Originaldurable/load/Save distributions and repeatedcheckpoint-work correction remain pending; no12/48/4000/50stress pass."
+    },
+    {
+      "kind": "performance",
+      "outcome": "PARTIAL",
+      "path": "store-phases-control-20260910/measurement-disposition.json",
+      "sha256": "e6a1d7f1debb62aeac9ccd50e033a8d22f61dc5740942d7b4851cb5d286f0ff0",
+      "applicability": "Exact39c6401 pre-correction control: 3warmups+20samples each; write p9562.351ms, load-to-ready18.498s and completeSave18.248s. Scoped CPUprofile confirms repeated strict/canonical checkpoint work. Sources/protected seed unchanged; API-owned cleanup passed. PERF007/010 require bounded correction/current-byte verification; no current candidate/native/Owner certification."
     }
   ],
-  "updatedAtUtc": "2026-09-10T20:56:20.740820+00:00",
+  "updatedAtUtc": "2026-09-10T21:46:43.376542+00:00",
   "attestationsPath": "attestations.json",
   "recovery": {
     "sessionId": "01a08adf-7719-7da2-85d0-77ae64c36fad",
@@ -255,15 +290,20 @@
       "outcome": "NOT RUN"
     },
     "latestCompletedNative": {
-      "evidenceDirectory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-11-57-439Z",
-      "lastInputAtUtc": "2026-09-10T20:13:04.856Z",
-      "outcome": "ActualsamepackagePLAYrelaunch/UIQuit clean; checkpoint54689b4e0c38030306e6db0f8c3ddc8b5edbaaa0fd8b9e33cb9e17ecb525c279 identical19\u219220; preservedGateAcontrolscopeonly."
+      "evidenceDirectory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z",
+      "lastInputAtUtc": "2026-09-10T20:46:55.848Z",
+      "outcome": "Actual packaged late8794 Save/clean UI Quit21; subsequent same-package late-world relaunch remains open."
+    },
+    "latestInterruptedNative": {
+      "evidenceDirectory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T21-07-34-170Z",
+      "outcome": "Native22 entrant wording100/200 verified, then Shift-Tab UP retained Shift and guard stopped; no clean-input/Quit/relaunch pass. Owner physical modifier cleanup pending."
     }
   },
   "open": [
-    "GateB same thirdproductreview narrow entrantwording/reversekeyboard replay",
-    "Actualfinalcandidate launch/relaunch with independentA/B/Ctestenvironment",
-    "Finalindependentcorrectness, measuredperformance dispositions and exactbindings",
-    "Owneracceptance separate; hookinactivefallback"
+    "GateB same third product review: actual reverse keyboard traversal after fresh safe input admission",
+    "Bounded repeated-checkpoint-work correction and affected source-bound verification",
+    "Actual current candidate launch/relaunch with independent A/B/C test environment",
+    "Final independent correctness, measured performance dispositions and exact bindings",
+    "Owner acceptance separate; hook inactive explicit-checker fallback"
   ]
 }

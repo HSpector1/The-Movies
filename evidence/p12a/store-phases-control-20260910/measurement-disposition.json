@@ -1,0 +1,251 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "status": "MEASUREMENTS_COMPLETE; PERF007/PERF010_CORRECTION_OPEN",
+  "recordedAt": "2026-09-10T21:40:40.402796+00:00",
+  "sourceCommit": "39c6401738f0f29700632acc4c03aeb6e3b5bc93",
+  "sourceAggregateSha256": "8549cdb8ae6036bde8d7f828120078de02a2c3ab6bd296c6012b3a52d93d68db",
+  "compiledInputs": 106,
+  "originalSeed": {
+    "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z/campaign-library-final.json",
+    "sha256": "66b79add059344d2704d6e27641ecf750f73acad8a358662c91a30eb5df50365",
+    "bytes": 70593125
+  },
+  "measurements": {
+    "durableWrite": {
+      "n": 20,
+      "medianMs": 52.971104500000024,
+      "p95Ms": 62.351084000000014,
+      "maxMs": 63.626875000000155,
+      "minMs": 48.98866699999985
+    },
+    "loadReady": {
+      "n": 20,
+      "medianMs": 18337.768104000017,
+      "p95Ms": 18497.514874999993,
+      "maxMs": 18661.969416000007,
+      "minMs": 18230.87162500003
+    },
+    "campaignSave": {
+      "n": 20,
+      "medianMs": 18162.50633350009,
+      "p95Ms": 18248.355917000008,
+      "maxMs": 18870.020165999973,
+      "minMs": 18052.59695799998
+    }
+  },
+  "pureFull8788": [
+    {
+      "name": "canonical-serialize-already-validated-detached-save",
+      "n": 20,
+      "medianMs": 172.7679790000002,
+      "p95Ms": 181.43612500000017,
+      "maxMs": 181.52479099999982
+    },
+    {
+      "name": "sha256-existing-canonical-utf8-string",
+      "n": 20,
+      "medianMs": 13.398687500000051,
+      "p95Ms": 13.529708000000028,
+      "maxMs": 13.535499999999956
+    },
+    {
+      "name": "canonical-serialize-plus-sha256-paired",
+      "n": 20,
+      "medianMs": 188.38877050000065,
+      "p95Ms": 199.5241249999999,
+      "maxMs": 219.31304199999977
+    },
+    {
+      "name": "strict-validate-already-parsed-v19",
+      "n": 20,
+      "medianMs": 84.43702099999973,
+      "p95Ms": 92.09870799999771,
+      "maxMs": 92.47483400000056
+    },
+    {
+      "name": "parse-and-strict-import-v19",
+      "n": 20,
+      "medianMs": 159.39172950000102,
+      "p95Ms": 166.8331659999967,
+      "maxMs": 171.41833300000144
+    },
+    {
+      "name": "makeSave-detach-and-strict-validate",
+      "n": 20,
+      "medianMs": 181.91558349999832,
+      "p95Ms": 191.70862500000294,
+      "maxMs": 195.007708000001
+    },
+    {
+      "name": "complete-export-current-state",
+      "n": 20,
+      "medianMs": 360.9881874999992,
+      "p95Ms": 380.4905000000035,
+      "maxMs": 381.6488329999993
+    },
+    {
+      "name": "indexed-studio-profile-first-page-50",
+      "n": 20,
+      "medianMs": 0.0437290000008943,
+      "p95Ms": 0.062334000002010725,
+      "maxMs": 0.06645800000114832
+    },
+    {
+      "name": "cached-industry-summary",
+      "n": 20,
+      "medianMs": 0.0002920000006270129,
+      "p95Ms": 0.0006250000005820766,
+      "maxMs": 0.0013330000001587905
+    }
+  ],
+  "busyIndexedProfiles": [
+    {
+      "studioId": "studio-e26cea4b-r02",
+      "name": "Rose Lantern Films",
+      "firstUncachedMs_n1": 404.56974999999994,
+      "indexed": {
+        "n": 20,
+        "medianMs": 0.10554149999995843,
+        "p95Ms": 0.13108299999998962,
+        "maxMs": 0.13170800000000327
+      },
+      "rows": 50,
+      "responseBytes": 30614,
+      "totalFilms": 978
+    },
+    {
+      "studioId": "studio-e26cea4b-r06",
+      "name": "Blackthorn Screenworks",
+      "firstUncachedMs_n1": 402.91487500000005,
+      "indexed": {
+        "n": 20,
+        "medianMs": 0.13608399999998255,
+        "p95Ms": 0.19220799999993687,
+        "maxMs": 0.2047090000000935
+      },
+      "rows": 50,
+      "responseBytes": 31032,
+      "totalFilms": 866
+    }
+  ],
+  "checks": {
+    "completedMeasuredSamplesPerPhase": 20,
+    "excludedWarmupsPerPhase": 3,
+    "sourceUnchangedAfterBothRuns": true,
+    "protectedSeedUnchanged": true,
+    "allOwnedStoresClosedThroughApi": true,
+    "errors": [],
+    "metadataChecksAreNotInactiveFullByteProof": true
+  },
+  "resourceEvidence": {
+    "samplerHighWaterRssKiB": 4971568,
+    "samplerHighWaterRssBytes": 5090885632,
+    "measurementEndpointHeapMaxBytes": 2242657768,
+    "measurementEndpointRssMaxBytes": 4210884608,
+    "qualification": "One standalone benchmark process, not native engine RSS or minimum machine specification. Before/after samples do not measure allocation volume. Process high-water includes setup and warmup."
+  },
+  "independentDisposition": {
+    "legalCurrentR05Fixture": "Nine fixed rivals plus player; full8788 has17 unique active screenplay records (15 ready+2 inProduction). Production validator fixes9 identities and<=2 active screenplays/business.",
+    "futureStress": "12 active/48 unique projects/4000 films/50 archived identities remains UNMEASURED/FUTURE STRESS. No validator relaxation, extra product rivals or archive/churn implementation.",
+    "numericRebaseline": "A documented measured current R05 reference-cost rebaseline is permitted by PERF009/provisional fixture bounds; preserve original numbers and MISS results. Strict pure import at full9 meets500ms. Paired canonicalserialize+digest misses100ms. CompleteSave misses250ms. Hollywood root delta37,829,874 B exceeds8MB before separately added shared-person bytes.",
+    "algorithmGate": "OPEN: Source and scoped CPUprofile confirm repeated strict/canonical checkpoint work over unchanged inner state. Numeric rebaseline cannot waive PERF007/010. Required next step is one bounded correction, independent validation of unknown/mutated input, capacity/replay/failure atomicity, and current-byte measurement.",
+    "hardRules": "No waiver of synchronous ENGINE-MAIN STORAGE50ms, permanent history, strict references/migration, exact retry receipts, page bounds or algorithm obligations. Standalone benchmark synchronous store time does not establish engine-main placement; prior emitted worker proof is distinct.",
+    "nextAfterCorrection": "Preserve this pre-correction control. Root fixed pure phases and busy Industry metrics can be reused only if their96 compiled inputs are unchanged. Repeat affected106-input store/coordinator measurements against new binding; do not certify changed bytes with this old distribution.",
+    "acceptance": "No complete GateB, current performance PASS or Owner enjoyment acceptance awarded here."
+  },
+  "profileFinding": {
+    "selfCanonicalJsonMs": 6221.701999999938,
+    "canonicalJsonShare": 0.3413565286932046,
+    "coreSaveAttributedMs": 6021.527000000031,
+    "checkpointAttributedMs": 2372.9490000000023,
+    "actualStoreAttributedMs": 50.102,
+    "threeSeparateEncodeSessionContextsMs": [
+      2343.126,
+      2331.21,
+      2321.27
+    ],
+    "qualification": "V8 sampled intervals, not exact invocation counts. Inclusive totals overlap. libuv compression-worker CPU is not sampled. Inspect exact call paths in cpu-analysis.json."
+  },
+  "artifacts": [
+    {
+      "path": "store-source.ts",
+      "bytes": 10578,
+      "sha256": "d1dee617de9c2ba53374893070d2e834fdd0e50a1b810ef5ba947cfdf67bde52"
+    },
+    {
+      "path": "store-bundle.mjs",
+      "bytes": 1530979,
+      "sha256": "32d18d11108e96faef34979e3cf508275f7565cd970ecc8429aa11512613961d"
+    },
+    {
+      "path": "store-binding.json",
+      "bytes": 379,
+      "sha256": "217075734dd3451d500620e83e7b7d98b3b732ee15d906f775aad179ac9dc930"
+    },
+    {
+      "path": "store-sources.json",
+      "bytes": 24363,
+      "sha256": "ccab32339de95acb2a491caad93a49a94ced409f4a32b4cc406e16a8f85f51be"
+    },
+    {
+      "path": "store-report.json",
+      "bytes": 40681,
+      "sha256": "db13c89b7d059258dfa5c44fbbf3910ee031ebcc56b99394cc903182e62b303a"
+    },
+    {
+      "path": "profile-source.ts",
+      "bytes": 4856,
+      "sha256": "6ab9e1b99753a79f8dbaa2e5ead98e3d38a7876cef106c3c8c4f9408dd695c02"
+    },
+    {
+      "path": "profile-binding.json",
+      "bytes": 378,
+      "sha256": "2744403a8193b843f2af5281f741ef80c6f52d3f48462b792c9c02e4da83dad1"
+    },
+    {
+      "path": "profile-report.json",
+      "bytes": 19260,
+      "sha256": "0cc478d295538b71786f7bad33a130a7327ee91f8d509b2317a93ebff03a6e09"
+    },
+    {
+      "path": "fixed-phase-independent-review-v2.json",
+      "bytes": 9053,
+      "sha256": "b581eb6f28548ed3bb3da724b735f29ae08fe05480b2c09e289d1f32c734fae2"
+    },
+    {
+      "path": "stress-scope-disposition.md",
+      "bytes": 3377,
+      "sha256": "e6628f7f1f1b4212a091457b95c8d4c92b2b67bc89aaeb7b8a3e1324fcfd77bb"
+    },
+    {
+      "path": "cpu-source.ts",
+      "bytes": 5889,
+      "sha256": "8bd4ea4fe0df89a7fbacb8ca55ff87f75f3ec69fdd25c58955f7f6e5d86abb70"
+    },
+    {
+      "path": "cpu-binding.json",
+      "bytes": 379,
+      "sha256": "87ee5cd8fd56b95414aadead11e1f7581d47146378df3308b24e5acea832a150"
+    },
+    {
+      "path": "cpu-report.json",
+      "bytes": 3302,
+      "sha256": "3db093c19a9cbae8487d6438e4e33bca4499f4c56be3243fd77de2cbf5a4a951"
+    },
+    {
+      "path": "campaign-save.cpuprofile",
+      "bytes": 622241,
+      "sha256": "df50faeb59ea2bb9254cc00658cb78f01b1fc8614a88999dec590d39d0d5eddc"
+    },
+    {
+      "path": "cpu-analysis.json",
+      "bytes": 36169,
+      "sha256": "df15c8c5c8422d0cb8db139a8f1c82f9a045d5b86afbff40358b1024d4dd363e"
+    },
+    {
+      "path": "analyze-cpu.py",
+      "bytes": 4032,
+      "sha256": "bb39934c30a97732e983672462523dc86fea1b413ae42e3adc4af89e884be180"
+    }
+  ]
+}

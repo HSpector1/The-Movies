@@ -1,0 +1,63 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "kind": "native-corrective-attempt",
+  "outcome": "INTERRUPTED",
+  "reason": "WitnessUnavailable: HID witness unavailable \u2014 automation stopped (Shift-Tab: HID witness unavailable \u2014 automation stopped (Owned acknowledgement has unexpected modifier flags))",
+  "sources": {
+    "p12a-native-preview.mjs": "4b6729899c9214a10372a87dba8b95a9ee775e541f5435c614ac38c3d4cf6ef7",
+    "hid-guard.mjs": "ab4cb91d91c4224247bd78b782228a26907fabca67b30dbaa49f0c34c8534e15",
+    "hid-witness-state.mjs": "336e0a7e1afffb18e0e71a01d145c15889b08f974b776d4805ed1db2911e63f2",
+    "hid-coherent-map.mjs": "d766cb5a96519bff79fafdc9806d9973e575a08a8e251b53a739490515efd7c7",
+    "owner-ux-startup.mjs": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff",
+    "owner-ux-window.mjs": "d93ca436174d295cacc7a3d7d561adae7b3d5c49cbdc8019e507ca8fcec92594",
+    "p04a1-window-select.mjs": "a70359db53251c0f88fd3ee586169fcf328f691ffaf2d73d2a844217533b561c",
+    "input-state.py": "d235e2a584bd6d142e5fdd0dd93833bd139260b33646a7f59eae030ba5184942",
+    "console-state.py": "fd540d278ce159e9db1c8c4e8133b222e523475ed9642244799124668de78ac7",
+    "ownerinput/ownerinput.swift": "8b1dcc9e558045dbc46ec9c3b66e533e9903bcec579db69362f1f64c1f7b04b1",
+    "hidwitness/hidwitness.swift": "9dad5fdd34fce93cd497eaf06c76b97b5d928627e07e157c292f8714fa7311df"
+  },
+  "packageRoot": "/private/tmp/p12a-current-largeworld-98zmq2_r",
+  "packageChecksumSha256": "70219b6b8af374d55ac296e6f385a0b9d9de27db95f1e9366c0348779a67cb72",
+  "immutableFiles": 197,
+  "originalReportSha256": "c89683772751d4648735ac3563cf2e33d5bc1b8093404f5a4d7240f13a38c559",
+  "originalWitnessSha256": "c893cbf3ee5b40a0b728ff9d028a29b9773581d230302f5454069de5a4d18657",
+  "capturedCorrections": [
+    "Entrant notice actual100% and200% with1939founding/866films in2089; independently reviewed."
+  ],
+  "unproved": [
+    "Reverse keyboard traversal",
+    "Clean modifier restoration",
+    "Natural UI Quit",
+    "Actual late-world relaunch"
+  ],
+  "input": {
+    "status": "unavailable",
+    "detail": "HID witness unavailable \u2014 automation stopped (Owned input or unacknowledged transition remains after cleanup)",
+    "counts": {
+      "tool": 35,
+      "markerCompanion": 34,
+      "playerNull": 8,
+      "playerOther": 0,
+      "physical": 0,
+      "unknown": 0
+    },
+    "modifierPending": true,
+    "rawOwnedTabDownFlags": 537001984,
+    "rawOwnedTabUpFlags": 537001984,
+    "downSeq": 1057,
+    "upSeq": 1061,
+    "observationEndsAt": "acknowledged final HID marker",
+    "qualification": "Exact tagged Tab-down and Tab-up both retained Shift; owned Tab balanced but modifier restoration unavailable. Global Shift flags/key tables later remained set. No automated stale-ledger repair across the ended-witness gap."
+  },
+  "runnerExitCode": 1,
+  "supervisorExitQualification": "Abort cleanup143 is not natural UIQuit0; owned process/lock cleanup alone does not establish a native pass.",
+  "checkpointCompletionCopy": false,
+  "normalCorrection": {
+    "integratedGuardTestsPassed": 175,
+    "sourceIndependentReview": "PASS_WITH_NATIVE_PENDING",
+    "swiftCompile": "PENDING",
+    "actualNativeReplay": "PENDING",
+    "recoveryOfStopped22": "No automatic recovery; Owner asked to press/release both Shift keys, then root fresh60second/input guard."
+  },
+  "privacy": "No raw save body, capability, ownership token, raw HID stream or private profile copied."
+}
