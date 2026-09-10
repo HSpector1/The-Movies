@@ -9,10 +9,9 @@ import type {
 import {
   BridgeRuntimeCheckpointHistoryFullError,
   DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
-  encodeBridgeRuntimeCheckpoint,
   loadBridgeRuntimeCheckpoint,
   type BridgeRuntimeCheckpointLimits,
-  type BridgeRuntimeCheckpointV1,
+  type EncodedBridgeRuntimeCheckpoint,
   type BridgeRuntimeJournalRoute,
 } from '../runtime-checkpoint.ts'
 import { canonicalJson } from '../schema/canonical.ts'
@@ -83,13 +82,6 @@ function reportFatal(fatal: (error: unknown) => void, error: unknown): void {
   }
 }
 
-function encodeCheckpoint(
-  checkpoint: BridgeRuntimeCheckpointV1,
-  limits: BridgeRuntimeCheckpointLimits,
-): string {
-  return encodeBridgeRuntimeCheckpoint(checkpoint, limits)
-}
-
 class SerializedBridgeRuntimeCoordinator implements BridgeRuntimeCoordinator {
   private tail: Promise<void> = Promise.resolve()
   private closing = false
@@ -133,8 +125,8 @@ class SerializedBridgeRuntimeCoordinator implements BridgeRuntimeCoordinator {
     })
   }
 
-  private async persistWorking(checkpoint:BridgeRuntimeCheckpointV1,saveActive=false):Promise<void> {
-    const json=encodeCheckpoint(checkpoint,this.checkpointLimits)
+  // Only exact bytes from this transaction's bounded session export reach here.
+  private async persistWorking(json:string,saveActive=false):Promise<void> {
     if(this.library) {
       const next=withWorkingCampaignCheckpoint(this.library,json,saveActive)
       await this.store.writeAtomic(await encodeCampaignLibrary(next))
@@ -167,8 +159,11 @@ class SerializedBridgeRuntimeCoordinator implements BridgeRuntimeCoordinator {
     return this.enqueue(async () => {
       const journalSizeBefore = this.session.runtimeJournalSize
       let response: BridgeRuntimeResponse
+      let prepared: EncodedBridgeRuntimeCheckpoint | null
       try {
-        response = this.dispatchToSession(route, request)
+        const dispatched = this.session.dispatchWithRuntimeCheckpoint(route, request, this.checkpointLimits)
+        response = dispatched.response
+        prepared = dispatched.prepared
       } catch (error) {
         if (error instanceof BridgeRuntimeCheckpointHistoryFullError) {
           return this.rolloverFullSession(request)
@@ -188,7 +183,8 @@ class SerializedBridgeRuntimeCoordinator implements BridgeRuntimeCoordinator {
       const firstSeen = journalSizeAfter === journalSizeBefore + 1
       const responseJson = canonicalJson(response)
       if (firstSeen) {
-        const checkpoint = this.session.exportRuntimeCheckpoint()
+        if (prepared === null) throw new BridgeRuntimeCoordinatorError('JOURNAL_INVARIANT', 'A first-seen dispatch did not prepare its durable checkpoint.')
+        const checkpoint = prepared.checkpoint
         const appended = checkpoint.journal.at(-1)
         if (
           appended === undefined ||
@@ -201,7 +197,7 @@ class SerializedBridgeRuntimeCoordinator implements BridgeRuntimeCoordinator {
             'Bridge dispatch response does not match the newly appended runtime journal entry.',
           )
         }
-        await this.persistWorking(checkpoint,route==='save'&&response.accepted)
+        await this.persistWorking(prepared.encoded,route==='save'&&response.accepted)
       }
 
       return { response, responseJson, firstSeen }
@@ -217,20 +213,6 @@ class SerializedBridgeRuntimeCoordinator implements BridgeRuntimeCoordinator {
       () => this.releaseStore(),
     )
     return this.closePromise
-  }
-
-  private dispatchToSession(
-    route: BridgeRuntimeJournalRoute,
-    request: SubmitIntentCommand | ControlEnvelope,
-  ): BridgeRuntimeResponse {
-    switch (route) {
-      case 'command':
-        return this.session.command(request as SubmitIntentCommand)
-      case 'save':
-        return this.session.save(request as ControlEnvelope)
-      case 'load':
-        return this.session.load(request as ControlEnvelope)
-    }
   }
 
   private async rolloverFullSession(
@@ -250,7 +232,7 @@ class SerializedBridgeRuntimeCoordinator implements BridgeRuntimeCoordinator {
         'Controlled bridge session rollover did not preserve authoritative state.',
       )
     }
-    await this.persistWorking(replacement.exportRuntimeCheckpoint())
+    await this.persistWorking(replacement.exportRuntimeCheckpointEncoded(this.checkpointLimits).encoded)
     this.session = replacement
     const response = replacement.protocolReject(
       request.commandId,
@@ -330,7 +312,7 @@ export async function createBridgeRuntimeCoordinator(
         session=BridgeSession.fromRuntimeCheckpoint(loadBridgeRuntimeCheckpoint(library.workingCheckpointJson,checkpointLimits).hydrated,checkpointLimits)
         await options.store.writeAtomic(await encodeCampaignLibrary(library))
       } else {
-        const encoded=encodeCheckpoint(session.exportRuntimeCheckpoint(),checkpointLimits)
+        const encoded=session.exportRuntimeCheckpointEncoded(checkpointLimits).encoded
         if(encoded!==checkpointJson)await options.store.writeAtomic(encoded)
       }
     }

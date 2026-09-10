@@ -1,0 +1,80 @@
+{
+  "kind": "small deterministic fixture instrumented invocation counts",
+  "qualifications": [
+    "Counters inserted only into private esbuild output, no runtime source instrumentation.",
+    "Counts describe complete operation dispatch including compression preparation; no timing assertions.",
+    "Checkpoint distinctness key joins session/revision/current/saved/journal digests; raw private payloads omitted.",
+    "A capacity-check checkpoint and its later final export may have identical bytes: remaining duplicate validation is reported, not relabelled as different state."
+  ],
+  "completed": true,
+  "campaignSave": {
+    "counts": {
+      "canonicalJson": 24,
+      "checkpointDigest": 16,
+      "strictCheckpoint": 3,
+      "importSave": 8,
+      "exportSave": 5,
+      "canonicalCheckpoint": 3,
+      "canonicalCheckpointExactBytes": 3
+    },
+    "checkpointGroups": {
+      "strictCheckpoint": {
+        "distinct": 2,
+        "invocationsPerDistinct": [
+          1,
+          2
+        ]
+      },
+      "canonicalCheckpoint": {
+        "distinct": 2,
+        "invocationsPerDistinct": [
+          1,
+          2
+        ]
+      },
+      "canonicalCheckpointExactBytes": {
+        "distinct": 2,
+        "invocationsPerDistinct": [
+          1,
+          2
+        ]
+      }
+    }
+  },
+  "ordinarySave": {
+    "counts": {
+      "importSave": 3,
+      "canonicalJson": 19,
+      "checkpointDigest": 8,
+      "strictCheckpoint": 1,
+      "exportSave": 2,
+      "canonicalCheckpoint": 1,
+      "canonicalCheckpointExactBytes": 1
+    },
+    "checkpointGroups": {
+      "strictCheckpoint": {
+        "distinct": 1,
+        "invocationsPerDistinct": [
+          1
+        ]
+      },
+      "canonicalCheckpoint": {
+        "distinct": 1,
+        "invocationsPerDistinct": [
+          1
+        ]
+      },
+      "canonicalCheckpointExactBytes": {
+        "distinct": 1,
+        "invocationsPerDistinct": [
+          1
+        ]
+      }
+    }
+  },
+  "final": {
+    "week": 13,
+    "digest": "72bee95da8f79e6aa4d6a64732ae98f817ce5e5ecb841d0afb46d92b6bae51fc",
+    "returnedSaveSha256": "72bee95da8f79e6aa4d6a64732ae98f817ce5e5ecb841d0afb46d92b6bae51fc"
+  }
+}

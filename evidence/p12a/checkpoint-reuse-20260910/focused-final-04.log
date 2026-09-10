@@ -1,0 +1,75 @@
+
+ RUN  v2.1.9 /private/tmp/p12a-checkpoint-reuse-pzwj_tt6/source
+
+ ✓ |checkpoint| tests/bridge-runtime-checkpoint.test.ts (57 tests) 13477ms
+   ✓ BridgeRuntimeCheckpointV1 > forward-migrates protocol 3 by preserving both V15 slots and discarding incompatible replay bytes 940ms
+   ✓ BridgeRuntimeCheckpointV1 > rolls the previous protocol-4 schema forward without changing either V15 save slot 720ms
+   ✓ BridgeRuntimeCheckpointV1 > encodes one exact closed canonical shape with one LF and hydrates stable V15 bytes 789ms
+   ✓ BridgeRuntimeCheckpointV1 > requires canonical checkpoint bytes followed by exactly one LF 905ms
+   ✓ BridgeRuntimeCheckpointV1 > rejects missing and additional roots plus incompatible format, version, protocol, and schema 610ms
+   ✓ BridgeRuntimeCheckpointV1 > requires untouched canonical V15 current and explicit-save bytes with exact digests 1591ms
+   ✓ BridgeRuntimeCheckpointV1 > validates route-specific requests, responses, identity, session, revision, and canonical JSON 1019ms
+   ✓ BridgeRuntimeCheckpointV1 > binds exact historical bytes and rejection semantics to their original route 891ms
+   ✓ BridgeRuntimeCheckpointV1 > rejects duplicate identities and revision-regressing journal order 773ms
+   ✓ BridgeRuntimeCheckpointV1 > binds the root revision to the terminal journal response 861ms
+   ✓ BridgeRuntimeCheckpointV1 > returns a normalized prospective append only after identity and capacity validation 783ms
+   ✓ BridgeRuntimeCheckpointV1 > enforces injectable entry, journal-byte, and checkpoint-byte bounds before hydration 839ms
+   ✓ BridgeRuntimeCheckpointV1 > validates an accepted save response V15 payload and digest before journaling it 646ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > preserves both distinct native R05 founding slots when the Profile calendar contract advances 308ms
+ ✓ |checkpoint| tests/bridge-runtime-checkpoint-prepared-reuse.test.ts (21 tests) 14622ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > intersects session and caller maxCheckpointBytes allowances, including after a successful export 424ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > intersects session and caller maxJournalBytes allowances, including after a successful export 329ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > does not retain aliases from exported checkpoints or hydrated state 341ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > keeps repeated public encoding and decoding strict after a successful validation 352ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > replaces saved-slot and journal bytes when Save leaves the state revision unchanged 313ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > uses one final save artifact for its record, response and working checkpoint 795ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > uses one final saveAs artifact for its record, response and working checkpoint 605ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > does not reuse the saved source stage after dirty save-before-load replaces the prospective world 1141ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > detaches returned dispatch artifacts from both old and newly committed journal entries 630ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > captures current command/load state and never reuses an artifact after ordinary public changes 1659ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > fails tighter caller bounds before command authority mutation and permits a clean retry 1388ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > fails tighter caller bounds before save authority mutation and permits a clean retry 1026ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > fails tighter caller bounds before load authority mutation and permits a clean retry 1326ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > discards failed history preparation before a detached rollover creates its own artifact 344ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > strictly rejects malformed ordinary Save requests before changing the saved slot or journal 330ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > strictly rejects malformed prepared Save requests before changing the saved slot or journal 326ms
+   ✓ prepared checkpoint representation reuse preserves authority boundaries > preserves live authority on failed Save and replays the exact successful receipt after later changes and restart 2295ms
+ ✓ |checkpoint| tests/bridge-p12-campaign-library.test.ts (13 tests) 17818ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 858ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 764ms
+   ✓ R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 2325ms
+   ✓ R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 1131ms
+   ✓ R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 767ms
+   ✓ R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 1669ms
+   ✓ R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 1962ms
+   ✓ R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 2017ms
+   ✓ R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 415ms
+   ✓ R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 690ms
+   ✓ R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 867ms
+   ✓ R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 2471ms
+   ✓ R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 1882ms
+ ✓ |checkpoint| tests/bridge-runtime-coordinator.test.ts (11 tests) 6025ms
+   ✓ BridgeRuntimeCoordinator > atomically persists a state-preserving protocol-3 rollover before becoming ready 558ms
+   ✓ BridgeRuntimeCoordinator > preserves protocol-3 bytes when the migration checkpoint commit fails 381ms
+   ✓ BridgeRuntimeCoordinator > atomically rolls the previous protocol-4 schema into a fresh replay session 444ms
+   ✓ BridgeRuntimeCoordinator > keeps prior protocol-4 bytes when its schema rollover commit fails 355ms
+   ✓ BridgeRuntimeCoordinator > does not expose a first-seen dispatch to its caller or a queued read before commit 597ms
+   ✓ BridgeRuntimeCoordinator > restores logical identity, revision, and the exact historical response 722ms
+   ✓ BridgeRuntimeCoordinator > poisons queued and later reads when a checkpoint commit fails without replacing prior bytes 457ms
+   ✓ BridgeRuntimeCoordinator > rolls full journals without changing current or explicitly saved game authority 1501ms
+   ✓ BridgeRuntimeCoordinator > poisons instead of rolling when one entry cannot fit an empty journal 443ms
+   ✓ BridgeRuntimeCoordinator > drains accepted work before releasing the store and rejects work added after close 489ms
+ ✓ |checkpoint| tests/bridge-checkpoint-store.test.ts (12 tests) 333ms
+ ✓ |checkpoint| tests/bridge-p06-checkpoint-recovery.test.ts (11 tests) 881ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > persists 'Committed with distinct Ready save an…' once and reopens without remigration 323ms
+ ✓ |checkpoint| tests/bridge-runtime-session.test.ts (5 tests) 6620ms
+   ✓ BridgeSession runtime checkpoint recovery > restores untouched V14 authority bytes, logical identity, revision, and digest 506ms
+   ✓ BridgeSession runtime checkpoint recovery > replays an accepted command byte-for-byte after checkpoint restoration 679ms
+   ✓ BridgeSession runtime checkpoint recovery > preserves exact command, save, and load history after later mutations and restart 1110ms
+   ✓ BridgeSession runtime checkpoint recovery > does not silently evict historical command ids at the old 256-entry boundary 4083ms
+
+ Test Files  7 passed (7)
+      Tests  130 passed (130)
+   Start at  00:03:24
+   Duration  61.94s (transform 530ms, setup 0ms, collect 1.15s, tests 59.78s, environment 1ms, prepare 169ms)
+

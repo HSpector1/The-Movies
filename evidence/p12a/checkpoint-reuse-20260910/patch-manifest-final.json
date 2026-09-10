@@ -1,0 +1,38 @@
+{
+  "baseHead": "39c6401738f0f29700632acc4c03aeb6e3b5bc93",
+  "runtimeEquivalentHead": "be09bcc5a767b45efb519250049c63b99928232c",
+  "files": [
+    {
+      "file": "bridge/runtime-checkpoint.ts",
+      "baseSha256": "01bdd70be5d2b77943999191390b91600cbb4dc951df02e0be86aa6a00404de5",
+      "sha256": "5dd3b09da27fd84167a054f88b865500118f68ab5910dcf5dbee63b2e60192e9",
+      "bytes": 58878
+    },
+    {
+      "file": "bridge/session.ts",
+      "baseSha256": "eada8d7ffac42df1afeebf4775a61f4fce6c806b8bcaac8a864d8abf51f0753b",
+      "sha256": "9d9978ec40ce1e2e6c0e25efe1f813ae676cfb54551a82c041c6392367d1db4b",
+      "bytes": 83155
+    },
+    {
+      "file": "bridge/runtime/campaign-library.ts",
+      "baseSha256": "75141a15ac2d17afff2ecfc3f6513921125641d5b3a410e8d9c0065afcb61764",
+      "sha256": "2b6bee53715d153d696b4c3d08211d3d1b79622346133072d46bc7e38a87b38c",
+      "bytes": 22083
+    },
+    {
+      "file": "bridge/runtime/runtime-coordinator.ts",
+      "baseSha256": "b90be451b1195eb524b05de45d793c10d59963103165ab045d24a125fd22937a",
+      "sha256": "d776930efa3d0d37e4ca18e2fcf16b7e8d4f1d795601048a66eb48c54124e560",
+      "bytes": 13365
+    },
+    {
+      "file": "tests/bridge-runtime-checkpoint-prepared-reuse.test.ts",
+      "baseSha256": null,
+      "sha256": "862c0ef9a2ec1cda8817a243dde69870032977ac4c75f3c1a609928058895517",
+      "bytes": 24076
+    }
+  ],
+  "patchSha256": "8687d29d6188ebbc6633cfc2a8f5d8785036e457e9ea92f294545bc5358e1404",
+  "testRelocation": "Only import paths changed; peer-authored original preserved as peer-tests-before-relocation.ts"
+}

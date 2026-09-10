@@ -1,0 +1,16 @@
+{
+  "build-counters-04.mjs": "85924cafd78d5248ff4c9a7a70b0e9b0ece7c4d187d5a056434c85c7d50068c9",
+  "counter-baseline-report-02.json": "02844c8b7a1986f362b530c898c814632f018cb969d728c6ed4f63776130ffc5",
+  "counter-baseline-sources-04.json": "d471e2a19fc168af6313a6e385c71036b3747c368c28e921a2d32de243318af0",
+  "counter-patched-report-04.json": "f9c6594b7ecd27a2f2ea490b0f576ff96a60e33e098d9b654231798262d49dd1",
+  "counter-patched-sources-04.json": "5003c30261f42bfb9f26c8dfee8dc21078f0c0c923c66905557e1cd0303ae57e",
+  "counter-source.ts": "6744a345b341bada0fa6ba5b48c968b213fd5955ffcbaa299ce9c82df7d55eb4",
+  "focused-final-04.log": "090c2694cab16448fa118d454c44187c2e8b0983877ee3e2cd65c4951be83a7f",
+  "independent-final-review.json": "920365549c6a6476b5a2bbe12a9bbfed6d049a68a4dfcbc6e327828989f69c49",
+  "integrated-typecheck.log": "855ad18a7ca3545de92d4b3fd419afe98fb76a0b095511beff0b3e65cfdaee59",
+  "patch-manifest-final.json": "1a31e64e61621cc58c46b1f4be8dd4cd5b43420908086ddd83166fa49322799b",
+  "review.md": "6ca479c10a5ccada0875572e4d8572fdb64a0856368aec14487f46128bb35353",
+  "ts-cumulative-09.log": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff",
+  "typecheck-final-05.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "verification-report.json": "4e38de17627aff6783301fb2f61f32260434ea05ea3b5038a5f8d295f91f5557"
+}

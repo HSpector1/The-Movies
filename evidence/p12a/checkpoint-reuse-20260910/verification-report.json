@@ -1,0 +1,460 @@
+{
+  "kind": "prepared-checkpoint-reuse-independent-verification",
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "status": "BOUNDED PRIVATE CORRECTION VERIFIED; READY FOR ROOT INTEGRATION AND CURRENT-SOURCE PERFORMANCE RETEST",
+  "scope": "Private-only source correction; no shared source mutation, native input, engine or full-world endurance run",
+  "node": "v26.3.1",
+  "runtimeSourceBase": "39c6401738f0f29700632acc4c03aeb6e3b5bc93",
+  "currentRuntimeEquivalentHead": "be09bcc5a767b45efb519250049c63b99928232c",
+  "implementationAuthor": "/root/recovered_storage_review",
+  "newTestAuthorAndIndependentSourceReviewer": "/root/recovered_storage_review/package_runner_review",
+  "sourceValidation": {
+    "intermediatePatch": "prepared-checkpoint-intermediate.patch",
+    "intermediateManifest": "patch-manifest-intermediate.json",
+    "finalFourFiles": "success-handoff-source-manifest.json",
+    "finalManifest": "patch-manifest-final.json",
+    "finalPatchSha256": "8687d29d6188ebbc6633cfc2a8f5d8785036e457e9ea92f294545bc5358e1404",
+    "finalFourFilesUnchanged": true,
+    "defaultDiscoveredTest": "tests/bridge-runtime-checkpoint-prepared-reuse.test.ts",
+    "counter03Intermediate": "Success-only checkpoint handoff before final raw-entry duplicate validation removal; source binding retained in counter-patched-sources-03.json",
+    "counter04Final": "Final candidate;106 imported sources rehashed unchanged after execution."
+  },
+  "counters": {
+    "baseline-02": {
+      "sourceImports": 106,
+      "sourceManifestSha256": "dacdb8b99b75cc82af647e6d460f2ff0279f689b1ced1d6ee1f87e514c47376e",
+      "reportSha256": "02844c8b7a1986f362b530c898c814632f018cb969d728c6ed4f63776130ffc5",
+      "sourceChangesSinceRun": [],
+      "results": {
+        "kind": "small deterministic fixture instrumented invocation counts",
+        "qualifications": [
+          "Counters inserted only into private esbuild output, no runtime source instrumentation.",
+          "Counts describe complete operation dispatch including compression preparation; no timing assertions.",
+          "Checkpoint distinctness key joins session/revision/current/saved/journal digests; raw private payloads omitted.",
+          "A capacity-check checkpoint and its later final export may have identical bytes: remaining duplicate validation is reported, not relabelled as different state."
+        ],
+        "completed": true,
+        "campaignSave": {
+          "counts": {
+            "canonicalJson": 78,
+            "checkpointDigest": 49,
+            "strictCheckpoint": 9,
+            "importSave": 16,
+            "exportSave": 13,
+            "canonicalCheckpoint": 13,
+            "canonicalCheckpointExactBytes": 13
+          },
+          "checkpointGroups": {
+            "strictCheckpoint": {
+              "distinct": 2,
+              "invocationsPerDistinct": [
+                3,
+                6
+              ]
+            },
+            "canonicalCheckpoint": {
+              "distinct": 2,
+              "invocationsPerDistinct": [
+                5,
+                8
+              ]
+            },
+            "canonicalCheckpointExactBytes": {
+              "distinct": 2,
+              "invocationsPerDistinct": [
+                5,
+                8
+              ]
+            }
+          }
+        },
+        "ordinarySave": {
+          "counts": {
+            "importSave": 8,
+            "canonicalJson": 51,
+            "exportSave": 7,
+            "checkpointDigest": 22,
+            "strictCheckpoint": 3,
+            "canonicalCheckpoint": 4,
+            "canonicalCheckpointExactBytes": 4
+          },
+          "checkpointGroups": {
+            "strictCheckpoint": {
+              "distinct": 1,
+              "invocationsPerDistinct": [
+                3
+              ]
+            },
+            "canonicalCheckpoint": {
+              "distinct": 1,
+              "invocationsPerDistinct": [
+                4
+              ]
+            },
+            "canonicalCheckpointExactBytes": {
+              "distinct": 1,
+              "invocationsPerDistinct": [
+                4
+              ]
+            }
+          }
+        },
+        "final": {
+          "week": 13,
+          "digest": "72bee95da8f79e6aa4d6a64732ae98f817ce5e5ecb841d0afb46d92b6bae51fc",
+          "returnedSaveSha256": "72bee95da8f79e6aa4d6a64732ae98f817ce5e5ecb841d0afb46d92b6bae51fc"
+        }
+      }
+    },
+    "patched-02": {
+      "sourceImports": 106,
+      "sourceManifestSha256": "ff85f7c1568d8581e3510a741319b6dee1edca289e944af601fc5722e3692e7e",
+      "reportSha256": "99a92efb1c11d94b7bf57b8d4f80c13004db9ac875304698a6a125d6816ba09d",
+      "sourceChangesSinceRun": [
+        "bridge/session.ts",
+        "bridge/runtime/runtime-coordinator.ts",
+        "bridge/runtime/campaign-library.ts"
+      ],
+      "results": {
+        "kind": "small deterministic fixture instrumented invocation counts",
+        "qualifications": [
+          "Counters inserted only into private esbuild output, no runtime source instrumentation.",
+          "Counts describe complete operation dispatch including compression preparation; no timing assertions.",
+          "Checkpoint distinctness key joins session/revision/current/saved/journal digests; raw private payloads omitted.",
+          "A capacity-check checkpoint and its later final export may have identical bytes: remaining duplicate validation is reported, not relabelled as different state."
+        ],
+        "completed": true,
+        "campaignSave": {
+          "counts": {
+            "canonicalJson": 35,
+            "checkpointDigest": 24,
+            "strictCheckpoint": 4,
+            "importSave": 10,
+            "exportSave": 7,
+            "canonicalCheckpoint": 4,
+            "canonicalCheckpointExactBytes": 4
+          },
+          "checkpointGroups": {
+            "strictCheckpoint": {
+              "distinct": 2,
+              "invocationsPerDistinct": [
+                2,
+                2
+              ]
+            },
+            "canonicalCheckpoint": {
+              "distinct": 2,
+              "invocationsPerDistinct": [
+                2,
+                2
+              ]
+            },
+            "canonicalCheckpointExactBytes": {
+              "distinct": 2,
+              "invocationsPerDistinct": [
+                2,
+                2
+              ]
+            }
+          }
+        },
+        "ordinarySave": {
+          "counts": {
+            "importSave": 6,
+            "canonicalJson": 36,
+            "exportSave": 5,
+            "checkpointDigest": 17,
+            "strictCheckpoint": 2,
+            "canonicalCheckpoint": 2,
+            "canonicalCheckpointExactBytes": 2
+          },
+          "checkpointGroups": {
+            "strictCheckpoint": {
+              "distinct": 1,
+              "invocationsPerDistinct": [
+                2
+              ]
+            },
+            "canonicalCheckpoint": {
+              "distinct": 1,
+              "invocationsPerDistinct": [
+                2
+              ]
+            },
+            "canonicalCheckpointExactBytes": {
+              "distinct": 1,
+              "invocationsPerDistinct": [
+                2
+              ]
+            }
+          }
+        },
+        "final": {
+          "week": 13,
+          "digest": "72bee95da8f79e6aa4d6a64732ae98f817ce5e5ecb841d0afb46d92b6bae51fc",
+          "returnedSaveSha256": "72bee95da8f79e6aa4d6a64732ae98f817ce5e5ecb841d0afb46d92b6bae51fc"
+        }
+      }
+    },
+    "patched-03": {
+      "sourceImports": 106,
+      "sourceManifestSha256": "ff579a7ff3ca9179f38b3beb892024856961505a17821ff3207ded774377bae9",
+      "reportSha256": "8a9444c1b4b4f5888efbe2491bf5dfd0e330287cb2ce05effb52fe3c3b698727",
+      "sourceChangesSinceRun": [],
+      "results": {
+        "kind": "small deterministic fixture instrumented invocation counts",
+        "qualifications": [
+          "Counters inserted only into private esbuild output, no runtime source instrumentation.",
+          "Counts describe complete operation dispatch including compression preparation; no timing assertions.",
+          "Checkpoint distinctness key joins session/revision/current/saved/journal digests; raw private payloads omitted.",
+          "A capacity-check checkpoint and its later final export may have identical bytes: remaining duplicate validation is reported, not relabelled as different state."
+        ],
+        "completed": true,
+        "campaignSave": {
+          "counts": {
+            "canonicalJson": 26,
+            "checkpointDigest": 17,
+            "strictCheckpoint": 3,
+            "importSave": 9,
+            "exportSave": 6,
+            "canonicalCheckpoint": 3,
+            "canonicalCheckpointExactBytes": 3
+          },
+          "checkpointGroups": {
+            "strictCheckpoint": {
+              "distinct": 2,
+              "invocationsPerDistinct": [
+                1,
+                2
+              ]
+            },
+            "canonicalCheckpoint": {
+              "distinct": 2,
+              "invocationsPerDistinct": [
+                1,
+                2
+              ]
+            },
+            "canonicalCheckpointExactBytes": {
+              "distinct": 2,
+              "invocationsPerDistinct": [
+                1,
+                2
+              ]
+            }
+          }
+        },
+        "ordinarySave": {
+          "counts": {
+            "importSave": 4,
+            "canonicalJson": 21,
+            "exportSave": 3,
+            "checkpointDigest": 9,
+            "strictCheckpoint": 1,
+            "canonicalCheckpoint": 1,
+            "canonicalCheckpointExactBytes": 1
+          },
+          "checkpointGroups": {
+            "strictCheckpoint": {
+              "distinct": 1,
+              "invocationsPerDistinct": [
+                1
+              ]
+            },
+            "canonicalCheckpoint": {
+              "distinct": 1,
+              "invocationsPerDistinct": [
+                1
+              ]
+            },
+            "canonicalCheckpointExactBytes": {
+              "distinct": 1,
+              "invocationsPerDistinct": [
+                1
+              ]
+            }
+          }
+        },
+        "final": {
+          "week": 13,
+          "digest": "72bee95da8f79e6aa4d6a64732ae98f817ce5e5ecb841d0afb46d92b6bae51fc",
+          "returnedSaveSha256": "72bee95da8f79e6aa4d6a64732ae98f817ce5e5ecb841d0afb46d92b6bae51fc"
+        }
+      }
+    },
+    "patched-04": {
+      "sourceImports": 106,
+      "sourceManifestSha256": "5003c30261f42bfb9f26c8dfee8dc21078f0c0c923c66905557e1cd0303ae57e",
+      "reportSha256": "f9c6594b7ecd27a2f2ea490b0f576ff96a60e33e098d9b654231798262d49dd1",
+      "sourceChangesSinceRun": [],
+      "results": {
+        "kind": "small deterministic fixture instrumented invocation counts",
+        "qualifications": [
+          "Counters inserted only into private esbuild output, no runtime source instrumentation.",
+          "Counts describe complete operation dispatch including compression preparation; no timing assertions.",
+          "Checkpoint distinctness key joins session/revision/current/saved/journal digests; raw private payloads omitted.",
+          "A capacity-check checkpoint and its later final export may have identical bytes: remaining duplicate validation is reported, not relabelled as different state."
+        ],
+        "completed": true,
+        "campaignSave": {
+          "counts": {
+            "canonicalJson": 24,
+            "checkpointDigest": 16,
+            "strictCheckpoint": 3,
+            "importSave": 8,
+            "exportSave": 5,
+            "canonicalCheckpoint": 3,
+            "canonicalCheckpointExactBytes": 3
+          },
+          "checkpointGroups": {
+            "strictCheckpoint": {
+              "distinct": 2,
+              "invocationsPerDistinct": [
+                1,
+                2
+              ]
+            },
+            "canonicalCheckpoint": {
+              "distinct": 2,
+              "invocationsPerDistinct": [
+                1,
+                2
+              ]
+            },
+            "canonicalCheckpointExactBytes": {
+              "distinct": 2,
+              "invocationsPerDistinct": [
+                1,
+                2
+              ]
+            }
+          }
+        },
+        "ordinarySave": {
+          "counts": {
+            "importSave": 3,
+            "canonicalJson": 19,
+            "checkpointDigest": 8,
+            "strictCheckpoint": 1,
+            "exportSave": 2,
+            "canonicalCheckpoint": 1,
+            "canonicalCheckpointExactBytes": 1
+          },
+          "checkpointGroups": {
+            "strictCheckpoint": {
+              "distinct": 1,
+              "invocationsPerDistinct": [
+                1
+              ]
+            },
+            "canonicalCheckpoint": {
+              "distinct": 1,
+              "invocationsPerDistinct": [
+                1
+              ]
+            },
+            "canonicalCheckpointExactBytes": {
+              "distinct": 1,
+              "invocationsPerDistinct": [
+                1
+              ]
+            }
+          }
+        },
+        "final": {
+          "week": 13,
+          "digest": "72bee95da8f79e6aa4d6a64732ae98f817ce5e5ecb841d0afb46d92b6bae51fc",
+          "returnedSaveSha256": "72bee95da8f79e6aa4d6a64732ae98f817ce5e5ecb841d0afb46d92b6bae51fc"
+        }
+      }
+    }
+  },
+  "disqualifiedRuns": [
+    {
+      "artifact": "prepared-tests.log",
+      "disposition": "INTERRUPTED HARNESS FAILURE: automatically discovered broad workspace outside intended scope; missing private-copy unrelated UI fixtures; owned Vitest parent and orphan stopped. Not a suite pass."
+    },
+    {
+      "artifacts": [
+        "counter-baseline-report.json",
+        "counter-patched-report.json"
+      ],
+      "disposition": "HARNESS NON-EVIDENCE: /tmp vs /private/tmp mismatch bypassed instrument hooks; empty counters/source manifest. Their initial completed:true fields do not certify instrumented measurement."
+    }
+  ],
+  "limits": [
+    "No performance budget pass or latency improvement magnitude claimed from small counters.",
+    "Whole-save strict validation and canonicalization remain required at unknown/mutable checkpoint and detached fork boundaries.",
+    "No trusted checkpoint or state cache survives a dispatch.",
+    "Exact replay response bytes preserved; measurement inputs/harness are synthetic.",
+    "Counter grouping hashes complete canonical checkpoint bytes plus LF; additional diagnostic digest joins agree."
+  ],
+  "counterConclusion": {
+    "campaignSave": {
+      "baselineStrict": 9,
+      "currentStrict": 3,
+      "baselineCanonicalExactBytes": 13,
+      "currentCanonicalExactBytes": 3,
+      "currentExactByteMultiplicity": [
+        1,
+        2
+      ],
+      "remainingRepeatedPair": "Strict export and strict import of the pre-Save checkpoint to detach the prospective campaign session. The accepted final checkpoint is materialized once."
+    },
+    "ordinarySave": {
+      "baselineStrict": 3,
+      "currentStrict": 1,
+      "baselineCanonicalExactBytes": 4,
+      "currentCanonicalExactBytes": 1,
+      "currentExactByteMultiplicity": [
+        1
+      ]
+    },
+    "unchangedWorldSha256": "72bee95da8f79e6aa4d6a64732ae98f817ce5e5ecb841d0afb46d92b6bae51fc",
+    "finalCurrentVersion": "patched-04",
+    "coreImports": {
+      "campaignBaseline": 16,
+      "campaignCurrent": 8,
+      "ordinaryBaseline": 8,
+      "ordinaryCurrent": 3
+    },
+    "coreExports": {
+      "campaignBaseline": 13,
+      "campaignCurrent": 5,
+      "ordinaryBaseline": 7,
+      "ordinaryCurrent": 2
+    }
+  },
+  "verification": {
+    "typecheck": {
+      "status": "PASS",
+      "log": "typecheck-final-05.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exitCode": 0
+    },
+    "existingSixFileFinalHandoffBeforeRawEntryCleanup": "109/109 PASS; superseded-by-final-suite",
+    "finalSuite": {
+      "status": "PASS",
+      "files": 7,
+      "tests": 130,
+      "newAdversarialCases": 21,
+      "elapsedSeconds": 61.94,
+      "log": "focused-final-04.log",
+      "sha256": "090c2694cab16448fa118d454c44187c2e8b0983877ee3e2cd65c4951be83a7f",
+      "exitCode": 0
+    },
+    "finalPeerReview": {
+      "status": "PASS bounded source review, no consequential defect",
+      "artifact": "independent-final-review.json",
+      "sha256": "920365549c6a6476b5a2bbe12a9bbfed6d049a68a4dfcbc6e327828989f69c49",
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "independentTestExecution": false
+    },
+    "gitApplyCheck": {
+      "status": "PASS",
+      "targetRuntimeEquivalentHead": "be09bcc5a767b45efb519250049c63b99928232c",
+      "readOnly": true
+    }
+  },
+  "finishedAt": "2026-09-10T22:06:41.921364+00:00"
+}

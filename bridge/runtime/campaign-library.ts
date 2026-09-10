@@ -9,7 +9,7 @@ import {PROTOCOL_VERSION,SCHEMA_ID,SNAPSHOT_VERSION,type ControlEnvelope,type Re
 import {canonicalJson} from '../schema/canonical.ts'
 import {BRIDGE_SCHEMA,type CampaignRequest,type CampaignAcceptedResponse,type CampaignLibraryResponse} from '../schema/bridge-schema.ts'
 import {parseWireValue} from '../schema/runtime.ts'
-import {BridgeRuntimeCheckpointHistoryFullError,encodeBridgeRuntimeCheckpoint,loadBridgeRuntimeCheckpoint,type BridgeRuntimeCheckpointLimits} from '../runtime-checkpoint.ts'
+import {BridgeRuntimeCheckpointHistoryFullError,loadBridgeRuntimeCheckpoint,type BridgeRuntimeCheckpointLimits,type EncodedBridgeRuntimeCheckpoint} from '../runtime-checkpoint.ts'
 
 export const CAMPAIGN_LIBRARY_FORMAT='project-studio-campaign-library' as const
 export const CAMPAIGN_LIBRARY_MAX_BYTES=256*1024*1024
@@ -33,7 +33,7 @@ export function normalizeCampaignLabel(value:string):string {
   return label
 }
 const labelKey=(label:string)=>label.toLowerCase()
-function encodeSession(session:BridgeSession,limits:BridgeRuntimeCheckpointLimits):string{return encodeBridgeRuntimeCheckpoint(session.exportRuntimeCheckpoint(),limits)}
+function encodeSession(session:BridgeSession,limits:BridgeRuntimeCheckpointLimits):string{return session.exportRuntimeCheckpointEncoded(limits).encoded}
 function hydrate(json:string,limits:BridgeRuntimeCheckpointLimits):BridgeSession{
   const hydrated=loadBridgeRuntimeCheckpoint(json,limits).hydrated
   const session=BridgeSession.fromRuntimeCheckpoint(hydrated,limits)
@@ -52,7 +52,10 @@ function summary(record:CampaignRecord):CampaignLibraryResponse['campaigns'][num
   summaries.set(record,value);return value
 }
 function recordFor(session:BridgeSession,label:string,limits:BridgeRuntimeCheckpointLimits,id:string=randomUUID(),revision=0):CampaignRecord {
-  const record={id,label:normalizeCampaignLabel(label),revision,checkpointJson:encodeSession(session,limits)}
+  return recordForCheckpoint(encodeSession(session,limits),label,id,revision)
+}
+function recordForCheckpoint(checkpointJson:string,label:string,id:string=randomUUID(),revision=0):CampaignRecord {
+  const record={id,label:normalizeCampaignLabel(label),revision,checkpointJson}
   summary(record);return record
 }
 export function initialCampaignLibrary(session:BridgeSession,limits:BridgeRuntimeCheckpointLimits,legacyOriginal:string|null):CampaignLibrary {
@@ -182,21 +185,30 @@ export function proposeCampaign(library:CampaignLibrary,session:BridgeSession,re
   // quotes. Replacement operations construct their own session below. Fork
   // lazily before Save, the only operation that mutates an existing session.
   let prospective=session
+  // Reuse only within this synchronous transaction stage. Save mutates the same
+  // session without advancing its revision; replacement sessions have new stages.
+  let prepared:{session:BridgeSession;value:EncodedBridgeRuntimeCheckpoint}|null=null
+  const prepare=():EncodedBridgeRuntimeCheckpoint=>{
+    if(prepared===null||prepared.session!==prospective)prepared={session:prospective,value:prospective.exportRuntimeCheckpointEncoded(limits)}
+    return prepared.value
+  }
   const saveActive=():boolean=>{
     const index=records.findIndex(r=>r.id===activeId)
     if(index<0)return false
     if(prospective===session)prospective=hydrate(encodeSession(session,limits),limits)
-    const save=()=>prospective.save({protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,sessionId:prospective.sessionId,
-      commandId:request.commandId,expectedStateRevision:prospective.stateRevision} satisfies ControlEnvelope)
+    prepared=null
+    const save=()=>prospective.dispatchWithRuntimeCheckpoint('save',{protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,sessionId:prospective.sessionId,
+      commandId:request.commandId,expectedStateRevision:prospective.stateRevision} satisfies ControlEnvelope,limits)
     let result
     try{result=save()}catch(error){
       if(!(error instanceof BridgeRuntimeCheckpointHistoryFullError))throw error
       prospective=prospective.rolloverRuntime(limits)
       result=save()
     }
-    if(!result.accepted)throw new Error(result.message)
+    if(!result.response.accepted)throw new Error(result.response.message)
+    if(result.prepared!==null)prepared={session:prospective,value:result.prepared}
     const record=records[index]!
-    records[index]=recordFor(prospective,record.label,limits,record.id,record.revision+1)
+    records[index]=recordForCheckpoint(prepare().encoded,record.label,record.id,record.revision+1)
     return true
   }
   if((operation==='newGame'||operation==='load')&&campaignDirty(library,session)) {
@@ -211,13 +223,13 @@ export function proposeCampaign(library:CampaignLibrary,session:BridgeSession,re
     }
     case 'newGame': {
       prospective=BridgeSession.createRuntime(limits,regime)
-      const record=recordFor(prospective,label!,limits);records.push(record);activeId=record.id;break
+      const record=recordForCheckpoint(prepare().encoded,label!);records.push(record);activeId=record.id;break
     }
     case 'save':if(!saveActive())return reject('NO_SAVE','Use Save As to name this campaign first.');break
     case 'saveAs': {
       // Current complete state, seed, RNG and identities; only session/storage scopes are new.
       prospective=BridgeSession.fromSaveJson(session.exportRuntimeCheckpoint().currentSaveJson,undefined,limits)
-      const record=recordFor(prospective,label!,limits,overwrite?.id??randomUUID(),overwrite?overwrite.revision+1:0)
+      const record=recordForCheckpoint(prepare().encoded,label!,overwrite?.id??randomUUID(),overwrite?overwrite.revision+1:0)
       if(overwrite)records=records.map(r=>r.id===overwrite.id?record:r);else records.push(record)
       activeId=record.id;break
     }
@@ -235,14 +247,15 @@ export function proposeCampaign(library:CampaignLibrary,session:BridgeSession,re
       break
     }
   }
-  const checkpoint=prospective.exportRuntimeCheckpoint()
+  const finalCheckpoint=prepare()
+  const checkpoint=finalCheckpoint.checkpoint
   const response:CampaignAcceptedResponse={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,type:'campaignAccepted',accepted:true,
     commandId:request.commandId,originatingSessionId:request.sessionId,operation,campaignId:activeId,sessionId:prospective.sessionId,
     stateRevision:prospective.stateRevision,gameWeek:prospective.gameState.market.tick,stateDigest:checkpoint.currentStateDigest,
     catalogueRevision:library.catalogueRevision+1,message:{newGame:'New independent campaign created.',save:'Campaign saved.',saveAs:'Current campaign copied; the copy is now active.',load:'Selected campaign restored.',rename:'Campaign renamed.',delete:'Selected campaign deleted.',discard:'Unsaved progress discarded; named records are preserved.'}[operation],processingMs:performance.now()-started}
   parseWireValue(BRIDGE_SCHEMA.$defs.StudioCampaignAcceptedResponse,response)
   const next:CampaignLibrary={...library,catalogueRevision:response.catalogueRevision,activeCampaignId:activeId,records,
-    workingCheckpointJson:encodeSession(prospective,limits),receipts:[...library.receipts,{commandId:request.commandId,requestJson,response}].slice(-MAX_RECEIPTS)}
+    workingCheckpointJson:finalCheckpoint.encoded,receipts:[...library.receipts,{commandId:request.commandId,requestJson,response}].slice(-MAX_RECEIPTS)}
   return {library:next,session:prospective,response,replayed:false}
 }
 

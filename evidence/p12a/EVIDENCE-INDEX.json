@@ -247,9 +247,23 @@
       "path": "store-phases-control-20260910/measurement-disposition.json",
       "sha256": "e6a1d7f1debb62aeac9ccd50e033a8d22f61dc5740942d7b4851cb5d286f0ff0",
       "applicability": "Exact39c6401 pre-correction control: 3warmups+20samples each; write p9562.351ms, load-to-ready18.498s and completeSave18.248s. Scoped CPUprofile confirms repeated strict/canonical checkpoint work. Sources/protected seed unchanged; API-owned cleanup passed. PERF007/010 require bounded correction/current-byte verification; no current candidate/native/Owner certification."
+    },
+    {
+      "kind": "correctness-review",
+      "outcome": "PARTIAL",
+      "path": "checkpoint-reuse-20260910/independent-final-review.json",
+      "sha256": "920365549c6a6476b5a2bbe12a9bbfed6d049a68a4dfcbc6e327828989f69c49",
+      "applicability": "Exact8687d29d four-source checkpoint correction and21 new cases; independent source/counter review,130 focused PASS and root typecheck. No persistent mutable preparation cache; exact final checkpoint once, detached campaign fork boundaries retained. Current cumulative/emitted/large-world/native/candidate acceptance remains pending."
+    },
+    {
+      "kind": "cumulative-regression",
+      "outcome": "PASS",
+      "path": "checkpoint-reuse-20260910/ts-cumulative-09.log",
+      "sha256": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff",
+      "applicability": "Integrated exact8687d29d checkpoint correction:395files/5181PASS/5SKIP155.68s, plus root bridge typecheck. Current emitted/build/large-world/native applicability remains separate; Unity product unchanged from preview16/deca395 (1099PASS)."
     }
   ],
-  "updatedAtUtc": "2026-09-10T21:46:43.376542+00:00",
+  "updatedAtUtc": "2026-09-10T22:11:36.041009+00:00",
   "attestationsPath": "attestations.json",
   "recovery": {
     "sessionId": "01a08adf-7719-7da2-85d0-77ae64c36fad",

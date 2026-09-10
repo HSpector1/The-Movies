@@ -200,6 +200,14 @@ export type BridgeRuntimeCheckpointV1 = {
   journal: readonly BridgeRuntimeJournalEntryV1[]
 }
 
+/** A strict checkpoint and its canonical bytes from the same validation pass.
+ * Public objects remain mutable; consumers must validate them again on import.
+ */
+export type EncodedBridgeRuntimeCheckpoint = {
+  checkpoint: BridgeRuntimeCheckpointV1
+  encoded: string
+}
+
 export type BridgeRuntimeJournalResponse =
   | BridgeAcceptedCommandResponse
   | BridgeAcceptedSaveResponse
@@ -567,10 +575,6 @@ function hydrateEntry(
     return base as HydratedBridgeRuntimeJournalEntry & { route: 'save' }
   }
   return base as HydratedBridgeRuntimeJournalEntry & { route: 'load' }
-}
-
-function checkpointBytes(checkpoint: BridgeRuntimeCheckpointV1): number {
-  return Buffer.byteLength(`${canonicalJson(checkpoint)}\n`, 'utf8')
 }
 
 function journalEntryBytes(entry: BridgeRuntimeJournalEntryV1): number {
@@ -1014,10 +1018,10 @@ function migratePriorCheckpoint(
   return migratePriorProtocol4Checkpoint(bytes, configuredLimits, createSessionId, priorSchemaId)
 }
 
-export function hydrateBridgeRuntimeCheckpoint(
+function hydrateAndEncodeBridgeRuntimeCheckpoint(
   value: unknown,
-  configuredLimits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
-): HydratedBridgeRuntimeCheckpoint {
+  configuredLimits: BridgeRuntimeCheckpointLimits,
+): { hydrated: HydratedBridgeRuntimeCheckpoint; encoded: string } {
   const limits = validateLimits(configuredLimits)
   const record = exactRecord(value, 'checkpoint', CHECKPOINT_KEYS)
   if (record['format'] !== BRIDGE_RUNTIME_CHECKPOINT_FORMAT) {
@@ -1156,7 +1160,8 @@ export function hydrateBridgeRuntimeCheckpoint(
     journalDigest,
     journal: normalizedJournal,
   }
-  const totalCheckpointBytes = checkpointBytes(checkpoint)
+  const encoded = `${canonicalJson(checkpoint)}\n`
+  const totalCheckpointBytes = Buffer.byteLength(encoded, 'utf8')
   if (totalCheckpointBytes > limits.maxCheckpointBytes) {
     capacityFail(
       'checkpoint',
@@ -1164,21 +1169,30 @@ export function hydrateBridgeRuntimeCheckpoint(
     )
   }
   return {
-    checkpoint,
-    currentSave,
-    savedSave,
-    journal: hydratedJournal,
-    checkpointBytes: totalCheckpointBytes,
-    journalBytes: totalJournalBytes,
+    hydrated: {
+      checkpoint,
+      currentSave,
+      savedSave,
+      journal: hydratedJournal,
+      checkpointBytes: totalCheckpointBytes,
+      journalBytes: totalJournalBytes,
+    },
+    encoded,
   }
+}
+
+export function hydrateBridgeRuntimeCheckpoint(
+  value: unknown,
+  configuredLimits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
+): HydratedBridgeRuntimeCheckpoint {
+  return hydrateAndEncodeBridgeRuntimeCheckpoint(value, configuredLimits).hydrated
 }
 
 export function encodeBridgeRuntimeCheckpoint(
   value: unknown,
   limits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
 ): string {
-  const hydrated = hydrateBridgeRuntimeCheckpoint(value, limits)
-  return `${canonicalJson(hydrated.checkpoint)}\n`
+  return hydrateAndEncodeBridgeRuntimeCheckpoint(value, limits).encoded
 }
 
 export function decodeBridgeRuntimeCheckpoint(
@@ -1196,12 +1210,11 @@ export function decodeBridgeRuntimeCheckpoint(
   } catch (error) {
     fail('checkpoint', `is not valid JSON: ${(error as Error).message}`)
   }
-  const hydrated = hydrateBridgeRuntimeCheckpoint(parsed, limits)
-  const canonicalBytes = `${canonicalJson(hydrated.checkpoint)}\n`
-  if (bytes !== canonicalBytes) {
+  const prepared = hydrateAndEncodeBridgeRuntimeCheckpoint(parsed, limits)
+  if (bytes !== prepared.encoded) {
     fail('checkpoint', 'must be canonical JSON followed by exactly one LF')
   }
-  return hydrated
+  return prepared.hydrated
 }
 
 /**
@@ -1257,6 +1270,25 @@ export function createBridgeRuntimeCheckpoint(
   input: CreateBridgeRuntimeCheckpointInput,
   limits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
 ): BridgeRuntimeCheckpointV1 {
+  return createEncodedBridgeRuntimeCheckpoint(input, limits).checkpoint
+}
+
+/** Validate once against both authority and caller bounds, then retain the exact
+ * canonical representation already built to enforce the checkpoint byte limit.
+ * No result is cached across calls or trusted at a later mutable input boundary.
+ */
+export function createEncodedBridgeRuntimeCheckpoint(
+  input: CreateBridgeRuntimeCheckpointInput,
+  sessionLimits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
+  callerLimits: BridgeRuntimeCheckpointLimits = sessionLimits,
+): EncodedBridgeRuntimeCheckpoint {
+  const own = validateLimits(sessionLimits)
+  const caller = validateLimits(callerLimits)
+  const limits = {
+    maxCheckpointBytes: Math.min(own.maxCheckpointBytes, caller.maxCheckpointBytes),
+    maxJournalEntries: Math.min(own.maxJournalEntries, caller.maxJournalEntries),
+    maxJournalBytes: Math.min(own.maxJournalBytes, caller.maxJournalBytes),
+  }
   const journal = [...input.journal]
   const candidate: BridgeRuntimeCheckpointV1 = {
     format: BRIDGE_RUNTIME_CHECKPOINT_FORMAT,
@@ -1272,7 +1304,8 @@ export function createBridgeRuntimeCheckpoint(
     journalDigest: digest(canonicalJson(journal)),
     journal,
   }
-  return hydrateBridgeRuntimeCheckpoint(candidate, limits).checkpoint
+  const prepared = hydrateAndEncodeBridgeRuntimeCheckpoint(candidate, limits)
+  return { checkpoint: prepared.hydrated.checkpoint, encoded: prepared.encoded }
 }
 
 /**

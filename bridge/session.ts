@@ -53,11 +53,11 @@ import {
 import {
   BridgeRuntimeCheckpointCapacityError,
   BridgeRuntimeCheckpointHistoryFullError,
-  createBridgeRuntimeCheckpoint,
-  createBridgeRuntimeJournalEntry,
+  createEncodedBridgeRuntimeCheckpoint,
   DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
   type BridgeRuntimeCheckpointLimits,
   type BridgeRuntimeCheckpointV1,
+  type EncodedBridgeRuntimeCheckpoint,
   type BridgeRuntimeJournalEntryV1,
   type BridgeRuntimeJournalRoute,
   type HydratedBridgeRuntimeCheckpoint,
@@ -141,6 +141,13 @@ export type AcceptedSaveResponse = BridgeAcceptedSaveResponse
 
 export type SaveResponse = AcceptedSaveResponse | RejectedResponse
 type CachedResponse = CommandResponse | SaveResponse
+
+// Exists only on the stack of one synchronous dispatch. No public callback,
+// cross-call cache or escaped parsed state can populate or reuse this handoff.
+type RuntimeCheckpointPreparation = {
+  limits: BridgeRuntimeCheckpointLimits
+  result?: { state: GameState; prepared: EncodedBridgeRuntimeCheckpoint }
+}
 
 export type AcceptedQuoteResponse = BridgeQuoteResponse
 export type QuoteResponse = AcceptedQuoteResponse | RejectedResponse
@@ -1310,13 +1317,56 @@ export class BridgeSession {
   }
 
   exportRuntimeCheckpoint(): BridgeRuntimeCheckpointV1 {
-    return createBridgeRuntimeCheckpoint({
+    return this.exportRuntimeCheckpointEncoded().checkpoint
+  }
+
+  exportRuntimeCheckpointEncoded(
+    callerLimits: BridgeRuntimeCheckpointLimits = this.runtimeLimits,
+  ): EncodedBridgeRuntimeCheckpoint {
+    return createEncodedBridgeRuntimeCheckpoint({
       sessionId: this.sessionId,
       stateRevision: this.revision,
       currentSaveJson: snapshotBuildContextFor(this.state).saveJson(),
       savedSaveJson: this.savedJson,
       journal: this.journal,
-    }, this.runtimeLimits)
+    }, this.runtimeLimits, callerLimits)
+  }
+
+  dispatchWithRuntimeCheckpoint(
+    route: 'save', request: ControlEnvelope, callerLimits?: BridgeRuntimeCheckpointLimits,
+  ): { response: SaveResponse; prepared: EncodedBridgeRuntimeCheckpoint | null }
+  dispatchWithRuntimeCheckpoint(
+    route: 'command' | 'load', request: SubmitIntentCommand | ControlEnvelope, callerLimits?: BridgeRuntimeCheckpointLimits,
+  ): { response: CommandResponse; prepared: EncodedBridgeRuntimeCheckpoint | null }
+  dispatchWithRuntimeCheckpoint(
+    route: BridgeRuntimeJournalRoute, request: SubmitIntentCommand | ControlEnvelope, callerLimits?: BridgeRuntimeCheckpointLimits,
+  ): { response: CachedResponse; prepared: EncodedBridgeRuntimeCheckpoint | null }
+  dispatchWithRuntimeCheckpoint(
+    route: BridgeRuntimeJournalRoute,
+    request: SubmitIntentCommand | ControlEnvelope,
+    callerLimits: BridgeRuntimeCheckpointLimits = this.runtimeLimits,
+  ): { response: CachedResponse; prepared: EncodedBridgeRuntimeCheckpoint | null } {
+    const preparation: RuntimeCheckpointPreparation = { limits: callerLimits }
+    let response: CachedResponse
+    switch (route) {
+      case 'command': response = this.executeCommand(request as SubmitIntentCommand, preparation); break
+      case 'save': response = this.executeSave(request as ControlEnvelope, preparation); break
+      case 'load': response = this.executeLoad(request as ControlEnvelope, preparation); break
+      default: throw new Error('Unknown runtime journal route')
+    }
+    const result = preparation.result
+    if (result === undefined) return { response, prepared: null } // replay or unjournaled refusal
+    const checkpoint = result.prepared.checkpoint
+    if (result.state !== this.state || checkpoint.sessionId !== this.sessionId ||
+        checkpoint.stateRevision !== this.revision || checkpoint.savedSaveJson !== this.savedJson ||
+        checkpoint.journal.length !== this.journal.length || checkpoint.journal.some((entry, index) => {
+          const actual = this.journal[index]!
+          return entry.route !== actual.route || entry.commandId !== actual.commandId ||
+            entry.requestJson !== actual.requestJson || entry.responseJson !== actual.responseJson
+        })) {
+      throw new Error('Prepared checkpoint does not match the completed runtime dispatch')
+    }
+    return { response, prepared: result.prepared }
   }
 
   rolloverRuntime(
@@ -1400,6 +1450,10 @@ export class BridgeSession {
   }
 
   command(command: SubmitIntentCommand): CommandResponse {
+    return this.executeCommand(command)
+  }
+
+  private executeCommand(command: SubmitIntentCommand, preparation?: RuntimeCheckpointPreparation): CommandResponse {
     const started = performance.now()
     if (command.sessionId !== this.sessionId) {
       return this.reject(command.commandId, 'SESSION_MISMATCH', 'Command belongs to a different bridge session.', started)
@@ -1413,7 +1467,7 @@ export class BridgeSession {
         `Intent expected revision ${String(command.expectedStateRevision)}; authority is revision ${String(this.revision)}.`,
         started,
       )
-      this.remember('command', command, rejected)
+      this.remember('command', command, rejected, preparation)
       return rejected
     }
     const resolved =
@@ -1427,14 +1481,14 @@ export class BridgeSession {
         'Intent was not emitted by the current authoritative TypeScript state.',
         started,
       )
-      this.remember('command', command, rejected)
+      this.remember('command', command, rejected, preparation)
       return rejected
     }
     const before = this.state
     const outcome = caught(() => resolved.apply(before))
     if (!outcome.ok) {
       const rejected = this.reject(command.commandId, 'ENGINE_REJECTED', outcome.error, started)
-      this.remember('command', command, rejected)
+      this.remember('command', command, rejected, preparation)
       return rejected
     }
     const nextRevision = this.revision + 1
@@ -1452,6 +1506,7 @@ export class BridgeSession {
       outcome.next,
       nextRevision,
       this.savedJson,
+      preparation,
     )
     this.state = outcome.next
     this.revision = nextRevision
@@ -1750,8 +1805,12 @@ export class BridgeSession {
   }
 
   save(control: ControlEnvelope): SaveResponse {
+    return this.executeSave(control)
+  }
+
+  private executeSave(control: ControlEnvelope, preparation?: RuntimeCheckpointPreparation): SaveResponse {
     const started = performance.now()
-    const guarded = this.guardControl('save', control, started)
+    const guarded = this.guardControl('save', control, started, preparation)
     if (guarded !== null) return guarded as SaveResponse
     const savedJson = snapshotBuildContextFor(this.state).saveJson()
     const accepted: AcceptedSaveResponse = {
@@ -1777,6 +1836,7 @@ export class BridgeSession {
       this.state,
       this.revision,
       savedJson,
+      preparation,
     )
     this.savedJson = savedJson
     this.commitEntry(entry)
@@ -1784,23 +1844,27 @@ export class BridgeSession {
   }
 
   load(control: ControlEnvelope): CommandResponse {
+    return this.executeLoad(control)
+  }
+
+  private executeLoad(control: ControlEnvelope, preparation?: RuntimeCheckpointPreparation): CommandResponse {
     const started = performance.now()
-    const guarded = this.guardControl('load', control, started)
+    const guarded = this.guardControl('load', control, started, preparation)
     if (guarded !== null) return guarded as CommandResponse
     if (this.savedJson === null) {
       const rejected = this.reject(control.commandId, 'NO_SAVE', 'No authoritative bridge save exists.', started)
-      this.remember('load', control, rejected)
+      this.remember('load', control, rejected, preparation)
       return rejected
     }
     const loaded = importSaveJsonCurrent(this.savedJson)
     if (!loaded.ok) {
       const rejected = this.reject(control.commandId, 'SAVE_REJECTED', loaded.error, started)
-      this.remember('load', control, rejected)
+      this.remember('load', control, rejected, preparation)
       return rejected
     }
     if (this.state.hollywood !== null && !sameNativeCampaignOrigin(this.state, loaded.state)) {
       const rejected = this.reject(control.commandId, 'SAVE_REJECTED', 'The saved slot belongs to another campaign or is missing Hollywood authority.', started)
-      this.remember('load', control, rejected)
+      this.remember('load', control, rejected, preparation)
       return rejected
     }
     const nextRevision = this.revision + 1
@@ -1820,6 +1884,7 @@ export class BridgeSession {
       loaded.state,
       nextRevision,
       this.savedJson,
+      preparation,
     )
     this.state = loaded.state
     this.revision = nextRevision
@@ -1842,6 +1907,7 @@ export class BridgeSession {
     route: 'save' | 'load',
     control: ControlEnvelope,
     started: number,
+    preparation?: RuntimeCheckpointPreparation,
   ): CachedResponse | null {
     if (control.sessionId !== this.sessionId) {
       return this.reject(control.commandId, 'SESSION_MISMATCH', 'Control belongs to a different bridge session.', started)
@@ -1855,8 +1921,8 @@ export class BridgeSession {
         `Control expected revision ${String(control.expectedStateRevision)}; authority is revision ${String(this.revision)}.`,
         started,
       )
-      if (route === 'save') this.remember('save', control, rejected)
-      else this.remember('load', control, rejected)
+      if (route === 'save') this.remember('save', control, rejected, preparation)
+      else this.remember('load', control, rejected, preparation)
       return rejected
     }
     return null
@@ -1909,21 +1975,25 @@ export class BridgeSession {
     route: 'command',
     request: SubmitIntentCommand,
     response: CommandResponse,
+    preparation?: RuntimeCheckpointPreparation,
   ): void
   private remember(
     route: 'save',
     request: ControlEnvelope,
     response: SaveResponse,
+    preparation?: RuntimeCheckpointPreparation,
   ): void
   private remember(
     route: 'load',
     request: ControlEnvelope,
     response: CommandResponse,
+    preparation?: RuntimeCheckpointPreparation,
   ): void
   private remember(
     route: BridgeRuntimeJournalRoute,
     request: SubmitIntentCommand | ControlEnvelope,
     response: CachedResponse,
+    preparation?: RuntimeCheckpointPreparation,
   ): void {
     const entry = this.prepareEntry(
       route,
@@ -1932,6 +2002,7 @@ export class BridgeSession {
       this.state,
       this.revision,
       this.savedJson,
+      preparation,
     )
     this.commitEntry(entry)
   }
@@ -1943,26 +2014,16 @@ export class BridgeSession {
     nextState: GameState,
     nextRevision: number,
     nextSavedJson: string | null,
+    preparation?: RuntimeCheckpointPreparation,
   ): BridgeRuntimeJournalEntryV1 {
-    let entry: BridgeRuntimeJournalEntryV1
-    if (route === 'command') {
-      entry = createBridgeRuntimeJournalEntry(
-        route,
-        request as SubmitIntentCommand,
-        response as CommandResponse,
-      )
-    } else if (route === 'save') {
-      entry = createBridgeRuntimeJournalEntry(
-        route,
-        request as ControlEnvelope,
-        response as SaveResponse,
-      )
-    } else {
-      entry = createBridgeRuntimeJournalEntry(
-        route,
-        request as ControlEnvelope,
-        response as CommandResponse,
-      )
+    // This private candidate is never committed directly. The complete strict
+    // checkpoint boundary below validates canonical request/response schemas,
+    // correlation and all authority joins before returning normalized entries.
+    const entry: BridgeRuntimeJournalEntryV1 = {
+      route,
+      commandId: request.commandId,
+      requestJson: canonicalJson(request),
+      responseJson: canonicalJson(response),
     }
     const checkpointInput = {
       sessionId: this.sessionId,
@@ -1970,25 +2031,28 @@ export class BridgeSession {
       currentSaveJson: snapshotBuildContextFor(nextState).saveJson(),
       savedSaveJson: nextSavedJson,
     }
-    let prospective: BridgeRuntimeCheckpointV1
+    let prospective: EncodedBridgeRuntimeCheckpoint
     try {
-      prospective = createBridgeRuntimeCheckpoint({
+      prospective = createEncodedBridgeRuntimeCheckpoint({
         ...checkpointInput,
         journal: [...this.journal, entry],
-      }, this.runtimeLimits)
+      }, this.runtimeLimits, preparation?.limits ?? this.runtimeLimits)
     } catch (error) {
       if (!(error instanceof BridgeRuntimeCheckpointCapacityError) || this.journal.length === 0) {
         throw error
       }
 
       // Only history pressure is recoverable by rollover. Prove the candidate fits alone first.
-      createBridgeRuntimeCheckpoint({
+      createEncodedBridgeRuntimeCheckpoint({
         ...checkpointInput,
         journal: [entry],
-      }, this.runtimeLimits)
+      }, this.runtimeLimits, preparation?.limits ?? this.runtimeLimits)
       throw new BridgeRuntimeCheckpointHistoryFullError(error)
     }
-    return prospective.journal[prospective.journal.length - 1]!
+    if (preparation !== undefined) preparation.result = { state: nextState, prepared: prospective }
+    // The returned artifact may escape to a caller. Its normalized entries must
+    // never become the private replay journal's mutable objects.
+    return { ...prospective.checkpoint.journal[prospective.checkpoint.journal.length - 1]! }
   }
 
   private commitEntry(entry: BridgeRuntimeJournalEntryV1): void {
