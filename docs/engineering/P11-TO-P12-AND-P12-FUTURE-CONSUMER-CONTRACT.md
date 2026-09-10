@@ -1,49 +1,16 @@
-# P11 to P12 and P12 Future Consumer Contract
+# P11 to P12 and P12 future consumer contract
 
-**Status:** P12A PRE-READINESS
-**Review state:** PROVISIONAL READY FOR CURRENT OPS REVIEW
-**Dependencies:** ACTIVE P08–P10 DEPENDENCIES · P11 IMPLEMENTATION PENDING
-**Refresh:** POST-P11 CHANGED-PATH REFRESH REQUIRED
-**Implementation:** NOT AUTHORIZED FOR IMPLEMENTATION
-**Accepted TypeScript base:** `2753e18ba8fb5f65b936c22cde9531646fecc6cd`
-**Accepted Unity base:** `c4c65db464ef9abcf3bdcc088f5c8a47cc9081b6`
-**Accepted protocol / projection / save:** `4 / 15 / V16`
-**Accepted schema:** `sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99`
+**READY FOR CURRENT OPS LAUNCH REVIEW · DOCUMENTATION ONLY · P12 IMPLEMENTATION NOT AUTHORIZED**
 
-## 1. Purpose and authority boundary
+V2 LIVING HOLLYWOOD means **nine rivals plus the player**. Four opening+five later is the proposed baseline, not an approved schedule. The initial nine-studio scheduler/atomic entry is the narrow proposed transfer from P15B; later corporate churn stays P15B. See [charter](P12A-PROVISIONAL-IMPLEMENTATION-CHARTER.md) and [requirement supersessions](P12A-DECISION-AND-REQUIREMENT-REGISTER.md).
 
-This document defines the conceptual producer/consumer boundary into P12A and from P12 into later packages. It preserves existing package ownership; it does not define production types, authorize an implementation, or replace either Package 12 source document.
+## 1. Exact incoming authority
 
-Binding Package 12 product direction remains:
+Accepted TS `7ae36b44d99c505246d17dcc37beba94fa59a18a` × private Unity `3a9a3f488693aa14431a6aa412d7560df8f30a89`, protocol 4/projection 27/inner save V18/outer 1. Acceptance/handoff documentation `4caf7682b6c427b64f1ffab742f07cb4fddef2b0`; technical predecessor `e39bcbb1bf6cb13553a3b6c2425773d5f85d873a`. Schema `sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211`; DTO `ecc9e0b65c493200e39d245d38de2cdad5be1953242ffc1a61a7c53fcb755476`. Both repositories' exact objects were inspected; this is source evidence, not P12 runtime proof. [Full source/build index and producer matrix](P12A-AUTHORITY-AND-CODE-RECONNAISSANCE-PLAN.md).
 
-- `codex/rival-studios-hollywood-ecosystem-research-12@a0739055c30f80fcf756340d0e0e962865aec6a4`
-- `docs/design/CODEX-RIVAL-STUDIOS-HOLLYWOOD-ECOSYSTEM-PACKAGE-12.md`
-- `docs/design/CODEX-RIVAL-STUDIOS-HOLLYWOOD-ECOSYSTEM-PACKAGE-12-BUILDER-ANNEX.md`
+P11 accepted supported scope is settled; documentation successor does not replace tested product bytes. REQ031 calendar/era limitation survives; no repeat acceptance. Prior P08–P10 audit residuals and P11 conditional/deferred scope remain. Old September 5 WIP and Revision 02 P11 ZIP records remain [historical at e10c0a0](https://github.com/HSpector1/The-Movies/blob/e10c0a091460168357ebcaa12897196dd9288485/docs/engineering/P11-TO-P12-AND-P12-FUTURE-CONSUMER-CONTRACT.md), not current incoming authority.
 
-Later package placement authority is:
-
-- approved research: `codex/p13-p15-long-range-research-01@2a7ff0d973391f9433d19ec2cb7f6c5582d1e44f`
-- durable Owner-ruling tip: `codex/p13-p15-long-range-research-01@137ab603e37620ce647cd728b3a57154b8e3c3fb`
-- `docs/design/CODEX-P13-P15-LONG-RANGE-ROADMAP.md`
-- `docs/design/CODEX-P13-P15-OWNER-RULINGS.md`
-
-The Revision 02 P11 launch artifact was found and verified locally at:
-
-```text
-/Users/bruce/Downloads/project-studio-p11a-launch-package-01-rev02.zip
-sha256:216e5501cd3a40779fc0ca4d5fe7bd663c1d5f9a55de501930304cdbf00d226f
-```
-
-Its six requested P11 documents were read in full after safe extraction. All matched its manifest. Its authority remains:
-
-```text
-PROVISIONAL FUTURE OPS P11 AUTHORITY
-PENDING CURRENT OPS REVIEW
-PENDING FINAL P08–P10 REFRESH
-PENDING IMPLEMENTATION AND OWNER ACCEPTANCE
-```
-
-Nothing below treats that artifact, active P08–P10 work, or a later roadmap as production implementation authority.
+P12 design/Annex: `codex/rival-studios-hollywood-ecosystem-research-12@a0739055c30f80fcf756340d0e0e962865aec6a4`. Later roadmap: research `2a7ff0d973391f9433d19ec2cb7f6c5582d1e44f`, Owner-ruling `137ab603e37620ce647cd728b3a57154b8e3c3fb`, `docs/design/CODEX-P13-P15-LONG-RANGE-ROADMAP.md` and `CODEX-P13-P15-OWNER-RULINGS.md`. All unsuperseded scope and P16/P17/P18 boundaries below survive.
 
 ## 2. Producer/consumer law
 
@@ -54,13 +21,13 @@ Nothing below treats that artifact, active P08–P10 work, or a later roadmap as
 5. **Public projection is a deliberate subset.** Persistence inside the simulation never grants the player omniscient access.
 6. **Shared law does not require equal physical detail.** The player may have a detailed lot while rivals use authoritative abstract capacity; time, people, capacity, money, identity, and observable outcome law remain conserved.
 7. **Migration is additive and honest.** New roots record a completeness boundary. They do not backfill fictional rival films, employers, finances, rankings, relationships, or market pressure.
-8. **Every handoff is refreshed against accepted upstream code.** Provisional names in this document are conceptual. Exact types, paths, versions, schemas, queries, and commit identities remain placeholders until the required refresh.
+8. **Every handoff uses accepted upstream code.** The recon now names exact incoming types/paths/versions; new P12 names below remain conceptual until authorized implementation. Missing adapters are work, not proof that a producer is absent.
 
 ## 3. P08 → P12: History, Standing, and exact subjects
 
 ### P08 produces
 
-After final acceptance, P08 is expected to provide:
+At the accepted P11 pair, P08 player History supplies:
 
 - immutable history-event identity;
 - `recordingStartedWeek` or an exact equivalent completeness boundary;
@@ -85,22 +52,22 @@ P12 must not:
 - turn current rival state into fabricated events;
 - persist presentation prose as historical truth.
 
-### History-root topology remains provisional
+### Refreshed History-root recommendation
 
 The semantic boundary is fixed even though final storage topology is not:
 
 - **Alternative A — generalized shared P08 history root:** lawful only if final P08 can accept studio-scoped industry sources without widening a frozen leaf, duplicating current state, or changing P08 ownership.
 - **Alternative B — player Studio History plus a P12 industry-event ledger:** P12 owns exact multi-studio event receipts; a P08 adapter supplies significance/history views without copying the accounting ledger or rewriting the source event.
 
-The Package 12 source recommends a separate industry-event authority rather than overloading the player-specific event log. **Provisional recommendation: preserve Alternative B as the safe planning boundary, but do not freeze it until final P08 reconnaissance.** If final P08 already supplies a lawful generalized source contract, reuse it and avoid a duplicate ledger.
+The Package 12 source recommends a separate industry-event authority rather than overloading the player-specific event log. **Recommendation after source inspection: Alternative B.** `studioHistory.ts:studioSubject` and `bridge/history.ts:historyProjection` remain player-relative. Reuse significance/recording law through an adapter; P12 owns industry receipts without copying player history.
 
-**Refresh trigger:** final P08 root shape, event ID, sequence/order, completeness boundary, retention/compaction, source adapter, query paging, and exact deep-link grammar are Owner-accepted and named.
+**Proof still required:** new adapter event-ID/order/coverage/retention and exact deep links under the accepted source contract, including complete identity walkers. Source refresh is complete; P12 integration is not tested.
 
 ## 4. P09 → P12: Player lot detail versus rival abstract capacity
 
 ### P09 produces
 
-After final acceptance, P09 is expected to provide:
+At the accepted P11 pair, P09 supplies delivered player facts:
 
 - player property, parcel, placement, construction, facility, and Set identity;
 - capability and capacity vocabulary;
@@ -131,13 +98,13 @@ P12 must not copy the player's placement, room, walker, route, or full 3D-lot si
 
 ### P10 produces
 
-After final acceptance, P10 is expected to provide:
+At the accepted P11 pair, P10 supplies delivered person-facing facts:
 
 - exact persistent person identity;
 - public/perceived Profile facts and the hidden-information firewall;
 - current work and availability;
-- contract identity, terms, and legal action state;
-- employer-facing Profile/Roster routes;
+- player-relative contract terms and legal action state; immutable industry contract IDs/employers remain new P12 relations;
+- exact-person Profile/Roster routes; rival employer navigation requires a P12 adapter;
 - career links and incomplete-history behavior;
 - historical people without a current world presence.
 
@@ -163,7 +130,7 @@ P11 remains the finance vocabulary and player Finance authority. P12 must not re
 
 ### 6.1 Minimum accepted P11 handoff
 
-Before P12 may rely on finance, a final accepted P11 must expose or define:
+The accepted P11 handoff exposes these player definitions; P12 must supply rival context through shared generalization:
 
 - literal studio cash;
 - signed ledger/accounting provenance and exact reconciliation;
@@ -179,7 +146,13 @@ Before P12 may rely on finance, a final accepted P11 must expose or define:
 - explicit old-save accounting coverage and `Not recorded` behavior;
 - exact production, film, person, facility, and source correlation IDs.
 
-The P11 Revision 02 reconnaissance reports a blocking watch item: the authoritative tick and ledger charge `facilityOpex`, but accepted `weeklyBurn`, runway, commitment, and fixed-cost selectors omit it. P12 must not consume an incomplete selector as complete recurring cost, affordability, solvency, or future distress authority. The post-P11 refresh must classify this gap as fixed, partly fixed, or still present with an explicit disposition.
+**AUD-008 REPAIRED at accepted TS.** `economyView.ts:weeklyBurn` includes `weeklyFacilityOperatingCost`, which uses the same operational-at-start basis as `tick.ts` facilityOpex debits. Existing W0/recurring tests and acceptance evidence were read, not rerun. Do not carry the old reporting omission forward or reopen P11.
+
+Actual entry points: `src/core/financeReport.ts:financeOverview/financeRecordingBoundary/recordedFinancePeriod/financeHistory/recordedFinanceEntries`; `bridge/finance.ts:financeProjection`; `bridge/finance-consequence.ts:financialConsequence`; `bridge/finance-portfolio.ts:financePortfolio`; `bridge/finance-upcoming.ts:financeUpcoming`. Wire path is **snapshot.finance.finance** in `StudioProjectionBundle`, bound to session/revision/week/digest/schema. `SnapshotBuildContext.finance()` memoizes against authoritative state. These are read models; no Finance mutation authority.
+
+Preserve `FinanceTimeClass` recordedCash/currentRecurringCost/knownCommitment/currentPaceEstimate. `FinancePeriod` has inclusive weeks, coverage, nullable opening/closing, signed categories and original capital contributors. Week 0 history has no completed points/period; partial is not zero. Current week is “so far.” Internal ledger selector default50/max100 is not a new public query endpoint. Upcoming13/52-week windows cap64 rows with remainder; portfolio distinguishes scriptProject from production, phases, blockers, commitmentState and exact routes. TheatricalGross, received/remaining Studio Revenue and projected/final Contribution are different; Contribution excludes studio Opex and is not remaining profit. Legacy bundled commitment never proves a separate negative/marketing split.
+
+`financialConsequence(before,after,later?)` observes the owning quote's discarded legal successor: Cash/recurring/payroll/net-flow/runway/guarantee comparisons, nullable later fields. Placement uses actual capex and later operational onset; renew/release and hiring/Greenlight use existing owners. Queued Greenlight has zero immediate debit and no production until admission/revalidation. Read/Cancel inert; stale session/revision/intent refused; retained identical commandId replay is idempotent and changed reuse is COMMAND_ID_REUSE. Generalize owner inputs, never copy player-only formulae or temporarily replace `state.studio`.
 
 ### 6.2 Internal rival financial authority
 
@@ -230,7 +203,8 @@ Names remain provisional until implementation reconnaissance. P12 may conceptual
 | Fact family | P12 ownership |
 |---|---|
 | `StudioIdentity` | Immutable `studioId`, current display identity, deterministic visual identity, player/rival role, honest founded/entered/recorded-since provenance |
-| `StudioRegistry` | Sole durable registry and canonical current/historical studio references |
+| `StudioRegistry` | Sole durable registry, permanent reservations for nine rivals, and distinct current/historical participation references |
+| Initial rollout schedule | Versioned bounded eligibility provider and exact-once entry key; pre-entry catalogue rows are not active employers. Proposed transfer to P12; no later corporate churn |
 | `StudioPolicy` | Hidden, bounded deterministic rival policy; policy influences choices, never guarantees outcomes |
 | `StudioOperationalState` | Canonical active/dormant/closed vocabulary and state commit; P12A need only activate the lawful subset |
 | `StudioFinancialState` | Compact conserved rival balance, obligations, material transactions, summaries, and coverage boundary |
@@ -273,7 +247,7 @@ No headline, recap, rumor, rank commentary, or other presentation prose belongs 
 
 | Receipt family | P12A / later classification | Canonical producer or commit owner | Visibility default |
 |---|---|---|---|
-| `RivalStudioEntered` / initial registry establishment | **P12A CORE** for the initial cohort or honest migration boundary | P12 | Public exact when the studio becomes a known participant; never fabricate earlier entry history |
+| `RivalStudioEntered` / initial registry establishment | **P12A proposed initial nine-studio rollout**, including staged arrivals; due migration follows chosen A/B semantics | P12 | Public exact when the studio becomes a known participant; never fabricate earlier entry history |
 | `RivalFilmAnnounced` | **P12A CORE only when disclosure changes authoritatively**; otherwise no receipt | P12 | Public after announcement; future/private decisions remain hidden |
 | `RivalFilmCommitted` | **P12A CORE** as a factual lifecycle receipt | P12 | Hidden unless the project is publicly announced |
 | `RivalFilmReleased` | **P12A CORE** | P12, consuming shared result/release law | Public after event |
@@ -282,7 +256,8 @@ No headline, recap, rumor, rank commentary, or other presentation prose belongs 
 | `RivalStudioBecameDormant` | **P15B PRODUCER / P12 STATE COMMIT** | P15 assesses/orchestrates; P12 commits canonical operating state | Not P12A; later disclosure law required |
 | `RivalStudioRecovered` | **P15B PRODUCER / P12 STATE COMMIT** | P15 assesses/orchestrates; P12 commits canonical operating state | Not P12A; public after event if authorized |
 | `RivalStudioClosed` | **P15B PRODUCER / P12 STATE COMMIT** | P15 validates terminal behavior; P12 commits canonical closure and archives identity | Not P12A; public after event if authorized |
-| Later entrant eligibility/request | **P15B PRODUCER** | P15 eligibility/orchestration; P12 mints/initializes/commits registry entry after all owners validate | Not P12A |
+| Initial five later entrants | **P12 proposed bounded rollout** | Adopted eligibility policy; P12 validates/funds/staffs/capacitates/commits entry atomically | Public only at actual entry; no pre-entry employer/project/slate |
+| Replacement/wider entrant eligibility/request | **P15B PRODUCER** | P15 later churn eligibility/orchestration; P12 commits registry after all owners validate | Not P12A |
 | `StudioMilestoneReached` | **FUTURE / ADAPTER-OWNED** | Source domain supplies facts; P08 owns significance/history interpretation | Public only when the source fact and P08 visibility permit it |
 | Awards receipt | **P08 PRODUCER** | P08 | Public after authoritative award result |
 | Shared-market assessment | **P15A PRODUCER** | P15 | Player-safe typed reasons only |
@@ -325,7 +300,7 @@ The Owner-approved P13–P15 roadmap resolves package placement. Do not re-escal
 | **P12B competitive labor market** | **P14A** | P14 owns cases, proposals, lawful knowledge/intermediary, and chooser/orchestration receipts. P10 retains person/contract/career. P12 retains studio/employer/exclusivity/index/interval/transition and commits employer state. |
 | **P12C shared market** | **P15A** | P15 owns exposure, frozen release batch, self-excluding assessment, pressure/decay, and reasons. P12 supplies exact studios/releases/disclosure; P07 result law remains upstream. |
 | **P12D Power Ranking** | **P15A.2** | P15 owns periodic comparative snapshots/formula/reasons after sufficient history. It remains separate from P08 Standing and is not part of P15A.1. |
-| **P12E corporate continuity** | **P15B / accepted `Corporate Fate` equivalent** | P15 owns condition, remedy, distress/recovery/dormancy/closure/later-entry behavior and orchestration. P12 retains registry, canonical operating state, identity, entrant initialization, and canonical entry/closure commit/events. |
+| **P12E corporate continuity** | **P15B / accepted `Corporate Fate` equivalent** | P15 keeps condition, remedy, distress/recovery/dormancy/closure/replacement and wider churn orchestration. LH proposes only initial nine-studio rollout scheduling/atomic entry in P12. P12 retains registry, canonical operating state, identity, entrant initialization, and canonical entry/closure commit/events. |
 
 Exact labor depth, shared-market formula, Power Ranking cadence/formula, closure asymmetry, later-entry policy, and terminal behavior remain open Owner decisions. Their placement is not open.
 
@@ -366,9 +341,9 @@ P12 produces for P15:
 - canonical active/dormant/closed vocabulary and state commit authority;
 - factual studio events and durable archives.
 
-P15A owns shared-market assessments. P15A.2 owns Power Ranking. P15B owns distress/recovery/closure/later-entry domain behavior and complete participant orchestration; P12 remains the state commit owner. P15C owns a 2040 interpretation of actual durable history.
+P15A owns shared-market assessments. P15A.2 owns Power Ranking. P15B keeps distress/recovery/dormancy/closure/replacement/wider-entry domain behavior and orchestration; the initial nine-studio rollout is proposed in P12; P12 remains the state commit owner. P15C owns a 2040 interpretation of actual durable history.
 
-P15 may not manufacture missing films, awards, careers, finances, innovation, rankings, founders, or pre-recording events. Legacy is not one score. Negative cash alone is not bankruptcy, and an incomplete P11 runway selector cannot become distress authority.
+P15 may not manufacture missing films, awards, careers, finances, innovation, rankings, founders, or pre-recording events. Legacy is not one score. Negative cash alone is not bankruptcy, and current-pace runway is not a new P15B distress threshold. Accepted P11 recurring reporting includes facility Opex.
 
 ## 15. P12 → P16, P17, and P18
 
@@ -457,46 +432,18 @@ facts before its own charter.
 - no fabricated pre-migration history or accounting;
 - stale/unknown ID refusal without fallback masquerading as success;
 - save/load/reconnect preservation;
-- bounded queries, save growth, and approximately 6,240-week endurance;
+- bounded queries, save growth and 6,240 additional authoritative advances including eventual nine rivals; no 120-calendar-year inference;
+- proposed four+five entry, pre-entry absence, exact-once endowments, same-date order and before/within/after adopted migration schedule;
 - Unity presentation parity with TypeScript truth and no client-side calculation.
 
-## 18. Final refresh placeholders
+## 18. Governed persistence and native handoff
 
-```text
-FINAL_P08_P10_TS_SHA
-FINAL_P08_P10_UNITY_SHA
-FINAL_P08_P10_SCHEMA_ID
-FINAL_P08_P10_PROTOCOL_VERSION
-FINAL_P08_P10_PROJECTION_VERSION
-FINAL_P08_P10_SAVE_VERSION
-FINAL_P08_P10_OWNER_RULINGS
-FINAL_P08_HISTORY_SEAM
-FINAL_P09_CAPACITY_AND_OPEX_SEAM
-FINAL_P10_PERSON_CONTRACT_EMPLOYER_SEAM
+Incoming placeholder identities are replaced by §1/recon. P11's `loadBridgeRuntimeCheckpoint` preserves current-schema replay and recognizes authentic prior protocol 4 schemas including accepted 21/genuine24–26; schema migration imports **currentSaveJson and savedSaveJson independently** via canonical inner-save chain, then issues a new session/revision0/empty journal. P12 must register authentic outgoing27 when its implementation changes the schema and extend both slot migrations for justified new roots. Unknown/malformed fails closed. Never extract inner-only saves, fabricate history, rewrite old headers, reserve versions in advance or use an older binary on upgraded bytes. P11's no-new-Finance-root decision does not prohibit necessary P12 persistence. Rollback retains untouched old checkpoint/control bytes and matching executable.
 
-FINAL_P11_TS_SHA
-FINAL_P11_UNITY_SHA
-FINAL_P11_SCHEMA_ID
-FINAL_P11_PROTOCOL_VERSION
-FINAL_P11_PROJECTION_VERSION
-FINAL_P11_SAVE_VERSION
-FINAL_P11_FINANCE_HANDOFF
-FINAL_P11_FACILITY_OPEX_DISPOSITION
+Unity owner is `Assets/Studio/Runtime/Presentation/UI/StudioWorkspaceHost.cs`, with Administration in `Presentation/StudioFoundingCardHud.cs`, Profile/History/Finance contexts in UI, generated C# and validation in Data. `OpenFinanceRoute` routes exact profile/facility/casting/production/releaseResult/filmHistory/development subjects. Films tab uses raw productionId; Timeline uses EventRowId(historyEventId). Preserve retained tab/filter/sort/page/period/selection/scroll through Back. Industry needs a new origin/context and bounded public DTO, not another navigation owner. Projection27 locationBuildingId validation still requires actual property; never invent a rival physical lot/location to satisfy it.
 
-FINAL_P12_CHANGED_PATHS
-```
+## 19. Final disposition
 
-The final refresh must replace every placeholder, inspect only accepted changed paths, verify that P11 recurring-cost/current-pacing truth is complete, settle the P08 history topology, and name exact producer/consumer types without shifting product ownership.
+All 130 original requirements/ 22 safeguards survive with explicit current supersessions. The nine-rival destination is settled; proposed four+five/exact scheduling and migration A remain decisions for the later order. Source/code refresh is complete for launch review; actual P12 integration, native input, migration and endurance proof are unperformed. Existing P11 evidence is reused only within its stated scope.
 
-## 19. Final status
-
-**P12A planning:** PROVISIONAL READY FOR CURRENT OPS REVIEW.
-**P12 implementation:** NOT AUTHORIZED.
-**P13–P18 implementation:** NOT AUTHORIZED.
-**Production code changed by this document:** NONE.
-**New Owner decision required for P12A pre-readiness:** ONE narrow migration-history ruling: whether
-the initial rival cohort in an existing save is made of known current participants whose earlier
-history is unavailable, or genuinely new entrants at the migration week. The gate document records
-the options, recommendation, and safe default; no other P12A product decision is escalated.
-
-POST-P11 OWNER-ACCEPTED CHANGED-PATH REFRESH REQUIRED
+**READY FOR CURRENT OPS LAUNCH REVIEW. P12 IMPLEMENTATION NOT AUTHORIZED. CURRENT OPS EXECUTION ORDER REQUIRED BEFORE CODING.** Facilities modernization/P09–P13 review remains separate; no P13–P18 implementation, hook activation, PR, merge or active-lead redirection.
