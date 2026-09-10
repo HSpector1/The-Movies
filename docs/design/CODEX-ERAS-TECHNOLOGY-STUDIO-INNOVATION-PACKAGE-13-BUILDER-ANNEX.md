@@ -534,6 +534,8 @@ no P11/P12 package change or rival 3D lot follows from this handoff.
 
 **NUMERICAL/CONTENT HYPOTHESIS.** Every value in this section belongs to paper fixture **H1**. H1 exists to compare mechanisms, expose thresholds and find dominant strategies. It is not tuning, not a runtime result and not a playtest. The mechanisms it exercises are the [design §12.6–§12.9 and §16a](./CODEX-ERAS-TECHNOLOGY-STUDIO-INNOVATION-PACKAGE-13.md#126-research-staffing-rd-budgets-and-multi-laboratory-work--2026-09-10-owner-direction) recommendations; the Owner-selected directions they serve are listed in the [Owner rulings amendment](./CODEX-P13-P15-OWNER-RULINGS.md#24-p13-owner-direction-amendment--2026-09-10).
 
+**Scale note, 2026-09-12.** H1's absolute money scale was never anchored to the accepted blueprints: a fully funded medium research programme costs $105,600 here, about a quarter of the $400,000 Craft Services Annex, which is the cheapest accepted building. [Catalogue §9.1](./STUDIO-UPGRADE-AND-RESEARCH-CATALOGUE-01.md#91-the-envelope-and-one-scale-question-current-ops-must-settle) proposes scale S1, which multiplies every money figure here by five and therefore leaves every ratio, break-even and dominance conclusion below **unchanged**. H1 is left at its validated values; adopting one scale is a Current Ops decision.
+
 **Fixture H1**
 
 | Input | Value | Note |
@@ -543,7 +545,7 @@ no P11/P12 package change or rival 3D lot follows from this handoff.
 | Researcher salary | $400/week each; $1,600/week for a full laboratory | continuing P11 payroll whether or not a project uses the person |
 | Laboratory Opex | separate P09/P11 charge, unchanged by research spending | omitted from comparisons because it is identical across rows |
 | R&D budget multiplier m, by spend per assigned researcher-week | $0 ×1.00; $500 ×1.25; $1,000 ×1.40; $2,000 ×1.50 (saturation) | usable spend therefore scales with assigned people, so one full laboratory saturates at $8,000/week and two at $16,000/week; spend above the usable amount is never charged |
-| Concentration factor c(n) for n cooperating laboratories | c(1)=1.00; c(2)=0.8125; c(3)=0.70 | c(2)=0.8125 gives 1.625× one laboratory, inside the Owner's 1.5–1.75× direction (c(2) bounds 0.75–0.875) |
+| Concentration factor c(n) for n cooperating laboratories | c(1)=1.00; c(2)=0.8125; c(3)=0.684 | These are the mixed-systems profile, parallel fraction 10/13, about 0.769, which reproduces both factors exactly. The **total** is 1.625× for two laboratories and 2.05× for three; the **factor** is 0.8125 and 0.684. The Owner's 1.5–1.75× is the total, and the factor that produces it is 0.75–0.875. c(3)=0.684 replaces an earlier 0.70, which did not follow from the same parallel fraction. See [catalogue §5.3](./STUDIO-UPGRADE-AND-RESEARCH-CATALOGUE-01.md#53-parallel-profiles-and-the-corrected-concentration-law) |
 | Required work for the fixture technology | 64 wu | one mid-size catalogue entry |
 | Sound product (technology/access + equipment) | $40,000 + $60,000 = $100,000 | retail composition after commercial release |
 | Stage A, substantially older silent stage | site adaptation $90,000 / 9 weeks; installation $30,000 / 3 weeks | descriptor: structural acoustic work, wiring, access |
@@ -660,7 +662,7 @@ Agreement hypothesis: upfront $150,000; royalty 10% of eligible supplier sales; 
 
 #### Thresholds, saturation, bottlenecks and dominant strategies
 
-- **Saturation:** the budget multiplier reaches ×1.5 at $2,000 per assigned researcher-week, which is $8,000/week for one full laboratory and $16,000/week for two; concentration reaches 1.625× for two laboratories and 2.1× for three. Above each, more cash buys nothing and is not charged.
+- **Saturation:** the budget multiplier reaches ×1.5 at $2,000 per assigned researcher-week, which is $8,000/week for one full laboratory and $16,000/week for two; the total from concentration reaches 1.625× for two laboratories and 2.05× for three. Above each, more cash buys nothing and is not charged.
 - **Bottleneck order:** knowledge prerequisite → assigned researchers → seats → usable spend → cooperating laboratories. Each has a typed reason and one remedy.
 - **Dominant-strategy risks:** splitting dominates cooperation unless earliness has value (M1); inventor benefit can exceed research cost (M4); cheap old-stage adaptation dominates building another (M3); full restart credit makes cancellation free (M5). None is resolved here.
 - **Rival symmetry:** every row applies to a rival with the same seats, people, budget authority and provenance; P12 conserved resources fund rival ceilings.

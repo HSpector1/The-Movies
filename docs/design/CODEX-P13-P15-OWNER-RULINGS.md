@@ -60,9 +60,9 @@ assignment, research versus wait, one rival consequence, and one Production/worl
 **NOT APPROVED FOR P13 IMPLEMENTATION:** licensing, patents, royalties, technology-rights transfers, and an exact
 alternate-history acceleration law. *(Amended 2026-09-10, §2.4.)* Patents remain parked in P16+. Supplier
 commercialization of studio-developed technology, including licensing and time-limited royalties, is
-Owner-desired later scope: its terms and package placement are undecided, P16+ remains the default placement
-unless a later Owner ruling places it elsewhere, Current Ops' activation review prepares the placement
-recommendation, and P13 preserves the invention provenance and interfaces it needs. Bounded
+Owner-desired later scope: its terms and package placement are undecided. P16+ remains the default placement;
+Current Ops recommends a placement and the Owner approves any departure from P16+. P13 preserves the invention
+provenance and interfaces it needs. Bounded
 early research through investment is Owner direction under §2.4. This deferral covers the global public-rollout
 timeline, not the per-studio funded research rate: an R&D budget that accelerates a studio's own qualified
 research is Owner direction, while an unlimited alternate-history law that moves the public rollout itself is
@@ -128,11 +128,13 @@ Historical decisions remain history. The following statements no longer govern c
 
 **IMPLEMENTATION RECOMMENDATION:** capability-based delivery under the later outcome-first order (design §2A: core, ready, later); six separated facts (eligibility, progress, commercial availability, installation, operational capability, standard); budget as a ceiling with disclosed marginal benefit and bottleneck; decomposed inventor quotes; gap-aware conversion descriptors; plan queues with execution-time revalidation inside player-approved authority; the technology lock at first actual filming; supplier-agreement interfaces. Difficult parts are sequenced, not discarded; no later commercial feature is a prerequisite of the first research experience.
 
-**NUMERICAL/CONTENT HYPOTHESIS (Current Ops activation review decides):** research-work quantities, budget tiers and saturation, the concentration factor inside 1.5–1.75×, early-research bounds and fixed commercial milestones, concession rates and eligible components, conversion descriptors, the near-release disclosure horizon, admission-policy default, restoration and refund components, and every example in the Annex matrix.
+**NUMERICAL/CONTENT HYPOTHESIS (Current Ops activation review decides):** research-work quantities, budget tiers and saturation, the concentration factor (whose value is 0.75–0.875, being what makes the **total** output of two cooperating laboratories land inside the Owner's 1.5–1.75×; the two must never be confused, see [catalogue §5.3](./STUDIO-UPGRADE-AND-RESEARCH-CATALOGUE-01.md#53-parallel-profiles-and-the-corrected-concentration-law)), early-research bounds and fixed commercial milestones, concession rates and eligible components, conversion descriptors, the near-release disclosure horizon, admission-policy default, restoration and refund components, and every example in the Annex matrix.
 
 **LATER COMMERCIALIZATION SCOPE:** royalty rate and basis, upfront pricing, term, exclusivity, early supplier launch versus the fixed milestone, commercial obsolescence, independent rival invention, transfer and co-development entitlement, final package placement.
 
 **POST-P12 VERIFICATION REQUIRED:** whether a calendar owner exists, since the accepted product has none and the absolute weekly counter is its only clock; the accepted production lifecycle's first-filming seam; the authorized employment action for researchers; P12 conserved resources funding rival budgets; P11 quote/commit symbols and refundable-commitment dispositions; and the migration starting version from the accepted save head.
+
+**The catalogue that gives this direction content.** [The Studio Upgrade and Research Catalogue](./STUDIO-UPGRADE-AND-RESEARCH-CATALOGUE-01.md) disposes of all 58 proposed candidates and the research briefs, anchors its numbers to the accepted blueprints, and works out the Owner's direct Office I→III route including the accepted prerequisite that currently blocks it. It is an **IMPLEMENTATION RECOMMENDATION** throughout and approves no tuning.
 
 **Not done here:** no gameplay coding, tests, schemas, saves, assets, tuning constants, new package number, coding order, PR, merge, P11 reopening or P12 redirection. The separate multi-campaign save library is not implemented; P13 state stays campaign-specific and Save/Load restores it without rerolling or sharing research between campaigns.
 
