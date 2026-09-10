@@ -451,6 +451,46 @@ reservations, quoted and committed P11 consequence references, route provenance,
 research/adoption/capability-rule versions. Completion is automatic in the authoritative phase when
 all work and guards are satisfied; there is no claim click.
 
+### 12.2a Physical facility conversion interface — 2026-09-10 candidate
+
+**OWNER-REQUESTED PLAN REFINEMENT · UNSCHEDULED · CURRENT OPS REVIEW REQUIRED ·
+NEW MECHANICS NOT APPROVED.** The [facility addendum](./FACILITY-UPGRADES-AND-STUDIO-OVERVIEW-01.md)
+§§7–8 proposes the missing P09 physical renovation law. This is a targeted interface refinement
+for disposition before activation, not a claim that the historical work-order shape is delivered.
+P11 acceptance and P12 preparation remain separate; no implementation is authorized.
+
+For a physical conversion, retain `AdoptionWorkOrder` as the P13 adoption episode/coordinator,
+but give its physical work component **one P09 job/commit/progress owner**. Required/accumulated
+physical work, ground/provider reservations and physical charges in the adoption view reference
+that job's truth, not a second P13 countdown or obligation. Typed participant links identify
+studio, technology/adoption/work-order, physical subject/providers, P09 job, pinned eligibility/
+capability versions and P11 consequence/commit receipts. Genuine nonphysical research/training
+remains P13 work; every component declares one owner and distinct costs only for distinct work.
+
+One physical transaction preflights P09 legality/engagements, P13 eligibility and P11 money;
+one completion receipt updates physical/provider truth and the eligible P13 capability result
+atomically, exactly once. Section 12.4's adoption step consumes linked physical results rather
+than advancing that work again. Core still owns phase order and frozen due sets: public-standard
+dispositions precede technology completion eligibility, joint-earliest cohorts remain intact,
+and cross-package publication waits for the full transaction. No early grant while another real
+adoption prerequisite remains incomplete. Research/public availability never installs equipment
+freely throughout the estate. Ordinary P09 capacity work need not await all of P13.
+
+Preserve the Annex's queued/active/paused adoption cancellation, immutable receipts and new-ID
+restart law. Physical cancellation must reconcile P09 restoration/retained work, P11 cash/Opex
+and P13 readiness in one candidate; if a conversion cannot honor this right, stop its activation
+and expose the proposed departure for disposition. The addendum's no-voluntary-abort suggestion
+applies only to its first ordinary P09 retrofit. Already committed work retains safe completion,
+typed hold or cancellation handling through eligibility/standard changes and feature disablement;
+§12.5's all-owner studio-transition receipts remain mandatory.
+
+My Buildings and lot selection enter the same exact P09 facility owner. P11 supplies financial
+semantics, not another renovation system. Existing highest-only office effects are not deleted by
+P13's prohibition on new generic technology quality bonuses. P09's real Builder obligation remains
+separate; this interface invents neither staffing nor speed/cost law. A later rival-capacity adapter
+must preserve symmetric P13/P12 law and P13A's rival proof, without rival 3D lots or P12 expansion.
+All original P13 scope, substrate, save/history, endurance and Owner gates remain in force.
+
 ### 12.3 Assignment lifecycle
 
 ```text

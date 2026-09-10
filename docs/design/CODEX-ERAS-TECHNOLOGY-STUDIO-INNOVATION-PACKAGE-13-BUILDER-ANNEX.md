@@ -410,6 +410,47 @@ chunk over 100 rows, or upstream receipt mismatch refuses the whole all-owner ca
 
 ---
 
+### 4.1 Physical conversion handoff — 2026-09-10 candidate
+
+**UNSCHEDULED · CURRENT OPS REVIEW REQUIRED · NEW MECHANICS NOT APPROVED.** Read the
+[design interface clarification](./CODEX-ERAS-TECHNOLOGY-STUDIO-INNOVATION-PACKAGE-13.md#122a-physical-facility-conversion-interface--2026-09-10-candidate)
+and [facility addendum](./FACILITY-UPGRADES-AND-STUDIO-OVERVIEW-01.md) §§7–10 before activating
+physical adoption. This explicit proposed refinement leaves existing requirements intact and
+needs disposition during the post-upstream refresh. It authorizes no DTO/save/schema/code change.
+
+Keep the `AdoptionWorkOrder` identity and cancellation/history contract. For physical components,
+the §4 required/accumulated work and reservation/consequence fields become projections/references
+to one P09 physical job. Recommend a typed work-component discriminator and participant link:
+`adoptionWorkOrderId`, `adoptionId`, `studioId`, `technologyId`, exact physical subject/provider IDs,
+`p09JobId`, pinned eligibility/capability-rule versions, `p11QuoteRef`, `p11CommitReceiptRef`, and
+P09 commit/completion/cancellation receipt references. These are interface sketches, not newly
+implemented fields. Nonphysical P13 work retains its own explicitly distinct work/cost component.
+
+There is one P09 physical quote/commit, site/capacity reservation set, progress owner and completion.
+P13 participates in its preflight and eligible capability application; §3.6 consumes the physical
+receipt without another countdown, debit, reservation or grant. Refresh the accepted core phase
+seams: preserve frozen due sets, milestone-first standard disposition, joint-earliest cohorts,
+atomic all-owner application and publication after all phases. Do not reallocate earlier-phase
+work retroactively. If a distinct training/provider prerequisite remains, do not mark technology
+operational merely because the building work completed.
+
+Preserve §§3.2–3.4 cancellation for queued/active/paused adoption: preflight P09 physical restoration/
+retention, P11 payment/refund/Opex and P13 readiness/work disposition atomically. Failed preflight
+changes nothing; an unsupported cancellation contract blocks that conversion's activation pending
+explicit disposition. Terminal records never reopen; restart uses a new ID and only receipt-authorized
+retained work. Ordinary P09 no-abort recommendations do not override this contract. Preserve §3.7
+all-owner transition manifests/chunks and durable safe completion/hold/cancellation for already
+committed work after eligibility/standard changes or feature disablement.
+
+Matching proof must trace one linked physical/adoption job through both entry routes, busy/stale and
+duplicate refusals, exact payment/Opex onset, mid-work Save/Load, same building/name/history, atomic
+completion/cancellation and real production using the installed capability. Exercise ordinary capacity
+work without a blanket technology prerequisite and refuse a technology conversion lacking its actual
+eligibility. Show before/during/after world states and exact Back/filter/scroll/focus; a badge is not
+proof. Retain every existing golden journey, migration/cancellation, 6,240-week endurance, Laboratory/
+Scientist, rival consequence and Owner gate. No P09 Builder staffing/speed/cost is invented or waived;
+no P11/P12 package change or rival 3D lot follows from this handoff.
+
 ## 5. Proposed projection/DTO shapes
 
 All DTOs are closed, versioned projections built from authoritative TypeScript state. Unity never
