@@ -135,9 +135,23 @@
       "path": "worker-production-20260910/independent-applicability.json",
       "sha256": "3436c2410b420055c8c5a3420fb3561df2c83b42cd9b4e554d34322785398cd4",
       "applicability": "Bounded independent worker implementation review; all11patch/all104compiled-source bytes matched, integrated44tests PASS. Not full R05 final correctness or native acceptance."
+    },
+    {
+      "kind": "product-review-core",
+      "outcome": "PASS",
+      "path": "gate-a-run14-20260910/product-closure.json",
+      "sha256": "353f487eb43fc2fdc23815a744fe712cbdc9b2e95e171dcda30d0aa97e8ef522",
+      "applicability": "Existing GateA product critique closed on exact923eaee/d03461c native14; prior12campaignUX seven unchanged relevant presentation files reviewed. Later snapshot-thread correction/native candidate applicability still required; notGateB/Owneracceptance."
+    },
+    {
+      "kind": "cumulative-regression",
+      "outcome": "PASS",
+      "path": "recovered-checks-20260910/ts-cumulative-06-worker.log",
+      "sha256": "0a9e9e94b4d5f5e1b15cb24d970e23abbe9eba6899e0bc8b6d4560e541a97d78",
+      "applicability": "Current worker923eaee TS394files/5159PASS5SKIP; Unity14d03461c1092PASS and exactpairedcontract. Later Unity detachedparser source NOTcovered."
     }
   ],
-  "updatedAtUtc": "2026-09-10T19:02:58.246852+00:00",
+  "updatedAtUtc": "2026-09-10T19:22:01.258546+00:00",
   "attestationsPath": "attestations.json",
   "recovery": {
     "sessionId": "01a08adf-7719-7da2-85d0-77ae64c36fad",
@@ -162,14 +176,14 @@
       "tasksCompleted": false
     },
     "latestNativeRun": {
-      "report": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/report.json",
-      "quitAtUtc": "2026-09-10T18:20:05.478Z",
+      "report": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/report.json",
+      "quitAtUtc": "2026-09-10T19:12:24.300Z",
       "inputFinalization": "clean",
       "playerExit": {
         "code": 0,
         "signal": null
       },
-      "campaignProgress": "Independent A1/B3/C0 and diverged copy8 restored after run11 Quit/relaunch; Scratch overwrite/delete/cancel tested; copy13 saved before clean Quit. C0 meets explicit create-C/save clause."
+      "campaignProgress": "Exact copy13 restored/saved withouttick; neutralProfile/date/Back closed; all5slotpairs unchanged except metadata+SaveReceipt reviewed."
     },
     "latestRefusedNativeAttempt": {
       "atUtc": "2026-09-10T18:40:44.909Z",
@@ -179,10 +193,10 @@
     }
   },
   "open": [
-    "Native corrected Profile release calendar and suitable neutral identity replay",
-    "Remaining independent Gate A and Gate B product critiques",
-    "Current candidate source/build evidence applicability and runnable Gate A preservation",
-    "Performance: original targets MISS; worker correction verified on emitted late-world engine; native parse/frame/end-to-end timings pending",
-    "Requirement final dispositions and final launch-verified packaging"
+    "Complete technical GateA applicability and actual preserved PLAY launcher proof",
+    "Full ready-integration GateB product critique and late-world native tasks",
+    "Native snapshot parse correction: baseline median97.198ms main; detachedtask implementation/tests/replay pending",
+    "Original total latency/capacity targets MISS; measured native/end-to-end rebaseline and acceptance open",
+    "Final requirement dispositions, exact source/build/evidence binding and launch-verified delivery"
   ]
 }

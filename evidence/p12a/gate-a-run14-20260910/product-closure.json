@@ -1,0 +1,305 @@
+{
+  "kind": "P12A-R05 existing causal-core Gate A product critique corrective closure",
+  "reviewer": "/root/recovered_product_evidence (independent read-only product reviewer)",
+  "reviewedAtUtc": "2026-09-10T19:17:24.856612+00:00",
+  "verdict": "CLOSED / KEEP for the existing Gate A product critique. Both remaining Profile findings are verified corrected by actual native input/screens; no genuine remaining user obstacle found in this bounded critique scope.",
+  "scope": "Corrective native14 replay plus explicit prior12 completed product-task applicability; not a new critique round, broad audit, whole technical Gate A certificate, Gate B acceptance or Owner enjoyment acceptance.",
+  "sourceBuildBinding": {
+    "manifestPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/build-manifest.json",
+    "manifestSha256": "e29dc231414ad99c67d7edf2c2d2e0e27b438829712656918d11bcce24290ed7",
+    "unity": {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+      "sha": "d03461cece99bc6ae5962a035b081797af65ab00",
+      "branch": "wip/p12a-living-hollywood-01-client",
+      "dirty": false
+    },
+    "typescript": {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+      "sha": "923eaee953d5cf7eee3d261b70b3091b7a198d88",
+      "branch": "wip/p12a-living-hollywood-01-ts",
+      "dirty": false,
+      "engineBundleSha256": "ccd58600f6c43edc5abf814fdddf63d673fd69a98277ad61c80ea4e72e58d104",
+      "runtimeWorkerSha256": "b93597b747fbbf678b3024966e8c0559bf50c97534edc3dbb5aea75f755f0aa9",
+      "runtimeWorkerSourceManifestSha256": "e36049c2743d20c0b00f357b918a8eecfe41e1232cc896f5ef2d48acb496de13"
+    },
+    "player": {
+      "app": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app",
+      "executable": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+      "executableSha256": "73e319a17f59be668178914f3ef6a06fc87866df52dd3910ffdb8639de466ade",
+      "assemblyCSharpSha256": "68aec6311aa258f56960da67f3ade0b5250b5b01147d2b75a5677eb41811d16a",
+      "builtAtUtc": "2026-09-10T19:04:20Z"
+    },
+    "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+    "independentlyVerifiedAtReview": [
+      "Actual current native executable SHA equals launched report/build manifest",
+      "Actual current engine, runtime worker and worker-source manifest SHAs equal launched report/build manifest",
+      "Native14 previous-report SHA equals native12 report",
+      "Native14 final private library SHA equals its clean final report"
+    ],
+    "workerScopeQualification": "Worker implementation, durability/failure correctness and future large-world behavior are covered by root/separate correctness reviewer, not inferred from prior native12 UX or this small early-world save."
+  },
+  "closures": [
+    {
+      "finding": "Neutral identity wording must remain truthful for an actual credited low-ability person.",
+      "actualProof": "Native click007 opens full Profile for Iris Bell, canonical person-studio-d951827c-r01-0. Actual screen shows Writer · Career identity not yet established, primary Writing OVR25 (Highly unproven), and3 recorded production credits together. It also names current exclusive employer Bellwether and truthfully withholds current assignments/offers.",
+      "result": "Closed. Existing capability/identity threshold is not weakened; wording no longer denies that credited work exists.",
+      "captures": [
+        "007"
+      ]
+    },
+    {
+      "finding": "Profile career date disagreed with Industry on the same live film.",
+      "actualProof": "Native scroll008 reaches actual bottom career row The Painted Wilderness · Writer and comedy · Released1920 · Week13. It separately explains2 authored starting credits. Native Back009 returns to Iris Industry with exact person/context and visibly focused Open full person profile control. Native film010 shows the same campaign release1920 · Week13, all6 canonical credits, and End of this page.",
+      "result": "Closed. Shared TS calendar label reaches the actual Profile without a raw zero-based display. No exact pixel-identical scroll claim.",
+      "captures": [
+        "008",
+        "009",
+        "010"
+      ]
+    }
+  ],
+  "replayedSupportingTasks": {
+    "lotEntry": "Actual step001 world-selectable-admin then002 admin-open-industry,003 Bellwether,004/005 real scrolling,006 exact Iris person.",
+    "sameLiveFilm": "The Painted Wilderness, studio-d951827c-r01:film:0, comedy, Bellwether; critics37.7/audience61.5, opening and gross earned $6,765,888, active run; current employer shown separately from film credit.",
+    "sixCredits": [
+      "writer Iris Bell",
+      "director Arthur Vale",
+      "lead Mabel Finch",
+      "antagonist Walter Reed",
+      "support Clara Moss",
+      "craft Edwin Pike"
+    ],
+    "saveAndQuit": "Native012 Save active campaign followed by settled013 B Copy Diverged · Saved / Campaign saved. Actual014 Quit review shows no campaign controls; map014 contains zero campaign-prefixed entries. Actual015 bound Quit confirmation precedes app exit0.",
+    "worldContinuity": "Initial and all reviewed maps remain absolute gameWeek13/revision0/digest2be5…b22; current calendar1920Week14 is correct while this film released1920Week13. This run did not tick or newly produce the film."
+  },
+  "campaignPersistenceObservation": {
+    "beforeLibrarySha256": "a16840d20d8804b338035a77412553dc950444766d9a7fd53d2c5df4f4f78c38",
+    "afterLibrarySha256": "a352dfd8f9a03848155e5fda0a6853225e20a097be526cb039e39fae8923bb03",
+    "independentReadOnlyCheck": "Decoded native12 and native14 final libraries in memory, validating compressed size/SHA. All5 current/saved slot pairs are byte exact across governed schema migration and native14 Save; no raw saves copied or printed.",
+    "activeIdentityUnchanged": true,
+    "labels": [
+      "Campaign A",
+      "Campaign B",
+      "Campaign C",
+      "B Copy Diverged"
+    ],
+    "absoluteWeeks": [
+      1,
+      3,
+      0,
+      13
+    ],
+    "catalogueRevisionBefore": 21,
+    "catalogueRevisionAfter": 22,
+    "receiptsBefore": 21,
+    "receiptsAfter": 22,
+    "qualification": "One additional native Save receipt is expected. This is exact early-world migration/save evidence, not a replacement for current worker large-world/failure or full campaign regression evidence."
+  },
+  "prior12ProductApplicability": {
+    "reportPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/report.json",
+    "reportSha256": "cb54ac87ce6e2b158a0ef99dc9922235dff83fc3b14fd1e706c5a5ae17c0cb8a",
+    "samePresentationBytes": [
+      {
+        "path": "Assets/Studio/Runtime/Presentation/StudioFoundingGatePresentation.cs",
+        "prior12AndNative14IdenticalSha256": "2f36abd69cf91f1d7e45a7bb329c5127aa06d38cca43de0736be922f299439da"
+      },
+      {
+        "path": "Assets/Studio/Runtime/Presentation/StudioFoundingCardHud.cs",
+        "prior12AndNative14IdenticalSha256": "8d069714d2bd59015fcb2191a31022b728bbeb0762081368ee02b445ced06ca0"
+      },
+      {
+        "path": "Assets/Studio/Runtime/Presentation/StudioSelectionManager.cs",
+        "prior12AndNative14IdenticalSha256": "23b89bb9ba0505076c7d8560930cdda81306ef7202682dbf6ab82440ff044028"
+      },
+      {
+        "path": "Assets/Studio/Runtime/Presentation/StudioSystemMenuHud.Campaigns.cs",
+        "prior12AndNative14IdenticalSha256": "04a00e34ab3c6e36612a0f0657ee5a04e78eed64bb95d095b7d14cb87aa285ea"
+      },
+      {
+        "path": "Assets/Studio/Runtime/Presentation/StudioSystemMenuHud.cs",
+        "prior12AndNative14IdenticalSha256": "52f5f627883acc9e8ea70d9bbf05eb7ec8ba4d01bafd9919cbdca074bb115ed0"
+      },
+      {
+        "path": "Assets/Studio/Runtime/Presentation/UI/StudioIndustryWorkspace.cs",
+        "prior12AndNative14IdenticalSha256": "727cc8641a92571fde94cfaf4edfa74b8d9dc8c22736108634e3065f27ff64e6"
+      },
+      {
+        "path": "Assets/Studio/Runtime/Presentation/UI/StudioWorkspaceHost.cs",
+        "prior12AndNative14IdenticalSha256": "f257bfd810411ec18297c86ee8ec51271d0e7efdb5a3ed67cc0eb9d060d19b50"
+      }
+    ],
+    "preservedCompletedTasks": [
+      "A1/B3/C0/copy8 exact Quit/relaunch restoration",
+      "Native Scratch overwrite confirmation, delete cancellation then confirmation, inactive originals preserved",
+      "Copy ordinary advance to13 andSave",
+      "Live film/person/current-employer/Profile/Back and200% final-page flow",
+      "Campaign Quit hidden-row withdrawal"
+    ],
+    "qualification": "Relevant named-campaign, founding, selection, Industry and workspace presentation files are byte-identical. Bridge callers changed only by the separately reviewed diagnostics; Profile date contract is corrected and replayed here. New worker implementation and persistence path are not retroactively certified by native12.",
+    "C0Acceptance": "Owner acceptance line133 explicitly says create C/save; C need not found or advance. Prior C0 note is not an open blocker."
+  },
+  "finalWitness": {
+    "reason": "ui-quit",
+    "playerExit": {
+      "code": 0,
+      "signal": null
+    },
+    "applicationQuitCapturedUtc": "2026-09-10T19:12:21.9437230Z",
+    "finalHidMarker": 3143,
+    "finalHidMarkerUtc": "2026-09-10T19:12:24.300Z",
+    "status": "clean",
+    "counts": {
+      "tool": 86,
+      "markerCompanion": 85,
+      "playerNull": 29,
+      "playerOther": 0,
+      "physical": 0,
+      "unknown": 0
+    },
+    "foreign": [],
+    "pendingCompanion": null,
+    "partial": false,
+    "inputStateEnd": {
+      "heldKeys": [],
+      "heldButtons": [],
+      "clean": true
+    }
+  },
+  "earlyWorldPerformanceQualification": {
+    "reportPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/runtime-performance/PerformanceCaptures/Unity/runtime-performance.json",
+    "reportSha256": "36dc013fef12b48e905c92384008c29e997d59135f23448cbf3fcf2cd4fe30dd",
+    "applicationQuitCapture": true,
+    "sampleStartedUtc": "2026-09-10T19:08:19.0679030Z",
+    "sampleEndedUtc": "2026-09-10T19:08:49.0703420Z",
+    "sampledFrames": 3184,
+    "medianFrameMs": 8.357207999999616,
+    "p95FrameMs": 11.404654499991551,
+    "maxFrameMs": 131.36208300001329,
+    "authorityContinuityMaintained": true,
+    "transportOutages": 0,
+    "requestsThroughQuit": 460,
+    "droppedRequests": 0,
+    "limits": [
+      "Paused early-world lot at absoluteweek13; not eventual-nine-rival/late-world native performance acceptance.",
+      "30-second frame window ended before first native product task at19:09:16; later route observations are separate.",
+      "CPU/GPU frame timing unavailable (-1); no invented GPU/CPU pass.",
+      "Maximum frame131.362ms remains reported; median/p95 alone do not erase it."
+    ],
+    "warnings": [
+      "Only 10/37 NavMeshAgent components were active on the baked navigation mesh during runtime evidence capture."
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/007-industry-full-profile-person-studio-d951827c-r01-0.png",
+      "sha256": "9c4b28c8cb325b92529e1a77d8945ca11e39c4b2c5bb051166f3ed22546c2e9b"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/008-profile-detail.png",
+      "sha256": "316df47edd25fa3fa393d1dfcc5dc73fe4c1d1bc3f651a479b5c0bf5d55a4315"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/009-profile-back.png",
+      "sha256": "0049468298e830cc340ff046302164c63346add5e535725f622e4f16bf45d668"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/010-industry-film-studio-d951827c-r01-film-0.png",
+      "sha256": "484a3c58803b54017ebb04e0134ebeb7417eb072b4d44d999fd2c5745f3986f9"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/013-observe.png",
+      "sha256": "b38b9ca339b7a803f4291fca6389db6ee7a5d805639a7c93626ec5b49d7ccb17"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/014-studio-menu-quit.png",
+      "sha256": "47606b8d38d6923f6f6e80c810ce8ce67630fd15d0689a2ac6077a866f5a7581"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/initial-map.json",
+      "sha256": "a1a43fa362d1e10023565d5ba709f5fe39a3f4583b2cf640e379e277eef19fce"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/006-map.json",
+      "sha256": "6e7d818f0b289189390a3d4aea799aab920a0550d3c3367c532b818a66930ba7"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/007-map.json",
+      "sha256": "25d3ffd37090e937020360beb00e7f1a2295827ac3c7850c8373c0cb2f90095e"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/008-map.json",
+      "sha256": "716829e99b9e3c6b4d63c5fac902e0e5ef2e42962d5419d4e35c7f4d122d0df5"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/009-map.json",
+      "sha256": "458a37341f2978a0c0581c8563a0f80be89f9ad1d8499f2cb03ac9829cbb040d"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/010-map.json",
+      "sha256": "cd99723456034220d552d04ab3583eb199ce43650e05ab41327282d5d6eb254e"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/013-map.json",
+      "sha256": "8781061bc4835fc60b45db085bc8c4fce907b73ac3aab4b6c90193f367bb2138"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/014-map.json",
+      "sha256": "f7f01065af1b7f5958cf87e16db64228255cbcb03b35f0076295c65a6f5b6272"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/report.json",
+      "sha256": "caa4491ce1d26dd81b9b4d8e0ad3a6cf39a695839f33a0cbf7a6284284597e60"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/launch-binding.json",
+      "sha256": "ba07eec4b5842a30d8e37971587a0810b4e92acb9afe72537476fef1df70cbd6"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/build-manifest.json",
+      "sha256": "e29dc231414ad99c67d7edf2c2d2e0e27b438829712656918d11bcce24290ed7"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/action-trace.jsonl",
+      "sha256": "4f5772a5182c985bdae082cbf9da27c1c76a1e12a37c6e21d5c905877b1adb7a"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/hid-witness.jsonl",
+      "sha256": "42d2afc59c2aafe0d7f52dae5223a78df179ca1f015425c5c11b6f594f44cfc3"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/input-state-end.json",
+      "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/console-admission.json",
+      "sha256": "3973dd0400a101fe6a4aff3786664d79a229895a985f49ca3677c2bd59cc67e7"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/console-admission-before-input.json",
+      "sha256": "1330ae2f4f49a7efc35ad0c4d68a88f01862a814777387525c32eab59463e6a9"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/runtime-performance/PerformanceCaptures/Unity/runtime-performance.json",
+      "sha256": "36dc013fef12b48e905c92384008c29e997d59135f23448cbf3fcf2cd4fe30dd"
+    }
+  ],
+  "previousReviewSupplements": [
+    {
+      "path": "/tmp/p12a-gatea-native12-review-closure-eko5xdxu.json",
+      "sha256": "c737b8292152f1d7367e78553bcbe3126349cf3d8d936def96d03c7f32393ed9"
+    },
+    {
+      "path": "/tmp/p12a-gatea-profile-date-migration-review-shjhxnov.json",
+      "sha256": "538262bbe43de25195c7e90df10c082ba4722de0b656953269e311876e1daa04"
+    },
+    {
+      "path": "/tmp/p12a-native-diagnostics-corrective-review-co2123km.json",
+      "sha256": "5543e919fc98b1254c4d82a630ac001bf8e3fd8b53c218c3cfd8f4927f2d0ab3"
+    }
+  ],
+  "limits": [
+    "Reviewer used read-only files/images/git objects; no source edits, builds, tests, engines or native input.",
+    "Root must bind/seal the actual runnable Gate A control and final technical gate evidence. Full Gate B and intended delivered-launcher verification remain separate.",
+    "Hook remains explicit-checker fallback, not active."
+  ]
+}

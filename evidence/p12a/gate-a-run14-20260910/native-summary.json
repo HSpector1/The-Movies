@@ -1,0 +1,41 @@
+{
+  "kind": "R05 early native preview",
+  "at": "2026-09-10T19:07:28.359Z",
+  "evidence": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z",
+  "manifestSha256": "e29dc231414ad99c67d7edf2c2d2e0e27b438829712656918d11bcce24290ed7",
+  "playerSha256": "73e319a17f59be668178914f3ef6a06fc87866df52dd3910ffdb8639de466ade",
+  "engineSha256": "ccd58600f6c43edc5abf814fdddf63d673fd69a98277ad61c80ea4e72e58d104",
+  "runtimeWorkerSha256": "b93597b747fbbf678b3024966e8c0559bf50c97534edc3dbb5aea75f755f0aa9",
+  "runtimeWorkerSourceManifestSha256": "e36049c2743d20c0b00f357b918a8eecfe41e1232cc896f5ef2d48acb496de13",
+  "relaunchBinding": {
+    "previousReport": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/report.json",
+    "previousReportSha256": "cb54ac87ce6e2b158a0ef99dc9922235dff83fc3b14fd1e706c5a5ae17c0cb8a",
+    "checkpointSha256": "a16840d20d8804b338035a77412553dc950444766d9a7fd53d2c5df4f4f78c38"
+  },
+  "reason": "ui-quit",
+  "playerExit": {
+    "code": 0,
+    "signal": null
+  },
+  "checkpointSha256": "a352dfd8f9a03848155e5fda0a6853225e20a097be526cb039e39fae8923bb03",
+  "status": "observation-complete",
+  "performanceFinalization": {
+    "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/runtime-performance/PerformanceCaptures/Unity/runtime-performance.json",
+    "sha256": "36dc013fef12b48e905c92384008c29e997d59135f23448cbf3fcf2cd4fe30dd",
+    "frameCaptureStatus": "complete",
+    "applicationQuitCapture": true,
+    "applicationQuitCapturedUtc": "2026-09-10T19:12:21.9437230Z",
+    "authorityContinuityMaintained": true,
+    "droppedRequests": 0,
+    "status": "captured-through-quit"
+  },
+  "input": {
+    "status": "clean",
+    "finalMarkerSequence": 3143,
+    "lastAtUtc": "2026-09-10T19:12:24.300000+00:00",
+    "physical": 0,
+    "unknown": 0,
+    "foreign": 0
+  },
+  "scope": "Same GateA corrective replay; no ticking. Early-world native performance; late-world and actual packaged launcher remain open."
+}

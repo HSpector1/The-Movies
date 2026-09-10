@@ -1,0 +1,93 @@
+{
+  "kind": "P12A bounded native timing diagnostics corrective source review",
+  "reviewer": "/root/recovered_product_evidence (independent read-only)",
+  "atUtc": "2026-09-10T19:03:32.091880+00:00",
+  "verdict": "All identified narrow defects corrected in inspected bytes. No remaining consequential defect found in this bounded diagnostic diff. Execution/native validation remains pending.",
+  "scope": "New opt-in bridge timing diagnostics, Snapshot/Campaign/Industry call sites, evidence timing/readiness/quit lifecycle and native-runner performance argument/finalization integration only. No broad code/product audit. Worker implementation/build-manifest expansion reviewed by other assigned reviewer/root, not certified here.",
+  "sourceBinding": {
+    "Unity_HEAD": "580978fa8449aff517e7632e58933fdd4dfee751",
+    "applicability": "Exact dirty working files below; current preserved preview13/Gate A app predates this diagnostic change and is not certified by these source findings.",
+    "files": [
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Infrastructure/StudioBridgeDiagnostics.cs",
+        "sha256": "f63a1fea4d6cd954d7460c5a2f91fd2241c9032ccaa9725fb9d72405a8681a81"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs",
+        "sha256": "231a6fd8586aa24c1bc54eba6bca925b6e459917b1149493a9e3f1d056b7cdbc"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.Industry.cs",
+        "sha256": "a9e6c0c873affafcfc6d2b221df9352d1cdde30752e6b0fcb3592c92ddc03cbb"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Evidence/StudioRuntimeEvidenceBootstrap.cs",
+        "sha256": "4b981a65707570f7eb97017d088047b7b3bd77087aec947cc3646ab00147ee6e"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Evidence/StudioRuntimeEvidenceReport.cs",
+        "sha256": "25abcf8d6c07be3537ffbac6ec4c7c4d14e4fc04b95a98fd157b69cbae8c7b5d"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Tools/p12a-native-preview.mjs",
+        "sha256": "aff365e982b73a9eada04a64bf14e6f39d12178bf63d634b6d846140a1869f4a"
+      }
+    ]
+  },
+  "findings": [
+    {
+      "finding": "Response authority label described the old client before decode/apply.",
+      "resolution": "Renamed clientAuthorityAtResume; separate joinedClientAuthority is captured after synchronous snapshot store/subscribers. Begin stamp renamed clientAuthorityAtStart, preventing misrepresentation of an older exact-retry wire envelope.",
+      "status": "source verified corrected"
+    },
+    {
+      "finding": "Optional diagnostic parameters broke reflection-based integration calls.",
+      "resolution": "Original ApplySnapshotJson(string) and HandleAcceptedPost(post,json,bytes,retry) signatures restored as wrappers; distinctly named WithDiagnostics delegates avoid GetMethod overload ambiguity.",
+      "status": "source verified corrected",
+      "validationQualification": "Root reported first suite 1057 pass / 35 reflection-parameter failures; Unity14 corrected rerun ongoing, not run or certified by this reviewer."
+    },
+    {
+      "finding": "Previously complete frame report had no evidence that final post-sample route capture occurred at application Quit.",
+      "resolution": "Default-false applicationQuitCapture plus timestamp written with final diagnostic snapshot; native runner separately records report/hash/status/finalization fields. Missing, malformed, early running or non-final reports remain incomplete/unavailable.",
+      "status": "source verified corrected"
+    },
+    {
+      "finding": "Initial readiness did not qualify mid-window authority/transport continuity.",
+      "resolution": "Live readiness before and after warmup plus joined poll increase; sample tracks runtime/session each frame, outage delta and final poll progress. Non-Live frames are counted without treating normal healthy Reconnecting polls as failure. Stamps include outages/replacements.",
+      "status": "source verified corrected with stated workload binding limit"
+    },
+    {
+      "finding": "After-sample memory included scene-census allocation.",
+      "resolution": "Post-sample memory observation moved immediately after CollectTimings, ahead of scene census/captures/diagnostic report snapshot.",
+      "status": "source verified corrected"
+    },
+    {
+      "finding": "Industry completion scope promised visual tree construction even when the generation guard skips it.",
+      "resolution": "Phase renamed industry-completion-callback; scope exit is explicitly not completed rendering.",
+      "status": "source verified corrected"
+    }
+  ],
+  "measurementSemantics": [
+    "Request sequence/identity links phases without persisting bodies, capabilities, names or private save data. Client start/resume stamps are observations, not assertions about a frozen request or response envelope.",
+    "Request interval is send-start vicinity through coroutine resume, including scheduling and opt-in observation overhead. Decode, strict parser/validator and synchronous application/callback are separate phases; later UI Toolkit layout/render needs actual native capture.",
+    "All original parser functions, exact-authority joins, stale-generation guard, single-flight request logic and gameplay commands remain on their existing paths. This diff does not add asynchronous parsing or alter validators.",
+    "Telemetry is opt-in under the exact -studioAutoEvidence flag used by the native runner, bounded to 2048 request records and 32 synchronous phases per record. Dropped requests remain counted and must be disclosed; pending/failed/scoped-but-not-rendered records are not successful latency samples.",
+    "Frame metrics apply to explicit timestamped sample. Later route observations captured through application Quit are separate from that frame window. applicationQuitCapture is a final-write witness; root native report must additionally establish actual UI Quit and clean HID input.",
+    "Authority continuity is runtime/session/transport/poll continuity, not unchanged revision/digest or a proof of the expected late-world fixture. Dynamic advances can preserve session continuity; classify stable versus action windows from stamps/native trace and bind expected world externally.",
+    "Memory before/after remains sample-window observations including measurement structures, not maximum live heap, leak proof, allocation rate or process-wide peak. GC counters count collections, not pause durations.",
+    "Frame report complete and captured-through-quit denote completed observations, not threshold acceptance. Missing counters, dropped requests, failures and frame discontinuity remain explicit qualifications."
+  ],
+  "validation": {
+    "readOnlySourceInspection": true,
+    "gitDiffCheck": "passed in preceding read-only tool call",
+    "testsExecutedByReviewer": false,
+    "buildsExecutedByReviewer": false,
+    "nativeActionsByReviewer": false
+  },
+  "remaining": [
+    "Root Unity14 compile/regression result and coherent subsequent build binding.",
+    "Guarded actual native date/neutral-identity corrective replay and launcher launch remain pending after prior locked desktop refusal.",
+    "Late-world native performance must be measured on actual final paired source/build and expected private test world; no Node-worker or capacity substitution."
+  ],
+  "hook": "explicit-checker fallback; not active"
+}
