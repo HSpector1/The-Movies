@@ -1,6 +1,33 @@
 # Project: Studio — Current Best
 
-## Current accepted authority — P08–P10, 2026-09-09
+## Current accepted authority — P11, 2026-09-10
+
+**P11 OWNER ACCEPTED — KEEP FOR DELIVERED SUPPORTED SCOPE.** Howard explicitly
+accepts TS `7ae36b44d99c505246d17dcc37beba94fa59a18a` and Unity
+`3a9a3f488693aa14431a6aa412d7560df8f30a89`; technical documentation is
+`e39bcbb1bf6cb13553a3b6c2425773d5f85d873a`. Authority: **CURRENT OPS — P11 OWNER
+ACCEPTANCE AND PRODUCER HANDOFF**. Exact Owner playtest time and detailed
+observations were not supplied. See the [acceptance receipt](docs/campaigns/P11-OWNER-ACCEPTANCE-RECEIPT.md).
+
+Preserved candidate: `/Users/bruce/Desktop/P11A-Finance-Candidate-7ae36b4-3a9a3f4`.
+Contract: **protocol 4 / projection 27 / save V18 / outer checkpoint 1**. The
+candidate and its adjacent launch receipt remain unchanged; this documentation
+supersedes historical pending Owner status without rewriting those artifacts.
+
+The register retains **35 PROVEN; REQ-031 IMPLEMENTED-UNPROVEN/PARTIAL; three
+CONDITIONAL and six DEFERRED**. Calendar/year/era authority remains absent;
+all REQ-034–042 classifications and activation gates survive. Existing W0 evidence
+closes AUD-008's recurring-cost reporting omission. Other deferred requirements
+and technical qualifications remain recorded.
+
+[P11→P12 producer handoff](docs/engineering/P11-TO-P12-PRODUCER-HANDOFF.md) defines
+the exact financial, routing and persistence seams. Publication is on owned
+`docs/p11-owner-acceptance-handoff-01`, without new audit/build/runtime testing,
+candidate mutation, hooks installation, campaign/main promotion or P12 implementation.
+Coding/runtime ownership is yielded to Current Ops. P06/P07/P08–P10 acceptance
+remains preserved; the entries and then-current authorization limits below are historical.
+
+## Prior accepted authority — P08–P10, 2026-09-09
 
 **P08–P10 — OWNER ACCEPTED — KEEP.** Howard explicitly accepted the delivered
 scope under `OPS-P08P10-OWNER-CLOSEOUT-01`. Recorded 2026-09-09 07:52:05 UTC;
@@ -24,7 +51,7 @@ Current work is documentation closeout and P11 launch preparation only. P11 exec
 requires a separate order; no onboarding, Finance implementation or rebuild is authorized
 by this acceptance. The deferred register retains unimplemented Owner requirements.
 
-## Current accepted authority — 2026-09-04
+## Prior accepted authority — 2026-09-04
 
 **P06 ACCEPTED — KEEP — CLOSED. P07 ACCEPTED — KEEP — CLOSED.** The Owner accepted
 the actual combined representative journey on the preserved P07 candidate. Recording

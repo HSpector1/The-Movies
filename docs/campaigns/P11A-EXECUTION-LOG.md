@@ -1,5 +1,11 @@
 # P11A execution log
 
+**Owner acceptance addendum — 2026-09-10:** Howard explicitly records **P11 OWNER
+ACCEPTED — KEEP FOR DELIVERED SUPPORTED SCOPE**. The [acceptance receipt](P11-OWNER-ACCEPTANCE-RECEIPT.md)
+supersedes pending Owner status below; all original technical evidence and scope
+limits remain. No new audit/build/runtime test. [P11→P12 handoff](../engineering/P11-TO-P12-PRODUCER-HANDOFF.md);
+coding/runtime ownership yielded to Current Ops.
+
 Authority: **OPS-P11A-OUTCOME-FIRST-20260909-01**. Receipt: 2026-09-09T14:24:46Z. Order SHA256 `ff5bc0c45a844ef4784bfb41b9491061ce81bd0fc6c9c6813cd4e78ec55e1f87`.
 
 Status: **DELIVERED — supported core and ready scope tested; REQ-031 PARTIAL**. Final candidate: `/Users/bruce/Desktop/P11A-Finance-Candidate-7ae36b4-3a9a3f4`. Open `Play P11.command`; the short test is `evidence/OWNER-TEST.md`. The adjacent `.launch-check.json` records actual copied-launch and preservation acceptance. All35 supported requirements are PROVEN;031 remains IMPLEMENTED-UNPROVEN and034–042 remain unactivated.

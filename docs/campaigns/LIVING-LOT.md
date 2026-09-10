@@ -3655,3 +3655,29 @@ is authorized here. Open roads, people controls/comparison, checkpoint/campaign-
 calendar, pre-campaign history, audit, authoring and Builder requirements are retained
 in the deferred register. AUD-008 stays in P11 W0. No P11 implementation, rebuild,
 runtime queue, onboarding or main/campaign promotion. P06/P07 acceptance is unchanged.
+
+## P11 — Owner acceptance and producer handoff, 2026-09-10
+
+**P11 OWNER ACCEPTED — KEEP FOR DELIVERED SUPPORTED SCOPE.** Howard explicitly
+accepts TS `7ae36b44d99c505246d17dcc37beba94fa59a18a` × Unity
+`3a9a3f488693aa14431a6aa412d7560df8f30a89`; technical documentation
+`e39bcbb1bf6cb13553a3b6c2425773d5f85d873a`. Authority: **CURRENT OPS — P11 OWNER
+ACCEPTANCE AND PRODUCER HANDOFF**. No exact playtest time or detailed Owner
+observations were supplied. [Acceptance receipt](P11-OWNER-ACCEPTANCE-RECEIPT.md).
+
+Desktop `P11A-Finance-Candidate-7ae36b4-3a9a3f4` and its adjacent launch receipt
+remain unchanged. Existing evidence supports protocol4/projection27/saveV18/outer1;
+this closeout performs no new audit, build or runtime test. P11 W0 closed the
+AUD-008 recurring facility-Opex reporting omission without changing charge law.
+
+All 45 requirement rows remain: 35 PROVEN; REQ-031 IMPLEMENTED-UNPROVEN/PARTIAL
+because calendar/year/era authority is absent; REQ-034–042 retain their original
+conditional/deferred classifications and gates. Earlier accepted scope and other
+open Owner requirements survive. Pending Owner language in the original P11
+technical evidence is historical and superseded only for delivered supported scope.
+
+[P11→P12 producer handoff](../engineering/P11-TO-P12-PRODUCER-HANDOFF.md) records
+the financial, action, disclosure, route and persistence seams. Documentation is
+published on owned `docs/p11-owner-acceptance-handoff-01`; campaign/main refs remain
+unpromoted. No hooks installation or P12 implementation. Coding/runtime ownership
+is yielded to Current Ops, with no continuing P11 runtime queue.

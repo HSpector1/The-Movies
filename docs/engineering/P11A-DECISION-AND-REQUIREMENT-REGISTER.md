@@ -1,5 +1,14 @@
 # P11A Decision and Requirement Register
 
+**Owner acceptance addendum — 2026-09-10:** **P11 OWNER ACCEPTED — KEEP FOR DELIVERED
+SUPPORTED SCOPE.** The [receipt](../campaigns/P11-OWNER-ACCEPTANCE-RECEIPT.md) records
+Howard's explicit acceptance of TS7ae36b4×Unity3a9a3f4. All 45 requirement rows,
+execution states, conditional/deferred classifications and activation gates below
+remain unchanged, including REQ-031's absent calendar/year/era authority. Historical
+“no Owner acceptance” evidence language retains its original technical-closure scope.
+The [P11→P12 handoff](P11-TO-P12-PRODUCER-HANDOFF.md) conveys delivered producer facts;
+it does not activate P12 or unimplemented requirements.
+
 Current execution closure — 2026-09-10: 35 requirements PROVEN; REQ-031 remains IMPLEMENTED-UNPROVEN/PARTIAL (supported week history and scale proven; calendar/era authority absent). The nine unactivated rows retain their original classifications and states. Final Gate B, actual copied launch and postlaunch preservation are complete for tested7ae36b4×3a9a3f4. The execution columns below record that delivery; historical planning/source sections remain as published context. See [execution log](../campaigns/P11A-EXECUTION-LOG.md), the candidate `EVIDENCE-INDEX.json`, and its adjacent `.launch-check.json` receipt.
 
 ## Current status — accepted-source refresh, 2026-09-09
