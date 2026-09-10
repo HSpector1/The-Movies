@@ -1,0 +1,3870 @@
+{
+  "schema": "p12a-native-campaign-corrective-review-v1",
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "reviewer": "/root/recovered_product_evidence",
+  "atUtc": "2026-09-10T18:00:22.954836+00:00",
+  "phase": "Same Gate A corrective review - partial milestone",
+  "supersedesOngoingInputLimitationIn": "/tmp/p12a-gatea-native11-corrected-replays-tixg8s0i.json",
+  "evidence": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z",
+  "files": [
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/report.json",
+      "sha256": "5a089063196c3fdd700b6ba6a6fed5cdd706c4e66fa8f289271fd64b53bc5078"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/build-manifest.json",
+      "sha256": "82587535fb99fbe67359deea7756d2f8daec9dbba7b5dbf36baa11babeefe3c9"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/launch-binding.json",
+      "sha256": "f0de50447f4bc085a63493dbb8bf7514cdfd0dc205502f06fbb1ddc84964e8ea"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/steps.json",
+      "sha256": "7e8facd674b8c2180e1b95aa59647255a45c23705c872791158155b95dc22393"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/campaign-library-final.json",
+      "sha256": "506fdc2cafe4f30e4478250705129c093cc927c3becb25124968b91ba1311757"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/action-trace.jsonl",
+      "sha256": "814d95e2b002e8271a4d41beb53774a6855b064b2515e5da3740812d0c66ba33"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/hid-witness.jsonl",
+      "sha256": "5407f7c299231df23cb8f9284f0a5cc9bf40a2cf592ffe819a04506ff91b252d"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/hid-ownership.jsonl",
+      "sha256": "903e67b3c5994566a7ce409cb00d751690001e8134210642250d9a8f0ff81684"
+    }
+  ],
+  "nativeBinding": {
+    "manifestSha256": "82587535fb99fbe67359deea7756d2f8daec9dbba7b5dbf36baa11babeefe3c9",
+    "playerSha256": "f305b6f9af830a401f497238bd8112b291e1620f8be893aab3c615cd0b95360c",
+    "engineSha256": "fe73eb0f6f2a8ff1632a2d05a8952a2739c7ea7875d3ecf5b1295a0598730f02",
+    "appPid": 38457,
+    "enginePid": 38431,
+    "reason": "ui-quit",
+    "playerExit": {
+      "code": 0,
+      "signal": null
+    },
+    "checkpointSha256": "506fdc2cafe4f30e4478250705129c093cc927c3becb25124968b91ba1311757"
+  },
+  "privateCheckpointCheck": {
+    "workingSha256": "f89ca52b676dc595d7b7aeb132d17cdb74137d954851f864be003d2b99486aa2",
+    "codecHashMatches": true,
+    "lengthMatches": true,
+    "disclosure": "Only hashes, sizes, public authority metadata and receipt summaries preserved here. No compressed or decoded saved-game bytes copied.",
+    "libraryFileSha256": "506fdc2cafe4f30e4478250705129c093cc927c3becb25124968b91ba1311757",
+    "libraryFileMatchesReportCheckpoint": true,
+    "reportHashScope": "Whole persisted campaign-library file, copied by native-preview finalize() from bridge-runtime-v1.json. Distinct from the decoded active-world checkpoint hash."
+  },
+  "campaignRecords": [
+    {
+      "id": "5c50cd73-d2c5-4e49-a634-d86291766395",
+      "label": "Campaign A",
+      "recordRevision": 2,
+      "codec": "gzip-base64/v1",
+      "decodedBytes": 5924165,
+      "expectedDecodedBytes": 5924165,
+      "decodedSha256": "3d9c67281792f43a7168acbafecc1f38b33465a1eae14a03a711b26e67a5a375",
+      "hashMatches": true,
+      "state": {
+        "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "stateRevision": 8,
+        "currentStateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+        "savedStateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720"
+      }
+    },
+    {
+      "id": "d14292d0-9626-4418-b983-3d154a2ba3ef",
+      "label": "Campaign B",
+      "recordRevision": 1,
+      "codec": "gzip-base64/v1",
+      "decodedBytes": 6600365,
+      "expectedDecodedBytes": 6600365,
+      "decodedSha256": "f0b6a7681b4af4a2baf6f9d192a9c5144fe8b8113d45ad197ffaa74a4d8b086c",
+      "hashMatches": true,
+      "state": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 10,
+        "currentStateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+        "savedStateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030"
+      }
+    },
+    {
+      "id": "64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+      "label": "Campaign C",
+      "recordRevision": 0,
+      "codec": "gzip-base64/v1",
+      "decodedBytes": 369566,
+      "expectedDecodedBytes": 369566,
+      "decodedSha256": "880bff04aae5bda55a7f41d46cc0a4943c1028313b4f915a481a7864f6136ef1",
+      "hashMatches": true,
+      "state": {
+        "sessionId": "8275e2ee-90a3-46c9-bdaa-eb3c37fe3306",
+        "stateRevision": 0,
+        "currentStateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "savedStateDigest": null
+      }
+    },
+    {
+      "id": "d81b2c72-9644-4c72-b186-77caaa741f72",
+      "label": "B Copy Diverged",
+      "recordRevision": 2,
+      "codec": "gzip-base64/v1",
+      "decodedBytes": 4183996,
+      "expectedDecodedBytes": 4183996,
+      "decodedSha256": "f89ca52b676dc595d7b7aeb132d17cdb74137d954851f864be003d2b99486aa2",
+      "hashMatches": true,
+      "state": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "currentStateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "savedStateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43"
+      }
+    }
+  ],
+  "campaignReceipts": [
+    {
+      "request": {
+        "commandId": "608aab34-1a0d-4951-bb1a-e2570e749f5e",
+        "operation": "newGame",
+        "label": "Campaign A",
+        "campaignId": null,
+        "overwriteCampaignId": null,
+        "confirmDestructive": false,
+        "expectedCatalogueRevision": 0,
+        "expectedActiveCampaignId": null
+      },
+      "response": {
+        "accepted": true,
+        "commandId": "608aab34-1a0d-4951-bb1a-e2570e749f5e",
+        "operation": "newGame",
+        "campaignId": "5c50cd73-d2c5-4e49-a634-d86291766395",
+        "catalogueRevision": 1,
+        "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "originatingSessionId": "ff8a3417-1f9b-4b0c-971b-1e44fbc73eae",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "92fbab424518d4e3a8267755424946337e68ffb9e6df25897b91a57ca695daec"
+      }
+    },
+    {
+      "request": {
+        "commandId": "439bf0f9-be9c-485d-94ac-134f8b75d69b",
+        "operation": "save",
+        "label": null,
+        "campaignId": null,
+        "overwriteCampaignId": null,
+        "confirmDestructive": false,
+        "expectedCatalogueRevision": 1,
+        "expectedActiveCampaignId": "5c50cd73-d2c5-4e49-a634-d86291766395"
+      },
+      "response": {
+        "accepted": true,
+        "commandId": "439bf0f9-be9c-485d-94ac-134f8b75d69b",
+        "operation": "save",
+        "campaignId": "5c50cd73-d2c5-4e49-a634-d86291766395",
+        "catalogueRevision": 2,
+        "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "originatingSessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "stateRevision": 6,
+        "gameWeek": 0,
+        "stateDigest": "300c60bb1498d77e44880f4ca26f0a7eac5cbd9f359cac226c9a9fb69f6ce13d"
+      }
+    },
+    {
+      "request": {
+        "commandId": "f95409e9-8743-4be5-8134-92fcdc827605",
+        "operation": "save",
+        "label": null,
+        "campaignId": null,
+        "overwriteCampaignId": null,
+        "confirmDestructive": false,
+        "expectedCatalogueRevision": 2,
+        "expectedActiveCampaignId": "5c50cd73-d2c5-4e49-a634-d86291766395"
+      },
+      "response": {
+        "accepted": true,
+        "commandId": "f95409e9-8743-4be5-8134-92fcdc827605",
+        "operation": "save",
+        "campaignId": "5c50cd73-d2c5-4e49-a634-d86291766395",
+        "catalogueRevision": 3,
+        "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "originatingSessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "stateRevision": 8,
+        "gameWeek": 1,
+        "stateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720"
+      }
+    },
+    {
+      "request": {
+        "commandId": "21dd4913-1c6c-4890-8871-0e4932cea6dc",
+        "operation": "newGame",
+        "label": "Campaign B",
+        "campaignId": null,
+        "overwriteCampaignId": null,
+        "confirmDestructive": false,
+        "expectedCatalogueRevision": 3,
+        "expectedActiveCampaignId": "5c50cd73-d2c5-4e49-a634-d86291766395"
+      },
+      "response": {
+        "accepted": true,
+        "commandId": "21dd4913-1c6c-4890-8871-0e4932cea6dc",
+        "operation": "newGame",
+        "campaignId": "d14292d0-9626-4418-b983-3d154a2ba3ef",
+        "catalogueRevision": 4,
+        "sessionId": "2a0d7106-b695-473a-b68d-849117b5877f",
+        "originatingSessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "c9f7b9742efd0a83cb98372d3775c1b2699225027282a70c3e413e189a66309f"
+      }
+    },
+    {
+      "request": {
+        "commandId": "21d4860a-b419-4520-b9f7-f61ed91c65da",
+        "operation": "newGame",
+        "label": "Campaign C",
+        "campaignId": null,
+        "overwriteCampaignId": null,
+        "confirmDestructive": false,
+        "expectedCatalogueRevision": 4,
+        "expectedActiveCampaignId": "d14292d0-9626-4418-b983-3d154a2ba3ef"
+      },
+      "response": {
+        "accepted": true,
+        "commandId": "21d4860a-b419-4520-b9f7-f61ed91c65da",
+        "operation": "newGame",
+        "campaignId": "64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+        "catalogueRevision": 5,
+        "sessionId": "8275e2ee-90a3-46c9-bdaa-eb3c37fe3306",
+        "originatingSessionId": "2a0d7106-b695-473a-b68d-849117b5877f",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299"
+      }
+    },
+    {
+      "request": {
+        "commandId": "8f1bf6ab-9763-4462-9a4c-6152bf460909",
+        "operation": "load",
+        "label": null,
+        "campaignId": "d14292d0-9626-4418-b983-3d154a2ba3ef",
+        "overwriteCampaignId": null,
+        "confirmDestructive": false,
+        "expectedCatalogueRevision": 5,
+        "expectedActiveCampaignId": "64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6"
+      },
+      "response": {
+        "accepted": true,
+        "commandId": "8f1bf6ab-9763-4462-9a4c-6152bf460909",
+        "operation": "load",
+        "campaignId": "d14292d0-9626-4418-b983-3d154a2ba3ef",
+        "catalogueRevision": 6,
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "originatingSessionId": "8275e2ee-90a3-46c9-bdaa-eb3c37fe3306",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "c9f7b9742efd0a83cb98372d3775c1b2699225027282a70c3e413e189a66309f"
+      }
+    },
+    {
+      "request": {
+        "commandId": "0f84ad81-b50d-4fe6-9b1d-3c90f35cb6bc",
+        "operation": "save",
+        "label": null,
+        "campaignId": null,
+        "overwriteCampaignId": null,
+        "confirmDestructive": false,
+        "expectedCatalogueRevision": 6,
+        "expectedActiveCampaignId": "d14292d0-9626-4418-b983-3d154a2ba3ef"
+      },
+      "response": {
+        "accepted": true,
+        "commandId": "0f84ad81-b50d-4fe6-9b1d-3c90f35cb6bc",
+        "operation": "save",
+        "campaignId": "d14292d0-9626-4418-b983-3d154a2ba3ef",
+        "catalogueRevision": 7,
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "originatingSessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 10,
+        "gameWeek": 3,
+        "stateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030"
+      }
+    },
+    {
+      "request": {
+        "commandId": "475ce4b9-ea61-477c-9c2f-b3540701c01b",
+        "operation": "saveAs",
+        "label": "B Copy",
+        "campaignId": null,
+        "overwriteCampaignId": null,
+        "confirmDestructive": false,
+        "expectedCatalogueRevision": 7,
+        "expectedActiveCampaignId": "d14292d0-9626-4418-b983-3d154a2ba3ef"
+      },
+      "response": {
+        "accepted": true,
+        "commandId": "475ce4b9-ea61-477c-9c2f-b3540701c01b",
+        "operation": "saveAs",
+        "campaignId": "d81b2c72-9644-4c72-b186-77caaa741f72",
+        "catalogueRevision": 8,
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "originatingSessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 0,
+        "gameWeek": 3,
+        "stateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030"
+      }
+    },
+    {
+      "request": {
+        "commandId": "9629ab49-ac3b-45c1-bb62-7d357e2a5f70",
+        "operation": "save",
+        "label": null,
+        "campaignId": null,
+        "overwriteCampaignId": null,
+        "confirmDestructive": false,
+        "expectedCatalogueRevision": 8,
+        "expectedActiveCampaignId": "d81b2c72-9644-4c72-b186-77caaa741f72"
+      },
+      "response": {
+        "accepted": true,
+        "commandId": "9629ab49-ac3b-45c1-bb62-7d357e2a5f70",
+        "operation": "save",
+        "campaignId": "d81b2c72-9644-4c72-b186-77caaa741f72",
+        "catalogueRevision": 9,
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "originatingSessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43"
+      }
+    },
+    {
+      "request": {
+        "commandId": "48b54816-93c2-4d53-8ea0-8b1be1d51b40",
+        "operation": "rename",
+        "label": "B Copy Diverged",
+        "campaignId": "d81b2c72-9644-4c72-b186-77caaa741f72",
+        "overwriteCampaignId": null,
+        "confirmDestructive": false,
+        "expectedCatalogueRevision": 9,
+        "expectedActiveCampaignId": "d81b2c72-9644-4c72-b186-77caaa741f72"
+      },
+      "response": {
+        "accepted": true,
+        "commandId": "48b54816-93c2-4d53-8ea0-8b1be1d51b40",
+        "operation": "rename",
+        "campaignId": "d81b2c72-9644-4c72-b186-77caaa741f72",
+        "catalogueRevision": 10,
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "originatingSessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43"
+      }
+    }
+  ],
+  "captures": [
+    {
+      "capture": 26,
+      "at": "2026-09-10T17:48:00.937Z",
+      "action": "click",
+      "name": "founding-confirm-sign",
+      "binding": {
+        "name": "founding-confirm-sign",
+        "text": "Sign Norma Delgado \u2014 104-week contract",
+        "canvas": [
+          1111.2,
+          306
+        ],
+        "point": {
+          "x": 555.6,
+          "y": 358
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 1815,
+        "frame": 27225,
+        "mapAgeMs": 5.20654296875
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/026-map.json",
+      "mapSha256": "12fc274eb55bc9386b5d6d765b98dffb8e7763194e4aa260020760b21cabb2ac",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/026-founding-confirm-sign.png",
+      "screenshotSha256": "a4f4559ba94b1e73292a878c15cd261fb3956947ca85f7e9987fec17db11c1e4",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 1,
+        "gameWeek": 0,
+        "stateDigest": "53343041a3832659cf72884a8543398bd3fa3bf30069ef8f9de8d357fe1a0e47",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 207,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 27,
+      "at": "2026-09-10T17:48:01.911Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/027-map.json",
+      "mapSha256": "6e4fa45ed9a99c6113d444ed52dca5162d49b541c82b80416f67d5fcb3a72617",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/027-observe.png",
+      "screenshotSha256": "905efa13c814702ce4232885b40b9da370172cc26d96211f210204f4788da295",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 1,
+        "gameWeek": 0,
+        "stateDigest": "53343041a3832659cf72884a8543398bd3fa3bf30069ef8f9de8d357fe1a0e47",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 208,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 30,
+      "at": "2026-09-10T17:48:23.152Z",
+      "action": "click",
+      "name": "founding-confirm-sign",
+      "binding": {
+        "name": "founding-confirm-sign",
+        "text": "Sign Gloria Voss \u2014 104-week contract",
+        "canvas": [
+          1111.2,
+          306
+        ],
+        "point": {
+          "x": 555.6,
+          "y": 358
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 1970,
+        "frame": 29550,
+        "mapAgeMs": 35.697509765625
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/030-map.json",
+      "mapSha256": "ee2664d741ecf94c50a9402bfe7a5f02b629efb4d5624df42787ee4ea0c7aaa1",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/030-founding-confirm-sign.png",
+      "screenshotSha256": "9efc24a71cb7e7f10a4d87935deab79d8417998ad3f9db5f7b40477d2189fb7d",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 2,
+        "gameWeek": 0,
+        "stateDigest": "e64fd87160375db7140d58fc4947fcff16c25d19664294c18c42bb1a897d2d3b",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 226,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 34,
+      "at": "2026-09-10T17:48:42.542Z",
+      "action": "click",
+      "name": "founding-confirm-sign",
+      "binding": {
+        "name": "founding-confirm-sign",
+        "text": "Sign Boris Ellery \u2014 104-week contract",
+        "canvas": [
+          1111.2,
+          306
+        ],
+        "point": {
+          "x": 555.6,
+          "y": 358
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 2105,
+        "frame": 31575,
+        "mapAgeMs": 2.9765625
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/034-map.json",
+      "mapSha256": "d65d2640f3f08c9f30cffae8299999647747e5a9bb23e3bbce3ab499ff7e84d8",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/034-founding-confirm-sign.png",
+      "screenshotSha256": "895252e2b342a07ea61e2a38f2d92ac1cb3fd23115f29e508d24159ba8968b53",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 3,
+        "gameWeek": 0,
+        "stateDigest": "6b63ac0f7e69804b8845be89cb0b49489f5e42e39fc9338df61dabea15a7362b",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 241,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 38,
+      "at": "2026-09-10T17:49:17.321Z",
+      "action": "click",
+      "name": "founding-confirm-sign",
+      "binding": {
+        "name": "founding-confirm-sign",
+        "text": "Sign Miriam Chandra \u2014 104-week contract",
+        "canvas": [
+          1111.2,
+          306
+        ],
+        "point": {
+          "x": 555.6,
+          "y": 358
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 2349,
+        "frame": 35235,
+        "mapAgeMs": 5.950439453125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/038-map.json",
+      "mapSha256": "54b112d6423b7e5856063805b42aa0ee158316d90e7dc8683191ca37486a626f",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/038-founding-confirm-sign.png",
+      "screenshotSha256": "bf35097ff270d41f3d66927247104bbfacb2f8cc06d8042bd5398ffdf6b7bc08",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 4,
+        "gameWeek": 0,
+        "stateDigest": "adb3c05e0189e028dc09e0271e3fecf80b8869d730c7d5a952f77f982c42c3c8",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 269,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 42,
+      "at": "2026-09-10T17:49:47.039Z",
+      "action": "click",
+      "name": "founding-confirm-sign",
+      "binding": {
+        "name": "founding-confirm-sign",
+        "text": "Sign Myrna Pemberton \u2014 104-week contract",
+        "canvas": [
+          1111.2,
+          306
+        ],
+        "point": {
+          "x": 555.6,
+          "y": 358
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 2558,
+        "frame": 38370,
+        "mapAgeMs": 3.647705078125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/042-map.json",
+      "mapSha256": "d9215b2962d1c1b6f0b5e1a7fb5b4125a786b5f4b4bc9e161e721ca84cb78b61",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/042-founding-confirm-sign.png",
+      "screenshotSha256": "7b71b8c1f2d11577602c951f82961b0d641ffe7206ab0b86ad0e7e524abf5d05",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 5,
+        "gameWeek": 0,
+        "stateDigest": "8778d2a3b7ddb2a926b4cc812ba0eca494a04bed99f3239e24cd36b7b1118195",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 292,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 46,
+      "at": "2026-09-10T17:50:43.361Z",
+      "action": "click",
+      "name": "founding-confirm-sign",
+      "binding": {
+        "name": "founding-confirm-sign",
+        "text": "Sign Dolores Okonkwo \u2014 104-week contract",
+        "canvas": [
+          1111.2,
+          306
+        ],
+        "point": {
+          "x": 555.6,
+          "y": 358
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 2969,
+        "frame": 44535,
+        "mapAgeMs": 4.19677734375
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/046-map.json",
+      "mapSha256": "16612ecb2031fed0c7f4840658103f9ddb82a969bde1d664ea005e75d2ec1886",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/046-founding-confirm-sign.png",
+      "screenshotSha256": "b6539143b165925a297364a73f5482566a16fa9d3846db8c082f771a612929ff",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 5,
+        "gameWeek": 0,
+        "stateDigest": "8778d2a3b7ddb2a926b4cc812ba0eca494a04bed99f3239e24cd36b7b1118195",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 337,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 47,
+      "at": "2026-09-10T17:50:44.361Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/047-map.json",
+      "mapSha256": "9ec079e0a0cd11dea81291b4e8a06a64c317df8e19ce8d78f074be1bc0c7ca9c",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/047-observe.png",
+      "screenshotSha256": "df0f0df13f86d6c273f64848088e322a65ce0b5db5655c5ec7b9e9ce6869ef3d",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 6,
+        "gameWeek": 0,
+        "stateDigest": "4113bcf1e884ef3a60a7cdf98ffbaa29ad92363a0f19c8ae8150acce541a87fe",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 338,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 48,
+      "at": "2026-09-10T17:50:48.127Z",
+      "action": "click",
+      "name": "world-selectable-admin",
+      "binding": {
+        "name": "world-selectable-admin",
+        "text": "Administration",
+        "canvas": [
+          347.09999999999997,
+          168.60000000000002
+        ],
+        "point": {
+          "x": 173.54999999999998,
+          "y": 426.7
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 3003,
+        "frame": 45045,
+        "mapAgeMs": 7.423095703125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/048-map.json",
+      "mapSha256": "6c962d9d650f0b4f7789e6e1a4b67f67af20ac6f5e9c3e43480ca637c0bc261c",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/048-world-selectable-admin.png",
+      "screenshotSha256": "f990470c5fe69d2c1ee87cb5bf8ef05e3a8429504b0337fd676b45e00f28a098",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 6,
+        "gameWeek": 0,
+        "stateDigest": "4113bcf1e884ef3a60a7cdf98ffbaa29ad92363a0f19c8ae8150acce541a87fe",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 341,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 49,
+      "at": "2026-09-10T17:50:51.017Z",
+      "action": "click",
+      "name": "founding-review-studio",
+      "binding": {
+        "name": "founding-review-studio",
+        "text": "REVIEW FOUNDING",
+        "canvas": [
+          1140,
+          209
+        ],
+        "point": {
+          "x": 570,
+          "y": 406.5
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 3023,
+        "frame": 45345,
+        "mapAgeMs": 30.42236328125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/049-map.json",
+      "mapSha256": "4bbb44ec4401d7b27379985b26bb605a0c95697dc4ef0dc6a6c3fec2772ef7a7",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/049-founding-review-studio.png",
+      "screenshotSha256": "3fd906835070073e7270332980e09ad5f7747233f24e0215e1c3b14f560f03af",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 6,
+        "gameWeek": 0,
+        "stateDigest": "4113bcf1e884ef3a60a7cdf98ffbaa29ad92363a0f19c8ae8150acce541a87fe",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 343,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 50,
+      "at": "2026-09-10T17:51:08.016Z",
+      "action": "click",
+      "name": "founding-confirm-studio",
+      "binding": {
+        "name": "founding-confirm-studio",
+        "text": "FOUND THE STUDIO",
+        "canvas": [
+          1140,
+          382
+        ],
+        "point": {
+          "x": 570,
+          "y": 320
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 3147,
+        "frame": 47205,
+        "mapAgeMs": 9.5224609375
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/050-map.json",
+      "mapSha256": "27361edb6a024491977d1d79b20bb9dfc107f4b83b69f2d5846011deca0e9e2e",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/050-founding-confirm-studio.png",
+      "screenshotSha256": "0390599d2fe692a4770163d992abe1d1f6b13a0b6060cbf84c1fcdbe45956392",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 6,
+        "gameWeek": 0,
+        "stateDigest": "4113bcf1e884ef3a60a7cdf98ffbaa29ad92363a0f19c8ae8150acce541a87fe",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 356,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 51,
+      "at": "2026-09-10T17:51:08.464Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/051-map.json",
+      "mapSha256": "f26872bcfeb75d2021fd9dda65966c80ce7afbf2739d814f468a57b40e86858b",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/051-observe.png",
+      "screenshotSha256": "99cb712ab1fbfd54890e09b34aba88d8fe78e42f8bafb4687680daffe0dbe18d",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 7,
+        "gameWeek": 0,
+        "stateDigest": "cbab9ca54b60862e6eebff809e5d86ab693bd4026199f8ec0d92937646d962ff",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 357,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 56,
+      "at": "2026-09-10T17:51:42.196Z",
+      "action": "click",
+      "name": "studio-clock-pause",
+      "binding": {
+        "name": "studio-clock-pause",
+        "text": "Pause",
+        "canvas": [
+          683.5,
+          862
+        ],
+        "point": {
+          "x": 341.75,
+          "y": 80
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 3393,
+        "frame": 50895,
+        "mapAgeMs": 19.903564453125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/056-map.json",
+      "mapSha256": "c1b5eef6de9f34e352185bb7842d7dd0eaca80818bcb014e6c307734b75c5c9e",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/056-studio-clock-pause.png",
+      "screenshotSha256": "aea00065949bf6677b50c6f51df1e8390e47aa425c695fd3effe0f6aaa9f9f4c",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 10,
+        "gameWeek": 3,
+        "stateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 380,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 57,
+      "at": "2026-09-10T17:51:43.201Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/057-map.json",
+      "mapSha256": "9d09ab9ffe9c66268e2b118a89e619373e8e617afcaa1178dcd781dfe7a7ef39",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/057-observe.png",
+      "screenshotSha256": "8a83085f950e37be23b1e8cf48d71be3e46833c78cdc88702aae1710c9e8b22d",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 10,
+        "gameWeek": 3,
+        "stateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 381,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 59,
+      "at": "2026-09-10T17:51:49.372Z",
+      "action": "click",
+      "name": "studio-menu-save",
+      "binding": {
+        "name": "studio-menu-save",
+        "text": "Save active campaign",
+        "canvas": [
+          532,
+          347.2
+        ],
+        "point": {
+          "x": 266,
+          "y": 337.4
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 3443,
+        "frame": 51645,
+        "mapAgeMs": 10.3291015625
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/059-map.json",
+      "mapSha256": "32833bf54eb5c8fe2dc469bfc70274d2a1990c9bfd15708e838c41d7c90e4269",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/059-studio-menu-save.png",
+      "screenshotSha256": "585dcb8666590d176a2beab337c84159f9afb934d6cb7bd5d58fb4d5a159cd56",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 10,
+        "gameWeek": 3,
+        "stateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 386,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "\u2713 Campaign B   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-retry",
+          "text": "Retry unresolved operation",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            219.2,
+            740,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 60,
+      "at": "2026-09-10T17:51:55.369Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/060-map.json",
+      "mapSha256": "8b1b3701a7084644c2fe618c3c5a3b11128ab53a1fd164af7a95e00ce5e6323f",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/060-observe.png",
+      "screenshotSha256": "18efa500ec60abb1fcf43cfffa8e5e284d20db85dc605872e8ce0301e569b57c",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 10,
+        "gameWeek": 3,
+        "stateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 389,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "\u2713 Campaign B   \u00b7   1920 \u00b7 Week 4   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 64,
+      "at": "2026-09-10T17:52:23.156Z",
+      "action": "click",
+      "name": "campaign-name-confirm",
+      "binding": {
+        "name": "campaign-name-confirm",
+        "text": "Continue",
+        "canvas": [
+          720,
+          520
+        ],
+        "point": {
+          "x": 360,
+          "y": 251
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 3685,
+        "frame": 55275,
+        "mapAgeMs": 22.212158203125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/064-map.json",
+      "mapSha256": "1c46a61e0ffdee5bfc5db679d1cd00dc33bbc48a6614fd5098964f897f3eaf64",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/064-campaign-name-confirm.png",
+      "screenshotSha256": "2c3a07aab3621bcaacfcd66b86aa7090c1af293b8773c0169362141c7d832cc0",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 0,
+        "gameWeek": 3,
+        "stateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 411,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-retry",
+          "text": "Retry unresolved operation",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            219.2,
+            740,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 65,
+      "at": "2026-09-10T17:52:28.198Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/065-map.json",
+      "mapSha256": "f2b110174f02937ea1e2eac2caea49e68e39b5cb8df73691304c54728f52aef4",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/065-observe.png",
+      "screenshotSha256": "e890118bfea5ccfce5e038eb0649fb8da631d69b96143e03c65063db719b137e",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 0,
+        "gameWeek": 3,
+        "stateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 415,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy   \u00b7   1920 \u00b7 Week 4   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 68,
+      "at": "2026-09-10T17:53:09.788Z",
+      "action": "click",
+      "name": "studio-clock-pause",
+      "binding": {
+        "name": "studio-clock-pause",
+        "text": "Pause",
+        "canvas": [
+          683.5,
+          862
+        ],
+        "point": {
+          "x": 341.75,
+          "y": 80
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 4016,
+        "frame": 60240,
+        "mapAgeMs": 0.173828125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/068-map.json",
+      "mapSha256": "afd201ddadfe93bc25350f966895d21fd5aa1a148b41830fd484e16c75247262",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/068-studio-clock-pause.png",
+      "screenshotSha256": "3ad103d741ad85f4bc2333d6abeef0cb5f48fe337825945f95bececfb410dbfe",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 445,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 69,
+      "at": "2026-09-10T17:53:10.624Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/069-map.json",
+      "mapSha256": "680149e6f8df8dbcddcc80fcca3d708b33acc443556c6b691ec53b3d279e9658",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/069-observe.png",
+      "screenshotSha256": "e02a2010ae18b22820f1e53d776ba6c6025bcb911d72c6767c11c472444c4e99",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 446,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 71,
+      "at": "2026-09-10T17:53:17.471Z",
+      "action": "click",
+      "name": "studio-menu-save",
+      "binding": {
+        "name": "studio-menu-save",
+        "text": "Save active campaign",
+        "canvas": [
+          532,
+          347.2
+        ],
+        "point": {
+          "x": 266,
+          "y": 337.4
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 4068,
+        "frame": 61020,
+        "mapAgeMs": 1.711669921875
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/071-map.json",
+      "mapSha256": "3b119db286af48cc833f6ce76751cf7c6810ab499ef8811fa5fc5aa6cd26866d",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/071-studio-menu-save.png",
+      "screenshotSha256": "78d6b62ff2e3d6d5addb86b6221f335d4752afeecd63e2cc5a604d06f57d9979",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 450,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy   \u00b7   1920 \u00b7 Week 4   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-retry",
+          "text": "Retry unresolved operation",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            219.2,
+            740,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 72,
+      "at": "2026-09-10T17:53:22.906Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/072-map.json",
+      "mapSha256": "fd624ad67017d00d3631621d1303a9e8cb9e414dfaf6b9cef48bed5b48c962a2",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/072-observe.png",
+      "screenshotSha256": "4e5fa340ec55aad7c5fa081e6a8b6b96563406ba9ffcde78a35be186570d80e1",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 453,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 76,
+      "at": "2026-09-10T17:54:25.034Z",
+      "action": "click",
+      "name": "campaign-name-confirm",
+      "binding": {
+        "name": "campaign-name-confirm",
+        "text": "Continue",
+        "canvas": [
+          720,
+          520
+        ],
+        "point": {
+          "x": 360,
+          "y": 251
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 4552,
+        "frame": 68280,
+        "mapAgeMs": 3.42724609375
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/076-map.json",
+      "mapSha256": "befe4bb250e839797adb301b34f4475fa09346cb6f16d220437e0f637a0c9afc",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/076-campaign-name-confirm.png",
+      "screenshotSha256": "f01b4dd98ae82da08cfce45e3ff125bd06d1f679a9d2b132eef4c25528d14d31",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 503,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-destructive-confirm",
+          "text": "Overwrite this campaign",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            532,
+            740,
+            44
+          ]
+        },
+        {
+          "name": "campaign-cancel",
+          "text": "Cancel",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            478,
+            740,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 77,
+      "at": "2026-09-10T17:54:54.601Z",
+      "action": "click",
+      "name": "campaign-cancel",
+      "binding": {
+        "name": "campaign-cancel",
+        "text": "Cancel",
+        "canvas": [
+          720,
+          500
+        ],
+        "point": {
+          "x": 360,
+          "y": 261
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 4767,
+        "frame": 71505,
+        "mapAgeMs": 48.6298828125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/077-map.json",
+      "mapSha256": "038f4da32dcaf598abbbaedef6f2df6b3767387ef43a5e4fa804df347e509f74",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/077-campaign-cancel.png",
+      "screenshotSha256": "887361bf60ff1df254c7bbca51f0d3f4c0a37cfe9fe618ce1126816dd9576954",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 526,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 81,
+      "at": "2026-09-10T17:55:09.620Z",
+      "action": "click",
+      "name": "campaign-name-confirm",
+      "binding": {
+        "name": "campaign-name-confirm",
+        "text": "Continue",
+        "canvas": [
+          720,
+          520
+        ],
+        "point": {
+          "x": 360,
+          "y": 251
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 4868,
+        "frame": 73020,
+        "mapAgeMs": 2.08984375
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/081-map.json",
+      "mapSha256": "8701dfb0c3a1674eb13804e08f1184ed5cbc7b8e22ac84eee2d31c7720741664",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/081-campaign-name-confirm.png",
+      "screenshotSha256": "1ab040e89bcb8bdb66449cfec5ccdb13a7b3ab5e3c516a879e2b224b4258ab59",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 537,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-retry",
+          "text": "Retry unresolved operation",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            219.2,
+            740,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 82,
+      "at": "2026-09-10T17:55:14.114Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/082-map.json",
+      "mapSha256": "72dc89db05efa8f0b3777590de37384be219b83b9e27ba1165723090e58456c9",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/082-observe.png",
+      "screenshotSha256": "3def25f6050f21b4617ccf4ad6c387965e1e826ff009f31a8e8f1d7351b417dc",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 541,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy Diverged   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 83,
+      "at": "2026-09-10T17:55:37.134Z",
+      "action": "click",
+      "name": "studio-menu-quit",
+      "binding": {
+        "name": "studio-menu-quit",
+        "text": "Quit to Desktop",
+        "canvas": [
+          969.35,
+          744
+        ],
+        "point": {
+          "x": 484.675,
+          "y": 139
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "38457",
+          "window": {
+            "id": 33121,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5068,
+        "frame": 76020,
+        "mapAgeMs": 3.44970703125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/083-map.json",
+      "mapSha256": "9d40a239477bbb7dc0597384d6d75bf286b03794dbc009c614de99de04b96ec5",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/083-studio-menu-quit.png",
+      "screenshotSha256": "851458e3cdb98bee79b6b2383148b30257d93e6951fdf67d92887daecfe1e415",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 559,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy Diverged   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        }
+      ]
+    }
+  ],
+  "campaignVerdict": [
+    "Independent New Game A/B/C have distinct initial world digests and campaign ids; final records retain A gameWeek1, B gameWeek3, C gameWeek0 as shown by accepted receipts and current checkpoint metadata. C is an untouched independent opening world; not claimed progressed.",
+    "Six B signed offers advance revisions1 through6, then explicit founding completes rev7 at051. Ordinary clock advances B to gameWeek3/rev10 and accepted save receipt catalogue7 confirms exact a4a6baf9... digest.",
+    "B Copy Save As receipt catalogue8 creates a separate campaign/session at gameWeek3, revision0 with exactly B state digest a4a6baf9.... Ordinary clock advances copy to gameWeek8/rev5, accepted save catalogue9 binds digest054a0014.... B original remains unchanged.",
+    "Actual overwrite Campaign A confirmation076 is cancelled077. Final receipts contain no overwrite operation; A final saved/current digest693d730a... remains identical to prior accepted week1 save.",
+    "Rename to B Copy Diverged receipt catalogue10 changes label while session/revision/week/state digest remain identical to copy week8 save. Actual native screenshot082 shows new name and separate A/B/C rows."
+  ],
+  "pollingBoundary": {
+    "clicks": [
+      {
+        "capture": 3,
+        "stepAt": "2026-09-10T17:44:45.770Z",
+        "name": "founding-confirm-studio",
+        "binding": {
+          "name": "founding-confirm-studio",
+          "text": "FOUND THE STUDIO",
+          "canvas": [
+            1140,
+            382
+          ],
+          "point": {
+            "x": 570,
+            "y": 320
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 441,
+          "frame": 6615,
+          "mapAgeMs": 2.2470703125
+        },
+        "authorityAfterCapture": {
+          "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+          "stateRevision": 6,
+          "gameWeek": 0,
+          "stateDigest": "300c60bb1498d77e44880f4ca26f0a7eac5cbd9f359cac226c9a9fb69f6ce13d",
+          "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+          "successfulSnapshotPollCount": 51,
+          "connectionState": "Live",
+          "transportOutageCount": 0,
+          "retainingViewAfterTransportFailure": false
+        },
+        "trace": [
+          {
+            "lineSha256": "1aafc415682a3d9f82b58fb29695bb42a2f6b53218efce669eb14fe71ce2e3f5",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062284885,
+              "frame": 6629,
+              "realtime": 64.246994,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Reconnecting",
+                "requestInFlight": true,
+                "rawType": "mouseDown",
+                "eventType": "mouseDown",
+                "mouse": {
+                  "x": 1140.0,
+                  "y": 518.0
+                },
+                "hotControl": 0,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          },
+          {
+            "lineSha256": "a733b9f7f671ce50a786b2adc0c163ebbdb8cfdb5a6ebeaffc56440f47c1121e",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062285098,
+              "frame": 6640,
+              "realtime": 64.45977,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseUp",
+                "eventType": "mouseUp",
+                "mouse": {
+                  "x": 1140.0,
+                  "y": 518.0
+                },
+                "hotControl": 23,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "capture": 26,
+        "stepAt": "2026-09-10T17:48:00.937Z",
+        "name": "founding-confirm-sign",
+        "binding": {
+          "name": "founding-confirm-sign",
+          "text": "Sign Norma Delgado \u2014 104-week contract",
+          "canvas": [
+            1111.2,
+            306
+          ],
+          "point": {
+            "x": 555.6,
+            "y": 358
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 1815,
+          "frame": 27225,
+          "mapAgeMs": 5.20654296875
+        },
+        "authorityAfterCapture": {
+          "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+          "stateRevision": 1,
+          "gameWeek": 0,
+          "stateDigest": "53343041a3832659cf72884a8543398bd3fa3bf30069ef8f9de8d357fe1a0e47",
+          "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+          "successfulSnapshotPollCount": 207,
+          "connectionState": "Reconnecting",
+          "transportOutageCount": 0,
+          "retainingViewAfterTransportFailure": false
+        },
+        "trace": [
+          {
+            "lineSha256": "98a04ceb772db6c435b0ae8d48542737e4ef3bcd58d2e6c81fb2da0fbde4f7eb",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062480033,
+              "frame": 27242,
+              "realtime": 259.393616,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseDown",
+                "eventType": "mouseDown",
+                "mouse": {
+                  "x": 1111.0,
+                  "y": 594.0
+                },
+                "hotControl": 0,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          },
+          {
+            "lineSha256": "7226e8cba2d1e65e25622a72468de3fbf13e320e58de9a7dc73c49a5bfc13e04",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062480149,
+              "frame": 27254,
+              "realtime": 259.51,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseUp",
+                "eventType": "mouseUp",
+                "mouse": {
+                  "x": 1111.0,
+                  "y": 594.0
+                },
+                "hotControl": 23,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "capture": 30,
+        "stepAt": "2026-09-10T17:48:23.152Z",
+        "name": "founding-confirm-sign",
+        "binding": {
+          "name": "founding-confirm-sign",
+          "text": "Sign Gloria Voss \u2014 104-week contract",
+          "canvas": [
+            1111.2,
+            306
+          ],
+          "point": {
+            "x": 555.6,
+            "y": 358
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 1970,
+          "frame": 29550,
+          "mapAgeMs": 35.697509765625
+        },
+        "authorityAfterCapture": {
+          "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+          "stateRevision": 2,
+          "gameWeek": 0,
+          "stateDigest": "e64fd87160375db7140d58fc4947fcff16c25d19664294c18c42bb1a897d2d3b",
+          "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+          "successfulSnapshotPollCount": 226,
+          "connectionState": "Live",
+          "transportOutageCount": 0,
+          "retainingViewAfterTransportFailure": false
+        },
+        "trace": [
+          {
+            "lineSha256": "87b1819dfb665a084a24bd27fb6d22c544b93f0aadb95ee6d8a4e962ca34b532",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062502249,
+              "frame": 29569,
+              "realtime": 281.609558,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseDown",
+                "eventType": "mouseDown",
+                "mouse": {
+                  "x": 1111.0,
+                  "y": 594.0
+                },
+                "hotControl": 0,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          },
+          {
+            "lineSha256": "b3e224ddc3e5afd6179167cfb2f4d0f5c4a67a632199b31e7b6ee5817f330b4a",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062502366,
+              "frame": 29582,
+              "realtime": 281.726837,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseUp",
+                "eventType": "mouseUp",
+                "mouse": {
+                  "x": 1111.0,
+                  "y": 594.0
+                },
+                "hotControl": 23,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "capture": 34,
+        "stepAt": "2026-09-10T17:48:42.542Z",
+        "name": "founding-confirm-sign",
+        "binding": {
+          "name": "founding-confirm-sign",
+          "text": "Sign Boris Ellery \u2014 104-week contract",
+          "canvas": [
+            1111.2,
+            306
+          ],
+          "point": {
+            "x": 555.6,
+            "y": 358
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 2105,
+          "frame": 31575,
+          "mapAgeMs": 2.9765625
+        },
+        "authorityAfterCapture": {
+          "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+          "stateRevision": 3,
+          "gameWeek": 0,
+          "stateDigest": "6b63ac0f7e69804b8845be89cb0b49489f5e42e39fc9338df61dabea15a7362b",
+          "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+          "successfulSnapshotPollCount": 241,
+          "connectionState": "Live",
+          "transportOutageCount": 0,
+          "retainingViewAfterTransportFailure": false
+        },
+        "trace": [
+          {
+            "lineSha256": "67085aee5126e63443cace900d4255823e8cb29d8f52f8dd5f2d22c22867c4db",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062521691,
+              "frame": 31587,
+              "realtime": 301.051636,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseDown",
+                "eventType": "mouseDown",
+                "mouse": {
+                  "x": 1111.0,
+                  "y": 594.0
+                },
+                "hotControl": 0,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          },
+          {
+            "lineSha256": "75cee8bc18befb822f2b319b7b25096f242438e40eb0b66d84107b1eb7eced8b",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062521749,
+              "frame": 31594,
+              "realtime": 301.110229,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseUp",
+                "eventType": "mouseUp",
+                "mouse": {
+                  "x": 1111.0,
+                  "y": 594.0
+                },
+                "hotControl": 23,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "capture": 38,
+        "stepAt": "2026-09-10T17:49:17.321Z",
+        "name": "founding-confirm-sign",
+        "binding": {
+          "name": "founding-confirm-sign",
+          "text": "Sign Miriam Chandra \u2014 104-week contract",
+          "canvas": [
+            1111.2,
+            306
+          ],
+          "point": {
+            "x": 555.6,
+            "y": 358
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 2349,
+          "frame": 35235,
+          "mapAgeMs": 5.950439453125
+        },
+        "authorityAfterCapture": {
+          "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+          "stateRevision": 4,
+          "gameWeek": 0,
+          "stateDigest": "adb3c05e0189e028dc09e0271e3fecf80b8869d730c7d5a952f77f982c42c3c8",
+          "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+          "successfulSnapshotPollCount": 269,
+          "connectionState": "Live",
+          "transportOutageCount": 0,
+          "retainingViewAfterTransportFailure": false
+        },
+        "trace": [
+          {
+            "lineSha256": "395a3bf5c6d9ebe0b93e719c2992da26e5f2a481399a7852fdca8ab959aee784",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062556408,
+              "frame": 35250,
+              "realtime": 335.768555,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseDown",
+                "eventType": "mouseDown",
+                "mouse": {
+                  "x": 1111.0,
+                  "y": 594.0
+                },
+                "hotControl": 0,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          },
+          {
+            "lineSha256": "fb3d637a7bab3b1e91073d12b48ffa27bebb3121b9862716012a86bb3c1eb85f",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062556533,
+              "frame": 35263,
+              "realtime": 335.8936,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseUp",
+                "eventType": "mouseUp",
+                "mouse": {
+                  "x": 1111.0,
+                  "y": 594.0
+                },
+                "hotControl": 23,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "capture": 42,
+        "stepAt": "2026-09-10T17:49:47.039Z",
+        "name": "founding-confirm-sign",
+        "binding": {
+          "name": "founding-confirm-sign",
+          "text": "Sign Myrna Pemberton \u2014 104-week contract",
+          "canvas": [
+            1111.2,
+            306
+          ],
+          "point": {
+            "x": 555.6,
+            "y": 358
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 2558,
+          "frame": 38370,
+          "mapAgeMs": 3.647705078125
+        },
+        "authorityAfterCapture": {
+          "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+          "stateRevision": 5,
+          "gameWeek": 0,
+          "stateDigest": "8778d2a3b7ddb2a926b4cc812ba0eca494a04bed99f3239e24cd36b7b1118195",
+          "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+          "successfulSnapshotPollCount": 292,
+          "connectionState": "Live",
+          "transportOutageCount": 0,
+          "retainingViewAfterTransportFailure": false
+        },
+        "trace": [
+          {
+            "lineSha256": "e924b1cb63575558495cfadf6fda208533f81ed07f767d40ef62c2add2e74755",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062586129,
+              "frame": 38386,
+              "realtime": 365.489441,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseDown",
+                "eventType": "mouseDown",
+                "mouse": {
+                  "x": 1111.0,
+                  "y": 594.0
+                },
+                "hotControl": 0,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          },
+          {
+            "lineSha256": "1f801cdb271a2087004df663980e8d12338097407902853158af33a3d188862b",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062586250,
+              "frame": 38399,
+              "realtime": 365.610352,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseUp",
+                "eventType": "mouseUp",
+                "mouse": {
+                  "x": 1111.0,
+                  "y": 594.0
+                },
+                "hotControl": 23,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "capture": 46,
+        "stepAt": "2026-09-10T17:50:43.361Z",
+        "name": "founding-confirm-sign",
+        "binding": {
+          "name": "founding-confirm-sign",
+          "text": "Sign Dolores Okonkwo \u2014 104-week contract",
+          "canvas": [
+            1111.2,
+            306
+          ],
+          "point": {
+            "x": 555.6,
+            "y": 358
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 2969,
+          "frame": 44535,
+          "mapAgeMs": 4.19677734375
+        },
+        "authorityAfterCapture": {
+          "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+          "stateRevision": 5,
+          "gameWeek": 0,
+          "stateDigest": "8778d2a3b7ddb2a926b4cc812ba0eca494a04bed99f3239e24cd36b7b1118195",
+          "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+          "successfulSnapshotPollCount": 337,
+          "connectionState": "Live",
+          "transportOutageCount": 0,
+          "retainingViewAfterTransportFailure": false
+        },
+        "trace": [
+          {
+            "lineSha256": "3d806fd1df901ea1d1a6b3ecbe2746d2aaf13c96d3a4735780ff8f3b1091ae47",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062642458,
+              "frame": 44551,
+              "realtime": 421.818878,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseDown",
+                "eventType": "mouseDown",
+                "mouse": {
+                  "x": 1111.0,
+                  "y": 594.0
+                },
+                "hotControl": 0,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          },
+          {
+            "lineSha256": "fb635276f60093cb6b30f3239e1e39f63e326ac8c01a6df1a93da88e079758d9",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062642574,
+              "frame": 44563,
+              "realtime": 421.934662,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseUp",
+                "eventType": "mouseUp",
+                "mouse": {
+                  "x": 1111.0,
+                  "y": 594.0
+                },
+                "hotControl": 23,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "capture": 50,
+        "stepAt": "2026-09-10T17:51:08.016Z",
+        "name": "founding-confirm-studio",
+        "binding": {
+          "name": "founding-confirm-studio",
+          "text": "FOUND THE STUDIO",
+          "canvas": [
+            1140,
+            382
+          ],
+          "point": {
+            "x": 570,
+            "y": 320
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 3147,
+          "frame": 47205,
+          "mapAgeMs": 9.5224609375
+        },
+        "authorityAfterCapture": {
+          "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+          "stateRevision": 6,
+          "gameWeek": 0,
+          "stateDigest": "4113bcf1e884ef3a60a7cdf98ffbaa29ad92363a0f19c8ae8150acce541a87fe",
+          "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+          "successfulSnapshotPollCount": 356,
+          "connectionState": "Live",
+          "transportOutageCount": 0,
+          "retainingViewAfterTransportFailure": false
+        },
+        "trace": [
+          {
+            "lineSha256": "fefd38a0462ed0e6e03eaaa9f75ba107e1788ba63263a2bf5bb213cb83b2686b",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062667108,
+              "frame": 47220,
+              "realtime": 446.468658,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseDown",
+                "eventType": "mouseDown",
+                "mouse": {
+                  "x": 1140.0,
+                  "y": 518.0
+                },
+                "hotControl": 0,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          },
+          {
+            "lineSha256": "57e5fe4a3cadde0faa6d6df6579832278a2b1e7ca4b4fa108d62656eb384545d",
+            "record": {
+              "schema": "studio-action-trace/1",
+              "at": 1789062667225,
+              "frame": 47233,
+              "realtime": 446.585327,
+              "source": "build-chip",
+              "phase": "imgui-entry",
+              "applicationFocused": true,
+              "control": null,
+              "instance": 0,
+              "attached": false,
+              "enabledSelf": null,
+              "enabledInHierarchy": null,
+              "focus": null,
+              "rect": {
+                "x": 0.0,
+                "y": 0.0,
+                "width": 0.0,
+                "height": 0.0
+              },
+              "facts": {
+                "offered": true,
+                "enabled": false,
+                "connection": "Live",
+                "requestInFlight": false,
+                "rawType": "mouseUp",
+                "eventType": "mouseUp",
+                "mouse": {
+                  "x": 1140.0,
+                  "y": 518.0
+                },
+                "hotControl": 23,
+                "keyboardControl": 0,
+                "depth": 1,
+                "matrix": "1.00000\t0.00000\t0.00000\t0.00000\n0.00000\t1.00000\t0.00000\t0.00000\n0.00000\t0.00000\t1.00000\t0.00000\n0.00000\t0.00000\t0.00000\t1.00000\n",
+                "screenWidth": 1440,
+                "screenHeight": 900,
+                "workspaceOpen": false,
+                "menu": "Closed"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "aFoundingHidExcerpt": [
+      {
+        "lineSha256": "e57bc736ac8694d17aa7a46fba6c007b9ef0cc391c4403508794dafbb6c8d7c4",
+        "record": {
+          "at": "2026-09-10T17:44:44.874Z",
+          "seq": 706,
+          "type": "leftMouseDown",
+          "sourcePid": 38705,
+          "eventToken": "116709559835218",
+          "sourceStateId": 0,
+          "x": 570,
+          "y": 320,
+          "dx": 0,
+          "dy": 0,
+          "keycode": 0,
+          "scroll": 0,
+          "flags": 536870912
+        }
+      },
+      {
+        "lineSha256": "d26a966c919d5ffc346b8a857feb753c2c30982c0b607b0627d7c665bacb34b2",
+        "record": {
+          "at": "2026-09-10T17:44:44.986Z",
+          "seq": 709,
+          "type": "leftMouseUp",
+          "sourcePid": 38716,
+          "eventToken": "169361996963996",
+          "sourceStateId": 0,
+          "x": 570,
+          "y": 320,
+          "dx": 0,
+          "dy": 0,
+          "keycode": 0,
+          "scroll": 0,
+          "flags": 536870912
+        }
+      }
+    ],
+    "verdict": "A founding MouseDown17:44:44.885UTC frame6629 occurred during Reconnecting/requestInFlight=true at exact commit coordinates. MouseUp17:44:45.098 frame6640 is Live/request=false with hotControl23, and map004 subsequently shows completed rev7. This proves a deliberate press begun during healthy refresh is retained and completed.",
+    "healthyReadEvidence": "All adjacent reviewed authority maps report transportOutageCount0 and retainingViewAfterTransportFailure=false; menu Closed and workspace false in trace.",
+    "deferredSlotExercised": "NOT PROVEN: mouse-up was already Live, so standard immediate SubmitIntent may have handled it. All six B sign down/up traces and B founding are Live/Live. No claim of queue admission absent direct trace."
+  },
+  "inputClosure": {
+    "status": "clean",
+    "endedAtUtc": "2026-09-10T17:56:05.922000+00:00",
+    "observationEndsAt": "acknowledged final HID marker",
+    "finalMarker": {
+      "seq": 8634,
+      "type": "null",
+      "keycode": 0,
+      "sourcePid": 42476
+    },
+    "auditEnded": {
+      "stopToken": "105408206147168",
+      "reason": "requested",
+      "markerSeq": 8634
+    },
+    "partial": false,
+    "counts": {
+      "tool": 548,
+      "markerCompanion": 547,
+      "playerNull": 75,
+      "playerOther": 0,
+      "physical": 0,
+      "unknown": 0
+    },
+    "foreign": [],
+    "pendingCompanion": null,
+    "playerExit": {
+      "code": 0,
+      "signal": null
+    },
+    "processDeath": "App/engine death reported by root; this reviewer did not query or control processes."
+  },
+  "remainingObservedDefect": {
+    "id": "hidden-campaign-geometry-at-quit",
+    "evidence": "083 actual image displays only Quit confirmation, but083 map still reports four campaign-record rows visible=true. Root already identified and owns withdrawal fix; no source edit by reviewer.",
+    "status": "Fix/replay pending; these hidden entries must not be treated as rendered targets."
+  },
+  "limitations": [
+    "No all-three independently progressed campaign Quit/relaunch acceptance: next native relaunch still pending and C remains gameWeek0.",
+    "No Gate A completion: live post-start project/film, employer/credit navigation and full relevant causal product proof remain pending.",
+    "This is bounded existing critique evidence preservation, not a new audit or critique round. No input, tests, builds or worktree edits by reviewer."
+  ]
+}

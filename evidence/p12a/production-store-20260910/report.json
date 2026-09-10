@@ -1,0 +1,2003 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "purpose": "Bounded production LockedBridgeCheckpointStore + coordinator continuation on copied existing synthetic late world; no server, native input, fresh generation or packaged-app acceptance",
+  "status": "COMPLETE_MEASURED_NOT_NATIVE_ACCEPTANCE",
+  "completed": true,
+  "start": "2026-09-10T17:57:18.389Z",
+  "baseline": {
+    "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+    "preparedAt": "2026-09-10T17:43:17.405905+00:00",
+    "directory": "/tmp/p12a-production-store-5b2p7k3q",
+    "repository": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+    "originalLibrary": "/tmp/p12a-storage-integration-6s4KkV/library.storage.json",
+    "libraryPath": "/tmp/p12a-production-store-5b2p7k3q/runtime/bridge-runtime-v1.json",
+    "runtimeRoot": "/tmp/p12a-production-store-5b2p7k3q/runtime",
+    "baselineSha256": "d10a8187935b12d7e5bcb5e05a01e76c0649cbf3abc176228f7842b6785730df",
+    "baselineBytes": 55646250,
+    "expectedInitialWeek": 8791,
+    "expectedSavedWeek": 8790,
+    "expectedRecordCount": 3,
+    "baselineCurrentSha256": "8eae0916b24d15a63bdbc01215711571b92a3f5dd95e4b95f1aaf041234319d7",
+    "baselineSavedSha256": "c078539aa049ae978436d4d56840b8f0670494cf92d0728bbaa6ba0380ad1b5b",
+    "baselineProvenance": "Private copy of prior authorized synthetic three-record library; previous continuation results remain separate. No original mutation.",
+    "status": "PREPARED_NOT_EXECUTED"
+  },
+  "limits": {
+    "maxCheckpointBytes": 201326592,
+    "maxJournalEntries": 512,
+    "maxJournalBytes": 67108864
+  },
+  "libraryMaxBytes": 268435456,
+  "sourceBinding": {
+    "preparedAt": "2026-09-10T17:45:38.169Z",
+    "head": "a34698a1b009561737dc1e0262fd9b42abbf86ce",
+    "sourceCount": 106,
+    "sourceCombinedSha256": "67c1117c809b1156a86cbb75f587a4938014e3d06a6402e73d7100c4cf10c407",
+    "sources": [
+      {
+        "path": "bridge/campaign-origin.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/campaign-origin.ts",
+        "sha256": "8bbe107187306cfbae84a371938766de77e5080f95bfb0a28b5c581ef27eb992"
+      },
+      {
+        "path": "bridge/casting.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/casting.ts",
+        "sha256": "4a2a6d543b7ff7b85d992c4cf4768c0863081d95f96036ea4bbd388802b54594"
+      },
+      {
+        "path": "bridge/contract.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/contract.ts",
+        "sha256": "c833edb7631fdc4ca7c841e6f3418103c606f7038933eab849df15966763fb1e"
+      },
+      {
+        "path": "bridge/development.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/development.ts",
+        "sha256": "edc6392d59fc0a1076111af88e114091bdaa170ea09e703c3c67743c9e38eb76"
+      },
+      {
+        "path": "bridge/finance-consequence.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/finance-consequence.ts",
+        "sha256": "6c5e276708073a7c70debd9d8fc518e8f8f9329d58fd2f7930da4520d7f775b9"
+      },
+      {
+        "path": "bridge/finance-portfolio.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/finance-portfolio.ts",
+        "sha256": "b97b964c0a8d64dae5fe94d353d21e807cd2df9a4374edc59d5dee34cd352f4c"
+      },
+      {
+        "path": "bridge/finance-upcoming.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/finance-upcoming.ts",
+        "sha256": "ce99412139d9e7131ce51b25bb5c86c6f8d70d6e6336d1b1f0b99febe9c07b5c"
+      },
+      {
+        "path": "bridge/finance.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/finance.ts",
+        "sha256": "9388ff8cefe47c72f5e2861b59bc017d8e7a45748fc59fd68670d6a4beb0b61d"
+      },
+      {
+        "path": "bridge/history.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/history.ts",
+        "sha256": "ac4e646528cb69e9af9aecc617ee15a0c342748add3991eaa2d9cd5f3155843b"
+      },
+      {
+        "path": "bridge/industry.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/industry.ts",
+        "sha256": "af6726a8e23965069d11ec5007c51ec8f27bf664c3a13de7a8118d06433256e8"
+      },
+      {
+        "path": "bridge/people.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/people.ts",
+        "sha256": "e9393b9a9cd3a0028d0977b13ca0eab04f169fe577d81e95bd99a3623e649c5e"
+      },
+      {
+        "path": "bridge/placement.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/placement.ts",
+        "sha256": "a43fca45894bd4f4dad6ce7435486d0b66ca645cfb41a763c9971ec35bdd2b96"
+      },
+      {
+        "path": "bridge/protocol.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/protocol.ts",
+        "sha256": "71b920d90ce9a54214c7dd82208a168bd71cab9be60efa11d2ae3a81d7e0b7fa"
+      },
+      {
+        "path": "bridge/release.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/release.ts",
+        "sha256": "81fc9efbdfe3951ef6cb06b5c1cda40fdb1966a4cbd46e89a3c840034484f183"
+      },
+      {
+        "path": "bridge/runtime-checkpoint.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime-checkpoint.ts",
+        "sha256": "9d6d4b8c36bf56a29a96b60b31c07240c5a999d10cbf71c3784ed7bb4eff0bfe"
+      },
+      {
+        "path": "bridge/runtime/campaign-library.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/campaign-library.ts",
+        "sha256": "75141a15ac2d17afff2ecfc3f6513921125641d5b3a410e8d9c0065afcb61764"
+      },
+      {
+        "path": "bridge/runtime/campaign-storage-codec.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/campaign-storage-codec.ts",
+        "sha256": "0a841b9a31e04e21480fd1a64ae95d8d2fd7d9420add04a3b080fc3753031ef1"
+      },
+      {
+        "path": "bridge/runtime/checkpoint-store.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/checkpoint-store.ts",
+        "sha256": "41ced764fb4a89bafc6ab9ea826bf0d51b9a6d6f8ab82f5f100e910d347e2561"
+      },
+      {
+        "path": "bridge/runtime/process-incarnation.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/process-incarnation.ts",
+        "sha256": "8e281af4edc3585feaf34d5692960fc5e1eac2d00823cb92c55e047d154afc43"
+      },
+      {
+        "path": "bridge/runtime/runtime-coordinator.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/runtime-coordinator.ts",
+        "sha256": "b90be451b1195eb524b05de45d793c10d59963103165ab045d24a125fd22937a"
+      },
+      {
+        "path": "bridge/schema/bridge-schema.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/schema/bridge-schema.ts",
+        "sha256": "093866f04f1c6cf06c62d0c397591cccd1241cc335c97525006320ea7a519667"
+      },
+      {
+        "path": "bridge/schema/canonical.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/schema/canonical.ts",
+        "sha256": "b84768f3a565f7e027938fefd46960ffbbd55a35d44a51145e94b82a1529e340"
+      },
+      {
+        "path": "bridge/schema/dsl.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/schema/dsl.ts",
+        "sha256": "199880cc5ad275cdf4e277c7afba44823022d9e0e0b93bbee01e4fb8ad7cef8b"
+      },
+      {
+        "path": "bridge/schema/industry-schema.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/schema/industry-schema.ts",
+        "sha256": "01a987da0c32c91e0f87208a7f65284dfae07d37a428d3fd03930b315dd8ad79"
+      },
+      {
+        "path": "bridge/schema/runtime.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/schema/runtime.ts",
+        "sha256": "80ce179138656b678963a70210145d1cdceb6af59e07aec5a7063918eab4553b"
+      },
+      {
+        "path": "bridge/session.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/session.ts",
+        "sha256": "eada8d7ffac42df1afeebf4775a61f4fce6c806b8bcaac8a864d8abf51f0753b"
+      },
+      {
+        "path": "bridge/setCommission.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/setCommission.ts",
+        "sha256": "b8cbd9548b6cbc922f01a9dfaa709a26e1724c2ff10b5d2cedc5ff7ea4685448"
+      },
+      {
+        "path": "bridge/snapshot-build-context.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/snapshot-build-context.ts",
+        "sha256": "0c295c0495292df74f50d0d66467a250ea7975bdc6edddddb11469db4f6c82aa"
+      },
+      {
+        "path": "src/core/actions.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/actions.ts",
+        "sha256": "8d8b005ab8bfb83f07f6ef3ad44cac0a32d39e3b0328be8f50bfc03774cc409a"
+      },
+      {
+        "path": "src/core/agents.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/agents.ts",
+        "sha256": "ee68473f551a90541d5cb8d64ce39499649c4848034d2f7403ca44e048234a73"
+      },
+      {
+        "path": "src/core/blueprintRequirements.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/blueprintRequirements.ts",
+        "sha256": "c6743f5434f43b8853e9c9aa5fca81224c2e15434ae5ee67dbf39c4193fdbf9e"
+      },
+      {
+        "path": "src/core/broadcast.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/broadcast.ts",
+        "sha256": "81809e230570dd795bef921716a2c300dd062298878705e5d5b6c4582c667e85"
+      },
+      {
+        "path": "src/core/calendar.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/calendar.ts",
+        "sha256": "c54fe83ab161d4c80727c3ece021e6340eda3a7ff0bf134f5288d76de8f811ef"
+      },
+      {
+        "path": "src/core/candidates.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/candidates.ts",
+        "sha256": "85a6d18e32cfca3e554977825ea06f10d2928eca68331a1b7b801ee320fe4104"
+      },
+      {
+        "path": "src/core/castingPackageReadModel.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/castingPackageReadModel.ts",
+        "sha256": "d65f5d1740f8672f23baa9f9d8e95dad099caf0b4c43804bc60de9b054f57b3f"
+      },
+      {
+        "path": "src/core/castingReadModel.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/castingReadModel.ts",
+        "sha256": "56e0021c14337f333863be25ade1450ec59503b94e3ccb257ff31ceed5deb1c8"
+      },
+      {
+        "path": "src/core/castingSessions.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/castingSessions.ts",
+        "sha256": "858f65564cad46e1a3054ffd5494fa57f42178fdf45b5819f8575875976fc719"
+      },
+      {
+        "path": "src/core/construction.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/construction.ts",
+        "sha256": "a617a0c6718775705d4b8485de9a6f649ce90cc110bb650dbebc09aa24b93dd4"
+      },
+      {
+        "path": "src/core/data/screenplay.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/data/screenplay.ts",
+        "sha256": "176f5fd2c0f01d2af16ce0c6a3e77344bd6030a9b3660232f17a14e4baae15ad"
+      },
+      {
+        "path": "src/core/data/wordlists.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/data/wordlists.ts",
+        "sha256": "6642296c7a0a4d385c6eb00e7b9ff4eb3213f72a6799b197549cba23718ebfac"
+      },
+      {
+        "path": "src/core/development.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/development.ts",
+        "sha256": "ce37f726f18270f6d9d0aa6444ed23104cf963418365f00192a13f5fc55153fc"
+      },
+      {
+        "path": "src/core/economy.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/economy.ts",
+        "sha256": "caa6f20444be1544d64e2226f8eb89823c8d787c1460473169e0954ef15d0e10"
+      },
+      {
+        "path": "src/core/economyView.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/economyView.ts",
+        "sha256": "b9598a830e2c38299fa905253ae5211c2f6e5a914f6ab326dbec18d90079fc78"
+      },
+      {
+        "path": "src/core/employment.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/employment.ts",
+        "sha256": "74f6377c4759370770545f07e250e215e1453f463d850032e8a62fa6fd7c3245"
+      },
+      {
+        "path": "src/core/facilityEffects.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/facilityEffects.ts",
+        "sha256": "775a3eeb0b0969d716de6791dd0e5d6e34f3938953960d9621d4064320fd62e3"
+      },
+      {
+        "path": "src/core/filmPackage.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/filmPackage.ts",
+        "sha256": "f0dce46007d5f3b778f62f237c58e049c14a84764ae2545bd52258cfb2b4bd3b"
+      },
+      {
+        "path": "src/core/filmParticipants.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/filmParticipants.ts",
+        "sha256": "e26410299b9a7a0527cf6413b53a482f6280a137f3b32871ba729516ba4cf849"
+      },
+      {
+        "path": "src/core/financeReport.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/financeReport.ts",
+        "sha256": "ef742bb783bb66c50f3880f949fa53565efa5cfbc59462c9804a926d70bfc601"
+      },
+      {
+        "path": "src/core/firstFilmJourney.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/firstFilmJourney.ts",
+        "sha256": "1b80ad040159f75ab72bb0e404da1ec4b0320e92f903c23891919625f5fe5e2c"
+      },
+      {
+        "path": "src/core/fixedCostAllocation.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/fixedCostAllocation.ts",
+        "sha256": "72252b6e87557f9ed94eb922fd41a855a92c6540d2328efd168a26c22db9440e"
+      },
+      {
+        "path": "src/core/forecast.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/forecast.ts",
+        "sha256": "46b9797b6e6a76daf20cec9891de7d6550358e7d75a88a391bf768c934f07dd2"
+      },
+      {
+        "path": "src/core/grid.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/grid.ts",
+        "sha256": "67fe3355621e630de8c69e520348600bdb57445122daee791fcbbe59f803ce89"
+      },
+      {
+        "path": "src/core/hollywood.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/hollywood.ts",
+        "sha256": "753e52cc441139737d2f7d36d07df55aff02f8f8debe8935edab1224d3eb7130"
+      },
+      {
+        "path": "src/core/hollywoodPolicy.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/hollywoodPolicy.ts",
+        "sha256": "89a380fec37a14e273329a2d37d12eba3d00b686a50ce0dc6beaae5c25dabebd"
+      },
+      {
+        "path": "src/core/hollywoodStartingData.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/hollywoodStartingData.ts",
+        "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+      },
+      {
+        "path": "src/core/hollywoodTick.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/hollywoodTick.ts",
+        "sha256": "7a77c7069403d65fd75373c617d08949f9cb2cdcc409a91030f66ab01be6a8c1"
+      },
+      {
+        "path": "src/core/hollywoodValidation.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/hollywoodValidation.ts",
+        "sha256": "4e16e9f51f193d972ed946c4a1ac3c979ddfb5c36badce10937552d9f50ef44d"
+      },
+      {
+        "path": "src/core/index.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/index.ts",
+        "sha256": "6c6bb76f8f25101a32e86d90acb49f53b990658a35ca822a1dbc1a525e73737f"
+      },
+      {
+        "path": "src/core/industryCareer.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/industryCareer.ts",
+        "sha256": "088a95368557cd893a4c93d90b403a9c3debf95710fcc4d055c01726e81e2d7e"
+      },
+      {
+        "path": "src/core/industryEmployment.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/industryEmployment.ts",
+        "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39"
+      },
+      {
+        "path": "src/core/lot.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/lot.ts",
+        "sha256": "b4366332889e113736ab788eee74f55fd3e5b89af2984a56436a355924b4cdf5"
+      },
+      {
+        "path": "src/core/marketingMenu.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/marketingMenu.ts",
+        "sha256": "61d6e1efef70b880b8e2c1d3d8573d6acbb7d78b6bd781663c9af4e07e5c4e7d"
+      },
+      {
+        "path": "src/core/math.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/math.ts",
+        "sha256": "48a5ed67e2d3aece3fce654deec6d3d17f60415013687da5b23b6da19fb927d7"
+      },
+      {
+        "path": "src/core/newspaper.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/newspaper.ts",
+        "sha256": "a29d5922dcf613bd9794f204d11ed3991543099c9b058c5e894fa67f68f7b1a4"
+      },
+      {
+        "path": "src/core/occupancy.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/occupancy.ts",
+        "sha256": "f25a76c210f43202eb416e9f36614f4b9fd63518ff19169696d2313e7e4189c3"
+      },
+      {
+        "path": "src/core/operations.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/operations.ts",
+        "sha256": "c9bb0676b7601dacdef1fc601405c226911c47877181245b6d30108167410d3d"
+      },
+      {
+        "path": "src/core/placement.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/placement.ts",
+        "sha256": "edf9b3f0d4c21f576b40b4577130a5e9a31e30bf7617a866128d1818c1111521"
+      },
+      {
+        "path": "src/core/presence.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/presence.ts",
+        "sha256": "938a7c607f58d7f071a38d8ee5a265de24deac9db976fe2cfc37bcd78d8f9db1"
+      },
+      {
+        "path": "src/core/productionIdentity.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/productionIdentity.ts",
+        "sha256": "b2585a4d400dfaf439bdf21b02c898daabc2dc6169a7d9c344741bf3e6fdba26"
+      },
+      {
+        "path": "src/core/productionPeople.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/productionPeople.ts",
+        "sha256": "00ea69f6ceaf9b0d1cd79cb7cffe70c1c9b22ac0e4a453787b8013d29b1d0817"
+      },
+      {
+        "path": "src/core/productionPhases.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/productionPhases.ts",
+        "sha256": "2e343baaac6df67d12836e4ad424501ab29c3e9a69f0b978be1710a290b8fcf8"
+      },
+      {
+        "path": "src/core/productionQueue.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/productionQueue.ts",
+        "sha256": "38672a2d2c0d7c5a4b7434545d9b4ebb7400865349a3ec5568fb31ddae4c6c92"
+      },
+      {
+        "path": "src/core/publicity.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/publicity.ts",
+        "sha256": "01f6b900730273f02f66e3148efe1904499e81f6d78f1f61c03e586fea1da3e5"
+      },
+      {
+        "path": "src/core/queueAdmission.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/queueAdmission.ts",
+        "sha256": "c22c1210ee33bff0ea4a5aac395350a966af9706ba991111146bb200c25dcb25"
+      },
+      {
+        "path": "src/core/reception.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/reception.ts",
+        "sha256": "b724792bd2f9de123dc34dab143d18ce26552a72ccd34f44d884ee1eeb61bf81"
+      },
+      {
+        "path": "src/core/receptionVerdict.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/receptionVerdict.ts",
+        "sha256": "825e474ccce57e8de4a0d3aeb1d7ad5071b8d46121f95b7544946243af03e3d7"
+      },
+      {
+        "path": "src/core/releaseAuthority.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/releaseAuthority.ts",
+        "sha256": "e87d14348604baca178f89bfab00cdbc4bf029feade48e5ae71a8d308d44b3a0"
+      },
+      {
+        "path": "src/core/releaseCareers.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/releaseCareers.ts",
+        "sha256": "b8050c8a70b165e42ed2841bbcfd99eb27ff5986529aa94dc511e5bd196ee965"
+      },
+      {
+        "path": "src/core/rng.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/rng.ts",
+        "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+      },
+      {
+        "path": "src/core/save.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/save.ts",
+        "sha256": "3669603a122bb0a63ddb5cf1588d09a4d2db6d5770e182ba052a78b899b3156c"
+      },
+      {
+        "path": "src/core/sceneryLoadIn.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/sceneryLoadIn.ts",
+        "sha256": "5be8e2f1aea030bd564f12241b1647a5c1f01a21dbd28d4aa8880a0ef22634b8"
+      },
+      {
+        "path": "src/core/screenplay.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/screenplay.ts",
+        "sha256": "1cb32a9ccd23dd7dc51d11cf080370feeb985de66fd36d4670c936ca6d1f929f"
+      },
+      {
+        "path": "src/core/scriptDevelopment.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/scriptDevelopment.ts",
+        "sha256": "35ce39aef336641261b68b04de42c5c3fcb901d319321082294f0c875e7d4372"
+      },
+      {
+        "path": "src/core/scriptReadModel.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/scriptReadModel.ts",
+        "sha256": "c0ee15d37264b8329de70cb37e525a4644518497527763eccdf00fc5cac73616"
+      },
+      {
+        "path": "src/core/sets.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/sets.ts",
+        "sha256": "7f18032b877f1215e7d8a6f8906509887bb0de4f899c66ba9d12c6cc66c98ab5"
+      },
+      {
+        "path": "src/core/shape.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/shape.ts",
+        "sha256": "30f1530ac6f3d144818747aa0e5bdae846e1f5c4963c8eb447eb722efc4d92a2"
+      },
+      {
+        "path": "src/core/standing.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/standing.ts",
+        "sha256": "5e1ec7279553014099077a8e5cbe02c1b78454256bf3f400634accc2209c6893"
+      },
+      {
+        "path": "src/core/starPower.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/starPower.ts",
+        "sha256": "007c98dcaf612f87f7197bd14ddeb89df7a2cb0ae6542027f33d398976ccb881"
+      },
+      {
+        "path": "src/core/studioCalendar.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/studioCalendar.ts",
+        "sha256": "b9469d740e26895f9821179fddebfea16dfc338df366017df0a8a4ccdd590603"
+      },
+      {
+        "path": "src/core/studioEvents.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/studioEvents.ts",
+        "sha256": "3a2cc851ad7903289529b2c21455316c331449cce81df581b744a4712354b4d3"
+      },
+      {
+        "path": "src/core/studioHistory.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/studioHistory.ts",
+        "sha256": "2d9a43087f2a7a1a24a201b5fff9bd4b3cf9b5911a65b9efd2adb1336b15e380"
+      },
+      {
+        "path": "src/core/studioQueueView.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/studioQueueView.ts",
+        "sha256": "a10e01a1ec921444120d3146031e804242de5ebdd5ba226c6942846d2bced83f"
+      },
+      {
+        "path": "src/core/studioRunRecap.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/studioRunRecap.ts",
+        "sha256": "1d61386ded5144e1663e72831c072d932b7c8d61bec4746885c195509f586962"
+      },
+      {
+        "path": "src/core/studioWeekTheater.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/studioWeekTheater.ts",
+        "sha256": "b7d3be0569fc2cd4e4394403f9b4f5e4a5c5b335b9c5b57955e7edbf43175c87"
+      },
+      {
+        "path": "src/core/talentSummary.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/talentSummary.ts",
+        "sha256": "83c158267b7421ea3aa15527ea196d349f67422655551aafa5569a57e448c51a"
+      },
+      {
+        "path": "src/core/tick.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/tick.ts",
+        "sha256": "8280c9bea104c3458f3e45b16dcacde01d8dee6a95e6cd4a2e52875c8c8539df"
+      },
+      {
+        "path": "src/core/tuning.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/tuning.ts",
+        "sha256": "4db647ebf52b15082bb464a9486387ad0e134d951c226e118d1858f831bc428e"
+      },
+      {
+        "path": "src/core/vector.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/vector.ts",
+        "sha256": "b692a62a7167be503a45bf752eedc04fc62e861fbaa67d0398584ca0af01898b"
+      },
+      {
+        "path": "src/core/worldgen.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/worldgen.ts",
+        "sha256": "d4cb1a148f9019abd7f339a12d41ca88f2c05e36256ca53d19681e1d2b46bd2a"
+      },
+      {
+        "path": "ui/src/content.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/content.ts",
+        "sha256": "731174a1917d3499eac6391c47634c8076f19310c9ad2bc0f07f0ebf21e35340"
+      },
+      {
+        "path": "ui/src/engine/adapter.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/engine/adapter.ts",
+        "sha256": "788f8da001610777956c4bf0164601788bf171e6e060eced1542e08d331b18e5"
+      },
+      {
+        "path": "ui/src/engine/productionOperationsProjection.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/engine/productionOperationsProjection.ts",
+        "sha256": "dd8efc9ee1f4920022c883a84a43ed3874d76c4d544a0fff1eecbb6c4ec64f80"
+      },
+      {
+        "path": "ui/src/engine/screenplay.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/engine/screenplay.ts",
+        "sha256": "abc1cc9b0dbf6acb6968879f8f4c4f076abec4bbab4dddc37ea2b27d61cc8afe"
+      },
+      {
+        "path": "ui/src/format.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/format.ts",
+        "sha256": "98f4fc2fff1907a77ccbf64fb5e88c30d3d11c7924fe9eada73154bc82b43100"
+      },
+      {
+        "path": "ui/src/lot/snapshot/stageIdentity.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/lot/snapshot/stageIdentity.ts",
+        "sha256": "e46e3088a94e658445ebbb391544838ba7266ab8907de84d21f0be28b482ad8d"
+      },
+      {
+        "path": "ui/src/lot/snapshot/StudioLotSnapshot.ts",
+        "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/lot/snapshot/StudioLotSnapshot.ts",
+        "sha256": "5516e10ab96ad70e8192ff3c98f145453cea7a8c65d9b396f6bc0aeb38124568"
+      }
+    ],
+    "probeSourceSha256": "5e3f09a761f000d7adff46bffdac411b76eee822890cb31da219aa2c8a1bcc9e",
+    "bundleSha256": "5a4289809304219f7801275dcb27779c77956f99a81f5b2bcfbf037ed16db8b3",
+    "observerSha256": "6f13309ab7ae5289faa049879de1aceb4fe3b3f952821915e83c2a1b30b68a54",
+    "baselineSha256": "d10a8187935b12d7e5bcb5e05a01e76c0649cbf3abc176228f7842b6785730df",
+    "sourceStableDuringBuild": true
+  },
+  "protocol": {
+    "PROTOCOL_VERSION": 4,
+    "SCHEMA_ID": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+    "SNAPSHOT_VERSION": 28
+  },
+  "liveSavedAuthorityAccess": "Read-only SHA256 of the exact source-bound BridgeSession.savedJson private field; no clone, mutation or checkpoint re-export solely for comparison",
+  "environment": {
+    "pid": 42499,
+    "executable": "/opt/homebrew/Cellar/node/26.3.1/bin/node",
+    "node": "v26.3.1",
+    "execArgv": [],
+    "nodeOptionsPresent": false,
+    "heapSizeLimit": 4395630592,
+    "explicitGc": false,
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64",
+    "cpu": "Apple M3 Max",
+    "logicalCpus": 16,
+    "totalMemoryBytes": 137438953472,
+    "qualification": "Parent confirmed native11 app38457 and engine38431 exited, runner64095 exited0; no Unity tests, builds, native input or other heavy job scheduled during this probe. Root performing lightweight evidence/source work only."
+  },
+  "operations": [
+    {
+      "name": "cold recovery through production locked store",
+      "startedAt": "2026-09-10T17:57:18.435Z",
+      "before": {
+        "rss": 140279808,
+        "heapTotal": 15613952,
+        "heapUsed": 6451688,
+        "external": 57675225,
+        "arrayBuffers": 53694913,
+        "processMaxRssKiB": 137088
+      },
+      "completed": true,
+      "elapsedMs": 16490.941125,
+      "after": {
+        "rss": 2697314304,
+        "heapTotal": 738639872,
+        "heapUsed": 628338320,
+        "external": 4117771,
+        "arrayBuffers": 145815,
+        "processMaxRssKiB": 3952944
+      }
+    },
+    {
+      "name": "normal advance before campaign Save",
+      "startedAt": "2026-09-10T17:57:35.569Z",
+      "before": {
+        "rss": 2697347072,
+        "heapTotal": 737869824,
+        "heapUsed": 623643744,
+        "external": 4183314,
+        "arrayBuffers": 211358,
+        "processMaxRssKiB": 3952944
+      },
+      "completed": true,
+      "elapsedMs": 5758.167958000002,
+      "after": {
+        "rss": 3008741376,
+        "heapTotal": 855031808,
+        "heapUsed": 783690424,
+        "external": 384145477,
+        "arrayBuffers": 268497883,
+        "processMaxRssKiB": 3952944
+      }
+    },
+    {
+      "name": "campaign Save",
+      "startedAt": "2026-09-10T17:57:42.063Z",
+      "before": {
+        "rss": 3008774144,
+        "heapTotal": 857522176,
+        "heapUsed": 805667616,
+        "external": 209414142,
+        "arrayBuffers": 108019100,
+        "processMaxRssKiB": 3952944
+      },
+      "completed": true,
+      "elapsedMs": 17353.071874999998,
+      "after": {
+        "rss": 3292479488,
+        "heapTotal": 1380089856,
+        "heapUsed": 1307946104,
+        "external": 569598081,
+        "arrayBuffers": 409014733,
+        "processMaxRssKiB": 4582304
+      }
+    },
+    {
+      "name": "normal advance after campaign Save",
+      "startedAt": "2026-09-10T17:58:00.244Z",
+      "before": {
+        "rss": 3292659712,
+        "heapTotal": 1384939520,
+        "heapUsed": 1317411408,
+        "external": 307735232,
+        "arrayBuffers": 168977664,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "elapsedMs": 7645.114083,
+      "after": {
+        "rss": 3708780544,
+        "heapTotal": 1378516992,
+        "heapUsed": 1306756200,
+        "external": 389085352,
+        "arrayBuffers": 241977692,
+        "processMaxRssKiB": 4582304
+      }
+    },
+    {
+      "name": "ordinary Save",
+      "startedAt": "2026-09-10T17:58:08.637Z",
+      "before": {
+        "rss": 3293478912,
+        "heapTotal": 1380745216,
+        "heapUsed": 1332314664,
+        "external": 295649211,
+        "arrayBuffers": 170455821,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "elapsedMs": 7478.9752080000035,
+      "after": {
+        "rss": 3550412800,
+        "heapTotal": 1252261888,
+        "heapUsed": 1145258224,
+        "external": 299087098,
+        "arrayBuffers": 168295919,
+        "processMaxRssKiB": 4582304
+      }
+    },
+    {
+      "name": "ordinary Save after explicit rollover",
+      "startedAt": "2026-09-10T17:58:16.303Z",
+      "before": {
+        "rss": 3550412800,
+        "heapTotal": 1223720960,
+        "heapUsed": 1170763272,
+        "external": 221923847,
+        "arrayBuffers": 104938290,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "elapsedMs": 5126.3012919999965,
+      "after": {
+        "rss": 2914992128,
+        "heapTotal": 1035223040,
+        "heapUsed": 963243176,
+        "external": 569080439,
+        "arrayBuffers": 402100519,
+        "processMaxRssKiB": 4582304
+      }
+    },
+    {
+      "name": "exact ordinary Save retry",
+      "startedAt": "2026-09-10T17:58:22.086Z",
+      "before": {
+        "rss": 2932670464,
+        "heapTotal": 1034960896,
+        "heapUsed": 962443448,
+        "external": 384087374,
+        "arrayBuffers": 238541798,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "elapsedMs": 78.16195799999696,
+      "after": {
+        "rss": 3012804608,
+        "heapTotal": 1115095040,
+        "heapUsed": 1042695424,
+        "external": 384149342,
+        "arrayBuffers": 238603766,
+        "processMaxRssKiB": 4582304
+      }
+    },
+    {
+      "name": "later normal advance before reopen",
+      "startedAt": "2026-09-10T17:58:22.390Z",
+      "before": {
+        "rss": 2475196416,
+        "heapTotal": 582844416,
+        "heapUsed": 520009552,
+        "external": 59964950,
+        "arrayBuffers": 6839130,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "elapsedMs": 7003.287249999994,
+      "after": {
+        "rss": 2862137344,
+        "heapTotal": 956825600,
+        "heapUsed": 885276784,
+        "external": 383702234,
+        "arrayBuffers": 238160926,
+        "processMaxRssKiB": 4582304
+      }
+    },
+    {
+      "name": "exact ordinary Save retry after later tick",
+      "startedAt": "2026-09-10T17:58:30.060Z",
+      "before": {
+        "rss": 2904637440,
+        "heapTotal": 957349888,
+        "heapUsed": 884707560,
+        "external": 364169816,
+        "arrayBuffers": 240256436,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "elapsedMs": 81.58995799999684,
+      "after": {
+        "rss": 2911944704,
+        "heapTotal": 964132864,
+        "heapUsed": 890690872,
+        "external": 293450711,
+        "arrayBuffers": 8087270,
+        "processMaxRssKiB": 4582304
+      }
+    },
+    {
+      "name": "close production runtime before reopen",
+      "startedAt": "2026-09-10T17:58:30.209Z",
+      "before": {
+        "rss": 2918203392,
+        "heapTotal": 963608576,
+        "heapUsed": 890882256,
+        "external": 134098322,
+        "arrayBuffers": 80972502,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "elapsedMs": 4.857916999986628,
+      "after": {
+        "rss": 2918203392,
+        "heapTotal": 963608576,
+        "heapUsed": 891072088,
+        "external": 134167656,
+        "arrayBuffers": 81041836,
+        "processMaxRssKiB": 4582304
+      }
+    },
+    {
+      "name": "reopen production locked store and coordinator",
+      "startedAt": "2026-09-10T17:58:30.214Z",
+      "before": {
+        "rss": 2918203392,
+        "heapTotal": 963608576,
+        "heapUsed": 891221160,
+        "external": 134237882,
+        "arrayBuffers": 81112062,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "elapsedMs": 20134.737374999997,
+      "after": {
+        "rss": 4109991936,
+        "heapTotal": 867565568,
+        "heapUsed": 799223512,
+        "external": 4117771,
+        "arrayBuffers": 145815,
+        "processMaxRssKiB": 5509024
+      }
+    },
+    {
+      "name": "exact ordinary Save retry after reopen",
+      "startedAt": "2026-09-10T17:58:51.039Z",
+      "before": {
+        "rss": 4100898816,
+        "heapTotal": 849903616,
+        "heapUsed": 740661904,
+        "external": 84875490,
+        "arrayBuffers": 80903534,
+        "processMaxRssKiB": 5509024
+      },
+      "completed": true,
+      "elapsedMs": 82.78233299999556,
+      "after": {
+        "rss": 4181032960,
+        "heapTotal": 893075456,
+        "heapUsed": 820248344,
+        "external": 84952389,
+        "arrayBuffers": 8095714,
+        "processMaxRssKiB": 5509024
+      }
+    },
+    {
+      "name": "final close of production runtime",
+      "startedAt": "2026-09-10T17:58:51.163Z",
+      "before": {
+        "rss": 4181032960,
+        "heapTotal": 893075456,
+        "heapUsed": 820869288,
+        "external": 85106947,
+        "arrayBuffers": 81134991,
+        "processMaxRssKiB": 5509024
+      },
+      "completed": true,
+      "elapsedMs": 5.6472499999945285,
+      "after": {
+        "rss": 4181032960,
+        "heapTotal": 893075456,
+        "heapUsed": 821070424,
+        "external": 85184714,
+        "arrayBuffers": 81212758,
+        "processMaxRssKiB": 5509024
+      }
+    }
+  ],
+  "storeCalls": [
+    {
+      "operation": "cold recovery through production locked store",
+      "method": "openBridgeCheckpointStore",
+      "invocationMs": 21.575833000000003,
+      "settledMs": 21.59112499999999,
+      "completed": true,
+      "after": {
+        "rss": 140460032,
+        "heapTotal": 15613952,
+        "heapUsed": 6662352,
+        "external": 57740880,
+        "arrayBuffers": 53760528,
+        "processMaxRssKiB": 137168
+      }
+    },
+    {
+      "operation": "cold recovery through production locked store",
+      "method": "read",
+      "before": {
+        "rss": 140460032,
+        "heapTotal": 15613952,
+        "heapUsed": 6671864,
+        "external": 57740880,
+        "arrayBuffers": 53760528,
+        "processMaxRssKiB": 137168
+      },
+      "completed": true,
+      "invocationMs": 8.608542,
+      "settledMs": 8.61908299999999,
+      "after": {
+        "rss": 251838464,
+        "heapTotal": 15613952,
+        "heapUsed": 6708592,
+        "external": 169033380,
+        "arrayBuffers": 109406778,
+        "processMaxRssKiB": 245936
+      },
+      "contentSha256": "d10a8187935b12d7e5bcb5e05a01e76c0649cbf3abc176228f7842b6785730df",
+      "utf8Bytes": 55646250,
+      "observerHashMs": 24.295958000000013
+    },
+    {
+      "operation": "normal advance before campaign Save",
+      "method": "writeAtomic",
+      "before": {
+        "rss": 3008741376,
+        "heapTotal": 855031808,
+        "heapUsed": 783606232,
+        "external": 272399701,
+        "arrayBuffers": 212592209,
+        "processMaxRssKiB": 3952944
+      },
+      "completed": true,
+      "invocationMs": 52.97600000000239,
+      "settledMs": 52.981041999999434,
+      "after": {
+        "rss": 3008741376,
+        "heapTotal": 855031808,
+        "heapUsed": 783686088,
+        "external": 384145477,
+        "arrayBuffers": 268497883,
+        "processMaxRssKiB": 3952944
+      },
+      "contentSha256": "afda00ef8e9d3a2d2de88ea982209901ef4c8742e8b5edd5cc09ff629cf27ec3",
+      "utf8Bytes": 55840102,
+      "observerHashMs": 24.89600000000064
+    },
+    {
+      "operation": "campaign Save",
+      "method": "writeAtomic",
+      "before": {
+        "rss": 3221094400,
+        "heapTotal": 1380089856,
+        "heapUsed": 1307853888,
+        "external": 426844349,
+        "arrayBuffers": 337637849,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "invocationMs": 60.73020800000086,
+      "settledMs": 60.734375,
+      "after": {
+        "rss": 3221094400,
+        "heapTotal": 1380089856,
+        "heapUsed": 1307943920,
+        "external": 569598081,
+        "arrayBuffers": 409014733,
+        "processMaxRssKiB": 4582304
+      },
+      "contentSha256": "1134e8f0d6391866d5dcdc02314f0d9bd92105cfdf42833ce6bf3373853d31ee",
+      "utf8Bytes": 71376848,
+      "observerHashMs": 34.89800000000105
+    },
+    {
+      "operation": "normal advance after campaign Save",
+      "method": "writeAtomic",
+      "before": {
+        "rss": 3708780544,
+        "heapTotal": 1378516992,
+        "heapUsed": 1306674088,
+        "external": 245943844,
+        "arrayBuffers": 170406920,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "invocationMs": 57.533375000006345,
+      "settledMs": 57.53783300000214,
+      "after": {
+        "rss": 3708780544,
+        "heapTotal": 1378516992,
+        "heapUsed": 1306751664,
+        "external": 389085352,
+        "arrayBuffers": 241977692,
+        "processMaxRssKiB": 4582304
+      },
+      "contentSha256": "dc91d995e3a036f942b6b1a189caf87a1e699eda4dfd9bf9f56e2ff8be3847f2",
+      "utf8Bytes": 71570736,
+      "observerHashMs": 31.925541999997222
+    },
+    {
+      "operation": "ordinary Save",
+      "method": "writeAtomic",
+      "before": {
+        "rss": 3550412800,
+        "heapTotal": 1252261888,
+        "heapUsed": 1145162408,
+        "external": 172262072,
+        "arrayBuffers": 104883388,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "invocationMs": 56.89887499999895,
+      "settledMs": 56.90358399999968,
+      "after": {
+        "rss": 3550412800,
+        "heapTotal": 1252261888,
+        "heapUsed": 1145240480,
+        "external": 299087098,
+        "arrayBuffers": 168295919,
+        "processMaxRssKiB": 4582304
+      },
+      "contentSha256": "bd6c063b42507207f9ef1da9d091a05abebbccc1fadd3bab4f4edf1d88180bdd",
+      "utf8Bytes": 63412495,
+      "observerHashMs": 28.55291700000089
+    },
+    {
+      "operation": "ordinary Save after explicit rollover",
+      "method": "writeAtomic",
+      "before": {
+        "rss": 2886369280,
+        "heapTotal": 1035223040,
+        "heapUsed": 963159184,
+        "external": 427892451,
+        "arrayBuffers": 331506507,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "invocationMs": 62.74437500000204,
+      "settledMs": 62.748167000005196,
+      "after": {
+        "rss": 2886369280,
+        "heapTotal": 1035223040,
+        "heapUsed": 963238656,
+        "external": 569080439,
+        "arrayBuffers": 402100519,
+        "processMaxRssKiB": 4582304
+      },
+      "contentSha256": "96e21ff7d2d42ae6409ccf4c05cf7d84d16af6fabf6bdba2059ca1e23ab8e63b",
+      "utf8Bytes": 70593976,
+      "observerHashMs": 33.68562500000553
+    },
+    {
+      "operation": "later normal advance before reopen",
+      "method": "writeAtomic",
+      "before": {
+        "rss": 2861940736,
+        "heapTotal": 956825600,
+        "heapUsed": 885196152,
+        "external": 242127078,
+        "arrayBuffers": 167373330,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "invocationMs": 59.49420899999677,
+      "settledMs": 59.50016699999105,
+      "after": {
+        "rss": 2861940736,
+        "heapTotal": 956825600,
+        "heapUsed": 885272248,
+        "external": 383702234,
+        "arrayBuffers": 238160926,
+        "processMaxRssKiB": 4582304
+      },
+      "contentSha256": "44f0728a4488acc2ec6482f3ce02a3c8998e709e7c466835f053b109bffdad6d",
+      "utf8Bytes": 70787560,
+      "observerHashMs": 31.91562499999418
+    },
+    {
+      "operation": "close production runtime before reopen",
+      "method": "close",
+      "before": {
+        "rss": 2918203392,
+        "heapTotal": 963608576,
+        "heapUsed": 891042376,
+        "external": 134167656,
+        "arrayBuffers": 81041836,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "invocationMs": 4.7757500000006985,
+      "settledMs": 4.778583999999682,
+      "after": {
+        "rss": 2918203392,
+        "heapTotal": 963608576,
+        "heapUsed": 891070712,
+        "external": 134167656,
+        "arrayBuffers": 81041836,
+        "processMaxRssKiB": 4582304
+      }
+    },
+    {
+      "operation": "reopen production locked store and coordinator",
+      "method": "openBridgeCheckpointStore",
+      "invocationMs": 17.794708000001265,
+      "settledMs": 17.798750000001746,
+      "completed": true,
+      "after": {
+        "rss": 2918219776,
+        "heapTotal": 963608576,
+        "heapUsed": 891441704,
+        "external": 134308554,
+        "arrayBuffers": 81182734,
+        "processMaxRssKiB": 4582304
+      }
+    },
+    {
+      "operation": "reopen production locked store and coordinator",
+      "method": "read",
+      "before": {
+        "rss": 2918219776,
+        "heapTotal": 963608576,
+        "heapUsed": 891445536,
+        "external": 134308554,
+        "arrayBuffers": 81182734,
+        "processMaxRssKiB": 4582304
+      },
+      "completed": true,
+      "invocationMs": 11.75495800000499,
+      "settledMs": 11.75791699999536,
+      "after": {
+        "rss": 2950856704,
+        "heapTotal": 963608576,
+        "heapUsed": 891462568,
+        "external": 275883674,
+        "arrayBuffers": 151970294,
+        "processMaxRssKiB": 4582304
+      },
+      "contentSha256": "44f0728a4488acc2ec6482f3ce02a3c8998e709e7c466835f053b109bffdad6d",
+      "utf8Bytes": 70787560,
+      "observerHashMs": 27.874207999993814
+    },
+    {
+      "operation": "final close of production runtime",
+      "method": "close",
+      "before": {
+        "rss": 4181032960,
+        "heapTotal": 893075456,
+        "heapUsed": 821032088,
+        "external": 85184714,
+        "arrayBuffers": 81212758,
+        "processMaxRssKiB": 5509024
+      },
+      "completed": true,
+      "invocationMs": 5.561416999989888,
+      "settledMs": 5.5676669999957085,
+      "after": {
+        "rss": 4181032960,
+        "heapTotal": 893075456,
+        "heapUsed": 821069040,
+        "external": 85184714,
+        "arrayBuffers": 81212758,
+        "processMaxRssKiB": 5509024
+      }
+    }
+  ],
+  "checks": [
+    {
+      "name": "initial recovered authority",
+      "live": {
+        "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+        "stateRevision": 1,
+        "week": 8791,
+        "currentSha256": "8eae0916b24d15a63bdbc01215711571b92a3f5dd95e4b95f1aaf041234319d7",
+        "savedSha256": "c078539aa049ae978436d4d56840b8f0670494cf92d0728bbaa6ba0380ad1b5b",
+        "savedWeek": 8790,
+        "rngSha256": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+      },
+      "durable": {
+        "fileSha256": "d10a8187935b12d7e5bcb5e05a01e76c0649cbf3abc176228f7842b6785730df",
+        "catalogueRevision": 3,
+        "activeCampaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+        "workingCheckpointSha256": "26b1c896bbdd69a990d8845260d5abcb11a35790f15929c9d875f96cf4dd0055",
+        "workingDecodedBytes": 85160364,
+        "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+        "stateRevision": 1,
+        "currentSha256": "8eae0916b24d15a63bdbc01215711571b92a3f5dd95e4b95f1aaf041234319d7",
+        "savedSha256": "c078539aa049ae978436d4d56840b8f0670494cf92d0728bbaa6ba0380ad1b5b",
+        "slotsEqual": false,
+        "records": [
+          {
+            "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+            "label": "Long campaign A",
+            "revision": 0,
+            "recordJsonSha256": "f95d459871b6007e9c34b8767158fc07ac89c88de64a31e007d4272305db1d8a",
+            "checkpointSha256": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+            "decodedBytes": 83903166
+          },
+          {
+            "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+            "label": "Long campaign B",
+            "revision": 0,
+            "recordJsonSha256": "383672094e79fc188fc868a7f61f9e4453e2796e3c99e4457c9fb8847041f280",
+            "checkpointSha256": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+            "decodedBytes": 83921994
+          },
+          {
+            "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "label": "Long campaign C",
+            "revision": 0,
+            "recordJsonSha256": "4b370b22c4b998c8c18a299595b58e753f6366816e600c18538118e4cbc429d6",
+            "checkpointSha256": "4efc80947e0f19a54a2eb5daeec5905f54af328ffb279cd0524030ef87d2d69b",
+            "decodedBytes": 83923468
+          }
+        ],
+        "journal": [
+          {
+            "route": "command",
+            "commandId": "engineering-6",
+            "responseSha256": "b81e6d21d577c5e39afd2558e3cbe652f3895313629b76c657c54f75fb55ed4f"
+          }
+        ],
+        "campaignReceipts": [
+          {
+            "commandId": "engineering-1",
+            "responseSha256": "315714fe93082f674d29b71ea8a26e841e7fdb40fa4dbb56205d22286c1b1011"
+          },
+          {
+            "commandId": "engineering-3",
+            "responseSha256": "3aed962a912fa7668e985fb802895d37a55f3edc83db48b629927095fff80074"
+          },
+          {
+            "commandId": "engineering-5",
+            "responseSha256": "552bd0e674ae9bee1a6401bb07c1fbc8aa4cf114484c09bd26dfec92cc5880e1"
+          }
+        ],
+        "observer": {
+          "pid": 42546,
+          "elapsedMs": 303.76675,
+          "rss": 794853376,
+          "maxRssKiB": 776224,
+          "qualification": "Separate read-only observer process. Its parse/decode memory and elapsed time are not engine-probe operation measurements.",
+          "launchToExitMs": 372.9256659999992
+        }
+      }
+    },
+    {
+      "name": "normal advance before campaign Save returned",
+      "responseSha256": "08b20c08b687238a4e4d9bad0aae154a6cd55b87b7c6a520f03e8f079ce34724",
+      "firstSeen": true,
+      "week": 8792,
+      "stateDigest": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c"
+    },
+    {
+      "name": "advance preserved named records and saved slot",
+      "live": {
+        "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+        "stateRevision": 2,
+        "week": 8792,
+        "currentSha256": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+        "savedSha256": "c078539aa049ae978436d4d56840b8f0670494cf92d0728bbaa6ba0380ad1b5b",
+        "savedWeek": 8790,
+        "rngSha256": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+      },
+      "durable": {
+        "fileSha256": "afda00ef8e9d3a2d2de88ea982209901ef4c8742e8b5edd5cc09ff629cf27ec3",
+        "catalogueRevision": 3,
+        "activeCampaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+        "workingCheckpointSha256": "8c7c289fc71682d347ac683fb5f5a0517189f663e3faa282b62eb175e3eccf76",
+        "workingDecodedBytes": 86398843,
+        "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+        "stateRevision": 2,
+        "currentSha256": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+        "savedSha256": "c078539aa049ae978436d4d56840b8f0670494cf92d0728bbaa6ba0380ad1b5b",
+        "slotsEqual": false,
+        "records": [
+          {
+            "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+            "label": "Long campaign A",
+            "revision": 0,
+            "recordJsonSha256": "f95d459871b6007e9c34b8767158fc07ac89c88de64a31e007d4272305db1d8a",
+            "checkpointSha256": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+            "decodedBytes": 83903166
+          },
+          {
+            "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+            "label": "Long campaign B",
+            "revision": 0,
+            "recordJsonSha256": "383672094e79fc188fc868a7f61f9e4453e2796e3c99e4457c9fb8847041f280",
+            "checkpointSha256": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+            "decodedBytes": 83921994
+          },
+          {
+            "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "label": "Long campaign C",
+            "revision": 0,
+            "recordJsonSha256": "4b370b22c4b998c8c18a299595b58e753f6366816e600c18538118e4cbc429d6",
+            "checkpointSha256": "4efc80947e0f19a54a2eb5daeec5905f54af328ffb279cd0524030ef87d2d69b",
+            "decodedBytes": 83923468
+          }
+        ],
+        "journal": [
+          {
+            "route": "command",
+            "commandId": "engineering-6",
+            "responseSha256": "b81e6d21d577c5e39afd2558e3cbe652f3895313629b76c657c54f75fb55ed4f"
+          },
+          {
+            "route": "command",
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-1",
+            "responseSha256": "08b20c08b687238a4e4d9bad0aae154a6cd55b87b7c6a520f03e8f079ce34724"
+          }
+        ],
+        "campaignReceipts": [
+          {
+            "commandId": "engineering-1",
+            "responseSha256": "315714fe93082f674d29b71ea8a26e841e7fdb40fa4dbb56205d22286c1b1011"
+          },
+          {
+            "commandId": "engineering-3",
+            "responseSha256": "3aed962a912fa7668e985fb802895d37a55f3edc83db48b629927095fff80074"
+          },
+          {
+            "commandId": "engineering-5",
+            "responseSha256": "552bd0e674ae9bee1a6401bb07c1fbc8aa4cf114484c09bd26dfec92cc5880e1"
+          }
+        ],
+        "observer": {
+          "pid": 42547,
+          "elapsedMs": 314.017667,
+          "rss": 802635776,
+          "maxRssKiB": 783824,
+          "qualification": "Separate read-only observer process. Its parse/decode memory and elapsed time are not engine-probe operation measurements.",
+          "launchToExitMs": 382.1386249999996
+        }
+      }
+    },
+    {
+      "name": "campaign Save returned",
+      "responseSha256": "d262c7b54b284f1ad98bd6b76652a3f77ba33c81e877dea1e51d51eb85d201d7",
+      "response": {
+        "protocolVersion": 4,
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "type": "campaignAccepted",
+        "accepted": true,
+        "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-2",
+        "originatingSessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+        "operation": "save",
+        "campaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+        "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+        "stateRevision": 2,
+        "gameWeek": 8792,
+        "stateDigest": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+        "catalogueRevision": 4,
+        "message": "Campaign saved.",
+        "processingMs": 12805.314790999997
+      }
+    },
+    {
+      "name": "campaign Save committed equal exact slots",
+      "live": {
+        "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+        "stateRevision": 2,
+        "week": 8792,
+        "currentSha256": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+        "savedSha256": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+        "savedWeek": 8792,
+        "rngSha256": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+      },
+      "durable": {
+        "fileSha256": "1134e8f0d6391866d5dcdc02314f0d9bd92105cfdf42833ce6bf3373853d31ee",
+        "catalogueRevision": 4,
+        "activeCampaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+        "workingCheckpointSha256": "e71bb436b745dd1d2f87195a662fd1965a5830865358a66bc25d83decb6300d8",
+        "workingDecodedBytes": 135992675,
+        "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+        "stateRevision": 2,
+        "currentSha256": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+        "savedSha256": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+        "slotsEqual": true,
+        "records": [
+          {
+            "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+            "label": "Long campaign A",
+            "revision": 0,
+            "recordJsonSha256": "f95d459871b6007e9c34b8767158fc07ac89c88de64a31e007d4272305db1d8a",
+            "checkpointSha256": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+            "decodedBytes": 83903166
+          },
+          {
+            "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+            "label": "Long campaign B",
+            "revision": 0,
+            "recordJsonSha256": "383672094e79fc188fc868a7f61f9e4453e2796e3c99e4457c9fb8847041f280",
+            "checkpointSha256": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+            "decodedBytes": 83921994
+          },
+          {
+            "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "label": "Long campaign C",
+            "revision": 1,
+            "recordJsonSha256": "d2435efd74aea4192a421445acedfd675c5fefab30b46bf30840313dafa8f5f8",
+            "checkpointSha256": "e71bb436b745dd1d2f87195a662fd1965a5830865358a66bc25d83decb6300d8",
+            "decodedBytes": 135992675
+          }
+        ],
+        "journal": [
+          {
+            "route": "command",
+            "commandId": "engineering-6",
+            "responseSha256": "b81e6d21d577c5e39afd2558e3cbe652f3895313629b76c657c54f75fb55ed4f"
+          },
+          {
+            "route": "command",
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-1",
+            "responseSha256": "08b20c08b687238a4e4d9bad0aae154a6cd55b87b7c6a520f03e8f079ce34724"
+          },
+          {
+            "route": "save",
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-2",
+            "responseSha256": "b97e650ebaa5483573f6400899582642cd05164b5ca13b58f13214ae7d6bf759"
+          }
+        ],
+        "campaignReceipts": [
+          {
+            "commandId": "engineering-1",
+            "responseSha256": "315714fe93082f674d29b71ea8a26e841e7fdb40fa4dbb56205d22286c1b1011"
+          },
+          {
+            "commandId": "engineering-3",
+            "responseSha256": "3aed962a912fa7668e985fb802895d37a55f3edc83db48b629927095fff80074"
+          },
+          {
+            "commandId": "engineering-5",
+            "responseSha256": "552bd0e674ae9bee1a6401bb07c1fbc8aa4cf114484c09bd26dfec92cc5880e1"
+          },
+          {
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-2",
+            "responseSha256": "d262c7b54b284f1ad98bd6b76652a3f77ba33c81e877dea1e51d51eb85d201d7"
+          }
+        ],
+        "observer": {
+          "pid": 42595,
+          "elapsedMs": 472.1665,
+          "rss": 1148354560,
+          "maxRssKiB": 1121440,
+          "qualification": "Separate read-only observer process. Its parse/decode memory and elapsed time are not engine-probe operation measurements.",
+          "launchToExitMs": 545.5607080000045
+        }
+      }
+    },
+    {
+      "name": "normal advance after campaign Save returned",
+      "responseSha256": "4e1ad9458e481de7b54fffdc4cce3fc4999c1060da9915d3858789455632ec8c",
+      "firstSeen": true,
+      "week": 8793,
+      "stateDigest": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665"
+    },
+    {
+      "name": "second advance preserved saved record",
+      "live": {
+        "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+        "stateRevision": 3,
+        "week": 8793,
+        "currentSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+        "savedSha256": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+        "savedWeek": 8792,
+        "rngSha256": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+      },
+      "durable": {
+        "fileSha256": "dc91d995e3a036f942b6b1a189caf87a1e699eda4dfd9bf9f56e2ff8be3847f2",
+        "catalogueRevision": 4,
+        "activeCampaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+        "workingCheckpointSha256": "34c35c3f5c2f5e1b82549d3c9da3d4a06f6421a4b9e0e670424b0ddf03fc9fb1",
+        "workingDecodedBytes": 137231269,
+        "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+        "stateRevision": 3,
+        "currentSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+        "savedSha256": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+        "slotsEqual": false,
+        "records": [
+          {
+            "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+            "label": "Long campaign A",
+            "revision": 0,
+            "recordJsonSha256": "f95d459871b6007e9c34b8767158fc07ac89c88de64a31e007d4272305db1d8a",
+            "checkpointSha256": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+            "decodedBytes": 83903166
+          },
+          {
+            "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+            "label": "Long campaign B",
+            "revision": 0,
+            "recordJsonSha256": "383672094e79fc188fc868a7f61f9e4453e2796e3c99e4457c9fb8847041f280",
+            "checkpointSha256": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+            "decodedBytes": 83921994
+          },
+          {
+            "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "label": "Long campaign C",
+            "revision": 1,
+            "recordJsonSha256": "d2435efd74aea4192a421445acedfd675c5fefab30b46bf30840313dafa8f5f8",
+            "checkpointSha256": "e71bb436b745dd1d2f87195a662fd1965a5830865358a66bc25d83decb6300d8",
+            "decodedBytes": 135992675
+          }
+        ],
+        "journal": [
+          {
+            "route": "command",
+            "commandId": "engineering-6",
+            "responseSha256": "b81e6d21d577c5e39afd2558e3cbe652f3895313629b76c657c54f75fb55ed4f"
+          },
+          {
+            "route": "command",
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-1",
+            "responseSha256": "08b20c08b687238a4e4d9bad0aae154a6cd55b87b7c6a520f03e8f079ce34724"
+          },
+          {
+            "route": "save",
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-2",
+            "responseSha256": "b97e650ebaa5483573f6400899582642cd05164b5ca13b58f13214ae7d6bf759"
+          },
+          {
+            "route": "command",
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-3",
+            "responseSha256": "4e1ad9458e481de7b54fffdc4cce3fc4999c1060da9915d3858789455632ec8c"
+          }
+        ],
+        "campaignReceipts": [
+          {
+            "commandId": "engineering-1",
+            "responseSha256": "315714fe93082f674d29b71ea8a26e841e7fdb40fa4dbb56205d22286c1b1011"
+          },
+          {
+            "commandId": "engineering-3",
+            "responseSha256": "3aed962a912fa7668e985fb802895d37a55f3edc83db48b629927095fff80074"
+          },
+          {
+            "commandId": "engineering-5",
+            "responseSha256": "552bd0e674ae9bee1a6401bb07c1fbc8aa4cf114484c09bd26dfec92cc5880e1"
+          },
+          {
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-2",
+            "responseSha256": "d262c7b54b284f1ad98bd6b76652a3f77ba33c81e877dea1e51d51eb85d201d7"
+          }
+        ],
+        "observer": {
+          "pid": 42608,
+          "elapsedMs": 480.30558299999996,
+          "rss": 1156562944,
+          "maxRssKiB": 1129456,
+          "qualification": "Separate read-only observer process. Its parse/decode memory and elapsed time are not engine-probe operation measurements.",
+          "launchToExitMs": 551.5610000000015
+        }
+      }
+    },
+    {
+      "name": "ordinary Save bounded rollover",
+      "before": {
+        "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+        "stateRevision": 3,
+        "week": 8793,
+        "currentSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+        "savedSha256": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+        "savedWeek": 8792,
+        "rngSha256": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+      },
+      "after": {
+        "sessionId": "9bc6d7ee-a961-4962-a27c-7adc91128d58",
+        "stateRevision": 0,
+        "week": 8793,
+        "currentSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+        "savedSha256": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+        "savedWeek": 8792,
+        "rngSha256": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+      }
+    },
+    {
+      "name": "ordinary Save returned exact bytes",
+      "q": {
+        "protocolVersion": 4,
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-5",
+        "sessionId": "9bc6d7ee-a961-4962-a27c-7adc91128d58",
+        "expectedStateRevision": 0
+      },
+      "responseSha256": "8471582fe799bdf199fd762c40411cb1385bb9abfa9c6fe88b26e4a7eb6e4f90",
+      "saveJsonSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+      "responseUtf8Bytes": 41960717,
+      "savedSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+      "week": 8793
+    },
+    {
+      "name": "ordinary Save committed exact returned state",
+      "live": {
+        "sessionId": "9bc6d7ee-a961-4962-a27c-7adc91128d58",
+        "stateRevision": 0,
+        "week": 8793,
+        "currentSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+        "savedSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+        "savedWeek": 8793,
+        "rngSha256": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+      },
+      "durable": {
+        "fileSha256": "96e21ff7d2d42ae6409ccf4c05cf7d84d16af6fabf6bdba2059ca1e23ab8e63b",
+        "catalogueRevision": 5,
+        "activeCampaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+        "workingCheckpointSha256": "6897b1a3d50afd6ad396dfeac85f78b02a32d44562fd9a958f7f582533824bd7",
+        "workingDecodedBytes": 133515493,
+        "sessionId": "9bc6d7ee-a961-4962-a27c-7adc91128d58",
+        "stateRevision": 0,
+        "currentSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+        "savedSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+        "slotsEqual": true,
+        "records": [
+          {
+            "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+            "label": "Long campaign A",
+            "revision": 0,
+            "recordJsonSha256": "f95d459871b6007e9c34b8767158fc07ac89c88de64a31e007d4272305db1d8a",
+            "checkpointSha256": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+            "decodedBytes": 83903166
+          },
+          {
+            "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+            "label": "Long campaign B",
+            "revision": 0,
+            "recordJsonSha256": "383672094e79fc188fc868a7f61f9e4453e2796e3c99e4457c9fb8847041f280",
+            "checkpointSha256": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+            "decodedBytes": 83921994
+          },
+          {
+            "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "label": "Long campaign C",
+            "revision": 2,
+            "recordJsonSha256": "55e4ef74a5a9782d239807254288d4c5e88f7a76182245e3570a5de63ed7d1df",
+            "checkpointSha256": "6897b1a3d50afd6ad396dfeac85f78b02a32d44562fd9a958f7f582533824bd7",
+            "decodedBytes": 133515493
+          }
+        ],
+        "journal": [
+          {
+            "route": "save",
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-5",
+            "responseSha256": "8471582fe799bdf199fd762c40411cb1385bb9abfa9c6fe88b26e4a7eb6e4f90"
+          }
+        ],
+        "campaignReceipts": [
+          {
+            "commandId": "engineering-1",
+            "responseSha256": "315714fe93082f674d29b71ea8a26e841e7fdb40fa4dbb56205d22286c1b1011"
+          },
+          {
+            "commandId": "engineering-3",
+            "responseSha256": "3aed962a912fa7668e985fb802895d37a55f3edc83db48b629927095fff80074"
+          },
+          {
+            "commandId": "engineering-5",
+            "responseSha256": "552bd0e674ae9bee1a6401bb07c1fbc8aa4cf114484c09bd26dfec92cc5880e1"
+          },
+          {
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-2",
+            "responseSha256": "d262c7b54b284f1ad98bd6b76652a3f77ba33c81e877dea1e51d51eb85d201d7"
+          }
+        ],
+        "observer": {
+          "pid": 42620,
+          "elapsedMs": 434.135625,
+          "rss": 985694208,
+          "maxRssKiB": 962592,
+          "qualification": "Separate read-only observer process. Its parse/decode memory and elapsed time are not engine-probe operation measurements.",
+          "launchToExitMs": 503.94950000000244
+        }
+      }
+    },
+    {
+      "name": "exact ordinary Save retry exact",
+      "responseSha256": "8471582fe799bdf199fd762c40411cb1385bb9abfa9c6fe88b26e4a7eb6e4f90",
+      "unchangedFileSha256": "96e21ff7d2d42ae6409ccf4c05cf7d84d16af6fabf6bdba2059ca1e23ab8e63b"
+    },
+    {
+      "name": "later normal advance before reopen returned",
+      "responseSha256": "bc9a340803cfbca71717f3fc158ffa6457aa7c346059f0b59a8dd16cf94d8f51",
+      "firstSeen": true,
+      "week": 8794,
+      "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+    },
+    {
+      "name": "later current with historical saved slot",
+      "live": {
+        "sessionId": "9bc6d7ee-a961-4962-a27c-7adc91128d58",
+        "stateRevision": 1,
+        "week": 8794,
+        "currentSha256": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "savedSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+        "savedWeek": 8793,
+        "rngSha256": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+      },
+      "durable": {
+        "fileSha256": "44f0728a4488acc2ec6482f3ce02a3c8998e709e7c466835f053b109bffdad6d",
+        "catalogueRevision": 5,
+        "activeCampaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+        "workingCheckpointSha256": "f8199fb3010c84f31ecd6556e4194fd0c7f4ed4f16c740b07613eff1dafc976e",
+        "workingDecodedBytes": 134753634,
+        "sessionId": "9bc6d7ee-a961-4962-a27c-7adc91128d58",
+        "stateRevision": 1,
+        "currentSha256": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "savedSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+        "slotsEqual": false,
+        "records": [
+          {
+            "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+            "label": "Long campaign A",
+            "revision": 0,
+            "recordJsonSha256": "f95d459871b6007e9c34b8767158fc07ac89c88de64a31e007d4272305db1d8a",
+            "checkpointSha256": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+            "decodedBytes": 83903166
+          },
+          {
+            "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+            "label": "Long campaign B",
+            "revision": 0,
+            "recordJsonSha256": "383672094e79fc188fc868a7f61f9e4453e2796e3c99e4457c9fb8847041f280",
+            "checkpointSha256": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+            "decodedBytes": 83921994
+          },
+          {
+            "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "label": "Long campaign C",
+            "revision": 2,
+            "recordJsonSha256": "55e4ef74a5a9782d239807254288d4c5e88f7a76182245e3570a5de63ed7d1df",
+            "checkpointSha256": "6897b1a3d50afd6ad396dfeac85f78b02a32d44562fd9a958f7f582533824bd7",
+            "decodedBytes": 133515493
+          }
+        ],
+        "journal": [
+          {
+            "route": "save",
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-5",
+            "responseSha256": "8471582fe799bdf199fd762c40411cb1385bb9abfa9c6fe88b26e4a7eb6e4f90"
+          },
+          {
+            "route": "command",
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-6",
+            "responseSha256": "bc9a340803cfbca71717f3fc158ffa6457aa7c346059f0b59a8dd16cf94d8f51"
+          }
+        ],
+        "campaignReceipts": [
+          {
+            "commandId": "engineering-1",
+            "responseSha256": "315714fe93082f674d29b71ea8a26e841e7fdb40fa4dbb56205d22286c1b1011"
+          },
+          {
+            "commandId": "engineering-3",
+            "responseSha256": "3aed962a912fa7668e985fb802895d37a55f3edc83db48b629927095fff80074"
+          },
+          {
+            "commandId": "engineering-5",
+            "responseSha256": "552bd0e674ae9bee1a6401bb07c1fbc8aa4cf114484c09bd26dfec92cc5880e1"
+          },
+          {
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-2",
+            "responseSha256": "d262c7b54b284f1ad98bd6b76652a3f77ba33c81e877dea1e51d51eb85d201d7"
+          }
+        ],
+        "observer": {
+          "pid": 42621,
+          "elapsedMs": 470.726625,
+          "rss": 1139032064,
+          "maxRssKiB": 1112336,
+          "qualification": "Separate read-only observer process. Its parse/decode memory and elapsed time are not engine-probe operation measurements.",
+          "launchToExitMs": 542.8161660000042
+        }
+      }
+    },
+    {
+      "name": "exact ordinary Save retry after later tick exact",
+      "responseSha256": "8471582fe799bdf199fd762c40411cb1385bb9abfa9c6fe88b26e4a7eb6e4f90",
+      "unchangedFileSha256": "44f0728a4488acc2ec6482f3ce02a3c8998e709e7c466835f053b109bffdad6d"
+    },
+    {
+      "name": "reopened unequal slots and unchanged records",
+      "live": {
+        "sessionId": "9bc6d7ee-a961-4962-a27c-7adc91128d58",
+        "stateRevision": 1,
+        "week": 8794,
+        "currentSha256": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "savedSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+        "savedWeek": 8793,
+        "rngSha256": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+      },
+      "durable": {
+        "fileSha256": "44f0728a4488acc2ec6482f3ce02a3c8998e709e7c466835f053b109bffdad6d",
+        "catalogueRevision": 5,
+        "activeCampaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+        "workingCheckpointSha256": "f8199fb3010c84f31ecd6556e4194fd0c7f4ed4f16c740b07613eff1dafc976e",
+        "workingDecodedBytes": 134753634,
+        "sessionId": "9bc6d7ee-a961-4962-a27c-7adc91128d58",
+        "stateRevision": 1,
+        "currentSha256": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "savedSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+        "slotsEqual": false,
+        "records": [
+          {
+            "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+            "label": "Long campaign A",
+            "revision": 0,
+            "recordJsonSha256": "f95d459871b6007e9c34b8767158fc07ac89c88de64a31e007d4272305db1d8a",
+            "checkpointSha256": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+            "decodedBytes": 83903166
+          },
+          {
+            "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+            "label": "Long campaign B",
+            "revision": 0,
+            "recordJsonSha256": "383672094e79fc188fc868a7f61f9e4453e2796e3c99e4457c9fb8847041f280",
+            "checkpointSha256": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+            "decodedBytes": 83921994
+          },
+          {
+            "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "label": "Long campaign C",
+            "revision": 2,
+            "recordJsonSha256": "55e4ef74a5a9782d239807254288d4c5e88f7a76182245e3570a5de63ed7d1df",
+            "checkpointSha256": "6897b1a3d50afd6ad396dfeac85f78b02a32d44562fd9a958f7f582533824bd7",
+            "decodedBytes": 133515493
+          }
+        ],
+        "journal": [
+          {
+            "route": "save",
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-5",
+            "responseSha256": "8471582fe799bdf199fd762c40411cb1385bb9abfa9c6fe88b26e4a7eb6e4f90"
+          },
+          {
+            "route": "command",
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-6",
+            "responseSha256": "bc9a340803cfbca71717f3fc158ffa6457aa7c346059f0b59a8dd16cf94d8f51"
+          }
+        ],
+        "campaignReceipts": [
+          {
+            "commandId": "engineering-1",
+            "responseSha256": "315714fe93082f674d29b71ea8a26e841e7fdb40fa4dbb56205d22286c1b1011"
+          },
+          {
+            "commandId": "engineering-3",
+            "responseSha256": "3aed962a912fa7668e985fb802895d37a55f3edc83db48b629927095fff80074"
+          },
+          {
+            "commandId": "engineering-5",
+            "responseSha256": "552bd0e674ae9bee1a6401bb07c1fbc8aa4cf114484c09bd26dfec92cc5880e1"
+          },
+          {
+            "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-2",
+            "responseSha256": "d262c7b54b284f1ad98bd6b76652a3f77ba33c81e877dea1e51d51eb85d201d7"
+          }
+        ],
+        "observer": {
+          "pid": 42655,
+          "elapsedMs": 472.47454100000004,
+          "rss": 1139228672,
+          "maxRssKiB": 1112528,
+          "qualification": "Separate read-only observer process. Its parse/decode memory and elapsed time are not engine-probe operation measurements.",
+          "launchToExitMs": 546.2063340000022
+        }
+      }
+    },
+    {
+      "name": "exact ordinary Save retry after reopen exact",
+      "responseSha256": "8471582fe799bdf199fd762c40411cb1385bb9abfa9c6fe88b26e4a7eb6e4f90",
+      "unchangedFileSha256": "44f0728a4488acc2ec6482f3ce02a3c8998e709e7c466835f053b109bffdad6d"
+    }
+  ],
+  "errors": [],
+  "interrupted": false,
+  "readiness": [
+    {
+      "operation": "cold recovery through production locked store",
+      "firstSnapshotMs": 378.047958000001,
+      "authority": {
+        "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+        "stateRevision": 1,
+        "gameWeek": 8791,
+        "stateDigest": "8eae0916b24d15a63bdbc01215711571b92a3f5dd95e4b95f1aaf041234319d7",
+        "payloadBytes": 1108350
+      },
+      "qualification": "Coordinator recovery plus first snapshot; excludes Node process launch and supervisor/client handshake"
+    },
+    {
+      "operation": "reopen production locked store and coordinator",
+      "firstSnapshotMs": 357.4879590000055,
+      "authority": {
+        "sessionId": "9bc6d7ee-a961-4962-a27c-7adc91128d58",
+        "stateRevision": 1,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "payloadBytes": 1108350
+      },
+      "qualification": "Coordinator recovery plus first snapshot; excludes Node process launch and supervisor/client handshake"
+    }
+  ],
+  "sourceChangesAfter": [],
+  "final": {
+    "durable": {
+      "fileSha256": "44f0728a4488acc2ec6482f3ce02a3c8998e709e7c466835f053b109bffdad6d",
+      "catalogueRevision": 5,
+      "activeCampaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "workingCheckpointSha256": "f8199fb3010c84f31ecd6556e4194fd0c7f4ed4f16c740b07613eff1dafc976e",
+      "workingDecodedBytes": 134753634,
+      "sessionId": "9bc6d7ee-a961-4962-a27c-7adc91128d58",
+      "stateRevision": 1,
+      "currentSha256": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+      "savedSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+      "slotsEqual": false,
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "recordJsonSha256": "f95d459871b6007e9c34b8767158fc07ac89c88de64a31e007d4272305db1d8a",
+          "checkpointSha256": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+          "decodedBytes": 83903166
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "recordJsonSha256": "383672094e79fc188fc868a7f61f9e4453e2796e3c99e4457c9fb8847041f280",
+          "checkpointSha256": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+          "decodedBytes": 83921994
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 2,
+          "recordJsonSha256": "55e4ef74a5a9782d239807254288d4c5e88f7a76182245e3570a5de63ed7d1df",
+          "checkpointSha256": "6897b1a3d50afd6ad396dfeac85f78b02a32d44562fd9a958f7f582533824bd7",
+          "decodedBytes": 133515493
+        }
+      ],
+      "journal": [
+        {
+          "route": "save",
+          "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-5",
+          "responseSha256": "8471582fe799bdf199fd762c40411cb1385bb9abfa9c6fe88b26e4a7eb6e4f90"
+        },
+        {
+          "route": "command",
+          "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-6",
+          "responseSha256": "bc9a340803cfbca71717f3fc158ffa6457aa7c346059f0b59a8dd16cf94d8f51"
+        }
+      ],
+      "campaignReceipts": [
+        {
+          "commandId": "engineering-1",
+          "responseSha256": "315714fe93082f674d29b71ea8a26e841e7fdb40fa4dbb56205d22286c1b1011"
+        },
+        {
+          "commandId": "engineering-3",
+          "responseSha256": "3aed962a912fa7668e985fb802895d37a55f3edc83db48b629927095fff80074"
+        },
+        {
+          "commandId": "engineering-5",
+          "responseSha256": "552bd0e674ae9bee1a6401bb07c1fbc8aa4cf114484c09bd26dfec92cc5880e1"
+        },
+        {
+          "commandId": "87c30fdd-7434-4793-a37d-ca7a7b7b4d6f-2",
+          "responseSha256": "d262c7b54b284f1ad98bd6b76652a3f77ba33c81e877dea1e51d51eb85d201d7"
+        }
+      ],
+      "observer": {
+        "pid": 42655,
+        "elapsedMs": 472.47454100000004,
+        "rss": 1139228672,
+        "maxRssKiB": 1112528,
+        "qualification": "Separate read-only observer process. Its parse/decode memory and elapsed time are not engine-probe operation measurements.",
+        "launchToExitMs": 546.2063340000022
+      },
+      "week": 8794,
+      "savedWeek": 8793,
+      "rngSha256": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+    },
+    "allInactiveRecordBytesPreserved": true,
+    "exactReceiptThroughLaterTickAndReopen": true,
+    "originalPreserved": true
+  },
+  "finish": "2026-09-10T17:58:51.194Z",
+  "memory": {
+    "rss": 4181049344,
+    "heapTotal": 893337600,
+    "heapUsed": 820764032,
+    "external": 72963007,
+    "arrayBuffers": 68991051,
+    "processMaxRssKiB": 5509024,
+    "maximumSampledRssBytes": 4181049344,
+    "processHighWaterRssKiB": 5509024,
+    "qualification": "OS high-water and periodic samples are for this instrumented probe process only; no retained comparison save strings. Read-only disk decoding runs in a separate observer process with its own RSS. Neither value is packaged engine+Unity RSS."
+  }
+}

@@ -1,0 +1,1881 @@
+{
+  "schema": "p12a-native-corrective-review-checkpoint-v1",
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "reviewer": "/root/recovered_product_evidence",
+  "atUtc": "2026-09-10T17:49:58.615723+00:00",
+  "phase": "Same Gate A corrective native replay; no additional critique round",
+  "status": "PARTIAL - native11 ongoing",
+  "evidence": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z",
+  "bindings": {
+    "manifest": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/build-manifest.json",
+    "manifestSha256": "82587535fb99fbe67359deea7756d2f8daec9dbba7b5dbf36baa11babeefe3c9",
+    "manifestMatchesLaunch": true,
+    "launchBinding": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/launch-binding.json",
+    "launchBindingSha256": "f0de50447f4bc085a63493dbb8bf7514cdfd0dc205502f06fbb1ddc84964e8ea",
+    "playerExecutable": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+    "playerExecutableSha256Observed": "f305b6f9af830a401f497238bd8112b291e1620f8be893aab3c615cd0b95360c",
+    "playerExecutableMatchesManifestAndLaunch": true,
+    "unitySource": {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+      "sha": "c7fbd87b43d13e4c0244d67380a9ee2489ddc382",
+      "branch": "wip/p12a-living-hollywood-01-client",
+      "dirty": false
+    },
+    "typescriptSource": {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+      "sha": "a34698a1b009561737dc1e0262fd9b42abbf86ce",
+      "branch": "wip/p12a-living-hollywood-01-ts",
+      "dirty": false,
+      "engineBundleSha256": "fe73eb0f6f2a8ff1632a2d05a8952a2739c7ea7875d3ecf5b1295a0598730f02"
+    },
+    "engineSha256FromManifestAndLaunch": "fe73eb0f6f2a8ff1632a2d05a8952a2739c7ea7875d3ecf5b1295a0598730f02",
+    "engineBindingMatches": true,
+    "relaunchBinding": {
+      "previousReport": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/report.json",
+      "previousReportSha256": "14b9988b7f4e9fa162b394c44e34f3e4e06361ee94f887fd648b55bbfefeff44",
+      "checkpointSha256": "daaefd792b8262bf8ed6485c00d9a67d891473dff0f138191cc89cc11151d728"
+    }
+  },
+  "captureResults": [
+    {
+      "capture": 1,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/001-map.json",
+      "mapSha256": "9fa457b3301c77af2d66c1de601b10051acfde2540309edd094675645a925388",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/001-world-selectable-admin.png",
+      "screenshotSha256": "4f6f432780b7376a997a9f527d51190515b2d6307d07ae3a5eeb8ac6b737e400",
+      "screenshotVisuallyInspected": true,
+      "authority": {
+        "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "stateRevision": 6,
+        "gameWeek": 0,
+        "stateDigest": "300c60bb1498d77e44880f4ca26f0a7eac5cbd9f359cac226c9a9fb69f6ce13d",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 28,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "admin",
+      "elements": [
+        {
+          "name": "world-selectable-applicant-t-act-02",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Errol Sterling",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1121.3,
+            56.1,
+            26.8,
+            29.6
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-12",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Adolphe Chandra",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1090.4,
+            6.7,
+            30.3,
+            33.6
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-26",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Joan Cortland",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1175.3,
+            75.9,
+            29.9,
+            32.1
+          ]
+        },
+        {
+          "name": "founding-review-studio",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "REVIEW FOUNDING",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            868,
+            182,
+            544,
+            54
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:44:16.602Z",
+        "action": "click",
+        "name": "world-selectable-admin",
+        "binding": {
+          "name": "world-selectable-admin",
+          "text": "Administration",
+          "canvas": [
+            347.09999999999997,
+            168.60000000000002
+          ],
+          "point": {
+            "x": 173.54999999999998,
+            "y": 426.7
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 231,
+          "frame": 3465,
+          "mapAgeMs": 2.474853515625
+        }
+      }
+    },
+    {
+      "capture": 2,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/002-map.json",
+      "mapSha256": "8a6296c7e19d617535db562f8ea956a1c804f2d865be7ba523de50276a83f76f",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/002-founding-review-studio.png",
+      "screenshotSha256": "7f82d0e5d4863c27c9530baa0b8ee471f4722f4a33b5aa24a1a474c3074b7121",
+      "screenshotVisuallyInspected": true,
+      "authority": {
+        "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "stateRevision": 6,
+        "gameWeek": 0,
+        "stateDigest": "300c60bb1498d77e44880f4ca26f0a7eac5cbd9f359cac226c9a9fb69f6ce13d",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 37,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "admin",
+      "elements": [
+        {
+          "name": "world-selectable-applicant-t-act-02",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Errol Sterling",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1121.3,
+            56.1,
+            26.8,
+            29.6
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-12",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Adolphe Chandra",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1090.4,
+            6.8,
+            30.3,
+            33.6
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-26",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Joan Cortland",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1175.3,
+            75.9,
+            29.9,
+            32.1
+          ]
+        },
+        {
+          "name": "founding-confirm-studio",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "FOUND THE STUDIO",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            868,
+            353,
+            544,
+            58
+          ]
+        },
+        {
+          "name": "founding-cancel-review",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Not yet",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            868,
+            182,
+            544,
+            44
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:44:28.439Z",
+        "action": "click",
+        "name": "founding-review-studio",
+        "binding": {
+          "name": "founding-review-studio",
+          "text": "REVIEW FOUNDING",
+          "canvas": [
+            1140,
+            209
+          ],
+          "point": {
+            "x": 570,
+            "y": 406.5
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 316,
+          "frame": 4740,
+          "mapAgeMs": 1.477783203125
+        }
+      }
+    },
+    {
+      "capture": 3,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/003-map.json",
+      "mapSha256": "a6ee107a21dbc1251be7ea045c1b0ca94ef5773a7cb76ea963e35c14af872339",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/003-founding-confirm-studio.png",
+      "screenshotSha256": "fc7480a4d6bbaa3544dc4a6639dacd1ce596b84296903f04c5e77cb8ac4b7a2f",
+      "screenshotVisuallyInspected": false,
+      "authority": {
+        "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "stateRevision": 6,
+        "gameWeek": 0,
+        "stateDigest": "300c60bb1498d77e44880f4ca26f0a7eac5cbd9f359cac226c9a9fb69f6ce13d",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 51,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "admin",
+      "elements": [
+        {
+          "name": "world-selectable-applicant-t-act-12",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Adolphe Chandra",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1090.4,
+            6.7,
+            30.3,
+            33.6
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-02",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Errol Sterling",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1121.3,
+            56.1,
+            26.8,
+            29.6
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-26",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Joan Cortland",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1175.3,
+            75.9,
+            29.9,
+            32.1
+          ]
+        },
+        {
+          "name": "founding-cancel-review",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Not yet",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            868,
+            182,
+            544,
+            44
+          ]
+        },
+        {
+          "name": "founding-confirm-studio",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "FOUND THE STUDIO",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            868,
+            353,
+            544,
+            58
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:44:45.770Z",
+        "action": "click",
+        "name": "founding-confirm-studio",
+        "binding": {
+          "name": "founding-confirm-studio",
+          "text": "FOUND THE STUDIO",
+          "canvas": [
+            1140,
+            382
+          ],
+          "point": {
+            "x": 570,
+            "y": 320
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 441,
+          "frame": 6615,
+          "mapAgeMs": 2.2470703125
+        }
+      }
+    },
+    {
+      "capture": 4,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/004-map.json",
+      "mapSha256": "8c2861ade1111e3ed12fd5f7fc16843c7b6f885fae0ad07c7eba27570d88bd2d",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/004-observe.png",
+      "screenshotSha256": "444a36bf29bedbb0dcdb13e5eb6bd516c83f004a2f5e7782ec7f1f0ddaf2d6db",
+      "screenshotVisuallyInspected": true,
+      "authority": {
+        "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "stateRevision": 7,
+        "gameWeek": 0,
+        "stateDigest": "0258b9f59a4f7deea520d21ac041808f7618083de3a3780357a5e45977f55c20",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 51,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "",
+      "elements": [],
+      "step": {
+        "at": "2026-09-10T17:44:46.732Z",
+        "action": "observe",
+        "name": null,
+        "binding": null
+      }
+    },
+    {
+      "capture": 6,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/006-map.json",
+      "mapSha256": "bfb7bca78e5a9404ef76b86132d8d8b7a2fe1df3143ae98c948739f517cd139c",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/006-studio-clock-pause.png",
+      "screenshotSha256": "b4457067c4af418299b7345888337b47dd1dd83f69ffabc158969e42600013cf",
+      "screenshotVisuallyInspected": false,
+      "authority": {
+        "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "stateRevision": 8,
+        "gameWeek": 1,
+        "stateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 70,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "",
+      "elements": [],
+      "step": {
+        "at": "2026-09-10T17:45:11.024Z",
+        "action": "click",
+        "name": "studio-clock-pause",
+        "binding": {
+          "name": "studio-clock-pause",
+          "text": "Pause",
+          "canvas": [
+            692.5,
+            862
+          ],
+          "point": {
+            "x": 346.25,
+            "y": 80
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 622,
+          "frame": 9330,
+          "mapAgeMs": 4.15771484375
+        }
+      }
+    },
+    {
+      "capture": 8,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/008-map.json",
+      "mapSha256": "548d3d0ec00ffff1bc23eb0515136ced7b7821b090f20dfa0f65023e397febaf",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/008-studio-menu-save.png",
+      "screenshotSha256": "fd28d5dbb661607c42487e94d32bdaee9135b57f24314b299ebe11fb4b810837",
+      "screenshotVisuallyInspected": false,
+      "authority": {
+        "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "stateRevision": 8,
+        "gameWeek": 1,
+        "stateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 83,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "",
+      "elements": [
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:45:28.061Z",
+        "action": "click",
+        "name": "studio-menu-save",
+        "binding": {
+          "name": "studio-menu-save",
+          "text": "Save active campaign",
+          "canvas": [
+            532,
+            347.2
+          ],
+          "point": {
+            "x": 266,
+            "y": 337.4
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 741,
+          "frame": 11115,
+          "mapAgeMs": 28.750244140625
+        }
+      }
+    },
+    {
+      "capture": 9,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/009-map.json",
+      "mapSha256": "23c5a2bbc4705731840de0c6e534f15126fa62cf4c2d35d6107dd05d5258a103",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/009-observe.png",
+      "screenshotSha256": "6f2571d6de0334b093dbacbfa5a3c7fe33b24943cee019eaeaf68ed61a4982df",
+      "screenshotVisuallyInspected": false,
+      "authority": {
+        "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+        "stateRevision": 8,
+        "gameWeek": 1,
+        "stateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 83,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "",
+      "elements": [
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:45:29.442Z",
+        "action": "observe",
+        "name": null,
+        "binding": null
+      }
+    },
+    {
+      "capture": 13,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/013-map.json",
+      "mapSha256": "63dd629d967699f6e69b022bad05b8b9fb2708d1388e03e8272de63fa08320d8",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/013-campaign-name-confirm.png",
+      "screenshotSha256": "2984eabc650227089c19e612dcf7046c69f0e05f8e724175b9f2e234e73eb0a2",
+      "screenshotVisuallyInspected": false,
+      "authority": {
+        "sessionId": "2a0d7106-b695-473a-b68d-849117b5877f",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "c9f7b9742efd0a83cb98372d3775c1b2699225027282a70c3e413e189a66309f",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 105,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "",
+      "elements": [
+        {
+          "name": "world-selectable-applicant-t-act-18",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Boris Ellery",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1090.2,
+            6.6,
+            30.5,
+            33.9
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "\u2713 Campaign B   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-24",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Gloria Voss",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1121,
+            56,
+            27.9,
+            31
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-10",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Norma Delgado",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1175.3,
+            75.8,
+            30.2,
+            32.4
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:45:56.518Z",
+        "action": "click",
+        "name": "campaign-name-confirm",
+        "binding": {
+          "name": "campaign-name-confirm",
+          "text": "Continue",
+          "canvas": [
+            720,
+            520
+          ],
+          "point": {
+            "x": 360,
+            "y": 251
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 939,
+          "frame": 14085,
+          "mapAgeMs": 0.518310546875
+        }
+      }
+    },
+    {
+      "capture": 14,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/014-map.json",
+      "mapSha256": "0f863228bf0a7707668182e8f5d1039f6a0eb8050b49a2266a9e350b192c30e4",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/014-observe.png",
+      "screenshotSha256": "7527bcdbb168e3e7b15dd60394cd943ac6f9315b1ae0e2cb07dca7e8d6bcd2eb",
+      "screenshotVisuallyInspected": false,
+      "authority": {
+        "sessionId": "2a0d7106-b695-473a-b68d-849117b5877f",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "c9f7b9742efd0a83cb98372d3775c1b2699225027282a70c3e413e189a66309f",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 106,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "",
+      "elements": [
+        {
+          "name": "world-selectable-applicant-t-act-10",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Norma Delgado",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1175.3,
+            75.9,
+            30.2,
+            32.4
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-24",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Gloria Voss",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1121,
+            56,
+            27.9,
+            31
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "\u2713 Campaign B   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-18",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Boris Ellery",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1090.2,
+            6.6,
+            30.5,
+            33.9
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:45:56.803Z",
+        "action": "observe",
+        "name": null,
+        "binding": null
+      }
+    },
+    {
+      "capture": 18,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/018-map.json",
+      "mapSha256": "388435240463ba57abf7a6958ea3f50d8d60ec4149d41358e01db843229b55ec",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/018-campaign-name-confirm.png",
+      "screenshotSha256": "7bdec47a40ad72f7763d26725bff6ed3da6b6eb5c57f61eb7c681180c7deb153",
+      "screenshotVisuallyInspected": false,
+      "authority": {
+        "sessionId": "8275e2ee-90a3-46c9-bdaa-eb3c37fe3306",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 156,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "",
+      "elements": [
+        {
+          "name": "world-selectable-applicant-t-act-10",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Adolphe Chandra",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1090.2,
+            6.5,
+            30.7,
+            34.1
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-02",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Errol Winters",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1175.6,
+            76.1,
+            29.2,
+            31.2
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-26",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Ramon Castellano",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1121.2,
+            56.1,
+            27.4,
+            30.4
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "\u2713 Campaign C   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:46:58.873Z",
+        "action": "click",
+        "name": "campaign-name-confirm",
+        "binding": {
+          "name": "campaign-name-confirm",
+          "text": "Continue",
+          "canvas": [
+            720,
+            520
+          ],
+          "point": {
+            "x": 360,
+            "y": 251
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 1378,
+          "frame": 20670,
+          "mapAgeMs": 11.82373046875
+        }
+      }
+    },
+    {
+      "capture": 19,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/019-map.json",
+      "mapSha256": "f5fbfd43494eecdc129ab6beb0901773290e4b533a106d704ade3ce441f16da1",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/019-observe.png",
+      "screenshotSha256": "a641eb42541f0e107a6e4163b006020cd59b54e3c92a9041cb808d9315c02fd5",
+      "screenshotVisuallyInspected": false,
+      "authority": {
+        "sessionId": "8275e2ee-90a3-46c9-bdaa-eb3c37fe3306",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 157,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "",
+      "elements": [
+        {
+          "name": "world-selectable-applicant-t-act-02",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Errol Winters",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1175.6,
+            76.2,
+            29.2,
+            31.2
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-10",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Adolphe Chandra",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1090.2,
+            6.6,
+            30.7,
+            34.1
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "\u2713 Campaign C   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-26",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Ramon Castellano",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1121.2,
+            56.1,
+            27.4,
+            30.4
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:46:59.783Z",
+        "action": "observe",
+        "name": null,
+        "binding": null
+      }
+    },
+    {
+      "capture": 20,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/020-map.json",
+      "mapSha256": "33dc32269a90672c72447ec509ec85a65852fac73f1b82ea8f0704f1910f776f",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/020-campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef.png",
+      "screenshotSha256": "a9f28a958005eb3635d2321bbcb6d1b409005739b64d018bcabc9bb7d74056cb",
+      "screenshotVisuallyInspected": false,
+      "authority": {
+        "sessionId": "8275e2ee-90a3-46c9-bdaa-eb3c37fe3306",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 167,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "",
+      "elements": [
+        {
+          "name": "world-selectable-applicant-t-act-10",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Adolphe Chandra",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1090.2,
+            6.6,
+            30.7,
+            34.1
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-02",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Errol Winters",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1175.6,
+            76.1,
+            29.2,
+            31.2
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-26",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Ramon Castellano",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1121.2,
+            56.1,
+            27.4,
+            30.4
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "\u2713 Campaign B   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:47:12.424Z",
+        "action": "click",
+        "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+        "binding": {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 1",
+          "canvas": [
+            706,
+            628
+          ],
+          "point": {
+            "x": 353,
+            "y": 197
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 1474,
+          "frame": 22110,
+          "mapAgeMs": 1.869873046875
+        }
+      }
+    },
+    {
+      "capture": 21,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/021-map.json",
+      "mapSha256": "c7bbcc0265c90114ad87785d7c62fe0f873244c6e5ca7314dacb6c1b1c0e92ee",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/021-studio-menu-load.png",
+      "screenshotSha256": "1f859c5c713da90cbd4cf50f5959c8a067070315e15514def907ac07d0cb87aa",
+      "screenshotVisuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "c9f7b9742efd0a83cb98372d3775c1b2699225027282a70c3e413e189a66309f",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 170,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "",
+      "elements": [
+        {
+          "name": "world-selectable-applicant-t-act-10",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Norma Delgado",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1175.3,
+            75.8,
+            30.2,
+            32.4
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-24",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Gloria Voss",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1121,
+            56,
+            27.9,
+            31
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "\u2713 Campaign B   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-18",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Boris Ellery",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1090.2,
+            6.6,
+            30.5,
+            33.9
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:47:14.903Z",
+        "action": "click",
+        "name": "studio-menu-load",
+        "binding": {
+          "name": "studio-menu-load",
+          "text": "Load selected",
+          "canvas": [
+            908,
+            347.2
+          ],
+          "point": {
+            "x": 454,
+            "y": 337.4
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 1491,
+          "frame": 22365,
+          "mapAgeMs": 5.6943359375
+        }
+      }
+    },
+    {
+      "capture": 22,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/022-map.json",
+      "mapSha256": "1177760a9ffa8f18400efa1b3e4e0d308718fda90320f3fcb6eb16a7d4bc778b",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/022-observe.png",
+      "screenshotSha256": "2c11e88ae9480ca4f3cdcb40d160fbef54080041588c24ff3e6b1ee38ec2a4d0",
+      "screenshotVisuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "c9f7b9742efd0a83cb98372d3775c1b2699225027282a70c3e413e189a66309f",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 171,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "",
+      "elements": [
+        {
+          "name": "world-selectable-applicant-t-act-10",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Norma Delgado",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1175.3,
+            75.9,
+            30.2,
+            32.4
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-24",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Gloria Voss",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1121,
+            56,
+            27.9,
+            31
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "\u2713 Campaign B   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-18",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Boris Ellery",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1090.2,
+            6.6,
+            30.5,
+            33.9
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:47:15.884Z",
+        "action": "observe",
+        "name": null,
+        "binding": null
+      }
+    },
+    {
+      "capture": 23,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/023-map.json",
+      "mapSha256": "4ed7b0a6e1f8e240259bd4dd928637db02bcc7106eeb95b3821f5a942a43851d",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/023-studio-menu-resume.png",
+      "screenshotSha256": "0eb4d6d8eb95aec932c88c8e2ea543cdc42ab1ea73c6b1cf7e16039f502ab765",
+      "screenshotVisuallyInspected": false,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "c9f7b9742efd0a83cb98372d3775c1b2699225027282a70c3e413e189a66309f",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 174,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "",
+      "elements": [
+        {
+          "name": "world-selectable-applicant-t-act-10",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Norma Delgado",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1175.3,
+            75.8,
+            30.2,
+            32.4
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-24",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Gloria Voss",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1121,
+            56,
+            27.9,
+            31
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-18",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Boris Ellery",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1090.3,
+            6.6,
+            30.5,
+            33.9
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:47:19.611Z",
+        "action": "click",
+        "name": "studio-menu-resume",
+        "binding": {
+          "name": "studio-menu-resume",
+          "text": "Resume",
+          "canvas": [
+            470.65,
+            744
+          ],
+          "point": {
+            "x": 235.325,
+            "y": 139
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 1523,
+          "frame": 22845,
+          "mapAgeMs": 9.32861328125
+        }
+      }
+    },
+    {
+      "capture": 24,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/024-map.json",
+      "mapSha256": "18d41303dd69d52349815700380099cb7155c338527b599748d675485994cdc4",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/024-world-selectable-applicant-t-act-10.png",
+      "screenshotSha256": "6bba0af14883135112c1de256043ad1c42784d0357cdd3a443ca3a0c1561acce",
+      "screenshotVisuallyInspected": true,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "c9f7b9742efd0a83cb98372d3775c1b2699225027282a70c3e413e189a66309f",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 176,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "applicant-t-act-10",
+      "elements": [
+        {
+          "name": "world-selectable-applicant-t-act-24",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Gloria Voss",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1121,
+            56,
+            27.9,
+            31
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-10",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Norma Delgado",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1175.3,
+            75.9,
+            30.2,
+            32.4
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-18",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Boris Ellery",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1090.2,
+            6.6,
+            30.5,
+            33.9
+          ]
+        },
+        {
+          "name": "founding-review-offer",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Review Offer",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            637.6,
+            182,
+            774.4,
+            52
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:47:22.103Z",
+        "action": "click",
+        "name": "world-selectable-applicant-t-act-10",
+        "binding": {
+          "name": "world-selectable-applicant-t-act-10",
+          "text": "Norma Delgado",
+          "canvas": [
+            1190.4,
+            92.10000000000001
+          ],
+          "point": {
+            "x": 595.2,
+            "y": 464.95
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 1540,
+          "frame": 23100,
+          "mapAgeMs": 34.12548828125
+        }
+      }
+    },
+    {
+      "capture": 25,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/025-map.json",
+      "mapSha256": "7f0d50f88e80260727c2a183b1661e52e1a69161ec70a45a53ce7a619622d58c",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/025-founding-review-offer.png",
+      "screenshotSha256": "e16ce846a160567ac9964139124c16f35a1065c0854f8200e48abfe843d1848e",
+      "screenshotVisuallyInspected": true,
+      "authority": {
+        "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "c9f7b9742efd0a83cb98372d3775c1b2699225027282a70c3e413e189a66309f",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 186,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "selected": "applicant-t-act-10",
+      "elements": [
+        {
+          "name": "world-selectable-applicant-t-act-10",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Norma Delgado",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1175.3,
+            75.9,
+            30.2,
+            32.4
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-24",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Gloria Voss",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1121,
+            56,
+            27.9,
+            31
+          ]
+        },
+        {
+          "name": "founding-confirm-sign",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Sign Norma Delgado \u2014 104-week contract",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            810.4,
+            278,
+            601.6,
+            56
+          ]
+        },
+        {
+          "name": "founding-cancel-review",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Not now",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            810.4,
+            182,
+            601.6,
+            44
+          ]
+        },
+        {
+          "name": "world-selectable-applicant-t-act-18",
+          "type": "IMGUI",
+          "classes": "",
+          "text": "Boris Ellery",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1090.2,
+            6.6,
+            30.5,
+            33.9
+          ]
+        }
+      ],
+      "step": {
+        "at": "2026-09-10T17:47:34.437Z",
+        "action": "click",
+        "name": "founding-review-offer",
+        "binding": {
+          "name": "founding-review-offer",
+          "text": "Review Offer",
+          "canvas": [
+            1024.8,
+            208
+          ],
+          "point": {
+            "x": 512.4,
+            "y": 407
+          },
+          "inputBinding": {
+            "ok": true,
+            "frontmostPid": "38457",
+            "window": {
+              "id": 33121,
+              "x": 0,
+              "y": 33,
+              "w": 720,
+              "h": 478
+            },
+            "osHeld": {
+              "heldKeys": [],
+              "heldButtons": [],
+              "clean": true
+            },
+            "stuck": []
+          },
+          "mapGeneration": 1627,
+          "frame": 24405,
+          "mapAgeMs": 20.849609375
+        }
+      }
+    }
+  ],
+  "verifiedRechecks": [
+    {
+      "obstacle": "Founding review clipping and inaccessible final control",
+      "status": "Native replay corrected at observed 1440x900 canvas",
+      "evidence": "001 actual image shows six hires, totals and REVIEW FOUNDING entirely inside card. Exact control click002 opens full confirmation with separate FOUND THE STUDIO. Click003 followed by authoritative rev7 map004 and operational lot/roster image004.",
+      "limits": "Frame003 alone remains rev6 at the immediate capture; map004 is the completed authoritative result. This does not prove that the click specifically entered the new deferred slot during read polling, or independently certify all viewport tiers."
+    },
+    {
+      "obstacle": "Campaign/session replacement at equal revision leaves stale gate people and no matching card",
+      "status": "Native same-running-client B0 to C0 to loaded B0 replay corrected",
+      "evidence": "014 B session2a0d7106-b695-473a-b68d-849117b5877f rev0 and 019 C session8275e2ee-90a3-46c9-bdaa-eb3c37fe3306 rev0 show shared t-act-10 Norma Delgado then Adolphe Chandra. Load021/observe022 yields new session4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1 rev0 and restores B exact digest c9f7b9742efd0a83cb98372d3775c1b2699225027282a70c3e413e189a66309f. Actual body click024 opens Norma portrait/offer, review click025 opens full named104-week contract.",
+      "limits": "C identity is corroborated by current map behind menu, not a C portrait closeup. Actual B body/card after return is visually inspected."
+    },
+    {
+      "obstacle": "Stale per-entry world geometry survives body removal",
+      "status": "Relevant captured entries withdraw/repopulate",
+      "evidence": "Before founding maps000/001 contain three remaining A arrivals; map004 contains zero applicant entries. B014 has exactly t-act-10/24/18, C019 exactly t-act-02/10/26, loaded B022 exactly t-act-10/24/18. No accumulated prior applicant entries in these captures."
+    }
+  ],
+  "inputBoundary": {
+    "admission": {
+      "locked": false,
+      "rootLocked": false,
+      "sessionScreenLocked": false,
+      "sessionLockMarkerPresent": false,
+      "idleSeconds": 981.207413833
+    },
+    "start": {
+      "heldKeys": [],
+      "heldButtons": [],
+      "clean": true
+    },
+    "allReviewedClickBindings": true,
+    "finalization": "NOT CLAIMED: native11 is still in progress; no final foreign-event/held-input/clean-Quit result reviewed."
+  },
+  "limitations": [
+    "No new source edits, test/build jobs, server activity, or native input by reviewer.",
+    "No full Gate A completion: live post-start lawful film/project to credits and employer navigation still pending.",
+    "Three independently named campaigns are visible and their same-process fresh/loaded world transitions are shown; three progressed worlds and Quit/relaunch preservation are not yet certified.",
+    "A week advance is observed at capture006 gameWeek1/rev8. Save click008 is observed; captures008/009 show pending refresh and are not by themselves save-completion proof. Later campaign library013 shows A calendarWeek2, consistent with saved gameWeek1.",
+    "Source correction for modal cancellation is covered by separate source supplement; no claim of a native modal-open cancellation stress test."
+  ]
+}

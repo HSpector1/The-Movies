@@ -1,0 +1,56 @@
+{
+  "schema": "p12a-bounded-corrective-source-review-supplement-v1",
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "reviewer": "/root/recovered_product_evidence",
+  "reviewedAtUtc": "2026-09-10T17:42:13.798888+00:00",
+  "phase": "same Gate A corrective-source review; not an additional critique round",
+  "supplements": {
+    "path": "/tmp/p12a-gatea-displayed-intent-review-_b4i9rzt.json",
+    "sha256": "24d2fabacce696447f513b1a91a4d1cf424260eb600585b132e27f60ab9a6c4b"
+  },
+  "worktree": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+  "head": "64766c7443b987132efdd217baa0ab61eea7c574",
+  "sourceFiles": [
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.DisplayedIntent.cs",
+      "sha256": "404a97789d1222ccfc76d36d0cf14cfd688234ce8c478e6971d4bfefd464bd29"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs",
+      "sha256": "e0efec51285804574bd7852036324caa4dc9adcf98315957e1e523bfc5fc9cc9"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/StudioFoundingCardHud.cs",
+      "sha256": "8d069714d2bd59015fcb2191a31022b728bbeb0762081368ee02b445ced06ca0"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/StudioSystemMenuHud.cs",
+      "sha256": "984de5c58c6225ef2cec09cea0a8cb7f142c4f3b1e9c3b3721066c9beff413a9"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/UI/StudioWorkspaceHost.cs",
+      "sha256": "f257bfd810411ec18297c86ee8ec51271d0e7efdb5a3ed67cc0eb9d060d19b50"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Tests/EditMode/StudioDisplayedIntentTests.cs",
+      "sha256": "43ff9a755e0b199e91fd4b7d62ce759a7025921bf077a1418dedf5eb61c9957c"
+    }
+  ],
+  "findingResolution": {
+    "id": "displayed-review-modal-cancellation",
+    "sourceStatus": "corrected; no consequential defect found in narrow supplement",
+    "verification": [
+      "StudioSystemMenuHud.SetLayer calls EnsureSceneReferences and CancelDeferredDisplayedIntent on every nonclosed destination, so opening MENU or its confirmation clears the prior slot immediately. Closing the modal does not restore it.",
+      "StudioWorkspaceHost.ApplyOpenVisualState calls actual client.SetWorkflowPanelCovered(workspaceOpen); setting covered true now immediately clears the deferred slot, while false cannot restore it.",
+      "Founding CardHud stillDisplayed callback additionally requires actual system menu Closed and any workspace closed before a deferred POST may enter the original lifecycle.",
+      "New ActualMenuOpenThenClose test invokes actual menu Open then ConsumeCancel, confirms Closed, completes the read, and proves no pending POST and exactly one cancellation.",
+      "New WorkspaceCoverThenReturn test invokes the actual client cover true then false seam and proves no pending POST and exactly one cancellation."
+    ]
+  },
+  "method": "Read-only source and meaningful regression-test source inspection. Reviewer did not edit any worktree file, run tests/builds, or issue native input. Root owns full Unity09 execution and native11 replay.",
+  "limitations": [
+    "This closes the reported source gap only; regression execution result not claimed by this reviewer.",
+    "Native11 actual review/button usability evidence remains pending.",
+    "Gate A live project/film/credits proof remains incomplete; no Gate A/B or campaign Quit/relaunch acceptance inferred."
+  ]
+}

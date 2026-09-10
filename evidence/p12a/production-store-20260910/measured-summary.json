@@ -1,0 +1,66 @@
+{
+  "status": "FUNCTIONAL_PASS_PERFORMANCE_MISS_NOT_NATIVE_ACCEPTANCE",
+  "runCount": 1,
+  "completed": true,
+  "errors": [],
+  "sourceCount": 106,
+  "sourceCombinedSha256": "67c1117c809b1156a86cbb75f587a4938014e3d06a6402e73d7100c4cf10c407",
+  "sourceChangesAfter": [],
+  "baselineSha256": "d10a8187935b12d7e5bcb5e05a01e76c0649cbf3abc176228f7842b6785730df",
+  "finalLibrarySha256": "44f0728a4488acc2ec6482f3ce02a3c8998e709e7c466835f053b109bffdad6d",
+  "checksPassed": 16,
+  "protectedOriginalPreserved": true,
+  "productionLockReleased": true,
+  "timingMs": {
+    "coldRecoveryToFirstSnapshot": 16490.941125,
+    "campaignSave": 17353.071874999998,
+    "ordinarySaveRolloverRefusal": 7478.9752080000035,
+    "ordinarySaveAcceptedAfterRollover": 5126.3012919999965,
+    "ordinarySaveBothAwaitedSpans": 12605.2765,
+    "reopenToFirstSnapshot": 20134.737374999997,
+    "normalAdvances": [
+      5758.167958000002,
+      7645.114083,
+      7003.287249999994
+    ],
+    "exactSaveRetries": [
+      78.16195799999696,
+      81.58995799999684,
+      82.78233299999556
+    ],
+    "productionWriteInvocation": [
+      52.97600000000239,
+      60.73020800000086,
+      57.533375000006345,
+      56.89887499999895,
+      62.74437500000204,
+      59.49420899999677
+    ],
+    "productionWritesOver50ms": 6,
+    "writeCallCount": 6,
+    "observerHashOverheadPerStoreCall": [
+      24.295958000000013,
+      24.89600000000064,
+      34.89800000000105,
+      31.925541999997222,
+      28.55291700000089,
+      33.68562500000553,
+      31.91562499999418,
+      27.874207999993814
+    ]
+  },
+  "memory": {
+    "mainProbePeakRssBytesFromOsHighWater": 5641240576,
+    "maximumSampledMainProbeRssBytes": 4181049344,
+    "maximumObserverPeakRssBytes": 1156562944,
+    "sampledAndOsPeakDiffer": "100 ms JS sampling cannot see every transient peak while synchronous work blocks that event loop; OS high-water is reported separately.",
+    "qualification": "Instrumented probe process, not packaged engine+Unity; comparison observer separate, do not sum nonsimultaneous maxima. Default Node flags; no explicit GC."
+  },
+  "maximumEncodedWriteBytes": 71570736,
+  "finalCurrentWeek": 8794,
+  "finalSavedWeek": 8793,
+  "finalCurrentSha256": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+  "finalSavedSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+  "applicability": "Existing authorized synthetic late-world three-record trajectory8791\u21928794 with production locked store and current coordinator; no native or independent-new-seed campaign claim, no new endurance run. Exact ordinary receipt through later tick/reopen, inactive record bytes, current/saved authority and RNG passed.",
+  "performanceDisposition": "All six measured production writeAtomic invocations synchronously exceeded50ms on Node main thread. Original latency budgets remain MISS; native Unity frame/parse timing is still unmeasured. No p95 claim from this distinct-operation sample."
+}

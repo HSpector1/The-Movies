@@ -1,0 +1,57 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "status": "PARTIAL",
+  "report": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/report.json",
+  "reportSha256": "5a089063196c3fdd700b6ba6a6fed5cdd706c4e66fa8f289271fd64b53bc5078",
+  "playerSha256": "f305b6f9af830a401f497238bd8112b291e1620f8be893aab3c615cd0b95360c",
+  "engineSha256": "fe73eb0f6f2a8ff1632a2d05a8952a2739c7ea7875d3ecf5b1295a0598730f02",
+  "manifestSha256": "82587535fb99fbe67359deea7756d2f8daec9dbba7b5dbf36baa11babeefe3c9",
+  "playerExit": {
+    "code": 0,
+    "signal": null
+  },
+  "inputFinalization": "clean",
+  "quitAtUtc": "2026-09-10T17:56:05.922Z",
+  "checkpointSha256": "506fdc2cafe4f30e4478250705129c093cc927c3becb25124968b91ba1311757",
+  "nativeCampaigns": [
+    {
+      "label": "Campaign A",
+      "id": "5c50cd73-d2c5-4e49-a634-d86291766395",
+      "gameWeek": 1,
+      "digest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720"
+    },
+    {
+      "label": "Campaign B",
+      "id": "d14292d0-9626-4418-b983-3d154a2ba3ef",
+      "gameWeek": 3,
+      "digest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030"
+    },
+    {
+      "label": "Campaign C",
+      "id": "64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+      "gameWeek": 0,
+      "digest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299"
+    },
+    {
+      "label": "B Copy Diverged",
+      "id": "d81b2c72-9644-4c72-b186-77caaa741f72",
+      "gameWeek": 8,
+      "digest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43"
+    }
+  ],
+  "completed": [
+    "A and B six hires/founded/ordinary advances/saved",
+    "Independent New Games B and C",
+    "Same-revision B0\u2192C0\u2192B0 exact digest/person/body/review return",
+    "B Save As exact current digest then copy-only advance/save",
+    "Overwrite A cancellation and copy rename preserve identities/digests",
+    "Clean UI Quit; source/reviewer evidence does not substitute for all-three relaunch"
+  ],
+  "open": [
+    "All-three progressed native Quit/relaunch restoration",
+    "Delete/overwrite confirmed exact-target native cases",
+    "Post-start live film/credits/profile/history native review",
+    "Full Gate A/B and performance acceptance"
+  ],
+  "pollBoundary": "A founding MouseDown Reconnecting and MouseUp Live with hotControl23 then revision7; fixed non-activation replay. Deferred slot enqueue not established."
+}
