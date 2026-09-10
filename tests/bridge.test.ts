@@ -162,9 +162,9 @@ function expectOrderedSubsequence<T>(actual: readonly T[], expected: readonly T[
 }
 
 describe('Current-game Unity adoption bridge', () => {
-  it('pins protocol v4/projection v27 and fingerprints named projections and exact intent fields', () => {
+  it('pins protocol v4/projection v28 and fingerprints named projections and exact intent fields', () => {
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(SNAPSHOT_VERSION).toBe(27)
+    expect(SNAPSHOT_VERSION).toBe(28)
     expect(SCHEMA_ID).toMatch(/^sha256:[0-9a-f]{64}$/)
     expect(Object.keys(
       BRIDGE_CONTRACT.$defs.StudioBridgeIntentOption.properties as Record<string, unknown>,
@@ -178,6 +178,7 @@ describe('Current-game Unity adoption bridge', () => {
       'development',
       'finance', // P11: current pace, recorded cash and exact domain costs
       'history', // P08A W2: the Standing & Studio History projection joins the bundle
+      'industry', // P12A: current public industry and one campaign calendar
       'journeyNotices',
       'lot',
       'people',
@@ -615,6 +616,11 @@ describe('Current-game Unity adoption bridge', () => {
       ENGINE_REJECTED: 'authority-refusal',
       NO_SAVE: 'save-state',
       SAVE_REJECTED: 'save-state',
+      CAMPAIGN_CONFLICT: 'save-state',
+      CAMPAIGN_NOT_FOUND: 'save-state',
+      INVALID_CAMPAIGN_LABEL: 'save-state',
+      UNSAVED_PROGRESS: 'save-state',
+      STORAGE_UNAVAILABLE: 'save-state',
     }
     expect(Object.keys(categories)).toEqual(REJECTION_CODES)
     expect(new Set(Object.values(categories))).toEqual(new Set(REJECTION_CATEGORIES))

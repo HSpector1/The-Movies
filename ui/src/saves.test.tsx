@@ -26,7 +26,7 @@ import {
   makeSaveV1,
   makeSaveV8,
 } from '../../src/core/index.ts'
-import { newFoundedGame, foundedRosterIds } from './test/founding.ts'
+import { newHistoricalFoundedGame, newFoundedGame, foundedRosterIds } from './test/founding.ts'
 import type { DraftPackage, GameState } from './engine/adapter.ts'
 import type { GameStateV1, TalentV1 } from '../../src/core/index.ts'
 import { setStudioLotOverviewOverride } from './flags.ts'
@@ -68,7 +68,7 @@ function legacyV1SaveJson(seed: string): string {
 // V8 is the newest legacy envelope and catches version-specific disclosure drift:
 // an automatic import must say only that an older save was upgraded, never call it V1.
 function legacyV8SaveJson(seed: string): string {
-  const live = newFoundedGame(seed)
+  const live = newHistoricalFoundedGame(seed)
   const { scriptDevelopment: _scriptDevelopment, ...stateV8 } = live
   return exportSave(makeSaveV8(stateV8))
 }
@@ -122,7 +122,7 @@ describe('saves: export → import round-trips the EXACT state', () => {
     state = advanceWeek(state).next
 
     const json = exportSaveJson(state)
-    expect(JSON.parse(json).saveVersion).toBe(18) // P08A: the live writer writes SaveFileV17.
+    expect(JSON.parse(json).saveVersion).toBe(19) // P08A: the live writer writes SaveFileV17.
     const r = importSaveJson(json)
     expect(r.ok).toBe(true)
     if (!r.ok) return

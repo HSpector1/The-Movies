@@ -1,3 +1,4 @@
+import {liftHistoricalState} from './_historicalCurrent.js'
 // Placement Core V12 — the strict SaveFileV12 persistence boundary.
 //
 // Law 18 (strict current, permissive historical) and law 19 (copy the historical
@@ -42,13 +43,14 @@ import {
   convertV16ToV17,
   convertV17ToV18,
   makeSaveV12,
+  makeSaveV13,
   migrateToV12,
   stableStringify,
   tick,
   validateSave,
   validateSaveV11,
   validateSaveV12,
-  validateSaveV18,
+  validateSaveV19,
 } from '../src/core/index.js'
 import type {
   GameState,
@@ -406,13 +408,13 @@ describe('Placement Core V12 — the frozen envelope', () => {
       { blueprintId: ANNEX, origin: { gx: 0, gy: 12 } },
     )
     const valid = makeSave(twoPlacements)
-    expect(validateSaveV18(valid)).toBe(valid)
+    expect(validateSaveV19(valid)).toBe(valid)
 
     const overlapped = clone(valid)
     overlapped.state.placement.facilities[1]!.origin = { gx: 0, gy: 9 }
     overlapped.state.placement.facilities[1]!.cells =
       overlapped.state.placement.facilities[0]!.cells.map((cell) => ({ ...cell }))
-    expect(() => validateSaveV18(overlapped)).toThrow(/overlaps placed facility 1/)
+    expect(() => validateSaveV19(overlapped)).toThrow(/overlaps placed facility 1/)
 
     const tooClose = clone(valid)
     tooClose.state.placement.facilities[1]!.origin = { gx: 0, gy: 11 }
@@ -424,27 +426,27 @@ describe('Placement Core V12 — the frozen envelope', () => {
       { gx: 1, gy: 12 },
       { gx: 2, gy: 12 },
     ]
-    expect(() => validateSaveV18(tooClose)).toThrow(/violates its clearance ring/)
+    expect(() => validateSaveV19(tooClose)).toThrow(/violates its clearance ring/)
   })
 
   it('rejects a forged operating charge that disagrees with the operational facilities', () => {
     const operational = advance(building('save-v12-opex'), ANNEX_DURATION_WEEKS + 2)
     const valid = makeSave(operational)
-    expect(validateSaveV18(valid)).toBe(valid)
+    expect(validateSaveV19(valid)).toBe(valid)
 
     const doubled = clone(valid)
     const row = doubled.state.ledger.find((entry) => entry.kind === 'facilityOpex')!
     const before = row.amount
     row.amount = before * 2
     doubled.state.studio.cash += before
-    expect(() => validateSaveV18(doubled)).toThrow(
+    expect(() => validateSaveV19(doubled)).toThrow(
       /facility operating cost at week .* disagrees/,
     )
 
     const early = clone(valid)
     const earliest = early.state.ledger.find((entry) => entry.kind === 'facilityOpex')!
     earliest.week = 1 // before the facility existed
-    expect(() => validateSaveV18(early)).toThrow(
+    expect(() => validateSaveV19(early)).toThrow(
       /facility operating cost at week 1 disagrees/,
     )
   })
@@ -527,15 +529,15 @@ describe('Placement Core V12 — historical boundary guards (law 19)', () => {
   // C1-M1a: the same law one version on. A live V13 save may not be downgraded
   // through ANY earlier boundary, including the now-historical migrateToV12.
   it('refuses to downgrade a V13 save through migrateToV12 or any earlier boundary', () => {
-    const v13 = makeSave(building('save-v13-downgrade'))
+    const v13 = makeSaveV13(historicalWorld(building('save-v13-downgrade')))
     expect(() => migrateToV12(v13)).toThrow(
-      /migrateToV12: cannot downgrade SaveFileV18 or discard property, set, queue, screenplay, and studio-history state/,
+      /migrateToV12: cannot downgrade SaveFileV13 or discard property, set, queue, screenplay, and studio-history state/,
     )
     expect(() => migrateToV11(v13)).toThrow(
-      /cannot downgrade SaveFileV18 or discard placement and property state/,
+      /cannot downgrade SaveFileV13 or discard placement and property state/,
     )
     expect(() => migrateToV10(v13)).toThrow(
-      /migrateToV10: cannot downgrade SaveFileV18/,
+      /migrateToV10: cannot downgrade SaveFileV13/,
     )
   })
 
@@ -601,7 +603,7 @@ describe('Placement Core V12 — the V11 → V12 migration', () => {
     expect(v12.state.placement).toEqual(initialManagedStudioPlacement())
     expect(v12.state.construction).toEqual(initialManagedStudioConstruction())
     // The legacy parcel is genuinely free: the Annex can still be started.
-    const started = applyActions(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(v12)))))).state, [{ kind: 'startDevelopmentCastingAnnex' }])
+    const started = applyActions(liftHistoricalState(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(v12)))))).state), [{ kind: 'startDevelopmentCastingAnnex' }])
     expect(started.placement.facilities[0]).toMatchObject({
       parcelId: ANNEX_PARCEL_ID,
       facilityId: ANNEX_FACILITY_ID,
@@ -646,7 +648,7 @@ describe('Placement Core V12 — the V11 → V12 migration', () => {
     expect(v12.state.market.tick).toBe(v11.state.market.tick)
     // …and the remaining weeks still complete on the original committed week.
     const completed = advance(
-      convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(v12)))))).state,
+      liftHistoricalState(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(v12)))))).state),
       ANNEX_DURATION_WEEKS - v12.state.market.tick,
     )
     expect(completed.market.tick).toBe(ANNEX_DURATION_WEEKS)
@@ -674,7 +676,7 @@ describe('Placement Core V12 — the V11 → V12 migration', () => {
     // No operating charge is back-dated onto the migrated history.
     expect(v12.state.ledger.filter((entry) => entry.kind === 'facilityOpex')).toEqual([])
     // The charge starts on the next advance, not retroactively.
-    const next = tick(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(v12)))))).state)
+    const next = tick(liftHistoricalState(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(v12)))))).state))
     expect(next.ledger.filter((entry) => entry.kind === 'facilityOpex')).toHaveLength(1)
   })
 

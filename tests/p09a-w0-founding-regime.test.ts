@@ -1,3 +1,5 @@
+import {beginFoundingHistoricalControl} from '../src/core/employment.js'
+import {migrateToCurrentControl} from './_historicalCurrent.js'
 // ── P09 W0 — the founding regime root, the bare-lot property, and the first-film gate ──
 //
 // Charter P09 §16/§17/§20/§23 laws under test, stated once:
@@ -52,7 +54,7 @@ import {
   nextStudioDecision,
   queryPlacement,
   tick,
-  validateSaveV18,
+  validateSaveV19,
 } from '../src/core/index.js'
 import type { CreativeRole, GameState, LotCell } from '../src/core/index.js'
 import { FACILITY_BLUEPRINTS, TUNING } from '../src/core/tuning.js'
@@ -61,8 +63,8 @@ import { freePackage, commissionFor } from './_m4Fixtures.js'
 // ── fixtures ────────────────────────────────────────────────────────────────
 
 /** The ordinary player's founding: the exact minimum roster, cheapest legal applicant per role. */
-function foundMinimum(state: GameState): GameState {
-  let next = beginFounding(state)
+function foundMinimum(state: GameState, historical=false): GameState {
+  let next = historical ? beginFoundingHistoricalControl(state) : beginFounding(state)
   const applicants = next.founding!.applicantIds.map((id) => next.talent.find((t) => t.id === id)!)
   for (const role of ['actor', 'director', 'writer', 'craft'] as const satisfies readonly CreativeRole[]) {
     const pool = applicants
@@ -132,25 +134,25 @@ describe('P09 R1 — the founding regime is persisted, exact, and immutable', ()
     for (const regime of ['endowed', 'bare-lot'] as const) {
       const state = regime === 'bare-lot' ? bareLot('p09-r1-rt') : endowed('p09-r1-rt')
       const save = makeSave(state)
-      expect(save.saveVersion).toBe(18)
+      expect(save.saveVersion).toBe(19)
       expect(save.state.foundingRegime).toBe(regime)
       const json = exportSave(save)
       expect(exportSave(importSave(json))).toBe(json)
-      expect(migrateToV18(importSave(json)).state.foundingRegime).toBe(regime)
+      expect(migrateToCurrentControl(importSave(json)).state.foundingRegime).toBe(regime)
     }
     const save = makeSave(endowed('p09-r1-forge'))
     const raw = JSON.parse(exportSave(save)) as { state: Record<string, unknown> }
-    expect(() => validateSaveV18({ ...raw, state: { ...raw.state, foundingRegime: 'sandbox' } })).toThrow(/not a known founding regime/)
+    expect(() => validateSaveV19({ ...raw, state: { ...raw.state, foundingRegime: 'sandbox' } })).toThrow(/not a known founding regime/)
     const { foundingRegime: _r, ...missing } = raw.state
-    expect(() => validateSaveV18({ ...raw, state: missing })).toThrow(/foundingRegime is missing/)
+    expect(() => validateSaveV19({ ...raw, state: missing })).toThrow(/foundingRegime is missing/)
     // Laundering: an endowed property cannot claim the bare-lot regime, nor the reverse.
-    expect(() => validateSaveV18({ ...raw, state: { ...raw.state, foundingRegime: 'bare-lot' } })).toThrow(/cannot carry founding structures/)
+    expect(() => validateSaveV19({ ...raw, state: { ...raw.state, foundingRegime: 'bare-lot' } })).toThrow(/cannot carry founding structures/)
     const bare = JSON.parse(exportSave(makeSave(bareLot('p09-r1-forge-b')))) as { state: Record<string, unknown> }
-    expect(() => validateSaveV18({ ...bare, state: { ...bare.state, foundingRegime: 'endowed' } })).toThrow(/must carry its founding structures/)
+    expect(() => validateSaveV19({ ...bare, state: { ...bare.state, foundingRegime: 'endowed' } })).toThrow(/must carry its founding structures/)
   })
 
   it('every pre-P09 save migrates to endowed with no other change; downgrades are refused', () => {
-    const state = endowed('p09-r1-migrate')
+    const state = foundMinimum(generateWorld('p09-r1-migrate'),true)
     const v17 = makeSaveV17(state)
     expect(v17.saveVersion).toBe(17)
     expect('foundingRegime' in v17.state).toBe(false)
@@ -209,7 +211,7 @@ describe('P09 R3 — bare-lot activation mints nothing', () => {
     // The history is honest: the founding landmark, nothing else.
     expect(state.studioHistory.rows.map((row) => row.kind)).toEqual(['studioFounded'])
     // The save boundary accepts the sparse studio as a first-class shape.
-    expect(() => validateSaveV18(makeSave(state))).not.toThrow()
+    expect(() => validateSaveV19(makeSave(state))).not.toThrow()
   })
 })
 
@@ -311,7 +313,7 @@ describe('P09 R4 — the minimum plant fits and completes on its committed weeks
     a = applyActions(a, [{ kind: 'placeFacility', placement: { blueprintId: 'development-casting-office', origin: { gx: 2, gy: 2 } } }])
     a = commit(a, 'post-building')
     for (let week = 0; week < 5; week++) a = tick(a)
-    let b = migrateToV18(importSave(exportSave(makeSave(a)))).state
+    let b = migrateToCurrentControl(importSave(exportSave(makeSave(a)))).state
     for (let week = 0; week < 12; week++) {
       a = tick(a)
       b = tick(b)

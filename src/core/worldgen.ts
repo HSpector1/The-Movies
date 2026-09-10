@@ -110,7 +110,7 @@ import {
 
 // §5.3 / reception & forecast iterate Object.keys(forces); this insertion order
 // is the contract's canonical force order and MUST be this sequence.
-const FORCE_ORDER: readonly CulturalForce[] = [
+export const FORCE_ORDER: readonly CulturalForce[] = [
   'escapism',
   'patriotism',
   'realism',

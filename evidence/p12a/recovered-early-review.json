@@ -1,0 +1,880 @@
+{
+  "schema": "p12a-recovered-existing-product-review/1",
+  "operation": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "createdAtUtc": "2026-09-10T16:18:10.451056+00:00",
+  "recoveryOnly": true,
+  "additionalCritiqueRounds": 0,
+  "originalReviewer": {
+    "agentPath": "/root/product_critic",
+    "nickname": "Banach",
+    "threadId": "01a08afe-bc19-7a80-81ee-31ae756443a7",
+    "parentThreadId": "01a08adf-7719-7da2-85d0-77ae64c36fad",
+    "model": "gpt-6-astra",
+    "effort": "ultra",
+    "identitySource": "original session_meta; model/effort from original turn_context"
+  },
+  "originalVerdict": {
+    "timestampUtc": "2026-09-10T13:33:06.615Z",
+    "messageId": "msg_0a104f03d492a751016aa2b18766b487d28bf4fc022a44fda7",
+    "sourceSession": "/Users/bruce/.codex/sessions/2026/09/10/rollout-2026-09-10T13-05-45-01a08afe-bc19-7a80-81ee-31ae756443a7.jsonl",
+    "text": "Early product critique closed for **development-preview scope**. Three consequential defects were fixed and replayed within this same critique:\n\n1. **Overlapping surfaces obscured Industry and campaign controls.** Original run `12-53-07`, frames 002–009. Corrected run `13-05-48`, frames 002–015, shows readable Industry and opaque campaign forms.\n2. **Scrolling hid films and overlapped the footer.** Corrected frames 004–010 reach the real final film/end row, inspect its six credits, open Arthur Vale and his exact current employer, then restore the same studio scroll position through Back.\n3. **Typing a campaign name moved the camera.** Corrected run `13-29-04`, frames 009–011, shows visible text entry and native Left without changing camera pose, selection, week or state digest. Paired Left HID events and clean finalization were independently checked.\n\nThe [main replay](</Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z>) also demonstrates Save As naming, New Game naming, explicit overwrite confirmation/cancellation, deliberate selection and loading the other named campaign. The [focused keyboard replay](</Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z>) closes the observed typing defect.\n\nAuthored chronology, settled-history labeling and truthful “no announced production” are visible. This does **not** establish live rival production, three-world isolation, quit/relaunch persistence, large-text behavior or Gate A/B completion. Home was refused before injection and remains untested. No Owner acceptance is implied.",
+    "textSha256": "ad3017b3b2e54b9b84b30b6d2d474dafc3fb5e37ab767a63957023f90481f8a7",
+    "status": "CLOSED for development-preview scope only"
+  },
+  "obstacles": [
+    {
+      "id": "early-1",
+      "obstacle": "Overlapping surfaces obscured Industry and campaign controls.",
+      "originalObservedRun": "12-53-07, frames 002–009 (reference from original verdict; original-run artifacts not rechecked in this bounded recovery).",
+      "remedy": "Readable Industry surface and opaque campaign forms.",
+      "recheck": "main replay frames 002–015",
+      "result": "Closed by original reviewer within the same early critique."
+    },
+    {
+      "id": "early-2",
+      "obstacle": "Scrolling hid films and overlapped the footer.",
+      "remedy": "Reachable final film and end row with footer separated; canonical credit/person/employer navigation and Back restore the studio scroll position.",
+      "recheck": "main replay frames 004–010",
+      "result": "Closed by original reviewer within the same early critique."
+    },
+    {
+      "id": "early-3",
+      "obstacle": "Typing a campaign name moved the camera.",
+      "remedy": "Campaign text input consumes keyboard interaction while preserving camera, selection and simulation authority.",
+      "recheck": "focused keyboard replay frames 009–011; paired native Left key events and clean finalization.",
+      "result": "Closed by original reviewer within the same early critique."
+    }
+  ],
+  "runs": [
+    {
+      "label": "main",
+      "directory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z",
+      "status": "observation-complete",
+      "launchAtUtc": "2026-09-10T13:05:51.206Z",
+      "finalObservedAtUtc": "2026-09-10T13:25:12.210Z",
+      "reports": [
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/report.json",
+          "sha256": "0237c08cfc5b8d5ecba74ddb9153a208cd5cf8813c651afe432b55d867c27778"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/steps.json",
+          "sha256": "2c94a0c2fa632d9a4dca4db9dbee2e348ff1fab8e2123f1beb498a7ba462f88d"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/launch-binding.json",
+          "sha256": "f339d4f726a241b2b44f2500adbf6c8141e914527c2d12b81b62d25b0141364f"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/build-manifest.json",
+          "sha256": "d7ec9f528ead142f8316205c8c3cbbd7c26dc9af25f470dd1afe0383e7d640da"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/console-admission.json",
+          "sha256": "0601d318eb4f9a487b6dab4460a1d482cfae3724988870c3e52b32e4660a2e31"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/hid-witness.jsonl",
+          "sha256": "d5c820835149aaf1b84a1c9618f1ed478fd6e7a3a009ae5a56bd3de7d6f94deb"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/hid-ownership.jsonl",
+          "sha256": "87f5a30a4e19eb59a8c0bc92f420b6b6303cfca4ca29f053a55b8f8a1559fd25"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/action-trace.jsonl",
+          "sha256": "dad44ddd8b294f587609605504e4877aae8f8acc41bb4b26e6540aeb307576f5"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/input-state-start.json",
+          "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/input-state-end.json",
+          "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/owned-input.json",
+          "sha256": "4cda80294063f097e903ef758218742389f9418c4657a44e2c46eabf75118843"
+        }
+      ],
+      "recordedBuildBinding": {
+        "manifestSha256": "d7ec9f528ead142f8316205c8c3cbbd7c26dc9af25f470dd1afe0383e7d640da",
+        "playerSha256": "42797139b7b151345713b13d191f0f7a72142687328f9eae3f5655a3e884bc7c",
+        "assemblyCSharpSha256": "e076239bc2551c302939ad322f0a1fc931637d889b745e28e860be507949372e",
+        "engineSha256": "b4b0e5c0ea89f237ddb246b85a39b4ec67577e920424ad844ad6c8b078c6b042",
+        "playerBuiltAtUtc": "2026-09-10T13:03:33Z",
+        "unity": {
+          "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+          "sha": "3a9a3f488693aa14431a6aa412d7560df8f30a89",
+          "branch": "wip/p12a-living-hollywood-01-client",
+          "dirty": true
+        },
+        "typescript": {
+          "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+          "sha": "bf99a0d283e9fc922ba971700a2d3e32dbf5f4a6",
+          "branch": "wip/p12a-living-hollywood-01-ts",
+          "dirty": true,
+          "engineBundleSha256": "b4b0e5c0ea89f237ddb246b85a39b4ec67577e920424ad844ad6c8b078c6b042"
+        },
+        "inputToolSha256": "84a0df5c6a98efeddb32e6dc8bfd1bf9ef265b4f3e0fbc10acf40a9cdd67d556",
+        "witnessToolSha256": "74d05819871f65823db48f5bc3ffcf59c61274952a391cfcb50e1693ef38a959",
+        "bindingCrossChecksPassed": true
+      },
+      "copiedNativeInputSources": [
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/sources/p12a-native-preview.mjs",
+          "sha256": "21fa77c4990ff404ecaaa72fd8e61d4e5ae2b315a12f65bcc8a405a5812e82d5"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/sources/hid-guard.mjs",
+          "sha256": "3b83ec6c8dbf671c065850be91f4a9eca30708e8ad7b181b518109bd9b13f8a6"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/sources/hid-witness-state.mjs",
+          "sha256": "1990383600425eb72db82573cec63e8b887a7d755cf32bbb6fc2400ebc95084c"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/sources/hid-coherent-map.mjs",
+          "sha256": "d766cb5a96519bff79fafdc9806d9973e575a08a8e251b53a739490515efd7c7"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/sources/owner-ux-startup.mjs",
+          "sha256": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/sources/owner-ux-window.mjs",
+          "sha256": "d93ca436174d295cacc7a3d7d561adae7b3d5c49cbdc8019e507ca8fcec92594"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/sources/p04a1-window-select.mjs",
+          "sha256": "a70359db53251c0f88fd3ee586169fcf328f691ffaf2d73d2a844217533b561c"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/sources/input-state.py",
+          "sha256": "d235e2a584bd6d142e5fdd0dd93833bd139260b33646a7f59eae030ba5184942"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/sources/console-state.py",
+          "sha256": "fd540d278ce159e9db1c8c4e8133b222e523475ed9642244799124668de78ac7"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/sources/ownerinput/ownerinput.swift",
+          "sha256": "3b3439dcc9f68e9a891c175fdbb870a9535fd30fab6fbf00d3592fd1cb8d8d73"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/sources/hidwitness/hidwitness.swift",
+          "sha256": "9dad5fdd34fce93cd497eaf06c76b97b5d928627e07e157c292f8714fa7311df"
+        }
+      ],
+      "inputFinalization": {
+        "status": "clean",
+        "reason": "requested",
+        "auditStarted": true,
+        "auditPartial": false,
+        "observationEndsAt": "acknowledged final HID marker",
+        "finalMarker": {
+          "seq": 12321,
+          "type": "null",
+          "keycode": 0,
+          "sourcePid": 11436
+        },
+        "finalMarkerPresentInWitness": true,
+        "counts": {
+          "tool": 302,
+          "markerCompanion": 301,
+          "playerNull": 116,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        },
+        "foreignCount": 0,
+        "admission": {
+          "locked": false,
+          "rootLocked": false,
+          "sessionScreenLocked": false,
+          "sessionLockMarkerPresent": false,
+          "idleSeconds": 404.518986791
+        },
+        "heldAtStart": {
+          "heldKeys": [],
+          "heldButtons": [],
+          "clean": true
+        },
+        "heldAtEnd": {
+          "heldKeys": [],
+          "heldButtons": [],
+          "clean": true
+        },
+        "ownedKeysButtonsPendingEmpty": true,
+        "injectedEvents": 297
+      },
+      "screenshots": [
+        {
+          "frame": "002",
+          "atUtc": "2026-09-10T13:06:44.493Z",
+          "action": "click",
+          "target": "admin-open-industry",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/002-admin-open-industry.png",
+          "sha256": "3172694f753742c15990ca87264d170878d3f049943b22d1b979c7e02a29306e",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/002-map.json",
+          "mapSha256": "6de89ccc2afa6df81bc60114ff19867694eafff1bfec0e653c0854c59cfd91b2"
+        },
+        {
+          "frame": "003",
+          "atUtc": "2026-09-10T13:07:11.731Z",
+          "action": "click",
+          "target": "industry-studio-studio-6bc7c2fe-r01",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/003-industry-studio-studio-6bc7c2fe-r01.png",
+          "sha256": "3c34aa1c6e8df4c450876131c54dd2e91396fe8c08095015c13b397650513624",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/003-map.json",
+          "mapSha256": "ba63a38f83610984acae3e1872dc51a5b8053abd6cdc0264fd611467a93d987e"
+        },
+        {
+          "frame": "004",
+          "atUtc": "2026-09-10T13:07:13.303Z",
+          "action": "scroll",
+          "target": "industry-scroll",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/004-industry-scroll.png",
+          "sha256": "b26d0549f1bbba04d8017195bf1a29ffaa7a8611d281dba3cbf4cca031ac0a6c",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/004-map.json",
+          "mapSha256": "2a528717b3c362bcce8e4848330ada4b8e9527012a15da8712311d7978a2b093"
+        },
+        {
+          "frame": "005",
+          "atUtc": "2026-09-10T13:07:53.477Z",
+          "action": "click",
+          "target": "industry-film-studio-6bc7c2fe-r01:historical-film:0",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/005-industry-film-studio-6bc7c2fe-r01-historical-film-0.png",
+          "sha256": "501ff5b54ba87fd36a54cdf38077f791362d6b7402c40b9de33a8eafe75da537",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/005-map.json",
+          "mapSha256": "3a8a8ad1dd26d17b750eb7c0f64fe76eab038f56fb683493b6f3156430017a37"
+        },
+        {
+          "frame": "006",
+          "atUtc": "2026-09-10T13:10:02.403Z",
+          "action": "click",
+          "target": "industry-credit-person-studio-6bc7c2fe-r01-1",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/006-industry-credit-person-studio-6bc7c2fe-r01-1.png",
+          "sha256": "15617e5ca4aae5f750c962dc640d54b394c37ccf2c38eb959184f8c998ebad18",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/006-map.json",
+          "mapSha256": "f84f1a3208e1474c75238450969e92a1037cd8873a32ed0a44fb68a30745d377"
+        },
+        {
+          "frame": "007",
+          "atUtc": "2026-09-10T13:10:45.246Z",
+          "action": "click",
+          "target": "industry-employer-person-studio-6bc7c2fe-r01-1",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/007-industry-employer-person-studio-6bc7c2fe-r01-1.png",
+          "sha256": "fc41ee64cbfa8597c73bb9be663332762bc27150548ccabe4723bee4934ad4b0",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/007-map.json",
+          "mapSha256": "abe9d197d08d18ed1a909c56fb95db10c95059c9edf610cfaa4194f21b5a0a35"
+        },
+        {
+          "frame": "008",
+          "atUtc": "2026-09-10T13:10:47.561Z",
+          "action": "click",
+          "target": "industry-back",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/008-industry-back.png",
+          "sha256": "65b660149dc2b9d9dcef2fc4bf1c31f2ca3fa624f4671dafe5466ddca899d558",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/008-map.json",
+          "mapSha256": "586dc827bb65e9e8dc72b0b45379d1c9ecc9220065f15a3084cdca34cae7af59"
+        },
+        {
+          "frame": "009",
+          "atUtc": "2026-09-10T13:10:49.856Z",
+          "action": "click",
+          "target": "industry-back",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/009-industry-back.png",
+          "sha256": "8c3311f55944656f91f88c6927c4987aaaaaac48392658f1d961ca097354b361",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/009-map.json",
+          "mapSha256": "10c7463e66db738d79ce916376c45b9945070b8990440bfe04e4a0cbc87627d5"
+        },
+        {
+          "frame": "010",
+          "atUtc": "2026-09-10T13:10:52.295Z",
+          "action": "click",
+          "target": "industry-back",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/010-industry-back.png",
+          "sha256": "67a448c6906d39904ffd935da00feb1ebe92fb920ee6a8c944af22e8abb4b309",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/010-map.json",
+          "mapSha256": "83957dfb27f7de860b333d6e1f4e37d2ca582c3d51d49c5da01b22aedf87f279"
+        },
+        {
+          "frame": "011",
+          "atUtc": "2026-09-10T13:12:36.339Z",
+          "action": "click",
+          "target": "studio-menu-open",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/011-studio-menu-open.png",
+          "sha256": "98bfae27c28d008866e390032b5b647303d4a4e2701b2eec77c6d062cc68b538",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/011-map.json",
+          "mapSha256": "2b7a1433850eb7b95b6ac11b592e70ae24aad2617822043144034746016a762b"
+        },
+        {
+          "frame": "012",
+          "atUtc": "2026-09-10T13:12:38.715Z",
+          "action": "click",
+          "target": "campaign-save-as",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/012-campaign-save-as.png",
+          "sha256": "2807d05118f4cace039305f6aebec71c15c9c04b4528b4d8686b7edbe6b82c9d",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/012-map.json",
+          "mapSha256": "66f2585d32e5124448ea47966510c91374de72ad7d653e2a8614376213b939d0"
+        },
+        {
+          "frame": "013",
+          "atUtc": "2026-09-10T13:12:41.153Z",
+          "action": "click",
+          "target": "campaign-name-input",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/013-campaign-name-input.png",
+          "sha256": "c88e64df94eb79c7d539e57e032885784cfacbe540518da064070c9c9ad2fd68",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/013-map.json",
+          "mapSha256": "14f8fa1dff3a79d4dec57424cba2f940127cbfee9bbf8ef81a54e7396ed350d8"
+        },
+        {
+          "frame": "014",
+          "atUtc": "2026-09-10T13:12:49.859Z",
+          "action": "text",
+          "target": null,
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/014-text.png",
+          "sha256": "c973a4fb860dbfa0b86df9445520064dd676318c171a9f942b62a17fb6163bea",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/014-map.json",
+          "mapSha256": "ee35346e6f9de7851ddecefcc7d6e620e0d2d5059cfd994556c2a8757238aee3"
+        },
+        {
+          "frame": "015",
+          "atUtc": "2026-09-10T13:12:52.256Z",
+          "action": "click",
+          "target": "campaign-name-confirm",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/015-campaign-name-confirm.png",
+          "sha256": "097e8c8afef140b1c325d926d9dbbc2f406df7acaeaf603b09d93b3ce429dfaf",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/015-map.json",
+          "mapSha256": "a239dbdca1a8040a74008929cb18306f788fb0f5440024cfcc30eeb1be1b3deb"
+        },
+        {
+          "frame": "016",
+          "atUtc": "2026-09-10T13:14:15.636Z",
+          "action": "click",
+          "target": "campaign-new",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/016-campaign-new.png",
+          "sha256": "d1092ecd7b648a6714ca6001e8fa2ba28bbadd62bb8ad15dbfe8d690f3ea7506",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/016-map.json",
+          "mapSha256": "cf9aa0140cc87e45b4da56382477eb7036017f2d86134163708936fd891487a6"
+        },
+        {
+          "frame": "017",
+          "atUtc": "2026-09-10T13:14:18.103Z",
+          "action": "click",
+          "target": "campaign-name-input",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/017-campaign-name-input.png",
+          "sha256": "0951b716a8f0d176aee694af9a238e36d5824c4067d28f492eed28531bc9a7df",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/017-map.json",
+          "mapSha256": "4e1d4b198d5f1cc23adbf980d2d8225defd6ce2d5ec527b246cb8d2455f71053"
+        },
+        {
+          "frame": "018",
+          "atUtc": "2026-09-10T13:14:26.926Z",
+          "action": "text",
+          "target": null,
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/018-text.png",
+          "sha256": "6a0056e16869de5af0941f4921167dab7b630e7eda952e234cc2b80087eebd14",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/018-map.json",
+          "mapSha256": "417c53700cacecc1d79b86cfd9658b521b06c12ffb996857aa516955fd5e48ba"
+        },
+        {
+          "frame": "019",
+          "atUtc": "2026-09-10T13:14:29.234Z",
+          "action": "click",
+          "target": "campaign-name-confirm",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/019-campaign-name-confirm.png",
+          "sha256": "bac1b50d35e401bda1a7ed128b4d9008b45200c04b24d7ca8d82a6c19b842fc7",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/019-map.json",
+          "mapSha256": "e25ed9b01762c7c237a6fe06c415c1bd075abd6cb8f143956c68fa376903c4d4"
+        },
+        {
+          "frame": "020",
+          "atUtc": "2026-09-10T13:16:31.483Z",
+          "action": "click",
+          "target": "campaign-save-as",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/020-campaign-save-as.png",
+          "sha256": "e2b71458399f2cf7406c95a37a83201049c9af10a0fdcffe0441b4aedfa770bb",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/020-map.json",
+          "mapSha256": "ae8ec8b62b989fc639df5a39cc0d341fab93daaf95124ba147c1769a40a500e1"
+        },
+        {
+          "frame": "021",
+          "atUtc": "2026-09-10T13:16:33.889Z",
+          "action": "click",
+          "target": "campaign-name-input",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/021-campaign-name-input.png",
+          "sha256": "e7453f63990bef9fbfebd508d17bfa574212ddde60fd77fe8fd264a8277535b2",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/021-map.json",
+          "mapSha256": "8001dea46da73a082fa6fd75b19f365382e2ec48901607d1f48d277309b15e6a"
+        },
+        {
+          "frame": "022",
+          "atUtc": "2026-09-10T13:16:42.865Z",
+          "action": "text",
+          "target": null,
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/022-text.png",
+          "sha256": "7ce5758532653e43fdc5c73cea27726613660554229d5336854c722dfbd503de",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/022-map.json",
+          "mapSha256": "e60c3aa65d1aebc5a73c3fc7cdcd234232e7c41e918e86b74565a8f640c8b76e"
+        },
+        {
+          "frame": "023",
+          "atUtc": "2026-09-10T13:16:45.276Z",
+          "action": "click",
+          "target": "campaign-name-confirm",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/023-campaign-name-confirm.png",
+          "sha256": "2cea28780a4cc430f2fbd95738d6d13f32196519ce7ab5a19c6148edc45627cd",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/023-map.json",
+          "mapSha256": "a9881887512214b399edc0cfb2040a89ede664f0d4b191b36ae7a89cb0d85a72"
+        },
+        {
+          "frame": "024",
+          "atUtc": "2026-09-10T13:23:03.296Z",
+          "action": "click",
+          "target": "campaign-cancel",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/024-campaign-cancel.png",
+          "sha256": "620b904c78e3b5ea28285eb42a4d20506a15438b2300a62d59bb903f089ee306",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/024-map.json",
+          "mapSha256": "2f90a2f673a58821a3ec3e4ee26a683a03b23d249d16caa9f1178d699fc8ce3f"
+        },
+        {
+          "frame": "025",
+          "atUtc": "2026-09-10T13:23:56.577Z",
+          "action": "click",
+          "target": "campaign-record-425dc164-cccc-4b86-8fb0-ea70ead251ec",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/025-campaign-record-425dc164-cccc-4b86-8fb0-ea70ead251ec.png",
+          "sha256": "9ffe3bc0da13ade536982d5f7171593b45ec0b6757f9989a7d1ed9b08892c4df",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/025-map.json",
+          "mapSha256": "91ab60001bfd051937706b3731cc4db2025e0b4ee6c740c34185edad9583ef44"
+        },
+        {
+          "frame": "026",
+          "atUtc": "2026-09-10T13:24:39.572Z",
+          "action": "click",
+          "target": "studio-menu-load",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/026-studio-menu-load.png",
+          "sha256": "b404f236e6e2d351298be24721889a0c475cc4a491d0d734186c67c4fd74d924",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-05-48-186Z/026-map.json",
+          "mapSha256": "ac4de623bff985d7bf6378757e0a8daffe4932890c3856edbe93955e75e9a056"
+        }
+      ]
+    },
+    {
+      "label": "focused-keyboard",
+      "directory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z",
+      "status": "observation-complete",
+      "launchAtUtc": "2026-09-10T13:29:06.915Z",
+      "finalObservedAtUtc": "2026-09-10T13:31:39.668Z",
+      "reports": [
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/report.json",
+          "sha256": "8031e19eb4bb0b95633056f24296e0339c4d6c4475dcb0ac94000c2e691e71bb"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/steps.json",
+          "sha256": "fff6e643f3d996734b33e7a89d2362ada3c8aac062267c6a5c5c0ef4618b9f8a"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/launch-binding.json",
+          "sha256": "a8f38de0081165e75c4c2e2573f5acd949b6535fbd285b3ac80c28dfc1f53b22"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/build-manifest.json",
+          "sha256": "ce674fe85b9de4ce090631e56a376b16450d4b8122483e67b585bdda8b55ca7a"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/console-admission.json",
+          "sha256": "ef353f3d3907c717db04ed73042cf53ba948ecc562a4ec7b04869d676fa3b44d"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/hid-witness.jsonl",
+          "sha256": "4daf118f4390875566b28e3555984a8199bb9ca4f874fbbb36a36fe611f4cd0e"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/hid-ownership.jsonl",
+          "sha256": "89c9ea1943f90ccfb3e59b6e493ed68841ddde3972913873e517f141cf8e5433"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/action-trace.jsonl",
+          "sha256": "27cf160981d40a1cfcd8eb2f6d2013d0021d32a5e5fd4f615938d38a356d9e5d"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/input-state-start.json",
+          "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/input-state-end.json",
+          "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/owned-input.json",
+          "sha256": "e60ebd5c7194a832c3121f72eb21a5fcbd3c5088faefa97da09ad46b6128984e"
+        }
+      ],
+      "recordedBuildBinding": {
+        "manifestSha256": "ce674fe85b9de4ce090631e56a376b16450d4b8122483e67b585bdda8b55ca7a",
+        "playerSha256": "1a437f489244ac0d8a5c4e6f85e33dc23f38e959f127a35d62645bec781a2824",
+        "assemblyCSharpSha256": "83dcdcf5436f70e8cf495fda492217be61d62962af6612ff6448ab4c405f74ac",
+        "engineSha256": "8496ffdf1219f0b36568dcda1cb6319f85b953f8c6c0f52c89af108f6e5df3c2",
+        "playerBuiltAtUtc": "2026-09-10T13:28:26Z",
+        "unity": {
+          "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+          "sha": "3a9a3f488693aa14431a6aa412d7560df8f30a89",
+          "branch": "wip/p12a-living-hollywood-01-client",
+          "dirty": true
+        },
+        "typescript": {
+          "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+          "sha": "bf99a0d283e9fc922ba971700a2d3e32dbf5f4a6",
+          "branch": "wip/p12a-living-hollywood-01-ts",
+          "dirty": true,
+          "engineBundleSha256": "8496ffdf1219f0b36568dcda1cb6319f85b953f8c6c0f52c89af108f6e5df3c2"
+        },
+        "inputToolSha256": "84a0df5c6a98efeddb32e6dc8bfd1bf9ef265b4f3e0fbc10acf40a9cdd67d556",
+        "witnessToolSha256": "74d05819871f65823db48f5bc3ffcf59c61274952a391cfcb50e1693ef38a959",
+        "bindingCrossChecksPassed": true
+      },
+      "copiedNativeInputSources": [
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/sources/p12a-native-preview.mjs",
+          "sha256": "1d50fab75c679c0c2390295f639e3e1f0d6fadfc8340e051798ec19d75fdf784"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/sources/hid-guard.mjs",
+          "sha256": "3b83ec6c8dbf671c065850be91f4a9eca30708e8ad7b181b518109bd9b13f8a6"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/sources/hid-witness-state.mjs",
+          "sha256": "1990383600425eb72db82573cec63e8b887a7d755cf32bbb6fc2400ebc95084c"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/sources/hid-coherent-map.mjs",
+          "sha256": "d766cb5a96519bff79fafdc9806d9973e575a08a8e251b53a739490515efd7c7"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/sources/owner-ux-startup.mjs",
+          "sha256": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/sources/owner-ux-window.mjs",
+          "sha256": "d93ca436174d295cacc7a3d7d561adae7b3d5c49cbdc8019e507ca8fcec92594"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/sources/p04a1-window-select.mjs",
+          "sha256": "a70359db53251c0f88fd3ee586169fcf328f691ffaf2d73d2a844217533b561c"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/sources/input-state.py",
+          "sha256": "d235e2a584bd6d142e5fdd0dd93833bd139260b33646a7f59eae030ba5184942"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/sources/console-state.py",
+          "sha256": "fd540d278ce159e9db1c8c4e8133b222e523475ed9642244799124668de78ac7"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/sources/ownerinput/ownerinput.swift",
+          "sha256": "3b3439dcc9f68e9a891c175fdbb870a9535fd30fab6fbf00d3592fd1cb8d8d73"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/sources/hidwitness/hidwitness.swift",
+          "sha256": "9dad5fdd34fce93cd497eaf06c76b97b5d928627e07e157c292f8714fa7311df"
+        }
+      ],
+      "inputFinalization": {
+        "status": "clean",
+        "reason": "requested",
+        "auditStarted": true,
+        "auditPartial": false,
+        "observationEndsAt": "acknowledged final HID marker",
+        "finalMarker": {
+          "seq": 1865,
+          "type": "null",
+          "keycode": 0,
+          "sourcePid": 13384
+        },
+        "finalMarkerPresentInWitness": true,
+        "counts": {
+          "tool": 166,
+          "markerCompanion": 165,
+          "playerNull": 15,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        },
+        "foreignCount": 0,
+        "admission": {
+          "locked": false,
+          "rootLocked": false,
+          "sessionScreenLocked": false,
+          "sessionLockMarkerPresent": false,
+          "idleSeconds": 234.293913416
+        },
+        "heldAtStart": {
+          "heldKeys": [],
+          "heldButtons": [],
+          "clean": true
+        },
+        "heldAtEnd": {
+          "heldKeys": [],
+          "heldButtons": [],
+          "clean": true
+        },
+        "ownedKeysButtonsPendingEmpty": true,
+        "injectedEvents": 161
+      },
+      "screenshots": [
+        {
+          "frame": "009",
+          "atUtc": "2026-09-10T13:31:09.905Z",
+          "action": "click",
+          "target": "campaign-name-input",
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/009-campaign-name-input.png",
+          "sha256": "a5cb41aac166bde85f037f2fd3df1e44adfb0200422046cfff45b0feb0ea9918",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/009-map.json",
+          "mapSha256": "6b1398bff0fea52569599a0bd17bc0946f6f1169a7e54b651b717a5bffe96709"
+        },
+        {
+          "frame": "010",
+          "atUtc": "2026-09-10T13:31:18.348Z",
+          "action": "text",
+          "target": null,
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/010-text.png",
+          "sha256": "6b0c2910b05c44a0d9fba4d08f868fcc6ad4b29080b17fb870ed2e8de0092739",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/010-map.json",
+          "mapSha256": "8e009160b3ef53c53a2cf189334630addf1226dc5cd06cdedadd704d3ea310b8"
+        },
+        {
+          "frame": "011",
+          "atUtc": "2026-09-10T13:31:19.811Z",
+          "action": "tap",
+          "target": null,
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/011-tap.png",
+          "sha256": "815b862cb9bdcace3433293d1a4b8576f84bef670b3ef6d884b96749b7f1eba5",
+          "dimensions": [
+            1440,
+            928
+          ],
+          "mapPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T13-29-04-098Z/011-map.json",
+          "mapSha256": "904fa7af53b1fa275851268c28f029eaa6f9f59126abafc016f53b5f7d563f96"
+        }
+      ],
+      "keyboardRecheck": {
+        "frames": [
+          {
+            "frame": "009",
+            "cameraPose": {
+              "position": [
+                -64.2192,
+                113.633,
+                -135.5003
+              ],
+              "euler": [
+                46.5,
+                38.5,
+                0
+              ],
+              "fov": 36,
+              "aspect": 1.6,
+              "pixelWidth": 1440,
+              "pixelHeight": 900
+            },
+            "selectionStableId": "admin",
+            "sessionId": "f1328cf9-c4ef-4a0c-91bc-517a3f49c829",
+            "stateRevision": 0,
+            "gameWeek": 0,
+            "stateDigest": "34bfd956a09a2f4c5a9d090c741ffd867a10006cd796643f3901941b391b22ef",
+            "typedText": ""
+          },
+          {
+            "frame": "010",
+            "cameraPose": {
+              "position": [
+                -64.2192,
+                113.633,
+                -135.5003
+              ],
+              "euler": [
+                46.5,
+                38.5,
+                0
+              ],
+              "fov": 36,
+              "aspect": 1.6,
+              "pixelWidth": 1440,
+              "pixelHeight": 900
+            },
+            "selectionStableId": "admin",
+            "sessionId": "f1328cf9-c4ef-4a0c-91bc-517a3f49c829",
+            "stateRevision": 0,
+            "gameWeek": 0,
+            "stateDigest": "34bfd956a09a2f4c5a9d090c741ffd867a10006cd796643f3901941b391b22ef",
+            "typedText": "Hollywood Two"
+          },
+          {
+            "frame": "011",
+            "cameraPose": {
+              "position": [
+                -64.2192,
+                113.633,
+                -135.5003
+              ],
+              "euler": [
+                46.5,
+                38.5,
+                0
+              ],
+              "fov": 36,
+              "aspect": 1.6,
+              "pixelWidth": 1440,
+              "pixelHeight": 900
+            },
+            "selectionStableId": "admin",
+            "sessionId": "f1328cf9-c4ef-4a0c-91bc-517a3f49c829",
+            "stateRevision": 0,
+            "gameWeek": 0,
+            "stateDigest": "34bfd956a09a2f4c5a9d090c741ffd867a10006cd796643f3901941b391b22ef",
+            "typedText": "Hollywood Two"
+          }
+        ],
+        "cameraSelectionWeekDigestUnchanged": true,
+        "nativeLeftWitnessPair": [
+          {
+            "at": "2026-09-10T13:31:19.039Z",
+            "seq": 1652,
+            "type": "keyDown",
+            "keycode": 123,
+            "sourcePid": 13321
+          },
+          {
+            "at": "2026-09-10T13:31:19.193Z",
+            "seq": 1655,
+            "type": "keyUp",
+            "keycode": 123,
+            "sourcePid": 13322
+          }
+        ],
+        "homeClaim": "not tested; refused before injection in original review"
+      }
+    }
+  ],
+  "limitations": [
+    "Preserves an existing independent early product critique; this is not a new product critique or a repeated native test.",
+    "Development-preview scope only. No current Gate A or Gate B reuse/certification is claimed.",
+    "Does not establish live rival production, three independent world isolation, Quit/relaunch persistence, large-text behavior, or Owner acceptance.",
+    "Home was refused before injection and remains untested by these replays.",
+    "Recorded executable and engine hashes are historical launch bindings. Historical build binaries were not rehashed in this recovery and may have since been replaced.",
+    "Both build manifests record dirty TS/Unity worktrees. Copied source hashes bind the native runner and input guard tools, not a complete product-source tree. These records do not certify later changed bytes.",
+    "Only named evidence artifacts and extracted verdict were preserved. No full session transcript, private save, credentials, or runtime capability values were copied."
+  ]
+}

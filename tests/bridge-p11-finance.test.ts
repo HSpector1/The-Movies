@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import {beginFoundingHistoricalControl} from '../src/core/employment.js'
 import { financeProjection } from '../bridge/finance.ts'
 import { peopleProjection } from '../bridge/people.ts'
 import { BRIDGE_SCHEMA, PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
@@ -7,13 +8,13 @@ import { BridgeSession } from '../bridge/session.ts'
 import {
   activeContract, applyActions, beginFounding, contractOffer, FOUNDING_MINIMUMS,
   freelancerMarketIds, generateWorld, guaranteedComp, hiringMarketIds, makeSaveV10,
-  migrateToV18, queryPlacement, stableStringify, tick, weeklyBurn, weeklySalary,
+  migrateToV19, queryPlacement, stableStringify, tick, weeklyBurn, weeklySalary,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, LotCell, SegmentId } from '../src/core/index.js'
 import { filmResultView } from '../ui/src/engine/adapter.ts'
 
-function founded(seed: string): GameState {
-  let state = beginFounding(generateWorld(seed))
+function founded(seed: string, historical = false): GameState {
+  let state = (historical ? beginFoundingHistoricalControl : beginFounding)(generateWorld(seed))
   const applicants = state.founding!.applicantIds.map(id => state.talent.find(t => t.id === id)!)
   for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
     const pool = applicants.filter(t => t.role === role)
@@ -241,11 +242,11 @@ describe('P11 current people, obligations and film economics owners', () => {
   })
 
   it('marks genuinely missing legacy direct commitments unavailable without rewriting P07', () => {
-    const state = releaseFilm(founded('p11-finance-legacy'), 0, true)
+    const state = releaseFilm(founded('p11-finance-legacy', true), 0, true)
     const film = state.studio.releasedFilms[0]!
     const legacy = makeSaveV10(state)
     legacy.state.ledger = legacy.state.ledger.filter(e => e.productionId !== film.productionId || !['production', 'freelancerFee'].includes(e.kind))
-    const migrated = migrateToV18(legacy).state
+    const migrated = migrateToV19(legacy).state
     expect(migrated.cashLedgerCheckpoint).toBeDefined()
     const p07Before = filmResultView(migrated, film).business
     const row = financeProjection(migrated, peopleProjection(migrated)).films.find(f => f.productionId === film.productionId)!
@@ -259,11 +260,11 @@ describe('P11 current people, obligations and film economics owners', () => {
   })
 
   it('does not turn a retained legacy freelancer receipt into a complete film budget', () => {
-    const state = releaseFilm(founded('p11-finance-partial-legacy'), 0, true)
+    const state = releaseFilm(founded('p11-finance-partial-legacy', true), 0, true)
     const film = state.studio.releasedFilms[0]!
     const legacy = makeSaveV10(state)
     legacy.state.ledger = legacy.state.ledger.filter(e => e.productionId !== film.productionId || e.kind !== 'production')
-    const migrated = migrateToV18(legacy).state
+    const migrated = migrateToV19(legacy).state
     expect(migrated.ledger.some(e => e.productionId === film.productionId && e.kind === 'freelancerFee')).toBe(true)
     expect(migrated.ledger.some(e => e.productionId === film.productionId && e.kind === 'production')).toBe(false)
     const row = financeProjection(migrated, peopleProjection(migrated)).films.find(f => f.productionId === film.productionId)!
@@ -278,7 +279,7 @@ describe('P11 current people, obligations and film economics owners', () => {
     const film = state.studio.releasedFilms[0]!
     const commitment = state.ledger.find(e => e.kind === 'production' && e.productionId === film.productionId)!
     expect(commitment.note).toBe('negative + marketing + salaries (D-1)')
-    const migrated = migrateToV18(makeSaveV10(state)).state
+    const migrated = migrateToV19(makeSaveV10(state)).state
     const business = filmResultView(migrated, film).business
     const row = financeProjection(migrated, peopleProjection(migrated)).films.find(f => f.productionId === film.productionId)!
     expect(row.directCommitment).toBe(-commitment.amount)

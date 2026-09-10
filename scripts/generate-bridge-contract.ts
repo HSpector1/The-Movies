@@ -20,6 +20,7 @@ const UNITY_GENERATED_CONTRACT_PATH =
 const SOURCE_BUNDLE_DOMAIN = 'PROJECT_STUDIO_CF09_SOURCE_BUNDLE_V1'
 const GENERATOR_SOURCE_PATHS = [
   'bridge/schema/bridge-schema.ts',
+  'bridge/schema/industry-schema.ts',
   'bridge/schema/canonical.ts',
   'bridge/schema/dsl.ts',
   'package-lock.json',

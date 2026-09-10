@@ -1,3 +1,4 @@
+import {migrateToCurrentControl} from './_historicalCurrent.js'
 // Film Chronicle V1 — independent core contract tests.
 //
 // This suite intentionally exercises only the public core surface. It treats the
@@ -17,7 +18,6 @@ import {
   initialManagedStudioPlacement,
   initialManagedStudioOperations,
   makeSave,
-  migrateToV18,
   OracleAgent,
   stableStringify,
   tick,
@@ -908,7 +908,7 @@ describe("Film Chronicle V1 — SaveFileV11 durability", () => {
   it("reconstructs a deep-equal Chronicle after an exact V11 export/import round-trip", () => {
     const { state, productionId } = validProducedState("film-chronicle-save-v11");
     const envelope = makeSave(state);
-    expect(envelope.saveVersion).toBe(18);
+    expect(envelope.saveVersion).toBe(19);
     expect(validateSave(envelope)).toBe(envelope);
 
     const beforeState = stableStringify(state);
@@ -919,9 +919,9 @@ describe("Film Chronicle V1 — SaveFileV11 durability", () => {
     expectAvailable(before!.productionRecord);
 
     const restored = importSave(exportSave(envelope));
-    expect(restored.saveVersion).toBe(18);
-    if (restored.saveVersion !== 18) return;
-    const after = buildFilmChronicle(inputFromState(migrateToV18(restored).state, productionId));
+    expect(restored.saveVersion).toBe(19);
+    if (restored.saveVersion !== 19) return;
+    const after = buildFilmChronicle(inputFromState(migrateToCurrentControl(restored).state, productionId));
 
     expect(after).toEqual(before);
     expect(stableStringify(state)).toBe(beforeState);

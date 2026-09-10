@@ -1,9 +1,10 @@
 import {chooseIndustryPackage} from './hollywoodPolicy.js'
-import { busyTalentIds, offerForTalent, weeklySalary } from './employment.js'
+import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen } from './employment.js'
 import { moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
 import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
 import { buildFilmParticipants } from './filmParticipants.js'
 import { computeForecast } from './forecast.js'
+import { forecastHistoryForOwner } from './industryCareer.js'
 import { mintOriginalConcept, scriptDraftWeeks, writingPaceExperience } from './screenplay.js'
 import { acceptScriptProject, canonicalScriptProjectId, commissionScriptProject, completeDueScriptWork,
   linkScriptProjectToProduction, markScriptProjectProduced, scriptOccupiedFacilitySlots } from './scriptDevelopment.js'
@@ -17,12 +18,18 @@ import { buildFilmResult, resolveReception, type ReceptionInputs } from './recep
 import { openTheatricalRun } from './economy.js'
 import { updateStanding } from './standing.js'
 import { flattenParticipants } from './starPower.js'
-import { generateIndustryTalent } from './worldgen.js'
+import { generateIndustryTalent, FORCE_ORDER } from './worldgen.js'
 import { GENRE_ORDER, TUNING } from './tuning.js'
 import { clamp } from './math.js'
 import type { ReleaseGrowthRecord } from './releaseCareers.js'
 import type { GameState, Talent, FilmShape, Production, ScriptDevelopment, ScriptProject } from './types.js'
 import type { HollywoodState, IndustryReceipt, LiveIndustryFilm, RivalBusiness } from './hollywoodTypes.js'
+
+/** Shared arithmetic receives the world generator's fixed force order after
+ * every load too; JSON key sorting must not change floating-point accumulation. */
+function industryMarket(market:GameState['market']):GameState['market'] {
+  return {...market,forces:Object.fromEntries(FORCE_ORDER.map(force=>[force,market.forces[force]])) as GameState['market']['forces']}
+}
 
 type ReceiptDraft = IndustryReceipt extends infer R ? R extends IndustryReceipt ? Omit<R,'eventId'> : never : never
 function appendReceipt(h:HollywoodState, draft:ReceiptDraft) {
@@ -53,7 +60,7 @@ function inputsFor(state:GameState,h:HollywoodState,b:RivalBusiness,p:Production
   const concept=h.concepts[cost.conceptOrdinal]!
   if(concept.id!==p.conceptId)throw new Error('Industry concept index lost identity')
   return {concept,shape:p.shape,shapeEffects:resolveShape(p.shape),promise:p.promise,budget:p.budget,
-    ...partsFor(p,talent),market:state.market,standing:b.standing,era:state.era,
+    ...partsFor(p,talent),market:industryMarket(state.market),standing:b.standing,era:state.era,
     ...(project.assessment?{scriptStrengthOverride:{actual:project.assessment.actualStrength,perceived:project.assessment.perceivedStrength}}:{})}
 }
 
@@ -76,6 +83,28 @@ function operateStage(b:RivalBusiness) {
 
 /** Fill only actual role deficits. Existing lawful employees are preferred; no player poaching. */
 function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],week:number):Talent[] {
+  const reserveAfterOffer=(terms:import('./types.js').Contract,replacing?:number)=>{
+    const employment=[...h.employment,{contractId:'prospective',studioId:b.studioId,terms,endedWeek:null,reason:'replacement' as const}]
+    const activeEmploymentOrdinals=[...h.activeEmploymentOrdinals.filter(i=>i!==replacing),employment.length-1]
+    return operatingReserve(b,{...h,employment,activeEmploymentOrdinals},week)
+  }
+  // Same renewal window and immediate replacement terms as the player's renewContract.
+  // Ongoing work does not prevent an existing employer from retaining its own people.
+  for(const ordinal of [...h.activeEmploymentOrdinals]) {
+    const old=h.employment[ordinal]!
+    if(old.studioId!==b.studioId||!renewalWindowOpen(old.terms,week))continue
+    const person=talent.find(t=>t.id===old.terms.talentId)!
+    const terms=offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week)
+    if(b.account.cash-terms.signingBonus<reserveAfterOffer(terms,ordinal))continue
+    const contractId=`${b.studioId}:contract:${person.id}:${week}`
+    const newOrdinal=h.employment.length
+    h.employment=[...h.employment]
+    h.employment[ordinal]={...old,endedWeek:week}
+    h.employment.push({contractId,studioId:b.studioId,terms,endedWeek:null,reason:'renewal'})
+    h.activeEmploymentOrdinals=h.activeEmploymentOrdinals.map(i=>i===ordinal?newOrdinal:i)
+    moveRivalMoney(b.account,'signing',-terms.signingBonus,week)
+    appendReceipt(h,{week,studioId:b.studioId,kind:'employment',talentId:person.id,fromStudioId:b.studioId,toStudioId:b.studioId,contractId,reason:'renewal'})
+  }
   const occupied=busyTalentIds({...state,hollywood:h,talent})
   const unavailable=new Set([...occupied,...state.contracts.map(c=>c.talentId),...(state.founding?.applicantIds??[])])
   for(const e of h.activeEmploymentOrdinals.map(i=>h.employment[i]!))unavailable.add(e.terms.talentId)
@@ -94,7 +123,7 @@ function staff(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[],
       person=generateIndustryTalent(state.seed,id,role);supplied=true
     }
     const terms=offerForTalent(state.seed,person,TUNING.HOLLYWOOD_CONTRACT_WEEKS,week)
-    if(b.account.cash-terms.signingBonus < operatingReserve(b,h,week))continue
+    if(b.account.cash-terms.signingBonus < reserveAfterOffer(terms))continue
     if(supplied)next=[...next,person]
     const reason=expired?.terms.talentId===person.id?'renewal':'replacement'
     const contractId=`${b.studioId}:contract:${person.id}:${week}`
@@ -113,8 +142,8 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   const busy=busyTalentIds({...state,hollywood:h,talent})
   const people=new Map(talent.map(t=>[t.id,t]))
   const employees=currentEmployees(h,b.studioId).map(e=>people.get(e.terms.talentId)!)
-  const ready=hotDevelopment(b).projects.find(p=>p.status==='ready')
-  if(ready&&b.productions.length===0) {
+  for(const ready of hotDevelopment(b).projects.filter(p=>p.status==='ready')) {
+    if(b.productions.length!==0)break
     const director=employees.find(t=>t.role==='director'&&!busy.has(t.id))
     const actors=employees.filter(t=>t.role==='actor'&&!busy.has(t.id)).slice(0,3)
     const craft=employees.find(t=>t.role==='craft'&&!busy.has(t.id))
@@ -130,11 +159,8 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
         const id=uniqueIdentity(`${b.studioId}:film:${Number(ready.id.slice(7))}`,persistedProductionIds({...state,hollywood:h}))
         const choices={...provisional,budget:candidate.budget,cast:candidate.cast}
         const inp=inputsFor(state,h,b,choices,ready,people)
-        const ownerFilms=h.films.flatMap(f=>f.studioId===b.studioId&&f.provenance==='simulation/v1'?[f.result]:[])
-        const directorCredits=h.films.flatMap(f=>{const d=f.credits.find(c=>c.role==='director');return d?[{directorId:d.talentId,genre:f.genre}]:[]})
-        for(const f of state.studio.releasedFilms){const c=state.concepts.find(c=>c.id===f.conceptId);if(c)directorCredits.push({directorId:f.directorId,genre:c.genre})}
         const forecastSnapshot=computeForecast(inp,{seed:state.seed,productionId:id,directorId:director.id,
-          releasedFilms:ownerFilms,concepts:h.concepts,directorCredits},true,true)
+          ...forecastHistoryForOwner({...state,hollywood:h},b.studioId)},true,true)
         const production:Production={...choices,id,startTick:week,remainingTicks:TUNING.PRODUCTION_TICKS,forecastSnapshot,
           participants:buildFilmParticipants(id=>employees.some(t=>t.id===id),inp,concept,inp.shapeEffects,ready.promise,ready.shape)}
         const operations=addManagedProductionWorkflow(b.operations,production,scriptOccupiedFacilitySlots(hotDevelopment(b)))
@@ -166,12 +192,14 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
   const cast=employees.filter(t=>t.role==='actor')
   const craft=employees.find(t=>t.role==='craft')
   if(!director||cast.length<3||!craft)return
+  const draftWeeks=scriptDraftWeeks({origin:'original',officeTierAtMint:'baseline',writerExperience:writingPaceExperience([writer],genre),writerCount:1})
+  const weeklyCost=rivalWeeklyOperatingCost(b,h,week)
+  const reserve=weeklyCost*Math.max(b.policy.reserveWeeks,draftWeeks+TUNING.PRODUCTION_TICKS+1)
   const candidate=chooseIndustryPackage({concept,shape,shapeEffects:resolveShape(shape),promise,budget:{negative:concept.baseNegativeCost,marketing:0},
-    writer,director,cast:{lead:cast[0]!,antagonist:cast[1]!,support:cast[2]!},craftHires:[craft],market:state.market,standing:b.standing,era:state.era},b.policy,
-    {seed:state.seed,key:`${b.studioId}:screenplay:${ordinal}`,cashAvailable:b.account.cash-operatingReserve(b,h,week),weeklyCost:rivalWeeklyOperatingCost(b,h,week),lockScreenplay:false})
+    writer,director,cast:{lead:cast[0]!,antagonist:cast[1]!,support:cast[2]!},craftHires:[craft],market:industryMarket(state.market),standing:b.standing,era:state.era},b.policy,
+    {seed:state.seed,key:`${b.studioId}:screenplay:${ordinal}`,cashAvailable:b.account.cash-reserve,weeklyCost,lockScreenplay:false})
   if(!candidate)return
   shape=candidate.shape;promise=candidate.promise
-  const draftWeeks=scriptDraftWeeks({origin:'original',officeTierAtMint:'baseline',writerExperience:writingPaceExperience([writer],genre),writerCount:1})
   const hot=hotDevelopment(b)
   const next=commissionScriptProject(hot,b.operations,{conceptId,writerId:writer.id,shape,promise},week,new Set(),draftWeeks,canonicalScriptProjectId(ordinal))
   const project=next.projects[next.projects.length-1]!

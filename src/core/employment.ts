@@ -494,4 +494,3 @@ export function beginFoundingHistoricalControl(state: GameState): GameState {
   if(state.hollywood!==null)throw new Error('Historical control cannot discard a living industry')
   return beginFoundingDraft(state)
 }
-

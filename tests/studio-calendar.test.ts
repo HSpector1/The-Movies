@@ -1,14 +1,14 @@
+import {beginFoundingHistoricalControl as beginFounding} from '../src/core/employment.js'
+import {migrateToCurrentControl} from './_historicalCurrent.js'
 import { describe, expect, it } from 'vitest'
 import {
   applyActions,
-  beginFounding,
   exportSave,
   FOUNDING_MINIMUMS,
   generateWorld,
   initialManagedStudioConstruction,
   initialManagedStudioOperations,
   makeSaveV7,
-  migrateToV18,
   nextStudioDecision,
   openTheatricalRun,
   stableStringify,
@@ -228,7 +228,7 @@ describe('Studio Calendar V1 — authoritative read model', () => {
     state = applyActions(state, [
       { kind: 'greenlight', production: rawProductionPayload(state, 1) },
     ])
-    const migrated = migrateToV18(makeSaveV7(state))
+    const migrated = migrateToCurrentControl(makeSaveV7(state))
     const before = exportSave(migrated)
 
     const calendar = studioCalendar(migrated.state)

@@ -16,6 +16,8 @@ import {
   decodeBridgeRuntimeCheckpoint,
   type BridgeRuntimeJournalRoute,
 } from '../bridge/runtime-checkpoint.ts'
+import {loadCampaignLibrary} from '../bridge/runtime/campaign-library.ts'
+import {DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS} from '../bridge/runtime-checkpoint.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
 import { POST_COMMIT_RESPONSE_TEST_ENV } from '../bridge/testing/post-commit-response-gate.ts'
 import {
@@ -568,7 +570,7 @@ function assertCommittedSignal(
   expect(observed.line).not.toContain('saveJson')
 
   const checkpointBytes = fs.readFileSync(checkpointPath, 'utf8')
-  const hydrated = decodeBridgeRuntimeCheckpoint(checkpointBytes)
+  const hydrated = decodeBridgeRuntimeCheckpoint(loadCampaignLibrary(checkpointBytes,DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS).library.workingCheckpointJson)
   const journalEntry = hydrated.checkpoint.journal.find(
     (entry) => entry.route === operation.route && entry.commandId === operation.commandId,
   )
@@ -773,7 +775,7 @@ it('restores one durable logical bridge session and exact HTTP replay after SIGK
     expect(first.logs.stderr).not.toContain(first.capability)
     expect(first.logs.stdout).not.toContain(firstRuntimeInstanceId)
     expect(first.logs.stderr).not.toContain(firstRuntimeInstanceId)
-    const hydrated = decodeBridgeRuntimeCheckpoint(persistedBeforeCrash)
+    const hydrated = decodeBridgeRuntimeCheckpoint(loadCampaignLibrary(persistedBeforeCrash,DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS).library.workingCheckpointJson)
     expect(hydrated.checkpoint.journal.map((entry) => [entry.route, entry.commandId])).toEqual([
       ['command', firstCommand.request.commandId],
       ['save', save.request.commandId],
@@ -792,9 +794,9 @@ it('restores one durable logical bridge session and exact HTTP replay after SIGK
       laterCommandRaw.body,
       loadRaw.body,
     ])
-    expect(hydrated.currentSave.saveVersion).toBe(18)
+    expect(hydrated.currentSave.saveVersion).toBe(19)
     expect(exportSave(hydrated.currentSave)).toBe(hydrated.checkpoint.currentSaveJson)
-    expect(hydrated.savedSave?.saveVersion).toBe(18)
+    expect(hydrated.savedSave?.saveVersion).toBe(19)
     expect(hydrated.savedSave === null ? null : exportSave(hydrated.savedSave)).toBe(
       hydrated.checkpoint.savedSaveJson,
     )

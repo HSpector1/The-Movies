@@ -9,7 +9,7 @@
 
 import { describe, it, expect } from 'vitest'
 import { exportSaveJson, importSaveJson } from './adapter.ts'
-import { newFoundedGame } from '../test/founding.ts'
+import { newHistoricalFoundedGame, newFoundedGame } from '../test/founding.ts'
 import {
   applyActions,
   exportSave,
@@ -102,7 +102,7 @@ describe('V11: adapter migration preserves an honest pre-ledger cash checkpoint'
 
 describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 file', () => {
   it('an ENGAGED V5 save loads into the current state with engagement preserved', () => {
-    const json = v5Json(newFoundedGame('d17-adapter-engaged'))
+    const json = v5Json(newHistoricalFoundedGame('d17-adapter-engaged'))
     expect(JSON.parse(json).saveVersion).toBe(5)
     expect('economyEngagedEver' in JSON.parse(json).state).toBe(false)
 
@@ -128,7 +128,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
   it('a CURRENT-version save round-trips through the adapter as NOT converted', () => {
     const state = newFoundedGame('d17-adapter-v10')
     const json = exportSaveJson(state)
-    expect(JSON.parse(json).saveVersion).toBe(18) // P08A: new games save as SaveFileV17
+    expect(JSON.parse(json).saveVersion).toBe(19) // P08A: new games save as SaveFileV17
 
     const r = importSaveJson(json)
     expect(r.ok).toBe(true)
@@ -139,7 +139,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
   })
 
   it('a literal V8 save upgrades to V16 with legacy screenplay, casting, construction, placement, and property state', () => {
-    const state = newFoundedGame('d17-adapter-v8')
+    const state = newHistoricalFoundedGame('d17-adapter-v8')
     const json = exportSave(makeSaveV8(toV8(state)))
     const parsed = JSON.parse(json)
     expect(parsed.saveVersion).toBe(8)
@@ -152,7 +152,7 @@ describe('D-17A: importSaveJson recovers economyEngagedEver from a literal V5 fi
     expect(r.state.operations).toEqual(state.operations)
     expect(r.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
     expect(r.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
-    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(18) // P04A
+    expect(JSON.parse(exportSaveJson(r.state)).saveVersion).toBe(19) // P04A
   })
 
   it('a V5 file with a hand-added economyEngagedEver is still read as V5 (the flag is recomputed)', () => {

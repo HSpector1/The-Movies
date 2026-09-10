@@ -2,7 +2,7 @@
   "version": 1,
   "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
   "status": "PARTIAL",
-  "milestone": "early-preview",
+  "milestone": "gate-a",
   "hook": "EXPLICIT-CHECKER FALLBACK",
   "scope": {
     "rivals": 9,
@@ -37,5 +37,72 @@
     "dto": "ecc9e0b65c493200e39d245d38de2cdad5be1953242ffc1a61a7c53fcb755476"
   },
   "candidate": null,
-  "evidence": []
+  "evidence": [
+    {
+      "kind": "product-review-early",
+      "outcome": "PASS",
+      "attestationId": "early-product-recovered",
+      "path": "recovered-early-review.json",
+      "sha256": "791e93f1a1823369735ef585ade488be280e6a33482a8e0bb57f2d7596e58734",
+      "applicability": "Original early preview only; current candidate reuse not yet approved"
+    },
+    {
+      "kind": "named-campaigns",
+      "outcome": "PASS",
+      "attestationId": "storage-continuation-r05",
+      "path": "storage-resume-20260910/report.json",
+      "sha256": "30d163fafa7c026a64e654b0f136937b88a47d438759a73dbdb7608ffc518506",
+      "applicability": "Headless independent storage and retry proof; three SaveAs records, not three independently seeded native NewGames"
+    },
+    {
+      "kind": "cumulative-regression",
+      "outcome": "PARTIAL",
+      "attestationId": "recovered-regression",
+      "path": "recovered-checks-20260910/ts-cumulative-03.log",
+      "sha256": "2c6db6ee4e43719fd9f2509ef4d4caf0c0f46a30b0656efa0fa07ca38db2a044",
+      "applicability": "Latest completed cumulative run has one failed boundary-assumption test; follow-up open"
+    },
+    {
+      "kind": "generated-contract",
+      "outcome": "PASS",
+      "attestationId": "recovered-contract",
+      "path": "recovered-checks-20260910/contract-08.log",
+      "sha256": "a2b0fff73bd16703d1da26f1624848dc422ee8100ce9a3e6b9988ba08ee9d8b3",
+      "applicability": "Current generated schema/DTO and union fixtures; final delivered binding pending"
+    }
+  ],
+  "updatedAtUtc": "2026-09-10T16:26:14.143862+00:00",
+  "attestationsPath": "attestations.json",
+  "recovery": {
+    "sessionId": "01a08adf-7719-7da2-85d0-77ae64c36fad",
+    "model": "gpt-6-astra",
+    "effort": "ultra",
+    "soleEditingAndInputOwner": "root",
+    "privateSourceCheckpoint": "/Users/bruce/.local/share/project-studio-recovery/P12A-R05-20260910T160046Z",
+    "tsHead": "bf99a0d283e9fc922ba971700a2d3e32dbf5f4a6",
+    "unityHead": "3a9a3f488693aa14431a6aa412d7560df8f30a89",
+    "changedSourceFilesAtCheckpoint": {
+      "ts": 114,
+      "unity": 44
+    },
+    "priorNativeStopUtc": "2026-09-10T13:55:21Z",
+    "lastPriorNativeAttempt": "unlocked but idle3.81s; refused before input; not a pass",
+    "resumedNativeAttempt": {
+      "atUtc": "2026-09-10T16:21:51.443Z",
+      "result": "INTERRUPTED",
+      "physicalScrollAtUtc": "2026-09-10T16:22:01.307Z",
+      "evidenceDirectory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-21-51-443Z",
+      "inputFinalization": "foreign",
+      "tasksCompleted": false
+    }
+  },
+  "open": [
+    "Native full-Profile return replay",
+    "Native independently seeded A/B/C, SaveAs divergence, Quit/relaunch and isolation",
+    "Remaining independent Gate A and Gate B product critiques",
+    "Current candidate source/build evidence applicability and runnable Gate A preservation",
+    "Performance: original uncompressed targets MISS; isolated/native latency and memory pending",
+    "Requirement final dispositions and final launch-verified packaging",
+    "Final cumulative source gate after lazy catalogue fork: full03 was5144PASS/1FAIL/5SKIP; failed case plus supervisor corrected and15focusedPASS;17campaign/codecPASS after lazy fork"
+  ]
 }

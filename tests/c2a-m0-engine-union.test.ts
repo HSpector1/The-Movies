@@ -1,3 +1,4 @@
+import { beginFoundingHistoricalControl as beginFounding } from '../src/core/employment.js'
 // ── C2a-M0 — engine baseline, hygiene, and the union ─────────────────────────
 // Charter §12-M0 + §3.2. Three things are pinned here:
 //   1. the founding facility capacities are NAMED TUNING constants, not literals;
@@ -15,7 +16,6 @@ import {
   TUNING,
   applyActions,
   assertNoDoubleBookedResourceSlots,
-  beginFounding,
   exportSave,
   facilitySlotKey,
   findDoubleBookedResourceSlot,

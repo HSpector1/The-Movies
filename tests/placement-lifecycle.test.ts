@@ -1,3 +1,4 @@
+import {migrateToCurrentControl} from './_historicalCurrent.js'
 // Placement Core V12 — the weekly lifecycle: completion, capacity, the operating
 // charge, and determinism.
 //
@@ -23,7 +24,6 @@ import {
   generateWorld,
   importSave,
   makeSave,
-  migrateToV18,
   operationalPlacedFacilities,
   periodSummary,
   placedStudioFacility,
@@ -109,7 +109,7 @@ describe('Placement Core V12 — completion flips capacity exactly once, on its 
     let split = start
     for (let week = 0; week < BUILD_WEEKS; week++) {
       const json = exportSave(makeSave(split))
-      const reloaded = migrateToV18(importSave(json))
+      const reloaded = migrateToCurrentControl(importSave(json))
       expect(exportSave(reloaded)).toBe(json)
       split = tick(reloaded.state)
     }
@@ -345,7 +345,7 @@ describe('Placement Core V12 — determinism', () => {
     const continuous = advance(start, 12)
 
     const json = exportSave(makeSave(start))
-    const reloaded = migrateToV18(importSave(json))
+    const reloaded = migrateToCurrentControl(importSave(json))
     expect(exportSave(reloaded)).toBe(json)
     const resumed = advance(reloaded.state, 12)
 

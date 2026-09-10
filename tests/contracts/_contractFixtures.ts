@@ -1,3 +1,4 @@
+import {beginFoundingHistoricalControl as beginFounding} from '../../src/core/employment.js'
 // ── C2a-M0 · CONTRACT-FIRST FIXTURES ────────────────────────────────────────
 //
 // These suites are written from the CHARTER TEXT
@@ -16,7 +17,6 @@ import { fileURLToPath } from 'node:url'
 
 import {
   applyActions,
-  beginFounding,
   FOUNDING_MINIMUMS,
   generateWorld,
   scriptProjectsReadModel,

@@ -3,8 +3,8 @@ import { createHash, randomUUID } from 'node:crypto'
 import {
   exportSave,
   importSave,
-  migrateToV18,
-  type SaveFileV18,
+  migrateToV19,
+  type SaveFileV19,
 } from '../src/core/index.js'
 import { exportSaveJson } from '../ui/src/engine/adapter.ts'
 import {
@@ -53,6 +53,8 @@ export const PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // P12A: actual outgoing accepted P11 schema; inner V18 migrates at each own week.
+  ['sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211', 'projection-v27'],
   // P11 exact production locations: authentic outgoing ready 4/26/V18.
   ['sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1', 'projection-v26'],
   // P11 ready extensions: authentic outgoing core control 4/25/V18.
@@ -148,9 +150,12 @@ export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> 
 ])
 
 export const DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS = Object.freeze({
-  maxCheckpointBytes: 32 * 1024 * 1024,
+  // R05 week8791 measured an exact Save receipt of 49.6 MB and a 133.5 MB
+  // single-save outer1. Preserve retry bytes with reviewed, bounded headroom.
+  // This capacity rebaseline does not satisfy the original save-growth target.
+  maxCheckpointBytes: 192 * 1024 * 1024,
   maxJournalEntries: 512,
-  maxJournalBytes: 16 * 1024 * 1024,
+  maxJournalBytes: 64 * 1024 * 1024,
 })
 
 /** Session-facing short name; the longer export remains for format-specific call sites. */
@@ -401,7 +406,7 @@ function parseCanonicalJson(json: string, path: string): unknown {
 // (journal discarded as opaque history, saves re-imported through the
 // canonical chain). A CURRENT-schema checkpoint is therefore always written
 // by this build and always carries live V16 bytes.
-type CurrentEnvelopeSave = SaveFileV18
+type CurrentEnvelopeSave = SaveFileV19
 
 function validateCanonicalCurrentSave(
   saveJson: string,
@@ -416,11 +421,11 @@ function validateCanonicalCurrentSave(
   } catch (error) {
     fail(path, `is not a valid TypeScript save: ${(error as Error).message}`)
   }
-  if (imported.saveVersion !== 18) {
-    fail(path, `must be a current V18 save, received V${String(imported.saveVersion)}`)
+  if (imported.saveVersion !== 19) {
+    fail(path, `must be a current V19 save, received V${String(imported.saveVersion)}`)
   }
   if (exportSave(imported) !== saveJson) {
-    fail(path, 'must preserve the canonical V18 save bytes exactly')
+    fail(path, 'must preserve the canonical V19 save bytes exactly')
   }
   const current = imported as CurrentEnvelopeSave
   cache.set(saveJson, current)
@@ -809,10 +814,10 @@ function migrateLegacyProtocol3Checkpoint(
 function importPriorSaveViaCanonicalChain(
   json: string,
   path: string,
-): { json: string; state: SaveFileV18['state'] } {
-  let migrated: SaveFileV18
+): { json: string; state: SaveFileV19['state'] } {
+  let migrated: SaveFileV19
   try {
-    migrated = migrateToV18(importSave(json))
+    migrated = migrateToV19(importSave(json))
   } catch (error) {
     fail(path, `is not a save the current save contract can import: ${(error as Error).message}`)
   }

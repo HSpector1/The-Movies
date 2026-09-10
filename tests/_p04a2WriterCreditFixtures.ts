@@ -1,3 +1,4 @@
+import {beginFoundingHistoricalControl as beginFounding} from '../src/core/employment.js'
 // P04A.2 — shared fixtures for the writer-credit law suite.
 //
 // NOT a test file (no `.test.` in the name — vitest ignores it), following the house
@@ -19,7 +20,6 @@ import { expect } from 'vitest'
 import {
   activeScriptWriterAssignments,
   applyActions,
-  beginFounding,
   busyTalentIds,
   FOUNDING_MINIMUMS,
   generateWorld,

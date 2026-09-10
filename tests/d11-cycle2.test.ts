@@ -1,3 +1,4 @@
+import {migrateToCurrentControl} from './_historicalCurrent.js'
 // ── D-11.A cycle-2 corrections — INDEPENDENT acceptance tests ─────────────────
 // Every expectation is hand-derived from ruling D-11.A (docs/rev4-open-questions.md):
 // unique production ids, immutable film-specific participant history, 3-actor founding
@@ -14,7 +15,6 @@ import {
   importSave,
   isContracted,
   makeSave,
-  migrateToV18,
   previewCustomTalent,
   roleOVR,
   ROLE_TO_DISCIPLINE,
@@ -224,12 +224,12 @@ describe('D-11.A — each released film keeps its OWN immutable participants', (
   it('save/reload (V3) preserves each film\'s distinct participant history', () => {
     const { s } = twoFilms('c2-part-5')
     const reloaded = importSave(exportSave(makeSave(s)))
-    if (reloaded.saveVersion !== 18) throw new Error('expected V18')
+    if (reloaded.saveVersion !== 19) throw new Error('expected V19')
     const before = s.studio.releasedFilms.map((f) => f.participants!.writer.talentId).sort()
     const after = reloaded.state.studio.releasedFilms.map((f) => f.participants!.writer.talentId).sort()
     expect(after).toEqual(before)
     // byte-identical round-trip including participants
-    expect(exportSave(makeSave(migrateToV18(reloaded).state))).toBe(exportSave(makeSave(s)))
+    expect(exportSave(makeSave(migrateToCurrentControl(reloaded).state))).toBe(exportSave(makeSave(s)))
   })
 })
 

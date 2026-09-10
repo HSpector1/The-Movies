@@ -1,3 +1,5 @@
+import {liftHistoricalState} from './_historicalCurrent.js'
+import {beginFoundingHistoricalControl as beginFounding} from '../src/core/employment.js'
 // ── D-17B §5 / §6 (E4) — SaveFileV7 and the `publicity` ledger kind ───────────
 // Authority: docs/D-17B-CANDIDATE-DESIGN-CONTRACT.md §5 (+ §0 escalation E4);
 // Owner authorization §4 G ("save state strictly required for the Publicity mechanic")
@@ -13,7 +15,6 @@ import { describe, expect, it } from 'vitest'
 import { expectForwardHistoryTwin } from './_p08HistoryTwins.js'
 import {
   applyActions,
-  beginFounding,
   convertV5ToV6,
   convertV6ToV7,
   emptyPublicityState,
@@ -143,8 +144,8 @@ describe('D-17B/E4 — the frozen V7 envelope remains valid and isolated', () =>
 
   it('V7 through V16 are known, so the unknown-version boundary is now 18', () => {
     const save = makeSaveV7(toV7(foundStudio('d17b-v7-boundary')))
-    expect(() => validateSave({ ...save, saveVersion: 19 })).toThrow(/unknown saveVersion 19/)
-    expect(() => validateSave({ ...save, saveVersion: 19 })).toThrow(/unknown saveVersion 19/)
+    expect(() => validateSave({ ...save, saveVersion: 20 })).toThrow(/unknown saveVersion 20/)
+    expect(() => validateSave({ ...save, saveVersion: 20 })).toThrow(/unknown saveVersion 20/)
     // P06A (W1): 16 is now a KNOWN, LIVE version — dispatch reaches validateSaveV16, which
     // fails on this V7 payload's real shape mismatch (no releaseAuthority), not the
     // unknown-version boundary.
@@ -240,7 +241,7 @@ describe('D-17B/E4 — migrateToV7 lifts every known version, and the chain stil
     for (let i = 0; i < 6; i++) a = tick(a)
     const reloaded = importSave(exportSave(makeSaveV7(toV7(a))))
     if (reloaded.saveVersion !== 7) throw new Error('expected V7')
-    let split = convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(reloaded))))))))))).state
+    let split = liftHistoricalState(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(reloaded))))))))))).state)
     let continuous = a
     const boundaryWeek = split.market.tick
     for (let i = 0; i < 6; i++) {

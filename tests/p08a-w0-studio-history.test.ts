@@ -1,3 +1,5 @@
+import {beginFoundingHistoricalControl} from '../src/core/employment.js'
+import {migrateToCurrentControl} from './_historicalCurrent.js'
 // ── P08A W0/W1 — Standing & Studio History Spine V1: root, receipts, migration ──
 //
 // The charter §6/§7/§9/§10 laws under test, stated once:
@@ -48,7 +50,7 @@ import {
   tick,
   TUNING,
   updateStanding,
-  validateSaveV18,
+  validateSaveV19,
 } from '../src/core/index.js'
 import type {
   CastSlot,
@@ -58,8 +60,8 @@ import type {
 } from '../src/core/index.js'
 
 // ── fixtures (the d12-economy vocabulary, minimally copied) ──────────────────
-function foundStudio(seed: string): GameState {
-  let s = beginFounding(generateWorld(seed))
+function foundStudio(seed: string,historical=false): GameState {
+  let s = historical?beginFoundingHistoricalControl(generateWorld(seed)):beginFounding(generateWorld(seed))
   const pool = s.founding!.applicantIds.map((id) => s.talent.find((t) => t.id === id)!)
   const byRole = (role: CreativeRole, n: number) => pool.filter((t) => t.role === role).slice(0, n)
   const toSign = [
@@ -117,8 +119,8 @@ function advance(s: GameState, n: number): GameState {
   return out
 }
 /** Advance until the first release lands (the week after PRODUCTION_TICKS). */
-function releaseOne(seed: string): { before: GameState; after: GameState } {
-  let s = greenlightOneFilm(foundStudio(seed))
+function releaseOne(seed: string,historical=false): { before: GameState; after: GameState } {
+  let s = greenlightOneFilm(foundStudio(seed,historical))
   let before = s
   for (let guard = 0; guard < 24 && s.studio.releasedFilms.length === 0; guard++) {
     before = s
@@ -361,7 +363,7 @@ describe('P08A H3/H5 — weekly settling receipts are exact, bounded, and folded
 // ── H6 — migration honesty ───────────────────────────────────────────────────
 describe('P08A H6 — V16→V17 migration invents nothing and every downgrade is refused', () => {
   it('begins recording at the migration week, keeps every other root and the current Standing', () => {
-    const { after } = releaseOne('p08-h6-migrate')
+    const { after } = releaseOne('p08-h6-migrate',true)
     // A V16 envelope of a played world: it carries no history root at all.
     const v16 = makeSaveV16(after)
     expect(v16.saveVersion).toBe(16)
@@ -397,8 +399,8 @@ describe('P08A H6 — V16→V17 migration invents nothing and every downgrade is
     expect(() => migrateToV15(live)).toThrow(/cannot downgrade SaveFileV18/)
   })
   it('a migrated studio records forward from the boundary and never back-fills', () => {
-    const { after } = releaseOne('p08-h6-forward')
-    const migrated = migrateToV18(makeSaveV16(after)).state
+    const { after } = releaseOne('p08-h6-forward',true)
+    const migrated = migrateToCurrentControl(makeSaveV16(after)).state
     // The film released BEFORE the boundary is absent from history (honest absence)…
     expect(rowsOf(migrated, 'filmReleased')).toHaveLength(0)
     // …and a NEW release after the boundary is recorded, as a MAJOR (not the
@@ -417,7 +419,7 @@ describe('P08A H7 — save/load mid-run continues with identical history', () =>
   it('reloaded branch equals the unbroken branch byte-for-byte after more releases', () => {
     const { after } = releaseOne('p08-h7-continuity')
     let continuous = greenlightOneFilm(after, 1)
-    let reloaded = migrateToV18(importSave(exportSave(makeSave(continuous)))).state
+    let reloaded = migrateToCurrentControl(importSave(exportSave(makeSave(continuous)))).state
     expect(bytes(reloaded)).toBe(bytes(continuous))
     continuous = advance(continuous, TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS + 2)
     reloaded = advance(reloaded, TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS + 2)
@@ -436,7 +438,7 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
   it('refuses out-of-order ids, pre-boundary rows, lying deltas, and unknown kinds', () => {
     const { after } = releaseOne('p08-h8-forge')
     const legal = makeSave(after)
-    expect(validateSaveV18(clone(legal))).toBeTruthy()
+    expect(validateSaveV19(clone(legal))).toBeTruthy()
 
     const swapped = clone(legal)
     const rows = [...swapped.state.studioHistory.rows]
@@ -445,18 +447,18 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
       rows[0] = b
       rows[1] = a
       ;(swapped.state.studioHistory as unknown as { rows: unknown[] }).rows = rows
-      expect(() => validateSaveV18(swapped)).toThrow(/ascending eventId/)
+      expect(() => validateSaveV19(swapped)).toThrow(/ascending eventId/)
     }
 
     const early = clone(legal)
     ;(early.state.studioHistory as { recordingStartedWeek: number }).recordingStartedWeek = 10_000
-    expect(() => validateSaveV18(early)).toThrow(/recording boundary/)
+    expect(() => validateSaveV19(early)).toThrow(/recording boundary/)
 
     const lying = clone(legal)
     const receipt = lying.state.studioHistory.rows.find((r) => r.kind === 'standingChanged')
     if (receipt !== undefined && receipt.kind === 'standingChanged') {
       ;(receipt.deltas as { audienceAwareness: number }).audienceAwareness += 1
-      expect(() => validateSaveV18(lying)).toThrow(/after − before/)
+      expect(() => validateSaveV19(lying)).toThrow(/after − before/)
     }
 
     const unknown = clone(legal)
@@ -468,6 +470,6 @@ describe('P08A H8 — the save boundary refuses forged history', () => {
       subjects: [{ kind: 'studio' }],
     })
     ;(unknown.state.studioHistory as { nextEventId: number }).nextEventId += 1
-    expect(() => validateSaveV18(unknown)).toThrow(/not a known history kind/)
+    expect(() => validateSaveV19(unknown)).toThrow(/not a known history kind/)
   })
 })

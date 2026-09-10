@@ -6043,11 +6043,10 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
   return validateSaveV16(save);
 }
 
-// makeSave — the LIVE boundary (P09: V18). Frozen prior values must cross
-// their respective convertVNToVN+1/migrateToVN+1 explicitly. V18 owns exactly
-// one new root: `foundingRegime` (immutable founding history).
+// makeSave — the live V19 boundary. Frozen prior values migrate explicitly.
+// The new plain-JSON root is detached once; only final serialization sorts it.
 export function makeSave(state: GameState): SaveFileV19 {
-  const current = { ...projectStateV18(state), hollywood: clonePlainJson(state.hollywood) };
+  const current = { ...projectStateV18(state), hollywood: JSON.parse(JSON.stringify(state.hollywood)) as GameState["hollywood"] };
   return validateSaveV19({saveVersion:19,seed:state.seed,state:current,broadcastCache:current.broadcastItems});
 }
 
@@ -6064,6 +6063,11 @@ export function loadSave(save: unknown): SaveFile {
 export function exportSave(save: SaveFile): string {
   validateSave(save);
   return stableStringify(save);
+}
+
+/** Construct, validate once, and immediately serialize the detached current save. */
+export function exportCurrentState(state: GameState): string {
+  return stableStringify(makeSave(state));
 }
 
 // Parse a JSON string and validate it as a SaveFile (loud rejection on any

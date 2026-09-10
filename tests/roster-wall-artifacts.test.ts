@@ -15,7 +15,7 @@ import {
   exportSave,
   generateWorld,
   importSave,
-  makeSave,
+  makeSaveV18 as makeSave,
   stableStringify,
 } from '../src/core/index.js'
 import {

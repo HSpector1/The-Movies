@@ -1,3 +1,5 @@
+import {beginFoundingHistoricalControl} from '../../../src/core/employment.ts'
+import {generateWorld} from '../../../src/core/worldgen.ts'
 // ── Test helper: found a studio (D-11) ───────────────────────────────────────
 // Phase 5.2A makes `newGame(seed)` open the FOUNDING DRAFT (state.founding !== null):
 // the player must hire an initial roster before the studio can staff films. Most
@@ -30,7 +32,15 @@ const FOUND_ROSTER: Record<CreativeRole, number> = {
 // A founded studio for `seed`: opens founding, signs the roster above from the
 // deterministic applicant pool, and closes founding. Deterministic per seed.
 export function newFoundedGame(seed: string, termWeeks = 104): GameState {
-  let s = newGame(seed)
+  return foundTestRoster(newGame(seed),termWeeks)
+}
+
+/** Explicit pre-P12 input for frozen-save regression tests only. */
+export function newHistoricalFoundedGame(seed:string,termWeeks=104):GameState {
+  return foundTestRoster(beginFoundingHistoricalControl(generateWorld(seed)),termWeeks)
+}
+
+function foundTestRoster(s:GameState,termWeeks:number):GameState {
   const cards = foundingApplicantCards(s)
   const pickIds = (role: CreativeRole, n: number): string[] =>
     cards

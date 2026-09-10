@@ -37,7 +37,7 @@ import {
   tick,
 } from '../../src/core/index.ts'
 import type { GameStateV5, GameStateV8 } from '../../src/core/index.ts'
-import { newFoundedGame, foundedRosterIds } from './test/founding.ts'
+import { newHistoricalFoundedGame, newFoundedGame, foundedRosterIds } from './test/founding.ts'
 import { App } from './App.tsx'
 import { setStudioLotOverviewOverride } from './flags.ts'
 
@@ -313,7 +313,7 @@ describe('D-12 New Studio — confirmed destructive action', () => {
 // the literal V5 path needs its own regression guard.
 describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
   it('an ENGAGED V5 session restores with the flag true and the converted banner', () => {
-    const engaged = newFoundedGame('sess-v5-engaged')
+    const engaged = newHistoricalFoundedGame('sess-v5-engaged')
     // A LITERAL V5 envelope: the frozen V5 state shape (no `economyEngagedEver`) + saveVersion 5.
     const v5 = exportSave(makeSaveV5(toV5(engaged)))
     expect(JSON.parse(v5).saveVersion).toBe(5)
@@ -329,7 +329,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
 
     // …and re-saving it writes a V14 envelope that loads back UNCONVERTED.
     saveActiveSession(loaded.state)
-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(18) // P08A: live saves are SaveFileV17.
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(19) // P08A: live saves are SaveFileV17.
     const again = loadActiveSession()
     expect(again.ok).toBe(true)
     if (!again.ok) return
@@ -357,7 +357,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
 
     // Round-trip: saved as V14, reloaded unconverted, still not engaged.
     saveActiveSession(loaded.state)
-    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(18) // P08A: live saves are SaveFileV17.
+    expect(JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!).saveVersion).toBe(19) // P08A: live saves are SaveFileV17.
     const again = loadActiveSession()
     expect(again.ok).toBe(true)
     if (!again.ok) return
@@ -368,7 +368,7 @@ describe('D-17A fix-pass — a stored V5 autosave migrates on load', () => {
 
 describe('Script Projects V1 — a stored V8 autosave migrates on load', () => {
   it('preserves operations, seeds legacy screenplay and casting state, then re-saves as V15', () => {
-    const live = newFoundedGame('sess-v8-script-migration')
+    const live = newHistoricalFoundedGame('sess-v8-script-migration')
     const v8 = exportSave(makeSaveV8(toV8(live)))
     const parsedV8 = JSON.parse(v8)
     expect(parsedV8.saveVersion).toBe(8)
@@ -384,7 +384,7 @@ describe('Script Projects V1 — a stored V8 autosave migrates on load', () => {
 
     saveActiveSession(loaded.state)
     const parsedV11 = JSON.parse(localStorage.getItem(ACTIVE_SESSION_KEY)!)
-    expect(parsedV11.saveVersion).toBe(18) // P08A: live saves are SaveFileV17.
+    expect(parsedV11.saveVersion).toBe(19) // P08A: live saves are SaveFileV17.
     expect(parsedV11.state.scriptDevelopment).toEqual({ mode: 'legacy', projects: [] })
     expect(parsedV11.state.castingSessions).toEqual({ mode: 'legacy', sessions: [] })
     expect(parsedV11.state.construction).toEqual({ mode: 'legacy', parcels: [], projects: [] })

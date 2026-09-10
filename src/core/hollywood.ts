@@ -1,4 +1,5 @@
 import { productionCompanyTalentIds } from './productionPeople.js'
+import { recordPlayerEmployment } from './industryEmployment.js'
 import { CAMPAIGN_CALENDAR_POLICY, historicalDate, RIVAL_ARRIVAL_WEEKS } from './calendar.js'
 import { HOLLYWOOD_STARTING_MANIFEST, RIVAL_CREDIT_ROLES, RIVAL_TEAM_ROLES, startingStanding } from './hollywoodStartingData.js'
 import { busyTalentIds, offerForTalent, weeklySalary } from './employment.js'
@@ -40,8 +41,14 @@ export function moveRivalMoney(account: RivalAccount, kind: RivalMoneyKind, amou
   period.throughWeek = week
 }
 
+const employmentByPerson=new WeakMap<HollywoodState['employment'],Map<string,HollywoodState['employment']>>()
 export function rivalEmployment(state: Pick<GameState, 'hollywood'>, talentId: string, week: number) {
-  return state.hollywood?.employment.find(row => row.terms.talentId === talentId &&
+  const rows=state.hollywood?.employment
+  if(!rows)return null
+  let index=employmentByPerson.get(rows)
+  if(!index){index=new Map();for(const row of rows){const own=index.get(row.terms.talentId)??[];own.push(row);index.set(row.terms.talentId,own)}employmentByPerson.set(rows,index)}
+  return index.get(talentId)?.find(row =>
+    row.studioId !== state.hollywood?.playerStudioId &&
     row.terms.startWeek <= week && week < row.terms.endWeekExclusive &&
     (row.endedWeek === null || week < row.endedWeek)) ?? null
 }
@@ -88,9 +95,22 @@ export function rivalCapacityOpex(business: RivalBusiness): number {
 }
 
 /** New root only; null is the historical non-player harness, never a native campaign. */
+export function rivalStartingFacilities(studioId:string):RivalBusiness['operations']['facilities'] {
+  return [
+    {id:`${studioId}:development`,name:'Development & Casting',capability:'development-casting',capacity:2},
+    {id:`${studioId}:stage`,name:'Production Stage',capability:'soundstage',capacity:1},
+    {id:`${studioId}:scenery`,name:'Scenery Shop',capability:'set-scenery',capacity:2},
+    {id:`${studioId}:post`,name:'Post Building',capability:'post',capacity:2},
+  ]
+}
+
+export function hollywoodWorldKey(seed: GameState['seed']): string {
+  return Math.floor(stream(seed,'hollywood-v1','identity').next()*0x100000000).toString(16).padStart(8,'0')
+}
+
 export function initializeHollywood(state: GameStateV18 & { hollywood?: HollywoodState | null }, origin: 'fresh' | 'migration'): GameState {
   if (state.hollywood) return state as GameState
-  const key = Math.floor(stream(state.seed,'hollywood-v1','identity').next()*0x100000000).toString(16).padStart(8,'0')
+  const key = hollywoodWorldKey(state.seed)
   const taken = new Set(state.talent.map(t => t.id))
   for (const c of state.concepts) taken.add(c.id)
   const playerStudioId = uniqueIdentity(`studio-${key}-player`,taken)
@@ -112,7 +132,7 @@ export function initializeHollywood(state: GameStateV18 & { hollywood?: Hollywoo
   for (const identity of identities.slice(1)) if (identity.eligibleWeek <= state.market.tick) {
     next = enterRival(next,identity.studioId,origin)
   }
-  return next
+  return recordPlayerEmployment(next,origin==='migration')
 }
 
 /** Atomic pure entry: no caller-owned object is modified, even if validation throws. */
@@ -131,12 +151,7 @@ export function enterRival(state: GameState, studioId: string, origin: 'fresh' |
   const account: RivalAccount = {openingBalance:template.capital, openingBasis:'before-capacity-and-signing',
     cash:template.capital, periods:[newFinancePeriod(week,template.capital)]}
   const business: RivalBusiness = {studioId, entryKey:`${studioId}:entry`, account,
-    standing:startingStanding(template,authored), operations:{mode:'managed',workflows:[],facilities:[
-      {id:`${studioId}:development`,name:'Development & Casting',capability:'development-casting',capacity:2},
-      {id:`${studioId}:stage`,name:'Production Stage',capability:'soundstage',capacity:1},
-      {id:`${studioId}:scenery`,name:'Scenery Shop',capability:'set-scenery',capacity:2},
-      {id:`${studioId}:post`,name:'Post Building',capability:'post',capacity:2},
-    ]}, development:initialManagedScriptDevelopment(), productions:[], activeScriptOrdinals:[], activeRunFilmOrdinals:[], releaseAuthority:initialReleaseAuthority(),
+    standing:startingStanding(template,authored), operations:{mode:'managed',workflows:[],facilities:rivalStartingFacilities(studioId)}, development:initialManagedScriptDevelopment(), productions:[], activeScriptOrdinals:[], activeRunFilmOrdinals:[], releaseAuthority:initialReleaseAuthority(),
     runs:[], projects:[], nextDecisionWeek:week+1,
     policy:{version:1,affinities:Object.fromEntries(GENRE_ORDER.map(g => [g,template.anchors.includes(g)?5:1])) as Record<Genre,number>,
       negativeScale:template.negativeScale,marketingRatio:template.marketingRatio,reserveWeeks:template.reserveWeeks}}

@@ -33,6 +33,7 @@ import {
 } from '../ui/src/engine/adapter.ts'
 import type { GameState, TalentProfile } from '../ui/src/engine/adapter.ts'
 import { studioPresence } from '../src/core/presence.ts'
+import { rivalEmployment } from '../src/core/hollywood.ts'
 import { DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE } from '../src/core/tuning.ts'
 import { guaranteedComp, activeContract, renewalWindowOpen } from '../src/core/employment.ts'
 import { contractActionDecisions } from './contract.ts'
@@ -109,7 +110,7 @@ export type BridgePersonEmploymentSnapshot = {
 }
 
 export type BridgePersonWorkSnapshot = {
-  kind: 'available' | 'assigned' | 'ambiguous'
+  kind: 'available' | 'assigned' | 'ambiguous' | 'undisclosed'
   assignmentKind: 'production' | 'script' | null
   assignmentId: string | null
   label: string | null
@@ -353,7 +354,15 @@ export function peopleProjection(state: GameState): BridgePeopleProjection {
     for (const craft of participants.craft) bump(craft.talentId)
   }
   const eventsById = new Map<string, TalentCareerEvent[]>()
-  for (const event of state.careerEvents) {
+  const authoredCreditsById=new Map<string,number>()
+  for(const film of state.hollywood?.films??[]) {
+    resultIds.add(film.filmId)
+    for(const credit of film.credits) {
+      const target=film.provenance==='authored-start/v1'?authoredCreditsById:creditsById
+      target.set(credit.talentId,(target.get(credit.talentId)??0)+1)
+    }
+  }
+  for (const event of [...state.careerEvents,...(state.hollywood?.careerEvents??[])]) {
     const list = eventsById.get(event.talentId) ?? []
     list.push(event)
     eventsById.set(event.talentId, list)
@@ -375,6 +384,7 @@ export function peopleProjection(state: GameState): BridgePeopleProjection {
         resultIds,
         titleOf,
         credits: creditsById.get(talent.id) ?? 0,
+        authoredCredits: authoredCreditsById.get(talent.id) ?? 0,
         uncapturedFilms,
         events: eventsById.get(talent.id) ?? [],
       }),
@@ -394,6 +404,7 @@ type ProfileInputs = {
   resultIds: Set<string>
   titleOf: (productionId: string) => string
   credits: number
+  authoredCredits: number
   uncapturedFilms: number
   events: TalentCareerEvent[]
 }
@@ -491,6 +502,11 @@ function topSpecialties(profile: TalentProfile, primary: Discipline): BridgePers
 }
 
 function buildEmployment(state: GameState, talent: Talent, week: number): BridgePersonEmploymentSnapshot {
+  const other=rivalEmployment(state,talent.id,week)
+  if(other) {
+    const name=state.hollywood!.identities.find(s=>s.studioId===other.studioId)!.name
+    return {status:'unavailable',statusLabel:`With ${name}`,availability:'Under exclusive studio contract',contract:null,marketRatePerProduction:talent.salary,freelancerFee:null,offersAvailable:false}
+  }
   const info = employmentInfo(state, talent.id)
   const contract = activeContract(state, talent.id)
   const wire: BridgePersonContractSnapshot | null =
@@ -545,6 +561,8 @@ function availabilityOf(status: EmploymentStatus): string {
 }
 
 function buildWork(state: GameState, talentId: string): BridgePersonWorkSnapshot {
+  const other=rivalEmployment(state,talentId,state.market.tick)
+  if(other)return {kind:'undisclosed',assignmentKind:null,assignmentId:null,label:null,reason:'Another studio’s current assignments are not disclosed. Open the public Industry record for announced films and credits.'}
   const context = talentAssignmentContext(state, talentId)
   if (context.kind === 'assigned') {
     return {
@@ -608,7 +626,8 @@ function buildPresence(input: ProfileInputs): BridgePersonPresenceSnapshot {
 
 function buildCareer(input: ProfileInputs): BridgePersonCareerSnapshot {
   const rows: BridgePersonCareerRowSnapshot[] = [...input.events]
-    .sort((a, b) => a.releaseWeek - b.releaseWeek || (a.eventId < b.eventId ? -1 : 1))
+    .sort((a, b) => b.releaseWeek - a.releaseWeek || (a.eventId < b.eventId ? -1 : 1))
+    .slice(0,24)
     .map((e) => ({
       eventId: e.eventId,
       filmId: e.filmId,
@@ -622,12 +641,12 @@ function buildCareer(input: ProfileInputs): BridgePersonCareerSnapshot {
       starPowerBefore: e.starPowerBefore,
       starPowerAfter: e.starPowerAfter,
       starPowerDelta: e.starPowerDelta,
-      genreExpBefore: e.genreExpBefore,
-      genreExpAfter: e.genreExpAfter,
+      genreExpBefore: e.genreExpBefore === 0 ? 0 : e.genreExpBefore,
+      genreExpAfter: e.genreExpAfter === 0 ? 0 : e.genreExpAfter,
       reasonCodes: [...e.reasonCodes],
       resultAvailable: input.resultIds.has(e.filmId),
     }))
-  const creditsWithoutEvents = Math.max(0, input.credits - rows.length)
+  const creditsWithoutEvents = Math.max(0, input.credits - input.events.length)
   let provenance: BridgePersonCareerSnapshot['provenance']
   let notice: string | null
   if (rows.length === 0 && input.credits === 0) {
@@ -645,7 +664,9 @@ function buildCareer(input: ProfileInputs): BridgePersonCareerSnapshot {
     provenance = 'recorded'
     notice = null
   }
-  return { rows, creditsWithoutEvents, uncapturedFilms: input.uncapturedFilms, provenance, provenanceNotice: notice }
+  const coverage=[notice,input.events.length>24?`Showing the latest 24 of ${input.events.length} recorded career changes. Open the Industry record for the complete filmography.`:null,
+    input.authoredCredits>0?`${input.authoredCredits} separately labelled authored starting credits are in the Industry record; they did not replay career growth in this campaign.`:null].filter(Boolean).join(' ')
+  return { rows, creditsWithoutEvents, uncapturedFilms: input.uncapturedFilms, provenance, provenanceNotice: coverage||null }
 }
 
 function decideAttention(

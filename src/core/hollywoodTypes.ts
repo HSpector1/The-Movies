@@ -64,7 +64,7 @@ export type IndustryEmployment = {
   studioId: string
   terms: Contract
   endedWeek: number | null
-  reason: 'entry' | 'renewal' | 'replacement' | 'player-contract'
+  reason: 'entry' | 'renewal' | 'replacement' | 'player-contract' | 'existing-player-contract'
 }
 export type RivalProjectCosts = {
   scriptProjectId: string
@@ -96,7 +96,7 @@ export type RivalBusiness = {
 export type IndustryReceipt = { eventId: string; week: number; studioId: string } & (
   | { kind: 'studioEntered'; entryKey: string; origin: 'fresh' | 'migration' | 'scheduled' }
   | { kind: 'employment'; talentId: string; fromStudioId: string | null; toStudioId: string | null;
-      contractId: string; reason: 'entry' | 'renewal' | 'replacement' | 'expiry' | 'player-contract' }
+      contractId: string; reason: 'entry' | 'renewal' | 'replacement' | 'expiry' | 'termination' | 'player-contract' | 'existing-player-contract' }
   | { kind: 'filmAnnounced'; productionId: string; conceptId: string }
   | { kind: 'filmReleased'; productionId: string; conceptId: string; before: Standing; after: Standing }
   | { kind: 'filmSettled'; productionId: string }

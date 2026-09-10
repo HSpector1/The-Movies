@@ -14,6 +14,7 @@ import {
   type InferSchema,
   type JsonSchema,
 } from './dsl.ts'
+import {industryDefinitions,StudioIndustryProjection} from './industry-schema.ts'
 
 export const PROTOCOL_VERSION = 4 as const
 // P05A W2: the closed Production projection (fourteen operational states,
@@ -30,7 +31,7 @@ export const PROTOCOL_VERSION = 4 as const
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
 // Owner UX 01: public discipline/genre estimates and readable saved-slot metadata.
 // Protocol stays 4 and gameplay save stays V18; both fields derive existing authority.
-export const PROJECTION_VERSION = 27 as const
+export const PROJECTION_VERSION = 28 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1772,7 +1773,7 @@ const StudioPersonEmploymentSnapshot = object('StudioPersonEmploymentSnapshot', 
   offersAvailable: bool(),
 })
 const StudioPersonWorkSnapshot = object('StudioPersonWorkSnapshot', {
-  kind: enumeration(['available', 'assigned', 'ambiguous']),
+  kind: enumeration(['available', 'assigned', 'ambiguous', 'undisclosed']),
   assignmentKind: nullable(enumeration(['production', 'script'])),
   assignmentId: nullable(text()),
   label: nullable(text()),
@@ -2181,6 +2182,7 @@ export const StudioFinanceProjectionSchema = object('StudioFinanceProjection', {
 })
 
 export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
+  industry:reference('StudioIndustryProjection',StudioIndustryProjection),
   lot: reference('StudioLotProjection', StudioLotProjectionSchema),
   productions: reference('StudioProductionsProjection', StudioProductionsProjectionSchema),
   people: reference('StudioPeopleProjection', StudioPeopleProjectionSchema),
@@ -2239,6 +2241,7 @@ export const REJECTION_CODES = [
   'ENGINE_REJECTED',
   'NO_SAVE',
   'SAVE_REJECTED',
+  'CAMPAIGN_CONFLICT','CAMPAIGN_NOT_FOUND','INVALID_CAMPAIGN_LABEL','UNSAVED_PROGRESS','STORAGE_UNAVAILABLE',
 ] as const
 
 export const REJECTION_CATEGORIES = [
@@ -2292,6 +2295,31 @@ const StudioBridgeControlRequest = object('StudioBridgeControlRequest', {
   sessionId: nonEmptyText(),
   commandId: nonEmptyText(),
   expectedStateRevision: nonNegativeInteger(),
+})
+
+// P12A storage operations have an explicit authority-switch receipt. They do not impersonate /load.
+export const CAMPAIGN_OPERATIONS = ['newGame','save','saveAs','load','rename','delete','discard'] as const
+const StudioCampaignSummary = object('StudioCampaignSummary', {
+  id:nonEmptyText(),label:nonEmptyText(),revision:nonNegativeInteger(),gameWeek:nonNegativeInteger(),
+  year:integer({minimum:1920}),weekOfYear:integer({minimum:1,maximum:52}),dateLabel:nonEmptyText(),studioName:nullable(nonEmptyText()),
+})
+const StudioCampaignLibraryResponse = object('StudioCampaignLibraryResponse', {
+  protocolVersion:literal(PROTOCOL_VERSION),schemaId:nonEmptyText(),snapshotVersion:literal(PROJECTION_VERSION),
+  type:literal('campaignLibrary'),sessionId:nonEmptyText(),stateRevision:nonNegativeInteger(),gameWeek:nonNegativeInteger(),stateDigest:nonEmptyText(),
+  catalogueRevision:nonNegativeInteger(),activeCampaignId:nullable(nonEmptyText()),dirty:bool(),durable:bool(),
+  campaigns:array(reference('StudioCampaignSummary',StudioCampaignSummary)),
+})
+const StudioCampaignRequest = object('StudioCampaignRequest', {
+  protocolVersion:literal(PROTOCOL_VERSION),schemaId:nonEmptyText(),sessionId:nonEmptyText(),commandId:nonEmptyText(),expectedStateRevision:nonNegativeInteger(),
+  type:literal('campaign'),operation:enumeration(CAMPAIGN_OPERATIONS),expectedCatalogueRevision:nonNegativeInteger(),
+  expectedActiveCampaignId:nullable(nonEmptyText()),campaignId:nullable(nonEmptyText()),label:nullable(nonEmptyText()),
+  overwriteCampaignId:nullable(nonEmptyText()),confirmDestructive:bool(),unsavedDisposition:enumeration(['requireClean','save','discard']),
+})
+const StudioCampaignAcceptedResponse = object('StudioCampaignAcceptedResponse', {
+  protocolVersion:literal(PROTOCOL_VERSION),schemaId:nonEmptyText(),type:literal('campaignAccepted'),accepted:literal(true),
+  commandId:nonEmptyText(),originatingSessionId:nonEmptyText(),operation:enumeration(CAMPAIGN_OPERATIONS),campaignId:nullable(nonEmptyText()),
+  sessionId:nonEmptyText(),stateRevision:nonNegativeInteger(),gameWeek:nonNegativeInteger(),stateDigest:nonEmptyText(),catalogueRevision:nonNegativeInteger(),
+  message:text(),processingMs:number({minimum:0}),
 })
 
 const snapshotResponseProperties = {
@@ -2390,6 +2418,7 @@ const StudioBridgeContractResponse = object('StudioBridgeContractResponse', {
 })
 
 const definitions = {
+  ...industryDefinitions,
   StudioGridCellSnapshot,
   StudioGridRectSnapshot,
   StudioFootprintSnapshot,
@@ -2566,6 +2595,7 @@ const definitions = {
   StudioBridgeIntentPayload,
   StudioBridgeIntentRequest,
   StudioBridgeControlRequest,
+  StudioCampaignSummary,StudioCampaignLibraryResponse,StudioCampaignRequest,StudioCampaignAcceptedResponse,
   StudioBridgeSnapshotResponse,
   StudioBridgeAcceptedCommandResponse,
   StudioBridgeSaveResponse,
@@ -2584,6 +2614,11 @@ export const BRIDGE_SCHEMA = {
   oneOf: [
     { $ref: '#/$defs/StudioBridgeIntentRequest' },
     { $ref: '#/$defs/StudioBridgeControlRequest' },
+    { $ref: '#/$defs/StudioCampaignRequest' },
+    { $ref: '#/$defs/StudioIndustryRequest' },
+    { $ref: '#/$defs/StudioIndustryResponse' },
+    { $ref: '#/$defs/StudioCampaignLibraryResponse' },
+    { $ref: '#/$defs/StudioCampaignAcceptedResponse' },
     { $ref: '#/$defs/StudioBridgeQuoteRequest' },
     { $ref: '#/$defs/StudioBridgeQuoteResponse' },
     { $ref: '#/$defs/StudioBridgeSnapshotResponse' },
@@ -2664,3 +2699,8 @@ export type BridgeHistorySnapshot = InferSchema<typeof StudioHistorySnapshot>
 export const AVAILABLE_INTENT_KEYS = Object.keys(
   StudioBridgeIntentOption.properties as Record<string, unknown>,
 ) as Array<keyof BridgeAvailableIntent>
+
+export type CampaignRequest=InferSchema<typeof StudioCampaignRequest>
+export type CampaignSummary=InferSchema<typeof StudioCampaignSummary>
+export type CampaignLibraryResponse=InferSchema<typeof StudioCampaignLibraryResponse>
+export type CampaignAcceptedResponse=InferSchema<typeof StudioCampaignAcceptedResponse>

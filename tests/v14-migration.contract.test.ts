@@ -1,3 +1,4 @@
+import {migrateToCurrentControl} from './_historicalCurrent.js'
 // ── C2a-M1 · T9 — THE HEADLINE MATRIX (§8.3, G4) ────────────────────────────
 //
 // CHARTER (r3.2 §8.3): "T9 covers EVERY phase that holds a reservation
@@ -37,7 +38,6 @@ import {
   assertStudioOperationsInvariants,
   generateWorld,
   makeSaveV13,
-  migrateToV18,
   validateSave,
   stableStringify,
   tick,
@@ -262,7 +262,7 @@ describe('C2a-M1 · T9 (B) — every held phase × blocker kind migrates and pla
       // rest of the way to live before playing. The weekly comparison still
       // projects BOTH sides down to the V13 surface, so the claim under test
       // (V13-visible behavior identical) is exactly what it always was.
-      let fromMigrated = migrateToV18(validateSave(module.migrateToV14(twin))).state
+      let fromMigrated = migrateToCurrentControl(validateSave(module.migrateToV14(twin))).state
       let fromNative = native
 
       const startWeek = native.market.tick

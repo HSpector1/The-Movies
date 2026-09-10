@@ -1,3 +1,4 @@
+import {migrateToCurrentControl} from './_historicalCurrent.js'
 // ── P05A W1 — Production truth: the one scenery legality classifier ──────────
 //
 // Charter (CODEX-P05A-IMPLEMENTATION-CHARTER.md@b1d506d, WAVE 1) requires the
@@ -18,7 +19,6 @@ import {
   studioWeekTheater,
   importSave,
   makeSave,
-  migrateToV18,
   sceneryLoadInDecision,
   sceneryLoadInFor,
   isSceneryLoadIn,
@@ -513,7 +513,7 @@ describe('P05A W1 — in-transit presence stays work, not waiting', () => {
 
 describe('P05A W1 — reload keeps the classification', () => {
   function roundTrip(state: GameState): GameState {
-    return migrateToV18(importSave(exportSave(makeSave(state)))).state
+    return migrateToCurrentControl(importSave(exportSave(makeSave(state)))).state
   }
 
   it('an in-transit trip reloads as the same in-transit trip', () => {

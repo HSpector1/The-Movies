@@ -1,3 +1,4 @@
+import {migrateToCurrentControl} from './_historicalCurrent.js'
 // ── C1-M6 CLAIM 1 — a SECOND ZONE, produced by DATA ALONE ────────────────────
 //
 // Owner ruling 4: "28×26 is the starting property, NOT the maximum; parcels are data;
@@ -39,7 +40,6 @@ import {
   makeSave,
   makeSaveV13,
   migrateToV14,
-  migrateToV18,
   parcelById,
   parcelHasRoadFrontage,
   placementWouldSeverLot,
@@ -108,7 +108,7 @@ const fixtureBytes = readFileSync(join(FIXTURE_DIRECTORY, entry.file), 'utf8')
 
 /** The fixture world, through the live import boundary — never a hand-built state. */
 function southYardStudio(): GameState {
-  return migrateToV18(importSave(fixtureBytes)).state
+  return migrateToCurrentControl(importSave(fixtureBytes)).state
 }
 
 /** The founding property's own answer to the same question, for the contrast. */
@@ -184,9 +184,9 @@ describe('C1-M6 (1) — the committed second-zone fixture is what the generator 
     expect(reloaded.saveVersion).toBe(14)
     expect(exportSave(makeSaveV13(reloaded.state))).toBe(fixtureBytes)
     // …and the live V16 envelope round-trips byte-identically too, twice over.
-    const liveJson = exportSave(makeSave(migrateToV18(reloaded).state))
-    expect(exportSave(makeSave(migrateToV18(importSave(liveJson)).state))).toBe(liveJson)
-    expect(() => assertStudioPlacementInvariants(migrateToV18(reloaded).state)).not.toThrow()
+    const liveJson = exportSave(makeSave(migrateToCurrentControl(reloaded).state))
+    expect(exportSave(makeSave(migrateToCurrentControl(importSave(liveJson)).state))).toBe(liveJson)
+    expect(() => assertStudioPlacementInvariants(migrateToCurrentControl(reloaded).state)).not.toThrow()
   })
 })
 
@@ -312,7 +312,7 @@ describe('C1-M6 (1) — placement legality accepts a build in the second zone', 
 
     // …and the whole grown world round-trips at the live boundary.
     const json = exportSave(makeSave(operational))
-    const reloaded = migrateToV18(importSave(json))
+    const reloaded = migrateToCurrentControl(importSave(json))
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(stableStringify(reloaded.state.property)).toBe(stableStringify(operational.property))
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)

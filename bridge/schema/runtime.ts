@@ -206,6 +206,7 @@ export function projectStudioProjectionBundle(value: unknown): BridgeStudioProje
       { stripAdditionalProperties: true },
     )
   const candidate = {
+    industry:section('StudioIndustryProjection','industry'),
     lot: section('StudioLotProjection', 'lot'),
     productions: section('StudioProductionsProjection', 'productions'),
     people: section('StudioPeopleProjection', 'people'),

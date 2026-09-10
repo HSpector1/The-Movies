@@ -62,7 +62,7 @@ describe('Owner UX outgoing projection20 migration', () => {
     expect(sha(beforeBytes)).toBe('88049d4408573de3a36a56957c2b8d3aed36655b9b3dbadc68da7bef991a8510')
     expect(sha(afterBytes)).toBe('a02fd2ac61c4dab71327cc685d0649da005c43f3834e47366f63a46318dfd10b')
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(27)
+    expect(PROJECTION_VERSION).toBe(28)
     expect(SCHEMA_ID).not.toBe(P20_SCHEMA)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(P20_SCHEMA)).toBe('projection-v20')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
@@ -112,12 +112,16 @@ describe('Owner UX outgoing projection20 migration', () => {
     expect(next.stateRevision).toBe(0)
     expect(next.journal).toEqual([])
     expect(loaded.hydrated.journal).toEqual([])
-    // Expectations are the frozen input bytes, not migrateToV18's output.
-    expect(next.currentSaveJson).toBe(predecessor.currentSaveJson)
-    expect(next.currentStateDigest).toBe(predecessor.currentStateDigest)
-    expect(next.savedSaveJson).toBe(predecessor.savedSaveJson)
-    expect(next.savedStateDigest).toBe(predecessor.savedStateDigest)
-    expect(loaded.hydrated.currentSave).toEqual(JSON.parse(predecessor.currentSaveJson))
+    // P12 adds only the governed Hollywood root at each slot's own week.
+    for(const [beforeJson,afterJson,afterDigest] of [[predecessor.currentSaveJson,next.currentSaveJson,next.currentStateDigest],[predecessor.savedSaveJson,next.savedSaveJson,next.savedStateDigest]]){
+      if(beforeJson===null){expect(afterJson).toBeNull();expect(afterDigest).toBeNull();continue}
+      const before=JSON.parse(beforeJson),after=JSON.parse(afterJson!)
+      expect(after.saveVersion).toBe(19)
+      const {hollywood,...oldRoots}=after.state
+      expect(oldRoots).toEqual(before.state)
+      expect(hollywood).toMatchObject({origin:'migration',originWeek:before.state.market.tick,films:[],careerEvents:[]})
+      expect(afterJson).not.toBe(beforeJson);expect(afterDigest).toBe(sha(afterJson!));expect(afterDigest).not.toBe(sha(beforeJson))
+    }
     const current = BridgeSession.fromRuntimeCheckpoint(loaded.hydrated).snapshot()
     expect(current.gameWeek).toBe(JSON.parse(predecessor.currentSaveJson).state.market.tick)
     expect(current.savedSlot).toEqual(predecessor.savedSaveJson === null ? null : {

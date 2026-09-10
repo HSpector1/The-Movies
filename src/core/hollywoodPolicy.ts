@@ -20,14 +20,14 @@ const BILLINGS=[[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]] as const
  * Real reception continues to receive the actual canonical people and concept. */
 export function perceivedPlanningInputs(input:ReceptionInputs):ReceptionInputs {
   const person=(t:Talent):Talent=>({...t,actual:t.perceived})
-  return {...input,concept:{...input.concept,baselineStrength:TUNING.HOLLYWOOD_UNASSESSED_ESTIMATE,originalityRaw:TUNING.HOLLYWOOD_UNASSESSED_ESTIMATE},
+  const estimate=input.scriptStrengthOverride?.perceived??TUNING.HOLLYWOOD_UNASSESSED_ESTIMATE
+  return {...input,concept:{...input.concept,baselineStrength:estimate,originalityRaw:TUNING.HOLLYWOOD_UNASSESSED_ESTIMATE},
     writer:person(input.writer),director:person(input.director),craftHires:input.craftHires.map(person),
     cast:{lead:person(input.cast.lead),antagonist:person(input.cast.antagonist),support:person(input.cast.support)},
-    scriptStrengthOverride:{actual:input.scriptStrengthOverride?.perceived??TUNING.HOLLYWOOD_UNASSESSED_ESTIMATE,
-      perceived:input.scriptStrengthOverride?.perceived??TUNING.HOLLYWOOD_UNASSESSED_ESTIMATE}}
+    scriptStrengthOverride:{actual:estimate,perceived:estimate}}
 }
 export type IndustryPackageChoice={shape:FilmShape;promise:ReceptionInputs['promise'];budget:ReceptionInputs['budget'];
-  cast:Record<'lead'|'antagonist'|'support',string>;expectedOperatingMargin:number}
+  cast:Record<'lead'|'antagonist'|'support',string>;expectedOperatingMargin:number;expectedIncrementalContribution:number;holdOperatingMargin:number}
 /** Bounded legal menu, never a winning-film oracle. The candidate set has a fixed ceiling. */
 export function chooseIndustryPackage(input:ReceptionInputs,policy:RivalBusiness['policy'],options:{
   seed:string;key:string;cashAvailable:number;weeklyCost:number;lockScreenplay:boolean
@@ -50,10 +50,15 @@ export function chooseIndustryPackage(input:ReceptionInputs,policy:RivalBusiness
         if(negative+marketing>options.cashAvailable)continue
         const candidate={...base,budget:{negative,marketing}}
         const forecast=computeForecast(candidate,{seed:options.seed,productionId:options.key,directorId:inp.director.id,releasedFilms:[],concepts:[inp.concept]},true,true)
-        const expectedOperatingMargin=forecast.expectedTotal*TUNING.STUDIO_RENTAL_BLENDED-negative-marketing-options.weeklyCost*TUNING.PRODUCTION_TICKS
+        const expectedIncrementalContribution=forecast.expectedTotal*TUNING.STUDIO_RENTAL_BLENDED-negative-marketing
+        // First payment follows eight production advances; the full six-week
+        // run receives its last payment after fourteen operating charges.
+        const holdOperatingMargin=-options.weeklyCost*(TUNING.PRODUCTION_TICKS+TUNING.THEATRICAL_WEEKS)
+        const expectedOperatingMargin=expectedIncrementalContribution+holdOperatingMargin
         // Preference is a small cost of departing from the authored spend posture; outcomes remain uncertain.
         const score=expectedOperatingMargin-Math.abs(marketing/Math.max(negative,1)-policy.marketingRatio)*TUNING.HOLLYWOOD_POLICY_PREFERENCE_COST
-        if(score>bestScore){bestScore=score;best={shape,promise:inp.promise,budget:{negative,marketing},cast:{lead:inp.cast.lead.id,antagonist:inp.cast.antagonist.id,support:inp.cast.support.id},expectedOperatingMargin}}
+        if(options.lockScreenplay&&score<=holdOperatingMargin)continue
+        if(score>bestScore){bestScore=score;best={shape,promise:inp.promise,budget:{negative,marketing},cast:{lead:inp.cast.lead.id,antagonist:inp.cast.antagonist.id,support:inp.cast.support.id},expectedOperatingMargin,expectedIncrementalContribution,holdOperatingMargin}}
       }
     }
   }

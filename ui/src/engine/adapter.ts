@@ -21,6 +21,8 @@
 // (no Math.random anywhere) and never mutates GameState outside engine actions.
 
 import {
+  forecastHistoryForOwner,
+  exportCurrentState,
   // world + actions + tick
   generateWorld,
   applyActions,
@@ -100,8 +102,6 @@ import {
   risksMaterialized,
   packageDelta,
   // save
-  makeSave,
-  exportSave,
   importSave,
   migrateToV19,
   convertV17ToV18,
@@ -1952,8 +1952,7 @@ export function previewForecast(
       seed: state.seed,
       productionId: predictedProductionId(state),
       directorId: pkg.directorId,
-      releasedFilms: state.studio.releasedFilms,
-      concepts: state.concepts,
+      ...forecastHistoryForOwner(state),
     },
     engaged,
     engaged,
@@ -3756,7 +3755,7 @@ export function remainingWeeks(prod: Production): number {
 // it touched. The live migrator is `migrateToV14`, and the two frozen legacy
 // affordances end with `convertV13ToV14` for exactly the same reason.
 export function exportSaveJson(state: GameState): string {
-  return exportSave(makeSave(state))
+  return exportCurrentState(state)
 }
 
 export type ImportOutcome =
@@ -3782,7 +3781,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json))))))))))))))).state,
+      state: migrateToV19(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))))))))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -3796,7 +3795,7 @@ export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json))))))))))))))).state,
+      state: migrateToV19(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))))))))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -5071,8 +5070,7 @@ export function assessExecutionConfidence(
     seed: state.seed,
     productionId: predictedProductionId(state),
     directorId: pkg.directorId,
-    releasedFilms: state.studio.releasedFilms,
-    concepts: state.concepts,
+    ...forecastHistoryForOwner(state),
   })
 }
 
@@ -5090,8 +5088,7 @@ export function assessProfitRange(
     seed: state.seed,
     productionId: predictedProductionId(state),
     directorId: pkg.directorId,
-    releasedFilms: state.studio.releasedFilms,
-    concepts: state.concepts,
+    ...forecastHistoryForOwner(state),
     salaries,
     // D-12: same economy gate as the greenlight-locked forecast (actions.ts) and realized
     // release — the live Commercial-Outlook opening uses the SAME §7 Hill fame path AND the P2
@@ -5407,6 +5404,7 @@ export function assessGreenlight(
     seed: preTick.seed,
     concepts: preTick.concepts,
     releasedFilms: preTick.studio.releasedFilms,
+    directorCredits: forecastHistoryForOwner(preTick).directorCredits,
     talentById,
     market: preTick.market,
     standing: preTick.studio.standing,

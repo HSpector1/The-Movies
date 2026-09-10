@@ -54,6 +54,8 @@ import {
   terminationCost,
 } from './employment.js'
 import { computeForecast, type ForecastContext } from './forecast.js'
+import { forecastHistoryForOwner } from './industryCareer.js'
+import { recordPlayerEmployment } from './industryEmployment.js'
 import { clamp } from './math.js'
 import { assertNoDoubleBookedResourceSlots, setOccupiedFacilitySlots } from './occupancy.js'
 import {
@@ -256,7 +258,7 @@ export function predictProductionId(state: GameState): string {
 }
 
 // Authored-talent id scheme (§10). Worldgen ids are `t-<role3>-NN` and `c-NN`;
-// the `authored-` prefix cannot collide with either. The numeric suffix is the
+// Imported identities can also use this prefix. The numeric suffix starts at the
 // count of already-existing authored talent (authored === true) at creation
 // time, zero-padded to 4 digits. Because createTalent only ever appends, this
 // count is monotonic and yields a unique, deterministic, replay-stable id
@@ -264,7 +266,10 @@ export function predictProductionId(state: GameState): string {
 function authoredTalentId(existing: readonly Talent[]): string {
   let authoredCount = 0
   for (const t of existing) if (t.authored) authoredCount++
-  return `authored-${String(authoredCount).padStart(4, '0')}`
+  const taken = new Set(existing.map(t => t.id))
+  let id = `authored-${String(authoredCount).padStart(4, '0')}`
+  while (taken.has(id)) id = `authored-${String(++authoredCount).padStart(4, '0')}`
+  return id
 }
 
 // Resolve a talent id to its Talent, or throw the loud M16 abort if absent.
@@ -503,8 +508,7 @@ function applyGreenlight(
     seed: state.seed,
     productionId: id,
     directorId: p.directorId,
-    releasedFilms: state.studio.releasedFilms,
-    concepts: state.concepts,
+    ...forecastHistoryForOwner(state),
   }
   // D-12: the greenlight forecast saturates fame→opening reach AND applies the P2 economy
   // calibration (gross scale + awareness marketing) with the SAME helper as the realized release
@@ -3012,6 +3016,7 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
         throw new Error(`applyActions: unknown action kind ${JSON.stringify(_exhaustive)}`)
       }
     }
+    next = recordPlayerEmployment(next)
   }
 
   // FAIL-CLOSED at the action boundary (charter §3.2), the twin of the tick

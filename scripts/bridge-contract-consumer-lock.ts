@@ -30,7 +30,7 @@ export const UNITY_FIXTURE_PATH = 'Assets/Studio/Tests/EditMode/Generated/Studio
 export const GENERATOR_VERSION = 1
 export const ATTESTATION_VERSION = 1
 export const FIXTURE_CORPUS_VERSION = 1
-export const CURRENT_ACCEPTED_SAVE_VERSION = 18
+export const CURRENT_ACCEPTED_SAVE_VERSION = 19
 
 const EDITMODE_RESULT_NAME = 'contract-gate-editmode.xml'
 const EDITMODE_LOG_NAME = 'contract-gate-editmode.log'
@@ -41,6 +41,7 @@ const EXECUTING_TYPESCRIPT_ROOT = realpathSync.native(resolve(fileURLToPath(impo
 
 export const GENERATOR_SOURCE_PATHS = [
   'bridge/schema/bridge-schema.ts',
+  'bridge/schema/industry-schema.ts',
   'bridge/schema/canonical.ts',
   'bridge/schema/dsl.ts',
   'package-lock.json',

@@ -1,0 +1,1015 @@
+{
+  "purpose": "Independent current-source continuation of existing synthetic three-record long-world storage proof; no native or packaged-app acceptance",
+  "start": "2026-09-10T16:11:32.413Z",
+  "limits": {
+    "maxCheckpointBytes": 201326592,
+    "maxJournalEntries": 512,
+    "maxJournalBytes": 67108864
+  },
+  "environment": {
+    "runtime": "v26.3.1",
+    "execArgv": [],
+    "heapSizeLimit": 4395630592,
+    "explicitGc": false,
+    "timingQualification": "Root may run Unity EditMode concurrently. Wall-clock numbers are engineering observations under concurrency, not isolated performance acceptance. RSS includes probe data and comparison work; it is not packaged-app RSS. Concurrent vitest workers were observed during execution; Unity timing overlap was possible, not independently timestamped."
+  },
+  "operations": [
+    {
+      "name": "recover existing three-record library",
+      "ms": 17743.76175,
+      "memoryBefore": {
+        "rss": 70123520,
+        "heapTotal": 14712832,
+        "heapUsed": 7918704,
+        "external": 3888931,
+        "arrayBuffers": 80279
+      },
+      "memoryAfter": {
+        "rss": 3705405440,
+        "heapTotal": 1859829760,
+        "heapUsed": 1774109976,
+        "external": 340832840,
+        "arrayBuffers": 145815
+      },
+      "completed": true
+    },
+    {
+      "name": "campaign Save at recovered week 8791",
+      "ms": 18603.254083,
+      "memoryBefore": {
+        "rss": 2883354624,
+        "heapTotal": 729595904,
+        "heapUsed": 679069576,
+        "external": 229956362,
+        "arrayBuffers": 141017965
+      },
+      "memoryAfter": {
+        "rss": 3613900800,
+        "heapTotal": 1314586624,
+        "heapUsed": 1237797464,
+        "external": 124288752,
+        "arrayBuffers": 71160775
+      },
+      "completed": true
+    },
+    {
+      "name": "advance after campaign Save",
+      "ms": 8075.492875000004,
+      "memoryBefore": {
+        "rss": 3444490240,
+        "heapTotal": 1056063488,
+        "heapUsed": 991507624,
+        "external": 393834692,
+        "arrayBuffers": 205951951
+      },
+      "memoryAfter": {
+        "rss": 3650125824,
+        "heapTotal": 1368080384,
+        "heapUsed": 1295355792,
+        "external": 124483796,
+        "arrayBuffers": 71355819
+      },
+      "completed": true
+    },
+    {
+      "name": "ordinary /save",
+      "ms": 8130.245499999997,
+      "memoryBefore": {
+        "rss": 3745972224,
+        "heapTotal": 1221017600,
+        "heapUsed": 1176698880,
+        "external": 548794290,
+        "arrayBuffers": 343305728
+      },
+      "memoryAfter": {
+        "rss": 3492691968,
+        "heapTotal": 1213300736,
+        "heapUsed": 1136957488,
+        "external": 116519499,
+        "arrayBuffers": 63389474
+      },
+      "completed": true
+    },
+    {
+      "name": "ordinary /save retry after bounded rollover",
+      "ms": 5579.224416999998,
+      "memoryBefore": {
+        "rss": 3265544192,
+        "heapTotal": 923926528,
+        "heapUsed": 879851144,
+        "external": 378685298,
+        "arrayBuffers": 63363266
+      },
+      "memoryAfter": {
+        "rss": 3260055552,
+        "heapTotal": 1032290304,
+        "heapUsed": 959725936,
+        "external": 145336340,
+        "arrayBuffers": 70770919
+      },
+      "completed": true
+    },
+    {
+      "name": "later tick before exact retry",
+      "ms": 7488.085290999996,
+      "memoryBefore": {
+        "rss": 3028664320,
+        "heapTotal": 646234112,
+        "heapUsed": 596827976,
+        "external": 390709488,
+        "arrayBuffers": 204258043
+      },
+      "memoryAfter": {
+        "rss": 3757228032,
+        "heapTotal": 956825600,
+        "heapUsed": 884738752,
+        "external": 123900228,
+        "arrayBuffers": 70965027
+      },
+      "completed": true
+    },
+    {
+      "name": "exact /save retry after later tick",
+      "ms": 81.97779199999059,
+      "memoryBefore": {
+        "rss": 3711565824,
+        "heapTotal": 1073512448,
+        "heapUsed": 1001203384,
+        "external": 544341548,
+        "arrayBuffers": 207261991
+      },
+      "memoryAfter": {
+        "rss": 3791732736,
+        "heapTotal": 1153646592,
+        "heapUsed": 1081335504,
+        "external": 544341548,
+        "arrayBuffers": 207261991
+      },
+      "completed": true
+    },
+    {
+      "name": "restart with saved receipt and later current",
+      "ms": 20739.901750000005,
+      "memoryBefore": {
+        "rss": 3714056192,
+        "heapTotal": 1073250304,
+        "heapUsed": 1001144488,
+        "external": 544341548,
+        "arrayBuffers": 206147879
+      },
+      "memoryAfter": {
+        "rss": 4998578176,
+        "heapTotal": 2623160320,
+        "heapUsed": 2542423888,
+        "external": 440020728,
+        "arrayBuffers": 145815
+      },
+      "completed": true
+    },
+    {
+      "name": "exact /save retry after restart",
+      "ms": 81.7302500000078,
+      "memoryBefore": {
+        "rss": 3884810240,
+        "heapTotal": 1003241472,
+        "heapUsed": 930622600,
+        "external": 495186632,
+        "arrayBuffers": 205689127
+      },
+      "memoryAfter": {
+        "rss": 3964944384,
+        "heapTotal": 1083375616,
+        "heapUsed": 1010754904,
+        "external": 344288172,
+        "arrayBuffers": 205754663
+      },
+      "completed": true
+    },
+    {
+      "name": "campaign Save with injected precommit failure",
+      "ms": 22616.990542,
+      "memoryBefore": {
+        "rss": 3108601856,
+        "heapTotal": 884948992,
+        "heapUsed": 832978320,
+        "external": 344288172,
+        "arrayBuffers": 205754663
+      },
+      "memoryAfter": {
+        "rss": 3468099584,
+        "heapTotal": 1445068800,
+        "heapUsed": 1368029552,
+        "external": 429022050,
+        "arrayBuffers": 333023269
+      },
+      "completed": true
+    },
+    {
+      "name": "exact campaign Save retry after storage recovers",
+      "ms": 22132.87133299999,
+      "memoryBefore": {
+        "rss": 3225550848,
+        "heapTotal": 1076789248,
+        "heapUsed": 1032530720,
+        "external": 564210368,
+        "arrayBuffers": 376521943
+      },
+      "memoryAfter": {
+        "rss": 4031299584,
+        "heapTotal": 1301020672,
+        "heapUsed": 1225466648,
+        "external": 145139146,
+        "arrayBuffers": 70769709
+      },
+      "completed": true
+    },
+    {
+      "name": "restart after durable campaign Save",
+      "ms": 18541.942291999992,
+      "memoryBefore": {
+        "rss": 3666411520,
+        "heapTotal": 895565824,
+        "heapUsed": 822566872,
+        "external": 540277951,
+        "arrayBuffers": 204452599
+      },
+      "memoryAfter": {
+        "rss": 3632316416,
+        "heapTotal": 1296220160,
+        "heapUsed": 1196083128,
+        "external": 438782064,
+        "arrayBuffers": 145815
+      },
+      "completed": true
+    },
+    {
+      "name": "exact campaign Save retry after restart",
+      "ms": 0.5296669999952428,
+      "memoryBefore": {
+        "rss": 3442016256,
+        "heapTotal": 824442880,
+        "heapUsed": 750916496,
+        "external": 491124195,
+        "arrayBuffers": 70740589
+      },
+      "memoryAfter": {
+        "rss": 3442016256,
+        "heapTotal": 824442880,
+        "heapUsed": 750945704,
+        "external": 491124195,
+        "arrayBuffers": 70740589
+      },
+      "completed": true
+    },
+    {
+      "name": "load Long campaign A",
+      "ms": 10010.748791999999,
+      "memoryBefore": {
+        "rss": 3454222336,
+        "heapTotal": 833028096,
+        "heapUsed": 769810848,
+        "external": 87829266,
+        "arrayBuffers": 145815
+      },
+      "memoryAfter": {
+        "rss": 3171254272,
+        "heapTotal": 859045888,
+        "heapUsed": 783963008,
+        "external": 116124304,
+        "arrayBuffers": 63190263
+      },
+      "completed": true
+    },
+    {
+      "name": "load Long campaign B",
+      "ms": 7606.396416999982,
+      "memoryBefore": {
+        "rss": 3234906112,
+        "heapTotal": 749060096,
+        "heapUsed": 701154584,
+        "external": 225839044,
+        "arrayBuffers": 88983009
+      },
+      "memoryAfter": {
+        "rss": 2881732608,
+        "heapTotal": 831291392,
+        "heapUsed": 755531912,
+        "external": 116131873,
+        "arrayBuffers": 63197832
+      },
+      "completed": true
+    },
+    {
+      "name": "load Long campaign C",
+      "ms": 8080.01116699999,
+      "memoryBefore": {
+        "rss": 3028058112,
+        "heapTotal": 791085056,
+        "heapUsed": 743128184,
+        "external": 186595258,
+        "arrayBuffers": 145815
+      },
+      "memoryAfter": {
+        "rss": 2888482816,
+        "heapTotal": 830013440,
+        "heapUsed": 755519024,
+        "external": 116131322,
+        "arrayBuffers": 63197281
+      },
+      "completed": true
+    }
+  ],
+  "checks": [
+    {
+      "name": "recovered unequal slots",
+      "week": 8791,
+      "fileSha": "d10a8187935b12d7e5bcb5e05a01e76c0649cbf3abc176228f7842b6785730df",
+      "encodedBytes": 55646250,
+      "catalogueRevision": 3,
+      "activeId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "workingCheckpointSha": "26b1c896bbdd69a990d8845260d5abcb11a35790f15929c9d875f96cf4dd0055",
+      "workingDecodedBytes": 85160364,
+      "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+      "stateRevision": 1,
+      "currentSha": "8eae0916b24d15a63bdbc01215711571b92a3f5dd95e4b95f1aaf041234319d7",
+      "savedSha": "c078539aa049ae978436d4d56840b8f0670494cf92d0728bbaa6ba0380ad1b5b",
+      "slotsEqual": false,
+      "journal": [
+        {
+          "commandId": "engineering-6",
+          "route": "command",
+          "responseSha": "b81e6d21d577c5e39afd2558e3cbe652f3895313629b76c657c54f75fb55ed4f"
+        }
+      ],
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "checkpointSha": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+          "decodedBytes": 83903166
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "checkpointSha": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+          "decodedBytes": 83921994
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 0,
+          "checkpointSha": "4efc80947e0f19a54a2eb5daeec5905f54af328ffb279cd0524030ef87d2d69b",
+          "decodedBytes": 83923468
+        }
+      ],
+      "rngSha": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+    },
+    {
+      "name": "campaign Save captured exact current and saved",
+      "week": 8791,
+      "fileSha": "dfb9cf9189b76a256d7b62add33573cf514c1f563164f4aa1991957c63f3b65e",
+      "encodedBytes": 70985632,
+      "catalogueRevision": 4,
+      "activeId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "workingCheckpointSha": "3031331fb48657d0718c70a9428518833ead6a5a147c935f0d9d7d0d069fd490",
+      "workingDecodedBytes": 134754968,
+      "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+      "stateRevision": 1,
+      "currentSha": "8eae0916b24d15a63bdbc01215711571b92a3f5dd95e4b95f1aaf041234319d7",
+      "savedSha": "8eae0916b24d15a63bdbc01215711571b92a3f5dd95e4b95f1aaf041234319d7",
+      "slotsEqual": true,
+      "journal": [
+        {
+          "commandId": "engineering-6",
+          "route": "command",
+          "responseSha": "b81e6d21d577c5e39afd2558e3cbe652f3895313629b76c657c54f75fb55ed4f"
+        },
+        {
+          "commandId": "resume-1",
+          "route": "save",
+          "responseSha": "4e5817175324dfc247ec91c93178a648e96a466a0bf975ad21bbe529d292b03e"
+        }
+      ],
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "checkpointSha": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+          "decodedBytes": 83903166
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "checkpointSha": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+          "decodedBytes": 83921994
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 1,
+          "checkpointSha": "3031331fb48657d0718c70a9428518833ead6a5a147c935f0d9d7d0d069fd490",
+          "decodedBytes": 134754968
+        }
+      ],
+      "rngSha": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+    },
+    {
+      "name": "after first subsequent tick",
+      "week": 8792,
+      "fileSha": "89b69924d862d485bedc3e13550b4b96011c12465dbd01507582e53721abf89f",
+      "encodedBytes": 71180676,
+      "catalogueRevision": 4,
+      "activeId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "workingCheckpointSha": "95b0b1b7bbe05603198be05cf9a4e0ea863cab824fb2fb94474fe87d467721a2",
+      "workingDecodedBytes": 135992037,
+      "sessionId": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+      "stateRevision": 2,
+      "currentSha": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+      "savedSha": "8eae0916b24d15a63bdbc01215711571b92a3f5dd95e4b95f1aaf041234319d7",
+      "slotsEqual": false,
+      "journal": [
+        {
+          "commandId": "engineering-6",
+          "route": "command",
+          "responseSha": "b81e6d21d577c5e39afd2558e3cbe652f3895313629b76c657c54f75fb55ed4f"
+        },
+        {
+          "commandId": "resume-1",
+          "route": "save",
+          "responseSha": "4e5817175324dfc247ec91c93178a648e96a466a0bf975ad21bbe529d292b03e"
+        },
+        {
+          "commandId": "resume-2",
+          "route": "command",
+          "responseSha": "060c68746ab965b947b204d9e18ed3919aa564a1ffb997cea3153eca5802eb15"
+        }
+      ],
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "checkpointSha": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+          "decodedBytes": 83903166
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "checkpointSha": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+          "decodedBytes": 83921994
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 1,
+          "checkpointSha": "3031331fb48657d0718c70a9428518833ead6a5a147c935f0d9d7d0d069fd490",
+          "decodedBytes": 134754968
+        }
+      ],
+      "rngSha": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+    },
+    {
+      "name": "ordinary Save bounded rollover preserved unequal slots",
+      "beforeSession": "48dea2f0-0d27-4d8b-8158-554f1a58a364",
+      "afterSession": "eeb7b3d3-2f4a-4eca-88b9-f6b658681156",
+      "currentSha": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+      "savedSha": "8eae0916b24d15a63bdbc01215711571b92a3f5dd95e4b95f1aaf041234319d7"
+    },
+    {
+      "name": "ordinary Save captured exact current and saved",
+      "week": 8792,
+      "fileSha": "0a213af76bd7c32e91821b99ed904696e562d798867aa23ab010f60f63236d77",
+      "encodedBytes": 70595984,
+      "catalogueRevision": 5,
+      "activeId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "workingCheckpointSha": "f1d24351de21f9733331b7873e4ac0b480b271feb2b009d85d03acb2fb0fbde3",
+      "workingDecodedBytes": 133516244,
+      "sessionId": "eeb7b3d3-2f4a-4eca-88b9-f6b658681156",
+      "stateRevision": 0,
+      "currentSha": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+      "savedSha": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+      "slotsEqual": true,
+      "journal": [
+        {
+          "commandId": "resume-4",
+          "route": "save",
+          "responseSha": "91a52975de200584e04e0e13d80016063cd89490c03a6ed2de2d78b063ceda71"
+        }
+      ],
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "checkpointSha": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+          "decodedBytes": 83903166
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "checkpointSha": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+          "decodedBytes": 83921994
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 2,
+          "checkpointSha": "f1d24351de21f9733331b7873e4ac0b480b271feb2b009d85d03acb2fb0fbde3",
+          "decodedBytes": 133516244
+        }
+      ],
+      "rngSha": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+    },
+    {
+      "name": "later current preserved historical save",
+      "week": 8793,
+      "fileSha": "d03ee93b4fdc6312ad9c533db1290c87007aa6d5cd4699cbbb456290efa926d4",
+      "encodedBytes": 70789884,
+      "catalogueRevision": 5,
+      "activeId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "workingCheckpointSha": "5233d8f854df0d619ede44c6b7083b332e3d20aa15d7471e048fe02b32556be2",
+      "workingDecodedBytes": 134753428,
+      "sessionId": "eeb7b3d3-2f4a-4eca-88b9-f6b658681156",
+      "stateRevision": 1,
+      "currentSha": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+      "savedSha": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+      "slotsEqual": false,
+      "journal": [
+        {
+          "commandId": "resume-4",
+          "route": "save",
+          "responseSha": "91a52975de200584e04e0e13d80016063cd89490c03a6ed2de2d78b063ceda71"
+        },
+        {
+          "commandId": "resume-5",
+          "route": "command",
+          "responseSha": "c6bb1abd0082bb250534a963eb020806df7f5966f808b426be874924ad64a0b1"
+        }
+      ],
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "checkpointSha": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+          "decodedBytes": 83903166
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "checkpointSha": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+          "decodedBytes": 83921994
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 2,
+          "checkpointSha": "f1d24351de21f9733331b7873e4ac0b480b271feb2b009d85d03acb2fb0fbde3",
+          "decodedBytes": 133516244
+        }
+      ],
+      "rngSha": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+    },
+    {
+      "name": "exact /save retry after later tick exact",
+      "responseSha": "91a52975de200584e04e0e13d80016063cd89490c03a6ed2de2d78b063ceda71",
+      "historicalWeek": 8792
+    },
+    {
+      "name": "restart preserved unequal slots and records",
+      "week": 8793,
+      "fileSha": "d03ee93b4fdc6312ad9c533db1290c87007aa6d5cd4699cbbb456290efa926d4",
+      "encodedBytes": 70789884,
+      "catalogueRevision": 5,
+      "activeId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "workingCheckpointSha": "5233d8f854df0d619ede44c6b7083b332e3d20aa15d7471e048fe02b32556be2",
+      "workingDecodedBytes": 134753428,
+      "sessionId": "eeb7b3d3-2f4a-4eca-88b9-f6b658681156",
+      "stateRevision": 1,
+      "currentSha": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+      "savedSha": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+      "slotsEqual": false,
+      "journal": [
+        {
+          "commandId": "resume-4",
+          "route": "save",
+          "responseSha": "91a52975de200584e04e0e13d80016063cd89490c03a6ed2de2d78b063ceda71"
+        },
+        {
+          "commandId": "resume-5",
+          "route": "command",
+          "responseSha": "c6bb1abd0082bb250534a963eb020806df7f5966f808b426be874924ad64a0b1"
+        }
+      ],
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "checkpointSha": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+          "decodedBytes": 83903166
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "checkpointSha": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+          "decodedBytes": 83921994
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 2,
+          "checkpointSha": "f1d24351de21f9733331b7873e4ac0b480b271feb2b009d85d03acb2fb0fbde3",
+          "decodedBytes": 133516244
+        }
+      ],
+      "rngSha": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+    },
+    {
+      "name": "exact /save retry after restart exact",
+      "responseSha": "91a52975de200584e04e0e13d80016063cd89490c03a6ed2de2d78b063ceda71",
+      "historicalWeek": 8792
+    },
+    {
+      "name": "before injected campaign Save write failure",
+      "week": 8793,
+      "fileSha": "d03ee93b4fdc6312ad9c533db1290c87007aa6d5cd4699cbbb456290efa926d4",
+      "encodedBytes": 70789884,
+      "catalogueRevision": 5,
+      "activeId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "workingCheckpointSha": "5233d8f854df0d619ede44c6b7083b332e3d20aa15d7471e048fe02b32556be2",
+      "workingDecodedBytes": 134753428,
+      "sessionId": "eeb7b3d3-2f4a-4eca-88b9-f6b658681156",
+      "stateRevision": 1,
+      "currentSha": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+      "savedSha": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+      "slotsEqual": false,
+      "journal": [
+        {
+          "commandId": "resume-4",
+          "route": "save",
+          "responseSha": "91a52975de200584e04e0e13d80016063cd89490c03a6ed2de2d78b063ceda71"
+        },
+        {
+          "commandId": "resume-5",
+          "route": "command",
+          "responseSha": "c6bb1abd0082bb250534a963eb020806df7f5966f808b426be874924ad64a0b1"
+        }
+      ],
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "checkpointSha": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+          "decodedBytes": 83903166
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "checkpointSha": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+          "decodedBytes": 83921994
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 2,
+          "checkpointSha": "f1d24351de21f9733331b7873e4ac0b480b271feb2b009d85d03acb2fb0fbde3",
+          "decodedBytes": 133516244
+        }
+      ],
+      "rngSha": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+    },
+    {
+      "name": "failed Save preserved all prior authority",
+      "week": 8793,
+      "fileSha": "d03ee93b4fdc6312ad9c533db1290c87007aa6d5cd4699cbbb456290efa926d4",
+      "encodedBytes": 70789884,
+      "catalogueRevision": 5,
+      "activeId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "workingCheckpointSha": "5233d8f854df0d619ede44c6b7083b332e3d20aa15d7471e048fe02b32556be2",
+      "workingDecodedBytes": 134753428,
+      "sessionId": "eeb7b3d3-2f4a-4eca-88b9-f6b658681156",
+      "stateRevision": 1,
+      "currentSha": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+      "savedSha": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+      "slotsEqual": false,
+      "journal": [
+        {
+          "commandId": "resume-4",
+          "route": "save",
+          "responseSha": "91a52975de200584e04e0e13d80016063cd89490c03a6ed2de2d78b063ceda71"
+        },
+        {
+          "commandId": "resume-5",
+          "route": "command",
+          "responseSha": "c6bb1abd0082bb250534a963eb020806df7f5966f808b426be874924ad64a0b1"
+        }
+      ],
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "checkpointSha": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+          "decodedBytes": 83903166
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "checkpointSha": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+          "decodedBytes": 83921994
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 2,
+          "checkpointSha": "f1d24351de21f9733331b7873e4ac0b480b271feb2b009d85d03acb2fb0fbde3",
+          "decodedBytes": 133516244
+        }
+      ],
+      "rngSha": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+    },
+    {
+      "name": "recovered Save updated both slots",
+      "week": 8793,
+      "fileSha": "260dad4c799d688b46efc99bd712a948e600d13031f03b0a46caebf53e7a8981",
+      "encodedBytes": 70594774,
+      "catalogueRevision": 6,
+      "activeId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "workingCheckpointSha": "12e1549ed731734d9c231af73804e1a797c6dbacdc12b9b2233af4945eeae212",
+      "workingDecodedBytes": 133515402,
+      "sessionId": "60c36081-7da2-4649-873a-2e6786115e98",
+      "stateRevision": 0,
+      "currentSha": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+      "savedSha": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+      "slotsEqual": true,
+      "journal": [
+        {
+          "commandId": "resume-6",
+          "route": "save",
+          "responseSha": "fc76155e92d68f85557978bb6404fe18f7e500ced9f6f07d040b2af9951068bc"
+        }
+      ],
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "checkpointSha": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+          "decodedBytes": 83903166
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "checkpointSha": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+          "decodedBytes": 83921994
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 3,
+          "checkpointSha": "12e1549ed731734d9c231af73804e1a797c6dbacdc12b9b2233af4945eeae212",
+          "decodedBytes": 133515402
+        }
+      ],
+      "rngSha": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+    },
+    {
+      "name": "campaign replay preserved exact durable receipt",
+      "responseSha": "c4d110570db83a22db868149fc42877b9f0bfc28eba5feda6746bacf1d4a093e"
+    },
+    {
+      "name": "loaded exact Long campaign A",
+      "week": 8788,
+      "fileSha": "1e2f9fde0e3b8c43e70d851a00db693b751f453b399dedb886bb60bc9f5e06d0",
+      "encodedBytes": 63018240,
+      "catalogueRevision": 7,
+      "activeId": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+      "workingCheckpointSha": "ae3c21014b1c9340780c5fb3e3edd7623257a0ebcb4ac273a13c70272c317335",
+      "workingDecodedBytes": 83903166,
+      "sessionId": "8fe157c2-79b6-436a-a13d-049dba136399",
+      "stateRevision": 0,
+      "currentSha": "cd0e3836332c4b4ffd87e637381c2d5e2d1e4c9db976c4df47b8683550de56d9",
+      "savedSha": "cd0e3836332c4b4ffd87e637381c2d5e2d1e4c9db976c4df47b8683550de56d9",
+      "slotsEqual": true,
+      "journal": [],
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "checkpointSha": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+          "decodedBytes": 83903166
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "checkpointSha": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+          "decodedBytes": 83921994
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 3,
+          "checkpointSha": "12e1549ed731734d9c231af73804e1a797c6dbacdc12b9b2233af4945eeae212",
+          "decodedBytes": 133515402
+        }
+      ],
+      "rngSha": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+    },
+    {
+      "name": "loaded exact Long campaign B",
+      "week": 8789,
+      "fileSha": "e878f7592e98b991dda408fa706c81defc541db853a59d47f250404b7a428307",
+      "encodedBytes": 63025809,
+      "catalogueRevision": 8,
+      "activeId": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+      "workingCheckpointSha": "11a2b0c91911ca0206fc65130f5b2874b1b4e63e6f3dd6b531ef7d21509913b5",
+      "workingDecodedBytes": 83921994,
+      "sessionId": "03d282f6-7dfd-4f23-8c2c-e064f2711b3e",
+      "stateRevision": 0,
+      "currentSha": "be3d2d3937ce8d5fe551393bf2ca54e7c982e464bc1b4eb78119f94eb17aeafe",
+      "savedSha": "be3d2d3937ce8d5fe551393bf2ca54e7c982e464bc1b4eb78119f94eb17aeafe",
+      "slotsEqual": true,
+      "journal": [],
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "checkpointSha": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+          "decodedBytes": 83903166
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "checkpointSha": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+          "decodedBytes": 83921994
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 3,
+          "checkpointSha": "12e1549ed731734d9c231af73804e1a797c6dbacdc12b9b2233af4945eeae212",
+          "decodedBytes": 133515402
+        }
+      ],
+      "rngSha": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+    },
+    {
+      "name": "loaded exact Long campaign C",
+      "week": 8793,
+      "fileSha": "b11cbd30633fb4406e8d3724dbdcd9290b1b393681a9569be6dd78ce3277cc24",
+      "encodedBytes": 63025258,
+      "catalogueRevision": 9,
+      "activeId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "workingCheckpointSha": "e90e6a1532b7cb914d2aca103ea3dce6a0ccc1368c9257ae83267c2613dbb95b",
+      "workingDecodedBytes": 83920990,
+      "sessionId": "2a6cd476-2a20-4a29-b858-ea104518176a",
+      "stateRevision": 0,
+      "currentSha": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+      "savedSha": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+      "slotsEqual": true,
+      "journal": [],
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "checkpointSha": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+          "decodedBytes": 83903166
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "checkpointSha": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+          "decodedBytes": 83921994
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 3,
+          "checkpointSha": "12e1549ed731734d9c231af73804e1a797c6dbacdc12b9b2233af4945eeae212",
+          "decodedBytes": 133515402
+        }
+      ],
+      "rngSha": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+    }
+  ],
+  "writes": [
+    {
+      "bytes": 70985632,
+      "sha256": "dfb9cf9189b76a256d7b62add33573cf514c1f563164f4aa1991957c63f3b65e",
+      "ms": 83.54824999999983
+    },
+    {
+      "bytes": 71180676,
+      "sha256": "89b69924d862d485bedc3e13550b4b96011c12465dbd01507582e53721abf89f",
+      "ms": 89.42279199999757
+    },
+    {
+      "bytes": 63217451,
+      "sha256": "f1a1bc110a152b13549d8c011c5836eb8d0fae18480fb116810a31bc7ba7ad49",
+      "ms": 85.81750000000466
+    },
+    {
+      "bytes": 70595984,
+      "sha256": "0a213af76bd7c32e91821b99ed904696e562d798867aa23ab010f60f63236d77",
+      "ms": 79.91445799999929
+    },
+    {
+      "bytes": 70789884,
+      "sha256": "d03ee93b4fdc6312ad9c533db1290c87007aa6d5cd4699cbbb456290efa926d4",
+      "ms": 76.48475000000326
+    },
+    {
+      "bytes": 70594774,
+      "sha256": "260dad4c799d688b46efc99bd712a948e600d13031f03b0a46caebf53e7a8981",
+      "ms": 83.88845800000126
+    },
+    {
+      "bytes": 63018240,
+      "sha256": "1e2f9fde0e3b8c43e70d851a00db693b751f453b399dedb886bb60bc9f5e06d0",
+      "ms": 79.66687499999534
+    },
+    {
+      "bytes": 63025809,
+      "sha256": "e878f7592e98b991dda408fa706c81defc541db853a59d47f250404b7a428307",
+      "ms": 67.22983300001943
+    },
+    {
+      "bytes": 63025258,
+      "sha256": "b11cbd30633fb4406e8d3724dbdcd9290b1b393681a9569be6dd78ce3277cc24",
+      "ms": 80.76758300000802
+    }
+  ],
+  "errors": [],
+  "completed": true,
+  "final": {
+    "fileSha": "b11cbd30633fb4406e8d3724dbdcd9290b1b393681a9569be6dd78ce3277cc24",
+    "encodedBytes": 63025258,
+    "catalogueRevision": 9,
+    "activeId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+    "workingCheckpointSha": "e90e6a1532b7cb914d2aca103ea3dce6a0ccc1368c9257ae83267c2613dbb95b",
+    "workingDecodedBytes": 83920990,
+    "sessionId": "2a6cd476-2a20-4a29-b858-ea104518176a",
+    "stateRevision": 0,
+    "currentSha": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+    "savedSha": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+    "slotsEqual": true,
+    "journal": [],
+    "records": [
+      {
+        "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+        "label": "Long campaign A",
+        "revision": 0,
+        "checkpointSha": "0c408876d6d51e1c4d8bd3d269e87f45df70f61db49230e255f8454c4e4af7db",
+        "decodedBytes": 83903166
+      },
+      {
+        "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+        "label": "Long campaign B",
+        "revision": 0,
+        "checkpointSha": "af8b472be776ed037a7a54181a70cab01fc778e560b17aa8eb9e115d1d415840",
+        "decodedBytes": 83921994
+      },
+      {
+        "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+        "label": "Long campaign C",
+        "revision": 3,
+        "checkpointSha": "12e1549ed731734d9c231af73804e1a797c6dbacdc12b9b2233af4945eeae212",
+        "decodedBytes": 133515402
+      }
+    ],
+    "maximumSampledRss": 4998578176,
+    "allThreeRecordsPreserved": true,
+    "exactOrdinaryReceiptAcrossLaterTickAndRestart": true,
+    "exactCampaignReceiptAcrossRestart": true,
+    "failedSavePreservedAuthority": true,
+    "playerRngSha": "b403c8a961794348ece95e6306be5cf2c1f3b781a57459ae68095cf14484847d"
+  },
+  "finish": "2026-09-10T16:14:49.327Z",
+  "maximumSampledRss": 4998578176,
+  "sourceVerification": {
+    "files": 106,
+    "changedPaths": [],
+    "stable": true,
+    "originalRecoveredLibraryUnchanged": true,
+    "sourceCombinedSha256": "8e23a07418050ba553a9fde2cb1fc0892e23964f55c5a972ac083b75f69772e2"
+  }
+}

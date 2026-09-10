@@ -1307,3 +1307,5 @@ export type {
   GameStateV18,
   FoundingRegime,
 } from './types.js'
+export { forecastHistoryForOwner } from './industryCareer.js'
+export { exportCurrentState } from './save.js'

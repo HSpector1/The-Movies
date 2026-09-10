@@ -25,6 +25,7 @@ export type BridgeCheckpointStoreErrorCode =
   | 'NOT_REGULAR_FILE'
   | 'SYMLINK'
   | 'TOO_LARGE'
+  | 'RESTORATION_UNCERTAIN'
 
 export class BridgeCheckpointStoreError extends Error {
   readonly code: BridgeCheckpointStoreErrorCode
@@ -587,6 +588,7 @@ class LockedBridgeCheckpointStore implements BridgeCheckpointStore {
     const backupPath = privateUniquePath(this.directoryPath, this.basename, 'previous')
     let backupCreated = false
     let committed = false
+    let preserveRecoveryBackup = false
 
     try {
       writeNewPrivateFile(temporaryPath, bytes)
@@ -617,8 +619,11 @@ class LockedBridgeCheckpointStore implements BridgeCheckpointStore {
       if (committed) {
         try {
           if (backupCreated) {
-            fs.renameSync(backupPath, this.checkpointPath)
-            backupCreated = false
+            // Retain the durable recovery link until restoration's directory sync succeeds.
+            const restorePath = privateUniquePath(this.directoryPath, this.basename, 'restore')
+            fs.linkSync(backupPath, restorePath)
+            try { fs.renameSync(restorePath, this.checkpointPath) }
+            finally { unlinkOwnedTemporary(restorePath) }
           } else {
             const replacement = lstatOrNull(this.checkpointPath)
             if (replacement !== null && replacement.isFile() && !replacement.isSymbolicLink()) {
@@ -627,8 +632,9 @@ class LockedBridgeCheckpointStore implements BridgeCheckpointStore {
           }
           fsyncDirectory(this.directoryPath)
         } catch (restoreError) {
+          preserveRecoveryBackup = true
           throw new BridgeCheckpointStoreError(
-            'FILE_CHANGED',
+            'RESTORATION_UNCERTAIN',
             'Checkpoint commit failed and the original could not be restored.',
             restoreError,
           )
@@ -641,7 +647,7 @@ class LockedBridgeCheckpointStore implements BridgeCheckpointStore {
       } catch {
         // A unique incomplete temporary is never treated as a checkpoint.
       }
-      if (backupCreated) {
+      if (backupCreated && !preserveRecoveryBackup) {
         try {
           unlinkOwnedTemporary(backupPath)
           fsyncDirectory(this.directoryPath)

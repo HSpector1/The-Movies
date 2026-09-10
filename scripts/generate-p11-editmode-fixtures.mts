@@ -10,7 +10,8 @@ import { encodeBridgeRuntimeCheckpoint, loadBridgeRuntimeCheckpoint } from '../b
 import { BRIDGE_SCHEMA, PROJECTION_VERSION, PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import { parseWireValue } from '../bridge/schema/runtime.ts'
 import { castingProjection } from '../bridge/casting.ts'
-import { applyActions } from '../src/core/index.ts'
+import { applyActions, generateWorld } from '../src/core/index.ts'
+import { industrySummary } from '../bridge/industry.ts'
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)))
@@ -97,6 +98,8 @@ for (const value of [releaseReady, releaseCommitted]) {
 
 mkdirSync(output, { recursive: true })
 const rows = [
+  { file: 'p12-industry-control-projection.json', value: {industry:industrySummary(generateWorld('p12-editmode-historical-control'))}, source: 'src/core/worldgen.ts', sourceSha256: sha(readFileSync(join(root,'src/core/worldgen.ts'))),
+    operation: 'Current TypeScript-authored unavailable-industry component for synthetic historical-control bundles; not a coherent native world or migration proof' },
   { file: 'p11-placed-greenlight-accepted.json', value: greenlight, source: packagePath, sourceSha256: sha(packageBytes),
     operation: 'Actual current BridgeSession Greenlight quote then one submitIntent on pinned public S10; complete accepted response, not HTTP/native capture' },
   { file: 'p11-release-ready-no-site-snapshot.json', value: releaseReady, source: releasePath, sourceSha256: sha(releaseBytes),

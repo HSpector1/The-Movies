@@ -262,8 +262,8 @@ describe('RULING B: capability is distinct from credited career identity', () =>
   it('a fresh-world talent with no credits has NO credited identity (capability only)', () => {
     const state = newGame('ident-B1')
     const roster = talentHubRoster(state)
-    // Fresh world: no releases yet → every discipline has workHistory 0 → NO credited identity.
-    for (const t of roster) {
+    // Player applicants begin uncredited; authored incumbent careers are separate.
+    for (const t of roster.filter(t=>state.founding!.applicantIds.includes(t.id))) {
       const label = careerIdentityLabel(t.careerIdentity)
       expect(label).toBe('') // nothing credited yet
       // Any discipline at a usable OVR reads as capable-but-unproven, never established.
@@ -300,7 +300,7 @@ describe('RULING B: capability is distinct from credited career identity', () =>
     render(<TalentHub state={state} onBack={() => {}} />)
     const roster = screen.getByTestId('hub-roster')
     const cards = talentHubRoster(state)
-    for (const t of cards) {
+    for (const t of cards.filter(t=>state.founding!.applicantIds.includes(t.id))) {
       const line = within(roster).getByTestId(`hub-identity-${t.id}`)
       const capable = capableButUnprovenLabels(t.careerIdentity)
       // Fresh world: no credited label; the "no credited role yet" copy is shown instead.

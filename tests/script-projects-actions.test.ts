@@ -1,7 +1,7 @@
+import {beginFoundingHistoricalControl as beginFounding} from '../src/core/employment.js'
 import { describe, expect, it } from 'vitest'
 import {
   applyActions,
-  beginFounding,
   FOUNDING_MINIMUMS,
   generateWorld,
   makeSave,

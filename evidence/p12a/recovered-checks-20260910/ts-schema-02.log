@@ -1,0 +1,15 @@
+
+ RUN  v2.1.9 /Users/bruce/The Movies - P12A Living Hollywood TS
+
+ ✓ |core| tests/bridge-schema.test.ts (22 tests) 7319ms
+   ✓ canonical Unity bridge schema > projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope 767ms
+   ✓ canonical Unity bridge schema > keeps live location identities in the projection-v4 building namespace 4968ms
+   ✓ canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data 404ms
+   ✓ canonical Unity bridge schema > preserves required nullable numeric fields through schema projection 361ms
+   ✓ canonical Unity bridge schema > models accepted load/command responses as one flat projection envelope 322ms
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  18:07:57
+   Duration  8.23s (transform 517ms, setup 0ms, collect 704ms, tests 7.32s, environment 0ms, prepare 28ms)
+

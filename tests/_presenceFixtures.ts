@@ -1,3 +1,4 @@
+import {beginFoundingHistoricalControl as beginFounding} from '../src/core/employment.js'
 // Presence Projection V1 scenario fixtures. NOT a test file (no `.test.` in the
 // name — vitest ignores it).
 //
@@ -10,7 +11,6 @@
 
 import {
   applyActions,
-  beginFounding,
   BEATS_PER_WEEK,
   FOUNDING_MINIMUMS,
   generateWorld,

@@ -38,7 +38,7 @@ import type {
   FoundingApplicantRow,
   GameState,
 } from '../ui/src/engine/adapter.ts'
-import { applyActions, importSave, migrateToV18 } from '../src/core/index.js'
+import { applyActions, importSave, migrateToV19 } from '../src/core/index.js'
 import type { FoundingRegime } from '../src/core/index.js'
 import {
   PROTOCOL_VERSION,
@@ -65,6 +65,9 @@ import {
 } from './runtime-checkpoint.ts'
 import { canonicalJson } from './schema/canonical.ts'
 import { snapshotBuildContextFor } from './snapshot-build-context.ts'
+import {industryPage} from './industry.ts'
+import {sameNativeCampaignOrigin} from './campaign-origin.ts'
+import type {IndustryQuery} from './schema/industry-schema.ts'
 import type {
   BridgeAcceptedCommandResponse,
   BridgeAcceptedSaveResponse,
@@ -114,8 +117,8 @@ type ImportOutcome =
 function importSaveJsonCurrent(json: string): ImportOutcome {
   try {
     const save = importSave(json)
-    const converted = save.saveVersion !== 17
-    return { ok: true, state: migrateToV18(save).state, converted }
+    const converted = save.saveVersion !== 19
+    return { ok: true, state: migrateToV19(save).state, converted }
   } catch (error) {
     return { ok: false, error: (error as Error).message }
   }
@@ -1196,6 +1199,8 @@ function rejectionFacts(
         currentHolder: null,
         remedy: 'Create an authoritative save before requesting a load.',
       }
+    case 'CAMPAIGN_CONFLICT': case 'CAMPAIGN_NOT_FOUND': case 'INVALID_CAMPAIGN_LABEL':
+    case 'UNSAVED_PROGRESS': case 'STORAGE_UNAVAILABLE':
     case 'SAVE_REJECTED':
       return {
         category: 'save-state',
@@ -1250,23 +1255,25 @@ export class BridgeSession {
     }
   }
 
-  static fromSaveJson(saveJson: string, sessionId: string = randomUUID()): BridgeSession {
+  static fromSaveJson(saveJson: string, sessionId: string = randomUUID(), limits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS): BridgeSession {
     const imported = importSaveJsonCurrent(saveJson)
     if (!imported.ok) throw new Error(imported.error)
     return new BridgeSession(
       imported.state,
       sessionId,
       snapshotBuildContextFor(imported.state).saveJson(),
+      { limits },
     )
   }
 
   static createRuntime(
     limits: BridgeRuntimeCheckpointLimits = DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,
     regime: FoundingRegime = 'endowed',
+    seed: string = randomUUID(),
   ): BridgeSession {
     // P09 §16: the regime is written at creation, from the runtime's explicit
     // configuration — never inferred, never applied to an existing profile.
-    return new BridgeSession(newGame('current-game-unity-adoption-v2', { regime }), undefined, null, { limits })
+    return new BridgeSession(newGame(seed, { regime }), undefined, null, { limits })
   }
 
   static fromRuntimeCheckpoint(
@@ -1293,6 +1300,13 @@ export class BridgeSession {
 
   snapshot(): SnapshotEnvelope {
     return this.snapshotFor(this.state, this.revision)
+  }
+
+  industry(request:IndustryQuery) {
+    if(request.sessionId!==this.sessionId)return this.protocolReject(request.requestId,'SESSION_MISMATCH','The active campaign changed. Refresh Industry.')
+    if(request.expectedStateRevision!==this.stateRevision)return this.protocolReject(request.requestId,'STALE_REVISION','The studio advanced. Refresh this Industry page before continuing.')
+    try{return industryPage(this.state,this.sessionId,this.stateRevision,request)}
+    catch(error){return this.protocolReject(request.requestId,'INVALID_CONTROL',(error as Error).message)}
   }
 
   exportRuntimeCheckpoint(): BridgeRuntimeCheckpointV1 {
@@ -1346,6 +1360,7 @@ export class BridgeSession {
     // snapshot stays untouched. The bundle projection deep-copies every input,
     // so the shared context facts never reach a served envelope by reference.
     const snapshot = projectStudioProjectionBundle({
+      industry:context.industry(),
       // P07A W2 — `results` now rides inside context.lotSnapshot() (the builder owns the
       // derivation, mirroring releasedFilms), so the projection partition invariant holds.
       ...context.lotSnapshot(),
@@ -1780,6 +1795,11 @@ export class BridgeSession {
     const loaded = importSaveJsonCurrent(this.savedJson)
     if (!loaded.ok) {
       const rejected = this.reject(control.commandId, 'SAVE_REJECTED', loaded.error, started)
+      this.remember('load', control, rejected)
+      return rejected
+    }
+    if (this.state.hollywood !== null && !sameNativeCampaignOrigin(this.state, loaded.state)) {
+      const rejected = this.reject(control.commandId, 'SAVE_REJECTED', 'The saved slot belongs to another campaign or is missing Hollywood authority.', started)
       this.remember('load', control, rejected)
       return rejected
     }

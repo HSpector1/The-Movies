@@ -27,7 +27,9 @@ import {
   type SupervisorProcessReference,
 } from './lease.ts'
 
-export const ENGINE_STARTUP_TIMEOUT_MS = 20_000
+// R05 measured three large campaigns taking 17.7 seconds before listening.
+// Keep startup bounded while allowing actual durable recovery to finish.
+export const ENGINE_STARTUP_TIMEOUT_MS = 60_000
 export const ENGINE_HEALTH_TIMEOUT_MS = 3_000
 export const CHILD_SHUTDOWN_TIMEOUT_MS = 5_000
 export const MAX_HEALTH_RESPONSE_BYTES = 16 * 1024

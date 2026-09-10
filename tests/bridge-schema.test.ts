@@ -1,3 +1,4 @@
+import {industrySummary} from '../bridge/industry.ts'
 import { financeProjection } from '../bridge/finance.ts'
 import { readFileSync } from 'node:fs'
 
@@ -76,10 +77,10 @@ describe('canonical Unity bridge schema', () => {
     assertEveryObjectIsClosed(BRIDGE_SCHEMA)
     expect(BRIDGE_SCHEMA['x-project-studio']).toMatchObject({
       protocolVersion: 4,
-      projectionVersion: 27,
+      projectionVersion: 28,
       transport: 'http-json-localhost',
     })
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-27')
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-28')
   })
 
   it('projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope', () => {
@@ -88,6 +89,7 @@ describe('canonical Unity bridge schema', () => {
     // result at the bridge boundary (exactly as BridgeSession.snapshotFor composes it).
     const broadSnapshot = {
       ...studioLotSnapshot(state),
+      industry: industrySummary(state),
       development: developmentProjection(state),
       casting: castingProjection(state),
       release: releaseProjection(state),
@@ -97,6 +99,7 @@ describe('canonical Unity bridge schema', () => {
     }
     const projected = projectStudioLotSnapshot(broadSnapshot)
     const bundle = projectStudioProjectionBundle(broadSnapshot)
+    expect(bundle.industry.industry).toEqual(industrySummary(state))
     expect(broadSnapshot).toHaveProperty('cash')
     expect(projected).not.toHaveProperty('cash')
     expect(projected).not.toHaveProperty('operationsMode')
@@ -332,8 +335,8 @@ describe('canonical Unity bridge schema', () => {
     expect(() => parseWireValue(definition, int32Overflow)).toThrow(/<= 2147483647/)
 
     const oldProjection = { ...clone(envelope), snapshotVersion: 24 }
-    expect(PROJECTION_VERSION).toBe(27)
-    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 27/)
+    expect(PROJECTION_VERSION).toBe(28)
+    expect(() => parseWireValue(definition, oldProjection)).toThrow(/expected literal 28/)
 
     const missingSection = clone(envelope)
     delete (missingSection.snapshot as Partial<typeof missingSection.snapshot>).releaseResults
@@ -568,7 +571,7 @@ describe('canonical Unity bridge schema', () => {
     expect(checkedInSchema).toBe(canonicalJsonPretty(BRIDGE_SCHEMA))
     expect(generatedCsharp).toContain(`public const string SchemaId = "${SCHEMA_ID}";`)
     expect(generatedCsharp).toContain('public const int ProtocolVersion = 4;')
-    expect(generatedCsharp).toContain('public const int ProjectionVersion = 27;')
+    expect(generatedCsharp).toContain('public const int ProjectionVersion = 28;')
     expect(generatedCsharp).toContain('public int protocolVersion;')
     expect(generatedCsharp).toContain('public int snapshotVersion;')
     expect(generatedCsharp.match(/public string runtimeInstanceId;/g)).toHaveLength(2)

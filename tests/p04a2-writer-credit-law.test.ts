@@ -1,3 +1,4 @@
+import {migrateToCurrentControl} from './_historicalCurrent.js'
 /**
  * P04A.2 — THE WRITER-CREDIT LAW REGRESSION SUITE (§19 A–H), core half.
  *
@@ -39,7 +40,6 @@ import {
   importSave,
   isContracted,
   makeSave,
-  migrateToV18,
   QueueableCapacityRefusal,
   scriptCapacityView,
   scriptProjectsReadModel,
@@ -770,7 +770,7 @@ describe('P04A.2 §19G — the split needs no save migration and survives reload
     const save = makeSave(greenlit)
     // NO VERSION BUMP FROM THIS CLAUSE: the credit/assignment split changed no
     // persisted shape. The live version is 16 (P06A W1 release-authority root).
-    expect(save.saveVersion).toBe(18)
+    expect(save.saveVersion).toBe(19)
     // eslint-disable-next-line no-console
     console.log(
       '[P04A.2 WITNESS] §19G saveVersion:',
@@ -778,7 +778,7 @@ describe('P04A.2 §19G — the split needs no save migration and survives reload
     )
 
     const json = exportSave(save)
-    const reloaded: GameState = migrateToV18(importSave(json)).state
+    const reloaded: GameState = migrateToCurrentControl(importSave(json)).state
 
     // BOTH facts, simultaneously, after the reload:
     //   the film A writer credit…

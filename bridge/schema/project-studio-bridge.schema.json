@@ -137,7 +137,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 27,
+          "const": 28,
           "type": "integer"
         },
         "stateDigest": {
@@ -254,7 +254,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 27,
+          "const": 28,
           "type": "integer"
         },
         "stateDigest": {
@@ -570,7 +570,12 @@
             "INTENT_NOT_AVAILABLE",
             "ENGINE_REJECTED",
             "NO_SAVE",
-            "SAVE_REJECTED"
+            "SAVE_REJECTED",
+            "CAMPAIGN_CONFLICT",
+            "CAMPAIGN_NOT_FOUND",
+            "INVALID_CAMPAIGN_LABEL",
+            "UNSAVED_PROGRESS",
+            "STORAGE_UNAVAILABLE"
           ],
           "type": "string"
         },
@@ -758,7 +763,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 27,
+          "const": 28,
           "type": "integer"
         },
         "stateDigest": {
@@ -837,7 +842,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 27,
+          "const": 28,
           "type": "integer"
         },
         "stateDigest": {
@@ -941,6 +946,408 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioBuildingSnapshot"
+    },
+    "StudioCampaignAcceptedResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "accepted": {
+          "const": true,
+          "type": "boolean"
+        },
+        "campaignId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "catalogueRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "gameWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "operation": {
+          "enum": [
+            "newGame",
+            "save",
+            "saveAs",
+            "load",
+            "rename",
+            "delete",
+            "discard"
+          ],
+          "type": "string"
+        },
+        "originatingSessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "processingMs": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "stateDigest": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "stateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "type": {
+          "const": "campaignAccepted",
+          "type": "string"
+        }
+      },
+      "required": [
+        "accepted",
+        "campaignId",
+        "catalogueRevision",
+        "commandId",
+        "gameWeek",
+        "message",
+        "operation",
+        "originatingSessionId",
+        "processingMs",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "stateDigest",
+        "stateRevision",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCampaignAcceptedResponse"
+    },
+    "StudioCampaignDate": {
+      "additionalProperties": false,
+      "properties": {
+        "absoluteWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "policy": {
+          "const": "campaign-calendar-1920-52/v1",
+          "type": "string"
+        },
+        "weekOfYear": {
+          "maximum": 52,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "year": {
+          "maximum": 2147483647,
+          "minimum": 1920,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "absoluteWeek",
+        "label",
+        "policy",
+        "weekOfYear",
+        "year"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCampaignDate"
+    },
+    "StudioCampaignLibraryResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "activeCampaignId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "campaigns": {
+          "items": {
+            "$ref": "#/$defs/StudioCampaignSummary"
+          },
+          "type": "array"
+        },
+        "catalogueRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "dirty": {
+          "type": "boolean"
+        },
+        "durable": {
+          "type": "boolean"
+        },
+        "gameWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "snapshotVersion": {
+          "const": 28,
+          "type": "integer"
+        },
+        "stateDigest": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "stateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "type": {
+          "const": "campaignLibrary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "activeCampaignId",
+        "campaigns",
+        "catalogueRevision",
+        "dirty",
+        "durable",
+        "gameWeek",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "snapshotVersion",
+        "stateDigest",
+        "stateRevision",
+        "type"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCampaignLibraryResponse"
+    },
+    "StudioCampaignRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "campaignId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "commandId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "confirmDestructive": {
+          "type": "boolean"
+        },
+        "expectedActiveCampaignId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expectedCatalogueRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "operation": {
+          "enum": [
+            "newGame",
+            "save",
+            "saveAs",
+            "load",
+            "rename",
+            "delete",
+            "discard"
+          ],
+          "type": "string"
+        },
+        "overwriteCampaignId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "const": "campaign",
+          "type": "string"
+        },
+        "unsavedDisposition": {
+          "enum": [
+            "requireClean",
+            "save",
+            "discard"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "campaignId",
+        "commandId",
+        "confirmDestructive",
+        "expectedActiveCampaignId",
+        "expectedCatalogueRevision",
+        "expectedStateRevision",
+        "label",
+        "operation",
+        "overwriteCampaignId",
+        "protocolVersion",
+        "schemaId",
+        "sessionId",
+        "type",
+        "unsavedDisposition"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCampaignRequest"
+    },
+    "StudioCampaignSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "dateLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "gameWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "revision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "studioName": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "weekOfYear": {
+          "maximum": 52,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "year": {
+          "maximum": 2147483647,
+          "minimum": 1920,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "dateLabel",
+        "gameWeek",
+        "id",
+        "label",
+        "revision",
+        "studioName",
+        "weekOfYear",
+        "year"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioCampaignSummary"
     },
     "StudioCastingActiveSlateSnapshot": {
       "additionalProperties": false,
@@ -6160,6 +6567,895 @@
       "type": "object",
       "x-csharp-name": "StudioHistorySnapshot"
     },
+    "StudioIndustryActivity": {
+      "additionalProperties": false,
+      "properties": {
+        "dateLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "detail": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "eventId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "filmId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "group": {
+          "enum": [
+            "releases",
+            "people",
+            "studios",
+            "announcements"
+          ],
+          "type": "string"
+        },
+        "headline": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "studioId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "dateLabel",
+        "detail",
+        "eventId",
+        "filmId",
+        "group",
+        "headline",
+        "studioId",
+        "talentId",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioIndustryActivity"
+    },
+    "StudioIndustryCredit": {
+      "additionalProperties": false,
+      "properties": {
+        "employerName": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "employerStudioId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "role": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "employerName",
+        "employerStudioId",
+        "name",
+        "role",
+        "talentId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioIndustryCredit"
+    },
+    "StudioIndustryFilm": {
+      "additionalProperties": false,
+      "properties": {
+        "audienceScore": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "businessNotice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "criticScore": {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        "dateLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "filmId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "genre": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "historicalYear": {
+          "anyOf": [
+            {
+              "maximum": 1919,
+              "minimum": 1800,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "openingGross": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "provenance": {
+          "enum": [
+            "authored-start/v1",
+            "simulation/v1",
+            "player-record"
+          ],
+          "type": "string"
+        },
+        "releaseWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "runStatus": {
+          "enum": [
+            "settled",
+            "inRun",
+            "recorded"
+          ],
+          "type": "string"
+        },
+        "studioId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "studioName": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "totalGross": {
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "audienceScore",
+        "businessNotice",
+        "criticScore",
+        "dateLabel",
+        "filmId",
+        "genre",
+        "historicalYear",
+        "openingGross",
+        "provenance",
+        "releaseWeek",
+        "runStatus",
+        "studioId",
+        "studioName",
+        "title",
+        "totalGross"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioIndustryFilm"
+    },
+    "StudioIndustryLane": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "enum": [
+            "audienceAwareness",
+            "industryPrestige",
+            "commercialConfidence",
+            "output"
+          ],
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "meaning": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "movement": {
+          "enum": [
+            "new",
+            "unavailable",
+            "up",
+            "down",
+            "unchanged"
+          ],
+          "type": "string"
+        },
+        "movementLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "priorRank": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "priorWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rank": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "snapshotLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "snapshotWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "key",
+        "label",
+        "meaning",
+        "movement",
+        "movementLabel",
+        "priorRank",
+        "priorWeek",
+        "rank",
+        "snapshotLabel",
+        "snapshotWeek",
+        "value"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioIndustryLane"
+    },
+    "StudioIndustryPerson": {
+      "additionalProperties": false,
+      "properties": {
+        "creditCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "employerName": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "employerStudioId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "employmentLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "onPlayerLot": {
+          "type": "boolean"
+        },
+        "roleLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "talentId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "creditCount",
+        "employerName",
+        "employerStudioId",
+        "employmentLabel",
+        "name",
+        "notice",
+        "onPlayerLot",
+        "roleLabel",
+        "talentId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioIndustryPerson"
+    },
+    "StudioIndustryProject": {
+      "additionalProperties": false,
+      "properties": {
+        "announcedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "dateLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "genre": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "productionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "stageLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "studioId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "announcedWeek",
+        "dateLabel",
+        "genre",
+        "notice",
+        "productionId",
+        "stageLabel",
+        "studioId",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioIndustryProject"
+    },
+    "StudioIndustryProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "industry": {
+          "$ref": "#/$defs/StudioIndustrySummary"
+        }
+      },
+      "required": [
+        "industry"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioIndustryProjection"
+    },
+    "StudioIndustryRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "expectedStateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "lane": {
+          "enum": [
+            "audienceAwareness",
+            "industryPrestige",
+            "commercialConfidence",
+            "output",
+            "recent",
+            "critics",
+            "audience",
+            "opening",
+            "total"
+          ],
+          "type": "string"
+        },
+        "page": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "pageSize": {
+          "maximum": 50,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "period": {
+          "enum": [
+            "recent",
+            "all",
+            "authored",
+            "live"
+          ],
+          "type": "string"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "requestId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "targetId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "type": {
+          "const": "industryQuery",
+          "type": "string"
+        },
+        "view": {
+          "enum": [
+            "studios",
+            "studio",
+            "films",
+            "film",
+            "person",
+            "pulse",
+            "history",
+            "roster",
+            "project",
+            "employment"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "expectedStateRevision",
+        "lane",
+        "page",
+        "pageSize",
+        "period",
+        "protocolVersion",
+        "requestId",
+        "schemaId",
+        "sessionId",
+        "targetId",
+        "type",
+        "view"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioIndustryRequest"
+    },
+    "StudioIndustryResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "activities": {
+          "items": {
+            "$ref": "#/$defs/StudioIndustryActivity"
+          },
+          "type": "array"
+        },
+        "calendar": {
+          "$ref": "#/$defs/StudioCampaignDate"
+        },
+        "credits": {
+          "items": {
+            "$ref": "#/$defs/StudioIndustryCredit"
+          },
+          "type": "array"
+        },
+        "films": {
+          "items": {
+            "$ref": "#/$defs/StudioIndustryFilm"
+          },
+          "type": "array"
+        },
+        "lane": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "page": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "pageCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "pageSize": {
+          "maximum": 50,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "people": {
+          "items": {
+            "$ref": "#/$defs/StudioIndustryPerson"
+          },
+          "type": "array"
+        },
+        "period": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "projects": {
+          "items": {
+            "$ref": "#/$defs/StudioIndustryProject"
+          },
+          "type": "array"
+        },
+        "protocolVersion": {
+          "const": 4,
+          "type": "integer"
+        },
+        "requestId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "schemaId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sessionId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "snapshotVersion": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "stateDigest": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "stateRevision": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "studios": {
+          "items": {
+            "$ref": "#/$defs/StudioIndustryStudio"
+          },
+          "type": "array"
+        },
+        "targetId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tendencies": {
+          "items": {
+            "$ref": "#/$defs/StudioIndustryTendency"
+          },
+          "type": "array"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "totalRows": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "type": {
+          "const": "industryPage",
+          "type": "string"
+        },
+        "view": {
+          "enum": [
+            "studios",
+            "studio",
+            "films",
+            "film",
+            "person",
+            "pulse",
+            "history",
+            "roster",
+            "project",
+            "employment"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "activities",
+        "calendar",
+        "credits",
+        "films",
+        "lane",
+        "notice",
+        "page",
+        "pageCount",
+        "pageSize",
+        "people",
+        "period",
+        "projects",
+        "protocolVersion",
+        "requestId",
+        "schemaId",
+        "sessionId",
+        "snapshotVersion",
+        "stateDigest",
+        "stateRevision",
+        "studios",
+        "targetId",
+        "tendencies",
+        "title",
+        "totalRows",
+        "type",
+        "view"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioIndustryResponse"
+    },
+    "StudioIndustryStudio": {
+      "additionalProperties": false,
+      "properties": {
+        "authoredFilmCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "color": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "entryLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "filmCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "foundingLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "lanes": {
+          "items": {
+            "$ref": "#/$defs/StudioIndustryLane"
+          },
+          "type": "array"
+        },
+        "liveFilmCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "mark": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "player": {
+          "type": "boolean"
+        },
+        "recordingNotice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "studioId": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "authoredFilmCount",
+        "color",
+        "entryLabel",
+        "filmCount",
+        "foundingLabel",
+        "lanes",
+        "liveFilmCount",
+        "mark",
+        "name",
+        "player",
+        "recordingNotice",
+        "studioId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioIndustryStudio"
+    },
+    "StudioIndustrySummary": {
+      "additionalProperties": false,
+      "properties": {
+        "activeStudioCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "available": {
+          "type": "boolean"
+        },
+        "calendar": {
+          "$ref": "#/$defs/StudioCampaignDate"
+        },
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "playerStudioId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "activeStudioCount",
+        "available",
+        "calendar",
+        "notice",
+        "playerStudioId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioIndustrySummary"
+    },
+    "StudioIndustryTendency": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "detail": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "fromLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sampleCount": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "throughLabel": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "basis",
+        "detail",
+        "fromLabel",
+        "label",
+        "sampleCount",
+        "throughLabel"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioIndustryTendency"
+    },
     "StudioJourneyBlockedSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -7322,7 +8618,8 @@
           "enum": [
             "available",
             "assigned",
-            "ambiguous"
+            "ambiguous",
+            "undisclosed"
           ],
           "type": "string"
         },
@@ -8893,6 +10190,9 @@
         "history": {
           "$ref": "#/$defs/StudioHistoryProjection"
         },
+        "industry": {
+          "$ref": "#/$defs/StudioIndustryProjection"
+        },
         "journeyNotices": {
           "$ref": "#/$defs/StudioJourneyNoticesProjection"
         },
@@ -8921,6 +10221,7 @@
         "development",
         "finance",
         "history",
+        "industry",
         "journeyNotices",
         "lot",
         "people",
@@ -11243,7 +12544,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-27",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-28",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -11252,6 +12553,21 @@
     },
     {
       "$ref": "#/$defs/StudioBridgeControlRequest"
+    },
+    {
+      "$ref": "#/$defs/StudioCampaignRequest"
+    },
+    {
+      "$ref": "#/$defs/StudioIndustryRequest"
+    },
+    {
+      "$ref": "#/$defs/StudioIndustryResponse"
+    },
+    {
+      "$ref": "#/$defs/StudioCampaignLibraryResponse"
+    },
+    {
+      "$ref": "#/$defs/StudioCampaignAcceptedResponse"
     },
     {
       "$ref": "#/$defs/StudioBridgeQuoteRequest"
@@ -11284,7 +12600,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 27,
+    "projectionVersion": 28,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

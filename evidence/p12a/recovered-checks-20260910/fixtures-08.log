@@ -1,0 +1,5 @@
+
+> project-studio-core@0.1.0 check:bridge-contract:fixtures
+> vite-node scripts/generate-bridge-contract-fixtures.ts --check
+
+verified /Users/bruce/The Movies - P12A Living Hollywood TS/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs

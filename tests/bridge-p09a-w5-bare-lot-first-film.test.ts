@@ -9,6 +9,7 @@ import { describe, expect, it } from 'vitest'
 
 import { PROTOCOL_VERSION, SCHEMA_ID, type SubmitIntentCommand } from '../bridge/protocol.ts'
 import type { BridgeRuntimeCheckpointV1 } from '../bridge/runtime-checkpoint.ts'
+import { DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS } from '../bridge/runtime-checkpoint.ts'
 import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.ts'
 import { createBridgeRuntimeCoordinator, type BridgeRuntimeCoordinator, type BridgeRuntimeReadView } from '../bridge/runtime/runtime-coordinator.ts'
 import { BridgeSession, selectJourneyIntent } from '../bridge/session.ts'
@@ -20,7 +21,7 @@ import {
   foundingPhaseOf,
   generateWorld,
   importSave,
-  migrateToV18,
+  migrateToV19,
 } from '../src/core/index.js'
 import type { CreativeRole, GameState, LotCell } from '../src/core/index.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -52,7 +53,9 @@ const ORIGINS: Record<string, LotCell> = {
   'post-building': { gx: 30, gy: 14 },
 }
 
-// Exercise the same coordinator used by server.ts with its DEFAULT limits.
+// Exercise the same coordinator used by server.ts at the original 16 MiB
+// journal boundary. R05 deliberately raised the production allowance for long
+// Hollywood saves; retain this lower-bound rollover regression explicitly.
 // Only the atomic byte store is inert; there is no HTTP server or fixture-state edit.
 class JourneyCheckpointStore implements BridgeCheckpointStore {
   readonly checkpointPath = '<first-film-test-memory>'
@@ -82,6 +85,7 @@ class JourneyRuntime {
     const fatals: unknown[] = []
     const coordinator = await createBridgeRuntimeCoordinator({
       store,
+      checkpointLimits: { ...DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS, maxJournalBytes: 16 * 1024 * 1024 },
       fatal: (error) => { fatals.push(error) },
       createFreshSession: (limits) => new BridgeSession(state, 'p09-w5-first-film', null, { limits }),
     })
@@ -90,7 +94,7 @@ class JourneyRuntime {
 
   // Inspection comes from the bytes actually persisted by the coordinator,
   // never the old BridgeSession object after its logical session is replaced.
-  get gameState(): GameState { return migrateToV18(importSave(this.store.checkpoint.currentSaveJson)).state }
+  get gameState(): GameState { return migrateToV19(importSave(this.store.checkpoint.currentSaveJson)).state }
 
   async commit(tag: string, prepare: (live: BridgeRuntimeReadView, commandId: string) => SubmitIntentCommand): Promise<void> {
     // A full old journal may require one rollover. The candidate was proved to
@@ -209,7 +213,7 @@ describe('P09A W5 — the bare-lot first film, driven only through the bridge', 
       expect(final.studio.cash).toBe(final.ledger.reduce<number>((sum, row) => sum + row.amount, TUNING.INITIAL_CASH))
       expect(final.foundingRegime).toBe('bare-lot')
       expect(final.studioHistory.rows.some((row) => row.kind === 'filmReleased')).toBe(true)
-      expect(session.rollovers, 'this projection21 journey exercises the natural default journal byte boundary').toBeGreaterThan(0)
+      expect(session.rollovers, 'this journey exercises the explicit original 16 MiB journal boundary').toBeGreaterThan(0)
       expect(session.fatals).toEqual([])
       console.log(`[p09 bridge journey] released week ${String(final.market.tick)}; commands ${String(commands)}; rollovers ${String(session.rollovers)}; cash floor ${String(Math.round(minCash))}; final cash ${String(Math.round(final.studio.cash))}`)
     } finally {

@@ -1,4 +1,5 @@
 // P10A W0 — the player-safe people projection (projection 18).
+import {beginFoundingHistoricalControl} from '../src/core/employment.js'
 //
 // R1 privacy: the serialized people section carries none of the hidden roots
 //    (actual skills, ceilings, devRate, actual genre experience, the seed).
@@ -23,7 +24,7 @@ import {
   FOUNDING_MINIMUMS,
   generateWorld,
   makeSaveV16,
-  migrateToV18,
+  migrateToV19,
   tick,
 } from '../src/core/index.js'
 import type { CreativeRole, GameState } from '../src/core/index.js'
@@ -33,8 +34,8 @@ import { projectStudioProjectionBundle } from '../bridge/schema/runtime.ts'
 import { snapshotBuildContextFor } from '../bridge/snapshot-build-context.ts'
 import { SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS } from '../bridge/runtime-checkpoint.ts'
 
-function foundStudio(seed: string): GameState {
-  let s = beginFounding(generateWorld(seed))
+function foundStudio(seed: string, historical = false): GameState {
+  let s = (historical ? beginFoundingHistoricalControl : beginFounding)(generateWorld(seed))
   const pool = s.founding!.applicantIds.map((id) => s.talent.find((t) => t.id === id)!)
   const byRole = (role: CreativeRole, n: number) => pool.filter((t) => t.role === role).slice(0, n)
   for (const t of [
@@ -301,13 +302,13 @@ describe('P10A W0 — people projection', () => {
       expect(cohort.key).toMatch(/^(work-ambiguous|presence-blocked|renewal-open|contract-ends-26|contract-ends-52)$/)
   })
 
-  it('R9 the served section is projection 27 and the projection-17/18 identities stay accepted', () => {
+  it('R9 the served section is projection 28 and the projection-17/18 identities stay accepted', () => {
     const state = foundStudio('p10-w0-schema')
     // Owner UX adds explicit public genre cells and saved-slot envelope metadata.
-    expect(PROJECTION_VERSION).toBe(27)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-27')
+    expect(PROJECTION_VERSION).toBe(28)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-28')
     const context = snapshotBuildContextFor(state)
-    const bundle = projectStudioProjectionBundle({ ...context.lotSnapshot(), development: context.development(), casting: context.casting(), release: context.release(), history: context.history(), talent: context.people(), finance: context.finance() })
+    const bundle = projectStudioProjectionBundle({ ...context.lotSnapshot(), development: context.development(), casting: context.casting(), release: context.release(), history: context.history(), talent: context.people(), finance: context.finance(), industry: context.industry() })
     expect(bundle.talent.talent.profiles.length).toBe(state.talent.length)
     expect(bundle.talent.talent.roster.rows.length).toBe(state.talent.length)
     expect(bundle.talent.talent.attention.currentWeek).toBe(state.market.tick)
@@ -317,15 +318,17 @@ describe('P10A W0 — people projection', () => {
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4')).toBe('projection-v18')
   })
 
-  it('R10 a large roster projects deterministically and survives the V16 → V18 strip-and-migrate', () => {
-    const state = foundStudio('p10-w0-large')
+  it('R10 a genuine V16 control migrates without changing any original person', () => {
+    const state = foundStudio('p10-w0-large', true)
     expect(state.talent.length).toBeGreaterThanOrEqual(60)
     const a = createHash('sha256').update(serialized(state)).digest('hex')
     const b = createHash('sha256').update(serialized(state)).digest('hex')
     expect(a).toBe(b)
-    const migrated = migrateToV18(makeSaveV16(state as never)).state
+    const migrated = migrateToV19(makeSaveV16(state)).state
     const after = peopleProjection(migrated)
-    expect(after.profiles.length).toBe(state.talent.length)
+    expect(after.profiles.length).toBeGreaterThanOrEqual(state.talent.length)
+    // JSON persistence canonically represents negative zero as zero.
+    expect(migrated.talent.filter(t=>state.talent.some(original=>original.id===t.id))).toEqual(JSON.parse(JSON.stringify(state.talent)))
     for (const p of after.profiles) expect(['recorded', 'partial', 'notRecorded', 'none']).toContain(p.career.provenance)
   })
 })

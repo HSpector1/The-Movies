@@ -1,0 +1,24 @@
+
+ RUN  v2.1.9 /Users/bruce/The Movies - P12A Living Hollywood TS
+
+ ✓ |core| tests/bridge-p12-storage-codec.test.ts (4 tests) 7ms
+ ✓ |core| tests/bridge-p12-campaign-library.test.ts (13 tests) 21962ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 1051ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 963ms
+   ✓ R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 2986ms
+   ✓ R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 1254ms
+   ✓ R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 1045ms
+   ✓ R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 1926ms
+   ✓ R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 2185ms
+   ✓ R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 2441ms
+   ✓ R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 477ms
+   ✓ R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 753ms
+   ✓ R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 1107ms
+   ✓ R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 3606ms
+   ✓ R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 2166ms
+
+ Test Files  2 passed (2)
+      Tests  17 passed (17)
+   Start at  18:24:03
+   Duration  22.77s (transform 474ms, setup 0ms, collect 639ms, tests 21.97s, environment 0ms, prepare 51ms)
+

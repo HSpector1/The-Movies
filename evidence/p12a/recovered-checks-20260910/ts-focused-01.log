@@ -1,0 +1,74 @@
+
+ RUN  v2.1.9 /Users/bruce/The Movies - P12A Living Hollywood TS
+
+ ✓ |core| tests/bridge-p12-storage-codec.test.ts (4 tests) 7ms
+ ✓ |core| tests/c2a-m0-engine-union.test.ts (11 tests) 157ms
+ ✓ |core| tests/bridge-p12-industry.test.ts (3 tests) 217ms
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 471ms
+ ✓ |core| tests/placement-save-v12.test.ts (20 tests) 631ms
+ ✓ |core| tests/bridge-p11-capital-contributors.test.ts (6 tests) 619ms
+ ✓ |core| tests/cash-ledger-checkpoint-v11.test.ts (10 tests) 905ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > retains a nonempty historical checkpoint prefix only through ledger-owning builders 335ms
+ ✓ |core| tests/d17a-adv-reconciliation.test.ts (14 tests) 2289ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 0 weeks 340ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 11 weeks 322ms
+ ✓ |core| tests/bridge-owner-ux-projection20-migration.test.ts (10 tests) 2462ms
+   ✓ Owner UX outgoing projection20 migration > persists 'constructed distinct-slot envelope fr…' once, then preserves the new session on restart 317ms
+   ✓ Owner UX outgoing projection20 migration > preserves current-schema journal/session and exact Save retries after real published advance 991ms
+ ✓ |core| tests/bridge-owner-ux-projection21-schema.test.ts (9 tests) 3008ms
+   ✓ Owner UX projection21 public field wire boundary > parses actual current snapshot, Save, and Load envelopes 854ms
+   ✓ Owner UX projection21 public field wire boundary > requires savedSlot rather than silently defaulting it 369ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 0 307ms
+ ✓ |core| tests/bridge-p11-ready.test.ts (17 tests) 3211ms
+   ✓ P11 ready Upcoming and discarded financial successors > retains already-open renewal dates; expiry pays its final preceding advance only 446ms
+   ✓ P11 ready Upcoming and discarded financial successors > renew: exact pennies/guarantees and recurring costs agree with the real committed successor 634ms
+   ✓ P11 recorded trends and full portfolio > serves the actual21-film/6240-advance public diagnostic as exact unique rows and52 completed history points 326ms
+stdout | tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > bounds a120-year recorded query to13/52 points with exact totals and no calendar-year invention
+{"kind":"p11-long-history-query-measurement","classification":"synthetic query-scale fixture; not played campaign evidence","weeks":6240,"ledgerEntries":6240,"elapsedMilliseconds":0.17599999999993088,"historyJsonBytes":84796,"syntheticStateJsonBytes":730155,"pointCounts":[13,52]}
+
+ ❯ |core| tests/bridge-schema.test.ts (22 tests | 1 failed) 7439ms
+   ✓ canonical Unity bridge schema > projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope 858ms
+   ✓ canonical Unity bridge schema > keeps live location identities in the projection-v4 building namespace 5002ms
+   × canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data 400ms
+     → expected [Function] to throw error matching /expected literal 27/ but got '$.snapshotVersion: expected literal 28'
+   ✓ canonical Unity bridge schema > preserves required nullable numeric fields through schema projection 361ms
+   ✓ canonical Unity bridge schema > models accepted load/command responses as one flat projection envelope 319ms
+ ✓ |core| tests/bridge-p12-campaign-library.test.ts (11 tests) 23213ms
+   ✓ R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 3667ms
+   ✓ R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 1402ms
+   ✓ R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 1130ms
+   ✓ R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 2310ms
+   ✓ R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 2769ms
+   ✓ R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 2832ms
+   ✓ R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 479ms
+   ✓ R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 793ms
+   ✓ R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 1475ms
+   ✓ R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 3712ms
+   ✓ R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 2642ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-schema.test.ts > canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data
+AssertionError: expected [Function] to throw error matching /expected literal 27/ but got '$.snapshotVersion: expected literal 28'
+
+- Expected: 
+/expected literal 27/
+
++ Received: 
+"$.snapshotVersion: expected literal 28"
+
+ ❯ tests/bridge-schema.test.ts:339:61
+    337|     const oldProjection = { ...clone(envelope), snapshotVersion: 24 }
+    338|     expect(PROJECTION_VERSION).toBe(28)
+    339|     expect(() => parseWireValue(definition, oldProjection)).toThrow(/e…
+       |                                                             ^
+    340| 
+    341|     const missingSection = clone(envelope)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 12 passed (13)
+      Tests  1 failed | 166 passed (167)
+   Start at  18:06:25
+   Duration  24.10s (transform 1.13s, setup 0ms, collect 7.19s, tests 44.63s, environment 1ms, prepare 585ms)
+

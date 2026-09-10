@@ -693,10 +693,7 @@ describe('P04A Casting bridge — quote seam and board', () => {
     ])
     // The director this queued greenlight depends on becomes uncontracted while
     // it waits — no longer legal, and cannot become legal by waiting.
-    queued = {
-      ...queued,
-      contracts: queued.contracts.filter((contract) => contract.talentId !== payload.directorId),
-    }
+    queued = applyActions(queued,[{kind:'releaseTalent',talentId:payload.directorId}])
     let expired = queued
     for (let i = 0; i < 3; i++) expired = tick(expired)
     expect(

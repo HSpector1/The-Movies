@@ -11,6 +11,7 @@ import { releaseProjection } from './release.ts'
 import { historyProjection } from './history.ts'
 import { peopleProjection } from './people.ts'
 import { financeProjection } from './finance.ts'
+import { industrySummary } from './industry.ts'
 
 type StudioLotSnapshotResult = ReturnType<typeof studioLotSnapshot>
 type DevelopmentProjectionResult = ReturnType<typeof developmentProjection>
@@ -38,6 +39,7 @@ type PeopleProjectionResult = ReturnType<typeof peopleProjection>
  * has no entry.
  */
 export type SnapshotBuildContext = {
+  industry():ReturnType<typeof industrySummary>
   readonly state: GameState
   /** Canonical validated save JSON (`exportSaveJson`), computed at most once per state. */
   saveJson(): string
@@ -111,6 +113,7 @@ export function snapshotBuildContextFor(state: GameState): SnapshotBuildContext 
     return exportSaveJson(state)
   })
   const context: SnapshotBuildContext = {
+    industry:lazyFact(()=>industrySummary(state)),
     state,
     saveJson,
     stateDigest: lazyFact(() => {

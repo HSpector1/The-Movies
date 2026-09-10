@@ -1,3 +1,4 @@
+import {beginFoundingHistoricalControl as beginFounding} from '../src/core/employment.js'
 // ── D-17A / T10 + T11 — the persisted engagement fact, and the releaseTalent exception ──
 //
 // Contract sources:
@@ -18,7 +19,6 @@
 import { describe, expect, it } from 'vitest'
 import {
   applyActions,
-  beginFounding,
   canAfford,
   convertV5ToV6,
   economyEngaged,
@@ -459,7 +459,7 @@ describe('D-17A/R2: a V6 save without an explicit engagement fact is rejected LO
   it('new games save as V16 and carry the fact', () => {
     // P06A (W1): makeSave now writes the live V16; the R2 fact is still carried.
     const save = makeSave(foundStudio('d17-newgame'))
-    expect(save.saveVersion).toBe(18)
+    expect(save.saveVersion).toBe(19)
     expect(save.state.economyEngagedEver).toBe(true)
   })
 })

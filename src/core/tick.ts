@@ -891,9 +891,11 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // validated M0A/D-6 baseline. A single talent working on two same-tick releases
   // develops once per release, in release order, over the evolving talent list.
   const industry = advanceHollywoodWeek(admitted)
-  const allGrowthRecords = [...records,...industry.growth].sort((a,b)=>
+  // The develop switch belongs to the frozen player corpus. A living industry's
+  // real releases always write their shared career consequences.
+  const allGrowthRecords = [...(develop?records:[]),...industry.growth].sort((a,b)=>
     a.filmResult.productionId<b.filmResult.productionId?-1:a.filmResult.productionId>b.filmResult.productionId?1:0)
-  const growth = develop && allGrowthRecords.length > 0
+  const growth = allGrowthRecords.length > 0
     ? applyReleaseCareers(state.seed,industry.talent,allGrowthRecords)
     : {talent:industry.talent,careerEvents:[]}
   const talent = growth.talent

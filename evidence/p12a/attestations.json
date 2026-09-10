@@ -1,0 +1,87 @@
+{
+  "early-product-recovered": {
+    "id": "early-product-recovered",
+    "kind": "product-review-early",
+    "outcome": "PASS",
+    "provenance": "independent-review",
+    "reviewer": "Banach /root/product_critic",
+    "verdictAtUtc": "2026-09-10T13:33:06.615Z",
+    "obstacles": [
+      "Conflicting surfaces",
+      "Film scrolling/footer obstruction",
+      "Campaign typing moved camera"
+    ],
+    "rechecks": [
+      "Main native task replay13-05-48",
+      "Keyboard replay13-29-04"
+    ],
+    "binding": {
+      "reviewArtifactSha256": "791e93f1a1823369735ef585ade488be280e6a33482a8e0bb57f2d7596e58734"
+    },
+    "reuse": {
+      "reviewed": false,
+      "applicable": false
+    },
+    "artifact": "recovered-early-review.json"
+  },
+  "storage-continuation-r05": {
+    "id": "storage-continuation-r05",
+    "kind": "named-campaigns",
+    "outcome": "PASS",
+    "provenance": "ordinary-progression",
+    "reviewer": "/root/recovered_storage_review",
+    "independentStorageIds": 3,
+    "inactiveBytesUnchanged": true,
+    "native": false,
+    "independentlySeededNewGames": false,
+    "binding": {
+      "builtAt": "2026-09-10T16:11:32.326Z",
+      "files": 106,
+      "sourceCombinedSha256": "8e23a07418050ba553a9fde2cb1fc0892e23964f55c5a972ac083b75f69772e2",
+      "bundleSha256": "41d9edb105dafd60d4217852e8bac1faa7e2d47f5ffee15c37c3a59418ce4f5d"
+    },
+    "reuse": {
+      "reviewed": false,
+      "applicable": false
+    },
+    "artifact": "storage-resume-20260910/report.json"
+  },
+  "recovered-regression": {
+    "id": "recovered-regression",
+    "kind": "cumulative-regression",
+    "outcome": "PARTIAL",
+    "provenance": "synthetic",
+    "ts": {
+      "passed": 5144,
+      "failed": 1,
+      "skipped": 5
+    },
+    "unity": {
+      "passed": 1070,
+      "failed": 0,
+      "skipped": 0
+    },
+    "binding": {
+      "privateRecoveryCheckpoint": "P12A-R05-20260910T160046Z",
+      "subsequentCorrections": "see execution log and source diff"
+    },
+    "reuse": {
+      "reviewed": false,
+      "applicable": false
+    }
+  },
+  "recovered-contract": {
+    "id": "recovered-contract",
+    "kind": "generated-contract",
+    "outcome": "PASS",
+    "provenance": "synthetic",
+    "binding": {
+      "schema": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+      "dtoSha256": "f34908c6c5e3d5f83b51d4abaf97a0417edf07457ba03d0642c386af92991cae"
+    },
+    "reuse": {
+      "reviewed": false,
+      "applicable": false
+    }
+  }
+}

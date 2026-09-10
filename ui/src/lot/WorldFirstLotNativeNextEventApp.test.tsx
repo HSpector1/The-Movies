@@ -41,7 +41,7 @@ import {
   setOperationHollywoodOverride,
   setStudioLotOverviewOverride,
 } from '../flags.ts'
-import { foundedRosterIds, newFoundedGame } from '../test/founding.ts'
+import { foundedRosterIds, newHistoricalFoundedGame, newFoundedGame } from '../test/founding.ts'
 import {
   getLotSelectedBuilding,
   resetLotSelectedBuilding,
@@ -520,7 +520,7 @@ function limitBefore(seed: string): GameState {
   // The canonical 520 guard is reachable only when no earlier subsystem event exists.
   // Remove the test-founder's short-lived contracts, leaving a valid founded idle studio
   // with no decision, production, run, cash crossing, renewal, or expiry to pre-empt it.
-  const state = newFoundedGame(seed)
+  const state = newHistoricalFoundedGame(seed)
   const cash = 1_000_000_000_000
   return {
     ...state,

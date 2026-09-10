@@ -31,6 +31,7 @@ import { castingProjection } from '../bridge/casting.ts'
 import { PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import type { BridgeCastingDraftPayload } from '../bridge/schema/bridge-schema.ts'
 import { importSave, migrateToV18, type GameState } from '../src/core/index.ts'
+import {liftV18Control} from '../src/harness/roster-wall/historical-control.ts'
 
 const OWNER_SAVE_JSON = readFileSync(
   join(__dirname, 'fixtures', 'p05a3-owner-profile-rev10.save.json'),
@@ -56,7 +57,7 @@ const GLORIA_1YR = { weekly: 6040, guaranteed: 314080, bonus: 56536 }
 
 function ownerState(): GameState {
   // P06A: the P05-era fixture migrates to the LIVE state — the old cast hid it.
-  return migrateToV18(importSave(OWNER_SAVE_JSON)).state
+  return liftV18Control(migrateToV18(importSave(OWNER_SAVE_JSON)).state)
 }
 
 function projectView(state: GameState) {

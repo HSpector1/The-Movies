@@ -1,5 +1,6 @@
+import {migrateToCurrentControl} from './_historicalCurrent.js'
 import { describe, expect, it } from 'vitest'
-import { applyActions, beginFounding, commitPlacement, FOUNDING_MINIMUMS, generateWorld, tick, stableStringify, makeSaveV10, migrateToV18, TUNING } from '../src/core/index.js'
+import { applyActions, beginFounding, commitPlacement, FOUNDING_MINIMUMS, generateWorld, tick, stableStringify, makeSaveV10, TUNING } from '../src/core/index.js'
 import type { CastSlot, CreativeRole, GameState } from '../src/core/index.js'
 import { financeHistory, financeOverview, recordedFinanceEntries, recordedFinancePeriod } from '../src/core/financeReport.js'
 
@@ -58,7 +59,7 @@ describe('P11 recorded cash and current-pace report', () => {
     const native = studio()
     const legacy = makeSaveV10({ ...native, market: { ...native.market, tick: 20 } })
     legacy.state.studio.cash = 17_654_321 // legal pre-checkpoint cash; migration must preserve it without invented rows
-    let state = migrateToV18(legacy).state
+    let state = migrateToCurrentControl(legacy).state
     expect(financeOverview(state).firstCompleteWeek).toBeNull()
     state = tick(state) as typeof state
     const partial = financeOverview(state)
@@ -77,7 +78,7 @@ describe('P11 recorded cash and current-pace report', () => {
   it('does not infer old complete weeks from the absence of a cash checkpoint', () => {
     const native = studio()
     const legacy = makeSaveV10({ ...native, market: { ...native.market, tick: 20 } })
-    let state = migrateToV18(legacy).state
+    let state = migrateToCurrentControl(legacy).state
     expect(state.cashLedgerCheckpoint).toBeUndefined() // reconciled old cash does not imply recorded history
     expect(state.studioHistory.recordingStartedWeek).toBe(20)
     expect(financeOverview(state).firstCompleteWeek).toBe(21)

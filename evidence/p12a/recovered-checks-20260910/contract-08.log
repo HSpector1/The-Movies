@@ -1,0 +1,7 @@
+
+> project-studio-core@0.1.0 check:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts --check
+
+verified /Users/bruce/The Movies - P12A Living Hollywood TS/bridge/schema/project-studio-bridge.schema.json
+verified /Users/bruce/The Movies - P12A Living Hollywood TS/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/bruce/The Movies - P12A Living Hollywood TS/generated/unity/project-studio-bridge.contract-manifest.json

@@ -1,0 +1,22 @@
+
+ RUN  v2.1.9 /Users/bruce/The Movies - P12A Living Hollywood TS
+
+ ✓ |core| tests/bridge-supervisor.test.ts (14 tests) 25001ms
+   ✓ one-command studio supervisor > emits, audits, and supervises the packaged production graph without the development loader 1178ms
+   ✓ one-command studio supervisor > launches only after authenticated readiness and preserves one private profile across distinct logs 3130ms
+   ✓ one-command studio supervisor > restarts a SIGKILLed engine on its fixed port without changing durable authority 2646ms
+   ✓ one-command studio supervisor > cancels replacement work when Unity exits during an engine outage 1665ms
+   ✓ one-command studio supervisor > kills a Unity helper that survives TERM before releasing the active lease 6679ms
+   ✓ one-command studio supervisor > rejects a concurrent owner, shuts down on signal, and reclaims only a stale incarnation 5465ms
+   ✓ one-command studio supervisor > bounds engine crash loops and never touches an unrelated process 3905ms
+ ✓ |core| tests/bridge-p09a-w5-bare-lot-first-film.test.ts (1 test) 109755ms
+   ✓ P09A W5 — the bare-lot first film, driven only through the bridge > founds sparse, builds the plant and a Set at engine prices, and releases a picture on its own money 109755ms
+stdout | tests/bridge-p09a-w5-bare-lot-first-film.test.ts > P09A W5 — the bare-lot first film, driven only through the bridge > founds sparse, builds the plant and a Set at engine prices, and releases a picture on its own money
+[p09 bridge journey] released week 37; commands 46; rollovers 1; cash floor 8864638; final cash 9374658
+
+
+ Test Files  2 passed (2)
+      Tests  15 passed (15)
+   Start at  18:17:39
+   Duration  110.63s (transform 531ms, setup 0ms, collect 769ms, tests 134.76s, environment 0ms, prepare 50ms)
+

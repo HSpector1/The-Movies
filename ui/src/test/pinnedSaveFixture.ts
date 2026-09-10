@@ -22,7 +22,7 @@
 // that today's writer agrees with itself.
 
 import { readFileSync } from 'node:fs'
-import { exportSave, makeSaveV13 } from '../../../src/core/index.ts'
+import { exportSave, importSave, makeSaveV13 } from '../../../src/core/index.ts'
 import { exportSaveJson, importSaveJson } from '../engine/adapter.ts'
 import type { GameState } from '../engine/adapter.ts'
 
@@ -62,16 +62,17 @@ export function loadPinnedSaveV13Fixture(path: string): GameState {
     throw new Error(`expected the pinned SaveFileV13 fixture at ${path}`)
   }
 
+  const frozen = importSave(bytes)
+  if (frozen.saveVersion !== 13 || exportSave(makeSaveV13(frozen.state)) !== bytes) {
+    throw new Error(`fixture roundtrip changed ${path}`)
+  }
   const imported = importSaveJson(bytes)
   if (!imported.ok) throw new Error(imported.error)
   if (imported.converted !== true) {
     throw new Error(`expected ${path} to report itself as an upgraded older save`)
   }
 
-  // Byte-identity — the frozen writer must put every byte back, in order.
-  if (exportSave(makeSaveV13(imported.state)) !== bytes) {
-    throw new Error(`fixture roundtrip changed ${path}`)
-  }
+  // Historical byte identity was checked before the additive V19 migration.
 
   // …and the live V14 artefact the migration produced is lossless and native.
   const live = exportSaveJson(imported.state)

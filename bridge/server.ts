@@ -1,3 +1,4 @@
+import {CAMPAIGN_LIBRARY_MAX_BYTES} from './runtime/campaign-library.ts'
 import { createHash, randomUUID, timingSafeEqual } from 'node:crypto'
 import { createServer, type IncomingMessage, type Server, type ServerResponse } from 'node:http'
 import { join } from 'node:path'
@@ -10,6 +11,8 @@ import {
   SNAPSHOT_VERSION,
   validateCommand,
   validateControl,
+  validateCampaign,
+  validateIndustry,
   validateQuote,
   type RejectionCode,
 } from './protocol.ts'
@@ -305,6 +308,31 @@ function createHttpServer(
         json(response, 200, await runtime.read((session) => session.snapshot()))
         return
       }
+      if(request.method==='GET' && url.pathname==='/campaigns') {
+        const library=await runtime.campaignLibrary()
+        json(response,library?200:503,library??{error:'Campaign library unavailable'})
+        return
+      }
+      if(request.method==='POST' && url.pathname==='/industry') {
+        let body:unknown
+        try{body=(await readJson(request)).body}
+        catch(error){json(response,400,await validationRejection(runtime,null,'INVALID_JSON',(error as Error).message,started));return}
+        const validation=validateIndustry(body)
+        if(!validation.ok){json(response,400,await validationRejection(runtime,validation.commandId,validation.reasonCode,validation.message,started));return}
+        const result=await runtime.read(s=>s.industry(validation.request))
+        json(response,'type' in result?200:409,result)
+        return
+      }
+      if(request.method==='POST' && url.pathname==='/campaigns') {
+        let body:unknown
+        try{body=(await readJson(request)).body}
+        catch(error){json(response,400,await validationRejection(runtime,null,'INVALID_JSON',(error as Error).message,started));return}
+        const validation=validateCampaign(body)
+        if(!validation.ok){json(response,400,await validationRejection(runtime,validation.commandId,validation.reasonCode,validation.message,started));return}
+        const result=await runtime.campaign(validation.request)
+        json(response,result.accepted?200:409,result)
+        return
+      }
       if (request.method === 'POST' && url.pathname === '/command') {
         let body: unknown
         let requestUtf8Sha256: string
@@ -518,7 +546,7 @@ async function createCheckpointStore(): Promise<{ store: BridgeCheckpointStore; 
   return {
     store: await openBridgeCheckpointStore(
       join(runtimeDirectory, 'bridge-runtime-v1.json'),
-      { runtimeRoot: runtimeDirectory },
+      { runtimeRoot: runtimeDirectory, maxBytes:CAMPAIGN_LIBRARY_MAX_BYTES },
     ),
     durable: true,
   }
@@ -543,6 +571,7 @@ async function main(): Promise<void> {
   }
   const newGameRegime: FoundingRegime = configuredRegime === 'bare-lot' ? 'bare-lot' : 'endowed'
   const runtime = await createBridgeRuntimeCoordinator({
+    campaigns:{durable,regime:newGameRegime},
     store,
     createFreshSession: (limits) => BridgeSession.createRuntime(limits, newGameRegime),
     fatal: (error) => {

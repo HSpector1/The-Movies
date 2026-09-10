@@ -13,9 +13,11 @@ import {
   type BridgeRejectionCode,
   type BridgeSubmitIntentCommand,
   type BridgeQuoteRequest,
+  type CampaignRequest,
 } from './schema/bridge-schema.ts'
 import { schemaIdentity } from './schema/canonical.ts'
 import { BridgeSchemaError, parseWireValue } from './schema/runtime.ts'
+import type {IndustryQuery} from './schema/industry-schema.ts'
 
 export {
   AVAILABLE_INTENT_KEYS,
@@ -149,3 +151,16 @@ export function validateQuote(value: unknown): QuoteValidation {
 }
 
 export type QuoteRequest = BridgeQuoteRequest
+
+export function validateCampaign(value:unknown):{ok:true;request:CampaignRequest}|ValidationFailure {
+  const failed=validateVersionedRecord(value,'INVALID_CONTROL')
+  if(failed!==null)return failed
+  try{return {ok:true,request:parseWireValue(BRIDGE_SCHEMA.$defs.StudioCampaignRequest,value)}}
+  catch(error){return invalidEnvelope(error,'INVALID_CONTROL',commandIdOf(value))}
+}
+
+export function validateIndustry(value:unknown):{ok:true;request:IndustryQuery}|ValidationFailure {
+  const failed=validateVersionedRecord(value,'INVALID_CONTROL');if(failed)return failed
+  try{return {ok:true,request:parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryRequest,value)}}
+  catch(error){return invalidEnvelope(error,'INVALID_CONTROL',null)}
+}

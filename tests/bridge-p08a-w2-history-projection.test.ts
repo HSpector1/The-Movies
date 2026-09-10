@@ -1,4 +1,6 @@
 import { financeProjection } from '../bridge/finance.ts'
+import {industrySummary} from '../bridge/industry.ts'
+import {beginFoundingHistoricalControl} from '../src/core/employment.js'
 // ── P08A W2 — the Standing & Studio History projection / exact wire contract ──
 //
 // The §12 laws under test, stated once:
@@ -23,7 +25,7 @@ import {
   FOUNDING_MINIMUMS,
   generateWorld,
   makeSaveV16,
-  migrateToV18,
+  migrateToV19,
   stableStringify,
   tick,
   TUNING,
@@ -37,8 +39,8 @@ import { historyProjection } from '../bridge/history.ts'
 import { peopleProjection } from '../bridge/people.ts'
 import { projectStudioProjectionBundle } from '../bridge/schema/runtime.ts'
 
-function foundStudio(seed: string): GameState {
-  let s = beginFounding(generateWorld(seed))
+function foundStudio(seed: string, historical = false): GameState {
+  let s = (historical ? beginFoundingHistoricalControl : beginFounding)(generateWorld(seed))
   const pool = s.founding!.applicantIds.map((id) => s.talent.find((t) => t.id === id)!)
   const byRole = (role: CreativeRole, n: number) => pool.filter((t) => t.role === role).slice(0, n)
   for (const t of [
@@ -78,8 +80,8 @@ function advance(s: GameState, n: number): GameState {
   }
   return out
 }
-function releasedStudio(seed: string): GameState {
-  let s = greenlightOneFilm(foundStudio(seed))
+function releasedStudio(seed: string, historical = false): GameState {
+  let s = greenlightOneFilm(foundStudio(seed, historical))
   for (let guard = 0; guard < 24 && s.studio.releasedFilms.length === 0; guard++) s = advance(s, 1)
   expect(s.studio.releasedFilms.length).toBe(1)
   return advance(applyActions(s, [{ kind: 'publicity', tier: 'whisper' }]), 2)
@@ -94,6 +96,7 @@ function bundleOf(state: GameState) {
     history: historyProjection(state),
     talent: peopleProjection(state),
     finance: financeProjection(state, peopleProjection(state)),
+    industry: industrySummary(state),
   })
 }
 
@@ -168,8 +171,8 @@ describe('P08A W2 — P3 exact routes and P5 provenance', () => {
 
 describe('P08A W2 — P4 honesty for migrated worlds', () => {
   it('says what was not recorded, lists pre-boundary films as unrecorded, and invents no row', () => {
-    const played = releasedStudio('p08-w2-migrated')
-    const migrated = migrateToV18(makeSaveV16(played)).state
+    const played = releasedStudio('p08-w2-migrated', true)
+    const migrated = migrateToV19(makeSaveV16(played)).state
     const h = historyProjection(migrated)
     expect(h.recordingStartedWeek).toBe(played.market.tick)
     expect(h.notRecordedNotice).toBe(

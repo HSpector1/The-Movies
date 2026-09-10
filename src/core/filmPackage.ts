@@ -882,6 +882,7 @@ export type GreenlightAssessment = {
 // era/concepts/released-films as they were at greenlight, and a talent lookup. The
 // UI passes these from the LOCKED save; nothing here reads live GameState.
 export type PreTickSnapshot = {
+  directorCredits?: ForecastContext['directorCredits']
   seed: string
   concepts: FilmConcept[]
   releasedFilms: FilmResult[]
@@ -952,6 +953,7 @@ export function greenlightAssessment(
     directorId: production.directorId,
     releasedFilms: snapshot.releasedFilms,
     concepts: snapshot.concepts,
+    ...(snapshot.directorCredits ? {directorCredits:snapshot.directorCredits} : {}),
   }
 
   const cohesion = creativeCohesion(concept, production.shape, production.promise)

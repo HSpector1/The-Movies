@@ -1,3 +1,4 @@
+import {migrateToCurrentControl} from './_historicalCurrent.js'
 // ── D-17A INDEPENDENT ADVERSARIAL TESTS — B. ACCOUNTING CONSERVATION ──────────
 // Quality requirement B / the R7 safeguard (contract §1 T3, §4 B):
 //   "over any window, Σ per-film allocated fixed cost + unallocated idle burn ≡
@@ -23,7 +24,6 @@ import {
   generateWorld,
   importSave,
   makeSave,
-  migrateToV18,
   RngStream,
   stableStringify,
   tick,
@@ -333,14 +333,14 @@ describe('D-17A/B — odd dollars: whole-dollar determinism and a governed tie-b
     expect(stableStringify(allocateFixedCosts(s))).toBe(first)
 
     // Property State V13 (C1-M1a): the live load-to-play entry is migrateToV17.
-    const reloaded = migrateToV18(validateSave(importSave(exportSave(makeSave(s)))))
-    expect(reloaded.saveVersion).toBe(18)
+    const reloaded = migrateToCurrentControl(validateSave(importSave(exportSave(makeSave(s)))))
+    expect(reloaded.saveVersion).toBe(19)
     expect(stableStringify(allocateFixedCosts(reloaded.state))).toBe(first)
 
     // …and the hostile schedule survives the same trip.
     const h = hostileRun('adv-b-roundtrip', 5)
     const hFirst = stableStringify(allocateFixedCosts(h))
-    const hBack = migrateToV18(validateSave(importSave(exportSave(makeSave(h)))))
+    const hBack = migrateToCurrentControl(validateSave(importSave(exportSave(makeSave(h)))))
     expect(stableStringify(allocateFixedCosts(hBack.state))).toBe(hFirst)
   })
 })

@@ -1,3 +1,4 @@
+import {migrateToCurrentControl} from './_historicalCurrent.js'
 // ── RULING A (owner ruling, 2026-07-26) — Development ON in play, EXACTLY ONCE ──
 //
 // Every expectation is derived from the OWNER RULING A text + the D-9.8 development
@@ -28,7 +29,6 @@ import {
   makeSave,
   exportSave,
   importSave,
-  migrateToV18,
   makeSaveV1,
   convertV1ToV2,
   roleOVR,
@@ -423,8 +423,8 @@ describe('RULING A — development survives save round-trips without duplication
     const released = runOneFilm('A-save-3', true).released
     const reloaded = importSave(exportSave(makeSave(released)))
     // The reloaded state is the live SaveFileV11; drive it forward, no greenlights.
-    if (reloaded.saveVersion !== 18) throw new Error('expected V18 save')
-    const advanced = advanceDev(migrateToV18(reloaded).state, 5)
+    if (reloaded.saveVersion !== 19) throw new Error('expected V19 save')
+    const advanced = advanceDev(migrateToCurrentControl(reloaded).state, 5)
     expect(advanced.talent).toEqual(reloaded.state.talent)
   })
 })
