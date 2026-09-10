@@ -1,0 +1,512 @@
+{
+  "at": "2026-09-10T20:01:11.507Z",
+  "result": "PASS",
+  "checks": 16,
+  "node": "v26.3.1",
+  "sourceFiles": [
+    {
+      "path": "Tools/p12a-native-preview.mjs",
+      "sha256": "24e37db260d19484799a25440e0655aaeaf9895739161cf0e7f84fbf8b5fa5d9"
+    },
+    {
+      "path": "Tools/hid-guard.mjs",
+      "sha256": "3b83ec6c8dbf671c065850be91f4a9eca30708e8ad7b181b518109bd9b13f8a6"
+    },
+    {
+      "path": "Tools/hid-witness-state.mjs",
+      "sha256": "1990383600425eb72db82573cec63e8b887a7d755cf32bbb6fc2400ebc95084c"
+    },
+    {
+      "path": "Tools/owner-ux-startup.mjs",
+      "sha256": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff"
+    }
+  ],
+  "sourceBeforeSha256": "24e37db260d19484799a25440e0655aaeaf9895739161cf0e7f84fbf8b5fa5d9",
+  "sourceAfterSha256": "24e37db260d19484799a25440e0655aaeaf9895739161cf0e7f84fbf8b5fa5d9",
+  "results": [
+    {
+      "name": "raw59 refuses before PLAY",
+      "error": "Error: No fresh unlocked60-second idle admission before packaged PLAY",
+      "playCalls": 0,
+      "activations": 0,
+      "authorityChecks": 0,
+      "bindings": [],
+      "audit": null,
+      "postAdmission": null,
+      "sourceStillStable": true
+    },
+    {
+      "name": "missing raw idle refuses before PLAY",
+      "error": "Error: No fresh unlocked60-second idle admission before packaged PLAY",
+      "playCalls": 0,
+      "activations": 0,
+      "authorityChecks": 0,
+      "bindings": [],
+      "audit": null,
+      "postAdmission": null,
+      "sourceStillStable": true
+    },
+    {
+      "name": "locked before PLAY refuses",
+      "error": "Error: No fresh unlocked60-second idle admission before packaged PLAY",
+      "playCalls": 0,
+      "activations": 0,
+      "authorityChecks": 0,
+      "bindings": [],
+      "audit": null,
+      "postAdmission": null,
+      "sourceStillStable": true
+    },
+    {
+      "name": "physical before PLAY refuses despite raw60",
+      "error": "HumanInputDetected: foreign input detected — automation suspended (before packaged PLAY: [{\"seq\":2,\"at\":\"1970-01-01T00:00:10.000Z\",\"type\":\"mouseMoved\",\"sourcePid\":0,\"classification\":\"physical\"}])",
+      "playCalls": 0,
+      "activations": 0,
+      "authorityChecks": 0,
+      "bindings": [
+        0
+      ],
+      "audit": {
+        "started": true,
+        "ended": null,
+        "lastAt": 10000,
+        "partial": false,
+        "counts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 0,
+          "playerOther": 0,
+          "physical": 1,
+          "unknown": 0
+        },
+        "foreign": [
+          {
+            "seq": 2,
+            "at": "1970-01-01T00:00:10.000Z",
+            "type": "mouseMoved",
+            "sourcePid": 0,
+            "classification": "physical"
+          }
+        ],
+        "acknowledgements": {},
+        "pendingCompanion": null,
+        "events": 1,
+        "sequence": 2
+      },
+      "postAdmission": null,
+      "sourceStillStable": true
+    },
+    {
+      "name": "raw60 plus exact owned null admits with raw2 after recovery",
+      "error": null,
+      "playCalls": 1,
+      "activations": 0,
+      "authorityChecks": 2,
+      "bindings": [
+        0,
+        83
+      ],
+      "audit": {
+        "started": true,
+        "ended": null,
+        "lastAt": 11000,
+        "partial": false,
+        "counts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 1,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        },
+        "foreign": [],
+        "acknowledgements": {},
+        "pendingCompanion": null,
+        "events": 1,
+        "sequence": 3
+      },
+      "postAdmission": {
+        "locked": false,
+        "idleSeconds": 2,
+        "observedAtUtc": "2026-09-10T20:01:11.503Z",
+        "idleQualification": "Raw60 verified immediately before PLAY; complete ordered witness rejects foreign input through recovery.",
+        "witnessCounts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 1,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        }
+      },
+      "sourceStillStable": true
+    },
+    {
+      "name": "physical during recovery refuses",
+      "error": "HumanInputDetected: foreign input detected — automation suspended (packaged recovery admission: [{\"seq\":2,\"at\":\"1970-01-01T00:00:11.000Z\",\"type\":\"mouseMoved\",\"sourcePid\":0,\"classification\":\"physical\"}])",
+      "playCalls": 1,
+      "activations": 0,
+      "authorityChecks": 0,
+      "bindings": [
+        0,
+        83
+      ],
+      "audit": {
+        "started": true,
+        "ended": null,
+        "lastAt": 11000,
+        "partial": false,
+        "counts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 0,
+          "playerOther": 0,
+          "physical": 1,
+          "unknown": 0
+        },
+        "foreign": [
+          {
+            "seq": 2,
+            "at": "1970-01-01T00:00:11.000Z",
+            "type": "mouseMoved",
+            "sourcePid": 0,
+            "classification": "physical"
+          }
+        ],
+        "acknowledgements": {},
+        "pendingCompanion": null,
+        "events": 1,
+        "sequence": 3
+      },
+      "postAdmission": null,
+      "sourceStillStable": true
+    },
+    {
+      "name": "unknown null during recovery refuses",
+      "error": "HumanInputDetected: foreign input detected — automation suspended (packaged recovery admission: [{\"seq\":2,\"at\":\"1970-01-01T00:00:11.000Z\",\"type\":\"null\",\"sourcePid\":999,\"classification\":\"unknown\"}])",
+      "playCalls": 1,
+      "activations": 0,
+      "authorityChecks": 0,
+      "bindings": [
+        0,
+        83
+      ],
+      "audit": {
+        "started": true,
+        "ended": null,
+        "lastAt": 11000,
+        "partial": false,
+        "counts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 0,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 1
+        },
+        "foreign": [
+          {
+            "seq": 2,
+            "at": "1970-01-01T00:00:11.000Z",
+            "type": "null",
+            "sourcePid": 999,
+            "classification": "unknown"
+          }
+        ],
+        "acknowledgements": {},
+        "pendingCompanion": null,
+        "events": 1,
+        "sequence": 3
+      },
+      "postAdmission": null,
+      "sourceStillStable": true
+    },
+    {
+      "name": "owned player non-null input during recovery refuses",
+      "error": "HumanInputDetected: foreign input detected — automation suspended (packaged recovery admission: [{\"seq\":2,\"at\":\"1970-01-01T00:00:11.000Z\",\"type\":\"mouseMoved\",\"sourcePid\":83,\"classification\":\"playerOther\"}])",
+      "playCalls": 1,
+      "activations": 0,
+      "authorityChecks": 0,
+      "bindings": [
+        0,
+        83
+      ],
+      "audit": {
+        "started": true,
+        "ended": null,
+        "lastAt": 11000,
+        "partial": false,
+        "counts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 0,
+          "playerOther": 1,
+          "physical": 0,
+          "unknown": 0
+        },
+        "foreign": [
+          {
+            "seq": 2,
+            "at": "1970-01-01T00:00:11.000Z",
+            "type": "mouseMoved",
+            "sourcePid": 83,
+            "classification": "playerOther"
+          }
+        ],
+        "acknowledgements": {},
+        "pendingCompanion": null,
+        "events": 1,
+        "sequence": 3
+      },
+      "postAdmission": null,
+      "sourceStillStable": true
+    },
+    {
+      "name": "missing recovery witness refuses",
+      "error": "WitnessUnavailable: HID witness unavailable — automation stopped (packaged recovery admission: HID witness unavailable — automation stopped (missing witness))",
+      "playCalls": 1,
+      "activations": 0,
+      "authorityChecks": 0,
+      "bindings": [
+        0,
+        83
+      ],
+      "audit": null,
+      "postAdmission": null,
+      "sourceStillStable": true
+    },
+    {
+      "name": "stale recovery witness refuses",
+      "error": "WitnessUnavailable: HID witness unavailable — automation stopped (packaged recovery admission: HID witness unavailable — automation stopped (Witness heartbeat stopped))",
+      "playCalls": 1,
+      "activations": 0,
+      "authorityChecks": 0,
+      "bindings": [
+        0,
+        83
+      ],
+      "audit": {
+        "started": true,
+        "ended": null,
+        "lastAt": 11000,
+        "partial": false,
+        "counts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 1,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        },
+        "foreign": [],
+        "acknowledgements": {},
+        "pendingCompanion": null,
+        "events": 1,
+        "sequence": 3
+      },
+      "postAdmission": null,
+      "sourceStillStable": true
+    },
+    {
+      "name": "partial recovery witness refuses",
+      "error": "WitnessUnavailable: HID witness unavailable — automation stopped (packaged recovery admission: HID witness unavailable — automation stopped (Witness stream is not complete through its latest record))",
+      "playCalls": 1,
+      "activations": 0,
+      "authorityChecks": 0,
+      "bindings": [
+        0,
+        83
+      ],
+      "audit": {
+        "started": true,
+        "ended": null,
+        "lastAt": 11000,
+        "partial": true,
+        "counts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 1,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        },
+        "foreign": [],
+        "acknowledgements": {},
+        "pendingCompanion": null,
+        "events": 1,
+        "sequence": 3
+      },
+      "postAdmission": null,
+      "sourceStillStable": true
+    },
+    {
+      "name": "sequence gap refuses",
+      "error": "WitnessUnavailable: HID witness unavailable — automation stopped (packaged recovery admission: HID witness unavailable — automation stopped (Witness sequence gap or duplicate))",
+      "playCalls": 1,
+      "activations": 0,
+      "authorityChecks": 0,
+      "bindings": [
+        0,
+        83
+      ],
+      "audit": null,
+      "postAdmission": null,
+      "sourceStillStable": true
+    },
+    {
+      "name": "locked recovery refuses",
+      "error": "WitnessUnavailable: HID witness unavailable — automation stopped (packaged recovery admission: console locked or lock state unavailable)",
+      "playCalls": 1,
+      "activations": 0,
+      "authorityChecks": 0,
+      "bindings": [
+        0,
+        83
+      ],
+      "audit": {
+        "started": true,
+        "ended": null,
+        "lastAt": 11000,
+        "partial": false,
+        "counts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 1,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        },
+        "foreign": [],
+        "acknowledgements": {},
+        "pendingCompanion": null,
+        "events": 1,
+        "sequence": 3
+      },
+      "postAdmission": null,
+      "sourceStillStable": true
+    },
+    {
+      "name": "held recovery input refuses",
+      "error": "Error: Unowned input is held",
+      "playCalls": 1,
+      "activations": 0,
+      "authorityChecks": 1,
+      "bindings": [
+        0,
+        83
+      ],
+      "audit": {
+        "started": true,
+        "ended": null,
+        "lastAt": 11000,
+        "partial": false,
+        "counts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 1,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        },
+        "foreign": [],
+        "acknowledgements": {},
+        "pendingCompanion": null,
+        "events": 1,
+        "sequence": 3
+      },
+      "postAdmission": {
+        "locked": false,
+        "idleSeconds": 2,
+        "observedAtUtc": "2026-09-10T20:01:11.506Z",
+        "idleQualification": "Raw60 verified immediately before PLAY; complete ordered witness rejects foreign input through recovery.",
+        "witnessCounts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 1,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        }
+      },
+      "sourceStillStable": true
+    },
+    {
+      "name": "held recovery modifier refuses",
+      "error": "Error: Held unowned modifier after packaged recovery",
+      "playCalls": 1,
+      "activations": 0,
+      "authorityChecks": 1,
+      "bindings": [
+        0,
+        83
+      ],
+      "audit": {
+        "started": true,
+        "ended": null,
+        "lastAt": 11000,
+        "partial": false,
+        "counts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 1,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        },
+        "foreign": [],
+        "acknowledgements": {},
+        "pendingCompanion": null,
+        "events": 1,
+        "sequence": 3
+      },
+      "postAdmission": {
+        "locked": false,
+        "idleSeconds": 2,
+        "observedAtUtc": "2026-09-10T20:01:11.507Z",
+        "idleQualification": "Raw60 verified immediately before PLAY; complete ordered witness rejects foreign input through recovery.",
+        "witnessCounts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 1,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        }
+      },
+      "sourceStillStable": true
+    },
+    {
+      "name": "changed package authority refuses",
+      "error": "Error: Authority changed",
+      "playCalls": 1,
+      "activations": 0,
+      "authorityChecks": 1,
+      "bindings": [
+        0,
+        83
+      ],
+      "audit": {
+        "started": true,
+        "ended": null,
+        "lastAt": 11000,
+        "partial": false,
+        "counts": {
+          "tool": 0,
+          "markerCompanion": 0,
+          "playerNull": 1,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        },
+        "foreign": [],
+        "acknowledgements": {},
+        "pendingCompanion": null,
+        "events": 1,
+        "sequence": 3
+      },
+      "postAdmission": null,
+      "sourceStillStable": true
+    }
+  ],
+  "scope": "Exact pre-PLAY/post-readiness source snippets, actual unchanged createGuard and witness tracker, injected inert IO only. PLAY is a logical counter; no actual native input, activation, process, engine, server, build, or checkpoint operation."
+}

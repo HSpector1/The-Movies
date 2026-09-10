@@ -1,0 +1,124 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "status": "PARTIAL_GATE_B",
+  "nativeRunStatus": "observation-complete",
+  "evidencePrivateDirectory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z",
+  "reportSha256": "3f75acac7f8da8153e6d3bfc481eca34a58ba03e27d8241a289cf6c4e809fef1",
+  "sourceBuildManifest": {
+    "schema": "p04a1-build-manifest/1",
+    "generatedAtUtc": "2026-09-10T20:11:27Z",
+    "player": {
+      "app": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app",
+      "executable": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+      "executableSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "assemblyCSharpSha256": "9a8dae63540f41fd5618bfccc6e52021458825280ba991fbf7ec6cad90a8155a",
+      "builtAtUtc": "2026-09-10T20:10:17Z"
+    },
+    "unity": {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+      "sha": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "branch": "wip/p12a-living-hollywood-01-client",
+      "dirty": false
+    },
+    "typescript": {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+      "sha": "3da8373eec79de4923ce842eeb701849b65d0bfb",
+      "branch": "wip/p12a-living-hollywood-01-ts",
+      "dirty": false,
+      "engineBundleSha256": "ffdb1ac977a62236a48303e76426fdc0363dfe86d03ff5b4c565d0b57d34725b",
+      "runtimeWorkerSha256": "753f24c43b92044a2ee405cbb81e34fb0260b8c413569dffc5329718cfed8bb2",
+      "runtimeWorkerSourceManifestSha256": "4bfcb0c6f5f224e5e3b329252bca89a6c1fa9b513cfe1747ee5f1662020cad8d"
+    },
+    "sources": {
+      "newestTrackedAssetsFile": "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+      "newestTrackedAssetsAtUtc": "2026-09-10T20:10:08Z"
+    },
+    "toolVersions": {
+      "unityEditor": "6000.3.22f1",
+      "node": "v26.3.1"
+    }
+  },
+  "reason": "ui-quit",
+  "playerExit": {
+    "code": 0,
+    "signal": null
+  },
+  "supervisorCleanup": {
+    "status": "clean",
+    "exit": {
+      "code": 0,
+      "signal": null
+    },
+    "activeLeaseAbsent": true,
+    "checkpointLockAbsent": true,
+    "ownedIncarnationsAbsent": true
+  },
+  "input": {
+    "status": "clean",
+    "counts": {
+      "tool": 524,
+      "markerCompanion": 523,
+      "playerNull": 100,
+      "playerOther": 0,
+      "physical": 0,
+      "unknown": 0
+    },
+    "lastAtMs": 1789073215848,
+    "sequence": 11343
+  },
+  "performance": {
+    "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z/runtime-performance/PerformanceCaptures/Unity/runtime-performance.json",
+    "sha256": "bb6e3b6c1c2e37d87225d75b628c4bb06a2002546b29a3271c19eb49049068b9",
+    "frameCaptureStatus": "complete",
+    "applicationQuitCapture": true,
+    "applicationQuitCapturedUtc": "2026-09-10T20:46:54.9468700Z",
+    "authorityContinuityMaintained": true,
+    "droppedRequests": 0,
+    "status": "captured-through-quit"
+  },
+  "privateFinalCheckpoint": {
+    "sha256": "66b79add059344d2704d6e27641ecf750f73acad8a358662c91a30eb5df50365",
+    "bytes": 70593125,
+    "bodyPublished": false
+  },
+  "worldBefore": {
+    "sessionId": "fd0d35c2-e041-45cc-b35c-ad6e9f398d3e",
+    "stateRevision": 1,
+    "gameWeek": 8794,
+    "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+    "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+    "successfulSnapshotPollCount": 67,
+    "connectionState": "Live",
+    "transportOutageCount": 0,
+    "retainingViewAfterTransportFailure": false
+  },
+  "worldAfterSave": {
+    "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+    "stateRevision": 0,
+    "gameWeek": 8794,
+    "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+    "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+    "successfulSnapshotPollCount": 651,
+    "connectionState": "Live",
+    "transportOutageCount": 0,
+    "retainingViewAfterTransportFailure": false
+  },
+  "provenance": "Explicit8794engineeringseed, three SaveAs branches of one seed; not independent NewGames. ActualcampaignSave then clean UIQuit, not yet native relaunch.",
+  "open": [
+    "One confirmed entrant chronology sentence corrected after this run; native replay pending",
+    "Safe reverse keyboard input pending",
+    "Independent final correctness/performance and recommended candidate bindings pending"
+  ],
+  "refusedCommands": [
+    "tap supplied keys instead of key: rejected before posting key",
+    "admin-open-industry before Administration selection: rejected before target/input"
+  ],
+  "qualifications": [
+    "103 rendered maps preserve week8794/digest; Save replaces session/revision, subject to separate source-law check.",
+    "Initial57.0027ms main-thread in-memory application/subscriber span is retained; warm frame window is not blanket mainthread or latency certification.",
+    "Oversized synthesized Profile wheel deltas are inconclusive; ordinary small scroll and readable24/976+2authored coverage notice/complete978filmography route observed.",
+    "No private save bodies, capability files or raw HID tokens included.",
+    "Technical observations do not establish Owner enjoyment or acceptance."
+  ],
+  "hook": "EXPLICIT-CHECKER FALLBACK / INACTIVE"
+}

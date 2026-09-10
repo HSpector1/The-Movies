@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "status": "OBSERVATION_COMPLETE",
+  "complete": true,
+  "startedAt": "2026-09-10T20:29:52.116Z",
+  "observerPid": 6675,
+  "packageRoot": "/Users/bruce/Desktop/P12A-Gate-B-Preview-3da8373-deca395",
+  "sampleIntervalMs": 500,
+  "durationLimitSeconds": 7200,
+  "psCommand": [
+    "/bin/ps",
+    "-o",
+    "pid=,rss=,lstart=",
+    "-p",
+    "<deduplicated observer + lease-bound supervisor/engine/unity PIDs>"
+  ],
+  "sourceSha256": "6c5ea904fb85563a7fdf3eeccfe96265f7d79f5d8f71bdc018e41e5753d92205",
+  "qualifications": [
+    "Sampled RSS maxima are not exact peaks; sub-500ms peaks can be missed.",
+    "RSS is per OS process; engine RSS includes its worker threads. Observer is separate.",
+    "Per-process maxima occur at separate times and must not be added. Concurrent engine+Unity sums use only the same ps sample.",
+    "Disk values are logical lengths of top-level regular files, not allocated disk blocks; no store bodies are read.",
+    "No process request, capability retrieval, input, signal, or runtime mutation occurs. Root native runner independently verifies executable/package identity and UI Quit.",
+    "Completion means the observed lease stopped and its bound processes disappeared; it is not product/performance acceptance."
+  ],
+  "samples": 2049,
+  "sampledMaxRss": {
+    "observer": {
+      "pid": 6675,
+      "rssBytes": 14893056,
+      "processIncarnation": "ps-lstart:Thu Sep 10 22:29:51 2026",
+      "at": "2026-09-10T20:46:42.130Z",
+      "epochMs": 1789073202131
+    },
+    "supervisor": {
+      "pid": 6737,
+      "rssBytes": 70172672,
+      "processIncarnation": "ps-lstart:Thu Sep 10 22:29:56 2026",
+      "at": "2026-09-10T20:46:55.631Z",
+      "epochMs": 1789073215631
+    },
+    "engine": {
+      "pid": 6745,
+      "rssBytes": 4948246528,
+      "processIncarnation": "ps-lstart:Thu Sep 10 22:29:57 2026",
+      "at": "2026-09-10T20:46:13.131Z",
+      "epochMs": 1789073173131
+    },
+    "unity": {
+      "pid": 6797,
+      "rssBytes": 743505920,
+      "processIncarnation": "ps-lstart:Thu Sep 10 22:30:17 2026",
+      "at": "2026-09-10T20:40:59.632Z",
+      "epochMs": 1789072859632
+    }
+  },
+  "maxConcurrentEngineUnityRss": {
+    "rssBytes": 5610897408,
+    "at": "2026-09-10T20:46:13.131Z",
+    "epochMs": 1789073173131
+  },
+  "maxTopLevelRegularFileBytes": {
+    "bytes": 136750771,
+    "at": "2026-09-10T20:46:27.131Z",
+    "files": [
+      {
+        "name": ".bridge-runtime-v1.json.write-6745-9WFXnsrAIZHak3Y7cmLwBjj3",
+        "bytes": 70593125
+      },
+      {
+        "name": "bridge-runtime-v1.json",
+        "bytes": 66157296
+      },
+      {
+        "name": "bridge-runtime-v1.json.lock",
+        "bytes": 141
+      },
+      {
+        "name": "p12a-owned-store.json",
+        "bytes": 209
+      }
+    ]
+  },
+  "errors": [],
+  "lastSampleAt": "2026-09-10T20:46:56.130Z",
+  "identity": {
+    "launchId": "a80505f6-d185-4897-8967-87be3ab9d1d0",
+    "launchDirectory": "launch-20260910T202957099Z-a80505f6-d185-4897-8967-87be3ab9d1d0",
+    "supervisor": {
+      "pid": 6737,
+      "processIncarnation": "ps-lstart:Thu Sep 10 22:29:56 2026"
+    }
+  },
+  "firstLeaseAt": "2026-09-10T20:29:57.148Z",
+  "cleanup": {
+    "activeLeaseAbsent": true,
+    "retainedPhaseStopped": true,
+    "boundIncarnationsAbsent": true,
+    "checkpointLockAbsent": true,
+    "sawEngineAndUnity": true
+  },
+  "finishedAt": "2026-09-10T20:46:56.136Z",
+  "elapsedSeconds": 1024.0109568330001,
+  "boundProcessReferences": {
+    "supervisor": {
+      "pid": 6737,
+      "processIncarnation": "ps-lstart:Thu Sep 10 22:29:56 2026"
+    },
+    "engine": {
+      "kind": "engine",
+      "pid": 6745,
+      "processGroupId": 6745,
+      "processIncarnation": "ps-lstart:Thu Sep 10 22:29:57 2026"
+    },
+    "unity": {
+      "kind": "unity",
+      "pid": 6797,
+      "processGroupId": 6797,
+      "processIncarnation": "ps-lstart:Thu Sep 10 22:30:17 2026"
+    }
+  }
+}

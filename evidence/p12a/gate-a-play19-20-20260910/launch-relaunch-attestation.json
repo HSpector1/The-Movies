@@ -1,0 +1,258 @@
+{
+  "kind": "independent-actual-packaged-play-save-quit-relaunch-control",
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "reviewer": "recovered_storage_review",
+  "supportingReviewer": "package_runner_review",
+  "reviewedAtUtc": "2026-09-10T20:16:48.803598+00:00",
+  "verdict": "PASS",
+  "scope": "Preserved immutable GateA control actual PLAY19, native campaign Save, clean UI Quit, actual same-package/profile PLAY20, visible restored campaign library/active world, clean UI Quit. This is the requested launcher/control applicability proof, not complete R05 or GateB/Owner enjoyment acceptance.",
+  "packageBinding": {
+    "root": "/Users/bruce/Desktop/P12A-Gate-A-PLAY-Verification-20260910T2006Z",
+    "profileRoot": "/Users/bruce/Desktop/P12A-Gate-A-PLAY-Verification-20260910T2006Z/PrivateProfile",
+    "launcher": "/Users/bruce/Desktop/P12A-Gate-A-PLAY-Verification-20260910T2006Z/PLAY_P12A_GATE_A.command",
+    "launcherSha256": "07611f34bfec2562f7501bdbd280482bfd0d82ba78c2cce5623ac2ffe764f449",
+    "packageChecksumSha256": "632ccd04db113a961c9cef56177ca72385ff2ac1f9e063cb367232c04d7bfadc",
+    "verifiedImmutableFiles": 198,
+    "supervisorSha256": "97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26",
+    "pairedContractVerificationSha256": "d22d8394e01f03c5db8c9f8aee293e97b12c2decf1779c013226ca4c99144792",
+    "actionTrace": "Unavailable in packaged mode: supervisor intentionally does not pass this optional environment variable."
+  },
+  "sourceBuildBinding": {
+    "typescript": "923eaee953d5cf7eee3d261b70b3091b7a198d88",
+    "unity": "d03461cece99bc6ae5962a035b081797af65ab00",
+    "playerExecutableSha256": "73e319a17f59be668178914f3ef6a06fc87866df52dd3910ffdb8639de466ade",
+    "playerAssemblySha256": "68aec6311aa258f56960da67f3ade0b5250b5b01147d2b75a5677eb41811d16a",
+    "engineSha256": "ccd58600f6c43edc5abf814fdddf63d673fd69a98277ad61c80ea4e72e58d104",
+    "workerSha256": "b93597b747fbbf678b3024966e8c0559bf50c97534edc3dbb5aea75f755f0aa9",
+    "workerSourceManifestSha256": "e36049c2743d20c0b00f357b918a8eecfe41e1232cc896f5ef2d48acb496de13",
+    "runnerSha256": "a130fccd7c86305ee48d0fc7224e31991705780ca3353e40425d51ba70159a1e",
+    "protocol": 4,
+    "projection": 29,
+    "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85"
+  },
+  "verification": {
+    "artifactChecks19": 47,
+    "artifactChecks20": 38,
+    "allArtifactChecksPassed": true,
+    "all198ImmutableChecksumEntriesEqualPreservedControl": true,
+    "actualNativeExecutableAssemblyLauncherSupervisorEngineWorkerAndManifestHashesChecked": true,
+    "full198FileContentRehashRepeatedByReviewer": false,
+    "full198FileCheckRecordedByBothActualRunners": true,
+    "capturedInputSourcesMatchRecordedHashes": true,
+    "bothPriorOwnedProcessIncarnationsIndependentlyAbsent": true,
+    "activeSupervisorLeaseAndCheckpointLockAbsentAtIndependentClosureReview": true,
+    "finalPrivateCheckpointOnlyHashedAfterOwnershipChecks": true
+  },
+  "run19": {
+    "evidence": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-07-10-314Z",
+    "status": "observation-complete",
+    "reason": "ui-quit",
+    "publicSaveConfirmation": "B Copy Diverged \u00b7 Saved; Campaign saved.",
+    "playerExit": {
+      "code": 0,
+      "signal": null
+    },
+    "supervisorExit": {
+      "code": 0,
+      "signal": null
+    },
+    "inputCounts": {
+      "tool": 26,
+      "markerCompanion": 25,
+      "playerNull": 7,
+      "physical": 0,
+      "unknown": 0,
+      "playerOther": 0
+    },
+    "witnessClosedUtc": "2026-09-10T20:08:22.226Z"
+  },
+  "run20": {
+    "evidence": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-11-57-439Z",
+    "status": "observation-complete",
+    "reason": "ui-quit",
+    "relaunchBinding": {
+      "previousReport": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-07-10-314Z/report.json",
+      "previousReportSha256": "3ad6a13ab8deb2c8191461d1ddad7a123b268c0dfed9ee5bda2cf16b5ecb629d",
+      "checkpointSha256": "54689b4e0c38030306e6db0f8c3ddc8b5edbaaa0fd8b9e33cb9e17ecb525c279"
+    },
+    "visualAndInputReview": {
+      "reviewer": "package_runner_review (independent read-only agent)",
+      "status": "PASS within immutable GateA control scope",
+      "visibleMenu": [
+        "Campaign A \u00b7 Week 2",
+        "Campaign B \u00b7 Week 4",
+        "Campaign C \u00b7 Week 1",
+        "B Copy Diverged \u00b7 Week 14 \u00b7 Active"
+      ],
+      "savedVisible": true,
+      "publicSessionRevisionWeekDigestEqual19": true,
+      "quitWithdrawsCampaignControls": true,
+      "successfulClickNames": [
+        "studio-menu-open",
+        "studio-menu-quit",
+        "studio-menu-confirm-accept"
+      ],
+      "playerPid": 5892,
+      "windowId": 33676,
+      "witnessReplayExactlyMatchesReport": true,
+      "counts": {
+        "tool": 22,
+        "markerCompanion": 21,
+        "playerNull": 6,
+        "physical": 0,
+        "unknown": 0,
+        "playerOther": 0
+      },
+      "finalMarkerSeq": 694,
+      "finalMarkerUtc": "2026-09-10T20:13:04.853Z",
+      "witnessEndSeq": 695,
+      "witnessEndUtc": "2026-09-10T20:13:04.856Z",
+      "emptyOwnedAndOSInput": true,
+      "noPrivateSaveOrCapabilityRead": true
+    },
+    "playerExit": {
+      "code": 0,
+      "signal": null
+    },
+    "supervisorExit": {
+      "code": 0,
+      "signal": null
+    }
+  },
+  "durableContinuity": {
+    "checkpointSha256": "54689b4e0c38030306e6db0f8c3ddc8b5edbaaa0fd8b9e33cb9e17ecb525c279",
+    "checkpointBytes": 1532454,
+    "run19FinalEvidenceEqualsRun20FinalEvidenceEqualsPrivateClosedStore": true,
+    "publicAuthority": {
+      "gameWeek": 13,
+      "stateRevision": 0,
+      "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+      "sessionId": "d1dedec6-ad23-45d2-beed-87095b4f0d36",
+      "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "transportOutages": 0
+    },
+    "noSaveOrGameplayAdvanceInRun20": true,
+    "qualification": "Exact checkpoint-byte equality spans19 closure through real20 reopen and closure, preserving all encoded records. Menu verifies four labels and active copy; this pair did not individually load all four campaigns or re-prove independent NewGame/copy-divergence behavior."
+  },
+  "prior14ProductApplicability": {
+    "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/gate-a-run14-20260910/product-closure.json",
+    "sha256": "353f487eb43fc2fdc23815a744fe712cbdc9b2e95e171dcda30d0aa97e8ef522",
+    "sameExactNativeControlSourcePairAndExecutableAssembly": true,
+    "qualifiedReuse": "Prior14 bounded neutral Profile/date/Back corrective product closure and its explicitly applicable prior12 completed tasks retain their original scope. Actual19/20 launch validation is additional control evidence; it does not enlarge that product critique or certify the later changed Unity/TS candidate."
+  },
+  "artifacts": [
+    {
+      "run": 19,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-07-10-314Z/report.json",
+      "sha256": "3ad6a13ab8deb2c8191461d1ddad7a123b268c0dfed9ee5bda2cf16b5ecb629d"
+    },
+    {
+      "run": 19,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-07-10-314Z/launch-binding.json",
+      "sha256": "087f4ad7b167974ea84329d3a295950ce36241c318791055d4f78b0b6bc8aede"
+    },
+    {
+      "run": 19,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-07-10-314Z/build-manifest.json",
+      "sha256": "e29dc231414ad99c67d7edf2c2d2e0e27b438829712656918d11bcce24290ed7"
+    },
+    {
+      "run": 19,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-07-10-314Z/002-observe.png",
+      "sha256": "7210991088116e7b9c6aca959126853bcb88856cf92ce33da61d56474d5c2e28"
+    },
+    {
+      "run": 19,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-07-10-314Z/play.log",
+      "sha256": "68f1bc670c6cded5a644908977cd1101e6098cf17c18d044f7bb5234b68ebc82"
+    },
+    {
+      "run": 19,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-07-10-314Z/launch-lease-v1.json",
+      "sha256": "615c4a0d382093cfcbd92e48e0973c84d78fd79158dd878acf12c9bfc8c56e1d"
+    },
+    {
+      "run": 19,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-07-10-314Z/hid-witness.jsonl",
+      "sha256": "8372effb7cf46c2f196d823b3963632e62036be53a0945a0cd962dc82d69b38c"
+    },
+    {
+      "run": 19,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-07-10-314Z/console-admission-before-play.json",
+      "sha256": "9095922b67fe24d0eb8223bafa44c0f461d156f59c17faeeca86260fc42c52e9"
+    },
+    {
+      "run": 19,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-07-10-314Z/console-admission-before-input.json",
+      "sha256": "62cf55061ecb871002e8eda619563a6df8e7e67f6302a6b4a39d045908c2cf61"
+    },
+    {
+      "run": 20,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-11-57-439Z/report.json",
+      "sha256": "680a703e4110a9166fe754db34dd566ceac5a41654ee20652ff6014efe28f446"
+    },
+    {
+      "run": 20,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-11-57-439Z/launch-binding.json",
+      "sha256": "44b94732ac84b9d62faf6723adc6a9b3d0e3110b0e3c6e076c614c2f8dce4989"
+    },
+    {
+      "run": 20,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-11-57-439Z/build-manifest.json",
+      "sha256": "e29dc231414ad99c67d7edf2c2d2e0e27b438829712656918d11bcce24290ed7"
+    },
+    {
+      "run": 20,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-11-57-439Z/000-studio-menu-open.png",
+      "sha256": "cc381dbe2bdb3aa1949cba8b1eae3368ebcb44334661419c91b05a433f7df7bb"
+    },
+    {
+      "run": 20,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-11-57-439Z/001-studio-menu-quit.png",
+      "sha256": "ea36c9cbedbd82cc18d01200d5486715a2f9496e0c019f27e8d3d49196ebf3ba"
+    },
+    {
+      "run": 20,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-11-57-439Z/play.log",
+      "sha256": "0e27cdadcdb4fd4fbcb10b467d70973fdc9582f9cbef4f04702d087d22a79bbe"
+    },
+    {
+      "run": 20,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-11-57-439Z/launch-lease-v1.json",
+      "sha256": "6abf115cfea1bd862f95b61da9cd5edd285a91781a2d41e5a9b48f03714403d5"
+    },
+    {
+      "run": 20,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-11-57-439Z/hid-witness.jsonl",
+      "sha256": "b6e051f66194e654107c19f8255b639d6c9cb28d9fdd361d4e8068b842382121"
+    },
+    {
+      "run": 20,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-11-57-439Z/console-admission-before-play.json",
+      "sha256": "4f3f12a029123ec5a629b26e2c602f8fd8566c0ba881dfcb4b8f6de81eb65c4b"
+    },
+    {
+      "run": 20,
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-11-57-439Z/console-admission-before-input.json",
+      "sha256": "354e91ccfc634961b3abe96924b8f48210ce558b08e1932f02a842bb589a8f10"
+    }
+  ],
+  "reviewInputs": [
+    {
+      "path": "/tmp/p12a-package19-20-review-59p5d5sm/package19-artifact-check.json",
+      "sha256": "3c11b33c715e86023a74a48bd23b055dd19e62f5e871f0eacb20e49232ca1133"
+    },
+    {
+      "path": "/tmp/p12a-package19-20-review-59p5d5sm/package20-artifact-check.json",
+      "sha256": "97c25382163f1d319e04c6df1f6abc6b1951f7fababe542b253c5fe1fb546965"
+    }
+  ],
+  "limits": [
+    "No latest GateB candidate, fullready integration, late-world performance, or Owner enjoyment acceptance follows.",
+    "Control source pair923eaee/d03461c predates later detached snapshot parsing and recent Output/empty-state corrections; their separate tests/native evidence are not retroactively applied here.",
+    "No performance sample requested for these control runs. Existing provisional latency/capacity dispositions remain unchanged.",
+    "Failed/refused16/17 and stopped wrapper18 are preserved and are not retrospectively relabelled PASS.",
+    "No capability or raw save content is included; checkpoint hashes only. Reviewer started no engine, app, native input, build or network request and edited no shared worktree.",
+    "Hook remains EXPLICIT-CHECKER FALLBACK; no hook activation claim."
+  ]
+}

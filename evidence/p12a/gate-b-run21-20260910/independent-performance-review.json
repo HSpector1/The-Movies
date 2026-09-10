@@ -1,0 +1,180 @@
+{
+  "kind": "independent-native21-performance-review",
+  "status": "qualified-measurement-complete-not-performance-acceptance",
+  "scope": "Read-only final performance/report/public UI metadata and 2049 observer records. No private checkpoint body read, engine, input, build, or live mutation.",
+  "evidence": "early-2026-09-10T20-29-53-370Z",
+  "bindings": {
+    "unityCommit": "deca39521da1baeca61898d156a43f4ae6a7e035",
+    "typescriptCommit": "3da8373eec79de4923ce842eeb701849b65d0bfb",
+    "appSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+    "performanceSha256": "bb6e3b6c1c2e37d87225d75b628c4bb06a2002546b29a3271c19eb49049068b9",
+    "performanceBytes": 4823417,
+    "reportSha256": "3f75acac7f8da8153e6d3bfc481eca34a58ba03e27d8241a289cf6c4e809fef1",
+    "observerSummarySha256": "8c737f76ebfd1cad035eb63ed4e33baf54fb2238b9fa5b7cc85fa8b9e1042f44",
+    "observerSourceSha256": "6c5ea904fb85563a7fdf3eeccfe96265f7d79f5d8f71bdc018e41e5753d92205"
+  },
+  "cleanup": {
+    "reportStatus": "observation-complete",
+    "reason": "ui-quit",
+    "playerExitCode": 0,
+    "supervisorExitCode": 0,
+    "inputStatus": "clean",
+    "retainedLeaseStopped": true,
+    "activeLeaseAbsent": true,
+    "ownedIncarnationsAbsent": true,
+    "checkpointLockAbsent": true,
+    "errors": [],
+    "observerComplete": true,
+    "bridgeThroughQuitUtc": "2026-09-10T20:46:54.9468700Z",
+    "requests": 1382,
+    "droppedRequests": 0
+  },
+  "percentileMethod": "Derived request/phase p95 uses nearest rank; frame p95 is the capture statistic.",
+  "frameWindow": {
+    "warmupSeconds": 45,
+    "measuredSeconds": 30.003900666,
+    "startUtc": "2026-09-10T20:31:06.3928130Z",
+    "endUtc": "2026-09-10T20:31:36.3964390Z",
+    "frames": 4979,
+    "medianMs": 5.592209,
+    "p95Ms": 8.1272247,
+    "maxMs": 49.751208,
+    "averageFps": 165.94509,
+    "nonLiveFrames": 1402,
+    "nonLiveFraction": 0.28158264711789516,
+    "transportOutages": 0,
+    "authorityContinuityMaintained": true,
+    "cpuGpuTimingAvailable": false,
+    "scope": "Warmed lot frame window; excludes initial snapshot, later Industry routing and Save."
+  },
+  "snapshotWindow": {
+    "selection": "Request start/resume and every phase end fully contained in frame window.",
+    "completedSnapshots": 20,
+    "parse": {
+      "threadIds": [
+        20,
+        21
+      ],
+      "medianMs": 209.1125,
+      "p95Ms": 217.8551,
+      "maxMs": 219.7487
+    },
+    "apply": {
+      "threadIds": [
+        1
+      ],
+      "medianMs": 37.8304,
+      "p95Ms": 40.4923,
+      "maxMs": 44.1748
+    }
+  },
+  "snapshotWholeCapture": {
+    "completedSnapshots": 666,
+    "parse": {
+      "threadCounts": {
+        "20": 356,
+        "21": 310
+      },
+      "medianMs": 215.46785,
+      "p95Ms": 228.0354,
+      "maxMs": 238.4329
+    },
+    "apply": {
+      "threadCounts": {
+        "1": 666
+      },
+      "medianMs": 38.0536,
+      "p95Ms": 42.6017,
+      "maxMs": 57.0027
+    },
+    "sendThroughLastPhase": {
+      "medianMs": 358.74905,
+      "p95Ms": 375.1217,
+      "maxMs": 402.6105
+    },
+    "mainPhasesOver50": [
+      {
+        "sequence": 2,
+        "phase": "store-and-synchronous-subscribers",
+        "milliseconds": 57.0027,
+        "threadId": 1,
+        "startup": true
+      }
+    ]
+  },
+  "initialApplicationCausality": {
+    "classification": "Measured initial main-thread in-memory presentation/cache aggregate hitch; not a demonstrated durable-storage step or storage-limit pass.",
+    "source": "Built deca395 StudioBridgeClient.ApplySnapshotWithSavedSlotAuthority and StudioSnapshotStateCache.StudioProjectionStore are identical to inspected source.",
+    "included": "Normalize/validate DTO, build exact-ID dictionaries, serialize public projection for same-revision equality, apply cache, metadata and synchronous presentation subscribers.",
+    "independentLogPresentationApplyMs": 8.803,
+    "limitation": "Subscriber/cache subphases are not individually measured; do not subtract elapsed timings to assert exact component cost.",
+    "hardLimitAuthority": "Pinned ANN section Q line 818 and PERF-008: any synchronous main-thread storage step above50ms is a ship blocker. No startup exemption or general50ms presentation rule established.",
+    "minimalAction": "Explicitly retain startup hitch qualification. If optimizing, first separate cache validation/row construction/projection serialization/subscribers; preserve strict identity and same-revision equality, and commit/UI on main. No broad storage refactor justified by this aggregate alone."
+  },
+  "industryRoutes": {
+    "requests": 46,
+    "allJoined": true,
+    "maxPayloadBytes": 17425,
+    "sendToResumeMs": {
+      "median": 5.5331,
+      "p95": 8.5676,
+      "max": 30.766
+    },
+    "throughLastCallbackMs": {
+      "median": 8.12045,
+      "p95": 12.2682,
+      "max": 40.7042
+    },
+    "qualification": "Recorded responses under128KB; client elapsed times do not independently measure server-only indexed projection target10ms or every100-row page case."
+  },
+  "campaignSave": {
+    "sequence": 1342,
+    "observations": 1,
+    "sendToResumeMs": 23584.7009,
+    "responseBytes": 581,
+    "mainDecodeMs": 0.0163,
+    "mainParseMs": 0.613,
+    "publicGameWeekBeforeAfter": 8794,
+    "publicDigestBeforeAfter": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+    "authorityBefore": {
+      "sessionId": "fd0d35c2-e041-45cc-b35c-ad6e9f398d3e",
+      "revision": 1
+    },
+    "authorityAfter": {
+      "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+      "revision": 0
+    },
+    "qualification": "Native Save step100 to101 refreshes Saved/campaign metadata and preserves exact public world. One sample cannot estimate p95 or establish unchanged whole private library. Request wait is not23.6s main-thread blocking."
+  },
+  "osObservation": {
+    "samples": 2049,
+    "intervalMs": 500,
+    "summaryRecomputedFromSamples": true,
+    "sampledMaxRssBytes": {
+      "engineIncludingWorkers": 4948246528,
+      "unity": 743505920,
+      "supervisor": 70172672,
+      "observer": 14893056
+    },
+    "maxConcurrentEngineUnityRssBytes": 5610897408,
+    "engineStartupWindowMaxBytes": 4941791232,
+    "engineFrameWindowMaxBytes": 1610727424,
+    "engineSaveWindowMaxBytes": 4948246528,
+    "maxTopLevelLogicalBytes": 136750771,
+    "finalCheckpointLogicalBytes": 70593125,
+    "finalTopLevelLogicalBytes": 70593334,
+    "qualification": "RSS sampled peaks can miss sub500ms peaks; never sum separate process maxima. Disk is top-level logical file length, peak includes old checkpoint and temporary replacement; whole encoded multi-campaign library is not incremental uncompressed P12 payload."
+  },
+  "originalTargetDisposition": {
+    "hardMainStorage50ms": "No new hard storage violation established by startup presentation aggregate; previous worker-placement proof retains exact source/artifact qualifications. No waiver.",
+    "asyncPersistenceP95_250ms": "MISS/OPEN retained; one native request23.585s, not a p95 estimate.",
+    "serializeDigestP95Full100Stress200ms": "Not independently remeasured by native request timings; existing MISS/OPEN retained.",
+    "validateImportP95Full500Stress1000ms": "Not a full-save validation measurement; existing MISS/OPEN retained.",
+    "incrementalP12SaveFull8Stress10MB": "Whole encoded library disk does not measure this budget; existing MISS/OPEN retained.",
+    "stressTickHorizonAndRetention": "Native run does not replace6240 advances,12-rival stress or retention obligations.",
+    "indexedProfile10ms": "Client route latencies cannot independently certify server-only indexed projection.",
+    "rss": "No new numerical acceptance limit found; sampled OS costs reported without pass claim.",
+    "overall": "No full performance or Gate B pass. Evidence permits only explicit provisional-budget rebaseline, not silent waiver or history deletion."
+  },
+  "comparisonToNative15": "Preserves causal qualification: snapshot strict parse runs on workers while application/serialization stays on main. Late public world and render load differ from native15, so no matched-world improvement claim."
+}

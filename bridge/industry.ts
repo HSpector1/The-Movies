@@ -84,7 +84,7 @@ function indexFor(state:GameState):Index {
     })
     return {studioId:s.studioId,name:s.name,mark:s.mark,color:s.color,player:s.role==='player',
       foundingLabel:s.role==='player'&&state.founding!==null?`Campaign began ${campaignDate(s.enteredWeek!).label} · Studio founding in progress`:s.founding===null?'Founding date not recorded':s.founding.kind==='beforeCampaign'?`Established ${s.founding.year}`:`Founded ${campaignDate(s.founding.week).label}`,
-      entryLabel:`Present since ${campaignDate(s.enteredWeek!).label}`,recordingNotice:h.origin==='migration'?`Industry recording begins ${campaignDate(s.recordedFromWeek!).label}. Earlier rival films are not reconstructed.`:s.row>4?'New company; films appear only after an actual release.':'Authored earlier films are labelled separately from this campaign’s simulated releases.',filmCount:owned.length,authoredFilmCount:owned.filter(f=>f.provenance==='authored-start/v1').length,liveFilmCount:owned.filter(f=>f.provenance!=='authored-start/v1').length,lanes}
+      entryLabel:`Present since ${campaignDate(s.enteredWeek!).label}`,recordingNotice:h.origin==='migration'?`Industry recording begins ${campaignDate(s.recordedFromWeek!).label}. Earlier rival films are not reconstructed.`:s.row>4?'Entered during this campaign; film records come from actual releases.':'Authored earlier films are labelled separately from this campaign’s simulated releases.',filmCount:owned.length,authoredFilmCount:owned.filter(f=>f.provenance==='authored-start/v1').length,liveFilmCount:owned.filter(f=>f.provenance!=='authored-start/v1').length,lanes}
   })
   const filmById=new Map(films.map(f=>[f.filmId,f]))
   const activities:Activity[]=h.receipts.flatMap((r):Activity[]=>{

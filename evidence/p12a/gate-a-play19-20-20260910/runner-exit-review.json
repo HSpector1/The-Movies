@@ -1,0 +1,112 @@
+{
+  "at": "2026-09-10T20:06:25.827Z",
+  "result": "PASS",
+  "checks": 12,
+  "node": "v26.3.1",
+  "sourceBinding": {
+    "runnerPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Tools/p12a-native-preview.mjs",
+    "runnerSha256": "a130fccd7c86305ee48d0fc7224e31991705780ca3353e40425d51ba70159a1e",
+    "producerPath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/supervisor/supervisor.ts",
+    "producerSha256": "21f6479c9a75b0103e667b8cadced904c7a0ea2cd8d63125d97f846447ebd890",
+    "producerExitDescriptionSha256": "621427680f6bb59988947bb566d5a95e05594177b25076a70baebf795d1d98e4",
+    "actualLogPath": "/tmp/p12a-native-ENCjsB/play.log",
+    "actualEvidenceLog": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-01-56-628Z/play.log",
+    "actualLogSha256": "7fa5d6cc48c8689bd3272017c102e657fc1f2b32be180c2cd7a9f97b62d0bbd9",
+    "sourceBeforeAfterStable": true
+  },
+  "results": [
+    {
+      "name": "Actual retained package18 stdout, identical private/evidence logs",
+      "matched": true,
+      "exitCode": 0,
+      "signalCode": null,
+      "qualifiesZeroUnsignalled": true
+    },
+    {
+      "name": "Current producer exitDescription + exact report expression: zero",
+      "output": "unity exit code=0 signal=-; engine shutdown follows",
+      "matched": true,
+      "exitCode": 0,
+      "signalCode": null,
+      "qualifiesZeroUnsignalled": true
+    },
+    {
+      "name": "Current producer exitDescription + exact report expression: nonzero",
+      "output": "unity exit code=17 signal=-; engine shutdown follows",
+      "matched": true,
+      "exitCode": 17,
+      "signalCode": null,
+      "qualifiesZeroUnsignalled": false
+    },
+    {
+      "name": "Current producer exitDescription + exact report expression: negative",
+      "output": "unity exit code=-1 signal=-; engine shutdown follows",
+      "matched": true,
+      "exitCode": -1,
+      "signalCode": null,
+      "qualifiesZeroUnsignalled": false
+    },
+    {
+      "name": "Current producer exitDescription + exact report expression: SIGTERM",
+      "output": "unity exit code=null signal=SIGTERM; engine shutdown follows",
+      "matched": true,
+      "exitCode": null,
+      "signalCode": "SIGTERM",
+      "qualifiesZeroUnsignalled": false
+    },
+    {
+      "name": "Current producer exitDescription + exact report expression: SIGKILL",
+      "output": "unity exit code=null signal=SIGKILL; engine shutdown follows",
+      "matched": true,
+      "exitCode": null,
+      "signalCode": "SIGKILL",
+      "qualifiesZeroUnsignalled": false
+    },
+    {
+      "name": "Current producer exitDescription + exact report expression: SIGINT",
+      "output": "unity exit code=null signal=SIGINT; engine shutdown follows",
+      "matched": true,
+      "exitCode": null,
+      "signalCode": "SIGINT",
+      "qualifiesZeroUnsignalled": false
+    },
+    {
+      "name": "Current producer exitDescription + exact report expression: no exit code or signal",
+      "output": "unity exit code=null signal=-; engine shutdown follows",
+      "matched": true,
+      "exitCode": null,
+      "signalCode": null,
+      "qualifiesZeroUnsignalled": false
+    },
+    {
+      "name": "Current producer exitDescription + exact report expression: spawn error",
+      "output": "unity exit spawn-error=producer fixture spawn failure; engine shutdown follows",
+      "matched": false,
+      "exitCode": null,
+      "signalCode": null,
+      "qualifiesZeroUnsignalled": false
+    },
+    {
+      "name": "Refuses mutation of actual log: missing actual signal field",
+      "matched": false,
+      "exitCode": null,
+      "signalCode": null,
+      "qualifiesZeroUnsignalled": false
+    },
+    {
+      "name": "Refuses mutation of actual log: invalid actual code value",
+      "matched": false,
+      "exitCode": null,
+      "signalCode": null,
+      "qualifiesZeroUnsignalled": false
+    },
+    {
+      "name": "Refuses mutation of actual log: trailing unmatched text",
+      "matched": false,
+      "exitCode": null,
+      "signalCode": null,
+      "qualifiesZeroUnsignalled": false
+    }
+  ],
+  "qualification": "Parser/source/read-only evidence proof. Package18 report remains stopped/requested with checkpointSha256 null; this check does not rewrite its report, create a clean Quit receipt, certify native retry, or access its saved profile. No engine, supervisor, app, native input, build, network or checkpoint operation ran."
+}

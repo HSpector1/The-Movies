@@ -1,0 +1,12 @@
+
+> project-studio-core@0.1.0 audit:studio-packaged
+> node scripts/audit-studio-packaged.mjs
+
+[audit:studio-packaged] dist/studio/studio.mjs bytes=197582 sha256=97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26
+[audit:studio-packaged] dist/studio/engine.mjs bytes=129606 sha256=ffdb1ac977a62236a48303e76426fdc0363dfe86d03ff5b4c565d0b57d34725b
+[audit:studio-packaged] dist/studio/runtime-worker.mjs bytes=1542896 sha256=753f24c43b92044a2ee405cbb81e34fb0260b8c413569dffc5329718cfed8bb2
+[audit:studio-packaged] inputs bridge/ count=41
+[audit:studio-packaged] inputs src/ count=71
+[audit:studio-packaged] inputs ui/src/ count=7
+[audit:studio-packaged] total inputs=119
+[audit:studio-packaged] PASS: emitted graph is first-party + node builtins only
