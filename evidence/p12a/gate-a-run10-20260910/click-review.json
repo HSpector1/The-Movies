@@ -1,0 +1,674 @@
+{
+  "kind": "Existing R05 Gate A critique \u2014 run10 founding interaction and geometry checkpoint",
+  "status": "PARTIAL_CORRECTIVE_WORK_REQUIRED",
+  "gateAPassed": false,
+  "sameCritiqueContinues": true,
+  "reviewer": "/root/recovered_product_evidence",
+  "createdAtUtc": "2026-09-10T17:25:56.505360+00:00",
+  "nativeRun": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z",
+  "binding": {
+    "at": "2026-09-10T17:09:35.377Z",
+    "manifestSha256": "1c13477f57ff5a2ba010da5e3c7c91b563fd23459e20d4b4ac94e4c3cbb30e58",
+    "playerSha256": "4823ef6517e1b8289ccd783b8260a255f1be5b71608772c7ba9d5e0b75a980e3",
+    "engineSha256": "fe73eb0f6f2a8ff1632a2d05a8952a2739c7ea7875d3ecf5b1295a0598730f02"
+  },
+  "thirdConsequentialObstacle": {
+    "name": "Founding decisions are intermittently unavailable or clipped at the point of click",
+    "signingObservation": "Miriam\u2019s properly aimed initial sign click at17:10:35.819/.925 did not activate a signing. The same offer, revision0 and digest persisted through17:12:58.241; a later deliberate click reached revision1. No submitted command is claimed lost.",
+    "pollCorrelation": "Existing global IMGUI observer records Reconnecting/requestInFlight=true at MouseDown and Live/requestInFlight=false at MouseUp, with hotControl0. FoundingCardHud enables its button only when ActionsEnabled, which is false during that routine read. The observed event/state plus source support poll-disabled MouseDown as cause; there is no direct FoundingCard callback trace.",
+    "latencyCounterexample": "Do not generalize from a 700ms post-click capture: Norma remained revision5 in frame023 and reached revision6 in frame024, proving later completion. A following refused target may mean the completed button is already gone.",
+    "layoutObservation": "Frame027 shows REVIEW FOUNDING mostly clipped below the Administration card. Its map advertises the full [868,133,544,54] rect as visible; aiming at its center selects Gate in frame028. This blocks reaching the founding confirmation through that displayed target.",
+    "playerConsequence": "A player must repeat apparently valid signing clicks and then cannot reliably reach the review needed to open the studio.",
+    "remedies": [
+      "Fit founding facts and review/confirm/cancel controls inside the actual card, preserving separate reveal and commitment targets.",
+      "If buffering is implemented, accept one deliberate displayed-intent click only during a healthy ordinary read-only refresh; retain exact authority and intent, then submit once through existing single-flight after a successful unchanged join.",
+      "Clip geometry publication to its actual parent area and retire stale world entries."
+    ],
+    "recheck": "At the same viewport, sign through a refresh boundary once without duplicate submission, then reach and read founding confirmation through the visible review control. Failed/changed-session refresh must cancel any unsubmitted latch visibly."
+  },
+  "safeDeferralConditions": [
+    "Keep global ActionsEnabled and existing single-flight/pending lifecycle strict.",
+    "A separate CanQueueDisplayedIntent applies only to a routine read that began from valid healthy joined authority; no queuing during recovery, mutation, campaign transitions or unresolved/pending POST.",
+    "Freeze session, revision, digest, runtime continuity, exact opaque intent ID and one command ID from the displayed armed decision; reserve one queue immediately.",
+    "After the entire session+snapshot refresh finishes successfully, require the unchanged captured authority and exact same intent still offered; never replace by kind/name, rebase, or silently retry stale work.",
+    "Cancellation, failed/torn refresh, session/runtime change, timeout or shutdown clears the unsubmitted latch and reports the outcome to CardHud; no hidden later commit or orphan pending state.",
+    "Only the explicit commit button creates this latch. Selection or opening a review never submits."
+  ],
+  "geometryFinding": {
+    "source": "StudioSelectionManager.PublishSelectableGeometry publishes active current bodies but does not withdraw disappeared/unprojectable IDs from static StudioUiElementRegistry.",
+    "mapEvidence": "Frame024 retains 15 visible/enabled applicant map entries, including already signed Miriam t-act-03. Registry freshness is not established by outer mapGeneration/time alone.",
+    "neededChange": "Withdraw this publisher\u2019s prior names when no longer published, and when disabled; avoid touching other publishers. Clip founding-control rectangles to currentAreaRect before publishing, and withdraw targets with no usable rendered intersection.",
+    "proofLimit": "An AABB or stale registry entry is not a claim that an object is currently rendered or clickable through an overlay. Require actual screenshot and resulting exact selection/route."
+  },
+  "traceExcerpt": {
+    "actionTraceSource": "/tmp/p12a-native-ECWi9Y/action-trace.jsonl",
+    "actionTraceRecords": [
+      {
+        "sourceLine": 9,
+        "rawLineSha256": "074de1fc53c121956c615f157955278e8434ef7f3ec34293910a543ee78fdb88",
+        "atUtc": "2026-09-10T17:10:35.823000+00:00",
+        "source": "build-chip",
+        "phase": "imgui-entry",
+        "frame": 5939,
+        "facts": {
+          "connection": "Reconnecting",
+          "requestInFlight": true,
+          "rawType": "mouseDown",
+          "eventType": "mouseDown",
+          "hotControl": 0,
+          "mouse": {
+            "x": 1111.0,
+            "y": 594.0
+          }
+        }
+      },
+      {
+        "sourceLine": 10,
+        "rawLineSha256": "a64ce783e2171946ac817ef924cc081ac172eba8802ded386f7f5dfac35e7d6a",
+        "atUtc": "2026-09-10T17:10:35.824000+00:00",
+        "source": "build-chip",
+        "phase": "button-result",
+        "frame": 5939,
+        "facts": {
+          "eventType": "Ignore",
+          "hotControl": 0,
+          "mouse": {
+            "x": 1111.0,
+            "y": 594.0
+          },
+          "clicked": false,
+          "rect": {
+            "x": 430.0,
+            "y": 94.0,
+            "width": 176.0,
+            "height": 44.0
+          }
+        }
+      },
+      {
+        "sourceLine": 11,
+        "rawLineSha256": "d90f8ee8a81edd3bed3cce01ad758161a8173c01a6351c4be352c33633c35a76",
+        "atUtc": "2026-09-10T17:10:35.958000+00:00",
+        "source": "build-chip",
+        "phase": "imgui-entry",
+        "frame": 5942,
+        "facts": {
+          "connection": "Live",
+          "requestInFlight": false,
+          "rawType": "mouseUp",
+          "eventType": "mouseUp",
+          "hotControl": 0,
+          "mouse": {
+            "x": 1111.0,
+            "y": 594.0
+          }
+        }
+      },
+      {
+        "sourceLine": 12,
+        "rawLineSha256": "740f5af4ef8708131e857d553f503796f17cfb1f024c5ce346a04f53bc8942c2",
+        "atUtc": "2026-09-10T17:10:35.958000+00:00",
+        "source": "build-chip",
+        "phase": "button-result",
+        "frame": 5942,
+        "facts": {
+          "eventType": "Ignore",
+          "hotControl": 0,
+          "mouse": {
+            "x": 1111.0,
+            "y": 594.0
+          },
+          "clicked": false,
+          "rect": {
+            "x": 430.0,
+            "y": 94.0,
+            "width": 176.0,
+            "height": 44.0
+          }
+        }
+      }
+    ],
+    "hidWitnessSource": "/tmp/p12a-native-ECWi9Y/hid-witness.jsonl",
+    "hidRecords": [
+      {
+        "sourceLine": 644,
+        "rawLineSha256": "9a252e9af0d859cd658ff295019316c7781eb8948d14ce0e48ac1cf0a41b8580",
+        "at": "2026-09-10T17:10:35.819Z",
+        "seq": 643,
+        "type": "leftMouseDown",
+        "sourcePid": 35041,
+        "x": 555,
+        "y": 358
+      },
+      {
+        "sourceLine": 647,
+        "rawLineSha256": "0e628c5b82aaa69e7ff2cee341a58f3c8d0c2bbf24e60454a49f9c1f7266d03b",
+        "at": "2026-09-10T17:10:35.925Z",
+        "seq": 646,
+        "type": "leftMouseUp",
+        "sourcePid": 35042,
+        "x": 555,
+        "y": 358
+      }
+    ],
+    "note": "Sanitized selected fields plus exact original-line hashes. No runtime capabilities or event tokens copied. The full logs are still accruing; final report/input closure is not asserted here."
+  },
+  "taskObservations": [
+    {
+      "step": 1,
+      "atUtc": "2026-09-10T17:10:21.479Z",
+      "action": "click",
+      "target": "founding-review-offer",
+      "stateRevision": 0,
+      "stateDigest": "92fbab424518d4e3a8267755424946337e68ffb9e6df25897b91a57ca695daec",
+      "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+      "connectionState": "Live",
+      "selection": "applicant-t-act-03",
+      "binding": {
+        "name": "founding-review-offer",
+        "mapGeneration": 287,
+        "frame": 4305,
+        "mapAgeMs": 4.761962890625,
+        "canvas": [
+          1024.8,
+          207
+        ]
+      },
+      "foundingControls": [
+        {
+          "name": "founding-cancel-review",
+          "text": "Not now",
+          "enabled": true,
+          "rect": [
+            810.4,
+            182,
+            601.6,
+            44
+          ]
+        },
+        {
+          "name": "founding-confirm-sign",
+          "text": "Sign Miriam Prescott \u2014 104-week contract",
+          "enabled": true,
+          "rect": [
+            810.4,
+            278,
+            601.6,
+            56
+          ]
+        }
+      ]
+    },
+    {
+      "step": 2,
+      "atUtc": "2026-09-10T17:10:36.709Z",
+      "action": "click",
+      "target": "founding-confirm-sign",
+      "stateRevision": 0,
+      "stateDigest": "92fbab424518d4e3a8267755424946337e68ffb9e6df25897b91a57ca695daec",
+      "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+      "connectionState": "Live",
+      "selection": "applicant-t-act-03",
+      "binding": {
+        "name": "founding-confirm-sign",
+        "mapGeneration": 395,
+        "frame": 5925,
+        "mapAgeMs": 5.3154296875,
+        "canvas": [
+          1111.2,
+          306
+        ]
+      },
+      "foundingControls": [
+        {
+          "name": "founding-cancel-review",
+          "text": "Not now",
+          "enabled": true,
+          "rect": [
+            810.4,
+            182,
+            601.6,
+            44
+          ]
+        },
+        {
+          "name": "founding-confirm-sign",
+          "text": "Sign Miriam Prescott \u2014 104-week contract",
+          "enabled": true,
+          "rect": [
+            810.4,
+            278,
+            601.6,
+            56
+          ]
+        }
+      ]
+    },
+    {
+      "step": 3,
+      "atUtc": "2026-09-10T17:10:59.643Z",
+      "action": "observe",
+      "target": null,
+      "stateRevision": 0,
+      "stateDigest": "92fbab424518d4e3a8267755424946337e68ffb9e6df25897b91a57ca695daec",
+      "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+      "connectionState": "Live",
+      "selection": "applicant-t-act-03",
+      "binding": {},
+      "foundingControls": [
+        {
+          "name": "founding-cancel-review",
+          "text": "Not now",
+          "enabled": true,
+          "rect": [
+            810.4,
+            182,
+            601.6,
+            44
+          ]
+        },
+        {
+          "name": "founding-confirm-sign",
+          "text": "Sign Miriam Prescott \u2014 104-week contract",
+          "enabled": true,
+          "rect": [
+            810.4,
+            278,
+            601.6,
+            56
+          ]
+        }
+      ]
+    },
+    {
+      "step": 4,
+      "atUtc": "2026-09-10T17:12:00.904Z",
+      "action": "observe",
+      "target": null,
+      "stateRevision": 0,
+      "stateDigest": "92fbab424518d4e3a8267755424946337e68ffb9e6df25897b91a57ca695daec",
+      "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+      "connectionState": "Reconnecting",
+      "selection": "applicant-t-act-03",
+      "binding": {},
+      "foundingControls": [
+        {
+          "name": "founding-confirm-sign",
+          "text": "Sign Miriam Prescott \u2014 104-week contract",
+          "enabled": false,
+          "rect": [
+            810.4,
+            278,
+            601.6,
+            56
+          ]
+        },
+        {
+          "name": "founding-cancel-review",
+          "text": "Not now",
+          "enabled": true,
+          "rect": [
+            810.4,
+            182,
+            601.6,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "step": 5,
+      "atUtc": "2026-09-10T17:12:58.241Z",
+      "action": "observe",
+      "target": null,
+      "stateRevision": 0,
+      "stateDigest": "92fbab424518d4e3a8267755424946337e68ffb9e6df25897b91a57ca695daec",
+      "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+      "connectionState": "Live",
+      "selection": "applicant-t-act-03",
+      "binding": {},
+      "foundingControls": [
+        {
+          "name": "founding-cancel-review",
+          "text": "Not now",
+          "enabled": true,
+          "rect": [
+            810.4,
+            182,
+            601.6,
+            44
+          ]
+        },
+        {
+          "name": "founding-confirm-sign",
+          "text": "Sign Miriam Prescott \u2014 104-week contract",
+          "enabled": true,
+          "rect": [
+            810.4,
+            278,
+            601.6,
+            56
+          ]
+        }
+      ]
+    },
+    {
+      "step": 6,
+      "atUtc": "2026-09-10T17:13:29.898Z",
+      "action": "click",
+      "target": "founding-confirm-sign",
+      "stateRevision": 1,
+      "stateDigest": "93b16c7ae364eb9fc811567baf8aa66cf665dc39fa2a9db8bbde61b86e839be9",
+      "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+      "connectionState": "Live",
+      "selection": "",
+      "binding": {
+        "name": "founding-confirm-sign",
+        "mapGeneration": 1628,
+        "frame": 24420,
+        "mapAgeMs": 6.813720703125,
+        "canvas": [
+          1111.2,
+          306
+        ]
+      },
+      "foundingControls": []
+    },
+    {
+      "step": 21,
+      "atUtc": "2026-09-10T17:17:19.090Z",
+      "action": "click",
+      "target": "founding-review-offer",
+      "stateRevision": 5,
+      "stateDigest": "e387b0f7fa3dcaa80adcf3ff50af9295fe846ab633f83602fe2931ebea4d57fe",
+      "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+      "connectionState": "Live",
+      "selection": "applicant-t-cra-04",
+      "binding": {
+        "name": "founding-review-offer",
+        "mapGeneration": 3289,
+        "frame": 49335,
+        "mapAgeMs": 5.374267578125,
+        "canvas": [
+          1024.8,
+          207
+        ]
+      },
+      "foundingControls": [
+        {
+          "name": "founding-confirm-sign",
+          "text": "Sign Norma Marsh \u2014 104-week contract",
+          "enabled": true,
+          "rect": [
+            810.4,
+            278,
+            601.6,
+            56
+          ]
+        },
+        {
+          "name": "founding-cancel-review",
+          "text": "Not now",
+          "enabled": true,
+          "rect": [
+            810.4,
+            182,
+            601.6,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "step": 22,
+      "atUtc": "2026-09-10T17:17:33.668Z",
+      "action": "observe",
+      "target": null,
+      "stateRevision": 5,
+      "stateDigest": "e387b0f7fa3dcaa80adcf3ff50af9295fe846ab633f83602fe2931ebea4d57fe",
+      "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+      "connectionState": "Live",
+      "selection": "applicant-t-cra-04",
+      "binding": {},
+      "foundingControls": [
+        {
+          "name": "founding-cancel-review",
+          "text": "Not now",
+          "enabled": true,
+          "rect": [
+            810.4,
+            182,
+            601.6,
+            44
+          ]
+        },
+        {
+          "name": "founding-confirm-sign",
+          "text": "Sign Norma Marsh \u2014 104-week contract",
+          "enabled": true,
+          "rect": [
+            810.4,
+            278,
+            601.6,
+            56
+          ]
+        }
+      ]
+    },
+    {
+      "step": 23,
+      "atUtc": "2026-09-10T17:17:46.933Z",
+      "action": "click",
+      "target": "founding-confirm-sign",
+      "stateRevision": 5,
+      "stateDigest": "e387b0f7fa3dcaa80adcf3ff50af9295fe846ab633f83602fe2931ebea4d57fe",
+      "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+      "connectionState": "Live",
+      "selection": "applicant-t-cra-04",
+      "binding": {
+        "name": "founding-confirm-sign",
+        "mapGeneration": 3489,
+        "frame": 52335,
+        "mapAgeMs": 4.95556640625,
+        "canvas": [
+          1111.2,
+          306
+        ]
+      },
+      "foundingControls": [
+        {
+          "name": "founding-cancel-review",
+          "text": "Not now",
+          "enabled": true,
+          "rect": [
+            810.4,
+            182,
+            601.6,
+            44
+          ]
+        },
+        {
+          "name": "founding-confirm-sign",
+          "text": "Sign Norma Marsh \u2014 104-week contract",
+          "enabled": false,
+          "rect": [
+            810.4,
+            278,
+            601.6,
+            56
+          ]
+        }
+      ]
+    },
+    {
+      "step": 24,
+      "atUtc": "2026-09-10T17:18:49.819Z",
+      "action": "click",
+      "target": "studio-menu-open",
+      "stateRevision": 6,
+      "stateDigest": "300c60bb1498d77e44880f4ca26f0a7eac5cbd9f359cac226c9a9fb69f6ce13d",
+      "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+      "connectionState": "Live",
+      "selection": "",
+      "binding": {
+        "name": "studio-menu-open",
+        "mapGeneration": 3945,
+        "frame": 59175,
+        "mapAgeMs": 3.00341796875,
+        "canvas": [
+          1380,
+          868
+        ]
+      },
+      "foundingControls": []
+    },
+    {
+      "step": 27,
+      "atUtc": "2026-09-10T17:19:44.405Z",
+      "action": "click",
+      "target": "world-selectable-admin",
+      "stateRevision": 6,
+      "stateDigest": "300c60bb1498d77e44880f4ca26f0a7eac5cbd9f359cac226c9a9fb69f6ce13d",
+      "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+      "connectionState": "Live",
+      "selection": "admin",
+      "binding": {
+        "name": "world-selectable-admin",
+        "mapGeneration": 4337,
+        "frame": 65055,
+        "mapAgeMs": 17.1123046875,
+        "canvas": [
+          347.09999999999997,
+          168.60000000000002
+        ]
+      },
+      "foundingControls": [
+        {
+          "name": "founding-review-studio",
+          "text": "REVIEW FOUNDING",
+          "enabled": true,
+          "rect": [
+            868,
+            133,
+            544,
+            54
+          ]
+        }
+      ]
+    },
+    {
+      "step": 28,
+      "atUtc": "2026-09-10T17:20:06.692Z",
+      "action": "click",
+      "target": "founding-review-studio",
+      "stateRevision": 6,
+      "stateDigest": "300c60bb1498d77e44880f4ca26f0a7eac5cbd9f359cac226c9a9fb69f6ce13d",
+      "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+      "connectionState": "Live",
+      "selection": "gate",
+      "binding": {
+        "name": "founding-review-studio",
+        "mapGeneration": 4496,
+        "frame": 67440,
+        "mapAgeMs": 3.380126953125,
+        "canvas": [
+          1140,
+          160
+        ]
+      },
+      "foundingControls": []
+    },
+    {
+      "step": 29,
+      "atUtc": "2026-09-10T17:20:10.725Z",
+      "action": "observe",
+      "target": null,
+      "stateRevision": 6,
+      "stateDigest": "300c60bb1498d77e44880f4ca26f0a7eac5cbd9f359cac226c9a9fb69f6ce13d",
+      "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+      "connectionState": "Live",
+      "selection": "gate",
+      "binding": {},
+      "foundingControls": []
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/launch-binding.json",
+      "sha256": "eeea081632276af8015f9a1b657dc6fe6e0ffe5b5ef6e7495e6ecd6b3f8b4331"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/build-manifest.json",
+      "sha256": "1c13477f57ff5a2ba010da5e3c7c91b563fd23459e20d4b4ac94e4c3cbb30e58"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/002-founding-confirm-sign.png",
+      "sha256": "83a50920a818a027c3a4d23a23b5c129065d90f967603e2f37cfcfc0f3b90f30"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/002-map.json",
+      "sha256": "c570bf8636466a137c368ad0c1cd50c67105b6c62de82fb13a525d24c5684698"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/003-observe.png",
+      "sha256": "ba98e181aeb865ef4941f548b2b68f7db845a0f456e74fdad28f9978f8cf39a2"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/003-map.json",
+      "sha256": "d95a2590fde1fe52c6d3e0aa7d2af536a9e302cd5e696d4448a01df88c845f7c"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/004-map.json",
+      "sha256": "b560c8633856fff0ec8e42f70a426a5060eba9ed788c499082d5fc249ac750a2"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/005-observe.png",
+      "sha256": "3c96bcd6281c44ea4433faba7f620f78154ccf2be906883d245ad199c2c69223"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/005-map.json",
+      "sha256": "dcc59949a165ab8c8bb2f3602e543a14e6e1e06fbc3051e8dc1928d92e8b634b"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/006-founding-confirm-sign.png",
+      "sha256": "f4359f149b55abf1e5e20af306a717dfc0e89fa4778e493d6bbbd9e3a2938dd8"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/006-map.json",
+      "sha256": "36d21814c037121a84cc86dc54a8235fe0d8fd76a268bb3da8f8724ffc6b00aa"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/023-map.json",
+      "sha256": "d66ae70c07fbb89e28ec4a93f985ac85ebf80fdb43ca337899d820177aa578c4"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/024-map.json",
+      "sha256": "740aa97f5f02837fad5f6f176be833eb2088657093788651a37e3a17f0c40e1c"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/027-world-selectable-admin.png",
+      "sha256": "7414047a809570390058984edbc26c9bf53baa4831b7ba4f01237eeb09ae384c"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/027-map.json",
+      "sha256": "505c481d9ee20127020f4cbb20e983a6ea1ae3ef3f3208cea79eaa528ab20cf2"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/028-map.json",
+      "sha256": "6d6d2883af199a9062586f2c26943ead18caf2249d40ccc4db5687f6c72031b7"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/029-observe.png",
+      "sha256": "fdf64970fbeb7d1633355f441fe31c5caf3ceeeab6c88ab59b5f631bba534c31"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/029-map.json",
+      "sha256": "f1776449e39e9c92606bc0fdf438032912fe91e5184c0e3bb8b28215f162dbe7"
+    }
+  ],
+  "limitations": [
+    "Read-only review; no worktree edits, tests, engine or input operations.",
+    "Existing Gate A critique continues. This checkpoint adds no product critique round.",
+    "Six hires at revision6 are supported. Studio founding, live production and Gate A completion are not established by these records."
+  ]
+}

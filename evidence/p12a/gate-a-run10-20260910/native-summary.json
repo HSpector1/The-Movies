@@ -1,0 +1,36 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "status": "PARTIAL",
+  "report": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/report.json",
+  "reportSha256": "14b9988b7f4e9fa162b394c44e34f3e4e06361ee94f887fd648b55bbfefeff44",
+  "playerSha256": "4823ef6517e1b8289ccd783b8260a255f1be5b71608772c7ba9d5e0b75a980e3",
+  "engineSha256": "fe73eb0f6f2a8ff1632a2d05a8952a2739c7ea7875d3ecf5b1295a0598730f02",
+  "reason": "ui-quit",
+  "playerExit": {
+    "code": 0,
+    "signal": null
+  },
+  "inputFinalization": "clean",
+  "endedAtUtc": "2026-09-10T17:22:30.091Z",
+  "checkpointSha256": "daaefd792b8262bf8ed6485c00d9a67d891473dff0f138191cc89cc11151d728",
+  "completed": [
+    "Relaunch same private Campaign A store",
+    "Six exact displayed founding contract reviews and native signing confirmations",
+    "Save active six-person roster; clean UI Quit"
+  ],
+  "authority": {
+    "campaign": "Campaign A",
+    "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+    "week": 0,
+    "revision": 6,
+    "stateDigest": "300c60bb1498d77e44880f4ca26f0a7eac5cbd9f359cac226c9a9fb69f6ce13d"
+  },
+  "open": [
+    "Founding review button clipping; no founding or advance completed",
+    "Same-revision in-client campaign switch replay",
+    "Independent B/C, unequal dates and all-three quit/relaunch isolation",
+    "Healthy refresh MouseDown non-activation correction replay",
+    "World target withdrawal correction replay",
+    "Native live production and Gate A critique closure"
+  ]
+}

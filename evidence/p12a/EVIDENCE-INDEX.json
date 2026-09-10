@@ -60,7 +60,7 @@
       "attestationId": "recovered-regression",
       "path": "recovered-checks-20260910/ts-cumulative-04.log",
       "sha256": "c126fc5c44c108e541855986e747f12a8d75bb7d20219531752c8fc44baae0d6",
-      "applicability": "Current source: TS393 files/5149 passed/5 skipped; Unity1070/1070. Final candidate binding remains pending."
+      "applicability": "TS393 files/5149 passed/5 skipped at 6827293 plus checker fixes; predates later neutral Profile wording (13 focused tests pass). Unity09 1091/1091 includes bounded displayed-intent/layout and actual modal cancellation corrections. Final candidate binding remains pending."
     },
     {
       "kind": "generated-contract",
@@ -93,9 +93,16 @@
       "path": "resource-constraints-20260910/report.json",
       "sha256": "79a1410595db6d27a30fa4a7b7cea3b25228d129997b8d1567d81f4e0659b5c8",
       "applicability": "Current committed source engineering proof; native input and final candidate binding remain separate"
+    },
+    {
+      "kind": "native-corrective-replay",
+      "outcome": "PARTIAL",
+      "path": "gate-a-run10-20260910/native-summary.json",
+      "sha256": "d5c03a5884827feb475696ad71e2911b995159d03948e44441c472ccece3b0ee",
+      "applicability": "Development preview10; six saved hires and clean Quit. Subsequent corrections require native replay."
     }
   ],
-  "updatedAtUtc": "2026-09-10T17:04:22.185770+00:00",
+  "updatedAtUtc": "2026-09-10T17:38:18.278670+00:00",
   "attestationsPath": "attestations.json",
   "recovery": {
     "sessionId": "01a08adf-7719-7da2-85d0-77ae64c36fad",
@@ -120,12 +127,11 @@
       "tasksCompleted": false
     },
     "latestNativeRun": {
-      "report": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/report.json",
-      "quitAtUtc": "2026-09-10T16:58:42.861Z",
+      "report": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-09-32-879Z/report.json",
+      "quitAtUtc": "2026-09-10T17:22:30.091Z",
       "input": "clean",
       "playerExit": 0,
-      "profileReturn": "PASS on build08",
-      "campaignNewGame": "Created A; stale gate applicants observed; source fix +1072Unity testsPASS, native replay pending",
+      "campaignProgress": "A six native hires saved at week0/revision6; not founded. Layout and poll-input fixes under current verification.",
       "gateA": "PARTIAL"
     }
   },

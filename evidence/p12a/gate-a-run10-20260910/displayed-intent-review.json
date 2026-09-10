@@ -1,0 +1,70 @@
+{
+  "schema": "p12a-bounded-corrective-source-review-v1",
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "reviewer": "/root/recovered_product_evidence",
+  "reviewedAtUtc": "2026-09-10T17:40:43.094662+00:00",
+  "phase": "same Gate A corrective-source review; no extra critique round",
+  "worktree": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+  "head": "64766c7443b987132efdd217baa0ab61eea7c574",
+  "sourceFiles": [
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.DisplayedIntent.cs",
+      "sha256": "404a97789d1222ccfc76d36d0cf14cfd688234ce8c478e6971d4bfefd464bd29"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs",
+      "sha256": "0a31a402bf3573e0327dba823d8f54598a9c02a93842562fa466e661e23fa5ee"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.Industry.cs",
+      "sha256": "2c522ddbd1daa739c9531523c0dafc31d4940b91c588dfddd873494fd53b4ef5"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/StudioFoundingCardHud.cs",
+      "sha256": "2bf29f678b036cf038f393745e03c665de22243ad313eae5e2f0845fa739323b"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/StudioSystemMenuHud.cs",
+      "sha256": "79f47355d5c15c0f5be27aa2a78d93725480fcd717538b76d66354096e9c11a6"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/StudioSelectionManager.cs",
+      "sha256": "23b89bb9ba0505076c7d8560930cdda81306ef7202682dbf6ab82440ff044028"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Tests/EditMode/StudioDisplayedIntentTests.cs",
+      "sha256": "092e1f00302f10274e73511eeb4f1cee459189e347959de7a127bab429796206"
+    }
+  ],
+  "method": "Read-only inspection of displayed-intent slot, RefreshAuthority wrapper, founding integration, menu transition seam, campaign single-flight gates, focused EditMode test source, and prior geometry corrections. No builds/tests/native input executed by reviewer. File hashes bind current read-time bytes; root is concurrent sole editor.",
+  "verifiedSourceProperties": [
+    "Capture starts only from ActionsEnabled healthy authority; recovery, campaign, terminal failure and unresolved pending POST cannot admit a queued click.",
+    "Only one deliberate click is stored. Reservation disables ActionsEnabled, excluding other mutations and campaign submission.",
+    "Dequeue requires exact runtime/replacement/session/revision/week/digest, 10-second deadline, exact opaque intent still offered, current reviewed layer and command id; no new intent by kind/name and no changed-revision rebase.",
+    "Failed session/snapshot or torn join cancels before recovery. Disable and explicit review transitions cancel. Existing exact pending-POST retry lifecycle remains unchanged.",
+    "At successful dequeue, reservation is cleared only immediately before TryCreateIntentPost enters the existing single-flight lifecycle. No POST is begun at selection or at mere review reveal.",
+    "Prior small geometry holes are corrected: clipped-out founding controls withdraw; admin-open-industry withdraws each repaint/disable; camera absence withdraws prior world entries."
+  ],
+  "findings": [
+    {
+      "id": "displayed-review-modal-cancellation",
+      "severity": "consequential integration gap",
+      "status": "reported to root; correction not yet rechecked",
+      "source": [
+        "Assets/Studio/Runtime/Presentation/StudioFoundingCardHud.cs:527",
+        "Assets/Studio/Runtime/Presentation/StudioFoundingCardHud.cs:316",
+        "Assets/Studio/Runtime/Presentation/StudioSystemMenuHud.cs:197"
+      ],
+      "observation": "Deferred stillDisplayed callback checks card Layer and selected talent, but card Layer does not inspect the system-menu modal. Menu SetLayer suppresses toolkit input without cancelling the queued founding command. Opening MENU during a healthy read can leave the prior deliberate click eligible under a now-hidden review. Applicant Layer also does not yield to a competing workspace.",
+      "recommendedCorrection": "Cancel the deferred displayed intent at the modal-opening seam, plus guard actual visibility; opening then closing a modal must not revive the earlier waiting click. Keep the authoritative POST lifecycle unchanged.",
+      "testGap": "Existing changed-boundary hidden test toggles a synthetic bool; it does not cover real menu-open integration. Add a focused menu-open cancellation test without POST transport."
+    }
+  ],
+  "testSourceAssessment": "Focused tests meaningfully inspect an exact request envelope and reservation, reject 12 changed boundaries, and disallow recovery/campaign/terminal/pending-post admission. Tests read only; their execution result belongs to lead.",
+  "limitations": [
+    "No native replay and no runtime timing claim.",
+    "No Gate A completion: lawful live project/film/credits proof remains open.",
+    "No current Gate B or campaign Quit/relaunch reuse claim.",
+    "No claim that every 700ms no-change snapshot or refused click is a dropped input; the preserved initial Miriam trace is the specific observed issue."
+  ]
+}

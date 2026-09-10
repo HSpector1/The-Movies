@@ -1,0 +1,66 @@
+{
+  "kind": "Existing R05 Gate A corrective source checkpoint \u2014 founding layout and geometry lifetime",
+  "status": "SOURCE_REMEDIES_REVIEWED_TWO_SMALL_WITHDRAWAL_GAPS",
+  "gateAPassed": false,
+  "sameCritiqueContinues": true,
+  "reviewer": "/root/recovered_product_evidence",
+  "atUtc": "2026-09-10T17:33:18.881943+00:00",
+  "scope": "Only the two requested dirty Unity corrections and their directly surrounding publication/withdrawal paths. No deferred-intent implementation reviewed here.",
+  "head": "64766c7443b987132efdd217baa0ab61eea7c574",
+  "reviewedFiles": [
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/StudioFoundingCardHud.cs",
+      "sha256": "2bf29f678b036cf038f393745e03c665de22243ad313eae5e2f0845fa739323b"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/StudioSelectionManager.cs",
+      "sha256": "f24a6a26fcaadced0a09d6d2f80a1d0a279832262fc0b79a99c29ffc71f37b29"
+    }
+  ],
+  "sourceResolutions": [
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/StudioFoundingCardHud.cs",
+      "finding": "The new shared Administration heading removes the extra calendar plus full-width Industry block that caused the run10 six-person review overflow. It retains Industry navigation in AdminOverview and AdminOperations. Actual final layout remains a native check.",
+      "geometry": "PublishFoundingControl converts the local layout rect into GUI screen coordinates, intersects with the current BeginArea rectangle, rejects intersections no larger than 4px, then converts to bottom-origin screen space. This prevents the run10 below-card center from being represented by a full unclipped target."
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/StudioSelectionManager.cs",
+      "finding": "Each geometry publication now withdraws only names this publisher previously owned, then publishes active/enabled current entities with valid projected bounds. Removed, disabled and no-longer-projectable entities disappear on the next publishing update. OnDisable clears the owned names. No selection or simulation authority was changed."
+    }
+  ],
+  "issues": [
+    {
+      "id": "geometry-withdraw-1",
+      "severity": "Small correctness gap in the requested geometry seam",
+      "location": "StudioFoundingCardHud.PublishFoundingControl clipped intersection early return",
+      "finding": "An unusable clipped rectangle returns without withdrawing its own prior name. Most founding names are cleared by WithdrawFoundingControls, but admin-open-industry is outside that list, and its separate WithdrawOpenHistoryRect path is not called on every AdminOperations repaint. An existing Industry rectangle can therefore survive a later unusable intersection on that layer.",
+      "remedy": "Withdraw the given name before returning from the unusable-intersection branch (or before each attempted publication).",
+      "nativeRelation": "Prevents geometry lifetime from depending on a separate layer cleanup path; does not claim this edge was exercised natively."
+    },
+    {
+      "id": "geometry-withdraw-2",
+      "severity": "Small correctness gap in the requested geometry seam",
+      "location": "StudioSelectionManager.Update first no-camera return",
+      "finding": "When the picking camera becomes unavailable while the manager remains enabled, Update returns before PublishSelectableGeometry withdraws old entries. A previously projected rect then remains in the registry without a camera capable of producing a current rect.",
+      "remedy": "WithdrawSelectableGeometry before the no-camera return.",
+      "nativeRelation": "Source branch inspection only; the run10 camera remained present."
+    }
+  ],
+  "preservedBehavior": [
+    "No action is committed by geometry publication or by the new navigation heading.",
+    "No camera movement was added.",
+    "Other registry publishers are not cleared by SelectionManager.",
+    "Global native input guards and authoritative command handling remain unchanged by these two diffs."
+  ],
+  "requiredRecheck": [
+    "At the run10 viewport with six named hires, verify the complete REVIEW FOUNDING button and its separate confirmation are visible and clickable inside the Administration card.",
+    "Verify opening Industry still works from both founding and operational Administration.",
+    "After hiring/removing/replacing applicants, compare actual bodies with the next map: retired world-selectable names must be absent.",
+    "Verify geometry publication does not retain a control after its area no longer has a usable intersection."
+  ],
+  "limitations": [
+    "Read-only source review only; no source edits, tests, build, engine or native input started by reviewer.",
+    "Native layout and input replay are pending. Source improvements do not establish Gate A completion.",
+    "This remains the existing Gate A critique; no new audit or critique round was created."
+  ]
+}

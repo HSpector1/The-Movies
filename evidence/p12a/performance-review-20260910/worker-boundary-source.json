@@ -1,0 +1,22 @@
+{
+  "timeUtc": "2026-09-10T17:11:12.668631+00:00",
+  "tsHead": "5243a7522feb6353615d97dfbe6d90d207f2eeb9",
+  "unityHead": "64766c7443b987132efdd217baa0ab61eea7c574",
+  "sourceSha256": {
+    "bridge/server.ts": "b9c36d3e7ac1e1ee40ad4c5e52adb6398a5a503f7e5801331a404354e1a1b42e",
+    "bridge/runtime/runtime-coordinator.ts": "b90be451b1195eb524b05de45d793c10d59963103165ab045d24a125fd22937a",
+    "bridge/runtime/checkpoint-store.ts": "41ced764fb4a89bafc6ab9ea826bf0d51b9a6d6f8ab82f5f100e910d347e2561",
+    "bridge/runtime/campaign-library.ts": "75141a15ac2d17afff2ecfc3f6513921125641d5b3a410e8d9c0065afcb61764",
+    "bridge/runtime/campaign-storage-codec.ts": "0a841b9a31e04e21480fd1a64ae95d8d2fd7d9420add04a3b080fc3753031ef1",
+    "bridge/runtime-checkpoint.ts": "9d6d4b8c36bf56a29a96b60b31c07240c5a999d10cbf71c3784ed7bb4eff0bfe",
+    "bridge/session.ts": "eada8d7ffac42df1afeebf4775a61f4fce6c806b8bcaac8a864d8abf51f0753b",
+    "bridge/supervisor/supervisor.ts": "21f6479c9a75b0103e667b8cadced904c7a0ea2cd8d63125d97f846447ebd890",
+    "scripts/build-studio.mjs": "8fa3a4cb12afdc84391e1c4ec7f1931ae793cbfd9c564641aa1307905ca01f68",
+    "bridge/testing/post-commit-response-gate.ts": "80aeed00be27c1049e685ab7f8b9bebe9bbae3d135aa41fe87cf0d0533ae1f74"
+  },
+  "unitySourceSha256": {
+    "Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.Industry.cs": "2c522ddbd1daa739c9531523c0dafc31d4940b91c588dfddd873494fd53b4ef5",
+    "Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs": "6d40556f6e6e9ed065d9637d504de5f300a08a532675706bb6bdd32d27402d5b"
+  },
+  "scope": "Read-only bounded review; no heavy probes/native/source edits. Production-store correction supersedes earlier private wording."
+}
