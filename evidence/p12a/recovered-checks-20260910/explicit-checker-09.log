@@ -1,0 +1,10 @@
+
+ RUN  v2.1.9 /Users/bruce/The Movies - P12A Living Hollywood TS
+
+ ✓ |core| tests/p12-checker.test.ts (5 tests) 8ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  18:39:21
+   Duration  230ms (transform 12ms, setup 0ms, collect 16ms, tests 8ms, environment 0ms, prepare 29ms)
+

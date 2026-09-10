@@ -1,0 +1,1971 @@
+{
+  "purpose": "Independent CURRENT pure-core fresh0→2548 applicability proof plus isolated2549 arrival-after tick; no implementation restart, bridge/native acceptance or second6240 run",
+  "start": "2026-09-10T16:39:57.962Z",
+  "commit": "6827293985a1375e8cefed745fbc4227a01aeb53",
+  "seed": "r05-living-hollywood",
+  "driver": "initializeHollywood(generateWorld(seed),'fresh'); tick(state,{develop:true}); no player actions",
+  "runtime": "v26.3.1",
+  "execArgv": [],
+  "hardware": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64",
+    "cpu": "Apple M3 Max",
+    "logicalCpus": 16,
+    "totalMemoryBytes": 137438953472
+  },
+  "validations": [
+    {
+      "week": 0,
+      "ms": 9.891165999999998
+    },
+    {
+      "week": 52,
+      "ms": 8.303667000000019
+    },
+    {
+      "week": 104,
+      "ms": 8.38579199999998
+    },
+    {
+      "week": 156,
+      "ms": 8.672874999999976
+    },
+    {
+      "week": 208,
+      "ms": 9.813041999999996
+    },
+    {
+      "week": 260,
+      "ms": 9.503832999999986
+    },
+    {
+      "week": 312,
+      "ms": 9.890790999999922
+    },
+    {
+      "week": 364,
+      "ms": 10.16133400000001
+    },
+    {
+      "week": 416,
+      "ms": 11.01120800000001
+    },
+    {
+      "week": 468,
+      "ms": 11.143958000000111
+    },
+    {
+      "week": 519,
+      "ms": 11.524584000000004
+    },
+    {
+      "week": 520,
+      "ms": 11.547791999999845
+    },
+    {
+      "week": 521,
+      "ms": 11.410791999999901
+    },
+    {
+      "week": 572,
+      "ms": 12.498999999999796
+    },
+    {
+      "week": 624,
+      "ms": 12.922874999999976
+    },
+    {
+      "week": 676,
+      "ms": 13.66233299999999
+    },
+    {
+      "week": 728,
+      "ms": 15.35958299999993
+    },
+    {
+      "week": 780,
+      "ms": 16.040125000000216
+    },
+    {
+      "week": 832,
+      "ms": 16.598040999999967
+    },
+    {
+      "week": 884,
+      "ms": 17.670500000000175
+    },
+    {
+      "week": 936,
+      "ms": 18.238749999999982
+    },
+    {
+      "week": 987,
+      "ms": 19.204333000000133
+    },
+    {
+      "week": 988,
+      "ms": 19.348250000000007
+    },
+    {
+      "week": 989,
+      "ms": 20.750084000000015
+    },
+    {
+      "week": 1040,
+      "ms": 18.94479199999978
+    },
+    {
+      "week": 1092,
+      "ms": 20.906167000000096
+    },
+    {
+      "week": 1144,
+      "ms": 21.830207999999857
+    },
+    {
+      "week": 1196,
+      "ms": 23.21612499999992
+    },
+    {
+      "week": 1248,
+      "ms": 24.90579200000002
+    },
+    {
+      "week": 1300,
+      "ms": 25.74212499999976
+    },
+    {
+      "week": 1352,
+      "ms": 26.808207999999922
+    },
+    {
+      "week": 1404,
+      "ms": 27.193791999999576
+    },
+    {
+      "week": 1456,
+      "ms": 29.288833000000068
+    },
+    {
+      "week": 1508,
+      "ms": 30.617999999999938
+    },
+    {
+      "week": 1559,
+      "ms": 31.891125000000102
+    },
+    {
+      "week": 1560,
+      "ms": 32.20329199999969
+    },
+    {
+      "week": 1561,
+      "ms": 31.086333000000195
+    },
+    {
+      "week": 1612,
+      "ms": 33.20512499999995
+    },
+    {
+      "week": 1664,
+      "ms": 35.2318750000004
+    },
+    {
+      "week": 1716,
+      "ms": 36.69783300000017
+    },
+    {
+      "week": 1768,
+      "ms": 37.6411250000001
+    },
+    {
+      "week": 1820,
+      "ms": 38.972499999999854
+    },
+    {
+      "week": 1871,
+      "ms": 41.36879100000033
+    },
+    {
+      "week": 1872,
+      "ms": 41.06404100000009
+    },
+    {
+      "week": 1873,
+      "ms": 40.469416999999794
+    },
+    {
+      "week": 1924,
+      "ms": 42.86266599999999
+    },
+    {
+      "week": 1976,
+      "ms": 44.78712499999983
+    },
+    {
+      "week": 2028,
+      "ms": 45.53824999999961
+    },
+    {
+      "week": 2080,
+      "ms": 48.319790999999896
+    },
+    {
+      "week": 2132,
+      "ms": 49.05041700000038
+    },
+    {
+      "week": 2184,
+      "ms": 52.77208400000018
+    },
+    {
+      "week": 2236,
+      "ms": 59.4652500000002
+    },
+    {
+      "week": 2288,
+      "ms": 59.94599999999991
+    },
+    {
+      "week": 2340,
+      "ms": 58.748500000000604
+    },
+    {
+      "week": 2392,
+      "ms": 61.06950000000052
+    },
+    {
+      "week": 2444,
+      "ms": 61.409459000000425
+    },
+    {
+      "week": 2496,
+      "ms": 63.020958000000064
+    },
+    {
+      "week": 2547,
+      "ms": 65.0316670000002
+    },
+    {
+      "week": 2548,
+      "ms": 64.01004199999988
+    },
+    {
+      "week": 2549,
+      "ms": 77.39008300000023
+    }
+  ],
+  "arrivalChecks": [
+    {
+      "tag": "initial four incumbents",
+      "week": 0,
+      "expected": 4,
+      "actual": 4,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 0,
+        "year": 1920,
+        "weekOfYear": 1,
+        "label": "1920 · Week 1"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": false
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": false
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": false
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": false
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "neighbor",
+      "week": 519,
+      "expected": 4,
+      "actual": 4,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 519,
+        "year": 1929,
+        "weekOfYear": 52,
+        "label": "1929 · Week 52"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": false
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": false
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": false
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": false
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "due",
+      "week": 520,
+      "expected": 5,
+      "actual": 5,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 520,
+        "year": 1930,
+        "weekOfYear": 1,
+        "label": "1930 · Week 1"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": false
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": false
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": false
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "neighbor",
+      "week": 521,
+      "expected": 5,
+      "actual": 5,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 521,
+        "year": 1930,
+        "weekOfYear": 2,
+        "label": "1930 · Week 2"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": false
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": false
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": false
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "neighbor",
+      "week": 987,
+      "expected": 5,
+      "actual": 5,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 987,
+        "year": 1938,
+        "weekOfYear": 52,
+        "label": "1938 · Week 52"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": false
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": false
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": false
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "due",
+      "week": 988,
+      "expected": 6,
+      "actual": 6,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 988,
+        "year": 1939,
+        "weekOfYear": 1,
+        "label": "1939 · Week 1"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 26000000,
+          "capacity": -5900000,
+          "initialSigning": 782184,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": false
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": false
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "neighbor",
+      "week": 989,
+      "expected": 6,
+      "actual": 6,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 989,
+        "year": 1939,
+        "weekOfYear": 2,
+        "label": "1939 · Week 2"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 26000000,
+          "capacity": -5900000,
+          "initialSigning": 782184,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": false
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": false
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "neighbor",
+      "week": 1559,
+      "expected": 6,
+      "actual": 6,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 1559,
+        "year": 1949,
+        "weekOfYear": 52,
+        "label": "1949 · Week 52"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 26000000,
+          "capacity": -5900000,
+          "initialSigning": 782184,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": false
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": false
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "due",
+      "week": 1560,
+      "expected": 7,
+      "actual": 7,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 1560,
+        "year": 1950,
+        "weekOfYear": 1,
+        "label": "1950 · Week 1"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 26000000,
+          "capacity": -5900000,
+          "initialSigning": 782184,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 34000000,
+          "capacity": -5900000,
+          "initialSigning": 418571,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": false
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "neighbor",
+      "week": 1561,
+      "expected": 7,
+      "actual": 7,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 1561,
+        "year": 1950,
+        "weekOfYear": 2,
+        "label": "1950 · Week 2"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 26000000,
+          "capacity": -5900000,
+          "initialSigning": 782184,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 34000000,
+          "capacity": -5900000,
+          "initialSigning": 418571,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": false
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "neighbor",
+      "week": 1871,
+      "expected": 7,
+      "actual": 7,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 1871,
+        "year": 1955,
+        "weekOfYear": 52,
+        "label": "1955 · Week 52"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 26000000,
+          "capacity": -5900000,
+          "initialSigning": 782184,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 34000000,
+          "capacity": -5900000,
+          "initialSigning": 418571,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": false
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "due",
+      "week": 1872,
+      "expected": 8,
+      "actual": 8,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 1872,
+        "year": 1956,
+        "weekOfYear": 1,
+        "label": "1956 · Week 1"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 26000000,
+          "capacity": -5900000,
+          "initialSigning": 782184,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 34000000,
+          "capacity": -5900000,
+          "initialSigning": 418571,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 28000000,
+          "capacity": -5900000,
+          "initialSigning": 426727,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "neighbor",
+      "week": 1873,
+      "expected": 8,
+      "actual": 8,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 1873,
+        "year": 1956,
+        "weekOfYear": 2,
+        "label": "1956 · Week 2"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 26000000,
+          "capacity": -5900000,
+          "initialSigning": 782184,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 34000000,
+          "capacity": -5900000,
+          "initialSigning": 418571,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 28000000,
+          "capacity": -5900000,
+          "initialSigning": 426727,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "neighbor",
+      "week": 2547,
+      "expected": 8,
+      "actual": 8,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 2547,
+        "year": 1968,
+        "weekOfYear": 52,
+        "label": "1968 · Week 52"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 26000000,
+          "capacity": -5900000,
+          "initialSigning": 782184,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 34000000,
+          "capacity": -5900000,
+          "initialSigning": 418571,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 28000000,
+          "capacity": -5900000,
+          "initialSigning": 426727,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": false
+        }
+      ]
+    },
+    {
+      "tag": "due",
+      "week": 2548,
+      "expected": 9,
+      "actual": 9,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 2548,
+        "year": 1969,
+        "weekOfYear": 1,
+        "label": "1969 · Week 1"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 26000000,
+          "capacity": -5900000,
+          "initialSigning": 782184,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 34000000,
+          "capacity": -5900000,
+          "initialSigning": 418571,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 28000000,
+          "capacity": -5900000,
+          "initialSigning": 426727,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 38000000,
+          "capacity": -5900000,
+          "initialSigning": 499390,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        }
+      ]
+    },
+    {
+      "tag": "isolated last-arrival after tick",
+      "week": 2549,
+      "expected": 9,
+      "actual": 9,
+      "date": {
+        "policy": "campaign-calendar-1920-52/v1",
+        "absoluteWeek": 2549,
+        "year": 1969,
+        "weekOfYear": 2,
+        "label": "1969 · Week 2"
+      },
+      "playerRngUnchanged": true,
+      "details": [
+        {
+          "name": "Bellwether Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 32000000,
+          "capacity": -5900000,
+          "initialSigning": 418346,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Rose Lantern Films",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 29000000,
+          "capacity": -5900000,
+          "initialSigning": 380909,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Night Orchard Productions",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 23000000,
+          "capacity": -5900000,
+          "initialSigning": 397597,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Silver Current Pictures",
+          "due": 0,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 20000000,
+          "capacity": -5900000,
+          "initialSigning": 382321,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Marigold Motion Pictures",
+          "due": 520,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 24000000,
+          "capacity": -5900000,
+          "initialSigning": 542513,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Blackthorn Screenworks",
+          "due": 988,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 26000000,
+          "capacity": -5900000,
+          "initialSigning": 782184,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Trailhead Pictures",
+          "due": 1560,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 34000000,
+          "capacity": -5900000,
+          "initialSigning": 418571,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Copper Kite Films",
+          "due": 1872,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 28000000,
+          "capacity": -5900000,
+          "initialSigning": 426727,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        },
+        {
+          "name": "Bright Meridian Studios",
+          "due": 2548,
+          "present": true,
+          "entryReceipts": 1,
+          "capital": 38000000,
+          "capacity": -5900000,
+          "initialSigning": 499390,
+          "initialContracts": 6,
+          "duplicateEntryNoOp": true
+        }
+      ]
+    }
+  ],
+  "checks": [],
+  "errors": [],
+  "completed": true,
+  "ticks": {
+    "count": 2548,
+    "totalMs": 4347.397746,
+    "maxMs": 19.093708999999997,
+    "distribution": {
+      "medianMs": 0.980583999999908,
+      "p95Ms": 6.338000000000193,
+      "maxMs": 19.093708999999997
+    }
+  },
+  "initial": {
+    "week": 0,
+    "studios": 4,
+    "people": 84,
+    "films": 8,
+    "liveFilms": 0,
+    "careerEvents": 0,
+    "employmentIntervals": 24,
+    "currentEmployment": 24,
+    "receipts": 28,
+    "concepts": 0,
+    "rngState": "219853229,3878288057,3773428936,3488871996"
+  },
+  "final": {
+    "week": 2548,
+    "studios": 9,
+    "people": 84,
+    "films": 800,
+    "liveFilms": 792,
+    "careerEvents": 4752,
+    "employmentIntervals": 306,
+    "currentEmployment": 30,
+    "receipts": 2718,
+    "concepts": 808,
+    "rngState": "219853229,3878288057,3773428936,3488871996",
+    "bytes": 10667175,
+    "sha256": "742a9b980b5ea43c7c72c53f8493302846c86929b1dbb9e5e8db93be448e040c"
+  },
+  "reference": {
+    "path": "/tmp/p12a-engineering-8788-P6KEMm/week-2548.save.json",
+    "bytes": 10667175,
+    "sha256": "742a9b980b5ea43c7c72c53f8493302846c86929b1dbb9e5e8db93be448e040c"
+  },
+  "exactPriorFinal": true,
+  "countsMatchPrior": {
+    "week": true,
+    "studios": true,
+    "people": true,
+    "films": true,
+    "liveFilms": true,
+    "careerEvents": true,
+    "employmentIntervals": true,
+    "currentEmployment": true,
+    "receipts": true,
+    "concepts": true
+  },
+  "after": {
+    "week": 2549,
+    "studios": 9,
+    "people": 84,
+    "films": 802,
+    "liveFilms": 794,
+    "careerEvents": 4764,
+    "employmentIntervals": 312,
+    "currentEmployment": 30,
+    "receipts": 2726,
+    "concepts": 808,
+    "rngState": "219853229,3878288057,3773428936,3488871996",
+    "date": {
+      "policy": "campaign-calendar-1920-52/v1",
+      "absoluteWeek": 2549,
+      "year": 1969,
+      "weekOfYear": 2,
+      "label": "1969 · Week 2"
+    },
+    "saveSha256": "f373a41e7369963517af1d0caba1f2847264ee2fadbe7c995e1509b40cbe9677",
+    "exactReloadNextTick": true,
+    "matchesCurrentContinuationInputNextTick": true
+  },
+  "originalReferenceUnchanged": true,
+  "memoryAtFinish": {
+    "rss": 520437760,
+    "heapTotal": 253263872,
+    "heapUsed": 147431264,
+    "external": 23603148,
+    "arrayBuffers": 10810786
+  },
+  "sourceVerification": {
+    "files": 53,
+    "unchanged": true,
+    "changedPaths": [],
+    "binding": {
+      "builtAt": "2026-09-10T16:39:57.898Z",
+      "commit": "6827293985a1375e8cefed745fbc4227a01aeb53",
+      "files": 53,
+      "sourceSha256": "ebbefcac78abed86f4bf2f3d20e63b34fb8bfe2afee107979c5857bad6db1bce",
+      "bundleSha256": "afe25e2a93cef0da5b05c252a476ed5c0b7a3d4387f9eeef9b995a34046cbff5",
+      "changedPriorImportedSources": [
+        "src/core/hollywood.ts",
+        "src/core/hollywoodTick.ts",
+        "src/core/hollywoodValidation.ts",
+        "src/core/save.ts",
+        "src/core/worldgen.ts"
+      ]
+    }
+  },
+  "finish": "2026-09-10T16:40:04.767Z"
+}

@@ -1,0 +1,1690 @@
+{
+  "operation": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "requirement": "PRF-007",
+  "kind": "Independent pure-core controlled resource intervention",
+  "seed": "r05-prf007",
+  "driver": "initializeHollywood(generateWorld(seed),'fresh'); tick(state,{develop:true})",
+  "horizon": 26,
+  "startedAt": "2026-09-10T16:38:39.655Z",
+  "syntheticFixtureInterventions": true,
+  "productionSourceEdits": false,
+  "nativeProof": false,
+  "arms": [
+    {
+      "kind": "control",
+      "preFixtureWeek": 3,
+      "preFixtureSha256": "d904093627f98f27b7f06c7ee74d6a742ee885d8cd6eb266431ae8d3b967de4b",
+      "restoreWeek": null,
+      "fixtureEdits": [],
+      "heldStateRejected": null,
+      "trace": [
+        {
+          "week": 3,
+          "cash": 25247282,
+          "projectStatus": "ready",
+          "announcedWeek": null,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": null,
+          "stateSha256": "d904093627f98f27b7f06c7ee74d6a742ee885d8cd6eb266431ae8d3b967de4b"
+        },
+        {
+          "week": 4,
+          "cash": 21767014,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 8,
+          "phase": "development",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "eeb69e772f00c68a811c14d44ef407f28b0f57166198379afbe23793e7dee65a"
+        },
+        {
+          "week": 5,
+          "cash": 21662053,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 7,
+          "phase": "preProduction",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "35c2ceae1f73538a2849a0050b3a959a98ddeb63b4a96dc0c7996a78e8df0eae"
+        },
+        {
+          "week": 6,
+          "cash": 21557092,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 6,
+          "phase": "rehearsal",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "5552dcdd9cbcff4a124530ad99533db7a9e2ec5344279815a93eb061dcbd00a7"
+        },
+        {
+          "week": 7,
+          "cash": 21452131,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 5,
+          "phase": "shooting",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "cebcb6fd0074a319c64c98033a8b36af63b4628a797c7b1f5d0569d6b24c2edc"
+        },
+        {
+          "week": 8,
+          "cash": 21347170,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 4,
+          "phase": "shooting",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "6dbe3de0bc8d9ae07c074fe5916d6c464f8631d7c3666306947f975d0fb3a88f"
+        },
+        {
+          "week": 9,
+          "cash": 21242209,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 3,
+          "phase": "postProduction",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "9868ded7c0b25a8f890d579249c2f9c4929c51e21f97d6d693250624ecd8068c"
+        },
+        {
+          "week": 10,
+          "cash": 21137248,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 2,
+          "phase": "postProduction",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "1c3b8b0c21be14804ffbb2717fca096427a1a857a92854fb210eda4d0c300534"
+        },
+        {
+          "week": 11,
+          "cash": 21032287,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 1,
+          "phase": "releaseReady",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "7471b1ff83f556047f72dcae84f4bb94c8b91554b69cf7baf43aab49c4b3bc89"
+        },
+        {
+          "week": 12,
+          "cash": 23534262.45929664,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "9d4e9635ecbde3e71ba95e3c494b7b9ab670b305c66d3cdc1a54709f8956bb3d"
+        },
+        {
+          "week": 13,
+          "cash": 19373636.448013607,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "f0a7b8e8d10df0ecde2c60873995e2714d0a614d3faff154ffcb6d30db92a452"
+        },
+        {
+          "week": 14,
+          "cash": 20223088.16862124,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "269edd1409c8b7ebe83b35cb44df605f39e954f9528fd2a9f69a3ec5dad2cdc8"
+        },
+        {
+          "week": 15,
+          "cash": 20581940.62078224,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "67dbafa485817dc191a585b3967d327b367e3ed317a681d5d8c84c376d1c51d9"
+        },
+        {
+          "week": 16,
+          "cash": 20784073.434516232,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "502cbef5c7a540cf4beba48e1715cbef0a12186d9077ccd80b49baba47c2a012"
+        },
+        {
+          "week": 17,
+          "cash": 20986206.248250224,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "cd3b548bce2dd660641b5551427bd553c1357e16dd9263a915eefcf7497a4dd5"
+        },
+        {
+          "week": 18,
+          "cash": 20881245.248250224,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "00b3c1b170ffdd3c0af8d833e67b978915e2268cb5787debd7aeb187c55f1324"
+        },
+        {
+          "week": 19,
+          "cash": 20776284.248250224,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "ee9bb2609a180ae48b7055f1a27efe3621bf5cd9240535c3d2e0e74512dc8fa9"
+        },
+        {
+          "week": 20,
+          "cash": 20671323.248250224,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "1df8211817c2be6539abe7a5b15595d56ed154e28dea6fe921604523f96a9180"
+        },
+        {
+          "week": 21,
+          "cash": 23544395.014378764,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "593478acb58b2560272753c387e2aced2f7731e73302d00886566264fb679454"
+        },
+        {
+          "week": 22,
+          "cash": 21950906.519115694,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "c23a5a6ceb79beaa01838f3f8ec971251a21f2c318b20f570cdc590563ca44b2"
+        },
+        {
+          "week": 23,
+          "cash": 23029187.42403041,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "096e9d27127a2ccfc98eb67b4adced1f032a058d29f3655a1475db8d53df6db8"
+        },
+        {
+          "week": 24,
+          "cash": 23511016.96628978,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "19d7a755abc2eed66ca88776ce9f7af9a2c5c153f6ca1e271b52c4246304e0cf"
+        },
+        {
+          "week": 25,
+          "cash": 23775299.72270195,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "d5ed5f7d44ca55af8ad9c00f8fb21881b70b277eae816c35de118e2b098c74b7"
+        },
+        {
+          "week": 26,
+          "cash": 24039582.479114123,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "06650e7b9f508cfacd6cb2bbf2a2108ca3b589828f7e92e6c64e7d792c686818"
+        }
+      ],
+      "finalStrictSave": {
+        "passed": true,
+        "sha256": "ce073bcf4aa15eeec312ddbd2f4273b00bcee0e073912031d8877abb7977f8cd"
+      },
+      "playerRngUnchanged": true,
+      "release": {
+        "filmId": "studio-8f7f1842-r01:film:0",
+        "conceptId": "studio-8f7f1842-r01:concept:0",
+        "title": "The Endless Wilderness",
+        "announcementWeek": 3,
+        "releaseWeek": 11,
+        "resultSha256": "b4a697d0bb48ac69a7200224debde748dca93e6e3b4a46e266817a688574444d",
+        "filmSha256": "383edd1b5f79500a1736ed5b26230d98c70311e5e57ee5d483cb027716e0cdd8",
+        "directCommitment": 3375307,
+        "costs": {
+          "scriptProjectId": "script-0000",
+          "conceptId": "studio-8f7f1842-r01:concept:0",
+          "conceptOrdinal": 0,
+          "productionId": "studio-8f7f1842-r01:film:0",
+          "development": 0,
+          "production": 2415000,
+          "marketing": 960307,
+          "announcedWeek": 3
+        },
+        "credits": [
+          {
+            "talentId": "person-studio-8f7f1842-r01-0",
+            "name": "Iris Bell",
+            "role": "writer"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-1",
+            "name": "Arthur Vale",
+            "role": "director"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-3",
+            "name": "Walter Reed",
+            "role": "lead"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-2",
+            "name": "Mabel Finch",
+            "role": "antagonist"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-4",
+            "name": "Clara Moss",
+            "role": "support"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-5",
+            "name": "Edwin Pike",
+            "role": "craft"
+          }
+        ],
+        "careerEventCount": 6,
+        "criticScore": 55.78556636938961,
+        "boxOffice": {
+          "opening": 5013339.344801232,
+          "total": 12698642.78509658
+        }
+      },
+      "replacementDirectors": [],
+      "originalDirectorId": "person-studio-8f7f1842-r01-1",
+      "joins": {
+        "announcement": true,
+        "release": true,
+        "costs": true,
+        "credits": true,
+        "employers": true,
+        "careers": true,
+        "signing": true
+      },
+      "finalStateSha256": "06650e7b9f508cfacd6cb2bbf2a2108ca3b589828f7e92e6c64e7d792c686818",
+      "exactRepeat": true
+    },
+    {
+      "kind": "cash",
+      "preFixtureWeek": 3,
+      "preFixtureSha256": "d904093627f98f27b7f06c7ee74d6a742ee885d8cd6eb266431ae8d3b967de4b",
+      "restoreWeek": 8,
+      "fixtureEdits": [
+        {
+          "atWeek": 3,
+          "kind": "temporary-external-hold",
+          "amount": 25247282,
+          "fields": [
+            "account.cash",
+            "account.periods[last].closing"
+          ],
+          "note": "Synthetic counterfactual availability hold; original amount restored once at week 8, with no production money source or receipt invented."
+        },
+        {
+          "atWeek": 8,
+          "kind": "restore-exact-held-amount",
+          "amount": 25247282,
+          "netFixtureCashChange": 0
+        }
+      ],
+      "heldStateRejected": {
+        "rejected": true,
+        "error": "Hollywood save: unreconciled money"
+      },
+      "trace": [
+        {
+          "week": 3,
+          "cash": 0,
+          "projectStatus": "ready",
+          "announcedWeek": null,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": null,
+          "stateSha256": "c4d1f25f68ff6a66d486ec455c586b3a4c80563deb84298f2428378d6f7cfd8c"
+        },
+        {
+          "week": 4,
+          "cash": -104961,
+          "projectStatus": "ready",
+          "announcedWeek": null,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": null,
+          "stateSha256": "4d5b908995628a142ddcf10d10b9437fed78bbb1fb1a7f4b65b880ead4063e5f"
+        },
+        {
+          "week": 5,
+          "cash": -209922,
+          "projectStatus": "ready",
+          "announcedWeek": null,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": null,
+          "stateSha256": "c10f416794d41c3336f1d596c1ae5f2a50f855b35034c3feca6b1ffd7d45f2b2"
+        },
+        {
+          "week": 6,
+          "cash": -314883,
+          "projectStatus": "ready",
+          "announcedWeek": null,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": null,
+          "stateSha256": "7db909aaad2fd538f5c642232d53d5b4340c1b1985c729a224b7af7e8e50a6d9"
+        },
+        {
+          "week": 7,
+          "cash": -419844,
+          "projectStatus": "ready",
+          "announcedWeek": null,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": null,
+          "stateSha256": "11ab0a6582b6f162f02ef65b016ac3ff059430d47fb49e58a51f72846a748a8c"
+        },
+        {
+          "week": 8,
+          "cash": 24722477,
+          "projectStatus": "ready",
+          "announcedWeek": null,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": null,
+          "stateSha256": "8ee33d900cc393b04760086a928b3eeb1d0c4298e6a4239a71d9de519627da54"
+        },
+        {
+          "week": 9,
+          "cash": 21306108,
+          "projectStatus": "inProduction",
+          "announcedWeek": 8,
+          "productionStart": 8,
+          "remaining": 8,
+          "phase": "development",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "a1d9e085efe72b9b3fe06154b66ea6906583328dbc4e854b81a1cf7457dc2b96"
+        },
+        {
+          "week": 10,
+          "cash": 21201147,
+          "projectStatus": "inProduction",
+          "announcedWeek": 8,
+          "productionStart": 8,
+          "remaining": 7,
+          "phase": "preProduction",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "472e355b294be06bf085d8108a7c1006e7e1cafa3253db58960e680ae8cf3ede"
+        },
+        {
+          "week": 11,
+          "cash": 21096186,
+          "projectStatus": "inProduction",
+          "announcedWeek": 8,
+          "productionStart": 8,
+          "remaining": 6,
+          "phase": "rehearsal",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "a1e01aea377e40b43e210419653a10548612296881b5dd241f86a6ee31301ba2"
+        },
+        {
+          "week": 12,
+          "cash": 20991225,
+          "projectStatus": "inProduction",
+          "announcedWeek": 8,
+          "productionStart": 8,
+          "remaining": 5,
+          "phase": "shooting",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "5b01420839c0192a5ca3f3a1ef3e67438ec5424836d4a4ab238b763b493bd206"
+        },
+        {
+          "week": 13,
+          "cash": 20886264,
+          "projectStatus": "inProduction",
+          "announcedWeek": 8,
+          "productionStart": 8,
+          "remaining": 4,
+          "phase": "shooting",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "62a13361548d2e1470fecd01150d5602c9eef6307f75ccb09fe593d9e659093a"
+        },
+        {
+          "week": 14,
+          "cash": 20781303,
+          "projectStatus": "inProduction",
+          "announcedWeek": 8,
+          "productionStart": 8,
+          "remaining": 3,
+          "phase": "postProduction",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "5a572579e627b699160ae41f9b1a70262c46ae2b5ac55acf8110c290444dfa95"
+        },
+        {
+          "week": 15,
+          "cash": 20676342,
+          "projectStatus": "inProduction",
+          "announcedWeek": 8,
+          "productionStart": 8,
+          "remaining": 2,
+          "phase": "postProduction",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "96db755a8d755efa06392809580b57601005b45e036f4cfc12216ed5e5e6d9b0"
+        },
+        {
+          "week": 16,
+          "cash": 20571381,
+          "projectStatus": "inProduction",
+          "announcedWeek": 8,
+          "productionStart": 8,
+          "remaining": 1,
+          "phase": "releaseReady",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "f1987c873cc0bfecb60b862ab0016006f118437e8bcb6e829e2ca94742c9a061"
+        },
+        {
+          "week": 17,
+          "cash": 22952115.478144817,
+          "projectStatus": "produced",
+          "announcedWeek": 8,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "362f96a595a1fea4be8d86081a1549afb7e70696480eafeb9f75f4f4f80430d7"
+        },
+        {
+          "week": 18,
+          "cash": 21587434.182721183,
+          "projectStatus": "produced",
+          "announcedWeek": 8,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "742f997200264f4f7e5ac4f1d73a25b877ea81709ae3481a196ff10f60e093b1"
+        },
+        {
+          "week": 19,
+          "cash": 22392498.96238225,
+          "projectStatus": "produced",
+          "announcedWeek": 8,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "062e4fdac628a6dccca30bc8576165674dcde83ad08e1c1540c609b8acdc10b8"
+        },
+        {
+          "week": 20,
+          "cash": 22729780.80901089,
+          "projectStatus": "produced",
+          "announcedWeek": 8,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "1bef818995d5b1d4f90a1c6ce4e695dc76405dcfaa8db9c4ea14ee10d2d112a7"
+        },
+        {
+          "week": 21,
+          "cash": 22917631.588693,
+          "projectStatus": "produced",
+          "announcedWeek": 8,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "b70906e85a6ea2e8ffbb9444f9d08ace9490a4a2e6eefc0110fc2125ca18ba80"
+        },
+        {
+          "week": 22,
+          "cash": 23105482.36837511,
+          "projectStatus": "produced",
+          "announcedWeek": 8,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "285f8b34ad12fa4640975125d0947b695489f9d7609cfdd1f5a968f42dc2d54f"
+        },
+        {
+          "week": 23,
+          "cash": 23000521.36837511,
+          "projectStatus": "produced",
+          "announcedWeek": 8,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "94f467a5cc6a42792a22b90ba65a37afdf4d195a9faa40284c8566c0495bc2d9"
+        },
+        {
+          "week": 24,
+          "cash": 22895560.36837511,
+          "projectStatus": "produced",
+          "announcedWeek": 8,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "4c62b1cd886b449743c97746e39bc5534d5b431c3d7def990b2edd4215ca56d3"
+        },
+        {
+          "week": 25,
+          "cash": 22790599.36837511,
+          "projectStatus": "produced",
+          "announcedWeek": 8,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "1b114c0e105f0daf844a48577410de37252e37269d062168b23b4dcd92b422e1"
+        },
+        {
+          "week": 26,
+          "cash": 24725306.7538187,
+          "projectStatus": "produced",
+          "announcedWeek": 8,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "5680772a5ee2ce7cae8804cef5d81101b1c7a51f3bd690224d216abbeed57e4e"
+        }
+      ],
+      "finalStrictSave": {
+        "passed": true,
+        "sha256": "51e948a28b7a43ce7471b397339ce7f874ad0f4b3ddea762c008a562f37abad6"
+      },
+      "playerRngUnchanged": true,
+      "release": {
+        "filmId": "studio-8f7f1842-r01:film:0",
+        "conceptId": "studio-8f7f1842-r01:concept:0",
+        "title": "The Endless Wilderness",
+        "announcementWeek": 8,
+        "releaseWeek": 16,
+        "resultSha256": "a185ddda87095ea9f2716d177e8afb318fda2889830c8302b39764ebab00066b",
+        "filmSha256": "b6b5a4869202fe8334866472efdc139f51f97a32c565615efc1a2e90be415c8c",
+        "directCommitment": 3311408,
+        "costs": {
+          "scriptProjectId": "script-0000",
+          "conceptId": "studio-8f7f1842-r01:concept:0",
+          "conceptOrdinal": 0,
+          "productionId": "studio-8f7f1842-r01:film:0",
+          "development": 0,
+          "production": 2415000,
+          "marketing": 896408,
+          "announcedWeek": 8
+        },
+        "credits": [
+          {
+            "talentId": "person-studio-8f7f1842-r01-0",
+            "name": "Iris Bell",
+            "role": "writer"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-1",
+            "name": "Arthur Vale",
+            "role": "director"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-3",
+            "name": "Walter Reed",
+            "role": "lead"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-2",
+            "name": "Mabel Finch",
+            "role": "antagonist"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-4",
+            "name": "Clara Moss",
+            "role": "support"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-5",
+            "name": "Edwin Pike",
+            "role": "craft"
+          }
+        ],
+        "careerEventCount": 6,
+        "criticScore": 55.78556636938961,
+        "boxOffice": {
+          "opening": 4780183.611816957,
+          "total": 12108066.093029056
+        }
+      },
+      "replacementDirectors": [],
+      "originalDirectorId": "person-studio-8f7f1842-r01-1",
+      "joins": {
+        "announcement": true,
+        "release": true,
+        "costs": true,
+        "credits": true,
+        "employers": true,
+        "careers": true,
+        "signing": true
+      },
+      "finalStateSha256": "5680772a5ee2ce7cae8804cef5d81101b1c7a51f3bd690224d216abbeed57e4e",
+      "exactRepeat": true,
+      "changedFromControl": {
+        "releaseDate": true,
+        "result": true
+      }
+    },
+    {
+      "kind": "talent",
+      "preFixtureWeek": 3,
+      "preFixtureSha256": "d904093627f98f27b7f06c7ee74d6a742ee885d8cd6eb266431ae8d3b967de4b",
+      "restoreWeek": 8,
+      "fixtureEdits": [
+        {
+          "atWeek": 3,
+          "kind": "required-director-withdrawal",
+          "talentId": "person-studio-8f7f1842-r01-1",
+          "employmentOrdinal": 1,
+          "fields": [
+            "original contract endWeekExclusive/termWeeks shortened to 3 in fixture",
+            "normal finishHollywoodWeek expiry producer",
+            "talent availability list removal"
+          ],
+          "note": "Synthetic expiry/absence counterfactual only; not an ordinary campaign action, not a new supported contract term. Production staff must pay and credit an actually available replacement. Original person returns to free-agent pool at week 8, without a free rehiring or forced substitution."
+        },
+        {
+          "atWeek": 8,
+          "kind": "restore-person-to-free-agent-pool",
+          "talentId": "person-studio-8f7f1842-r01-1",
+          "forcedEmployment": false
+        }
+      ],
+      "heldStateRejected": {
+        "rejected": true,
+        "error": "Hollywood save: authored credit differs from canonical starting manifest"
+      },
+      "trace": [
+        {
+          "week": 3,
+          "cash": 25247282,
+          "projectStatus": "ready",
+          "announcedWeek": null,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": null,
+          "stateSha256": "5a4acc3c70978f98e9db24eff397abed5b230a7b38e15489f3db917333203b50"
+        },
+        {
+          "week": 4,
+          "cash": 21683170,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 8,
+          "phase": "development",
+          "blocker": null,
+          "director": "t-dir-00",
+          "releaseWeek": null,
+          "stateSha256": "5b0cb34e446bbe63f2fa06394dd2a838a2669d4c218b5aa9a276a447e2d5324d"
+        },
+        {
+          "week": 5,
+          "cash": 21581421,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 7,
+          "phase": "preProduction",
+          "blocker": null,
+          "director": "t-dir-00",
+          "releaseWeek": null,
+          "stateSha256": "0cc0faee2f842411c11aecaa58461fd93afaafee3fc103924727ce5a1db15f8d"
+        },
+        {
+          "week": 6,
+          "cash": 21479672,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 6,
+          "phase": "rehearsal",
+          "blocker": null,
+          "director": "t-dir-00",
+          "releaseWeek": null,
+          "stateSha256": "be205c5474eb637225de427cf707428f98d46c81afa9564b689eb9aaa9adb5f9"
+        },
+        {
+          "week": 7,
+          "cash": 21377923,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 5,
+          "phase": "shooting",
+          "blocker": null,
+          "director": "t-dir-00",
+          "releaseWeek": null,
+          "stateSha256": "d095b0555b4cf2f1b54353e521ac7c6f73982fd5cfa75f112a0b631a97c6159e"
+        },
+        {
+          "week": 8,
+          "cash": 21276174,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 4,
+          "phase": "shooting",
+          "blocker": null,
+          "director": "t-dir-00",
+          "releaseWeek": null,
+          "stateSha256": "ed18c9392e51d1f0b0e37e9d2cd7c5bc30a3609f2649713b4d467e315849a051"
+        },
+        {
+          "week": 9,
+          "cash": 21174425,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 3,
+          "phase": "postProduction",
+          "blocker": null,
+          "director": "t-dir-00",
+          "releaseWeek": null,
+          "stateSha256": "9e6ff592fa4e6a71666a742f9d1cb1297d5b161d839de46c8e82bfc916b850b6"
+        },
+        {
+          "week": 10,
+          "cash": 21072676,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 2,
+          "phase": "postProduction",
+          "blocker": null,
+          "director": "t-dir-00",
+          "releaseWeek": null,
+          "stateSha256": "b3b2e096dad7363b1b81ce0d45929cb1e2d5e84f510bf3025694e69dee6043d3"
+        },
+        {
+          "week": 11,
+          "cash": 20970927,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 1,
+          "phase": "releaseReady",
+          "blocker": null,
+          "director": "t-dir-00",
+          "releaseWeek": null,
+          "stateSha256": "a9e7c10b5d6ff8fd05158b9e081cc22a4d28a16090cbcc38179bec4bab154323"
+        },
+        {
+          "week": 12,
+          "cash": 23410888.496998694,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "a1b7c3a5d92d9c8e9ad5c66cefe404d07b80f4630fd1d52c5aa0a09af72e3532"
+        },
+        {
+          "week": 13,
+          "cash": 19173533.386336677,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "e2afb35cc6ebbd46f1a9979681fe45ac97c1f9296badc430a4cf98005eea0bb5"
+        },
+        {
+          "week": 14,
+          "cash": 19981182.827149607,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "01ff15d2e50707e93c798118d58434590624282e23c0ae402337a85a8d132934"
+        },
+        {
+          "week": 15,
+          "cash": 20318944.20036957,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "baa4ac3bab372f6c435fefe15da2d3f5671224b219e4be903310fd93f69be6ed"
+        },
+        {
+          "week": 16,
+          "cash": 20512404.508691397,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "a8cf9e5e7150bcf4db98bbe04856de4b8dcf4eea292d3e50c645f1fcbb86d3f1"
+        },
+        {
+          "week": 17,
+          "cash": 20705864.817013223,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "9f25abac4cfb98b43e8e15dd2fcbd0028ddedcde0add0d5f4796a6e2c671e9da"
+        },
+        {
+          "week": 18,
+          "cash": 20604115.817013223,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "2259b8900e3a0fb84b4c917ca96f1c39bdbfd58dca54e1f6bc12734af14d6742"
+        },
+        {
+          "week": 19,
+          "cash": 20502366.817013223,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "47f5bca5b877a8daa27b98090fc6070e016def3eac7e53ccff2866d0ab118ee4"
+        },
+        {
+          "week": 20,
+          "cash": 20400617.817013223,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "a671464ce78418807be4c53a489f9db5ff376ad2bd547918e43751468f6d2718"
+        },
+        {
+          "week": 21,
+          "cash": 23203612.14531798,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "60963792ea03ea29c55f175c53b754552b87b227af97c22ce24aacd1337c47bd"
+        },
+        {
+          "week": 22,
+          "cash": 21671176.89655327,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "8ef07b0d9c7d96aa8390b8ad71e925c87d5c905f6d247a7e69b5869e56306b63"
+        },
+        {
+          "week": 23,
+          "cash": 22701187.68047106,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "1e7496bef611cd40afc25510c985c296716feefaabf5b4b88f6d79e6de576053"
+        },
+        {
+          "week": 24,
+          "cash": 23157932.70190216,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "1b7c1ffe2f5e113207673cfe34eaf8b056223580aefdb9002564346a1f48b959"
+        },
+        {
+          "week": 25,
+          "cash": 23411911.11853039,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "ee793709ab550270ae9b45dd03cf29296251e17e2b240218104e025f19695840"
+        },
+        {
+          "week": 26,
+          "cash": 23665889.53515862,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 11,
+          "stateSha256": "3a999ee1cfcb8a12ba7fdbfbdc5b383195a4b0c212db26709385e2dc6b72f252"
+        }
+      ],
+      "finalStrictSave": {
+        "passed": true,
+        "sha256": "9b17848432d942e0561551e5bb468c60cd37cef8ec612e09295e8af2b98e3044"
+      },
+      "playerRngUnchanged": true,
+      "release": {
+        "filmId": "studio-8f7f1842-r01:film:0",
+        "conceptId": "studio-8f7f1842-r01:concept:0",
+        "title": "The Endless Wilderness",
+        "announcementWeek": 3,
+        "releaseWeek": 11,
+        "resultSha256": "df15b6f0d503e5740a18c54999993f3f50ef614faa5636f36ae0b912bc1bc8cd",
+        "filmSha256": "edb25b1a6707fecd767d86922a4f559429598ebf8b0cd1a2d2c51c6915ddb21e",
+        "directCommitment": 3375906,
+        "costs": {
+          "scriptProjectId": "script-0000",
+          "conceptId": "studio-8f7f1842-r01:concept:0",
+          "conceptOrdinal": 0,
+          "productionId": "studio-8f7f1842-r01:film:0",
+          "development": 0,
+          "production": 2415000,
+          "marketing": 960906,
+          "announcedWeek": 3
+        },
+        "credits": [
+          {
+            "talentId": "person-studio-8f7f1842-r01-0",
+            "name": "Iris Bell",
+            "role": "writer"
+          },
+          {
+            "talentId": "t-dir-00",
+            "name": "Greta Winters",
+            "role": "director"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-3",
+            "name": "Walter Reed",
+            "role": "lead"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-2",
+            "name": "Mabel Finch",
+            "role": "antagonist"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-4",
+            "name": "Clara Moss",
+            "role": "support"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-5",
+            "name": "Edwin Pike",
+            "role": "craft"
+          }
+        ],
+        "careerEventCount": 6,
+        "criticScore": 56.68761334114303,
+        "boxOffice": {
+          "opening": 4887904.801920563,
+          "total": 12235941.955794666
+        }
+      },
+      "replacementDirectors": [
+        {
+          "talentId": "t-dir-00",
+          "startWeek": 3,
+          "signingBonus": 86457,
+          "contractId": "studio-8f7f1842-r01:contract:t-dir-00:3"
+        }
+      ],
+      "originalDirectorId": "person-studio-8f7f1842-r01-1",
+      "joins": {
+        "announcement": true,
+        "release": true,
+        "costs": true,
+        "credits": true,
+        "employers": true,
+        "careers": true,
+        "signing": true
+      },
+      "finalStateSha256": "3a999ee1cfcb8a12ba7fdbfbdc5b383195a4b0c212db26709385e2dc6b72f252",
+      "exactRepeat": true,
+      "changedFromControl": {
+        "releaseDate": false,
+        "result": true
+      }
+    },
+    {
+      "kind": "capacity",
+      "preFixtureWeek": 5,
+      "preFixtureSha256": "35c2ceae1f73538a2849a0050b3a959a98ddeb63b4a96dc0c7996a78e8df0eae",
+      "restoreWeek": 10,
+      "fixtureEdits": [
+        {
+          "atWeek": 5,
+          "kind": "temporary-unavailable-slot",
+          "facilityId": "studio-8f7f1842-r01:stage",
+          "from": 1,
+          "to": 0,
+          "note": "Synthetic slot withdrawal before rehearsal acquisition. Facility identity, paid acquisition and weekly operating charge remain in place."
+        },
+        {
+          "atWeek": 10,
+          "kind": "restore-original-slot",
+          "capacity": 1
+        }
+      ],
+      "heldStateRejected": {
+        "rejected": true,
+        "error": "hollywood.operations: context.operations.facilities[1].capacity must be a positive integer"
+      },
+      "trace": [
+        {
+          "week": 5,
+          "cash": 21662053,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 7,
+          "phase": "preProduction",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "4f09d4a1ac5007347ff73aade224510b6295ec1392359e774382b944dd902d6a"
+        },
+        {
+          "week": 6,
+          "cash": 21557092,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 7,
+          "phase": "preProduction",
+          "blocker": {
+            "kind": "facility-capacity",
+            "capability": "soundstage",
+            "targetPhase": "rehearsal"
+          },
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "fa1be6eda3b3ed46cfd1af5092a3bf651b335635b60806d1cfc45b65a2997611"
+        },
+        {
+          "week": 7,
+          "cash": 21452131,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 7,
+          "phase": "preProduction",
+          "blocker": {
+            "kind": "facility-capacity",
+            "capability": "soundstage",
+            "targetPhase": "rehearsal"
+          },
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "faf908d71b279a90acd777d9491b2efa71a4d55455efe2312861019aed37a431"
+        },
+        {
+          "week": 8,
+          "cash": 21347170,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 7,
+          "phase": "preProduction",
+          "blocker": {
+            "kind": "facility-capacity",
+            "capability": "soundstage",
+            "targetPhase": "rehearsal"
+          },
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "57bb2991948a591be4208dc647363d34404f9351f6f32f20429bce0d7e8d1e7c"
+        },
+        {
+          "week": 9,
+          "cash": 21242209,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 7,
+          "phase": "preProduction",
+          "blocker": {
+            "kind": "facility-capacity",
+            "capability": "soundstage",
+            "targetPhase": "rehearsal"
+          },
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "9e4529f7ff6882fd3b5fcf2a63c0e130b0730f70f68b25cd9871b1a8700ac453"
+        },
+        {
+          "week": 10,
+          "cash": 21137248,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 7,
+          "phase": "preProduction",
+          "blocker": {
+            "kind": "facility-capacity",
+            "capability": "soundstage",
+            "targetPhase": "rehearsal"
+          },
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "693b2713fce6a2cc1c796be64a4a9eef2bba15c69d506ef0b176e7083974718f"
+        },
+        {
+          "week": 11,
+          "cash": 21032287,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 6,
+          "phase": "rehearsal",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "fc43ff81e73b7245f1cfd28136e174f589dd5ef56916eda9bc7752903ae6fa5d"
+        },
+        {
+          "week": 12,
+          "cash": 20927326,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 5,
+          "phase": "shooting",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "93fd40b52f7b0c6dbb95a7817a4e638f205872bf03ff457576b2852aaf23fa85"
+        },
+        {
+          "week": 13,
+          "cash": 20822365,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 4,
+          "phase": "shooting",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "225299ad86b5a55dbf405b8da46bcd6c5546ac229250e33b2ed3036d8bc27a11"
+        },
+        {
+          "week": 14,
+          "cash": 20717404,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 3,
+          "phase": "postProduction",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "64793ff8f8aa5c57c7c63369bc2c25f3d55e164fdf4d80ad67e01aadb21c60a2"
+        },
+        {
+          "week": 15,
+          "cash": 20612443,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 2,
+          "phase": "postProduction",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "07411444874cfed523f3f0e2ad887ec16e3872e5431ce3c60d3d5e01d1744a27"
+        },
+        {
+          "week": 16,
+          "cash": 20507482,
+          "projectStatus": "inProduction",
+          "announcedWeek": 3,
+          "productionStart": 3,
+          "remaining": 1,
+          "phase": "releaseReady",
+          "blocker": null,
+          "director": "person-studio-8f7f1842-r01-1",
+          "releaseWeek": null,
+          "stateSha256": "4443460b753cfb61be0f89c3f138478078a4c5156636dc8d075a44942abf9240"
+        },
+        {
+          "week": 17,
+          "cash": 22918581.135533825,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "6882e639975e68ec03073dd44a5fcde5a9a4d81c5c2c8d38d7e1a77759175682"
+        },
+        {
+          "week": 18,
+          "cash": 18772288.15267714,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "163065e70657af8d61245385de9e139cfdbea7dc5d7d313f1d24b926ab5884d0"
+        },
+        {
+          "week": 19,
+          "cash": 19588469.588122286,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "34078f60f9f5d75877707b0d0955f68e2444fffacbaa0e16034d2349e48de095"
+        },
+        {
+          "week": 20,
+          "cash": 19931153.766870324,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "72a4ceda50d91e629bf1f1d5902c76af3655c69701cb59760d9876fa666ee4fc"
+        },
+        {
+          "week": 21,
+          "cash": 20122581.464742005,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "411391be3365d4933ed02cc5810b9b47770863910c1c5676a17ac297ec0315ea"
+        },
+        {
+          "week": 22,
+          "cash": 20314009.162613686,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "2f98407d174268685699c6c2d40457138025227c8a9d7691101074ee1a277c2d"
+        },
+        {
+          "week": 23,
+          "cash": 20209048.162613686,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "4ad3fece2e90628cd6bf7f2473d18bf75d0a450b6b3cb035119dd3efc18ef436"
+        },
+        {
+          "week": 24,
+          "cash": 20104087.162613686,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "ceac4d5f7bb5c34ae9c2bc74c53dbe09ec659b3e781763401b7e6534e0ac1eea"
+        },
+        {
+          "week": 25,
+          "cash": 19999126.162613686,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "a0e84c73fb54d0d4e1ff31ed2d58ac6c007c6c3b41b052462bf693383e1e7441"
+        },
+        {
+          "week": 26,
+          "cash": 22770083.502700593,
+          "projectStatus": "produced",
+          "announcedWeek": 3,
+          "productionStart": null,
+          "remaining": null,
+          "phase": null,
+          "blocker": null,
+          "director": null,
+          "releaseWeek": 16,
+          "stateSha256": "3b456f47b6c6fe1c4b5bbee55111acdfbd08a10417c4357af9a9b2628ba58af9"
+        }
+      ],
+      "finalStrictSave": {
+        "passed": true,
+        "sha256": "8e21d1b7bf3b3a0570574640910c47052449b0dce5d4a8366df20c5bd9debf1f"
+      },
+      "playerRngUnchanged": true,
+      "release": {
+        "filmId": "studio-8f7f1842-r01:film:0",
+        "conceptId": "studio-8f7f1842-r01:concept:0",
+        "title": "The Endless Wilderness",
+        "announcementWeek": 3,
+        "releaseWeek": 16,
+        "resultSha256": "58a860d0055d0513d8fd4f4becebed70a998c5a44f82098530f111f29546a2b2",
+        "filmSha256": "1fdc08a4e77bcc63a6fb096f420f33dc5b701afda57a81f98c83c3026ab00926",
+        "directCommitment": 3375307,
+        "costs": {
+          "scriptProjectId": "script-0000",
+          "conceptId": "studio-8f7f1842-r01:concept:0",
+          "conceptOrdinal": 0,
+          "productionId": "studio-8f7f1842-r01:film:0",
+          "development": 0,
+          "production": 2415000,
+          "marketing": 960307,
+          "announcedWeek": 3
+        },
+        "credits": [
+          {
+            "talentId": "person-studio-8f7f1842-r01-0",
+            "name": "Iris Bell",
+            "role": "writer"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-1",
+            "name": "Arthur Vale",
+            "role": "director"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-3",
+            "name": "Walter Reed",
+            "role": "lead"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-2",
+            "name": "Mabel Finch",
+            "role": "antagonist"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-4",
+            "name": "Clara Moss",
+            "role": "support"
+          },
+          {
+            "talentId": "person-studio-8f7f1842-r01-5",
+            "name": "Edwin Pike",
+            "role": "craft"
+          }
+        ],
+        "careerEventCount": 6,
+        "criticScore": 55.78556636938961,
+        "boxOffice": {
+          "opening": 4838577.183718896,
+          "total": 12255975.312718628
+        }
+      },
+      "replacementDirectors": [],
+      "originalDirectorId": "person-studio-8f7f1842-r01-1",
+      "joins": {
+        "announcement": true,
+        "release": true,
+        "costs": true,
+        "credits": true,
+        "employers": true,
+        "careers": true,
+        "signing": true
+      },
+      "finalStateSha256": "3b456f47b6c6fe1c4b5bbee55111acdfbd08a10417c4357af9a9b2628ba58af9",
+      "exactRepeat": true,
+      "changedFromControl": {
+        "releaseDate": true,
+        "result": true
+      }
+    }
+  ],
+  "errors": [],
+  "completed": true,
+  "finishedAt": "2026-09-10T16:38:40.688Z",
+  "sourceBinding": {
+    "head": "6827293985a1375e8cefed745fbc4227a01aeb53",
+    "coreFileCount": 73,
+    "beforeSha256": "7ecc9233290fec7282dcbfa7ef5a77074b420d8091d88d607c90cfeb9aa9bf88",
+    "afterSha256": "7ecc9233290fec7282dcbfa7ef5a77074b420d8091d88d607c90cfeb9aa9bf88",
+    "unchanged": true,
+    "probeSourceSha256": "891cc4ebb469c4f4c4721bf43297d99a4e2c8985439deefaedc17a537d342f7d",
+    "bundleSha256": "c8ceec2592266dfaca9a1b9ca38e1aae5b74c343b2f3993b64c8c54de55ba836"
+  }
+}

@@ -1,0 +1,1099 @@
+{
+  "purpose": "Independent CURRENT pure-core continuation from authorized all-nine week2548 checkpoint through6240 additional ordinary ticks; not bridge/native acceptance",
+  "start": "2026-09-10T16:32:59.686Z",
+  "commit": "6827293985a1375e8cefed745fbc4227a01aeb53",
+  "driver": "importSave(existing V19).state; tick(state,{develop:true}); no player actions",
+  "applicability": "Old fresh-world0\u21922548 trace remains separate. This run certifies current-source2548\u21928788 continuation, existing saved-world import, exact prior final comparison, and reload/next-tick equivalence only.",
+  "runtime": "v26.3.1",
+  "execArgv": [],
+  "hardware": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64",
+    "cpu": "Apple M3 Max",
+    "logicalCpus": 16,
+    "totalMemoryBytes": 137438953472,
+    "heapSizeLimit": 4395630592,
+    "model": "Mac15,9"
+  },
+  "validations": [
+    {
+      "week": 2548,
+      "ms": 55.396084
+    },
+    {
+      "week": 2600,
+      "ms": 66.14020799999992
+    },
+    {
+      "week": 2652,
+      "ms": 68.47987499999999
+    },
+    {
+      "week": 2704,
+      "ms": 65.08570800000007
+    },
+    {
+      "week": 2756,
+      "ms": 72.01025000000004
+    },
+    {
+      "week": 2808,
+      "ms": 66.674084
+    },
+    {
+      "week": 2860,
+      "ms": 66.02779199999986
+    },
+    {
+      "week": 2912,
+      "ms": 73.89100000000008
+    },
+    {
+      "week": 2964,
+      "ms": 78.6787919999997
+    },
+    {
+      "week": 3016,
+      "ms": 71.92508300000009
+    },
+    {
+      "week": 3068,
+      "ms": 78.06062500000007
+    },
+    {
+      "week": 3120,
+      "ms": 79.69608300000027
+    },
+    {
+      "week": 3172,
+      "ms": 77.43687499999987
+    },
+    {
+      "week": 3224,
+      "ms": 83.65870799999993
+    },
+    {
+      "week": 3276,
+      "ms": 82.4285420000001
+    },
+    {
+      "week": 3328,
+      "ms": 79.9859590000001
+    },
+    {
+      "week": 3380,
+      "ms": 83.04300000000012
+    },
+    {
+      "week": 3432,
+      "ms": 83.57783300000028
+    },
+    {
+      "week": 3484,
+      "ms": 83.09191699999974
+    },
+    {
+      "week": 3536,
+      "ms": 82.8954160000003
+    },
+    {
+      "week": 3588,
+      "ms": 82.6899999999996
+    },
+    {
+      "week": 3640,
+      "ms": 86.13641699999971
+    },
+    {
+      "week": 3692,
+      "ms": 93.24974999999995
+    },
+    {
+      "week": 3744,
+      "ms": 86.69337499999983
+    },
+    {
+      "week": 3796,
+      "ms": 88.01925000000028
+    },
+    {
+      "week": 3848,
+      "ms": 101.46829200000047
+    },
+    {
+      "week": 3900,
+      "ms": 95.4535420000002
+    },
+    {
+      "week": 3952,
+      "ms": 95.0322500000002
+    },
+    {
+      "week": 4004,
+      "ms": 94.79258299999947
+    },
+    {
+      "week": 4056,
+      "ms": 100.7165840000007
+    },
+    {
+      "week": 4108,
+      "ms": 100.69958299999962
+    },
+    {
+      "week": 4160,
+      "ms": 100.80970900000011
+    },
+    {
+      "week": 4212,
+      "ms": 98.11283300000014
+    },
+    {
+      "week": 4264,
+      "ms": 102.56412499999988
+    },
+    {
+      "week": 4316,
+      "ms": 104.97724999999991
+    },
+    {
+      "week": 4368,
+      "ms": 105.2519170000005
+    },
+    {
+      "week": 4420,
+      "ms": 108.656833
+    },
+    {
+      "week": 4472,
+      "ms": 113.22299999999996
+    },
+    {
+      "week": 4524,
+      "ms": 122.08379200000036
+    },
+    {
+      "week": 4576,
+      "ms": 120.04312500000015
+    },
+    {
+      "week": 4628,
+      "ms": 120.61212500000056
+    },
+    {
+      "week": 4680,
+      "ms": 118.50087500000063
+    },
+    {
+      "week": 4732,
+      "ms": 120.14700000000084
+    },
+    {
+      "week": 4784,
+      "ms": 124.07108400000106
+    },
+    {
+      "week": 4836,
+      "ms": 134.1072920000006
+    },
+    {
+      "week": 4888,
+      "ms": 120.84562499999993
+    },
+    {
+      "week": 4940,
+      "ms": 116.64808300000004
+    },
+    {
+      "week": 4992,
+      "ms": 118.21966599999905
+    },
+    {
+      "week": 5044,
+      "ms": 123.22258399999919
+    },
+    {
+      "week": 5096,
+      "ms": 123.0927499999998
+    },
+    {
+      "week": 5148,
+      "ms": 127.46220800000083
+    },
+    {
+      "week": 5200,
+      "ms": 122.67316699999901
+    },
+    {
+      "week": 5252,
+      "ms": 131.02008299999943
+    },
+    {
+      "week": 5304,
+      "ms": 128.70266699999956
+    },
+    {
+      "week": 5356,
+      "ms": 130.97595900000124
+    },
+    {
+      "week": 5408,
+      "ms": 129.2500830000008
+    },
+    {
+      "week": 5460,
+      "ms": 142.57954099999915
+    },
+    {
+      "week": 5512,
+      "ms": 137.51779200000055
+    },
+    {
+      "week": 5564,
+      "ms": 137.40608299999985
+    },
+    {
+      "week": 5616,
+      "ms": 133.02200000000084
+    },
+    {
+      "week": 5668,
+      "ms": 138.833333999999
+    },
+    {
+      "week": 5720,
+      "ms": 139.56062500000007
+    },
+    {
+      "week": 5772,
+      "ms": 142.08058300000084
+    },
+    {
+      "week": 5824,
+      "ms": 143.1274169999997
+    },
+    {
+      "week": 5876,
+      "ms": 155.23025000000052
+    },
+    {
+      "week": 5928,
+      "ms": 151.52679200000057
+    },
+    {
+      "week": 5980,
+      "ms": 154.96899999999914
+    },
+    {
+      "week": 6032,
+      "ms": 148.35850000000028
+    },
+    {
+      "week": 6084,
+      "ms": 145.29454199999964
+    },
+    {
+      "week": 6136,
+      "ms": 146.9026249999988
+    },
+    {
+      "week": 6188,
+      "ms": 152.61191699999836
+    },
+    {
+      "week": 6240,
+      "ms": 152.70899999999892
+    },
+    {
+      "week": 6292,
+      "ms": 171.17070799999965
+    },
+    {
+      "week": 6344,
+      "ms": 161.53725000000122
+    },
+    {
+      "week": 6396,
+      "ms": 160.8371249999982
+    },
+    {
+      "week": 6448,
+      "ms": 157.45358299999862
+    },
+    {
+      "week": 6500,
+      "ms": 159.3067919999994
+    },
+    {
+      "week": 6552,
+      "ms": 157.0746250000011
+    },
+    {
+      "week": 6604,
+      "ms": 161.53841699999975
+    },
+    {
+      "week": 6656,
+      "ms": 164.7373750000006
+    },
+    {
+      "week": 6708,
+      "ms": 170.70645800000057
+    },
+    {
+      "week": 6760,
+      "ms": 166.51458400000047
+    },
+    {
+      "week": 6812,
+      "ms": 165.15449999999691
+    },
+    {
+      "week": 6864,
+      "ms": 166.10545899999852
+    },
+    {
+      "week": 6916,
+      "ms": 172.47362499999872
+    },
+    {
+      "week": 6968,
+      "ms": 172.54595899999913
+    },
+    {
+      "week": 7020,
+      "ms": 182.92154200000004
+    },
+    {
+      "week": 7072,
+      "ms": 186.29308300000048
+    },
+    {
+      "week": 7124,
+      "ms": 189.85629100000006
+    },
+    {
+      "week": 7176,
+      "ms": 191.1474159999998
+    },
+    {
+      "week": 7228,
+      "ms": 185.54254100000253
+    },
+    {
+      "week": 7280,
+      "ms": 186.6187080000018
+    },
+    {
+      "week": 7332,
+      "ms": 202.59658299999865
+    },
+    {
+      "week": 7384,
+      "ms": 206.8128340000003
+    },
+    {
+      "week": 7436,
+      "ms": 199.6472909999975
+    },
+    {
+      "week": 7488,
+      "ms": 197.7318750000013
+    },
+    {
+      "week": 7540,
+      "ms": 202.35654200000135
+    },
+    {
+      "week": 7592,
+      "ms": 200.67733299999963
+    },
+    {
+      "week": 7644,
+      "ms": 204.07420799999818
+    },
+    {
+      "week": 7696,
+      "ms": 203.17425000000003
+    },
+    {
+      "week": 7748,
+      "ms": 204.54983300000094
+    },
+    {
+      "week": 7800,
+      "ms": 203.17112499999712
+    },
+    {
+      "week": 7852,
+      "ms": 212.24783300000126
+    },
+    {
+      "week": 7904,
+      "ms": 197.46862500000134
+    },
+    {
+      "week": 7956,
+      "ms": 207.79558299999917
+    },
+    {
+      "week": 8008,
+      "ms": 207.5932090000024
+    },
+    {
+      "week": 8060,
+      "ms": 215.4072500000002
+    },
+    {
+      "week": 8112,
+      "ms": 214.28545900000245
+    },
+    {
+      "week": 8164,
+      "ms": 220.18974999999773
+    },
+    {
+      "week": 8216,
+      "ms": 213.2711249999993
+    },
+    {
+      "week": 8268,
+      "ms": 219.33995899999718
+    },
+    {
+      "week": 8320,
+      "ms": 214.15916600000128
+    },
+    {
+      "week": 8372,
+      "ms": 213.25254100000166
+    },
+    {
+      "week": 8424,
+      "ms": 217.47012499999983
+    },
+    {
+      "week": 8476,
+      "ms": 210.99354200000016
+    },
+    {
+      "week": 8528,
+      "ms": 215.45416699999987
+    },
+    {
+      "week": 8580,
+      "ms": 218.1138749999991
+    },
+    {
+      "week": 8632,
+      "ms": 215.5226249999978
+    },
+    {
+      "week": 8684,
+      "ms": 228.03075000000172
+    },
+    {
+      "week": 8736,
+      "ms": 229.11220900000262
+    },
+    {
+      "week": 8788,
+      "ms": 234.36049999999886
+    }
+  ],
+  "checkpoints": [
+    {
+      "name": "current-source input reload proof",
+      "week": 2548,
+      "studios": 9,
+      "people": 84,
+      "films": 800,
+      "liveFilms": 792,
+      "authoredFilms": 8,
+      "careerEvents": 4752,
+      "employmentIntervals": 306,
+      "currentEmployment": 30,
+      "receipts": 2718,
+      "concepts": 808,
+      "playerRngUnchanged": true,
+      "rngState": "219853229,3878288057,3773428936,3488871996",
+      "seed": "r05-living-hollywood",
+      "worldId": "world-e26cea4b",
+      "byBusiness": [
+        {
+          "studioId": "studio-e26cea4b-r01",
+          "name": "Bellwether Pictures",
+          "films": 24,
+          "cash": -76566743.56876549,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r02",
+          "name": "Rose Lantern Films",
+          "films": 282,
+          "cash": 3164043465.965055,
+          "finiteCash": true,
+          "activeEmployment": 6
+        },
+        {
+          "studioId": "studio-e26cea4b-r03",
+          "name": "Night Orchard Productions",
+          "films": 21,
+          "cash": -87101842.55988792,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r04",
+          "name": "Silver Current Pictures",
+          "films": 20,
+          "cash": -82402060.34086873,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r05",
+          "name": "Marigold Motion Pictures",
+          "films": 224,
+          "cash": 2863365027.0395412,
+          "finiteCash": true,
+          "activeEmployment": 6
+        },
+        {
+          "studioId": "studio-e26cea4b-r06",
+          "name": "Blackthorn Screenworks",
+          "films": 172,
+          "cash": 1890435930.7494078,
+          "finiteCash": true,
+          "activeEmployment": 6
+        },
+        {
+          "studioId": "studio-e26cea4b-r07",
+          "name": "Trailhead Pictures",
+          "films": 31,
+          "cash": -5762327.761112362,
+          "finiteCash": true,
+          "activeEmployment": 6
+        },
+        {
+          "studioId": "studio-e26cea4b-r08",
+          "name": "Copper Kite Films",
+          "films": 18,
+          "cash": -13674019.238331731,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r09",
+          "name": "Bright Meridian Studios",
+          "films": 0,
+          "cash": 31600610,
+          "finiteCash": true,
+          "activeEmployment": 6
+        }
+      ],
+      "saveBytes": 10667175,
+      "saveSha256": "742a9b980b5ea43c7c72c53f8493302846c86929b1dbb9e5e8db93be448e040c",
+      "exportMs": 98.94345800000002,
+      "roundTripAndNextTickMs": 406.529208,
+      "exactRoundTrip": true,
+      "exactNextTick": true,
+      "nextTickSha256": "f373a41e7369963517af1d0caba1f2847264ee2fadbe7c995e1509b40cbe9677",
+      "memoryBefore": {
+        "rss": 286556160,
+        "heapTotal": 151650304,
+        "heapUsed": 87527184,
+        "external": 12908394,
+        "arrayBuffers": 78259
+      },
+      "memoryAfter": {
+        "rss": 500219904,
+        "heapTotal": 242417664,
+        "heapUsed": 154745752,
+        "external": 12908434,
+        "arrayBuffers": 78259
+      }
+    },
+    {
+      "name": "midpoint reload proof",
+      "week": 5668,
+      "studios": 9,
+      "people": 84,
+      "films": 1859,
+      "liveFilms": 1851,
+      "authoredFilms": 8,
+      "careerEvents": 11106,
+      "employmentIntervals": 606,
+      "currentEmployment": 18,
+      "receipts": 6206,
+      "concepts": 1869,
+      "playerRngUnchanged": true,
+      "rngState": "219853229,3878288057,3773428936,3488871996",
+      "seed": "r05-living-hollywood",
+      "worldId": "world-e26cea4b",
+      "byBusiness": [
+        {
+          "studioId": "studio-e26cea4b-r01",
+          "name": "Bellwether Pictures",
+          "films": 24,
+          "cash": -196686743.5687655,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r02",
+          "name": "Rose Lantern Films",
+          "films": 629,
+          "cash": 7468523480.015413,
+          "finiteCash": true,
+          "activeEmployment": 6
+        },
+        {
+          "studioId": "studio-e26cea4b-r03",
+          "name": "Night Orchard Productions",
+          "films": 21,
+          "cash": -207221842.55988792,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r04",
+          "name": "Silver Current Pictures",
+          "films": 20,
+          "cash": -202522060.3408687,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r05",
+          "name": "Marigold Motion Pictures",
+          "films": 571,
+          "cash": 8077244112.750119,
+          "finiteCash": true,
+          "activeEmployment": 6
+        },
+        {
+          "studioId": "studio-e26cea4b-r06",
+          "name": "Blackthorn Screenworks",
+          "films": 519,
+          "cash": 6702609545.829579,
+          "finiteCash": true,
+          "activeEmployment": 6
+        },
+        {
+          "studioId": "studio-e26cea4b-r07",
+          "name": "Trailhead Pictures",
+          "films": 31,
+          "cash": -126247131.76111236,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r08",
+          "name": "Copper Kite Films",
+          "films": 18,
+          "cash": -133794019.23833174,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r09",
+          "name": "Bright Meridian Studios",
+          "films": 18,
+          "cash": -104346351.45711067,
+          "finiteCash": true,
+          "activeEmployment": 0
+        }
+      ],
+      "saveBytes": 24528994,
+      "saveSha256": "a3ec407e0ca6ad3cfd2e37439328f751304cd5df786250216231b01dbdddb3d6",
+      "exportMs": 292.6299590000017,
+      "roundTripAndNextTickMs": 906.0517080000009,
+      "exactRoundTrip": true,
+      "exactNextTick": true,
+      "nextTickSha256": "a91aafc7d54d24387da27fec8d37147675f14e543f8586012f361597935d3f9c",
+      "memoryBefore": {
+        "rss": 682573824,
+        "heapTotal": 359481344,
+        "heapUsed": 297897416,
+        "external": 12902144,
+        "arrayBuffers": 78259
+      },
+      "memoryAfter": {
+        "rss": 973406208,
+        "heapTotal": 593969152,
+        "heapUsed": 509027504,
+        "external": 12902144,
+        "arrayBuffers": 78259
+      }
+    },
+    {
+      "name": "final current-source reload proof",
+      "week": 8788,
+      "studios": 9,
+      "people": 84,
+      "films": 2900,
+      "liveFilms": 2892,
+      "authoredFilms": 8,
+      "careerEvents": 17352,
+      "employmentIntervals": 894,
+      "currentEmployment": 18,
+      "receipts": 9614,
+      "concepts": 2909,
+      "playerRngUnchanged": true,
+      "rngState": "219853229,3878288057,3773428936,3488871996",
+      "seed": "r05-living-hollywood",
+      "worldId": "world-e26cea4b",
+      "byBusiness": [
+        {
+          "studioId": "studio-e26cea4b-r01",
+          "name": "Bellwether Pictures",
+          "films": 24,
+          "cash": -316806743.5687655,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r02",
+          "name": "Rose Lantern Films",
+          "films": 976,
+          "cash": 11747013200.474777,
+          "finiteCash": true,
+          "activeEmployment": 6
+        },
+        {
+          "studioId": "studio-e26cea4b-r03",
+          "name": "Night Orchard Productions",
+          "films": 21,
+          "cash": -327341842.5598879,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r04",
+          "name": "Silver Current Pictures",
+          "films": 20,
+          "cash": -322642060.3408687,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r05",
+          "name": "Marigold Motion Pictures",
+          "films": 918,
+          "cash": 13367453195.15079,
+          "finiteCash": true,
+          "activeEmployment": 6
+        },
+        {
+          "studioId": "studio-e26cea4b-r06",
+          "name": "Blackthorn Screenworks",
+          "films": 866,
+          "cash": 11670867061.566349,
+          "finiteCash": true,
+          "activeEmployment": 6
+        },
+        {
+          "studioId": "studio-e26cea4b-r07",
+          "name": "Trailhead Pictures",
+          "films": 31,
+          "cash": -246367131.76111236,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r08",
+          "name": "Copper Kite Films",
+          "films": 18,
+          "cash": -253914019.23833174,
+          "finiteCash": true,
+          "activeEmployment": 0
+        },
+        {
+          "studioId": "studio-e26cea4b-r09",
+          "name": "Bright Meridian Studios",
+          "films": 18,
+          "cash": -224466351.45711067,
+          "finiteCash": true,
+          "activeEmployment": 0
+        }
+      ],
+      "saveBytes": 38135529,
+      "saveSha256": "cd0e3836332c4b4ffd87e637381c2d5e2d1e4c9db976c4df47b8683550de56d9",
+      "exportMs": 425.0327499999985,
+      "roundTripAndNextTickMs": 1476.0953329999975,
+      "exactRoundTrip": true,
+      "exactNextTick": true,
+      "nextTickSha256": "be3d2d3937ce8d5fe551393bf2ca54e7c982e464bc1b4eb78119f94eb17aeafe",
+      "memoryBefore": {
+        "rss": 539394048,
+        "heapTotal": 234864640,
+        "heapUsed": 134924632,
+        "external": 13033216,
+        "arrayBuffers": 209331
+      },
+      "memoryAfter": {
+        "rss": 1173848064,
+        "heapTotal": 634535936,
+        "heapUsed": 483800112,
+        "external": 12967680,
+        "arrayBuffers": 143795
+      }
+    }
+  ],
+  "checks": [],
+  "errors": [],
+  "ticks": {
+    "count": 6240,
+    "totalMs": 10698.965605000109,
+    "maxMs": 20.519999999999982,
+    "over2ms": 1390,
+    "over10ms": 34,
+    "distribution": {
+      "n": 6240,
+      "medianMs": 0.45112500000141154,
+      "p95Ms": 7.79333299999962,
+      "maxMs": 20.519999999999982
+    }
+  },
+  "completed": true,
+  "input": {
+    "path": "/tmp/p12a-engineering-8788-P6KEMm/week-2548.save.json",
+    "sha256": "742a9b980b5ea43c7c72c53f8493302846c86929b1dbb9e5e8db93be448e040c",
+    "bytes": 10667175,
+    "strictImportAndCanonicalRoundTripMs": 182.50720800000002,
+    "week": 2548,
+    "studios": 9,
+    "people": 84,
+    "films": 800,
+    "liveFilms": 792,
+    "authoredFilms": 8,
+    "careerEvents": 4752,
+    "employmentIntervals": 306,
+    "currentEmployment": 30,
+    "receipts": 2718,
+    "concepts": 808,
+    "playerRngUnchanged": true,
+    "rngState": "219853229,3878288057,3773428936,3488871996",
+    "seed": "r05-living-hollywood",
+    "worldId": "world-e26cea4b",
+    "byBusiness": [
+      {
+        "studioId": "studio-e26cea4b-r01",
+        "name": "Bellwether Pictures",
+        "films": 24,
+        "cash": -76566743.56876549,
+        "finiteCash": true,
+        "activeEmployment": 0
+      },
+      {
+        "studioId": "studio-e26cea4b-r02",
+        "name": "Rose Lantern Films",
+        "films": 282,
+        "cash": 3164043465.965055,
+        "finiteCash": true,
+        "activeEmployment": 6
+      },
+      {
+        "studioId": "studio-e26cea4b-r03",
+        "name": "Night Orchard Productions",
+        "films": 21,
+        "cash": -87101842.55988792,
+        "finiteCash": true,
+        "activeEmployment": 0
+      },
+      {
+        "studioId": "studio-e26cea4b-r04",
+        "name": "Silver Current Pictures",
+        "films": 20,
+        "cash": -82402060.34086873,
+        "finiteCash": true,
+        "activeEmployment": 0
+      },
+      {
+        "studioId": "studio-e26cea4b-r05",
+        "name": "Marigold Motion Pictures",
+        "films": 224,
+        "cash": 2863365027.0395412,
+        "finiteCash": true,
+        "activeEmployment": 6
+      },
+      {
+        "studioId": "studio-e26cea4b-r06",
+        "name": "Blackthorn Screenworks",
+        "films": 172,
+        "cash": 1890435930.7494078,
+        "finiteCash": true,
+        "activeEmployment": 6
+      },
+      {
+        "studioId": "studio-e26cea4b-r07",
+        "name": "Trailhead Pictures",
+        "films": 31,
+        "cash": -5762327.761112362,
+        "finiteCash": true,
+        "activeEmployment": 6
+      },
+      {
+        "studioId": "studio-e26cea4b-r08",
+        "name": "Copper Kite Films",
+        "films": 18,
+        "cash": -13674019.238331731,
+        "finiteCash": true,
+        "activeEmployment": 0
+      },
+      {
+        "studioId": "studio-e26cea4b-r09",
+        "name": "Bright Meridian Studios",
+        "films": 0,
+        "cash": 31600610,
+        "finiteCash": true,
+        "activeEmployment": 6
+      }
+    ]
+  },
+  "reference": {
+    "path": "/tmp/p12a-engineering-8788-P6KEMm/week-8788.save.json",
+    "sha256": "cd0e3836332c4b4ffd87e637381c2d5e2d1e4c9db976c4df47b8683550de56d9",
+    "bytes": 38135529
+  },
+  "exactPriorFinal": true,
+  "final": {
+    "week": 8788,
+    "studios": 9,
+    "people": 84,
+    "films": 2900,
+    "liveFilms": 2892,
+    "authoredFilms": 8,
+    "careerEvents": 17352,
+    "employmentIntervals": 894,
+    "currentEmployment": 18,
+    "receipts": 9614,
+    "concepts": 2909,
+    "playerRngUnchanged": true,
+    "rngState": "219853229,3878288057,3773428936,3488871996",
+    "seed": "r05-living-hollywood",
+    "worldId": "world-e26cea4b",
+    "byBusiness": [
+      {
+        "studioId": "studio-e26cea4b-r01",
+        "name": "Bellwether Pictures",
+        "films": 24,
+        "cash": -316806743.5687655,
+        "finiteCash": true,
+        "activeEmployment": 0
+      },
+      {
+        "studioId": "studio-e26cea4b-r02",
+        "name": "Rose Lantern Films",
+        "films": 976,
+        "cash": 11747013200.474777,
+        "finiteCash": true,
+        "activeEmployment": 6
+      },
+      {
+        "studioId": "studio-e26cea4b-r03",
+        "name": "Night Orchard Productions",
+        "films": 21,
+        "cash": -327341842.5598879,
+        "finiteCash": true,
+        "activeEmployment": 0
+      },
+      {
+        "studioId": "studio-e26cea4b-r04",
+        "name": "Silver Current Pictures",
+        "films": 20,
+        "cash": -322642060.3408687,
+        "finiteCash": true,
+        "activeEmployment": 0
+      },
+      {
+        "studioId": "studio-e26cea4b-r05",
+        "name": "Marigold Motion Pictures",
+        "films": 918,
+        "cash": 13367453195.15079,
+        "finiteCash": true,
+        "activeEmployment": 6
+      },
+      {
+        "studioId": "studio-e26cea4b-r06",
+        "name": "Blackthorn Screenworks",
+        "films": 866,
+        "cash": 11670867061.566349,
+        "finiteCash": true,
+        "activeEmployment": 6
+      },
+      {
+        "studioId": "studio-e26cea4b-r07",
+        "name": "Trailhead Pictures",
+        "films": 31,
+        "cash": -246367131.76111236,
+        "finiteCash": true,
+        "activeEmployment": 0
+      },
+      {
+        "studioId": "studio-e26cea4b-r08",
+        "name": "Copper Kite Films",
+        "films": 18,
+        "cash": -253914019.23833174,
+        "finiteCash": true,
+        "activeEmployment": 0
+      },
+      {
+        "studioId": "studio-e26cea4b-r09",
+        "name": "Bright Meridian Studios",
+        "films": 18,
+        "cash": -224466351.45711067,
+        "finiteCash": true,
+        "activeEmployment": 0
+      }
+    ],
+    "saveBytes": 38135529,
+    "saveSha256": "cd0e3836332c4b4ffd87e637381c2d5e2d1e4c9db976c4df47b8683550de56d9"
+  },
+  "countsMatchPrior": {
+    "week": true,
+    "studios": true,
+    "people": true,
+    "films": true,
+    "liveFilms": true,
+    "careerEvents": true,
+    "employmentIntervals": true,
+    "currentEmployment": true,
+    "receipts": true,
+    "concepts": true
+  },
+  "memoryAtFinish": {
+    "rss": 939737088,
+    "heapTotal": 192102400,
+    "heapUsed": 84976416,
+    "external": 89238738,
+    "arrayBuffers": 143795
+  },
+  "sourceVerification": {
+    "files": 53,
+    "unchanged": true,
+    "changedPaths": [],
+    "binding": {
+      "builtAt": "2026-09-10T16:32:59.616Z",
+      "commit": "6827293985a1375e8cefed745fbc4227a01aeb53",
+      "files": 53,
+      "sourceSha256": "ebbefcac78abed86f4bf2f3d20e63b34fb8bfe2afee107979c5857bad6db1bce",
+      "bundleSha256": "ff2cf9a304a12f5c9eacc64494e1484303e851093a1bcda201fe584cf4e78c2a",
+      "changedPriorImportedSources": [
+        "src/core/hollywood.ts",
+        "src/core/hollywoodTick.ts",
+        "src/core/hollywoodValidation.ts",
+        "src/core/save.ts",
+        "src/core/worldgen.ts"
+      ]
+    }
+  },
+  "finish": "2026-09-10T16:33:31.712Z",
+  "originalInputsUnchanged": {
+    "/tmp/p12a-engineering-8788-P6KEMm/week-2548.save.json": true,
+    "/tmp/p12a-engineering-8788-P6KEMm/week-8788.save.json": true
+  }
+}

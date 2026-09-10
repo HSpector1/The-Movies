@@ -49,12 +49,14 @@
   "recovered-regression": {
     "id": "recovered-regression",
     "kind": "cumulative-regression",
-    "outcome": "PARTIAL",
+    "outcome": "PASS",
     "provenance": "synthetic",
     "ts": {
-      "passed": 5144,
-      "failed": 1,
-      "skipped": 5
+      "passed": 5149,
+      "failed": 0,
+      "skipped": 5,
+      "files": 393,
+      "durationSeconds": 172.86
     },
     "unity": {
       "passed": 1070,
@@ -62,8 +64,11 @@
       "skipped": 0
     },
     "binding": {
-      "privateRecoveryCheckpoint": "P12A-R05-20260910T160046Z",
-      "subsequentCorrections": "see execution log and source diff"
+      "typescriptCommit": "6827293985a1375e8cefed745fbc4227a01aeb53",
+      "unityCommit": "ef635bbcc43166fb3aaf8ab06359b10f4bf5d635",
+      "additionalTestFileSha256": "972ffb08e1744c6bc800296b5d6e8a43acc4925613ab63207498d741807d638a",
+      "tsLogSha256": "c126fc5c44c108e541855986e747f12a8d75bb7d20219531752c8fc44baae0d6",
+      "unityLog": "recovered-checks-20260910/unity-editmode-05.xml"
     },
     "reuse": {
       "reviewed": false,
@@ -83,5 +88,84 @@
       "reviewed": false,
       "applicable": false
     }
+  },
+  "current-core-6240": {
+    "id": "current-core-6240",
+    "kind": "endurance",
+    "outcome": "PASS",
+    "provenance": "ordinary-progression",
+    "reviewer": "/root/recovered_storage_review",
+    "binding": {
+      "builtAt": "2026-09-10T16:32:59.616Z",
+      "commit": "6827293985a1375e8cefed745fbc4227a01aeb53",
+      "files": 53,
+      "sourceSha256": "ebbefcac78abed86f4bf2f3d20e63b34fb8bfe2afee107979c5857bad6db1bce",
+      "bundleSha256": "ff2cf9a304a12f5c9eacc64494e1484303e851093a1bcda201fe584cf4e78c2a",
+      "changedPriorImportedSources": [
+        "src/core/hollywood.ts",
+        "src/core/hollywoodTick.ts",
+        "src/core/hollywoodValidation.ts",
+        "src/core/save.ts",
+        "src/core/worldgen.ts"
+      ]
+    },
+    "reuse": {
+      "reviewed": false,
+      "applicable": false
+    },
+    "artifact": "core-continuation-20260910/report.json",
+    "allNineAtStart": true,
+    "additionalAdvances": 6240,
+    "exactPriorFinal": true
+  },
+  "current-core-entry": {
+    "id": "current-core-entry",
+    "kind": "all-nine",
+    "outcome": "PASS",
+    "provenance": "ordinary-progression",
+    "reviewer": "/root/recovered_storage_review",
+    "binding": {
+      "builtAt": "2026-09-10T16:39:57.898Z",
+      "commit": "6827293985a1375e8cefed745fbc4227a01aeb53",
+      "files": 53,
+      "sourceSha256": "ebbefcac78abed86f4bf2f3d20e63b34fb8bfe2afee107979c5857bad6db1bce",
+      "bundleSha256": "afe25e2a93cef0da5b05c252a476ed5c0b7a3d4387f9eeef9b995a34046cbff5",
+      "changedPriorImportedSources": [
+        "src/core/hollywood.ts",
+        "src/core/hollywoodTick.ts",
+        "src/core/hollywoodValidation.ts",
+        "src/core/save.ts",
+        "src/core/worldgen.ts"
+      ]
+    },
+    "reuse": {
+      "reviewed": false,
+      "applicable": false
+    },
+    "artifact": "core-entry-20260910/report.json",
+    "rivalBusinesses": 9,
+    "initialIncumbents": 4,
+    "arrivalBoundaries": 5,
+    "exactPriorFinal": true
+  },
+  "current-core-constraints": {
+    "id": "current-core-constraints",
+    "kind": "live-production",
+    "outcome": "PASS",
+    "provenance": "synthetic",
+    "reviewer": "/root/recovered_product_evidence",
+    "binding": {
+      "ts": "6827293985a1375e8cefed745fbc4227a01aeb53",
+      "reportSha256": "79a1410595db6d27a30fa4a7b7cea3b25228d129997b8d1567d81f4e0659b5c8"
+    },
+    "reuse": {
+      "reviewed": false,
+      "applicable": false
+    },
+    "artifact": "resource-constraints-20260910/report.json",
+    "syntheticWithdrawalControls": true,
+    "ordinaryNativeProof": false,
+    "actualReleasedFilms": 1,
+    "authoredFilmsExcluded": true
   }
 }

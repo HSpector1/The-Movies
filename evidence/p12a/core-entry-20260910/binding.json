@@ -1,0 +1,14 @@
+{
+  "builtAt": "2026-09-10T16:39:57.898Z",
+  "commit": "6827293985a1375e8cefed745fbc4227a01aeb53",
+  "files": 53,
+  "sourceSha256": "ebbefcac78abed86f4bf2f3d20e63b34fb8bfe2afee107979c5857bad6db1bce",
+  "bundleSha256": "afe25e2a93cef0da5b05c252a476ed5c0b7a3d4387f9eeef9b995a34046cbff5",
+  "changedPriorImportedSources": [
+    "src/core/hollywood.ts",
+    "src/core/hollywoodTick.ts",
+    "src/core/hollywoodValidation.ts",
+    "src/core/save.ts",
+    "src/core/worldgen.ts"
+  ]
+}
