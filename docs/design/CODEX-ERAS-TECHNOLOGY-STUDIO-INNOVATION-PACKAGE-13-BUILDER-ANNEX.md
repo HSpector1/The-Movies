@@ -8,6 +8,9 @@
 
 **Parent:** [Package 13 Main Report](./CODEX-ERAS-TECHNOLOGY-STUDIO-INNOVATION-PACKAGE-13.md)
 
+**Owner-direction amendment:** 2026-09-10 — §§2, 3.8–3.11, 4.2–4.3, 5.7, 14.4 and related rows; see
+[design §2A](./CODEX-ERAS-TECHNOLOGY-STUDIO-INNOVATION-PACKAGE-13.md#2a-owner-selected-product-direction--2026-09-10).
+
 **Canonical TypeScript research baseline:** `campaign/living-lot-ts` at
 `7811377cea1c1b9ddca2c17c626879504b23ed4e`
 
@@ -27,6 +30,9 @@ a minimal P09-governed Laboratory plus stable P10-compatible Scientist identity/
 provider was evaluated but cannot satisfy the prescribed named-person opportunity-cost and world-causality
 proof, so it does not unblock P13A. This annex does not claim those concrete roots already exist or authorize
 licensing, the full catalogue, a generic research engine, alternate-history authoring, P14, P15, or P16+.
+*(Amended 2026-09-10)* The Owner's direction of that date makes multi-person staffing, R&D budgets,
+cooperation, parallel projects and plan queues the intended experience; P13A remains the bounded first
+checkpoint and proves none of them.
 
 **PROJECT AUTHORITY VERIFIED —** P08 owns awards/Standing/history interpretation; P09 owns facility
 identity, placement, construction and condition; P10 owns person/profile/contract/career truth; P11
@@ -54,7 +60,7 @@ separately authorizes implementation.
 | Studio awareness | studio can inspect/evaluate an available technology | technology is operational |
 | Research | studio work that advances toward readiness | automatic timeline unlock; license |
 | Technology license | optional successor route buying bounded rights/access through a future authorized technology-rights substrate | P13A scope; verified original parity; P14 talent negotiation |
-| Wait | explicit choice to rely on public diffusion/standard access | doing nothing without forecast/consequence |
+| Wait | explicit choice to rely on the fixed commercial release, then purchase compatible equipment *(Amended 2026-09-10)* | doing nothing without forecast/consequence |
 | Ready to adopt | knowledge/access acquired; conversion not yet operational | capability active |
 | Adoption | studio conversion/training/equipment process | catalogue unlock |
 | Adoption work order | persistent, resumable, exact-ID conversion/training/equipment work with blockers, reservations, and P11 receipts | instantaneous unlock; UI progress bar without state |
@@ -67,6 +73,19 @@ separately authorizes implementation.
 | Consequence fact | typed before/after mechanical or world result | presentation prose |
 | Catalogue alias | explicit legacy ID mapping | fuzzy title match |
 | Legacy initialization | honest present-time compatibility state created on old-save migration | fabricated retroactive adoption history |
+| Researcher | P10 person in the Scientist role employed by the studio; P13 holds assignments | P13-owned person; aggregate staffing pool |
+| Laboratory seats | P09 capacity fact bounding concurrent named researchers in one laboratory | a research-speed stat |
+| R&D budget ceiling | per-project weekly limit on usable research spending, charged through P11 only for usable work | second wallet; automatic weekly drain; refundable deposit |
+| Concentration factor | diminishing-returns function over laboratories cooperating on one project | a bonus for owning many buildings |
+| Early-research window | catalogue-defined period before commercial release in which qualified research may begin | free alternate history |
+| Commercial release | fixed public milestone at which compatible upgrades become purchasable by any studio | mandatory replacement; installed equipment |
+| Invention provenance | record of which studio completed which research when, with prototype facts and entitlement class | selecting a technology card; researching a public prerequisite |
+| Own-development concession | the inventor's disclosed reduction of technology/access and equipment lines in a deployment quote | free installation; negative net purchase |
+| Conversion requirement descriptor | authored source→target physical requirement (structure, space, equipment, access, compatibility, providers) | tier-count penalty |
+| Plan | persistent queued instruction with dependencies, authority and state; planned expenditure until executed | an irrevocable purchase; a second progress owner |
+| Admission policy | whether a facility awaiting a queued plan accepts new engagements | a guaranteed start date |
+| Technology loadout lock | immutable production technology set fixed at first actual filming | lock at creation, greenlight or queue entry |
+| Supplier commercialization agreement | later-scope contract: upfront payment, eligible-sale royalties, term, retained own use, originator purchase benefit | monopoly over a capability; P13A scope |
 
 The original game's “research packs” remain a historical term. Project: Studio need not copy those
 names or four categories. “Scientist” is a P10 staff role/profile fact; P13 owns only research-work
@@ -102,9 +121,10 @@ assignment and technology credit references.
 | researching | work reaches requirement | exact work after tick | readyToAdopt | release assignment capacity | one completion event and credits |
 | researching | provider unavailable | blocker changes | researching + paused reason | no work; ongoing costs only if P11 law says so | same project ID, exact blocker |
 | researching | provider restored | same project is paused; guards current | researching with active project | resume retained work; no new debit or reservation | same project ID; blocker cleared once |
-| researching | `cancelResearch` | project is queued, active, or paused; intent current | evaluating | release every reservation exactly once; P11 authors committed-cost/refund/ongoing-cost disposition | terminal cancellation and durable receipt naming retained/lost work and resulting adoption status |
+| researching | `cancelResearch` | project is queued, active, or paused; intent current | evaluating | release every reservation exactly once; P11 authors committed-cost/refund/ongoing-cost disposition | terminal cancellation and durable receipt recording the retained verified work (7A, *Amended 2026-09-10*) and resulting adoption status |
 | evaluating | `beginResearch` after cancellation | normal begin guards; prior cancellation receipt valid | researching | new quote/commit and reservations only where P11/P09 require; permitted retained work copied once | new `researchProjectId` links the prior receipt; cancelled ID never reopens |
-| waiting | public policy grants access | standard/diffusion event | readyToAdopt | no invented research cost/credit | route provenance remains `wait` |
+| waiting | public policy grants access | standard/diffusion event | readyToAdopt | no invented research cost/credit; a technology/access component may still be quoted at deployment | route provenance remains `wait` |
+| evaluating | `beginPurchase` *(Amended 2026-09-10; design §12.1a)* | technology is `available`; prerequisites and facility compatibility hold; quote current; funds pass | readyToAdopt | priced technology/access plus equipment through P11 at commit; own-development concession applied where provenance is valid | route provenance `purchase`; no research credit, no pioneer first |
 | any non-operational state | public standard resolves | per-use policy evaluated | same research/adoption state plus `conversionRequired`, `inFlightGrace`, or `incompatible` disposition | no invented debit/work | one persistent standard-disposition fact; wait may separately become ready under its explicit policy |
 | operational | public standard resolves | exact providers remain valid | operational plus `operational` standard disposition | none unless policy names one | same technology/adoption identity retained |
 | readyToAdopt | `beginAdoption` | providers/capex/downtime legal; quote current | adopting | explicit P11 commit and reserved capacity | one `adoptionWorkOrderId` linked to the adoption episode |
@@ -120,11 +140,11 @@ assignment and technology credit references.
 | From | Event/intent | To | Work/identity law | Adoption status / durable result |
 |---|---|---|---|---|
 | queued | capacity slot activates | active | same project ID; accumulated work unchanged | remains `researching` |
-| queued | `cancelResearch` | cancelled | terminal; zero or catalogue-defined retained work recorded; never reopen | `evaluating`; one cancellation receipt |
+| queued | `cancelResearch` | cancelled | terminal; verified accumulated work recorded as retained (7A, *Amended 2026-09-10*); never reopen | `evaluating`; one cancellation receipt |
 | active | authoritative blocker appears | paused | same project ID and accumulated work | remains `researching` with exact blocker/remedy |
 | paused | every blocker clears | active | same project ID and accumulated work; no restart charge | remains `researching` |
 | active | required work reached | completed | terminal; credit/release exactly once | `readyToAdopt`; one completion receipt/event |
-| active or paused | `cancelResearch` | cancelled | terminal; catalogue version fixes retained/lost work; reservations release once | `evaluating`; one cancellation receipt with P11 disposition reference |
+| active or paused | `cancelResearch` | cancelled | terminal; verified accumulated work retained (7A, *Amended 2026-09-10*); spent money remains spent; reservations release once | `evaluating`; one cancellation receipt with P11 disposition reference |
 | cancelled | `beginResearch` | cancelled; create a new queued/active project | cancelled record stays immutable; new ID may seed only receipt-authorized retained work once | new project makes adoption `researching`; receipt links old and new IDs |
 | completed | any cancel/restart intent | completed | refuse terminal mutation | remains `readyToAdopt`; typed terminal-state refusal |
 
@@ -140,13 +160,13 @@ completion consume distinct durable idempotency keys; duplicate delivery returns
 | active | authoritative blocker appears | paused | same order ID, reservations, and accumulated work | remains `adopting` with exact blocker/remedy |
 | paused | every blocker clears | active | same order ID; no duplicate reserve/debit | remains `adopting` |
 | active | required work reached | completed | terminal; capability materializes, costs/credits/release occur once | `operational`; one completion receipt/event |
-| active or paused | `cancelAdoption` | cancelled | terminal; retained/lost work follows pinned catalogue/rule version | `readyToAdopt`; cancellation receipt records P11 and release dispositions |
+| active or paused | `cancelAdoption` | cancelled | terminal; physical disposition follows option B (§3.11, *Amended 2026-09-10*): completed work paid, restoration charged, refundable unused commitments recovered | `readyToAdopt`; cancellation receipt records P09, P11 and release dispositions |
 | cancelled | `beginAdoption` | cancelled; create a new queued/active order | cancelled order stays immutable; new ID may seed only receipt-authorized retained work once | new order makes adoption `adopting`; receipt links old and new IDs |
 | completed | any cancel/restart intent | completed | refuse terminal mutation | remains `operational`; typed terminal-state refusal |
 
 For both project kinds, a cancellation receipt contains its own stable ID, target ID/kind, intent
-idempotency key, week, pinned catalogue/rules versions, accumulated work, retained/lost-work
-disposition, released reservation references, P11 disposition reference (or explicit `none`), resulting
+idempotency key, week, pinned catalogue/rules versions, accumulated work, retained-work
+disposition (7A for research; option B for installation, *Amended 2026-09-10*), released reservation references, P11 disposition reference (or explicit `none`), resulting
 `TechnologyAdoption.status`, and optional replacement ID. A restart never mutates or reopens a cancelled
 record. It creates a new ID, atomically links the receipt, and copies authorized retained work at most once.
 
@@ -182,6 +202,65 @@ same-week standard therefore precedes research completion and cannot produce a f
 
 P13 prepares facts inside the all-owner `GameState` candidate. P12 alone commits the registry state.
 
+### 3.8 Research staffing and budget weekly work law — 2026-09-10
+
+**IMPLEMENTATION RECOMMENDATION** for [design §12.6](./CODEX-ERAS-TECHNOLOGY-STUDIO-INNOVATION-PACKAGE-13.md#126-research-staffing-rd-budgets-and-multi-laboratory-work--2026-09-10-owner-direction). Evaluated once per authoritative tick per active project, in `researchProjectId` order inside §3.6 step 3.
+
+| Input | Source of truth | Effect this tick | Refusal / disclosure |
+|---|---|---|---|
+| assigned researchers | P13 assignment referencing P10 person and P12 employer | base output summed; a person not employed by the studio contributes nothing and is flagged | `PERSON_NOT_EMPLOYED`; `SCIENTIST_REQUIRED` when none |
+| laboratory seats | P09 facility capacity | assignments beyond seats refused at assignment time | `LAB_AT_CAPACITY` |
+| laboratory operational state | P09 condition | non-operational laboratory contributes nothing; project pauses if it has no operational participant | `LAB_UNAVAILABLE` |
+| knowledge prerequisites and early-research window | catalogue and timeline | no work and no spend before eligibility | `TECH_PREREQUISITE_MISSING`; `RESEARCH_NOT_YET_RESEARCHABLE` |
+| budget ceiling | player/rival authority on the project | actual spend = min(ceiling, usable spend); charged through P11 as `researchSpending` | `RESEARCH_SPEND_UNUSABLE` names the reason and the unspent remainder |
+| cooperating laboratories | project participant list | pooled output × c(n) | `LAB_SEATS_AVAILABLE` when seats are empty and the ceiling exceeds usable spend |
+| accumulated work | project | += weekly output; completion when ≥ required work; credit and release once | never decremented by any input change |
+
+Payroll and laboratory Opex are not inputs of this law; they are continuing P11/P09 charges. A ceiling change, assignment change or laboratory change is an intent applied against the current snapshot and affects the next tick only.
+
+### 3.9 Plan queue state — 2026-09-10
+
+| From | Event/intent | To | Money | Exact result |
+|---|---|---|---|---|
+| — | `createPlan` (kind, target, dependencies, authority) | planned | planned expenditure shown beside cash; never subtracted from it and never injected into a P11 forecast | one `planId`; no debit, reservation, job or project |
+| planned | dependency unsatisfied or resource busy | waiting(reason) | none | typed waiting reason; holders and estimates shown; no exact start date while open-ended |
+| planned or waiting | `reserveResources` (optional, only if authorized) | same state + earmark | physical earmark only (P09 ground or provider capacity); a cash reservation needs new P11 authority | revocable; shown beside cash, never inside it |
+| waiting | every dependency satisfied | ready | none | plan re-quotes against the current snapshot |
+| ready | fresh quote inside authority | executing | owner commit (P13 research begin, P09 job, P11 commit) | plan links the executing subject; duplicate execution refused |
+| ready | fresh quote outside authority or material change | pausedForReview(delta) | none | player confirms revised terms or edits the plan |
+| ready | staffing dependency unmet | waiting(`PLAN_REQUIRES_EMPLOYMENT_ACTION`) | none | never hires |
+| any non-terminal | `pausePlan` / `reorderPlans` / `cancelPlan` | paused / same / cancelled | cancelling an unexecuted plan has no domain effect; reservation released | typed receipt; executing subjects follow their owner's cancellation law |
+| executing | owner completion receipt | done | per owner | plan records the completion receipt |
+| executing | owner cancellation (research 7A; installation 10B) | cancelled | per owner disposition | plan records the disposition receipt |
+
+Independent plans move through this table concurrently; there is no global serial queue. Admission policy (`closeAdmission` / `openAdmission`) is a plan attribute chosen before approval. This table describes waiting instructions only: it creates no construction slot, concurrency cap, Builder allocation or order over physical work, all of which remain P09's deferred and explicitly protected territory.
+
+### 3.10 Production technology loadout — 2026-09-10
+
+| Production state | Newly operational compatible technology | Public standard resolves | Result |
+|---|---|---|---|
+| created, in development, greenlit, cast, queued, not yet filming | may adopt after recheck of plan, cost, availability and dates; explicit confirm | not in-flight; new work meets standard where catalogue prohibits incompatible use | loadout mutable until first filming |
+| rehearsal (holds a soundstage, not filming) | may still adopt after the same recheck | not in-flight | loadout still mutable |
+| entry into the shooting phase — recommended lock, accepted witness is the phase-entered event that mints the take (**POST-P12 VERIFICATION REQUIRED**) | loadout becomes immutable | `inFlightGrace` per catalogue | one immutable `ProductionTechnologyLoadout` |
+| filming | no change; no retroactive footage improvement; no reshoot system | grace rule | `LOADOUT_LOCKED_FILMING` on any adoption intent |
+| wrapped and later | no change | none | history references the loadout |
+
+New productions default to the installed suitable technology; a lawful older method remains selectable and is recorded as deliberate.
+
+### 3.11 Installation cancellation under option B — 2026-09-10
+
+| Row | Owner | Disposition | Shown before Confirm |
+|---|---|---|---|
+| completed physical work | P09 | paid; non-refundable | amount and what was built |
+| necessary restoration | P09 + P11 | charged; duration; resulting usable state | amount, weeks, resulting capability |
+| refundable unused commitments | P11 | recovered per P11 disposition (undelivered equipment, unperformed labor, undone work under the accepted charge-at-commit law); never derived from the accepted demolition credit | amount per component |
+| non-refundable commitments | P11 | retained by counterparty (e.g. contracted technology/access) | amount |
+| retained physical work | P09 | recorded physical fact; any restart credit is a separate tuning decision | description |
+| technology readiness | P13 | returns to `readyToAdopt`; provenance unchanged | resulting adoption status |
+| reservations | P09/P13 | released exactly once | list |
+
+The disposition is one atomic all-owner candidate; failed preflight changes nothing. The ordinary-retrofit no-abort recommendation does not apply to technology installations. Accepted law has no free cancel for committed construction at all. Removing an unfinished site is a demolition that returns a rounded fraction of the blueprint's capital cost and writes off completed work. Option B is therefore a new authored disposition, and its components must not be computed from that credit. Aligning ordinary retrofits with it changes accepted behavior, which is a Current Ops decision.
+
 ---
 
 ## 4. Interface-level entity sketches
@@ -206,7 +285,7 @@ TechnologyCatalogueDefinition {
   availabilityPolicy
   diffusionPolicy?
   standardPolicyByUse[]
-  allowedRoutes[]        // P13A: research | wait; license only in a later authorized schema
+  allowedRoutes[]        // research | wait | purchase (2026-09-10); license only in a later authorized schema
   researchWorkDefinition?
   adoptionWorkDefinition?
   capabilityGrants[]
@@ -271,7 +350,7 @@ AdoptionWorkOrder {
   studioId
   technologyId
   state
-  routeProvenance        // research | wait in P13A
+  routeProvenance        // research | wait | purchase (2026-09-10)
   providerFacilityIds[]
   reservedCapacityRefs[]
   requiredWork
@@ -297,7 +376,7 @@ TechnologyWorkCancellationReceipt {
   week
   accumulatedWork
   retainedWork
-  disposition             // retained | partiallyRetained | lost
+  disposition             // research: retained (7A); installation: option-B physical disposition (Amended 2026-09-10)
   releasedReservationRefs[]
   p11DispositionRef?      // absent only with explicit `none` result
   resultingAdoptionStatus
@@ -451,6 +530,209 @@ proof. Retain every existing golden journey, migration/cancellation, 6,240-week 
 Scientist, rival consequence and Owner gate. No P09 Builder staffing/speed/cost is invented or waived;
 no P11/P12 package change or rival 3D lot follows from this handoff.
 
+### 4.2 Owner-direction analytical matrix — 2026-09-10 candidate
+
+**NUMERICAL/CONTENT HYPOTHESIS.** Every value in this section belongs to paper fixture **H1**. H1 exists to compare mechanisms, expose thresholds and find dominant strategies. It is not tuning, not a runtime result and not a playtest. The mechanisms it exercises are the [design §12.6–§12.9 and §16a](./CODEX-ERAS-TECHNOLOGY-STUDIO-INNOVATION-PACKAGE-13.md#126-research-staffing-rd-budgets-and-multi-laboratory-work--2026-09-10-owner-direction) recommendations; the Owner-selected directions they serve are listed in the [Owner rulings amendment](./CODEX-P13-P15-OWNER-RULINGS.md#24-p13-owner-direction-amendment--2026-09-10).
+
+**Fixture H1**
+
+| Input | Value | Note |
+|---|---|---|
+| Laboratory seats | 4 named researchers | P09 capacity fact; the original game's four-per-section figure is a source fact, not this value's authority |
+| Researcher base output | 1.0 work unit (wu) per researcher-week | skill-neutral; P10 profile effects deferred |
+| Researcher salary | $400/week each; $1,600/week for a full laboratory | continuing P11 payroll whether or not a project uses the person |
+| Laboratory Opex | separate P09/P11 charge, unchanged by research spending | omitted from comparisons because it is identical across rows |
+| R&D budget multiplier m, by spend per assigned researcher-week | $0 ×1.00; $500 ×1.25; $1,000 ×1.40; $2,000 ×1.50 (saturation) | usable spend therefore scales with assigned people, so one full laboratory saturates at $8,000/week and two at $16,000/week; spend above the usable amount is never charged |
+| Concentration factor c(n) for n cooperating laboratories | c(1)=1.00; c(2)=0.8125; c(3)=0.70 | c(2)=0.8125 gives 1.625× one laboratory, inside the Owner's 1.5–1.75× direction (c(2) bounds 0.75–0.875) |
+| Required work for the fixture technology | 64 wu | one mid-size catalogue entry |
+| Sound product (technology/access + equipment) | $40,000 + $60,000 = $100,000 | retail composition after commercial release |
+| Stage A, substantially older silent stage | site adaptation $90,000 / 9 weeks; installation $30,000 / 3 weeks | descriptor: structural acoustic work, wiring, access |
+| Stage B, nearly compatible stage | site adaptation $10,000 / 1 week; installation $30,000 / 3 weeks | descriptor: equipment swap and wiring only |
+| Build another sound stage | $400,000 / 20 weeks; needs footprint | no downtime on existing stages |
+| Portable camera replacement | $15,000; no P09 job | equipment purchase only |
+
+Weekly research output for one project = (Σ assigned researcher output) × m(actual spend) × c(n). Duration = required work ÷ weekly output, completing in the first authoritative tick whose accumulated work reaches the requirement. Output and duration are different quantities: **1.6× output turns 16 comparable weeks into 10 weeks (64 ÷ 6.4), not into 6.4 weeks.** A 60% duration reduction would need 2.5× output.
+
+#### M1. One laboratory versus two cooperating versus two independent projects
+
+| Arrangement | Weekly output | Fixture technology (64 wu) | Spend + payroll at completion | Reading |
+|---|---|---|---|---|
+| One full laboratory, unfunded | 4.0 wu | 16 weeks | $0 + $25,600 | baseline |
+| One full laboratory, $8,000/week | 6.0 wu | 11 weeks (10.67) | $88,000 + $17,600 | cash saves five weeks for $88,000 of research spending; payroll is not a saving because the researchers stay employed either way |
+| Two full laboratories cooperating, both $8,000/week | 12 × 0.8125 = 9.75 wu (1.625×) | 7 weeks (6.56) | $112,000 + $22,400 | first result four weeks sooner than one funded laboratory |
+| Two full laboratories on two different technologies, both funded | 6.0 wu each | both at 11 weeks | $176,000 + $35,200 | two results at week 11 |
+| Cooperate on the first, then the second | 9.75 wu each in turn | 7 weeks, then 14 weeks | $224,000 + $44,800 | second result three weeks later than splitting |
+
+**Weakness exposed:** cooperation is never the throughput-maximizing choice; it only buys earliness on one technology. That is acceptable only if being first matters (rival race, inventor pricing, an imminent production). If rival adoption consequences are weak, splitting dominates and the cooperation law is dead weight. The proof must show a race in which cooperation was the correct choice and one in which it was not.
+
+#### M2. Added budget with and without spare qualified staff or capacity
+
+| Situation | Usable spend | Weekly output | Duration | Bottleneck shown |
+|---|---|---|---|---|
+| Full laboratory, ceiling raised $0→$2,000 | $2,000 | 5.0 wu | 13 weeks | none; marginal ≈ $8,700 per week saved ($26,000 ÷ 3) |
+| Ceiling raised $2,000→$4,000 | $4,000 | 5.6 wu | 12 weeks | none; marginal $22,000 per week saved |
+| Ceiling raised $4,000→$8,000 | $8,000 | 6.0 wu | 11 weeks | none; marginal $40,000 per week saved |
+| Ceiling raised $8,000→$20,000 | $8,000 | 6.0 wu | 11 weeks | `RESEARCH_SPEND_UNUSABLE`: four researchers saturate at $8,000; $12,000/week stays in cash |
+| Two of four seats filled, ceiling $8,000 | $4,000 of $8,000 | 3.0 wu | 22 weeks (21.33) | `LAB_SEATS_AVAILABLE`: two researchers can absorb only $4,000; hire two more (an authorized employment action) or accept 22 weeks |
+| Four of four seats filled, ceiling $8,000, want faster | $8,000 | 6.0 wu | 11 weeks | `LAB_AT_CAPACITY`: expand/build another laboratory or cooperate with a second one |
+| Knowledge prerequisite missing | $0 | 0 wu | no estimate | `TECH_PREREQUISITE_MISSING`; assigned researchers' payroll continues and is shown as idle cost |
+
+**Weakness exposed:** the budget lever tops out at ×1.5 while staffing scales ×4 and a second laboratory ×1.625; cash therefore flows into buildings and hiring rather than project spend, which is the intended "invest in labs" outlet but makes the budget slider feel weak at saturation. Tuning must decide whether the saturation tier or the staffing multiplier moves; the matrix does not.
+
+#### M3. Direct leapfrog versus staged conversion versus building another facility
+
+| Route for a sound-capable stage | Capital | Duration | Downtime on existing stage | Obsolete purchase required | When it wins |
+|---|---|---|---|---|---|
+| Stage A direct conversion | $220,000 | 12 weeks | 12 weeks | none | cheapest complete route; stage idle or plan queued after current work |
+| Stage A staged: structural step now, system later | $230,000 | 13 weeks total | 9 + 4 weeks, separable | none | the 9-week structural step can run while research or the commercial release is still pending, leaving 4 weeks of downtime at purchase time |
+| Stage B direct conversion | $140,000 | 4 weeks | 4 weeks | none | nearly compatible building; the same product costs $80,000 less to deploy |
+| Build another sound stage | $400,000 | 20 weeks | none | none | footprint available, Stage A must keep shooting, cash-rich |
+| Wait | $0 | — | none | none | no eligible production needs sound yet |
+| Camera replacement | $15,000 | 0 weeks | none | none | portable equipment; no building work is invented |
+
+No row purchases an older sound system first. The staged route exists because a real physical step is separable, not because a tier label was skipped. The difference between Stage A and Stage B is the source→target descriptor (structure and acoustic treatment), not the count of skipped catalogue generations. **Weakness exposed:** if site adaptation for an older building is priced too low, direct conversion of every old stage dominates building another; if too high, old stages become dead assets. The Owner's "takes longer" preference is honored through duration and work, not through a penalty.
+
+#### M4. Inventor versus ordinary purchaser with transparent cost components
+
+| Component (Stage A) | Ordinary purchaser after commercial release | Inventor, later installation | Inventor, first installation with a usable research prototype |
+|---|---|---|---|
+| Technology/access | $40,000 | $0 (own-development concession) | $0 |
+| Equipment/manufacturing | $60,000 | $45,000 (25% concession) | $0 (prototype recorded as the equipment; billed once) |
+| Site adaptation (P09) | $90,000 | $90,000 | $90,000 |
+| Installation (P09) | $30,000 | $30,000 | $30,000 |
+| Opex change (P11) | +$1,000/week | +$1,000/week | +$1,000/week |
+| Final amount | $220,000 | $165,000 | $120,000 |
+| Shown inventor benefit | — | −$55,000 | −$100,000 |
+
+Before commercial release the inventor's quote shows the same in-house deployment terms with "no retail comparison until commercial release (forecast window shown)"; no retail price is invented. A studio that only researched a public prerequisite receives the ordinary column. Rival inventors receive the inventor columns under the same provenance rule. The floor of any quote is the real site and installation work, so no quote is negative.
+
+**Weakness exposed:** funding H1's research to saturation adds $88,000 of project spending on top of payroll the studio pays regardless, and the first-installation benefit is $100,000, so early access more than pays for itself before counting the earliness advantage. That is a balance concern: either the concession rates or the research cost must move, or the earliness advantage must be the intended prize. The matrix records the concern; it does not resolve it.
+
+#### M5. Cancelled and restarted research; cancelled installation under option B
+
+Research: a funded single-laboratory project is cancelled at the end of week 7 with 42 wu of 64 accumulated (7 × 6.0). The cancellation receipt records `retainedWork = 42`; $56,000 spend and $11,200 payroll remain spent. A restart at week 20 creates a new project ID seeded with 42 wu once and marks the receipt consumed; 22 wu remain (4 weeks at 6.0 wu). A duplicate restart command returns the same new project; a second restart after consumption is refused (`RETAINED_WORK_ALREADY_CONSUMED`). Moving the four researchers to another laboratory mid-project changes nothing about accumulated work; output resumes from the new laboratory at the next tick. A second concurrent project on the same technology in the same studio is refused (`RESEARCH_ALREADY_ACTIVE`). Retained work cannot be moved to another technology or studio.
+
+Installation: the Stage A direct conversion is cancelled at the end of week 5 of 12 under option B.
+
+| Item | Amount | Disposition |
+|---|---|---|
+| Completed site work (5 of 9 weeks, linear) | $50,000 | paid; non-refundable |
+| Technology/access contract | $40,000 | paid; non-refundable once contracted (P11 disposition hypothesis) |
+| Undone site work | $40,000 | refundable unused commitment |
+| Undelivered equipment | $60,000 | refundable unused commitment |
+| Uninstalled installation labor | $30,000 | refundable unused commitment |
+| Necessary restoration | $8,000 / 1 week | charged; returns Stage A to safe silent-capable service, which in this fixture writes off the partial acoustic work rather than banking it |
+| Net cash returned | $122,000 | $130,000 refunded − $8,000 restoration |
+| Paid, with nothing durable left | $98,000 | this fixture restores the stage, so no partial work survives; a conversion whose partial work legitimately remains would instead record it under §3.11 |
+
+The quote shows all rows and the resulting state ("Stage A silent-capable again after 1 week; no sound capability") before Confirm. **Weakness exposed:** if partial physical work is credited toward a restart at full value, cancel-and-restart becomes a free pause; if it is never credited, option B punishes a legitimate change of plan. The retained-physical-work credit needs its own tuning decision.
+
+#### M6. Queued conversion after a busy facility clears
+
+Stage 1 is shooting film F. The player queues "convert Stage 1 to sound after F wraps" with authority `priceCeiling = $230,000`, `quoteVersion = q7`. With `closeAdmission` the stage accepts no new engagements, so the plan shows "starts after F wraps; F's current estimate 6 weeks; may change with production holds". With `openAdmission` the plan shows "no start estimate: new work may keep entering". Neither shows an exact date while F's holds are open-ended. In parallel, the independent plan "buy camera" executes immediately. When F wraps, the plan re-quotes: $220,000 commits automatically through the one P09 job and P11 commit; a $240,000 quote pauses the plan for review with the delta shown. If the plan needed two more researchers, it waits on an authorized employment action; it never hires.
+
+**Weakness exposed:** `closeAdmission` starves the studio of a stage for the drain period, which can be longer than the conversion itself; `openAdmission` can starve the plan forever. Both consequences must be visible at approval; the recommended default (`closeAdmission`) is a hypothesis.
+
+#### M7. Technology installed just before versus after first filming
+
+| Production | State at conversion completion (week 29) | Result |
+|---|---|---|
+| Film G, filming scheduled to begin week 30 | not yet filming | default loadout may adopt sound after rechecking plan (method compatible), cost (P11 re-quote), availability (stage operational, not reserved) and dates; explicit confirm; G films with sound from week 30 |
+| Film H, filming since week 28 | loadout locked at week 28 | unchanged; captured footage and remaining shoot keep silent technology; no reshoot system exists |
+| Film J, in development at a later public-standard date | not filming | not in-flight; new work must satisfy the standard where the catalogue prohibits incompatible use |
+| Film K, greenlit and in the production queue, no shooting yet | not filming | may adopt; queue position is not a lock |
+
+Commercial availability without an installation changes none of these rows. **Weakness exposed:** a lock at first filming invites a player to delay the first shooting day to wait for an installation; that is a legitimate scheduling choice only if delay carries its normal production costs, which the production owner must keep visible.
+
+#### M8. Commercialization with retained own-use benefit and no self-royalty loop (LATER COMMERCIALIZATION SCOPE)
+
+Agreement hypothesis: upfront $150,000; royalty 10% of eligible supplier sales; term 260 weeks; `retainedOwnUseRights = true`; `originatorPurchaseBenefit` = the inventor column of M4.
+
+| Event | Eligible sale | Royalty receipt | Note |
+|---|---|---|---|
+| Rival 1 purchase-route adoption commit, product $100,000 | yes | $10,000 | causal basis: a supplier sale to another studio |
+| Rival 2, Rival 3 likewise | yes | $10,000 each | total royalties $30,000; total agreement value $180,000 |
+| Originator installs a second stage, product at $45,000 | no | $0 | own purchases are excluded; no self-royalty loop |
+| Rival 4 completes its own independent research and installs its own prototype | no | $0 | independent invention; no monopoly over the capability |
+| Week 261 | — | none | term expired; own-use rights and originator purchase benefit persist as agreement terms |
+
+**Weakness exposed:** royalty income is bounded by conserved rival count and rival adoption law, so the upfront payment carries most of the value and must be priced by expected eligible sales; that pricing law, exclusivity and whether a supplier launch may precede the fixed commercial-release milestone are unresolved product decisions listed in design §16a.4.
+
+#### Thresholds, saturation, bottlenecks and dominant strategies
+
+- **Saturation:** the budget multiplier reaches ×1.5 at $2,000 per assigned researcher-week, which is $8,000/week for one full laboratory and $16,000/week for two; concentration reaches 1.625× for two laboratories and 2.1× for three. Above each, more cash buys nothing and is not charged.
+- **Bottleneck order:** knowledge prerequisite → assigned researchers → seats → usable spend → cooperating laboratories. Each has a typed reason and one remedy.
+- **Dominant-strategy risks:** splitting dominates cooperation unless earliness has value (M1); inventor benefit can exceed research cost (M4); cheap old-stage adaptation dominates building another (M3); full restart credit makes cancellation free (M5). None is resolved here.
+- **Rival symmetry:** every row applies to a rival with the same seats, people, budget authority and provenance; P12 conserved resources fund rival ceilings.
+
+#### Future proofs (documented, not run)
+
+- **Native-input proofs:** set a budget ceiling, assign researchers and queue a plan by mouse, keyboard and controller; read marginal-benefit and bottleneck copy at large text; confirm an inventor quote's components without hover-only truth; cancel an installation and read the option-B rows before Confirm.
+- **Save/replay proofs:** save mid-project with a partially consumed budget week, a paused plan, a retained-work receipt, a locked loadout and a provenance record; reload and replay to identical digests; a second campaign from a different seed shares none of it; duplicate restart/commit intents after reload create no second project, job, debit or royalty.
+
+### 4.3 Owner-direction entity sketches — 2026-09-10 candidate
+
+Illustrative, not production TypeScript. Later-scope objects are marked; P13's core preserves provenance and interface points only.
+
+```text
+ResearchProject (additions)
+  participants[]           // { laboratoryFacilityId, personIds[] }; one or more laboratories
+  weeklyBudgetCeiling      // player/rival authority; P11 currency
+  lastTickUsableSpend      // charged amount; never exceeds ceiling
+  lastTickBottleneck?      // typed reason for unusable spend
+  concentrationFactorVersion
+
+TechnologyWorkCancellationReceipt (additions)
+  retainedWorkConsumedBy?  // replacement researchProjectId; set at most once
+  physicalDisposition?     // installation only: completedWorkPaid, restorationCharged, refundedComponents[], retainedPhysicalWorkRef
+
+InventionProvenance                       // core
+  provenanceId
+  technologyId
+  studioId
+  contributingResearchProjectIds[]
+  completedWeek
+  prototypeEquipmentIncluded               // declared by catalogue/research definition
+  entitlementClass                         // ownDevelopment | (later) transferred | coDeveloped
+  rulesVersion
+
+TechnologyDeploymentQuote                 // built from P09 quote + P11 quote + provenance
+  quoteId / quoteVersion
+  technologyId, physicalSubjectId?, providerIds[]
+  components[]                             // technologyAccess | equipment | siteAdaptation | installation | opexChange
+                                           //   each: amount, owner, concession?, billedOnceRef?
+  comparable?                              // ordinary purchaser amount after commercial release; absent before
+  inventorNetBenefit?
+  knownUpcomingReplacement?                // technologyId + window or announced date; public only
+  routeAlternatives[]                      // direct | staged | buildAnother | wait
+  conversionRequirementDescriptorRef
+
+ConversionRequirementDescriptor           // authored; P09 consumes
+  descriptorId, sourceStateKey, targetDefinitionId
+  structure, space, installedEquipment, access, compatibility, affectedProviderIds[]
+  workDefinition, separableSteps[]?
+
+StudioPlan
+  planId, studioId, kind                   // research | technologyConversion | construction | equipmentPurchase
+  targetRef, dependencies[]                // planIds, researchCompletion, milestoneId, facilityIdle, staffingLevel
+  authority                                // budgetCeiling?, priceCeiling?, quoteVersion, options
+  admissionPolicy?                         // closeAdmission | openAdmission
+  state, waitingReason?, reviewDelta?
+  reservationRef?, executingSubjectRef?, completionReceiptRef?, dispositionReceiptRef?
+  order, idempotencyKey
+
+ProductionTechnologyLoadout
+  productionId, lockedAtWeek?              // set at first actual filming
+  capabilityIds[], providerIds[], rulesVersions, deliberateOlderMethod?
+
+// LATER COMMERCIALIZATION SCOPE — interface points only
+TechnologyRightsRecord { rightsId, provenanceId, holderStudioId, rightsKind /* privateUse | supplierLicense | outrightSale */ }
+SupplierCommercializationAgreement { agreementId, rightsId, supplierId, upfrontPayment, royaltyRate, royaltyBasis /* eligibleSupplierSales */, termStartWeek, termEndWeek, exclusivity?, retainedOwnUseRights, originatorPurchaseBenefit }
+EligibleSaleEvent { saleId, agreementId, buyerStudioId /* never the originator */, causeRef /* e.g. purchase-route adoption commit */, amount, week }
+RoyaltyReceipt { receiptId, saleId, agreementId, amount, p11IncomeRef }
+AgreementExpiry { agreementId, week, ownUseRightsPersist: true }
+```
+
 ## 5. Proposed projection/DTO shapes
 
 All DTOs are closed, versioned projections built from authoritative TypeScript state. Unity never
@@ -565,6 +847,8 @@ TechnologyRouteView {
   refusalCode?
   refusalText?
   costSchedule[]          // P11-authored amount/category/charge week or recurrence/quote version
+  costComponents[]        // 2026-09-10: technologyAccess | equipment | siteAdaptation | installation | opexChange,
+                          //   each with amount, owner, concession? and billedOnceRef?; plus comparable? and inventorNetBenefit?
   earliestCompletionWeek?
   latestCompletionWeek?
   personOpportunityCost[]
@@ -644,6 +928,33 @@ must fit its authored hard maximum; catalogue/content validation refuses if it d
 silently truncated. These caps apply equally to browser and Unity DTOs and prohibit an unbounded
 snapshot even when the underlying authoritative store is paged.
 
+### 5.7 Owner-direction projections — 2026-09-10
+
+```text
+ResearchProjectView (additions)
+  budget: { ceiling, usableThisTick, chargedThisTick, nextTierMarginalBenefitText, bottleneck? }
+  participants[]           // laboratory + people snapshots, seats used/available
+  concentrationText        // e.g. "2 laboratories cooperating: 1.625× one laboratory (hypothesis)"
+
+PlanQueueView
+  plans[]                  // bounded page, at most 32
+  each: planId, kind, targetLabel, state, waitingReason?, dependencies[], authoritySummary, admissionPolicy?, reviewDelta?, actionSet[]
+
+TechnologyDeploymentQuoteView
+  components[]             // label, amount, owner, concessionText?
+  finalAmount
+  comparable?              // "Ordinary purchaser: {amount}" or "No retail comparison until commercial release ({window})"
+  inventorNetBenefitText?
+  knownUpcomingReplacementText?
+  routeAlternatives[]      // at most 4
+  cancellationPreview?     // option-B rows when executing
+
+ProductionLoadoutView
+  productionId, locked, lockedAtWeek?, capabilities[], adoptableNow[], recheckRequired: true
+```
+
+Projection cardinality law (§5.6) extends: a plan page returns at most 32 plans, a quote at most eight components and four routes, a research project at most four participating laboratories. Unity computes none of these values.
+
 ---
 
 ## 6. No-hidden-data contract
@@ -712,6 +1023,11 @@ catalogue split/merge needs explicit aliases plus an archival disposition; fuzzy
 - compact technology/studio/era summaries;
 - any outstanding finance/facility correlation IDs required by P11/P09;
 - simulation RNG state/domain cursor needed for replay.
+- per-project budget ceilings, last-tick usable spend and bottleneck, participating laboratories and concentration-factor version;
+- retained-work consumption marks and installation dispositions on cancellation receipts;
+- invention provenance records; production technology loadout locks; conversion requirement descriptor versions referenced by quotes;
+- plan queue entries with dependencies, authority, admission policy, reservations and receipts;
+- later-scope rights, agreements, eligible-sale events, royalty receipts and expiries once an authorized slice models them.
 - future Owner-authorized **committed** entrant-baseline and operating-state participant manifest versions,
   request/source/catalogue/timeline/disposition-rules bindings, affected-set count/root digest, and
   immutable disposition chunks of at most 100 rows with exact P09/P10/P11 receipts; never a copied P12
@@ -810,12 +1126,17 @@ Before runtime, catalogue lint must reject:
 - cycles and unreachable entries;
 - a public standard without a defined use and compatibility/grace law;
 - a research route without work definition or required providers;
+- a purchase route without a commercial-release milestone or a priced technology/access component *(Amended 2026-09-10)*;
 - any future license route without an authorized rights schema, scope/expiry/transfer policy, and cost source;
 - a wait route without diffusion/standard access policy;
 - generic numeric modifier bags or an effect with no named consumer;
 - aliases with cycles, ambiguity, or missing tombstone;
 - a world effect without a final authoritative provider/world seam;
-- technology whose player and rival law differ without an explicit approved reason.
+- technology whose player and rival law differ without an explicit approved reason;
+- a research route without an early-research bound, or a knowledge prerequisite that names equipment
+  *(Amended 2026-09-10)*;
+- a purchase or conversion route that requires an obsolete intermediate equipment purchase
+  *(Amended 2026-09-10)*.
 
 P13A's catalogue fixture contains exactly one technology, `research | wait` routes only, and the
 smallest prerequisite-free technology path needed to test the architecture.
@@ -884,6 +1205,7 @@ One editing owner exists per checkout and collision-prone file. Suggested future
 | contract owner | schema/protocol/projection bump, generated consumer, fixtures | projection | all other workers stop on generated paths |
 | Unity owner | future presentation/input only | sealed generated contract | TypeScript law, generated source |
 | proof owner | fixtures, replay, endurance, negative tests, artifact manifests | all accepted code | production files unless assigned a proven fix |
+| plan-queue owner (later capability) | plan contract, dependencies, revalidation and admission policy | P09/P11/P13 commit APIs | any owner's commit logic; hiring |
 
 Root integrator owns merges and changed-path reconciliation. Workers never merge campaign branches,
 repoint remotes, regenerate consumer code casually, or share a dirty worktree.
@@ -902,7 +1224,9 @@ These waves are planning guidance and cannot begin without a final charter.
 - record the Owner's blocking Laboratory/Scientist/provider substrate decision; do not infer it from
   a current blueprint or role label;
 - restamp this annex with exact symbols and reject invalid assumptions;
-- freeze one sound fixture, research/wait routes, and Owner-decision defaults used only for proof.
+- freeze one sound fixture, research/wait routes, and Owner-decision defaults used only for proof;
+- record the 2026-09-10 direction's proof-only fixture values (early-research bound, budget tiers,
+  concentration factor, conversion descriptor, admission-policy default) as hypotheses, never as tuning.
 
 **Exit:** no unresolved P13A dependency, no implementation edit.
 
@@ -977,6 +1301,14 @@ technical/Owner disposition. Do not begin P13A.3 automatically.
 
 **Stop:** no second technology or broader catalogue before Owner acceptance.
 
+### After P13A — capability sequence (IMPLEMENTATION RECOMMENDATION, 2026-09-10)
+
+Under the outcome-first order, each later capability is its own sealed slice with its own refresh and
+authorization: staffing to capacity and budget ceiling; retained progress and option-B cancellation; plan
+queues; multi-laboratory cooperation and split; commercial-release purchase, inventor pricing and gap-aware
+conversion; forecast precision and replacement disclosure; then the later commercialization slice under its
+own placement. None is a prerequisite of P13A, and none is discarded.
+
 ---
 
 ## 14. Test fixtures
@@ -1047,6 +1379,36 @@ technical/Owner disposition. Do not begin P13A.3 automatically.
   receipt rejects the all-owner candidate; and
 - refused participant receipt applies zero P13 writes; committed receipt references the exact all-owner transaction and cannot be mutated in place.
 
+### 14.4 Owner-direction fixtures — 2026-09-10
+
+| Fixture | Required state | Proves |
+|---|---|---|
+| `research-window-before-release` | technology `researchable`, not `available`; prerequisites held | early research eligible; wait route not yet purchasable; no invented retail price |
+| `research-prerequisite-missing-funded` | ceiling set, prerequisite absent | zero work, zero spend charged, idle payroll shown |
+| `budget-ceiling-saturation` | full laboratory, ceiling above saturation | charged amount equals saturation tier; bottleneck text; remainder in cash |
+| `budget-seats-empty` | two of four seats, high ceiling | `LAB_SEATS_AVAILABLE`; no automatic hire |
+| `two-labs-cooperate` | two laboratories on one project | output within 1.5–1.75× one laboratory; rival fixture identical |
+| `two-labs-split` | two laboratories, two technologies | each at single-laboratory rate |
+| `mid-project-change` | ceiling and staff changed mid-project | accumulated work unchanged; next tick uses new inputs |
+| `retained-work-restart` | cancelled project with retained work; restart twice | seeded once; duplicate idempotent; second restart refused |
+| `staff-transfer-mid-project` | researchers moved between laboratories | work retained; output from new laboratory next tick |
+| `inventor-quote-prerelease` | own provenance before `available` | in-house terms; no comparable |
+| `inventor-quote-postrelease` | own provenance after `available` | comparable, concession lines, net benefit; prototype billed once |
+| `ordinary-quote-public-prerequisite` | studio researched only a public prerequisite | no concession |
+| `leapfrog-direct-purchase` | studio without intermediate generation | direct purchase legal; no obsolete line |
+| `conversion-descriptor-old-vs-compatible` | Stage A and Stage B descriptors | duration/cost follow descriptors, not tier count |
+| `camera-purchase-no-job` | portable equipment | no P09 job created |
+| `replacement-disclosure` | announced successor exists | shown beside quote; hidden rival research absent |
+| `plan-after-film-close-admission` | busy stage, plan queued | no new engagement admitted; start after holders clear; no exact date |
+| `plan-after-film-open-admission` | same with open admission | starvation consequence disclosed |
+| `plan-authority-exceeded` | fresh quote above price ceiling | `pausedForReview` with delta; no commit |
+| `plan-parallel-independent` | three independent plans | concurrent execution |
+| `install-cancel-option-b` | executing conversion cancelled | atomic rows; resulting state; reservations released once |
+| `loadout-lock-before-after` | films G, H, J, K of Annex §4.2 M7 | lock at first filming only; recheck before adoption |
+| `provenance-record` | research completion | provenance written once; no royalty objects in core |
+| `campaign-isolation` | two campaigns from different seeds | no shared research, budget, plan, provenance or rights |
+| `owner-direction-save-replay` | all of the above mid-state | identical digests after reload; no duplicate project, job, debit or receipt |
+
 ---
 
 ## 15. Long-run/endurance harness
@@ -1106,6 +1468,13 @@ rngDomainCursors
     the root manifest's count/digest and P09/P10/P11 receipt refs validate before P12 state changes.
 17. Equal P12 transition request/version/digest is idempotent; a reused request ID with changed body
     refuses, and candidate/committed/refused receipt versions never partially apply P13 state.
+18. Accumulated research work never decreases except by terminal cancellation into a receipt, and the sum of retained work seeded from one receipt is at most the receipt's value.
+19. Charged research spending in any tick is at most the ceiling and at most the usable spend; a ceiling above saturation changes no charge.
+20. A studio has at most one active research project per technology, and cooperating laboratories on one project never yield more than proportional output.
+21. Every deployment quote's final amount is at least its site-adaptation plus installation components; a concession never produces a negative net.
+22. A production loadout never changes after its lock week.
+23. No eligible-sale event names the originator as buyer; no royalty receipt exists without an eligible-sale cause; no royalty after term expiry.
+24. Plan queue state changes create no debit, reservation, job or project except through the owner's normal commit at execution.
 
 ### 15.4 Budgets and failure thresholds
 
@@ -1155,7 +1524,7 @@ snapshot says it exists.
 Header: Era / exact date / public milestone state
 Context: selected Laboratory or technology / studio adoption state
 Consequence: “What changes” cards, concrete and typed
-Route comparison: Research | Wait
+Route comparison: Research | Wait | Purchase (from commercial release), with decomposed quote components
 Prerequisites and blockers: always adjacent
 Opportunity cost: people / facility / cash / duration
 Affected work: exact facilities and productions
@@ -1243,9 +1612,23 @@ Copy is generated from typed TypeScript reasons. Illustrative patterns:
 | `STALE_DECISION` | “Studio conditions changed. Review the refreshed cost, timing and consequence before confirming.” |
 | `CATALOGUE_ID_UNKNOWN` | “This save references unknown technology ID {id} from catalogue {version}. No substitution was made.” |
 | `CATALOGUE_MIGRATION_AMBIGUOUS` | “Technology migration is ambiguous for {id}. Loading stopped to preserve history.” |
+| `RESEARCH_NOT_YET_RESEARCHABLE` | “{technologyName} cannot be researched before {researchWindowOpens}. Prerequisites held: {list}.” |
+| `RESEARCH_SPEND_UNUSABLE` | “Only {usable} of the {ceiling} weekly budget can be used: {reason}. The remainder stays in cash.” |
+| `LAB_AT_CAPACITY` | “{laboratoryName} has {seats} seats, all assigned. Expand it, build another laboratory or cooperate with one.” |
+| `LAB_SEATS_AVAILABLE` | “{laboratoryName} has {free} empty seats; hire researchers to use more of the budget.” |
+| `RESEARCH_ALREADY_ACTIVE` | “{studioName} already has an active project on {technologyName}: {projectName}.” |
+| `RETAINED_WORK_ALREADY_CONSUMED` | “Retained work from {receiptId} was already applied to {projectName}.” |
+| `PURCHASE_NOT_YET_COMMERCIAL` | “{technologyName} is not commercially available until {releaseWeekOrWindow}. Research it or wait.” |
+| `PLAN_PAUSED_FOR_REVIEW` | “Plan {planName} paused: {changedTerm} changed from {old} to {new}, outside the approved {authority}. Review to continue.” |
+| `PLAN_WAITING` | “Plan {planName} is waiting: {reason}. Current holders: {list}. No start date can be promised yet.” |
+| `PLAN_REQUIRES_EMPLOYMENT_ACTION` | “Plan {planName} needs {count} more researchers. Hire them to continue; plans never hire.” |
+| `LOADOUT_LOCKED_FILMING` | “{productionTitle} began filming in {week}; its technology is fixed. New productions can use {technologyName}.” |
+| `INSTALL_CANCEL_DISPOSITION` | “Cancelling pays {completed} for completed work and {restoration} for restoration, and returns {refund}. {subjectName} will be {resultingState} after {weeks}.” |
 
-Bad language: “Not allowed,” “Wrong era,” “Research failed,” “Rival bonus,” “Requires more points,”
-or a satisfied reason beside a disabled action. Every refusal identifies cause and, when possible,
+The 2026-09-10 templates name weeks or windows because the accepted product has no calendar; existing
+templates keep their date placeholders, and every one of them resolves through whatever presentation owner
+the post-P12 refresh confirms (§12.1a). Bad language: “Not allowed,” “Wrong era,” “Research failed,”
+“Rival bonus,” “Requires more points,” or a satisfied reason beside a disabled action. Every refusal identifies cause and, when possible,
 one exact remedy. Unknown/ambiguous migration errors must not pretend recovery succeeded.
 
 ---
@@ -1275,6 +1658,13 @@ one exact remedy. Unknown/ambiguous migration errors must not pretend recovery s
 18. No whole-save hash per view or O(history) weekly scan.
 19. No P13 direct mutation of Standing, awards, market demand, or Power Ranking.
 20. No licensing claim labeled original parity.
+21. No research spending charged without usable work, and no work from cash alone.
+22. No retained work seeded twice, transferred across technologies or studios, or created by a duplicate restart.
+23. No inventor concession without valid provenance; no concession for a public prerequisite; no free installation; no negative net quote.
+24. No obsolete intermediate equipment required by any purchase route; no building job invented for portable equipment.
+25. No plan commits, reserves, hires or substitutes silently; no start date claimed while open-ended holds remain.
+26. No production loadout changed after first filming; no retroactive footage improvement.
+27. No royalty from the originator's own purchase, from random cash or from rival box office; no monopoly over a capability.
 
 ---
 
@@ -1323,6 +1713,21 @@ one exact remedy. Unknown/ambiguous migration errors must not pretend recovery s
 - [ ] Unity calculates no law; generated contract is closed and exact-ID.
 - [ ] Automated PASS is not represented as Owner acceptance.
 
+### Owner direction 2026-09-10
+
+- [ ] Early-research window, commercial release, installation, operational capability and standard are distinct facts.
+- [ ] Payroll, Opex, project spending and installation are separate ledgers with one wallet.
+- [ ] Budget is a ceiling; unusable spend is never charged; bottleneck and marginal benefit are shown.
+- [ ] Two cooperating laboratories land within the Owner's 1.5–1.75× direction under the fixture; rivals identical.
+- [ ] Retained work survives cancel/pause and cannot multiply.
+- [ ] Inventor quote decomposes, shows net benefit and a genuine comparable only after release.
+- [ ] Direct purchase needs no obsolete equipment; descriptors drive conversion effort.
+- [ ] Plans create planned expenditure only; execution revalidates inside authority; no auto-hire.
+- [ ] Option-B cancellation rows and resulting state precede Confirm.
+- [ ] Loadout locks at first actual filming only.
+- [ ] Provenance recorded; no supplier simulation in core; self-sales excluded.
+- [ ] All new state is campaign-specific and round-trips.
+
 ---
 
 ## 22. Stop conditions
@@ -1345,6 +1750,11 @@ Stop the future implementation wave immediately if:
 - endurance reveals superlinear work, unbounded rows, or budget breach;
 - P13A grows beyond one technology/transition or absorbs P14/P15/P16+;
 - technical proof is substituted for the Owner journey.
+- a research budget can be charged without usable work, or usable work cannot be computed from accepted person/facility truth;
+- the accepted production lifecycle exposes no first-filming transition on which to lock a loadout;
+- a deployment quote cannot obtain a genuine comparable or in-house terms from P11 and P09 without inventing a price;
+- a plan would have to hire, substitute or commit outside its authority to execute;
+- provenance cannot be recorded without a supplier simulation.
 
 A stop produces a report with exact evidence and alternatives. It does not invite an adjacent
 unapproved implementation.
@@ -1398,6 +1808,12 @@ SCOPE
 - one rival studio/adoption ID
 - one production/provider consequence
 - explicit exclusions
+- researcher seats used, budget ceiling fixture and concentration factor version
+- retained-work receipt and consumption mark for each tested cancel/restart
+- one deployment quote with components, comparable status and net benefit
+- one plan with admission policy, authority and revalidation outcome
+- one production loadout lock and one pre-filming adoption recheck
+- one invention provenance record; commercialization objects explicitly absent
 
 CONTRACT
 - save version
