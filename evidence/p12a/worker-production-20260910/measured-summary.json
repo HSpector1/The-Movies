@@ -1,0 +1,399 @@
+{
+  "createdAt": "2026-09-10T18:58:54.918962+00:00",
+  "disposition": "ENGINE_WORKER_PLACEMENT_AND_SAMPLED_RESPONSIVENESS_VERIFIED; ORIGINAL_LATENCY_TARGETS_MISS; UNITY_NATIVE_ACCEPTANCE_OPEN",
+  "completed": true,
+  "errors": [],
+  "functionalChecks": 18,
+  "sourceBindingsStable": 130,
+  "sourceCombinedSha256": "6e693cbf623cadb87942e389aba486f018889c0b0b15b2b5362582d9877a92cd",
+  "reportSha256": "4cb5cd2efa26aa4c4e168b206f5068af89ef8be4003c3d8fd92fbae1cb1abd4b",
+  "start": "2026-09-10T18:53:21.242Z",
+  "finish": "2026-09-10T18:54:58.022Z",
+  "threadEvidenceGuards": [
+    {
+      "pid": 26435,
+      "mainThreadEvidence": "engine-26435-thread-0.json",
+      "workerThreadEvidence": [
+        "engine-26435-thread-1.json"
+      ],
+      "workerFsCounts": {
+        "lstatSync": 64,
+        "openSync": 49,
+        "writeFileSync": 8,
+        "fsyncSync": 32,
+        "closeSync": 49,
+        "linkSync": 8,
+        "fstatSync": 58,
+        "unlinkSync": 9,
+        "readFileSync": 17,
+        "renameSync": 7
+      },
+      "mainRuntimeFsCalls": 0
+    },
+    {
+      "pid": 26453,
+      "mainThreadEvidence": "engine-26453-thread-0.json",
+      "workerThreadEvidence": [
+        "engine-26453-thread-1.json"
+      ],
+      "workerFsCounts": {
+        "lstatSync": 8,
+        "openSync": 7,
+        "writeFileSync": 1,
+        "fsyncSync": 4,
+        "closeSync": 7,
+        "linkSync": 1,
+        "fstatSync": 9,
+        "unlinkSync": 2,
+        "readFileSync": 3
+      },
+      "mainRuntimeFsCalls": 0
+    }
+  ],
+  "operations": [
+    {
+      "name": "cold emitted engine recovery and worker readiness",
+      "elapsedMs": 24074.698875000002,
+      "mainTimerSamples": 4307,
+      "mainMaxTimerGapMs": 17.068084,
+      "mainGapsAbove50ms": 0,
+      "ipc": {
+        "attempts": 239,
+        "completed": 239,
+        "errors": [],
+        "minMs": 0.09579200000007404,
+        "maxMs": 16.985292000000072,
+        "p50Ms": 0.13654200000019046,
+        "p95Ms": 0.2012910000012198,
+        "p99Ms": 0.31783399999767425
+      },
+      "httpContract": {
+        "unavailable": "HTTP listener intentionally opens only after worker recovery/readiness; startup requests are measured through independent main-process IPC."
+      }
+    },
+    {
+      "name": "idle baseline at identical responsiveness probe rate",
+      "elapsedMs": 2001.4775829999999,
+      "mainTimerSamples": 348,
+      "mainMaxTimerGapMs": 13.073041999999987,
+      "mainGapsAbove50ms": 0,
+      "ipc": {
+        "attempts": 20,
+        "completed": 20,
+        "errors": [],
+        "minMs": 0.3374579999981506,
+        "maxMs": 2.469874999998865,
+        "p50Ms": 1.4062919999996666,
+        "p95Ms": 2.454750000000786,
+        "p99Ms": 2.469874999998865
+      },
+      "httpContract": {
+        "attempts": 20,
+        "completed": 20,
+        "errors": [],
+        "minMs": 2.772832999999082,
+        "maxMs": 12.590374999999767,
+        "p50Ms": 8.559000000001106,
+        "p95Ms": 11.8781659999986,
+        "p99Ms": 12.590374999999767
+      }
+    },
+    {
+      "name": "normal advance before campaign Save",
+      "elapsedMs": 4765.729374999999,
+      "mainTimerSamples": 855,
+      "mainMaxTimerGapMs": 7.1475829999981215,
+      "mainGapsAbove50ms": 0,
+      "ipc": {
+        "attempts": 48,
+        "completed": 48,
+        "errors": [],
+        "minMs": 0.18625000000247383,
+        "maxMs": 1.0264580000002752,
+        "p50Ms": 0.2298339999979362,
+        "p95Ms": 0.3837500000008731,
+        "p99Ms": 1.0264580000002752
+      },
+      "httpContract": {
+        "attempts": 48,
+        "completed": 48,
+        "errors": [],
+        "minMs": 1.9388749999998254,
+        "maxMs": 2.9129590000011376,
+        "p50Ms": 2.1139580000017304,
+        "p95Ms": 2.696124999998574,
+        "p99Ms": 2.9129590000011376
+      }
+    },
+    {
+      "name": "campaign Save through emitted HTTP and production worker store",
+      "elapsedMs": 15083.894374999996,
+      "mainTimerSamples": 2702,
+      "mainMaxTimerGapMs": 6.698374999999942,
+      "mainGapsAbove50ms": 0,
+      "ipc": {
+        "attempts": 150,
+        "completed": 150,
+        "errors": [],
+        "minMs": 0.17612499999813735,
+        "maxMs": 0.8215829999971902,
+        "p50Ms": 0.22112500000366708,
+        "p95Ms": 0.28558300000440795,
+        "p99Ms": 0.5499169999966398
+      },
+      "httpContract": {
+        "attempts": 150,
+        "completed": 150,
+        "errors": [],
+        "minMs": 1.8280830000003334,
+        "maxMs": 2.811667000001762,
+        "p50Ms": 2.043875000003027,
+        "p95Ms": 2.307249999998021,
+        "p99Ms": 2.5251659999994445
+      }
+    },
+    {
+      "name": "normal advance after campaign Save",
+      "elapsedMs": 6675.764083000002,
+      "mainTimerSamples": 1198,
+      "mainMaxTimerGapMs": 6.336666999995941,
+      "mainGapsAbove50ms": 0,
+      "ipc": {
+        "attempts": 67,
+        "completed": 67,
+        "errors": [],
+        "minMs": 0.16424999999435386,
+        "maxMs": 0.609415999999328,
+        "p50Ms": 0.2180000000007567,
+        "p95Ms": 0.31795899999997346,
+        "p99Ms": 0.609415999999328
+      },
+      "httpContract": {
+        "attempts": 67,
+        "completed": 67,
+        "errors": [],
+        "minMs": 1.8642079999990528,
+        "maxMs": 2.671542000003683,
+        "p50Ms": 2.030209000004106,
+        "p95Ms": 2.3824170000007143,
+        "p99Ms": 2.671542000003683
+      }
+    },
+    {
+      "name": "ordinary Save HTTP full response",
+      "elapsedMs": 7296.899083999997,
+      "mainTimerSamples": 1311,
+      "mainMaxTimerGapMs": 6.291750000003958,
+      "mainGapsAbove50ms": 0,
+      "ipc": {
+        "attempts": 73,
+        "completed": 73,
+        "errors": [],
+        "minMs": 0.16895800000202144,
+        "maxMs": 1.098083000004408,
+        "p50Ms": 0.2202499999984866,
+        "p95Ms": 0.298625000003085,
+        "p99Ms": 1.098083000004408
+      },
+      "httpContract": {
+        "attempts": 73,
+        "completed": 73,
+        "errors": [],
+        "minMs": 1.8473750000048312,
+        "maxMs": 2.7532910000008997,
+        "p50Ms": 2.0201670000024023,
+        "p95Ms": 2.4060000000026776,
+        "p99Ms": 2.7532910000008997
+      }
+    },
+    {
+      "name": "ordinary Save HTTP full response after explicit rollover",
+      "elapsedMs": 4499.171249999999,
+      "mainTimerSamples": 809,
+      "mainMaxTimerGapMs": 6.406208000000333,
+      "mainGapsAbove50ms": 0,
+      "ipc": {
+        "attempts": 45,
+        "completed": 45,
+        "errors": [],
+        "minMs": 0.1480840000003809,
+        "maxMs": 0.6118749999950523,
+        "p50Ms": 0.2212500000023283,
+        "p95Ms": 0.3468330000032438,
+        "p99Ms": 0.6118749999950523
+      },
+      "httpContract": {
+        "attempts": 45,
+        "completed": 45,
+        "errors": [],
+        "minMs": 1.8739579999964917,
+        "maxMs": 2.305500000002212,
+        "p50Ms": 1.9985000000015134,
+        "p95Ms": 2.1952910000109114,
+        "p99Ms": 2.305500000002212
+      }
+    },
+    {
+      "name": "exact ordinary Save HTTP retry",
+      "elapsedMs": 140.42699999999604,
+      "mainTimerSamples": 26,
+      "mainMaxTimerGapMs": 5.855290999999852,
+      "mainGapsAbove50ms": 0,
+      "ipc": {
+        "attempts": 2,
+        "completed": 2,
+        "errors": [],
+        "minMs": 0.22358400000666734,
+        "maxMs": 0.9444999999977881,
+        "p50Ms": 0.22358400000666734,
+        "p95Ms": 0.9444999999977881,
+        "p99Ms": 0.9444999999977881
+      },
+      "httpContract": {
+        "attempts": 2,
+        "completed": 2,
+        "errors": [],
+        "minMs": 2.0300419999985024,
+        "maxMs": 3.2613339999952586,
+        "p50Ms": 2.0300419999985024,
+        "p95Ms": 3.2613339999952586,
+        "p99Ms": 3.2613339999952586
+      }
+    },
+    {
+      "name": "later tick before reopening",
+      "elapsedMs": 6534.919708000001,
+      "mainTimerSamples": 1174,
+      "mainMaxTimerGapMs": 6.665875000006054,
+      "mainGapsAbove50ms": 0,
+      "ipc": {
+        "attempts": 65,
+        "completed": 65,
+        "errors": [],
+        "minMs": 0.1390419999952428,
+        "maxMs": 0.8306659999943804,
+        "p50Ms": 0.21358299998973962,
+        "p95Ms": 0.28695799999695737,
+        "p99Ms": 0.8306659999943804
+      },
+      "httpContract": {
+        "attempts": 65,
+        "completed": 65,
+        "errors": [],
+        "minMs": 1.843416999996407,
+        "maxMs": 2.7035000000032596,
+        "p50Ms": 1.9999580000003334,
+        "p95Ms": 2.348707999990438,
+        "p99Ms": 2.7035000000032596
+      }
+    },
+    {
+      "name": "exact ordinary Save HTTP retry after later tick",
+      "elapsedMs": 138.8002919999999,
+      "mainTimerSamples": 27,
+      "mainMaxTimerGapMs": 6.152750000008382,
+      "mainGapsAbove50ms": 0,
+      "ipc": {
+        "attempts": 2,
+        "completed": 2,
+        "errors": [],
+        "minMs": 0.23720900001353584,
+        "maxMs": 0.8716669999994338,
+        "p50Ms": 0.23720900001353584,
+        "p95Ms": 0.8716669999994338,
+        "p99Ms": 0.8716669999994338
+      },
+      "httpContract": {
+        "attempts": 2,
+        "completed": 2,
+        "errors": [],
+        "minMs": 2.5558749999909196,
+        "maxMs": 2.57112499998766,
+        "p50Ms": 2.5558749999909196,
+        "p95Ms": 2.57112499998766,
+        "p99Ms": 2.57112499998766
+      }
+    },
+    {
+      "name": "reopen emitted engine and worker from durable slots",
+      "elapsedMs": 18671.332458000004,
+      "mainTimerSamples": 3333,
+      "mainMaxTimerGapMs": 16.845167000000004,
+      "mainGapsAbove50ms": 0,
+      "ipc": {
+        "attempts": 185,
+        "completed": 185,
+        "errors": [],
+        "minMs": 0.09412500000325963,
+        "maxMs": 16.79062499999418,
+        "p50Ms": 0.13450000000011642,
+        "p95Ms": 0.18895799999882001,
+        "p99Ms": 0.4002089999994496
+      },
+      "httpContract": {
+        "unavailable": "HTTP listener intentionally opens only after worker recovery/readiness; startup requests are measured through independent main-process IPC."
+      }
+    },
+    {
+      "name": "exact ordinary Save HTTP retry after engine restart",
+      "elapsedMs": 140.08874999999534,
+      "mainTimerSamples": 27,
+      "mainMaxTimerGapMs": 5.697500000002037,
+      "mainGapsAbove50ms": 0,
+      "ipc": {
+        "attempts": 2,
+        "completed": 2,
+        "errors": [],
+        "minMs": 0.1889999999984866,
+        "maxMs": 1.1445000000094296,
+        "p50Ms": 0.1889999999984866,
+        "p95Ms": 1.1445000000094296,
+        "p99Ms": 1.1445000000094296
+      },
+      "httpContract": {
+        "attempts": 2,
+        "completed": 2,
+        "errors": [],
+        "minMs": 2.50449999999546,
+        "maxMs": 3.6802500000048894,
+        "p50Ms": 2.50449999999546,
+        "p95Ms": 3.6802500000048894,
+        "p99Ms": 3.6802500000048894
+      }
+    }
+  ],
+  "memory": {
+    "engineProcessPeakRssBytes": 5678579712,
+    "engineMaximumSampledRssBytes": 5678579712,
+    "externalHttpProbePeakRssBytes": 179044352,
+    "largestRecordedDiskObserverPeakRssBytes": 1119092736,
+    "qualification": "Whole engine process includes its worker threads; do not sum main/worker values. External probe and separate disk observers are not packaged engine+Unity RSS. Response observer RSS for the accepted Save was not retained in the summary; recorded disk observer peaks are not an exhaustive maximum over every observer invocation."
+  },
+  "exactSaveResponse": {
+    "name": "ordinary Save exact bytes",
+    "requestUtf8": "{\"protocolVersion\":4,\"schemaId\":\"sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85\",\"commandId\":\"c71b1228-0aec-4ec4-9aec-91b6eaa7d870-5\",\"sessionId\":\"fd0d35c2-e041-45cc-b35c-ad6e9f398d3e\",\"expectedStateRevision\":0}",
+    "requestSha256": "e2f27d9731f25b3b719d4d59cc0a90768c97ec81883acbcb1b4ae2b0488ed3f0",
+    "responseSha256": "178379ae40ea0aa4938cab739c926398c4ea038136af612bc3984222ef1b4457",
+    "responseBytes": 41960716,
+    "commandId": "c71b1228-0aec-4ec4-9aec-91b6eaa7d870-5",
+    "week": 8793,
+    "savedSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+    "completeClientFlowMs": 12097.510084000001
+  },
+  "finalAuthority": {
+    "currentWeek": 8794,
+    "currentSha256": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+    "savedWeek": 8793,
+    "savedSha256": "69b4d17357902c73663550c602f2630e911ff8ce9b3a0761a712356f34dad665",
+    "fileSha256": "2005f61370a5809a57c8c66877c7cf3acc83130f6c1648119dbddf2c2e8f5b6d",
+    "workingDecodedBytes": 134798967
+  },
+  "scopeLimitations": [
+    "Single bounded ordinary late-world continuation, no repeated full/stress latency percentile claim.",
+    "Prior-schema recovery rewrote catalogue/checkpoint metadata. Inactive compressed record bytes are compared from the recovered projection29 catalogue forward, not asserted unchanged across projection migration. Initial working current/saved Save bytes retained their original hashes.",
+    "5ms timer sampling has phase uncertainty near50ms; actual measured maxima are recorded with sample counts. No Unity UI frame/parse timing or guarded native acceptance in this probe.",
+    "FS spans are lower-level real synchronous functions, not the complete higher-level writeAtomic invocation; they are not compared as identical metrics to the previous >50ms writeAtomic observations.",
+    "The external probe streams HTTP bytes to private files. It is not the Unity client or its complete user-visible interaction.",
+    "No12-rival/48-project/4000-film stress fixture or history regeneration was repeated."
+  ]
+}

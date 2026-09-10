@@ -1,0 +1,191 @@
+{
+  "kind": "P12A-R05 Gate A bounded corrective source review supplement",
+  "reviewer": "/root/recovered_product_evidence (independent read-only reviewer)",
+  "reviewedAtUtc": "2026-09-10T18:36:38.020204+00:00",
+  "scope": "Existing Profile calendar finding and exact outgoing v28-to-v29 runtime migration only; approved campaign acceptance interpretation. No new critique round or broad audit.",
+  "verdict": "No consequential correctness defect found in reviewed changes. Native date and neutral-identity replay remain pending.",
+  "sourceBinding": {
+    "TS_HEAD": "ff020706382cf9c6cf82c8709c5a377d1179a1cb",
+    "Unity_HEAD": "580978fa8449aff517e7632e58933fdd4dfee751",
+    "applicability": "Reviewed dirty working bytes, not a claim that HEAD alone contains the correction.",
+    "files": [
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/people.ts",
+        "sha256": "74108eb9016e13d1c3446b6fef0b65faa98ec24224b53c9712e81d2fdde2daeb"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/calendar.ts",
+        "sha256": "c54fe83ab161d4c80727c3ece021e6340eda3a7ff0bf134f5288d76de8f811ef"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/save.ts",
+        "sha256": "3669603a122bb0a63ddb5cf1588d09a4d2db6d5770e182ba052a78b899b3156c"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime-checkpoint.ts",
+        "sha256": "01bdd70be5d2b77943999191390b91600cbb4dc951df02e0be86aa6a00404de5"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/campaign-library.ts",
+        "sha256": "75141a15ac2d17afff2ecfc3f6513921125641d5b3a410e8d9c0065afcb61764"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/campaign-storage-codec.ts",
+        "sha256": "0a841b9a31e04e21480fd1a64ae95d8d2fd7d9420add04a3b080fc3753031ef1"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/schema/bridge-schema.ts",
+        "sha256": "158065f207bf976e3cacb30e2ccdd94a8144bea01d5c16fe130d1cb20db4bc6c"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/schema/project-studio-bridge.schema.json",
+        "sha256": "5b3e7ed724af2a8e889d427f9ee49d295d7e65d1197b00723b89fcc0b3a97954"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/generated/unity/StudioBridgeDtos.Generated.cs",
+        "sha256": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/generated/unity/project-studio-bridge.contract-manifest.json",
+        "sha256": "57f64526a33ddea4c1e83e74ebadfcf4ba55bd61948efad6535c65065ff593f2"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/tests/bridge-p10a-w0-people-projection.test.ts",
+        "sha256": "9a6a842cf030f8f78b3c430eb8c3f572f48d98b2ef0ccaee3f7438fc2f6a2baa"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/tests/bridge-runtime-checkpoint.test.ts",
+        "sha256": "40880bb753a57fef8ce4023ae1dbb06f6ee6fedcc69126fb1c22db3b67ab87d8"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Infrastructure/StudioPersonProfileContracts.cs",
+        "sha256": "ba4892c233e7f17027760dd1e59d33bcd284fe8f5952786e3027953018af4c18"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Data/Generated/StudioBridgeDtos.Generated.cs",
+        "sha256": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Tests/EditMode/StudioP10AW2ProfileContractsTests.cs",
+        "sha256": "6ec37ba2d36a99400166515677bc217400973e1bdf714ac41d6e648e891f21a5"
+      }
+    ]
+  },
+  "profileDate": {
+    "authority": "Existing src/core/calendar.ts campaignDate emits releaseDateLabel; raw releaseWeek and durable career events remain unchanged. Unity CareerRowMeta consumes the required label without calendar math.",
+    "contract": {
+      "contractId": "project-studio-current-game-unity-bridge",
+      "generatorSourceSha256": "661c09a8fd79bc607bd155688e5d157970e2a1eed341641a91ddaf60609ce7fa",
+      "generatorVersion": 1,
+      "manifestVersion": 1,
+      "projectionVersion": 29,
+      "protocolVersion": 4,
+      "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "typescriptGeneratedContractPath": "generated/unity/StudioBridgeDtos.Generated.cs",
+      "typescriptGeneratedContractSha256": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+      "unityConsumerRepository": "HSpector1/project-studio-unity-visual-spike",
+      "unityGeneratedContractPath": "Assets/Studio/Runtime/Data/Generated/StudioBridgeDtos.Generated.cs",
+      "unityGeneratedContractSha256": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9"
+    },
+    "generatedConsumerByteIdentical": true,
+    "requiredSchemaFieldVerified": true,
+    "sourceTestsInspected": [
+      "raw weeks 0, 12, 51, 52, 6240 with exact labels and unchanged underlying releaseWeek",
+      "Unity exact Crime · Released 1922 · Week 38 for raw141"
+    ],
+    "testsExecutedByReviewer": false,
+    "nativeLimitation": "Run12 capture054 still exhibits old Released Week12 versus Industry 1920 Week13. Native13 on corrected pair required to close visual finding."
+  },
+  "migration": {
+    "exception": "Only actual pinned outgoing c6ab1b2f schema, source saveVersion19, and non-null strictly validated Hollywood state allow an unfinished founding slot. Current/saved tested independently; all earlier schemas retain production-only founding guard.",
+    "strictChain": "Each slot passes importSave -> version dispatch -> validateSaveV19 -> validateSaveV18 plus validateHollywood; migrateToV19 revalidates; canonical export. Envelope, source slot digests and journal structure/digest/canonical bytes checked before migration.",
+    "ordinaryJournalQualification": "Prior ordinary-response journals follow the existing governed schema migration: new logical sessions and empty journal; no cross-schema ordinary response retry promise.",
+    "positiveFixtureQualification": "Unit fixture uses a synthetic outgoing envelope, explicitly labeled; actual-native library probe supplies real prior bytes.",
+    "negativeSourceTestsRemain": [
+      "previous protocol4 impossible founding guard",
+      "enumerated earlier V4 impossible founding guard"
+    ],
+    "probe": {
+      "path": "/var/folders/q_/n1q5ygxd25b3r9wnd57c5zsw0000gn/T/p12a-v28-native-library-migration-ufw0kog5/report.json",
+      "sha256": "17e4d70e03682dfbd5504037dcffb80a2ce13b85b140e466adbda9b626c70ceb",
+      "recipePath": "/var/folders/q_/n1q5ygxd25b3r9wnd57c5zsw0000gn/T/p12a-v28-native-library-migration-ufw0kog5/probe.mts",
+      "recipeSha256": "05640e3a809c0c8410779ff8d207e7db4275c8222eb9ff53744fa5a4d67fbc5b",
+      "sourceLibrarySha256": "a16840d20d8804b338035a77412553dc950444766d9a7fd53d2c5df4f4f78c38",
+      "outputLibrarySha256": "fa742558827bd81a525fb009ca10a7f3151b032001bcfba0934360d884731c26",
+      "reportedReopenIdempotence": true,
+      "recipeReopenAssertionInspected": true,
+      "probeRerunByReviewer": false
+    },
+    "independentReadOnlyComparison": {
+      "codecDecodedSizeAndShaVerified": true,
+      "slots": [
+        {
+          "index": 0,
+          "bothSlotsByteExact": true,
+          "newLogicalSession": true,
+          "newRevision": 0,
+          "newOrdinaryJournalEntries": 0,
+          "currentDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+          "savedDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22"
+        },
+        {
+          "index": 1,
+          "bothSlotsByteExact": true,
+          "newLogicalSession": true,
+          "newRevision": 0,
+          "newOrdinaryJournalEntries": 0,
+          "currentDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+          "savedDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720"
+        },
+        {
+          "index": 2,
+          "bothSlotsByteExact": true,
+          "newLogicalSession": true,
+          "newRevision": 0,
+          "newOrdinaryJournalEntries": 0,
+          "currentDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+          "savedDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030"
+        },
+        {
+          "index": 3,
+          "bothSlotsByteExact": true,
+          "newLogicalSession": true,
+          "newRevision": 0,
+          "newOrdinaryJournalEntries": 0,
+          "currentDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+          "savedDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299"
+        },
+        {
+          "index": 4,
+          "bothSlotsByteExact": true,
+          "newLogicalSession": true,
+          "newRevision": 0,
+          "newOrdinaryJournalEntries": 0,
+          "currentDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+          "savedDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22"
+        }
+      ],
+      "campaignMetadataPreserved": true,
+      "campaignReceiptsExact": true,
+      "activeIdentityPreserved": true,
+      "rawSaveBytesNotCopiedOrPrinted": true
+    }
+  },
+  "campaignAcceptance": {
+    "path": "/Users/bruce/Downloads/P12A-R05-OWNER-DECISIONS-AND-ACCEPTANCE.md",
+    "sha256": "473ec3955a3624c7b1da3f670607a08a0ed86019736c50260d8f338176e50e87",
+    "line": 133,
+    "exactClause": "| Campaign library | Native create/name A, advance/save; create B, advance differently/save; create C/save; reload each exact world. Save As B into an independent copy, preserve original, diverge through actions, quit/relaunch and reload all. Rename changes labels only; Delete/overwrite cancellation is inert; confirmed operations touch only the target. |",
+    "interpretation": "A must advance/save, B must advance differently/save, C must create/save. C need not found or advance. Existing native C0 explicit save and exact Quit/relaunch restoration satisfy the C lifecycle step. Full isolation/variation and other proof families retain their separate requirements.",
+    "priorReviewClarification": "Prior native12 artifacts accurately noted C stayed at opening week0. That is a factual limit, not an additional approved blocker or a requirement to progress all three studios."
+  },
+  "remainingBoundedGateARechecks": [
+    "Corrected live film date agrees between Industry and actual scrolled full Profile row, with Back preserved",
+    "Actual low-ability credited person exposes neutral Career identity not yet established wording; current-world Arthur72/Proven did not exercise fallback"
+  ],
+  "limits": [
+    "Read-only review and metadata comparison, no worktree edits, no builds/tests/engine/native input started.",
+    "No whole Gate A or Gate B certification; wait root native13 clean final witness and relevant executed checks.",
+    "Hook stays explicit-checker fallback; no active-hook claim."
+  ]
+}

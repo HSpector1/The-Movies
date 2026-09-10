@@ -46,7 +46,7 @@ for (const input of inputs) {
 }
 
 const outputs = metafile.outputs ?? {}
-const requiredOutputs = ['dist/studio/studio.mjs', 'dist/studio/engine.mjs']
+const requiredOutputs = ['dist/studio/studio.mjs', 'dist/studio/engine.mjs', 'dist/studio/runtime-worker.mjs']
 for (const required of requiredOutputs) {
   const record = Object.entries(outputs).find(([name]) => name.endsWith(required))
   if (record === undefined) {
@@ -72,6 +72,12 @@ for (const required of requiredOutputs) {
     `[audit:studio-packaged] ${required} bytes=${String(size)} sha256=${digest}`,
   )
 }
+
+try {
+  const binding=JSON.parse(readFileSync(path.join(outDirectory,'runtime-worker-source.json'),'utf8'))
+  const actual=createHash('sha256').update(readFileSync(path.join(outDirectory,'runtime-worker.mjs'))).digest('hex')
+  if(binding.version!==1||binding.sha256!==actual||!Array.isArray(binding.sources)||binding.sources.length===0)violations.push('worker artifact/source binding is missing or mismatched')
+} catch { violations.push('worker artifact/source binding is unreadable') }
 
 for (const [prefix, count] of [...prefixCounts.entries()].sort()) {
   console.log(`[audit:studio-packaged] inputs ${prefix} count=${String(count)}`)

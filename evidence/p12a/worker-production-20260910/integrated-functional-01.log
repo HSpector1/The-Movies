@@ -1,0 +1,58 @@
+
+ RUN  v2.1.9 /Users/bruce/The Movies - P12A Living Hollywood TS
+
+[bridge] 2026-09-10T18:47:01.688Z commandId=a5e98a38-d59a-4d72-acf0-9083eddf3020 expectedRevision=0 operation=save result=accepted revision=0 disposition=first-seen durationMs=6.301
+[bridge] 2026-09-10T18:47:01.714Z commandId=a5e98a38-d59a-4d72-acf0-9083eddf3020 expectedRevision=0 operation=save result=accepted revision=0 disposition=replay durationMs=6.301
+ ✓ |core| tests/bridge-http-security.test.ts (2 tests) 1696ms
+   ✓ fails closed before opening runtime state when the launch capability is absent or invalid 503ms
+   ✓ denies cross-origin and unauthenticated reads and mutations before runtime access 1192ms
+[bridge] 2026-09-10T18:47:02.381Z commandId=c8b8a563-7971-4e1a-8433-66e94037eb36 expectedRevision=0 operation=submitIntent result=accepted revision=1 disposition=first-seen durationMs=73.313
+[bridge] 2026-09-10T18:47:02.962Z commandId=a5e98a38-d59a-4d72-acf0-9083eddf3020 expectedRevision=0 operation=save result=accepted revision=0 disposition=replay durationMs=6.301
+[bridge] 2026-09-10T18:47:03.959Z commandId=545cafd9-6f86-4f01-8df8-37e9cc4cb46e expectedRevision=0 operation=save result=accepted revision=0 disposition=first-seen durationMs=6.574
+ ✓ |core| tests/bridge-runtime-worker.test.ts (8 tests) 5004ms
+   ✓ runtime worker production authority > delivers an accepted campaign Save before close completes and recovers its catalogue receipt 1180ms
+   ✓ runtime worker production authority > durably saves exact response bytes and replays them after later progress and reopen 2086ms
+   ✓ runtime worker production authority > refuses a second authority while preserving the first worker and its durable bytes 585ms
+   ✓ runtime worker responsiveness and lifecycle > keeps the caller timer responsive during synchronous work and retains exact UTF-8 bytes 468ms
+   ✓ runtime worker responsiveness and lifecycle > drains accepted work before graceful close and rejects requests made after closing starts 468ms
+ ✓ |core| tests/bridge-runtime-coordinator.test.ts (11 tests) 7648ms
+   ✓ BridgeRuntimeCoordinator > atomically persists a state-preserving protocol-3 rollover before becoming ready 606ms
+   ✓ BridgeRuntimeCoordinator > preserves protocol-3 bytes when the migration checkpoint commit fails 420ms
+   ✓ BridgeRuntimeCoordinator > atomically rolls the previous protocol-4 schema into a fresh replay session 479ms
+   ✓ BridgeRuntimeCoordinator > keeps prior protocol-4 bytes when its schema rollover commit fails 384ms
+   ✓ BridgeRuntimeCoordinator > does not expose a first-seen dispatch to its caller or a queued read before commit 800ms
+   ✓ BridgeRuntimeCoordinator > restores logical identity, revision, and the exact historical response 988ms
+   ✓ BridgeRuntimeCoordinator > poisons queued and later reads when a checkpoint commit fails without replacing prior bytes 648ms
+   ✓ BridgeRuntimeCoordinator > rolls full journals without changing current or explicitly saved game authority 2072ms
+   ✓ BridgeRuntimeCoordinator > poisons instead of rolling when one entry cannot fit an empty journal 490ms
+   ✓ BridgeRuntimeCoordinator > drains accepted work before releasing the store and rejects work added after close 667ms
+ ✓ |core| tests/bridge-process-restart.test.ts (10 tests) 17314ms
+   ✓ rejects the post-commit response gate outside a test process before opening runtime state 434ms
+   ✓ restores one durable logical bridge session and exact HTTP replay after SIGKILL 4547ms
+   ✓ withholds a durably committed command response until SIGKILL and replays it byte-identically after restart 2066ms
+   ✓ withholds a durably committed save response until SIGKILL and replays it byte-identically after restart 1615ms
+   ✓ withholds a durably committed load response until SIGKILL and replays it byte-identically after restart 3020ms
+   ✓ observes a byte-different semantic replay instead of falsely proving an exact request retry 1238ms
+   ✓ drops a durably committed command response and replays it byte-identically in the same process 1278ms
+   ✓ drops a durably committed save response and replays it byte-identically in the same process 962ms
+   ✓ drops a durably committed load response and replays it byte-identically in the same process 2153ms
+ ✓ |core| tests/bridge-p12-campaign-library.test.ts (13 tests) 23484ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 1178ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 1071ms
+   ✓ R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 3301ms
+   ✓ R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 1361ms
+   ✓ R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 1152ms
+   ✓ R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 2092ms
+   ✓ R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 2351ms
+   ✓ R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 2613ms
+   ✓ R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 524ms
+   ✓ R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 821ms
+   ✓ R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 1185ms
+   ✓ R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 3659ms
+   ✓ R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 2176ms
+
+ Test Files  5 passed (5)
+      Tests  44 passed (44)
+   Start at  20:46:59
+   Duration  24.31s (transform 586ms, setup 0ms, collect 2.98s, tests 55.15s, environment 0ms, prepare 141ms)
+

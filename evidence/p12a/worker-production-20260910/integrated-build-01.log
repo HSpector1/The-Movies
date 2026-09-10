@@ -1,0 +1,8 @@
+
+> project-studio-core@0.1.0 build:studio
+> node scripts/build-studio.mjs
+
+[build:studio] studio.mjs bytes=197582 sha256=97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26
+[build:studio] engine.mjs bytes=129606 sha256=ccd58600f6c43edc5abf814fdddf63d673fd69a98277ad61c80ea4e72e58d104
+[build:studio] runtime-worker.mjs bytes=1542701 sha256=b93597b747fbbf678b3024966e8c0559bf50c97534edc3dbb5aea75f755f0aa9
+[build:studio] emitted /Users/bruce/The Movies - P12A Living Hollywood TS/dist/studio

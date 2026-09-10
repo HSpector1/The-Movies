@@ -1,0 +1,11 @@
+export const WORKER_MAX_REQUEST_BYTES = 2_000_000
+export const WORKER_MAX_RESPONSE_BYTES = 192 * 1024 * 1024
+export const WORKER_MAX_PENDING_REQUESTS = 128
+export const WORKER_RESPONSE_TIMEOUT_MS = 60_000
+export type RuntimeWorkerRoute = '/health' | '/session' | '/snapshot' | '/campaigns' | '/industry' | '/command' | '/quote' | '/save' | '/load'
+export type RuntimeWorkerRequest = { route: RuntimeWorkerRoute; method: 'GET' | 'POST'; body?: Uint8Array; bodyError?: string; requestUtf8Sha256?: string; startedEpochMs: number }
+export type RuntimeWorkerReply = { status: number; body: Uint8Array; disposition: 'respond' | 'drop' }
+export type RuntimeWorkerReady = { protocolVersion:number; schemaId:string; snapshotVersion:number; runtimeInstanceId: string; durable: boolean; sessionId: string; stateRevision: number; gameWeek: number; stateDigest: string; payloadBytes: number; serializationMs: number }
+export type RuntimeWorkerConfiguration = { runtimeDirectory: string | null; regime: 'endowed' | 'bare-lot'; runtimeInstanceId: string; testGateEnvironment?: string }
+export type RuntimeWorkerInput = { kind: 'request'; id: number; request: RuntimeWorkerRequest } | { kind: 'close' }
+export type RuntimeWorkerOutput = { kind: 'ready'; ready: RuntimeWorkerReady } | { kind: 'response'; id: number; reply: RuntimeWorkerReply } | { kind: 'request-error'; id: number; message: string } | { kind: 'fatal'; message: string } | { kind: 'closed' }

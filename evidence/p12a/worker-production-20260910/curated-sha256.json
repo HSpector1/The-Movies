@@ -1,0 +1,11 @@
+{
+  "independent-applicability.json": "3436c2410b420055c8c5a3420fb3561df2c83b42cd9b4e554d34322785398cd4",
+  "independent-review.md": "2cbc5a5f6d8575167ddddb348264b563ebd2e68ecb525b88155170b5e156b15c",
+  "integrated-audit-01.log": "a7fd8a7b60eea7d3b9c777a603db6237c4a17d568f1aacf73a51b81c49e77419",
+  "integrated-build-01.log": "62997041ff743023d9a45bd1239c6b8819ae7616f06248154d82cfb50700ffdf",
+  "integrated-functional-01.log": "e7eaba7bb0e6cdbc8cb9d51e13ba31f5e529da328d44da9100de42eb0a1e98db",
+  "integrated-typecheck-01.log": "855ad18a7ca3545de92d4b3fd419afe98fb76a0b095511beff0b3e65cfdaee59",
+  "measured-review.md": "d966977a94fa76f9101765f83b578fcf93a746a99c33019279d87c4b4065a633",
+  "measured-summary.json": "0d4f6c0e1c6ab5c362a1fcc108f012c312d526fa1f1001d83fd4703ec1a9d197",
+  "source-manifest.json": "b9e6abe91989f8770ebdd2ab409e5497b6ada960bd3c540c479b08ec50060433"
+}
