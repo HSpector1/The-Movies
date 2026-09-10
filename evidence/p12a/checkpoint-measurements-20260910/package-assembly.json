@@ -1,0 +1,31 @@
+{
+  "atUtc": "2026-09-10T22:37:22.934521+00:00",
+  "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+  "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+  "productSource": "deca39521da1baeca61898d156a43f4ae6a7e035",
+  "packages": [
+    {
+      "root": "/private/tmp/p12a-current592-native-93tk_gpc",
+      "purpose": "late-world engineering verification",
+      "immutableFiles": 197,
+      "checksumFileSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+      "bytes": 168236393,
+      "profile": "ABSENT",
+      "launched": false,
+      "manifestSha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "pairSha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355"
+    },
+    {
+      "root": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
+      "purpose": "independent named campaigns candidate verification",
+      "immutableFiles": 197,
+      "checksumFileSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+      "bytes": 168236393,
+      "profile": "ABSENT",
+      "launched": false,
+      "manifestSha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "pairSha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355"
+    }
+  ],
+  "noNativeAcceptance": true
+}

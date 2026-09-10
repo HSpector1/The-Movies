@@ -1,0 +1,677 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "status": "AFFECTED_VERIFICATION_PASS; ACCEPT_MEASURED_R05_REFERENCE_REBASELINE_WITH_LIMITS",
+  "createdAt": "2026-09-10T22:31:35.499350+00:00",
+  "sourceCommit": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+  "author": "/root/final_performance_measurements",
+  "scope": "Independent bounded affected production store/coordinator and emitted-worker checks; disposition of measured reference costs after integrated checkpoint reuse correction. No whole-R05, native or Owner acceptance.",
+  "supersedes": {
+    "path": "/private/tmp/p12a-final-phase-1xpf7efb/measurement-disposition.json",
+    "sha256": "e6a1d7f1debb62aeac9ccd50e033a8d22f61dc5740942d7b4851cb5d286f0ff0",
+    "qualification": "Supersedes the prior open repeated-checkpoint-work disposition for the four corrected current sources, and the affected store/worker timings only. Original raw controls and original numeric MISS statuses are retained."
+  },
+  "storeComparison": {
+    "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+    "status": "PASS_AFFECTED_FIXED_STORE_AND_COMPARISON",
+    "checkedAt": "2026-09-10T22:28:59.878947+00:00",
+    "sourceHead": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+    "controlReport": {
+      "path": "/private/tmp/p12a-final-phase-1xpf7efb/store-report.json",
+      "sha256": "db13c89b7d059258dfa5c44fbbf3910ee031ebcc56b99394cc903182e62b303a"
+    },
+    "integratedReport": {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store/store-report.json",
+      "sha256": "e464a8655580550e53388ce9a6896eaac1159d327a39bfd28e5599e64510fefe"
+    },
+    "phases": {
+      "durableWrite": {
+        "control": {
+          "n": 20,
+          "medianMs": 52.971104500000024,
+          "p95Ms": 62.351084000000014,
+          "maxMs": 63.626875000000155,
+          "minMs": 48.98866699999985
+        },
+        "integrated": {
+          "n": 20,
+          "medianMs": 52.0114585,
+          "p95Ms": 53.56449999999995,
+          "maxMs": 56.60166700000036,
+          "minMs": 50.567208000000164
+        },
+        "changePercent": {
+          "medianMs": -1.8116405331892182,
+          "p95Ms": -14.092111052953083,
+          "maxMs": -11.041258901996642
+        }
+      },
+      "loadReady": {
+        "control": {
+          "n": 20,
+          "medianMs": 18337.768104000017,
+          "p95Ms": 18497.514874999993,
+          "maxMs": 18661.969416000007,
+          "minMs": 18230.87162500003
+        },
+        "integrated": {
+          "n": 20,
+          "medianMs": 13322.654937499989,
+          "p95Ms": 13414.88841700001,
+          "maxMs": 13423.439708999998,
+          "minMs": 13243.113332999987
+        },
+        "changePercent": {
+          "medianMs": -27.348547206276873,
+          "p95Ms": -27.477347591536873,
+          "maxMs": -28.07061564739629
+        }
+      },
+      "campaignSave": {
+        "control": {
+          "n": 20,
+          "medianMs": 18162.50633350009,
+          "p95Ms": 18248.355917000008,
+          "maxMs": 18870.020165999973,
+          "minMs": 18052.59695799998
+        },
+        "integrated": {
+          "n": 20,
+          "medianMs": 9517.586124999973,
+          "p95Ms": 9577.753750000033,
+          "maxMs": 9612.70762500001,
+          "minMs": 9458.987709000008
+        },
+        "changePercent": {
+          "medianMs": -47.597617034576736,
+          "p95Ms": -47.51442928029762,
+          "maxMs": -49.058307620040594
+        }
+      }
+    },
+    "resourceEvidence": {
+      "control": {
+        "highWaterRssKiB": 4971568,
+        "highWaterRssBytes": 5090885632,
+        "measuredEndpointHeapMaxBytes": 2242657768,
+        "measuredEndpointRssMaxBytes": 4210884608
+      },
+      "integrated": {
+        "highWaterRssKiB": 4707520,
+        "highWaterRssBytes": 4820500480,
+        "measuredEndpointHeapMaxBytes": 2248617648,
+        "measuredEndpointRssMaxBytes": 4187045888
+      }
+    },
+    "sourceChecks": [
+      {
+        "label": "store106",
+        "manifestPath": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store/store-sources.json",
+        "manifestSha256": "f1de95492bb2c5fed04dc190391bfbd2f637a4173a48c58e1ec7f7717a07fa9d",
+        "count": 106,
+        "changed": []
+      },
+      {
+        "label": "worker136-includes119-compiler-sources",
+        "manifestPath": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/source-manifest.json",
+        "manifestSha256": "d9f6e02db6c27c2d0ce4f4381f9a103a537a6d15ac0dd43ac7e2725bc106d18f",
+        "count": 136,
+        "changed": []
+      },
+      {
+        "label": "pure96",
+        "manifestPath": "/private/tmp/p12a-fixed-phase-to0ghkwi/source-before.json",
+        "manifestSha256": "f47a262933533d41e64e7d46112347363d1bf8363497f011c66774502cbcda29",
+        "count": 96,
+        "changed": []
+      },
+      {
+        "label": "busy96",
+        "manifestPath": "/private/tmp/p12a-final-phase-1xpf7efb/profile-sources.json",
+        "manifestSha256": "1b5f9239d19ade15cf1fba8aba810596823f1fdb216829fbc595cbf55f304b6e",
+        "count": 96,
+        "changed": []
+      },
+      {
+        "label": "curatedPure96",
+        "manifestPath": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/fixed-phases-20260910/source-manifest.json",
+        "manifestSha256": "f47a262933533d41e64e7d46112347363d1bf8363497f011c66774502cbcda29",
+        "count": 96,
+        "changed": []
+      },
+      {
+        "label": "counter106",
+        "manifestPath": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/checkpoint-reuse-20260910/counter-patched-sources-04.json",
+        "manifestSha256": "5003c30261f42bfb9f26c8dfee8dc21078f0c0c923c66905557e1cd0303ae57e",
+        "count": 106,
+        "changed": []
+      }
+    ],
+    "changedCompiledSourceFiles": [
+      {
+        "path": "bridge/runtime-checkpoint.ts",
+        "before": "01bdd70be5d2b77943999191390b91600cbb4dc951df02e0be86aa6a00404de5",
+        "after": "5dd3b09da27fd84167a054f88b865500118f68ab5910dcf5dbee63b2e60192e9"
+      },
+      {
+        "path": "bridge/runtime/campaign-library.ts",
+        "before": "75141a15ac2d17afff2ecfc3f6513921125641d5b3a410e8d9c0065afcb61764",
+        "after": "2b6bee53715d153d696b4c3d08211d3d1b79622346133072d46bc7e38a87b38c"
+      },
+      {
+        "path": "bridge/runtime/runtime-coordinator.ts",
+        "before": "b90be451b1195eb524b05de45d793c10d59963103165ab045d24a125fd22937a",
+        "after": "d776930efa3d0d37e4ca18e2fcf16b7e8d4f1d795601048a66eb48c54124e560"
+      },
+      {
+        "path": "bridge/session.ts",
+        "before": "eada8d7ffac42df1afeebf4775a61f4fce6c806b8bcaac8a864d8abf51f0753b",
+        "after": "9d9978ec40ce1e2e6c0e25efe1f813ae676cfb54551a82c041c6392367d1db4b"
+      }
+    ],
+    "seed": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z/campaign-library-final.json",
+      "sha256": "66b79add059344d2704d6e27641ecf750f73acad8a358662c91a30eb5df50365",
+      "bytes": 70593125
+    },
+    "hardware": {
+      "platform": "darwin",
+      "release": "25.6.0",
+      "arch": "arm64",
+      "cpu": "Apple M3 Max",
+      "logicalCpus": 16,
+      "totalMemoryBytes": 137438953472,
+      "heapSizeLimit": 4395630592
+    },
+    "runtime": {
+      "node": "v26.3.1",
+      "executable": "/opt/homebrew/Cellar/node/26.3.1/bin/node",
+      "execArgv": [],
+      "nodeOptionsPresent": false
+    },
+    "checks": {
+      "rawSamplesRecomputed": 120,
+      "excludedWarmups": 18,
+      "fixedAuthorityLoads": 23,
+      "loadRewrites": 0,
+      "acceptedSaves": 23,
+      "saveWorldUnchanged": true,
+      "saveCatalogueRevision": 7,
+      "privateSaveModes": "0600",
+      "sameHarness": true,
+      "sameSeedRuntimeHardwareBaseline": true,
+      "setupLoggedExcluded": true,
+      "protectedOriginalsUnchanged": true,
+      "ownedProcessIdsAbsent": [
+        89292,
+        89221,
+        89223,
+        89282
+      ],
+      "ownedLocksAbsent": true
+    },
+    "manifestQualification": {
+      "parsedEqual": true,
+      "privateIsRootPlusOneFinalLF": true,
+      "byteEqual": false,
+      "rootSha256": "a092dafb02a0f346c7fb29147eed0b9b2e643bdf4364f574cfa7f5fd63d06c58",
+      "privateSha256": "b3b46f4de6641e931cde335a91584a86daa79e241dae1cb84527e99c1421bddd"
+    },
+    "phaseQualifications": [
+      "Standalone isolated private benchmark process invoking unchanged production store/coordinator directly. No HTTP, worker-postMessage, Unity, native or engine-main placement claim.",
+      "Load-to-ready starts before production store ownership acquisition and includes coordinator recovery and first production snapshot, matching the worker ready computation except worker startup and message transport. Repeated in one process with ordinary OS page cache; not OS-cold launch.",
+      "Durable write phase includes production ownership checks, UTF-8 conversion/validation, file write+fsync, atomic replacement, directory fsync, and cleanup. Input serialization/compression is excluded because exact protected encoded UTF-8 is already available.",
+      "Complete campaign Save starts at coordinator.campaign and ends when its durable accepted response resolves. Includes proposal/fork/strict operations, production library encoding/compression and atomic write; excludes prior catalogue read, HTTP/client UI, and post-operation verification.",
+      "Every load/Save sample is reset to the identical protected real seed using production store.writeAtomic, then the owned store is closed through its API. This reset/setup, catalogue reads, validation hashes and file stats are excluded from timings and logged separately.",
+      "Each sample Save has a unique command ID; catalogue increments by one, active record revision increments by one. Runtime rollover may mint session UUIDs. Current world/week/digest and inactive record metadata must remain unchanged. No authoritative weekly advance or fabricated history.",
+      "No forced GC, heap flags, or cache clearing; per-sample heap/RSS before and after plus process high-water RSS are recorded. No claim these endpoint samples capture allocation volume or all RSS peaks."
+    ],
+    "additionalQualifications": [
+      "Control and integrated phase samples are separate sequential empirical n20 observations; no randomization or population confidence interval. No attribution of every timing difference solely to the patch.",
+      "Memory high-water includes setup and warmups; endpoint maxima are measured phase endpoints, not allocation volume or guaranteed peak live heap. Standalone process memory is not native engine minimum specification.",
+      "The sampler verifies inactive catalogue metadata and active revision semantics; full inactive record compressed-byte preservation is separately established by the emitted probe.",
+      "The original full 8794 real library contains engineering SaveAs branches; independent NewGame campaigns A/B/C remain a distinct native acceptance item."
+    ]
+  },
+  "emittedComparisonReference": {
+    "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/emitted-comparison.json",
+    "sha256": "7a7745de49267e6f7651d6165efb91abe0105ddedc3e5efed57d914d47293273",
+    "functionalChecks": 18,
+    "mainRuntimeFsCalls": 0,
+    "workerRuntimeFsCalls": 343,
+    "exactRetries": [
+      {
+        "name": "exact ordinary Save HTTP retry exact",
+        "responseSha256": "5e4c13ee800c78dc38f45a5d2a6b4a60a7c47c6f8b80e6d22f59d4e0d0a90bdc",
+        "bytes": 41960717,
+        "unchangedFileSha256": "a908d463438c78002f3318ff13415c58afe1e00bfd5bd14040082b1121dee9ef"
+      },
+      {
+        "name": "exact ordinary Save HTTP retry after later tick exact",
+        "responseSha256": "5e4c13ee800c78dc38f45a5d2a6b4a60a7c47c6f8b80e6d22f59d4e0d0a90bdc",
+        "bytes": 41960717,
+        "unchangedFileSha256": "f9fceb8f84670869d4ad7ec287194c0fcaf577fef8fae765572fb8255e8e3caa"
+      },
+      {
+        "name": "exact ordinary Save HTTP retry after engine restart exact",
+        "responseSha256": "5e4c13ee800c78dc38f45a5d2a6b4a60a7c47c6f8b80e6d22f59d4e0d0a90bdc",
+        "bytes": 41960717,
+        "unchangedFileSha256": "f9fceb8f84670869d4ad7ec287194c0fcaf577fef8fae765572fb8255e8e3caa"
+      }
+    ],
+    "qualification": "Each matched emitted operation is a one-off n1, distinct from fixed-store n20 distribution. Seed8791 engineering SaveAs branches are different from sampler8794 seed and independent NewGame A/B/C."
+  },
+  "unchangedPureTimingReuse": {
+    "sourceCountEach": 96,
+    "sourceChanges": [],
+    "full8788": [
+      {
+        "name": "canonical-serialize-already-validated-detached-save",
+        "n": 20,
+        "medianMs": 172.7679790000002,
+        "p95Ms": 181.43612500000017,
+        "maxMs": 181.52479099999982
+      },
+      {
+        "name": "sha256-existing-canonical-utf8-string",
+        "n": 20,
+        "medianMs": 13.398687500000051,
+        "p95Ms": 13.529708000000028,
+        "maxMs": 13.535499999999956
+      },
+      {
+        "name": "canonical-serialize-plus-sha256-paired",
+        "n": 20,
+        "medianMs": 188.38877050000065,
+        "p95Ms": 199.5241249999999,
+        "maxMs": 219.31304199999977
+      },
+      {
+        "name": "strict-validate-already-parsed-v19",
+        "n": 20,
+        "medianMs": 84.43702099999973,
+        "p95Ms": 92.09870799999771,
+        "maxMs": 92.47483400000056
+      },
+      {
+        "name": "parse-and-strict-import-v19",
+        "n": 20,
+        "medianMs": 159.39172950000102,
+        "p95Ms": 166.8331659999967,
+        "maxMs": 171.41833300000144
+      },
+      {
+        "name": "makeSave-detach-and-strict-validate",
+        "n": 20,
+        "medianMs": 181.91558349999832,
+        "p95Ms": 191.70862500000294,
+        "maxMs": 195.007708000001
+      },
+      {
+        "name": "complete-export-current-state",
+        "n": 20,
+        "medianMs": 360.9881874999992,
+        "p95Ms": 380.4905000000035,
+        "maxMs": 381.6488329999993
+      },
+      {
+        "name": "indexed-studio-profile-first-page-50",
+        "n": 20,
+        "medianMs": 0.0437290000008943,
+        "p95Ms": 0.062334000002010725,
+        "maxMs": 0.06645800000114832
+      },
+      {
+        "name": "cached-industry-summary",
+        "n": 20,
+        "medianMs": 0.0002920000006270129,
+        "p95Ms": 0.0006250000005820766,
+        "maxMs": 0.0013330000001587905
+      }
+    ],
+    "busyProfiles": [
+      {
+        "studioId": "studio-e26cea4b-r02",
+        "name": "Rose Lantern Films",
+        "firstUncachedMs_n1": 404.56974999999994,
+        "indexed": {
+          "n": 20,
+          "medianMs": 0.10554149999995843,
+          "p95Ms": 0.13108299999998962,
+          "maxMs": 0.13170800000000327
+        },
+        "rows": 50,
+        "responseBytes": 30614,
+        "totalFilms": 978
+      },
+      {
+        "studioId": "studio-e26cea4b-r06",
+        "name": "Blackthorn Screenworks",
+        "firstUncachedMs_n1": 402.91487500000005,
+        "indexed": {
+          "n": 20,
+          "medianMs": 0.13608399999998255,
+          "p95Ms": 0.19220799999993687,
+          "maxMs": 0.2047090000000935
+        },
+        "rows": 50,
+        "responseBytes": 31032,
+        "totalFilms": 866
+      }
+    ],
+    "qualification": "Full96 comparisons passed for original, busy and curated manifests. No pure timing rerun. Raw cached-industry-summary name is a misnomer: production function creates a fresh small summary; there is no memoized cache. Original r01 profile remains limited; busyr02/r06 provide actual50-row warmed results."
+  },
+  "correctedAlgorithmConcern": {
+    "status": "CLOSED_BOUNDED_REPEATED_ACCEPTED_CHECKPOINT_PREPARATION_CONCERN_ON_CURRENT_BYTES",
+    "independentSourceReview": "PASS_BOUNDED_SOURCE_REVIEW_NO_NATIVE_OR_PERFORMANCE_ACCEPTANCE",
+    "sourceReviewPath": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/checkpoint-reuse-20260910/independent-final-review.json",
+    "sourceReviewSha256": "920365549c6a6476b5a2bbe12a9bbfed6d049a68a4dfcbc6e327828989f69c49",
+    "counter106InputsMatch": true,
+    "counterCurrent": {
+      "kind": "small deterministic fixture instrumented invocation counts",
+      "qualifications": [
+        "Counters inserted only into private esbuild output, no runtime source instrumentation.",
+        "Counts describe complete operation dispatch including compression preparation; no timing assertions.",
+        "Checkpoint distinctness key joins session/revision/current/saved/journal digests; raw private payloads omitted.",
+        "A capacity-check checkpoint and its later final export may have identical bytes: remaining duplicate validation is reported, not relabelled as different state."
+      ],
+      "completed": true,
+      "campaignSave": {
+        "counts": {
+          "canonicalJson": 24,
+          "checkpointDigest": 16,
+          "strictCheckpoint": 3,
+          "importSave": 8,
+          "exportSave": 5,
+          "canonicalCheckpoint": 3,
+          "canonicalCheckpointExactBytes": 3
+        },
+        "checkpointGroups": {
+          "strictCheckpoint": {
+            "distinct": 2,
+            "invocationsPerDistinct": [
+              1,
+              2
+            ]
+          },
+          "canonicalCheckpoint": {
+            "distinct": 2,
+            "invocationsPerDistinct": [
+              1,
+              2
+            ]
+          },
+          "canonicalCheckpointExactBytes": {
+            "distinct": 2,
+            "invocationsPerDistinct": [
+              1,
+              2
+            ]
+          }
+        }
+      },
+      "ordinarySave": {
+        "counts": {
+          "importSave": 3,
+          "canonicalJson": 19,
+          "checkpointDigest": 8,
+          "strictCheckpoint": 1,
+          "exportSave": 2,
+          "canonicalCheckpoint": 1,
+          "canonicalCheckpointExactBytes": 1
+        },
+        "checkpointGroups": {
+          "strictCheckpoint": {
+            "distinct": 1,
+            "invocationsPerDistinct": [
+              1
+            ]
+          },
+          "canonicalCheckpoint": {
+            "distinct": 1,
+            "invocationsPerDistinct": [
+              1
+            ]
+          },
+          "canonicalCheckpointExactBytes": {
+            "distinct": 1,
+            "invocationsPerDistinct": [
+              1
+            ]
+          }
+        }
+      },
+      "final": {
+        "week": 13,
+        "digest": "72bee95da8f79e6aa4d6a64732ae98f817ce5e5ecb841d0afb46d92b6bae51fc",
+        "returnedSaveSha256": "72bee95da8f79e6aa4d6a64732ae98f817ce5e5ecb841d0afb46d92b6bae51fc"
+      }
+    },
+    "beforeAfter": {
+      "ordinarySaveStrictCheckpoint": [
+        3,
+        1
+      ],
+      "ordinarySaveExactCanonicalCheckpoint": [
+        4,
+        1
+      ],
+      "campaignSaveStrictCheckpoint": [
+        9,
+        3
+      ],
+      "campaignSaveExactCanonicalCheckpoint": [
+        13,
+        3
+      ]
+    },
+    "interpretation": "Ordinary accepted final checkpoint is strict/canonical once. Campaign Save retains one final accepted checkpoint plus the mandatory detached prospective-fork export/import integrity pair:3 strict/canonical calls across2 distinct checkpoints, multiplicities[1,2]. The pair intentionally validates both separate export and import boundaries. Historical accepted Save response bodies remain distinct strict boundaries. This is not globally one canonicalization or an assertion that every nested historical byte is touched only once. No mutable cross-operation cache or skip of public unknown/mutated input validation. Source-bound small counters measure invocation shape, not full-world latency.",
+    "correctnessEvidence": "Peer-authored21 boundary/adversarial tests, final focused130/130, root reported cumulative395 files/5181PASS5SKIP and typecheck/build/audit119 PASS, plus fresh affected emitted18 checks and69 current fixed-store phase executions. This subagent reused those reviewed test records; it did not rerun root tests.",
+    "causalQualification": "The old scoped CPUprofile identified repeated work. The correction and operation counters establish removal of that duplication; same-harness measured Save p95 decreased47.5144% and load-ready27.4773%. Sequential samples do not isolate every environmental influence; no extra CPUprofile was run."
+  },
+  "originalBudgets": [
+    {
+      "metric": "Full fixture paired canonical serialization plus digest",
+      "originalTarget": "p95 <=100 ms",
+      "observed": "p95 199.524125 ms; max 219.313042 ms; n20",
+      "status": "MISS_ORIGINAL_FULL_TARGET",
+      "scope": "Unchanged pure96 fixed full8788, nine rivals; not future stress200ms qualification."
+    },
+    {
+      "metric": "Complete production campaign Save",
+      "originalTarget": "p95 <=250 ms async full Save",
+      "observed": "p95 9577.753750 ms; max 9612.707625 ms; n20",
+      "status": "MISS_ORIGINAL_FULL_TARGET",
+      "scope": "Same real 8794 three-branch 70,593,125-byte library; complete coordinator operation. Worker emitted HTTP campaign Save is a distinct n1 6921.988166 ms at the different8791 seed."
+    },
+    {
+      "metric": "Strict import",
+      "originalTarget": "p95 <=500 ms full load/import",
+      "observed": "pure parse+strict import p95 166.833166 ms; max 171.418333 ms; n20",
+      "status": "PASS_MEASURED_PURE_IMPORT_SCOPE_ONLY",
+      "scope": "Single core full8788 Save import. Complete durable library load-ready p95 13414.888417 ms is separately timed and must not be called a500ms complete-library pass."
+    },
+    {
+      "metric": "Incremental P12 uncompressed Save size",
+      "originalTarget": "<=8 MB full campaign",
+      "observed": "Exact Hollywood-field delta alone 37,829,874 B",
+      "status": "MISS_ORIGINAL_FULL_TARGET",
+      "scope": "Full8788; the root alone exceeds budget before any additional P12 shared-person fields. Whole core Save38,135,529B; compressed multi-campaign library is a different byte scope."
+    },
+    {
+      "metric": "Permanent rival film record average",
+      "originalTarget": "<=1.5 KB average",
+      "observed": "9,124,657 B /2900 films =3146.433448 B average; max3319 B",
+      "status": "MISS_ORIGINAL_FULL_TARGET",
+      "scope": "Full8788 complete retained records; no discarded history or truncated save."
+    },
+    {
+      "metric": "Indexed busy Studio Profile50 rows",
+      "originalTarget": "<=10 ms indexed query and <=128 KB response",
+      "observed": "r02 p95 .131083ms/30614B; r06 p95 .192208ms/31032B; n20 each after3warmups",
+      "status": "PASS_MEASURED_WARMED_QUERIES_ONLY",
+      "scope": "Independent first uncached builds are404.569750 and402.914875ms, n1 each, and excluded from warmed-index comparison; no HTTP/native/all-query or stress guarantee."
+    },
+    {
+      "metric": "Synthetic stress fixture",
+      "originalTarget": "12 active /48 unique projects /4000 films /50 archived identities",
+      "observed": "UNMEASURED",
+      "status": "UNMEASURED_FUTURE_STRESS_QUALIFICATION",
+      "scope": "No validator relaxation, extra live product rivals, archive/churn roots, or stage-count substitution. Current legal nine-identity regime is independently measured."
+    },
+    {
+      "metric": "Synchronous ENGINE-MAIN STORAGE",
+      "originalTarget": "Any step >50ms is a ship blocker",
+      "observed": "Affected emitted replay observed0 engine-main runtime FS calls and343 worker FS calls across two engines; no observed main timer gap>50ms, maximum31.408375ms",
+      "status": "PASS_OBSERVED_AFFECTED_WORKER_PLACEMENT_SCOPE",
+      "scope": "File-path filtered source-bound emitted instrumentation plus independent source review. Timer max was17.068ms in old control, so no improved worst-timer claim; not exhaustive stall or native acceptance. Standalone52ms durable write is not engine-main placement evidence."
+    },
+    {
+      "metric": "Hot active-business working state / annual summary / isolated weekly and quarterly stress costs",
+      "originalTarget": "Original scoped provisional component and incremental targets retained",
+      "observed": "NOT_CLOSED_BY_WHOLE_BUSINESS_ROWS_OR_ENDURANCE_ELAPSED_TIME",
+      "status": "UNMEASURED_EXACT_NARROW_SCOPE_WHERE_NOT_SEPARATELY_ISOLATED",
+      "scope": "Whole business rows include cumulative history and past projects. Career/employment/receipt ledger sum23,678,744B is qualified typed ledger scope, not a fabricated exact annual-summary component. Existing all-nine6240-week authoritative endurance evidence remains distinct from isolated phase timings."
+    }
+  ],
+  "referenceRebaseline": {
+    "disposition": "ACCEPT_MEASURED_R05_REFERENCE_REBASELINE_WITH_LIMITS",
+    "authorityInterpretation": "PERF001 retains binding horizon with provisional fixture bounds and names P15B churn qualification. R05 transfers only initial nine and excludes P15B closure/churn. PERF009 permits deliberate evidence-backed provisional rebaseline. These justify a current legal-regime reference-cost disposition without pretending the unmeasured12/48/4000/50 fixture passed.",
+    "measuredReference": "Fixed full8788 nine-rival core fixture (2900films,17 unique active screenplay records:15ready+2inProduction) plus protected real8794 three-branch library,70,593,125B. Legal production regime has fixed9 identities,<=2active screenplays/business and<=1production/business. Raw activeProjects count in old pure report means in-production count2, not all17 unique active screenplays.",
+    "observedCurrentP95Ms": {
+      "durableWrite": 53.56449999999995,
+      "loadReady": 13414.88841700001,
+      "campaignSave": 9577.753750000033
+    },
+    "numericBudgetTreatment": "Record the measured p95/max and original targets/MISS together as reference cost. Do not silently replace the original target with PASS, assign a universal future ceiling, or label this a nine-rival proof of twelve. Any future production fixture expansion requires its own qualification.",
+    "hardRulesRemain": "Permanent history, strict references/migration, exact retry receipts, bounded pages, deterministic authoritative state, algorithm requirements and synchronous ENGINE-MAIN STORAGE50ms blocker remain binding. Numeric rebaseline cannot waive any of these. The bounded correction concern is closed by independent source/tests/counters and fresh current-byte checks, not by rebaseline alone.",
+    "resourceCost": "Integrated standalone high-waterRSS4,820,500,480B includes setup+warmup; measured endpoint maxheap2,248,617,648B. These are material reference machine costs, not a native minimum spec or peak allocation-volume claim.",
+    "remainingLimits": "Native current Save/Quit/relaunch/profile-return and independent A/B/C Owner-facing acceptance stay with the root. Hook remains explicit-checker fallback, inactive. No complete GateB, full R05 completion or Owner enjoyment acceptance is awarded here."
+  },
+  "validationCorrection": {
+    "firstHelper": "store-comparison-validator-v1-nonpass.json",
+    "cause": "Assumed worker manifest total119, but it has119 compiled inputs plus17 artifacts/harness entries=136.",
+    "resolution": "Separate preserved v2 verifies all136 hashes and explicitly counts119 compiled sources; workload/raw outputs were not rerun or changed."
+  },
+  "artifacts": [
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/INTEGRATED-BINDING.json",
+      "bytes": 2204,
+      "sha256": "41a32b71f42a28629832a1c29d8b50c7510239db68cfc0433cf74536bb8be72f"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/pure-phase-applicability.json",
+      "bytes": 1398,
+      "sha256": "0f1a08f8e8c84b259fada3f796d7d7a97b411f9618b4ac08ae37697dc3fd4139"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store/store-report.json",
+      "bytes": 40638,
+      "sha256": "e464a8655580550e53388ce9a6896eaac1159d327a39bfd28e5599e64510fefe"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store/store-sources.json",
+      "bytes": 24363,
+      "sha256": "f1de95492bb2c5fed04dc190391bfbd2f637a4173a48c58e1ec7f7717a07fa9d"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store/store-binding.json",
+      "bytes": 379,
+      "sha256": "059dd73961d9efaafb9eb7159d93c7254e6d488ed2d48a12e5b6f2a184e20790"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store/store-source.ts",
+      "bytes": 10578,
+      "sha256": "d1dee617de9c2ba53374893070d2e834fdd0e50a1b810ef5ba947cfdf67bde52"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store-comparison-validation.json",
+      "bytes": 9521,
+      "sha256": "1c4f39dae40d65d52162f8bba7f32b63435612c0b76b3b2680b1323cd0540a02"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/validate-store-comparison.py",
+      "bytes": 9194,
+      "sha256": "46f00fea294fd0aba8fdb775d9e143948e5f0e8fed500dba8335ff767e425d83"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store-comparison-validator-v1-nonpass.json",
+      "bytes": 435,
+      "sha256": "9f502f5982ac3dad093eb0ad6af992fcc5d23c51c0f15aab88403a7777bb4ef5"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/validate-store-comparison-v2.py",
+      "bytes": 9348,
+      "sha256": "5a0bc78609c5001eeacf71a89f6d9c122a5150115eb76995d9aaff67f700ef33"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/report.json",
+      "bytes": 263587,
+      "sha256": "4f564d4a7ed487c6d8161509b50a7c706c61556b4e611dced62835537f48f8e2"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/affected-validation.json",
+      "bytes": 2630,
+      "sha256": "0a3474298ccd5c6ec3a5a12ecf8994972705f46530ec72388c161446aa9abc41"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/source-manifest.json",
+      "bytes": 48821,
+      "sha256": "d9f6e02db6c27c2d0ce4f4381f9a103a537a6d15ac0dd43ac7e2725bc106d18f"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/emitted-comparison.json",
+      "bytes": 9960,
+      "sha256": "7a7745de49267e6f7651d6165efb91abe0105ddedc3e5efed57d914d47293273"
+    },
+    {
+      "path": "/private/tmp/p12a-final-phase-1xpf7efb/store-report.json",
+      "bytes": 40681,
+      "sha256": "db13c89b7d059258dfa5c44fbbf3910ee031ebcc56b99394cc903182e62b303a"
+    },
+    {
+      "path": "/private/tmp/p12a-final-phase-1xpf7efb/measurement-disposition.json",
+      "bytes": 9347,
+      "sha256": "e6a1d7f1debb62aeac9ccd50e033a8d22f61dc5740942d7b4851cb5d286f0ff0"
+    },
+    {
+      "path": "/private/tmp/p12a-final-phase-1xpf7efb/profile-report.json",
+      "bytes": 19260,
+      "sha256": "0cc478d295538b71786f7bad33a130a7327ee91f8d509b2317a93ebff03a6e09"
+    },
+    {
+      "path": "/private/tmp/p12a-final-phase-1xpf7efb/fixed-phase-independent-review-v2.json",
+      "bytes": 9053,
+      "sha256": "b581eb6f28548ed3bb3da724b735f29ae08fe05480b2c09e289d1f32c734fae2"
+    },
+    {
+      "path": "/private/tmp/p12a-final-phase-1xpf7efb/stress-scope-disposition.md",
+      "bytes": 3377,
+      "sha256": "e6628f7f1f1b4212a091457b95c8d4c92b2b67bc89aaeb7b8a3e1324fcfd77bb"
+    },
+    {
+      "path": "/private/tmp/p12a-final-phase-1xpf7efb/cpu-analysis.json",
+      "bytes": 36169,
+      "sha256": "df15c8c5c8422d0cb8db139a8f1c82f9a045d5b86afbff40358b1024d4dd363e"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/checkpoint-reuse-20260910/counter-patched-report-04.json",
+      "bytes": 2165,
+      "sha256": "f9c6594b7ecd27a2f2ea490b0f576ff96a60e33e098d9b654231798262d49dd1"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/checkpoint-reuse-20260910/counter-patched-sources-04.json",
+      "bytes": 13826,
+      "sha256": "5003c30261f42bfb9f26c8dfee8dc21078f0c0c923c66905557e1cd0303ae57e"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/checkpoint-reuse-20260910/independent-final-review.json",
+      "bytes": 6780,
+      "sha256": "920365549c6a6476b5a2bbe12a9bbfed6d049a68a4dfcbc6e327828989f69c49"
+    },
+    {
+      "path": "/private/tmp/p12a-fixed-phase-to0ghkwi/report.json",
+      "bytes": 101766,
+      "sha256": "bd419cf457b0bc5b390d6287038afb78715f6db9b9e97eec0332be080e94f300"
+    }
+  ]
+}

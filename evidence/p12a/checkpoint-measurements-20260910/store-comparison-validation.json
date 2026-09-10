@@ -1,0 +1,222 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "status": "PASS_AFFECTED_FIXED_STORE_AND_COMPARISON",
+  "checkedAt": "2026-09-10T22:28:59.878947+00:00",
+  "sourceHead": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+  "controlReport": {
+    "path": "/private/tmp/p12a-final-phase-1xpf7efb/store-report.json",
+    "sha256": "db13c89b7d059258dfa5c44fbbf3910ee031ebcc56b99394cc903182e62b303a"
+  },
+  "integratedReport": {
+    "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store/store-report.json",
+    "sha256": "e464a8655580550e53388ce9a6896eaac1159d327a39bfd28e5599e64510fefe"
+  },
+  "phases": {
+    "durableWrite": {
+      "control": {
+        "n": 20,
+        "medianMs": 52.971104500000024,
+        "p95Ms": 62.351084000000014,
+        "maxMs": 63.626875000000155,
+        "minMs": 48.98866699999985
+      },
+      "integrated": {
+        "n": 20,
+        "medianMs": 52.0114585,
+        "p95Ms": 53.56449999999995,
+        "maxMs": 56.60166700000036,
+        "minMs": 50.567208000000164
+      },
+      "changePercent": {
+        "medianMs": -1.8116405331892182,
+        "p95Ms": -14.092111052953083,
+        "maxMs": -11.041258901996642
+      }
+    },
+    "loadReady": {
+      "control": {
+        "n": 20,
+        "medianMs": 18337.768104000017,
+        "p95Ms": 18497.514874999993,
+        "maxMs": 18661.969416000007,
+        "minMs": 18230.87162500003
+      },
+      "integrated": {
+        "n": 20,
+        "medianMs": 13322.654937499989,
+        "p95Ms": 13414.88841700001,
+        "maxMs": 13423.439708999998,
+        "minMs": 13243.113332999987
+      },
+      "changePercent": {
+        "medianMs": -27.348547206276873,
+        "p95Ms": -27.477347591536873,
+        "maxMs": -28.07061564739629
+      }
+    },
+    "campaignSave": {
+      "control": {
+        "n": 20,
+        "medianMs": 18162.50633350009,
+        "p95Ms": 18248.355917000008,
+        "maxMs": 18870.020165999973,
+        "minMs": 18052.59695799998
+      },
+      "integrated": {
+        "n": 20,
+        "medianMs": 9517.586124999973,
+        "p95Ms": 9577.753750000033,
+        "maxMs": 9612.70762500001,
+        "minMs": 9458.987709000008
+      },
+      "changePercent": {
+        "medianMs": -47.597617034576736,
+        "p95Ms": -47.51442928029762,
+        "maxMs": -49.058307620040594
+      }
+    }
+  },
+  "resourceEvidence": {
+    "control": {
+      "highWaterRssKiB": 4971568,
+      "highWaterRssBytes": 5090885632,
+      "measuredEndpointHeapMaxBytes": 2242657768,
+      "measuredEndpointRssMaxBytes": 4210884608
+    },
+    "integrated": {
+      "highWaterRssKiB": 4707520,
+      "highWaterRssBytes": 4820500480,
+      "measuredEndpointHeapMaxBytes": 2248617648,
+      "measuredEndpointRssMaxBytes": 4187045888
+    }
+  },
+  "sourceChecks": [
+    {
+      "label": "store106",
+      "manifestPath": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store/store-sources.json",
+      "manifestSha256": "f1de95492bb2c5fed04dc190391bfbd2f637a4173a48c58e1ec7f7717a07fa9d",
+      "count": 106,
+      "changed": []
+    },
+    {
+      "label": "worker136-includes119-compiler-sources",
+      "manifestPath": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/source-manifest.json",
+      "manifestSha256": "d9f6e02db6c27c2d0ce4f4381f9a103a537a6d15ac0dd43ac7e2725bc106d18f",
+      "count": 136,
+      "changed": []
+    },
+    {
+      "label": "pure96",
+      "manifestPath": "/private/tmp/p12a-fixed-phase-to0ghkwi/source-before.json",
+      "manifestSha256": "f47a262933533d41e64e7d46112347363d1bf8363497f011c66774502cbcda29",
+      "count": 96,
+      "changed": []
+    },
+    {
+      "label": "busy96",
+      "manifestPath": "/private/tmp/p12a-final-phase-1xpf7efb/profile-sources.json",
+      "manifestSha256": "1b5f9239d19ade15cf1fba8aba810596823f1fdb216829fbc595cbf55f304b6e",
+      "count": 96,
+      "changed": []
+    },
+    {
+      "label": "curatedPure96",
+      "manifestPath": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/fixed-phases-20260910/source-manifest.json",
+      "manifestSha256": "f47a262933533d41e64e7d46112347363d1bf8363497f011c66774502cbcda29",
+      "count": 96,
+      "changed": []
+    },
+    {
+      "label": "counter106",
+      "manifestPath": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/checkpoint-reuse-20260910/counter-patched-sources-04.json",
+      "manifestSha256": "5003c30261f42bfb9f26c8dfee8dc21078f0c0c923c66905557e1cd0303ae57e",
+      "count": 106,
+      "changed": []
+    }
+  ],
+  "changedCompiledSourceFiles": [
+    {
+      "path": "bridge/runtime-checkpoint.ts",
+      "before": "01bdd70be5d2b77943999191390b91600cbb4dc951df02e0be86aa6a00404de5",
+      "after": "5dd3b09da27fd84167a054f88b865500118f68ab5910dcf5dbee63b2e60192e9"
+    },
+    {
+      "path": "bridge/runtime/campaign-library.ts",
+      "before": "75141a15ac2d17afff2ecfc3f6513921125641d5b3a410e8d9c0065afcb61764",
+      "after": "2b6bee53715d153d696b4c3d08211d3d1b79622346133072d46bc7e38a87b38c"
+    },
+    {
+      "path": "bridge/runtime/runtime-coordinator.ts",
+      "before": "b90be451b1195eb524b05de45d793c10d59963103165ab045d24a125fd22937a",
+      "after": "d776930efa3d0d37e4ca18e2fcf16b7e8d4f1d795601048a66eb48c54124e560"
+    },
+    {
+      "path": "bridge/session.ts",
+      "before": "eada8d7ffac42df1afeebf4775a61f4fce6c806b8bcaac8a864d8abf51f0753b",
+      "after": "9d9978ec40ce1e2e6c0e25efe1f813ae676cfb54551a82c041c6392367d1db4b"
+    }
+  ],
+  "seed": {
+    "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z/campaign-library-final.json",
+    "sha256": "66b79add059344d2704d6e27641ecf750f73acad8a358662c91a30eb5df50365",
+    "bytes": 70593125
+  },
+  "hardware": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64",
+    "cpu": "Apple M3 Max",
+    "logicalCpus": 16,
+    "totalMemoryBytes": 137438953472,
+    "heapSizeLimit": 4395630592
+  },
+  "runtime": {
+    "node": "v26.3.1",
+    "executable": "/opt/homebrew/Cellar/node/26.3.1/bin/node",
+    "execArgv": [],
+    "nodeOptionsPresent": false
+  },
+  "checks": {
+    "rawSamplesRecomputed": 120,
+    "excludedWarmups": 18,
+    "fixedAuthorityLoads": 23,
+    "loadRewrites": 0,
+    "acceptedSaves": 23,
+    "saveWorldUnchanged": true,
+    "saveCatalogueRevision": 7,
+    "privateSaveModes": "0600",
+    "sameHarness": true,
+    "sameSeedRuntimeHardwareBaseline": true,
+    "setupLoggedExcluded": true,
+    "protectedOriginalsUnchanged": true,
+    "ownedProcessIdsAbsent": [
+      89292,
+      89221,
+      89223,
+      89282
+    ],
+    "ownedLocksAbsent": true
+  },
+  "manifestQualification": {
+    "parsedEqual": true,
+    "privateIsRootPlusOneFinalLF": true,
+    "byteEqual": false,
+    "rootSha256": "a092dafb02a0f346c7fb29147eed0b9b2e643bdf4364f574cfa7f5fd63d06c58",
+    "privateSha256": "b3b46f4de6641e931cde335a91584a86daa79e241dae1cb84527e99c1421bddd"
+  },
+  "phaseQualifications": [
+    "Standalone isolated private benchmark process invoking unchanged production store/coordinator directly. No HTTP, worker-postMessage, Unity, native or engine-main placement claim.",
+    "Load-to-ready starts before production store ownership acquisition and includes coordinator recovery and first production snapshot, matching the worker ready computation except worker startup and message transport. Repeated in one process with ordinary OS page cache; not OS-cold launch.",
+    "Durable write phase includes production ownership checks, UTF-8 conversion/validation, file write+fsync, atomic replacement, directory fsync, and cleanup. Input serialization/compression is excluded because exact protected encoded UTF-8 is already available.",
+    "Complete campaign Save starts at coordinator.campaign and ends when its durable accepted response resolves. Includes proposal/fork/strict operations, production library encoding/compression and atomic write; excludes prior catalogue read, HTTP/client UI, and post-operation verification.",
+    "Every load/Save sample is reset to the identical protected real seed using production store.writeAtomic, then the owned store is closed through its API. This reset/setup, catalogue reads, validation hashes and file stats are excluded from timings and logged separately.",
+    "Each sample Save has a unique command ID; catalogue increments by one, active record revision increments by one. Runtime rollover may mint session UUIDs. Current world/week/digest and inactive record metadata must remain unchanged. No authoritative weekly advance or fabricated history.",
+    "No forced GC, heap flags, or cache clearing; per-sample heap/RSS before and after plus process high-water RSS are recorded. No claim these endpoint samples capture allocation volume or all RSS peaks."
+  ],
+  "additionalQualifications": [
+    "Control and integrated phase samples are separate sequential empirical n20 observations; no randomization or population confidence interval. No attribution of every timing difference solely to the patch.",
+    "Memory high-water includes setup and warmups; endpoint maxima are measured phase endpoints, not allocation volume or guaranteed peak live heap. Standalone process memory is not native engine minimum specification.",
+    "The sampler verifies inactive catalogue metadata and active revision semantics; full inactive record compressed-byte preservation is separately established by the emitted probe.",
+    "The original full 8794 real library contains engineering SaveAs branches; independent NewGame campaigns A/B/C remain a distinct native acceptance item."
+  ]
+}

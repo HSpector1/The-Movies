@@ -1,0 +1,21 @@
+{
+  "schema": "p12a-curated-evidence-sha256/1",
+  "createdAtUtc": "2026-09-10T22:45:28.387979+00:00",
+  "files": [
+    {
+      "path": "attestation.json",
+      "bytes": 41991,
+      "sha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194"
+    },
+    {
+      "path": "register-preservation.json",
+      "bytes": 245,
+      "sha256": "37587bbc07175d0bf3112057b4cc04b453124708015747f1e92c23923b8e2414"
+    },
+    {
+      "path": "review.md",
+      "bytes": 1117,
+      "sha256": "0f82f63aa850fccc3493a9d37c7aff8a16f813f1ca318130a08ee2147574c784"
+    }
+  ]
+}

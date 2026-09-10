@@ -1,0 +1,33 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "sourceCommit": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+  "checkedAt": "2026-09-10T22:13:14.449459+00:00",
+  "status": "PASS_UNCHANGED_PURE_TIMING_REUSE",
+  "checks": [
+    {
+      "label": "original-root-pure96",
+      "manifestPath": "/private/tmp/p12a-fixed-phase-to0ghkwi/source-before.json",
+      "manifestSha256": "f47a262933533d41e64e7d46112347363d1bf8363497f011c66774502cbcda29",
+      "inputCount": 96,
+      "changed": [],
+      "allMatch": true
+    },
+    {
+      "label": "busy-profile96",
+      "manifestPath": "/private/tmp/p12a-final-phase-1xpf7efb/profile-sources.json",
+      "manifestSha256": "1b5f9239d19ade15cf1fba8aba810596823f1fdb216829fbc595cbf55f304b6e",
+      "inputCount": 96,
+      "changed": [],
+      "allMatch": true
+    },
+    {
+      "label": "curated-pure96",
+      "manifestPath": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/fixed-phases-20260910/source-manifest.json",
+      "manifestSha256": "f47a262933533d41e64e7d46112347363d1bf8363497f011c66774502cbcda29",
+      "inputCount": 96,
+      "changed": [],
+      "allMatch": true
+    }
+  ],
+  "qualification": "All96 original/compiler-loaded pure and busy-profile source bytes equal integrated source. Reuses existing raw timings only; no pure timings repeated. Runtime store/worker measurements remain not run on this binding."
+}

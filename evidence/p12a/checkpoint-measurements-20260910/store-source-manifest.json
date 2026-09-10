@@ -1,0 +1,532 @@
+[
+  {
+    "path": "bridge/campaign-origin.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/campaign-origin.ts",
+    "sha256": "8bbe107187306cfbae84a371938766de77e5080f95bfb0a28b5c581ef27eb992"
+  },
+  {
+    "path": "bridge/casting.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/casting.ts",
+    "sha256": "4a2a6d543b7ff7b85d992c4cf4768c0863081d95f96036ea4bbd388802b54594"
+  },
+  {
+    "path": "bridge/contract.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/contract.ts",
+    "sha256": "c833edb7631fdc4ca7c841e6f3418103c606f7038933eab849df15966763fb1e"
+  },
+  {
+    "path": "bridge/development.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/development.ts",
+    "sha256": "edc6392d59fc0a1076111af88e114091bdaa170ea09e703c3c67743c9e38eb76"
+  },
+  {
+    "path": "bridge/finance-consequence.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/finance-consequence.ts",
+    "sha256": "6c5e276708073a7c70debd9d8fc518e8f8f9329d58fd2f7930da4520d7f775b9"
+  },
+  {
+    "path": "bridge/finance-portfolio.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/finance-portfolio.ts",
+    "sha256": "b97b964c0a8d64dae5fe94d353d21e807cd2df9a4374edc59d5dee34cd352f4c"
+  },
+  {
+    "path": "bridge/finance-upcoming.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/finance-upcoming.ts",
+    "sha256": "ce99412139d9e7131ce51b25bb5c86c6f8d70d6e6336d1b1f0b99febe9c07b5c"
+  },
+  {
+    "path": "bridge/finance.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/finance.ts",
+    "sha256": "9388ff8cefe47c72f5e2861b59bc017d8e7a45748fc59fd68670d6a4beb0b61d"
+  },
+  {
+    "path": "bridge/history.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/history.ts",
+    "sha256": "ac4e646528cb69e9af9aecc617ee15a0c342748add3991eaa2d9cd5f3155843b"
+  },
+  {
+    "path": "bridge/industry.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/industry.ts",
+    "sha256": "107783df0dcedf68317833cf4737d250b7d3333d031dd2c656db2b0a19888693"
+  },
+  {
+    "path": "bridge/people.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/people.ts",
+    "sha256": "74108eb9016e13d1c3446b6fef0b65faa98ec24224b53c9712e81d2fdde2daeb"
+  },
+  {
+    "path": "bridge/placement.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/placement.ts",
+    "sha256": "a43fca45894bd4f4dad6ce7435486d0b66ca645cfb41a763c9971ec35bdd2b96"
+  },
+  {
+    "path": "bridge/protocol.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/protocol.ts",
+    "sha256": "71b920d90ce9a54214c7dd82208a168bd71cab9be60efa11d2ae3a81d7e0b7fa"
+  },
+  {
+    "path": "bridge/release.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/release.ts",
+    "sha256": "81fc9efbdfe3951ef6cb06b5c1cda40fdb1966a4cbd46e89a3c840034484f183"
+  },
+  {
+    "path": "bridge/runtime-checkpoint.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime-checkpoint.ts",
+    "sha256": "5dd3b09da27fd84167a054f88b865500118f68ab5910dcf5dbee63b2e60192e9"
+  },
+  {
+    "path": "bridge/runtime/campaign-library.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/campaign-library.ts",
+    "sha256": "2b6bee53715d153d696b4c3d08211d3d1b79622346133072d46bc7e38a87b38c"
+  },
+  {
+    "path": "bridge/runtime/campaign-storage-codec.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/campaign-storage-codec.ts",
+    "sha256": "0a841b9a31e04e21480fd1a64ae95d8d2fd7d9420add04a3b080fc3753031ef1"
+  },
+  {
+    "path": "bridge/runtime/checkpoint-store.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/checkpoint-store.ts",
+    "sha256": "41ced764fb4a89bafc6ab9ea826bf0d51b9a6d6f8ab82f5f100e910d347e2561"
+  },
+  {
+    "path": "bridge/runtime/process-incarnation.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/process-incarnation.ts",
+    "sha256": "8e281af4edc3585feaf34d5692960fc5e1eac2d00823cb92c55e047d154afc43"
+  },
+  {
+    "path": "bridge/runtime/runtime-coordinator.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/runtime-coordinator.ts",
+    "sha256": "d776930efa3d0d37e4ca18e2fcf16b7e8d4f1d795601048a66eb48c54124e560"
+  },
+  {
+    "path": "bridge/schema/bridge-schema.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/schema/bridge-schema.ts",
+    "sha256": "158065f207bf976e3cacb30e2ccdd94a8144bea01d5c16fe130d1cb20db4bc6c"
+  },
+  {
+    "path": "bridge/schema/canonical.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/schema/canonical.ts",
+    "sha256": "b84768f3a565f7e027938fefd46960ffbbd55a35d44a51145e94b82a1529e340"
+  },
+  {
+    "path": "bridge/schema/dsl.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/schema/dsl.ts",
+    "sha256": "199880cc5ad275cdf4e277c7afba44823022d9e0e0b93bbee01e4fb8ad7cef8b"
+  },
+  {
+    "path": "bridge/schema/industry-schema.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/schema/industry-schema.ts",
+    "sha256": "01a987da0c32c91e0f87208a7f65284dfae07d37a428d3fd03930b315dd8ad79"
+  },
+  {
+    "path": "bridge/schema/runtime.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/schema/runtime.ts",
+    "sha256": "80ce179138656b678963a70210145d1cdceb6af59e07aec5a7063918eab4553b"
+  },
+  {
+    "path": "bridge/session.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/session.ts",
+    "sha256": "9d9978ec40ce1e2e6c0e25efe1f813ae676cfb54551a82c041c6392367d1db4b"
+  },
+  {
+    "path": "bridge/setCommission.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/setCommission.ts",
+    "sha256": "b8cbd9548b6cbc922f01a9dfaa709a26e1724c2ff10b5d2cedc5ff7ea4685448"
+  },
+  {
+    "path": "bridge/snapshot-build-context.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/snapshot-build-context.ts",
+    "sha256": "0c295c0495292df74f50d0d66467a250ea7975bdc6edddddb11469db4f6c82aa"
+  },
+  {
+    "path": "src/core/actions.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/actions.ts",
+    "sha256": "8d8b005ab8bfb83f07f6ef3ad44cac0a32d39e3b0328be8f50bfc03774cc409a"
+  },
+  {
+    "path": "src/core/agents.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/agents.ts",
+    "sha256": "ee68473f551a90541d5cb8d64ce39499649c4848034d2f7403ca44e048234a73"
+  },
+  {
+    "path": "src/core/blueprintRequirements.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/blueprintRequirements.ts",
+    "sha256": "c6743f5434f43b8853e9c9aa5fca81224c2e15434ae5ee67dbf39c4193fdbf9e"
+  },
+  {
+    "path": "src/core/broadcast.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/broadcast.ts",
+    "sha256": "81809e230570dd795bef921716a2c300dd062298878705e5d5b6c4582c667e85"
+  },
+  {
+    "path": "src/core/calendar.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/calendar.ts",
+    "sha256": "c54fe83ab161d4c80727c3ece021e6340eda3a7ff0bf134f5288d76de8f811ef"
+  },
+  {
+    "path": "src/core/candidates.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/candidates.ts",
+    "sha256": "85a6d18e32cfca3e554977825ea06f10d2928eca68331a1b7b801ee320fe4104"
+  },
+  {
+    "path": "src/core/castingPackageReadModel.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/castingPackageReadModel.ts",
+    "sha256": "d65f5d1740f8672f23baa9f9d8e95dad099caf0b4c43804bc60de9b054f57b3f"
+  },
+  {
+    "path": "src/core/castingReadModel.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/castingReadModel.ts",
+    "sha256": "56e0021c14337f333863be25ade1450ec59503b94e3ccb257ff31ceed5deb1c8"
+  },
+  {
+    "path": "src/core/castingSessions.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/castingSessions.ts",
+    "sha256": "858f65564cad46e1a3054ffd5494fa57f42178fdf45b5819f8575875976fc719"
+  },
+  {
+    "path": "src/core/construction.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/construction.ts",
+    "sha256": "a617a0c6718775705d4b8485de9a6f649ce90cc110bb650dbebc09aa24b93dd4"
+  },
+  {
+    "path": "src/core/data/screenplay.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/data/screenplay.ts",
+    "sha256": "176f5fd2c0f01d2af16ce0c6a3e77344bd6030a9b3660232f17a14e4baae15ad"
+  },
+  {
+    "path": "src/core/data/wordlists.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/data/wordlists.ts",
+    "sha256": "6642296c7a0a4d385c6eb00e7b9ff4eb3213f72a6799b197549cba23718ebfac"
+  },
+  {
+    "path": "src/core/development.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/development.ts",
+    "sha256": "ce37f726f18270f6d9d0aa6444ed23104cf963418365f00192a13f5fc55153fc"
+  },
+  {
+    "path": "src/core/economy.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/economy.ts",
+    "sha256": "caa6f20444be1544d64e2226f8eb89823c8d787c1460473169e0954ef15d0e10"
+  },
+  {
+    "path": "src/core/economyView.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/economyView.ts",
+    "sha256": "b9598a830e2c38299fa905253ae5211c2f6e5a914f6ab326dbec18d90079fc78"
+  },
+  {
+    "path": "src/core/employment.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/employment.ts",
+    "sha256": "74f6377c4759370770545f07e250e215e1453f463d850032e8a62fa6fd7c3245"
+  },
+  {
+    "path": "src/core/facilityEffects.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/facilityEffects.ts",
+    "sha256": "775a3eeb0b0969d716de6791dd0e5d6e34f3938953960d9621d4064320fd62e3"
+  },
+  {
+    "path": "src/core/filmPackage.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/filmPackage.ts",
+    "sha256": "f0dce46007d5f3b778f62f237c58e049c14a84764ae2545bd52258cfb2b4bd3b"
+  },
+  {
+    "path": "src/core/filmParticipants.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/filmParticipants.ts",
+    "sha256": "e26410299b9a7a0527cf6413b53a482f6280a137f3b32871ba729516ba4cf849"
+  },
+  {
+    "path": "src/core/financeReport.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/financeReport.ts",
+    "sha256": "ef742bb783bb66c50f3880f949fa53565efa5cfbc59462c9804a926d70bfc601"
+  },
+  {
+    "path": "src/core/firstFilmJourney.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/firstFilmJourney.ts",
+    "sha256": "1b80ad040159f75ab72bb0e404da1ec4b0320e92f903c23891919625f5fe5e2c"
+  },
+  {
+    "path": "src/core/fixedCostAllocation.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/fixedCostAllocation.ts",
+    "sha256": "72252b6e87557f9ed94eb922fd41a855a92c6540d2328efd168a26c22db9440e"
+  },
+  {
+    "path": "src/core/forecast.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/forecast.ts",
+    "sha256": "46b9797b6e6a76daf20cec9891de7d6550358e7d75a88a391bf768c934f07dd2"
+  },
+  {
+    "path": "src/core/grid.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/grid.ts",
+    "sha256": "67fe3355621e630de8c69e520348600bdb57445122daee791fcbbe59f803ce89"
+  },
+  {
+    "path": "src/core/hollywood.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/hollywood.ts",
+    "sha256": "753e52cc441139737d2f7d36d07df55aff02f8f8debe8935edab1224d3eb7130"
+  },
+  {
+    "path": "src/core/hollywoodPolicy.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/hollywoodPolicy.ts",
+    "sha256": "89a380fec37a14e273329a2d37d12eba3d00b686a50ce0dc6beaae5c25dabebd"
+  },
+  {
+    "path": "src/core/hollywoodStartingData.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/hollywoodStartingData.ts",
+    "sha256": "0ac26f1a958327c694369a8583e8439cd80dfd5cc3c7c1882b7d9d2cea2af976"
+  },
+  {
+    "path": "src/core/hollywoodTick.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/hollywoodTick.ts",
+    "sha256": "7a77c7069403d65fd75373c617d08949f9cb2cdcc409a91030f66ab01be6a8c1"
+  },
+  {
+    "path": "src/core/hollywoodValidation.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/hollywoodValidation.ts",
+    "sha256": "4e16e9f51f193d972ed946c4a1ac3c979ddfb5c36badce10937552d9f50ef44d"
+  },
+  {
+    "path": "src/core/index.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/index.ts",
+    "sha256": "6c6bb76f8f25101a32e86d90acb49f53b990658a35ca822a1dbc1a525e73737f"
+  },
+  {
+    "path": "src/core/industryCareer.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/industryCareer.ts",
+    "sha256": "088a95368557cd893a4c93d90b403a9c3debf95710fcc4d055c01726e81e2d7e"
+  },
+  {
+    "path": "src/core/industryEmployment.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/industryEmployment.ts",
+    "sha256": "51a4128847d310a735ae72ad9fa1ef3fc5fa698db2a6c195879abdcc0b6e0c39"
+  },
+  {
+    "path": "src/core/lot.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/lot.ts",
+    "sha256": "b4366332889e113736ab788eee74f55fd3e5b89af2984a56436a355924b4cdf5"
+  },
+  {
+    "path": "src/core/marketingMenu.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/marketingMenu.ts",
+    "sha256": "61d6e1efef70b880b8e2c1d3d8573d6acbb7d78b6bd781663c9af4e07e5c4e7d"
+  },
+  {
+    "path": "src/core/math.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/math.ts",
+    "sha256": "48a5ed67e2d3aece3fce654deec6d3d17f60415013687da5b23b6da19fb927d7"
+  },
+  {
+    "path": "src/core/newspaper.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/newspaper.ts",
+    "sha256": "a29d5922dcf613bd9794f204d11ed3991543099c9b058c5e894fa67f68f7b1a4"
+  },
+  {
+    "path": "src/core/occupancy.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/occupancy.ts",
+    "sha256": "f25a76c210f43202eb416e9f36614f4b9fd63518ff19169696d2313e7e4189c3"
+  },
+  {
+    "path": "src/core/operations.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/operations.ts",
+    "sha256": "c9bb0676b7601dacdef1fc601405c226911c47877181245b6d30108167410d3d"
+  },
+  {
+    "path": "src/core/placement.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/placement.ts",
+    "sha256": "edf9b3f0d4c21f576b40b4577130a5e9a31e30bf7617a866128d1818c1111521"
+  },
+  {
+    "path": "src/core/presence.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/presence.ts",
+    "sha256": "938a7c607f58d7f071a38d8ee5a265de24deac9db976fe2cfc37bcd78d8f9db1"
+  },
+  {
+    "path": "src/core/productionIdentity.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/productionIdentity.ts",
+    "sha256": "b2585a4d400dfaf439bdf21b02c898daabc2dc6169a7d9c344741bf3e6fdba26"
+  },
+  {
+    "path": "src/core/productionPeople.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/productionPeople.ts",
+    "sha256": "00ea69f6ceaf9b0d1cd79cb7cffe70c1c9b22ac0e4a453787b8013d29b1d0817"
+  },
+  {
+    "path": "src/core/productionPhases.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/productionPhases.ts",
+    "sha256": "2e343baaac6df67d12836e4ad424501ab29c3e9a69f0b978be1710a290b8fcf8"
+  },
+  {
+    "path": "src/core/productionQueue.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/productionQueue.ts",
+    "sha256": "38672a2d2c0d7c5a4b7434545d9b4ebb7400865349a3ec5568fb31ddae4c6c92"
+  },
+  {
+    "path": "src/core/publicity.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/publicity.ts",
+    "sha256": "01f6b900730273f02f66e3148efe1904499e81f6d78f1f61c03e586fea1da3e5"
+  },
+  {
+    "path": "src/core/queueAdmission.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/queueAdmission.ts",
+    "sha256": "c22c1210ee33bff0ea4a5aac395350a966af9706ba991111146bb200c25dcb25"
+  },
+  {
+    "path": "src/core/reception.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/reception.ts",
+    "sha256": "b724792bd2f9de123dc34dab143d18ce26552a72ccd34f44d884ee1eeb61bf81"
+  },
+  {
+    "path": "src/core/receptionVerdict.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/receptionVerdict.ts",
+    "sha256": "825e474ccce57e8de4a0d3aeb1d7ad5071b8d46121f95b7544946243af03e3d7"
+  },
+  {
+    "path": "src/core/releaseAuthority.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/releaseAuthority.ts",
+    "sha256": "e87d14348604baca178f89bfab00cdbc4bf029feade48e5ae71a8d308d44b3a0"
+  },
+  {
+    "path": "src/core/releaseCareers.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/releaseCareers.ts",
+    "sha256": "b8050c8a70b165e42ed2841bbcfd99eb27ff5986529aa94dc511e5bd196ee965"
+  },
+  {
+    "path": "src/core/rng.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/rng.ts",
+    "sha256": "2f21996018c6f5399e1a68a1bf765e505db4d17360a939aa00cae0740cc6c57a"
+  },
+  {
+    "path": "src/core/save.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/save.ts",
+    "sha256": "3669603a122bb0a63ddb5cf1588d09a4d2db6d5770e182ba052a78b899b3156c"
+  },
+  {
+    "path": "src/core/sceneryLoadIn.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/sceneryLoadIn.ts",
+    "sha256": "5be8e2f1aea030bd564f12241b1647a5c1f01a21dbd28d4aa8880a0ef22634b8"
+  },
+  {
+    "path": "src/core/screenplay.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/screenplay.ts",
+    "sha256": "1cb32a9ccd23dd7dc51d11cf080370feeb985de66fd36d4670c936ca6d1f929f"
+  },
+  {
+    "path": "src/core/scriptDevelopment.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/scriptDevelopment.ts",
+    "sha256": "35ce39aef336641261b68b04de42c5c3fcb901d319321082294f0c875e7d4372"
+  },
+  {
+    "path": "src/core/scriptReadModel.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/scriptReadModel.ts",
+    "sha256": "c0ee15d37264b8329de70cb37e525a4644518497527763eccdf00fc5cac73616"
+  },
+  {
+    "path": "src/core/sets.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/sets.ts",
+    "sha256": "7f18032b877f1215e7d8a6f8906509887bb0de4f899c66ba9d12c6cc66c98ab5"
+  },
+  {
+    "path": "src/core/shape.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/shape.ts",
+    "sha256": "30f1530ac6f3d144818747aa0e5bdae846e1f5c4963c8eb447eb722efc4d92a2"
+  },
+  {
+    "path": "src/core/standing.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/standing.ts",
+    "sha256": "5e1ec7279553014099077a8e5cbe02c1b78454256bf3f400634accc2209c6893"
+  },
+  {
+    "path": "src/core/starPower.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/starPower.ts",
+    "sha256": "007c98dcaf612f87f7197bd14ddeb89df7a2cb0ae6542027f33d398976ccb881"
+  },
+  {
+    "path": "src/core/studioCalendar.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/studioCalendar.ts",
+    "sha256": "b9469d740e26895f9821179fddebfea16dfc338df366017df0a8a4ccdd590603"
+  },
+  {
+    "path": "src/core/studioEvents.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/studioEvents.ts",
+    "sha256": "3a2cc851ad7903289529b2c21455316c331449cce81df581b744a4712354b4d3"
+  },
+  {
+    "path": "src/core/studioHistory.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/studioHistory.ts",
+    "sha256": "2d9a43087f2a7a1a24a201b5fff9bd4b3cf9b5911a65b9efd2adb1336b15e380"
+  },
+  {
+    "path": "src/core/studioQueueView.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/studioQueueView.ts",
+    "sha256": "a10e01a1ec921444120d3146031e804242de5ebdd5ba226c6942846d2bced83f"
+  },
+  {
+    "path": "src/core/studioRunRecap.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/studioRunRecap.ts",
+    "sha256": "1d61386ded5144e1663e72831c072d932b7c8d61bec4746885c195509f586962"
+  },
+  {
+    "path": "src/core/studioWeekTheater.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/studioWeekTheater.ts",
+    "sha256": "b7d3be0569fc2cd4e4394403f9b4f5e4a5c5b335b9c5b57955e7edbf43175c87"
+  },
+  {
+    "path": "src/core/talentSummary.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/talentSummary.ts",
+    "sha256": "83c158267b7421ea3aa15527ea196d349f67422655551aafa5569a57e448c51a"
+  },
+  {
+    "path": "src/core/tick.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/tick.ts",
+    "sha256": "8280c9bea104c3458f3e45b16dcacde01d8dee6a95e6cd4a2e52875c8c8539df"
+  },
+  {
+    "path": "src/core/tuning.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/tuning.ts",
+    "sha256": "4db647ebf52b15082bb464a9486387ad0e134d951c226e118d1858f831bc428e"
+  },
+  {
+    "path": "src/core/vector.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/vector.ts",
+    "sha256": "b692a62a7167be503a45bf752eedc04fc62e861fbaa67d0398584ca0af01898b"
+  },
+  {
+    "path": "src/core/worldgen.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/worldgen.ts",
+    "sha256": "d4cb1a148f9019abd7f339a12d41ca88f2c05e36256ca53d19681e1d2b46bd2a"
+  },
+  {
+    "path": "ui/src/content.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/content.ts",
+    "sha256": "731174a1917d3499eac6391c47634c8076f19310c9ad2bc0f07f0ebf21e35340"
+  },
+  {
+    "path": "ui/src/engine/adapter.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/engine/adapter.ts",
+    "sha256": "788f8da001610777956c4bf0164601788bf171e6e060eced1542e08d331b18e5"
+  },
+  {
+    "path": "ui/src/engine/productionOperationsProjection.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/engine/productionOperationsProjection.ts",
+    "sha256": "dd8efc9ee1f4920022c883a84a43ed3874d76c4d544a0fff1eecbb6c4ec64f80"
+  },
+  {
+    "path": "ui/src/engine/screenplay.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/engine/screenplay.ts",
+    "sha256": "abc1cc9b0dbf6acb6968879f8f4c4f076abec4bbab4dddc37ea2b27d61cc8afe"
+  },
+  {
+    "path": "ui/src/format.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/format.ts",
+    "sha256": "98f4fc2fff1907a77ccbf64fb5e88c30d3d11c7924fe9eada73154bc82b43100"
+  },
+  {
+    "path": "ui/src/lot/snapshot/StudioLotSnapshot.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/lot/snapshot/StudioLotSnapshot.ts",
+    "sha256": "5516e10ab96ad70e8192ff3c98f145453cea7a8c65d9b396f6bc0aeb38124568"
+  },
+  {
+    "path": "ui/src/lot/snapshot/stageIdentity.ts",
+    "absolutePath": "/Users/bruce/The Movies - P12A Living Hollywood TS/ui/src/lot/snapshot/stageIdentity.ts",
+    "sha256": "e46e3088a94e658445ebbb391544838ba7266ab8907de84d21f0be28b482ad8d"
+  }
+]

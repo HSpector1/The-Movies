@@ -253,7 +253,7 @@
       "outcome": "PARTIAL",
       "path": "checkpoint-reuse-20260910/independent-final-review.json",
       "sha256": "920365549c6a6476b5a2bbe12a9bbfed6d049a68a4dfcbc6e327828989f69c49",
-      "applicability": "Exact8687d29d four-source checkpoint correction and21 new cases; independent source/counter review,130 focused PASS and root typecheck. No persistent mutable preparation cache; exact final checkpoint once, detached campaign fork boundaries retained. Current cumulative/emitted/large-world/native/candidate acceptance remains pending."
+      "applicability": "Exact four-source correction/21cases: independent review/130focused/5181cumulative PASS; current emitted18-check and n20 proof now complete in checkpoint-measurements-20260910. Final native/candidate acceptance remains pending."
     },
     {
       "kind": "cumulative-regression",
@@ -261,9 +261,44 @@
       "path": "checkpoint-reuse-20260910/ts-cumulative-09.log",
       "sha256": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff",
       "applicability": "Integrated exact8687d29d checkpoint correction:395files/5181PASS/5SKIP155.68s, plus root bridge typecheck. Current emitted/build/large-world/native applicability remains separate; Unity product unchanged from preview16/deca395 (1099PASS)."
+    },
+    {
+      "kind": "performance",
+      "outcome": "PARTIAL",
+      "path": "checkpoint-measurements-20260910/final-measurement-disposition.json",
+      "sha256": "ba24dff9d882e70ac57bc531474f0b6d12aed3532c9650c06f6d56c14998c00f",
+      "applicability": "Current592 n20+3warmups: write53.5645ms/load-ready13.415s/Save9.578s p95. Bounded duplication closed/reference rebaseline accepted with limits. MUST read controlling addendum: prior whole-Save250ms attribution withdrawn; no current native/futurestress acceptance."
+    },
+    {
+      "kind": "performance",
+      "outcome": "PARTIAL",
+      "path": "checkpoint-measurements-20260910/durable-write-target-addendum.json",
+      "sha256": "53a95979c4d19a4585aead32892d0e2cf5b730ecbf9728f5dea2a9210b643aec",
+      "applicability": "Original250ms is asynchronous durable persistence/write. writeAtomic53.5645ms below250 in measured storage scope; worker transport unisolated. WholeSave9.578s is separate cost. Original serialization/size MISS and futurestress UNMEASURED preserved."
+    },
+    {
+      "kind": "correctness-review",
+      "outcome": "PARTIAL",
+      "path": "checkpoint-measurements-20260910/emitted-validation.json",
+      "sha256": "0a3474298ccd5c6ec3a5a12ecf8994972705f46530ec72388c161446aa9abc41",
+      "applicability": "Actual current emitted18PASS:343worker/zeroengine-main filesystem calls, exact retries/restart and inactive/current-saved authority. No current native or whole-R05 acceptance."
+    },
+    {
+      "kind": "launch-binding",
+      "outcome": "PARTIAL",
+      "path": "checkpoint-measurements-20260910/package-assembly.json",
+      "sha256": "e65bf32314dcbb57cea8211737ad39b3ed31de1e7e39e08add3aaf46e0cd1dab",
+      "applicability": "NEW197-file592/2bc packages/actualdeca player trees; both UNLAUNCHED/profileABSENT. Assembly is not actual PLAY/Quit/relaunch."
+    },
+    {
+      "kind": "correctness-review",
+      "outcome": "PARTIAL",
+      "path": "final-applicability-prepared-20260910/attestation.json",
+      "sha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
+      "applicability": "Existing independent final review refreshed for592/2bc: source/functional/measurement bounds and both197-file packages verified; UNLAUNCHED/profileABSENT. Native reverse/currentlate-world SaveQuitRelaunch/current independentA/B/C candidate/third critique/final typed bindings remain OPEN. Original source and timing qualifications retained."
     }
   ],
-  "updatedAtUtc": "2026-09-10T22:11:36.041009+00:00",
+  "updatedAtUtc": "2026-09-10T22:45:28.387979+00:00",
   "attestationsPath": "attestations.json",
   "recovery": {
     "sessionId": "01a08adf-7719-7da2-85d0-77ae64c36fad",
@@ -314,10 +349,21 @@
     }
   },
   "open": [
-    "GateB same third product review: actual reverse keyboard traversal after fresh safe input admission",
-    "Bounded repeated-checkpoint-work correction and affected source-bound verification",
-    "Actual current candidate launch/relaunch with independent A/B/C test environment",
-    "Final independent correctness, measured performance dispositions and exact bindings",
+    "GateB same third review: actual reverse keyboard after manual Shift clearance and fresh input admission",
+    "Actual current late-world Save/Quit/same-package relaunch",
+    "Current independent A/B/C candidate PLAY/Quit/relaunch",
+    "Final independent applicability, typed attestations and exact candidate disposition",
     "Owner acceptance separate; hook inactive explicit-checker fallback"
-  ]
+  ],
+  "preparedCandidate": {
+    "status": "PREPARED_UNLAUNCHED",
+    "root": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
+    "lateWorldPackage": "/private/tmp/p12a-current592-native-93tk_gpc",
+    "typescript": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+    "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+    "playerSource": "deca39521da1baeca61898d156a43f4ae6a7e035",
+    "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+    "immutableFiles": 197,
+    "profile": "ABSENT"
+  }
 }

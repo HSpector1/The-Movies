@@ -1,0 +1,57 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "status": "PASS_AFFECTED_EMITTED_FUNCTIONAL_AND_WORKER_PLACEMENT",
+  "checkedAt": "2026-09-10T22:16:14.518Z",
+  "sourceHead": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+  "sourceManifestSha256": "d9f6e02db6c27c2d0ce4f4381f9a103a537a6d15ac0dd43ac7e2725bc106d18f",
+  "reportSha256": "4f564d4a7ed487c6d8161509b50a7c706c61556b4e611dced62835537f48f8e2",
+  "engines": [
+    {
+      "pid": 89223,
+      "exit": {
+        "code": 0,
+        "signal": null,
+        "at": "2026-09-10T22:15:45.320Z"
+      }
+    },
+    {
+      "pid": 89282,
+      "exit": {
+        "code": 0,
+        "signal": null,
+        "at": "2026-09-10T22:16:02.097Z"
+      }
+    }
+  ],
+  "mainRuntimeFilesystemCalls": 0,
+  "workerRuntimeFilesystemCalls": 343,
+  "functionalChecks": 18,
+  "retries": [
+    {
+      "name": "exact ordinary Save HTTP retry exact",
+      "responseSha256": "5e4c13ee800c78dc38f45a5d2a6b4a60a7c47c6f8b80e6d22f59d4e0d0a90bdc",
+      "bytes": 41960717,
+      "unchangedFileSha256": "a908d463438c78002f3318ff13415c58afe1e00bfd5bd14040082b1121dee9ef"
+    },
+    {
+      "name": "exact ordinary Save HTTP retry after later tick exact",
+      "responseSha256": "5e4c13ee800c78dc38f45a5d2a6b4a60a7c47c6f8b80e6d22f59d4e0d0a90bdc",
+      "bytes": 41960717,
+      "unchangedFileSha256": "f9fceb8f84670869d4ad7ec287194c0fcaf577fef8fae765572fb8255e8e3caa"
+    },
+    {
+      "name": "exact ordinary Save HTTP retry after engine restart exact",
+      "responseSha256": "5e4c13ee800c78dc38f45a5d2a6b4a60a7c47c6f8b80e6d22f59d4e0d0a90bdc",
+      "bytes": 41960717,
+      "unchangedFileSha256": "f9fceb8f84670869d4ad7ec287194c0fcaf577fef8fae765572fb8255e8e3caa"
+    }
+  ],
+  "errors": [],
+  "qualifications": [
+    "Exact response identity is within this run; processingMs/UUID metadata mean fresh runs need not have identical response hashes to the old control.",
+    "Protected8791 engineering library has3 SaveAs branches, not independent NewGames A/B/C. Prior native independent-library proof remains distinct.",
+    "Timer sampling supports measured responsiveness, not an exhaustive no-stall guarantee. Sync-call attribution is to observed runtime-path operations in the emitted engine/worker; no Unity/native claim.",
+    "Original explicit rollover is handled only on the same exact existing protocol response; no retries are blindly reissued after uncertain writes.",
+    "This affected runtime replay does not substitute for direct malformed/mutated-input, new reuse-boundary, strict capacity, failure-before-publication or transaction-isolation tests of the checkpoint correction."
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "p12a-unchanged-player-reuse/1",
+  "generatedAtUtc": "2026-09-10T22:37:22.934521+00:00",
+  "playerBuiltFromUnityCommit": "deca39521da1baeca61898d156a43f4ae6a7e035",
+  "currentUnityCommit": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+  "equalGitTrees": {
+    "Assets": {
+      "deca39521da1baeca61898d156a43f4ae6a7e035": "8e3e4e948b8766429124d3c07d7bfa77ab8b2877",
+      "2bc8d304b79a72bf20fda1d462ec3d96df253992": "8e3e4e948b8766429124d3c07d7bfa77ab8b2877"
+    },
+    "Packages": {
+      "deca39521da1baeca61898d156a43f4ae6a7e035": "53850b446e3c66aca699f8258d9f8505ec5b4071",
+      "2bc8d304b79a72bf20fda1d462ec3d96df253992": "53850b446e3c66aca699f8258d9f8505ec5b4071"
+    },
+    "ProjectSettings": {
+      "deca39521da1baeca61898d156a43f4ae6a7e035": "bd634b92218127f72e2801f4c62a1700d217ab55",
+      "2bc8d304b79a72bf20fda1d462ec3d96df253992": "bd634b92218127f72e2801f4c62a1700d217ab55"
+    }
+  },
+  "currentUnityChanges": "Tools-only changes; actual preview16 player reused byte for byte, not a new Unity build.",
+  "unityRegression": {
+    "passed": 1099,
+    "failed": 0,
+    "artifact": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/p12a/editmode-18-ready-label.xml"
+  },
+  "typescriptRegression": {
+    "passed": 5181,
+    "skipped": 5,
+    "failed": 0,
+    "artifact": "/tmp/p12a-full-regression-09-checkpoint-reuse.log"
+  },
+  "nativeCurrentPackage": "Tracked separately in the evidence index; initial checkpoint copy is not a prior native relaunch."
+}

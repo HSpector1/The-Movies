@@ -1,0 +1,42 @@
+{
+  "status": "FROZEN_NOT_RUN_AWAITING_ROOT_AUTHORIZATION",
+  "at": "2026-09-10T22:12:55.706Z",
+  "sourceHead": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+  "workerManifestSha256": "d9f6e02db6c27c2d0ce4f4381f9a103a537a6d15ac0dd43ac7e2725bc106d18f",
+  "storeBinding": {
+    "builtAt": "2026-09-10T22:12:55.647Z",
+    "commit": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+    "files": 106,
+    "sourceSha256": "638d240c8ffea804aab443d8ecf62357cdf3a4fcafb85c3f3e3d3fb79a850602",
+    "probeSourceSha256": "d1dee617de9c2ba53374893070d2e834fdd0e50a1b810ef5ba947cfdf67bde52",
+    "bundleSha256": "52d888d17d80487bd97bca929897f23a37f62614af60cc05a27090565f5d7831"
+  },
+  "artifacts": [
+    {
+      "name": "studio.mjs",
+      "bytes": 197582,
+      "sha256": "97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26",
+      "integratedPath": "/Users/bruce/The Movies - P12A Living Hollywood TS/dist/studio/studio.mjs",
+      "privatePath": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/emitted/studio.mjs"
+    },
+    {
+      "name": "engine.mjs",
+      "bytes": 129606,
+      "sha256": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "integratedPath": "/Users/bruce/The Movies - P12A Living Hollywood TS/dist/studio/engine.mjs",
+      "privatePath": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/emitted/engine.mjs"
+    },
+    {
+      "name": "runtime-worker.mjs",
+      "bytes": 1545393,
+      "sha256": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "integratedPath": "/Users/bruce/The Movies - P12A Living Hollywood TS/dist/studio/runtime-worker.mjs",
+      "privatePath": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/emitted/runtime-worker.mjs"
+    }
+  ],
+  "commands": {
+    "store": "/opt/homebrew/bin/node /private/tmp/p12a-checkpoint-verification-6lgjbgq6/store/store-bundle.mjs /private/tmp/p12a-checkpoint-verification-6lgjbgq6/store",
+    "worker": "/opt/homebrew/bin/node /private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/probe.mjs --run-measurements",
+    "verifyWorker": "/opt/homebrew/bin/node /private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/validate-worker-result.mjs"
+  }
+}

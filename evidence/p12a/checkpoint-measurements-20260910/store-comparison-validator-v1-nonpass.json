@@ -1,0 +1,6 @@
+{
+  "status": "NONPASS_VALIDATOR_EXPECTED_MANIFEST_COUNT_ASSUMPTION",
+  "at": "2026-09-10T22:28:59.764284+00:00",
+  "helperSha256": "46f00fea294fd0aba8fdb775d9e143948e5f0e8fed500dba8335ff767e425d83",
+  "message": "worker119 count assertion expected total119; actual source manifest136 =119 compiler sources+17 artifacts and harness. No source hash mismatch reached; no benchmark failure or workload rerun. Original helper retained."
+}

@@ -1,0 +1,106 @@
+{
+  "schema": "p12a-curated-evidence-sha256/1",
+  "createdAtUtc": "2026-09-10T22:40:11.336806+00:00",
+  "files": [
+    {
+      "path": "build-manifest.json",
+      "bytes": 1591,
+      "sha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd"
+    },
+    {
+      "path": "durable-write-target-addendum.json",
+      "bytes": 16925,
+      "sha256": "53a95979c4d19a4585aead32892d0e2cf5b730ecbf9728f5dea2a9210b643aec"
+    },
+    {
+      "path": "durable-write-target-addendum.md",
+      "bytes": 3918,
+      "sha256": "7554adee2c3f5d38bdbeede9024a4c030648a5a33a6762b723e967df07321080"
+    },
+    {
+      "path": "emitted-comparison.json",
+      "bytes": 9960,
+      "sha256": "7a7745de49267e6f7651d6165efb91abe0105ddedc3e5efed57d914d47293273"
+    },
+    {
+      "path": "emitted-report.json",
+      "bytes": 263587,
+      "sha256": "4f564d4a7ed487c6d8161509b50a7c706c61556b4e611dced62835537f48f8e2"
+    },
+    {
+      "path": "emitted-source-manifest.json",
+      "bytes": 48821,
+      "sha256": "d9f6e02db6c27c2d0ce4f4381f9a103a537a6d15ac0dd43ac7e2725bc106d18f"
+    },
+    {
+      "path": "emitted-validation.json",
+      "bytes": 2630,
+      "sha256": "0a3474298ccd5c6ec3a5a12ecf8994972705f46530ec72388c161446aa9abc41"
+    },
+    {
+      "path": "final-measurement-disposition.json",
+      "bytes": 32284,
+      "sha256": "ba24dff9d882e70ac57bc531474f0b6d12aed3532c9650c06f6d56c14998c00f"
+    },
+    {
+      "path": "final-measurement-disposition.md",
+      "bytes": 8500,
+      "sha256": "f5ee4aaeac8ceac082e5e5dcbee41e64908bfd0d7c973e227e929bf43c4ba480"
+    },
+    {
+      "path": "integrated-binding.json",
+      "bytes": 2204,
+      "sha256": "41a32b71f42a28629832a1c29d8b50c7510239db68cfc0433cf74536bb8be72f"
+    },
+    {
+      "path": "package-assembly.json",
+      "bytes": 1335,
+      "sha256": "e65bf32314dcbb57cea8211737ad39b3ed31de1e7e39e08add3aaf46e0cd1dab"
+    },
+    {
+      "path": "paired-contract-verification.json",
+      "bytes": 818,
+      "sha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355"
+    },
+    {
+      "path": "player-source-applicability.json",
+      "bytes": 1491,
+      "sha256": "12ad069b6601cdeb65e5fda6c71305ce74fe0729911b1a174d69b4477d50745b"
+    },
+    {
+      "path": "pure-phase-applicability.json",
+      "bytes": 1398,
+      "sha256": "0f1a08f8e8c84b259fada3f796d7d7a97b411f9618b4ac08ae37697dc3fd4139"
+    },
+    {
+      "path": "review.md",
+      "bytes": 2531,
+      "sha256": "657e562782e73e432e36d86c9fddb4a77501b1663f4b94b48db7951e60113c41"
+    },
+    {
+      "path": "store-binding.json",
+      "bytes": 379,
+      "sha256": "059dd73961d9efaafb9eb7159d93c7254e6d488ed2d48a12e5b6f2a184e20790"
+    },
+    {
+      "path": "store-comparison-validation.json",
+      "bytes": 9521,
+      "sha256": "1c4f39dae40d65d52162f8bba7f32b63435612c0b76b3b2680b1323cd0540a02"
+    },
+    {
+      "path": "store-comparison-validator-v1-nonpass.json",
+      "bytes": 435,
+      "sha256": "9f502f5982ac3dad093eb0ad6af992fcc5d23c51c0f15aab88403a7777bb4ef5"
+    },
+    {
+      "path": "store-report.json",
+      "bytes": 40638,
+      "sha256": "e464a8655580550e53388ce9a6896eaac1159d327a39bfd28e5599e64510fefe"
+    },
+    {
+      "path": "store-source-manifest.json",
+      "bytes": 24363,
+      "sha256": "f1de95492bb2c5fed04dc190391bfbd2f637a4173a48c58e1ec7f7717a07fa9d"
+    }
+  ]
+}

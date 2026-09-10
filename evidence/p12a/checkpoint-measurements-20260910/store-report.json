@@ -1,0 +1,1281 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "kind": "production-store-coordinator-fixed-real-library",
+  "startedAt": "2026-09-10T22:16:28.833Z",
+  "completed": true,
+  "binding": {
+    "builtAt": "2026-09-10T22:12:55.647Z",
+    "commit": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+    "files": 106,
+    "sourceSha256": "638d240c8ffea804aab443d8ecf62357cdf3a4fcafb85c3f3e3d3fb79a850602",
+    "probeSourceSha256": "d1dee617de9c2ba53374893070d2e834fdd0e50a1b810ef5ba947cfdf67bde52",
+    "bundleSha256": "52d888d17d80487bd97bca929897f23a37f62614af60cc05a27090565f5d7831"
+  },
+  "seed": {
+    "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z/campaign-library-final.json",
+    "sha256": "66b79add059344d2704d6e27641ecf750f73acad8a358662c91a30eb5df50365",
+    "bytes": 70593125
+  },
+  "runtime": {
+    "node": "v26.3.1",
+    "executable": "/opt/homebrew/Cellar/node/26.3.1/bin/node",
+    "execArgv": [],
+    "nodeOptionsPresent": false
+  },
+  "hardware": {
+    "platform": "darwin",
+    "release": "25.6.0",
+    "arch": "arm64",
+    "cpu": "Apple M3 Max",
+    "logicalCpus": 16,
+    "totalMemoryBytes": 137438953472,
+    "heapSizeLimit": 4395630592
+  },
+  "warmups": 3,
+  "repetitions": 20,
+  "percentile": "nearest-rank observed p95 (sorted index ceil(.95*n)-1), empirical n20; not a population guarantee",
+  "durableWrite": {
+    "warmups": [
+      {
+        "sample": 0,
+        "elapsedMs": 56.92504100000002,
+        "heapBefore": 6175040,
+        "heapAfter": 6191704,
+        "rssBefore": 355893248,
+        "rssAfter": 497139712
+      },
+      {
+        "sample": 1,
+        "elapsedMs": 53.15416699999997,
+        "heapBefore": 6199056,
+        "heapAfter": 6234456,
+        "rssBefore": 497156096,
+        "rssAfter": 497188864
+      },
+      {
+        "sample": 2,
+        "elapsedMs": 53.087917000000004,
+        "heapBefore": 6268592,
+        "heapAfter": 5612144,
+        "rssBefore": 497205248,
+        "rssAfter": 497205248
+      }
+    ],
+    "samples": [
+      {
+        "sample": 0,
+        "elapsedMs": 52.515917,
+        "heapBefore": 5516464,
+        "heapAfter": 5535128,
+        "rssBefore": 497221632,
+        "rssAfter": 497238016
+      },
+      {
+        "sample": 1,
+        "elapsedMs": 52.216583000000014,
+        "heapBefore": 5564736,
+        "heapAfter": 5562480,
+        "rssBefore": 497238016,
+        "rssAfter": 497270784
+      },
+      {
+        "sample": 2,
+        "elapsedMs": 51.41562499999998,
+        "heapBefore": 5574920,
+        "heapAfter": 5548736,
+        "rssBefore": 497270784,
+        "rssAfter": 497287168
+      },
+      {
+        "sample": 3,
+        "elapsedMs": 51.797916999999984,
+        "heapBefore": 5578240,
+        "heapAfter": 5581536,
+        "rssBefore": 497303552,
+        "rssAfter": 497401856
+      },
+      {
+        "sample": 4,
+        "elapsedMs": 53.56449999999995,
+        "heapBefore": 5558160,
+        "heapAfter": 5571352,
+        "rssBefore": 497401856,
+        "rssAfter": 497451008
+      },
+      {
+        "sample": 5,
+        "elapsedMs": 51.75087499999995,
+        "heapBefore": 5606536,
+        "heapAfter": 5607056,
+        "rssBefore": 497451008,
+        "rssAfter": 497451008
+      },
+      {
+        "sample": 6,
+        "elapsedMs": 51.91604199999995,
+        "heapBefore": 5856072,
+        "heapAfter": 5635024,
+        "rssBefore": 497451008,
+        "rssAfter": 497483776
+      },
+      {
+        "sample": 7,
+        "elapsedMs": 52.214709000000084,
+        "heapBefore": 5668128,
+        "heapAfter": 5658592,
+        "rssBefore": 497483776,
+        "rssAfter": 497500160
+      },
+      {
+        "sample": 8,
+        "elapsedMs": 52.02587500000004,
+        "heapBefore": 5651560,
+        "heapAfter": 5639880,
+        "rssBefore": 497500160,
+        "rssAfter": 497500160
+      },
+      {
+        "sample": 9,
+        "elapsedMs": 51.62175000000002,
+        "heapBefore": 5667624,
+        "heapAfter": 5660856,
+        "rssBefore": 497500160,
+        "rssAfter": 497532928
+      },
+      {
+        "sample": 10,
+        "elapsedMs": 51.06775000000016,
+        "heapBefore": 5638712,
+        "heapAfter": 5642512,
+        "rssBefore": 497532928,
+        "rssAfter": 497532928
+      },
+      {
+        "sample": 11,
+        "elapsedMs": 52.566417,
+        "heapBefore": 5671552,
+        "heapAfter": 5661056,
+        "rssBefore": 497532928,
+        "rssAfter": 497532928
+      },
+      {
+        "sample": 12,
+        "elapsedMs": 50.567208000000164,
+        "heapBefore": 5639040,
+        "heapAfter": 5642880,
+        "rssBefore": 497549312,
+        "rssAfter": 497549312
+      },
+      {
+        "sample": 13,
+        "elapsedMs": 51.89495800000009,
+        "heapBefore": 5672784,
+        "heapAfter": 5663912,
+        "rssBefore": 497549312,
+        "rssAfter": 497549312
+      },
+      {
+        "sample": 14,
+        "elapsedMs": 52.58924999999999,
+        "heapBefore": 5657048,
+        "heapAfter": 5646216,
+        "rssBefore": 497565696,
+        "rssAfter": 497565696
+      },
+      {
+        "sample": 15,
+        "elapsedMs": 51.64499999999998,
+        "heapBefore": 5675976,
+        "heapAfter": 5664680,
+        "rssBefore": 497565696,
+        "rssAfter": 497565696
+      },
+      {
+        "sample": 16,
+        "elapsedMs": 52.86008400000014,
+        "heapBefore": 5642688,
+        "heapAfter": 5646536,
+        "rssBefore": 497565696,
+        "rssAfter": 497582080
+      },
+      {
+        "sample": 17,
+        "elapsedMs": 51.997041999999965,
+        "heapBefore": 5677160,
+        "heapAfter": 5665704,
+        "rssBefore": 497582080,
+        "rssAfter": 497582080
+      },
+      {
+        "sample": 18,
+        "elapsedMs": 53.45383300000003,
+        "heapBefore": 5644064,
+        "heapAfter": 5646528,
+        "rssBefore": 497582080,
+        "rssAfter": 497582080
+      },
+      {
+        "sample": 19,
+        "elapsedMs": 56.60166700000036,
+        "heapBefore": 5647976,
+        "heapAfter": 5647544,
+        "rssBefore": 497582080,
+        "rssAfter": 497582080
+      }
+    ],
+    "summary": {
+      "n": 20,
+      "medianMs": 52.0114585,
+      "p95Ms": 53.56449999999995,
+      "maxMs": 56.60166700000036,
+      "minMs": 50.567208000000164
+    }
+  },
+  "loadReady": {
+    "warmups": [
+      {
+        "sample": 0,
+        "elapsedMs": 13626.412124999999,
+        "heapBefore": 5690920,
+        "heapAfter": 1276788800,
+        "rssBefore": 497582080,
+        "rssAfter": 3341615104,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 1,
+        "elapsedMs": 13237.527542,
+        "heapBefore": 10090616,
+        "heapAfter": 1878708864,
+        "rssBefore": 2283634688,
+        "rssAfter": 3813294080,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 2,
+        "elapsedMs": 13236.110042,
+        "heapBefore": 10122808,
+        "heapAfter": 1993242680,
+        "rssBefore": 2090106880,
+        "rssAfter": 3828498432,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      }
+    ],
+    "samples": [
+      {
+        "sample": 0,
+        "elapsedMs": 13341.588957999993,
+        "heapBefore": 10194128,
+        "heapAfter": 2235289072,
+        "rssBefore": 1942700032,
+        "rssAfter": 4029136896,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 1,
+        "elapsedMs": 13366.980708000003,
+        "heapBefore": 10256536,
+        "heapAfter": 2248617648,
+        "rssBefore": 2202091520,
+        "rssAfter": 4074487808,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 2,
+        "elapsedMs": 13371.288416999989,
+        "heapBefore": 10305744,
+        "heapAfter": 2236140024,
+        "rssBefore": 2026274816,
+        "rssAfter": 4157325312,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 3,
+        "elapsedMs": 13414.88841700001,
+        "heapBefore": 10452584,
+        "heapAfter": 2235352168,
+        "rssBefore": 2404139008,
+        "rssAfter": 4085022720,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 4,
+        "elapsedMs": 13399.603207999986,
+        "heapBefore": 10439752,
+        "heapAfter": 2237848760,
+        "rssBefore": 2575597568,
+        "rssAfter": 4053303296,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 5,
+        "elapsedMs": 13325.017459000024,
+        "heapBefore": 10379080,
+        "heapAfter": 2234472288,
+        "rssBefore": 2492448768,
+        "rssAfter": 4034166784,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 6,
+        "elapsedMs": 13320.819125000009,
+        "heapBefore": 10438736,
+        "heapAfter": 2235241984,
+        "rssBefore": 2517467136,
+        "rssAfter": 4084137984,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 7,
+        "elapsedMs": 13313.448499999999,
+        "heapBefore": 10500104,
+        "heapAfter": 2238364200,
+        "rssBefore": 2534817792,
+        "rssAfter": 4035641344,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 8,
+        "elapsedMs": 13323.372916999971,
+        "heapBefore": 10590368,
+        "heapAfter": 1993986064,
+        "rssBefore": 2546040832,
+        "rssAfter": 3778707456,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 9,
+        "elapsedMs": 13321.936958000006,
+        "heapBefore": 10677464,
+        "heapAfter": 2234577656,
+        "rssBefore": 2553643008,
+        "rssAfter": 4127309824,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 10,
+        "elapsedMs": 13335.434916999948,
+        "heapBefore": 10613392,
+        "heapAfter": 2235102816,
+        "rssBefore": 2332016640,
+        "rssAfter": 3996008448,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 11,
+        "elapsedMs": 13243.113332999987,
+        "heapBefore": 10622432,
+        "heapAfter": 1835352336,
+        "rssBefore": 2618408960,
+        "rssAfter": 3804495872,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 12,
+        "elapsedMs": 13423.439708999998,
+        "heapBefore": 10701048,
+        "heapAfter": 1198836032,
+        "rssBefore": 2343567360,
+        "rssAfter": 3381673984,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 13,
+        "elapsedMs": 13317.133917000028,
+        "heapBefore": 10735168,
+        "heapAfter": 2233064152,
+        "rssBefore": 2600484864,
+        "rssAfter": 4098408448,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 14,
+        "elapsedMs": 13257.207249999978,
+        "heapBefore": 10755680,
+        "heapAfter": 2232850136,
+        "rssBefore": 2606284800,
+        "rssAfter": 4080418816,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 15,
+        "elapsedMs": 13289.304249999986,
+        "heapBefore": 10725320,
+        "heapAfter": 2233259896,
+        "rssBefore": 2608316416,
+        "rssAfter": 4187045888,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 16,
+        "elapsedMs": 13318.47454200004,
+        "heapBefore": 10759248,
+        "heapAfter": 2235158040,
+        "rssBefore": 1629306880,
+        "rssAfter": 4099047424,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 17,
+        "elapsedMs": 13292.49874999997,
+        "heapBefore": 10764248,
+        "heapAfter": 2235563008,
+        "rssBefore": 2396995584,
+        "rssAfter": 4127391744,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 18,
+        "elapsedMs": 13299.406916999957,
+        "heapBefore": 10710768,
+        "heapAfter": 2232258032,
+        "rssBefore": 2384625664,
+        "rssAfter": 4101996544,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      },
+      {
+        "sample": 19,
+        "elapsedMs": 13338.093333000084,
+        "heapBefore": 10786696,
+        "heapAfter": 2231434944,
+        "rssBefore": 2265350144,
+        "rssAfter": 4100882432,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+        },
+        "checkpointChangedOnLoad": false
+      }
+    ],
+    "summary": {
+      "n": 20,
+      "medianMs": 13322.654937499989,
+      "p95Ms": 13414.88841700001,
+      "maxMs": 13423.439708999998,
+      "minMs": 13243.113332999987
+    }
+  },
+  "campaignSave": {
+    "warmups": [
+      {
+        "sample": 0,
+        "elapsedMs": 9490.722667,
+        "heapBefore": 1273573760,
+        "heapAfter": 845801856,
+        "rssBefore": 3341631488,
+        "rssAfter": 3042607104,
+        "response": {
+          "sessionId": "598cca7f-d7d5-4b61-a106-6c785289f740",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594162,
+          "sha256": "83593916f6308ff691b4e3854b7c027c06ccf9ac36875ca7aa4025d63ed5ba2b",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 1,
+        "elapsedMs": 9480.384458,
+        "heapBefore": 563326184,
+        "heapAfter": 845973552,
+        "rssBefore": 2811199488,
+        "rssAfter": 2846343168,
+        "response": {
+          "sessionId": "d13cb7c2-d4c6-43e9-a23a-888ec594b086",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594234,
+          "sha256": "96b01ff3e0a067a19105eb9b191f420c69ce0ef7bac33fc9638b5ba406e8fb17",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 2,
+        "elapsedMs": 9491.259166000003,
+        "heapBefore": 1990041744,
+        "heapAfter": 846001320,
+        "rssBefore": 3830448128,
+        "rssAfter": 3129442304,
+        "response": {
+          "sessionId": "e9738173-2b2d-42fb-b3e5-cba66d29b69b",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594227,
+          "sha256": "fe7ba35c31cbd7dbe04c24c1cb42e4449cf60cd558b1be8bd9b0f116a851b375",
+          "mode": 384
+        }
+      }
+    ],
+    "samples": [
+      {
+        "sample": 0,
+        "elapsedMs": 9496.45070799999,
+        "heapBefore": 2232149640,
+        "heapAfter": 845901832,
+        "rssBefore": 4031053824,
+        "rssAfter": 2961440768,
+        "response": {
+          "sessionId": "b57cf6cc-6e95-4952-b840-e8f08e3f83c8",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594194,
+          "sha256": "807eaad8630cd43ee244ced7a1d08f57d3fba20f54689708d8d69454d32b4e13",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 1,
+        "elapsedMs": 9476.744833000004,
+        "heapBefore": 2244524960,
+        "heapAfter": 845985040,
+        "rssBefore": 4079583232,
+        "rssAfter": 3217211392,
+        "response": {
+          "sessionId": "840509f1-3304-467b-82a8-4e50887de3ae",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594155,
+          "sha256": "604db2a36f65d966659f8c1ef077141c4b23558ace5886286fbeccbbbed6573f",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 2,
+        "elapsedMs": 9612.70762500001,
+        "heapBefore": 563597952,
+        "heapAfter": 845901448,
+        "rssBefore": 2920366080,
+        "rssAfter": 3163488256,
+        "response": {
+          "sessionId": "4fe650d9-8608-4a3a-8d5e-39c788e2cd3a",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594186,
+          "sha256": "c1a03e7bee816777f2655c15fe55f3b318215668d394c4d93aabcf75a107cf20",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 3,
+        "elapsedMs": 9540.752791999985,
+        "heapBefore": 563655576,
+        "heapAfter": 845938088,
+        "rssBefore": 2848145408,
+        "rssAfter": 3334946816,
+        "response": {
+          "sessionId": "d3197fc5-e2bc-4026-8cd9-247c8142e66f",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594186,
+          "sha256": "8cb61819ba316c9bf4b7e885650d48e06606c55f61097f043d81fb34116fe493",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 4,
+        "elapsedMs": 9480.192333999992,
+        "heapBefore": 2235046392,
+        "heapAfter": 845891944,
+        "rssBefore": 4055498752,
+        "rssAfter": 3251798016,
+        "response": {
+          "sessionId": "48479107-627a-483f-9872-63496d4ed6ac",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594162,
+          "sha256": "ed4a254846608e07ddad0d1365728c4ca8980e8dfa4c7f0bd85106532e7e7cff",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 5,
+        "elapsedMs": 9509.15179199999,
+        "heapBefore": 2231308384,
+        "heapAfter": 845969400,
+        "rssBefore": 4036149248,
+        "rssAfter": 3276832768,
+        "response": {
+          "sessionId": "25a547d2-05d4-41b2-a570-f09ac931ecf0",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594226,
+          "sha256": "918eab20de2250fcfc757e7dde956eea0cc9e540d0219c73e15b2273f922c55f",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 6,
+        "elapsedMs": 9534.262292,
+        "heapBefore": 563763240,
+        "heapAfter": 846053752,
+        "rssBefore": 2847195136,
+        "rssAfter": 3293904896,
+        "response": {
+          "sessionId": "e50d52f1-2936-4773-8a4e-69b7c290bbc8",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594170,
+          "sha256": "77a4a67134998d380044c7df3cc2309be81f3424febb6487b2c49be6af865f70",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 7,
+        "elapsedMs": 9545.196250000037,
+        "heapBefore": 2235564320,
+        "heapAfter": 846053672,
+        "rssBefore": 4037853184,
+        "rssAfter": 3305160704,
+        "response": {
+          "sessionId": "96ffe484-2174-48a9-aaa5-3087f4b2092f",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594170,
+          "sha256": "c651267652f44d11367b1b4c19db2c85502b006ef080885b3a22e56e2412e32d",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 8,
+        "elapsedMs": 9577.753750000033,
+        "heapBefore": 1990878376,
+        "heapAfter": 846146952,
+        "rssBefore": 3780640768,
+        "rssAfter": 3312992256,
+        "response": {
+          "sessionId": "594d969b-08de-40c0-813b-3cbfbabacd97",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594186,
+          "sha256": "1b47b51a434f9a624d8593a9fcc36f4646516092460f2032edef07f6ce671346",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 9,
+        "elapsedMs": 9503.842249999987,
+        "heapBefore": 563868128,
+        "heapAfter": 846175288,
+        "rssBefore": 2894643200,
+        "rssAfter": 3091382272,
+        "response": {
+          "sessionId": "51fc9bc4-ecb7-4966-b534-2c7fd46b8e8b",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594178,
+          "sha256": "976daad14c135708dc02179fe0da85c24f024fbf3603ae99e316adfe8d996591",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 10,
+        "elapsedMs": 9552.097915999999,
+        "heapBefore": 2231980328,
+        "heapAfter": 846153384,
+        "rssBefore": 4054679552,
+        "rssAfter": 3377774592,
+        "response": {
+          "sessionId": "f8afe694-c1ba-49c4-bfcd-567c4602e880",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594250,
+          "sha256": "717ad97e64d2c139c83b67c87c6213d119e0784e21e8d98c0f8c8bdd35b32d1b",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 11,
+        "elapsedMs": 9520.927958999993,
+        "heapBefore": 1832268728,
+        "heapAfter": 846166888,
+        "rssBefore": 3804495872,
+        "rssAfter": 3102687232,
+        "response": {
+          "sessionId": "b31f4915-96a1-4318-8aaa-950205386fc8",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594132,
+          "sha256": "c5cedd5b5af88058cf2bce8e2d02844dbff9379a61dbb40b06a3b541213f73e1",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 12,
+        "elapsedMs": 9518.817624999967,
+        "heapBefore": 563935016,
+        "heapAfter": 846210800,
+        "rssBefore": 2892431360,
+        "rssAfter": 3359834112,
+        "response": {
+          "sessionId": "fbe240c4-9f55-45ff-b936-5a5b329ac86a",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594202,
+          "sha256": "81b8662253a54334b9a84b96cb4f22e3b77cb87d9cd1de0e07d6740825101c60",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 13,
+        "elapsedMs": 9490.854624999978,
+        "heapBefore": 2229969096,
+        "heapAfter": 846244232,
+        "rssBefore": 4100472832,
+        "rssAfter": 3365634048,
+        "response": {
+          "sessionId": "d1e1a012-99fe-4177-a6c6-05facc6004ed",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594162,
+          "sha256": "0023a9f1ffc96bae4223f18731f4624c4d7d2bc9bc1006c7fd38a75c8f2c6f95",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 14,
+        "elapsedMs": 9519.945917000005,
+        "heapBefore": 563982960,
+        "heapAfter": 846250984,
+        "rssBefore": 2843377664,
+        "rssAfter": 3367665664,
+        "response": {
+          "sessionId": "d8e84d9e-2478-4473-b262-53ad10260dbd",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594130,
+          "sha256": "8cf261be42da991f4ca524978b76a9f2d382314f8a33db9ad322e15327658e42",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 15,
+        "elapsedMs": 9497.040708000015,
+        "heapBefore": 563970776,
+        "heapAfter": 846158880,
+        "rssBefore": 2761048064,
+        "rssAfter": 3373580288,
+        "response": {
+          "sessionId": "a758c035-305c-435c-8382-a811f1d7c8dd",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594154,
+          "sha256": "72dee2289ea08115c5b2f4b7d964e49dfe700d2376705b2eabb1db80ed63f4f9",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 16,
+        "elapsedMs": 9458.987709000008,
+        "heapBefore": 563977584,
+        "heapAfter": 846194608,
+        "rssBefore": 2861498368,
+        "rssAfter": 3156328448,
+        "response": {
+          "sessionId": "7ce4c829-6d0d-482f-b985-cffc4ffee6ee",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594170,
+          "sha256": "e83be8a41660ec107cb559747203c840794d35d9c5baccc7cd15f63f2fc62b77",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 17,
+        "elapsedMs": 9548.981334000011,
+        "heapBefore": 563991320,
+        "heapAfter": 846209408,
+        "rssBefore": 2889777152,
+        "rssAfter": 3143991296,
+        "response": {
+          "sessionId": "68504e3f-1c58-4e1e-b251-2a2cf4fc4304",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594194,
+          "sha256": "41c472486354d7f917b1ab17054fe81f2a0d9f63a73b74eb2fcbc32c1a8ed1b2",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 18,
+        "elapsedMs": 9516.354624999978,
+        "heapBefore": 564005568,
+        "heapAfter": 846185128,
+        "rssBefore": 2869215232,
+        "rssAfter": 3024699392,
+        "response": {
+          "sessionId": "1a780067-c531-4ea0-aff2-f9ef157a6573",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594186,
+          "sha256": "349d0b5633cbc47d93daf08b52b55475039d5cfeeb8c0c924ba108b0f5a46eb1",
+          "mode": 384
+        }
+      },
+      {
+        "sample": 19,
+        "elapsedMs": 9489.003707999946,
+        "heapBefore": 564010112,
+        "heapAfter": 846179976,
+        "rssBefore": 2864644096,
+        "rssAfter": 3365830656,
+        "response": {
+          "sessionId": "5f15a906-ea0f-4a10-ae81-cdc97ba5823d",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "catalogueRevision": 7,
+          "accepted": true
+        },
+        "checkpoint": {
+          "bytes": 70594186,
+          "sha256": "af09705115a4f50346934fddffd19db9f3e3f11f844212d4212fc3f3ac8371ba",
+          "mode": 384
+        }
+      }
+    ],
+    "summary": {
+      "n": 20,
+      "medianMs": 9517.586124999973,
+      "p95Ms": 9577.753750000033,
+      "maxMs": 9612.70762500001,
+      "minMs": 9458.987709000008
+    }
+  },
+  "setup": [
+    {
+      "sample": -3,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 121.79116599999998
+    },
+    {
+      "sample": -2,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 116.87566700000025
+    },
+    {
+      "sample": -1,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 122.94079099999362
+    },
+    {
+      "sample": 0,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 124.78962499999034
+    },
+    {
+      "sample": 1,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 122.02929199999198
+    },
+    {
+      "sample": 2,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 119.86012499999197
+    },
+    {
+      "sample": 3,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 114.73741600001813
+    },
+    {
+      "sample": 4,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 113.92820900000515
+    },
+    {
+      "sample": 5,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 111.7688340000168
+    },
+    {
+      "sample": 6,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 114.90941600000951
+    },
+    {
+      "sample": 7,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 114.86725000001024
+    },
+    {
+      "sample": 8,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 125.76208299997961
+    },
+    {
+      "sample": 9,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 113.8538750000298
+    },
+    {
+      "sample": 10,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 113.00612499995623
+    },
+    {
+      "sample": 11,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 114.05366599996341
+    },
+    {
+      "sample": 12,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 114.28924999997253
+    },
+    {
+      "sample": 13,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 113.10841699998127
+    },
+    {
+      "sample": 14,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 110.33908300002804
+    },
+    {
+      "sample": 15,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 110.86749999999302
+    },
+    {
+      "sample": 16,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 113.85316699999385
+    },
+    {
+      "sample": 17,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 108.91654100001324
+    },
+    {
+      "sample": 18,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 111.91920800000662
+    },
+    {
+      "sample": 19,
+      "kind": "restore-identical-encoded-seed",
+      "elapsedMs": 115.8896249999525
+    }
+  ],
+  "errors": [],
+  "qualification": [
+    "Standalone isolated private benchmark process invoking unchanged production store/coordinator directly. No HTTP, worker-postMessage, Unity, native or engine-main placement claim.",
+    "Load-to-ready starts before production store ownership acquisition and includes coordinator recovery and first production snapshot, matching the worker ready computation except worker startup and message transport. Repeated in one process with ordinary OS page cache; not OS-cold launch.",
+    "Durable write phase includes production ownership checks, UTF-8 conversion/validation, file write+fsync, atomic replacement, directory fsync, and cleanup. Input serialization/compression is excluded because exact protected encoded UTF-8 is already available.",
+    "Complete campaign Save starts at coordinator.campaign and ends when its durable accepted response resolves. Includes proposal/fork/strict operations, production library encoding/compression and atomic write; excludes prior catalogue read, HTTP/client UI, and post-operation verification.",
+    "Every load/Save sample is reset to the identical protected real seed using production store.writeAtomic, then the owned store is closed through its API. This reset/setup, catalogue reads, validation hashes and file stats are excluded from timings and logged separately.",
+    "Each sample Save has a unique command ID; catalogue increments by one, active record revision increments by one. Runtime rollover may mint session UUIDs. Current world/week/digest and inactive record metadata must remain unchanged. No authoritative weekly advance or fabricated history.",
+    "No forced GC, heap flags, or cache clearing; per-sample heap/RSS before and after plus process high-water RSS are recorded. No claim these endpoint samples capture allocation volume or all RSS peaks."
+  ],
+  "baseline": {
+    "snapshot": {
+      "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+      "stateRevision": 0,
+      "gameWeek": 8794,
+      "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862"
+    },
+    "catalogue": {
+      "protocolVersion": 4,
+      "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "snapshotVersion": 29,
+      "type": "campaignLibrary",
+      "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+      "stateRevision": 0,
+      "gameWeek": 8794,
+      "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+      "catalogueRevision": 6,
+      "activeCampaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "dirty": false,
+      "durable": true,
+      "campaigns": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "gameWeek": 8788,
+          "year": 2089,
+          "weekOfYear": 1,
+          "dateLabel": "2089 · Week 1",
+          "studioName": "Your Studio"
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "gameWeek": 8789,
+          "year": 2089,
+          "weekOfYear": 2,
+          "dateLabel": "2089 · Week 2",
+          "studioName": "Your Studio"
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 3,
+          "gameWeek": 8794,
+          "year": 2089,
+          "weekOfYear": 7,
+          "dateLabel": "2089 · Week 7",
+          "studioName": "Your Studio"
+        }
+      ]
+    }
+  },
+  "sourceChanges": [],
+  "protectedSeedUnchanged": true,
+  "ownedLockAbsent": true,
+  "finishedAt": "2026-09-10T22:25:36.820Z",
+  "processMemory": {
+    "rss": 3058728960,
+    "heapTotal": 579387392,
+    "heapUsed": 500985480,
+    "external": 504393475,
+    "arrayBuffers": 380675707,
+    "highWaterRssKiB": 4707520
+  }
+}

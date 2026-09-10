@@ -1,0 +1,244 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "status": "CORRECTION_TO_TARGET_PHASE_ATTRIBUTION; RAW_MEASUREMENTS_UNCHANGED",
+  "at": "2026-09-10T22:37:29.754441+00:00",
+  "author": "/root/final_performance_measurements",
+  "sourceCommitMeasured": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+  "scope": "One narrow pinned authority definition check; no workload rerun or shared edit. This addendum controls the interpretation of250ms wherever the preserved final report associates it categorically with complete campaign Save.",
+  "authorities": [
+    {
+      "ref": "a0739055c30f80fcf756340d0e0e962865aec6a4",
+      "path": "docs/design/CODEX-RIVAL-STUDIOS-HOLLYWOOD-ECOSYSTEM-PACKAGE-12-BUILDER-ANNEX.md",
+      "sha256": "1ec5181eb3fe44f7868bbac5ead80b5760dbd87ef20b0c9e1f168a3bcde1b1e2",
+      "gitBlobSha1": "41eea3c47d2ec284ce8b0c6c8dc906abe74e4837",
+      "excerpts": [
+        {
+          "line": 798,
+          "text": "## Q. Performance Budget"
+        },
+        {
+          "line": 799,
+          "text": ""
+        },
+        {
+          "line": 800,
+          "text": "### Benchmark fixture"
+        },
+        {
+          "line": 801,
+          "text": ""
+        },
+        {
+          "line": 802,
+          "text": "| Dimension | P12A proof | Full target | Stress gate |"
+        },
+        {
+          "line": 803,
+          "text": "|---|---:|---:|---:|"
+        },
+        {
+          "line": 804,
+          "text": "| active AI rivals | 3 | 6\u201310 | 12 |"
+        },
+        {
+          "line": 805,
+          "text": "| concurrent rival projects | 3\u20136 | 12\u201330 | 48 |"
+        },
+        {
+          "line": 806,
+          "text": "| weeks | 6,240 no-churn (plus 520-week smoke/save checkpoints) | 6,240 | 6,240 |"
+        },
+        {
+          "line": 807,
+          "text": "| historical rival films | fixture-derived | 2,000\u20133,500 expected envelope | at least 4,000 synthetic/organic |"
+        },
+        {
+          "line": 808,
+          "text": "| closed/inactive studios | 0 | retained | 50 archived identities fixture |"
+        },
+        {
+          "line": 809,
+          "text": ""
+        },
+        {
+          "line": 810,
+          "text": "### Time budgets"
+        },
+        {
+          "line": 811,
+          "text": ""
+        },
+        {
+          "line": 812,
+          "text": "- isolated rival subsystem at stress gate: \u22643 s over 6,240 weeks on the recorded CI/reference machine;"
+        },
+        {
+          "line": 813,
+          "text": "- incremental weekly rival step: median \u22640.5 ms, p95 \u22642 ms;"
+        },
+        {
+          "line": 814,
+          "text": "- no weekly operation scans all historical films, events, contracts, or transactions;"
+        },
+        {
+          "line": 815,
+          "text": "- quarterly ranking/pulse aggregation: \u226410 ms at stress fixture;"
+        },
+        {
+          "line": 816,
+          "text": "- rival profile first page projection: \u226410 ms from indexed state."
+        },
+        {
+          "line": 817,
+          "text": ""
+        },
+        {
+          "line": 818,
+          "text": "Full-save operations must be timed independently at the P12A/full/stress fixtures: canonical serialize, digest, strict validate/import, load-to-ready, and durable write. Provisional interaction gates are canonical serialize+digest p95 \u2264100 ms at full target (\u2264200 ms stress), validate/import p95 \u2264500 ms (\u22641 s stress), and asynchronous persistence end-to-end p95 \u2264250 ms at full target. Any synchronous main-thread storage step exceeding 50 ms is a ship blocker; change the storage/caching architecture rather than loosening history retention."
+        },
+        {
+          "line": 819,
+          "text": ""
+        },
+        {
+          "line": 820,
+          "text": "Record hardware, runtime version, commit, fixture seed, counts, warm-up, repetitions, median/p95/max, and allocation/heap evidence. A faster machine is not a complexity fix."
+        }
+      ]
+    },
+    {
+      "ref": "a0739055c30f80fcf756340d0e0e962865aec6a4",
+      "path": "docs/design/CODEX-RIVAL-STUDIOS-HOLLYWOOD-ECOSYSTEM-PACKAGE-12.md",
+      "sha256": "8d0c44d9c70b0981963a08ddcc155bf023a2bdb1f4f883a16f78c30dda1c3471",
+      "gitBlobSha1": "9f06cca04d14bc8bdc450a15e98220d9b86c9745",
+      "excerpts": [
+        {
+          "line": 988,
+          "text": "| Canonical full-save serialize + digest | p95 \u2264 100 ms full-target / \u2264 200 ms stress |"
+        },
+        {
+          "line": 989,
+          "text": "| Strict validate/import | p95 \u2264 500 ms full-target / \u2264 1 s stress |"
+        },
+        {
+          "line": 990,
+          "text": "| Asynchronous durable write, end-to-end | p95 \u2264 250 ms full-target; no synchronous main-thread step > 50 ms |"
+        },
+        {
+          "line": 991,
+          "text": ""
+        },
+        {
+          "line": 992,
+          "text": "**CURRENT CODE VERIFIED \u2014 The existing V14 save-size harness provides a useful floor, not a rival projection.** `scripts/measure-v14-save-size.mts` records 715,193 bytes at week 520 for a continuously operating player studio with 114 releases. Its 26-week event policy leaves 30,473 event bytes versus 202,925 bytes in the unwindowed comparison, while durable wrap/premiere history remains. Package 12 should copy that tiering discipline, not extrapolate the exact bytes as a multi-studio budget."
+        },
+        {
+          "line": 993,
+          "text": ""
+        },
+        {
+          "line": 994,
+          "text": "Current code already has multiple full-save amplification paths. Every tick calls `assertStudioPlacementInvariants()`; while evaluating historical facility-opex rows, `expectedWeeklyOperatingCostAt()` rebuilds `demolishedFacilityHistory()` from the whole ledger. The browser `stableStringify`s and rewrites the full save after every authoritative transition. Combined with projected localStorage quota pressure, this makes both CPU and persistence\u2014not merely rival-loop time\u2014horizon blockers. P12 must not \u201csolve\u201d them by pruning authoritative player history: optimize maintained indexes/aggregates, measure serialize/validate/load/write separately, and adopt an appropriate asynchronous storage path before the 120-year ship gate."
+        }
+      ]
+    },
+    {
+      "ref": "b51d8790354ccccd26c3c5e90819ecfafda9988c",
+      "path": "docs/engineering/P12A-DECISION-AND-REQUIREMENT-REGISTER.md",
+      "sha256": "ed8e37bb56dfa0761ca526e09c138dd202b2843d6452d80d92b6df23277ded5f",
+      "gitBlobSha1": "bf605467f4708f7b759563717936d441c49e41c1",
+      "excerpts": [
+        {
+          "line": 178,
+          "text": "| PERF-008 | Replace browser storage limits with an appropriate durable asynchronous path before claiming 120-year ship readiness; time serialize/digest/validate/load/write separately, and reject any synchronous main-thread storage step above 50 ms. | DES \u00a734; ANN \u00a7Q; SCOUT \u00a7\u00a72.7\u20132.8; BLUE contradiction 5 | Long-horizon blocker; loud failure partly fixed in old baseline | Dependency requirement, not P12-local redesign | Y/\u2014/\u2014/accepted persistence owner/\u2014/\u2014/\u2014 | Save/persistence layer \u2192 long campaign | Full-target/stress p95 measurements; quota/failure recovery; no silent loss | Final P08\u2013P11 persistence state and platform decision | ACC availability refresh; original product scope unchanged |"
+        },
+        {
+          "line": 179,
+          "text": "| PERF-009 | Meet or deliberately re-baseline with evidence the provisional budgets: stress rival sim \u22643 s/6,240 weeks; weekly median \u22640.5 ms/p95 \u22642 ms; quarterly aggregate/profile \u226410 ms; active rival \u2264100 KB; film \u22641.5 KB; events/summaries \u22641.5 MB stress; P12 save \u22648 MB full/\u226410 MB stress; summary/profile \u2264128 KB and \u2264100 rows/page; serialize/digest, validate, and write p95 limits from ANN \u00a7Q. | DES \u00a734; ANN \u00a7Q | Provisional measurable targets | P12A proof targets, tuning may change only by measured review | Y/\u2014/Y/reference hardware + final implementation/\u2014/\u2014/\u2014 | Benchmark harness \u2192 Current Ops acceptance | Record hardware/runtime/commit/seed/counts/warmup/repetitions/median/p95/max/heap | Dedicated P12A recon and measured implementation | ACC availability refresh; original product scope unchanged |"
+        }
+      ]
+    },
+    {
+      "ref": "current working file at check time; mutable documentation",
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/docs/engineering/P12A-DECISION-AND-REQUIREMENT-REGISTER.md",
+      "sha256": "e6252c3ffe046080af915d1690efd5df581e67846f29512d911c6126d60fb84c",
+      "excerpts": [
+        {
+          "line": 180,
+          "text": "| PERF-008 | Replace browser storage limits with an appropriate durable asynchronous path before claiming 120-year ship readiness; time serialize/digest/validate/load/write separately, and reject any synchronous main-thread storage step above 50 ms. | DES \u00a734; ANN \u00a7Q; SCOUT \u00a7\u00a72.7\u20132.8; BLUE contradiction 5 | Long-horizon blocker; loud failure partly fixed in old baseline | One authority worker owns locked persistence/codec:18 emitted checks,343 filesystem calls worker-side/zero engine-main, max sampled main gap17.068ms. Native21 parses snapshots off-main; main application costs remain disclosed. Fixed-phase serialization/validation/import reviewed; new durable/load/Save sampler running, final disposition open. No50ms waiver. | Y/\u2014/\u2014/accepted persistence owner/\u2014/\u2014/\u2014 | Save/persistence layer \u2192 long campaign | Full-target/stress p95 measurements; quota/failure recovery; no silent loss | Final P08\u2013P11 persistence state and platform decision | ACC availability refresh; original product scope unchanged |"
+        },
+        {
+          "line": 181,
+          "text": "| PERF-009 | Meet or deliberately re-baseline with evidence the provisional budgets: stress rival sim \u22643 s/6,240 weeks; weekly median \u22640.5 ms/p95 \u22642 ms; quarterly aggregate/profile \u226410 ms; active rival \u2264100 KB; film \u22641.5 KB; events/summaries \u22641.5 MB stress; P12 save \u22648 MB full/\u226410 MB stress; summary/profile \u2264128 KB and \u2264100 rows/page; serialize/digest, validate, and write p95 limits from ANN \u00a7Q. | DES \u00a734; ANN \u00a7Q | Provisional measurable targets | Original provisional budgets remain visible: full-nine paired serialize+digest p95199.524ms MISS100ms; strict import166.833ms meets500ms on that fixture. Hollywood-root37,829,874B/film mean3,146.43B exceed size targets. Pre-correction write p9562.351ms/load18.498s/Save18.248s (n20/3warmups). Bounded checkpoint reuse integrated; affected current measurements/formal rebaseline pending. | Y/\u2014/Y/reference hardware + final implementation/\u2014/\u2014/\u2014 | Benchmark harness \u2192 Current Ops acceptance | Record hardware/runtime/commit/seed/counts/warmup/repetitions/median/p95/max/heap | Dedicated P12A recon and measured implementation | ACC availability refresh; original product scope unchanged |"
+        }
+      ]
+    }
+  ],
+  "finding": {
+    "originalRequirement": "Asynchronous durable write/persistence end-to-end p95<=250ms at the full target. Canonical serialize/digest and strict validate/import have separately named limits; load-to-ready and durable write must be timed independently.",
+    "notExplicitlyRequired": "The sources do not define250ms as a cap on the entire campaign operation from coordinator.campaign, including proposal/fork/checkpoint strict/history/codec preparation, to returned accepted response.",
+    "correction": "Withdraw the categorical complete campaign Save MISS250ms assignment in my final-measurement-disposition.{json,md} and prior measurement-disposition.json. It was a phase interpretation mistakenly stated as the original requirement. Preserve the actual measured complete Save latency as a separate reference cost.",
+    "persistenceBoundaryInterpretation": "DES\u00a734 names durable write end-to-end and PERF008/009 independently name write, so this is more specific than treating every prerequisite CPU operation and campaign transaction as the250ms phase. The pin does not explicitly map later worker-message/queue/codec boundaries into this phase; those implementation scopes must remain documented."
+  },
+  "measuredPhaseDisposition": [
+    {
+      "phase": "Production store.writeAtomic on identical already-encoded real8794 library",
+      "n": 20,
+      "warmupsExcluded": 3,
+      "medianMs": 52.0114585,
+      "p95Ms": 53.56449999999995,
+      "maxMs": 56.60166700000036,
+      "status": "BELOW250MS_WITHIN_MEASURED_DURABLE_WRITE_BOUNDARY",
+      "includes": "Production ownership checks, UTF8 conversion/validation, file write and fsync, atomic replacement, directory fsync, cleanup, and writeAtomic Promise completion.",
+      "excludes": "Canonical serialization, strict checkpoint preparation, codec/compression, worker-message queue/transport, HTTP/Unity. Input is already encoded. Store ownership acquisition is outside this write phase.",
+      "qualification": "This meets the numerical250ms comparison for the separately measured production write component. Do not relabel it a measured worker handoff/queue-to-durable-ack distribution; that narrow async boundary was not separately isolated."
+    },
+    {
+      "phase": "Complete production coordinator campaign Save",
+      "n": 20,
+      "warmupsExcluded": 3,
+      "medianMs": 9517.586124999973,
+      "p95Ms": 9577.753750000033,
+      "maxMs": 9612.70762500001,
+      "status": "OBSERVED_TOTAL_OPERATION_COST; NO_ORIGINAL250MS_TARGET_ASSIGNMENT",
+      "qualification": "A material current reference latency with47.5144% lower p95 than the preserved control. Root may judge overall usability, but the pinned target does not justify categorically calling this a250ms requirement miss."
+    },
+    {
+      "phase": "Production load to first ready snapshot",
+      "n": 20,
+      "p95Ms": 13414.88841700001,
+      "status": "SEPARATELY_MEASURED_LIBRARY_RECOVERY_COST",
+      "qualification": "No250ms write gate or pure500ms import gate is silently reassigned to this complete library phase."
+    },
+    {
+      "phase": "Asynchronous write-only worker handoff/queue through durable acknowledgement",
+      "status": "NOT_SEPARATELY_ISOLATED",
+      "qualification": "Existing emitted worker placement and complete HTTP operations prove functional architecture and separate whole-operation observations; they do not supply this write-only transport percentile. No new run requested or performed."
+    }
+  ],
+  "unchangedConclusions": [
+    "Paired full8788 serialize+digest199.524ms p95 remains MISS100ms.",
+    "Pure strict import166.833ms p95 remains within500ms for that exact single-core-save import scope.",
+    "Hollywood field delta37,829,874B and average film3146.433B remain above original8MB and1.5KB size targets.",
+    "Future12/48/4000/50 stress remains unmeasured.",
+    "The synchronous engine-main storage50ms condition, strict/history/replay and algorithm requirements remain binding. Worker placement proof remains separately valid.",
+    "The bounded duplicate accepted-checkpoint preparation concern remains closed by independent source/tests/counters and fresh affected emitted/store checks.",
+    "Reference-cost rebaseline remains qualified; do not include a falsely assigned250ms complete-Save MISS among its premises.",
+    "All raw samples, original reports, hashes, failure records and private checkpoints remain preserved. No native or overall R05 acceptance is implied."
+  ],
+  "recommendedRegisterWording": "Original250ms limit applies to asynchronous durable write/persistence. Current fixed production writeAtomic p95 53.564ms (3 warmups+n20) is below250ms for already-encoded storage including durable commit/cleanup; worker-message write-only transport not separately isolated. Complete campaign Save p95 9,577.754ms and library load-ready13,414.888ms are separate measured reference costs, without an invented250ms full-operation gate. Preserve true original serialization/size misses and unmeasured stress qualification.",
+  "preservedReports": [
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/final-measurement-disposition.json",
+      "sha256": "ba24dff9d882e70ac57bc531474f0b6d12aed3532c9650c06f6d56c14998c00f"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/final-measurement-disposition.md",
+      "sha256": "f5ee4aaeac8ceac082e5e5dcbee41e64908bfd0d7c973e227e929bf43c4ba480"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store-comparison-validation.json",
+      "sha256": "1c4f39dae40d65d52162f8bba7f32b63435612c0b76b3b2680b1323cd0540a02"
+    }
+  ]
+}
