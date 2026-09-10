@@ -179,7 +179,7 @@ export type BridgePersonProfileSnapshot = {
   primaryDiscipline: Discipline
   age: number
   authored: boolean
-  /** Credited career identity from proven disciplines ("Actor / Writer"), or "No credited identity yet". */
+  /** Career identity from qualified disciplines ("Actor / Writer"), or an honest not-established label. */
   careerIdentityLabel: string
   capableButUnproven: string[]
   disciplines: BridgePersonDisciplineSnapshot[]
@@ -455,7 +455,7 @@ function buildProfile(
     primaryDiscipline: primary,
     age: talent.age,
     authored: talent.authored,
-    careerIdentityLabel: identityLabel.length > 0 ? identityLabel : 'No credited identity yet',
+    careerIdentityLabel: identityLabel.length > 0 ? identityLabel : 'Career identity not yet established',
     capableButUnproven: capableButUnprovenLabels(identity),
     disciplines,
     // Reuse the perceived-only TalentProfile producer and its canonical genre order.

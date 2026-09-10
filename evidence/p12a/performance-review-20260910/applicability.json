@@ -1,0 +1,143 @@
+{
+  "reviewedAtUtc": "2026-09-10T16:54:49Z",
+  "currentTsHead": "f8f47d49ca9c3bd32edca9cffa931f9132f5f2ac",
+  "evidence": [
+    {
+      "path": "evidence/p12a/storage-resume-20260910",
+      "reportSha256": "30d163fafa7c026a64e654b0f136937b88a47d438759a73dbdb7608ffc518506",
+      "sourceCount": 106,
+      "changedSources": [
+        {
+          "path": "bridge/runtime/campaign-library.ts",
+          "provedSha256": "55270abc969a7441b79b90b9b3846a98081f5601e8517fc2775c63c9850f7393",
+          "currentSha256": "75141a15ac2d17afff2ecfc3f6513921125641d5b3a410e8d9c0065afcb61764"
+        }
+      ],
+      "presentArtifacts": {
+        "binding.json": {
+          "expectedSha256": "f54337bd99233070a7f5df3aaf48e7fae42766eefd896ed069376bd44bc9746d",
+          "actualSha256": "f54337bd99233070a7f5df3aaf48e7fae42766eefd896ed069376bd44bc9746d"
+        },
+        "source-before.json": {
+          "expectedSha256": "02aac129ce778f46f360b6154cf4fdd117d28242574d0c4308075362d26603f2",
+          "actualSha256": "02aac129ce778f46f360b6154cf4fdd117d28242574d0c4308075362d26603f2"
+        },
+        "source-after.json": {
+          "expectedSha256": "02aac129ce778f46f360b6154cf4fdd117d28242574d0c4308075362d26603f2",
+          "actualSha256": "02aac129ce778f46f360b6154cf4fdd117d28242574d0c4308075362d26603f2"
+        },
+        "report.json": {
+          "expectedSha256": "30d163fafa7c026a64e654b0f136937b88a47d438759a73dbdb7608ffc518506",
+          "actualSha256": "30d163fafa7c026a64e654b0f136937b88a47d438759a73dbdb7608ffc518506"
+        },
+        "review.md": {
+          "expectedSha256": "64567f2f1c24f42c8b819ecd81a6a8878823799ee7e5846ba37f0d1a7f53daf7",
+          "actualSha256": "64567f2f1c24f42c8b819ecd81a6a8878823799ee7e5846ba37f0d1a7f53daf7"
+        }
+      },
+      "omittedOriginalArtifacts": [
+        "probe-source.ts",
+        "probe-bundle.mjs",
+        "probe.log"
+      ]
+    },
+    {
+      "path": "evidence/p12a/core-continuation-20260910",
+      "reportSha256": "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e",
+      "sourceCount": 53,
+      "changedSources": [],
+      "presentArtifacts": {
+        "report.json": {
+          "expectedSha256": "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e",
+          "actualSha256": "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e"
+        },
+        "review.md": {
+          "expectedSha256": "f25929fdeacaf7257a915b097493761752702fbdabaf6d8808a0136e3bd4c0e9",
+          "actualSha256": "f25929fdeacaf7257a915b097493761752702fbdabaf6d8808a0136e3bd4c0e9"
+        },
+        "binding.json": {
+          "expectedSha256": "9b2a200359b03afdb40c3bbc3da78565eae9817141ab64728706b5358b7a6b7c",
+          "actualSha256": "9b2a200359b03afdb40c3bbc3da78565eae9817141ab64728706b5358b7a6b7c"
+        },
+        "source-before.json": {
+          "expectedSha256": "357bd2f7a08796d41823747b92d24102a463796d9a0c39b55c888741d164da16",
+          "actualSha256": "357bd2f7a08796d41823747b92d24102a463796d9a0c39b55c888741d164da16"
+        },
+        "source-after.json": {
+          "expectedSha256": "357bd2f7a08796d41823747b92d24102a463796d9a0c39b55c888741d164da16",
+          "actualSha256": "357bd2f7a08796d41823747b92d24102a463796d9a0c39b55c888741d164da16"
+        },
+        "probe-source.ts": {
+          "expectedSha256": "f690f7acced1734f65afdc4d18e7a7aac24c4b3626f521ac89708f176955d491",
+          "actualSha256": "f690f7acced1734f65afdc4d18e7a7aac24c4b3626f521ac89708f176955d491"
+        }
+      },
+      "omittedOriginalArtifacts": [
+        "prior-imported-source-comparison.json",
+        "probe-bundle.mjs",
+        "probe.log",
+        "week-8788.save.json"
+      ]
+    },
+    {
+      "path": "evidence/p12a/core-entry-20260910",
+      "reportSha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+      "sourceCount": 53,
+      "changedSources": [],
+      "presentArtifacts": {
+        "report.json": {
+          "expectedSha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+          "actualSha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025"
+        },
+        "review.md": {
+          "expectedSha256": "7b6862e2bfacf57728c6039d3c8f81e85a0e7e5b55e5609ca6ec3b7516cb0e8c",
+          "actualSha256": "7b6862e2bfacf57728c6039d3c8f81e85a0e7e5b55e5609ca6ec3b7516cb0e8c"
+        },
+        "binding.json": {
+          "expectedSha256": "0198f45d95f33566c8d8e9b538fe7ee8ade2bf6ca24b2c2b1d52fa714d173487",
+          "actualSha256": "0198f45d95f33566c8d8e9b538fe7ee8ade2bf6ca24b2c2b1d52fa714d173487"
+        },
+        "source-before.json": {
+          "expectedSha256": "357bd2f7a08796d41823747b92d24102a463796d9a0c39b55c888741d164da16",
+          "actualSha256": "357bd2f7a08796d41823747b92d24102a463796d9a0c39b55c888741d164da16"
+        },
+        "source-after.json": {
+          "expectedSha256": "357bd2f7a08796d41823747b92d24102a463796d9a0c39b55c888741d164da16",
+          "actualSha256": "357bd2f7a08796d41823747b92d24102a463796d9a0c39b55c888741d164da16"
+        },
+        "probe-source.ts": {
+          "expectedSha256": "bcd15e56fbfbf137f535f4e3c458c2ca2e42fa0e567e7e99579ead520ce45838",
+          "actualSha256": "bcd15e56fbfbf137f535f4e3c458c2ca2e42fa0e567e7e99579ead520ce45838"
+        }
+      },
+      "omittedOriginalArtifacts": [
+        "prior-imported-source-comparison.json",
+        "probe-bundle.mjs",
+        "probe.log",
+        "week-2548.save.json"
+      ]
+    }
+  ],
+  "approvedSources": [
+    {
+      "ref": "b51d8790354ccccd26c3c5e90819ecfafda9988c",
+      "path": "docs/engineering/P12A-DECISION-AND-REQUIREMENT-REGISTER.md",
+      "gitBlobSha1": "bf605467f4708f7b759563717936d441c49e41c1"
+    },
+    {
+      "ref": "b51d8790354ccccd26c3c5e90819ecfafda9988c",
+      "path": "docs/engineering/P12A-REFERENCE-AND-PRODUCT-REVIEW-KIT.md",
+      "gitBlobSha1": "13afa7f55f066d17cddf3b5981cf09767fa29342"
+    },
+    {
+      "ref": "a0739055c30f80fcf756340d0e0e962865aec6a4",
+      "path": "docs/design/CODEX-RIVAL-STUDIOS-HOLLYWOOD-ECOSYSTEM-PACKAGE-12-BUILDER-ANNEX.md",
+      "gitBlobSha1": "41eea3c47d2ec284ce8b0c6c8dc906abe74e4837"
+    },
+    {
+      "path": "docs/engineering/P12A-R05-OWNER-DECISIONS-AND-ACCEPTANCE.md",
+      "sha256": "473ec3955a3624c7b1da3f670607a08a0ed86019736c50260d8f338176e50e87",
+      "exactSuppliedAttachment": true
+    }
+  ]
+}

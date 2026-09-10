@@ -1,0 +1,234 @@
+{
+  "kind": "R05 existing causal-core/Gate A product critique \u2014 run8 corrective checkpoint",
+  "status": "PARTIAL",
+  "gateAPassed": false,
+  "sameCritiqueContinues": true,
+  "createdAtUtc": "2026-09-10T17:00:56.902285+00:00",
+  "reviewer": "/root/recovered_product_evidence",
+  "scope": "Completed run8 Profile/Back, attempted named New Game/founding, and clean native Quit. Causal-core critique remains unfinished pending corrected campaign presentation and live production.",
+  "run": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z",
+  "binding": {
+    "at": "2026-09-10T16:50:16.608Z",
+    "manifestSha256": "32b7a300ad7808f354698bc730a4a908f8a4ac7318ea527d4b437df4f7917fd7",
+    "playerSha256": "6ab7a75b8a596f98da1cb0095ce43a4bf95bc769640eb889e54019a073a6fc16",
+    "engineSha256": "a2c9a02ccabc284841326b796e7c3a0eb178c59427a3e2ca9d57b5812750177b"
+  },
+  "sourcePair": {
+    "unity": {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+      "sha": "ef635bbcc43166fb3aaf8ab06359b10f4bf5d635",
+      "branch": "wip/p12a-living-hollywood-01-client",
+      "dirty": false
+    },
+    "typescript": {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+      "sha": "f8f47d49ca9c3bd32edca9cffa931f9132f5f2ac",
+      "branch": "wip/p12a-living-hollywood-01-ts",
+      "dirty": false,
+      "engineBundleSha256": "a2c9a02ccabc284841326b796e7c3a0eb178c59427a3e2ca9d57b5812750177b"
+    }
+  },
+  "checks": {
+    "manifestHashMatchesLaunch": true,
+    "fullProfileVisibleWithoutOldOcclusion": true,
+    "profileBeforeAfterAuthorityIdentical": true,
+    "industryBeforeAfterMappedControlsIdentical": true,
+    "profileClosedAfterBack": true,
+    "selectionBeforeAfterIdentical": true,
+    "industryTextScaleVisibleOnReturn": "200%",
+    "trueFinalFilmAndEndRowVisibleAt200Percent": true,
+    "nativeRunFinalization": {
+      "reportStatus": "observation-complete",
+      "reason": "ui-quit",
+      "playerExit": {
+        "code": 0,
+        "signal": null
+      },
+      "inputStatus": "clean",
+      "finalMarker": {
+        "seq": 5543,
+        "type": "null",
+        "keycode": 0,
+        "sourcePid": 33281
+      },
+      "auditPartial": false,
+      "counts": {
+        "tool": 220,
+        "markerCompanion": 219,
+        "playerNull": 51,
+        "playerOther": 0,
+        "physical": 0,
+        "unknown": 0
+      },
+      "foreignCount": 0,
+      "input-state-start.json": {
+        "heldKeys": [],
+        "heldButtons": [],
+        "clean": true
+      },
+      "input-state-end.json": {
+        "heldKeys": [],
+        "heldButtons": [],
+        "clean": true
+      },
+      "finalMarkerAtUtc": "2026-09-10T16:58:42.861Z",
+      "witnessMarkerMatches": true
+    }
+  },
+  "topObstacles": [
+    {
+      "id": "gate-a-2",
+      "status": "OPEN",
+      "priority": "Blocks playing a newly created campaign",
+      "locator": "018-campaign-leave-discard.png through 024-world-selectable-applicant-t-act-14.png; 024-map.json records selected applicant-t-act-14 in the new session while no founding offer card appears.",
+      "observed": "New Game Campaign A changed authority session at revision 0, but the visible gate still carried prior-world applicants. Selecting Joan Nakamura / applicant-t-act-14 produced the selection receipt and no applicant card.",
+      "playerConsequence": "The visible people do not belong to the active founding arrivals. A player cannot recruit the required starting team, so the new independent campaign is unplayable through its displayed gate.",
+      "cause": "StudioFoundingGatePresentation.Update reconciles only when stateRevision changes, and both old/new sessions have revision0. Reconcile also deliberately preserves active old walkers. StudioFoundingCardHud caches layer selection and portrait by stable/talent id without session invalidation.",
+      "remedy": "Invalidate/reconcile gate staging on session as well as revision. For a replaced session, clear old owned bodies, pad reservations and walkers before rebuilding current arrivals. Reset founding card pending/reveal/feedback and portrait bindings on session change, including identical talent IDs across worlds. Preserve no-auto-camera behavior.",
+      "sameTaskRecheck": "Create a named fresh world while the prior world is revision0; resume, select an actually visible applicant, open their offer and complete a legal signing. Check name, talent ID, portrait, employer/roster and current session. Repeat with a same-ID collision and with a campaign load; old walkers and offer reveals must not survive."
+    },
+    {
+      "id": "gate-a-1",
+      "status": "OPEN",
+      "locator": "009-industry-full-profile-person-studio-e8fb69d3-r01-1.png / profile-profession and profile-discipline-directing-credits",
+      "observed": "Arthur Vale heading says Director \u00b7 No credited identity yet while Directing reports 2 recorded production credits and the source Industry person has two canonical films.",
+      "playerConsequence": "An established credited director appears uncredited, obscuring the distinction between actual past credits and the capability threshold used for a qualified career identity.",
+      "cause": "bridge/people.ts:458 uses No credited identity yet when careerIdentityLabel is empty. src/core/talentSummary.ts careerIdentity requires both credits and capability OVR threshold; Arthur has directing OVR52.",
+      "remedy": "Clarify or omit the empty qualified-identity label when actual credits exist, preserving the capability/identity rule and authored-history counts.",
+      "sameTaskRecheck": "Open this incumbent from an actual film credit to full Profile and Back; verify heading is consistent with recorded credits and exact context returns."
+    }
+  ],
+  "pending": [
+    "Correct two observed obstacles and recheck the same tasks within this existing critique",
+    "Real post-start project through funded production, post, release/result, credits/employer/history",
+    "Separate Standing/output lanes and factual recent activity",
+    "Three independent named campaigns with differing progress and guarded Quit/relaunch",
+    "Final Gate A verdict and runnable-control preservation"
+  ],
+  "artifacts": [
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/build-manifest.json",
+      "sha256": "32b7a300ad7808f354698bc730a4a908f8a4ac7318ea527d4b437df4f7917fd7"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/launch-binding.json",
+      "sha256": "31e740e8932ca5e3be3e1a78fa1aa064b132a64ef08194c4ba65f2a742465dbb"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/006-industry-scroll.png",
+      "sha256": "c5a626d163c95a12c2564a47c3938a7b54ec44c5d034128abb2ba5f7426230ef"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/006-map.json",
+      "sha256": "fae631f36d0f9bcc9927afa21d0dc0a6939009d170f016d1b65bd72eaca834e9"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/008-industry-credit-person-studio-e8fb69d3-r01-1.png",
+      "sha256": "a8482537572b9c88e01139bfe1fd875a40e796f7e9899d098626bcc69cd36860"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/008-map.json",
+      "sha256": "e862960f8c480dc940f433b184d8727a5694e07aa78f58de2eed41390d454c1b"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/009-industry-full-profile-person-studio-e8fb69d3-r01-1.png",
+      "sha256": "e77300b0bee41edced834e8f1a8eb50d197709fa3a972c31fb531b45621fb798"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/009-map.json",
+      "sha256": "4aa732dc2a2001fce256d86697cbe3719c758e394bdd22213c56795097a6222b"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/010-profile-back.png",
+      "sha256": "4591c7bc29ce7bc81bf6d0d862cd0622514ea566847cd8c3cb054301afc628d3"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/010-map.json",
+      "sha256": "b2b51b8321394445e7626a6c2465a628eb635efb61266264e7c176d2a134fba0"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/report.json",
+      "sha256": "e0abc0092e4731deb7f57a647b7e25f3e53d980d7c36c48e8755abc00e5a2bbd"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/steps.json",
+      "sha256": "2e6e690d2ab061fe6e5742422e4e44fcded7f9ac1a33ad8deca98f2cd0710d88"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/018-map.json",
+      "sha256": "c9c74707f1b21f4c4a2fabbea72bda74fe2c0fc7c13c7d1953097062292d6214"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/024-world-selectable-applicant-t-act-14.png",
+      "sha256": "834ab19208f6b92d2972e8eff7438c217c0b2a3e18ff6e6025ce08fc3202059d"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/024-map.json",
+      "sha256": "55d7f4a696facbc9d8b905226bceb0a6f788fb6ee0a8c17cda54df1732b86e6e"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/025-studio-menu-open.png",
+      "sha256": "7d47c78d35244b2753b8a78c3fef44426364452cd5554f6c14beef55df331704"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/025-map.json",
+      "sha256": "0878420989e9412acc933690681d0ab0de9c97192c7b9ff386bca4c7601a7ea8"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/026-studio-menu-quit.png",
+      "sha256": "fe1eeb1bdef7f6a809bb7b2062938afdde14bebb5f7d5938a7d90b911e56ca33"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/026-map.json",
+      "sha256": "3201c2a9872a4becb8e710b586d41cc5823142a4783078a71cb9dcda268de4f7"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/hid-witness.jsonl",
+      "sha256": "444b80c880dae251d946343df34a354c5de2a0f40a245e443a7be2e772c82467"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/hid-ownership.jsonl",
+      "sha256": "c999e2e52b5a3f8d1a3d8df2a61ee78fff8258a93e0ca8899f6c76618b1973ce"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/action-trace.jsonl",
+      "sha256": "db5f069bbe9d239d3f9e6a1685022cf4c66ce122ebf406c57e781065606fa10b"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/input-state-start.json",
+      "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/input-state-end.json",
+      "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+    }
+  ],
+  "visuallyInspected": [
+    "006-industry-scroll.png",
+    "009-industry-full-profile-person-studio-e8fb69d3-r01-1.png",
+    "010-profile-back.png",
+    "021-observe.png",
+    "024-world-selectable-applicant-t-act-14.png",
+    "025-studio-menu-open.png"
+  ],
+  "limitations": [
+    "Not a completed Gate A critique or pass. No additional critique round.",
+    "No native input or worktree edits by reviewer.",
+    "Earlier completed preview verdict does not certify this source pair.",
+    "A source-level explanation is not native proof of a remedy."
+  ],
+  "priorCheckpoint": {
+    "path": "/tmp/p12a-gatea-product-checkpoint-99u2kv51.json",
+    "sha256": "d581045490186407a45e56532dcbbff67f9c914741ac42622fe42a3ce0690a16"
+  },
+  "targetedRelatedSourceInspection": {
+    "directDefect": "StudioFoundingGatePresentation.cs:202,250\u2013254",
+    "sameFlowState": "StudioFoundingGatePresentation.Reconcile preserves walkDeadlines; StudioFoundingCardHud.Update about585 and UpdatePortrait about624 only compare selected stable ID / portrait talent ID.",
+    "alreadySessionBound": [
+      "StudioIndustryWorkspace session+revision",
+      "StudioRejectionRetention session+revision+digest"
+    ],
+    "otherObservedPresenter": "StudioBridgePresentation receives SnapshotApplied and reapplies current people; StudioWriterPresencePresentation updates authority text each frame and revalidates active body identity.",
+    "scopeLimitation": "Bounded inspection of the observed founding/campaign presentation seam and revision caches, not a whole-application audit."
+  }
+}

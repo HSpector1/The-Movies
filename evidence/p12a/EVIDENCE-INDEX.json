@@ -95,7 +95,7 @@
       "applicability": "Current committed source engineering proof; native input and final candidate binding remain separate"
     }
   ],
-  "updatedAtUtc": "2026-09-10T16:49:47.447174+00:00",
+  "updatedAtUtc": "2026-09-10T17:04:22.185770+00:00",
   "attestationsPath": "attestations.json",
   "recovery": {
     "sessionId": "01a08adf-7719-7da2-85d0-77ae64c36fad",
@@ -118,10 +118,19 @@
       "evidenceDirectory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-21-51-443Z",
       "inputFinalization": "foreign",
       "tasksCompleted": false
+    },
+    "latestNativeRun": {
+      "report": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T16-50-13-860Z/report.json",
+      "quitAtUtc": "2026-09-10T16:58:42.861Z",
+      "input": "clean",
+      "playerExit": 0,
+      "profileReturn": "PASS on build08",
+      "campaignNewGame": "Created A; stale gate applicants observed; source fix +1072Unity testsPASS, native replay pending",
+      "gateA": "PARTIAL"
     }
   },
   "open": [
-    "Native full-Profile return replay",
+    "Native corrected Profile wording and same-revision campaign-switch replay",
     "Native independently seeded A/B/C, SaveAs divergence, Quit/relaunch and isolation",
     "Remaining independent Gate A and Gate B product critiques",
     "Current candidate source/build evidence applicability and runnable Gate A preservation",

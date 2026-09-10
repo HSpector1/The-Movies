@@ -1,0 +1,12 @@
+
+ RUN  v2.1.9 /Users/bruce/The Movies - P12A Living Hollywood TS
+
+ ✓ |core| tests/bridge-p12-industry.test.ts (3 tests) 161ms
+ ✓ |core| tests/bridge-p10a-w0-people-projection.test.ts (10 tests) 595ms
+   ✓ P10A W0 — people projection > R8 grouped attention lists each person at most once, by the highest tier; contract horizons come from the contract alone 388ms
+
+ Test Files  2 passed (2)
+      Tests  13 passed (13)
+   Start at  19:02:20
+   Duration  1.35s (transform 548ms, setup 0ms, collect 1.12s, tests 756ms, environment 0ms, prepare 54ms)
+

@@ -1,0 +1,72 @@
+{
+  "kind": "Existing R05 Gate A critique \u2014 corrective source review",
+  "status": "SOURCE_REMEDIES_VERIFIED_NATIVE_RECHECK_PENDING",
+  "gateAPassed": false,
+  "sameCritiqueContinues": true,
+  "reviewer": "/root/recovered_product_evidence",
+  "atUtc": "2026-09-10T17:02:59.695707+00:00",
+  "priorNativeCheckpoint": {
+    "path": "/tmp/p12a-gatea-product-run8-d2s56lns.json",
+    "sha256": "6496210f95daa8381e066cb6914aacaf572b9fd2eaf046258a003c10fcdf8575"
+  },
+  "sourceHeads": {
+    "unity": "ef635bbcc43166fb3aaf8ab06359b10f4bf5d635",
+    "typescript": "f8f47d49ca9c3bd32edca9cffa931f9132f5f2ac"
+  },
+  "reviewedFiles": [
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/StudioFoundingGatePresentation.cs",
+      "sha256": "2f36abd69cf91f1d7e45a7bb329c5127aa06d38cca43de0736be922f299439da"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/StudioFoundingCardHud.cs",
+      "sha256": "9489fb1ea2d827f8c42e2de9ac560df0723d4925f5dc5da3d944edb5d10bf94e"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Tests/EditMode/StudioFoundingPresentationTests.cs",
+      "sha256": "50c2a4df1ac2f119f8d443519014571c7c3545a2a1bf823575f3706670ea1a4a"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/people.ts",
+      "sha256": "e9393b9a9cd3a0028d0977b13ca0eab04f169fe577d81e95bd99a3623e649c5e"
+    }
+  ],
+  "sourceFindings": [
+    {
+      "obstacle": "gate-a-2",
+      "status": "Source remedy verified",
+      "evidence": "ApplyAuthority compares session and revision; new session removes/deactivates old owned bodies, clears walkers/pads/staged arrivals and reconciles current founding even when both revisions are zero.",
+      "relatedState": "FoundingCardHud.ObserveSession clears pending command/sign/found state, resets reveal stages/refusal/feedback, hides and clears prior portrait. UpdatePortrait additionally compares actual GameObject reference, preventing same-ID replacement from retaining an old portrait.",
+      "camera": "Existing gateRevealDone remains unchanged across session replacement; no new camera focus behavior was introduced."
+    },
+    {
+      "obstacle": "gate-a-1",
+      "status": "Source remedy verified",
+      "evidence": "bridge/people.ts changes only empty careerIdentityLabel copy to Career identity not yet established. The career identity producer, capability threshold, discipline credit totals and authored-history authority are unchanged."
+    }
+  ],
+  "regressionTestsReviewed": [
+    {
+      "name": "NewSessionAtSameRevision_ReplacesGateArrivalsAndClearsOldWalkers",
+      "coverage": "Direct production presentation seam: revision0 session A\u2192B updates staged arrivals and clears stale body dictionary/pad/walker state.",
+      "limitation": "Uses a null old-body entry; physical GameObject visibility/deactivation is established by source inspection and still requires actual native replay."
+    },
+    {
+      "name": "NewSession_CannotRetainAnArmedFoundingOfferOrOldPortraitIdentity",
+      "coverage": "Same session preserves pending state; a different session clears old command/sign/found/portrait identity and resets reveal stages.",
+      "limitation": "Actual portrait texture/body rebinding and legal signing remain native tasks."
+    }
+  ],
+  "testExecution": "Not run by reviewer; root owns checks and build09. This review does not assert their result.",
+  "requiredNativeRecheck": [
+    "Cleanly relaunch the persisted run8 campaign with build09, then create/load another campaign at the same revision to exercise replacement in a running client.",
+    "Verify current visible applicant name/id matches the active campaign, open the corresponding offer and complete a legal signing; no prior-world body/offer/portrait survives.",
+    "Open Arthur Vale through a real film credit, verify the neutral full Profile heading beside two credits, and Back to the same Industry context.",
+    "Continue real post-start film, credits/employer/history and named-campaign persistence tasks before any Gate A completion verdict."
+  ],
+  "limitations": [
+    "Read-only source review; no worktree edits, tests, build, engine or native input by reviewer.",
+    "Source remedies are not native proof or Gate A acceptance.",
+    "This is a corrective checkpoint within the existing Gate A critique, not an additional critique round."
+  ]
+}
