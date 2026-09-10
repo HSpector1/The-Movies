@@ -23,6 +23,13 @@ import type {
 } from './types.js'
 
 export const TUNING = {
+  // P12A bounded management policy; economics and reception remain the shared laws.
+  HOLLYWOOD_DECISION_WEEKS: 1,
+  HOLLYWOOD_CONTRACT_WEEKS: 208,
+  HOLLYWOOD_UNASSESSED_ESTIMATE: 50,
+  HOLLYWOOD_PROMISE_HALF_WIDTH: 0.35,
+  HOLLYWOOD_NEGATIVE_CHOICES: [0.65,0.85,1.05] as const,
+  HOLLYWOOD_POLICY_PREFERENCE_COST: 25_000,
   // §16 verbatim
   COHESION_CAP: 16,
   COHESION_SMOOTH_LO: 0.35,

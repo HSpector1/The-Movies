@@ -1,3 +1,6 @@
+import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
+import { enterRival } from './hollywood.js'
+import { applyReleaseCareers } from './releaseCareers.js'
 // ── §3 tick pipeline ─────────────────────────────────────────────────────────
 // `tick(state): GameState` — the fixed-order simulation step of §3's
 // `state = tick(applyActions(state, actions))` pair. Pure: no React/DOM/async/IO,
@@ -63,7 +66,7 @@ import {
   completeDuePlacements,
   weeklyPlacementOperatingCost,
 } from './placement.js'
-import { developTalent, type DevelopmentContext } from './development.js'
+import { type DevelopmentContext } from './development.js'
 import { economyEngaged, weeklyPayroll } from './employment.js'
 import { openTheatricalRun } from './economy.js'
 import { clamp } from './math.js'
@@ -88,12 +91,6 @@ import {
   scriptOccupiedFacilitySlots,
   scriptProjectForProduction,
 } from './scriptDevelopment.js'
-import {
-  buildTalentCareerEvent,
-  computeStarPowerDelta,
-  flattenParticipants,
-  roleDiscipline,
-} from './starPower.js'
 import { FACILITY_OPEX_LEDGER_NOTE, TUNING } from './tuning.js'
 import { buildFilmResult, resolveReception, type ReceptionInputs } from './reception.js'
 import { RngStream, stream } from './rng.js'
@@ -131,7 +128,6 @@ import type {
   Production,
   Standing,
   Talent,
-  TalentCareerEvent,
   TheatricalRun,
 } from './types.js'
 
@@ -894,82 +890,20 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // reference). When develop === false, `talent` is state.talent unchanged — the
   // validated M0A/D-6 baseline. A single talent working on two same-tick releases
   // develops once per release, in release order, over the evolving talent list.
-  let talent: Talent[] = state.talent
-  const newCareerEvents: TalentCareerEvent[] = []
-  if (develop && records.length > 0) {
-    // Index into the current talent list for O(1) resolution as it evolves.
-    const byId = new Map<string, Talent>()
-    for (const t of talent) byId.set(t.id, t)
-
-    for (const rec of records) {
-      // D-14: snapshot each participant's PRE-development state for the frozen career
-      // event's before→after (engaged films only; participants captured at greenlight).
-      const parts = rec.filmResult.participants
-      const beforeById = new Map<string, Talent>()
-      if (parts !== undefined) {
-        for (const p of flattenParticipants(parts)) {
-          const cur = byId.get(p.talentId)
-          if (cur !== undefined) beforeById.set(p.talentId, cur)
-        }
-      }
-
-      // 1. DEVELOPMENT (D-9.8) — UNCHANGED. Craft grows in the performed discipline.
-      for (const performer of rec.develop.performers) {
-        const current = byId.get(performer.talentId)
-        if (current === undefined) continue // craft with no hire etc. — nothing to develop
-        const devStream = stream(state.seed, 'develop', `${rec.develop.productionId}:${performer.talentId}`)
-        const developed = developTalent(current, performer.discipline, rec.develop.ctx, devStream)
-        byId.set(performer.talentId, developed)
-      }
-
-      // 2. D-14 STAR POWER (fame) — engaged-only (requires frozen participants), so M0A
-      //    is untouched. DETERMINISTIC (no RNG): the delta comes only from realized reach,
-      //    role, audience response, forecast comparison, and current fame. Applied to the
-      //    POST-development talent → affects FUTURE films only; the just-resolved film's
-      //    economics (opening/legs/total, computed in step 3 from pre-tick fame) are
-      //    untouched. One frozen TalentCareerEvent per participant.
-      if (parts !== undefined) {
-        const concept = rec.develop.ctx.concept
-        for (const p of flattenParticipants(parts)) {
-          const before = beforeById.get(p.talentId)
-          const developed = byId.get(p.talentId)
-          if (before === undefined || developed === undefined) continue
-          const sp = computeStarPowerDelta({
-            fameBefore: developed.fame,
-            role: p.role,
-            realizedTotal: rec.filmResult.boxOffice.total,
-            audienceScore: rec.broadcast.weightedAudienceScore,
-            expectedTotal: rec.filmResult.forecast ? rec.filmResult.forecast.expectedTotal : null,
-          })
-          const withFame: Talent = { ...developed, fame: clamp(developed.fame + sp.delta, 0, 100) }
-          byId.set(p.talentId, withFame)
-          newCareerEvents.push(
-            buildTalentCareerEvent({
-              talentBefore: before,
-              talentAfter: withFame,
-              role: p.role,
-              discipline: roleDiscipline(p.role),
-              filmId: rec.develop.productionId,
-              filmTitle: concept.title,
-              releaseWeek: rec.filmResult.releaseTick,
-              genre: concept.genre,
-              realizedOpening: rec.filmResult.boxOffice.opening,
-              realizedTotal: rec.filmResult.boxOffice.total,
-              audienceScore: rec.broadcast.weightedAudienceScore,
-              criticScore: rec.filmResult.criticScore,
-              sp,
-            }),
-          )
-        }
-      }
-    }
-
-    // Rebuild the array in the ORIGINAL talent order (stable serialization),
-    // substituting developed objects; untouched talent shared by reference.
-    talent = state.talent.map((t) => byId.get(t.id) ?? t)
-  }
-  const careerEvents =
-    newCareerEvents.length > 0 ? [...state.careerEvents, ...newCareerEvents] : state.careerEvents
+  const industry = advanceHollywoodWeek(admitted)
+  const allGrowthRecords = [...records,...industry.growth].sort((a,b)=>
+    a.filmResult.productionId<b.filmResult.productionId?-1:a.filmResult.productionId>b.filmResult.productionId?1:0)
+  const growth = develop && allGrowthRecords.length > 0
+    ? applyReleaseCareers(state.seed,industry.talent,allGrowthRecords)
+    : {talent:industry.talent,careerEvents:[]}
+  const talent = growth.talent
+  const industryFilmIds = new Set(industry.growth.map(r=>r.filmResult.productionId))
+  const newCareerEvents = growth.careerEvents.filter(e=>!industryFilmIds.has(e.filmId))
+  const industryCareerEvents = growth.careerEvents.filter(e=>industryFilmIds.has(e.filmId))
+  const hollywood = industry.hollywood && industryCareerEvents.length>0
+    ? {...industry.hollywood,careerEvents:[...industry.hollywood.careerEvents,...industryCareerEvents]}
+    : industry.hollywood
+  const careerEvents = newCareerEvents.length > 0 ? [...state.careerEvents,...newCareerEvents] : state.careerEvents
 
   // ── 7. PAYROLL (D-11.5) ────────────────────────────────────────────────────
   // Weekly Σ contracted salaries, debited from cash EXACTLY ONCE per tick and
@@ -1053,11 +987,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     sets,
   })
 
-  return {
+  let finalized: GameState = {
     // C2a-M4: the ADMITTED state is the base — it carries this advance's queue
     // (rows granted or expired are gone from it), the concepts an admitted
     // original commission minted, and the blueprint root that recorded them.
     ...admitted,
+    hollywood,
     rngState: rng.serialize(),
     market: { ...state.market, tick: currentTick + 1 },
     talent,
@@ -1098,6 +1033,12 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     // detail that aged past the window — against the week this advance PRODUCES.
     studioHistory: commitStudioHistory(state.studioHistory, history, currentTick + 1, facilityCompletionDrafts(placementCompletion.completed)),
   }
+  for(const identity of finalized.hollywood?.identities ?? []) {
+    if(identity.role==='rival' && identity.enteredWeek===null && identity.eligibleWeek<=finalized.market.tick) {
+      finalized=enterRival(finalized,identity.studioId,'scheduled')
+    }
+  }
+  return finishHollywoodWeek(finalized)
 }
 
 /**

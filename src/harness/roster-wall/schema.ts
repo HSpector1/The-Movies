@@ -1,3 +1,4 @@
+import { liftV18Control } from './historical-control.js'
 // Week-208 roster-wall evidence schema and canonical entry projection.
 //
 // ANALYSIS ONLY. These rows contain observed public engine facts; they never feed
@@ -454,7 +455,7 @@ export function makeRosterWallEntryRecord(
   // `state.releaseAuthority` (it is not one of the fields below), so whether the
   // harvested entry carries a real release commitment is simply not represented
   // in this record.
-  const state = harvest.entrySave.state
+  const state = liftV18Control(harvest.entrySave.state)
   const activeTheatricalRuns = state.theatricalRuns
     .filter((run) => run.status === 'active')
     .map((run) => structuredClone(run))

@@ -80,6 +80,11 @@ export function marketingCapacityFor(state: GameState, pkgInputs: MarketingMenuI
       engaged,
     )
   }
+  return marketingCapacityForInputs(pkgInputs,engaged)
+}
+
+/** Explicit owner-input adapter; the same capacity law serves player and rival packages. */
+export function marketingCapacityForInputs(pkgInputs:ReceptionInputs,engaged:boolean):number {
   const centers = forecastCenters(pkgInputs, engaged, engaged)
   return efficientMarketingCapacity(
     preMarketingAwarenessOf(

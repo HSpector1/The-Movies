@@ -1,0 +1,72 @@
+# P12A — Provisional implementation charter
+
+**DRAFT FOR CURRENT OPS LAUNCH REVIEW · P12 IMPLEMENTATION NOT AUTHORIZED**
+
+The player can leave the lot for Industry, recognize persistent competitors, follow their real people and films, and watch a nine-rival Hollywood develop through staggered entry. Four opening rivals plus five later entrants is the **proposed implementation baseline**. Nine rivals **plus the player** is settled Owner direction. An early preview or a three-rival fixture cannot complete this scope.
+
+Read the [readiness record](P12A-PRE-READINESS-AND-DEPENDENCY-GATE.md), [130-original-ID register](P12A-DECISION-AND-REQUIREMENT-REGISTER.md), [source/reuse map](P12A-AUTHORITY-AND-CODE-RECONNAISSANCE-PLAN.md) and [review kit](P12A-REFERENCE-AND-PRODUCT-REVIEW-KIT.md). The [draft launch instruction](DRAFT-P12A-IMPLEMENTATION-PROMPT.md) reuses P11's executed outcome-first process. This charter is a recommendation, not an execution order.
+
+## 1. Scope and ownership
+
+Core: common immutable studio identity/player naming, nine reserved rival identities, lawful staggered participation, constrained money/capacity/projects, renewable screenplay provenance, one-employer contracts and maintenance, true releases/credits/careers, separate Standing/output views, factual recent activity, public rival/person/film drill-down, honest migration, bounded bridge/storage, and complete proof. Preserve all original requirements and safeguards with current supersession beside history.
+
+Ready scope, explicitly selected in the later order: richer separate-lane Charts with comparable movement; grouped activity; observed tendencies with sample/window; announcements and confirmed dates when disclosed; P08 History adapters when their typed producers exist; paging, indexes, cached digests, archive navigation and accessibility. Core must already meet minimum factual lanes, activity and usability. “Ready” does not activate a missing producer or approval, but a necessary adapter is implementation work. No Power Ranking or overall studio score.
+
+**Narrow proposed transfer from P15B:** the initial nine-studio rollout's bounded scheduling and atomic entry orchestration moves to P12. P12 already retains identity, resources and canonical state commits. P15B keeps distress, recovery, dormancy, closure, replacement entrants, floors after corporate failures and wider churn; P16+ keeps acquisitions. This is a recorded boundary recommendation for the execution order, not a claim that the prior roadmap already transferred it. No competitive bidding, poaching, advanced labor, saturation, market pressure, Awards, research race, facilities modernization or P16/P17/P18 implementation follows.
+
+## 2. Smallest scheduling authority and unresolved policy
+
+Accepted P11 supplies nonnegative absolute `market.tick`, not a calendar. Never divide by 52, label 6240 advances as 120 years, invent an ending, or treat client 1920 labels as authority. Preserve original guide windows, uncertain endpoints/distribution and conflicting community dates in the crosswalk; they are evidence, not production schedule constants.
+
+**Engineering recommendation for Current Ops:** adopt a tiny versioned **absolute-week arrival-policy provider** scoped solely to these nine identities. Suggested reviewable pacing is R01–R04 at campaign Week 0, R05 at 416, R06 at 832, R07 at 1248, R08 at 1664, R09 at 2080. These are proposed gameplay milestones, deliberately **not translations of 1930/ 1939/ 1950/ 1956/ 1969 or recovered original dates**. They spread arrivals through sustained play and leave 4,160 further advances after the ninth enters in a 6,240-advance new-campaign endurance route. Do not use the ceiling as a reason to compress arrival dates.
+
+Provider input/output: immutable policy ID/revision, seed-independent row key→eligibility week, total order, and adoption provenance; no clock/finance/market mutation. Recommend fixed thresholds, no arrival RNG in the first implementation. The later order must adopt this proposal or an explicit alternative; elapsed preparation does not approve it. If Current Ops requires calendar-labelled original-style windows, the minimum alternative is a separately ruled TypeScript provider mapping authored date boundaries to absolute weeks with an explicit campaign anchor and year-length/endpoint rules. Until supplied, calendar dates remain unavailable; P13's tree, eras, upgrades and facilities are not dependencies of the week-only provider.
+
+Migration tests cover before/at/after each adopted threshold, plus before/within/after any windows if the order adopts windows instead. Same-date testing deliberately gives two rows one threshold and orders by immutable row ordinal then studio ID. A stochastic alternative must persist its once-selected eligibility week and isolated stream/version, never reroll on load or viewing.
+
+## 3. Three distinct participation paths
+
+| Path | Atomic authoritative result | Honest presentation |
+|---|---|---|
+| A. New campaign | Reserve nine identities once; activate proposed R01–R04 with lawful funded accounts, roster and capacity; keep five future rows scheduled only | Four present rivals plus player; no pre-campaign films, credits or invented business achievements |
+| B. Migrated save | Evaluate adopted schedule at each slot's own absolute week. Due participants initialized once; not-yet-due identities stay reserved/scheduled. Preserve existing player contracts, assignments, free-agent ownership and founding applicants | Recommend migration choice A: known current participants, earlier history unavailable. Founding/earlier entry remain unknown; recording starts at migration. No synthetic historical entry or films |
+| C. Later arrival | At eligibility, validate identity/endowment/person/capacity owners, then commit all entry facts once; actual projects begin prospectively | Entry week known; founding only if actually established by the event. Public receipt at completed entry, no privileged advance slate |
+
+Migration **choice B** remains the alternative: genuinely new entrants at migration, with actual entry receipts at that week. Entry does not by itself prove founding date; label founding only if the chosen law establishes it. Choice A remains recommended, not approved. Do not re-open population, stable identity, naming or minimum employment law. Distinguish `record available since`, founding, actual entry, and private future scheduled eligibility in data and copy.
+
+A catalogue definition or permanently reserved ID is not an active studio/employer. Pre-entry rows have no roster, payroll, capacity reservations, projects, Standing rank or public Industry entry. Industry opening/sorting/reconnect is read-only and cannot instantiate them. Internal permanent reservations prevent future collision without disclosing the schedule.
+
+Entry transaction order: verify due and uncommitted; resolve permanently reserved identity; validate endowment and costed initial capacity; determine legal unreserved people/unique supply; validate employment and capability feasibility; commit account, contracts/intervals, capacity, participation and receipt together. Failure commits none and reports an entry defect/blocked prerequisite; never partial employer, phantom funding or a recurring cash refill. Entry receipt/key and participation state jointly enforce idempotence. Two equal-date entrants see deterministic allocation order, not object iteration or competitive bidding.
+
+## 4. Conserved starting resources and ongoing policy
+
+Recommend one modest production lane per entrant, with real development/post requirements and sequential use where capacity permits. Do not promise two simultaneous fully staffed shoots. Accepted stock 60 plus protected draft cannot sustain nine minimum teams; the recon arithmetic establishes the need for deterministic, bounded unique-person additions or lower concurrent demand. Preserve all existing reservations; no copying people or stealing player applicants. Allocate supply only to measured role deficits, with no invented career history. Broader aging/retirement/labor replenishment remains P14.
+
+Proposed funding rule for review: once-only world-entry endowment equals recorded initial capacity acquisition cost + lawful signing outlay + **52 weeks of that entrant's initial payroll/overhead/capacity Opex + two costed starter project envelopes**. These are reserve units, not a year or guaranteed releases. Use accepted cost/obligation definitions; no arbitrary player-relative scaling. Record source, amount, policy and entry key; debit purchases/signing once; retain remaining literal cash. Existing contractual guarantees are not subtracted from cash twice. Monetary coefficients and project envelopes require measured feasibility, not copied historical budgets.
+
+Funding is not film income. Future salaries, overhead, capacity Opex, development/production/post/marketing spend and investments debit actual cash; receipts arrive under shared theatrical law. Reserve preferences may refuse/delay/cancel; no hidden subsidy when cash runs out. Financial constraints affect projects even though P15B corporate failure is deferred. All nine identities persist if one cannot afford production; no fabricated activity to fill a screen.
+
+Genre anchors and bounded trend-response tendencies are recommended from the crosswalk. Exact source propensity normalization is unknown and not adopted. The live popularity port is unavailable at the accepted TS source: use affinity fallback, explicitly record trend integration as dependency-qualified, and do not create saturation or penalties. Richer budget/scale/prestige/risk policies stay proposed enhancements under SIM-009's existing constraints. Never guarantee profit, quality or a permanent studio class.
+
+## 5. Persist only justified authority
+
+Conceptual new versioned root groups (names/version numbers deliberately unreserved):
+
+- **Identity/participation/schedule:** player link, nine permanent rival IDs/brands, row ordinals, nullable founding/entry, recording boundary, eligibility policy/week, entry key/status. Required to distinguish pre-entry from active and survive reload.
+- **Employer/contract relations:** immutable contract/interval IDs, exact person/studio links, terms and dated legal transitions. Preserve frozen Talent/Contract leaves and every player contract byte/ordering fact through adapters.
+- **Rival operations:** conserved account/obligations, costed capacities/reservations, current policy, screenplay provenance, projects/phases and spend. Required causes of future output.
+- **Film ownership and industry receipts:** exact canonical result owner, frozen inputs/credits/archival identity, active receipt schedules, material typed events and bounded reconciled periods. Preserve player results rather than duplicate authority.
+
+Maintain indexes for active/due studios, current employer, project reservations, film owner, exact entity lookup, period totals and immutable identity reservation. Nine pending entries are bounded; completed identities remain forever. All new and existing History witnesses join complete production/concept walkers and corresponding other namespaces. Derive roster/list order/tendencies; discard deliberation, debug noise and UI state. Complete rival schedules may be summarized only after exact settlement; permanent films, people, credits, material events and player ledger remain.
+
+P11's no-new-Finance-root decision governed P11. It does not prohibit these justified P12 roots. Reuse strict inner migration and governed OUTER checkpoint loading; independently migrate current and explicit saved slots, including different weeks and null saved slot. Do not extract inner saves, rewrite headers, backfill histories or reserve version numbers. Register authentic outgoing schema when implementation changes it; regenerate/check actual U consumer. Preserve original copies/control candidate; migrate authorized copies only during later execution. Rollback uses the untouched old checkpoint with its matching old binary, never an old binary on upgraded bytes. Unknown schemas/malformed ownership fail closed.
+
+## 6. Work envelope and gates
+
+Recommend a ceiling of **72 productive lead hours within 96 elapsed hours**, including a **protected final 24 productive hours** for cumulative verification, remedies, independent review and delivery. This replaces the smaller-cohort planning assumption and exceeds P11's 36/ 48/ 10 envelope because finance reuse does not supply employer generalization, arrivals, rival lifecycle, calendar-policy handling, dual-slot migration or nine-rival retention. Planning allocation: 12h shared identity/employment, 10h causal projects/finance, 8h scheduler/migration, 10h integrated Industry/ready views, 8h iteration/contingency, 24h verification. This is a ceiling, not a quota or completion-time promise.
+
+Record lead work, reviewer/delegated usage, tool/Owner waits and elapsed time separately. Included account allowance only; no paid services or purchased usage. Session/account/time limits can end the run before this ceiling; stop with truthful PARTIAL/BLOCKED and complete artifacts. Reserve is not spent on discretionary scope. Current Ops adopts the actual ceiling and active IDs; later launch verifies Owner-selected model/client/version/effective effort. P11's session-specific Astra/Ultra amendment cannot be reused silently.
+
+Three product critiques: early live slice, causal core, full ready integration; one separate correctness reviewer, one native-input owner, bounded team, serial independent reviews if needed. Critic sees comparable actual screenshots/tasks and returns the three largest actionable gaps, with consequence and recheck. The builder's score is not acceptance. No routine waits for Howard to approve previews. Preserve Gate A core then Gate B core+activated ready scope, with the full nine-rival rollout mandatory in entry acceptance.
+
+Future checks and the warning-only checker specification are in the [review kit](P12A-REFERENCE-AND-PRODUCT-REVIEW-KIT.md). Focused checks and actual screens during iteration; candidate boundaries retain cumulative regression, migration, conservation/endurance, independent correctness/product review, generated contract and native input bound to delivered bytes. Callbacks cannot replace actual input. Technical KEEP, Current Ops readiness and Owner acceptance remain distinct.

@@ -1,3 +1,4 @@
+import { liftV18Control, makeSave, historicalHashState } from './historical-control.js'
 // Week-208 roster-wall mixed-founding-term player-policy corpus.
 //
 // ANALYSIS ONLY. This descriptive arm exercises only legal public founding and
@@ -12,7 +13,6 @@ import {
   expectedWeeklyRunRevenue,
   exportSave,
   importSave,
-  makeSave,
   renewalWindowOpen,
   stableStringify,
   weeklyOverhead,
@@ -436,7 +436,7 @@ function sha256(value: string): string {
 // a genuine SaveFileV14 round trip (P06A's new `releaseAuthority` root has no V14
 // home) — a pure serialization hash with no live-only field dependency.
 function hashState(state: GameState | GameStateV14): string {
-  return sha256(stableStringify(state))
+  return sha256(stableStringify(historicalHashState(state)))
 }
 
 function activeContracts(state: GameState): GameState['contracts'] {
@@ -667,7 +667,7 @@ function exactSave(state: GameState): {
   if (exportSave(makeSave(structuredClone(imported.state))) !== bytes) {
     throw new Error('roster-wall player policy: remade entry save changed bytes')
   }
-  const importedState = imported.state
+  const importedState = liftV18Control(imported.state)
   assertCashReconciles(importedState, `Week ${String(importedState.market.tick)} save`)
   return {
     save,
@@ -675,9 +675,9 @@ function exactSave(state: GameState): {
     hash: sha256(bytes),
     stateHash: hashState(importedState),
     imported,
-    // `imported` is already the live SaveFileV18 shape, so `.state` is already a
+    // `imported` is the frozen SaveFileV18 shape, so `.state` is already a
     // full `GameState` — no migration needed.
-    importedState: imported.state,
+    importedState: liftV18Control(imported.state),
   }
 }
 
@@ -1116,10 +1116,10 @@ function executePlayerPolicy(
       'roster-wall player policy: continuation did not fresh-load the immutable entry bytes',
     )
   }
-  // `freshEntry` is already the live SaveFileV18 shape, so `.state` is already a
+  // `freshEntry` is the frozen SaveFileV18 shape, so `.state` is already a
   // full `GameState` — no migration needed for the continuation below.
   const freshEntryState = freshEntry.state
-  state = freshEntry.state
+  state = liftV18Control(freshEntry.state)
   memory = createRenewalPolicyMemory(ROSTER_WALL_ENTRY_WEEK)
   if (
     hashState(freshEntryState) !== entry.stateHash ||
@@ -1358,11 +1358,11 @@ function exactPlayerPolicyEntryState(result: RosterWallPlayerPolicyResult): Game
       'roster-wall player policy evidence: immutable Week-196 entry bytes/hash/state disagree',
     )
   }
-  const importedState = imported.state
+  const importedState = liftV18Control(imported.state)
   assertCashReconciles(importedState, 'serialized Week 196 entry')
-  // `imported` is already the live SaveFileV18 shape, so `.state` is already a
+  // `imported` is the frozen SaveFileV18 shape, so `.state` is already a
   // full `GameState` — no migration needed.
-  return imported.state
+  return liftV18Control(imported.state)
 }
 
 /** Full contract-governed Week-196 player-policy entry projection. */

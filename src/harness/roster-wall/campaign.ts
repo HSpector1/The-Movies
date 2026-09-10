@@ -1,3 +1,4 @@
+import { liftV18Control, makeSave, beginFounding, historicalHashState } from './historical-control.js'
 // Week-208 roster-wall observatory: canonical Week-196 campaign entry harvest.
 //
 // ANALYSIS ONLY. This module deliberately owns a mechanical copy of the frozen
@@ -12,7 +13,6 @@ import {
   NEGATIVE_BUDGET_MULTIPLIERS,
   TUNING,
   applyActions,
-  beginFounding,
   busyTalentIds,
   canAfford,
   contractOffer,
@@ -23,7 +23,6 @@ import {
   generateWorld,
   importSave,
   isContracted,
-  makeSave,
   marketingLevelsFor,
   nextStudioDecision,
   readyScriptPerceivedStrength,
@@ -392,7 +391,7 @@ function sha256(value: string): string {
 // a pure serialization hash with no live-only field dependency — widening it
 // here does not relax the live call sites, which still pass a real `GameState`.
 function stateHash(state: GameState | GameStateV14): string {
-  return sha256(stableStringify(state))
+  return sha256(stableStringify(historicalHashState(state)))
 }
 
 function assertInput(input: RunRosterWallEntryCampaignInput): void {
@@ -1516,9 +1515,9 @@ export function runRosterWallEntryCampaign(
     throw new Error('roster-wall observatory: Week-195 window-eve boundary was not captured')
   }
   // `harvested.entrySave` is the live SaveFileV18 shape (the whole point of the
-  // harvest); its `.state` is already a full `GameState`, so `cohortAtEntry` can
+  // harvest); its `.state` is an explicitly lifted historical control, so `cohortAtEntry` can
   // read it directly with no gap-filling.
-  const cohort = cohortAtEntry(harvested.entrySave.state)
+  const cohort = cohortAtEntry(liftV18Control(harvested.entrySave.state))
   if (
     cohort.some(
       (member) =>

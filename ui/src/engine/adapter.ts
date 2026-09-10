@@ -103,7 +103,7 @@ import {
   makeSave,
   exportSave,
   importSave,
-  migrateToV18,
+  migrateToV19,
   convertV17ToV18,
   convertV4ToV5,
   convertV5ToV6,
@@ -3769,8 +3769,8 @@ export type ImportOutcome =
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const converted = save.saveVersion !== 18
-    return { ok: true, state: migrateToV18(save).state, converted }
+    const converted = save.saveVersion !== 19
+    return { ok: true, state: migrateToV19(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }

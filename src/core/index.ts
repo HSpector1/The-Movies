@@ -1214,6 +1214,9 @@ export {
   migrateToV18,
   makeSaveV18,
   validateSaveV18,
+  validateSaveV19,
+  migrateToV19,
+  convertV18ToV19,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -1234,6 +1237,7 @@ export type {
   SaveFileV16,
   SaveFileV17,
   SaveFileV18,
+  SaveFileV19,
   SaveFile,
   TalentV1,
   GameStateV1,

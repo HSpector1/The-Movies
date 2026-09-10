@@ -20,7 +20,7 @@
 // event sequence, insertion position or click order, so identical worlds
 // commit to identical identities on every machine and every replay.
 
-import type { GameState, GameStateV16, ReleaseCommitment, StudioReleaseAuthority } from './types.js'
+import type { GameState, GameStateV16, ReleaseCommitment, StudioReleaseAuthority, Production, StudioOperations, FilmConcept } from './types.js'
 
 export const RELEASE_COMMITMENT_NAMESPACE = 'release-commitment' as const
 
@@ -46,10 +46,13 @@ export function committedReleaseIds(authority: StudioReleaseAuthority): Readonly
   return new Set(authority.commitments.map((row) => row.productionId))
 }
 
-function titleFor(state: GameState, productionId: string): string {
-  const production = state.studio.activeProductions.find((p) => p.id === productionId)
+export type ReleaseOwner = { productions: readonly Production[]; concepts: readonly FilmConcept[];
+  operations: StudioOperations; releaseAuthority: StudioReleaseAuthority }
+
+function titleFor(owner: ReleaseOwner, productionId: string): string {
+  const production = owner.productions.find((p) => p.id === productionId)
   if (production === undefined) return productionId
-  const concept = state.concepts.find((c) => c.id === production.conceptId)
+  const concept = owner.concepts.find((c) => c.id === production.conceptId)
   return concept?.title ?? productionId
 }
 
@@ -58,40 +61,46 @@ function titleFor(state: GameState, productionId: string): string {
  * or null when the commit is legal. Actions apply it; read models and the
  * bridge projection quote it — nobody re-derives legality.
  */
-export function commitPictureToReleaseRefusal(
-  state: GameState,
+export function releaseCommitmentRefusal(
+  owner: ReleaseOwner,
   productionId: string,
 ): string | null {
-  const production = state.studio.activeProductions.find((p) => p.id === productionId)
+  const production = owner.productions.find((p) => p.id === productionId)
   if (production === undefined) {
     return `no active production "${productionId}" exists`
   }
-  const existing = releaseCommitmentFor(state.releaseAuthority, productionId)
+  const existing = releaseCommitmentFor(owner.releaseAuthority, productionId)
   if (existing !== null) {
     return (
-      `"${titleFor(state, productionId)}" is already committed to release ` +
+      `"${titleFor(owner, productionId)}" is already committed to release ` +
       `(commitment ${existing.commitmentId}, week ${String(existing.committedAtWeek)})`
     )
   }
   if (production.remainingTicks !== 1) {
     return (
-      `"${titleFor(state, productionId)}" is not Release Ready — ` +
+      `"${titleFor(owner, productionId)}" is not Release Ready — ` +
       `${String(production.remainingTicks)} authoritative week(s) remain`
     )
   }
-  if (state.operations.mode === 'managed') {
-    const workflow = state.operations.workflows.find((w) => w.productionId === productionId)
+  if (owner.operations.mode === 'managed') {
+    const workflow = owner.operations.workflows.find((w) => w.productionId === productionId)
     if (workflow === undefined) {
       return `managed production "${productionId}" has no authoritative workflow`
     }
     if (workflow.phase !== 'releaseReady') {
       return (
-        `"${titleFor(state, productionId)}" workflow phase is ${workflow.phase}, ` +
+        `"${titleFor(owner, productionId)}" workflow phase is ${workflow.phase}, ` +
         `not releaseReady`
       )
     }
   }
   return null
+}
+
+/** Player adapter to the same owner-independent release law. */
+export function commitPictureToReleaseRefusal(state: GameState, productionId: string): string | null {
+  return releaseCommitmentRefusal({productions:state.studio.activeProductions, concepts:state.concepts,
+    operations:state.operations, releaseAuthority:state.releaseAuthority}, productionId)
 }
 
 /**

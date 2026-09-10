@@ -1,3 +1,5 @@
+import { initializeHollywood } from './hollywood.js'
+import { validateHollywood } from './hollywoodValidation.js'
 // ── §17 Save format + rev. 4 item M14 + D-9 SaveFileV2 (owner ruling) ─────────
 // Historical V1/V2 foundation (the versioned union below now continues through V11):
 //   SaveFileV1 (saveVersion: 1) — FROZEN. Describes the OLD (pre-D-9) world, whose
@@ -58,6 +60,7 @@ import type {
   GameStateV16,
   GameStateV17,
   GameStateV18,
+  GameStateV19,
   GameStateV2,
   GameStateV3,
   GameStateV4,
@@ -357,6 +360,13 @@ export type SaveFileV18 = {
   broadcastCache: BroadcastItem[];
 };
 
+export type SaveFileV19 = {
+  saveVersion: 19;
+  seed: string;
+  state: GameStateV19;
+  broadcastCache: BroadcastItem[];
+};
+
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
   | SaveFileV1
@@ -376,7 +386,8 @@ export type SaveFile =
   | SaveFileV15
   | SaveFileV16
   | SaveFileV17
-  | SaveFileV18;
+  | SaveFileV18
+  | SaveFileV19;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -2434,35 +2445,35 @@ function checkWorkflowBindings(
 // it must fail at import instead of silently overbooking a facility or desynchronizing a
 // production. This is deliberately local to the save boundary; it consumes no RNG and
 // mutates nothing.
-function checkOperationsState(
-  state: Record<string, unknown>,
+function checkOperationsContext(
+  context: { operations: unknown; activeProductions: unknown; engaged: unknown; founding: unknown },
   label: string,
   policy: LiveStateValidationPolicy = "historical",
 ): StudioOperations {
-  if (!isRecord(state.operations)) {
-    throw new Error(`${label}: state.operations is missing or not an object`);
+  if (!isRecord(context.operations)) {
+    throw new Error(`${label}: context.operations is missing or not an object`);
   }
-  const operations = state.operations;
+  const operations = context.operations;
   v8ExactKeys(
     operations,
     ["mode", "facilities", "workflows"],
     [],
-    `${label}: state.operations`,
+    `${label}: context.operations`,
   );
   if (operations.mode !== "legacy" && operations.mode !== "managed") {
     throw new Error(
-      `${label}: state.operations.mode must be "legacy" or "managed" (got ${JSON.stringify(operations.mode)})`,
+      `${label}: context.operations.mode must be "legacy" or "managed" (got ${JSON.stringify(operations.mode)})`,
     );
   }
   const facilitiesRaw = requiredArray(
     operations,
     "facilities",
-    `${label}: state.operations`,
+    `${label}: context.operations`,
   );
   const workflowsRaw = requiredArray(
     operations,
     "workflows",
-    `${label}: state.operations`,
+    `${label}: context.operations`,
   );
 
   if (operations.mode === "legacy") {
@@ -2474,7 +2485,7 @@ function checkOperationsState(
     return operations as StudioOperations;
   }
 
-  if (state.economyEngagedEver !== true || state.founding !== null) {
+  if (context.engaged !== true || context.founding !== null) {
     throw new Error(
       `${label}: managed operations require a founded, economy-engaged studio`,
     );
@@ -2485,7 +2496,7 @@ function checkOperationsState(
     { capability: OperationsCapability; capacity: number }
   >();
   for (let i = 0; i < facilitiesRaw.length; i++) {
-    const itemLabel = `${label}: state.operations.facilities[${i}]`;
+    const itemLabel = `${label}: context.operations.facilities[${i}]`;
     const raw = facilitiesRaw[i];
     if (!isRecord(raw)) throw new Error(`${itemLabel} is not an object`);
     v8ExactKeys(raw, ["id", "name", "capability", "capacity"], [], itemLabel);
@@ -2524,17 +2535,16 @@ function checkOperationsState(
   }
 
   if (
-    !isRecord(state.studio) ||
-    !Array.isArray(state.studio.activeProductions)
+    !Array.isArray(context.activeProductions)
   ) {
     throw new Error(
-      `${label}: state.studio.activeProductions is missing or not an array`,
+      `${label}: context.activeProductions is missing or not an array`,
     );
   }
   const productions = new Map<string, Record<string, unknown>>();
-  for (let i = 0; i < state.studio.activeProductions.length; i++) {
-    const raw = state.studio.activeProductions[i];
-    const itemLabel = `${label}: state.studio.activeProductions[${i}]`;
+  for (let i = 0; i < context.activeProductions.length; i++) {
+    const raw = context.activeProductions[i];
+    const itemLabel = `${label}: context.activeProductions[${i}]`;
     if (!isRecord(raw)) throw new Error(`${itemLabel} is not an object`);
     const id = requiredNonEmptyString(raw, "id", itemLabel);
     if (productions.has(id))
@@ -2549,7 +2559,7 @@ function checkOperationsState(
   const taskIds = new Set<string>();
   for (let i = 0; i < workflowsRaw.length; i++) {
     const raw = workflowsRaw[i];
-    const itemLabel = `${label}: state.operations.workflows[${i}]`;
+    const itemLabel = `${label}: context.operations.workflows[${i}]`;
     if (!isRecord(raw)) throw new Error(`${itemLabel} is not an object`);
     // LEG 3 of the V14 boundary (§8.3, the widened-leaf rule): the workflow key
     // list is VERSION-AWARE. Pre-V14 boundaries still refuse `bindings`
@@ -2920,7 +2930,7 @@ function checkOperationsState(
   // in lockstep with the simulation's authoritative rules.
   assertStudioOperationsInvariants(
     operations as StudioOperations,
-    state.studio.activeProductions as GameState["studio"]["activeProductions"],
+    context.activeProductions as GameState["studio"]["activeProductions"],
     policy === "annex-v1"
       ? {
           facilityPolicy: "annex-v1",
@@ -2936,6 +2946,12 @@ function checkOperationsState(
         : undefined,
   );
   return operations as StudioOperations;
+}
+
+function checkOperationsState(state: Record<string, unknown>, label: string, policy: LiveStateValidationPolicy = 'historical'): StudioOperations {
+  const studio = v8Record(state.studio, label + '.studio');
+  return checkOperationsContext({operations:state.operations,activeProductions:studio.activeProductions,
+    engaged:state.economyEngagedEver,founding:state.founding},label,policy);
 }
 
 // Production Operations V1 V8 validator. Operations affect countdown advancement and
@@ -4997,8 +5013,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 16) return validateSaveV16(save);
   if (s.saveVersion === 17) return validateSaveV17(save);
   if (s.saveVersion === 18) return validateSaveV18(save);
+  if (s.saveVersion === 19) return validateSaveV19(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 18 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 19 only)`,
   );
 }
 
@@ -5655,9 +5672,16 @@ function assertFrozenBuilderCanProjectV14State(
   }
 }
 
+function assertFrozenBuilderRetainsHollywood(state: object, builder: string): void {
+  if ('hollywood' in state && state.hollywood !== null && state.hollywood !== undefined) {
+    throw new Error(`${builder}: cannot downgrade or discard authoritative V19 Hollywood`);
+  }
+}
+
 // Build a validated V1 envelope from a legacy GameStateV1 (broadcastCache mirrors
 // the state's aired items, per M14). Kept so V1 fixtures/back-compat are typed.
 export function makeSaveV1(state: GameStateV1 | GameState): SaveFileV1 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV1");
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV1", 1);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV1");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV1");
@@ -5675,6 +5699,7 @@ export function makeSaveV1(state: GameStateV1 | GameState): SaveFileV1 {
 // Build a validated V2 envelope from a FROZEN (pre-employment) GameStateV2. Kept
 // so V2 fixtures / the V1→V2 conversion stay typed against the frozen shape.
 export function makeSaveV2(state: GameStateV2 | GameState): SaveFileV2 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV2");
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV2", 2);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV2");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV2");
@@ -5694,6 +5719,7 @@ export function makeSaveV2(state: GameStateV2 | GameState): SaveFileV2 {
 export function makeSaveV3(
   state: HistoricalProjectionSource<GameStateV3>,
 ): SaveFileV3 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV3");
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV3", 3);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV3");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV3");
@@ -5713,6 +5739,7 @@ export function makeSaveV3(
 export function makeSaveV4(
   state: HistoricalProjectionSource<GameStateV4>,
 ): SaveFileV4 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV4");
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV4", 4);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV4");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV4");
@@ -5732,6 +5759,7 @@ export function makeSaveV4(
 export function makeSaveV5(
   state: HistoricalProjectionSource<GameStateV5>,
 ): SaveFileV5 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV5");
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV5", 5);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV5");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV5");
@@ -5751,6 +5779,7 @@ export function makeSaveV5(
 export function makeSaveV6(
   state: HistoricalProjectionSource<GameStateV6>,
 ): SaveFileV6 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV6");
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV6", 6);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV6");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV6");
@@ -5770,6 +5799,7 @@ export function makeSaveV6(
 export function makeSaveV7(
   state: HistoricalProjectionSource<GameStateV7>,
 ): SaveFileV7 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV7");
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV7", 7);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV7");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV7");
@@ -5792,6 +5822,7 @@ export function makeSaveV7(
 export function makeSaveV8(
   state: HistoricalProjectionSource<GameStateV8>,
 ): SaveFileV8 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV8");
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV8", 8);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV8");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV8");
@@ -5811,6 +5842,7 @@ export function makeSaveV8(
 export function makeSaveV9(
   state: HistoricalProjectionSource<GameStateV9>,
 ): SaveFileV9 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV9");
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV9", 9);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV9");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV9");
@@ -5830,6 +5862,7 @@ export function makeSaveV9(
 export function makeSaveV10(
   state: HistoricalProjectionSource<GameStateV10>,
 ): SaveFileV10 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV10");
   assertFrozenBuilderCanProjectV11State(state, "makeSaveV10", 10);
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV10");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV10");
@@ -5850,6 +5883,7 @@ export function makeSaveV10(
 export function makeSaveV11(
   state: HistoricalProjectionSourceV11,
 ): SaveFileV11 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV11");
   assertFrozenBuilderCanProjectV12State(state, "makeSaveV11");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV11");
   assertFrozenBuilderCanProjectV14State(state, "makeSaveV11");
@@ -5869,6 +5903,7 @@ export function makeSaveV11(
 export function makeSaveV12(
   state: HistoricalProjectionSourceV12,
 ): SaveFileV12 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV12");
   assertFrozenBuilderCanProjectV13State(state, "makeSaveV12");
   assertFrozenBuilderCanProjectV14State(state, "makeSaveV12");
   const frozenState = projectStateV12(state);
@@ -5884,6 +5919,7 @@ export function makeSaveV12(
 // Build the current V13 envelope (C1-M1a). Live state already owns an explicit
 // property root, so this boundary never invents migration defaults.
 export function makeSaveV13(state: GameStateV13): SaveFileV13 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV13");
   // FROZEN as of C2a-M1: V13 is now a historical format, so writing one is a
   // downgrade and gets the same guard every other frozen builder has.
   assertFrozenBuilderCanProjectV14State(state, "makeSaveV13");
@@ -5907,6 +5943,7 @@ export function makeSaveV13(state: GameStateV13): SaveFileV13 {
 // for the frozen historical-format test suites and internal migration chain,
 // exactly like every earlier `makeSaveVN`.
 export function makeSaveV14(state: GameStateV14): SaveFileV14 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV14");
   const currentState = projectStateV14(state);
   const save: SaveFileV14 = {
     saveVersion: 14,
@@ -5922,6 +5959,7 @@ export function makeSaveV14(state: GameStateV14): SaveFileV14 {
 // is a projection with no synthesis: nothing is invented on the way out. This
 // IS the `makeSave` default as of P04A — see `makeSave` below.
 export function makeSaveV15(state: GameStateV15): SaveFileV15 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV15");
   const currentState = projectStateV15(state);
   const save: SaveFileV15 = {
     saveVersion: 15,
@@ -5965,7 +6003,8 @@ function projectStateV18(state: GameStateV18): GameStateV18 {
 }
 
 // P09 makeSaveV18 — the LIVE builder.
-export function makeSaveV18(state: GameState): SaveFileV18 {
+export function makeSaveV18(state: GameStateV18): SaveFileV18 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV18");
   const currentState = projectStateV18(state);
   const save: SaveFileV18 = {
     saveVersion: 18,
@@ -5979,6 +6018,7 @@ export function makeSaveV18(state: GameState): SaveFileV18 {
 // P08A makeSaveV17 — the frozen V17 builder (a V18 state projects down: the
 // regime root is simply not carried, exactly as makeSaveV16 drops the history).
 export function makeSaveV17(state: GameStateV17): SaveFileV17 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV17");
   const currentState = projectStateV17(state);
   const save: SaveFileV17 = {
     saveVersion: 17,
@@ -5992,6 +6032,7 @@ export function makeSaveV17(state: GameStateV17): SaveFileV17 {
 // P06A makeSaveV16 — the frozen V16 builder (a V17 state projects down: the
 // history root is simply not carried, exactly as makeSaveV15 drops releaseAuthority).
 export function makeSaveV16(state: GameStateV16): SaveFileV16 {
+  assertFrozenBuilderRetainsHollywood(state, "makeSaveV16");
   const currentState = projectStateV16(state);
   const save: SaveFileV16 = {
     saveVersion: 16,
@@ -6005,8 +6046,9 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
 // makeSave — the LIVE boundary (P09: V18). Frozen prior values must cross
 // their respective convertVNToVN+1/migrateToVN+1 explicitly. V18 owns exactly
 // one new root: `foundingRegime` (immutable founding history).
-export function makeSave(state: GameState): SaveFileV18 {
-  return makeSaveV18(state);
+export function makeSave(state: GameState): SaveFileV19 {
+  const current = { ...projectStateV18(state), hollywood: clonePlainJson(state.hollywood) };
+  return validateSaveV19({saveVersion:19,seed:state.seed,state:current,broadcastCache:current.broadcastItems});
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -7023,6 +7065,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 19) throw new Error("migrateToV15: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
       "migrateToV15: cannot downgrade SaveFileV18 or discard the founding regime",
@@ -7089,6 +7132,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === 19) throw new Error("migrateToV18: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) return save;
   return convertV17ToV18(migrateToV17(save));
 }
@@ -7096,6 +7140,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === 19) throw new Error("migrateToV17: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
       "migrateToV17: cannot downgrade SaveFileV18 or discard the founding regime",
@@ -7108,6 +7153,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 19) throw new Error("migrateToV16: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
       "migrateToV16: cannot downgrade SaveFileV18 or discard the founding regime",
@@ -7123,6 +7169,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 19) throw new Error("migrateToV14: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
       "migrateToV14: cannot downgrade SaveFileV18 or discard the founding regime",
@@ -7148,6 +7195,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 19) throw new Error("migrateToV13: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
       "migrateToV13: cannot downgrade SaveFileV18 or discard the founding regime",
@@ -7170,4 +7218,36 @@ export function migrateToV13(save: SaveFile): SaveFileV13 {
   }
   if (save.saveVersion === 13) return save;
   return convertV12ToV13(migrateToV12(save));
+}
+
+/** R05: frozen V18 delegates unchanged; the new root owns industry validation. */
+export function validateSaveV19(save: unknown): SaveFileV19 {
+  if (!isRecord(save)) throw new Error('validateSaveV19: object required');
+  v12ExactKeys(save,['saveVersion','seed','state','broadcastCache'],'save');
+  if(save.saveVersion!==19) throw new Error('validateSaveV19: expected version 19');
+  const raw=v14Record(checkEnvelope(save,'validateSaveV19'),'state');
+  if(!Object.hasOwn(raw,'hollywood')) throw new Error('validateSaveV19: Hollywood root missing');
+  const {hollywood,...legacy}=raw;
+  const frozen=validateSaveV18({saveVersion:18,seed:save.seed,state:legacy,broadcastCache:save.broadcastCache});
+  const people=new Set(frozen.state.talent.map(t=>t.id));
+  validateHollywood(hollywood,frozen.state,{
+    concept:v=>{v8Concept(v,'hollywood.concept')},
+    contract:v=>v8Contract(v,'hollywood.contract',people),
+    film:(v,concepts)=>{v8FilmResult(v,'hollywood.film',people,concepts)},
+    production:(v,concepts)=>{v8Production(v,'hollywood.production',people,concepts)},
+    run:(v,films,concepts)=>v8TheatricalRun(v,'hollywood.run',films,concepts),
+    career:(v,films)=>v8CareerEvent(v,'hollywood.career',people,films),
+    operations:(v,productions)=>checkOperationsContext({operations:v,activeProductions:productions,engaged:true,founding:null},'hollywood.operations','sets-v14'),
+    development:v=>checkScriptDevelopmentShape(v,'sets-v14'),
+  });
+  return save as SaveFileV19;
+}
+
+export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
+  validateSaveV18(save);
+  return makeSave(initializeHollywood(save.state,'migration'));
+}
+export function migrateToV19(save: SaveFile): SaveFileV19 {
+  if(save.saveVersion===19) return validateSaveV19(save);
+  return convertV18ToV19(migrateToV18(save));
 }

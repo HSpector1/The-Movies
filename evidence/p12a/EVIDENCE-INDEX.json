@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "status": "PARTIAL",
+  "milestone": "early-preview",
+  "hook": "EXPLICIT-CHECKER FALLBACK",
+  "scope": {
+    "rivals": 9,
+    "incumbents": 4,
+    "arrivals": [
+      520,
+      988,
+      1560,
+      1872,
+      2548
+    ],
+    "calendar": "1920-52-week-v1",
+    "authoredHistory": true,
+    "liveProduction": true,
+    "namedIndependentCampaigns": 3,
+    "saveAs": true,
+    "rngIsolation": true,
+    "migration": "B"
+  },
+  "sources": {
+    "tsBase": "4caf7682b6c427b64f1ffab742f07cb4fddef2b0",
+    "tsProduct": "7ae36b44d99c505246d17dcc37beba94fa59a18a",
+    "unityBase": "3a9a3f488693aa14431a6aa412d7560df8f30a89",
+    "planning": "b51d8790354ccccd26c3c5e90819ecfafda9988c"
+  },
+  "incomingContract": {
+    "protocol": 4,
+    "projection": 27,
+    "innerSave": 18,
+    "outerCheckpoint": 1,
+    "schema": "sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211",
+    "dto": "ecc9e0b65c493200e39d245d38de2cdad5be1953242ffc1a61a7c53fcb755476"
+  },
+  "candidate": null,
+  "evidence": []
+}

@@ -1,3 +1,4 @@
+import { productionCompanyTalentIds } from './productionPeople.js'
 // ── Script Projects V1 ───────────────────────────────────────────────────────
 // Authoritative, deterministic screenplay development. This module is pure: it
 // consumes no RNG, reads no wall clock, performs no I/O, and mutates no input.
@@ -259,6 +260,8 @@ export function commissionScriptProject(
   commissionedWeek: number,
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
   draftWeeks: number = TUNING.SCRIPT_DRAFT_WEEKS_POOL,
+  /** Explicit allocator for an indexed active subset; full saved roots still enforce canonical IDs. */
+  allocatedProjectId: string = nextScriptProjectId(development),
 ): ScriptDevelopment {
   requireManaged(development, 'commission')
   if (operations.mode !== 'managed') {
@@ -293,7 +296,8 @@ export function commissionScriptProject(
     )
   }
 
-  const id = nextScriptProjectId(development)
+  const id = allocatedProjectId
+  if (!/^script-[0-9]{4,}$/.test(id) || development.projects.some(p=>p.id===id)) throw new Error('script identity collision or malformed allocation')
   const reservation = allocateScriptReservation(
     operations,
     development,
@@ -925,23 +929,6 @@ function assertReservation(
   occupied.add(key)
 }
 
-// P04A.2 — the people a picture RESERVES. The credited writer is deliberately
-// absent: a writer credit is permanent and is not a production assignment, so a
-// writer may draft the next screenplay while a picture they wrote is shooting
-// (Owner ruling §6). Mirrors `activeProductionCompanyTalentIds` in employment.ts;
-// kept local because this module must not import from employment (cycle).
-function activeProductionCompanyTalentIds(productions: readonly Production[]): Set<string> {
-  const ids = new Set<string>()
-  for (const production of productions) {
-    ids.add(production.directorId)
-    ids.add(production.cast.lead)
-    ids.add(production.cast.antagonist)
-    ids.add(production.cast.support)
-    for (const craftId of production.craftIds) ids.add(craftId)
-  }
-  return ids
-}
-
 // Shared core/save boundary. Save validation should establish exact outer keys and
 // scalar shapes first; this assertion enforces lifecycle and cross-state laws.
 export function assertScriptDevelopmentInvariants(
@@ -967,7 +954,7 @@ export function assertScriptDevelopmentInvariants(
   const releasedById = new Map(
     context.releasedFilms.map((film) => [film.productionId, film]),
   )
-  const activeProductionTalent = activeProductionCompanyTalentIds(context.activeProductions)
+  const activeProductionTalent = productionCompanyTalentIds(context.activeProductions)
   const activeScriptWriters = new Set<string>()
   const conceptIds = new Set<string>()
   const productionLinks = new Set<string>()

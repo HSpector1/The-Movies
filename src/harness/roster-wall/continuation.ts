@@ -1,3 +1,4 @@
+import { liftV18Control, makeSave, historicalHashState } from './historical-control.js'
 // Week-208 roster-wall exact-entry continuation observatory.
 //
 // ANALYSIS ONLY. Every arm imports the immutable Week-196 SaveFileV18 bytes afresh,
@@ -12,7 +13,6 @@ import {
   contractOffer,
   exportSave,
   importSave,
-  makeSave,
   renewalWindowOpen,
   stableStringify,
   weeklyOverhead,
@@ -455,7 +455,7 @@ function sha256(bytes: string): string {
 // hashes a genuine SaveFileV18 import to check it against the pinned harvest hash
 // — a pure serialization hash with no live-only field dependency.
 function stateHash(state: GameState | GameStateV14): string {
-  return sha256(stableStringify(state))
+  return sha256(stableStringify(historicalHashState(state)))
 }
 
 function assertInvariant(name: string, condition: boolean): true {
@@ -534,15 +534,15 @@ function loadFreshEntry(harvest: RosterWallEntryHarvest): GameState {
   if (imported.state.market.tick !== ROSTER_WALL_ENTRY_WEEK) {
     throw new Error('roster-wall continuation: fresh entry is not the visible Week-196 arrival')
   }
-  const importedState = imported.state
+  const importedState = liftV18Control(imported.state)
   if (stateHash(importedState) !== harvest.entryStateHash) {
     throw new Error('roster-wall continuation: fresh entry state hash disagrees with harvest')
   }
   rosterWallCashReconciliation(importedState)
-  // `imported` is already the live SaveFileV18 shape, so its `.state` is already
+  // `imported` is the frozen SaveFileV18 shape, so its `.state` is already
   // a full `GameState` (including whatever real `releaseAuthority` commitments
   // the frozen entry carried) — no migration is needed.
-  return structuredClone(imported.state)
+  return liftV18Control(imported.state)
 }
 
 function commonRecord(
@@ -1303,8 +1303,8 @@ function pairRecord(
   const baselineRetained = retainedIds(baseline, cohortIds)
   const comparedRetained = retainedIds(compared, cohortIds)
   // `input.harvest.entrySave` is the live SaveFileV18 shape; this whole block is
-  // a read-only evidence projection off its `.state`, already a full `GameState`.
-  const entryState = input.harvest.entrySave.state
+  // a read-only evidence projection off its `.state`, an explicitly lifted historical control.
+  const entryState = liftV18Control(input.harvest.entrySave.state)
   const entryOverhead = overheadParts(entryState)
   const entryReadiness = rosterWallPackageReadiness(
     entryState,

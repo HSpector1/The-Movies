@@ -1,3 +1,4 @@
+import {beginFoundingHistoricalControl} from '../src/core/employment.js'
 // ── D-14 Talent Career Impact — Star Power progression + frozen career events ──
 // Every expectation is derived from the owner directive (§2–8, §14), not the impl.
 
@@ -12,7 +13,7 @@ import {
   importSave,
   makeSave,
   makeSaveV4,
-  migrateToV18,
+  migrateToV19,
   starPowerRoleWeight,
   tick,
   TUNING,
@@ -20,8 +21,8 @@ import {
 import type { CastSlot, CreativeRole, FilmParticipantRole, GameState } from '../src/core/index.js'
 
 // ── real-engine found → cast → release helper ────────────────────────────────
-function foundEngaged(seed: string): GameState {
-  let s = beginFounding(generateWorld(seed))
+function foundEngaged(seed: string, historical = false): GameState {
+  let s = (historical?beginFoundingHistoricalControl:beginFounding)(generateWorld(seed))
   const pool = s.founding!.applicantIds.map((id) => s.talent.find((t) => t.id === id)!)
   const need: Record<CreativeRole, number> = { writer: 1, director: 1, actor: 3, craft: 1 }
   for (const role of ['actor', 'director', 'writer', 'craft'] as CreativeRole[]) {
@@ -217,11 +218,11 @@ describe('D-14 Star Power lifecycle (real engine)', () => {
 
     // Round-trip: export → import. Career events preserved byte-identically.
     const reloaded = importSave(exportSave(makeSave(s)))
-    if (reloaded.saveVersion !== 18) throw new Error('expected V18')
+    if (reloaded.saveVersion !== 19) throw new Error('expected V19')
     expect(reloaded.state.careerEvents).toEqual(s.careerEvents)
 
     // Advancing the reloaded state with NO new release adds NO new events (no re-apply).
-    let s2 = migrateToV18(reloaded).state
+    let s2 = migrateToV19(reloaded).state
     for (let k = 0; k < 5; k++) s2 = tick(s2, { develop: true })
     expect(s2.careerEvents.length).toBe(eventsBefore)
   })
@@ -237,7 +238,7 @@ describe('D-14 Star Power lifecycle (real engine)', () => {
 describe('D-14 SaveFileV5 migration', () => {
   it('15. V4→V5 preserves fame + all talent state exactly and creates NO fictional history', () => {
     // Build a live state, strip careerEvents to synthesize a V4 (pre-D-14) shape, then migrate.
-    const s0 = foundEngaged('d14-migrate')
+    const s0 = foundEngaged('d14-migrate',true)
     const { actors } = contractedByRole(s0)
     const { s } = releaseOneFilm(s0, actors[0]!.id)
     const famesBefore = s.talent.map((t) => ({ id: t.id, fame: t.fame }))

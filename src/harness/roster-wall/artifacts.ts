@@ -1,3 +1,4 @@
+import { liftV18Control } from './historical-control.js'
 // Week-208 roster-wall deterministic artifact infrastructure.
 //
 // ANALYSIS ONLY. This module provides canonical JSON/JSONL, an immutable
@@ -3250,7 +3251,7 @@ export function verifyRosterWallAcceptedArtifactDirectory(
     ) {
       throw new Error(`roster-wall artifacts: ${label} disagrees with its exact Week-196 save`)
     }
-    const importedState = imported.state
+    const importedState = liftV18Control(imported.state)
     assertAcceptedEntryPayload(row, fact, label, importedState)
     if (fact.mode === 'current') {
       shadowEntryAuthorities.set(

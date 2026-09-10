@@ -1,3 +1,4 @@
+import type { Genre } from './types.js'
 // ── §7 Forecast pipeline ─────────────────────────────────────────────────────
 // Computed at greenlight from greenlight-available information only. It must not
 // reference realized scores (§15.6 forecast-independence test).
@@ -293,6 +294,7 @@ function computeConfidencePredicates(
   directorId: string,
   releasedFilms: FilmResult[],
   concepts: FilmConcept[],
+  directorCredits: readonly {directorId:string;genre:Genre}[],
 ): ConfidencePredicates {
   // knownLeadTrackRecord: lead.fame ≥ 60 (public knowledge, static).
   const knownLeadTrackRecord = inp.cast.lead.fame >= 60
@@ -301,7 +303,7 @@ function computeConfidencePredicates(
   // genre = concepts[film.conceptId].genre; director = film.directorId.
   const conceptGenre = new Map(concepts.map((c) => [c.id, c.genre]))
   const thisGenre = inp.concept.genre
-  const knownDirectorGenreRecord = releasedFilms.some(
+  const knownDirectorGenreRecord = directorCredits.some(f => f.directorId === directorId && f.genre === thisGenre) || releasedFilms.some(
     (f) => f.directorId === directorId && conceptGenre.get(f.conceptId) === thisGenre,
   )
 
@@ -376,6 +378,8 @@ function computeCausalFactors(
 
 // ── §7 full forecast ─────────────────────────────────────────────────────────
 export type ForecastContext = {
+  /** Person history across companies; never confers another owner's segment history. */
+  directorCredits?: readonly {directorId:string;genre:Genre}[]
   seed: string
   productionId: string
   directorId: string
@@ -395,6 +399,7 @@ export function computeForecast(inp: ForecastInputs, ctx: ForecastContext, satur
     ctx.directorId,
     ctx.releasedFilms,
     ctx.concepts,
+    ctx.directorCredits ?? [],
   )
   const { confidence } = confidenceFromPoints(predicates)
 

@@ -64,6 +64,7 @@ export type RngPurpose =
   // DERIVED-ONLY, so minting never advances `state.rngState` and the M0A
   // acceptance corpus stays byte-identical across this milestone.
   | 'screenplay-v1'
+  | 'hollywood-v1'
 
 // A 32-bit hash accumulator step (splitmix32 finalizer). Deterministic, avalanche-y.
 function splitmix32(seed: number): { value: number; next: number } {

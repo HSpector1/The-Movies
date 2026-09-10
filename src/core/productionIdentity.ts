@@ -61,6 +61,41 @@ export function persistedProductionIds(state: GameState): Set<string> {
   // reserves no identities, which is exactly right.
   for (const id of studioEventProductionIds(state.studioEvents)) add(id)
   for (const entry of state.productionQueue ?? []) add(queueEntryProductionId(entry))
+  for (const row of state.studioHistory?.rows ?? []) {
+    for (const subject of row.subjects) if (subject.kind === 'film') add(subject.productionId)
+    switch (row.kind) {
+      case 'filmReleased': case 'theatricalRunCompleted': add(row.productionId); break
+      case 'careerMilestone': add(row.filmId); break
+      case 'standingChanged': if (row.source.kind === 'releaseResult') add(row.source.productionId); break
+      case 'studioFounded': case 'standingDriftFolded': case 'facilityCommitted': case 'facilityCompleted':
+      case 'facilityDemolished': case 'facilityMoved': break
+      default: { const exhaustive: never = row; throw new Error(`Unhandled History identity: ${exhaustive}`) }
+    }
+  }
+  const h = state.hollywood
+  for (const film of h?.films ?? []) {
+    add(film.filmId)
+    if (film.provenance === 'simulation/v1') add(film.result.productionId)
+  }
+  for (const event of h?.careerEvents ?? []) add(event.filmId)
+  for (const b of h?.businesses ?? []) {
+    for (const p of b.productions) add(p.id)
+    for (const p of b.projects) add(p.productionId)
+    for (const p of b.development.projects) add(p.productionId)
+    for (const run of b.runs) add(run.productionId)
+    for (const c of b.releaseAuthority.commitments) add(c.productionId)
+    for (const w of b.operations.workflows) {
+      add(w.productionId); add(w.shootingTask?.productionId)
+      for (const r of w.reservations) add(r.productionId)
+    }
+  }
+  for (const event of h?.receipts ?? []) {
+    switch (event.kind) {
+      case 'filmAnnounced': case 'filmReleased': case 'filmSettled': add(event.productionId); break
+      case 'studioEntered': case 'employment': break
+      default: { const exhaustive: never = event; throw new Error(`Unhandled Industry identity: ${exhaustive}`) }
+    }
+  }
 
   return taken
 }
@@ -108,6 +143,21 @@ export function persistedConceptIds(state: GameState): Set<string> {
   // directions, because that is the rule every new identity-bearing root follows
   // the week it lands (§8.2, law 20).
   for (const blueprint of state.originalScreenplays?.blueprints ?? []) add(blueprint.conceptId)
+  for (const row of state.studioHistory?.rows ?? []) if (row.kind === 'filmReleased') add(row.conceptId)
+  for (const concept of state.hollywood?.concepts ?? []) add(concept.id)
+  for (const film of state.hollywood?.films ?? []) {
+    add(film.conceptId)
+    if (film.provenance === 'simulation/v1') add(film.result.conceptId)
+  }
+  for (const b of state.hollywood?.businesses ?? []) {
+    for (const p of b.productions) add(p.conceptId)
+    for (const p of b.projects) add(p.conceptId)
+    for (const p of b.development.projects) add(p.conceptId)
+    for (const r of b.runs) add(r.conceptId)
+  }
+  for (const e of state.hollywood?.receipts ?? []) {
+    if (e.kind === 'filmAnnounced' || e.kind === 'filmReleased') add(e.conceptId)
+  }
 
   return taken
 }

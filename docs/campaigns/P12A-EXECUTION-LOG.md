@@ -1,0 +1,21 @@
+# P12A R05 execution log
+
+Order: OPS-P12A-LIVING-HOLLYWOOD-20260910-05. [Exact approved scope](../engineering/P12A-R05-OWNER-DECISIONS-AND-ACCEPTANCE.md). Implementation in progress; early preview pending. Gate A/B, hook ACTIVE and Owner acceptance are not claimed. R03/R04 are superseded.
+
+## Entry — 2026-09-10
+
+- Both R05 attachments read fully; ZIP manifest and loose bytes independently verified. ZIP SHA256 `32f6c5e631711eaf163f09e4e1af85052d3a66e7e6f88e538921ee41154f1674`. Seven Desktop documents match manifest/SHA256/pinned Git blobs and exact local objects; no fetch needed. Complete register/review kit read, relevant subsystem sources loaded before edits.
+- Accepted TS `7ae36b4`, docs `4caf768`, Unity `3a9a3f4` and 4/27/V18/outer1 bindings independently verified. Actual preserved P11 Desktop executable, engine, manifest, DTO, index/launch receipt match acceptance. No original profile opened or modified.
+- Owned worktrees: `/Users/bruce/The Movies - P12A Living Hollywood TS`, branch `wip/p12a-living-hollywood-01-ts` from docs base; `/Users/bruce/The Movies - P12A Living Hollywood Unity`, branch `wip/p12a-living-hollywood-01-client` from accepted Unity. Planning incorporated as documents, not ancestry. TS inherited a sparse docs checkout; disabled sparse checkout only in the new worktree (separate worktree config).
+- One builder/editor/input owner: root. Separate read-only product critic and correctness reviewer verified source/reference preflight; actual three product critiques remain pending. Independent client preflight support read-only. Other worktrees/processes/protected refs preserved.
+- Effective current CLI metadata: Codex 0.154.0, codex-tui, OpenAI GPT-6 Astra, **ultra** (overrides local default high). Pro included allowance at latest inspected event: 17% of seven-day window used; purchased credits absent. No model/config/permissions change. Native editor 6000.3.22f1 installed; existing guarded native helper requires label-input extension.
+- Hook official behavior rechecked at https://learn.chatgpt.com/docs/hooks. No proven normal trust + actual-client smoke: **EXPLICIT-CHECKER FALLBACK**, integration inactive. No global hook/config change. Pilot ceiling one productive hour.
+- Ceiling 72 productive lead / 96 elapsed hours; final 24 lead hours protected for verification/corrections/delivery. Start approx. 11:04 UTC; elapsed/tool/reviewer work tracked separately, no unmeasured productive totals asserted.
+
+## Active work
+
+Implement shared calendar, canonical versioned world/history and lawful employment seams, early native Industry and named library, then causal/full integration with replayed independent critiques. Required scope stays in the existing register. Evidence index: `evidence/p12a/EVIDENCE-INDEX.json`.
+
+2026-09-10 11:58 UTC — first core checkpoint in progress. V19 additive industry includes canonical fresh history, genuine migration B, shared active-company/participant/release/career producers, costed rival workflows and bounded active indexes. Calendar/start/lifecycle tests pass their implemented boundaries; source typecheck passes. Independent review caught and corrected early availability, downgrade and initial ledger/receipt validation defects. Current policy is financially weak in the first continuation seed; this remains an OPEN product/correctness issue, not a completed Gate. Native preview and campaign library are still being built. Explicit checker script is implemented and directly unit tested; no project hook configuration was installed, trust or real-client Stop rendering was not demonstrated, automatic integration INACTIVE / EXPLICIT-CHECKER FALLBACK. Historical V18 observatory uses an explicit non-native control adapter and retains all pinned provenance checks.
+
+2026-09-10 11:58 UTC — focused core checkpoint validation: 104 tests across 10 files PASS (calendar, canonical start/migration, ordinary 530-week arrival path, shared lifecycle/career/release/employment, checker transport, and historical observatory parity); source TypeScript check PASS. New bounded strategy uses detached perceived planning inputs and shared marketing capacity. Cross-seed financial/liveness review remains in progress; no guarantee of profitable films or surviving businesses is built into policy. Neither Gate A nor the native preview is complete.

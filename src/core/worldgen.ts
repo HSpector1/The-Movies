@@ -438,7 +438,7 @@ function zeroWorkHistory(): WorkHistory {
 }
 
 // ── Talent generation (§9, B9, D-9.13, N3) ───────────────────────────────────
-function generateTalent(seed: string): Talent[] {
+function generateTalent(seed: string, blocks = ROLE_BLOCKS): Talent[] {
   const persona = stream(seed, 'worldgen', 'talent-persona')
   const skillS = stream(seed, 'worldgen', 'talent-skill') // primary center μ_primary (unchanged distribution)
   const fameS = stream(seed, 'worldgen', 'talent-fame')
@@ -456,7 +456,7 @@ function generateTalent(seed: string): Talent[] {
   const genreexpS = stream(seed, 'worldgen', 'talent-genreexp')
 
   const talent: Talent[] = []
-  for (const block of ROLE_BLOCKS) {
+  for (const block of blocks) {
     for (let idx = 0; idx < block.count; idx++) {
       // persona: actual axes ~ uniform(-1,1); perceived = clamp(actual + N(0,0.25), -1, 1)
       const actual: Persona = {
@@ -539,6 +539,13 @@ function generateTalent(seed: string): Talent[] {
     }
   }
   return talent
+}
+
+/** Bounded unique-person supply using the existing P10 worldgen laws and isolated seed. */
+export function generateIndustryTalent(seed: string, id: string, role: Talent['role'], name?: string): Talent {
+  const block = ROLE_BLOCKS.find(row => row.role === role)!
+  const person = generateTalent(`${seed}:industry-person/v1:${id}`, [{...block,count:1}])[0]!
+  return {...person,id,name:name ?? person.name}
 }
 
 // ── Concept generation (§9, M4, B8, B11, N3) ─────────────────────────────────
@@ -665,6 +672,7 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
 
   return {
     seed,
+    hollywood: null,
     // The INITIAL sim-stream state. Worldgen does NOT consume this stream; it
     // draws only from derived 'worldgen' substreams, so this is fromSeed's exact
     // starting state (nothing has advanced it).

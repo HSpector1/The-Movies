@@ -1,3 +1,4 @@
+import { buildFilmParticipants } from './filmParticipants.js'
 // ── §3 applyActions ──────────────────────────────────────────────────────────
 // `applyActions(state, actions): GameState` — pure; validates, then applies the
 // three action kinds (greenlight / cancel / createTalent). This is the
@@ -185,7 +186,7 @@ import {
   SKILL_ORDER,
   TUNING,
 } from './tuning.js'
-import { expectedPerformance, projectFit, roleOVR } from './talentSummary.js'
+import { roleOVR } from './talentSummary.js'
 import type {
   Action,
   ArchetypePreset,
@@ -199,7 +200,6 @@ import type {
   DevRates,
   Discipline,
   DisciplineSkills,
-  FilmParticipant,
   FilmParticipants,
   Forecast,
   GameState,
@@ -215,9 +215,7 @@ import type {
   PotentialTier,
   Production,
   ProductionQueueEntry,
-  Promise as FilmPromise,
   ScriptProject,
-  ShapeEffects,
   SkillBias,
   SkillProfiles,
   Talent,
@@ -255,62 +253,6 @@ function productionId(startTick: number, taken: ReadonlySet<string>): string {
 // M0A (≤1 greenlight/tick → no collision) so no headless behavior changes.
 export function predictProductionId(state: GameState): string {
   return productionId(state.market.tick, persistedProductionIds(state))
-}
-
-// D-11.A — capture the film's immutable participant record at the LOCKED greenlight
-// (perceived values). `freelancer` = engaged as a freelancer (not studio-contracted).
-function buildParticipant(
-  state: GameState,
-  talent: Talent,
-  role: FilmParticipant['role'],
-  discipline: Discipline,
-  slot: CastSlot | undefined,
-  concept: FilmConceptLike,
-  shapeEffects: ShapeEffects,
-  promise: FilmPromise,
-  shape: Production['shape'],
-): FilmParticipant {
-  const ep = expectedPerformance(talent, discipline, concept, slot, shapeEffects, promise, shape)
-  return {
-    talentId: talent.id,
-    name: talent.name,
-    role,
-    discipline,
-    greenlightOVR: Math.round(roleOVR(talent, discipline)),
-    greenlightFit: Math.round(projectFit(talent, discipline, concept, slot, shapeEffects, promise, shape)),
-    greenlightEP: { low: ep.low, high: ep.high, expected: ep.expected },
-    freelancer: !isContracted(state, talent.id),
-  }
-}
-
-// The FilmConcept shape the talentSummary helpers need (kept local to avoid a wide import).
-type FilmConceptLike = Parameters<typeof projectFit>[2]
-
-function buildFilmParticipants(
-  state: GameState,
-  parts: {
-    writer: Talent
-    director: Talent
-    cast: Record<CastSlot, Talent>
-    craftHires: Talent[]
-  },
-  concept: FilmConceptLike,
-  shapeEffects: ShapeEffects,
-  promise: FilmPromise,
-  shape: Production['shape'],
-): FilmParticipants {
-  const P = (t: Talent, role: FilmParticipant['role'], d: Discipline, slot: CastSlot | undefined) =>
-    buildParticipant(state, t, role, d, slot, concept, shapeEffects, promise, shape)
-  return {
-    writer: P(parts.writer, 'writer', 'writing', undefined),
-    director: P(parts.director, 'director', 'directing', undefined),
-    cast: {
-      lead: P(parts.cast.lead, 'lead', 'acting', 'lead'),
-      antagonist: P(parts.cast.antagonist, 'antagonist', 'acting', 'antagonist'),
-      support: P(parts.cast.support, 'support', 'acting', 'support'),
-    },
-    craft: parts.craftHires.map((c) => P(c, 'craft', 'craft', undefined)),
-  }
 }
 
 // Authored-talent id scheme (§10). Worldgen ids are `t-<role3>-NN` and `c-NN`;
@@ -655,7 +597,7 @@ function applyGreenlight(
   // stay byte-identical). resolveShape(p.shape) matches the ReceptionInputs shapeEffects.
   const participants: FilmParticipants | undefined = economyEngaged(state)
     ? buildFilmParticipants(
-        state,
+        (id) => isContracted(state,id),
         { writer, director, cast, craftHires },
         concept,
         resolveShape(p.shape),

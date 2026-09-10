@@ -1,3 +1,4 @@
+import {beginFounding,makeSave,historicalHashState} from '../roster-wall/historical-control.js'
 // Facilities & Construction research observatory.
 //
 // ANALYSIS ONLY. This module drives the public core surface and projects evidence from
@@ -11,7 +12,6 @@ import {
   NEGATIVE_BUDGET_MULTIPLIERS,
   TUNING,
   applyActions,
-  beginFounding,
   busyTalentIds,
   contractOffer,
   expectedWeeklyRunRevenue,
@@ -19,7 +19,6 @@ import {
   freelancerMarketIds,
   generateWorld,
   isContracted,
-  makeSave,
   marketingLevelsFor,
   nextStudioDecision,
   productionPhaseForRemainingTicks,
@@ -678,7 +677,7 @@ function sha256(value: string): string {
 }
 
 function stateHash(state: GameState): string {
-  return sha256(stableStringify(state))
+  return sha256(stableStringify(historicalHashState(state)))
 }
 
 function manifestOf(state: GameState): FacilitiesManifestEntry[] {

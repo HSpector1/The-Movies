@@ -1686,7 +1686,8 @@ export type GameStateV18 = GameStateV17 & {
   foundingRegime: FoundingRegime
 }
 
-export type GameState = GameStateV18
+export type GameStateV19 = GameStateV18 & { hollywood: import('./hollywoodTypes.js').HollywoodState | null }
+export type GameState = GameStateV19
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.

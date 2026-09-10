@@ -1,3 +1,4 @@
+import {beginFoundingHistoricalControl} from '../src/core/employment.js'
 // ── P06A W1 — Release Authority (charter W1; frozen design = recon r2 §6) ────
 //
 // The Package 06 laws under test, stated once:
@@ -27,11 +28,11 @@ import {
   makeSave,
   makeSaveV15,
   migrateToV15,
-  migrateToV18,
+  migrateToV19,
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV18,
+  validateSaveV19,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 
@@ -117,8 +118,8 @@ const commit = (state: GameState, productionId: string): GameState =>
   applyActions(state, [{ kind: 'commitPictureToRelease', productionId }])
 
 /** A SAVE-LEGAL managed world: really founded, economy-engaged, operations on. */
-function foundedManagedWorld(seed: string): GameState {
-  let state = beginFounding(generateWorld(seed))
+function foundedManagedWorld(seed: string, historical=false): GameState {
+  let state = (historical?beginFoundingHistoricalControl:beginFounding)(generateWorld(seed))
   const applicants = state.founding!.applicantIds.map(
     (id) => state.talent.find((t) => t.id === id)!,
   )
@@ -141,8 +142,8 @@ function foundedManagedWorld(seed: string): GameState {
  * a player does: apply exactly the production-operation decisions the engine
  * publishes, then advance — no hand-scripted choreography.
  */
-function foundedToReleaseReady(seed: string): GameState {
-  let state = greenlit(foundedManagedWorld(seed))
+function foundedToReleaseReady(seed: string,historical=false): GameState {
+  let state = greenlit(foundedManagedWorld(seed,historical))
   for (let week = 0; week < 20; week++) {
     for (let guard = 0; guard < 8; guard++) {
       const decision = nextStudioDecision(state)
@@ -393,14 +394,14 @@ describe('P06A W1 — malformed release authority fails closed at the tick bound
 
 describe('P06A W1 — save law', () => {
   it('imports a pre-P06 Release Ready save as UNCOMMITTED (holds until committed)', () => {
-    const ready = foundedToReleaseReady('p06a-migrate-ready')
+    const ready = foundedToReleaseReady('p06a-migrate-ready',true)
     // Build the frozen V15 envelope this world would have carried before P06.
     const { releaseAuthority: _drop, ...v15State } = ready
     const v15 = makeSaveV15(v15State)
     expect(v15.saveVersion).toBe(15)
 
-    const live = migrateToV18(v15)
-    expect(live.saveVersion).toBe(18)
+    const live = migrateToV19(v15)
+    expect(live.saveVersion).toBe(19)
     expect(live.state.releaseAuthority).toEqual({ commitments: [] })
 
     // The migrated world HOLDS — the legacy auto-release does not survive import.
@@ -413,16 +414,16 @@ describe('P06A W1 — save law', () => {
     const ready = foundedToReleaseReady('p06a-roundtrip')
     const committed = commit(ready, ready.studio.activeProductions[0]!.id)
     const save = makeSave(committed)
-    expect(save.saveVersion).toBe(18)
+    expect(save.saveVersion).toBe(19)
 
-    const reimported = migrateToV18(importSave(exportSave(save)))
+    const reimported = migrateToV19(importSave(exportSave(save)))
     expect(stableStringify(reimported)).toBe(stableStringify(save))
     expect(reimported.state.releaseAuthority.commitments).toHaveLength(1)
 
-    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV18/)
+    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV19/)
   })
 
-  it('validateSaveV18 rejects forged authority at the save boundary', () => {
+  it('validateSaveV19 rejects forged authority at the save boundary', () => {
     const ready = foundedToReleaseReady('p06a-save-forge')
     const id = ready.studio.activeProductions[0]!.id
     const good = makeSave(commit(ready, id))
@@ -431,12 +432,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV18(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV19(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV18(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV19(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

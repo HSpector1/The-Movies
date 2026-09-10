@@ -1,3 +1,5 @@
+import { productionCompanyTalentIds } from './productionPeople.js'
+import { initializeHollywood, industryBusyTalentIds, rivalEmployment } from './hollywood.js'
 // ── D-11 Studio Employment, Contracts, Roster, Freelancer Market ──────────────
 // A PURE module (like talentSummary/filmPackage): no React/DOM/async/IO, no time,
 // no unseeded entropy. It derives employment status, prices deterministic contract
@@ -120,15 +122,7 @@ export function isContracted(state: GameState, talentId: string, week?: number):
  * merely because they wrote the screenplay").
  */
 export function activeProductionCompanyTalentIds(state: GameState): Set<string> {
-  const ids = new Set<string>()
-  for (const p of state.studio.activeProductions) {
-    ids.add(p.directorId)
-    ids.add(p.cast.lead)
-    ids.add(p.cast.antagonist)
-    ids.add(p.cast.support)
-    for (const cid of p.craftIds) ids.add(cid)
-  }
-  return ids
+  return productionCompanyTalentIds(state.studio.activeProductions)
 }
 
 /**
@@ -165,6 +159,7 @@ export function creditedWriterIds(state: GameState): Set<string> {
 export function busyTalentIds(state: GameState): Set<string> {
   const busy = activeProductionCompanyTalentIds(state)
   for (const id of activeWritingAssignmentIds(state)) busy.add(id)
+  for (const id of industryBusyTalentIds(state.hollywood)) busy.add(id)
   return busy
 }
 
@@ -316,7 +311,7 @@ export function assignmentProjectCost(state: GameState, talentId: string): numbe
 // The "signable universe": talent neither contracted nor engaged in a production.
 function signableUniverse(state: GameState): Talent[] {
   const busy = busyTalentIds(state)
-  return state.talent.filter((t) => !busy.has(t.id) && !isContracted(state, t.id))
+  return state.talent.filter((t) => !busy.has(t.id) && !isContracted(state, t.id) && rivalEmployment(state,t.id,state.market.tick) === null)
 }
 
 // Deterministic without-replacement sample of `n` ids from `pool`, drawing from
@@ -356,7 +351,7 @@ export function hiringMarketIds(state: GameState, week: number = state.market.ti
   const seen = new Set<string>()
   // free agents first (former employees), in stored order
   for (const id of state.freeAgents) {
-    if (!seen.has(id) && !isContracted(state, id)) {
+    if (!seen.has(id) && !isContracted(state, id) && rivalEmployment(state,id,week) === null) {
       seen.add(id)
       out.push(id)
     }
@@ -379,6 +374,7 @@ export function employmentStatus(
   talentId: string,
   week: number = state.market.tick,
 ): EmploymentStatus {
+  if (rivalEmployment(state,talentId,week)) return 'unavailable'
   if (isContracted(state, talentId, week)) return 'contracted'
   if (busyTalentIds(state).has(talentId)) return 'engagedFreelancer'
   if (freelancerMarketIds(state, week).includes(talentId)) return 'availableFreelancer'
@@ -465,7 +461,7 @@ export function correlateConceptCost(concepts: FilmConcept[]): FilmConcept[] {
   }))
 }
 
-export function beginFounding(state: GameState): GameState {
+function beginFoundingDraft(state: GameState): GameState {
   if (state.founding !== null) return state
   const applicantIds: string[] = []
   for (const { role, count } of DRAFT_ROLES) {
@@ -488,3 +484,14 @@ export function beginFounding(state: GameState): GameState {
     economyEngagedEver: true,
   }
 }
+
+export function beginFounding(state: GameState): GameState {
+  return initializeHollywood(beginFoundingDraft(state),state.market.tick===0?'fresh':'migration')
+}
+
+/** Explicit historical analysis control; native campaign creation never calls this. */
+export function beginFoundingHistoricalControl(state: GameState): GameState {
+  if(state.hollywood!==null)throw new Error('Historical control cannot discard a living industry')
+  return beginFoundingDraft(state)
+}
+
