@@ -31,7 +31,9 @@ export const PROTOCOL_VERSION = 4 as const
 // (result truth is DERIVED from already-persisted state — no saved byte changed).
 // Owner UX 01: public discipline/genre estimates and readable saved-slot metadata.
 // Protocol stays 4 and gameplay save stays V18; both fields derive existing authority.
-export const PROJECTION_VERSION = 28 as const
+// R05: the Profile uses the same authoritative calendar label as Industry.
+// Absolute career weeks and durable save formats remain unchanged.
+export const PROJECTION_VERSION = 29 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -1799,6 +1801,7 @@ const StudioPersonCareerRowSnapshot = object('StudioPersonCareerRowSnapshot', {
   filmId: nonEmptyText(),
   filmTitle: nonEmptyText(),
   releaseWeek: nonNegativeInteger(),
+  releaseDateLabel: nonEmptyText(),
   genre: genreEnum(),
   roleLabel: nonEmptyText(),
   discipline: disciplineEnum(),

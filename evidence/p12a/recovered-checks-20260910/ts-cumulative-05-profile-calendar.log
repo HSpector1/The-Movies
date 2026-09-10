@@ -1,0 +1,1120 @@
+
+> project-studio-core@0.1.0 test
+> vitest run
+
+
+ RUN  v2.1.9 /Users/bruce/The Movies - P12A Living Hollywood TS
+
+ ✓ |ui| ui/src/test/contracts/audio-service.contract.test.ts (56 tests | 5 skipped) 9ms
+ ✓ |ui| ui/src/lot/tycoon/world.test.ts (60 tests) 255ms
+ ✓ |ui| ui/src/lot/hollywood/HollywoodScene.test.ts (99 tests) 116ms
+ ✓ |ui| ui/src/lot/buildingInspector.test.ts (41 tests) 18ms
+stderr | ui/src/lot/StudioLotScreen.test.tsx > StudioLotScreen — host lifecycle + accessible companion navigation > 5. + 6. pauses when the tab is hidden and resumes when visible
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ |ui| ui/src/lot/snapshot/castingReview.test.ts (17 tests) 431ms
+ ✓ |ui| ui/src/lot/LotNextEventRail.test.tsx (18 tests) 276ms
+ ✓ |ui| ui/src/lot/studio-lot-snapshot.test.ts (38 tests) 1188ms
+ ✓ |ui| ui/src/lot/StudioLotView.hollywood.test.ts (19 tests) 8ms
+ ✓ |ui| ui/src/screens/film-package.test.tsx (14 tests) 1207ms
+   ✓ change preview: a swap in the wizard shows the resulting package change > the Film Package summary + a change preview appear, and swapping updates them 317ms
+ ✓ |ui| ui/src/lot/WorldFirstLotRetainedAuditionPlanningAppAuthority.test.tsx (13 tests) 1871ms
+   ✓ World-first retained audition planning — App authority > keeps one Lot/canvas mounted and cancels byte-neutrally to the exact Casting opener 480ms
+ ✓ |ui| ui/src/lot/snapshot/scriptReview.test.ts (19 tests) 299ms
+ ✓ |ui| ui/src/lot/WorldFirstLotRetainedCommissioningWorkspaceAppAuthority.test.tsx (15 tests) 2072ms
+   ✓ World-first retained screenplay commissioning — App authority > keeps one Lot and canvas mounted, suspends world input, and cancels byte-neutrally to its opener 514ms
+ ✓ |ui| ui/src/screens/casting-sessions-ui.test.tsx (11 tests) 802ms
+ ✓ |ui| ui/src/test/contracts/event-grammar.contract.test.ts (26 tests) 15ms
+ ✓ |ui| ui/src/lot/LotCastingReviewPanel.test.tsx (13 tests) 247ms
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewAppAuthority.test.tsx (15 tests) 3139ms
+   ✓ Lot-native Casting review — App commit and handoff authority > commits the clear successor, invokes autosave, then opens the exact Package owner once 466ms
+   ✓ Lot-native Casting review — App commit and handoff authority > never lets stale Casting review closures demote or mutate a newer exact event 863ms
+ ✓ |ui| ui/src/screens/d17a-decision-truth.test.tsx (34 tests) 3498ms
+   ✓ D-17A/T2 — the break-even headline is cycle-inclusive > Budget & Forecast headlines the cycle-inclusive figure and keeps the direct figure labelled 405ms
+   ✓ D-17A/T2 — the break-even headline is cycle-inclusive > the Review step headlines the same cycle-inclusive figure as Budget & Forecast 327ms
+   ✓ D-17A/T2 — Assembly wires the real cycle fixed cost into both panels > the Review step shows a studio-economic triple built from prospectiveCycleFixedCost 303ms
+   ✓ D-17A/T4 — Assembly shows the same three scopes as the Dashboard > renders the promoted read-model beside the budget picker, in D-15’s vocabulary 360ms
+stderr | ui/src/lot/WorldFirstGateTalentArrival.test.tsx > World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > cancels a begun pointer gesture while hidden and keeps fresh visible activation exact-once
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ |ui| ui/src/lot/facilityMutation.test.ts (11 tests) 852ms
+ ✓ |ui| ui/src/lot/snapshot/auditionPlanning.test.ts (13 tests) 750ms
+ ✓ |ui| ui/src/test/contracts/advance-week-grammar.contract.test.ts (34 tests) 6ms
+ ✓ |ui| ui/src/lot/WorldFirstGateTalentArrival.test.tsx (22 tests) 4358ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > closes one stale Gate-origin profile, restores fresh Gate focus, and never resurrects it 379ms
+   ✓ World-First Studio Gate Talent Arrival V1 — StudioLotScreen contract > rejects a stale pointer token after retained-candidate terms and week change 316ms
+ ✓ |ui| ui/src/screens/studio-calendar-ui.test.tsx (13 tests) 771ms
+ ✓ |ui| ui/src/engine/writer-credit-not-assignment.test.ts (13 tests) 305ms
+ ✓ |ui| ui/src/lot/WorldFirstGreenlightProductionFormation.test.tsx (14 tests) 4033ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > returns to the exact formed picture, frames its Director in the ready world, and keeps its Lead independently selectable 312ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > selects the receipt-owned second picture and Director instead of the array-first active production 406ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > clears mounted formation to neutral after missing operation invalidates the exact join, without selecting another picture 382ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > clears mounted formation to neutral after duplicate operation invalidates the exact join, without selecting another picture 312ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > clears mounted formation to neutral after missing Director invalidates the exact join, without selecting another picture 329ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > clears mounted formation to neutral after duplicate Lead invalidates the exact join, without selecting another picture 306ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > does not replay a consumed formation witness across repeated renderer readiness, ordinary rerender, or profile open/close suspension 458ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > does not infer a formation ceremony when the accepted post-greenlight state is freshly remounted without its transient receipt 305ms
+   ✓ World-First Greenlight Production Formation — Studio Lot boundary > reconciles delayed renderer readiness against the latest still-valid phase, never the mount snapshot 326ms
+ ✓ |ui| ui/src/lot/LotPictureGuidanceCard.test.tsx (40 tests) 128ms
+ ✓ |ui| ui/src/screens/studio-development-ui.test.tsx (16 tests) 2997ms
+   ✓ Development & Casting Annex player experience > owns the one start action and moves accessibly from Vacant to Building to Operational 358ms
+   ✓ Development & Casting Annex player experience > keeps a no-release Annex completion on the same mounted lot with one focus owner 479ms
+   ✓ Development & Casting Annex player experience > returns a lot-origin release plus Annex completion without repeating Operational 546ms
+   ✓ Development & Casting Annex player experience > carries a lot-origin completion context through Newspaper Autopsy back to the lot 394ms
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeCastingReviewApp.test.tsx (10 tests) 6013ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > reviews all six event-owned observations in the Lot, keeps deep detail optional, then hands the clear successor to Package 1132ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > greenlights the canonical Package into exact formation without replacing the Lot, canvas, or renderer 1755ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > keeps a blocked acknowledgement and every current remedy on the same mounted fallback Lot 675ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > preserves the clear Classic rollback route as standalone Package Assembly 368ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > rebuilds an imported pending review only after Casting is selected in the replacement Lot 481ms
+   ✓ World-First Lot-Native Casting Review Intervention V1 — App/Lot integration > dispatches the first same-title session from the Lot and returns neutral instead of substituting the later review 680ms
+ ✓ |ui| ui/src/lot/buildCatalog.test.ts (12 tests) 950ms
+ ✓ |ui| ui/src/lot/NamedPersonWorkCareerInspectorV1.test.tsx (7 tests) 2125ms
+   ✓ World-First Named Person Work & Career Inspector V1 > keeps one mounted world and selected person while modal input suspension turns on and off 330ms
+   ✓ World-First Named Person Work & Career Inspector V1 > withholds Director dispatch from the selected Lead while retaining exact Director and picture interventions 461ms
+   ✓ World-First Named Person Work & Career Inspector V1 > closes once and moves focus to the surviving named-people group when the open person disappears 408ms
+   ✓ World-First Named Person Work & Career Inspector V1 > clears a raw open ID when the full handoff becomes invalid and never auto-reopens it 626ms
+ ✓ |ui| ui/src/screens/d12-beta-closure.test.tsx (12 tests) 2481ms
+   ✓ D-12 beta P1: Review forecast == persisted greenlight snapshot (same-week 2nd film) > P4 (adversarial): a VAGUE-promise film never leaks raw factor detail or contradicts the brief 1547ms
+   ✓ D-12 P7: profitable films always get an engine-derived commercial strength > a profitable release lists at least one commercial strength (never "Nothing stood out") 415ms
+ ✓ |ui| ui/src/lot/WorldFirstProductionFormationApp.test.tsx (8 tests) 953ms
+   ✓ Greenlight production formation — App owner boundary > independently accepts the exact current transition and gives only a Lot origin the typed receipt 448ms
+ ✓ |ui| ui/src/lot/snapshot/scriptCommission.test.ts (13 tests) 445ms
+ ✓ |ui| ui/src/lot/LotScriptReviewPanel.test.tsx (15 tests) 176ms
+stderr | ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rejects a delayed hidden-tab compatibility tail and accepts a later fresh pointer boundary
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ |ui| ui/src/screens/assembly-legality.test.tsx (10 tests) 850ms
+   ✓ assembly legality: greenlight is blocked until every required choice is made > the Next button is disabled at the talent step until writer, director and 3 cast are chosen 374ms
+stderr | ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx > World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rejects a delayed hidden-tab compatibility tail and accepts a later fresh pointer boundary
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | ui/src/lot/WorldFirstStage7ProductionDetailHandoff.test.tsx > World-First Selected Stage 7 Production Detail Handoff — Lot boundary > cancels a begun pointer gesture across hidden-resume and requires one fresh boundary
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to StudioLotScreen inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ |ui| ui/src/lot/snapshot/productionFormation.test.ts (15 tests) 179ms
+ ✓ |ui| ui/src/lot/snapshot/productionCompany.test.ts (32 tests) 5ms
+ ✓ |ui| ui/src/test/contracts/p05a-w2-closed-production.contract.test.ts (12 tests) 255ms
+ ✓ |ui| ui/src/lot/WorldFirstStage7ProductionDetailHandoff.test.tsx (15 tests) 4293ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > never grants detail provenance from the generic production rail or a named person 420ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > retains world provenance through the exact blocker → load-in → schedule continuation 513ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > rejects a gesture whose rendered title changed before click and focuses fresh Stage 7 truth 435ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > keeps the Lot mounted and returns focus to current truth when App rejects the handoff 347ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > suspends a begun gesture at the modal boundary and accepts only a fresh later activation 338ms
+   ✓ World-First Selected Stage 7 Production Detail Handoff — Lot boundary > cancels a begun pointer gesture across delayed-ready and requires one fresh boundary 322ms
+ ✓ |ui| ui/src/presentation/wiring.test.tsx (15 tests) 1863ms
+   ✓ PF1-M2 — punctuation at App’s advance gates > gives an ordinary week the quiet tick 454ms
+   ✓ PF1-M2 — punctuation at App’s advance gates > gives a facility completion its sting instead of the tick 305ms
+ ✓ |ui| ui/src/lot/WorldFirstStudioHome.test.tsx (33 tests) 2952ms
+   ✓ Studio Home V1 — App world-root navigation > routes accepted Start imports through the canonical founded/founding home matrix 425ms
+   ✓ Studio Home V1 — App world-root navigation > preserves topbar focus through a supporting-Dashboard Sim result 363ms
+   ✓ Studio Home V1 — App world-root navigation > preserves building focus through a supporting-Dashboard Sim result 305ms
+ ✓ |ui| ui/src/screens/d12-owner-ux.test.tsx (16 tests) 1697ms
+   ✓ A1: Create Custom Talent is prominent on the Talent step and preserves the draft > opening the creator and returning keeps every film-package selection intact 420ms
+ ✓ |ui| ui/src/lot/snapshot/nextEvent.test.ts (6 tests) 1037ms
+   ✓ strict Lot next-event presentation boundary > accepts exact run, cash, renewal, and expiry outcomes without inventing identity 607ms
+ ✓ |ui| ui/src/lot/WorldFirstBuildModeV1.test.tsx (20 tests) 5550ms
+   ✓ Build Mode V1 — catalog, ghost, and quote > paints a UI-only ghost with a verdict for EVERY cell, and a full cost box 308ms
+   ✓ Build Mode V1 — catalog, ghost, and quote > moves the origin by keyboard, bumping the draft revision, and repaints the ghost 412ms
+   ✓ Build Mode V1 — catalog, ghost, and quote > clamps the draft INTO its parcel instead of sliding it off 566ms
+   ✓ Build Mode V1 — catalog, ghost, and quote > shows the primary rejection in words and refuses the commit 345ms
+   ✓ Build Mode V1 — commit, receipt, and cancel > sends only a blueprint id and an origin, and shows a receipt naming both numbers 330ms
+   ✓ Build Mode V1 — commit, receipt, and cancel > repaints the parcel panel as a construction site over the same mounted world 342ms
+   ✓ Build Mode V1 — commit, receipt, and cancel > keeps the draft and prints the Engine’s exact words when the commit is refused 401ms
+   ✓ Build Mode V1 — commit, receipt, and cancel > cancels byte-neutrally — no action, no state, no ghost 444ms
+   ✓ Build Mode V1 — commit, receipt, and cancel > shows the operational building, its capacity and its running cost, after the clock runs out 335ms
+ ✓ |ui| ui/src/lot/tycoon/buildings.test.ts (10 tests) 813ms
+ ✓ |ui| ui/src/screens/production-operations-ui.test.tsx (11 tests) 445ms
+ ✓ |ui| ui/src/lot/StudioLotScreen.test.tsx (61 tests) 9978ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > moves Hollywood keyboard focus to each successor and announces the final take 313ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > revalidates a production event against the latest full managed and engine predicate 330ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > gives the Stage 7 blocker and companion Stage A button equivalent in-lot selection 349ms
+   ✓ StudioLotScreen — authoritative Hollywood operations host > keeps all six exact company members selectable while only the assigned Director owns the call 390ms
+   ✓ StudioLotScreen — world-first D-17B publicity campaign > makes the complete Lot inert and blocks held/programmatic campaign actions while a profile modal is open 322ms
+ ✓ |ui| ui/src/screens/talent-creator.test.tsx (17 tests) 345ms
+ ✓ |ui| ui/src/screens/development-summary.test.tsx (13 tests) 717ms
+ ✓ |ui| ui/src/test/contracts/p05a-w2-invariant-kills.contract.test.ts (8 tests) 249ms
+ ✓ |ui| ui/src/test/redteam/rt-announcement-law.redteam.test.tsx (17 tests) 1158ms
+   ✓ REDTEAM — the operational announcement across a committed action > a committed action does NOT remount the live-region line with identical text 308ms
+   ✓ REDTEAM — the operational announcement across a committed action > and the epoch then expires it — one action of life, exactly as designed 382ms
+ ✓ |ui| ui/src/session.test.tsx (17 tests) 1023ms
+stderr | ui/src/test/redteam/rt-audio-edges.redteam.test.tsx > REDTEAM — the Lot audio effects under StrictMode double-invocation > unmounting a StrictMode-mounted Lot leaves nothing running
+Error: Not implemented: HTMLCanvasElement.prototype.getContext (without installing the canvas npm package)
+    at module.exports (/Users/bruce/The Movies - P12A Living Hollywood TS/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at HTMLCanvasElementImpl.getContext (/Users/bruce/The Movies - P12A Living Hollywood TS/node_modules/jsdom/lib/jsdom/living/nodes/HTMLCanvasElement-impl.js:42:5)
+    at HTMLCanvasElement.getContext (/Users/bruce/The Movies - P12A Living Hollywood TS/node_modules/jsdom/lib/jsdom/living/generated/HTMLCanvasElement.js:131:58)
+    at checkInverseAlpha (/Users/bruce/The Movies - P12A Living Hollywood TS/node_modules/phaser/src/device/CanvasFeatures.js:72:26)
+    at init (/Users/bruce/The Movies - P12A Living Hollywood TS/node_modules/phaser/src/device/CanvasFeatures.js:106:46)
+    at Object.<anonymous> (/Users/bruce/The Movies - P12A Living Hollywood TS/node_modules/phaser/src/device/CanvasFeatures.js:112:18)
+    at Module._compile (node:internal/modules/cjs/loader:1873:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:2013:10)
+    at Module.load (node:internal/modules/cjs/loader:1596:32)
+    at Module._load (node:internal/modules/cjs/loader:1398:12) undefined
+
+ ✓ |ui| ui/src/test/redteam/rt-audio-edges.redteam.test.tsx (18 tests) 398ms
+ ✓ |ui| ui/src/screens/d11-cycle3-ui.test.tsx (12 tests) 749ms
+ ✓ |ui| ui/src/screens/script-projects-edge-ui.test.tsx (8 tests) 500ms
+   ✓ managed screenplay gate truth > disables greenlight and renders every Ready-package blocker with its remedy 332ms
+ ✓ |ui| ui/src/test/redteam/rt-parity-adversarial.redteam.test.ts (9 tests) 180ms
+ ✓ |ui| ui/src/lot/WorldFirstGateHiringReturnApp.test.tsx (7 tests) 1009ms
+   ✓ World-First Studio Gate talent handoff — App owner boundary > independently revalidates latest Engine truth and opens the canonical profile over one byte-neutral mounted Lot 459ms
+ ✓ |ui| ui/src/shell/dialog-replacement.test.tsx (10 tests) 1896ms
+   ✓ PF1-M3 — no site speaks through the browser (site by site) > site 3/9 — a decision check that throws refuses WITHOUT dispatching (blocking-site order) 346ms
+   ✓ PF1-M3 — no site speaks through the browser (site by site) > site 4/9 — an adapter that throws refuses WITHOUT dispatching, and frees the lot 379ms
+   ✓ PF1-M3 — no site speaks through the browser (site by site) > site 5/9 — a blank event presentation says so AFTER the week has been committed 366ms
+ ✓ |ui| ui/src/lot/WorldFirstLiveWeekAdvance.test.tsx (9 tests) 3119ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > returns a real building-origin deep route to that exact companion focus 421ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > keyboard activation records Stage 7 through one exact App-owned tick 509ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > preserves the selected named person and production context through a same-world tick 414ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > routes a real release without a Gazette to ReleaseResult and back to the initiating lot 336ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > consumes the freshly rendered App state across two deliberate lot activations 383ms
+   ✓ World-First Live Week Advance V1 — App authority and routing > returns from a no-Gazette ReleaseResult Autopsy to the initiating lot 342ms
+ ✓ |ui| ui/src/screens/autopsy-faithful.test.tsx (15 tests) 1188ms
+ ✓ |ui| ui/src/lot/WorldFirstWorldInspectorDefault.test.tsx (28 tests) 12052ms
+   ✓ World Inspector Default V1 — no building click ever ejects > never navigates from any of the nine places, and always lands an in-world context 1317ms
+   ✓ World Inspector Default V1 — no building click ever ejects > lands the generic inspector — with name, role and live status — where no richer context applies 1140ms
+   ✓ World Inspector Default V1 — no building click ever ejects > reaches the canonical deep screen ONLY through the explicit details action 1515ms
+   ✓ the camera grammar — selection frames, and the whole property is always one control away > never asks the world to reframe for an ORDINARY inspector — the quiet half of the grammar 381ms
+   ✓ M-B — the buildings carry the verbs the guidance names > never lets any place print its blocks out of the canonical order 3708ms
+   ✓ M-B — the audition verb is a first-class retained-planner origin > opens the in-world planner over the live lot when the companion rail cannot vouch for it 513ms
+ ✓ |ui| ui/src/lot/authored-stage.test.ts (16 tests) 19ms
+ ✓ |ui| ui/src/test/contracts/punctuate.contract.test.ts (22 tests) 7ms
+ ✓ |ui| ui/src/lot/StudioLotScreen.audition-planning.test.tsx (9 tests) 1637ms
+   ✓ StudioLotScreen — retained audition-planning receipt > consumes one exact current receipt into Casting without remounting or claiming camera 497ms
+ ✓ |ui| ui/src/lot/WorldFirstSceneryLoadIn.test.tsx (33 tests) 12645ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > routes a same-title blocker to the exact production identity 345ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > physical service entry exposes every exact field and clears person, place, and Annex contexts 745ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > semantic service entry via pointer is field-equivalent after clearing prior person context 403ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > semantic service entry via Enter is field-equivalent after clearing prior place context 343ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > semantic service entry via Space is field-equivalent after clearing prior Annex context 377ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > completes inspect → Clear → Schedule through semantic truth when renderer construction fails 516ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > completes semantic inspect → Clear → Schedule when canonical manifest selection fails 516ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > selects exact Stage 7 with reversed multi-production order: Stage 12 first 344ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > produces one byte-identical successor from service yard, Stage 7, Production Board, and direct adapter 706ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > continues blocked → ready → scheduled in one live context with direct SaveFile/RNG parity 514ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > clears completed arrival feedback when the generic Stage 7 inspector schedules the take 377ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > dispatches one field-exact clear command for one Enter activation 319ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > dispatches one field-exact clear command for one Space activation 342ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > treats a real pointer double-click across blocked → ready as one Clear gesture 415ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > does not let one held Enter gesture dispatch the successor after blocked → ready repaint 371ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > re-announces identical stale-clear rejections with fresh DOM identity while retaining truth 523ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > re-announces identical schedule rejections with fresh DOM identity and no false Stage 7 selection 542ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > fails closed for malformed or duplicate Stage 7 truth and clears a stale selected identity 412ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > fails empty and clears the matching arrival activity after an external scheduled replacement 371ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > fails empty and clears the matching arrival activity after an external duplicate replacement 406ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > fails empty and clears the matching arrival activity after an external absent replacement 383ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > follows a picture that moves to ANOTHER of the studio’s stages, and names it 324ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > exits service context cleanly for physical person/place and semantic Annex selection 557ms
+   ✓ World-First Scenery Load-In V1 — StudioLotScreen contract > loads direct ready truth without replaying clear and focuses the fresh schedule command 361ms
+ ✓ |ui| ui/src/lot/scene/assets.test.ts (18 tests) 11ms
+ ✓ |ui| ui/src/lot/snapshot/stage7Production.test.ts (44 tests) 5ms
+ ✓ |ui| ui/src/screens/c2a-m4-queue-panel.test.tsx (11 tests) 347ms
+ ✓ |ui| ui/src/screens/c2a-m2-set-legibility.test.tsx (16 tests) 204ms
+ ✓ |ui| ui/src/lot/snapshot/firstFilmJourney.test.ts (20 tests) 5ms
+ ✓ |ui| ui/src/test/redteam/rt-save-shell.redteam.test.tsx (22 tests) 1285ms
+   ✓ REDTEAM — hostile file import through the ONE accept path > a file far larger than any print is refused WITHOUT being opened 503ms
+ ✓ |ui| ui/src/lot/FirstPictureGuidanceApp.test.tsx (9 tests) 853ms
+ ✓ |ui| ui/src/saves.test.tsx (15 tests) 919ms
+ ✓ |ui| ui/src/test/contracts/motion-css-pairing.contract.test.ts (15 tests) 3ms
+ ✓ |ui| ui/src/screens/Recap.test.tsx (19 tests) 2909ms
+ ✓ |ui| ui/src/test/contracts/sim-stop-ladder.contract.test.ts (10 tests) 920ms
+   ✓ C2a-M5 §5 — the legacy path is silent > a legacy world never produces a wrap stop (the ledger is empty there) 309ms
+ ✓ |ui| ui/src/lot/tycoon/placedSoundstageBody.test.ts (7 tests) 199ms
+ ✓ |ui| ui/src/lot/snapshot/setDressing.test.ts (23 tests) 4ms
+ ✓ |ui| ui/src/simulation.test.tsx (8 tests) 2133ms
+   ✓ simulation: advancing a week ticks the engine exactly once > the dashboard Advance button moves the shown week by exactly 1 per click 556ms
+   ✓ simulation: NO Broadcast presentation or feed appears anywhere in the UI > driving the whole loop through the UI produces no broadcast/headline/feed elements 1268ms
+ ✓ |ui| ui/src/test/redteam/rt-prefs-hostile.redteam.test.tsx (38 tests) 72ms
+ ✓ |ui| ui/src/lot/tycoon/presence.test.ts (21 tests) 10ms
+ ✓ |ui| ui/src/screens/hub-integrity.test.tsx (11 tests) 903ms
+ ✓ |ui| ui/src/screens/film-chronicle-ui.test.tsx (5 tests) 109ms
+ ✓ |ui| ui/src/lot/buildMode.test.ts (22 tests) 135ms
+ ✓ |ui| ui/src/test/redteam/rt-hygiene-voice.redteam.test.ts (15 tests) 639ms
+ ✓ |ui| ui/src/lot/snapshot/weekTheater.test.ts (17 tests) 395ms
+ ✓ |ui| ui/src/lot/snapshot/personWork.test.ts (18 tests) 4ms
+ ✓ |ui| ui/src/engine/adapter.test.ts (17 tests) 186ms
+ ✓ |ui| ui/src/components/information-integrity.test.tsx (8 tests) 185ms
+ ✓ |ui| ui/src/test/contracts/prefs.contract.test.ts (28 tests) 13ms
+ ✓ |ui| ui/src/lot/tycoon/visualWarmth.test.ts (24 tests) 33ms
+ ✓ |ui| ui/src/screens/audition-payoff.test.tsx (9 tests) 578ms
+ ✓ |ui| ui/src/screens/d11-cycle4-ui.test.tsx (9 tests) 594ms
+   ✓ D-11.D founding: ONE writer suffices to found (tabbed flow) > signing 3 actors / 1 director / 1 writer / 1 craft founds the studio 315ms
+ ✓ |ui| ui/src/lot/snapshot/stageIdentity.test.ts (15 tests) 3ms
+ ✓ |ui| ui/src/lot/snapshot/gateHiring.test.ts (13 tests) 47ms
+ ✓ |ui| ui/src/lot/scene/LotScene.production-occupancy.test.ts (5 tests) 7ms
+ ✓ |ui| ui/src/lot/livingTurn.test.ts (28 tests) 5ms
+ ✓ |ui| ui/src/screens/d11-cycle2-ui.test.tsx (11 tests) 427ms
+ ✓ |ui| ui/src/lot/presence-on-the-lot.test.ts (11 tests) 83ms
+ ✓ |ui| ui/src/screens/c2a-m3-title-and-rename.test.tsx (6 tests) 154ms
+ ✓ |ui| ui/src/screens/d17a-offer-truth.test.tsx (10 tests) 299ms
+ ✓ |ui| ui/src/lot/snapshot/presenceLines.test.ts (18 tests) 9ms
+ ✓ |ui| ui/src/screens/c2a-m2-scenery-shop.test.tsx (11 tests) 268ms
+ ✓ |ui| ui/src/screens/c2a-m3-commission-original.test.tsx (5 tests) 614ms
+ ✓ |ui| ui/src/engine/film-chronicle-adapter.test.ts (2 tests) 409ms
+ ✓ |ui| ui/src/test/contracts/parity-proof.contract.test.ts (6 tests) 3ms
+ ✓ |ui| ui/src/components/refusal-voice.test.tsx (9 tests) 37ms
+ ✓ |ui| ui/src/lot/d1b-assignment-lifecycle.test.tsx (5 tests) 2796ms
+   ✓ CASE B — a new studio does not inherit the previous studio’s stages > clears the memory at the real new-game boundary, colliding id and all 770ms
+   ✓ CASE B — a new studio does not inherit the previous studio’s stages > keeps both presentation memories when New Studio is declined 590ms
+   ✓ CASE C — a loaded save does not inherit the previous studio’s stages > clears the memory when another save is successfully loaded 676ms
+   ✓ CASE C — a loaded save does not inherit the previous studio’s stages > a REJECTED import keeps the live studio’s stages — reset only on success 472ms
+ ✓ |ui| ui/src/test/contracts/audio-provenance.contract.test.ts (13 tests) 5ms
+ ✓ |ui| ui/src/test/contracts/save-card.contract.test.ts (19 tests) 79ms
+ ✓ |ui| ui/src/screens/a3-queue-admission-ui.test.tsx (5 tests) 933ms
+   ✓ A3 retained-client queue admission parity > submits one contended greenlight, emits no fake formation receipt, and closes the exact package on fresh reopen 601ms
+ ✓ |ui| ui/src/lot/WorldFirstRosterStaffPresence.test.ts (13 tests) 157ms
+ ✓ |ui| ui/src/lot/snapshot/stageAssignment.test.ts (10 tests) 694ms
+ ✓ |ui| ui/src/screens/d12-team-direction.test.tsx (12 tests) 329ms
+ ✓ |ui| ui/src/lot/WorldFirstAnnexConstruction.test.tsx (58 tests) 16856ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > replaces person and production commands only inside the Annex inspector, then clears cleanly 509ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > lets App own the one accepted start and repaints exact Building truth in the same lot 672ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > keeps Stage 7 operations and people alive while Annex context replaces only the inspector 665ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > keeps selected Annex context through progress and gives completion sole focus 574ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > accepts the exact construction transition under reduced motion 317ms
+   ✓ World-First Annex Construction Interaction V1 — React/App boundary > renders exact operational truth as inspect-only and clears no authoritative state 302ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > does not let a pointer activation begun for one occupant open its replacement 401ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > keeps the current world context, announces a rejected handoff, and permits a fresh retry 327ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > returns to fresh replacement truth instead of the prior Annex occupant 403ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > suspends Annex inspection actions for the full profile-modal boundary 319ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > routes native screenplay work through App and returns to fresh Annex work on the same Lot home 602ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > resolves native casting work through the exact current session ID, never its title 478ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > routes native production work to the exact Production Board card and returns directly to fresh work 489ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > retains annex-work return only through the exact screenplay child route 505ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > demotes annex-work when Writers Room opens a different screenplay child 531ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > demotes annex-work when Casting Room opens the unrelated Roster child 422ms
+   ✓ World-First Operational Annex Work Presence V1 — living Lot inspector > demotes production annex-work return after unrelated Dashboard navigation 499ms
+ ✓ |ui| ui/src/engine/script-assessment-parity.test.ts (2 tests) 179ms
+ ✓ |ui| ui/src/engine/d17a-regime.test.ts (6 tests) 66ms
+ ✓ |ui| ui/src/test/contracts/session-status.contract.test.ts (17 tests) 176ms
+ ✓ |ui| ui/src/lot/authored-stage-a.test.ts (17 tests) 511ms
+ ✓ |ui| ui/src/screens/script-projects-ui.test.tsx (6 tests) 208ms
+ ✓ |ui| ui/src/screens/d14-talent-profile.test.tsx (8 tests) 669ms
+ ✓ |ui| ui/src/screens/d12-sim-event-stop.test.tsx (8 tests) 1152ms
+   ✓ D-12 P1 — Sim to Next Event stop semantics > (9) the first negative-cash crossing still stops after a full tick 448ms
+ ✓ |ui| ui/src/test/contracts/dialog-hygiene.contract.test.ts (16 tests) 104ms
+ ✓ |ui| ui/src/test/contracts/p05a-w1-scenery-alignment.contract.test.ts (8 tests) 109ms
+ ✓ |ui| ui/src/lot/tycoon/expandedPropertyWorld.test.ts (5 tests) 530ms
+ ✓ |ui| ui/src/lot/StudioLotScreen.commission-receipt.test.tsx (4 tests) 958ms
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeNextEventApp.test.tsx (36 tests) 18144ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps an exact non-release stop on one mounted world, contains a stale repeat, and returns from the exact deep owner 731ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > accepts a newly surfaced first draft in the mounted Lot with direct-adapter parity 505ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > requests the legal final rewrite from a newly surfaced review and reports its exact base slot 460ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > uses and repaints the operational Annex only when the accepted rewrite owns its exact slot 695ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > opens an already-pending final review from Development, returns by exact identity, and accepts it in the same Lot 564ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rebuilds an imported pending review only after the player selects Development in the replacement Lot 476ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > returns neutral instead of substituting the next screenplay after the focused deep review is accepted 306ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps the pending screenplay action complete when the Hollywood renderer fails 341ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > contains same-stack duplicate screenplay activation when the Engine rejects 307ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > restores the exact next-event screenplay ceremony after Engine rejection and permits a fresh retry 504ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > does not replay an already-Operational Annex announcement across an unchanged exact deep return 606ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > consumes a script/completion co-event through a deep state successor without replaying either Annex announcement 457ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > rejects a delayed hidden-tab compatibility tail and accepts a later fresh pointer boundary 405ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > revalidates an exact deep route against current truth and demotes stale detail without leaving the world 430ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > physically orients an exact Stage 7 decision and keeps the world command before either deep route 410ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > dismisses an exact Stage 7 reaction into a neutral world instead of retaining event-owned selection 477ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > consumes one exact event world command before Engine dispatch and rejects its same-stack tail 549ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > retains the exact event world command on Classic Lot rollback without inventing Hollywood presence 331ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps an exact Stage 12 decision semantic without painting or substituting the Stage 7 production 385ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > clears an unrelated selected production when a neutral event becomes the sole orientation 432ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps a generic contract stop spatially neutral, claims no person, and focuses the Roster heading 710ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > orients a cash stop to Administration and focuses the supporting Finances section 2147ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > accepts only neutral final facts when the primary receipt is malformed and retains one independently valid completion 533ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > drops a malformed completion before non-release suppression or focus ownership 507ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > keeps the canonical release route, owns a simultaneous completion once, and returns receipt-free to the Lot control 385ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > never forwards a malformed completion into the release chain 448ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > preserves the exact live-world reaction after a rejected import or declined restart 935ms
+   ✓ World-First Lot-Native Next-Event Cadence V1 — App/Lot integration > clears every next-event transient across an accepted same-seed same-week whole-studio replacement 1269ms
+ ✓ |ui| ui/src/lot/snapshot/sceneryLoadIn.test.ts (28 tests) 5ms
+ ✓ |ui| ui/src/lot/snapshot/publicityCampaign.test.ts (31 tests) 23ms
+ ✓ |ui| ui/src/screens/d17a-release-truth.test.tsx (7 tests) 967ms
+   ✓ D-17A fix-pass — retrospective profit/break-even labels name their basis > the autopsy narrative never says "profit" or "break-even" without naming the basis 440ms
+ ✓ |ui| ui/src/lot/scene/authoredValueStandard.test.ts (13 tests) 2ms
+ ✓ |ui| ui/src/audio/wiring.test.tsx (11 tests) 580ms
+ ✓ |ui| ui/src/engine/placement-completion-stop.test.ts (5 tests) 371ms
+ ✓ |ui| ui/src/lot/snapshot/annexWork.test.ts (37 tests) 4ms
+ ✓ |ui| ui/src/shell/settings.test.tsx (9 tests) 813ms
+   ✓ PF1-M3 — settings over the living Lot > keeps the Lot MOUNTED and suspends its input instead of routing away 333ms
+ ✓ |ui| ui/src/screens/c2a-m3-package-and-chronicle.test.tsx (6 tests) 98ms
+ ✓ |ui| ui/src/lot/StudioLotIdentityReview.test.tsx (10 tests) 1189ms
+ ✓ |ui| ui/src/lot/selectionReassert.test.tsx (3 tests) 1487ms
+   ✓ C1-M5 — the repaint re-assert fires only when the renderer lost the selection > adds ZERO renderer selects when repaints arrive over a selection it already holds 515ms
+   ✓ C1-M5 — the repaint re-assert fires only when the renderer lost the selection > re-asserts exactly ONCE when the renderer genuinely lost the selection 563ms
+   ✓ C1-M5 — the repaint re-assert fires only when the renderer lost the selection > reads the RENDERER, so a world that silently drops a selection is restored 408ms
+ ✓ |ui| ui/src/lot/WorldFirstStage7ProductionDetailHandoffApp.test.tsx (5 tests) 991ms
+   ✓ Selected Stage 7 detail handoff — App owner boundary > independently reselects latest Engine truth, focuses the exact Board card, and returns the typed exact identity byte-neutrally 537ms
+ ✓ |ui| ui/src/test/contracts/motion-resolver.contract.test.ts (19 tests) 5ms
+ ✓ |ui| ui/src/lot/buildingInspector.sets.test.ts (8 tests) 14ms
+ ✓ |ui| ui/src/lot/tycoon/placedSupportBodies.test.ts (4 tests) 7ms
+ ✓ |ui| ui/src/shell/save-presentation.test.tsx (10 tests) 843ms
+   ✓ PF1-M3 — the save surface leads with the studio, not the envelope > gives the Lot a way to the vault (the route existed; nothing emitted it) 340ms
+ ✓ |ui| ui/src/test/p06a-w1-decision-surfaces.test.ts (7 tests) 55ms
+ ✓ |ui| ui/src/lot/StudioLotScreen.import-race.test.tsx (1 test) 386ms
+   ✓ StudioLotScreen — delayed renderer import > constructs first world frames from latest App-owned Building and accepted scenery truth 385ms
+ ✓ |ui| ui/src/screens/AssemblyFormationReceipt.test.tsx (2 tests) 812ms
+   ✓ Assembly production-formation handoff > emits the strict exact receipt for one accepted managed Ready-screenplay greenlight 405ms
+   ✓ Assembly production-formation handoff > releases the synchronous gate after Engine rejection, then accepts one legacy callback with a null special receipt despite event tails 407ms
+ ✓ |ui| ui/src/engine/recap-parity.test.tsx (7 tests) 133ms
+ ✓ |ui| ui/src/lot/LotAuditionWorkspace.test.tsx (4 tests) 243ms
+ ✓ |ui| ui/src/test/contracts/m5-hands-off-gate.contract.test.ts (9 tests) 91ms
+ ✓ |ui| ui/src/screens/c2a-m2-production-board-sets.test.tsx (4 tests) 227ms
+ ✓ |ui| ui/src/lot/hollywood/hollywood-bridge.test.ts (7 tests) 46ms
+ ✓ |ui| ui/src/lot/world-first-operational-annex-work-presence-fixtures.test.ts (2 tests) 332ms
+   ✓ World-First Operational Annex Work Presence V1 — native fixture authority > replays all three pinned SaveFileV13 files byte-identically and projects exact Annex truth 330ms
+ ✓ |ui| ui/src/engine/completion-receipt-copy.test.ts (5 tests) 526ms
+ ✓ |ui| ui/src/flags.test.ts (15 tests) 3ms
+ ✓ |ui| ui/src/audio/sink.test.ts (8 tests) 168ms
+ ✓ |ui| ui/src/components/FilmPoster.test.tsx (9 tests) 70ms
+ ✓ |ui| ui/src/lot/tycoon/playback.test.ts (14 tests) 3ms
+ ✓ |ui| ui/src/test/contracts/cue-determinism.contract.test.ts (5 tests) 3ms
+ ✓ |ui| ui/src/lot/d1b-soundstage-wiring.test.tsx (2 tests) 887ms
+   ✓ D1-B wiring — accepted default (soundstage content ON) > the corrected assignment reaches the Phaser view AND the companion navigation 304ms
+   ✓ D1-B wiring — the visual rollback path > rolls the ART back to the shared stage but KEEPS the assignment correctness fix 582ms
+ ✓ |ui| ui/src/screens/d17a-regime-basis.test.tsx (3 tests) 288ms
+ ✓ |ui| ui/src/screens/next-event-destination-focus.test.tsx (3 tests) 292ms
+ ✓ |ui| ui/src/screens/d14-career-impact.test.tsx (7 tests) 623ms
+ ✓ |ui| ui/src/lot/livingTurn.scheduler.test.tsx (13 tests) 16335ms
+   ✓ Living Turn V1 — the transport > offers hold/roll and the whole pace ladder, paused at 1x 424ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > commits ONE authoritative week per witnessed week and nothing else 946ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > runs 12 consecutive weeks with ZERO input and lands byte-identically 5562ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > speed changes the PACE and nothing else — 4x is four weeks in one week s time 1153ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > holding stops the weeks, and the studio stays exactly where it was 1568ms
+   ✓ Living Turn V1 — time flows while unpaused (the Owner s acceptance) > a hidden tab is a held studio — living time never advances what nobody watches 518ms
+   ✓ Living Turn V1 — the partition, at the seam > auto-pauses on the FIRST PAUSE-class stop, at exactly the hand-advanced week 2457ms
+   ✓ Living Turn V1 — the partition, at the seam > a NOTIFY-class wrap reaches the bulletin and the loop keeps working 1020ms
+   ✓ Living Turn V1 — the partition, at the seam > the bulletin clears on request 327ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > re-arms the week on screen when the cadence channel is cleared under a running loop 1026ms
+   ✓ Living Turn V1 — the loop cannot stall silently, and the batch verb holds it > the batch verb HOLDS the studio — a skipped batch was never witnessed time 495ms
+   ✓ Living Turn V1 — the release week plays before its surfaces take over > the shipping week is witnessed, and the release surface follows it 758ms
+ ✓ |ui| ui/src/screens/d11-screens.test.tsx (7 tests) 450ms
+ ✓ |ui| ui/src/test/contracts/week-theater-mirror.contract.test.ts (5 tests) 107ms
+ ✓ |ui| ui/src/App.test.tsx (3 tests) 2015ms
+   ✓ App end-to-end loop > starts a game and shows the dashboard 675ms
+   ✓ App end-to-end loop > assembles, greenlights, advances to release, and opens the autopsy 1304ms
+ ✓ |ui| ui/src/test/redteam/rt-notice-epoch.redteam.test.tsx (9 tests) 57ms
+ ✓ |ui| ui/src/lot/authored-stage-a-wiring.test.tsx (3 tests) 370ms
+ ✓ |ui| ui/src/screens/d12-decision-ux.test.tsx (4 tests) 559ms
+   ✓ C3: script browsing on the concept step > the Budget step shows Solvency, Capital committed %, Exposure, and the Shape/Demand panels 426ms
+ ✓ |ui| ui/src/engine/d17-save-migration.test.ts (6 tests) 761ms
+ ✓ |ui| ui/src/lot/snapshot/queueAdmission.test.ts (5 tests) 100ms
+ ✓ |ui| ui/src/screens/d12-economy-ui.test.tsx (4 tests) 476ms
+ ✓ |ui| ui/src/lot/authored-rgba-export.test.ts (8 tests) 1877ms
+   ✓ rgba-export tool contract > 6. output is truecolour RGBA with no PLTE/tRNS, alpha preserved exactly 551ms
+   ✓ rgba-export tool contract > 7. repeated runs are byte-identical 738ms
+ ✓ |ui| ui/src/test/contracts/audio-hygiene.contract.test.ts (9 tests) 49ms
+ ✓ |ui| ui/src/lot/WorldFirstLotNativeScriptReviewAppAuthority.test.tsx (2 tests) 981ms
+   ✓ Lot-native screenplay review — App event ownership > consumes a malformed current presentation instead of retaining an inert event session 435ms
+   ✓ Lot-native screenplay review — App event ownership > never lets stale review detail/action closures demote a newer exact event 546ms
+ ✓ |ui| ui/src/test/contracts/registry.contract.test.ts (13 tests) 6ms
+ ✓ |ui| ui/src/screens/c2a-m4-cap-consumers.test.tsx (3 tests) 865ms
+   ✓ C2a-M4 — the break-even second line counts the films that actually share the cycle > still says "a second film" on an empty lot — the counterfactual it always was 518ms
+   ✓ C2a-M4 — the break-even second line counts the films that actually share the cycle > says THREE when three films would share the cycle — the cap’s literal is gone 333ms
+ ✓ |ui| ui/src/screens/d12-live-forecast-truth.test.tsx (3 tests) 44ms
+ ✓ |ui| ui/src/screens/ScreenplayCommissionForm.test.tsx (3 tests) 100ms
+ ✓ |ui| ui/src/lot/snapshot/v14SetHolderBoundary.test.ts (5 tests) 66ms
+ ✓ |ui| ui/src/lot/identity/draw.test.ts (6 tests) 4ms
+ ✓ |ui| ui/src/screens/WorldFirstGateHiringFocus.test.tsx (6 tests) 294ms
+ ✓ |ui| ui/src/screens/d12-autopsy-arithmetic.test.tsx (1 test) 117ms
+ ✓ |ui| ui/src/lot/identity/manifest.test.ts (9 tests) 8ms
+ ✓ |ui| ui/src/screens/p07a-film-result-view.test.tsx (5 tests) 3ms
+ ✓ |ui| ui/src/screens/dashboard-release-commit.test.tsx (2 tests) 169ms
+ ✓ |ui| ui/src/hygiene.test.tsx (2 tests) 26ms
+ ✓ |ui| ui/src/screens/d17b-truth-surfaces.test.tsx (5 tests) 196ms
+ ✓ |ui| ui/src/lot/StudioLotScreen.script-review-receipt.test.tsx (3 tests) 544ms
+ ✓ |ui| ui/src/engine/salary-sum-writer-credit.test.ts (2 tests) 16ms
+ ✓ |ui| ui/src/lot/LotRetainedWorkspace.test.tsx (2 tests) 174ms
+ ✓ |ui| ui/src/screens/d12-p2-marketing-ui.test.tsx (2 tests) 23ms
+ ✓ |ui| ui/src/screens/AssemblySurface.test.tsx (2 tests) 396ms
+   ✓ Assembly presentation surface > keeps the canonical wizard inside one Lot-local scroll owner with embedded chrome 375ms
+ ✓ |ui| ui/src/components/restricted.test.tsx (3 tests) 108ms
+ ✓ |ui| ui/src/lot/hollywood/roleAtlas.test.ts (3 tests) 2ms
+ ✓ |ui| ui/src/lot/scene/productionStageState.test.ts (3 tests) 1ms
+ ✓ |ui| ui/src/screens/p07a-result-projection.test.tsx (3 tests) 2ms
+ ✓ |ui| ui/src/screens/d12-production-demand-ui.test.tsx (3 tests) 24ms
+ ✓ |ui| ui/src/screens/Dashboard.navigation.test.tsx (1 test) 112ms
+ ✓ |core| tests/bridge-contract-generator.test.ts (31 tests) 324ms
+ ✓ |ui| ui/src/determinism.test.tsx (3 tests) 4138ms
+   ✓ determinism: same seed → identical initial dashboard values > two fresh games with the same seed show identical week/cash/standing 1208ms
+   ✓ determinism: same seed → identical initial dashboard values > different seeds generally produce a different initial world 962ms
+   ✓ determinism: a fixed sequence of UI actions → identical visible results across runs > greenlight + advance N weeks yields the same dashboard snapshot on two runs 1967ms
+ ✓ |core| tests/film-package-truthfulness.test.ts (27 tests) 103ms
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > greenlights Ready screenplay A while its credited writer is actively drafting B
+[P04A.2 WITNESS] §19A quote availability (A ready, writer drafting B): {
+  "writerAvailable": true,
+  "knownGatesClear": true,
+  "canSubmitGreenlightIntent": true,
+  "blockers": []
+}
+[P04A.2 WITNESS] §19A single writing assignment after greenlight: {"talentId":"t-wri-02","projectId":"script-0001","status":"drafting","title":"The Restless Sanctuary","label":"Drafting The Restless Sanctuary"}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > HOSTILE REVIEWER: the credited writer is NOT busy after greenlight, all five seats ARE
+[P04A.2 WITNESS] §19A busy set after greenlight: {"busy":["t-act-01","t-act-09","t-act-21","t-cra-06","t-dir-02"],"creditedWriter":"t-wri-02","writerBusy":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > HOSTILE REVIEWER: the released film record still carries the exact writer talentId
+[P04A.2 WITNESS] §19A released-film writer credit: {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","discipline":"writing","greenlightOVR":77,"greenlightFit":72,"greenlightEP":{"low":67.7800661551918,"high":97.7682901551918,"expected":82.7741781551918},"freelancer":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT draft A and B simultaneously
+[P04A.2 WITNESS] §19B draft-while-drafting refusal: applyActions: commissionScript rejected — writer "t-wri-02" already has an active assignment
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT draft one screenplay and rewrite another
+[P04A.2 WITNESS] §19B rewrite-while-drafting refusal: applyActions: requestScriptRewrite rejected — writer "t-wri-08" already has an active assignment
+[P04A.2 WITNESS] §19B rewrite blockers (writer drafting elsewhere): {"kinds":["writer-assignment"],"legalActions":["acceptScript"]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT rewrite two screenplays simultaneously
+[P04A.2 WITNESS] §19B rewrite-while-rewriting refusal: applyActions: requestScriptRewrite rejected — writer "t-wri-08" already has an active assignment
+[P04A.2 WITNESS] §19B draft-while-rewriting refusal: applyActions: commissionScript rejected — writer "t-wri-08" already has an active assignment
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's director
+[P04A.2 WITNESS] §19C director exclusivity refusal: applyActions: greenlight talent "t-dir-02" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.lead
+[P04A.2 WITNESS] §19C cast.lead exclusivity refusal: applyActions: greenlight talent "t-act-01" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.antagonist
+[P04A.2 WITNESS] §19C cast.antagonist exclusivity refusal: applyActions: greenlight talent "t-act-09" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.support
+[P04A.2 WITNESS] §19C cast.support exclusivity refusal: applyActions: greenlight talent "t-act-14" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's craft
+[P04A.2 WITNESS] §19C craft exclusivity refusal: applyActions: greenlight talent "t-cra-07" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > CONTROL: the fully disjoint second package IS legal (the five refusals are about the seats, not the world)
+[P04A.2 WITNESS] §19C one writer credited on two live pictures, busy on neither: {"writerId":"t-wri-07","credited":["t-wri-07"],"busy":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19D — the credited writer holds no production presence claim > projects the writer at Development for the screenplay they are DRAFTING, never into the picture they merely wrote
+[P04A.2 WITNESS] §19D presence (A in production, writer drafting B): {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","engagement":"script","credit":"writer","ownerId":"script-0001","site":"facility-development-casting","slot":0,"beats":["home","home","travel","at-site","at-site","at-site","at-site","at-site","at-site","home"],"blockedReason":null}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19D — the credited writer holds no production presence claim > never puts the credited writer on the soundstage in rehearsal or shooting
+[P04A.2 WITNESS] §19D writer presence across every phase of the picture they wrote: [{"phase":"development","engagement":"script","site":"facility-development-casting"},{"phase":"preProduction","engagement":"roster","site":"facility-development-casting"},{"phase":"rehearsal","engagement":"roster","site":"facility-development-casting"},{"phase":"shooting","engagement":"roster","site":"facility-development-casting"},{"phase":"postProduction","engagement":"roster","site":"facility-development-casting"}]
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19E — the quote projections publish no writer-busy blocker for a CREDIT > both greenlight readiness projections are clear, and name the exact writer id
+[P04A.2 WITNESS] §19E scriptReadModel package availability: {
+  "writerId": "t-wri-02",
+  "writerAvailable": true,
+  "knownGatesClear": true,
+  "canSubmitGreenlightIntent": true,
+  "blockers": []
+}
+[P04A.2 WITNESS] §19E castingPackageReadModel readiness: {"knownGatesClear":true,"willQueue":false,"blockers":[]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19E — the quote projections publish no writer-busy blocker for a CREDIT > a REFUSED greenlight command mutates nothing at all
+[P04A.2 WITNESS] §19E refused greenlight (no partial mutation): applyActions: greenlight assigns the same actor to more than one cast slot (t-act-01, t-act-01, t-act-21)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19F — the queued greenlight path is unchanged and still truthful > a capacity refusal still QUEUES a greenlight whose credited writer is mid-draft
+[P04A.2 WITNESS] §19F queue admission while the credited writer drafts: {"kind":"greenlightScriptProject","ordinal":0,"queuedWeek":2,"writerDrafting":true}
+[P04A.2 WITNESS] §19F dequeue while still slot-starved: {"outcome":"waiting","capacity":0,"namedRefusal":"QueueableCapacityRefusal"}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19F — the queued greenlight path is unchanged and still truthful > the queued greenlight later executes correctly, preserving the exact writer credit
+[P04A.2 WITNESS] §19F queue drained: {"remaining":0,"productions":[{"projectId":"prod-0002","writerId":"t-wri-06"},{"projectId":"prod-0005","writerId":"t-wri-06"}]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19G — the split needs no save migration and survives reload > keeps saveVersion at 16 and round-trips film credit + live writing assignment together
+[P04A.2 WITNESS] §19G saveVersion: {"saveVersion":19}
+[P04A.2 WITNESS] §19G both facts after reload: {"creditedOn":"prod-0001","draftingProject":"script-0001","busy":true}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19H — an out-of-contract credited writer: the exact current limitation > publishes no writer blocker, and the greenlight succeeds at the ENGINE layer too
+[P04A.3 WITNESS] §19H projection blockers for an out-of-contract credited writer: []
+[P04A.3 WITNESS] §19H out-of-contract greenlight now succeeds at the engine layer: {"activeProductions":1}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19H — an out-of-contract credited writer: the exact current limitation > the CREDIT itself survives the contract ending mid-production
+[P04A.2 WITNESS] §19H credit survives contract expiry: {"writerId":"t-wri-02","contracted":false,"creditedOn":"prod-0001"}
+[P04A.2 WITNESS] §19H released-film credit for an off-lot writer: {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","discipline":"writing","greenlightOVR":77,"greenlightFit":72,"greenlightEP":{"low":67.7800661551918,"high":97.7682901551918,"expected":82.7741781551918},"freelancer":false}
+
+ ✓ |core| tests/p04a2-writer-credit-law.test.ts (22 tests) 138ms
+ ✓ |core| tests/actions.test.ts (49 tests) 80ms
+ ✓ |core| tests/first-film-journey.test.ts (10 tests) 315ms
+ ✓ |core| tests/ruling-c-filmshape.test.ts (24 tests) 11ms
+ ✓ |core| tests/d9-talent.test.ts (33 tests) 329ms
+ ✓ |core| tests/film-chronicle.test.ts (28 tests) 112ms
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 617ms
+ ✓ |core| tests/operations.test.ts (13 tests) 133ms
+ ✓ |core| tests/construction-core.test.ts (12 tests) 811ms
+ ✓ |core| tests/placement-core.test.ts (36 tests) 613ms
+   ✓ Placement Core V12 — the runner invariant (property) > commit quote deep-equals query quote over random requests 308ms
+ ✓ |core| tests/broadcast.test.ts (26 tests) 1011ms
+   ✓ §8 broadcast is INERT in the natural M0A corpus (contract-forced) > full-year runs produce ZERO broadcast items (both agents, representative seeds) 1003ms
+ ✓ |core| tests/blueprint-requirements.test.ts (26 tests) 494ms
+   ✓ C1-M2 — the shipped Annex is unchanged > quotes identically across the WHOLE parcel map, gates and all 408ms
+ ✓ |core| tests/studio-calendar.test.ts (10 tests) 265ms
+ ✓ |core| tests/property-state-v13.test.ts (24 tests) 2803ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > decides every query verdict from state exactly as the constants decided it 342ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > keeps the severance walk verdict-identical with structures in the obstacle set 621ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries twelve-plus placed facilities through invariants, completion, opex, and save 386ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries far more than twelve when the property has room for them 919ms
+stdout | tests/p09a-w0-founding-regime.test.ts > P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero
+[p09 gate] release week 37; cash floor 7888869; final cash 9778380.025328362; weeks 42
+
+ ✓ |core| tests/p09a-w0-founding-regime.test.ts (13 tests) 1602ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > save/load mid-construction continues byte-identically; same-week sites complete together in id order 329ms
+ ✓ |core| tests/script-read-model.test.ts (11 tests) 89ms
+ ✓ |core| tests/standing.test.ts (17 tests) 5ms
+ ✓ |core| tests/facility-effects.test.ts (20 tests) 644ms
+ ✓ |core| tests/d11-employment.test.ts (36 tests) 1451ms
+   ✓ D-11.8 — expiration > a contract expires at term end and the talent becomes a free agent 422ms
+   ✓ D-11.7 — renewals > renewing inside the window extends the term and takes a signing bonus from cash 355ms
+ ✓ |core| tests/bridge-casting.test.ts (12 tests) 3024ms
+   ✓ P04A Casting bridge — quote seam and board > quotes, mints, and commits a screen test with the EXACT player slate — no fee, no hold, one reservation, dueWeek = week+1 769ms
+   ✓ P04A Casting bridge — quote seam and board > capacity-only greenlight at controlled fractional cash 0.25 quotes queues:true and commits with ZERO commitment 316ms
+ ✓ |core| tests/d17-engagement-persistence.test.ts (30 tests) 456ms
+ ✓ |core| tests/d11-cycle3.test.ts (61 tests) 58ms
+ ✓ |core| tests/production-operations-save-v8.test.ts (20 tests) 594ms
+ ✓ |core| tests/ruling-a-development-in-play.test.ts (18 tests) 199ms
+ ✓ |core| tests/placement-save-v12.test.ts (20 tests) 709ms
+ ✓ |core| tests/p05a-w1-scenery-truth.test.ts (21 tests) 167ms
+ ✓ |core| tests/migration.test.ts (23 tests) 383ms
+ ✓ |core| tests/c2a-m5-studio-week-theater.test.ts (19 tests) 179ms
+ ✓ |core| tests/p08a-w0-studio-history.test.ts (13 tests) 1578ms
+   ✓ P08A H3/H5 — weekly settling receipts are exact, bounded, and folded deterministically > records a routine settling receipt only when awareness actually moves, then folds past the window 805ms
+ ✓ |core| tests/d17b-awareness-counterflow.test.ts (20 tests) 654ms
+   ✓ D-17B §1/E1 — M0A byte-identity by construction (headless spot-run) > a headless year is never engaged, so every standing update uses the legacy 0.58 pivot 464ms
+ ✓ |core| tests/script-projects-save-v9.test.ts (8 tests) 394ms
+ ✓ |core| tests/forecast.test.ts (20 tests) 14ms
+ ✓ |core| tests/d17a-fixed-cost-allocation.test.ts (16 tests) 1501ms
+   ✓ D-17A/T3 (b) — engine-driven: the allocation reconciles to the real ledger > CONTRACT EXPIRY mid-run: burn drops to bare overhead and the allocation still reconciles 396ms
+ ✓ |core| tests/reception-formulas.test.ts (28 tests) 14ms
+ ✓ |core| tests/ruling-b-multihyphenate.test.ts (21 tests) 3272ms
+   ✓ RULING B — usable secondaries are real broad SKILLS; ordinary talent is weak elsewhere > a usable secondary's OVR≥60 is EARNED by its skill vector (recomputing OVR from the skills reproduces it) 317ms
+ ✓ |core| tests/bridge-p09a-w1-placement-quote.test.ts (7 tests) 4094ms
+   ✓ P09A W1 — placement quote family over the bridge > R3: a full-grid sweep with two footprints rides every rejection family the ground produces, exactly as the engine says 2269ms
+   ✓ P09A W1 — placement quote family over the bridge > R4: commit builds exactly once at the quoted engine price, then the intent is spent 341ms
+   ✓ P09A W1 — placement quote family over the bridge > R5: any accepted command retires outstanding placement quotes; a stale revision is refused first 660ms
+   ✓ P09A W1 — placement quote family over the bridge > R6: the founding regime is on the wire as exact history; the same authority answers per the ground it sees 661ms
+ ✓ |core| tests/cash-ledger-checkpoint-v11.test.ts (10 tests) 1146ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > retains a nonempty historical checkpoint prefix only through ledger-owning builders 439ms
+ ✓ |core| tests/bridge-p10a-r1-contract-quote.test.ts (8 tests) 2712ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R1: a legal renewal reads the engine verbatim, commits once at the quoted bonus, and refuses replay / re-use 590ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R4: a stale quote is refused once the authority moved on 738ms
+   ✓ P10-R1 — contract renewal / early release over the bridge > R5: unknown person is a draft refusal; no contract is an accepted refusal; a changed contract re-prices 602ms
+ ✓ |core| tests/script-development.test.ts (10 tests) 28ms
+ ✓ |core| tests/c2a-m2-sets-machinery.test.ts (19 tests) 62ms
+ ✓ |core| tests/c1-m6-second-zone-by-data.test.ts (10 tests) 390ms
+ ✓ |ui| ui/src/test/contracts/m5-determinism.contract.test.ts (7 tests) 15359ms
+   ✓ C2a-M5 — the LEGACY path is silent (the M0A corpus gate) > and the batch verb never mints a wrap there either 14957ms
+ ✓ |core| tests/c2a-m5-scenery-load-in-layout.test.ts (20 tests) 80ms
+ ✓ |core| tests/d17a-economy-selectors.test.ts (23 tests) 263ms
+ ✓ |core| tests/contracts/v14-boundary-guards.contract.test.ts (36 tests) 405ms
+ ✓ |core| tests/bridge-schema.test.ts (22 tests) 10335ms
+   ✓ canonical Unity bridge schema > projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope 1050ms
+   ✓ canonical Unity bridge schema > keeps live location identities in the projection-v4 building namespace 6972ms
+   ✓ canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data 594ms
+   ✓ canonical Unity bridge schema > preserves required nullable numeric fields through schema projection 499ms
+   ✓ canonical Unity bridge schema > models accepted load/command responses as one flat projection envelope 465ms
+   ✓ canonical Unity bridge schema > requires one closed structured rejection with non-empty guidance and a nullable holder 317ms
+   ✓ canonical Unity bridge schema > validates the session and health handshake envelopes 403ms
+ ✓ |core| tests/d17b-publicity.test.ts (29 tests) 179ms
+ ✓ |core| tests/roster-wall-fixtures.test.ts (9 tests) 6599ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > derives every named cash threshold from each policy's exact offers and retains N/A role rows 1496ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > ranks frozen quote metadata in each C0-C6 policy's actual complete basis order 1124ms
+   ✓ Week-208 roster-wall synthetic mechanics fixtures > emits the complete canonical-data-ready matrix deterministically 3328ms
+ ✓ |core| tests/presence-scenario.test.ts (3 tests) 36ms
+ ✓ |core| tests/c2a-m2-set-binding.test.ts (10 tests) 704ms
+ ✓ |core| tests/casting-sessions-actions.test.ts (8 tests) 269ms
+ ✓ |core| tests/v14-dual-run.test.ts (8 tests) 131ms
+stdout | tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > bounds a120-year recorded query to13/52 points with exact totals and no calendar-year invention
+{"kind":"p11-long-history-query-measurement","classification":"synthetic query-scale fixture; not played campaign evidence","weeks":6240,"ledgerEntries":6240,"elapsedMilliseconds":0.15679199999976845,"historyJsonBytes":84796,"syntheticStateJsonBytes":730155,"pointCounts":[13,52]}
+
+ ✓ |core| tests/bridge-p11-ready.test.ts (17 tests) 4242ms
+   ✓ P11 ready Upcoming and discarded financial successors > retains already-open renewal dates; expiry pays its final preceding advance only 595ms
+   ✓ P11 ready Upcoming and discarded financial successors > renew: exact pennies/guarantees and recurring costs agree with the real committed successor 853ms
+   ✓ P11 ready Upcoming and discarded financial successors > release: exact pennies/guarantees and recurring costs agree with the real committed successor 345ms
+   ✓ P11 ready Upcoming and discarded financial successors > immediate Greenlight pays the exact quoted financial amount once and replaces the project row by its real production 325ms
+   ✓ P11 ready Upcoming and discarded financial successors > hire reads the real successor, including a new seat; preview remains observation/RNG neutral 353ms
+   ✓ P11 recorded trends and full portfolio > serves the actual21-film/6240-advance public diagnostic as exact unique rows and52 completed history points 432ms
+ ✓ |core| tests/p06a-w1-release-authority.test.ts (14 tests) 322ms
+ ✓ |core| tests/facilities-observatory.test.ts (12 tests) 5432ms
+   ✓ Facilities & Construction research observatory > is deterministic, ledger-reconciled, and samples exact Calendar slot-weeks 319ms
+   ✓ Facilities & Construction research observatory > keeps every arm explicit and uses one-boundary shadows for current capacity rejections 532ms
+   ✓ Facilities & Construction research observatory > activates delayed capacity at the exact start-of-week boundary with exact raw manifests 313ms
+   ✓ Facilities & Construction research observatory > uses one distinct capacity-two research facility while current shadows stay one-slot 552ms
+   ✓ Facilities & Construction research observatory > emits canonical seed-major/policy-major pairs with frozen provenance boundaries 773ms
+   ✓ Facilities & Construction research observatory > reaches the Week-260 horizon and reports Week-208 staffing separately 1895ms
+   ✓ Facilities & Construction research observatory > uses the role-specific camera-test slate when packaging auditioned projects 547ms
+ ✓ |ui| ui/src/lot/livingTurn.parity.test.tsx (7 tests) 24912ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (a) by hand at the seam — the manual verb, pressed twelve times 1991ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (b) by the living loop at 1× — one press of Roll, then nothing at all 5558ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (b′) by the living loop at 4× — the same weeks, a quarter of the wall time 3385ms
+   ✓ C2a-M5 — four-way time parity: the same twelve weeks, four ways > (c) paused and resumed arbitrarily, including mid-week 4320ms
+   ✓ C2a-M5 — and the four are one studio > exports FOUR byte-identical saves from four different ways of spending time 9617ms
+ ✓ |core| tests/legacy-parcel-ground.test.ts (14 tests) 2317ms
+   ✓ C1-M8 (B) — a generic building may not be BUILT there > accepts nothing anywhere on the property whose body the world would not show 2095ms
+ ✓ |core| tests/roster-wall-artifacts.test.ts (16 tests) 13060ms
+   ✓ roster-wall provenance gates > accepts a clean harness/docs/tests-only descendant and stamps exact source identity 689ms
+   ✓ roster-wall provenance gates > rejects untracked executable state, a wrong branch, and production-source drift 1094ms
+   ✓ roster-wall provenance gates > rejects an ignored executable/source shadow 379ms
+   ✓ roster-wall artifact infrastructure > does not expose an accepted-finalization authority override 474ms
+   ✓ roster-wall artifact infrastructure > rejects the former skeletal smoke counterfeit before semantic acceptance 3644ms
+   ✓ roster-wall artifact infrastructure > rejects rebuilt mechanics semantics against the canonical fixture oracle 6058ms
+ ✓ |core| tests/d11-cycle2.test.ts (19 tests) 533ms
+ ✓ |core| tests/construction-save-v11.test.ts (12 tests) 534ms
+ ✓ |core| tests/contracts/studio-events.contract.test.ts (25 tests) 292ms
+ ✓ |core| tests/c2a-m4-queue-admission.test.ts (13 tests) 108ms
+ ✓ |core| tests/bridge-p11-finance.test.ts (8 tests) 2699ms
+   ✓ P11 construction financial consequence over the real bridge > development-casting-annex: retains pennies, charges once now and introduces Opex only after completion 965ms
+   ✓ P11 construction financial consequence over the real bridge > development-office-2: retains pennies, charges once now and introduces Opex only after completion 881ms
+   ✓ P11 construction financial consequence over the real bridge > gives illegal placement no financial successor and refuses a stale legal financial preview 401ms
+ ✓ |core| tests/bridge-p10a-w0-people-projection.test.ts (10 tests) 745ms
+   ✓ P10A W0 — people projection > R8 grouped attention lists each person at most once, by the highest tier; contract horizons come from the contract alone 480ms
+ ✓ |core| tests/d17a-discovery-exposure.test.ts (13 tests) 14ms
+ ✓ |core| tests/presence-projection.test.ts (14 tests) 94ms
+ ✓ |core| tests/casting-package-read-model.test.ts (11 tests) 95ms
+ ✓ |core| tests/v14-migration.contract.test.ts (30 tests) 3552ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays development/none byte-identically to its V13 twin for 30 weeks 316ms
+   ✓ C2a-M1 · T9 (B) — every held phase × blocker kind migrates and plays true > plays preProduction/none byte-identically to its V13 twin for 30 weeks 343ms
+ ✓ |core| tests/d12-economy.test.ts (17 tests) 166ms
+ ✓ |core| tests/tick.test.ts (9 tests) 63ms
+ ✓ |core| tests/c1-m6-identity-not-coordinates.test.ts (6 tests) 311ms
+ ✓ |core| tests/d17a-adv-cliff.test.ts (13 tests) 2374ms
+   ✓ D-17A/C — path 1: every contract expires NATURALLY > leaves zero contracts and still reports the economy as engaged 407ms
+   ✓ D-17A/C — path 1: every contract expires NATURALLY > keeps debiting weekly overhead after the last expiry (the base charge survives) 330ms
+   ✓ D-17A/C — path 1: every contract expires NATURALLY > opens and PAYS the post-cliff release weekly — no lump, no frozen run 329ms
+   ✓ D-17A/C — path 1: every contract expires NATURALLY > judges a later greenlight by the ENGAGED branch (D-11.12 / the solvency gate) 324ms
+   ✓ D-17A/C — the regime fact is MONOTONIC (never cleared by any of these paths) > stays true from founding, through a full expiry, a firing, and further play 302ms
+ ✓ |core| tests/construction-accounting-calendar.test.ts (9 tests) 106ms
+ ✓ |core| tests/c1-m6-no-property-cap.test.ts (7 tests) 4493ms
+   ✓ C1-M6 (2) — composition, legality, completion, move, demolish, save, at scale > fills far past the founding count and completes every one of them 666ms
+   ✓ C1-M6 (2) — composition, legality, completion, move, demolish, save, at scale > moves and demolishes anywhere on it, with the ledger correlations intact 3522ms
+ ✓ |core| tests/bridge-p07a-w6-result-continuity.test.ts (6 tests) 738ms
+ ✓ |core| tests/d17a-adv-reconciliation.test.ts (14 tests) 2838ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 0 weeks 373ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 11 weeks 381ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > is identical across two independent calls and across a save → validate → migrate → load trip 395ms
+ ✓ |core| tests/save.test.ts (10 tests) 72ms
+ ✓ |core| tests/bridge-runtime-checkpoint.test.ts (57 tests) 20703ms
+   ✓ BridgeRuntimeCheckpointV1 > forward-migrates protocol 3 by preserving both V15 slots and discarding incompatible replay bytes 1538ms
+   ✓ BridgeRuntimeCheckpointV1 > rolls the previous protocol-4 schema forward without changing either V15 save slot 1288ms
+   ✓ BridgeRuntimeCheckpointV1 > rolls an authentic previous protocol-4 checkpoint with no explicit save slot 382ms
+   ✓ BridgeRuntimeCheckpointV1 > encodes one exact closed canonical shape with one LF and hydrates stable V15 bytes 1236ms
+   ✓ BridgeRuntimeCheckpointV1 > requires canonical checkpoint bytes followed by exactly one LF 1500ms
+   ✓ BridgeRuntimeCheckpointV1 > rejects missing and additional roots plus incompatible format, version, protocol, and schema 934ms
+   ✓ BridgeRuntimeCheckpointV1 > requires untouched canonical V15 current and explicit-save bytes with exact digests 2445ms
+   ✓ BridgeRuntimeCheckpointV1 > validates route-specific requests, responses, identity, session, revision, and canonical JSON 1555ms
+   ✓ BridgeRuntimeCheckpointV1 > binds exact historical bytes and rejection semantics to their original route 1334ms
+   ✓ BridgeRuntimeCheckpointV1 > rejects duplicate identities and revision-regressing journal order 1234ms
+   ✓ BridgeRuntimeCheckpointV1 > binds the root revision to the terminal journal response 1340ms
+   ✓ BridgeRuntimeCheckpointV1 > returns a normalized prospective append only after identity and capacity validation 1049ms
+   ✓ BridgeRuntimeCheckpointV1 > enforces injectable entry, journal-byte, and checkpoint-byte bounds before hydration 1181ms
+   ✓ BridgeRuntimeCheckpointV1 > validates an accepted save response V15 payload and digest before journaling it 899ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > preserves both distinct native R05 founding slots when the Profile calendar contract advances 466ms
+ ✓ |core| tests/bridge-runtime-coordinator.test.ts (11 tests) 10101ms
+   ✓ BridgeRuntimeCoordinator > atomically persists a state-preserving protocol-3 rollover before becoming ready 823ms
+   ✓ BridgeRuntimeCoordinator > preserves protocol-3 bytes when the migration checkpoint commit fails 628ms
+   ✓ BridgeRuntimeCoordinator > atomically rolls the previous protocol-4 schema into a fresh replay session 678ms
+   ✓ BridgeRuntimeCoordinator > keeps prior protocol-4 bytes when its schema rollover commit fails 514ms
+   ✓ BridgeRuntimeCoordinator > does not expose a first-seen dispatch to its caller or a queued read before commit 1067ms
+   ✓ BridgeRuntimeCoordinator > restores logical identity, revision, and the exact historical response 1229ms
+   ✓ BridgeRuntimeCoordinator > poisons queued and later reads when a checkpoint commit fails without replacing prior bytes 832ms
+   ✓ BridgeRuntimeCoordinator > rolls full journals without changing current or explicitly saved game authority 2554ms
+   ✓ BridgeRuntimeCoordinator > poisons instead of rolling when one entry cannot fit an empty journal 676ms
+   ✓ BridgeRuntimeCoordinator > drains accepted work before releasing the store and rejects work added after close 970ms
+ ✓ |core| tests/c2a-m3-screenplay-mint.test.ts (8 tests) 173ms
+ ✓ |core| tests/script-projects-actions.test.ts (4 tests) 54ms
+ ✓ |core| tests/c2a-m4-release-law.test.ts (5 tests) 72ms
+ ✓ |core| tests/c2a-m3-rename-and-pooling.test.ts (9 tests) 115ms
+ ✓ |core| tests/studioRunRecap.test.ts (22 tests) 2801ms
+ ✓ |core| tests/c2a-m0-engine-union.test.ts (11 tests) 183ms
+ ✓ |core| tests/d17a-adv-action-parity.test.ts (9 tests) 300ms
+ ✓ |core| tests/placement-lifecycle.test.ts (14 tests) 358ms
+ ✓ |core| tests/d17b-save-v7.test.ts (22 tests) 200ms
+ ✓ |core| tests/bridge-founding.test.ts (6 tests) 8492ms
+   ✓ Bridge production founding v1 > emits the exact founding action at Core coverage and keeps the reserve Actor optional 7000ms
+   ✓ Bridge production founding v1 > replays an accepted founding offer exactly and rejects stale or consumed choices without mutation 427ms
+   ✓ Bridge production founding v1 > restores an in-progress founding draft with exact authority and replay continuity 654ms
+ ✓ |core| tests/agents.test.ts (9 tests) 180ms
+ ✓ |core| tests/casting-sessions-domain.test.ts (8 tests) 23ms
+ ✓ |core| tests/bridge-p05a3-roster-liveness.test.ts (9 tests) 1141ms
+ ✓ |core| tests/bridge-http-security.test.ts (2 tests) 3488ms
+   ✓ fails closed before opening runtime state when the launch capability is absent or invalid 1716ms
+   ✓ denies cross-origin and unauthenticated reads and mutations before runtime access 1770ms
+ ✓ |core| tests/reception-bounds.test.ts (29 tests) 6ms
+ ✓ |core| tests/worldgen.test.ts (25 tests) 1483ms
+   ✓ worldgen — talent field bounds (§9, B7, N3) > every talent satisfies §9 bounds across many seeds (truncation/clamp exercised) 430ms
+   ✓ worldgen — concept field bounds (§9, B8, B11, M4) > every concept satisfies its contract bounds across many seeds 457ms
+ ✓ |core| tests/d12-p2-calibration.test.ts (7 tests) 1284ms
+   ✓ D-12 P2 owner route: four ordinary films no longer multiply cash > a competent studio ends four films meaningfully constrained, with real losses 1280ms
+ ✓ |core| tests/candidates.test.ts (12 tests) 148ms
+ ✓ |core| tests/d14-star-power.test.ts (15 tests) 732ms
+ ✓ |core| tests/c2a-m2-blueprint-slate.test.ts (12 tests) 9ms
+ ✓ |core| tests/c2a-m2-sets-save.test.ts (4 tests) 327ms
+ ✓ |core| tests/p04a3-greenlight-law.test.ts (8 tests) 48ms
+ ✓ |core| tests/bridge-process-restart.test.ts (10 tests) 26313ms
+   ✓ rejects the post-commit response gate outside a test process before opening runtime state 833ms
+   ✓ restores one durable logical bridge session and exact HTTP replay after SIGKILL 6642ms
+   ✓ withholds a durably committed command response until SIGKILL and replays it byte-identically after restart 3266ms
+   ✓ withholds a durably committed save response until SIGKILL and replays it byte-identically after restart 2663ms
+   ✓ withholds a durably committed load response until SIGKILL and replays it byte-identically after restart 4327ms
+   ✓ observes a byte-different semantic replay instead of falsely proving an exact request retry 1868ms
+   ✓ drops a durably committed command response and replays it byte-identically in the same process 2016ms
+   ✓ drops a durably committed save response and replays it byte-identically in the same process 1513ms
+   ✓ drops a durably committed load response and replays it byte-identically in the same process 3182ms
+ ✓ |core| tests/d17a-adv-discovery.test.ts (9 tests) 34ms
+ ✓ |core| tests/bridge-development.test.ts (4 tests) 4276ms
+   ✓ P03A Development bridge — quote seam and board > quotes, mints, and commits a market commission draft through the quote seam 917ms
+   ✓ P03A Development bridge — quote seam and board > rejects stale and malformed drafts without mutation 939ms
+   ✓ P03A Development bridge — quote seam and board > publishes a leak-free Development board and an exact rewrite preview at review 1900ms
+   ✓ P03A Development bridge — quote seam and board > quotes an original screenplay draft with the engine's own clock 520ms
+ ✓ |core| tests/forecast-independence.test.ts (10 tests) 10ms
+ ✓ |core| tests/c2a-m4-queue-legibility.test.ts (4 tests) 110ms
+ ✓ |core| tests/replay.test.ts (15 tests) 2599ms
+   ✓ §15.7 full-run replay — byte-identical SaveFileV1 (M14) > OracleAgent: two full-year runs with the same seed produce byte-identical exportSave 397ms
+   ✓ §15.7/D-9.8 — develop:true full-run replay is byte-identical > OracleAgent: two develop:true full-year runs with the same seed are byte-identical 324ms
+ ✓ |core| tests/casting-sessions-save-v10.test.ts (6 tests) 221ms
+ ✓ |core| tests/bridge-checkpoint-store.test.ts (12 tests) 385ms
+ ✓ |core| tests/c2a-m2-set-catalog.test.ts (14 tests) 12ms
+ ✓ |core| tests/d17a-adv-migration.test.ts (17 tests) 9ms
+ ✓ |core| tests/bridge-p09a-w5-set-commission.test.ts (5 tests) 1515ms
+   ✓ P09A W5 — Set commission over the bridge > R2: a refused preview is an accepted ok:false answer with the engine reason + remedy; its id is not a commit 312ms
+   ✓ P09A W5 — Set commission over the bridge > R3: commit builds the Set once at the quoted price; replay refused; the stage is then dressed 657ms
+ ✓ |core| tests/contracts/phase-table-agreement.contract.test.ts (10 tests) 202ms
+ ✓ |core| tests/c2a-m3-provenance-surfaces.test.ts (8 tests) 143ms
+ ✓ |core| tests/bridge-owner-ux-projection20-migration.test.ts (10 tests) 3239ms
+   ✓ Owner UX outgoing projection20 migration > persists 'frozen Week105 null slot' once, then preserves the new session on restart 328ms
+   ✓ Owner UX outgoing projection20 migration > persists 'frozen R12 Week106 null slot and genu…' once, then preserves the new session on restart 325ms
+   ✓ Owner UX outgoing projection20 migration > persists 'constructed distinct-slot envelope fr…' once, then preserves the new session on restart 446ms
+   ✓ Owner UX outgoing projection20 migration > preserves current-schema journal/session and exact Save retries after real published advance 1357ms
+ ✓ |core| tests/placement-lot.test.ts (14 tests) 58ms
+ ✓ |core| tests/c2a-m4-contention-property.test.ts (7 tests) 98ms
+ ✓ |core| tests/studio-decision.test.ts (3 tests) 139ms
+ ✓ |core| tests/d12-economy-view.test.ts (12 tests) 524ms
+ ✓ |core| tests/bridge-p05a1-owner-greenlight.test.ts (7 tests) 690ms
+   ✓ P05A.1 — the Owner-profile Queue Greenlight state, replayed > capacity-only affordable package: quote accepted, queues, then ONE queue row and zero commitment 499ms
+ ✓ |core| tests/bridge-p08a-w2-history-projection.test.ts (4 tests) 556ms
+ ✓ |core| tests/bridge-p06-checkpoint-recovery.test.ts (11 tests) 1289ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > persists 'Ready with no explicit save' once and reopens without remigration 373ms
+   ✓ AUD-001 — frozen P06 checkpoint recovery > persists 'Committed with distinct Ready save an…' once and reopens without remigration 491ms
+ ✓ |core| tests/c2a-m3-determinism-and-guards.test.ts (8 tests) 311ms
+ ✓ |core| tests/bridge-supervisor.test.ts (14 tests) 32224ms
+   ✓ one-command studio supervisor > emits, audits, and supervises the packaged production graph without the development loader 1438ms
+   ✓ one-command studio supervisor > launches only after authenticated readiness and preserves one private profile across distinct logs 4456ms
+   ✓ one-command studio supervisor > restarts a SIGKILLed engine on its fixed port without changing durable authority 3631ms
+   ✓ one-command studio supervisor > cancels replacement work when Unity exits during an engine outage 2328ms
+   ✓ one-command studio supervisor > kills a Unity helper that survives TERM before releasing the active lease 7430ms
+   ✓ one-command studio supervisor > rejects a concurrent owner, shuts down on signal, and reclaims only a stale incarnation 7070ms
+   ✓ one-command studio supervisor > bounds engine crash loops and never touches an unrelated process 5467ms
+ ✓ |core| tests/d13-capital-frontier.test.ts (11 tests) 105ms
+ ✓ |core| tests/c2a-m3-screenplay-vocabulary.test.ts (13 tests) 19ms
+ ✓ |core| tests/c2a-m3-writer-speed.test.ts (12 tests) 35ms
+ ✓ |core| tests/contracts/union-producer-subsumption.contract.test.ts (5 tests) 46ms
+ ✓ |core| tests/p11-finance-report.test.ts (5 tests) 350ms
+ ✓ |core| tests/facilities-observatory-cli.test.ts (7 tests) 9522ms
+   ✓ Facilities observatory artifact runner > builds byte-identical timestamp-free artifacts with every evidence mode explicit 8974ms
+   ✓ Facilities observatory artifact runner > treats untracked executable source as dirty provenance 372ms
+ ✓ |core| tests/bridge-snapshot-build-context.test.ts (13 tests) 2644ms
+   ✓ W0 snapshot build context — once-per-state computation > recomputes facts exactly once for the successor state after an accepted command 362ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > keeps command legality intact after a served envelope is vandalized 301ms
+   ✓ W0 snapshot build context — envelope isolation and determinism > restores loaded-state facts freshly and exactly on load 598ms
+ ✓ |core| tests/bridge-p11-capital-contributors.test.ts (6 tests) 710ms
+ ✓ |core| tests/d12-calibration-closure.test.ts (8 tests) 6ms
+ ✓ |core| tests/contracts/v14-byte-parity.contract.test.ts (6 tests) 193ms
+ ✓ |core| tests/bridge-p09a-r2-facility-history-rows.test.ts (5 tests) 431ms
+ ✓ |core| tests/contracts/sticky-retention.contract.test.ts (2 tests) 48ms
+ ✓ |core| tests/d12-commercial-outlook-fame.test.ts (7 tests) 26ms
+ ✓ |core| tests/d12-final-downside.test.ts (7 tests) 6ms
+stdout | tests/bridge-p04a2-writer-credit-law.test.ts > P04A.2 §19E — the greenlight quote/command seam publishes no writer-busy blocker > quotes clean, mints ONE opaque intent, and the command is the sole commit
+[P04A.2 WITNESS] §19E bridge packageReadiness (A ready, writer drafting B): {"knownGatesClear":true,"willQueue":false,"blockers":[]}
+
+stdout | tests/bridge-p04a2-writer-credit-law.test.ts > P04A.2 §19E — the greenlight quote/command seam publishes no writer-busy blocker > a stale revision still refuses, and a refusal mutates NOTHING
+[P04A.2 WITNESS] §19E refusals leave no trace: {"staleReason":"STALE_REVISION","budgetRefused":true}
+
+ ✓ |core| tests/bridge-p04a2-writer-credit-law.test.ts (2 tests) 405ms
+   ✓ P04A.2 §19E — the greenlight quote/command seam publishes no writer-busy blocker > quotes clean, mints ONE opaque intent, and the command is the sole commit 379ms
+ ✓ |core| tests/d17a-adv-prospective-cycle.test.ts (9 tests) 45ms
+ ✓ |core| tests/d17a-recap-studio-economics.test.ts (6 tests) 788ms
+ ✓ |core| tests/contracts/cross-owner-refusal.contract.test.ts (3 tests) 174ms
+ ✓ |core| tests/d17a-adv-offer-truth.test.ts (12 tests) 284ms
+ ✓ |core| tests/d12-audience-aligned-weak-execution.test.ts (5 tests) 5ms
+ ✓ |core| tests/roster-wall-renewal.test.ts (6 tests) 42ms
+ ✓ |core| tests/rng.test.ts (17 tests) 705ms
+ ✓ |core| tests/d13-discoverability.test.ts (12 tests) 6ms
+ ✓ |core| tests/d17b-disc-shape.test.ts (10 tests) 15ms
+ ✓ |core| tests/contracts/determinism-floor.contract.test.ts (3 tests) 110ms
+ ✓ |core| tests/declarations.test.ts (20 tests) 7ms
+ ✓ |core| tests/p11-finance-recurring.test.ts (5 tests) 260ms
+ ✓ |core| tests/bridge-p12-industry.test.ts (3 tests) 212ms
+ ✓ |core| tests/bridge-owner-ux-saved-slot.test.ts (9 tests) 12115ms
+   ✓ Owner UX saved-slot metadata > reports the next saved bytes immediately without changing gameplay revision or digest 918ms
+   ✓ Owner UX saved-slot metadata > retains the saved week while the live game advances, then updates on a same-revision overwrite 1990ms
+   ✓ Owner UX saved-slot metadata > replays a historical Save receipt without overwriting the newer slot, including after reconnect 2782ms
+   ✓ Owner UX saved-slot metadata > keeps distinct current and saved slots across reconnect and rollover, then Load restores the saved subject 3252ms
+   ✓ Owner UX saved-slot metadata > does not change slot metadata or durable state after stale or wrong-session Save 1466ms
+   ✓ Owner UX saved-slot metadata > does not expose prospective metadata if checkpoint preparation rejects Save 433ms
+   ✓ Owner UX saved-slot metadata > returns independent metadata objects for polling, accepted receipts, and cached retries 555ms
+   ✓ Owner UX saved-slot metadata > does not fabricate metadata when the low-level constructor receives unreadable saved bytes 450ms
+ ✓ |core| tests/p05a3-minimal-founding-liveness.test.ts (3 tests) 55ms
+ ✓ |core| tests/bridge-owner-ux-genre-projection.test.ts (6 tests) 77ms
+ ✓ |core| tests/roster-wall-schema.test.ts (5 tests) 2500ms
+   ✓ Week-208 roster-wall evidence schema > projects the exact V11 entry, accounting, dimensions and three warning shadows 897ms
+   ✓ Week-208 roster-wall evidence schema > rejects even a sub-cent cash mismatch instead of applying tolerance 811ms
+   ✓ Week-208 roster-wall evidence schema > keeps Annex state descriptive and distinct in the entry ID 786ms
+ ✓ |core| tests/bridge-inflight-evidence-verifier.test.ts (9 tests) 25397ms
+   ✓ bridge in-flight native evidence verifier > binds exactly three Unity receipts to commit markers, replay bytes, and the checkpoint 1341ms
+   ✓ bridge in-flight native evidence verifier > requires schema 7 raw-founding identity and an explicitly empty recovery prelude 9275ms
+   ✓ bridge in-flight native evidence verifier > rejects a byte-different semantic retry even when command identity still matches 1302ms
+   ✓ bridge in-flight native evidence verifier > rejects response hashes forged consistently by both marker producers and Unity 1296ms
+   ✓ bridge in-flight native evidence verifier > rejects duplicate, missing, and extra-schema markers 3696ms
+   ✓ bridge in-flight native evidence verifier > rejects noncanonical and incomplete marker lines 2582ms
+   ✓ bridge in-flight native evidence verifier > rejects duplicate Unity routes and incomplete report counts 2361ms
+   ✓ bridge in-flight native evidence verifier > rejects extra durable journal authority and a mismatched final checkpoint digest 2445ms
+   ✓ bridge in-flight native evidence verifier > uses a dedicated fail-closed error without embedding the evidence root 1099ms
+ ✓ |core| tests/bridge-p12-campaign-library.test.ts (13 tests) 32043ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 1598ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 1448ms
+   ✓ R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 4328ms
+   ✓ R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 1769ms
+   ✓ R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 1551ms
+   ✓ R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 2959ms
+   ✓ R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 3173ms
+   ✓ R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 3526ms
+   ✓ R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 739ms
+   ✓ R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 1161ms
+   ✓ R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 1621ms
+   ✓ R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 5149ms
+   ✓ R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 3018ms
+ ✓ |core| tests/p12-checker.test.ts (5 tests) 41ms
+ ✓ |core| tests/tuning.test.ts (36 tests) 10ms
+ ✓ |core| tests/bridge-p11-production-location.test.ts (3 tests) 713ms
+   ✓ P11 exact production property locations > accepts authentic26 and projects a real immediate Greenlight at the reserved placed office 519ms
+ ✓ |core| tests/bridge-p05a-w2-intents.test.ts (4 tests) 489ms
+   ✓ P05A W2 — all-active production intents > applies a NON-guided production intent and leaves the other decision standing 320ms
+ ✓ |core| tests/presence-determinism.test.ts (4 tests) 177ms
+ ✓ |core| tests/p12-lifecycle.test.ts (5 tests) 1959ms
+   ✓ R05 shared-law rival lifecycle > commissions, staffs, funds, operates, releases and settles real films without player RNG draws 473ms
+   ✓ R05 shared-law rival lifecycle > expires ordinary contracts and crosses the first real arrival from elapsed play 1166ms
+ ✓ |core| tests/reception-verdict-canonical.test.ts (7 tests) 2ms
+ ✓ |core| tests/d12-fame-isolation.test.ts (3 tests) 7ms
+ ✓ |core| tests/world-first-scenery-load-in-provenance.test.ts (3 tests) 721ms
+   ✓ World-First Scenery Load-In V1 — frozen district provenance > replays the clean exporter and pins its deliberately non-runtime manifest 708ms
+ ✓ |core| tests/frozen-save-builder-projection.test.ts (2 tests) 74ms
+ ✓ |core| tests/3d-asset-audit.test.ts (3 tests) 497ms
+ ✓ |core| tests/d17b-marketing-menu.test.ts (5 tests) 85ms
+ ✓ |core| tests/bridge-runtime-session.test.ts (5 tests) 9439ms
+   ✓ BridgeSession runtime checkpoint recovery > creates and restores an unsaved production runtime during founding 307ms
+   ✓ BridgeSession runtime checkpoint recovery > restores untouched V14 authority bytes, logical identity, revision, and digest 746ms
+   ✓ BridgeSession runtime checkpoint recovery > replays an accepted command byte-for-byte after checkpoint restoration 987ms
+   ✓ BridgeSession runtime checkpoint recovery > preserves exact command, save, and load history after later mutations and restart 1606ms
+   ✓ BridgeSession runtime checkpoint recovery > does not silently evict historical command ids at the old 256-entry boundary 5792ms
+ ✓ |core| tests/bridge-process-incarnation.test.ts (4 tests) 21ms
+ ✓ |core| tests/bridge-p12-storage-codec.test.ts (4 tests) 17ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 301ms
+ ✓ |core| tests/hygiene.test.ts (1 test) 19ms
+ ✓ |core| tests/p12-calendar.test.ts (2 tests) 3ms
+ ✓ |core| tests/bridge-p09a-w1b-bare-lot-projection.test.ts (5 tests) 10613ms
+   ✓ P09A W1b — the bare lot on the wire > R1b: the bridge offers advanceWeek while the office rises, and never before anything is committed 10348ms
+ ✓ |core| tests/d11-cycle4.test.ts (2 tests) 2ms
+ ✓ |core| tests/roster-wall-observatory-cli.test.ts (8 tests) 3ms
+ ✓ |core| tests/roster-wall-corpus.test.ts (2 tests) 4ms
+ ✓ |core| tests/roster-wall-campaign.test.ts (9 tests) 11558ms
+   ✓ Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — direct-package 2449ms
+   ✓ Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — development-casting 2041ms
+   ✓ Week-208 roster-wall campaign entry harvest > mechanically matches frozen facilities behavior through vacant Week 196 — scaled-two-team 2765ms
+   ✓ Week-208 roster-wall campaign entry harvest > captures pure 52/26/12-week timing shadows and exact SaveFileV16 replay 722ms
+   ✓ Week-208 roster-wall campaign entry harvest > folds pre-entry cash in ledger order without a floating-point residual 934ms
+   ✓ Week-208 roster-wall campaign entry harvest > starts the real Annex only through its Week-0 public action and preserves its lifecycle 934ms
+   ✓ Week-208 roster-wall campaign entry harvest > is byte-neutral with timing, intent, and weekly observation disabled 860ms
+   ✓ Week-208 roster-wall campaign entry harvest > returns only a byte-, state-, and RNG-neutral harvest from the accepted seam 842ms
+stdout | tests/p11-finance-history-scale.test.ts > P11 bounded history at long-save scale > keeps a 6,240-advance real ledger exact with at most 52 weekly chart/text points
+{"proof":"p11-week-history-scale","advances":6240,"ledgerEntries":6240,"saveBytes":726421,"reportBytes":86672,"queryMilliseconds":1.04}
+
+ ✓ |core| tests/p11-finance-history-scale.test.ts (1 test) 886ms
+   ✓ P11 bounded history at long-save scale > keeps a 6,240-advance real ledger exact with at most 52 weekly chart/text points 885ms
+ ✓ |core| tests/bridge-owner-ux-projection21-schema.test.ts (9 tests) 3739ms
+   ✓ Owner UX projection21 public field wire boundary > parses actual current snapshot, Save, and Load envelopes 1010ms
+   ✓ Owner UX projection21 public field wire boundary > requires savedSlot rather than silently defaulting it 546ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 0 416ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 1 408ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 2 370ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 3 331ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 4 333ms
+   ✓ Owner UX projection21 public field wire boundary > accepts public fractional and known-zero cells, rejects hidden values and malformed cells 321ms
+ ✓ |core| tests/roster-wall-summary.test.ts (4 tests) 34444ms
+   ✓ roster-wall summary > derives boundary, recurrence, and player obligations from a real evidence slice 34436ms
+ ✓ |core| tests/bridge-foundation-recovery.test.ts (7 tests) 12242ms
+   ✓ AUD-002: legal post-expiry recovery without a Ready screenplay > quotes and commits a current writer without a fabricated project, exactly once 727ms
+   ✓ AUD-002: legal post-expiry recovery without a Ready screenplay > quotes and commits a current actor without a fabricated project, exactly once 707ms
+   ✓ AUD-002: legal post-expiry recovery without a Ready screenplay > offers explicit time for theatrical settlement and construction with no screenplay or staff 10553ms
+ ✓ |core| tests/acceptance-corpus.test.ts (11 tests) 41223ms
+   ✓ §15.1 bounds (M11) — every bounded term in range across the representative corpus > craft, cohesion, criticScore, segmentScores, WAS, and forecast low/high/estimate/center ∈ range 20493ms
+   ✓ §15.2 four-quadrant CORPUS reachability (B28 part ii) > at least one released film in EACH cell of (craft ≷ 55) × (cohesion ≷ 0.55) 18826ms
+   ✓ deterministic corpus reproduction — identical per-run outcomes on a re-run > end standing + releasedFilms reproduce identically across a small sample (both agents) 1561ms
+ ✓ |core| tests/roster-wall-player-policy.test.ts (12 tests) 26983ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > replays deterministically from the same seed and policy 9198ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > completes the other governed operating policy — direct-package 9386ms
+   ✓ Week-208 roster-wall mixed-founding-term player policy > completes the other governed operating policy — scaled-two-team 8103ms
+ ✓ |core| tests/roster-wall-continuation.test.ts (6 tests) 30613ms
+   ✓ Week-208 roster-wall continuation layer > fresh-loads the exact Week-196 entry, applies renewal first, and reconciles every transition 1378ms
+   ✓ Week-208 roster-wall continuation layer > keeps C0 voluntary attrition out of involuntary-wall taxonomy 1297ms
+   ✓ Week-208 roster-wall continuation layer > runs all seven primary policies from one entry and builds exact-entry C1 pairs 11730ms
+   ✓ Week-208 roster-wall continuation layer > keeps Annex same-entry policy pairs out of facility-causal paired tables 11374ms
+   ✓ Week-208 roster-wall continuation layer > keeps recurrence attempts out of the original-expiry wall taxonomy 3838ms
+   ✓ Week-208 roster-wall continuation layer > is byte-identical with continuation observation disabled 996ms
+ ✓ |core| tests/c2a-m4-g101-throughput.test.ts (4 tests) 9913ms
+   ✓ C2a-M4 · G10.1 — purchased capacity is no longer inert > leaves the C1 two-picture policy measurably less relieved, which is why the arm exists 9912ms
+ ✓ |core| tests/bridge.test.ts (18 tests) 90050ms
+   ✓ Current-game Unity adoption bridge > pins protocol v4/projection v29 and fingerprints named projections and exact intent fields 710ms
+   ✓ Current-game Unity adoption bridge > bootstraps through real founding and legal intents, releasing Movie #1 at the Movie #2 gate 406ms
+   ✓ Current-game Unity adoption bridge > plays exact Movie #2 end to end with current guidance, identities, blockers, and construction visible 22427ms
+   ✓ Current-game Unity adoption bridge > makes the player choose a distinct evidenced cast before greenlight 5123ms
+   ✓ Current-game Unity adoption bridge > rejects stale, forged, wrong-session, and reused command identities without changing truth 953ms
+   ✓ Current-game Unity adoption bridge > maps every rejection code to closed TypeScript-owned facts 304ms
+   ✓ Current-game Unity adoption bridge > uses opaque exact identities rather than titles and invalidates every prior-state intent 761ms
+   ✓ Current-game Unity adoption bridge > protects save/load controls and reconstructs a fresh reconnect session byte-for-byte 1398ms
+   ✓ Current-game Unity adoption bridge > matches direct headless save bytes/digests and is independent of polling cadence 49256ms
+   ✓ Current-game Unity adoption bridge > keeps read-only polling and failed direct intent application save-neutral 758ms
+   ✓ Current-game Unity adoption bridge > keeps every named projection and root authority token stable across identical polls 559ms
+   ✓ Current-game Unity adoption bridge > emits and admits a screenplay commission when both authoritative slots are occupied 432ms
+   ✓ Current-game Unity adoption bridge > emits and admits exact-project auditions when both authoritative slots are occupied 1885ms
+   ✓ Current-game Unity adoption bridge > emits and admits an evidenced exact-project greenlight without committing the package 1108ms
+   ✓ Current-game Unity adoption bridge > publishes advanceWeek through the ready-to-package family and withholds it at a casting-review decision stop 3710ms
+ ✓ |core| tests/bridge-contract-consumer-lock.test.ts (75 tests) 127177ms
+   ✓ CF-09 source bundle and repository identity > rejects a caller-supplied TypeScript root different from the executing verifier checkout 656ms
+   ✓ CF-09 sealed pair > binds the exact pushed clean commits and both committed generated blobs 3725ms
+   ✓ CF-09 sealed pair > rejects the wrong Unity repository before reading a matching file 1382ms
+   ✓ CF-09 sealed pair > rejects a canonical-looking remote redirected by Git URL rewriting 1459ms
+   ✓ CF-09 sealed pair > rejects a Unity subdirectory as the wrong root 1355ms
+   ✓ CF-09 sealed pair > rejects a nonallowlisted generated-file path 2191ms
+   ✓ CF-09 sealed pair > rejects a stale committed Unity consumer 3379ms
+   ✓ CF-09 sealed pair > rejects a one-byte uncommitted consumer drift as dirt before hashing 1670ms
+   ✓ CF-09 sealed pair > rejects a one-byte committed consumer drift 3472ms
+   ✓ CF-09 sealed pair > rejects a schema identity mismatch 2321ms
+   ✓ CF-09 sealed pair > rejects a protocol mismatch 2012ms
+   ✓ CF-09 sealed pair > rejects a projection mismatch 2518ms
+   ✓ CF-09 sealed pair > rejects a staged dirty TypeScript tree 1845ms
+   ✓ CF-09 sealed pair > rejects a unstaged dirty TypeScript tree 1858ms
+   ✓ CF-09 sealed pair > rejects a untracked dirty TypeScript tree 1890ms
+   ✓ CF-09 sealed pair > rejects a staged dirty Unity tree 1869ms
+   ✓ CF-09 sealed pair > rejects a unstaged dirty Unity tree 1676ms
+   ✓ CF-09 sealed pair > rejects a untracked dirty Unity tree 1895ms
+   ✓ CF-09 sealed pair > rejects TypeScript worktree bytes hidden with assume-unchanged 1827ms
+   ✓ CF-09 sealed pair > rejects Unity worktree bytes hidden with skip-worktree 1868ms
+   ✓ CF-09 sealed pair > rejects a hidden index flag anywhere in the TypeScript repository 1745ms
+   ✓ CF-09 sealed pair > rejects a hidden index flag anywhere in the Unity repository 1927ms
+   ✓ CF-09 sealed pair > rejects a missing committed consumer without filename fallback 1783ms
+   ✓ CF-09 sealed pair > rejects a nonexistent immutable commit 768ms
+   ✓ CF-09 sealed pair > rejects a manifest/blob mismatch 1523ms
+   ✓ CF-09 sealed pair > rejects stale real Unity bytes even when a TypeScript-local self-copy matches 1629ms
+   ✓ CF-09 sealed pair > rejects a committed symlink consumer before content comparison 827ms
+   ✓ CF-09 sealed pair > rejects path traversal rather than normalizing it 942ms
+   ✓ CF-09 sealed pair > rejects a wrong branch even when it points to identical bytes and commit 718ms
+   ✓ CF-09 sealed pair > rejects recursive or unknown manifest commit fields 930ms
+   ✓ CF-09 sealed pair > rejects a generator source/manifest mismatch 1401ms
+   ✓ CF-09 sealed pair > generation result is independent of current member/property-like file order 3009ms
+   ✓ CF-09 post-commit attestation > CLI cannot emit an attestation before hostile-review ACCEPT 449ms
+   ✓ CF-09 post-commit attestation > requires a fresh hostile-review ACCEPT before emission 448ms
+   ✓ CF-09 post-commit attestation > emits deterministic immutable facts only after both sealed commits exist 3358ms
+   ✓ CF-09 post-commit attestation > rejects seal-time log evidence outside the inferred canonical evidence root 1850ms
+   ✓ CF-09 post-commit attestation > rejects a noncanonical seal-time XML filename 1847ms
+   ✓ CF-09 post-commit attestation > re-verifies immutable commit blobs even after both HEADs move 3115ms
+   ✓ CF-09 post-commit attestation > rejects an attestation naming a nonexistent commit 1815ms
+   ✓ CF-09 post-commit attestation > rejects a manifest hash that does not match the attested commit blob 2678ms
+   ✓ CF-09 post-commit attestation > rejects an attested verifier bundle that differs from the executing verifier 1827ms
+   ✓ CF-09 post-commit attestation > rejects fixture-corpus source drift named by the attestation 2688ms
+   ✓ CF-09 post-commit attestation > rejects one-byte EditMode evidence drift 2883ms
+   ✓ CF-09 post-commit attestation > rejects an attested result traversal path before resolving it 1838ms
+   ✓ CF-09 post-commit attestation > rejects an attested absolute result path before resolving it 1785ms
+   ✓ CF-09 post-commit attestation > rejects an attested nested result path before resolving it 1801ms
+   ✓ CF-09 post-commit attestation > rejects an attested wrong result name path before resolving it 1787ms
+   ✓ CF-09 post-commit attestation > rejects an attested log traversal path before resolving it 1776ms
+   ✓ CF-09 post-commit attestation > rejects an attested absolute log path before resolving it 1751ms
+   ✓ CF-09 post-commit attestation > rejects an attested nested log path before resolving it 1711ms
+   ✓ CF-09 post-commit attestation > rejects an attested wrong log name path before resolving it 1682ms
+   ✓ CF-09 post-commit attestation > does not re-root a traversal path around the caller evidence root 1688ms
+   ✓ CF-09 post-commit attestation > rejects a symlinked caller evidence root 2739ms
+   ✓ CF-09 post-commit attestation > rejects symlinked evidence redirection 2734ms
+   ✓ CF-09 post-commit attestation > rejects symlinked XML evidence redirection 2724ms
+   ✓ CF-09 post-commit attestation > rejects zero/no-op counts EditMode XML 1649ms
+   ✓ CF-09 post-commit attestation > rejects comment-spoofed passing root EditMode XML 1712ms
+   ✓ CF-09 post-commit attestation > rejects comment-spoofed generated suite and sentinel EditMode XML 1699ms
+   ✓ CF-09 post-commit attestation > rejects multiple document roots EditMode XML 1691ms
+   ✓ CF-09 post-commit attestation > rejects failing document root EditMode XML 1697ms
+   ✓ CF-09 post-commit attestation > rejects malformed XML EditMode XML 1712ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite EditMode XML 1709ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite type EditMode XML 1711ms
+   ✓ CF-09 post-commit attestation > rejects wrong sentinel method EditMode XML 1699ms
+   ✓ CF-09 post-commit attestation > rejects sentinel nested beneath the wrong suite EditMode XML 1708ms
+   ✓ CF-09 post-commit attestation > rejects skipped sentinel method EditMode XML 1707ms
+   ✓ CF-09 post-commit attestation > rejects failing generated fixture suite EditMode XML 1757ms
+   ✓ CF-09 post-commit attestation > rejects failed or internally inconsistent full EditMode XML 1677ms
+stdout | tests/bridge-p09a-w5-bare-lot-first-film.test.ts > P09A W5 — the bare-lot first film, driven only through the bridge > founds sparse, builds the plant and a Set at engine prices, and releases a picture on its own money
+[p09 bridge journey] released week 37; commands 46; rollovers 1; cash floor 8864638; final cash 9374658
+
+ ✓ |core| tests/bridge-p09a-w5-bare-lot-first-film.test.ts (1 test) 118993ms
+   ✓ P09A W5 — the bare-lot first film, driven only through the bridge > founds sparse, builds the plant and a Set at engine prices, and releases a picture on its own money 118993ms
+
+ Test Files  393 passed (393)
+      Tests  5151 passed | 5 skipped (5156)
+   Start at  20:31:32
+   Duration  170.55s (transform 9.68s, setup 7.33s, collect 125.96s, tests 1104.27s, environment 39.94s, prepare 13.08s)
+

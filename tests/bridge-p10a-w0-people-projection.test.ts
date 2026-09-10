@@ -250,9 +250,21 @@ describe('P10A W0 — people projection', () => {
     const row = p3.career.rows[0]!
     expect(row).toMatchObject({
       eventId: event.eventId, filmId: 'captured-1', filmTitle: 'The Captured Picture', releaseWeek: 3,
+      releaseDateLabel: '1920 · Week 4',
       roleLabel: 'Writer', discipline: 'writing', ovrBefore: 40, ovrAfter: 42, starPowerDelta: 3, resultAvailable: true,
     })
     expect(row.reasonCodes).toEqual(['credited-work'])
+    for (const [releaseWeek, releaseDateLabel] of [
+      [0, '1920 · Week 1'], [12, '1920 · Week 13'],
+      [51, '1920 · Week 52'], [52, '1921 · Week 1'],
+      [6240, '2040 · Week 1'],
+    ] as const) {
+      const dated = { ...recorded, careerEvents: [{ ...event, releaseWeek }] } as GameState
+      const actual = peopleProjection(dated).profiles.find(p => p.talentId === someone.id)!.career.rows[0]!
+      expect(actual.releaseDateLabel).toBe(releaseDateLabel)
+      expect(actual.releaseWeek).toBe(releaseWeek)
+      expect(dated.careerEvents[0]!.releaseWeek).toBe(releaseWeek)
+    }
     // No prose classification ever rides with a row.
     expect(JSON.stringify(row)).not.toMatch(/breakout|decline|legend|typecast/i)
   })
@@ -302,11 +314,11 @@ describe('P10A W0 — people projection', () => {
       expect(cohort.key).toMatch(/^(work-ambiguous|presence-blocked|renewal-open|contract-ends-26|contract-ends-52)$/)
   })
 
-  it('R9 the served section is projection 28 and the projection-17/18 identities stay accepted', () => {
+  it('R9 the served section is projection 29 and the projection-17/18 identities stay accepted', () => {
     const state = foundStudio('p10-w0-schema')
     // Owner UX adds explicit public genre cells and saved-slot envelope metadata.
-    expect(PROJECTION_VERSION).toBe(28)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-28')
+    expect(PROJECTION_VERSION).toBe(29)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-29')
     const context = snapshotBuildContextFor(state)
     const bundle = projectStudioProjectionBundle({ ...context.lotSnapshot(), development: context.development(), casting: context.casting(), release: context.release(), history: context.history(), talent: context.people(), finance: context.finance(), industry: context.industry() })
     expect(bundle.talent.talent.profiles.length).toBe(state.talent.length)

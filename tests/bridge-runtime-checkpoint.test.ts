@@ -665,6 +665,35 @@ describe('BridgeRuntimeCheckpointV1', () => {
 })
 
 describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => {
+  it('preserves both distinct native R05 founding slots when the Profile calendar contract advances', () => {
+    const native = BridgeSession.createRuntime(undefined, 'endowed', 'r05-founding-calendar-migration')
+    const savedSaveJson = native.exportRuntimeCheckpoint().currentSaveJson
+    const snapshot = native.snapshot()
+    const intent = snapshot.availableIntents.find(i => i.kind === 'signFoundingContract')!
+    expect(intent).toBeTruthy()
+    expect(native.command({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID,
+      sessionId: native.sessionId, expectedStateRevision: native.stateRevision,
+      commandId: 'r05-sign-before-upgrade', type: 'submitIntent', payload: { intentId: intent.intentId } }).accepted).toBe(true)
+    const currentSaveJson = native.exportRuntimeCheckpoint().currentSaveJson
+    expect(currentSaveJson).not.toBe(savedSaveJson)
+    // Synthetic prior envelope exercises the migration boundary; the separately
+    // preserved native-run12 library supplies actual outgoing-byte evidence.
+    const prior = priorProtocol4Bytes({
+      schemaId: 'sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712',
+      sessionId: 'native-r05-before-upgrade', stateRevision: 1,
+      currentSaveJson, savedSaveJson, journal: [],
+    })
+    const loaded = loadBridgeRuntimeCheckpoint(prior, undefined, () => 'native-r05-after-upgrade')
+    expect(loaded.hydrated.checkpoint).toMatchObject({
+      currentSaveJson, savedSaveJson, stateRevision: 0, schemaId: SCHEMA_ID,
+      sessionId: 'native-r05-after-upgrade', journal: [],
+    })
+    expect(loaded.hydrated.currentSave.state.founding).not.toBeNull()
+    expect(loaded.hydrated.savedSave!.state.founding).not.toBeNull()
+    const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
+    expect(loadBridgeRuntimeCheckpoint(encoded).migratedFromProtocolVersion).toBeNull()
+  })
+
   it('migrates a v4-identity (f84ae77e) checkpoint with a V14 current save and an opaque 2-entry journal', () => {
     const seedState = createManagedBridgeState('prior-p4-v4-basic')
     const currentSaveJson = exportSave(makeSaveV14(seedState))
@@ -967,6 +996,8 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:b779faa92227bd1f2e623ad04d0899c87e7ddc60ce43f9ae9c39a7626c20a83d',
       'sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f',
       'sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb',
+      // Native R05 preview12 manifest/DTO, before the Profile date-label addition.
+      'sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712',
       'sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399',
       'sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b',
       'sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99',

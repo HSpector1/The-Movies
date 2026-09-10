@@ -137,7 +137,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 28,
+          "const": 29,
           "type": "integer"
         },
         "stateDigest": {
@@ -254,7 +254,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 28,
+          "const": 29,
           "type": "integer"
         },
         "stateDigest": {
@@ -763,7 +763,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 28,
+          "const": 29,
           "type": "integer"
         },
         "stateDigest": {
@@ -842,7 +842,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 28,
+          "const": 29,
           "type": "integer"
         },
         "stateDigest": {
@@ -1134,7 +1134,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 28,
+          "const": 29,
           "type": "integer"
         },
         "stateDigest": {
@@ -7854,6 +7854,10 @@
           },
           "type": "array"
         },
+        "releaseDateLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
         "releaseWeek": {
           "maximum": 2147483647,
           "minimum": 0,
@@ -7891,6 +7895,7 @@
         "ovrAfter",
         "ovrBefore",
         "reasonCodes",
+        "releaseDateLabel",
         "releaseWeek",
         "resultAvailable",
         "roleLabel",
@@ -12544,7 +12549,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-28",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-29",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -12600,7 +12605,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 28,
+    "projectionVersion": 29,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

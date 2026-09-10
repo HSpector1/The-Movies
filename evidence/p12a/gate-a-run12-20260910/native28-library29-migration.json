@@ -1,0 +1,59 @@
+{
+  "kind": "actual-native28-library-current29-migration",
+  "sourceSha256": "a16840d20d8804b338035a77412553dc950444766d9a7fd53d2c5df4f4f78c38",
+  "sourceUnchanged": true,
+  "outputSha256": "fa742558827bd81a525fb009ca10a7f3151b032001bcfba0934360d884731c26",
+  "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+  "allFiveCurrentAndSavedSlotsByteExact": true,
+  "campaignIdentitiesLabelsRevisionsPreserved": true,
+  "campaignReceiptsExact": true,
+  "reopenIdempotent": true,
+  "slots": [
+    {
+      "index": 0,
+      "currentStateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+      "savedStateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+      "currentSaveSha256": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+      "savedSaveSha256": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+      "priorJournalEntries": 6,
+      "newJournalEntries": 0
+    },
+    {
+      "index": 1,
+      "currentStateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+      "savedStateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+      "currentSaveSha256": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+      "savedSaveSha256": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+      "priorJournalEntries": 10,
+      "newJournalEntries": 0
+    },
+    {
+      "index": 2,
+      "currentStateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+      "savedStateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+      "currentSaveSha256": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+      "savedSaveSha256": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+      "priorJournalEntries": 11,
+      "newJournalEntries": 0
+    },
+    {
+      "index": 3,
+      "currentStateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+      "savedStateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+      "currentSaveSha256": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+      "savedSaveSha256": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+      "priorJournalEntries": 1,
+      "newJournalEntries": 0
+    },
+    {
+      "index": 4,
+      "currentStateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+      "savedStateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+      "currentSaveSha256": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+      "savedSaveSha256": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+      "priorJournalEntries": 6,
+      "newJournalEntries": 0
+    }
+  ],
+  "qualification": "Prior ordinary-response journals follow the existing governed schema migration: new logical sessions and empty journal; no cross-schema ordinary response retry promise."
+}

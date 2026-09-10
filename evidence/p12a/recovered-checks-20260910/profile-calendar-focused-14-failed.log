@@ -1,0 +1,104 @@
+
+ RUN  v2.1.9 /Users/bruce/The Movies - P12A Living Hollywood TS
+
+ ❯ |core| tests/bridge-contract-generator.test.ts (31 tests | 1 failed) 284ms
+   × CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering 64ms
+     → F11_CURRENT_COMMAND_UNION: expected 'a359a8d207216ecb56f490101ef8e80a5c33d…' to be 'cb7a14a991ca78402f419ed59fd17c97fe066…' // Object.is equality
+ ✓ |core| tests/bridge-p10a-w0-people-projection.test.ts (10 tests) 621ms
+   ✓ P10A W0 — people projection > R8 grouped attention lists each person at most once, by the highest tier; contract horizons come from the contract alone 396ms
+ ✓ |core| tests/bridge-schema.test.ts (22 tests) 7181ms
+   ✓ canonical Unity bridge schema > projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope 762ms
+   ✓ canonical Unity bridge schema > keeps live location identities in the projection-v4 building namespace 4853ms
+   ✓ canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data 393ms
+   ✓ canonical Unity bridge schema > preserves required nullable numeric fields through schema projection 360ms
+   ✓ canonical Unity bridge schema > models accepted load/command responses as one flat projection envelope 319ms
+ ❯ |core| tests/bridge-runtime-checkpoint.test.ts (57 tests | 1 failed) 14067ms
+   ✓ BridgeRuntimeCheckpointV1 > forward-migrates protocol 3 by preserving both V15 slots and discarding incompatible replay bytes 1037ms
+   ✓ BridgeRuntimeCheckpointV1 > rolls the previous protocol-4 schema forward without changing either V15 save slot 778ms
+   ✓ BridgeRuntimeCheckpointV1 > encodes one exact closed canonical shape with one LF and hydrates stable V15 bytes 858ms
+   ✓ BridgeRuntimeCheckpointV1 > requires canonical checkpoint bytes followed by exactly one LF 987ms
+   ✓ BridgeRuntimeCheckpointV1 > rejects missing and additional roots plus incompatible format, version, protocol, and schema 651ms
+   ✓ BridgeRuntimeCheckpointV1 > requires untouched canonical V15 current and explicit-save bytes with exact digests 1699ms
+   ✓ BridgeRuntimeCheckpointV1 > validates route-specific requests, responses, identity, session, revision, and canonical JSON 1077ms
+   ✓ BridgeRuntimeCheckpointV1 > binds exact historical bytes and rejection semantics to their original route 902ms
+   ✓ BridgeRuntimeCheckpointV1 > rejects duplicate identities and revision-regressing journal order 795ms
+   ✓ BridgeRuntimeCheckpointV1 > binds the root revision to the terminal journal response 873ms
+   ✓ BridgeRuntimeCheckpointV1 > returns a normalized prospective append only after identity and capacity validation 793ms
+   ✓ BridgeRuntimeCheckpointV1 > enforces injectable entry, journal-byte, and checkpoint-byte bounds before hydration 860ms
+   ✓ BridgeRuntimeCheckpointV1 > validates an accepted save response V15 payload and digest before journaling it 668ms
+   ✓ P04A REOPEN — enumerated prior protocol-4 checkpoint import > preserves both distinct native R05 founding slots when the Profile calendar contract advances 336ms
+   × prior protocol-4 acceptance boundary pins > contains exactly the independently pinned historical protocol-4 identities 4ms
+     → expected [ …(30) ] to deeply equal [ …(29) ]
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-contract-generator.test.ts > CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering
+AssertionError: F11_CURRENT_COMMAND_UNION: expected 'a359a8d207216ecb56f490101ef8e80a5c33d…' to be 'cb7a14a991ca78402f419ed59fd17c97fe066…' // Object.is equality
+
+Expected: "cb7a14a991ca78402f419ed59fd17c97fe0661aca5cc4acd4dece924d33ac290"
+Received: "a359a8d207216ecb56f490101ef8e80a5c33d604d95318fc3a0730cceb59b88f"
+
+ ❯ tests/bridge-contract-generator.test.ts:631:37
+    629|         const second = generateCsharpTypeDeclarations(schema)
+    630|         expect(second, name).toBe(first)
+    631|         expect(sha256(first), name).toBe(expectedHash)
+       |                                     ^
+    632|       }
+    633|     })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/bridge-runtime-checkpoint.test.ts > prior protocol-4 acceptance boundary pins > contains exactly the independently pinned historical protocol-4 identities
+AssertionError: expected [ …(30) ] to deeply equal [ …(29) ]
+
+- Expected
++ Received
+
+  Array [
+    "sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a70e907e1e",
+    "sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5",
+    "sha256:0474ceafd6c148f329fe99eac328c79ed0b0caf906e0f7442b7f3cf0fe40cb4f",
+    "sha256:15033cf9ca43be65abcb25fc6f910f9487ac23056090126ec7d3e2353f6ce587",
+    "sha256:18de162d1a9da3034378f71cec3d3b3f109ea91df8c1a8d40469924108b36e78",
+    "sha256:1bad05a95c284e64ceaef54c276f2dd0ccad8ca3ef1b12198068bb61b85198c9",
+    "sha256:204a71924bd8c2e8ae9af47591226894b3e42f62457da3cc20ed6b106ede611a",
+    "sha256:2b339a6a8b3e5add0726b7eaac9ce8746e235d8b6111a6816f890ff56afdffd1",
+    "sha256:510f08e4a551827a30e0f3d93bbe09fa5ddadbd39366b4dcfa93530500c7979c",
+    "sha256:625377a2804a681da3be209da02850e221ae33ac5f58b727f6395736ad607ad1",
+    "sha256:6a2c01feaf02c931a8c41bbf2090f8af003b89a492d77135d7aab2b42a8d3dc9",
+    "sha256:71529afdcb8e5cf645ab136efb9685256da0039e86d989bfab97b7b2cc5d9a8b",
+    "sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c",
+    "sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47",
+    "sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236",
+    "sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4",
+    "sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211",
+    "sha256:a481d14f3810ffbafcba2bbf509db7340263f3f0fd665a059507a1567d98923d",
+    "sha256:a6f374596e956800f9547ad538fdd859c01bda3460aac8b877279c67686c6f4b",
+    "sha256:b779faa92227bd1f2e623ad04d0899c87e7ddc60ce43f9ae9c39a7626c20a83d",
+    "sha256:ba9cd199704f66d375585d0bec2128c950618a3ba6a8cf0845a5550fde41659f",
+    "sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb",
++   "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+    "sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399",
+    "sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b",
+    "sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99",
+    "sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4",
+    "sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25",
+    "sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61",
+    "sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460",
+  ]
+
+ ❯ tests/bridge-runtime-checkpoint.test.ts:974:70
+    972|     // Recovery projection20 registers the outgoing projection19 heade…
+    973|     // at recovery base1b5eb8f08c81c7d9c639058c3e28b21b9c1f8e84.
+    974|     expect([...SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.keys()].sort()).t…
+       |                                                                      ^
+    975|       'sha256:01f15efc8fc33fd810b051242857385ca23b5e1c775b357db1bfe5a7…
+    976|       'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  2 failed | 2 passed (4)
+      Tests  2 failed | 118 passed (120)
+   Start at  20:28:58
+   Duration  14.86s (transform 677ms, setup 0ms, collect 1.92s, tests 22.15s, environment 0ms, prepare 104ms)
+

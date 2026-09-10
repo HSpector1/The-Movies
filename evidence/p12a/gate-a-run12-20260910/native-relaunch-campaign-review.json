@@ -1,0 +1,5281 @@
+{
+  "schema": "p12a-native-relaunch-campaign-review-checkpoint-v1",
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "reviewer": "/root/recovered_product_evidence",
+  "atUtc": "2026-09-10T18:18:16.605657+00:00",
+  "phase": "same bounded Gate A review; no new audit/critique",
+  "status": "PARTIAL - run12 ongoing",
+  "evidence": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z",
+  "sourceApplicability": {
+    "manifest": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/build-manifest.json",
+    "manifestSha256": "d86d53ef54c3f36963540612730c22ee77a9da83dc9793e7d3c5be9ca46ab318",
+    "matchesLaunch": true,
+    "launchBinding": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/launch-binding.json",
+    "launchBindingSha256": "8dd71156d3cf353d4a5cfa5404b2af4f1c2a0d9d9ac1595e44f42b2282ddb0ac",
+    "playerExpectedSha256": "00c29f694a8ee7bd985ad4bbd0b2e67107c2fc2b93681e258ccb00eedf5da6c5",
+    "playerActualSha256": "00c29f694a8ee7bd985ad4bbd0b2e67107c2fc2b93681e258ccb00eedf5da6c5",
+    "unity": {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+      "sha": "275e496d9f251ca6a3a308e61689ba4636a11070",
+      "branch": "wip/p12a-living-hollywood-01-client",
+      "dirty": false
+    },
+    "typescript": {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+      "sha": "11feb047f79661aff504b09c7ce9964d7922f11d",
+      "branch": "wip/p12a-living-hollywood-01-ts",
+      "dirty": false,
+      "engineBundleSha256": "fe73eb0f6f2a8ff1632a2d05a8952a2739c7ea7875d3ecf5b1295a0598730f02"
+    },
+    "engineUnchangedFromRun11": true,
+    "foundingCorrectionsUnchanged": [
+      {
+        "path": "Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.DisplayedIntent.cs",
+        "build12Sha256": "404a97789d1222ccfc76d36d0cf14cfd688234ce8c478e6971d4bfefd464bd29",
+        "identicalToRun11Build": true
+      },
+      {
+        "path": "Assets/Studio/Runtime/Presentation/StudioFoundingGatePresentation.cs",
+        "build12Sha256": "2f36abd69cf91f1d7e45a7bb329c5127aa06d38cca43de0736be922f299439da",
+        "identicalToRun11Build": true
+      },
+      {
+        "path": "Assets/Studio/Runtime/Presentation/StudioFoundingCardHud.cs",
+        "build12Sha256": "8d069714d2bd59015fcb2191a31022b728bbeb0762081368ee02b445ced06ca0",
+        "identicalToRun11Build": true
+      }
+    ],
+    "geometryChange": "Read-only commit diff c7fbd87\u2192275e496 confirms only relevant menu withdrawal additions: MaintainCampaignMenu withdraws on Layer!=Menu, SetLayer immediately withdraws when next!=Menu, and unsubscribe shares withdrawal helper. Native Quit-confirmation recheck pending."
+  },
+  "relaunch": {
+    "previousReport": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/report.json",
+    "previousReportSha256": "5a089063196c3fdd700b6ba6a6fed5cdd706c4e66fa8f289271fd64b53bc5078",
+    "previousReportMatchesBinding": true,
+    "previousCleanUiQuit": true,
+    "previousCheckpointSha256": "506fdc2cafe4f30e4478250705129c093cc927c3becb25124968b91ba1311757",
+    "checkpointMatchesLaunch": true,
+    "actualRestores": [
+      {
+        "campaign": "initial B Copy Diverged",
+        "capture": 1,
+        "gameWeek": 8,
+        "digest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "expectedDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "matches": true
+      },
+      {
+        "campaign": "Campaign A",
+        "capture": 4,
+        "gameWeek": 1,
+        "digest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+        "expectedDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+        "matches": true
+      },
+      {
+        "campaign": "Campaign B",
+        "capture": 7,
+        "gameWeek": 3,
+        "digest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+        "expectedDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+        "matches": true
+      },
+      {
+        "campaign": "Campaign C",
+        "capture": 10,
+        "gameWeek": 0,
+        "digest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "expectedDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "matches": true
+      },
+      {
+        "campaign": "loaded B Copy Diverged",
+        "capture": 13,
+        "gameWeek": 8,
+        "digest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "expectedDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "matches": true
+      }
+    ]
+  },
+  "completedCampaignChecks": [
+    "Scratch Save As at017/018 is a distinct campaign carrying exact copy8 digest054a0014....",
+    "Actual overwrite Scratch review027 names the correct destination and describes preservation/cancellation. Explicit confirm028 followed029 activates Scratch with exact C0 digest4e0fe7ca...; A/B/C/copy rows remain.",
+    "Delete Scratch review030 is cancelled031;032 retains Scratch and unchanged session/revision/week/digest. Reopen033 and explicit confirm034 produces035 with only Scratch removed, world retained as unnamed draft.",
+    "Leaving unnamed draft opens actual disposition review037; explicit discard038 returns to original B Copy Diverged with exact original copy8 digest, confirmed039.",
+    "Ordinary clock41\u219242 advances working copy from8 to13, digest2be5e9c8..., no save completion yet reviewed."
+  ],
+  "industryPreview": {
+    "capture": 46,
+    "observed": "Actual image shows Bellwether, Rose Lantern and Night Orchard each 3 films (2 earlier,1 campaign), at1920 Week14. Awareness, Prestige, Confidence and Released films are separate controls, and UI explicitly distinguishes their meanings.",
+    "status": "Native live-film detail/credits/person/Back flow not yet reviewed; this summary count alone does not certify causal production or credit detail."
+  },
+  "captures": [
+    {
+      "capture": 0,
+      "at": "2026-09-10T18:05:30.161Z",
+      "action": "click",
+      "name": "studio-menu-open",
+      "binding": {
+        "name": "studio-menu-open",
+        "text": "MENU",
+        "canvas": [
+          1380,
+          868
+        ],
+        "point": {
+          "x": 690,
+          "y": 77
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 300,
+        "frame": 4500,
+        "mapAgeMs": 3.034423828125
+      },
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 34,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/000-map.json",
+      "mapSha256": "e4ed49ea1740013ee840040e087868cc190953c50efcd89773044db5120455b8",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/000-studio-menu-open.png",
+      "screenshotSha256": "6270a2374b42bd38bb89edcb418b9477f17879faf89a4b29a6306f50bc739c34",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 1,
+      "at": "2026-09-10T18:05:30.711Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 35,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/001-map.json",
+      "mapSha256": "4c9c6a03804befdda76df1694db94244325a3885d5a5215de7a6a058c29fc641",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/001-observe.png",
+      "screenshotSha256": "6b3e665a725b00545fdeab3ff25652b546159e5c4d29d9e7bdfcc168e7587ce7",
+      "visuallyInspected": true,
+      "elements": [
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 2,
+      "at": "2026-09-10T18:05:34.571Z",
+      "action": "click",
+      "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+      "binding": {
+        "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+        "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+        "canvas": [
+          706,
+          682
+        ],
+        "point": {
+          "x": 353,
+          "y": 170
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 331,
+        "frame": 4965,
+        "mapAgeMs": 47.044189453125
+      },
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 38,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/002-map.json",
+      "mapSha256": "61945d6d4bcdef1ba9b1dbf12e1d2ffbcceb265c8e186a3d6b04203927d2b4de",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/002-campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395.png",
+      "screenshotSha256": "5c4fdb4970a79a21a89bb22208c7a1bdc246c9fb0cbb1f29b43de7849baa5e15",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "\u2713 Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 3,
+      "at": "2026-09-10T18:05:37.400Z",
+      "action": "click",
+      "name": "studio-menu-load",
+      "binding": {
+        "name": "studio-menu-load",
+        "text": "Load selected",
+        "canvas": [
+          908,
+          347.2
+        ],
+        "point": {
+          "x": 454,
+          "y": 337.4
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 351,
+        "frame": 5265,
+        "mapAgeMs": 0.158447265625
+      },
+      "authority": {
+        "sessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+        "stateRevision": 5,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 40,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/003-map.json",
+      "mapSha256": "8705a12ab5efc47000926bc5ebeb15a776fcf7d55f3a6ee6de1ccdbb3fd4b77c",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/003-studio-menu-load.png",
+      "screenshotSha256": "c6aeedca65e47a79859cf9d9e73ae93c507ac845d58539a3a97023357385f28c",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "\u2713 Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-retry",
+          "text": "Retry unresolved operation",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            219.2,
+            740,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 4,
+      "at": "2026-09-10T18:05:37.893Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "authority": {
+        "sessionId": "b2afa8c9-2d8f-43fa-8420-17b4a461a20d",
+        "stateRevision": 0,
+        "gameWeek": 1,
+        "stateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 41,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/004-map.json",
+      "mapSha256": "b99327b740e5486338fc0b410a786e9739258fbbba8f2401509ca80a9e9d8198",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/004-observe.png",
+      "screenshotSha256": "3b27330b1c5fd1e13bd781f38f0b1d3424c24531a244a2869c76583fb9268072",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "\u2713 Campaign A   \u00b7   1920 \u00b7 Week 2   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 5,
+      "at": "2026-09-10T18:06:10.343Z",
+      "action": "click",
+      "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+      "binding": {
+        "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+        "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+        "canvas": [
+          706,
+          628
+        ],
+        "point": {
+          "x": 353,
+          "y": 197
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 588,
+        "frame": 8820,
+        "mapAgeMs": 31.00341796875
+      },
+      "authority": {
+        "sessionId": "b2afa8c9-2d8f-43fa-8420-17b4a461a20d",
+        "stateRevision": 0,
+        "gameWeek": 1,
+        "stateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 67,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/005-map.json",
+      "mapSha256": "d3e30da9e0ca822ce904b80a2f747a8e03d0ef3ec9ec88e12f070d1211fb5cdb",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/005-campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef.png",
+      "screenshotSha256": "7e9794cfc3209c07563d1f62b81cf9fdb2acdcd381b642bde74293f408b49ce5",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "\u2713 Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 6,
+      "at": "2026-09-10T18:06:13.176Z",
+      "action": "click",
+      "name": "studio-menu-load",
+      "binding": {
+        "name": "studio-menu-load",
+        "text": "Load selected",
+        "canvas": [
+          908,
+          347.2
+        ],
+        "point": {
+          "x": 454,
+          "y": 337.4
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 608,
+        "frame": 9120,
+        "mapAgeMs": 5.954345703125
+      },
+      "authority": {
+        "sessionId": "b2afa8c9-2d8f-43fa-8420-17b4a461a20d",
+        "stateRevision": 0,
+        "gameWeek": 1,
+        "stateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 69,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/006-map.json",
+      "mapSha256": "663d7aad9044fe3380fa052e1d9a82d65f4e725f101f9900d7d368833951cf04",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/006-studio-menu-load.png",
+      "screenshotSha256": "150cef247fc57964d24f7ff98273cf7fab0ec1425d43251da0bfb0e7335a4ed3",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "\u2713 Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-retry",
+          "text": "Retry unresolved operation",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            219.2,
+            740,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 7,
+      "at": "2026-09-10T18:06:13.711Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "authority": {
+        "sessionId": "37948374-4f87-4201-9332-ca9d8dcf0be8",
+        "stateRevision": 0,
+        "gameWeek": 3,
+        "stateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 70,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/007-map.json",
+      "mapSha256": "14f4857feafd2be7763ca34d932e266b25f21e7e6e16c7df4dfaf79efc0a3018",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/007-observe.png",
+      "screenshotSha256": "e8c7532379ab1af2fe6a80af8943652ab1ecb2ae91ef5047abae65669c2d99fd",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "\u2713 Campaign B   \u00b7   1920 \u00b7 Week 4   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 8,
+      "at": "2026-09-10T18:06:17.447Z",
+      "action": "click",
+      "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+      "binding": {
+        "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+        "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+        "canvas": [
+          706,
+          574
+        ],
+        "point": {
+          "x": 353,
+          "y": 224
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 637,
+        "frame": 9555,
+        "mapAgeMs": 29.845947265625
+      },
+      "authority": {
+        "sessionId": "37948374-4f87-4201-9332-ca9d8dcf0be8",
+        "stateRevision": 0,
+        "gameWeek": 3,
+        "stateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 73,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/008-map.json",
+      "mapSha256": "02cff977c22a66004f5771261e6fc283a6a08517c873705c9e1c3ac07984565d",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/008-campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6.png",
+      "screenshotSha256": "784861d415d3018ca1fa6e9851bd8b0821a6205102fa179a79efba95f2d35291",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "\u2713 Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 9,
+      "at": "2026-09-10T18:06:19.947Z",
+      "action": "click",
+      "name": "studio-menu-load",
+      "binding": {
+        "name": "studio-menu-load",
+        "text": "Load selected",
+        "canvas": [
+          908,
+          347.2
+        ],
+        "point": {
+          "x": 454,
+          "y": 337.4
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 654,
+        "frame": 9810,
+        "mapAgeMs": 4.157958984375
+      },
+      "authority": {
+        "sessionId": "2a9c9d7b-4147-4c9a-8dba-7e192c0331f5",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 75,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/009-map.json",
+      "mapSha256": "9c33c4c9d8d945e64b312f5410d006c02a9ce2fb207b18980529998d5bcca0f1",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/009-studio-menu-load.png",
+      "screenshotSha256": "0d497393ce489d7e058d177dd0ad82473bbc855d8b93c358e30d4d7d5d976ad2",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "\u2713 Campaign C   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 10,
+      "at": "2026-09-10T18:06:20.905Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "authority": {
+        "sessionId": "2a9c9d7b-4147-4c9a-8dba-7e192c0331f5",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 76,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/010-map.json",
+      "mapSha256": "11ff935227d2245f0627dac38e6f0b88a50c1bfd859243a72b4e7b7b11889373",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/010-observe.png",
+      "screenshotSha256": "04817ba6c3e90e521c91fea2397730d795baf980b7a6bdbe9d27b8685d65fa49",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "\u2713 Campaign C   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 11,
+      "at": "2026-09-10T18:06:24.609Z",
+      "action": "click",
+      "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+      "binding": {
+        "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+        "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+        "canvas": [
+          706,
+          520
+        ],
+        "point": {
+          "x": 353,
+          "y": 251
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 686,
+        "frame": 10290,
+        "mapAgeMs": 35.623779296875
+      },
+      "authority": {
+        "sessionId": "2a9c9d7b-4147-4c9a-8dba-7e192c0331f5",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 79,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/011-map.json",
+      "mapSha256": "6c2d1ba8ba11b81e5840b177c7446f019cc77850a3690207f5d00d699f845ddf",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/011-campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72.png",
+      "screenshotSha256": "c86a25af1f0ce9b5fc206eccb1cb88552021f31c643c38f86dde5749f36002b6",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 12,
+      "at": "2026-09-10T18:06:27.064Z",
+      "action": "click",
+      "name": "studio-menu-load",
+      "binding": {
+        "name": "studio-menu-load",
+        "text": "Load selected",
+        "canvas": [
+          908,
+          347.2
+        ],
+        "point": {
+          "x": 454,
+          "y": 337.4
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 703,
+        "frame": 10545,
+        "mapAgeMs": 7.654052734375
+      },
+      "authority": {
+        "sessionId": "0051e860-ec3a-485f-ac68-256b830d041a",
+        "stateRevision": 0,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 81,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/012-map.json",
+      "mapSha256": "9c5caca41339b76ffe646224ce699d2217f5a55b17448e6863b1d8eafd03b897",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/012-studio-menu-load.png",
+      "screenshotSha256": "b9b2a03a0248cd75dbbe7d7e14e41108ea8b899aa4f96b5ee73e67b4ccbfd836",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-retry",
+          "text": "Retry unresolved operation",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            219.2,
+            740,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 13,
+      "at": "2026-09-10T18:06:27.514Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "authority": {
+        "sessionId": "0051e860-ec3a-485f-ac68-256b830d041a",
+        "stateRevision": 0,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 81,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/013-map.json",
+      "mapSha256": "3c829337b48867a56523902a7e0c048536bb319254a92332f09b0a378d8e258d",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/013-observe.png",
+      "screenshotSha256": "a38a1f25203b27439f4b738661834b672c7cbb99b80160ae3b475eb68cec671a",
+      "visuallyInspected": true,
+      "elements": [
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy Diverged   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 17,
+      "at": "2026-09-10T18:07:27.894Z",
+      "action": "click",
+      "name": "campaign-name-confirm",
+      "binding": {
+        "name": "campaign-name-confirm",
+        "text": "Continue",
+        "canvas": [
+          720,
+          520
+        ],
+        "point": {
+          "x": 360,
+          "y": 251
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 1127,
+        "frame": 16905,
+        "mapAgeMs": 20.570556640625
+      },
+      "authority": {
+        "sessionId": "21f51ba0-1668-4dba-94fb-0c5fc4a1ce67",
+        "stateRevision": 0,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 129,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/017-map.json",
+      "mapSha256": "84fed4877860de85692dd072dd672b592c774a49c63ba68eb7f1ebb058d72555",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/017-campaign-name-confirm.png",
+      "screenshotSha256": "ec2d47a2ee7cbf5518d56657c219b72eff1037d7325f49534751a6a0eeeebc36",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-60acc8db-d91e-4780-856a-725dc6421416",
+          "text": "\u2713 Scratch   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            442,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 18,
+      "at": "2026-09-10T18:07:31.875Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "authority": {
+        "sessionId": "21f51ba0-1668-4dba-94fb-0c5fc4a1ce67",
+        "stateRevision": 0,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 132,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/018-map.json",
+      "mapSha256": "7c8aea98e73a520405d6df526906dfa2d2ce7f68af5990691e92aa32a2891e43",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/018-observe.png",
+      "screenshotSha256": "9751f772fc302f8d2d2bd871c263173ad974bd46954b7cccf98d00e81e6c177d",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-60acc8db-d91e-4780-856a-725dc6421416",
+          "text": "\u2713 Scratch   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            442,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 20,
+      "at": "2026-09-10T18:07:55.761Z",
+      "action": "click",
+      "name": "studio-menu-load",
+      "binding": {
+        "name": "studio-menu-load",
+        "text": "Load selected",
+        "canvas": [
+          908,
+          347.2
+        ],
+        "point": {
+          "x": 454,
+          "y": 337.4
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 1326,
+        "frame": 19890,
+        "mapAgeMs": 16.04736328125
+      },
+      "authority": {
+        "sessionId": "dbb836dd-30c0-4b03-aeb8-d250c8e2b140",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 152,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/020-map.json",
+      "mapSha256": "78f4fef9c0126e1494155cacb8a69338a5753a1d44a48ebb4dc76f07129f7a9c",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/020-studio-menu-load.png",
+      "screenshotSha256": "ae4dc69531580cdbaf60182941aac9c569b666716fad7a0f412a28b9cc8599b1",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-60acc8db-d91e-4780-856a-725dc6421416",
+          "text": "Scratch   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            442,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "\u2713 Campaign C   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 21,
+      "at": "2026-09-10T18:07:56.249Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "authority": {
+        "sessionId": "dbb836dd-30c0-4b03-aeb8-d250c8e2b140",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 152,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/021-map.json",
+      "mapSha256": "508f8a4a197d86bb433d5a124a4f2f47301dcc709e0b7c495124e5487106e4bc",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/021-observe.png",
+      "screenshotSha256": "81d20a51f228f901401acdcedc330d4e82bb6dfef29248b539c7e23ab6df113a",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-60acc8db-d91e-4780-856a-725dc6421416",
+          "text": "Scratch   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            442,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "\u2713 Campaign C   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 22,
+      "at": "2026-09-10T18:07:59.949Z",
+      "action": "click",
+      "name": "studio-menu-save",
+      "binding": {
+        "name": "studio-menu-save",
+        "text": "Save active campaign",
+        "canvas": [
+          532,
+          347.2
+        ],
+        "point": {
+          "x": 266,
+          "y": 337.4
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 1354,
+        "frame": 20310,
+        "mapAgeMs": 33.317626953125
+      },
+      "authority": {
+        "sessionId": "dbb836dd-30c0-4b03-aeb8-d250c8e2b140",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 157,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/022-map.json",
+      "mapSha256": "6f36045bcf5f0868cbff3abfa60d49e21c8c94768c8d7508e304b006b0e08db8",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/022-studio-menu-save.png",
+      "screenshotSha256": "678e9ab0ff2d2d6a6156f188dac69219299e88933c6d423e24a534d49cba276c",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-60acc8db-d91e-4780-856a-725dc6421416",
+          "text": "Scratch   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            442,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "\u2713 Campaign C   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 23,
+      "at": "2026-09-10T18:08:05.039Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "authority": {
+        "sessionId": "dbb836dd-30c0-4b03-aeb8-d250c8e2b140",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 161,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/023-map.json",
+      "mapSha256": "76fce5f38dd3c7b281e8dfb8d5f4e012766c22164c828d95214e532de9778cc7",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/023-observe.png",
+      "screenshotSha256": "5c92f1ee87bfce76269dfaa21a08016310c7f157d8651aa3e1bbd17298c86378",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-60acc8db-d91e-4780-856a-725dc6421416",
+          "text": "Scratch   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            442,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "\u2713 Campaign C   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 27,
+      "at": "2026-09-10T18:08:18.949Z",
+      "action": "click",
+      "name": "campaign-name-confirm",
+      "binding": {
+        "name": "campaign-name-confirm",
+        "text": "Continue",
+        "canvas": [
+          720,
+          520
+        ],
+        "point": {
+          "x": 360,
+          "y": 251
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 1485,
+        "frame": 22275,
+        "mapAgeMs": 1.477783203125
+      },
+      "authority": {
+        "sessionId": "dbb836dd-30c0-4b03-aeb8-d250c8e2b140",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 172,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/027-map.json",
+      "mapSha256": "48fa64f1f9c6c1d77061e49b605ecb6b198e11d55bfc7f9ead66198bef60dc01",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/027-campaign-name-confirm.png",
+      "screenshotSha256": "0f28c27b00c331c2373873801112321b57ab0ec5da8ad7b8393be5423397bc14",
+      "visuallyInspected": true,
+      "elements": [
+        {
+          "name": "campaign-destructive-confirm",
+          "text": "Overwrite this campaign",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            532,
+            740,
+            44
+          ]
+        },
+        {
+          "name": "campaign-cancel",
+          "text": "Cancel",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            478,
+            740,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 28,
+      "at": "2026-09-10T18:08:36.306Z",
+      "action": "click",
+      "name": "campaign-destructive-confirm",
+      "binding": {
+        "name": "campaign-destructive-confirm",
+        "text": "Overwrite this campaign",
+        "canvas": [
+          720,
+          554
+        ],
+        "point": {
+          "x": 360,
+          "y": 234
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 1608,
+        "frame": 24120,
+        "mapAgeMs": 13.204345703125
+      },
+      "authority": {
+        "sessionId": "83b624e2-d071-473b-aa8d-0e411432c1ac",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 186,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/028-map.json",
+      "mapSha256": "bb64b53d136477936d9e074f6429ec2eb0b7da76f660231947833d0971083acf",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/028-campaign-destructive-confirm.png",
+      "screenshotSha256": "a9a5b1b7c72e125f4335ef5951f17c6262792f93ae9aa7acc6737a6058a03b29",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-60acc8db-d91e-4780-856a-725dc6421416",
+          "text": "\u2713 Scratch   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            442,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 29,
+      "at": "2026-09-10T18:08:40.836Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "authority": {
+        "sessionId": "83b624e2-d071-473b-aa8d-0e411432c1ac",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 190,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/029-map.json",
+      "mapSha256": "502bad86d7afc623b2dedf31244aa3c0677f97f6fb37f0cf1eeda527ee57071e",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/029-observe.png",
+      "screenshotSha256": "cc2e9888fb8bbc8a80817c9a194cd49665a38b9d795feb465f9d382524d7515c",
+      "visuallyInspected": true,
+      "elements": [
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-60acc8db-d91e-4780-856a-725dc6421416",
+          "text": "\u2713 Scratch   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            442,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 30,
+      "at": "2026-09-10T18:08:44.607Z",
+      "action": "click",
+      "name": "campaign-delete",
+      "binding": {
+        "name": "campaign-delete",
+        "text": "Delete selected\u2026",
+        "canvas": [
+          908,
+          295.2
+        ],
+        "point": {
+          "x": 454,
+          "y": 363.4
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 1666,
+        "frame": 24990,
+        "mapAgeMs": 4.30029296875
+      },
+      "authority": {
+        "sessionId": "83b624e2-d071-473b-aa8d-0e411432c1ac",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 193,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/030-map.json",
+      "mapSha256": "efae35ae7407ee8e4135540f407f309ff2a3578837a4604e30b43fb87bf4d199",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/030-campaign-delete.png",
+      "screenshotSha256": "218e402aa308c4c38384d95dfe413960c70212394e2ab59bf08e305303b8ace4",
+      "visuallyInspected": true,
+      "elements": [
+        {
+          "name": "campaign-cancel",
+          "text": "Cancel",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            478,
+            740,
+            44
+          ]
+        },
+        {
+          "name": "campaign-destructive-confirm",
+          "text": "Delete this campaign",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            532,
+            740,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 31,
+      "at": "2026-09-10T18:08:47.091Z",
+      "action": "click",
+      "name": "campaign-cancel",
+      "binding": {
+        "name": "campaign-cancel",
+        "text": "Cancel",
+        "canvas": [
+          720,
+          500
+        ],
+        "point": {
+          "x": 360,
+          "y": 261
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 1683,
+        "frame": 25245,
+        "mapAgeMs": 10.142822265625
+      },
+      "authority": {
+        "sessionId": "83b624e2-d071-473b-aa8d-0e411432c1ac",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 195,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/031-map.json",
+      "mapSha256": "860358b684954868a963e2dff608eda371c487094d0f531383486505c5a13684",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/031-campaign-cancel.png",
+      "screenshotSha256": "24eabc1d9303d7c64b49c959e8ac28b534170f5f533e0ca0b7648c5fda0437a8",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-60acc8db-d91e-4780-856a-725dc6421416",
+          "text": "\u2713 Scratch   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            442,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 32,
+      "at": "2026-09-10T18:08:48.092Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "authority": {
+        "sessionId": "83b624e2-d071-473b-aa8d-0e411432c1ac",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 196,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/032-map.json",
+      "mapSha256": "ab63b1855eb3da1fbd4e3a7397215e52c972ba26d41e702db0eb8a7d7a55fa25",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/032-observe.png",
+      "screenshotSha256": "97486867140252bb65814eb96113a0a2138a0349aa700197f4e18a731dfb1623",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-60acc8db-d91e-4780-856a-725dc6421416",
+          "text": "\u2713 Scratch   \u00b7   1920 \u00b7 Week 1   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            442,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 33,
+      "at": "2026-09-10T18:09:06.775Z",
+      "action": "click",
+      "name": "campaign-delete",
+      "binding": {
+        "name": "campaign-delete",
+        "text": "Delete selected\u2026",
+        "canvas": [
+          908,
+          295.2
+        ],
+        "point": {
+          "x": 454,
+          "y": 363.4
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 1822,
+        "frame": 27330,
+        "mapAgeMs": 4.072021484375
+      },
+      "authority": {
+        "sessionId": "83b624e2-d071-473b-aa8d-0e411432c1ac",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 211,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/033-map.json",
+      "mapSha256": "10ad54419c3949292a299396d90b1e3024766be0b7c49f0a8fa0925e2d4cc61b",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/033-campaign-delete.png",
+      "screenshotSha256": "0f8f53db136ccb081a0ae2f22920a0f606cd7e99fc609195a771c2d52e07e386",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-cancel",
+          "text": "Cancel",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            478,
+            740,
+            44
+          ]
+        },
+        {
+          "name": "campaign-destructive-confirm",
+          "text": "Delete this campaign",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            532,
+            740,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 34,
+      "at": "2026-09-10T18:09:09.271Z",
+      "action": "click",
+      "name": "campaign-destructive-confirm",
+      "binding": {
+        "name": "campaign-destructive-confirm",
+        "text": "Delete this campaign",
+        "canvas": [
+          720,
+          554
+        ],
+        "point": {
+          "x": 360,
+          "y": 234
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 1839,
+        "frame": 27585,
+        "mapAgeMs": 6.10693359375
+      },
+      "authority": {
+        "sessionId": "83b624e2-d071-473b-aa8d-0e411432c1ac",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 213,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/034-map.json",
+      "mapSha256": "863e1c598a24cd98703965ce021538f4fce20a3d6a4a169099caa7c11505d889",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/034-campaign-destructive-confirm.png",
+      "screenshotSha256": "ded3959f272ca76bf0bf001bd70e6d3499d4020689a542e11602ef8fc315ff17",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 35,
+      "at": "2026-09-10T18:09:13.217Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "authority": {
+        "sessionId": "83b624e2-d071-473b-aa8d-0e411432c1ac",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 216,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/035-map.json",
+      "mapSha256": "077c5af44a34be96eea5acde0a9970d8b56cfc03ba0f3f01dd4a33aee553e9fa",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/035-observe.png",
+      "screenshotSha256": "4ef0f8667e71135f1b99d01f04c935a30c1e42769a3fe873072630b6a065cf06",
+      "visuallyInspected": true,
+      "elements": [
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "B Copy Diverged   \u00b7   1920 \u00b7 Week 9",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 37,
+      "at": "2026-09-10T18:09:20.059Z",
+      "action": "click",
+      "name": "studio-menu-load",
+      "binding": {
+        "name": "studio-menu-load",
+        "text": "Load selected",
+        "canvas": [
+          908,
+          347.2
+        ],
+        "point": {
+          "x": 454,
+          "y": 337.4
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 1914,
+        "frame": 28710,
+        "mapAgeMs": 2.854736328125
+      },
+      "authority": {
+        "sessionId": "83b624e2-d071-473b-aa8d-0e411432c1ac",
+        "stateRevision": 0,
+        "gameWeek": 0,
+        "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 222,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/037-map.json",
+      "mapSha256": "f06d849f6a945e10d2eaa69f226de9573635a695c94fb9252766075e4cf987a1",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/037-studio-menu-load.png",
+      "screenshotSha256": "7e3c5681ccb58a687e660c6c80cec416f0263cc66fe284ced9addef6f9f532d0",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-cancel",
+          "text": "Cancel",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            410,
+            740,
+            44
+          ]
+        },
+        {
+          "name": "campaign-leave-discard",
+          "text": "Discard and continue",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            464,
+            740,
+            44
+          ]
+        },
+        {
+          "name": "campaign-leave-save",
+          "text": "Name this campaign with Save As first",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            518,
+            740,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 38,
+      "at": "2026-09-10T18:09:42.497Z",
+      "action": "click",
+      "name": "campaign-leave-discard",
+      "binding": {
+        "name": "campaign-leave-discard",
+        "text": "Discard and continue",
+        "canvas": [
+          720,
+          486
+        ],
+        "point": {
+          "x": 360,
+          "y": 268
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 2076,
+        "frame": 31140,
+        "mapAgeMs": 4.070556640625
+      },
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 0,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 241,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/038-map.json",
+      "mapSha256": "010b31f390ac001f21e7f9ad505c7c811a00f9f26fd8e59a380c7187e17dcb76",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/038-campaign-leave-discard.png",
+      "screenshotSha256": "45ff644212c6c7983effbee97b488ece19aaff9fab4a2efab9aafc4137194ed4",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-retry",
+          "text": "Retry unresolved operation",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            219.2,
+            740,
+            44
+          ]
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 39,
+      "at": "2026-09-10T18:09:45.530Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 0,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 244,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/039-map.json",
+      "mapSha256": "b2f7fe9aeb2f5ffbf2835cfa26d24635b36ac485f7473afe7df59bc05bc2feb9",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/039-observe.png",
+      "screenshotSha256": "8f6281da65df826fe4abb81d40e17a41eed64e6deb4ce2903dd19220dc8eafa3",
+      "visuallyInspected": false,
+      "elements": [
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy Diverged   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ]
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ]
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 41,
+      "at": "2026-09-10T18:09:52.289Z",
+      "action": "click",
+      "name": "studio-clock-play-4",
+      "binding": {
+        "name": "studio-clock-play-4",
+        "text": "4\u00d7",
+        "canvas": [
+          777.5,
+          862
+        ],
+        "point": {
+          "x": 388.75,
+          "y": 80
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 2144,
+        "frame": 32160,
+        "mapAgeMs": 3.08056640625
+      },
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 0,
+        "gameWeek": 8,
+        "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 249,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/041-map.json",
+      "mapSha256": "24a20969610fbeb352c3a29b9fb1bee5f4edc337dd9087ee021ce1718f5984b8",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/041-studio-clock-play-4.png",
+      "screenshotSha256": "425d76ee4c8e9cb1337c9df0b050c783a980bafae3a83e5b9d00ea12e9f28dd0",
+      "visuallyInspected": false,
+      "elements": []
+    },
+    {
+      "capture": 42,
+      "at": "2026-09-10T18:10:09.689Z",
+      "action": "click",
+      "name": "studio-clock-pause",
+      "binding": {
+        "name": "studio-clock-pause",
+        "text": "Pause",
+        "canvas": [
+          687.5,
+          862
+        ],
+        "point": {
+          "x": 343.75,
+          "y": 80
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 2268,
+        "frame": 34020,
+        "mapAgeMs": 1.941162109375
+      },
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 259,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/042-map.json",
+      "mapSha256": "77d0939c606a5b21d164b5aa2ad81709adc8ab529b64c342def20162f08c907e",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/042-studio-clock-pause.png",
+      "screenshotSha256": "fead5d7cf04f6660f0421680123b8c7f3818ae4d7a9922e136b11968a01085ed",
+      "visuallyInspected": false,
+      "elements": []
+    },
+    {
+      "capture": 43,
+      "at": "2026-09-10T18:10:10.133Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 260,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/043-map.json",
+      "mapSha256": "535a77ac89df5110e73680b6000fc78f59bda84bdf99ad06611f5fb52131e9d7",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/043-observe.png",
+      "screenshotSha256": "38ac9986cffe89b37727258af5ade9d1050cc3b0f2af697137317cd0395ec673",
+      "visuallyInspected": false,
+      "elements": []
+    },
+    {
+      "capture": 45,
+      "at": "2026-09-10T18:10:45.617Z",
+      "action": "click",
+      "name": "world-selectable-admin",
+      "binding": {
+        "name": "world-selectable-admin",
+        "text": "Administration",
+        "canvas": [
+          347.09999999999997,
+          168.60000000000002
+        ],
+        "point": {
+          "x": 173.54999999999998,
+          "y": 426.7
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 2526,
+        "frame": 37890,
+        "mapAgeMs": 2.501953125
+      },
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 287,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/045-map.json",
+      "mapSha256": "33a28dc4b5dc37838c60ad64dfdca55a59b19f8c5fcf840e1739f35dfebb8a3f",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/045-world-selectable-admin.png",
+      "screenshotSha256": "d072878813ca5ddf8b406a3d756c8cd3310b998cc115b867f28290ebd1316628",
+      "visuallyInspected": false,
+      "elements": []
+    },
+    {
+      "capture": 46,
+      "at": "2026-09-10T18:10:48.720Z",
+      "action": "click",
+      "name": "admin-open-industry",
+      "binding": {
+        "name": "admin-open-industry",
+        "text": "OPEN INDUSTRY",
+        "canvas": [
+          1332,
+          754.5
+        ],
+        "point": {
+          "x": 666,
+          "y": 133.75
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 2547,
+        "frame": 38205,
+        "mapAgeMs": 4.44677734375
+      },
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 290,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/046-map.json",
+      "mapSha256": "2fdcfbbc99dad84efb4646b7c4d250f71ae67d92ce63517f48436dc85166e9b3",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/046-admin-open-industry.png",
+      "screenshotSha256": "10aafd86845a38f7d4b7a848420ed8ef20dc77163e5cf3fa43e1cea14770007e",
+      "visuallyInspected": true,
+      "elements": [
+        {
+          "name": "industry-workspace",
+          "text": "",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            22,
+            22,
+            1396,
+            791
+          ]
+        },
+        {
+          "name": "industry-back",
+          "text": "\u2039  Back",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            766,
+            76,
+            33
+          ]
+        },
+        {
+          "name": "industry-refresh",
+          "text": "Refresh",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1096,
+            766,
+            79,
+            33
+          ]
+        },
+        {
+          "name": "industry-text-100",
+          "text": "Text 100%",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1183,
+            766,
+            99,
+            33
+          ]
+        },
+        {
+          "name": "industry-text-200",
+          "text": "Text 200%",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1290,
+            766,
+            99,
+            33
+          ]
+        },
+        {
+          "name": "industry-tab-studios",
+          "text": "Studio Charts",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            694,
+            119,
+            34
+          ]
+        },
+        {
+          "name": "industry-tab-films",
+          "text": "Movie Charts",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            170,
+            694,
+            117,
+            34
+          ]
+        },
+        {
+          "name": "industry-tab-pulse",
+          "text": "Industry Pulse",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            295,
+            694,
+            124,
+            34
+          ]
+        },
+        {
+          "name": "industry-lane-audienceAwareness",
+          "text": "\u2713 Awareness",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            648,
+            117,
+            33
+          ]
+        },
+        {
+          "name": "industry-lane-industryPrestige",
+          "text": "Prestige",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            168,
+            648,
+            81,
+            33
+          ]
+        },
+        {
+          "name": "industry-lane-commercialConfidence",
+          "text": "Confidence",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            257,
+            648,
+            103,
+            33
+          ]
+        },
+        {
+          "name": "industry-lane-output",
+          "text": "Released films",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            368,
+            648,
+            127,
+            33
+          ]
+        },
+        {
+          "name": "industry-status",
+          "text": "Public facts only. Standing channels and film measures have separate meanings; there is no combined Power score.",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            616,
+            1354,
+            19
+          ]
+        },
+        {
+          "name": "industry-scroll",
+          "text": "",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            82,
+            1354,
+            528
+          ]
+        },
+        {
+          "name": "industry-studio-studio-d951827c-r01",
+          "text": "BW   Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            567,
+            1327,
+            33
+          ]
+        },
+        {
+          "name": "industry-studio-studio-d951827c-r02",
+          "text": "RL   Rose Lantern Films",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            408,
+            1327,
+            33
+          ]
+        },
+        {
+          "name": "industry-studio-studio-d951827c-r03",
+          "text": "NO   Night Orchard Productions",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            248,
+            1327,
+            34
+          ]
+        },
+        {
+          "name": "industry-studio-studio-d951827c-r04",
+          "text": "SC   Silver Current Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            89,
+            1327,
+            33
+          ]
+        },
+        {
+          "name": "industry-scroll-scroller",
+          "text": "",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1383,
+            82,
+            14,
+            528
+          ]
+        },
+        {
+          "name": "industry-scroll-scroller-slider",
+          "text": "",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            1383,
+            82,
+            14,
+            500
+          ]
+        },
+        {
+          "name": "industry-pager",
+          "text": "",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            44,
+            1354,
+            38
+          ]
+        },
+        {
+          "name": "industry-page-previous",
+          "text": "\u2039 Previous",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            43,
+            49,
+            97,
+            33
+          ]
+        },
+        {
+          "name": "industry-page-next",
+          "text": "Next \u203a",
+          "visible": true,
+          "enabled": false,
+          "screenRect": [
+            311,
+            49,
+            67,
+            33
+          ]
+        }
+      ]
+    }
+  ],
+  "input": {
+    "consoleAdmission": {
+      "locked": false,
+      "rootLocked": false,
+      "sessionScreenLocked": false,
+      "sessionLockMarkerPresent": false,
+      "idleSeconds": 517.005342416
+    },
+    "initialState": {
+      "heldKeys": [],
+      "heldButtons": [],
+      "clean": true
+    },
+    "finalization": "Pending. Root sole native input owner; no whole-run pass before final clean witness."
+  },
+  "limitations": [
+    "C is an independently created and now restored gameWeek0 world, not claimed progressed/founded.",
+    "Relaunch of A1/B3/C0/copy8 is observed; not an all-three independently progressed worlds proof.",
+    "No Gate A completion or Gate B claim; live project/film/credits/employer behavior and remaining scope still open.",
+    "No raw saved-game/checkpoint bytes or credentials copied. Only review metadata, capture refs/hashes and public authority bindings preserved.",
+    "Reviewer made no worktree edits, tests/builds, server requests, or native input."
+  ]
+}

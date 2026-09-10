@@ -33,6 +33,7 @@ import {
 } from '../ui/src/engine/adapter.ts'
 import type { GameState, TalentProfile } from '../ui/src/engine/adapter.ts'
 import { studioPresence } from '../src/core/presence.ts'
+import { campaignDate } from '../src/core/calendar.ts'
 import { rivalEmployment } from '../src/core/hollywood.ts'
 import { DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE } from '../src/core/tuning.ts'
 import { guaranteedComp, activeContract, renewalWindowOpen } from '../src/core/employment.ts'
@@ -144,6 +145,7 @@ export type BridgePersonCareerRowSnapshot = {
   filmId: string
   filmTitle: string
   releaseWeek: number
+  releaseDateLabel: string
   genre: Genre
   roleLabel: string
   discipline: Discipline
@@ -633,6 +635,7 @@ function buildCareer(input: ProfileInputs): BridgePersonCareerSnapshot {
       filmId: e.filmId,
       filmTitle: e.filmTitle,
       releaseWeek: e.releaseWeek,
+      releaseDateLabel: campaignDate(e.releaseWeek).label,
       genre: e.genre,
       roleLabel: ROLE_LABEL[e.role] ?? e.role,
       discipline: e.discipline,

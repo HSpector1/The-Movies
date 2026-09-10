@@ -36,6 +36,8 @@ export const LEGACY_BRIDGE_RUNTIME_SCHEMA_ID =
 // in SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS below, not a distinguished slot.
 export const PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID =
   'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5' as const
+const R05_NATIVE_FOUNDING_SCHEMA_ID =
+  'sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712' as const
 
 // P04A REOPEN: every distinct protocol-4 schema identity that has ever shipped,
 // enumerated by walking the full commit history of
@@ -53,6 +55,9 @@ export const PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // R05 Profile calendar label: preserve the actual outgoing native 4/28/V19
+  // checkpoints through the existing governed migration (new logical session).
+  [R05_NATIVE_FOUNDING_SCHEMA_ID, 'projection-v28'],
   // P12A: actual outgoing accepted P11 schema; inner V18 migrates at each own week.
   ['sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211', 'projection-v27'],
   // P11 exact production locations: authentic outgoing ready 4/26/V18.
@@ -960,16 +965,19 @@ function migratePriorProtocol4Checkpoint(
     ? null
     : importPriorSaveViaCanonicalChain(savedSaveJson, 'checkpoint.savedSaveJson')
 
-  // The founding-draft guard applies to BOTH slots, checked on the MIGRATED
-  // save: a durable prior-protocol-4 checkpoint is production authority, and
-  // production authority cannot be mid-founding.
-  if (migratedCurrent.state.founding !== null) {
+  // R05 natively saves unfinished campaigns. Only its verified predecessor
+  // may carry an already-V19, strictly validated Hollywood founding draft;
+  // the historical production-only guard remains for every earlier schema.
+  const nativeR05Draft = (original: string, state: SaveFileV19['state']): boolean =>
+    priorSchemaId === R05_NATIVE_FOUNDING_SCHEMA_ID &&
+    JSON.parse(original).saveVersion === 19 && state.hollywood != null
+  if (migratedCurrent.state.founding !== null && !nativeR05Draft(currentSaveJson, migratedCurrent.state)) {
     fail(
       'checkpoint.currentSaveJson',
       'previous protocol-4 production authority cannot contain an open founding draft',
     )
   }
-  if (migratedSaved !== null && migratedSaved.state.founding !== null) {
+  if (migratedSaved !== null && migratedSaved.state.founding !== null && !nativeR05Draft(savedSaveJson!, migratedSaved.state)) {
     fail(
       'checkpoint.savedSaveJson',
       'previous protocol-4 production authority cannot contain an open founding draft',

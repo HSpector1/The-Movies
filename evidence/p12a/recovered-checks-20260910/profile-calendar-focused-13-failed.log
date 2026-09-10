@@ -1,0 +1,87 @@
+
+ RUN  v2.1.9 /Users/bruce/The Movies - P12A Living Hollywood TS
+
+ ❯ |core| tests/bridge-contract-generator.test.ts (31 tests | 1 failed) 259ms
+   × CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering 36ms
+     → F10_CURRENT_QUOTE_UNIONS: expected 'a359a8d207216ecb56f490101ef8e80a5c33d…' to be 'cb7a14a991ca78402f419ed59fd17c97fe066…' // Object.is equality
+ ✓ |core| tests/bridge-p11-capital-contributors.test.ts (6 tests) 532ms
+ ✓ |core| tests/bridge-p10a-w0-people-projection.test.ts (10 tests) 631ms
+   ✓ P10A W0 — people projection > R8 grouped attention lists each person at most once, by the highest tier; contract horizons come from the contract alone 399ms
+ ✓ |core| tests/bridge-owner-ux-projection20-migration.test.ts (10 tests) 2414ms
+   ✓ Owner UX outgoing projection20 migration > persists 'constructed distinct-slot envelope fr…' once, then preserves the new session on restart 315ms
+   ✓ Owner UX outgoing projection20 migration > preserves current-schema journal/session and exact Save retries after real published advance 992ms
+ ✓ |core| tests/bridge-owner-ux-projection21-schema.test.ts (9 tests) 2884ms
+   ✓ Owner UX projection21 public field wire boundary > parses actual current snapshot, Save, and Load envelopes 759ms
+   ✓ Owner UX projection21 public field wire boundary > requires savedSlot rather than silently defaulting it 362ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 0 300ms
+stdout | tests/bridge-p11-ready.test.ts > P11 recorded trends and full portfolio > bounds a120-year recorded query to13/52 points with exact totals and no calendar-year invention
+{"kind":"p11-long-history-query-measurement","classification":"synthetic query-scale fixture; not played campaign evidence","weeks":6240,"ledgerEntries":6240,"elapsedMilliseconds":0.18137500000011642,"historyJsonBytes":84796,"syntheticStateJsonBytes":730155,"pointCounts":[13,52]}
+
+ ✓ |core| tests/bridge-p11-ready.test.ts (17 tests) 3091ms
+   ✓ P11 ready Upcoming and discarded financial successors > retains already-open renewal dates; expiry pays its final preceding advance only 404ms
+   ✓ P11 ready Upcoming and discarded financial successors > renew: exact pennies/guarantees and recurring costs agree with the real committed successor 627ms
+   ✓ P11 recorded trends and full portfolio > serves the actual21-film/6240-advance public diagnostic as exact unique rows and52 completed history points 313ms
+ ❯ |core| tests/bridge-schema.test.ts (22 tests | 1 failed) 7198ms
+   ✓ canonical Unity bridge schema > projects a real authoritative snapshot to the exact Unity DTO and validates the full envelope 780ms
+   ✓ canonical Unity bridge schema > keeps live location identities in the projection-v4 building namespace 4851ms
+   × canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data 404ms
+     → expected [Function] to throw error matching /expected literal 28/ but got '$.snapshotVersion: expected literal 29'
+   ✓ canonical Unity bridge schema > preserves required nullable numeric fields through schema projection 357ms
+   ✓ canonical Unity bridge schema > models accepted load/command responses as one flat projection envelope 318ms
+ ✓ |core| tests/bridge-p12-campaign-library.test.ts (13 tests) 22724ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 1172ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 1069ms
+   ✓ R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 3194ms
+   ✓ R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 1331ms
+   ✓ R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 1091ms
+   ✓ R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 1972ms
+   ✓ R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 2231ms
+   ✓ R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 2465ms
+   ✓ R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 493ms
+   ✓ R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 765ms
+   ✓ R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 1124ms
+   ✓ R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 3661ms
+   ✓ R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 2155ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-contract-generator.test.ts > CF-08 sound union-to-C# generation > current accepted contract and future sentinel > pins exact positive output identities and deterministic rerendering
+AssertionError: F10_CURRENT_QUOTE_UNIONS: expected 'a359a8d207216ecb56f490101ef8e80a5c33d…' to be 'cb7a14a991ca78402f419ed59fd17c97fe066…' // Object.is equality
+
+Expected: "cb7a14a991ca78402f419ed59fd17c97fe0661aca5cc4acd4dece924d33ac290"
+Received: "a359a8d207216ecb56f490101ef8e80a5c33d604d95318fc3a0730cceb59b88f"
+
+ ❯ tests/bridge-contract-generator.test.ts:631:37
+    629|         const second = generateCsharpTypeDeclarations(schema)
+    630|         expect(second, name).toBe(first)
+    631|         expect(sha256(first), name).toBe(expectedHash)
+       |                                     ^
+    632|       }
+    633|     })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/bridge-schema.test.ts > canonical Unity bridge schema > rejects missing, additional, wrong-enum, wrong-nullability, and old-projection data
+AssertionError: expected [Function] to throw error matching /expected literal 28/ but got '$.snapshotVersion: expected literal 29'
+
+- Expected: 
+/expected literal 28/
+
++ Received: 
+"$.snapshotVersion: expected literal 29"
+
+ ❯ tests/bridge-schema.test.ts:339:61
+    337|     const oldProjection = { ...clone(envelope), snapshotVersion: 24 }
+    338|     expect(PROJECTION_VERSION).toBe(29)
+    339|     expect(() => parseWireValue(definition, oldProjection)).toThrow(/e…
+       |                                                             ^
+    340| 
+    341|     const missingSection = clone(envelope)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  2 failed | 6 passed (8)
+      Tests  2 failed | 116 passed (118)
+   Start at  20:26:05
+   Duration  23.51s (transform 816ms, setup 0ms, collect 4.15s, tests 39.73s, environment 1ms, prepare 240ms)
+

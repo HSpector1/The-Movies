@@ -1,0 +1,1778 @@
+{
+  "schema": "p12a-native-live-film-profile-review-checkpoint-v1",
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "reviewer": "/root/recovered_product_evidence",
+  "atUtc": "2026-09-10T18:21:06.094689+00:00",
+  "phase": "same Gate A bounded review - no additional audit",
+  "status": "PARTIAL - run12 final clean witness pending; date correction pending",
+  "evidence": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z",
+  "manifestSha256": "d86d53ef54c3f36963540612730c22ee77a9da83dc9793e7d3c5be9ca46ab318",
+  "manifestSources": {
+    "unity": {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+      "sha": "275e496d9f251ca6a3a308e61689ba4636a11070",
+      "branch": "wip/p12a-living-hollywood-01-client",
+      "dirty": false
+    },
+    "typescript": {
+      "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+      "sha": "11feb047f79661aff504b09c7ce9964d7922f11d",
+      "branch": "wip/p12a-living-hollywood-01-ts",
+      "dirty": false,
+      "engineBundleSha256": "fe73eb0f6f2a8ff1632a2d05a8952a2739c7ea7875d3ecf5b1295a0598730f02"
+    },
+    "playerSha256": "00c29f694a8ee7bd985ad4bbd0b2e67107c2fc2b93681e258ccb00eedf5da6c5",
+    "engineSha256": "fe73eb0f6f2a8ff1632a2d05a8952a2739c7ea7875d3ecf5b1295a0598730f02"
+  },
+  "captures": [
+    {
+      "capture": 48,
+      "at": "2026-09-10T18:16:24.890Z",
+      "action": "click",
+      "name": "industry-studio-studio-d951827c-r01",
+      "binding": {
+        "name": "industry-studio-studio-d951827c-r01",
+        "text": "BW   Bellwether Pictures",
+        "canvas": [
+          706.5,
+          583.5
+        ],
+        "point": {
+          "x": 353.25,
+          "y": 219.25
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 4968,
+        "frame": 74520,
+        "mapAgeMs": 0.730224609375
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/048-map.json",
+      "mapSha256": "b4b6f8ea96cdcff17acf0be35503d9aa0c99ba451f7e5b926ef4b5bc42a650bf",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/048-industry-studio-studio-d951827c-r01.png",
+      "screenshotSha256": "23a4ebc3cbc2f91564e99df920de273a6f8a9d1ca6e23641445c58d1a8b12aac",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 551,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "",
+      "relevantVisibleElements": []
+    },
+    {
+      "capture": 49,
+      "at": "2026-09-10T18:16:31.089Z",
+      "action": "scroll",
+      "name": "industry-scroll",
+      "binding": {
+        "name": "industry-scroll",
+        "text": "",
+        "canvas": [
+          720,
+          346
+        ],
+        "point": {
+          "x": 360,
+          "y": 338
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5012,
+        "frame": 75180,
+        "mapAgeMs": 6.52783203125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/049-map.json",
+      "mapSha256": "c385b914c5387901eb98d9104f7d6199069c697e8c45d17c9ecc214d8570fa92",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/049-industry-scroll.png",
+      "screenshotSha256": "659c844b05ae9a3ae1072026c1ce55d2ee5296c338db525ad45dcac739693299",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 556,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "",
+      "relevantVisibleElements": [
+        {
+          "name": "industry-person-person-studio-d951827c-r01-0",
+          "text": "Iris Bell \u00b7 Writer",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            340,
+            132,
+            33
+          ]
+        },
+        {
+          "name": "industry-employer-person-studio-d951827c-r01-0",
+          "text": "Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            183,
+            340,
+            159,
+            33
+          ]
+        },
+        {
+          "name": "industry-person-person-studio-d951827c-r01-1",
+          "text": "Arthur Vale \u00b7 Director",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            294,
+            173,
+            33
+          ]
+        },
+        {
+          "name": "industry-employer-person-studio-d951827c-r01-1",
+          "text": "Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            224,
+            294,
+            159,
+            33
+          ]
+        },
+        {
+          "name": "industry-person-person-studio-d951827c-r01-2",
+          "text": "Mabel Finch \u00b7 Actor",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            248,
+            160,
+            33
+          ]
+        },
+        {
+          "name": "industry-employer-person-studio-d951827c-r01-2",
+          "text": "Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            211,
+            248,
+            159,
+            33
+          ]
+        },
+        {
+          "name": "industry-person-person-studio-d951827c-r01-3",
+          "text": "Walter Reed \u00b7 Actor",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            201,
+            161,
+            34
+          ]
+        },
+        {
+          "name": "industry-employer-person-studio-d951827c-r01-3",
+          "text": "Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            212,
+            201,
+            159,
+            34
+          ]
+        },
+        {
+          "name": "industry-person-person-studio-d951827c-r01-4",
+          "text": "Clara Moss \u00b7 Actor",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            155,
+            154,
+            33
+          ]
+        },
+        {
+          "name": "industry-employer-person-studio-d951827c-r01-4",
+          "text": "Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            205,
+            155,
+            159,
+            33
+          ]
+        },
+        {
+          "name": "industry-person-person-studio-d951827c-r01-5",
+          "text": "Edwin Pike \u00b7 Crew",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            109,
+            153,
+            33
+          ]
+        },
+        {
+          "name": "industry-employer-person-studio-d951827c-r01-5",
+          "text": "Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            204,
+            109,
+            159,
+            33
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 50,
+      "at": "2026-09-10T18:16:37.546Z",
+      "action": "scroll",
+      "name": "industry-scroll",
+      "binding": {
+        "name": "industry-scroll",
+        "text": "",
+        "canvas": [
+          720,
+          346
+        ],
+        "point": {
+          "x": 360,
+          "y": 338
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5057,
+        "frame": 75855,
+        "mapAgeMs": 25.530517578125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/050-map.json",
+      "mapSha256": "85b9edfae5cde7c341e6c550ab0c14e0bb40bff1894ca200611d30d469cbf7d8",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/050-industry-scroll.png",
+      "screenshotSha256": "9a75a6e03e7adbda4420e8aba041ded9f9318e385f309112ba3a21adce1eaa5c",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 561,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "",
+      "relevantVisibleElements": [
+        {
+          "name": "industry-person-person-studio-d951827c-r01-2",
+          "text": "Mabel Finch \u00b7 Actor",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            590,
+            160,
+            20
+          ]
+        },
+        {
+          "name": "industry-employer-person-studio-d951827c-r01-2",
+          "text": "Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            211,
+            590,
+            159,
+            20
+          ]
+        },
+        {
+          "name": "industry-person-person-studio-d951827c-r01-3",
+          "text": "Walter Reed \u00b7 Actor",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            543,
+            161,
+            34
+          ]
+        },
+        {
+          "name": "industry-employer-person-studio-d951827c-r01-3",
+          "text": "Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            212,
+            543,
+            159,
+            34
+          ]
+        },
+        {
+          "name": "industry-person-person-studio-d951827c-r01-4",
+          "text": "Clara Moss \u00b7 Actor",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            497,
+            154,
+            33
+          ]
+        },
+        {
+          "name": "industry-employer-person-studio-d951827c-r01-4",
+          "text": "Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            205,
+            497,
+            159,
+            33
+          ]
+        },
+        {
+          "name": "industry-person-person-studio-d951827c-r01-5",
+          "text": "Edwin Pike \u00b7 Crew",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            451,
+            153,
+            33
+          ]
+        },
+        {
+          "name": "industry-employer-person-studio-d951827c-r01-5",
+          "text": "Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            204,
+            451,
+            159,
+            33
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 51,
+      "at": "2026-09-10T18:16:45.625Z",
+      "action": "click",
+      "name": "industry-film-studio-d951827c-r01:film:0",
+      "binding": {
+        "name": "industry-film-studio-d951827c-r01:film:0",
+        "text": "The Painted Wilderness \u00b7 comedy",
+        "canvas": [
+          706.5,
+          372.5
+        ],
+        "point": {
+          "x": 353.25,
+          "y": 324.75
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5112,
+        "frame": 76680,
+        "mapAgeMs": 30.725341796875
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/051-map.json",
+      "mapSha256": "3749dfb58d3853389239b4d7e01565bc1152e2645d9d94b72972aaec55a09b0e",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/051-industry-film-studio-d951827c-r01-film-0.png",
+      "screenshotSha256": "2586b08f6252d8b28aa55e53d4b3b03c74cad42110bfca599fc0df3f018876d6",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 568,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "",
+      "relevantVisibleElements": [
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-0",
+          "text": "writer \u00b7 Iris Bell",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            386,
+            128,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-0",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            179,
+            386,
+            269,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-1",
+          "text": "director \u00b7 Arthur Vale",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            339,
+            169,
+            34
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-1",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            220,
+            339,
+            269,
+            34
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-2",
+          "text": "lead \u00b7 Mabel Finch",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            293,
+            154,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-2",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            205,
+            293,
+            269,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-3",
+          "text": "antagonist \u00b7 Walter Reed",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            247,
+            199,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-3",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            250,
+            247,
+            269,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-4",
+          "text": "support \u00b7 Clara Moss",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            201,
+            171,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-4",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            222,
+            201,
+            269,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-5",
+          "text": "craft \u00b7 Edwin Pike",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            154,
+            147,
+            34
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-5",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            198,
+            154,
+            269,
+            34
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 52,
+      "at": "2026-09-10T18:16:54.183Z",
+      "action": "click",
+      "name": "industry-credit-person-studio-d951827c-r01-5",
+      "binding": {
+        "name": "industry-credit-person-studio-d951827c-r01-5",
+        "text": "craft \u00b7 Edwin Pike",
+        "canvas": [
+          116.5,
+          171
+        ],
+        "point": {
+          "x": 58.25,
+          "y": 425.5
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5172,
+        "frame": 77580,
+        "mapAgeMs": 19.91796875
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/052-map.json",
+      "mapSha256": "d039a0ca5e12d1414e95c62fc08cb93cfc487bb7dedcc37bb5e8b82c4a3d78d3",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/052-industry-credit-person-studio-d951827c-r01-5.png",
+      "screenshotSha256": "206efdb2ee441da4acb4b80713283d54434fd469b01354562236f941f18f1719",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 574,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "",
+      "relevantVisibleElements": [
+        {
+          "name": "industry-person-person-studio-d951827c-r01-5",
+          "text": "Edwin Pike \u00b7 Crew",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            577,
+            153,
+            33
+          ]
+        },
+        {
+          "name": "industry-employer-person-studio-d951827c-r01-5",
+          "text": "Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            204,
+            577,
+            159,
+            33
+          ]
+        },
+        {
+          "name": "industry-full-profile-person-studio-d951827c-r01-5",
+          "text": "Open full person profile",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            506,
+            1327,
+            33
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 53,
+      "at": "2026-09-10T18:17:02.059Z",
+      "action": "click",
+      "name": "industry-full-profile-person-studio-d951827c-r01-5",
+      "binding": {
+        "name": "industry-full-profile-person-studio-d951827c-r01-5",
+        "text": "Open full person profile",
+        "canvas": [
+          706.5,
+          522.5
+        ],
+        "point": {
+          "x": 353.25,
+          "y": 249.75
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5226,
+        "frame": 78390,
+        "mapAgeMs": 5.922607421875
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/053-map.json",
+      "mapSha256": "6d3b0552de93d6d7a9ddf477e6ff3299320c22096d87850af1e503085477d6cb",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/053-industry-full-profile-person-studio-d951827c-r01-5.png",
+      "screenshotSha256": "c47ce1714c07a2d8309481f36bed87f093c62b6bce16d6fda4add01e5e1f1a56",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 580,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-5",
+      "relevantVisibleElements": []
+    },
+    {
+      "capture": 54,
+      "at": "2026-09-10T18:17:14.768Z",
+      "action": "scroll",
+      "name": "profile-detail",
+      "binding": {
+        "name": "profile-detail",
+        "text": "",
+        "canvas": [
+          974.5,
+          389
+        ],
+        "point": {
+          "x": 487.25,
+          "y": 316.5
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5316,
+        "frame": 79740,
+        "mapAgeMs": 0.692138671875
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/054-map.json",
+      "mapSha256": "0c033c1f23d20dca3b109897a41cd04550b984754659f0c60942016e93389f44",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/054-profile-detail.png",
+      "screenshotSha256": "77716c11560289f7cf9b71e8dcaeabc46af1bf523f4c056ee452df0efeeca6c6",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 590,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-5",
+      "relevantVisibleElements": [
+        {
+          "name": "profile-career-heading",
+          "text": "CAREER",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            550,
+            255,
+            830,
+            19
+          ]
+        },
+        {
+          "name": "profile-career-provenance",
+          "text": "2 separately labelled authored starting credits are in the Industry record; they did not replay career growth in this campaign. Only recorded credits appear here. Perceived ability and genre experience are separate from those credits.",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            550,
+            220,
+            830,
+            32
+          ]
+        },
+        {
+          "name": "profile-career-link-studio-d951827c-r01:film:0:person-studio-d951827c-r01-5",
+          "text": "The Painted Wilderness \u00b7 Craft",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            550,
+            187,
+            830,
+            25
+          ]
+        },
+        {
+          "name": "profile-career-meta-studio-d951827c-r01:film:0:person-studio-d951827c-r01-5",
+          "text": "comedy \u00b7 Released Week 12",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            550,
+            168,
+            830,
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 55,
+      "at": "2026-09-10T18:17:33.217Z",
+      "action": "click",
+      "name": "profile-back",
+      "binding": {
+        "name": "profile-back",
+        "text": "BACK",
+        "canvas": [
+          1376.5,
+          777.5
+        ],
+        "point": {
+          "x": 688.25,
+          "y": 122.25
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5446,
+        "frame": 81690,
+        "mapAgeMs": 42.53515625
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/055-map.json",
+      "mapSha256": "1516c61e964af0295d18bcaf3699cd2e9fbc64e55b10062fb3daecf93e70aae4",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/055-profile-back.png",
+      "screenshotSha256": "3ae74954f777fe7cdb6d8c92c168564fdc12b0e53772187f7315ad7646285d67",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 605,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-5",
+      "relevantVisibleElements": [
+        {
+          "name": "industry-person-person-studio-d951827c-r01-5",
+          "text": "Edwin Pike \u00b7 Crew",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            577,
+            153,
+            33
+          ]
+        },
+        {
+          "name": "industry-employer-person-studio-d951827c-r01-5",
+          "text": "Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            204,
+            577,
+            159,
+            33
+          ]
+        },
+        {
+          "name": "industry-full-profile-person-studio-d951827c-r01-5",
+          "text": "Open full person profile",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            506,
+            1327,
+            33
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 56,
+      "at": "2026-09-10T18:17:41.861Z",
+      "action": "click",
+      "name": "industry-back",
+      "binding": {
+        "name": "industry-back",
+        "text": "\u2039  Back",
+        "canvas": [
+          79,
+          782.5
+        ],
+        "point": {
+          "x": 39.5,
+          "y": 119.75
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5506,
+        "frame": 82590,
+        "mapAgeMs": 2.76611328125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/056-map.json",
+      "mapSha256": "503f35d963a31d5067967d5e821d13e347282b8ec059f8aa05fc0eecf5217b03",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/056-industry-back.png",
+      "screenshotSha256": "02bc913f0fa0b639bf1730561906dc56fc3cc1d45cf012f05668b41d6a1ab6e6",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 611,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-5",
+      "relevantVisibleElements": [
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-0",
+          "text": "writer \u00b7 Iris Bell",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            386,
+            128,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-0",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            179,
+            386,
+            269,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-1",
+          "text": "director \u00b7 Arthur Vale",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            339,
+            169,
+            34
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-1",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            220,
+            339,
+            269,
+            34
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-2",
+          "text": "lead \u00b7 Mabel Finch",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            293,
+            154,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-2",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            205,
+            293,
+            269,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-3",
+          "text": "antagonist \u00b7 Walter Reed",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            247,
+            199,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-3",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            250,
+            247,
+            269,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-4",
+          "text": "support \u00b7 Clara Moss",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            201,
+            171,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-4",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            222,
+            201,
+            269,
+            33
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-5",
+          "text": "craft \u00b7 Edwin Pike",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            154,
+            151,
+            34
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-5",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            202,
+            154,
+            269,
+            34
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 57,
+      "at": "2026-09-10T18:17:51.109Z",
+      "action": "click",
+      "name": "industry-text-200",
+      "binding": {
+        "name": "industry-text-200",
+        "text": "Text 200%",
+        "canvas": [
+          1340.5,
+          782.5
+        ],
+        "point": {
+          "x": 670.25,
+          "y": 119.75
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5572,
+        "frame": 83580,
+        "mapAgeMs": 3.5986328125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/057-map.json",
+      "mapSha256": "c4d7c27d77b45f3b01c51572615b50fcd66a621d901f75fe692cd8ba4edb7947",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/057-industry-text-200.png",
+      "screenshotSha256": "7a1ca4caa16b5f0350c381733fa72de65364bc01d9146422802a65138fba9a7b",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 619,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-5",
+      "relevantVisibleElements": [
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-0",
+          "text": "writer \u00b7 Iris Bell",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            101,
+            234,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-0",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            285,
+            101,
+            515,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 58,
+      "at": "2026-09-10T18:17:59.190Z",
+      "action": "scroll",
+      "name": "industry-scroll",
+      "binding": {
+        "name": "industry-scroll",
+        "text": "",
+        "canvas": [
+          720,
+          291.5
+        ],
+        "point": {
+          "x": 360,
+          "y": 365.25
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5630,
+        "frame": 84450,
+        "mapAgeMs": 3.381103515625
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/058-map.json",
+      "mapSha256": "ae7e30496b5658b99431ca8aba3b9097c5cbcfab945aa5b0784e12d28d1fd9b7",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/058-industry-scroll.png",
+      "screenshotSha256": "44186f1e4a4e38b1c345d7767fafb8ef46b82d0c9eb19c8b3394fabe009a7e7a",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 625,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-5",
+      "relevantVisibleElements": [
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-0",
+          "text": "writer \u00b7 Iris Bell",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            381,
+            234,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-0",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            285,
+            381,
+            515,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-1",
+          "text": "director \u00b7 Arthur Vale",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            332,
+            316,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-1",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            367,
+            332,
+            515,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-2",
+          "text": "lead \u00b7 Mabel Finch",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            283,
+            286,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-2",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            337,
+            283,
+            515,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-3",
+          "text": "antagonist \u00b7 Walter Reed",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            234,
+            375,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-3",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            426,
+            234,
+            515,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-4",
+          "text": "support \u00b7 Clara Moss",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            185,
+            319,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-4",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            370,
+            185,
+            515,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-5",
+          "text": "craft \u00b7 Edwin Pike",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            136,
+            271,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-5",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            322,
+            136,
+            515,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "capture": 59,
+      "at": "2026-09-10T18:18:07.501Z",
+      "action": "click",
+      "name": "industry-credit-employer-person-studio-d951827c-r01-5",
+      "binding": {
+        "name": "industry-credit-employer-person-studio-d951827c-r01-5",
+        "text": "Current studio: Bellwether Pictures",
+        "canvas": [
+          579.5,
+          154
+        ],
+        "point": {
+          "x": 289.75,
+          "y": 434
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5686,
+        "frame": 85290,
+        "mapAgeMs": 2.27294921875
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/059-map.json",
+      "mapSha256": "8fdf11083d7ec73923a2592f13c37370af97df8c654a3c25edb5272511cea6df",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/059-industry-credit-employer-person-studio-d951827c-r01-5.png",
+      "screenshotSha256": "d4a9f9b5e486b7eaa823cea02bd56b985968410aa1e1547314cd58f23b452b8b",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 631,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-5",
+      "relevantVisibleElements": []
+    },
+    {
+      "capture": 60,
+      "at": "2026-09-10T18:18:16.514Z",
+      "action": "click",
+      "name": "industry-back",
+      "binding": {
+        "name": "industry-back",
+        "text": "\u2039  Back",
+        "canvas": [
+          106,
+          765
+        ],
+        "point": {
+          "x": 53,
+          "y": 128.5
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5750,
+        "frame": 86250,
+        "mapAgeMs": 2.662109375
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/060-map.json",
+      "mapSha256": "61ac9b0bcd74a2c5940d5776608b3f62ba6cdcb74362c0390a70198e4fac6280",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/060-industry-back.png",
+      "screenshotSha256": "888124f98a0584ebaca625382295bbada26b22f1f6a49b686c74fc8089554f79",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 638,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-5",
+      "relevantVisibleElements": [
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-0",
+          "text": "writer \u00b7 Iris Bell",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            381,
+            234,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-0",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            285,
+            381,
+            515,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-1",
+          "text": "director \u00b7 Arthur Vale",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            332,
+            316,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-1",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            367,
+            332,
+            515,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-2",
+          "text": "lead \u00b7 Mabel Finch",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            283,
+            286,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-2",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            337,
+            283,
+            515,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-3",
+          "text": "antagonist \u00b7 Walter Reed",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            234,
+            375,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-3",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            426,
+            234,
+            515,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-4",
+          "text": "support \u00b7 Clara Moss",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            185,
+            319,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-4",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            370,
+            185,
+            515,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-person-studio-d951827c-r01-5",
+          "text": "craft \u00b7 Edwin Pike",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            43,
+            134,
+            271,
+            36
+          ]
+        },
+        {
+          "name": "industry-credit-employer-person-studio-d951827c-r01-5",
+          "text": "Current studio: Bellwether Pictures",
+          "visible": true,
+          "enabled": true,
+          "screenRect": [
+            322,
+            132,
+            519,
+            40
+          ]
+        }
+      ]
+    }
+  ],
+  "observedLivePath": [
+    "Actual native film051 is The Painted Wilderness, comedy, Bellwether Pictures,1920 Week13 Recorded campaign release, active theatrical run, critic37.7/audience61.5, opening and gross earned both$6,765,888. Public totals are explicitly earned so far; future/private revenue is not exposed.",
+    "Film051 shows six exact canonical credits: writerIris Bell, directorArthur Vale, leadMabel Finch, antagonistWalter Reed, supportClara Moss, craftEdwin Pike; each current-employer button names Bellwether Pictures.",
+    "Exact craft click052 opens Edwin Pike Industry record with3canonical credits, distinguishing credits from historical employment. FullProfile click053 shows current exclusive contract with Bellwether, no current offer, no claim that off-lot means available; current studio private assignments withheld. Craft discipline shows3recorded credits.",
+    "Profile scroll054 reaches actual career bottom row for the live The Painted Wilderness; two separately labelled authored starting credits are explained rather than replayed into new career growth.",
+    "Profile Back055 returns to Edwin Industry record at same authority and film set; Back056 returns to live film. Visible controls are not claimed pixel-identical because focus/header geometry changes slightly.",
+    "Text200%057 and scroll058 expose all six credit controls and End of this page. Edwin current-employer click059 opens exact Bellwether studio; Back060 restores same live film,200% setting and bottom credit context including final row."
+  ],
+  "defect": {
+    "id": "profile-release-date-raw-tick",
+    "severity": "consequential contradictory calendar fact on same film/person path",
+    "status": "root notified; correction and focused native replay pending",
+    "actual": "Film051 and person055 say1920 Week13; full Profile career054 says comedy \u00b7 Released Week12 for the exact same The Painted Wilderness.",
+    "cause": "TS bridge/people.ts buildCareer passes raw authoritative event releaseWeek unchanged. Unity StudioPersonProfileContracts.CareerRowMeta directly interpolates row.releaseWeek. Industry bridge/industry.ts calls campaignDate(releaseTick).label, whose established52-week calendar maps raw12 to1920 Week13.",
+    "sourceSeam": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Infrastructure/StudioPersonProfileContracts.cs:113",
+    "caller": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/UI/StudioProfileWorkspace.cs:485",
+    "testSeam": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Tests/EditMode/StudioP10AW2ProfileContractsTests.cs:90",
+    "recommendedScope": "Correct the displayed career date using the established calendar convention/shared formatter or authoritative label. Preserve raw stored release tick, career events, simulation and validation laws. Existing test expecting raw Released Week141 needs calendar semantics.",
+    "sourceFiles": [
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Infrastructure/StudioPersonProfileContracts.cs",
+        "sha256": "0130d4cbf6b24726cdd138ef6bf81e43bcfced1fcd5da175de346b07f47a220d"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Runtime/Presentation/UI/StudioProfileWorkspace.cs",
+        "sha256": "b7eca56973f7bb2bbbb1e771d0e0dfddcd852ed445b183462056b075b8b0f6d0"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Assets/Studio/Tests/EditMode/StudioP10AW2ProfileContractsTests.cs",
+        "sha256": "280e3424bbb1ea790a6388937fabb91b70d6682aeab9055972004e801be0bd87"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/people.ts",
+        "sha256": "e9393b9a9cd3a0028d0977b13ca0eab04f169fe577d81e95bd99a3623e649c5e"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/industry.ts",
+        "sha256": "af6726a8e23965069d11ec5007c51ec8f27bf664c3a13de7a8118d06433256e8"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/src/core/calendar.ts",
+        "sha256": "c54fe83ab161d4c80727c3ece021e6340eda3a7ff0bf134f5288d76de8f811ef"
+      }
+    ]
+  },
+  "limitations": [
+    "No whole-run clean result before final witness; root remains sole native input owner.",
+    "No claim the neutral low-ability identity wording was exercised by Edwin; his primary discipline qualifies as proven.",
+    "This proves the observed live film/credits/person/employer/Back path; it does not alone certify every prior production gate, every campaign, or all Gate A acceptance.",
+    "No worktree edits, native input, tests/builds or raw private save/credential copying by reviewer."
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "kind": "native-run12-relaunch-live-film-partial-gate-a",
+  "sourcePair": {
+    "p12a-native-preview.mjs": "b663ef4268d5602610b99dacc590050521ee676ab2fbf990ac58182826b403fd",
+    "hid-guard.mjs": "3b83ec6c8dbf671c065850be91f4a9eca30708e8ad7b181b518109bd9b13f8a6",
+    "hid-witness-state.mjs": "1990383600425eb72db82573cec63e8b887a7d755cf32bbb6fc2400ebc95084c",
+    "hid-coherent-map.mjs": "d766cb5a96519bff79fafdc9806d9973e575a08a8e251b53a739490515efd7c7",
+    "owner-ux-startup.mjs": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff",
+    "owner-ux-window.mjs": "d93ca436174d295cacc7a3d7d561adae7b3d5c49cbdc8019e507ca8fcec92594",
+    "p04a1-window-select.mjs": "a70359db53251c0f88fd3ee586169fcf328f691ffaf2d73d2a844217533b561c",
+    "input-state.py": "d235e2a584bd6d142e5fdd0dd93833bd139260b33646a7f59eae030ba5184942",
+    "console-state.py": "fd540d278ce159e9db1c8c4e8133b222e523475ed9642244799124668de78ac7",
+    "ownerinput/ownerinput.swift": "3b3439dcc9f68e9a891c175fdbb870a9535fd30fab6fbf00d3592fd1cb8d8d73",
+    "hidwitness/hidwitness.swift": "9dad5fdd34fce93cd497eaf06c76b97b5d928627e07e157c292f8714fa7311df"
+  },
+  "manifestSha256": "d86d53ef54c3f36963540612730c22ee77a9da83dc9793e7d3c5be9ca46ab318",
+  "playerSha256": "00c29f694a8ee7bd985ad4bbd0b2e67107c2fc2b93681e258ccb00eedf5da6c5",
+  "engineSha256": "fe73eb0f6f2a8ff1632a2d05a8952a2739c7ea7875d3ecf5b1295a0598730f02",
+  "evidenceDirectory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z",
+  "reason": "ui-quit",
+  "quitAtUtc": "2026-09-10T18:20:05.478Z",
+  "playerExit": {
+    "code": 0,
+    "signal": null
+  },
+  "checkpointSha256": "a16840d20d8804b338035a77412553dc950444766d9a7fd53d2c5df4f4f78c38",
+  "input": {
+    "status": "clean",
+    "finalMarkerSequence": 10065,
+    "physicalEvents": 0,
+    "unknownEvents": 0,
+    "foreign": []
+  },
+  "campaigns": "Independent A1/B3/C0 and diverged copy8 restored after run11 Quit/relaunch; Scratch overwrite/delete/cancel tested; copy13 saved before clean Quit. C0 meets explicit create-C/save clause.",
+  "liveFilm": "The Painted Wilderness, six canonical credits and current employer; Edwin/Arthur fullProfile and Back; 200% final row and employer link",
+  "remaining": [
+    "Profile release date raw week12 vs Industry1920Week13: corrected source29, native replay pending",
+    "Neutral identity text needs a suitable low-capability credited person; run12 Arthur OVR72 does not trigger it",
+    "GateA runnable control not yet sealed; GateB/production performance and final candidate open"
+  ]
+}

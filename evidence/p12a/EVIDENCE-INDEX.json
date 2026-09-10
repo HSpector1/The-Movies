@@ -107,9 +107,23 @@
       "path": "gate-a-run11-20260910/native-summary.json",
       "sha256": "92971f0f65f4b9710b91223b9522cd70974318024fa210cecfbc014ee00f0e0b",
       "applicability": "Development preview11 source c7fbd87/a34698a; independent corrected obstacle/campaign review with clean witness. Final launcher/relaunch pending."
+    },
+    {
+      "kind": "native-relaunch-live-film-review",
+      "outcome": "PARTIAL",
+      "path": "gate-a-run12-20260910/native-summary.json",
+      "sha256": "fcac66a1deb5742f404308fb3c6c08a71a5c7f6f46f0791d960cfee0e44e10da",
+      "applicability": "Actual preview12/Unity275e496/TS11feb04; completed native tasks independently reviewed. Profile29 date replay and final candidate applicability pending."
+    },
+    {
+      "kind": "cumulative-regression",
+      "outcome": "PASS",
+      "path": "recovered-checks-20260910/ts-cumulative-05-profile-calendar.log",
+      "sha256": "dcdfa969cb95d73aed7cfcf9ddca2cfeec7450a154c990c868201a3b8e4b5e97",
+      "applicability": "TS393files/5151PASS/5SKIP/170.55s on current Profile29+strictnative28 founding migration; Unity12current1092/1092. Worker architecture not yet integrated; final candidate binding pending."
     }
   ],
-  "updatedAtUtc": "2026-09-10T18:03:00.446579+00:00",
+  "updatedAtUtc": "2026-09-10T18:34:48.225099+00:00",
   "attestationsPath": "attestations.json",
   "recovery": {
     "sessionId": "01a08adf-7719-7da2-85d0-77ae64c36fad",
@@ -134,22 +148,21 @@
       "tasksCompleted": false
     },
     "latestNativeRun": {
-      "report": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T17-43-34-083Z/report.json",
-      "quitAtUtc": "2026-09-10T17:56:05.922Z",
+      "report": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/report.json",
+      "quitAtUtc": "2026-09-10T18:20:05.478Z",
       "inputFinalization": "clean",
       "playerExit": {
         "code": 0,
         "signal": null
       },
-      "campaignProgress": "A1/B3/C0 independently seeded; B Copy8 diverged; clean Quit; all-three relaunch pending."
+      "campaignProgress": "Independent A1/B3/C0 and diverged copy8 restored after run11 Quit/relaunch; Scratch overwrite/delete/cancel tested; copy13 saved before clean Quit. C0 meets explicit create-C/save clause."
     }
   },
   "open": [
-    "Native corrected Profile wording and same-revision campaign-switch replay",
-    "Native independently seeded A/B/C, SaveAs divergence, Quit/relaunch and isolation",
+    "Native corrected Profile release calendar and suitable neutral identity replay",
     "Remaining independent Gate A and Gate B product critiques",
     "Current candidate source/build evidence applicability and runnable Gate A preservation",
-    "Performance: original uncompressed targets MISS; isolated/native latency and memory pending",
+    "Performance: original targets MISS; actual synchronous writes52.976\u201362.744ms exceed50ms; worker correction and native timings pending",
     "Requirement final dispositions and final launch-verified packaging"
   ]
 }

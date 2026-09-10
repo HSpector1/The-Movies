@@ -1,0 +1,1533 @@
+{
+  "schema": "p12a-native12-bounded-review-closure-v1",
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "reviewer": "/root/recovered_product_evidence",
+  "atUtc": "2026-09-10T18:23:00.261425+00:00",
+  "phase": "same bounded Gate A product review",
+  "status": "Completed run12 observed tasks verified with clean UI Quit; Gate A still PARTIAL",
+  "supplements": [
+    {
+      "path": "/tmp/p12a-gatea-native12-relaunch-campaign-g14nxnxi.json",
+      "sha256": "082b0cdce52a519cf5e542420c25637301202499fede460bca87b442984efe91"
+    },
+    {
+      "path": "/tmp/p12a-gatea-native12-livefilm-profile-zqvy5b9c.json",
+      "sha256": "4f6934edc117abe49579ed1522f2cd0655e2093178ff3a43318e55ab84efe9be"
+    }
+  ],
+  "supersededLimitations": "Run12 ongoing/final-witness-pending and working-copy13-save-pending caveats in the two checkpoints are now resolved by this closure. Date and neutral-identity recheck caveats remain.",
+  "evidence": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z",
+  "files": [
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/report.json",
+      "sha256": "cb54ac87ce6e2b158a0ef99dc9922235dff83fc3b14fd1e706c5a5ae17c0cb8a"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/steps.json",
+      "sha256": "073c213b05b60dc406ad61d877e9eb097709f965529c9c6af5bc1b43f0eba7b6"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/build-manifest.json",
+      "sha256": "d86d53ef54c3f36963540612730c22ee77a9da83dc9793e7d3c5be9ca46ab318"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/launch-binding.json",
+      "sha256": "8dd71156d3cf353d4a5cfa5404b2af4f1c2a0d9d9ac1595e44f42b2282ddb0ac"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/campaign-library-final.json",
+      "sha256": "a16840d20d8804b338035a77412553dc950444766d9a7fd53d2c5df4f4f78c38"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/action-trace.jsonl",
+      "sha256": "8bb32f9a4612c0090a6f92063ddfc653454528c193c4f5976650b10ac5453979"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/hid-witness.jsonl",
+      "sha256": "1527cc2f1a01d04e8543553214881bde1e5f03df9732e9b2535beedac6bbf478"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/hid-ownership.jsonl",
+      "sha256": "0800bfb9895e2a26c1bce2edf5bc13a3edd752a3b167e0871f67178bb9461b12"
+    }
+  ],
+  "binding": {
+    "manifestSha256": "d86d53ef54c3f36963540612730c22ee77a9da83dc9793e7d3c5be9ca46ab318",
+    "playerSha256": "00c29f694a8ee7bd985ad4bbd0b2e67107c2fc2b93681e258ccb00eedf5da6c5",
+    "engineSha256": "fe73eb0f6f2a8ff1632a2d05a8952a2739c7ea7875d3ecf5b1295a0598730f02",
+    "appPid": 43170,
+    "enginePid": 43147,
+    "reason": "ui-quit",
+    "playerExit": {
+      "code": 0,
+      "signal": null
+    },
+    "checkpointSha256": "a16840d20d8804b338035a77412553dc950444766d9a7fd53d2c5df4f4f78c38"
+  },
+  "wholePersistedLibraryMatchesReport": true,
+  "inputClosure": {
+    "status": "clean",
+    "atUtc": "2026-09-10T18:20:05.478000+00:00",
+    "finalMarker": {
+      "seq": 10065,
+      "type": "null",
+      "keycode": 0,
+      "sourcePid": 46931
+    },
+    "observationEndsAt": "acknowledged final HID marker",
+    "ended": {
+      "stopToken": "261185244809453",
+      "reason": "requested",
+      "markerSeq": 10065
+    },
+    "partial": false,
+    "counts": {
+      "tool": 376,
+      "markerCompanion": 375,
+      "playerNull": 92,
+      "playerOther": 0,
+      "physical": 0,
+      "unknown": 0
+    },
+    "foreign": [],
+    "pendingCompanion": null,
+    "playerExit": {
+      "code": 0,
+      "signal": null
+    },
+    "nativeQuitClick": {
+      "at": "2026-09-10T18:20:03.863Z",
+      "action": "click",
+      "name": "studio-menu-confirm-accept",
+      "binding": {
+        "name": "studio-menu-confirm-accept",
+        "text": "Quit to Desktop",
+        "canvas": [
+          803,
+          274
+        ],
+        "point": {
+          "x": 401.5,
+          "y": 374
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 6521,
+        "frame": 97815,
+        "mapAgeMs": 5.24365234375
+      }
+    },
+    "processDeath": "Root reports app43170/engine43147 ended; reviewer did not query or control processes."
+  },
+  "finalLibrary": {
+    "catalogueRevision": 21,
+    "activeCampaignId": "d81b2c72-9644-4c72-b186-77caaa741f72",
+    "records": [
+      {
+        "id": "5c50cd73-d2c5-4e49-a634-d86291766395",
+        "label": "Campaign A",
+        "recordRevision": 2,
+        "codec": "gzip-base64/v1",
+        "decodedBytes": 5924165,
+        "declaredLengthMatches": true,
+        "decodedSha256": "3d9c67281792f43a7168acbafecc1f38b33465a1eae14a03a711b26e67a5a375",
+        "declaredHashMatches": true,
+        "authority": {
+          "sessionId": "bcb9c6a9-9d69-49b6-a302-f229e0c6beb3",
+          "stateRevision": 8,
+          "currentStateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+          "savedStateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720"
+        }
+      },
+      {
+        "id": "d14292d0-9626-4418-b983-3d154a2ba3ef",
+        "label": "Campaign B",
+        "recordRevision": 1,
+        "codec": "gzip-base64/v1",
+        "decodedBytes": 6600365,
+        "declaredLengthMatches": true,
+        "decodedSha256": "f0b6a7681b4af4a2baf6f9d192a9c5144fe8b8113d45ad197ffaa74a4d8b086c",
+        "declaredHashMatches": true,
+        "authority": {
+          "sessionId": "4cdf1fca-c7c8-444e-a8ec-c3a1de6a34b1",
+          "stateRevision": 10,
+          "currentStateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+          "savedStateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030"
+        }
+      },
+      {
+        "id": "64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+        "label": "Campaign C",
+        "recordRevision": 1,
+        "codec": "gzip-base64/v1",
+        "decodedBytes": 1192789,
+        "declaredLengthMatches": true,
+        "decodedSha256": "c6072aaaafd91944ed61d3ee3caf7837a9ea82ca8a99d8a0a8800585983f45c8",
+        "declaredHashMatches": true,
+        "authority": {
+          "sessionId": "dbb836dd-30c0-4b03-aeb8-d250c8e2b140",
+          "stateRevision": 0,
+          "currentStateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+          "savedStateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299"
+        }
+      },
+      {
+        "id": "d81b2c72-9644-4c72-b186-77caaa741f72",
+        "label": "B Copy Diverged",
+        "recordRevision": 3,
+        "codec": "gzip-base64/v1",
+        "decodedBytes": 4395665,
+        "declaredLengthMatches": true,
+        "decodedSha256": "8fa6f2f7476f19edcebdfff12ddb0133d517e4bea6501231e20aa8a1fb097933",
+        "declaredHashMatches": true,
+        "authority": {
+          "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+          "stateRevision": 5,
+          "currentStateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+          "savedStateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22"
+        }
+      }
+    ],
+    "newReceipts": [
+      {
+        "request": {
+          "operation": "load",
+          "campaignId": "5c50cd73-d2c5-4e49-a634-d86291766395",
+          "overwriteCampaignId": null,
+          "expectedActiveCampaignId": "d81b2c72-9644-4c72-b186-77caaa741f72",
+          "label": null,
+          "confirmDestructive": false,
+          "expectedCatalogueRevision": 10,
+          "unsavedDisposition": "requireClean",
+          "commandId": "c96fd36a-06f3-4913-a381-35aef98433a1"
+        },
+        "response": {
+          "operation": "load",
+          "campaignId": "5c50cd73-d2c5-4e49-a634-d86291766395",
+          "catalogueRevision": 11,
+          "sessionId": "b2afa8c9-2d8f-43fa-8420-17b4a461a20d",
+          "originatingSessionId": "0c94f6a8-7230-498d-91a7-1f921520816e",
+          "stateRevision": 0,
+          "gameWeek": 1,
+          "stateDigest": "693d730aece8aa56d406415fd3f39b50cec497984d7f886d83b695442b503720",
+          "accepted": true,
+          "commandId": "c96fd36a-06f3-4913-a381-35aef98433a1"
+        }
+      },
+      {
+        "request": {
+          "operation": "load",
+          "campaignId": "d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "overwriteCampaignId": null,
+          "expectedActiveCampaignId": "5c50cd73-d2c5-4e49-a634-d86291766395",
+          "label": null,
+          "confirmDestructive": false,
+          "expectedCatalogueRevision": 11,
+          "unsavedDisposition": "requireClean",
+          "commandId": "2f1435ae-1949-45e4-b0d9-b188f8acb560"
+        },
+        "response": {
+          "operation": "load",
+          "campaignId": "d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "catalogueRevision": 12,
+          "sessionId": "37948374-4f87-4201-9332-ca9d8dcf0be8",
+          "originatingSessionId": "b2afa8c9-2d8f-43fa-8420-17b4a461a20d",
+          "stateRevision": 0,
+          "gameWeek": 3,
+          "stateDigest": "a4a6baf9cf339673485a538260ccf60f935bbac8d5e23966bc3b9160736f7030",
+          "accepted": true,
+          "commandId": "2f1435ae-1949-45e4-b0d9-b188f8acb560"
+        }
+      },
+      {
+        "request": {
+          "operation": "load",
+          "campaignId": "64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "overwriteCampaignId": null,
+          "expectedActiveCampaignId": "d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "label": null,
+          "confirmDestructive": false,
+          "expectedCatalogueRevision": 12,
+          "unsavedDisposition": "requireClean",
+          "commandId": "5221c5ac-c3f4-41e1-b3f1-1e43f74407ea"
+        },
+        "response": {
+          "operation": "load",
+          "campaignId": "64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "catalogueRevision": 13,
+          "sessionId": "2a9c9d7b-4147-4c9a-8dba-7e192c0331f5",
+          "originatingSessionId": "37948374-4f87-4201-9332-ca9d8dcf0be8",
+          "stateRevision": 0,
+          "gameWeek": 0,
+          "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+          "accepted": true,
+          "commandId": "5221c5ac-c3f4-41e1-b3f1-1e43f74407ea"
+        }
+      },
+      {
+        "request": {
+          "operation": "load",
+          "campaignId": "d81b2c72-9644-4c72-b186-77caaa741f72",
+          "overwriteCampaignId": null,
+          "expectedActiveCampaignId": "64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "label": null,
+          "confirmDestructive": false,
+          "expectedCatalogueRevision": 13,
+          "unsavedDisposition": "requireClean",
+          "commandId": "c1f88bf3-e5bf-43b1-8f34-72e8ea0d9f81"
+        },
+        "response": {
+          "operation": "load",
+          "campaignId": "d81b2c72-9644-4c72-b186-77caaa741f72",
+          "catalogueRevision": 14,
+          "sessionId": "0051e860-ec3a-485f-ac68-256b830d041a",
+          "originatingSessionId": "2a9c9d7b-4147-4c9a-8dba-7e192c0331f5",
+          "stateRevision": 0,
+          "gameWeek": 8,
+          "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+          "accepted": true,
+          "commandId": "c1f88bf3-e5bf-43b1-8f34-72e8ea0d9f81"
+        }
+      },
+      {
+        "request": {
+          "operation": "saveAs",
+          "campaignId": null,
+          "overwriteCampaignId": null,
+          "expectedActiveCampaignId": "d81b2c72-9644-4c72-b186-77caaa741f72",
+          "label": "Scratch",
+          "confirmDestructive": false,
+          "expectedCatalogueRevision": 14,
+          "unsavedDisposition": "requireClean",
+          "commandId": "24511fbb-32cd-4d05-a0e1-5f5d05ee1fe8"
+        },
+        "response": {
+          "operation": "saveAs",
+          "campaignId": "60acc8db-d91e-4780-856a-725dc6421416",
+          "catalogueRevision": 15,
+          "sessionId": "21f51ba0-1668-4dba-94fb-0c5fc4a1ce67",
+          "originatingSessionId": "0051e860-ec3a-485f-ac68-256b830d041a",
+          "stateRevision": 0,
+          "gameWeek": 8,
+          "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+          "accepted": true,
+          "commandId": "24511fbb-32cd-4d05-a0e1-5f5d05ee1fe8"
+        }
+      },
+      {
+        "request": {
+          "operation": "load",
+          "campaignId": "64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "overwriteCampaignId": null,
+          "expectedActiveCampaignId": "60acc8db-d91e-4780-856a-725dc6421416",
+          "label": null,
+          "confirmDestructive": false,
+          "expectedCatalogueRevision": 15,
+          "unsavedDisposition": "requireClean",
+          "commandId": "aca359a5-1943-40a3-9fc9-c02eb4681050"
+        },
+        "response": {
+          "operation": "load",
+          "campaignId": "64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "catalogueRevision": 16,
+          "sessionId": "dbb836dd-30c0-4b03-aeb8-d250c8e2b140",
+          "originatingSessionId": "21f51ba0-1668-4dba-94fb-0c5fc4a1ce67",
+          "stateRevision": 0,
+          "gameWeek": 0,
+          "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+          "accepted": true,
+          "commandId": "aca359a5-1943-40a3-9fc9-c02eb4681050"
+        }
+      },
+      {
+        "request": {
+          "operation": "save",
+          "campaignId": null,
+          "overwriteCampaignId": null,
+          "expectedActiveCampaignId": "64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "label": null,
+          "confirmDestructive": false,
+          "expectedCatalogueRevision": 16,
+          "unsavedDisposition": "requireClean",
+          "commandId": "8a740256-c12d-47cd-90f6-b1ac05ef78cf"
+        },
+        "response": {
+          "operation": "save",
+          "campaignId": "64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "catalogueRevision": 17,
+          "sessionId": "dbb836dd-30c0-4b03-aeb8-d250c8e2b140",
+          "originatingSessionId": "dbb836dd-30c0-4b03-aeb8-d250c8e2b140",
+          "stateRevision": 0,
+          "gameWeek": 0,
+          "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+          "accepted": true,
+          "commandId": "8a740256-c12d-47cd-90f6-b1ac05ef78cf"
+        }
+      },
+      {
+        "request": {
+          "operation": "saveAs",
+          "campaignId": null,
+          "overwriteCampaignId": "60acc8db-d91e-4780-856a-725dc6421416",
+          "expectedActiveCampaignId": "64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "label": "Scratch",
+          "confirmDestructive": true,
+          "expectedCatalogueRevision": 17,
+          "unsavedDisposition": "requireClean",
+          "commandId": "43b39d55-3ffa-484e-adbd-484aa8fff824"
+        },
+        "response": {
+          "operation": "saveAs",
+          "campaignId": "60acc8db-d91e-4780-856a-725dc6421416",
+          "catalogueRevision": 18,
+          "sessionId": "83b624e2-d071-473b-aa8d-0e411432c1ac",
+          "originatingSessionId": "dbb836dd-30c0-4b03-aeb8-d250c8e2b140",
+          "stateRevision": 0,
+          "gameWeek": 0,
+          "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+          "accepted": true,
+          "commandId": "43b39d55-3ffa-484e-adbd-484aa8fff824"
+        }
+      },
+      {
+        "request": {
+          "operation": "delete",
+          "campaignId": "60acc8db-d91e-4780-856a-725dc6421416",
+          "overwriteCampaignId": null,
+          "expectedActiveCampaignId": "60acc8db-d91e-4780-856a-725dc6421416",
+          "label": null,
+          "confirmDestructive": true,
+          "expectedCatalogueRevision": 18,
+          "unsavedDisposition": "requireClean",
+          "commandId": "0ea1741a-6610-4b11-bd4d-b99fb1370ee4"
+        },
+        "response": {
+          "operation": "delete",
+          "campaignId": null,
+          "catalogueRevision": 19,
+          "sessionId": "83b624e2-d071-473b-aa8d-0e411432c1ac",
+          "originatingSessionId": "83b624e2-d071-473b-aa8d-0e411432c1ac",
+          "stateRevision": 0,
+          "gameWeek": 0,
+          "stateDigest": "4e0fe7ca3703c930a2a1af6cfdf9d26c0bb7ee437be3c6f00112fca59f067299",
+          "accepted": true,
+          "commandId": "0ea1741a-6610-4b11-bd4d-b99fb1370ee4"
+        }
+      },
+      {
+        "request": {
+          "operation": "load",
+          "campaignId": "d81b2c72-9644-4c72-b186-77caaa741f72",
+          "overwriteCampaignId": null,
+          "expectedActiveCampaignId": null,
+          "label": null,
+          "confirmDestructive": false,
+          "expectedCatalogueRevision": 19,
+          "unsavedDisposition": "discard",
+          "commandId": "2970a593-510e-4142-b5db-9252329fe0da"
+        },
+        "response": {
+          "operation": "load",
+          "campaignId": "d81b2c72-9644-4c72-b186-77caaa741f72",
+          "catalogueRevision": 20,
+          "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+          "originatingSessionId": "83b624e2-d071-473b-aa8d-0e411432c1ac",
+          "stateRevision": 0,
+          "gameWeek": 8,
+          "stateDigest": "054a00142fcdc7dd9acd8dd1f70fdb4fa9250fee2a320db5540bd2cd4e039c43",
+          "accepted": true,
+          "commandId": "2970a593-510e-4142-b5db-9252329fe0da"
+        }
+      },
+      {
+        "request": {
+          "operation": "save",
+          "campaignId": null,
+          "overwriteCampaignId": null,
+          "expectedActiveCampaignId": "d81b2c72-9644-4c72-b186-77caaa741f72",
+          "label": null,
+          "confirmDestructive": false,
+          "expectedCatalogueRevision": 20,
+          "unsavedDisposition": "requireClean",
+          "commandId": "d7081e0d-3437-4464-823d-2405b7acdef5"
+        },
+        "response": {
+          "operation": "save",
+          "campaignId": "d81b2c72-9644-4c72-b186-77caaa741f72",
+          "catalogueRevision": 21,
+          "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+          "originatingSessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+          "stateRevision": 5,
+          "gameWeek": 13,
+          "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+          "accepted": true,
+          "commandId": "d7081e0d-3437-4464-823d-2405b7acdef5"
+        }
+      }
+    ],
+    "privateDataHandling": "Decoded each declared codec only in memory for hash/length and public authority metadata checks. No raw/compressed save payloads or credentials copied."
+  },
+  "captures": [
+    {
+      "capture": 61,
+      "at": "2026-09-10T18:18:42.814Z",
+      "action": "click",
+      "name": "studio-menu-open",
+      "binding": {
+        "name": "studio-menu-open",
+        "text": "MENU",
+        "canvas": [
+          1380,
+          868
+        ],
+        "point": {
+          "x": 690,
+          "y": 77
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 5940,
+        "frame": 89100,
+        "mapAgeMs": 31.162841796875
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/061-map.json",
+      "mapSha256": "6472c051750e82da0df37207cc78648e2f921aa1fb7a1e53e89a75b7fb0df504",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/061-studio-menu-open.png",
+      "screenshotSha256": "fb1370ab891afbe757411b50227d84226fa1e6a3acea3771e7d53fd002f06960",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 658,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-5",
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy Diverged   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ],
+          "visible": true
+        }
+      ]
+    },
+    {
+      "capture": 62,
+      "at": "2026-09-10T18:18:56.152Z",
+      "action": "click",
+      "name": "studio-menu-resume",
+      "binding": {
+        "name": "studio-menu-resume",
+        "text": "Resume",
+        "canvas": [
+          470.65,
+          744
+        ],
+        "point": {
+          "x": 235.325,
+          "y": 139
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 6036,
+        "frame": 90540,
+        "mapAgeMs": 46.855224609375
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/062-map.json",
+      "mapSha256": "00293e0761b35db00f4c50771e1dcc0f192cc41826c63dbed3c5863ad68c311f",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/062-studio-menu-resume.png",
+      "screenshotSha256": "ccaa9f3ada01828a37697b6bbc45224d581e279b60b685c124148a7436e4d4fe",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 669,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-5",
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 63,
+      "at": "2026-09-10T18:18:59.147Z",
+      "action": "click",
+      "name": "industry-credit-person-studio-d951827c-r01-1",
+      "binding": {
+        "name": "industry-credit-person-studio-d951827c-r01-1",
+        "text": "director \u00b7 Arthur Vale",
+        "canvas": [
+          201,
+          350
+        ],
+        "point": {
+          "x": 100.5,
+          "y": 336
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 6057,
+        "frame": 90855,
+        "mapAgeMs": 36.899169921875
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/063-map.json",
+      "mapSha256": "375087585e365ab5cb948b2d40d41be34ff9fcf72c6de5f1e7892e6658c60a63",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/063-industry-credit-person-studio-d951827c-r01-1.png",
+      "screenshotSha256": "5b3d615b258c5c5f7a5e9dff7e7a470c479c84655fe6ad47887be6d8ca4322f8",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 671,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-5",
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 64,
+      "at": "2026-09-10T18:19:08.098Z",
+      "action": "click",
+      "name": "industry-full-profile-person-studio-d951827c-r01-1",
+      "binding": {
+        "name": "industry-full-profile-person-studio-d951827c-r01-1",
+        "text": "Open full person profile",
+        "canvas": [
+          706.5,
+          306
+        ],
+        "point": {
+          "x": 353.25,
+          "y": 358
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 6121,
+        "frame": 91815,
+        "mapAgeMs": 4.293212890625
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/064-map.json",
+      "mapSha256": "84f7a691935f84d31f829fed5fa19f1c4f9fc58588d684e8c322abc5ea728624",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/064-industry-full-profile-person-studio-d951827c-r01-1.png",
+      "screenshotSha256": "fb781e1ece0f71c3fcf23ed57ceedc36c64c932e1c196a852d20df46bbfc06c7",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 678,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-1",
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 65,
+      "at": "2026-09-10T18:19:21.932Z",
+      "action": "click",
+      "name": "profile-back",
+      "binding": {
+        "name": "profile-back",
+        "text": "BACK",
+        "canvas": [
+          1376.5,
+          777.5
+        ],
+        "point": {
+          "x": 688.25,
+          "y": 122.25
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 6220,
+        "frame": 93300,
+        "mapAgeMs": 4.733642578125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/065-map.json",
+      "mapSha256": "fcc55f9dfc017063b61530b5de3cc1a396f7531cc6a5ae0af87db8819d865150",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/065-profile-back.png",
+      "screenshotSha256": "280e7de87be4271f22d3b1a752a9e6cff237c2ee2dbbd257b0875a1d9a1ce25b",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 689,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-1",
+      "visibleCampaignElements": []
+    },
+    {
+      "capture": 66,
+      "at": "2026-09-10T18:19:24.469Z",
+      "action": "click",
+      "name": "studio-menu-open",
+      "binding": {
+        "name": "studio-menu-open",
+        "text": "MENU",
+        "canvas": [
+          1380,
+          868
+        ],
+        "point": {
+          "x": 690,
+          "y": 77
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 6237,
+        "frame": 93555,
+        "mapAgeMs": 2.525634765625
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/066-map.json",
+      "mapSha256": "d5e9f11922d7f3cb46be128272956f137662ab17f6c43c18ae306bcdf0ef2384",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/066-studio-menu-open.png",
+      "screenshotSha256": "80f5001d0792175b5b5b576c302d0e107260018c99f000eb88f3c2fadb135a42",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 691,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-1",
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy Diverged   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ],
+          "visible": true
+        }
+      ]
+    },
+    {
+      "capture": 67,
+      "at": "2026-09-10T18:19:27.589Z",
+      "action": "click",
+      "name": "studio-menu-save",
+      "binding": {
+        "name": "studio-menu-save",
+        "text": "Save active campaign",
+        "canvas": [
+          532,
+          347.2
+        ],
+        "point": {
+          "x": 266,
+          "y": 337.4
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 6259,
+        "frame": 93885,
+        "mapAgeMs": 5.2275390625
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/067-map.json",
+      "mapSha256": "65abafd4b1d26a7aac8c651746ce6d8322dd8228d25b66fbb25f30fc29cf7e6c",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/067-studio-menu-save.png",
+      "screenshotSha256": "de2b98d8ff29322dbe73fef19025be6816459fba5c96f530c39696d13acda109",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 693,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-1",
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy Diverged   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-retry",
+          "text": "Retry unresolved operation",
+          "screenRect": [
+            350,
+            219.2,
+            740,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ],
+          "visible": true
+        }
+      ]
+    },
+    {
+      "capture": 68,
+      "at": "2026-09-10T18:19:28.490Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/068-map.json",
+      "mapSha256": "a4c9eba8e6cbc2c2378b96ff1203a8092087cb7fbe246ce0764a3efc8bd83f64",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/068-observe.png",
+      "screenshotSha256": "d36a80b3ab8e3e5ccb176de05c0c0dd35df0daac5bea4bf83181e675e17cc246",
+      "visuallyInspected": false,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 693,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-1",
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy Diverged   \u00b7   1920 \u00b7 Week 9   \u00b7 Active",
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-retry",
+          "text": "Retry unresolved operation",
+          "screenRect": [
+            350,
+            219.2,
+            740,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ],
+          "visible": true
+        }
+      ]
+    },
+    {
+      "capture": 69,
+      "at": "2026-09-10T18:19:38.868Z",
+      "action": "observe",
+      "name": null,
+      "binding": null,
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/069-map.json",
+      "mapSha256": "ad25e6b5f2b3fa1a9e0c6e4d15147f34ef649486d0450665a54de32c54a83435",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/069-observe.png",
+      "screenshotSha256": "48975af7a6a7d4fc3b1e25c31e81ecf18399071d0c1a0e91c5fad9fb1e9a044c",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 701,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-1",
+      "visibleCampaignElements": [
+        {
+          "name": "campaign-rename",
+          "text": "Rename selected\u2026",
+          "screenRect": [
+            350,
+            273.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-delete",
+          "text": "Delete selected\u2026",
+          "screenRect": [
+            726,
+            273.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-save-as",
+          "text": "Save As\u2026",
+          "screenRect": [
+            726,
+            377.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-d14292d0-9626-4418-b983-3d154a2ba3ef",
+          "text": "Campaign B   \u00b7   1920 \u00b7 Week 4",
+          "screenRect": [
+            350,
+            604,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-5c50cd73-d2c5-4e49-a634-d86291766395",
+          "text": "Campaign A   \u00b7   1920 \u00b7 Week 2",
+          "screenRect": [
+            350,
+            658,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-64fb60e0-00d8-45ad-8d4b-9cc120d6b9f6",
+          "text": "Campaign C   \u00b7   1920 \u00b7 Week 1",
+          "screenRect": [
+            350,
+            550,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-record-d81b2c72-9644-4c72-b186-77caaa741f72",
+          "text": "\u2713 B Copy Diverged   \u00b7   1920 \u00b7 Week 14   \u00b7 Active",
+          "screenRect": [
+            350,
+            496,
+            712,
+            48
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-new",
+          "text": "New Game\u2026",
+          "screenRect": [
+            350,
+            377.2,
+            364,
+            44
+          ],
+          "visible": true
+        },
+        {
+          "name": "campaign-refresh",
+          "text": "Refresh library",
+          "screenRect": [
+            599.3,
+            722,
+            241.3,
+            44
+          ],
+          "visible": true
+        }
+      ]
+    },
+    {
+      "capture": 70,
+      "at": "2026-09-10T18:19:50.065Z",
+      "action": "click",
+      "name": "studio-menu-quit",
+      "binding": {
+        "name": "studio-menu-quit",
+        "text": "Quit to Desktop",
+        "canvas": [
+          969.35,
+          744
+        ],
+        "point": {
+          "x": 484.675,
+          "y": 139
+        },
+        "inputBinding": {
+          "ok": true,
+          "frontmostPid": "43170",
+          "window": {
+            "id": 33240,
+            "x": 0,
+            "y": 33,
+            "w": 720,
+            "h": 478
+          },
+          "osHeld": {
+            "heldKeys": [],
+            "heldButtons": [],
+            "clean": true
+          },
+          "stuck": []
+        },
+        "mapGeneration": 6422,
+        "frame": 96330,
+        "mapAgeMs": 20.96142578125
+      },
+      "map": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/070-map.json",
+      "mapSha256": "d301847f151b6ee610a330fa67db53d54896471f6b18d10aa63dc4be9d933bcf",
+      "screenshot": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T18-04-35-974Z/070-studio-menu-quit.png",
+      "screenshotSha256": "b7b8d996a51ea50a679d9cf232b733da9acc6e4d9684f2c461eb0b3080bcb111",
+      "visuallyInspected": true,
+      "authority": {
+        "sessionId": "92a38143-0800-4f09-b2f8-679c5d802068",
+        "stateRevision": 5,
+        "gameWeek": 13,
+        "stateDigest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "schemaId": "sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712",
+        "successfulSnapshotPollCount": 709,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "profileTalentId": "person-studio-d951827c-r01-1",
+      "visibleCampaignElements": []
+    }
+  ],
+  "completedOutcomes": [
+    "Relaunch and explicit native loads restore A1/B3/C0/copy8 exact prior digests; accepted catalogue receipts11\u201314 corroborate the selected campaigns.",
+    "Scratch created atcopy8, explicitly overwritten with exactC0, deletion cancelled then explicitly confirmed once. Receipt18 is confirmed SaveAs overwrite with exact Scratch target; receipt19 deletes only that record. Originals A/B/C/copy preserved, Scratch absent in final library.",
+    "B Copy Diverged loaded again at8, progressed through ordinary clock to13. Native save067 followed settled Saved screenshot069 and accepted receipt21 confirms gameWeek13/rev5/digest2be5e9c8...; same digest in final stored current/saved checkpoint. A/B retain exact old checkpoint hashes; C was explicitly saved at0 and retains its world digest.",
+    "Live film The Painted Wilderness at1920Week13 with6canonical credits; Edwin person/fullProfile/current employer; Profile Back;200% all6credits/endrow; employer Bellwether/Back returning film context all observed under unchanged world authority.",
+    "Actual native070 Quit confirmation has zero campaign-prefixed elements in the map, matching absence of campaign panel/rows in image. Prior run11 hidden campaign geometry defect is corrected on this actual seam.",
+    "Native UI Quit exits player0; final HID marker10065 at18:20:05.478UTC closes cleanly withphysical0/unknown0/foreign[]/no pending companion."
+  ],
+  "remainingGateARechecks": [
+    {
+      "id": "profile-release-date",
+      "status": "open correction plus native recheck",
+      "evidence": "Native054 career row says Released Week12 while same livefilm051/055 says1920 Week13.",
+      "scope": "TypeScript remains calendar authority: publish releaseDateLabel from established campaignDate in Profile row/projection/schema and consume in Unity, or use an existing authoritative public label if present. No independent Unity calendar formula, no raw saved-tick mutation."
+    },
+    {
+      "id": "neutral-low-ability-identity",
+      "status": "source correction present; suitable native recheck still open",
+      "evidence": "Edwin053 qualifies as proven. Arthur064 in this B-derived world is DirectingOVR72/3credits/Proven; it is not the low-ability Arthur52 from the separate earlier world. Therefore neither frame exercises Career identity not yet established fallback."
+    }
+  ],
+  "scopeLimitations": [
+    "This is bounded Gate A review, not complete R05/GateB acceptance. C remains gameWeek0, so do not call this three independently progressed campaigns.",
+    "No claim deferred displayed-intent slot was exercised in native timing; run11 only proves button press begun during healthy poll completed.",
+    "No new worktree edits, tests/build jobs, servers, or native input by reviewer."
+  ]
+}
