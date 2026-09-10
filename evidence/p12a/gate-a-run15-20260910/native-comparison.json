@@ -1,0 +1,470 @@
+{
+  "kind": "bounded-native14-native15-detached-parse-measurement-review/v1",
+  "createdUtc": "2026-09-10T19:54:37.196737+00:00",
+  "scope": "Correction applicability and completed public measurement evidence only. No full Gate A acceptance or broader product review.",
+  "activity": "Read final reports, public performance records, public rendered maps, ten requested screenshots and existing parser attestation; inspected commit path deltas. No private save contents, capabilities, new runtime probes, builds, tests, engines, native input or shared edits.",
+  "sources": {
+    "native14": {
+      "directory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z",
+      "reportSha256": "caa4491ce1d26dd81b9b4d8e0ad3a6cf39a695839f33a0cbf7a6284284597e60",
+      "performanceSha256": "36dc013fef12b48e905c92384008c29e997d59135f23448cbf3fcf2cd4fe30dd",
+      "performanceDigestMatchesFinalReport": true,
+      "manifestSha256": "e29dc231414ad99c67d7edf2c2d2e0e27b438829712656918d11bcce24290ed7"
+    },
+    "native15": {
+      "directory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-44-53-133Z",
+      "reportSha256": "e67224bdf1765f3b8fd4a971e78189aeb9ef8484739e4f3e7080b5d539f1b2d4",
+      "performanceSha256": "5e09e5fbd7cd0d37e59d0392c04408f64c14469c7b4ae6a4f696d64acd2060b7",
+      "performanceDigestMatchesFinalReport": true,
+      "manifestSha256": "dda6b79e6e0e969fb26b8fb603cd53fd978d564de342202b7485f431d5ecf9c3"
+    }
+  },
+  "applicability": {
+    "independentParserAttestation": {
+      "path": "/tmp/p12a-detached-parser-attestation.lxp3pj5x/attestation.json",
+      "sha256": "91aea015f57d89a132ae14506c4ecfbd44498f6865673dfd6a046eed1c7c47e0",
+      "runtimeCommit": "a0c7fc4617268aceef940f71165bf6da74cac215",
+      "observedHeadMatchesNative15Manifest": true,
+      "implementationBlockingFinding": null,
+      "reviewerAuthorshipQualification": "Reviewer authored the seven detached-boundary tests and their EditMode fixture correction, not runtime implementation. Implementation inspection was independent of runtime authorship; test review is not independent test authorship.",
+      "completedCorrectedEditModeResult": {
+        "total": 1099,
+        "passed": 1099,
+        "detachedBoundaryCases": 7,
+        "source": "Existing attestation; no tests rerun."
+      }
+    },
+    "runtimeToNative15CommitChangedPaths": [
+      "Assets/Studio/Tests/EditMode/StudioDetachedSnapshotTests.cs",
+      "Assets/Studio/Tests/EditMode/StudioDetachedSnapshotTests.cs.meta",
+      "Tools/p12a-native-preview.mjs"
+    ],
+    "typescriptCommitChangeContainsOnlyDocsAndEvidence": true,
+    "typescriptEngineAndWorkerBindingsIdentical": true,
+    "native15RelaunchBindsNative14FinalReportAndRecordedCheckpoint": true,
+    "wholePrivateLibraryByteIdentityClaimed": false
+  },
+  "runs": {
+    "native14": {
+      "unityCommit": "d03461cece99bc6ae5962a035b081797af65ab00",
+      "typescriptCommit": "923eaee953d5cf7eee3d261b70b3091b7a198d88",
+      "playerExecutableSha256": "73e319a17f59be668178914f3ef6a06fc87866df52dd3910ffdb8639de466ade",
+      "frameSample": {
+        "warmupSecondsRequested": 45.0,
+        "sampleSecondsRequested": 30.0,
+        "sampleSecondsMeasured": 30.002415667,
+        "sampledFrames": 3184,
+        "sampleStartedUtc": "2026-09-10T19:08:19.0679030Z",
+        "sampleEndedUtc": "2026-09-10T19:08:49.0703420Z",
+        "averageFps": 106.12478792839731,
+        "averageFrameTimeMs": 9.42285554082916,
+        "medianFrameTimeMs": 8.357207999999616,
+        "p95FrameTimeMs": 11.404654499991551,
+        "maxFrameTimeMs": 131.36208300001329,
+        "nonLiveFrames": 450,
+        "transportOutagesDuringSample": 0,
+        "authorityContinuityMaintained": true,
+        "gen0Collections": 127,
+        "gen1Collections": 127,
+        "gen2Collections": 127
+      },
+      "snapshotPhases": {
+        "wholeRun": {
+          "requests": 226,
+          "joined": 226,
+          "phases": {
+            "utf8-text-decode": {
+              "count": 226,
+              "medianMs": 0.1649,
+              "p95NearestRankMs": 0.2176,
+              "maxMs": 1.6974,
+              "totalMs": 40.0191,
+              "threadIdCounts": {
+                "1": 226
+              }
+            },
+            "strict-parse-validation": {
+              "count": 226,
+              "medianMs": 97.1983,
+              "p95NearestRankMs": 102.2831,
+              "maxMs": 139.6298,
+              "totalMs": 22014.5853,
+              "threadIdCounts": {
+                "1": 226
+              }
+            },
+            "store-and-synchronous-subscribers": {
+              "count": 226,
+              "medianMs": 16.0044,
+              "p95NearestRankMs": 20.1486,
+              "maxMs": 46.9101,
+              "totalMs": 3857.9557,
+              "threadIdCounts": {
+                "1": 226
+              }
+            }
+          },
+          "payloadByteCounts": {
+            "532069": 201,
+            "532068": 20,
+            "532067": 3,
+            "532060": 1,
+            "532066": 1
+          }
+        },
+        "fullyContainedFrameWindow": {
+          "requests": 23,
+          "joined": 23,
+          "phases": {
+            "utf8-text-decode": {
+              "count": 23,
+              "medianMs": 0.1551,
+              "p95NearestRankMs": 0.1829,
+              "maxMs": 1.6974,
+              "totalMs": 5.1998,
+              "threadIdCounts": {
+                "1": 23
+              }
+            },
+            "strict-parse-validation": {
+              "count": 23,
+              "medianMs": 97.9975,
+              "p95NearestRankMs": 102.1996,
+              "maxMs": 102.499,
+              "totalMs": 2249.0808,
+              "threadIdCounts": {
+                "1": 23
+              }
+            },
+            "store-and-synchronous-subscribers": {
+              "count": 23,
+              "medianMs": 17.8313,
+              "p95NearestRankMs": 20.2629,
+              "maxMs": 20.3299,
+              "totalMs": 407.5003,
+              "threadIdCounts": {
+                "1": 23
+              }
+            }
+          },
+          "payloadByteCounts": {
+            "532068": 3,
+            "532069": 20
+          }
+        }
+      },
+      "wholeRunRoutes": {
+        "/session": 226,
+        "/snapshot": 226,
+        "/industry": 4,
+        "/campaigns": 4
+      },
+      "save": {
+        "requestCount": 1,
+        "responses": [
+          {
+            "code": 200,
+            "outcome": "response-received",
+            "sendToCoroutineResumeMs": 247.459
+          }
+        ],
+        "uiSaveStepRecorded": true,
+        "screenshot013ShowsCampaignSaved": true,
+        "worldUnchangedAcrossSave": true
+      },
+      "quitAndInput": {
+        "status": "observation-complete",
+        "reason": "ui-quit",
+        "playerExit": {
+          "code": 0,
+          "signal": null
+        },
+        "quitConfirmationStepRecorded": true,
+        "performanceCapturedThroughQuit": true,
+        "inputFinalizationStatus": "clean",
+        "witnessStarted": true,
+        "witnessEndedByRequestedMarker": true,
+        "witnessPartial": false,
+        "foreignInputCount": 0,
+        "physicalInputCount": 0,
+        "unknownInputCount": 0,
+        "pendingCompanion": null,
+        "heldKeysAtEnd": [],
+        "heldButtonsAtEnd": [],
+        "osInputCleanAtEnd": true
+      },
+      "publicWorld": {
+        "digest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "revision": 0,
+        "gameWeekIndex": 13,
+        "displayedCalendar": "1920 Week 14",
+        "completedSnapshotJoins": 226,
+        "allCompletedJoinsAndInitialSaveQuitMapsMatch": true,
+        "sampleRuntimeIdentityUnchanged": true,
+        "sampleRuntimeReplacementCount": 0
+      },
+      "droppedRequests": 0
+    },
+    "native15": {
+      "unityCommit": "92f914a3536829275257151fc72d686634901220",
+      "typescriptCommit": "12afff9f2cdd0eb84b09082aeb29bfb72dd10d13",
+      "playerExecutableSha256": "c728f73847e5d51f04efd6915bac9c05e82b323645f8c719b12afd0345e81aa9",
+      "frameSample": {
+        "warmupSecondsRequested": 45.0,
+        "sampleSecondsRequested": 30.0,
+        "sampleSecondsMeasured": 30.003820792,
+        "sampledFrames": 4969,
+        "sampleStartedUtc": "2026-09-10T19:45:46.7332210Z",
+        "sampleEndedUtc": "2026-09-10T19:46:16.7371320Z",
+        "averageFps": 165.61224100248253,
+        "averageFrameTimeMs": 6.038189407727932,
+        "medianFrameTimeMs": 5.609458999998651,
+        "p95FrameTimeMs": 8.403016600006197,
+        "maxFrameTimeMs": 29.592334000000164,
+        "nonLiveFrames": 1093,
+        "transportOutagesDuringSample": 0,
+        "authorityContinuityMaintained": true,
+        "gen0Collections": 152,
+        "gen1Collections": 152,
+        "gen2Collections": 152
+      },
+      "snapshotPhases": {
+        "wholeRun": {
+          "requests": 169,
+          "joined": 168,
+          "phases": {
+            "utf8-text-decode": {
+              "count": 169,
+              "medianMs": 0.1697,
+              "p95NearestRankMs": 0.218,
+              "maxMs": 0.3314,
+              "totalMs": 29.7447,
+              "threadIdCounts": {
+                "1": 169
+              }
+            },
+            "strict-parse-validation": {
+              "count": 168,
+              "medianMs": 122.9896,
+              "p95NearestRankMs": 133.4646,
+              "maxMs": 158.1574,
+              "totalMs": 20718.9479,
+              "threadIdCounts": {
+                "16": 105,
+                "17": 63
+              }
+            },
+            "store-and-synchronous-subscribers": {
+              "count": 168,
+              "medianMs": 16.3282,
+              "p95NearestRankMs": 20.2951,
+              "maxMs": 45.4497,
+              "totalMs": 2868.4507,
+              "threadIdCounts": {
+                "1": 168
+              }
+            }
+          },
+          "payloadByteCounts": {
+            "532069": 148,
+            "532068": 18,
+            "532067": 3
+          }
+        },
+        "fullyContainedFrameWindow": {
+          "requests": 23,
+          "joined": 23,
+          "phases": {
+            "utf8-text-decode": {
+              "count": 23,
+              "medianMs": 0.1649,
+              "p95NearestRankMs": 0.2247,
+              "maxMs": 0.2551,
+              "totalMs": 3.963,
+              "threadIdCounts": {
+                "1": 23
+              }
+            },
+            "strict-parse-validation": {
+              "count": 23,
+              "medianMs": 124.6319,
+              "p95NearestRankMs": 130.6207,
+              "maxMs": 131.0522,
+              "totalMs": 2851.6253,
+              "threadIdCounts": {
+                "16": 23
+              }
+            },
+            "store-and-synchronous-subscribers": {
+              "count": 23,
+              "medianMs": 16.0101,
+              "p95NearestRankMs": 19.0942,
+              "maxMs": 21.5813,
+              "totalMs": 387.4143,
+              "threadIdCounts": {
+                "1": 23
+              }
+            }
+          },
+          "payloadByteCounts": {
+            "532069": 20,
+            "532068": 3
+          }
+        }
+      },
+      "wholeRunRoutes": {
+        "/session": 169,
+        "/snapshot": 169,
+        "/industry": 4,
+        "/campaigns": 4
+      },
+      "save": {
+        "requestCount": 1,
+        "responses": [
+          {
+            "code": 200,
+            "outcome": "response-received",
+            "sendToCoroutineResumeMs": 325.9715
+          }
+        ],
+        "uiSaveStepRecorded": true,
+        "screenshot013ShowsCampaignSaved": true,
+        "worldUnchangedAcrossSave": true
+      },
+      "quitAndInput": {
+        "status": "observation-complete",
+        "reason": "ui-quit",
+        "playerExit": {
+          "code": 0,
+          "signal": null
+        },
+        "quitConfirmationStepRecorded": true,
+        "performanceCapturedThroughQuit": true,
+        "inputFinalizationStatus": "clean",
+        "witnessStarted": true,
+        "witnessEndedByRequestedMarker": true,
+        "witnessPartial": false,
+        "foreignInputCount": 0,
+        "physicalInputCount": 0,
+        "unknownInputCount": 0,
+        "pendingCompanion": null,
+        "heldKeysAtEnd": [],
+        "heldButtonsAtEnd": [],
+        "osInputCleanAtEnd": true
+      },
+      "publicWorld": {
+        "digest": "2be5e9c8a857bc01f945512d878a50c56fa3845043ecad8f4a66f64133104b22",
+        "revision": 0,
+        "gameWeekIndex": 13,
+        "displayedCalendar": "1920 Week 14",
+        "completedSnapshotJoins": 168,
+        "allCompletedJoinsAndInitialSaveQuitMapsMatch": true,
+        "sampleRuntimeIdentityUnchanged": true,
+        "sampleRuntimeReplacementCount": 0
+      },
+      "droppedRequests": 0
+    }
+  },
+  "comparison": {
+    "sameHardwareRecord": true,
+    "sameRenderSettings": true,
+    "renderViewport": [
+      1440,
+      900
+    ],
+    "sameInitialCameraPose": true,
+    "samePublicWorldDigestRevisionWeek": true,
+    "frameChangesPercentNative15Vs14": {
+      "averageFps": 56.054,
+      "averageFrameTimeMs": -35.92,
+      "medianFrameTimeMs": -32.879,
+      "p95FrameTimeMs": -26.319,
+      "maxFrameTimeMs": -77.473
+    },
+    "nonLiveFrameFractionPercent": {
+      "native14": 14.133,
+      "native15": 21.996
+    },
+    "matchedWindowRule": "Request starts no earlier than sampleStartedTicks, resumes and every recorded phase ends no later than sampleEndedTicks; phases also start within the window. Both windows contain 23 completed /snapshot polls. Phase p95 uses nearest rank; frame metrics retain producer values.",
+    "correctionResult": "All 168 recorded completed native15 snapshot parses ran on managed worker threads 16/17; all 226 native14 snapshot parses ran on thread 1. Both matched windows contain 23 completed parses: native14 thread 1; native15 thread 16.",
+    "remainingMainThreadWork": "Snapshot UTF-8 decode and store-and-synchronous-subscribers remain on thread 1. Handshake/industry/campaign strict parsing also remains on thread 1.",
+    "measurementConclusion": "The matched public-world samples support the intended snapshot parse thread transfer and improved observed frame times. Worker parse wall time increased; this is not a faster-parser or all-main-thread-work-removed claim."
+  },
+  "screenshots": {
+    "native14": [
+      {
+        "file": "006-industry-person-person-studio-d951827c-r01-0.png",
+        "sha256": "f7aded0807bee7ea5f17de9c4775f673171699b80ddbbc128ad1d9061eac5bfb",
+        "visuallyInspected": true,
+        "observation": "Iris Bell public industry credits"
+      },
+      {
+        "file": "007-industry-full-profile-person-studio-d951827c-r01-0.png",
+        "sha256": "9c4b28c8cb325b92529e1a77d8945ca11e39c4b2c5bb051166f3ed22546c2e9b",
+        "visuallyInspected": true,
+        "observation": "Iris Bell full person profile"
+      },
+      {
+        "file": "008-profile-detail.png",
+        "sha256": "316df47edd25fa3fa393d1dfcc5dc73fe4c1d1bc3f651a479b5c0bf5d55a4315",
+        "visuallyInspected": true,
+        "observation": "Scrolled person career/contract details"
+      },
+      {
+        "file": "010-industry-film-studio-d951827c-r01-film-0.png",
+        "sha256": "484a3c58803b54017ebb04e0134ebeb7417eb072b4d44d999fd2c5745f3986f9",
+        "visuallyInspected": true,
+        "observation": "The Painted Wilderness film and six canonical credits"
+      },
+      {
+        "file": "013-observe.png",
+        "sha256": "b38b9ca339b7a803f4291fca6389db6ee7a5d805639a7c93626ec5b49d7ccb17",
+        "visuallyInspected": true,
+        "observation": "Saved active campaign receipt"
+      }
+    ],
+    "native15": [
+      {
+        "file": "006-industry-full-profile-person-studio-d951827c-r01-0.png",
+        "sha256": "491356190975031cf696706344192046bf1a19e8451208c074c69558c3526490",
+        "visuallyInspected": true,
+        "observation": "Iris Bell full person profile"
+      },
+      {
+        "file": "007-profile-detail.png",
+        "sha256": "6eb8eb107ab2a48f339ee7ac182ae51a0a505c13dba37ded36885811e4dba6df",
+        "visuallyInspected": true,
+        "observation": "Scrolled person career/contract details"
+      },
+      {
+        "file": "008-profile-back.png",
+        "sha256": "b4e187a90e56178efbb17012236425d1267d7e756fed55f7c0e9ef08f2ed6328",
+        "visuallyInspected": true,
+        "observation": "Return to Iris Bell public industry credits"
+      },
+      {
+        "file": "010-industry-film-studio-d951827c-r01-film-0.png",
+        "sha256": "a3193f4c580dfdce28ad4686137db16acaa0dc6c16e64ac4c4c9c5ec55cbd23e",
+        "visuallyInspected": true,
+        "observation": "The Painted Wilderness film and six canonical credits"
+      },
+      {
+        "file": "013-observe.png",
+        "sha256": "71226e3a720696803f5affa5389b483b929106c1f53d2e94db6105fd036925ad",
+        "visuallyInspected": true,
+        "observation": "Saved active campaign receipt"
+      }
+    ],
+    "comparison": "Corresponding routes preserve displayed person affiliation, three credits, writing OVR 25, Star Power 21, $56.6K market rate, film figures and six canonical credits. Both 013 images visibly say Campaign saved. Screenshot numbering differs; native window title-bar capture height differs while the client viewport remains 1440x900. No pixel-identity claim."
+  },
+  "qualifications": [
+    "One before/after native sample per build; route observations occur after the 30-second frame sample, so they do not establish route-specific frame improvements.",
+    "Whole native14 and native15 lifetimes differ: 226 versus 168 completed snapshot joins. Whole-run phase distributions are presented separately from matched windows.",
+    "Native15 has one final response-received snapshot with UTF-8 decode only at application Quit; it is excluded from completed parse/apply and join counts.",
+    "Both samples retain authority identity and report zero transport outages/dropped requests, but nonLiveFrames increase from 450/3184 to 1093/4969. Do not claim every frame was Live.",
+    "CPU/GPU frame-time counters are unavailable (-1) in both captures; use reported wall frame metrics only.",
+    "Root reports one stale hyphenated film target rejected before target/input. No such target appears in successful step records; the later actual colon-delimited target is recorded. The rejected request is not counted as a native action pass.",
+    "Save success and unchanged public world are supported by UI receipts, HTTP 200 saves and matching public authority records. Private save contents were not read or independently compared; recorded checkpoint digests need not remain identical after save metadata updates.",
+    "This comparison does not establish packaged PLAY acceptance; root is exercising that separately."
+  ]
+}

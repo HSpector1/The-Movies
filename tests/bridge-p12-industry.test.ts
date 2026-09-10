@@ -69,4 +69,31 @@ describe('R05 public Industry projections',()=>{
     for(const p of [project,released,employment,roster,history,output])expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse,p)).toEqual(p)
   })
 
+  it('keeps recent Output newcomers distinct from incomparable incumbents and absent observations',()=>{
+    const source=generateWorld('r05-recent-output-entry')
+    // Migrate immediately before the real 520-week arrival. Two ordinary ticks
+    // produce genuine chart cohorts without a 520-tick simulation fixture.
+    let state=initializeHollywood({...source,market:{...source.market,tick:518}},'migration')
+    const newcomer=state.hollywood!.identities.find(s=>s.eligibleWeek===520)!
+    state=tick(state)
+    expect(state.hollywood!.chart!.week).toBe(519)
+    expect(state.hollywood!.previousChart).toBeNull()
+    const initial=industryPage(state,'industry-test',0,query('studios',{lane:'output',period:'recent',pageSize:50}))
+    for(const studio of initial.studios)
+      expect(studio.lanes.find(l=>l.key==='output')).toMatchObject({movement:'unavailable',movementLabel:'No comparable prior cohort',priorRank:null,priorWeek:null})
+    state=tick(state)
+    expect(state.hollywood!.chart!.week).toBe(520)
+    expect(state.hollywood!.previousChart!.week).toBe(519)
+    expect(state.hollywood!.identities.find(s=>s.studioId===newcomer.studioId)!.enteredWeek).toBe(520)
+    const recent=industryPage(state,'industry-test',0,query('studios',{lane:'output',period:'recent',pageSize:50}))
+    const all=industryPage(state,'industry-test',0,query('studios',{lane:'output',period:'all',pageSize:50}))
+    expect(recent.studios).toHaveLength(6)
+    expect(recent.studios.find(s=>s.studioId===newcomer.studioId)!.lanes.find(l=>l.key==='output')).toMatchObject({
+      value:0,rank:1,movement:'new',movementLabel:'New to this comparison',priorRank:null,priorWeek:null})
+    expect(all.studios.find(s=>s.studioId===newcomer.studioId)!.lanes.find(l=>l.key==='output')).toMatchObject({movement:'new',priorRank:null,priorWeek:null})
+    for(const studio of recent.studios.filter(s=>s.studioId!==newcomer.studioId))
+      expect(studio.lanes.find(l=>l.key==='output')).toMatchObject({movement:'unavailable',movementLabel:'No comparable prior cohort',priorRank:null,priorWeek:null})
+    for(const page of [initial,recent,all])expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse,page)).toEqual(page)
+  })
+
 })

@@ -121,8 +121,9 @@ export function industryPage(state:GameState,sessionId:string,stateRevision:numb
         l.label='Released Films · Last 52 weeks';l.meaning='Actual campaign releases in the 52 weeks ending at the comparison date; authored starting history is excluded.';l.value=value
         l.rank=1+rows.filter(s=>count(s.studioId,at)>value).length
         l.priorRank=comparable?1+prior!.rows.filter(r=>count(r.studioId,prior!.week)>count(studio.studioId,prior!.week)).length:null
-        l.movement=l.priorRank===null?'unavailable':l.rank<l.priorRank?'up':l.rank>l.priorRank?'down':'unchanged'
-        l.movementLabel=l.priorRank===null?'No comparable prior cohort':l.movement==='unchanged'?'No rank change':`${l.movement==='up'?'Up':'Down'} ${Math.abs(l.rank-l.priorRank)} since ${campaignDate(prior!.week).label}`
+        l.priorWeek=comparable?prior!.week:null
+        l.movement=!prior?'unavailable':!prior.rows.some(r=>r.studioId===studio.studioId)?'new':l.priorRank===null?'unavailable':l.rank<l.priorRank?'up':l.rank>l.priorRank?'down':'unchanged'
+        l.movementLabel=l.movement==='new'?'New to this comparison':l.priorRank===null?'No comparable prior cohort':l.movement==='unchanged'?'No rank change':`${l.movement==='up'?'Up':'Down'} ${Math.abs(l.rank-l.priorRank)} since ${campaignDate(prior!.week).label}`
       }
     }
     result.title='Studio Charts';result.studios=page(rows.sort((a,b)=>a.lanes.find(l=>l.key===lane)!.rank-b.lanes.find(l=>l.key===lane)!.rank||byText(a.studioId,b.studioId)))

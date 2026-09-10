@@ -1,0 +1,41 @@
+{
+  "kind": "curated R05 native15 parser correction replay",
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "scope": "same public copy13 world, snapshot thread correction, Profile/date/film/Back and campaign Save/clean UI Quit; not packaged PLAY or Gate B",
+  "reportPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-44-53-133Z/report.json",
+  "reportSha256": "e67224bdf1765f3b8fd4a971e78189aeb9ef8484739e4f3e7080b5d539f1b2d4",
+  "status": "observation-complete",
+  "reason": "ui-quit",
+  "playerExit": {
+    "code": 0,
+    "signal": null
+  },
+  "sources": {
+    "typescript": "12afff9f2cdd0eb84b09082aeb29bfb72dd10d13",
+    "unity": "92f914a3536829275257151fc72d686634901220"
+  },
+  "playerSha256": "c728f73847e5d51f04efd6915bac9c05e82b323645f8c719b12afd0345e81aa9",
+  "engineSha256": "ccd58600f6c43edc5abf814fdddf63d673fd69a98277ad61c80ea4e72e58d104",
+  "runtimeWorkerSha256": "b93597b747fbbf678b3024966e8c0559bf50c97534edc3dbb5aea75f755f0aa9",
+  "input": {
+    "status": "clean",
+    "lastAtUtc": "2026-09-10T19:48:44.021000+00:00",
+    "finalMarkerSequence": 2455,
+    "physical": 0,
+    "unknown": 0,
+    "playerOther": 0,
+    "foreignCount": 0,
+    "pendingCompanion": null
+  },
+  "performanceFinalization": {
+    "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-44-53-133Z/runtime-performance/PerformanceCaptures/Unity/runtime-performance.json",
+    "sha256": "5e09e5fbd7cd0d37e59d0392c04408f64c14469c7b4ae6a4f696d64acd2060b7",
+    "frameCaptureStatus": "complete",
+    "applicationQuitCapture": true,
+    "applicationQuitCapturedUtc": "2026-09-10T19:48:41.6360720Z",
+    "authorityContinuityMaintained": true,
+    "droppedRequests": 0,
+    "status": "captured-through-quit"
+  },
+  "qualification": "One mistyped hyphenated film target refused before target/input; actual colon-delimited control subsequently observed and used. No action pass for refused request. Private checkpoint contents not published."
+}

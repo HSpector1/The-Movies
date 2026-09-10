@@ -149,9 +149,23 @@
       "path": "recovered-checks-20260910/ts-cumulative-06-worker.log",
       "sha256": "0a9e9e94b4d5f5e1b15cb24d970e23abbe9eba6899e0bc8b6d4560e541a97d78",
       "applicability": "Current worker923eaee TS394files/5159PASS5SKIP; Unity14d03461c1092PASS and exactpairedcontract. Later Unity detachedparser source NOTcovered."
+    },
+    {
+      "kind": "native-correction-applicability",
+      "outcome": "PASS",
+      "path": "gate-a-run15-20260910/native-comparison.json",
+      "sha256": "455c69306e0e237937826489f49af7ae7c3198dbadde60114bf291bc9a93585a",
+      "applicability": "Exact12afff9/92f914a native15: snapshotparse offmain, same publicworld/framecomparison and Profile/Save/Quit reviewed. Mainapply retained, workerparse duration increased, lateworld/PLAY/GateB notcertified."
+    },
+    {
+      "kind": "cumulative-regression",
+      "outcome": "PASS",
+      "path": "recovered-checks-20260910/editmode-17-detached-snapshot-boundary.xml",
+      "sha256": "178f1da10be94900c674920421cae4ed873102096caee08522f2aabe4a951573",
+      "applicability": "1099/1099PASS currentdetachedparser+7boundarytests; laterIndustryemptywording notcompiledyet. Prior16oneEditModelifecyclefixturefailure retained; explicitOnDisableinvocation notnativecallbackproof."
     }
   ],
-  "updatedAtUtc": "2026-09-10T19:22:01.258546+00:00",
+  "updatedAtUtc": "2026-09-10T20:00:27.849465+00:00",
   "attestationsPath": "attestations.json",
   "recovery": {
     "sessionId": "01a08adf-7719-7da2-85d0-77ae64c36fad",
@@ -195,8 +209,8 @@
   "open": [
     "Complete technical GateA applicability and actual preserved PLAY launcher proof",
     "Full ready-integration GateB product critique and late-world native tasks",
-    "Native snapshot parse correction: baseline median97.198ms main; detachedtask implementation/tests/replay pending",
     "Original total latency/capacity targets MISS; measured native/end-to-end rebaseline and acceptance open",
-    "Final requirement dispositions, exact source/build/evidence binding and launch-verified delivery"
+    "Final requirement dispositions, exact source/build/evidence binding and launch-verified delivery",
+    "Late-world native performance and full ready-group navigation; recent Output newcomer and view-aware empty-state corrections require current candidate binding"
   ]
 }

@@ -1,0 +1,373 @@
+{
+  "kind": "bounded-detached-snapshot-review-attestation/v1",
+  "operation": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "createdUtc": "2026-09-10T19:47:48.872983+00:00",
+  "agent": "/root/recovered_storage_review/worker_boundary_tests",
+  "worktree": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+  "observedHead": "92f914a3536829275257151fc72d686634901220",
+  "runtimeCommit": "a0c7fc4617268aceef940f71165bf6da74cac215",
+  "authorship": "Reviewer authored the seven detached-boundary tests and their EditMode fixture correction, not runtime implementation. Implementation inspection was independent of runtime authorship; test review is not independent test authorship.",
+  "activity": "Preserves completed bounded dependency/ownership review. This attestation used only source/result reads and small-file hashes; no new tests, builds, engine, native input or shared edits.",
+  "reviewFindings": [
+    "ParseDetached schedules strict StudioBridgeJson.ParseSnapshot on Task.Run using an owned immutable response string and fresh result DTO; all parse exceptions are captured in the result.",
+    "Transitive live parse path uses per-call JsonReader/JToken/serializer/settings/converters and normalizes only newly parsed DTOs. The shared schema JObject is read-only along the inspected path. No Unity API calls or diagnostic mutations are on that path. StudioSnapshotLoader is included for the exception definition only; its offline Unity-dependent loader is not invoked by live parsing.",
+    "FetchSnapshot awaits task completion by yielding its coroutine, then records diagnostics and applies on main. SnapshotReadStillOwned gates generation, transport reference, runtime identity/replacement count, enabled state and terminal status before the original exact handshake join.",
+    "Separate activeSnapshotRead ownership token releases only its own busy flag in finally despite generation invalidation. OnDisable invalidates generation; Start does not start new polling while disabled. Strict validation and torn-read/handshake join behavior remain intact.",
+    "Projection-store application, subscriber work, and same-revision serialization remain on main. Detached parse alone does not establish a native frame-time pass."
+  ],
+  "blockingImplementationFinding": null,
+  "sourceHashes": [
+    {
+      "path": "Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.cs",
+      "sha256": "34e0dff663d9e6039b4f6faadec02a022c805da1018899e80fa0106648a92352",
+      "bytes": 115027,
+      "matchesRuntimeCommit": true,
+      "existsAtRuntimeCommit": true
+    },
+    {
+      "path": "Assets/Studio/Runtime/Infrastructure/StudioBridgeSnapshotParser.cs",
+      "sha256": "983c24649a64f1197dd80de7aa73ef37ad51968c3b39644f82362bef4207c97f",
+      "bytes": 1334,
+      "matchesRuntimeCommit": true,
+      "existsAtRuntimeCommit": true
+    },
+    {
+      "path": "Assets/Studio/Runtime/Infrastructure/StudioBridgeDiagnostics.cs",
+      "sha256": "6b45a06e2c4fba0b6acb10ae81e33143529f24cf1537f8c6e986b55c7e04b83f",
+      "bytes": 6844,
+      "matchesRuntimeCommit": true,
+      "existsAtRuntimeCommit": true
+    },
+    {
+      "path": "Assets/Studio/Runtime/Infrastructure/StudioBridgeClient.DisplayedIntent.cs",
+      "sha256": "2af534a8f42adce020949bb8873f49997f4621f77b90a87efdfcc1c9e2053b5d",
+      "bytes": 5285,
+      "matchesRuntimeCommit": true,
+      "existsAtRuntimeCommit": true
+    },
+    {
+      "path": "Assets/Studio/Runtime/Infrastructure/StudioBridgeRuntimeContinuity.cs",
+      "sha256": "908a0723fd5b7dd4717ea549ac1ba95404e77824fbc1d15595c8b6f1264e6464",
+      "bytes": 6869,
+      "matchesRuntimeCommit": true,
+      "existsAtRuntimeCommit": true
+    },
+    {
+      "path": "Assets/Studio/Runtime/Infrastructure/StudioSnapshotStateCache.cs",
+      "sha256": "5c5bf726a1d8825424813776ea5a517fa85c8afb906133c5243360c0d67585ca",
+      "bytes": 12669,
+      "matchesRuntimeCommit": true,
+      "existsAtRuntimeCommit": true
+    },
+    {
+      "path": "Assets/Studio/Runtime/Data/StudioBridgeProtocol.cs",
+      "sha256": "1757662f347ac806bf25b68c1f980bf3904673b7f37eeb54f45d8f0d579ce53f",
+      "bytes": 44291,
+      "matchesRuntimeCommit": true,
+      "existsAtRuntimeCommit": true
+    },
+    {
+      "path": "Assets/Studio/Runtime/Data/StudioBridgeWireValidator.cs",
+      "sha256": "23e38a3c56c0aba5c4f77feea719605323d45623bb2482e0427ee05060c55adb",
+      "bytes": 15376,
+      "matchesRuntimeCommit": true,
+      "existsAtRuntimeCommit": true
+    },
+    {
+      "path": "Assets/Studio/Runtime/Data/StudioLotSnapshot.cs",
+      "sha256": "056035ba302c03ab31a8fb37764e9f127d598c802fdc85ea9d00e81a2f64bbee",
+      "bytes": 16071,
+      "matchesRuntimeCommit": true,
+      "existsAtRuntimeCommit": true
+    },
+    {
+      "path": "Assets/Studio/Runtime/Data/StudioSnapshotLoader.cs",
+      "sha256": "27c03e288cee937f93158bd2449bb01943db2140c232f0ca7b676f2bd22d586f",
+      "bytes": 8072,
+      "matchesRuntimeCommit": true,
+      "existsAtRuntimeCommit": true
+    },
+    {
+      "path": "Assets/Studio/Runtime/Data/Generated/StudioBridgeDtos.Generated.cs",
+      "sha256": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+      "bytes": 606477,
+      "matchesRuntimeCommit": true,
+      "existsAtRuntimeCommit": true
+    },
+    {
+      "path": "Assets/Studio/Tests/EditMode/StudioDetachedSnapshotTests.cs",
+      "sha256": "be4ca47a35385ab4c14eefc94c22db64367f08d6f98faae721e94d0b66854720",
+      "bytes": 12358,
+      "matchesRuntimeCommit": false,
+      "existsAtRuntimeCommit": false
+    },
+    {
+      "path": "Assets/Studio/Tests/EditMode/StudioBridgeProtocolTests.cs",
+      "sha256": "923c9acb4bbb9d7331b1d912fae64b50e037e428dd5ad89a19b93344f4df6a7f",
+      "bytes": 71938,
+      "matchesRuntimeCommit": true,
+      "existsAtRuntimeCommit": true
+    }
+  ],
+  "resultEvidence": [
+    {
+      "path": "Builds/p12a/editmode-16-detached-snapshot-boundary.xml",
+      "sha256": "8dfefbf79a8e124237e8d7c92432d3f5c24fadab344af4f3d042f7aceab2b481",
+      "run": {
+        "id": "2",
+        "testcasecount": "1099",
+        "result": "Failed(Child)",
+        "total": "1099",
+        "passed": "1098",
+        "failed": "1",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-10 19:31:00Z",
+        "end-time": "2026-09-10 19:31:16Z",
+        "duration": "16.2611526"
+      },
+      "detachedBoundaryCases": [
+        {
+          "id": "1419",
+          "name": "CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState(\"replacement-runtime\")",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState(\"replacement-runtime\")",
+          "methodname": "CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "1459921226",
+          "result": "Passed",
+          "start-time": "2026-09-10 19:31:01Z",
+          "end-time": "2026-09-10 19:31:01Z",
+          "duration": "0.006928",
+          "asserts": "0"
+        },
+        {
+          "id": "1420",
+          "name": "CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState(\"disable-reenable\")",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState(\"disable-reenable\")",
+          "methodname": "CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "539250532",
+          "result": "Failed",
+          "start-time": "2026-09-10 19:31:01Z",
+          "end-time": "2026-09-10 19:31:01Z",
+          "duration": "0.006955",
+          "asserts": "0"
+        },
+        {
+          "id": "1421",
+          "name": "CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState(\"changed-transport\")",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState(\"changed-transport\")",
+          "methodname": "CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "859327119",
+          "result": "Passed",
+          "start-time": "2026-09-10 19:31:01Z",
+          "end-time": "2026-09-10 19:31:01Z",
+          "duration": "0.005332",
+          "asserts": "0"
+        },
+        {
+          "id": "1423",
+          "name": "CompletedRead_WithCurrentOwnerJoinsTheExactHandshakeBeforePublishing",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.CompletedRead_WithCurrentOwnerJoinsTheExactHandshakeBeforePublishing",
+          "methodname": "CompletedRead_WithCurrentOwnerJoinsTheExactHandshakeBeforePublishing",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "167740661",
+          "result": "Passed",
+          "start-time": "2026-09-10 19:31:01Z",
+          "end-time": "2026-09-10 19:31:01Z",
+          "duration": "0.006168",
+          "asserts": "0"
+        },
+        {
+          "id": "1424",
+          "name": "CompletedRead_WithCurrentOwnerStillRejectsAChangedHandshake",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.CompletedRead_WithCurrentOwnerStillRejectsAChangedHandshake",
+          "methodname": "CompletedRead_WithCurrentOwnerStillRejectsAChangedHandshake",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "1917201873",
+          "result": "Passed",
+          "start-time": "2026-09-10 19:31:01Z",
+          "end-time": "2026-09-10 19:31:01Z",
+          "duration": "0.005346",
+          "asserts": "0"
+        },
+        {
+          "id": "1418",
+          "name": "DetachedMalformedSnapshot_ReturnsTheSameStrictRejectionAsSynchronousParsing",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.DetachedMalformedSnapshot_ReturnsTheSameStrictRejectionAsSynchronousParsing",
+          "methodname": "DetachedMalformedSnapshot_ReturnsTheSameStrictRejectionAsSynchronousParsing",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "1329174469",
+          "result": "Passed",
+          "start-time": "2026-09-10 19:31:01Z",
+          "end-time": "2026-09-10 19:31:01Z",
+          "duration": "0.007483",
+          "asserts": "0"
+        },
+        {
+          "id": "1417",
+          "name": "DetachedValidSnapshot_PreservesStrictOutputAndUsesAnotherThread",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.DetachedValidSnapshot_PreservesStrictOutputAndUsesAnotherThread",
+          "methodname": "DetachedValidSnapshot_PreservesStrictOutputAndUsesAnotherThread",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "1757109718",
+          "result": "Passed",
+          "start-time": "2026-09-10 19:31:01Z",
+          "end-time": "2026-09-10 19:31:01Z",
+          "duration": "0.006273",
+          "asserts": "0"
+        }
+      ]
+    },
+    {
+      "path": "Builds/p12a/editmode-17-detached-snapshot-boundary.xml",
+      "sha256": "178f1da10be94900c674920421cae4ed873102096caee08522f2aabe4a951573",
+      "run": {
+        "id": "2",
+        "testcasecount": "1099",
+        "result": "Passed",
+        "total": "1099",
+        "passed": "1099",
+        "failed": "0",
+        "inconclusive": "0",
+        "skipped": "0",
+        "asserts": "0",
+        "engine-version": "3.5.0.0",
+        "clr-version": "4.0.30319.42000",
+        "start-time": "2026-09-10 19:42:47Z",
+        "end-time": "2026-09-10 19:43:03Z",
+        "duration": "16.1215735"
+      },
+      "detachedBoundaryCases": [
+        {
+          "id": "1419",
+          "name": "CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState(\"replacement-runtime\")",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState(\"replacement-runtime\")",
+          "methodname": "CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "283704447",
+          "result": "Passed",
+          "start-time": "2026-09-10 19:42:48Z",
+          "end-time": "2026-09-10 19:42:48Z",
+          "duration": "0.006500",
+          "asserts": "0"
+        },
+        {
+          "id": "1420",
+          "name": "CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState(\"disable-reenable\")",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState(\"disable-reenable\")",
+          "methodname": "CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "1843922392",
+          "result": "Passed",
+          "start-time": "2026-09-10 19:42:48Z",
+          "end-time": "2026-09-10 19:42:48Z",
+          "duration": "0.005102",
+          "asserts": "0"
+        },
+        {
+          "id": "1421",
+          "name": "CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState(\"changed-transport\")",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState(\"changed-transport\")",
+          "methodname": "CompletedRead_RejectsObsoleteOwnerWithoutApplyingEvenIdenticalLogicalState",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "2100256090",
+          "result": "Passed",
+          "start-time": "2026-09-10 19:42:48Z",
+          "end-time": "2026-09-10 19:42:48Z",
+          "duration": "0.004945",
+          "asserts": "0"
+        },
+        {
+          "id": "1423",
+          "name": "CompletedRead_WithCurrentOwnerJoinsTheExactHandshakeBeforePublishing",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.CompletedRead_WithCurrentOwnerJoinsTheExactHandshakeBeforePublishing",
+          "methodname": "CompletedRead_WithCurrentOwnerJoinsTheExactHandshakeBeforePublishing",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "1144772645",
+          "result": "Passed",
+          "start-time": "2026-09-10 19:42:48Z",
+          "end-time": "2026-09-10 19:42:48Z",
+          "duration": "0.005802",
+          "asserts": "0"
+        },
+        {
+          "id": "1424",
+          "name": "CompletedRead_WithCurrentOwnerStillRejectsAChangedHandshake",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.CompletedRead_WithCurrentOwnerStillRejectsAChangedHandshake",
+          "methodname": "CompletedRead_WithCurrentOwnerStillRejectsAChangedHandshake",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "65913847",
+          "result": "Passed",
+          "start-time": "2026-09-10 19:42:48Z",
+          "end-time": "2026-09-10 19:42:48Z",
+          "duration": "0.004998",
+          "asserts": "0"
+        },
+        {
+          "id": "1418",
+          "name": "DetachedMalformedSnapshot_ReturnsTheSameStrictRejectionAsSynchronousParsing",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.DetachedMalformedSnapshot_ReturnsTheSameStrictRejectionAsSynchronousParsing",
+          "methodname": "DetachedMalformedSnapshot_ReturnsTheSameStrictRejectionAsSynchronousParsing",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "1702310935",
+          "result": "Passed",
+          "start-time": "2026-09-10 19:42:48Z",
+          "end-time": "2026-09-10 19:42:48Z",
+          "duration": "0.007001",
+          "asserts": "0"
+        },
+        {
+          "id": "1417",
+          "name": "DetachedValidSnapshot_PreservesStrictOutputAndUsesAnotherThread",
+          "fullname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests.DetachedValidSnapshot_PreservesStrictOutputAndUsesAnotherThread",
+          "methodname": "DetachedValidSnapshot_PreservesStrictOutputAndUsesAnotherThread",
+          "classname": "Studio.Tests.EditMode.StudioDetachedSnapshotTests",
+          "runstate": "Runnable",
+          "seed": "528884337",
+          "result": "Passed",
+          "start-time": "2026-09-10 19:42:48Z",
+          "end-time": "2026-09-10 19:42:48Z",
+          "duration": "0.005839",
+          "asserts": "0"
+        }
+      ]
+    }
+  ],
+  "fixtureCorrection": {
+    "priorRun": "Unity16",
+    "priorPassed": 1098,
+    "priorFailed": 1,
+    "cause": "Ordinary MonoBehaviour enabled toggle in EditMode did not dispatch OnDisable; generation remained 1.",
+    "change": "Invoke(client, \"OnDisable\") explicitly between disabled and reenabled states; generation and all stale-result rejection assertions preserved.",
+    "correctedTestSha256": "be4ca47a35385ab4c14eefc94c22db64367f08d6f98faae721e94d0b66854720",
+    "limitation": "Tests the actual hook logic and guarded completion rejection, not native lifecycle callback delivery."
+  },
+  "coverage": [
+    "actual detached parse equals synchronous strict DTO output and uses a different managed thread",
+    "malformed strict inputs preserve exact synchronous rejection",
+    "replacement runtime despite same logical state rejected",
+    "explicit disable hook then reenable invalidates stale completion",
+    "changed transport rejects stale completion",
+    "current owner joins exact handshake and publishes once",
+    "current owner with changed handshake retains torn-read rejection"
+  ],
+  "nativeAcceptance": "Pending. No native performance or native lifecycle acceptance claimed by this attestation."
+}
