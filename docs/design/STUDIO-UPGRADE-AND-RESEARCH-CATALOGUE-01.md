@@ -2,7 +2,7 @@
 
 **OWNER-REQUESTED CATALOGUE DEFINITION · CURRENT OPS REVIEW REQUIRED**
 **DOCUMENTATION, INDEPENDENT RESEARCH AND READ-ONLY RECONNAISSANCE ONLY · NO GAMEPLAY IMPLEMENTATION AUTHORIZED**
-Validated successor to the Future Ops proposal of 2026-09-10. No new package number. [Review hub](./FACILITY-MODERNIZATION-CURRENT-OPS-REVIEW.md) · [Owner rulings §2.4](./CODEX-P13-P15-OWNER-RULINGS.md#24-p13-owner-direction-amendment--2026-09-10) · [P13 design](./CODEX-ERAS-TECHNOLOGY-STUDIO-INNOVATION-PACKAGE-13.md) · [Builder Annex](./CODEX-ERAS-TECHNOLOGY-STUDIO-INNOVATION-PACKAGE-13-BUILDER-ANNEX.md) · [facility addendum](./FACILITY-UPGRADES-AND-STUDIO-OVERVIEW-01.md)
+Validated successor to the Future Ops proposal of 2026-09-10. No new package number. [Review hub](./FACILITY-MODERNIZATION-CURRENT-OPS-REVIEW.md) · [Owner rulings §2.4](./CODEX-P13-P15-OWNER-RULINGS.md#24-p13-owner-direction-amendment--2026-09-10) · [Owner response §2.5](./CODEX-P13-P15-OWNER-RULINGS.md#25-owner-response-to-the-catalogue--2026-09-11) · [P13 design](./CODEX-ERAS-TECHNOLOGY-STUDIO-INNOVATION-PACKAGE-13.md) · [Builder Annex](./CODEX-ERAS-TECHNOLOGY-STUDIO-INNOVATION-PACKAGE-13-BUILDER-ANNEX.md) · [facility addendum](./FACILITY-UPGRADES-AND-STUDIO-OVERVIEW-01.md)
 
 ## 1. What this document is
 
@@ -15,6 +15,8 @@ Three results matter most.
 - **Fifty-eight candidates need at most five new building types, plus one serviced ground zone.** Everything else is a module, an equipment purchase, a conversion of an existing body, or authored creative stock. The accepted product has nine buildable blueprints and four facility capabilities; this catalogue adds departments sparingly and puts the growth in modules.
 - **Sixteen research briefs shrink to fifteen**, because a reflex mechanism, a high-speed mechanism and a stabilizing mechanism are authored variants of one camera optics and mechanism programme rather than two separate programmes. The three laboratory instrument entries leave the research list entirely, because they are purchases.
 - **Every number here is anchored to an accepted value**, so Current Ops can argue with a scale rather than invent 58 prices. The anchors are the nine accepted blueprints, whose capital cost runs $400,000 to $2,400,000, weekly operating cost $2,000 to $9,000, and build time 6 to 20 weeks.
+
+**Corrected on 2026-09-11 to the Owner's response.** Five directions came back with that response and are settled rather than open: inventor benefits coexist at component level and no expense is credited twice; researchers may cooperate or split, with neither arrangement universally better; the research department's existence is selected direction and only its implementation is open; renovation need not be cheaper than new construction; and the direct Office I→III route stands, with its weeks illustrative. §5.1, §5.2, §8.2, §9.1, §9.2, §9.3, §9.4, §9.5 and §11 are rewritten to match. The no-stacking recommendation is withdrawn, and the schedule, the whole-life cost and the research premium are recomputed from a dependency-respecting sequence rather than preserved. Nothing else moved: the 58 source IDs, their dispositions, the fifteen briefs and every FUP and P13-OD requirement stand exactly as published. The durable record is [Owner response §2.5](./CODEX-P13-P15-OWNER-RULINGS.md#25-owner-response-to-the-catalogue--2026-09-11).
 
 ### 1.1 Authority and what is preserved
 
@@ -144,7 +146,9 @@ Buying desks never needs a breakthrough. Acting never improves because a room re
 | **K4** | new specialist building | $1,500,000–$3,000,000 | 16–24 | +$5,000–$9,000 | brackets the Soundstage at $2,400,000, 16 weeks and $9,000 |
 | **K5** | major new plant | $3,000,000–$6,000,000 | 24–40 | +$9,000–$18,000 | above everything accepted; reserved for the LED volume and comparable plant |
 
-A conversion of a body the studio owns should always cost less than building the equivalent new, because the ground, shell and identity are already paid for. Where a proposed conversion price approaches the new-build price, the descriptor is wrong or the conversion is really a rebuild.
+**Conversion is usually cheaper than building, and not always.** Ground, shell and identity are already paid for, so a conversion's capital normally sits below the equivalent new build, and where a proposed conversion price approaches the new-build price the descriptor is wrong or the work is really a rebuild. One thing reverses the price itself and two more reverse the decision, and a quote has to show all three. A conversion takes a working body out of service, while a new build on free ground takes nothing out of service. A conversion that strips and replaces services is doing new-build work inside an old shell, and should be priced as such. A conversion adds no capacity, so a studio that needs the capacity is not comparing two prices for one good.
+
+Upgrading in place, extending, building another and waiting are four live alternatives on every quote. §9.2, §9.3 and §9.5 cost conversion, new build and waiting in money on the same envelope. An extension is costed by class band only, because no accepted blueprint prices one: it falls in K2 or K3 above and carries its own ground test. The quote shows it beside the other three with that qualification visible, rather than dropping it for being harder to price.
 
 ### 5.2 Research workload classes
 
@@ -158,6 +162,10 @@ One researcher produces 1.0 work unit per researcher-week. A full four-seat labo
 | **W4 major** | 288 units | 72 weeks | 48 weeks | 30 weeks |
 
 W2 is the existing Annex fixture, so the catalogue and the Annex matrix agree by construction.
+
+**Two different facts limit how many seats a brief can actually use, and both are missing implementation.** A brief's **useful staffing limit** is the number of researchers its own work can absorb, authored per brief. A studio's **equipment cap** belongs to the estate rather than the brief: one instrument module serves one project's bench, so a single module supports that project at its full staffing limit, while a second concurrent project needing the same module cannot start until the first releases it. Seats beyond the lower of the two produce nothing and must never be charged as though they did.
+
+**This catalogue authors no limit below four.** Every brief in §7 is costed at a full four-seat laboratory, which is what makes the workload classes above, the §9.2 schedule and the Annex fixture agree. The P1 precision-constrained briefs R02, R04, R05 and R10 are the obvious candidates for a lower limit, since a pace set by one test sequence is not hurried by a fifth pair of hands, but adopting one would double those briefs' class durations, and that cascade has to be priced before anyone authors it. §9.4 shows what the mechanism does when a limit or a cap bites, across seven fixtures; it does not claim that one bites today. **IMPLEMENTATION RECOMMENDATION**, and a dependency of the laboratory substrate rather than a new system.
 
 ### 5.3 Parallel profiles, and the corrected concentration law
 
@@ -202,7 +210,7 @@ All 58 candidates are disposed of below. No candidate is silently dropped. Colum
 
 ### 6.2 D2 Research Laboratory
 
-**The whole department is blocked on one Owner decision.** No Laboratory blueprint exists in the accepted catalogue; a search of the accepted source finds none. Design §23 already makes the minimal Laboratory and stable Scientist substrate a hard blocker on the P13A checkpoint. Every row here inherits that block, and none of them is a reason to widen it.
+**The whole department is blocked on one missing substrate, and not on an Owner decision.** No Laboratory blueprint exists in the accepted catalogue; a search of the accepted source finds none. Design §23 already makes the minimal Laboratory and stable Scientist substrate a hard blocker on the P13A checkpoint. Every row here inherits that block, and none of them is a reason to widen it. The Owner settled the department's existence on 2026-09-11, so what is owed is the implementation and its dependencies, listed under OWN-2 in §11.2 and assigned to Current Ops and a coding lead as OPEN-1. Nothing in D2 is waiting on the Owner.
 
 | ID | Disposition | Kind | Exact change, and which operation | Knowledge → installation | Class · research | Band | Acceptance task |
 |---|---|---|---|---|---|---|---|
@@ -387,7 +395,7 @@ Old saves keep their purchased Office II and III as real bodies with real charge
 
 Direct saves **$100,000** against staged and spares one mobilization. It costs **four more weeks** to reach III, week 16 against week 12. The staged route's interim II standard is an option, not a free extra: run back to back the body is offline continuously to week 12 and never operates at II, and a studio that does pause to use it delays III week for week. Neither route dominates. A studio with an original screenplay it can get assessed in a deliberate pause at II takes the staged route, and so does one that simply wants III four weeks sooner; a studio short of cash, or with no draft in that window, takes the direct one. The accepted ladder is the worst of the three on every axis except that it never interrupts the office, which is exactly why the Owner objected to it.
 
-Direct I→III takes **twice** as long as II→III, satisfying the Owner's "substantially longer" direction. The Owner's 4, 8 and 16 shape is preserved; the money is this catalogue's proposal.
+Direct I→III takes **twice** as long as II→III, satisfying the Owner's "substantially longer" direction. This catalogue keeps the 4, 8 and 16 shape the Owner used as an example on 2026-09-10, and the Owner confirmed on 2026-09-11 that those weeks are illustrative and **not approved tuning**; the money is this catalogue's proposal and is not approved either. What the fixture is actually for is the ordering, which a change of scale does not disturb: direct costs less than staged, reaches III later, and is available to a studio that has never owned an Office II.
 
 The difference between routes is authored source-to-target work, never a penalty for skipping a tier. A studio converting a body that already has II's services and layout is doing less work than one starting from an unmodified office, and the quote must show which descriptors apply.
 
@@ -416,48 +424,132 @@ Nothing. No office route requires a Scientist. Research staff do not accelerate 
 
 **Envelope E1.** Cash $3,000,000. The founding estate: a Development & Casting body with 2 shared slots, a Casting body with none, two soundstages at 1 each, and a Production/Post body providing 2 post slots and 2 scenery slots. No laboratory and no researchers. Horizon 52 weeks. Two films in production and one original screenplay in development.
 
-**Scale S1.** Every money figure in the Builder Annex fixture H1 is multiplied by five, and no duration changes. That single uniform multiplier is the whole change, so **every ratio, break-even and dominance conclusion already validated in Annex §4.2 is preserved exactly**; only the absolute money scale moves, toward the one the accepted blueprints establish. Under S1 a researcher costs $2,000 a week, a full four-seat laboratory saturates its budget at $40,000 a week, an older stage's acoustic conversion costs $600,000, and a funded medium research programme costs $528,000 in spend and payroll.
+**Scale S1.** Every money figure in the Builder Annex fixture H1 is multiplied by five, and no duration changes. That single uniform multiplier is the whole change, so **every ratio, break-even and dominance conclusion already validated in Annex §4.2 is preserved exactly**; only the absolute money scale moves, toward the one the accepted blueprints establish. Under S1 a researcher costs $2,000 a week, a full four-seat laboratory saturates its budget at $40,000 a week, an older stage's acoustic site work and installation cost $600,000 before any access or equipment, and a funded medium research programme costs $528,000 in spend and payroll.
 
 **Why the scale has to move.** That last figure is the whole argument. In H1 the same fully funded medium programme costs $105,600, which is about a quarter of the $400,000 Craft Services Annex, the cheapest accepted building. A multi-year invention programme that costs a quarter of the smallest shed on the lot is not a scale a studio can reason about. Under S1 it costs about 1.3 times that building, which is a proportion the Owner can argue with.
 
-**S1 prices research and equipment, not buildings, and one gap stays open.** Where H1 and an accepted blueprint price the same object, the accepted value governs and S1 is silent. The one object both price is a new soundstage: H1 multiplied by five gives $2,000,000 over 20 weeks, while the accepted `stage-standard` blueprint gives $2,400,000 over 16 weeks. The paper tests below use H1 multiplied by five throughout, because every comparison in them is internal to H1 and substituting one input would break the ratios S1 exists to preserve. Reconciling the two prices belongs to the open scale decision in §11. It changes no conclusion here: converting an owned stage beats building one on both cost and date under either price, by $1,600,000 and seven weeks against the H1 figure and by $2,000,000 and three weeks against the accepted blueprint.
+**S1 prices research and equipment, not buildings, and one gap stays open.** Where H1 and an accepted blueprint price the same object, the accepted value governs and S1 is silent. The one object both price is a new soundstage: H1 multiplied by five gives $2,000,000 over 20 weeks, while the accepted `stage-standard` blueprint gives $2,400,000 over 16 weeks. The paper tests below use H1 multiplied by five throughout, because every comparison in them is internal to H1 and substituting one input would break the ratios S1 exists to preserve. Reconciling the two prices belongs to the open scale decision in §11. It changes no conclusion here: converting an owned stage beats building one on both cost and date under either price, by $1,600,000 and eight weeks against the H1 figure and by $2,000,000 and four weeks against the accepted blueprint.
 
-**This is an open scale question, not a silent edit.** The Annex fixture is left at its validated values; this catalogue states S1 and recommends Current Ops adopt it before any tuning, applying the same multiplier to H1 so one scale governs both documents.
+**This is an open scale question, not a silent edit.** The Annex fixture is left at its validated values; this catalogue states S1 and recommends Current Ops adopt it before any tuning, applying the same multiplier to H1 so one scale governs both documents. **The Owner recorded on 2026-09-11 that the proposed five-times scale remains a hypothesis and is not approved tuning.** Every figure below is therefore a worked example at a proposed scale, and the conclusions that matter are the orderings and break-evens, which a uniform multiplier does not move.
 
-Working values used below, all S1: first laboratory $900,000 over 12 weeks at $3,000 a week; acoustic instrument module $350,000 over 5 weeks at $1,200 a week; sound package access $200,000 plus equipment $300,000; older-stage conversion $450,000 site over 9 weeks plus $150,000 installation over 3 weeks; nearly-compatible stage $50,000 site plus the same installation; a new soundstage $2,000,000 over 20 weeks; a camera package $75,000; a Post room fit-out $300,000.
+Working values used below, all S1: first laboratory $900,000 over 12 weeks at $3,000 a week; acoustic instrument module $350,000 over 5 weeks at $1,200 a week; sound package access $200,000 plus equipment $300,000; older-stage conversion $450,000 site over 9 weeks plus $150,000 installation over 3 weeks; nearly-compatible stage $50,000 site plus the same installation; a new soundstage $2,000,000 over 20 weeks; a camera package $75,000; a sound Post fit-out $300,000 over 6 weeks at $1,200 a week; and $1,200 a week added to a stage's charge from the week its acoustic services are complete. One timing assumption completes the fixture: **the sound package becomes purchasable at the start of week 40**, which is exactly what puts a buyer's operational sound at week 52. The real week belongs to the calendar owner (**POST-P12 VERIFICATION REQUIRED**).
+
+**How to read the weeks.** Work of `d` weeks beginning in week `s` occupies weeks `s` to `s+d−1`, and what it produces is available at the start of week `s+d`. An operating charge runs from the week its body becomes operational to week 52 inclusive. Every figure in §9.2 to §9.5 follows from the values in this paragraph and those two conventions, so each can be re-derived without trusting the prose. This is paper analysis: no game was launched and nothing here is a runtime result.
 
 ### 9.2 Inventor against commercial buyer, whole life
 
-Both studios end with operational sound on one stage. R01 is a medium workload on the mixed-systems profile: eleven weeks in one fully funded laboratory.
+**Corrected on 2026-09-11 to the Owner's component rule.** The earlier version of this section recommended that an inventor take whichever single credit was worth more, access waived *or* the prototype counted as the equipment, and never both. The Owner has ruled otherwise: benefits coexist when they concern different costs, no expense is credited twice, and usable equipment already produced and paid for is never charged again. Accepted design §16a.2 already said exactly that, so the no-stacking rule departed from the accepted product as well as from the Owner. It is withdrawn and everything below is recomputed from components.
 
-| | Develop early | Wait and buy at release |
+**Four components, each charged once, to whoever incurs it.**
+
+| Component | Ordinary buyer | Inventor, first installation | Inventor, later installation | Why it lands there |
+|---|---:|---:|---:|---|
+| Technology access | $200,000 | $0 | $0 | No supplier exists to pay; the studio owns the method. Not a discount, an expense it never incurs. |
+| Production equipment, per stage | $300,000 | $0 | $225,000 | The research produced one usable prototype set, already paid for out of the research budget; charging it again is the double charge the Owner forbids. Later sets carry design §16a.2's 25% concession, because the inventor manufactures instead of buying and still pays. |
+| Site adaptation | $450,000 | $450,000 | $450,000 | A prototype does no carpentry. |
+| Equipment installation | $150,000 | $150,000 | $150,000 | Same crew, same three weeks, either way. |
+| **Deployment, one older stage** | **$1,100,000** | **$600,000** | **$825,000** | |
+
+The laboratory's own $350,000 acoustic instrument module is deliberately absent from that table. It stays in the laboratory and serves every later brief, and crediting it against a stage would be the same double count facing the other way. No quote may run negative: site adaptation and installation are real work and are the floor.
+
+**The dependency chain, in one sequence.** Laboratory → required instruments → research → installation → operational sound, with the required sound Post capability beside it. None of it can be skipped. The instrument module installs into the laboratory, the research needs the instruments, the acoustic specification comes out of the research, and the recording system installs after the site work. Operational sound also needs basic sound Post and compatible capture, both of which §7.1's installation graph requires and the earlier comparison omitted.
+
+| Step | Schedule T1, strictly sequential | Available |
+|---|---|---|
+| Laboratory construction, 12 weeks | weeks 1–12 | week 13 |
+| Acoustic instrument module, 5 weeks | weeks 13–17 | week 18 |
+| Research, 64 units in one funded laboratory at 6.0 a week, 11 weeks | weeks 18–28 | week 29 |
+| Stage site work, 9 weeks | weeks 29–37 | week 38 |
+| Sound Post fit-out, 6 weeks, beside the site work | weeks 29–34 | week 35 |
+| Equipment installation, 3 weeks | weeks 38–40 | week 41 |
+| **Operational sound** | | **week 41** |
+
+**The fourth required capability is a purchase, not a work item.** §7.1's sound graph also requires compatible capture. A camera package costs $75,000 and is bought inside whichever installation window the route is already running, so it moves both totals by the same amount and neither date. It is charged to both routes below and is never credited to an inventor, because researching a recording system does not manufacture a camera.
+
+**What may overlap, and why.** Three things, and only three. The **sound Post fit-out runs beside the stage site work**, because they are different bodies with different crews and neither needs the other; six weeks against nine, so it never sets the date. The **stage's site work may start before the research finishes**, because acoustic isolation, doors and structure do not depend on which recording system wins. Only the three-week equipment installation does. The **sound Post room's shell, treatment and wiring are method-independent in exactly the same way**, so it may be pulled forward too; only its gear is method-bound, and that installs with the rest. A studio taking both options runs the site work from week 5, once the chosen stage is free, fits the Post room at weeks 5–10, installs at weeks 29–31, and reaches operational sound at **week 32**, nine weeks earlier than T1. Call that schedule T2. It is not free. The studio commits $450,000 of site work in week 5 against a result that does not exist until week 29, twenty-four weeks at risk, and it starts two standing charges early for a further $39,600 before any sound is produced. The quote has to show both.
+
+**The buyer may overlap on exactly the same grounds, and with less risk.** Method-independent work does not care which route supplied the method, and a buyer faces no specification risk at all, because the commercial system's requirements are published before it ships. A buyer who prepares the stage and the Post room early installs at weeks 40–42 and is operational at **week 43** instead of week 52. So overlapping moves each route forward by the same nine weeks and changes the comparison by nothing: the inventor is eleven weeks ahead on the strict schedules, 41 against 52, and eleven weeks ahead on the overlapped ones, 32 against 43. Earliness in this fixture is a property of the research, not of the scheduling. The strictly sequential pair is used below so that both columns carry the same standing charges.
+
+Nothing else may overlap. The earlier "about week 26" had no sequence behind it at all, and is withdrawn.
+
+**Whole life over the same 52 weeks.** Both columns end with operational sound on one stage and a sound-capable Post room. Two employment assumptions bracket the researchers, because the accepted product models no hiring friction and the answer moves by $232,000 between them.
+
+- **E-A, continuous.** Four researchers hired when the laboratory opens in week 13 and kept to week 52. This includes five idle weeks, $40,000, before the instruments arrive.
+- **E-B, project only.** Four researchers hired for the eleven research weeks and released. It assumes hiring and release are free and instant, which nothing in the accepted product supports.
+
+| | Develop early, T1 · E-A | Develop early, T1 · E-B | Wait and buy |
+|---|---:|---:|---:|
+| Laboratory | $900,000 | $900,000 | — |
+| Acoustic instruments | $350,000 | $350,000 | — |
+| Researcher salaries | $320,000 | $88,000 | — |
+| Research spending, 11 weeks at saturation | $440,000 | $440,000 | — |
+| Deployment on an older stage | $600,000 | $600,000 | $1,100,000 |
+| Sound Post fit-out | $300,000 | $300,000 | $300,000 |
+| Compatible capture package | $75,000 | $75,000 | $75,000 |
+| Laboratory and instrument standing charges | $162,000 | $162,000 | — |
+| Post and converted-stage standing charges | $36,000 | $36,000 | $9,600 |
+| **Total across 52 weeks** | **$3,183,000** | **$2,951,000** | **$1,484,600** |
+| Cash left from E1's $3,000,000 | **−$183,000** | $49,000 | $1,515,400 |
+| Operational sound | week 41 | week 41 | week 52 |
+
+Three readings, all of which reverse something the earlier version said.
+
+1. **Earliness is eleven weeks, not twenty-six.** T1 reaches operational sound at week 41 against the buyer's week 52, and the overlapped pair reaches 32 against 43. Eleven weeks either way.
+2. **Starting a department does not fit E1's cash.** Under continuous employment the path spends $3,183,000 against $3,000,000 of starting cash and needs $183,000 of revenue or financing inside the horizon. The envelope models no revenue and E1 has two films in production, so this is a financing statement rather than an impossibility. It is still the opposite of the earlier claim that the path left $260,000 in hand.
+3. **A studio that will research once pays a 114% premium**, $3,183,000 against $1,484,600, for eleven weeks and a department it will not reuse.
+
+**Another project, with a department that already exists.** This is the comparison the Owner asked to separate, and it comes out the other way.
+
+| | Existing department | Wait and buy |
 |---|---:|---:|
-| Laboratory | $900,000 | — |
-| Acoustic instruments | $350,000 | — |
-| Research spending | $440,000 | — |
-| Research payroll over the project | $88,000 | — |
-| Deployment on an older stage | $800,000 | $1,100,000 |
-| Standing charges on the two new buildings to week 52 | $162,000 | — |
-| **Total** | **$2,740,000** | **$1,100,000** |
-| Sound operational about | week 26 | week 52 |
+| Research spending, 11 weeks | $440,000 | — |
+| Deployment, first installation of this technology | $600,000 | $1,100,000 |
+| **Marginal total, department already salaried** | **$1,040,000** | **$1,100,000** |
+| Marginal total, project carrying its own payroll | $1,128,000 | $1,100,000 |
 
-The standing charge is the one a paper comparison usually forgets. The laboratory is operational at week 13 and costs $3,000 a week to the horizon, $120,000; the instrument module is operational at week 18 and costs $1,200 a week, $42,000. The buyer owns neither building, so unlike the Annex fixture this charge is not identical across the two columns and cannot be omitted.
+Once the laboratory, the instruments and the staff exist and are paid for, developing a technology costs **$60,000 less than buying it**. Charge the project its own payroll and it is 2.5% dearer instead. The dates move much further than the money: with no laboratory to build and no instruments to wait for, research runs weeks 1–11, the stage work weeks 12–23 with the Post fit-out beside it, and sound is operational at **week 24 against the buyer's week 52, twenty-eight weeks earlier**. The sound Post fit-out and the capture package are identical on both sides and are left out of the table above; putting them back leaves the $60,000 untouched and dilutes the percentages to 4.1% cheaper and 1.9% dearer. So the real price of earliness is the department, not the technology, and that is where a balance lever belongs. What this table does not show is the eleven laboratory-weeks the project consumes, which no other brief can use; §9.4 prices that.
 
-**The finding that matters is the marginal one.** Once the laboratory and instruments exist, they serve every later brief, so the honest comparison for this one technology is research spending plus payroll plus deployment against the buyer's deployment: **$1,328,000 against $1,100,000**, a 21% premium for twenty-six weeks of earliness and a permanent capability. The capital and the standing charge are excluded from that figure for the same reason: they buy a department, not this technology. Charge them to the technology and the premium becomes 149%, which is the number to quote to a studio that will research exactly once and then stop.
+**How many stages before developing wins outright.** Access is paid once per technology; equipment, site work and installation repeat per stage. For `n` stages of one technology the buyer pays `$200,000 + $900,000n`, while the inventor pays `$440,000` of research plus `$600,000` for the first installation and `$825,000` for each later one.
 
-That 21% depends entirely on one rule this catalogue recommends. **The own-development concession and the prototype credit must not stack on the same quote.** A studio takes whichever single credit is worth more: access waived, or the research prototype counted as the equipment. If both apply at once the inventor's marginal cost falls to $1,128,000, within 2.5% of simply buying, and research becomes very nearly free. Refusing to stack them is the same principle as never billing one item twice, applied to credits.
+| Stages of one technology | Buyer | Inventor, marginal | Inventor's position |
+|---:|---:|---:|---|
+| 1 | $1,100,000 | $1,040,000 | $60,000 ahead |
+| 2 | $2,000,000 | $1,865,000 | $135,000 ahead |
+| 3 | $2,900,000 | $2,690,000 | $210,000 ahead |
+
+The inventor is ahead at every count and gains another $75,000 per stage. Make the department carry its own cost and the crossover moves out to **twenty-four stages of one technology**. That cost is $1,732,000, being $900,000 of laboratory, $350,000 of instruments, $320,000 of salaries and $162,000 of standing charges, and it is added to the research and installation figures above rather than replacing them: $1,732,000 + $440,000 + $600,000 + $825,000 for each stage after the first, against the buyer's $200,000 + $900,000 a stage. They meet at twenty-four, which no estate in the fixture approaches. E1 has two.
+
+**The bounded statement, replacing an unbounded one.** The earlier text said that if the credits stacked, no studio would ever wait. The arithmetic does not support it. Waiting is the cash-dominant choice for a studio that will research once, by $1,698,400 across the horizon, and stays dominant until that studio deploys one technology across twenty-four stages. Developing is the cheaper choice at the margin for a studio that already runs a department and will keep it busy, by $60,000 and twenty-eight weeks on the first technology. Both routes stay live, which is what the Owner asked for, and the lever between them is the department's fixed cost rather than any rule about credits.
 
 ### 9.3 Five situations
 
 | Situation | What E1 shows | The decision |
 |---|---|---|
-| **Scarce land** | No lawful ground for a 3×2 building with clearance. A fitted Post room adds a slot for $300,000; a new Post Building costs $1,150,000 and is refused outright for want of ground. | In-place routes are not a convenience here, they are the only legal move. This is what CAT-001, CAT-010, CAT-015 and CAT-032 exist for. |
+| **Scarce land** | No lawful ground for a 3×2 building with clearance. A fitted Post room adds a slot for $300,000; a new Post Building costs $1,150,000 and is refused outright for want of ground. | In-place routes are not a convenience here, they are the only legal move. This is what CAT-001, CAT-010, CAT-015 and CAT-032 exist for. The extension is the third route and is refused for the same want of ground; where ground does exist it prices in K2, $250,000 to $700,000 over 4 to 10 weeks, between the fit-out and the new building. |
 | **Idle capacity** | Two post slots, one in use. A third slot changes nothing and no eligible work is waiting. | Dominated. The card must say no eligible work is waiting for this resource, and the studio should spend on the actual bottleneck instead. |
-| **Busy sole stage** | The stage's film has four weeks left. With admission closed the conversion runs weeks 5 to 16 and the stage is sound-capable at week 17 for $600,000. Building another stage costs $2,000,000, takes 20 weeks and still needs its own installation afterwards, so on nearly-compatible terms it is sound-capable at week 24 for $2,200,000. | Convert after the drain, unless the studio genuinely needs a third stage. Closing admission costs four weeks of stage service and must be shown before approval. |
-| **Cash pressure** | The develop-early path commits $2,740,000 of $3,000,000 across the horizon and leaves $260,000 against continuing payroll and the rest of the estate's operating costs. Waiting leaves $1,900,000. | Waiting wins on cash and loses twenty-six weeks. A studio with payroll to meet takes the buy route, which is the point of having both. |
-| **Competing research deadlines** | Two medium briefs, one laboratory. Run in sequence: first result week 11, second week 22. Split the four seats two and two: **both** arrive at week 22. | **Splitting one laboratory is always dominated.** Two teams inside one building finish nothing sooner and the first result eleven weeks later. Splitting only means something across two laboratories, and the interface should say so rather than offering a choice that cannot win. |
+| **Busy sole stage** (an E1 variant with one stage rather than two) | Weeks here run from the week the studio has the capability in hand, by either route, because this situation asks only where to install it. The stage's film has four weeks left. With admission closed the conversion runs weeks 5 to 16 and the stage is sound-capable at week 17, for $600,000 to an inventor holding a prototype or $1,100,000 to a buyer. Building another stage costs $2,000,000 over 20 weeks and is a silent stage when it completes, so on the most generous nearly-compatible terms it needs a week of site work and three of installation and is sound-capable at week 25, for $2,200,000 or $2,700,000 to a buyer. | Convert after the drain **unless the studio needs the stage capacity**, and show all four alternatives: fit out in place, extend, build another, wait. Closing admission costs four weeks of stage service, and the conversion then takes the studio's only stage out of service for twelve more; a new build takes nothing out of service. Those sixteen weeks are the price the cash comparison hides. For a studio that is waiting to buy, the release gate binds before either stage does and both routes reach sound in the same week, so only the $1,600,000 separates them. |
+| **Cash pressure** | Starting a department and developing commits $3,183,000 against $3,000,000 of starting cash, so it runs $183,000 short before the estate's other operating costs are counted; releasing the researchers at the end of the project brings it to $2,951,000 and leaves $49,000. Waiting leaves $1,515,400. | Waiting wins on cash by $1,698,400 and loses eleven weeks. A studio with payroll to meet takes the buy route, which is the point of having both. A studio that already owns the department faces a different question entirely, and §9.2 answers it the other way. |
+| **Competing research deadlines** | Two medium briefs, one laboratory, neither brief capped. Run in sequence: first result after 11 weeks, second after 22. Split the four seats two and two: **both** arrive after 22 weeks. | **Concentrate here, and not everywhere.** With no cap on either brief, splitting finishes nothing sooner and delays the first result by eleven weeks. Limit both briefs to two seats and the answer reverses; limit only one and it becomes a genuine trade. §9.4 runs seven fixtures and states the rule that actually holds. |
 
-### 9.4 One laboratory, two laboratories, and the profile that misbehaves
+### 9.4 Research allocation: when concentrating helps and when splitting helps
+
+**Corrected on 2026-09-11.** The earlier version turned one fixture into a law, "splitting one laboratory is always dominated", built from a single pair of identical briefs with no cap on either. The Owner is right that one example proves no such thing. Seven fixtures follow, varying workload, deadline, useful staffing limit and equipment. All use one four-seat laboratory funded to saturation at 1.5 work units per seat per week, except A6, which uses two. **These fixtures count weeks of work, not dated weeks.** Eleven means the eleventh week of work is the last one; under §9.1's dating convention the result is then available at the start of the following week. §9.2 is the dated schedule.
+
+| Fixture | The two briefs | Concentrate: every usable seat on one at a time | Split the seats two and two | Which is right |
+|---|---|---|---|---|
+| **A1 equal, uncapped** | two medium, 64 units each | first after 11 weeks, second after 22 | both after 22 weeks | **Concentrate.** Same last date, first result eleven weeks sooner. This is the original fixture, and the only one of the six that supports the old claim. |
+| **A2 unequal, uncapped** | small 24 and large 144 | small after 4 weeks, large after 28 | small after 8, large after 28 once the freed seats move across | **Concentrate, smallest first.** Same last date again, first result four weeks sooner. |
+| **A3 equal, both due in 24 weeks** | two medium | 11 and 22, both inside it | 22 and 22, both inside it | **Either.** Concentrating keeps thirteen weeks of slack on the first. Tighten one deadline to twelve weeks and only concentrating meets it. |
+| **A4 both limited to two seats** | two medium briefs, each authored with a useful staffing limit of two | 22, then 44, with two seats idle throughout | both after 22 weeks | **Split, decisively.** Concentrating cannot use the seats it is holding, and the second brief pays twenty-two weeks for that. |
+| **A5 one limited, one free** | one medium brief limited to two seats, one medium brief that can absorb four | free brief first: 11, then 33 | both after 22 weeks | **Split when the last date carries the value, concentrate when the first does.** A real trade, not a dominated choice. |
+| **A6 two laboratories** | two medium, mixed-systems profile | cooperate on each in turn: 7, then 14 | one laboratory each: both after 11 weeks | **Cooperate for earliness on one technology, split for the earlier last date.** Unchanged from §5.3. |
+| **A7 one instrument between two briefs** | two medium briefs, each limited to two seats, both needing the same module, and the studio owns one | 22, then 44; the module serves one project at a time | not available at all until a second module exists, then both after 22 weeks | **Buy the module or accept the sequence.** A second module costs $350,000 and buys twenty-two weeks on the second brief. This is the only fixture in which the estate rather than the brief decides, and it is what an equipment bottleneck actually produces. |
+
+**The equipment cap bites differently from a staffing limit, which is why A7 sits apart from A4.** A staffing limit leaves seats idle and makes splitting the right answer. A scarce instrument takes the split away instead: where two briefs need the same single module, the second cannot run at all until the first releases it. A card has to name which of the two it faces, because the remedies are opposite. Reassign seats in one case, buy an instrument in the other.
+
+**The rule that actually holds.** With no cap anywhere, sequencing beats splitting and the order follows the deadlines where there are any, the shortest brief first where there are none. Splitting one laboratory cannot make an infeasible set feasible, buys nothing on the last date and delays the first. The moment an authored staffing limit leaves seats idle, that reverses, and splitting becomes the only arrangement that uses seats the studio is already paying for. A scarce instrument does something different again, as A7 and the paragraph above show: it removes the split option rather than favouring it, and turns the question into whether to buy a second module. So the interface should neither offer splitting as a free choice nor refuse it: it should show the idle seats and the two completion dates, which is the fact that decides.
+
+**Cooperation across laboratories, and the profile that misbehaves.**
 
 | Arrangement | Mixed-systems brief | Precision-constrained brief |
 |---|---:|---:|
@@ -472,10 +564,11 @@ The precision-constrained row is the honest one. Two laboratories on an optical 
 
 - **The whole-studio bottleneck moves.** Adding development capacity to E1 with two post slots already contended simply relocates the queue to Post. A capacity purchase must name the resource the studio is actually being refused for.
 - **Break-even on the office routes.** Staged buys two things for $100,000: III four weeks sooner, and the option to stop at II from week 4 and work at that standard before resuming. Direct wins when neither is worth $100,000, which is the common case for a studio with no original draft ready to assess. Staged wins when the studio will actually use the pause, or when four weeks of III matter more than the cash.
-- **Break-even on convert against build another.** Converting an owned stage beats a new stage whenever the studio does not need the extra stage capacity, by **$1,600,000 and seven weeks** in E1. The comparison must count the whole path, because the accepted stage blueprint grants no acoustic capability: a new stage is $2,000,000 over 20 weeks and is then still a silent stage, so on the most generous nearly-compatible terms it needs $200,000 more and three weeks more of installation, reaching $2,200,000 and sound at week 24 against the conversion's $600,000 and week 17. The new stage wins only when the capacity itself is wanted.
-- **Dominated: splitting one laboratory**, as shown above.
+- **Break-even on convert against build another, and the three ways building wins.** Converting an owned stage is **$1,600,000 cheaper and eight weeks sooner** in E1, counting weeks from the week the capability is in hand, and that difference holds under either credit rule, because access and equipment are identical on both sides: $1,100,000 against $2,700,000 for a buyer, $600,000 against $2,200,000 for an inventor's first installation, sound at week 17 against week 25 in both. For a studio still waiting to buy, the release gate binds before either stage does and both routes reach sound in the same week, leaving only the cash. The whole path has to be counted, because the accepted stage blueprint grants no acoustic capability and a new stage is still a silent stage the week it completes. Building nonetheless wins on three grounds the cash comparison hides: the conversion takes a working stage out of service for twelve weeks while the new build takes nothing out of service; the new build adds a stage the studio may actually need, and capacity is a different good from capability; and a conversion that has to strip and replace services is a rebuild wearing a conversion's price. Renovation is the usual answer in E1, never the automatic one.
+- **Not dominated: splitting one laboratory.** §9.4 replaces the earlier blanket claim. Splitting loses only where every brief can absorb every seat. Where an authored staffing limit leaves seats idle, splitting is the only arrangement that uses the seats the studio is paying for, and concentrating costs the second brief twenty-two weeks. No brief carries such a limit today; §5.2 names the candidates and what adopting one would cost.
 - **Dominated: the accepted office ladder.** Building Office II and then Office III costs $1,800,000, occupies three plots and leaves $12,000 a week in charges for one standard. Both conversion routes beat it on every axis except that they take the office offline.
-- **A balance risk this catalogue does not resolve.** If the two inventor credits stack, developing costs almost exactly what buying costs, and no studio would ever wait. The no-stack rule of §9.2 is the recommended fix; the alternative levers are a smaller equipment concession or a larger research workload, and Current Ops should pick one.
+- **The balance risk, relocated rather than removed.** With each component charged once, a studio that already runs a department develops a technology for $60,000 less than it would pay to buy it, so research at the margin is slightly better than free once the department exists. That is not a credits problem and refusing a legitimate credit does not fix it. The load-bearing cost is the department itself: $1,732,000 of laboratory, instruments, salaries and standing charges across E1's horizon, before a single project is funded, against which a single technology's $60,000 saving is noise. Current Ops' levers are that fixed cost, the useful staffing limits of §5.2, and the research workload; the credits are not a lever, because the Owner has ruled how they are accounted. **NUMERICAL/CONTENT HYPOTHESIS**, and the one balance question this correction leaves open.
+- **Starting a department is a different decision from running one.** Every whole-life figure above prices the first technology of a studio that owns no laboratory. A studio that already owns one faces only the marginal comparison, and the two answers point in opposite directions. Any card, quote or projection that blends them is wrong.
 
 ### 9.6 Proofs to run later, documented not run
 
@@ -498,19 +591,62 @@ Inventory does not wait for sound. Office and capacity work needs no researcher.
 
 Relative difficulty, not person-hours: inventory reuses existing owners but still needs identity and navigation proof; the office conversion is medium cross-system work; sound is the expensive one because it joins research, capture, Post, staffing, budget, queue and the filming lock; digital pipelines and virtual production are large and need new consumers authored; the P16+ and talent dependencies are separate major systems.
 
-## 11. Genuine product decisions still open
+## 11. Decision register
 
-Everything below needs a person, not another document.
+**Four classes, kept apart on purpose, and being listed here approves nothing.** A recommendation stays a recommendation until Current Ops or the Owner disposes of it, and nothing in the Owner's 2026-09-11 response is to be read as approving anything it does not name.
 
-1. **The scale.** Adopt S1, or set a different one. Until this is settled no price in either document should be treated as tuning.
-2. **Whether the two inventor credits may stack.** §9.2 recommends they may not. This single choice decides whether developing early is a premium strategy or a free one.
-3. **The Office III prerequisite.** §8.3 recommends removing it from both routes and gating the new build on availability, knowledge, ground and funds. The alternative keeps the obsolete-purchase chain for new builds.
-4. **The Research Laboratory substrate.** Still the hard blocker that design §23 records. The whole of D2 waits on it.
-5. **Which dependency-qualified consumers get authored first.** Set size classes decide CAT-011; a setup workload decides CAT-012 and CAT-025; Set turnover work decides CAT-013; a costume workload decides CAT-018; property identity decides CAT-017b; a planning-evidence owner decides CAT-044; a deliverable format decides CAT-039.
-6. **Whether a hire route exists for scarce capabilities.** §6.7 recommends it for colour on the strength of twenty-nine cameras in seventeen years. It is a new acquisition route and needs an owner.
-7. **Whether P1 briefs may fall below the Owner's band.** This catalogue says yes, with disclosure. The alternative is to author no precision-constrained briefs at all.
-8. **Commercial-release milestones per entry.** The bands are recommended; the weeks need the calendar owner.
-9. **Supplier commercialization placement.** P16+ remains the default. Current Ops recommends; the Owner approves any departure.
+### 11.1 Owner direction already settled — do not ask again
+
+| | Settled direction | Durable record |
+|---|---|---|
+| **OWN-1** | Early cash-funded research with knowledge prerequisites and a fixed commercial-release rollout | rulings §2.4 |
+| **OWN-2** | Laboratories, named researchers, staffing to building capacity and per-project research budgets are selected product direction. What is open is the missing implementation and its dependencies, below, never whether they should exist | rulings §2.4 and §2.5 item 3 |
+| **OWN-3** | Researchers and laboratories may cooperate on one project or split across projects, and neither arrangement is universally better | rulings §2.5 item 2; §9.4 |
+| **OWN-4** | Two maximum-capacity laboratories on one project produce about 1.5–1.75× one laboratory | rulings §2.4. This catalogue reads that band as a **total** rather than as the concentration factor, which is the catalogue's own correction and not an Owner statement; §5.3 |
+| **OWN-5** | Legitimate inventor benefits coexist when they concern different costs. No expense is credited twice, and usable equipment already produced and paid for is never charged again | rulings §2.5 item 1; §9.2 |
+| **OWN-6** | Direct Office I→III conversion, with no Office II ever purchased. Under comparable conditions it takes substantially longer than II→III | rulings §2.4 and §2.5 item 5; §8 |
+| **OWN-7** | Renovation need not be cheaper than new construction. Upgrading in place, extending, building another and waiting all stay live alternatives | rulings §2.5 item 4; §5.1, §9.3, §9.5 |
+| **OWN-8** | Persistent plan queues, retained research progress, option-B installation cancellation, gap-aware conversion quotes, and direct purchase without obsolete intermediates | rulings §2.4 |
+| **OWN-9** | Supplier commercialization is desired later scope, with P16+ the default placement | rulings §2.4, §5 |
+
+### 11.2 Engineering and tuning recommendations — Current Ops disposes
+
+Every row is a recommendation **pending disposition**. None is approved by appearing here, and none needs the Owner's time unless Current Ops refers it up.
+
+| | Recommendation | Note |
+|---|---|---|
+| **ENG-1** | **One scale across both documents**: apply scale S1's uniform multiplier to the Annex fixture so the catalogue and the Annex stop carrying two money scales, §9.1. This is the mechanical half; the absolute level a shipped game uses is OPEN-5, and the Owner recorded on 2026-09-11 that the five-times figure is a hypothesis, not approved tuning | Includes the one object both scales price: a new soundstage at $2,000,000 over 20 weeks under H1×5 against the accepted blueprint's $2,400,000 over 16. The accepted value governs, and §9.1 says so |
+| **ENG-2** | **New-build Office III prerequisite removal**, §8.3: drop the operational-Office-II requirement from both routes and gate a new build on the standard's availability, knowledge, lawful ground and funds | kept as a recommendation pending disposition at the Owner's instruction |
+| **ENG-3** | **Below-target research-scaling exceptions**, §5.3: P1 precision-constrained briefs return about 1.375× for two laboratories, below the Owner's band, and say so in the card | kept as a recommendation pending disposition at the Owner's instruction |
+| **ENG-4** | **Per-brief parallel profiles P1–P3**, §5.3, in place of one universal multiplier | |
+| **ENG-5** | **Useful staffing limits and equipment caps as authored facts**, §5.2. No brief is set below four today; the P1 briefs are named as the candidates | adopting a limit below four doubles that brief's class duration, so the cascade must be priced first. §9.4 shows what the mechanism does |
+| **ENG-6** | **Component-level inventor quote lines** at the S1 scale, §9.2: access, equipment, site adaptation and installation, each charged once, never negative | the accounting rule behind it is settled under OWN-5; only the numbers are open |
+| **ENG-7** | **Capital classes K1–K5, workload classes W1–W4 and period bands B1–B6**, §5 | |
+| **ENG-8** | **The department's fixed cost as the balance lever**, §9.5, rather than any restriction on credits | |
+| **ENG-9** | **The illustrative 4, 8 and 16 office weeks**, §8.2, kept from the Owner's 2026-09-10 example | the Owner confirmed on 2026-09-11 that those weeks are not approved tuning |
+
+**The missing implementation OWN-2 points at, and what each piece depends on.** A laboratory as a placeable and convertible body carrying seats, which depends on the Research Laboratory substrate, OPEN-1. Researcher employment records, wages and a payroll charge, which depend on the staffing system. Per-project seat assignment honoring the §5.2 caps, which depends on both. A per-project budget with the saturation ceiling, which depends on the one accounting authority of design §16a.1. Work accumulation retained across cancel and restart, which depends on the plan queue. The plan queue itself, with its admission policy. An invention provenance record carrying the prototype-equipment fact, which depends on nothing new because design §16a.2 already defines it. And installation jobs that respect the §9.2 dependency chain. None of these asks whether the department should exist.
+
+### 11.3 Genuinely unresolved product choices — these need a person
+
+| | Question | Who decides |
+|---|---|---|
+| **OPEN-1** | The **Research Laboratory substrate**, still the hard blocker design §23 records. The whole of D2 waits on it | Current Ops, then a coding lead |
+| **OPEN-2** | **Which dependency-qualified consumers are authored first**: Set size classes for CAT-011; a setup workload for CAT-012 and CAT-025; Set turnover for CAT-013; a costume workload for CAT-018; property identity for CAT-017b; a planning-evidence owner for CAT-044; a deliverable format for CAT-039 | Owner, or a named design owner |
+| **OPEN-3** | Whether a **hire route exists for scarce capabilities**, §6.7. It is a new acquisition route and needs an owner | Owner |
+| **OPEN-4** | **Commercial-release weeks per entry.** The bands are recommended; the weeks need the calendar owner | calendar owner, POST-P12 |
+| **OPEN-5** | **The absolute money scale.** ENG-1 is the recommendation; adopting a scale, or refusing this one, is the Owner's call | Owner |
+
+### 11.4 Later features that do not block current preparation
+
+Nothing here needs a decision now, and nothing here is selected by being listed.
+
+| | Later scope | Condition |
+|---|---|---|
+| **LATER-1** | **Supplier commercialization**: the terms, pricing and package placement of licensing an owned technology. The *direction* is settled under OWN-9; only these remain, and they remain unselected | P16+ is the default placement; Current Ops recommends and the Owner approves any departure |
+| **LATER-2** | **Equipment rental** instead of purchase | later proposal, not selected |
+| **LATER-3** | **CAT-049 to CAT-058**, the ten dependency-gated entries | each waits on its own owning system's authorization |
+| **LATER-4** | **Talent, contract and rival-studio systems** that several entries would eventually touch | separate major systems, out of scope here |
 
 ## 12. Evidence index
 

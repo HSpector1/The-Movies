@@ -138,6 +138,22 @@ Historical decisions remain history. The following statements no longer govern c
 
 **Not done here:** no gameplay coding, tests, schemas, saves, assets, tuning constants, new package number, coding order, PR, merge, P11 reopening or P12 redirection. The separate multi-campaign save library is not implemented; P13 state stays campaign-specific and Save/Load restores it without rerolling or sharing research between campaigns.
 
+### 2.5 Owner response to the catalogue — 2026-09-11
+
+**OWNER-SELECTED PRODUCT DIRECTION.** The Owner reviewed the Studio Upgrade and Research Catalogue at commit `b7824988a80b170363c08ac7a809498729d84d04` and returned five directions. They are settled and are not to be re-asked. Nothing outside these five is approved by this response, and no new approval may be inferred from it.
+
+1. **Inventor benefits are accounted by component.** Legitimate benefits coexist when they concern different costs. No expense is credited twice, and usable equipment already produced and paid for is never charged again. The catalogue's earlier recommendation that an inventor take only the larger of two credits is withdrawn.
+2. **Cooperation and splitting are both legitimate.** Researchers may cooperate on one project or split across projects. One example built from identical projects does not establish that splitting is always inferior.
+3. **The research department's existence is settled.** Laboratories, named researchers, staffing capacity and research budgets are selected product direction and are not to be put to the Owner again. What remains is to define the missing implementation and its dependencies.
+4. **Renovation need not be cheaper than new construction.** Meaningful upgrade, expansion, new-build and waiting alternatives are all preserved.
+5. **Direct Office I→III conversion without purchasing Office II remains selected.** Under comparable conditions it takes substantially longer than II→III. The illustrative 4, 8 and 16 weeks are not approved tuning.
+
+**Current Ops note, not Owner text.** The withdrawn no-stacking recommendation had also departed from accepted design §16a.2, which already decomposed the quote into technology/access, equipment, site adaptation and installation and already billed prototype equipment once. Item 1 restores agreement with the accepted product as well as with the Owner.
+
+**Also recorded by the same response.** The proposed five-times money scale is a hypothesis, not Owner approval. New-build Office III prerequisite removal and any below-target research-scaling exceptions remain recommendations pending disposition. Equipment rental and supplier commercialization remain later proposals unless separately selected.
+
+**Where the corrections live.** [Catalogue §9.2](./STUDIO-UPGRADE-AND-RESEARCH-CATALOGUE-01.md#92-inventor-against-commercial-buyer-whole-life) recomputes inventor pricing by component, the dependency-respecting schedule and the whole-life comparison; [§9.4](./STUDIO-UPGRADE-AND-RESEARCH-CATALOGUE-01.md#94-research-allocation-when-concentrating-helps-and-when-splitting-helps) tests research allocation across seven fixtures; [§11](./STUDIO-UPGRADE-AND-RESEARCH-CATALOGUE-01.md#11-decision-register) is the four-class decision register that separates settled direction, engineering recommendations, genuinely unresolved product choices and later features.
+
 ---
 
 ## 3. P14 — Talent Market, Relationships & Career Lifecycle
