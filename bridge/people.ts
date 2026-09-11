@@ -36,7 +36,7 @@ import { studioPresence } from '../src/core/presence.ts'
 import { campaignDate } from '../src/core/calendar.ts'
 import { rivalEmployment } from '../src/core/hollywood.ts'
 import { DISCIPLINE_ORDER, PERSON_DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE } from '../src/core/tuning.ts'
-import { guaranteedComp, activeContract, renewalWindowOpen } from '../src/core/employment.ts'
+import { guaranteedComp, activeContract, busyTalentIds, renewalWindowOpen } from '../src/core/employment.ts'
 import { contractActionDecisions } from './contract.ts'
 import type { BridgePersonContractActionsSnapshot } from './schema/bridge-schema.ts'
 import type {
@@ -309,7 +309,7 @@ const ROLE_LABEL: Record<string, string> = {
   support: 'Support',
   craft: 'Craft',
 }
-const ENGAGEMENTS = new Set(['production', 'script', 'casting', 'roster'])
+const ENGAGEMENTS = new Set(['production', 'script', 'casting', 'roster', 'research'])
 
 /** Top specialty only when the lead over the next genre is meaningful (design §11). */
 export const SPECIALTY_LEAD_MIN = 8
@@ -320,6 +320,7 @@ export const CONTRACT_HORIZONS_WEEKS = { decision: 12, attention: 26, info: 52 }
 
 export function peopleProjection(state: GameState): BridgePeopleProjection {
   const week = state.market.tick
+  const busy = busyTalentIds(state)
   const presence = studioPresence(state)
   const presenceById = new Map(presence.people.map((p) => [p.talentId, p] as const))
   const withheld = new Map<string, string>()
@@ -381,6 +382,7 @@ export function peopleProjection(state: GameState): BridgePeopleProjection {
     profiles.push(
       buildProfile(state, talent, profile, {
         week,
+        busy: busy.has(talent.id),
         nameShared: (nameCounts.get(talent.name) ?? 0) > 1,
         presence: presenceById.get(talent.id) ?? null,
         withheldReason: withheld.get(talent.id) ?? globalWithholding,
@@ -401,6 +403,7 @@ export function peopleProjection(state: GameState): BridgePeopleProjection {
 
 type ProfileInputs = {
   week: number
+  busy: boolean
   nameShared: boolean
   presence: ReturnType<typeof studioPresence>['people'][number] | null
   withheldReason: string | null
@@ -445,8 +448,8 @@ function buildProfile(
     specialties.length === 0
       ? 'No clear specialty'
       : `Top specialty: ${specialties.map((s) => s.label).join(' · ')}`
-  const employment = buildEmployment(state, talent, input.week)
   const work = buildWork(state, talent.id)
+  const employment = buildEmployment(state, talent, input.week, input.busy, work.kind === 'ambiguous')
   const presence = buildPresence(input)
   const career = buildCareer(input)
   const attention = decideAttention(employment, work, presence, input.week)
@@ -506,7 +509,7 @@ function topSpecialties(profile: TalentProfile, primary: Discipline): BridgePers
   return picked.map((c) => ({ discipline: primary, genre: c.genre, label: GENRE_LABEL[c.genre], perceived: c.perceived }))
 }
 
-function buildEmployment(state: GameState, talent: Talent, week: number): BridgePersonEmploymentSnapshot {
+function buildEmployment(state: GameState, talent: Talent, week: number, busy: boolean, ambiguous: boolean): BridgePersonEmploymentSnapshot {
   const other=rivalEmployment(state,talent.id,week)
   if(other) {
     const name=state.hollywood!.identities.find(s=>s.studioId===other.studioId)!.name
@@ -536,7 +539,7 @@ function buildEmployment(state: GameState, talent: Talent, week: number): Bridge
   return {
     status: info.status,
     statusLabel: STATUS_LABEL[info.status],
-    availability: availabilityOf(info.status),
+    availability: availabilityOf(info.status, busy, ambiguous),
     contract: wire,
     marketRatePerProduction: talent.salary,
     freelancerFee: info.freelancerFee,
@@ -550,10 +553,13 @@ function renewalLine(endWeekExclusive: number, week: number, open: boolean): str
   return opensIn > 0 ? `Opens in ${String(opensIn)} weeks` : 'Not open'
 }
 
-function availabilityOf(status: EmploymentStatus): string {
+function availabilityOf(status: EmploymentStatus, busy: boolean, ambiguous: boolean): string {
+  if (ambiguous) return 'Unknown'
   switch (status) {
     case 'contracted':
-      return 'Available' // refined by current work below (Working)
+      // A film credit may still be displayed as work context, but only the
+      // shared active-assignment owner determines whether this person is busy.
+      return busy ? 'Working' : 'Available'
     case 'engagedFreelancer':
       return 'Engaged'
     case 'availableFreelancer':
@@ -725,12 +731,6 @@ function buildRoster(profiles: BridgePersonProfileSnapshot[]): BridgeRosterSnaps
         : p.employment.status === 'engagedFreelancer' || p.employment.status === 'availableFreelancer'
           ? 'freelancer'
           : 'known'
-    const availability =
-      p.employment.status === 'contracted' && p.work.kind === 'assigned'
-        ? 'Working'
-        : p.work.kind === 'ambiguous'
-          ? 'Unknown'
-          : p.employment.availability
     return {
       talentId: p.talentId,
       name: p.name,
@@ -746,7 +746,7 @@ function buildRoster(profiles: BridgePersonProfileSnapshot[]): BridgeRosterSnaps
       starPower: p.starPower,
       specialtyLine: p.specialtyLine,
       currentWork: p.work.kind === 'assigned' ? (p.work.label ?? '') : p.work.kind === 'ambiguous' ? 'Unknown' : 'Available',
-      availability,
+      availability: p.employment.availability,
       status: p.employment.status,
       contractLine: contractLine(p.employment),
       contractEndWeek: p.employment.contract?.endWeekExclusive ?? null,

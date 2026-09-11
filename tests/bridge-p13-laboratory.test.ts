@@ -4,6 +4,7 @@ import { generateWorld } from '../src/core/worldgen.js'
 import { initializeHollywood } from '../src/core/hollywood.js'
 import { commitPlacement } from '../src/core/placement.js'
 import { tick } from '../src/core/tick.js'
+import { weeklyBurn } from '../src/core/economyView.js'
 import type { GameState } from '../src/core/types.js'
 import { laboratoryActionSpecs } from '../bridge/laboratory.ts'
 import { industryPage } from '../bridge/industry.ts'
@@ -39,6 +40,8 @@ describe('P13A Laboratory bridge', () => {
     expect(recruit.enabled).toBe(true)
     expect(recruit.detail).toContain('208-week contract')
     expect(recruit.detail).toContain('$2,000/week')
+    expect(recruit.detail).toContain('$1,500/week in studio employment overhead')
+    expect(recruit.detail).toContain('weekly commitments rise by $3,500')
     expect(recruit.detail).toContain('This contract ends 1924 · Week 13')
     expect(recruit.detail).toContain('It ends before research opens 1925 · Week 1')
     expect(recruit.detail).toContain('payroll starts now')
@@ -94,9 +97,11 @@ describe('P13A Laboratory bridge', () => {
     if (!('laboratory' in page) || !page.laboratory) throw new Error('Laboratory page absent')
     const recruit = page.laboratory.actions.find(a => a.id === 'recruit-1')!
     const instruments = page.laboratory.actions.find(a => a.id === 'instruments-1')!
+    const weeklyBefore = weeklyBurn(session.gameState)
     const command = { protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, type: 'submitIntent' as const,
       commandId: 'hire-once', sessionId: session.sessionId, expectedStateRevision: 0, payload: { intentId: recruit.intent!.intentId } }
     expect(session.command(command).accepted).toBe(true)
+    expect(weeklyBurn(session.gameState) - weeklyBefore).toBe(3_500)
     const cash = session.gameState.studio.cash
     expect(session.command(command).accepted).toBe(true)
     expect(session.gameState.studio.cash).toBe(cash)
@@ -105,11 +110,25 @@ describe('P13A Laboratory bridge', () => {
       payload: { intentId: instruments.intent!.intentId } })).toMatchObject({ accepted: false, reasonCode: 'INTENT_NOT_AVAILABLE' })
     const current = session.industry(query({ expectedStateRevision: session.stateRevision }))
     if (!('laboratory' in current) || !current.laboratory) throw new Error('Laboratory page absent')
+    expect(current.laboratory.scientistId).toBeNull()
+    expect(current.laboratory.scientistLabel).toContain(session.gameState.talent.find(t => t.role === 'scientist')!.name + ' is employed')
     const assign = current.laboratory.actions.find(a => a.id.startsWith('assign-'))!
     expect(assign.enabled).toBe(true)
     expect(session.command({ ...command, commandId: 'assign-scientist', expectedStateRevision: session.stateRevision,
       payload: { intentId: assign.intent!.intentId } }).accepted).toBe(true)
     expect(session.gameState.technology.projects[0]).toMatchObject({ status: 'paused', verifiedWork: 0, expenditure: 0 })
+  })
+
+  it('acknowledges completed acoustic instruments while the Scientist seat remains unassigned', () => {
+    let state = laboratory()
+    const lab = state.placement.facilities.find(p => p.blueprintId === 'research-laboratory')!
+    state = applyActions(state, [{ kind: 'installAcousticInstruments', laboratoryFacilityId: lab.facilityId }])
+    for (let week = 0; week < 5; week++) state = tick(state)
+    const page = new BridgeSession(state, 'lab-test').industry(query())
+    if (!('laboratory' in page) || !page.laboratory) throw new Error('Laboratory page absent')
+    expect(page.laboratory.scientistId).toBeNull()
+    expect(page.laboratory.bottleneckLabel).toBe('Acoustic instruments are operational. Assign one Scientist before research can begin.')
+    expect(page.laboratory.actions.some(a => a.id === 'instruments-1')).toBe(false)
   })
 
   it('shows rival sound only from the actual operational receipt, without exposing private finances', () => {

@@ -160,6 +160,7 @@ describe('P10A W0 — people projection', () => {
     expect(profile.work.kind).toBe('ambiguous')
     expect(profile.work.assignmentId).toBeNull()
     expect(profile.work.reason).toContain('could not be determined')
+    expect(profile.employment.availability).toBe('Unknown')
     expect(profile.attention.tier).toBe('blocking')
     const row = projection.roster.rows.find((r) => r.talentId === director.id)!
     expect(row.currentWork).toBe('Unknown')
