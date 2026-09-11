@@ -1,6 +1,6 @@
 # P13A launch review index
 
-**LAUNCH-REVIEW PACKAGE · DOCUMENTATION AND READ-ONLY RECONNAISSANCE ONLY · P13 IMPLEMENTATION NOT AUTHORIZED.** Prepared under Current Ops' existing P13 preparation authorization. Nothing in this package is an execution order, and no number in it is approved tuning; the scale recommended in companion §4.2 is *candidate tuning*, provisional and subject to implementation review and playtest. P13 coding requires a separate Current Ops execution order.
+**LAUNCH-REVIEW PACKAGE · DOCUMENTATION AND READ-ONLY RECONNAISSANCE ONLY · P13 IMPLEMENTATION NOT AUTHORIZED.** Prepared under Current Ops' existing P13 preparation authorization. Nothing in this package is an execution order, and no number in it is approved tuning; the scale recommended in companion §4.2 and the campaign milestones pinned in companion §4.4 are *candidate tuning*, provisional and subject to implementation review and playtest. P13 coding requires a separate Current Ops execution order.
 
 Prepared 2026-09-11. Branch `docs/p13-post-p12-launch-preparation-01`, planning parent [`e48541b`](https://github.com/HSpector1/The-Movies/tree/e48541b55d8c0825968c4f148996593bdd9f22b6). The planning parent is a documentation ancestor, not a runtime baseline. No prior P13 launch-preparation branch or index existed when this was cut.
 
@@ -15,13 +15,24 @@ Prepared 2026-09-11. Branch `docs/p13-post-p12-launch-preparation-01`, planning 
 
 The accepted source refresh, the five closed verification items, the persistence starting point, the charge-onset finding, the migration proof plan, the native-entry resequencing, the OPEN-2 sequence and decisions D2, D4 and D5 are unchanged. No reconnaissance was rerun.
 
+**Revision 3, 2026-09-11.** Current Ops reviewed `9e19011` (and the wording fix at `9f4a02c`), accepted the four Revision-2 corrections, and returned three further bounded corrections. All three are applied here and confined to these three files:
+
+| | Correction | Where it landed |
+|---|---|---|
+| 1 | Reconcile the one-Scientist Core with the economic and schedule model, and stop quoting the four-seat schedule as a Core result | companion **§4.4 C, D and E**; §4.2's brief, saturation and capability-date rows relabelled; §2.3, §2.4 and the draft aligned |
+| 2 | Give synchronized sound an actual campaign milestone, then recompute correction 1 against it | companion **§4.4 A and B**, pinning `researchable` at campaign week 260 (`1925 · Week 1`) and `available` at week 416 (`1928 · Week 1`); D2's recommendation cell rewritten |
+| 3 | Book the rival's purchase to a dedicated `technologyAdoption` movement kind instead of `development` | companion **§4.1**, with §2.3, §5 (L3, L4), §6 proof 7 and §7's second escalation criterion aligned |
+
+Everything Current Ops listed as closed stays closed: the accepted-P12 reconnaissance, the catalogue work, the Core / Ready split, the execution-budget denominator, D4, D5, OPEN-2 sequencing, the migration plan and the performance plan. §4.2's S1-A rates and E1 envelope figures are unchanged; only the schedule around them moved.
+
+
 ## 1. The package: three files, all on this branch
 
 | File | What it is | Retrieval |
 |---|---|---|
 | **This index** | every required file and where to get it | `docs/engineering/P13A-LAUNCH-REVIEW-INDEX.md` |
 | [**Launch draft**](./DRAFT-P13A-LAUNCH-PROMPT.md) | the 600–900-word draft Current Ops would issue | `docs/engineering/DRAFT-P13A-LAUNCH-PROMPT.md` |
-| [**Decisions and acceptance companion**](./P13A-DECISIONS-AND-ACCEPTANCE-COMPANION.md) | §1 source-refresh matrix, §2 selected scope and the P13A Core execution boundary, §3 preserved requirements, §4 genuine decisions with the rival's route at §4.1 and the candidate economic scale at §4.2, §5 ownership and acceptance tasks, §6 migration and persistence proof plan, §7 budget arithmetic and reserve, §8 performance limits, §9 status | `docs/engineering/P13A-DECISIONS-AND-ACCEPTANCE-COMPANION.md` |
+| [**Decisions and acceptance companion**](./P13A-DECISIONS-AND-ACCEPTANCE-COMPANION.md) | §1 source-refresh matrix, §2 selected scope and the P13A Core execution boundary, §3 preserved requirements, §4 genuine decisions with the rival's route at §4.1, the candidate economic scale at §4.2 and the pinned campaign milestones with the one-Scientist Core schedule at §4.4, §5 ownership and acceptance tasks, §6 migration and persistence proof plan, §7 budget arithmetic and reserve, §8 performance limits, §9 status | `docs/engineering/P13A-DECISIONS-AND-ACCEPTANCE-COMPANION.md` |
 
 Nothing in this package requires a scratchpad file, a local-only path, an unpublished artifact or a private profile. Every reference below resolves from published history.
 
@@ -80,7 +91,7 @@ Companion §3 maps each into core, ready, or named follow-on scope. None is drop
 
 1. Read the **launch draft**. It is what Current Ops would issue, and it is the only file that reads as an instruction.
 2. Read companion **§1**, the source-refresh matrix, to see what P13 reuses versus builds. Every REUSED row carries a path, symbol, line range and commit you can open, and **§1.10** records what the refresh settled, the five closed verification items and the seven supporting-detail defects an adversarial pass corrected.
-3. Read companion **§4**, the genuine decisions. That list is deliberately short. **§4.1** states how a rival lawfully reaches synchronized sound in P13A, and what the slice may not claim from it. **§4.2** gives the recommended candidate economic scale with every value P13A needs, one meaningful alternative, and the consequential difference between them. Everything settled sits in §2 and §3 instead, and is not re-asked.
+3. Read companion **§4**, the genuine decisions. That list is deliberately short. **§4.1** states how a rival lawfully reaches synchronized sound in P13A, and what the slice may not claim from it. **§4.2** gives the recommended candidate economic scale with every value P13A needs, one meaningful alternative, and the consequential difference between them. **§4.4** pins the two synchronized-sound campaign weeks and recalculates the Core schedule at P13A's single Scientist, which is where the actual Core research lead comes from. Everything settled sits in §2 and §3 instead, and is not re-asked.
 4. Read companion **§2**'s intro and **§2.4** for the execution boundary: this is P13A Core, and Ready is preserved by name, owner, acceptance condition and next bounded placement.
 5. Read companion **§7**, the budget arithmetic, the protected verification reserve and its escalation criteria.
 
@@ -88,4 +99,4 @@ Companion §3 maps each into core, ready, or named follow-on scope. None is drop
 
 No implementation, build, test run, runtime launch, native input, profile access, P12 reopening, hook work, merge, PR or protected-ref promotion occurred in producing it. No game was launched. The Unity spike repository was read through the API at its pinned shas only. Howard's campaigns and named copies were not opened, hashed, replaced or inspected.
 
-Prices, the five-times money scale, illustrative office durations and recommendations ENG-2 and ENG-3 remain provisional and unapproved, exactly as `e48541b` left them. The scale recommended in companion §4.2 is candidate tuning: it reaches playable cash, duration and decisions, and it is provisional and subject to implementation review and playtest. It is not approved tuning, it approves no scale, and this package reopens none of the closed catalogue correction.
+Prices, the five-times money scale, illustrative office durations and recommendations ENG-2 and ENG-3 remain provisional and unapproved, exactly as `e48541b` left them. The scale recommended in companion §4.2 and the two campaign milestones pinned in companion §4.4 are candidate tuning: they reach playable cash, duration and decisions, and they are provisional and subject to implementation review and playtest. §4.4's release year is grounded in the sound-history source the package already cites; its researchable year is a bounded design choice and is labelled as one. It is not approved tuning, it approves no scale, and this package reopens none of the closed catalogue correction.
