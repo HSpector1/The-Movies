@@ -671,7 +671,7 @@ Its honest argument is consistency: one multiplier governs the whole fixture, an
 | Capability and implementation work | **52** | Building P13A Core, and nothing outside it |
 | Protected verification, correction and delivery reserve | **28** | Correctness, migration and performance verification, corrections, delivery. **Never new capability, and never reallocated to finish a feature** |
 | **Productive lead total** | **80** | The two rows above, summed. This is the productive ceiling, not 80 plus 28 |
-| Elapsed ceiling | **108** | Wall clock. P12A sustained 96 against 72, a 4:3 ratio, which on 80 productive hours would give 107; 108 is that rounded up, and Current Ops' review directs that this ceiling stands |
+| Elapsed ceiling | **108** | Wall clock. P12A sustained 96 elapsed against 72 productive, a 4:3 ratio. Applied to 80 productive hours that projects about 106.7 elapsed hours; the retained 108-hour ceiling adds a small conservative whole-hour buffer, and Current Ops' review directs that this ceiling stands |
 
 P12A's 72 productive carried 24 protected, so 48 of capability. P13A proposes **52 of capability and 28 of reserve**: four more capability hours for the prerequisite stack and the governed V19 migration, four more reserve hours for the wider verification surface, and no re-budgeting of the reconnaissance this package already completed. The reserve is 35% of productive hours against P12A's 33% (24 of 72), because P13A carries a governed save migration P12A did not.
 
