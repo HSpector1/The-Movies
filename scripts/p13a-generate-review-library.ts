@@ -16,8 +16,9 @@ const scenarios = [
   ['commercial-entry', '05 Commercial sound without a Lab', '95e2f20c69e4bc83242a1f4f9e1a96c6ce8eb3bb493a36d4660ac30d40ea6c94', 416],
   ['research-entry', '06 Hire your Scientist', '43dd8df76be4f86c5a7c42904ba01488001a10c4554828d939daf3c9769ed226', 260],
   ['early', '07 Early Laboratory', '38734468eeb69f4ee998f0006b7599d60e3eceb3ecd6cb98454271119ebe224b', 12],
+  ['rival-commercial-entry', '08 Rival commercial adoption', 'b1c36f29e8f465b0d6fbeba15999d777f3161d4d62d9a5090545c264b05806ea', 416],
 ] as const
-const directory = resolve(process.argv[2] ?? 'artifacts/p13a/review-library')
+const directory = resolve(process.argv[2] ?? 'artifacts/p13a/review-library-final')
 const checkpoint = resolve(directory, 'generated-review-library.json')
 const manifestPath = resolve(directory, 'manifest.json')
 if (existsSync(checkpoint) || existsSync(manifestPath)) throw new Error('Review fixture already exists; immutable output will not be overwritten')
@@ -59,7 +60,7 @@ for (const source of sources) {
 }
 const manifest = {
   kind: 'p13a-generated-evidence/v1', source: 'live engine generated fixture; no user campaign input', scenario: 'review-library',
-  method: 'Seven unchanged previously generated engine checkpoints. Current initialCampaignLibrary mints storage UUIDs; only catalogue labels and record collection are authored. Full production loadCampaignLibrary validation preserves each exact source checkpoint. No player campaign operation is claimed by this setup.',
+  method: 'Eight unchanged previously generated engine checkpoints. Current initialCampaignLibrary mints storage UUIDs; only catalogue labels and record collection are authored. Full production loadCampaignLibrary validation preserves each exact source checkpoint. No player campaign operation is claimed by this setup.',
   checkpoint, sha256: sha(encoded), bytes: Buffer.byteLength(encoded), schemaId: SCHEMA_ID, saveVersion: 20,
   activeCampaignId: library.activeCampaignId, week: checked.session.gameState.market.tick, stateDigest: checked.session.snapshot().stateDigest,
   sources, generatorSha256: sha(readFileSync(resolve('scripts/p13a-generate-review-library.ts'), 'utf8')),
