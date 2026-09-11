@@ -317,6 +317,20 @@ export function validateTechnology(state: GameState): void {
       prototypes.add(a.prototypeProjectId)
     } else if (a.equipmentCost !== (a.route === 'research' ? 225_000 : 300_000)) fail('equipment charge mismatch')
   }
+  // This invocation still validates every original loadout; the save validator
+  // still checks the original Hollywood root. Index only historical membership:
+  // scanning the whole history for each loadout makes that P13 check quadratic.
+  // Exact identity pairs and a local lifetime keep Save As copies independent;
+  // no validated state or membership survives this call.
+  const historicalFilmsByStudio = new Map<string, Set<string>>()
+  for (const film of state.hollywood?.films ?? []) {
+    let studioFilms = historicalFilmsByStudio.get(film.studioId)
+    if (studioFilms === undefined) {
+      studioFilms = new Set<string>()
+      historicalFilmsByStudio.set(film.studioId, studioFilms)
+    }
+    studioFilms.add(film.filmId)
+  }
   const films = new Set<string>()
   for (const p of root.productions) {
     exact(p,['studioId','productionId','method','adoptionId','lockedWeek']);studio(p.studioId);text(p.productionId)
@@ -324,7 +338,7 @@ export function validateTechnology(state: GameState): void {
     const business = state.hollywood?.businesses.find(b => b.studioId === p.studioId)
     const exists = p.studioId === own
       ? state.studio.activeProductions.some(f => f.id === p.productionId) || state.studio.releasedFilms.some(f => f.productionId === p.productionId) || p.lockedWeek !== null && state.ledger.some(e => e.productionId === p.productionId)
-      : business?.productions.some(f => f.id === p.productionId) || state.hollywood?.films.some(f => f.studioId === p.studioId && f.filmId === p.productionId)
+      : business?.productions.some(f => f.id === p.productionId) || historicalFilmsByStudio.get(p.studioId)?.has(p.productionId)
     if (!exists) fail('unknown production loadout')
     if (p.lockedWeek !== null) week(p.lockedWeek)
     if (p.method === 'silent') {if (p.adoptionId !== null) fail('silent film has sound adoption')}
