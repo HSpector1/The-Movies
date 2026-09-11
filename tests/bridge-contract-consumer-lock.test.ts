@@ -353,6 +353,13 @@ function reverify(
 }
 
 describe('CF-09 source bundle and repository identity', () => {
+  test('matches the actual generator manifest with the verifier source dependency bundle', () => {
+    // The synthetic pair fixtures derive their manifests from the verifier list.
+    // This independent producer artifact catches dependencies omitted from that list.
+    const manifest = JSON.parse(readFileSync(file(executingSourceRoot, MANIFEST_PATH), 'utf8')) as ContractManifestV1
+    expect(sourceHash(executingSourceRoot, GENERATOR_SOURCE_PATHS)).toBe(manifest.generatorSourceSha256)
+  })
+
   test('uses a length-delimited, order-independent source envelope', () => {
     const first = sourceBundleSha256(new Map([
       ['z.ts', Buffer.from('left')],
@@ -631,12 +638,14 @@ describe('CF-09 sealed pair', () => {
     expectCode(() => verifyContractPair(pair.request), 'CF09_MANIFEST_MISMATCH')
   })
 
-  test('rejects a generator source/manifest mismatch', () => {
-    const pair = makePair()
-    appendFileSync(file(pair.typescript.root, 'scripts/bridge-contract-csharp.ts'), '// mutation\n')
-    updateCommit(pair, 'typescript', 'generator source drift')
-    expectCode(() => verifyContractPair(pair.request), 'CF09_GENERATOR_SOURCE_MISMATCH')
-  })
+  test.each(['scripts/bridge-contract-csharp.ts', 'bridge/schema/intent-schema.ts'])(
+    'rejects a generator source/manifest mismatch in %s', (path) => {
+      const pair = makePair()
+      appendFileSync(file(pair.typescript.root, path), '// mutation\n')
+      updateCommit(pair, 'typescript', 'generator source drift')
+      expectCode(() => verifyContractPair(pair.request), 'CF09_GENERATOR_SOURCE_MISMATCH')
+    },
+  )
 
   test('generation result is independent of current member/property-like file order', () => {
     const pair = makePair()

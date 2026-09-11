@@ -42,6 +42,7 @@ const EXECUTING_TYPESCRIPT_ROOT = realpathSync.native(resolve(fileURLToPath(impo
 export const GENERATOR_SOURCE_PATHS = [
   'bridge/schema/bridge-schema.ts',
   'bridge/schema/industry-schema.ts',
+  'bridge/schema/intent-schema.ts',
   'bridge/schema/canonical.ts',
   'bridge/schema/dsl.ts',
   'package-lock.json',
