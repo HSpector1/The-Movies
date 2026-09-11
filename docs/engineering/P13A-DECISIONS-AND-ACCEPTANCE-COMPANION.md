@@ -407,6 +407,8 @@ The calendar item was already closed on 2026-09-11 and the refresh confirms it i
 
 **This section recommends. It grants no implementation authority.** Current Ops decides activation; P13 coding needs a separate execution order.
 
+**The execution boundary this package proposes is P13A Core.** It is not authorization for the Ready tier. Core carries every capability that settled Owner direction already assigns to it, including retained verified research progress, which stays in Core even though producing a first successful sound film never requires a cancellation. Ready is preserved in §2.4 by name, owner, acceptance condition and next bounded placement, as the next bounded execution rather than deleted scope. The three product critiques therefore read: an early playable slice, a completed causal Core, then the integrated final P13A Core candidate.
+
 ### 2.1 Reuse the existing tiers rather than inventing new ones
 
 Design §2A.2 already carries a Core / Ready / Later table and the recommended order after P13A. This package activates that table rather than competing with it. Owner rulings §2.1 already bound P13A to "one synchronized-sound transition, one Research Laboratory, one Scientist assignment, research versus wait, one rival consequence, and one Production/world consequence", which is the outcome-first slice this assignment describes. Nothing below widens that boundary.
@@ -427,12 +429,23 @@ The refresh says this is cheap. `bridge/industry.ts`'s `industryPage` is one ent
 | Retained verified work across pause and cancel (§12.8) | PREQ-9's receipt shape defined; restart seeds exactly once. Owner direction 7A makes this unconditional, so it is Core even though a first sound film need never cancel anything |
 | The technology lock at first actual filming (§12.9) | Seam is REUSED at `operations.ts:1233`; the locked loadout is new |
 | Wait-for-commercial-release purchase route (§12.1a) | A new P09 catalogue row gated on a `{kind:'date'}` requirement. `capex > 0` and `buildWeeks >= 1` are hard catalogue invariants, so an instant zero-week grant is not expressible and must not be faked |
-| One rival consequence under the same law | Must not add rival capacity. See §4 D1 |
+| One rival consequence, by the commercial route | The rival buys at the released milestone and installs on capacity it already owns. Must not add rival capacity, and carries no recurring rival operating change in P13A. See §4.1 |
 | A thin native lot/workspace entry | New view value on `industryPage`; protocol bump |
 
-### 2.4 Ready, recommended next, no new Owner decision
+### 2.4 Ready, recommended next, preserved by name
 
-Staffing to laboratory capacity; cooperation and split across laboratories with diminishing returns; persistent plan queues with dependencies and admission policy; gap-aware conversion quotes and direct purchase without obsolete intermediates; forecast windows becoming concrete public dates; installation cancellation under option B; decomposed inventor pricing with prototype credit. These need tuning choices only. The concentration factor stays 0.75–0.875 as the factor, never the Owner's 1.5–1.75× total.
+**Ready is the next bounded execution, not deleted scope.** Nothing below is dropped or folded into Core. Where Core independently requires an element for its own reason, Core's requirement governs and the Ready row narrows to what Core does not already need.
+
+| Ready requirement | Owner | Accepted when | Next bounded placement |
+|---|---|---|---|
+| Staffing to full laboratory capacity | P13 with the staffing owner | Four seats are assignable, a fifth is refused with the seat count and a remedy, and payroll charges per seat whether or not a project uses the person | P13B, directly after P13A Core. Core seats one researcher; the cap itself is Ready |
+| Multi-laboratory cooperation and splitting, with diminishing returns | P13 | Two laboratories on one brief produce the summed researcher output times a concentration factor of **0.75–0.875**, never the Owner's 1.5–1.75× total, and splitting two equal briefs is compared against sequencing on the same fixture | P13B, gated on a second authored brief with a real consumer (§4.3) |
+| Persistent plan queues with dependencies and an admission policy | P09 scheduling | A queued plan survives save and load, admission refuses an unsatisfiable dependency, and nothing queued reserves a resource it has not started | P13B. PREQ-10; not needed for a first sound film |
+| Broader gap-aware conversion quotes, and direct purchase without obsolete intermediates | P13 with P09 | A studio two generations behind is quoted the direct step and is billed for no obsolete intermediate | P13B |
+| Forecast precision: windows becoming concrete public dates, and replacement disclosure beside purchases (design §16a.3) | P13 with the industry-disclosure owner | A window narrows to a date only from facts already public, `StudioIndustryTendency` keeps its no-forecast disclaimer, and a purchase quote discloses what the purchase replaces | P13B |
+| Option-B installation cancellation | P09 physical with P11 | Cancellation pays completed work and necessary restoration and recovers genuinely refundable unused commitments, through the one existing refund path | P13B. Core carries retained *research* work (PREQ-9); installation cancellation is a different thing and stays Ready |
+| Decomposed inventor pricing with prototype credit | P13 under design §16a.2 | A component quote shows access, equipment, site adaptation and installation charged once each, the prototype credited once, and no quote running negative | P13B. Core needs the four components only for the single first installation |
+| Symmetric rival research, and rivals out-investing the player | P13 with the Hollywood owner | A rival funds research on rival laboratory capacity and can reach a technology before the player, under the same catalogue and release law, with recurring rival operating consequences reconciled honestly | P13B, priced with the rival capacity save-schema change and migration it requires (§4.1) |
 
 **A parallel-research proof needs two genuinely useful briefs, not an empty second queue.** Cooperation and splitting cannot be demonstrated against one brief and a placeholder: the catalogue's §9.4 fixtures show that the answer turns on whether seats sit idle and on whether the first or the last completion date carries the value, and neither question exists without a real second consumer. Activating this tier therefore depends on authoring a second brief with a real consumer, which is the first item of the §4 sequence for OPEN-2.
 
@@ -456,7 +469,7 @@ Nothing below is dropped. Every row lands in Core, Ready, Later or a named prere
 |---:|---|---|
 | 1 | Early research, fixed commercial rollout | **Core** |
 | 2 | Knowledge prerequisites; cash cannot bypass them | **Core** |
-| 3 | Rivals can out-invest | **Core**, bounded to one consequence; see D1 |
+| 3 | Rivals can out-invest | **Core** for one commercial-route consequence; **Ready** for rival research and out-investment, which needs rival laboratory capacity, a save-schema change and a migration. See §4.1 |
 | 4 | Named researchers to capacity | Core seats one; **Ready** for capacity |
 | 5 | R&D budgets that materially accelerate | **Core** as a ceiling; tiers are hypothesis |
 | 6 | Cooperation and diminishing returns | **Ready** |
@@ -496,15 +509,112 @@ These are engineering prerequisites for Current Ops to sequence. **None is an Ow
 
 ## 4. Genuine decisions
 
-Five. Everything else is settled direction or engineering. No decision below asks whether laboratories, scientists, staffing or budgets should exist.
+Five. Everything else is settled direction or engineering. No decision below asks whether laboratories, scientists, staffing or budgets should exist. D1 and D3 are answered in full in §4.1 and §4.2 rather than left as a choice for the implementation lead.
 
 | | Decision | Recommendation |
 |---|---|---|
-| **D1** | **What "one rival consequence" is allowed to be.** A rival's capacity is frozen three ways and `rivalCapacityOpex` has no default arm, so the obvious consequence, a rival building a laboratory, costs a save-schema change and a migration inside P13A. | Make the first rival consequence a **research and adoption outcome on existing capacity**, not new capacity: a rival reaches sound first, or later, on the soundstage it already owns. Defer rival laboratories to Ready, with the schema change priced there. |
+| **D1** | **What "one rival consequence" is allowed to be.** A rival's capacity is frozen three ways and `rivalCapacityOpex` has no default arm, so the obvious consequence, a rival building a laboratory, costs a save-schema change and a migration inside P13A. | **The rival buys and installs; it does not research.** It takes the commercial route at the released milestone, on the soundstage capacity it already owns, under the same catalogue, release, compatibility, adoption and installation law as the player. Rival research, rival laboratories and out-investing the player are preserved as Ready work with their schema change priced there. Stated in full, with the one disclosed asymmetry, in **§4.1**. |
 | **D2** | **OPEN-4, per-entry commercial-release weeks.** The calendar exists and does not deliver technology, so these are now a P13 recommendation rather than a wait. | Pin **one** fixture milestone for P13A and defer the full per-entry table to the Ready tier. The milestone gate belongs before `commitStudioEvents`, not beside the rival gate. |
-| **D3** | **OPEN-5, the absolute money scale, and which weekly rate governs.** The catalogue used the §5.1 K2 floor of $1,200 while the cheapest accepted building charges $2,000 and H1 implies $5,000. The catalogue publishes all three and the sign of its result holds at every one. | Settle the scale at activation review under ENG-1 and ENG-7, before any number ships. Nothing in P13A depends on which is chosen. |
+| **D3** | **OPEN-5, the absolute money scale, and which weekly rate governs.** The catalogue used the §5.1 K2 floor of $1,200 while the cheapest accepted building charges $2,000 and H1 implies $5,000. The catalogue publishes all three and the sign of its result holds at every one. | **One named candidate scale, not a menu: S1-A, S1 capital with accepted-floor operating.** Every value P13A needs is set out in **§4.2**, with one meaningful alternative (S1-U) and the difference between them. These are candidate tuning, provisional and subject to implementation review and playtest. |
 | **D4** | **The silent-era opening.** Every new 1920 campaign is seeded `soundRequired: true` while the field is inert. When P13 makes era live, does a 1920 campaign start sound-required, as the data says, or silent, as the design assumes? | **Silent.** Correct the seed as part of P13's era activation, with a governed migration, and add a proof that a 1920 campaign can produce a lawful silent film with no sound capability anywhere. |
 | **D5** | **Which year the lot shows.** The shipped web lot renders a hardcoded `1948` while the campaign's own date is 1920 Week 1. | Take the year from `campaignDate` and retire `LOT_ERA_KEY`. Presentation only; no simulation law changes. |
+
+### 4.1 D1 in full: how a rival lawfully obtains synchronized sound in P13A
+
+**In P13A the rival buys. It does not research.** The one rival consequence is an adoption outcome reached by the commercial route:
+
+- the rival uses the commercial wait and purchase route, at the same released milestone the player's wait route uses;
+- it installs synchronized sound on the soundstage capacity it already owns, and gains no new or upgraded capacity;
+- it obeys the same global catalogue entry, commercial-release week, compatibility requirement, adoption rule and installation law as the player;
+- it does not research, because it has no research capacity, and P13A simulates no rival research.
+
+**Why it cannot research inside P13A, in code, not in prose.** A rival's plant is frozen three ways at once: the facility list must byte-match `rivalStartingFacilities` (`hollywoodValidation.ts:267-269`, else every existing save refuses to load), `movements.capacity` must equal the four-capex sum exactly (`:228-229`), and `facilityOpex` reconciles in closed form as `-elapsed * rivalCapacityOpex(b)` (`:241`), where `rivalCapacityOpex` is a four-arm object lookup with no default (`hollywood.ts:88-96`). `RivalBusiness` is key-exact at 14 keys (`:204`) and carries no attachment point for per-studio technology state (`hollywoodTypes.ts:79-95`). Giving a rival a laboratory therefore costs a save-schema change and a migration, which is exactly the cost this package refuses to hide inside P13A.
+
+**How the purchase is paid, and the one execution choice inside it.** The lawful movement is `moveRivalMoney` into the rival's own period, never `state.ledger` and never the `capacity` kind, which is reconciled as paid exactly once. `RIVAL_MONEY_KINDS` is a closed union checked structurally, so **adding a kind needs a save migration**; the already-declared `development` kind is persisted today against a reconciliation that currently evaluates to zero (§1.3, `hollywoodValidation.ts:242`). **Recommendation: route the P13A purchase through `development` and extend that reconciliation in the same change**, which leaves the persisted shape untouched so existing saves still load, and accept that the kind's name describes script development rather than a technology purchase. Rename or split the kind in Ready, alongside the reconciliation change that tier already needs. If the reconciliation cannot be extended without a persisted-shape change, escalate under §7 rather than adding a kind inside P13A.
+
+**The one asymmetry, disclosed rather than papered over.** The player's converted stage takes a recurring weekly operating change from the week its installation completes. A rival cannot take a recurring change in P13A: `facilityOpex` is recomputed in closed form over every week since entry from the *current* rate, so a mid-campaign rate change retroactively invalidates every prior week rather than only future ones. **The rival's P13A adoption therefore carries a one-time cost and no recurring operating change**, and no report, acceptance task or release note may present the two routes as financially identical. Recurring rival operating consequences belong to Ready, with the reconciliation change and migration priced there.
+
+**A second asymmetry, from the same place.** Rival facilities carry no `blueprintId`, `LotCell`, placement row, construction project or `StudioSet` (§1.3), so the rival's installation is an adoption recorded against abstract managed capacity, not the player's P09 placement job with its reservations and completion. The *law* both obey is the same; the *physical job* is the player's alone. A proof that compares the two must compare eligibility, release week, compatibility and outcome, never job progress.
+
+**What the rival's route must still prove.** The adoption is public only through the existing disclosure gate: the entered-studio filter in `bridge/industry.ts` (a name resolved by `studioId` without that filter would publish a reserved rival as an adopter, §1.7), an announcement receipt minted by the Hollywood owner rather than by the bridge, and a `StudioIndustryTendency` row that keeps its no-forecast disclaimer. The rival's throughput bounds are validated and must not move: one production at a time, at most two active screenplays, soundstage capacity 1.
+
+**What P13A may and may not claim.** It may claim that one catalogue entry, one release week and one installation law govern the player and a rival alike, and that a player who waits forfeits the eleven-week lead the research route produces. Both the waiting player and the rival are gated on the same release week, so **P13A must not claim that a waiting player falls behind the rival**: what it demonstrates is a forfeited lead, not a lost race. **It may not claim symmetric research, because the rival did not research.** Symmetric rival research and the ability for a rival to out-invest the player are preserved in §2.4 by name, owner, acceptance condition and next bounded placement, and are proven there, on rival laboratory capacity, with the schema change and migration paid honestly.
+
+### 4.2 D3 in full: the recommended P13A candidate economic scale
+
+**Read this first.** Every value below is **candidate tuning**. It reaches playable cash, duration and decisions, which is what makes it tuning rather than illustration, and it is provisional and subject to implementation review and playtest. None of it is approved tuning, and the Owner's 2026-09-11 record that the five-times scale remains a hypothesis stands. What this section removes is the menu: an implementation lead should build against one coherent scale, not choose between four rates. **It amends nothing at `e48541b`.** The catalogue published its headline figures at the $1,200 K2 floor and published the other rates beside them as a sensitivity, leaving the choice to ENG-1 and ENG-7. Choosing one here exercises that open decision; it does not reopen the closed catalogue correction, and the catalogue's own numbers stand as published.
+
+#### A. Recommended: candidate scale **S1-A**, S1 capital with accepted-floor operating
+
+One rule resolves every conflict: **where an accepted blueprint and the H1 fixture price the same object, the accepted blueprint governs; S1 (H1 multiplied by five) fills only the gaps where nothing accepted prices the object.** Applied consistently, that rule fixes the capital side at S1, fixes the one contested capital object (a new soundstage) at the accepted blueprint, and fixes the weekly operating change on every K2-class object at the accepted floor of $2,000 rather than at the band floor of $1,200. **The laboratory is the one exception, and it is an exception the rule predicts**: nothing accepted prices a laboratory and H1 prices no laboratory operating change, so no accepted value and no S1 value exists to govern, and the K3 band value stands.
+
+| Element | Candidate value | Where it comes from |
+|---|---|---|
+| Research Laboratory capital | **$900,000 over 12 weeks** | S1; sits inside K3 ($700,000–$1,500,000, 10–16 weeks) |
+| Research Laboratory operating change | **+$3,000 a week**, from the week it completes | K3 band ($2,500–$5,000); nothing accepted prices a laboratory |
+| Scientist payroll | **$2,000 a week** per named researcher, charged whether or not a project uses them | S1; `P13-OD-03` |
+| Laboratory seats | **4** | catalogue §5.2 |
+| R&D usable spend ceiling (saturation) | **$40,000 a week** for a full four-seat laboratory; spend above the usable amount is never charged, and the bottleneck is named | S1; PREQ-5 |
+| Research output | **1.0 unit per researcher-week**, times a **1.5** budget multiplier at saturation, so four funded seats produce **6.0 units a week** | catalogue §5.2 |
+| The synchronized-sound brief | **W2, 64 units**: 11 funded weeks, **$440,000** of spend and **$88,000** of payroll | catalogue §5.2 and §9.7 |
+| Acoustic instrument module | **$350,000 over 5 weeks**; **+$2,000 a week** | S1 capital; accepted floor operating |
+| Stage site adaptation | **$450,000 over 9 weeks** for an older stage, **$50,000 over 1 week** for a nearly compatible one | S1 |
+| Equipment installation | **$150,000 over 3 weeks** | S1 |
+| Converted stage operating change | **+$2,000 a week**, from the week the installation completes, never during work | accepted floor; onset verified in §1.10 |
+| Compatible capture package | **$75,000**, no operating change | S1 |
+| Sound-capable Post fit-out | **$300,000 over 6 weeks**; **+$2,000 a week** | S1 capital; accepted floor operating |
+| Commercial purchase, technology access | **$200,000**; **$0** for the inventor, which is an expense never incurred rather than a discount | catalogue §9.2 |
+| Commercial purchase, production equipment per stage | **$300,000**; inventor's first installation **$0**, later installations **$225,000** | catalogue §9.2, design §16a.2 |
+| New soundstage, if built instead of converted | **$2,400,000 over 16 weeks, +$9,000 a week** | **accepted `stage-standard` blueprint governs**, not S1's $2,000,000 over 20 weeks |
+| Commercial-release milestone | purchasable at the **start of week 40** on the E1 fixture | fixture assumption, OPEN-4, D2 |
+
+**What S1-A produces on envelope E1** (cash $3,000,000, 52-week horizon), recomputed from the catalogue's own two conventions:
+
+| Result | S1-A |
+|---|---:|
+| Inventor startup, researchers kept from laboratory completion | **$3,235,000** |
+| Inventor startup, researchers paid during research only | **$3,003,000** |
+| Commercial buyer | **$1,491,000** |
+| Startup premium | **117%** |
+| Cash left from $3,000,000 | **−$235,000** / **−$3,000** / **$1,509,000** |
+| Existing department against the buyer, over 52 weeks | research **$52,000 dearer** |
+| Capability dates | inventor **week 41**, buyer **week 52**, an **eleven-week lead** |
+
+#### B. Why this one
+
+1. **It is the only candidate that satisfies ENG-1 on both readings.** Catalogue ENG-1 names exactly two doubly-priced objects and rules that "the accepted or accepted-anchored value governs in both". For the new soundstage that is unambiguous, and S1-A takes the accepted blueprint. For the weekly rate the sentence is ambiguous, because $1,200 is accepted-*anchored* (the K2 band floor) while $2,000 is the accepted value itself. **$2,000 is the only candidate that is both**: it sits inside the accepted-anchored K2 band and equals what the cheapest accepted building actually charges. $5,000 satisfies neither reading of ENG-1, which is the weakness of the alternative in C.
+2. **No runtime object ends up cheaper to run than the cheapest accepted building.** The $1,200 the catalogue used is the K2 band *floor*, not a price anything accepted charges; the accepted blueprints charge $2,000 to $9,000 a week. Shipping $1,200 would make a converted soundstage cheaper to run than the $400,000 Craft Services Annex.
+3. **One conflict rule, and the two places it bites are both disclosed.** The same sentence settles the new-soundstage price and the weekly rates. It is not a pure uniform multiplier, and §4.2's claim is not that nothing moves: substituting the accepted soundstage widens the convert-beats-build margin from $1,600,000 and eight weeks to **$2,000,000 and four weeks**, which catalogue §9.1 already publishes as the figure against the accepted blueprint. Conversion still wins on both cost and date, so no ordering moves; the margin does.
+4. **The comparisons internal to H1 survive.** The research, payroll, spend, deployment and schedule inputs are all still a single uniform multiplier on H1, so the §9.2 orderings, the §9.4 allocation results and the break-evens hold. What the operating rate does move is the crossover, which D states exactly rather than asserting it is unchanged.
+
+#### C. The meaningful alternative: candidate scale **S1-U**, uniform S1 including operating
+
+Same capital, same durations, same payroll, same spend, same dates. The single change is that the multiplier that sets every capital value also sets the operating changes: H1's M4 `opexChange` of $1,000 a week becomes **$5,000 a week**, carried across the instrument module, the sound Post room and the converted stage. The laboratory stays at **$3,000**, because H1 prices no laboratory operating change for the multiplier to act on.
+
+| Result | S1-U |
+|---|---:|
+| Inventor startup, researchers kept | **$3,430,000** |
+| Inventor startup, researchers during research only | **$3,198,000** |
+| Commercial buyer | **$1,515,000** |
+| Startup premium | **126%** |
+| Cash left from $3,000,000 | **−$430,000** / **−$198,000** / **$1,485,000** |
+| Existing department against the buyer, over 52 weeks | research **$220,000 dearer** |
+
+Its honest argument is consistency: one multiplier governs the whole fixture, and rejecting it means accepting that capital and operating are set by different rules. Against that, it is the one candidate ENG-1's "accepted or accepted-anchored value governs" sentence does not reach, since $5,000 is neither an accepted value nor a band anchored to one. Its cost is proportion. At $5,000 a week a $350,000 instrument module costs as much to run as the $1,150,000 Post Building, which inverts the capital-to-operating relation the §5.1 bands exist to hold.
+
+#### D. The consequential difference between them
+
+**Operating cost is the whole difference.** Capital, durations, payroll, spend, output and every date are identical. Both keep the decision's shape: waiting is cheaper in cash, research is earlier in weeks, and the eleven-week lead is real under either.
+
+1. **The price of being early moves about fourfold.** For a studio that already has the department, whose sound is operational at week 24 against the buyer's week 52, the **twenty-eight-week** lead costs **$52,000** over the horizon under S1-A and **$220,000** under S1-U. (The *startup* comparison's eleven-week lead is priced by the premium row instead, 117% against 126%.) The mechanism is the same in both: $60,000 of project expenditure saved against 56 extra body-weeks of holding the capability (28 on the stage, 28 on the Post room). S1-A makes being early a modest, arguable premium. S1-U makes it a commitment a studio can visibly regret.
+2. **It decides whether a founding studio can self-fund invention at all.** On E1 the inventor route ends at **−$235,000 or −$3,000** under S1-A and **−$430,000 or −$198,000** under S1-U, against **−$183,000 or +$49,000** at the $1,200 floor the catalogue used. The route fits inside $3,000,000 in exactly one of those six cases, the $1,200 floor on the project-only employment assumption, and the catalogue itself records that this assumption "assumes hiring and release are free and instant, which nothing in the accepted product supports" (§9.2). On the employment assumption the accepted product does support, no candidate rate lets the startup route fit. This is a product question about the intended difficulty of the opening, and the answer should be the envelope or the programme size, not a quietly cheaper weekly rate.
+3. **It sets how loudly the operating charge reads.** Under S1-A the charge is legible but rarely decisive; under S1-U it is the dominant recurring line in the first year and will drive a player to time installation against release rather than build early.
+
+4. **The 24-stage crossover holds under S1-A and moves under S1-U.** The catalogue's displayed expression carries the department's fixed cost, which includes the instrument module's standing charge at the K2 rate (§9.5: $1,732,000, of which $162,000 is standing charges). Re-solving `(1,905,000 + 35r) + 825,000n < 200,000 + 900,000n` gives `n > 23.29` at $1,200 (first integer **24**, as published), `n > 23.67` at S1-A's $2,000 (still **24**), and `n > 25.07` at S1-U's $5,000 (**26**). The bounded first-integer result the catalogue publishes therefore survives S1-A unchanged and must be restated under S1-U.
+
+**What does not change under either.** The §9.2 orderings and break-evens; the §9.4 allocation results; converting an owned stage beating a new build on both cost and date; the eleven-week lead and the twenty-eight-week existing-department lead; the T2 nine-week acceleration; and the fact that the catalogue's published sign holds at every rate.
+
+### 4.3 OPEN-2, the order in which additional catalogue consumers are authored
 
 **OPEN-2, which additional catalogue consumers are authored first**, is answered with a sequence rather than returned as a list. Recommended order, cheapest real consumer first: Set size classes for CAT-011, then a setup workload for CAT-012 and CAT-025, then Set turnover for CAT-013, then a costume workload for CAT-018, then property identity for CAT-017b, then a deliverable format for CAT-039, then a planning-evidence owner for CAT-044. Each unblocks one named entry, and none is a first-sound dependency.
 
@@ -520,9 +630,9 @@ Five. Everything else is settled direction or engineering. No decision below ask
 |---|---|
 | L0 | The synchronized-sound catalogue entry lints: unique ID, acyclic reachable prerequisites, valid capability, stable ordering |
 | L1 | Research, wait and purchase each reach a truthful outcome; an ineligible route refuses with the exact missing element |
-| L2 | Player and rival resolve through the same function; no hidden RNG; no duplicate capability grant |
+| L2 | Player and rival resolve **adoption** through the same function; no hidden RNG; no duplicate capability grant. P13A's rival buys rather than researches, so this proves symmetric adoption law and **must not be reported as symmetric research** (§4.1) |
 | L3 | Save V19 round trip mid-research; unknown-ID refusal; a pre-P13 save loads honestly with no invented research history |
-| L4 | One rival consequence is deterministic and replayable; sound gates one exact production decision; the operating charge appears in the advance after completion and not before |
+| L4 | One rival consequence is deterministic and replayable, by the commercial route on capacity the rival already owns; sound gates one exact production decision; the operating charge appears in the advance after completion and not before |
 | L5 | 6,240-week run with bounded storage growth and bounded migration duration |
 | L6 | The new view value carries closed DTOs, pinned `sessionId` and `expectedStateRevision`, and refuses stale intent |
 | L7 | Laboratory and soundstage states are legible on the lot at target viewports |
@@ -554,19 +664,30 @@ Five. Everything else is settled direction or engineering. No decision below ask
 
 **Not copied from P12.** P12A ran a ceiling of 72 productive lead hours against 96 elapsed, with the final 24 lead hours protected for verification, corrections and delivery. P13A's shape differs in both directions: its feature surface is narrower, one technology and one laboratory, but it carries eighteen NEW P13 WORK connections, four closed unions to widen, a governed save migration from V19, and a native entry moved earlier. Reconnaissance is already done and does not need re-budgeting.
 
-**Recommendation.**
+**The denominator, stated so nobody has to infer it. The 80 hours include the reserve.**
 
-| Element | Proposal | Why |
-|---|---|---|
-| Productive lead ceiling | **80 hours** | P12A's 72 plus the prerequisite stack and the governed migration, minus the reconnaissance this package already completed |
-| Elapsed ceiling | **108 hours** | The same ratio P12A actually sustained |
-| Protected verification reserve | **28 hours, 35% of productive, ring-fenced** | Spendable only on correctness, migration and performance verification, corrections and delivery. Never on new capability, and never reallocated to finish a feature |
-| Gate split | roughly 35% prerequisites and early playable slice, 40% causal core, 25% integrated ready scope | Matches the three product critiques so each has something real to inspect |
+| Element | Hours | What it may be spent on |
+|---|---:|---|
+| Capability and implementation work | **52** | Building P13A Core, and nothing outside it |
+| Protected verification, correction and delivery reserve | **28** | Correctness, migration and performance verification, corrections, delivery. **Never new capability, and never reallocated to finish a feature** |
+| **Productive lead total** | **80** | The two rows above, summed. This is the productive ceiling, not 80 plus 28 |
+| Elapsed ceiling | **108** | Wall clock. P12A sustained 96 against 72, a 4:3 ratio, which on 80 productive hours would give 107; 108 is that rounded up, and Current Ops' review directs that this ceiling stands |
+
+P12A's 72 productive carried 24 protected, so 48 of capability. P13A proposes **52 of capability and 28 of reserve**: four more capability hours for the prerequisite stack and the governed V19 migration, four more reserve hours for the wider verification surface, and no re-budgeting of the reconnaissance this package already completed. The reserve is 35% of productive hours against P12A's 33% (24 of 72), because P13A carries a governed save migration P12A did not.
+
+**Gate split, applied to the 52 non-reserve hours and not to the 80.** These are planning allocations for orientation, not contractual mini-budgets.
+
+| Gate | Share of 52 | Hours | What its product critique inspects |
+|---|---:|---:|---|
+| Prerequisites and the early playable slice | 35% | ~18 | A laboratory on the lot, a named researcher in a seat, a funded project and an estimate that moves |
+| Completed causal Core | 40% | ~21 | Research, wait and purchase reaching truthful outcomes; the filming lock; one rival consequence; the charge appearing after completion |
+| Integrated / final P13A Core candidate | 25% | ~13 | The whole Core slice together on real screens, with migration and disclosure behaving |
+| Protected verification, correction and delivery | outside the split | 28 | Ring-fenced; the split above does not reach it |
 
 **Escalation criteria. Stop and return to Current Ops when any of these is true**, rather than spending the reserve:
 
 - The governed V19 migration cannot preserve an existing save without loss.
-- A rival consequence cannot be delivered without a rival capacity schema change, contradicting D1.
+- A rival consequence cannot be delivered without a rival capacity schema change, or without a persisted-shape change to `RivalBusiness`, `RivalAccount` or `RivalFinancePeriod`, contradicting §4.1.
 - The `research` requirement activation turns out to need more than the three `blueprintRequirements.ts` edits plus its player-facing copy.
 - Any P13 change would make `rivalCapacityOpex` return `undefined`, or would break an exhaustive `never` guard that the compiler does not catch.
 - Measured incremental P13 save or load cost exceeds the retained P12 figures in §8 by a margin Current Ops sets at activation.
