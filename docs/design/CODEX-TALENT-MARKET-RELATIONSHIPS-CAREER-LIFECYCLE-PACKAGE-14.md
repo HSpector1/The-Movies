@@ -2,6 +2,8 @@
 
 # Talent Market, Relationships & Career Lifecycle
 
+> **SUPERSEDED IN PART — 2026-09-11.** This is the approved August research at `2a7ff0d`, retained unchanged below. The Owner's P14 direction of 2026-09-11 supersedes its statements on the informational intermediary, early release / compensation parking, promises, romance and career decline, and the accepted P12 runtime (`592e926`) supersedes its §1/§9 code audit. The durable record is [rulings §3.4](./CODEX-P13-P15-OWNER-RULINGS.md#34-p14-owner-direction-amendment--2026-09-11) (superseded table §3.4.2); the refreshed seam audit is the [post-P12 reconciliation](../engineering/P14-POST-P12-RECONCILIATION.md); the updated design is the [P14 preparation companion](../engineering/P14-PREPARATION-COMPANION.md). Where this document and those conflict, they govern.
+
 Status: **DECISION-READY RESEARCH CANDIDATE**<br>
 Mode: **DOCUMENTATION ONLY**<br>
 Authorization: **NO PRODUCTION AUTHORIZATION**<br>

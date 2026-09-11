@@ -16,6 +16,8 @@
 
 **AMENDMENT:** 2026-09-10 — §2.4 P13 Owner-direction amendment (P13 only; §§3–4 P14/P15 rulings unchanged)
 
+**AMENDMENT:** 2026-09-11 — §3.4 P14 Owner-direction amendment (P14 only; §2 P13 and §4 P15 rulings unchanged; §§3.1–3.3 and §§5–6 carry inline notes where §3.4 supersedes them)
+
 ---
 
 ## 1. Durable Owner verdict
@@ -186,14 +188,20 @@ Historical decisions remain history. The following statements no longer govern c
 - no hidden poaching dice.
 
 P14A is bounded to one expiring or free professional, one player proposal, one rival proposal, one
-informational intermediary, visible competing terms, and one atomic cross-studio outcome.
+informational intermediary, visible competing terms, and one atomic cross-studio outcome. *(Amended
+2026-09-11, §3.4: the informational intermediary is removed from P14A; the recalibrated early-release
+action joins it.)*
 
 ### 3.2 Explicit deferrals
 
 **NOT APPROVED FOR P14:** in-term poaching, contract breaking, buyouts or compensation, tampering,
 advanced promises, detailed career decline, romance, addiction, daily needs, and family systems.
 Advanced mobility and buyouts are parked in P16+; the remaining items require a later explicit
-Owner placement before implementation.
+Owner placement before implementation. *(Amended 2026-09-11, §3.4: studio-initiated early termination
+under the 26-week-capped charge, typed feasibility-checked promises, romance regardless of gender and
+the Movies+ relationship model are now Owner-selected direction; in-term poaching, rival buyouts,
+tampering, addiction, daily needs and family systems remain not approved; "detailed career decline" is
+settled in the negative for craft.)*
 
 ### 3.3 Open Owner decisions
 
@@ -202,7 +210,74 @@ boundaries; promise and trust scope; agency power; retirement details; career de
 relationship depth.
 
 None of those decisions may be inferred from P14A. Its intermediary is informational, not authority
-for an unapproved agency-power simulation.
+for an unapproved agency-power simulation. *(Amended 2026-09-11: all eight are answered in §3.4.1; the
+only genuine remaining P14 product questions are the short list in the preparation companion §7.3.)*
+
+### 3.4 P14 Owner-direction amendment — 2026-09-11
+
+**AMENDMENT STATUS:** OWNER PRODUCT DIRECTION RECORDED · P14 PREPARATION PACKAGE PUBLISHED, FUTURE OPS / OWNER REVIEW REQUIRED · NUMERICAL RULES PROVISIONAL · POST-P13 ACCEPTANCE REFRESH REQUIRED · GAMEPLAY IMPLEMENTATION NOT AUTHORIZED
+
+**Source:** the Owner's P14 direction of 2026-09-11, issued as the Future Ops P14 preparation assignment together with the targeted independent historical review it carried. Neither the direction nor the review exists anywhere in the repository before this amendment; this record is their durable form. It records product direction for P14 only. It changes no P13 or P15 ruling, reopens no P12 acceptance and redirects no running P13 work. It supersedes every conflicting statement in the August research (the [P14 design](./CODEX-TALENT-MARKET-RELATIONSHIPS-CAREER-LIFECYCLE-PACKAGE-14.md) and its [Builder Annex](./CODEX-TALENT-MARKET-RELATIONSHIPS-CAREER-LIFECYCLE-PACKAGE-14-BUILDER-ANNEX.md) at `2a7ff0d`), in §§3.1–3.3 above and in the roadmap's §6.2, §15.2 and §19.2, exactly as tabulated in §3.4.2. The reconciled plan lives in the [P14 preparation companion](../engineering/P14-PREPARATION-COMPANION.md), the [post-P12 reconciliation](../engineering/P14-POST-P12-RECONCILIATION.md) and the [review index](../engineering/P14-PREPARATION-REVIEW-INDEX.md).
+
+Every statement in this record and in the companion carries one of five labels. **OWNER-SELECTED PRODUCT DIRECTION** is the Owner's settled preference; it is not "unapproved" because coding has not begun, and it is not to be re-asked. **IMPLEMENTATION RECOMMENDATION** is how the package proposes to realize it and may change at the future launch review. **NUMERICAL/CONTENT HYPOTHESIS** covers every number, age, horizon, threshold, rate and buffer in examples. **LATER FEATURE / NON-BLOCKER** covers scope the Owner has not selected and that no P14 slice needs. **POST-P13 REFRESH REQUIRED** marks a seam whose final form depends on P13's accepted implementation and must be refreshed after P13 Owner acceptance before P14 activation.
+
+#### 3.4.1 OWNER-SELECTED PRODUCT DIRECTION
+
+1. **Firing exists, as a recalibration.** The player may terminate a contracted employee before expiry. Project: Studio already carries an early-release action (`releaseTalent`, D-11.9) charging one half of the remaining guaranteed salary, a figure its own contract calls "a calibration default, not an immutable design truth"; P14 recalibrates and integrates that P10 contract-law behavior rather than inventing firing from nothing, and this recalibration is not the parked P14D contract-break, rival-buyout or tampering law. The old 50% figure is not law, and the Owner's earlier 5% candidate is discarded because independent research showed it would make multi-year guaranteed contracts nearly disposable.
+2. **The early-termination charge.** The charge is the lesser of (a) all remaining guaranteed base salary under the contract and (b) twenty-six weeks of that person's base salary, where base salary is the contract's weekly salary (`annualSalary / 52`) and the signing bonus already paid is excluded. Already-earned unpaid obligations remain payable under their existing owner. Future unearned optional incentives are excluded unless authoritative contract law already makes them guaranteed. The confirmation must disclose remaining contract duration, remaining guaranteed compensation, the 26-week cap where it applies, the exact charge, the effective employment end and every other authoritative consequence.
+3. **Anti-exploit protection is required.** Firing an expensive employee and immediately re-signing the same `PersonId` on cheaper terms must be prevented. The mechanism is a Future Ops recommendation (companion §3.5), referred to the Owner only if materially different gameplay alternatives remain; the companion finds none.
+4. **Market eligibility.** Outside studios may compete for free agents and for people entering the approved expiring-contract / renewal-window market. No unrestricted in-term poaching, no hidden tampering, no rival exemption. Buyouts of another studio's safely contracted employee are not part of the initial P14 market; opt-out and buyout clauses remain later scope if separately authorized. A legitimately free person, including one just released, may be pursued immediately under the normal market law.
+5. **Promises are approved for P14B**, typed, objective, measurable and backed by authoritative facts. Initial candidate families: appearance count; leading/significant-role opportunity; directing count; preferred-genre opportunity; a specific existing project. Salary is a contract term, never a promise. Vague promises ("make me famous", "make me a bigger star", "win me an award") are excluded until a later system supplies an objective, lawful predicate.
+6. **No unreachable promise may be offered.** The game may not offer a promise that its own authoritative schedule shows has no reasonable path to completion; mere theoretical possibility does not qualify. A conservative feasibility service classifies every candidate promise as REASONABLY ACHIEVABLE (may be offered), THEORETICALLY POSSIBLE / FRAGILE (not offered by default) or IMPOSSIBLE (never offered), considering at minimum existing assignments, contract duration, the retirement boundary, actual production durations, current projects, facility and capacity constraints, already-active promises, the required qualifying start/completion windows and authoritative scheduling conflicts.
+7. **Promise outcomes** include at least SATISFIED, BROKEN, WAIVED and IMPOSSIBLE_EXTERNAL / VOIDED. Studio-caused failure is BROKEN; a genuinely external cause beyond the studio's control may be VOIDED rather than treated as deception; mutual agreement may produce WAIVED with no broken-promise penalty. Trust is professional memory of material conduct, not a daily mood meter.
+8. **No mandatory agent.** The agent/intermediary system is removed from initial P14. Targeted research found no meaningful shipped agent system in the original *The Movies*, and P14A does not insert an agent merely as another click between the player and the Talent Market. The player reaches the Talent Market directly; public facts remain public and unknown rival facts are explicitly unknown. Only a lightweight technical seam for a possible future representation system is preserved. No agent NPC, agency economy or agent-power simulation is required for P14A.
+9. **Aging.** Mimic the important behavior of the original as closely as practical. Chronological aging does not reduce accumulated craft or experience; older experienced people remain experienced. For performers, age may affect apparent-age fit, role/genre suitability, image/fashion context, market demand and value where appropriate, and retirement eligibility. "Actor loses N acting-skill points at age X" is not built. The original-game evidence (actual age advancing normally, Star retirement around 70, apparent age shaping performer genre fit, no age-driven experience decay, Directors much less affected by performer-style fit) is a parity anchor, not automatically final Project: Studio tuning. Cosmetic-surgery systems are not imported into P14 unless already owned elsewhere. All persistent named professionals age and participate in lifecycle rules, deliberately improving on the original's lightweight ordinary staff; role-specific retirement ages and rules may differ later through tuning.
+10. **Retirement experience.** A person announces intent to retire with useful advance notice; completes current binding obligations; never abandons a production or destroys a contract silently. At the appropriate boundary the current employer receives exactly one opportunity to offer a one-year extension at newly proposed compensation; the professional accepts or declines under the normal deterministic person-choice framework; acceptance postpones retirement by exactly one year; there is no infinite chain of annual extensions; after the extension boundary, retirement from that profession is final. The exact announcement horizon and profession-specific retirement ages are tuning/planning recommendations unless meaningful product alternatives emerge. Retirement preserves `PersonId`, profile, films and credits, awards and honors, employer history, relationships, promise outcomes and career chronology.
+11. **Profession retirement is not industry retirement.** A person may end one career and transition into another appropriate profession with the same `PersonId` and complete career history. The initial narrow catalogue prioritizes Actor → Director and Actor → Writer. Eligibility depends on meaningful recorded career context and appropriate P10-owned development/aptitude facts; the transition is not automatic at a given birthday, and arbitrary profession hopping is not built merely because the state model could support it. P14C defines the lifecycle, orchestration and history implications; P10 remains profession/profile/development authority.
+12. **Relationships, The Movies+ model.** A deeper relationship system is approved because relationships were an important part of the original. Preserve positive and negative relationships, acquaintances, friendships, close/best-friend-style bonds, Soul-Mate-style deep bonds, genuine romance / Lovers-style relationships, enemies and nemeses, chemistry consequences, growth through shared work and meaningful effects on careers and production where explainable. Do not reproduce the original's repetitive drag-and-click social grind: work is the primary organic relationship driver; relationships grow through shared productions, rehearsals, repeated collaborations, major professional events, fulfilled or broken commitments and, if later implemented, relevant social events; the player may encourage circumstances but never needs to command "talk". Project: Studio may modernize the original's pairwise continuum into evidence-backed classifications with history. Current closeness may decay over time; career relationship history never disappears.
+13. **Romance eligibility.** The original's gender restriction is removed; the same friendship/romance system is available regardless of gender. Marriage, children, households, family lineage, inheritance and domestic-needs simulation are outside P14 unless separately researched and authorized later.
+14. **Upstream ownership is unchanged.** P10 owns person/profile/contract/career truth; P12 owns studio identity, current employer, one-employer exclusivity, employer intervals/transitions and rival studio truth; P11 owns money, ledger, obligations and forecasts; P13 supplies final era/technology/timeline facts after acceptance. P14 never duplicates them. `PersonId` is immutable across employer changes, profession changes, retirement from one profession, retirement from the industry and alumni state. No card cloning, no identity recreation. One campaign's talent market, relationships, promises, lifecycle and profession transitions never leak into another campaign; Save As may legitimately duplicate `PersonId`s into two campaign worlds, so campaign identity scopes every cache, receipt and pending item.
+
+#### 3.4.2 Superseded and re-labeled statements
+
+Historical decisions remain history. The following statements no longer govern current instructions.
+
+| Where | Former statement | Status from 2026-09-11 |
+|---|---|---|
+| §3.1 above; roadmap §15.2; design §2, §26, §27 journey 3; Annex §B, §C.1, §K.1 | P14A bounded to "one informational intermediary" / "one intermediary route" / "the player's informational intermediary supplies only bounded knowledge" | Removed. P14A has no intermediary; the player reaches the Talent Market directly. A lightweight technical seam for a possible later representation system is **IMPLEMENTATION RECOMMENDATION** (companion §2.1.6). |
+| §3.2 above; roadmap §19.2 "Contract break/compensation" | "NOT APPROVED FOR P14: … contract breaking, buyouts or compensation" | Studio-initiated early termination under the 26-week-capped charge is **OWNER-SELECTED PRODUCT DIRECTION** and belongs to P14A as a recalibration of D-11.9. Rival buyouts of a safely contracted person, person-initiated contract breaking and tampering remain **not approved** and stay parked (P14D / P16+). |
+| §3.2 above; design §23 "Promises and trust", §25; roadmap §19.2 | "advanced promises" not approved; "(B) small typed catalogue … in P14B after proof" | Typed, measurable, feasibility-checked promises are **OWNER-SELECTED PRODUCT DIRECTION** for P14B. P14A still contains none. Vague promises remain excluded. |
+| §3.2 above; design §23 "Relationship scope", §25 "P14B excludes romance"; design §20 "Relationship scope remains professional unless Owner explicitly expands it"; roadmap §19.2 | romance not approved; professional collaboration only; friendship/rivalry "evaluate later" | The Movies+ model (positive, negative, friendship, deep bonds, romance, enemies/nemeses) is **OWNER-SELECTED PRODUCT DIRECTION** for P14B, regardless of gender. Family, marriage, children, households, addiction and daily needs remain excluded. |
+| §3.2 above; design §11 law 18, §23 "Career decline"; roadmap §19.2 | "detailed career decline" not approved; decline "if approved, bounded and visible" | Settled in the negative for craft: no age-driven skill or experience decay. Apparent-age fit, role/genre suitability, image/fashion context, market demand/value and retirement eligibility are the permitted age effects. |
+| §3.3 above (all eight open decisions) | in-term contract breaking; buyout and compensation law; poaching boundaries; promise and trust scope; agency power; retirement details; career decline; relationship depth all "OWNER DECISION OPEN" | All eight are answered by §3.4.1. Remaining genuine Owner questions are the short list in companion §7.3; numbers, ages, horizons and thresholds are **NUMERICAL/CONTENT HYPOTHESIS**. |
+| §6 below | "P14A proves transparent free/expiring-professional competition, not in-term poaching, contract breaking, buyouts, or advanced promises" | Retained with one change: P14A also carries the recalibrated early-release action. In-term poaching, rival buyouts, tampering and promises stay outside P14A. |
+| design §11 law 9; Annex §B P14D row; design §2 "Explicit parking label"; §25 | early break, release, buyout, compensation and tampering all parked under P14D/P16+ | Early release by the employing studio leaves the parking lot and enters P14A. In-term rival approaches, negotiated release by a rival, buyouts and tampering remain parked. |
+| design §11 law 10; Annex §A "Intermediary"; §D `IntermediaryEngagement`; §E `intermediary?: IntermediaryPublicDto`; §L fixtures; §N; §Q | intermediary as authoritative route with fee, time, knowledge scope | No engagement entity, fee or route in initial P14. The seam that survives is a single optional, versioned `representation` reference on a proposal, `null` and validated `null` in P14A (companion §2.1.6). |
+| design §12.1 case states | `discovered → intermediary_contacted → accepting_proposals` | `discovered → accepting_proposals`; `intermediary_contacted` is deleted. |
+| design §12.2 | relationship classification `collaborator | mentor_pair | professional_rivals | strained` | Replaced by the evidence-backed ladder of companion §5.3 (current tier plus durable history), which keeps collaboration and mentorship evidence as labels and adds friendship, deep-bond, romance, strained, enemies and nemeses tiers. |
+| design §12.3, §11 law 19; Annex §C.6 | retirement as `eligible → announced → retired_alumni` with deferral | Preserved and extended: exactly one final one-year extension opportunity for the current employer between announcement and the boundary, then profession retirement, then a transition evaluation (Actor → Director, Actor → Writer) that may continue the same `PersonId` in a new profession (companion §6). |
+| design §5 "Aging" disposition; §9 aging row; §17 "Aging/retirement" symmetry row | "derive age from birth datum" (retained); silence on ordinary staff | Retained, and widened: every persistent named professional ages and participates in lifecycle rules, not only Actors and Directors. |
+| design §16 "intermediary commission and service time"; "possible P14D/P16+ buyout/release compensation, only if separately Owner-chartered" | as quoted | Commission is deleted. The early-termination charge is a P14A cost consequence booked through P11 under the existing `termination` ledger kind. Buyout compensation remains later scope. |
+| design §17 symmetry table "Intermediary route" row | same route/cost/time law | Row deleted; a "Termination charge" row is added: the same charge law for any studio that terminates early. |
+| design §23 rows "P12B deferred-slice placement", "Agency power", "Settlement timing", "Competing-offer visibility", "Offer decision law"; roadmap §19.2 | "Blocks P14A: Yes" pending Owner ruling | P12B re-homing was settled by the 2026-08-31 boundary approval (§3.1) and by the accepted P12 → P13 producer handoff (`13370d4`), which names competitive labor cases/proposals/choice as P14A's. Agency power is settled (none). Settlement timing, visibility and chooser law remain **IMPLEMENTATION RECOMMENDATION** exactly as recommended in August (atomic expiry decision; known terms plus explicit unknowns; deterministic ordered descriptors with typed reasons and no RNG). |
+| design §24 open questions on the waived-promise trust effect, the retirement horizon, and intermediary role coverage | as quoted | Waiver by mutual agreement carries no broken-promise penalty (direction 7). The announcement horizon and profession-specific retirement ages are **NUMERICAL/CONTENT HYPOTHESIS**. Intermediary coverage is moot. |
+| accepted P11 register REQ-043 "do not retune the economy" as applied to `HIRING_TERMINATION_FRACTION`; D-11.9 text; `bridge/contract.ts` copy "half of the … still guaranteed"; test "termination cost = 50% of remaining guaranteed salary" | 50% of remaining guaranteed salary | The Owner direction of 2026-09-11 is the ruling that authorizes the recalibration; it is a P10 contract-law change executed under the future P14 order, not a P11 reopen. Code, copy, test and D-11.9 prose move together when P14A is executed. |
+| design §1, §9, §18; Annex §I | accepted TypeScript authority `7811377`; "save.ts supports V1–V15"; "no accepted rival studio population"; "no general immutable employerStudioId interval ledger"; "no shared multi-studio employment index"; "P11 future authority" | Stale. The accepted runtime is `592e926` (P12 closeout `13370d4`), the persistence contract is protocol 4 / projection 29 / inner Save V19 / outer checkpoint 1 with library storage format 2, and P12 delivered studio identity, employer intervals, the active-employment index, one-employer exclusivity and a paged Industry projection. The post-P12 reconciliation records the refreshed classification of every seam. |
+| §2.4 above (2026-09-10) "The separate multi-campaign save library is not implemented"; §7 "P05 remains the active implementation workstream"; design §1 "The P05 implementation branch is active and unsealed" | as quoted | Overtaken by the 2026-09-11 P12 R05 acceptance: named campaigns, Save As and the campaign library are delivered; P05 through P12 are accepted; P13 is the running workstream. |
+
+#### 3.4.3 Preserved, recommended, hypothetical, later and post-P13
+
+**Preserved:** the three-part P14A / P14B / P14C structure; P14A as an outcome-first contested-market proof that needs neither promises, relationships, retirement nor profession change; P10, P11, P12 and P08 ownership; immutable `PersonId` and `StudioId`; offers as versioned proposals with no client settlement; deterministic, replayable choice with typed reasons and no hidden poaching dice; no card cloning; exclusivity of one active employer; no fabricated pre-P14 relationships, romances, promises, trust, profession changes or retirement decisions ("NOT RECORDED" on old saves); no all-pairs weekly relationship scan; sparse, evidence-backed relationship state with bounded current summaries and paged history; the 1920–2040 horizon; P12's campaign/save architecture, named campaigns, Save As and cross-campaign isolation; P12's disclosed performance qualifications, which P14 does not claim to resolve; the P14D / P16+ parking of in-term approaches, rival buyouts and tampering; the P16+ parking of mortality, family and needs; symmetric player/rival law.
+
+**IMPLEMENTATION RECOMMENDATION (companion):** the anti-exploit guard (a persistent salary expectation toward the releasing studio for the terminated contract's original term, derived from the accepted employment ledger, with a trust driver in P14B); the P14A market-case law without an intermediary; the feasibility service's capacity model and classification rule; the promise catalogue's qualifying events; the relationship ladder, its drivers, decay-to-baseline and chemistry consequences; the retirement announcement horizon, one-extension orchestration and the transition catalogue's eligibility inputs; the launch-review skeleton and the provisional execution ceiling.
+
+**NUMERICAL/CONTENT HYPOTHESIS:** every retirement age, announcement horizon, relationship threshold, decay rate, chemistry magnitude, feasibility safety buffer, cohort count, promise period, and every worked example in the firing note.
+
+**LATER FEATURE / NON-BLOCKER:** opt-out and buyout clauses; in-term approaches; tampering law; a representation/agent system; social events as relationship drivers; press or scandal consequences of relationships; cosmetic surgery / apparent-age manipulation; marriage, children, households, lineage, inheritance, domestic needs; addiction, injury, mortality; additional profession transitions beyond Actor → Director and Actor → Writer; alumni advisory work.
+
+**POST-P13 REFRESH REQUIRED:** era/technology/timeline facts consumed by cohorts and labor-demand context; any P13 change to the production lifecycle's first-filming seam or stage durations that the feasibility service reads; any P13 widening of `CreativeRole` / `Discipline` (a Scientist profession would join the lifecycle and market law); the migration starting version after P13's governed save change; the rival capacity/movement shape after P13's authorized `technologyAdoption` movement kind; the accepted runtime, player-build and evidence identities.
+
+**Not done here:** no gameplay coding, tests, schemas, saves, tuning constants, hooks, PR, merge, P13 inspection or redirection, or campaign/profile access. P14 coding requires P13 Owner acceptance, a bounded post-P13 changed-path refresh, a Future Ops launch recommendation and a separate Current Ops execution order.
 
 ---
 
@@ -248,7 +323,7 @@ The following remain outside P13–P15:
 
 - acquisitions, mergers, subsidiaries, ownership stakes, valuation, library/IP transfer, and
   co-productions;
-- advanced mobility and buyouts;
+- advanced mobility and buyouts *(amended 2026-09-11, §3.4: studio-initiated early termination is no longer parked here; in-term approaches, rival buyouts, opt-out clauses and tampering remain)*;
 - patents; technology licensing and royalties remain here by default, while supplier commercialization of
   studio-developed technology is Owner-desired later scope that stays parked here unless a later Owner
   ruling places it elsewhere (§2.4);
@@ -256,7 +331,8 @@ The following remain outside P13–P15:
 - franchise/IP strategy;
 - physical rival lots;
 - stunt and injury systems;
-- mortality, family, and needs systems; and
+- mortality, family, and needs systems *(reaffirmed 2026-09-11, §3.4: marriage, children, households,
+  lineage, inheritance and domestic needs stay here; romance itself is P14B direction)*; and
 - post-2040 generated content.
 
 P16+ is a parking designation, not implementation approval and not a promise that every parked
@@ -273,8 +349,8 @@ an open choice into package law.
 Where an open decision touches a bounded first checkpoint, the narrower approved checkpoint wins:
 
 - P13A proves research versus wait, not licensing or alternate-history law;
-- P14A proves transparent free/expiring-professional competition, not in-term poaching, contract
-  breaking, buyouts, or advanced promises; and
+- P14A proves transparent free/expiring-professional competition, plus the recalibrated early-release
+  action, not in-term poaching, rival buyouts, tampering, or promises *(amended 2026-09-11, §3.4)*; and
 - P15A proves symmetric shared-market pressure, not closure policy, corporate transactions, a
   finale, or Endless Mode.
 

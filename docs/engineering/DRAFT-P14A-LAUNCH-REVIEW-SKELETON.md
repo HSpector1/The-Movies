@@ -1,0 +1,49 @@
+# P14A launch-review skeleton
+
+**PREPARATION ARTIFACT · NOT A LAUNCH PACKAGE · NOT AN EXECUTION ORDER · P14 IMPLEMENTATION NOT AUTHORIZED · P13 NOT YET ACCEPTED.** Deliverable J of the P14 preparation package. This file pre-builds the structure a future P14A launch-review package will take, mirroring the accepted P13A shape (index, launch draft, decisions-and-acceptance companion), so that after P13 Owner acceptance only a bounded changed-path refresh is needed. Every cell marked **⟂ POST-P13** must be filled from P13's accepted closeout before this skeleton may be promoted. Index: [P14 preparation review index](./P14-PREPARATION-REVIEW-INDEX.md).
+
+## 1. Files the future package will contain
+
+| File | Status now | What must change post-P13 |
+|---|---|---|
+| `P14A-LAUNCH-REVIEW-INDEX.md` | skeleton (§2) | pin the accepted P13 identities; replace every ⟂ POST-P13 cell |
+| `DRAFT-P14A-LAUNCH-PROMPT.md` | outline (§4) | 600–900 words; the only file that reads as an instruction |
+| `P14A-DECISIONS-AND-ACCEPTANCE-COMPANION.md` | outline (§3) | §1 source-refresh matrix re-run against the accepted post-P13 runtime |
+
+## 2. Controlling inputs the future index will pin
+
+| Input | Value now | Post-P13 |
+|---|---|---|
+| Accepted TypeScript runtime | `592e926bfbf4574df94b38fc8dd594fc5df2ac8d` (P12 R05) | ⟂ POST-P13: the P13-accepted runtime |
+| Unity player-build source | `deca39521da1baeca61898d156a43f4ae6a7e035` | ⟂ POST-P13 |
+| Unity observed / source-manifest HEAD | `2bc8d304b79a72bf20fda1d462ec3d96df253992` | ⟂ POST-P13 |
+| Published technical evidence | `d4e1915ba075b4e4c1c9a6c880c8b0d4257659c0` | ⟂ POST-P13 |
+| Documentation closeout | `13370d428f0693f3279732f6f4cc360a7fcaa4df` (P12) | ⟂ POST-P13: the P13 closeout |
+| Persistence contract | protocol 4 / projection 29 / inner Save V19 / outer checkpoint 1; library storage format 2 | ⟂ POST-P13: P13's governed migration bumps at least the inner save (V20 per the P13A companion §1.8) and the projection/schema |
+| P14 planning parent | this branch's immutable commit (review index §1) | the post-P13 refresh commit |
+| Owner rulings | `CODEX-P13-P15-OWNER-RULINGS.md` §3 + §3.4 | unchanged unless the Owner rules again |
+| P14 design + Annex | `2a7ff0d`, as superseded by §3.4.2 | unchanged |
+| P14 preparation companion / reconciliation | this branch | refreshed rows only |
+
+## 3. Companion outline (sections fixed now; contents partly deferred)
+
+1. **Source refresh against the accepted post-P13 runtime** — re-run the reconciliation matrix (every REUSED row must still resolve to a path, symbol and line range); new rows for the P13 seams: era/timeline consumer, any `CreativeRole` / `Discipline` widening, the first-filming seam, the rival `technologyAdoption` movement, the save version and schema id; verify no P13 process-global cache is keyed by an entity id. ⟂ POST-P13.
+2. **Selected scope and the P14A Core execution boundary** — Core: one contested expiry (companion §2.1.10), the incumbent-renewal-as-proposal rule, recalibrated firing with the busy-set refusal, the salary floor and the versioned termination rule, explicit UNKNOWN, save/replay, old-save honesty. Ready, preserved by name, owner, acceptance condition and next bounded placement: rival early termination under the same law (governed `termination` movement kind; P12); multi-case admission under the August §17 law (P14); the P14A.2 read side with the widened Industry view enumeration (P14 + bridge); P14A.3 world/client route (P14 + Unity). Later: P14B, P14C, P14D.
+3. **Preserved requirements, mapped** — the fourteen 2026-09-11 directions (rulings §3.4.1), the August requirement identifiers that survive (design §11 laws 1–8, 11–17, 19–25; Annex §F invariants), the inherited register rows (reconciliation §4).
+4. **Genuine decisions** — only the register's class-3 questions that survive to launch (companion §7.3; none blocks P14A.1) plus any the post-P13 refresh raises.
+5. **Ownership and acceptance tasks** — L1 pure state and identity (case/proposal transition tables, canonical ids, term-version invalidation, floor arithmetic, versioned termination rule); L2 deterministic scenario (player wins / rival wins / declines both / expires / withdrawn / insufficient funds / fire with floor / fire then rival signs / fire refused while seated / release during founding refused / rival's own person contested); L3 persistence and replay (open-case save/load, settlement idempotence, Save As independence, 50%-era save loads, migration over a protected copy of the Owner's library); L4 projection and bridge (bounded comparison, UNKNOWN rows, no hidden fields, stale revision refusal); L5 world and workspace (P14A.3 only); L6 6,240-week endurance twice from the same seed with Save p95 measured. Fixtures: the Annex §L list minus the intermediary fixtures, plus the firing-guard and versioned-rule fixtures.
+6. **Migration and persistence proof plan** — one governed inner-save increment for the `talentMarket` root (cases, proposals, chooser receipts); old saves initialize empty roots and a recording boundary; the validator rejects any `representation` other than `null`; the termination rule stamp validated against the rule in force at `endedWeek`; Save As copies validated for independence; ⟂ POST-P13 for the starting version and schema id.
+7. **Execution ceiling and protected verification reserve** — the provisional range of companion §10 refreshed with the actual base version; denominator stated; gate split; escalation criteria.
+8. **Performance limits carried forward** — P12's disclosed qualifications verbatim (reconciliation §6); P14A adds one case root and must not measurably move Save p95; ⟂ POST-P13 for any P13-measured figure.
+9. **Status** — hook INACTIVE / EXPLICIT-CHECKER FALLBACK; launch-review readiness only.
+
+## 4. Launch-draft outline (what Current Ops would issue; not issued)
+
+Order of sections: authority and identities (⟂ POST-P13) · the outcome sentence (companion §2.1.1) · the Core boundary · what is Ready and Later · the six acceptance levels · the migration rule and the versioned termination rule · the ceiling and reserve · escalation · the stop rule ("if the accepted P12 rival cannot lawfully propose inside its existing weekly decision without a policy field P12 will not version, or if the P12 signing primitive cannot be exported without changing its reconciliation, stop and return"). Word budget 600–900.
+
+## 5. Preconditions before promotion
+
+1. P13 Owner acceptance recorded, with its receipt and producer handoff published.
+2. Bounded post-P13 changed-path refresh of the reconciliation (only rows touching P13 seams and identities; the P13A companion's §1.2/§1.4/§1.7/§1.8 rows reused as precedent, not re-derived).
+3. Future Ops launch recommendation.
+4. Separate Current Ops execution order.

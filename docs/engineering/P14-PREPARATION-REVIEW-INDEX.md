@@ -1,0 +1,99 @@
+# P14 preparation review index
+
+**P14 PREPARATION READY — POST-P13 ACCEPTANCE REFRESH REQUIRED.** DOCUMENTATION, RESEARCH RECONCILIATION, READ-ONLY RECONNAISSANCE AND PAPER ANALYSIS ONLY · P14 IMPLEMENTATION NOT AUTHORIZED · NOT READY FOR CURRENT OPS LAUNCH WHILE P13 REMAINS UNACCEPTED. Prepared under the Future Ops P14 preparation assignment of 2026-09-11. Nothing in this package is an execution order, and no number in it is approved tuning. P14 coding requires (1) P13 Owner acceptance, (2) a bounded post-P13 changed-path refresh, (3) a Future Ops launch recommendation and (4) a separate Current Ops execution order.
+
+Prepared 2026-09-11. Branch `docs/p14-post-p12-preparation-01`, documentation parent [`4734e40`](https://github.com/HSpector1/The-Movies/tree/4734e4092d117ef89b7349389ef03bd95fc298c3) (the P13A launch-preparation tip, which carries the approved P13–P15 research and the durable Owner rulings). The parent is a documentation ancestor, not a runtime baseline. No prior P14 preparation branch, descendant or newer P14 planning existed when this was cut: the August P14 design and Builder Annex were unchanged since `2a7ff0d`, and the rulings' §3 had not been amended since `137ab60`. P13 implementation runs elsewhere and was neither inspected nor addressed.
+
+## 1. The package: five files on this branch, plus two banners
+
+| File | What it is | Retrieval |
+|---|---|---|
+| **This index** | every file, controlling input, identifier, the review order, the requirements and source index (deliverable I), the settled / new / deferred summary and the status line | `docs/engineering/P14-PREPARATION-REVIEW-INDEX.md` |
+| [**Owner-ruling amendment**](../design/CODEX-P13-P15-OWNER-RULINGS.md#34-p14-owner-direction-amendment--2026-09-11) | deliverable B: §3.4 of the durable rulings record — the fourteen settled directions, the superseded-statement table, and the preserved / recommended / hypothesis / later / post-P13 classes; inline notes in §§3.1–3.3, §5 and §6 | `docs/design/CODEX-P13-P15-OWNER-RULINGS.md` |
+| [**Post-P12 reconciliation**](./P14-POST-P12-RECONCILIATION.md) | deliverable A: every P14 seam against the accepted runtime, classified REUSED / SHARED GENERALIZATION / NEW P14 WORK / POST-P13 REFRESH REQUIRED (56 / 14 / 17 / 8), the P13 known-required contracts, the inherited register rows, the stale-statement table, and the persistence / isolation / performance findings | `docs/engineering/P14-POST-P12-RECONCILIATION.md` |
+| [**Preparation companion**](./P14-PREPARATION-COMPANION.md) | deliverables C–H: the updated P14A / P14B / P14C design (§2), the firing economic note (§3), the promise catalogue and feasibility service (§4), the relationship model (§5), the lifecycle model (§6), the four-class decision register (§7), the century-scale rules (§8), the critique and correctness record (§9), the provisional execution ceiling (§10) | `docs/engineering/P14-PREPARATION-COMPANION.md` |
+| [**Launch-review skeleton**](./DRAFT-P14A-LAUNCH-REVIEW-SKELETON.md) | deliverable J: the future launch package's structure with every post-P13 cell marked | `docs/engineering/DRAFT-P14A-LAUNCH-REVIEW-SKELETON.md` |
+| August P14 design and Builder Annex | content unchanged except a superseded-by banner at the top of each; still the source of the state tables, DTO sketches, identity invariants, fixtures, endurance harness, accessibility law and hostile checklist that survive | `docs/design/CODEX-TALENT-MARKET-RELATIONSHIPS-CAREER-LIFECYCLE-PACKAGE-14.md`, `…-BUILDER-ANNEX.md` |
+
+Nothing in this package requires a scratchpad file, a local-only path, an unpublished artifact or a private profile. The one local-only input, the original-game research corpus, is cited by SHA-256 exactly as the August design cited it (its five hashed files were re-verified unchanged) and is evidence, not authority.
+
+## 2. Controlling inputs, commit-pinned
+
+### 2.1 Accepted P12 closeout — `13370d4`
+
+| Document | Location |
+|---|---|
+| P12 → P13 producer handoff | [`13370d4`:docs/engineering/P12-TO-P13-PRODUCER-HANDOFF.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/engineering/P12-TO-P13-PRODUCER-HANDOFF.md) |
+| P12 R05 Owner acceptance receipt | [`13370d4`:docs/campaigns/P12-R05-OWNER-ACCEPTANCE-RECEIPT.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/campaigns/P12-R05-OWNER-ACCEPTANCE-RECEIPT.md) |
+| P12A decision and requirement register | [`13370d4`:docs/engineering/P12A-DECISION-AND-REQUIREMENT-REGISTER.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/engineering/P12A-DECISION-AND-REQUIREMENT-REGISTER.md) |
+| P12A R05 Owner decisions and acceptance | [`13370d4`:docs/engineering/P12A-R05-OWNER-DECISIONS-AND-ACCEPTANCE.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/engineering/P12A-R05-OWNER-DECISIONS-AND-ACCEPTANCE.md) |
+| P11 → P12 and P12 future-consumer contract | [`13370d4`:docs/engineering/P11-TO-P12-AND-P12-FUTURE-CONSUMER-CONTRACT.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/engineering/P11-TO-P12-AND-P12-FUTURE-CONSUMER-CONTRACT.md) |
+| P11 → P12 producer handoff; P11A register; P11 acceptance receipt | [`13370d4`:docs/engineering/P11-TO-P12-PRODUCER-HANDOFF.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/engineering/P11-TO-P12-PRODUCER-HANDOFF.md); [`13370d4`:docs/engineering/P11A-DECISION-AND-REQUIREMENT-REGISTER.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/engineering/P11A-DECISION-AND-REQUIREMENT-REGISTER.md); [`13370d4`:docs/campaigns/P11-OWNER-ACCEPTANCE-RECEIPT.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/campaigns/P11-OWNER-ACCEPTANCE-RECEIPT.md) |
+| P08–P10 → P11 handoff contract; deferred-not-dropped register; P08–P10 acceptance receipt | [`13370d4`:docs/engineering/P08-P10-TO-P11-HANDOFF-CONTRACT.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/engineering/P08-P10-TO-P11-HANDOFF-CONTRACT.md); [`13370d4`:docs/operations/P08-P10-DEFERRED-NOT-DROPPED-REGISTER.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/operations/P08-P10-DEFERRED-NOT-DROPPED-REGISTER.md); [`13370d4`:docs/campaigns/P08-P10-OWNER-ACCEPTANCE-RECEIPT.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/campaigns/P08-P10-OWNER-ACCEPTANCE-RECEIPT.md) |
+| P10 future-consumer contract; P10 information-visibility table | [`13370d4`:docs/engineering/P10-FUTURE-CONSUMER-CONTRACT.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/engineering/P10-FUTURE-CONSUMER-CONTRACT.md); [`13370d4`:docs/engineering/P10-INFORMATION-VISIBILITY-TABLE.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/engineering/P10-INFORMATION-VISIBILITY-TABLE.md) |
+| P12 design package (the P12B deferral) | [`13370d4`:docs/design/CODEX-RIVAL-STUDIOS-HOLLYWOOD-ECOSYSTEM-PACKAGE-12.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/design/CODEX-RIVAL-STUDIOS-HOLLYWOOD-ECOSYSTEM-PACKAGE-12.md) |
+| Accepted contract-economy law (D-11 / D-12 / D-14 / D-17) | [`13370d4`:docs/rev4-open-questions.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/rev4-open-questions.md) (D-11.9 "calibration default, not an immutable design truth"); [`13370d4`:docs/D-12-economy-contract.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/D-12-economy-contract.md); [`13370d4`:docs/D-14-talent-career-impact-contract.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/D-14-talent-career-impact-contract.md); [`13370d4`:docs/D-16-ECONOMY-RECOVERY-DECISION-LAB.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/D-16-ECONOMY-RECOVERY-DECISION-LAB.md) |
+| Performance attestation | [`13370d4`:evidence/p12a/final-native-20260911/performance-attestation.md](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/evidence/p12a/final-native-20260911/performance-attestation.md) |
+
+### 2.2 Accepted identities — keep these distinct
+
+| Identity | Value | Repository |
+|---|---|---|
+| TypeScript runtime | `592e926bfbf4574df94b38fc8dd594fc5df2ac8d` | HSpector1/The-Movies |
+| Unity observed / source-manifest HEAD | `2bc8d304b79a72bf20fda1d462ec3d96df253992` | HSpector1/project-studio-unity-visual-spike (private; not inspected) |
+| Actual Unity player-build source | `deca39521da1baeca61898d156a43f4ae6a7e035` | HSpector1/project-studio-unity-visual-spike (private; not inspected) |
+| Published technical evidence | `d4e1915ba075b4e4c1c9a6c880c8b0d4257659c0` | HSpector1/The-Movies |
+| P12 documentation closeout | `13370d428f0693f3279732f6f4cc360a7fcaa4df` | HSpector1/The-Movies |
+
+`src/`, `bridge/` and `ui/` at `13370d4` are byte-identical to the runtime `592e926` (verified); every TypeScript fact in this package is a runtime fact. Delivered persistence contract carried forward: **protocol 4 / projection 29 / inner Save V19 / outer checkpoint 1**, with library **storage format 2**. The P13A companion records that P13 will mint the next inner save version; P14's base is therefore the then-accepted head (POST-P13 REFRESH REQUIRED).
+
+### 2.3 Planning inputs
+
+| Input | Commit | Location |
+|---|---|---|
+| Approved long-range research (P14 design, Builder Annex, roadmap definition) | `2a7ff0d` | [docs/design/CODEX-TALENT-MARKET-RELATIONSHIPS-CAREER-LIFECYCLE-PACKAGE-14.md](https://github.com/HSpector1/The-Movies/blob/2a7ff0d973391f9433d19ec2cb7f6c5582d1e44f/docs/design/CODEX-TALENT-MARKET-RELATIONSHIPS-CAREER-LIFECYCLE-PACKAGE-14.md); […-BUILDER-ANNEX.md](https://github.com/HSpector1/The-Movies/blob/2a7ff0d973391f9433d19ec2cb7f6c5582d1e44f/docs/design/CODEX-TALENT-MARKET-RELATIONSHIPS-CAREER-LIFECYCLE-PACKAGE-14-BUILDER-ANNEX.md); [roadmap](https://github.com/HSpector1/The-Movies/blob/2a7ff0d973391f9433d19ec2cb7f6c5582d1e44f/docs/design/CODEX-P13-P15-LONG-RANGE-ROADMAP.md) |
+| Roadmap boundary approval (original rulings) | `137ab60` | [docs/design/CODEX-P13-P15-OWNER-RULINGS.md](https://github.com/HSpector1/The-Movies/blob/137ab603e37620ce647cd728b3a57154b8e3c3fb/docs/design/CODEX-P13-P15-OWNER-RULINGS.md) |
+| Durable rulings as amended for P13 (§2.4–§2.6) | `e48541b` | [docs/design/CODEX-P13-P15-OWNER-RULINGS.md](https://github.com/HSpector1/The-Movies/blob/e48541b55d8c0825968c4f148996593bdd9f22b6/docs/design/CODEX-P13-P15-OWNER-RULINGS.md) |
+| P13A launch-review package (the accepted shape this package mirrors; its §1.1/§1.2/§1.4/§1.7/§1.8 rows are reused as precedent) | `4734e40` | [docs/engineering/P13A-LAUNCH-REVIEW-INDEX.md](https://github.com/HSpector1/The-Movies/blob/4734e4092d117ef89b7349389ef03bd95fc298c3/docs/engineering/P13A-LAUNCH-REVIEW-INDEX.md); [P13A-DECISIONS-AND-ACCEPTANCE-COMPANION.md](https://github.com/HSpector1/The-Movies/blob/4734e4092d117ef89b7349389ef03bd95fc298c3/docs/engineering/P13A-DECISIONS-AND-ACCEPTANCE-COMPANION.md) |
+| Owner direction of 2026-09-11 and the targeted independent historical review | — | carried into the repository for the first time by rulings §3.4 (its source paragraph names the assignment); no earlier repository record exists |
+| Original-game research corpus (evidence only) | — | the five files the August design hashed, SHA-256s unchanged: `THE-MOVIES-2005-COMPLETE-MECHANICS-BIBLE.md` `1772f518…`, `THE-MOVIES-2005-SOURCE-REGISTER.md` `c001668b…`, `THE-MOVIES-2005-TECHNICAL-ARTIFACT-REGISTER.md` `a29608c8…`, `relationship_levels.csv` `9d297393…`, `star_rating_components.csv` `87e94e13…`; plus `movie_rating_pipeline.json` (genre ideal apparent ages), `all_reconciled_facts_appendix.csv` (`FACT_061` retirement at 70), `source_conflicts.csv`, `ACTIVE-UNRESOLVED-QUESTIONS.csv` |
+
+### 2.4 Requirement identifiers preserved by this package
+
+| Set | Where defined | Disposition |
+|---|---|---|
+| August design binding laws 1–25 | design §11, `2a7ff0d` | 1–8, 11–17, 19–25 carried unchanged; 9 (early release now P14A), 10 (no intermediary), 18 (no craft decline) superseded per rulings §3.4.2 |
+| Annex invariants F.1–F.24 | Annex §F | carried; F.16 (P10 mints via a registration receipt) restated to "one exported P10/worldgen mint primitive"; F.24 (multi-case admission) carried as Ready work |
+| August §23 decisions and roadmap §19.2 rows | design, roadmap | all retired into companion §7 (S1–S26, R1–R24, Q1–Q4, later list) |
+| Inherited register rows (P12A, P11A, P08–P10, P10 contract, P12 design, handoffs) | reconciliation §4 | each classified; none dropped |
+| The fourteen 2026-09-11 directions | rulings §3.4.1 | S1–S23 |
+| Accepted requirement identifiers untouched by P14 | P12A register rows not naming P14 | untouched |
+
+## 3. How to review this package
+
+1. Read the **status line** above and the **rulings §3.4** amendment: the fourteen settled directions and the superseded table are the durable record; everything else serves them.
+2. Read the **reconciliation §0–§2** for what P14 reuses versus builds. Every REUSED row carries a path and symbol you can open at `592e926`; the adversarial pass re-checked eighteen of them and found line drift only. §3 lists exactly what waits on P13. §5 is the stale-statement table for the August documents.
+3. Read the **companion §2.1** for the redefined P14A, then **§3** for the firing note (the charge table, the E1 exploit the cap opens and the floor that closes it, the E6 term lean that is surfaced and not retuned), **§4** for the promise catalogue and the feasibility rule, **§5** for the relationship model (evidence → translation → modernization), **§6** for the lifecycle model.
+4. Read the **companion §7**: only four genuine product questions remain (Q1–Q4), none blocking P14A; everything settled is not re-asked.
+5. Read the **companion §9** for what the product critiques and correctness reviews found and changed, and **§10** for the provisional ceiling and reserve.
+6. Read the **skeleton** to see what the future launch package will look like and which cells wait on P13.
+
+## 4. Settled, new, deferred: the one-page summary
+
+**Settled by the Owner (not re-asked).** Firing exists as a recalibration; the 26-week-capped charge; no 50%, no 5%; anti-exploit required; disclosure required; free-agent and window competition only; no buyouts; typed feasibility-checked promises with four outcomes; no agent; aging without craft decay for every named professional; announced retirement with obligations first and exactly one one-year extension; profession retirement distinct from industry retirement with Actor → Director and Actor → Writer; the Movies+ relationship model with romance regardless of gender and no family systems; upstream ownership unchanged; `PersonId` immutable; campaigns isolated.
+
+**New in this package (recommendations, not law).** The salary-expectation guard derived from the accepted ledger; the busy-set release refusal; the versioned termination rule; incumbent renewal as a settled proposal for a person under a case; the disclosure table (existence, issuer, term public; money UNKNOWN); the authored rival term model; the tick insertion point; the promise catalogue's qualifying event at first filming; the feasibility classification rule and its worked examples under the real eight-week countdown; the nine-tier ladder with evidence labels and decay-to-baseline; chemistry as a bounded read-only projection; derived aging with an apparent-age seam; the one-extension orchestration; the transition catalogue's eligibility inputs from `careerIdentity`; cohorts through one exported mint primitive; the four-class register; the provisional ceiling.
+
+**Deferred, by name.** Rival early termination (Ready, P12 movement kind); multi-case admission (Ready); P14A.2/.3 (Ready); P14B and P14C (Later, fully designed); P14D (parking); every LATER FEATURE / NON-BLOCKER in companion §7.4; every POST-P13 REFRESH REQUIRED row in the reconciliation §3.
+
+**Genuine remaining Owner questions.** Q1 FRAGILE-promise override; Q2 temperament as a compatibility prior; Q3 reconstructed collaboration counts at migration; Q4 refusal versus penalty for Nemeses/Enemies seatings. None blocks P14A.
+
+**Provisional P14A execution ceiling.** 72–84 productive lead hours with a 35–40% protected reserve inside that total; 96–112 elapsed; refreshed after P13 acceptance (companion §10).
+
+## 5. What this package does not contain
+
+No implementation, build, test run, runtime launch, native input, profile access, P12 reopening, P13 inspection or redirection, hook work, merge, PR or protected-ref promotion occurred in producing it. No game was launched. No Unity repository was opened. The Owner's campaigns and named copies were not opened, hashed, replaced or inspected. No performance qualification is claimed resolved. The retirement ages, horizons, thresholds, decay rates, chemistry magnitudes, feasibility buffers, cohort counts and every worked dollar figure are hypotheses and examples, not tuning.
+
+## 6. Status
+
+**P14 PREPARATION READY — POST-P13 ACCEPTANCE REFRESH REQUIRED.** Hook remains **INACTIVE / EXPLICIT-CHECKER FALLBACK**. Implementation and runtime ownership are not touched by this package. After publication this package stops for Future Ops / Owner review.

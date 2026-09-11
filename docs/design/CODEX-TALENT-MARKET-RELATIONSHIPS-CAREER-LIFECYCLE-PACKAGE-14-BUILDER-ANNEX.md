@@ -2,6 +2,8 @@
 
 # Talent Market, Relationships & Career Lifecycle
 
+> **SUPERSEDED IN PART — 2026-09-11.** This is the approved August Builder Annex at `2a7ff0d`, retained unchanged below. Its intermediary entities, DTOs, fixtures and copy (§A, §B, §C.1, §D, §E, §K.1, §L, §N, §Q), its `priorOperatingState` field (§C.7, §D), its `EmployerIntervalId` naming and its V1–V15 / `7811377` audit rows are superseded by [rulings §3.4](./CODEX-P13-P15-OWNER-RULINGS.md#34-p14-owner-direction-amendment--2026-09-11) and the [post-P12 reconciliation](../engineering/P14-POST-P12-RECONCILIATION.md) (stale-statement table §5). The state tables, identity invariants, persistence rules, migration sketches, worker law, fixtures, endurance harness, responsive and input laws, refusal language, anti-facade checks, hostile checklist and stop conditions otherwise stand.
+
 Status: **DECISION-READY RESEARCH CANDIDATE**<br>
 Mode: **DOCUMENTATION ONLY**<br>
 Authorization: **NO PRODUCTION AUTHORIZATION**<br>
