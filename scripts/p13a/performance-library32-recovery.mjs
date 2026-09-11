@@ -6,6 +6,7 @@ import { DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS } from '../../bridge/runtime-c
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import { performance } from 'node:perf_hooks'
+import { isDeepStrictEqual } from 'node:util'
 import { cpus, totalmem, platform, release, arch } from 'node:os'
 const [directory, fixturePath] = process.argv.slice(2)
 mkdirSync(directory, { recursive: true })
@@ -19,6 +20,10 @@ const root = directory + '/runtime', checkpointPath = root + '/bridge-runtime-v1
 mkdirSync(root, { recursive: true, mode: 0o700 })
 let store = null, coordinator = null
 const decode = text => decodeCampaignStorage(JSON.parse(text), DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS.maxCheckpointBytes, 32)
+// Independent subtraction proof: no migration function supplies the expected value.
+const RESEARCH_SKILLS = ['scientificMethod', 'acoustics', 'instrumentation', 'experimentation', 'engineering', 'documentation']
+const RESEARCH_GENRES = ['comedy', 'drama', 'crime', 'romance', 'horror', 'adventure']
+let preservationChecks = 0
 const preserved = (old, current, identity) => {
   assert(old.saveVersion === 19 && current.saveVersion === 20, 'Wrong migration versions: ' + identity)
   const a = old.state, b = current.state
@@ -35,6 +40,41 @@ const preserved = (old, current, identity) => {
       assert(newPeriod.movements.technologyAdoption === 0 && JSON.stringify({ ...newPeriod, movements }) === JSON.stringify(oldPeriod), 'Migration changed retained rival period')
     }
   }
+  assert(isDeepStrictEqual(b.technology, { version: 1, recordingStartedWeek: a.market.tick, projects: [], access: [], adoptions: [], productions: [] }), 'Migration technology root differs from exact neutral shape: ' + identity)
+  assert(b.era.soundRequired === false, 'Migration failed approved silent-era rule: ' + identity)
+  assert(b.talent.length === a.talent.length && b.talent.every((person, i) => person.id === a.talent[i].id), 'Migration added or reordered people: ' + identity)
+  const projectedTalent = b.talent.map((person, i) => {
+    const projected = { ...person }
+    const expected = {
+      skills: Object.fromEntries(RESEARCH_SKILLS.map(skill => [skill, { actual: 1, perceived: 1 }])),
+      ceilings: Object.fromEntries(RESEARCH_SKILLS.map(skill => [skill, 1])),
+      devRate: 1,
+      genreExperience: Object.fromEntries(RESEARCH_GENRES.map(genre => [genre, { actual: 0, perceived: 0 }])),
+      workHistory: 0,
+    }
+    for (const key of Object.keys(expected)) {
+      assert(!Object.hasOwn(a.talent[i][key], 'research') && Object.hasOwn(person[key], 'research'), 'Migration research leaf is not additive: ' + identity)
+      assert(isDeepStrictEqual(person[key].research, expected[key]), 'Migration invented non-neutral ' + key + '.research: ' + identity)
+      const { research: _research, ...retained } = person[key]
+      projected[key] = retained
+    }
+    return projected
+  })
+  const projectedBusinesses = b.hollywood.businesses.map((business, i) => ({
+    ...business, account: { ...business.account, periods: business.account.periods.map((period, j) => {
+      assert(!Object.hasOwn(a.hollywood.businesses[i].account.periods[j].movements, 'technologyAdoption'), 'Migration movement is not additive: ' + identity)
+      assert(Object.hasOwn(period.movements, 'technologyAdoption') && period.movements.technologyAdoption === 0, 'Migration movement is not exact zero: ' + identity)
+      const { technologyAdoption: _technologyAdoption, ...movements } = period.movements
+      return { ...period, movements }
+    }) },
+  }))
+  const { technology: _technology, ...retainedState } = b
+  const projected = { ...current, saveVersion: 19, state: {
+    ...retainedState, era: { ...b.era, soundRequired: a.era.soundRequired },
+    talent: projectedTalent, hollywood: { ...b.hollywood, businesses: projectedBusinesses },
+  } }
+  assert(isDeepStrictEqual(projected, old), 'Migration changed original full save/state after exact authorized subtraction: ' + identity)
+  preservationChecks++
 }
 try {
   const seed = readFileSync(fixturePath, 'utf8'), original = decode(seed)
@@ -52,6 +92,7 @@ try {
     assert(encoded !== seed && converted.records.length === 32 && catalogue.campaigns.length === 32 && snapshot.gameWeek === 6240, 'Recovery did not migrate complete library')
     assert(converted.activeCampaignId === original.activeCampaignId && converted.catalogueRevision === original.catalogueRevision, 'Recovery changed catalogue identity')
     assert(converted.legacyCheckpointJson === original.legacyCheckpointJson && JSON.stringify(converted.receipts) === JSON.stringify(original.receipts), 'Recovery changed retained provenance')
+    const preservationChecksBefore = preservationChecks
     for (let j = 0; j < original.records.length; j++) {
       const prior = original.records[j], next = converted.records[j]
       assert(prior.id === next.id && prior.label === next.label && prior.revision === next.revision, 'Recovery changed record identity')
@@ -61,11 +102,14 @@ try {
       else preserved(JSON.parse(a.savedSaveJson), JSON.parse(b.savedSaveJson), prior.id + ':saved')
       assert(catalogue.campaigns[j].gameWeek === JSON.parse(a.currentSaveJson).state.market.tick, 'Wrong record stage')
     }
-    preserved(JSON.parse(JSON.parse(original.workingCheckpointJson).currentSaveJson), JSON.parse(JSON.parse(converted.workingCheckpointJson).currentSaveJson), 'working')
+    const oldWorking = JSON.parse(original.workingCheckpointJson), newWorking = JSON.parse(converted.workingCheckpointJson)
+    preserved(JSON.parse(oldWorking.currentSaveJson), JSON.parse(newWorking.currentSaveJson), 'working')
+    if (oldWorking.savedSaveJson === null) assert(newWorking.savedSaveJson === null, 'Recovery invented a working saved slot')
+    else preserved(JSON.parse(oldWorking.savedSaveJson), JSON.parse(newWorking.savedSaveJson), 'working:saved')
     const decodedBytes = [converted.workingCheckpointJson, converted.legacyCheckpointJson ?? '', ...converted.records.map(record => record.checkpointJson)].reduce((n, text) => n + Buffer.byteLength(text), 0)
     assert(decodedBytes <= 1024 * 1024 * 1024 && Buffer.byteLength(encoded) <= CAMPAIGN_LIBRARY_MAX_BYTES, 'Migrated library exceeds unchanged bounds')
     assert(sha(readFileSync(fixturePath)) === report.input.sha256, 'Recovery changed accepted fixture bytes')
-    report.samples.push({ sample: i, elapsedMs, memoryBefore, memoryAfter, outputBytes: Buffer.byteLength(encoded), decodedCheckpointBytes: decodedBytes, outputSha256: sha(encoded), allRecordsPreserved: true, activeDigest: snapshot.stateDigest })
+    report.samples.push({ sample: i, elapsedMs, memoryBefore, memoryAfter, outputBytes: Buffer.byteLength(encoded), decodedCheckpointBytes: decodedBytes, outputSha256: sha(encoded), allRecordsPreserved: true, fullSaveSubtractionProof: true, fullSaveComparisons: preservationChecks - preservationChecksBefore, neutralResearchProof: true, noNewPeople: true, activeDigest: snapshot.stateDigest })
     await coordinator.close(); coordinator = null; store = null
     assert(!existsSync(checkpointPath + '.lock'), 'Recovery retained lock')
     writeFileSync(directory + '/recovery-progress.json', JSON.stringify(report, null, 2))
