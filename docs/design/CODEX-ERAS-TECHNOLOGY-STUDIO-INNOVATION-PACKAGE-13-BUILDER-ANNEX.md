@@ -536,6 +536,8 @@ no P11/P12 package change or rival 3D lot follows from this handoff.
 
 **Scale note, 2026-09-11.** H1's absolute money scale was never anchored to the accepted blueprints: a fully funded medium research programme costs $105,600 here, about a quarter of the $400,000 Craft Services Annex, which is the cheapest accepted building. [Catalogue §9.1](./STUDIO-UPGRADE-AND-RESEARCH-CATALOGUE-01.md#91-the-envelope-and-one-scale-question-current-ops-must-settle) proposes scale S1, which multiplies every money figure here by five and therefore leaves every ratio, break-even and dominance conclusion below **unchanged**. H1 is left at its validated values; adopting one scale is a Current Ops decision. **The Owner recorded on 2026-09-11 that the five-times scale is a hypothesis and not approval.**
 
+**Reconciliation note, 2026-09-11, second pass.** The catalogue's paper tests do **not** in fact use H1×5 throughout, and now say so. Four weekly operating rates in them come from the catalogue's own §5.1 class bands, which are anchored to accepted blueprints, rather than from this fixture: a laboratory at $3,000 a week, and an instrument module, a sound Post room and a converted stage at $1,200 a week each. H1's M4 `opexChange` for a stage conversion is $1,000 a week, which at the same multiplier would be $5,000 rather than $1,200. **This fixture is not changed**; the divergence is recorded here and in [catalogue §9.1](./STUDIO-UPGRADE-AND-RESEARCH-CATALOGUE-01.md#91-the-envelope-and-one-scale-question-current-ops-must-settle), and reconciling it belongs to ENG-1 with the soundstage price. [Catalogue §9.7](./STUDIO-UPGRADE-AND-RESEARCH-CATALOGUE-01.md#97-the-whole-calculation-compactly) carries the sensitivity: the choice between the two rates moves one horizon result from $7,200 to $113,600 without changing its sign.
+
 **Fixture H1**
 
 | Input | Value | Note |
@@ -668,6 +670,7 @@ Agreement hypothesis: upfront $150,000; royalty 10% of eligible supplier sales; 
 - **Bottleneck order:** knowledge prerequisite → assigned researchers → seats → usable spend → cooperating laboratories. Each has a typed reason and one remedy.
 - **Dominant-strategy risks:** splitting dominates cooperation unless earliness has value (M1); inventor benefit can exceed research cost (M4); cheap old-stage adaptation dominates building another (M3); full restart credit makes cancellation free (M5). None is resolved here.
 - **2026-09-11, two of those four are reframed by Owner direction.** M4's accounting is settled: components are charged once each and equipment already produced is never re-charged, so what remains is a balance question about the department's fixed cost rather than about credits. M3 likewise: renovation need not be cheaper than new construction, and [catalogue §9.5](./STUDIO-UPGRADE-AND-RESEARCH-CATALOGUE-01.md#95-bottlenecks-break-evens-and-dominated-choices) names and dates the stage service a conversion costs and the capacity a new build adds, both of which this fixture omits and neither of which carries a money value yet. M5 stands as written. M1's fixture stands, but its dominance reading does not: see the scope note above, and the seven allocation fixtures in catalogue §9.4.
+- **2026-09-11, second pass: two things M3 and M4 settle for the catalogue's schedules, and one they do not.** First, **when a new Opex starts.** M4 charges `opexChange` as one component of the single deployment transaction beside site adaptation and installation, the state machine in §3 grants `operational` and its new Opex together on required-work completion, and M3 prices a Stage A conversion as one twelve-week job. So a converted stage's weekly charge begins after installation, not after the acoustic site work; the catalogue had written the opposite rule beside tables that already followed this one, and has corrected the rule. Second, **the price of separating the structural step.** M3's staged route costs $10,000 more than the direct conversion and takes 9 + 4 weeks rather than 9 + 3, so any schedule that pulls acoustic work forward and installs later is buying that premium. The catalogue's overlapped schedules now carry it on **both** routes, which leaves their eleven-week capability gap intact and adds $50,000 at the catalogue's proposed scale to whichever route takes the overlap. Third, and not settled: **no fixture here prices a during-work operating rate**, though the accepted facility card shape carries one. Both documents charge nothing until completion and both say so.
 - **Rival symmetry:** every row applies to a rival with the same seats, people, budget authority and provenance; P12 conserved resources fund rival ceilings.
 
 #### Future proofs (documented, not run)
@@ -1630,9 +1633,13 @@ Copy is generated from typed TypeScript reasons. Illustrative patterns:
 | `LOADOUT_LOCKED_FILMING` | “{productionTitle} began filming in {week}; its technology is fixed. New productions can use {technologyName}.” |
 | `INSTALL_CANCEL_DISPOSITION` | “Cancelling pays {completed} for completed work and {restoration} for restoration, and returns {refund}. {subjectName} will be {resultingState} after {weeks}.” |
 
-The 2026-09-10 templates name weeks or windows because the accepted product has no calendar; existing
-templates keep their date placeholders, and every one of them resolves through whatever presentation owner
-the post-P12 refresh confirms (§12.1a). Bad language: “Not allowed,” “Wrong era,” “Research failed,”
+The 2026-09-10 templates name weeks or windows because the accepted product had no calendar when they were
+written; existing templates keep their date placeholders, and every one of them resolves through whatever
+presentation owner the post-P12 refresh confirms (§12.1a). **Status, 2026-09-11:** the shared calendar now
+exists as a delivered P12 producer, `campaignDate()` mapping week 0 to 1920 Week 1 under
+`campaign-calendar-1920-52/v1` with `market.tick` authoritative ([handoff `13370d4`](https://github.com/HSpector1/The-Movies/blob/13370d428f0693f3279732f6f4cc360a7fcaa4df/docs/engineering/P12-TO-P13-PRODUCER-HANDOFF.md)); the same handoff
+records that it does not itself deliver technology, so the templates still name weeks and a P13
+recommendation still owes the technology dates. Bad language: “Not allowed,” “Wrong era,” “Research failed,”
 “Rival bonus,” “Requires more points,” or a satisfied reason beside a disabled action. Every refusal identifies cause and, when possible,
 one exact remedy. Unknown/ambiguous migration errors must not pretend recovery succeeded.
 
