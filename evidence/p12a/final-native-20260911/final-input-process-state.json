@@ -1,0 +1,19 @@
+{
+  "atUtc": "2026-09-11T03:20:40.570103+00:00",
+  "states": [
+    {
+      "source": 0,
+      "rawFlags": 536870912,
+      "heldKeys": [],
+      "heldButtons": []
+    },
+    {
+      "source": 1,
+      "rawFlags": 536870912,
+      "heldKeys": [],
+      "heldButtons": []
+    }
+  ],
+  "ownedRuntimeIncarnationsRemaining": [],
+  "clean": true
+}

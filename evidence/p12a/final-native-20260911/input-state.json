@@ -1,0 +1,17 @@
+{
+  "atUtc": "2026-09-11T02:52:10.445387+00:00",
+  "readOnly": true,
+  "states": {
+    "0": {
+      "heldKeyCodes": [],
+      "heldButtonNumbers": [],
+      "rawFlags": 0
+    },
+    "1": {
+      "heldKeyCodes": [],
+      "heldButtonNumbers": [],
+      "rawFlags": 0
+    }
+  },
+  "safe": true
+}

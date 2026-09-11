@@ -1,0 +1,1084 @@
+{
+  "id": "p12a-third-critique-reverse-recheck-native24-25",
+  "kind": "bounded corrective addendum to existing third product critique",
+  "reviewer": "/root/recovered_storage_review/package_runner_review",
+  "priorReviewer": "/root/gate_b_product_review; independent read-only product critic",
+  "atUtc": "2026-09-11T03:05:05.979Z",
+  "outcome": "REVERSE_TASK_CLOSED_WITH_ACTUAL_NATIVE_INPUT; FINAL_GATE_ACCEPTANCE_SEPARATE",
+  "priorReview": {
+    "path": "/var/folders/q_/n1q5ygxd25b3r9wnd57c5zsw0000gn/T/p12a-gateb-product-review-3yegfz1x/review.json",
+    "bytes": 43408,
+    "sha256": "ac8a452f91f9dcdaaf4da85f143162c222ff2fa27227339a7bf32721231356cd",
+    "preservedCopy": {
+      "path": "/tmp/p12a-native24-25-peer-BsHiZ5/prior-third-product-review-preserved.json",
+      "bytes": 43408,
+      "sha256": "ac8a452f91f9dcdaaf4da85f143162c222ff2fa27227339a7bf32721231356cd"
+    },
+    "priorStatus": "OPEN: entrant wording corrected and native22 captured; actual reverse-keyboard traversal remains pending after native22 guard refusal. Preserve completed native21 tasks through checked applicability.",
+    "originalCritiqueNotRewritten": true
+  },
+  "scope": "Only the outstanding reverse-keyboard task, its clean input/source binding, and current late-world Save/Quit/same-package recovery. No fourth product critique, broad product audit or final correctness certification.",
+  "visualReview": [
+    "004 shows Blackthorn at200% focused Text200 with corrected entrant wording.",
+    "005/006/007 visibly focus Text100, Refresh, Back in reverse order while retaining200% content.",
+    "008 Enter activates Back and restores Studio Charts100% with exact Blackthorn r06 focused.",
+    "009 Shift-Tab selects preceding Rose Lantern r02;010 Enter opens exact Rose Lantern studio.",
+    "013 visibly shows Long campaign C Saved / Campaign saved; no world tick or digest change.",
+    "25/000 visibly shows same three Long campaign labels/date summaries with C active/Saved. These are engineering SaveAs branches, not independent NewGames."
+  ],
+  "visuallyInspected": [
+    "24/004",
+    "24/005",
+    "24/006",
+    "24/007",
+    "24/008",
+    "24/009",
+    "24/010",
+    "24/013",
+    "25/000"
+  ],
+  "nativeReverse": {
+    "chords": 4,
+    "ownedTabKeycode": 48,
+    "sourceStateId": 0,
+    "downFlags": 537001984,
+    "upFlags": 536870912,
+    "modifierMask": 16711680,
+    "downModifier": 131072,
+    "upModifier": 0,
+    "nonmodifierBitsPreserved": 536870912,
+    "actualRemainingShiftStates": false,
+    "noLotFocusDuringReverse": true
+  },
+  "worldContinuity": {
+    "allNumberedMapsSameWeekDigest": true,
+    "week": 8794,
+    "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+    "saveAuthorityBefore": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+    "saveAuthorityAfter": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+    "revisionBeforeAfter": 0,
+    "explanation": "Campaign Save replaces prospective runtime authority under the previously reviewed capacity/rollover and commit-before-publish seam. A new logical session is not a world change or engine restart; recovery25 joins the post-Save authority."
+  },
+  "relaunchJoin": {
+    "samePackageProfile": true,
+    "previousReportHashExact": true,
+    "reportedCheckpointHashExact": true,
+    "reportedCheckpointSha256": "9897c2f5371eb157728a2f16dcd993103a51a0fda8242cc97f07047e1e567830",
+    "rawCheckpointReadOrHashed": false,
+    "inactiveRecordBytes": "Separate storage reviewer verifies inactive A/B canonical full rows and compressed payload hashes unchanged21\u219224\u219225; this reviewer bound its exact report and checked reported rows/receipt/native authority joins. Raw libraries not independently read here."
+  },
+  "runs": [
+    {
+      "native": 24,
+      "evidence": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z",
+      "status": "observation-complete",
+      "reason": "ui-quit",
+      "errors": [],
+      "packageBinding": {
+        "root": "/private/tmp/p12a-current592-native24-wf8x97ht",
+        "profileRoot": "/private/tmp/p12a-current592-native24-wf8x97ht/PrivateProfile",
+        "launcher": "/private/tmp/p12a-current592-native24-wf8x97ht/PLAY_PROJECT_STUDIO.command",
+        "launcherSha256": "f866c468e9ac68c49bd27b73d58d282056c6e7be0871e35cd12ab3f6a7f3ed93",
+        "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+        "verifiedImmutableFiles": 197,
+        "supervisorSha256": "97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26",
+        "pairedContractVerificationSha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355",
+        "actionTrace": "Unavailable in packaged mode: supervisor intentionally does not pass this optional environment variable."
+      },
+      "manifestSha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "playerSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "engineSha256": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "runtimeWorkerSha256": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "sourceBindings": [
+        {
+          "name": "p12a-native-preview.mjs",
+          "expected": "4b6729899c9214a10372a87dba8b95a9ee775e541f5435c614ac38c3d4cf6ef7",
+          "actual": "4b6729899c9214a10372a87dba8b95a9ee775e541f5435c614ac38c3d4cf6ef7",
+          "currentShared": "4b6729899c9214a10372a87dba8b95a9ee775e541f5435c614ac38c3d4cf6ef7"
+        },
+        {
+          "name": "hid-guard.mjs",
+          "expected": "7fd64956c50df199d8ab5ec8c63ea2eb6c84dc3440db53a713efb1d5d1612b02",
+          "actual": "7fd64956c50df199d8ab5ec8c63ea2eb6c84dc3440db53a713efb1d5d1612b02",
+          "currentShared": "7fd64956c50df199d8ab5ec8c63ea2eb6c84dc3440db53a713efb1d5d1612b02"
+        },
+        {
+          "name": "hid-witness-state.mjs",
+          "expected": "336e0a7e1afffb18e0e71a01d145c15889b08f974b776d4805ed1db2911e63f2",
+          "actual": "336e0a7e1afffb18e0e71a01d145c15889b08f974b776d4805ed1db2911e63f2",
+          "currentShared": "336e0a7e1afffb18e0e71a01d145c15889b08f974b776d4805ed1db2911e63f2"
+        },
+        {
+          "name": "hid-coherent-map.mjs",
+          "expected": "d766cb5a96519bff79fafdc9806d9973e575a08a8e251b53a739490515efd7c7",
+          "actual": "d766cb5a96519bff79fafdc9806d9973e575a08a8e251b53a739490515efd7c7",
+          "currentShared": "d766cb5a96519bff79fafdc9806d9973e575a08a8e251b53a739490515efd7c7"
+        },
+        {
+          "name": "owner-ux-startup.mjs",
+          "expected": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff",
+          "actual": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff",
+          "currentShared": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff"
+        },
+        {
+          "name": "owner-ux-window.mjs",
+          "expected": "d93ca436174d295cacc7a3d7d561adae7b3d5c49cbdc8019e507ca8fcec92594",
+          "actual": "d93ca436174d295cacc7a3d7d561adae7b3d5c49cbdc8019e507ca8fcec92594",
+          "currentShared": "d93ca436174d295cacc7a3d7d561adae7b3d5c49cbdc8019e507ca8fcec92594"
+        },
+        {
+          "name": "p04a1-window-select.mjs",
+          "expected": "a70359db53251c0f88fd3ee586169fcf328f691ffaf2d73d2a844217533b561c",
+          "actual": "a70359db53251c0f88fd3ee586169fcf328f691ffaf2d73d2a844217533b561c",
+          "currentShared": "a70359db53251c0f88fd3ee586169fcf328f691ffaf2d73d2a844217533b561c"
+        },
+        {
+          "name": "input-state.py",
+          "expected": "d235e2a584bd6d142e5fdd0dd93833bd139260b33646a7f59eae030ba5184942",
+          "actual": "d235e2a584bd6d142e5fdd0dd93833bd139260b33646a7f59eae030ba5184942",
+          "currentShared": "d235e2a584bd6d142e5fdd0dd93833bd139260b33646a7f59eae030ba5184942"
+        },
+        {
+          "name": "console-state.py",
+          "expected": "fd540d278ce159e9db1c8c4e8133b222e523475ed9642244799124668de78ac7",
+          "actual": "fd540d278ce159e9db1c8c4e8133b222e523475ed9642244799124668de78ac7",
+          "currentShared": "fd540d278ce159e9db1c8c4e8133b222e523475ed9642244799124668de78ac7"
+        },
+        {
+          "name": "ownerinput/ownerinput.swift",
+          "expected": "a31735e7a422ab444ea747809cc238e94b82b9dbbcfaa62cde61ce05cf74a1d8",
+          "actual": "a31735e7a422ab444ea747809cc238e94b82b9dbbcfaa62cde61ce05cf74a1d8",
+          "currentShared": "a31735e7a422ab444ea747809cc238e94b82b9dbbcfaa62cde61ce05cf74a1d8"
+        },
+        {
+          "name": "hidwitness/hidwitness.swift",
+          "expected": "9dad5fdd34fce93cd497eaf06c76b97b5d928627e07e157c292f8714fa7311df",
+          "actual": "9dad5fdd34fce93cd497eaf06c76b97b5d928627e07e157c292f8714fa7311df",
+          "currentShared": "9dad5fdd34fce93cd497eaf06c76b97b5d928627e07e157c292f8714fa7311df"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/report.json",
+          "bytes": 353370,
+          "sha256": "cd74473b088c729da90019c4d939c0769b5e161255f5d9acafd195f131bc61f9"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/steps.json",
+          "bytes": 300181,
+          "sha256": "a7c612f593fff18c8f75115015866aec5ab2291957abc241aa16f73c69295edf"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/build-manifest.json",
+          "bytes": 1591,
+          "sha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/launch-binding.json",
+          "bytes": 5234,
+          "sha256": "dbc82d2fb8e18faafc38f51f41f561c725a8198d8918702f5d0a3dc8eb26c633"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/hid-witness.jsonl",
+          "bytes": 234562,
+          "sha256": "6ec42c367ecce94dab43abcc0a272d1e317fa4a6a0416e7e957b0c7f794c4a1d"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/hid-ownership.jsonl",
+          "bytes": 3207,
+          "sha256": "39f25857823c7dbcc2648da1416dbf23dd83a98b45d19f6bb1438f47c3521855"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/owned-input.json",
+          "bytes": 191,
+          "sha256": "c75853ffa42202c5722c282d13db2fa0758fe68eb3d82a0e2b3eca90ce84a6e8"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/input-state-start.json",
+          "bytes": 51,
+          "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/input-state-end.json",
+          "bytes": 51,
+          "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/launch-lease-v1.json",
+          "bytes": 353,
+          "sha256": "28ae95ca45e3efc2f2d89d7af45947e5e43aa5bf3c9f34386af18741ffd4ee83"
+        }
+      ],
+      "witnessReplay": {
+        "exactReportEquality": true,
+        "started": true,
+        "ended": {
+          "reason": "requested",
+          "markerSeq": 2975
+        },
+        "lastAt": 1789095567095,
+        "partial": false,
+        "counts": {
+          "tool": 80,
+          "markerCompanion": 79,
+          "playerNull": 27,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        },
+        "foreign": [],
+        "pendingCompanion": null,
+        "events": 186,
+        "sequence": 2976
+      },
+      "shiftEvents": [
+        {
+          "seq": 1388,
+          "type": "keyDown",
+          "keycode": 48,
+          "sourcePid": 91905,
+          "flags": 537001984,
+          "sourceStateId": 0
+        },
+        {
+          "seq": 1392,
+          "type": "keyUp",
+          "keycode": 48,
+          "sourcePid": 91906,
+          "flags": 536870912,
+          "sourceStateId": 0
+        },
+        {
+          "seq": 1510,
+          "type": "keyDown",
+          "keycode": 48,
+          "sourcePid": 91975,
+          "flags": 537001984,
+          "sourceStateId": 0
+        },
+        {
+          "seq": 1514,
+          "type": "keyUp",
+          "keycode": 48,
+          "sourcePid": 91976,
+          "flags": 536870912,
+          "sourceStateId": 0
+        },
+        {
+          "seq": 1662,
+          "type": "keyDown",
+          "keycode": 48,
+          "sourcePid": 92051,
+          "flags": 537001984,
+          "sourceStateId": 0
+        },
+        {
+          "seq": 1666,
+          "type": "keyUp",
+          "keycode": 48,
+          "sourcePid": 92052,
+          "flags": 536870912,
+          "sourceStateId": 0
+        },
+        {
+          "seq": 1995,
+          "type": "keyDown",
+          "keycode": 48,
+          "sourcePid": 92194,
+          "flags": 537001984,
+          "sourceStateId": 0
+        },
+        {
+          "seq": 1998,
+          "type": "keyUp",
+          "keycode": 48,
+          "sourcePid": 92195,
+          "flags": 536870912,
+          "sourceStateId": 0
+        }
+      ],
+      "shiftFinal": {
+        "pending": false,
+        "lastObservedState": {
+          "hidFlags": 536870912,
+          "hidLeftShift": false,
+          "hidRightShift": false,
+          "sessionFlags": 536870912,
+          "sessionLeftShift": false,
+          "sessionRightShift": false
+        },
+        "lastUpReceipt": {
+          "after": {
+            "hidFlags": 536870912,
+            "hidLeftShift": false,
+            "hidRightShift": false,
+            "sessionFlags": 536870912,
+            "sessionLeftShift": false,
+            "sessionRightShift": false
+          },
+          "before": {
+            "hidFlags": 537001984,
+            "hidLeftShift": true,
+            "hidRightShift": false,
+            "sessionFlags": 537001984,
+            "sessionLeftShift": true,
+            "sessionRightShift": false
+          },
+          "intendedFlags": 536870912,
+          "operation": "shift-tab-up"
+        }
+      },
+      "ledger": {
+        "appPid": 91148,
+        "keys": [],
+        "buttons": [],
+        "pending": [],
+        "shiftTabModifierPending": false,
+        "lastInjectedAt": 1789095567100,
+        "events": 77,
+        "updatedAt": "2026-09-11T02:59:27.100Z"
+      },
+      "inputStateEnd": {
+        "heldKeys": [],
+        "heldButtons": [],
+        "clean": true
+      },
+      "playerExit": {
+        "code": 0,
+        "signal": null
+      },
+      "supervisorFinalization": {
+        "status": "clean",
+        "exit": {
+          "code": 0,
+          "signal": null
+        },
+        "activeLeaseAbsent": true,
+        "checkpointLockAbsent": true,
+        "ownedIncarnationsAbsent": true
+      },
+      "reportedCheckpointSha256": "9897c2f5371eb157728a2f16dcd993103a51a0fda8242cc97f07047e1e567830",
+      "relaunchBinding": null,
+      "observations": [
+        {
+          "step": 0,
+          "at": "2026-09-11T02:55:36.802Z",
+          "action": "tap",
+          "name": null,
+          "focus": null,
+          "authority": {
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 21,
+            "connectionState": "Reconnecting",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/000-map.json",
+            "bytes": 207261,
+            "sha256": "31b49f21ce0db80e1a0110b5fd591434dd3e98c683745448fbc082cb7eab3dfa"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/000-tap.png",
+            "bytes": 1727277,
+            "sha256": "8b2809b70c714256e7fb396b301327cb07cee00d4eef7f442594ec493d8374d3"
+          }
+        },
+        {
+          "step": 1,
+          "at": "2026-09-11T02:55:53.242Z",
+          "action": "click",
+          "name": "world-selectable-admin",
+          "focus": null,
+          "authority": {
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 33,
+            "connectionState": "Live",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/001-map.json",
+            "bytes": 208016,
+            "sha256": "a806e67384795574a136024711e5aa601ef6f8a0368962d1301f566a7f96cbc1"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/001-world-selectable-admin.png",
+            "bytes": 1337035,
+            "sha256": "d669ccd49cc0a05b19930c2182ed58278c7c17c9b02c031ef252fe65fd2bcd18"
+          }
+        },
+        {
+          "step": 2,
+          "at": "2026-09-11T02:56:08.208Z",
+          "action": "click",
+          "name": "admin-open-industry",
+          "focus": "industry-back",
+          "authority": {
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 43,
+            "connectionState": "Live",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/002-map.json",
+            "bytes": 220242,
+            "sha256": "84c49c6e3c6c0c7a7ebdff6f16930088323088f1120128444bf15dc8085fe1fa"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/002-admin-open-industry.png",
+            "bytes": 390715,
+            "sha256": "e1b15482d02d7167d52520d688757bb0ca6893b39f8655d9dd2dcacd41db0950"
+          }
+        },
+        {
+          "step": 3,
+          "at": "2026-09-11T02:56:37.998Z",
+          "action": "click",
+          "name": "industry-studio-studio-e26cea4b-r06",
+          "focus": "industry-back",
+          "authority": {
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 63,
+            "connectionState": "Reconnecting",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/003-map.json",
+            "bytes": 231026,
+            "sha256": "8e6e5345651390bc059c95793dcbb103dd8db11f2db89b1cadaaada110174d42"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/003-industry-studio-studio-e26cea4b-r06.png",
+            "bytes": 420408,
+            "sha256": "b254e7976140c8fa6102136b1280d576e0c7b68e2dfdb05e42f30af351311c1e"
+          }
+        },
+        {
+          "step": 4,
+          "at": "2026-09-11T02:56:46.133Z",
+          "action": "click",
+          "name": "industry-text-200",
+          "focus": "industry-text-200",
+          "authority": {
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 69,
+            "connectionState": "Live",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/004-map.json",
+            "bytes": 231023,
+            "sha256": "e5798d6bca8a0a983835d1400b123d0fdf5fd02edf1418137909b457322fdbf6"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/004-industry-text-200.png",
+            "bytes": 496276,
+            "sha256": "a6e6042a2888989d120237f13aea98d5a2ed0e69ef7d3545caebbc7e924be75a"
+          }
+        },
+        {
+          "step": 5,
+          "at": "2026-09-11T02:57:00.223Z",
+          "action": "tap",
+          "name": null,
+          "focus": "industry-text-100",
+          "authority": {
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 79,
+            "connectionState": "Live",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/005-map.json",
+            "bytes": 231021,
+            "sha256": "c192c86a229be0b00e14b20b42be3e36df166c9d858448dd4a3fbf2ae4bc7d2d"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/005-tap.png",
+            "bytes": 497051,
+            "sha256": "0e657112ff6f233dfe62b166a539e1885b66e51968afd8700d34d0c2997e8f4c"
+          }
+        },
+        {
+          "step": 6,
+          "at": "2026-09-11T02:57:11.469Z",
+          "action": "tap",
+          "name": null,
+          "focus": "industry-refresh",
+          "authority": {
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 86,
+            "connectionState": "Reconnecting",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/006-map.json",
+            "bytes": 231030,
+            "sha256": "cf5c435d389244279ca66a342986f03f0d2334c1cf6b0cb355a27ee5c198535b"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/006-tap.png",
+            "bytes": 497709,
+            "sha256": "95e70c250df6f6db28b6e4d1c74e25b15eedd8c0bb67a6fe8e0caad110bbaea4"
+          }
+        },
+        {
+          "step": 7,
+          "at": "2026-09-11T02:57:25.729Z",
+          "action": "tap",
+          "name": null,
+          "focus": "industry-back",
+          "authority": {
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 96,
+            "connectionState": "Live",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/007-map.json",
+            "bytes": 231017,
+            "sha256": "3f21697479df9ca3d8ab24e197ec0f619653b1042f0cc7683b23e627fca6503c"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/007-tap.png",
+            "bytes": 497436,
+            "sha256": "718e81673b92bbf64490b9c8a5d65d062fab839eeadf59de36fff24b60ac4ab6"
+          }
+        },
+        {
+          "step": 8,
+          "at": "2026-09-11T02:57:35.953Z",
+          "action": "tap",
+          "name": null,
+          "focus": "industry-studio-studio-e26cea4b-r06",
+          "authority": {
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 103,
+            "connectionState": "Reconnecting",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/008-map.json",
+            "bytes": 220300,
+            "sha256": "904bf07fd5cee36fe5bb4f9646e30a342d4ac1366c46153b438e40712b212177"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/008-tap.png",
+            "bytes": 391295,
+            "sha256": "155d23ff902aa77636887a3dccf54846c6086184731e1b1b5bd736fe30428d3d"
+          }
+        },
+        {
+          "step": 9,
+          "at": "2026-09-11T02:57:57.063Z",
+          "action": "tap",
+          "name": null,
+          "focus": "industry-studio-studio-e26cea4b-r02",
+          "authority": {
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 118,
+            "connectionState": "Live",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/009-map.json",
+            "bytes": 220293,
+            "sha256": "db18e82e56435873a059353b0c42a9504d7d99925935784b1dd944a9319c36e2"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/009-tap.png",
+            "bytes": 390457,
+            "sha256": "f43285449de935a370a908e012dbfc02a55edcf6c0b1c8a4bfe308d809ccd2fd"
+          }
+        },
+        {
+          "step": 10,
+          "at": "2026-09-11T02:58:06.376Z",
+          "action": "tap",
+          "name": null,
+          "focus": "industry-back",
+          "authority": {
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 124,
+            "connectionState": "Live",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/010-map.json",
+            "bytes": 231178,
+            "sha256": "0efef5eb8c4e91be0face30b1426949d2c8de55cff1c62d7a5181ab7afb14223"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/010-tap.png",
+            "bytes": 417083,
+            "sha256": "e42fab131d37d786f519451cf02a5c66613560310b114a4b975af94fdaeb879a"
+          }
+        },
+        {
+          "step": 11,
+          "at": "2026-09-11T02:58:17.870Z",
+          "action": "click",
+          "name": "studio-menu-open",
+          "focus": null,
+          "authority": {
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 132,
+            "connectionState": "Live",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/011-map.json",
+            "bytes": 234728,
+            "sha256": "3c069a680280ca7258d320dec83dcac7196683b6ca327a77e046f0927354479d"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/011-studio-menu-open.png",
+            "bytes": 935097,
+            "sha256": "088b95b6e32164eb72022707fb549708ed45e224fada563d0da2fb8d1f383680"
+          }
+        },
+        {
+          "step": 12,
+          "at": "2026-09-11T02:58:48.802Z",
+          "action": "click",
+          "name": "studio-menu-save",
+          "focus": null,
+          "authority": {
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 153,
+            "connectionState": "Live",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/012-map.json",
+            "bytes": 234989,
+            "sha256": "41159169aa13577809402dce6072bd84aa202262bc4dc911bef9f4103272cbee"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/012-studio-menu-save.png",
+            "bytes": 931662,
+            "sha256": "27246b58ef61cd27dbeaff5d141a4eeb47f6d225e03511e69f0d43baf8357ecd"
+          }
+        },
+        {
+          "step": 13,
+          "at": "2026-09-11T02:59:04.029Z",
+          "action": "observe",
+          "name": null,
+          "focus": null,
+          "authority": {
+            "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 157,
+            "connectionState": "Live",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/013-map.json",
+            "bytes": 223743,
+            "sha256": "b4fc40dd2c18b9be8a919e0bb275b4ddb1ab20227b12ad390b127731750ecc9e"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/013-observe.png",
+            "bytes": 913541,
+            "sha256": "bb984a11235e7348c5b9f5835d3cd643c03061a41b601a5032f23d59dc73423d"
+          }
+        },
+        {
+          "step": 14,
+          "at": "2026-09-11T02:59:16.704Z",
+          "action": "click",
+          "name": "studio-menu-quit",
+          "focus": null,
+          "authority": {
+            "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 165,
+            "connectionState": "Reconnecting",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/014-map.json",
+            "bytes": 221369,
+            "sha256": "3254333314c2afd48201f2785bce0b8a404da174cf80b0beed8461963cb574dd"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/014-studio-menu-quit.png",
+            "bytes": 1479210,
+            "sha256": "3ce4e9a1a0014f4ecab4656cdf8346aab65b1728f30833c252fd032e8e1b7715"
+          }
+        }
+      ]
+    },
+    {
+      "native": 25,
+      "evidence": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z",
+      "status": "observation-complete",
+      "reason": "ui-quit",
+      "errors": [],
+      "packageBinding": {
+        "root": "/private/tmp/p12a-current592-native24-wf8x97ht",
+        "profileRoot": "/private/tmp/p12a-current592-native24-wf8x97ht/PrivateProfile",
+        "launcher": "/private/tmp/p12a-current592-native24-wf8x97ht/PLAY_PROJECT_STUDIO.command",
+        "launcherSha256": "f866c468e9ac68c49bd27b73d58d282056c6e7be0871e35cd12ab3f6a7f3ed93",
+        "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+        "verifiedImmutableFiles": 197,
+        "supervisorSha256": "97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26",
+        "pairedContractVerificationSha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355",
+        "actionTrace": "Unavailable in packaged mode: supervisor intentionally does not pass this optional environment variable."
+      },
+      "manifestSha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "playerSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "engineSha256": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "runtimeWorkerSha256": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "sourceBindings": [
+        {
+          "name": "p12a-native-preview.mjs",
+          "expected": "4b6729899c9214a10372a87dba8b95a9ee775e541f5435c614ac38c3d4cf6ef7",
+          "actual": "4b6729899c9214a10372a87dba8b95a9ee775e541f5435c614ac38c3d4cf6ef7",
+          "currentShared": "4b6729899c9214a10372a87dba8b95a9ee775e541f5435c614ac38c3d4cf6ef7"
+        },
+        {
+          "name": "hid-guard.mjs",
+          "expected": "7fd64956c50df199d8ab5ec8c63ea2eb6c84dc3440db53a713efb1d5d1612b02",
+          "actual": "7fd64956c50df199d8ab5ec8c63ea2eb6c84dc3440db53a713efb1d5d1612b02",
+          "currentShared": "7fd64956c50df199d8ab5ec8c63ea2eb6c84dc3440db53a713efb1d5d1612b02"
+        },
+        {
+          "name": "hid-witness-state.mjs",
+          "expected": "336e0a7e1afffb18e0e71a01d145c15889b08f974b776d4805ed1db2911e63f2",
+          "actual": "336e0a7e1afffb18e0e71a01d145c15889b08f974b776d4805ed1db2911e63f2",
+          "currentShared": "336e0a7e1afffb18e0e71a01d145c15889b08f974b776d4805ed1db2911e63f2"
+        },
+        {
+          "name": "hid-coherent-map.mjs",
+          "expected": "d766cb5a96519bff79fafdc9806d9973e575a08a8e251b53a739490515efd7c7",
+          "actual": "d766cb5a96519bff79fafdc9806d9973e575a08a8e251b53a739490515efd7c7",
+          "currentShared": "d766cb5a96519bff79fafdc9806d9973e575a08a8e251b53a739490515efd7c7"
+        },
+        {
+          "name": "owner-ux-startup.mjs",
+          "expected": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff",
+          "actual": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff",
+          "currentShared": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff"
+        },
+        {
+          "name": "owner-ux-window.mjs",
+          "expected": "d93ca436174d295cacc7a3d7d561adae7b3d5c49cbdc8019e507ca8fcec92594",
+          "actual": "d93ca436174d295cacc7a3d7d561adae7b3d5c49cbdc8019e507ca8fcec92594",
+          "currentShared": "d93ca436174d295cacc7a3d7d561adae7b3d5c49cbdc8019e507ca8fcec92594"
+        },
+        {
+          "name": "p04a1-window-select.mjs",
+          "expected": "a70359db53251c0f88fd3ee586169fcf328f691ffaf2d73d2a844217533b561c",
+          "actual": "a70359db53251c0f88fd3ee586169fcf328f691ffaf2d73d2a844217533b561c",
+          "currentShared": "a70359db53251c0f88fd3ee586169fcf328f691ffaf2d73d2a844217533b561c"
+        },
+        {
+          "name": "input-state.py",
+          "expected": "d235e2a584bd6d142e5fdd0dd93833bd139260b33646a7f59eae030ba5184942",
+          "actual": "d235e2a584bd6d142e5fdd0dd93833bd139260b33646a7f59eae030ba5184942",
+          "currentShared": "d235e2a584bd6d142e5fdd0dd93833bd139260b33646a7f59eae030ba5184942"
+        },
+        {
+          "name": "console-state.py",
+          "expected": "fd540d278ce159e9db1c8c4e8133b222e523475ed9642244799124668de78ac7",
+          "actual": "fd540d278ce159e9db1c8c4e8133b222e523475ed9642244799124668de78ac7",
+          "currentShared": "fd540d278ce159e9db1c8c4e8133b222e523475ed9642244799124668de78ac7"
+        },
+        {
+          "name": "ownerinput/ownerinput.swift",
+          "expected": "a31735e7a422ab444ea747809cc238e94b82b9dbbcfaa62cde61ce05cf74a1d8",
+          "actual": "a31735e7a422ab444ea747809cc238e94b82b9dbbcfaa62cde61ce05cf74a1d8",
+          "currentShared": "a31735e7a422ab444ea747809cc238e94b82b9dbbcfaa62cde61ce05cf74a1d8"
+        },
+        {
+          "name": "hidwitness/hidwitness.swift",
+          "expected": "9dad5fdd34fce93cd497eaf06c76b97b5d928627e07e157c292f8714fa7311df",
+          "actual": "9dad5fdd34fce93cd497eaf06c76b97b5d928627e07e157c292f8714fa7311df",
+          "currentShared": "9dad5fdd34fce93cd497eaf06c76b97b5d928627e07e157c292f8714fa7311df"
+        }
+      ],
+      "artifacts": [
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/report.json",
+          "bytes": 46382,
+          "sha256": "38eb1896ca7e35719b686f0d8dd49d2a94cd8736ad6eb8e2165fbc340d4c8562"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/steps.json",
+          "bytes": 31713,
+          "sha256": "3925a1e86d311416e0b759d3c46a5998f461004b884afd214709566bfb8dee84"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/build-manifest.json",
+          "bytes": 1591,
+          "sha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/launch-binding.json",
+          "bytes": 4823,
+          "sha256": "dc69b7de3d9e832cc028b5ff5f1506d796e290fb3148f89b2ae3799679e5e529"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/hid-witness.jsonl",
+          "bytes": 58203,
+          "sha256": "c243cc77f051aa90868e0b574eb3fb7fabb81dabf0d54a48adc91811576f61ca"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/hid-ownership.jsonl",
+          "bytes": 907,
+          "sha256": "40acda8bdc07e72acfc0d093835c24d3b9a10f239da0af9df38c7a654645447a"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/owned-input.json",
+          "bytes": 191,
+          "sha256": "039cc490a70c618c03e4bbce95f58f8d96857b8840301ba16e428e1b3eeee9b1"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/input-state-start.json",
+          "bytes": 51,
+          "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/input-state-end.json",
+          "bytes": 51,
+          "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/launch-lease-v1.json",
+          "bytes": 353,
+          "sha256": "8a7751156e142ffa28599cc259856f11c9a42049b76463d468c59fb1eff7e09d"
+        }
+      ],
+      "witnessReplay": {
+        "exactReportEquality": true,
+        "started": true,
+        "ended": {
+          "reason": "requested",
+          "markerSeq": 739
+        },
+        "lastAt": 1789095713971,
+        "partial": false,
+        "counts": {
+          "tool": 22,
+          "markerCompanion": 21,
+          "playerNull": 6,
+          "playerOther": 0,
+          "physical": 0,
+          "unknown": 0
+        },
+        "foreign": [],
+        "pendingCompanion": null,
+        "events": 49,
+        "sequence": 740
+      },
+      "shiftEvents": [],
+      "shiftFinal": {
+        "pending": false,
+        "lastObservedState": null,
+        "lastUpReceipt": null
+      },
+      "ledger": {
+        "appPid": 92809,
+        "keys": [],
+        "buttons": [],
+        "pending": [],
+        "shiftTabModifierPending": false,
+        "lastInjectedAt": 1789095713975,
+        "events": 19,
+        "updatedAt": "2026-09-11T03:01:53.975Z"
+      },
+      "inputStateEnd": {
+        "heldKeys": [],
+        "heldButtons": [],
+        "clean": true
+      },
+      "playerExit": {
+        "code": 0,
+        "signal": null
+      },
+      "supervisorFinalization": {
+        "status": "clean",
+        "exit": {
+          "code": 0,
+          "signal": null
+        },
+        "activeLeaseAbsent": true,
+        "checkpointLockAbsent": true,
+        "ownedIncarnationsAbsent": true
+      },
+      "reportedCheckpointSha256": "9897c2f5371eb157728a2f16dcd993103a51a0fda8242cc97f07047e1e567830",
+      "relaunchBinding": {
+        "previousReport": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/report.json",
+        "previousReportSha256": "cd74473b088c729da90019c4d939c0769b5e161255f5d9acafd195f131bc61f9",
+        "checkpointSha256": "9897c2f5371eb157728a2f16dcd993103a51a0fda8242cc97f07047e1e567830"
+      },
+      "observations": [
+        {
+          "step": 0,
+          "at": "2026-09-11T03:01:30.688Z",
+          "action": "click",
+          "name": "studio-menu-open",
+          "focus": null,
+          "authority": {
+            "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 20,
+            "connectionState": "Live",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/000-map.json",
+            "bytes": 210762,
+            "sha256": "b717e617d7abd78019c13e48c558665a826b85899d936336187d62a7c16b6e06"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/000-studio-menu-open.png",
+            "bytes": 936627,
+            "sha256": "f82c498b19b40f53c0db27f32686f3de634163bc188ea242d36405931a871429"
+          }
+        },
+        {
+          "step": 1,
+          "at": "2026-09-11T03:01:43.696Z",
+          "action": "click",
+          "name": "studio-menu-quit",
+          "focus": null,
+          "authority": {
+            "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+            "stateRevision": 0,
+            "gameWeek": 8794,
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "successfulSnapshotPollCount": 29,
+            "connectionState": "Live",
+            "transportOutageCount": 0,
+            "retainingViewAfterTransportFailure": false
+          },
+          "map": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/001-map.json",
+            "bytes": 208379,
+            "sha256": "357da6021aa6cd15684add4e3b795078de85356875be35d3ebab1da5de7b2158"
+          },
+          "screenshot": {
+            "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/001-studio-menu-quit.png",
+            "bytes": 1575691,
+            "sha256": "5692757c4dd3eedf794a61908a8062772c015303b85657d77ae99efd94744bb8"
+          }
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Native22 remains STOPPED; corrected native24 does not relabel the earlier failure.",
+    "Prior six-group observations remain historical and require checked source applicability; this addendum closes only its identified reverse item.",
+    "No actual interruption was induced in native24; interrupted-helper cleanup evidence is source plus inert fixture, while normal OS propagation is now directly observed.",
+    "No raw save/capability reads, live process probes, input, engine/build/test execution or shared writes by this reviewer.",
+    "Final candidate independent-library26/27, final aggregate correctness/typed evidence and Owner acceptance remain separate."
+  ],
+  "storageMetadataJoin": {
+    "artifact": {
+      "path": "/tmp/p12a-final-evidence-3u5yduc0/native21-24-25-library-metadata.json",
+      "bytes": 18029,
+      "sha256": "de45c8619b4070a28514c644303cdf0897dc9c19f41ab7c3a8a56ed397bf87c9"
+    },
+    "author": "/root/recovered_storage_review",
+    "status": "PASS_ENCODED_METADATA_AND_BYTE_PRESERVATION_ONLY",
+    "independentReviewOfDerivedMetadata": true,
+    "inactiveAandBFullMetadataRowsEqual21Through25": true,
+    "allThreeIdsAndActiveCPreserved": true,
+    "reportedWholeFile24Equals25": true,
+    "bytes": 70594302,
+    "sha256": "9897c2f5371eb157728a2f16dcd993103a51a0fda8242cc97f07047e1e567830",
+    "catalogueRevisions": [
+      6,
+      7,
+      7
+    ],
+    "savedReceiptJoinsNativeAuthorityBeforeAfterExactly": true,
+    "activeSaveReceiptCanonicalSha256": "b2238ce516bdb31264e2b16659fda1d48e5b49f28a58a195ee20f9a41b58b7bc",
+    "qualification": "Storage reviewer directly read/hash-checked outer encoded library. This reviewer verified its frozen report and joined its public receipt/world/session metadata to independently inspected native maps. Neither report newly validates decompression; no private save bytes copied here."
+  },
+  "previousVersion": {
+    "path": "/tmp/p12a-native24-25-peer-BsHiZ5/reverse-recheck-before-storage-join.json",
+    "bytes": 48272,
+    "sha256": "2ef20a76e788f49a777b45f65adf1c3e3cc56d2ab9e0e87750ebbd0144c461cf"
+  }
+}

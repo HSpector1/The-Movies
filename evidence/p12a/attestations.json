@@ -167,5 +167,1990 @@
     "ordinaryNativeProof": false,
     "actualReleasedFilms": 1,
     "authoredFilmsExcluded": true
+  },
+  "candidate592-calendar": {
+    "id": "candidate592-calendar",
+    "kind": "calendar",
+    "outcome": "PASS",
+    "provenance": "ordinary-progression",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (evidence assembly only)",
+    "binding": {
+      "evidenceScope": "calendar",
+      "sourceArtifacts": [
+        "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+        "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e"
+      ]
+    },
+    "artifacts": [
+      {
+        "path": "core-entry-20260910/report.json",
+        "sha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025"
+      },
+      {
+        "path": "core-continuation-20260910/report.json",
+        "sha256": "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e"
+      }
+    ],
+    "claims": {
+      "calendar": "1920-52-week-v1",
+      "arrivalWeeks": [
+        520,
+        988,
+        1560,
+        1872,
+        2548
+      ],
+      "beforeDueAfterGroups": 5,
+      "eachOrdinaryWeekChecked": true
+    },
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim.",
+      "reviewArtifact": "final-applicability-prepared-20260910/attestation.json",
+      "reviewArtifactSha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
+      "reviewSelector": "sourceApplicability and reusableProofs; typed projection of recorded review, not a new correctness verdict"
+    }
+  },
+  "candidate592-authored-history": {
+    "id": "candidate592-authored-history",
+    "kind": "authored-history",
+    "outcome": "PASS",
+    "provenance": "synthetic",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (evidence assembly only)",
+    "binding": {
+      "evidenceScope": "authored-history",
+      "sourceArtifacts": [
+        "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+        "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff"
+      ]
+    },
+    "artifacts": [
+      {
+        "path": "core-entry-20260910/report.json",
+        "sha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025"
+      },
+      {
+        "path": "checkpoint-reuse-20260910/ts-cumulative-09.log",
+        "sha256": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff"
+      }
+    ],
+    "claims": {
+      "startingAuthoredFilms": 8,
+      "canonicalStartingWorldTests": "tests/p12-starting-world.test.ts",
+      "repaymentTest": "tests/p12-lifecycle.test.ts: does not pay authored films again",
+      "strictManifestRule": "src/core/hollywoodValidation.ts requires authored owner row1..4 and canonical starting manifest; source covered by existing review"
+    },
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim.",
+      "reviewArtifact": "final-applicability-prepared-20260910/attestation.json",
+      "reviewArtifactSha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
+      "reviewSelector": "sourceApplicability and reusableProofs; typed projection of recorded review, not a new correctness verdict"
+    },
+    "canonicalIncumbents": 4,
+    "newcomersHaveNoRetrospectiveFilms": true,
+    "noHistoricalRepayment": true
+  },
+  "candidate592-live-production": {
+    "id": "candidate592-live-production",
+    "kind": "live-production",
+    "outcome": "PASS",
+    "provenance": "ordinary-progression",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (evidence assembly only)",
+    "binding": {
+      "evidenceScope": "live-production",
+      "sourceArtifacts": [
+        "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+        "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e"
+      ]
+    },
+    "artifacts": [
+      {
+        "path": "core-entry-20260910/report.json",
+        "sha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025"
+      },
+      {
+        "path": "core-continuation-20260910/report.json",
+        "sha256": "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e"
+      }
+    ],
+    "claims": {
+      "ordinaryLiveFilmsAt2548": 792,
+      "ordinaryLiveFilmsAt8788": 2892,
+      "additionalLiveFilms": 2100,
+      "driver": "ordinary tick(state,{develop:true}), no player actions; finite struggling studios retained"
+    },
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim.",
+      "reviewArtifact": "final-applicability-prepared-20260910/attestation.json",
+      "reviewArtifactSha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
+      "reviewSelector": "sourceApplicability and reusableProofs; typed projection of recorded review, not a new correctness verdict"
+    },
+    "actualReleasedFilms": 2892,
+    "authoredFilmsExcluded": true
+  },
+  "candidate592-employment": {
+    "id": "candidate592-employment",
+    "kind": "employment",
+    "outcome": "PASS",
+    "provenance": "ordinary-progression",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (evidence assembly only)",
+    "binding": {
+      "evidenceScope": "employment",
+      "sourceArtifacts": [
+        "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+        "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e",
+        "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff"
+      ]
+    },
+    "artifacts": [
+      {
+        "path": "core-entry-20260910/report.json",
+        "sha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025"
+      },
+      {
+        "path": "core-continuation-20260910/report.json",
+        "sha256": "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e"
+      },
+      {
+        "path": "checkpoint-reuse-20260910/ts-cumulative-09.log",
+        "sha256": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff"
+      }
+    ],
+    "claims": {
+      "entryEmployeesPerCompany": 6,
+      "employmentIntervalsAt8788": 894,
+      "currentEmploymentAt8788": 18,
+      "careerEventsAt8788": 17352,
+      "tested": "ordinary expiry and actual-film employer/credit joins; forged frozen credits/double roles/reserved performers rejected"
+    },
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim.",
+      "reviewArtifact": "final-applicability-prepared-20260910/attestation.json",
+      "reviewArtifactSha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
+      "reviewSelector": "sourceApplicability and reusableProofs; typed projection of recorded review, not a new correctness verdict"
+    }
+  },
+  "candidate592-conservation": {
+    "id": "candidate592-conservation",
+    "kind": "conservation",
+    "outcome": "PASS",
+    "provenance": "synthetic",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (evidence assembly only)",
+    "binding": {
+      "evidenceScope": "conservation",
+      "sourceArtifacts": [
+        "79a1410595db6d27a30fa4a7b7cea3b25228d129997b8d1567d81f4e0659b5c8",
+        "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff"
+      ]
+    },
+    "artifacts": [
+      {
+        "path": "resource-constraints-20260910/report.json",
+        "sha256": "79a1410595db6d27a30fa4a7b7cea3b25228d129997b8d1567d81f4e0659b5c8"
+      },
+      {
+        "path": "checkpoint-reuse-20260910/ts-cumulative-09.log",
+        "sha256": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff"
+      }
+    ],
+    "claims": {
+      "controlArms": [
+        "ordinary-control",
+        "cash-withdrawal/restoration",
+        "talent-withdrawal/replacement",
+        "capacity-withdrawal/restoration"
+      ],
+      "allArmsExactRepeated": true,
+      "allArmsFinalStrictSave": true,
+      "malformedHeldControlStatesRejected": true,
+      "qualification": "Synthetic interventions remain synthetic, not the ordinary live-production evidence."
+    },
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Existing independent592 review explicitly retains unchanged core causal money/talent/capacity controls with their synthetic scope and current cumulative09 strict identity/retention checks. This record does not relabel withdrawal controls as ordinary progression.",
+      "reviewArtifact": "final-applicability-prepared-20260910/attestation.json",
+      "reviewArtifactSha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
+      "reviewSelector": "sourceApplicability and reusableProofs; typed projection of recorded review, not a new correctness verdict"
+    }
+  },
+  "candidate592-migration": {
+    "id": "candidate592-migration",
+    "kind": "migration",
+    "outcome": "PASS",
+    "provenance": "synthetic",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (evidence assembly only)",
+    "binding": {
+      "evidenceScope": "migration",
+      "sourceArtifacts": [
+        "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff",
+        "17e4d70e03682dfbd5504037dcffb80a2ce13b85b140e466adbda9b626c70ceb"
+      ]
+    },
+    "artifacts": [
+      {
+        "path": "checkpoint-reuse-20260910/ts-cumulative-09.log",
+        "sha256": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff"
+      },
+      {
+        "path": "gate-a-run12-20260910/native28-library29-migration.json",
+        "sha256": "17e4d70e03682dfbd5504037dcffb80a2ce13b85b140e466adbda9b626c70ceb"
+      }
+    ],
+    "claims": {
+      "strategy": "B",
+      "V18OwnWeekCases": [
+        0,
+        519,
+        520,
+        987,
+        988,
+        1560,
+        1872,
+        2548
+      ],
+      "emptyMigratedCompanyFilmHistory": true,
+      "playerStateAndRngPreserved": true,
+      "idempotentMigration": true,
+      "currentPriorNative28Recovery": "Current57 checkpoint tests plus frozen historical/native28 migration evidence retained; no new native migration claim."
+    },
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Existing592 independent review matches the current four-file strict checkpoint correction, retained schema/migration laws and cumulative09. Current p12-starting-world migration cases and bridge-runtime-checkpoint tests pass; prior native28 recovery remains its historical supporting scope.",
+      "reviewArtifact": "final-applicability-prepared-20260910/attestation.json",
+      "reviewArtifactSha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
+      "reviewSelector": "sourceApplicability and reusableProofs; typed projection of recorded review, not a new correctness verdict"
+    }
+  },
+  "candidate592-generated-contract": {
+    "id": "candidate592-generated-contract",
+    "kind": "generated-contract",
+    "outcome": "PASS",
+    "provenance": "measured-build",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (evidence assembly only)",
+    "binding": {
+      "evidenceScope": "generated-contract",
+      "sourceArtifacts": [
+        "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355",
+        "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd"
+      ]
+    },
+    "artifacts": [
+      {
+        "path": "checkpoint-measurements-20260910/paired-contract-verification.json",
+        "sha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355"
+      },
+      {
+        "path": "checkpoint-measurements-20260910/build-manifest.json",
+        "sha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd"
+      }
+    ],
+    "claims": {
+      "protocolVersion": 4,
+      "projectionVersion": 29,
+      "innerSaveVersion": 19,
+      "outerCheckpointVersion": 1,
+      "sealedPair": "PASS",
+      "generatedContractSha256": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9"
+    },
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Independent prepared592/2bc package review verified current sealed paired contract, same generated DTO/schema in all197 checksum-covered files, exact current emitted engine/worker and unchanged deca-built Unity product trees. This binds contract/build only, not launch.",
+      "reviewArtifact": "final-applicability-prepared-20260910/attestation.json",
+      "reviewArtifactSha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
+      "reviewSelector": "sourceApplicability and reusableProofs; typed projection of recorded review, not a new correctness verdict"
+    }
+  },
+  "candidate592-all-nine": {
+    "id": "candidate592-all-nine",
+    "kind": "all-nine",
+    "outcome": "PASS",
+    "provenance": "ordinary-progression",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (evidence assembly only)",
+    "binding": {
+      "evidenceScope": "all-nine",
+      "sourceArtifacts": [
+        "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+        "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e"
+      ]
+    },
+    "artifacts": [
+      {
+        "path": "core-entry-20260910/report.json",
+        "sha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025"
+      },
+      {
+        "path": "core-continuation-20260910/report.json",
+        "sha256": "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e"
+      }
+    ],
+    "claims": {
+      "initialIncumbents": 4,
+      "arrivalBoundaries": 5,
+      "rivalBusinesses": 9,
+      "exactPriorFinal": true
+    },
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim.",
+      "reviewArtifact": "final-applicability-prepared-20260910/attestation.json",
+      "reviewArtifactSha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
+      "reviewSelector": "sourceApplicability and reusableProofs; typed projection of recorded review, not a new correctness verdict"
+    }
+  },
+  "candidate592-endurance": {
+    "id": "candidate592-endurance",
+    "kind": "endurance",
+    "outcome": "PASS",
+    "provenance": "ordinary-progression",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (evidence assembly only)",
+    "binding": {
+      "evidenceScope": "endurance",
+      "sourceArtifacts": [
+        "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e"
+      ]
+    },
+    "artifacts": [
+      {
+        "path": "core-continuation-20260910/report.json",
+        "sha256": "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e"
+      }
+    ],
+    "claims": {
+      "weekStart": 2548,
+      "weekFinal": 8788,
+      "exactPriorFinal": true,
+      "strictRoundTripAndNextTickAtCheckpoints": true,
+      "retainedFilms": 2900,
+      "authoredFilms": 8
+    },
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim.",
+      "reviewArtifact": "final-applicability-prepared-20260910/attestation.json",
+      "reviewArtifactSha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
+      "reviewSelector": "sourceApplicability and reusableProofs; typed projection of recorded review, not a new correctness verdict"
+    },
+    "allNineAtStart": true,
+    "additionalAdvances": 6240
+  },
+  "candidate592-rng-isolation": {
+    "id": "candidate592-rng-isolation",
+    "kind": "rng-isolation",
+    "outcome": "PASS",
+    "provenance": "ordinary-progression",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (evidence assembly only)",
+    "binding": {
+      "evidenceScope": "rng-isolation",
+      "sourceArtifacts": [
+        "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+        "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e",
+        "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff"
+      ]
+    },
+    "artifacts": [
+      {
+        "path": "core-entry-20260910/report.json",
+        "sha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025"
+      },
+      {
+        "path": "core-continuation-20260910/report.json",
+        "sha256": "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e"
+      },
+      {
+        "path": "checkpoint-reuse-20260910/ts-cumulative-09.log",
+        "sha256": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff"
+      }
+    ],
+    "claims": {
+      "playerRngUnchangedEveryOrdinaryTick": true,
+      "initializationAndArrivalNoPlayerRngDraws": true,
+      "reloadNextTickEqual": true
+    },
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim.",
+      "reviewArtifact": "final-applicability-prepared-20260910/attestation.json",
+      "reviewArtifactSha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
+      "reviewSelector": "sourceApplicability and reusableProofs; typed projection of recorded review, not a new correctness verdict"
+    }
+  },
+  "candidate592-save-as": {
+    "id": "candidate592-save-as",
+    "kind": "save-as",
+    "outcome": "PASS",
+    "provenance": "synthetic",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (evidence assembly only)",
+    "binding": {
+      "evidenceScope": "save-as",
+      "sourceArtifacts": [
+        "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff",
+        "0a3474298ccd5c6ec3a5a12ecf8994972705f46530ec72388c161446aa9abc41"
+      ]
+    },
+    "artifacts": [
+      {
+        "path": "checkpoint-reuse-20260910/ts-cumulative-09.log",
+        "sha256": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff"
+      },
+      {
+        "path": "checkpoint-measurements-20260910/emitted-validation.json",
+        "sha256": "0a3474298ccd5c6ec3a5a12ecf8994972705f46530ec72388c161446aa9abc41"
+      }
+    ],
+    "claims": {
+      "currentCampaignLibraryCases": 13,
+      "currentPreparedBoundaryCases": 21,
+      "copyPreservesCurrentWorldAndInactiveRecords": true,
+      "separateStorageIdentity": true,
+      "qualification": "Current headless functional/source proof; earlier native SaveAs remains historical. Current actual Desktop independent-library environment is covered separately by candidate592-named-campaigns and candidate592-launch-binding."
+    },
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Existing592 independent review matches all four integrated runtime files and21-case test, current cumulative09 and18 affected emitted checks. Exact retries/inactive-record preservation are verified; this source/test SaveAs record does not claim current independent NewGame or native launch.",
+      "reviewArtifact": "final-applicability-prepared-20260910/attestation.json",
+      "reviewArtifactSha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
+      "reviewSelector": "sourceApplicability and reusableProofs; typed projection of recorded review, not a new correctness verdict"
+    }
+  },
+  "candidate592-cumulative-regression": {
+    "id": "candidate592-cumulative-regression",
+    "kind": "cumulative-regression",
+    "outcome": "PASS",
+    "provenance": "synthetic",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (evidence assembly only)",
+    "binding": {
+      "evidenceScope": "cumulative-regression",
+      "sourceArtifacts": [
+        "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff",
+        "1b14ad245c6754399ed5e8b83ae8097a42cfba47b046e68c8dbcf9bd49937cab"
+      ]
+    },
+    "artifacts": [
+      {
+        "path": "checkpoint-reuse-20260910/ts-cumulative-09.log",
+        "sha256": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff"
+      },
+      {
+        "path": "recovered-checks-20260910/editmode-18-ready-label.xml",
+        "sha256": "1b14ad245c6754399ed5e8b83ae8097a42cfba47b046e68c8dbcf9bd49937cab"
+      }
+    ],
+    "claims": {
+      "typescript": {
+        "files": 395,
+        "passed": 5181,
+        "skipped": 5,
+        "failed": 0,
+        "seconds": 155.68
+      },
+      "unity": {
+        "passed": 1099,
+        "failed": 0,
+        "productSource": "deca39521da1baeca61898d156a43f4ae6a7e035"
+      },
+      "qualification": "Unity product Assets/Packages/ProjectSettings trees unchanged from deca to2bc. Tools guard native behavior remains separately verified."
+    },
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Existing independent592 applicability review read cumulative09 completion and its21 new tests in default discovery, checked Unity18 results and exact unchanged product trees through2bc, and verified both assembled197-file packages. Skips remain skips; no native/Owner acceptance inferred.",
+      "reviewArtifact": "final-applicability-prepared-20260910/attestation.json",
+      "reviewArtifactSha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
+      "reviewSelector": "sourceApplicability and reusableProofs; typed projection of recorded review, not a new correctness verdict"
+    }
+  },
+  "candidate592-entry-bindings": {
+    "id": "candidate592-entry-bindings",
+    "kind": "entry-bindings",
+    "outcome": "PASS",
+    "provenance": "source-review",
+    "entryExecutionLog": "docs/campaigns/P12A-EXECUTION-LOG.md, Entry 2026-09-10; preserved original full-read/preflight receipt",
+    "normalization": "This records the completed entry and bounded attachment/pin identity check during final evidence assembly; it does not restart launch or claim that later current source is the original base.",
+    "effectiveModelEffort": "gpt-6-astra / ultra",
+    "session": "01a08adf-7719-7da2-85d0-77ae64c36fad",
+    "requiredAccess": "Verified at recovery: both worktrees, Downloads, Desktop, Application Support; unchanged danger-full-access/approval never.",
+    "attachments": [
+      {
+        "name": "P12A-R05-LAUNCH-PROMPT.md",
+        "sha256": "4bd5398e48bb8f9318830948be582dcb34ab049ffb768740c4f2def8cabd57b3",
+        "bytes": 6343,
+        "zipMatches": [
+          {
+            "path": "P12A-R05-LAUNCH-PACK/P12A-R05-LAUNCH-PROMPT.md",
+            "sameBytes": true
+          }
+        ]
+      },
+      {
+        "name": "P12A-R05-OWNER-DECISIONS-AND-ACCEPTANCE.md",
+        "sha256": "473ec3955a3624c7b1da3f670607a08a0ed86019736c50260d8f338176e50e87",
+        "bytes": 32422,
+        "zipMatches": [
+          {
+            "path": "P12A-R05-LAUNCH-PACK/P12A-R05-OWNER-DECISIONS-AND-ACCEPTANCE.md",
+            "sameBytes": true
+          }
+        ]
+      }
+    ],
+    "zipSha256": "32f6c5e631711eaf163f09e4e1af85052d3a66e7e6f88e538921ee41154f1674",
+    "planningPin": "b51d8790354ccccd26c3c5e90819ecfafda9988c",
+    "pinnedDocuments": [
+      {
+        "path": "docs/engineering/P12A-PRE-READINESS-AND-DEPENDENCY-GATE.md",
+        "sha256": "ca2cdd96cb051a13ecea0fee202038df8f312d2ddb2ca31f57be2549ddd61fc2",
+        "git_blob": "940223251f3cab89013b962592a7e7969d247d22",
+        "bytes": 11362,
+        "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/P12A-PRE-READINESS-AND-DEPENDENCY-GATE.md",
+        "currentDesktopSha256": "ca2cdd96cb051a13ecea0fee202038df8f312d2ddb2ca31f57be2549ddd61fc2",
+        "samePinnedBytes": true,
+        "manifestHashMatches": true
+      },
+      {
+        "path": "docs/engineering/P12A-AUTHORITY-AND-CODE-RECONNAISSANCE-PLAN.md",
+        "sha256": "a4732ea4887e90083d4c2be98f8836319c4f801c93769e79fe7a05215eca4841",
+        "git_blob": "db8ef0c43dabacac6f650660c646ce3f7c65f549",
+        "bytes": 25468,
+        "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/P12A-AUTHORITY-AND-CODE-RECONNAISSANCE-PLAN.md",
+        "currentDesktopSha256": "a4732ea4887e90083d4c2be98f8836319c4f801c93769e79fe7a05215eca4841",
+        "samePinnedBytes": true,
+        "manifestHashMatches": true
+      },
+      {
+        "path": "docs/engineering/P12A-DECISION-AND-REQUIREMENT-REGISTER.md",
+        "sha256": "ed8e37bb56dfa0761ca526e09c138dd202b2843d6452d80d92b6df23277ded5f",
+        "git_blob": "bf605467f4708f7b759563717936d441c49e41c1",
+        "bytes": 104325,
+        "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/P12A-DECISION-AND-REQUIREMENT-REGISTER.md",
+        "currentDesktopSha256": "ed8e37bb56dfa0761ca526e09c138dd202b2843d6452d80d92b6df23277ded5f",
+        "samePinnedBytes": true,
+        "manifestHashMatches": true
+      },
+      {
+        "path": "docs/engineering/P11-TO-P12-AND-P12-FUTURE-CONSUMER-CONTRACT.md",
+        "sha256": "200065d27846395df9f286faa54128b835a6cb5f0ed24669ab1ada366ac45b42",
+        "git_blob": "064f7c21baa2f82dc303eb5ec6a754cf9707e137",
+        "bytes": 36927,
+        "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/P11-TO-P12-AND-P12-FUTURE-CONSUMER-CONTRACT.md",
+        "currentDesktopSha256": "200065d27846395df9f286faa54128b835a6cb5f0ed24669ab1ada366ac45b42",
+        "samePinnedBytes": true,
+        "manifestHashMatches": true
+      },
+      {
+        "path": "docs/engineering/P12A-PROVISIONAL-IMPLEMENTATION-CHARTER.md",
+        "sha256": "249865442efc7848a8df3169eafc164b2ffe6088ca32bb28d833c4436e4976fa",
+        "git_blob": "8914469c1c1232a7204a593848475c980211bb88",
+        "bytes": 14442,
+        "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/P12A-PROVISIONAL-IMPLEMENTATION-CHARTER.md",
+        "currentDesktopSha256": "249865442efc7848a8df3169eafc164b2ffe6088ca32bb28d833c4436e4976fa",
+        "samePinnedBytes": true,
+        "manifestHashMatches": true
+      },
+      {
+        "path": "docs/engineering/DRAFT-P12A-IMPLEMENTATION-PROMPT.md",
+        "sha256": "135656aa4a81ce288fa3575a478c4619716b7f446513f3000287278ab62dc723",
+        "git_blob": "dcd10c4eeee7f23c0b3e1d47d968c5042e271d68",
+        "bytes": 6629,
+        "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/DRAFT-P12A-IMPLEMENTATION-PROMPT.md",
+        "currentDesktopSha256": "135656aa4a81ce288fa3575a478c4619716b7f446513f3000287278ab62dc723",
+        "samePinnedBytes": true,
+        "manifestHashMatches": true
+      },
+      {
+        "path": "docs/engineering/P12A-REFERENCE-AND-PRODUCT-REVIEW-KIT.md",
+        "sha256": "0f49211e1f78902a6e63b035952750fab42cd4ecf00af2cd6adbec35dae1ffb5",
+        "git_blob": "13afa7f55f066d17cddf3b5981cf09767fa29342",
+        "bytes": 18996,
+        "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/P12A-REFERENCE-AND-PRODUCT-REVIEW-KIT.md",
+        "currentDesktopSha256": "0f49211e1f78902a6e63b035952750fab42cd4ecf00af2cd6adbec35dae1ffb5",
+        "samePinnedBytes": true,
+        "manifestHashMatches": true
+      }
+    ],
+    "originalAuthorityPin": "a0739055c30f80fcf756340d0e0e962865aec6a4",
+    "acceptedTsProduct": "7ae36b44d99c505246d17dcc37beba94fa59a18a",
+    "acceptedTsDocs": "4caf7682b6c427b64f1ffab742f07cb4fddef2b0",
+    "acceptedUnity": "3a9a3f488693aa14431a6aa412d7560df8f30a89",
+    "hook": "EXPLICIT-CHECKER FALLBACK / INACTIVE",
+    "budget": "Original72productive/96elapsed hours; final24productive reserve, no reset. Exactproductive balance unmeasured.",
+    "binding": {
+      "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+      "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+      "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+      "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+    },
+    "normalizationToCandidate": "Original root-issued entry receipt with exact assembled candidate binding added; historical entry pins and incoming contract remain unchanged."
+  },
+  "candidate592-native-industry": {
+    "outcome": "PASS",
+    "provenance": "real-native-input",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "binding": {
+      "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+      "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+      "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+      "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+    },
+    "captureIds": [
+      "early-2026-09-11T03-03-22-494Z",
+      "early-2026-09-11T03-17-27-667Z"
+    ],
+    "inputWitness": "clean",
+    "id": "candidate592-native-industry",
+    "kind": "native-industry",
+    "scope": "Current candidate26 real Admin\u2192Industry Studio Charts and200\u2192reversefocusText100\u2192Enter100 with unchanged copy13 publicworld; prior full native21 ready tasks retain separately reviewed product applicability."
+  },
+  "candidate592-native-campaign-naming": {
+    "outcome": "PASS",
+    "provenance": "real-native-input",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "binding": {
+      "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+      "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+      "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+      "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+    },
+    "captureIds": [
+      "early-2026-09-11T03-03-22-494Z",
+      "early-2026-09-11T03-17-27-667Z"
+    ],
+    "inputWitness": "clean",
+    "id": "candidate592-native-campaign-naming",
+    "kind": "native-campaign-naming",
+    "scope": "Current26/27 visibly restore existing independently named A/B/C and B Copy Diverged; exact labels/IDs/selection/load/Save verified. Original NewGame/SaveAs name entry remains historical early/core evidence with explicit reuse, not fresh typing in26/27."
+  },
+  "candidate592-product-review-early": {
+    "id": "candidate592-product-review-early",
+    "kind": "product-review-early",
+    "outcome": "PASS",
+    "provenance": "independent-review",
+    "reviewer": "Banach /root/product_critic",
+    "originalArtifact": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/recovered-early-review.json",
+      "bytes": 44321,
+      "sha256": "791e93f1a1823369735ef585ade488be280e6a33482a8e0bb57f2d7596e58734"
+    },
+    "binding": {
+      "reviewArtifactSha256": "791e93f1a1823369735ef585ade488be280e6a33482a8e0bb57f2d7596e58734"
+    },
+    "obstacles": [
+      "Overlapping surfaces obscured Industry and campaign controls.",
+      "Scrolling hid films and overlapped the footer.",
+      "Typing a campaign name moved the camera."
+    ],
+    "rechecks": [
+      "Original same-critique13:05:48 task replay and13:29:04 exact native typing/Left cleanup.",
+      "Later closed core critique/current stable campaign modal and camera suppression sources; actual26 opaque menu/Saved/hidden Quit rows.",
+      "Later native21 comprehensive scroll/footer/final-row/Back200% tasks and current24/26 large-text focus recheck."
+    ],
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Task-scoped current applicability: historical critiques and original native failures remain preserved; unchanged current core/contract and explicit later reviewed product/storage/Unity changes are joined to actual592/2bc native24/25 and candidate26. No historical run is relabelled as current. Early preview closure covers only its three actual obstacles. Historical dirty source bindings are not treated as exact current bytes; later closed reviews, unchanged relevant current remedy code and current native surfaces supply applicability."
+    },
+    "limits": "No new campaign typing was performed26; reuse concerns the original closed defect and retained modal-owning-input code. No Home/controller or Owner claim."
+  },
+  "candidate592-product-review-core": {
+    "id": "candidate592-product-review-core",
+    "kind": "product-review-core",
+    "outcome": "PASS",
+    "provenance": "independent-review",
+    "reviewer": "/root/recovered_product_evidence (independent read-only product reviewer)",
+    "originalArtifact": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/gate-a-run14-20260910/product-closure.json",
+      "bytes": 17446,
+      "sha256": "353f487eb43fc2fdc23815a744fe712cbdc9b2e95e171dcda30d0aa97e8ef522"
+    },
+    "binding": {
+      "manifestPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/build-manifest.json",
+      "manifestSha256": "e29dc231414ad99c67d7edf2c2d2e0e27b438829712656918d11bcce24290ed7",
+      "unity": {
+        "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+        "sha": "d03461cece99bc6ae5962a035b081797af65ab00",
+        "branch": "wip/p12a-living-hollywood-01-client",
+        "dirty": false
+      },
+      "typescript": {
+        "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+        "sha": "923eaee953d5cf7eee3d261b70b3091b7a198d88",
+        "branch": "wip/p12a-living-hollywood-01-ts",
+        "dirty": false,
+        "engineBundleSha256": "ccd58600f6c43edc5abf814fdddf63d673fd69a98277ad61c80ea4e72e58d104",
+        "runtimeWorkerSha256": "b93597b747fbbf678b3024966e8c0559bf50c97534edc3dbb5aea75f755f0aa9",
+        "runtimeWorkerSourceManifestSha256": "e36049c2743d20c0b00f357b918a8eecfe41e1232cc896f5ef2d48acb496de13"
+      },
+      "player": {
+        "app": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app",
+        "executable": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+        "executableSha256": "73e319a17f59be668178914f3ef6a06fc87866df52dd3910ffdb8639de466ade",
+        "assemblyCSharpSha256": "68aec6311aa258f56960da67f3ade0b5250b5b01147d2b75a5677eb41811d16a",
+        "builtAtUtc": "2026-09-10T19:04:20Z"
+      },
+      "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "independentlyVerifiedAtReview": [
+        "Actual current native executable SHA equals launched report/build manifest",
+        "Actual current engine, runtime worker and worker-source manifest SHAs equal launched report/build manifest",
+        "Native14 previous-report SHA equals native12 report",
+        "Native14 final private library SHA equals its clean final report"
+      ],
+      "workerScopeQualification": "Worker implementation, durability/failure correctness and future large-world behavior are covered by root/separate correctness reviewer, not inferred from prior native12 UX or this small early-world save."
+    },
+    "obstacles": [
+      "Revision0 cross-session founding presentation retained stale applicants.",
+      "Credited low-ability Profile identity wording misleading.",
+      "Profile live-film date disagreed with Industry."
+    ],
+    "rechecks": [
+      "Original native11/12 corrected founding/namedcampaign/livefilm/Profile tasks retained.",
+      "Original native14 actual neutralIris/filmdate/ProfileBack corrected and closed by core critic.",
+      "Relevant founding/selection/campaign/camera/workspace/Profile sources independently byte-equal native14\u2192current; modified Industry ready behavior covered by third critique.",
+      "Current592 strict session/storage correction has current source/tests/emitted proof and actual24/25 late Save/relaunch plus26 A/B/C/copy loads/Saves."
+    ],
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Task-scoped current applicability: historical critiques and original native failures remain preserved; unchanged current core/contract and explicit later reviewed product/storage/Unity changes are joined to actual592/2bc native24/25 and candidate26. No historical run is relabelled as current. Core original CLOSED/KEEP remains task-scoped. Current affected persistence is supported by its own proof; original C0 satisfies createC/save and is not relabelled progressed."
+    },
+    "limits": "No original14 source/build or test run is relabelled592. Original whole gate/Owner/performance exclusions remain."
+  },
+  "candidate592-product-review-full": {
+    "id": "candidate592-product-review-full",
+    "kind": "product-review-full",
+    "outcome": "PASS",
+    "provenance": "independent-review",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "originalReviewer": "/root/gate_b_product_review; independent read-only product critic",
+    "binding": {
+      "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+      "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+      "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+      "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+    },
+    "reviewedAtUtc": "2026-09-11T03:19:33.332506+00:00",
+    "scope": "Closure of the EXISTING required third six-group product critique after its two recorded corrections; no new broad product critique, fourth review, whole technical gate or Owner enjoyment certificate. Root explicitly authorized this narrow continuation because original critic is no longer live.",
+    "originalRecords": [
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/gate-b-run21-20260910/product-review-open.json",
+        "bytes": 34935,
+        "sha256": "04b31a049acc7a819f237bc33327c23fcfa4ca8922c9f8c25956f9e81f3c1920"
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/gate-b-run22-20260910/product-review-wording-corrected-open.json",
+        "bytes": 43408,
+        "sha256": "ac8a452f91f9dcdaaf4da85f143162c222ff2fa27227339a7bf32721231356cd"
+      }
+    ],
+    "originalCriticRecordUnchanged": true,
+    "obstacles": [
+      "Permanent New company notice on long-established entrants in native21.",
+      "Actual reverse Shift-Tab traversal remained unproven and native22 refused unexpected up flags."
+    ],
+    "rechecks": [
+      "Native22 corrected entrant wording visible at100/200 before retained guard refusal; native24 Blackthorn200 visibly retains corrected wording.",
+      "Native24 actual004\u2013010 reverse navigation, Back restoration100%/exactr06, reverse priorr02 and Enter drilldown; four source0 exact owned Tab pairs with Shift removed, nonmodifier bits retained.",
+      "Independent complete tracker replay for24/25 equals captured reports; clean final markers/empty ownership/Shift state, natural UI Quit/player0/supervisor0.",
+      "Native26 current Desktop package actual019\u2013021 Shift-Tab focusesText100 and Enter changes200\u2192100; same copy13world/digest, clean exact final marker7918.",
+      "Explicit current producer/product applicability checked below; prior21 six groups reused with all original limitations."
+    ],
+    "correctionsClosed": [
+      {
+        "id": "GATE-B-PRODUCT-ENTRANT-NOTICE",
+        "status": "CLOSED",
+        "proof": "Prior critic native22 visual correction plus native24 screenshot004."
+      },
+      {
+        "id": "REVERSE-KEYBOARD",
+        "status": "CLOSED",
+        "proof": {
+          "path": "/tmp/p12a-native24-25-peer-BsHiZ5/reverse-recheck-native24-25.json",
+          "bytes": 49712,
+          "sha256": "3618028ccdbb3d07637669f977cea4fd623835deb0a43197f9a5c41b9ad8d125"
+        }
+      }
+    ],
+    "sameSixGroupObservations": [
+      {
+        "group": "Separate Charts and comparable movement",
+        "observed": "004\u2013009 separate Awareness/Prestige/Confidence/all-time Output/last52 Output. Awareness shows Rose Lantern Up1 and Blackthorn Down1 since2088 Week40 against dated2089 Week1 cohort10; player remains marked. Output includes real6 and0 recent releases. No combined Power score.010\u2013015 Movie measures preserve distinct critics/audience/opening/gross-earned/run status; exact r05:film:765 and859 occur consistently in Audience and earned-gross lists.",
+        "qualification": "Late real-producer comparison captured. New-entry/no-prior conditions did not occur in this paused8794 world; earlier observation/test applicability must remain explicit."
+      },
+      {
+        "group": "Grouped public activity",
+        "observed": "055\u2013057 show all10 real13-week material items under Releases and Announcements; ten unique event IDs unchanged after Refresh, no ordinary renewal or routine-phase spam.058 follows actual Blackthorn studio from event9612.",
+        "qualification": "No material People/Studios transition exists in the captured13-week window; no fabricated filler. Authority is unchanged while browsing. This was Refresh with no transport outage, not a forced reconnect/stale-page-recovery test."
+      },
+      {
+        "group": "Observed tendencies",
+        "observed": "024/027 Rose Lantern:9 of17 releases romance;156-week released-film basis2086Week8\u20132089Week7, authored films/plans excluded, no strategy forecast or promised future pace.066/070 Trailhead:0 recent releases, explicit too-small-sample qualification, no active announced production.",
+        "qualification": "Populated and too-small samples are actual late-world producers. No richer trend/scouting producer or future strategy is claimed."
+      },
+      {
+        "group": "Authoritative announcements",
+        "observed": "028/029 current r02:film:976 The Broken Sanctuary announced2089Week1/in production and all6 exact company links.031\u2013035 historical announcement event9605 resolves r02:film:975 The Restless Alchemist, announced2088Week44/released2088Week52, same six company/film credits and settled public results.",
+        "qualification": "The run browsed already-produced authoritative records; it did not newly greenlight or advance those films. Paid-cause/removal tests and native12 live chronology remain separate evidence."
+      },
+      {
+        "group": "History adapters",
+        "observed": "030/031 rival History clearly separates authored1915/1919 films from live releases/settlements and separate Standing changes.037/038 person/employment distinguish current contract from historical film credit; employment begins1920Week1.038/040/042/043 cover45 unique employment IDs over4 pages;045 reaches actual oldest contract-start row at200%.046\u2192047 Profile,052\u2192053 returns exact person and employment page4/bottom/event12 focus.095 visibly explains latest24 of976 career changes plus2authored credits;097 real PUBLIC CREDITS route opens exact978-credit Industry person;098 Back returns Profile.",
+        "qualification": "Profile is an explicitly labelled recent-career lens;048\u2013051 are not a whole978-credit-archive final-row pass. Player P08 History is not newly exercised in native21; retain separate checked applicability. No contract salary/private schedule disclosed in Industry."
+      },
+      {
+        "group": "Paging, archive and accessibility",
+        "observed": "015\u2013020 recent15-film archive page2/2, real finalrow Echoes of Inheritance at200%, exact-film drilldown and Back retain sort/period/page/scroll/focus/text.071\u2013077 complete Trailhead31-film all-time archive has12+12+7 distinct IDs over3 pages;200% finalrow is r07:film:0 The Wild Sanctuary1950Week13, Next disabled; film/Back restores exact context.021 Tab\u2192owner/022 Enter activates owner.078\u2013082 Tab walks owner\u2192scrollbar\u2192Previous\u2192Back\u2192Refresh without lot focus. Long headers/toolbars wrap at200%.060/061 populated6-person roster;067 empty roster truthfully omits nonexistent filter advice;070 empty recent-film view points to actual All recorded.",
+        "qualification": "Reverse Shift-Tab task remains pending. Native exact-ID drilldowns are established; no dedicated ambiguous same-title/same-name pair was exercised in this run. No physical-controller claim. Offscreen map geometry alone is never visible/native proof."
+      }
+    ],
+    "sourceApplicability": {
+      "typescript21To592ChangedPaths": [
+        "bridge/industry.ts",
+        "bridge/runtime-checkpoint.ts",
+        "bridge/runtime/campaign-library.ts",
+        "bridge/runtime/runtime-coordinator.ts",
+        "bridge/session.ts"
+      ],
+      "industryChange": "Exactly one recordingNotice string. All remaining producer/schema/paging/history/tendency/announcement/core bytes unchanged relative to21 within inspected product scope.",
+      "storageChange": "Four-file strict checkpoint preparation correction reviewed independently,21 boundary tests plus current130focused/5181cumulative and emitted18functional exact-retry/source proof. Current native24 Save and25 relaunch close affected actual late-world seam; no retroactive native21 storage timing claim.",
+      "currentChangedSources": {
+        "bridge/industry.ts": {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/industry.ts",
+          "bytes": 23011,
+          "sha256": "107783df0dcedf68317833cf4737d250b7d3333d031dd2c656db2b0a19888693"
+        },
+        "bridge/runtime-checkpoint.ts": {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime-checkpoint.ts",
+          "bytes": 58878,
+          "sha256": "5dd3b09da27fd84167a054f88b865500118f68ab5910dcf5dbee63b2e60192e9"
+        },
+        "bridge/runtime/campaign-library.ts": {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/campaign-library.ts",
+          "bytes": 22083,
+          "sha256": "2b6bee53715d153d696b4c3d08211d3d1b79622346133072d46bc7e38a87b38c"
+        },
+        "bridge/runtime/runtime-coordinator.ts": {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/runtime/runtime-coordinator.ts",
+          "bytes": 13365,
+          "sha256": "d776930efa3d0d37e4ca18e2fcf16b7e8d4f1d795601048a66eb48c54124e560"
+        },
+        "bridge/session.ts": {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/bridge/session.ts",
+          "bytes": 83155,
+          "sha256": "9d9978ec40ce1e2e6c0e25efe1f813ae676cfb54551a82c041c6392367d1db4b"
+        }
+      },
+      "unityProductTrees": {
+        "Assets": {
+          "deca39521da1baeca61898d156a43f4ae6a7e035": "8e3e4e948b8766429124d3c07d7bfa77ab8b2877",
+          "2bc8d304b79a72bf20fda1d462ec3d96df253992": "8e3e4e948b8766429124d3c07d7bfa77ab8b2877"
+        },
+        "Packages": {
+          "deca39521da1baeca61898d156a43f4ae6a7e035": "53850b446e3c66aca699f8258d9f8505ec5b4071",
+          "2bc8d304b79a72bf20fda1d462ec3d96df253992": "53850b446e3c66aca699f8258d9f8505ec5b4071"
+        },
+        "ProjectSettings": {
+          "deca39521da1baeca61898d156a43f4ae6a7e035": "bd634b92218127f72e2801f4c62a1700d217ab55",
+          "2bc8d304b79a72bf20fda1d462ec3d96df253992": "bd634b92218127f72e2801f4c62a1700d217ab55"
+        }
+      },
+      "native14ToCurrentRelevantPresentation": [
+        {
+          "path": "Assets/Studio/Runtime/Presentation/StudioFoundingGatePresentation.cs",
+          "native14Sha256": "2f36abd69cf91f1d7e45a7bb329c5127aa06d38cca43de0736be922f299439da",
+          "currentSha256": "2f36abd69cf91f1d7e45a7bb329c5127aa06d38cca43de0736be922f299439da",
+          "equal": true
+        },
+        {
+          "path": "Assets/Studio/Runtime/Presentation/StudioFoundingCardHud.cs",
+          "native14Sha256": "8d069714d2bd59015fcb2191a31022b728bbeb0762081368ee02b445ced06ca0",
+          "currentSha256": "8d069714d2bd59015fcb2191a31022b728bbeb0762081368ee02b445ced06ca0",
+          "equal": true
+        },
+        {
+          "path": "Assets/Studio/Runtime/Presentation/StudioSelectionManager.cs",
+          "native14Sha256": "23b89bb9ba0505076c7d8560930cdda81306ef7202682dbf6ab82440ff044028",
+          "currentSha256": "23b89bb9ba0505076c7d8560930cdda81306ef7202682dbf6ab82440ff044028",
+          "equal": true
+        },
+        {
+          "path": "Assets/Studio/Runtime/Presentation/StudioSystemMenuHud.Campaigns.cs",
+          "native14Sha256": "04a00e34ab3c6e36612a0f0657ee5a04e78eed64bb95d095b7d14cb87aa285ea",
+          "currentSha256": "04a00e34ab3c6e36612a0f0657ee5a04e78eed64bb95d095b7d14cb87aa285ea",
+          "equal": true
+        },
+        {
+          "path": "Assets/Studio/Runtime/Presentation/StudioSystemMenuHud.cs",
+          "native14Sha256": "52f5f627883acc9e8ea70d9bbf05eb7ec8ba4d01bafd9919cbdca074bb115ed0",
+          "currentSha256": "52f5f627883acc9e8ea70d9bbf05eb7ec8ba4d01bafd9919cbdca074bb115ed0",
+          "equal": true
+        },
+        {
+          "path": "Assets/Studio/Runtime/Presentation/StudioCameraInput.cs",
+          "native14Sha256": "8e674b3a93d33c07b72ee713d5da3706fa544df6646c62d1773312104f6a937b",
+          "currentSha256": "8e674b3a93d33c07b72ee713d5da3706fa544df6646c62d1773312104f6a937b",
+          "equal": true
+        },
+        {
+          "path": "Assets/Studio/Runtime/Presentation/UI/StudioWorkspaceHost.cs",
+          "native14Sha256": "f257bfd810411ec18297c86ee8ec51271d0e7efdb5a3ed67cc0eb9d060d19b50",
+          "currentSha256": "f257bfd810411ec18297c86ee8ec51271d0e7efdb5a3ed67cc0eb9d060d19b50",
+          "equal": true
+        },
+        {
+          "path": "Assets/Studio/Runtime/Presentation/UI/StudioProfileWorkspace.cs",
+          "native14Sha256": "b7eca56973f7bb2bbbb1e771d0e0dfddcd852ed445b183462056b075b8b0f6d0",
+          "currentSha256": "b7eca56973f7bb2bbbb1e771d0e0dfddcd852ed445b183462056b075b8b0f6d0",
+          "equal": true
+        }
+      ],
+      "unityIndustryWorkspace": "Changed since native14 for ready-group presentation; covered by required native21 six-group critique, same actual deca-built Unity product through2bc.",
+      "inputTools": "Current guard/helper separate source/inert review and actual native24/26 normal reverse proof. No actual interruption induced; source/inert interrupted-helper findings remain separately qualified."
+    },
+    "historicalTaskReuse": [
+      {
+        "id": "candidate592-product-review-early",
+        "kind": "product-review-early",
+        "outcome": "PASS",
+        "provenance": "independent-review",
+        "reviewer": "Banach /root/product_critic",
+        "originalArtifact": {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/recovered-early-review.json",
+          "bytes": 44321,
+          "sha256": "791e93f1a1823369735ef585ade488be280e6a33482a8e0bb57f2d7596e58734"
+        },
+        "binding": {
+          "reviewArtifactSha256": "791e93f1a1823369735ef585ade488be280e6a33482a8e0bb57f2d7596e58734"
+        },
+        "obstacles": [
+          "Overlapping surfaces obscured Industry and campaign controls.",
+          "Scrolling hid films and overlapped the footer.",
+          "Typing a campaign name moved the camera."
+        ],
+        "rechecks": [
+          "Original same-critique13:05:48 task replay and13:29:04 exact native typing/Left cleanup.",
+          "Later closed core critique/current stable campaign modal and camera suppression sources; actual26 opaque menu/Saved/hidden Quit rows.",
+          "Later native21 comprehensive scroll/footer/final-row/Back200% tasks and current24/26 large-text focus recheck."
+        ],
+        "reuse": {
+          "reviewed": true,
+          "applicable": true,
+          "reviewer": "/root/recovered_storage_review/package_runner_review",
+          "targetBinding": {
+            "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+            "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+            "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+            "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+            "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+            "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+            "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+            "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+            "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+          },
+          "reason": "Task-scoped current applicability: historical critiques and original native failures remain preserved; unchanged current core/contract and explicit later reviewed product/storage/Unity changes are joined to actual592/2bc native24/25 and candidate26. No historical run is relabelled as current. Early preview closure covers only its three actual obstacles. Historical dirty source bindings are not treated as exact current bytes; later closed reviews, unchanged relevant current remedy code and current native surfaces supply applicability."
+        },
+        "limits": "No new campaign typing was performed26; reuse concerns the original closed defect and retained modal-owning-input code. No Home/controller or Owner claim."
+      },
+      {
+        "id": "candidate592-product-review-core",
+        "kind": "product-review-core",
+        "outcome": "PASS",
+        "provenance": "independent-review",
+        "reviewer": "/root/recovered_product_evidence (independent read-only product reviewer)",
+        "originalArtifact": {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/gate-a-run14-20260910/product-closure.json",
+          "bytes": 17446,
+          "sha256": "353f487eb43fc2fdc23815a744fe712cbdc9b2e95e171dcda30d0aa97e8ef522"
+        },
+        "binding": {
+          "manifestPath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T19-07-25-595Z/build-manifest.json",
+          "manifestSha256": "e29dc231414ad99c67d7edf2c2d2e0e27b438829712656918d11bcce24290ed7",
+          "unity": {
+            "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+            "sha": "d03461cece99bc6ae5962a035b081797af65ab00",
+            "branch": "wip/p12a-living-hollywood-01-client",
+            "dirty": false
+          },
+          "typescript": {
+            "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+            "sha": "923eaee953d5cf7eee3d261b70b3091b7a198d88",
+            "branch": "wip/p12a-living-hollywood-01-ts",
+            "dirty": false,
+            "engineBundleSha256": "ccd58600f6c43edc5abf814fdddf63d673fd69a98277ad61c80ea4e72e58d104",
+            "runtimeWorkerSha256": "b93597b747fbbf678b3024966e8c0559bf50c97534edc3dbb5aea75f755f0aa9",
+            "runtimeWorkerSourceManifestSha256": "e36049c2743d20c0b00f357b918a8eecfe41e1232cc896f5ef2d48acb496de13"
+          },
+          "player": {
+            "app": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app",
+            "executable": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+            "executableSha256": "73e319a17f59be668178914f3ef6a06fc87866df52dd3910ffdb8639de466ade",
+            "assemblyCSharpSha256": "68aec6311aa258f56960da67f3ade0b5250b5b01147d2b75a5677eb41811d16a",
+            "builtAtUtc": "2026-09-10T19:04:20Z"
+          },
+          "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+          "independentlyVerifiedAtReview": [
+            "Actual current native executable SHA equals launched report/build manifest",
+            "Actual current engine, runtime worker and worker-source manifest SHAs equal launched report/build manifest",
+            "Native14 previous-report SHA equals native12 report",
+            "Native14 final private library SHA equals its clean final report"
+          ],
+          "workerScopeQualification": "Worker implementation, durability/failure correctness and future large-world behavior are covered by root/separate correctness reviewer, not inferred from prior native12 UX or this small early-world save."
+        },
+        "obstacles": [
+          "Revision0 cross-session founding presentation retained stale applicants.",
+          "Credited low-ability Profile identity wording misleading.",
+          "Profile live-film date disagreed with Industry."
+        ],
+        "rechecks": [
+          "Original native11/12 corrected founding/namedcampaign/livefilm/Profile tasks retained.",
+          "Original native14 actual neutralIris/filmdate/ProfileBack corrected and closed by core critic.",
+          "Relevant founding/selection/campaign/camera/workspace/Profile sources independently byte-equal native14\u2192current; modified Industry ready behavior covered by third critique.",
+          "Current592 strict session/storage correction has current source/tests/emitted proof and actual24/25 late Save/relaunch plus26 A/B/C/copy loads/Saves."
+        ],
+        "reuse": {
+          "reviewed": true,
+          "applicable": true,
+          "reviewer": "/root/recovered_storage_review/package_runner_review",
+          "targetBinding": {
+            "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+            "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+            "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+            "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+            "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+            "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+            "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+            "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+            "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+          },
+          "reason": "Task-scoped current applicability: historical critiques and original native failures remain preserved; unchanged current core/contract and explicit later reviewed product/storage/Unity changes are joined to actual592/2bc native24/25 and candidate26. No historical run is relabelled as current. Core original CLOSED/KEEP remains task-scoped. Current affected persistence is supported by its own proof; original C0 satisfies createC/save and is not relabelled progressed."
+        },
+        "limits": "No original14 source/build or test run is relabelled592. Original whole gate/Owner/performance exclusions remain."
+      }
+    ],
+    "remainingAcceptanceOutsideProductCritique": [
+      "Current candidate27 exact final relaunch and full correctness metadata/typed evidence review pending when this closure was written.",
+      "Original performance misses and unmeasured stress retain controlling measured rebaseline qualifications.",
+      "Owner actual playtest/verdict remains separate."
+    ],
+    "activity": "Read existing reviews, exact bounded git/source applicability, actual screenshots/maps, and replay saved witness with pure original tracker. No shared source edits, native input, tests/builds/engines or raw saves by reviewer."
+  },
+  "candidate592-correctness-review": {
+    "id": "candidate592-correctness-review",
+    "kind": "correctness-review",
+    "outcome": "PASS",
+    "provenance": "independent-review",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "binding": {
+      "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+      "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+      "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+      "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+    },
+    "reviewedAtUtc": "2026-09-11T03:32:19.837382+00:00",
+    "scope": "Final continuation of the existing independent R05 correctness/source/evidence applicability review on exact592e926/2bc8d30 with actualdeca player. Source, tests, affected emitted/store measurements, historical task reuse, current24\u201327 native and finite actual shared metadata projections are complete. This is technical correctness evidence, not Owner enjoyment acceptance or a claim that all original performance targets pass.",
+    "obstacles": [],
+    "resolvedObstacles": [
+      "Current normal modifier cleanup/source/native reverse boundary closed by existing source/inert review and actual24/26; failed22 preserved.",
+      "Existing third critique corrections and early/core/native21 source applicability closed with independently attributed records.",
+      "Actual current late24/25 Save/Quit/recovery and Desktop26/27 independent A/B/C+copy load/Save/recovery complete with exact witnesses/source/metadata joins.",
+      "Finite final actual shared registry/index/register projection check complete; only explicitly listed mechanical finalization remains."
+    ],
+    "rechecks": [
+      "Compared current TS source to native21 and core/worker proof sources.",
+      "Compared Unity product roots to built deca395; reviewed latest Tools-only changes separately.",
+      "Read actual full TS08/Unity18 summaries and hashed their stored outputs.",
+      "Read third product-critique scope/closure requirements and previous independently reviewed campaign/launcher proofs.",
+      "Read Save proposal, rollover, commit and Unity receipt/rejoin source.",
+      "Checked native22 exact witness flags/ownership/finalization and kept failure explicit.",
+      "Matched all four integrated implementation files and relocated21-case test at592e926 to independent final source review and exact8687d29d patch.",
+      "Read cumulative09 final395-file/5181PASS/5SKIP summary and confirmed the21-case test ran in default discovery.",
+      "Compared Unity product roots deca395 to2bc8d30: no Assets/Packages/ProjectSettings delta.",
+      "Read current paired592e926/2bc8d30 PASS; checked actual emitted three mjs files byte-equal to root dist and sidecar differs only by one LF with identical parsed binding.",
+      "Rehashed136 affected worker source records and104 compiled-worker inputs with zero mismatches; checked18 functional checks, exact immediate/later/restart receipt identities,343 worker filesystem calls/zero main calls and both engine exits0.",
+      "Rehashed all96 inputs for each original/busy-profile/curated pure manifest; no changes. No timing, native or test execution by reviewer.",
+      "Preserved prior draft bytes before refreshing completion status; recomputed120 timed control/current phase samples with18 warmups excluded. All summaries and comparison percentages match raw reports.",
+      "Checked current23 fixed loads preserve identical authority without rewrite and23 Saves accept unchanged world/catalogue revision7; production sampler boundaries read, exact same harness/seed/runtime/hardware/baseline verified.",
+      "Matched current106 store source records plus actual sampler and bundle hashes to frozen binding. Completed status, zero errors/source changes and reported protected-seed/owned-lock cleanup checked without raw save access or PID probing.",
+      "Coordinated with performance reviewer and read frozen durable-write target addendum. Original250ms belongs to async durable write/persistence, not categorically complete Save; original report is retained with explicit controlling correction.",
+      "Independently hashed all197 immutable files in each newly assembled package, checked complete inventory/no symlinks/profile absence, current source/pair/README/PLAY bindings, executable/Assembly-CSharp identity and exact runtime bytes.",
+      "Checked all three Unity product git trees at deca and2bc exactly match SOURCE-APPLICABILITY.json; no working product-tree delta. No package launched by reviewer.",
+      "Visually inspected actual24reverse004\u2013010/013 and25menu; complete saved witness replay exactly matches each final report, four balanced Shift-Tab pairs and clean finalmarkers/ledger/process exits.",
+      "Joined separate native21\u219224\u219225 encoded metadata/receipt hashes to observed lateweek8794/digest/session Save replacement and exact24\u219225 recovery. No large checkpoint decoded by this reviewer.",
+      "Visually inspected current26 A/B/C/copySaved and200\u2192reverseText100\u2192Return100 plus27eachcampaign restored; exact complete witness replays with noforeign/physical/unknown and expected cleanQuit0.",
+      "Joined separate bounded20\u219226\u219227 decoded metadata to actual A1/B3/C0/copy13 maps, exact retained current/saved bodies and26\u219227 four savedrecordrows; wholelibrarychange from fourLoads correctly retained.",
+      "Root explicitly authorized final continuation of same third product critique; preserved originalcritic records and wrote task-scoped fullclosure plus early/core/native21 reuse with exact current candidate target and independent applicability identity.",
+      "Compared frozen private assembly to actual shared index/registry: registry exact; only reviewed recovery normalization/index timestamp changed. Original recovery object preserved verbatim, current exact27marker/globalinput timestamps source-bound.",
+      "Verified seven issued peer product/native typed records copied exactly; all18 referenced artifacts hash-match; scoped Back/large-text/ready projections preserve original21 observations/reuse and performance projection retains issued acceptance limits.",
+      "Compared all136 register rows/order and original columns against HEAD: only15 current disposition cells changed; checked current source/native/product/performance wording and retained historical states.",
+      "Read finalperformancev2 and checked its current Desktop payload/native bindings; updated current checker/register directives to completed24\u201327 status without overwriting historical prepared/failure observations.",
+      "Verified actual registry6b341e24 differs from reviewed4b0addd4 only by the exact authorized SaveAs current-environment qualification; all other objects/fields unchanged."
+    ],
+    "authorship": {
+      "implementationAuthor": "/root/recovered_storage_review",
+      "implementationFiles": [
+        "bridge/runtime-checkpoint.ts",
+        "bridge/session.ts",
+        "bridge/runtime/campaign-library.ts",
+        "bridge/runtime/runtime-coordinator.ts"
+      ],
+      "newRegressionTestAuthor": "/root/recovered_storage_review/package_runner_review",
+      "newRegressionCases": 21,
+      "sourceAndApplicabilityReviewer": "/root/recovered_storage_review/package_runner_review",
+      "integratorAndRuntimeExecutionOwner": "/root",
+      "independenceQualification": "Reviewer did not author the four implementation files. Reviewer authored the21 new regression cases and reviewed their relocated content; this is not independent test authorship or independently executed runtime evidence. Existing strict/failure/coordinator suites and cumulative tests were executed by producer/root."
+    },
+    "artifacts": [
+      {
+        "path": "final-native-20260911/final-correctness-applicability.json",
+        "sha256": "84fb773975be9a3a85ead40b0cf572dda72cbfa27348c4cdf62096f2ab601dcc"
+      }
+    ],
+    "privateDetailsSource": {
+      "path": "/tmp/p12a-final-applicability-draft-hfc9jm2x/attestation.json",
+      "bytes": 54608,
+      "sha256": "84fb773975be9a3a85ead40b0cf572dda72cbfa27348c4cdf62096f2ab601dcc"
+    },
+    "reviewedMetadata": {
+      "index": {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/EVIDENCE-INDEX.json",
+        "bytes": 40226,
+        "sha256": "f3baa02da1b246dbebf2845fba0b13df3695409e9698162277501fb86b5b890e"
+      },
+      "registry": {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/attestations.json",
+        "bytes": 127213,
+        "sha256": "6b341e2409008fd8ccb4d80884f0783438ba145e744879f6fec145b07599a630"
+      },
+      "register": {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/docs/engineering/P12A-DECISION-AND-REQUIREMENT-REGISTER.md",
+        "bytes": 119312,
+        "sha256": "8ed3727322a196d2dcf4b668a6e2a7f95c50ad54a4e752859db1c1b4d0956f79"
+      },
+      "rootFinalInput": {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/final-native-20260911/final-input-process-state.json",
+        "bytes": 342,
+        "sha256": "664382d6295858d7c1ce1ff651a529bda8073740a47bee002eb034e7039fdd7b"
+      },
+      "registryOriginal7ObjectsUnchanged": true,
+      "indexOriginal36RowsUnchanged": true,
+      "peerProduct3AndNative4RecordsExact": true,
+      "artifactReferencesChecked": 18,
+      "artifactHashMismatches": 0,
+      "register136RowsSameOrderOriginalColumnsPreserved": true,
+      "registerCurrentCellsChanged": [
+        "GOV-001",
+        "GOV-005",
+        "UX-001",
+        "UX-002",
+        "UX-003",
+        "UX-005",
+        "UX-015",
+        "PERF-008",
+        "PRF-001",
+        "PRF-002",
+        "PRF-003",
+        "PRF-005",
+        "PRF-012",
+        "SAVE-R05-001",
+        "SAVE-R05-002"
+      ],
+      "recoveryHistoricalObjectPreservedExactly": true,
+      "currentRecoveryLastHidUtc": "2026-09-11T03:19:49.559Z",
+      "rootFinalInputCheckUtc": "2026-09-11T03:20:40.570103Z",
+      "nativeBackLargeTextReadyProjections": "Original native21 binding/observations preserved with exact current reuse; no full978-credit/Profile or fabricated Pulse/controller/forced-reconnect claim.",
+      "performanceProjection": "PASS normalizes the independent scoped reference-rebaseline acceptance; original issued outcome, target misses,250 durable-write-only scope and unmeasured stress retained.",
+      "knownMechanicalFinalization": [
+        "Insert the separately issued exact candidate592-correctness-review record and corresponding PASS index row; preserve this pre-insertion metadata binding as the reviewed baseline.",
+        "Update current technical gate/index/register/handoff status to reflect completed independent correctness and original product/native/performance scope. Keep Owner acceptance OPEN and hook inactive; preserve historical records. Handoff final commit can be filled after root commit/push without changing reviewed product bytes."
+      ],
+      "qualification": "This is the finite review of actual shared metadata and its projections. Only the listed mechanical completion/status/citation edits remain for root; they do not require another product audit or new runtime test.",
+      "registryBeforeAuthorizedSaveAsWordingFix": {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/attestations.json",
+        "bytes": 127213,
+        "sha256": "6b341e2409008fd8ccb4d80884f0783438ba145e744879f6fec145b07599a630"
+      },
+      "saveAsWordingFixAppliedAndExactOnlyChange": true
+    },
+    "nonClaims": [
+      "Owner playtest/acceptance remains OPEN and cannot be supplied by reviewers/tests.",
+      "Performance PASS is scoped measured reference rebaseline; original numeric misses and unmeasured future stress/write-only transport remain explicit.",
+      "No new core/gameplay, native interruption experiment, product critique round or broad audit occurred during this finalization.",
+      "No automatic hook activation; explicit checker no-warning is not certification."
+    ]
+  },
+  "candidate592-named-campaigns": {
+    "outcome": "PASS",
+    "provenance": "real-native-input",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "binding": {
+      "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+      "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+      "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+      "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+    },
+    "captureIds": [
+      "early-2026-09-11T03-03-22-494Z",
+      "early-2026-09-11T03-17-27-667Z"
+    ],
+    "inputWitness": "clean",
+    "id": "candidate592-named-campaigns",
+    "kind": "named-campaigns",
+    "independentStorageIds": 3,
+    "inactiveBytesUnchanged": true,
+    "scope": "Historical independently created A/B/C are admitted via exact closed20 seed into a new candidate profile. Current26 loads/Saves all four;27 reloads all four and every saved record remains encoded-byte exact26\u219227. NewGames and SaveAs are not newly created in26/27; current world/canonical slot identity is preserved. Intermediate26 inactive bytes are not derived from final-file comparison."
+  },
+  "candidate592-quit-relaunch": {
+    "outcome": "PASS",
+    "provenance": "real-native-input",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "binding": {
+      "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+      "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+      "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+      "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+    },
+    "captureIds": [
+      "early-2026-09-11T03-03-22-494Z",
+      "early-2026-09-11T03-17-27-667Z"
+    ],
+    "inputWitness": "clean",
+    "id": "candidate592-quit-relaunch",
+    "kind": "quit-relaunch",
+    "scope": "Actual same Desktop package26 clean UI Quit \u219227 relaunch and four exact stored campaign loads, then natural clean UI Quit. Later deliberate loads mutate catalogue/working session; whole-library equality is not claimed."
+  },
+  "candidate592-back-restoration": {
+    "id": "candidate592-back-restoration",
+    "kind": "back-restoration",
+    "outcome": "PASS",
+    "provenance": "real-native-input",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (typed projection of existing independent record only)",
+    "binding": {
+      "evidenceDirectory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z",
+      "reportSha256": "3f75acac7f8da8153e6d3bfc481eca34a58ba03e27d8241a289cf6c4e809fef1",
+      "manifestSha256": "8276549c35fbb59f95e14f05ea98d69f75985f94e5442ea9ffac42c5b5b4593a",
+      "launchBindingSha256": "651a801e180239025dfefd9700d60e530a77b6917446bb335d542ada9c2afcc4",
+      "manifest": {
+        "schema": "p04a1-build-manifest/1",
+        "generatedAtUtc": "2026-09-10T20:11:27Z",
+        "player": {
+          "app": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app",
+          "executable": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+          "executableSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+          "assemblyCSharpSha256": "9a8dae63540f41fd5618bfccc6e52021458825280ba991fbf7ec6cad90a8155a",
+          "builtAtUtc": "2026-09-10T20:10:17Z"
+        },
+        "unity": {
+          "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+          "sha": "deca39521da1baeca61898d156a43f4ae6a7e035",
+          "branch": "wip/p12a-living-hollywood-01-client",
+          "dirty": false
+        },
+        "typescript": {
+          "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+          "sha": "3da8373eec79de4923ce842eeb701849b65d0bfb",
+          "branch": "wip/p12a-living-hollywood-01-ts",
+          "dirty": false,
+          "engineBundleSha256": "ffdb1ac977a62236a48303e76426fdc0363dfe86d03ff5b4c565d0b57d34725b",
+          "runtimeWorkerSha256": "753f24c43b92044a2ee405cbb81e34fb0260b8c413569dffc5329718cfed8bb2",
+          "runtimeWorkerSourceManifestSha256": "4bfcb0c6f5f224e5e3b329252bca89a6c1fa9b513cfe1747ee5f1662020cad8d"
+        },
+        "sources": {
+          "newestTrackedAssetsFile": "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+          "newestTrackedAssetsAtUtc": "2026-09-10T20:10:08Z"
+        },
+        "toolVersions": {
+          "unityEditor": "6000.3.22f1",
+          "node": "v26.3.1"
+        }
+      },
+      "package": {
+        "root": "/Users/bruce/Desktop/P12A-Gate-B-Preview-3da8373-deca395",
+        "launcher": "/Users/bruce/Desktop/P12A-Gate-B-Preview-3da8373-deca395/PLAY_PROJECT_STUDIO.command",
+        "launcherSha256": "9db4565c70bc88c4d358f8095c1bcb7708f4bf39e773baf37ec2b44d8b4daed4",
+        "packageChecksumSha256": "7099aebbc7dc89f9947dc0e3189422b063b0b865763cf579ae0d1e1ade94e41e",
+        "verifiedImmutableFiles": 196,
+        "pairedContractVerificationSha256": "86af396085fe0be99496a0c9e5272279f0da3e6fdff25d8ac8fe4b7ae7568383"
+      },
+      "launchedPlayerSha256MatchesManifest": true,
+      "sourceQualification": "Manifest and report bindings read; actual package executable and producer correctness are independently owned by root/separate technical review. No retroactive certification of changed later bytes."
+    },
+    "captureIds": [
+      "early-2026-09-10T20-29-53-370Z"
+    ],
+    "inputWitness": "clean",
+    "scope": "Historical native21 exact film/person/Profile Back context, page/scroll/focus/200% restoration. Current applicability explicitly approved by the same-third closure; native24 separately completes reverse activation/Back. No historical capture relabelled current.",
+    "observations": [
+      {
+        "group": "History adapters",
+        "observed": "030/031 rival History clearly separates authored1915/1919 films from live releases/settlements and separate Standing changes.037/038 person/employment distinguish current contract from historical film credit; employment begins1920Week1.038/040/042/043 cover45 unique employment IDs over4 pages;045 reaches actual oldest contract-start row at200%.046\u2192047 Profile,052\u2192053 returns exact person and employment page4/bottom/event12 focus.095 visibly explains latest24 of976 career changes plus2authored credits;097 real PUBLIC CREDITS route opens exact978-credit Industry person;098 Back returns Profile.",
+        "qualification": "Profile is an explicitly labelled recent-career lens;048\u2013051 are not a whole978-credit-archive final-row pass. Player P08 History is not newly exercised in native21; retain separate checked applicability. No contract salary/private schedule disclosed in Industry."
+      },
+      {
+        "group": "Paging, archive and accessibility",
+        "observed": "015\u2013020 recent15-film archive page2/2, real finalrow Echoes of Inheritance at200%, exact-film drilldown and Back retain sort/period/page/scroll/focus/text.071\u2013077 complete Trailhead31-film all-time archive has12+12+7 distinct IDs over3 pages;200% finalrow is r07:film:0 The Wild Sanctuary1950Week13, Next disabled; film/Back restores exact context.021 Tab\u2192owner/022 Enter activates owner.078\u2013082 Tab walks owner\u2192scrollbar\u2192Previous\u2192Back\u2192Refresh without lot focus. Long headers/toolbars wrap at200%.060/061 populated6-person roster;067 empty roster truthfully omits nonexistent filter advice;070 empty recent-film view points to actual All recorded.",
+        "qualification": "Reverse Shift-Tab task remains pending. Native exact-ID drilldowns are established; no dedicated ambiguous same-title/same-name pair was exercised in this run. No physical-controller claim. Offscreen map geometry alone is never visible/native proof."
+      }
+    ],
+    "historicalObservationQualification": "The original six-group observations remain verbatim, including their then-pending reverse qualification. The peer correctionsClosed/rechecks fields in the cited final closure resolve that later task with actual24 input.",
+    "artifacts": [
+      {
+        "path": "final-native-20260911/third-product-closure-and-reuse.json",
+        "sha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48"
+      },
+      {
+        "path": "gate-b-run21-20260910/native-summary.json",
+        "sha256": "5f600af3124225fdd11e46e00060e716d782bdfb4827463b89d64822f6c3e090"
+      },
+      {
+        "path": "final-native-20260911/reverse-recheck-native24-25.json",
+        "sha256": "3618028ccdbb3d07637669f977cea4fd623835deb0a43197f9a5c41b9ad8d125"
+      }
+    ],
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Explicit existing same-third product closure approves task-scoped reuse of these exact native21 observations after comparing current producer/presentation sources and later correction proofs. Its sourceApplicability, sameSixGroupObservations, correctionsClosed and rechecks are controlling; this wrapper does not issue a new review.",
+      "reviewArtifact": "final-native-20260911/third-product-closure-and-reuse.json",
+      "reviewArtifactSha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48",
+      "reviewSelector": "sameSixGroupObservations, sourceApplicability, correctionsClosed, rechecks"
+    }
+  },
+  "candidate592-large-text-final-row": {
+    "id": "candidate592-large-text-final-row",
+    "kind": "large-text-final-row",
+    "outcome": "PASS",
+    "provenance": "real-native-input",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (typed projection of existing independent record only)",
+    "binding": {
+      "evidenceDirectory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z",
+      "reportSha256": "3f75acac7f8da8153e6d3bfc481eca34a58ba03e27d8241a289cf6c4e809fef1",
+      "manifestSha256": "8276549c35fbb59f95e14f05ea98d69f75985f94e5442ea9ffac42c5b5b4593a",
+      "launchBindingSha256": "651a801e180239025dfefd9700d60e530a77b6917446bb335d542ada9c2afcc4",
+      "manifest": {
+        "schema": "p04a1-build-manifest/1",
+        "generatedAtUtc": "2026-09-10T20:11:27Z",
+        "player": {
+          "app": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app",
+          "executable": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+          "executableSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+          "assemblyCSharpSha256": "9a8dae63540f41fd5618bfccc6e52021458825280ba991fbf7ec6cad90a8155a",
+          "builtAtUtc": "2026-09-10T20:10:17Z"
+        },
+        "unity": {
+          "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+          "sha": "deca39521da1baeca61898d156a43f4ae6a7e035",
+          "branch": "wip/p12a-living-hollywood-01-client",
+          "dirty": false
+        },
+        "typescript": {
+          "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+          "sha": "3da8373eec79de4923ce842eeb701849b65d0bfb",
+          "branch": "wip/p12a-living-hollywood-01-ts",
+          "dirty": false,
+          "engineBundleSha256": "ffdb1ac977a62236a48303e76426fdc0363dfe86d03ff5b4c565d0b57d34725b",
+          "runtimeWorkerSha256": "753f24c43b92044a2ee405cbb81e34fb0260b8c413569dffc5329718cfed8bb2",
+          "runtimeWorkerSourceManifestSha256": "4bfcb0c6f5f224e5e3b329252bca89a6c1fa9b513cfe1747ee5f1662020cad8d"
+        },
+        "sources": {
+          "newestTrackedAssetsFile": "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+          "newestTrackedAssetsAtUtc": "2026-09-10T20:10:08Z"
+        },
+        "toolVersions": {
+          "unityEditor": "6000.3.22f1",
+          "node": "v26.3.1"
+        }
+      },
+      "package": {
+        "root": "/Users/bruce/Desktop/P12A-Gate-B-Preview-3da8373-deca395",
+        "launcher": "/Users/bruce/Desktop/P12A-Gate-B-Preview-3da8373-deca395/PLAY_PROJECT_STUDIO.command",
+        "launcherSha256": "9db4565c70bc88c4d358f8095c1bcb7708f4bf39e773baf37ec2b44d8b4daed4",
+        "packageChecksumSha256": "7099aebbc7dc89f9947dc0e3189422b063b0b865763cf579ae0d1e1ade94e41e",
+        "verifiedImmutableFiles": 196,
+        "pairedContractVerificationSha256": "86af396085fe0be99496a0c9e5272279f0da3e6fdff25d8ac8fe4b7ae7568383"
+      },
+      "launchedPlayerSha256MatchesManifest": true,
+      "sourceQualification": "Manifest and report bindings read; actual package executable and producer correctness are independently owned by root/separate technical review. No retroactive certification of changed later bytes."
+    },
+    "captureIds": [
+      "early-2026-09-10T20-29-53-370Z"
+    ],
+    "inputWitness": "clean",
+    "scope": "Actual native21 real final employment/archive rows at200%, including complete31-film archive. Current same-third closure approves source applicability. Profile latest24 lens is not a whole978-credit final-row claim.",
+    "observations": [
+      {
+        "group": "History adapters",
+        "observed": "030/031 rival History clearly separates authored1915/1919 films from live releases/settlements and separate Standing changes.037/038 person/employment distinguish current contract from historical film credit; employment begins1920Week1.038/040/042/043 cover45 unique employment IDs over4 pages;045 reaches actual oldest contract-start row at200%.046\u2192047 Profile,052\u2192053 returns exact person and employment page4/bottom/event12 focus.095 visibly explains latest24 of976 career changes plus2authored credits;097 real PUBLIC CREDITS route opens exact978-credit Industry person;098 Back returns Profile.",
+        "qualification": "Profile is an explicitly labelled recent-career lens;048\u2013051 are not a whole978-credit-archive final-row pass. Player P08 History is not newly exercised in native21; retain separate checked applicability. No contract salary/private schedule disclosed in Industry."
+      },
+      {
+        "group": "Paging, archive and accessibility",
+        "observed": "015\u2013020 recent15-film archive page2/2, real finalrow Echoes of Inheritance at200%, exact-film drilldown and Back retain sort/period/page/scroll/focus/text.071\u2013077 complete Trailhead31-film all-time archive has12+12+7 distinct IDs over3 pages;200% finalrow is r07:film:0 The Wild Sanctuary1950Week13, Next disabled; film/Back restores exact context.021 Tab\u2192owner/022 Enter activates owner.078\u2013082 Tab walks owner\u2192scrollbar\u2192Previous\u2192Back\u2192Refresh without lot focus. Long headers/toolbars wrap at200%.060/061 populated6-person roster;067 empty roster truthfully omits nonexistent filter advice;070 empty recent-film view points to actual All recorded.",
+        "qualification": "Reverse Shift-Tab task remains pending. Native exact-ID drilldowns are established; no dedicated ambiguous same-title/same-name pair was exercised in this run. No physical-controller claim. Offscreen map geometry alone is never visible/native proof."
+      }
+    ],
+    "historicalObservationQualification": "The original six-group observations remain verbatim, including their then-pending reverse qualification. The peer correctionsClosed/rechecks fields in the cited final closure resolve that later task with actual24 input.",
+    "artifacts": [
+      {
+        "path": "final-native-20260911/third-product-closure-and-reuse.json",
+        "sha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48"
+      },
+      {
+        "path": "gate-b-run21-20260910/native-summary.json",
+        "sha256": "5f600af3124225fdd11e46e00060e716d782bdfb4827463b89d64822f6c3e090"
+      },
+      {
+        "path": "final-native-20260911/reverse-recheck-native24-25.json",
+        "sha256": "3618028ccdbb3d07637669f977cea4fd623835deb0a43197f9a5c41b9ad8d125"
+      }
+    ],
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Explicit existing same-third product closure approves task-scoped reuse of these exact native21 observations after comparing current producer/presentation sources and later correction proofs. Its sourceApplicability, sameSixGroupObservations, correctionsClosed and rechecks are controlling; this wrapper does not issue a new review.",
+      "reviewArtifact": "final-native-20260911/third-product-closure-and-reuse.json",
+      "reviewArtifactSha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48",
+      "reviewSelector": "sameSixGroupObservations, sourceApplicability, correctionsClosed, rechecks"
+    }
+  },
+  "candidate592-ready-extensions": {
+    "id": "candidate592-ready-extensions",
+    "kind": "ready-extensions",
+    "outcome": "PASS",
+    "provenance": "real-native-input",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "recordedBy": "/root/recovered_storage_review (typed projection of existing independent record only)",
+    "binding": {
+      "evidenceDirectory": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z",
+      "reportSha256": "3f75acac7f8da8153e6d3bfc481eca34a58ba03e27d8241a289cf6c4e809fef1",
+      "manifestSha256": "8276549c35fbb59f95e14f05ea98d69f75985f94e5442ea9ffac42c5b5b4593a",
+      "launchBindingSha256": "651a801e180239025dfefd9700d60e530a77b6917446bb335d542ada9c2afcc4",
+      "manifest": {
+        "schema": "p04a1-build-manifest/1",
+        "generatedAtUtc": "2026-09-10T20:11:27Z",
+        "player": {
+          "app": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app",
+          "executable": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Builds/macOS/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+          "executableSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+          "assemblyCSharpSha256": "9a8dae63540f41fd5618bfccc6e52021458825280ba991fbf7ec6cad90a8155a",
+          "builtAtUtc": "2026-09-10T20:10:17Z"
+        },
+        "unity": {
+          "repo": "/Users/bruce/The Movies - P12A Living Hollywood Unity",
+          "sha": "deca39521da1baeca61898d156a43f4ae6a7e035",
+          "branch": "wip/p12a-living-hollywood-01-client",
+          "dirty": false
+        },
+        "typescript": {
+          "repo": "/Users/bruce/The Movies - P12A Living Hollywood TS",
+          "sha": "3da8373eec79de4923ce842eeb701849b65d0bfb",
+          "branch": "wip/p12a-living-hollywood-01-ts",
+          "dirty": false,
+          "engineBundleSha256": "ffdb1ac977a62236a48303e76426fdc0363dfe86d03ff5b4c565d0b57d34725b",
+          "runtimeWorkerSha256": "753f24c43b92044a2ee405cbb81e34fb0260b8c413569dffc5329718cfed8bb2",
+          "runtimeWorkerSourceManifestSha256": "4bfcb0c6f5f224e5e3b329252bca89a6c1fa9b513cfe1747ee5f1662020cad8d"
+        },
+        "sources": {
+          "newestTrackedAssetsFile": "Assets/Settings/UniversalRenderPipelineGlobalSettings.asset",
+          "newestTrackedAssetsAtUtc": "2026-09-10T20:10:08Z"
+        },
+        "toolVersions": {
+          "unityEditor": "6000.3.22f1",
+          "node": "v26.3.1"
+        }
+      },
+      "package": {
+        "root": "/Users/bruce/Desktop/P12A-Gate-B-Preview-3da8373-deca395",
+        "launcher": "/Users/bruce/Desktop/P12A-Gate-B-Preview-3da8373-deca395/PLAY_PROJECT_STUDIO.command",
+        "launcherSha256": "9db4565c70bc88c4d358f8095c1bcb7708f4bf39e773baf37ec2b44d8b4daed4",
+        "packageChecksumSha256": "7099aebbc7dc89f9947dc0e3189422b063b0b865763cf579ae0d1e1ade94e41e",
+        "verifiedImmutableFiles": 196,
+        "pairedContractVerificationSha256": "86af396085fe0be99496a0c9e5272279f0da3e6fdff25d8ac8fe4b7ae7568383"
+      },
+      "launchedPlayerSha256MatchesManifest": true,
+      "sourceQualification": "Manifest and report bindings read; actual package executable and producer correctness are independently owned by root/separate technical review. No retroactive certification of changed later bytes."
+    },
+    "captureIds": [
+      "early-2026-09-10T20-29-53-370Z"
+    ],
+    "inputWitness": "clean",
+    "scope": "Exactly the six approved R05 ready groups from original native21 critique; corrected entrant wording in22 and reverse keyboard in24 close its recorded obstacles. No new critique, fabricated People/Studios Pulse events, or unobserved reconnect/duplicate-name scenario.",
+    "observations": [
+      {
+        "group": "Separate Charts and comparable movement",
+        "observed": "004\u2013009 separate Awareness/Prestige/Confidence/all-time Output/last52 Output. Awareness shows Rose Lantern Up1 and Blackthorn Down1 since2088 Week40 against dated2089 Week1 cohort10; player remains marked. Output includes real6 and0 recent releases. No combined Power score.010\u2013015 Movie measures preserve distinct critics/audience/opening/gross-earned/run status; exact r05:film:765 and859 occur consistently in Audience and earned-gross lists.",
+        "qualification": "Late real-producer comparison captured. New-entry/no-prior conditions did not occur in this paused8794 world; earlier observation/test applicability must remain explicit."
+      },
+      {
+        "group": "Grouped public activity",
+        "observed": "055\u2013057 show all10 real13-week material items under Releases and Announcements; ten unique event IDs unchanged after Refresh, no ordinary renewal or routine-phase spam.058 follows actual Blackthorn studio from event9612.",
+        "qualification": "No material People/Studios transition exists in the captured13-week window; no fabricated filler. Authority is unchanged while browsing. This was Refresh with no transport outage, not a forced reconnect/stale-page-recovery test."
+      },
+      {
+        "group": "Observed tendencies",
+        "observed": "024/027 Rose Lantern:9 of17 releases romance;156-week released-film basis2086Week8\u20132089Week7, authored films/plans excluded, no strategy forecast or promised future pace.066/070 Trailhead:0 recent releases, explicit too-small-sample qualification, no active announced production.",
+        "qualification": "Populated and too-small samples are actual late-world producers. No richer trend/scouting producer or future strategy is claimed."
+      },
+      {
+        "group": "Authoritative announcements",
+        "observed": "028/029 current r02:film:976 The Broken Sanctuary announced2089Week1/in production and all6 exact company links.031\u2013035 historical announcement event9605 resolves r02:film:975 The Restless Alchemist, announced2088Week44/released2088Week52, same six company/film credits and settled public results.",
+        "qualification": "The run browsed already-produced authoritative records; it did not newly greenlight or advance those films. Paid-cause/removal tests and native12 live chronology remain separate evidence."
+      },
+      {
+        "group": "History adapters",
+        "observed": "030/031 rival History clearly separates authored1915/1919 films from live releases/settlements and separate Standing changes.037/038 person/employment distinguish current contract from historical film credit; employment begins1920Week1.038/040/042/043 cover45 unique employment IDs over4 pages;045 reaches actual oldest contract-start row at200%.046\u2192047 Profile,052\u2192053 returns exact person and employment page4/bottom/event12 focus.095 visibly explains latest24 of976 career changes plus2authored credits;097 real PUBLIC CREDITS route opens exact978-credit Industry person;098 Back returns Profile.",
+        "qualification": "Profile is an explicitly labelled recent-career lens;048\u2013051 are not a whole978-credit-archive final-row pass. Player P08 History is not newly exercised in native21; retain separate checked applicability. No contract salary/private schedule disclosed in Industry."
+      },
+      {
+        "group": "Paging, archive and accessibility",
+        "observed": "015\u2013020 recent15-film archive page2/2, real finalrow Echoes of Inheritance at200%, exact-film drilldown and Back retain sort/period/page/scroll/focus/text.071\u2013077 complete Trailhead31-film all-time archive has12+12+7 distinct IDs over3 pages;200% finalrow is r07:film:0 The Wild Sanctuary1950Week13, Next disabled; film/Back restores exact context.021 Tab\u2192owner/022 Enter activates owner.078\u2013082 Tab walks owner\u2192scrollbar\u2192Previous\u2192Back\u2192Refresh without lot focus. Long headers/toolbars wrap at200%.060/061 populated6-person roster;067 empty roster truthfully omits nonexistent filter advice;070 empty recent-film view points to actual All recorded.",
+        "qualification": "Reverse Shift-Tab task remains pending. Native exact-ID drilldowns are established; no dedicated ambiguous same-title/same-name pair was exercised in this run. No physical-controller claim. Offscreen map geometry alone is never visible/native proof."
+      }
+    ],
+    "historicalObservationQualification": "The original six-group observations remain verbatim, including their then-pending reverse qualification. The peer correctionsClosed/rechecks fields in the cited final closure resolve that later task with actual24 input.",
+    "artifacts": [
+      {
+        "path": "final-native-20260911/third-product-closure-and-reuse.json",
+        "sha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48"
+      },
+      {
+        "path": "gate-b-run21-20260910/native-summary.json",
+        "sha256": "5f600af3124225fdd11e46e00060e716d782bdfb4827463b89d64822f6c3e090"
+      },
+      {
+        "path": "final-native-20260911/reverse-recheck-native24-25.json",
+        "sha256": "3618028ccdbb3d07637669f977cea4fd623835deb0a43197f9a5c41b9ad8d125"
+      }
+    ],
+    "reuse": {
+      "reviewed": true,
+      "applicable": true,
+      "reviewer": "/root/recovered_storage_review/package_runner_review",
+      "targetBinding": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "reason": "Explicit existing same-third product closure approves task-scoped reuse of these exact native21 observations after comparing current producer/presentation sources and later correction proofs. Its sourceApplicability, sameSixGroupObservations, correctionsClosed and rechecks are controlling; this wrapper does not issue a new review.",
+      "reviewArtifact": "final-native-20260911/third-product-closure-and-reuse.json",
+      "reviewArtifactSha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48",
+      "reviewSelector": "sameSixGroupObservations, sourceApplicability, correctionsClosed, rechecks"
+    }
+  },
+  "candidate592-performance": {
+    "id": "candidate592-performance",
+    "kind": "performance",
+    "outcome": "PASS",
+    "provenance": "measured-build",
+    "reviewer": "/root/final_performance_measurements",
+    "binding": {
+      "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+      "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+      "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+      "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+    },
+    "recordedBy": "/root/recovered_storage_review (normalization of issued scoped acceptance only)",
+    "sourceOutcome": "ACCEPT_SCOPED_CURRENT_R05_PERFORMANCE_DISPOSITION_WITH_MEASURED_REBASELINE_AND_EXPLICIT_LIMITS",
+    "meaning": "Independent acceptance of the measured current initial-nine performance reference and closure of the bounded redundant accepted-checkpoint preparation concern. This is not a statement that every original numeric target passes, every possible workload is measured, or the whole R05/final candidate native gate is accepted.",
+    "controllingScope": {
+      "r05": "Owner decisions\u00a71 initial-nine transfer only,\u00a76 excludes P15B closure/churn,\u00a77 retains substantive gates and provisional budgets and requires6240 additional authoritative advances plus measured tick/query/serialize/validate/write/storage growth. Independent named campaigns remain mandatory and separate from engineering benchmark branches.",
+      "pinnedPerformance": "Designa0739055/AnnexQ; original registerPERF001 binding horizon/provisional fixture bounds and P15B churn;PERF009 permits deliberate measured rebaseline, not unreported target removal.",
+      "targetCorrection": "Controlling durable-write-target-addendum.json supersedes complete-Save-MISS250 wording in preserved prior reports. Original250ms is asynchronous durable write/persistence end-to-end. Complete campaign Save is a separately disclosed operation cost, without an invented original250ms cap.",
+      "nonWaivable": "No waiver of strict public validation/reference/migration, permanent history, exact retries, campaign isolation, page bounds, deterministic authoritative state, algorithm safeguards, or any synchronous engine-main storage step above50ms."
+    },
+    "acceptanceLimits": [
+      "This closes the scoped currentR05 performance evidence/disposition milestone as a qualified deliberate measuredreference rebaseline, with above misses visible; not all-original-targetsPASS.",
+      "Currentlegalnineidentity domain <=2active screenplays/business and <=1production/business is measured at full8788core and real8794library. Futurearchive/churn/stress domain remains unsupported under separate scope.",
+      "Material referencecost remains9.578s Savep95,13.415s load-readyp95 and4.821GB standaloneprocesshigh-waterRSS; these are neither a universal futureceiling nor a minimum-machine/nativeUISLA.",
+      "Actual Desktop native26/27 launch/cleanQuit report identities are now bound. Detailed independent three-NewGame campaign acceptance, final owner/product review and allother R05 obligations remain separate decisions, not certified by this performance-only attestation.",
+      "Hook remains explicit-checkerfallback/inactive; no hooktrust/client-smoke acceptance is awarded."
+    ],
+    "originalTargetDispositions": [
+      {
+        "target": "Paired canonical serialize+digest fullp95<=100ms",
+        "observed": "199.524125ms p95",
+        "disposition": "ORIGINAL_MISS_RETAINED; MEASURED_CURRENT_REFERENCE_REBASELINE"
+      },
+      {
+        "target": "Pure strict validate/import fullp95<=500ms",
+        "observed": "166.833166ms parse+strictimport p95",
+        "disposition": "PASS_THIS_SINGLE_CORE_SAVE_IMPORT_SCOPE_ONLY"
+      },
+      {
+        "target": "Asynchronous durablewrite/persistence fullp95<=250ms",
+        "observed": "ProductionwriteAtomic53.5645ms p95",
+        "disposition": "BELOW250_WITHIN_ALREADY_ENCODED_DURABLE_WRITE_COMPONENT; WRITE_ONLY_WORKER_TRANSPORT_NOT_SEPARATELY_ISOLATED"
+      },
+      {
+        "target": "P12incremental uncompressedSave<=8MBfull",
+        "observed": "Hollywoodfielddelta37,829,874B alone",
+        "disposition": "ORIGINAL_MISS_RETAINED; NO_COMPRESSION_OR_HISTORY_DELETION_WAIVER"
+      },
+      {
+        "target": "Durablerivalfilmaverage<=1.5KB",
+        "observed": "3146.433448B average/2900films",
+        "disposition": "ORIGINAL_MISS_RETAINED"
+      },
+      {
+        "target": "Indexed50rowprofile<=10ms and bounded128KBpayload",
+        "observed": "Busyr02p95.131083ms/30614B; r06p95.192208ms/31032B",
+        "disposition": "PASS_MEASURED_WARMED_PAGES_ONLY; FIRST_UNCACHED404.570/402.915ms_n1_SEPARATE"
+      },
+      {
+        "target": "12active/48uniqueprojects/4000films/50archived stressfixture",
+        "observed": "Notbuiltormeasured",
+        "disposition": "UNMEASURED_FUTURE_STRESS_QUALIFICATION; NOT_NINE_PROVES_TWELVE"
+      },
+      {
+        "target": "Narrowhotbusiness/annualsummarycomponent and isolated weekly/quarterlystress timings",
+        "observed": "Wholebusinessrows and typedledgers have broader scope; authoritative6240weekendurance timing is not isolatedstress phase timing",
+        "disposition": "EXACT_UNISOLATED_SCOPES_REMAIN_UNMEASURED; NO_FABRICATED_PASS"
+      }
+    ],
+    "scope": "PASS means the independent scoped R05 measured reference rebaseline and bounded repeated-work correction are accepted, not every original numerical target or future workload. The original issued outcome/limits remain controlling.",
+    "artifacts": [
+      {
+        "path": "final-native-20260911/performance-attestation.json",
+        "sha256": "daeff5091fec7525b8da0adc1dff8792eca67103f40061287c1948d4997ade4c"
+      },
+      {
+        "path": "final-native-20260911/desktop-candidate-binding.json",
+        "sha256": "142e7b0d34eb4f948633d6212d5884b8e617e7ffa2bfff840373c394d63cb772"
+      },
+      {
+        "path": "checkpoint-measurements-20260910/durable-write-target-addendum.json",
+        "sha256": "53a95979c4d19a4585aead32892d0e2cf5b730ecbf9728f5dea2a9210b643aec"
+      }
+    ]
+  },
+  "candidate592-launch-binding": {
+    "id": "candidate592-launch-binding",
+    "kind": "launch-binding",
+    "outcome": "PASS",
+    "provenance": "real-native-input",
+    "reviewer": "/root/recovered_storage_review/package_runner_review",
+    "binding": {
+      "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+      "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+      "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+      "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+    },
+    "recordedBy": "/root/recovered_storage_review (projection of issued current native/source reviews only)",
+    "captureIds": [
+      "early-2026-09-11T03-03-22-494Z",
+      "early-2026-09-11T03-17-27-667Z"
+    ],
+    "inputWitness": "clean",
+    "scope": "Actual Desktop PLAY26 clean UI Quit and same-package27 relaunch/clean UI Quit under exact197-file payload, authenticated supervisor process/incarnation/lease bindings. Distinct late-world24/25 profile remains separate. No raw private profile or capabilities published.",
+    "artifacts": [
+      {
+        "path": "final-native-20260911/candidate26-27-native-review.json",
+        "sha256": "dbe34c35c6f77aa320ba33352e675e113baa7aea3d51de8f3ef3b44ab0696719"
+      },
+      {
+        "path": "final-native-20260911/desktop-candidate-binding.json",
+        "sha256": "142e7b0d34eb4f948633d6212d5884b8e617e7ffa2bfff840373c394d63cb772"
+      },
+      {
+        "path": "final-native-20260911/native20-26-27-independent-library.json",
+        "sha256": "57a71115b1921450dae9504fa2df96057ebada25ae1ff4cf48fb41cafe0f5ee8"
+      }
+    ],
+    "reviewSelector": "Current26/27 review runs/metadata/limits plus independently checked Desktop critical artifacts and197 immutable payload count"
   }
 }

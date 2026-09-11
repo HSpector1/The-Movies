@@ -1,0 +1,54 @@
+{
+  "id": "p12a-owned-shift-cleanup-peer-20260911",
+  "reviewer": "/root/recovered_storage_review/package_runner_review",
+  "reviewedAtUtc": "2026-09-11T03:05:05.948Z",
+  "kind": "bounded source and existing inert-test review",
+  "outcome": "NO_DEMONSTRATED_BLOCKER_WITH_HEALTHY_CONTINUOUS_EXACT_WITNESS",
+  "sourceBindings": [
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Tools/hid-guard.mjs",
+      "bytes": 24265,
+      "sha256": "7fd64956c50df199d8ab5ec8c63ea2eb6c84dc3440db53a713efb1d5d1612b02"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Tools/hid-guard-tests.mjs",
+      "bytes": 34899,
+      "sha256": "5f1554f1bc6e4e0df24879cd131fd808c389a7237b60e3922c2733541ab9e6f1"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Tools/hid-witness-state.mjs",
+      "bytes": 8408,
+      "sha256": "336e0a7e1afffb18e0e71a01d145c15889b08f974b776d4805ed1db2911e63f2"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Tools/ownerinput/ownerinput.swift",
+      "bytes": 26470,
+      "sha256": "a31735e7a422ab444ea747809cc238e94b82b9dbbcfaa62cde61ce05cf74a1d8"
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Tools/p12a-native-preview.mjs",
+      "bytes": 45438,
+      "sha256": "4b6729899c9214a10372a87dba8b95a9ee775e541f5435c614ac38c3d4cf6ef7"
+    }
+  ],
+  "findings": [
+    "The guard reconciles exact token/PID/type/keycode ownership before semantic flags refusal. Only Tab48 is posted; no unowned Shift56/60 key-up.",
+    "An unavailable/helper failure after an exact verified down does not itself select preserve-session; healthy continuous witness permits the protected restore-hid release. Foreign, partial, ended, stale or unverified ownership preserves session modifiers and remains failed.",
+    "Swift preserves raw HID|session bits, subtracting only the attributed Shift bit under the verified release mode and no other modifier. Both global key/flag tables may contain synthetic state and are not independently trusted physical-ownership evidence.",
+    "Receipt raw flags must exactly match witnessed up; final both-source modifier masks and all four Shift states must be clean before pending is cleared.",
+    "SIGINT/SIGTERM runner finalization calls guard.finalize before owned supervisor/child shutdown."
+  ],
+  "testBodyReview": {
+    "normal": "hid-guard-tests.mjs:366: separately witnessed source0 Tab down/up, balanced keys/pending and both modeled modifier tables zero.",
+    "interruptedAfterDown": "hid-guard-tests.mjs:417: actual modeled post then helper throw; exactly protected restore-hid up, no owned key and both modeled tables zero; final unavailable retains original failure.",
+    "beforeDown": "hid-guard-tests.mjs:411: no witnessed down grants no release authority.",
+    "foreignAndLostWitness": "hid-guard-tests.mjs:386 and425: only protected preserve-session, no ordinary empty-flags fallback or indiscriminate modifier release.",
+    "execution": "Root reports current86 guard tests PASS. This reviewer inspected source/test bodies and did not execute tests or native input."
+  },
+  "limitations": [
+    "A witnessed up with missing/malformed helper receipt conservatively retains pending verification even if observed flags are zero. No demonstrated physical stuck-Shift state follows from that alone.",
+    "No guarantee for SIGKILL, lost witness or unobservable physical ownership; no stale-ledger synthetic Shift recovery is authorized.",
+    "This source review alone is not an actual OS propagation or interruption-execution certificate."
+  ],
+  "activity": "Read-only shared source/test inspection; this private report is the only mutation."
+}

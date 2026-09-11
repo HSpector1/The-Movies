@@ -1,0 +1,467 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "reviewer": "/root/final_performance_measurements",
+  "at": "2026-09-11T03:22:54.852710+00:00",
+  "outcome": "ACCEPT_SCOPED_CURRENT_R05_PERFORMANCE_DISPOSITION_WITH_MEASURED_REBASELINE_AND_EXPLICIT_LIMITS",
+  "meaning": "Independent acceptance of the measured current initial-nine performance reference and closure of the bounded redundant accepted-checkpoint preparation concern. This is not a statement that every original numeric target passes, every possible workload is measured, or the whole R05/final candidate native gate is accepted.",
+  "subject": {
+    "typescript": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+    "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+    "immutablePackageManifestSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+    "immutableFileCount": 197,
+    "nativeMeasuredPackage": "/private/tmp/p12a-current592-native24-wf8x97ht",
+    "criticalArtifacts": [
+      {
+        "path": "PLAY_PROJECT_STUDIO.command",
+        "sha256": "f866c468e9ac68c49bd27b73d58d282056c6e7be0871e35cd12ab3f6a7f3ed93",
+        "bytes": 612
+      },
+      {
+        "path": "Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+        "sha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "bytes": 116116
+      },
+      {
+        "path": "Project Studio Visual Spike.app/Contents/Resources/Data/Managed/Assembly-CSharp.dll",
+        "sha256": "9a8dae63540f41fd5618bfccc6e52021458825280ba991fbf7ec6cad90a8155a",
+        "bytes": 1504768
+      },
+      {
+        "path": "runtime/engine.mjs",
+        "sha256": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "bytes": 129606
+      },
+      {
+        "path": "runtime/runtime-worker-source.json",
+        "sha256": "a092dafb02a0f346c7fb29147eed0b9b2e643bdf4364f574cfa7f5fd63d06c58",
+        "bytes": 14564
+      },
+      {
+        "path": "runtime/runtime-worker.mjs",
+        "sha256": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "bytes": 1545393
+      },
+      {
+        "path": "runtime/studio.mjs",
+        "sha256": "97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26",
+        "bytes": 197582
+      }
+    ],
+    "candidateApplicability": "PASS_EXACT_DESKTOP_PAYLOAD_AND_CURRENT_NATIVE_REPORT_APPLICABILITY; exact197-entry manifest and seven critical artifacts independently match measured payload, actual native26/27 report identities/cleanQuit checked. This is a performance-only attestation; detailed campaign/product/Owner acceptance stays separately reviewed.",
+    "candidatePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395"
+  },
+  "controllingScope": {
+    "r05": "Owner decisions\u00a71 initial-nine transfer only,\u00a76 excludes P15B closure/churn,\u00a77 retains substantive gates and provisional budgets and requires6240 additional authoritative advances plus measured tick/query/serialize/validate/write/storage growth. Independent named campaigns remain mandatory and separate from engineering benchmark branches.",
+    "pinnedPerformance": "Designa0739055/AnnexQ; original registerPERF001 binding horizon/provisional fixture bounds and P15B churn;PERF009 permits deliberate measured rebaseline, not unreported target removal.",
+    "targetCorrection": "Controlling durable-write-target-addendum.json supersedes complete-Save-MISS250 wording in preserved prior reports. Original250ms is asynchronous durable write/persistence end-to-end. Complete campaign Save is a separately disclosed operation cost, without an invented original250ms cap.",
+    "nonWaivable": "No waiver of strict public validation/reference/migration, permanent history, exact retries, campaign isolation, page bounds, deterministic authoritative state, algorithm safeguards, or any synchronous engine-main storage step above50ms."
+  },
+  "sourceApplicability": {
+    "store106": true,
+    "counter106": true,
+    "pure96": true,
+    "busy96": true,
+    "currentDistExact": true,
+    "nativeObservationSourcesUnchanged": true,
+    "unityAssetsPackagesProjectSettingsTreesMatchBuiltPlayer": true,
+    "currentTsDocumentationOnlyChangesSinceMeasuredCommit": 28,
+    "qualification": "Read-only source and metadata checks only. Reused results retain original fixture/run identities. Private emitted worker-source manifest differs from root only by finalLF: parsed equal, not byte equal; three emittedmjs files are byte equal."
+  },
+  "fixedStoreReference": {
+    "seedSha256": "66b79add059344d2704d6e27641ecf750f73acad8a358662c91a30eb5df50365",
+    "seedBytes": 70593125,
+    "worldWeek": 8794,
+    "fixtureProvenance": "Exact protected real library containing engineering SaveAs branches of one world, not independent NewGame A/B/C. Private stores reset to identical seed before every sample, owned API cleanup; original never modified.",
+    "hardware": {
+      "platform": "darwin",
+      "release": "25.6.0",
+      "arch": "arm64",
+      "cpu": "Apple M3 Max",
+      "logicalCpus": 16,
+      "totalMemoryBytes": 137438953472,
+      "heapSizeLimit": 4395630592
+    },
+    "runtime": {
+      "node": "v26.3.1",
+      "executable": "/opt/homebrew/Cellar/node/26.3.1/bin/node",
+      "execArgv": [],
+      "nodeOptionsPresent": false
+    },
+    "samples": "Three warmups excluded plus20 sequential measured samples for each distinct phase; empirical nearest-rankp95; no forcedGC.",
+    "phases": {
+      "durableWrite": {
+        "control": {
+          "n": 20,
+          "medianMs": 52.971104500000024,
+          "p95Ms": 62.351084000000014,
+          "maxMs": 63.626875000000155,
+          "minMs": 48.98866699999985
+        },
+        "integrated": {
+          "n": 20,
+          "medianMs": 52.0114585,
+          "p95Ms": 53.56449999999995,
+          "maxMs": 56.60166700000036,
+          "minMs": 50.567208000000164
+        },
+        "changePercent": {
+          "medianMs": -1.8116405331892182,
+          "p95Ms": -14.092111052953083,
+          "maxMs": -11.041258901996642
+        }
+      },
+      "loadReady": {
+        "control": {
+          "n": 20,
+          "medianMs": 18337.768104000017,
+          "p95Ms": 18497.514874999993,
+          "maxMs": 18661.969416000007,
+          "minMs": 18230.87162500003
+        },
+        "integrated": {
+          "n": 20,
+          "medianMs": 13322.654937499989,
+          "p95Ms": 13414.88841700001,
+          "maxMs": 13423.439708999998,
+          "minMs": 13243.113332999987
+        },
+        "changePercent": {
+          "medianMs": -27.348547206276873,
+          "p95Ms": -27.477347591536873,
+          "maxMs": -28.07061564739629
+        }
+      },
+      "campaignSave": {
+        "control": {
+          "n": 20,
+          "medianMs": 18162.50633350009,
+          "p95Ms": 18248.355917000008,
+          "maxMs": 18870.020165999973,
+          "minMs": 18052.59695799998
+        },
+        "integrated": {
+          "n": 20,
+          "medianMs": 9517.586124999973,
+          "p95Ms": 9577.753750000033,
+          "maxMs": 9612.70762500001,
+          "minMs": 9458.987709000008
+        },
+        "changePercent": {
+          "medianMs": -47.597617034576736,
+          "p95Ms": -47.51442928029762,
+          "maxMs": -49.058307620040594
+        }
+      }
+    },
+    "resourceEvidence": {
+      "control": {
+        "highWaterRssKiB": 4971568,
+        "highWaterRssBytes": 5090885632,
+        "measuredEndpointHeapMaxBytes": 2242657768,
+        "measuredEndpointRssMaxBytes": 4210884608
+      },
+      "integrated": {
+        "highWaterRssKiB": 4707520,
+        "highWaterRssBytes": 4820500480,
+        "measuredEndpointHeapMaxBytes": 2248617648,
+        "measuredEndpointRssMaxBytes": 4187045888
+      }
+    },
+    "importantBounds": "Write receives already encoded bytes; excludes serialization/strict/codec/worker transport. Load-ready includes store open/recovery/coordinator/first snapshot, ordinary OS page cache, not OS-cold launch. Save includes complete coordinator campaign operation through durable acceptance, excludes HTTP/Unity and verification/setup. Inactive metadata check is distinct from emitted full compressed-record byte proof. Phase percentiles are not additive."
+  },
+  "native24ActualSave": {
+    "sendToResponseMs_n1": 10542.0349,
+    "firstObservedSaveReenabledAfterSendMs": 11791.757822036743,
+    "firstObservedNewJoinedSessionAfterResponseMs": 739.6728992462158,
+    "observedMapsDuringWait": 41,
+    "frameProgressDuringObservedSubset": 1740,
+    "maxObservedMapArrivalGapMsDuringSubset": 255.1348339766264,
+    "receiptDecodeMainMs": 0.0128,
+    "receiptStrictParseMainMs": 0.6081,
+    "subsequentSnapshotStrictParseWorkerMs": 213.3815,
+    "subsequentSnapshotStoreAndSynchronousSubscribersMainMs": 40.287,
+    "firstObservedReenabledUtc": "2026-09-11T02:58:59.811961+00:00",
+    "frameWindowOverlapSeconds": 0,
+    "qualification": "Native response n1 and sampled reenable about11.792seconds are separate from standalone Savep959.57775375seconds. Frames progressed during the wait; displayed enabled bits and250ms sampled every15-frame maps do not measure input responsiveness, everyframe, or exact render completion. Do not call the whole operation continuous UI unresponsiveness. The earlier frame windowp958.504ms/max85.573ms does not overlap Save and includes1368nonLive frames despite continuitytrue/zerooutages."
+  },
+  "affectedFunctionalEvidence": {
+    "emittedChecks": 18,
+    "runtimeFilesystemWorkerCalls": 343,
+    "runtimeFilesystemEngineMainCalls": 0,
+    "exactAcceptedOrdinarySaveRetries": [
+      "immediate",
+      "after later week",
+      "after engine restart"
+    ],
+    "sourceAndOriginalsIntact": true,
+    "allOwnedProcessesExitedAndLocksReleased": true,
+    "placementQualification": "Observed affected emitted runtime-path attribution; no universalallstalls or allnativeframes guarantee. Native24 observer also exited cleanly after root-owned UIQuit."
+  },
+  "algorithmConcern": {
+    "disposition": "CLOSED_BOUNDED_DUPLICATE_ACCEPTED_CHECKPOINT_PREPARATION_CONCERN_ON_CURRENT_BYTES",
+    "evidence": "Independent finalsource review, peer21adversarial boundarytests/root130focused tests and cumulative5181PASS5SKIP,106source-bound smallcounters and fresh affected emitted plus fixed-store measurements.",
+    "ordinarySave": "Strict checkpoint3\u21921 and exact canonicalcheckpoint4\u21921.",
+    "campaignSave": "Strict9\u21923 and exact canonical13\u21923; final accepted checkpoint once plus mandatory detached-fork export/import pair, two distinct checkpoints with multiplicities[1,2]. Historical accepted Savebody validations remain distinct boundaries.",
+    "qualification": "No globallyonecanonicalization or no-repeated-inner-history-byte assertion. No mutable cross-operation preparation cache, validator weakening or history deletion. Numeric rebaseline itself cannot close an algorithm defect; separate reviewed source/counter/correctness evidence does."
+  },
+  "originalTargetDispositions": [
+    {
+      "target": "Paired canonical serialize+digest fullp95<=100ms",
+      "observed": "199.524125ms p95",
+      "disposition": "ORIGINAL_MISS_RETAINED; MEASURED_CURRENT_REFERENCE_REBASELINE"
+    },
+    {
+      "target": "Pure strict validate/import fullp95<=500ms",
+      "observed": "166.833166ms parse+strictimport p95",
+      "disposition": "PASS_THIS_SINGLE_CORE_SAVE_IMPORT_SCOPE_ONLY"
+    },
+    {
+      "target": "Asynchronous durablewrite/persistence fullp95<=250ms",
+      "observed": "ProductionwriteAtomic53.5645ms p95",
+      "disposition": "BELOW250_WITHIN_ALREADY_ENCODED_DURABLE_WRITE_COMPONENT; WRITE_ONLY_WORKER_TRANSPORT_NOT_SEPARATELY_ISOLATED"
+    },
+    {
+      "target": "P12incremental uncompressedSave<=8MBfull",
+      "observed": "Hollywoodfielddelta37,829,874B alone",
+      "disposition": "ORIGINAL_MISS_RETAINED; NO_COMPRESSION_OR_HISTORY_DELETION_WAIVER"
+    },
+    {
+      "target": "Durablerivalfilmaverage<=1.5KB",
+      "observed": "3146.433448B average/2900films",
+      "disposition": "ORIGINAL_MISS_RETAINED"
+    },
+    {
+      "target": "Indexed50rowprofile<=10ms and bounded128KBpayload",
+      "observed": "Busyr02p95.131083ms/30614B; r06p95.192208ms/31032B",
+      "disposition": "PASS_MEASURED_WARMED_PAGES_ONLY; FIRST_UNCACHED404.570/402.915ms_n1_SEPARATE"
+    },
+    {
+      "target": "12active/48uniqueprojects/4000films/50archived stressfixture",
+      "observed": "Notbuiltormeasured",
+      "disposition": "UNMEASURED_FUTURE_STRESS_QUALIFICATION; NOT_NINE_PROVES_TWELVE"
+    },
+    {
+      "target": "Narrowhotbusiness/annualsummarycomponent and isolated weekly/quarterlystress timings",
+      "observed": "Wholebusinessrows and typedledgers have broader scope; authoritative6240weekendurance timing is not isolatedstress phase timing",
+      "disposition": "EXACT_UNISOLATED_SCOPES_REMAIN_UNMEASURED; NO_FABRICATED_PASS"
+    }
+  ],
+  "acceptanceLimits": [
+    "This closes the scoped currentR05 performance evidence/disposition milestone as a qualified deliberate measuredreference rebaseline, with above misses visible; not all-original-targetsPASS.",
+    "Currentlegalnineidentity domain <=2active screenplays/business and <=1production/business is measured at full8788core and real8794library. Futurearchive/churn/stress domain remains unsupported under separate scope.",
+    "Material referencecost remains9.578s Savep95,13.415s load-readyp95 and4.821GB standaloneprocesshigh-waterRSS; these are neither a universal futureceiling nor a minimum-machine/nativeUISLA.",
+    "Actual Desktop native26/27 launch/cleanQuit report identities are now bound. Detailed independent three-NewGame campaign acceptance, final owner/product review and allother R05 obligations remain separate decisions, not certified by this performance-only attestation.",
+    "Hook remains explicit-checkerfallback/inactive; no hooktrust/client-smoke acceptance is awarded."
+  ],
+  "artifacts": [
+    {
+      "path": "/private/tmp/p12a-performance-attestation-fjpgh16y/source-applicability.json",
+      "sha256": "64ef478da0488bdf8b73e1643ec45e9ac3111adad496afc76f5a18026a261420",
+      "bytes": 5767
+    },
+    {
+      "path": "/private/tmp/p12a-performance-attestation-fjpgh16y/native24-payload-binding.json",
+      "sha256": "9b7c0abd18c51513a652478e10ee895e34f7d6c13546c9e613f5e751bafcfbea",
+      "bytes": 1833
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store/store-report.json",
+      "sha256": "e464a8655580550e53388ce9a6896eaac1159d327a39bfd28e5599e64510fefe",
+      "bytes": 40638
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store-comparison-validation.json",
+      "sha256": "1c4f39dae40d65d52162f8bba7f32b63435612c0b76b3b2680b1323cd0540a02",
+      "bytes": 9521
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/affected-validation.json",
+      "sha256": "0a3474298ccd5c6ec3a5a12ecf8994972705f46530ec72388c161446aa9abc41",
+      "bytes": 2630
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/emitted-comparison.json",
+      "sha256": "7a7745de49267e6f7651d6165efb91abe0105ddedc3e5efed57d914d47293273",
+      "bytes": 9960
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/final-measurement-disposition.json",
+      "sha256": "ba24dff9d882e70ac57bc531474f0b6d12aed3532c9650c06f6d56c14998c00f",
+      "bytes": 32284
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/durable-write-target-addendum.json",
+      "sha256": "53a95979c4d19a4585aead32892d0e2cf5b730ecbf9728f5dea2a9210b643aec",
+      "bytes": 16925
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/durable-write-target-addendum.md",
+      "sha256": "7554adee2c3f5d38bdbeede9024a4c030648a5a33a6762b723e967df07321080",
+      "bytes": 3918
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/pure-phase-applicability.json",
+      "sha256": "0f1a08f8e8c84b259fada3f796d7d7a97b411f9618b4ac08ae37697dc3fd4139",
+      "bytes": 1398
+    },
+    {
+      "path": "/private/tmp/p12a-native-passive-p6iumyes/passive-review.json",
+      "sha256": "de3d1f8025de9110420a9dde8a122c47cdb006445e96d6cc0daadeb31e437036",
+      "bytes": 14976
+    },
+    {
+      "path": "/private/tmp/p12a-native-passive-p6iumyes/post-receipt-review.json",
+      "sha256": "29f5aedca33f38bb25f6d4f5ad769af8d77d07d9f5c2fdeb4fb0025d337862c2",
+      "bytes": 17923
+    },
+    {
+      "path": "/private/tmp/p12a-native-passive-p6iumyes/review.md",
+      "sha256": "f0e3414bd3cada7f7fcbd518b22c1e420574ce5697c63a268707b8c1a5083c4f",
+      "bytes": 3829
+    },
+    {
+      "path": "/private/tmp/p12a-final-phase-1xpf7efb/store-report.json",
+      "sha256": "db13c89b7d059258dfa5c44fbbf3910ee031ebcc56b99394cc903182e62b303a",
+      "bytes": 40681
+    },
+    {
+      "path": "/private/tmp/p12a-final-phase-1xpf7efb/profile-report.json",
+      "sha256": "0cc478d295538b71786f7bad33a130a7327ee91f8d509b2317a93ebff03a6e09",
+      "bytes": 19260
+    },
+    {
+      "path": "/private/tmp/p12a-final-phase-1xpf7efb/fixed-phase-independent-review-v2.json",
+      "sha256": "b581eb6f28548ed3bb3da724b735f29ae08fe05480b2c09e289d1f32c734fae2",
+      "bytes": 9053
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/checkpoint-reuse-20260910/independent-final-review.json",
+      "sha256": "920365549c6a6476b5a2bbe12a9bbfed6d049a68a4dfcbc6e327828989f69c49",
+      "bytes": 6780
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/checkpoint-reuse-20260910/counter-patched-report-04.json",
+      "sha256": "f9c6594b7ecd27a2f2ea490b0f576ff96a60e33e098d9b654231798262d49dd1",
+      "bytes": 2165
+    },
+    {
+      "path": "/Users/bruce/Downloads/P12A-R05-OWNER-DECISIONS-AND-ACCEPTANCE.md",
+      "sha256": "473ec3955a3624c7b1da3f670607a08a0ed86019736c50260d8f338176e50e87",
+      "bytes": 32422
+    },
+    {
+      "path": "/private/tmp/p12a-performance-attestation-fjpgh16y/desktop-candidate-binding.json",
+      "sha256": "142e7b0d34eb4f948633d6212d5884b8e617e7ffa2bfff840373c394d63cb772",
+      "bytes": 5147
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-03-22-494Z/report.json",
+      "sha256": "71d5f293b5393a569b85d741c442d28f3e0b2eb5eaa550c746037a75a2cedcec",
+      "bytes": 535461
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-17-27-667Z/report.json",
+      "sha256": "98d47d5aef6789f510bd60ef80c05b5f97d3584db5544a78c201f589db33fd97",
+      "bytes": 245083
+    }
+  ],
+  "supersedes": {
+    "path": "/private/tmp/p12a-performance-attestation-fjpgh16y/attestation.json",
+    "sha256": "515ccff3eda051ab1cbf66a135c384d2d113477f0ca74faffabe0b61edd1d661",
+    "scope": "Final Desktop path/actual native26 and27 applicability bound; performance measurements, qualified outcome and acceptance limits unchanged."
+  },
+  "desktopBinding": {
+    "status": "PASS_EXACT_DESKTOP_PAYLOAD_AND_CURRENT_NATIVE_REPORT_APPLICABILITY",
+    "at": "2026-09-11T03:22:54.852183+00:00",
+    "candidate": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
+    "manifestSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+    "immutableFileCount": 197,
+    "criticalArtifactsRead": [
+      {
+        "path": "PLAY_PROJECT_STUDIO.command",
+        "sha256": "f866c468e9ac68c49bd27b73d58d282056c6e7be0871e35cd12ab3f6a7f3ed93",
+        "bytes": 612,
+        "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/PLAY_PROJECT_STUDIO.command"
+      },
+      {
+        "path": "Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+        "sha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "bytes": 116116,
+        "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike"
+      },
+      {
+        "path": "Project Studio Visual Spike.app/Contents/Resources/Data/Managed/Assembly-CSharp.dll",
+        "sha256": "9a8dae63540f41fd5618bfccc6e52021458825280ba991fbf7ec6cad90a8155a",
+        "bytes": 1504768,
+        "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/Project Studio Visual Spike.app/Contents/Resources/Data/Managed/Assembly-CSharp.dll"
+      },
+      {
+        "path": "runtime/engine.mjs",
+        "sha256": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "bytes": 129606,
+        "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/runtime/engine.mjs"
+      },
+      {
+        "path": "runtime/runtime-worker-source.json",
+        "sha256": "a092dafb02a0f346c7fb29147eed0b9b2e643bdf4364f574cfa7f5fd63d06c58",
+        "bytes": 14564,
+        "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/runtime/runtime-worker-source.json"
+      },
+      {
+        "path": "runtime/runtime-worker.mjs",
+        "sha256": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "bytes": 1545393,
+        "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/runtime/runtime-worker.mjs"
+      },
+      {
+        "path": "runtime/studio.mjs",
+        "sha256": "97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26",
+        "bytes": 197582,
+        "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/runtime/studio.mjs"
+      }
+    ],
+    "actualCurrentNativeReports": [
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-03-22-494Z/report.json",
+        "sha256": "71d5f293b5393a569b85d741c442d28f3e0b2eb5eaa550c746037a75a2cedcec",
+        "at": "2026-09-11T03:03:25.182Z",
+        "status": "observation-complete",
+        "reason": "ui-quit",
+        "packageRoot": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
+        "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+        "verifiedImmutableFiles": 197,
+        "playerExit": {
+          "code": 0,
+          "signal": null
+        },
+        "inputStatus": "clean",
+        "supervisorStatus": "clean",
+        "relaunchBinding": null,
+        "qualification": "Root-owned real-input run. This performance reviewer checks exact report/payload/cleanQuit binding; detailed independentcampaign/task outcome adjudication is attached separately by the final registry/reviewer."
+      },
+      {
+        "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-17-27-667Z/report.json",
+        "sha256": "98d47d5aef6789f510bd60ef80c05b5f97d3584db5544a78c201f589db33fd97",
+        "at": "2026-09-11T03:17:30.488Z",
+        "status": "observation-complete",
+        "reason": "ui-quit",
+        "packageRoot": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
+        "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+        "verifiedImmutableFiles": 197,
+        "playerExit": {
+          "code": 0,
+          "signal": null
+        },
+        "inputStatus": "clean",
+        "supervisorStatus": "clean",
+        "relaunchBinding": {
+          "previousReport": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-03-22-494Z/report.json",
+          "previousReportSha256": "71d5f293b5393a569b85d741c442d28f3e0b2eb5eaa550c746037a75a2cedcec",
+          "checkpointSha256": "0860b5cf2a1628aaf738ba63d441b399247248ac5741ea82a85250afc7a0489e"
+        },
+        "qualification": "Root-owned real-input run. This performance reviewer checks exact report/payload/cleanQuit binding; detailed independentcampaign/task outcome adjudication is attached separately by the final registry/reviewer."
+      }
+    ],
+    "qualification": "No workload/nativeinput/build rerun. Existing native26/27 entry verification records all197 immutable files; this independent bounded read rechecks exact manifest and seven critical files. PrivateProfile/save content is neither read nor published here."
+  }
+}

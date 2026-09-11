@@ -1,0 +1,27 @@
+I accept the **scoped current R05 performance disposition with a measured reference rebaseline and explicit limits** for TS592e926 / Unity2bc8d30, immutable197-file package manifest25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64. The bounded redundant accepted-checkpoint preparation concern is closed on these bytes. This does not mean every original target passes or the full R05/native/Owner gate is accepted.
+
+The same protected week8794,70,593,125-byte real library was sampled with3 excluded warmups and20 sequential measured runs per phase. Current median/p95/max:
+
+| Phase | Median ms | p95 ms | Max ms |
+| --- | ---: | ---: | ---: |
+| Production durable write | 52.011 | 53.564 | 56.602 |
+| Complete library load to ready | 13,322.655 | 13,414.888 | 13,423.440 |
+| Complete campaign Save | 9,517.586 | 9,577.754 | 9,612.708 |
+
+The unchanged sampler/control shows Savep95 reduced47.51% and load-readyp95 reduced27.48%. Production write includes durable commit/cleanup on already encoded bytes; serialization/strict/codec/worker transport are outside that component. Complete Save includes production coordinator preparation and persistence; HTTP/Unity are outside it. Setup and verification are excluded. Original/raw controls remain preserved. Observed standalone high-waterRSS4.821GB remains a material reference cost, not a native minimum-machine specification.
+
+Native24 separately measured one actual Save response at10.542seconds; Save was first observed reenabled about11.792seconds after submission.41 sampled maps advanced1,740frames during the wait. This supports observed rendering progress and does not measure input responsiveness or everyframe. The earlier30-second frame window has zero Save overlap; its8.504ms p95/85.573ms max must not be presented as Save-time frame performance. Its1,368 nonLiveFrames remain disclosed despite continuitytrue/zerooutages.
+
+The controlling source-definition addendum corrects prior wording: original250ms is **asynchronous durable write/persistence**, not an explicit complete campaign-Save cap. Production writeAtomic53.564ms p95 is below250 within that already-encoded durable-write component. Write-only worker handoff/queue-through-durable-ack remains unisolated. Complete Save9.578s and load-ready13.415s remain disclosed reference costs, without an invented250ms total-operation gate.
+
+True original misses remain visible: paired full serialize+digest199.524ms versus100ms; Hollywoodfielddelta37,829,874bytes versus8MB; durablefilmaverage3146.433bytes versus1.5KB. Pure strict import166.833ms meets500ms only in that exact core-save scope. Busy50-row warmed profiles meet measured query/payload bounds; uncached index construction around403–405ms is separate. Exact narrow hot-state/annual-summary components and isolated weekly/quarterlystress costs are not fabricated from broader rows or total endurance timing.
+
+R05 transfers the initialnine rollout and excludes P15B closure/churn. PERF001 retains binding horizon with provisional fixture bounds; PERF009 allows deliberate evidence-backed rebaseline. These support accepting the measured legalnine reference without pretending12active/48unique-project/4000film/50archive stress passed. That future stress and write-only transport remain **UNMEASURED**. Permanent history, strict validation/references/migration, exact receipts, campaign isolation, page bounds and the synchronous engine-main storage50ms prohibition remain binding.
+
+Independent reviewed source,21 new boundary tests, focused/root regression evidence,106-input counters and fresh emitted/store checks close the specific duplication concern. Ordinary final checkpoint is strict/canonical once. Campaign final checkpoint is once plus the mandatory detached-fork export/import integrity pair; historical response-body validations remain separate. This is not a globally-one-canonicalization claim or an algorithm waiver through numeric rebaseline. The fresh emitted replay passed18 checks, exact retries before/afterlaterweek/restart, and observed343 runtimefilesystem calls worker-side/zero engine-main.
+
+Current106 store/counter and96 pure/busy source inputs match; the28 TS changes since592 are documentation/evidence. UnityAssets/Packages/ProjectSettings trees equal those used for the reused player. Native24's197-entry immutable manifest and seven critical artifacts were independently checked. Exact Desktop candidate `/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395` now independently matches the197-entry manifest and all seven critical artifacts. Root-owned native26 and27 reports bind this same payload and clean UIQuit; native27 records the current relaunch. This performance reviewer checked their exact report/artifact identities and cleanup outcomes. Detailed campaign-task acceptance remains separately adjudicated; no unverified or changed candidate inherits this attestation.
+
+Independent NewGame A/B/C and whole finalR05/product/Owner acceptance remain separate from the engineering SaveAs benchmark branches and this performance-only decision. Hook remains explicit-checkerfallback, inactive. No workload, profile, build or nativeinput was rerun for this attestation.
+
+This final v2 supersedes only the pending-candidate applicability in the preserved v1. `desktop-candidate-binding.json` contains exact native26/27 report hashes and artifact checks. All measurements and qualified acceptance limits are unchanged.

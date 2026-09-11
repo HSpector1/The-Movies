@@ -1,0 +1,461 @@
+{
+  "kind": "R05 early native preview",
+  "status": "observation-complete",
+  "at": "2026-09-11T02:54:48.006Z",
+  "runtime": "/tmp/p12a-native-f4Y4lx",
+  "storageRuntime": "/private/tmp/p12a-current592-native24-wf8x97ht/PrivateProfile/bridge-runtime",
+  "relaunchBinding": null,
+  "initialCheckpointBinding": {
+    "kind": "explicit engineering initial checkpoint; no prior native Quit claimed",
+    "source": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z/campaign-library-final.json",
+    "sourceSha256": "66b79add059344d2704d6e27641ecf750f73acad8a358662c91a30eb5df50365",
+    "destination": "/private/tmp/p12a-current592-native24-wf8x97ht/PrivateProfile/bridge-runtime/bridge-runtime-v1.json",
+    "copiedBytes": 70593125
+  },
+  "packageBinding": {
+    "root": "/private/tmp/p12a-current592-native24-wf8x97ht",
+    "profileRoot": "/private/tmp/p12a-current592-native24-wf8x97ht/PrivateProfile",
+    "launcher": "/private/tmp/p12a-current592-native24-wf8x97ht/PLAY_PROJECT_STUDIO.command",
+    "launcherSha256": "f866c468e9ac68c49bd27b73d58d282056c6e7be0871e35cd12ab3f6a7f3ed93",
+    "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+    "verifiedImmutableFiles": 197,
+    "supervisorSha256": "97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26",
+    "pairedContractVerificationSha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355",
+    "actionTrace": "Unavailable in packaged mode: supervisor intentionally does not pass this optional environment variable."
+  },
+  "manifestSha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+  "playerSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+  "engineSha256": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+  "sources": {
+    "p12a-native-preview.mjs": "4b6729899c9214a10372a87dba8b95a9ee775e541f5435c614ac38c3d4cf6ef7",
+    "hid-guard.mjs": "7fd64956c50df199d8ab5ec8c63ea2eb6c84dc3440db53a713efb1d5d1612b02",
+    "hid-witness-state.mjs": "336e0a7e1afffb18e0e71a01d145c15889b08f974b776d4805ed1db2911e63f2",
+    "hid-coherent-map.mjs": "d766cb5a96519bff79fafdc9806d9973e575a08a8e251b53a739490515efd7c7",
+    "owner-ux-startup.mjs": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff",
+    "owner-ux-window.mjs": "d93ca436174d295cacc7a3d7d561adae7b3d5c49cbdc8019e507ca8fcec92594",
+    "p04a1-window-select.mjs": "a70359db53251c0f88fd3ee586169fcf328f691ffaf2d73d2a844217533b561c",
+    "input-state.py": "d235e2a584bd6d142e5fdd0dd93833bd139260b33646a7f59eae030ba5184942",
+    "console-state.py": "fd540d278ce159e9db1c8c4e8133b222e523475ed9642244799124668de78ac7",
+    "ownerinput/ownerinput.swift": "a31735e7a422ab444ea747809cc238e94b82b9dbbcfaa62cde61ce05cf74a1d8",
+    "hidwitness/hidwitness.swift": "9dad5fdd34fce93cd497eaf06c76b97b5d928627e07e157c292f8714fa7311df"
+  },
+  "performance": {
+    "sampleSeconds": 30,
+    "warmupSeconds": 45,
+    "root": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/runtime-performance",
+    "scope": "frame window plus bounded route observations through clean UI Quit"
+  },
+  "runtimeWorkerSha256": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+  "runtimeWorkerSourceManifestSha256": "a092dafb02a0f346c7fb29147eed0b9b2e643bdf4364f574cfa7f5fd63d06c58",
+  "inputToolSha256": "6dd714005d33402d8b2ec7a3cbba664698505f76079ea2516ad3685f85364a3c",
+  "witnessToolSha256": "74d05819871f65823db48f5bc3ffcf59c61274952a391cfcb50e1693ef38a959",
+  "reason": "ui-quit",
+  "appPid": 91148,
+  "enginePid": 91142,
+  "supervisorPid": 91136,
+  "playerExit": {
+    "code": 0,
+    "signal": null
+  },
+  "checkpointSha256": "9897c2f5371eb157728a2f16dcd993103a51a0fda8242cc97f07047e1e567830",
+  "errors": [],
+  "rawReport": {
+    "privatePath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/report.json",
+    "sha256": "cd74473b088c729da90019c4d939c0769b5e161255f5d9acafd195f131bc61f9"
+  },
+  "inputFinalization": {
+    "status": "clean",
+    "counts": {
+      "tool": 80,
+      "markerCompanion": 79,
+      "playerNull": 27,
+      "playerOther": 0,
+      "physical": 0,
+      "unknown": 0
+    },
+    "markerSeq": 2975,
+    "endSequence": 2976,
+    "foreign": [],
+    "shiftTabModifiers": {
+      "pending": false,
+      "lastObservedState": {
+        "hidFlags": 536870912,
+        "hidLeftShift": false,
+        "hidRightShift": false,
+        "sessionFlags": 536870912,
+        "sessionLeftShift": false,
+        "sessionRightShift": false
+      },
+      "lastUpReceipt": {
+        "after": {
+          "hidFlags": 536870912,
+          "hidLeftShift": false,
+          "hidRightShift": false,
+          "sessionFlags": 536870912,
+          "sessionLeftShift": false,
+          "sessionRightShift": false
+        },
+        "before": {
+          "hidFlags": 537001984,
+          "hidLeftShift": true,
+          "hidRightShift": false,
+          "sessionFlags": 537001984,
+          "sessionLeftShift": true,
+          "sessionRightShift": false
+        },
+        "intendedFlags": 536870912,
+        "operation": "shift-tab-up"
+      }
+    }
+  },
+  "supervisorFinalization": {
+    "status": "clean",
+    "ownedReferences": [
+      {
+        "pid": 91136,
+        "processIncarnation": "ps-lstart:Fri Sep 11 04:54:48 2026"
+      },
+      {
+        "kind": "engine",
+        "pid": 91142,
+        "processGroupId": 91142,
+        "processIncarnation": "ps-lstart:Fri Sep 11 04:54:49 2026"
+      },
+      {
+        "kind": "unity",
+        "pid": 91148,
+        "processGroupId": 91148,
+        "processIncarnation": "ps-lstart:Fri Sep 11 04:55:01 2026"
+      }
+    ],
+    "exit": {
+      "code": 0,
+      "signal": null
+    },
+    "activeLeaseAbsent": true,
+    "checkpointLockAbsent": true,
+    "ownedIncarnationsAbsent": true
+  },
+  "checkpointBytes": 70594302,
+  "steps": [
+    {
+      "at": "2026-09-11T02:55:36.802Z",
+      "action": "tap",
+      "name": null,
+      "frame": 4950,
+      "captureId": "native24/000",
+      "authority": {
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 21,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "31b49f21ce0db80e1a0110b5fd591434dd3e98c683745448fbc082cb7eab3dfa",
+      "screenshotSha256": "8b2809b70c714256e7fb396b301327cb07cee00d4eef7f442594ec493d8374d3"
+    },
+    {
+      "at": "2026-09-11T02:55:53.242Z",
+      "action": "click",
+      "name": "world-selectable-admin",
+      "frame": 7635,
+      "captureId": "native24/001",
+      "authority": {
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 33,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "a806e67384795574a136024711e5aa601ef6f8a0368962d1301f566a7f96cbc1",
+      "screenshotSha256": "d669ccd49cc0a05b19930c2182ed58278c7c17c9b02c031ef252fe65fd2bcd18"
+    },
+    {
+      "at": "2026-09-11T02:56:08.208Z",
+      "action": "click",
+      "name": "admin-open-industry",
+      "frame": 10050,
+      "captureId": "native24/002",
+      "authority": {
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 43,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "84c49c6e3c6c0c7a7ebdff6f16930088323088f1120128444bf15dc8085fe1fa",
+      "screenshotSha256": "e1b15482d02d7167d52520d688757bb0ca6893b39f8655d9dd2dcacd41db0950"
+    },
+    {
+      "at": "2026-09-11T02:56:37.998Z",
+      "action": "click",
+      "name": "industry-studio-studio-e26cea4b-r06",
+      "frame": 14880,
+      "captureId": "native24/003",
+      "authority": {
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 63,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "8e6e5345651390bc059c95793dcbb103dd8db11f2db89b1cadaaada110174d42",
+      "screenshotSha256": "b254e7976140c8fa6102136b1280d576e0c7b68e2dfdb05e42f30af351311c1e"
+    },
+    {
+      "at": "2026-09-11T02:56:46.133Z",
+      "action": "click",
+      "name": "industry-text-200",
+      "frame": 16185,
+      "captureId": "native24/004",
+      "authority": {
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 69,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "e5798d6bca8a0a983835d1400b123d0fdf5fd02edf1418137909b457322fdbf6",
+      "screenshotSha256": "a6e6042a2888989d120237f13aea98d5a2ed0e69ef7d3545caebbc7e924be75a",
+      "curated": true
+    },
+    {
+      "at": "2026-09-11T02:57:00.223Z",
+      "action": "tap",
+      "name": null,
+      "frame": 18465,
+      "captureId": "native24/005",
+      "authority": {
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 79,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "c192c86a229be0b00e14b20b42be3e36df166c9d858448dd4a3fbf2ae4bc7d2d",
+      "screenshotSha256": "0e657112ff6f233dfe62b166a539e1885b66e51968afd8700d34d0c2997e8f4c",
+      "curated": true
+    },
+    {
+      "at": "2026-09-11T02:57:11.469Z",
+      "action": "tap",
+      "name": null,
+      "frame": 20265,
+      "captureId": "native24/006",
+      "authority": {
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 86,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "cf5c435d389244279ca66a342986f03f0d2334c1cf6b0cb355a27ee5c198535b",
+      "screenshotSha256": "95e70c250df6f6db28b6e4d1c74e25b15eedd8c0bb67a6fe8e0caad110bbaea4",
+      "curated": true
+    },
+    {
+      "at": "2026-09-11T02:57:25.729Z",
+      "action": "tap",
+      "name": null,
+      "frame": 22590,
+      "captureId": "native24/007",
+      "authority": {
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 96,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "3f21697479df9ca3d8ab24e197ec0f619653b1042f0cc7683b23e627fca6503c",
+      "screenshotSha256": "718e81673b92bbf64490b9c8a5d65d062fab839eeadf59de36fff24b60ac4ab6",
+      "curated": true
+    },
+    {
+      "at": "2026-09-11T02:57:35.953Z",
+      "action": "tap",
+      "name": null,
+      "frame": 24240,
+      "captureId": "native24/008",
+      "authority": {
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 103,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "904bf07fd5cee36fe5bb4f9646e30a342d4ac1366c46153b438e40712b212177",
+      "screenshotSha256": "155d23ff902aa77636887a3dccf54846c6086184731e1b1b5bd736fe30428d3d",
+      "curated": true
+    },
+    {
+      "at": "2026-09-11T02:57:57.063Z",
+      "action": "tap",
+      "name": null,
+      "frame": 27690,
+      "captureId": "native24/009",
+      "authority": {
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 118,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "db18e82e56435873a059353b0c42a9504d7d99925935784b1dd944a9319c36e2",
+      "screenshotSha256": "f43285449de935a370a908e012dbfc02a55edcf6c0b1c8a4bfe308d809ccd2fd",
+      "curated": true
+    },
+    {
+      "at": "2026-09-11T02:58:06.376Z",
+      "action": "tap",
+      "name": null,
+      "frame": 29205,
+      "captureId": "native24/010",
+      "authority": {
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 124,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "0efef5eb8c4e91be0face30b1426949d2c8de55cff1c62d7a5181ab7afb14223",
+      "screenshotSha256": "e42fab131d37d786f519451cf02a5c66613560310b114a4b975af94fdaeb879a",
+      "curated": true
+    },
+    {
+      "at": "2026-09-11T02:58:17.870Z",
+      "action": "click",
+      "name": "studio-menu-open",
+      "frame": 31050,
+      "captureId": "native24/011",
+      "authority": {
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 132,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "3c069a680280ca7258d320dec83dcac7196683b6ca327a77e046f0927354479d",
+      "screenshotSha256": "088b95b6e32164eb72022707fb549708ed45e224fada563d0da2fb8d1f383680"
+    },
+    {
+      "at": "2026-09-11T02:58:48.802Z",
+      "action": "click",
+      "name": "studio-menu-save",
+      "frame": 36075,
+      "captureId": "native24/012",
+      "authority": {
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 153,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "41159169aa13577809402dce6072bd84aa202262bc4dc911bef9f4103272cbee",
+      "screenshotSha256": "27246b58ef61cd27dbeaff5d141a4eeb47f6d225e03511e69f0d43baf8357ecd",
+      "curated": true
+    },
+    {
+      "at": "2026-09-11T02:59:04.029Z",
+      "action": "observe",
+      "name": null,
+      "frame": 38625,
+      "captureId": "native24/013",
+      "authority": {
+        "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 157,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "b4fc40dd2c18b9be8a919e0bb275b4ddb1ab20227b12ad390b127731750ecc9e",
+      "screenshotSha256": "bb984a11235e7348c5b9f5835d3cd643c03061a41b601a5032f23d59dc73423d",
+      "curated": true
+    },
+    {
+      "at": "2026-09-11T02:59:16.704Z",
+      "action": "click",
+      "name": "studio-menu-quit",
+      "frame": 40680,
+      "captureId": "native24/014",
+      "authority": {
+        "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 165,
+        "connectionState": "Reconnecting",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "3254333314c2afd48201f2785bce0b8a404da174cf80b0beed8461963cb574dd",
+      "screenshotSha256": "3ce4e9a1a0014f4ecab4656cdf8346aab65b1728f30833c252fd032e8e1b7715"
+    },
+    {
+      "at": "2026-09-11T02:59:26.993Z",
+      "action": "click",
+      "name": "studio-menu-confirm-accept",
+      "frame": null,
+      "captureId": "native24/015",
+      "authority": null,
+      "mapSha256": null,
+      "screenshotSha256": null
+    }
+  ]
+}

@@ -1,0 +1,595 @@
+{
+  "scope": "Safe final-native curation; raw private profiles/saves/auth and HID streams excluded. Historical failed runs retain failed status.",
+  "files": [
+    {
+      "path": "candidate26-27-native-review.json",
+      "bytes": 72574,
+      "sha256": "dbe34c35c6f77aa320ba33352e675e113baa7aea3d51de8f3ef3b44ab0696719"
+    },
+    {
+      "path": "desktop-candidate-binding.json",
+      "bytes": 5147,
+      "sha256": "142e7b0d34eb4f948633d6212d5884b8e617e7ffa2bfff840373c394d63cb772"
+    },
+    {
+      "path": "entry-bindings.json",
+      "bytes": 5919,
+      "sha256": "6ac09e162650a638cd1fef5c7d89b67146efff86c2ba24a641006dd9489fd4f4"
+    },
+    {
+      "path": "explicit-checker-receipt.json",
+      "bytes": 779,
+      "sha256": "c9c9bf43f7844b2f69633516e276aeb12c1d7b20a7754afae5a14330bfd7dc1f"
+    },
+    {
+      "path": "final-correctness-applicability.json",
+      "bytes": 54608,
+      "sha256": "84fb773975be9a3a85ead40b0cf572dda72cbfa27348c4cdf62096f2ab601dcc"
+    },
+    {
+      "path": "final-correctness-typed-record.json",
+      "bytes": 12298,
+      "sha256": "ac101558e5a4f988b7d0094ba38c5728dd1b2f91dfcd17268f978a96ab99e5c4"
+    },
+    {
+      "path": "final-input-process-state.json",
+      "bytes": 342,
+      "sha256": "664382d6295858d7c1ce1ff651a529bda8073740a47bee002eb034e7039fdd7b"
+    },
+    {
+      "path": "input-state.json",
+      "bytes": 294,
+      "sha256": "5928aa1c34d7299e6032816ffac5a58cf2b48bc5fb71abbc11d484b38b818917"
+    },
+    {
+      "path": "native20-26-27-independent-library.json",
+      "bytes": 34309,
+      "sha256": "57a71115b1921450dae9504fa2df96057ebada25ae1ff4cf48fb41cafe0f5ee8"
+    },
+    {
+      "path": "native21-24-25-library-metadata.json",
+      "bytes": 18029,
+      "sha256": "de45c8619b4070a28514c644303cdf0897dc9c19f41ab7c3a8a56ed397bf87c9"
+    },
+    {
+      "path": "native23/build-manifest.json",
+      "bytes": 1591,
+      "sha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd"
+    },
+    {
+      "path": "native23/console-admission-before-input.json",
+      "bytes": 467,
+      "sha256": "42f2251920cdc1469ceef40b05f05e54083ae83f74d7cb706729b281d0d99070"
+    },
+    {
+      "path": "native23/console-admission-before-play.json",
+      "bytes": 192,
+      "sha256": "3975e7272953b77996017ccf9460ff502048479f203f9e0034e789a66281165f"
+    },
+    {
+      "path": "native23/console-admission.json",
+      "bytes": 145,
+      "sha256": "af1ad2f28c1b89e4208147df9adf4bdc70cfcd862f9b3c8042352770af31058a"
+    },
+    {
+      "path": "native23/input-state-end.json",
+      "bytes": 51,
+      "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+    },
+    {
+      "path": "native23/input-state-start.json",
+      "bytes": 51,
+      "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+    },
+    {
+      "path": "native23/native-summary.json",
+      "bytes": 5146,
+      "sha256": "fdf3cf3a1b7923d9485f26f83731dc37da45eca166871abc58151f0630f4ac7a"
+    },
+    {
+      "path": "native24-performance/observe.py",
+      "bytes": 7888,
+      "sha256": "b09801a0835bf8a6a7695490b555720176f0ef6b82afb6ba482d8c1a710b58cf"
+    },
+    {
+      "path": "native24-performance/passive-review.json",
+      "bytes": 14976,
+      "sha256": "de3d1f8025de9110420a9dde8a122c47cdb006445e96d6cc0daadeb31e437036"
+    },
+    {
+      "path": "native24-performance/post-receipt-review.json",
+      "bytes": 17923,
+      "sha256": "29f5aedca33f38bb25f6d4f5ad769af8d77d07d9f5c2fdeb4fb0025d337862c2"
+    },
+    {
+      "path": "native24-performance/review.md",
+      "bytes": 3829,
+      "sha256": "f0e3414bd3cada7f7fcbd518b22c1e420574ce5697c63a268707b8c1a5083c4f"
+    },
+    {
+      "path": "native24-performance/runtime-performance.json",
+      "bytes": 1236306,
+      "sha256": "38ea748144a5f356f31c4fca20bc890e26591f110f101917112d0b1f2c9ac119"
+    },
+    {
+      "path": "native24/004-industry-text-200.png",
+      "bytes": 496276,
+      "sha256": "a6e6042a2888989d120237f13aea98d5a2ed0e69ef7d3545caebbc7e924be75a"
+    },
+    {
+      "path": "native24/004-map.json",
+      "bytes": 231023,
+      "sha256": "e5798d6bca8a0a983835d1400b123d0fdf5fd02edf1418137909b457322fdbf6"
+    },
+    {
+      "path": "native24/005-map.json",
+      "bytes": 231021,
+      "sha256": "c192c86a229be0b00e14b20b42be3e36df166c9d858448dd4a3fbf2ae4bc7d2d"
+    },
+    {
+      "path": "native24/005-tap.png",
+      "bytes": 497051,
+      "sha256": "0e657112ff6f233dfe62b166a539e1885b66e51968afd8700d34d0c2997e8f4c"
+    },
+    {
+      "path": "native24/006-map.json",
+      "bytes": 231030,
+      "sha256": "cf5c435d389244279ca66a342986f03f0d2334c1cf6b0cb355a27ee5c198535b"
+    },
+    {
+      "path": "native24/006-tap.png",
+      "bytes": 497709,
+      "sha256": "95e70c250df6f6db28b6e4d1c74e25b15eedd8c0bb67a6fe8e0caad110bbaea4"
+    },
+    {
+      "path": "native24/007-map.json",
+      "bytes": 231017,
+      "sha256": "3f21697479df9ca3d8ab24e197ec0f619653b1042f0cc7683b23e627fca6503c"
+    },
+    {
+      "path": "native24/007-tap.png",
+      "bytes": 497436,
+      "sha256": "718e81673b92bbf64490b9c8a5d65d062fab839eeadf59de36fff24b60ac4ab6"
+    },
+    {
+      "path": "native24/008-map.json",
+      "bytes": 220300,
+      "sha256": "904bf07fd5cee36fe5bb4f9646e30a342d4ac1366c46153b438e40712b212177"
+    },
+    {
+      "path": "native24/008-tap.png",
+      "bytes": 391295,
+      "sha256": "155d23ff902aa77636887a3dccf54846c6086184731e1b1b5bd736fe30428d3d"
+    },
+    {
+      "path": "native24/009-map.json",
+      "bytes": 220293,
+      "sha256": "db18e82e56435873a059353b0c42a9504d7d99925935784b1dd944a9319c36e2"
+    },
+    {
+      "path": "native24/009-tap.png",
+      "bytes": 390457,
+      "sha256": "f43285449de935a370a908e012dbfc02a55edcf6c0b1c8a4bfe308d809ccd2fd"
+    },
+    {
+      "path": "native24/010-map.json",
+      "bytes": 231178,
+      "sha256": "0efef5eb8c4e91be0face30b1426949d2c8de55cff1c62d7a5181ab7afb14223"
+    },
+    {
+      "path": "native24/010-tap.png",
+      "bytes": 417083,
+      "sha256": "e42fab131d37d786f519451cf02a5c66613560310b114a4b975af94fdaeb879a"
+    },
+    {
+      "path": "native24/012-map.json",
+      "bytes": 234989,
+      "sha256": "41159169aa13577809402dce6072bd84aa202262bc4dc911bef9f4103272cbee"
+    },
+    {
+      "path": "native24/012-studio-menu-save.png",
+      "bytes": 931662,
+      "sha256": "27246b58ef61cd27dbeaff5d141a4eeb47f6d225e03511e69f0d43baf8357ecd"
+    },
+    {
+      "path": "native24/013-map.json",
+      "bytes": 223743,
+      "sha256": "b4fc40dd2c18b9be8a919e0bb275b4ddb1ab20227b12ad390b127731750ecc9e"
+    },
+    {
+      "path": "native24/013-observe.png",
+      "bytes": 913541,
+      "sha256": "bb984a11235e7348c5b9f5835d3cd643c03061a41b601a5032f23d59dc73423d"
+    },
+    {
+      "path": "native24/build-manifest.json",
+      "bytes": 1591,
+      "sha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd"
+    },
+    {
+      "path": "native24/console-admission-before-input.json",
+      "bytes": 467,
+      "sha256": "4dffc1cd3894723f87cbfeddd761047e57ac91122a4c77f303bf89bfa23b7db6"
+    },
+    {
+      "path": "native24/console-admission-before-play.json",
+      "bytes": 191,
+      "sha256": "05babdc3014b722976db69d05eaa2d3a20dc1168ff47fb834bf2ec80b187a152"
+    },
+    {
+      "path": "native24/console-admission.json",
+      "bytes": 144,
+      "sha256": "01300e61853c17916030b541af8811ee12e1a0d510c007823525201100dd9ba2"
+    },
+    {
+      "path": "native24/input-state-end.json",
+      "bytes": 51,
+      "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+    },
+    {
+      "path": "native24/input-state-start.json",
+      "bytes": 51,
+      "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+    },
+    {
+      "path": "native24/native-summary.json",
+      "bytes": 19077,
+      "sha256": "e40b8635ba5a6e89eab5be3e8aeb2518d1fc9faf296588a8fc52cd1d4a42ad9b"
+    },
+    {
+      "path": "native25/000-map.json",
+      "bytes": 210762,
+      "sha256": "b717e617d7abd78019c13e48c558665a826b85899d936336187d62a7c16b6e06"
+    },
+    {
+      "path": "native25/000-studio-menu-open.png",
+      "bytes": 936627,
+      "sha256": "f82c498b19b40f53c0db27f32686f3de634163bc188ea242d36405931a871429"
+    },
+    {
+      "path": "native25/001-map.json",
+      "bytes": 208379,
+      "sha256": "357da6021aa6cd15684add4e3b795078de85356875be35d3ebab1da5de7b2158"
+    },
+    {
+      "path": "native25/001-studio-menu-quit.png",
+      "bytes": 1575691,
+      "sha256": "5692757c4dd3eedf794a61908a8062772c015303b85657d77ae99efd94744bb8"
+    },
+    {
+      "path": "native25/build-manifest.json",
+      "bytes": 1591,
+      "sha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd"
+    },
+    {
+      "path": "native25/console-admission-before-input.json",
+      "bytes": 467,
+      "sha256": "41f8e20a4d07b77e80040b2a2e4277be9256eab328329b1bb39ad05a25d426d6"
+    },
+    {
+      "path": "native25/console-admission-before-play.json",
+      "bytes": 191,
+      "sha256": "9ac629e4563d6f618a00d76947bc2dc3110d0d90c9e15ab8f23f4fac12ba51bf"
+    },
+    {
+      "path": "native25/console-admission.json",
+      "bytes": 144,
+      "sha256": "4d3649f6b7cc9ebdb839bb28e6ba76a48b1f459d1bf629307f98ddfeb06e0381"
+    },
+    {
+      "path": "native25/input-state-end.json",
+      "bytes": 51,
+      "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+    },
+    {
+      "path": "native25/input-state-start.json",
+      "bytes": 51,
+      "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+    },
+    {
+      "path": "native25/native-summary.json",
+      "bytes": 6803,
+      "sha256": "2c74d632d7acc218b48caf4651344d755e139d25fdaf3c6e658415c26be62630"
+    },
+    {
+      "path": "native26/002-map.json",
+      "bytes": 213337,
+      "sha256": "2d1248329b7ebc15827fdf3d0568b85186b4f04b9344039888b6d2b70c111dc0"
+    },
+    {
+      "path": "native26/002-studio-menu-load.png",
+      "bytes": 802897,
+      "sha256": "2f692ff8fd1586ae43e640b021d55419da51e09d50d70b48d04c411d64cd5bee"
+    },
+    {
+      "path": "native26/003-map.json",
+      "bytes": 213349,
+      "sha256": "bc92872d8b0a7910617320bf1843d9480135a4eb6258c81112e21a9769fdc72e"
+    },
+    {
+      "path": "native26/003-studio-menu-save.png",
+      "bytes": 803506,
+      "sha256": "a93cd9dd83440de30cdd9b70a2a8642ec1b6f7d5969a3a3c05ca4a12bff6bbe0"
+    },
+    {
+      "path": "native26/005-map.json",
+      "bytes": 213346,
+      "sha256": "1b46b215382697b528f36d1de993640969268310ca141099a2eef8b34b01aa0d"
+    },
+    {
+      "path": "native26/005-studio-menu-load.png",
+      "bytes": 790816,
+      "sha256": "443812d624c6f487cf4608439e47a6048aa9932fd55912806f37f8b3031fe08c"
+    },
+    {
+      "path": "native26/006-map.json",
+      "bytes": 213346,
+      "sha256": "ea194581950eb5e179d1f06eb9e6cd6c594a043c63dc0eb8f156a8d5cfdfe2b6"
+    },
+    {
+      "path": "native26/006-studio-menu-save.png",
+      "bytes": 789901,
+      "sha256": "3d3cd757884beeb2bf70093c51dfbe590a2e40e4c88ceab203cd9e906d00539c"
+    },
+    {
+      "path": "native26/008-map.json",
+      "bytes": 211924,
+      "sha256": "b6bf389be7a59d07ce36ce7f339ac3bba3e730b988abc3714bfeed9a96d8464b"
+    },
+    {
+      "path": "native26/008-studio-menu-load.png",
+      "bytes": 889286,
+      "sha256": "64acb619443b413e7347cdca8b0fd3ae991c27f83ab370611660310482a5d356"
+    },
+    {
+      "path": "native26/010-map.json",
+      "bytes": 211926,
+      "sha256": "8848a35ae33a25e036c8591c2a47bfab18c874d28b6602a027850f75368e7e22"
+    },
+    {
+      "path": "native26/010-observe.png",
+      "bytes": 882732,
+      "sha256": "96b0ee6e4b4627424967a97ee7221762fe68ebcdcbedd317130228674c8ec423"
+    },
+    {
+      "path": "native26/012-map.json",
+      "bytes": 213397,
+      "sha256": "948a2eff82e0fb7a7a2a6d3270b7da1329b7284ef8d25eaaecebb1bc10c69677"
+    },
+    {
+      "path": "native26/012-studio-menu-load.png",
+      "bytes": 752137,
+      "sha256": "da2bf1638fc1aed5c9ad5af81bae585fa93d29c596ec6390bf6715a9f63ca187"
+    },
+    {
+      "path": "native26/014-map.json",
+      "bytes": 213404,
+      "sha256": "89a308215b56355edf5c7e12e3090c873af0db84808c36b436c9da2eb9a72b34"
+    },
+    {
+      "path": "native26/014-studio-menu-save.png",
+      "bytes": 749197,
+      "sha256": "76d1feb2aa2015d6cf3e53ec4f3bafa39b552c7c1bbbf1fef755f2a4ac20d27e"
+    },
+    {
+      "path": "native26/019-industry-text-200.png",
+      "bytes": 457975,
+      "sha256": "305c979a0ff7b1bac8f51c2ef7d9aaaa2741819b919f089d979a8931f5b2b855"
+    },
+    {
+      "path": "native26/019-map.json",
+      "bytes": 219711,
+      "sha256": "322a53479b241d849d814d2edc7f8f0b80c042e2726340f5375476116db35369"
+    },
+    {
+      "path": "native26/020-map.json",
+      "bytes": 219727,
+      "sha256": "c6b61c5e6c96b041cd24470ef79255165a13284b04204dad77ab3862bc0101d1"
+    },
+    {
+      "path": "native26/020-tap.png",
+      "bytes": 456999,
+      "sha256": "f0baa51b0746d42dafcdd204cdb5253710a86fe4113719523203a10889ed64db"
+    },
+    {
+      "path": "native26/021-map.json",
+      "bytes": 219728,
+      "sha256": "fd75c8369a39eb333091a08301bb5fe0a1e927a05ef510fc074a95eecf70dbbf"
+    },
+    {
+      "path": "native26/021-tap.png",
+      "bytes": 383172,
+      "sha256": "cb1b49dd29a0fe94c5fdc09aac3713fc8fff3fe10352f78b2519eb9e2ac66438"
+    },
+    {
+      "path": "native26/022-map.json",
+      "bytes": 223543,
+      "sha256": "3a674985f74fec70e44bc2395bf6f431626f187afd6799489701def51b9ad776"
+    },
+    {
+      "path": "native26/022-studio-menu-open.png",
+      "bytes": 923159,
+      "sha256": "d93be27f571cbe5d7edf8e448edd5b62ba130b68c126f9024203f35fa2d85a31"
+    },
+    {
+      "path": "native26/build-manifest.json",
+      "bytes": 1591,
+      "sha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd"
+    },
+    {
+      "path": "native26/console-admission-before-input.json",
+      "bytes": 467,
+      "sha256": "17f3f9f3e3ee12b7ee974a3ce7d1c2b1d8dc49a64603501da44b7cdde22b34fd"
+    },
+    {
+      "path": "native26/console-admission-before-play.json",
+      "bytes": 191,
+      "sha256": "2913e865955f8cf0001aefb4871b3a086e041a30d219c07c31af7f20dc856ca0"
+    },
+    {
+      "path": "native26/console-admission.json",
+      "bytes": 144,
+      "sha256": "4ecbee83acb47e132c5a690c464a550a5291318104fac60729813a8af3adc3fb"
+    },
+    {
+      "path": "native26/input-state-end.json",
+      "bytes": 51,
+      "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+    },
+    {
+      "path": "native26/input-state-start.json",
+      "bytes": 51,
+      "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+    },
+    {
+      "path": "native26/native-summary.json",
+      "bytes": 26721,
+      "sha256": "11b3304ec01507b91801beec17afde049728c2398e6a862a22d706a2526dc8c8"
+    },
+    {
+      "path": "native27/000-map.json",
+      "bytes": 213353,
+      "sha256": "352f69398b355b66323cef61cc3d117b221125e7618a9570902600a9573b3ab0"
+    },
+    {
+      "path": "native27/000-studio-menu-open.png",
+      "bytes": 807937,
+      "sha256": "32b774745e5e466c536801a2b6c439ef87b908f3a77178263f9a11bba064b2e2"
+    },
+    {
+      "path": "native27/002-map.json",
+      "bytes": 213327,
+      "sha256": "c638d7841701b11a6558af2c3418dc87c4651f0fb9b76a0d520199615d534ba6"
+    },
+    {
+      "path": "native27/002-studio-menu-load.png",
+      "bytes": 802075,
+      "sha256": "1e3b4b88ecbce74f2a25dd51149d95d207b0fecba5ef56d72b5cbb6f32a00fcf"
+    },
+    {
+      "path": "native27/004-map.json",
+      "bytes": 213342,
+      "sha256": "0bdef00549f8a05942d1d654f561a6001acdd3e2a171e706b5b25df1f1c28eae"
+    },
+    {
+      "path": "native27/004-studio-menu-load.png",
+      "bytes": 803133,
+      "sha256": "116d62a7215c5ba1241982cd29f253b5a1dc9b1c7ac9017440f5c9932872f8f3"
+    },
+    {
+      "path": "native27/006-map.json",
+      "bytes": 211913,
+      "sha256": "e16561b55aa0b625044fe9b57f5a15e469f2287ec3d68dc611c57aedf457c2f8"
+    },
+    {
+      "path": "native27/006-studio-menu-load.png",
+      "bytes": 886940,
+      "sha256": "070e024c48cfcf017429f6bf1717e17529de7be12c687774a1811b10bed1226c"
+    },
+    {
+      "path": "native27/008-map.json",
+      "bytes": 213411,
+      "sha256": "7bc6b4d168c20e197583754459b85456a5d8993248daac5b272fcb953828438f"
+    },
+    {
+      "path": "native27/008-studio-menu-load.png",
+      "bytes": 751861,
+      "sha256": "4778dc820cea95276a2be72e20a749dcc34b1d2d82d98039983ed8c987e2ac7b"
+    },
+    {
+      "path": "native27/009-map.json",
+      "bytes": 213401,
+      "sha256": "06fcb9b5a42504c6f356d388f7fce194b8f36528d4f115a23d3836afd77e6ac2"
+    },
+    {
+      "path": "native27/009-observe.png",
+      "bytes": 750136,
+      "sha256": "c70d9eeb500b28547769e679bf841b3c9fcfc6ef216b62f13eb9e84114d586fc"
+    },
+    {
+      "path": "native27/010-map.json",
+      "bytes": 210725,
+      "sha256": "4a3ee1a19d4fe2b88d78f4f760a5b97512103faba605d629234a28e57cf10006"
+    },
+    {
+      "path": "native27/010-studio-menu-quit.png",
+      "bytes": 1325115,
+      "sha256": "a7797aff925e723ce3bf954b1d38566096aa63d2c15ffae679d769fd63b7e978"
+    },
+    {
+      "path": "native27/build-manifest.json",
+      "bytes": 1591,
+      "sha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd"
+    },
+    {
+      "path": "native27/console-admission-before-input.json",
+      "bytes": 467,
+      "sha256": "f4379b8de974062d8de8c4fd61220718ff250e8bc2d9412e2924913263aafc45"
+    },
+    {
+      "path": "native27/console-admission-before-play.json",
+      "bytes": 191,
+      "sha256": "3f0d482ce96c2b32e1336f94a1e02d6de6c6b4afe2a6616c7e180744e5844820"
+    },
+    {
+      "path": "native27/console-admission.json",
+      "bytes": 144,
+      "sha256": "6d8129765f535eebdb890895f5e0e9d39f6e44d1082889fb0ab1af23e063666b"
+    },
+    {
+      "path": "native27/input-state-end.json",
+      "bytes": 51,
+      "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+    },
+    {
+      "path": "native27/input-state-start.json",
+      "bytes": 51,
+      "sha256": "540b40a5f941b43682e7aaf58f788f2e0a748fa4273147fe770d3b5619df00ec"
+    },
+    {
+      "path": "native27/native-summary.json",
+      "bytes": 14730,
+      "sha256": "5b2bd53011c0fe565c959ff069ec293c175296c75b7c83700e371e48bcb4c66a"
+    },
+    {
+      "path": "owned-shift-cleanup-source-review.json",
+      "bytes": 3749,
+      "sha256": "8bea39c9f535461048386e117a583922c3cd69fdda09696694f4faaacb62b9ad"
+    },
+    {
+      "path": "performance-attestation.json",
+      "bytes": 24408,
+      "sha256": "daeff5091fec7525b8da0adc1dff8792eca67103f40061287c1948d4997ade4c"
+    },
+    {
+      "path": "performance-attestation.md",
+      "bytes": 5458,
+      "sha256": "e30bf30744b7f0706548fe25db5c3b020b25d35939e823c4655872ca10c3faf6"
+    },
+    {
+      "path": "register-preservation.json",
+      "bytes": 570,
+      "sha256": "d5f0337216793789be5c43da589433236bcea2b722218d398ab3814d36720a37"
+    },
+    {
+      "path": "reverse-recheck-native24-25.json",
+      "bytes": 49712,
+      "sha256": "3618028ccdbb3d07637669f977cea4fd623835deb0a43197f9a5c41b9ad8d125"
+    },
+    {
+      "path": "shared-application-preservation.json",
+      "bytes": 628,
+      "sha256": "7b78338a754306f6df31f4a5d006b31192bb51d0bfe4674f30a7358498805d35"
+    },
+    {
+      "path": "third-product-closure-and-reuse.json",
+      "bytes": 22717,
+      "sha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48"
+    }
+  ],
+  "credentialAndRawSaveFieldScan": "No matches in curated text/index/registry; native summary fields explicitly allow-listed.",
+  "indexedEvidenceHashesVerified": 62,
+  "originalEvidenceRowsPreserved": 36,
+  "originalAttestationsPreserved": 7,
+  "normalizedRequirementRowsPreserved": 136
+}

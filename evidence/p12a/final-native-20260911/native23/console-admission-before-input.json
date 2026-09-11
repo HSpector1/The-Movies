@@ -1,0 +1,17 @@
+{
+  "locked": false,
+  "rootLocked": false,
+  "sessionScreenLocked": false,
+  "sessionLockMarkerPresent": false,
+  "idleSeconds": 1.921139333,
+  "observedAtUtc": "2026-09-11T02:53:33.119Z",
+  "idleQualification": "Raw60 verified immediately before PLAY; complete ordered witness rejects foreign input through recovery.",
+  "witnessCounts": {
+    "tool": 0,
+    "markerCompanion": 0,
+    "playerNull": 1,
+    "playerOther": 0,
+    "physical": 0,
+    "unknown": 0
+  }
+}

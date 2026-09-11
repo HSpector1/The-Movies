@@ -1,7 +1,7 @@
 {
   "version": 1,
   "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
-  "status": "PARTIAL",
+  "status": "COMPLETE",
   "milestone": "gate-b",
   "hook": "EXPLICIT-CHECKER FALLBACK",
   "scope": {
@@ -36,7 +36,18 @@
     "schema": "sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211",
     "dto": "ecc9e0b65c493200e39d245d38de2cdad5be1953242ffc1a61a7c53fcb755476"
   },
-  "candidate": null,
+  "candidate": {
+    "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+    "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+    "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+    "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+    "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+    "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+    "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+    "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+    "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+    "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+  },
   "evidence": [
     {
       "kind": "product-review-early",
@@ -296,11 +307,306 @@
       "path": "final-applicability-prepared-20260910/attestation.json",
       "sha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194",
       "applicability": "Existing independent final review refreshed for592/2bc: source/functional/measurement bounds and both197-file packages verified; UNLAUNCHED/profileABSENT. Native reverse/currentlate-world SaveQuitRelaunch/current independentA/B/C candidate/third critique/final typed bindings remain OPEN. Original source and timing qualifications retained."
+    },
+    {
+      "kind": "calendar",
+      "outcome": "PASS",
+      "attestationId": "candidate592-calendar",
+      "path": "core-entry-20260910/report.json",
+      "sha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+      "applicability": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim."
+    },
+    {
+      "kind": "authored-history",
+      "outcome": "PASS",
+      "attestationId": "candidate592-authored-history",
+      "path": "core-entry-20260910/report.json",
+      "sha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+      "applicability": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim."
+    },
+    {
+      "kind": "live-production",
+      "outcome": "PASS",
+      "attestationId": "candidate592-live-production",
+      "path": "core-entry-20260910/report.json",
+      "sha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+      "applicability": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim."
+    },
+    {
+      "kind": "employment",
+      "outcome": "PASS",
+      "attestationId": "candidate592-employment",
+      "path": "core-entry-20260910/report.json",
+      "sha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+      "applicability": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim."
+    },
+    {
+      "kind": "conservation",
+      "outcome": "PASS",
+      "attestationId": "candidate592-conservation",
+      "path": "resource-constraints-20260910/report.json",
+      "sha256": "79a1410595db6d27a30fa4a7b7cea3b25228d129997b8d1567d81f4e0659b5c8",
+      "applicability": "Existing independent592 review explicitly retains unchanged core causal money/talent/capacity controls with their synthetic scope and current cumulative09 strict identity/retention checks. This record does not relabel withdrawal controls as ordinary progression."
+    },
+    {
+      "kind": "migration",
+      "outcome": "PASS",
+      "attestationId": "candidate592-migration",
+      "path": "checkpoint-reuse-20260910/ts-cumulative-09.log",
+      "sha256": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff",
+      "applicability": "Existing592 independent review matches the current four-file strict checkpoint correction, retained schema/migration laws and cumulative09. Current p12-starting-world migration cases and bridge-runtime-checkpoint tests pass; prior native28 recovery remains its historical supporting scope."
+    },
+    {
+      "kind": "generated-contract",
+      "outcome": "PASS",
+      "attestationId": "candidate592-generated-contract",
+      "path": "checkpoint-measurements-20260910/paired-contract-verification.json",
+      "sha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355",
+      "applicability": "Independent prepared592/2bc package review verified current sealed paired contract, same generated DTO/schema in all197 checksum-covered files, exact current emitted engine/worker and unchanged deca-built Unity product trees. This binds contract/build only, not launch."
+    },
+    {
+      "kind": "all-nine",
+      "outcome": "PASS",
+      "attestationId": "candidate592-all-nine",
+      "path": "core-entry-20260910/report.json",
+      "sha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+      "applicability": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim."
+    },
+    {
+      "kind": "endurance",
+      "outcome": "PASS",
+      "attestationId": "candidate592-endurance",
+      "path": "core-continuation-20260910/report.json",
+      "sha256": "cab00bfdbe517bfcec657d5a671e34813db4a3679de790e17d14b3aed98d5c6e",
+      "applicability": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim."
+    },
+    {
+      "kind": "rng-isolation",
+      "outcome": "PASS",
+      "attestationId": "candidate592-rng-isolation",
+      "path": "core-entry-20260910/report.json",
+      "sha256": "1836d71d94da57f394c176ed437ea094f8e842577392bcfa8b62b89e914f0025",
+      "applicability": "Existing independent592 applicability review confirms src/core unchanged through the assembled592 runtime. Original53-input core entry/continuation reports and current cumulative09 retain their exact nine-rival, calendar, strict-history and ordinary-progress scope; no native or12-rival stress claim."
+    },
+    {
+      "kind": "save-as",
+      "outcome": "PASS",
+      "attestationId": "candidate592-save-as",
+      "path": "checkpoint-reuse-20260910/ts-cumulative-09.log",
+      "sha256": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff",
+      "applicability": "Existing592 independent review matches all four integrated runtime files and21-case test, current cumulative09 and18 affected emitted checks. Exact retries/inactive-record preservation are verified; this source/test SaveAs record does not claim current independent NewGame or native launch."
+    },
+    {
+      "kind": "cumulative-regression",
+      "outcome": "PASS",
+      "attestationId": "candidate592-cumulative-regression",
+      "path": "checkpoint-reuse-20260910/ts-cumulative-09.log",
+      "sha256": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff",
+      "applicability": "Existing independent592 applicability review read cumulative09 completion and its21 new tests in default discovery, checked Unity18 results and exact unchanged product trees through2bc, and verified both assembled197-file packages. Skips remain skips; no native/Owner acceptance inferred."
+    },
+    {
+      "kind": "entry-bindings",
+      "outcome": "PASS",
+      "attestationId": "candidate592-entry-bindings",
+      "path": "final-native-20260911/entry-bindings.json",
+      "sha256": "6ac09e162650a638cd1fef5c7d89b67146efff86c2ba24a641006dd9489fd4f4",
+      "applicability": "Original root-issued entry receipt with exact assembled candidate binding added; historical entry pins and incoming contract remain unchanged."
+    },
+    {
+      "kind": "native-industry",
+      "outcome": "PASS",
+      "attestationId": "candidate592-native-industry",
+      "path": "final-native-20260911/candidate26-27-native-review.json",
+      "sha256": "dbe34c35c6f77aa320ba33352e675e113baa7aea3d51de8f3ef3b44ab0696719",
+      "applicability": "Current candidate26 real Admin\u2192Industry Studio Charts and200\u2192reversefocusText100\u2192Enter100 with unchanged copy13 publicworld; prior full native21 ready tasks retain separately reviewed product applicability."
+    },
+    {
+      "kind": "native-campaign-naming",
+      "outcome": "PASS",
+      "attestationId": "candidate592-native-campaign-naming",
+      "path": "final-native-20260911/candidate26-27-native-review.json",
+      "sha256": "dbe34c35c6f77aa320ba33352e675e113baa7aea3d51de8f3ef3b44ab0696719",
+      "applicability": "Current26/27 visibly restore existing independently named A/B/C and B Copy Diverged; exact labels/IDs/selection/load/Save verified. Original NewGame/SaveAs name entry remains historical early/core evidence with explicit reuse, not fresh typing in26/27."
+    },
+    {
+      "kind": "product-review-early",
+      "outcome": "PASS",
+      "attestationId": "candidate592-product-review-early",
+      "path": "final-native-20260911/third-product-closure-and-reuse.json",
+      "sha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48",
+      "applicability": "Exact issued independent typed record, with its original scope/reuse qualifications retained."
+    },
+    {
+      "kind": "product-review-core",
+      "outcome": "PASS",
+      "attestationId": "candidate592-product-review-core",
+      "path": "final-native-20260911/third-product-closure-and-reuse.json",
+      "sha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48",
+      "applicability": "Exact issued independent typed record, with its original scope/reuse qualifications retained."
+    },
+    {
+      "kind": "product-review-full",
+      "outcome": "PASS",
+      "attestationId": "candidate592-product-review-full",
+      "path": "final-native-20260911/third-product-closure-and-reuse.json",
+      "sha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48",
+      "applicability": "Closure of the EXISTING required third six-group product critique after its two recorded corrections; no new broad product critique, fourth review, whole technical gate or Owner enjoyment certificate. Root explicitly authorized this narrow continuation because original critic is no longer live."
+    },
+    {
+      "kind": "correctness-review",
+      "outcome": "PASS",
+      "attestationId": "candidate592-correctness-review",
+      "path": "final-native-20260911/final-correctness-applicability.json",
+      "sha256": "84fb773975be9a3a85ead40b0cf572dda72cbfa27348c4cdf62096f2ab601dcc",
+      "applicability": "Final independent correctness of exact592/2bc/actualdeca candidate and typed evidence; technical scope only. Owner acceptance remains unrun; performance original misses and unmeasured limits remain explicit."
+    },
+    {
+      "kind": "named-campaigns",
+      "outcome": "PASS",
+      "attestationId": "candidate592-named-campaigns",
+      "path": "final-native-20260911/candidate26-27-native-review.json",
+      "sha256": "dbe34c35c6f77aa320ba33352e675e113baa7aea3d51de8f3ef3b44ab0696719",
+      "applicability": "Historical independently created A/B/C are admitted via exact closed20 seed into a new candidate profile. Current26 loads/Saves all four;27 reloads all four and every saved record remains encoded-byte exact26\u219227. NewGames and SaveAs are not newly created in26/27; current world/canonical slot identity is preserved. Intermediate26 inactive bytes are not derived from final-file comparison."
+    },
+    {
+      "kind": "quit-relaunch",
+      "outcome": "PASS",
+      "attestationId": "candidate592-quit-relaunch",
+      "path": "final-native-20260911/candidate26-27-native-review.json",
+      "sha256": "dbe34c35c6f77aa320ba33352e675e113baa7aea3d51de8f3ef3b44ab0696719",
+      "applicability": "Actual same Desktop package26 clean UI Quit \u219227 relaunch and four exact stored campaign loads, then natural clean UI Quit. Later deliberate loads mutate catalogue/working session; whole-library equality is not claimed."
+    },
+    {
+      "kind": "back-restoration",
+      "outcome": "PASS",
+      "attestationId": "candidate592-back-restoration",
+      "path": "final-native-20260911/third-product-closure-and-reuse.json",
+      "sha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48",
+      "applicability": "Historical native21 exact film/person/Profile Back context, page/scroll/focus/200% restoration. Current applicability explicitly approved by the same-third closure; native24 separately completes reverse activation/Back. No historical capture relabelled current."
+    },
+    {
+      "kind": "large-text-final-row",
+      "outcome": "PASS",
+      "attestationId": "candidate592-large-text-final-row",
+      "path": "final-native-20260911/third-product-closure-and-reuse.json",
+      "sha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48",
+      "applicability": "Actual native21 real final employment/archive rows at200%, including complete31-film archive. Current same-third closure approves source applicability. Profile latest24 lens is not a whole978-credit final-row claim."
+    },
+    {
+      "kind": "ready-extensions",
+      "outcome": "PASS",
+      "attestationId": "candidate592-ready-extensions",
+      "path": "final-native-20260911/third-product-closure-and-reuse.json",
+      "sha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48",
+      "applicability": "Exactly the six approved R05 ready groups from original native21 critique; corrected entrant wording in22 and reverse keyboard in24 close its recorded obstacles. No new critique, fabricated People/Studios Pulse events, or unobserved reconnect/duplicate-name scenario."
+    },
+    {
+      "kind": "performance",
+      "outcome": "PASS",
+      "attestationId": "candidate592-performance",
+      "path": "final-native-20260911/performance-attestation.json",
+      "sha256": "daeff5091fec7525b8da0adc1dff8792eca67103f40061287c1948d4997ade4c",
+      "applicability": "PASS means the independent scoped R05 measured reference rebaseline and bounded repeated-work correction are accepted, not every original numerical target or future workload. The original issued outcome/limits remain controlling."
+    },
+    {
+      "kind": "launch-binding",
+      "outcome": "PASS",
+      "attestationId": "candidate592-launch-binding",
+      "path": "final-native-20260911/candidate26-27-native-review.json",
+      "sha256": "dbe34c35c6f77aa320ba33352e675e113baa7aea3d51de8f3ef3b44ab0696719",
+      "applicability": "Actual Desktop PLAY26 clean UI Quit and same-package27 relaunch/clean UI Quit under exact197-file payload, authenticated supervisor process/incarnation/lease bindings. Distinct late-world24/25 profile remains separate. No raw private profile or capabilities published."
     }
   ],
-  "updatedAtUtc": "2026-09-10T22:45:28.387979+00:00",
+  "updatedAtUtc": "2026-09-11T03:34:06.640311+00:00",
   "attestationsPath": "attestations.json",
   "recovery": {
+    "sessionId": "01a08adf-7719-7da2-85d0-77ae64c36fad",
+    "model": "gpt-6-astra",
+    "effort": "ultra",
+    "soleEditingAndInputOwner": "root",
+    "privateSourceCheckpoint": "/Users/bruce/.local/share/project-studio-recovery/P12A-R05-20260910T160046Z",
+    "finalEvidenceCheckpoint": "/Users/bruce/.local/share/project-studio-recovery/P12A-R05-20260911T032159Z-final-evidence",
+    "sourceRuntime": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+    "unityHead": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+    "lastCompletedNative": "early-2026-09-11T03-17-27-667Z",
+    "lastAcknowledgedHidAtUtc": "2026-09-11T03:19:49.559Z",
+    "independentInputAndProcessCheckAtUtc": "2026-09-11T03:20:40.570103Z",
+    "heldKeys": [],
+    "heldMouseButtons": [],
+    "heldModifiers": false,
+    "ownedRuntimeIncarnationsRemaining": [],
+    "nativeInputRunnerActive": false,
+    "nextNativeInputAuthorization": "No current admission; Owner desktop returned before30-minute window ended. Future automation requires new authorized availability and fresh guard."
+  },
+  "open": [
+    "Mandatory Owner playtest and acceptance verdict UNRUN.",
+    "Original serialization/size targets MISS under explicit independently accepted current-reference rebaseline.",
+    "Future12/48/4000/50 stress and isolated durable-write worker transport UNMEASURED."
+  ],
+  "preparedCandidate": {
+    "status": "PREPARED_UNLAUNCHED",
+    "root": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
+    "lateWorldPackage": "/private/tmp/p12a-current592-native-93tk_gpc",
+    "typescript": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+    "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+    "playerSource": "deca39521da1baeca61898d156a43f4ae6a7e035",
+    "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+    "immutableFiles": 197,
+    "profile": "ABSENT",
+    "observationQualification": "Historical assembly-time observation retained verbatim. Current actual launch/profile state is recorded separately below."
+  },
+  "candidateDetails": {
+    "status": "TECHNICAL_KEEP_FOR_OWNER_PLAYTEST; OWNER_ACCEPTANCE_OPEN",
+    "root": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
+    "packageImmutableFiles": 197,
+    "pairSha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355",
+    "assemblyCSharpSha256": "9a8dae63540f41fd5618bfccc6e52021458825280ba991fbf7ec6cad90a8155a",
+    "workerSourceManifestSha256": "a092dafb02a0f346c7fb29147eed0b9b2e643bdf4364f574cfa7f5fd63d06c58",
+    "sourceApplicabilityArtifact": "final-native-20260911/final-correctness-applicability.json",
+    "sourceApplicabilityArtifactSha256": "84fb773975be9a3a85ead40b0cf572dda72cbfa27348c4cdf62096f2ab601dcc",
+    "qualification": "Exact197 immutable payloads used in actual Desktop26/27. ManifestUnity2bc8d30 and playerproductdeca395 are distinct. Technical KEEP retains explicit reference-performance limits and does not substitute Owner acceptance."
+  },
+  "assemblyDraft": {
+    "status": "FINAL_TYPED_CORRECTNESS_REVIEWED",
+    "author": "/root/recovered_storage_review",
+    "preservesOriginalEvidenceRows": 36,
+    "preservesOriginalAttestationRecords": 7,
+    "newTypedRecords": 26,
+    "currentNativeReports": "Actual24/25 late-world reverse/Save/Quit/relaunch and Desktop26/27 independent A/B/C/copy saved/reloaded; same third product closure, scoped performance and final correctness issued. Owner remains separate.",
+    "ownerAcceptance": "OPEN_SEPARATE",
+    "hookActive": false,
+    "typedGateKindsReady": 26,
+    "remainingTypedKind": null
+  },
+  "currentCandidateObservation": {
+    "status": "CURRENT_DESKTOP_PLAY_SAVE_QUIT_RELAUNCH_COMPLETE",
+    "root": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
+    "nativeRuns": [
+      "early-2026-09-11T03-03-22-494Z",
+      "early-2026-09-11T03-17-27-667Z"
+    ],
+    "profile": "PRESENT_PRIVATE_SYNTHETIC_INDEPENDENT_CAMPAIGN_LIBRARY",
+    "finalCheckpointSha256": "a6ee23c0dd50a3eab6fe632315fe3fa80714eefbbfd3c63a630926399ae6c98b",
+    "finalCheckpointBytes": 1491117,
+    "allFourSavedRecordsUnchangedAcross26To27": true,
+    "naturalUiQuit": true,
+    "inputWitness": "clean",
+    "artifacts": [
+      {
+        "path": "final-native-20260911/candidate26-27-native-review.json",
+        "sha256": "dbe34c35c6f77aa320ba33352e675e113baa7aea3d51de8f3ef3b44ab0696719"
+      },
+      {
+        "path": "final-native-20260911/native20-26-27-independent-library.json",
+        "sha256": "57a71115b1921450dae9504fa2df96057ebada25ae1ff4cf48fb41cafe0f5ee8"
+      },
+      {
+        "path": "final-native-20260911/final-input-process-state.json",
+        "sha256": "664382d6295858d7c1ce1ff651a529bda8073740a47bee002eb034e7039fdd7b"
+      }
+    ]
+  },
+  "historicalRecoverySnapshot": {
     "sessionId": "01a08adf-7719-7da2-85d0-77ae64c36fad",
     "model": "gpt-6-astra",
     "effort": "ultra",
@@ -348,22 +654,13 @@
       "outcome": "Native22 entrant wording100/200 verified, then Shift-Tab UP retained Shift and guard stopped; no clean-input/Quit/relaunch pass. Owner physical modifier cleanup pending."
     }
   },
-  "open": [
-    "GateB same third review: actual reverse keyboard after manual Shift clearance and fresh input admission",
-    "Actual current late-world Save/Quit/same-package relaunch",
-    "Current independent A/B/C candidate PLAY/Quit/relaunch",
-    "Final independent applicability, typed attestations and exact candidate disposition",
-    "Owner acceptance separate; hook inactive explicit-checker fallback"
-  ],
-  "preparedCandidate": {
-    "status": "PREPARED_UNLAUNCHED",
-    "root": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
-    "lateWorldPackage": "/private/tmp/p12a-current592-native-93tk_gpc",
-    "typescript": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
-    "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
-    "playerSource": "deca39521da1baeca61898d156a43f4ae6a7e035",
-    "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
-    "immutableFiles": 197,
-    "profile": "ABSENT"
+  "completionScope": "Gate B technical verification only. R05 Owner acceptance remains OPEN; COMPLETE here does not claim every original performance target passed or the mandatory Owner verdict occurred.",
+  "technicalDisposition": {
+    "result": "KEEP_FOR_OWNER_PLAYTEST",
+    "mandatoryTechnicalKinds": 26,
+    "ownerAcceptance": "UNRUN_OPEN",
+    "performance": "ACCEPTED_CURRENT_REFERENCE_REBASELINE_WITH_ORIGINAL_MISSES_AND_UNMEASURED_LIMITS",
+    "hook": "EXPLICIT-CHECKER FALLBACK / INACTIVE",
+    "candidateRecommendation": "The exact Desktop candidate in currentCandidateObservation; preserved rollback unchanged."
   }
 }

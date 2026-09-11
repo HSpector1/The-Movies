@@ -1,0 +1,16 @@
+{
+  "status": "PASS_BOUNDED_SHARED_APPLICATION_PRESERVATION",
+  "atUtc": "2026-09-11T03:31:14.900322+00:00",
+  "checks": {
+    "original36RowsExact": true,
+    "original7AttestationsExact": true,
+    "priorRecoveryPreservedExactly": true,
+    "currentStatusPartial": true,
+    "hookExplicitFallback": true
+  },
+  "sha256": {
+    "EVIDENCE-INDEX.json": "f3baa02da1b246dbebf2845fba0b13df3695409e9698162277501fb86b5b890e",
+    "attestations.json": "6b341e2409008fd8ccb4d80884f0783438ba145e744879f6fec145b07599a630"
+  },
+  "scope": "Assembly integrity only; no correctness verdict or native acceptance inferred; no shared edits."
+}

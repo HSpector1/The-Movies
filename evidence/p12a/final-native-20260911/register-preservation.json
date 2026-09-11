@@ -1,0 +1,24 @@
+{
+  "beforeSha256": "a53712d0f7b8192af7f92b31f4ff9759e5defa03d919e323e1af78f8d5615f83",
+  "afterSha256": "de50c6c16d5b432626fa477aa0f2827e06896734d0a27e3e493c53a969b5ab93",
+  "normalizedRowsPreserved": 136,
+  "rowOrderPreserved": true,
+  "originalObligationsDispositionsFlagsAndOtherFieldsPreserved": true,
+  "changedCurrentCells": [
+    "GOV-001",
+    "GOV-005",
+    "UX-001",
+    "UX-002",
+    "UX-003",
+    "UX-005",
+    "UX-015",
+    "PERF-008",
+    "PRF-001",
+    "PRF-002",
+    "PRF-003",
+    "PRF-005",
+    "PRF-012",
+    "SAVE-R05-001",
+    "SAVE-R05-002"
+  ]
+}

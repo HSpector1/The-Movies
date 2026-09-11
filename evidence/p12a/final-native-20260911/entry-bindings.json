@@ -1,0 +1,115 @@
+{
+  "id": "candidate592-entry-bindings",
+  "kind": "entry-bindings",
+  "outcome": "PASS",
+  "provenance": "source-review",
+  "entryExecutionLog": "docs/campaigns/P12A-EXECUTION-LOG.md, Entry 2026-09-10; preserved original full-read/preflight receipt",
+  "normalization": "This records the completed entry and bounded attachment/pin identity check during final evidence assembly; it does not restart launch or claim that later current source is the original base.",
+  "effectiveModelEffort": "gpt-6-astra / ultra",
+  "session": "01a08adf-7719-7da2-85d0-77ae64c36fad",
+  "requiredAccess": "Verified at recovery: both worktrees, Downloads, Desktop, Application Support; unchanged danger-full-access/approval never.",
+  "attachments": [
+    {
+      "name": "P12A-R05-LAUNCH-PROMPT.md",
+      "sha256": "4bd5398e48bb8f9318830948be582dcb34ab049ffb768740c4f2def8cabd57b3",
+      "bytes": 6343,
+      "zipMatches": [
+        {
+          "path": "P12A-R05-LAUNCH-PACK/P12A-R05-LAUNCH-PROMPT.md",
+          "sameBytes": true
+        }
+      ]
+    },
+    {
+      "name": "P12A-R05-OWNER-DECISIONS-AND-ACCEPTANCE.md",
+      "sha256": "473ec3955a3624c7b1da3f670607a08a0ed86019736c50260d8f338176e50e87",
+      "bytes": 32422,
+      "zipMatches": [
+        {
+          "path": "P12A-R05-LAUNCH-PACK/P12A-R05-OWNER-DECISIONS-AND-ACCEPTANCE.md",
+          "sameBytes": true
+        }
+      ]
+    }
+  ],
+  "zipSha256": "32f6c5e631711eaf163f09e4e1af85052d3a66e7e6f88e538921ee41154f1674",
+  "planningPin": "b51d8790354ccccd26c3c5e90819ecfafda9988c",
+  "pinnedDocuments": [
+    {
+      "path": "docs/engineering/P12A-PRE-READINESS-AND-DEPENDENCY-GATE.md",
+      "sha256": "ca2cdd96cb051a13ecea0fee202038df8f312d2ddb2ca31f57be2549ddd61fc2",
+      "git_blob": "940223251f3cab89013b962592a7e7969d247d22",
+      "bytes": 11362,
+      "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/P12A-PRE-READINESS-AND-DEPENDENCY-GATE.md",
+      "currentDesktopSha256": "ca2cdd96cb051a13ecea0fee202038df8f312d2ddb2ca31f57be2549ddd61fc2",
+      "samePinnedBytes": true,
+      "manifestHashMatches": true
+    },
+    {
+      "path": "docs/engineering/P12A-AUTHORITY-AND-CODE-RECONNAISSANCE-PLAN.md",
+      "sha256": "a4732ea4887e90083d4c2be98f8836319c4f801c93769e79fe7a05215eca4841",
+      "git_blob": "db8ef0c43dabacac6f650660c646ce3f7c65f549",
+      "bytes": 25468,
+      "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/P12A-AUTHORITY-AND-CODE-RECONNAISSANCE-PLAN.md",
+      "currentDesktopSha256": "a4732ea4887e90083d4c2be98f8836319c4f801c93769e79fe7a05215eca4841",
+      "samePinnedBytes": true,
+      "manifestHashMatches": true
+    },
+    {
+      "path": "docs/engineering/P12A-DECISION-AND-REQUIREMENT-REGISTER.md",
+      "sha256": "ed8e37bb56dfa0761ca526e09c138dd202b2843d6452d80d92b6df23277ded5f",
+      "git_blob": "bf605467f4708f7b759563717936d441c49e41c1",
+      "bytes": 104325,
+      "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/P12A-DECISION-AND-REQUIREMENT-REGISTER.md",
+      "currentDesktopSha256": "ed8e37bb56dfa0761ca526e09c138dd202b2843d6452d80d92b6df23277ded5f",
+      "samePinnedBytes": true,
+      "manifestHashMatches": true
+    },
+    {
+      "path": "docs/engineering/P11-TO-P12-AND-P12-FUTURE-CONSUMER-CONTRACT.md",
+      "sha256": "200065d27846395df9f286faa54128b835a6cb5f0ed24669ab1ada366ac45b42",
+      "git_blob": "064f7c21baa2f82dc303eb5ec6a754cf9707e137",
+      "bytes": 36927,
+      "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/P11-TO-P12-AND-P12-FUTURE-CONSUMER-CONTRACT.md",
+      "currentDesktopSha256": "200065d27846395df9f286faa54128b835a6cb5f0ed24669ab1ada366ac45b42",
+      "samePinnedBytes": true,
+      "manifestHashMatches": true
+    },
+    {
+      "path": "docs/engineering/P12A-PROVISIONAL-IMPLEMENTATION-CHARTER.md",
+      "sha256": "249865442efc7848a8df3169eafc164b2ffe6088ca32bb28d833c4436e4976fa",
+      "git_blob": "8914469c1c1232a7204a593848475c980211bb88",
+      "bytes": 14442,
+      "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/P12A-PROVISIONAL-IMPLEMENTATION-CHARTER.md",
+      "currentDesktopSha256": "249865442efc7848a8df3169eafc164b2ffe6088ca32bb28d833c4436e4976fa",
+      "samePinnedBytes": true,
+      "manifestHashMatches": true
+    },
+    {
+      "path": "docs/engineering/DRAFT-P12A-IMPLEMENTATION-PROMPT.md",
+      "sha256": "135656aa4a81ce288fa3575a478c4619716b7f446513f3000287278ab62dc723",
+      "git_blob": "dcd10c4eeee7f23c0b3e1d47d968c5042e271d68",
+      "bytes": 6629,
+      "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/DRAFT-P12A-IMPLEMENTATION-PROMPT.md",
+      "currentDesktopSha256": "135656aa4a81ce288fa3575a478c4619716b7f446513f3000287278ab62dc723",
+      "samePinnedBytes": true,
+      "manifestHashMatches": true
+    },
+    {
+      "path": "docs/engineering/P12A-REFERENCE-AND-PRODUCT-REVIEW-KIT.md",
+      "sha256": "0f49211e1f78902a6e63b035952750fab42cd4ecf00af2cd6adbec35dae1ffb5",
+      "git_blob": "13afa7f55f066d17cddf3b5981cf09767fa29342",
+      "bytes": 18996,
+      "desktopPath": "/Users/bruce/Desktop/P12-Living-Hollywood-Launch-Review/docs/engineering/P12A-REFERENCE-AND-PRODUCT-REVIEW-KIT.md",
+      "currentDesktopSha256": "0f49211e1f78902a6e63b035952750fab42cd4ecf00af2cd6adbec35dae1ffb5",
+      "samePinnedBytes": true,
+      "manifestHashMatches": true
+    }
+  ],
+  "originalAuthorityPin": "a0739055c30f80fcf756340d0e0e962865aec6a4",
+  "acceptedTsProduct": "7ae36b44d99c505246d17dcc37beba94fa59a18a",
+  "acceptedTsDocs": "4caf7682b6c427b64f1ffab742f07cb4fddef2b0",
+  "acceptedUnity": "3a9a3f488693aa14431a6aa412d7560df8f30a89",
+  "hook": "EXPLICIT-CHECKER FALLBACK / INACTIVE",
+  "budget": "Original72productive/96elapsed hours; final24productive reserve, no reset. Exactproductive balance unmeasured."
+}

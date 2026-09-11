@@ -1,0 +1,115 @@
+{
+  "kind": "R05 early native preview",
+  "status": "stopped",
+  "at": "2026-09-11T02:53:12.777Z",
+  "runtime": "/tmp/p12a-native-2iYU7p",
+  "storageRuntime": "/private/tmp/p12a-current592-native-93tk_gpc/PrivateProfile/bridge-runtime",
+  "relaunchBinding": null,
+  "initialCheckpointBinding": {
+    "kind": "explicit engineering initial checkpoint; no prior native Quit claimed",
+    "source": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z/campaign-library-final.json",
+    "sourceSha256": "66b79add059344d2704d6e27641ecf750f73acad8a358662c91a30eb5df50365",
+    "destination": "/private/tmp/p12a-current592-native-93tk_gpc/PrivateProfile/bridge-runtime/bridge-runtime-v1.json",
+    "copiedBytes": 70593125
+  },
+  "packageBinding": {
+    "root": "/private/tmp/p12a-current592-native-93tk_gpc",
+    "profileRoot": "/private/tmp/p12a-current592-native-93tk_gpc/PrivateProfile",
+    "launcher": "/private/tmp/p12a-current592-native-93tk_gpc/PLAY_PROJECT_STUDIO.command",
+    "launcherSha256": "f866c468e9ac68c49bd27b73d58d282056c6e7be0871e35cd12ab3f6a7f3ed93",
+    "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+    "verifiedImmutableFiles": 197,
+    "supervisorSha256": "97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26",
+    "pairedContractVerificationSha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355",
+    "actionTrace": "Unavailable in packaged mode: supervisor intentionally does not pass this optional environment variable."
+  },
+  "manifestSha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+  "playerSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+  "engineSha256": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+  "sources": {
+    "p12a-native-preview.mjs": "4b6729899c9214a10372a87dba8b95a9ee775e541f5435c614ac38c3d4cf6ef7",
+    "hid-guard.mjs": "7fd64956c50df199d8ab5ec8c63ea2eb6c84dc3440db53a713efb1d5d1612b02",
+    "hid-witness-state.mjs": "336e0a7e1afffb18e0e71a01d145c15889b08f974b776d4805ed1db2911e63f2",
+    "hid-coherent-map.mjs": "d766cb5a96519bff79fafdc9806d9973e575a08a8e251b53a739490515efd7c7",
+    "owner-ux-startup.mjs": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff",
+    "owner-ux-window.mjs": "d93ca436174d295cacc7a3d7d561adae7b3d5c49cbdc8019e507ca8fcec92594",
+    "p04a1-window-select.mjs": "a70359db53251c0f88fd3ee586169fcf328f691ffaf2d73d2a844217533b561c",
+    "input-state.py": "d235e2a584bd6d142e5fdd0dd93833bd139260b33646a7f59eae030ba5184942",
+    "console-state.py": "fd540d278ce159e9db1c8c4e8133b222e523475ed9642244799124668de78ac7",
+    "ownerinput/ownerinput.swift": "a31735e7a422ab444ea747809cc238e94b82b9dbbcfaa62cde61ce05cf74a1d8",
+    "hidwitness/hidwitness.swift": "9dad5fdd34fce93cd497eaf06c76b97b5d928627e07e157c292f8714fa7311df"
+  },
+  "performance": {
+    "sampleSeconds": 30,
+    "warmupSeconds": 45,
+    "root": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-53-09-816Z/runtime-performance",
+    "scope": "frame window plus bounded route observations through clean UI Quit"
+  },
+  "runtimeWorkerSha256": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+  "runtimeWorkerSourceManifestSha256": "a092dafb02a0f346c7fb29147eed0b9b2e643bdf4364f574cfa7f5fd63d06c58",
+  "inputToolSha256": "6dd714005d33402d8b2ec7a3cbba664698505f76079ea2516ad3685f85364a3c",
+  "witnessToolSha256": "74d05819871f65823db48f5bc3ffcf59c61274952a391cfcb50e1693ef38a959",
+  "reason": "input stream ended",
+  "appPid": 90817,
+  "enginePid": 90814,
+  "supervisorPid": 90806,
+  "playerExit": {
+    "code": null,
+    "signal": null
+  },
+  "checkpointSha256": null,
+  "errors": [],
+  "rawReport": {
+    "privatePath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-53-09-816Z/report.json",
+    "sha256": "8ff3ae43ef55eeea0f73b31b0f487c2331aa88ba8ed99918482adcf4b20b2ddd"
+  },
+  "inputFinalization": {
+    "status": "clean",
+    "counts": {
+      "tool": 2,
+      "markerCompanion": 1,
+      "playerNull": 1,
+      "playerOther": 0,
+      "physical": 0,
+      "unknown": 0
+    },
+    "markerSeq": 217,
+    "endSequence": 218,
+    "foreign": [],
+    "shiftTabModifiers": {
+      "pending": false,
+      "lastObservedState": null,
+      "lastUpReceipt": null
+    }
+  },
+  "supervisorFinalization": {
+    "status": "stopped",
+    "ownedReferences": [
+      {
+        "pid": 90806,
+        "processIncarnation": "ps-lstart:Fri Sep 11 04:53:13 2026"
+      },
+      {
+        "kind": "engine",
+        "pid": 90814,
+        "processGroupId": 90814,
+        "processIncarnation": "ps-lstart:Fri Sep 11 04:53:14 2026"
+      },
+      {
+        "kind": "unity",
+        "pid": 90817,
+        "processGroupId": 90817,
+        "processIncarnation": "ps-lstart:Fri Sep 11 04:53:27 2026"
+      }
+    ],
+    "exit": {
+      "code": 143,
+      "signal": null
+    },
+    "activeLeaseAbsent": true,
+    "checkpointLockAbsent": true,
+    "ownedIncarnationsAbsent": true
+  },
+  "checkpointBytes": null,
+  "steps": []
+}

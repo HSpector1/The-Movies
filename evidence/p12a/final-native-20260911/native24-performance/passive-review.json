@@ -1,0 +1,373 @@
+{
+  "status": "PASSIVE_OBSERVATION_WITH_LIMITS; NO_EXHAUSTIVE_RESPONSIVENESS_CLAIM",
+  "at": "2026-09-11T02:59:46.879040+00:00",
+  "run": {
+    "at": "2026-09-11T02:56:11.877558+00:00",
+    "observerPid": 91669,
+    "appPid": 91148,
+    "runtime": "/private/tmp/p12a-native-f4Y4lx",
+    "evidence": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z",
+    "map": "/private/tmp/p12a-native-f4Y4lx/element-map.json",
+    "performance": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/runtime-performance/PerformanceCaptures/Unity/runtime-performance.json",
+    "maxSeconds": 900,
+    "pollIntervalSeconds": 0.25,
+    "observerSha256": "b09801a0835bf8a6a7695490b555720176f0ef6b82afb6ba482d8c1a710b58cf"
+  },
+  "observationSummary": {
+    "at": "2026-09-11T02:59:26.982466+00:00",
+    "status": "OBSERVATIONS_ONLY_NO_PASS_CLAIM",
+    "stopReason": "observed-app-process-exited",
+    "elapsedSeconds": 195.10601550003048,
+    "metrics": {
+      "polls": 769,
+      "newMapGenerations": 758,
+      "missingMaps": 0,
+      "readRacesOrParseErrors": 7,
+      "unchangedReads": 4,
+      "mapGenerationSkips": 1347,
+      "frameRegressions": 0,
+      "maxObserverPollGapMs": 255.2389579359442,
+      "maxObservedNewMapArrivalGapMs": 759.1637920122594,
+      "performancePublications": 3,
+      "errors": []
+    },
+    "lastMap": {
+      "observedUtc": "2026-09-11T02:59:26.208360+00:00",
+      "observedEpochNs": 1789095566208369000,
+      "observerElapsedMs": 194330.492625013,
+      "mapMtimeEpochNs": 1789095566118674588,
+      "mapSha256": "96dfb02536e796c85279ffecbaf62cf9a9a4e47061558f2fa05dc70f9c7240ec",
+      "mapGeneration": 2813,
+      "frameCount": 42195,
+      "generationDelta": 2,
+      "frameDelta": 30,
+      "arrivalGapMs": 255.11429202742875,
+      "workspaceOpen": true,
+      "rootEnabled": false,
+      "eventSystem": "active",
+      "authority": {
+        "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "successfulSnapshotPollCount": 172,
+        "connectionState": "Live",
+        "transportOutageCount": 0
+      },
+      "profileRouteOpen": false,
+      "profileTalentId": "",
+      "controls": [
+        {
+          "name": "studio-menu-open",
+          "visible": true,
+          "enabled": true
+        }
+      ]
+    },
+    "sourceChanges": [],
+    "limitations": [
+      "Every15Unityframes map publication plus250ms observer polling is not an all-frame or input-response measurement.",
+      "Read races, missing files, scheduler delay and skipped generations are recorded; map arrival gaps cannot uniquely identify a UI stall.",
+      "Continued frame/map publication during Save establishes observed rendering/progress, not that blocked campaign controls are responsive or every interaction remains available.",
+      "Only final existing bridge diagnostics can bind actual Save send-to-coroutine-resume and application scopes. Those include transport/server wait and scheduling, not continuous UI unresponsiveness.",
+      "Existing45s warmup/30s frame window is scoped by its UTC/tick boundaries; it cannot be extended to a later Save unless timestamps overlap.",
+      "No native input, HTTP requests, screenshot capture, raw-save read, process mutation or shared source/global-setting edits occurred."
+    ]
+  },
+  "finalPerformanceFile": {
+    "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/runtime-performance/PerformanceCaptures/Unity/runtime-performance.json",
+    "sha256": "38ea748144a5f356f31c4fca20bc890e26591f110f101917112d0b1f2c9ac119",
+    "status": "complete",
+    "applicationQuitCapture": true,
+    "applicationQuitCapturedUtc": "2026-09-11T02:59:26.2159120Z"
+  },
+  "finalDiagnosticDroppedRequests": 0,
+  "frameSample": {
+    "warmupSecondsRequested": 45.0,
+    "sampleSecondsRequested": 30.0,
+    "sampleSecondsMeasured": 30.004207332999997,
+    "sampledFrames": 4878,
+    "sampleStartedUtc": "2026-09-11T02:55:52.0463550Z",
+    "sampleEndedUtc": "2026-09-11T02:56:22.0503290Z",
+    "sampleStartedTicks": 8925859119327,
+    "sampleEndedTicks": 8926159161260,
+    "stopwatchFrequency": 10000000,
+    "authorityBeforeSample": {
+      "connection": "Live",
+      "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+      "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+      "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+      "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "revision": 0,
+      "gameWeek": 8794,
+      "successfulSnapshotPolls": 32,
+      "transportOutageCount": 0,
+      "runtimeReplacementCount": 0
+    },
+    "authorityAfterSample": {
+      "connection": "Reconnecting",
+      "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+      "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+      "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+      "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "revision": 0,
+      "gameWeek": 8794,
+      "successfulSnapshotPolls": 52,
+      "transportOutageCount": 0,
+      "runtimeReplacementCount": 0
+    },
+    "gen0Collections": 151,
+    "gen1Collections": 151,
+    "gen2Collections": 151,
+    "authorityContinuityMaintained": true,
+    "nonLiveFrames": 1368,
+    "transportOutagesDuringSample": 0,
+    "averageFps": 162.57719945278984,
+    "averageFrameTimeMs": 6.150916453054531,
+    "medianFrameTimeMs": 5.598437999999817,
+    "p95FrameTimeMs": 8.503867000004917,
+    "minFrameTimeMs": 1.9300419999979113,
+    "maxFrameTimeMs": 85.57283300000051,
+    "medianEquivalentFps": 178.62125114184218,
+    "p95EquivalentFps": 117.59356067062454,
+    "averageCpuFrameTimeMs": -1.0,
+    "averageGpuFrameTimeMs": -1.0,
+    "averageDrawCalls": 890.9975399753997,
+    "averageBatches": 547.6623616236162,
+    "averageSetPassCalls": 128.3751537515375,
+    "averageRenderedTriangles": 317013.79684296844,
+    "averageRenderedVertices": 345332.7480524805
+  },
+  "campaignSaveIntervals": [
+    {
+      "request": {
+        "sequence": 312,
+        "route": "/campaigns",
+        "operation": "save",
+        "requestIdentity": "43877039-1eda-4673-be31-cfe86bd3e1c2",
+        "startedUtc": "2026-09-11T02:58:48.0202030Z",
+        "resumedUtc": "2026-09-11T02:58:58.5621600Z",
+        "startedTicks": 8927618871018,
+        "resumedTicks": 8927724291367,
+        "sendToCoroutineResumeMs": 10542.0349,
+        "outcome": "response-received",
+        "responseCode": 200,
+        "payloadBytes": 581,
+        "threadId": 1,
+        "clientAuthorityAtStart": {
+          "connection": "Live",
+          "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+          "revision": 0,
+          "gameWeek": 8794,
+          "successfulSnapshotPolls": 153,
+          "transportOutageCount": 0,
+          "runtimeReplacementCount": 0
+        },
+        "clientAuthorityAtResume": {
+          "connection": "Live",
+          "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+          "revision": 0,
+          "gameWeek": 8794,
+          "successfulSnapshotPolls": 153,
+          "transportOutageCount": 0,
+          "runtimeReplacementCount": 0
+        },
+        "joinedClientAuthority": {
+          "connection": "",
+          "runtimeInstanceId": "",
+          "sessionId": "",
+          "digest": "",
+          "schemaId": "",
+          "revision": 0,
+          "gameWeek": 0,
+          "successfulSnapshotPolls": 0,
+          "transportOutageCount": 0,
+          "runtimeReplacementCount": 0
+        },
+        "phases": [
+          {
+            "phase": "utf8-text-decode",
+            "outcome": "scope-exited",
+            "startedTicks": 8927724292183,
+            "endedTicks": 8927724292311,
+            "milliseconds": 0.0128,
+            "threadId": 1
+          },
+          {
+            "phase": "strict-parse-validation",
+            "outcome": "scope-exited",
+            "startedTicks": 8927724292383,
+            "endedTicks": 8927724298464,
+            "milliseconds": 0.6081,
+            "threadId": 1
+          }
+        ]
+      },
+      "observedMapCountWithinSendToResume": 41,
+      "frameWindowOverlapSeconds": 0,
+      "maximumRecordedMainThreadPhaseMs": 0.6081,
+      "phaseSumQualification": "Individual synchronous phase durations exclude later layout/render. Total request duration includes server/transport and coroutine scheduling; it is not continuous main-thread blocked time.",
+      "firstMap": {
+        "observedUtc": "2026-09-11T02:58:48.125220+00:00",
+        "mapMtimeEpochNs": 1789095528041139375,
+        "mapGeneration": 2396,
+        "frameCount": 35940,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "successfulSnapshotPollCount": 153,
+          "connectionState": "Live",
+          "transportOutageCount": 0
+        }
+      },
+      "lastMap": {
+        "observedUtc": "2026-09-11T02:58:58.283808+00:00",
+        "mapMtimeEpochNs": 1789095538263739851,
+        "mapGeneration": 2512,
+        "frameCount": 37680,
+        "authority": {
+          "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+          "stateRevision": 0,
+          "gameWeek": 8794,
+          "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+          "successfulSnapshotPollCount": 153,
+          "connectionState": "Live",
+          "transportOutageCount": 0
+        }
+      },
+      "frameCountProgressWithinObservedSubset": 1740,
+      "generationProgressWithinObservedSubset": 116,
+      "maxObservedMapArrivalGapMsWithinSubset": 255.1348339766264,
+      "saveControlObservations": {
+        "True": 0,
+        "False": 41,
+        "None": 0
+      },
+      "resumeControlEnabledObservations": 41,
+      "lastObservationBeforeSend": {
+        "utc": "2026-09-11T02:58:47.870080+00:00",
+        "frame": 35910,
+        "controls": [
+          {
+            "name": "studio-menu-open",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "name": "campaign-new",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "name": "studio-menu-save",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "name": "campaign-save-as",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "name": "studio-menu-quit",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "name": "campaign-refresh",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "name": "studio-menu-resume",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "name": "studio-menu-load",
+            "visible": true,
+            "enabled": false
+          }
+        ]
+      },
+      "firstObservationAfterResume": {
+        "utc": "2026-09-11T02:58:58.793865+00:00",
+        "frame": 37755,
+        "controls": [
+          {
+            "name": "studio-menu-open",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "name": "studio-menu-load",
+            "visible": true,
+            "enabled": false
+          },
+          {
+            "name": "campaign-save-as",
+            "visible": true,
+            "enabled": false
+          },
+          {
+            "name": "studio-menu-save",
+            "visible": true,
+            "enabled": false
+          },
+          {
+            "name": "campaign-new",
+            "visible": true,
+            "enabled": false
+          },
+          {
+            "name": "campaign-retry",
+            "visible": true,
+            "enabled": false
+          },
+          {
+            "name": "studio-menu-quit",
+            "visible": true,
+            "enabled": false
+          },
+          {
+            "name": "campaign-refresh",
+            "visible": true,
+            "enabled": true
+          },
+          {
+            "name": "studio-menu-resume",
+            "visible": true,
+            "enabled": true
+          }
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "Map publication every15frames, sampled every250ms, establishes observed frame progress only. Missing/skipped/read-race observations and observer scheduling are explicit; no assertion that every frame was below any threshold.",
+    "Enabled control bits establish displayed state, not tested input handling. Save control intentionally disabled while request is pending is not itself a UI hang.",
+    "Only actual root-owned native actions and accepted receipts establish operation success. This observer does not send commands or award native acceptance.",
+    "The existing frame distribution applies solely to its recorded UTC/tick window. Save-overlap seconds are explicit; zero overlap forbids describing its p95 as Save-time frame performance.",
+    "Map mtime and Python UTC align to the host clock; exact request elapsed/phase time uses Unity Stopwatch. Map comparisons are not high-precision cross-clock profiling.",
+    "No original250ms complete-Save target is assigned; durable-write target attribution remains controlled by the separate authority addendum."
+  ],
+  "artifactHashes": {
+    "source-binding.json": "ea889283609b239342dd062bd14335626bd907777a7ae97e730f53903fb86648",
+    "observe.py": "b09801a0835bf8a6a7695490b555720176f0ef6b82afb6ba482d8c1a710b58cf",
+    "STARTED.json": "2c341a91e7c8c55b690cc3ece612f9b4e8fd53b814ada7e150be7c1f79eb3bb4",
+    "maps.jsonl": "340fb96fca188f55ee5559cc9b5459a86b5eb51ef07c1cfdf5c389f54257ac65",
+    "performance.jsonl": "4cc83f232de8bfc28338ad6416e999cb40b085ff7ca48af69cf734a23716d160",
+    "read-events.jsonl": "0245550e068f577b8eb1713e09f857030fc2a5558bbf7ce98efd9a4a8a1130a6",
+    "observer-result.json": "e7117ac8bb0692d807a81b6425f41327ad5dee97d2d431e0f665ecb71c824615",
+    "observer.log": "95f911916793c6b29aa8efff26964a32ca683d3986288ef97fc29ded862ddfa8",
+    "summarize.py": "c76896a8323660aa3ce58d8b6241d3362145bfe66b3612e50f60ba2226b583e7"
+  }
+}

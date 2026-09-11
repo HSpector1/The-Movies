@@ -1,0 +1,364 @@
+{
+  "order": "OPS-P12A-LIVING-HOLLYWOOD-20260910-05",
+  "kind": "actual-native-encoded-library-preservation",
+  "status": "PASS_ENCODED_METADATA_AND_BYTE_PRESERVATION_ONLY",
+  "author": "/root/recovered_storage_review",
+  "startedAtUtc": "2026-09-11T03:04:49.224053+00:00",
+  "qualification": "Read-only outer storage JSON metadata and exact compressed strings only; no gzip decoding, core import, game simulation, network, native input or process control. Declared decoded SHA/size are metadata, not newly verified decompression. World equality uses existing correlated durable campaign Save receipt metadata, with native report authority join separately reviewed.",
+  "files": {
+    "native21": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-10T20-29-53-370Z/campaign-library-final.json",
+      "fileBytes": 70593125,
+      "fileSha256": "66b79add059344d2704d6e27641ecf750f73acad8a358662c91a30eb5df50365",
+      "catalogueRevision": 6,
+      "activeCampaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "declaredDecodedBytes": 83903166,
+          "declaredDecodedSha256": "b7148df3e03753d0e69cb66cf2381b1e31a976e12566d647ebdaf39bf3bed348",
+          "base64Utf8Bytes": 13856552,
+          "base64Sha256": "6ef667975b8d3819bd2d9afe1e536af878bc4f05e87ec6e2bc5d6122cdcb6e20",
+          "canonicalRecordSha256": "c98519286519b55f2c0fa7e822e5fd3e8c950e501d2b151ebc3197490fafc133"
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "declaredDecodedBytes": 83921994,
+          "declaredDecodedSha256": "095a06361da409571a532593d4fc5a22f56816d8d360f7ca106400edead46b5b",
+          "base64Utf8Bytes": 13862964,
+          "base64Sha256": "30411db7de16616314dde81da1447f41730bc63e2764056487a0364c427f54c8",
+          "canonicalRecordSha256": "8720abf2b0fbb245246c6f451db1cbde233e7ea104a8727cb3c4036b131ffe37"
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 3,
+          "declaredDecodedBytes": 133513147,
+          "declaredDecodedSha256": "3a9d49409a8c68492464091242916e811f437812bab905aa09baedf88f07b935",
+          "base64Utf8Bytes": 21433324,
+          "base64Sha256": "c2980f309fa2d097f510e878a12ee16159c5a81e6f0c85f394f9bf1c5c25d605",
+          "canonicalRecordSha256": "378850b8541e804fc47bd767f164798d9094f5325d35b93c9aacf8ad8b581073"
+        }
+      ],
+      "working": {
+        "declaredDecodedBytes": 133513147,
+        "declaredDecodedSha256": "3a9d49409a8c68492464091242916e811f437812bab905aa09baedf88f07b935",
+        "base64Sha256": "c2980f309fa2d097f510e878a12ee16159c5a81e6f0c85f394f9bf1c5c25d605"
+      },
+      "activeAndWorkingExactCompressedPayloadEqual": true,
+      "activeSaveReceipts": [
+        {
+          "commandId": "c71b1228-0aec-4ec4-9aec-91b6eaa7d870-2",
+          "requestSha256": "94a89f39fca6ab0ecce24bd5cc8abfa15fa0587175443a5d1b543a5f498fcb32",
+          "response": {
+            "accepted": true,
+            "campaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "catalogueRevision": 4,
+            "commandId": "c71b1228-0aec-4ec4-9aec-91b6eaa7d870-2",
+            "gameWeek": 8792,
+            "message": "Campaign saved.",
+            "operation": "save",
+            "originatingSessionId": "a41a3a80-c9fa-4be3-a59e-4496f8f3ba48",
+            "processingMs": 10898.525040999997,
+            "protocolVersion": 4,
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "sessionId": "a41a3a80-c9fa-4be3-a59e-4496f8f3ba48",
+            "stateDigest": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+            "stateRevision": 1,
+            "type": "campaignAccepted"
+          },
+          "responseCanonicalSha256": "f38e03340ab0d52540254ad2d76842f9afc582188ec7d85a4a757c7d9d9bfd5f"
+        },
+        {
+          "commandId": "aa39297a-d66c-4de0-84e0-530b3f9ecccb",
+          "requestSha256": "36dbc1ccdb5924adb2a81c8ec3bda1abf051f93c3940fb7b9125b80146ea9319",
+          "response": {
+            "accepted": true,
+            "campaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "catalogueRevision": 6,
+            "commandId": "aa39297a-d66c-4de0-84e0-530b3f9ecccb",
+            "gameWeek": 8794,
+            "message": "Campaign saved.",
+            "operation": "save",
+            "originatingSessionId": "fd0d35c2-e041-45cc-b35c-ad6e9f398d3e",
+            "processingMs": 19478.59858400002,
+            "protocolVersion": 4,
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "stateRevision": 0,
+            "type": "campaignAccepted"
+          },
+          "responseCanonicalSha256": "9922832f4bcac62299c60a8892998ab86f38eafa3a919d4e28bd1727023dbc32"
+        }
+      ],
+      "sourceStatUnchanged": true
+    },
+    "native24": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/campaign-library-final.json",
+      "fileBytes": 70594302,
+      "fileSha256": "9897c2f5371eb157728a2f16dcd993103a51a0fda8242cc97f07047e1e567830",
+      "catalogueRevision": 7,
+      "activeCampaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "declaredDecodedBytes": 83903166,
+          "declaredDecodedSha256": "b7148df3e03753d0e69cb66cf2381b1e31a976e12566d647ebdaf39bf3bed348",
+          "base64Utf8Bytes": 13856552,
+          "base64Sha256": "6ef667975b8d3819bd2d9afe1e536af878bc4f05e87ec6e2bc5d6122cdcb6e20",
+          "canonicalRecordSha256": "c98519286519b55f2c0fa7e822e5fd3e8c950e501d2b151ebc3197490fafc133"
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "declaredDecodedBytes": 83921994,
+          "declaredDecodedSha256": "095a06361da409571a532593d4fc5a22f56816d8d360f7ca106400edead46b5b",
+          "base64Utf8Bytes": 13862964,
+          "base64Sha256": "30411db7de16616314dde81da1447f41730bc63e2764056487a0364c427f54c8",
+          "canonicalRecordSha256": "8720abf2b0fbb245246c6f451db1cbde233e7ea104a8727cb3c4036b131ffe37"
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 4,
+          "declaredDecodedBytes": 133513147,
+          "declaredDecodedSha256": "8ed77c1b5eb5b094e55964d8810fe1d8b94cc0230555cfe7781417105a40aeb0",
+          "base64Utf8Bytes": 21433316,
+          "base64Sha256": "b1277353c675854e899b4d1a4c416f286d41a85a1a04ab425b12b2a074c324e7",
+          "canonicalRecordSha256": "0522466b6d632f10d3e7d6e3385a049adde784ec1aa94601e9266d6ef4013a1b"
+        }
+      ],
+      "working": {
+        "declaredDecodedBytes": 133513147,
+        "declaredDecodedSha256": "8ed77c1b5eb5b094e55964d8810fe1d8b94cc0230555cfe7781417105a40aeb0",
+        "base64Sha256": "b1277353c675854e899b4d1a4c416f286d41a85a1a04ab425b12b2a074c324e7"
+      },
+      "activeAndWorkingExactCompressedPayloadEqual": true,
+      "activeSaveReceipts": [
+        {
+          "commandId": "c71b1228-0aec-4ec4-9aec-91b6eaa7d870-2",
+          "requestSha256": "94a89f39fca6ab0ecce24bd5cc8abfa15fa0587175443a5d1b543a5f498fcb32",
+          "response": {
+            "accepted": true,
+            "campaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "catalogueRevision": 4,
+            "commandId": "c71b1228-0aec-4ec4-9aec-91b6eaa7d870-2",
+            "gameWeek": 8792,
+            "message": "Campaign saved.",
+            "operation": "save",
+            "originatingSessionId": "a41a3a80-c9fa-4be3-a59e-4496f8f3ba48",
+            "processingMs": 10898.525040999997,
+            "protocolVersion": 4,
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "sessionId": "a41a3a80-c9fa-4be3-a59e-4496f8f3ba48",
+            "stateDigest": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+            "stateRevision": 1,
+            "type": "campaignAccepted"
+          },
+          "responseCanonicalSha256": "f38e03340ab0d52540254ad2d76842f9afc582188ec7d85a4a757c7d9d9bfd5f"
+        },
+        {
+          "commandId": "aa39297a-d66c-4de0-84e0-530b3f9ecccb",
+          "requestSha256": "36dbc1ccdb5924adb2a81c8ec3bda1abf051f93c3940fb7b9125b80146ea9319",
+          "response": {
+            "accepted": true,
+            "campaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "catalogueRevision": 6,
+            "commandId": "aa39297a-d66c-4de0-84e0-530b3f9ecccb",
+            "gameWeek": 8794,
+            "message": "Campaign saved.",
+            "operation": "save",
+            "originatingSessionId": "fd0d35c2-e041-45cc-b35c-ad6e9f398d3e",
+            "processingMs": 19478.59858400002,
+            "protocolVersion": 4,
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "stateRevision": 0,
+            "type": "campaignAccepted"
+          },
+          "responseCanonicalSha256": "9922832f4bcac62299c60a8892998ab86f38eafa3a919d4e28bd1727023dbc32"
+        },
+        {
+          "commandId": "43877039-1eda-4673-be31-cfe86bd3e1c2",
+          "requestSha256": "fba0e26f6bb6b0d677be502f67c577f87460440801d4a8965d8e2b05b3338f74",
+          "response": {
+            "accepted": true,
+            "campaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "catalogueRevision": 7,
+            "commandId": "43877039-1eda-4673-be31-cfe86bd3e1c2",
+            "gameWeek": 8794,
+            "message": "Campaign saved.",
+            "operation": "save",
+            "originatingSessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "processingMs": 9038.267167000013,
+            "protocolVersion": 4,
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "stateRevision": 0,
+            "type": "campaignAccepted"
+          },
+          "responseCanonicalSha256": "b2238ce516bdb31264e2b16659fda1d48e5b49f28a58a195ee20f9a41b58b7bc"
+        }
+      ],
+      "sourceStatUnchanged": true
+    },
+    "native25": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/campaign-library-final.json",
+      "fileBytes": 70594302,
+      "fileSha256": "9897c2f5371eb157728a2f16dcd993103a51a0fda8242cc97f07047e1e567830",
+      "catalogueRevision": 7,
+      "activeCampaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+      "records": [
+        {
+          "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+          "label": "Long campaign A",
+          "revision": 0,
+          "declaredDecodedBytes": 83903166,
+          "declaredDecodedSha256": "b7148df3e03753d0e69cb66cf2381b1e31a976e12566d647ebdaf39bf3bed348",
+          "base64Utf8Bytes": 13856552,
+          "base64Sha256": "6ef667975b8d3819bd2d9afe1e536af878bc4f05e87ec6e2bc5d6122cdcb6e20",
+          "canonicalRecordSha256": "c98519286519b55f2c0fa7e822e5fd3e8c950e501d2b151ebc3197490fafc133"
+        },
+        {
+          "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+          "label": "Long campaign B",
+          "revision": 0,
+          "declaredDecodedBytes": 83921994,
+          "declaredDecodedSha256": "095a06361da409571a532593d4fc5a22f56816d8d360f7ca106400edead46b5b",
+          "base64Utf8Bytes": 13862964,
+          "base64Sha256": "30411db7de16616314dde81da1447f41730bc63e2764056487a0364c427f54c8",
+          "canonicalRecordSha256": "8720abf2b0fbb245246c6f451db1cbde233e7ea104a8727cb3c4036b131ffe37"
+        },
+        {
+          "id": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+          "label": "Long campaign C",
+          "revision": 4,
+          "declaredDecodedBytes": 133513147,
+          "declaredDecodedSha256": "8ed77c1b5eb5b094e55964d8810fe1d8b94cc0230555cfe7781417105a40aeb0",
+          "base64Utf8Bytes": 21433316,
+          "base64Sha256": "b1277353c675854e899b4d1a4c416f286d41a85a1a04ab425b12b2a074c324e7",
+          "canonicalRecordSha256": "0522466b6d632f10d3e7d6e3385a049adde784ec1aa94601e9266d6ef4013a1b"
+        }
+      ],
+      "working": {
+        "declaredDecodedBytes": 133513147,
+        "declaredDecodedSha256": "8ed77c1b5eb5b094e55964d8810fe1d8b94cc0230555cfe7781417105a40aeb0",
+        "base64Sha256": "b1277353c675854e899b4d1a4c416f286d41a85a1a04ab425b12b2a074c324e7"
+      },
+      "activeAndWorkingExactCompressedPayloadEqual": true,
+      "activeSaveReceipts": [
+        {
+          "commandId": "c71b1228-0aec-4ec4-9aec-91b6eaa7d870-2",
+          "requestSha256": "94a89f39fca6ab0ecce24bd5cc8abfa15fa0587175443a5d1b543a5f498fcb32",
+          "response": {
+            "accepted": true,
+            "campaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "catalogueRevision": 4,
+            "commandId": "c71b1228-0aec-4ec4-9aec-91b6eaa7d870-2",
+            "gameWeek": 8792,
+            "message": "Campaign saved.",
+            "operation": "save",
+            "originatingSessionId": "a41a3a80-c9fa-4be3-a59e-4496f8f3ba48",
+            "processingMs": 10898.525040999997,
+            "protocolVersion": 4,
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "sessionId": "a41a3a80-c9fa-4be3-a59e-4496f8f3ba48",
+            "stateDigest": "8b29e25fbf190c9dfea5a715594b5beb889ddc35d2c887a475e05ff67b8c1b3c",
+            "stateRevision": 1,
+            "type": "campaignAccepted"
+          },
+          "responseCanonicalSha256": "f38e03340ab0d52540254ad2d76842f9afc582188ec7d85a4a757c7d9d9bfd5f"
+        },
+        {
+          "commandId": "aa39297a-d66c-4de0-84e0-530b3f9ecccb",
+          "requestSha256": "36dbc1ccdb5924adb2a81c8ec3bda1abf051f93c3940fb7b9125b80146ea9319",
+          "response": {
+            "accepted": true,
+            "campaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "catalogueRevision": 6,
+            "commandId": "aa39297a-d66c-4de0-84e0-530b3f9ecccb",
+            "gameWeek": 8794,
+            "message": "Campaign saved.",
+            "operation": "save",
+            "originatingSessionId": "fd0d35c2-e041-45cc-b35c-ad6e9f398d3e",
+            "processingMs": 19478.59858400002,
+            "protocolVersion": 4,
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "stateRevision": 0,
+            "type": "campaignAccepted"
+          },
+          "responseCanonicalSha256": "9922832f4bcac62299c60a8892998ab86f38eafa3a919d4e28bd1727023dbc32"
+        },
+        {
+          "commandId": "43877039-1eda-4673-be31-cfe86bd3e1c2",
+          "requestSha256": "fba0e26f6bb6b0d677be502f67c577f87460440801d4a8965d8e2b05b3338f74",
+          "response": {
+            "accepted": true,
+            "campaignId": "15f14e25-972f-480b-b3ba-e5d0abc247d0",
+            "catalogueRevision": 7,
+            "commandId": "43877039-1eda-4673-be31-cfe86bd3e1c2",
+            "gameWeek": 8794,
+            "message": "Campaign saved.",
+            "operation": "save",
+            "originatingSessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+            "processingMs": 9038.267167000013,
+            "protocolVersion": 4,
+            "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+            "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+            "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+            "stateRevision": 0,
+            "type": "campaignAccepted"
+          },
+          "responseCanonicalSha256": "b2238ce516bdb31264e2b16659fda1d48e5b49f28a58a195ee20f9a41b58b7bc"
+        }
+      ],
+      "sourceStatUnchanged": true
+    }
+  },
+  "errors": [],
+  "comparison": {
+    "inactiveRecords": [
+      {
+        "id": "6f44cb5b-a4fc-4e61-84e7-91d2ca3838b0",
+        "label": "Long campaign A",
+        "canonicalRecordSha256": "c98519286519b55f2c0fa7e822e5fd3e8c950e501d2b151ebc3197490fafc133",
+        "base64Sha256": "6ef667975b8d3819bd2d9afe1e536af878bc4f05e87ec6e2bc5d6122cdcb6e20",
+        "allThreeExact": true
+      },
+      {
+        "id": "59d62282-acf7-40e8-b522-0e86ff27bf96",
+        "label": "Long campaign B",
+        "canonicalRecordSha256": "8720abf2b0fbb245246c6f451db1cbde233e7ea104a8727cb3c4036b131ffe37",
+        "base64Sha256": "30411db7de16616314dde81da1447f41730bc63e2764056487a0364c427f54c8",
+        "allThreeExact": true
+      }
+    ],
+    "recordIdsPreserved": true,
+    "activeCampaignIdPreserved": true,
+    "savedWorldReceiptDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+    "savedWorldReceiptGameWeek": 8794,
+    "native24And25EntireFileEqual": true,
+    "native24And25Bytes": 70594302,
+    "native24And25Sha256": "9897c2f5371eb157728a2f16dcd993103a51a0fda8242cc97f07047e1e567830",
+    "native24And25ActiveWorkingEncodedCheckpointEqual": true,
+    "native24SaveReceiptRetainedExactlyThrough25": true,
+    "catalogueRevisions": [
+      6,
+      7,
+      7
+    ]
+  },
+  "finishedAtUtc": "2026-09-11T03:04:49.990166+00:00"
+}

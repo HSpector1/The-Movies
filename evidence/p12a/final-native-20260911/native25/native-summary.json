@@ -1,0 +1,161 @@
+{
+  "kind": "R05 early native preview",
+  "status": "observation-complete",
+  "at": "2026-09-11T03:00:44.541Z",
+  "runtime": "/tmp/p12a-native-GS7tR4",
+  "storageRuntime": "/private/tmp/p12a-current592-native24-wf8x97ht/PrivateProfile/bridge-runtime",
+  "relaunchBinding": {
+    "previousReport": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/report.json",
+    "previousReportSha256": "cd74473b088c729da90019c4d939c0769b5e161255f5d9acafd195f131bc61f9",
+    "checkpointSha256": "9897c2f5371eb157728a2f16dcd993103a51a0fda8242cc97f07047e1e567830"
+  },
+  "initialCheckpointBinding": null,
+  "packageBinding": {
+    "root": "/private/tmp/p12a-current592-native24-wf8x97ht",
+    "profileRoot": "/private/tmp/p12a-current592-native24-wf8x97ht/PrivateProfile",
+    "launcher": "/private/tmp/p12a-current592-native24-wf8x97ht/PLAY_PROJECT_STUDIO.command",
+    "launcherSha256": "f866c468e9ac68c49bd27b73d58d282056c6e7be0871e35cd12ab3f6a7f3ed93",
+    "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+    "verifiedImmutableFiles": 197,
+    "supervisorSha256": "97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26",
+    "pairedContractVerificationSha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355",
+    "actionTrace": "Unavailable in packaged mode: supervisor intentionally does not pass this optional environment variable."
+  },
+  "manifestSha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+  "playerSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+  "engineSha256": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+  "sources": {
+    "p12a-native-preview.mjs": "4b6729899c9214a10372a87dba8b95a9ee775e541f5435c614ac38c3d4cf6ef7",
+    "hid-guard.mjs": "7fd64956c50df199d8ab5ec8c63ea2eb6c84dc3440db53a713efb1d5d1612b02",
+    "hid-witness-state.mjs": "336e0a7e1afffb18e0e71a01d145c15889b08f974b776d4805ed1db2911e63f2",
+    "hid-coherent-map.mjs": "d766cb5a96519bff79fafdc9806d9973e575a08a8e251b53a739490515efd7c7",
+    "owner-ux-startup.mjs": "285753b1440ce4e9d6d6620611b42f35ec00c706e48e40ed8399ddd5d62229ff",
+    "owner-ux-window.mjs": "d93ca436174d295cacc7a3d7d561adae7b3d5c49cbdc8019e507ca8fcec92594",
+    "p04a1-window-select.mjs": "a70359db53251c0f88fd3ee586169fcf328f691ffaf2d73d2a844217533b561c",
+    "input-state.py": "d235e2a584bd6d142e5fdd0dd93833bd139260b33646a7f59eae030ba5184942",
+    "console-state.py": "fd540d278ce159e9db1c8c4e8133b222e523475ed9642244799124668de78ac7",
+    "ownerinput/ownerinput.swift": "a31735e7a422ab444ea747809cc238e94b82b9dbbcfaa62cde61ce05cf74a1d8",
+    "hidwitness/hidwitness.swift": "9dad5fdd34fce93cd497eaf06c76b97b5d928627e07e157c292f8714fa7311df"
+  },
+  "performance": null,
+  "runtimeWorkerSha256": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+  "runtimeWorkerSourceManifestSha256": "a092dafb02a0f346c7fb29147eed0b9b2e643bdf4364f574cfa7f5fd63d06c58",
+  "inputToolSha256": "6dd714005d33402d8b2ec7a3cbba664698505f76079ea2516ad3685f85364a3c",
+  "witnessToolSha256": "74d05819871f65823db48f5bc3ffcf59c61274952a391cfcb50e1693ef38a959",
+  "reason": "ui-quit",
+  "appPid": 92809,
+  "enginePid": 92782,
+  "supervisorPid": 92777,
+  "playerExit": {
+    "code": 0,
+    "signal": null
+  },
+  "checkpointSha256": "9897c2f5371eb157728a2f16dcd993103a51a0fda8242cc97f07047e1e567830",
+  "errors": [],
+  "rawReport": {
+    "privatePath": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/report.json",
+    "sha256": "38eb1896ca7e35719b686f0d8dd49d2a94cd8736ad6eb8e2165fbc340d4c8562"
+  },
+  "inputFinalization": {
+    "status": "clean",
+    "counts": {
+      "tool": 22,
+      "markerCompanion": 21,
+      "playerNull": 6,
+      "playerOther": 0,
+      "physical": 0,
+      "unknown": 0
+    },
+    "markerSeq": 739,
+    "endSequence": 740,
+    "foreign": [],
+    "shiftTabModifiers": {
+      "pending": false,
+      "lastObservedState": null,
+      "lastUpReceipt": null
+    }
+  },
+  "supervisorFinalization": {
+    "status": "clean",
+    "ownedReferences": [
+      {
+        "pid": 92777,
+        "processIncarnation": "ps-lstart:Fri Sep 11 05:00:45 2026"
+      },
+      {
+        "kind": "engine",
+        "pid": 92782,
+        "processGroupId": 92782,
+        "processIncarnation": "ps-lstart:Fri Sep 11 05:00:45 2026"
+      },
+      {
+        "kind": "unity",
+        "pid": 92809,
+        "processGroupId": 92809,
+        "processIncarnation": "ps-lstart:Fri Sep 11 05:00:59 2026"
+      }
+    ],
+    "exit": {
+      "code": 0,
+      "signal": null
+    },
+    "activeLeaseAbsent": true,
+    "checkpointLockAbsent": true,
+    "ownedIncarnationsAbsent": true
+  },
+  "checkpointBytes": 70594302,
+  "steps": [
+    {
+      "at": "2026-09-11T03:01:30.688Z",
+      "action": "click",
+      "name": "studio-menu-open",
+      "frame": 4620,
+      "captureId": "native25/000",
+      "authority": {
+        "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 20,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "b717e617d7abd78019c13e48c558665a826b85899d936336187d62a7c16b6e06",
+      "screenshotSha256": "f82c498b19b40f53c0db27f32686f3de634163bc188ea242d36405931a871429",
+      "curated": true
+    },
+    {
+      "at": "2026-09-11T03:01:43.696Z",
+      "action": "click",
+      "name": "studio-menu-quit",
+      "frame": 6720,
+      "captureId": "native25/001",
+      "authority": {
+        "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+        "stateRevision": 0,
+        "gameWeek": 8794,
+        "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "successfulSnapshotPollCount": 29,
+        "connectionState": "Live",
+        "transportOutageCount": 0,
+        "retainingViewAfterTransportFailure": false
+      },
+      "mapSha256": "357da6021aa6cd15684add4e3b795078de85356875be35d3ebab1da5de7b2158",
+      "screenshotSha256": "5692757c4dd3eedf794a61908a8062772c015303b85657d77ae99efd94744bb8",
+      "curated": true
+    },
+    {
+      "at": "2026-09-11T03:01:53.882Z",
+      "action": "click",
+      "name": "studio-menu-confirm-accept",
+      "frame": null,
+      "captureId": "native25/002",
+      "authority": null,
+      "mapSha256": null,
+      "screenshotSha256": null
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "status": "PASS_EXACT_DESKTOP_PAYLOAD_AND_CURRENT_NATIVE_REPORT_APPLICABILITY",
+  "at": "2026-09-11T03:22:54.852183+00:00",
+  "candidate": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
+  "manifestSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+  "immutableFileCount": 197,
+  "criticalArtifactsRead": [
+    {
+      "path": "PLAY_PROJECT_STUDIO.command",
+      "sha256": "f866c468e9ac68c49bd27b73d58d282056c6e7be0871e35cd12ab3f6a7f3ed93",
+      "bytes": 612,
+      "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/PLAY_PROJECT_STUDIO.command"
+    },
+    {
+      "path": "Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike",
+      "sha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "bytes": 116116,
+      "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/Project Studio Visual Spike.app/Contents/MacOS/Project Studio - Unity Visual Spike"
+    },
+    {
+      "path": "Project Studio Visual Spike.app/Contents/Resources/Data/Managed/Assembly-CSharp.dll",
+      "sha256": "9a8dae63540f41fd5618bfccc6e52021458825280ba991fbf7ec6cad90a8155a",
+      "bytes": 1504768,
+      "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/Project Studio Visual Spike.app/Contents/Resources/Data/Managed/Assembly-CSharp.dll"
+    },
+    {
+      "path": "runtime/engine.mjs",
+      "sha256": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "bytes": 129606,
+      "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/runtime/engine.mjs"
+    },
+    {
+      "path": "runtime/runtime-worker-source.json",
+      "sha256": "a092dafb02a0f346c7fb29147eed0b9b2e643bdf4364f574cfa7f5fd63d06c58",
+      "bytes": 14564,
+      "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/runtime/runtime-worker-source.json"
+    },
+    {
+      "path": "runtime/runtime-worker.mjs",
+      "sha256": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "bytes": 1545393,
+      "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/runtime/runtime-worker.mjs"
+    },
+    {
+      "path": "runtime/studio.mjs",
+      "sha256": "97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26",
+      "bytes": 197582,
+      "absolutePath": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/runtime/studio.mjs"
+    }
+  ],
+  "actualCurrentNativeReports": [
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-03-22-494Z/report.json",
+      "sha256": "71d5f293b5393a569b85d741c442d28f3e0b2eb5eaa550c746037a75a2cedcec",
+      "at": "2026-09-11T03:03:25.182Z",
+      "status": "observation-complete",
+      "reason": "ui-quit",
+      "packageRoot": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
+      "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+      "verifiedImmutableFiles": 197,
+      "playerExit": {
+        "code": 0,
+        "signal": null
+      },
+      "inputStatus": "clean",
+      "supervisorStatus": "clean",
+      "relaunchBinding": null,
+      "qualification": "Root-owned real-input run. This performance reviewer checks exact report/payload/cleanQuit binding; detailed independentcampaign/task outcome adjudication is attached separately by the final registry/reviewer."
+    },
+    {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-17-27-667Z/report.json",
+      "sha256": "98d47d5aef6789f510bd60ef80c05b5f97d3584db5544a78c201f589db33fd97",
+      "at": "2026-09-11T03:17:30.488Z",
+      "status": "observation-complete",
+      "reason": "ui-quit",
+      "packageRoot": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
+      "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+      "verifiedImmutableFiles": 197,
+      "playerExit": {
+        "code": 0,
+        "signal": null
+      },
+      "inputStatus": "clean",
+      "supervisorStatus": "clean",
+      "relaunchBinding": {
+        "previousReport": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-03-22-494Z/report.json",
+        "previousReportSha256": "71d5f293b5393a569b85d741c442d28f3e0b2eb5eaa550c746037a75a2cedcec",
+        "checkpointSha256": "0860b5cf2a1628aaf738ba63d441b399247248ac5741ea82a85250afc7a0489e"
+      },
+      "qualification": "Root-owned real-input run. This performance reviewer checks exact report/payload/cleanQuit binding; detailed independentcampaign/task outcome adjudication is attached separately by the final registry/reviewer."
+    }
+  ],
+  "qualification": "No workload/nativeinput/build rerun. Existing native26/27 entry verification records all197 immutable files; this independent bounded read rechecks exact manifest and seven critical files. PrivateProfile/save content is neither read nor published here."
+}

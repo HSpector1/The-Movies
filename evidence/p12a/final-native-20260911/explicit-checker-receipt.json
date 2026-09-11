@@ -1,0 +1,13 @@
+{
+  "atUtc": "2026-09-11T03:34:06.790Z",
+  "mode": "Direct pure evaluate of actual COMPLETE technical Gate B index; no warning-cache suppression",
+  "result": {},
+  "indexSha256": "cefbb303e94afa496c1af3d05a2ad4d6e6d47ad4051cc50189c22a36947cf9d9",
+  "registrySha256": "8b25b94c8dcce1c0be1740492fccf6e472b0e639829cf5373d36577ecbaa3fef",
+  "checkerSourceSha256": "651a421715f05055a255e86d13c3b92cca50ea34a1a9289a81ef5089cb0a4154",
+  "mandatoryTechnicalKinds": 26,
+  "independentCorrectness": "ISSUED_PASS",
+  "ownerAcceptance": "UNRUN_OPEN",
+  "hook": "EXPLICIT-CHECKER FALLBACK / INACTIVE",
+  "qualification": "No-warning output is not certification; independent scoped reviews and source/native evidence govern the technical KEEP. Original performance misses remain explicit."
+}

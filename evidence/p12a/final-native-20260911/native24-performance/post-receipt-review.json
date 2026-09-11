@@ -1,0 +1,492 @@
+{
+  "status": "BOUND_PASSIVE_SAVE_AND_POST_RECEIPT_OBSERVATIONS",
+  "at": "2026-09-11T03:02:12.816963+00:00",
+  "nativeReportSha256": "cd74473b088c729da90019c4d939c0769b5e161255f5d9acafd195f131bc61f9",
+  "nativeStatus": "observation-complete",
+  "nativeReason": "ui-quit",
+  "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+  "packageVerifiedImmutableFiles": 197,
+  "playerSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+  "engineSha256": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+  "workerSha256": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+  "initialSeedSha256": "66b79add059344d2704d6e27641ecf750f73acad8a358662c91a30eb5df50365",
+  "saveRequest": {
+    "sequence": 312,
+    "route": "/campaigns",
+    "operation": "save",
+    "requestIdentity": "43877039-1eda-4673-be31-cfe86bd3e1c2",
+    "startedUtc": "2026-09-11T02:58:48.0202030Z",
+    "resumedUtc": "2026-09-11T02:58:58.5621600Z",
+    "startedTicks": 8927618871018,
+    "resumedTicks": 8927724291367,
+    "sendToCoroutineResumeMs": 10542.0349,
+    "outcome": "response-received",
+    "responseCode": 200,
+    "payloadBytes": 581,
+    "threadId": 1,
+    "clientAuthorityAtStart": {
+      "connection": "Live",
+      "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+      "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+      "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+      "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "revision": 0,
+      "gameWeek": 8794,
+      "successfulSnapshotPolls": 153,
+      "transportOutageCount": 0,
+      "runtimeReplacementCount": 0
+    },
+    "clientAuthorityAtResume": {
+      "connection": "Live",
+      "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+      "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+      "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+      "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "revision": 0,
+      "gameWeek": 8794,
+      "successfulSnapshotPolls": 153,
+      "transportOutageCount": 0,
+      "runtimeReplacementCount": 0
+    },
+    "joinedClientAuthority": {
+      "connection": "",
+      "runtimeInstanceId": "",
+      "sessionId": "",
+      "digest": "",
+      "schemaId": "",
+      "revision": 0,
+      "gameWeek": 0,
+      "successfulSnapshotPolls": 0,
+      "transportOutageCount": 0,
+      "runtimeReplacementCount": 0
+    },
+    "phases": [
+      {
+        "phase": "utf8-text-decode",
+        "outcome": "scope-exited",
+        "startedTicks": 8927724292183,
+        "endedTicks": 8927724292311,
+        "milliseconds": 0.0128,
+        "threadId": 1
+      },
+      {
+        "phase": "strict-parse-validation",
+        "outcome": "scope-exited",
+        "startedTicks": 8927724292383,
+        "endedTicks": 8927724298464,
+        "milliseconds": 0.6081,
+        "threadId": 1
+      }
+    ]
+  },
+  "firstObservedNewJoinedSession": {
+    "at": "2026-09-11T02:58:59.301833+00:00",
+    "mapFrame": 37830,
+    "authority": {
+      "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+      "stateRevision": 0,
+      "gameWeek": 8794,
+      "stateDigest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+      "successfulSnapshotPollCount": 154,
+      "connectionState": "Live",
+      "transportOutageCount": 0
+    },
+    "afterSendMs": 11281.629800796509,
+    "afterResponseMs": 739.6728992462158
+  },
+  "firstObservedSaveReenabled": {
+    "at": "2026-09-11T02:58:59.811961+00:00",
+    "mapFrame": 37920,
+    "afterSendMs": 11791.757822036743,
+    "afterResponseMs": 1249.8009204864502
+  },
+  "postReceiptDiagnosticRequests": [
+    {
+      "sequence": 313,
+      "startedTicks": 8927724298860,
+      "resumedTicks": 8927725351835,
+      "payloadBytes": 352,
+      "responseCode": 200,
+      "route": "/session",
+      "operation": "handshake",
+      "requestIdentity": "",
+      "startedUtc": "2026-09-11T02:58:58.5629080Z",
+      "resumedUtc": "2026-09-11T02:58:58.6682060Z",
+      "outcome": "handshake-joined",
+      "threadId": 1,
+      "sendToCoroutineResumeMs": 105.2975,
+      "clientAuthorityAtStart": {
+        "connection": "Reconnecting",
+        "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "revision": 0,
+        "gameWeek": 8794,
+        "successfulSnapshotPolls": 153,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "clientAuthorityAtResume": {
+        "connection": "Reconnecting",
+        "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "revision": 0,
+        "gameWeek": 8794,
+        "successfulSnapshotPolls": 153,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "joinedClientAuthority": {
+        "connection": "",
+        "runtimeInstanceId": "",
+        "sessionId": "",
+        "digest": "",
+        "schemaId": "",
+        "revision": 0,
+        "gameWeek": 0,
+        "successfulSnapshotPolls": 0,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "phases": [
+        {
+          "phase": "utf8-text-decode",
+          "outcome": "scope-exited",
+          "startedTicks": 8927725351965,
+          "endedTicks": 8927725352110,
+          "milliseconds": 0.0145,
+          "threadId": 1
+        },
+        {
+          "phase": "strict-parse-validation",
+          "outcome": "scope-exited",
+          "startedTicks": 8927725352115,
+          "endedTicks": 8927725353280,
+          "milliseconds": 0.1165,
+          "threadId": 1
+        }
+      ]
+    },
+    {
+      "sequence": 314,
+      "startedTicks": 8927725353710,
+      "resumedTicks": 8927726325893,
+      "payloadBytes": 1149316,
+      "responseCode": 200,
+      "route": "/snapshot",
+      "operation": "poll",
+      "requestIdentity": "",
+      "startedUtc": "2026-09-11T02:58:58.6683930Z",
+      "resumedUtc": "2026-09-11T02:58:58.7656110Z",
+      "outcome": "snapshot-joined",
+      "threadId": 1,
+      "sendToCoroutineResumeMs": 97.2183,
+      "clientAuthorityAtStart": {
+        "connection": "Reconnecting",
+        "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "revision": 0,
+        "gameWeek": 8794,
+        "successfulSnapshotPolls": 153,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "clientAuthorityAtResume": {
+        "connection": "Reconnecting",
+        "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+        "sessionId": "87298026-b591-47b0-9c06-4d5dbb06a1af",
+        "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "revision": 0,
+        "gameWeek": 8794,
+        "successfulSnapshotPolls": 153,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "joinedClientAuthority": {
+        "connection": "Live",
+        "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+        "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+        "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "revision": 0,
+        "gameWeek": 8794,
+        "successfulSnapshotPolls": 153,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "phases": [
+        {
+          "phase": "utf8-text-decode",
+          "outcome": "scope-exited",
+          "startedTicks": 8927726326042,
+          "endedTicks": 8927726331080,
+          "milliseconds": 0.5038,
+          "threadId": 1
+        },
+        {
+          "phase": "strict-parse-validation",
+          "outcome": "returned",
+          "startedTicks": 8927726332701,
+          "endedTicks": 8927728466516,
+          "milliseconds": 213.3815,
+          "threadId": 20
+        },
+        {
+          "phase": "store-and-synchronous-subscribers",
+          "outcome": "scope-exited",
+          "startedTicks": 8927728497185,
+          "endedTicks": 8927728900055,
+          "milliseconds": 40.287,
+          "threadId": 1
+        }
+      ]
+    },
+    {
+      "sequence": 315,
+      "startedTicks": 8927728900582,
+      "resumedTicks": 8927732450300,
+      "payloadBytes": 993,
+      "responseCode": 200,
+      "route": "/campaigns",
+      "operation": "catalogue",
+      "requestIdentity": "",
+      "startedUtc": "2026-09-11T02:58:59.0230770Z",
+      "resumedUtc": "2026-09-11T02:58:59.3780470Z",
+      "outcome": "catalogue-joined",
+      "threadId": 1,
+      "sendToCoroutineResumeMs": 354.9718,
+      "clientAuthorityAtStart": {
+        "connection": "Live",
+        "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+        "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+        "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "revision": 0,
+        "gameWeek": 8794,
+        "successfulSnapshotPolls": 154,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "clientAuthorityAtResume": {
+        "connection": "Live",
+        "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+        "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+        "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "revision": 0,
+        "gameWeek": 8794,
+        "successfulSnapshotPolls": 154,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "joinedClientAuthority": {
+        "connection": "",
+        "runtimeInstanceId": "",
+        "sessionId": "",
+        "digest": "",
+        "schemaId": "",
+        "revision": 0,
+        "gameWeek": 0,
+        "successfulSnapshotPolls": 0,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "phases": [
+        {
+          "phase": "utf8-text-decode",
+          "outcome": "scope-exited",
+          "startedTicks": 8927732450414,
+          "endedTicks": 8927732450559,
+          "milliseconds": 0.0145,
+          "threadId": 1
+        },
+        {
+          "phase": "strict-parse-validation",
+          "outcome": "scope-exited",
+          "startedTicks": 8927732450564,
+          "endedTicks": 8927732453006,
+          "milliseconds": 0.2442,
+          "threadId": 1
+        },
+        {
+          "phase": "catalogue-and-synchronous-subscribers",
+          "outcome": "scope-exited",
+          "startedTicks": 8927732453011,
+          "endedTicks": 8927732453012,
+          "milliseconds": 0.0001,
+          "threadId": 1
+        }
+      ]
+    },
+    {
+      "sequence": 316,
+      "startedTicks": 8927732454758,
+      "resumedTicks": 8927736048436,
+      "payloadBytes": 993,
+      "responseCode": 200,
+      "route": "/campaigns",
+      "operation": "catalogue",
+      "requestIdentity": "",
+      "startedUtc": "2026-09-11T02:58:59.3784920Z",
+      "resumedUtc": "2026-09-11T02:58:59.7378580Z",
+      "outcome": "catalogue-joined",
+      "threadId": 1,
+      "sendToCoroutineResumeMs": 359.3678,
+      "clientAuthorityAtStart": {
+        "connection": "Live",
+        "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+        "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+        "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "revision": 0,
+        "gameWeek": 8794,
+        "successfulSnapshotPolls": 154,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "clientAuthorityAtResume": {
+        "connection": "Live",
+        "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+        "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+        "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "revision": 0,
+        "gameWeek": 8794,
+        "successfulSnapshotPolls": 154,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "joinedClientAuthority": {
+        "connection": "",
+        "runtimeInstanceId": "",
+        "sessionId": "",
+        "digest": "",
+        "schemaId": "",
+        "revision": 0,
+        "gameWeek": 0,
+        "successfulSnapshotPolls": 0,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "phases": [
+        {
+          "phase": "utf8-text-decode",
+          "outcome": "scope-exited",
+          "startedTicks": 8927736048563,
+          "endedTicks": 8927736048700,
+          "milliseconds": 0.0137,
+          "threadId": 1
+        },
+        {
+          "phase": "strict-parse-validation",
+          "outcome": "scope-exited",
+          "startedTicks": 8927736048706,
+          "endedTicks": 8927736051280,
+          "milliseconds": 0.2574,
+          "threadId": 1
+        },
+        {
+          "phase": "catalogue-and-synchronous-subscribers",
+          "outcome": "scope-exited",
+          "startedTicks": 8927736051284,
+          "endedTicks": 8927736051285,
+          "milliseconds": 0.0001,
+          "threadId": 1
+        }
+      ]
+    },
+    {
+      "sequence": 317,
+      "startedTicks": 8927736057535,
+      "resumedTicks": 8927736193639,
+      "payloadBytes": 16967,
+      "responseCode": 200,
+      "route": "/industry",
+      "operation": "studios",
+      "requestIdentity": "7765e4d5-c90a-41d4-a69a-48ab0cea356d",
+      "startedUtc": "2026-09-11T02:58:59.7387670Z",
+      "resumedUtc": "2026-09-11T02:58:59.7523780Z",
+      "outcome": "page-joined",
+      "threadId": 1,
+      "sendToCoroutineResumeMs": 13.6104,
+      "clientAuthorityAtStart": {
+        "connection": "Live",
+        "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+        "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+        "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "revision": 0,
+        "gameWeek": 8794,
+        "successfulSnapshotPolls": 154,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "clientAuthorityAtResume": {
+        "connection": "Live",
+        "runtimeInstanceId": "c4420a89-4bc4-4687-ac21-4b18311fed51",
+        "sessionId": "9d014b3d-e8bd-4dae-b4f9-cb85289b78f9",
+        "digest": "c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862",
+        "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "revision": 0,
+        "gameWeek": 8794,
+        "successfulSnapshotPolls": 154,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "joinedClientAuthority": {
+        "connection": "",
+        "runtimeInstanceId": "",
+        "sessionId": "",
+        "digest": "",
+        "schemaId": "",
+        "revision": 0,
+        "gameWeek": 0,
+        "successfulSnapshotPolls": 0,
+        "transportOutageCount": 0,
+        "runtimeReplacementCount": 0
+      },
+      "phases": [
+        {
+          "phase": "utf8-text-decode",
+          "outcome": "scope-exited",
+          "startedTicks": 8927736193777,
+          "endedTicks": 8927736194012,
+          "milliseconds": 0.0235,
+          "threadId": 1
+        },
+        {
+          "phase": "strict-parse-validation",
+          "outcome": "scope-exited",
+          "startedTicks": 8927736194020,
+          "endedTicks": 8927736215997,
+          "milliseconds": 2.1977,
+          "threadId": 1
+        },
+        {
+          "phase": "industry-completion-callback",
+          "outcome": "scope-exited",
+          "startedTicks": 8927736216007,
+          "endedTicks": 8927736222985,
+          "milliseconds": 0.6978,
+          "threadId": 1
+        }
+      ]
+    }
+  ],
+  "qualifications": [
+    "First observed map transitions are samples with250ms observer cadence, not exact callback/event completion times.",
+    "Campaign diagnostic joinedClientAuthority fields are default/empty for this route; do not infer failed receipt from this. The subsequent snapshot diagnostic and map carry the actual joined authority.",
+    "Root independently captured Saved at02:59:04.029; that later screenshot time is not the exact receipt or button-reenable time.",
+    "The fixed standalone n20 complete Save p95 remains9577.75375ms; the native request10542.0349ms is a distinct n1 under live client polling/rendering.",
+    "No extra profile, workload, native input or shared source edit was performed."
+  ],
+  "passiveReviewSha256": "de3d1f8025de9110420a9dde8a122c47cdb006445e96d6cc0daadeb31e437036",
+  "finalPerformanceSha256": "38ea748144a5f356f31c4fca20bc890e26591f110f101917112d0b1f2c9ac119",
+  "sourceChanges": []
+}

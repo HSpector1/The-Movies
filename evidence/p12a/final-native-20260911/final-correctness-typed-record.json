@@ -1,0 +1,150 @@
+{
+  "id": "candidate592-correctness-review",
+  "kind": "correctness-review",
+  "outcome": "PASS",
+  "provenance": "independent-review",
+  "reviewer": "/root/recovered_storage_review/package_runner_review",
+  "binding": {
+    "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+    "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+    "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+    "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+    "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+    "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+    "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+    "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+    "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+    "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+  },
+  "reviewedAtUtc": "2026-09-11T03:32:19.837382+00:00",
+  "scope": "Final continuation of the existing independent R05 correctness/source/evidence applicability review on exact592e926/2bc8d30 with actualdeca player. Source, tests, affected emitted/store measurements, historical task reuse, current24\u201327 native and finite actual shared metadata projections are complete. This is technical correctness evidence, not Owner enjoyment acceptance or a claim that all original performance targets pass.",
+  "obstacles": [],
+  "resolvedObstacles": [
+    "Current normal modifier cleanup/source/native reverse boundary closed by existing source/inert review and actual24/26; failed22 preserved.",
+    "Existing third critique corrections and early/core/native21 source applicability closed with independently attributed records.",
+    "Actual current late24/25 Save/Quit/recovery and Desktop26/27 independent A/B/C+copy load/Save/recovery complete with exact witnesses/source/metadata joins.",
+    "Finite final actual shared registry/index/register projection check complete; only explicitly listed mechanical finalization remains."
+  ],
+  "rechecks": [
+    "Compared current TS source to native21 and core/worker proof sources.",
+    "Compared Unity product roots to built deca395; reviewed latest Tools-only changes separately.",
+    "Read actual full TS08/Unity18 summaries and hashed their stored outputs.",
+    "Read third product-critique scope/closure requirements and previous independently reviewed campaign/launcher proofs.",
+    "Read Save proposal, rollover, commit and Unity receipt/rejoin source.",
+    "Checked native22 exact witness flags/ownership/finalization and kept failure explicit.",
+    "Matched all four integrated implementation files and relocated21-case test at592e926 to independent final source review and exact8687d29d patch.",
+    "Read cumulative09 final395-file/5181PASS/5SKIP summary and confirmed the21-case test ran in default discovery.",
+    "Compared Unity product roots deca395 to2bc8d30: no Assets/Packages/ProjectSettings delta.",
+    "Read current paired592e926/2bc8d30 PASS; checked actual emitted three mjs files byte-equal to root dist and sidecar differs only by one LF with identical parsed binding.",
+    "Rehashed136 affected worker source records and104 compiled-worker inputs with zero mismatches; checked18 functional checks, exact immediate/later/restart receipt identities,343 worker filesystem calls/zero main calls and both engine exits0.",
+    "Rehashed all96 inputs for each original/busy-profile/curated pure manifest; no changes. No timing, native or test execution by reviewer.",
+    "Preserved prior draft bytes before refreshing completion status; recomputed120 timed control/current phase samples with18 warmups excluded. All summaries and comparison percentages match raw reports.",
+    "Checked current23 fixed loads preserve identical authority without rewrite and23 Saves accept unchanged world/catalogue revision7; production sampler boundaries read, exact same harness/seed/runtime/hardware/baseline verified.",
+    "Matched current106 store source records plus actual sampler and bundle hashes to frozen binding. Completed status, zero errors/source changes and reported protected-seed/owned-lock cleanup checked without raw save access or PID probing.",
+    "Coordinated with performance reviewer and read frozen durable-write target addendum. Original250ms belongs to async durable write/persistence, not categorically complete Save; original report is retained with explicit controlling correction.",
+    "Independently hashed all197 immutable files in each newly assembled package, checked complete inventory/no symlinks/profile absence, current source/pair/README/PLAY bindings, executable/Assembly-CSharp identity and exact runtime bytes.",
+    "Checked all three Unity product git trees at deca and2bc exactly match SOURCE-APPLICABILITY.json; no working product-tree delta. No package launched by reviewer.",
+    "Visually inspected actual24reverse004\u2013010/013 and25menu; complete saved witness replay exactly matches each final report, four balanced Shift-Tab pairs and clean finalmarkers/ledger/process exits.",
+    "Joined separate native21\u219224\u219225 encoded metadata/receipt hashes to observed lateweek8794/digest/session Save replacement and exact24\u219225 recovery. No large checkpoint decoded by this reviewer.",
+    "Visually inspected current26 A/B/C/copySaved and200\u2192reverseText100\u2192Return100 plus27eachcampaign restored; exact complete witness replays with noforeign/physical/unknown and expected cleanQuit0.",
+    "Joined separate bounded20\u219226\u219227 decoded metadata to actual A1/B3/C0/copy13 maps, exact retained current/saved bodies and26\u219227 four savedrecordrows; wholelibrarychange from fourLoads correctly retained.",
+    "Root explicitly authorized final continuation of same third product critique; preserved originalcritic records and wrote task-scoped fullclosure plus early/core/native21 reuse with exact current candidate target and independent applicability identity.",
+    "Compared frozen private assembly to actual shared index/registry: registry exact; only reviewed recovery normalization/index timestamp changed. Original recovery object preserved verbatim, current exact27marker/globalinput timestamps source-bound.",
+    "Verified seven issued peer product/native typed records copied exactly; all18 referenced artifacts hash-match; scoped Back/large-text/ready projections preserve original21 observations/reuse and performance projection retains issued acceptance limits.",
+    "Compared all136 register rows/order and original columns against HEAD: only15 current disposition cells changed; checked current source/native/product/performance wording and retained historical states.",
+    "Read finalperformancev2 and checked its current Desktop payload/native bindings; updated current checker/register directives to completed24\u201327 status without overwriting historical prepared/failure observations.",
+    "Verified actual registry6b341e24 differs from reviewed4b0addd4 only by the exact authorized SaveAs current-environment qualification; all other objects/fields unchanged."
+  ],
+  "authorship": {
+    "implementationAuthor": "/root/recovered_storage_review",
+    "implementationFiles": [
+      "bridge/runtime-checkpoint.ts",
+      "bridge/session.ts",
+      "bridge/runtime/campaign-library.ts",
+      "bridge/runtime/runtime-coordinator.ts"
+    ],
+    "newRegressionTestAuthor": "/root/recovered_storage_review/package_runner_review",
+    "newRegressionCases": 21,
+    "sourceAndApplicabilityReviewer": "/root/recovered_storage_review/package_runner_review",
+    "integratorAndRuntimeExecutionOwner": "/root",
+    "independenceQualification": "Reviewer did not author the four implementation files. Reviewer authored the21 new regression cases and reviewed their relocated content; this is not independent test authorship or independently executed runtime evidence. Existing strict/failure/coordinator suites and cumulative tests were executed by producer/root."
+  },
+  "artifacts": [
+    {
+      "path": "final-native-20260911/final-correctness-applicability.json",
+      "sha256": "84fb773975be9a3a85ead40b0cf572dda72cbfa27348c4cdf62096f2ab601dcc"
+    }
+  ],
+  "privateDetailsSource": {
+    "path": "/tmp/p12a-final-applicability-draft-hfc9jm2x/attestation.json",
+    "bytes": 54608,
+    "sha256": "84fb773975be9a3a85ead40b0cf572dda72cbfa27348c4cdf62096f2ab601dcc"
+  },
+  "reviewedMetadata": {
+    "index": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/EVIDENCE-INDEX.json",
+      "bytes": 40226,
+      "sha256": "f3baa02da1b246dbebf2845fba0b13df3695409e9698162277501fb86b5b890e"
+    },
+    "registry": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/attestations.json",
+      "bytes": 127213,
+      "sha256": "6b341e2409008fd8ccb4d80884f0783438ba145e744879f6fec145b07599a630"
+    },
+    "register": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/docs/engineering/P12A-DECISION-AND-REQUIREMENT-REGISTER.md",
+      "bytes": 119312,
+      "sha256": "8ed3727322a196d2dcf4b668a6e2a7f95c50ad54a4e752859db1c1b4d0956f79"
+    },
+    "rootFinalInput": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/final-native-20260911/final-input-process-state.json",
+      "bytes": 342,
+      "sha256": "664382d6295858d7c1ce1ff651a529bda8073740a47bee002eb034e7039fdd7b"
+    },
+    "registryOriginal7ObjectsUnchanged": true,
+    "indexOriginal36RowsUnchanged": true,
+    "peerProduct3AndNative4RecordsExact": true,
+    "artifactReferencesChecked": 18,
+    "artifactHashMismatches": 0,
+    "register136RowsSameOrderOriginalColumnsPreserved": true,
+    "registerCurrentCellsChanged": [
+      "GOV-001",
+      "GOV-005",
+      "UX-001",
+      "UX-002",
+      "UX-003",
+      "UX-005",
+      "UX-015",
+      "PERF-008",
+      "PRF-001",
+      "PRF-002",
+      "PRF-003",
+      "PRF-005",
+      "PRF-012",
+      "SAVE-R05-001",
+      "SAVE-R05-002"
+    ],
+    "recoveryHistoricalObjectPreservedExactly": true,
+    "currentRecoveryLastHidUtc": "2026-09-11T03:19:49.559Z",
+    "rootFinalInputCheckUtc": "2026-09-11T03:20:40.570103Z",
+    "nativeBackLargeTextReadyProjections": "Original native21 binding/observations preserved with exact current reuse; no full978-credit/Profile or fabricated Pulse/controller/forced-reconnect claim.",
+    "performanceProjection": "PASS normalizes the independent scoped reference-rebaseline acceptance; original issued outcome, target misses,250 durable-write-only scope and unmeasured stress retained.",
+    "knownMechanicalFinalization": [
+      "Insert the separately issued exact candidate592-correctness-review record and corresponding PASS index row; preserve this pre-insertion metadata binding as the reviewed baseline.",
+      "Update current technical gate/index/register/handoff status to reflect completed independent correctness and original product/native/performance scope. Keep Owner acceptance OPEN and hook inactive; preserve historical records. Handoff final commit can be filled after root commit/push without changing reviewed product bytes."
+    ],
+    "qualification": "This is the finite review of actual shared metadata and its projections. Only the listed mechanical completion/status/citation edits remain for root; they do not require another product audit or new runtime test.",
+    "registryBeforeAuthorizedSaveAsWordingFix": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/attestations.json",
+      "bytes": 127213,
+      "sha256": "6b341e2409008fd8ccb4d80884f0783438ba145e744879f6fec145b07599a630"
+    },
+    "saveAsWordingFixAppliedAndExactOnlyChange": true
+  },
+  "nonClaims": [
+    "Owner playtest/acceptance remains OPEN and cannot be supplied by reviewers/tests.",
+    "Performance PASS is scoped measured reference rebaseline; original numeric misses and unmeasured future stress/write-only transport remain explicit.",
+    "No new core/gameplay, native interruption experiment, product critique round or broad audit occurred during this finalization.",
+    "No automatic hook activation; explicit checker no-warning is not certification."
+  ]
+}

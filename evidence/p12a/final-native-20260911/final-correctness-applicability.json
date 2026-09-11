@@ -1,0 +1,769 @@
+{
+  "id": "r05-final-correctness-applicability",
+  "kind": "correctness-review",
+  "outcome": "PASS",
+  "provenance": "independent-review",
+  "reviewer": "/root/recovered_storage_review/package_runner_review",
+  "scope": "Final continuation of the existing independent R05 correctness/source/evidence applicability review on exact592e926/2bc8d30 with actualdeca player. Source, tests, affected emitted/store measurements, historical task reuse, current24\u201327 native and finite actual shared metadata projections are complete. This is technical correctness evidence, not Owner enjoyment acceptance or a claim that all original performance targets pass.",
+  "binding": {
+    "typescriptSource": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+    "unityProductSource": "deca39521da1baeca61898d156a43f4ae6a7e035",
+    "unityObservedHead": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+    "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+    "projectionVersion": 29,
+    "protocolVersion": 4,
+    "generatedContractSha256": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+    "preparedCandidateObservation": {
+      "status": "PREPARED_ASSEMBLED_UNLAUNCHED_NOT_NATIVE_ACCEPTANCE",
+      "checkedAtUtc": "2026-09-10T22:42:03.365593+00:00",
+      "typescriptSource": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+      "unityObservedHead": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+      "unityProductSource": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "engineeringVerificationRoot": "/private/tmp/p12a-current592-native-93tk_gpc",
+      "packages": [
+        {
+          "root": "/private/tmp/p12a-current592-native-93tk_gpc",
+          "purpose": "late-world engineering verification",
+          "immutableFiles": 197,
+          "checksumFileSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+          "bytes": 168236393,
+          "profile": "ABSENT",
+          "launched": false,
+          "manifestSha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+          "pairSha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355",
+          "independentImmutableHashCount": 197,
+          "immutableHashMismatches": [],
+          "immutableMissingFiles": [],
+          "unexpectedFilesExcludingChecksumFile": [],
+          "symlinks": [],
+          "profileAbsentObserved": true,
+          "launcherAndAppExecutable": true,
+          "threeRuntimeMjsAndWorkerSidecarEqualRootDist": true,
+          "launchStatusQualification": "Root reports never launched; reviewer verified profile absence and performed no launch/native/input action."
+        },
+        {
+          "root": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
+          "purpose": "independent named campaigns candidate verification",
+          "immutableFiles": 197,
+          "checksumFileSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+          "bytes": 168236393,
+          "profile": "ABSENT",
+          "launched": false,
+          "manifestSha256": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+          "pairSha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355",
+          "independentImmutableHashCount": 197,
+          "immutableHashMismatches": [],
+          "immutableMissingFiles": [],
+          "unexpectedFilesExcludingChecksumFile": [],
+          "symlinks": [],
+          "profileAbsentObserved": true,
+          "launcherAndAppExecutable": true,
+          "threeRuntimeMjsAndWorkerSidecarEqualRootDist": true,
+          "launchStatusQualification": "Root reports never launched; reviewer verified profile absence and performed no launch/native/input action."
+        }
+      ],
+      "sourceApplicabilitySha256": "12ad069b6601cdeb65e5fda6c71305ce74fe0729911b1a174d69b4477d50745b",
+      "readmeSha256": "a5fdd4efb8fe735a39e209355ed03d8e223321f15e814d0df9081e55ba23d18e",
+      "launcherSha256": "f866c468e9ac68c49bd27b73d58d282056c6e7be0871e35cd12ab3f6a7f3ed93",
+      "playerExecutableSha256": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "assemblyCSharpSha256": "9a8dae63540f41fd5618bfccc6e52021458825280ba991fbf7ec6cad90a8155a",
+      "workerSourceManifestSha256": "a092dafb02a0f346c7fb29147eed0b9b2e643bdf4364f574cfa7f5fd63d06c58",
+      "unityEqualProductTrees": {
+        "Assets": "8e3e4e948b8766429124d3c07d7bfa77ab8b2877",
+        "Packages": "53850b446e3c66aca699f8258d9f8505ec5b4071",
+        "ProjectSettings": "bd634b92218127f72e2801f4c62a1700d217ab55"
+      },
+      "readmeReview": "Prepared/current-verification status and absent initial library clear. Conditional independent NewGame library and late engineering SaveAs distinction retained.9.58s Save/13.41s load are qualified standalone measurements; native proof/Owner separate. Protocol/source/evidence/rollback references consistent; no broad performance or current-native success claim.",
+      "launcherReview": "Existing supervisor exec uses package-local runtime/studio.mjs, same package app and package/PrivateProfile after checksum verification; installed Homebrew Node preferred. Source review only; no runtime/launch test.",
+      "preparedCandidateRoot": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395"
+    },
+    "finalCandidateBinding": {
+      "status": "ACTUAL_CURRENT_NATIVE_AND_FINAL_METADATA_REVIEWED",
+      "candidate": {
+        "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+        "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+        "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+        "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+        "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+        "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+        "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+        "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+        "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+        "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+      },
+      "desktopPackage": {
+        "root": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395",
+        "profileRoot": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/PrivateProfile",
+        "launcher": "/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/PLAY_PROJECT_STUDIO.command",
+        "launcherSha256": "f866c468e9ac68c49bd27b73d58d282056c6e7be0871e35cd12ab3f6a7f3ed93",
+        "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+        "verifiedImmutableFiles": 197,
+        "supervisorSha256": "97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26",
+        "pairedContractVerificationSha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355",
+        "actionTrace": "Unavailable in packaged mode: supervisor intentionally does not pass this optional environment variable."
+      },
+      "latePackage": {
+        "root": "/private/tmp/p12a-current592-native24-wf8x97ht",
+        "profileRoot": "/private/tmp/p12a-current592-native24-wf8x97ht/PrivateProfile",
+        "launcher": "/private/tmp/p12a-current592-native24-wf8x97ht/PLAY_PROJECT_STUDIO.command",
+        "launcherSha256": "f866c468e9ac68c49bd27b73d58d282056c6e7be0871e35cd12ab3f6a7f3ed93",
+        "packageChecksumSha256": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64",
+        "verifiedImmutableFiles": 197,
+        "supervisorSha256": "97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26",
+        "pairedContractVerificationSha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355",
+        "actionTrace": "Unavailable in packaged mode: supervisor intentionally does not pass this optional environment variable."
+      },
+      "lateNativeReports": [
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T02-54-45-401Z/report.json",
+          "bytes": 353370,
+          "sha256": "cd74473b088c729da90019c4d939c0769b5e161255f5d9acafd195f131bc61f9"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-00-41-726Z/report.json",
+          "bytes": 46382,
+          "sha256": "38eb1896ca7e35719b686f0d8dd49d2a94cd8736ad6eb8e2165fbc340d4c8562"
+        }
+      ],
+      "desktopNativeReports": [
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-03-22-494Z/report.json",
+          "bytes": 535461,
+          "sha256": "71d5f293b5393a569b85d741c442d28f3e0b2eb5eaa550c746037a75a2cedcec"
+        },
+        {
+          "path": "/Users/bruce/The Movies - P12A Living Hollywood Unity/Evidence/P12A/early-2026-09-11T03-17-27-667Z/report.json",
+          "bytes": 245083,
+          "sha256": "98d47d5aef6789f510bd60ef80c05b5f97d3584db5544a78c201f589db33fd97"
+        }
+      ],
+      "preparedObservationQualification": "Earlier197-file inventory/profile absence/unlaunched statements are retained separately with their original timestamp; current actual launches24\u201327 are now independently reviewed. Native24 is a fresh same-byte engineering clone; Desktop26/27 use actual prepared candidate path."
+    },
+    "checkerCandidate": {
+      "ts": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+      "unity": "2bc8d304b79a72bf20fda1d462ec3d96df253992",
+      "unityProduct": "deca39521da1baeca61898d156a43f4ae6a7e035",
+      "schema": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+      "dto": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+      "executable": "04adcdcae1673dd58b8bcf02d1def7d8c7737edde130db52aeef03b5420806ac",
+      "engine": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "worker": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "manifest": "c99a53f9926b1fec161b0c62b8c6709a730b689548fdef2b5cd4f57568f1ffcd",
+      "packageChecksum": "25facdbc105674ed86153568ac27b1e60558679431288ca7f9261b37a7c0ac64"
+    }
+  },
+  "obstacles": [],
+  "rechecks": [
+    "Compared current TS source to native21 and core/worker proof sources.",
+    "Compared Unity product roots to built deca395; reviewed latest Tools-only changes separately.",
+    "Read actual full TS08/Unity18 summaries and hashed their stored outputs.",
+    "Read third product-critique scope/closure requirements and previous independently reviewed campaign/launcher proofs.",
+    "Read Save proposal, rollover, commit and Unity receipt/rejoin source.",
+    "Checked native22 exact witness flags/ownership/finalization and kept failure explicit.",
+    "Matched all four integrated implementation files and relocated21-case test at592e926 to independent final source review and exact8687d29d patch.",
+    "Read cumulative09 final395-file/5181PASS/5SKIP summary and confirmed the21-case test ran in default discovery.",
+    "Compared Unity product roots deca395 to2bc8d30: no Assets/Packages/ProjectSettings delta.",
+    "Read current paired592e926/2bc8d30 PASS; checked actual emitted three mjs files byte-equal to root dist and sidecar differs only by one LF with identical parsed binding.",
+    "Rehashed136 affected worker source records and104 compiled-worker inputs with zero mismatches; checked18 functional checks, exact immediate/later/restart receipt identities,343 worker filesystem calls/zero main calls and both engine exits0.",
+    "Rehashed all96 inputs for each original/busy-profile/curated pure manifest; no changes. No timing, native or test execution by reviewer.",
+    "Preserved prior draft bytes before refreshing completion status; recomputed120 timed control/current phase samples with18 warmups excluded. All summaries and comparison percentages match raw reports.",
+    "Checked current23 fixed loads preserve identical authority without rewrite and23 Saves accept unchanged world/catalogue revision7; production sampler boundaries read, exact same harness/seed/runtime/hardware/baseline verified.",
+    "Matched current106 store source records plus actual sampler and bundle hashes to frozen binding. Completed status, zero errors/source changes and reported protected-seed/owned-lock cleanup checked without raw save access or PID probing.",
+    "Coordinated with performance reviewer and read frozen durable-write target addendum. Original250ms belongs to async durable write/persistence, not categorically complete Save; original report is retained with explicit controlling correction.",
+    "Independently hashed all197 immutable files in each newly assembled package, checked complete inventory/no symlinks/profile absence, current source/pair/README/PLAY bindings, executable/Assembly-CSharp identity and exact runtime bytes.",
+    "Checked all three Unity product git trees at deca and2bc exactly match SOURCE-APPLICABILITY.json; no working product-tree delta. No package launched by reviewer.",
+    "Visually inspected actual24reverse004\u2013010/013 and25menu; complete saved witness replay exactly matches each final report, four balanced Shift-Tab pairs and clean finalmarkers/ledger/process exits.",
+    "Joined separate native21\u219224\u219225 encoded metadata/receipt hashes to observed lateweek8794/digest/session Save replacement and exact24\u219225 recovery. No large checkpoint decoded by this reviewer.",
+    "Visually inspected current26 A/B/C/copySaved and200\u2192reverseText100\u2192Return100 plus27eachcampaign restored; exact complete witness replays with noforeign/physical/unknown and expected cleanQuit0.",
+    "Joined separate bounded20\u219226\u219227 decoded metadata to actual A1/B3/C0/copy13 maps, exact retained current/saved bodies and26\u219227 four savedrecordrows; wholelibrarychange from fourLoads correctly retained.",
+    "Root explicitly authorized final continuation of same third product critique; preserved originalcritic records and wrote task-scoped fullclosure plus early/core/native21 reuse with exact current candidate target and independent applicability identity.",
+    "Compared frozen private assembly to actual shared index/registry: registry exact; only reviewed recovery normalization/index timestamp changed. Original recovery object preserved verbatim, current exact27marker/globalinput timestamps source-bound.",
+    "Verified seven issued peer product/native typed records copied exactly; all18 referenced artifacts hash-match; scoped Back/large-text/ready projections preserve original21 observations/reuse and performance projection retains issued acceptance limits.",
+    "Compared all136 register rows/order and original columns against HEAD: only15 current disposition cells changed; checked current source/native/product/performance wording and retained historical states.",
+    "Read finalperformancev2 and checked its current Desktop payload/native bindings; updated current checker/register directives to completed24\u201327 status without overwriting historical prepared/failure observations.",
+    "Verified actual registry6b341e24 differs from reviewed4b0addd4 only by the exact authorized SaveAs current-environment qualification; all other objects/fields unchanged."
+  ],
+  "sourceApplicability": {
+    "typescript592VersusPrior39": "Exactly four runtime implementation files changed plus the21-case test between39c6401 and592e926 within bridge/tests/scripts/src/core scope. Exact source hashes match reviewed final8687d29d. Entrant wording correction from39 remains; no new core/product/schema changes.",
+    "core": "src/core unchanged39c6401 to592e926; earlier applicability through39 remains. All96 original/busy-profile/curated pure-phase source records independently match current bytes, so prior core and pure measurements retain their existing fixture/phase scope.",
+    "checkpointCorrection": "Private hydrate+canonical output retains full strict validation. Success-only stack-local dispatch artifact is checked against completed state reference/revision/slots/full journal; committed last entry is copied. Caller/session bounds intersect before mutation; replay/noappend returns null. Ordinary dispatch and campaign Save consume exact prepared bytes while retaining detached fork, atomic persistence, failure poisoning and rollover laws. No retained public mutable-result cache or global parsed-state memo.",
+    "worker": "The earlier worker-placement proof is historical supporting evidence. Current affected emitted proof independently matches136 bound sources and104 compiled-worker inputs, including the changed checkpoint/session/library/coordinator code. Current18 functional checks and exact retries replace any claim that those runtime source files are unchanged since923eaee.",
+    "unity": "Assets/Packages/ProjectSettings unchanged builtdeca\u21922bc. Current normal Shift-Tab source/inert review and actual24/26 chord proof plus clean24\u201327 witnesses close the normal input boundary.8 relevant native14 founding/selection/campaign/camera/workspace/Profile source files independently byte-identical current; changed ready Industry behavior is covered by native21 six-group critique and checked current applicability.",
+    "contract": "Current sealed paired verification PASS explicitly binds TS592e926 and Unity2bc8d30, protocol4/projection29/V19/schema and unchanged generated contract. It is embedded byte-exact in both verified prepared packages; it is not a native launch or final acceptance seal.",
+    "emittedApplicability": "Private studio.mjs, engine.mjs and runtime-worker.mjs are byte-identical to current root dist. Private runtime-worker-source.json equals root sidecar plus one LF; parsed104-source/version/worker-hash binding identical. No whole-directory byte identity claim."
+  },
+  "reusableProofs": [
+    {
+      "family": "All-nine/calendar/authored-history/ordinary production/endurance",
+      "evidence": [
+        "core-entry-20260910/report.json",
+        "core-continuation-20260910/report.json"
+      ],
+      "reason": "Core source unchanged; independent fresh0\u21922548 all-five arrival boundaries and6240 further advances with exact prior final and reload/next-tick equality.",
+      "limits": "Ordinary nine-rival workload; not12-rival stress, simultaneous continued production by all nine, or native input. Finite-cash struggling studios remain lawful. Use real live releases separately from authored starters."
+    },
+    {
+      "family": "Causal money/talent/capacity and strict identity/retention laws",
+      "evidence": [
+        "resource-constraints-20260910/report.json",
+        "recovered-checks-20260910/ts-cumulative-08-entrant-wording.log",
+        "/tmp/p12a-full-regression-09-checkpoint-reuse.log"
+      ],
+      "reason": "Unchanged core plus current cumulative09 regression; earlier independent withdrawal/restoration controls retain their explicitly synthetic causal scope.",
+      "limits": "Withdrawal controls are synthetic; do not label that attestation ordinary-progression to satisfy the live-production checker. Actual ordinary live-release proof comes from entry/continuation/native12."
+    },
+    {
+      "family": "Persistence/retry/isolation/worker placement",
+      "evidence": [
+        "storage-resume-20260910/report.json",
+        "worker-production-20260910/independent-applicability.json",
+        "worker-production-20260910/measured-summary.json",
+        "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/report.json",
+        "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/affected-validation.json",
+        "/tmp/p12a-checkpoint-reuse-pzwj_tt6/independent-final-review.json",
+        "/tmp/p12a-full-regression-09-checkpoint-reuse.log"
+      ],
+      "reason": "Current integrated runtime has exact reviewed four-file correction plus21 new boundary cases in cumulative09. Current emitted functional proof verifies strict unequal-slot recovery, campaign Save, ordinary Save explicit rollover, unchanged inactive records and exact immediate/later-tick/restart historical response with343 observed worker filesystem calls and zero main calls; both engines exit0.",
+      "limits": "The emitted fixture has three SaveAs records from one engineering world, not independent NewGames. Observed filesystem placement is instrumented runtime-path evidence, not an exhaustive timing/no-stall claim. Fault injection, malformed/capacity/mutation boundaries and failed-write publication are proven by the relevant tests, not by this successful emitted run. Current n20 fixed-store timing is complete and bound separately with phase-specific qualifications."
+    },
+    {
+      "family": "Independent campaign NewGame/SaveAs/native control",
+      "evidence": [
+        "gate-a-run11-20260910/native-summary.json",
+        "gate-a-run12-20260910/native-summary.json",
+        "gate-a-run14-20260910/product-closure.json",
+        "gate-a-play19-20-20260910/launch-relaunch-attestation.json"
+      ],
+      "reason": "Historical native11/12 independent A/B/C andBcopy/control proof joined through exact closed20 seed to current Desktop26/27. Current actual loads/Saves and next-launch loads preserve all four canonical current/saved worlds,3 distinct independent A/B/C world/seed identities and26\u219227 saved records; no freshNewGame/SaveAs claimed.",
+      "limits": "C0 satisfies createC/save, not progressed. Current26 saves eachrecord so encodedwrapper/journal/revision change is expected20\u219226; current27 fourLoads alter working session/catalogue/full library but retain saved record rows. Intermediate26 inactive state is not independently inferred from finalfiles."
+    },
+    {
+      "family": "Native parser/UI applicability",
+      "evidence": [
+        "gate-a-run15-20260910/native-comparison.json",
+        "gate-b-run21-20260910/product-review-open.json",
+        "gate-b-run21-20260910/native-summary.json"
+      ],
+      "reason": "Unchanged actualdeca Unity product; currentTS592 storage correction reviewed and native24/25 replayed. Same third critique now closed after exact24reverse and current26reverse/Return100; earlier native21 six groups retain producer/history/source scope.",
+      "limits": "Original native21 paused-world/new-entry/forcedreconnect/ambiguousnames/controller exclusions retained. Failed22 preserved. Current normalOSinput success is not an induced-native-interruption test or Owner verdict."
+    },
+    {
+      "family": "Current cumulative tests",
+      "evidence": [
+        "/tmp/p12a-full-regression-09-checkpoint-reuse.log",
+        "recovered-checks-20260910/editmode-18-ready-label.xml",
+        "/private/tmp/p12a-paired-checkpoint592e926.json"
+      ],
+      "reason": "Current TS cumulative09:395 files/5181PASS/5SKIP in155.68s, including the21 new tests. Earlier Unity18:1099PASS remains applicable to unchanged product roots. Current paired contract PASS inspected. Root reports current typecheck/build/audit119-input validation PASS; reviewer did not execute these.",
+      "limits": "Test author and implementation author are explicitly separate in authorship, but reviewer authored the21 new tests. Skips remain skips; source tests and unchanged Unity product proof do not close native helper propagation, delivered package, or Owner acceptance."
+    },
+    {
+      "family": "Unchanged pure-phase timing applicability",
+      "evidence": [
+        "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/pure-phase-applicability.json"
+      ],
+      "reason": "All three96-input manifests and every referenced current source hash independently match592e926; original root phase and busy-profile measurements can be reused with v2 qualification.",
+      "limits": "No new pure timing run. Existing full-nine serialize+digest MISS100ms and original provisional size issues remain visible. Current store measurement is distinct; pure timing reuse does not prove future12-rival stress."
+    },
+    {
+      "family": "Completed affected store/reference-cost measurement",
+      "evidence": [
+        "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store/store-report.json",
+        "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store-comparison-validation.json",
+        "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/final-measurement-disposition.json",
+        "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/durable-write-target-addendum.json"
+      ],
+      "reason": "Current592 same-harness/fixed-library n20 phase comparisons independently recomputed; full campaign Save p95 improves47.5144% and load-ready27.4773%. Actual106 store source hashes match; scoped repeated accepted-checkpoint concern closed by reviewed source/tests/counters and current functional/measured evidence.",
+      "limits": "Three warmups plus20 timed samples per phase on M3 Max/128GiB/default Node26.3.1. Save9.578s and load13.415s are material reference costs. Already-encoded durable write53.564ms is below250 within its measured boundary; write-only worker handoff/queue-to-ack is not separately timed. No native launch percentile, all-machine guarantee, full stress result or retention waiver."
+    }
+  ],
+  "saveSessionReplacement": {
+    "observed": "Native21 campaignSave preserved week8794/public digest c0e93f9a727e82f68814d31862befcbc20ffa0ba16118f7bfe161f4d48897862 while logical session/revision changed fd0d35c2-e041-45cc-b35c-ad6e9f398d3e/1\u219287298026-b591-47b0-9c06-4d5dbb06a1af/0. Runtime identity stayed the same.",
+    "sourceCause": "Current campaign-library.saveActive still hydrates a detached fork preserving original session/revision. It now calls dispatchWithRuntimeCheckpoint; proven BridgeRuntimeCheckpointHistoryFullError triggers rolloverRuntime into a fresh session UUID/revision0 retaining exact current canonical world and saved slot, then retries Save with fresh local preparation. This preserves the source explanation of observed native21 logical replacement, not an engine restart or gameplay rewind.",
+    "durability": "Coordinator proposes off the live authority, awaits atomic encoded-library persistence, then publishes proposal.library/session. Failed writes preserve prior authority or stop on uncertain restoration. Campaign receipts preserve originating command/session/operation and exact retry response.",
+    "unityJoin": "Client checks exact commandId/originatingSessionId/operation, refreshes authenticated authority and catalogue, rejects contradictory revision/digest/week/active campaign, and clears unresolved operation only after actual receipt/world join.",
+    "limits": "Native timing does not separately prove which internal error was thrown; rollover explanation is a source+observed-session inference. Do not claim unchanged whole private library, same transport session, or no Save metadata changes.",
+    "currentEvidence": "Current592 emitted proof separately observed the ordinary Save explicit SESSION_MISMATCH rollover contract and accepted retry in fresh logical scope; exact later/restart receipt preserved. This is an actual source-bound emitted protocol observation, not a new native observation of native21 internal error."
+  },
+  "remainingAcceptance": [
+    {
+      "id": "INPUT-BOUNDARY",
+      "status": "CLOSED_NORMAL_SOURCE_AND_NATIVE",
+      "required": "Actual24 four chords and26 one chord+Return succeeded with exact source0 modifier flags, clean global observed Shift states and clean final witness. Interrupted-helper ownership cleanup remains explicitly source/inert-reviewed; foreign/lost witness cannot authorize stale repair. Failed22 preserved."
+    },
+    {
+      "id": "THIRD-CRITIQUE",
+      "status": "CLOSED_WITHIN_EXISTING_SCOPE",
+      "required": "Original critic records preserved. Explicitly authorized bounded continuation independently closed corrected wording/reverse task and judged early/core/native21 current applicability in third-product-closure-and-reuse.json. No additional product critique or Owner acceptance."
+    },
+    {
+      "id": "FINAL-CANDIDATE",
+      "status": "CURRENT_NATIVE_TASKS_VERIFIED",
+      "required": "Current same-byte engineering24/25 late Save/Quit/recovery plus actual Desktop26/27 independent A/B/C+copy load/Save/relaunch complete with exact current bindings and clean witness/process reports. Separate storage reports joined to public map/world/receipt identities; four candidate saved records26\u219227 exact, full library differs lawfully after fourLoads. Earlier independent NewGame/SaveAs creation provenance preserved; not newly created26/27."
+    },
+    {
+      "id": "PERFORMANCE",
+      "status": "QUALIFIED_REFERENCE_MEASUREMENT_COMPLETE",
+      "required": "Current n20 store measurement completed22:25:36.820UTC. Performance reviewer accepts measured current R05 reference-cost rebaseline with explicit original misses and future stress limits. Bounded accepted-checkpoint repetition concern is closed on exact592 bytes; broader retention/algorithm obligations remain binding. Use controlling target addendum: writeAtomic p9553.564ms below250 within already-encoded write boundary, not categorical250ms assessment of whole Save9.578s. Isolated write transport and future stress remain unmeasured; no native/all-machine or comprehensive performancePASS."
+    },
+    {
+      "id": "FINAL-EVIDENCE",
+      "status": "REVIEW_COMPLETE_MECHANICAL_SEALING_BY_ROOT",
+      "required": "Actual shared index/registry/register and18 referenced artifacts checked, including the sole-field SaveAs wording correction. Exact final typed correctness insertion and current status/handoff sealing remain mechanical root integration; no unresolved correctness/evidence finding."
+    },
+    {
+      "id": "OWNER",
+      "status": "OPEN_SEPARATE",
+      "required": "Owner playtest/verdict after a technical candidate; no reviewer or tests can substitute Owner enjoyment/acceptance."
+    }
+  ],
+  "checkerRegisterActions": [
+    "Record final independent correctness PASS for exact592/2bc and actualdeca player; index/registry may reflect technical GateB completion after inserting the issued record. Owner playtest/acceptance remains OPEN and separate.",
+    "Use the actual current Desktop26/27 and late24/25 native/source/storage/product artifacts; earlier prepared profile-absent/unlaunched observations remain historical only.",
+    "Insert the exact issued correctness typed record and update its index row/citation. The stale SaveAs current-environment wording has already been corrected and its sole-field delta verified. Preserve all original36 rows/seven objects and earlier failures.",
+    "Retain all three existing product critique closures and explicit early/core/native21 task reuse. No new product critique, manual Shift-clearance task or native replay remains required for this reviewed candidate.",
+    "Use the final performance reviewer scoped reference-rebaseline acceptance and controlling durable-write addendum; preserve original serialize+digest/size misses, future stress/write-only transport unmeasured status and nonwaivable storage/history/strictness laws.",
+    "Keep already-encoded writeAtomic53.5645ms separate from completeSave9577.75375ms/loadReady13414.888417ms and actualnative24 oneSave timing/render-progress observation. Independent phase percentiles are not additive.",
+    "Preserve independent NewGame A/B/C source provenance through exactclosed20seed and actual26/27 load/Save/recovery; lateengineering LongA/B/C benchmark branches remain separate. FourLoads change working session/catalogue without changing saved campaign records.",
+    "Maintain explicit implementation author/storage parent,21-case test author/source reviewer and root execution/integration roles. Update the handoff with root final commit/push identity, reviewed payload hashes and qualified technical disposition; no Owner acceptance or automatic hook activation is implied."
+  ],
+  "safeHashes": {
+    "indexAtReview": "939625c8be6ff0fd31502ff0c5008ffb32e4dc7699d24a18c54c6e3cf31adac5",
+    "attestationsAtReview": "cc530540db90421be59a50aeefacebc078c3ed89ca01b6deb34c331f518c6e30",
+    "checkerSource": "651a421715f05055a255e86d13c3b92cca50ea34a1a9289a81ef5089cb0a4154",
+    "ts08Log": "995890f293c35b9e1e23762977a9be38e3236ddae22834ffa68b1b0c4acadf06",
+    "unity18Xml": "1b14ad245c6754399ed5e8b83ae8097a42cfba47b046e68c8dbcf9bd49937cab",
+    "pairedContract21": "86af396085fe0be99496a0c9e5272279f0da3e6fdff25d8ac8fe4b7ae7568383",
+    "thirdProductOpen": "04b31a049acc7a819f237bc33327c23fcfa4ca8922c9f8c25956f9e81f3c1920",
+    "independentPerformance21": "44c3c541e75154c99d82003997ea1488f9eefbaf90e572c6586dc4f693afbbd7",
+    "native22Report": "c89683772751d4648735ac3563cf2e33d5bc1b8093404f5a4d7240f13a38c559",
+    "native22Witness": "c893cbf3ee5b40a0b728ff9d028a29b9773581d230302f5454069de5a4d18657"
+  },
+  "activity": "Read-only bounded source/git/test-body, saved screenshots/maps/witness replay, metadata and artifact hashes; prior measurement arithmetic and expressly authorized immutable-package hash checks. Updated only this private review and related private artifacts. No source/shared edits, new workload/tests/builds/native/input/engine/launch/process probes or raw-save/capability access by reviewer.",
+  "updatedAtUtc": "2026-09-11T03:32:19.837382+00:00",
+  "updateScope": "Finite final metadata check completed; no new review cycle. Replaces stale current directives with completed actualnative/product status while retaining every earlier artifact and historical qualification.",
+  "previousDraft": {
+    "path": "/tmp/p12a-final-applicability-draft-hfc9jm2x/attestation-before-final-metadata-review.json",
+    "bytes": 48895,
+    "sha256": "1fe9c3bbdc9ac7de82013dfbc9bd5b05cc9bb65212e6a8476e78fee50f4c8321"
+  },
+  "authorship": {
+    "implementationAuthor": "/root/recovered_storage_review",
+    "implementationFiles": [
+      "bridge/runtime-checkpoint.ts",
+      "bridge/session.ts",
+      "bridge/runtime/campaign-library.ts",
+      "bridge/runtime/runtime-coordinator.ts"
+    ],
+    "newRegressionTestAuthor": "/root/recovered_storage_review/package_runner_review",
+    "newRegressionCases": 21,
+    "sourceAndApplicabilityReviewer": "/root/recovered_storage_review/package_runner_review",
+    "integratorAndRuntimeExecutionOwner": "/root",
+    "independenceQualification": "Reviewer did not author the four implementation files. Reviewer authored the21 new regression cases and reviewed their relocated content; this is not independent test authorship or independently executed runtime evidence. Existing strict/failure/coordinator suites and cumulative tests were executed by producer/root."
+  },
+  "currentArtifacts": [
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/report.json",
+      "bytes": 263587,
+      "sha256": "4f564d4a7ed487c6d8161509b50a7c706c61556b4e611dced62835537f48f8e2"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/worker/affected-validation.json",
+      "bytes": 2630,
+      "sha256": "0a3474298ccd5c6ec3a5a12ecf8994972705f46530ec72388c161446aa9abc41"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/pure-phase-applicability.json",
+      "bytes": 1398,
+      "sha256": "0f1a08f8e8c84b259fada3f796d7d7a97b411f9618b4ac08ae37697dc3fd4139"
+    },
+    {
+      "path": "/private/tmp/p12a-paired-checkpoint592e926.json",
+      "bytes": 818,
+      "sha256": "32ecb71d9bcd254eb47c76076fb03a8447d979c503c2dec0b88f4f240e7d1355"
+    },
+    {
+      "path": "/tmp/p12a-full-regression-09-checkpoint-reuse.log",
+      "bytes": 125339,
+      "sha256": "4ebf0fbcad5d1280640233e227b7fa1349a0f280284c401a99bcde6109d7f3ff"
+    },
+    {
+      "path": "/tmp/p12a-checkpoint-reuse-pzwj_tt6/independent-final-review.json",
+      "bytes": 6780,
+      "sha256": "920365549c6a6476b5a2bbe12a9bbfed6d049a68a4dfcbc6e327828989f69c49"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store/store-report.json",
+      "bytes": 40638,
+      "sha256": "e464a8655580550e53388ce9a6896eaac1159d327a39bfd28e5599e64510fefe"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store-comparison-validation.json",
+      "bytes": 9521,
+      "sha256": "1c4f39dae40d65d52162f8bba7f32b63435612c0b76b3b2680b1323cd0540a02"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/final-measurement-disposition.json",
+      "bytes": 32284,
+      "sha256": "ba24dff9d882e70ac57bc531474f0b6d12aed3532c9650c06f6d56c14998c00f"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/final-measurement-disposition.md",
+      "bytes": 8500,
+      "sha256": "f5ee4aaeac8ceac082e5e5dcbee41e64908bfd0d7c973e227e929bf43c4ba480"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/durable-write-target-addendum.json",
+      "bytes": 16925,
+      "sha256": "53a95979c4d19a4585aead32892d0e2cf5b730ecbf9728f5dea2a9210b643aec"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/durable-write-target-addendum.md",
+      "bytes": 3918,
+      "sha256": "7554adee2c3f5d38bdbeede9024a4c030648a5a33a6762b723e967df07321080"
+    },
+    {
+      "path": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/store/store-sources.json",
+      "bytes": 24363,
+      "sha256": "f1de95492bb2c5fed04dc190391bfbd2f637a4173a48c58e1ec7f7717a07fa9d"
+    },
+    {
+      "path": "/private/tmp/p12a-package592-assembly-b35dbuij/report.json",
+      "bytes": 1335,
+      "sha256": "e65bf32314dcbb57cea8211737ad39b3ed31de1e7e39e08add3aaf46e0cd1dab"
+    }
+  ],
+  "currentWorkerEvidence": {
+    "sourceHead": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+    "completed": true,
+    "status": "PASS_AFFECTED_EMITTED_FUNCTIONAL_AND_WORKER_PLACEMENT",
+    "sourceRecordsVerified": 136,
+    "compiledWorkerInputsVerified": 104,
+    "sourceChangesAfter": [],
+    "functionalChecks": 18,
+    "mainRuntimeFilesystemCalls": 0,
+    "workerRuntimeFilesystemCalls": 343,
+    "engines": [
+      {
+        "pid": 89223,
+        "exit": {
+          "code": 0,
+          "signal": null,
+          "at": "2026-09-10T22:15:45.320Z"
+        }
+      },
+      {
+        "pid": 89282,
+        "exit": {
+          "code": 0,
+          "signal": null,
+          "at": "2026-09-10T22:16:02.097Z"
+        }
+      }
+    ],
+    "exactImmediateLaterRestartRetry": {
+      "responseSha256": "5e4c13ee800c78dc38f45a5d2a6b4a60a7c47c6f8b80e6d22f59d4e0d0a90bdc",
+      "bytes": 41960717,
+      "allThreeSameResponseIdentity": true,
+      "unchangedDurableFileEachRetry": true
+    },
+    "allInactiveRecordBytesPreserved": true,
+    "errors": [],
+    "qualification": "Report/affected proof read and bound sources rehashed only. Reviewer did not read raw saves, rerun observer/engines, probe current PIDs or perform native input. Completed store measurement is bound separately below; no native result is inferred."
+  },
+  "emittedArtifacts": [
+    {
+      "name": "studio.mjs",
+      "bytes": 197582,
+      "sha256": "97828d44edbe6edb19828be4a8cfd16f977f017672bf76edaf720493366d8f26",
+      "rootDistAndPrivateBytesEqual": true
+    },
+    {
+      "name": "engine.mjs",
+      "bytes": 129606,
+      "sha256": "df6f00e8a20909ba7208d6553c329bb9e965c80b4c7e439779d1aa01203c2cf0",
+      "rootDistAndPrivateBytesEqual": true
+    },
+    {
+      "name": "runtime-worker.mjs",
+      "bytes": 1545393,
+      "sha256": "39a6c8f3a45a888766bf72a81a5a067ab3926d8a1bc4cfc3d8f4b273c2aecee9",
+      "rootDistAndPrivateBytesEqual": true
+    }
+  ],
+  "workerSourceSidecar": {
+    "rootBytes": 14564,
+    "privateBytes": 14565,
+    "rootSha256": "a092dafb02a0f346c7fb29147eed0b9b2e643bdf4364f574cfa7f5fd63d06c58",
+    "privateSha256": "b3b46f4de6641e931cde335a91584a86daa79e241dae1cb84527e99c1421bddd",
+    "rawBytesEqual": false,
+    "privateEqualsRootPlusOneLF": true,
+    "parsedBindingEqual": true,
+    "compiledInputs": 104
+  },
+  "historicalSafeHashesQualification": "Existing safeHashes refer to the earlier39/a5 draft snapshot and retained historical proofs. Current artifact bindings are listed separately above.",
+  "draftHistory": [
+    {
+      "path": "/tmp/p12a-final-applicability-draft-hfc9jm2x/attestation-before-completed-store.json",
+      "sha256": "ed197855e705dd1a6da511bbd842dd182159f3b4a5e0abb70235b9016f8444bd",
+      "scope": "592/2bc draft before completed store evidence and prepared package bindings; old n20 RUNNING status is historical."
+    },
+    {
+      "path": "/tmp/p12a-final-applicability-draft-hfc9jm2x/attestation-before-current-native24-27.json",
+      "bytes": 41991,
+      "sha256": "4bd6ee7aa9d74998478bc7114bc1c34739fc81bf062c7f329b7588e2e5d89194"
+    },
+    {
+      "path": "/tmp/p12a-final-applicability-draft-hfc9jm2x/attestation-before-final-metadata-review.json",
+      "bytes": 48895,
+      "sha256": "1fe9c3bbdc9ac7de82013dfbc9bd5b05cc9bb65212e6a8476e78fee50f4c8321"
+    },
+    {
+      "path": "/tmp/p12a-final-applicability-draft-hfc9jm2x/attestation-before-final-saveas-wording-join.json",
+      "bytes": 54148,
+      "sha256": "dbe230f6c1cf93553749442addea407e1bf8d85e127d770161669cfcabdf0b9e"
+    }
+  ],
+  "completedStoreMeasurement": {
+    "status": "COMPLETE_QUALIFIED_REFERENCE_MEASUREMENT",
+    "startedAt": "2026-09-10T22:16:28.833Z",
+    "finishedAt": "2026-09-10T22:25:36.820Z",
+    "sourceBinding": {
+      "builtAt": "2026-09-10T22:12:55.647Z",
+      "commit": "592e926bfbf4574df94b38fc8dd594fc5df2ac8d",
+      "files": 106,
+      "sourceSha256": "638d240c8ffea804aab443d8ecf62357cdf3a4fcafb85c3f3e3d3fb79a850602",
+      "probeSourceSha256": "d1dee617de9c2ba53374893070d2e834fdd0e50a1b810ef5ba947cfdf67bde52",
+      "bundleSha256": "52d888d17d80487bd97bca929897f23a37f62614af60cc05a27090565f5d7831"
+    },
+    "sourceInputHashesIndependentlyMatched": 106,
+    "sourceChanges": [],
+    "errors": [],
+    "warmupsPerPhasePerRun": 3,
+    "timedSamplesPerPhasePerRun": 20,
+    "independentlyRecomputedTimedSamplesAcrossBothRuns": 120,
+    "warmupsExcludedAcrossBothRuns": 18,
+    "percentile": "nearest-rank observed p95 (sorted index ceil(.95*n)-1), empirical n20; not a population guarantee",
+    "sameControlSeedHarnessRuntimeHardwareAndBaseline": true,
+    "phases": {
+      "durableWrite": {
+        "control": {
+          "n": 20,
+          "medianMs": 52.971104500000024,
+          "p95Ms": 62.351084000000014,
+          "maxMs": 63.626875000000155,
+          "minMs": 48.98866699999985
+        },
+        "integrated": {
+          "n": 20,
+          "medianMs": 52.0114585,
+          "p95Ms": 53.56449999999995,
+          "maxMs": 56.60166700000036,
+          "minMs": 50.567208000000164
+        },
+        "changePercent": {
+          "medianMs": -1.8116405331892182,
+          "p95Ms": -14.092111052953083,
+          "maxMs": -11.041258901996642
+        }
+      },
+      "loadReady": {
+        "control": {
+          "n": 20,
+          "medianMs": 18337.768104000017,
+          "p95Ms": 18497.514874999993,
+          "maxMs": 18661.969416000007,
+          "minMs": 18230.87162500003
+        },
+        "integrated": {
+          "n": 20,
+          "medianMs": 13322.654937499989,
+          "p95Ms": 13414.88841700001,
+          "maxMs": 13423.439708999998,
+          "minMs": 13243.113332999987
+        },
+        "changePercent": {
+          "medianMs": -27.348547206276873,
+          "p95Ms": -27.477347591536873,
+          "maxMs": -28.07061564739629
+        }
+      },
+      "campaignSave": {
+        "control": {
+          "n": 20,
+          "medianMs": 18162.50633350009,
+          "p95Ms": 18248.355917000008,
+          "maxMs": 18870.020165999973,
+          "minMs": 18052.59695799998
+        },
+        "integrated": {
+          "n": 20,
+          "medianMs": 9517.586124999973,
+          "p95Ms": 9577.753750000033,
+          "maxMs": 9612.70762500001,
+          "minMs": 9458.987709000008
+        },
+        "changePercent": {
+          "medianMs": -47.597617034576736,
+          "p95Ms": -47.51442928029762,
+          "maxMs": -49.058307620040594
+        }
+      }
+    },
+    "fixedLoads": {
+      "totalIncludingWarmups": 23,
+      "distinctAuthorityIdentities": 1,
+      "checkpointRewrites": 0
+    },
+    "fixedSaves": {
+      "totalIncludingWarmups": 23,
+      "allAccepted": true,
+      "distinctWorldWeekDigestPairs": 1,
+      "catalogueRevision": 7,
+      "allCheckpointModes0600": true
+    },
+    "cleanup": {
+      "protectedSeedUnchangedReported": true,
+      "ownedLockAbsentReported": true,
+      "noReviewerSaveHashOrPidProbe": true
+    },
+    "resourceEvidence": {
+      "control": {
+        "highWaterRssKiB": 4971568,
+        "highWaterRssBytes": 5090885632,
+        "measuredEndpointHeapMaxBytes": 2242657768,
+        "measuredEndpointRssMaxBytes": 4210884608
+      },
+      "integrated": {
+        "highWaterRssKiB": 4707520,
+        "highWaterRssBytes": 4820500480,
+        "measuredEndpointHeapMaxBytes": 2248617648,
+        "measuredEndpointRssMaxBytes": 4187045888
+      }
+    },
+    "phaseQualifications": [
+      "Standalone isolated private benchmark process invoking unchanged production store/coordinator directly. No HTTP, worker-postMessage, Unity, native or engine-main placement claim.",
+      "Load-to-ready starts before production store ownership acquisition and includes coordinator recovery and first production snapshot, matching the worker ready computation except worker startup and message transport. Repeated in one process with ordinary OS page cache; not OS-cold launch.",
+      "Durable write phase includes production ownership checks, UTF-8 conversion/validation, file write+fsync, atomic replacement, directory fsync, and cleanup. Input serialization/compression is excluded because exact protected encoded UTF-8 is already available.",
+      "Complete campaign Save starts at coordinator.campaign and ends when its durable accepted response resolves. Includes proposal/fork/strict operations, production library encoding/compression and atomic write; excludes prior catalogue read, HTTP/client UI, and post-operation verification.",
+      "Every load/Save sample is reset to the identical protected real seed using production store.writeAtomic, then the owned store is closed through its API. This reset/setup, catalogue reads, validation hashes and file stats are excluded from timings and logged separately.",
+      "Each sample Save has a unique command ID; catalogue increments by one, active record revision increments by one. Runtime rollover may mint session UUIDs. Current world/week/digest and inactive record metadata must remain unchanged. No authoritative weekly advance or fabricated history.",
+      "No forced GC, heap flags, or cache clearing; per-sample heap/RSS before and after plus process high-water RSS are recorded. No claim these endpoint samples capture allocation volume or all RSS peaks."
+    ],
+    "samplerSourceSha256": "d1dee617de9c2ba53374893070d2e834fdd0e50a1b810ef5ba947cfdf67bde52",
+    "samplerBundleSha256": "52d888d17d80487bd97bca929897f23a37f62614af60cc05a27090565f5d7831",
+    "validationQualification": "Reviewer recalculated summaries and compared source/report/metadata; did not rerun sampler, hash original checkpoints, perform process probes or independently assert native timing."
+  },
+  "performanceInterpretation": {
+    "performanceReviewer": "/root/final_performance_measurements",
+    "controllingAddendum": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/durable-write-target-addendum.json",
+    "controllingAddendumSha256": "53a95979c4d19a4585aead32892d0e2cf5b730ecbf9728f5dea2a9210b643aec",
+    "originalReportPreserved": "/private/tmp/p12a-checkpoint-verification-6lgjbgq6/final-measurement-disposition.json",
+    "originalReportSha256": "ba24dff9d882e70ac57bc531474f0b6d12aed3532c9650c06f6d56c14998c00f",
+    "correction": "Original250ms provisional target is asynchronous durable write/persistence end-to-end, not explicitly complete campaign Save. Prior report categorical complete-Save MISS250 wording is withdrawn by the controlling addendum. No raw timings changed.",
+    "writeTargetDisposition": "Current production writeAtomic p9553.5645ms is below250ms within measured already-encoded durable-write boundary including commit/cleanup/Promise completion; serialization/compression, initial store opening and worker transport excluded. Isolated worker write handoff/queue-to-ack percentile is unmeasured.",
+    "completeSaveAndLoad": "Complete campaign Save p959577.75375ms and load-ready13414.888417ms are separate material measured reference costs; no categorical original250ms assignment.",
+    "referenceRebaseline": "Independent finalperformancev2 accepts scoped currentR05 measured reference-cost rebaseline and binds actual Desktop26/27, retaining original misses/unmeasuredlimits. This correctness PASS preserves that qualification and does not create an all-original-targets or Owner pass.",
+    "algorithmConcern": "Bounded repeated accepted-checkpoint preparation concern closed on exact current reviewed bytes; mandatory detached fork validation, historical receipt checks and all strict/retention safeguards remain.",
+    "originalMissesRetained": "Pure full-nine serialize+digest199.524125ms versus100ms; Hollywood root37829874 uncompressed bytes versus8MB; mean durable film3146.433bytes versus1.5KB. Pure strict import remains within its500ms scope.",
+    "unmeasured": "Future12/48/4000/50 stress and isolated write-only worker transport; no all-query/all-machine/native guarantee.",
+    "finalPerformanceAttestation": {
+      "path": "/private/tmp/p12a-performance-attestation-fjpgh16y/attestation-v2.json",
+      "bytes": 24408,
+      "sha256": "daeff5091fec7525b8da0adc1dff8792eca67103f40061287c1948d4997ade4c"
+    }
+  },
+  "currentNativeEvidence": {
+    "late": {
+      "path": "/tmp/p12a-native24-25-peer-BsHiZ5/reverse-recheck-native24-25.json",
+      "bytes": 49712,
+      "sha256": "3618028ccdbb3d07637669f977cea4fd623835deb0a43197f9a5c41b9ad8d125"
+    },
+    "candidate": {
+      "path": "/tmp/p12a-native24-25-peer-BsHiZ5/candidate26-27-native-review.json",
+      "bytes": 72574,
+      "sha256": "dbe34c35c6f77aa320ba33352e675e113baa7aea3d51de8f3ef3b44ab0696719"
+    },
+    "inputCleanupSource": {
+      "path": "/tmp/p12a-native24-25-peer-BsHiZ5/owned-shift-cleanup-source-review.json",
+      "bytes": 3749,
+      "sha256": "8bea39c9f535461048386e117a583922c3cd69fdda09696694f4faaacb62b9ad"
+    },
+    "sameThirdProductClosureAndReuse": {
+      "path": "/tmp/p12a-native24-25-peer-BsHiZ5/third-product-closure-and-reuse.json",
+      "bytes": 22717,
+      "sha256": "fe5f56eda297ebf6da23fb45f2dc2dd2b40733e9d1df05673619951e9ed43b48"
+    },
+    "lateLibraryMetadata": {
+      "path": "/tmp/p12a-final-evidence-3u5yduc0/native21-24-25-library-metadata.json",
+      "bytes": 18029,
+      "sha256": "de45c8619b4070a28514c644303cdf0897dc9c19f41ab7c3a8a56ed397bf87c9"
+    },
+    "candidateLibraryMetadata": {
+      "path": "/tmp/p12a-final-evidence-3u5yduc0/native20-26-27-independent-library.json",
+      "bytes": 34309,
+      "sha256": "57a71115b1921450dae9504fa2df96057ebada25ae1ff4cf48fb41cafe0f5ee8"
+    }
+  },
+  "finalMetadataReview": {
+    "index": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/EVIDENCE-INDEX.json",
+      "bytes": 40226,
+      "sha256": "f3baa02da1b246dbebf2845fba0b13df3695409e9698162277501fb86b5b890e"
+    },
+    "registry": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/attestations.json",
+      "bytes": 127213,
+      "sha256": "6b341e2409008fd8ccb4d80884f0783438ba145e744879f6fec145b07599a630"
+    },
+    "register": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/docs/engineering/P12A-DECISION-AND-REQUIREMENT-REGISTER.md",
+      "bytes": 119312,
+      "sha256": "8ed3727322a196d2dcf4b668a6e2a7f95c50ad54a4e752859db1c1b4d0956f79"
+    },
+    "rootFinalInput": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/final-native-20260911/final-input-process-state.json",
+      "bytes": 342,
+      "sha256": "664382d6295858d7c1ce1ff651a529bda8073740a47bee002eb034e7039fdd7b"
+    },
+    "registryOriginal7ObjectsUnchanged": true,
+    "indexOriginal36RowsUnchanged": true,
+    "peerProduct3AndNative4RecordsExact": true,
+    "artifactReferencesChecked": 18,
+    "artifactHashMismatches": 0,
+    "register136RowsSameOrderOriginalColumnsPreserved": true,
+    "registerCurrentCellsChanged": [
+      "GOV-001",
+      "GOV-005",
+      "UX-001",
+      "UX-002",
+      "UX-003",
+      "UX-005",
+      "UX-015",
+      "PERF-008",
+      "PRF-001",
+      "PRF-002",
+      "PRF-003",
+      "PRF-005",
+      "PRF-012",
+      "SAVE-R05-001",
+      "SAVE-R05-002"
+    ],
+    "recoveryHistoricalObjectPreservedExactly": true,
+    "currentRecoveryLastHidUtc": "2026-09-11T03:19:49.559Z",
+    "rootFinalInputCheckUtc": "2026-09-11T03:20:40.570103Z",
+    "nativeBackLargeTextReadyProjections": "Original native21 binding/observations preserved with exact current reuse; no full978-credit/Profile or fabricated Pulse/controller/forced-reconnect claim.",
+    "performanceProjection": "PASS normalizes the independent scoped reference-rebaseline acceptance; original issued outcome, target misses,250 durable-write-only scope and unmeasured stress retained.",
+    "knownMechanicalFinalization": [
+      "Insert the separately issued exact candidate592-correctness-review record and corresponding PASS index row; preserve this pre-insertion metadata binding as the reviewed baseline.",
+      "Update current technical gate/index/register/handoff status to reflect completed independent correctness and original product/native/performance scope. Keep Owner acceptance OPEN and hook inactive; preserve historical records. Handoff final commit can be filled after root commit/push without changing reviewed product bytes."
+    ],
+    "qualification": "This is the finite review of actual shared metadata and its projections. Only the listed mechanical completion/status/citation edits remain for root; they do not require another product audit or new runtime test.",
+    "registryBeforeAuthorizedSaveAsWordingFix": {
+      "path": "/Users/bruce/The Movies - P12A Living Hollywood TS/evidence/p12a/attestations.json",
+      "bytes": 127213,
+      "sha256": "6b341e2409008fd8ccb4d80884f0783438ba145e744879f6fec145b07599a630"
+    },
+    "saveAsWordingFixAppliedAndExactOnlyChange": true
+  }
+}
