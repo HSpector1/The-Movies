@@ -1,6 +1,6 @@
 # P13A Core evidence index
 
-**Stopped for [Current Ops performance disposition](P13A-CURRENT-OPS-ESCALATION.md).** The matched P13 Save/load regression is measured; the 32-record recovery, final native corrections/reviews and final runnable package remain incomplete.
+**Bounded performance correction authorized by [Current Ops order 02](../campaigns/OPS-P13A-PERFORMANCE-CORRECTION-20260911-02.md); fresh matched gate pending.** The [original performance stop](P13A-CURRENT-OPS-ESCALATION.md) remains evidence. Capability is frozen; 32-record recovery, final native corrections/reviews and the final runnable package remain incomplete.
 
 Authority: `OPS-P13A-SYNCHRONIZED-SOUND-20260911-01`, supplied in the Owner's starter packet. This is the authorized one-Scientist synchronized-sound Core. P13B and protected-ref promotion are outside this execution. All executable evidence uses generated campaigns; no Owner campaign was opened, hashed or used as a fixture.
 
@@ -20,6 +20,7 @@ Current contract: protocol 4, projection 30, inner Save V20; schema `sha256:e64a
 - [Technical acceptance matrix](P13A-TECHNICAL-ACCEPTANCE-MATRIX.md): L0–L8 obligations and exact evidence, with L9 reserved to Howard.
 - [Correctness review](P13A-CORRECTNESS-REVIEW.md): catalogue/adoption law, named people, silent-film preservation, chronology, money, migration, campaign isolation, adversarial findings and repairs.
 - [Bounded performance evidence](P13A-PERFORMANCE-EVIDENCE.md): actual 6,240-week worlds, bytes per studio, V19 migration, complete Save/load measurement boundary, source bindings and retained P12 limitations.
+- [Performance correction 02](P13A-PERFORMANCE-CORRECTION-02.md) and [diagnosis](P13A-PERFORMANCE-CORRECTION-02-DIAGNOSIS.md): profiled cause, exact local-index fix, unchanged invariants, component evidence and pending fresh 5% gate.
 - [Owner playtest route](P13A-OWNER-PLAYTEST-ROUTE.md): seven generated entry points and the actual decisions to review. Final package/native confirmations remain pending while this index is being assembled.
 
 Product critique is separate from correctness. Unity `Evidence/P13A/P13A-EARLY-PRODUCT-CRITIQUE-01.md` preserves the failed early action path. `P13A-EARLY-PRODUCT-CRITIQUE-02.md` records successful real hire, assignment, budget choices and a funded tick, while retaining REVISE for the observed person-body/status/cost/prerequisite issues. Corrected early, completed causal-Core and integrated-final native results must close their own actual tasks before delivery. No technical review supplies Howard's KEEP / REVISE / REJECT verdict.
@@ -39,7 +40,7 @@ Product critique is separate from correctness. Unity `Evidence/P13A/P13A-EARLY-P
 | Expired Scientist and active/paused profile transitions | `tests/bridge-p13-scientist-expiry.test.ts`, `tests/bridge-p13-profile-availability.test.ts` |
 | Exact lot installation and operational states | `tests/bridge-p13-lot-technology.test.ts`, subsequent native screenshots and critiques |
 
-Full core regression passed 209 files / 2,565 tests; full UI regression passed 201 files / 2,684 tests with five existing skips. Later scoped corrections have their own named runs in the correctness review and execution log. Counts overlap; they are not added together or represented as one final source freeze. Native EditMode and virtual-gamepad evidence remains separately identified; virtual input does not imply a physical-controller playtest.
+At performance-fix runtime `50460f3aa14f77cfe38be15ed9d991cf983cfa92`, full sequential core regression passes 214 files / 2,582 tests; full UI passes 201 files / 2,684 tests with five existing skips. The correctness review preserves earlier runs and the concurrent timeout failures resolved by unchanged sequential reruns. Focused counts overlap; they are not added together. Native EditMode and virtual-gamepad evidence remains separately identified; virtual input does not imply a physical-controller playtest. Unity `608f719` remains uncompiled/untested until the performance gate passes.
 
 ## Generated review setup
 
