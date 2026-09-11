@@ -40,6 +40,7 @@ const CREATIVE_ROLES = new Set<LotGateHiringCandidate['creativeRole']>([
   'director',
   'writer',
   'craft',
+  'scientist',
 ])
 
 function isRecord(value: unknown): value is Record<string, unknown> {

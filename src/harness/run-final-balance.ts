@@ -51,12 +51,12 @@ type Strat = {
 // representative small studio). smallCompetent = the representative small studio: lean legal
 // roster, COMPETENT (mid-tier) talent, restrained payroll, normal budgets, legal freelancer use.
 const STRATS: Strat[] = [
-  { name: 'bargainBasement', counts: { actor: 3, director: 1, writer: 1, craft: 1 }, rank: 'cheapest', negMult: 0.85, marketing: 200_000, useFreelancers: false },
-  { name: 'smallCompetent', counts: { actor: 4, director: 1, writer: 1, craft: 1 }, rank: 'competent', negMult: 1.0, marketing: 600_000, useFreelancers: true },
-  { name: 'lean', counts: { actor: 4, director: 1, writer: 1, craft: 1 }, rank: 'cheapest', negMult: 0.95, marketing: 400_000, useFreelancers: false },
-  { name: 'balanced', counts: { actor: 6, director: 2, writer: 2, craft: 2 }, rank: 'best', negMult: 1.1, marketing: 1_200_000, useFreelancers: false },
-  { name: 'largeDepth', counts: { actor: 8, director: 3, writer: 3, craft: 2 }, rank: 'best', negMult: 1.25, marketing: 2_000_000, useFreelancers: false },
-  { name: 'star', counts: { actor: 6, director: 2, writer: 2, craft: 2 }, rank: 'best', negMult: 1.4, marketing: 3_000_000, useFreelancers: false },
+  { name: 'bargainBasement', counts: { actor: 3, director: 1, writer: 1, craft: 1, scientist: 0 }, rank: 'cheapest', negMult: 0.85, marketing: 200_000, useFreelancers: false },
+  { name: 'smallCompetent', counts: { actor: 4, director: 1, writer: 1, craft: 1, scientist: 0 }, rank: 'competent', negMult: 1.0, marketing: 600_000, useFreelancers: true },
+  { name: 'lean', counts: { actor: 4, director: 1, writer: 1, craft: 1, scientist: 0 }, rank: 'cheapest', negMult: 0.95, marketing: 400_000, useFreelancers: false },
+  { name: 'balanced', counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }, rank: 'best', negMult: 1.1, marketing: 1_200_000, useFreelancers: false },
+  { name: 'largeDepth', counts: { actor: 8, director: 3, writer: 3, craft: 2, scientist: 0 }, rank: 'best', negMult: 1.25, marketing: 2_000_000, useFreelancers: false },
+  { name: 'star', counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }, rank: 'best', negMult: 1.4, marketing: 3_000_000, useFreelancers: false },
 ]
 const COMPARABLE = ['star', 'balanced', 'largeDepth']
 

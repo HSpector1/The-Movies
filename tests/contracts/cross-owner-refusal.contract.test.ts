@@ -22,7 +22,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { applyActions, exportSave, importSave, makeSave, stableStringify, tick, validateSaveV19 } from '../../src/core/index.js'
-import type { GameState, SaveFileV19 } from '../../src/core/index.js'
+import type { GameState, SaveFileV20 } from '../../src/core/index.js'
 import {
   auditionSlate,
   availableConceptId,
@@ -67,7 +67,7 @@ function auditionBesideScreenplay(seed: string): GameState {
   return commission(state)
 }
 
-function legalSave(state: GameState): SaveFileV19 {
+function legalSave(state: GameState): SaveFileV20 {
   const save = makeSave(state)
   expect(validateSaveV19(save)).toBe(save)
   return save
@@ -80,12 +80,12 @@ function legalSave(state: GameState): SaveFileV19 {
  * the original BYTES exactly.
  */
 function proveRefusal(
-  legal: SaveFileV19,
-  forge: (save: SaveFileV19) => { restore: (save: SaveFileV19) => void; slotKey: string },
+  legal: SaveFileV20,
+  forge: (save: SaveFileV20) => { restore: (save: SaveFileV20) => void; slotKey: string },
   label: string,
 ): void {
   const legalJson = exportSave(legal)
-  expect(exportSave(importSave(legalJson) as SaveFileV19), `${label}: legal twin round-trips`).toBe(
+  expect(exportSave(importSave(legalJson) as SaveFileV20), `${label}: legal twin round-trips`).toBe(
     legalJson,
   )
 
@@ -115,7 +115,7 @@ function proveRefusal(
   expect(stableStringify(forged), `${label}: the twin is byte-identical`).toBe(
     stableStringify(legal),
   )
-  expect(validateSaveV19(forged as SaveFileV19)).toBe(forged)
+  expect(validateSaveV19(forged as SaveFileV20)).toBe(forged)
 }
 
 describe('C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED', () => {

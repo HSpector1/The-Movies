@@ -487,7 +487,7 @@ function activeContractIds(state: GameState): string[] {
 
 function roleCoverage(state: GameState, onlyIds?: ReadonlySet<string>): RosterWallRoleCoverage {
   const active = new Set(activeContractIds(state))
-  const result: RosterWallRoleCoverage = { actor: 0, director: 0, writer: 0, craft: 0 }
+  const result: RosterWallRoleCoverage = { actor: 0, director: 0, writer: 0, craft: 0, scientist: 0 }
   for (const talent of state.talent) {
     if (!active.has(talent.id) || (onlyIds !== undefined && !onlyIds.has(talent.id))) continue
     result[talent.role]++
@@ -1280,7 +1280,7 @@ function coveragePair(
       director: compared.director - baseline.director,
       writer: compared.writer - baseline.writer,
       craft: compared.craft - baseline.craft,
-    },
+     scientist: 0 },
   }
 }
 

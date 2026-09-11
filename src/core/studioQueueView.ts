@@ -135,6 +135,7 @@ export const CAPABILITY_LABEL: Record<FacilityCapability, string> = {
   soundstage: 'Soundstage',
   'set-scenery': 'Scenery Shop',
   post: 'Post Building',
+  laboratory: 'Research Laboratory',
 }
 
 export const PHASE_LABEL: Record<ProductionPhase, string> = {

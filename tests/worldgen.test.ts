@@ -90,16 +90,16 @@ describe('worldgen — talent/concept counts (WORLD_CONFIG, §9) + role split (B
   })
 
   it('splits roles exactly 12 writer / 10 director / 28 actor / 10 craft (B9)', () => {
-    const counts = { writer: 0, director: 0, actor: 0, craft: 0 }
+    const counts = { writer: 0, director: 0, actor: 0, craft: 0, scientist: 0 }
     for (const t of WORLD.talent) counts[t.role] += 1
-    expect(counts).toEqual({ writer: 12, director: 10, actor: 28, craft: 10 })
+    expect(counts).toEqual({ writer: 12, director: 10, actor: 28, craft: 10, scientist: 0 })
   })
 
   it('holds the role split across many seeds', () => {
     for (const s of SEEDS) {
-      const counts = { writer: 0, director: 0, actor: 0, craft: 0 }
+      const counts = { writer: 0, director: 0, actor: 0, craft: 0, scientist: 0 }
       for (const t of generateWorld(s).talent) counts[t.role] += 1
-      expect(counts).toEqual({ writer: 12, director: 10, actor: 28, craft: 10 })
+      expect(counts).toEqual({ writer: 12, director: 10, actor: 28, craft: 10, scientist: 0 })
     }
   })
 })
@@ -232,7 +232,7 @@ describe('worldgen — market (§9, §2.5, D-5, N3, N11)', () => {
 describe('worldgen — era (B10/N1)', () => {
   it('era deep-equals the neutral B10 config', () => {
     expect(WORLD.era).toEqual({
-      soundRequired: true,
+      soundRequired: false,
       televisionCompetition: false,
       censorship: 'none',
       costScale: 1.0,

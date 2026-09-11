@@ -64,7 +64,7 @@ import {
 
 /** A seed no PF1 suite has ever named. */
 const SEED = 'opus-redteam-m4-9c1756e-unfamiliar'
-const FOUNDING_COUNTS: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2 }
+const FOUNDING_COUNTS: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }
 
 type Punctuation = {
   commit: (kind: Parameters<typeof punctuateCommit>[0], week: number) => void

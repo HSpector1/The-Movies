@@ -55,7 +55,7 @@ import {
   DEVELOPMENT_OFFICE_2_BLUEPRINT,
   FACILITY_BLUEPRINTS,
 } from '../src/core/tuning.js'
-import type { GameState, LotCell, SaveFileV19 } from '../src/core/index.js'
+import type { GameState, LotCell, SaveFileV20 } from '../src/core/index.js'
 
 const ANNEX = DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.id
 const OFFICE_2 = DEVELOPMENT_OFFICE_2_BLUEPRINT.id
@@ -340,7 +340,7 @@ describe('C1-M8 (D) — the legacy Annex contract works exactly as sealed', () =
 
 describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED', () => {
   /** The forgery a pre-fix session could genuinely have written to disk. */
-  function forgedSave(seed: string): SaveFileV19 {
+  function forgedSave(seed: string): SaveFileV20 {
     const save = clone(makeSave(standingOffice(seed)))
     const placed = save.state.placement.facilities[0]!
     placed.parcelId = LEGACY_EXPANSION_PARCEL_ID
@@ -375,7 +375,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
     const save = makeSave(annex)
     expect(validateSaveV19(save)).toBe(save)
     const json = exportSave(save)
-    expect(exportSave(importSave(json) as SaveFileV19)).toBe(json)
+    expect(exportSave(importSave(json) as SaveFileV20)).toBe(json)
     expect(annex.placement.facilities[0]!.parcelId).toBe(LEGACY_EXPANSION_PARCEL_ID)
   })
 

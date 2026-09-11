@@ -191,7 +191,9 @@ function RosterCard({ t, onOpen }: { t: TalentProfile; onOpen: (id: string) => v
         <div className="reason">
           {t.assignmentKind === 'script'
             ? `${t.engagedIn} — busy until the screenplay reaches review.`
-            : `Working on ${t.engagedIn} — busy until it releases.`}
+            : t.assignmentKind === 'research'
+              ? `${t.engagedIn} — pause or cancel research to free this Scientist.`
+              : `Working on ${t.engagedIn} — busy until it releases.`}
         </div>
       )}
     </button>

@@ -48,6 +48,8 @@
 // concepts. Zero-padded to 2 digits (max block is 28 actors → indices 00..27).
 // Ids are unique by construction; names/titles may collide harmlessly (id is key).
 
+import { initialTechnology } from './technology.js'
+import { withResearchFoundation } from './researchPeople.js'
 import { clamp } from './math.js'
 import { emptyCastingSessions } from './castingSessions.js'
 import { emptyStudioConstruction } from './construction.js'
@@ -69,6 +71,7 @@ import {
   GENRE_ORDER as GENRE_ORDER_D9,
   INITIAL_STANDING,
   ROLE_TO_DISCIPLINE,
+  SCIENTIST_ANNUAL_SALARY,
   SKILL_ORDER,
   SLOT_ORDER,
   TUNING,
@@ -159,6 +162,7 @@ const ROLE_BLOCKS: readonly { role: Talent['role']; prefix: string; count: numbe
 //   primaryOVR = roleOVR(talent, primaryDiscipline)   // 1..99, perceived
 //   salary = SALARY_BASE + SALARY_SKILL_COEF·(primaryOVR/100)² + SALARY_FAME_COEF·(fame/100)²
 export function salaryCurve(talent: Talent): number {
+  if (talent.role === 'scientist') return SCIENTIST_ANNUAL_SALARY / TUNING.CONTRACT_ANNUAL_MULT
   const primaryDiscipline = ROLE_TO_DISCIPLINE[talent.role]
   const primaryOVR = roleOVR(talent, primaryDiscipline)
   const s = primaryOVR / 100
@@ -512,7 +516,7 @@ function generateTalent(seed: string, blocks = ROLE_BLOCKS): Talent[] {
 
       // Assemble WITHOUT skill/salary first, then set the legacy proxy + salary
       // from roleOVR on the finished perceived skills (steps 9/12/13).
-      const t: Talent = {
+      const t = withResearchFoundation({
         id: `t-${block.prefix}-${pad2(idx)}`,
         name: `${first} ${last}`,
         role: block.role,
@@ -529,7 +533,7 @@ function generateTalent(seed: string, blocks = ROLE_BLOCKS): Talent[] {
         genreExperience,
         workHistory: zeroWorkHistory(),
         skill: 0, // set below
-      }
+      })
       // Step 12: legacy scalar = roleOVR(primary, perceived) proxy.
       t.skill = roleOVR(t, primaryDiscipline)
       // D-9.13 salary redefinition: salaryCurve(talent).
@@ -543,9 +547,32 @@ function generateTalent(seed: string, blocks = ROLE_BLOCKS): Talent[] {
 
 /** Bounded unique-person supply using the existing P10 worldgen laws and isolated seed. */
 export function generateIndustryTalent(seed: string, id: string, role: Talent['role'], name?: string): Talent {
+  if (role === 'scientist') return generateScientist(seed, id, name)
   const block = ROLE_BLOCKS.find(row => row.role === role)!
   const person = generateTalent(`${seed}:industry-person/v1:${id}`, [{...block,count:1}])[0]!
   return {...person,id,name:name ?? person.name}
+}
+
+/** One bounded named candidate, drawn from a separate purpose seed and stream. */
+export function generateScientist(seed: string, id = 't-sci-00', name?: string): Talent {
+  // Reuse P10 persona, naming, age and skills generation on an isolated seed. The
+  // existing world's 60 people, concept draws and simulation RNG stay untouched.
+  const person = generateTalent(`${seed}:p13-scientist/v1:${id}`, [
+    { role: 'craft', prefix: 'sci', count: 1 },
+  ])[0]!
+  const profile = stream(seed, 'worldgen', `p13-scientist-profile/v1:${id}`)
+  const actuals = SKILL_ORDER.research.map(() => profile.truncatedNormal(60, 8, 40, 80))
+  const skills = buildDisciplineSkills('research', actuals, profile, TUNING.GEN_PERCEIVED_SD)
+  const scientist: Talent = {
+    ...person, id, name: name ?? person.name, role: 'scientist', fame: 0,
+    skills: { ...person.skills, research: skills },
+    ceilings: { ...person.ceilings, research: Object.fromEntries(SKILL_ORDER.research.map(key =>
+      [key, Math.min(99, skills[key]!.actual + 15)])) },
+    devRate: { ...person.devRate, research: profile.uniform(TUNING.DEV_RATE_MIN, TUNING.DEV_RATE_MAX) },
+  }
+  scientist.skill = roleOVR(scientist, 'research')
+  scientist.salary = salaryCurve(scientist)
+  return scientist
 }
 
 // ── Concept generation (§9, M4, B8, B11, N3) ─────────────────────────────────
@@ -656,7 +683,7 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
   const regime: FoundingRegime = options?.regime ?? 'endowed'
   // era (B10): neutral era; the three non-costScale fields are inert data here.
   const era: EraConfig = {
-    soundRequired: true,
+    soundRequired: false,
     televisionCompetition: false,
     censorship: 'none',
     costScale: 1.0,
@@ -673,6 +700,7 @@ export function generateWorld(seed: string, options?: GenerateWorldOptions): Gam
   return {
     seed,
     hollywood: null,
+    technology: initialTechnology(0),
     // The INITIAL sim-stream state. Worldgen does NOT consume this stream; it
     // draws only from derived 'worldgen' substreams, so this is fromSeed's exact
     // starting state (nothing has advanced it).

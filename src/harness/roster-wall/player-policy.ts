@@ -594,7 +594,7 @@ export function playerPolicyRoleCoverage(
     director: 0,
     writer: 0,
     craft: 0,
-  }
+   scientist: 0 }
   const contracts = activeContracts(state).filter(
     (contract) => onlyTalentIds === undefined || onlyTalentIds.has(contract.talentId),
   )

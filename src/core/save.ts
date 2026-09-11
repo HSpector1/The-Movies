@@ -1,3 +1,6 @@
+import { initialTechnology, validateTechnology } from './technology.js'
+import { withResearchFoundation } from './researchPeople.js'
+import type { StudioTechnology } from './technologyTypes.js'
 import { initializeHollywood } from './hollywood.js'
 import { validateHollywood } from './hollywoodValidation.js'
 // ── §17 Save format + rev. 4 item M14 + D-9 SaveFileV2 (owner ruling) ─────────
@@ -34,6 +37,7 @@ import { roleOVR } from "./talentSummary.js";
 import {
   CASTING_RESULT_HALF_WIDTH,
   DISCIPLINE_ORDER,
+  PERSON_DISCIPLINE_ORDER,
   GENRE_ORDER,
   ROLE_TO_DISCIPLINE,
   SKILL_ORDER,
@@ -61,6 +65,8 @@ import type {
   GameStateV17,
   GameStateV18,
   GameStateV19,
+  GameStateV20,
+  FacilityCapability,
   GameStateV2,
   GameStateV3,
   GameStateV4,
@@ -367,6 +373,13 @@ export type SaveFileV19 = {
   broadcastCache: BroadcastItem[];
 };
 
+export type SaveFileV20 = {
+  saveVersion: 20;
+  seed: string;
+  state: GameStateV20;
+  broadcastCache: BroadcastItem[];
+};
+
 // Any envelope (the return of the version-dispatching validateSave/loadSave).
 export type SaveFile =
   | SaveFileV1
@@ -387,7 +400,8 @@ export type SaveFile =
   | SaveFileV16
   | SaveFileV17
   | SaveFileV18
-  | SaveFileV19;
+  | SaveFileV19
+  | SaveFileV20;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -1012,25 +1026,27 @@ type LiveStateValidationPolicy =
   // leak backwards. A genuine SaveFileV13 is still validated under
   // "property-v13" and still refuses every one of them, which is what makes the
   // historical boundary real rather than nominal.
-  | "sets-v14";
+  | "sets-v14"
+  | "technology-v20";
 
 /** Every policy that knows about the placement root and its catalog project ids. */
 function placementAwarePolicy(policy: LiveStateValidationPolicy): boolean {
   return (
     policy === "placement-v12" ||
     policy === "property-v13" ||
-    policy === "sets-v14"
+    policy === "sets-v14" ||
+    policy === "technology-v20"
   );
 }
 
 /** Every policy that admits V13's property root and its demolition-refund ledger kind. */
 function propertyAwarePolicy(policy: LiveStateValidationPolicy): boolean {
-  return policy === "property-v13" || policy === "sets-v14";
+  return policy === "property-v13" || policy === "sets-v14" || policy === "technology-v20";
 }
 
 /** The ONE policy that admits V14's roots, ledger kinds, and widened leaves. */
 function setsAwarePolicy(policy: LiveStateValidationPolicy): boolean {
-  return policy === "sets-v14";
+  return policy === "sets-v14" || policy === "technology-v20";
 }
 const CAREER_REASON_CODES = [
   "substantialLeadExposure",
@@ -1440,7 +1456,7 @@ function v8Production(
   return id;
 }
 
-function v8Talent(value: unknown, label: string): string {
+function v8Talent(value: unknown, label: string, policy: LiveStateValidationPolicy = "historical"): string {
   const talent = v8Record(value, label);
   v8ExactKeys(
     talent,
@@ -1467,7 +1483,7 @@ function v8Talent(value: unknown, label: string): string {
   );
   const id = v8String(talent.id, `${label}.id`, true);
   v8String(talent.name, `${label}.name`, true);
-  v8Enum(talent.role, CREATIVE_ROLES, `${label}.role`);
+  v8Enum(talent.role, policy === "technology-v20" ? [...CREATIVE_ROLES, "scientist"] : CREATIVE_ROLES, `${label}.role`);
   // Generated ages are continuous; only finiteness is a runtime requirement.
   v8Number(talent.age, `${label}.age`);
   v8Persona(talent.actual, `${label}.actual`);
@@ -1477,6 +1493,7 @@ function v8Talent(value: unknown, label: string): string {
   }
   v8Boolean(talent.authored, `${label}.authored`);
 
+  const disciplines = policy === "technology-v20" ? PERSON_DISCIPLINE_ORDER : DISCIPLINE_ORDER;
   const skills = v8Record(talent.skills, `${label}.skills`);
   const ceilings = v8Record(talent.ceilings, `${label}.ceilings`);
   const devRate = v8Record(talent.devRate, `${label}.devRate`);
@@ -1492,9 +1509,9 @@ function v8Talent(value: unknown, label: string): string {
     workHistory,
     genreExperience,
   ]) {
-    v8ExactKeys(record, DISCIPLINE_ORDER, [], label);
+    v8ExactKeys(record, disciplines, [], label);
   }
-  for (const discipline of DISCIPLINE_ORDER) {
+  for (const discipline of disciplines) {
     const skillKeys = SKILL_ORDER[discipline];
     const disciplineSkills = v8Record(
       skills[discipline],
@@ -1877,7 +1894,9 @@ function v8LedgerEntry(
   v8Integer(entry.week, `${label}.week`, 0);
   v8Enum(
     entry.kind,
-    policy === "sets-v14"
+    policy === "technology-v20"
+      ? [...V14_LEDGER_KINDS, "researchPayroll", "researchSpend", "technologyAdoption"]
+      : policy === "sets-v14"
       ? V14_LEDGER_KINDS
       : policy === "property-v13"
         ? V13_LEDGER_KINDS
@@ -1889,6 +1908,12 @@ function v8LedgerEntry(
     `${label}.kind`,
   );
   v8Number(entry.amount, `${label}.amount`);
+  if (policy === "technology-v20" && ["researchPayroll", "researchSpend", "technologyAdoption"].includes(String(entry.kind))) {
+    if (!Number.isInteger(entry.amount) || (entry.amount as number) >= 0) v8Error(`${label}.amount`, "must be a negative whole-dollar charge");
+    for (const key of ["talentId", "productionId", "constructionProjectId"]) {
+      if (Object.hasOwn(entry, key)) v8Error(`${label}.${key}`, "is forbidden for a technology ledger row");
+    }
+  }
   v8String(entry.note, `${label}.note`);
   if (Object.prototype.hasOwnProperty.call(entry, "talentId")) {
     const talentId = v8String(entry.talentId, `${label}.talentId`, true);
@@ -2219,7 +2244,7 @@ function checkV8LiveState(
   const talent = v8Array(state.talent, "state.talent");
   const talentIds = new Set<string>();
   for (let i = 0; i < talent.length; i++) {
-    const id = v8Talent(talent[i], `state.talent[${i}]`);
+    const id = v8Talent(talent[i], `state.talent[${i}]`, policy);
     if (talentIds.has(id)) v8Error(`state.talent[${i}].id`, "is duplicated");
     talentIds.add(id);
   }
@@ -2493,7 +2518,7 @@ function checkOperationsContext(
 
   const facilities = new Map<
     string,
-    { capability: OperationsCapability; capacity: number }
+    { capability: FacilityCapability; capacity: number }
   >();
   for (let i = 0; i < facilitiesRaw.length; i++) {
     const itemLabel = `${label}: context.operations.facilities[${i}]`;
@@ -2504,7 +2529,8 @@ function checkOperationsContext(
     requiredNonEmptyString(raw, "name", itemLabel);
     if (facilities.has(id))
       throw new Error(`${label}: duplicate facility id ${JSON.stringify(id)}`);
-    const capability = asCapability(raw.capability, `${itemLabel}.capability`);
+    const capability = policy === "technology-v20" && raw.capability === "laboratory"
+      ? "laboratory" : asCapability(raw.capability, `${itemLabel}.capability`);
     if (
       typeof raw.capacity !== "number" ||
       !Number.isInteger(raw.capacity) ||
@@ -2696,7 +2722,7 @@ function checkOperationsContext(
       }
     } else {
       const retained = [...retainedCapabilitiesFor(phase, waitingTarget)].sort();
-      const held = [...actualCapabilities];
+      const held: FacilityCapability[] = [...actualCapabilities];
       for (const capability of retained) {
         const at = held.indexOf(capability);
         if (at < 0) {
@@ -3846,7 +3872,7 @@ function v12Cell(value: unknown, label: string): void {
 // Structural shape only. Occupancy, footprint, terrain, clearance, road access,
 // identity, capex, and operating correlations are DOMAIN law and belong to
 // assertStudioPlacementInvariants, which runs over the whole state below.
-function checkPlacementShape(value: unknown): StudioPlacement {
+function checkPlacementShape(value: unknown, policy: LiveStateValidationPolicy = "placement-v12"): StudioPlacement {
   const placement = v12Record(value, "state.placement");
   v12ExactKeys(
     placement,
@@ -3878,12 +3904,19 @@ function checkPlacementShape(value: unknown): StudioPlacement {
         "completesWeek",
       ],
       label,
+      policy === "technology-v20" ? ["installation"] : [],
     );
+    const installation = policy === "technology-v20" && Object.hasOwn(placed, "installation");
+    if (installation) {
+      const module = v12Record(placed.installation, `${label}.installation`);
+      v12ExactKeys(module, ["targetFacilityId"], `${label}.installation`);
+      v8String(module.targetFacilityId, `${label}.installation.targetFacilityId`, true);
+    }
     v12Integer(placed.id, `${label}.id`, 1);
     v8String(placed.blueprintId, `${label}.blueprintId`, true);
     v8String(placed.parcelId, `${label}.parcelId`, true);
     v12Cell(placed.origin, `${label}.origin`);
-    if (!Array.isArray(placed.cells) || placed.cells.length === 0) {
+    if (!Array.isArray(placed.cells) || (!installation && placed.cells.length === 0)) {
       v12Error(`${label}.cells`, "must be a non-empty array");
     }
     for (let c = 0; c < placed.cells.length; c++) {
@@ -3924,7 +3957,7 @@ function checkPlacementShape(value: unknown): StudioPlacement {
 // this returns. Structure, envelope, and the frozen V11 law all still run here.
 function validateSaveV12WithPolicy(
   save: unknown,
-  policy: "placement-v12" | "property-v13" | "sets-v14",
+  policy: "placement-v12" | "property-v13" | "sets-v14" | "technology-v20",
 ): SaveFileV12 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV12: save is not a plain object");
@@ -3969,7 +4002,7 @@ function validateSaveV12WithPolicy(
     );
   }
 
-  checkPlacementShape(rawPlacement);
+  checkPlacementShape(rawPlacement, policy);
   if (!propertyAwarePolicy(policy)) {
     try {
       // A frozen V12 state carries no property root, so the authority reads the
@@ -4109,7 +4142,7 @@ function checkPropertyShape(value: unknown): PropertyState {
 // carries rather than the authored constants.
 function validateSaveV13WithPolicy(
   save: unknown,
-  policy: "property-v13" | "sets-v14",
+  policy: "property-v13" | "sets-v14" | "technology-v20",
 ): SaveFileV13 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV13: save is not a plain object");
@@ -4566,6 +4599,10 @@ function studioEventPayloadKeys(kind: string): readonly string[] {
  * save carrying any of them is a save the engine could not have written.
  */
 export function validateSaveV14(save: unknown): SaveFileV14 {
+  return validateSaveV14WithPolicy(save, "sets-v14");
+}
+
+function validateSaveV14WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20"): SaveFileV14 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV14: save is not a plain object");
   }
@@ -4594,7 +4631,7 @@ export function validateSaveV14(save: unknown): SaveFileV14 {
         state: v13State,
         broadcastCache: save.broadcastCache,
       },
-      "sets-v14",
+      policy,
     );
   } catch (error) {
     throw new Error(
@@ -4686,6 +4723,10 @@ export function validateSaveV14(save: unknown): SaveFileV14 {
 // untouched original `state` (with `subjectId` intact) is what the loop below
 // checks next, and what this function returns on success.
 export function validateSaveV15(save: unknown): SaveFileV15 {
+  return validateSaveV15WithPolicy(save, "sets-v14");
+}
+
+function validateSaveV15WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20"): SaveFileV15 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV15: save is not a plain object");
   }
@@ -4715,7 +4756,7 @@ export function validateSaveV15(save: unknown): SaveFileV15 {
     return row;
   });
   try {
-    validateSaveV14({
+    validateSaveV14WithPolicy({
       saveVersion: 14,
       seed: save.seed,
       state: {
@@ -4723,7 +4764,7 @@ export function validateSaveV15(save: unknown): SaveFileV15 {
         studioEvents: { ...rawStudioEvents, rows: strippedRows },
       },
       broadcastCache: save.broadcastCache,
-    });
+    }, policy);
   } catch (error) {
     throw new Error(
       `validateSaveV15: frozen V14 state is invalid — ${(error as Error).message}`,
@@ -4755,6 +4796,10 @@ export function validateSaveV15(save: unknown): SaveFileV15 {
 // order, deterministic commitment identity, and full semantic invariants
 // (orphan / non-ready / zero-tick refusals) via assertReleaseAuthorityInvariants.
 export function validateSaveV16(save: unknown): SaveFileV16 {
+  return validateSaveV16WithPolicy(save, "sets-v14");
+}
+
+function validateSaveV16WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20"): SaveFileV16 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV16: save is not a plain object");
   }
@@ -4786,7 +4831,7 @@ export function validateSaveV16(save: unknown): SaveFileV16 {
     return true;
   });
   try {
-    validateSaveV15({
+    validateSaveV15WithPolicy({
       saveVersion: 15,
       seed: save.seed,
       state: {
@@ -4794,7 +4839,7 @@ export function validateSaveV16(save: unknown): SaveFileV16 {
         studioEvents: { ...rawStudioEventsV16, rows: nonCommitmentRows },
       },
       broadcastCache: save.broadcastCache,
-    });
+    }, policy);
   } catch (error) {
     throw new Error(
       `validateSaveV16: frozen V15 state is invalid — ${(error as Error).message}`,
@@ -4850,6 +4895,10 @@ export function validateSaveV16(save: unknown): SaveFileV16 {
 // validated STRICTLY — exact keys, ascending monotonic eventIds, the recording
 // boundary, exact-delta receipts — via assertStudioHistoryInvariants.
 export function validateSaveV17(save: unknown): SaveFileV17 {
+  return validateSaveV17WithPolicy(save, "sets-v14");
+}
+
+function validateSaveV17WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20"): SaveFileV17 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV17: save is not a plain object");
   }
@@ -4865,12 +4914,12 @@ export function validateSaveV17(save: unknown): SaveFileV17 {
   }
   const { studioHistory: rawHistory, ...v16State } = state;
   try {
-    validateSaveV16({
+    validateSaveV16WithPolicy({
       saveVersion: 16,
       seed: save.seed,
       state: v16State,
       broadcastCache: save.broadcastCache,
-    });
+    }, policy);
   } catch (error) {
     throw new Error(
       `validateSaveV17: frozen V16 state is invalid — ${(error as Error).message}`,
@@ -4887,14 +4936,17 @@ export function validateSaveV17(save: unknown): SaveFileV17 {
     const row = rawHistory.rows[i];
     const label = `state.studioHistory.rows[${String(i)}]`;
     if (!isRecord(row)) throw new Error(`validateSaveV17: ${label} is not a plain object`);
-    if (typeof row.kind !== "string" || !STUDIO_HISTORY_KINDS.includes(row.kind)) {
+    const technologyMilestone = policy === "technology-v20" && row.kind === "technologyMilestone";
+    if (typeof row.kind !== "string" || !STUDIO_HISTORY_KINDS.includes(row.kind) && !technologyMilestone) {
       throw new Error(`validateSaveV17: ${label}.kind ${JSON.stringify(row.kind)} is not a known history kind`);
     }
     if (typeof row.significance !== "string" || !STUDIO_HISTORY_SIGNIFICANCES.includes(row.significance)) {
       throw new Error(`validateSaveV17: ${label}.significance is not a known class`);
     }
     if (!Array.isArray(row.subjects)) throw new Error(`validateSaveV17: ${label}.subjects is not an array`);
-    const keys = STUDIO_HISTORY_ROW_KEYS[row.kind as keyof typeof STUDIO_HISTORY_ROW_KEYS];
+    const keys = technologyMilestone
+      ? [...HISTORY_BASE_KEYS, "technologyId", "milestone"]
+      : STUDIO_HISTORY_ROW_KEYS[row.kind as keyof typeof STUDIO_HISTORY_ROW_KEYS];
     v12ExactKeys(row, keys, label);
   }
   const typed = save as SaveFileV17;
@@ -4934,6 +4986,10 @@ const STUDIO_HISTORY_ROW_KEYS = {
 // validator on the stripped state (which carries the property, so the
 // property-driven founding-facility law judges a bare lot correctly).
 export function validateSaveV18(save: unknown): SaveFileV18 {
+  return validateSaveV18WithPolicy(save, "sets-v14");
+}
+
+function validateSaveV18WithPolicy(save: unknown, policy: "sets-v14" | "technology-v20"): SaveFileV18 {
   if (!isRecord(save)) {
     throw new Error("validateSaveV18: save is not a plain object");
   }
@@ -4949,12 +5005,12 @@ export function validateSaveV18(save: unknown): SaveFileV18 {
   }
   const { foundingRegime, ...v17State } = state;
   try {
-    validateSaveV17({
+    validateSaveV17WithPolicy({
       saveVersion: 17,
       seed: save.seed,
       state: v17State,
       broadcastCache: save.broadcastCache,
-    });
+    }, policy);
   } catch (error) {
     throw new Error(
       `validateSaveV18: frozen V17 state is invalid — ${(error as Error).message}`,
@@ -5014,8 +5070,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 17) return validateSaveV17(save);
   if (s.saveVersion === 18) return validateSaveV18(save);
   if (s.saveVersion === 19) return validateSaveV19(save);
+  if (s.saveVersion === 20) return validateSaveV20(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 19 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 20 only)`,
   );
 }
 
@@ -5048,7 +5105,7 @@ function projectStateV2(state: GameStateV2): GameStateV2 {
     market: state.market,
     era: state.era,
     studio: state.studio,
-    talent: state.talent,
+    talent: state.talent.map(projectTalentPreV20),
     concepts: state.concepts,
     broadcastItems: state.broadcastItems,
     coverageContexts: state.coverageContexts,
@@ -5273,7 +5330,7 @@ function projectStateV11(state: HistoricalProjectionSourceV11): GameStateV11 {
     market: state.market,
     era: state.era,
     studio: state.studio,
-    talent: state.talent,
+    talent: state.talent.map(projectTalentPreV20),
     concepts: state.concepts,
     broadcastItems: state.broadcastItems,
     coverageContexts: state.coverageContexts,
@@ -5312,7 +5369,7 @@ function projectStateV12(state: HistoricalProjectionSourceV12): GameStateV12 {
     market: state.market,
     era: state.era,
     studio: state.studio,
-    talent: state.talent,
+    talent: state.talent.map(projectTalentPreV20),
     concepts: state.concepts,
     broadcastItems: state.broadcastItems,
     coverageContexts: state.coverageContexts,
@@ -5672,7 +5729,42 @@ function assertFrozenBuilderCanProjectV14State(
   }
 }
 
+function assertFrozenBuilderRetainsTechnology(state: object, builder: string): void {
+  if ('technology' in state) {
+    const technology = state.technology;
+    if (!isRecord(technology) || !Number.isSafeInteger(technology.recordingStartedWeek) || (technology.recordingStartedWeek as number) < 0 || !deepEqual(technology, initialTechnology(technology.recordingStartedWeek as number))) {
+      throw new Error(`${builder}: cannot downgrade or discard authoritative V20 technology`);
+    }
+  }
+  if ('talent' in state && Array.isArray(state.talent)) {
+    for (const person of state.talent) {
+      if (!isRecord(person)) continue;
+      if (person.role === 'scientist') throw new Error(`${builder}: cannot downgrade or discard a Scientist`);
+      for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
+        const record = person[key];
+        if (!isRecord(record) || !Object.hasOwn(record, 'research')) continue;
+        const expected = key === 'skills'
+          ? Object.fromEntries(SKILL_ORDER.research.map(skill => [skill, { actual: 1, perceived: 1 }]))
+          : key === 'ceilings' ? Object.fromEntries(SKILL_ORDER.research.map(skill => [skill, 1]))
+          : key === 'genreExperience' ? Object.fromEntries(GENRE_ORDER.map(genre => [genre, { actual: 0, perceived: 0 }]))
+          : key === 'devRate' ? 1 : 0;
+        if (!deepEqual(record.research, expected)) throw new Error(`${builder}: cannot downgrade or discard research person authority`);
+      }
+    }
+  }
+}
+
+function projectTalentPreV20(person: Talent): Talent {
+  const copy = { ...person };
+  for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory'] as const) {
+    const { research: _research, ...legacy } = person[key];
+    Object.assign(copy, { [key]: legacy });
+  }
+  return copy;
+}
+
 function assertFrozenBuilderRetainsHollywood(state: object, builder: string): void {
+  assertFrozenBuilderRetainsTechnology(state, builder);
   if ('hollywood' in state && state.hollywood !== null && state.hollywood !== undefined) {
     throw new Error(`${builder}: cannot downgrade or discard authoritative V19 Hollywood`);
   }
@@ -6043,11 +6135,13 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
   return validateSaveV16(save);
 }
 
-// makeSave — the live V19 boundary. Frozen prior values migrate explicitly.
+// makeSave — the live V20 boundary. Frozen prior values migrate explicitly.
 // The new plain-JSON root is detached once; only final serialization sorts it.
-export function makeSave(state: GameState): SaveFileV19 {
-  const current = { ...projectStateV18(state), hollywood: JSON.parse(JSON.stringify(state.hollywood)) as GameState["hollywood"] };
-  return validateSaveV19({saveVersion:19,seed:state.seed,state:current,broadcastCache:current.broadcastItems});
+export function makeSave(state: GameState): SaveFileV20 {
+  const save = validateSaveV20({ saveVersion: 20, seed: state.seed, state, broadcastCache: state.broadcastItems });
+  // Validation precedes detachment, so undefined/non-JSON authority cannot be
+  // silently repaired by stringify before the boundary sees it.
+  return JSON.parse(JSON.stringify(save)) as SaveFileV20;
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -6469,6 +6563,9 @@ const LEDGER_KIND_PROVES_ENGAGEMENT = {
   setCapex: true,
   setMaintenance: true,
   setDemolitionRefund: true,
+  researchPayroll: true,
+  researchSpend: true,
+  technologyAdoption: true,
 } as const satisfies Record<LedgerKind, boolean>;
 
 function ledgerKindProvesEngagement(kind: LedgerKind): boolean {
@@ -7069,7 +7166,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
-  if (save.saveVersion === 19) throw new Error("migrateToV15: cannot downgrade SaveFileV19 or discard Hollywood");
+  if (save.saveVersion >= 19) throw new Error("migrateToV15: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
       "migrateToV15: cannot downgrade SaveFileV18 or discard the founding regime",
@@ -7136,7 +7233,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
-  if (save.saveVersion === 19) throw new Error("migrateToV18: cannot downgrade SaveFileV19 or discard Hollywood");
+  if (save.saveVersion >= 19) throw new Error("migrateToV18: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) return save;
   return convertV17ToV18(migrateToV17(save));
 }
@@ -7144,7 +7241,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
-  if (save.saveVersion === 19) throw new Error("migrateToV17: cannot downgrade SaveFileV19 or discard Hollywood");
+  if (save.saveVersion >= 19) throw new Error("migrateToV17: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
       "migrateToV17: cannot downgrade SaveFileV18 or discard the founding regime",
@@ -7157,7 +7254,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
-  if (save.saveVersion === 19) throw new Error("migrateToV16: cannot downgrade SaveFileV19 or discard Hollywood");
+  if (save.saveVersion >= 19) throw new Error("migrateToV16: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
       "migrateToV16: cannot downgrade SaveFileV18 or discard the founding regime",
@@ -7173,7 +7270,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
-  if (save.saveVersion === 19) throw new Error("migrateToV14: cannot downgrade SaveFileV19 or discard Hollywood");
+  if (save.saveVersion >= 19) throw new Error("migrateToV14: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
       "migrateToV14: cannot downgrade SaveFileV18 or discard the founding regime",
@@ -7199,7 +7296,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
-  if (save.saveVersion === 19) throw new Error("migrateToV13: cannot downgrade SaveFileV19 or discard Hollywood");
+  if (save.saveVersion >= 19) throw new Error("migrateToV13: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
       "migrateToV13: cannot downgrade SaveFileV18 or discard the founding regime",
@@ -7226,32 +7323,93 @@ export function migrateToV13(save: SaveFile): SaveFileV13 {
 
 /** R05: frozen V18 delegates unchanged; the new root owns industry validation. */
 export function validateSaveV19(save: unknown): SaveFileV19 {
+  return validateSaveV19WithPolicy(save, "sets-v14");
+}
+
+function validateSaveV19WithPolicy(
+  save: unknown,
+  policy: "sets-v14" | "technology-v20",
+  technology?: StudioTechnology,
+): SaveFileV19 {
   if (!isRecord(save)) throw new Error('validateSaveV19: object required');
-  v12ExactKeys(save,['saveVersion','seed','state','broadcastCache'],'save');
-  if(save.saveVersion!==19) throw new Error('validateSaveV19: expected version 19');
-  const raw=v14Record(checkEnvelope(save,'validateSaveV19'),'state');
-  if(!Object.hasOwn(raw,'hollywood')) throw new Error('validateSaveV19: Hollywood root missing');
-  const {hollywood,...legacy}=raw;
-  const frozen=validateSaveV18({saveVersion:18,seed:save.seed,state:legacy,broadcastCache:save.broadcastCache});
-  const people=new Set(frozen.state.talent.map(t=>t.id));
-  validateHollywood(hollywood,frozen.state,{
-    concept:v=>{v8Concept(v,'hollywood.concept')},
-    contract:v=>v8Contract(v,'hollywood.contract',people),
-    film:(v,concepts)=>{v8FilmResult(v,'hollywood.film',people,concepts)},
-    production:(v,concepts)=>{v8Production(v,'hollywood.production',people,concepts)},
-    run:(v,films,concepts)=>v8TheatricalRun(v,'hollywood.run',films,concepts),
-    career:(v,films)=>v8CareerEvent(v,'hollywood.career',people,films),
-    operations:(v,productions)=>checkOperationsContext({operations:v,activeProductions:productions,engaged:true,founding:null},'hollywood.operations','sets-v14'),
-    development:v=>checkScriptDevelopmentShape(v,'sets-v14'),
-  });
+  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+  if (save.saveVersion !== 19) throw new Error('validateSaveV19: expected version 19');
+  const raw = v14Record(checkEnvelope(save, 'validateSaveV19'), 'state');
+  if (!Object.hasOwn(raw, 'hollywood')) throw new Error('validateSaveV19: Hollywood root missing');
+  const { hollywood, ...legacy } = raw;
+  const frozen = validateSaveV18WithPolicy({ saveVersion: 18, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, policy);
+  const people = new Set(frozen.state.talent.map(t => t.id));
+  validateHollywood(hollywood, frozen.state, {
+    concept: v => { v8Concept(v, 'hollywood.concept') },
+    contract: v => v8Contract(v, 'hollywood.contract', people),
+    film: (v, concepts) => { v8FilmResult(v, 'hollywood.film', people, concepts) },
+    production: (v, concepts) => { v8Production(v, 'hollywood.production', people, concepts) },
+    run: (v, films, concepts) => v8TheatricalRun(v, 'hollywood.run', films, concepts),
+    career: (v, films) => v8CareerEvent(v, 'hollywood.career', people, films),
+    operations: (v, productions) => checkOperationsContext({ operations: v, activeProductions: productions, engaged: true, founding: null }, 'hollywood.operations', 'sets-v14'),
+    development: v => checkScriptDevelopmentShape(v, 'sets-v14'),
+  }, technology);
   return save as SaveFileV19;
 }
 
+/** Frozen industry migration: never calls the later current-save writer. */
 export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
   validateSaveV18(save);
-  return makeSave(initializeHollywood(save.state,'migration'));
+  const initialized = initializeHollywood(save.state, 'migration');
+  const { technology: initialResearch, ...historical } = initialized;
+  if (!deepEqual(initialResearch, initialTechnology(save.state.market.tick))) throw new Error('V18 to V19 cannot discard technology authority');
+  const state = { ...historical, talent: initialized.talent.map(projectTalentPreV20) };
+  // The shared P12 initializer now knows the later zero movement. This FROZEN
+  // intermediate still emits only V19's keys, before V20 adds zero explicitly.
+  for (const business of state.hollywood?.businesses ?? []) {
+    for (const period of business.account.periods) {
+      if (period.movements.technologyAdoption !== 0) throw new Error('V18 to V19 cannot discard technology expenditure');
+      Reflect.deleteProperty(period.movements, 'technologyAdoption');
+    }
+  }
+  return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
 }
 export function migrateToV19(save: SaveFile): SaveFileV19 {
-  if(save.saveVersion===19) return validateSaveV19(save);
+  if (save.saveVersion === 20) throw new Error('migrateToV19: cannot downgrade SaveFileV20 or discard technology');
+  if (save.saveVersion === 19) return validateSaveV19(save);
   return convertV18ToV19(migrateToV18(save));
+}
+
+/** V20 validates original people, money and physical records under its governed policy. */
+export function validateSaveV20(save: unknown): SaveFileV20 {
+  if (!isRecord(save)) throw new Error('validateSaveV20: object required');
+  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+  if (save.saveVersion !== 20) throw new Error('validateSaveV20: expected version 20');
+  const raw = v14Record(checkEnvelope(save, 'validateSaveV20'), 'state');
+  if (!Object.hasOwn(raw, 'technology')) throw new Error('validateSaveV20: technology root missing');
+  // Validate the complete root before the delegated Hollywood finance proof reads
+  // it. This validates, rather than sanitizes, the exact caller-supplied object.
+  const typed = save as SaveFileV20;
+  validateTechnology(typed.state);
+  const { technology, ...legacy } = raw;
+  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, 'technology-v20', technology as StudioTechnology);
+  assertNoDoubleBookedResourceSlots(typed.state);
+  return typed;
+}
+
+export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
+  const validated = validateSaveV19(save);
+  const oldState = JSON.parse(JSON.stringify(validated.state)) as GameStateV19;
+  const state: GameStateV20 = {
+    ...oldState,
+    // D4: the pre-P13 flag was inert; migration must preserve the lawful silent
+    // opening instead of converting it into a new mandatory-sound rule.
+    era: { ...oldState.era, soundRequired: false },
+    talent: oldState.talent.map(withResearchFoundation),
+    technology: initialTechnology(oldState.market.tick),
+  };
+  for (const business of state.hollywood?.businesses ?? []) {
+    for (const period of business.account.periods) period.movements.technologyAdoption = 0;
+  }
+  return validateSaveV20({ saveVersion: 20, seed: state.seed, state, broadcastCache: state.broadcastItems });
+}
+
+export function migrateToV20(save: SaveFile): SaveFileV20 {
+  if (save.saveVersion === 20) return validateSaveV20(save);
+  return convertV19ToV20(migrateToV19(save));
 }

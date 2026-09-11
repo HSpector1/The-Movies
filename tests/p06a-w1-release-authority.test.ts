@@ -28,7 +28,7 @@ import {
   makeSave,
   makeSaveV15,
   migrateToV15,
-  migrateToV19,
+  migrateToV20,
   mintReleaseCommitmentId,
   stableStringify,
   tick,
@@ -400,8 +400,8 @@ describe('P06A W1 — save law', () => {
     const v15 = makeSaveV15(v15State)
     expect(v15.saveVersion).toBe(15)
 
-    const live = migrateToV19(v15)
-    expect(live.saveVersion).toBe(19)
+    const live = migrateToV20(v15)
+    expect(live.saveVersion).toBe(20)
     expect(live.state.releaseAuthority).toEqual({ commitments: [] })
 
     // The migrated world HOLDS — the legacy auto-release does not survive import.
@@ -414,13 +414,13 @@ describe('P06A W1 — save law', () => {
     const ready = foundedToReleaseReady('p06a-roundtrip')
     const committed = commit(ready, ready.studio.activeProductions[0]!.id)
     const save = makeSave(committed)
-    expect(save.saveVersion).toBe(19)
+    expect(save.saveVersion).toBe(20)
 
-    const reimported = migrateToV19(importSave(exportSave(save)))
+    const reimported = migrateToV20(importSave(exportSave(save)))
     expect(stableStringify(reimported)).toBe(stableStringify(save))
     expect(reimported.state.releaseAuthority.commitments).toHaveLength(1)
 
-    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV19/)
+    expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV20/)
   })
 
   it('validateSaveV19 rejects forged authority at the save boundary', () => {

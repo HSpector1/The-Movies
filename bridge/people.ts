@@ -35,7 +35,7 @@ import type { GameState, TalentProfile } from '../ui/src/engine/adapter.ts'
 import { studioPresence } from '../src/core/presence.ts'
 import { campaignDate } from '../src/core/calendar.ts'
 import { rivalEmployment } from '../src/core/hollywood.ts'
-import { DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE } from '../src/core/tuning.ts'
+import { DISCIPLINE_ORDER, PERSON_DISCIPLINE_ORDER, ROLE_TO_DISCIPLINE } from '../src/core/tuning.ts'
 import { guaranteedComp, activeContract, renewalWindowOpen } from '../src/core/employment.ts'
 import { contractActionDecisions } from './contract.ts'
 import type { BridgePersonContractActionsSnapshot } from './schema/bridge-schema.ts'
@@ -112,7 +112,7 @@ export type BridgePersonEmploymentSnapshot = {
 
 export type BridgePersonWorkSnapshot = {
   kind: 'available' | 'assigned' | 'ambiguous' | 'undisclosed'
-  assignmentKind: 'production' | 'script' | null
+  assignmentKind: 'production' | 'script' | 'research' | null
   assignmentId: string | null
   label: string | null
   /** Exact absence/ambiguity reason when not assigned. */
@@ -121,7 +121,7 @@ export type BridgePersonWorkSnapshot = {
 
 export type BridgePersonPresenceSnapshot = {
   onLot: boolean
-  engagement: 'production' | 'script' | 'casting' | 'roster' | null
+  engagement: 'production' | 'script' | 'casting' | 'research' | 'roster' | null
   credit: string | null
   facilityId: string | null
   facilityName: string | null
@@ -277,12 +277,14 @@ const PROFESSION_LABEL: Record<CreativeRole, string> = {
   director: 'Director',
   writer: 'Writer',
   craft: 'Craft',
+  scientist: 'Scientist',
 }
 const DISCIPLINE_LABEL: Record<Discipline, string> = {
   acting: 'Acting',
   writing: 'Writing',
   directing: 'Directing',
   craft: 'Craft',
+  research: 'Research',
 }
 const GENRE_LABEL: Record<Genre, string> = {
   comedy: 'Comedy',
@@ -419,7 +421,8 @@ function buildProfile(
 ): BridgePersonProfileSnapshot {
   const primary = ROLE_TO_DISCIPLINE[talent.role]
   const identity = profile.careerIdentity
-  const disciplines: BridgePersonDisciplineSnapshot[] = DISCIPLINE_ORDER.map((d) => {
+  const disciplineOrder = talent.role === 'scientist' ? PERSON_DISCIPLINE_ORDER : DISCIPLINE_ORDER
+  const disciplines: BridgePersonDisciplineSnapshot[] = disciplineOrder.map((d) => {
     const summary = profile.disciplines.find((row) => row.discipline === d)!
     const standing = identity.disciplines.find((row) => row.discipline === d)
     return {
@@ -463,7 +466,7 @@ function buildProfile(
     // Reuse the perceived-only TalentProfile producer and its canonical genre order.
     // Keep every discipline: an Actor commissioned to write needs Writing experience,
     // while the existing specialties field remains the home-discipline summary.
-    genreExperience: DISCIPLINE_ORDER.flatMap((discipline) =>
+    genreExperience: disciplineOrder.flatMap((discipline) =>
       profile.genreExperience[discipline].map((cell) => ({
         discipline,
         genre: cell.genre,

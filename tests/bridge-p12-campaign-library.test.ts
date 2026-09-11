@@ -11,7 +11,7 @@ import {PROTOCOL_VERSION,SCHEMA_ID} from '../bridge/protocol.ts'
 import type {CampaignRequest} from '../bridge/schema/bridge-schema.ts'
 import {loadCampaignLibrary,type CampaignLibrary} from '../bridge/runtime/campaign-library.ts'
 import {DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS,loadBridgeRuntimeCheckpoint} from '../bridge/runtime-checkpoint.ts'
-import {importSave,migrateToV19,exportSave,makeSaveV18,generateWorld} from '../src/core/index.js'
+import {importSave,migrateToV20,exportSave,makeSaveV18,generateWorld} from '../src/core/index.js'
 class Store implements BridgeCheckpointStore {
   checkpointPath='/synthetic/campaign-library.json';fail=false;closed=false
   constructor(public contents:string|null=null){}
@@ -29,7 +29,7 @@ async function request(runtime:BridgeRuntimeCoordinator,operation:CampaignReques
 }
 function library(store:Store):CampaignLibrary{return decodeCampaignStorage(JSON.parse(store.contents!),DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS.maxCheckpointBytes,32) as CampaignLibrary}
 function working(store:Store){return JSON.parse(library(store).workingCheckpointJson)}
-function state(store:Store){return migrateToV19(importSave(working(store).currentSaveJson)).state}
+function state(store:Store){return migrateToV20(importSave(working(store).currentSaveJson)).state}
 async function advance(runtime:BridgeRuntimeCoordinator) {
   const snapshot=await runtime.read(s=>s.snapshot())
   const option=snapshot.availableIntents.find(i=>i.kind==='advanceWeek')!
@@ -201,7 +201,7 @@ describe('R05 independent named campaign transactions',()=>{
     expect(imported.records).toHaveLength(2)
     expect(working(store).savedSaveJson).not.toBe(working(store).currentSaveJson)
     for(const record of imported.records) {
-      const cp=JSON.parse(record.checkpointJson),s=migrateToV19(importSave(cp.currentSaveJson)).state
+      const cp=JSON.parse(record.checkpointJson),s=migrateToV20(importSave(cp.currentSaveJson)).state
       expect(s.hollywood!.origin).toBe('migration');expect(s.hollywood!.films).toEqual([])
     }
     expect(state(store).market.tick).toBe(importSave(prior.currentSaveJson).state.market.tick)

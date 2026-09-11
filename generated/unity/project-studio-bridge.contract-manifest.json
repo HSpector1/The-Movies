@@ -1,14 +1,14 @@
 {
   "contractId": "project-studio-current-game-unity-bridge",
-  "generatorSourceSha256": "661c09a8fd79bc607bd155688e5d157970e2a1eed341641a91ddaf60609ce7fa",
+  "generatorSourceSha256": "479ab7823885c35c9bbb7618d702f4de098cc935b67cff38727dc19e7d1fe753",
   "generatorVersion": 1,
   "manifestVersion": 1,
-  "projectionVersion": 29,
+  "projectionVersion": 30,
   "protocolVersion": 4,
-  "schemaId": "sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85",
+  "schemaId": "sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48",
   "typescriptGeneratedContractPath": "generated/unity/StudioBridgeDtos.Generated.cs",
-  "typescriptGeneratedContractSha256": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9",
+  "typescriptGeneratedContractSha256": "ad7d522f25375713aa65f49ef5d47be258230477094035ea751ca3a068773f1a",
   "unityConsumerRepository": "HSpector1/project-studio-unity-visual-spike",
   "unityGeneratedContractPath": "Assets/Studio/Runtime/Data/Generated/StudioBridgeDtos.Generated.cs",
-  "unityGeneratedContractSha256": "ae20ea85ba03e97101a3e4df7c2ceafa2da357d0560ed63f2041a960db1ebfe9"
+  "unityGeneratedContractSha256": "ad7d522f25375713aa65f49ef5d47be258230477094035ea751ca3a068773f1a"
 }

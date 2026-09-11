@@ -30,7 +30,7 @@ import {
   generateWorld,
   importSave,
   makeSave,
-  migrateToV19,
+  migrateToV20,
   nextStudioDecision,
   stableStringify,
   tick,
@@ -216,7 +216,7 @@ describe('P07A W6 — save/load preserves result truth mid-run (R4)', () => {
     const { state, id } = releaseTheReadyPicture(ready)
     const midRun = tick(state) // one credited week: paid-to-date is a real partial
 
-    const reloaded = migrateToV19(importSave(exportSave(makeSave(midRun)))).state
+    const reloaded = migrateToV20(importSave(exportSave(makeSave(midRun)))).state
     expect(stableStringify(reloaded.studio.releasedFilms)).toBe(
       stableStringify(midRun.studio.releasedFilms),
     )
@@ -273,7 +273,7 @@ describe('P07A W6 — duplicate titles are separated by exact id (R5)', () => {
     expect(cardB.runStatus).toBe('active')
 
     // Independent save/load: the twins survive a round-trip distinct.
-    const reloaded = migrateToV19(importSave(exportSave(makeSave(state)))).state
+    const reloaded = migrateToV20(importSave(exportSave(makeSave(state)))).state
     expect(stableStringify(studioLotSnapshot(reloaded).results)).toBe(stableStringify(cards))
   })
 })

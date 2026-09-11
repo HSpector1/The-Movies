@@ -306,7 +306,7 @@ function compareId(a: string, b: string): number {
 }
 
 function emptyRoleComposition(): RosterWallMechanicsRoleComposition {
-  return { actor: 0, director: 0, writer: 0, craft: 0 }
+  return { actor: 0, director: 0, writer: 0, craft: 0, scientist: 0 }
 }
 
 function canonicalRoleComposition(

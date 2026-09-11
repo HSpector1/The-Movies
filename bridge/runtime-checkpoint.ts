@@ -3,8 +3,8 @@ import { createHash, randomUUID } from 'node:crypto'
 import {
   exportSave,
   importSave,
-  migrateToV19,
-  type SaveFileV19,
+  migrateToV20,
+  type SaveFileV20,
 } from '../src/core/index.js'
 import { exportSaveJson } from '../ui/src/engine/adapter.ts'
 import {
@@ -36,6 +36,8 @@ export const LEGACY_BRIDGE_RUNTIME_SCHEMA_ID =
 // in SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS below, not a distinguished slot.
 export const PREVIOUS_BRIDGE_RUNTIME_PROTOCOL_4_SCHEMA_ID =
   'sha256:0285e92f32c27cd2960df802b3f7ea156a15372f05001ad1f4964c2f25db55b5' as const
+const ACCEPTED_P12_SCHEMA_ID =
+  'sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85' as const
 const R05_NATIVE_FOUNDING_SCHEMA_ID =
   'sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712' as const
 
@@ -55,6 +57,8 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // P13A: exact accepted P12 protocol 4/projection 29/Save V19 identity.
+  [ACCEPTED_P12_SCHEMA_ID, 'projection-v29'],
   // R05 Profile calendar label: preserve the actual outgoing native 4/28/V19
   // checkpoints through the existing governed migration (new logical session).
   [R05_NATIVE_FOUNDING_SCHEMA_ID, 'projection-v28'],
@@ -419,7 +423,7 @@ function parseCanonicalJson(json: string, path: string): unknown {
 // (journal discarded as opaque history, saves re-imported through the
 // canonical chain). A CURRENT-schema checkpoint is therefore always written
 // by this build and always carries live V16 bytes.
-type CurrentEnvelopeSave = SaveFileV19
+type CurrentEnvelopeSave = SaveFileV20
 
 function validateCanonicalCurrentSave(
   saveJson: string,
@@ -434,11 +438,11 @@ function validateCanonicalCurrentSave(
   } catch (error) {
     fail(path, `is not a valid TypeScript save: ${(error as Error).message}`)
   }
-  if (imported.saveVersion !== 19) {
-    fail(path, `must be a current V19 save, received V${String(imported.saveVersion)}`)
+  if (imported.saveVersion !== 20) {
+    fail(path, `must be a current V20 save, received V${String(imported.saveVersion)}`)
   }
   if (exportSave(imported) !== saveJson) {
-    fail(path, 'must preserve the canonical V19 save bytes exactly')
+    fail(path, 'must preserve the canonical V20 save bytes exactly')
   }
   const current = imported as CurrentEnvelopeSave
   cache.set(saveJson, current)
@@ -823,10 +827,10 @@ function migrateLegacyProtocol3Checkpoint(
 function importPriorSaveViaCanonicalChain(
   json: string,
   path: string,
-): { json: string; state: SaveFileV19['state'] } {
-  let migrated: SaveFileV19
+): { json: string; state: SaveFileV20['state'] } {
+  let migrated: SaveFileV20
   try {
-    migrated = migrateToV19(importSave(json))
+    migrated = migrateToV20(importSave(json))
   } catch (error) {
     fail(path, `is not a save the current save contract can import: ${(error as Error).message}`)
   }
@@ -972,8 +976,8 @@ function migratePriorProtocol4Checkpoint(
   // R05 natively saves unfinished campaigns. Only its verified predecessor
   // may carry an already-V19, strictly validated Hollywood founding draft;
   // the historical production-only guard remains for every earlier schema.
-  const nativeR05Draft = (original: string, state: SaveFileV19['state']): boolean =>
-    priorSchemaId === R05_NATIVE_FOUNDING_SCHEMA_ID &&
+  const nativeR05Draft = (original: string, state: SaveFileV20['state']): boolean =>
+    (priorSchemaId === R05_NATIVE_FOUNDING_SCHEMA_ID || priorSchemaId === ACCEPTED_P12_SCHEMA_ID) &&
     JSON.parse(original).saveVersion === 19 && state.hollywood != null
   if (migratedCurrent.state.founding !== null && !nativeR05Draft(currentSaveJson, migratedCurrent.state)) {
     fail(

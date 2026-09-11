@@ -129,6 +129,7 @@ import {
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
   FACILITY_BLUEPRINTS,
+  FACILITY_INSTALLATION_BLUEPRINTS,
   FACILITY_DEMOLITION_LEDGER_NOTE,
   FACILITY_DEMOLITION_REFUND_FRACTION,
   FACILITY_MOVE_COST,
@@ -481,7 +482,7 @@ export function queryPlacement(
 ): PlacementQuote {
   const origin = { gx: request.origin.gx, gy: request.origin.gy }
   const blueprint = blueprintById(request.blueprintId)
-  if (blueprint === null) {
+  if (blueprint === null || blueprint.installationTargetCapability !== undefined) {
     return {
       ok: false,
       blueprintId: request.blueprintId,
@@ -747,6 +748,112 @@ export function commitPlacement(state: GameState, request: PlacementRequest): Ga
   }
 }
 
+export const FACILITY_INSTALLATION_BLUEPRINT_IDS = FACILITY_INSTALLATION_BLUEPRINTS.map((blueprint) => blueprint.id)
+
+export type FacilityInstallationRequest = { blueprintId: string; targetFacilityId: string }
+export type FacilityInstallationRefusal =
+  | 'regimeNotReady' | 'unknownInstallation' | 'unknownTarget' | 'incompatibleTarget'
+  | 'targetHasNoBody' | 'alreadyInstalled' | 'targetEngaged' | 'requirementsUnmet' | 'insufficientFunds'
+export type FacilityInstallationQuote = {
+  ok: boolean
+  blueprintId: string
+  targetFacilityId: string
+  cost: number
+  buildWeeks: number
+  completesOnWeek: number
+  weeklyOperatingCost: number
+  components: readonly { label: string; cost: number; weeks: number }[]
+  rejections: FacilityInstallationRefusal[]
+  holders: FacilityEngagement[]
+  unmetRequirements: UnmetRequirement[]
+}
+
+/** The exact body owns the ground; module records borrow its location only. */
+function installationTargetBody(state: GameState, facilityId: string): { origin: LotCell; parcelId: string } | null {
+  const placed = state.placement.facilities.find((candidate) => candidate.installation === undefined && candidate.facilityId === facilityId)
+  if (placed !== undefined) return { origin: placed.origin, parcelId: placed.parcelId }
+  const structure = propertyOf(state).structures.find((candidate) => candidate.providesFacilityIds.includes(facilityId))
+  return structure === undefined ? null : { origin: structure.origin, parcelId: structure.id }
+}
+
+/** One P09 query owns compatibility, reservations and the complete committed price. */
+export function queryFacilityInstallation(state: GameState, request: FacilityInstallationRequest): FacilityInstallationQuote {
+  const blueprint = blueprintById(request.blueprintId)
+  const target = state.operations.facilities.find((facility) => facility.id === request.targetFacilityId)
+  const rejections: FacilityInstallationRefusal[] = []
+  if (!placementRegimeReady(state)) rejections.push('regimeNotReady')
+  if (blueprint?.installationTargetCapability === undefined) rejections.push('unknownInstallation')
+  if (target === undefined) rejections.push('unknownTarget')
+  else if (blueprint?.installationTargetCapability !== target.capability) rejections.push('incompatibleTarget')
+  if (installationTargetBody(state, request.targetFacilityId) === null) rejections.push('targetHasNoBody')
+  if (state.placement.facilities.some((placed) => placed.installation?.targetFacilityId === request.targetFacilityId && placed.blueprintId === request.blueprintId)) {
+    rejections.push('alreadyInstalled')
+  }
+  // A standing idle set is compatible with adaptation; live work and set construction are not.
+  // Completed modules keep a destruction hold but do not prevent a different module's work.
+  const holders = facilityEngagements(state, request.targetFacilityId).filter((held) => {
+    if (held.kind === 'set') {
+      const set = state.sets.find((candidate) => candidate.id === held.holderId)
+      if (set?.status === 'standing') return false
+    }
+    if (held.kind === 'installation') {
+      return state.placement.facilities.some((placed) => placed.projectId === held.holderId && placed.status === 'underConstruction')
+    }
+    if (held.kind === 'research') {
+      return state.technology.projects.some((project) => project.id === held.holderId && project.status === 'active')
+    }
+    return true
+  })
+  if (holders.length > 0) rejections.push('targetEngaged')
+  const availability = blueprint === null ? null : evaluateBlueprintRequirements(state, blueprint, FACILITY_BLUEPRINTS)
+  if (availability !== null && !availability.available) rejections.push('requirementsUnmet')
+  const cost = blueprint?.capex ?? 0
+  if (!canAfford(state, cost).ok) rejections.push('insufficientFunds')
+  return {
+    ok: rejections.length === 0, blueprintId: request.blueprintId, targetFacilityId: request.targetFacilityId,
+    cost, buildWeeks: blueprint?.buildWeeks ?? 0, completesOnWeek: state.market.tick + (blueprint?.buildWeeks ?? 0),
+    weeklyOperatingCost: blueprint?.weeklyOperatingCost ?? 0,
+    components: blueprint?.installationComponents ?? [], rejections, holders, unmetRequirements: availability?.unmet ?? [],
+  }
+}
+
+/** Atomic P09 physical-work commit; a refused or stale request is byte-neutral. */
+export function commitFacilityInstallation(state: GameState, request: FacilityInstallationRequest): GameState {
+  const quote = queryFacilityInstallation(state, request)
+  if (!quote.ok) return state
+  const blueprint = blueprintById(request.blueprintId)!
+  const body = installationTargetBody(state, request.targetFacilityId)!
+  const id = state.placement.nextPlacementId
+  const placed: PlacedFacility = {
+    id, blueprintId: blueprint.id, origin: { ...body.origin }, parcelId: body.parcelId, cells: [],
+    facilityId: deriveIdentity(blueprint.facilityIdBase, id, takenFacilityIds(state)),
+    projectId: deriveIdentity(blueprint.projectIdBase, id, takenProjectIds(state)),
+    placedWeek: state.market.tick, completesWeek: quote.completesOnWeek, status: 'underConstruction',
+    installation: { targetFacilityId: request.targetFacilityId },
+  }
+  return {
+    ...state,
+    studio: { ...state.studio, cash: state.studio.cash - quote.cost },
+    ledger: [...state.ledger, { week: state.market.tick, kind: 'constructionCapex', amount: -quote.cost,
+      constructionProjectId: placed.projectId, note: blueprint.ledgerNote }],
+    placement: { ...state.placement, nextPlacementId: id + 1, facilities: [...state.placement.facilities, placed] },
+  }
+}
+
+/** Sequential phase disclosure derives from the one committed P09 completion clock. */
+export function facilityInstallationPhase(placed: PlacedFacility, currentWeek: number): string | null {
+  if (placed.installation === undefined) return null
+  if (placed.status === 'operational') return 'Operational'
+  const blueprint = blueprintById(placed.blueprintId)
+  let elapsed = Math.max(0, currentWeek - placed.placedWeek)
+  for (const component of blueprint?.installationComponents ?? []) {
+    if (component.weeks === 0) continue
+    if (elapsed < component.weeks) return component.label
+    elapsed -= component.weeks
+  }
+  return 'Awaiting completion'
+}
+
 export type PlacementCompletion = {
   placement: StudioPlacement
   operations: StudioOperations
@@ -840,6 +947,17 @@ export function facilityEngagements(
   for (const held of resourceClaimsOf(occupiedResourceSlots(state))) {
     if (held.facilityId !== facilityId) continue
     switch (held.owner) {
+      case 'installation':
+        // A whole-building job holds every slot but is one named engagement.
+        if (!holders.some((holder) => holder.kind === 'installation' && holder.holderId === held.ownerId)) {
+          holders.push({ kind: 'installation', facilityId, holderId: held.ownerId,
+            activity: held.installation.status === 'underConstruction' ? 'physical installation work' : 'installed equipment attached to this facility' })
+        }
+        break
+      case 'research':
+        holders.push({ kind: 'research', facilityId, holderId: held.ownerId,
+          activity: held.research.status === 'active' ? 'research' : 'a retained research project for this Laboratory' })
+        break
       case 'production':
         holders.push({
           kind: 'production',
@@ -933,6 +1051,12 @@ function facilityMutationEligibility(
   // still asked, because "it cannot happen" is exactly the assumption that stops
   // being true without anyone noticing.
   const holders = facilityEngagements(state, placed.facilityId)
+  // Core has no physical-installation cancellation/disposition law. Keep its
+  // durable capex/opex proof and the exact target attached until that law exists.
+  if (placed.installation !== undefined) holders.push({
+    kind: 'installation', facilityId: placed.facilityId, holderId: placed.projectId,
+    activity: 'installed equipment retained on its exact facility',
+  })
   if (holders.length > 0) {
     return {
       refusal: {
@@ -1229,6 +1353,20 @@ function assertBlueprintCatalogInvariants(): void {
       blueprint.effectSummary.trim().endsWith('.'),
       `${label} effect summary must be a complete sentence`,
     )
+
+    if (blueprint.installationTargetCapability !== undefined) {
+      invariant(blueprint.capacity === 0, `${label} installed module must not duplicate body capacity`)
+      invariant(blueprint.capability === blueprint.installationTargetCapability,
+        `${label} installation capability disagrees with target`)
+      const components = blueprint.installationComponents ?? []
+      invariant(components.length > 0 && components.every((component) => component.label.length > 0 &&
+        Number.isInteger(component.cost) && component.cost >= 0 && Number.isInteger(component.weeks) && component.weeks >= 0),
+      `${label} must disclose authored installation components`)
+      invariant(components.reduce((sum, component) => sum + component.cost, 0) === blueprint.capex,
+        `${label} installation component costs must reconcile with capex`)
+      invariant(components.reduce((sum, component) => sum + component.weeks, 0) === blueprint.buildWeeks,
+        `${label} sequential installation weeks must reconcile with completion`)
+    }
 
     if (blueprint.maxInstances !== undefined) {
       invariant(
@@ -1531,40 +1669,58 @@ export function assertStudioPlacementInvariants(
       Number.isInteger(placed.origin.gx) && Number.isInteger(placed.origin.gy),
       `${label} origin must be integral`,
     )
-    const expectedCells = footprintCells(blueprint, placed.origin)
     invariant(
-      placed.cells.length === expectedCells.length &&
-        placed.cells.every(
-          (cell, index) => cell.gx === expectedCells[index]!.gx && cell.gy === expectedCells[index]!.gy,
-        ),
-      `${label} cells disagree with its blueprint footprint at its origin`,
+      (placed.installation !== undefined) === (blueprint.installationTargetCapability !== undefined),
+      `${label} physical job arm disagrees with its blueprint`,
     )
-
-    const originParcel = parcelAt(property, placed.origin)
-    invariant(originParcel !== null, `${label} origin is not on an owned parcel`)
-    invariant(placed.parcelId === originParcel.id, `${label} parcelId disagrees with its origin`)
-    invariant(
-      parcelById(property, placed.parcelId) !== null,
-      `${label} references unknown parcel "${placed.parcelId}"`,
-    )
-
-    for (const cell of placed.cells) {
-      const parcel = parcelAt(property, cell)
-      invariant(parcel !== null, `${label} occupies unowned ground`)
-      invariant(parcel.terrain === 'buildable', `${label} occupies unbuildable terrain`)
-      const key = cellKey(cell)
-      const owner = cellOwner.get(key)
-      invariant(owner === undefined, `${label} overlaps placed facility ${String(owner)}`)
-      cellOwner.set(key, placed.id)
-    }
-
-    if (blueprint.requiresRoadAccess) {
+    if (placed.installation !== undefined) {
+      const targetFacilityId = placed.installation.targetFacilityId
+      const target = operations.facilities.find((facility) => facility.id === targetFacilityId)
+      const body = installationTargetBody(state, targetFacilityId)
+      invariant(target !== undefined && target.capability === blueprint.installationTargetCapability,
+        `${label} installation has no compatible operational target`)
+      invariant(body !== null && body.parcelId === placed.parcelId && body.origin.gx === placed.origin.gx && body.origin.gy === placed.origin.gy,
+        `${label} installation location disagrees with its exact target body`)
+      invariant(placed.cells.length === 0, `${label} installation must not occupy a second body`)
+      invariant(placement.facilities.filter((candidate) => candidate.blueprintId === placed.blueprintId &&
+        candidate.installation?.targetFacilityId === targetFacilityId).length === 1,
+      `${label} duplicates an installation on the same target`)
+    } else {
+      const expectedCells = footprintCells(blueprint, placed.origin)
       invariant(
-        distinctParcels(property, placed.cells).some((parcel) =>
-          parcelHasRoadFrontage(property, parcel),
-        ),
-        `${label} requires road access its site does not have`,
+        placed.cells.length === expectedCells.length &&
+          placed.cells.every(
+            (cell, index) => cell.gx === expectedCells[index]!.gx && cell.gy === expectedCells[index]!.gy,
+          ),
+        `${label} cells disagree with its blueprint footprint at its origin`,
       )
+
+      const originParcel = parcelAt(property, placed.origin)
+      invariant(originParcel !== null, `${label} origin is not on an owned parcel`)
+      invariant(placed.parcelId === originParcel.id, `${label} parcelId disagrees with its origin`)
+      invariant(
+        parcelById(property, placed.parcelId) !== null,
+        `${label} references unknown parcel "${placed.parcelId}"`,
+      )
+
+      for (const cell of placed.cells) {
+        const parcel = parcelAt(property, cell)
+        invariant(parcel !== null, `${label} occupies unowned ground`)
+        invariant(parcel.terrain === 'buildable', `${label} occupies unbuildable terrain`)
+        const key = cellKey(cell)
+        const owner = cellOwner.get(key)
+        invariant(owner === undefined, `${label} overlaps placed facility ${String(owner)}`)
+        cellOwner.set(key, placed.id)
+      }
+
+      if (blueprint.requiresRoadAccess) {
+        invariant(
+          distinctParcels(property, placed.cells).some((parcel) =>
+            parcelHasRoadFrontage(property, parcel),
+          ),
+          `${label} requires road access its site does not have`,
+        )
+      }
     }
 
     invariant(
@@ -2187,7 +2343,7 @@ export function studioPlacementView(state: GameState): StudioPlacementView {
     }
   })
 
-  const placements: PlacedFacilityView[] = state.placement.facilities.map((placed) => {
+  const placements: PlacedFacilityView[] = state.placement.facilities.filter((placed) => placed.installation === undefined).map((placed) => {
     const blueprint = blueprintById(placed.blueprintId)
     if (blueprint === null) {
       throw new Error(`placement view: unknown blueprint "${placed.blueprintId}"`)
@@ -2218,7 +2374,7 @@ export function studioPlacementView(state: GameState): StudioPlacementView {
     lotDepth: property.bounds.depth,
     parcels,
     placements,
-    catalog: FACILITY_BLUEPRINTS.map((blueprint) => {
+    catalog: FACILITY_BLUEPRINTS.filter((blueprint) => blueprint.installationTargetCapability === undefined).map((blueprint) => {
       const availability = evaluateBlueprintRequirements(state, blueprint, FACILITY_BLUEPRINTS)
       const atLimit = blueprintAtInstanceLimitFor(state, blueprint)
       const affordable = canAfford(state, blueprint.capex).ok

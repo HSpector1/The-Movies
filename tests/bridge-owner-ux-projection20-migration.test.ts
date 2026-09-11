@@ -116,7 +116,7 @@ describe('Owner UX outgoing projection20 migration', () => {
     for(const [beforeJson,afterJson,afterDigest] of [[predecessor.currentSaveJson,next.currentSaveJson,next.currentStateDigest],[predecessor.savedSaveJson,next.savedSaveJson,next.savedStateDigest]]){
       if(beforeJson===null){expect(afterJson).toBeNull();expect(afterDigest).toBeNull();continue}
       const before=JSON.parse(beforeJson),after=JSON.parse(afterJson!)
-      expect(after.saveVersion).toBe(19)
+      expect(after.saveVersion).toBe(20)
       const {hollywood,...oldRoots}=after.state
       expect(oldRoots).toEqual(before.state)
       expect(hollywood).toMatchObject({origin:'migration',originWeek:before.state.market.tick,films:[],careerEvents:[]})

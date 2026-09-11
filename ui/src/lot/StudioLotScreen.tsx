@@ -26,6 +26,7 @@ import type {
   StudioConstructionView,
 } from '../engine/adapter.ts'
 import {
+  campaignDate,
   careerIdentityLabel,
   placementQuote,
   facilityDemolitionRefusal,
@@ -292,14 +293,6 @@ export type LotAuditionPlanningOrigin = Readonly<{
   }>
 }>
 
-// The era this studio operates in, as the world states it in its own masthead. It is
-// the ONE place the year is written: the topbar subtitle and the era-keyed music bed
-// read the same constant, so the studio can never sound like one decade and read as
-// another. (GameState's EraConfig carries no year — costScale, sound, censorship and
-// television only — so the presented era is presentation truth, and this is where it
-// lives until the engine owns a calendar year.)
-const LOT_ERA_KEY = '1948'
-
 // The retained plate's scene RE-EMITS `selected` when the host itself re-asserts a
 // selection (`LotScene.selectFromHost` → `select`), while the shipped grid world paints
 // without emitting (`TycoonScene.selectFromHost`). A restored, reconciled or route-driven
@@ -389,6 +382,7 @@ function gateRoleLabel(role: GateCandidateOwnerIntent['creativeRole']): string {
     case 'director': return 'Director'
     case 'writer': return 'Writer'
     case 'craft': return 'Craft'
+    case 'scientist': return 'Scientist'
   }
 }
 
@@ -4787,12 +4781,12 @@ export function StudioLotScreen({
   useEffect(() => {
     if (documentHidden) return
     const audio = getAudioService()
-    audio.startMusic(LOT_ERA_KEY)
+    audio.startMusic(String(campaignDate(snapshot.week).year))
     return () => {
       audio.stopMusic()
       audio.stopAmbience()
     }
-  }, [documentHidden])
+  }, [documentHidden, snapshot.week])
 
   useEffect(() => {
     if (documentHidden) return
@@ -8319,7 +8313,7 @@ export function StudioLotScreen({
           >
             {snapshot.studioName}
           </h1>
-          <span className="lot-sub">{hollywood ? `Studio Chronicle · Hollywood, ${LOT_ERA_KEY}` : 'Studio Lot'} · Week {snapshot.week}</span>
+          <span className="lot-sub">{hollywood ? `Studio Chronicle · Hollywood, ${campaignDate(snapshot.week).label}` : `Studio Lot · Week ${snapshot.week}`}</span>
         </div>
         <div className="lot-topbar-actions">
           <CashReadout cash={snapshot.cash} reducedMotion={reducedMotion} />

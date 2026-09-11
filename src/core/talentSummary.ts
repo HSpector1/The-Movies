@@ -16,6 +16,7 @@ import { stream } from './rng.js'
 import { specificity } from './shape.js'
 import {
   DISCIPLINE_ORDER,
+  PERSON_DISCIPLINE_ORDER,
   GENRE_SKILL_WEIGHTS,
   OVR_WEIGHTS,
   POTENTIAL_TIER_THRESHOLDS,
@@ -545,7 +546,7 @@ export function careerIdentity(talent: Talent): CareerIdentity {
   const identityDisciplines: Discipline[] = []
   const capableButUnprovenDisciplines: Discipline[] = []
 
-  for (const d of DISCIPLINE_ORDER) {
+  for (const d of talent.role === 'scientist' ? PERSON_DISCIPLINE_ORDER : DISCIPLINE_ORDER) {
     const ovr = roleOVR(talent, d)
     const wh = workHistoryCount(talent, d)
     const capable = ovr >= TUNING.CAPABILITY_OVR_MIN
@@ -587,6 +588,12 @@ const SKILL_LABELS: Record<string, string> = {
   soundAndMusic: 'Sound and Music',
   effectsExecution: 'Effects Execution',
   technicalCoordination: 'Technical Coordination',
+  scientificMethod: 'Scientific Method',
+  acoustics: 'Acoustics',
+  instrumentation: 'Instrumentation',
+  experimentation: 'Experimentation',
+  engineering: 'Engineering',
+  documentation: 'Documentation',
 }
 
 const DISCIPLINE_LABELS: Record<Discipline, string> = {
@@ -594,6 +601,7 @@ const DISCIPLINE_LABELS: Record<Discipline, string> = {
   writing: 'Writer',
   directing: 'Director',
   craft: 'Craft',
+  research: 'Scientist',
 }
 
 const GENRE_LABELS: Record<Genre, string> = {

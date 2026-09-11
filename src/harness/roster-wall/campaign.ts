@@ -97,7 +97,7 @@ export const ROSTER_WALL_OPERATING_POLICIES: Readonly<
     targetPipeline: 2,
     auditions: false,
     rewriteBelow: null,
-    desiredRoster: { actor: 3, director: 1, writer: 2, craft: 1 },
+    desiredRoster: { actor: 3, director: 1, writer: 2, craft: 1, scientist: 0 },
   },
   'development-casting': {
     id: 'development-casting',
@@ -105,7 +105,7 @@ export const ROSTER_WALL_OPERATING_POLICIES: Readonly<
     targetPipeline: 3,
     auditions: true,
     rewriteBelow: 55,
-    desiredRoster: { actor: 3, director: 1, writer: 3, craft: 1 },
+    desiredRoster: { actor: 3, director: 1, writer: 3, craft: 1, scientist: 0 },
   },
   'scaled-two-team': {
     id: 'scaled-two-team',
@@ -113,7 +113,7 @@ export const ROSTER_WALL_OPERATING_POLICIES: Readonly<
     targetPipeline: 4,
     auditions: true,
     rewriteBelow: 60,
-    desiredRoster: { actor: 6, director: 2, writer: 3, craft: 2 },
+    desiredRoster: { actor: 6, director: 2, writer: 3, craft: 2, scientist: 0 },
   },
 }
 
@@ -982,7 +982,7 @@ function boundaryStateProjection(
     director: 0,
     writer: 0,
     craft: 0,
-  }
+   scientist: 0 }
   const retainedSet = new Set(retained)
   for (const talent of state.talent) {
     if (retainedSet.has(talent.id)) coverage[talent.role]++
@@ -1162,7 +1162,7 @@ function warningRelation(
 function missingCoverageRoles(
   members: readonly RosterWallShadowOwnerQuote[],
 ): CreativeRole[] {
-  const counts: Record<CreativeRole, number> = { actor: 0, director: 0, writer: 0, craft: 0 }
+  const counts: Record<CreativeRole, number> = { actor: 0, director: 0, writer: 0, craft: 0, scientist: 0 }
   for (const member of members) counts[member.role]++
   return ROLES.filter((role) => counts[role] < FOUNDING_MINIMUMS[role])
 }

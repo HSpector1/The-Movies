@@ -239,7 +239,7 @@ function newStats(): Stats {
   return {
     runs: 0,
     releases: 0,
-    ovrByDiscipline: { acting: [], writing: [], directing: [], craft: [] },
+    ovrByDiscipline: { acting: [], writing: [], directing: [], craft: [], research: [] },
     primary90: 0,
     primary95: 0,
     primary99: 0,

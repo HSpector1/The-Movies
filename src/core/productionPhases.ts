@@ -132,6 +132,8 @@ const ACQUISITION_RANK_BY_CAPABILITY: Readonly<Record<FacilityCapability, number
     soundstage: 2,
     'set-scenery': 3,
     post: 4,
+    // Research acquires one laboratory seat atomically and never waits holding it.
+    laboratory: 5,
   })
 
 /** The declared acquisition rank of a capability (§3.2). Higher waits on lower. */

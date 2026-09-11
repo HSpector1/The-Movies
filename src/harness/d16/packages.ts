@@ -314,7 +314,7 @@ function buildPools(state: GameState, opts: Required<PackageOptions>, engaged: b
   const busy = busyTalentIds(state)
   const market = new Set(freelancerMarketIds(state))
   const empty = (): { contracted: Talent[]; freelance: Talent[] } => ({ contracted: [], freelance: [] })
-  const pools: Pools = { actor: empty(), director: empty(), writer: empty(), craft: empty() }
+  const pools: Pools = { actor: empty(), director: empty(), writer: empty(), craft: empty(), scientist: empty() }
   for (const t of state.talent) {
     if (!opts.ignoreBusy && busy.has(t.id)) continue
     const bucket = pools[t.role]
@@ -491,7 +491,7 @@ export function generatePackages(state: GameState, options: PackageOptions = {})
   const engaged = packageRegimeEngaged(state)
   const pools = buildPools(state, opts, engaged)
   const unstaffable: CreativeRole[] = []
-  const need: Record<CreativeRole, number> = { writer: 1, director: 1, craft: 1, actor: 3 }
+  const need: Record<CreativeRole, number> = { writer: 1, director: 1, craft: 1, actor: 3, scientist: 0 }
   for (const role of ['writer', 'director', 'craft', 'actor'] as const) {
     if (pools[role].contracted.length + pools[role].freelance.length < need[role]) unstaffable.push(role)
   }

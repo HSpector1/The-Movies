@@ -70,7 +70,7 @@ import {
 } from '../../presentation/punctuate.ts'
 
 const SEED = 'pf1-parity-001'
-const FOUNDING_COUNTS: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2 }
+const FOUNDING_COUNTS: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }
 
 /**
  * The presentation side of the script. Run A supplies a real one; run B supplies

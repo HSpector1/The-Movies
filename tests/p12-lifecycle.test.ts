@@ -1,5 +1,5 @@
 import { describe,expect,it } from 'vitest'
-import { generateWorld,tick,makeSave,exportSave,importSave,migrateToV19 } from '../src/core/index.js'
+import { generateWorld,tick,makeSave,exportSave,importSave,migrateToV20 } from '../src/core/index.js'
 import { initializeHollywood } from '../src/core/hollywood.js'
 
 describe('R05 shared-law rival lifecycle',()=>{
@@ -56,7 +56,7 @@ describe('R05 shared-law rival lifecycle',()=>{
     expect(state.hollywood!.careerEvents.length).toBe(films.length*6)
     expect(state.rngState).toBe(rng)
     expect(exportSave(makeSave(initializeHollywood(generateWorld('r05-lifecycle'),'fresh')))).toBe(original)
-    const reloaded=migrateToV19(importSave(exportSave(makeSave(state)))).state
+    const reloaded=migrateToV20(importSave(exportSave(makeSave(state)))).state
     expect(exportSave(makeSave(tick(reloaded,{develop:true})))).toBe(exportSave(makeSave(tick(state,{develop:true}))))
   })
   it('expires ordinary contracts and crosses the first real arrival from elapsed play',()=>{

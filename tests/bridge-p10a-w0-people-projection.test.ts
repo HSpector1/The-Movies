@@ -24,7 +24,7 @@ import {
   FOUNDING_MINIMUMS,
   generateWorld,
   makeSaveV16,
-  migrateToV19,
+  migrateToV20,
   tick,
 } from '../src/core/index.js'
 import type { CreativeRole, GameState } from '../src/core/index.js'
@@ -336,7 +336,7 @@ describe('P10A W0 — people projection', () => {
     const a = createHash('sha256').update(serialized(state)).digest('hex')
     const b = createHash('sha256').update(serialized(state)).digest('hex')
     expect(a).toBe(b)
-    const migrated = migrateToV19(makeSaveV16(state)).state
+    const migrated = migrateToV20(makeSaveV16(state)).state
     const after = peopleProjection(migrated)
     expect(after.profiles.length).toBeGreaterThanOrEqual(state.talent.length)
     // JSON persistence canonically represents negative zero as zero.

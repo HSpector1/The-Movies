@@ -14,6 +14,8 @@ import {
   type InferSchema,
   type JsonSchema,
 } from './dsl.ts'
+import {StudioBridgeIntentOption} from './intent-schema.ts'
+export {AVAILABLE_INTENT_KINDS} from './intent-schema.ts'
 import {industryDefinitions,StudioIndustryProjection} from './industry-schema.ts'
 
 export const PROTOCOL_VERSION = 4 as const
@@ -33,7 +35,7 @@ export const PROTOCOL_VERSION = 4 as const
 // Protocol stays 4 and gameplay save stays V18; both fields derive existing authority.
 // R05: the Profile uses the same authoritative calendar label as Industry.
 // Absolute career weeks and durable save formats remain unchanged.
-export const PROJECTION_VERSION = 29 as const
+export const PROJECTION_VERSION = 30 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -455,8 +457,8 @@ const StudioPersonSnapshot = object('StudioPersonSnapshot', {
 const StudioPresencePersonSnapshot = object('StudioPresencePersonSnapshot', {
   talentId: nonEmptyText(),
   name: nonEmptyText(),
-  creativeRole: enumeration(['actor', 'director', 'writer', 'craft']),
-  engagement: enumeration(['production', 'script', 'casting', 'roster']),
+  creativeRole: enumeration(['actor', 'director', 'writer', 'craft', 'scientist']),
+  engagement: enumeration(['production', 'script', 'casting', 'roster', 'research']),
   credit: nullable(enumeration([
     'writer',
     'director',
@@ -465,6 +467,7 @@ const StudioPresencePersonSnapshot = object('StudioPresencePersonSnapshot', {
     'support',
     'craft',
     'auditionee',
+    'scientist',
   ])),
   ownerId: nullable(text()),
   facilityId: nullable(text()),
@@ -677,7 +680,7 @@ const StudioSetSnapshot = object('StudioSetSnapshot', {
 // consequence preview are all authored here by the TypeScript authority;
 // Unity may only place, select, and dispatch.
 
-const foundingRole = () => enumeration(['actor', 'director', 'writer', 'craft'])
+const foundingRole = () => enumeration(['actor', 'director', 'writer', 'craft', 'scientist'])
 
 const StudioFoundingArrivalSnapshot = object('StudioFoundingArrivalSnapshot', {
   talentId: nonEmptyText(),
@@ -904,7 +907,7 @@ const StudioCommissionConceptSnapshot = object('StudioCommissionConceptSnapshot'
 const StudioCommissionWriterSnapshot = object('StudioCommissionWriterSnapshot', {
   id: nonEmptyText(),
   name: nonEmptyText(),
-  primaryRole: enumeration(['writer', 'director', 'actor', 'craft']),
+  primaryRole: enumeration(['writer', 'director', 'actor', 'craft', 'scientist']),
   estimateLabel: nonEmptyText(),
   estimateScore: number({ minimum: 0, maximum: 100 }),
   available: bool(),
@@ -1702,9 +1705,9 @@ export const StudioProductionsProjectionSchema = object('StudioProductionsProjec
 // ── P10A W0 — the player-safe PEOPLE projection (projection 18) ────────────
 // Producers per docs/engineering/P10-INFORMATION-VISIBILITY-TABLE.md. Nothing hidden
 // (actual skills, ceilings, devRate, actual genre experience, the seed) has a field.
-const disciplineEnum = () => enumeration(['acting', 'writing', 'directing', 'craft'])
+const disciplineEnum = () => enumeration(['acting', 'writing', 'directing', 'craft', 'research'])
 const genreEnum = () => enumeration(['comedy', 'drama', 'crime', 'romance', 'horror', 'adventure'])
-const professionEnum = () => enumeration(['actor', 'director', 'writer', 'craft'])
+const professionEnum = () => enumeration(['actor', 'director', 'writer', 'craft', 'scientist'])
 const attentionTierEnum = () => enumeration(['info', 'attention', 'decision', 'blocking'])
 const employmentStatusEnum = () =>
   enumeration(['contracted', 'engagedFreelancer', 'availableFreelancer', 'freeAgent', 'unavailable'])
@@ -1776,14 +1779,14 @@ const StudioPersonEmploymentSnapshot = object('StudioPersonEmploymentSnapshot', 
 })
 const StudioPersonWorkSnapshot = object('StudioPersonWorkSnapshot', {
   kind: enumeration(['available', 'assigned', 'ambiguous', 'undisclosed']),
-  assignmentKind: nullable(enumeration(['production', 'script'])),
+  assignmentKind: nullable(enumeration(['production', 'script', 'research'])),
   assignmentId: nullable(text()),
   label: nullable(text()),
   reason: nullable(text()),
 })
 const StudioPersonPresenceSnapshot = object('StudioPersonPresenceSnapshot', {
   onLot: bool(),
-  engagement: nullable(enumeration(['production', 'script', 'casting', 'roster'])),
+  engagement: nullable(enumeration(['production', 'script', 'casting', 'roster', 'research'])),
   credit: nullable(text()),
   facilityId: nullable(text()),
   facilityName: nullable(text()),
@@ -1990,6 +1993,7 @@ const StudioHistoryEventSnapshot = object('StudioHistoryEventSnapshot', {
     'facilityDemolished',
     'facilityMoved',
     'careerMilestone',
+    'technologyMilestone',
   ]),
   significance: enumeration(['landmark', 'major', 'standard', 'routine']),
   headline: nonEmptyText(),
@@ -2202,34 +2206,6 @@ export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
   talent: reference('StudioTalentProjection', StudioTalentProjectionSchema),
 })
 
-export const AVAILABLE_INTENT_KINDS = [
-  'signFoundingContract',
-  'foundStudio',
-  'commissionScreenplay',
-  'advanceWeek',
-  'acceptScreenplay',
-  'requestRewrite',
-  'startAuditions',
-  'acknowledgeAuditions',
-  'greenlightPicture',
-  'resolveProductionBlocker',
-  'startConstruction',
-  'commissionOriginalScreenplay',
-  'signContract',
-  // P06A W2: the ONE explicit release commitment. Its option ALWAYS carries a
-  // non-empty productionId (enforced at resolution and at the exact-ID client
-  // matcher; the shared option shape stays nullable for every other kind).
-  'commitPictureToRelease',
-  // P09 §18: the ONE construction commit, minted only by an accepted, legal
-  // placement quote (digest-bound); commit revalidates against the live state.
-  'placeFacility',
-  // P09A W5: the ONE Set commission, minted only by an accepted, legal Set quote.
-  'commissionSet',
-  // P10-R1: the two material contract actions, minted only by an accepted, legal
-  // contract quote (renewal in its window / early release); commit revalidates.
-  'renewContract',
-  'releaseTalent',
-] as const
 
 export const REJECTION_CODES = [
   'INVALID_JSON',
@@ -2258,15 +2234,6 @@ export const REJECTION_CATEGORIES = [
   'save-state',
 ] as const
 
-const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {
-  intentId: nonEmptyText(),
-  kind: enumeration(AVAILABLE_INTENT_KINDS),
-  label: nonEmptyText(),
-  detail: text(),
-  projectId: nullable(text()),
-  castingSessionId: nullable(text()),
-  productionId: nullable(text()),
-})
 
 const StudioSavedSlotSnapshot = object('StudioSavedSlotSnapshot', {
   studioName: nonEmptyText(),

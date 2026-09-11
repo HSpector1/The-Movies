@@ -108,10 +108,10 @@ function mkTalent(over: {
       directing: ceil('directing'),
       craft: ceil('craft'),
     } as Talent['ceilings'],
-    devRate: { acting: 1, writing: 1, directing: 1, craft: 1 },
+    devRate: { acting: 1, writing: 1, directing: 1, craft: 1, research: 1 },
     workEthic: over.workEthic ?? 60,
     genreExperience: ge as Talent['genreExperience'],
-    workHistory: { acting: 0, writing: 0, directing: 0, craft: 0 },
+    workHistory: { acting: 0, writing: 0, directing: 0, craft: 0, research: 0 },
     skill: flat,
   }
 }

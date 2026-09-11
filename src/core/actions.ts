@@ -1,4 +1,8 @@
 import { buildFilmParticipants } from './filmParticipants.js'
+import { applyTechnologyAction } from './technology.js'
+import { discardUnfilmedProductionTechnology } from './technologyProduction.js'
+import { generateScientist } from './worldgen.js'
+import { withResearchFoundation } from './researchPeople.js'
 // ── §3 applyActions ──────────────────────────────────────────────────────────
 // `applyActions(state, actions): GameState` — pure; validates, then applies the
 // three action kinds (greenlight / cancel / createTalent). This is the
@@ -294,6 +298,7 @@ const ROLE_DISCIPLINE: Record<CreativeRole, Discipline> = {
   director: 'directing',
   actor: 'acting',
   craft: 'craft',
+  scientist: 'research',
 }
 
 function requireRole(t: Talent, role: CreativeRole, label: string): void {
@@ -723,6 +728,7 @@ function applyCancel(state: GameState, action: Action & { kind: 'cancel' }): Gam
       ),
     },
     operations: removeManagedProductionWorkflow(state.operations, action.productionId),
+    technology: discardUnfilmedProductionTechnology(state,action.productionId),
     scriptDevelopment,
   }
 }
@@ -861,7 +867,7 @@ function constructAuthoredTalent(
   const workHistory = {} as WorkHistory
   for (const d of DISCIPLINE_ORDER) workHistory[d] = 0
 
-  const t: Talent = {
+  const t = withResearchFoundation({
     id,
     name: a.name,
     role: a.role,
@@ -878,7 +884,7 @@ function constructAuthoredTalent(
     genreExperience,
     workHistory,
     skill: 0, // set below
-  }
+  })
   t.skill = roleOVR(t, primary) // legacy proxy = primary perceived OVR
   t.salary = salaryCurve(t)
   return t
@@ -1010,7 +1016,7 @@ function constructCustomTalent(a: CustomTalentInput, id: string, seed: string): 
   const workHistory = {} as WorkHistory
   for (const d of DISCIPLINE_ORDER) workHistory[d] = 0
 
-  const t: Talent = {
+  const t = withResearchFoundation({
     id,
     name: a.name,
     role: a.role,
@@ -1027,7 +1033,7 @@ function constructCustomTalent(a: CustomTalentInput, id: string, seed: string): 
     genreExperience,
     workHistory,
     skill: 0, // set below
-  }
+  })
   t.skill = roleOVR(t, primary)
   t.salary = salaryCurve(t)
   return t
@@ -1087,6 +1093,7 @@ export const ADJACENT_DISCIPLINE: Record<Discipline, Discipline> = {
   writing: 'directing',
   directing: 'writing',
   craft: 'directing',
+  research: 'craft',
 }
 
 // The discipline a preset's multi-hyphenate secondary boost actually lands on: the boost
@@ -1134,6 +1141,7 @@ function constructBalancedTalent(a: BalancedTalentInput, id: string, seed: strin
     writing: new Array(6).fill(floor),
     directing: new Array(6).fill(floor),
     craft: new Array(6).fill(floor),
+    research: new Array(6).fill(1),
   }
   for (const d of DISCIPLINE_ORDER) {
     if (d === primary) vec[d] = preset.primarySkills.map((v) => Math.max(floor, v))
@@ -1198,7 +1206,7 @@ function constructBalancedTalent(a: BalancedTalentInput, id: string, seed: strin
   const workHistory = {} as WorkHistory
   for (const d of DISCIPLINE_ORDER) workHistory[d] = 0
 
-  const t: Talent = {
+  const t = withResearchFoundation({
     id,
     name: a.name,
     role: a.role,
@@ -1215,7 +1223,7 @@ function constructBalancedTalent(a: BalancedTalentInput, id: string, seed: strin
     genreExperience,
     workHistory,
     skill: 0,
-  }
+  })
   t.skill = roleOVR(t, primary)
   t.salary = salaryCurve(t)
   return t
@@ -2721,6 +2729,14 @@ function applyReleaseTalent(state: GameState, action: Action & { kind: 'releaseT
     contracts: state.contracts.filter((c) => c !== contract),
     ledger: [...state.ledger, entry],
     freeAgents: state.freeAgents.includes(talentId) ? state.freeAgents : [...state.freeAgents, talentId],
+    technology: {
+      ...state.technology,
+      projects: state.technology.projects.map((project) =>
+        project.scientistId === talentId && project.status === 'active'
+          ? { ...project, status: 'paused' }
+          : project,
+      ),
+    },
   }
 }
 
@@ -2908,6 +2924,30 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
   let next = state
   for (const action of actions) {
     switch (action.kind) {
+      case 'recruitScientist': {
+        if (!next.hollywood || next.founding !== null || !next.operations.facilities.some(f => f.id === action.laboratoryFacilityId && f.capability === 'laboratory')) {
+          throw new Error('Complete this Research Laboratory before recruiting its Scientist.')
+        }
+        if (next.talent.some(t => t.role === 'scientist' && activeContract(next, t.id))) throw new Error('This programme already employs its Scientist.')
+        const scientist = next.talent.find(t => t.role === 'scientist') ?? generateScientist(next.seed)
+        if (next.talent.some(t => t.id === scientist.id && t !== scientist)) throw new Error('The Scientist identity is already in use.')
+        const candidate = next.talent.includes(scientist) ? next : {...next, talent:[...next.talent,scientist], freeAgents:[...next.freeAgents,scientist.id]}
+        next = applySignContract(candidate,{kind:'signContract',talentId:scientist.id,termWeeks:208})
+        break
+      }
+      case 'installAcousticInstruments':
+      case 'assignResearchScientist':
+      case 'beginResearch':
+      case 'setResearchBudget':
+      case 'pauseResearch':
+      case 'cancelResearch':
+      case 'resumeResearch':
+      case 'waitForTechnology':
+      case 'purchaseTechnology':
+      case 'adoptSynchronizedSound':
+      case 'setProductionTechnology':
+        next = applyTechnologyAction(next, action)
+        break
       case 'greenlight':
         next = applyGreenlight(next, action)
         break

@@ -29,7 +29,7 @@ import {
 } from './adapter.ts'
 import type { CreativeRole, GameState, PlacementRequest } from './adapter.ts'
 
-const COUNTS: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 2, craft: 1 }
+const COUNTS: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 2, craft: 1, scientist: 0 }
 
 const LEGACY_PARCEL_ID = 'expansion'
 

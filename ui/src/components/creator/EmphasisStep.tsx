@@ -19,6 +19,7 @@ const ROLE_FOR_DISCIPLINE: Record<Discipline, CreativeRole> = {
   writing: 'writer',
   directing: 'director',
   craft: 'craft',
+  research: 'scientist',
 }
 
 export function EmphasisStep({

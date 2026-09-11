@@ -91,7 +91,7 @@ describe('Placement Core V12 — the blueprint catalog', () => {
     // a week, and it is still the entry every migrated V11 world points at.
     // C2a-M2 appended the §3.4 slate (soundstage / post / scenery / baseline
     // office). The Annex is still entry ZERO and still byte-identical below.
-    expect(FACILITY_BLUEPRINTS).toHaveLength(9)
+    expect(FACILITY_BLUEPRINTS).toHaveLength(13)
     expect(FACILITY_BLUEPRINTS[0]).toBe(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT)
     expect(DEVELOPMENT_CASTING_ANNEX_BLUEPRINT).toEqual({
       id: 'development-casting-annex',
@@ -648,6 +648,7 @@ describe('Placement Core V12 — the build-mode read model', () => {
       'post-building',
       'scenery-shop',
       'development-casting-office',
+      'research-laboratory',
     ])
     expect(empty.catalog.slice(0, 1)).toEqual([
       {

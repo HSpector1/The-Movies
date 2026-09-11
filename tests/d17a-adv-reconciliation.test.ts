@@ -32,7 +32,7 @@ import {
 } from '../src/core/index.js'
 import type { AllocationWindow, CastSlot, CreativeRole, GameState } from '../src/core/index.js'
 
-const ROSTER: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2 }
+const ROSTER: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }
 
 /** Found a studio; `foundingTicks` weeks are ticked while the founding draft is still OPEN,
  *  which charges neither payroll nor overhead (tick steps 7 / 7.5 gate on founding === null). */

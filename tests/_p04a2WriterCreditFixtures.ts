@@ -66,7 +66,7 @@ export function foundedStudio(
     director: FOUNDING_MINIMUMS.director + (extra.director ?? 0),
     writer: FOUNDING_MINIMUMS.writer + (extra.writer ?? 0),
     craft: FOUNDING_MINIMUMS.craft + (extra.craft ?? 0),
-  }
+   scientist: 0 }
   const hires: Talent[] = []
   for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
     const available = byRole(pool, role)

@@ -144,7 +144,7 @@ function managedScriptWeekZero(seed: string): GameState {
     director: 1,
     writer: 1,
     craft: 1,
-  }
+   scientist: 0 }
   let state = newGame(seed)
   const cards = foundingApplicantCards(state)
   for (const role of ['actor', 'director', 'writer', 'craft'] as const) {

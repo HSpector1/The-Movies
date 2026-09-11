@@ -9,6 +9,7 @@
 import type { Contract, GameState, GameStateV3, TheatricalRun, LedgerKind } from './types.js'
 import { TUNING } from './tuning.js'
 import { weeklyPlacementOperatingCost } from './placement.js'
+import { weeklyResearchSpend } from './technology.js'
 import {
   economyEngaged,
   weeklyPayroll,
@@ -68,7 +69,7 @@ export function weeklyFacilityOperatingCost(state: GameState): number {
 // PROJECTION past that gate and is unchanged.
 export function weeklyBurn(state: GameState): number {
   if (state.founding !== null) return 0
-  return weeklyPayroll(state) + weeklyOverhead(state) + weeklyFacilityOperatingCost(state)
+  return weeklyPayroll(state) + weeklyOverhead(state) + weeklyFacilityOperatingCost(state) + weeklyResearchSpend(state)
 }
 
 // During FOUNDING (founding !== null) overhead is not yet charged (tick step 7.5 gates on
@@ -454,6 +455,9 @@ const ZERO_TOTALS = (): FinanceTotals => ({
 // COMPILE-GUARDED: `Record<LedgerKind, …>` makes a new LedgerKind a type error here until it
 // is given a home, so no kind can silently fall into someone else's bucket (D-17B §5).
 const KIND_FIELD: Record<LedgerKind, keyof FinanceTotals> = {
+  researchPayroll: 'payroll',
+  researchSpend: 'overhead',
+  technologyAdoption: 'construction',
   studioRevenue: 'studioRevenue',
   boxOffice: 'boxOfficeLump',
   production: 'production',
@@ -544,6 +548,7 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
     const kind: LedgerKind = e.kind
     switch (kind) {
       case 'payroll':
+      case 'researchPayroll':
         s.payroll += e.amount
         break
       case 'overhead':
@@ -571,6 +576,7 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
         s.publicity += e.amount
         break
       case 'constructionCapex':
+      case 'technologyAdoption':
       // C1-M3a: the refund is a POSITIVE amount in the same bucket, so this line
       // nets capital recovered against capital committed. Same reasoning as
       // KIND_FIELD above; the two must never disagree.
@@ -584,6 +590,7 @@ export function periodSummary(state: GameState, fromWeek: number, toWeekInclusiv
         s.construction += e.amount
         break
       case 'setMaintenance':
+      case 'researchSpend':
         s.overhead += e.amount
         break
       case 'signingBonus':

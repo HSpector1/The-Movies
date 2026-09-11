@@ -28,7 +28,7 @@ import {
 } from '../src/core/index.js'
 import type { CastSlot, CreativeRole, GameState } from '../src/core/index.js'
 
-const ROSTER: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2 }
+const ROSTER: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }
 
 function foundStudio(seed: string, term: number): GameState {
   let s = beginFounding(generateWorld(seed))

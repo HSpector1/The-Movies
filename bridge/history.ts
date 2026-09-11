@@ -16,6 +16,7 @@
 import { findConcept, standingChannels } from '../ui/src/engine/adapter.ts'
 import { HISTORY_ROUTINE_WINDOW_WEEKS, studioHistoryChronology } from '../src/core/studioHistory.ts'
 import { studioPresence } from '../src/core/presence.ts'
+import { campaignDate } from '../src/core/calendar.ts'
 import type {
   GameState,
   Standing,
@@ -275,6 +276,16 @@ export function historyProjection(state: GameState): BridgeHistoryProjection {
       buildingId: null as string | null,
     }
     switch (row.kind) {
+      case 'technologyMilestone':
+        timeline.push({
+          ...base,
+          headline: row.milestone === 'researchable' ? 'Synchronized-sound research opens' : 'Synchronized sound reaches commercial release',
+          detail: row.milestone === 'researchable'
+            ? `${campaignDate(row.week).label}. An equipped Research Laboratory and a named Scientist can now begin this research.`
+            : `${campaignDate(row.week).label}. Studios may purchase access and arrange their stage, capture and Post installation.`,
+          subjectKind: 'studio', subjectId: null, subjectLabel: 'The studio', subjectLocation: 'none',
+        })
+        break
       case 'studioFounded':
         timeline.push({
           ...base,

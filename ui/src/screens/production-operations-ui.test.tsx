@@ -25,12 +25,14 @@ const FOUNDING_COUNTS: Record<CreativeRole, number> = {
   director: 1,
   writer: 1,
   craft: 1,
+  scientist: 0,
 }
 const RICH_FOUNDING_COUNTS: Record<CreativeRole, number> = {
   actor: 6,
   director: 2,
   writer: 2,
   craft: 2,
+  scientist: 0,
 }
 
 function readyToFound(

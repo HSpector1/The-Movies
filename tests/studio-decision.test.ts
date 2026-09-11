@@ -33,7 +33,7 @@ function richFoundedStudio(seed: string): GameState {
     director: Math.max(2, FOUNDING_MINIMUMS.director),
     writer: Math.max(3, FOUNDING_MINIMUMS.writer),
     craft: Math.max(2, FOUNDING_MINIMUMS.craft),
-  }
+   scientist: 0 }
   for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
     for (const person of byRole(applicants, role).slice(0, counts[role])) {
       state = applyActions(state, [

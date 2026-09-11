@@ -32,6 +32,7 @@ const roleForDiscipline: Record<Discipline, CreativeRole> = {
   writing: 'writer',
   directing: 'director',
   craft: 'craft',
+  research: 'scientist',
 }
 const WORLDS = 150 // ~4200 actors / 1800 writers / 1500 directors / 1500 craft
 const BUDGET = TUNING.BALANCED_CREATOR_SPECIALIZATION_POINTS
@@ -40,8 +41,8 @@ const BUDGET = TUNING.BALANCED_CREATOR_SPECIALIZATION_POINTS
 // Primary benchmark: working-age (all generated are 18–70), signable (fresh world = all
 // non-contracted), primary-profession talent — i.e. every generated talent's PRIMARY OVR,
 // grouped by discipline. Also collect the founding-applicant sub-population for context.
-const popByDiscipline: Record<Discipline, number[]> = { acting: [], writing: [], directing: [], craft: [] }
-const foundingByDiscipline: Record<Discipline, number[]> = { acting: [], writing: [], directing: [], craft: [] }
+const popByDiscipline: Record<Discipline, number[]> = { acting: [], writing: [], directing: [], craft: [], research: [] }
+const foundingByDiscipline: Record<Discipline, number[]> = { acting: [], writing: [], directing: [], craft: [], research: [] }
 for (let i = 1; i <= WORLDS; i++) {
   const w = generateWorld(`pop-${i}`)
   for (const t of w.talent) popByDiscipline[ROLE_TO_DISCIPLINE[t.role]].push(roleOVR(t, ROLE_TO_DISCIPLINE[t.role]))

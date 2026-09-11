@@ -63,13 +63,13 @@ type Route = {
 }
 const ROUTES: Route[] = [
   // A — competent small studio, aggressive spending (generous budget, wide marketing, both slots).
-  { name: 'A_competent_aggressive', counts: { actor: 6, director: 2, writer: 2, craft: 2 }, rank: 'best', negMult: 1.25, marketing: 1_000_000, maxConcurrent: 2 },
+  { name: 'A_competent_aggressive', counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }, rank: 'best', negMult: 1.25, marketing: 1_000_000, maxConcurrent: 2 },
   // B — competent small studio, restrained (adequate budget, standard marketing, ONE active film).
-  { name: 'B_competent_restrained', counts: { actor: 5, director: 1, writer: 1, craft: 1 }, rank: 'best', negMult: 1.0, marketing: 400_000, maxConcurrent: 1 },
+  { name: 'B_competent_restrained', counts: { actor: 5, director: 1, writer: 1, craft: 1, scientist: 0 }, rank: 'best', negMult: 1.0, marketing: 400_000, maxConcurrent: 1 },
   // C — star-heavy (expensive/famous talent, generous budget, wide marketing).
-  { name: 'C_star_heavy', counts: { actor: 6, director: 2, writer: 2, craft: 2 }, rank: 'star', negMult: 1.25, marketing: 1_000_000, maxConcurrent: 2 },
+  { name: 'C_star_heavy', counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }, rank: 'star', negMult: 1.25, marketing: 1_000_000, maxConcurrent: 2 },
   // D — bargain-basement stress (cheapest legal roster, lowest spending) — a STRESS case, not representative.
-  { name: 'D_bargain_stress', counts: { actor: 3, director: 1, writer: 1, craft: 1 }, rank: 'cheapest', negMult: 0.75, marketing: 100_000, maxConcurrent: 2 },
+  { name: 'D_bargain_stress', counts: { actor: 3, director: 1, writer: 1, craft: 1, scientist: 0 }, rank: 'cheapest', negMult: 0.75, marketing: 100_000, maxConcurrent: 2 },
 ]
 const ROLES: CreativeRole[] = ['actor', 'director', 'writer', 'craft']
 

@@ -58,6 +58,7 @@ const CREATIVE_ROLE_LABEL: Record<
   director: 'Director',
   actor: 'Actor',
   craft: 'Craft',
+  scientist: 'Scientist',
 }
 
 function formatScore(value: number): string {

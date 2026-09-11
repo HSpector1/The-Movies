@@ -4,6 +4,7 @@ import { TUNING } from './tuning.js'
 import { financeView } from './economyView.js'
 
 export const FINANCE_CATEGORIES: Record<LedgerKind, string> = {
+  researchPayroll: 'Scientist payroll', researchSpend: 'Research materials and experiments', technologyAdoption: 'Technology access and production equipment',
   studioRevenue: 'Studio Revenue received', boxOffice: 'Legacy box-office receipt',
   payroll: 'Payroll', overhead: 'Ordinary studio overhead', facilityOpex: 'Facility operating costs',
   production: 'Film production and marketing commitments', freelancerFee: 'Film freelancer fees',

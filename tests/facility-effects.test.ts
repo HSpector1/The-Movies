@@ -177,6 +177,10 @@ describe('C1-M4 — the widened catalog', () => {
       'post-building',
       'scenery-shop',
       'development-casting-office',
+      'research-laboratory',
+      'acoustic-instruments',
+      'synchronized-sound-stage',
+      'synchronized-sound-post',
     ])
     // The bounded-term law runs at every action, tick, and save boundary; this
     // pins the authored values themselves so a price cannot drift unnoticed.
@@ -542,7 +546,7 @@ describe('C1-M4 — the whole catalog standing at once', () => {
 
   it('shows the whole catalog in the build read model, with its unlock state', () => {
     const view = studioPlacementView(withCash(managedStudio('m4-catalog-view'), 50_000_000))
-    expect(view.catalog).toHaveLength(9)
+    expect(view.catalog).toHaveLength(10)
     const office3 = view.catalog.find((entry) => entry.blueprintId === 'development-office-3')!
     expect(office3.available).toBe(false)
     expect(office3.unmet[0]!.reason).toBe('Requires an operational Development Office II.')

@@ -1,4 +1,6 @@
 import {chooseIndustryPackage} from './hollywoodPolicy.js'
+import { considerRivalSoundPurchase, selectRivalSoundProduction, rivalInstallationSlots } from './technologyRival.js'
+import { createProductionTechnologyPolicy } from './technologyProduction.js'
 import { busyTalentIds, offerForTalent, weeklySalary, renewalWindowOpen } from './employment.js'
 import { moveRivalMoney, rivalCapacityOpex, rivalWeeklyOperatingCost, uniqueIdentity } from './hollywood.js'
 import { RIVAL_TEAM_ROLES } from './hollywoodStartingData.js'
@@ -210,22 +212,27 @@ function decide(state:GameState,h:HollywoodState,b:RivalBusiness,talent:Talent[]
 }
 
 /** Stage rival work against pre-development talent. All writes are to new local objects. */
-export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[]} {
+export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|null;talent:Talent[];growth:ReleaseGrowthRecord[];technology:GameState['technology']} {
   const source=state.hollywood
-  if(!source)return {hollywood:null,talent:state.talent,growth:[]}
+  if(!source)return {hollywood:null,talent:state.talent,growth:[],technology:state.technology}
   const week=state.market.tick
   const h:HollywoodState={...source,businesses:source.businesses.map(b=>({...b,account:{...b.account,
     periods:b.account.periods.map((p,i)=>i===b.account.periods.length-1?{...p,movements:{...p.movements}}:p)}}))}
   let talent=state.talent
+  let technology=state.technology
   const growth:ReleaseGrowthRecord[]=[]
   for(const b of h.businesses) {
+    technology=considerRivalSoundPurchase({...state,technology,hollywood:h},h,b)
     if(week>=b.nextDecisionWeek)talent=staff(state,h,b,talent,week)
     decide(state,h,b,talent,week)
     operateStage(b)
     for(const p of b.productions) if(releaseCommitmentRefusal({productions:b.productions,operations:b.operations,releaseAuthority:b.releaseAuthority,concepts:[]},p.id)===null) {
       b.releaseAuthority=withReleaseCommitment(b.releaseAuthority,p.id,week)
     }
-    const advanced=advanceManagedProductions(b.operations,b.productions,week,committedReleaseIds(b.releaseAuthority),scriptOccupiedFacilitySlots(hotDevelopment(b)))
+    technology=selectRivalSoundProduction(technology,b)
+    const productionTechnology=createProductionTechnologyPolicy({...state,hollywood:h,technology},b.studioId)
+    const advanced=advanceManagedProductions(b.operations,b.productions,week,committedReleaseIds(b.releaseAuthority),new Set([...scriptOccupiedFacilitySlots(hotDevelopment(b)),...rivalInstallationSlots(technology,b)]),undefined,undefined,productionTechnology.policy)
+    technology=productionTechnology.technology()
     const releasing=advanced.productions.filter(p=>p.remainingTicks===0).sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0)
     const ids=new Set(releasing.map(p=>p.id))
     if(ids.size!==advanced.admittedReleaseIds.length||advanced.admittedReleaseIds.some(id=>!ids.has(id)))throw new Error('Industry release admission mismatch')
@@ -286,7 +293,7 @@ export function advanceHollywoodWeek(state:GameState):{hollywood:HollywoodState|
     for(const project of complete.projects)if(project.status==='review')complete=acceptScriptProject(complete,project.id)
     storeHotDevelopment(b,complete)
   }
-  return {hollywood:h,talent,growth}
+  return {hollywood:h,talent,growth,technology}
 }
 
 /** End-of-week expiry follows payroll; future entrants are attached by the outer tick. */

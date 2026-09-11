@@ -302,7 +302,7 @@ export function rosterWallRoleCoverage(
     director: 0,
     writer: 0,
     craft: 0,
-  }
+   scientist: 0 }
   for (const talent of state.talent) {
     if (activeIds.has(talent.id)) coverage[talent.role]++
   }

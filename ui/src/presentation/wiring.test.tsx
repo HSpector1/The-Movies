@@ -59,7 +59,7 @@ const rendererSpy = vi.hoisted(() => {
 
 vi.mock('../lot/StudioLotView.ts', () => ({ StudioLotView: rendererSpy.FakeView }))
 
-const COUNTS: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 2, craft: 1 }
+const COUNTS: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 2, craft: 1, scientist: 0 }
 
 function managedStudio(seed: string): GameState {
   let state = newGame(seed)

@@ -37,6 +37,7 @@ const RANK: Readonly<Record<FacilityCapability, number>> = {
   soundstage: 2,
   'set-scenery': 3,
   post: 4,
+  laboratory: 5,
 }
 
 /** One stage, one Post slot: everything that can contend, does. */

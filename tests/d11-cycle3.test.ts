@@ -47,6 +47,7 @@ const roleFor: Record<Discipline, CreativeRole> = {
   writing: 'writer',
   directing: 'director',
   craft: 'craft',
+  research: 'scientist',
 }
 
 function baseInput(over: Partial<BalancedTalentInput> = {}): BalancedTalentInput {

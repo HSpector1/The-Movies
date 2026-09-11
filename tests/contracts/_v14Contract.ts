@@ -384,6 +384,17 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
   delete raw.studioHistory
   delete raw.hollywood
   delete raw.foundingRegime
+  // This explicit historical test projection has no P13 authority. Strip only
+  // the later neutral foundation, then prove the original V13 boundary below.
+  if (state.technology.projects.length || state.technology.access.length || state.technology.adoptions.length || state.technology.productions.length || state.talent.some(person => person.role === 'scientist')) {
+    throw new Error('V13 twin cannot discard P13 technology authority')
+  }
+  delete raw.technology
+  for (const person of raw.talent as Record<string, unknown>[]) {
+    for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
+      delete (person[key] as Record<string, unknown>).research
+    }
+  }
 
   const operations = raw.operations as Record<string, unknown> | undefined
   if (operations !== undefined && Array.isArray(operations.workflows)) {

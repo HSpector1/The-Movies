@@ -91,7 +91,7 @@ export type LotAuditionPlanningReceipt = {
 
 const ROLE_ORDER = ['lead', 'antagonist', 'support'] as const
 const GENRES = new Set(['comedy', 'drama', 'crime', 'romance', 'horror', 'adventure'])
-const CREATIVE_ROLES = new Set(['writer', 'director', 'actor', 'craft'])
+const CREATIVE_ROLES = new Set(['writer', 'director', 'actor', 'craft', 'scientist'])
 
 const BOARD_KEYS = ['mode', 'capacity', 'activation', 'sections', 'nextDecision'] as const
 const ACTIVATION_KEYS = ['canActivate', 'label', 'blocker'] as const

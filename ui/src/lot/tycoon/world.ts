@@ -485,6 +485,10 @@ const CAPABILITY_PRESENTATION: Readonly<Record<string, BlueprintPresentation>> =
     texKey: PLACED_DEVELOPMENT_CASTING_TEX_KEY,
     anchors: DEFAULT_BLUEPRINT_PRESENTATION.anchors,
   },
+  laboratory: {
+    texKey: PLACED_DEVELOPMENT_CASTING_TEX_KEY,
+    anchors: DEFAULT_BLUEPRINT_PRESENTATION.anchors,
+  },
 }
 
 /**

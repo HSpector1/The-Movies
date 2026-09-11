@@ -37,7 +37,7 @@ function foundStudio(seed: string, rich = false): GameState {
     director: 2,
     writer: 2,
     craft: 2,
-  }
+   scientist: 0 }
   for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
     for (const person of applicants
       .filter((candidate) => candidate.role === role)

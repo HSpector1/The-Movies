@@ -47,6 +47,7 @@ const FOUNDING_COUNTS: Record<CreativeRole, number> = {
   director: 1,
   writer: 2,
   craft: 1,
+  scientist: 0,
 }
 
 function managedStudio(seed: string): GameState {

@@ -42,12 +42,14 @@ const ROLE_GROUP_LABEL: Record<CreativeRole, string> = {
   director: 'Directors',
   writer: 'Writers',
   craft: 'Production / Craft',
+  scientist: 'Scientist',
 }
 const ROLE_LABEL: Record<CreativeRole, string> = {
   actor: 'Actor',
   director: 'Director',
   writer: 'Writer',
   craft: 'Craft',
+  scientist: 'Scientist',
 }
 
 // Sort options (label + the authoritative FoundingSortKey the adapter sorts by). Default

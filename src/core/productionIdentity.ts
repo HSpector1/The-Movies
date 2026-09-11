@@ -13,6 +13,7 @@ export function persistedProductionIds(state: GameState): Set<string> {
   }
 
   for (const active of state.studio.activeProductions) add(active.id)
+  for (const loadout of (state as Partial<GameState>).technology?.productions ?? []) add(loadout.productionId)
   for (const film of state.studio.releasedFilms) add(film.productionId)
   for (const run of state.theatricalRuns) add(run.productionId)
   for (const entry of state.ledger) add(entry.productionId)
@@ -68,7 +69,7 @@ export function persistedProductionIds(state: GameState): Set<string> {
       case 'careerMilestone': add(row.filmId); break
       case 'standingChanged': if (row.source.kind === 'releaseResult') add(row.source.productionId); break
       case 'studioFounded': case 'standingDriftFolded': case 'facilityCommitted': case 'facilityCompleted':
-      case 'facilityDemolished': case 'facilityMoved': break
+      case 'facilityDemolished': case 'facilityMoved': case 'technologyMilestone': break
       default: { const exhaustive: never = row; throw new Error(`Unhandled History identity: ${exhaustive}`) }
     }
   }
@@ -92,7 +93,7 @@ export function persistedProductionIds(state: GameState): Set<string> {
   for (const event of h?.receipts ?? []) {
     switch (event.kind) {
       case 'filmAnnounced': case 'filmReleased': case 'filmSettled': add(event.productionId); break
-      case 'studioEntered': case 'employment': break
+      case 'studioEntered': case 'employment': case 'technologyAdopted': break
       default: { const exhaustive: never = event; throw new Error(`Unhandled Industry identity: ${exhaustive}`) }
     }
   }

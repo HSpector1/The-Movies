@@ -43,11 +43,11 @@ const ROLES: CreativeRole[] = ['actor', 'director', 'writer', 'craft']
 
 type Strat = { name: string; counts: Record<CreativeRole, number>; rank: 'best' | 'cheapest' | 'prospect'; negMult: number; marketing: number }
 const STRATS: Strat[] = [
-  { name: 'bargainBasement', counts: { actor: 3, director: 1, writer: 1, craft: 1 }, rank: 'cheapest', negMult: 0.85, marketing: 200_000 },
-  { name: 'lean', counts: { actor: 4, director: 1, writer: 1, craft: 1 }, rank: 'cheapest', negMult: 0.95, marketing: 400_000 },
-  { name: 'balanced', counts: { actor: 6, director: 2, writer: 2, craft: 2 }, rank: 'best', negMult: 1.1, marketing: 1_200_000 },
-  { name: 'largeDepth', counts: { actor: 8, director: 3, writer: 3, craft: 2 }, rank: 'best', negMult: 1.25, marketing: 2_000_000 },
-  { name: 'star', counts: { actor: 6, director: 2, writer: 2, craft: 2 }, rank: 'best', negMult: 1.4, marketing: 3_000_000 },
+  { name: 'bargainBasement', counts: { actor: 3, director: 1, writer: 1, craft: 1, scientist: 0 }, rank: 'cheapest', negMult: 0.85, marketing: 200_000 },
+  { name: 'lean', counts: { actor: 4, director: 1, writer: 1, craft: 1, scientist: 0 }, rank: 'cheapest', negMult: 0.95, marketing: 400_000 },
+  { name: 'balanced', counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }, rank: 'best', negMult: 1.1, marketing: 1_200_000 },
+  { name: 'largeDepth', counts: { actor: 8, director: 3, writer: 3, craft: 2, scientist: 0 }, rank: 'best', negMult: 1.25, marketing: 2_000_000 },
+  { name: 'star', counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }, rank: 'best', negMult: 1.4, marketing: 3_000_000 },
 ]
 
 type Variant = 'baseline' | 'equalWriters' | 'fullCapacity' | 'freelancerFill'
@@ -66,7 +66,7 @@ function rankTalent(list: Talent[], role: CreativeRole, rank: Strat['rank']): Ta
 // whole team, not just writers); baseline/freelancerFill → the strategy's own counts.
 function countsFor(st: Strat, variant: Variant): Record<CreativeRole, number> {
   if (variant === 'equalWriters') return { ...st.counts, writer: Math.max(2, st.counts.writer) }
-  if (variant === 'fullCapacity') return { actor: Math.max(6, st.counts.actor), director: Math.max(2, st.counts.director), writer: Math.max(2, st.counts.writer), craft: Math.max(2, st.counts.craft) }
+  if (variant === 'fullCapacity') return { actor: Math.max(6, st.counts.actor), director: Math.max(2, st.counts.director), writer: Math.max(2, st.counts.writer), craft: Math.max(2, st.counts.craft), scientist: 0 }
   return st.counts
 }
 

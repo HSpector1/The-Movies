@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV19, makeSaveV18 } from '../src/core/index.js'
+import { beginFounding, generateWorld, makeSave, exportSave, importSave, migrateToV20, makeSaveV18 } from '../src/core/index.js'
 import { enterRival } from '../src/core/hollywood.js'
 import { persistedConceptIds, persistedProductionIds } from '../src/core/productionIdentity.js'
 
@@ -24,7 +24,7 @@ describe('R05 canonical starting history and genuine migration', () => {
       expect(persistedConceptIds(world).has(f.conceptId)).toBe(true)
     }
     const bytes=exportSave(makeSave(world))
-    expect(exportSave(migrateToV19(importSave(bytes)))).toBe(bytes)
+    expect(exportSave(migrateToV20(importSave(bytes)))).toBe(bytes)
     expect(exportSave(makeSave(beginFounding(world)))).toBe(bytes)
   })
   it('migrates at each old state own week with empty company histories and exact player state', () => {
@@ -33,14 +33,14 @@ describe('R05 canonical starting history and genuine migration', () => {
       old.market.tick=week
       const frozen=makeSaveV18(old)
       const original=exportSave(frozen)
-      const migrated=migrateToV19(frozen)
+      const migrated=migrateToV20(frozen)
       expect(migrated.state.hollywood!.films).toEqual([])
       expect(migrated.state.hollywood!.businesses.length).toBe(4+[520,988,1560,1872,2548].filter(w=>w<=week).length)
       expect(migrated.state.hollywood!.identities.filter(s=>s.role==='rival'&&s.enteredWeek!==null).every(s=>s.enteredWeek===week)).toBe(true)
       expect(migrated.state.studio).toEqual(old.studio)
       expect(migrated.state.rngState).toBe(old.rngState)
       expect(exportSave(frozen)).toBe(original)
-      expect(exportSave(migrateToV19(migrated))).toBe(exportSave(migrated))
+      expect(exportSave(migrateToV20(migrated))).toBe(exportSave(migrated))
     }
   })
   it('refuses early entry and malformed or duplicate authored history without repairing it', () => {

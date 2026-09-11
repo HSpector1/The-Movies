@@ -27,6 +27,7 @@ const FOUND_ROSTER: Record<CreativeRole, number> = {
   director: 2,
   writer: 3,
   craft: 2,
+  scientist: 0,
 }
 
 // A founded studio for `seed`: opens founding, signs the roster above from the

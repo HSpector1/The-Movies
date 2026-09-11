@@ -25,7 +25,7 @@ import {
   FOUNDING_MINIMUMS,
   generateWorld,
   makeSaveV16,
-  migrateToV19,
+  migrateToV20,
   stableStringify,
   tick,
   TUNING,
@@ -172,7 +172,7 @@ describe('P08A W2 — P3 exact routes and P5 provenance', () => {
 describe('P08A W2 — P4 honesty for migrated worlds', () => {
   it('says what was not recorded, lists pre-boundary films as unrecorded, and invents no row', () => {
     const played = releasedStudio('p08-w2-migrated', true)
-    const migrated = migrateToV19(makeSaveV16(played)).state
+    const migrated = migrateToV20(makeSaveV16(played)).state
     const h = historyProjection(migrated)
     expect(h.recordingStartedWeek).toBe(played.market.tick)
     expect(h.notRecordedNotice).toBe(

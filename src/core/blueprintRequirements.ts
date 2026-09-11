@@ -28,6 +28,7 @@
 // campaign. Engine-side accusations belong in invariant messages, not here.
 
 import { propertyOf } from './lot.js'
+import { playerTechnologyAccess } from './technology.js'
 import type {
   BlueprintAvailability,
   BlueprintRequirement,
@@ -47,6 +48,7 @@ import type {
  * `NOT_YET_ATTAINABLE_KINDS` and into `satisfied` below is the whole change.
  */
 export const LIVE_REQUIREMENT_KINDS: readonly BlueprintRequirement['kind'][] = [
+  'research',
   'date',
   'facility',
   'structure',
@@ -63,7 +65,6 @@ const NOT_YET_ATTAINABLE_KINDS: Readonly<Record<string, string>> = {
   rank: 'Studio rank is not part of the game yet.',
   certificate: 'Certificates are not part of the game yet.',
   award: 'Awards are not part of the game yet.',
-  research: 'Research is not part of the game yet.',
   landZone: 'Buying land is not part of the game yet.',
 }
 
@@ -117,7 +118,7 @@ export function blueprintRequirementReason(
     case 'award':
       return `Requires the ${requirement.awardId} award. ${NOT_YET_ATTAINABLE_KINDS.award!}`
     case 'research':
-      return `Requires the ${requirement.packId} research. ${NOT_YET_ATTAINABLE_KINDS.research!}`
+      return `Requires ${requirement.packId === 'synchronized-sound' ? 'synchronized-sound access through completed research or commercial purchase' : requirement.packId + ' research'}.`
     case 'landZone':
       return `Requires owning ${requirement.zoneId}. ${NOT_YET_ATTAINABLE_KINDS.landZone!}`
     default:
@@ -157,10 +158,11 @@ export function blueprintRequirementMet(
     // systems that would satisfy them land in C3/C4, and each activates here by
     // reading the state root its system adds — one case, no new kind, no new
     // rejection code, no change to any caller.
+    case 'research':
+      return playerTechnologyAccess(state, requirement.packId)
     case 'rank':
     case 'certificate':
     case 'award':
-    case 'research':
     case 'landZone':
       return false
     default:

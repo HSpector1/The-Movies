@@ -137,7 +137,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 29,
+          "const": 30,
           "type": "integer"
         },
         "stateDigest": {
@@ -254,7 +254,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 29,
+          "const": 30,
           "type": "integer"
         },
         "stateDigest": {
@@ -324,7 +324,8 @@
             "placeFacility",
             "commissionSet",
             "renewContract",
-            "releaseTalent"
+            "releaseTalent",
+            "researchAction"
           ],
           "type": "string"
         },
@@ -763,7 +764,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 29,
+          "const": 30,
           "type": "integer"
         },
         "stateDigest": {
@@ -842,7 +843,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 29,
+          "const": 30,
           "type": "integer"
         },
         "stateDigest": {
@@ -1134,7 +1135,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 29,
+          "const": 30,
           "type": "integer"
         },
         "stateDigest": {
@@ -3137,7 +3138,8 @@
             "writer",
             "director",
             "actor",
-            "craft"
+            "craft",
+            "scientist"
           ],
           "type": "string"
         }
@@ -5827,7 +5829,8 @@
             "actor",
             "director",
             "writer",
-            "craft"
+            "craft",
+            "scientist"
           ],
           "type": "string"
         },
@@ -6007,7 +6010,8 @@
             "actor",
             "director",
             "writer",
-            "craft"
+            "craft",
+            "scientist"
           ],
           "type": "string"
         }
@@ -6097,7 +6101,8 @@
                 "actor",
                 "director",
                 "writer",
-                "craft"
+                "craft",
+                "scientist"
               ],
               "type": "string"
             },
@@ -6323,7 +6328,8 @@
             "facilityCompleted",
             "facilityDemolished",
             "facilityMoved",
-            "careerMilestone"
+            "careerMilestone",
+            "technologyMilestone"
           ],
           "type": "string"
         },
@@ -7105,7 +7111,8 @@
             "history",
             "roster",
             "project",
-            "employment"
+            "employment",
+            "laboratory"
           ],
           "type": "string"
         }
@@ -7150,6 +7157,16 @@
             "$ref": "#/$defs/StudioIndustryFilm"
           },
           "type": "array"
+        },
+        "laboratory": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioLaboratoryPage"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "lane": {
           "minLength": 1,
@@ -7267,7 +7284,8 @@
             "history",
             "roster",
             "project",
-            "employment"
+            "employment",
+            "laboratory"
           ],
           "type": "string"
         }
@@ -7277,6 +7295,7 @@
         "calendar",
         "credits",
         "films",
+        "laboratory",
         "lane",
         "notice",
         "page",
@@ -7562,6 +7581,144 @@
       "type": "object",
       "x-csharp-name": "StudioJourneyWaitingSnapshot"
     },
+    "StudioLaboratoryAction": {
+      "additionalProperties": false,
+      "properties": {
+        "detail": {
+          "type": "string"
+        },
+        "disabledReason": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "intent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioBridgeIntentOption"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "detail",
+        "disabledReason",
+        "enabled",
+        "id",
+        "intent",
+        "label"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioLaboratoryAction"
+    },
+    "StudioLaboratoryPage": {
+      "additionalProperties": false,
+      "properties": {
+        "actions": {
+          "items": {
+            "$ref": "#/$defs/StudioLaboratoryAction"
+          },
+          "type": "array"
+        },
+        "bottleneckLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "budgetLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "buildingId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "commercialLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "estimateLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "installationLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "progressLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "provenanceLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "scientistId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "scientistLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "seatLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "statusLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "actions",
+        "bottleneckLabel",
+        "budgetLabel",
+        "buildingId",
+        "commercialLabel",
+        "estimateLabel",
+        "installationLabel",
+        "progressLabel",
+        "provenanceLabel",
+        "scientistId",
+        "scientistLabel",
+        "seatLabel",
+        "statusLabel",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioLaboratoryPage"
+    },
     "StudioLotProjection": {
       "additionalProperties": false,
       "properties": {
@@ -7800,7 +7957,8 @@
             "acting",
             "writing",
             "directing",
-            "craft"
+            "craft",
+            "research"
           ],
           "type": "string"
         },
@@ -8083,7 +8241,8 @@
             "acting",
             "writing",
             "directing",
-            "craft"
+            "craft",
+            "research"
           ],
           "type": "string"
         },
@@ -8242,7 +8401,8 @@
                 "production",
                 "script",
                 "casting",
-                "roster"
+                "roster",
+                "research"
               ],
               "type": "string"
             },
@@ -8359,7 +8519,8 @@
             "acting",
             "writing",
             "directing",
-            "craft"
+            "craft",
+            "research"
           ],
           "type": "string"
         },
@@ -8368,7 +8529,8 @@
             "actor",
             "director",
             "writer",
-            "craft"
+            "craft",
+            "scientist"
           ],
           "type": "string"
         },
@@ -8558,7 +8720,8 @@
             "acting",
             "writing",
             "directing",
-            "craft"
+            "craft",
+            "research"
           ],
           "type": "string"
         },
@@ -8610,7 +8773,8 @@
             {
               "enum": [
                 "production",
-                "script"
+                "script",
+                "research"
               ],
               "type": "string"
             },
@@ -9363,7 +9527,8 @@
             "actor",
             "director",
             "writer",
-            "craft"
+            "craft",
+            "scientist"
           ],
           "type": "string"
         },
@@ -9377,7 +9542,8 @@
                 "antagonist",
                 "support",
                 "craft",
-                "auditionee"
+                "auditionee",
+                "scientist"
               ],
               "type": "string"
             },
@@ -9391,7 +9557,8 @@
             "production",
             "script",
             "casting",
-            "roster"
+            "roster",
+            "research"
           ],
           "type": "string"
         },
@@ -10942,7 +11109,8 @@
             "acting",
             "writing",
             "directing",
-            "craft"
+            "craft",
+            "research"
           ],
           "type": "string"
         },
@@ -11047,7 +11215,8 @@
             "acting",
             "writing",
             "directing",
-            "craft"
+            "craft",
+            "research"
           ],
           "type": "string"
         },
@@ -11072,7 +11241,8 @@
             "actor",
             "director",
             "writer",
-            "craft"
+            "craft",
+            "scientist"
           ],
           "type": "string"
         },
@@ -12549,7 +12719,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-29",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-30",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -12605,7 +12775,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 29,
+    "projectionVersion": 30,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

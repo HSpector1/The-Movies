@@ -64,6 +64,7 @@ export const FACILITY_CAPABILITY_LABEL: Record<FacilityCapability, string> = {
   soundstage: 'Soundstage',
   'set-scenery': 'Scenery Shop',
   post: 'Post Building',
+  laboratory: 'Research Laboratory',
 }
 
 /** Everything the closed-row extension adds to one base production row. */

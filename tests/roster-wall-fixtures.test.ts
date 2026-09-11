@@ -75,7 +75,7 @@ function coverageForTalentIds(
     director: 0,
     writer: 0,
     craft: 0,
-  }
+   scientist: 0 }
   for (const talentId of talentIds) {
     const role = state.talent.find((talent) => talent.id === talentId)?.role
     if (role === undefined) throw new Error(`unknown fixture talent ${talentId}`)
@@ -141,9 +141,9 @@ describe('Week-208 roster-wall synthetic mechanics fixtures', () => {
     ])
 
     const expected = {
-      1: { actor: 1, director: 0, writer: 0, craft: 0 },
-      7: { actor: 4, director: 1, writer: 1, craft: 1 },
-      13: { actor: 7, director: 2, writer: 2, craft: 2 },
+      1: { actor: 1, director: 0, writer: 0, craft: 0, scientist: 0 },
+      7: { actor: 4, director: 1, writer: 1, craft: 1, scientist: 0 },
+      13: { actor: 7, director: 2, writer: 2, craft: 2, scientist: 0 },
     } as const
     for (const cohort of ROSTER_WALL_MECHANICS_FIXTURE_COHORTS) {
       const state = buildRosterWallMechanicsFixtureState(cohort.cohortSize, 0)

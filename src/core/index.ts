@@ -372,6 +372,7 @@ export {
   // D-9.16 large tables / fixed orders (named exports beside CAST_WEIGHT/FORCE_VECTORS)
   SKILL_ORDER,
   DISCIPLINE_ORDER,
+  PERSON_DISCIPLINE_ORDER,
   GENRE_ORDER,
   ROLE_TO_DISCIPLINE,
   // RULING B (2026-07-26) — multi-hyphenate generation mixture tables
@@ -1217,6 +1218,9 @@ export {
   validateSaveV19,
   migrateToV19,
   convertV18ToV19,
+  validateSaveV20,
+  migrateToV20,
+  convertV19ToV20,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -1238,6 +1242,7 @@ export type {
   SaveFileV17,
   SaveFileV18,
   SaveFileV19,
+  SaveFileV20,
   SaveFile,
   TalentV1,
   GameStateV1,
@@ -1309,3 +1314,7 @@ export type {
 } from './types.js'
 export { forecastHistoryForOwner } from './industryCareer.js'
 export { exportCurrentState } from './save.js'
+export { campaignDate } from './calendar.js'
+export { SYNCHRONIZED_SOUND, researchWeekQuote, playerTechnologyAccess, technologyAccess } from './technology.js'
+export { productionTechnologyView } from './technologyProduction.js'
+export type { StudioTechnology, TechnologyAction, ResearchProject, TechnologyAdoption, ProductionTechnology } from './technologyTypes.js'

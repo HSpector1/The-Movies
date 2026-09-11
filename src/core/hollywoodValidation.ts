@@ -13,6 +13,7 @@ import { assertScriptDevelopmentInvariants, activeScriptWriterAssignments } from
 import { productionCompanyTalentIds } from './productionPeople.js'
 import type { GameStateV18, Production, StudioOperations, ScriptDevelopment } from './types.js'
 import type { HollywoodState, IndustryFilm } from './hollywoodTypes.js'
+import type { StudioTechnology } from './technologyTypes.js'
 
 function requireFact(condition: unknown, detail: string): asserts condition {
   if (!condition) throw new Error(`Hollywood save: ${detail}`)
@@ -49,7 +50,8 @@ export type HollywoodLeafValidators = {
 }
 
 /** Strict additive root, using the same frozen leaf validators as player data. */
-export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators): asserts value is HollywoodState | null {
+export function validateHollywood(value: unknown, state: GameStateV18, shared: HollywoodLeafValidators, technology?: StudioTechnology): asserts value is HollywoodState | null {
+  const moneyKinds = technology === undefined ? RIVAL_MONEY_KINDS.filter(kind => kind !== 'technologyAdoption') : RIVAL_MONEY_KINDS
   campaignDate(state.market.tick)
   if (value === null) {
     // Explicit non-player corpus control; native New Game always starts founding.
@@ -216,7 +218,13 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     for (const p of b.account.periods) {
       exact(p,['fromWeek','throughWeek','opening','closing','movements']); integer(p.fromWeek); integer(p.throughWeek)
       requireFact(p.fromWeek >= through && p.throughWeek >= p.fromWeek && p.throughWeek <= state.market.tick,'period chronology'); through=p.throughWeek
-      number(p.opening); number(p.closing); exact(p.movements,RIVAL_MONEY_KINDS)
+      number(p.opening); number(p.closing); exact(p.movements,moneyKinds)
+      if (technology !== undefined) {
+        const inPeriod = (week: number) => week >= p.fromWeek && week <= p.throughWeek
+        const access = technology.access.filter(a => a.studioId === b.studioId && a.acquiredWeek !== null && inPeriod(a.acquiredWeek)).reduce((s,a)=>s+a.accessCost,0)
+        const adoption = technology.adoptions.filter(a => a.studioId === b.studioId && inPeriod(a.committedWeek)).reduce((s,a)=>s+a.equipmentCost+a.installationCost,0)
+        requireFact(p.movements.technologyAdoption === -access-adoption, 'technology adoption movements do not reconcile with receipts')
+      }
       for (const [kind,n] of Object.entries(p.movements)) number(n,kind === 'studioRevenue' ? 0 : -Infinity,kind === 'studioRevenue' ? Infinity : 0)
       requireFact(close(balance,p.opening) && close(p.opening+Object.values(p.movements).reduce((a,n)=>a+n,0),p.closing),'unreconciled money')
       balance=p.closing
@@ -224,7 +232,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
     requireFact(close(balance,b.account.cash),'cash differs from reconciliation')
     const template = HOLLYWOOD_STARTING_MANIFEST.studios[studios.get(b.studioId)!.row-1]!
     requireFact(b.account.openingBalance === template.capital,'opening balance differs from entry endowment')
-    const movements = Object.fromEntries(RIVAL_MONEY_KINDS.map(kind => [kind,b.account.periods.reduce((sum,p)=>sum+p.movements[kind],0)])) as Record<string,number>
+    const movements = Object.fromEntries(moneyKinds.map(kind => [kind,b.account.periods.reduce((sum,p)=>sum+p.movements[kind],0)])) as Record<string,number>
     requireFact(close(movements.capacity!, -(TUNING.BASELINE_DEVELOPMENT_CASTING_CAPEX + TUNING.STAGE_STANDARD_CAPEX +
       TUNING.SCENERY_SHOP_CAPEX + TUNING.POST_BUILDING_CAPEX)),'capacity acquisition not paid exactly once')
     const employed = h.employment.filter(e=>e.studioId===b.studioId)
@@ -344,7 +352,7 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
   const receiptIds=new Set<string>(); let priorWeek=h.originWeek
   for (const r of h.receipts) {
     const base=['eventId','week','studioId']
-    const extra = {studioEntered:['entryKey','origin'],employment:['talentId','fromStudioId','toStudioId','contractId','reason'],filmAnnounced:['productionId','conceptId'],filmReleased:['productionId','conceptId','before','after'],filmSettled:['productionId']}[r.kind]
+    const extra = {studioEntered:['entryKey','origin'],employment:['talentId','fromStudioId','toStudioId','contractId','reason'],filmAnnounced:['productionId','conceptId'],filmReleased:['productionId','conceptId','before','after'],filmSettled:['productionId'],technologyAdopted:technology === undefined ? undefined : ['adoptionId']}[r.kind]
     requireFact(extra,'unknown receipt kind'); exact(r,[...base,'kind',...extra])
     integer(r.week); requireFact(r.week>=priorWeek&&r.week<=state.market.tick,'receipt chronology'); priorWeek=r.week
     const owner=studios.get(r.studioId)
@@ -374,10 +382,12 @@ export function validateHollywood(value: unknown, state: GameStateV18, shared: H
       if(r.kind==='filmReleased'){requireFact(f.conceptId===r.conceptId&&f.result.releaseTick===r.week,'release receipt differs from actual film');standing(r.before);standing(r.after)}
       else requireFact(f.settledWeek===r.week,'settlement receipt differs from actual final payment')
     }
-    const key=r.kind==='employment'?`${r.kind}:${r.contractId}:${r.toStudioId===null?'end':'start'}`:r.kind==='studioEntered'?`${r.kind}:${r.studioId}`:`${r.kind}:${r.productionId}`
+    if(r.kind==='technologyAdopted') requireFact(technology?.adoptions.some(a=>a.id===r.adoptionId&&a.studioId===r.studioId&&a.operationalWeek===r.week),'adoption receipt has no matching operational capability')
+    const key=r.kind==='employment'?`${r.kind}:${r.contractId}:${r.toStudioId===null?'end':'start'}`:r.kind==='studioEntered'?`${r.kind}:${r.studioId}`:r.kind==='technologyAdopted'?`${r.kind}:${r.adoptionId}`:`${r.kind}:${r.productionId}`
     const rows=receiptGroups.get(key)??[];rows.push(r);receiptGroups.set(key,rows)
   }
   requireFact(h.nextReceipt===h.receipts.length,'receipt sequence cannot be erased or have gaps')
+  for(const adoption of technology?.adoptions ?? []) if(adoption.studioId!==h.playerStudioId&&adoption.operationalWeek!==null) requireFact(grouped('technologyAdopted',adoption.id).length===1,'missing or repeated public adoption consequence')
   for(const [index,r] of h.receipts.entries()) requireFact(r.eventId===`industry-event-${index}`,'noncanonical receipt sequence')
   for(const b of h.businesses) {
     const identity=studios.get(b.studioId)!

@@ -141,7 +141,7 @@ function mkTalent(opts: {
     authored: opts.authored ?? false,
     skills,
     ceilings,
-    devRate: { acting: 1, writing: 1, directing: 1, craft: 1 },
+    devRate: { acting: 1, writing: 1, directing: 1, craft: 1, research: 1 },
     workEthic: opts.workEthic ?? 60,
     genreExperience,
     workHistory,

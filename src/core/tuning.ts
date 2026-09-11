@@ -13,6 +13,8 @@ import type {
   BlueprintRequirement,
   CastSlot,
   CulturalForce,
+  CreativeRole,
+  FilmDiscipline,
   Discipline,
   Expression,
   FacilityBlueprint,
@@ -689,6 +691,22 @@ export const TUNING = {
   STAGE_STANDARD_FOOTPRINT_DEPTH: 4, // [SWEEP] cells along gy
   STAGE_STANDARD_CLEARANCE: 1, // [SWEEP] cells of separation from other placements
 
+  // P13A S1-A candidate tuning (companion §4.2). Existing stage prices above govern.
+  RESEARCH_LABORATORY_CAPEX: 900_000,
+  RESEARCH_LABORATORY_BUILD_WEEKS: 12,
+  RESEARCH_LABORATORY_WEEKLY_OPERATING_COST: 3_000,
+  RESEARCH_LABORATORY_CAPACITY: 4,
+  ACOUSTIC_INSTRUMENTS_CAPEX: 350_000,
+  ACOUSTIC_INSTRUMENTS_BUILD_WEEKS: 5,
+  SOUND_STAGE_SITE_CAPEX: 450_000,
+  SOUND_STAGE_SITE_WEEKS: 9,
+  SOUND_STAGE_INSTALLATION_CAPEX: 150_000,
+  SOUND_STAGE_INSTALLATION_WEEKS: 3,
+  SOUND_CAPTURE_PACKAGE_CAPEX: 75_000,
+  SOUND_POST_CAPEX: 300_000,
+  SOUND_POST_BUILD_WEEKS: 6,
+  SOUND_MODULE_WEEKLY_OPERATING_COST: 2_000,
+
   // Post Building — the second instance of the founding class (the display-name
   // ruling, §3.1: the engine facility name is the single spoken authority, and the
   // founding one is already called "Post Building"). It carries the same two
@@ -1191,6 +1209,64 @@ export const BASELINE_DEVELOPMENT_CASTING_BLUEPRINT = {
  */
 export const STAGE_BLUEPRINTS: readonly FacilityBlueprint[] = [STAGE_STANDARD_BLUEPRINT]
 
+/** The laboratory is a real P09 body with four shared seats; Core staffs one. */
+export const RESEARCH_LABORATORY_BLUEPRINT = {
+  id: 'research-laboratory', name: 'Research Laboratory', capability: 'laboratory',
+  capacity: TUNING.RESEARCH_LABORATORY_CAPACITY,
+  footprint: { width: 3, depth: 2 }, clearanceRing: 1, requiresRoadAccess: true,
+  buildWeeks: TUNING.RESEARCH_LABORATORY_BUILD_WEEKS,
+  capex: TUNING.RESEARCH_LABORATORY_CAPEX,
+  weeklyOperatingCost: TUNING.RESEARCH_LABORATORY_WEEKLY_OPERATING_COST,
+  facilityIdBase: 'facility-research-laboratory', projectIdBase: 'construction-research-laboratory',
+  ledgerNote: 'Research Laboratory construction',
+  effectSummary: 'Provides four laboratory seats; assign one Scientist to research synchronized sound.',
+  requires: [],
+} as const satisfies FacilityBlueprint
+
+/** Installed modules live on the target body; the ordinary Build catalogue omits them. */
+export const FACILITY_INSTALLATION_BLUEPRINTS: readonly FacilityBlueprint[] = [
+  {
+    id: 'acoustic-instruments', name: 'Acoustic Instruments', capability: 'laboratory', capacity: 0,
+    footprint: { width: 1, depth: 1 }, clearanceRing: 0, requiresRoadAccess: false,
+    buildWeeks: TUNING.ACOUSTIC_INSTRUMENTS_BUILD_WEEKS, capex: TUNING.ACOUSTIC_INSTRUMENTS_CAPEX,
+    weeklyOperatingCost: TUNING.SOUND_MODULE_WEEKLY_OPERATING_COST,
+    installationTargetCapability: 'laboratory',
+    installationComponents: [{ label: 'Acoustic instruments', cost: TUNING.ACOUSTIC_INSTRUMENTS_CAPEX, weeks: TUNING.ACOUSTIC_INSTRUMENTS_BUILD_WEEKS }],
+    facilityIdBase: 'module-acoustic-instruments', projectIdBase: 'installation-acoustic-instruments',
+    ledgerNote: 'Acoustic instrument installation',
+    effectSummary: 'Equips this Laboratory for synchronized-sound research after five weeks.', requires: [],
+  },
+  {
+    id: 'synchronized-sound-stage', name: 'Synchronized Sound Stage Conversion', capability: 'soundstage', capacity: 0,
+    footprint: { width: 1, depth: 1 }, clearanceRing: 0, requiresRoadAccess: false,
+    buildWeeks: TUNING.SOUND_STAGE_SITE_WEEKS + TUNING.SOUND_STAGE_INSTALLATION_WEEKS,
+    capex: TUNING.SOUND_STAGE_SITE_CAPEX + TUNING.SOUND_STAGE_INSTALLATION_CAPEX + TUNING.SOUND_CAPTURE_PACKAGE_CAPEX,
+    weeklyOperatingCost: TUNING.SOUND_MODULE_WEEKLY_OPERATING_COST,
+    installationTargetCapability: 'soundstage',
+    installationComponents: [
+      { label: 'Stage site adaptation', cost: TUNING.SOUND_STAGE_SITE_CAPEX, weeks: TUNING.SOUND_STAGE_SITE_WEEKS },
+      { label: 'Equipment installation', cost: TUNING.SOUND_STAGE_INSTALLATION_CAPEX, weeks: TUNING.SOUND_STAGE_INSTALLATION_WEEKS },
+      { label: 'Compatible capture package (with equipment)', cost: TUNING.SOUND_CAPTURE_PACKAGE_CAPEX, weeks: 0 },
+    ],
+    facilityIdBase: 'module-synchronized-sound-stage', projectIdBase: 'installation-synchronized-sound-stage',
+    ledgerNote: 'Synchronized sound stage conversion and capture installation',
+    effectSummary: 'Converts this stage for synchronized recording and capture over nine weeks of site work followed by three weeks of installation.',
+    requires: [{ kind: 'research', packId: 'synchronized-sound' }],
+  },
+  {
+    id: 'synchronized-sound-post', name: 'Sound Post Fit-out', capability: 'post', capacity: 0,
+    footprint: { width: 1, depth: 1 }, clearanceRing: 0, requiresRoadAccess: false,
+    buildWeeks: TUNING.SOUND_POST_BUILD_WEEKS, capex: TUNING.SOUND_POST_CAPEX,
+    weeklyOperatingCost: TUNING.SOUND_MODULE_WEEKLY_OPERATING_COST,
+    installationTargetCapability: 'post',
+    installationComponents: [{ label: 'Sound-capable Post fit-out', cost: TUNING.SOUND_POST_CAPEX, weeks: TUNING.SOUND_POST_BUILD_WEEKS }],
+    facilityIdBase: 'module-synchronized-sound-post', projectIdBase: 'installation-synchronized-sound-post',
+    ledgerNote: 'Sound-capable Post fit-out',
+    effectSummary: 'Fits this Post Building for synchronized dialogue after six weeks.',
+    requires: [{ kind: 'research', packId: 'synchronized-sound' }],
+  },
+]
+
 export const FACILITY_BLUEPRINTS: readonly FacilityBlueprint[] = [
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
   DEVELOPMENT_CASTING_HALL_BLUEPRINT,
@@ -1201,6 +1277,8 @@ export const FACILITY_BLUEPRINTS: readonly FacilityBlueprint[] = [
   POST_BUILDING_BLUEPRINT,
   SCENERY_SHOP_BLUEPRINT,
   BASELINE_DEVELOPMENT_CASTING_BLUEPRINT,
+  RESEARCH_LABORATORY_BLUEPRINT,
+  ...FACILITY_INSTALLATION_BLUEPRINTS,
 ]
 
 /** The canonical ledger note for a weekly placed-facility operating charge. */
@@ -1786,15 +1864,24 @@ export const SKILL_ORDER = {
     'effectsExecution',
     'technicalCoordination',
   ],
+  research: ['scientificMethod', 'acoustics', 'instrumentation', 'experimentation', 'engineering', 'documentation'],
 } as const satisfies Record<Discipline, readonly string[]>
 
 // Fixed discipline iteration order (D-9.16): acting → writing → directing → craft.
-export const DISCIPLINE_ORDER: readonly Discipline[] = [
+export const DISCIPLINE_ORDER: readonly FilmDiscipline[] = [
   'acting',
   'writing',
   'directing',
   'craft',
 ] as const
+
+// P13 person profile order. The four-discipline order above remains the frozen
+// film generation/development order and must not consume new research RNG draws.
+export const PERSON_DISCIPLINE_ORDER: readonly Discipline[] = [...DISCIPLINE_ORDER, 'research']
+
+// S1-A candidate tuning: payroll is independent of assignment and film fame.
+export const SCIENTIST_WEEKLY_SALARY = 2_000
+export const SCIENTIST_ANNUAL_SALARY = SCIENTIST_WEEKLY_SALARY * 52
 
 // Fixed genre iteration order (matches worldgen's GENRE_ORDER; drives the 24
 // (discipline,genre) genre-experience records so their key order is stable).
@@ -1813,7 +1900,8 @@ export const ROLE_TO_DISCIPLINE = {
   director: 'directing',
   actor: 'acting',
   craft: 'craft',
-} as const satisfies Record<'writer' | 'director' | 'actor' | 'craft', Discipline>
+  scientist: 'research',
+} as const satisfies Record<CreativeRole, Discipline>
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // RULING B (2026-07-26) — multi-hyphenate generation mixture (D-9.13 step 4 retune)
@@ -1872,6 +1960,7 @@ export const GEN_ADJACENCY: Record<Discipline, Partial<Record<Discipline, number
   directing: { acting: 0.6, writing: 1.0, craft: 0.5 },
   acting: { writing: 0.5, directing: 0.6, craft: 0.2 },
   craft: { acting: 0.2, writing: 0.2, directing: 0.5 },
+  research: { craft: 1 },
 }
 
 // ── D-9.2 OVR core-weights (6-vectors in SKILL_ORDER, Σ = 1 per discipline) ────
@@ -1884,6 +1973,7 @@ export const OVR_WEIGHTS = {
   directing: [0.2, 0.2, 0.18, 0.14, 0.15, 0.13],
   // craft: balanced (inert headless — D-4/OQ-6).
   craft: [0.17, 0.17, 0.17, 0.17, 0.16, 0.16],
+  research: [0.2, 0.2, 0.15, 0.2, 0.15, 0.1],
 } as const satisfies Record<Discipline, readonly number[]>
 
 // ── D-9.3 base per-genre skill profiles (unnormalized 6-vectors in SKILL_ORDER) ─
@@ -1925,6 +2015,13 @@ export const GENRE_SKILL_WEIGHTS = {
     romance: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
     horror: [1.0, 1.0, 1.0, 1.0, 1.6, 1.0],
     adventure: [1.0, 1.0, 1.0, 1.0, 1.6, 1.0],
+  },
+  // Research has no genre specialization; this neutral vector keeps person
+  // inspection exhaustive without granting film capability or genre experience.
+  research: {
+    comedy: [1, 1, 1, 1, 1, 1], drama: [1, 1, 1, 1, 1, 1],
+    crime: [1, 1, 1, 1, 1, 1], romance: [1, 1, 1, 1, 1, 1],
+    horror: [1, 1, 1, 1, 1, 1], adventure: [1, 1, 1, 1, 1, 1],
   },
 } as const satisfies Record<Discipline, Record<Genre, readonly number[]>>
 

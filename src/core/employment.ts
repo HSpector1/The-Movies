@@ -14,7 +14,7 @@ import { initializeHollywood, industryBusyTalentIds, rivalEmployment } from './h
 import { clamp } from './math.js'
 import { stream } from './rng.js'
 import { activeScriptWriterAssignments } from './scriptDevelopment.js'
-import { TUNING } from './tuning.js'
+import { SCIENTIST_ANNUAL_SALARY, TUNING } from './tuning.js'
 import { freelancerFeeMultiplier } from './facilityEffects.js'
 import type {
   GameStateV3,
@@ -46,6 +46,7 @@ export const FOUNDING_MINIMUMS: Record<CreativeRole, number> = {
   director: TUNING.HIRING_MIN_DIRECTORS,
   writer: TUNING.HIRING_MIN_WRITERS,
   craft: TUNING.HIRING_MIN_CRAFT,
+  scientist: 0,
 }
 
 // ── engagement gate (D-11.0) ─────────────────────────────────────────────────
@@ -160,6 +161,9 @@ export function busyTalentIds(state: GameState): Set<string> {
   const busy = activeProductionCompanyTalentIds(state)
   for (const id of activeWritingAssignmentIds(state)) busy.add(id)
   for (const id of industryBusyTalentIds(state.hollywood)) busy.add(id)
+  for (const project of state.technology?.projects ?? []) {
+    if (project.status === 'active') busy.add(project.scientistId)
+  }
   return busy
 }
 
@@ -235,7 +239,7 @@ export function offerForTalent(
   // Per-talent scarcity jitter (stable per person; not per week/term).
   const jitterS = stream(seed, 'hiring', `offer-${talent.id}`)
   const jitter = 1 + (jitterS.next() * 2 - 1) * TUNING.CONTRACT_SCARCITY_JITTER
-  const annual = iround(
+  const annual = talent.role === 'scientist' ? SCIENTIST_ANNUAL_SALARY : iround(
     salaryCurve(talent) * TUNING.CONTRACT_ANNUAL_MULT * lengthFactor * ageFactor(talent.age) * jitter,
   )
   const signingBonus = iround(annual * TUNING.CONTRACT_SIGNING_BONUS_FRACTION)
@@ -339,7 +343,7 @@ function marketEpoch(week: number): number {
 export function freelancerMarketIds(state: GameState, week: number = state.market.tick): string[] {
   if (state.founding !== null) return []
   const epoch = marketEpoch(week)
-  const pool = signableUniverse(state)
+  const pool = signableUniverse(state).filter(t => t.role !== 'scientist')
   const s = stream(state.seed, 'hiring', `freelancers-${epoch}`)
   return sampleIds(pool, TUNING.HIRING_FREELANCER_MARKET_SIZE, s)
 }
@@ -357,13 +361,19 @@ export function hiringMarketIds(state: GameState, week: number = state.market.ti
     }
   }
   const epoch = marketEpoch(week)
-  const pool = signableUniverse(state).filter((t) => !seen.has(t.id))
+  const universe = signableUniverse(state)
+  // The Core Scientist is visible without displacing the accepted film hiring
+  // rotation. Employment still passes through this one canonical market gate.
+  const pool = universe.filter((t) => t.role !== 'scientist' && !seen.has(t.id))
   const s = stream(state.seed, 'hiring', `market-${epoch}`)
   for (const id of sampleIds(pool, TUNING.HIRING_MARKET_SIZE, s)) {
     if (!seen.has(id)) {
       seen.add(id)
       out.push(id)
     }
+  }
+  for (const person of universe) {
+    if (person.role === 'scientist' && !seen.has(person.id)) out.push(person.id)
   }
   return out
 }
@@ -404,7 +414,7 @@ export function rosterCoverage(
   state: GameState,
   week: number = state.market.tick,
 ): Record<CreativeRole, number> {
-  const out: Record<CreativeRole, number> = { actor: 0, director: 0, writer: 0, craft: 0 }
+  const out: Record<CreativeRole, number> = { actor: 0, director: 0, writer: 0, craft: 0, scientist: 0 }
   for (const t of rosterTalent(state, week)) out[t.role] += 1
   return out
 }
@@ -428,6 +438,7 @@ export function foundingGaps(state: GameState): Record<CreativeRole, number> {
     director: Math.max(0, FOUNDING_MINIMUMS.director - cov.director),
     writer: Math.max(0, FOUNDING_MINIMUMS.writer - cov.writer),
     craft: Math.max(0, FOUNDING_MINIMUMS.craft - cov.craft),
+    scientist: 0,
   }
 }
 

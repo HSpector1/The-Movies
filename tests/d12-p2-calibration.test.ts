@@ -146,7 +146,7 @@ function bestOf(list: Talent[], role: CreativeRole): Talent[] {
 function foundCompetent(seed: string): GameState {
   let s = beginFounding(generateWorld(seed))
   const pool = s.founding!.applicantIds.map((id) => s.talent.find((t) => t.id === id)!)
-  const counts: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2 }
+  const counts: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }
   for (const role of ROLES) {
     for (const t of bestOf(pool.filter((p) => p.role === role), role).slice(0, Math.max(FOUNDING_MINIMUMS[role], counts[role]))) {
       s = applyActions(s, [{ kind: 'signContract', talentId: t.id, termWeeks: 208 }])

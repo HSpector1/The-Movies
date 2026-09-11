@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs'
+import { gunzipSync } from 'node:zlib'
 import {managedStudio as createManagedBridgeState} from './contracts/_contractFixtures.js'
 import { createHash } from 'node:crypto'
 
@@ -227,8 +229,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
     })
     expect(loaded.hydrated.checkpoint.currentStateDigest).toBe(sha256(source.currentSaveJson))
     expect(loaded.hydrated.checkpoint.savedStateDigest).toBe(sha256(source.savedSaveJson))
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(19)
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(19)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(20)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(20)
     expect(() => decodeBridgeRuntimeCheckpoint(
       encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint),
     )).not.toThrow()
@@ -264,8 +266,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
       savedStateDigest: sha256(source.savedSaveJson),
       journal: [],
     })
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(19)
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(19)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(20)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(20)
 
     const corrupted = JSON.parse(priorBytes) as Record<string, unknown>
     corrupted.journalDigest = '0'.repeat(64)
@@ -326,8 +328,8 @@ describe('BridgeRuntimeCheckpointV1', () => {
     const hydrated = decodeBridgeRuntimeCheckpoint(encoded)
     expect(hydrated.checkpoint).toEqual(source.checkpoint)
     expect(encodeBridgeRuntimeCheckpoint(hydrated.checkpoint)).toBe(encoded)
-    expect(hydrated.currentSave.saveVersion).toBe(19)
-    expect(hydrated.savedSave?.saveVersion).toBe(19)
+    expect(hydrated.currentSave.saveVersion).toBe(20)
+    expect(hydrated.savedSave?.saveVersion).toBe(20)
     expect(hydrated.checkpoint.currentSaveJson).toBe(source.currentSaveJson)
     expect(hydrated.checkpoint.savedSaveJson).toBe(source.savedSaveJson)
     expect(hydrated.checkpoint.currentStateDigest).toBe(sha256(source.currentSaveJson))
@@ -426,7 +428,7 @@ describe('BridgeRuntimeCheckpointV1', () => {
       currentSaveJson: nonCanonicalSave,
       savedSaveJson: checkpoint.savedSaveJson,
       journal: checkpoint.journal,
-    })).toThrow(/canonical V19 save bytes exactly/)
+    })).toThrow(/canonical V20 save bytes exactly/)
 
     const forgedSave = JSON.parse(checkpoint.currentSaveJson) as Record<string, unknown>
     forgedSave['bridgeJournal'] = []
@@ -665,31 +667,27 @@ describe('BridgeRuntimeCheckpointV1', () => {
 })
 
 describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => {
-  it('preserves both distinct native R05 founding slots when the Profile calendar contract advances', () => {
-    const native = BridgeSession.createRuntime(undefined, 'endowed', 'r05-founding-calendar-migration')
-    const savedSaveJson = native.exportRuntimeCheckpoint().currentSaveJson
-    const snapshot = native.snapshot()
-    const intent = snapshot.availableIntents.find(i => i.kind === 'signFoundingContract')!
-    expect(intent).toBeTruthy()
-    expect(native.command({ protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID,
-      sessionId: native.sessionId, expectedStateRevision: native.stateRevision,
-      commandId: 'r05-sign-before-upgrade', type: 'submitIntent', payload: { intentId: intent.intentId } }).accepted).toBe(true)
-    const currentSaveJson = native.exportRuntimeCheckpoint().currentSaveJson
+  it('preserves both actual accepted P12 founding slots through the P13 save migration', () => {
+    const savedSaveJson = gunzipSync(readFileSync(new URL('./fixtures/p13a/accepted-v19.json.gz', import.meta.url))).toString('utf8')
+    const currentSaveJson = gunzipSync(readFileSync(new URL('./fixtures/p13a/accepted-v19-hired.json.gz', import.meta.url))).toString('utf8')
     expect(currentSaveJson).not.toBe(savedSaveJson)
-    // Synthetic prior envelope exercises the migration boundary; the separately
-    // preserved native-run12 library supplies actual outgoing-byte evidence.
     const prior = priorProtocol4Bytes({
-      schemaId: 'sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712',
-      sessionId: 'native-r05-before-upgrade', stateRevision: 1,
+      schemaId: 'sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85',
+      sessionId: 'native-p12-before-upgrade', stateRevision: 1,
       currentSaveJson, savedSaveJson, journal: [],
     })
-    const loaded = loadBridgeRuntimeCheckpoint(prior, undefined, () => 'native-r05-after-upgrade')
+    const loaded = loadBridgeRuntimeCheckpoint(prior, undefined, () => 'native-p12-after-upgrade')
     expect(loaded.hydrated.checkpoint).toMatchObject({
-      currentSaveJson, savedSaveJson, stateRevision: 0, schemaId: SCHEMA_ID,
-      sessionId: 'native-r05-after-upgrade', journal: [],
+      stateRevision: 0, schemaId: SCHEMA_ID,
+      sessionId: 'native-p12-after-upgrade', journal: [],
     })
     expect(loaded.hydrated.currentSave.state.founding).not.toBeNull()
     expect(loaded.hydrated.savedSave!.state.founding).not.toBeNull()
+    expect(loaded.hydrated.currentSave.state.contracts).toEqual(JSON.parse(currentSaveJson).state.contracts)
+    expect(loaded.hydrated.savedSave!.state.contracts).toEqual(JSON.parse(savedSaveJson).state.contracts)
+    expect(loaded.hydrated.currentSave.state.technology.projects).toEqual([])
+    expect(loaded.hydrated.savedSave!.state.technology.projects).toEqual([])
+    expect(loaded.hydrated.currentSave.state.studio.cash).toBe(JSON.parse(currentSaveJson).state.studio.cash)
     const encoded = encodeBridgeRuntimeCheckpoint(loaded.hydrated.checkpoint)
     expect(loadBridgeRuntimeCheckpoint(encoded).migratedFromProtocolVersion).toBeNull()
   })
@@ -720,7 +718,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
 
     // save now V16, digests recomputed correctly.
     expect(loaded.hydrated.checkpoint.schemaId).toBe(SCHEMA_ID)
-    expect(loaded.hydrated.currentSave.saveVersion).toBe(19)
+    expect(loaded.hydrated.currentSave.saveVersion).toBe(20)
     expect(loaded.hydrated.checkpoint.currentStateDigest)
       .toBe(sha256(loaded.hydrated.checkpoint.currentSaveJson))
 
@@ -748,7 +746,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
 
     expect(loaded.migratedFromProtocolVersion).toBe(PROTOCOL_VERSION)
     expect(loaded.hydrated.checkpoint.savedSaveJson).not.toBeNull()
-    expect(loaded.hydrated.savedSave?.saveVersion).toBe(19)
+    expect(loaded.hydrated.savedSave?.saveVersion).toBe(20)
     expect(loaded.hydrated.savedSave?.state.market.tick).toBe(savedState.market.tick)
     expect(loaded.hydrated.savedSave?.state.studio.cash).toBe(savedState.studio.cash)
     expect(loaded.hydrated.checkpoint.savedStateDigest)
@@ -776,7 +774,7 @@ describe('P04A REOPEN — enumerated prior protocol-4 checkpoint import', () => 
       expect(loaded.hydrated.checkpoint.schemaId).toBe(SCHEMA_ID)
       expect(loaded.hydrated.checkpoint.stateRevision).toBe(0)
       expect(loaded.hydrated.checkpoint.journal).toEqual([])
-      expect(loaded.hydrated.currentSave.saveVersion).toBe(19)
+      expect(loaded.hydrated.currentSave.saveVersion).toBe(20)
     },
   )
 
@@ -989,6 +987,7 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:7e3af4db0d3d18cdeaab00082e0034f304a9141f46ea87e9e64e5a99d985483c',
       'sha256:80f2f0fcd14d1b25e713c2624286a6c05a98c53ea5cfcb2b47612f8c030f5e47',
       'sha256:85a6d125960dce49b4775f842d7b56d7360c81cef3638cd819057c79c99f0236',
+      'sha256:8b2569b1f925bedf214ee556841fe28b61e544f1f13bb4741c84a0a318e81a85',
       'sha256:92317ec179456cdc5bd5cc7c4ca47dd066b768a9e2e45519f1263ef921a211a4',
       'sha256:97940e51e0566bed80231b223e5b7303a45d62db8d698f693e525eb244775211',
       'sha256:a481d14f3810ffbafcba2bbf509db7340263f3f0fd665a059507a1567d98923d',

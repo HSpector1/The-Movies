@@ -155,7 +155,7 @@ export type HollywoodSceneryLoadInSelection = {
 export type HollywoodGateVisitorPresentation = {
   talentId: string
   name: string
-  marketRole: 'actor' | 'director' | 'writer' | 'craft'
+  marketRole: 'actor' | 'director' | 'writer' | 'craft' | 'scientist'
   presentationRole: 'director' | 'talent'
   employmentStatus: 'freeAgent'
   studioSeed: string
@@ -1278,7 +1278,7 @@ export class HollywoodScene extends Phaser.Scene {
       visitor === null ||
       typeof visitor.talentId !== 'string' ||
       typeof visitor.name !== 'string' ||
-      !['actor', 'director', 'writer', 'craft'].includes(visitor.marketRole) ||
+      !['actor', 'director', 'writer', 'craft', 'scientist'].includes(visitor.marketRole) ||
       !['director', 'talent'].includes(visitor.presentationRole) ||
       visitor.employmentStatus !== 'freeAgent' ||
       typeof visitor.studioSeed !== 'string' ||

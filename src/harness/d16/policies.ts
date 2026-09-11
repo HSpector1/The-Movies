@@ -117,7 +117,7 @@ function bonusFor(t: PerceivedTalent, termWeeks: number): number {
  * depth is added afterwards while the fund allows.
  */
 export function planFoundingHires(founding: FoundingView, plan: FoundingPlan): FoundingHire[] {
-  const byRole: Record<CreativeRole, PerceivedTalent[]> = { writer: [], director: [], craft: [], actor: [] }
+  const byRole: Record<CreativeRole, PerceivedTalent[]> = { writer: [], director: [], craft: [], actor: [], scientist: [] }
   for (const a of founding.applicants) byRole[a.role]?.push(a)
 
   const hires: FoundingHire[] = []
@@ -246,7 +246,7 @@ function renewalActions(view: PlayerView, opts: RosterPolicyOptions): Action[] {
 
 function refillActions(view: PlayerView, opts: RosterPolicyOptions): Action[] {
   if (opts.refillCounts === null) return []
-  const have: Record<CreativeRole, number> = { writer: 0, director: 0, craft: 0, actor: 0 }
+  const have: Record<CreativeRole, number> = { writer: 0, director: 0, craft: 0, actor: 0, scientist: 0 }
   for (const r of view.roster) have[r.role] += 1
   for (const role of ROLE_ORDER) {
     const want = Math.max(FOUNDING_MINIMUMS[role], opts.refillCounts[role])
@@ -318,9 +318,9 @@ export type Policy = PlayerPolicy | OraclePolicy
 
 // ── helpers shared by the concrete policies ──────────────────────────────────
 
-const MIN_ROSTER: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 1, craft: 1 }
-const SMALL_ROSTER: Record<CreativeRole, number> = { actor: 4, director: 1, writer: 1, craft: 1 }
-const DEEP_ROSTER: Record<CreativeRole, number> = { actor: 5, director: 2, writer: 1, craft: 1 }
+const MIN_ROSTER: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 1, craft: 1, scientist: 0 }
+const SMALL_ROSTER: Record<CreativeRole, number> = { actor: 4, director: 1, writer: 1, craft: 1, scientist: 0 }
+const DEEP_ROSTER: Record<CreativeRole, number> = { actor: 5, director: 2, writer: 1, craft: 1, scientist: 0 }
 
 function roster(
   counts: Record<CreativeRole, number>,

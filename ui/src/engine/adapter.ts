@@ -58,6 +58,7 @@ import {
   WORLD_CONFIG,
   ROLE_TO_DISCIPLINE,
   DISCIPLINE_ORDER,
+  PERSON_DISCIPLINE_ORDER,
   GENRE_ORDER,
   SKILL_ORDER,
   personaToExpression,
@@ -103,7 +104,7 @@ import {
   packageDelta,
   // save
   importSave,
-  migrateToV19,
+  migrateToV20,
   convertV17ToV18,
   convertV4ToV5,
   convertV5ToV6,
@@ -574,6 +575,7 @@ export const DISCIPLINE_LABEL: Record<Discipline, string> = {
   writing: 'Writer',
   directing: 'Director',
   craft: 'Craft',
+  research: 'Research',
 }
 
 // Re-export the raw assembly data (read-only) the assembly screens render.
@@ -1381,11 +1383,11 @@ export type PlayerVisibleTalent = {
   authored: boolean
   available: boolean
   engagedIn: string | null // named assignment label, never a raw id
-  assignmentKind: 'production' | 'script' | null
+  assignmentKind: 'production' | 'script' | 'research' | null
 }
 
 export type TalentAssignmentView = {
-  kind: 'production' | 'script'
+  kind: 'production' | 'script' | 'research'
   label: string
 }
 
@@ -1396,6 +1398,7 @@ export type TalentAssignmentContext =
       assignment:
         | { kind: 'production'; assignmentId: string; label: string }
         | { kind: 'script'; assignmentId: string; label: string }
+    | { kind: 'research'; assignmentId: string; label: string }
     }
   | { kind: 'ambiguous' }
 
@@ -1431,6 +1434,7 @@ export function talentAssignmentContext(
   type Assignment =
     | { kind: 'production'; assignmentId: string; label: string }
     | { kind: 'script'; assignmentId: string; label: string }
+    | { kind: 'research'; assignmentId: string; label: string }
   // Real current work — production seats, then active screenplay tasks.
   const work: Assignment[] = []
   // Permanent film credits — presentation only, and only when work is empty.
@@ -1455,6 +1459,12 @@ export function talentAssignmentContext(
   for (const script of activeScriptWriterAssignments(state.scriptDevelopment, state.concepts)) {
     if (script.talentId === talentId) {
       work.push({ kind: 'script', assignmentId: script.projectId, label: script.label })
+    }
+  }
+
+  for (const project of state.technology?.projects ?? []) {
+    if (project.status === 'active' && project.scientistId === talentId) {
+      work.push({ kind: 'research', assignmentId: project.id, label: 'Synchronized sound research' })
     }
   }
 
@@ -1499,6 +1509,9 @@ function engagedTalentIds(state: GameState): Map<string, TalentAssignmentView> {
   }
   for (const script of activeScriptWriterAssignments(state.scriptDevelopment, state.concepts)) {
     busy.set(script.talentId, { kind: 'script', label: script.label })
+  }
+  for (const project of state.technology?.projects ?? []) {
+    if (project.status === 'active') busy.set(project.scientistId, { kind: 'research', label: 'Synchronized sound research' })
   }
   return busy
 }
@@ -1564,7 +1577,9 @@ export function talentEligibility(
       reason:
         talent.assignmentKind === 'script'
           ? `Already assigned: ${talent.engagedIn} — busy until the screenplay reaches review.`
-          : `Already working on ${talent.engagedIn} — busy until it releases.`,
+          : talent.assignmentKind === 'research'
+            ? `${talent.engagedIn} — pause or cancel research to free this Scientist.`
+            : `Already working on ${talent.engagedIn} — busy until it releases.`,
     }
   }
   if (chosenElsewhere.includes(talent.id)) {
@@ -1600,8 +1615,9 @@ const ASSEMBLE_ROLE_LABEL: Record<CreativeRole, string> = {
   director: 'Director',
   actor: 'Actor',
   craft: 'Production/Craft Lead',
+  scientist: 'Scientist',
 }
-const TEAM_NEED: Record<CreativeRole, number> = { writer: 1, director: 1, actor: 3, craft: 1 }
+const TEAM_NEED: Record<CreativeRole, number> = { writer: 1, director: 1, actor: 3, craft: 1, scientist: 0 }
 
 export type AssemblyAvailability = { canAssemble: boolean; missingRoles: CreativeRole[]; reason?: string }
 
@@ -2327,6 +2343,7 @@ export const AUTHORED_SKILL_LABELS: Record<Discipline, readonly string[]> = {
   writing: ['Story Structure', 'Character Development', 'Dialogue', 'Originality', 'Narrative Pacing', 'Rewriting'],
   directing: ['Visual Storytelling', 'Performance Direction', 'Tone Control', 'Directing Pacing', 'Production Management', 'Adaptability'],
   craft: ['Cinematography', 'Editing', 'Production Design', 'Sound & Music', 'Effects Execution', 'Technical Coordination'],
+  research: ['Scientific Method', 'Acoustics', 'Instrumentation', 'Experimentation', 'Engineering', 'Documentation'],
 }
 
 // ── Advance one week (with pre-tick snapshot for the autopsy) ─────────────────
@@ -3768,8 +3785,8 @@ export type ImportOutcome =
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const converted = save.saveVersion !== 19
-    return { ok: true, state: migrateToV19(save).state, converted }
+    const converted = save.saveVersion !== 20
+    return { ok: true, state: migrateToV20(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -3781,7 +3798,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: migrateToV19(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))))))))))))).state,
+      state: migrateToV20(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))))))))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -3795,7 +3812,7 @@ export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: migrateToV19(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))))))))))))).state,
+      state: migrateToV20(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))))))))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -3952,6 +3969,7 @@ const ROLE_LABEL: Record<CreativeRole, string> = {
   director: 'Directors',
   writer: 'Writers',
   craft: 'Production/Craft Leads',
+  scientist: 'Scientist',
 }
 export function foundingCoverage(state: GameState): CoverageRow[] {
   const cov = rosterCoverage(state)
@@ -4539,7 +4557,7 @@ export type TalentProfile = {
   authored: boolean
   available: boolean
   engagedIn: string | null
-  assignmentKind: 'production' | 'script' | null
+  assignmentKind: 'production' | 'script' | 'research' | null
   perceived: Persona // NEVER actual
   temperament: string // temperamentSummary(perceived) — persona, not ability
   workEthic: number // visible 1..99
@@ -4585,7 +4603,7 @@ export function toTalentProfile(
   const primary = ROLE_TO_DISCIPLINE[t.role]
   const assignment = engaged.get(t.id) ?? null
   const genreExp = {} as Record<Discipline, GenreExperienceCell[]>
-  for (const d of DISCIPLINE_ORDER) {
+  for (const d of PERSON_DISCIPLINE_ORDER) {
     genreExp[d] = GENRE_ORDER.map((g) => ({
       genre: g,
       perceived: genreExperience(t, d, g, 'perceived'), // PERCEIVED only
@@ -4607,7 +4625,7 @@ export function toTalentProfile(
     temperament: temperamentSummary(t.perceived), // persona presentation, not ability
     workEthic: t.workEthic,
     workEthicLabel: workEthicLabel(t.workEthic),
-    disciplines: DISCIPLINE_ORDER.map((d) => disciplineSummary(t, d, seed, primary)),
+    disciplines: (t.role === 'scientist' ? PERSON_DISCIPLINE_ORDER : DISCIPLINE_ORDER).map((d) => disciplineSummary(t, d, seed, primary)),
     genreExperience: genreExp,
     careerIdentity: careerIdentity(t), // RULING B: capability vs credited identity
   }
@@ -5274,7 +5292,7 @@ export type CandidateCard = {
   authored: boolean
   available: boolean
   engagedIn: string | null
-  assignmentKind: 'production' | 'script' | null
+  assignmentKind: 'production' | 'script' | 'research' | null
   discipline: Discipline
   slot: CastSlot | undefined
   ovr: number // role-specific OVR (perceived) for THIS assignment's discipline
@@ -6770,6 +6788,7 @@ const LOT_ROSTER_PRESENTATION_ROLE: Readonly<Record<CreativeRole, LotPersonState
   actor: 'talent',
   writer: 'talent',
   craft: 'talent',
+  scientist: 'talent',
 }
 
 /**
@@ -7962,3 +7981,4 @@ export type {
   RecapWarningCode,
   WarningSeverity,
 } from '../../../src/core/index.ts'
+export { campaignDate } from '../../../src/core/index.js'

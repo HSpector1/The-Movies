@@ -21,7 +21,7 @@ import {
   foundingPhaseOf,
   generateWorld,
   importSave,
-  migrateToV19,
+  migrateToV20,
 } from '../src/core/index.js'
 import type { CreativeRole, GameState, LotCell } from '../src/core/index.js'
 import { TUNING } from '../src/core/tuning.js'
@@ -94,7 +94,7 @@ class JourneyRuntime {
 
   // Inspection comes from the bytes actually persisted by the coordinator,
   // never the old BridgeSession object after its logical session is replaced.
-  get gameState(): GameState { return migrateToV19(importSave(this.store.checkpoint.currentSaveJson)).state }
+  get gameState(): GameState { return migrateToV20(importSave(this.store.checkpoint.currentSaveJson)).state }
 
   async commit(tag: string, prepare: (live: BridgeRuntimeReadView, commandId: string) => SubmitIntentCommand): Promise<void> {
     // A full old journal may require one rollover. The candidate was proved to

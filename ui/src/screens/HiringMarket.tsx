@@ -37,6 +37,7 @@ const ROLE_LABEL: Record<CreativeRole, string> = {
   director: 'Director',
   writer: 'Writer',
   craft: 'Craft',
+  scientist: 'Scientist',
 }
 
 // Primary-discipline OVR for a card (0 if somehow absent) — used for the sort key only.

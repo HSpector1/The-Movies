@@ -194,7 +194,7 @@ export function makeTalent(
   const workHistory = {} as WorkHistory
   for (const d of DISCIPLINE_ORDER) workHistory[d] = 0
 
-  const devRate = { acting: 1, writing: 1, directing: 1, craft: 1 }
+  const devRate = { acting: 1, writing: 1, directing: 1, craft: 1, research: 1 }
 
   return {
     id: over.id ?? `t${talentSeq}`,

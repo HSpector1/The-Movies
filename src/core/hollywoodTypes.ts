@@ -45,7 +45,7 @@ export type LiveIndustryFilm = FilmIdentity & {
 }
 export type IndustryFilm = AuthoredFilm | LiveIndustryFilm
 export type RivalMoneyKind = 'capacity' | 'signing' | 'payroll' | 'overhead' | 'facilityOpex'
-  | 'development' | 'production' | 'marketing' | 'studioRevenue'
+  | 'development' | 'production' | 'marketing' | 'studioRevenue' | 'technologyAdoption'
 export type RivalFinancePeriod = {
   fromWeek: number
   throughWeek: number
@@ -100,6 +100,7 @@ export type IndustryReceipt = { eventId: string; week: number; studioId: string 
   | { kind: 'filmAnnounced'; productionId: string; conceptId: string }
   | { kind: 'filmReleased'; productionId: string; conceptId: string; before: Standing; after: Standing }
   | { kind: 'filmSettled'; productionId: string }
+  | { kind: 'technologyAdopted'; adoptionId: string }
 )
 export type HollywoodChartSnapshot = { week: number; rows: { studioId: string; standing: Standing; output: number }[] }
 export type HollywoodState = {

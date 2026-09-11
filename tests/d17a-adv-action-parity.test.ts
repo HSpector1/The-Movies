@@ -31,7 +31,7 @@ import {
 import type { CastSlot, CreativeRole, FilmShape, GameState } from '../src/core/index.js'
 
 // ── real-state construction (the tests/d12-economy.test.ts idiom) ─────────────
-const ROSTER: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2 }
+const ROSTER: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }
 
 function foundStudio(seed: string, term = 156): GameState {
   let s = beginFounding(generateWorld(seed))

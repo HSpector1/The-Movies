@@ -53,6 +53,12 @@ export function hasOperationalBlueprint(state: GameState, blueprintId: string): 
   return operationalBlueprintCount(state, blueprintId) > 0
 }
 
+/** Exact-target capability consequence; a module on a different body cannot qualify. */
+export function hasOperationalFacilityInstallation(state: GameState, targetFacilityId: string, blueprintId: string): boolean {
+  return state.placement.facilities.some((placed) => placed.status === 'operational' &&
+    placed.blueprintId === blueprintId && placed.installation?.targetFacilityId === targetFacilityId)
+}
+
 /**
  * The multiplier a percentage discount becomes, given how many of the discounting
  * building the studio has. Owning two does NOT double a discount: every effect in

@@ -190,22 +190,22 @@ const STRATEGIES: StrategyRoute[] = [
   // A — MICRO-BUDGET SCHLOCK: cheapest script, audience-friendly ordinary brief, cheapest talent,
   //     Lean budget, Small marketing, repeat whenever capacity allows.
   // A — CHEAP COHERENT: cheapest script, coherent ordinary brief, cheapest (repeated) talent, Lean, Small.
-  { name: 'A_cheap_coherent', rank: 'cheapest', conceptTier: 'cheapest', shapeKey: 'ordinary', negMult: 0.75, marketing: 100_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2 } },
+  { name: 'A_cheap_coherent', rank: 'cheapest', conceptTier: 'cheapest', shapeKey: 'ordinary', negMult: 0.75, marketing: 100_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 } },
   // B — COMPETENT MAINSTREAM: ordinary (median-cost) script, sensible ordinary brief, competent
   //     (mid-tier) talent, budget appropriate to demand, awareness-appropriate marketing.
   // B — MID-BUDGET: standard (median) script, Adequate production, Standard (awareness) marketing, mid talent.
-  { name: 'B_mid_budget', rank: 'mid', conceptTier: 'median', shapeKey: 'ordinary', negMult: 1.0, marketing: 'awareness', maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2 } },
+  { name: 'B_mid_budget', rank: 'mid', conceptTier: 'median', shapeKey: 'ordinary', negMult: 1.0, marketing: 'awareness', maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 } },
   // C — PREMIUM / AMBITIOUS: expensive (high production value) project, strongest practical talent,
   //     higher Production Budget, wide marketing — accepts high capital exposure. (Ordinary shape so
   //     premium is not double-charged the demanding-shape craft penalty; that lever is isolated in D.)
   // C — PREMIUM RATIONAL: high-potential (expensive) script, funding appropriate to demand (1.0), best talent, Large marketing.
-  { name: 'C_premium_rational', rank: 'best', conceptTier: 'expensive', shapeKey: 'ordinary', negMult: 1.0, marketing: 1_000_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2 } },
+  { name: 'C_premium_rational', rank: 'best', conceptTier: 'expensive', shapeKey: 'ordinary', negMult: 1.0, marketing: 1_000_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 } },
   // D — RECKLESS CHEAP-DEMANDING: cheapest talent on a demanding shape (execution inadequate for the
   //     Production Demand), legal funding + marketing.
   // D — MAXIMUM SPEND: most expensive script, maximum production (1.25) + maximum marketing (1M), best talent — regardless of marginal value.
-  { name: 'D_maximum_spend', rank: 'best', conceptTier: 'expensive', shapeKey: 'ordinary', negMult: 1.25, marketing: 1_000_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2 } },
+  { name: 'D_maximum_spend', rank: 'best', conceptTier: 'expensive', shapeKey: 'ordinary', negMult: 1.25, marketing: 1_000_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 } },
   // E — CHEAP INCOHERENT: cheap script, weak positioning (demanding shape → low Team Direction), cheapest talent, Lean, Small.
-  { name: 'E_cheap_incoherent', rank: 'cheapest', conceptTier: 'cheapest', shapeKey: 'demanding', negMult: 0.75, marketing: 100_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2 } },
+  { name: 'E_cheap_incoherent', rank: 'cheapest', conceptTier: 'cheapest', shapeKey: 'demanding', negMult: 0.75, marketing: 100_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 } },
 ]
 
 function rationalMarketing(s: GameState): number {
@@ -409,7 +409,7 @@ function audit2(seeds: number) {
 // AUDIT 4 — causal decomposition of the owner package's gross
 // ════════════════════════════════════════════════════════════════════════════════
 function audit4(seed: string) {
-  const counts: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 1, craft: 1 }
+  const counts: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 1, craft: 1, scientist: 0 }
   let s = foundFor(seed, 'cheapest', counts)
   const engaged = employmentEngaged(s)
   const shape = SHAPES.ordinary
@@ -486,7 +486,7 @@ const MKTS = [100_000, 400_000, 1_000_000] as const // Small / Standard / Large(
 type Tier = (typeof CONCEPT_TIERS)[number]
 
 function foundBig(seed: string, rank: Rank): GameState {
-  return foundFor(seed, rank, { actor: 6, director: 2, writer: 2, craft: 2 })
+  return foundFor(seed, rank, { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 })
 }
 function pickCrew(s: GameState, rank: Rank) {
   const busy = busyTalentIds(s)

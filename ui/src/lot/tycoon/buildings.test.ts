@@ -47,7 +47,7 @@ import {
 import { resolvePresenceSite } from './presence.ts'
 import { PRESENTATION_BY_BUILDING, WORLD_PLACES, anchorsAt, placedAnchors } from './world.ts'
 
-const COUNTS: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 2, craft: 1 }
+const COUNTS: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 2, craft: 1, scientist: 0 }
 
 function managedStudio(seed: string): GameState {
   let state = newGame(seed)

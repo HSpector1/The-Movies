@@ -15,7 +15,8 @@ export type CulturalForce =
   | 'darkness'
   | 'optimism'
   | 'spectacle'
-export type CreativeRole = 'writer' | 'director' | 'actor' | 'craft'
+export type FilmCreativeRole = 'writer' | 'director' | 'actor' | 'craft'
+export type CreativeRole = FilmCreativeRole | 'scientist'
 export type CastSlot = 'lead' | 'antagonist' | 'support'
 export type Range = [min: number, max: number]
 
@@ -42,7 +43,8 @@ export type Expression = {
 // actual; forecast (§7) reads perceived. See talentSummary.ts for the read-only
 // summaries (OVR/Fit/Potential/…) and effectiveSkill (the §5/§7 substitute).
 
-export type Discipline = 'acting' | 'writing' | 'directing' | 'craft'
+export type FilmDiscipline = 'acting' | 'writing' | 'directing' | 'craft'
+export type Discipline = FilmDiscipline | 'research'
 
 // The six skill keys of each discipline, in fixed SKILL_ORDER (D-9.1).
 export type ActingSkill =
@@ -74,6 +76,14 @@ export type CraftSkill =
   | 'effectsExecution'
   | 'technicalCoordination'
 
+export type ResearchSkill =
+  | 'scientificMethod'
+  | 'acoustics'
+  | 'instrumentation'
+  | 'experimentation'
+  | 'engineering'
+  | 'documentation'
+
 // a perceived/actual pair for one professional skill (both 1..99)
 export type SkillPair = { actual: number; perceived: number }
 
@@ -87,6 +97,7 @@ export type SkillProfiles = {
   writing: DisciplineSkills
   directing: DisciplineSkills
   craft: DisciplineSkills
+  research: DisciplineSkills
 }
 
 // hidden per-skill actual ceilings (1..99), one 6-vector per discipline (D-9.10)
@@ -95,6 +106,7 @@ export type Ceilings = {
   writing: Record<string, number>
   directing: Record<string, number>
   craft: Record<string, number>
+  research: Record<string, number>
 }
 
 // per-(discipline,genre) experience, perceived+actual (0..100) (D-9.9)
@@ -392,6 +404,9 @@ export type LedgerKind =
   | 'setCapex'
   | 'setMaintenance'
   | 'setDemolitionRefund'
+  | 'researchPayroll'
+  | 'researchSpend'
+  | 'technologyAdoption'
 
 // Frozen V11 rows discriminate the one capital event and its exact correlation.
 // Construction capex cannot masquerade as film/talent spend, while historical
@@ -415,6 +430,15 @@ export type LedgerEntryV11 =
 // facilities is its own auditable kind carrying no per-film correlation.
 export type LedgerEntry =
   | LedgerEntryV10
+  | {
+      week: number
+      kind: 'researchPayroll' | 'researchSpend' | 'technologyAdoption'
+      amount: number
+      talentId?: never
+      productionId?: never
+      constructionProjectId?: never
+      note: string
+    }
   | {
       week: number
       kind: 'constructionCapex'
@@ -550,6 +574,7 @@ export type FacilityCapability =
   | 'soundstage'
   | 'set-scenery'
   | 'post'
+  | 'laboratory'
 
 export type StudioFacility = {
   id: string
@@ -969,6 +994,10 @@ export type FacilityBlueprint = {
   buildWeeks: number
   capex: number
   weeklyOperatingCost: number
+  /** P09 installation job inside an existing body; never a second lot body. */
+  installationTargetCapability?: FacilityCapability
+  /** Authored cost and sequential timing disclosure; no separate progress state. */
+  installationComponents?: readonly { label: string; cost: number; weeks: number }[]
   /** Identity bases; the first placement of the blueprint uses them verbatim. */
   facilityIdBase: string
   projectIdBase: string
@@ -1055,12 +1084,16 @@ export type PlacedFacility = {
   status: PlacementStatus
   placedWeek: number
   completesWeek: number
+  /** A P09 physical-work arm. Empty cells; exact existing body owns the ground. */
+  installation?: { targetFacilityId: string }
 }
 
 // ── C1-M3a Move & Demolish V1 ────────────────────────────────────────────────
 
 /** Where an engagement on a facility comes from. One per persisted holder. */
 export type FacilityEngagementKind =
+  | 'installation'
+  | 'research'
   /** A production workflow reservation. Open-ended: held for the whole phase. */
   | 'production'
   /** The shooting task's denormalized soundstage copy. */
@@ -1604,6 +1637,11 @@ type StudioHistoryRowBase = {
 export type StudioHistoryEvent =
   | (StudioHistoryRowBase & { kind: 'studioFounded' })
   | (StudioHistoryRowBase & {
+      kind: 'technologyMilestone'
+      technologyId: 'synchronized-sound'
+      milestone: 'researchable' | 'commercialRelease'
+    })
+  | (StudioHistoryRowBase & {
       kind: 'standingChanged'
       source: StandingChangeSource
       before: Standing
@@ -1687,7 +1725,8 @@ export type GameStateV18 = GameStateV17 & {
 }
 
 export type GameStateV19 = GameStateV18 & { hollywood: import('./hollywoodTypes.js').HollywoodState | null }
-export type GameState = GameStateV19
+export type GameStateV20 = GameStateV19 & { technology: import('./technologyTypes.js').StudioTechnology }
+export type GameState = GameStateV20
 
 // ── D-14 Talent Career Impact — frozen career-event record (§7) ───────────────
 // The ONE canonical persisted record of a participant's outcome on one released film.
@@ -1737,6 +1776,7 @@ export type TalentCareerEvent = {
 
 // §2.6 Actions
 export type Action =
+  | import('./technologyTypes.js').TechnologyAction
   | {
       kind: 'greenlight'
       production: Omit<Production, 'id' | 'startTick' | 'remainingTicks' | 'forecastSnapshot'>

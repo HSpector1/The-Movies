@@ -87,7 +87,7 @@ console.log(`  identical: ${delta(10, 'lead', SCENARIOS[2]!) === delta(10, 'lead
 function foundEngaged(seed: string): GameState {
   let s = beginFounding(generateWorld(seed))
   const pool = s.founding!.applicantIds.map((id) => s.talent.find((t) => t.id === id)!)
-  const need: Record<CreativeRole, number> = { writer: 1, director: 1, actor: 3, craft: 1 }
+  const need: Record<CreativeRole, number> = { writer: 1, director: 1, actor: 3, craft: 1, scientist: 0 }
   const toSign: string[] = []
   for (const role of ['actor', 'director', 'writer', 'craft'] as CreativeRole[]) {
     const avail = pool.filter((t) => t.role === role)

@@ -205,6 +205,7 @@ const CAPABILITY_LABEL: Record<FacilityCapability, string> = {
   soundstage: 'Soundstage',
   'set-scenery': 'Scenery Shop',
   post: 'Post Building',
+  laboratory: 'Research Laboratory',
 }
 
 const COMMITMENT_KIND_ORDER: Record<StudioCalendarCommitmentView['kind'], number> = {

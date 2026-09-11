@@ -42,7 +42,7 @@ function foundedStudio(
     director: requested.director ?? FOUNDING_MINIMUMS.director,
     writer: requested.writer ?? FOUNDING_MINIMUMS.writer,
     craft: requested.craft ?? FOUNDING_MINIMUMS.craft,
-  }
+   scientist: 0 }
   for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
     for (const person of byRole(applicants, role).slice(0, counts[role])) {
       state = applyActions(state, [
@@ -150,7 +150,7 @@ function auditionAndDraftState(seed: string): GameState {
 }
 
 function productionState(seed: string): GameState {
-  let state = foundedStudio(seed, { actor: 3, director: 1, writer: 1, craft: 1 })
+  let state = foundedStudio(seed, { actor: 3, director: 1, writer: 1, craft: 1, scientist: 0 })
   state = applyActions(state, [{ kind: 'activateStudioOperations' }])
   return applyActions(state, [
     { kind: 'greenlight', production: rawProductionPayload(state, 0) },
@@ -204,7 +204,7 @@ describe('Studio Calendar V1 — authoritative read model', () => {
       director: 2,
       writer: 2,
       craft: 2,
-    })
+     scientist: 0 })
     state = applyActions(state, [
       { kind: 'greenlight', production: rawProductionPayload(state, 0) },
     ])
@@ -519,7 +519,7 @@ describe('Studio Calendar V1 — authoritative read model', () => {
       director: 2,
       writer: 2,
       craft: 2,
-    })
+     scientist: 0 })
     state = {
       ...state,
       construction: initialManagedStudioConstruction(),

@@ -25,6 +25,7 @@ const ROLE_LABEL: Record<CreativeRole, string> = {
   director: 'Director',
   writer: 'Writer',
   craft: 'Craft',
+  scientist: 'Scientist',
 }
 
 const STATUS_LABEL: Record<string, string> = {
@@ -314,7 +315,9 @@ function RosterCard({
         <p className="hint" data-testid={`roster-assignment-${id}`}>
           {profile.assignmentKind === 'script'
             ? `${profile.engagedIn} — unavailable until the screenplay reaches review.`
-            : `Working on ${profile.engagedIn} — busy until it releases.`}
+            : profile.assignmentKind === 'research'
+              ? `${profile.engagedIn} — pause or cancel research to free this Scientist.`
+              : `Working on ${profile.engagedIn} — busy until it releases.`}
         </p>
       )}
 

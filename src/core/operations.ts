@@ -60,6 +60,13 @@ export type SetBindingContext = {
   genreOf: (productionId: string) => Genre | null
 }
 
+/** Campaign-owned technology may restrict candidates, without owning allocation. */
+export type ProductionAllocationPolicy = {
+  allowsFacility: (productionId: string, facility: StudioFacility, targetPhase: ProductionPhase) => boolean
+  /** Called at the actual transition, before its event and before shooting work. */
+  beforePhaseEntered?: (production: Production, targetPhase: ProductionPhase, reservations: readonly FacilityReservation[], week: number) => void
+}
+
 // Deep-frozen because this template is part of the public core surface. The live
 // state always receives mutable-by-replacement clones; no consumer can alter the
 // authoritative defaults or the invariant baseline through this singleton.
@@ -273,10 +280,13 @@ function allocateForPhase(
   targetPhase: ProductionPhase,
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
   binding?: SetBindingContext,
+  policy?: ProductionAllocationPolicy,
 ): AllocationResult {
   const occupied = occupiedSlots(operations, workflow.productionId, externallyOccupiedSlots)
   const reservations: FacilityReservation[] = []
-  const facilities = [...operations.facilities].sort(compareId)
+  const facilities = [...operations.facilities]
+    .filter((facility) => policy?.allowsFacility(workflow.productionId, facility, targetPhase) ?? true)
+    .sort(compareId)
 
   // ── THE STAGE+SET COMPOSITE (charter §3.2) ────────────────────────────────
   //
@@ -359,6 +369,11 @@ function allocateForPhase(
       ? undefined
       : workflow.reservations.find((reservation) => reservation.capability === capability)
     if (retained !== undefined) {
+      if (!facilities.some((facility) => facility.id === retained.facilityId)) {
+        // Choice changes during rehearsal must use the atomic retarget command.
+        // An inconsistent persisted choice must never silently move a filming crew.
+        throw new Error(`production technology: ${workflow.productionId} holds a facility outside its selected chain`)
+      }
       alreadyRetained.add(capability)
       reservations.push({ ...retained, phase: targetPhase })
       occupied.add(facilitySlotKey(retained.facilityId, retained.slot))
@@ -399,6 +414,57 @@ function allocateForPhase(
   }
 
   return { ok: true, reservations, boundSet }
+}
+
+/**
+ * A deliberate pre-filming choice may move rehearsal to an exact stage/set.
+ * Query and commit are atomic: a busy target leaves all old reservations intact.
+ * This does not change the phase, countdown, or the retention law during a tick.
+ */
+export function retargetUnfilmedProduction(
+  operations: StudioOperations,
+  productionId: string,
+  targetStageFacilityId: string,
+  externallyOccupiedSlots: ReadonlySet<string>,
+  events: StudioEventSink,
+  binding: SetBindingContext,
+  week: number,
+): { ok: true; operations: StudioOperations } | { ok: false; reason: string } {
+  const workflow = operations.workflows.find((candidate) => candidate.productionId === productionId)
+  if (workflow === undefined || operations.mode !== 'managed') return { ok: false, reason: 'This production has no managed workflow.' }
+  if (workflow.phase === 'shooting' || workflow.phase === 'postProduction' || workflow.phase === 'releaseReady') {
+    return { ok: false, reason: 'Filming has begun. This film keeps its locked technology.' }
+  }
+  if (workflow.phase !== 'rehearsal') return { ok: true, operations }
+  if (workflow.reservations.some((reservation) => reservation.capability === 'soundstage' && reservation.facilityId === targetStageFacilityId)) {
+    return { ok: true, operations }
+  }
+  const draft: ProductionWorkflow = {
+    ...workflow,
+    reservations: workflow.reservations.filter((reservation) => reservation.capability !== 'soundstage'),
+    bindings: emptyWorkflowBindings(workflow.bindings.requiresSetBinding),
+  }
+  const allocation = allocateForPhase(replaceWorkflow(operations, draft), draft, 'rehearsal', externallyOccupiedSlots, binding, {
+    allowsFacility: (_productionId, facility) => facility.capability !== 'soundstage' || facility.id === targetStageFacilityId,
+  })
+  if (!allocation.ok) return {
+    ok: false,
+    reason: allocation.blocker.kind === 'set-unavailable'
+      ? 'The selected soundstage needs a standing, usable set. Build or repair its set before changing this film.'
+      : 'The selected soundstage is occupied. Wait for its current work to finish before changing this film.',
+  }
+  const derived = deriveBindings(draft.bindings, allocation.reservations, week)
+  const replacement: ProductionWorkflow = {
+    ...draft, reservations: allocation.reservations,
+    // Rehearsal may already be waiting for scenery capacity; that remains the
+    // next-phase bottleneck after changing stages, and will be retried by the tick.
+    bindings: allocation.boundSet === null ? derived : {
+      ...derived, setId: allocation.boundSet.id, lockedNovelty: allocation.boundSet.novelty,
+      lockedUplift: setBindingUplift(allocation.boundSet, binding.genreOf(productionId)),
+    },
+  }
+  recordReservationTransition(events, workflow, allocation.reservations)
+  return { ok: true, operations: replaceWorkflow(operations, replacement) }
 }
 
 // ── C2a-M1 — the studioEvents producers (charter §5) ────────────────────────
@@ -1148,6 +1214,7 @@ function enterPhase(
   events: StudioEventSink,
   binding?: SetBindingContext,
   sets: readonly StudioSet[] = [],
+  policy?: ProductionAllocationPolicy,
 ): {
   operations: StudioOperations
   production: Production
@@ -1216,6 +1283,7 @@ function enterPhase(
     targetPhase,
     externallyOccupiedSlots,
     binding,
+    policy,
   )
   if (!allocation.ok) {
     return {
@@ -1230,6 +1298,7 @@ function enterPhase(
   workflow = working
 
   recordReservationTransition(events, workflow, allocation.reservations)
+  policy?.beforePhaseEntered?.(production, targetPhase, allocation.reservations, week)
   events.append({ kind: 'phaseEntered', productionId: production.id, phase: targetPhase })
 
   const shootingTask: ShootingTask | null =
@@ -1374,6 +1443,7 @@ export function advanceManagedProductions(
   externallyOccupiedSlots: ReadonlySet<string> = new Set<string>(),
   events: StudioEventSink = disabledStudioEventSink(),
   binding?: SetBindingContext,
+  policy?: ProductionAllocationPolicy,
 ): ManagedProductionAdvance {
   const admittedReleaseIds: string[] = []
   let sets: readonly StudioSet[] = binding?.sets ?? []
@@ -1511,6 +1581,7 @@ export function advanceManagedProductions(
       // stand after the previous one wore its own. One walk, one authority.
       binding === undefined ? undefined : { ...binding, sets },
       sets,
+      policy,
     )
     nextOperations = result.operations
     sets = result.sets

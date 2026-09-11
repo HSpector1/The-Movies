@@ -2,7 +2,7 @@ import {encodeCampaignStorage,decodeCampaignStorage} from './campaign-storage-co
 import {randomUUID} from 'node:crypto'
 import {campaignDate} from '../../src/core/calendar.js'
 import type {FoundingRegime} from '../../src/core/types.js'
-import {importSave,migrateToV19} from '../../src/core/index.js'
+import {importSave,migrateToV20} from '../../src/core/index.js'
 import {BridgeSession,type RejectedResponse} from '../session.ts'
 import {sameNativeCampaignOrigin} from '../campaign-origin.ts'
 import {PROTOCOL_VERSION,SCHEMA_ID,SNAPSHOT_VERSION,type ControlEnvelope,type RejectionCode} from '../protocol.ts'
@@ -45,7 +45,7 @@ function summary(record:CampaignRecord):CampaignLibraryResponse['campaigns'][num
   const cached=summaries.get(record);if(cached)return cached
   // Record bytes were validated at creation/load. Catalogue polling reads the cached projection thereafter.
   const checkpoint=JSON.parse(record.checkpointJson)
-  const state=migrateToV19(importSave(checkpoint.currentSaveJson)).state
+  const state=migrateToV20(importSave(checkpoint.currentSaveJson)).state
   const date=campaignDate(state.market.tick)
   const value={id:record.id,label:record.label,revision:record.revision,gameWeek:date.absoluteWeek,
     year:date.year,weekOfYear:date.weekOfYear,dateLabel:date.label,studioName:state.hollywood?.identities[0]?.name??null}
@@ -124,7 +124,7 @@ export function loadCampaignLibrary(json:string,limits:BridgeRuntimeCheckpointLi
   const active=records.find(r=>r.id===value.activeCampaignId)
   if(active) {
     const checkpoint=JSON.parse(active.checkpointJson)
-    const saved=migrateToV19(importSave(checkpoint.currentSaveJson)).state
+    const saved=migrateToV20(importSave(checkpoint.currentSaveJson)).state
     const current=session.gameState
     if(saved.seed!==current.seed || saved.hollywood?.worldId!==current.hollywood?.worldId || saved.hollywood?.playerStudioId!==current.hollywood?.playerStudioId) {
       throw new Error('Active campaign record and working checkpoint have different world origins')

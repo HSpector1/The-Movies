@@ -38,6 +38,7 @@ const FOUNDING_COUNTS: Record<CreativeRole, number> = {
   director: 1,
   writer: 1,
   craft: 1,
+  scientist: 0,
 }
 
 function clone<T>(value: T): T {

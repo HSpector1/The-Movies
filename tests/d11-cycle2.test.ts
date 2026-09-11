@@ -291,7 +291,7 @@ describe('D-11.A — custom-created talent are not auto-employed', () => {
       writing: [40, 40, 40, 40, 40, 40],
       directing: [40, 40, 40, 40, 40, 40],
       craft: [90, 88, 86, 84, 82, 80],
-    },
+     research: [1, 1, 1, 1, 1, 1] },
   }
 
   it('created DURING founding → joins the applicant pool (not employed), signable, counts toward minimum', () => {
@@ -350,7 +350,7 @@ describe('D-11.A — Full Custom creation (direct skills; OVR derived; bounds en
         writing: [30, 30, 30, 30, 30, 30],
         directing: [30, 30, 30, 30, 30, 30],
         craft: [30, 30, 30, 30, 30, 30],
-      },
+       research: [1, 1, 1, 1, 1, 1] },
     }
     // Derived preview OVR reflects the high acting skills.
     const preview = previewCustomTalent(input, s0.seed)
@@ -375,7 +375,7 @@ describe('D-11.A — Full Custom creation (direct skills; OVR derived; bounds en
         writing: [99, 99, 99, 99, 99, 99],
         directing: [99, 99, 99, 99, 99, 99],
         craft: [99, 99, 99, 99, 99, 99],
-      },
+       research: [1, 1, 1, 1, 1, 1] },
     }
     const s = applyActions(s0, [{ kind: 'createCustomTalent', talent: input }])
     const created = s.talent.find((t) => t.name === 'Maxed Out')!
@@ -401,7 +401,7 @@ describe('D-11.A — Full Custom creation (direct skills; OVR derived; bounds en
               writing: [50, 50, 50, 50, 50, 50],
               directing: [50, 50, 50, 50, 50, 50],
               craft: [50, 50, 50, 50, 50, 50],
-            },
+             research: [1, 1, 1, 1, 1, 1] },
           },
         },
       ]),
@@ -422,7 +422,7 @@ describe('D-11.A — Full Custom creation (direct skills; OVR derived; bounds en
             writing: [50, 50, 50, 50, 50, 50],
             directing: [50, 50, 50, 50, 50, 50],
             craft: [50, 50, 50, 50, 50, 50],
-          },
+           research: [1, 1, 1, 1, 1, 1] },
         },
       },
     ])
@@ -447,7 +447,7 @@ describe('D-11.A — Full Custom creation (direct skills; OVR derived; bounds en
         writing: [70, 70, 70, 70, 70, 70],
         directing: [40, 40, 40, 40, 40, 40],
         craft: [40, 40, 40, 40, 40, 40],
-      },
+       research: [1, 1, 1, 1, 1, 1] },
     })
     s = applyActions(s, [{ kind: 'createCustomTalent', talent: mk('One') }])
     s = applyActions(s, [{ kind: 'createCustomTalent', talent: mk('Two') }])

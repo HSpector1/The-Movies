@@ -14,7 +14,9 @@ import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
 import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.ts'
 import { createBridgeRuntimeCoordinator } from '../bridge/runtime/runtime-coordinator.ts'
-import { importSave, type SaveFileV19 } from '../src/core/save.js'
+import { importSave, type SaveFileV20 } from '../src/core/save.js'
+import { initialTechnology } from '../src/core/technology.js'
+import { withResearchFoundation } from '../src/core/researchPeople.js'
 
 // Independent historical authority, not taken from the implementation allowlist:
 // P07-OWNER-ACCEPTANCE-RECEIPT.md at 2753e18ba8fb5f65b936c22cde9531646fecc6cd,
@@ -47,21 +49,29 @@ function previous(bytes: string): BridgeRuntimeCheckpointV1 {
   return JSON.parse(bytes) as BridgeRuntimeCheckpointV1
 }
 
-function expectPreservedGameplay(beforeJson: string, after: SaveFileV19): void {
+function expectPreservedGameplay(beforeJson: string, after: SaveFileV20): void {
   const before = importSave(beforeJson)
-  expect(before.saveVersion).toBe(16)
+  if (before.saveVersion !== 16) throw new Error('Frozen P06 evidence must contain an original Save V16')
   // Assert every old root, including IDs, commitment, cash/ledger, week and RNG,
-  // against the frozen input. Only the two authorized V16→V18 additions differ.
-  // Comparing with migrateToV18's own output would not prove preservation.
+  // against the frozen input. V20 adds neutral research person leaves and an
+  // empty technology root, and corrects the inert opening soundRequired flag.
+  // Comparing with migrateToV20's own output would not prove preservation.
   const oldIds=new Set(before.state.talent.map(t=>t.id))
-  const {hollywood,...afterState}=after.state
+  const {hollywood,technology,...afterState}=after.state
   expect(hollywood).toMatchObject({origin:'migration',originWeek:before.state.market.tick,films:[]})
-  expect(after.state.talent.filter(t=>oldIds.has(t.id))).toEqual(before.state.talent)
-  expect({...after,state:{...afterState,talent:after.state.talent.filter(t=>oldIds.has(t.id))}}).toEqual({
-    saveVersion: 19,
+  expect(technology).toEqual(initialTechnology(before.state.market.tick))
+  expect(after.state.talent.filter(t=>oldIds.has(t.id))).toEqual(before.state.talent.map(withResearchFoundation))
+  const oldPeople = after.state.talent.filter(t=>oldIds.has(t.id)).map(person => {
+    const copied = structuredClone(person)
+    for (const key of ['skills','ceilings','devRate','genreExperience','workHistory'] as const) Reflect.deleteProperty(copied[key], 'research')
+    return copied
+  })
+  expect({...after,state:{...afterState,talent:oldPeople}}).toEqual({
+    saveVersion: 20,
     seed: before.seed,
     state: {
       ...before.state,
+      era: { ...before.state.era, soundRequired: false },
       studioHistory: { recordingStartedWeek: before.state.market.tick, nextEventId: 0, rows: [] },
       foundingRegime: 'endowed',
     },

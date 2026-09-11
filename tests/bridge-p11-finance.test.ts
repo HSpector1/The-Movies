@@ -8,7 +8,7 @@ import { BridgeSession } from '../bridge/session.ts'
 import {
   activeContract, applyActions, beginFounding, contractOffer, FOUNDING_MINIMUMS,
   freelancerMarketIds, generateWorld, guaranteedComp, hiringMarketIds, makeSaveV10,
-  migrateToV19, queryPlacement, stableStringify, tick, weeklyBurn, weeklySalary,
+  migrateToV20, queryPlacement, stableStringify, tick, weeklyBurn, weeklySalary,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, LotCell, SegmentId } from '../src/core/index.js'
 import { filmResultView } from '../ui/src/engine/adapter.ts'
@@ -246,7 +246,7 @@ describe('P11 current people, obligations and film economics owners', () => {
     const film = state.studio.releasedFilms[0]!
     const legacy = makeSaveV10(state)
     legacy.state.ledger = legacy.state.ledger.filter(e => e.productionId !== film.productionId || !['production', 'freelancerFee'].includes(e.kind))
-    const migrated = migrateToV19(legacy).state
+    const migrated = migrateToV20(legacy).state
     expect(migrated.cashLedgerCheckpoint).toBeDefined()
     const p07Before = filmResultView(migrated, film).business
     const row = financeProjection(migrated, peopleProjection(migrated)).films.find(f => f.productionId === film.productionId)!
@@ -264,7 +264,7 @@ describe('P11 current people, obligations and film economics owners', () => {
     const film = state.studio.releasedFilms[0]!
     const legacy = makeSaveV10(state)
     legacy.state.ledger = legacy.state.ledger.filter(e => e.productionId !== film.productionId || e.kind !== 'production')
-    const migrated = migrateToV19(legacy).state
+    const migrated = migrateToV20(legacy).state
     expect(migrated.ledger.some(e => e.productionId === film.productionId && e.kind === 'freelancerFee')).toBe(true)
     expect(migrated.ledger.some(e => e.productionId === film.productionId && e.kind === 'production')).toBe(false)
     const row = financeProjection(migrated, peopleProjection(migrated)).films.find(f => f.productionId === film.productionId)!
@@ -279,7 +279,7 @@ describe('P11 current people, obligations and film economics owners', () => {
     const film = state.studio.releasedFilms[0]!
     const commitment = state.ledger.find(e => e.kind === 'production' && e.productionId === film.productionId)!
     expect(commitment.note).toBe('negative + marketing + salaries (D-1)')
-    const migrated = migrateToV19(makeSaveV10(state)).state
+    const migrated = migrateToV20(makeSaveV10(state)).state
     const business = filmResultView(migrated, film).business
     const row = financeProjection(migrated, peopleProjection(migrated)).films.find(f => f.productionId === film.productionId)!
     expect(row.directCommitment).toBe(-commitment.amount)

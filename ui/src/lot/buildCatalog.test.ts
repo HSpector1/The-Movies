@@ -32,7 +32,7 @@ import { placedBuildingId } from './snapshot/StudioLotSnapshot.ts'
 import { blueprintPresentation } from './tycoon/world.ts'
 import { composeWorldBuildings, worldBuildingById } from './tycoon/buildings.ts'
 
-const COUNTS: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 3, craft: 1 }
+const COUNTS: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 3, craft: 1, scientist: 0 }
 
 /**
  * Every blueprint the studio catalog holds, in the engine's own authored order.

@@ -733,6 +733,8 @@ export type LotParcelState = {
  */
 export type LotFacilityEngagement = {
   kind:
+    | 'installation'
+    | 'research'
     | 'production'
     | 'shootingTask'
     | 'screenplay'
@@ -817,7 +819,7 @@ export type LotPlacedFacilityState = {
 export type LotPresenceBeat = 'home' | 'travel' | 'at-site' | 'waiting'
 
 /** Which authority claims the person's week. */
-export type LotPresenceEngagement = 'production' | 'script' | 'casting' | 'roster'
+export type LotPresenceEngagement = 'production' | 'script' | 'casting' | 'research' | 'roster'
 
 /** What the person is credited as at the claimed site; null for an unclaimed week. */
 export type LotPresenceCredit =
@@ -828,13 +830,14 @@ export type LotPresenceCredit =
   | 'support'
   | 'craft'
   | 'auditionee'
+  | 'scientist'
   | null
 
 export type LotPresencePerson = {
   talentId: string
   name: string
   /** The person's PRIMARY profession, not the week's credit. */
-  creativeRole: 'actor' | 'director' | 'writer' | 'craft'
+  creativeRole: 'actor' | 'director' | 'writer' | 'craft' | 'scientist'
   engagement: LotPresenceEngagement
   credit: LotPresenceCredit
   /** productionId | scriptProjectId | castingSessionId, or null for roster. */
@@ -1137,7 +1140,7 @@ export type LotPlacementProjection = {
 export type LotGateHiringCandidate = {
   talentId: string
   name: string
-  creativeRole: 'actor' | 'director' | 'writer' | 'craft'
+  creativeRole: 'actor' | 'director' | 'writer' | 'craft' | 'scientist'
   employmentStatus: 'freeAgent'
   /** Exact current term identities only; complete money truth remains in Hiring. */
   offerTermWeeks: number[]

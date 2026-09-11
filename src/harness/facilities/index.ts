@@ -610,7 +610,7 @@ const POLICY: Record<FacilitiesPolicyId, PolicyDefinition> = {
     targetPipeline: 2,
     auditions: false,
     rewriteBelow: null,
-    desiredRoster: { actor: 3, director: 1, writer: 2, craft: 1 },
+    desiredRoster: { actor: 3, director: 1, writer: 2, craft: 1, scientist: 0 },
   },
   'development-casting': {
     id: 'development-casting',
@@ -618,7 +618,7 @@ const POLICY: Record<FacilitiesPolicyId, PolicyDefinition> = {
     targetPipeline: 3,
     auditions: true,
     rewriteBelow: 55,
-    desiredRoster: { actor: 3, director: 1, writer: 3, craft: 1 },
+    desiredRoster: { actor: 3, director: 1, writer: 3, craft: 1, scientist: 0 },
   },
   'scaled-two-team': {
     id: 'scaled-two-team',
@@ -626,7 +626,7 @@ const POLICY: Record<FacilitiesPolicyId, PolicyDefinition> = {
     targetPipeline: 4,
     auditions: true,
     rewriteBelow: 60,
-    desiredRoster: { actor: 6, director: 2, writer: 3, craft: 2 },
+    desiredRoster: { actor: 6, director: 2, writer: 3, craft: 2, scientist: 0 },
   },
   // ── C2a-M4: the four-picture arm (G10.1's instrument) ──────────────────────
   //
@@ -646,7 +646,7 @@ const POLICY: Record<FacilitiesPolicyId, PolicyDefinition> = {
     targetPipeline: 8,
     auditions: true,
     rewriteBelow: 60,
-    desiredRoster: { actor: 12, director: 4, writer: 6, craft: 4 },
+    desiredRoster: { actor: 12, director: 4, writer: 6, craft: 4, scientist: 0 },
   },
 }
 
@@ -655,6 +655,7 @@ const FACILITY_NAME: Record<FacilityCapability, string> = {
   soundstage: 'Research-only Soundstage +1',
   'set-scenery': 'Research-only Scenery +1',
   post: 'Research-only Post +1',
+  laboratory: 'Research-only Laboratory +1',
 }
 
 const SCRIPT_STATUSES = [
@@ -827,7 +828,7 @@ function roleCount(state: GameState): Record<CreativeRole, number> {
     ).length,
     writer: state.talent.filter((person) => person.role === 'writer' && active.has(person.id)).length,
     craft: state.talent.filter((person) => person.role === 'craft' && active.has(person.id)).length,
-  }
+   scientist: 0 }
 }
 
 function applicantsByRole(state: GameState, role: CreativeRole): Talent[] {
@@ -1651,7 +1652,7 @@ function activeContractsByRole(
   state: GameState,
   talentIds?: ReadonlySet<string>,
 ): Record<CreativeRole, number> {
-  const counts: Record<CreativeRole, number> = { actor: 0, director: 0, writer: 0, craft: 0 }
+  const counts: Record<CreativeRole, number> = { actor: 0, director: 0, writer: 0, craft: 0, scientist: 0 }
   for (const contract of state.contracts) {
     if (!(contract.startWeek <= state.market.tick && state.market.tick < contract.endWeekExclusive)) {
       continue
@@ -1963,6 +1964,7 @@ function emptyCapabilitySummary(): Record<FacilityCapability, FacilitiesCapabili
     soundstage: make(),
     'set-scenery': make(),
     post: make(),
+    laboratory: make(),
   }
 }
 
@@ -1973,6 +1975,7 @@ function summarizeCapabilities(rows: readonly FacilitiesWeeklyRow[]) {
     soundstage: 0,
     'set-scenery': 0,
     post: 0,
+    laboratory: 0,
   }
   for (const row of rows.filter((candidate) => candidate.sampleKind === 'interval-start')) {
     const byCapability = new Map<FacilityCapability, FacilitiesWeeklyFacility[]>()
@@ -2030,7 +2033,7 @@ function leadTimes(runtime: ArmRuntime): FacilitiesLeadTime[] {
 }
 
 function zeroCapabilityCounts(): Record<FacilityCapability, number> {
-  return { 'development-casting': 0, soundstage: 0, 'set-scenery': 0, post: 0 }
+  return { 'development-casting': 0, soundstage: 0, 'set-scenery': 0, post: 0, laboratory: 0 }
 }
 
 function staffingSnapshot(

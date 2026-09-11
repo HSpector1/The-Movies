@@ -162,7 +162,7 @@ const MIDPOINTS = new Set(['reversal', 'escalation', 'revelation'])
 const ENDINGS = new Set(['triumph', 'bittersweet', 'tragic', 'ambiguous'])
 const SEGMENTS = new Set(['youngAdult', 'family', 'adult', 'prestige'])
 const GENRES = new Set(['comedy', 'drama', 'crime', 'romance', 'horror', 'adventure'])
-const CREATIVE_ROLES = new Set(['writer', 'director', 'actor', 'craft'])
+const CREATIVE_ROLES = new Set(['writer', 'director', 'actor', 'craft', 'scientist'])
 
 type UnknownRecord = Record<PropertyKey, unknown>
 

@@ -13,7 +13,7 @@ import {
   importSave,
   makeSave,
   makeSaveV4,
-  migrateToV19,
+  migrateToV20,
   starPowerRoleWeight,
   tick,
   TUNING,
@@ -24,7 +24,7 @@ import type { CastSlot, CreativeRole, FilmParticipantRole, GameState } from '../
 function foundEngaged(seed: string, historical = false): GameState {
   let s = (historical?beginFoundingHistoricalControl:beginFounding)(generateWorld(seed))
   const pool = s.founding!.applicantIds.map((id) => s.talent.find((t) => t.id === id)!)
-  const need: Record<CreativeRole, number> = { writer: 1, director: 1, actor: 3, craft: 1 }
+  const need: Record<CreativeRole, number> = { writer: 1, director: 1, actor: 3, craft: 1, scientist: 0 }
   for (const role of ['actor', 'director', 'writer', 'craft'] as CreativeRole[]) {
     for (const t of pool.filter((x) => x.role === role).slice(0, need[role])) {
       s = applyActions(s, [{ kind: 'signContract', talentId: t.id, termWeeks: 208 }])
@@ -222,7 +222,7 @@ describe('D-14 Star Power lifecycle (real engine)', () => {
     expect(reloaded.state.careerEvents).toEqual(s.careerEvents)
 
     // Advancing the reloaded state with NO new release adds NO new events (no re-apply).
-    let s2 = migrateToV19(reloaded).state
+    let s2 = migrateToV20(reloaded).state
     for (let k = 0; k < 5; k++) s2 = tick(s2, { develop: true })
     expect(s2.careerEvents.length).toBe(eventsBefore)
   })

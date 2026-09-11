@@ -191,6 +191,7 @@ const CREATIVE_ROLES = new Set<CreativeRole>([
   'director',
   'actor',
   'craft',
+  'scientist',
 ])
 
 const ASSESSMENT_BANDS = new Set([

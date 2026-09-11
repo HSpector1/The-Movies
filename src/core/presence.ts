@@ -40,6 +40,7 @@
 //     (freelance) member of a releaseReady production is not projected at all.
 
 import { stream } from './rng.js'
+import { activeContract } from './employment.js'
 import type {
   CastSlot,
   CreativeRole,
@@ -64,7 +65,7 @@ export const PRESENCE_LAST_WORK_BEAT = 8
 export type PresenceBeat = 'home' | 'travel' | 'at-site' | 'waiting'
 
 /** Which authority claims the person's week. Precedence order, highest first. */
-export type PresenceEngagement = 'production' | 'script' | 'casting' | 'roster'
+export type PresenceEngagement = 'production' | 'script' | 'casting' | 'research' | 'roster'
 
 /**
  * What the person is credited as at the claimed site. Derived from exact truth
@@ -79,6 +80,7 @@ export type PresenceCredit =
   | 'support'
   | 'craft'
   | 'auditionee'
+  | 'scientist'
   | null
 
 // ── roster attendance canon (Living Lot LL-CP1) ──────────────────────────────
@@ -93,11 +95,13 @@ export type PresenceCredit =
 // (fail-neutral, never invented). Freelancers hold no contract and are not
 // projected — unchanged.
 /** Where an unclaimed contracted member reports during a contract week. */
-export const ROSTER_HOME_FACILITY: Readonly<Record<CreativeRole, string>> = {
+export const ROSTER_HOME_FACILITY: Readonly<Record<CreativeRole, string | null>> = {
   writer: 'facility-development-casting',
   director: 'facility-development-casting',
   actor: 'facility-development-casting',
   craft: 'facility-scenery-shop',
+  // Laboratory ids are placed identities, resolved from actual capacity below.
+  scientist: null,
 }
 
 /** The attendance-canon home facility for a primary profession, or null. */
@@ -321,9 +325,9 @@ type Claim = {
   blockedReason: string | null
 }
 
-type ClaimTier = 'production' | 'script' | 'casting'
+type ClaimTier = 'production' | 'script' | 'casting' | 'research'
 
-const TIER_RANK: Record<ClaimTier, number> = { production: 0, script: 1, casting: 2 }
+const TIER_RANK: Record<ClaimTier, number> = { production: 0, script: 1, casting: 2, research: 3 }
 
 function blockedReasonFor(capability: string, targetPhase: string): string {
   return `awaiting ${capability} capacity to enter ${targetPhase}`
@@ -411,6 +415,13 @@ export function studioPresence(state: GameState): StudioPresence {
     if (!isNonEmptyString(facilityId) || !isNonNegativeInteger(slot)) return
     const key = slotKey(facilityId, slot)
     slotOwners.set(key, (slotOwners.get(key) ?? 0) + 1)
+  }
+  const researchRoot = raw['technology']
+  const researchProjects = isObject(researchRoot) && Array.isArray(researchRoot['projects'])
+    ? researchRoot['projects'].filter(isObject)
+    : []
+  for (const project of researchProjects) {
+    if (project['status'] === 'active') countSlot(project['laboratoryFacilityId'], 0)
   }
   for (let i = 0; i < state.operations.workflows.length; i++) {
     const workflow = state.operations.workflows[i]!
@@ -670,6 +681,38 @@ export function studioPresence(state: GameState): StudioPresence {
     }
   }
 
+  // P13 Core owns one named research seat at the exact Laboratory. A duplicate
+  // active assignment is contradictory authority and is withheld, never hidden
+  // by the film/casting presentation precedence.
+  const researchClaimedPeople = new Set<string>()
+  for (const project of researchProjects) {
+    if (project['status'] !== 'active') continue
+    const scientistId = project['scientistId']
+    const facilityId = project['laboratoryFacilityId']
+    const projectId = project['id']
+    if (!isNonEmptyString(scientistId) || !isNonEmptyString(facilityId) || !isNonEmptyString(projectId)) continue
+    const scientist = talentById.get(scientistId)
+    if (scientist?.role !== 'scientist' || activeContract(state, scientistId, currentWeek) === undefined) {
+      withhold(scientistId, 'research assignment has no employed Scientist')
+      continue
+    }
+    if (claims.has(scientistId) || researchClaimedPeople.has(scientistId)) {
+      withhold(scientistId, 'Scientist has simultaneous active assignments')
+      continue
+    }
+    researchClaimedPeople.add(scientistId)
+    const failure = siteFailure(facilityId, 0)
+    const laboratory = state.operations.facilities.find(facility => facility.id === facilityId)
+    if (failure !== null || laboratory?.capability !== 'laboratory') {
+      withhold(scientistId, failure ?? 'research assignment does not name Laboratory capacity')
+      continue
+    }
+    addClaim('research', {
+      talentId: scientistId, engagement: 'research', credit: 'scientist',
+      ownerId: projectId, facilityId, slot: 0, blockedReason: null,
+    })
+  }
+
   // ── population = every claimed person ∪ every contracted employee ──────────
   const population: string[] = []
   const seen = new Set<string>()
@@ -705,7 +748,9 @@ export function studioPresence(state: GameState): StudioPresence {
     if (claim === undefined) {
       // Roster attendance canon: contracted, unclaimed members report to their
       // profession's home facility when it exists; otherwise they stay home.
-      const homeFacilityId = rosterHomeFacilityId(person.role)
+      const homeFacilityId = person.role === 'scientist'
+        ? state.operations.facilities.find(facility => facility.capability === 'laboratory')?.id ?? null
+        : rosterHomeFacilityId(person.role)
       const attends = homeFacilityId !== null && facilityIds.has(homeFacilityId)
       people.push({
         talentId,

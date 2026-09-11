@@ -159,6 +159,7 @@ const PROFESSION_LABEL: Record<CreativeRole, string> = {
   director: 'Director',
   writer: 'Writer',
   craft: 'Craft',
+  scientist: 'Scientist',
 }
 
 const ROLE_POOL_ORDER: readonly RolePoolView['role'][] = [

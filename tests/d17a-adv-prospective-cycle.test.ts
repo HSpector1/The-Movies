@@ -25,7 +25,7 @@ import {
 } from '../src/core/index.js'
 import type { CreativeRole, GameState } from '../src/core/index.js'
 
-const ROSTER: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2 }
+const ROSTER: Record<CreativeRole, number> = { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 }
 const CYCLE_WEEKS = TUNING.PRODUCTION_TICKS + TUNING.THEATRICAL_WEEKS
 
 /** A founding draft with the roster signed but the studio NOT yet founded. */

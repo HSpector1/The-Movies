@@ -80,7 +80,10 @@ import type {
   StudioConstruction,
   StudioOperations,
   StudioSet,
+  StudioPlacement,
+  PlacedFacility,
 } from './types.js'
+import type { StudioTechnology, ResearchProject } from './technologyTypes.js'
 
 /**
  * The kinds of resource a claim can name. `facility` addresses a schedulable slot
@@ -91,6 +94,8 @@ export type ResourceKind = 'facility' | 'set' | 'mount'
 
 /** Every persisted root that can hold studio capacity. */
 export type ResourceOwnerKind =
+  | 'installation'
+  | 'research'
   | 'production'
   | 'shootingTask'
   | 'screenplay'
@@ -117,6 +122,34 @@ type ResourceClaimBase = {
  * cross-checks without re-walking state.
  */
 export type ResourceClaim =
+  | (ResourceClaimBase & {
+      readonly owner: 'installation'
+      readonly slot: number
+      readonly capability: FacilityCapability
+      readonly facilitySlotKey: string
+      readonly installation: PlacedFacility
+    })
+  | (ResourceClaimBase & {
+      readonly owner: 'installation'
+      readonly slot: null
+      readonly capability: null
+      readonly facilitySlotKey: null
+      readonly installation: PlacedFacility
+    })
+  | (ResourceClaimBase & {
+      readonly owner: 'research'
+      readonly slot: number
+      readonly capability: FacilityCapability
+      readonly facilitySlotKey: string
+      readonly research: ResearchProject
+    })
+  | (ResourceClaimBase & {
+      readonly owner: 'research'
+      readonly slot: null
+      readonly capability: null
+      readonly facilitySlotKey: null
+      readonly research: ResearchProject
+    })
   | (ResourceClaimBase & {
       readonly owner: 'production'
       readonly slot: number
@@ -196,6 +229,8 @@ export type ResourceSlotClaim = Extract<ResourceClaim, { slot: number }>
  * the intent is written down, not inferred.
  */
 export type OccupancySources = {
+  readonly placement?: StudioPlacement
+  readonly technology?: StudioTechnology
   readonly operations?: StudioOperations
   readonly scriptDevelopment?: ScriptDevelopment
   readonly castingSessions?: CastingSessions
@@ -300,6 +335,39 @@ export function resourceClaimsOf(occupancy: ResourceOccupancy): ResourceClaim[] 
  */
 export function resourceClaims(sources: OccupancySources): ResourceClaim[] {
   const claims: ResourceClaim[] = []
+
+  for (const installation of sources.placement?.facilities ?? []) {
+    if (!installation.installation) continue
+    const facilityId = installation.installation.targetFacilityId
+    const facility = sources.operations?.facilities.find(f => f.id === facilityId)
+    if (installation.status === 'underConstruction' && facility) {
+      for (let slot = 0; slot < facility.capacity; slot++) {
+        claims.push({key: resourceSlotKey('facility', facilityId, slot),
+          facilitySlotKey: facilitySlotKey(facilityId, slot), kind: 'facility', facilityId,
+          slot, capability: facility.capability, owner: 'installation',
+          ownerId: installation.projectId, installation})
+      }
+    } else {
+      claims.push({key: resourceFacilityKey('facility', facilityId), facilitySlotKey: null,
+        kind: 'facility', facilityId, slot: null, capability: null, owner: 'installation',
+        ownerId: installation.projectId, installation})
+    }
+  }
+  for (const research of sources.technology?.projects ?? []) {
+    const facilityId = research.laboratoryFacilityId
+    if (research.status === 'active') {
+      const slot = 0
+      claims.push({key: resourceSlotKey('facility', facilityId, slot),
+        facilitySlotKey: facilitySlotKey(facilityId, slot), kind: 'facility', facilityId,
+        slot, capability: 'laboratory', owner: 'research', ownerId: research.id, research})
+    } else {
+      // The retained project always names this exact laboratory. Idle records
+      // preserve that identity without consuming a research or installation seat.
+      claims.push({key: resourceFacilityKey('facility', facilityId), facilitySlotKey: null,
+        kind: 'facility', facilityId, slot: null, capability: null, owner: 'research',
+        ownerId: research.id, research})
+    }
+  }
 
   // 1 + 2. Production workflows, and the shooting task's denormalized copy.
   for (const workflow of sources.operations?.workflows ?? []) {

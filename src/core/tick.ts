@@ -1,4 +1,8 @@
 import { advanceHollywoodWeek, finishHollywoodWeek } from './hollywoodTick.js'
+import { advanceResearchWeek, finishTechnologyWeek, weeklyResearchPayroll } from './technology.js'
+import { createProductionTechnologyPolicy } from './technologyProduction.js'
+import { technologyMilestoneDrafts } from './technologyMilestones.js'
+import { resourceClaims } from './occupancy.js'
 import { enterRival } from './hollywood.js'
 import { applyReleaseCareers } from './releaseCareers.js'
 // ── §3 tick pipeline ─────────────────────────────────────────────────────────
@@ -324,12 +328,14 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // fit half of the uplift is computed from the picture's genre. The concept
   // lookup is a closure over `state.concepts` rather than a copy, so there is one
   // authority for what a production is about.
+  const technologyProduction = createProductionTechnologyPolicy(stateAfterLoadIn)
   const productionAdvance = advanceManagedProductions(
     stateAfterLoadIn.operations,
     state.studio.activeProductions,
     currentTick,
     committedReleaseIds,
     new Set([
+      ...resourceClaims(state).filter(c => c.owner === 'installation' && c.facilitySlotKey !== null).map(c => c.facilitySlotKey!),
       ...scriptOccupiedFacilitySlots(scriptDevelopment),
       ...castingOccupiedFacilitySlots(castingSessions),
       ...setOccupiedFacilitySlots(
@@ -355,6 +361,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
         return state.concepts.find((concept) => concept.id === production.conceptId)?.genre ?? null
       },
     },
+    technologyProduction.policy,
   )
   // ── 1.05 QUEUE ADMISSION (C2a-M4, charter §3.3) ─────────────────────────
   // INSERTION, NOT A REORDERING (D-12 §9, the rule steps 1.5/1.6/1.7 already
@@ -398,7 +405,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     currentTick + 1,
     events,
   )
-  const admitted: GameState = { ...admission.state, market: state.market }
+  const admitted: GameState = { ...admission.state, technology: technologyProduction.technology(), market: state.market }
   // The two roots an admitted intent writes into are the two this advance is
   // still holding in locals. Rebind them, or a granted commission or audition
   // would be assembled away at the end of the tick.
@@ -495,6 +502,9 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   const releasedFilms: FilmResult[] = [...admitted.studio.releasedFilms]
   // D-11.18 financial ledger — every cash movement is recorded (reconciles with cash).
   const ledger: LedgerEntry[] = [...admitted.ledger]
+  const researchAdvance = advanceResearchWeek(admitted)
+  cash -= researchAdvance.cost
+  ledger.push(...researchAdvance.entries)
   // ── D-12 economy (gated) — a shallow copy of the run history so weekly progress can be
   // recorded without mutating the input. Empty (and untouched) for the M0A corpus.
   const engaged = economyEngaged(state)
@@ -890,7 +900,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // reference). When develop === false, `talent` is state.talent unchanged — the
   // validated M0A/D-6 baseline. A single talent working on two same-tick releases
   // develops once per release, in release order, over the evolving talent list.
-  const industry = advanceHollywoodWeek(admitted)
+  const industry = advanceHollywoodWeek({...admitted,technology:researchAdvance.technology})
   // The develop switch belongs to the frozen player corpus. A living industry's
   // real releases always write their shared career consequences.
   const allGrowthRecords = [...(develop?records:[]),...industry.growth].sort((a,b)=>
@@ -915,9 +925,11 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // (no operations before the studio is founded).
   if (state.founding === null) {
     const payroll = weeklyPayroll(state, currentTick)
+    const researchPayroll = weeklyResearchPayroll(state, currentTick)
     if (payroll > 0) {
       cash -= payroll
-      ledger.push({ week: currentTick, kind: 'payroll', amount: -payroll, note: 'weekly payroll' })
+      if (payroll > researchPayroll) ledger.push({ week: currentTick, kind: 'payroll', amount: -(payroll-researchPayroll), note: 'weekly payroll' })
+      if (researchPayroll > 0) ledger.push({week: currentTick, kind:'researchPayroll', amount:-researchPayroll, note:'weekly research payroll'})
     }
   }
 
@@ -982,6 +994,8 @@ export function tick(state: GameState, options?: TickOptions): GameState {
   // must never fire on a legal state, and it is where the Sets exclusivity check
   // lands at M2 without a second walk being invented for it.
   assertNoDoubleBookedResourceSlots({
+    placement,
+    technology: industry.technology,
     operations,
     scriptDevelopment,
     castingSessions,
@@ -989,11 +1003,16 @@ export function tick(state: GameState, options?: TickOptions): GameState {
     sets,
   })
 
+  // P13 dated facts are captured on the reached boundary before either history
+  // collector commits. No milestone is reconstructed when loading a later save.
+  for (const draft of technologyMilestoneDrafts(state, currentTick + 1)) history.append(draft)
+
   let finalized: GameState = {
     // C2a-M4: the ADMITTED state is the base — it carries this advance's queue
     // (rows granted or expired are gone from it), the concepts an admitted
     // original commission minted, and the blueprint root that recorded them.
     ...admitted,
+    technology: industry.technology,
     hollywood,
     rngState: rng.serialize(),
     market: { ...state.market, tick: currentTick + 1 },
@@ -1040,7 +1059,7 @@ export function tick(state: GameState, options?: TickOptions): GameState {
       finalized=enterRival(finalized,identity.studioId,'scheduled')
     }
   }
-  return finishHollywoodWeek(finalized)
+  return finishHollywoodWeek(finishTechnologyWeek(finalized))
 }
 
 /**

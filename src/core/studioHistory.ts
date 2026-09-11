@@ -31,6 +31,7 @@
 
 import { economyEngaged } from './employment.js'
 import { TUNING } from './tuning.js'
+import { technologyMilestoneWeek } from './technologyMilestones.js'
 import type {
   GameState,
   Standing,
@@ -153,6 +154,7 @@ export function classifyHistorySignificance(
     case 'standingDriftFolded':
       return 'routine'
     case 'facilityCompleted':
+    case 'technologyMilestone':
       return 'major'
     case 'facilityCommitted':
     case 'facilityDemolished':
@@ -327,6 +329,7 @@ export function assertStudioHistoryInvariants(history: StudioHistoryState, conte
     throw new Error(`${context}: studioHistory.nextEventId is malformed`)
   }
   let previousId = -1
+  const technologyMilestones = new Set<string>()
   for (const row of history.rows) {
     if (!Number.isInteger(row.eventId) || row.eventId <= previousId) {
       throw new Error(`${context}: studioHistory rows out of ascending eventId order at ${String(row.eventId)}`)
@@ -338,6 +341,17 @@ export function assertStudioHistoryInvariants(history: StudioHistoryState, conte
       throw new Error(`${context}: studioHistory row ${String(row.eventId)} precedes the recording boundary`)
     }
     previousId = row.eventId
+    if (row.kind === 'technologyMilestone') {
+      if (row.technologyId !== 'synchronized-sound' ||
+        (row.milestone !== 'researchable' && row.milestone !== 'commercialRelease') ||
+        row.week !== technologyMilestoneWeek(row.milestone) || row.significance !== 'major' ||
+        row.subjects.length !== 1 || row.subjects[0]?.kind !== 'studio') {
+        throw new Error(`${context}: technology milestone is not an exact catalogue boundary`)
+      }
+      const key = `${row.technologyId}:${row.milestone}`
+      if (technologyMilestones.has(key)) throw new Error(`${context}: duplicate technology milestone`)
+      technologyMilestones.add(key)
+    }
     if (row.kind === 'standingChanged') {
       const expected = standingDeltas(row.before, row.after)
       for (const key of ['audienceAwareness', 'industryPrestige', 'commercialConfidence'] as const) {

@@ -173,7 +173,7 @@ function scoreSelection(candidates: readonly RenewalCandidate[]): SelectionScore
     director: 0,
     writer: 0,
     craft: 0,
-  }
+   scientist: 0 }
   let totalSigningBonus = 0
   for (const candidate of candidates) {
     coverage[candidate.role]++

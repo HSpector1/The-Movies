@@ -3,12 +3,13 @@ import {campaignDate} from '../src/core/calendar.js'
 import {filmAudienceScore} from '../src/core/index.js'
 import {flattenParticipants} from '../src/core/starPower.js'
 import type {GameState,Standing} from '../src/core/types.js'
-import type {HollywoodChartSnapshot} from '../src/core/hollywoodTypes.js'
+import type {HollywoodChartSnapshot,IndustryReceipt} from '../src/core/hollywoodTypes.js'
 import {INDUSTRY_LANES,type IndustryPage,type IndustryQuery,type IndustrySummary} from './schema/industry-schema.ts'
 import {PROTOCOL_VERSION,SCHEMA_ID,SNAPSHOT_VERSION} from './protocol.ts'
 import {snapshotBuildContextFor} from './snapshot-build-context.ts'
 import {studioPresence} from '../src/core/presence.ts'
 import {historyProjection} from './history.ts'
+import {laboratoryPage,type LaboratoryIntent} from './laboratory.ts'
 
 type Film=IndustryPage['films'][number]
 type Credit=IndustryPage['credits'][number]
@@ -18,6 +19,13 @@ type Activity=IndustryPage['activities'][number]
 const byText=(a:string,b:string)=>a<b?-1:a>b?1:0
 const laneLabels={audienceAwareness:'Audience Awareness',industryPrestige:'Industry Prestige',commercialConfidence:'Commercial Confidence',output:'Released Films'}
 const meanings={audienceAwareness:'How familiar audiences are with this studio.',industryPrestige:'The studio’s standing within the film industry.',commercialConfidence:'Confidence in the studio’s commercial record.',output:'Canonical released films, including separately labelled authored history.'}
+function observedAdoption(state:GameState,receipt:IndustryReceipt) {
+  if(receipt.kind!=='technologyAdopted'||receipt.week>state.market.tick)return null
+  const studio=state.hollywood?.identities.find(s=>s.studioId===receipt.studioId&&s.enteredWeek!==null&&s.enteredWeek<=receipt.week)
+  if(!studio)return null
+  return state.technology?.adoptions.find(a=>a.id===receipt.adoptionId&&a.studioId===receipt.studioId&&
+    a.operationalWeek!==null&&a.operationalWeek===receipt.week)??null
+}
 export function industrySummary(state:GameState):IndustrySummary {
   return {calendar:campaignDate(state.market.tick),available:state.hollywood!==null,playerStudioId:state.hollywood?.playerStudioId??null,
     activeStudioCount:state.hollywood?.identities.filter(s=>s.enteredWeek!==null).length??0,
@@ -94,6 +102,11 @@ function indexFor(state:GameState):Index {
     if(r.kind==='filmReleased')return [{...base,group:'releases' as const,headline:`${studio} releases ${filmById.get(r.productionId)?.title??r.productionId}`,detail:`Released through recorded development, production, post-production and release commitments. Release Standing: ${(['audienceAwareness','industryPrestige','commercialConfidence'] as const).map(key=>`${laneLabels[key]} ${r.before[key].toFixed(1)} → ${r.after[key].toFixed(1)}`).join('; ')}. These are separate recorded changes at release, before later drift.`,filmId:r.productionId,talentId:null}]
     if(r.kind==='filmSettled')return [{...base,group:'releases' as const,headline:`${filmById.get(r.productionId)?.title??r.productionId} completes its theatrical run`,detail:'The final scheduled payment was received. The settled public result is now complete.',filmId:r.productionId,talentId:null}]
     if(r.kind==='filmAnnounced')return [{...base,group:'announcements' as const,headline:`${studio} announces a film`,detail:'An actual funded production has been greenlit. No release date is promised.',filmId:r.productionId,talentId:null}]
+    if(r.kind==='technologyAdopted') {
+      const adoption=observedAdoption(state,r);if(!adoption)return []
+      return [{...base,group:'studios',headline:`${studio} now has operational synchronized sound`,
+        detail:adoption.route==='purchase'?'Synchronized sound became operational through the commercial purchase route on existing studio capacity. This records an actual adoption; future productions are not promised.':'Synchronized sound became operational following completed research and physical installation. This records an actual adoption; future productions are not promised.',filmId:null,talentId:null}]
+    }
     return []
   })
   const index={studios,studioById:new Map(studios.map(s=>[s.studioId,s])),films,filmById:new Map(films.map(f=>[f.filmId,f])),credits,filmsByStudio,filmsByPerson,people,roster,activities}
@@ -105,11 +118,15 @@ function filterFilms(rows:Film[],q:IndustryQuery,week:number):Film[] {
     .sort((a,b)=>{const value=(f:Film)=>q.lane==='critics'?f.criticScore:q.lane==='audience'?f.audienceScore:q.lane==='opening'?f.openingGross:q.lane==='total'?f.totalGross:chronology(f);return value(b)-value(a)||byText(a.filmId,b.filmId)})
 }
 /** Query results own their output objects; the immutable per-state index never escapes. */
-export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery):IndustryPage {
+export function industryPage(state:GameState,sessionId:string,stateRevision:number,q:IndustryQuery,laboratoryIntents:readonly LaboratoryIntent[]=[]):IndustryPage {
   const index=indexFor(state),h=state.hollywood!,calendar=campaignDate(state.market.tick)
-  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings; there is no combined Power score.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[]}
+  const result:IndustryPage={protocolVersion:PROTOCOL_VERSION,schemaId:SCHEMA_ID,snapshotVersion:SNAPSHOT_VERSION,type:'industryPage',requestId:q.requestId,sessionId,stateRevision,stateDigest:snapshotBuildContextFor(state).stateDigest(),calendar,view:q.view,targetId:q.targetId,page:q.page,pageSize:q.pageSize,totalRows:0,pageCount:0,lane:q.lane,period:q.period,title:'Industry',notice:'Public facts only. Standing channels and film measures have separate meanings; there is no combined Power score.',studios:[],films:[],people:[],credits:[],activities:[],projects:[],tendencies:[],laboratory:null}
   const page=<T>(rows:T[]):T[]=>{result.totalRows=rows.length;result.pageCount=Math.ceil(rows.length/q.pageSize);if(q.page>0&&q.page>=result.pageCount)throw new Error('That page is outside this snapshot. Return to the first page.');return rows.slice(q.page*q.pageSize,(q.page+1)*q.pageSize)}
-  if(q.view==='studios') {
+  if(q.view==='laboratory') {
+    const laboratory=laboratoryPage(state,q.targetId,laboratoryIntents,q.page,q.pageSize)
+    result.laboratory=laboratory.laboratory;result.totalRows=laboratory.totalRows;result.pageCount=laboratory.pageCount
+    result.title=laboratory.laboratory.title;result.notice='Your studio’s Laboratory. Research, employment and physical installation remain separate commitments. Silent films remain lawful.'
+  } else if(q.view==='studios') {
     const lane=INDUSTRY_LANES.find(k=>k===q.lane)??'audienceAwareness'
     const rows=structuredClone(index.studios)
     if(lane==='output'&&q.period==='recent') {
@@ -155,6 +172,14 @@ export function industryPage(state:GameState,sessionId:string,stateRevision:numb
       result.tendencies=[{label:'Observed release genres',detail:observed.length<3?`${observed.length} recorded releases: too small a sample to describe a tendency.`:`${leading![1]} of ${observed.length} releases were ${leading![0]}. Other genres remain possible.`,sampleCount:observed.length,fromLabel:campaignDate(Math.max(studio.recordingNotice.includes('Earlier')?h.originWeek:0,state.market.tick-155)).label,throughLabel:calendar.label,basis:'Last 156 campaign weeks of released films. Authored starting films and unrevealed plans are excluded; this is observation, not a strategy forecast.'}]
       result.tendencies.push({label:'Observed release pace',detail:`${observed.length} recorded releases during this window. This is past output; future releases are not promised.`,sampleCount:observed.length,
         fromLabel:campaignDate(Math.max(h.originWeek,state.market.tick-155)).label,throughLabel:calendar.label,basis:'Actual released-film dates during the last 156 campaign weeks. No hidden production budgets or plans are inferred.'})
+      const soundReceipts=h.receipts.filter(r=>r.studioId===studio.studioId&&r.week>=Math.max(0,state.market.tick-155)&&observedAdoption(state,r)!==null)
+      if(soundReceipts.length) {
+        const latest=soundReceipts[soundReceipts.length-1]!
+        const adoption=observedAdoption(state,latest)!
+        result.tendencies.push({label:'Observed sound adoption',detail:`Synchronized sound became operational ${campaignDate(latest.week).label} through ${adoption.route==='purchase'?'commercial purchase':'research and installation'}.`,sampleCount:soundReceipts.length,
+          fromLabel:campaignDate(Math.max(h.originWeek,state.market.tick-155)).label,throughLabel:calendar.label,
+          basis:'Completed adoption receipts from the last 156 campaign weeks. This is observed capability, not a strategy forecast or a promise about future films.'})
+      }
     }
   } else if(q.view==='project') {
     const business=h.businesses.find(b=>b.projects.some(p=>p.productionId===q.targetId))

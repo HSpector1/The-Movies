@@ -38,7 +38,7 @@ import type {
   FoundingApplicantRow,
   GameState,
 } from '../ui/src/engine/adapter.ts'
-import { applyActions, importSave, migrateToV19 } from '../src/core/index.js'
+import { applyActions, importSave, migrateToV20 } from '../src/core/index.js'
 import type { FoundingRegime } from '../src/core/index.js'
 import {
   PROTOCOL_VERSION,
@@ -66,6 +66,7 @@ import {
 import { canonicalJson } from './schema/canonical.ts'
 import { snapshotBuildContextFor } from './snapshot-build-context.ts'
 import {industryPage} from './industry.ts'
+import {laboratoryActionSpecs,type LaboratoryIntent} from './laboratory.ts'
 import {sameNativeCampaignOrigin} from './campaign-origin.ts'
 import type {IndustryQuery} from './schema/industry-schema.ts'
 import type {
@@ -117,8 +118,8 @@ type ImportOutcome =
 function importSaveJsonCurrent(json: string): ImportOutcome {
   try {
     const save = importSave(json)
-    const converted = save.saveVersion !== 19
-    return { ok: true, state: migrateToV19(save).state, converted }
+    const converted = save.saveVersion !== 20
+    return { ok: true, state: migrateToV20(save).state, converted }
   } catch (error) {
     return { ok: false, error: (error as Error).message }
   }
@@ -461,6 +462,7 @@ function foundingRoleLabel(role: FoundingApplicantRow['role']): string {
     case 'director': return 'director'
     case 'writer': return 'writer'
     case 'craft': return 'production/craft lead'
+    case 'scientist': return 'scientist'
   }
 }
 
@@ -661,7 +663,7 @@ function treasuryOf(state: GameState): BridgeTreasurySnapshot {
   }
 }
 
-function resolveAvailableIntents(state: GameState): IntentApplication[] {
+function resolveStudioIntents(state: GameState): IntentApplication[] {
   const stateDigest = authoritativeDigest(state)
   const founding = resolveFounding(state, stateDigest)
   if (founding !== null) return founding.intents
@@ -1082,6 +1084,21 @@ function resolveAvailableIntents(state: GameState): IntentApplication[] {
   return resolved
 }
 
+function resolveLaboratoryIntents(state: GameState): Array<IntentApplication & LaboratoryIntent> {
+  const stateDigest = authoritativeDigest(state)
+  return laboratoryActionSpecs(state).filter(spec => spec.enabled).map(spec => ({
+    spec,
+    option: option(stateDigest, {kind:'researchAction',label:spec.label,detail:spec.detail,
+      projectId:'projectId' in spec.action?spec.action.projectId:null,castingSessionId:null,
+      productionId:'productionId' in spec.action?spec.action.productionId:null}, spec.action),
+    apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),
+  }))
+}
+
+function resolveAvailableIntents(state: GameState): IntentApplication[] {
+  return [...resolveStudioIntents(state), ...resolveLaboratoryIntents(state)]
+}
+
 export function availableIntents(state: GameState): AvailableIntent[] {
   return resolveAvailableIntents(state).map((entry) => entry.option)
 }
@@ -1312,7 +1329,7 @@ export class BridgeSession {
   industry(request:IndustryQuery) {
     if(request.sessionId!==this.sessionId)return this.protocolReject(request.requestId,'SESSION_MISMATCH','The active campaign changed. Refresh Industry.')
     if(request.expectedStateRevision!==this.stateRevision)return this.protocolReject(request.requestId,'STALE_REVISION','The studio advanced. Refresh this Industry page before continuing.')
-    try{return industryPage(this.state,this.sessionId,this.stateRevision,request)}
+    try{return industryPage(this.state,this.sessionId,this.stateRevision,request,request.view==='laboratory'?resolveLaboratoryIntents(this.state):[])}
     catch(error){return this.protocolReject(request.requestId,'INVALID_CONTROL',(error as Error).message)}
   }
 

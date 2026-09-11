@@ -84,6 +84,7 @@ const SKILL_LABELS: Record<Discipline, string[]> = {
     'Effects Execution',
     'Technical Coordination',
   ],
+  research: ['Scientific Method', 'Acoustics', 'Instrumentation', 'Experimentation', 'Engineering', 'Documentation'],
 }
 
 const GENRE_LABEL: Record<Genre, string> = {

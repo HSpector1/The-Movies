@@ -184,7 +184,7 @@ const GENRES = new Set<Genre>([
   'horror',
   'adventure',
 ])
-const CREATIVE_ROLES = new Set<CreativeRole>(['writer', 'director', 'actor', 'craft'])
+const CREATIVE_ROLES = new Set<CreativeRole>(['writer', 'director', 'actor', 'craft', 'scientist'])
 const BLOCKER_KINDS = new Set([
   'script-mode',
   'operations-mode',

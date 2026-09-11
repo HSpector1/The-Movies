@@ -184,7 +184,7 @@ export function richFoundedStudio(
     director: Math.max(depth.director ?? 0, 2, FOUNDING_MINIMUMS.director),
     writer: Math.max(depth.writer ?? 0, 4, FOUNDING_MINIMUMS.writer),
     craft: Math.max(depth.craft ?? 0, 2, FOUNDING_MINIMUMS.craft),
-  }
+   scientist: 0 }
   for (const role of ['actor', 'director', 'writer', 'craft'] as const) {
     for (const person of byRole(applicants, role).slice(0, counts[role])) {
       state = applyActions(state, [{ kind: 'signContract', talentId: person.id, termWeeks: 104 }])

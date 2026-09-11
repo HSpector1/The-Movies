@@ -31,7 +31,7 @@ import type {
   FacilityReservation,
   GameState,
   ProductionPhase,
-  SaveFileV19,
+  SaveFileV20,
 } from '../../src/core/index.js'
 import {
   CHARTER_NEXT_PHASE,
@@ -99,7 +99,7 @@ function phaseWalk(seed: string): PhaseSnapshot[] {
   return snapshots
 }
 
-function saveOf(state: GameState): SaveFileV19 {
+function saveOf(state: GameState): SaveFileV20 {
   const save = makeSave(state)
   expect(validateSaveV19(save)).toBe(save)
   return save

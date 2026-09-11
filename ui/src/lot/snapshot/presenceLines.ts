@@ -32,6 +32,7 @@ const ACTIVITY_VERB: Readonly<Record<string, string>> = {
 /** What the person is credited as at the site, in the studio's own words. */
 export const PRESENCE_CREDIT_LABEL: Readonly<Record<string, string>> = {
   writer: 'Writer',
+  scientist: 'Scientist',
   director: 'Director',
   lead: 'Lead',
   antagonist: 'Antagonist',

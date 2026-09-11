@@ -1740,7 +1740,7 @@ function assertAcceptedEntryPayload(
       renewalQuote208: contractOffer(state, contract.talentId, 208),
     }
   })
-  const expectedRoleCoverage = { actor: 0, director: 0, writer: 0, craft: 0 }
+  const expectedRoleCoverage = { actor: 0, director: 0, writer: 0, craft: 0, scientist: 0 }
   for (const member of expectedCohort) expectedRoleCoverage[member.role]++
   const projectedCoverage = fact.mode === 'player-policy'
     ? requireRecord(row['roleCoverage'], `${label}.roleCoverage`)['counts']

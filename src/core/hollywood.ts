@@ -7,13 +7,14 @@ import { initialReleaseAuthority } from './releaseAuthority.js'
 import { initialManagedScriptDevelopment, scriptProjectWriterIds } from './scriptDevelopment.js'
 import { stream } from './rng.js'
 import { generateIndustryTalent } from './worldgen.js'
+import { initialTechnology } from './technology.js'
 import { GENRE_ORDER, ROLE_TO_DISCIPLINE, TUNING } from './tuning.js'
 import type { GameState, GameStateV18, Genre, Talent } from './types.js'
 import type { HollywoodState, RivalAccount, RivalBusiness, RivalFinancePeriod,
   RivalMoneyKind, StudioIdentity } from './hollywoodTypes.js'
 
 export const RIVAL_MONEY_KINDS: readonly RivalMoneyKind[] = ['capacity','signing','payroll','overhead',
-  'facilityOpex','development','production','marketing','studioRevenue']
+  'facilityOpex','development','production','marketing','studioRevenue','technologyAdoption']
 
 export function uniqueIdentity(base: string, taken: Set<string>): string {
   let id = base
@@ -86,12 +87,16 @@ export function rivalWeeklyOperatingCost(business: RivalBusiness, hollywood: Hol
 }
 
 export function rivalCapacityOpex(business: RivalBusiness): number {
-  return business.operations.facilities.reduce((sum,f) => sum + ({
-    'development-casting': TUNING.BASELINE_DEVELOPMENT_CASTING_WEEKLY_OPERATING_COST,
-    soundstage: TUNING.STAGE_STANDARD_WEEKLY_OPERATING_COST,
-    post: TUNING.POST_BUILDING_WEEKLY_OPERATING_COST,
-    'set-scenery': TUNING.SCENERY_SHOP_WEEKLY_OPERATING_COST,
-  }[f.capability]),0)
+  return business.operations.facilities.reduce((sum,f) => {
+    switch (f.capability) {
+      case 'development-casting': return sum + TUNING.BASELINE_DEVELOPMENT_CASTING_WEEKLY_OPERATING_COST
+      case 'soundstage': return sum + TUNING.STAGE_STANDARD_WEEKLY_OPERATING_COST
+      case 'post': return sum + TUNING.POST_BUILDING_WEEKLY_OPERATING_COST
+      case 'set-scenery': return sum + TUNING.SCENERY_SHOP_WEEKLY_OPERATING_COST
+      case 'laboratory': throw new Error('P13A rival capacity cannot contain a Laboratory')
+      default: {const unknown: never = f.capability; throw new Error(`Unknown rival capacity: ${String(unknown)}`)}
+    }
+  },0)
 }
 
 /** New root only; null is the historical non-player harness, never a native campaign. */
@@ -108,7 +113,7 @@ export function hollywoodWorldKey(seed: GameState['seed']): string {
   return Math.floor(stream(seed,'hollywood-v1','identity').next()*0x100000000).toString(16).padStart(8,'0')
 }
 
-export function initializeHollywood(state: GameStateV18 & { hollywood?: HollywoodState | null }, origin: 'fresh' | 'migration'): GameState {
+export function initializeHollywood(state: GameStateV18 & { hollywood?: HollywoodState | null; technology?: GameState['technology'] }, origin: 'fresh' | 'migration'): GameState {
   if (state.hollywood) return state as GameState
   const key = hollywoodWorldKey(state.seed)
   const taken = new Set(state.talent.map(t => t.id))
@@ -127,7 +132,7 @@ export function initializeHollywood(state: GameStateV18 & { hollywood?: Hollywoo
     startingManifest:'living-hollywood-start/v1', origin, originWeek:state.market.tick, worldId:`world-${key}`,
     playerStudioId, identities, businesses:[], employment:[], activeEmploymentOrdinals:[], concepts:[], films:[], careerEvents:[],
     receipts:[], nextReceipt:0, chart:null, previousChart:null }
-  let next: GameState = {...state, hollywood}
+  let next: GameState = {...state, hollywood, technology:state.technology ?? initialTechnology(state.market.tick)}
   // A due migration entry is at this state's own week, never its scheduled past.
   for (const identity of identities.slice(1)) if (identity.eligibleWeek <= state.market.tick) {
     next = enterRival(next,identity.studioId,origin)

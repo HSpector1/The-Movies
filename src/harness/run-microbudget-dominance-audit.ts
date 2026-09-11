@@ -216,7 +216,7 @@ function measureFilm(
   seed: string,
   opts: { rank: Rank; conceptTier: 'cheapest' | 'median' | 'expensive'; shapeKey: 'ordinary' | 'demanding'; negMult: number; marketing: number },
 ): FilmMeasure | null {
-  const counts: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 1, craft: 1 }
+  const counts: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 1, craft: 1, scientist: 0 }
   let s = foundFor(seed, opts.rank, counts)
   const engaged = employmentEngaged(s)
   const standingBefore: Standing = { ...s.studio.standing }
@@ -392,17 +392,17 @@ type StrategyRoute = {
 const STRATEGIES: StrategyRoute[] = [
   // A — MICRO-BUDGET SCHLOCK: cheapest script, audience-friendly ordinary brief, cheapest talent,
   //     Lean budget, Small marketing, repeat whenever capacity allows.
-  { name: 'A_microbudget_schlock', rank: 'cheapest', conceptTier: 'cheapest', shapeKey: 'ordinary', negMult: 0.75, marketing: 100_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2 } },
+  { name: 'A_microbudget_schlock', rank: 'cheapest', conceptTier: 'cheapest', shapeKey: 'ordinary', negMult: 0.75, marketing: 100_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 } },
   // B — COMPETENT MAINSTREAM: ordinary (median-cost) script, sensible ordinary brief, competent
   //     (mid-tier) talent, budget appropriate to demand, awareness-appropriate marketing.
-  { name: 'B_competent_mainstream', rank: 'mid', conceptTier: 'median', shapeKey: 'ordinary', negMult: 1.0, marketing: 'awareness', maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2 } },
+  { name: 'B_competent_mainstream', rank: 'mid', conceptTier: 'median', shapeKey: 'ordinary', negMult: 1.0, marketing: 'awareness', maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 } },
   // C — PREMIUM / AMBITIOUS: expensive (high production value) project, strongest practical talent,
   //     higher Production Budget, wide marketing — accepts high capital exposure. (Ordinary shape so
   //     premium is not double-charged the demanding-shape craft penalty; that lever is isolated in D.)
-  { name: 'C_premium_ambitious', rank: 'best', conceptTier: 'expensive', shapeKey: 'ordinary', negMult: 1.25, marketing: 1_000_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2 } },
+  { name: 'C_premium_ambitious', rank: 'best', conceptTier: 'expensive', shapeKey: 'ordinary', negMult: 1.25, marketing: 1_000_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 } },
   // D — RECKLESS CHEAP-DEMANDING: cheapest talent on a demanding shape (execution inadequate for the
   //     Production Demand), legal funding + marketing.
-  { name: 'D_reckless_cheap_demanding', rank: 'cheapest', conceptTier: 'median', shapeKey: 'demanding', negMult: 1.0, marketing: 400_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2 } },
+  { name: 'D_reckless_cheap_demanding', rank: 'cheapest', conceptTier: 'median', shapeKey: 'demanding', negMult: 1.0, marketing: 400_000, maxConcurrent: 2, counts: { actor: 6, director: 2, writer: 2, craft: 2, scientist: 0 } },
 ]
 
 function rationalMarketing(s: GameState): number {
@@ -606,7 +606,7 @@ function audit2(seeds: number) {
 // AUDIT 4 — causal decomposition of the owner package's gross
 // ════════════════════════════════════════════════════════════════════════════════
 function audit4(seed: string) {
-  const counts: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 1, craft: 1 }
+  const counts: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 1, craft: 1, scientist: 0 }
   let s = foundFor(seed, 'cheapest', counts)
   const engaged = employmentEngaged(s)
   const shape = SHAPES.ordinary
@@ -689,7 +689,7 @@ function audit5(seeds: number) {
   let matchedTriples = 0
   for (let i = 0; i < seeds; i++) {
     // A big roster so many crews exist. Use MID talent so OVR is controllable and comparable.
-    let s = foundFor(`dir-${i}`, 'mid', { actor: 10, director: 4, writer: 4, craft: 4 })
+    let s = foundFor(`dir-${i}`, 'mid', { actor: 10, director: 4, writer: 4, craft: 4, scientist: 0 })
     const engaged = employmentEngaged(s)
     const concept = pickConcept(s, 'median')
     const promise = widePromise(concept)

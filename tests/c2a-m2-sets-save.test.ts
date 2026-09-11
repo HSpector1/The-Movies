@@ -1,3 +1,5 @@
+import { withResearchFoundation } from '../src/core/researchPeople.js'
+import { initialTechnology } from '../src/core/technology.js'
 import {migrateToCurrentControl} from './_historicalCurrent.js'
 // ── C2a-M2 — sets across the save boundary, and the milestone's own gate ─────
 //
@@ -30,7 +32,7 @@ import {
   setMountedOn,
   stableStringify,
   tick,
-  validateSaveV19,
+  validateSaveV20,
 } from '../src/core/index.js'
 import type { CastSlot, CreativeRole, GameState, SegmentId, Talent } from '../src/core/index.js'
 import { grandfatheredBindings, v13TwinOf } from './contracts/_v14Contract.js'
@@ -165,7 +167,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
     const envelope = JSON.parse(exportSave(makeSave(state))) as {
       state: { sets: Record<string, unknown>[]; nextSetId: number }
     }
-    expect(() => validateSaveV19(envelope)).not.toThrow()
+    expect(() => validateSaveV20(envelope)).not.toThrow()
 
     const forge = (mutate: (sets: Record<string, unknown>[]) => void): unknown => {
       const copy = JSON.parse(JSON.stringify(envelope)) as typeof envelope
@@ -175,7 +177,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
 
     // Two sets on one stage.
     expect(() =>
-      validateSaveV19(
+      validateSaveV20(
         forge((sets) => {
           sets[2]!.mountedOn = STAGE_7
         }),
@@ -184,7 +186,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
 
     // A standing set with no condition — the build/repair discriminator broken.
     expect(() =>
-      validateSaveV19(
+      validateSaveV20(
         forge((sets) => {
           sets[0]!.condition = 0
         }),
@@ -193,7 +195,7 @@ describe('C2a-M2 — sets across the save boundary', () => {
 
     // A set under work that no scenery crew is on.
     expect(() =>
-      validateSaveV19(
+      validateSaveV20(
         forge((sets) => {
           sets[0]!.status = 'under-construction'
           sets[0]!.completesWeek = 400
@@ -235,11 +237,13 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
     // nothing in this migrated save was ever a committed release.
     const liveMigrated: GameState = {
       ...migrated,
+      talent: migrated.talent.map(withResearchFoundation),
       releaseAuthority: initialReleaseAuthority(),
       // P08A: recording begins at the migration week; nothing earlier is invented.
       studioHistory: migratedStudioHistory(migrated.market.tick),
       foundingRegime: 'endowed',
           hollywood: null,
+          technology: initialTechnology(0),
     }
     let played = applyActions(liveMigrated, [
       { kind: 'greenlight', production: productionPayload(liveMigrated, 1) },
@@ -270,7 +274,7 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
     }
 
     // And the whole thing is a legal V15 file at every step.
-    expect(() => validateSaveV19(JSON.parse(exportSave(makeSave(played))))).not.toThrow()
+    expect(() => validateSaveV20(JSON.parse(exportSave(makeSave(played))))).not.toThrow()
   })
 
   it('lets a migrated studio BUILD a set on the stage it just cleared', () => {
@@ -280,11 +284,13 @@ describe('C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW
     // since nothing in this migrated save was ever a committed release.
     const liveMigrated: GameState = {
       ...migrated,
+      talent: migrated.talent.map(withResearchFoundation),
       releaseAuthority: initialReleaseAuthority(),
       // P08A: recording begins at the migration week; nothing earlier is invented.
       studioHistory: migratedStudioHistory(migrated.market.tick),
       foundingRegime: 'endowed',
           hollywood: null,
+          technology: initialTechnology(0),
     }
     let played = applyActions(liveMigrated, [{ kind: 'strikeSet', setId: 'set-1' }])
     expect(setMountedOn(played.sets, STAGE_12)).toBeNull()
