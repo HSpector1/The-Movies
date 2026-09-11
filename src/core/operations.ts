@@ -433,7 +433,7 @@ export function retargetUnfilmedProduction(
   const workflow = operations.workflows.find((candidate) => candidate.productionId === productionId)
   if (workflow === undefined || operations.mode !== 'managed') return { ok: false, reason: 'This production has no managed workflow.' }
   if (workflow.phase === 'shooting' || workflow.phase === 'postProduction' || workflow.phase === 'releaseReady') {
-    return { ok: false, reason: 'Filming has begun. This film keeps its locked technology.' }
+    return { ok: false, reason: 'This film has entered the filming phase. Technology locks at phase entry, before the first take, and cannot be changed.' }
   }
   if (workflow.phase !== 'rehearsal') return { ok: true, operations }
   if (workflow.reservations.some((reservation) => reservation.capability === 'soundstage' && reservation.facilityId === targetStageFacilityId)) {

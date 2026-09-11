@@ -99,7 +99,7 @@ describe('P13A first-filming technology and exact production chain', () => {
     expect(state.technology.productions[0]).toMatchObject({ method: 'synchronized-dialogue', lockedWeek })
     expect(previousRoot.productions[0]!.lockedWeek).toBeNull()
     expect(state.studioEvents.rows.find((row) => row.kind === 'phaseEntered' && row.productionId === production.id && row.phase === 'shooting')?.week).toBe(lockedWeek)
-    expect(() => applyTechnologyAction(state, { kind: 'setProductionTechnology', productionId: production.id, method: 'silent', adoptionId: null })).toThrow('Filming has begun')
+    expect(() => applyTechnologyAction(state, { kind: 'setProductionTechnology', productionId: production.id, method: 'silent', adoptionId: null })).toThrow('Technology locks at phase entry, before the first take')
     const held = advance(state)
     expect(held.technology).toBe(state.technology)
   })
@@ -201,7 +201,7 @@ describe('P13A first-filming technology and exact production chain', () => {
     expect(state.technology.adoptions[0]!.operationalWeek).not.toBeNull()
     expect(state.technology.productions).toEqual([])
     expect(productionTechnologyView(state, productionId)).toEqual({ productionId, method: 'silent', adoptionId: null, locked: true, lockedWeek: null })
-    expect(() => selectSound(state)).toThrow('Filming has begun')
+    expect(() => selectSound(state)).toThrow('Technology locks at phase entry, before the first take')
   })
 
   it('drops cancelled unfilmed choices but retains a film’s permanent lock after filming starts', () => {

@@ -174,7 +174,7 @@ export function applyTechnologyAction(state: GameState, action: Exclude<Technolo
     const p = state.studio.activeProductions.find(p => p.id === action.productionId)
     if (!p) throw new Error('That production is not active in this campaign.')
     const previous = state.technology.productions.find(r => r.productionId === p.id && r.studioId === own)
-    if (productionHasBegunFilming(state, p.id)) throw new Error('Filming has begun. This film keeps its locked technology.')
+    if (productionHasBegunFilming(state, p.id)) throw new Error('This film has entered the filming phase. Technology locks at phase entry, before the first take, and cannot be changed.')
     const adoption = state.technology.adoptions.find(a => a.id === action.adoptionId && a.studioId === own && a.operationalWeek !== null)
     if (action.method === 'synchronized-dialogue' && !adoption) throw new Error('Complete the selected synchronized stage, compatible capture and Post chain first.')
     if (action.method === 'silent' && action.adoptionId !== null) throw new Error('A silent production does not select a sound installation.')

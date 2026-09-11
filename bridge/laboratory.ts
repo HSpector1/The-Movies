@@ -130,7 +130,7 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
       `${stage.name}: ${installationDetail(state, 'synchronized-sound-stage', stage.id)} ` +
       (hasOperationalFacilityInstallation(state, post.id, 'synchronized-sound-post') ? `${post.name}: reuse its operational sound Post fit-out. ` :
         `${post.name}: ${installationDetail(state, 'synchronized-sound-post', post.id)} `) +
-      'The quoted payment below includes the applicable equipment entitlement. Existing films keep their first-filming loadout.')
+      'The quoted payment below includes the applicable equipment entitlement. Films that have entered the filming phase keep their technology, even before the first take.')
   }
   const adoptions = state.technology.adoptions.filter(a => a.studioId === own && a.operationalWeek !== null)
   for (const production of ordered(state.studio.activeProductions)) {
@@ -138,13 +138,13 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
     const title = state.concepts.find(c => c.id === production.conceptId)?.title ?? production.id
     if (loadout?.method === 'synchronized-dialogue') add(`silent-${production.id}`,
       { kind: 'setProductionTechnology', productionId: production.id, method: 'silent', adoptionId: null },
-      `Keep ${title} silent`, 'Choose the lawful silent route before filming begins. Starting actual filming locks the selected technology.')
+      `Keep ${title} silent`, 'Choose the lawful silent route before this film enters the filming phase. Its technology locks at phase entry, before the first take.')
     for (const adoption of adoptions) {
       if (loadout?.method === 'synchronized-dialogue' && loadout.adoptionId === adoption.id) continue
       const stage = stages.find(s => s.id === adoption.stageFacilityId), post = posts.find(p => p.id === adoption.postFacilityId)
       add(`sound-${production.id}-${adoption.id}`,
         { kind: 'setProductionTechnology', productionId: production.id, method: 'synchronized-dialogue', adoptionId: adoption.id },
-        `Use synchronized dialogue: ${title}`, `Select operational ${stage?.name ?? adoption.stageFacilityId} and ${post?.name ?? adoption.postFacilityId} for this exact production. First actual filming locks its technology; already filming pictures cannot change.`)
+        `Use synchronized dialogue: ${title}`, `Select operational ${stage?.name ?? adoption.stageFacilityId} and ${post?.name ?? adoption.postFacilityId} for this exact production. Technology locks when the film enters the filming phase, before the first take; it cannot change after that.`)
     }
   }
   quotes.set(state, specs)
@@ -182,7 +182,7 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
     budgetLabel: project ? `${money(project.budgetPerWeek)}/week requested ceiling · ${money(quote?.spend ?? 0)}/week currently usable R&D · ${money(project.expenditure)} spent on this project. Payroll is separate.` : 'No research budget is active.',
     bottleneckLabel: project?.status === 'completed'
       ? operational.length > 0
-        ? `Research is complete. Synchronized dialogue is ready on ${operational.map(adoption => `${name(adoption.stageFacilityId)} + ${name(adoption.postFacilityId)}`).join('; ')}. Select an operational chain for a production before filming begins.`
+        ? `Research is complete. Synchronized dialogue is ready on ${operational.map(adoption => `${name(adoption.stageFacilityId)} + ${name(adoption.postFacilityId)}`).join('; ')}. Select an operational chain before the production enters the filming phase, when its technology locks before the first take.`
         : physical.length > 0 ? 'Research is complete. The committed physical installation must finish before synchronized dialogue is available.'
           : 'Research is complete. Physical installation is the remaining capability gate.'
       : quote?.bottleneck ?? (instrumentsOperational

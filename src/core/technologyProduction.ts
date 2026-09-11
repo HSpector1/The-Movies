@@ -95,7 +95,7 @@ export function createProductionTechnologyPolicy(state: GameState, studioId = pl
 export function retargetProductionTechnologyChoice(state: GameState, productionId: string, adoptionId: string): GameState {
   const studioId = playerId(state)
   if (studioId === undefined) throw new Error('This campaign has no founded player studio.')
-  if (productionHasBegunFilming(state, productionId)) throw new Error('Filming has begun. This film keeps its locked technology.')
+  if (productionHasBegunFilming(state, productionId)) throw new Error('This film has entered the filming phase. Technology locks at phase entry, before the first take, and cannot be changed.')
   const adoption = operationalAdoption(state, studioId, adoptionId)
   if (adoption === null) throw new Error('Complete the selected synchronized stage, compatible capture and Post chain first.')
   const production = state.studio.activeProductions.find((entry) => entry.id === productionId)
