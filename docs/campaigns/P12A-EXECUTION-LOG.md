@@ -1,5 +1,7 @@
 # P12A R05 execution log
 
+> **Superseding Owner status — 2026-09-11:** P12 R05 is OWNER ACCEPTED — KEEP FOR DELIVERED, TESTED SCOPE. See the [Owner receipt](P12-R05-OWNER-ACCEPTANCE-RECEIPT.md) and appended closeout note. Earlier pending status and technical evidence below remain historical.
+
 Order: OPS-P12A-LIVING-HOLLYWOOD-20260910-05. [Exact approved scope](../engineering/P12A-R05-OWNER-DECISIONS-AND-ACCEPTANCE.md). Gate B technical verification is complete for the exact launch-verified candidate, with independently accepted reference-performance limits. Mandatory Owner playtest/acceptance remains open. Hook is inactive explicit-checker fallback. R03/R04 are superseded.
 
 ## Entry — 2026-09-10
@@ -142,3 +144,28 @@ Fixed complete Save p95 remains9.57775375s; independent current-reference rebase
 Final independent correctness PASS issued for exact runtime592e926/Unity2bc8d30/actualplayerdeca395 and assembled evidence. The same three product critiques, source/functional/performance/native applicability and all26 technical GateB kinds are linked by typed records. All62 indexed evidence hashes match; original36 rows/seven attestations and historical recovery remain preserved. Index COMPLETE is explicitly limited to technical GateB; mandatory Owner playtest/verdict is UNRUN/OPEN. No reviewer claims Owner enjoyment, all-original-target performance PASS or future stress measurement.
 
 Explicit checker directly evaluated the actual technical-COMPLETE index without cache suppression and returned no warning; CLI fallback also returned{}. Receipt in `final-native-20260911/explicit-checker-receipt.json` binds exact index/registry/checker hashes. Warning-only silence is not certification: issued independent verdicts and applicable evidence support technical KEEP. Hook stays inactive, no installation/trust/client smoke. One recommended candidate remains `/Users/bruce/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/PLAY_PROJECT_STUDIO.command`, with preserved independent campaigns and untouched P11 rollback. Owner instructions and exact locations/times are in the refreshed Downloads handoff; remaining acceptance is the Owner verdict, with performance misses/unmeasured limits retained. Safe coherent evidence/documents are committed/pushed only to the owned P12 TS branch; product bytes remain592/2bc/deca.
+
+### 2026-09-11 — superseding Owner acceptance and documentation closeout
+
+**P12 R05 — OWNER ACCEPTED — KEEP FOR DELIVERED, TESTED SCOPE**, under
+`OPS-P12A-R05-OWNER-CLOSEOUT-20260911-01`. The [single acceptance receipt](P12-R05-OWNER-ACCEPTANCE-RECEIPT.md)
+records Howard's five reported passes and the recording time; no exact playtest
+time or extra observations are inferred. This supersedes pending Owner status
+above, while preserving all earlier failures, judgments and technical evidence.
+
+Closeout verified197 immutable candidate payloads, exact592e926/2bc8d30/deca395
+manifest/source bindings and published d4e1915 lineage. His current post-playtest
+campaigns and named copies were not opened, hashed, reset or replaced; historical
+profile hashes remain historical. No runtime/game/application was launched,
+stopped or interrupted. Save p959.58s/native response10.54s, unmeasured UI
+unresponsiveness, original target misses, the qualified rebaseline and all other
+limitations/deferred boundaries remain open as recorded in the receipt and
+[P12→P13 handoff](../engineering/P12-TO-P13-PRODUCER-HANDOFF.md).
+
+Only documentation changes are published on isolated owned branch
+`docs/p12-r05-owner-acceptance-closeout-01`, directly from d4e1915. Bounded checks
+cover documentation links, identity bindings, append-only historical preservation,
+unchanged requirement rows and unchanged original technical evidence; no repeated
+product suite, rebuild, broad audit, hook work, protected promotion or successor
+coding. Hook remains INACTIVE / EXPLICIT-CHECKER FALLBACK. Implementation/runtime
+ownership is yielded to Current Ops after publication; no coding/runtime queue remains.

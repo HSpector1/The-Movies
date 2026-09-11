@@ -3681,3 +3681,28 @@ the financial, action, disclosure, route and persistence seams. Documentation is
 published on owned `docs/p11-owner-acceptance-handoff-01`; campaign/main refs remain
 unpromoted. No hooks installation or P12 implementation. Coding/runtime ownership
 is yielded to Current Ops, with no continuing P11 runtime queue.
+
+## P12 R05 — Owner acceptance and closeout, 2026-09-11
+
+**P12 R05 — OWNER ACCEPTED — KEEP FOR DELIVERED, TESTED SCOPE.** Authority:
+`OPS-P12A-R05-OWNER-CLOSEOUT-20260911-01`. Howard reports the five requested named
+campaign, Industry/Back, Save As preservation, Quit/relaunch and large-text/
+scrolling/interaction checks PASS. Exact playtest time was not supplied. The
+[single acceptance receipt](P12-R05-OWNER-ACCEPTANCE-RECEIPT.md) records his report,
+recording time and exact identity/manifest bindings without inventing observations.
+
+Accepted runtime592e926, observed Unity/tools-manifest2bc8d30, actual playerdeca395
+and published evidence d4e1915 remain distinct; the receipt supplies full hashes.
+The accepted Desktop candidate and Howard's current post-playtest campaigns/copies
+are preserved. No profile reads, fixture reset, runtime launch/stop or application
+interruption occurred. P11 rollback and previous controls remain unchanged.
+
+Original performance misses and all other qualifications remain: Save p959.58s,
+native response10.54s, unmeasured UI-unresponsiveness duration, qualified technical
+rebaseline, unrun stress/write-transport measurements and intermittent Reconnecting.
+Prior failures/verdicts and original evidence remain historical, not rewritten.
+[P12→P13 producer handoff](../engineering/P12-TO-P13-PRODUCER-HANDOFF.md) preserves
+all deferred requirements/downstream owners. Closeout publishes documentation only
+on `docs/p12-r05-owner-acceptance-closeout-01` from d4e1915; no main/campaign
+promotion, facilities implementation or P13 coding. Hook remains inactive explicit
+checker fallback. Implementation/runtime ownership is yielded with publication.

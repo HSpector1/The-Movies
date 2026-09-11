@@ -1,5 +1,7 @@
 # P12A — DECISION AND REQUIREMENT REGISTER
 
+> **Superseding Owner acceptance — 2026-09-11:** [Owner accepted for the delivered, tested scope](../campaigns/P12-R05-OWNER-ACCEPTANCE-RECEIPT.md). The appended acceptance note governs prior pending references; every original requirement row and all limitations remain unchanged.
+
 **Status:** IMPLEMENTATION IN PROGRESS — OPS-P12A-LIVING-HOLLYWOOD-20260910-05
 
 R05 current authority: [launch](P12A-R05-LAUNCH-PROMPT.md) and [complete Owner decisions](P12A-R05-OWNER-DECISIONS-AND-ACCEPTANCE.md). Those exact attachments record the decisions once. Original obligations, dispositions, flags and historical source text below remain historical; current cells and R05 govern. Core and all six dependency-ready groups are activated: separate comparison/movement, grouped activity, observed tendencies, authoritative announcements, History adapters, bounded navigation/accessibility. No implementation or gate pass follows merely from activation.
@@ -320,3 +322,32 @@ Performance remains qualified: production complete Save p95 **9,577.75375ms (9.5
 Original serialize+digest p95199.524ms still exceeds100ms; Hollywood37,829,874B still exceeds8MB and averagefilm3,146.433B exceeds1.5KB. Future12active/48uniqueprojects/4,000films/50archivedstudio stress remains UNMEASURED. The independent current-reference rebaseline accepts these explicit limits under PERF009; improvement alone is not a passing original target. Permanent history, strictness, exact retries, isolated authority and the synchronous engine-main50ms storage prohibition remain binding. See `evidence/p12a/final-native-20260911/performance-attestation.md` and the controlling durable-write-target addendum.
 
 Hook remains **EXPLICIT-CHECKER FALLBACK / INACTIVE**. No hook installation, trust approval or real-client hook smoke is claimed. Owner enjoyment/acceptance is unrun and cannot be inferred from technical results.
+
+### Superseding Owner acceptance — 2026-09-11
+
+**P12 R05 — OWNER ACCEPTED — KEEP FOR DELIVERED, TESTED SCOPE**, authority
+`OPS-P12A-R05-OWNER-CLOSEOUT-20260911-01`. The [single Owner receipt](../campaigns/P12-R05-OWNER-ACCEPTANCE-RECEIPT.md)
+records only Howard's five reported passes, exact accepted identities and recording
+time; his exact playtest time was not supplied. This note supersedes the earlier
+pending Owner references in GOV-001, PRF-006, PRF-012 and the status prose above.
+It supplies Owner acceptance for the delivered SAVE-R05-001/002 and UX navigation/
+interaction scope alongside the existing technical evidence; it does not turn the
+reported five checks into personal arrival/endurance/migration/arithmetic/device
+replays by Howard.
+
+All **136 existing requirement rows** (130 original, OPS-001/CHK-001 and four R05
+additions), including every ID, historical/current disposition, safeguard and
+future-owner column, remain unchanged. Acceptance is an appended disposition
+reference, not a rewrite of the original technical register. PERF-001/008/009/010,
+PRF-010 and every other existing limitation/conditional/deferred boundary retain
+their recorded qualifications. Save p959.58s, native response10.54s, unmeasured UI
+unresponsiveness, original serialization/storage/per-film misses, qualified
+technical rebaseline, unrun future stress/write transport and intermittent
+Reconnecting are not waived. CHK-001 remains inactive explicit-checker fallback.
+
+[P12→P13 producer handoff](P12-TO-P13-PRODUCER-HANDOFF.md) identifies delivered seams
+without activating P13, facilities modernization, P14/P15 or other downstream
+features. Howard's current campaigns/copies, accepted immutable candidate, P11
+rollback and earlier controls remain preserved. Original evidence and failed runs
+are unchanged. Implementation/runtime ownership is yielded after documentation
+publication; main/campaign refs are not promoted.

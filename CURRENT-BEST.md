@@ -1,5 +1,37 @@
 # Project: Studio — Current Best
 
+## Current accepted authority — P12 R05, 2026-09-11
+
+**P12 R05 — OWNER ACCEPTED — KEEP FOR DELIVERED, TESTED SCOPE.** Howard reports all
+five requested campaign/navigation/persistence/interaction checks PASS under
+`OPS-P12A-R05-OWNER-CLOSEOUT-20260911-01`. Exact playtest time was not supplied;
+[the single acceptance receipt](docs/campaigns/P12-R05-OWNER-ACCEPTANCE-RECEIPT.md)
+records the passes, recording time, exact manifests and retained limitations.
+
+Accepted candidate: `$HOME/Desktop/P12A-Living-Hollywood-Candidate-592e926-deca395/`.
+Runtime TS `592e926bfbf4574df94b38fc8dd594fc5df2ac8d`; observed Unity/tools-manifest
+HEAD `2bc8d304b79a72bf20fda1d462ec3d96df253992`; actual player-build source
+`deca39521da1baeca61898d156a43f4ae6a7e035`; published technical evidence
+`d4e1915ba075b4e4c1c9a6c880c8b0d4257659c0`. Contract: **4 / 29 / V19 / outer1**.
+This closeout documentation is a separate identity, with no new build.
+
+All197 immutable payloads match their existing manifest. Howard's current campaigns
+and named copies are preserved without inspection, reset or comparison to the
+pre-playtest fixture. P11 rollback and earlier controls remain intact.
+
+The **9.58s Save p95**, **10.54s native Save response**, unmeasured UI-unresponsiveness
+duration, original serialization/storage/per-film misses, qualified technical
+rebaseline, unrun stress/write-transport measurements, Reconnecting observations
+and all other limitations remain. Owner acceptance does not waive them or activate
+deferred features. [P12→P13 handoff](docs/engineering/P12-TO-P13-PRODUCER-HANDOFF.md)
+records available producers and downstream boundaries; P13/facilities coding is
+not authorized here. Hook remains inactive explicit-checker fallback.
+
+Owned closeout branch: `docs/p12-r05-owner-acceptance-closeout-01`, based on d4e1915.
+No main/campaign promotion. Implementation/runtime ownership is yielded to Current
+Ops upon publication. Earlier accepted-authority entries below are preserved as
+historical statements, including their then-current pending or next-work clauses.
+
 ## Current accepted authority — P11, 2026-09-10
 
 **P11 OWNER ACCEPTED — KEEP FOR DELIVERED SUPPORTED SCOPE.** Howard explicitly
