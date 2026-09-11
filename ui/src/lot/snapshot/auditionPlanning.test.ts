@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { makeSave } from '../../../../src/core/index.ts'
 import * as adapter from '../../engine/adapter.ts'
 import {
   acknowledgeCastingSessionAction,
@@ -417,6 +418,25 @@ describe('audition-planning payload and context closure', () => {
 })
 
 describe('accepted Lot audition-planning receipt', () => {
+  it('accepts lawful signed zero through the current JSON boundary while rejecting NaN and decoration', () => {
+    const before = readyStudio('audition-planning-current-json-zero')
+    before.talent[0]!.genreExperience.acting.comedy.perceived = -0
+    const payload = payloadFor(contextFor(before))
+    const result = startCastingSessionAction(before, payload)
+    if (!result.ok) throw new Error(result.error)
+    const after = makeSave(result.next).state
+    expect(Object.is(before.talent[0]!.genreExperience.acting.comedy.perceived, -0)).toBe(true)
+    expect(Object.is(after.talent[0]!.genreExperience.acting.comedy.perceived, 0)).toBe(true)
+    expect(acceptedLotAuditionPlanningReceipt(before, after, payload)).not.toBeNull()
+
+    const nonfinite = clone(before)
+    nonfinite.talent[0]!.genreExperience.acting.comedy.perceived = Number.NaN
+    expect(acceptedLotAuditionPlanningReceipt(nonfinite, after, payload)).toBeNull()
+    const decorated = clone(after)
+    Object.assign(decorated.talent[0]!.genreExperience.acting.comedy, { hiddenOverride: true })
+    expect(acceptedLotAuditionPlanningReceipt(before, decorated, payload)).toBeNull()
+  })
+
   it('accepts the exact direct action, canonical reservation, six read order, and current truth', () => {
     const pair = acceptedPair('audition-planning-receipt')
     const receipt = acceptedLotAuditionPlanningReceipt(pair.before, pair.after, pair.payload)

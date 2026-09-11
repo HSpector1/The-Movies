@@ -1642,6 +1642,7 @@ export function StudioLotScreen({
   }, [])
 
   const snapshot = readSnapshot(state)
+  const campaignYear = campaignDate(snapshot.week).year
   // PF1-M1 — the tab's own visibility, held as state so the lot's audio can follow the
   // renderer's existing pause/resume seam instead of inventing a second one.
   const [documentHidden, setDocumentHidden] = useState(
@@ -4781,12 +4782,12 @@ export function StudioLotScreen({
   useEffect(() => {
     if (documentHidden) return
     const audio = getAudioService()
-    audio.startMusic(String(campaignDate(snapshot.week).year))
+    audio.startMusic(String(campaignYear))
     return () => {
       audio.stopMusic()
       audio.stopAmbience()
     }
-  }, [documentHidden, snapshot.week])
+  }, [documentHidden, campaignYear])
 
   useEffect(() => {
     if (documentHidden) return

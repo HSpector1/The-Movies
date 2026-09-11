@@ -459,6 +459,7 @@ export const PLACED_SOUNDSTAGE_TEX_KEY = 'tw-stage-standard'
 export const PLACED_POST_TEX_KEY = 'tw-post-standard'
 export const PLACED_SCENERY_TEX_KEY = 'tw-scenery-standard'
 export const PLACED_DEVELOPMENT_CASTING_TEX_KEY = 'tw-office-standard'
+export const PLACED_LABORATORY_TEX_KEY = 'tw-laboratory-standard'
 
 /**
  * Presentation by CAPABILITY, for a blueprint that carries no authored body of its own.
@@ -486,7 +487,7 @@ const CAPABILITY_PRESENTATION: Readonly<Record<string, BlueprintPresentation>> =
     anchors: DEFAULT_BLUEPRINT_PRESENTATION.anchors,
   },
   laboratory: {
-    texKey: PLACED_DEVELOPMENT_CASTING_TEX_KEY,
+    texKey: PLACED_LABORATORY_TEX_KEY,
     anchors: DEFAULT_BLUEPRINT_PRESENTATION.anchors,
   },
 }

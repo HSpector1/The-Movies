@@ -62,7 +62,7 @@ describe('Owner UX outgoing projection20 migration', () => {
     expect(sha(beforeBytes)).toBe('88049d4408573de3a36a56957c2b8d3aed36655b9b3dbadc68da7bef991a8510')
     expect(sha(afterBytes)).toBe('a02fd2ac61c4dab71327cc685d0649da005c43f3834e47366f63a46318dfd10b')
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(29)
+    expect(PROJECTION_VERSION).toBe(30)
     expect(SCHEMA_ID).not.toBe(P20_SCHEMA)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(P20_SCHEMA)).toBe('projection-v20')
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(SCHEMA_ID)).toBe(false)
@@ -117,8 +117,14 @@ describe('Owner UX outgoing projection20 migration', () => {
       if(beforeJson===null){expect(afterJson).toBeNull();expect(afterDigest).toBeNull();continue}
       const before=JSON.parse(beforeJson),after=JSON.parse(afterJson!)
       expect(after.saveVersion).toBe(20)
-      const {hollywood,...oldRoots}=after.state
-      expect(oldRoots).toEqual(before.state)
+      const {hollywood,technology,...oldRoots}=after.state
+      expect(technology).toEqual({ version: 1, recordingStartedWeek: before.state.market.tick, projects: [], access: [], adoptions: [], productions: [] })
+      for (const person of oldRoots.talent) {
+        expect(person.skills.research).toEqual(Object.fromEntries(['scientificMethod','acoustics','instrumentation','experimentation','engineering','documentation'].map(skill => [skill,{ actual: 1, perceived: 1 }])))
+        expect(person.workHistory.research).toBe(0)
+        for (const key of ['skills','ceilings','devRate','genreExperience','workHistory']) delete person[key].research
+      }
+      expect(oldRoots).toEqual({ ...before.state, era: { ...before.state.era, soundRequired: false } })
       expect(hollywood).toMatchObject({origin:'migration',originWeek:before.state.market.tick,films:[],careerEvents:[]})
       expect(afterJson).not.toBe(beforeJson);expect(afterDigest).toBe(sha(afterJson!));expect(afterDigest).not.toBe(sha(beforeJson))
     }

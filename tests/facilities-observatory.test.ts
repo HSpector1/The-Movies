@@ -446,6 +446,7 @@ describe('Facilities & Construction research observatory', () => {
         soundstage: 0,
         'set-scenery': 0,
         post: 2,
+        laboratory: 0,
       },
       uniqueHeldStudioWeeks: 1,
       holdDelayExposure: {

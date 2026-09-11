@@ -284,6 +284,7 @@ export {
   queryPlacement,
   quoteForBlueprint,
   facilityEngagements,
+  facilityInstallationPhase,
   facilityMoveRefusal,
   facilityDemolitionRefusal,
   facilityDemolitionRefund,

@@ -27,7 +27,7 @@ import { setStudioLotOverviewOverride } from '../flags.ts'
 import { App } from '../App.tsx'
 import { Dashboard } from './Dashboard.tsx'
 import { WeeklySummary } from './WeeklySummary.tsx'
-import { applyActions } from '../../../src/core/index.ts'
+import { applyActions, campaignDate } from '../../../src/core/index.ts'
 
 vi.mock('../lot/StudioLotView.ts', () => ({
   StudioLotView: class {
@@ -288,7 +288,7 @@ describe('Development & Casting Annex player experience', () => {
     fireEvent.click(advance)
 
     expect(screen.getByTestId('studio-lot-screen')).toBe(lot)
-    expect(screen.getByText(/Week 13$/)).toBeInTheDocument()
+    expect(screen.getByText(`Studio Chronicle · Hollywood, ${campaignDate(13).label}`)).toBeInTheDocument()
     expect(screen.getByTestId('annex-completion-summary')).toHaveFocus()
     expect(screen.getByTestId('lot-week-update-announcement')).toHaveTextContent('')
     expect(screen.getByTestId('lot-annex-operational-announcement')).toHaveTextContent('')

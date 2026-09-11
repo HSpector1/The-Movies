@@ -48,7 +48,7 @@ import {
   studioCalendar,
   tick,
   validateSave,
-  validateSaveV19,
+  validateSaveV20,
 } from '../src/core/index.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
@@ -775,9 +775,9 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     state = advance(state, 2)
 
     const save = makeSave(state)
-    expect(save.saveVersion).toBe(19)
+    expect(save.saveVersion).toBe(20)
     expect(validateSave(save)).toBe(save)
-    expect(validateSaveV19(save)).toBe(save)
+    expect(validateSaveV20(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json))).toBe(json)
     const reloaded = migrateToCurrentControl(importSave(json)).state
@@ -820,6 +820,12 @@ describe('C1-M3a (F) — saves, boundaries, and determinism', () => {
     delete forgedV11.state.foundingRegime
     // R05: isolate the historical refund guard from the additive V19 root.
     delete forgedV11.state.hollywood
+    delete forgedV11.state.technology
+    for (const person of forgedV11.state.talent as Record<string, unknown>[]) {
+      for (const key of ['skills', 'ceilings', 'devRate', 'genreExperience', 'workHistory']) {
+        delete (person[key] as Record<string, unknown>).research
+      }
+    }
     forgedV11.saveVersion = 11
     expect(() => validateSave(forgedV11)).toThrow(
       /SaveFileV13 facility demolition authority|facilityDemolitionRefund/,

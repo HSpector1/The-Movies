@@ -193,7 +193,11 @@ export function advanceResearchWeek(state: GameState): {technology: StudioTechno
     const quote = researchWeekQuote(state, p)
     if (quote.output === 0) return p.status === 'active' && !activeContract(state,p.scientistId,state.market.tick+1) ? {...p,status:'paused' as const} : p
     if (quote.spend > 0) entries.push({week:state.market.tick, kind:'researchSpend', amount:-quote.spend, note:`research:${p.id}`})
-    const verifiedWork = Math.min(SYNCHRONIZED_SOUND.work, p.verifiedWork + quote.output)
+    // A whole budget dollar earns exactly 1/20,000 of a work unit. Accumulate
+    // that integer numerator so lawful low budgets cannot acquire floating
+    // residue that the paid-work boundary then mistakes for unpaid output.
+    const verifiedWork = Math.min(SYNCHRONIZED_SOUND.work,
+      (Math.round(p.verifiedWork * 20_000) + 20_000 + quote.spend) / 20_000)
     const complete = verifiedWork >= SYNCHRONIZED_SOUND.work
     if (complete && !access.some(a => a.studioId === p.studioId && a.acquiredWeek !== null)) {
       const pending = access.findIndex(a => a.studioId === p.studioId)
@@ -251,6 +255,8 @@ export function validateTechnology(state: GameState): void {
     if (p.studioId !== own || p.id !== `${own}:research:synchronized-sound` || ids.has(p.id)) fail('invalid research ownership or identity')
     ids.add(p.id);budget(p.budgetPerWeek);integer(p.expenditure)
     if (!Number.isFinite(p.verifiedWork) || p.verifiedWork < 0 || p.verifiedWork > 64) fail('invalid verified work')
+    const verifiedWorkUnits = Math.round(p.verifiedWork * 20_000)
+    if (p.verifiedWork !== verifiedWorkUnits / 20_000) fail('verified work is not a whole-dollar research unit')
     if (!['active','paused','cancelled','completed'].includes(p.status)) fail('unknown research status')
     if (!state.operations.facilities.some(f => f.id === p.laboratoryFacilityId && f.capability === 'laboratory')) fail('unknown Laboratory')
     if (state.talent.find(t => t.id === p.scientistId)?.role !== 'scientist') fail('unknown Scientist')
@@ -258,8 +264,8 @@ export function validateTechnology(state: GameState): void {
     else if (p.verifiedWork !== 0 || p.expenditure !== 0 || p.status === 'active' || p.status === 'completed') fail('invented research before start')
     if (p.completedWeek !== null) {week(p.completedWeek);if (p.startedWeek === null || p.completedWeek <= p.startedWeek || p.verifiedWork !== 64 || p.status !== 'completed') fail('invalid completion')}
     else if (p.verifiedWork === 64 || p.status === 'completed') fail('missing research completion receipt')
-    if (p.startedWeek!==null && p.verifiedWork > ((p.completedWeek ?? state.market.tick)-p.startedWeek)*1.5) fail('verified work exceeds one Scientist elapsed capacity')
-    if (p.startedWeek!==null && p.verifiedWork > ((p.completedWeek ?? state.market.tick)-p.startedWeek)+p.expenditure/20_000) fail('verified research acceleration was not paid')
+    if (p.startedWeek!==null && verifiedWorkUnits > ((p.completedWeek ?? state.market.tick)-p.startedWeek)*30_000) fail('verified work exceeds one Scientist elapsed capacity')
+    if (p.startedWeek!==null && verifiedWorkUnits > ((p.completedWeek ?? state.market.tick)-p.startedWeek)*20_000+p.expenditure) fail('verified research acceleration was not paid')
     const spent = state.ledger.filter(e => e.kind === 'researchSpend' && e.note === `research:${p.id}`).reduce((sum,e) => sum-e.amount,0)
     if (spent !== p.expenditure) fail('research expenditure does not reconcile')
     if (p.status === 'active' && researchPrerequisiteRefusal(state,p)) fail('active research lacks its assigned person or physical prerequisites')

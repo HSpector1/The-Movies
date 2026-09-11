@@ -52,6 +52,10 @@ import {
   // C2a-M4 (§3.3): the engine's own resource-key producer, so the UI never
   // invents the format of a key it only means to look up.
   facilitySlotKey,
+  facilityInstallationPhase,
+  campaignDate,
+  researchWeekQuote,
+  SYNCHRONIZED_SOUND,
   // constants
   TUNING,
   CAST_WEIGHT,
@@ -4106,6 +4110,7 @@ const GATE_HIRING_ROLES = new Set<CreativeRole>([
   'director',
   'writer',
   'craft',
+  'scientist',
 ])
 
 /**
@@ -7895,7 +7900,36 @@ export function studioLotSnapshot(state: GameState): StudioLotSnapshotWithJourne
     ...placementProjection.placements
       .filter((placed) => placed.parcelId !== LEGACY_EXPANSION_PARCEL_ID)
       .map(placedBuildingState),
-  ]
+  ].map((building) => {
+    // Modules occupy their exact existing body. The body keeps its construction
+    // identity while its selected status describes the actual installation/work.
+    const facilities = state.operations.facilities.filter(f => facilityBuildingIdOf(state, f.id) === building.id)
+    const facilityIds = new Set(facilities.map(f => f.id))
+    const installations = state.placement.facilities.filter(p => p.installation !== undefined && facilityIds.has(p.installation.targetFacilityId))
+    const pending = installations.find(p => p.status === 'underConstruction')
+    if (pending) return { ...building, available: false, attention: 'active' as const,
+      attentionReason: `Installing ${blueprintById(pending.blueprintId)?.name ?? 'equipment'} · ${facilityInstallationPhase(pending, week)} · completes ${campaignDate(pending.completesWeek).label}` }
+    if (!building.available) return building
+    const laboratory = facilities.find(f => f.capability === 'laboratory')
+    if (laboratory) {
+      const project = state.technology.projects.find(p => p.laboratoryFacilityId === laboratory.id)
+      if (project) {
+        const scientist = state.talent.find(t => t.id === project.scientistId)?.name ?? 'Assigned Scientist'
+        const work = `${project.verifiedWork}/${SYNCHRONIZED_SOUND.work} verified work`
+        if (project.status === 'active') {
+          const quote = researchWeekQuote(state, project)
+          return { ...building, attention: quote.output > 0 ? 'active' as const : 'warning' as const,
+            attentionReason: quote.output > 0 ? `Research active · ${scientist} · ${work}` : `Research waiting · ${scientist} · ${quote.bottleneck}` }
+        }
+        return { ...building, attention: project.status === 'completed' ? 'positive' as const : 'normal' as const,
+          attentionReason: `Research ${project.status} · ${scientist} · ${work}` }
+      }
+      return { ...building, attentionReason: installations.length ? 'Acoustic instruments operational · No Scientist assigned' : 'Laboratory operational · No Scientist assigned' }
+    }
+    if (!installations.length) return building
+    const installationLabels = installations.map(p => `${blueprintById(p.blueprintId)?.name ?? 'Equipment'} operational`).join(' · ')
+    return { ...building, attentionReason: [building.attentionReason === 'Operational' ? null : building.attentionReason, installationLabels].filter(Boolean).join(' · ') }
+  })
 
   const operationsProjection =
     state.operations.mode === 'managed'

@@ -1537,6 +1537,15 @@ export function expectedWeeklyOperatingCostAt(
   ledger: readonly LedgerEntry[],
   week: number,
 ): number {
+  return expectedOperatingCostFromHistory(placement, demolishedFacilityHistory(ledger), week)
+}
+
+/** A validation pass reuses its derived history; no persisted or global cache. */
+function expectedOperatingCostFromHistory(
+  placement: StudioPlacement,
+  demolishedHistory: ReturnType<typeof demolishedFacilityHistory>,
+  week: number,
+): number {
   let total = 0
   for (const facility of placement.facilities) {
     if (facility.completesWeek > week) continue
@@ -1544,7 +1553,7 @@ export function expectedWeeklyOperatingCostAt(
     if (blueprint === null) continue
     total += blueprint.weeklyOperatingCost
   }
-  for (const demolished of demolishedFacilityHistory(ledger)) {
+  for (const demolished of demolishedHistory) {
     // Charged for every week it was operational, and never again from the week it
     // came down — a facility demolished in week D pays nothing for D, because the
     // tick that charges week D reads a placement array it has already left.
@@ -1911,6 +1920,7 @@ export function assertStudioPlacementInvariants(
   // from the durable placement record. Weeks with no row are legal: a migrated
   // V11 history predates the charge entirely.
   const opexWeeks = new Set<number>()
+  const demolishedHistory = demolishedFacilityHistory(state.ledger)
   for (const entry of opexRows) {
     invariant(
       Number.isInteger(entry.week) && entry.week >= 0 && entry.week < state.market.tick + 1,
@@ -1919,7 +1929,7 @@ export function assertStudioPlacementInvariants(
     invariant(!opexWeeks.has(entry.week), `week ${String(entry.week)} has more than one facility operating cost row`)
     opexWeeks.add(entry.week)
     invariant(entry.note === FACILITY_OPEX_LEDGER_NOTE, 'facility operating cost note is not canonical')
-    const expected = expectedWeeklyOperatingCostAt(placement, state.ledger, entry.week)
+    const expected = expectedOperatingCostFromHistory(placement, demolishedHistory, entry.week)
     invariant(
       expected > 0 && entry.amount === -expected,
       `facility operating cost at week ${String(entry.week)} disagrees with the operational facilities of that week`,

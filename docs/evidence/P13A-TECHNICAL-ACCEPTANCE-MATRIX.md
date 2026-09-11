@@ -1,0 +1,34 @@
+# P13A technical acceptance matrix — draft
+
+2026-09-11. This maps the Current Ops order and companion §5 to observed TypeScript evidence. It is not a product or Owner verdict. Implementation worktree: `/Users/bruce/The Movies - P13A Synchronized Sound TS`; branch `wip/p13a-synchronized-sound-01-ts`; accepted base `592e926bfbf4574df94b38fc8dd594fc5df2ac8d`; checkpoint `4dd667dcf433971feabae15ffaf2fde5b5d15bb1`, followed by uncommitted corrections. The final integration commit must bind the final reports.
+
+`npm run test:core` passed 209 files / 2,565 tests (`/tmp/p13a-final-full-core.log`). Subsequent Scientist-expiry repairs passed 21 focused tests and all three TypeScript checks. Two additional rival-adoption acceptance tests passed (`/tmp/p13a-rival-adoption-acceptance.txt`). Counts overlap and do not imply a final whole-repository rerun. [The correctness review](P13A-CORRECTNESS-REVIEW.md) records the exact findings, fixes and chronology.
+
+| Layer | Evidence | Present status / remaining qualification |
+| --- | --- | --- |
+| L0 | `p13a-catalogue.test.ts`: one stable synchronized-sound entry; duplicate, cyclic, unreachable, unknown and undated authoring refused; actual physical blueprints checked. | TypeScript checks passed. |
+| L1 | `p13a-causal-core.test.ts`, `p13a-physical-installation.test.ts`, `p13a-research-employment.test.ts`, `p13a-research-identity.test.ts`: real research, wait and purchase outcomes, missing prerequisites, named payroll, pause/cancel/release, exact installed chain. `p13a-production-technology.test.ts` preserves lawful silent-film allocation, work, cash and RNG. | TypeScript checks passed. One Scientist: research 260→303; sound operational 315. Waiting then purchase 416 gives operation 428, a 113-week difference. |
+| L2 | `p13a-rival-adoption.test.ts`: matching player/rival access and facility refusals, deterministic repeat, no duplicate charge/grant, original state/RNG preserved, unchanged rival plant. Scoped source review confirms both callers use `commercialAccessRefusal` and `adoptionRefusal`. | Two added tests passed. This proves shared **adoption** law; rival research symmetry is not claimed. |
+| L3 | `p13a-save-v20.test.ts` and canonical accepted-engine V19 fixtures; causal mid-research reload/continuation; unknown identity/forged receipt refusals; `bridge-p13-campaign-isolation.test.ts` uses actual Save As, inactive Load, Rename, New Game and restart. | Passed. V19 is the frozen incoming schema; governed current persistence is V20. Legacy periods gain only zero `technologyAdoption`; five period keys and old balances remain intact. No reconstructed research, payroll or employment. |
+| L4 | `p13a-rival-adoption.test.ts`: real tick at416 buys one existing rival chain, exact $1,475,000 dedicated debit, other movement kinds unchanged at that commitment, one operational receipt at428, canonical replay. Production and physical tests pin the exact stage/Post decision, first-filming lock, lawful silent control and next-advance operating charge onset. | TypeScript checks passed. Generated sound-film checkpoint additionally reaches actual Shooting at319 with lock318. |
+| L5 | Physical/performance lane generated the 6,240-week state and retained source/hash bindings. The first complete-Save setup refused an expired Scientist before taking any samples. The repaired one-shot real library load/snapshot/durable Save passed with unchanged digest and clean lock (`artifacts/p13a/performance/p13-gate-preflight/preflight-report.json`). | **Pending timed qualification.** Zero samples from the failed attempt. State bytes, V19→V20 migration duration and complete Save p95 must come from the lane's final report and preserve the accepted 9,577.754 ms baseline qualifications. A successful preflight is not a p95. |
+| L6 | `bridge-p13-laboratory.test.ts`, `bridge-p13-no-laboratory-commercial.test.ts`, `bridge-p13-scientist-expiry.test.ts`: closed DTOs, exact target, session/revision guards, stale/idempotent intents, retained-person rehire; public Industry excludes private financial facts. | TypeScript checks passed. No-Lab commercial route uses global studio intents. |
+| L7 | `bridge-p13-lot-technology.test.ts` pins actual Lab/instrument and exact stage/Post installation states; Scientist-expiry test pins assigned-seat/inactive-contract and completed-versus-operational labels. | Producer checks passed. **Native target-viewport legibility requires the separate native evidence and critique.** |
+| L8 | Session/intent guards tested; generated checkpoints below support all research route states. | **Native mouse, keyboard, controller, focus, Back and Locate evidence pending in this TS draft.** Rendering or automated DTO checks do not prove input responsiveness. |
+| L9 | Howard plays the named routes and rules KEEP, REVISE or REJECT. | **Howard only. No verdict supplied.** |
+
+## Immutable generated playable checkpoints
+
+All are live-engine generated fixtures, with no user campaign input. Current schema: `sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48`. Each linked manifest names the absolute checkpoint path, full SHA-256 and exact byte count. The generator refuses existing output; previously emitted early, research-entry and research-complete files were independently rehashed and left unchanged.
+
+| Manifest | Actual state | Checkpoint bytes |
+| --- | --- | ---: |
+| [early](../../artifacts/p13a/early/manifest.json) | Week12, operational Laboratory | 494,126 |
+| [research-entry](../../artifacts/p13a/research-entry/manifest.json) | Week260, instruments operational, before Scientist recruitment | 1,189,723 |
+| [research-active](../../artifacts/p13a/research-active/manifest.json) | Week261, one real funded advance, 1.5 verified work and $10,000 project spend | 1,197,698 |
+| [research-complete](../../artifacts/p13a/research-complete/manifest.json) | Week303, 64 verified work, before adoption | 1,243,017 |
+| [production-choice](../../artifacts/p13a/production-choice/manifest.json) | Week315, chain operational; legally hired film team and actual greenlight; technology choice still open | 1,235,915 |
+| [sound-filming](../../artifacts/p13a/sound-filming/manifest.json) | Week319, actual Shooting; synchronized dialogue locked at318 on the exact operational chain | 1,241,224 |
+| [commercial-entry](../../artifacts/p13a/commercial-entry/manifest.json) | Week416, no Laboratory, Scientist, research or player access grant | 606,353 |
+
+The four newly emitted fixtures use generator SHA-256 `46aeca2e20f981806701189f108305059ef086c276ff4fdb312a85d860822f9e`. Film staff were signed through the current legal hiring market at315. The script used actual greenlight, technology selection and weekly advances; it did not set a clock, production phase, contract or cash receipt by hand.

@@ -2,7 +2,7 @@
 //
 // What is under test:
 //   • Every requirement KIND evaluates correctly, met and unmet, including the
-//     five whose backing systems land in C3/C4 — those must be honestly UNMET
+//     four whose backing systems land in C3/C4 — those must be honestly UNMET
 //     and must never throw.
 //   • The locked-reason vocabulary: the exact product copy C1-M5 will render.
 //   • The binding rejection ORDER, proved through the real rule engine:
@@ -22,6 +22,7 @@
 // Everything here is seeded and pure: no wall clock, no unseeded randomness.
 
 import { describe, expect, it } from 'vitest'
+import { initializeHollywood } from '../src/core/hollywood.js'
 import {
   DEVELOPMENT_CASTING_ANNEX_BLUEPRINT,
   FACILITY_BLUEPRINTS,
@@ -142,7 +143,7 @@ const ALL_KINDS: readonly BlueprintRequirementKind[] = [
 
 describe('C1-M2 — requirement kinds evaluate honestly', () => {
   it('covers every declared kind, and separates live ones from not-yet-attainable', () => {
-    expect([...LIVE_REQUIREMENT_KINDS].sort()).toEqual(['date', 'facility', 'foundingOffice', 'structure'])
+    expect([...LIVE_REQUIREMENT_KINDS].sort()).toEqual(['date', 'facility', 'foundingOffice', 'research', 'structure'])
     // The union and the test's own checklist agree: a ninth kind added without a
     // test would fail here rather than silently going unexercised.
     const sample: Record<BlueprintRequirementKind, BlueprintRequirement> = {
@@ -235,7 +236,6 @@ describe('C1-M2 — requirement kinds evaluate honestly', () => {
       { kind: 'rank', tier: 'Respected Studio Head' },
       { kind: 'certificate', certificateId: 'First Hit' },
       { kind: 'award', awardId: 'Best Picture' },
-      { kind: 'research', packId: 'Sound Recording' },
       { kind: 'landZone', zoneId: 'the eastern lots' },
     ]
     for (const state of states) {
@@ -246,6 +246,21 @@ describe('C1-M2 — requirement kinds evaluate honestly', () => {
       }
     }
   })
+
+  it('P13A opens only the exact research gate after actual player access, while waiting remains unmet', () => {
+    let state = initializeHollywood(withCash(managedStudio('p13a-blueprint-research-gate'), 20_000_000), 'fresh')
+    const gate: BlueprintRequirement = { kind: 'research', packId: 'synchronized-sound' }
+    expect(requirementIsAttainable(gate)).toBe(true)
+    expect(blueprintRequirementMet(state, gate)).toBe(false)
+    state = applyActions(state, [{ kind: 'waitForTechnology', technologyId: 'synchronized-sound' }])
+    state = advance(state, 416)
+    expect(blueprintRequirementMet(state, gate)).toBe(false)
+    state = applyActions(state, [{ kind: 'purchaseTechnology', technologyId: 'synchronized-sound' }])
+    expect(blueprintRequirementMet(state, gate)).toBe(true)
+    expect(blueprintRequirementMet(state, { kind: 'research', packId: 'Sound Recording' })).toBe(false)
+    expect(blueprintRequirementMet(state, { kind: 'research', packId: 'future-technology' })).toBe(false)
+    expect(blueprintRequirementMet({ ...state, hollywood: null }, gate)).toBe(false)
+  }, 30_000)
 })
 
 describe('C1-M2 — the locked-reason vocabulary (C1-M5 renders these verbatim)', () => {
@@ -273,7 +288,10 @@ describe('C1-M2 — the locked-reason vocabulary (C1-M5 renders these verbatim)'
     ).toBe('Requires the Best Picture award. Awards are not part of the game yet.')
     expect(
       blueprintRequirementReason({ kind: 'research', packId: 'Sound Recording' }, context),
-    ).toBe('Requires the Sound Recording research. Research is not part of the game yet.')
+    ).toBe('Requires Sound Recording research.')
+    expect(
+      blueprintRequirementReason({ kind: 'research', packId: 'synchronized-sound' }, context),
+    ).toBe('Requires synchronized-sound access through completed research or commercial purchase.')
     expect(
       blueprintRequirementReason({ kind: 'landZone', zoneId: 'the eastern lots' }, context),
     ).toBe('Requires owning the eastern lots. Buying land is not part of the game yet.')
@@ -631,7 +649,7 @@ describe('C1-M2 — the shipped Annex is unchanged', () => {
 
   it('reports the Annex as available and buildable in the catalog read model', () => {
     const view = studioPlacementView(withCash(managedStudio('c1-m2-catalog'), 5_000_000))
-    expect(view.catalog).toHaveLength(9)
+    expect(view.catalog).toHaveLength(10)
     expect(view.catalog[0]).toMatchObject({
       blueprintId: ANNEX,
       available: true,

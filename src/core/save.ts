@@ -7166,6 +7166,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 20) throw new Error("migrateToV15: cannot downgrade SaveFileV20 or discard technology");
   if (save.saveVersion >= 19) throw new Error("migrateToV15: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
@@ -7233,6 +7234,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === 20) throw new Error("migrateToV18: cannot downgrade SaveFileV20 or discard technology");
   if (save.saveVersion >= 19) throw new Error("migrateToV18: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) return save;
   return convertV17ToV18(migrateToV17(save));
@@ -7241,6 +7243,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === 20) throw new Error("migrateToV17: cannot downgrade SaveFileV20 or discard technology");
   if (save.saveVersion >= 19) throw new Error("migrateToV17: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
@@ -7254,6 +7257,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 20) throw new Error("migrateToV16: cannot downgrade SaveFileV20 or discard technology");
   if (save.saveVersion >= 19) throw new Error("migrateToV16: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
@@ -7270,6 +7274,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 20) throw new Error("migrateToV14: cannot downgrade SaveFileV20 or discard technology");
   if (save.saveVersion >= 19) throw new Error("migrateToV14: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(
@@ -7296,6 +7301,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 20) throw new Error("migrateToV13: cannot downgrade SaveFileV20 or discard technology");
   if (save.saveVersion >= 19) throw new Error("migrateToV13: cannot downgrade SaveFileV19 or discard Hollywood");
   if (save.saveVersion === 18) {
     throw new Error(

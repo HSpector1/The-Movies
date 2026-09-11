@@ -126,7 +126,7 @@ function validateAtOwningBoundary(kind: string, rows: readonly Record<string, un
     const makeSaveLive = requireFunction(requireCore(), 'makeSave', 'P08A live boundary') as unknown as (
       s: GameState,
     ) => { state: Record<string, unknown> }
-    const validateLive = requireFunction(requireCore(), 'validateSaveV19', 'P09 live boundary') as unknown as (
+    const validateLive = requireFunction(requireCore(), 'validateSaveV20', 'P09 live boundary') as unknown as (
       save: unknown,
     ) => unknown
     const forged = clone(makeSaveLive(managed) as unknown as Envelope)

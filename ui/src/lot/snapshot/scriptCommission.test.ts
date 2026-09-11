@@ -4,6 +4,7 @@ import {
   applyActions,
   beginFounding,
   generateWorld,
+  makeSave,
   type GameState,
 } from '../../../../src/core/index.ts'
 import * as adapter from '../../engine/adapter.ts'
@@ -98,6 +99,25 @@ afterEach(() => {
 })
 
 describe('accepted screenplay commission receipt', () => {
+  it('accepts lawful signed zero through the current JSON boundary while rejecting NaN and decoration', () => {
+    const before = managedStudio('script-commission-current-json-zero')
+    before.talent[0]!.genreExperience.acting.comedy.perceived = -0
+    const payload = payloadFor(before)
+    const result = commissionScriptAction(before, payload)
+    if (!result.ok) throw new Error(result.error)
+    const after = makeSave(result.next).state
+    expect(Object.is(before.talent[0]!.genreExperience.acting.comedy.perceived, -0)).toBe(true)
+    expect(Object.is(after.talent[0]!.genreExperience.acting.comedy.perceived, 0)).toBe(true)
+    expect(acceptedScreenplayCommissionReceipt(before, after, payload)).not.toBeNull()
+
+    const nonfinite = clone(before)
+    nonfinite.talent[0]!.genreExperience.acting.comedy.perceived = Number.NaN
+    expect(acceptedScreenplayCommissionReceipt(nonfinite, after, payload)).toBeNull()
+    const decorated = clone(after)
+    Object.assign(decorated.talent[0]!.genreExperience.acting.comedy, { hiddenOverride: true })
+    expect(acceptedScreenplayCommissionReceipt(before, decorated, payload)).toBeNull()
+  })
+
   it('accepts only the exact real action and returns the closed witness identity', () => {
     const pair = acceptedPair('script-commission-receipt-positive')
     const receipt = expectReceipt(pair)

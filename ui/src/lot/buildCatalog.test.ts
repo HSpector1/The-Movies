@@ -41,7 +41,8 @@ const COUNTS: Record<CreativeRole, number> = { actor: 3, director: 1, writer: 3,
  * Building, the Scenery Shop and the from-scratch Development & Casting Office. The
  * count is widened rather than the assertion loosened: the whole point of this test
  * is that the catalog is EXACTLY the engine's list in EXACTLY the engine's order, so
- * a blueprint appearing, vanishing or moving must break it.
+ * a blueprint appearing, vanishing or moving must break it. P13 adds the tenth,
+ * the Research Laboratory; target installations are not new building bodies.
  */
 const CATALOG_IDS = [
   'development-casting-annex',
@@ -53,6 +54,7 @@ const CATALOG_IDS = [
   'post-building',
   'scenery-shop',
   'development-casting-office',
+  'research-laboratory',
 ] as const
 
 function managedStudio(seed: string): GameState {
@@ -163,6 +165,7 @@ describe('C1-M5 — the catalog lists every blueprint, in the studio’s own wor
       'post-building',
       'scenery-shop',
       'development-casting-office',
+      'research-laboratory',
     ])
   })
 

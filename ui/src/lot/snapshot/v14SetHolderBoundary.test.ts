@@ -41,9 +41,9 @@ describe('C2a-M2 — a save round-trips as V15, roots and all', () => {
   it('exports V15 and imports it back with the four C2a roots intact', () => {
     const state = activatedStudio()
     const json = exportSaveJson(state)
-    // P06A W1/W2: the live save version is V16 (releaseAuthority root); a fresh
-    // makeSave/export is current, not a conversion, and pins to 16 here.
-    expect(JSON.parse(json).saveVersion).toBe(19)
+    // This exercises the current writer, including the governed P13 root.
+    // Frozen historical validators retain their separate versioned tests.
+    expect(JSON.parse(json).saveVersion).toBe(20)
 
     const outcome = importSaveJson(json)
     expect(outcome.ok).toBe(true)

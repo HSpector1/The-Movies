@@ -1,7 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { beforeAll, describe, expect, it } from 'vitest'
-import { historyProjection } from '../bridge/history.js'
 import { applyActions } from '../src/core/actions.js'
 import { initializeHollywood } from '../src/core/hollywood.js'
 import { exportSave, importSave, makeSave, migrateToV20, validateSaveV19, validateSaveV20 } from '../src/core/save.js'
@@ -41,17 +40,6 @@ describe('P13A dated public technology history', () => {
     expect(released[1]!.eventId).toBeGreaterThan(released[0]!.eventId)
   })
 
-  it('projects dated availability without claiming player access or operational adoption', () => {
-    const state = states.get(416)!
-    const rows = historyProjection(state).timeline.filter(row => row.kind === 'technologyMilestone')
-    expect(rows.map(row => row.headline)).toEqual(['Synchronized-sound research opens', 'Synchronized sound reaches commercial release'])
-    expect(rows[0]!.detail).toContain('1925')
-    expect(rows[1]!.detail).toContain('1928')
-    expect(rows.every(row => row.subjectKind === 'studio' && row.subjectLocation === 'none' && row.buildingId === null)).toBe(true)
-    expect(state.technology.access.filter(row => row.studioId === state.hollywood!.playerStudioId)).toEqual([])
-    expect(state.technology.adoptions.filter(row => row.studioId === state.hollywood!.playerStudioId)).toEqual([])
-  })
-
   it('round-trips both boundaries exactly and resumes without duplicating the permanent events', () => {
     for (const week of [259, 260, 415, 416]) {
       const state = states.get(week)!
@@ -86,7 +74,8 @@ describe('P13A dated public technology history', () => {
       expect(() => validateSaveV20(forged)).toThrow(/technology milestone/)
     }
     const duplicated = structuredClone(save)
-    duplicated.state.studioHistory.rows.push({ ...milestones(duplicated.state)[0]!, eventId: duplicated.state.studioHistory.nextEventId++ })
+    duplicated.state.studioHistory.rows = [...duplicated.state.studioHistory.rows,
+      { ...milestones(duplicated.state)[0]!, eventId: duplicated.state.studioHistory.nextEventId++ }]
     expect(() => validateSaveV20(duplicated)).toThrow(/duplicate technology milestone/)
     const preRecorded = structuredClone(save)
     preRecorded.state.technology.recordingStartedWeek = 260

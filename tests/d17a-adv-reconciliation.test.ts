@@ -334,7 +334,7 @@ describe('D-17A/B — odd dollars: whole-dollar determinism and a governed tie-b
 
     // Property State V13 (C1-M1a): the live load-to-play entry is migrateToV17.
     const reloaded = migrateToCurrentControl(validateSave(importSave(exportSave(makeSave(s)))))
-    expect(reloaded.saveVersion).toBe(19)
+    expect(reloaded.saveVersion).toBe(20)
     expect(stableStringify(allocateFixedCosts(reloaded.state))).toBe(first)
 
     // …and the hostile schedule survives the same trip.

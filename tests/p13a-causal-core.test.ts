@@ -13,6 +13,14 @@ describe('P13A causal Core through the real weekly engine',()=>{
   beforeAll(()=>{ready=p13aResearchReady()},30_000)
   const begin = (budgetPerWeek=10_000) => applyActions(ready,[{kind:'beginResearch',projectId:ready.technology.projects[0]!.id,budgetPerWeek}])
 
+  it.each([1,3,2499,5600,9999])('retains exact paid work and reloads a lawful $%s weekly budget', budgetPerWeek => {
+    const mid = advanceTo(begin(budgetPerWeek),280)
+    expect(mid.technology.projects[0]!.verifiedWork).toBe((20*20_000+20*budgetPerWeek)/20_000)
+    const restored = migrateToV20(importSave(exportCurrentState(mid))).state
+    expect(restored.technology).toEqual(mid.technology)
+    expect(exportCurrentState(tick(restored))).toBe(exportCurrentState(tick(mid)))
+  })
+
   it('one Scientist completes 64 units in 43 funded weeks, then P09 completes the exact chain at315',()=>{
     let state=begin()
     const startCash=state.studio.cash

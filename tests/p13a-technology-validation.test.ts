@@ -51,7 +51,7 @@ describe('P13A original-input technology validation', () => {
       state.ledger = state.ledger.filter(row => row.kind !== 'researchSpend')
       state.studio.cash += 10_000
       state.technology.projects[0]!.expenditure = 0
-    }, /work|spend|expenditure/)
+    }, /work|spend|expenditure|acceleration/)
   })
 
   it('rejects an invented inventor discount on a real purchased installation', () => {

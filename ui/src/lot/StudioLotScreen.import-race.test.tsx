@@ -3,6 +3,7 @@ import { resolve } from 'node:path'
 import { useState } from 'react'
 import { act, cleanup, fireEvent, render, waitFor, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { campaignDate } from '../../../src/core/index.ts'
 import type { GameState } from '../engine/adapter.ts'
 import {
   advanceWeek,
@@ -164,7 +165,7 @@ describe('StudioLotScreen — delayed renderer import', () => {
       '0 of 13 weekly advances complete',
     )
     fireEvent.click(surface.getByTestId('lot-advance-week'))
-    expect(surface.getByText(`Studio Chronicle · Hollywood, 1948 · Week ${expected.market.tick}`))
+    expect(surface.getByText(`Studio Chronicle · Hollywood, ${campaignDate(expected.market.tick).label}`))
       .toBeInTheDocument()
     expect(surface.getByTestId('lot-annex-progress-text')).toHaveTextContent(
       '1 of 13 weekly advances complete',

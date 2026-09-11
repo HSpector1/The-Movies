@@ -46,7 +46,7 @@ import {
   studioCalendar,
   studioConstructionView,
   tick,
-  validateSaveV19,
+  validateSaveV20,
 } from '../src/core/index.js'
 import {
   CRAFT_ANNEX_BLUEPRINT,
@@ -147,7 +147,7 @@ describe('C1-M8 (A) — the ground the Annex contract holds', () => {
 describe('C1-M8 (B) — a generic building may not be BUILT there', () => {
   it('refuses every catalog blueprint but the Annex, at the parcel origin', () => {
     const state = richStudio('c1-m8-build-refused')
-    for (const blueprint of FACILITY_BLUEPRINTS) {
+    for (const blueprint of FACILITY_BLUEPRINTS.filter(entry => entry.installationTargetCapability === undefined)) {
       const quote = queryPlacement(state, { blueprintId: blueprint.id, origin: LEGACY_ORIGIN })
       if (blueprint.id === ANNEX) {
         expect(quote.ok, `${blueprint.id} is the contract's own building`).toBe(true)
@@ -203,7 +203,7 @@ describe('C1-M8 (B) — a generic building may not be BUILT there', () => {
     const state = richStudio('c1-m8-accepted-composes')
     const reserved = new Set(reservedCells(state).map((cell) => `${String(cell.gx)},${String(cell.gy)}`))
     let accepted = 0
-    for (const blueprint of FACILITY_BLUEPRINTS) {
+    for (const blueprint of FACILITY_BLUEPRINTS.filter(entry => entry.installationTargetCapability === undefined)) {
       if (blueprint.id === ANNEX) continue // the contract's own ground is its own case
       for (let gy = 0; gy < state.property.bounds.depth; gy++) {
         for (let gx = 0; gx < state.property.bounds.width; gx++) {
@@ -362,7 +362,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
     expect(() =>
       assertStudioPlacementInvariants(save.state as unknown as GameState),
     ).toThrow(named)
-    expect(() => validateSaveV19(save)).toThrow(named)
+    expect(() => validateSaveV20(save)).toThrow(named)
     // The load path a player actually reaches — never a half-loaded world.
     expect(() => importSave(JSON.stringify(save))).toThrow(named)
   })
@@ -373,7 +373,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
       DEVELOPMENT_CASTING_ANNEX_BLUEPRINT.buildWeeks,
     )
     const save = makeSave(annex)
-    expect(validateSaveV19(save)).toBe(save)
+    expect(validateSaveV20(save)).toBe(save)
     const json = exportSave(save)
     expect(exportSave(importSave(json) as SaveFileV20)).toBe(json)
     expect(annex.placement.facilities[0]!.parcelId).toBe(LEGACY_EXPANSION_PARCEL_ID)
@@ -401,7 +401,7 @@ describe('C1-M8 (E) — a save that stands a generic building there fails CLOSED
           placed.cells.push({ gx: LEGACY_ORIGIN.gx + dx, gy: LEGACY_ORIGIN.gy + dy })
         }
       }
-      expect(() => validateSaveV19(save), blueprint.id).toThrow(/reserved for the studio's Annex/)
+      expect(() => validateSaveV20(save), blueprint.id).toThrow(/reserved for the studio's Annex/)
     }
   })
 })

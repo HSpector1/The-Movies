@@ -21,7 +21,7 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { applyActions, exportSave, importSave, makeSave, stableStringify, tick, validateSaveV19 } from '../../src/core/index.js'
+import { applyActions, exportSave, importSave, makeSave, stableStringify, tick, validateSaveV20 } from '../../src/core/index.js'
 import type { GameState, SaveFileV20 } from '../../src/core/index.js'
 import {
   auditionSlate,
@@ -69,7 +69,7 @@ function auditionBesideScreenplay(seed: string): GameState {
 
 function legalSave(state: GameState): SaveFileV20 {
   const save = makeSave(state)
-  expect(validateSaveV19(save)).toBe(save)
+  expect(validateSaveV20(save)).toBe(save)
   return save
 }
 
@@ -97,7 +97,7 @@ function proveRefusal(
 
   let thrown: unknown = null
   try {
-    validateSaveV19(forged)
+    validateSaveV20(forged)
   } catch (error) {
     thrown = error
   }
@@ -115,7 +115,7 @@ function proveRefusal(
   expect(stableStringify(forged), `${label}: the twin is byte-identical`).toBe(
     stableStringify(legal),
   )
-  expect(validateSaveV19(forged as SaveFileV20)).toBe(forged)
+  expect(validateSaveV20(forged as SaveFileV20)).toBe(forged)
 }
 
 describe('C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED', () => {

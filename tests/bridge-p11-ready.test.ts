@@ -49,7 +49,7 @@ function packageDraft(state: GameState, projectId: string): BridgeCastingDraftPa
 
 describe('P11 ready Upcoming and discarded financial successors', () => {
   it('migrates authentic core25 without relabeling its bytes; strict26 includes a nullable Week0 history', () => {
-    expect(PROJECTION_VERSION).toBe(29)
+    expect(PROJECTION_VERSION).toBe(30)
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get('sha256:fe9bf4558dc12abc5f258ba8b8f581242e06361cfbae8ae31d8c676f6c7a6460')).toBe('projection-v25')
     const state = fixture('s5-p11-steady')
     const snapshot = new BridgeSession(state, 'ready-week0').snapshot()

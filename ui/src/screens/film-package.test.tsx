@@ -198,6 +198,10 @@ describe('information integrity: the package summary/cards never leak hidden dat
     // Expand the actor's card so ALL of its detail text is in the DOM.
     fireEvent.click(screen.getByTestId(`talent-${actor.id}-expand`))
     const picker = screen.getByTestId('picker-lead')
+    // Include this candidate's card and expanded details, excluding the separate
+    // fixed filter controls (whose $1.00M option contains the neutral research 1).
+    const candidate = screen.getByTestId(`talent-${actor.id}`).parentElement!
+    expect(candidate).toContainElement(screen.getByTestId(`talent-${actor.id}-details`))
 
     // Collect every hidden ACTUAL professional-skill integer + true ceiling for this
     // actor. NONE of them may appear as a standalone token in any leaf of the card.
@@ -254,7 +258,7 @@ describe('information integrity: the package summary/cards never leak hidden dat
     // The word "actual" must never appear in the rendered card.
     expect((picker.textContent ?? '').toLowerCase()).not.toContain('actual')
     // No hidden value leaks as a standalone token in any leaf (strict leaf-node scan).
-    expect(leakedLeafTokens(picker, hidden, allowed)).toEqual([])
+    expect(leakedLeafTokens(candidate, hidden, allowed)).toEqual([])
   })
 
   it('the Film Package summary renders both disclosures and no "actual" text', () => {

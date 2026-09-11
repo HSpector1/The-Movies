@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { applyActions } from '../../../src/core/index.ts'
+import { applyActions, campaignDate } from '../../../src/core/index.ts'
 import type { GameState } from '../engine/adapter.ts'
 import {
   advanceWeek,
@@ -613,7 +613,7 @@ describe('World-First Greenlight Production Formation — Studio Lot boundary', 
 
     fireEvent.click(screen.getByTestId('lot-advance-week'))
 
-    await waitFor(() => expect(screen.getByText('Studio Chronicle · Hollywood, 1948 · Week 1'))
+    await waitFor(() => expect(screen.getByText(`Studio Chronicle · Hollywood, ${campaignDate(1).label}`))
       .toBeInTheDocument())
     expect(screen.getByTestId('hollywood-current-production')).toHaveTextContent(operation.title)
     expect(screen.getByTestId(`hollywood-select-person-${receipt.directorId}`)).toHaveAttribute(

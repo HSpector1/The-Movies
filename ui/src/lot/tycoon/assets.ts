@@ -28,6 +28,7 @@ import { WARM as C } from './palette'
 // for it can never drift apart (C2a-M2 §3.1). `world.ts` imports only a snapshot type.
 import {
   PLACED_DEVELOPMENT_CASTING_TEX_KEY,
+  PLACED_LABORATORY_TEX_KEY,
   PLACED_POST_TEX_KEY,
   PLACED_SCENERY_TEX_KEY,
   PLACED_SOUNDSTAGE_TEX_KEY,
@@ -835,6 +836,9 @@ export function bakeBlueprintTexture(scene: Phaser.Scene, texKey: string): boole
       // baseline office, which has none, is dressed by its class.
       bakeOffice(scene, PLACED_DEVELOPMENT_CASTING_TEX_KEY, 3, 2, 58, 28, 'casting')
       return true
+    case PLACED_LABORATORY_TEX_KEY:
+      bakeLaboratory(scene, PLACED_LABORATORY_TEX_KEY)
+      return true
     default:
       // A blueprint whose art has not been authored gets the honest massing block the
       // placement layer already draws — never another building's body (shift law 12).
@@ -897,6 +901,26 @@ function bakePost(scene: Phaser.Scene, key: string): void {
  * against the workshop's saw-tooth + shutter reads as a different building from any
  * distance, which is the whole requirement (C1-M6b's silhouette law).
  */
+/** A glazed bench wing and raised roof light distinguish the real Laboratory. */
+function bakeLaboratory(scene: Phaser.Scene, key: string): void {
+  const fw = 3, fd = 2, H = 58
+  const b = beginBuilding(scene, fw, fd, H, 26)
+  const { g, p } = b
+  drawWalls(b, fw, fd, H, C.cream, C.creamShade)
+  windowsLit(b, fw, fd, H, 4, 1, C.steel, C.windowLit)
+  windowsShade(b, fw, fd, H, 3, 0.3, 0.72)
+  flatRoof(b, fw, fd, H)
+  // One long glazed roof monitor above the instrument benches.
+  poly(g, [p(0.45, 0.5, H), p(2.55, 0.5, H), p(2.55, 1.25, H + 22), p(0.45, 1.25, H + 22)], C.windowLit)
+  poly(g, [p(0.45, 1.25, H), p(2.55, 1.25, H), p(2.55, 1.25, H + 22), p(0.45, 1.25, H + 22)], C.steel)
+  for (const x of [0.45, 1.15, 1.85, 2.55])
+    stroke(g, [p(x, 0.5, H), p(x, 1.25, H + 22)], C.slateShade, 2, 1)
+  poly(g, [p(0.2, fd, 0), p(0.65, fd, 0), p(0.65, fd, 30), p(0.2, fd, 30)], C.steel)
+  signField(b, fw, fd, H, 0.72, 0.91, 0.45)
+  TYCOON_BUILDING_TEX[key] = { key, originX: 0.5, originY: b.originY, fw, fd }
+  finalize(b, key)
+}
+
 function bakePostBuilding(scene: Phaser.Scene, key: string): void {
   const fw = 3
   const fd = 2

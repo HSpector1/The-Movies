@@ -73,7 +73,9 @@ function createdTalent(state: GameState, input: BalancedTalentInput): Talent {
 
 function allSkills(t: Talent): number[] {
   const out: number[] = []
-  for (const d of Object.keys(SKILL_ORDER) as Discipline[]) {
+  // This founding-creator floor governs the four film professions; legacy
+  // research leaves are explicitly neutral and have no invented ability.
+  for (const d of ['acting', 'writing', 'directing', 'craft'] as Discipline[]) {
     for (const k of SKILL_ORDER[d]) out.push(t.skills[d][k]!.actual)
   }
   return out

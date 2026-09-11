@@ -411,7 +411,7 @@ describe('D-17B §2/§6 — save round-trip and replay determinism', () => {
     const mid = buy(base, 'push')
 
     const reloaded = importSave(exportSave(makeSave(mid)))
-    if (reloaded.saveVersion !== 19) throw new Error('expected V20')
+    if (reloaded.saveVersion !== 20) throw new Error('expected V20')
     let split = migrateToCurrentControl(reloaded).state
     let continuous = mid
     for (let w = 0; w < 8; w++) {

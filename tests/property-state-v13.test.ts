@@ -62,7 +62,7 @@ import {
   studioPlacementView,
   tick,
   validateSave,
-  validateSaveV19,
+  validateSaveV20,
   assertStudioPlacementInvariants,
   expectedWeeklyOperatingCostAt,
 } from '../src/core/index.js'
@@ -474,7 +474,7 @@ describe('C1-M1a (b) — nothing assumes eight structures or a small placement c
     // And it all round-trips byte-identically at the live boundary.
     const json = exportSave(makeSave(operational))
     const reloaded = migrateToCurrentControl(importSave(json))
-    expect(reloaded.saveVersion).toBe(19)
+    expect(reloaded.saveVersion).toBe(20)
     expect(exportSave(makeSave(reloaded.state))).toBe(json)
     expect(reloaded.state.property).toEqual(INITIAL_PROPERTY)
     expect(reloaded.state.placement.facilities).toEqual(operational.placement.facilities)
@@ -641,9 +641,9 @@ describe('C1-M1a (d) — SaveFileV13', () => {
       const save = makeSave(state)
       // P04A: the LIVE envelope is now V15. The property root and every claim
       // this case makes about it are unchanged — only which version writes it.
-      expect(save.saveVersion).toBe(19)
+      expect(save.saveVersion).toBe(20)
       expect(validateSave(save)).toBe(save)
-      expect(validateSaveV19(save)).toBe(save)
+      expect(validateSaveV20(save)).toBe(save)
       expect(save.state.property).toEqual(INITIAL_PROPERTY)
       const json = exportSave(save)
       expect(exportSave(importSave(json))).toBe(json)
@@ -651,13 +651,13 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     }
   })
 
-  it('projects the property root positively, dropping unknown future fields', () => {
+  it('validates the original property root without dropping unknown future fields', () => {
     const withFuture = {
       ...managedStudio('c1-m1a-save-projection'),
       futureV14: { mustNotLeak: true },
     }
-    const save = makeSave(withFuture)
-    expect('futureV14' in save.state).toBe(false)
+    expect(() => makeSave(withFuture)).toThrow(/unknown field "futureV14"/)
+    const save = makeSave(managedStudio('c1-m1a-save-projection'))
     expect(Object.keys(save.state).sort()).toContain('property')
   })
 
@@ -740,7 +740,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV19(bad)).toThrow(expected)
+      expect(() => validateSaveV20(bad)).toThrow(expected)
     }
   })
 
@@ -809,7 +809,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     for (const [, mutate, expected] of cases) {
       const bad = clone(valid)
       mutate(bad)
-      expect(() => validateSaveV19(bad)).toThrow(expected)
+      expect(() => validateSaveV20(bad)).toThrow(expected)
     }
   })
 
@@ -821,7 +821,7 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     const forged = clone(makeSave(state))
     // Move the Theater onto the Annex's ground. Nothing may stand in a body.
     forged.state.property.structures.find((s) => s.id === 'theater')!.origin = { gx: 7, gy: 15 }
-    expect(() => validateSaveV19(forged)).toThrow(
+    expect(() => validateSaveV20(forged)).toThrow(
       /placed facility 1 overlaps property structure "theater"/,
     )
   })
@@ -882,10 +882,10 @@ describe('C1-M1a (d) — SaveFileV13', () => {
     }
   })
 
-  it('moves the unknown-version boundary from 16 to 17', () => {
+  it('rejects unknown V21 beyond the current V20 boundary', () => {
     const live = makeSave(managedStudio('c1-m1a-unknown'))
-    expect(() => validateSave({ ...live, saveVersion: 20 })).toThrow(
-      /unknown saveVersion 20.*versions 1 through 19 only/,
+    expect(() => validateSave({ ...live, saveVersion: 21 })).toThrow(
+      /unknown saveVersion 21.*versions 1 through 20 only/,
     )
   })
 })

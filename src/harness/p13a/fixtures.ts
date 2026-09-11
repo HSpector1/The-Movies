@@ -18,11 +18,15 @@ export function advanceTo(state: GameState, week: number): GameState {
 export function p13aLaboratorySlice(): GameState {
   return advanceTo(commitPlacement(p13aGeneratedStudio(),{blueprintId:'research-laboratory',origin:{gx:0,gy:9}}),12)
 }
-export function p13aResearchReady(): GameState {
+export function p13aResearchEntry(): GameState {
   let state = p13aLaboratorySlice()
   const laboratoryFacilityId = state.operations.facilities.find(f=>f.capability==='laboratory')!.id
   state = applyActions(state,[{kind:'installAcousticInstruments',laboratoryFacilityId}])
-  state = advanceTo(state,260)
+  return advanceTo(state,260)
+}
+export function p13aResearchReady(): GameState {
+  let state=p13aResearchEntry()
+  const laboratoryFacilityId = state.operations.facilities.find(f=>f.capability==='laboratory')!.id
   state = applyActions(state,[{kind:'recruitScientist',laboratoryFacilityId}])
   const scientistId = state.talent.find(t=>t.role==='scientist')!.id
   return applyActions(state,[{kind:'assignResearchScientist',laboratoryFacilityId,scientistId}])

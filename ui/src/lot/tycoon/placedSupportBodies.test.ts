@@ -22,6 +22,7 @@ import {
   BLUEPRINT_PRESENTATION,
   DEFAULT_BLUEPRINT_PRESENTATION,
   PLACED_DEVELOPMENT_CASTING_TEX_KEY,
+  PLACED_LABORATORY_TEX_KEY,
   PLACED_POST_TEX_KEY,
   PLACED_SCENERY_TEX_KEY,
   PLACED_SOUNDSTAGE_TEX_KEY,
@@ -137,6 +138,7 @@ function snapshotWith(placed: LotPlacedFacilityState[]): StudioLotSnapshot {
 }
 
 const SLATE: readonly { capability: string; blueprintId: string; texKey: string; name: string }[] = [
+  { capability: 'laboratory', blueprintId: 'research-laboratory', texKey: PLACED_LABORATORY_TEX_KEY, name: 'Research Laboratory' },
   { capability: 'post', blueprintId: 'post-building', texKey: PLACED_POST_TEX_KEY, name: 'Post Building 2' },
   {
     capability: 'set-scenery',
@@ -169,7 +171,7 @@ describe('C2a-M2 §3.4 — each support class has a body of its own', () => {
     }
   })
 
-  it('the four class bodies are four DIFFERENT bodies', () => {
+  it('the five class bodies are five DIFFERENT bodies', () => {
     // The point of a class body is that a player can tell two buildings apart. Four
     // distinct keys, and — the claim that actually matters — four distinct drawings.
     const keys = [
@@ -177,8 +179,9 @@ describe('C2a-M2 §3.4 — each support class has a body of its own', () => {
       PLACED_POST_TEX_KEY,
       PLACED_SCENERY_TEX_KEY,
       PLACED_DEVELOPMENT_CASTING_TEX_KEY,
+      PLACED_LABORATORY_TEX_KEY,
     ]
-    expect(new Set(keys).size).toBe(4)
+    expect(new Set(keys).size).toBe(5)
     const drawn = new Map<string, string>()
     for (const key of keys) {
       delete TYCOON_BUILDING_TEX[key]
@@ -186,7 +189,7 @@ describe('C2a-M2 §3.4 — each support class has a body of its own', () => {
       expect(bakeBlueprintTexture(scene.scene, key)).toBe(true)
       drawn.set(key, JSON.stringify(scene.ops))
     }
-    expect(new Set(drawn.values()).size).toBe(4)
+    expect(new Set(drawn.values()).size).toBe(5)
   })
 
   it('a placed facility wears its class body, and stands where the engine put it', () => {

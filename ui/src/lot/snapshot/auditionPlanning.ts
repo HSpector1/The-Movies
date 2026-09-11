@@ -230,7 +230,10 @@ function sameClosedValue(
   right: unknown,
   seen = new WeakMap<object, object>(),
 ): boolean {
-  if (Object.is(left, right)) return true
+  // JSON authority represents both finite signed zeros as 0. The live V20
+  // builder detaches through JSON, so lawful generated -0 must compare equally.
+  if (Object.is(left, right) ||
+    (left === 0 && right === 0)) return true
   if (Array.isArray(left) || Array.isArray(right)) {
     if (
       !Array.isArray(left) ||
@@ -275,12 +278,8 @@ function sameClosedFieldsExcept(
   )
 }
 
-// C2a-M1/M2 — "is this a canonical, undecorated live state?" is answered by projecting it
-// through the LIVE save builder and comparing key-for-key. That builder is the live one (P06A: makeSave → V16):
-// V13 is a frozen historical format that cannot see the sets, queue, screenplay or history
-// roots a live state carries, so asking it would report every ordinary studio as decorated.
-// P06A: the live builder is makeSave (V16) — makeSaveV14 strips releaseAuthority and would
-// The assertion is unchanged — only the name of "current" moved.
+// Prove a canonical, undecorated live state against the current save builder.
+// Historical writers intentionally cannot see every live authority root.
 function isClosedCanonicalState(state: GameState): boolean {
   return sameClosedValue(state, makeSave(state).state)
 }

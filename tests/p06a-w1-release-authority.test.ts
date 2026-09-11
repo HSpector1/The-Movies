@@ -32,7 +32,7 @@ import {
   mintReleaseCommitmentId,
   stableStringify,
   tick,
-  validateSaveV19,
+  validateSaveV20,
 } from '../src/core/index.js'
 import type { CastSlot, GameState, SegmentId } from '../src/core/index.js'
 
@@ -423,7 +423,7 @@ describe('P06A W1 — save law', () => {
     expect(() => migrateToV15(save)).toThrow(/cannot downgrade SaveFileV20/)
   })
 
-  it('validateSaveV19 rejects forged authority at the save boundary', () => {
+  it('validateSaveV20 rejects forged authority at the save boundary', () => {
     const ready = foundedToReleaseReady('p06a-save-forge')
     const id = ready.studio.activeProductions[0]!.id
     const good = makeSave(commit(ready, id))
@@ -432,12 +432,12 @@ describe('P06A W1 — save law', () => {
       state: { releaseAuthority: { commitments: { productionId: string }[] } }
     }
     orphan.state.releaseAuthority.commitments[0]!.productionId = 'prod-9999'
-    expect(() => validateSaveV19(orphan)).toThrow(/foreign identity|orphan/)
+    expect(() => validateSaveV20(orphan)).toThrow(/foreign identity|orphan/)
 
     const extraKey = JSON.parse(exportSave(good)) as {
       state: { releaseAuthority: Record<string, unknown> }
     }
     extraKey.state.releaseAuthority.surprise = true
-    expect(() => validateSaveV19(extraKey)).toThrow(/unknown field .surprise./)
+    expect(() => validateSaveV20(extraKey)).toThrow(/unknown field .surprise./)
   })
 })

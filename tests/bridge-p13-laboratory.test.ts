@@ -39,6 +39,10 @@ describe('P13A Laboratory bridge', () => {
     expect(recruit.enabled).toBe(true)
     expect(recruit.detail).toContain('208-week contract')
     expect(recruit.detail).toContain('$2,000/week')
+    expect(recruit.detail).toContain('This contract ends 1924 · Week 13')
+    expect(recruit.detail).toContain('It ends before research opens 1925 · Week 1')
+    expect(recruit.detail).toContain('payroll starts now')
+    expect(page.laboratory.seatLabel).not.toContain('P13A')
     expect(recruit.intent?.kind).toBe('researchAction')
     const purchase = page.laboratory.actions.find(a => a.id === 'purchase-synchronized-sound')!
     expect(purchase.enabled).toBe(false)

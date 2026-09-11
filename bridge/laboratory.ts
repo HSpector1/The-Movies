@@ -64,15 +64,24 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
   for (const lab of labs) {
     const buildingId = `placed-${lab.id}`
     const project = state.technology.projects.find(p => p.studioId === own && p.laboratoryFacilityId === lab.facilityId)
-    if (!project) {
-      if (scientists.length === 0) {
-        const candidate = generateScientist(state.seed)
+    if (scientists.length === 0) {
+        const candidate = state.talent.find(person => person.role === 'scientist') ?? generateScientist(state.seed)
         const offer = offerForTalent(state.seed, candidate, 208, state.market.tick)
         add(`recruit-${lab.id}`, { kind: 'recruitScientist', laboratoryFacilityId: lab.facilityId },
           `Employ ${candidate.name} · Scientist`,
           `Offer ${candidate.name} a ${offer.termWeeks}-week contract: ${money(weeklySalary(offer.annualSalary))}/week, ` +
-          `${money(offer.signingBonus)} signing bonus. Employment begins now; assigning the Laboratory seat is a separate decision.`, buildingId)
-      }
+          `${money(offer.signingBonus)} signing bonus. ` +
+          (project
+            ? 'Employment resumes now. The existing Laboratory assignment and verified work are retained. '
+            : 'Employment begins now; assigning the Laboratory seat is a separate decision. ') +
+          `This contract ends ${campaignDate(offer.endWeekExclusive).label}. ` +
+          (offer.endWeekExclusive <= SYNCHRONIZED_SOUND.researchableWeek
+            ? `${offer.endWeekExclusive < SYNCHRONIZED_SOUND.researchableWeek ? 'It ends before research opens' : 'It expires as research opens'} ${campaignDate(SYNCHRONIZED_SOUND.researchableWeek).label}: payroll starts now, and another contract will be needed before this Scientist can begin research.`
+            : state.market.tick < SYNCHRONIZED_SOUND.researchableWeek
+              ? `Payroll starts now, while research opens ${campaignDate(SYNCHRONIZED_SOUND.researchableWeek).label}.`
+              : ''), buildingId)
+    }
+    if (!project) {
       for (const person of scientists) add(`assign-${lab.id}-${person.id}`,
         { kind: 'assignResearchScientist', laboratoryFacilityId: lab.facilityId, scientistId: person.id },
         `Assign ${person.name}`, `Assign this named Scientist to this Laboratory's synchronized-sound project. No R&D is charged until the project runs.`, buildingId)
@@ -150,6 +159,7 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
   const access = state.technology.access.find(a => a.studioId === own && a.technologyId === SYNCHRONIZED_SOUND.id)
   const physical = state.technology.adoptions.filter(a => a.studioId === own)
   const name = (id: string) => state.operations.facilities.find(f => f.id === id)?.name ?? id
+  const operational = physical.filter(adoption => adoption.operationalWeek !== null)
   const actions = laboratoryActionSpecs(state).filter(a => a.buildingId === null || a.buildingId === buildingId)
   const pageCount = Math.ceil(actions.length / pageSize)
   if (page > 0 && page >= pageCount) throw new Error('That Laboratory action page is outside this snapshot. Return to the first page.')
@@ -157,11 +167,16 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
   return { totalRows: actions.length, pageCount, laboratory: {
     buildingId: buildingId!, title: state.operations.facilities.find(f => f.id === lab.facilityId)?.name ?? 'Research Laboratory',
     statusLabel: lab.status === 'operational' ? 'Laboratory operational' : `Laboratory under construction · opens ${campaignDate(lab.completesWeek).label}`,
-    seatLabel: `Seats filled: ${project ? 1 : 0} of ${state.operations.facilities.find(f => f.id === lab.facilityId)?.capacity ?? 4}. P13A supports one assigned Scientist.`,
+    seatLabel: `Seats assigned: ${project ? 1 : 0} of ${state.operations.facilities.find(f => f.id === lab.facilityId)?.capacity ?? 4}. This research programme uses one assigned Scientist.`,
     scientistId: person?.id ?? null,
     scientistLabel: person ? `${person.name} · ${activeContract(state, person.id) ? 'employed Scientist' : 'contract no longer active'} · ${money(weeklyResearchPayroll(state))}/week Scientist payroll` : 'No Scientist assigned. Employ a named Scientist, then assign this Laboratory seat.',
     budgetLabel: project ? `${money(project.budgetPerWeek)}/week requested ceiling · ${money(quote?.spend ?? 0)}/week currently usable R&D · ${money(project.expenditure)} spent on this project. Payroll is separate.` : 'No research budget is active.',
-    bottleneckLabel: project?.status === 'completed' ? 'Research is complete. Physical installation is the remaining capability gate.' : quote?.bottleneck ?? 'Assign one Scientist and install acoustic instruments before research can begin.',
+    bottleneckLabel: project?.status === 'completed'
+      ? operational.length > 0
+        ? `Research is complete. Synchronized dialogue is ready on ${operational.map(adoption => `${name(adoption.stageFacilityId)} + ${name(adoption.postFacilityId)}`).join('; ')}. Select an operational chain for a production before filming begins.`
+        : physical.length > 0 ? 'Research is complete. The committed physical installation must finish before synchronized dialogue is available.'
+          : 'Research is complete. Physical installation is the remaining capability gate.'
+      : quote?.bottleneck ?? 'Assign one Scientist and install acoustic instruments before research can begin.',
     estimateLabel: project?.status === 'completed' ? `Research completed ${campaignDate(project.completedWeek!).label}.` : estimate?.remainingWeeks !== null && estimate?.remainingWeeks !== undefined
       ? `${project?.status === 'active' ? 'At current funding' : 'If resumed now'}: ${estimate.remainingWeeks} funded weeks remain; estimated research completion ${campaignDate(state.market.tick + estimate.remainingWeeks).label}. Physical installation follows separately.`
       : `No completion estimate while prerequisites are blocked. Research opens ${campaignDate(SYNCHRONIZED_SOUND.researchableWeek).label}.`,

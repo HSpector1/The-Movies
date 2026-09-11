@@ -386,7 +386,7 @@ export function projectToV13State(state: GameState): Record<string, unknown> {
   delete raw.foundingRegime
   // This explicit historical test projection has no P13 authority. Strip only
   // the later neutral foundation, then prove the original V13 boundary below.
-  if (state.technology.projects.length || state.technology.access.length || state.technology.adoptions.length || state.technology.productions.length || state.talent.some(person => person.role === 'scientist')) {
+  if (state.technology && (state.technology.projects.length || state.technology.access.length || state.technology.adoptions.length || state.technology.productions.length) || state.talent.some(person => person.role === 'scientist')) {
     throw new Error('V13 twin cannot discard P13 technology authority')
   }
   delete raw.technology

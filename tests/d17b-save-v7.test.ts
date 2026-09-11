@@ -142,10 +142,9 @@ describe('D-17B/E4 — the frozen V7 envelope remains valid and isolated', () =>
     expect(() => validateSaveV7({ ...save, saveVersion: 6 })).toThrow(/expected saveVersion 7/)
   })
 
-  it('V7 through V16 are known, so the unknown-version boundary is now 18', () => {
+  it('V7 through V20 are known, so the unknown-version boundary is now 21', () => {
     const save = makeSaveV7(toV7(foundStudio('d17b-v7-boundary')))
-    expect(() => validateSave({ ...save, saveVersion: 20 })).toThrow(/unknown saveVersion 20/)
-    expect(() => validateSave({ ...save, saveVersion: 20 })).toThrow(/unknown saveVersion 20/)
+    expect(() => validateSave({ ...save, saveVersion: 21 })).toThrow(/unknown saveVersion 21/)
     // P06A (W1): 16 is now a KNOWN, LIVE version — dispatch reaches validateSaveV16, which
     // fails on this V7 payload's real shape mismatch (no releaseAuthority), not the
     // unknown-version boundary.
