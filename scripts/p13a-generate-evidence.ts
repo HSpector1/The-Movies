@@ -32,7 +32,7 @@ function employFilmTeam(state: GameState): GameState {
 }
 
 const scenario = process.argv[2] ?? 'early'
-if (!['early', 'research-entry', 'research-active', 'research-complete', 'production-choice', 'sound-filming', 'commercial-entry'].includes(scenario)) {
+if (!['early', 'research-entry', 'research-active', 'research-complete', 'production-choice', 'sound-filming', 'commercial-entry', 'rival-commercial-entry'].includes(scenario)) {
   throw new Error('Unknown generated P13A scenario')
 }
 const directory = resolve('artifacts/p13a', scenario)
@@ -43,6 +43,7 @@ mkdirSync(directory, {recursive: true})
 let state = scenario === 'early' ? p13aLaboratorySlice()
   : scenario === 'research-entry' ? p13aResearchEntry()
     : scenario === 'commercial-entry' ? advanceTo(p13aGeneratedStudio('p13a-wait-control-01'), 416)
+      : scenario === 'rival-commercial-entry' ? advanceTo(p13aGeneratedStudio('p13-public-commercial-adoption'), 416)
       : p13aResearchReady()
 if (['research-active', 'research-complete', 'production-choice', 'sound-filming'].includes(scenario)) {
   state = applyActions(state, [{kind: 'beginResearch', projectId: state.technology.projects[0]!.id, budgetPerWeek: 10_000}])
@@ -65,8 +66,11 @@ if (['research-active', 'research-complete', 'production-choice', 'sound-filming
     }
   }
 }
-if (scenario === 'commercial-entry' && state.operations.facilities.some(facility => facility.capability === 'laboratory')) {
+if (['commercial-entry', 'rival-commercial-entry'].includes(scenario) && state.operations.facilities.some(facility => facility.capability === 'laboratory')) {
   throw new Error('Commercial entry must prove the route without a Laboratory')
+}
+if (scenario === 'rival-commercial-entry' && state.technology.adoptions.length !== 0) {
+  throw new Error('Rival commercial entry must precede actual adoption; native clock advances create the purchase and operational receipt')
 }
 const session = new BridgeSession(state, `p13a-generated-${scenario}-laboratory-01`)
 const snapshot = session.snapshot()
