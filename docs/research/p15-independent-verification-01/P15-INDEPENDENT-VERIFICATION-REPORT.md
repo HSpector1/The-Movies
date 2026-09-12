@@ -13,7 +13,7 @@
 ---
 
 
-**Publication status:** DOCUMENTATION ONLY · NO PRODUCTION AUTHORIZATION · RESEARCH, NOT OWNER AUTHORITY. Published as `docs/research/p15-independent-verification-01/` on the isolated branch `docs/p15-independent-verification-01`, whose documentation parent is the P12 R05 Owner-acceptance closeout commit `13370d428f0693f3279732f6f4cc360a7fcaa4df`. Nothing in this package amends an approved ruling, authorizes implementation, or accepts any recommendation; the [package README](README.md) is the entry point and index.
+**Publication status:** DOCUMENTATION ONLY · NO PRODUCTION AUTHORIZATION · RESEARCH, NOT OWNER AUTHORITY. Published as `docs/research/p15-independent-verification-01/` on the isolated branch `docs/p15-independent-verification-01`, whose documentation parent is the P12 R05 Owner-acceptance closeout commit `13370d428f0693f3279732f6f4cc360a7fcaa4df`. Nothing in this package amends an approved ruling, authorizes implementation, or accepts any recommendation; the [package index](INDEX.md) is the entry point and index.
 
 **Reading guide — six kinds of statement appear in this report and are labelled so they are never confused:**
 
