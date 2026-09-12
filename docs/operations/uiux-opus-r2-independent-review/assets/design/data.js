@@ -21,8 +21,8 @@ const FIXTURE = {
   ],
   // candidates used only by the casting compare board (R2 fixture identities)
   candidates: [
-    { id: 'P-008', name: 'Celia Ward', role: 'Actor', status: 'Available', fit: 84, ovr: 76, test: '77 · range 71–83', fee: '$18,000', note: 'Fits the role; this is not a guarantee of performance.', f: [3, 6, 0, 1, 0, 0] },
-    { id: 'P-015', name: 'Leon Hart', role: 'Actor', status: 'Unavailable · other film', fit: 79, ovr: 83, test: 'No test evidence', fee: '$24,000', note: 'Currently engaged. Viewing this record cannot assign this person.', f: [0, 1, 3, 0, 2, 1] },
+    { id: 'P-008', name: 'Celia Ward', role: 'Actor', group: 'Talent', work: 'Candidate for The Long Way Home', place: 'Casting', status: 'Available', fit: 84, ovr: 76, test: '77 · range 71–83', fee: '$18,000', note: 'Fits the role; this is not a guarantee of performance.', f: [3, 6, 0, 1, 0, 0] },
+    { id: 'P-015', name: 'Leon Hart', role: 'Actor', group: 'Talent', work: 'Another film (not this studio\'s fixture)', place: 'Location unavailable', status: 'Unavailable · other film', fit: 79, ovr: 83, test: 'No test evidence', fee: '$24,000', note: 'Currently engaged. Viewing this record cannot assign this person.', f: [0, 1, 3, 0, 2, 1] },
   ],
   projects: [
     { id: 'SCRIPT-019', title: 'Letters from June', phase: 'Writing', state: 'Draft in progress', place: 'Script Office', group: 'Scripts', genre: 'Romance', person: 'P-011', x: 71, y: 15 },

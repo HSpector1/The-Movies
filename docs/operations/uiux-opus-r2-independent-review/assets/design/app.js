@@ -142,12 +142,12 @@ function world() {
   return `<div class="world" aria-hidden="false"><div class="canvas" style="transform:translate(${shift.x}px,${shift.y}px)">${art}${labels}${marker}</div>${S.hover ? tooltip() : ''}</div>`;
 }
 function tooltip() {
-  const h = S.hover; const p = h.kind === 'person' ? person(h.id) : project(h.id); if (!p) return '';
+  const h = S.hover; if (!h || h.id === S.selectedPerson || h.id === S.selectedProject) return ''; const p = h.kind === 'person' ? person(h.id) : project(h.id); if (!p) return '';
   return `<div class="peek" style="left:${h.x}px;top:${h.y}px">${h.kind === 'person' ? `${portraitSVG(p, 40)}<div><strong>${esc(p.name)}</strong><span>${esc(p.role)} · ${esc(p.id)}</span><span>${esc(p.work)} · ${esc(p.place)}</span><em>Click to locate · right-click for facts</em></div>` : `<div><strong>${esc(p.title)}</strong><span>${esc(p.phase)} · ${esc(p.place)}</span><span>${esc(p.state)}</span><em>Click to open the picture</em></div>`}</div>`;
 }
 function factGroups(p) {
   return `<div class="facts">
-    <div><small>Current work</small><b>${esc(p.work)}</b></div><div><small>Location</small><b>${esc(p.place)}</b></div>
+    <div><small>Current work</small><b>${esc(p.work)}</b></div><div><small>Location</small><b>${buildingFor(p.place) ? esc(p.place) : 'Location unavailable — exact profile still inspectable'}</b></div>
     <div><small>Relevant ability</small><b>Perceived role OVR 81</b></div><div><small>Commitment</small><b>Salary $2,000/week</b></div>
     ${S.expanded ? `<div class="wide"><small>More about this person</small><b>Employment overhead $1,500/week · 12 weeks remain. Availability follows the current picture.</b></div>` : ''}
   </div>`;
