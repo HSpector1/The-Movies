@@ -157,3 +157,43 @@ Return:
 Exact reviewed Codex commit; exact review commit/branch; visual index; actual ZIP; recommended verdict; three most important changes; specific unresolved product choices, if any; and honest review limitations.
 
 Stop there. Your job is to establish what genuinely deserves to be built, not to assure the Owner that it is world-class.
+
+## 10. Remaining allowance and mandatory resumable checkpoints — Owner addendum
+
+**The Owner reports approximately 5% remaining of their “20X Pro” plan allowance.** Treat this as a warning to preserve work early, not a verified token count, context percentage or guaranteed amount of working time. Do not spend the remaining allowance on a final polish sprint while your findings remain only in the conversation. The complete assignment and quality bar remain; unfinished work must be explicitly handed over, not silently dropped.
+
+### Establish the recovery point before substantial research
+
+After the ownership check in §9, establish your isolated review branch and publish an initial checkpoint immediately. Continue an existing branch for this exact assignment when appropriate; otherwise use `docs/uiux-opus-r2-independent-review-01`. Do not write to Codex's R2 branch or the Future Ops instruction branch.
+
+Use this repository-relative working package in `HSpector1/The-Movies`:
+
+```text
+docs/operations/uiux-opus-r2-independent-review/
+  00-HANDOFF.md
+  ASSIGNMENT.md
+  PROGRESS.md
+  SOURCES.md
+  FINDINGS.md
+  assets/
+```
+
+`ASSIGNMENT.md` holds the complete controlling prompt, including this addendum. `00-HANDOFF.md` is the first file a replacement Codex terminal reads. If this exact review already has equivalent records elsewhere, preserve them and put a routing index at this location instead of duplicating the work.
+
+### Record findings as you go
+
+- **00-HANDOFF.md:** status (`IN PROGRESS`, `HANDOFF REQUIRED` or `COMPLETE`); current owner; branch and documentation parent; exact reviewed R2 commit; last verified published checkpoint; completed versus remaining deliverables; blockers/access limitations; and the next 3–5 concrete actions with exact paths and source locators. Distinguish pending design approval from implementation authority. Do not try to embed a commit's own future hash in itself.
+- **SOURCES.md:** source IDs, URLs, edition/date, pages/timestamps, what was actually inspected, useful observations, confidence, blocked access, and claims still requiring verification. Separate search leads from sources genuinely read or viewed.
+- **FINDINGS.md:** stable finding IDs, affected R2 screens/controls, evidence links, severity, KEEP/REFINE/REDESIGN recommendation, rationale, uncertainty and disposition. Preserve useful conclusions and rejected alternatives so a successor need not rediscover them.
+- **PROGRESS.md:** a short dated log of work completed, files changed, prototype checks actually performed and outcomes. Keep factual task notes, not an exhaustive transcript.
+- **assets/:** save editable design/prototype work and permitted annotated captures incrementally. Label drafts and incomplete views; do not wait until all four screens are finished.
+
+Write notes after each small research batch, workflow inspection or substantive design finding. Commit and push checkpoint files after each meaningful milestone, and before compaction, a long render/review, or a planned stop. Verify the remote head and exact handoff file. Stage only your intended documentation/design paths; never force-push. Do not wait for the finished report to publish.
+
+### When the allowance is close to exhausted
+
+Reserve enough capacity to save and verify a handoff. Prioritize the original-game evidence, actual R2 inspection and highest-impact design findings before expanding comparator breadth or generating many derivative previews. Keep all unfinished deliverables listed for continuation. Defer the optional checker rather than consume the handoff margin; disclose that deferral.
+
+At the first usage-limit warning or when you cannot safely finish the next unit, save drafts, update the handoff, commit/push and verify. Return **OPUS REVIEW PARTIAL — READY FOR CODEX CONTINUATION**, the exact branch/commit, one pinned `00-HANDOFF.md` link, completed work and next steps. If publication fails, keep the local files and provide one real partial ZIP with a manifest and readable handoff; state that remote publication failed.
+
+A replacement Codex terminal must read `00-HANDOFF.md`, then `ASSIGNMENT.md`, sources, findings and existing assets; verify ownership and preserve newer work; continue unfinished tasks without restarting research or overwriting R2. It must attribute Opus observations and distinguish its own subsequent checks. **Do not launch that replacement yourself.** The Owner controls the handoff. All existing no-gameplay, no-native-input, no-profile and no-merge restrictions remain.
