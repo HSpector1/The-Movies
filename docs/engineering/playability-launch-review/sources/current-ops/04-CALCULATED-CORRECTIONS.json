@@ -1,0 +1,129 @@
+{
+  "classification": "PAPER ARITHMETIC ONLY; no runtime or native tests",
+  "document_commit": "15b45afd36ada15ed51e3ba656de6a4a3befb5e7",
+  "horizon_convention": "[start,end); charge each body from its own operational week",
+  "allocation_rows": [
+    {
+      "route": "cooperate sound then light",
+      "post_operational_week": 793,
+      "stage_operational_week": 799,
+      "lighting_operational_week": 798,
+      "post_opex": 78000,
+      "stage_opex": 66000,
+      "lighting_opex": 34000,
+      "published_operation_delta": 166000,
+      "corrected_operation_delta": 178000,
+      "correction": 12000,
+      "published_department_deployment_cash": 4694760,
+      "corrected_department_deployment_cash": 4706760,
+      "published_whole_fixture_cash": 5474760,
+      "corrected_whole_fixture_cash": 5486760
+    },
+    {
+      "route": "split sound and light",
+      "post_operational_week": 797,
+      "stage_operational_week": 803,
+      "lighting_operational_week": 795,
+      "post_opex": 70000,
+      "stage_opex": 58000,
+      "lighting_opex": 37000,
+      "published_operation_delta": 153000,
+      "corrected_operation_delta": 165000,
+      "correction": 12000,
+      "published_department_deployment_cash": 4441760,
+      "corrected_department_deployment_cash": 4453760,
+      "published_whole_fixture_cash": 5221760,
+      "corrected_whole_fixture_cash": 5233760
+    },
+    {
+      "route": "cooperate sound then residual light",
+      "post_operational_week": 793,
+      "stage_operational_week": 799,
+      "lighting_operational_week": 793,
+      "post_opex": 78000,
+      "stage_opex": 66000,
+      "lighting_opex": 39000,
+      "published_operation_delta": 171000,
+      "corrected_operation_delta": 183000,
+      "correction": 12000,
+      "published_department_deployment_cash": 4299760,
+      "corrected_department_deployment_cash": 4311760,
+      "published_whole_fixture_cash": 5079760,
+      "corrected_whole_fixture_cash": 5091760
+    },
+    {
+      "route": "split sound and residual light",
+      "post_operational_week": 797,
+      "stage_operational_week": 803,
+      "lighting_operational_week": 786,
+      "post_opex": 70000,
+      "stage_opex": 58000,
+      "lighting_opex": 46000,
+      "published_operation_delta": 162000,
+      "corrected_operation_delta": 174000,
+      "correction": 12000,
+      "published_department_deployment_cash": 4090760,
+      "corrected_department_deployment_cash": 4102760,
+      "published_whole_fixture_cash": 4870760,
+      "corrected_whole_fixture_cash": 4882760
+    }
+  ],
+  "startup": {
+    "horizon_end": 468,
+    "post_operational": 309,
+    "stage_operational": 315,
+    "post_opex": 318000,
+    "stage_opex": 306000,
+    "published_sound_opex": 612000,
+    "corrected_sound_opex": 624000,
+    "published_department_deployment_cash": 5068720,
+    "corrected_department_deployment_cash": 5080720,
+    "published_whole_fixture_cash": 8443720,
+    "corrected_whole_fixture_cash": 8455720
+  },
+  "unchanged_selected_checks": {
+    "staffing": [
+      {
+        "people": 1,
+        "labs": 1,
+        "output": "3/2",
+        "weeks": 43,
+        "rd": 430000,
+        "salary": 86000,
+        "employment_overhead": 64500,
+        "signing": 18720
+      },
+      {
+        "people": 4,
+        "labs": 1,
+        "output": "6",
+        "weeks": 11,
+        "rd": 440000,
+        "salary": 88000,
+        "employment_overhead": 66000,
+        "signing": 74880
+      },
+      {
+        "people": 8,
+        "labs": 2,
+        "output": "39/4",
+        "weeks": 7,
+        "rd": 560000,
+        "salary": 112000,
+        "employment_overhead": 84000,
+        "signing": 149760
+      }
+    ],
+    "near_release_waiting_advantage": 131000,
+    "rival_incremental_cash": 2564880,
+    "capability_budget_sum": 84,
+    "reserve_budget_sum": 36
+  },
+  "not_claimed": [
+    "full original archive integrity",
+    "all source-excerpt hashes",
+    "runtime verification",
+    "all economics independently certified",
+    "game balance or ROI"
+  ]
+}

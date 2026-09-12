@@ -1,0 +1,154 @@
+[
+  {
+    "file": "UIUX-WHOLE-GAME-REVIEW.md",
+    "repository": "HSpector1/The-Movies",
+    "commit": "72f04f95bb00ba601d511142b9db8b231e86526b",
+    "path": "docs/operations/UIUX-WHOLE-GAME-REVIEW.md",
+    "sourceBytes": 22299,
+    "sourceSha256": "64cb2e95cd19c4b9a0eff7d9ae406936425ddbfa6bce63b6309c4bbbbcd4b0f8",
+    "sourceGitBlob": "8785e7c41857a49dc8ea56423764cb69f806f27e",
+    "excerptRanges": null
+  },
+  {
+    "file": "UIUX-WHOLE-GAME-REVIEW-SOURCES.md",
+    "repository": "HSpector1/The-Movies",
+    "commit": "72f04f95bb00ba601d511142b9db8b231e86526b",
+    "path": "docs/operations/UIUX-WHOLE-GAME-REVIEW-SOURCES.md",
+    "sourceBytes": 17882,
+    "sourceSha256": "c219a9f9eee0f74782c072a5c0ea6417eaaf40d9e37c258c27a9747ff516a180",
+    "sourceGitBlob": "a4051b5a0d599d0ec5118b54c5a685a1faa68cf7",
+    "excerptRanges": null
+  },
+  {
+    "file": "UIUX-VISUAL-DESIGN-SECOND-PASS-BRIEF.md",
+    "repository": "HSpector1/The-Movies",
+    "commit": "0a17139b4f2ae1a9eb1f34e43200af44cd715699",
+    "path": "docs/operations/UIUX-VISUAL-DESIGN-SECOND-PASS-BRIEF.md",
+    "sourceBytes": 18158,
+    "sourceSha256": "04804a2ba20eed3d82770130cd6fc4fcc7f728f85412872ac93f750cd7f7bcff",
+    "sourceGitBlob": "8236114e619ad18b9c3a45120f0b3ac46db7a2a6",
+    "excerptRanges": null
+  },
+  {
+    "file": "P13B-FUTURE-OPS-LAUNCH-REVIEW.md",
+    "repository": "HSpector1/The-Movies",
+    "commit": "0a17139b4f2ae1a9eb1f34e43200af44cd715699",
+    "path": "docs/operations/P13B-FUTURE-OPS-LAUNCH-REVIEW.md",
+    "sourceBytes": 10894,
+    "sourceSha256": "9d2f21749b6ed36406ea09c8fc83728c9f6a7a231ddccdc3fb513ac9a2279a54",
+    "sourceGitBlob": "a06d623845a0cb58a019e675a9bfbce757c6ae95",
+    "excerptRanges": null
+  },
+  {
+    "file": "UIUX-PLAYABILITY-NEXT-PHASE-OWNER-DIRECTION.md",
+    "repository": "HSpector1/The-Movies",
+    "commit": "fe4d22ce60505ccce27543d7201c69d46d42a368",
+    "path": "docs/operations/UIUX-PLAYABILITY-NEXT-PHASE-OWNER-DIRECTION.md",
+    "sourceBytes": 11003,
+    "sourceSha256": "ac7e0a728a487a0747b380290dcb4a5806460af5585a691c67d36b81dfe022a0",
+    "sourceGitBlob": "d94004bd76a80421120f6d0834971504e0d19139",
+    "excerptRanges": null
+  },
+  {
+    "file": "UX-PRODUCTION.md",
+    "repository": "HSpector1/project-studio-unity-visual-spike",
+    "commit": "6420a4d91de52db1bffca2988f2c995672e7d53e",
+    "path": "Assets/Studio/Runtime/Presentation/UI/StudioProductionWorkspace.cs",
+    "sourceBytes": 35208,
+    "sourceSha256": "b4b70032ffcf5a6521232cdf3d282d12b59c2b18fb0676d315ea6a9e9650c054",
+    "sourceGitBlob": "ce2af4468f2dbaaca27277591d1c161dc306a801",
+    "excerptRanges": [
+      [
+        273,
+        354
+      ],
+      [
+        356,
+        471
+      ]
+    ]
+  },
+  {
+    "file": "UX-CAMPAIGNS.md",
+    "repository": "HSpector1/project-studio-unity-visual-spike",
+    "commit": "6420a4d91de52db1bffca2988f2c995672e7d53e",
+    "path": "Assets/Studio/Runtime/Presentation/StudioSystemMenuHud.Campaigns.cs",
+    "sourceBytes": 17397,
+    "sourceSha256": "04a00e34ab3c6e36612a0f0657ee5a04e78eed64bb95d095b7d14cb87aa285ea",
+    "sourceGitBlob": "0ffc640b70c96e9fa0c3ed415496558206590abf",
+    "excerptRanges": [
+      [
+        17,
+        99
+      ],
+      [
+        180,
+        215
+      ]
+    ]
+  },
+  {
+    "file": "UX-CASTING.md",
+    "repository": "HSpector1/project-studio-unity-visual-spike",
+    "commit": "6420a4d91de52db1bffca2988f2c995672e7d53e",
+    "path": "Assets/Studio/Runtime/Presentation/UI/StudioCastingWorkspace.cs",
+    "sourceBytes": 299909,
+    "sourceSha256": "9edb52253df76bca251852ae05f7848b3b5ba3fc95fb56ae348b7db845a3c862",
+    "sourceGitBlob": "21caa5b32d08902acc868fa3b051b5e98ed79f3c",
+    "excerptRanges": [
+      [
+        3931,
+        4052
+      ]
+    ]
+  },
+  {
+    "file": "UX-FINANCE.md",
+    "repository": "HSpector1/project-studio-unity-visual-spike",
+    "commit": "6420a4d91de52db1bffca2988f2c995672e7d53e",
+    "path": "Assets/Studio/Runtime/Presentation/UI/StudioFinanceWorkspace.cs",
+    "sourceBytes": 22988,
+    "sourceSha256": "fe30bb8d3870a1c0d3ac4a68713d526cb9fbd6f0e1a23d2fcbe311b52eed3478",
+    "sourceGitBlob": "54c9be70299a2caeb0fb05c7cf6f63530f8ea0aa",
+    "excerptRanges": [
+      [
+        17,
+        65
+      ],
+      [
+        86,
+        112
+      ]
+    ]
+  },
+  {
+    "file": "UX-REMEDIES.md",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+    "path": "ui/src/engine/productionOperationsProjection.ts",
+    "sourceBytes": 31462,
+    "sourceSha256": "ec9af32d5bf8ddfb05db9b32b85d309e67b591f92af66d805c208b83d89af0a8",
+    "sourceGitBlob": "89d3c4ff9f0ae40e02bd3a7615816ae78f9ee0d6",
+    "excerptRanges": [
+      [
+        290,
+        367
+      ]
+    ]
+  },
+  {
+    "file": "UX-DURABILITY.md",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+    "path": "bridge/runtime/runtime-coordinator.ts",
+    "sourceBytes": 13365,
+    "sourceSha256": "d776930efa3d0d37e4ca18e2fcf16b7e8d4f1d795601048a66eb48c54124e560",
+    "sourceGitBlob": "1a8c94fb686a1f605b13bb61a787e7564214deba",
+    "excerptRanges": [
+      [
+        104,
+        126
+      ]
+    ]
+  }
+]

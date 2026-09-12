@@ -3,7 +3,7 @@
 ## Launch review
 
 1. [Review index](00-P13B-REVIEW-INDEX.md): scope, status and delivery identity.
-2. [Launch draft](01-P13B-LAUNCH-DRAFT.md): 748 whitespace-delimited words including title.
+2. [Launch draft](01-P13B-LAUNCH-DRAFT.md): 767 whitespace-delimited words including title.
 3. [Complete companion](02-P13B-DECISIONS-AND-ACCEPTANCE.md): decisions, journey, all eight placements, source refresh, acceptance and budget.
 4. [Paper economics](03-PAPER-ECONOMICS.md) and [machine-readable results](PAPER-RESULTS.json): proposed values, formulas, matched calendars/costs, cancellation and interval traces. No game execution.
 5. [Independent review](05-INDEPENDENT-REVIEW.md): reviewer identity, candidate binding, findings/disposition. Required for final readiness.
@@ -54,3 +54,7 @@ At preparation, priority-note bytes matched immutable UX commit `fe4d22ce60505cc
 The original complete input ZIP was accessible at `/Users/bruce/Downloads/P13B-PLANNER-INPUTS-WITH-UX-COMPLETE.zip`; extracted root checksums passed (13 entries). The final archive includes actual documents and required excerpts, reading order, source identities, a manifest with per-file bytes/SHA-256 and a SHA256SUMS file. The published delivery receipt binds exact document and archive commits plus archive byte count/checksum. Verify final archive after extraction with `shasum -a 256 -c SHA256SUMS.txt` from its root. Nested input sums can independently be checked from `sources/inputs/`.
 
 Remote files are in the existing private repository; authenticated repository access is required. A GitHub URL or a local Desktop artifact alone does not establish delivery: publication is checked by remote ref and retrieved archive bytes. No raw evidence link is presented as accessible through this ZIP.
+
+## Current Ops correction and D7 — 2026-09-12
+
+Read [06-CURRENT-OPS-CORRECTION-AND-DISPOSITION.md](06-CURRENT-OPS-CORRECTION-AND-DISPOSITION.md) before the historical review. It controls the corrected per-body Post totals and resolves D7: the whole-game Playability & Interaction Pass precedes P13B. The complete order/checker/source packet is included under `sources/current-ops-review/`. All eight Ready obligations remain. The old review/hash bindings are chronology; the refreshed ZIP manifest is the current payload authority.

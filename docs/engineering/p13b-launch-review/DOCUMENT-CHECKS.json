@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "mode": "bounded documentation and paper arithmetic; no runtime tests",
+  "corrected_fixtures": 5,
+  "each_increase": 12000,
+  "unchanged_allocation_differences": [
+    253000,
+    209000
+  ],
+  "historical_companion_and_review_preserved_as_prefix": true,
+  "word_counts": {
+    "01-P13B-LAUNCH-DRAFT.md": 767,
+    "01-PROPOSED-EXECUTION-ORDER.md": 742
+  },
+  "mandatory_relative_links": 67,
+  "input_copies_identical": 26,
+  "ux_capability_hours": 48,
+  "ux_protected_reserve_hours": 24,
+  "ux_inclusive_hours": 72
+}

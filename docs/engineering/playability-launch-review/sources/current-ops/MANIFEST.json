@@ -1,0 +1,64 @@
+{
+  "packet": "P13B Current Ops review and Playability preparation",
+  "created_date": "2026-09-12",
+  "mode": "documentation-only; no gameplay execution authorization",
+  "reviewed_documents_commit": "15b45afd36ada15ed51e3ba656de6a4a3befb5e7",
+  "reviewed_packaging_commit": "50737fbc23313fd8e4f4cf6f6680c8354e05451a",
+  "files": [
+    {
+      "path": "00-START-HERE.md",
+      "bytes": 2162,
+      "sha256": "6fc31f3985bf305e416807659a77cbb53b87fac493a0d2092582d31103bb60e1"
+    },
+    {
+      "path": "01-CURRENT-OPS-DISPOSITION-AND-PREPARATION-ORDER.md",
+      "bytes": 7410,
+      "sha256": "dddbc37665e9222a3ce8a335abaf8582c96b522afe74d9cbb1765b3e58a3700e"
+    },
+    {
+      "path": "02-PAPER-ECONOMICS-CORRECTION.md",
+      "bytes": 3403,
+      "sha256": "3e77936ba92204e1bde6315904be10e657e4f5ee7b5d8102e0d01c410b5a2fd4"
+    },
+    {
+      "path": "03-check-paper-economics.py",
+      "bytes": 5340,
+      "sha256": "69ada1326cd40f4b90bbdb86931311f1733669ab2834f826dc330cafc112a5e2"
+    },
+    {
+      "path": "04-CALCULATED-CORRECTIONS.json",
+      "bytes": 4007,
+      "sha256": "291e1d191e4240ffdc2a56b3e7002d39c4b170e75711c1290e064a7dd1ef1ba5"
+    },
+    {
+      "path": "05-SOURCE-INDEX.md",
+      "bytes": 3437,
+      "sha256": "bef8031c98a180fdffad81b8432947d14923c1c1591236b28b588700428a8af5"
+    },
+    {
+      "path": "sources/P13A-FINAL-DELIVERY-ADDENDUM.md",
+      "bytes": 19019,
+      "sha256": "0ccc13adcaea2beaf0a1a209e03c9ea6bca602aae08c89f17285dbf4f09f4ab6"
+    },
+    {
+      "path": "sources/P13A-OWNER-ACCEPTANCE-RECEIPT.md",
+      "bytes": 7925,
+      "sha256": "cf907bf585d7d1926b3353e8b74773cbdb15038d8ca76bb92b0144be0735db99"
+    },
+    {
+      "path": "sources/P13A-TO-P13B-PRODUCER-HANDOFF.md",
+      "bytes": 22740,
+      "sha256": "d9003db2521dcb4090009f977fbf0865f3678e3b02d401b702a15980ded03b9c"
+    },
+    {
+      "path": "sources/SOURCE-PROVENANCE.json",
+      "bytes": 1537,
+      "sha256": "5f06d58f63e7769bbefb1b03bba098621a1fb10d05e0978e97d08e03feb8c6f0"
+    },
+    {
+      "path": "sources/UX-PRIORITY-EXCERPT.md",
+      "bytes": 3278,
+      "sha256": "3fa1bbefb9d537e1d0ba10e3629b11d173ff2f8a9faf1f9e2f8da11dcf25e16d"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "file": "sources/P13A-OWNER-ACCEPTANCE-RECEIPT.md",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45a3916862a6e98fcb7e9c6908cb2b31f1e8b588",
+    "repository_path": "docs/campaigns/P13A-OWNER-ACCEPTANCE-RECEIPT.md",
+    "git_blob": "e3defa831dcae66fa82b8e1f7bfc2269c12b56ee",
+    "bytes": 7925,
+    "sha256": "cf907bf585d7d1926b3353e8b74773cbdb15038d8ca76bb92b0144be0735db99",
+    "verification": "Copied from supplied P13B preparation ZIP; Git blob matches published closeout identity."
+  },
+  {
+    "file": "sources/P13A-TO-P13B-PRODUCER-HANDOFF.md",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45a3916862a6e98fcb7e9c6908cb2b31f1e8b588",
+    "repository_path": "docs/engineering/P13A-TO-P13B-PRODUCER-HANDOFF.md",
+    "git_blob": "690f2fa06d56a7ec6919eb506acdef58a220a58f",
+    "bytes": 22740,
+    "sha256": "d9003db2521dcb4090009f977fbf0865f3678e3b02d401b702a15980ded03b9c",
+    "verification": "Copied from supplied P13B preparation ZIP; Git blob matches published closeout identity."
+  },
+  {
+    "file": "sources/P13A-FINAL-DELIVERY-ADDENDUM.md",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45a3916862a6e98fcb7e9c6908cb2b31f1e8b588",
+    "repository_path": "docs/evidence/P13A-FINAL-DELIVERY-ADDENDUM.md",
+    "git_blob": "dc222202fc2cd2ba7abd60e1c603f70a6eb7a22a",
+    "bytes": 19019,
+    "sha256": "0ccc13adcaea2beaf0a1a209e03c9ea6bca602aae08c89f17285dbf4f09f4ab6",
+    "verification": "Copied from supplied P13B preparation ZIP; Git blob matches published closeout identity."
+  }
+]

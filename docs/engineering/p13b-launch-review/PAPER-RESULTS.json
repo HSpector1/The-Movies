@@ -47,9 +47,13 @@
       "idlePersonWeeks": 304,
       "labInstruments": 728000,
       "physical": 1075000,
-      "operation": 166000,
-      "departmentAndDeploymentCash": 4694760,
-      "wholeFixtureCash": 5474760
+      "operation": 178000,
+      "departmentAndDeploymentCash": 4706760,
+      "wholeFixtureCash": 5486760,
+      "postOperational": 793,
+      "postOperation": 78000,
+      "stageOperation": 66000,
+      "lightingOperation": 34000
     },
     {
       "route": "split sound and light",
@@ -64,9 +68,13 @@
       "idlePersonWeeks": 328,
       "labInstruments": 728000,
       "physical": 1075000,
-      "operation": 153000,
-      "departmentAndDeploymentCash": 4441760,
-      "wholeFixtureCash": 5221760
+      "operation": 165000,
+      "departmentAndDeploymentCash": 4453760,
+      "wholeFixtureCash": 5233760,
+      "postOperational": 797,
+      "postOperation": 70000,
+      "stageOperation": 58000,
+      "lightingOperation": 37000
     },
     {
       "route": "cooperate sound then residual light",
@@ -81,9 +89,13 @@
       "idlePersonWeeks": 344,
       "labInstruments": 728000,
       "physical": 1075000,
-      "operation": 171000,
-      "departmentAndDeploymentCash": 4299760,
-      "wholeFixtureCash": 5079760
+      "operation": 183000,
+      "departmentAndDeploymentCash": 4311760,
+      "wholeFixtureCash": 5091760,
+      "postOperational": 793,
+      "postOperation": 78000,
+      "stageOperation": 66000,
+      "lightingOperation": 39000
     },
     {
       "route": "split sound and residual light",
@@ -98,9 +110,13 @@
       "idlePersonWeeks": 364,
       "labInstruments": 728000,
       "physical": 1075000,
-      "operation": 162000,
-      "departmentAndDeploymentCash": 4090760,
-      "wholeFixtureCash": 4870760
+      "operation": 174000,
+      "departmentAndDeploymentCash": 4102760,
+      "wholeFixtureCash": 4882760,
+      "postOperational": 797,
+      "postOperation": 70000,
+      "stageOperation": 58000,
+      "lightingOperation": 46000
     }
   ],
   "waiting": [
@@ -124,5 +140,28 @@
       "departmentAndDeploymentCash": 1612880,
       "wholeFixtureCash": 2392880
     }
-  ]
+  ],
+  "startup": {
+    "horizon_end": 468,
+    "post_operational": 309,
+    "stage_operational": 315,
+    "post_opex": 318000,
+    "stage_opex": 306000,
+    "published_sound_opex": 612000,
+    "corrected_sound_opex": 624000,
+    "published_department_deployment_cash": 5068720,
+    "corrected_department_deployment_cash": 5080720,
+    "published_whole_fixture_cash": 8443720,
+    "corrected_whole_fixture_cash": 8455720
+  },
+  "correction": {
+    "order": "OPS-P13B-LAUNCH-REVIEW-AND-PLAYABILITY-PREPARATION-20260912-02",
+    "affectedRowsPlusStartup": 5,
+    "eachIncrease": 12000,
+    "perBodyOnset": true,
+    "unchangedDifferences": [
+      253000,
+      209000
+    ]
+  }
 }

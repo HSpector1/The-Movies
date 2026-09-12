@@ -68,3 +68,7 @@ No new claims, numbers, scope, or sources were introduced by these edits, and no
 **READY FOR CURRENT OPS P13B LAUNCH REVIEW**, contingent only on Current Ops' own scheduling disposition of Finding 4 (P13B vs. Playability & Interaction Pass ordering).
 
 The reviewer’s scheduling caveat is retained. Launch-review readiness permits Current Ops to review and dispose of that question; implementation must not start until the separate order resolves scheduling and other proposed decisions. The review does not approve candidate tuning or substitute for future product/native acceptance.
+
+## 2026-09-12 subsequent Current Ops correction — original review not rewritten
+
+The original PASS/manual arithmetic claim above missed six Post-only operating weeks in each sound allocation row and startup. Current Ops identified the $12,000 omissions. Document 03 and PAPER-RESULTS were corrected using its bounded paper check; no original reviewer finding was altered or relabelled. D7 is now resolved: the whole-game pass precedes P13B. See 06-CURRENT-OPS-CORRECTION-AND-DISPOSITION.md. The historical review does not certify the corrected bytes or erase this limitation.
