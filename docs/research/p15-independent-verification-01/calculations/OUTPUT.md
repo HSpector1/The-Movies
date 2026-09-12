@@ -65,9 +65,16 @@ Authored arrival years: [1920, 1920, 1920, 1920, 1930, 1939, 1950, 1956, 1969]
 
 ## 5. Book Net Worth / Estimated Studio Value worked examples
 
-- **mid-game studio**: Book Net Worth $4,250,000; Guaranteed Obligations $10,769,231; Wind-Down $-1,134,616; Estimated Operating Value $6,750,000–$12,150,000
-- **hot, debt-funded studio**: Book Net Worth $-1,030,000; Guaranteed Obligations $6,000,000; Wind-Down $-4,030,000; Estimated Operating Value $2,300,000–$11,900,000
-- **rich but declining studio**: Book Net Worth $42,000,000; Guaranteed Obligations $3,000,000; Wind-Down $40,500,000; Estimated Operating Value $34,500,000–$39,000,000 — operating value BELOW book: liquidation exceeds operating value
+Wind-Down = Book Net Worth − Σ studio-initiated early-termination charges, shown under BOTH rules: the accepted-P12 runtime rule
+round(0.5 × guaranteedComp) per contract (HIRING_TERMINATION_FRACTION 0.5, employment.ts/tuning.ts at 592e926) and the Owner-selected,
+NOT YET IMPLEMENTED P14 direction weekly × min(remaining weeks, 26) (P14 preparation 8ef5246a, rulings §3.4.1 items 1–2; companion §3.2).
+Contracts are (annual salary, remaining weeks); weekly = round(annual / 52); guaranteed = weekly × remaining (base salary, bonus excluded).
+
+- **mid-game studio** (8 contracts): Book Net Worth $4,250,000; Guaranteed Obligations $11,244,306; Wind-Down under the accepted 50 % rule $-1,372,153 (charges $5,622,153); under the P14-selected 26-week cap $1,749,996 (charges $2,500,004); Estimated Operating Value $6,750,000–$12,150,000
+- **hot, debt-funded studio** (5 contracts): Book Net Worth $-1,030,000; Guaranteed Obligations $5,269,260; Wind-Down under the accepted 50 % rule $-3,664,630 (charges $2,634,630); under the P14-selected 26-week cap $-2,972,308 (charges $1,942,308); Estimated Operating Value $2,300,000–$11,900,000
+- **rich but declining studio** (3 contracts): Book Net Worth $42,000,000; Guaranteed Obligations $1,346,160; Wind-Down under the accepted 50 % rule $41,326,920 (charges $673,080); under the P14-selected 26-week cap $41,246,158 (charges $753,842); Estimated Operating Value $34,500,000–$39,000,000 — operating value BELOW book: liquidation exceeds operating value
+
+Reading: the 26-week cap charges every remaining week up to 26 — equal to the 50 % rule at exactly 52 weeks remaining, higher below 52, lower above (companion §3.2). A bankruptcy settlement uses neither: the whole remaining guarantee becomes an unpaid claim (RECONCILIATION-02 §5.3).
 
 ## 6. Fixed weekly cost sketch, 40 employees
 

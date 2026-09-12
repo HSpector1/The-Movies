@@ -77,17 +77,31 @@ print('\nAuthored arrival years:', [1920 + w // TICKS_PER_YEAR for w in RIVAL_AR
 
 # ---------------------------------------------------------------- 5. net worth worked examples
 h('5. Book Net Worth / Estimated Studio Value worked examples')
-def example(name, cash, fac_capex, set_capex, loan, accrued, obligations, surplus3):
+print('Wind-Down = Book Net Worth − Σ studio-initiated early-termination charges, shown under BOTH rules: the accepted-P12 runtime rule')
+print('round(0.5 × guaranteedComp) per contract (HIRING_TERMINATION_FRACTION 0.5, employment.ts/tuning.ts at 592e926) and the Owner-selected,')
+print('NOT YET IMPLEMENTED P14 direction weekly × min(remaining weeks, 26) (P14 preparation 8ef5246a, rulings §3.4.1 items 1–2; companion §3.2).')
+print('Contracts are (annual salary, remaining weeks); weekly = round(annual / 52); guaranteed = weekly × remaining (base salary, bonus excluded).\n')
+def charges(contracts):
+    guaranteed = sum(round(a / TICKS_PER_YEAR) * r for a, r in contracts)
+    c50 = sum(round(0.5 * round(a / TICKS_PER_YEAR) * r) for a, r in contracts)
+    c26 = sum(round(a / TICKS_PER_YEAR) * min(r, 26) for a, r in contracts)
+    return guaranteed, c50, c26
+def example(name, cash, fac_capex, set_capex, loan, accrued, contracts, surplus3):
+    obligations, c50, c26 = charges(contracts)
     book = cash + fac_capex * FACILITY_REFUND + set_capex * SET_REFUND - loan - accrued
-    wind = book - HIRING_TERMINATION_FRACTION * obligations
     lo, hi = 3 * max(surplus3, 0) + cash - loan - accrued, 6 * max(surplus3, 0) + cash - loan - accrued
     # 2026-09-12: the earlier floor at Book Net Worth was REMOVED (RECONCILIATION-02 §3); the range is shown unfloored and labelled.
     label = ' — operating value BELOW book: liquidation exceeds operating value' if hi < book else (' — range straddles book' if lo < book else '')
-    print(f'- **{name}**: Book Net Worth ${book:,.0f}; Guaranteed Obligations ${obligations:,.0f}; Wind-Down ${wind:,.0f}; '
+    print(f'- **{name}** ({len(contracts)} contracts): Book Net Worth ${book:,.0f}; Guaranteed Obligations ${obligations:,.0f}; '
+          f'Wind-Down under the accepted 50 % rule ${book - c50:,.0f} (charges ${c50:,.0f}); under the P14-selected 26-week cap ${book - c26:,.0f} (charges ${c26:,.0f}); '
           f'Estimated Operating Value ${lo:,.0f}–${hi:,.0f}{label}')
-example('mid-game studio', 6_500_000, 4_400_000, 2_000_000, 5_000_000, 150_000, 10_769_231, 1_800_000)
-example('hot, debt-funded studio', 2_000_000, 9_600_000, 4_200_000, 9_000_000, 300_000, 6_000_000, 3_200_000)
-example('rich but declining studio', 30_000_000, 20_000_000, 5_714_286, 0, 0, 3_000_000, 1_500_000)
+MID = [(900_000, 156), (800_000, 140), (700_000, 130), (650_000, 120), (600_000, 104), (500_000, 90), (450_000, 78), (400_000, 52)]
+HOT = [(1_200_000, 100), (900_000, 80), (800_000, 60), (600_000, 40), (500_000, 20)]
+RICH = [(700_000, 60), (500_000, 40), (400_000, 20)]
+example('mid-game studio', 6_500_000, 4_400_000, 2_000_000, 5_000_000, 150_000, MID, 1_800_000)
+example('hot, debt-funded studio', 2_000_000, 9_600_000, 4_200_000, 9_000_000, 300_000, HOT, 3_200_000)
+example('rich but declining studio', 30_000_000, 20_000_000, 5_714_286, 0, 0, RICH, 1_500_000)
+print('\nReading: the 26-week cap charges every remaining week up to 26 — equal to the 50 % rule at exactly 52 weeks remaining, higher below 52, lower above (companion §3.2). A bankruptcy settlement uses neither: the whole remaining guarantee becomes an unpaid claim (RECONCILIATION-02 §5.3).')
 
 # ---------------------------------------------------------------- 6. fixed weekly cost of a 40-person studio
 h('6. Fixed weekly cost sketch, 40 employees')
