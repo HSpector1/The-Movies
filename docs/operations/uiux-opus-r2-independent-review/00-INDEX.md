@@ -27,7 +27,10 @@ a diagram lot; one blank portrait repeated twelve times; nested pale-blue rounde
 ![R2 versus proposed — overview at identical scale and data](assets/design-renders/CMP-01-overview-3up.png)
 
 The middle column keeps R2's own schematic lot and data and changes only the UI; the
-right column adds the target-lot proof. Judge the UI on the middle column.
+right column adds the target-lot proof. Judge the UI on the middle column — and on the
+four key screens rendered on R2's own lot below, which isolate the UI change completely.
+
+![Four key screens on R2's own lot](assets/design-renders/CMP-06-four-screens-on-r2-lot.png)
 
 ![Detail crops at 100 %](assets/design-renders/CMP-05-detail-crops.png)
 
@@ -43,6 +46,12 @@ and fixes A's world-leak and monotone defects. Reasons and judgments: `DESIGN.md
 | Exploration A | Exploration B |
 | --- | --- |
 | ![A](assets/design-renders/X-A-overview.png) | ![B](assets/design-renders/X-B-overview.png) |
+
+A third board, **A′ · Pure stack** (no shelf, no header — the original's floating cards), was
+added after the checker asked for a genuine no-shelf alternative; it is the most faithful
+board and a legitimate Owner choice (`DESIGN.md` §3b, open question 1 below).
+
+![A′](assets/design-renders/X-A2-pure-stack-overview.png)
 
 ### Four key screens (clean · annotated · prototype)
 
@@ -93,13 +102,15 @@ extracted ZIP; keep the folder together. No packages, servers or network.
 | `DESIGN.md` | The two explorations, the recommended direction, four screens, factual vs illustrative data, retained-unchanged screens, art dependencies |
 | `WALKTHROUGH.md` | Cognitive walkthrough of the eight tasks on R2 and the proposal; prototype defects found and fixed; Owner task scripts; future human tests |
 | `HANDOFF-TO-CODEX.md` | Prioritized presentation and interaction changes, read-model dependencies, P13B boundaries, native gaps |
-| `CHECKER.md` | The one bounded independent checker pass and its verdict |
+| `CHECKER.md` | The one bounded independent checker pass (Sonnet): APPROVE WITH CHANGES, what was accepted and what was not |
 | `SOURCES.md` · `PROGRESS.md` · `ASSIGNMENT.md` | Evidence register with inspection classes; dated log; the controlling prompt |
 
 ## Unresolved product choices for the Owner
 
-1. **Rail names vs stacks.** The reference shows nameless portrait stacks; the proposal
-   defaults to named rows and offers the stack as a "compact" mode. Which is the default?
+1. **Rail container.** Backlot (translucent shelf with tabs, counts, search) vs A′ pure
+   stack (cards float, count pill only) vs the compact portrait stack as default. The
+   tokens, cards, icons and HUD are identical across the three; only the rail container
+   differs. Which is the default?
 2. **Lot art target.** The proof is code-drawn greybox-plus. Approving the UI direction
    does not approve a lot style; the lot needs its own art owner and fidelity ruling.
 3. **Timeline and rank in the HUD.** Both are reference-faithful but need real data
@@ -117,5 +128,9 @@ captures and the manual. The Owner's 25 reference screenshots exist in R2 only a
 metadata and were not seen. Renders use macOS system faces (Futura, Avenir Next); the
 CSS stacks fall back on other platforms. Two behaviour-lens crop files were mislabelled
 (caught by the verifier; the facts are confirmed on the pages I viewed). One comparator
-agent (Zoo Tycoon) could not fetch video and relied on manual pages. The gap-critic's
-final coverage table is recorded in `PROGRESS.md` if it completed before packaging.
+agent (Zoo Tycoon) could not fetch video and relied on manual pages. The checker's
+unresolved criticism stands: the placeholder portraits are stylistically weaker than the
+rest of the direction, and the four hero screens are shown on the target lot first — the
+UI-only boards (`CMP-01` middle, `CMP-06`) are the fair basis for judging the chrome.
+The research gap-critic's coverage table is recorded in `PROGRESS.md` if it completed
+before packaging.

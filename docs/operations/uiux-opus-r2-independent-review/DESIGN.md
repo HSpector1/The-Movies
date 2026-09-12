@@ -49,6 +49,26 @@ status colour is lost (every chip is amber-on-dark); the dark mount makes the lo
 framed rather than inhabited. Its two good ideas — a translucent shelf that groups the
 stack and holds tabs/counts, and denser rows with phase dots — are worth keeping.
 
+## 3b · Exploration A′ — "Pure stack" (added after the checker pass)
+
+![Exploration A′](assets/design-renders/X-A2-pure-stack-overview.png)
+
+The independent checker asked whether the recommendation's translucent shelf is
+load-bearing or merely familiar, and whether a variant with **no shelf and no header at
+all** would be truer to the original. A′ is that variant: the cards float directly on
+the world; a small pill above each stack carries only the count ("People 12 · 3 free",
+"Pictures 8 · 3 need you"); tabs and search are removed (they would live behind the
+cycler, as the original's arrows do).
+
+*Judgment:* A′ is the most game-like and the most faithful board in the set, and it
+removes the "panel behind cards" tension entirely. Its cost is usability at the scale the
+rails must serve: group filters, counts per group and search are gone from view, and the
+world shows through between rows. For a 12-person fixture that is fine; for a 30–40
+person studio the shelf's tabs and search earn their place. The recommendation therefore
+stays Backlot, **but A′ is a legitimate Owner choice** and is listed as an open product
+question in `00-INDEX.md`: if the Owner prefers the pure stack, the recommended tokens,
+cards, icons and HUD carry over unchanged and only the rail container is dropped.
+
 ## 4 · Recommended — "Backlot" (A refined with B's shelf and density)
 
 ![Recommended overview](assets/design-renders/K1-overview.png)
@@ -85,6 +105,7 @@ original's portrait/poster stacks as a player-selectable density), `S-overview-1
 | Casting compare 2-up | `CMP-03-compare-2up.png` |
 | Production 2-up | `CMP-04-production-2up.png` |
 | Detail crops at 100 % (rows, HUD, tools, compact card) | `CMP-05-detail-crops.png` |
+| The four key screens on R2's own lot (UI change only) | `CMP-06-four-screens-on-r2-lot.png` (sources `CMP-rec-*-on-r2-world.png`) |
 
 The middle column of `CMP-01` isolates the UI craft from the world: the same schematic
 lot as R2, the same data, only the chrome changed. Judge the UI there; judge the world
@@ -116,6 +137,17 @@ selected / unavailable-with-reason), buttons (normal / hover / pressed / focus /
 disabled), response strips (decision / wait / pending / receipt / refused / unresolved),
 rail density, ordering, grouping, overflow, resizing and selection feedback, and the
 motion/audio intent.
+
+## 5b · Checker changes accepted
+
+The bounded independent checker (`CHECKER.md`) returned APPROVE WITH CHANGES. Accepted
+and done here: the two lot-proof artifacts (a pale car body reading as debris; hard-edged
+grass patches) were fixed and re-rendered; the four key screens now also appear on R2's
+own lot at the top of the index (`CMP-06`); Exploration A′ was built as the genuine
+"no shelf" alternative (§3b). Accepted but *not* done here because they are art or Owner
+decisions: the placeholder portrait style (flat "avatar-generator" look) undercuts the
+Deco/brass register and must be replaced by the declared portrait art dependency; the
+rail-default and lot-art-target questions go to the Owner before implementation.
 
 ## 6 · Art dependencies declared
 

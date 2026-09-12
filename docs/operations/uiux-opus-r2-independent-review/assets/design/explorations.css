@@ -54,3 +54,19 @@
 .dir-b .marker .who em { color: #b9b3a6; }
 .dir-b .marker .who::after { background: rgba(10,12,16,.9); }
 .dir-b .fp polygon { stroke: #f2b632; fill: rgba(242,182,50,.2); }
+
+/* Exploration A′ — "Pure stack": Exploration A with the header/tabs/search removed entirely;
+   cards float on the world; a small cycler pill sits above each stack (as the original). */
+.dir-a2 .rail { background: transparent; border: 0; backdrop-filter: none; padding: 0; gap: 4px; }
+.dir-a2 .rail-head { background: var(--stock); border: 1px solid var(--edge); border-radius: var(--r-card); padding: 4px 8px; color: var(--ink); width: max-content; }
+.dir-a2 .rail-head h3 { font-size: 12px; letter-spacing: .1em; } .dir-a2 .rail-head h3 b, .dir-a2 .rail-head .free { color: var(--muted); }
+.dir-a2 .rail-head .need-count { color: var(--gold-deep); }
+.dir-a2 .tabs, .dir-a2 .search { display: none; }
+.dir-a2 .rail-head .collapse { border-color: var(--edge); background: var(--stock-2); color: var(--ink); }
+.dir-a2 .row { border-width: 2px 2px 3px; border-left-width: 6px; box-shadow: var(--shadow); }
+.dir-a2 .grp { color: var(--ink); background: var(--stock); border: 1px solid var(--edge); padding: 3px 6px; border-radius: var(--r-ctl); width: max-content; }
+.dir-a2 .hud { background: linear-gradient(#f5eddc, #e6dcc2); color: var(--ink); border-bottom: 2px solid var(--gold-deep); }
+.dir-a2 .date em, .dir-a2 .rank, .dir-a2 .cash em, .dir-a2 .timeline i b { color: var(--ink-2); }
+.dir-a2 .tb, .dir-a2 .menu { background: #fff8e8; color: var(--ink); border-color: var(--edge); } .dir-a2 .tb.on { background: var(--gold); }
+.dir-a2 .cash { border-color: var(--edge); color: var(--ink); } .dir-a2 .marque .name { color: var(--ink); }
+.dir-a2 .timeline { border-bottom-color: var(--gold-deep); } .dir-a2 .timeline i { border-left-color: var(--edge); }

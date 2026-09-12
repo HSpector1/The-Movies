@@ -6,10 +6,10 @@ const ROOT = path.resolve(process.argv[2]); const OUT = path.resolve(process.arg
 fs.mkdirSync(OUT, { recursive: true });
 const url = q => 'file://' + path.join(ROOT, 'index.html') + (q ? '?' + q : '');
 const BOARDS = [
-  ['X-A-overview', 'dir=a&screen=overview'], ['X-B-overview', 'dir=b&screen=overview'],
+  ['X-A-overview', 'dir=a&screen=overview'], ['X-A2-pure-stack-overview', 'dir=a2&screen=overview'], ['X-B-overview', 'dir=b&screen=overview'],
   ['K1-overview', 'dir=rec&screen=overview'], ['K2-person', 'dir=rec&screen=person'], ['K3-production', 'dir=rec&screen=production'], ['K4-compare', 'dir=rec&screen=compare'],
   ['K1-overview-annotated', 'dir=rec&screen=overview&annotated'], ['K2-person-annotated', 'dir=rec&screen=person&annotated'], ['K3-production-annotated', 'dir=rec&screen=production&annotated'], ['K4-compare-annotated', 'dir=rec&screen=compare&annotated'],
-  ['CMP-rec-on-r2-world', 'dir=rec&screen=overview&world=r2'], ['CMP-rec-person-on-r2-world', 'dir=rec&screen=person&world=r2'],
+  ['CMP-rec-on-r2-world', 'dir=rec&screen=overview&world=r2'], ['CMP-rec-person-on-r2-world', 'dir=rec&screen=person&world=r2'], ['CMP-rec-production-on-r2-world', 'dir=rec&screen=production&world=r2'], ['CMP-rec-compare-on-r2-world', 'dir=rec&screen=compare&world=r2'],
   ['V-early', 'dir=rec&screen=overview&fixture=early'], ['V-compact-rails', 'dir=rec&screen=overview&rails=compact'], ['V-long-names', 'dir=rec&screen=production&fixture=long'], ['V-waiting', 'dir=rec&screen=production&state=waiting'],
 ];
 const SMALL = [['S-overview-1280-100', 'dir=rec&screen=overview&canvas=1280', 100], ['S-compare-1280-200', 'dir=rec&screen=compare&text=200&canvas=1280', 200], ['S-person-1280-200', 'dir=rec&screen=person&text=200&canvas=1280', 200], ['S-overview-1280-200', 'dir=rec&screen=overview&text=200&canvas=1280', 200]];
@@ -21,7 +21,7 @@ const SMALL = [['S-overview-1280-100', 'dir=rec&screen=overview&canvas=1280', 10
   const page = await ctx.newPage();
   page.on('pageerror', e => log.pageErrors.push(String(e)));
   page.on('console', m => { if (['error', 'warning'].includes(m.type())) log.console.push(m.type() + ': ' + m.text()); });
-  const list = quick ? BOARDS.slice(0, 6) : BOARDS;
+  const list = quick ? BOARDS.slice(0, 7) : BOARDS;
   for (const [name, q] of list) {
     await page.setViewportSize({ width: q.includes('annotated') ? 1740 : 1440, height: 900 });
     await page.goto(url(q)); await page.waitForTimeout(450);
