@@ -1,0 +1,312 @@
+{
+  "reviewer": "claude-sonnet-5",
+  "session": "68641149-0eb7-4110-a0a6-3e2683923e14",
+  "tools": "disabled",
+  "originalCandidate": {
+    "00-P13B-REVIEW-INDEX.md": {
+      "bytes": 2174,
+      "sha256": "0f3361a2de7bba68a066b03301f4cece60aae2f20773d2a1659fa08bcfb807b5"
+    },
+    "01-P13B-LAUNCH-DRAFT.md": {
+      "bytes": 5524,
+      "sha256": "5b400c3c1023cfc78625d9460f47bfe4f21d8e551beeaea6b090ff424db9cf0d"
+    },
+    "02-P13B-DECISIONS-AND-ACCEPTANCE.md": {
+      "bytes": 45818,
+      "sha256": "bc678ee12b567a3421478210084cf9466ff51a7dd2af2c9863dfc70d84180e0d"
+    },
+    "03-PAPER-ECONOMICS.md": {
+      "bytes": 10061,
+      "sha256": "5900f304b5cff6a279ea090988fc47212106c50eb59a8a7670467f7301a0ffc4"
+    },
+    "04-SOURCE-INDEX.md": {
+      "bytes": 5600,
+      "sha256": "0e3f53a7b6e0d3e52dc914b78bc5f39bb4269413d0dc6a902e3c375102a3f592"
+    },
+    "05-INDEPENDENT-REVIEW.md": {
+      "bytes": 345,
+      "sha256": "6674e7adc201a2f72381c7bfcf34e75ac15e3231506082456658d2e14f6007b4"
+    },
+    "PAPER-RESULTS.json": {
+      "bytes": 3288,
+      "sha256": "29857d9e091edf05e82e1eadfe3dba594869cca16039d0ed67daa68bd2ad9847"
+    },
+    "sources/REF-B.md": {
+      "bytes": 10703,
+      "sha256": "85967c178e8efda37ac822201ea5ebac21aa569fd4387e498096bc04bababe9f"
+    },
+    "sources/REF-C.md": {
+      "bytes": 39819,
+      "sha256": "6f8257b7b18ae77de148b9a300b0b0c64cb25b7466f43bc4f930b3fbb45c4301"
+    },
+    "sources/REF-E.md": {
+      "bytes": 4725,
+      "sha256": "f813c4ad6b4c52b773d9af8c476446a708381a752483396ef20e10272f8004bf"
+    },
+    "sources/REF-F.md": {
+      "bytes": 8718,
+      "sha256": "fa02a52ef109868a3d3cb2630630138efb60beb19e3d74b2e2aa18ebc174b5b4"
+    },
+    "sources/REF-H.md": {
+      "bytes": 3896,
+      "sha256": "678c974160c572ddbc887460d901f03bbca8260bcf6700060c6889105a9e276f"
+    },
+    "sources/REF-HISTORY.md": {
+      "bytes": 1208,
+      "sha256": "e3b3d32d3772132177c58511b6dab65b5c96779a65ddb21329b330673ae793c4"
+    },
+    "sources/REF-K.md": {
+      "bytes": 3628,
+      "sha256": "c96fa09c50eed4eaf1c092633423182dc9fdd4137390fb906dccff2526c2adb5"
+    },
+    "sources/REF-N.md": {
+      "bytes": 4078,
+      "sha256": "f5761f28c6f6851b696cdf3b032afc265faed348537691d2654466c95186b927"
+    },
+    "sources/REF-O.md": {
+      "bytes": 22195,
+      "sha256": "b53e36193430170332341bf9d5b5516023e4341d1f50e0fea36b60d79f4fab19"
+    },
+    "sources/REF-P.md": {
+      "bytes": 25540,
+      "sha256": "c94e579586b38efe2ea54e81859db378e5d451e456636bbf003fdab2f47adb0e"
+    },
+    "sources/REF-R.md": {
+      "bytes": 4123,
+      "sha256": "23d1a864d61524a3afd0960361d4903fa1df25df4a7d0a1abbd5fcdbf15a6c13"
+    },
+    "sources/REF-S.md": {
+      "bytes": 1865,
+      "sha256": "e0ee441b39f4500e1ad8ba8102fb01c1768c369f54f7aa368045f639d5b7ed6e"
+    },
+    "sources/REF-T.md": {
+      "bytes": 27235,
+      "sha256": "1e86cdb307b942070e22cf6b4bb167bff23a625292bccaeb67d1b7b53620f10d"
+    },
+    "sources/REF-U.md": {
+      "bytes": 8811,
+      "sha256": "08be833625b56ce01786f0cf20b799a5f8e69927a11f1220dc9ce6f3b5dfd194"
+    },
+    "sources/REF-UH.md": {
+      "bytes": 3747,
+      "sha256": "6ace6a1e9145e9a6b281c4ebd44da7b38b9ba4cdf6f5f94af0fdd2cafc60b1cd"
+    },
+    "sources/REF-V.md": {
+      "bytes": 6078,
+      "sha256": "566f2f277d065b9c4b23329f4d50b9246eacffb220d2b75ab3bd73ec44dd5a31"
+    },
+    "sources/REF-W.md": {
+      "bytes": 4654,
+      "sha256": "2acef804a4206ccc92e7ff82a588e46282d79a1525bf5f8a23ed7baf018c1f65"
+    },
+    "sources/SOURCE-PROVENANCE.json": {
+      "bytes": 7625,
+      "sha256": "6de1660e3239fca0684b60ac8971bfe5a5f8af33ff8e68f230af2d2aa1f82ed5"
+    },
+    "sources/inputs/00-READ-ME.md": {
+      "bytes": 3052,
+      "sha256": "ee3e01866985c1099665d03e633bb96a95c65c8e53f4ae7617350758b44732bc"
+    },
+    "sources/inputs/01-FUTURE-OPS-P13B-AND-USABILITY-PREPARATION.md": {
+      "bytes": 12778,
+      "sha256": "41f7c125be23f9b17fe23089aa4cd1169669ab7f3371dd933fd9386bc6a1dc9d"
+    },
+    "sources/inputs/MANIFEST.json": {
+      "bytes": 5779,
+      "sha256": "a727a9852705bc6bf9760ac344f1545d76edda305e4c210098d264593e458645"
+    },
+    "sources/inputs/SHA256SUMS.txt": {
+      "bytes": 1644,
+      "sha256": "93f4fad346e5c56743246b226365f9822535267ffc92685a1e89a317d4ae7b12"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/00-START-HERE.md": {
+      "bytes": 2706,
+      "sha256": "b9c705c6bb03a247fa9044b70f62e85871124ec6945a6391376e5a87035596f3"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/01-CURRENT-OPS-P13B-PREPARATION-ORDER.md": {
+      "bytes": 10266,
+      "sha256": "b8fb74c6f681bed9e6c7c54e09ed6d8f7a330e4ed853bb4cf9b5bb6877f93199"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/MANIFEST.json": {
+      "bytes": 3701,
+      "sha256": "10d4d59a36c801b29ea43942dc85b755197b67d8effd6ded1c2afb272f091caa"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/SHA256SUMS.txt": {
+      "bytes": 764,
+      "sha256": "87018c84f540f97fe88cad307931498f94ed4df8ff6aa5de42ea9a9d2fe119b0"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/sources/docs/campaigns/P13A-OWNER-ACCEPTANCE-RECEIPT.md": {
+      "bytes": 7925,
+      "sha256": "cf907bf585d7d1926b3353e8b74773cbdb15038d8ca76bb92b0144be0735db99"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/sources/docs/engineering/P13A-TO-P13B-PRODUCER-HANDOFF.md": {
+      "bytes": 22740,
+      "sha256": "d9003db2521dcb4090009f977fbf0865f3678e3b02d401b702a15980ded03b9c"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/sources/docs/evidence/P13A-FINAL-DELIVERY-ADDENDUM.md": {
+      "bytes": 19019,
+      "sha256": "0ccc13adcaea2beaf0a1a209e03c9ea6bca602aae08c89f17285dbf4f09f4ab6"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/sources/owner-feedback/03-NEXT-RESEARCH-EXPERIENCE-HANDOFF.md": {
+      "bytes": 5223,
+      "sha256": "3e0c8b9883c9636efda588a2e83f85e5b157e3b23a4b8610554f020642aa51da"
+    },
+    "sources/inputs/sources/ux/UIUX-COMPARATOR-RESEARCH-EXCERPT.md": {
+      "bytes": 7033,
+      "sha256": "ddb9f664b4d604e3310d6c7a05c219b8a5b06ef2bd5d2d3e7ee6648f696a6d9a"
+    },
+    "sources/inputs/sources/ux/UIUX-PLAYABILITY-NEXT-PHASE-OWNER-DIRECTION.md": {
+      "bytes": 11003,
+      "sha256": "ac7e0a728a487a0747b380290dcb4a5806460af5585a691c67d36b81dfe022a0"
+    }
+  },
+  "finalSubstantiveCandidate": {
+    "01-P13B-LAUNCH-DRAFT.md": {
+      "bytes": 5560,
+      "sha256": "54087fd338cdbbe6c5f4d624cd2d0360d4a1cb2184dd84a393bda5fa9f86951c"
+    },
+    "02-P13B-DECISIONS-AND-ACCEPTANCE.md": {
+      "bytes": 46222,
+      "sha256": "98eae206d3e97ada94ed8046b5e7c65046a04a7571b5c993c65f4dbe03cd0811"
+    },
+    "03-PAPER-ECONOMICS.md": {
+      "bytes": 10061,
+      "sha256": "5900f304b5cff6a279ea090988fc47212106c50eb59a8a7670467f7301a0ffc4"
+    },
+    "PAPER-RESULTS.json": {
+      "bytes": 3288,
+      "sha256": "29857d9e091edf05e82e1eadfe3dba594869cca16039d0ed67daa68bd2ad9847"
+    },
+    "sources/REF-B.md": {
+      "bytes": 10703,
+      "sha256": "85967c178e8efda37ac822201ea5ebac21aa569fd4387e498096bc04bababe9f"
+    },
+    "sources/REF-C.md": {
+      "bytes": 39819,
+      "sha256": "6f8257b7b18ae77de148b9a300b0b0c64cb25b7466f43bc4f930b3fbb45c4301"
+    },
+    "sources/REF-E.md": {
+      "bytes": 4725,
+      "sha256": "f813c4ad6b4c52b773d9af8c476446a708381a752483396ef20e10272f8004bf"
+    },
+    "sources/REF-F.md": {
+      "bytes": 8718,
+      "sha256": "fa02a52ef109868a3d3cb2630630138efb60beb19e3d74b2e2aa18ebc174b5b4"
+    },
+    "sources/REF-H.md": {
+      "bytes": 3896,
+      "sha256": "678c974160c572ddbc887460d901f03bbca8260bcf6700060c6889105a9e276f"
+    },
+    "sources/REF-HISTORY.md": {
+      "bytes": 1208,
+      "sha256": "e3b3d32d3772132177c58511b6dab65b5c96779a65ddb21329b330673ae793c4"
+    },
+    "sources/REF-K.md": {
+      "bytes": 3628,
+      "sha256": "c96fa09c50eed4eaf1c092633423182dc9fdd4137390fb906dccff2526c2adb5"
+    },
+    "sources/REF-N.md": {
+      "bytes": 4078,
+      "sha256": "f5761f28c6f6851b696cdf3b032afc265faed348537691d2654466c95186b927"
+    },
+    "sources/REF-O.md": {
+      "bytes": 22195,
+      "sha256": "b53e36193430170332341bf9d5b5516023e4341d1f50e0fea36b60d79f4fab19"
+    },
+    "sources/REF-P.md": {
+      "bytes": 25540,
+      "sha256": "c94e579586b38efe2ea54e81859db378e5d451e456636bbf003fdab2f47adb0e"
+    },
+    "sources/REF-R.md": {
+      "bytes": 4123,
+      "sha256": "23d1a864d61524a3afd0960361d4903fa1df25df4a7d0a1abbd5fcdbf15a6c13"
+    },
+    "sources/REF-S.md": {
+      "bytes": 1865,
+      "sha256": "e0ee441b39f4500e1ad8ba8102fb01c1768c369f54f7aa368045f639d5b7ed6e"
+    },
+    "sources/REF-T.md": {
+      "bytes": 27235,
+      "sha256": "1e86cdb307b942070e22cf6b4bb167bff23a625292bccaeb67d1b7b53620f10d"
+    },
+    "sources/REF-U.md": {
+      "bytes": 8811,
+      "sha256": "08be833625b56ce01786f0cf20b799a5f8e69927a11f1220dc9ce6f3b5dfd194"
+    },
+    "sources/REF-UH.md": {
+      "bytes": 3747,
+      "sha256": "6ace6a1e9145e9a6b281c4ebd44da7b38b9ba4cdf6f5f94af0fdd2cafc60b1cd"
+    },
+    "sources/REF-V.md": {
+      "bytes": 6078,
+      "sha256": "566f2f277d065b9c4b23329f4d50b9246eacffb220d2b75ab3bd73ec44dd5a31"
+    },
+    "sources/REF-W.md": {
+      "bytes": 4654,
+      "sha256": "2acef804a4206ccc92e7ff82a588e46282d79a1525bf5f8a23ed7baf018c1f65"
+    },
+    "sources/SOURCE-PROVENANCE.json": {
+      "bytes": 7625,
+      "sha256": "6de1660e3239fca0684b60ac8971bfe5a5f8af33ff8e68f230af2d2aa1f82ed5"
+    },
+    "sources/inputs/00-READ-ME.md": {
+      "bytes": 3052,
+      "sha256": "ee3e01866985c1099665d03e633bb96a95c65c8e53f4ae7617350758b44732bc"
+    },
+    "sources/inputs/01-FUTURE-OPS-P13B-AND-USABILITY-PREPARATION.md": {
+      "bytes": 12778,
+      "sha256": "41f7c125be23f9b17fe23089aa4cd1169669ab7f3371dd933fd9386bc6a1dc9d"
+    },
+    "sources/inputs/MANIFEST.json": {
+      "bytes": 5779,
+      "sha256": "a727a9852705bc6bf9760ac344f1545d76edda305e4c210098d264593e458645"
+    },
+    "sources/inputs/SHA256SUMS.txt": {
+      "bytes": 1644,
+      "sha256": "93f4fad346e5c56743246b226365f9822535267ffc92685a1e89a317d4ae7b12"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/00-START-HERE.md": {
+      "bytes": 2706,
+      "sha256": "b9c705c6bb03a247fa9044b70f62e85871124ec6945a6391376e5a87035596f3"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/01-CURRENT-OPS-P13B-PREPARATION-ORDER.md": {
+      "bytes": 10266,
+      "sha256": "b8fb74c6f681bed9e6c7c54e09ed6d8f7a330e4ed853bb4cf9b5bb6877f93199"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/MANIFEST.json": {
+      "bytes": 3701,
+      "sha256": "10d4d59a36c801b29ea43942dc85b755197b67d8effd6ded1c2afb272f091caa"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/SHA256SUMS.txt": {
+      "bytes": 764,
+      "sha256": "87018c84f540f97fe88cad307931498f94ed4df8ff6aa5de42ea9a9d2fe119b0"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/sources/docs/campaigns/P13A-OWNER-ACCEPTANCE-RECEIPT.md": {
+      "bytes": 7925,
+      "sha256": "cf907bf585d7d1926b3353e8b74773cbdb15038d8ca76bb92b0144be0735db99"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/sources/docs/engineering/P13A-TO-P13B-PRODUCER-HANDOFF.md": {
+      "bytes": 22740,
+      "sha256": "d9003db2521dcb4090009f977fbf0865f3678e3b02d401b702a15980ded03b9c"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/sources/docs/evidence/P13A-FINAL-DELIVERY-ADDENDUM.md": {
+      "bytes": 19019,
+      "sha256": "0ccc13adcaea2beaf0a1a209e03c9ea6bca602aae08c89f17285dbf4f09f4ab6"
+    },
+    "sources/inputs/current-ops/P13B-PREPARATION-PACKET/sources/owner-feedback/03-NEXT-RESEARCH-EXPERIENCE-HANDOFF.md": {
+      "bytes": 5223,
+      "sha256": "3e0c8b9883c9636efda588a2e83f85e5b157e3b23a4b8610554f020642aa51da"
+    },
+    "sources/inputs/sources/ux/UIUX-COMPARATOR-RESEARCH-EXCERPT.md": {
+      "bytes": 7033,
+      "sha256": "ddb9f664b4d604e3310d6c7a05c219b8a5b06ef2bd5d2d3e7ee6648f696a6d9a"
+    },
+    "sources/inputs/sources/ux/UIUX-PLAYABILITY-NEXT-PHASE-OWNER-DIRECTION.md": {
+      "bytes": 11003,
+      "sha256": "ac7e0a728a487a0747b380290dcb4a5806460af5585a691c67d36b81dfe022a0"
+    }
+  },
+  "initialResponseSha256": "e17625a3dad7a3844a3d3f8a6bb69c7ad6e4c222ad28dcab23db201579f98951",
+  "confirmationResponseSha256": "635e020c28dc142e0fdfe11c9c4c183dfe96e8bbf54bcba9814b33d8c8ac6c48",
+  "note": "Original candidate hashes are historical review bindings, not final payload checksums. Final archive MANIFEST is the delivery checksum authority. Final status/index/review metadata were assembled after confirmation; substantive changes are the three stated clarifications."
+}

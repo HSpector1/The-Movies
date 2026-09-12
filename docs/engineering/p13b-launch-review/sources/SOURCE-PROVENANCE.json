@@ -1,0 +1,334 @@
+[
+  {
+    "id": "REF-P",
+    "repository": "HSpector1/The-Movies",
+    "commit": "4734e4092d117ef89b7349389ef03bd95fc298c3",
+    "path": "docs/engineering/P13A-DECISIONS-AND-ACCEPTANCE-COMPANION.md",
+    "gitBlob": "ada153753b0f2d8346b9d45eef93a1ff33407c5a",
+    "sourceBytes": 172860,
+    "sourceSha256": "307f25c763e2a27a8f8208680c42a4b76e37c4b53bfc125d3c16ecdf41197c99",
+    "ranges": [
+      [
+        406,
+        458
+      ],
+      [
+        497,
+        559
+      ],
+      [
+        631,
+        637
+      ]
+    ]
+  },
+  {
+    "id": "REF-C",
+    "repository": "HSpector1/The-Movies",
+    "commit": "e48541b55d8c0825968c4f148996593bdd9f22b6",
+    "path": "docs/design/STUDIO-UPGRADE-AND-RESEARCH-CATALOGUE-01.md",
+    "gitBlob": "20f2099dbac56ba38693ea62c7458a00becd6408",
+    "sourceBytes": 145669,
+    "sourceSha256": "bbc1eed10a74966197852387fcce1c1bb6c7c2345d73b5b9ba7602eee7526374",
+    "ranges": [
+      [
+        137,
+        199
+      ],
+      [
+        213,
+        232
+      ],
+      [
+        274,
+        287
+      ],
+      [
+        344,
+        377
+      ],
+      [
+        378,
+        420
+      ],
+      [
+        701,
+        775
+      ]
+    ]
+  },
+  {
+    "id": "REF-O",
+    "repository": "HSpector1/The-Movies",
+    "commit": "e48541b55d8c0825968c4f148996593bdd9f22b6",
+    "path": "docs/design/CODEX-P13-P15-OWNER-RULINGS.md",
+    "gitBlob": "a22798689f7e57fab73116b8c7ef86bda53b3bc7",
+    "sourceBytes": 28691,
+    "sourceSha256": "e22a20a2c010bdc6f797e8c0466bc4ee4adabe0212b31b25e41f0f5d77488797",
+    "ranges": [
+      [
+        40,
+        170
+      ]
+    ]
+  },
+  {
+    "id": "REF-T",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+    "path": "src/core/technology.ts",
+    "gitBlob": "9e150d98d5edee32c46e3db4cdbac4b95943976b",
+    "sourceBytes": 34354,
+    "sourceSha256": "e81cc52e4ecbe910561094a992fc2f4726322b15fa8275e88eed8558df7a56f8",
+    "ranges": [
+      [
+        1,
+        150
+      ],
+      [
+        190,
+        275
+      ],
+      [
+        289,
+        314
+      ],
+      [
+        353,
+        389
+      ]
+    ]
+  },
+  {
+    "id": "REF-K",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+    "path": "src/core/technologyCatalogue.ts",
+    "gitBlob": "524d08bca090397c6762ee0c0fb2279355d9d1cd",
+    "sourceBytes": 2975,
+    "sourceSha256": "8da5568ffd68eca162e2ded4f48da13114b667a1875e959f60f4abf7927e58e6",
+    "ranges": [
+      [
+        1,
+        55
+      ]
+    ]
+  },
+  {
+    "id": "REF-R",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+    "path": "src/core/technologyRival.ts",
+    "gitBlob": "2e8e7ca2a8e16ef3cb63ec87bf2cef8583b12d28",
+    "sourceBytes": 3478,
+    "sourceSha256": "d34bd41030165e9c5c77561cf98911511d86271bab7dd259213bdb4b6d55e6e3",
+    "ranges": [
+      [
+        1,
+        40
+      ]
+    ]
+  },
+  {
+    "id": "REF-H",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+    "path": "src/core/hollywood.ts",
+    "gitBlob": "530de36e09e0dec922b4258264a92ec7bd800fe0",
+    "sourceBytes": 13031,
+    "sourceSha256": "109da061da50f85658586452d9002ac5c759eabb5562dc68aad853e490b2caef",
+    "ranges": [
+      [
+        14,
+        44
+      ],
+      [
+        82,
+        110
+      ]
+    ]
+  },
+  {
+    "id": "REF-V",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+    "path": "src/core/hollywoodValidation.ts",
+    "gitBlob": "49dc4aad3b899b94cc7e45880922e257e261bf3b",
+    "sourceBytes": 43304,
+    "sourceSha256": "0d5b5026d1e3102db1ed8bdfea40396c2bdc35aa6aa90f5a094a9c91bc3f9e52",
+    "ranges": [
+      [
+        201,
+        250
+      ]
+    ]
+  },
+  {
+    "id": "REF-F",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+    "path": "src/core/placement.ts",
+    "gitBlob": "795fe1f3564a308a188d735baba88958b3d7d0b7",
+    "sourceBytes": 106643,
+    "sourceSha256": "68b54b237fd1c3c16f536a2deb2eaa6fc890d7ca812c13324b0521de423201a5",
+    "ranges": [
+      [
+        375,
+        391
+      ],
+      [
+        780,
+        844
+      ],
+      [
+        869,
+        895
+      ],
+      [
+        1049,
+        1063
+      ],
+      [
+        1178,
+        1214
+      ]
+    ]
+  },
+  {
+    "id": "REF-E",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+    "path": "src/core/employment.ts",
+    "gitBlob": "87de4a10d1468d1007d7bb8d1055aaf2647b3f88",
+    "sourceBytes": 23796,
+    "sourceSha256": "03b46f80f1f5b805cebc0ebea474937b631f8c7ad1c709058c29ee5276513aa8",
+    "ranges": [
+      [
+        91,
+        104
+      ],
+      [
+        160,
+        193
+      ],
+      [
+        231,
+        257
+      ],
+      [
+        353,
+        380
+      ]
+    ]
+  },
+  {
+    "id": "REF-B",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+    "path": "bridge/laboratory.ts",
+    "gitBlob": "0d4ba4d7cc7f414dab2092eb2dba2da65c6b40cc",
+    "sourceBytes": 19688,
+    "sourceSha256": "fb02a74bfe82f6b9d818f23deb683ccb132cea86445f431ff7507fb8bbbc4cca",
+    "ranges": [
+      [
+        38,
+        80
+      ],
+      [
+        154,
+        207
+      ]
+    ]
+  },
+  {
+    "id": "REF-W",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+    "path": "src/core/tick.ts",
+    "gitBlob": "acbac69c19fa828b63f26bc5ac4bb037fd886db4",
+    "sourceBytes": 55193,
+    "sourceSha256": "18db2563414fc796ece488ea82fcf6d222490d57cd2644c9ba76f2c5d577ca39",
+    "ranges": [
+      [
+        499,
+        510
+      ],
+      [
+        921,
+        968
+      ],
+      [
+        1055,
+        1064
+      ]
+    ]
+  },
+  {
+    "id": "REF-U",
+    "repository": "HSpector1/project-studio-unity-visual-spike",
+    "commit": "6420a4d91de52db1bffca2988f2c995672e7d53e",
+    "path": "Assets/Studio/Runtime/Presentation/UI/StudioLaboratoryWorkspace.cs",
+    "gitBlob": "7b03a290b0b54966170560b6a1ad6ccb2cbaa927",
+    "sourceBytes": 15899,
+    "sourceSha256": "7d53d26f12a70f9bca97bccb7322126cd3a5eb3477460264198738bbe6db60f6",
+    "ranges": [
+      [
+        9,
+        114
+      ],
+      [
+        210,
+        251
+      ]
+    ]
+  },
+  {
+    "id": "REF-UH",
+    "repository": "HSpector1/project-studio-unity-visual-spike",
+    "commit": "6420a4d91de52db1bffca2988f2c995672e7d53e",
+    "path": "Assets/Studio/Runtime/Presentation/UI/StudioWorkspaceHost.Laboratory.cs",
+    "gitBlob": "17146ab94d4971ce28af0c4a3916f2764360b328",
+    "sourceBytes": 2967,
+    "sourceSha256": "e19143187734020bf17bc966537f8fb6a94fbe916ea5ed516794ddbfdab77143",
+    "ranges": [
+      [
+        1,
+        61
+      ]
+    ]
+  },
+  {
+    "id": "REF-N",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+    "path": "src/core/tuning.ts",
+    "gitBlob": "fe73c2b5639cab51306ed0c219631feb52f7b96d",
+    "sourceBytes": 121736,
+    "sourceSha256": "a38001dc57b964f338b13be3cc9175599586c42fa4a1bcb009b6215aa481576f",
+    "ranges": [
+      [
+        419,
+        423
+      ],
+      [
+        967,
+        1040
+      ]
+    ]
+  },
+  {
+    "id": "REF-S",
+    "repository": "HSpector1/The-Movies",
+    "commit": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+    "path": "src/core/save.ts",
+    "gitBlob": "686c40c3cb3facbc06206344a684231deabf299e",
+    "sourceBytes": 286057,
+    "sourceSha256": "eafd6bf264416ecb29137086ef104f20e328ef4011b24bb626281f44da182b41",
+    "ranges": [
+      [
+        6138,
+        6160
+      ]
+    ]
+  }
+]

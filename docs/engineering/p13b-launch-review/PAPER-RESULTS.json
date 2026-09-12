@@ -1,0 +1,128 @@
+{
+  "label": "PAPER ANALYSIS ONLY; arithmetic script, no game imported or executed",
+  "rounding": "whole funded week charged, output capped at remaining work",
+  "staffing": [
+    {
+      "people": 1,
+      "labs": 1,
+      "output": "3/2",
+      "weeks": 43,
+      "research": 430000,
+      "activeSalary": 86000,
+      "activeOverhead": 64500,
+      "signing": 18720
+    },
+    {
+      "people": 4,
+      "labs": 1,
+      "output": "6",
+      "weeks": 11,
+      "research": 440000,
+      "activeSalary": 88000,
+      "activeOverhead": 66000,
+      "signing": 74880
+    },
+    {
+      "people": 8,
+      "labs": 2,
+      "output": "39/4",
+      "weeks": 7,
+      "research": 560000,
+      "activeSalary": 112000,
+      "activeOverhead": 84000,
+      "signing": 149760
+    }
+  ],
+  "allocation": [
+    {
+      "route": "cooperate sound then light",
+      "soundKnowledge": 787,
+      "lightKnowledge": 794,
+      "soundOperational": 799,
+      "lightOperational": 798,
+      "research": 1120000,
+      "signing": 149760,
+      "salary": 832000,
+      "employmentOverhead": 624000,
+      "idlePersonWeeks": 304,
+      "labInstruments": 728000,
+      "physical": 1075000,
+      "operation": 166000,
+      "departmentAndDeploymentCash": 4694760,
+      "wholeFixtureCash": 5474760
+    },
+    {
+      "route": "split sound and light",
+      "soundKnowledge": 791,
+      "lightKnowledge": 791,
+      "soundOperational": 803,
+      "lightOperational": 795,
+      "research": 880000,
+      "signing": 149760,
+      "salary": 832000,
+      "employmentOverhead": 624000,
+      "idlePersonWeeks": 328,
+      "labInstruments": 728000,
+      "physical": 1075000,
+      "operation": 153000,
+      "departmentAndDeploymentCash": 4441760,
+      "wholeFixtureCash": 5221760
+    },
+    {
+      "route": "cooperate sound then residual light",
+      "soundKnowledge": 787,
+      "lightKnowledge": 789,
+      "soundOperational": 799,
+      "lightOperational": 793,
+      "research": 720000,
+      "signing": 149760,
+      "salary": 832000,
+      "employmentOverhead": 624000,
+      "idlePersonWeeks": 344,
+      "labInstruments": 728000,
+      "physical": 1075000,
+      "operation": 171000,
+      "departmentAndDeploymentCash": 4299760,
+      "wholeFixtureCash": 5079760
+    },
+    {
+      "route": "split sound and residual light",
+      "soundKnowledge": 791,
+      "lightKnowledge": 782,
+      "soundOperational": 803,
+      "lightOperational": 786,
+      "research": 520000,
+      "signing": 149760,
+      "salary": 832000,
+      "employmentOverhead": 624000,
+      "idlePersonWeeks": 364,
+      "labInstruments": 728000,
+      "physical": 1075000,
+      "operation": 162000,
+      "departmentAndDeploymentCash": 4090760,
+      "wholeFixtureCash": 4870760
+    }
+  ],
+  "waiting": [
+    {
+      "route": "research",
+      "knowledgeOrAccess": 945,
+      "operational": 949,
+      "research": 440000,
+      "deployment": 100000,
+      "operation": 37000,
+      "departmentAndDeploymentCash": 1743880,
+      "wholeFixtureCash": 2523880
+    },
+    {
+      "route": "wait then buy",
+      "knowledgeOrAccess": 936,
+      "operational": 940,
+      "research": 0,
+      "deployment": 400000,
+      "operation": 46000,
+      "departmentAndDeploymentCash": 1612880,
+      "wholeFixtureCash": 2392880
+    }
+  ]
+}

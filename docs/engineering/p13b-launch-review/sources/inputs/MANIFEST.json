@@ -1,0 +1,122 @@
+{
+  "packet": "P13B-PLANNER-INPUTS-WITH-UX",
+  "date": "2026-09-12",
+  "status": "PREPARATION_INPUTS_NOT_LAUNCH_REVIEW_DELIVERABLE",
+  "controlling_order": "OPS-P13B-LAUNCH-PREPARATION-20260912-01",
+  "source_zip": "P13B-PREPARATION-PACKET(1).zip",
+  "source_zip_sha256": "028d514ad20f95378b1e386e1e929390ba06dbe71c868d6423f1338ab895ac1e",
+  "preparation_worker_started": false,
+  "independent_launch_package_review_completed": false,
+  "files": [
+    {
+      "path": "00-READ-ME.md",
+      "bytes": 3052,
+      "sha256": "ee3e01866985c1099665d03e633bb96a95c65c8e53f4ae7617350758b44732bc",
+      "kind": "packet_documentation"
+    },
+    {
+      "path": "01-FUTURE-OPS-P13B-AND-USABILITY-PREPARATION.md",
+      "bytes": 12778,
+      "sha256": "41f7c125be23f9b17fe23089aa4cd1169669ab7f3371dd933fd9386bc6a1dc9d",
+      "kind": "future_ops_preparation_prompt",
+      "repository": "HSpector1/The-Movies",
+      "commit": "9f48d79c2ec73e32930ff73c12dc9b99985457ec",
+      "repository_path": "docs/operations/P13B-PREPARATION-WITH-FOCUSED-UX-REVIEW.md"
+    },
+    {
+      "path": "current-ops/P13B-PREPARATION-PACKET/00-START-HERE.md",
+      "bytes": 2706,
+      "sha256": "b9c705c6bb03a247fa9044b70f62e85871124ec6945a6391376e5a87035596f3",
+      "kind": "new_current_ops_preparation_instruction",
+      "status": "preparation_only_no_gameplay_authorization"
+    },
+    {
+      "path": "current-ops/P13B-PREPARATION-PACKET/01-CURRENT-OPS-P13B-PREPARATION-ORDER.md",
+      "bytes": 10266,
+      "sha256": "b8fb74c6f681bed9e6c7c54e09ed6d8f7a330e4ed853bb4cf9b5bb6877f93199",
+      "kind": "new_current_ops_preparation_instruction",
+      "status": "preparation_only_no_gameplay_authorization"
+    },
+    {
+      "path": "current-ops/P13B-PREPARATION-PACKET/MANIFEST.json",
+      "bytes": 3701,
+      "sha256": "10d4d59a36c801b29ea43942dc85b755197b67d8effd6ded1c2afb272f091caa",
+      "kind": "packet_documentation"
+    },
+    {
+      "path": "current-ops/P13B-PREPARATION-PACKET/SHA256SUMS.txt",
+      "bytes": 764,
+      "sha256": "87018c84f540f97fe88cad307931498f94ed4df8ff6aa5de42ea9a9d2fe119b0",
+      "kind": "packet_documentation"
+    },
+    {
+      "path": "current-ops/P13B-PREPARATION-PACKET/sources/docs/campaigns/P13A-OWNER-ACCEPTANCE-RECEIPT.md",
+      "bytes": 7925,
+      "sha256": "cf907bf585d7d1926b3353e8b74773cbdb15038d8ca76bb92b0144be0735db99",
+      "kind": "exact_published_source",
+      "repository": "HSpector1/The-Movies",
+      "commit": "45a3916862a6e98fcb7e9c6908cb2b31f1e8b588",
+      "repository_path": "docs/campaigns/P13A-OWNER-ACCEPTANCE-RECEIPT.md",
+      "git_blob_sha1": "e3defa831dcae66fa82b8e1f7bfc2269c12b56ee",
+      "source_url": "https://github.com/HSpector1/The-Movies/blob/45a3916862a6e98fcb7e9c6908cb2b31f1e8b588/docs/campaigns/P13A-OWNER-ACCEPTANCE-RECEIPT.md"
+    },
+    {
+      "path": "current-ops/P13B-PREPARATION-PACKET/sources/docs/engineering/P13A-TO-P13B-PRODUCER-HANDOFF.md",
+      "bytes": 22740,
+      "sha256": "d9003db2521dcb4090009f977fbf0865f3678e3b02d401b702a15980ded03b9c",
+      "kind": "exact_published_source",
+      "repository": "HSpector1/The-Movies",
+      "commit": "45a3916862a6e98fcb7e9c6908cb2b31f1e8b588",
+      "repository_path": "docs/engineering/P13A-TO-P13B-PRODUCER-HANDOFF.md",
+      "git_blob_sha1": "690f2fa06d56a7ec6919eb506acdef58a220a58f",
+      "source_url": "https://github.com/HSpector1/The-Movies/blob/45a3916862a6e98fcb7e9c6908cb2b31f1e8b588/docs/engineering/P13A-TO-P13B-PRODUCER-HANDOFF.md"
+    },
+    {
+      "path": "current-ops/P13B-PREPARATION-PACKET/sources/docs/evidence/P13A-FINAL-DELIVERY-ADDENDUM.md",
+      "bytes": 19019,
+      "sha256": "0ccc13adcaea2beaf0a1a209e03c9ea6bca602aae08c89f17285dbf4f09f4ab6",
+      "kind": "exact_published_source",
+      "repository": "HSpector1/The-Movies",
+      "commit": "45a3916862a6e98fcb7e9c6908cb2b31f1e8b588",
+      "repository_path": "docs/evidence/P13A-FINAL-DELIVERY-ADDENDUM.md",
+      "git_blob_sha1": "dc222202fc2cd2ba7abd60e1c603f70a6eb7a22a",
+      "source_url": "https://github.com/HSpector1/The-Movies/blob/45a3916862a6e98fcb7e9c6908cb2b31f1e8b588/docs/evidence/P13A-FINAL-DELIVERY-ADDENDUM.md"
+    },
+    {
+      "path": "current-ops/P13B-PREPARATION-PACKET/sources/owner-feedback/03-NEXT-RESEARCH-EXPERIENCE-HANDOFF.md",
+      "bytes": 5223,
+      "sha256": "3e0c8b9883c9636efda588a2e83f85e5b157e3b23a4b8610554f020642aa51da",
+      "kind": "exact_prior_packet_source",
+      "source_archive": "P13A-OWNER-FEEDBACK-AND-CLOSEOUT.zip",
+      "source_archive_sha256": "4676f3bc4604aed697567dbbd7cb30a79c4c0b7a0a3623524424fab85bb679d0",
+      "source_member": "P13A-OWNER-FEEDBACK-AND-CLOSEOUT/03-NEXT-RESEARCH-EXPERIENCE-HANDOFF.md"
+    },
+    {
+      "path": "sources/ux/UIUX-COMPARATOR-RESEARCH-EXCERPT.md",
+      "bytes": 7033,
+      "sha256": "ddb9f664b4d604e3310d6c7a05c219b8a5b06ef2bd5d2d3e7ee6648f696a6d9a",
+      "kind": "selected_exact_excerpt_not_full_file",
+      "repository": "HSpector1/The-Movies",
+      "commit": "fe4d22ce60505ccce27543d7201c69d46d42a368",
+      "repository_path": "docs/operations/UIUX-PLAYABILITY-COMPARATOR-RESEARCH.md",
+      "source_git_blob_sha1": "9e64d588ef90d40bef6f3e4e143240a4bb3a3581",
+      "sections": [
+        "1",
+        "5.1",
+        "5.3",
+        "5.4",
+        "7"
+      ]
+    },
+    {
+      "path": "sources/ux/UIUX-PLAYABILITY-NEXT-PHASE-OWNER-DIRECTION.md",
+      "bytes": 11003,
+      "sha256": "ac7e0a728a487a0747b380290dcb4a5806460af5585a691c67d36b81dfe022a0",
+      "kind": "exact_repository_file",
+      "repository": "HSpector1/The-Movies",
+      "commit": "fe4d22ce60505ccce27543d7201c69d46d42a368",
+      "repository_path": "docs/operations/UIUX-PLAYABILITY-NEXT-PHASE-OWNER-DIRECTION.md",
+      "git_blob_sha1": "d94004bd76a80421120f6d0834971504e0d19139"
+    }
+  ]
+}

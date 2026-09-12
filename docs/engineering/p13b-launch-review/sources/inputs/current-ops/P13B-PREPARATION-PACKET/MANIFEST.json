@@ -1,0 +1,68 @@
+{
+  "packet": "P13B-PREPARATION-PACKET",
+  "date": "2026-09-12",
+  "order": "OPS-P13B-LAUNCH-PREPARATION-20260912-01",
+  "status": "DOCUMENTATION_AND_READ_ONLY_PREPARATION_ONLY",
+  "closeout_commit": "45a3916862a6e98fcb7e9c6908cb2b31f1e8b588",
+  "delivered_ts": "45ca33650074ad5413c39fb9d4a5c04cd6571c3a",
+  "delivered_unity": "6420a4d91de52db1bffca2988f2c995672e7d53e",
+  "verification_boundary": "Three source document bytes checked against connector-returned Git blob SHA-1 values. Prior feedback note SHA-256 matches the published handoff. No local Mac evidence, worktree, game, current campaign, build or test inspected or rerun. Runtime and private Unity identities are carried from the published receipt.",
+  "files": [
+    {
+      "path": "00-START-HERE.md",
+      "bytes": 2706,
+      "sha256": "b9c705c6bb03a247fa9044b70f62e85871124ec6945a6391376e5a87035596f3",
+      "kind": "new_current_ops_preparation_instruction",
+      "status": "preparation_only_no_gameplay_authorization"
+    },
+    {
+      "path": "01-CURRENT-OPS-P13B-PREPARATION-ORDER.md",
+      "bytes": 10266,
+      "sha256": "b8fb74c6f681bed9e6c7c54e09ed6d8f7a330e4ed853bb4cf9b5bb6877f93199",
+      "kind": "new_current_ops_preparation_instruction",
+      "status": "preparation_only_no_gameplay_authorization"
+    },
+    {
+      "path": "sources/docs/campaigns/P13A-OWNER-ACCEPTANCE-RECEIPT.md",
+      "bytes": 7925,
+      "sha256": "cf907bf585d7d1926b3353e8b74773cbdb15038d8ca76bb92b0144be0735db99",
+      "kind": "exact_published_source",
+      "repository": "HSpector1/The-Movies",
+      "commit": "45a3916862a6e98fcb7e9c6908cb2b31f1e8b588",
+      "repository_path": "docs/campaigns/P13A-OWNER-ACCEPTANCE-RECEIPT.md",
+      "git_blob_sha1": "e3defa831dcae66fa82b8e1f7bfc2269c12b56ee",
+      "source_url": "https://github.com/HSpector1/The-Movies/blob/45a3916862a6e98fcb7e9c6908cb2b31f1e8b588/docs/campaigns/P13A-OWNER-ACCEPTANCE-RECEIPT.md"
+    },
+    {
+      "path": "sources/docs/engineering/P13A-TO-P13B-PRODUCER-HANDOFF.md",
+      "bytes": 22740,
+      "sha256": "d9003db2521dcb4090009f977fbf0865f3678e3b02d401b702a15980ded03b9c",
+      "kind": "exact_published_source",
+      "repository": "HSpector1/The-Movies",
+      "commit": "45a3916862a6e98fcb7e9c6908cb2b31f1e8b588",
+      "repository_path": "docs/engineering/P13A-TO-P13B-PRODUCER-HANDOFF.md",
+      "git_blob_sha1": "690f2fa06d56a7ec6919eb506acdef58a220a58f",
+      "source_url": "https://github.com/HSpector1/The-Movies/blob/45a3916862a6e98fcb7e9c6908cb2b31f1e8b588/docs/engineering/P13A-TO-P13B-PRODUCER-HANDOFF.md"
+    },
+    {
+      "path": "sources/docs/evidence/P13A-FINAL-DELIVERY-ADDENDUM.md",
+      "bytes": 19019,
+      "sha256": "0ccc13adcaea2beaf0a1a209e03c9ea6bca602aae08c89f17285dbf4f09f4ab6",
+      "kind": "exact_published_source",
+      "repository": "HSpector1/The-Movies",
+      "commit": "45a3916862a6e98fcb7e9c6908cb2b31f1e8b588",
+      "repository_path": "docs/evidence/P13A-FINAL-DELIVERY-ADDENDUM.md",
+      "git_blob_sha1": "dc222202fc2cd2ba7abd60e1c603f70a6eb7a22a",
+      "source_url": "https://github.com/HSpector1/The-Movies/blob/45a3916862a6e98fcb7e9c6908cb2b31f1e8b588/docs/evidence/P13A-FINAL-DELIVERY-ADDENDUM.md"
+    },
+    {
+      "path": "sources/owner-feedback/03-NEXT-RESEARCH-EXPERIENCE-HANDOFF.md",
+      "bytes": 5223,
+      "sha256": "3e0c8b9883c9636efda588a2e83f85e5b157e3b23a4b8610554f020642aa51da",
+      "kind": "exact_prior_packet_source",
+      "source_archive": "P13A-OWNER-FEEDBACK-AND-CLOSEOUT.zip",
+      "source_archive_sha256": "4676f3bc4604aed697567dbbd7cb30a79c4c0b7a0a3623524424fab85bb679d0",
+      "source_member": "P13A-OWNER-FEEDBACK-AND-CLOSEOUT/03-NEXT-RESEARCH-EXPERIENCE-HANDOFF.md"
+    }
+  ]
+}
