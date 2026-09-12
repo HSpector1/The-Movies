@@ -7,7 +7,7 @@
 | Repository / reference commit | `HSpector1/The-Movies`, accepted P12 R05 closeout `13370d428f0693f3279732f6f4cc360a7fcaa4df` (all `file:line` locators are at this commit unless a ref is named) |
 | Package boundary reviewed | P17 (franchise/continuation identity, sequel/prequel/remake/reboot/spin-off, Recognition, Momentum, Fatigue, continuity branches, expectations, franchise history) against P07 / P11 / P13 / P14 / P15 / P16 / P18 |
 | Owner-selected direction | Directions A–U, reproduced verbatim in [`evidence/00-SHARED-CONTEXT-AND-OWNER-DIRECTION.md`](evidence/00-SHARED-CONTEXT-AND-OWNER-DIRECTION.md); **not reopened** — stress-tested, with the smallest correction where a serious structural problem exists |
-| Evidence and models | 14 evidence files, 12 model files with reproducible calculators, 2 adversarial reviews + the reviewer's corrected calculator — indexed in [`README.md`](README.md) |
+| Evidence and models | 14 evidence files, 12 model files with reproducible calculators, 2 adversarial reviews + the reviewer's corrected calculator — indexed in [`00-INDEX.md`](00-INDEX.md) |
 | Dates | 2026-09-11 → 2026-09-12 |
 | Status | **P17 RESEARCH PUBLISHED — FUTURE OPS REVIEW REQUIRED** |
 
