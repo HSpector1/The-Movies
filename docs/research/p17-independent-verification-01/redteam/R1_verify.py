@@ -6,12 +6,14 @@ just run once; harmless) and then driving its own Property/Branch classes with
 new scenarios the seven canonical cases don't cover. No repo touched.
 """
 import sys, math
-sys.path.insert(0, "/private/tmp/claude-501/-Users-bruce/3f469c9d-8c5a-4e57-b351-5828c7e97a45/scratchpad/p17/models")
+import os
+MODELS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "models")   # sibling models/ folder in the published package
+sys.path.insert(0, MODELS_DIR)
 
 import importlib.util
 spec = importlib.util.spec_from_file_location(
     "m1final",
-    "/private/tmp/claude-501/-Users-bruce/3f469c9d-8c5a-4e57-b351-5828c7e97a45/scratchpad/p17/models/M1-final-synthesis-calc.py",
+    os.path.join(MODELS_DIR, "M1-final-synthesis-calc.py"),
 )
 m1final = importlib.util.module_from_spec(spec)
 import io, contextlib
