@@ -1,0 +1,449 @@
+{
+  "package": "STUDIO R2 — people left, pictures right, studio in view",
+  "status": "PROPOSED DESIGN / MOCK DATA — NOT IMPLEMENTED",
+  "repository": "HSpector1/The-Movies",
+  "branch": "docs/uiux-whole-game-review-01",
+  "reviewed_content_commit": "1fab1a3abc297b4533739e2ba7f95e8e13de08b5",
+  "prior_visual_publication_commit": "1c01a4146d513724b6ec3e601bf7be100db1a671",
+  "original_review_commit": "72f04f95bb00ba601d511142b9db8b231e86526b",
+  "assignment_commit": "c9ad874a7c8d6010d80ef87313e21ea9f016f99a",
+  "revision_basis": "Owner-supplied Lionhead references and request for persistent employee and picture tracking",
+  "scope": "Standalone non-production design artifacts; no native game validation",
+  "content_file_count": 86,
+  "content_bytes": 22056889,
+  "PNG_files": 71,
+  "entry_point": "index.html",
+  "manifest_scope": "files records every design payload byte at reviewed_content_commit. package-manifest.json and MANIFEST.sha256 are generated packaging metadata and excluded from their own recursive records. MANIFEST.sha256 covers all payload files and package-manifest.json. A later publication commit adds archive/download links and PACKAGE.md; no commit SHA claims to contain itself.",
+  "files": [
+    {
+      "path": "PROTOTYPE.md",
+      "bytes": 4987,
+      "sha256": "6cd0781eef7ec455138886a8a216d1d6e13d36cfd35d54b261e634fd3ceb2793"
+    },
+    {
+      "path": "README.md",
+      "bytes": 13830,
+      "sha256": "dc87eaff97a59de9bb0e4effb2b53f50900970d936ef25115f4dbf6d2e586049"
+    },
+    {
+      "path": "REFERENCE-REVIEW.md",
+      "bytes": 8313,
+      "sha256": "0dab52e50b792e6618bd1e56794ce00282e99b210346fd4a00806734acdb532e"
+    },
+    {
+      "path": "REVIEW.md",
+      "bytes": 8886,
+      "sha256": "a8dc1f488232d0e8357e788db3c056c709bfb57a54dfc4daf9658b3ddff4d578"
+    },
+    {
+      "path": "ROUTING.md",
+      "bytes": 5836,
+      "sha256": "48870b6be4d0e43675ba95533e1bacc3e4754943dd782c414a9fbeca9a59a727"
+    },
+    {
+      "path": "SPECIFICATION.md",
+      "bytes": 8935,
+      "sha256": "ff731b33b214f467b41b2a21e58620d28835c2738a3e63e8a5c7f340a1e41878"
+    },
+    {
+      "path": "evidence/author-browser-check.json",
+      "bytes": 720,
+      "sha256": "5be044af7eaca1c60caef67bdecf56af747df2228e5f1515d7d5db3cd79b9ce7"
+    },
+    {
+      "path": "evidence/checked-casting-lot.png",
+      "bytes": 277424,
+      "sha256": "95efe7dcfb05e951f337f659c67480062e8f26541807127fd65756a1e4d4b258"
+    },
+    {
+      "path": "evidence/checked-exact-crew-guard.png",
+      "bytes": 291851,
+      "sha256": "85a48e57a3712de09276590e6383ffff6af5ab3718ec0a2c5ca10c656023f8f5"
+    },
+    {
+      "path": "evidence/checked-large-candidate-top.png",
+      "bytes": 197405,
+      "sha256": "d272e7476ed0643674353ef39a04af2fe9064716b65a8c70f081b3b7d36e986c"
+    },
+    {
+      "path": "evidence/checked-large-person-top.png",
+      "bytes": 205294,
+      "sha256": "906e375346ac35acb45b3462dfb441d11bf327b391e80597de0f3d38b9a3cdf1"
+    },
+    {
+      "path": "evidence/checker-repairs.json",
+      "bytes": 1405,
+      "sha256": "07aa6b100c181d90e9ff8709751bcd6ba54e52fc62c522035860f7468588a847"
+    },
+    {
+      "path": "index.html",
+      "bytes": 1376,
+      "sha256": "ee126b0e44043f66e5e1f766d06c1989ad9d99b725c4404804b18191a02e2525"
+    },
+    {
+      "path": "living-studio.css",
+      "bytes": 20317,
+      "sha256": "673d16bfd508b82e09530e190d210b8b70756a4e4a257f96200e339bb93dc0da"
+    },
+    {
+      "path": "living-studio.js",
+      "bytes": 36022,
+      "sha256": "962368fc7ed0a7caf30023a932e875120825d107865284ff03acdb7ac01f860d"
+    },
+    {
+      "path": "lot.svg",
+      "bytes": 8678,
+      "sha256": "50a877c248ba173ce0a9dd736bba292d0744129e5d118318a8b79aa20c3833fe"
+    },
+    {
+      "path": "previews/C01-components-annotated.png",
+      "bytes": 358926,
+      "sha256": "51c115d5914ba1511de7ad360d42b11242c753a31160ef0fa3798e0052b1f752"
+    },
+    {
+      "path": "previews/C01-components.png",
+      "bytes": 277322,
+      "sha256": "484d6c86d247b56da4307b958e4809be6e67902c12321d015fc0dadbb361230e"
+    },
+    {
+      "path": "previews/C01-states-annotated.png",
+      "bytes": 368079,
+      "sha256": "2257db6a764d3786dd77ac3aa15848befbadbfa9b53b4f47ee592df146e96d8f"
+    },
+    {
+      "path": "previews/C01-states.png",
+      "bytes": 286342,
+      "sha256": "f3eff5ab7978ee5607cdf4aa51f19bf6d2075bb4f4d9f835b9b357943af785cf"
+    },
+    {
+      "path": "previews/V01-early-annotated.png",
+      "bytes": 320595,
+      "sha256": "843c8d235ce3c5b3bd245e10d692196e723b1c06b6e5f2efb61bd9ca84223293"
+    },
+    {
+      "path": "previews/V01-early.png",
+      "bytes": 245199,
+      "sha256": "5ac7456d620d68a3961328086a67f944c1cfb0e164b328ac80deb08d82b47667"
+    },
+    {
+      "path": "previews/V01-overview-annotated.png",
+      "bytes": 387962,
+      "sha256": "517450a02792bb96f02ba291e71f6053cbd03237301f15060b5f0f7fbde92ce6"
+    },
+    {
+      "path": "previews/V01-overview.png",
+      "bytes": 313340,
+      "sha256": "1dcce413a01551698f42a346369886a8fe75c2a1c5d75363621a61266023bc6c"
+    },
+    {
+      "path": "previews/V02-production-annotated.png",
+      "bytes": 384450,
+      "sha256": "d7f0b3e99bacff5ef5668b83335718e32ccac5e3bee002d4d956feb5b35abb13"
+    },
+    {
+      "path": "previews/V02-production.png",
+      "bytes": 304225,
+      "sha256": "ca6c92e850e111bd04e5f22a6c62528054a29e1756d189230d407b1a4496bf8a"
+    },
+    {
+      "path": "previews/V02-waiting-annotated.png",
+      "bytes": 355837,
+      "sha256": "57be866483b8807b1e24f8f8b478ac16f68ef161993a3984fc0cd7f6a823e470"
+    },
+    {
+      "path": "previews/V02-waiting.png",
+      "bytes": 275375,
+      "sha256": "7d85f64628127ea7e98717c5350140bfef4886a4268288d8279f8cf0da07de6b"
+    },
+    {
+      "path": "previews/V03-contract-annotated.png",
+      "bytes": 339097,
+      "sha256": "12212b50bbda96af2af457cd2c1e620554d659d80d22410274eff53e6167eada"
+    },
+    {
+      "path": "previews/V03-contract.png",
+      "bytes": 252099,
+      "sha256": "6cddb118bbaeba99a156c46b8d7a73a5b2867012ca6c7b260c3bb8f0000785ae"
+    },
+    {
+      "path": "previews/V03-person-annotated.png",
+      "bytes": 381490,
+      "sha256": "f7a5ec31968b67fa22c598e765db085a4b3d5fcf3b8e9731338ff69dc622b213"
+    },
+    {
+      "path": "previews/V03-person.png",
+      "bytes": 296567,
+      "sha256": "3a0089b991d92f7efd89fd640cb64f36e38c0233a6af0e3634a908d7a3de4ac1"
+    },
+    {
+      "path": "previews/V04-casting-building-annotated.png",
+      "bytes": 392713,
+      "sha256": "be80ab4b2551b463e0a4d4a7082254b0fe7677fbd194fd4e20d66ee4b57361f6"
+    },
+    {
+      "path": "previews/V04-casting-building.png",
+      "bytes": 314595,
+      "sha256": "e1265b362c2839737617be11ae248e9ce69a38ca5f993a878639a81f274f8694"
+    },
+    {
+      "path": "previews/V04-compare-annotated.png",
+      "bytes": 353214,
+      "sha256": "56fa25a846752fc8586f6c40cfbead1e1cd9aa8d7ea602eb013747b359c21b57"
+    },
+    {
+      "path": "previews/V04-compare.png",
+      "bytes": 269943,
+      "sha256": "d2babf7f60bb94d4cf8d3a25f5e69c4e7ca27944b1a463ec734276837a6f9d68"
+    },
+    {
+      "path": "previews/V05-catalogue-annotated.png",
+      "bytes": 386104,
+      "sha256": "7a0360086e5f852b816710419fc6b6f205a7b98ca3585ec642439d6d89efbb37"
+    },
+    {
+      "path": "previews/V05-catalogue.png",
+      "bytes": 305403,
+      "sha256": "336bbb000479575f55cb8eb1577ecbda120689610f2c110cf00f075b9418f245"
+    },
+    {
+      "path": "previews/V05-construction-annotated.png",
+      "bytes": 386137,
+      "sha256": "e55fee4e276187afe08e7ec0ec8d7fdf8663cfe8a8de7af5a8198d30dd3441f8"
+    },
+    {
+      "path": "previews/V05-construction.png",
+      "bytes": 304765,
+      "sha256": "731b93b95d8e719bacc4e6ff0cec033ce81e5d636ec37a391d50324a3e0dc6f7"
+    },
+    {
+      "path": "previews/V05-invalid-annotated.png",
+      "bytes": 394271,
+      "sha256": "95d6eaf12f72e1c84c6a8c00ba5c60afa218ca464c81a44111d758fddd942cc4"
+    },
+    {
+      "path": "previews/V05-invalid.png",
+      "bytes": 312976,
+      "sha256": "932590b24f29e049825743db4a849a1ec241bf8f3b8ea429aa0988befd8311f2"
+    },
+    {
+      "path": "previews/V05-laboratory-annotated.png",
+      "bytes": 383478,
+      "sha256": "66de2d2adb58cf61fd4a72ef3b4b0176bb651149ec455231bc4d424527ce5f05"
+    },
+    {
+      "path": "previews/V05-laboratory.png",
+      "bytes": 302425,
+      "sha256": "5a129f14cc6a1ad5ee8950ff3b0fc990ea342fe5805ec4b7003ece13fef6f895"
+    },
+    {
+      "path": "previews/V05-operational-annotated.png",
+      "bytes": 383373,
+      "sha256": "fd3938dc5fe7c1434643af19fa5c8d899f9159a8b970e188be5bee203c3185f4"
+    },
+    {
+      "path": "previews/V05-operational.png",
+      "bytes": 302492,
+      "sha256": "3ba19180cd6fa10fe4d9dc84970935d13ed197a7b0907811419900c966d25982"
+    },
+    {
+      "path": "previews/V05-placement-annotated.png",
+      "bytes": 401461,
+      "sha256": "e46c054027aed61f365909b8de064587d43295206bb71a5dc0931d199135b351"
+    },
+    {
+      "path": "previews/V05-placement.png",
+      "bytes": 319878,
+      "sha256": "d7dd85a3b554f039691224cc0c5f404489a6bac45f65328273a79fefed629cc8"
+    },
+    {
+      "path": "previews/V06-finance-annotated.png",
+      "bytes": 364823,
+      "sha256": "7355e50bd4e64fd2c70b928e2269b04f50a11332f2d5c32c7a71ed2bf64c03ed"
+    },
+    {
+      "path": "previews/V06-finance.png",
+      "bytes": 283168,
+      "sha256": "92cf4765bfe04181401e41f0303476da59245e0aef150ea7fd18ebfaab660261"
+    },
+    {
+      "path": "previews/V06-industry-annotated.png",
+      "bytes": 351353,
+      "sha256": "ab691b1a2b975fc2e0e8e4c29fb4bdfe8af17a9b65bdea50fec59df571b2d3d0"
+    },
+    {
+      "path": "previews/V06-industry.png",
+      "bytes": 270158,
+      "sha256": "0eb6cb5393e624909470605b48375d2c6358dd882f042d59081ecbb2acf1c578"
+    },
+    {
+      "path": "previews/V07-campaigns-annotated.png",
+      "bytes": 348973,
+      "sha256": "2d1e06c60692608fa2afc96b1672f805f7c074ffd060f45ef8c33e5dcbeea915"
+    },
+    {
+      "path": "previews/V07-campaigns.png",
+      "bytes": 267113,
+      "sha256": "9f52ed5329ac70c16ec561ecf7aeff299c366cc9cb8679f5cc131ae4f9a3b3b1"
+    },
+    {
+      "path": "previews/V07-continuation-annotated.png",
+      "bytes": 351876,
+      "sha256": "f014e56029aca8ac68c2352801bdbafd069d42e016d4521f6fa60060b094c41a"
+    },
+    {
+      "path": "previews/V07-continuation.png",
+      "bytes": 268036,
+      "sha256": "3e18f5398891805710c3016978e582f88cb1cd0fb64746ce4dbd853cebc9b9c0"
+    },
+    {
+      "path": "previews/V07-overwrite-annotated.png",
+      "bytes": 358579,
+      "sha256": "64855093a9a59463718d7cda567a29b30a7cd4709fe1f9b3018595d307e18fb0"
+    },
+    {
+      "path": "previews/V07-overwrite.png",
+      "bytes": 274210,
+      "sha256": "1386515867b11b8e0049203306c0c2b60e0f7749c9b5aa33edd979fabf59e2cd"
+    },
+    {
+      "path": "previews/V07-pending-annotated.png",
+      "bytes": 351470,
+      "sha256": "f2d33cbc9d0d56da047c4842268dc68d064c32f7a198aad452e866547b9ff3cd"
+    },
+    {
+      "path": "previews/V07-pending.png",
+      "bytes": 266990,
+      "sha256": "f33aae679a24d34ae2e21156473af7058803c41225b14eeb9511015eb43fbd5c"
+    },
+    {
+      "path": "previews/V07-receipt-annotated.png",
+      "bytes": 352901,
+      "sha256": "02ad540e7c99eca4c7c961d5c377b3e56188918373c74fa58dfc6305ed0d5e26"
+    },
+    {
+      "path": "previews/V07-receipt.png",
+      "bytes": 268500,
+      "sha256": "5345e440ea569c82552d83d3a5c9e07dabcc78ab1feca1db24b3d3bb8f537c22"
+    },
+    {
+      "path": "previews/V07-save-as-annotated.png",
+      "bytes": 354312,
+      "sha256": "f913ef184572284a4a014558a7fe205efa04640b4212989e742af5ffb95fb1a5"
+    },
+    {
+      "path": "previews/V07-save-as.png",
+      "bytes": 270037,
+      "sha256": "ccc555371e0947aa195faf3f9de77adf9825ef23785491cf565a3b0891843067"
+    },
+    {
+      "path": "previews/V07-unresolved-annotated.png",
+      "bytes": 355220,
+      "sha256": "674e01214059a96a7b2d8c007ea17c4f76cf74e6ec85262a6a6eb300015531ab"
+    },
+    {
+      "path": "previews/V07-unresolved.png",
+      "bytes": 270589,
+      "sha256": "3a774a4b243960405a5b7eee666a634170877c0be3ce3bd1ff42fd75730d6c8b"
+    },
+    {
+      "path": "previews/V08-result-annotated.png",
+      "bytes": 388571,
+      "sha256": "6bbab2591971a86810213c6af7617d383ae59b2d7be15968df6628929e2d4e33"
+    },
+    {
+      "path": "previews/V08-result.png",
+      "bytes": 309016,
+      "sha256": "eec6f451fe9b966fe5e87f289134a071ebdfbab6843161d7f32d7f57a4fa6be3"
+    },
+    {
+      "path": "previews/edge-casting-empty.png",
+      "bytes": 203209,
+      "sha256": "035f26c626da3e47f6f89316b29642e594a88b7c6d54bd81a6b75c76dcc546f5"
+    },
+    {
+      "path": "previews/edge-casting-long.png",
+      "bytes": 226408,
+      "sha256": "3c81c3a8385eb623b8da94dddf038b6b123ddc1dd7b89caed9e78b0eb61b8d4e"
+    },
+    {
+      "path": "previews/edge-production-missing.png",
+      "bytes": 236623,
+      "sha256": "652945a0239b0cb8ff9cee52f44379020344dc6063052df8f1d5e7296dec8383"
+    },
+    {
+      "path": "previews/stress-campaigns-1280-100.png",
+      "bytes": 207509,
+      "sha256": "2ab241ce601816c604b4b447833da6de14442904951736aae0b57fe5e02521e6"
+    },
+    {
+      "path": "previews/stress-campaigns-1280-200.png",
+      "bytes": 228617,
+      "sha256": "9020c627fc4d44892a0b9320b125406cfd84cd3fa2c1e06e9d028884175d2602"
+    },
+    {
+      "path": "previews/stress-campaigns-1920-100.png",
+      "bytes": 305970,
+      "sha256": "d09cc0352041c3c51e05c2d2d0c35c4277bbe98d7d6ce3d0fd8db59f5991a2db"
+    },
+    {
+      "path": "previews/stress-casting-1280-100.png",
+      "bytes": 210237,
+      "sha256": "f0852e2e2ca656114f3bfb6c8a4b41c6207a8c7368192e552b906fb3b6a7a955"
+    },
+    {
+      "path": "previews/stress-casting-1280-200.png",
+      "bytes": 210026,
+      "sha256": "103395b963958097cf2fc6546f537729109625ddb09d0a920ea68973700a169f"
+    },
+    {
+      "path": "previews/stress-casting-1920-100.png",
+      "bytes": 315512,
+      "sha256": "41c0a9b1bf32b3047475b31b4c404e2b7fbd287c50fc333f11339074876a6390"
+    },
+    {
+      "path": "previews/stress-home-1280-100.png",
+      "bytes": 254020,
+      "sha256": "aa9f2dde0021c43f283976116c1fcb9c31ec7f27c6731d81cf381b92bbb03541"
+    },
+    {
+      "path": "previews/stress-home-1280-200.png",
+      "bytes": 243572,
+      "sha256": "bf5d84fafa8fbeef4b7a00a89089d18b33c16aeadfb8e93a90350b5d4097e773"
+    },
+    {
+      "path": "previews/stress-home-1920-100.png",
+      "bytes": 410726,
+      "sha256": "c3a701e557bacfd697551cdbebf0554943986fe2d497a5c0a0f44b956f20bab8"
+    },
+    {
+      "path": "previews/stress-production-1280-100.png",
+      "bytes": 233798,
+      "sha256": "5237e89eae640a5389b95e9dd4448fee6993865399d551b8cc736baec71d2673"
+    },
+    {
+      "path": "previews/stress-production-1280-200.png",
+      "bytes": 210868,
+      "sha256": "bfc5b706f045f0cb3f08213e2d32fbb0e798e9bc6b6e29f58d0d135301517bed"
+    },
+    {
+      "path": "previews/stress-production-1920-100.png",
+      "bytes": 399391,
+      "sha256": "0aa679cd51e8d6747139a3ca5ac6cf056d37be88ee1eccaf60034c3b3ea810ef"
+    },
+    {
+      "path": "prototype.js",
+      "bytes": 56204,
+      "sha256": "9041707bd37a08badd90355a8e7c99806f5454786d9fb55b533c92c47fc388f7"
+    },
+    {
+      "path": "reference-manifest.json",
+      "bytes": 9856,
+      "sha256": "b1fd4542298e393789edceabc30b1df4651abfc7e540ec7ff1a63d9bd08fae34"
+    },
+    {
+      "path": "styles.css",
+      "bytes": 17036,
+      "sha256": "3125b4a2afed4db5ba84b2274418590ef813781b1649374ed8b50e0a277afdaf"
+    }
+  ]
+}

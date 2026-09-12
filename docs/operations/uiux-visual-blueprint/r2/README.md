@@ -4,6 +4,8 @@
 
 **PROPOSED DESIGN / MOCK DATA — NOT IMPLEMENTED.** This Owner-directed revision replaces the R1 studio-desk recommendation. The supplied Lionhead screenshots make the missing relationship clear: people remain discoverable on the left, scripts and films stay trackable on the right, and inspection happens in the lot between them. R2 develops that relationship throughout the same eight screen families and clickable journeys.
 
+**[Download the complete R2 ZIP](delivery/UIUX-VISUAL-BLUEPRINT-R2.zip?raw=true)** · [Exact content commit, bytes and checksums](PACKAGE.md).
+
 **Click through:** extract this complete package and open **index.html**. No install, server, login or game is required. GitHub displays HTML source; it does not run this local prototype. [Journey instructions](PROTOTYPE.md) · [editable HTML](index.html) · [shared CSS](styles.css) / [R2 CSS](living-studio.css) · [fictional journey state](prototype.js) / [R2 interactions](living-studio.js) · [original lot SVG](lot.svg).
 
 [Reference observations and source findings](REFERENCE-REVIEW.md) · [exact layout / control standard / screen map](SPECIFICATION.md) · [source-to-design / implementation routing](ROUTING.md) · [rendered checks and future native acceptance](REVIEW.md).
