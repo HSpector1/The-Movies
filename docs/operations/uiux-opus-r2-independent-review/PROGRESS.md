@@ -28,3 +28,14 @@
   `assets/original-game/`.
 - Launched one background research workflow (4 original-game lenses + 7 comparators +
   frame verification + gap critic; Sonnet subagents). Results pending.
+- Built the proposal prototype under `assets/design/` (data.js = R2 fixture, portraits.js,
+  lot.js target-lot proof, app.js, design.css, explorations.css, index.html, render.cjs).
+  Rendered with the same isolated harness: 33 boards, 0 page errors, 0 console issues,
+  0 network attempts (`assets/design-renders/render-log.json`). Measured on the proposal
+  home board: 3 radii (4 px, 8 px, 50 %), 2 shadows, 0 reading text under 12 px, 0 tracked
+  micro-labels under 10 px, 12/12 distinct portraits, first person reachable 3 Tabs after
+  the HUD (hotkeys 1/2 jump to the rails).
+- Draft state: explorations A/B rendered; recommended K1–K4 clean + annotated rendered;
+  R2-world comparison, early, long-name, waiting and 1280×720 (100 %/200 %) variants
+  rendered; 14-step journey captured (J1–J14). Component sheet and comparison boards
+  still to do.

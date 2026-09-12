@@ -1,0 +1,56 @@
+/* Exploration A — "Card stock": cards float over the world with no shelf, as in the
+   original HUD; category tabs sit above the stack on a brass rule; opaque cream. */
+.dir-a .rail { background: transparent; border: 0; backdrop-filter: none; padding: 0; }
+.dir-a .rail-head { background: var(--stock); border: 1px solid var(--edge); border-radius: var(--r-card) var(--r-card) 0 0; padding: 6px 8px; color: var(--ink); }
+.dir-a .rail-head h3 b, .dir-a .rail-head .free { color: var(--muted); }
+.dir-a .tabs { background: var(--stock-2); border: 1px solid var(--edge); border-top: 0; padding: 0 4px; margin-top: -6px; }
+.dir-a .tabs button { color: var(--ink-2); } .dir-a .tabs button.on { color: var(--ink); }
+.dir-a .search { background: var(--stock); border-color: var(--edge); color: var(--muted); margin-top: -2px; }
+.dir-a .search input { color: var(--ink); } .dir-a .search input::placeholder { color: var(--muted); }
+.dir-a .list { gap: 4px; }
+.dir-a .row { border-width: 2px 2px 3px; border-left-width: 6px; box-shadow: 0 2px 4px rgba(20,14,8,.35); }
+.dir-a .grp { color: var(--ink); background: rgba(245,237,220,.85); padding: 3px 6px; border-radius: var(--r-ctl); }
+.dir-a .empty { color: var(--ink); }
+.dir-a .hud { background: linear-gradient(#f5eddc, #e6dcc2); color: var(--ink); border-bottom: 2px solid var(--gold-deep); }
+.dir-a .date em, .dir-a .rank, .dir-a .cash em, .dir-a .timeline i b { color: var(--ink-2); }
+.dir-a .tb, .dir-a .menu { background: #fff8e8; color: var(--ink); border-color: var(--edge); } .dir-a .tb.on { background: var(--gold); }
+.dir-a .cash { border-color: var(--edge); color: var(--ink); }
+.dir-a .marque .name { color: var(--ink); }
+.dir-a .timeline { border-bottom-color: var(--gold-deep); } .dir-a .timeline i { border-left-color: var(--edge); }
+
+/* Exploration B — "Marquee glass": contemporary dark-glass rails, white type,
+   hairline gold, circular portraits with role rings, denser single-line rows. */
+.dir-b .rail { background: rgba(10,12,16,.72); border: 1px solid rgba(255,255,255,.08); border-radius: var(--r-card); backdrop-filter: blur(6px); }
+.dir-b .rail-head h3 { letter-spacing: .06em; text-transform: none; font-size: 17px; }
+.dir-b .tabs button { font-size: 12px; }
+.dir-b .row { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); border-left-width: 1px; color: #f3f1ea; border-radius: var(--r-card); box-shadow: none; padding: 5px 8px; }
+.dir-b .row:hover { background: rgba(255,255,255,.12); }
+.dir-b .row.selected { background: rgba(242,182,50,.16); border-color: #f2b632; outline: 1px solid #f2b632; }
+.dir-b .row strong { font: 600 14px/1.15 var(--body); color: #fff; }
+.dir-b .row .meta, .dir-b .row .meta em { color: #b9b3a6; }
+.dir-b .row.person .pt { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.dir-b .row.person .pt rect { rx: 50; }
+.dir-b .row.person:has(.st-work) .pt { outline: 2px solid var(--work); outline-offset: 1px; }
+.dir-b .row.person:has(.st-free) .pt { outline: 2px solid #b9b3a6; outline-offset: 1px; }
+.dir-b .chip { background: transparent; color: #e7e1d3; padding: 0; font-weight: 600; }
+.dir-b .chip.st-free { border: 0; color: #b9b3a6; }
+.dir-b .chip .ic { color: #f2b632; }
+.dir-b .poster { border-radius: var(--r-ctl); }
+.dir-b .grp { color: #b9b3a6; letter-spacing: .08em; text-transform: none; font: 600 12px var(--body); }
+.dir-b .phases i { background: rgba(255,255,255,.18); } .dir-b .phases i.done { background: rgba(255,255,255,.45); } .dir-b .phases i.now { background: #f2b632; box-shadow: none; }
+.dir-b .tab.need { background: #f2b632; } .dir-b .tab.wait { background: rgba(255,255,255,.25); }
+.dir-b .hud { background: rgba(10,12,16,.9); border-bottom: 1px solid #f2b632; height: 48px; }
+.dir-b .marque .name { letter-spacing: .12em; font: 600 14px var(--body); text-transform: none; }
+.dir-b .tb { border-radius: var(--r-ctl); background: rgba(255,255,255,.08); border-color: transparent; }
+.dir-b .tb.on { background: #f2b632; }
+.dir-b .cash { border-color: rgba(255,255,255,.14); } .dir-b .cash .ic { color: #f2b632; }
+.dir-b .paused-stamp { color: #f2b632; border-color: rgba(242,182,50,.6); }
+.dir-b .site { background: rgba(10,12,16,.85); color: #fff; border-color: rgba(255,255,255,.2); border-radius: var(--r-card); }
+.dir-b .site::before { display: none; }
+.dir-b .site.lit { background: #f2b632; color: #14110e; }
+.dir-b .tool { border-radius: var(--r-card); border-color: rgba(255,255,255,.2); background: rgba(10,12,16,.85); }
+.dir-b .tool .ic { color: #f2b632; }
+.dir-b .marker .who { background: rgba(10,12,16,.9); color: #fff; border-color: #f2b632; }
+.dir-b .marker .who em { color: #b9b3a6; }
+.dir-b .marker .who::after { background: rgba(10,12,16,.9); }
+.dir-b .fp polygon { stroke: #f2b632; fill: rgba(242,182,50,.2); }

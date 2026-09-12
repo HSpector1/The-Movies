@@ -1,0 +1,30 @@
+{
+  "pageErrors": [],
+  "console": [],
+  "blocked": [],
+  "keyboard": {
+    "tabsToFirstPerson": 8,
+    "focused": "Mara Vale, Director, P-004, On set"
+  },
+  "metrics": {
+    "radii": [
+      "50%",
+      "4px",
+      "8px"
+    ],
+    "shadows": [
+      "rgba(20, 14, 8, 0.28) 0px 2px 6px 0px",
+      "rgba(20, 14, 8, 0.42) 0px 8px 24px 0px"
+    ],
+    "readingTextUnder12": 0,
+    "microLabelsUnder10": 0,
+    "minReadingFont": 99,
+    "fonts": [
+      "\"Avenir Next\", \"Gill Sans\", \"Segoe UI\", \"Trebuchet MS\", sans-serif",
+      "Futura, \"Avenir Next Condensed\", \"Gill Sans\", \"Trebuchet MS\", sans-serif",
+      "Futura, \"Avenir Next\", \"Gill Sans\", \"Trebuchet MS\", sans-serif"
+    ],
+    "uniqueAvatars": 12,
+    "avatars": 12
+  }
+}
