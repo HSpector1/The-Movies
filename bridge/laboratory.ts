@@ -4,7 +4,8 @@ import { campaignDate } from '../src/core/calendar.js'
 import { activeContract, economyEngaged, offerForTalent, weeklySalary } from '../src/core/employment.js'
 import { weeklyBurn, weeklyOverhead } from '../src/core/economyView.js'
 import { hasOperationalFacilityInstallation } from '../src/core/facilityEffects.js'
-import { queryFacilityInstallation } from '../src/core/placement.js'
+import { blueprintById, facilityInstallationPhase, queryFacilityInstallation } from '../src/core/placement.js'
+import { TUNING } from '../src/core/tuning.js'
 import { researchWeekQuote, SYNCHRONIZED_SOUND, weeklyResearchPayroll } from '../src/core/technology.js'
 import type { TechnologyAction } from '../src/core/technologyTypes.js'
 import type { GameState } from '../src/core/types.js'
@@ -32,6 +33,28 @@ function installationDetail(state: GameState, blueprintId: string, facilityId: s
   return `${quote.components.map(c => `${c.label}: ${money(c.cost)}`).join('; ')}. ` +
     `${quote.buildWeeks} weeks of physical work; ready ${campaignDate(quote.completesOnWeek).label}. ` +
     `${money(quote.weeklyOperatingCost)}/week operating cost after completion; no operating charge during work.`
+}
+
+/** Read the employee's current contract, never a quoted replacement offer. */
+function scientistEmploymentDetail(state: GameState, scientistId: string): string {
+  const contract = activeContract(state, scientistId)
+  if (!contract) return '$0/week Scientist payroll; no active employment contract. The Laboratory assignment and verified work remain.'
+  const overhead = economyEngaged(state) && state.founding === null ? TUNING.OVERHEAD_PER_EMPLOYEE : 0
+  return `${money(weeklySalary(contract.annualSalary))}/week Scientist payroll + ${money(overhead)}/week employment overhead for this Scientist. ` +
+    `Contract ends ${campaignDate(contract.endWeekExclusive).label}. These employment costs continue while employed, including while research is paused or complete. Studio base overhead and facilities are separate.`
+}
+
+/** Committed body-specific work, not a new installation quote or an aggregate chain clock. */
+function committedInstallationLabel(state: GameState, facilityId: string, blueprintId: string): string {
+  const name = state.operations.facilities.find(f => f.id === facilityId)?.name ?? facilityId
+  const blueprint = blueprintById(blueprintId)
+  const job = state.placement.facilities.find(p => p.blueprintId === blueprintId && p.installation?.targetFacilityId === facilityId)
+  if (!job) return `${name} · ${blueprint?.name ?? blueprintId}: not installed.`
+  const rate = blueprint ? money(blueprint.weeklyOperatingCost) + '/week' : 'Operating cost unavailable'
+  return `${name} · ${blueprint?.name ?? blueprintId}: ${facilityInstallationPhase(job, state.market.tick)}. ` +
+    (job.status === 'operational'
+      ? `Completed ${campaignDate(job.completesWeek).label}; ${rate} operating cost on advances after completion.`
+      : `Due ${campaignDate(job.completesWeek).label}; ${rate} operating cost after completion, $0 during installation.`)
 }
 
 /** Bounded by the player's actual facilities/productions, cached only by immutable campaign state. */
@@ -174,12 +197,12 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
   return { totalRows: actions.length, pageCount, laboratory: {
     buildingId: buildingId!, title: state.operations.facilities.find(f => f.id === lab.facilityId)?.name ?? 'Research Laboratory',
     statusLabel: lab.status === 'operational' ? 'Laboratory operational' : `Laboratory under construction · opens ${campaignDate(lab.completesWeek).label}`,
-    seatLabel: `Seats assigned: ${project ? 1 : 0} of ${state.operations.facilities.find(f => f.id === lab.facilityId)?.capacity ?? 4}. This research programme uses one assigned Scientist.`,
+    seatLabel: `Seats assigned: ${project ? 1 : 0} of ${state.operations.facilities.find(f => f.id === lab.facilityId)?.capacity ?? 4}. This research programme uses one assigned Scientist; only one Scientist may be actively employed.`,
     scientistId: person?.id ?? null,
-    scientistLabel: person ? `${person.name} · ${activeContract(state, person.id) ? 'employed Scientist' : 'contract no longer active'} · ${money(weeklyResearchPayroll(state))}/week Scientist payroll`
-      : employedScientist ? `${employedScientist.name} is employed. Assign this Scientist to the Laboratory seat to create the research project.`
+    scientistLabel: person ? `${person.name} · ${activeContract(state, person.id) ? 'employed Scientist' : 'contract no longer active'} · ${scientistEmploymentDetail(state, person.id)}`
+      : employedScientist ? `${employedScientist.name} is employed. Assign this Scientist to the Laboratory seat to create the research project. ${scientistEmploymentDetail(state, employedScientist.id)}`
         : 'No Scientist assigned. Employ a named Scientist, then assign this Laboratory seat.',
-    budgetLabel: project ? `${money(project.budgetPerWeek)}/week requested ceiling · ${money(quote?.spend ?? 0)}/week currently usable R&D · ${money(project.expenditure)} spent on this project. Payroll is separate.` : 'No research budget is active.',
+    budgetLabel: project ? `${money(project.budgetPerWeek)}/week requested ceiling · ${money(quote?.spend ?? 0)}/week currently usable R&D · ${money(Math.max(0, project.budgetPerWeek - (quote?.spend ?? 0)))}/week of the ceiling is not currently charged · ${money(project.expenditure)} spent on this project. Payroll and employment overhead are separate. A $0 ceiling allows baseline work while active and prerequisites are met.` : 'No research budget is active.',
     bottleneckLabel: project?.status === 'completed'
       ? operational.length > 0
         ? `Research is complete. Synchronized dialogue is ready on ${operational.map(adoption => `${name(adoption.stageFacilityId)} + ${name(adoption.postFacilityId)}`).join('; ')}. Select an operational chain before the production enters the filming phase, when its technology locks before the first take.`
@@ -188,7 +211,7 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
       : quote?.bottleneck ?? (instrumentsOperational
         ? 'Acoustic instruments are operational. Assign one Scientist before research can begin.'
         : 'Assign one Scientist and install acoustic instruments before research can begin.'),
-    estimateLabel: project?.status === 'completed' ? `Research completed ${campaignDate(project.completedWeek!).label}.` : estimate?.remainingWeeks !== null && estimate?.remainingWeeks !== undefined
+    estimateLabel: project?.status === 'completed' ? `Research completed ${campaignDate(project.completedWeek!).label}. No further research project is currently available.` : estimate?.remainingWeeks !== null && estimate?.remainingWeeks !== undefined
       ? `${project?.status === 'active' ? 'At current funding' : 'If resumed now'}: ${estimate.remainingWeeks} funded weeks remain; estimated research completion ${campaignDate(state.market.tick + estimate.remainingWeeks).label}. Physical installation follows separately.`
       : `No completion estimate while prerequisites are blocked. Research opens ${campaignDate(SYNCHRONIZED_SOUND.researchableWeek).label}.`,
     progressLabel: project ? `${project.verifiedWork} of ${SYNCHRONIZED_SOUND.work} verified units · ${project.status}. Verified work survives cancel and restart.` : `${SYNCHRONIZED_SOUND.work} verified units are required for synchronized sound. Research has not begun.`,
@@ -197,7 +220,12 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
     commercialLabel: access?.acquiredWeek !== null && access?.acquiredWeek !== undefined
       ? `Access acquired by ${access.route} at ${campaignDate(access.acquiredWeek).label}. Access alone does not provide physical sound capability.`
       : `Commercial access ${state.market.tick >= SYNCHRONIZED_SOUND.commercialWeek ? 'is available' : 'opens'} ${campaignDate(SYNCHRONIZED_SOUND.commercialWeek).label} for ${money(SYNCHRONIZED_SOUND.accessCost)}. ${access?.route === 'wait' ? 'Your studio has chosen to wait. ' : ''}Silent films remain lawful.`,
-    installationLabel: physical.length ? physical.map(a => `${name(a.stageFacilityId)} + ${name(a.postFacilityId)} · ${a.operationalWeek === null ? 'installation underway' : 'operational since ' + campaignDate(a.operationalWeek).label}`).join('\n') : 'No synchronized stage, capture and Post chain is operational. Research or purchase must be followed by an exact physical installation.',
+    installationLabel: committedInstallationLabel(state, lab.facilityId, 'acoustic-instruments') + '\n' +
+      (physical.length ? physical.map(a => `${name(a.stageFacilityId)} + ${name(a.postFacilityId)} · ${a.operationalWeek === null ? 'chain installation underway' : 'chain operational since ' + campaignDate(a.operationalWeek).label}. ` +
+        `Committed installation payment ${money(a.installationCost)}; equipment payment ${money(a.equipmentCost)}.\n` +
+        committedInstallationLabel(state, a.stageFacilityId, 'synchronized-sound-stage') + '\n' +
+        committedInstallationLabel(state, a.postFacilityId, 'synchronized-sound-post')).join('\n') :
+        'No synchronized stage, capture and Post chain is operational. Research or purchase must be followed by an exact physical installation.'),
     actions: actions.slice(page * pageSize, (page + 1) * pageSize).map(a => ({ id: a.id, label: a.label, detail: a.detail,
       enabled: a.enabled && enabled.has(a.id), disabledReason: a.disabledReason ?? (enabled.has(a.id) ? null : 'Refresh this Laboratory to review the current decision.'), intent: enabled.get(a.id) ?? null })),
   } }

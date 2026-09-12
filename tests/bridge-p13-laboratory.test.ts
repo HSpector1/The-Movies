@@ -123,11 +123,17 @@ describe('P13A Laboratory bridge', () => {
     let state = laboratory()
     const lab = state.placement.facilities.find(p => p.blueprintId === 'research-laboratory')!
     state = applyActions(state, [{ kind: 'installAcousticInstruments', laboratoryFacilityId: lab.facilityId }])
+    const pending = new BridgeSession(state, 'lab-test').industry(query())
+    if (!('laboratory' in pending) || !pending.laboratory) throw new Error('Laboratory page absent')
+    expect(pending.laboratory.installationLabel).toContain('Due 1920 · Week 18')
+    expect(pending.laboratory.installationLabel).toContain('$0 during installation')
     for (let week = 0; week < 5; week++) state = tick(state)
     const page = new BridgeSession(state, 'lab-test').industry(query())
     if (!('laboratory' in page) || !page.laboratory) throw new Error('Laboratory page absent')
     expect(page.laboratory.scientistId).toBeNull()
     expect(page.laboratory.bottleneckLabel).toBe('Acoustic instruments are operational. Assign one Scientist before research can begin.')
+    expect(page.laboratory.installationLabel).toContain('Completed 1920 · Week 18')
+    expect(page.laboratory.installationLabel).toContain('operating cost on advances after completion')
     expect(page.laboratory.actions.some(a => a.id === 'instruments-1')).toBe(false)
   })
 
