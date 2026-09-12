@@ -1,11 +1,11 @@
 /* Opus review proposal — recommended direction "Backlot".
    Tokens first; every component uses them. Two radii, one shadow, one accent. */
 :root {
-  --ink: #2b221c; --ink-2: #4e4238; --muted: #7a6c5e; --muted-on-dark: #cdbfa8;
+  --ink: #2b221c; --ink-2: #4e4238; --muted: #6e6153; --muted-on-dark: #cdbfa8;
   --stock: #f5eddc; --stock-2: #ece2cb; --edge: #c8b895; --line: rgba(43,34,28,.14);
   --shelf: rgba(26,21,16,.66); --shelf-edge: rgba(255,240,210,.14);
   --gold: #d9a93b; --gold-deep: #8f6a16; --gold-tint: #fff0c4;
-  --green: #2e7a4d; --green-deep: #1f5a37; --red: #b5352a; --wait: #6f8794; --work: #3f7a4f; --free: #8a7f6a;
+  --green: #2e7a4d; --green-deep: #1f5a37; --red: #b5352a; --wait: #5b7381; --work: #3f7a4f; --free: #8a7f6a;
   --display: "Futura", "Avenir Next Condensed", "Gill Sans", "Trebuchet MS", sans-serif;
   --body: "Avenir Next", "Gill Sans", "Segoe UI", "Trebuchet MS", sans-serif;
   --r-ctl: 4px; --r-card: 8px; --shadow: 0 2px 6px rgba(20,14,8,.28); --shadow-deep: 0 8px 24px rgba(20,14,8,.42);
@@ -244,3 +244,21 @@ body.annotated #annotations { display: block; float: left; width: 300px; height:
 .canvas-1280 .row .meta { white-space: normal; }
 .canvas-1280 .demo-controls label:nth-child(-n+2) { display: none; }
 .text-200 .row .meta { white-space: normal; }
+
+/* ---------- compact rails: the original's portrait/poster stacks (names on hover) ---------- */
+.rail-head .collapse { margin-left: 6px; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--shelf-edge); background: rgba(0,0,0,.25); color: var(--muted-on-dark); display: grid; place-items: center; padding: 0; }
+.rail-head .collapse .ic { width: 14px; height: 14px; }
+.rails-compact .rail-people { width: 84px; } .rails-compact .rail-pictures { width: 84px; }
+.rails-compact .rail-head h3 b, .rails-compact .rail-head .free, .rails-compact .rail-head .need-count, .rails-compact .tabs, .rails-compact .search, .rails-compact .grp b { display: none; }
+.rails-compact .rail-head h3 { font-size: 12px; letter-spacing: .08em; }
+.rails-compact .rail-head { justify-content: space-between; }
+.rails-compact .row { padding: 4px; gap: 0; justify-content: center; }
+.rails-compact .row .txt { display: none; }
+.rails-compact .row.person .pt { width: 52px; height: 62px; }
+.rails-compact .row.picture { padding-right: 4px; }
+.rails-compact .row.picture .poster { width: 48px; height: 60px; }
+.rails-compact .row.picture .tab { width: 14px; }
+.rails-compact .row.picture .tab .ic { width: 12px; height: 12px; }
+.rails-compact .grp { font-size: 9px; letter-spacing: .1em; text-align: center; justify-content: center; }
+.rails-compact .corner { left: 108px; }
+.rails-compact .workspace { left: 108px; right: 108px; }

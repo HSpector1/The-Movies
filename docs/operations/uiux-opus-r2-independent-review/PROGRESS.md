@@ -39,3 +39,8 @@
   R2-world comparison, early, long-name, waiting and 1280×720 (100 %/200 %) variants
   rendered; 14-step journey captured (J1–J14). Component sheet and comparison boards
   still to do.
+- Added the compact portrait/poster rail mode (`?rails=compact`, `V-compact-rails.png`) that
+  reproduces the original's card-stack density; component/art-direction sheet
+  (`assets/design/components.html` → `C01-component-sheet.png`); comparison boards at
+  identical scale/data (`CMP-01…05`); tokens tightened after the sheet's own contrast
+  table (muted 5.15:1, wait chip 4.98:1).

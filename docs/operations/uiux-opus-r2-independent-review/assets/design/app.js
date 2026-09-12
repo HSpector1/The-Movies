@@ -37,7 +37,7 @@ let S;
 function reset() {
   S = { screen: params.get('screen') || 'overview', dir: params.get('dir') || 'rec', world: params.get('world') || 'target',
     fixture: params.get('fixture') || 'mature', text: Number(params.get('text') || 100), annotated: params.has('annotated'),
-    selectedPerson: '', selectedProject: '', people: 'All', pictures: 'All', search: '', expanded: false, hover: null, trail: [],
+    rails: params.get('rails') || 'full', selectedPerson: '', selectedProject: '', people: 'All', pictures: 'All', search: '', expanded: false, hover: null, trail: [],
     response: 'ready', candidate: '' };
   document.documentElement.classList.toggle('canvas-1280', params.get('canvas') === '1280');
   if (S.screen === 'person') { S.selectedPerson = 'P-004'; }
@@ -53,8 +53,8 @@ const project = id => projects().find(p => p.id === id);
 const buildingFor = place => FIXTURE.buildings.find(b => b.name === place) || (place === 'Production Office' ? FIXTURE.buildings[4] : null);
 const needsMe = p => p.action && !(p.id === 'FILM-014' && S.response === 'success');
 const isWait = p => !!p.waiting;
-const statusKind = p => p.status === 'Working' || p.status === 'Writing' ? 'work' : p.status === 'Waiting' ? 'wait' : 'free';
-const statusWord = p => p.status === 'Working' ? 'On set' : p.status === 'Writing' ? 'Writing' : p.status === 'Waiting' ? 'Waiting' : 'Free';
+const statusKind = p => p.status === 'Working' || p.status === 'Writing' ? 'work' : (p.status === 'Waiting' || /^Unavailable/.test(p.status)) ? 'wait' : 'free';
+const statusWord = p => p.status === 'Working' ? 'On set' : p.status === 'Writing' ? 'Writing' : p.status === 'Waiting' ? 'Waiting' : /^Unavailable/.test(p.status) ? 'Unavailable' : 'Free';
 
 // ---------- anchors: where a building sits on screen (game px) ----------
 function anchorOf(place) {
@@ -101,7 +101,7 @@ function railPeople() {
   const counts = { All: all.length, Talent: all.filter(p => p.group === 'Talent').length, Writing: all.filter(p => p.group === 'Writing').length, Crew: all.filter(p => p.group === 'Crew').length };
   const free = all.filter(p => p.status === 'Available').length;
   return `<aside class="rail rail-people" aria-label="People">
-    <div class="rail-head"><h3>People <b>${all.length}</b></h3><span class="free">${free} free</span></div>
+    <div class="rail-head"><h3>People <b>${all.length}</b></h3><span class="free">${free} free</span><button class="collapse" data-act="rails" aria-label="${S.rails === 'compact' ? 'Expand the people list' : 'Collapse to portraits'}">${icon(S.rails === 'compact' ? 'fast' : 'back')}</button></div>
     <div class="tabs" role="tablist">${['All', 'Talent', 'Writing', 'Crew'].map(g => `<button role="tab" tabindex="${S.people === g ? 0 : -1}" aria-selected="${S.people === g}" class="${S.people === g ? 'on' : ''}" data-act="people:${g}">${g === 'Writing' ? 'Writers' : g}<b>${counts[g]}</b></button>`).join('')}</div>
     <label class="search">${icon('search')}<input type="search" placeholder="Name, role or ID" value="${esc(S.search)}" aria-label="Find a person"></label>
     <div class="list" id="people-list">${list.length ? list.map((p, i) => personRow(p, all.indexOf(p))).join('') : '<p class="empty">No one matches. Clear the search to see everyone.</p>'}</div>
@@ -112,7 +112,7 @@ function railPictures() {
   const list = all.filter(p => S.pictures === 'All' || (S.pictures === 'Needs me' && needsMe(p)) || (S.pictures === 'Waiting' && isWait(p)) || (S.pictures === 'Library' && p.released));
   const nNeed = all.filter(needsMe).length, nWait = all.filter(isWait).length, nLib = all.filter(p => p.released).length;
   return `<aside class="rail rail-pictures" aria-label="Pictures">
-    <div class="rail-head"><h3>Pictures <b>${all.length}</b></h3>${nNeed ? `<span class="need-count">${icon('bang')}${nNeed} need you</span>` : ''}</div>
+    <div class="rail-head"><h3>Pictures <b>${all.length}</b></h3>${nNeed ? `<span class="need-count">${icon('bang')}${nNeed} need you</span>` : ''}<button class="collapse" data-act="rails" aria-label="${S.rails === 'compact' ? 'Expand the pictures list' : 'Collapse to posters'}">${icon(S.rails === 'compact' ? 'back' : 'fast')}</button></div>
     <div class="tabs" role="tablist">${[['All', all.length], ['Needs me', nNeed], ['Waiting', nWait], ['Library', nLib]].map(([g, n]) => `<button role="tab" tabindex="${S.pictures === g ? 0 : -1}" aria-selected="${S.pictures === g}" class="${S.pictures === g ? 'on' : ''} ${g === 'Needs me' ? 'need' : ''}" data-act="pictures:${g}">${g}<b>${n}</b></button>`).join('')}</div>
     <div class="list" id="pictures-list">${list.length ? groups(list) : '<p class="empty">Nothing in this group right now.</p>'}</div>
   </aside>`;
@@ -242,7 +242,7 @@ function callouts() { if (!S.annotated) return ''; return (CALLOUTS[S.screen] ||
 // ---------- render ----------
 function render() {
   const g = $('#game');
-  g.className = `game dir-${S.dir} world-${S.world} text-${S.text} screen-${S.screen}`;
+  g.className = `game dir-${S.dir} world-${S.world} text-${S.text} screen-${S.screen} rails-${S.rails}`;
   document.body.classList.toggle('annotated', S.annotated);
   g.innerHTML = hud() + railPeople() + railPictures() + corner() + world() +
     (S.screen === 'person' ? inspectorPerson() : S.screen === 'production' ? inspectorProduction() : S.screen === 'compare' ? workspaceCompare() : '') + callouts();
@@ -257,6 +257,7 @@ function act(a, el) {
   if (k === 'person') { if (S.screen === 'compare') go('person', { selectedPerson: v, selectedProject: '' }); else go('person', { selectedPerson: v, selectedProject: '', expanded: false }); }
   else if (k === 'project') { const p = project(v); if (p.released) return; if (p.phase === 'Casting') go('compare', { selectedProject: v, selectedPerson: '' }); else go('production', { selectedProject: v, selectedPerson: '' }); }
   else if (k === 'site') { const b = FIXTURE.buildings.find(b => b.id === v); const pr = projects().find(p => p.place === b.name && !p.released); if (pr) act('project:' + pr.id); }
+  else if (k === 'rails') { S.rails = S.rails === 'compact' ? 'full' : 'compact'; render(); }
   else if (k === 'people') { S.people = v; render(); }
   else if (k === 'pictures') { S.pictures = v; render(); }
   else if (k === 'back') back();

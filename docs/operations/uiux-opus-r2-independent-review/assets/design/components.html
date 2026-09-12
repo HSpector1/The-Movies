@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'none'; font-src 'none'">
+<title>STUDIO — Opus proposal component sheet</title>
+<link rel="stylesheet" href="design.css">
+<style>
+  html, body { background: #efe7d5; color: var(--ink); }
+  #sheet { width: 1440px; padding: 24px 32px 40px; font: 13px/1.4 var(--body); }
+  #sheet h1 { margin: 0 0 4px; font: 700 26px/1 var(--display); letter-spacing: .02em; }
+  #sheet .lede { margin: 0 0 18px; color: var(--ink-2); }
+  #sheet h2 { margin: 26px 0 10px; font: 700 12px/1 var(--display); letter-spacing: .2em; text-transform: uppercase; color: var(--gold-deep); border-bottom: 1px solid var(--edge); padding-bottom: 6px; }
+  .grid { display: grid; gap: 14px; }
+  .g6 { grid-template-columns: repeat(6, 1fr); } .g4 { grid-template-columns: repeat(4, 1fr); } .g3 { grid-template-columns: repeat(3, 1fr); } .g2 { grid-template-columns: repeat(2, 1fr); }
+  .sw { border: 1px solid var(--edge); border-radius: var(--r-ctl); overflow: hidden; background: #fff; }
+  .sw i { display: block; height: 44px; } .sw b { display: block; padding: 6px 8px 0; font: 700 12px var(--body); } .sw span { display: block; padding: 0 8px 6px; font: 11px var(--body); color: var(--muted); }
+  .type-row { display: flex; align-items: baseline; gap: 16px; padding: 6px 0; border-bottom: 1px dashed var(--edge); }
+  .type-row small { width: 260px; color: var(--muted); font: 11px var(--body); }
+  .demo { position: relative; background: #b9b08a; border: 1px solid var(--edge); border-radius: var(--r-card); padding: 12px; }
+  .demo .rail { position: static; height: auto; width: 258px; }
+  .demo .list { overflow: visible; }
+  .stack { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+  .stack figure { margin: 0; text-align: center; font: 11px var(--body); color: var(--muted); }
+  .stack figure figcaption { margin-top: 4px; }
+  .icons { display: flex; flex-wrap: wrap; gap: 10px; }
+  .icons figure { margin: 0; width: 64px; text-align: center; font: 10px var(--body); color: var(--muted); }
+  .icons .ic { width: 28px; height: 28px; color: var(--ink); }
+  .icons figure.dark { background: #1b1612; border-radius: var(--r-ctl); padding: 4px 0; color: var(--muted-on-dark); } .icons figure.dark .ic { color: var(--gold); }
+  .states { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; align-items: start; }
+  .states figure { margin: 0; font: 11px var(--body); color: var(--muted); }
+  .states figcaption { margin-top: 4px; }
+  .rules { columns: 2; column-gap: 30px; }
+  .rules p { margin: 0 0 8px; break-inside: avoid; }
+  .rules b { color: var(--ink); }
+  .spacing { display: flex; gap: 8px; align-items: flex-end; }
+  .spacing i { display: block; background: var(--gold); } .spacing figure { margin: 0; text-align: center; font: 10px var(--body); color: var(--muted); }
+  .contrast td, .contrast th { padding: 4px 10px 4px 0; text-align: left; font-size: 12px; } .contrast th { color: var(--muted); font-weight: 600; }
+  .demo-dark { background: #1b1612; }
+  .btnrow { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .btn.hover { background: #fff; border-color: var(--gold-deep); } .btn.primary.hover { background: #35905b; }
+  .btn.pressed { background: #e6dcc6; } .btn.primary.pressed { background: var(--green-deep); }
+  .btn.focus { outline: 3px solid #2a7fd4; outline-offset: 2px; }
+  .btn:disabled { opacity: .5; }
+</style></head>
+<body><main id="sheet">
+<h1>Backlot — component &amp; art-direction sheet</h1>
+<p class="lede">Recommended direction for the STUDIO R2 layout. Everything here is drawn from the same tokens as the prototype (<code>design.css</code>). PROPOSED DESIGN / MOCK DATA — NOT IMPLEMENTED.</p>
+
+<h2>1 · Palette roles (six roles, one accent)</h2>
+<div class="grid g6" id="palette"></div>
+<table class="contrast" id="contrast"><thead><tr><th>Pair</th><th>Foreground / background</th><th>Ratio (sRGB luminance)</th><th>Used for</th></tr></thead><tbody></tbody></table>
+<p style="color:var(--muted);font-size:11px;margin:6px 0 0">Ratios are computed in this page at render time for the stated opaque tokens; they are evidence for those pairs only, not a blanket accessibility verdict. Meaning never depends on colour alone: every status carries a word and an icon; decisions carry the "!" tab; waits carry the clock.</p>
+
+<h2>2 · Typography (two faces; sizes are the floor at 1440×900)</h2>
+<div id="type"></div>
+
+<h2>3 · Spacing, radii, depth</h2>
+<div class="grid g3">
+  <div><div class="spacing"><figure><i style="width:4px;height:4px"></i>4</figure><figure><i style="width:8px;height:8px"></i>8</figure><figure><i style="width:12px;height:12px"></i>12</figure><figure><i style="width:16px;height:16px"></i>16</figure><figure><i style="width:24px;height:24px"></i>24</figure></div><p>4-px grid. Rail padding 8, card padding 6/8, inspector padding 14, gutters 12. Rail rows: 62 px people (44-px portrait), 58 px pictures; group headers 22 px.</p></div>
+  <div><div class="stack"><figure><div style="width:56px;height:36px;background:var(--stock);border:1px solid var(--edge);border-radius:var(--r-ctl)"></div><figcaption>controls · 4 px</figcaption></figure><figure><div style="width:56px;height:36px;background:var(--stock);border:1px solid var(--edge);border-radius:var(--r-card)"></div><figcaption>cards / panels · 8 px</figcaption></figure><figure><div style="width:36px;height:36px;background:var(--stock);border:1px solid var(--edge);border-radius:50%"></div><figcaption>round tools · 50 %</figcaption></figure></div><p>Two radii and circles. R2 measured twelve.</p></div>
+  <div><div class="stack"><figure><div style="width:56px;height:36px;background:var(--stock);box-shadow:var(--shadow);border-radius:var(--r-card)"></div><figcaption>elevation 1 · cards, HUD, labels</figcaption></figure><figure><div style="width:56px;height:36px;background:var(--stock);box-shadow:var(--shadow-deep);border-radius:var(--r-card)"></div><figcaption>elevation 2 · inspector, workspace</figcaption></figure><figure><div style="width:56px;height:36px;background:var(--stock);outline:2px solid var(--gold);border-radius:var(--r-card)"></div><figcaption>selection · outline, not shadow</figcaption></figure></div><p>Two shadows. Selection and focus are outlines so they never compete with depth.</p></div>
+</div>
+
+<h2>4 · Icon silhouettes (one drawn set, filled two-tone, 16 / 20 / 28)</h2>
+<div class="icons" id="icons"></div>
+
+<h2>5 · Portrait standard (one system on every surface)</h2>
+<div class="stack" id="portraits"></div>
+<p>3/4 bust, role-coloured backplate (director teal, actor burgundy, writer olive, crew slate), rank badge slot top-left (illustrative here), status carried by the row chip and edge bar. Sizes: rail 44 × 53, marker 28, company faces 34, compact card 72, compare 96, dossier 120. <b>Art dependency:</b> twelve fixture portraits at these sizes (original illustration or licensed); the procedural placeholders shown are only a stand-in that proves distinguishability.</p>
+
+<h2>6 · Rail rows and statuses (normal · hover · selected · unavailable-with-reason)</h2>
+<div class="grid g2"><div class="demo" id="rows-people"></div><div class="demo" id="rows-pictures"></div></div>
+<p>Rail density and ordering: People — All / Talent / Writers / Crew tabs with counts; within a group, people needing a decision first, then on set / writing, then waiting, then free; search filters by name, role or ID. Pictures — grouped Scripts → Shooting → Post &amp; release → Library, each group sorted with decisions first; "Needs me / Waiting / Library" tabs with counts. Overflow: each list scrolls independently with sticky group headers; long names clamp at two lines in the rail and appear in full in the inspector and on hover. Resizing: rails keep width at 1440/1920; at 1280 they narrow to 236/240 and the status chip wraps under the role. Selection feedback: gold outline + left bar on the row, gold site label and lit footprint on the lot, and the located marker — all from one state.</p>
+
+<h2>7 · Buttons, strips and response states</h2>
+<div class="btnrow" id="buttons"></div>
+<div class="states" id="strips" style="margin-top:12px"></div>
+
+<h2>8 · Motion and audio intent (not implemented in the prototype)</h2>
+<div class="rules">
+<p><b>Locate:</b> the lot pans 350 ms ease-out to centre the target; the footprint outline fades in 150 ms; the site label switches to gold with no delay so keyboard users see the state immediately. Reduced-motion: the pan is instant.</p>
+<p><b>Decision arrives:</b> the "!" tab on a picture card scales 1 → 1.15 → 1 once (220 ms) and a short two-note cue plays (the manual's PA-system idea, not a voice line). Never loops; never blocks input.</p>
+<p><b>Pending → receipt:</b> the strip crossfades 150 ms; the primary button shows a 3-dot pending state; the receipt strip holds for 2 s then settles to the normal state. Refusal uses a single low tone.</p>
+<p><b>Hover peek:</b> appears after 180 ms, fades in 100 ms, closes on pointer departure. Right-click / "More facts" expands in place with height animation 180 ms.</p>
+<p><b>Pause:</b> the timeline marker stops pulsing and the PAUSED stamp appears; the world desaturates 8 %. No dimming of the rails — you still act while paused (as in the original).</p>
+<p><b>Audio ownership:</b> UI cues are short (≤ 300 ms), dry, and never stack more than two; world ambience continues under menus. Volume ducking of ambience by −6 dB while a workspace is open.</p>
+</div>
+</main>
+<script src="data.js"></script><script src="portraits.js"></script><script src="lot.js"></script>
+<script src="sheet.js"></script>
+</body></html>
