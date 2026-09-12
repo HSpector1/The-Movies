@@ -1,0 +1,109 @@
+
+====================================================================================================
+CASE A — breakout original, fast sequel (decision wk 4, release wk 60)
+====================================================================================================
+                    Film 1 (85/80, 2.2x) | wk    0 | R= 80.07 M=  92.50 F=   0.00 | ACTIVE            | aware=0.826
+                     greenlight decision | wk    4 | R= 79.73 M=  82.41 F=   0.00 | ACTIVE            | aware=0.803
+        sequel release week (no outcome) | wk   60 | R= 75.11 M=  16.35 F=   0.00 | ACTIVE            | aware=0.634
+
+====================================================================================================
+CASE B — two straight hits, spin-off 40wk later (must not punish speed)
+====================================================================================================
+                            Film 1 smash | wk    0 | R= 78.25 M=  76.00 F=   0.00 | ACTIVE            | aware=0.778
+                            Film 2 smash | wk   52 | R= 87.12 M=  80.93 F=   0.00 | ACTIVE            | aware=0.859
+           main, spin-off decision wk 91 | wk   91 | R= 83.57 M=  26.24 F=   0.00 | ACTIVE            | aware=0.721
+              spin-off pre-release (NEW) | wk   91 | R= 83.57 M=   0.00 F=   0.00 | NEW               | aware=0.669
+         spin-off released (75/74, 1.4x) | wk   92 | R= 93.94 M=  44.50 F=   0.64 | ACTIVE            | aware=0.838
+
+====================================================================================================
+CASE C — hit then flop; rest
+====================================================================================================
+                           Film 1 iconic | wk    0 | R= 86.69 M= 100.00 F=   0.00 | ACTIVE            | aware=0.894
+                             Film 2 weak | wk   78 | R= 79.77 M= -16.99 F=  51.75 | COOLING           | aware=0.473
+                              +52wk rest | wk  130 | R= 75.47 M=  -3.78 F=  36.59 | ACTIVE            | aware=0.493
+
+====================================================================================================
+CASE D — four mediocre sequels at 40wk cadence (Fatigue must drive the band)
+====================================================================================================
+                    Film 1 (57/55, 0.9x) | wk    0 | R= 12.51 M=   1.00 F=   0.00 | ACTIVE            | aware=0.102
+                    Film 2 (57/55, 0.9x) | wk   40 | R= 14.31 M=   1.31 F=  39.60 | ACTIVE            | aware=0.094
+                    Film 3 (57/55, 0.9x) | wk   80 | R= 16.04 M=   1.41 F=  68.51 | COOLING           | aware=0.086
+                    Film 4 (57/55, 0.9x) | wk  120 | R= 17.69 M=   1.45 F=  89.62 | COOLING           | aware=0.080
+
+====================================================================================================
+CASE E — 20-year dormancy of a major property
+====================================================================================================
+                            defining hit | wk    0 | R= 83.71 M=  86.50 F=   0.00 | ACTIVE            | aware=0.843
+                                     +5y | wk  260 | R= 63.44 M=   0.05 F=   0.00 | REVIVAL CANDIDATE | aware=0.508
+                                    +10y | wk  520 | R= 48.08 M=   0.00 F=   0.00 | REVIVAL CANDIDATE | aware=0.385
+                                    +20y | wk 1040 | R= 29.30 M=   0.00 F=   0.00 | REVIVAL CANDIDATE | aware=0.234
+
+====================================================================================================
+CASE F / G — reboot after E (branch seeded with 0.2 x old branch's decayed F = 0 here)
+====================================================================================================
+                      reboot pre-release | wk 1040 | R= 29.30 M=   0.00 F=   0.00 | NEW               | aware=0.234
+                  F success (85/80,1.6x) | wk 1040 | R= 83.34 M=  62.50 F=   0.00 | ACTIVE            | aware=0.792
+                 old branch same instant | wk 1040 | R= 83.34 M=   0.00 F=   0.00 | REVIVAL CANDIDATE | aware=0.667
+                      reboot pre-release | wk 1040 | R= 29.30 M=   0.00 F=   0.00 | NEW               | aware=0.234
+                  G failure (40/38,0.5x) | wk 1040 | R= 29.30 M= -36.00 F=  36.60 | COOLING           | aware=0.191
+                 old branch same instant | wk 1040 | R= 29.30 M=   0.00 F=   0.00 | REVIVAL CANDIDATE | aware=0.234
+
+====================================================================================================
+CASE R — remake of E's defining hit at 2 / 10 / 30 years (awareness discount, C4)
+====================================================================================================
+  ref age  2y: awareness without comparison 0.608 -> with 0.409  (discount x0.672)
+  ref age 10y: awareness without comparison 0.385 -> with 0.343  (discount x0.892)
+  ref age 30y: awareness without comparison 0.234 -> with 0.233  (discount x0.993)
+
+====================================================================================================
+RED-TEAM PROBE 1 — 20 mediocre releases (57/55, 0.9x) at 15-wk cadence: does R ratchet to 100? does awareness reward it?
+====================================================================================================
+                              release #1 | wk    0 | R= 12.51 M=   1.00 F=   0.00 | ACTIVE            | aware=0.102
+                              release #2 | wk   15 | R= 14.36 M=   1.65 F=  39.60 | ACTIVE            | aware=0.095
+                              release #3 | wk   30 | R= 16.18 M=   2.07 F=  74.79 | COOLING           | aware=0.084
+                              release #4 | wk   45 | R= 17.97 M=   2.34 F= 106.07 | COOLING           | aware=0.074
+                              release #5 | wk   60 | R= 19.73 M=   2.52 F= 133.87 | COOLING           | aware=0.081
+                              release #8 | wk  105 | R= 24.84 M=   2.76 F= 200.04 | COOLING           | aware=0.102
+                             release #12 | wk  165 | R= 31.29 M=   2.83 F= 258.66 | COOLING           | aware=0.128
+                             release #20 | wk  285 | R= 43.02 M=   2.84 F= 318.04 | COOLING           | aware=0.175
+  rPeak (durable floor base) after 20 mediocre films = 43.02  (floor = 15.06)
+
+====================================================================================================
+RED-TEAM PROBE 2 — same property, 20 GOOD releases (80/78, 1.3x) at 15-wk cadence (quality volume SHOULD build recognition)
+====================================================================================================
+                              release #1 | wk    0 | R= 75.15 M=  44.00 F=   0.00 | ACTIVE            | aware=0.689
+                              release #4 | wk   45 | R=100.00 M= 103.03 F=   0.00 | ACTIVE            | aware=1.000
+                              release #8 | wk  105 | R=100.00 M= 121.24 F=   0.00 | ACTIVE            | aware=1.000
+                             release #20 | wk  285 | R=100.00 M= 125.13 F=   0.00 | ACTIVE            | aware=1.000
+
+====================================================================================================
+RED-TEAM PROBE 3 — spam 8 mediocre, park 3 years, revive with one mediocre film (park-and-revive)
+====================================================================================================
+                  after 8 mediocre films | wk  105 | R= 24.84 M=   2.76 F= 200.04 | COOLING           | aware=0.102
+                              +3y parked | wk  261 | R= 21.04 M=   0.03 F=  58.65 | DORMANT           | aware=0.119
+                        mediocre revival | wk  261 | R= 24.54 M=   1.03 F=  98.25 | ACTIVE AGAIN      | aware=0.101
+            vs a fresh mediocre ORIGINAL | wk    0 | R= 12.51 M=   1.00 F=   0.00 | ACTIVE            | aware=0.102
+
+====================================================================================================
+RED-TEAM PROBE 4 — fatigued franchise (F=90 on main) rebooted immediately: does the reboot dodge Fatigue?
+====================================================================================================
+             main after 4 mediocre films | wk  120 | R= 17.69 M=   1.45 F=  89.62 | COOLING           | aware=0.080
+    reboot branch pre-release (seeded F) | wk  124 | R= 17.61 M=   0.00 F=  17.37 | NEW               | aware=0.129
+                mediocre reboot released | wk  124 | R= 19.53 M=   1.00 F=  43.77 | ACTIVE            | aware=0.124
+                main branch same instant | wk  124 | R= 19.53 M=   1.29 F=  86.84 | COOLING           | aware=0.090
+
+====================================================================================================
+RED-TEAM PROBE 5 — famous property (one iconic film, R~87) milked by FIVE serial mediocre reboots, 60wk apart
+====================================================================================================
+                         iconic original | wk    0 | R= 86.69 M= 100.00 F=   0.00 | ACTIVE            | aware=0.894
+          reboot #1 pre-release (seeded) | wk  104 | R= 77.59 M=   0.00 F=   0.00 | NEW               | aware=0.621
+        reboot #1 released (57/55, 0.9x) | wk  104 | R= 79.47 M=   1.00 F=  26.40 | ACTIVE            | aware=0.554
+          reboot #2 pre-release (seeded) | wk  164 | R= 74.54 M=   0.00 F=   3.29 | NEW               | aware=0.586
+        reboot #2 released (57/55, 0.9x) | wk  164 | R= 76.42 M=   1.00 F=  29.69 | ACTIVE            | aware=0.522
+          reboot #3 pre-release (seeded) | wk  224 | R= 71.68 M=   0.00 F=   3.70 | NEW               | aware=0.563
+        reboot #3 released (57/55, 0.9x) | wk  224 | R= 73.56 M=   1.00 F=  30.10 | ACTIVE            | aware=0.502
+          reboot #4 pre-release (seeded) | wk  284 | R= 69.00 M=   0.00 F=   3.76 | NEW               | aware=0.542
+        reboot #4 released (57/55, 0.9x) | wk  284 | R= 70.88 M=   1.00 F=  30.16 | ACTIVE            | aware=0.483
+          reboot #5 pre-release (seeded) | wk  344 | R= 66.48 M=   0.00 F=   3.76 | NEW               | aware=0.522
+        reboot #5 released (57/55, 0.9x) | wk  344 | R= 68.36 M=   1.00 F=  30.16 | ACTIVE            | aware=0.466
+            vs a fresh mediocre ORIGINAL | wk    0 | R= 12.51 M=   1.00 F=   0.00 | ACTIVE            | aware=0.102
