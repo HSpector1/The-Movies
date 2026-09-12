@@ -18,7 +18,7 @@ as Opus observations; mark your own subsequent checks separately.
 | R2 root | `docs/operations/uiux-visual-blueprint/r2/` (entry `README.md`, archive `delivery/UIUX-VISUAL-BLUEPRINT-R2.zip`) |
 | Newer Codex work check | `git fetch` at 2026-09-12: `docs/uiux-whole-game-review-01` head is still `e564d236`. No delta beyond the reviewed baseline. |
 | Existing Opus-review assignment check | No branch matching `docs/uiux-opus-*` existed before this one was created. No equivalent records elsewhere. |
-| Last verified published checkpoint | (filled in after the first push — see PROGRESS.md) |
+| Last verified published checkpoint | `44cec258` (skeleton); second checkpoint = the commit containing this line (see `git log`) |
 | Working package | `docs/operations/uiux-opus-r2-independent-review/` (this directory) |
 | Worktree | `~/The Movies - UIUX Opus R2 Review` (isolated; no other worker's worktree was switched or reset) |
 
@@ -37,10 +37,10 @@ as Opus observations; mark your own subsequent checks separately.
 | Deliverable | State |
 | --- | --- |
 | Isolated branch + initial checkpoint (this package skeleton) | done |
-| R2 archive retrieved from git, bytes/SHA-256 verified, PNGs viewed, prototype exercised in an isolated browser | remaining |
-| Original *The Movies* reconstruction (manual pages 4–9, retail footage, ≥3 continuous workflows), evidence table | remaining |
+| R2 archive retrieved from git, bytes/SHA-256 verified, PNGs viewed, prototype exercised in an isolated browser | **done** (see PROGRESS 2026-09-12) |
+| Original *The Movies* reconstruction (manual pages 4–9, retail footage, ≥3 continuous workflows), evidence table | **in progress** — manual pp.4–9 viewed by Opus (SOURCES S1-01); footage/stills/behaviour research running in a background workflow |
 | Comparator evidence atlas (~4–6 titles, several observations each) | remaining |
-| Annotated R2 findings + KEEP/REFINE/REDESIGN register | remaining |
+| Annotated R2 findings + KEEP/REFINE/REDESIGN register | **done (draft)** — `FINDINGS.md`, `assets/r2-evidence/` |
 | Two art-direction explorations (same layout/data/viewport) | remaining |
 | Recommended direction: four rendered key screens, clean + annotated, editable source | remaining |
 | Component/art-direction sheet (type, spacing, palette roles, states, motion/audio intent) | remaining |
@@ -60,8 +60,8 @@ as Opus observations; mark your own subsequent checks separately.
 
 ## Next 3–5 concrete actions
 
-1. Extract `e564d236:docs/operations/uiux-visual-blueprint/r2/delivery/UIUX-VISUAL-BLUEPRINT-R2.zip`, verify 21,736,950 bytes and SHA-256 `2096b670…8fc4`, unpack to a scratch folder, view `previews/*.png` and open `index.html` in a fresh Playwright/Chromium context (no profile, no network).
-2. Read `PACKAGE.md`, `REFERENCE-REVIEW.md`, `SPECIFICATION.md`, `ROUTING.md`, `PROTOTYPE.md`, `REVIEW.md` at `e564d236` and record what R2 claims versus what renders.
-3. Inspect the official manual `https://store.steampowered.com/manual/7900/` (interface pages 4–9, filmmaking sections) and locate identifiable retail footage; write the first `SOURCES.md` batch.
-4. Draft `FINDINGS.md` R2 register (usability axis and visual-craft axis separately) with annotated crops saved under `assets/r2-evidence/`.
-5. Commit and push after each of the above.
+1. Fold the background research results (footage frames, stills, behaviour docs, comparators) into `SOURCES.md` S1/S2 and write the original-game reconstruction + comparator atlas (`RESEARCH-ORIGINAL-GAME.md`, `RESEARCH-COMPARATORS.md`) with limited illustrative frame excerpts under `assets/original-game/` and `assets/comparators/`.
+2. Build the two art-direction explorations of V01 (same 1440×900 viewport, same fixture data as R2) as editable HTML/CSS/SVG under `assets/design/`, render with the same Playwright harness, and record the choice.
+3. Develop the recommended direction into the four key screens (overview, person, production, casting compare), clean + annotated, plus the component sheet and the small linked prototype (`assets/design/index.html`).
+4. Render the R2-vs-proposed comparison board at identical scale/data; run the heuristic walkthrough script; run one bounded Sonnet checker.
+5. Write `00-INDEX.md` (visual index), `HANDOFF-TO-CODEX.md`, build the ZIP + manifest + checksums, push, verify remote bytes.

@@ -1,0 +1,520 @@
+{
+  "pageErrors": [],
+  "console": [],
+  "blocked": [],
+  "obs": {
+    "metrics": {
+      "candidates": [
+        {
+          "sel": "header",
+          "w": 1440,
+          "h": 68,
+          "font": "15px",
+          "family": "\"Trebuchet MS\"",
+          "weight": "400",
+          "color": "rgb(255, 253, 233)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "radius": "0px",
+          "shadow": "rgba(23, 57, 39, 0.267) 0px 3px 8px 0px"
+        },
+        {
+          "sel": "#game > *",
+          "w": 1440,
+          "h": 800,
+          "font": "15px",
+          "family": "\"Trebuchet MS\"",
+          "weight": "400",
+          "color": "rgb(33, 61, 73)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "radius": "0px",
+          "shadow": "none"
+        },
+        {
+          "sel": "aside",
+          "w": 210,
+          "h": 676,
+          "font": "15px",
+          "family": "\"Trebuchet MS\"",
+          "weight": "400",
+          "color": "rgb(33, 61, 73)",
+          "bg": "rgba(217, 232, 236, 0.96)",
+          "radius": "15px",
+          "shadow": "rgba(38, 63, 55, 0.25) 0px 4px 16px 0px"
+        },
+        {
+          "sel": "button",
+          "w": 76,
+          "h": 24,
+          "font": "10px",
+          "family": "Arial",
+          "weight": "400",
+          "color": "rgb(33, 61, 73)",
+          "bg": "rgb(245, 248, 245)",
+          "radius": "8px",
+          "shadow": "rgba(255, 255, 255, 0.667) 0px 1px 0px 0px inset"
+        },
+        {
+          "sel": ".avatar",
+          "w": 41,
+          "h": 50,
+          "font": "15px",
+          "family": "\"Trebuchet MS\"",
+          "weight": "600",
+          "color": "rgb(33, 61, 73)",
+          "bg": "rgba(0, 0, 0, 0)",
+          "radius": "7px",
+          "shadow": "none"
+        }
+      ],
+      "buttons": [
+        {
+          "text": "Reset Demo",
+          "w": 76,
+          "h": 24,
+          "font": "10px"
+        },
+        {
+          "text": "Casting",
+          "w": 68,
+          "h": 34,
+          "font": "12px"
+        },
+        {
+          "text": "Script Office",
+          "w": 98,
+          "h": 34,
+          "font": "12px"
+        },
+        {
+          "text": "Stage 07",
+          "w": 76,
+          "h": 34,
+          "font": "12px"
+        },
+        {
+          "text": "Stage 04",
+          "w": 76,
+          "h": 34,
+          "font": "12px"
+        },
+        {
+          "text": "Production Post",
+          "w": 116,
+          "h": 34,
+          "font": "12px"
+        },
+        {
+          "text": "Laboratory",
+          "w": 89,
+          "h": 34,
+          "font": "12px"
+        },
+        {
+          "text": "Ⅱ Paused",
+          "w": 73,
+          "h": 44,
+          "font": "13px"
+        },
+        {
+          "text": "1×",
+          "w": 35,
+          "h": 44,
+          "font": "13px"
+        },
+        {
+          "text": "2×",
+          "w": 35,
+          "h": 44,
+          "font": "13px"
+        },
+        {
+          "text": "4×",
+          "w": 35,
+          "h": 44,
+          "font": "13px"
+        },
+        {
+          "text": "$2,480,000\nCash · open Finance",
+          "w": 134,
+          "h": 49,
+          "font": "13px"
+        },
+        {
+          "text": "☰ Menu",
+          "w": 68,
+          "h": 44,
+          "font": "13px"
+        },
+        {
+          "text": "Mara Vale\nDirector · P-004\n● Working",
+          "w": 196,
+          "h": 72,
+          "font": "15px"
+        },
+        {
+          "text": "Nora Finch\nActor · P-006\n● Working",
+          "w": 196,
+          "h": 72,
+          "font": "15px"
+        },
+        {
+          "text": "Mara Vale\nCraft lead · P-022\n● Working",
+          "w": 196,
+          "h": 72,
+          "font": "15px"
+        },
+        {
+          "text": "Evelyn Park\nWriter · P-011\n● Writing",
+          "w": 196,
+          "h": 72,
+          "font": "15px"
+        },
+        {
+          "text": "Arthur Bell\nWriter · P-012\n● Writing",
+          "w": 196,
+          "h": 72,
+          "font": "15px"
+        },
+        {
+          "text": "June Sloane\nActor · P-018\n○ Available",
+          "w": 196,
+          "h": 72,
+          "font": "15px"
+        },
+        {
+          "text": "Eli Rowan\nActor · P-019\n○ Available",
+          "w": 196,
+          "h": 72,
+          "font": "15px"
+        },
+        {
+          "text": "Iris Grant\nCraft lead · P-023\n◷ Waiting",
+          "w": 196,
+          "h": 72,
+          "font": "15px"
+        },
+        {
+          "text": "Otto Silva\nCraft lead · P-024\n● Working",
+          "w": 196,
+          "h": 72,
+          "font": "15px"
+        },
+        {
+          "text": "Rose Kim\nDirector · P-025\n● Working",
+          "w": 196,
+          "h": 72,
+          "font": "15px"
+        },
+        {
+          "text": "Max Reed\nActor · P-026\n● Working",
+          "w": 196,
+          "h": 72,
+          "font": "15px"
+        },
+        {
+          "text": "Ada Moss\nWriter · P-027\n○ Available",
+          "w": 196,
+          "h": 72,
+          "font": "15px"
+        },
+        {
+          "text": "Letters from June\nWriting\nDraft in progr",
+          "w": 234,
+          "h": 66,
+          "font": "15px"
+        },
+        {
+          "text": "The Night Porter\nWriting\nRewrite in prog",
+          "w": 234,
+          "h": 66,
+          "font": "15px"
+        },
+        {
+          "text": "The Long Way Home\nCasting · !\nReady to r",
+          "w": 234,
+          "h": 66,
+          "font": "15px"
+        },
+        {
+          "text": "The Glass Harbor\nShooting · !\nTake ready",
+          "w": 234,
+          "h": 66,
+          "font": "15px"
+        },
+        {
+          "text": "Across the Bay\nShooting\nCompany at work",
+          "w": 234,
+          "h": 66,
+          "font": "15px"
+        },
+        {
+          "text": "After the Rain\nPost\nWaiting for Post cap",
+          "w": 234,
+          "h": 66,
+          "font": "15px"
+        },
+        {
+          "text": "A Small Kindness\nRelease ready · !\nRevie",
+          "w": 234,
+          "h": 66,
+          "font": "15px"
+        },
+        {
+          "text": "A Summer in Red\nReleased\nCompleted run ·",
+          "w": 234,
+          "h": 66,
+          "font": "15px"
+        },
+        {
+          "text": "Show studio overview",
+          "w": 139,
+          "h": 34,
+          "font": "12px"
+        },
+        {
+          "text": "Find available people",
+          "w": 136,
+          "h": 36,
+          "font": "12px"
+        },
+        {
+          "text": "Show decisions needing me",
+          "w": 169,
+          "h": 36,
+          "font": "12px"
+        },
+        {
+          "text": "▱\nBuild",
+          "w": 48,
+          "h": 62,
+          "font": "10px"
+        },
+        {
+          "text": "▦\nStudio",
+          "w": 48,
+          "h": 62,
+          "font": "10px"
+        },
+        {
+          "text": "⌂\nLot",
+          "w": 48,
+          "h": 62,
+          "font": "10px"
+        },
+        {
+          "text": "?\nControls",
+          "w": 48,
+          "h": 62,
+          "font": "10px"
+        }
+      ],
+      "smallText": [
+        {
+          "t": "Cash · open Finance",
+          "fs": 11,
+          "color": "rgb(71, 97, 108)"
+        },
+        {
+          "t": "Director · P-004",
+          "fs": 10,
+          "color": "rgb(71, 97, 108)"
+        },
+        {
+          "t": "● Working",
+          "fs": 11,
+          "color": "rgb(58, 86, 98)"
+        },
+        {
+          "t": "Actor · P-006",
+          "fs": 10,
+          "color": "rgb(71, 97, 108)"
+        },
+        {
+          "t": "● Working",
+          "fs": 11,
+          "color": "rgb(58, 86, 98)"
+        },
+        {
+          "t": "Craft lead · P-022",
+          "fs": 10,
+          "color": "rgb(71, 97, 108)"
+        },
+        {
+          "t": "● Working",
+          "fs": 11,
+          "color": "rgb(58, 86, 98)"
+        },
+        {
+          "t": "Writer · P-011",
+          "fs": 10,
+          "color": "rgb(71, 97, 108)"
+        },
+        {
+          "t": "● Writing",
+          "fs": 11,
+          "color": "rgb(58, 86, 98)"
+        },
+        {
+          "t": "Writer · P-012",
+          "fs": 10,
+          "color": "rgb(71, 97, 108)"
+        },
+        {
+          "t": "● Writing",
+          "fs": 11,
+          "color": "rgb(58, 86, 98)"
+        },
+        {
+          "t": "Actor · P-018",
+          "fs": 10,
+          "color": "rgb(71, 97, 108)"
+        },
+        {
+          "t": "○ Available",
+          "fs": 11,
+          "color": "rgb(58, 86, 98)"
+        },
+        {
+          "t": "Actor · P-019",
+          "fs": 10,
+          "color": "rgb(71, 97, 108)"
+        },
+        {
+          "t": "○ Available",
+          "fs": 11,
+          "color": "rgb(58, 86, 98)"
+        },
+        {
+          "t": "Craft lead · P-023",
+          "fs": 10,
+          "color": "rgb(71, 97, 108)"
+        },
+        {
+          "t": "◷ Waiting",
+          "fs": 11,
+          "color": "rgb(58, 86, 98)"
+        },
+        {
+          "t": "Craft lead · P-024",
+          "fs": 10,
+          "color": "rgb(71, 97, 108)"
+        },
+        {
+          "t": "● Working",
+          "fs": 11,
+          "color": "rgb(58, 86, 98)"
+        },
+        {
+          "t": "Director · P-025",
+          "fs": 10,
+          "color": "rgb(71, 97, 108)"
+        },
+        {
+          "t": "● Working",
+          "fs": 11,
+          "color": "rgb(58, 86, 98)"
+        },
+        {
+          "t": "Actor · P-026",
+          "fs": 10,
+          "color": "rgb(71, 97, 108)"
+        },
+        {
+          "t": "● Working",
+          "fs": 11,
+          "color": "rgb(58, 86, 98)"
+        },
+        {
+          "t": "Writer · P-027",
+          "fs": 10,
+          "color": "rgb(71, 97, 108)"
+        },
+        {
+          "t": "○ Available",
+          "fs": 11,
+          "color": "rgb(58, 86, 98)"
+        },
+        {
+          "t": "3",
+          "fs": 10,
+          "color": "rgb(36, 79, 97)"
+        },
+        {
+          "t": "Writing",
+          "fs": 10,
+          "color": "rgb(76, 101, 112)"
+        },
+        {
+          "t": "Draft in progress",
+          "fs": 10,
+          "color": "rgb(58, 86, 98)"
+        },
+        {
+          "t": "Writing",
+          "fs": 10,
+          "color": "rgb(76, 101, 112)"
+        },
+        {
+          "t": "Rewrite in progress",
+          "fs": 10,
+          "color": "rgb(58, 86, 98)"
+        }
+      ],
+      "fontFamilies": [
+        "\"Trebuchet MS\", Arial, sans-serif"
+      ],
+      "radii": [
+        "12px",
+        "8px",
+        "15px",
+        "10px",
+        "5px",
+        "9px",
+        "7px",
+        "4px",
+        "14px",
+        "6px",
+        "17px",
+        "18px"
+      ],
+      "shadows": [
+        "rgba(36, 65, 49, 0.2) 0px 3px 7px 0px",
+        "rgba(23, 57, 39, 0.267) 0px 3px 8px 0px",
+        "rgba(255, 232, 167, 0.6) 0px 0px 0px 2px",
+        "rgba(255, 255, 255, 0.667) 0px 1px 0px 0px inset",
+        "rgba(38, 63, 55, 0.25) 0px 4px 16px 0px",
+        "rgba(255, 255, 255, 0.533) 0px 2px 1px 0px inset, rgba(59, 89, 96, 0.2) 0px 1px 2px 0px",
+        "rgba(52, 75, 51, 0.133) 0px 4px 10px 0px",
+        "rgb(255, 255, 255) 0px 2px 2px 0px inset, rgba(36, 62, 54, 0.267) 0px 3px 4px 0px",
+        "rgba(41, 59, 50, 0.333) 0px 5px 15px 0px"
+      ],
+      "avatarSvgs": 1,
+      "avatarCount": 12,
+      "gameRect": {
+        "x": 0,
+        "y": 32,
+        "width": 1440,
+        "height": 868,
+        "top": 32,
+        "right": 1440,
+        "bottom": 900,
+        "left": 0
+      }
+    },
+    "actCount": 39,
+    "searchMara": 3,
+    "showOptions": [
+      "All",
+      "Needs me",
+      "Waiting",
+      "Library"
+    ],
+    "groupOptions": [
+      "All",
+      "Talent",
+      "Writing",
+      "Crew"
+    ],
+    "focused": "Laboratory"
+  }
+}
