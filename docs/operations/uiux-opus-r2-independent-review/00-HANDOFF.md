@@ -1,9 +1,9 @@
 # 00-HANDOFF — Opus independent R2 game UI/UX and art-direction review
 
-**Status:** `IN PROGRESS` — initial checkpoint only. No verdict has been reached yet.
+**Status:** `IN PROGRESS` — all review content drafted and pushed; remaining: checker record, ZIP/manifest publication, remote verification. Verdict reached (see `00-INDEX.md`).
 
-**Read order for a successor:** this file → `ASSIGNMENT.md` → `SOURCES.md` →
-`FINDINGS.md` → `PROGRESS.md` → `assets/`. Verify ownership (below) and preserve
+**Read order for a successor:** this file → `00-INDEX.md` → `ASSIGNMENT.md` → `FINDINGS.md` →
+`DESIGN.md` → `RESEARCH-*.md` → `SOURCES.md` → `PROGRESS.md` → `assets/`. Verify ownership (below) and preserve
 any newer work on this branch before continuing. Attribute observations below
 as Opus observations; mark your own subsequent checks separately.
 
@@ -38,18 +38,18 @@ as Opus observations; mark your own subsequent checks separately.
 | --- | --- |
 | Isolated branch + initial checkpoint (this package skeleton) | done |
 | R2 archive retrieved from git, bytes/SHA-256 verified, PNGs viewed, prototype exercised in an isolated browser | **done** (see PROGRESS 2026-09-12) |
-| Original *The Movies* reconstruction (manual pages 4–9, retail footage, ≥3 continuous workflows), evidence table | **in progress** — manual pp.4–9 viewed by Opus (SOURCES S1-01); footage/stills/behaviour research running in a background workflow |
-| Comparator evidence atlas (~4–6 titles, several observations each) | remaining |
-| Annotated R2 findings + KEEP/REFINE/REDESIGN register | **done (draft)** — `FINDINGS.md`, `assets/r2-evidence/` |
-| Two art-direction explorations (same layout/data/viewport) | remaining |
-| Recommended direction: four rendered key screens, clean + annotated, editable source | remaining |
-| Component/art-direction sheet (type, spacing, palette roles, states, motion/audio intent) | remaining |
-| Small linked prototype (overview → person → production → Back) | remaining |
-| R2-vs-proposed comparison board at identical scale/content | remaining |
-| Heuristic/cognitive walkthrough + prototype task observations; future human-test list | remaining |
-| One bounded independent Sonnet checker pass | remaining (deferred if the allowance margin requires it) |
-| Handoff to Codex (presentation, interaction, read-model deps, P13B boundaries, native gaps) | remaining |
-| Visual index + one ZIP + manifest + checksums, remote bytes verified | remaining |
+| Original *The Movies* reconstruction (manual pages 4–9, retail footage, ≥3 continuous workflows), evidence table | **done** — `RESEARCH-ORIGINAL-GAME.md`, `SOURCES.md` S1, excerpts in `assets/original-game/` |
+| Comparator evidence atlas (~4–6 titles, several observations each) | **done** — `RESEARCH-COMPARATORS.md` (7 titles), `SOURCES.md` S2 |
+| Annotated R2 findings + KEEP/REFINE/REDESIGN register | **done** — `FINDINGS.md`, `assets/r2-evidence/` |
+| Two art-direction explorations (same layout/data/viewport) | **done** — `X-A-overview.png`, `X-B-overview.png`, `DESIGN.md` §2–3 |
+| Recommended direction: four rendered key screens, clean + annotated, editable source | **done** — `K1–K4` (+annotated), `assets/design/` |
+| Component/art-direction sheet (type, spacing, palette roles, states, motion/audio intent) | **done** — `components.html` → `C01-component-sheet.png` |
+| Small linked prototype (overview → person → production → Back) | **done** — `assets/design/index.html` (+ compare, compact rails, 1280 canvas, 200 %) |
+| R2-vs-proposed comparison board at identical scale/content | **done** — `CMP-01…05` |
+| Heuristic/cognitive walkthrough + prototype task observations; future human-test list | **done** — `WALKTHROUGH.md` |
+| One bounded independent Sonnet checker pass | **running** — record goes to `CHECKER.md` |
+| Handoff to Codex (presentation, interaction, read-model deps, P13B boundaries, native gaps) | **done** — `HANDOFF-TO-CODEX.md` |
+| Visual index + one ZIP + manifest + checksums, remote bytes verified | index **done** (`00-INDEX.md`); ZIP/manifest/remote check **remaining** (publication commit) |
 
 ## Blockers / access limitations
 
@@ -58,10 +58,10 @@ as Opus observations; mark your own subsequent checks separately.
   accessible in the repository or archive; metadata alone will not be counted.
 - The original game will not be installed or run.
 
-## Next 3–5 concrete actions
+## Next 3–5 concrete actions (if this session stops before publication)
 
-1. Fold the background research results (footage frames, stills, behaviour docs, comparators) into `SOURCES.md` S1/S2 and write the original-game reconstruction + comparator atlas (`RESEARCH-ORIGINAL-GAME.md`, `RESEARCH-COMPARATORS.md`) with limited illustrative frame excerpts under `assets/original-game/` and `assets/comparators/`.
-2. Build the two art-direction explorations of V01 (same 1440×900 viewport, same fixture data as R2) as editable HTML/CSS/SVG under `assets/design/`, render with the same Playwright harness, and record the choice.
-3. Develop the recommended direction into the four key screens (overview, person, production, casting compare), clean + annotated, plus the component sheet and the small linked prototype (`assets/design/index.html`).
-4. Render the R2-vs-proposed comparison board at identical scale/data; run the heuristic walkthrough script; run one bounded Sonnet checker.
-5. Write `00-INDEX.md` (visual index), `HANDOFF-TO-CODEX.md`, build the ZIP + manifest + checksums, push, verify remote bytes.
+1. Write `CHECKER.md` from the Sonnet checker record (if it did not complete, say so and list it as deferred); fix only defects it names that are cheap and re-render with `node assets/design/render.cjs assets/design <out>` then copy PNGs into `assets/design-renders/`.
+2. Commit the content, then run the packaging script (`assets/design/package.py`, or the copy in the session scratchpad) with the content commit SHA to produce `delivery/package-manifest.json`, `delivery/MANIFEST.sha256`, `delivery/UIUX-OPUS-R2-INDEPENDENT-REVIEW.zip`; write `PACKAGE.md` with the identities; commit as the publication commit; push.
+3. Verify the remote: `git ls-remote` head, then download the ZIP raw from GitHub and compare bytes/SHA-256 with `PACKAGE.md`; record the result in `PROGRESS.md`.
+4. If the background research gap-critic finished (`assets/research-raw/`), fold its coverage table into `RESEARCH-ORIGINAL-GAME.md` §3; otherwise leave the note in `00-INDEX.md` limitations.
+5. Return the stop line to the Owner with the exact commits, index and ZIP paths.
