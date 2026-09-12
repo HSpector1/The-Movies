@@ -1,3 +1,5 @@
+> **STATUS: HISTORICAL INPUT (revision 02, 2026-09-12).** Unmodified research input below this line. Where it differs from the canonical specification — report [`../P17-INDEPENDENT-VERIFICATION-REPORT.md`](../P17-INDEPENDENT-VERIFICATION-REPORT.md) §5 (index §5.7, with §8/§9/§10), canonical calculator [`../redteam/R3-reviewer-corrections-calc.py`](../redteam/R3-reviewer-corrections-calc.py), committed output [`../redteam/R3-output.txt`](../redteam/R3-output.txt) — **the report governs.** Superseded here: Space Jam figures ($230M / 37%) corrected in report §20 item 14 ($250.2M WW / RT 46% / CinemaScore A−); the cameo fee fraction is a provisional P14 fee-law suggestion, not a Direction R consequence.
+
 # M6 — Cast-Slot Expansion (Direction T) and Celebrity Cameo (Direction U): Final Model
 
 Read-only paper model. No repo edits, branches, builds, tests, or runtime touched. Engine facts cited by

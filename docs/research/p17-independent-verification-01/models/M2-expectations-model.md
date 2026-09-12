@@ -1,3 +1,5 @@
+> **STATUS: HISTORICAL INPUT (revision 02, 2026-09-12).** Unmodified research input below this line. Where it differs from the canonical specification — report [`../P17-INDEPENDENT-VERIFICATION-REPORT.md`](../P17-INDEPENDENT-VERIFICATION-REPORT.md) §5 (index §5.7, with §8/§9/§10), canonical calculator [`../redteam/R3-reviewer-corrections-calc.py`](../redteam/R3-reviewer-corrections-calc.py), committed output [`../redteam/R3-output.txt`](../redteam/R3-output.txt) — **the report governs.** Superseded here: the expectation multiplier on `expectedTotal` (§1.2) is NOT recommended (report §5.3, §7); the seam analysis and double-counting audit remain the source of §7.
+
 # M2 — Expectations Model for Franchise Continuations
 
 Read-only paper model. No repo edits, no builds, no tests. All engine facts cited by

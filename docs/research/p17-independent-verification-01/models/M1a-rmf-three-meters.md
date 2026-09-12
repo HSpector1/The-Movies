@@ -1,3 +1,5 @@
+> **STATUS: HISTORICAL INPUT (revision 02, 2026-09-12).** Unmodified research input below this line. Where it differs from the canonical specification — report [`../P17-INDEPENDENT-VERIFICATION-REPORT.md`](../P17-INDEPENDENT-VERIFICATION-REPORT.md) §5 (index §5.7, with §8/§9/§10), canonical calculator [`../redteam/R3-reviewer-corrections-calc.py`](../redteam/R3-reviewer-corrections-calc.py), committed output [`../redteam/R3-output.txt`](../redteam/R3-output.txt) — **the report governs.** Superseded here: a candidate shape; its per-branch Recognition copy and per-branch Fatigue are superseded; its ratchet floor and satiation gate were kept.
+
 # P17 Model A — Three Stored Meters (R, M, F) with Exponential Decay
 
 Modeler: RMF-A. Shape mandated by brief: three persisted scalars per franchise (Recognition,

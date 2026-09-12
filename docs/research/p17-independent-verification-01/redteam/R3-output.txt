@@ -1,3 +1,4 @@
+R3 CANONICAL CALCULATOR OUTPUT — revision 2 (2026-09-12). Specification: report §5 (index §5.7). Revision-1 output: git 38ca0068.
 
 ====================================================================================================
 CASE A — breakout original, fast sequel (decision wk 4, release wk 60)
@@ -39,14 +40,14 @@ CASE E — 20-year dormancy of a major property
                                     +20y | wk 1040 | R= 29.30 M=   0.00 F=   0.00 | REVIVAL CANDIDATE | aware=0.234
 
 ====================================================================================================
-CASE F / G — reboot after E (branch seeded with 0.2 x old branch's decayed F = 0 here)
+CASE F / G — reboot after E (property Fatigue decayed to 0 over 20 years; Momentum starts at 0 on the new line)
 ====================================================================================================
                       reboot pre-release | wk 1040 | R= 29.30 M=   0.00 F=   0.00 | NEW               | aware=0.234
                   F success (85/80,1.6x) | wk 1040 | R= 83.34 M=  62.50 F=   0.00 | ACTIVE            | aware=0.792
                  old branch same instant | wk 1040 | R= 83.34 M=   0.00 F=   0.00 | REVIVAL CANDIDATE | aware=0.667
                       reboot pre-release | wk 1040 | R= 29.30 M=   0.00 F=   0.00 | NEW               | aware=0.234
                   G failure (40/38,0.5x) | wk 1040 | R= 29.30 M= -36.00 F=  36.60 | COOLING           | aware=0.191
-                 old branch same instant | wk 1040 | R= 29.30 M=   0.00 F=   0.00 | REVIVAL CANDIDATE | aware=0.234
+                 old branch same instant | wk 1040 | R= 29.30 M=   0.00 F=  36.60 | REVIVAL CANDIDATE | aware=0.191
 
 ====================================================================================================
 CASE R — remake of E's defining hit at 2 / 10 / 30 years (awareness discount, C4)
@@ -54,6 +55,14 @@ CASE R — remake of E's defining hit at 2 / 10 / 30 years (awareness discount, 
   ref age  2y: awareness without comparison 0.608 -> with 0.409  (discount x0.672)
   ref age 10y: awareness without comparison 0.385 -> with 0.343  (discount x0.892)
   ref age 30y: awareness without comparison 0.234 -> with 0.233  (discount x0.993)
+
+====================================================================================================
+CASE R2 — reboot partial comparison (C4', §8): 0.4 x the remake discount, only if the prior line's last film was recent AND strong
+====================================================================================================
+  TASM-like: prior line ended 5y ago on a 0.62-quality film     : no term  awareness 0.234 -> 0.234 (x1.000)
+  prior line ended 5y ago on a 0.80-quality film                : fires  awareness 0.234 -> 0.216 (x0.920)
+  Casino-Royale-like: prior line ended 4y ago on a 0.40-quality film: no term  awareness 0.234 -> 0.234 (x1.000)
+  prior line ended 9y ago on a 0.80-quality film                : no term  awareness 0.234 -> 0.234 (x1.000)
 
 ====================================================================================================
 RED-TEAM PROBE 1 — 20 mediocre releases (57/55, 0.9x) at 15-wk cadence: does R ratchet to 100? does awareness reward it?
@@ -85,25 +94,97 @@ RED-TEAM PROBE 3 — spam 8 mediocre, park 3 years, revive with one mediocre fil
             vs a fresh mediocre ORIGINAL | wk    0 | R= 12.51 M=   1.00 F=   0.00 | ACTIVE            | aware=0.102
 
 ====================================================================================================
-RED-TEAM PROBE 4 — fatigued franchise (F=90 on main) rebooted immediately: does the reboot dodge Fatigue?
+RED-TEAM PROBE 4 — fatigued franchise (F=90) rebooted immediately: does the reboot dodge Fatigue? (revision 2: no)
 ====================================================================================================
              main after 4 mediocre films | wk  120 | R= 17.69 M=   1.45 F=  89.62 | COOLING           | aware=0.080
-    reboot branch pre-release (seeded F) | wk  124 | R= 17.61 M=   0.00 F=  17.37 | NEW               | aware=0.129
-                mediocre reboot released | wk  124 | R= 19.53 M=   1.00 F=  43.77 | ACTIVE            | aware=0.124
-                main branch same instant | wk  124 | R= 19.53 M=   1.29 F=  86.84 | COOLING           | aware=0.090
+    reboot line pre-release (property F) | wk  124 | R= 17.61 M=   0.00 F=  86.84 | NEW               | aware=0.080
+                mediocre reboot released | wk  124 | R= 19.53 M=   1.00 F= 113.24 | COOLING           | aware=0.079
+                main branch same instant | wk  124 | R= 19.53 M=   1.29 F= 113.24 | COOLING           | aware=0.079
 
 ====================================================================================================
 RED-TEAM PROBE 5 — famous property (one iconic film, R~87) milked by FIVE serial mediocre reboots, 60wk apart
 ====================================================================================================
                          iconic original | wk    0 | R= 86.69 M= 100.00 F=   0.00 | ACTIVE            | aware=0.894
-          reboot #1 pre-release (seeded) | wk  104 | R= 77.59 M=   0.00 F=   0.00 | NEW               | aware=0.621
+      reboot #1 pre-release (property F) | wk  104 | R= 77.59 M=   0.00 F=   0.00 | NEW               | aware=0.621
         reboot #1 released (57/55, 0.9x) | wk  104 | R= 79.47 M=   1.00 F=  26.40 | ACTIVE            | aware=0.554
-          reboot #2 pre-release (seeded) | wk  164 | R= 74.54 M=   0.00 F=   3.29 | NEW               | aware=0.586
-        reboot #2 released (57/55, 0.9x) | wk  164 | R= 76.42 M=   1.00 F=  29.69 | ACTIVE            | aware=0.522
-          reboot #3 pre-release (seeded) | wk  224 | R= 71.68 M=   0.00 F=   3.70 | NEW               | aware=0.563
-        reboot #3 released (57/55, 0.9x) | wk  224 | R= 73.56 M=   1.00 F=  30.10 | ACTIVE            | aware=0.502
-          reboot #4 pre-release (seeded) | wk  284 | R= 69.00 M=   0.00 F=   3.76 | NEW               | aware=0.542
-        reboot #4 released (57/55, 0.9x) | wk  284 | R= 70.88 M=   1.00 F=  30.16 | ACTIVE            | aware=0.483
-          reboot #5 pre-release (seeded) | wk  344 | R= 66.48 M=   0.00 F=   3.76 | NEW               | aware=0.522
-        reboot #5 released (57/55, 0.9x) | wk  344 | R= 68.36 M=   1.00 F=  30.16 | ACTIVE            | aware=0.466
+      reboot #2 pre-release (property F) | wk  164 | R= 74.54 M=   0.00 F=  16.47 | NEW               | aware=0.547
+        reboot #2 released (57/55, 0.9x) | wk  164 | R= 76.42 M=   1.00 F=  42.87 | ACTIVE            | aware=0.482
+      reboot #3 pre-release (property F) | wk  224 | R= 71.68 M=   0.00 F=  26.74 | NEW               | aware=0.497
+        reboot #3 released (57/55, 0.9x) | wk  224 | R= 73.56 M=   1.00 F=  53.14 | ACTIVE            | aware=0.434
+      reboot #4 pre-release (property F) | wk  284 | R= 69.00 M=   0.00 F=  33.15 | NEW               | aware=0.460
+        reboot #4 released (57/55, 0.9x) | wk  284 | R= 70.88 M=   1.00 F=  59.55 | ACTIVE            | aware=0.400
+      reboot #5 pre-release (property F) | wk  344 | R= 66.48 M=   0.00 F=  37.15 | NEW               | aware=0.433
+        reboot #5 released (57/55, 0.9x) | wk  344 | R= 68.36 M=   1.00 F=  63.55 | COOLING           | aware=0.374
             vs a fresh mediocre ORIGINAL | wk    0 | R= 12.51 M=   1.00 F=   0.00 | ACTIVE            | aware=0.102
+
+====================================================================================================
+PROBE 6 — lifetime branch cap vs active-continuity cap; the ninth requested continuity; fatigue laundering
+====================================================================================================
+
+  6a  single continuity, 19 mediocre sequels (baseline)
+     continuities created:  1 | first refused new-line request: none | 9th line requested: never (fewer than 8 exist)
+     film  2 wk  40 on main   | property F (read)    0.0 | retired per-line read    0.0 | awareness earned 0.097 (retired read would give 0.097)
+     film  3 wk  80 on main   | property F (read)   28.9 | retired per-line read   28.9 | awareness earned 0.095 (retired read would give 0.095)
+     film  4 wk 120 on main   | property F (read)   50.0 | retired per-line read   50.0 | awareness earned 0.093 (retired read would give 0.093)
+     film  6 wk 200 on main   | property F (read)   76.7 | retired per-line read   76.7 | awareness earned 0.092 (retired read would give 0.092)
+     film  9 wk 320 on main   | property F (read)   95.3 | retired per-line read   95.3 | awareness earned 0.095 (retired read would give 0.095)
+     film 13 wk 480 on main   | property F (read)  103.8 | retired per-line read  103.8 | awareness earned 0.110 (retired read would give 0.110)
+     film 20 wk 760 on main   | property F (read)  106.7 | retired per-line read  106.7 | awareness earned 0.137 (retired read would give 0.137)
+     mean awareness earned, films 2-20: 0.108   (under the retired per-line read: 0.108)
+
+  6b  a NEW continuity for every film, NO cap at all (what unlimited branching would permit)
+     continuities created: 20 | first refused new-line request: none | 9th line requested: wk 320 -> LEGAL
+     film  2 wk  40 on line2  | property F (read)    0.0 | retired per-line read    0.0 | awareness earned 0.096 (retired read would give 0.096)
+     film  3 wk  80 on line3  | property F (read)   19.3 | retired per-line read    0.0 | awareness earned 0.099 (retired read would give 0.110)
+     film  4 wk 120 on line4  | property F (read)   33.3 | retired per-line read    0.0 | awareness earned 0.102 (retired read would give 0.123)
+     film  6 wk 200 on line6  | property F (read)   51.1 | retired per-line read    0.0 | awareness earned 0.110 (retired read would give 0.148)
+     film  9 wk 320 on line9  | property F (read)   63.5 | retired per-line read    0.0 | awareness earned 0.124 (retired read would give 0.181)
+     film 13 wk 480 on line13 | property F (read)   69.2 | retired per-line read    0.0 | awareness earned 0.144 (retired read would give 0.220)
+     film 20 wk 760 on line20 | property F (read)   71.2 | retired per-line read    0.0 | awareness earned 0.176 (retired read would give 0.273)
+     mean awareness earned, films 2-20: 0.134   (under the retired per-line read: 0.195)
+
+  6c  M3 LIFETIME cap 8: 7 new lines, then sequels rotate onto whichever existing line has the lowest per-line read
+     continuities created:  8 | first refused new-line request: wk 320 (8 lines exist, 3 open) | 9th line requested: wk 320 -> ILLEGAL
+     film  2 wk  40 on line2  | property F (read)    0.0 | retired per-line read    0.0 | awareness earned 0.096 (retired read would give 0.096)
+     film  3 wk  80 on line3  | property F (read)   19.3 | retired per-line read    0.0 | awareness earned 0.099 (retired read would give 0.110)
+     film  4 wk 120 on line4  | property F (read)   33.3 | retired per-line read    0.0 | awareness earned 0.102 (retired read would give 0.123)
+     film  6 wk 200 on line6  | property F (read)   51.1 | retired per-line read    0.0 | awareness earned 0.110 (retired read would give 0.148)
+     film  9 wk 320 on main   | property F (read)   63.5 | retired per-line read    0.0 | awareness earned 0.124 (retired read would give 0.181)
+     film 13 wk 480 on line5  | property F (read)   94.7 | retired per-line read    2.1 | awareness earned 0.116 (retired read would give 0.217)
+     film 20 wk 760 on line4  | property F (read)  105.7 | retired per-line read    3.4 | awareness earned 0.136 (retired read would give 0.268)
+     mean awareness earned, films 2-20: 0.117   (under the retired per-line read: 0.193)
+
+  6d  §10 ACTIVE cap 3, naive: new line whenever legal, else the lowest per-line read (keeps all 3 open, so never legal again)
+     continuities created:  3 | first refused new-line request: wk 120 (3 lines exist, 3 open) | 9th line requested: never (fewer than 8 exist)
+     film  2 wk  40 on line2  | property F (read)    0.0 | retired per-line read    0.0 | awareness earned 0.096 (retired read would give 0.096)
+     film  3 wk  80 on line3  | property F (read)   19.3 | retired per-line read    0.0 | awareness earned 0.099 (retired read would give 0.110)
+     film  4 wk 120 on main   | property F (read)   33.3 | retired per-line read    0.0 | awareness earned 0.102 (retired read would give 0.123)
+     film  6 wk 200 on line3  | property F (read)   67.8 | retired per-line read   10.3 | awareness earned 0.098 (retired read would give 0.140)
+     film  9 wk 320 on line3  | property F (read)   91.8 | retired per-line read   19.4 | awareness earned 0.098 (retired read would give 0.164)
+     film 13 wk 480 on main   | property F (read)  102.8 | retired per-line read   23.7 | awareness earned 0.110 (retired read would give 0.194)
+     film 20 wk 760 on line2  | property F (read)  106.6 | retired per-line read   25.1 | awareness earned 0.136 (retired read would give 0.239)
+     mean awareness earned, films 2-20: 0.110   (under the retired per-line read: 0.175)
+
+  6e  §10 ACTIVE cap 3, reboot-heavy: sequel on the most recently released open line so the others go dormant and a new line becomes legal
+     continuities created: 14 | first refused new-line request: wk 120 (3 lines exist, 3 open) | 9th line requested: wk 440 -> LEGAL
+     film  2 wk  40 on line2  | property F (read)    0.0 | retired per-line read    0.0 | awareness earned 0.096 (retired read would give 0.096)
+     film  3 wk  80 on line3  | property F (read)   19.3 | retired per-line read    0.0 | awareness earned 0.099 (retired read would give 0.110)
+     film  4 wk 120 on line3  | property F (read)   33.3 | retired per-line read   19.3 | awareness earned 0.103 (retired read would give 0.112)
+     film  6 wk 200 on line5  | property F (read)   58.2 | retired per-line read    0.0 | awareness earned 0.105 (retired read would give 0.148)
+     film  9 wk 320 on line7  | property F (read)   73.3 | retired per-line read    0.0 | awareness earned 0.115 (retired read would give 0.181)
+     film 13 wk 480 on line9  | property F (read)   77.1 | retired per-line read   19.3 | awareness earned 0.135 (retired read would give 0.199)
+     film 20 wk 760 on line14 | property F (read)   86.9 | retired per-line read    0.0 | awareness earned 0.154 (retired read would give 0.273)
+     mean awareness earned, films 2-20: 0.125   (under the retired per-line read: 0.189)
+
+  Reading the columns: 'property F (read)' is what revision 2's awareness input and band see; 'retired per-line read' is what
+  revision 1 would have seen.  Under revision 2 the ONLY difference between patterns is the similarity bucket (a reboot's own
+  film accrues at SIMILARITY['reboot'] = 0.60 instead of 0.90) — a tuning constant, not a branch trick; under the retired
+  per-line read, 6b/6c would have read an empty or paid-down line while the audience was tired of the property.  The active
+  cap bounds concurrent/display complexity (never more than 3 open lines) — it is not what prevents laundering.
+
+  Ninth continuity / horizon:
+     property founded 1925, a new continuity every 12 y: 8 lifetime branches spent by 2009; 9th request in 2021 -> LIFETIME cap: ILLEGAL FOREVER (inside the 1920-2040 campaign); ACTIVE cap: legal whenever < 3 lines are open
+     property founded 1925, a new continuity every 20 y: 8 lifetime branches spent by 2065; 9th request in 2085 -> LIFETIME cap: ILLEGAL FOREVER (after 2040); ACTIVE cap: legal whenever < 3 lines are open
+     property founded 1950, a new continuity every 15 y: 8 lifetime branches spent by 2055; 9th request in 2070 -> LIFETIME cap: ILLEGAL FOREVER (after 2040); ACTIVE cap: legal whenever < 3 lines are open
+     ACTIVE cap worst case (1920-2040 campaign, 6240 wk): <= 124 continuities ever (rate bound 3 per 150 wk) ~= 7.0 KB at M3's 58 B per branch record; typical real cases need <= 4
+     ACTIVE cap worst case (200-year sandbox, 10400 wk): <= 208 continuities ever (rate bound 3 per 150 wk) ~= 11.8 KB at M3's 58 B per branch record; typical real cases need <= 4

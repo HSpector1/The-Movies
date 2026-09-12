@@ -1,3 +1,5 @@
+> **STATUS: HISTORICAL INPUT (revision 02, 2026-09-12).** Unmodified research input below this line. Where it differs from the canonical specification — report [`../P17-INDEPENDENT-VERIFICATION-REPORT.md`](../P17-INDEPENDENT-VERIFICATION-REPORT.md) §5 (index §5.7, with §8/§9/§10), canonical calculator [`../redteam/R3-reviewer-corrections-calc.py`](../redteam/R3-reviewer-corrections-calc.py), committed output [`../redteam/R3-output.txt`](../redteam/R3-output.txt) — **the report governs.** Superseded here: a candidate shape; its kernels became the base of the canonical rule, but ungated Recognition, per-branch Fatigue and the O(n) recompute are superseded.
+
 # P17 Model B — DERIVED-FROM-INSTALLMENTS Recognition/Momentum/Fatigue
 
 **Modeler:** RMF modeler B. **Shape:** zero mutable meters. The Franchise root stores only

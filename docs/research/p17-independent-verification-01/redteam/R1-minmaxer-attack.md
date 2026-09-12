@@ -1,3 +1,5 @@
+> **STATUS: HISTORICAL INPUT (revision 02, 2026-09-12).** Unmodified research input below this line. Where it differs from the canonical specification — report [`../P17-INDEPENDENT-VERIFICATION-REPORT.md`](../P17-INDEPENDENT-VERIFICATION-REPORT.md) §5 (index §5.7, with §8/§9/§10), canonical calculator [`R3-reviewer-corrections-calc.py`](R3-reviewer-corrections-calc.py), committed output [`R3-output.txt`](R3-output.txt) — **the report governs.** Superseded here: an attack on the PRE-correction synthesis (it drives `models/M1-final-synthesis-calc.py` via `R1_verify.py`); its root-cause findings were adopted (C1, C2) and its verdicts are superseded by report §16, which also adds Probe 6 (revision 02).
+
 # R1 — Dominant-Strategy Red Team: P17 Franchise Design (min-maxer / speedrunner lens)
 
 **Role:** adversarial reviewer, READ-ONLY. No repo edits, no branches, no builds, no runtime. Goal:

@@ -1,3 +1,6 @@
+# STATUS: HISTORICAL CALCULATOR (revision 02, 2026-09-12). Unmodified below this banner.
+# The canonical calculator is ../redteam/R3-reviewer-corrections-calc.py (committed output ../redteam/R3-output.txt); the specification is the report §5 (index §5.7).
+# Superseded here: M2's arithmetic, including the expectation multiplier the report does not adopt.
 def clamp(x,lo,hi): return max(lo,min(hi,x))
 
 def star_power_delta(fameBefore, roleWeight, total, aud, expectedTotal):

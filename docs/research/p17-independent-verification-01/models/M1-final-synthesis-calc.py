@@ -1,3 +1,6 @@
+# STATUS: HISTORICAL CALCULATOR (revision 02, 2026-09-12). Unmodified below this banner.
+# The canonical calculator is ../redteam/R3-reviewer-corrections-calc.py (committed output ../redteam/R3-output.txt); the specification is the report §5 (index §5.7).
+# Superseded here: the synthesis calculator: ungated Recognition, forecast-only Fatigue, F = 0 reboot seed, expectation multiplier, per-branch Fatigue, 0.6 remake weight — all superseded; kept because redteam/R1 drove it.
 """
 P17 M1 FINAL SYNTHESIS -- throwaway paper-arithmetic script.
 Read-only. Lives only in scratchpad/p17/models/. No repo touched.

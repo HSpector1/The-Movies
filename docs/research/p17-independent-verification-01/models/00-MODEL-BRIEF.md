@@ -1,3 +1,5 @@
+> **STATUS: HISTORICAL INPUT (revision 02, 2026-09-12).** Unmodified research input below this line. Where it differs from the canonical specification — report [`../P17-INDEPENDENT-VERIFICATION-REPORT.md`](../P17-INDEPENDENT-VERIFICATION-REPORT.md) §5 (index §5.7, with §8/§9/§10), canonical calculator [`../redteam/R3-reviewer-corrections-calc.py`](../redteam/R3-reviewer-corrections-calc.py), committed output [`../redteam/R3-output.txt`](../redteam/R3-output.txt) — **the report governs.** Superseded here: the brief's per-branch Fatigue framing (Fatigue is one scalar per StoryProperty in the canonical rule); every constant it names is a starting point.
+
 # P17 model-phase brief (read after CONTEXT.md)
 
 You are designing PAPER MODELS for the report — no production code, no repo edits. You may run a throwaway numeric script ONLY inside the scratchpad p17/models/ folder (python3) to compute paper-history tables; never touch the repository.

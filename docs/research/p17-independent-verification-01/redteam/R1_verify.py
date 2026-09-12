@@ -1,3 +1,6 @@
+# STATUS: HISTORICAL CALCULATOR (revision 02, 2026-09-12). Unmodified below this banner.
+# The canonical calculator is R3-reviewer-corrections-calc.py (committed output R3-output.txt); the specification is the report §5 (index §5.7).
+# Superseded here: drives the historical synthesis calculator; its numbers show the PRE-correction behaviour the red team attacked.
 """
 R1 min-maxer red-team verification script. READ-ONLY paper arithmetic only.
 Reuses the EXACT classes/constants from models/M1-final-synthesis-calc.py (the

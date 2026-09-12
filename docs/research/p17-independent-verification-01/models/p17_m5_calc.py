@@ -1,3 +1,6 @@
+# STATUS: HISTORICAL CALCULATOR (revision 02, 2026-09-12). Unmodified below this banner.
+# The canonical calculator is ../redteam/R3-reviewer-corrections-calc.py (committed output ../redteam/R3-output.txt); the specification is the report §5 (index §5.7).
+# Superseded here: M5's arithmetic (association weights, continuity credit); current as arithmetic, historical as a file.
 # P17 M5 paper-history calculator (throwaway, scratchpad-only). No repo access.
 # Reuses EXACT public formulas cited in evidence/02 where noted; everything else is a
 # new P17-owned aggregation clearly marked DESIGN INFERENCE / STARTING POINT.

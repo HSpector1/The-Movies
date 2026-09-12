@@ -1,3 +1,5 @@
+> **STATUS: HISTORICAL INPUT (revision 02, 2026-09-12).** Unmodified research input below this line. Where it differs from the canonical specification — report [`../P17-INDEPENDENT-VERIFICATION-REPORT.md`](../P17-INDEPENDENT-VERIFICATION-REPORT.md) §5 (index §5.7, with §8/§9/§10), canonical calculator [`R3-reviewer-corrections-calc.py`](R3-reviewer-corrections-calc.py), committed output [`R3-output.txt`](R3-output.txt) — **the report governs.** Superseded here: an attack on the PRE-correction synthesis; its findings (reboot F = 0, free type label, cameo tie-break, cross-model contradictions) were adopted as C3–C7 and its verdicts are superseded by report §16.
+
 # R2 — Systems-Correctness & Bad-UX Adversarial Attack on P17 Franchise Design
 
 Read-only review. No repository edits, no branches, no builds, no runtime. Scope: `CONTEXT.md`,

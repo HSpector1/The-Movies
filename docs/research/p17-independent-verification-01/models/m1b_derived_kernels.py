@@ -1,3 +1,6 @@
+# STATUS: HISTORICAL CALCULATOR (revision 02, 2026-09-12). Unmodified below this banner.
+# The canonical calculator is ../redteam/R3-reviewer-corrections-calc.py (committed output ../redteam/R3-output.txt); the specification is the report §5 (index §5.7).
+# Superseded here: candidate M1b's numbers; superseded by the canonical calculator.
 #!/usr/bin/env python3
 """
 P17 Model B: DERIVED-FROM-INSTALLMENTS RMF kernels.

@@ -1,3 +1,5 @@
+> **STATUS: HISTORICAL INPUT (revision 02, 2026-09-12).** Unmodified research input below this line. Where it differs from the canonical specification — report [`../P17-INDEPENDENT-VERIFICATION-REPORT.md`](../P17-INDEPENDENT-VERIFICATION-REPORT.md) §5 (index §5.7, with §8/§9/§10), canonical calculator [`../redteam/R3-reviewer-corrections-calc.py`](../redteam/R3-reviewer-corrections-calc.py), committed output [`../redteam/R3-output.txt`](../redteam/R3-output.txt) — **the report governs.** Superseded here: ungated Recognition (ratchets with release count — red-team root cause A), Fatigue only in the expectation multiplier (root cause B), the reboot branch at F = 0, the separate expectation multiplier, per-branch Fatigue, the 0.6 remake coefficient, and the 'reboot only when COOLING' legality gate — all superseded by report §5 / §5.5 / §5.7.
+
 # P17 Report — Section 5 & 6: Recognition / Momentum / Fatigue (FINAL)
 
 **Status:** synthesis of three independently-modeled candidates (M1a "Three Stored Meters," M1b

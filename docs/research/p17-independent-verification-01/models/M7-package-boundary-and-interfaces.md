@@ -1,3 +1,5 @@
+> **STATUS: HISTORICAL INPUT (revision 02, 2026-09-12).** Unmodified research input below this line. Where it differs from the canonical specification — report [`../P17-INDEPENDENT-VERIFICATION-REPORT.md`](../P17-INDEPENDENT-VERIFICATION-REPORT.md) §5 (index §5.7, with §8/§9/§10), canonical calculator [`../redteam/R3-reviewer-corrections-calc.py`](../redteam/R3-reviewer-corrections-calc.py), committed output [`../redteam/R3-output.txt`](../redteam/R3-output.txt) — **the report governs.** Superseded here: contradiction 10 (reboot Fatigue seed) is moot under property-wide Fatigue; 'SaveFileV20' is replaced by the next governed save version (report §10, §17).
+
 # M7 — Package-Boundary / Interface Review (Report §17)
 
 Read-only cross-file audit. Reviewed in full: `M1-RMF-SYNTHESIS.md` (the accepted R/M/F model — M1a/b/c and

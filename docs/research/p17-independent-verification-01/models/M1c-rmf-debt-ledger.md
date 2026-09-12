@@ -1,3 +1,5 @@
+> **STATUS: HISTORICAL INPUT (revision 02, 2026-09-12).** Unmodified research input below this line. Where it differs from the canonical specification — report [`../P17-INDEPENDENT-VERIFICATION-REPORT.md`](../P17-INDEPENDENT-VERIFICATION-REPORT.md) §5 (index §5.7, with §8/§9/§10), canonical calculator [`../redteam/R3-reviewer-corrections-calc.py`](../redteam/R3-reviewer-corrections-calc.py), committed output [`../redteam/R3-output.txt`](../redteam/R3-output.txt) — **the report governs.** Superseded here: a candidate shape; its founding-film accrual and absent floor are superseded; its quality-scaled paydown and ledger display were kept.
+
 # M1c — RMF Model C: OVEREXPOSURE DEBT + HEAT LEDGER
 
 **Modeler:** RMF Modeler C. **Status:** paper model / candidate, read-only research. No repo edits, no code. All constants are STARTING POINTS for tuning, explicitly labelled. Numeric worked histories were computed with a throwaway script at `scratchpad/p17/models/m1c_rmf_sim.py` (python3, not part of the repo).

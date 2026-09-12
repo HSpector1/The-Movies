@@ -1,3 +1,6 @@
+# STATUS: HISTORICAL CALCULATOR (revision 02, 2026-09-12). Unmodified below this banner.
+# The canonical calculator is ../redteam/R3-reviewer-corrections-calc.py (committed output ../redteam/R3-output.txt); the specification is the report §5 (index §5.7).
+# Superseded here: M3's illustrative constants and the lifetime-cap byte estimate (the 58 B per branch record is still cited by Probe 6).
 import math
 
 # ---- constants (STARTING POINTS, all labeled as such in the report) ----
