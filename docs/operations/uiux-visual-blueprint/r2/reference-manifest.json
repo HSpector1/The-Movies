@@ -1,0 +1,255 @@
+{
+  "note": "Owner-provided references; metadata only, no original image assets or private paths included",
+  "references": [
+    {
+      "id": "R01",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 12.02.00\u202fPM.png",
+      "bytes": 1417163,
+      "sha256": "da79383519d24ad265c047d0c18c8e180bf85d5a7ca77a6580bf27a9ccef6d5c",
+      "width": 1349,
+      "height": 691,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R02",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 12.01.45\u202fPM.png",
+      "bytes": 1475816,
+      "sha256": "4c146d558c2ed4abb48f0bc62874c916ebe35b9a80f113572f86888de80f663c",
+      "width": 1349,
+      "height": 691,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R03",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 12.01.16\u202fPM.png",
+      "bytes": 1461705,
+      "sha256": "6b315cec1c5ac27c3157233b1761b449668a65534ea47748561e69868fd45faf",
+      "width": 1349,
+      "height": 691,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R04",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 12.00.56\u202fPM.png",
+      "bytes": 1526366,
+      "sha256": "2e423b824aa1fd2b525aab52295ea67a89e0738b30edd18dbf039a177e082c03",
+      "width": 1349,
+      "height": 691,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R05",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 12.00.39\u202fPM.png",
+      "bytes": 1511065,
+      "sha256": "fe65fc480d787058b06e410b01cdabe37c1a766f2e6c2bd08079a4f43cd7001a",
+      "width": 1349,
+      "height": 691,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R06",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 12.00.20\u202fPM.png",
+      "bytes": 1650603,
+      "sha256": "ae3d1421f3cd4d4af70c9c968e75b435d0f15d23dba0d9f941345452923ef3ab",
+      "width": 1349,
+      "height": 691,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R07",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 12.00.04\u202fPM.png",
+      "bytes": 1771956,
+      "sha256": "02dfef89dac2dae86e9d07f660d3e1479f7431a17b9a68c810a2292e40583c3b",
+      "width": 1349,
+      "height": 691,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R08",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.59.35\u202fAM.png",
+      "bytes": 1651219,
+      "sha256": "e939659c5a2c249172004978e39b81eb12e94f0ceff109baf2f482bec340bab3",
+      "width": 1349,
+      "height": 691,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R09",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.59.47\u202fAM.png",
+      "bytes": 1523154,
+      "sha256": "ca8732f06a3fc707356c2231fbeefc337eb8cefc32fcfb5e82db34e83adcab62",
+      "width": 1349,
+      "height": 691,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R10",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.40.24\u202fAM.png",
+      "bytes": 2312246,
+      "sha256": "ee4a62c09996dd94331eb6cf7f39e9e08bb03075d3fe7d49b72b1c0b06ad264e",
+      "width": 1365,
+      "height": 1067,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R11",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.59.19\u202fAM.png",
+      "bytes": 1442850,
+      "sha256": "cee3f85def7b6ae8620c4015e0c244b548aa24995d9eba5f9424012d6fb02b8c",
+      "width": 1349,
+      "height": 691,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R12",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.40.03\u202fAM.png",
+      "bytes": 2396444,
+      "sha256": "3be0c6da15d5319880ff5ebf5d9d7f4b96ff147b0abb18ba967efbe24653b8fc",
+      "width": 1365,
+      "height": 1067,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R13",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.39.30\u202fAM.png",
+      "bytes": 2179272,
+      "sha256": "db35fb1477e343a84f9b8fac75710c0e3e81371fdfd67328b73bf1102863eb6c",
+      "width": 1365,
+      "height": 1057,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R14",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.39.16\u202fAM.png",
+      "bytes": 2168781,
+      "sha256": "fe740d48c347dfe3313c6554cec152d43b048f1a6bf868f34d13d84854e80f0f",
+      "width": 1365,
+      "height": 1057,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R15",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.38.24\u202fAM.png",
+      "bytes": 983945,
+      "sha256": "6dfefba97eb3a03e7afbc29a7b56a7335bdc3487dee8b13b6b1078bf650e72f8",
+      "width": 787,
+      "height": 580,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R16",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.38.09\u202fAM.png",
+      "bytes": 916924,
+      "sha256": "5e99f7f3058c17de8ec3190a2f8acc634cc1aa8303072f5e99d11d07d7a21dd0",
+      "width": 747,
+      "height": 533,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R17",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.38.00\u202fAM.png",
+      "bytes": 940807,
+      "sha256": "00032e72fe7fa49b733277816b90950ca72243f4877d9a0d71d9c42c603bf291",
+      "width": 747,
+      "height": 533,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R18",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.37.50\u202fAM.png",
+      "bytes": 955299,
+      "sha256": "1ca1afa0480e02dda817da41e05811ead6187cc8677a8c7c7d9917617659b52f",
+      "width": 747,
+      "height": 533,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R19",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.37.40\u202fAM.png",
+      "bytes": 673931,
+      "sha256": "d9606ee4bf16990a7f00b0eff08bd02b3eeae187da8581f20edf672aa2aed33f",
+      "width": 747,
+      "height": 533,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R20",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.37.29\u202fAM.png",
+      "bytes": 957138,
+      "sha256": "3d8013013733750e88b306e31a98d4e715306837dac98e5c116153dc8ed6b020",
+      "width": 747,
+      "height": 533,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R21",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.37.21\u202fAM.png",
+      "bytes": 943480,
+      "sha256": "d260be01c4b454114f50c8f65c543a3ae1007a28326bff693b216c489efa11a4",
+      "width": 747,
+      "height": 533,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R22",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.36.44\u202fAM.png",
+      "bytes": 849579,
+      "sha256": "bb4c1bc3ab0b487c87c624b5a7975bcad4043bc8d5bb9ccbbcb5cb9e9895d0b9",
+      "width": 772,
+      "height": 436,
+      "use": "Excluded as The Movies interaction evidence"
+    },
+    {
+      "id": "R23",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.37.10\u202fAM.png",
+      "bytes": 955897,
+      "sha256": "050d78a5d90748bf1c5495c21a58986de8dbc0669dca6f3253b1a704a8a0cb1c",
+      "width": 747,
+      "height": 533,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R24",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.34.52\u202fAM.png",
+      "bytes": 513317,
+      "sha256": "ea97cbbedd1a083cb96cf8b6ff8d67f17b95501052050959563b74c1b375d7c9",
+      "width": 579,
+      "height": 413,
+      "use": "Reference inspection only; no pixels redistributed"
+    },
+    {
+      "id": "R25",
+      "source": "Owner-supplied reference image in this review",
+      "displayed_filename": "Screenshot 2026-08-17 at 11.34.31\u202fAM.png",
+      "bytes": 960575,
+      "sha256": "38a1025f5fa0196071ce0d742453c56aa814a6286b73c48577b9773844e737eb",
+      "width": 775,
+      "height": 579,
+      "use": "Reference inspection only; no pixels redistributed"
+    }
+  ]
+}

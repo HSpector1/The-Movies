@@ -101,3 +101,8 @@ The product tradeoffs are limited: a persistent explanation costs some detail sp
 ## Visual design follow-up — 2026-09-12
 
 The [visual blueprint index](uiux-visual-blueprint/README.md) develops this review into eight rendered screen families, annotated/editable source, a standalone fictional-data prototype and an independent rendered-design disposition. It supersedes prose-only layout guidance with one recommended visual target. The original source findings, historical-capture limits and future native acceptance requirements above remain intact. This follow-up is design-only and requires Future Ops / Owner review; it does not authorize gameplay implementation or take over P13B.
+
+
+## Owner-directed R2 visual follow-up
+
+The Owner’s Lionhead screenshots and studio-awareness critique prompted a revision of the earlier visual target. **[Current R2 visual index](uiux-visual-blueprint/r2/README.md)**: employee discovery on the left, scripts/films on the right, compact local inspection and Casting/Build work connected to the lot. The original findings and source appendix above remain historical evidence. R2 includes rendered mockups, a complete local prototype/package, checker repairs and explicit native acceptance gaps. It does not implement gameplay, redirect P13B or authorize native execution.

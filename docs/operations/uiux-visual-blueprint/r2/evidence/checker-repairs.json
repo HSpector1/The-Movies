@@ -1,0 +1,53 @@
+[
+  {
+    "lotPress": {
+      "before": {
+        "x": 268.2109375,
+        "y": 411,
+        "width": 68.359375,
+        "height": 34
+      },
+      "down": {
+        "x": 268.2109375,
+        "y": 411,
+        "width": 68.359375,
+        "height": 34
+      },
+      "opened": "The Long Way Home"
+    },
+    "buildSelected": false
+  },
+  {
+    "compactCrew": {
+      "title": "PERSON / P-022\nMara Vale\n\nCraft lead · exact retained selection\n\n‹ Back",
+      "assignmentControls": 0
+    }
+  },
+  {
+    "fullCrew": {
+      "title": "V03 · PERSON / P-022\nMara Vale\n\nCraft lead dossier · retained-lot inspection\n\n‹ Back",
+      "assignmentControls": 0
+    }
+  },
+  {
+    "guard": {
+      "personAfter": "V03 · PERSON / P-022\nMara Vale\n\nCraft lead dossier · retained-lot inspection\n\n‹ Back",
+      "feedback": "Inspection only. This exact person is not an eligible lead candidate in this fixture."
+    }
+  },
+  {
+    "personScroll": {
+      "origin": 98,
+      "newInspector": 0,
+      "back": 98
+    }
+  },
+  {
+    "candidateScroll": {
+      "origin": 664,
+      "newInspector": 0,
+      "back": 664,
+      "draft": "Selected role: Lead · Celia Ward\nDraft budget + marketing: $700,000\nDirector: Mara Vale · P-004\nCraft lead: Mara Vale · P-022\nAntagonist: Eli Rowan\nSupport: June Sloane\nAll roles and comparison pins remain in the draft. Selection does not sign."
+    }
+  }
+]
