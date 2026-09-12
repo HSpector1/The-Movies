@@ -49,8 +49,11 @@
   (18 supported / 9 partly / 2 refuted — the 2 were mislabelled crop files). Wrote
   `RESEARCH-ORIGINAL-GAME.md`, `RESEARCH-COMPARATORS.md`, `SOURCES.md` S1/S2/S3/S4;
   raw observations preserved in `assets/research-raw/`. The workflow's final gap-critic
-  agent (coverage table + optional gap-fill footage) had not returned at packaging time;
-  its result, if it arrives, belongs in `RESEARCH-ORIGINAL-GAME.md` §3 as a continuation.
+  agent returned before publication: 13/19 situations covered, 3 of 6 weak ones filled
+  from a fourth video (Star Salaries screen, Advanced Movie-Maker, Studio Charts
+  transition, selected-person bubble cluster); folded into `RESEARCH-ORIGINAL-GAME.md`
+  (W-D, §3) and `SOURCES.md` (S1-06). It disclosed a user-level yt-dlp pip upgrade (no
+  repository change). Audio remains unaddressed.
 - One bounded Sonnet checker ran read-only over the package and re-measured the
   prototype itself: APPROVE WITH CHANGES (`CHECKER.md`). Accepted: lot artifacts fixed,
   Exploration A′ built, `CMP-06` added at the top of the index, V-04 reworded.

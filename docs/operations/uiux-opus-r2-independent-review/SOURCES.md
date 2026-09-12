@@ -98,6 +98,16 @@ Blocked: Live pcgamingwiki.com/wiki/The_Movies — Cloudflare 'Just a moment' ch
 
 Still requiring verification: Exact hover delay (ms) before an Information Bubble appears — manual only says 'wait for the bubbles to appear.' · Whether the manual's small screenshots are pixel-identical to the running in-engine HUD (style-consistent but not cross-checked against independent gameplay footage this pass). · Any Lionhead/Molyneux developer interview or Edge/Eurogamer 2005 preview specifically discussing UI/art-direction rationale — searched but no fetchable primary source surfaced in the time available. · Detailed Casting Office interior floorplan UI beyond manual/GameFAQs prose — the Fandom page exists (confirmed via the wiki's own sitemap) but has no Wayback snapshot and its live URL is Cloudflare-bl · The Movies Fixer's specific 'fixes click areas' claim — read only via a WebSearch snippet of the tool's own listing, not independently fetched and read. · Stunts & Effects expansion-specific UI differences — only one incidental mention found (stunt icon placement in the Script Office genre room); insufficient for a confident expansion-vs-base-game UI co
 
+### Completeness critic and gap-fill (research subagent `gap-critic`; 19 coverage rows, 1 new workflow)
+
+| ID | Source | Edition/date | Locator | Inspection | Conf. | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| S1-06-G1 | ["This game lets you create hilariously bad movies" (YouTube GNA4MAzei4s, 1,326,189 views, 1551 s)](https://www.youtube.com/watch?v=GNA4MAzei4s) | base game; upload date not captured | t=819–832 s (Advanced Movie-Maker, Sets catalogue, playback), t=953–971 s (cash tooltip, Star Salaries), Studio Charts pair 11 s apart | VIEWED | HIGH | 16 frames saved under `research/gapfill/` (scratch); 5 limited excerpts in `assets/original-game/footage-g1-*`. |
+
+Coverage verdict by the critic (19 required situations): 13 COVERED before gap-fill; 6 WEAK, of which "detailed management view", "script development / finished script" and "animation/transitions" were filled from G1; "busy mature lot" remains marketing-still plus one busy footage frame; "close/return" transitions and "dense-world" readability remain WEAK; audio remains **unaddressed** (image-only tooling). Full text: `assets/research-raw/gapcritic-result.json`.
+
+Tooling disclosure: the critic upgraded the *user-level* `yt-dlp` pip package (2026.06.09 → 2026.08.19, `pip3 install --user --break-system-packages --upgrade yt-dlp`) to get past YouTube 403s. No repository dependency, hook or configuration was changed. Two of the four original-lens folders were left without a REPORT.md by their agents (their findings are in the structured results preserved in `assets/research-raw/research-results.json`).
+
 ## S2 — Comparators
 
 ### RCT2 / RCT3 (research subagent `comp:rct`; 9 observations, 0 workflows)

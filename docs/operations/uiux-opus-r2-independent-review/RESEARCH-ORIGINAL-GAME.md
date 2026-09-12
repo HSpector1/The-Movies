@@ -1,7 +1,7 @@
 # RESEARCH — the shipped Lionhead *The Movies* (2005) interface, reconstructed from primary evidence
 
-Method: the official manual was viewed page by page (Opus: printed pp.4–9 at 80–260 dpi;
-a research subagent: all 22 PDF spreads at 110 dpi). Three identifiable retail gameplay
+Method (four lenses plus a completeness critic that filled three gaps from a fourth video): the official manual was viewed page by page (Opus: printed pp.4–9 at 80–260 dpi;
+a research subagent: all 22 PDF spreads at 110 dpi). Four identifiable retail gameplay
 videos were downloaded at ≤480p, contact-sheeted and frame-sampled, then deleted; three
 continuous workflows were traced with timestamps. Thirty-three official/retail stills
 were viewed (15 Steam store screenshots for app 7900; 9 MobyGames 2005 thumbnails via the
@@ -84,6 +84,25 @@ menu (the manual documents right-click = all bubbles). Two different release-sum
 layouts (V1 numeric stars + critic-quote cards; V2 plain word grades) could not be
 attributed to a version/setting from footage alone.
 
+**W-D (gap-fill) Custom script → catalogue → finance → charts (G1, "This game lets you
+create hilariously bad movies", YouTube GNA4MAzei4s, 25 min).** The workflow's
+completeness critic found three weak situations and filled them from a fourth video: the
+Advanced Movie-Maker's **4-act structure bar** with empty scene slots (13:39) → the
+**Sets catalogue** (priced rows in a pale rounded list, a hover tooltip card with picture
+and description, 13:45) → the authored script **playing back as a finished film** (13:52)
+→ hovering the cash figure cycles "Click to view Studio Charts" / "Finance Screen"
+(15:53–15:54) → the **Star Salaries** framed screen (rank badge, tiny portrait,
+satisfaction bar, influence diamonds, salary with a raise stepper, total) (16:11) → the
+**Studio Charts** ranking whose rows visibly re-sort rather than hard-cut (two frames 11 s
+apart). It also caught the **selected-person bubble cluster** in real footage: Work /
+Stress / Boredom bars, a central named bubble with a red "!" ("Threatening to quit on
+29 October 1958. Talking."), Status/Image and Fashion satellites.
+
+![G1 Star Salaries](assets/original-game/footage-g1-16m11-star-salaries.png)
+![G1 selected person](assets/original-game/footage-g1-selected-person-bubbles.png)
+![G1 sets catalogue](assets/original-game/footage-g1-13m45-sets-catalogue-tooltip.png)
+![G1 charts](assets/original-game/footage-g1-studio-charts.png)
+
 ## 3 · Situations required by the brief — coverage
 
 | Situation | Evidence | Files |
@@ -91,16 +110,16 @@ attributed to a version/setting from footage alone.
 | Early studio | V1 5:00 empty lot; Steam ss04 (Oct 1929, sparse) | `footage-v1-5m00-empty-lot.png` |
 | Busy mature lot | V1 14:00; Steam ss13–15 (hero renders, no HUD — aspirational) | `footage-v1-14m00-working-lot.png` |
 | Employee / category navigation | Steam ss01 cycler; ss02 (7 cards); manual p.6 | `steam-ss01-hud-crops-2x.png`, `steam-ss02-left-rail-excerpt.png` |
-| Selected person | Steam ss12 (Dave Woods bubbles); gs01 (name/movie/state + Work/Stress bubbles) | `steam-ss12-bubbles-excerpt.png`, `gamespot-gs01-bubbles-excerpt.png` |
-| Script development / finished script | Manual p.7 stages; V2 24:00–24:40 | `manual-p6-7-cards-crops.png`, `footage-v2-24m20-shooting-schedule.png` |
+| Selected person | Steam ss12 (Dave Woods bubbles); gs01 (name/movie/state + Work/Stress bubbles); G1 full radiating cluster with red "!" | `steam-ss12-bubbles-excerpt.png`, `gamespot-gs01-bubbles-excerpt.png`, `footage-g1-selected-person-bubbles.png` |
+| Script development / finished script | Manual p.7 stages; V2 24:00–24:40; G1 act-structure bar, Sets catalogue, playback | `manual-p6-7-cards-crops.png`, `footage-v2-24m20-shooting-schedule.png`, `footage-g1-13m39-act-structure.png`, `footage-g1-13m45-sets-catalogue-tooltip.png` |
 | Casting / building work areas | Steam ss05 (Lead Roles floor zones); V1 20:00 / 25:40 | `steam-ss05-casting-floor-excerpt.png`, `footage-v1-*` |
 | Filming / blocker | V3 red flag + red cash; V1 25:40 red badge | `footage-v3-blocker-red-cash.png` |
 | Post / release | V2 26:40 Released; V1 31:40 reviews; MobyGames thumb 01 (editing filmstrip, MED) | `footage-v2-26m40-released-card.png`, `footage-v1-31m40-critic-reviews.png` |
 | Construction catalogue / placement | V1 8:56–9:06 | `footage-v1-drag-sequence-8m56-9m06.png` |
-| Detailed management view | Manual p.6 Studio Ranking thumbnail; MobyGames awards screen (Spanish build, MED); GameFAQs Finance/Salary routes (doc) | `manual-p6-7-cards-crops.png` |
+| Detailed management view | G1 Star Salaries screen and Studio Charts (seq); manual p.6 Studio Ranking thumbnail; MobyGames awards screen (Spanish build, MED); GameFAQs Finance/Salary routes (doc) | `footage-g1-16m11-star-salaries.png`, `footage-g1-studio-charts.png`, `manual-p6-7-cards-crops.png` |
 | Hover / primary / secondary / held gesture | Manual pp.6, 8, 10 (doc); V1 drag (seq) | — |
 | HUD hierarchy, proportions, portrait framing, icons, type, materials | Steam ss01 2x crop: glossy silver pills, starburst badges, rounded-square silver frames, bold rounded sans | `steam-ss01-hud-crops-2x.png` |
-| Animation / audio | Pulsing "$" (doc); menu particle wipe (V1 0:05, seq); PA announcements (doc). Audio not checked in footage. | — |
+| Animation / audio | Pulsing "$" (doc); menu particle wipe (V1 0:05, seq); Studio Charts rows re-sorting between frames and a HUD tooltip label cycling (G1, seq); PA announcements (doc). **Audio was not checked**: the toolset can extract but not listen to a track. | `footage-g1-studio-charts.png` |
 | Dense-world / high-resolution | PCGamingWiki: HUD stretched at ultrawide, distorted text, some UI locked to 30 fps; community "Fixer" claims hitbox correction (nv) | — |
 
 ## 4 · What transfers and what should not
@@ -110,7 +129,8 @@ and a status bar; stage-by-pictogram with one animated cue reserved for money; a
 timeline; one round Build button; hover = summary, right-click = everything; alerts by
 shape + colour + a red cash figure; building-scoped work areas that "lower the walls";
 the guiding trail from selection to destination; the framed "screen" language for deep
-views (Ranking, Released, Reviews).
+views (Ranking, Released, Reviews, Star Salaries, Studio Charts); the selected-person
+bubble cluster as the model for a compact inspector that keeps the world visible.
 
 **Do not transfer:** nameless cards (add names or a compact mode with hover names);
 serial one-card cycling (needs a filterable list); drag-and-drop as the only assignment

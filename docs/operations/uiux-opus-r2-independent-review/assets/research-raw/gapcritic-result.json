@@ -1,0 +1,253 @@
+{
+ "blocked": [
+  "footage/ and stills/ never got their own REPORT.md \u2014 only manual/REPORT.md and behavior/REPORT.md exist on disk, so half the 'four REPORT.md files' the task named don't exist; footage/ and stills/ coverage below had to be reconstructed by viewing the raw sheets/frames/screenshots directly rather than reading a synthesis.",
+  "manual/REPORT.md is a one-paragraph stub that says the real page-by-page findings were 'delivered in the assistant's final structured response' from a prior session \u2014 that structured response was never persisted to this disk, so the manual folder's actual analysis text is unrecoverable; only the raw page-XX.png / crop PNGs survive as primary evidence.",
+  "Audio is unaddressed across all five folders (manual/footage/stills/behavior/gapfill) and stays unaddressed after this pass: ffmpeg can extract a video's audio track, but nothing in the available toolset (yt_dlp/ffmpeg/curl/Read) can listen to it \u2014 Read only renders images \u2014 so PA-system announcements, drag/drop SFX, and the 'flashing green bars' escalation-ladder's audio leg (behavior Obs. 12) remain undocumented from direct evidence, only from manual-text description.",
+  "yt-dlp was initially broken in this environment (pip-installed 2026.06.09, >90 days stale) and returned HTTP 403 on every YouTube format/client (web, ios, android_vr, tv). Fixed in-session via `pip3 install --user --break-system-packages --upgrade yt-dlp` (now 2026.08.19); noting this since the next session hitting the same 403 should upgrade rather than assume YouTube is unreachable."
+ ],
+ "lens": "completeness-critic (coverage audit + targeted gap-fill) for The Movies (2005) UI/UX reconstruction research",
+ "reportFile": "N/A \u2014 per this session's no-self-authored-report-files policy, no gapfill/REPORT.md was written (the Write tool itself refused it: \"Subagents should return findings as text, not write report files\"). All findings, the coverage table, and the gap-fill writeup are in this response's `summary`/`observations`/`workflowsTraced`. The 16 extracted frames themselves ARE saved on disk at /private/tmp/claude-501/-Users-bruce/41c841f9-0429-4923-8623-96050aba6653/scratchpad/research/gapfill/ (plus contact_sheets/ with the 2 verification tiles used to find exact timestamps).",
+ "sources": [
+  {
+   "id": "manual",
+   "title": "manual/REPORT.md + pages/*.png + crops/*.png \u2014 official retail manual (22pp, rendered)",
+   "url": "file://.../research/manual/",
+   "inspection": "READ",
+   "notes": "REPORT.md is a stub (points to a prior session's structured-response text that no longer exists on disk); the 22 rendered page PNGs and 4 crop PNGs are the actual surviving evidence and were viewed directly (e.g. pages/page-12.png = Advanced Movie-Making & Post Production spread)."
+  },
+  {
+   "id": "footage",
+   "title": "footage/sheets (15 contact sheets) + footage/frames (86 named stills) from 3 let's-play videos (v1/v2/v3, incl. Stunts & Effects)",
+   "url": "file://.../research/footage/",
+   "inspection": "VIEWED",
+   "notes": "No REPORT.md exists in this folder at all. Viewed all 15 sheets (v1_sheet_01-04, v2_sheet_01/04/06, v3_sheet_01-03) plus several individually-named frames (drag_sheet, hire_zone_panel, lot_with_cars, genre_category_strip, effect_on_staff_panel)."
+  },
+  {
+   "id": "stills",
+   "title": "stills/steam (15), stills/gamespot (4), stills/moby (9x2), stills/stunts (10) \u2014 official/press screenshots",
+   "url": "file://.../research/stills/",
+   "inspection": "VIEWED",
+   "notes": "No REPORT.md exists in this folder at all. Viewed steam_ss_01/02/03/09, gs_01/04, moby_thumb_01/03/05_big, stunts_01."
+  },
+  {
+   "id": "behavior",
+   "title": "behavior/REPORT.md \u2014 documented-behavior synthesis from manual + GameFAQs + PCGamingWiki + 3 Fandom wiki pages + StrategyWiki",
+   "url": "file://.../research/behavior/REPORT.md",
+   "inspection": "READ",
+   "notes": "Full 203-line report read; the strongest single artifact of the four folders \u2014 15 numbered observations with verbatim quotes, confidence ratings, and an explicit Unverified section it already flags itself."
+  },
+  {
+   "id": "gapfill-G1",
+   "title": "\"This game lets you create hilariously bad movies\" (YouTube GNA4MAzei4s, 1,326,189 views, 1551s)",
+   "url": "https://www.youtube.com/watch?v=GNA4MAzei4s",
+   "inspection": "VIEWED",
+   "notes": "Downloaded video-only 240p (format 243, 58MB) via yt-dlp after upgrading it; scanned via two coarse ffmpeg contact-sheet passes then two precise 1fps numbered-frame passes (pixel-position -> row/col -> exact timestamp) to avoid the eyeball-miscounting that produced several wrong timestamps on the first attempt; extracted 16 individual full-res frames into scratchpad/research/gapfill/. Source video deleted after extraction."
+  }
+ ],
+ "unverified": [
+  "Exact hover-delay (ms) before an Information Bubble/tooltip appears \u2014 still not measurable from 1fps-scale frame sampling, consistent with behavior/REPORT.md's own flag.",
+  "Whether the 'close/return' half of the floorplan open-close transition (walls re-raising after leaving a building's interior) looks like anything specific \u2014 only the open/expand half was ever caught in a frame, across all 5 folders including the new gapfill pass.",
+  "Whether the two Star-Salaries-adjacent screens seen in gapfill (t=953s 'Click to view Studio Charts' vs t=954s 'Finance Screen') are two different hover states of one HUD element or two different elements close together \u2014 read as the former from the single second-apart pair, not confirmed with a slower scan.",
+  "Whether 'dense-world behavior' (many actors/objects on-screen at once) was ever stress-tested by any source for actual frame-rate/readability degradation \u2014 only the PCGamingWiki resolution/aspect-ratio scaling failure (Obs. 15) is documented; scene-density-specific readability is inferred from a handful of busy screenshots, not analyzed by any source."
+ ],
+ "workflowsTraced": [
+  {
+   "name": "Full movie-making loop, base game (hire -> build -> cast -> film -> release -> reviews)",
+   "sourceId": "footage",
+   "steps": [
+    {
+     "timestamp": "footage/sheets/v1_sheet_01.jpg",
+     "whatHappens": "Main menu -> Create Your Studio (avatar, name, logo) -> empty lot, paused, Build menu open"
+    },
+    {
+     "timestamp": "footage/sheets/v1_sheet_02.jpg",
+     "whatHappens": "Facilities catalogue with prices -> footprint placement (red=obstructed) -> Stage School interior floorplan opens with Create Actor/Create Builder green-blue room zones, NPCs walking in"
+    },
+    {
+     "timestamp": "footage/sheets/v1_sheet_03.jpg",
+     "whatHappens": "More buildings placed and catalogued (price tooltips); Casting Office floorplan shows Load Roles / Shoot It rooms; interior saloon set under construction with actors present"
+    },
+    {
+     "timestamp": "footage/sheets/v1_sheet_04.jpg",
+     "whatHappens": "Script/genre room selection strip -> 'Released!' card with Script Quality/star rating -> detailed Effect-On-Staff-And-Studio table (wages, star rating delta, experience per crew member, production cost, duration) -> 4 critic review cards with outlet logos -> b&w in-fiction film playback"
+    }
+   ]
+  },
+  {
+   "name": "Stunts & Effects playthrough: construction -> casting floorplan -> set build",
+   "sourceId": "footage",
+   "steps": [
+    {
+     "timestamp": "footage/sheets/v3_sheet_01.jpg",
+     "whatHappens": "Second studio created -> Facilities catalogue -> scaffold construction sequence across consecutive frames -> Create Actor/Director/Extra/Reject floorplan appears over a building"
+    },
+    {
+     "timestamp": "footage/sheets/v3_sheet_02.jpg",
+     "whatHappens": "Casting Office floorplan detailed: Extra 1/1, Lead Roles, Director, Begin Casting rooms; Script Office genre rooms (Horror/Sci-Fi/Fire/Action/Comedy) shown side by side"
+    },
+    {
+     "timestamp": "footage/sheets/v3_sheet_03.jpg",
+     "whatHappens": "Set catalogue tooltips (Stage, Suburban: Bathroom, price+description) -> circular arena pit set constructed with red placement outline -> built set on lot"
+    }
+   ]
+  },
+  {
+   "name": "Custom script authoring -> catalogue browsing -> finished-film playback (NEW, gapfill)",
+   "sourceId": "gapfill-G1",
+   "steps": [
+    {
+     "timestamp": "t=953-954s: construction_catalogue_facilities_and_pulsingcash.jpg, construction_catalogue_facilities2.jpg",
+     "whatHappens": "Hovering the HUD cash-balance figure over a busy mid-game lot cycles a tooltip 'Click to view Studio Charts' -> 'Finance Screen' next to the full Facilities build catalogue"
+    },
+    {
+     "timestamp": "t=971s: detailedmgmt_finance_salaries_clean.jpg",
+     "whatHappens": "Finance Screen opens: the Star Salaries table (rank, portrait, salary-satisfaction bar, current/future influence diamonds, annual salary with a Raise-Salary stepper, running total)"
+    },
+    {
+     "timestamp": "t=819-825s: script_dev_act_structure_timeline.jpg, script_dev_advanced_moviemaking_panel.jpg, script_dev_sets_catalogue_hover_tooltip.jpg",
+     "whatHappens": "Separately, the Advanced Movie-Maker opens for a custom script 'YOU GOTTA SEE THIS' ($1,250 budget): a 4-act structure bar (Intro/Skirmish/Fight/Resolution) with empty scene slots -> Sets picker catalogue opened -> hovering 'War: Battlefield' shows a thumbnail+flavor-text tooltip"
+    },
+    {
+     "timestamp": "t=832s: finishedmovie_playback_battlescene.jpg",
+     "whatHappens": "The authored script plays back in-fiction as a finished film (mannequin-textured soldiers on a battlefield, no UI chrome) -- script development's output rendered as a finished, watchable movie"
+    }
+   ]
+  }
+ ],
+ "observations": [
+  {
+   "sourceId": "footage",
+   "evidenceClass": "visible-in-still",
+   "situation": "early studio",
+   "observation": "COVERED. footage/frames/v1_00300_emptylot.jpg and the start of footage/sheets/v1_sheet_01.jpg/v3_sheet_01.jpg show the freshly-created empty lot (bare tan ground, perimeter wall, no buildings) immediately after Create Your Studio, in two independent playthroughs.",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "stills",
+   "evidenceClass": "visible-in-still",
+   "situation": "busy mature lot",
+   "observation": "COVERED but was the weakest 'COVERED' item pre-gapfill: stills/gamespot/gs_04.jpg (official press shot) shows a fully built studio -- grand Deco entrance gate, multiple large buildings, pool, mature landscaping, pedestrians, a car -- but that is a marketing screenshot, not footage/'s own let's-play reaching that state. gapfill/construction_catalogue_facilities_and_pulsingcash.jpg adds a genuinely busy (5+ building, cars, pedestrians, one under construction) REAL-GAMEPLAY lot, partially closing that gap, though still short of the marketing shot's scale.",
+   "confidence": "MED"
+  },
+  {
+   "sourceId": "footage",
+   "evidenceClass": "visible-in-still",
+   "situation": "employee/category navigation",
+   "observation": "COVERED. footage/frames/v1_01320_lot_with_cars.jpg shows the numbered Star Card rail (11/12/13) with up/down cycling arrows; stills/steam/steam_ss_02.jpg and steam_ss_03.jpg show a stacked-portrait roster with per-person mood bars; gapfill/makeover_dept_portrait_compare.jpg shows the same prev/next paging pattern reused for costume browsing.",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "stills",
+   "evidenceClass": "visible-in-still",
+   "situation": "selected person",
+   "observation": "COVERED, and strengthened by gapfill. stills/gamespot/gs_01.jpg shows a selected Peter Molyneux with a Work/Stress bubble and dialogue; gapfill/selectedperson_quitthreat_bubble.jpg shows the full radiating multi-bubble cluster (Work/Stress/Boredom, central named bubble with red-! and quit-threat text, Status/Image, Fashion) that behavior/REPORT.md Obs. 4 previously only described from manual prose -- now confirmed in real footage.",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "gapfill-G1",
+   "evidenceClass": "visible-in-still",
+   "situation": "script development and finished script",
+   "observation": "Was WEAK before this pass (behavior/REPORT.md Obs. 13/14 = text-only, single wiki source; stills/moby/moby_thumb_01_big.png = one distant scene-timeline thumbnail). NOW COVERED via gapfill: script_dev_act_structure_timeline.jpg (4-act structure bar with empty scene slots), script_dev_advanced_moviemaking_panel.jpg + script_dev_sets_catalogue_hover_tooltip.jpg (Sets picker with priced list and a hover tooltip carrying a thumbnail + flavor text), and finishedmovie_playback_battlescene.jpg (the authored script playing back as a finished film).",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "footage",
+   "evidenceClass": "visible-in-still",
+   "situation": "casting/building work areas",
+   "observation": "COVERED. footage/sheets/v2_sheet_01.jpg (standalone StarMaker actor/actress creation tool, full basic/advanced panels); footage/frames/v2_01180_hire_zone_panel.jpg (Stage School floorplan: Create Actor/Import Star/Create Director/Create Extra/Fire); footage/sheets/v3_sheet_02.jpg (Casting Office floorplan: Extra/Lead Roles/Director/Begin Casting).",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "stills",
+   "evidenceClass": "visible-in-still",
+   "situation": "filming/blocker",
+   "observation": "COVERED. stills/steam/steam_ss_02.jpg and steam_ss_03.jpg show interior/exterior sets mid-shoot with camera, boom mic, director-with-megaphone, and cast+crew standing in position; stills/gamespot/gs_01.jpg shows a horror-set shoot (monster prop, camera operator) with a selected-person bubble naming 'Peter Molyneux ... Movie: Wake Up And Die Again, Wanting a chat.'",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "footage",
+   "evidenceClass": "visible-in-still",
+   "situation": "Post/release",
+   "observation": "COVERED strongly, and strengthened further by gapfill. footage/sheets/v1_sheet_04.jpg: Released! card with Script Quality stars, the detailed Effect-On-Staff-And-Studio table, 4 critic-review cards with outlet logos, b&w in-fiction playback. stills/moby/moby_thumb_05_big.png: full awards-ceremony screen. gapfill adds the full-screen Studio Charts industry ranking with row-to-detail drill-down (chart_transition_bignumbers_a/b.jpg) and a second pulsing-$ revenue-pip sighting (moviecard_pulsing_dollar_pip.jpg).",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "footage",
+   "evidenceClass": "visible-in-still",
+   "situation": "construction catalogue/placement",
+   "observation": "COVERED strongly. footage/frames/v1_drag_sheet.jpg shows the full placement sequence (Facilities price list -> red/obstructed footprint -> valid rotated footprint -> placed, builders auto-walking in); v1_00840_catalog_tooltip_price.jpg and v1_01200_catalog_path_tooltip.jpg show individual item tooltips. gapfill/construction_catalogue_facilities2.jpg adds the full priced Facilities list (Crew Facility $4,000 through Restroom: Large $12,000) and gapfill/script_dev_sets_catalogue_hover_tooltip.jpg shows the same catalogue grammar reused for movie-set selection with a photographic thumbnail.",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "gapfill-G1",
+   "evidenceClass": "visible-in-still",
+   "situation": "a detailed management view",
+   "observation": "Was WEAK/effectively MISSING before this pass -- behavior/REPORT.md only quotes manual text about 'the finance screen' and 'the salary screen' (S1 p.6, p.14); no folder had a frame of either actually rendered. NOW COVERED: gapfill/detailedmgmt_finance_salaries_clean.jpg is the full Star Salaries screen (rank/portrait/salary-satisfaction bar/current+future-influence diamonds/annual salary with a Raise-Salary stepper/running total); gapfill/chart_transition_bignumbers_a.jpg + _b.jpg is the full-screen Studio Charts industry ranking with a row-level Box-Office/Quality drill-down flyout; gapfill/studio_charts_mini_panel.jpg is the compact HUD-docked version of the same data.",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "stills",
+   "evidenceClass": "visible-in-still",
+   "situation": "hover behavior",
+   "observation": "COVERED. stills/gamespot/gs_04.jpg shows a live 'Casting Office' hover label over a building; footage/frames/v1_01200_catalog_path_tooltip.jpg and v1_00840_catalog_tooltip_price.jpg show catalogue hover tooltips; gapfill's hud_cash_hover pair shows the cash-balance HUD tooltip literally changing label a second apart ('Click to view Studio Charts' -> 'Finance Screen'), and gapfill/script_dev_sets_catalogue_hover_tooltip.jpg shows a richer hover tooltip (thumbnail image + flavor text) inside the script editor's Sets picker.",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "behavior",
+   "evidenceClass": "documented-behavior",
+   "situation": "primary click",
+   "observation": "COVERED via behavior/REPORT.md Obs. 6's verbatim interaction table (Person: Left-Click = Pick Up/Drop; Star/Movie Icon: Left-Click = Select to Move/Drop; Lot Ornaments: Left-Click = Duplicate; Facilities: Left-Click = Show Floorplan), independently corroborated by S1 and S2. Visually, footage/frames/v1_drag_sheet.jpg's multi-frame drag-and-rotate sequence is consistent with (but cannot itself distinguish) a left-click-hold-drag gesture -- no still or video frame can visually prove which mouse button was pressed, an inherent, permanent limit of screenshot/frame evidence rather than a research gap.",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "behavior",
+   "evidenceClass": "documented-behavior",
+   "situation": "secondary click",
+   "observation": "COVERED via the same Obs. 6 table (Right-Click = Display all Information Bubbles / See Move Options), independently corroborated by manual and GameFAQs. Same inherent visual-evidence caveat as primary click applies: no frame across any of the 5 folders can visually confirm a right-click specifically, since the game renders no cursor-button indicator.",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "footage",
+   "evidenceClass": "visible-in-still",
+   "situation": "held gesture",
+   "observation": "COVERED. footage/frames/v1_drag_sheet.jpg is a 6-frame sequence of a held building footprint being dragged and rotated across the lot (red=invalid, then a valid yellow-bordered footprint); footage/frames/v2_01180_hire_zone_panel.jpg shows a held item (green tooltip + person icon near the cursor) mid-drag toward a floorplan room.",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "footage",
+   "evidenceClass": "documented-behavior",
+   "situation": "selection/expanding details/closing/return",
+   "observation": "WEAK. The 'expand' half is well covered: multiple v1/v2/v3 sheets show a building's floorplan (blue/green room-zone overlay) appearing over it -- the 'lower the walls' transition behavior/REPORT.md Obs. 7 describes -- and gapfill/chart_transition_bignumbers_a.jpg shows a chart row expanding into a Box-Office/Quality detail flyout. The 'closing/return' half (walls re-raising, a bubble 'bursting' on click per Obs. 4's verbatim quote) was never caught mid-transition in any frame across all 5 folders including this gap-fill pass -- documented in text only, not observed.",
+   "confidence": "MED"
+  },
+  {
+   "sourceId": "manual",
+   "evidenceClass": "visible-in-still",
+   "situation": "HUD hierarchy time/pause/cash",
+   "observation": "COVERED extensively -- the top-left date/pause/play/fast-forward cluster and top-right cash-balance/studio-rank-star are visible in nearly every one of the 100+ frames/stills reviewed across all folders, and manual/pages/page-03.png through page-06.png (crops/page03_hud_diagram.png) is the developer's own labeled diagram naming every zone.",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "footage",
+   "evidenceClass": "visible-in-still",
+   "situation": "panel proportions/portrait framing/icon language/typography/borders/materials/depth/shadows/color hierarchy",
+   "observation": "COVERED. footage/sheets/v2_sheet_01.jpg (StarMaker basic/advanced character-creation panels, rounded-card portrait framing) and manual/crops/page04_starcard_v2.png + page07_moviecard-icons-genre-icons.png give the canonical icon/portrait language; gapfill/detailedmgmt_finance_salaries_clean.jpg and gapfill/makeover_dept_portrait_compare.jpg add a second, cleaner real-footage rendering of the same rounded-pill panel with drop shadow and color-coded (orange-striped) rows.",
+   "confidence": "HIGH"
+  },
+  {
+   "sourceId": "gapfill-G1",
+   "evidenceClass": "observed-sequence",
+   "situation": "animation/audio/transitions",
+   "observation": "Was WEAK/effectively MISSING before this pass (all 4 original folders are static screenshots). ANIMATION/TRANSITIONS now partially COVERED: gapfill/chart_transition_bignumbers_a.jpg vs _b.jpg (11s apart) shows the Studio Charts screen's rank rows visibly sliding/re-sorting rather than hard-cutting; the hud_cash_hover pair shows a tooltip's label changing a second apart; footage/frames/v1_drag_sheet.jpg's 6 consecutive frames show a live drag-rotate. AUDIO remains completely MISSING: no source captured or analyzed sound, and the available toolset (yt_dlp/ffmpeg/curl/Read) cannot listen to an extracted audio track even now -- Read only renders images. Flagged, not fabricated.",
+   "confidence": "MED"
+  },
+  {
+   "sourceId": "behavior",
+   "evidenceClass": "documented-behavior",
+   "situation": "dense-world behavior and high-resolution readability",
+   "observation": "WEAK. 'High-resolution readability' is well covered by behavior/REPORT.md Obs. 15 (PCGamingWiki, HIGH confidence): ultra-widescreen stretches models/HUD and distorts menu text, some UI is 30fps-locked, and a third-party fixer's own description implies click-hitboxes can desync from the visuals post-scaling. 'Dense-world behavior' (readability amid many simultaneous actors/objects) is only inferable from a handful of busier frames (stills/gamespot/gs_04.jpg; gapfill/construction_catalogue_facilities_and_pulsingcash.jpg; the mannequin-crowd battle scene in gapfill/finishedmovie_playback_battlescene.jpg) -- no source anywhere actually analyzes clutter-driven readability as its own UI/UX topic.",
+   "confidence": "MED"
+  }
+ ],
+ "summary": "Read both existing REPORT.md files (manual/, behavior/) and confirmed footage/ and stills/ have NO REPORT.md at all \u2014 a real gap in the deliverable set the task assumed existed as \"four REPORT.md files.\" Reconstructed footage/ and stills/ coverage by viewing all 15 footage contact sheets, ~10 named footage frames, and ~10 stills screenshots directly.\n\nCOVERAGE TABLE (19 required items; full detail with citations in `observations`):\nCOVERED (strong, pre-existing): early studio, employee/category navigation, selected person, casting/building work areas, filming/blocker, Post/release, construction catalogue/placement, hover behavior, primary click (documented), secondary click (documented), held gesture, HUD hierarchy time/pause/cash, panel proportions/portrait/icon/typography/etc.\nWEAK (pre-existing): busy mature lot (only in marketing stills, not footage/'s own let's-plays), script development and finished script (text-only), a detailed management view (described in prose only, never rendered), selection/expanding-details/closing/return (expand caught, close/return never caught), animation/audio/transitions (fully static before this pass), dense-world behavior and high-resolution readability (resolution-scaling documented; density-readability only inferable).\nWorkflow requirement: MET even before gap-fill \u2014 two independent continuous real-gameplay workflows are traceable across footage/sheets (v1's full hire->build->cast->film->release->reviews loop; v3's Stunts&Effects construction->casting->set-build loop); gap-fill adds a third (script-authoring->catalogue->finished-film playback).\n\nGAP-FILL PERFORMED (top 3 fillable gaps, all in \u226425 min each with yt_dlp/ffmpeg/curl/Read, no game install): (1) \"a detailed management view\" \u2014 downloaded a 1,326,189-view real-gameplay YouTube video (after upgrading a broken/stale yt-dlp that was 403'ing on every format), located and extracted the actual Star Salaries finance screen and the full-screen Studio Charts industry ranking with its row-to-detail drill-down; (2) \"script development and finished script\" \u2014 extracted the Advanced Movie-Maker's 4-act structure timeline, its Sets catalogue with a rich hover tooltip, and a frame of the authored script actually playing back as a finished film; (3) \"animation/transitions\" \u2014 extracted timestamp-paired frames showing the Studio Charts screen mid-animation and a HUD tooltip cycling label, on top of an existing multi-frame drag-rotate sequence. All 16 extracted frames are saved at /private/tmp/claude-501/-Users-bruce/41c841f9-0429-4923-8623-96050aba6653/scratchpad/research/gapfill/ (plus contact_sheets/ with the 2 precise-timestamp verification tiles); no REPORT.md was written there per this session's no-self-authored-report-files policy \u2014 the full gap-fill writeup (source, per-gap evidence, and what's still unresolved) is in this summary and the observations/workflowsTraced arrays above.\n\nAudio remains entirely unaddressed and is now flagged rather than silently absent: it is out of reach of an image-only Read tool even with an extracted audio track. Two documentation gaps are also flagged in `blocked`: footage/ and stills/ never had REPORT.md files, and manual/REPORT.md is a stub whose real findings were never persisted to disk (only the raw page/crop PNGs survive)."
+}

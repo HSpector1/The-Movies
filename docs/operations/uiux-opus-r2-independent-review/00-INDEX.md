@@ -132,5 +132,6 @@ agent (Zoo Tycoon) could not fetch video and relied on manual pages. The checker
 unresolved criticism stands: the placeholder portraits are stylistically weaker than the
 rest of the direction, and the four hero screens are shown on the target lot first — the
 UI-only boards (`CMP-01` middle, `CMP-06`) are the fair basis for judging the chrome.
-The research gap-critic's coverage table is recorded in `PROGRESS.md` if it completed
-before packaging.
+The research gap-critic's coverage table is in `SOURCES.md` (S1-06): audio behaviour of
+the original was never checked (image-only tooling), and "close/return" transitions and
+dense-world readability remain weakly evidenced.

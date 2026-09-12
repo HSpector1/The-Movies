@@ -1,6 +1,6 @@
 # 00-HANDOFF — Opus independent R2 game UI/UX and art-direction review
 
-**Status:** `COMPLETE` (review content) — the publication commit that follows adds `delivery/` (ZIP, manifest, checksums) and `PACKAGE.md`; `PACKAGE.md` records the remote verification. Verdict: see `00-INDEX.md`. The only open thread is the research gap-critic's coverage table (see PROGRESS.md), which a successor may fold into `RESEARCH-ORIGINAL-GAME.md` §3 without changing any verdict.
+**Status:** `COMPLETE` (review content) — the publication commit that follows adds `delivery/` (ZIP, manifest, checksums) and `PACKAGE.md`; `PACKAGE.md` records the remote verification. Verdict: see `00-INDEX.md`. The research gap-critic completed and is folded in (`RESEARCH-ORIGINAL-GAME.md` W-D/§3, `SOURCES.md` S1-06). No open threads.
 
 **Read order for a successor:** this file → `00-INDEX.md` → `ASSIGNMENT.md` → `FINDINGS.md` →
 `DESIGN.md` → `RESEARCH-*.md` → `SOURCES.md` → `PROGRESS.md` → `assets/`. Verify ownership (below) and preserve
@@ -61,6 +61,6 @@ as Opus observations; mark your own subsequent checks separately.
 ## Next actions for a successor (only if the Owner asks for continuation)
 
 1. Owner design decision first (`00-INDEX.md` "Unresolved product choices"). Nothing here is implementation authority.
-2. If continuing research: fold the gap-critic coverage table (if any) into `RESEARCH-ORIGINAL-GAME.md` §3; re-package with `assets/design/package.py <package dir> <content commit>` and a new publication commit (never rewrite an existing ZIP in place).
+2. If continuing research (e.g. audio behaviour, close/return transitions): re-package with `assets/design/package.py <package dir> <content commit>` and a new publication commit (never rewrite an existing ZIP in place).
 3. If the Owner chooses A′ or the compact stack as the rail default, only `explorations.css` / the `rails` state changes; tokens, cards, icons and HUD stay.
 4. Portrait art and the lot art target are separate art tasks with their own owners; do not extend the procedural placeholders further.
