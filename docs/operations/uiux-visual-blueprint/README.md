@@ -4,6 +4,8 @@
 
 **PROPOSED DESIGN / MOCK DATA — NOT IMPLEMENTED.** One recommended direction, eight screen families, editable source and three linked local journeys. This is the visual follow-up to the [original independent review](https://github.com/HSpector1/The-Movies/blob/72f04f95bb00ba601d511142b9db8b231e86526b/docs/operations/UIUX-WHOLE-GAME-REVIEW.md). It supersedes prose-only layout recommendations with a concrete target; the original findings, evidence limits and native acceptance requirements remain intact.
 
+**[Download complete ZIP](delivery/UIUX-VISUAL-BLUEPRINT.zip?raw=true)** · [Exact content commit, manifest and checksums](PACKAGE.md).
+
 Start with the lot and production images below, then casting and campaign review. For clicking, extract the complete ZIP and open **index.html** locally; GitHub only displays HTML source. No server, packages, account or game installation is required. The package contains the actual images and editable files, not a generator. See [opening instructions and journey steps](PROTOTYPE.md).
 
 [Layout, tokens, components and control standard](SPECIFICATION.md) · [source-to-design and implementation routing](ROUTING.md) · [independent checker disposition and native gaps](REVIEW.md) · [editable HTML](index.html) · [CSS](styles.css) · [minimal design-state JavaScript](prototype.js) · [original lot SVG](lot.svg).

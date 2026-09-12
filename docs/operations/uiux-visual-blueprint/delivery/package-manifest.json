@@ -1,0 +1,382 @@
+{
+  "package": "STUDIO UI/UX visual blueprint",
+  "status": "PROPOSED DESIGN / MOCK DATA — NOT IMPLEMENTED",
+  "repository": "HSpector1/The-Movies",
+  "branch": "docs/uiux-whole-game-review-01",
+  "reviewed_content_commit": "56151dcaf31992faa417375286fdb33a903501c1",
+  "prior_review_commit": "72f04f95bb00ba601d511142b9db8b231e86526b",
+  "assignment_commit": "c9ad874a7c8d6010d80ef87313e21ea9f016f99a",
+  "scope": "Standalone non-production design artifacts; no native game validation",
+  "content_file_count": 73,
+  "content_bytes": 13904498,
+  "PNG_previews": 64,
+  "entry_point": "index.html",
+  "manifest_scope": "files records every design payload byte from the exact content commit. package-manifest.json and MANIFEST.sha256 are generated packaging metadata, excluded from their own recursive records. MANIFEST.sha256 covers the payload and package-manifest.json. The complete ZIP checksum is recorded externally in PACKAGE.md. A later publication commit adds download links and this packaging material; no commit SHA claims to contain itself.",
+  "files": [
+    {
+      "path": "PROTOTYPE.md",
+      "bytes": 3840,
+      "sha256": "90c5a91adda72f97d88e1bc4b81d3eda5ef600f5c489a141547ab53ad4cd9a3f"
+    },
+    {
+      "path": "README.md",
+      "bytes": 12643,
+      "sha256": "11ad3b699df61dc5e98f2ca2087bc74fe2d9788423e77a3e94e7ec8966e6b153"
+    },
+    {
+      "path": "REVIEW.md",
+      "bytes": 7332,
+      "sha256": "47625b835c37d052f1edd190138c92069c0c50eb7f8e5ba7f37e436b8bab9e66"
+    },
+    {
+      "path": "ROUTING.md",
+      "bytes": 8257,
+      "sha256": "b5cd0f5301d3ce0834ebbb3d9eeba73c2c339fab88e180cad3b4ac18b6c83d01"
+    },
+    {
+      "path": "SPECIFICATION.md",
+      "bytes": 12991,
+      "sha256": "8d032ce501723289f23f45b9f5ba84c51c483430bca5a3ae4e423e96cba38920"
+    },
+    {
+      "path": "index.html",
+      "bytes": 1279,
+      "sha256": "5360bb078c2315964b565604bf0fdc64ce9b7812e56e151871c0e9e80fe4f69e"
+    },
+    {
+      "path": "lot.svg",
+      "bytes": 8043,
+      "sha256": "0eabae84be9036fab1f6d5b61f24f471078e10ff17887c8dcf3a5f622348a1bd"
+    },
+    {
+      "path": "previews/C01-components-annotated.png",
+      "bytes": 242226,
+      "sha256": "4ef948c4195340539f1a16cf3656715cca9c84a4baee9999145b4eb9a43b6f16"
+    },
+    {
+      "path": "previews/C01-components.png",
+      "bytes": 172010,
+      "sha256": "22df250448286596a4ab591915bd0a85819f16271414f69f95c94f7bdbfb3a15"
+    },
+    {
+      "path": "previews/C01-states.png",
+      "bytes": 167211,
+      "sha256": "3fd88b6c41aef5631a0d38bd3592e860fbcfa1395a4857191637989a3b6d206a"
+    },
+    {
+      "path": "previews/D00-directions-annotated.png",
+      "bytes": 283000,
+      "sha256": "f61571434850ae4c11a93377c971dddef75eb1fc9cfe4d844a06b18cbde597ff"
+    },
+    {
+      "path": "previews/D00-directions.png",
+      "bytes": 211967,
+      "sha256": "53a0dc27f5fd5472dcb4ae5c8a1871010aff86c013deb5dba39a9ff910990b13"
+    },
+    {
+      "path": "previews/V01-lot-early-annotated.png",
+      "bytes": 292477,
+      "sha256": "5dcf2e4f890cf2b0e9c6b4b409bf83c82c10842cfd2a419abdd49915c7d74fe2"
+    },
+    {
+      "path": "previews/V01-lot-early.png",
+      "bytes": 219587,
+      "sha256": "6ef68cd38926d7e7b2e54f4423b69bf29f301cc8b10f81d65225d5d2c65a584e"
+    },
+    {
+      "path": "previews/V01-lot-mature-annotated.png",
+      "bytes": 310049,
+      "sha256": "f68846e57dd33d3a509899f1ca4fe29fee497bfe2adc9807e416f048498480a2"
+    },
+    {
+      "path": "previews/V01-lot-mature.png",
+      "bytes": 238145,
+      "sha256": "5ba32aa4a87853effd5ac7cb8c04c3e8395178ae495af564b6b6d25f47002d2c"
+    },
+    {
+      "path": "previews/V02-production-action-annotated.png",
+      "bytes": 275685,
+      "sha256": "003804f10f3a361584f706df2e469ecf06e24c6c04604ccd640014e830c5df60"
+    },
+    {
+      "path": "previews/V02-production-action.png",
+      "bytes": 197858,
+      "sha256": "6894a0564cf15b952d221dac31cb66511705c20b49d54e6cbdf97c3a75d54df4"
+    },
+    {
+      "path": "previews/V02-production-wait-annotated.png",
+      "bytes": 275427,
+      "sha256": "7ece27a74b36d94bcc8aad5e77feda66c07e71087ff3e4593a5583c4c5ea4814"
+    },
+    {
+      "path": "previews/V02-production-wait.png",
+      "bytes": 198021,
+      "sha256": "2dc3ae6dae222b09ae802e756627642d2e021215da7df840c1c47e43071b9993"
+    },
+    {
+      "path": "previews/V03-contract-annotated.png",
+      "bytes": 275729,
+      "sha256": "ce7e62c43d53cf12148f652bb23d5b774a1dc4d6233834d4e9cf014824241df6"
+    },
+    {
+      "path": "previews/V03-contract.png",
+      "bytes": 197219,
+      "sha256": "426aedf3fc67c8f8799a374806ce31f9b277697acac7f1932589d625af183fc1"
+    },
+    {
+      "path": "previews/V03-person-annotated.png",
+      "bytes": 279835,
+      "sha256": "3ab749fd7ea7043dcdccecd170cf92c53602c8095ededa196465fceafb0f7954"
+    },
+    {
+      "path": "previews/V03-person.png",
+      "bytes": 202374,
+      "sha256": "e52dcc5eb029c4d32f944b1dd727b488aa80355227ffe1b6ba4ce997ffd55bae"
+    },
+    {
+      "path": "previews/V04-casting-annotated.png",
+      "bytes": 279495,
+      "sha256": "7ff9f7f66637836038ceb1440f2b6bf4d8cc0da24d0cb2d05e2b0f3b069da901"
+    },
+    {
+      "path": "previews/V04-casting.png",
+      "bytes": 204008,
+      "sha256": "1f51fc6575282163e298f3633b7ce1203f17f2b5bcf01643593f81bf213d4daa"
+    },
+    {
+      "path": "previews/V04-compare-annotated.png",
+      "bytes": 274877,
+      "sha256": "465a05f9280285da9b0823cfb491143b752a7974c945794520cf84bce32d97c0"
+    },
+    {
+      "path": "previews/V04-compare.png",
+      "bytes": 198149,
+      "sha256": "621da07c711504b5ffcd4c550da221560fa638a92160f44f704b82fd7a3b6d49"
+    },
+    {
+      "path": "previews/V05-construction-annotated.png",
+      "bytes": 257387,
+      "sha256": "1e38a50ba689974eb3d88c5430f977c6390505c1b4293d397df76a78af9ddbf2"
+    },
+    {
+      "path": "previews/V05-construction.png",
+      "bytes": 180512,
+      "sha256": "44a08376c08309e30658fafeef598274f9f7034d6cbc797187199f740aabdef8"
+    },
+    {
+      "path": "previews/V05-laboratory-entry-annotated.png",
+      "bytes": 257099,
+      "sha256": "2ce270d2ca53be4782ef8ce8ebf1450be4659ea62fe8d0d0996aa8c4e4646eaf"
+    },
+    {
+      "path": "previews/V05-laboratory-entry.png",
+      "bytes": 180399,
+      "sha256": "3f712a5ef2ec90d9d560c1f90851c78f1f5808bb2fb8623d3454cdb93d630532"
+    },
+    {
+      "path": "previews/V05-operational-annotated.png",
+      "bytes": 251555,
+      "sha256": "c87e91f21404e18ef05f3be184ddfb15b27d58ffaec885bb9a6e5cf99ffb7255"
+    },
+    {
+      "path": "previews/V05-operational.png",
+      "bytes": 174599,
+      "sha256": "9ac0739874666971a5b1eb85c8523128bd3eb9207c09476e69e3e19406761b9f"
+    },
+    {
+      "path": "previews/V05-placement-invalid-annotated.png",
+      "bytes": 237910,
+      "sha256": "5f5096ae79871d65efe76f5c0f763673424826c3e6fedd2473115d6a795f6442"
+    },
+    {
+      "path": "previews/V05-placement-invalid.png",
+      "bytes": 161214,
+      "sha256": "207a69fd8b27a2d242433428c5c72f5513810209f0401d6e7cd8f179480f8236"
+    },
+    {
+      "path": "previews/V05-placement-valid-annotated.png",
+      "bytes": 238965,
+      "sha256": "58740a25d4572192ed4e55b156c911eeb814413a30254e6df28eea8168cb3b91"
+    },
+    {
+      "path": "previews/V05-placement-valid.png",
+      "bytes": 162285,
+      "sha256": "c521d086a38feac55503d9f9c6c22c342f07761004fb70dd4cea0d75a3f3a8b4"
+    },
+    {
+      "path": "previews/V06-finance-annotated.png",
+      "bytes": 271256,
+      "sha256": "3c2d7ee70567ca92a5165a5bc9ddb96d6de1cb42f2c501e2a4e208e8c404d5e6"
+    },
+    {
+      "path": "previews/V06-finance.png",
+      "bytes": 198668,
+      "sha256": "7260e1bc095c530489c1e5ff2dc33af71517fe78580acb1ff8a56e2d59665f37"
+    },
+    {
+      "path": "previews/V06-industry-annotated.png",
+      "bytes": 271618,
+      "sha256": "0fb60323656fb1589cd6c14377229be0e49ff90abf89e52a682b0a94f16313aa"
+    },
+    {
+      "path": "previews/V06-industry.png",
+      "bytes": 199666,
+      "sha256": "ecf9d4028e722ca53e7d75866ba82413d037cca9f32be64bfe52fa568924d9aa"
+    },
+    {
+      "path": "previews/V07-campaigns-annotated.png",
+      "bytes": 239349,
+      "sha256": "27a29032667672948c8822029e8749b71bcf98458ef2a45ab5bad49f75fdc31c"
+    },
+    {
+      "path": "previews/V07-campaigns.png",
+      "bytes": 166348,
+      "sha256": "d170d63220f0ccf16a56f6aefe6195e45429ccf4b5cde199b90dce33ae181eb3"
+    },
+    {
+      "path": "previews/V07-continuation-annotated.png",
+      "bytes": 268162,
+      "sha256": "f7f23155e2f5dfa4649adb57f95af7e4d95764307c663ce677a3b898a30d13db"
+    },
+    {
+      "path": "previews/V07-continuation.png",
+      "bytes": 194306,
+      "sha256": "46bf7439918562715220ab51603cfb6a7a5111a57fef27955d907ee4b900b3d7"
+    },
+    {
+      "path": "previews/V07-overwrite-annotated.png",
+      "bytes": 272968,
+      "sha256": "4c631e565ea67a5f75e66b6ba47cfaf461eab4fd749f48482bcb376cd8734f88"
+    },
+    {
+      "path": "previews/V07-overwrite.png",
+      "bytes": 198767,
+      "sha256": "abeacbf90e4f999bcf6cc9dc6049c979b4eb98b256bc94eba581052a3fcec2a4"
+    },
+    {
+      "path": "previews/V07-pending-annotated.png",
+      "bytes": 264926,
+      "sha256": "d2884dc2f752c978fc9c52b65eee64eda8ae6731b2f188133415b73030e2040a"
+    },
+    {
+      "path": "previews/V07-pending.png",
+      "bytes": 190155,
+      "sha256": "83043728757672c98c36cc5e304a679db6c3ca646312dc1159f7a50bf78ee33e"
+    },
+    {
+      "path": "previews/V07-receipt-annotated.png",
+      "bytes": 270177,
+      "sha256": "bde18b43e20a5ad3baaa26bd4ae398caa2848f00007827ac3dec4ef697fe0a17"
+    },
+    {
+      "path": "previews/V07-receipt.png",
+      "bytes": 195810,
+      "sha256": "a86d4173032b7b687c1c03b09807ceb45c15d17ba4e6b4dccd5fad5e30407b70"
+    },
+    {
+      "path": "previews/V07-save-as-annotated.png",
+      "bytes": 272257,
+      "sha256": "199eb06c1377840450427631f230c87e567057caf509f308cb5f08155ce5fe95"
+    },
+    {
+      "path": "previews/V07-save-as.png",
+      "bytes": 197754,
+      "sha256": "b130ed34c4f92618dedfccabd8ebeb9a48d4e1b87a6a7919d5e766f8d61ee5f3"
+    },
+    {
+      "path": "previews/V07-unresolved-annotated.png",
+      "bytes": 270997,
+      "sha256": "0f8b5cb2490bd0b032da4d90ef5a1fce75c39568d77971b2cf51396e2a46356f"
+    },
+    {
+      "path": "previews/V07-unresolved.png",
+      "bytes": 196889,
+      "sha256": "9016a3d2475872bac256ccd0fb6d8a12001c294c5387b32c53296ee48ca76060"
+    },
+    {
+      "path": "previews/V08-result-annotated.png",
+      "bytes": 291104,
+      "sha256": "b81f76b833d1bd3f7d0ced570662a80add4e570dbc18a7447df7359595edffe9"
+    },
+    {
+      "path": "previews/V08-result.png",
+      "bytes": 223553,
+      "sha256": "59bb5102c7c9c082e01d93e53cc06eeaa8299fbb4255fa879362b39d9fba8d0a"
+    },
+    {
+      "path": "previews/edge-building-invalid.png",
+      "bytes": 115066,
+      "sha256": "9cee11bafaa6b53594c2a1e233afc652d1a210de156b04b78d85cfa8dad730b7"
+    },
+    {
+      "path": "previews/edge-casting-empty.png",
+      "bytes": 121635,
+      "sha256": "f244dd987dfb9273b68176850465c1abea64e6ed3834daac991ed0968e9855c8"
+    },
+    {
+      "path": "previews/edge-casting-long.png",
+      "bytes": 146507,
+      "sha256": "dd00834e7f19e5f82ff01ddc91c937c9b3da5eb4b7917e822effc0f404cc8b45"
+    },
+    {
+      "path": "previews/edge-production-missing.png",
+      "bytes": 81683,
+      "sha256": "3e03ac9b0db256eacdfcea4ea76bd10d1e4617c7b7836337787579017affdf87"
+    },
+    {
+      "path": "previews/stress-campaigns-1280-100.png",
+      "bytes": 156338,
+      "sha256": "90c5b9b6e0cf700480bc119157f8ba61819771cfae91f64d19411fe60e7e9d0b"
+    },
+    {
+      "path": "previews/stress-campaigns-1280-200.png",
+      "bytes": 162351,
+      "sha256": "4ae4d7cccfeacadd8934f381ce8899b3fc787e53d26aa1f346eed8c20b3da892"
+    },
+    {
+      "path": "previews/stress-campaigns-1920-100.png",
+      "bytes": 218376,
+      "sha256": "f2591ff1e73c461c5bfd879565e6e2218fc90d732211eb892886fe79b985cf56"
+    },
+    {
+      "path": "previews/stress-casting-1280-100.png",
+      "bytes": 134277,
+      "sha256": "8d78ac982519072e2fe78f6abb0e14aab592bf92568bc92864d71db2aef36cd2"
+    },
+    {
+      "path": "previews/stress-casting-1280-200.png",
+      "bytes": 116040,
+      "sha256": "eac119577a3c922884214f14211eb64d623e02b2a741e2796fd43f7e021da8f8"
+    },
+    {
+      "path": "previews/stress-casting-1920-100.png",
+      "bytes": 273350,
+      "sha256": "6ba060dbc886a3f83836ea40c2edb4a031497fb76f1ebf318721820f18af3090"
+    },
+    {
+      "path": "previews/stress-production-1280-100.png",
+      "bytes": 125280,
+      "sha256": "a80df8b6cd17c11a813026d09d40918f6d2a6b1c19353cd580d7969e7ac24bb7"
+    },
+    {
+      "path": "previews/stress-production-1280-200.png",
+      "bytes": 107017,
+      "sha256": "2a6133da2867fc5db8a1088f74332abfb301d4d7c829689c0b42cd9a9114de20"
+    },
+    {
+      "path": "previews/stress-production-1920-100.png",
+      "bytes": 267024,
+      "sha256": "6cbe7acd914596543cefb263c5f28ad0a66deaef160423747e0f2937ece64658"
+    },
+    {
+      "path": "prototype.js",
+      "bytes": 56129,
+      "sha256": "05a09b19b6b31cc2fe856e11a603745ca78e30e1dc43221d95fb720128728c1c"
+    },
+    {
+      "path": "styles.css",
+      "bytes": 17036,
+      "sha256": "3125b4a2afed4db5ba84b2274418590ef813781b1649374ed8b50e0a277afdaf"
+    }
+  ]
+}
