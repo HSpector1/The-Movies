@@ -96,3 +96,8 @@ All rows are **NVR**, require a separate Current Ops order, and use disposable f
 | Independent completion | Repeat agreed tasks after a break without coaching. Record completion, wrong turns, mispredicted consequences and task-finding time. Compare the same starts before/after; set no arbitrary two-click target. Owner judges material improvement; residual native gaps remain named. |
 
 The product tradeoffs are limited: a persistent explanation costs some detail space; direct links require careful return-state handling; larger text reduces simultaneous comparison density. Preserve consequences and readable context over reducing every click. Future Ops reviews these recommendations; Current Ops alone authorizes execution.
+
+
+## Visual design follow-up — 2026-09-12
+
+The [visual blueprint index](uiux-visual-blueprint/README.md) develops this review into eight rendered screen families, annotated/editable source, a standalone fictional-data prototype and an independent rendered-design disposition. It supersedes prose-only layout guidance with one recommended visual target. The original source findings, historical-capture limits and future native acceptance requirements above remain intact. This follow-up is design-only and requires Future Ops / Owner review; it does not authorize gameplay implementation or take over P13B.
