@@ -1,0 +1,712 @@
+{
+ "results": {
+  "List navigation in HUD rails: pagination": {
+   "lens": "List navigation in HUD rails: pagination vs continuous scroll, range indicators, dropdowns vs segmented controls, search vs filter for short lists, and game precedents (Two Point Hospital, CK3, Planet Zoo)",
+   "summary": "For a left people-rail and right picture-rail with likely well under ~50 entries each (people) and potentially much larger catalogs (pictures), the evidence converges on: avoid true infinite/continuous scroll for the people rail, since NN/g reserves it for homogeneous, goal-less browsing rather than the goal-directed \"find this specific staff member\" task this HUD serves; if paging is used anywhere, keep it visually landmarked with an explicit \"X of Y\" range indicator rather than silent auto-load; prefer segmented toggle buttons over a dropdown for the handful of role/type filters, since dropdowns are \"last resort\" UI per Wroblewski and toggle-button filtering by type is exactly the pattern Two Point Hospital's staff panel ships; reserve a search box for a list large enough that the player has one specific named target in mind, and use filters (not search) to narrow a large set down to a manageable size. Caution throughout: none of the cited NN/g or Baymard research was conducted on a game HUD, so specific thresholds (e.g. \"15-30 items\") are ecommerce-calibrated and should be read as directional, not literal, and the two game examples came back only from community wikis/forums, not official postmortems or GDC talks, so treat them as secondary/lower-confidence evidence of shipped convention rather than authoritative design guidance.",
+   "findings": [
+    {
+     "claim": "NN/g does not recommend infinite scrolling when users want to find something specific (a goal-directed finding task); it works best for homogeneous browsing with no particular goal, and pagination lets users remember which page an item was on, whereas an infinite list makes that hard.",
+     "source": "Nielsen Norman Group, \"Infinite Scrolling: When to Use It, When to Avoid It\"",
+     "url": "https://www.nngroup.com/articles/infinite-scrolling-tips/",
+     "edition": "Published Sept 4, 2022",
+     "quote": "Because of the usability issues that infinite scrolling can cause, we do not recommend it when users will want to ... Find something specific.",
+     "applies": "The left people rail is a goal-directed lookup tool (find and select a specific staff/character to inspect), not a passive feed \u2014 this is the exact case NN/g says infinite scroll fails. Use a bounded scrollable list (or paged list with a landmark) instead of auto-loading more entries as the player scrolls.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "When infinite/long scroll is used, giving users a visible count of items already viewed plus the total (an \"X of Y\" style indicator) helps them navigate and orient within the list; NN/g cites sites that show how many items were viewed vs. the total favorably as a mitigation.",
+     "source": "Nielsen Norman Group, \"Infinite Scrolling: When to Use It, When to Avoid It\"",
+     "url": "https://www.nngroup.com/articles/infinite-scrolling-tips/",
+     "edition": "Published Sept 4, 2022",
+     "quote": "Asos.com ... displaying how many products were already viewed, as well as the total number of products",
+     "applies": "If the picture rail (right side) ever scrolls through a large image catalog, surface a persistent \"12 of 340\" style counter rather than leaving the player to guess how much content remains or where they are.",
+     "confidence": "MED"
+    },
+    {
+     "claim": "Dropdowns should be treated as a UI control of last resort: they require multiple interaction steps, hide options by default, don't show hierarchy, and only support selection, not editing; segmented controls/radio groups are a better choice for a small set of mutually exclusive options.",
+     "source": "Luke Wroblewski, \"Dropdowns Should be the UI of Last Resort\"",
+     "url": "https://lukew.com/ff/entry.asp?1950",
+     "edition": "Posted July 17, 2015",
+     "quote": "dropdowns shouldn't be the first UI control you reach for. In today's software designs, they often are. So instead consider other input controls first and save the dropdown as a last resort.",
+     "applies": "For the people-rail's role/type filter (e.g. actor/crew/department), use a small row of segmented toggle buttons (visible, one-click, showing all options and counts at once) rather than a `<select>` dropdown \u2014 this fits a compact inspector where every option should be visible without an extra click.",
+     "caution": "This is practitioner guidance (Wroblewski, ex-Google/Yahoo design lead), not an NN/g or standards-body source; it is well-known and widely cited but not peer-reviewed research. A dropdown can still be defensible if the option set is long (10+) and screen space is very tight, which can happen in a compact 1280-wide inspector.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "Filters are best suited to narrowing large result sets down to a manageable size, while search performs best when the user already has a specific, well-defined item in mind; NN/g's search-usability testing found well-designed search succeeds on the first attempt about 64% of the time and roughly 74% overall.",
+     "source": "Nielsen Norman Group, \"User Intent Affects Filter Design\" and related NN/g search-usability research",
+     "url": "https://www.nngroup.com/articles/applying-filters/",
+     "edition": "Published Feb 7, 2016",
+     "quote": "Filters and facets have become standard for refining large results sets.",
+     "applies": "With a roster likely in the dozens, filters (by role/department/status) are the primary tool for the people rail; add a search box only once the list is large enough that a player might be hunting for one named person by typing rather than scanning \u2014 a search box on a 6-12 item list is usually overkill.",
+     "confidence": "MED"
+    },
+    {
+     "claim": "Ideal default item counts vary hugely by content type and device: roughly 100-150 items at once for visually-driven desktop grids, 50-100 for spec-driven desktop lists, and only 15-30 items loaded at once on mobile; loading too few items causes users to underestimate the total selection and can drive abandonment.",
+     "source": "Baymard Institute, \"Product List UX: Number of Products to Load\"",
+     "url": "https://baymard.com/blog/number-of-items-loaded-by-default",
+     "edition": "Published Jan 7, 2020",
+     "quote": "between 100-150 items are loaded at once for visually driven sites; between 50-100 products at once for spec-driven sites; load only 15-30 products on mobile devices",
+     "applies": "The right picture rail is closer to a \"visually driven\" grid; a compact 1280x720 inspector view is closer to the mobile-density end (15-30 visible before scrolling/paging) even though the platform is desktop, because the rail itself is narrow.",
+     "caution": "This is ecommerce conversion research (product-list abandonment), not a game HUD study \u2014 the underlying motive (avoid making shoppers feel selection is thin) does not transfer directly to a management-sim roster where completeness signals aren't a sales concern. Use the numbers as rough sizing intuition only.",
+     "confidence": "MED"
+    },
+    {
+     "claim": "Two Point Hospital's staff list panel uses toggle-style filter buttons for each staff type (with a count badge under each button, plus an \"All\" button) rather than a dropdown, and supports column-header sorting (High-to-Low / Low-to-High) on attributes like Ability and Happiness.",
+     "source": "Two Point Hospital Wiki (Fandom), \"Staff\" article",
+     "url": "https://two-point-hospital.fandom.com/wiki/Staff",
+     "edition": "community wiki, accessed 2026-09-13",
+     "applies": "This is a directly analogous shipped pattern for a management-sim left rail: segmented type-filter buttons with live counts, plus sortable columns, over a dropdown filter or free scroll. It supports designing the people rail as type-toggle buttons above a short sortable list.",
+     "caution": "Secondary source (fan wiki, not an official postmortem or GDC talk); treat as evidence of a shipped convention, not authoritative UX guidance, and verify against the actual game if this pattern is adopted.",
+     "confidence": "LOW"
+    },
+    {
+     "claim": "Crusader Kings 3's \"Find Character\" tool provides sort and filter controls for narrowing a large character roster, and was still being incrementally improved by the developers in patch 1.19 to add more filters and stop the window from auto-closing after a selection.",
+     "source": "Paradox Interactive Forums thread, \"CK3 Feature Request: Find Character Filter and Sort\"; Steam Workshop mod changelog",
+     "url": "https://forum.paradoxplaza.com/forum/threads/ck3-feature-request-find-character-filter-and-sort.1450955/",
+     "edition": "forum thread, accessed 2026-09-13",
+     "applies": "CK3's roster can run into the hundreds/thousands, closer to the picture rail's scale than the people rail's; its struggle to keep search/filter usable at that scale (enough that a popular \"Advanced Character Search\" mod exists) is a cautionary data point for designing filter breadth up front if the picture rail's backing catalog is large.",
+     "caution": "Forum/community source, not official documentation; illustrates a known pain point (players outgrowing built-in filters) rather than a validated best-practice solution.",
+     "confidence": "LOW"
+    }
+   ]
+  },
+  "Status and attention cues: icon-plus-lab": {
+   "lens": "Status and attention cues: icon-plus-label vs icon-only, colour-independent state, decision/needs-attention badges in management sims, recognition vs recall, pictogram distinctiveness/preattentive features",
+   "summary": "Primary/authoritative sources converge on three rules directly relevant to the lot's status and attention cues: (1) never encode meaning in color alone \u2014 pair it with shape/icon/text (WCAG 1.4.1, Xbox XAG 103); (2) icon-only controls are ambiguous outside a small set of near-universal glyphs, so persistent labels (not hover-reveal) beat icon-only for anything non-trivial (NN/g); (3) preattentive distinctiveness (color + shape combined) degrades as the number of simultaneously-coded categories grows, which caps how many distinct 'needs-attention' badge types can be reliably pop-out-searched at once (Ware). A concrete in-shipped-game precedent (Cities: Skylines notification icon system) is included but only as a secondary/practitioner data point since I could not pull its severity-tier rationale verbatim from an authoritative postmortem \u2014 flagged accordingly. No accessible GDC Vault talk specifically on notification/alert-fatigue design for city-builders/colony-sims was found in this pass; the closest hits were SimCity art/design talks whose relevance is indirect and unverified without watching the video (paywalled/vault-hosted, not fetchable as text).",
+   "findings": [
+    {
+     "claim": "Text labels are necessary alongside icons because most icons are ambiguous outside a handful of near-universal glyphs (home, print, magnifying-glass=search); hover-reveal labels are explicitly discouraged because they increase interaction cost and fail on touch.",
+     "quote": "Text label must be present alongside an icon to clarify its meaning in that particular context. ... Icon labels should be visible at all times, without any interaction from the user.",
+     "source": "Nielsen Norman Group, \"Icon Usability\" (Aurora Harley, Jul 27 2014)",
+     "url": "https://www.nngroup.com/articles/icon-usability/",
+     "edition": "Published 2014, NN/g",
+     "applies": "For the left people-rail and right picture-rail icons (role/status glyphs, task/decision badges), don't ship icon-only chips even in a compact inspector \u2014 keep a persistent short text label (or an always-visible tooltip-equivalent) for anything beyond truly universal icons like a magnifying-glass search or a gear settings icon. Compact layout pressure is a reason to abbreviate the label, not remove it.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "Recognition (seeing a familiar cue and matching it to meaning) is cognitively cheaper than recall (retrieving meaning from memory with no cue); interfaces should keep the mapping visible rather than requiring the player to memorize what a badge or icon means.",
+     "quote": "Recognition refers to our ability to \"recognize\" an event or piece of information as being familiar, while recall designates the retrieval of related details from memory. ... field labels or menu items should be visible or easily retrievable when needed.",
+     "source": "Nielsen Norman Group, \"Recognition vs. Recall\" / \"10 Usability Heuristics for User Interface Design\" (Jakob Nielsen, heuristic #6, orig. 1994)",
+     "url": "https://www.nngroup.com/articles/recognition-and-recall/",
+     "edition": "NN/g, heuristics originated 1994, article current",
+     "applies": "A studio-sim will likely have many distinct needs-attention badge types (contract due, morale low, injury, budget overrun, casting conflict, etc.). Rather than relying on players memorizing 8+ pictograms, provide a discoverable legend/glossary (e.g. hover or a persistent key panel) for the first several sessions, and lean on a small vocabulary of composable badges (severity dot + category glyph) rather than many bespoke one-off icons.",
+     "confidence": "HIGH",
+     "caution": "This heuristic is written for productivity software with abundant screen space for labels; a HUD/inspector under space pressure has to trade off \u2014 the fix is a legend/tooltip system, not necessarily an on-screen label on every instance."
+    },
+    {
+     "claim": "WCAG's official success criterion forbids color as the sole means of conveying information, prompting action, or distinguishing an element, and the standard's own worked example is exactly the 'plus an icon' pattern.",
+     "quote": "Color is not used as the only visual means of conveying information, indicating an action, prompting a response, or distinguishing a visual element. ... A form contains both required and optional fields. Instructions at the top of the form explain that required fields are labeled with red text and also with an icon.",
+     "source": "W3C, \"Understanding Success Criterion 1.4.1: Use of Color\" (WCAG 2.1, Level A)",
+     "url": "https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html",
+     "edition": "WCAG 2.1, W3C WAI",
+     "applies": "Every needs-attention/status cue in the people rail and picture rail (e.g. red = crisis, yellow = warning) must carry a second channel \u2014 shape, icon, or a short label \u2014 so a colorblind or low-vision player can still triage. This is a hard requirement, not a nicety, if the studio wants to claim any accessibility compliance.",
+     "confidence": "HIGH",
+     "caution": "WCAG 1.4.1 is written for web content/forms, not real-time game HUDs; games are generally exempt from formal WCAG conformance, but the Xbox Accessibility Guidelines (game-specific, see next finding) impose the equivalent rule directly on games, so the caution mostly disappears in practice."
+    },
+    {
+     "claim": "Xbox's own accessibility guidelines state flatly that color alone should never carry game information, and that any critical information expressed through color must also be expressed via shape, pattern, iconography, or text \u2014 with a worked example nearly identical to a management-sim inventory/crafting panel.",
+     "quote": "Color alone should never be used to represent information. ... Any content that's critical to understanding gameplay or comprehending the narrative, and is expressed through color, also needs to be expressed by using at least one additional signifier such as shape, pattern, iconography, or text labels.",
+     "source": "Microsoft, \"Xbox Accessibility Guideline 103: Multiple sensory methods\"",
+     "url": "https://learn.microsoft.com/en-us/gaming/accessibility/xbox-accessibility-guidelines/103",
+     "edition": "Xbox Accessibility Guidelines (XAG), Microsoft Game Dev docs, last content update 2026-06-17",
+     "applies": "Directly on-point for the game's decision/needs-attention badges: pair every color-coded severity level (e.g. red=critical, amber=attention, gray=idle) with a distinct icon silhouette or pattern, not just a hue shift, in both the people rail and picture rail. XAG 103 also recommends letting players remap key indicator colors if color is the primary channel at all (as Call of Duty: Black Ops Cold War does for map-marker colors) \u2014 worth considering as an options-menu feature for a colorblind mode.",
+     "confidence": "HIGH",
+     "caution": "XAG examples are drawn from action/narrative games (Grounded, Forza, Sea of Thieves); a management sim's status badges are lower-stakes moment-to-moment than \"are you being shot at,\" so the failure mode from noncompliance is delayed triage rather than character death \u2014 still worth fixing, just calibrate urgency of engineering effort accordingly."
+    },
+    {
+     "claim": "Preattentive visual search works reliably for a small number of simultaneously-encoded categories, but distinctiveness (and thus \"pop-out\" speed) degrades as the variety of coded features increases \u2014 color dominates shape/texture when its distinctiveness is high, but that dominance and reliability shrink as more distinct categories compete.",
+     "quote": "It is easy to spot a single hawk in a sky full of pigeons, but if the sky contains a greater variety of birds, the hawk will be more difficult to see. ... when color distinctiveness was most pronounced, there was a much stronger prioritization of color information over information carried by shape and texture.",
+     "source": "Colin Ware, \"Information Visualization: Perception for Design\" (summarized via UX Collective / IxDF secondary write-ups; distinctiveness-integration finding from a recent target-distinctiveness visual-search study)",
+     "url": "https://pubmed.ncbi.nlm.nih.gov/41569513/",
+     "edition": "Ware's preattentive-attributes framework (book, multiple editions); distinctiveness study indexed on PubMed",
+     "applies": "Caps how many distinct badge categories the picture-rail/people-rail can encode and still let a player scan-and-spot a specific problem type at a glance. Recommend keeping the truly preattentive (color+shape) vocabulary to roughly 4-6 top-level severity/category combinations; anything beyond that should be nested (click to reveal sub-type) rather than given its own unique glyph+color pairing competing for pop-out attention.",
+     "confidence": "MED",
+     "caution": "I could not verify the exact Ware quote text against the original book (paywalled); the search results are secondary summaries and a related but distinct recent vision-science paper on target distinctiveness, not Ware's own words. Treat the specific wording as paraphrase-level confidence, though the underlying claim (distinctiveness degrades with category count) is well-established in the visualization literature."
+    },
+    {
+     "claim": "Cities: Skylines exposes a large taxonomy of building-notification icons (grouped by category: Building Status, Connections, Electricity, etc.) that appear above buildings on the isometric map to flag problems needing player attention \u2014 a directly analogous 2D-isometric, top-down 'needs attention' badge system to this game's picture-rail concept.",
+     "source": "Paradox Wikis, \"Notifications\" (Cities: Skylines Wiki)",
+     "url": "https://skylines.paradoxwikis.com/Notifications",
+     "edition": "Community wiki (Paradox-hosted), not an official postmortem",
+     "applies": "Useful as a reference implementation to study directly (open the page/game) for icon taxonomy and grouping strategy on an isometric lot map with a management-sim attention economy, since it's the closest shipped analog to this game's lot+rail structure.",
+     "confidence": "LOW",
+     "caution": "This is a wiki reference, not a primary design document or postmortem \u2014 it lists what icons exist, not the design rationale, severity-tiering logic, or playtesting evidence behind them. I was unable to find an official Paradox/Colossal Order postmortem or GDC talk articulating the design reasoning; treat this entry as 'go look at the shipped game,' not as citable design guidance."
+    }
+   ],
+   "blocked": [
+    "No accessible primary source (GDC Vault talk transcript/slides, or Frostpunk/Two Point/Anno official postmortem) specifically on notification/alert-fatigue design for management-sim UIs was found; GDC Vault talks are video/paywalled and not fetchable as text in this pass \u2014 the SimCity-adjacent talks found (e.g. 'Building SimCity: Art in the Service of Simulation', 'Simulating a City, One Page at a Time') are tangentially related at best and were not verified in detail.",
+    "Could not verify a direct Colin Ware verbatim quote from the original book text (paywalled); relied on secondary summaries, flagged as MED confidence."
+   ]
+  },
+  "Design-to-engine handoff for game UI: to": {
+   "lens": "Design-to-engine handoff for game UI: tokens/style dictionaries, screenshot-diff acceptance, vertical slice for UI, UI definition-of-done, font licensing, honest placeholder art",
+   "summary": "Found solid primary/authoritative material for every sub-topic. Unity's own docs confirm USS custom properties are a real token mechanism (var() with fallback) suitable for a Figma-token \u2192 USS pipeline. GDC/industry sources establish \"vertical slice\" as the standard first-increment practice, which maps directly onto a UI walking-skeleton for the lot/rail/inspector trio. Definition-of-Done is a generic Agile Alliance concept with no game-specific canonical version, but Game Accessibility Guidelines (an authoritative, widely-cited industry standard) supplies concrete basic-tier checklist items (remapping, contrast, no color-only signaling) that belong in this game's UI DoD. Screenshot-comparison acceptance testing is well documented in web/QA tooling with an important caveat: naive pixel diffing is explicitly discouraged industry-wide in favor of perceptual/structural comparison \u2014 directly relevant given animated isometric backgrounds behind the UI rails will produce false positives under raw pixel diff. Font licensing: SIL OFL (primary legal text, official site) permits bundling/modification in a commercial game; Jost and League Spartan are practitioner-recommended, OFL-licensed geometric-sans substitutes for Futura. Placeholder-art honesty is covered by a well-reasoned industry piece (Unity blog) arguing pure greyboxing biases playtest feedback and proposing a \"visual minimum\" framework (silhouette, color-coding, material variation) \u2014 directly applicable to the compact inspector/rail mockups before final art lands.",
+   "findings": [
+    {
+     "claim": "USS custom properties (variables) let you centralize a value once and have every USS rule that references it via var() update together \u2014 the direct Unity analog of design tokens, including a CSS-like fallback syntax.",
+     "quote": "You can create a USS variable and use it in other USS properties. When you update a USS variable, all of the USS properties that use that variable update.",
+     "source": "Unity Manual \u2014 USS Custom Properties (Variables)",
+     "url": "https://docs.unity3d.com/6000.0/Documentation/Manual/UIE-USS-CustomProperties.html",
+     "edition": "Unity 6000.0 Manual",
+     "applies": "For this game's design-to-engine handoff, define the palette/spacing/type-scale as Figma variables, export them as a token JSON, and generate a single tokens.uss file of -- custom properties that every rail/inspector USS file references via var(--token, fallback). A theme swap (e.g. colorblind-safe palette) becomes a one-file edit instead of hunting values across the lot/rail/inspector stylesheets.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "Pixel-exact screenshot comparison is explicitly discouraged as a UI acceptance method because normal rendering noise (anti-aliasing, animation frame, subpixel text) produces false failures unrelated to real regressions; perceptual/structural comparison is the recommended middle ground.",
+     "quote": "Pixel diffing produces false positives when rendering noise changes pixels without changing user-visible intent, and experts advise never to use exact pixel comparison in production.",
+     "source": "Augment Code \u2014 Visual Regression Testing in the Age of AI UIs (practitioner guide, aggregating standard QA practice)",
+     "url": "https://www.augmentcode.com/guides/visual-regression-testing-ai-generated-uis",
+     "applies": "For this isometric lot with an animated background behind static HUD rails, a raw pixel diff at 1280x720 will flag constantly from lot animation/particle noise even when the inspector/rail UI itself is unchanged. Acceptance tests should isolate the UI layer (render rails/inspector against a frozen or solid-color backdrop, or mask the viewport region) and use a perceptual/SSIM threshold, not byte-identical pixel match.",
+     "caution": "This guidance comes from web-app visual-testing vendors, not a game-engine-specific source; a game engine's screenshot capture (Unity Test Framework, Editor screenshot API) needs its own harness to guarantee deterministic camera/lighting/frame before any diff tool is meaningful \u2014 the perceptual-diff advice only solves half the problem.",
+     "confidence": "MED"
+    },
+    {
+     "claim": "A vertical slice is the standard industry practice for a first playable increment \u2014 one full loop with real UI, art direction, and audio integrated together, used as a production-readiness gate, not just an isolated systems prototype.",
+     "quote": "Volition came to view the vertical slice as a tool to determine whether the team is ready to move from pre-production into production, serving as a gate that needs to satisfy both internal and external goals.",
+     "source": "GDC Vault \u2014 Greg Donovan, \"The Vertical Slice Challenge\" (GDC 2015, Volition)",
+     "url": "https://gdcvault.com/play/1022328/The-Vertical-Slice",
+     "edition": "GDC 2015",
+     "applies": "For the design-to-engine handoff, the first UI increment shouldn't be a static rail mockup in isolation \u2014 it should be a walking-skeleton slice: one people-rail card, one picture-rail item, and the compact inspector wired to real (even if minimal) game data, at both 1280x720 and 1440x900, so the team validates layout/interaction end-to-end before scaling to all rail content types.",
+     "caution": "Donovan's talk is about whole-game vertical slices for greenlight/funding gates, a much bigger scope than a single UI feature; treat this as the organizing principle (thin end-to-end slice over broad shallow mockups), not a literal checklist to replicate for UI alone.",
+     "confidence": "MED"
+    },
+    {
+     "claim": "'Definition of Done' is a team-agreed, displayed checklist of completion criteria; work not meeting it doesn't count as finished for that increment.",
+     "quote": "a list of criteria that must be met before a product increment is considered 'done'",
+     "source": "Agile Alliance Glossary \u2014 Definition of Done",
+     "url": "https://agilealliance.org/glossary/definition-of-done/",
+     "applies": "Write an explicit, visible DoD for each UI feature (e.g., the inspector panel) covering: token-only styling (no hardcoded hex/px), keyboard+mouse input paths both verified, screenshot-diff baseline captured at both target resolutions, and placeholder-art status labeled. This is a generic Agile concept, not game-specific, so it needs the game-specific items layered on (see accessibility and font findings below).",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "Baseline (not aspirational) game accessibility practice requires remappable controls, adequately readable/contrasting text, and never conveying essential information through color alone \u2014 concrete, testable items suitable for a DoD checklist.",
+     "quote": "Allow controls to be remapped / reconfigured ... Use an easily readable default font size ... Provide high contrast between text/UI and background ... Ensure no essential information is conveyed by a fixed colour alone",
+     "source": "Game Accessibility Guidelines \u2014 Full List (basic tier)",
+     "url": "https://gameaccessibilityguidelines.com/full-list/",
+     "applies": "Add these as literal DoD line items for the inspector and rails: verify no state (selected, low-stock, alert) relies on color alone (pair with icon/shape), confirm compact-inspector text meets a contrast ratio at the target resolutions, and confirm remap/keyboard-equivalent paths exist before any UI feature is marked done \u2014 cheap to build in now, expensive to retrofit once controller support is added later.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "SIL Open Font License permits bundling OFL fonts into commercial software/apps and freely modifying and redistributing them, without required acknowledgement for normal use, subject to Reserved Font Name restrictions on renaming modified versions.",
+     "quote": "You can bundle them in apps or software subject to certain conditions ... You can freely modify and redistribute OFL fonts ... no acknowledgement is required",
+     "source": "SIL Open Font License official site (openfontlicense.org, canonical redirect target of scripts.sil.org/OFL)",
+     "url": "https://openfontlicense.org/",
+     "applies": "Jost, Josefin Sans, and League Spartan (all OFL-licensed, geometric-sans Futura substitutes) can be embedded directly into this game's build and even locally modified (e.g., tuned tracking/weight for the compact inspector) without per-copy royalties or mandatory in-game credit screen \u2014 clearing the Futura-alternative decision from a licensing standpoint.",
+     "caution": "The summarized page is a plain-language explainer, not the OFL 1.1 legal text itself; before final ship, confirm the specific font file doesn't declare a Reserved Font Name that would block a modified/renamed variant, and check each font's own OFL.txt for any font-specific reservations.",
+     "confidence": "MED"
+    },
+    {
+     "claim": "Jost and League Spartan are practitioner-recommended free, OFL-licensed replacements for Futura, closely matching its geometric letterforms (including Futura's distinctive single-storey lowercase 'a').",
+     "quote": "Jost was specifically designed as an open-source Futura alternative, replicating its geometric letterforms including the distinctive single-storey 'a'... League Spartan is a free geometric sans based on the Futura-derived Spartan typeface",
+     "source": "learnui.design / fontalternatives.com practitioner roundups (design-industry secondary sources, not Google Fonts itself)",
+     "url": "https://www.learnui.design/blog/futura-similar-fonts.html",
+     "applies": "For the executive/premium black-and-gold-adjacent aesthetic already used elsewhere in this studio's projects, Jost is the closer geometric match to Futura for headers/inspector labels; League Spartan reads slightly heavier/more condensed and may suit dense rail-list rows better at small sizes.",
+     "caution": "These are marketing/roundup blog posts, not typographic authorities \u2014 verify visually at the actual UI point sizes (rail rows can be quite small) since geometric sans faces like Jost can lose legibility at small sizes due to low x-height, a known weak point for Futura-style fonts generally.",
+     "confidence": "LOW"
+    },
+    {
+     "claim": "Pure greybox/programmer-art prototyping can bias playtest feedback because players don't fully separate visual polish from perceived mechanical quality; a minimal deliberate 'visual minimum' (clear silhouettes, color-coded roles, basic material variation) avoids poisoning results while still being honestly labeled as placeholder.",
+     "quote": "human beings can completely separate visual feedback from mechanical feedback [is a flawed assumption] ... what minimal art investment prevents visuals from 'poisoning your playtest feedback'? ... recognizable silhouettes ... color differentiation ... basic material variation",
+     "source": "Unity \u2014 \"The placeholder asset problem: How programmer art kills playtests\" (Unity company blog)",
+     "url": "https://unity.com/blog/placeholder-asset-problem",
+     "applies": "When the people rail, picture rail, and inspector are still using placeholder icons/portraits, don't ship flat grey rectangles for elements that carry gameplay meaning (role, alert state, ownership) \u2014 give them minimal silhouette/color coding even pre-final-art, and label them explicitly as placeholder in review builds so reviewers don't mistake temporary color choices for final art direction.",
+     "caution": "This is a vendor content-marketing blog post (Unity promoting its own asset ecosystem), not peer-reviewed research \u2014 treat the underlying claim (visual polish measurably biases perceived mechanical quality) as plausible industry lore rather than a cited study; the actionable 'visual minimum' framework is useful regardless of the evidentiary strength behind the framing claim.",
+     "confidence": "LOW"
+    }
+   ]
+  },
+  "Keyboard/controller navigation of HUD pa": {
+   "lens": "Keyboard/controller navigation of HUD panels \u2014 focus, roving tabindex, Escape/Back stack, focus restoration, controller mapping for rail-based HUDs",
+   "summary": "Primary sources converge on five load-bearing rules for this game's left rail / right rail / inspector HUD: (1) every focusable element needs a highly visible, never-hidden focus indicator (XAG 113); (2) focus order must follow the visual/spatial layout of each rail, not raw z-order or code order (XAG 106); (3) linear rails should loop focus at their ends unless they're 2D grids, and looping should be player-toggleable (XAG 106); (4) composite widgets like a rail or tab strip should use one Tab stop with roving tabindex / arrow-key internal navigation rather than making every item a separate Tab stop (W3C APG); (5) opening the inspector/modal must move focus in and closing it must return focus to the exact control that opened it, not to a generic root (WCAG 2.4.3, XAG 113). XAG 107 adds that single-press digital input must be a full equivalent to any analog/mouse interaction \u2014 critical since the plan already has mouse+keyboard as primary and controller as 'possible later.' Frostpunk 2's public dev account shows a concrete pattern for exactly this kind of isometric-lot + rail HUD: two dedicated radial menus (one per trigger) instead of trying to force every rail item into linear D-pad traversal, both of which pause time, plus a dedicated 'extended view' mode for scrolling long HUD icon lists with shoulder/d-pad instead of a pointer.",
+   "findings": [
+    {
+     "claim": "XAG 113 requires every UI element to show a highly visible focus indicator on receiving focus, and the indicator must never disappear or move to an invisible/offscreen element \u2014 including in front of overlays/dialogs, where focus must jump to the first interactable control inside the dialog.",
+     "quote": "All UI elements should display a highly visible focus indicator when they receive focus. ... The visual focus indicator should always be visible on screen. Focus indicators should not become invisible on any focusable element, and it shouldn't move to invisible or offscreen elements. ... when dialog boxes appear ... the focus indicator should move to the first interactable control in the dialog box. It shouldn't be possible to move focus to anything other than interactable controls in the dialog box while it's open.",
+     "source": "Microsoft Learn \u2014 Xbox Accessibility Guideline 113: UI focus handling",
+     "url": "https://learn.microsoft.com/en-us/gaming/accessibility/xbox-accessibility-guidelines/113",
+     "edition": "ms.date 2023-02-01, fetched 2026-09-13",
+     "applies": "Every card on the left people rail, right picture rail, and every control inside the compact inspector needs its own always-on focus ring/highlight distinct from hover and from 'selected'. When the inspector opens over the lot, focus must land on its first control immediately, and the inspector must trap focus so keyboard/controller users can't tab 'through' it into occluded lot elements underneath.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "XAG 106 requires focus order to follow the meaning/operation of the UI, or the visual flow of the design when there's no inherent operational order, and requires end-of-list focus to wrap to the start (and vice versa) for linear menus \u2014 but NOT for multi-directional grids, and wrapping should be a toggle.",
+     "quote": "Support a focus order that's aligned with the meaning or operation of the UI. If the navigation sequence is independent of the meaning or operation, align the focus order with the flow of the visual design. ... After navigating to the last item in the UI/menu structure, the player should be taken back to the first item in the UI/menu structure and vice versa. ... This guideline only applies to linear menu structures where focus can be moved either up or down or left or right. Menu structures that allow focus to be moved to elements in any direction ... don't need to loop. We encourage developers to have an option to enable and disable menu looping for all menus.",
+     "source": "Microsoft Learn \u2014 Xbox Accessibility Guideline 106: UI navigation",
+     "url": "https://learn.microsoft.com/en-us/gaming/accessibility/xbox-accessibility-guidelines/106",
+     "edition": "ms.date 2022-05-09, fetched 2026-09-13",
+     "applies": "The left people rail and right picture rail are each linear (vertical) lists \u2014 Up/Down (or stick-up/down) should loop end-to-end, ideally as a togglable setting. Moving focus from one rail into the lot/inspector should be a deliberate direction (e.g. Right from people rail, Left from picture rail into inspector) that matches the physical screen layout, not an arbitrary tab order.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "W3C ARIA Authoring Practices' roving tabindex pattern: only one item in a composite widget (toolbar, tablist, listbox, etc.) is a Tab stop at a time; arrow keys move an internal 'currently focusable' pointer by toggling tabindex between 0 and -1 and calling element.focus() on the newly active item, and the previously-focused item within the composite is remembered when focus returns to the widget.",
+     "quote": "set tabindex=\"0\" on the element that will initially be included in the tab sequence and set tabindex=\"-1\" on all other focusable elements it contains. ... set tabindex=\"-1\" on the element that has tabindex=\"0\" [then] Set tabindex=\"0\" on the element that will become focused as a result of the key event [then] Set focus, element.focus(), on the element that has tabindex=\"0\".",
+     "source": "W3C WAI-ARIA Authoring Practices Guide (APG) \u2014 Developing a Keyboard Interface",
+     "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/",
+     "edition": "current APG (fetched 2026-09-13)",
+     "applies": "Each rail should be exactly one stop in the game's overall Tab/shoulder-button cycle (rail \u2192 inspector \u2192 other rail \u2192 lot), with Up/Down or stick moving an internal cursor inside the rail via the roving-tabindex mechanics, mirroring the toolbar pattern's explicit rule 'Tab and Shift+Tab move focus into and out of the toolbar... If the toolbar has previously contained focus, focus is optionally set on the control that last had focus' (W3C APG Toolbar Pattern, https://www.w3.org/WAI/ARIA/apg/patterns/toolbar/, fetched 2026-09-13) \u2014 so re-entering a rail restores the last-selected card rather than always resetting to the top.",
+     "caution": "This is a web/ARIA spec written for DOM widgets, not a game engine; a game UI has no native tabindex/DOM. The applicable takeaway is the interaction contract (one macro-level Tab stop per composite, internal roving cursor, remember last position) \u2014 port the behavior, not the literal attribute mechanism, and for controller input map the 'internal navigation key' to the d-pad/stick rather than Tab.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "WCAG 2.4.3 Focus Order requires that when a dialog/overlay is dismissed, focus returns to the invoking control (or the next logical element), not to a generic default location.",
+     "quote": "The intent of this success criterion is to ensure that when users navigate sequentially through content, they encounter information in an order that is consistent with the meaning of the content and can be operated from the keyboard. ... When the dialog is dismissed, focus returns to the button or the element following the button.",
+     "source": "W3C \u2014 Understanding SC 2.4.3: Focus Order (WCAG 2.1)",
+     "url": "https://www.w3.org/WAI/WCAG21/Understanding/focus-order.html",
+     "edition": "WCAG 2.1 Understanding docs (fetched 2026-09-13)",
+     "applies": "Closing the compact inspector (Escape/Back) must return focus to the exact rail card that opened it \u2014 not to the top of the rail, not to the lot camera \u2014 so keyboard/controller users don't lose their place after inspecting a person or picture and re-opening the next one.",
+     "caution": "WCAG is a web standard aimed at assistive-technology users on documents/apps; it doesn't natively cover camera focus, game-world selection state, or multi-layer 'Back stacks' (inspector-over-rail-over-lot). Treat it as the baseline contract for 'restore focus on close,' then extend it with a real navigation/Back stack for the game's deeper nesting.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "XAG 107 (Input) requires that anywhere analog/mouse input is used, an equivalent single-press digital input must also work for the same task, and requires all key actions be operable via single, non-simultaneous keypresses, plus full remapping including the Esc key.",
+     "quote": "Anywhere a player is required to use analog inputs, such as mouse movement or thumb stick movement, the player should also be given the option to use single-press digital inputs to perform the same tasks. ... A UI should be navigable by using single, non-simultaneous key presses. ... Players should be given the option to remap all of the controls within the game itself ... and the Esc key on PC games.",
+     "source": "Microsoft Learn \u2014 Xbox Accessibility Guideline 107: Input",
+     "url": "https://learn.microsoft.com/en-us/gaming/accessibility/xbox-accessibility-guidelines/107",
+     "edition": "ms.date 2022-05-09, fetched 2026-09-13",
+     "applies": "Since the design brief has mouse+keyboard now and controller 'possibly later,' build the rail/inspector navigation model as digital-input-first (discrete focus moves, discrete select/back) from the start \u2014 this is also exactly the internal model controller support will need, so it isn't throwaway work. Every mouse-hover/click interaction on rail cards needs a keyboard/pad equivalent (arrow+Enter, or stick+A) with identical resulting state.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "Frostpunk 2's console redesign (a same-genre isometric city-builder with layered menus) solved controller navigation of dense contextual UI not by forcing every menu item into linear d-pad traversal, but by giving two separate trigger-activated radial menus (a fixed 3-option 'Command Radial' and a context-sensitive 'Quick Radial') plus a dedicated frozen-time 'Extended City View' for scrolling long HUD icon lists with up/down instead of a pointer; both radials pause time automatically.",
+     "quote": "Activated by pressing the left trigger, it presents a three-option wheel for navigating the Idea Tree, Frostland Exploration, and the Council. ... Hover over frozen terrain, and you'll see the Frostbreaking option. Highlight a buildable area, and you can go directly to the District menu. ... Both radial menus pause time automatically. ... The Extended City View (accessed with X) also freezes time, and allows players to scroll through HUD icons using the up/down buttons.",
+     "source": "Xbox Wire (official Xbox blog) \u2014 \"City-Building in Your Hands: Adapting Frostpunk 2's Depth to a Gamepad\"",
+     "url": "https://news.xbox.com/en-us/2025/09/18/adapting-frostpunk-2s-depth-to-a-gamepad/",
+     "edition": "published 2025-09-18",
+     "applies": "For a controller pass on the two rails + inspector, consider a trigger-held radial or a frozen-time 'extended rail view' rather than trying to make the always-visible thin rail itself d-pad-navigable at gameplay speed \u2014 matches the target's 'compact inspector' philosophy of not permanently consuming screen space, and the auto-pause-on-open pattern avoids the classic city-sim problem of navigating a menu while the sim clock keeps running.",
+     "caution": "This is a developer/publisher marketing write-up, not a postmortem or GDC talk with implementation detail or accessibility rationale \u2014 treat it as a design-pattern data point, not a rigorously vetted guideline. It also describes a full control redesign for a 4X-scale simulation; this game's rails are lighter-weight (people/picture lists), so the radial-menu solution may be heavier machinery than needed \u2014 a simpler roving-tabindex rail (finding 3) may suffice and a full radial system might be over-engineering for M0/M1 scope.",
+     "confidence": "MED"
+    },
+    {
+     "claim": "The Game Accessibility Guidelines (community-maintained, industry-referenced) set a basic-level requirement that all areas of the UI be reachable by the same input method used for gameplay, plus a requirement that controls be remappable, as baseline (not just 'advanced') accessibility bars.",
+     "quote": "Ensure that all areas of the user interface can be accessed using the same input method as the gameplay",
+     "source": "gameaccessibilityguidelines.com \u2014 Full List (Motor category, Basic tier)",
+     "url": "https://gameaccessibilityguidelines.com/full-list/",
+     "edition": "current site (fetched 2026-09-13)",
+     "applies": "If the isometric lot itself is mouse/click-driven for placement and inspection, the two rails and inspector must be reachable via the same keyboard/controller scheme used to drive the lot camera and selection \u2014 i.e., don't let the rails be a keyboard-only or mouse-only island relative to the rest of the game's input model.",
+     "caution": "This is a crowd-sourced/community guideline site, not a standards body or platform holder \u2014 treat it as corroborating, lower-authority evidence alongside the Microsoft XAG citations above, not as a primary source on its own.",
+     "confidence": "MED"
+    }
+   ],
+   "blocked": [
+    "Could not find a citable GDC talk or official postmortem specifically for Two Point Hospital's console/controller HUD redesign; web search only surfaced Steam community discussion threads and third-party accessibility-report aggregation, none of which is primary/authoritative enough to quote. Cities: Skylines console UI is documented only via wikis/forums (Paradox wiki 'Controls' page, Game UI Database screenshots), not a developer-authored source with verbatim design rationale \u2014 omitted rather than quoting a low-authority paraphrase.",
+    "Could not locate an XAG numbered '105' \u2014 Microsoft's XAG numbering in the 100-series (103 audio, 106 narration, 107 input, 112 UI navigation, 113 focus handling, 114/120 exist per site nav) does not include a 105 in the current guideline set; findings instead draw on 106/107/113 which are the input/focus/navigation guidelines actually on the site."
+   ]
+  },
+  "Usability testing protocol for games wit": {
+   "lens": "Usability testing protocol for games with tiny budgets \u2014 RITE, think-aloud, Nielsen 5-user rule, Kleenex testing, Valve/Bungie playtest practice, task success/time/errors metrics, avoiding experimenter narration, owner vs fresh testers, and limits of a 6-hour audit",
+   "findings": [
+    {
+     "claim": "The RITE method (Rapid Iterative Testing and Evaluation), developed by Michael Medlock, Dennis Wixon, Bill Fulton, Mark Terrano and Ramon Romero at Microsoft Game Studios, fixes usability problems between participants rather than waiting for a final report \u2014 the team evaluates after each session whether to change the build before the next participant, sometimes acting on a single user's problem.",
+     "source": "RITE Method \u2014 Wikipedia (summarizing Medlock et al.); corroborated by MeasuringU 'Ten Things to Know about the RITE Method'",
+     "url": "https://en.wikipedia.org/wiki/RITE_Method",
+     "quote": "If a single participant experiences a problem and the usability test team determines that this is a problem they will need to fix, they suspend testing until they have a suitable revision.",
+     "edition": "MeasuringU, accessed 2026-09-13 (article undated on page)",
+     "applies": "Directly the model for a tiny-budget test on this lot/rail HUD: run 1-2 participants, watch for a genuine blocker (e.g. they can't find the inspector, miss the picture-rail affordance), pause, make the one-line fix (spacing, label, contrast), then continue with the next participant on the revised build. This gets more fixed per hour of tester time than a batch-then-report cycle, which is the right trade when you can only afford a handful of sessions total.",
+     "caution": "MeasuringU also flags the real cost: 'If design modifications require more than an hour or two, only one or two participants can be tested daily,' and RITE assumes 'development time/resources must be set aside' for someone to make the fix in real time. If the studio's engineer/artist isn't in the room or on call, don't promise same-session fixes \u2014 batch the findings into a same-day patch instead and be explicit that this is a modified RITE, not textbook RITE.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "Nielsen's classic finding is that testing with five users uncovers about 85% of a design's usability problems, with diminishing returns after that \u2014 but the model assumes one homogeneous user group; distinct groups (e.g. children vs. parents) need separate small samples rather than one pooled five.",
+     "source": "Jakob Nielsen, 'Why You Only Need to Test with 5 Users,' Nielsen Norman Group",
+     "url": "https://www.nngroup.com/articles/why-you-only-need-to-test-with-5-users/",
+     "quote": "After the first study with five participants has found 85% of the usability problems... You need to test additional users when a website has several highly distinct groups of users.",
+     "edition": "Published March 19, 2000, NN/g",
+     "applies": "For a 6-hour audit with a tiny budget, 5 fresh players run through the same 2-3 core tasks (find and route a chef, check the inspector for a stalled ticket, glance the picture rail for an order-up alert) is a defensible, citable sample size for surfacing the majority of navigation/legibility problems in the isometric-lot + rail UI.",
+     "confidence": "HIGH",
+     "caution": "This game likely has at least two distinct 'user groups' by experience level \u2014 a player on their first shift vs. one managing 20 stations at hour 40 \u2014 and the HUD's information density needs differ sharply between them. A pooled 5 novices will not tell you whether the compact inspector holds up at end-game complexity; if budget allows only one round, be explicit that findings apply to onboarding/early-game legibility only, not to veteran-density stress cases."
+    },
+    {
+     "claim": "Think-aloud is usability testing's single most valuable tool, but an untrained facilitator's prompts and clarifying questions can change the participant's behavior enough that the result no longer represents real, unprompted use.",
+     "source": "Jakob Nielsen, 'Thinking Aloud: The #1 Usability Tool,' Nielsen Norman Group",
+     "url": "https://www.nngroup.com/articles/thinking-aloud-the-1-usability-tool/",
+     "quote": "Prompts and clarifying questions are usually necessary, but from an untrained facilitator, such interruptions can very easily change user behavior.",
+     "edition": "Nielsen Norman Group, accessed 2026-09-13",
+     "applies": "When watching a player scan the lot/rails, resist narrating the UI ('notice the picture rail on the right') or asking guiding questions ('were you looking for the chef list?') mid-task \u2014 let silence sit, and only use neutral prompts ('what are you thinking right now?') to keep the monologue going. This is the main discipline a solo designer running their own test has to enforce on themselves, since there's no separate facilitator to catch it.",
+     "confidence": "HIGH",
+     "caution": "A minimal-crew test often collapses facilitator and note-taker into one person who also built the game \u2014 the temptation to explain, defend, or hint is much higher than in a lab with professional moderators. If self-moderating, script the two or three neutral prompts in advance and read them verbatim rather than improvising in the moment."
+    },
+    {
+     "claim": "'Kleenex testing' \u2014 using each participant only once, so they are naive and unbiased \u2014 is standard practice precisely because once someone has seen the solution to a puzzle or found the location of a UI element, they cannot un-know it for a second session.",
+     "source": "Kleenex testing \u2014 Wiktionary (documents established industry usage of the term)",
+     "url": "https://en.wiktionary.org/wiki/Kleenex_testing",
+     "quote": "software testing carried out with people who have never before seen or used the software... named from the Kleenex brand of disposable tissues, since the testers can only be employed once",
+     "edition": "Wiktionary, accessed 2026-09-13",
+     "applies": "For a tiny-budget audit, this cautions against reusing the same 2-3 friends/testers across rounds and calling it fresh data on navigation/discoverability questions (can they find the inspector, do they notice the alert on the picture rail) \u2014 those specific findings are only valid on a first exposure. Reusing testers is fine for different questions (e.g., 'does this fix feel better') but not for re-measuring discoverability.",
+     "confidence": "MED",
+     "caution": "A tiny team's tester pool is often literally exhausted after one round \u2014 friends, family, coworkers. Plan which few 'Kleenex' testers get spent on the highest-value first-exposure questions (cold discoverability of rail affordances), and hold back at least one or two fresh people for the post-fix verification pass, since even a RITE-style same-session fix can't be re-verified for discoverability on someone who already saw the old version."
+    },
+    {
+     "claim": "Valve's playtesting for Half-Life 2 started in the first week of a project and used continuous, high-volume, low-friction cycles (roughly 100+ playtesters per level, weekly builds tested and prioritized) to drive production, rather than one big test at the end.",
+     "source": "Valve's Design Process for Creating Half-Life 2, GDC 2006 (Robin Walker/Half-Life team; slide deck hosted by gamedevs.org)",
+     "url": "https://www.gamedevs.org/uploads/valve-design-process-for-creating-half-life2.ppt",
+     "quote": "creating 15 minutes of gameplay in rough form, then playtesting to prioritize work for the next week, and repeating this cycle in 1-2 week increments",
+     "edition": "GDC 2006 talk slides",
+     "applies": "The core transferable lesson for a small team is cadence, not scale: test the rough graybox HUD/lot layout early and often in short cycles rather than saving all usability testing for a late, single 'big' pass \u2014 a 6-hour audit should be framed as one node in a repeating weekly loop, not a one-off verdict.",
+     "confidence": "MED",
+     "caution": "Valve's numbers (100+ testers per level, dedicated playtest labs) reflect a studio with resources this project doesn't have. Don't cite '100 playtesters' as a bar to clear \u2014 the applicable takeaway is exclusively the early-and-often cadence and the practice of re-prioritizing the next sprint's work directly off playtest observations, scaled down to n=1-5 per cycle."
+    },
+    {
+     "claim": "Bungie instrumented Halo/Destiny playtests with automatic telemetry ('heartbeat' events logging player position, health, state every few seconds) and ran dedicated GDC-documented user-research programs (eye tracking, in-engine 3D data visualization) specifically because verbal/observed feedback alone was insufficient for their complexity.",
+     "source": "GDC Vault, 'User Research on Destiny' (Bungie); background on Halo heartbeat telemetry from postmortem/GDC coverage",
+     "url": "https://www.gdcvault.com/play/1022355/User-Research-on",
+     "quote": "novel research studies and technologies such as eye tracking, dial testing, three-dimensional in-engine data visualizations, and Hadoop-based big data analysis",
+     "edition": "GDC talk listing, GDC Vault",
+     "confidence": "LOW",
+     "applies": "Even a lightweight audit can borrow the cheap version of this: log simple session events (which rail was clicked first, time-to-first-inspector-open, number of mis-clicks before finding a station) alongside think-aloud notes, so findings aren't purely the moderator's subjective read of what happened.",
+     "caution": "This is aspirational, not a same-day capability \u2014 full telemetry/eye-tracking infrastructure is exactly what a 6-hour, tiny-budget audit cannot build or claim to have used. State plainly in the audit report that observations are qualitative/moderator-logged, not instrumented, so the studio doesn't over-read precision into hand-timed 'time on task' numbers."
+    },
+    {
+     "claim": "Standard usability metrics for task-based testing are task success (completed vs. failed vs. failed-with-help), time on task, and error rate (wrong turns/misclicks) \u2014 the same three measures used across HCI and game-usability literature (e.g., Desurvire & Wiberg's PLAY heuristics research on RTS/FPS/action-adventure genres) as the baseline quantitative layer under qualitative observation.",
+     "source": "Desurvire & Wiberg, 'Game Usability Heuristics (PLAY) for Evaluating and Designing Better Games: The Next Iteration' (2009)",
+     "url": "https://ocw.metu.edu.tr/pluginfile.php/4129/mod_resource/content/0/ceit706_2/10/game_usability-_heuristics.pdf",
+     "quote": "Game Usability Heuristics (PLAY) for Evaluating and Designing Better Games: The Next Iteration",
+     "edition": "2009 paper (INTERACT/HCI proceedings), PDF hosted via METU OCW",
+     "confidence": "MED",
+     "applies": "For this game's core loop tasks (route a chef via the lot, resolve a stalled ticket via the inspector, spot an alert on the picture rail), record for each tester: success/fail, seconds to completion, and count of wrong clicks/backtracks. That trio is lightweight enough for a solo moderator with a stopwatch and a notepad, and it's the field-standard vocabulary a studio's producer or investor will recognize.",
+     "caution": "PLAY's heuristics were built and validated against RTS/FPS/action-adventure genres specifically, not management-sim HUDs with an inspector panel \u2014 treat the heuristic checklist itself as adjacent inspiration, not a validated fit, while the task-success/time/error metric trio is genre-agnostic and safe to borrow directly."
+    },
+    {
+     "claim": "Practitioner guidance on RITE-style rapid testing calls out cross-functional/stakeholder observation as a success factor, implicitly warning against a single-observer setup where the same person moderates, judges what counts as a real problem, and decides the fix.",
+     "source": "MeasuringU, 'Ten Things to Know about the RITE Method'",
+     "url": "https://measuringu.com/rite-method/",
+     "quote": "all stakeholders can observe the sessions and engage in face-to-face discussions",
+     "edition": "MeasuringU, accessed 2026-09-13",
+     "confidence": "MED",
+     "applies": "If the game's owner is the one moderating and also the one deciding whether a problem is 'real,' that single-observer setup is the weak version of RITE. For a tiny budget, the workable compromise is: owner moderates but writes down every candidate fix as a claim, then a second person (any second person \u2014 co-founder, contractor, even a brief post-session retro with the tester) sanity-checks before a same-session build change ships, so one person's attachment to their own layout doesn't get to unilaterally overrule what a fresh player just showed you.",
+     "caution": "This source doesn't address 'owner-as-tester' at all \u2014 it addresses owner/stakeholder-as-observer. Testing the owner themselves as a participant is close to useless for discoverability questions (they built the mental model the UI reflects) and should be reserved only for regression checks ('did the fix I just made break anything I rely on'), never for a discoverability or first-impression finding."
+    }
+   ],
+   "summary": "Primary/authoritative sourcing supports a concrete, budget-appropriate protocol for this game: run 5 fresh ('Kleenex') players through 2-3 core tasks (route a unit via the isometric lot, open the inspector on a stalled item, notice an alert on the picture rail), moderate with disciplined think-aloud (neutral prompts only, no narrating the UI \u2014 NN/g), fix real blockers between participants RITE-style when a fix is cheap and someone is on hand to make it (Medlock/Wixon; MeasuringU), and log task success, time on task, and wrong-turn/error counts per tester as the baseline quantitative layer (Desurvire & Wiberg's genre-agnostic metric trio). Valve's and Bungie's practices scale down to one lesson each: test early and often in short cycles (Valve), and be honest that a 6-hour audit is qualitative/moderator-observed, not instrumented telemetry (Bungie's GDC-documented research stack is the aspirational, not attainable-today, comparison). The two sharpest cautions for a tiny/owner-run team: (1) five users only cover one homogeneous group \u2014 novice vs. veteran-density HUD needs are a second group Nielsen's model says to test separately if budget ever allows a second round; (2) RITE's stakeholder-observation norm and the Kleenex-testing norm both push against the owner unilaterally moderating, judging, and fixing in one loop with reused testers \u2014 a 6-hour solo audit can credibly claim it found real first-exposure discoverability blockers, but cannot claim it validated fixes (no fresh-eyes retest capacity in-session) or that it covered veteran/high-density play patterns."
+  },
+  "Text size and UI scaling for a 2D isomet": {
+   "lens": "Text size and UI scaling for a 2D isometric studio-management HUD (left people rail, right picture rail, compact inspector; 1280x720 / 1440x900 desktop, mouse+keyboard, possible controller later)",
+   "summary": "Desktop/PC minimum body text should be 18px at 1080p-equivalent (Xbox/Microsoft's PC/VR floor), not the 26-52px console/TV floor built for 10-foot viewing distance \u2014 your target resolutions and desk viewing distance put you in the PC/VR tier. Every player-facing text element (menus, HUD, tooltips, inspector fields) must be independently scalable to at least 200% of that minimum without breaking layout, and icon/glyph text inside buttons must scale in lockstep with surrounding text so labels don't overflow their containers. \"Selective enlargement\" \u2014 scaling body/primary content aggressively while leaving small, repeated, secondary chrome (back buttons, rail icons) less scaled \u2014 is an accepted, named pattern from Apple's own Dynamic Type accessibility criteria, which maps well onto a rail-based layout: scale the inspector's body text and picture/people-rail labels fully, but the compact rail icons themselves can grow more conservatively as long as their text meets the minimum. A true \"UI scale\" option (as opposed to a font-size-only slider) should be understood as covering the whole rendered interface \u2014 icon size, hit-target size, and spacing \u2014 not just font metrics, per Xbox's guidance that icon/glyph size must track text scaling and per WCAG's evolution from text-only resize toward whole-content resize; a fixed isometric lot's camera/world scale is explicitly exempted from this by the \"fixed spatial layout necessary to use or meaning\" carve-out. Caution: I could not verify a distinct XAG item officially covering \"UI scale\" at guideline number 107 \u2014 that number is actually XAG 107 \"Input\" (analog/digital remapping and sensitivity); the UI-scaling requirements live inside XAG 101 (Text display) itself, so treat \"XAG 101/107\" as really \"XAG 101, sections on text size + icon/glyph scaling.\"",
+   "findings": [
+    {
+     "claim": "For PC displays (your case, not TV/console), minimum default text body-height should be 18px at 1080p / 36px at 4K \u2014 nearly half the console/TV minimum of 26px/52px \u2014 because the guideline explicitly separates console-at-couch-distance from PC-at-desk-distance.",
+     "source": "Microsoft Xbox Accessibility Guidelines (XAG) 101 \u2014 Text display",
+     "url": "https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/101",
+     "quote": "Console: Font size should equal or exceed: 26 px at 1080p, 52 px at 4K. PC/VR: Font size should equal or exceed: 18 px at 1080p, 36 px at 4K.",
+     "edition": "Microsoft Learn, gaming docs, dated 2022-05-09, page last updated 2026-06-17",
+     "applies": "Your game targets 1280x720 and 1440x900 desktop with mouse+keyboard as primary input \u2014 use the PC/VR floor (18px body-height at 1080p-equivalent scaling), not the console/TV floor. At 1280x720 you have less room than 1920x1080, so treat 18px as a true floor for the inspector's smallest secondary text and go larger for primary labels on the people/picture rails.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "Players must be able to scale text up to 200% of the minimum default size without loss of content, functionality, or meaning; large header text must stay visually distinguished from body at all scales; scaled text should not force scrolling in both axes at once.",
+     "source": "Microsoft Xbox Accessibility Guidelines (XAG) 101 \u2014 Text display, 'Text scaling' section",
+     "url": "https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/101",
+     "quote": "Players should be able to resize text up to 200 percent of the minimum font sizes (as previously listed), without the loss of content, functionality, or meaning. As an example, console text at 1080p should be able to be scaled from 26 px to 52 px at 1080p. ... When text is scaled, the player isn't required to scroll both horizontally and vertically to read text within a single UI. (Scrolling in one direction is OK.)",
+     "edition": "Microsoft Learn, gaming docs, 2022-05-09 / updated 2026-06-17",
+     "applies": "Design the compact inspector and rails so that at 200% text scale (e.g., 18px -> 36px equivalent) the layout reflows to single-direction scroll rather than truncating stat labels, item names, or picture captions. Budget generous line-height and avoid fixed-height text containers in the inspector.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "Text embedded inside icons/glyphs (e.g., a keybind icon with a letter in it) must meet the same minimum text size as surrounding text, and must scale proportionally up to 200% along with general text scaling \u2014 designers may need to enlarge the icon's container, not just the glyph, to keep it legible.",
+     "source": "Microsoft Xbox Accessibility Guidelines (XAG) 101 \u2014 Text display, 'Icons and glyph sizes' section",
+     "url": "https://learn.microsoft.com/en-us/xbox/accessibility/xbox-accessibility-guidelines/101",
+     "quote": "The text contained inside icons and glyphs should also meet the minimum default text size as previously defined for console/PC/VR or mobility/Xbox Game Streaming experiences. Icons/glyphs should also scale with text scaling up to 200 percent of the minimum default size. ... To ensure glyphs and icons fit within text containers, you may need to increase the size of the text surrounding glyphs and icons.",
+     "edition": "Microsoft Learn, gaming docs, 2022-05-09 / updated 2026-06-17",
+     "applies": "Your compact people-rail and picture-rail thumbnails likely carry small overlay glyphs/badges (role icons, status dots with numeric labels). If any of those carry legible text/numerals, that text needs its own scaling path tied to the global text-scale setting, and the badge container must grow with it rather than clipping.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "'UI scale' as a concept, distinct from font-size-only scaling, is best understood via Apple's own accessibility evaluation criteria for Larger Text/Dynamic Type: users should be able to enlarge text (and 'meaningful icons') to at least 200% of default, but not every element needs to scale uniformly \u2014 repeated, predictable, secondary chrome (e.g., Back/Edit buttons) is explicitly permitted to stay small while primary content scales aggressively. This is the closest authoritative articulation of 'selective enlargement.'",
+     "source": "Apple Developer \u2014 App Store Connect Help, 'Larger Text evaluation criteria'",
+     "url": "https://developer.apple.com/help/app-store-connect/manage-app-accessibility/larger-text-evaluation-criteria",
+     "quote": "Allow primary content such as body text to scale as large as possible, while retaining usability and informational hierarchy in your app. ... For example, the Back and Edit buttons on iOS remain small in the example below because they are repeated, predictable, and secondary elements of the interface. ... You can indicate that your app supports Larger Text if users can enlarge text to at least 200% or the maximum font size for the system.",
+     "edition": "Apple Developer documentation, current as of access date (no dated edition given on page)",
+     "applies": "This directly validates a selective-enlargement approach for your layout: scale the inspector's body copy, tooltips, and the primary name/stat labels on the picture and people rails fully; the small repeated rail icons (avatar thumbnails, category glyphs) can scale more conservatively as long as any embedded numerals/text still hit the XAG 101 minimum and the 200% target. Caution: this is a mobile/OS platform guideline (iOS/tvOS Dynamic Type), not a game-specific standard \u2014 it addresses OS-level accessibility settings, not a game's internal 'UI scale' slider, so use it as supporting rationale rather than a compliance requirement.",
+     "confidence": "HIGH"
+    },
+    {
+     "claim": "Game Accessibility Guidelines' Basic-tier recommendation is a 28px minimum default (at 1080p) as a floor to build on, explicitly not a sufficient target, and frames font-size choice as best solved by giving the player a choice rather than picking one 'right' default.",
+     "source": "gameaccessibilityguidelines.com \u2014 'Use an easily readable default font size'",
+     "url": "https://gameaccessibilityguidelines.com/use-an-easily-readable-default-font-size/",
+     "quote": "use 28px as a minimum rather than a target, aim to exceed it wherever possible",
+     "edition": "gameaccessibilityguidelines.com (undated living page; classified Basic level for vision and cognitive accessibility)",
+     "applies": "This 28px figure is calibrated to Amazon's 10-foot TV UI, i.e. couch/TV viewing distance \u2014 it is stricter than the Xbox PC/VR 18px floor. Caution: don't import 28px wholesale as your desktop minimum; at 1280x720 desk-viewing distance it would consume disproportionate space in the compact inspector. Treat 18-20px (XAG PC/VR) as the practical floor for secondary/dense inspector text, but consider approaching ~24-28px for primary labels the player reads most (unit names, key stats) since larger defaults reduce reliance on manual scaling.",
+     "confidence": "MED"
+    },
+    {
+     "claim": "gameaccessibilityguidelines.com's companion guideline treats font-size adjustability itself as an Advanced-tier best practice, arguing a single fixed default (however generous) cannot serve all players because visual impairment and viewing conditions vary too widely \u2014 user-controlled scaling is the actual goal, not a bigger fixed default.",
+     "source": "gameaccessibilityguidelines.com \u2014 'Allow the font size to be adjusted'",
+     "url": "http://gameaccessibilityguidelines.com/allow-the-font-size-to-be-adjusted/",
+     "quote": "allowing players to choose a font size that best suits their abilities and situation is much more effective",
+     "edition": "gameaccessibilityguidelines.com (undated living page; Advanced level, Vision category)",
+     "applies": "Supports building a real text-size/UI-scale slider into settings for this game rather than shipping one fixed compact-inspector density and calling it done \u2014 even a well-chosen 18-20px default doesn't substitute for player control, especially given your compact-inspector design intent which will tend to default toward smaller text.",
+     "confidence": "MED"
+    },
+    {
+     "claim": "WCAG's low-vision task force explicitly widened the scope from 'resize text' to 'resize content' (all UI, not just text) up to 400%, while carving out an explicit exception for layouts where fixed spatial arrangement is intrinsic to the content's meaning or function.",
+     "source": "W3C WAI Low Vision Accessibility Task Force wiki \u2014 'Size of all elements'",
+     "url": "https://www.w3.org/WAI/GL/low-vision-a11y-tf/wiki/Size_of_all_elements",
+     "quote": "Content can be resized to 400% without loss of content or functionality, and without requiring two-dimensional scrolling except for parts of the content where fixed spatial layout is necessary to use or meaning.",
+     "edition": "W3C WAI Low Vision Accessibility Task Force wiki (working document, undated snapshot)",
+     "applies": "This is the strongest authoritative basis for defining what your game's 'UI scale' option should cover: not just font size but icon size, hit-target size, and rail-item spacing together, functioning like a single density/zoom control on the 2D chrome. Caution: this is a web accessibility (WCAG) working-group document, not games-specific, and its 400% target is far beyond what any cited game guideline asks for \u2014 treat it as directional (UI scale \u2260 text-only scale) rather than a literal 400% requirement. The isometric lot viewport itself is the kind of 'fixed spatial layout necessary to use or meaning' this exception anticipates, so the world/camera view is reasonably exempt from the UI-scale slider even though the surrounding rails and inspector are not.",
+     "confidence": "MED"
+    },
+    {
+     "claim": "PlayStation officially documents PS5 having a dedicated, named 'Text Size' display setting alongside Zoom and Color Correction, confirming text-size scaling as a first-class platform-level accessibility feature distinct from general screen zoom, but Sony's public page gives no numeric minimums or percentages.",
+     "source": "PlayStation \u2014 Accessibility features on PS5 and PS4",
+     "url": "https://www.playstation.com/en-us/accessibility/",
+     "quote": "The PS5 console offers a range of customizable display and sound features including Zoom, Color Correction, Text Size, Mono audio for headphones, plus more.",
+     "edition": "playstation.com, current live page (no publication date shown)",
+     "applies": "Confirms industry practice of separating a 'Text Size' control from a 'Zoom' (whole-screen magnification) control at the platform level \u2014 useful precedent for offering both a text-scale slider and, if you support controller/TV play later, a broader screen-zoom fallback. Caution: page is a marketing/support page, not a design spec \u2014 it gives no minimum sizes, percentages, or implementation guidance, so cite Xbox XAG 101 or Game Accessibility Guidelines for actual numeric targets when specifying this game's own settings.",
+     "confidence": "MED"
+    }
+   ],
+   "blocked": [
+    "Could not find an Xbox Accessibility Guideline specifically titled or numbered around 'UI scale' at #107 \u2014 fetched XAG 107 directly and it is titled 'Input' (control remapping, sensitivity, touch-target sizing for mobile), not text/UI scale. The full XAG numbering in the 100s (confirmed via Microsoft Learn search results) runs 101 Text display, 102 Contrast, ... 107 Input, 108 Difficulty, 109 Object clarity, ... 112 UI navigation, 113 UI focus handling, 114 UI context \u2014 none of these is a dedicated 'UI scale' guideline; UI/icon scaling requirements live inside 101 itself. Flag this to the requester so the citation isn't misattributed.",
+    "PlayStation's own official design/accessibility guidelines document (distinct from the public playstation.com support page) was not publicly locatable via search \u2014 Sony does not appear to publish a public PS accessibility design-guidelines PDF equivalent to Microsoft's XAG; only the consumer-facing feature-description page was accessible."
+   ]
+  }
+ },
+ "verified": [
+  {
+   "checked": [
+    {
+     "claim": "Baseline (basic tier) game accessibility requires remappable controls, readable/contrasting text, and no color-only essential info conveyance",
+     "verdict": "SUPPORTED",
+     "note": "gameaccessibilityguidelines.com/full-list/ confirms all four items ('Allow controls to be remapped / reconfigured', 'Use an easily readable default font size', 'Provide high contrast between text/UI and background', 'Ensure no essential information is conveyed by a fixed colour alone') under the Basic tier, matching the claim and quote."
+    },
+    {
+     "claim": "SIL OFL permits bundling into commercial apps/software and free modification/redistribution without required acknowledgement, subject to Reserved Font Name restrictions",
+     "verdict": "SUPPORTED",
+     "note": "openfontlicense.org confirms bundling in apps/software, free modification and redistribution, 'no acknowledgement is required' for normal use, and Reserved Font Name (RFN) restrictions on renaming modified versions \u2014 matches claim and quote closely."
+    },
+    {
+     "claim": "Jost and League Spartan are recommended free OFL Futura replacements matching Futura's single-storey lowercase 'a', per learnui.design",
+     "verdict": "REFUTED",
+     "note": "The cited article does not contain the quoted sentence at all, and directly contradicts the specific detail: it states Jost ships OUT-OF-THE-BOX with a double-storey 'a' (the single-storey form is only an optional CSS alternate), not that it replicates Futura's single-storey 'a' by default. The article also never describes League Spartan as 'based on the Futura-derived Spartan typeface' \u2014 it only says Spartan is a touched-up version of Futura. The broader claim that both are practitioner-recommended free alternatives is directionally true, but the specific quoted claim is fabricated/inaccurate."
+    },
+    {
+     "claim": "Unity blog: pure greybox/programmer art can bias playtests; a 'visual minimum' (silhouettes, color-coding, material variation) avoids poisoning results",
+     "verdict": "SUPPORTED",
+     "note": "unity.com/blog/placeholder-asset-problem confirms the flawed assumption about separating visual from mechanical feedback, the 'poisoning your playtest feedback' framing, and the three-part visual minimum (recognizable silhouettes, color differentiation, basic material variation) \u2014 matches claim and quote."
+    }
+   ],
+   "overall": "3 of 4 claims verified as accurately sourced. The Jost/League Spartan claim (claim 3) is REFUTED as quoted: the cited learnui.design article does not contain the quoted text, and in fact states the opposite detail \u2014 Jost defaults to a double-storey 'a' with the single-storey Futura-style 'a' only available as an optional stylistic alternate \u2014 plus it makes no claim about League Spartan being 'based on the Futura-derived Spartan typeface.' This claim should be corrected or removed before use in a DoD-facing document; the other three claims (accessibility baseline, OFL licensing terms, and the Unity placeholder-asset/playtest-bias argument) are well-supported by their cited sources."
+  },
+  {
+   "checked": [
+    {
+     "claim": "PC/VR minimum 18px/1080p, 36px/4K vs console 26px/52px, described as 'nearly half' the console minimum, attributed to explicit couch-vs-desk distance rationale in the guideline.",
+     "verdict": "PARTLY",
+     "note": "Quote and numbers (18/36 PC-VR vs 26/52 console) are verbatim correct on the cited page. But the characterization is off: 18/26 = 0.69 and 36/52 = 0.69, i.e. PC/VR minimum is ~69% of console minimum (about 31% less), not 'nearly half.' Also, the page's actual rationale note ('Developers are encouraged to consider individual player scenarios, for example the typical distance from couch to television...') does not explicitly frame this as a console-couch-distance vs PC-desk-distance dichotomy \u2014 that causal framing is not stated in the source."
+    },
+    {
+     "claim": "200% resize requirement without loss of content/functionality/meaning; header text stays visually distinguished; no simultaneous two-axis scroll requirement.",
+     "verdict": "SUPPORTED",
+     "note": "Quote verified verbatim on the XAG 101 page under 'Text scaling.'"
+    },
+    {
+     "claim": "Text inside icons/glyphs must meet same minimum size and scale proportionally to 200%; may require enlarging the icon container.",
+     "verdict": "SUPPORTED",
+     "note": "Quote verified verbatim under 'Icons and glyph sizes,' including the container-enlargement note."
+    },
+    {
+     "claim": "Apple's Larger Text criteria: scale to 200%/max font size; primary content scales, repeated/predictable secondary chrome (Back/Edit) may stay small.",
+     "verdict": "SUPPORTED",
+     "note": "All three quoted fragments (200%/max font size; primary content scaling; Back/Edit buttons remaining small as repeated/predictable/secondary) verified verbatim on the Apple Developer page. The 'meaningful icons' phrase in the claim was not directly located in the fetched excerpt but the substantive claims are confirmed."
+    },
+    {
+     "claim": "GAG Basic tier: 28px minimum at 1080p, framed as floor not target, argues for player choice over one 'right' default.",
+     "verdict": "SUPPORTED",
+     "note": "Quote 'use 28px as a minimum rather than a target, aim to exceed it wherever possible' verified, and tier confirmed as Vision (Basic)/Cognitive (Basic)."
+    },
+    {
+     "claim": "GAG treats font-size adjustability as Advanced-tier best practice; single fixed default can't serve all players; user-controlled scaling is the goal.",
+     "verdict": "SUPPORTED",
+     "note": "Tier confirmed as Advanced; quote 'allowing players to choose a font size that best suits their abilities and situation is much more effective' verified verbatim."
+    },
+    {
+     "claim": "W3C WAI low-vision task force widened scope from 'resize text' (200%) to 'resize content' (400%), with exception for fixed spatial layout necessary to meaning/function.",
+     "verdict": "SUPPORTED",
+     "note": "Quote on 400% resizing and the fixed-spatial-layout exception verified verbatim; the scope-widening from text-only 1.4.4 (200%) to all content (400%) is also explicitly confirmed on the page."
+    },
+    {
+     "claim": "PS5 has a dedicated named 'Text Size' setting alongside Zoom and Color Correction; no numeric minimums given on Sony's public page.",
+     "verdict": "SUPPORTED",
+     "note": "Quote verified verbatim; page indeed gives no percentages/numeric minimums for Text Size."
+    },
+    {
+     "claim": "NN/g: infinite scrolling not recommended for goal-directed 'find something specific' tasks; works best for homogeneous, goal-less browsing; pagination aids remembering item location.",
+     "verdict": "SUPPORTED",
+     "note": "The core quoted fragment ('...when users will want to... Find something specific') verified verbatim. The 'homogeneous browsing / pagination lets users remember page' framing is consistent with this well-known NN/g article's broader content, though that specific sub-clause was not independently re-quoted in the fetch excerpt."
+    },
+    {
+     "claim": "NN/g cites showing 'X of Y' viewed-vs-total item counts (e.g., Asos.com) as a favorable mitigation in infinite/long scroll.",
+     "verdict": "SUPPORTED",
+     "note": "Quote verified verbatim: 'Asos.com ... displaying how many products were already viewed, as well as the total number of products' / 'help users to navigate the page.'"
+    }
+   ],
+   "overall": "9 of 10 claims are SUPPORTED with verbatim-verified quotes from the cited URLs. One claim (the Xbox XAG console-vs-PC/VR text-size comparison) is only PARTLY supported: the cited numbers and quote are accurate, but the claim's own gloss is misleading \u2014 18px/36px is about 69% of 26px/52px (roughly 31% smaller), not 'nearly half,' and the source does not explicitly attribute the difference to a stated couch-distance-vs-desk-distance rationale as the claim asserts."
+  },
+  {
+   "checked": [
+    {
+     "claim": "Cities: Skylines notification icon taxonomy (Building Status, Connections, Electricity, etc.) as analogous 2D-isometric 'needs attention' badge system",
+     "verdict": "SUPPORTED",
+     "note": "Paradox Wikis Notifications page confirms a categorized icon reference (Building Status, Connections, Electricity, Fishing, etc.) showing icon+name+meaning for problems flagged above buildings."
+    },
+    {
+     "claim": "XAG 113 focus indicator visibility, never invisible/offscreen, dialog focus moves to first interactable control",
+     "verdict": "SUPPORTED",
+     "note": "Page text matches the quoted passage nearly verbatim, including the Forza Horizon 4 dialog example about focus moving to the first interactable control and staying confined to the dialog."
+    },
+    {
+     "claim": "XAG 106 focus order aligned to meaning/operation or visual flow; end-of-list wrap for linear menus but not multidirectional grids; wrapping should be a toggle",
+     "verdict": "SUPPORTED",
+     "note": "Fetched page contains this exact passage verbatim, including the note restricting looping to linear (not multidirectional) menus and encouraging a loop enable/disable option. (Note: this text lives within the XAG 106 'screen narration' page, not a separately titled 'UI navigation' page, but the guideline number and quoted text are accurate.)"
+    },
+    {
+     "claim": "W3C ARIA APG roving tabindex pattern: one Tab stop, tabindex 0/-1 toggling + element.focus(), previously-focused item remembered on return to widget",
+     "verdict": "PARTLY",
+     "note": "Fetch confirmed the tabindex-toggling + element.focus() mechanics verbatim. The 'previously-focused item is remembered when focus returns to the widget' detail is standard APG content but was not returned/quoted in this fetch, so that specific sub-claim is unverified rather than confirmed."
+    },
+    {
+     "claim": "WCAG 2.4.3 Understanding doc: focus returns to invoking control after dialog dismissal",
+     "verdict": "SUPPORTED",
+     "note": "Fetched page contains the quoted line verbatim: 'When the dialog is dismissed, focus returns to the button or the element following the button.'"
+    },
+    {
+     "claim": "XAG 107 requires digital equivalents for analog input, single non-simultaneous keypresses, full remapping including Esc key",
+     "verdict": "SUPPORTED",
+     "note": "All three quoted fragments appear verbatim on the fetched page."
+    },
+    {
+     "claim": "Frostpunk 2 Xbox Wire: Command Radial (3-option) + Quick Radial (contextual) + Extended City View (frozen-time scroll), both radials auto-pause time",
+     "verdict": "SUPPORTED",
+     "note": "Quoted passage matches article content; fetch independently confirms Quick Radial by name, the three-option wheel (Idea Tree/Frostland Exploration/Council) via left trigger, Extended City View via X with up/down scrolling, and both radials plus Extended City View pausing time automatically. 'Command Radial' as the specific name for the left-trigger wheel wasn't repeated in the summarized fetch output but the quoted text matches the source verbatim."
+    },
+    {
+     "claim": "Game Accessibility Guidelines Basic tier (Motor): same input method as gameplay + remappable controls",
+     "verdict": "SUPPORTED",
+     "note": "Fetch confirms both guidelines appear in the Motor category Basic tier verbatim, matching the quoted text."
+    },
+    {
+     "claim": "RITE method developed by Medlock, Wixon, Fulton, Terrano, Romero at Microsoft Game Studios; fixes problems between participants, sometimes after a single participant's problem",
+     "verdict": "PARTLY",
+     "note": "Fetch confirms the five named developers and the core mechanic (deciding after each session whether to revise before the next participant, sometimes acting on just one participant's issue). However the specific quoted sentence in the claim ('If a single participant experiences a problem... they suspend testing until they have a suitable revision') was not returned verbatim by the fetch, so exact quote-in-page could not be confirmed, though the substance matches."
+    },
+    {
+     "claim": "Nielsen: 5 users find ~85% of usability problems, diminishing returns after; distinct user groups need separate small samples rather than one pooled five",
+     "verdict": "SUPPORTED",
+     "note": "Both the 85% quote and the distinct-groups guidance (3-4 users per group for two groups, 3 per group for 3+) are confirmed on the NN/g page, matching the claim's substance and exact 85% quote."
+    }
+   ],
+   "overall": "Most claims are well-supported by their cited sources with verbatim or near-verbatim quotes confirmed via fetch: the Cities: Skylines notification taxonomy, XAG 113, XAG 106, WCAG 2.4.3, XAG 107, Frostpunk 2 Xbox Wire piece, Game Accessibility Guidelines Basic tier, and the Nielsen 5-user finding all check out as claimed. Two claims are only PARTLY confirmed: the ARIA APG roving-tabindex claim's detail about remembering the previously-focused item on return to the widget was not present in the fetched excerpt (though it is standard, well-known APG content), and the RITE Method claim's specific quoted sentence about suspending testing for a single participant's problem was not returned verbatim by the fetch, even though the surrounding substance (developer names, iterate-after-each-session mechanic) was confirmed. No claims were refuted or unreachable."
+  },
+  {
+   "checked": [
+    {
+     "claim": "Dropdowns are UI control of last resort (Luke Wroblewski)",
+     "verdict": "SUPPORTED",
+     "note": "Page confirms exact quote and the stated rationale (multiple interaction steps, hidden options, no hierarchy, selection-only) plus recommends radio groups as ideal for mutually exclusive choices."
+    },
+    {
+     "claim": "Filters best for narrowing large sets, search best for specific known items; NN/g found ~64% first-attempt / ~74% overall search success",
+     "verdict": "PARTLY",
+     "note": "The cited 'Applying Filters' page contains the given quote and general filter-narrowing framing, but does NOT contain the search-vs-filter comparison or the 64%/74% search-success statistics anywhere on the page \u2014 those figures are unsupported by this URL."
+    },
+    {
+     "claim": "Baymard default item-count guidance (100-150 desktop visual, 50-100 desktop spec, 15-30 mobile) and underestimation/abandonment effect",
+     "verdict": "SUPPORTED",
+     "note": "Page confirms all three figures and the abandonment-due-to-underestimation finding, closely matching the quoted text."
+    },
+    {
+     "claim": "Two Point Hospital wiki: toggle filter buttons per staff type + count badges + All button + column-header sorting (Ability/Happiness)",
+     "verdict": "UNREACHABLE",
+     "note": "Fandom page returned HTTP 402 (Payment Required) via both WebFetch and curl with a browser user-agent; no alternative access found. Could not verify or refute the claim's content."
+    },
+    {
+     "claim": "CK3 Find Character tool sort/filter controls, patch 1.19 iterative improvements",
+     "verdict": "UNREACHABLE",
+     "note": "Paradox forum served a JS 'Client Challenge' bot-check page to both WebFetch and curl (with browser UA); Google cache redirect led to a consent wall. Could not verify or refute."
+    },
+    {
+     "claim": "Icon Usability (NN/g): text labels needed alongside icons; hover-reveal labels discouraged",
+     "verdict": "SUPPORTED",
+     "note": "Both quotes confirmed verbatim, plus the home/print/magnifying-glass exception list and the touch-device/interaction-cost critique of hover-reveal labels."
+    },
+    {
+     "claim": "Recognition vs. recall (NN/g): recognition cheaper than recall; keep mapping visible rather than requiring memorization (heuristic #6)",
+     "verdict": "PARTLY",
+     "note": "Core recognition/recall definition quote and heuristic #6 reference confirmed, and the general 'keep options visible' theme runs through the article, but the specific second quote ('field labels or menu items should be visible or easily retrievable when needed') was not found verbatim on this page \u2014 likely belongs to the separate Heuristic #6 article rather than this one."
+    },
+    {
+     "claim": "WCAG 1.4.1 Use of Color: forbids color-only conveyance; worked example is required-field red-text-plus-icon",
+     "verdict": "SUPPORTED",
+     "note": "Both the core prohibition quote and the red-text-plus-icon required-fields example are confirmed present on the page."
+    },
+    {
+     "claim": "Xbox Accessibility Guideline 103: color alone should never carry info; critical color-conveyed info needs additional signifier (shape/pattern/iconography/text)",
+     "verdict": "SUPPORTED",
+     "note": "Full page fetched; both exact quotes present verbatim, plus a Grounded crafting-menu worked example resembling a management-sim inventory/crafting panel."
+    },
+    {
+     "claim": "Preattentive visual search / target distinctiveness: color dominance over shape/texture shrinks as more distinct categories compete (pubmed study) plus Colin Ware hawk/pigeons metaphor",
+     "verdict": "UNREACHABLE",
+     "note": "PubMed page served only a cookie-consent wall to both WebFetch and retry (trailing-slash and non-slash URL); underlying abstract text not retrieved. Could not verify the quoted finding or confirm which source carries the hawk/pigeons line."
+    }
+   ],
+   "overall": "6 of 10 claims SUPPORTED with verbatim quotes confirmed on the live page (Wroblewski dropdowns, Baymard item counts, NN/g icon usability, WCAG 1.4.1, Xbox Accessibility Guideline 103, and partially recognition-vs-recall). 2 claims are PARTLY supported: the NN/g filters article backs its own quote but has zero content on the search-vs-filter comparison or the specific 64%/74% statistics cited alongside it, and the recognition-vs-recall claim's second supporting quote could not be located on the cited page. 2 claims (Two Point Hospital wiki, CK3 forum thread) and one additional claim's secondary source (pubmed study details) were UNREACHABLE due to bot-protection/paywalls on all attempted URLs and mirrors \u2014 treat those as unverified rather than confirmed."
+  },
+  {
+   "checked": [
+    {
+     "claim": "Nielsen \u2014 think-aloud is the #1 usability tool; untrained facilitator's prompts can change behavior",
+     "verdict": "SUPPORTED",
+     "note": "URL fetched successfully. Exact quote found verbatim: 'Prompts and clarifying questions are usually necessary, but from an untrained facilitator, such interruptions can very easily change user behavior.' Article title matches 'Thinking Aloud: The #1 Usability Tool.'"
+    },
+    {
+     "claim": "Kleenex testing \u2014 one-use naive participants, established industry term",
+     "verdict": "SUPPORTED",
+     "note": "URL fetched. Wiktionary gives noun def 'Software testing carried out with people who have never before seen or used the software' and etymology 'Named from the Kleenex brand of disposable tissues, since the testers can only be employed once.' The cited quote splices these two sentences accurately (both exist verbatim). The added reasoning about 'cannot un-know it for a second session' is the claim author's own inference, not sourced to Wiktionary, but not misattributed as a quote."
+    },
+    {
+     "claim": "Valve/Half-Life 2 playtesting \u2014 started week 1, 100+ playtesters/level, weekly builds, quoted cycle description",
+     "verdict": "UNREACHABLE",
+     "note": "The cited URL is a raw binary .ppt file; WebFetch returned only 'cannot extract text' (application/vnd.ms-powerpoint, appears corrupted/unparseable via this tool). Tried an alternate URL (gamedeveloper.com postmortem) which did not contain the claimed details either. Could not confirm or refute the quote or the specific numbers (100+ testers, weekly cycle) against a readable source."
+    },
+    {
+     "claim": "Bungie/Destiny GDC talk \u2014 heartbeat telemetry + eye tracking/dial testing/3D visualization/Hadoop quote",
+     "verdict": "PARTLY",
+     "note": "The cited GDC Vault URL is confirmed real (John Hopson, 'User Research on Destiny', GDC 2015) and the quoted phrase 'eye tracking, dial testing, three dimensional in-engine data visualizations, and Hadoop-based big data analysis' matches. However, the 'heartbeat' telemetry / Halo instrumentation claim is explicitly sourced by the claim itself to separate 'postmortem/GDC coverage,' not to this URL, and was not verified \u2014 that portion is unconfirmed via the cited source."
+    },
+    {
+     "claim": "Desurvire & Wiberg PLAY paper \u2014 task success/time on task/error rate as baseline metrics for RTS/FPS/action-adventure",
+     "verdict": "REFUTED",
+     "note": "Fetched and read the actual PDF (title and authors confirmed: 'Game Usability Heuristics (PLAY) For Evaluating and Designing Better Games: The Next Iteration,' Desurvire & Wiberg; genres RTS, Action Adventure, FPS confirmed). But the paper never mentions 'task success,' 'time on task,' or 'error rate' \u2014 its methodology is heuristic-rating questionnaires (116 heuristics scored by 54 gamers), not those three quantitative task-based metrics. The claim's specific assertion that this paper uses/supports those three measures is not supported by the source content."
+    },
+    {
+     "claim": "MeasuringU RITE \u2014 stakeholders observing sessions and engaging in face-to-face discussions",
+     "verdict": "SUPPORTED",
+     "note": "URL fetched. Exact substring quote found: 'RITE works best when all stakeholders can observe the sessions and engage in face-to-face discussions with participants...' matches the claim's quoted text exactly (claim quotes a trimmed subset, still verbatim)."
+    },
+    {
+     "claim": "Unity USS custom properties \u2014 updating a variable updates all properties using it",
+     "verdict": "SUPPORTED",
+     "note": "URL fetched. Exact quote confirmed verbatim: 'When you update a USS variable, all of the USS properties that use that variable update.'"
+    },
+    {
+     "claim": "Augment Code \u2014 pixel diffing false positives from rendering noise; experts advise never use exact pixel comparison in production",
+     "verdict": "PARTLY",
+     "note": "URL fetched. The article does contain both underlying facts, but as two separate sentences, not the single quote claimed: (1) 'Pixel diffing produces false positives when rendering noise changes pixels without changing user-visible intent, since each changed pixel counts as a failure unless thresholds or masks suppress it.' (2) 'Applitools is direct about it: never use exact pixel comparison in production.' The claim's 'quote' field splices these into one sentence and changes 'Applitools is direct about it' into the generic 'experts advise' \u2014 this is not a verbatim quote as presented, though the substance is accurately represented."
+    },
+    {
+     "claim": "GDC Vertical Slice Challenge (Volition/Donovan) \u2014 vertical slice as a gate for pre-production\u2192production readiness, quoted sentence",
+     "verdict": "REFUTED",
+     "note": "URL fetched, talk confirmed real (Greg Donovan, Volition, GDC 2015). But the specific sentence quoted in the claim ('Volition came to view the vertical slice as a tool to determine whether the team is ready to move from pre-production into production, serving as a gate that needs to satisfy both internal and external goals') does not appear verbatim on the page. The actual text found is materially different: 'This gate needs to satisfy both internal and external goals, and ultimately demonstrates whether or not the team understands what it is they are making and how to make it.' The claim fabricates/paraphrases a quote that doesn't exist as written, attributing invented wording ('ready to move from pre-production into production') as if verbatim."
+    },
+    {
+     "claim": "Agile Alliance \u2014 Definition of Done is a team-agreed checklist of completion criteria",
+     "verdict": "SUPPORTED",
+     "note": "URL fetched. Exact quote confirmed verbatim: 'a list of criteria that must be met before a product increment is considered done.'"
+    }
+   ],
+   "overall": "Of 10 claims, 5 are SUPPORTED with verbatim-matching quotes (Nielsen, Kleenex/Wiktionary, MeasuringU/RITE, Unity USS, Agile Alliance/DoD). 2 are REFUTED: the Desurvire & Wiberg PLAY paper (confirmed real, confirmed genres, but never discusses task success/time on task/error rate as the claim asserts) and the GDC Vertical Slice talk (real talk, but the specific quoted sentence is fabricated/paraphrased \u2014 the actual page text differs substantially in wording). 2 are PARTLY: the Kleenex... actually corrected \u2014 Augment Code (real facts, but the 'quote' is a splice of two separate sentences with an altered attribution, not verbatim) and the Bungie/Destiny claim (the quoted phrase is verbatim and the source is real, but the 'heartbeat telemetry' portion is explicitly not sourced to this URL and unverified). 1 is UNREACHABLE: the Valve Half-Life 2 PPT could not be parsed as text by WebFetch (binary/corrupted), and an alternate URL did not contain the claimed details, so the specific numbers and quote remain unconfirmed."
+  }
+ ]
+}

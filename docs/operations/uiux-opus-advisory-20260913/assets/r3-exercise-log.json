@@ -1,0 +1,215 @@
+{
+ "errors": [],
+ "blocked": [],
+ "obs": {
+  "home": {
+   "peopleRowsTotal": 12,
+   "peopleRowsFullyVisible": 8,
+   "picRowsTotal": 9,
+   "picRowsFullyVisible": 9,
+   "fonts": {
+    "10": 7,
+    "11": 20,
+    "12": 49,
+    "13": 10,
+    "14": 21,
+    "15": 1,
+    "17": 1,
+    "18": 1,
+    "30": 1,
+    "31": 1
+   },
+   "radii": [
+    "3px",
+    "50%",
+    "4px",
+    "8px"
+   ],
+   "shadows": 3,
+   "selects": [
+    {
+     "id": "treatment",
+     "opts": [
+      "Recommended hybrid",
+      "Closer to original"
+     ]
+    },
+    {
+     "id": "fixture",
+     "opts": [
+      "Mature",
+      "Early",
+      "Busy / long names"
+     ]
+    },
+    {
+     "id": "text-size",
+     "opts": [
+      "100%",
+      "Enlarged"
+     ]
+    },
+    {
+     "id": "outcome",
+     "opts": [
+      "Receipt",
+      "Refusal"
+     ]
+    },
+    {
+     "id": "picture-filter",
+     "opts": [
+      "Active · 7",
+      "Decisions · 3",
+      "Waiting · 1",
+      "Writing",
+      "Casting",
+      "Shooting",
+      "Post",
+      "Release ready",
+      "Library · 1"
+     ]
+    }
+   ],
+   "smallButtons": [
+    {
+     "t": "Reset",
+     "w": 43,
+     "h": 22
+    },
+    {
+     "t": "",
+     "w": 30,
+     "h": 30
+    },
+    {
+     "t": "",
+     "w": 30,
+     "h": 30
+    },
+    {
+     "t": "",
+     "w": 30,
+     "h": 30
+    },
+    {
+     "t": "",
+     "w": 34,
+     "h": 30
+    },
+    {
+     "t": "All12",
+     "w": 59,
+     "h": 27
+    },
+    {
+     "t": "Talent6",
+     "w": 59,
+     "h": 27
+    },
+    {
+     "t": "Writers3",
+     "w": 59,
+     "h": 27
+    },
+    {
+     "t": "Crew3",
+     "w": 59,
+     "h": 27
+    },
+    {
+     "t": "",
+     "w": 30,
+     "h": 26
+    },
+    {
+     "t": "",
+     "w": 30,
+     "h": 26
+    },
+    {
+     "t": "Film library\n1",
+     "w": 266,
+     "h": 28
+    },
+    {
+     "t": "Script Office",
+     "w": 89,
+     "h": 24
+    },
+    {
+     "t": "Casting",
+     "w": 62,
+     "h": 24
+    },
+    {
+     "t": "Stage 07",
+     "w": 70,
+     "h": 24
+    },
+    {
+     "t": "Stage 04",
+     "w": 70,
+     "h": 24
+    },
+    {
+     "t": "Production Post",
+     "w": 107,
+     "h": 24
+    },
+    {
+     "t": "Laboratory",
+     "w": 81,
+     "h": 24
+    },
+    {
+     "t": "Scene Shop",
+     "w": 86,
+     "h": 24
+    },
+    {
+     "t": "Administration",
+     "w": 103,
+     "h": 24
+    }
+   ]
+  },
+  "tabsToFirstPerson": {
+   "tabs": 13,
+   "focused": "Mara Vale, Director, P-004, On set"
+  },
+  "tabsToFirstPicture": {
+   "tabs": 27,
+   "focused": "Letters from June, SCRIPT-019, Writing. Draft in progress. I"
+  },
+  "inspector": {
+   "w": 286,
+   "h": 792,
+   "top": 96,
+   "left": 1142
+  },
+  "filterOptions": [
+   "Active · 7",
+   "Decisions · 3",
+   "Waiting · 1",
+   "Writing",
+   "Casting",
+   "Shooting",
+   "Post",
+   "Release ready",
+   "Library · 1"
+  ],
+  "enlarged": {
+   "peopleFullyVisible": 5,
+   "picFullyVisible": 3,
+   "hudFontMin": 10,
+   "hudFontMax": 18
+  },
+  "enlargedInspector": {
+   "w": 268,
+   "h": 612,
+   "top": 96,
+   "coversTools": false
+  }
+ }
+}
