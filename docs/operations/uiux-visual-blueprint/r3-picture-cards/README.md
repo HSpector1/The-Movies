@@ -6,6 +6,8 @@ Recommend the **hybrid** below: a prominent, changing filmmaking object beside e
 
 ![Recommended mature studio overview](previews/01-mature.png)
 
+**[Download the complete R3 ZIP](delivery/STUDIO-PICTURE-CARDS-R3.zip?raw=true)** · [Exact content commit and checksums](PACKAGE.md).
+
 **Click through:** extract the complete package and open [index.html](index.html). No server, install, account or connection is required. GitHub displays HTML source rather than running it. [Guided checks and controls](WALKTHROUGH.md) · [Exact design and routing](DESIGN.md) · [Reproduction, repairs and native requirements](REVIEW.md) · [Source provenance](PROVENANCE.md).
 
 ## The bounded decision

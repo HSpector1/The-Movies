@@ -1,0 +1,244 @@
+{
+  "package": "STUDIO R3 — focused Backlot picture-card refinement",
+  "status": "Design proposal / fictional data / not implemented",
+  "repository": "HSpector1/The-Movies",
+  "branch": "docs/uiux-whole-game-review-01",
+  "reviewed_content_commit": "509bd4d76b23ec9faed9c743620208fa77cee332",
+  "previous_publication_preserved": "e564d236407cb3616ebc597713d5b9fa7d60b38a",
+  "reused_Opus_commit": "6b2a659bcaa1e577c8d90a10aae390e3855a2985",
+  "entry_point": "index.html",
+  "visual_index": "README.md",
+  "comparison_board": "comparisons.html",
+  "content_file_count": 45,
+  "PNG_files": 17,
+  "content_bytes": 9733518,
+  "scope": "Only focused right-card/main-screen design and isolated prototype; no native validation. Portrait finishing and other screen-family adaptation remain unfinished.",
+  "manifest_scope": "files covers the exact content commit payload; generated package-manifest.json and MANIFEST.sha256 are excluded from recursive self-recording. MANIFEST.sha256 covers every payload file and the generated manifest. A later publication commit adds the ZIP, receipt and download links.",
+  "files": [
+    {
+      "path": "DESIGN.md",
+      "bytes": 13383,
+      "sha256": "2df92f98a1b31520fb7c8ce9b952113733e4e5243bff699c42f89a059fc7496d"
+    },
+    {
+      "path": "PROVENANCE.md",
+      "bytes": 5587,
+      "sha256": "7bec45a1d868eea73269c34f72300b719f07743190f7acfa55a652d81b9047cc"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5212,
+      "sha256": "f0bc167718077a6be20cdcf6059f20c63e793304223a90a1e3104dd39e8a981c"
+    },
+    {
+      "path": "REVIEW.md",
+      "bytes": 10652,
+      "sha256": "f07222f3753de4f85da17deb390d364d54c86b4079304ecad98b250f9dfa815f"
+    },
+    {
+      "path": "WALKTHROUGH.md",
+      "bytes": 3229,
+      "sha256": "532a6b752f3b34cbfac903351f8017c8c4d542367be2123b965a0e9456254d6f"
+    },
+    {
+      "path": "art/casting.svg",
+      "bytes": 2016,
+      "sha256": "2661719d776d2be3662c580449b6dd9e1fc1c1a12d9d1b4029e3d5019223763b"
+    },
+    {
+      "path": "art/library.svg",
+      "bytes": 1668,
+      "sha256": "6c82ecf240450a352df727713fbcac913c26c3384fc901ebfa200e6f6e62ec78"
+    },
+    {
+      "path": "art/post.svg",
+      "bytes": 2026,
+      "sha256": "87d390de53afefa8d9feb7a9bef0c8e7bf65bcc490fa27d1e27522c0c65387fe"
+    },
+    {
+      "path": "art/release.svg",
+      "bytes": 1850,
+      "sha256": "fb523801df998f9b14273bed387bb923dbc7d9797eab24aebf4f3ff73539d0e2"
+    },
+    {
+      "path": "art/shooting.svg",
+      "bytes": 2176,
+      "sha256": "9f5bcc0a12345158e3cda2c7366dde2ed305c283714cd6ed2b112d2091eecbcd"
+    },
+    {
+      "path": "art/writing.svg",
+      "bytes": 1873,
+      "sha256": "c6f6a9accdabd3b4fc2eacdc410fb66a31974406e270c402d392578312098d04"
+    },
+    {
+      "path": "backlot.css",
+      "bytes": 25424,
+      "sha256": "51a5191c23cb7fcf877eb4298c627a37a9a863242ee9ab20adc51fbc67a3c2d9"
+    },
+    {
+      "path": "backlot.js",
+      "bytes": 26463,
+      "sha256": "6b4295cbefabeb0807fc1b909411f5fa4b711dfec3440339385fa0e1feb7db06"
+    },
+    {
+      "path": "comparisons.html",
+      "bytes": 6544,
+      "sha256": "36b04f2d38c0caee088cdb8ef6fbd364d35ab2be98ceccf25f2df0d3c741f4ac"
+    },
+    {
+      "path": "data.js",
+      "bytes": 6650,
+      "sha256": "63691e52a181fdd8fd094151f5c906b4073d8aacadc37eece62e958815e1c38c"
+    },
+    {
+      "path": "evidence/author-check.json",
+      "bytes": 2557,
+      "sha256": "22baf9950da4638a142b512ab898f7d9cfd3d6db4b9985edf634a99a0172b87d"
+    },
+    {
+      "path": "evidence/candidate-P027-return.png",
+      "bytes": 873289,
+      "sha256": "180fc7f13826586e58e71f8ff6c0bfe3bc853a9979acab5ab166694e33d1be87"
+    },
+    {
+      "path": "evidence/candidate-controls.json",
+      "bytes": 8589,
+      "sha256": "194b9676cb4a47a5757440dd8b57e58953a619f59c18bb767ac295b28631faf6"
+    },
+    {
+      "path": "evidence/candidate-facts-P-015.png",
+      "bytes": 700426,
+      "sha256": "8cfe7fa35246c9c9e076fdd5069e7b0fc248459f815bc503112d086b605f4c74"
+    },
+    {
+      "path": "evidence/candidate-repairs-classic.png",
+      "bytes": 587370,
+      "sha256": "030bce802bfcda02e86fc1fef53a6d16ec7d74b024922af75184e88fa4c3bd6f"
+    },
+    {
+      "path": "evidence/candidate-repairs.json",
+      "bytes": 3406,
+      "sha256": "994cf45fb86cc6c81877d4e88cf9c4c59ec00e444f560ca100e3b7762333e0a9"
+    },
+    {
+      "path": "evidence/candidate-results.json",
+      "bytes": 10704,
+      "sha256": "bf60002b33a2fdd0f4ddf0b25f101d5df32a8fce6939b084ab9b1916490ecfe4"
+    },
+    {
+      "path": "evidence/opus-baseline.json",
+      "bytes": 5119,
+      "sha256": "81c15e1e67b2f6b5f361d78d48b21c5d68701b85dc5f9905d5a09039c1e2b1a5"
+    },
+    {
+      "path": "evidence/source-link-check.json",
+      "bytes": 2672,
+      "sha256": "2ecd654501eb4a60fba55ad03cc130f3aae72541c8040c68a4ced69a9bc76f6e"
+    },
+    {
+      "path": "index.html",
+      "bytes": 1561,
+      "sha256": "5c383c2afacd36414e53b2ff45ce3a4248b6d4ab4f5b81fcc3baf1a5508aa415"
+    },
+    {
+      "path": "lot-r2.svg",
+      "bytes": 8678,
+      "sha256": "50a877c248ba173ce0a9dd736bba292d0744129e5d118318a8b79aa20c3833fe"
+    },
+    {
+      "path": "lot.js",
+      "bytes": 13935,
+      "sha256": "cc545635235a0a9e39bcebb636b8b5cbb570a580c919197b1683a5c1c3be63f1"
+    },
+    {
+      "path": "movie-cards.css",
+      "bytes": 11718,
+      "sha256": "c254e913e7faf76286611d2cd10ca41c4ce5f260bb7293a5cd8f7af8ed5880fa"
+    },
+    {
+      "path": "movie-cards.js",
+      "bytes": 24413,
+      "sha256": "ea61e66d46c6452638b8d89dd5a2991f21e711a5e1d4ecbb3f7168cef95eb57a"
+    },
+    {
+      "path": "portraits.js",
+      "bytes": 3719,
+      "sha256": "e4d0b743893b6f6bb15636db48149cedc8726fd1c7fc40e6a4d57e1a9872cc86"
+    },
+    {
+      "path": "previews/01-mature-annotated.png",
+      "bytes": 950382,
+      "sha256": "ea167eed9adc6c49c83a8ff6b4f154fb80996513f7132dd245e00aabbd678bab"
+    },
+    {
+      "path": "previews/01-mature.png",
+      "bytes": 862939,
+      "sha256": "f19f4f4090445cfa807c91e9921badf0c246e92d5f548954460a75e63062a6f9"
+    },
+    {
+      "path": "previews/02-early.png",
+      "bytes": 870974,
+      "sha256": "6099c2d5727f59d50149c7994868529c4b586d3602307bc8d9cdc825e757c425"
+    },
+    {
+      "path": "previews/03-selected.png",
+      "bytes": 635455,
+      "sha256": "ce20bcd1374ac8c41d2017e5181c40e4eeae14cfddc059dafa07e5971becf62d"
+    },
+    {
+      "path": "previews/04-waiting.png",
+      "bytes": 626026,
+      "sha256": "cb8ce174d2dc0cb5ff0802af2ed9cd30d6f133f61bf58375e0de2c4a5e2d847e"
+    },
+    {
+      "path": "previews/05-busy.png",
+      "bytes": 872121,
+      "sha256": "50d44087cc8bf6158e51c491fe82abf671e0eac8a656d54684190fb5467db0cf"
+    },
+    {
+      "path": "previews/06-small-enlarged.png",
+      "bytes": 599183,
+      "sha256": "23cf2d828baf4d91ecb3fa750b592f7c6be10c9613bc4660b88ec82dd0e4d2a6"
+    },
+    {
+      "path": "previews/07-small-waiting.png",
+      "bytes": 352590,
+      "sha256": "95be6ac4932e54aea6fd015487eb1935c0c909e1f4d14a1f3d31c0113a3fd543"
+    },
+    {
+      "path": "previews/08-right-rail-options.png",
+      "bytes": 492153,
+      "sha256": "97daf81cb3364d93cba25e00d9f923f1f3db42204e61c67293d22e1d01cece7f"
+    },
+    {
+      "path": "previews/09-source-backlot-proposed.png",
+      "bytes": 342736,
+      "sha256": "bec2cb58f9cae8e3cc470f45a49d7eadf482f3500fe0c3fbbfd075df206bb59e"
+    },
+    {
+      "path": "previews/rail-backlot.png",
+      "bytes": 148634,
+      "sha256": "acac0bb63a47d9e9ea9c16bb22d85fb6073af182a459e1dd5344faebefb32878"
+    },
+    {
+      "path": "previews/rail-classic.png",
+      "bytes": 220054,
+      "sha256": "afefcfefb9cfc9a3f21654d0d633320a3481be29c2c51d53de90b8c8f799f3f9"
+    },
+    {
+      "path": "previews/rail-hybrid.png",
+      "bytes": 211272,
+      "sha256": "7a130c5faeccf2810c09d72b185bf02a123a7032089122c3e33dc8d750d61f4a"
+    },
+    {
+      "path": "reference/original-card-crops.png",
+      "bytes": 173996,
+      "sha256": "dbda49e0256c059d3010f135efdb58d49d35d6ca27c54903131bb4b1179c139a"
+    },
+    {
+      "path": "source-reuse.json",
+      "bytes": 2094,
+      "sha256": "25869f704743c6b4d525d7fdcc419e9ccf8ea794aee95bc3aca9d6accce8f6a5"
+    }
+  ]
+}
