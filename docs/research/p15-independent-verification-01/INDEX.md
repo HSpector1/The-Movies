@@ -2,7 +2,7 @@
 
 **Assignment:** independent second review of Package 15 (Corporate Hollywood, Shared Market & Studio Legacy) for Future Ops, against the Owner-selected P15 direction of 2026-09-11.
 **Status:** DOCUMENTATION ONLY · NO PRODUCTION AUTHORIZATION · RESEARCH, NOT OWNER AUTHORITY. Nothing here amends an approved ruling, authorizes gameplay implementation, or accepts a recommendation. Future Ops review required.
-**Branch:** `docs/p15-independent-verification-01` · **documentation parent:** `13370d428f0693f3279732f6f4cc360a7fcaa4df` (P12 R05 Owner-acceptance closeout, which descends from the accepted TypeScript runtime `592e926bfbf4574df94b38fc8dd594fc5df2ac8d`). The exact publication commit is recorded in the delivery message and in the commit history of this directory.
+**Branch:** `docs/p15-independent-verification-01` · **documentation parent:** `13370d428f0693f3279732f6f4cc360a7fcaa4df` (P12 R05 Owner-acceptance closeout, which descends from the accepted TypeScript runtime `592e926bfbf4574df94b38fc8dd594fc5df2ac8d`). Publication commits: `e2bccb3eb401b2e2754095176b7b7f3b6a2e55bf` (package) and `d7a82cde275a3b7c7ce291763c19074db590a24a` (this index).
 **Dates:** research 2026-09-11, resumed and completed 2026-09-12 (the run was interrupted once by a session limit; no work was repeated).
 
 ## Entry point
