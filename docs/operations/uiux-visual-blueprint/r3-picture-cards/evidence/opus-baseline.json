@@ -1,0 +1,179 @@
+{
+  "scope": "Exact Opus source baseline, three reported issues only",
+  "pageErrors": [],
+  "blocked": [],
+  "results": [
+    {
+      "issue": "F01",
+      "initial": {
+        "scrollTop": 161,
+        "scrollHeight": 835,
+        "clientHeight": 674
+      },
+      "opened": {
+        "scroll": 0,
+        "identity": "PERSON · P-027",
+        "focus": {
+          "tag": "BODY",
+          "action": null,
+          "id": null
+        }
+      },
+      "returned": {
+        "scroll": 0,
+        "focus": {
+          "tag": "BODY",
+          "action": null,
+          "id": null
+        },
+        "screen": "game dir-rec world-target text-100 screen-overview rails-full"
+      }
+    },
+    {
+      "issue": "F02",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "chips": [
+        {
+          "id": "P-004",
+          "status": "On set",
+          "rowRight": 237,
+          "chipRight": 260.703125,
+          "textRight": 254.703125,
+          "textOverflow": 17.7,
+          "rowOverflow": "hidden",
+          "visible": true,
+          "textFont": "13px"
+        },
+        {
+          "id": "P-006",
+          "status": "On set",
+          "rowRight": 237,
+          "chipRight": 243.609375,
+          "textRight": 237.609375,
+          "textOverflow": 0.61,
+          "rowOverflow": "hidden",
+          "visible": true,
+          "textFont": "13px"
+        },
+        {
+          "id": "P-022",
+          "status": "On set",
+          "rowRight": 237,
+          "chipRight": 239.59375,
+          "textRight": 233.59375,
+          "textOverflow": 0,
+          "rowOverflow": "hidden",
+          "visible": true,
+          "textFont": "13px"
+        },
+        {
+          "id": "P-011",
+          "status": "Writing",
+          "rowRight": 237,
+          "chipRight": 253.34375,
+          "textRight": 247.34375,
+          "textOverflow": 10.34,
+          "rowOverflow": "hidden",
+          "visible": true,
+          "textFont": "13px"
+        },
+        {
+          "id": "P-012",
+          "status": "Writing",
+          "rowRight": 237,
+          "chipRight": 253.34375,
+          "textRight": 247.34375,
+          "textOverflow": 10.34,
+          "rowOverflow": "hidden",
+          "visible": true,
+          "textFont": "13px"
+        },
+        {
+          "id": "P-018",
+          "status": "Free",
+          "rowRight": 237,
+          "chipRight": 232.171875,
+          "textRight": 225.171875,
+          "textOverflow": 0,
+          "rowOverflow": "hidden",
+          "visible": true,
+          "textFont": "13px"
+        },
+        {
+          "id": "P-019",
+          "status": "Free",
+          "rowRight": 237,
+          "chipRight": 232.171875,
+          "textRight": 225.171875,
+          "textOverflow": 0,
+          "rowOverflow": "hidden",
+          "visible": true,
+          "textFont": "13px"
+        },
+        {
+          "id": "P-023",
+          "status": "Waiting",
+          "rowRight": 237,
+          "chipRight": 247.125,
+          "textRight": 241.125,
+          "textOverflow": 4.13,
+          "rowOverflow": "hidden",
+          "visible": true,
+          "textFont": "13px"
+        },
+        {
+          "id": "P-024",
+          "status": "On set",
+          "rowRight": 237,
+          "chipRight": 239.59375,
+          "textRight": 233.59375,
+          "textOverflow": 0,
+          "rowOverflow": "hidden",
+          "visible": false,
+          "textFont": "13px"
+        },
+        {
+          "id": "P-025",
+          "status": "On set",
+          "rowRight": 237,
+          "chipRight": 260.703125,
+          "textRight": 254.703125,
+          "textOverflow": 17.7,
+          "rowOverflow": "hidden",
+          "visible": false,
+          "textFont": "13px"
+        },
+        {
+          "id": "P-026",
+          "status": "On set",
+          "rowRight": 237,
+          "chipRight": 243.609375,
+          "textRight": 237.609375,
+          "textOverflow": 0.61,
+          "rowOverflow": "hidden",
+          "visible": false,
+          "textFont": "13px"
+        },
+        {
+          "id": "P-027",
+          "status": "Free",
+          "rowRight": 237,
+          "chipRight": 236.640625,
+          "textRight": 229.640625,
+          "textOverflow": 0,
+          "rowOverflow": "hidden",
+          "visible": false,
+          "textFont": "13px"
+        }
+      ]
+    },
+    {
+      "issue": "F03",
+      "compare": "Leon Hart\nActor · P-015\nUnavailable · other film\nRole fit\n79\nPerceived OVR\n83\nCamera test\nNo test evidence\nPicture fee\n$24,000\n\nCurrently engaged. Viewing this record cannot assign this person.\n\nInspect record\nCannot be assigned from this view",
+      "expanded": "PERSON · P-015\nBack\n31\nLeon Hart\nActor · P-015\nUnavailable\nCURRENT WORK\nAnother film (not this studio's fixture)\nLOCATION\nLocation unavailable — exact profile still inspectable\nRELEVANT ABILITY\nPerceived role OVR 81\nCOMMITMENT\nSalary $2,000/week\nMORE ABOUT THIS PERSON\nEmployment overhead $1,500/week · 12 weeks remain. Availability follows the current picture.\nFewer facts\nOpen full profile\nReturn to task"
+    }
+  ]
+}

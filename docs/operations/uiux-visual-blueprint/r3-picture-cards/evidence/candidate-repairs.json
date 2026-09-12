@@ -1,0 +1,164 @@
+{
+  "pageErrors": [],
+  "blocked": [],
+  "results": [
+    {
+      "treatment": "hybrid",
+      "step": "top-after-page-up",
+      "people": 161,
+      "pictures": 0,
+      "max": 3045,
+      "focus": "pictures-up",
+      "up": {
+        "disabled": false,
+        "aria": "true"
+      },
+      "down": {
+        "disabled": false,
+        "aria": "false"
+      }
+    },
+    {
+      "treatment": "hybrid",
+      "step": "top-repeat-Enter",
+      "people": 161,
+      "pictures": 0,
+      "max": 3045,
+      "focus": "pictures-up",
+      "up": {
+        "disabled": false,
+        "aria": "true"
+      },
+      "down": {
+        "disabled": false,
+        "aria": "false"
+      }
+    },
+    {
+      "treatment": "hybrid",
+      "step": "bottom-after-page-down",
+      "people": 161,
+      "pictures": 3045,
+      "max": 3045,
+      "focus": "pictures-down",
+      "up": {
+        "disabled": false,
+        "aria": "false"
+      },
+      "down": {
+        "disabled": false,
+        "aria": "true"
+      }
+    },
+    {
+      "treatment": "hybrid",
+      "step": "bottom-repeat-Enter",
+      "people": 161,
+      "pictures": 3045,
+      "max": 3045,
+      "focus": "pictures-down",
+      "up": {
+        "disabled": false,
+        "aria": "false"
+      },
+      "down": {
+        "disabled": false,
+        "aria": "true"
+      }
+    },
+    {
+      "treatment": "classic",
+      "step": "top-after-page-up",
+      "people": 161,
+      "pictures": 0,
+      "max": 4402,
+      "focus": "pictures-up",
+      "up": {
+        "disabled": false,
+        "aria": "true"
+      },
+      "down": {
+        "disabled": false,
+        "aria": "false"
+      }
+    },
+    {
+      "treatment": "classic",
+      "step": "top-repeat-Enter",
+      "people": 161,
+      "pictures": 0,
+      "max": 4402,
+      "focus": "pictures-up",
+      "up": {
+        "disabled": false,
+        "aria": "true"
+      },
+      "down": {
+        "disabled": false,
+        "aria": "false"
+      }
+    },
+    {
+      "treatment": "classic",
+      "step": "bottom-after-page-down",
+      "people": 161,
+      "pictures": 4402,
+      "max": 4402,
+      "focus": "pictures-down",
+      "up": {
+        "disabled": false,
+        "aria": "false"
+      },
+      "down": {
+        "disabled": false,
+        "aria": "true"
+      }
+    },
+    {
+      "treatment": "classic",
+      "step": "bottom-repeat-Enter",
+      "people": 161,
+      "pictures": 4402,
+      "max": 4402,
+      "focus": "pictures-down",
+      "up": {
+        "disabled": false,
+        "aria": "false"
+      },
+      "down": {
+        "disabled": false,
+        "aria": "true"
+      }
+    },
+    {
+      "treatment": "classic",
+      "step": "longest-filter-label",
+      "selected": "Release ready",
+      "filter": {
+        "x": 1083,
+        "y": 155.796875,
+        "width": 174,
+        "height": 32,
+        "top": 155.796875,
+        "right": 1257,
+        "bottom": 187.796875,
+        "left": 1083
+      },
+      "find": {
+        "x": 1192.40625,
+        "y": 194.796875,
+        "width": 64.59375,
+        "height": 32,
+        "top": 194.796875,
+        "right": 1257,
+        "bottom": 226.796875,
+        "left": 1192.40625
+      },
+      "font": "600 15px \"Avenir Next\", \"Gill Sans\", \"Segoe UI\", \"Trebuchet MS\", sans-serif",
+      "textWidth": 96.83990478515625,
+      "paddingLeft": "6px",
+      "paddingRight": "6px",
+      "clientWidth": 172
+    }
+  ]
+}

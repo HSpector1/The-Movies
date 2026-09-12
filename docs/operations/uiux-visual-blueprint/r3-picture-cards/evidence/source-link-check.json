@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "pinned_GitHub_sources": [
+    "https://github.com/HSpector1/The-Movies/blob/45ca33650074ad5413c39fb9d4a5c04cd6571c3a/bridge/people.ts",
+    "https://github.com/HSpector1/The-Movies/blob/6b2a659bcaa1e577c8d90a10aae390e3855a2985/docs/operations/uiux-opus-r2-independent-review/00-INDEX.md",
+    "https://github.com/HSpector1/The-Movies/blob/6b2a659bcaa1e577c8d90a10aae390e3855a2985/docs/operations/uiux-opus-r2-independent-review/CHECKER.md",
+    "https://github.com/HSpector1/The-Movies/blob/6b2a659bcaa1e577c8d90a10aae390e3855a2985/docs/operations/uiux-opus-r2-independent-review/DESIGN.md",
+    "https://github.com/HSpector1/The-Movies/blob/6b2a659bcaa1e577c8d90a10aae390e3855a2985/docs/operations/uiux-opus-r2-independent-review/HANDOFF-TO-CODEX.md",
+    "https://github.com/HSpector1/The-Movies/blob/6b2a659bcaa1e577c8d90a10aae390e3855a2985/docs/operations/uiux-opus-r2-independent-review/RESEARCH-ORIGINAL-GAME.md",
+    "https://github.com/HSpector1/The-Movies/blob/72f04f95bb00ba601d511142b9db8b231e86526b/docs/operations/UIUX-WHOLE-GAME-REVIEW-SOURCES.md",
+    "https://github.com/HSpector1/The-Movies/blob/9e03e4754c569538bf47d95e27d493ce6d28e5d1/docs/operations/UIUX-WHOLE-GAME-INDEPENDENT-REVIEW-BRIEF.md",
+    "https://github.com/HSpector1/The-Movies/blob/c9ad874a7c8d6010d80ef87313e21ea9f016f99a/docs/operations/UIUX-VISUAL-DESIGN-SECOND-PASS-BRIEF.md",
+    "https://github.com/HSpector1/The-Movies/blob/e564d236407cb3616ebc597713d5b9fa7d60b38a/docs/operations/uiux-visual-blueprint/r2/README.md",
+    "https://github.com/HSpector1/The-Movies/blob/e564d236407cb3616ebc597713d5b9fa7d60b38a/docs/operations/uiux-visual-blueprint/r2/ROUTING.md",
+    "https://github.com/HSpector1/The-Movies/blob/e564d236407cb3616ebc597713d5b9fa7d60b38a/docs/operations/uiux-visual-blueprint/r2/living-studio.js",
+    "https://github.com/HSpector1/project-studio-unity-visual-spike/blob/6420a4d91de52db1bffca2988f2c995672e7d53e/Assets/Studio/Runtime/Infrastructure/StudioPeopleRailContracts.cs#L7-L78",
+    "https://github.com/HSpector1/project-studio-unity-visual-spike/blob/6420a4d91de52db1bffca2988f2c995672e7d53e/Assets/Studio/Runtime/Presentation/StudioPeopleRailHud.cs#L10-L98",
+    "https://github.com/HSpector1/project-studio-unity-visual-spike/blob/6420a4d91de52db1bffca2988f2c995672e7d53e/Assets/Studio/Runtime/Presentation/StudioProductionRailHud.cs#L290-L360",
+    "https://github.com/HSpector1/project-studio-unity-visual-spike/blob/6420a4d91de52db1bffca2988f2c995672e7d53e/Assets/Studio/Runtime/Presentation/StudioProductionRailHud.cs#L482-L540"
+  ],
+  "source_commits_verified": 7,
+  "local_document_links_verified": 51,
+  "PNG_files": 17
+}

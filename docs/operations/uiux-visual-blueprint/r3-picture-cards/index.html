@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'none'; font-src 'none'">
+<title>STUDIO — Backlot picture-card refinement</title><link rel="stylesheet" href="backlot.css"><link rel="stylesheet" href="movie-cards.css"></head>
+<body><main id="demo"><div class="demo-bar"><strong>DESIGN PROTOTYPE · FICTIONAL DATA · NO GAME CONNECTION</strong><div class="demo-controls">
+<label>Right rail <select id="treatment"><option value="hybrid">Recommended hybrid</option><option value="classic">Closer to original</option></select></label>
+<label>Studio <select id="fixture"><option value="mature">Mature</option><option value="early">Early</option><option value="busy">Busy / long names</option></select></label>
+<label>Text <select id="text-size"><option value="100">100%</option><option value="200">Enlarged</option></select></label>
+<label>Response <select id="outcome"><option value="success">Receipt</option><option value="refusal">Refusal</option></select></label><button id="reset">Reset</button></div></div>
+<div id="game" class="game"></div><div id="toast" role="status" aria-live="polite"></div></main><aside id="annotations"></aside>
+<script src="data.js"></script><script src="portraits.js"></script><script src="lot.js"></script><script src="backlot.js"></script><script src="movie-cards.js"></script></body></html>

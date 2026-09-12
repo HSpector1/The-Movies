@@ -1,0 +1,101 @@
+{
+  "scope": "Author isolated fictional prototype checks; no native game validation",
+  "browser": "152.0.7977.83",
+  "date": "2026-09-12",
+  "status": "PASS",
+  "results": [
+    {
+      "name": "Exact employee inspection returns both rails and invoking focus",
+      "pass": true,
+      "detail": {
+        "before": {
+          "left": 426,
+          "right": 600,
+          "focus": "person-row-P-027"
+        },
+        "opened": {
+          "left": 426,
+          "right": 600,
+          "focus": "inspector-title"
+        },
+        "after": {
+          "left": 426,
+          "right": 600,
+          "focus": "person-row-P-027"
+        }
+      }
+    },
+    {
+      "name": "Picture to same Script Office does not select a neighboring picture",
+      "pass": true,
+      "detail": "Exact SCRIPT-020 retained through shared facility"
+    },
+    {
+      "name": "Category states expose only appropriate prototype routes",
+      "pass": true,
+      "detail": "Writing has no schedule action; Post has honest wait; release has no fabricated Post location"
+    },
+    {
+      "name": "Library, decisions, waiting, Find and overflow are operable",
+      "pass": true,
+      "detail": "25 active / 3 decisions / 5 waiting; exact-ID search and separate library worked"
+    },
+    {
+      "name": "Visible status and long title fit at 1280x720 enlarged, including generic fallback fonts",
+      "pass": true,
+      "detail": "All 13 people and 25 active picture title/role/status boxes fit horizontally in both installed and Arial fallback fonts; vertical list overflow is intentional"
+    },
+    {
+      "name": "Rail surface blocks lot click-through and selection is distinct from focus",
+      "pass": true,
+      "detail": [
+        {
+          "id": "P-006",
+          "hit": true
+        },
+        {
+          "id": "P-022",
+          "hit": true
+        },
+        {
+          "id": "P-011",
+          "hit": true
+        },
+        {
+          "id": "P-012",
+          "hit": true
+        },
+        {
+          "id": "P-018",
+          "hit": true
+        },
+        {
+          "id": "P-019",
+          "hit": true
+        },
+        {
+          "id": "SCRIPT-020",
+          "hit": true
+        },
+        {
+          "id": "SCRIPT-021",
+          "hit": true
+        },
+        {
+          "id": "FILM-014",
+          "hit": true
+        },
+        {
+          "id": "FILM-017",
+          "hit": true
+        },
+        {
+          "id": "FILM-018",
+          "hit": true
+        }
+      ]
+    }
+  ],
+  "pageErrors": [],
+  "outboundRequests": []
+}

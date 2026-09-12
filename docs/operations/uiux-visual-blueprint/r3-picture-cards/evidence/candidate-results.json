@@ -1,0 +1,394 @@
+{
+  "pageErrors": [],
+  "blocked": [],
+  "results": [
+    {
+      "label": "render-hybrid-mature",
+      "people": 0,
+      "pictures": 0,
+      "focus": "BODY",
+      "range": "1–6 of 7"
+    },
+    {
+      "label": "render-classic-mature",
+      "people": 0,
+      "pictures": 0,
+      "focus": "BODY",
+      "range": "1–3 of 7"
+    },
+    {
+      "label": "render-hybrid-early",
+      "people": 0,
+      "pictures": 0,
+      "focus": "BODY",
+      "range": "1–1 of 1"
+    },
+    {
+      "label": "render-hybrid-production",
+      "people": 0,
+      "pictures": 0,
+      "content": 0,
+      "focus": "BODY",
+      "selectedPicture": "FILM-014",
+      "title": "The Glass Harbor",
+      "range": "1–6 of 7"
+    },
+    {
+      "label": "render-hybrid-waiting",
+      "people": 0,
+      "pictures": 0,
+      "content": 0,
+      "focus": "BODY",
+      "selectedPicture": "FILM-018",
+      "title": "After the Rain",
+      "range": "1–6 of 7"
+    },
+    {
+      "label": "render-hybrid-busy",
+      "people": 0,
+      "pictures": 0,
+      "focus": "BODY",
+      "range": "1–6 of 25"
+    },
+    {
+      "label": "P027-before",
+      "people": 426,
+      "pictures": 205,
+      "focus": "BODY",
+      "range": "3–8 of 25"
+    },
+    {
+      "label": "P027-open",
+      "people": 426,
+      "pictures": 205,
+      "content": 0,
+      "focus": "inspector-title",
+      "selectedPerson": "P-027",
+      "title": "Ada Moss",
+      "range": "3–8 of 25"
+    },
+    {
+      "label": "P027-more",
+      "people": 426,
+      "pictures": 205,
+      "content": 0,
+      "focus": "expand",
+      "selectedPerson": "P-027",
+      "title": "Ada Moss",
+      "range": "3–8 of 25"
+    },
+    {
+      "label": "P027-collapse",
+      "people": 426,
+      "pictures": 205,
+      "content": 0,
+      "focus": "expand",
+      "selectedPerson": "P-027",
+      "title": "Ada Moss",
+      "range": "3–8 of 25"
+    },
+    {
+      "label": "P027-return",
+      "people": 426,
+      "pictures": 205,
+      "focus": "person-row-P-027",
+      "range": "3–8 of 25"
+    },
+    {
+      "label": "busy-before",
+      "people": 426,
+      "pictures": 1916,
+      "focus": "person-row-P-027",
+      "range": "20–25 of 25"
+    },
+    {
+      "label": "busy-open",
+      "people": 426,
+      "pictures": 1916,
+      "content": 0,
+      "focus": "inspector-title",
+      "selectedPicture": "BUSY-018",
+      "title": "The Postman’s Daughter",
+      "range": "20–25 of 25"
+    },
+    {
+      "label": "busy-site",
+      "people": 426,
+      "pictures": 1916,
+      "content": 0,
+      "focus": "inspector-title",
+      "selectedPicture": "BUSY-018",
+      "title": "Script Office",
+      "range": "20–25 of 25"
+    },
+    {
+      "label": "busy-site-return",
+      "people": 426,
+      "pictures": 1916,
+      "content": 0,
+      "focus": "picture-site",
+      "selectedPicture": "BUSY-018",
+      "title": "The Postman’s Daughter",
+      "range": "20–25 of 25"
+    },
+    {
+      "label": "busy-return",
+      "people": 426,
+      "pictures": 1916,
+      "focus": "picture-row-BUSY-018",
+      "range": "20–25 of 25"
+    },
+    {
+      "label": "find-film",
+      "people": 426,
+      "pictures": 0,
+      "focus": "picture-search",
+      "range": "1–1 of 1"
+    },
+    {
+      "label": "company-P006",
+      "people": 426,
+      "pictures": 0,
+      "content": 0,
+      "focus": "inspector-title",
+      "selectedPerson": "P-006",
+      "title": "Nora Finch",
+      "range": "1–1 of 1"
+    },
+    {
+      "label": "company-return",
+      "people": 426,
+      "pictures": 0,
+      "content": 0,
+      "focus": "company-P-006",
+      "selectedPicture": "FILM-014",
+      "title": "The Glass Harbor",
+      "range": "1–1 of 1"
+    },
+    {
+      "label": "schedule-pending",
+      "people": 426,
+      "pictures": 0,
+      "content": 0,
+      "focus": "inspector-title",
+      "selectedPicture": "FILM-014",
+      "title": "The Glass Harbor",
+      "range": "1–1 of 1",
+      "disabled": true
+    },
+    {
+      "label": "schedule-success",
+      "people": 426,
+      "pictures": 0,
+      "content": 0,
+      "focus": "inspector-title",
+      "selectedPicture": "FILM-014",
+      "title": "The Glass Harbor",
+      "range": "1–1 of 1",
+      "disabled": true,
+      "strip": "Take scheduled\nSimulated receipt for this picture. The calendar did not advance."
+    },
+    {
+      "label": "refusal-before",
+      "people": 170,
+      "pictures": 280,
+      "content": 0,
+      "focus": "BODY",
+      "selectedPicture": "FILM-014",
+      "title": "The Glass Harbor",
+      "range": "4–9 of 25"
+    },
+    {
+      "label": "receipt-during-person",
+      "people": 0,
+      "pictures": 280,
+      "content": 0,
+      "focus": "inspector-title",
+      "selectedPerson": "P-006",
+      "title": "Nora Finch",
+      "range": "4–9 of 25"
+    },
+    {
+      "label": "refusal-return",
+      "people": 0,
+      "pictures": 280,
+      "content": 0,
+      "focus": "person-row-P-006",
+      "selectedPicture": "FILM-014",
+      "title": "The Glass Harbor",
+      "range": "4–9 of 25",
+      "strip": "Schedule changed · review again\nThe schedule changed. Review current state before retrying."
+    },
+    {
+      "label": "facts-P-015",
+      "people": 0,
+      "pictures": 0,
+      "content": 0,
+      "focus": "expand",
+      "selectedPicture": "SCRIPT-021",
+      "title": "Leon Hart",
+      "range": "1–6 of 7",
+      "compare": "Leon Hart\nActor · P-015\nUnavailable · other film\nRole fit\n79\nPerceived OVR\n83\nCamera test\nNo test evidence\nPicture fee\n$24,000\n\nCurrently engaged. Viewing this record cannot assign this person.\n\nInspect record\nCannot be assigned from this view",
+      "details": "PERSON · P-015\nBack\nLeon Hart\nActor · P-015\nUnavailable\nCURRENT WORK\nAnother film (not this studio's fixture)\nLOCATION\nLocation unavailable\nPERCEIVED ROLE OVR\n83\nPICTURE FEE\n$24,000\nROLE FIT\n79\nCAMERA TEST\nNo test evidence\nWEEKLY SALARY\nNot available\nEMPLOYMENT OVERHEAD\nNot available\nTERM\nNot available\nSIGNING PAYMENT\nNot available\nFewer facts\nReturn to task"
+    },
+    {
+      "label": "facts-P-008",
+      "people": 0,
+      "pictures": 0,
+      "content": 0,
+      "focus": "expand",
+      "selectedPicture": "SCRIPT-021",
+      "title": "Celia Ward",
+      "range": "1–6 of 7",
+      "compare": "Celia Ward\nActor · P-008\nAvailable\nRole fit\n84\nPerceived OVR\n76\nCamera test\n77 · range 71–83\nPicture fee\n$18,000\n\nFits the role; this is not a guarantee of performance.\n\nInspect candidate",
+      "details": "PERSON · P-008\nBack\nCelia Ward\nActor · P-008\nFree\nCURRENT WORK\nCandidate for The Long Way Home\nLOCATION\nCasting\nPERCEIVED ROLE OVR\n76\nPICTURE FEE\n$18,000\nROLE FIT\n84\nCAMERA TEST\n77 · range 71–83\nWEEKLY SALARY\n$1,800 / week · proposed\nEMPLOYMENT OVERHEAD\n$1,200 / week · proposed\nTERM\n52 weeks · proposed\nSIGNING PAYMENT\n$12,000 · proposed\nFewer facts\nUse in lead draft"
+    },
+    {
+      "label": "early-compare",
+      "people": 0,
+      "pictures": 0,
+      "focus": "inspector-title",
+      "selectedPicture": "SCRIPT-021",
+      "title": "The Long Way Home",
+      "range": "1–1 of 1",
+      "draft": "DIRECTOR\nMara Vale\nCRAFT LEAD\nMara Vale\nANTAGONIST\nEli Rowan\nSUPPORT\nJune Sloane\nLEAD\nCelia Ward\nDRAFT BUDGET + MARKETING\n$700,000\nDraft intact · selection does not sign"
+    },
+    {
+      "label": "reset",
+      "people": 0,
+      "pictures": 0,
+      "focus": "BUTTON",
+      "range": "1–1 of 1"
+    },
+    {
+      "label": "library",
+      "people": 0,
+      "pictures": 0,
+      "focus": "picture-filter",
+      "range": "1–1 of 1",
+      "ids": [
+        "RELEASE-006"
+      ]
+    },
+    {
+      "label": "library-record",
+      "people": 0,
+      "pictures": 0,
+      "content": 0,
+      "focus": "inspector-title",
+      "selectedPicture": "RELEASE-006",
+      "title": "A Summer in Red",
+      "range": "1–1 of 1",
+      "footer": "Return to task\nOpen result example"
+    },
+    {
+      "label": "library-return",
+      "people": 0,
+      "pictures": 0,
+      "focus": "library-link",
+      "range": "1–6 of 7"
+    },
+    {
+      "label": "action-SCRIPT-019",
+      "people": 0,
+      "pictures": 0,
+      "content": 0,
+      "focus": "inspector-title",
+      "selectedPicture": "SCRIPT-019",
+      "title": "Letters from June",
+      "range": "1–6 of 7",
+      "footer": "Return to task",
+      "expected": "Writing"
+    },
+    {
+      "label": "action-FILM-017",
+      "people": 0,
+      "pictures": 0,
+      "content": 0,
+      "focus": "inspector-title",
+      "selectedPicture": "FILM-017",
+      "title": "Across the Bay",
+      "range": "1–6 of 7",
+      "footer": "Return to task",
+      "expected": "Shooting"
+    },
+    {
+      "label": "action-FILM-018",
+      "people": 0,
+      "pictures": 0,
+      "content": 0,
+      "focus": "inspector-title",
+      "selectedPicture": "FILM-018",
+      "title": "After the Rain",
+      "range": "1–6 of 7",
+      "footer": "Return to task\nInspect Production Post",
+      "expected": "Post"
+    },
+    {
+      "label": "action-FILM-023",
+      "people": 0,
+      "pictures": 72,
+      "content": 0,
+      "focus": "inspector-title",
+      "selectedPicture": "FILM-023",
+      "title": "A Small Kindness",
+      "range": "2–7 of 7",
+      "footer": "Return to task\nRelease review example",
+      "expected": "Release ready"
+    },
+    {
+      "label": "clip-hybrid",
+      "people": 0,
+      "pictures": 0,
+      "focus": "BODY",
+      "range": "1–3 of 25",
+      "clip": {
+        "body": 1280,
+        "viewport": 1280,
+        "status": [],
+        "titles": [],
+        "states": []
+      }
+    },
+    {
+      "label": "long-hybrid",
+      "people": 0,
+      "pictures": 0,
+      "focus": "picture-search",
+      "range": "1–1 of 1",
+      "card": "The Extraordinary Misadventures of a Studio That Would Not Sleep\nPOST\nWaiting · Post capacity",
+      "widths": {
+        "client": 259,
+        "scroll": 259,
+        "height": 197.078125
+      }
+    },
+    {
+      "label": "clip-classic",
+      "people": 0,
+      "pictures": 0,
+      "focus": "BODY",
+      "range": "1–2 of 25",
+      "clip": {
+        "body": 1280,
+        "viewport": 1280,
+        "status": [],
+        "titles": [],
+        "states": []
+      }
+    },
+    {
+      "label": "long-classic",
+      "people": 0,
+      "pictures": 0,
+      "focus": "picture-search",
+      "range": "1–1 of 1",
+      "card": "The Extraordinary Misadventures of a Studio That Would Not Sleep\nPOST\nWaiting · Post capacity",
+      "widths": {
+        "client": 187,
+        "scroll": 187,
+        "height": 296.875
+      }
+    }
+  ]
+}

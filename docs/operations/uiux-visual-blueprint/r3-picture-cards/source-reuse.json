@@ -1,0 +1,56 @@
+{
+  "repository": "HSpector1/The-Movies",
+  "commit": "6b2a659bcaa1e577c8d90a10aae390e3855a2985",
+  "source_root": "docs/operations/uiux-opus-r2-independent-review",
+  "files": [
+    {
+      "upstream": "assets/design/data.js",
+      "local": "data.js",
+      "upstream_sha256": "63691e52a181fdd8fd094151f5c906b4073d8aacadc37eece62e958815e1c38c",
+      "identical": true,
+      "note": "verbatim selective copy"
+    },
+    {
+      "upstream": "assets/design/design.css",
+      "local": "backlot.css",
+      "upstream_sha256": "51a5191c23cb7fcf877eb4298c627a37a9a863242ee9ab20adc51fbc67a3c2d9",
+      "identical": true,
+      "note": "verbatim selective copy"
+    },
+    {
+      "upstream": "assets/design/portraits.js",
+      "local": "portraits.js",
+      "upstream_sha256": "e4d0b743893b6f6bb15636db48149cedc8726fd1c7fc40e6a4d57e1a9872cc86",
+      "identical": true,
+      "note": "verbatim selective copy"
+    },
+    {
+      "upstream": "assets/design/lot.js",
+      "local": "lot.js",
+      "upstream_sha256": "cc545635235a0a9e39bcebb636b8b5cbb570a580c919197b1683a5c1c3be63f1",
+      "identical": true,
+      "note": "verbatim selective copy"
+    },
+    {
+      "upstream": "assets/design/lot-r2.svg",
+      "local": "lot-r2.svg",
+      "upstream_sha256": "50a877c248ba173ce0a9dd736bba292d0744129e5d118318a8b79aa20c3833fe",
+      "identical": true,
+      "note": "verbatim selective copy"
+    },
+    {
+      "upstream": "assets/design/app.js",
+      "local": "backlot.js",
+      "upstream_sha256": "240a69a0b5b7ca41f3ad20dc419d9e49c57151e62f00245fafa722676d75167e",
+      "identical": false,
+      "note": "selected prefix and exact-location/fixture-resolution adaptations; focused behavior overrides live in movie-cards.js"
+    },
+    {
+      "upstream": "assets/original-game/manual-p6-7-cards-crops.png",
+      "local": "reference/original-card-crops.png",
+      "upstream_sha256": "dbda49e0256c059d3010f135efdb58d49d35d6ca27c54903131bb4b1179c139a",
+      "identical": true,
+      "note": "limited original-game reference excerpt only; no runtime reference-image dependency"
+    }
+  ]
+}
