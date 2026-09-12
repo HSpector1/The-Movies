@@ -1,3 +1,5 @@
+> **Read with [Reconciliation 02](../P16-RECONCILIATION-02.md) (2026-09-12).** This file is the archived run under the earlier rules. Scenario C's buyer-ceiling arithmetic "net of inherited obligations" is superseded (guarantees are never netted; contracts end at closing with a priority retention window — Reconciliation 02 §4–§5); any reference to an Owner decision on due-diligence disclosure or inventor entitlement is now a recommendation with a default (register C-10, C-11). Scenario D's technology findings stand. Every number remains a PAPER HYPOTHESIS.
+
 # P16 Paper Scenarios C & D — Worked Verification Under Ruleset v2
 
 **What this is.** An independent second-reviewer run of assignment §3 Scenarios C and D strictly

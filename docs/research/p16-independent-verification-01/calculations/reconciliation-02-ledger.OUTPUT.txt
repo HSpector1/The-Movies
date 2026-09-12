@@ -1,0 +1,23 @@
+refund basis 3350000.0 book(LIQ) 5350000.0 liquidation 5350000.0 operating range 4700000 7400000
+star weekly 38462 guar 4000048 cap 1000012
+crew weekly 5000 guar 300000 cap 130000 x4 guar 1200000 x4 cap 520000
+total guar 5200048 total caps 1520012
+consideration 6500000.0
+K0 continue none exits 1520012 cash xfer 479988 closing outlay 6020012.0 delta vs no-contract ref 1520012.0
+K1 continue all exits 0 cash xfer 2000000 closing outlay 4500000.0 delta vs no-contract ref 0.0
+K2 star only exits 520000 cash xfer 1480000 closing outlay 5020000.0 delta vs no-contract ref 520000.0
+K3 crew only exits 1000012 cash xfer 999988 closing outlay 5500012.0 delta vs no-contract ref 1000012.0
+K4 continue all then release star wk+1: outlay 5538474.0 delta 1038474.0
+OLD price 3299952.0 old net closing outlay 1299952.0
+OLD K0 fire all @cap 2819964.0 gain vs ref 1680036.0
+OLD K0 fire all @50% 3899976.0 gain vs ref 600024.0
+STAR only: old deduction 4000048 termination 1000012 gain 3000036 50% termination 2000024 gain 2000024
+Ridgeline emp weekly 3000 guar each 240000 x5 1200000 cap each 78000 x5 390000
+FRP (P15, library excluded) 700000.0
+lot reserve 1740000.0 prop floor each 60000
+claims if none continued 2000000 claims with 2 continued 1520000 surplus 280000
+acquirer net after R21 credit 300000.0 continued payroll 480000 bonus alt 56160
+Deal1 continue 10 decline 2 exits 104000 xfer 196000 outlay 5654000.0 post cash 2346000.0 req 2080000 margin 266000.0
+Deal2 continue 5 decline 15 exits 975000 xfer -475000 outlay 10875000.0 pre 11846000.0 post 971000.0 req 2405000 shortfall 1434000.0
+after +40wk +1.8M post 2771000.0 margin 366000.0
+old deal2 outlay 10,137,500 -> corrected 10875000.0 diff 737500.0

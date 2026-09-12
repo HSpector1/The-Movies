@@ -1,3 +1,5 @@
+> **Superseded in part by [Reconciliation 02](../P16-RECONCILIATION-02.md) (2026-09-12).** This file is the archived run under the earlier rules. Superseded here: the contingency paragraph (the P15B slice is no longer an authorization question); Scenario E's obligation netting (−$700,000 / −$1,200,000), its "mandatory-terminated" people at 50 % ($80,000 / $937,500) and its R29 floor rows — the corrected deals are in Reconciliation 02 §5.6 (no netting; 2 then 15 people not retained at the 26-week-capped charge, $104,000 / $975,000, paid from the target's cash before transfer; closing outlays $5,654,000 / $10,875,000; R30 still fails at week 260 and passes at week 300; the rival count is history, not a floor); finding E.5's "talent cherry-picking" open decision (closed by the Owner's retention direction); Scenario F's references to R29 (withdrawn under Owner direction G). Scenario F's symmetry, history and RNG findings stand. Every number remains a PAPER HYPOTHESIS.
+
 # Paper Scenarios E & F — Serial Acquirer / Rival Acquires Rival
 
 Run strictly under `design/ruleset-v2.md` (the Phase-3 repaired ruleset; rule IDs R01–R32 below are
