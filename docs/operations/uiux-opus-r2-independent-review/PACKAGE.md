@@ -40,6 +40,12 @@ in a fresh headless Chromium with network blocked (byte-identical `K1-overview.p
 all 49 relative links in the package documents resolved. Remote checks after the push
 (head SHA, raw ZIP bytes/SHA-256) are recorded below.
 
-## Remote verification
+## Remote verification (2026-09-12, after the publication push)
 
-(filled in after the push — see the delivery message and `PROGRESS.md`)
+Publication commit **`a9fe0d8b4989b67ec6fcb839c515e99cd597943d`** (branch head confirmed by
+`git ls-remote` and the GitHub refs API). The ZIP was downloaded back from
+`raw.githubusercontent.com` at that commit: **45,451,046 bytes, SHA-256
+`44103a10c01f6b99a8d5c51a59c358967687c852016901a21a5c2e5e0939de01`** — identical to the
+table above. `00-INDEX.md` and a sample render (`CMP-01-overview-3up.png`, 713,863 B)
+were served from the same commit. This note is added in a small follow-up commit that
+changes no payload or delivery byte.

@@ -62,3 +62,8 @@
   (49 checked).
 - Content complete; publication commit (ZIP + manifest + checksums + `PACKAGE.md`)
   follows this content commit and is verified against the remote afterwards.
+- Published: content commit `ce9f515e`, publication commit `a9fe0d8b` (ZIP 45,451,046 B,
+  SHA-256 `44103a10…de01`, 137 files). Remote verified by re-downloading the ZIP from
+  raw.githubusercontent.com at `a9fe0d8b` (bytes and SHA-256 identical) and reading the
+  index back. Status: **OPUS INDEPENDENT GAME UI/UX REVIEW PUBLISHED — OWNER DESIGN
+  DECISION REQUIRED.**

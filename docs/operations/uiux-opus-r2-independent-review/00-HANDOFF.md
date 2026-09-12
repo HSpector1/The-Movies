@@ -1,6 +1,6 @@
 # 00-HANDOFF — Opus independent R2 game UI/UX and art-direction review
 
-**Status:** `COMPLETE` (review content) — the publication commit that follows adds `delivery/` (ZIP, manifest, checksums) and `PACKAGE.md`; `PACKAGE.md` records the remote verification. Verdict: see `00-INDEX.md`. The research gap-critic completed and is folded in (`RESEARCH-ORIGINAL-GAME.md` W-D/§3, `SOURCES.md` S1-06). No open threads.
+**Status:** `COMPLETE` — published and remote-verified (content `ce9f515e`, publication `a9fe0d8b`; see `PACKAGE.md`). Verdict: see `00-INDEX.md`. The research gap-critic completed and is folded in (`RESEARCH-ORIGINAL-GAME.md` W-D/§3, `SOURCES.md` S1-06). No open threads.
 
 **Read order for a successor:** this file → `00-INDEX.md` → `ASSIGNMENT.md` → `FINDINGS.md` →
 `DESIGN.md` → `RESEARCH-*.md` → `SOURCES.md` → `PROGRESS.md` → `assets/`. Verify ownership (below) and preserve
