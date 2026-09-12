@@ -1,14 +1,9 @@
-# P13B launch-review delivery receipt
+# P13B-CORRECTED-LAUNCH-REVIEW — publication receipt
 
-Document commit: `15b45afd36ada15ed51e3ba656de6a4a3befb5e7` in `HSpector1/The-Movies`.
+Prepared for Current Ops launch review only. Exact document commit: `673f49835404e262ea651b4fcb8fda5e259d80a6`. [Pinned review index](https://github.com/HSpector1/The-Movies/blob/673f49835404e262ea651b4fcb8fda5e259d80a6/docs/engineering/p13b-launch-review/00-P13B-REVIEW-INDEX.md).
 
-[Immutable review index](https://github.com/HSpector1/The-Movies/blob/15b45afd36ada15ed51e3ba656de6a4a3befb5e7/docs/engineering/p13b-launch-review/00-P13B-REVIEW-INDEX.md).
+[Actual ZIP](P13B-LAUNCH-REVIEW-PACKET.zip): **218,547 bytes**, **58 file entries**, SHA-256 `7d7e4df93a0b325a065a3f0e553feb479809487843b03cbb402e3f2787927bc4`. CRC checked locally; full payload hashes and nested input checksums must pass. [Single handoff](P13B-AND-PLAYABILITY-HANDOFF.md) records scope, reading sequence and verification boundary. The publisher's final delivery report supplies the containing packaging commit and confirms remote byte verification after publication.
 
-Archive: `docs/engineering/P13B-LAUNCH-REVIEW-PACKET.zip`
-Bytes: **170532**
-SHA-256: `a75abe56e15eecd2708c1217901da5726b148c8d120d9289cdf7162966badf2d`
-Entries: 43
+The archive manifest pins document bytes and required sources. Outer checksum is recorded here to avoid self-reference. Earlier P13B content `15b45afd36ada15ed51e3ba656de6a4a3befb5e7` and archive `50737fbc23313fd8e4f4cf6f6680c8354e05451a` remain available as historical publication; their original arithmetic review missed the now-corrected Post onset.
 
-All payload bytes were checked against the manifest after ZIP assembly; archive CRC check passed. SHA256SUMS covers every extracted file except itself. The source index and manifest bind exact source commits and excerpt provenance. Outer archive checksum is outside the archive to avoid self-reference. The packaging commit adds only this receipt and the ZIP; the document commit remains the reviewed content identity. Remote publication and download verification are reported with the immutable packaging commit in the final delivery response.
-
-The complete candidate is for Current Ops launch review. All eight Ready obligations remain required; 120h/36h budget and new design values are recommendations. No P13B execution order, P13A reopening, gameplay changes, builds, native input, campaign access, PR, merge or protected-ref promotion.
+No gameplay, schema or tuning changes, builds, runtime/native tests, campaign/profile access, PR, merge or protected-ref promotion. The execution order remains separate.
