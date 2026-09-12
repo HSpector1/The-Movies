@@ -88,3 +88,20 @@ Return one updated pinned entry point containing the full coverage matrix, selec
 - Opus direction and review: [6b2a659bcaa1e577c8d90a10aae390e3855a2985](https://github.com/HSpector1/The-Movies/blob/6b2a659bcaa1e577c8d90a10aae390e3855a2985/docs/operations/uiux-opus-r2-independent-review/00-INDEX.md).
 
 Publication on the existing Future Ops documentation branch preserves all prior source/design artifacts and does not modify the designer's or planner's branch. This is a scope clarification and recommended delivery structure, not a new implementation or verification claim.
+
+## 8. Owner interaction selections — 2026-09-13
+
+Howard answered the subsequent four-choice slate: **1A / 2B / 3A / 4B**. These are selected product directions for the full overhaul; they are not implemented or native-tested by this publication.
+
+| Selection | Settled direction | Scope and safeguard |
+| --- | --- | --- |
+| **1A — Desktop/laptop first** | Mouse and keyboard are primary, with usable trackpad controls and complete keyboard navigation. | Preserve existing supported controller paths, but a new equal-priority controller-first overhaul or console port is not selected. Input priority does not reduce whole-game screen coverage. |
+| **2B — Optional drag-and-drop** | Keep a complete click/select and keyboard route; add drag-and-drop shortcuts where an existing lawful action supports them. | Show valid targets, intended action and consequences. Use the same exact identities, legality and commitment reviews as the ordinary route; no implicit hiring, bypassed casting rules or surprise spending. Dragging is never required. This is additional interaction work to plan, not a claim that R3 already supports it. |
+| **3A — Contextual explanations only** | Clear labels, blocker reasons, contextual tooltips/focus information and on-demand help explain the game. | Do not build the proposed guided first-film introduction or a forced step-by-step tutorial. This explicitly declines 3B. Earlier references to first-use guidance must be interpreted as contextual help, not a sequenced tutorial. Costs, risks and safe commitment reviews remain visible. |
+| **4B — Selective attention** | Routine progress stays quiet; genuine decisions get prominent persistent cues with the exact relevant destination. Important information remains retrievable. | Preserve the distinction between ordinary waiting and required action. This selects attention presentation, not new automatic pauses, altered simulation time, changed gameplay deadlines or mandatory interruption for every update. Existing consequential reviews remain. |
+
+**Planning follow-through:** Current Ops should incorporate these choices into the existing full-overhaul plan and coordinate with the existing designer, without reopening them or starting another general research survey. Explicitly inventory the useful legal drag/drop routes, their ordinary equivalents, preview/cancel/invalid/stale cases, and corresponding acceptance checks. Optional means optional for the player, not that the team may silently omit the selected feature. Preserve a named unresolved implementation dependency if a proposed route lacks a legal command; do not invent the command.
+
+The design and later native checks must demonstrate that essential tasks can be understood and completed using contextual help alone, without a narrated tutorial; all drag-enabled actions remain achievable without dragging; ordinary progress is not an alert flood; and actionable cues remain tied to current authoritative facts. All tests are future tasks under the separate execution order.
+
+Portrait style remains a visual sample-review item, not a fifth selection inferred from this response. The R3 hybrid choice, full-game coverage, protected campaign handling and Playability-before-P13B sequence remain unchanged. This append-only documentation update does not notify, start or redirect a worker, approve a budget, run the game or grant implementation authority.
