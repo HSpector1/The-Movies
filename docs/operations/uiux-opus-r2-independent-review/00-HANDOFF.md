@@ -1,6 +1,6 @@
 # 00-HANDOFF — Opus independent R2 game UI/UX and art-direction review
 
-**Status:** `IN PROGRESS` — all review content drafted and pushed; remaining: checker record, ZIP/manifest publication, remote verification. Verdict reached (see `00-INDEX.md`).
+**Status:** `COMPLETE` (review content) — the publication commit that follows adds `delivery/` (ZIP, manifest, checksums) and `PACKAGE.md`; `PACKAGE.md` records the remote verification. Verdict: see `00-INDEX.md`. The only open thread is the research gap-critic's coverage table (see PROGRESS.md), which a successor may fold into `RESEARCH-ORIGINAL-GAME.md` §3 without changing any verdict.
 
 **Read order for a successor:** this file → `00-INDEX.md` → `ASSIGNMENT.md` → `FINDINGS.md` →
 `DESIGN.md` → `RESEARCH-*.md` → `SOURCES.md` → `PROGRESS.md` → `assets/`. Verify ownership (below) and preserve
@@ -18,7 +18,7 @@ as Opus observations; mark your own subsequent checks separately.
 | R2 root | `docs/operations/uiux-visual-blueprint/r2/` (entry `README.md`, archive `delivery/UIUX-VISUAL-BLUEPRINT-R2.zip`) |
 | Newer Codex work check | `git fetch` at 2026-09-12: `docs/uiux-whole-game-review-01` head is still `e564d236`. No delta beyond the reviewed baseline. |
 | Existing Opus-review assignment check | No branch matching `docs/uiux-opus-*` existed before this one was created. No equivalent records elsewhere. |
-| Last verified published checkpoint | `44cec258` (skeleton); second checkpoint = the commit containing this line (see `git log`) |
+| Last verified published checkpoint | every checkpoint was pushed and `git ls-remote`-verified; the content commit is the one containing this line, the publication commit follows it (see `PACKAGE.md`) |
 | Working package | `docs/operations/uiux-opus-r2-independent-review/` (this directory) |
 | Worktree | `~/The Movies - UIUX Opus R2 Review` (isolated; no other worker's worktree was switched or reset) |
 
@@ -47,9 +47,9 @@ as Opus observations; mark your own subsequent checks separately.
 | Small linked prototype (overview → person → production → Back) | **done** — `assets/design/index.html` (+ compare, compact rails, 1280 canvas, 200 %) |
 | R2-vs-proposed comparison board at identical scale/content | **done** — `CMP-01…05` |
 | Heuristic/cognitive walkthrough + prototype task observations; future human-test list | **done** — `WALKTHROUGH.md` |
-| One bounded independent Sonnet checker pass | **running** — record goes to `CHECKER.md` |
+| One bounded independent Sonnet checker pass | **done** — `CHECKER.md` (APPROVE WITH CHANGES; dispositions applied) |
 | Handoff to Codex (presentation, interaction, read-model deps, P13B boundaries, native gaps) | **done** — `HANDOFF-TO-CODEX.md` |
-| Visual index + one ZIP + manifest + checksums, remote bytes verified | index **done** (`00-INDEX.md`); ZIP/manifest/remote check **remaining** (publication commit) |
+| Visual index + one ZIP + manifest + checksums, remote bytes verified | index **done** (`00-INDEX.md`); ZIP/manifest/checksums in the publication commit (`PACKAGE.md` records identities and the remote check) |
 
 ## Blockers / access limitations
 
@@ -58,10 +58,9 @@ as Opus observations; mark your own subsequent checks separately.
   accessible in the repository or archive; metadata alone will not be counted.
 - The original game will not be installed or run.
 
-## Next 3–5 concrete actions (if this session stops before publication)
+## Next actions for a successor (only if the Owner asks for continuation)
 
-1. Write `CHECKER.md` from the Sonnet checker record (if it did not complete, say so and list it as deferred); fix only defects it names that are cheap and re-render with `node assets/design/render.cjs assets/design <out>` then copy PNGs into `assets/design-renders/`.
-2. Commit the content, then run the packaging script (`assets/design/package.py`, or the copy in the session scratchpad) with the content commit SHA to produce `delivery/package-manifest.json`, `delivery/MANIFEST.sha256`, `delivery/UIUX-OPUS-R2-INDEPENDENT-REVIEW.zip`; write `PACKAGE.md` with the identities; commit as the publication commit; push.
-3. Verify the remote: `git ls-remote` head, then download the ZIP raw from GitHub and compare bytes/SHA-256 with `PACKAGE.md`; record the result in `PROGRESS.md`.
-4. If the background research gap-critic finished (`assets/research-raw/`), fold its coverage table into `RESEARCH-ORIGINAL-GAME.md` §3; otherwise leave the note in `00-INDEX.md` limitations.
-5. Return the stop line to the Owner with the exact commits, index and ZIP paths.
+1. Owner design decision first (`00-INDEX.md` "Unresolved product choices"). Nothing here is implementation authority.
+2. If continuing research: fold the gap-critic coverage table (if any) into `RESEARCH-ORIGINAL-GAME.md` §3; re-package with `assets/design/package.py <package dir> <content commit>` and a new publication commit (never rewrite an existing ZIP in place).
+3. If the Owner chooses A′ or the compact stack as the rail default, only `explorations.css` / the `rails` state changes; tokens, cards, icons and HUD stay.
+4. Portrait art and the lot art target are separate art tasks with their own owners; do not extend the procedural placeholders further.

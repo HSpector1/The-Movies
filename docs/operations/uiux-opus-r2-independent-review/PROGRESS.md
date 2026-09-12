@@ -44,3 +44,18 @@
   (`assets/design/components.html` → `C01-component-sheet.png`); comparison boards at
   identical scale/data (`CMP-01…05`); tokens tightened after the sheet's own contrast
   table (muted 5.15:1, wait chip 4.98:1).
+- Research workflow completed for the original-game lenses (manual, footage, stills,
+  behaviour: 4 agents), 7 comparators and 3 adversarial frame-verification passes
+  (18 supported / 9 partly / 2 refuted — the 2 were mislabelled crop files). Wrote
+  `RESEARCH-ORIGINAL-GAME.md`, `RESEARCH-COMPARATORS.md`, `SOURCES.md` S1/S2/S3/S4;
+  raw observations preserved in `assets/research-raw/`. The workflow's final gap-critic
+  agent (coverage table + optional gap-fill footage) had not returned at packaging time;
+  its result, if it arrives, belongs in `RESEARCH-ORIGINAL-GAME.md` §3 as a continuation.
+- One bounded Sonnet checker ran read-only over the package and re-measured the
+  prototype itself: APPROVE WITH CHANGES (`CHECKER.md`). Accepted: lot artifacts fixed,
+  Exploration A′ built, `CMP-06` added at the top of the index, V-04 reworded.
+- Final render: 37 boards, 0 page errors, 0 console issues, 0 network attempts
+  (`assets/design-renders/render-log.json`). All relative links in the package resolve
+  (49 checked).
+- Content complete; publication commit (ZIP + manifest + checksums + `PACKAGE.md`)
+  follows this content commit and is verified against the remote afterwards.
