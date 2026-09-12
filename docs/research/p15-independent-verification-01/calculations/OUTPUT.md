@@ -65,9 +65,9 @@ Authored arrival years: [1920, 1920, 1920, 1920, 1930, 1939, 1950, 1956, 1969]
 
 ## 5. Book Net Worth / Estimated Studio Value worked examples
 
-- **mid-game studio**: Book Net Worth $4,250,000; Guaranteed Obligations $10,769,231; Wind-Down $-1,134,616; Estimated Value $6,750,000–$12,150,000
-- **hot, debt-funded studio**: Book Net Worth $-1,030,000; Guaranteed Obligations $6,000,000; Wind-Down $-4,030,000; Estimated Value $2,300,000–$11,900,000
-- **rich but declining studio**: Book Net Worth $42,000,000; Guaranteed Obligations $3,000,000; Wind-Down $40,500,000; Estimated Value $42,000,000–$42,000,000 (liquidation-bound)
+- **mid-game studio**: Book Net Worth $4,250,000; Guaranteed Obligations $10,769,231; Wind-Down $-1,134,616; Estimated Operating Value $6,750,000–$12,150,000
+- **hot, debt-funded studio**: Book Net Worth $-1,030,000; Guaranteed Obligations $6,000,000; Wind-Down $-4,030,000; Estimated Operating Value $2,300,000–$11,900,000
+- **rich but declining studio**: Book Net Worth $42,000,000; Guaranteed Obligations $3,000,000; Wind-Down $40,500,000; Estimated Operating Value $34,500,000–$39,000,000 — operating value BELOW book: liquidation exceeds operating value
 
 ## 6. Fixed weekly cost sketch, 40 employees
 
@@ -78,3 +78,118 @@ Authored arrival years: [1920, 1920, 1920, 1920, 1930, 1939, 1950, 1956, 1969]
 
 - facility refund $4,850,000; set refund $2,135,000; cash $15,015,000; book assets $22,000,000; debt $30,000,000; FRP $-8,000,000
 - liquidation recovers 73.3% of the debt; clean purchase after creditors settle = $0–1 nominal with a $8,000,000 creditor haircut
+
+## 8. Asset lifecycle — purchase → ownership → (depreciation) → sale, no double counting
+
+Identity checked on every row: Book Net Worth = cash + book assets − debt.  Two asset bases are shown side by side:
+LIQ = liquidation basis (ledger capex × refund fraction 0.50, the report's recommendation, an explicitly discounted basis);
+COST = cost basis (100 % of ledger capex, the conventional alternative). Neither is approved book accounting.
+
+| Week | Event | Cash | Debt | Asset (LIQ) | BNW (LIQ) | Asset (COST) | BNW (COST) | ΔBNW explained |
+|---|---|---|---|---|---|---|---|---|
+| 0 | opening | $20,000,000 | $0 | $0 | $20,000,000 | $0 | $20,000,000 | INITIAL_CASH (tuning.ts) |
+| 1 | borrow $5M Studio Loan | $25,000,000 | $5,000,000 | $0 | $20,000,000 | $0 | $20,000,000 | cash and debt rise together; BNW unchanged (borrowing is not income) |
+| 2 | build $2.4M soundstage | $22,600,000 | $5,000,000 | $1,200,000 | $18,800,000 | $2,400,000 | $20,000,000 | LIQ recognizes the 50 % haircut at purchase (−$1.2M); COST recognizes nothing |
+| 54 | 52 instalments of $13,976 | $21,873,249 | $4,660,095 | $1,200,000 | $18,413,154 | $2,400,000 | $19,613,154 | cash −$726,751 = interest $386,846 (BNW falls by exactly this) + principal $339,905 (debt falls by exactly this) |
+| 55 | depreciation event (none exists at 592e926) | — | — | — | — | — | — | if an age curve ever ships, the asset column moves and BNW moves by the same amount; cash and debt untouched |
+| 56 | demolish → refund $1,200,000 | $23,073,249 | $4,660,095 | $0 | $18,413,154 | $0 | $18,413,154 | LIQ: proceeds = book, no gain/loss; COST: a $1.2M loss recognized here instead of at purchase — same total, different timing |
+| 57 | repay remaining balance $4,660,095 | $18,413,154 | $0 | $0 | $18,413,154 | $0 | $18,413,154 | cash and debt fall together; BNW unchanged |
+
+The four value concepts for this studio at week 54 (before demolition), PROVISIONAL:
+- Book Net Worth (LIQ basis): $18,413,154 — recorded value, a fact of the ledger
+- Estimated liquidation / collateral value: $18,413,154 — identical to BNW *only because* the LIQ basis already marks assets at refund; under a COST-basis book the same liquidation value would sit below a Book Net Worth of $19,613,154, and the two concepts visibly separate
+- Estimated operating-studio value at trailing surplus $0/yr: $17,213,154–$17,213,154 (3–6× surplus + cash − debt, unfloored)  ← entirely below Book Net Worth: legitimately "worth more liquidated than operated"
+- Estimated operating-studio value at trailing surplus $300,000/yr: $18,113,154–$19,013,154 (3–6× surplus + cash − debt, unfloored)  ← range straddles Book Net Worth
+- Estimated operating-studio value at trailing surplus $1,500,000/yr: $21,713,154–$26,213,154 (3–6× surplus + cash − debt, unfloored)
+- Actual transaction / auction price: does not exist until a P16 transaction closes; never estimated here
+
+## 9. Loan ledger — $5M at 8 %/10 yr: pay 4, miss 4 (capitalized), cure, then re-amortize
+
+Rule: each week interest I = balance × r is charged ONCE. Paid: balance += I − A. Missed: balance += I (the interest capitalizes;
+the unpaid principal portion is already in the balance and is NOT added again). Cure: pay every currently-missed instalment (k × A) plus the current one;
+the loan then re-amortizes over its remaining term. Arrears is a counter over recorded missed-instalment facts, not a second liability.
+History vs status: every missed instalment is an append-only fact (never erased); the default test counts UNCURED misses in the rolling window;
+a cure clears the arrears and restores current status, while the facts stay in history and feed the credit grade (spread on the next loan).
+
+Scheduled instalment A = $13,975.98; weekly rate r = 0.0015385
+
+| Week | Interest charged | Due | Paid | Balance after | UNCURED misses in last 13 wk (default test) | Status |
+|---|---|---|---|---|---|---|
+| 1 | $7,692.31 | $13,975.98 | $13,975.98 | $4,993,716.32 | 0 | current |
+| 2 | $7,682.64 | $13,975.98 | $13,975.98 | $4,987,422.98 | 0 | current |
+| 3 | $7,672.96 | $13,975.98 | $13,975.98 | $4,981,119.96 | 0 | current |
+| 4 | $7,663.26 | $13,975.98 | $13,975.98 | $4,974,807.23 | 0 | current |
+| 5 | $7,653.55 | $13,975.98 | $0.00 | $4,982,460.78 | 1 | MISSED |
+| 6 | $7,665.32 | $13,975.98 | $0.00 | $4,990,126.11 | 2 | MISSED |
+| 7 | $7,677.12 | $13,975.98 | $0.00 | $4,997,803.22 | 3 | MISSED |
+| 8 | $7,688.93 | $13,975.98 | $0.00 | $5,005,492.15 | 4 | MISSED → Event of Default (4 in 13) |
+| 9 | $7,700.76 | $13,975.98 | $69,879.92 | $4,943,312.99 | 0 | CURE: 4 arrears + current paid; history keeps 4 missed-instalment facts |
+| 10 | $7,605.10 | $13,975.98 | $13,976.59 | $4,936,941.50 | 0 | current on re-amortized A′ = $13,976.59 |
+| 11 | $7,595.29 | $13,975.98 | $13,976.59 | $4,930,560.20 | 0 | current on re-amortized A′ = $13,976.59 |
+| 12 | $7,585.48 | $13,975.98 | $13,976.59 | $4,924,169.08 | 0 | current on re-amortized A′ = $13,976.59 |
+| 13 | $7,575.64 | $13,975.98 | $13,976.59 | $4,917,768.13 | 0 | current on re-amortized A′ = $13,976.59 |
+
+Checks: balance = principal + Σinterest − Σpaid → $4,917,768.13 vs ledger $4,917,768.13 (equal). 
+On-time path after 13 weeks: balance $4,917,553.90, interest $99,241.69. Missed-then-cured path: balance $4,917,768.13, interest $99,458.36.
+Cost of the four missed weeks = $216.67 of extra interest (interest on the unpaid amounts, charged once by capitalization). No fee, no default rate, no second principal.
+If the Event of Default is NOT cured within the 13-week Insolvency window: acceleration makes the whole balance due; any default-rate interest after that is a separate PROVISIONAL proposal.
+
+## 10. Borrowing cannot manufacture eligibility — the borrow → build → borrow chain converges
+
+Eligibility inputs: trailing OPERATING surplus (loan proceeds are financing, never revenue → borrowing cannot raise it);
+coverage = surplus ÷ (existing + proposed annual service) → each new loan lowers it; LTV on book-after-salvage (facility capex × 0.50).
+Chain at 60 % LTV, every dollar spent on facilities (PROVISIONAL): $3,000,000 → $900,000 → $270,000 → $81,000 → $24,300 → $7,290 …
+Geometric limit = first cap ÷ (1 − 0.50 × 0.60) = 1.429 × first cap = $4,285,714; the coverage covenant binds long before (section 2).
+
+## 11. Survivorship sensitivity — authored arrival dates and exposure periods (no replacements)
+
+Arrival years (calendar.ts:3): 1920, 1920, 1920, 1920, 1930, 1939, 1950, 1956, 1969; exposure to 2040 in years: 120, 120, 120, 120, 110, 101, 90, 84, 71
+Constant annual terminal hazard p is a SENSITIVITY assumption, not a target; the real hazard is emergent from the ladder and rival policy.
+
+| p / yr | E[survivors] at 2040 (exact exposures) | E[survivors] if the law starts in 1970 (70 yr each) | P(no survivors) | P(≤ 1 survivor) | P(≤ 2 survivors) |
+|---|---|---|---|---|---|
+| 0.1% | 8.11 | 8.39 | 0.0% | 0.0% | 0.0% |
+| 0.2% | 7.31 | 7.82 | 0.0% | 0.0% | 0.0% |
+| 0.5% | 5.36 | 6.34 | 0.0% | 0.4% | 2.6% |
+| 1.0% | 3.22 | 4.45 | 1.8% | 11.0% | 31.8% |
+| 2.0% | 1.18 | 2.19 | 27.9% | 66.7% | 90.0% |
+| 5.0% | 0.07 | 0.25 | 93.5% | 99.8% | 100.0% |
+
+## 12. Free-agent pool — cumulative supply vs newly released, with and without rival capacity growth
+
+Facts at 592e926: each rival staffs exactly six roles (RIVAL_TEAM_ROLES, hollywoodStartingData.ts:46); when no free agent of a role exists
+the rival MINTS a new person (hollywoodTick.ts:120-124), so supply is not fixed and minting stops while the pool holds that role.
+Model (PROVISIONAL): pool = people released by closures that no surviving studio has re-hired; demand = 6 × active rivals + player roster (assume 12).
+
+| Active rivals | Closures so far | Newly released by those closures | Rival demand (6 each) | Demand with capacity growth (+2 roles per survivor per decade after 1970, capped +6) | Idle pool if nobody is re-hired |
+|---|---|---|---|---|---|
+| 9 | 0 | 0 | 66 | 120 | 0 (a stock, drained only by hires) |
+| 6 | 3 | 18 | 48 | 84 | 18 (a stock, drained only by hires) |
+| 4 | 5 | 30 | 36 | 60 | 30 (a stock, drained only by hires) |
+| 2 | 7 | 42 | 24 | 36 | 42 (a stock, drained only by hires) |
+| 1 | 8 | 48 | 18 | 24 | 48 (a stock, drained only by hires) |
+
+A snapshot of vacancies vs people says nothing about collapse: the pool is a stock; minting stops; salaries are set by the offer law, not by pool size.
+
+## 13. Market pressure from one release — taper hands off to the saturation stock (no double counting)
+
+Rule (PROVISIONAL): a release is counted in exactly one lane at any week. Window lane [R, R+4): 1.00 / 0.55 / 0.55 / 0.20.
+At R+4 the release leaves the window and ENTERS the stock at its last taper weight (0.20), decaying with a 13-week half-life, retired at R+26.
+
+| Week offset | Window lane | Stock lane | Total pressure from this release |
+|---|---|---|---|
+| R+0 | 1.00 | 0.000 | 1.000 |
+| R+1 | 0.55 | 0.000 | 0.550 |
+| R+2 | 0.55 | 0.000 | 0.550 |
+| R+3 | 0.20 | 0.000 | 0.200 |
+| R+4 | 0.00 | 0.200 | 0.200 |
+| R+5 | 0.00 | 0.190 | 0.190 |
+| R+6 | 0.00 | 0.180 | 0.180 |
+| R+7 | 0.00 | 0.170 | 0.170 |
+| R+13 | 0.00 | 0.124 | 0.124 |
+| R+17 | 0.00 | 0.100 | 0.100 |
+| R+25 | 0.00 | 0.065 | 0.065 |
+| R+26 | 0.00 | 0.000 | 0.000 |
+
+Total exposure-weeks per unit contribution = 4.96 (window 2.30 + stock 2.66); a release never appears in both lanes in the same week.
+Two releases in one batch: each sees the other at weight 1.00 and never itself (self-exclusion); the order inside the batch cannot matter because the batch is frozen before either is assessed.

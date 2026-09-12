@@ -81,9 +81,10 @@ def example(name, cash, fac_capex, set_capex, loan, accrued, obligations, surplu
     book = cash + fac_capex * FACILITY_REFUND + set_capex * SET_REFUND - loan - accrued
     wind = book - HIRING_TERMINATION_FRACTION * obligations
     lo, hi = 3 * max(surplus3, 0) + cash - loan - accrued, 6 * max(surplus3, 0) + cash - loan - accrued
-    lo_f, hi_f = max(lo, book), max(hi, book)   # floored at Book Net Worth (liquidation-bound)
+    # 2026-09-12: the earlier floor at Book Net Worth was REMOVED (RECONCILIATION-02 §3); the range is shown unfloored and labelled.
+    label = ' — operating value BELOW book: liquidation exceeds operating value' if hi < book else (' — range straddles book' if lo < book else '')
     print(f'- **{name}**: Book Net Worth ${book:,.0f}; Guaranteed Obligations ${obligations:,.0f}; Wind-Down ${wind:,.0f}; '
-          f'Estimated Value ${lo_f:,.0f}–${hi_f:,.0f}' + (' (liquidation-bound)' if lo < book else ''))
+          f'Estimated Operating Value ${lo:,.0f}–${hi:,.0f}{label}')
 example('mid-game studio', 6_500_000, 4_400_000, 2_000_000, 5_000_000, 150_000, 10_769_231, 1_800_000)
 example('hot, debt-funded studio', 2_000_000, 9_600_000, 4_200_000, 9_000_000, 300_000, 6_000_000, 3_200_000)
 example('rich but declining studio', 30_000_000, 20_000_000, 5_714_286, 0, 0, 3_000_000, 1_500_000)
@@ -102,3 +103,145 @@ fac, sets, cash, debt = 9_700_000, 6_100_000, 15_015_000, 30_000_000
 bv = fac * FACILITY_REFUND + sets * SET_REFUND + cash
 print(f'- facility refund ${fac*FACILITY_REFUND:,.0f}; set refund ${sets*SET_REFUND:,.0f}; cash ${cash:,.0f}; book assets ${bv:,.0f}; debt ${debt:,.0f}; FRP ${bv-debt:,.0f}')
 print(f'- liquidation recovers {bv/debt:.1%} of the debt; clean purchase after creditors settle = $0–1 nominal with a ${debt-bv:,.0f} creditor haircut')
+
+# =====================================================================================
+# Sections 8–13 were added on 2026-09-12 for RECONCILIATION-02 (Future Ops review
+# disposition). Same rules: pure Python, PROVISIONAL unless a code constant is cited.
+# =====================================================================================
+WEEKLY_RATE = lambda annual: annual / TICKS_PER_YEAR
+
+# ---------------------------------------------------------------- 8. asset lifecycle
+h('8. Asset lifecycle — purchase → ownership → (depreciation) → sale, no double counting')
+print('Identity checked on every row: Book Net Worth = cash + book assets − debt.  Two asset bases are shown side by side:')
+print('LIQ = liquidation basis (ledger capex × refund fraction 0.50, the report\'s recommendation, an explicitly discounted basis);')
+print('COST = cost basis (100 % of ledger capex, the conventional alternative). Neither is approved book accounting.\n')
+print('| Week | Event | Cash | Debt | Asset (LIQ) | BNW (LIQ) | Asset (COST) | BNW (COST) | ΔBNW explained |')
+print('|---|---|---|---|---|---|---|---|---|')
+cash, debt, capex = INITIAL_CASH, 0, 0
+def row(week, event, note):
+    a_liq = capex * FACILITY_REFUND; a_cost = capex
+    print(f'| {week} | {event} | ${cash:,.0f} | ${debt:,.0f} | ${a_liq:,.0f} | ${cash + a_liq - debt:,.0f} | ${a_cost:,.0f} | ${cash + a_cost - debt:,.0f} | {note} |')
+row(0, 'opening', 'INITIAL_CASH (tuning.ts)')
+P = 5_000_000; cash += P; debt += P
+row(1, 'borrow $5M Studio Loan', 'cash and debt rise together; BNW unchanged (borrowing is not income)')
+capex = 2_400_000; cash -= capex
+row(2, 'build $2.4M soundstage', 'LIQ recognizes the 50 % haircut at purchase (−$1.2M); COST recognizes nothing')
+r = WEEKLY_RATE(0.08); A = weekly_payment(P, 0.08, 10)
+interest_paid = principal_paid = 0.0; B = float(P)
+for _ in range(52):
+    i = B * r; interest_paid += i; principal_paid += A - i; B += i - A
+cash -= 52 * A; debt = B
+row(54, f'52 instalments of ${A:,.0f}', f'cash −${52*A:,.0f} = interest ${interest_paid:,.0f} (BNW falls by exactly this) + principal ${principal_paid:,.0f} (debt falls by exactly this)')
+print(f'| 55 | depreciation event (none exists at 592e926) | — | — | — | — | — | — | if an age curve ever ships, the asset column moves and BNW moves by the same amount; cash and debt untouched |')
+proceeds = capex * FACILITY_REFUND; cash += proceeds; capex = 0
+row(56, f'demolish → refund ${proceeds:,.0f}', 'LIQ: proceeds = book, no gain/loss; COST: a $1.2M loss recognized here instead of at purchase — same total, different timing')
+cash -= debt; paid = debt; debt = 0
+row(57, f'repay remaining balance ${paid:,.0f}', 'cash and debt fall together; BNW unchanged')
+print('\nThe four value concepts for this studio at week 54 (before demolition), PROVISIONAL:')
+cash54 = INITIAL_CASH + P - 2_400_000 - 52 * A; debt54 = B; book54 = 2_400_000 * FACILITY_REFUND
+print(f'- Book Net Worth (LIQ basis): ${cash54 + book54 - debt54:,.0f} — recorded value, a fact of the ledger')
+print(f'- Estimated liquidation / collateral value: ${cash54 + book54 - debt54:,.0f} — identical to BNW *only because* the LIQ basis already marks assets at refund; under a COST-basis book the same liquidation value would sit below a Book Net Worth of ${cash54 + 2_400_000 - debt54:,.0f}, and the two concepts visibly separate')
+for s in (0, 300_000, 1_500_000):
+    lo, hi = 3 * s + cash54 - debt54, 6 * s + cash54 - debt54
+    bnw = cash54 + book54 - debt54
+    tag = '  ← entirely below Book Net Worth: legitimately "worth more liquidated than operated"' if hi < bnw else ('  ← range straddles Book Net Worth' if lo < bnw else '')
+    print(f'- Estimated operating-studio value at trailing surplus ${s:,.0f}/yr: ${lo:,.0f}–${hi:,.0f} (3–6× surplus + cash − debt, unfloored){tag}')
+print('- Actual transaction / auction price: does not exist until a P16 transaction closes; never estimated here')
+
+# ---------------------------------------------------------------- 9. loan ledger
+h('9. Loan ledger — $5M at 8 %/10 yr: pay 4, miss 4 (capitalized), cure, then re-amortize')
+print('Rule: each week interest I = balance × r is charged ONCE. Paid: balance += I − A. Missed: balance += I (the interest capitalizes;')
+print('the unpaid principal portion is already in the balance and is NOT added again). Cure: pay every currently-missed instalment (k × A) plus the current one;')
+print('the loan then re-amortizes over its remaining term. Arrears is a counter over recorded missed-instalment facts, not a second liability.')
+print('History vs status: every missed instalment is an append-only fact (never erased); the default test counts UNCURED misses in the rolling window;')
+print('a cure clears the arrears and restores current status, while the facts stay in history and feed the credit grade (spread on the next loan).\n')
+r = WEEKLY_RATE(0.08); A = weekly_payment(5_000_000, 0.08, 10); B = 5_000_000.0; n_left = 520
+print(f'Scheduled instalment A = ${A:,.2f}; weekly rate r = {r:.7f}\n')
+print('| Week | Interest charged | Due | Paid | Balance after | UNCURED misses in last 13 wk (default test) | Status |')
+print('|---|---|---|---|---|---|---|')
+missed_weeks = []; total_int = 0.0; total_paid = 0.0
+for w in range(1, 14):
+    i = B * r; total_int += i
+    missed_weeks = [m for m in missed_weeks if w - m < 13]
+    if w <= 4:
+        pay = A; B += i - A; status = 'current'
+    elif w <= 8:
+        pay = 0.0; B += i; missed_weeks.append(w); status = 'MISSED' + (' → Event of Default (4 in 13)' if len(missed_weeks) == 4 else '')
+    elif w == 9:
+        k = len(missed_weeks); pay = k * A + A; B += i - pay; missed_weeks = []; status = f'CURE: {k} arrears + current paid; history keeps 4 missed-instalment facts'
+        n_left = 520 - 9; A2 = B * r / (1 - (1 + r) ** -n_left)
+    else:
+        pay = A2; B += i - A2; status = f'current on re-amortized A′ = ${A2:,.2f}'
+    total_paid += pay; n_left -= 1 if w != 9 else 0
+    print(f'| {w} | ${i:,.2f} | ${A:,.2f} | ${pay:,.2f} | ${B:,.2f} | {len(missed_weeks)} | {status} |')
+print(f'\nChecks: balance = principal + Σinterest − Σpaid → ${5_000_000 + total_int - total_paid:,.2f} vs ledger ${B:,.2f} (equal). ')
+# on-time comparison
+B_on = 5_000_000.0; int_on = 0.0
+for w in range(1, 14):
+    i = B_on * r; int_on += i; B_on += i - A
+print(f'On-time path after 13 weeks: balance ${B_on:,.2f}, interest ${int_on:,.2f}. Missed-then-cured path: balance ${B:,.2f}, interest ${total_int:,.2f}.')
+print(f'Cost of the four missed weeks = ${total_int - int_on:,.2f} of extra interest (interest on the unpaid amounts, charged once by capitalization). No fee, no default rate, no second principal.')
+print('If the Event of Default is NOT cured within the 13-week Insolvency window: acceleration makes the whole balance due; any default-rate interest after that is a separate PROVISIONAL proposal.')
+
+# ---------------------------------------------------------------- 10. borrow→build→borrow bound
+h('10. Borrowing cannot manufacture eligibility — the borrow → build → borrow chain converges')
+print('Eligibility inputs: trailing OPERATING surplus (loan proceeds are financing, never revenue → borrowing cannot raise it);')
+print('coverage = surplus ÷ (existing + proposed annual service) → each new loan lowers it; LTV on book-after-salvage (facility capex × 0.50).')
+ltv = 0.60; first_cap = 3_000_000
+total = 0; loan = first_cap; rounds = []
+for k in range(6):
+    total += loan; rounds.append(loan); loan = loan * FACILITY_REFUND * ltv
+print('Chain at 60 % LTV, every dollar spent on facilities (PROVISIONAL): ' + ' → '.join(f'${x:,.0f}' for x in rounds) + ' …')
+print(f'Geometric limit = first cap ÷ (1 − 0.50 × 0.60) = {1/(1-FACILITY_REFUND*ltv):.3f} × first cap = ${first_cap/(1-FACILITY_REFUND*ltv):,.0f}; the coverage covenant binds long before (section 2).')
+
+# ---------------------------------------------------------------- 11. survivorship sensitivity
+h('11. Survivorship sensitivity — authored arrival dates and exposure periods (no replacements)')
+arrival_years = [1920 + w // TICKS_PER_YEAR for w in RIVAL_ARRIVAL_WEEKS]
+exposures = [2040 - y for y in arrival_years]
+print('Arrival years (calendar.ts:3): ' + ', '.join(map(str, arrival_years)) + '; exposure to 2040 in years: ' + ', '.join(map(str, exposures)))
+print('Constant annual terminal hazard p is a SENSITIVITY assumption, not a target; the real hazard is emergent from the ladder and rival policy.\n')
+print('| p / yr | E[survivors] at 2040 (exact exposures) | E[survivors] if the law starts in 1970 (70 yr each) | P(no survivors) | P(≤ 1 survivor) | P(≤ 2 survivors) |')
+print('|---|---|---|---|---|---|')
+from itertools import combinations
+def p_at_most(k, surv):
+    # exact distribution over independent Bernoulli survivals
+    probs = [0.0] * (len(surv) + 1); probs[0] = 1.0
+    for s in surv:
+        nxt = [0.0] * (len(surv) + 1)
+        for i, pr in enumerate(probs):
+            if pr: nxt[i] += pr * (1 - s); nxt[i + 1] += pr * s
+        probs = nxt
+    return sum(probs[:k + 1])
+for hz in (0.001, 0.002, 0.005, 0.01, 0.02, 0.05):
+    surv = [(1 - hz) ** e for e in exposures]
+    print(f'| {hz:.1%} | {sum(surv):.2f} | {9*(1-hz)**70:.2f} | {p_at_most(0, surv):.1%} | {p_at_most(1, surv):.1%} | {p_at_most(2, surv):.1%} |')
+
+# ---------------------------------------------------------------- 12. free-agent stock and flow
+h('12. Free-agent pool — cumulative supply vs newly released, with and without rival capacity growth')
+print('Facts at 592e926: each rival staffs exactly six roles (RIVAL_TEAM_ROLES, hollywoodStartingData.ts:46); when no free agent of a role exists')
+print('the rival MINTS a new person (hollywoodTick.ts:120-124), so supply is not fixed and minting stops while the pool holds that role.')
+print('Model (PROVISIONAL): pool = people released by closures that no surviving studio has re-hired; demand = 6 × active rivals + player roster (assume 12).\n')
+print('| Active rivals | Closures so far | Newly released by those closures | Rival demand (6 each) | Demand with capacity growth (+2 roles per survivor per decade after 1970, capped +6) | Idle pool if nobody is re-hired |')
+print('|---|---|---|---|---|---|')
+for active in (9, 6, 4, 2, 1):
+    closures = 9 - active; released = 6 * closures
+    growth = min(6, 2 * 3)  # illustrative: three decades of growth by ~2000
+    print(f'| {active} | {closures} | {released} | {6*active + 12} | {(6+growth)*active + 12} | {released} (a stock, drained only by hires) |')
+print('\nA snapshot of vacancies vs people says nothing about collapse: the pool is a stock; minting stops; salaries are set by the offer law, not by pool size.')
+
+# ---------------------------------------------------------------- 13. window taper + saturation hand-off
+h('13. Market pressure from one release — taper hands off to the saturation stock (no double counting)')
+print('Rule (PROVISIONAL): a release is counted in exactly one lane at any week. Window lane [R, R+4): 1.00 / 0.55 / 0.55 / 0.20.')
+print('At R+4 the release leaves the window and ENTERS the stock at its last taper weight (0.20), decaying with a 13-week half-life, retired at R+26.\n')
+print('| Week offset | Window lane | Stock lane | Total pressure from this release |')
+print('|---|---|---|---|')
+taper = {0: 1.00, 1: 0.55, 2: 0.55, 3: 0.20}
+tot_exposure = 0.0
+for d in list(range(0, 8)) + [13, 17, 25, 26]:
+    wl = taper.get(d, 0.0)
+    sl = 0.20 * 0.5 ** ((d - 4) / 13) if 4 <= d < 26 else 0.0
+    tot_exposure += wl + sl if d < 8 else 0
+    print(f'| R+{d} | {wl:.2f} | {sl:.3f} | {wl + sl:.3f} |')
+full = sum(taper.values()) + sum(0.20 * 0.5 ** ((d - 4) / 13) for d in range(4, 26))
+print(f'\nTotal exposure-weeks per unit contribution = {full:.2f} (window {sum(taper.values()):.2f} + stock {full - sum(taper.values()):.2f}); a release never appears in both lanes in the same week.')
+print('Two releases in one batch: each sees the other at weight 1.00 and never itself (self-exclusion); the order inside the batch cannot matter because the batch is frozen before either is assessed.')
