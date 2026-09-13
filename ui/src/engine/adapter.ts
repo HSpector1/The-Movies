@@ -905,15 +905,14 @@ function managedProductionBoardCard(state: GameState, production: Production): P
     const target = PRODUCTION_PHASE_LABEL[workflow.blocker.targetPhase]
     blocker = {
       kind: 'set-unavailable',
-      headline: `${target} held — nothing to shoot on`,
-      // "A stage is free" is literally true at this state and not a softener: the
-      // engine raises this arm ONLY after it has seen a free stage, and raises
-      // `facility-capacity` when it has not.
+      headline: `${target} held — set check pending`,
+      // This blocker records the last allocation attempt. Construction can
+      // finish later in that same tick; presentation must not call the new set absent.
       detail:
-        'A stage is free, but there is no set standing on it that this picture can use. Commission or repair a set at the Scenery Shop; the picture will try again next week.',
+        'No usable standing set was available at the last production check. Inspect the current sets at the Scenery Shop. After a suitable set is ready, advance the week to check again.',
       consequence: PRODUCTION_HOLD_CONSEQUENCE,
     }
-    statusLabel = 'Waiting for a set'
+    statusLabel = 'Held for a set check'
   } else if (task?.status === 'unassigned') {
     blocker = {
       kind: 'director-dispatch',

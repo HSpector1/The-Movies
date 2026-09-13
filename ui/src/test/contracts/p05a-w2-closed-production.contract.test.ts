@@ -276,7 +276,7 @@ describe('P05A W2 — closed operational states across the lifecycle', () => {
     const row = rowOf(managedSnapshot(state), journey.productionId!)
     expect(row.operationalState).toBe('resource-wait')
     expect(row.blockerAnatomy?.kind).toBe('set-unavailable')
-    expect(journey.headline).toBe('WAITING FOR A STANDING SET')
+    expect(journey.headline).toBe('PRODUCTION HELD — SET CHECK')
     expect(journey.whyItMatters).toMatch(/countdown is held; payroll and studio overhead continue/)
     expect(journey.waiting?.untilWeek).toBeNull()
     expect(journey.waiting?.reason).toContain('Production Details')
@@ -285,6 +285,33 @@ describe('P05A W2 — closed operational states across the lifecycle', () => {
     expect(row.blockerAnatomy?.remedies.filter((route) => route.kind === 'open-scenery-shop'))
       .toEqual([{ kind: 'open-scenery-shop', label: 'Browse the set catalogue', setId: null, holderId: null, freesInWeeks: null }])
     expect(JSON.stringify(state)).toBe(before)
+
+    // Completion follows allocation in the normal tick. The saved blocker
+    // remains until another tick; copy must not claim the just-built set is absent.
+    const stageId = 'facility-soundstage-07'
+    state = applyActions(state, [{ kind: 'commissionSet', commission: { blueprintId: 'set-house-generic', stageFacilityId: stageId } }])
+    const setId = state.sets.find((set) => set.status === 'under-construction')!.id
+    state = advance(state, 3)
+    const completedBefore = JSON.stringify(state)
+    const completedSet = state.sets.find((set) => set.id === setId)!
+    expect(completedSet.status).toBe('standing')
+    const completedRow = rowOf(managedSnapshot(state), journey.productionId!)
+    const completedJourney = firstFilmJourney(state)
+    expect(completedRow.operationalState).toBe('resource-wait')
+    expect(completedRow.blockerAnatomy?.kind).toBe('set-unavailable')
+    expect(completedRow.stateLabel).toBe('Held for a set check')
+    expect(completedRow.blockerAnatomy?.detail).toContain('at the last production check')
+    expect(completedJourney.whatHappened).toContain('at the last production check')
+    expect(completedJourney.waiting?.reason).toContain('After a suitable set is ready')
+    expect(completedJourney.waiting?.untilWeek).toBeNull()
+    expect(completedRow.blockerAnatomy?.remedies.find((route) => route.setId === setId))
+      .toMatchObject({ kind: 'open-set', label: `Inspect ${completedSet.name}`, setId })
+    expect(JSON.stringify(completedRow.blockerAnatomy)).not.toMatch(/Strike |Repair |no usable standing set is mounted/)
+    expect(JSON.stringify(state)).toBe(completedBefore)
+    state = tick(state)
+    expect(workflowOf(state, journey.productionId!).phase).toBe('rehearsal')
+    expect(workflowOf(state, journey.productionId!).bindings?.setId).toBe(setId)
+    expect(rowOf(managedSnapshot(state), journey.productionId!).operationalState).toBe('rehearsal-working')
   })
 
   // A wrapped picture keeps workflow.phase === 'shooting' until a Post slot frees

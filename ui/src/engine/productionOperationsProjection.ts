@@ -306,7 +306,7 @@ function remedyRoutes(remedies: readonly StudioQueueRemedy[]): LotProductionReme
       case 'repair-set':
         routes.push({
           kind: 'open-set',
-          label: `Repair ${remedy.setName}`,
+          label: `Inspect ${remedy.setName}`,
           setId: remedy.setId,
           holderId: null,
           freesInWeeks: null,
@@ -315,7 +315,7 @@ function remedyRoutes(remedies: readonly StudioQueueRemedy[]): LotProductionReme
       case 'strike-and-mount':
         routes.push({
           kind: 'open-set',
-          label: `Strike ${remedy.setName}`,
+          label: `Inspect ${remedy.setName}`,
           setId: remedy.setId,
           holderId: null,
           freesInWeeks: null,
@@ -580,8 +580,8 @@ export function composeClosedProduction(
         workflow,
         {
           kind: 'set-unavailable',
-          headline: 'Waiting for a standing set',
-          detail: 'A stage is free, but no usable standing set is mounted on it.',
+          headline: 'Held for a set check',
+          detail: 'No usable standing set was available at the last production check. Inspect the current sets below. After a suitable set is ready, advance the week to check again.',
           consequence,
         },
         queue,
@@ -670,12 +670,12 @@ export function composeClosedProduction(
       operationalState,
       stateLabel:
         operationalState === 'resource-wait' && workflow.blocker?.kind === 'set-unavailable'
-          ? 'Waiting for a standing set'
+          ? 'Held for a set check'
           : STATE_LABEL[operationalState],
       stateWeeksRemaining,
       nextMilestone:
         operationalState === 'resource-wait' && workflow.blocker?.kind === 'set-unavailable'
-          ? 'Next: a usable standing set'
+          ? 'Next: advance the week for another production check'
           : NEXT_MILESTONE[operationalState],
       worksiteResolution,
       ownedWorksites: owned,

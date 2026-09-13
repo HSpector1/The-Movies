@@ -1010,7 +1010,6 @@ function inProductionView(
   ordinal: number,
   title: string | null,
   command: ProductionOperationsCommand | null,
-  queue: StudioQueueView | null,
 ): FirstFilmJourneyView {
   const phase = productionPhase(state, production)
   const director = talentName(state, production.directorId)
@@ -1048,9 +1047,6 @@ function inProductionView(
   )
 
   if (workflow?.blocker?.kind === 'set-unavailable') {
-    const waiter = queue?.waiters.find(
-      (candidate) => candidate.kind === 'production' && candidate.id === production.id,
-    )
     return {
       stage: 'in-production',
       beat: defaultBeat,
@@ -1058,18 +1054,18 @@ function inProductionView(
       scriptProjectId,
       pictureTitle: title,
       ordinal,
-      headline: 'WAITING FOR A STANDING SET',
-      whatHappened: waiter?.detail ?? 'No usable standing set is available for this picture.',
+      headline: 'PRODUCTION HELD — SET CHECK',
+      whatHappened: 'No usable standing set was available at the last production check.',
       whyItMatters: 'The production countdown is held; payroll and studio overhead continue.',
       detail,
       next: {
         kind: 'advance-week',
-        label: 'Advance the week while waiting for a usable standing set',
+        label: 'Advance the week for another production check',
         site: null,
       },
       waiting: {
         untilWeek: null,
-        reason: 'Review the standing-set guidance in Production Details. The picture remains on hold until a usable set is available.',
+        reason: 'Inspect the current sets in Production Details. After a suitable set is ready, advance the week to check again.',
       },
       blocked: null,
     }
@@ -1327,7 +1323,6 @@ export function firstFilmJourney(state: GameState): FirstFilmJourneyView {
       ordinal,
       title,
       command,
-      queue,
     )
   }
 
