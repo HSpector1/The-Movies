@@ -95,18 +95,19 @@ describe('C2a-M2 — a picture waiting for a set says so', () => {
 
     const board = productionBoard(state)
     const card = board.cards.find((row) => row.productionId === second)!
-    expect(card.statusLabel).toBe('Waiting for a set')
+    expect(card.statusLabel).toBe('Held for a set check')
     expect(card.statusLabel).not.toBe('On schedule')
     expect(card.blocker).not.toBeNull()
     expect(card.blocker!.kind).toBe('set-unavailable')
-    expect(card.blocker!.detail).toContain('Scenery Shop')
+    expect(card.blocker!.detail).toContain('last production check')
     expect(card.boundSet).toBeNull()
 
     render(<ProductionBoard board={board} />)
     const rendered = screen.getByTestId(`production-blocker-${second}`)
-    expect(rendered.textContent).toContain('nothing to shoot on')
-    expect(rendered.textContent).toContain('Scenery Shop')
-    expect(screen.getByTestId(`production-status-${second}`).textContent).toBe('Waiting for a set')
+    expect(rendered.textContent).toContain('last production check')
+    expect(rendered.textContent).toContain('Inspect the current sets')
+    expect(rendered.textContent).toContain('After a suitable set is ready, advance the week')
+    expect(screen.getByTestId(`production-status-${second}`).textContent).toBe('Held for a set check')
   })
 
   it('never renders an engine id or a capability name in the hold copy', () => {
