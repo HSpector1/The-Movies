@@ -1010,6 +1010,7 @@ function inProductionView(
   ordinal: number,
   title: string | null,
   command: ProductionOperationsCommand | null,
+  queue: StudioQueueView | null,
 ): FirstFilmJourneyView {
   const phase = productionPhase(state, production)
   const director = talentName(state, production.directorId)
@@ -1045,6 +1046,34 @@ function inProductionView(
   const workflow = state.operations.workflows.find(
     (candidate) => candidate.productionId === production.id,
   )
+
+  if (workflow?.blocker?.kind === 'set-unavailable') {
+    const waiter = queue?.waiters.find(
+      (candidate) => candidate.kind === 'production' && candidate.id === production.id,
+    )
+    return {
+      stage: 'in-production',
+      beat: defaultBeat,
+      productionId: production.id,
+      scriptProjectId,
+      pictureTitle: title,
+      ordinal,
+      headline: 'WAITING FOR A STANDING SET',
+      whatHappened: waiter?.detail ?? 'No usable standing set is available for this picture.',
+      whyItMatters: 'The production countdown is held; payroll and studio overhead continue.',
+      detail,
+      next: {
+        kind: 'advance-week',
+        label: 'Advance the week while waiting for a usable standing set',
+        site: null,
+      },
+      waiting: {
+        untilWeek: null,
+        reason: 'Review the standing-set guidance in Production Details. The picture remains on hold until a usable set is available.',
+      },
+      blocked: null,
+    }
+  }
 
   // ── P06C Priority Zero (§5): wrapped, waiting for a Post slot ──────────────
   // The resource-release law keeps `workflow.phase === 'shooting'` AFTER the
@@ -1298,6 +1327,7 @@ export function firstFilmJourney(state: GameState): FirstFilmJourneyView {
       ordinal,
       title,
       command,
+      queue,
     )
   }
 

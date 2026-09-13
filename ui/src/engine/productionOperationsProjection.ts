@@ -293,9 +293,11 @@ function remedyRoutes(remedies: readonly StudioQueueRemedy[]): LotProductionReme
   for (const remedy of remedies) {
     switch (remedy.kind) {
       case 'build-blueprint':
+        // These entries open one catalogue; they do not select a blueprint.
+        if (remedy.catalog === 'set' && routes.some((route) => route.kind === 'open-scenery-shop')) break
         routes.push({
           kind: remedy.catalog === 'set' ? 'open-scenery-shop' : 'open-queue',
-          label: remedy.label,
+          label: remedy.catalog === 'set' ? 'Browse the set catalogue' : remedy.label,
           setId: null,
           holderId: null,
           freesInWeeks: null,

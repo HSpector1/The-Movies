@@ -25,8 +25,8 @@ import type {
   ProductionOperationsState,
   StudioLotSnapshot,
 } from '../../lot/snapshot/StudioLotSnapshot.ts'
-import { contendedStudio, freePackage } from '../../../../tests/_m4Fixtures.ts'
-import { advance } from '../../../../tests/contracts/_contractFixtures.ts'
+import { commissionFor, contendedStudio, freePackage } from '../../../../tests/_m4Fixtures.ts'
+import { advance, managedStudio } from '../../../../tests/contracts/_contractFixtures.ts'
 
 const POST_FACILITY = 'facility-post-building'
 
@@ -259,6 +259,34 @@ describe('P05A W2 — closed operational states across the lifecycle', () => {
   })
 
   // ── P06C Priority Zero (§5): rail ↔ guidance-card state agreement ──────────
+  it('keeps the memo on the exact standing-set blocker and offers one catalogue destination', () => {
+    let state = managedStudio('playability-standing-set-guidance')
+    state = applyActions(state, [{ kind: 'commissionScript', project: commissionFor(state, 0, 0) }])
+    state = tick(state)
+    const projectId = state.scriptDevelopment.projects[0]!.id
+    state = applyActions(state, [{ kind: 'acceptScript', projectId }])
+    state = applyActions(state, [{ kind: 'greenlightScriptProject', production: freePackage(state, projectId) }])
+    for (const set of state.sets.filter((candidate) => candidate.status === 'standing')) {
+      state = applyActions(state, [{ kind: 'strikeSet', setId: set.id }])
+    }
+    state = advance(state, 3)
+    const before = JSON.stringify(state)
+    const journey = firstFilmJourney(state)
+    expect(journey.productionId).not.toBeNull()
+    const row = rowOf(managedSnapshot(state), journey.productionId!)
+    expect(row.operationalState).toBe('resource-wait')
+    expect(row.blockerAnatomy?.kind).toBe('set-unavailable')
+    expect(journey.headline).toBe('WAITING FOR A STANDING SET')
+    expect(journey.whyItMatters).toMatch(/countdown is held; payroll and studio overhead continue/)
+    expect(journey.waiting?.untilWeek).toBeNull()
+    expect(journey.waiting?.reason).toContain('Production Details')
+    expect(journey.next?.kind).toBe('advance-week')
+    expect(JSON.stringify(journey)).not.toMatch(/Pre-production continues|picture is due/)
+    expect(row.blockerAnatomy?.remedies.filter((route) => route.kind === 'open-scenery-shop'))
+      .toEqual([{ kind: 'open-scenery-shop', label: 'Browse the set catalogue', setId: null, holderId: null, freesInWeeks: null }])
+    expect(JSON.stringify(state)).toBe(before)
+  })
+
   // A wrapped picture keeps workflow.phase === 'shooting' until a Post slot frees
   // up. The rail reads that as 'wrapped-waiting-for-post' (POST · WAITING); the
   // guidance card (firstFilmJourney) must speak the SAME current truth for the
