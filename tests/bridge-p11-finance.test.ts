@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {beginFoundingHistoricalControl} from '../src/core/employment.js'
 import { financeProjection } from '../bridge/finance.ts'
+import { financialConsequence } from '../bridge/finance-consequence.ts'
+import { campaignDate } from '../src/core/calendar.ts'
 import { peopleProjection } from '../bridge/people.ts'
 import { BRIDGE_SCHEMA, PROTOCOL_VERSION, SCHEMA_ID } from '../bridge/protocol.ts'
 import { parseWireValue } from '../bridge/schema/runtime.ts'
@@ -86,6 +88,26 @@ function expectSameGameAndSave(session: BridgeSession, before: ReturnType<Bridge
   expect(after.stateRevision).toBe(before.stateRevision)
 }
 
+describe('Playability financial consequence calendar disclosure', () => {
+  for (const [week, from, to] of [
+    [19, '1920 · Week 20', '1920 · Week 21'],
+    [51, '1920 · Week 52', '1921 · Week 1'],
+    [52, '1921 · Week 1', '1921 · Week 2'],
+  ] as const) {
+    it(`uses the same calendar as the clock at absolute week ${week}`, () => {
+      let state = generateWorld('playability-financial-calendar')
+      while (state.market.tick < week) state = tick(state)
+      const before = stableStringify(state)
+      const consequence = financialConsequence(state, state)
+      expect(consequence.currentBasis).toBe(`After committing now; next advance ${from} → ${to}. Current contracts, operational facilities and already-active theatrical receipts only.`)
+      expect(consequence.cashBefore).toBe(state.studio.cash)
+      expect(consequence.cashAfter).toBe(state.studio.cash)
+      expect(consequence.immediateCashChange).toBe(0)
+      expect(stableStringify(state)).toBe(before)
+    })
+  }
+})
+
 describe('P11 construction financial consequence over the real bridge', () => {
   for (const blueprintId of ['development-casting-annex', 'development-office-2']) {
     it(`${blueprintId}: retains pennies, charges once now and introduces Opex only after completion`, () => {
@@ -101,6 +123,7 @@ describe('P11 construction financial consequence over the real bridge', () => {
       expect(quote.ok).toBe(true)
       expect(quote.financial).not.toBeNull()
       const financial = quote.financial!
+      expect(financial.currentBasis).toContain(`next advance ${campaignDate(state.market.tick).label} → ${campaignDate(state.market.tick + 1).label}`)
       expect(financial.cashBefore).toBe(state.studio.cash)
       expect(financial.cashAfter).toBe(state.studio.cash - quote.cost)
       expect(financial.immediateCashChange).toBe(-quote.cost)

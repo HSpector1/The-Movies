@@ -1,6 +1,7 @@
 import type { GameState } from '../src/core/types.ts'
 import { financeOverview } from '../src/core/financeReport.ts'
 import { guaranteedComp } from '../src/core/employment.ts'
+import { campaignDate } from '../src/core/calendar.ts'
 
 /** The owning action supplies a discarded successor. Finance never commits it. */
 export function financialConsequence(before: GameState, after: GameState, later?: { state: GameState; beginsWeek: number; label: string }) {
@@ -14,7 +15,7 @@ export function financialConsequence(before: GameState, after: GameState, later?
     weeklyPayrollChange: next.weeklyPayroll-current.weeklyPayroll,
     netWeeklyCashflowBefore: current.netWeeklyCashflow, netWeeklyCashflowAfter: next.netWeeklyCashflow,
     runwayAfter: next.runwayLabel, guaranteesBefore: guarantees(before), guaranteesAfter: guarantees(after),
-    currentBasis: `After committing now; next advance Week ${before.market.tick} → ${before.market.tick+1}. Current contracts, operational facilities and already-active theatrical receipts only.`,
+    currentBasis: `After committing now; next advance ${campaignDate(before.market.tick).label} → ${campaignDate(before.market.tick + 1).label}. Current contracts, operational facilities and already-active theatrical receipts only.`,
     laterBeginsWeek: later?.beginsWeek ?? null,
     laterOperatingCost: future?.weeklyOperatingCost ?? null, laterNetWeeklyCashflow: future?.netWeeklyCashflow ?? null,
     laterRunway: future?.runwayLabel ?? null,
