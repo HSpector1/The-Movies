@@ -208,11 +208,13 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
         ? `Research is complete. Synchronized dialogue is ready on ${operational.map(adoption => `${name(adoption.stageFacilityId)} + ${name(adoption.postFacilityId)}`).join('; ')}. Select an operational chain before the production enters the filming phase, when its technology locks before the first take.`
         : physical.length > 0 ? 'Research is complete. The committed physical installation must finish before synchronized dialogue is available.'
           : 'Research is complete. Physical installation is the remaining capability gate.'
-      : quote?.bottleneck ?? (instrumentsOperational
+      : project?.status === 'cancelled' && quote?.bottleneck === 'Research is paused. Verified work is retained.'
+        ? 'Research is cancelled. Verified work is retained for a later restart.'
+        : quote?.bottleneck ?? (instrumentsOperational
         ? 'Acoustic instruments are operational. Assign one Scientist before research can begin.'
         : 'Assign one Scientist and install acoustic instruments before research can begin.'),
     estimateLabel: project?.status === 'completed' ? `Research completed ${campaignDate(project.completedWeek!).label}. No further research project is currently available.` : estimate?.remainingWeeks !== null && estimate?.remainingWeeks !== undefined
-      ? `${project?.status === 'active' ? 'At current funding' : 'If resumed now'}: ${estimate.remainingWeeks} funded weeks remain; estimated research completion ${campaignDate(state.market.tick + estimate.remainingWeeks).label}. Physical installation follows separately.`
+      ? `${project?.status === 'active' ? 'At current funding' : project?.status === 'cancelled' ? 'If restarted now' : 'If resumed now'}: ${estimate.remainingWeeks} funded weeks remain; estimated research completion ${campaignDate(state.market.tick + estimate.remainingWeeks).label}. Physical installation follows separately.`
       : `No completion estimate while prerequisites are blocked. Research opens ${campaignDate(SYNCHRONIZED_SOUND.researchableWeek).label}.`,
     progressLabel: project ? `${project.verifiedWork} of ${SYNCHRONIZED_SOUND.work} verified units · ${project.status}. Verified work survives cancel and restart.` : `${SYNCHRONIZED_SOUND.work} verified units are required for synchronized sound. Research has not begun.`,
     provenanceLabel: project?.completedWeek !== null && project?.completedWeek !== undefined
