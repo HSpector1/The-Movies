@@ -53,3 +53,6 @@ __pycache__/
 # script is the artifact worth keeping and a 238KB blob is not.
 m5-playtest-pressure.json
 m5-playtest-wrap.json
+
+# Disposable generated Playability review fixtures; generator and provenance are retained separately.
+artifacts/playability-interaction-01/
