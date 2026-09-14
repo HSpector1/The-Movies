@@ -4,10 +4,11 @@
 > `docs/engineering/playability-launch-review/06-FABLE-ADOPTION-AND-FRESH-SESSION-HANDOFF.md`
 > before assigning work. The latest explicit Owner/Current Ops order and its local transfer
 > receipt govern scope, actual source/build identities, cumulative usage and ownership.
-> Current disposition is OPS-PLAYABILITY-DELIVERY-REVIEW-20260914-03: preserve Build46 as a
-> qualified engineering checkpoint; native stale refusal is a declared residual, not a pass.
-> The outgoing task is authorized only for its bounded configuration/documentation/yield work.
-> No replacement launch, native testing, new audit or specialist dispatch follows automatically.
+> Current disposition is OPS-R3-N1-EXECUTE-20260914-01: R3-N1 delivered as a labelled PARTIAL
+> engineering increment at Unity 7471d24 / Build47 (see the R3-N1 execution record atop 06); the
+> compact inspector (D-1), native pass, GUI PlayMode and UX-STALE-NATIVE-01 remain open. Build46
+> stays the last qualified checkpoint; native stale refusal is a declared residual, not a pass.
+> No further implementation, native input, new audit or specialist dispatch follows automatically.
 > A fresh coordinator must explicitly accept the recorded writer/input handoff and reconcile
 > authority, remaining scope and budget before implementation; desktop availability is separate.
 > Historical M0A/marathon scope and the unconditional old build-contract rule below do not

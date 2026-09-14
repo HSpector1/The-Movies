@@ -1,3 +1,154 @@
+# R3-N1 execution record — 2026-09-14 · OPS-R3-N1-EXECUTE-20260914-01
+
+**R3-N1 IMPLEMENTED AS A LABELLED PARTIAL ENGINEERING INCREMENT — NOT N1 COMPLETION. CANDIDATE REVIEW READY; NATIVE INPUT NOT ADMITTED.**
+This section sits above the successor readiness record (S1–S7, unchanged) and the historical text. It is the one
+evidence-linked record of the restarted coordinator's acceptance, the released increment, its actual verification,
+charges, remaining coverage and the next-stage recommendation. Nothing here starts a later package, native input, a
+PR/merge or a protected promotion. Private identifiers stay in this worktree's Git-private
+`fable-local-transfer-20260914-01/r3n1-session-acceptance-local.json` and `r3n1-ledger-local.json`.
+
+## R1. Acceptance, actual session and registry
+
+- Continuation accepted from the S1–S7 header (TS `31f6e70d558c16be17d547f316adbea84e4a765e`) and the private successor
+  acceptance of `2026-09-14T17:02:49Z`; that home-launched session is superseded. Order packet `FABLE-R3-N1-EXECUTION`
+  verified (SHA256SUMS 5/5; packet 01 == Git blob `a521b6345e4bdf71aa5810458ad2ca3087fd7818` at `0728477a`).
+- **Actual session:** started `2026-09-14T17:18:41Z` from the TS worktree with
+  `claude --dangerously-skip-permissions --settings '{"disableAllHooks":true}' --add-dir <Unity>`; CLI 2.1.270;
+  runtime model **`claude-fable-5-1` (Fable 5.1)** = the Owner's saved default, no override, no Opus/manual substitution;
+  bypass permissions as the Owner selected; hooks disabled by flag and absent by configuration; effort set to ultracode by the
+  Owner but **the Workflow tool was not used** (FABLE-COORDINATOR forbids dynamic workflows; the order caps two named
+  specialists; no swarm). Owner direction received mid-session and applied: every subagent runs Opus or lower; Fable only
+  orchestrates.
+- **Registry:** the harness listed all six custom roles at start (contract-auditor, instrumentation, sim-core, test-author,
+  uiux-designer, unity-ui); profiles on disk unchanged; validator/probe/smoke and F-A/F-B/F-C not repeated. Actual specialist
+  models remain CONFIGURED ALIAS / NOT EXPOSED (unity-ui = opus, test-author = sonnet by profile).
+- **Ownership:** coordinator/integration owner = this session; production writer = unity-ui (two dispatches, sequential);
+  test owner = test-author (disjoint test paths); native-input slot held by the coordinator, **not admitted** (no explicit
+  current desktop availability exists in the order or the prompt); existing designer retains ownership (no uiux-designer
+  dispatched). At most one specialist ran at a time (Unity holds a project lock).
+
+## R2. Source uptake completed (exact files, HYBRID confirmed)
+
+R3 archive (Desktop verified root): README, DESIGN, REVIEW, WALKTHROUGH, PROVENANCE, package-manifest.json,
+source-reuse.json, evidence/candidate-repairs.json, evidence/candidate-controls.json, index.html, backlot.js,
+movie-cards.js, lot.js/data.js (partial); previews 01-mature-annotated, 02-early, 03-selected, 04-waiting, 05-busy,
+06-small-enlarged, 07-small-waiting, rail-hybrid. Back/focus repair inspected in `movie-cards.js` (`snap()`, `go()`,
+`back()`, `restoreUI()`: trail of both rail offsets, body offset, filters, Find text and invoking focus; a missing record
+never substitutes a neighbour). Authority read: FABLE-COORDINATOR, SOURCE-INDEX, TASK-TEMPLATE, setup/smoke receipts,
+06 S1–S7 + continuation update, issued04 §3–§7, later05 §5–§6, Owner selection, Owner clarification (memo grep).
+
+## R3. Gates and checks — facts
+
+| Gate | Finding |
+|---|---|
+| WIRE-1 | Satisfied by existing DTO fields: roster rows/counts (`population`, `nameShared`, `canLocate`, `currentWork`, `availability`), presence (`talentId` join, `activity`/`workTitle`/facility), `productionOperations` (`operationalState`, `attention`, `stateLabel`, `facilityLabel`, `locationBuildingId`, `companyMembers`, `blocker`/`blockerAnatomy` headline+detail+remedies, `stateWeeksRemaining`), development projects, `releaseResults`. **No wire delta proposed.** DTO blob `9420d5ef…` identical on both sides; schema `sha256:e64a3b65…`; `dist/studio/engine.mjs` `af1e8897…` unchanged; `npm run check:bridge-contract` verified. |
+| DATA-1 | Measured on the admitted fixtures through the wire roster: early wk12 0 employed; native-casting-clean-run13 wk15 2/0; native-performance-316-01 wk316 **7 employed / 1 production** (development-working); f2-set-blocker-01 wk330 **7 employed / 1 production** (`resource-wait`, `warning` — a genuine waiting picture); native-performance-6240-01 0 employed. No duplicate employed names, no employed-without-presence rows. A lawful `signContract` loop from wk316 reaches 50 employed in 13 weeks at −$3.0M cash (no-hard-bankruptcy law lets it continue); with a $1.5M signing floor 39 employed, still negative within 13 weeks under payroll. **40+/20+ is not available lawfully and solvently from existing fixtures; nothing was generated or mutated.** Bounded generator proposal in R7. |
+| D-1 | R3 supplies the compact inspector at 1440×900/100 % (03/04) and 1280×720/Enlarged (07) only; missing the 150 % state, 1280×720/100 %, 1440×900/200 % and the corner-tool/global-tool occlusion rule (REVIEW.md names it open). **The compact overlay was not implemented**; inspection reuses the existing full-screen Profile/Production/Result workspaces with retained-context Back — a labelled partial. |
+| Layout | The current left edge is the full-height journey memo (`WorkflowPanelRect` 18..418 base, default visible) with real next-step intents; R3 never shows it. Coexistence law implemented: the employees rail owns the left edge, the memo slides right keeping 400·s where room exists, the BUILD chip follows. Lot centre (paper): **≈316 px @1280×720, ≈436 px @1440×900 at every text size** (716 @1720×1045, 882 @1920×1080). First critique item. |
+| Native | Not admitted (no explicit desktop availability). Proof plan drafted (`r3n1-native-plan.jsonl`, scratchpad copy in the Git-private dir) — not executed. UX-STALE-NATIVE-01 remains a declared residual. |
+| PlayMode | Headless batch editor has no graphics device: `StudioProductionAndCampaignLayoutTests` class run 9/15 twice (6 failures all `No graphic device is available`, including 5 untouched tests). Full batch suite: 192/202 passed, 10 failed — every failure environment-bound (the four memo-geometry tests state "Run this real IMGUI test with a rendered GameView, without -batchmode or -nographics"; the layout tests report "No rendered rect …" / no Repaint; one SetUp "No graphic device"); `r3n1-01/playmode-full-batch-01.{xml,log}` (pre-increment batch baseline 77/79 with two known batch-only failures). The 195-test GUI PlayMode pass needs the Editor window = desktop → **held with the native gate**. |
+| HUD marque | The native HUD has no studio-name/timeline marque (living-time chip only) → nothing to overlap in N1; R3-7 stays S2. |
+
+## R4. Delivered increment — exact identities and changed paths
+
+| Identity | Value |
+|---|---|
+| TS | `31f6e70d558c16be17d547f316adbea84e4a765e` (no production edits; engine bundle unchanged) → documentation descendant the commit that carries this record (see Git) (this record) |
+| Unity | base `e8c59d8672b6e32de73ed10628abeff49bc1a95e` → **`7471d243ba8fb688858f5658580d2a0b39600d7d`** on `wip/playability-interaction-01-client` (12 commits: 8 production by unity-ui `54f729f..ddeb11b`, 4 tests by test-author `9a94080..7471d24`); pushed fast-forward to `origin` (no force; no protected ref) for handoff/seal |
+| Paired contract seal | **PASS** — TS `Evidence/Playability-Interaction-01/entry/paired-verifier-interaction-42.json`: seal mode, protocol 4 / projection 30 / schema `sha256:e64a3b65…`, generated contract `ad7d522f…`, DTO blob `9420d5ef…` on both sides, TS `31f6e70d` ↔ Unity `7471d24` (both refs read from `origin`) |
+| Build47 | **Build47** — `Builds/macOS/Project Studio Visual Spike.app` built `2026-09-14T19:01:53Z` by `StudioPlayabilityBuildAdmission.VerifyAndBuildMacOS` (log `interaction-build-47.log`, evidence `interaction-build-47/`); executable sha256 `efbaafc95c99ca4242c9d498e1cc2cefaa391936e51c37f5a3396e08ba7e65d4`; Assembly-CSharp `9da422a33fcf71de6e40c5c88192ef6fb438778e87975adc9b5ad74fe66c2b09`; manifest sha256 `ec9504229cb7cb9c15c01ae57de253812399e7a02e00e513c472d64e1054d13b` binding Unity `7471d24` / TS `31f6e70d` / engine `af1e8897…` / worker `807f28a6…` / worker-source `81c8323b…`; cold-import admission clean (128 meshes, empty failed-dependency intersection), scene validation clean; admission record `interaction-native-admission-38.json` PASS (build 47, pair 42). **Not launched; no native input.** As with every prior increment the player bytes in `Builds/macOS` now belong to Build47; Build46 stays preserved in the Desktop package `Playability-Candidate-20260913-01` and its own admission/manifest records |
+| Assets | six 2D stage-object sprites `Assets/Studio/UI/Resources/StageObjects/{writing,casting,shooting,post,release,library}.png` (156×156, rsvg-convert 2.62.3 from R3 `art/*.svg`; PROVENANCE.md with SVG sha256s; no Lionhead pixels/fonts; separate from 3D lot geometry; S5's `Art/StageObjects` locator resolved to Resources because IMGUI loads by `Resources.Load`) |
+
+Changed Unity paths: `Runtime/Infrastructure/{StudioPeopleRailContracts, StudioMovieRailContracts (additive), StudioMovieSlateContracts (additive), StudioRailReturnContracts (new), StudioBridgeClient (WorkflowPanelRect only)}.cs`;
+`Runtime/Presentation/{StudioPeopleRailHud, StudioProductionRailHud, StudioRailReturnContext (new), StudioBuildCommandHud (chip left/width), StudioHud (one direction-aware line in the receipt's Avoid law)}.cs`;
+`Runtime/Presentation/UI/StudioProfileWorkspaceContext.cs` (`ProfileOrigin.PeopleRail`); stage sprites + metas + PROVENANCE; tests
+`Tests/EditMode/{StudioRailReturnContractsTests, StudioPictureCardContractsTests, StudioEmployeesRailContractsTests}.cs` (new) and
+`{StudioProductionRailTests, StudioMovieRailContractsTests, StudioMovieSlateContractsTests, StudioRailScrollOwnerTests}.cs` (extended);
+`Tests/PlayMode/StudioProductionAndCampaignLayoutTests.cs` (one method: superseded Tab-order assertions + roster fixture rows).
+Not changed: `StudioWorkspaceHost*.cs`, camera/input owners, DTOs, schema, campaigns, launcher, package roots, historical evidence.
+
+**Behaviour delivered (source-level; EditMode-proved; not natively observed):** employees rail LEFT from `roster.rows` where
+`population == employed` in wire order, header = `counts.employed`, profession tabs + name/label/id search, placeholder
+monogram portrait slot (labelled), status = the wire's own `currentWork`/`availability` words with optional same-snapshot
+presence activity, no cap (bounded drawing, per-snapshot profile/presence index), no Locate on rows; pictures rail RIGHT as
+HYBRID cards (stage sprite + wrapping title + stage word from the existing lifecycle vocabulary + `stateLabel`/attention
+state; waiting shows the wire blocker headline; unknown lifecycle → explicit "UNKNOWN STAGE" card, never Writing); phase
+track and section bands removed; filter (Active/Decisions/Waiting/stages/Library), Find (title or id), visible range,
+inert boundary paging, library toggle; body click/Enter = inspect through the existing owners, Locate only via the explicit
+zone; both-rail return context (offsets, filter, search, selection, invoking focus) captured on hide and restored on show
+when the owner (client/session/runtime/replacement) matches, clamping only on shrink, dropping missing targets, never a
+neighbour; `ProfileOrigin.PeopleRail` closes to the lot; keyboard Tab/Shift+Tab/Enter/Space/PageUp/PageDown/Home/End/
+Escape/Left-Right; rail widths fixed to the viewport (R3 258/236 and 286/268 × viewport scale), type/rows/cards reflow at
+100/150/200 %; element-map names for every control; memo/BUILD coexistence; selection receipt dodge made direction-aware.
+
+**Verification actually run:** EditMode whole platform 1428/1428 at `ddeb11b` (writer run 07) and **1515/1515** at `7471d24`
+(test-author full run; +87 requirement-derived tests, 0 production defects found); targeted runs 104/104 and 130/130; zero
+`error CS` in every log. Logs/xml under Unity `Evidence/Playability-Interaction-01/r3n1-01/` (gitignored; writer-report.md,
+test-report.md). PlayMode: see R3. TS suite not rerun (no TS change; contract sync verified).
+
+## R5. First product critique — R3-N1 against the connected task (from committed laws and paper geometry; not a native observation)
+1. **The journey memo squeezes the lot.** Employees (236/258) + memo (400) + pictures (268/286) leave ≈316 px of lot at
+   1280×720 and ≈436 px at 1440×900. "The studio lot is the primary game surface" is not honoured on the 1280 class. The memo
+   is the film-journey family's surface (S3/designer); R3 shows no memo. Needs a designer disposition (fold notices/next-step
+   intents into the HUD or a collapsible strip) or a minimum-viewport statement. Not hidden, not resolved in N1.
+2. **Inspection still hides both rails** (full-screen workspaces with scrim). The selected experience is a compact overlay
+   with both rails alive — held on D-1. N1 is PARTIAL by the order's own definition.
+3. **Screenplay cards have no inspector**; they only select/Locate Development/Casting. Film-journey family (S3).
+4. **Placeholder portraits** (initial monograms, labelled). Portrait proof (S6) unchanged.
+5. **UNKNOWN STAGE cards** replace the old withhold-status-unavailable presentation (vocabulary is closed on the TS side, so it
+   should never occur in a paired build); confirm intent.
+6. **Density.** No lawful admitted fixture lets the pictures rail scroll; "both rails at nonzero offsets" is satisfiable only
+   for employees (7 rows scroll at 1280×720 and at 150/200 %). DATA-1 (R7).
+7. **Keyboard.** Up/Down row navigation absent: the camera owns the arrows; needs an input focus gate (S2 R3-1).
+8. **Typography.** 14 px bold card titles (R3) are smaller than the pre-R3 18 px; no letter tracking in IMGUI; at 200 % in a
+   236/268 px rail names wrap to 2–3 lines and titles ellipsise after ~12 characters (tooltip carries the full title).
+   One token change if the Owner prefers the larger title.
+Native watch items from the writer: one-frame memo geometry staleness on rail show/hide (OnGUI ordering); possible focus
+flicker on the Find toggle frame; wheel/camera containment, click-through, repeated input, live updates while scrolled.
+
+## R6. Charges — this increment, charged once, and cumulative
+| Item | Value |
+|---|---|
+| Session clock (charged once; specialist wall-clock overlapped, never summed) | start `2026-09-14T17:18:41Z` → capability/reserve boundary `2026-09-14T18:31:19Z` (production writing complete at `ddeb11b`) → ledger stamp `2026-09-14T19:03:41Z` |
+| This increment — capability | **72.633 min = 1.211 h** (target 16 h, hard cap 20 h; 12 h / 16 h fit checks never reached) |
+| This increment — reserve | **32.367 min = 0.539 h** through the ledger stamp (cap 5 h); the closing docs commit/push/read-back tail (≈3 min) is charged once in the final reply and carried by the next session, as S6 did |
+| Readiness charge carried once (order §5) | 5.0 min capability + 11.05 min reserve (S6 14.050 + ≈2.0 tail) |
+| Known cumulative before this increment | capability 1415.666 min; reserve 1123.323 min |
+| Known cumulative after this increment | capability **1488.299 min = 24.805 h**; reserve **1155.689 min = 19.261 h** |
+| Remaining in the issued 72 / 36 envelope | capability **47.195 h**; reserve **16.739 h** (last 6 h protected; below-18 escalation disposed for this increment only) |
+| Remaining in the original 48 / 24 envelope | capability 23.195 h; reserve 4.739 h |
+| Unattributed setup/smoke/helper sessions | **NOT REPORTED, not zero** — separate outstanding line; must be attributed or dispositioned before any final program-fit claim |
+| Specialist usage (informational, not hours) | unity-ui IMPL-01 ≈40.6 min wall / 394k tokens, IMPL-02 ≈8.3 min / 448k cumulative; test-author ≈23.6 min / 269k |
+
+## R7. Remaining coverage, designer delivery, DATA-1 proposal, next stage (deduplicated)
+- **Remaining for N1 itself:** compact overlay inspector (D-1), native pass at 1280×720/1440×900 × 100/150/200 % on
+  f2-set-blocker-01 (waiting picture) and native-performance-316-01, GUI PlayMode (195), UX-STALE-NATIVE-01 on the
+  Schedule-take route, memo disposition, screenplay inspection route, arrow row navigation.
+- **Designer (existing owner, separate from native):** D-1 sheets at the missing states + occlusion rule; film-journey/memo
+  sheet; remaining seven families; portrait/icon/font inventory; the 200 % title-room question.
+- **DATA-1 bounded generator proposal (not executed):** `TS/Evidence/Playability-Interaction-01/entry/generate-r3n1-dense-01.ts`
+  after the `generate-f2-blocker-01.ts` precedent: start from native-performance-316-01, weekly `signContract` on hiring-market
+  candidates only while projected cash stays ≥ N weeks of commitments (solvency rule for Current Ops to dispose), commission
+  screenplays through existing actions up to existing development capacity, stop when capacity or solvency binds, record
+  actual density (expected well under 40/20 while solvent); immutable checkpoint + manifest under `fixtures/r3n1-dense-01`.
+  ≈1.5 h capability. No gameplay-limit change.
+- **Deduct from S2/S6 (delivered by N1):** list-level Tab/Enter/Page keys, filter/find/paging/library controls, both-rail return
+  context, rail text reflow at three sizes, six stage sprites, employee/picture card vocabulary ≈ 5 h capability delivered.
+- **Costed next stage (recommendation, not authorization):** N1-close = D-1 compact inspector 6 h + memo/journey strip 3 h +
+  arrow focus gate 2 h + DATA-1 1.5 h = **12.5 h capability**; verification = native six-run pass + GUI PlayMode + stale-route
+  proof + comparison + critique **5 h reserve**. S2 remainder after deduction ≈ 9 h / 3 h; S3–S7 unchanged from S6
+  (24/6, 10/3, 8/2, 5/2, 0/12). Remaining program ≈ 68.5 h capability / 33 h reserve against the post-N1 remainder
+  in R6 — the S6 fit conclusion (does not fit 72/36) stands; staged authorization still required. The last six reserve hours
+  stay protected.
+
+## R8. Stop state
+Stopped at N1 candidate-review readiness with a real native/design/data block: PARTIAL. Preserved: Build46 package on the
+Desktop, P13A, all campaigns, old evidence, both worktrees (Unity clean at `7471d24`; TS clean at the commit that carries this record (see Git)). No PR,
+merge, protected-ref promotion, hook/goal activation, P13B/P14/P15/P16 coding, global configuration change, or native input.
+Rollback source: Unity `e8c59d86`, TS `31f6e70d`.
+
+---
+
 # Successor readiness record — 2026-09-14 · OPS-FABLE-SUCCESSOR-START-20260914-01
 
 **SUCCESSOR ACCEPTED. READINESS HANDOFF DELIVERED — PARTIAL: SPECIALIST REGISTRY GATE OPEN; IMPLEMENTATION HELD.**
