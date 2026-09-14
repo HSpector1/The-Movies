@@ -1,3 +1,22 @@
+> **CURRENT SCOPE — FABLE CONTINUATION / EXPLICIT HANDOFF GATES**
+>
+> Read `docs/operations/fable-team/FABLE-COORDINATOR.md`, its SOURCE-INDEX, and
+> `docs/engineering/playability-launch-review/06-FABLE-ADOPTION-AND-FRESH-SESSION-HANDOFF.md`
+> before assigning work. The latest explicit Owner/Current Ops order and its local transfer
+> receipt govern scope, actual source/build identities, cumulative usage and ownership.
+> Current disposition is OPS-PLAYABILITY-DELIVERY-REVIEW-20260914-03: preserve Build46 as a
+> qualified engineering checkpoint; native stale refusal is a declared residual, not a pass.
+> The outgoing task is authorized only for its bounded configuration/documentation/yield work.
+> No replacement launch, native testing, new audit or specialist dispatch follows automatically.
+> A fresh coordinator must explicitly accept the recorded writer/input handoff and reconcile
+> authority, remaining scope and budget before implementation; desktop availability is separate.
+> Historical M0A/marathon scope and the unconditional old build-contract rule below do not
+> override current explicit authority. Preserve useful invariants and all historical text.
+> Keep deterministic state, strict contracts, normal permissions and inactive hooks. General
+> orchestration/reverification guidance does not authorize work excluded by the active order.
+> Reuse the existing handoff/coverage board. Preserve the full selected R3/UIUX outcome and
+> remaining P13B -> P14 -> P15 -> P16 gates; research never activates a later package.
+
 # Project Studio — Agent Instructions
 
 > **CURRENT AUTHORITY OVERRIDE — AUTONOMOUS MARATHON BRANCH**
