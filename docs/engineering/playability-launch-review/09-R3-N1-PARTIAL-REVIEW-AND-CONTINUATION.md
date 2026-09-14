@@ -1,0 +1,69 @@
+# Current Ops — R3-N1 partial review and bounded continuation
+
+**2026-09-14 · OPS-R3-N1-CONTINUE-20260914-02**
+
+**KEEP THE SOURCE/BUILD CHECKPOINT. R3-N1 REMAINS PARTIAL; CONTINUATION AUTHORIZED WITH THE LOCAL DESIGN/INPUT GATES BELOW.** This amends issued08, not the whole program. No native session starts by publication. Same Fable coordinator and owned worktrees; no restart, new team or P13B activation.
+
+## 1. Review and recovery identities
+
+Reviewed: The-Movies `afad413727f0370de00f271626221823039867fe`, the new R1–R8 header of `docs/engineering/playability-launch-review/06-FABLE-ADOPTION-AND-FRESH-SESSION-HANDOFF.md`; Unity comparison `e8c59d8672b6e32de73ed10628abeff49bc1a95e` → `7471d243ba8fb688858f5658580d2a0b39600d7d` (12 commits). The record reports Build47, seal42 and admission38, unchanged production TS and DTO. Current Ops read the report and changed-path comparison; it did not run suites, inspect the local XML or render/rehash the local player. Reported environment failures and paper geometry remain labelled as such.
+
+Preserve Unity `7471d243ba8fb688858f5658580d2a0b39600d7d`, TS coordination `afad413727f0370de00f271626221823039867fe`, and any newer lawful work. Build47 executable is reported as `efbaafc95c99ca4242c9d498e1cc2cefaa391936e51c37f5a3396e08ba7e65d4`, built from Unity7471 / TS31f6e70d, not the later documentation commit. Build46's packaged rollback and accepted P13A stay preserved. A build/admission-record PASS is not an observed native interaction or current desktop admission.
+
+Retain the registered six-agent setup, existing specialist profiles, Owner-selected coordinator model/permission choice, disabled hooks and established command/data authority. Do not repeat setup, F-A/F-B/F-C or the original catalogue research. The independent tests are useful; the report's first product critique is SOURCE/PAPER, not the required native product critique. 192/202 batch PlayMode with ten reported environment failures is not a full PlayMode PASS.
+
+## 2. Close the actual N1 gaps, not a smaller substitute
+
+N1 still includes complete employees left, hybrid scripts/movies right, useful lot center, exact inspection of both person and picture, genuine actionable/waiting states, reachable global tools and Back restoring both lists' filter/search/offset/selection/invoking focus. A full-screen workspace fallback may remain an engineering checkpoint; it does not satisfy connected compact inspection.
+
+**D-1 and memo: one bounded design completion, not a new design campaign.** Fable must resolve ownership and obtain the missing compact-inspector/memo/reflow sheet through the existing design owner. If the existing design session is inactive and its files have no writer, Fable may assign the registered uiux-designer as the sole continuation owner for this missing sheet, on explicitly recorded disjoint design paths. This is permission to complete the selected design, not compete with or overwrite another active designer. If another designer owns those files, coordinate the handoff and continue independent input/data work; report the exact blocker rather than silently replace that owner.
+
+The sheet must reconcile the REAL journey memo and BUILD/global controls with the selected rails and inspector at 1280x720 and 1440x900 and 100/150/200% text. Repeated responsive rules may share one annotated state sheet; do not demand six duplicate mockups. Recommend a compact contextual next-action area with an explicitly opened details/memo view instead of a permanent second full-height column. Preserve every lawful next-step route, explanation and consequential review, not necessarily the old panel geometry. No guided tutorial, automatic popups, hidden mandatory commands or new simulation behavior. Do not raise the minimum viewport to avoid the 1280 problem.
+
+The existing paper widths (~316/436px) identify a risk, not a passed or failed native measurement. Demonstrate actual usable center, worksite selection and global-tool access after the change. Do not accept the memo simply shifting sideways as the finished composition.
+
+**Input:** Up/Down moves the focused rail's row cursor; the camera must not react to that same input. Preserve normal camera input when the lot owns focus. Text fields, modal dialogs and workspaces own their appropriate input; keep Tab entry/exit and all auxiliary controls reachable. Do not globally disable camera keys or put this N1 requirement into a later S2 backlog. Add the smallest shared focus gate and targeted regression under the existing client-only input owners.
+
+**Screenplay inspection:** provide exact screenplay/context inspection using existing authoritative development data and lawful existing review routes. Selecting a script must not merely pan to a building without showing which script is being inspected. No new script-generation, editing, hiring or production command is authorized. An unavailable source/unsupported inspection is an explicit dependency, not invented content.
+
+**Text:** the existing readable-rendered-output and 100/150/200% requirements govern, not the prototype's 14px declaration or another Owner font-size preference vote. Preserve complete essential title, state, cost, reason and Back information through reflow and the selected inspection/focus presentation. A mouse-only tooltip carrying the sole full title is not sufficient. Fixed rail widths are acceptable when the resulting native content and interaction pass; do not enlarge rails blindly or shrink required text to fit. No universal readability claim without actual output evidence.
+
+**Unknown lifecycle:** retaining the exact record with an honest unavailable/unknown status is acceptable; do not fabricate Writing, progress or another gameplay stage. Only existing legal inspection may remain available; unavailable stage-dependent actions stay unavailable with a reason. A defensive fallback is not proof that a paired known lifecycle was mapped correctly. Test all expected mappings separately.
+
+## 3. DATA-1 — bounded generator authorized; four-week fixture-only buffer
+
+Authorize one additive test generator at the proposed TS `Evidence/Playability-Interaction-01/entry/generate-r3n1-dense-01.ts`, with its necessary test/provenance files in the existing owned evidence scope. Do not edit src/bridge/ui production, schema, tuning, capacities or the ordinary game policy. Test-author may own this generator; Fable coordinates rather than becoming a second production writer.
+
+Use the already admitted native-performance-316-01 fixture and the existing generator precedent. Use only legal public actions and validated hires/commissions. **For this generator only, N=4:** before each spending action or week advance, require known funds to cover the proposed action, already due commitments, and the next four weeks of currently committed payroll/operating costs. Use existing authoritative prices/finance facts; count no hoped-for unreleased-film proceeds. Also keep cash nonnegative over the actual generated sequence. This is a conservative fixture-construction stop condition, not a new economic or solvency law. Do not create a new forecasting subsystem if those costs cannot be established; report the precise source gap.
+
+Stop at existing capacity, lawful affordability or sufficient overflow. Do not inject cash, manufacture people/films, exceed legal capacity, hide insolvency, or relabel draft scripts as active filming productions. Record actual counts by lifecycle and the visible filter used. Prefer the least expensive legal combination of current script/movie cards sufficient to exercise the rail's overflow, while separately retaining real actionable and waiting production cases. Matching 40/20 is not required.
+
+Record seed/provenance, exact source identities, action sequence and week/cash/cost/capacity checkpoints. Strictly validate and emit a new immutable fixture plus manifest under a uniquely named `fixtures/r3n1-dense-01` output in the already authorized evidence roots; never overwrite an existing fixture. The 1.5h generator estimate is inside N1 capability, not extra time. If the bounded attempt cannot produce lawful two-rail overflow, stop it and report the actual result. Label synthetic UI-layout snapshots as component evidence only; they cannot pass the missing lawful native overflow task.
+
+## 4. Verification and desktop boundary
+
+Non-native implementation, targeted tests, fixture generation and design coordination may proceed within this order without desktop availability. Rendered Editor/GameView and player input require an explicit CURRENT availability statement from Howard and the existing ownership/guard checks. No such statement is inferred from 'all work items complete', permission bypass or this release. An unavailable desktop blocks those runs, not unrelated source work.
+
+Once admitted, run the current applicable rendered PlayMode suite and the source-bound connected N1 task. Preserve the ten batch failures and demonstrate their actual rendered results; do not skip failing tests or hardcode the report's inconsistent 195/202 counts to make a green total. Report actual discovered/executed/passed/failed/skipped cases. A failure that persists in the correct environment is a real unresolved finding.
+
+At supported viewports and text sizes, prove inspection/Back, full titles/reasons, both-list state, keyboard/camera exclusivity, wheel/click-through, repeated input, live updates, Find/focus, ordinary wait and usable center/global tools. Pair47/Build47 records are historical once runtime changes; bind the final new TS/Unity/worker/DTO/assets/build before input. Do not rerun unrelated historical evidence or represent old ACK/storage passes as new measurements. Retain issued08's changed-route and whole-pass performance obligations.
+
+UX-STALE-NATIVE-01 remains unpassed, but no forced race/refusal hunt is required. On the changed commitment route, demonstrate visible invalidation/mandatory fresh review OR genuine lawful refusal, linked to independent command-owner rejection tests; accurately name prevention versus server refusal. Native product critique and eventual Owner acceptance are separate from suites and source review.
+
+## 5. Scope, spending and publication disposition
+
+This is completion of the SAME N1 increment. **Capability maximum remains 20 cumulative N1 hours**, including the reported 72.633 minutes already used, design/source uptake, coordination and fixture work. The proposed remaining12.5h is an estimate, not a fresh allocation; include omitted screenplay/text work and design delivery in the fit check. Retain the cumulative12/16/20h checkpoints from08 and stop before consuming verification reserve for missing capability.
+
+**Increase only N1's cumulative verification/correction/delivery allowance from5h to6h**, carved out of the existing36h whole-pass reserve. There is no increase to the overall72 capability /36 reserve envelope. The report already charged32.367 reserve minutes before its closing tail; that leaves at most327.633min (5.46055h) of the new6h N1 allocation before deducting the closing tail or any later work. The additional1h allocation accommodates the proposed next verification pass without silently treating the first pass as free. Keep at least six hours of the whole-program reserve for final reverify/package/delivery.
+
+Carry all prior charges once, including final publication tails and the outstanding NOT REPORTED setup/smoke line. At the next ordinary ledger update distinguish lead/session elapsed time, productive charging and specialist time: R6 explicitly used an overlapping session clock, whereas earlier records include distinct reviewer charges. Do not silently compare unlike counters or invent precise missing times. Reconcile overlaps from existing retained task intervals only; no private-log archaeology or new accounting campaign. Display remaining balances as provisional where needed.
+
+Accept non-force fast-forward publication of owned WIP refs for source/checkpoint review, after normal status/diff checks. Do not promote protected refs, merge, or change repository visibility. Fixed widths and unknown-status fallback are implementation choices subject to the behavior requirements above; they are not additional Owner votes.
+
+## 6. Return and full-program boundary
+
+Return one compact N1 follow-up: actual source/build/asset identities; design-owner/sheet reference and implemented memo/inspector rule; changed paths; exact test outcomes; admitted fixture counts/provenance; native tasks/captures and critique or specific held admissions; increment/cumulative usage; and remaining full-overhaul coverage. Preserve old partials and failures. Publish only new small text/evidence needed for review on the existing owned documentation/evidence paths; do not republish thousands of historical files or ask for a fresh setup packet.
+
+The registered Fable coordinator remains integration/native-input owner, unity-ui the production writer, and test-author the independent test owner. At most two specialists concurrently on disjoint paths; sequence Unity project-lock tasks. Existing design ownership is handled in section2. No new coordinator, agent benchmark, hook/goal activation, installations or paid/font distribution. No campaign/profile access beyond owned generated test fixtures, no P13A reopening, and no P13B/P14/P15/P16 implementation.
+
+Stop at N1's actual connected native review readiness or the precise design/data/desktop/budget blocker. Do not label a source-only partial N1 complete. The entire remaining UI/UX overhaul is still required; this continuation neither approves the approximate68.5/33 remainder nor removes later screen, art, scaling, help, dragging or history obligations. Return the costed later-stage update after N1 evidence, deducting delivered shared work once.
