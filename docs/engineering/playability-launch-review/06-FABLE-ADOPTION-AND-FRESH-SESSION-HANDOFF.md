@@ -1,3 +1,206 @@
+# Successor readiness record — 2026-09-14 · OPS-FABLE-SUCCESSOR-START-20260914-01
+
+**SUCCESSOR ACCEPTED. READINESS HANDOFF DELIVERED — PARTIAL: SPECIALIST REGISTRY GATE OPEN; IMPLEMENTATION HELD.**
+This section sits above the outgoing local continuation update (below, unchanged) and the historical handoff.
+It is the one evidence-linked successor acceptance/registration/mode/coverage/usage/next-task record the
+launch note ([07 successor launch](https://github.com/HSpector1/The-Movies/blob/8c98eb6cd172b28a43857015381e66627fd011e5/docs/engineering/playability-launch-review/07-FABLE-SUCCESSOR-LAUNCH-01.md))
+required. Nothing here starts implementation, native input, a specialist, a build or a later package.
+
+## S1. Acceptance and actual session observations
+
+- **Successor acceptance recorded at `2026-09-14T17:02:49Z`** by the fresh Fable coordinator session (this is the
+  newly started coordinator, not the outgoing "Read P13A source packet" task, which stays STOPPED). The outgoing
+  writer/native yields of `2026-09-14T15:27:03.274046+00:00` are accepted. Fable is now the sole coordinator/
+  integration owner and custodian of the yielded native-input slot; **no native input was taken and custody is
+  not permission to take desktop input.** Private identifiers stay in this worktree's Git-private
+  `fable-local-transfer-20260914-01/successor-acceptance-local.json`.
+- Packet `FABLE-SUCCESSOR-LAUNCH` verified: six SHA-256 entries OK; both repository documents match their listed blobs.
+- Worktrees observed clean at acceptance: TS `7dfe508bbf6b07d87811be2c48728703e01c0ce0` on `wip/playability-interaction-01-ts`;
+  Unity `e8c59d8672b6e32de73ed10628abeff49bc1a95e` on `wip/playability-interaction-01-client`; documentation
+  `3e04634d41c243d548317b863950e4e5f4f59b26`. `git diff 6e2c2ca1..7dfe508b` names only the 13 configuration/instruction/handoff
+  paths; no gameplay path changed. `Builds/macOS/build-manifest.json` (generated `2026-09-13T21:45:52Z`) still binds Build46 to
+  exactly this TS/Unity pair, executable SHA-256 `caa2bcb6…fd18c`. No index lock, no open handle on the TS worktree, no player or
+  Unity editor process; nine long-running VS Code-extension Claude processes (2.1.269, ≈2.7 days old) exist and were not signalled —
+  no competing writer is evidenced, idleness is not proven.
+- **Actual mode/model/launch — deviations from the launch note, recorded, not hidden.** This session's own process is
+  `claude --dangerously-skip-permissions`, started from **`/Users/bruce`** (harness-reported startup directory), i.e. **bypass
+  permissions, not `--permission-mode manual`**; runtime model **`claude-fable-5-1` (Fable 5.1)**, selected by the Owner with
+  `/model` in this session (which also saved it as the user default, replacing the previously recorded `sonnet`) — the launch note
+  requested alias `opus`; effort set to ultracode by the Owner; no `--settings '{"disableAllHooks":true}'` (no hooks are configured
+  anywhere inspected, so hooks are inactive by absence, not by flag); no `--add-dir` for the Unity counterpart (it was reachable
+  because bypass mode does not enforce directory scope). The TS `CLAUDE.md` preamble (blob `39ce8d1b`) was not auto-loaded and was
+  read manually. Installed CLI `2.1.270` at `/Users/bruce/.local/bin/claude`. The Owner directed reuse of this session; every write
+  below is limited to this handoff path and the Git-private metadata.
+- Not used, by the adopted coordinator contract: dynamic workflows, agent teams, hooks, nested delegation, model substitution.
+
+## S2. Six-role registry — NOT REGISTERED IN THIS SESSION (diagnosed, not fixed)
+
+| Check | Observation |
+|---|---|
+| Runtime registry (Agent tool types listed by the harness at start) | `claude, claude-code-guide, Explore, general-purpose, Plan, statusline-setup` — none of the six |
+| One probe, then stopped | `Agent(subagent_type=contract-auditor)` → `Agent type 'contract-auditor' not found. Available agents: claude, claude-code-guide, Explore, general-purpose, Plan, statusline-setup` |
+| Files at `/Users/bruce/The Movies - Playability Interaction TS/.claude/agents/` | all six present and readable; first line `---`, closing `---` at line 7; `name:` equals file name; models sonnet ×3 / opus ×3; `permissionMode: default` ×6 |
+| Byte identity | each of the six is blob-identical to `a51ebff8…` and to source `22584539…` (e8639772, d97a43f1, 57582a4f, 743ccc77, 6741a4b5, 13c3d74b) |
+| `claude plugin validate "<TS>/.claude/agents"` | `✔ Validation passed` (2.1.270) |
+| Suppression flags | no `safeMode`/`bare`/agent keys in user or local settings; no managed settings file; `~/.claude/agents` does not exist |
+| **Observed cause** | project-local agents are discovered from the session's **startup** project directory; this session started at `/Users/bruce`, whose tree has no `.claude/agents/`; a later shell `cd` does not rescan |
+
+Consequence: **delegation to contract-auditor / instrumentation / sim-core / test-author / uiux-designer / unity-ui is blocked in
+this session; coordinator reading is not.** No general-purpose substitute was used or labelled as a specialist. Effective models
+remain **CONFIGURED ALIAS / ACTUAL MODEL NOT EXPOSED** for all six (the single historical setup invocation is the only runtime
+evidence). Registration is not reported fixed until a runtime actually lists the six names.
+
+**Smallest supported next action (Owner runs once, in a NEW terminal; no second coordinator is spawned by this session):**
+
+```bash
+cd "/Users/bruce/The Movies - Playability Interaction TS" &&
+/Users/bruce/.local/bin/claude --model opus --permission-mode manual \
+  --settings '{"disableAllHooks":true}' \
+  --add-dir "/Users/bruce/The Movies - Playability Interaction Unity"
+```
+
+Then confirm the six names appear in that session's agent-type listing before any delegation. `--model opus` is the launch
+note's requested alias; omitting it now resolves to the user default `claude-fable-5-1[1m]` — the Owner's choice, not the
+coordinator's. This record is already committed, so that session resumes from files, not from this chat.
+
+## S3. F-A / F-B / F-C disposition — coordinator reading, no specialist dispatched
+
+- **F-A (authority/transfer) — answered by coordinator reading.** Received and read: 07 launch note, FABLE-COORDINATOR, SOURCE-INDEX,
+  SETUP/SMOKE receipts, TASK-TEMPLATE, this 06 (all sections), transfer receipt + `transfer-record.json`, review03 §6, plan 00 → 05 →
+  issued 04 → 02 §3/§6, Owner clarification `f2921730` (incl. §8 1A/2B/3A/4B), Owner selection `3aa4bad9`, corrected advisory
+  `ba385410`, R3 README/DESIGN/REVIEW/WALKTHROUGH, previews `01-mature-annotated.png` and `03-selected.png` (opened read-only — the
+  mandatory render uptake is **started, not complete**: index.html/prototype interaction, early/waiting/busy/small views not yet opened).
+  Order, one-writer/one-input-slot, no automatic later coding, adoption mapping, preserved local instructions and the ledger are
+  consistent across these sources. No fabricated yield, model or time.
+- **F-B (employee rail / Back scout) — answered by coordinator read-only source scout at frozen Unity `e8c59d86` / TS `6e2c2ca1`:**
+  - `Assets/Studio/Runtime/Presentation/StudioPeopleRailHud.cs:64-78` still reads `snapshot.people.presence.people`, hides whenever a
+    card/inspection/workspace is open (`Wanted`), passes `StudioPeopleRailContracts.MaximumRows` (=5); it is drawn on the **right**
+    edge under the movie rail (`ComputeRect`), not left. The published presence-gap is unchanged locally; no newer local work implements R3-N1.
+  - **The complete roster already travels on the wire — no new wire contract is needed for the left employee rail.** TS
+    `bridge/people.ts` exports `BridgeRosterSnapshot { rows[], counts{employed,freelancer,known,withAttention} }` with
+    `BridgeRosterRowSnapshot { talentId, name, nameShared, profession, currentWork, availability, status, contractLine,
+    attentionTier, canLocate, population: employed|freelancer|known }`; Unity `Assets/Studio/Runtime/Data/StudioLotSnapshot.cs`
+    already deserializes `StudioRosterSnapshot`/`StudioRosterRowSnapshot`, and the rail HUD reads `snapshot.talent.talent.roster`.
+    `StudioRosterContracts` (Filter{Profession,Availability,AttentionOnly,ContractWithinWeeks,Search,Specialty}, Sort, Apply, Matches)
+    and `StudioRosterWorkspaceContext` (ActiveView, Filter, Sort, SelectedTalentId, ScrollOffset) are reusable owners.
+  - Exact inspection/Back owners: `StudioWorkspaceHost.OpenProfile(talentId[, ProfileOrigin])`, `OpenRoster()`, `OpenProduction(id)`,
+    `CloseWorkspace()/RequestCloseWorkspace()`, `SuspendForLocate(stableId, focus)`; `ProfileOrigin` has World/Roster/History/Commission/
+    TalentMarket/Finance/Industry (no rail origin yet). Rail focus/offset state: `StudioRailKeyboardFocus.Target`, `peopleScroll`,
+    `focusedTarget`; movie rail `selectedAction/focusedAction`, `ItemRects`, `StudioProductionRailContracts.MaximumRows` (=4).
+    Existing tests: EditMode `StudioPeopleRailContractsTests` (10), `StudioProductionRailTests` (4), `StudioRailScrollOwnerTests`,
+    `StudioProductionNavigationTests`, `StudioP10AW3RosterContractsTests`, `StudioRosterOwnerUxWorkspaceTests`, `StudioWorkspaceHostTests` (14);
+    TS `bridge-p10a-w0-people-projection`, `presence-*`, `roster-wall-*`. Text preference already scales rails
+    (`LayoutScale = CurrentScale × StudioTextSizePreference.Multiplier`); HUD/corner scaling unverified.
+- **F-C (native proof plan) — drafted by coordinator from `Tools/playability-native-preview.md/.mjs`:** JSON-line actions observe / shot /
+  click(name) / tap(key) / scroll(name,ticks) / text / finish against **published, enabled** targets (rail targets today:
+  `people-roster-open`, `people-rail-scroll`, `people-profile-<talentId>`, `people-talent-locate`); direct mode admits only
+  `P13_VIEWPORT` `1280x720` / `1440x900` with a bound `build-manifest.json`; larger/Retina/package admission stays governed separately.
+  Assertions for R3-N1: both offsets nonzero before and equal after Back; filter/search text retained; invoking focus target string equal;
+  exact IDs (duplicate-name control); repeat Enter produces one effect; waiting picture shows real cause and no manufactured remedy; centre
+  and global tools clickable after each return; screenshots at both viewports × 100/150/200 %. Requires a newly admitted build, a lawful
+  dense fixture, an explicitly available desktop and HID-guard admission — **all HELD; no test was executed.**
+
+## S4. Coverage register continuation — §7 rows updated (all eight domains remain)
+
+| Domain / J,C | Established now (source-level, frozen pair) | Native / design evidence | Dependency (owner) | Remaining (coordinator ESTIMATE) |
+|---|---|---|---|---|
+| Home/HUD/tracking — J1/J2/J7 | Roster DTO on wire; people rail right/presence/5-cap; movie rail 4-cap, five-icon phase track (`DrawPhaseTrack`); both rails hidden under workspaces; keyboard focus registry shared | R3 previews viewed (2 of 9); native R3-N1 not proved | Compact inspector overlay vs full workspace (existing designer, D-1); stage-art atlas (A-1) | R3-N1 stage S1 below |
+| Film journey — J1/J5 | F1–F3 delivered per 02; waiting-cause/attention fields for pictures to verify on wire at task time | Build46 tests/ACK retained (5273+5 / 1428 / 202) | Per-family rendered layouts (designer); possible one exact wire delta for wait cause (Current Ops disposes) | S3 |
+| People/casting/contracts — J1/J2 | F3/F6 delivered; Roster workspace + Profile origins exist; `nameShared` on wire | none new | Portrait proof (designer/art) | S3, S6 |
+| Buildings/tools/Lab — J3/J4 | F8 delivered; no P13B mechanics | none new | Layout sheets (designer) | S3 |
+| Finance/Industry/records/outcomes — J5 | `StudioHistorySnapshot{timeline,films,people}` and `BridgePeopleAttentionSnapshot` on wire = existing retrievable-history/attention sources for 4B | none new | Inventory outcomes lacking a source (data dependency list) | S5 |
+| Menu/campaigns/settings/help — J6/J7 | F4/F5 delivered; text preference client-session only | Run74/76/78 persistence retained | Per-screen help copy (designer/copy deck P-13) | S5 |
+| Shared controls — J7/C1–C5 | Rail keyboard model exists (Tab/arrows/Enter); 2B routes not started; UX-STALE-NATIVE-01 residual unpassed | none new | Legal-command check per drag route (read-only auditor/sim-core after registry); Current Ops disposes route list | S4 |
+| Visual system/art/readability — all J | Rails scale with text preference; HUD/corner unverified (advisory R3-5); XAG 101 rendered target adopted by 05 | none native | Font/icon availability + fallback tests; portrait finishing (designer); no paid assets | S2, S6 |
+
+Preserved unchanged: R3 HYBRID, people-left/pictures-right/useful-centre, 1A/2B/3A/4B, corrected advisory withdrawals (R3-2 withdrawn;
+R3-3/4/8/9/10 optional), XAG 101 rendered target, no tutorial, attention ≠ history, existing designer ownership, stopped advisory
+reviewer, all eight P13B obligations, P14/P15/P16 gates. **Exact live screen inventory is still not established; this is domain coverage.**
+
+## S5. Costed next task — R3-N1 (proposed, NOT dispatched; needs registry + Current Ops release)
+
+**Outcome:** selected main screen on the native build — employees left (complete employment roster, scrolled), hybrid picture cards right
+(scrolled), useful centre; inspect exact employee → Back; inspect actionable picture → worksite/company person → Back; inspect a genuine
+waiting picture; both offsets, filters/search and invoking focus retained; global tools usable. Mode IMPLEMENT (unity-ui, configured
+Opus) + VERIFY (test-author, configured Sonnet), one production writer, Fable integration owner, native slot held by Fable.
+
+**Exact proposed writable paths (Unity worktree `/Users/bruce/The Movies - Playability Interaction Unity`, branch
+`wip/playability-interaction-01-client`, base `e8c59d86`):**
+`Assets/Studio/Runtime/Infrastructure/StudioPeopleRailContracts.cs` (roster-backed assembly: rows where `population=="employed"`, header from
+`roster.counts.employed`, optional presence join by `talentId` for On set/Writing/Waiting words, remove `MaximumRows` cap, profession tabs +
+name/role/ID search via `StudioRosterContracts.Filter`); `Assets/Studio/Runtime/Presentation/StudioPeopleRailHud.cs` (left edge, full height
+under HUD, portrait slot, tabs/search, scroll with visible range); `Assets/Studio/Runtime/Presentation/StudioProductionRailHud.cs` (hybrid card:
+stage image + title + stage word + state line, remove phase track, Active/Decisions/Waiting/stage filter + Find + range/paging footer + library
+link, remove 4-row cap); `Assets/Studio/Runtime/Presentation/UI/StudioWorkspaceHost.cs` + `.ProductionNavigation.cs` +
+`Assets/Studio/Runtime/Presentation/UI/StudioProfileWorkspaceContext.cs` (add `ProfileOrigin.PeopleRail`; carry a rail return context);
+new `Assets/Studio/Runtime/Presentation/StudioRailReturnContext.cs` (both offsets, filters/search, selected IDs, invoking focus target);
+new sprite assets under `Assets/Studio/Art/StageObjects/` rasterised from R3 `art/*.svg` (original source-native SVG per PROVENANCE).
+**TS:** no production writes expected (roster on wire); `dist/studio/engine.mjs` unchanged unless a wait-cause delta is disposed.
+**Excluded:** simulation law, schema/DTO, campaigns, settings, launcher, candidate/evidence roots, other designer work.
+
+**Tests (writable):** update `Assets/Studio/Tests/EditMode/StudioPeopleRailContractsTests.cs` (employed-only rows, honest counts, no cap,
+filter/search, duplicate names distinct by ID), `StudioProductionRailTests.cs` (card state words, filters, range), `StudioRailScrollOwnerTests.cs`
+and `StudioProductionNavigationTests.cs` (both offsets + focus retained through profile/production/worksite excursions and Back); new
+`StudioRailReturnContextTests.cs`. Existing suites must stay green (EditMode 103 files / PlayMode 17 files; TS `npm test`). Native proof per S3-F-C.
+
+**Dependencies before dispatch:** D-1 designer's native compact-inspector layout at 1280×720/1440×900 × 100/150/200 % (first slice may reuse
+the existing Profile/Production workspaces with retained-context Back and record that as a gap); A-1 stage-art rasterisation + font/icon
+fallback check (no paid assets); DATA-1 lawful mature fixture at 40+ employees / 20+ active pictures (existing generated mature layout to be
+checked for density; no gameplay-limit change); WIRE-1 verify picture wait-cause/attention on wire, else one exact delta for disposition;
+NATIVE-1 admitted fresh build via `Studio.Editor.Automation.StudioAutomation.BuildMacOS`, explicitly available desktop, HID guard.
+
+**Effort (coordinator ESTIMATE, charged once): capability ≈ 16 h (range 14–20): rail relocation/roster binding/filters 6 h; hybrid cards/art/
+filters/range 6 h; return context 4 h. Reserve ≈ 5 h: EditMode/TS regression 1.5 h; build + native proof at 2 viewports × 3 text sizes +
+R3 comparison + first product critique 3.5 h.** Within 04 §7 the R3-N1 review is due inside the first 20 further capability hours; this
+fits. **Protected reserve: the last 6 h of reserve are untouched by this task; below-18 h escalation remains active.**
+
+## S6. Cumulative usage — this interval charged once; no reset
+
+| Item | Value |
+|---|---|
+| Prior known at outgoing final tail (`2026-09-14T15:29:14Z`) | capability used 1410.666 min (23.5111 h); reserve used 1112.272787 min; R3 remainder 48.4889 h capability / 17.46212 h reserve; original-envelope reserve 5.462 h |
+| This readiness interval | first stamped observation `2026-09-14T16:54:48Z` → record snapshot `2026-09-14T17:06:51Z`, plus a conservative 2.0 min unstamped packet unpack/verify debit = **14.050 productive min** of the 150-min ceiling (9.4 %) |
+| Split (ESTIMATE) | source/preparation capability **5.0 min** (R3 design/preview uptake, Unity/TS R3-N1 source scout, costing) ≤ 60-min cap; verification/administration reserve **9.050 min** ≤ 90-min cap |
+| Known remainder after this snapshot (R3 72/36 envelope) | capability **2904.334 min = 48.4056 h**; reserve **1038.677 min = 17.3113 h**; original-envelope reserve 318.677 min |
+| Closing tail | this record's commit/push/read-back is charged once in the final reply, not here |
+| Unresolved accounting | separately run setup/smoke/helper sessions: **NOT REPORTED, not zero** (no productive-hour ledger exists for them); the displayed balance is provisional and cannot support a final full-overhaul fit claim until attributed or dispositioned |
+
+**Full-remainder pricing by stage (coordinator ESTIMATE; designer inventory not yet supplied; do not shrink scope to fit):**
+
+| Stage | Capability | Reserve |
+|---|---:|---:|
+| S1 R3-N1 selected main screen (S5) | 16 | 5 |
+| S2 shared system: list-level keyboard focus (R3-1), target-aware inspector (R3-6/NEW-1), HUD marque/timeline (R3-7), full 100/150/200 % incl. HUD/tools (R3-5), shared Backlot components | 14 | 4 |
+| S3 full-domain adaptation of the seven remaining families (film journey, people/casting/contracts, build/Lab, finance/industry/records, menu/campaigns/settings, shared controls, results) | 24 | 6 |
+| S4 2B lawful drag routes: inventory 2 h + implement only routes with an existing lawful command (candidate→comparison slot, script→stage schedule, catalogue→lot placement; person→facility/picture pending command check) | 10 | 3 |
+| S5 3A contextual help + 4B attention cues/retrievable history from existing history/attention snapshots | 8 | 2 |
+| S6 art: six-person portrait proof at rail/dossier sizes, icon set, font availability/fallback tests, stage atlas | 6 | 2 |
+| S7 integrated verification/delivery: critiques 2–3, C1–C5, matched performance (Save/load ≤1.05×, 20-rep ACK), packaging, last-6-h delivery | 0 | 12 |
+| **Total remaining** | **78 h** | **34 h** |
+| Known remainder (before unattributed setup/smoke) | ≈ 48.4 h | ≈ 17.4 h |
+| **Shortfall** | **≈ 30 h** | **≈ 17 h** |
+
+**Fit conclusion: the full R3 HYBRID whole-game overhaul does NOT fit the issued 72/36 envelope.** Recommended for Current Ops disposition:
+(a) release S1 (R3-N1) now under existing authority once the registry gate clears — it fits and is due first; (b) issue a staged amendment
+raising the cumulative ceiling by ≈ 30 h capability and ≈ 17 h reserve (108 → ≈ 155 cumulative), or authorise stages S2–S7 one at a time
+with per-stage reserve, after the existing designer supplies the rendered-layout inventory that turns these estimates into measurements.
+No art, dragging, help or screen coverage is made optional; no reserve is spent on unbuilt capability.
+
+## S7. Remaining gates (exact) and status
+
+1. **Registry gate (blocking delegation, not reading):** six roles unregistered here — Owner restart from the TS worktree per S2; confirm names in that session's listing.
+2. **Mode gate:** this session is bypass-permissions/Fable 5.1 by Owner direction; the launch note's `manual`/`opus` spelling is unverified in any session until the S2 restart is observed. No mode was silently substituted.
+3. **Budget/fit gate:** S6 shortfall needs Current Ops disposition before capability beyond R3-N1; unattributed setup/smoke time still NOT REPORTED.
+4. **Design gate:** D-1 compact inspector, remaining-family sheets, portrait/icon/font deliverables — existing designer, no competing designer.
+5. **Native gate:** admitted fresh build, lawful dense fixture, explicitly available desktop, HID guard; UX-STALE-NATIVE-01 remains a declared residual to prove on the changed commitment route (Schedule take) with the mechanism labelled exactly; no race hunt.
+6. **Data gate:** WIRE-1 picture wait-cause/attention fields; roster and history confirmed on wire.
+7. **Render-uptake gate:** open R3 `index.html`, early/waiting/busy/small views and the documented Back/focus repairs before any visual mutation (started: two previews viewed).
+
+Status: **PARTIAL — readiness handoff delivered; implementation and specialist dispatch HELD** pending gates 1–3. Candidate, campaigns,
+launcher, evidence, P13B/P14/P15/P16 boundaries and protected refs untouched. No PR, merge or protected promotion.
+
+---
+
 # Local continuation update — 2026-09-14
 
 This updates the existing handoff below, whose source is The-Movies
