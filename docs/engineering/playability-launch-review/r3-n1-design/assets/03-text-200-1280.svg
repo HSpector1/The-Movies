@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="960" viewBox="0 0 1280 960"
+     font-family="sans-serif" role="img"
+     aria-label="1280 by 720 at 200 percent text: the tools row and a capped, scrolling next-action band, the pictures rail toolbar stacked with the filter above Find, and an annotation of the one cell where the compact inspector does not fit.">
+  <title>R3-N1 — 1280x720 at 200 % text (rule T3 and the short-lane fallback L5)</title>
+  <rect x="0" y="0" width="1280" height="960" fill="#efe7d4"/>
+  <rect x="0" y="0" width="1280" height="720" fill="#b9b08a"/>
+  <g opacity="0.5" fill="none" stroke="#8d8768" stroke-width="2"><path d="M-40 420 L 700 700 L 1340 460"/></g>
+  <g opacity="0.7">
+    <polygon points="470,560 580,606 470,652 360,606" fill="#9c7d5a" stroke="#6f5740" stroke-width="2"/>
+    <text x="470" y="612" font-size="16" text-anchor="middle" fill="#2b221c">Stage 07</text>
+    <polygon points="780,580 890,626 780,672 670,626" fill="#8a9c7a" stroke="#5e6b52" stroke-width="2"/>
+    <text x="780" y="632" font-size="16" text-anchor="middle" fill="#2b221c">Post</text>
+  </g>
+
+  <!-- top band at 200 %: chip is 160 tall -->
+  <rect x="430" y="18" width="620" height="160" rx="6" fill="#2a231c" stroke="#a5823c" stroke-width="2"/>
+  <text x="446" y="56" font-size="26" fill="#f2e8d2" font-weight="bold">START 1920 · WK 12</text>
+  <text x="446" y="92" font-size="22" fill="#c3b696">1x    2x    4x</text>
+  <text x="446" y="126" font-size="18" fill="#c3b696">CurrentChipHeight = 64 + 48 x 2 = 160  [NAT]</text>
+  <text x="446" y="152" font-size="18" fill="#c3b696">chip bottom 178 &#8594; lane top T = 190</text>
+  <rect x="1172" y="12" width="96" height="40" rx="5" fill="#2a231c" stroke="#a5823c" stroke-width="2"/>
+  <text x="1220" y="38" font-size="14" fill="#f2e8d2" text-anchor="middle" font-weight="bold">MENU</text>
+
+  <!-- rails: widths UNCHANGED at 200 % -->
+  <rect x="6" y="182" width="248" height="532" rx="8" fill="#1a1510" fill-opacity="0.72" stroke="#6b5a3e" stroke-width="2"/>
+  <text x="22" y="216" font-size="22" fill="#f4e6c3" font-weight="bold">PEOPLE 12</text>
+  <text x="22" y="248" font-size="18" fill="#c3b696">All 12   Talent 6</text>
+  <text x="22" y="272" font-size="18" fill="#c3b696">Writers 3   Crew 3</text>
+  <rect x="18" y="306" width="224" height="40" rx="4" fill="#3a3025" stroke="#8d7954"/>
+  <text x="28" y="333" font-size="18" fill="#c3b696">Name, role or ID</text>
+  <rect x="18" y="356" width="224" height="130" rx="6" fill="#f5eddc" stroke="#c8b895"/>
+  <rect x="28" y="368" width="44" height="53" rx="3" fill="#cdbb99" stroke="#a08d6a"/>
+  <text x="82" y="388" font-size="20" font-weight="bold" fill="#2b221c">Mara</text>
+  <text x="82" y="412" font-size="20" font-weight="bold" fill="#2b221c">Vale</text>
+  <text x="82" y="438" font-size="18" fill="#4e4238">Director</text>
+  <rect x="28" y="450" width="200" height="28" rx="3" fill="#dcecdc" stroke="#2e7a4d"/>
+  <text x="36" y="470" font-size="16" fill="#1d5a36">On set · Stage 07</text>
+  <rect x="18" y="496" width="224" height="130" rx="6" fill="#ece2cb" stroke="#c8b895"/>
+  <text x="14" y="742" font-size="15" fill="#5a4c3a">236 px — width NEVER follows the text preference  [NAT, R4 option (a)]</text>
+
+  <rect x="994" y="182" width="280" height="532" rx="8" fill="#1a1510" fill-opacity="0.72" stroke="#6b5a3e" stroke-width="2"/>
+  <text x="1008" y="216" font-size="22" fill="#f4e6c3" font-weight="bold">PICTURES 7</text>
+  <text x="1008" y="246" font-size="18" fill="#e0bd6a">3 decisions</text>
+  <rect x="1006" y="258" width="256" height="40" rx="4" fill="#3a3025" stroke="#8d7954"/>
+  <text x="1016" y="285" font-size="18" fill="#e7dcc0">Release ready  &#9662;</text>
+  <rect x="1006" y="304" width="256" height="40" rx="4" fill="#3a3025" stroke="#8d7954"/>
+  <text x="1016" y="331" font-size="18" fill="#e7dcc0">Find</text>
+  <text x="1006" y="366" font-size="15" fill="#f0d79a">&#9650; filter STACKS full width above Find at 200 % [REC, matching the R3 classic repair]</text>
+  <rect x="1006" y="376" width="256" height="160" rx="8" fill="#fff8df" stroke="#9d7123" stroke-width="2"/>
+  <rect x="1012" y="386" width="60" height="68" rx="8" fill="#e7e5d4" stroke="#b5a783"/>
+  <text x="1082" y="404" font-size="19" font-weight="bold" fill="#2b221c">The Glass</text>
+  <text x="1082" y="426" font-size="19" font-weight="bold" fill="#2b221c">Harbor</text>
+  <text x="1082" y="450" font-size="15" fill="#615642">SHOOTING</text>
+  <text x="1082" y="474" font-size="16" font-weight="bold" fill="#76540c">! Schedule</text>
+  <text x="1082" y="494" font-size="16" font-weight="bold" fill="#76540c">take</text>
+  <text x="1012" y="522" font-size="14" fill="#7a6a54">title wraps to 4 lines at 200 % [REC]; the complete title is in the inspector header, never tooltip-only</text>
+
+  <!-- tools row at 200 % -->
+  <rect x="266" y="190" width="352" height="88" rx="6" fill="#2a231c" stroke="#a5823c" stroke-width="2"/>
+  <text x="442" y="243" font-size="26" text-anchor="middle" fill="#f2e8d2" font-weight="bold">BUILD</text>
+  <text x="266" y="300" font-size="14" fill="#3f3729">352 wide — today the memo clamps it to 304 at this exact cell  [NAT]</text>
+  <rect x="630" y="190" width="352" height="88" rx="6" fill="#2a231c" stroke="#e0bd6a" stroke-width="2"/>
+  <circle cx="656" cy="234" r="12" fill="#e9bd4e" stroke="#957029"/>
+  <text x="656" y="240" font-size="17" text-anchor="middle" font-weight="bold" fill="#483300">!</text>
+  <text x="678" y="228" font-size="20" fill="#f2e8d2" font-weight="bold">Studio next</text>
+  <text x="678" y="254" font-size="20" fill="#f2e8d2" font-weight="bold">steps · 3  &#9656;</text>
+
+  <!-- capped, scrolling band -->
+  <rect x="266" y="290" width="716" height="218" rx="8" fill="#f5eddc" stroke="#c8b895"/>
+  <rect x="266" y="290" width="716" height="4" fill="#dfbb65"/>
+  <text x="282" y="322" font-size="18" letter-spacing="1.4" fill="#615642">NEXT STEP · PICTURE 1</text>
+  <text x="282" y="356" font-size="26" font-weight="bold" fill="#2b221c">The Glass Harbor is ready</text>
+  <text x="282" y="388" font-size="26" font-weight="bold" fill="#2b221c">to schedule a take.</text>
+  <text x="282" y="420" font-size="22" fill="#4e4238">The company and set are ready. Scheduling</text>
+  <rect x="958" y="300" width="12" height="120" rx="6" fill="#c9b894"/>
+  <text x="282" y="448" font-size="15" fill="#8e2f2b">reason column SCROLLS here — the band is capped so the lot keeps 200 px [REC]; the complete reason is in the sheet and in the inspector</text>
+  <rect x="282" y="458" width="400" height="40" rx="5" fill="#2e7a4d" stroke="#1d5a36"/>
+  <text x="482" y="486" font-size="20" text-anchor="middle" fill="#fff8e6" font-weight="bold">Schedule shooting take</text>
+  <rect x="696" y="458" width="270" height="40" rx="5" fill="#ece2cb" stroke="#ab9977"/>
+  <text x="831" y="486" font-size="19" text-anchor="middle" fill="#2b221c">Details &#9656;</text>
+
+  <!-- required clear lot -->
+  <rect x="266" y="508" width="716" height="200" fill="none" stroke="#2e7a4d" stroke-width="3"/>
+  <text x="624" y="540" font-size="19" text-anchor="middle" fill="#1d5a36" font-weight="bold">MinimumLot — 716 x 200, clear and clickable  [REC]</text>
+  <text x="624" y="566" font-size="16" text-anchor="middle" fill="#1d5a36">today at this same cell: 316 x 418 — 127 % less width, the axis worksite picking fails on first</text>
+
+  <rect x="0" y="720" width="1280" height="240" fill="#efe7d4"/>
+  <text x="16" y="756" font-size="17" font-weight="bold" fill="#2b221c">1280x720 at 200 % text — reflow rule T3, and the one cell that falls back (rule L5)</text>
+  <text x="16" y="780" font-size="13" fill="#4e4238">Rail widths are unchanged (236 / 268). Type, row heights and vertical rhythm follow the text preference; horizontal band geometry follows the viewport only. Keep that law.</text>
+  <text x="16" y="800" font-size="13" fill="#4e4238">Band: H = clamp(content 276, 83 x 2 = 166, laneHeight 418 &#8722; 200) = 218. Headline never scrolls; the reason column does; nothing is shrunk to fit.</text>
+  <text x="16" y="820" font-size="13" fill="#4e4238">Stacks at this text size: pictures filter above Find; band controls on their own row; inspector facts to one column; inspector footer wraps to two rows.</text>
+  <text x="16" y="846" font-size="14" font-weight="bold" fill="#8e2f2b">Declared conflict — compact inspector at THIS cell only.</text>
+  <text x="16" y="868" font-size="13" fill="#4e4238">Lane height is 418. A compact inspector needs fixed header 176 + fixed footer 108 + a readable body 200 = 484. It does not fit, and no horizontal change helps.</text>
+  <text x="16" y="888" font-size="13" fill="#4e4238">Recommendation: at this cell inspection keeps the existing full-screen StudioWorkspaceHost workspace with its retained-context Back. Drops no route, adds no popup, raises no minimum viewport.</text>
+  <text x="16" y="908" font-size="13" fill="#4e4238">The Studio-next-steps SHEET still works here (no fixed action footer): x 284..964, y 398..708, header 120, body 190 scrolling, 652 px of content width against today's 372.</text>
+  <text x="16" y="934" font-size="12" fill="#7a6a54">Fictional R3 fixture labels. Hand-authored SVG; generic font families only; no external font, image or network resource.</text>
+</svg>

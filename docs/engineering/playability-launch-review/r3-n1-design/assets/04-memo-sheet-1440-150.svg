@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1120" viewBox="0 0 1440 1120"
+     font-family="sans-serif" role="img"
+     aria-label="The explicitly opened Studio next steps sheet at 1440 by 900 with 150 percent text: a 680 pixel wide card bottom-anchored in the lot centre lane with a fixed header carrying Back and a scrolling body that holds every memo route in the memo's own order, with both rails alive underneath.">
+  <title>R3-N1 — Studio next steps sheet, 1440x900, 150 % text (state S7)</title>
+  <rect x="0" y="0" width="1440" height="1120" fill="#efe7d4"/>
+  <rect x="0" y="0" width="1440" height="900" fill="#b9b08a"/>
+  <g opacity="0.5" fill="none" stroke="#8d8768" stroke-width="2"><path d="M-40 380 L 760 800 L 1480 440"/></g>
+  <g opacity="0.7">
+    <polygon points="900,420 1000,466 900,512 800,466" fill="#a98f6b" stroke="#6f5740" stroke-width="2"/>
+    <text x="900" y="470" font-size="14" text-anchor="middle" fill="#2b221c">Casting</text>
+  </g>
+
+  <rect x="430" y="18" width="620" height="136" rx="6" fill="#2a231c" stroke="#a5823c" stroke-width="2"/>
+  <text x="446" y="54" font-size="22" fill="#f2e8d2" font-weight="bold">START 1920 · WK 12</text>
+  <text x="446" y="88" font-size="19" fill="#c3b696">1x    2x    4x</text>
+  <text x="446" y="122" font-size="15" fill="#c3b696">chip height 64 + 48 x 1.5 = 136  [NAT] &#8594; lane top T = 166</text>
+  <rect x="1332" y="12" width="96" height="40" rx="5" fill="#2a231c" stroke="#a5823c" stroke-width="2"/>
+  <text x="1380" y="38" font-size="14" fill="#f2e8d2" text-anchor="middle" font-weight="bold">MENU</text>
+
+  <rect x="6" y="160" width="270" height="734" rx="8" fill="#1a1510" fill-opacity="0.72" stroke="#6b5a3e" stroke-width="2"/>
+  <text x="22" y="196" font-size="20" fill="#f4e6c3" font-weight="bold">PEOPLE 12</text>
+  <text x="22" y="226" font-size="16" fill="#c3b696">All 12   Talent 6</text>
+  <text x="22" y="250" font-size="16" fill="#c3b696">Writers 3   Crew 3</text>
+  <rect x="18" y="262" width="246" height="34" rx="4" fill="#3a3025" stroke="#8d7954"/>
+  <text x="28" y="285" font-size="16" fill="#c3b696">Name, role or ID</text>
+  <rect x="18" y="306" width="246" height="104" rx="6" fill="#f5eddc" stroke="#c8b895"/>
+  <rect x="28" y="318" width="44" height="53" rx="3" fill="#cdbb99" stroke="#a08d6a"/>
+  <text x="82" y="336" font-size="18" font-weight="bold" fill="#2b221c">Mara Vale</text>
+  <text x="82" y="358" font-size="16" fill="#4e4238">Director</text>
+  <rect x="28" y="370" width="150" height="24" rx="3" fill="#dcecdc" stroke="#2e7a4d"/>
+  <text x="36" y="388" font-size="14" fill="#1d5a36">On set · Stage 07</text>
+  <rect x="18" y="420" width="246" height="104" rx="6" fill="#ece2cb" stroke="#c8b895"/>
+  <rect x="18" y="534" width="246" height="104" rx="6" fill="#ece2cb" stroke="#c8b895"/>
+  <text x="22" y="880" font-size="14" fill="#c3b696">Hire more at the Casting building  &#9656;</text>
+
+  <rect x="1136" y="160" width="298" height="734" rx="8" fill="#1a1510" fill-opacity="0.72" stroke="#6b5a3e" stroke-width="2"/>
+  <text x="1150" y="196" font-size="20" fill="#f4e6c3" font-weight="bold">PICTURES 7</text>
+  <text x="1150" y="224" font-size="16" fill="#e0bd6a">3 decisions</text>
+  <rect x="1148" y="236" width="180" height="34" rx="4" fill="#3a3025" stroke="#8d7954"/>
+  <text x="1158" y="259" font-size="16" fill="#e7dcc0">Active · 7  &#9662;</text>
+  <rect x="1336" y="236" width="80" height="34" rx="4" fill="#3a3025" stroke="#8d7954"/>
+  <text x="1346" y="259" font-size="16" fill="#e7dcc0">Find</text>
+  <rect x="1148" y="282" width="274" height="120" rx="8" fill="#f5eddc" stroke="#ab9972"/>
+  <rect x="1154" y="292" width="78" height="78" rx="8" fill="#e7e5d4" stroke="#b5a783"/>
+  <text x="1240" y="312" font-size="18" font-weight="bold" fill="#2b221c">Letters from</text>
+  <text x="1240" y="334" font-size="18" font-weight="bold" fill="#2b221c">June</text>
+  <text x="1240" y="356" font-size="14" fill="#615642">WRITING</text>
+  <text x="1240" y="378" font-size="16" fill="#4d493e">Draft in progress</text>
+  <rect x="1148" y="414" width="274" height="120" rx="8" fill="#f5eddc" stroke="#ab9972"/>
+  <rect x="1148" y="546" width="274" height="120" rx="8" fill="#f5eddc" stroke="#ab9972"/>
+  <text x="1150" y="870" font-size="14" fill="#e7dcc0">1-5 of 7   ·   Film library 1</text>
+
+  <!-- tools row -->
+  <rect x="288" y="166" width="264" height="66" rx="6" fill="#2a231c" stroke="#a5823c" stroke-width="2"/>
+  <text x="420" y="207" font-size="22" text-anchor="middle" fill="#f2e8d2" font-weight="bold">BUILD</text>
+  <rect x="764" y="166" width="360" height="66" rx="6" fill="#3a3025" stroke="#e0bd6a" stroke-width="3"/>
+  <rect x="761" y="163" width="366" height="72" rx="8" fill="none" stroke="#187bb8" stroke-width="3"/>
+  <text x="780" y="208" font-size="19" fill="#f2e8d2" font-weight="bold">Studio next steps · 3  &#9656;</text>
+  <text x="764" y="256" font-size="14" fill="#1a4f74">the control that opened this sheet keeps focus; Back returns focus here</text>
+
+  <!-- clear lot strip -->
+  <rect x="288" y="244" width="836" height="108" fill="none" stroke="#2e7a4d" stroke-width="2"/>
+  <text x="706" y="300" font-size="15" text-anchor="middle" fill="#1d5a36" font-weight="bold">clear, clickable lot — 836 x 96 minimum required  [REC]</text>
+
+  <!-- the sheet -->
+  <rect x="366" y="352" width="680" height="536" rx="8" fill="#f5eddc" stroke="#c8b895"/>
+  <rect x="366" y="352" width="680" height="4" fill="#dfbb65"/>
+  <rect x="366" y="356" width="680" height="96" fill="#f5eddc"/>
+  <text x="386" y="392" font-size="26" font-weight="bold" fill="#6e2919">STUDIO NEXT STEPS</text>
+  <text x="386" y="424" font-size="16" fill="#7a6a54">WEEK 12 · READY   ·   header 96 at 150 % — FIXED</text>
+  <rect x="936" y="374" width="96" height="42" rx="5" fill="#ece2cb" stroke="#ab9977"/>
+  <text x="984" y="401" font-size="16" text-anchor="middle" fill="#2b221c">&#9664; Back</text>
+  <line x1="366" y1="452" x2="1046" y2="452" stroke="#c8b895"/>
+
+  <text x="386" y="484" font-size="15" letter-spacing="1.3" fill="#615642">PICTURE 1</text>
+  <text x="386" y="512" font-size="24" font-weight="bold" fill="#6e2919">The Glass Harbor</text>
+  <text x="386" y="542" font-size="20" font-weight="bold" fill="#332b21">Take ready to schedule</text>
+  <text x="386" y="570" font-size="19" fill="#43392d">The company and set are ready at Stage 07.</text>
+  <text x="386" y="596" font-size="19" fill="#43392d">Scheduling permits the next work step; weekly</text>
+  <text x="386" y="622" font-size="19" fill="#43392d">costs continue. No cash is committed here.</text>
+  <text x="386" y="658" font-size="20" font-weight="bold" fill="#332b21">NEXT STEPS</text>
+  <rect x="386" y="672" width="640" height="52" rx="4" fill="#e8dcc0" stroke="#9c8b68"/>
+  <text x="402" y="705" font-size="19" fill="#332b21">Schedule shooting take</text>
+  <text x="402" y="742" font-size="17" fill="#43392d">Estimate available at the stage; the crew is on the lot.</text>
+  <rect x="386" y="756" width="640" height="52" rx="4" fill="#e8dcc0" stroke="#9c8b68"/>
+  <text x="402" y="789" font-size="19" fill="#332b21">Review the release of A Small Kindness</text>
+  <text x="386" y="828" font-size="17" fill="#7a6a54">OTHER STUDIO ACTIONS · research decisions · notices</text>
+  <text x="386" y="856" font-size="17" fill="#7a6a54">Save Game and Load Game are in the Studio Menu — MENU,</text>
+  <text x="386" y="878" font-size="17" fill="#7a6a54">top right, or press Esc.</text>
+  <rect x="1032" y="462" width="12" height="260" rx="6" fill="#c9b894"/>
+  <text x="1052" y="520" font-size="13" fill="#3f3729">body SCROLLS</text>
+  <text x="1052" y="540" font-size="13" fill="#3f3729">element memo-scroll</text>
+  <text x="1052" y="560" font-size="13" fill="#3f3729">(name preserved)</text>
+  <text x="1052" y="592" font-size="13" fill="#3f3729">every memo-intent-*</text>
+  <text x="1052" y="612" font-size="13" fill="#3f3729">and memo-research-*</text>
+  <text x="1052" y="632" font-size="13" fill="#3f3729">keeps its exact name,</text>
+  <text x="1052" y="652" font-size="13" fill="#3f3729">order and enable law</text>
+  <text x="1052" y="684" font-size="13" fill="#3f3729">content width 652</text>
+  <text x="1052" y="704" font-size="13" fill="#3f3729">vs the memo's 372</text>
+
+  <rect x="288" y="352" width="78" height="536" fill="none" stroke="#2e7a4d" stroke-dasharray="5 4"/>
+  <rect x="1046" y="352" width="78" height="536" fill="none" stroke="#2e7a4d" stroke-dasharray="5 4"/>
+
+  <rect x="0" y="900" width="1440" height="220" fill="#efe7d4"/>
+  <text x="16" y="936" font-size="17" font-weight="bold" fill="#2b221c">Studio next steps sheet — 1440x900, 150 % text · state S7 (memo/details view explicitly opened)</text>
+  <text x="16" y="960" font-size="13" fill="#4e4238">Opens ONLY on an explicit act: the tools-row chip, the band's Details control, or the key 3. There is no automatic popup, no timed reveal and no guided tutorial. A new blocker changes the chip's pip and the band's words — never the sheet's visibility.</text>
+  <text x="16" y="980" font-size="13" fill="#4e4238">x 366..1046 (min(W, 680)), bottom-anchored at B=888, height = min(content, B &#8722; 166 &#8722; 66 &#8722; 12 &#8722; 12 &#8722; 96). Fixed header + scrolling body; no fixed action footer, which is what lets it also fit at 1280x720 / 200 %.</text>
+  <text x="16" y="1000" font-size="13" fill="#4e4238">Body order is the memo's own order, unchanged: week/connection, feedback, paused notice, founding guidance, the journey block, the four-part rejection notice, NEXT STEPS, research, OTHER STUDIO ACTIONS, pointers, lot summary.</text>
+  <text x="16" y="1020" font-size="13" fill="#4e4238">Not a modal. Both rails stay drawn, scrollable, focusable and clickable. Escape collapses an expanded group first, then pops one level; Back pops the same stack and returns focus to the control that opened the sheet.</text>
+  <text x="16" y="1040" font-size="13" fill="#4e4238">Two states cost one extra explicit click and nothing else: the cast-choice group (buttons are 54 tall and cannot sit in a one-row band) and the legacy fail-closed Save Studio / Load Studio buttons. No route, explanation or consequential review is dropped.</text>
+  <text x="16" y="1060" font-size="13" fill="#4e4238">The sheet replaces a permanent 400 px full-height column that cost 400 px of lot in every state; it costs the lot only while the player is reading it, and gives the memo 652 px of content width instead of 372.</text>
+  <text x="16" y="1090" font-size="12" fill="#7a6a54">Fictional fixture labels reused from the R3 previews. Hand-authored SVG; generic font families only; no external font, image or network resource.</text>
+</svg>
