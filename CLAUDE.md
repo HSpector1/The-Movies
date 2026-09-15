@@ -4,10 +4,13 @@
 > `docs/engineering/playability-launch-review/06-FABLE-ADOPTION-AND-FRESH-SESSION-HANDOFF.md`
 > before assigning work. The latest explicit Owner/Current Ops order and its local transfer
 > receipt govern scope, actual source/build identities, cumulative usage and ownership.
-> Current disposition is OPS-R3-N1-EXECUTE-20260914-01: R3-N1 delivered as a labelled PARTIAL
-> engineering increment at Unity 7471d24 / Build47 (see the R3-N1 execution record atop 06); the
-> compact inspector (D-1), native pass, GUI PlayMode and UX-STALE-NATIVE-01 remain open. Build46
-> stays the last qualified checkpoint; native stale refusal is a declared residual, not a pass.
+> Current disposition is OPS-R3-N1-CONTINUE-20260914-02: R3-N1 reached its connected native review
+> on Unity 18b893a6 / TS 2f16c22e / Build49 (seal 44, admission 40) with the compact inspector, lane
+> band and memo sheet, arrow gate, screenplay inspection and the lawful r3n1-dense-01 fixture delivered;
+> rendered PlayMode 202/202; three guarded native runs (see the continuation record atop 06). N1 is
+> still a labelled PARTIAL: native defects F7–F15, the declared 1280x720 @200 % fallback cell and the
+> unreachable pictures-rail overflow are open; UX-STALE-NATIVE-01 has server-refusal tests only.
+> Build46 stays the last Owner-qualified checkpoint; Build47/48 are retained superseded records.
 > No further implementation, native input, new audit or specialist dispatch follows automatically.
 > A fresh coordinator must explicitly accept the recorded writer/input handoff and reconcile
 > authority, remaining scope and budget before implementation; desktop availability is separate.

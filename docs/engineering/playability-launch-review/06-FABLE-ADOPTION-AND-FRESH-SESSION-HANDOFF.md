@@ -1,3 +1,148 @@
+# R3-N1 continuation record — 2026-09-14/15 · OPS-R3-N1-CONTINUE-20260914-02
+
+**N1 CONNECTED NATIVE REVIEW REACHED ON BUILD49 — DELIVERED AS A PARTIAL WITH NINE NATIVE DEFECTS DECLARED, ONE DECLARED FALLBACK CELL AND ONE LAWFUL-DATA LIMIT. NOT OWNER-ACCEPTED. NO P13B, PR, MERGE OR PROTECTED PROMOTION.**
+This section sits above the R3-N1 execution record (R1–R8), the successor record (S1–S7) and the historical text, all unchanged.
+It is the one evidence-linked record of the continuation's acceptance, the desktop statement, the design-owner resolution,
+the delivered design/source/test/fixture increment, the rendered and native verification actually run, charges, and the
+remaining full-overhaul coverage. Private identifiers stay in the Git-private `fable-local-transfer-20260914-01/
+r3n1-continuation-acceptance-local.json` and `r3n1-ledger-local.json`.
+
+## C1. Acceptance, desktop statement, design-owner resolution
+- Order verified: packet `R3-N1-CONTINUATION` (SHA256SUMS 4/4) == Git blob `9b4760cd00ccad20b04dc1e07ee789a504e2f7a8` at
+  `3b64da61` (on `origin/docs/playability-r3-hybrid-execution-01`). Same coordinator session as R1 (Fable 5.1, bypass
+  permissions, hooks disabled by flag, `--add-dir` Unity); registry unchanged; Workflow tool not used (coordinator contract);
+  every specialist ran Opus or lower (uiux-designer/unity-ui = opus, test-author = sonnet by profile). Continuation charged
+  from `2026-09-14T19:13:42Z`; the session was idle `2026-09-14T23:02Z → 2026-09-15T06:10Z` (excluded from every counter).
+- **Desktop:** Howard's statement — "The desktop is available now for the authorized R3-N1 rendered PlayMode and native tests. Keep
+  the existing guard and all build/fixture checks." — recorded verbatim in TS `Evidence/Playability-Interaction-01/entry/
+  desktop-and-guard-admission-r3n1-01.json` with the guard-module hashes (byte-identical to the 2026-09-12 record). The guard
+  (console lock, 60-s HID idle, listen-only witness, owned window binding, bound manifest, fixture provenance, stale-source check)
+  stayed mandatory and admitted every run; zero suspensions; no human input witnessed.
+- **Design owner:** the R3 design session is inactive (last design commit `b56088d6`, 2026-09-12; no worktree holds
+  `docs/uiux-whole-game-review-01`; no writer evidenced) → the registered uiux-designer was assigned sole continuation owner of the
+  ONE missing sheet on the disjoint path `docs/engineering/playability-launch-review/r3-n1-design/` (TS `504add39`). R3 files
+  untouched; the hybrid selection was not reopened; no second designer.
+
+## C2. Rendered PlayMode — actual counts (Editor GameView via `ConfigureEditorViewportForVerification`, never `-batchmode`)
+| Run | Source | Executed | Passed | Failed | Skipped | Findings |
+|---|---|---|---|---|---|---|
+| `r3n1-01/playmode-rendered-baseline-01` | Unity `7471d24` (preserved checkpoint) | 202 | 200 | 2 | 0 | F1 stale threshold (test): LOCATE height is exactly `max(24·band, 22·text)`; F2 (production): receipt overlapped the slid memo at 1280×720/150 % |
+| `r3n1-04/playmode-rendered-final-01` | Unity `ea451a39` | 202 | 200 | 2 | 0 | F3 route identity (test); F4 IMGUI Layout/Repaint mismatch (production, fixed `3d58d16`) |
+| `r3n1-07/playmode-rendered-final-02` | Unity `c6161ce4` | 202 | 201 | 1 | 0 | F4 gone; F5 focus-restore race in the test's zero-yield sequence (test) |
+| `r3n1-09/playmode-rendered-final-03` | Unity `d2f3f12d` | 202 | 201 | 1 | 0 | F6: picture card LOCATE never published above 100 % — zone law `22·s` under the `24·s` publication floor (production, fixed `e474f6e`) |
+| `r3n1-10/playmode-rendered-class-01..04` (one class) | `e474f6e` + tests | 15 | 14/14/14/**15** | 1/1/1/**0** | 0 | diagnostic dump: at 1280×720/200 % the pictures list viewport is 144 px (four 60-px chrome rows) so the fixture's 477-px card keeps its LOCATE zone off-screen; test now reveals it through the product's own route |
+| **`r3n1-10/playmode-rendered-final-04`** | **Unity `18b893a6`** | **202** | **202** | **0** | **0** | clean |
+All ten batch-only failures and F1–F6 are closed (F1/F3/F5/F6-test re-derived by the test owner, never weakened; F2/F4/F6-law fixed by
+the writer). Batch records are retained beside the rendered ones; batch PlayMode still cannot render IMGUI (environment).
+
+## C3. Delivered — exact identities and changed paths
+| Identity | Value |
+|---|---|
+| Design sheet | `r3-n1-design/R3-N1-COMPACT-INSPECTOR-MEMO-SHEET.md` + 4 SVG (TS `504add39`): lot-centre lane, tools row (BUILD + `memo-details-open`), compact next-action band, explicitly opened Studio-next-steps sheet, compact inspector overlay with both rails alive, occlusion order, Escape ladder, text rules, keys 1/2/3; the 1280×720/200 % inspector cell declared a full-screen fallback |
+| Unity | `7471d24` → **`18b893a6`** (23 commits: IMPL-03 `1af1e4b..f57599b`, IMPL-04 `bfc61dd..25a2882`, IMPL-05 `fc16267..72a02a8`, IMPL-06 `3d58d16`, IMPL-08 `e474f6e`; tests `ea451a39`, `c6161ce4`, `d2f3f12d`, `18b893a6`); pushed fast-forward, no force |
+| TS | `afad4137` → **`2f16c22e`** (design sheet `504add39` + stale-route test `2f16c22e`; production TS unchanged = `31f6e70d`; `dist/studio/engine.mjs` `af1e8897…` unchanged) → this record; pushed fast-forward |
+| Fixture (DATA-1) | `Evidence/…/fixtures/r3n1-dense-01/generated-r3n1-dense-01.checkpoint.json` sha256 `2e0ede0b699994970d04cf3de8678c61cf2b4fd9562c69c8e9625eb0a8924f5b`, 448 724 bytes, week 316, digest `7f7a4eab…`; generator `entry/generate-r3n1-dense-01.ts` from native-performance-316-01; 4 lawful `signContract` actions, each N=4-gated (`weeklyPayroll` + tuning overhead + `weeklyPlacementOperatingCost` + `weeklyResearchSpend`, due commitments 0, cash ≥ 0 throughout); wire counts employed **11** / freelancer 6 / known 68, productions 1 (`prod-0315` development-working), development projects 0 (campaign in `legacy` script mode), released 0 |
+| Seal / Build49 | `entry/paired-verifier-interaction-44.json` PASS (TS `2f16c22e` ↔ Unity `18b893a6` from `origin`, DTO blob `9420d5ef` both sides); **Build49** built `2026-09-15T06:24:52Z`, executable sha256 `5374226871edfb14e770d4bdbb92ad26e75ddaeb5b62fb9a405e63a1652351cd`, Assembly-CSharp `f5ac1c42…`, manifest sha256 `173b80a2b11c98eb2d332d51f82e6f018880347fb5399de2134b34da7d86bf13`, engine/worker/worker-source unchanged, cold-import + scene validation clean, `interaction-native-admission-40.json` PASS. Build48 (`8b83d164…`, seal 43, admission 39) superseded and retained; Build47/Build46 preserved |
+| TS test | `tests/r3n1-stale-schedule-take.test.ts` 2/2: STALE_REVISION / `state-stale` with unchanged digest, and INTENT_NOT_AVAILABLE / `intent-unavailable` for the old intent id at the current revision (the fresh intent then accepted once) — **server refusal**; full TS suite 5275 passed / 5 skipped / 0 failed (`entry/full-typescript-suite-05`) |
+Changed Unity paths: `Runtime/Infrastructure/{StudioInputFocusGate (new), StudioRailReturnContracts (+StudioLayoutPassLatch, lane/band/sheet/overlay/inspector-content laws, PublishedControlMinHeight), StudioMovieRailContracts, StudioBridgeClient (+ReleaseMemo, +ResearchMemo)}.cs`; `Runtime/Presentation/{StudioCameraInput, StudioProductionRailHud (LocateZoneHeight/Rect), StudioPeopleRailHud, StudioDevelopmentCardHud, StudioHud (partial), StudioLaneInspectorHud (new), StudioBuildCommandHud}.cs`; `Runtime/Presentation/UI/StudioWorkspaceHost.cs` (+8, read-only seam); tests `Tests/EditMode/{StudioInputFocusGateTests, StudioScreenplayInspectionContractsTests, StudioLaneLayoutContractsTests, StudioLaneInspectorContractsTests}.cs` (new), `{StudioPictureCardContractsTests, StudioMovieRailContractsTests, StudioProductionRailTests}.cs` (extended), `Tests/PlayMode/StudioProductionAndCampaignLayoutTests.cs` (F1/F3/F5/F6 re-derived, memo assertions re-derived to the band/sheet). EditMode whole platform **1676/1676**. Not changed: DTOs, schema, camera director/controller, System Menu, scenes, campaigns, launcher, package roots, historical evidence.
+
+**DATA-1 actual result:** people-rail overflow reached lawfully (11 employed); pictures-rail overflow **not lawfully reachable** from the
+admitted source — `commissionScript` and its siblings require managed script development, and `activateScriptDevelopment` lawfully
+refuses while `prod-0315` is active (reproduced and asserted, not routed around). No cash injected, no relabelling; the waiting picture
+stays `f2-set-blocker-01` (`prod-0327`, resource-wait). Side finding for its owner: `tests/_m5Fixtures.ts` `studioTheWeekBeforeWrap`
+throws under the current engine (used only by `_m5PlaytestSave.ts`).
+
+## C4. Native tasks, captures, critique
+Driver direct mode, Build49, guard admitted; text sizes set in-run via `studio-menu-text-*`; every run ended by the game's own UI Quit
+(`campaign-leave-discard` on the disposable synthetic fixture), input finalization **clean**, player exit 0.
+
+| Run | Viewport · fixture | Evidence (Unity `Evidence/Playability-Interaction-01/`) | Steps | Performance |
+|---|---|---|---|---|
+| R-A | 1440×900 · r3n1-dense-01 · 100/150/200 % | `early-2026-09-15T06-25-20-387Z` (report.json, steps.json, 190+ maps, screenshots `r3n1-*.png`) | 194 | 30-s sample 3 408 frames, captured through quit |
+| R-D | 1280×720 · r3n1-dense-01 · 100/150/200 % | `early-2026-09-15T06-45-52-043Z` | 55 | 30-s sample 3 227 frames, captured through quit |
+| R-W | 1280×720 · f2-set-blocker-01 (waiting) · 100 % | `early-2026-09-15T06-50-12-704Z` | 25 | not sampled |
+
+**Demonstrated natively (element map + screenshots):** lane composition (lane 836 px at 1440×900, 716 px at 1280×720; employees rail
+18..264 / 18..242, pictures rail 1142..1428 / 1000..1268; tools row BUILD + `memo-details-open`; band 94/124/218 px); compact inspector
+overlay bottom-anchored 680 wide for person (311 @100, 536 @150 = ceiling, 490 @200) and picture (390 @100) with **both rail plates
+published, band yielding, chip/BUILD/MENU present**; the declared fallback at 1280×720/200 % (`inspector-fallback` published, person →
+full Profile workspace, picture → full Production workspace, Escape returns to the lot); memo sheet at every cell incl. 1280×720/200 %
+(680×190) with `memo-scroll`, `memo-intent-*` and `memo-research-*` routes; Back control retains both offsets, filters and selection;
+row cursor Up/Down without any camera movement (world anchors byte-equal) and Enter inspecting the cursor row two rows down; Locate from
+the picture overlay frames the worksite with the camera's own `world-back-to-studio` while overlay and rails stay alive; Waiting/Active
+filter and library toggle reset only the pictures list, the People tab resets only the employees list; BUILD reachable and its Escape
+closes it without the menu; wheel over the pictures list never changed the camera; waiting picture `prod-0327` shows the wire's cause
+"Held for a set check" + detail + consequence, remedy labels as text, company members with exact ids; a person's withheld Locate carries
+the wire's reason ("On the lot this week; no body to locate right now.").
+
+**UX-STALE-NATIVE-01:** server refusal proved by the TS command-owner test (STALE_REVISION / INTENT_NOT_AVAILABLE); client-side
+prevention observed only as the full workspace re-deriving its displayed commands from the fresh snapshot on reopen (no production in a
+Schedule-take state exists in any lawful fixture: the dense fixture's picture is in development, the waiting fixture's in resource-wait).
+Still not a PASS; the exact residual is "no lawful actionable Schedule-take route reachable natively yet".
+
+**Native defects found (all real, none hidden; fixes are the next stage):**
+- **F7** Escape on an open compact overlay pops it **and** opens the Studio Menu (the polled Escape owner is not gated by the overlay).
+- **F8** overlay → OPEN PROFILE → Escape resets the employees rail offset to 0 (the Production-workspace route retains it).
+- **F9** after the Tab ring leaves the employees search field, arrows/Enter still behave as text entry until Escape (IMGUI keyboard
+  control not released).
+- **F10** while a lot selection is active (after Locate), a rail row click neither opens the overlay nor a workspace (dead click;
+  Escape clearing the selection restores the route).
+- **F11** activating Find gives the field no keyboard focus — typing "a" panned the camera; **F12** Escape in Find opened the menu.
+- **F13** at 200 % (1440×900) the rail headers clip/overlap ("EMPLOYEES 11" → "S 11", "ROSTER ▸" wraps over it, "PICTURES" over
+  "No decisions"), the card title and stage word break mid-word beside the 144-px image slot, and LOCATE overlaps the wrapped state
+  line — the fixed 286-px rail does not pass the text rule at 200 % without stacking the image above the text.
+- **F14** at 1440×900/200 % the overlay header (unclamped 3-line 40-px title) consumes the 490-px overlay; `inspector-open-production` /
+  `inspector-locate` publish off-screen (y −138 / −64) and the body is 1 px — the explicit route is unreachable at that cell.
+- **F15** the compact inspector's scrolling body has no opaque background; cause/detail/consequence/remedy/company lines draw over
+  the lot and are hard to read at every size (header/footer have stock).
+- Observations: the pictures list viewport is 102/186/144 px at 1280×720 and ~250/186/284 px at 1440×900 across 100/150/200 % because
+  the rail chrome rows scale with text and stack (F6's rendered root); `inspector-fallback` is published whenever the full workspace
+  path is used (marker semantics); the driver's `text` action cannot type into rail fields, so Find was exercised with a letter key.
+
+**Native product critique (from the captures, replacing R5's paper critique):**
+1. The composition is right and the lot is back: 836/716 px of clickable centre with rails, tools row and band, matching R3's
+   people-left / pictures-right / useful-centre grammar and its 03-selected inspector placement (x 366..1046 at 1440×900).
+2. Escape is the weakest control: three owners (overlay, Find, menu) still answer the same key (F7/F12); one shared ladder is needed.
+3. 200 % is not yet a supported reading size on either viewport: chrome rows scale, headers overlap, cards break words, the overlay
+   header eats the body (F13/F14) — the sheet's §E rules must be applied to headers/chrome and the overlay header clamped to the body.
+4. The overlay body needs its cardstock (F15) — a one-line style fix but it defeats every inspection until done.
+5. Focus/selection interplay (F8/F9/F10) breaks the "Back restores everything" promise on three routes; the return-context law is
+   right, its callers are not.
+6. Density remains thin: with lawful fixtures only the employees rail scrolls; the pictures rail shows one card everywhere.
+7. Unchanged from R5: placeholder monogram portraits; no screenplay overflow; typography at 100 % reads well.
+
+## C5. Charges — this continuation and cumulative (charged once; session clock; idle gap excluded)
+| Item | Value |
+|---|---|
+| Continuation capability | `19:13:42Z → 20:41:40Z` = **87.967 min = 1.466 h** (designer, IMPL-03/04/05, DATA-01, coordination) |
+| Continuation verification/correction/delivery | `20:41:40Z → 23:02:00Z` = 140.333 min + `06:10:00Z → 06:54:21Z` = 44.350 min + prior closing tail 0.5 min carried once = **185.183 min = 3.086 h**; this record's own commit/push/read-back tail is charged once in the final reply and carried by the next session |
+| N1 cumulative (caps 20 h / 6 h) | capability **160.600 min = 2.677 h**; verification **217.550 min = 3.626 h** — both inside their caps; 12/16/20 h checkpoints never reached; no reserve was spent on unbuilt capability |
+| Whole program, known cumulative | capability **1 576.266 min = 26.271 h**; reserve **1 340.873 min = 22.348 h** |
+| Remaining in the issued 72 / 36 envelope | capability **45.729 h**; reserve **13.652 h** (last 6 h protected → 7.652 h usable) — PROVISIONAL |
+| Specialist usage (informational) | uiux-designer ≈25 min / 238k; unity-ui IMPL-03 20 min / 208k, IMPL-04 26 min / 261k, IMPL-05 20 min / 236k, IMPL-06 17 min / 188k, IMPL-07 10 min / 104k, IMPL-08 7 min / 79k; test-author DATA-01 15 min / 179k, TEST-02 24 min / 334k, TEST-03 20 min / 222k, TEST-04 6 min / 75k, TEST-05 ~50 min / 248k |
+| Unattributed setup/smoke/helper sessions | **NOT REPORTED, not zero** (unchanged) |
+Lead/session vs productive: this record, like R6, charges one overlapping session clock (specialist wall-clock never summed) and does not
+compare it with the earlier distinct reviewer counters; the idle gap is the only excluded interval and is stamped in the private ledger.
+
+## C6. Remaining full-overhaul coverage and costed later-stage update (deduplicated)
+- **N1-close (next stage, not authorized here):** F7–F15 fixes ≈ 4 h capability (Escape ladder in the polled owner 1 h; F8/F9/F10 focus
+  callers 1 h; 200 % chrome/header/overlay-header rules 1.5 h; F15 0.25 h; Find focus 0.25 h) + one rendered rerun and a native
+  re-pass ≈ 1.5 h verification; a lawful Schedule-take fixture for UX-STALE-NATIVE-01 (requires a managed-mode source) ≈ 1 h.
+- **Delivered shared work to deduct once from S2/S6:** list-level keyboard model incl. row cursor and camera gate, lane composition,
+  next-action band + memo sheet (the memo/journey disposition), compact inspector overlay, explicit lifecycle mappings, LOCATE
+  publication law, rendered PlayMode discipline ≈ 9 h capability delivered → S2 remainder ≈ 3 h / 2 h; memo/journey strip 0.
+- S3–S7 unchanged from S6 (24/6, 10/3, 8/2, 5/2, 0/12). Remaining program ≈ **55.5 h capability / 27.5 h reserve** against
+  45.7 h / 13.7 h remaining — the S6 fit conclusion stands; staged authorization still required; no art, dragging, help or screen
+  coverage made optional.
+
+## C7. Stop state
+Stopped at N1's connected native review with declared defects. Preserved: Build46 package on the Desktop, Build47/48 records, P13A, all
+campaigns, old evidence, both worktrees clean (Unity `18b893a6`, TS at this record). Publication: fast-forward of the two owned WIP
+branches only. No PR, merge, protected-ref promotion, hook/goal activation, P13B/P14/P15/P16 coding, global configuration change.
+Rollback source: Unity `7471d24` (Build47), TS `31f6e70d`.
+
+---
+
 # R3-N1 execution record — 2026-09-14 · OPS-R3-N1-EXECUTE-20260914-01
 
 **R3-N1 IMPLEMENTED AS A LABELLED PARTIAL ENGINEERING INCREMENT — NOT N1 COMPLETION. CANDIDATE REVIEW READY; NATIVE INPUT NOT ADMITTED.**
