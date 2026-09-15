@@ -17,16 +17,14 @@
 | Full local-evidence mirror (nothing stays local): text-class evidence in Git; captures/movies/large payloads as release assets | private Unity repo, branch `docs/playability-delivery-review-20260913-01` → `docs/evidence/local-mirror-20260915/` and GitHub Release tag `evidence-mirror-20260915` (assets listed in its notes) |
 | Owner playtest list for Howard's return | `docs/engineering/playability-launch-review/OWNER-PLAYTEST-LIST.md` (grows with each phase) |
 
-## Current position (2026-09-15 20:28Z)
-- Build50 native runs DONE (K9): preflight PASS; F7, F8 (Production excursion), F10, F11, F12 (no menu), F13, F14, F15 PASS natively at
-  1440×900; F9 typing PASS; new defects F17 (keyboard Return opens no inspection), F18 (Escape never closes Find), F16 (check), F20 (minor)
-  handed to the N2 writer. Run B (1280×720/200 % cell, dense-02 overflow, Schedule-take route) NOT RUN on Build50: stale-source guard once
-  N2 edits entered the tree → runs on Build51.
-- N2 in progress (IMPL-12 running with the K9 native defects and the rail font floor added; DESIGN-03 done, TS 321448c1). N7/N8 legality
-  and retrievability inventory filed (`plans/N7-N8-LEGALITY-AND-RETRIEVABILITY-INVENTORY.md`, plan C5/N7 amended, f9b1d28c). N3 visual
-  standard sheet + icon SVGs + PROVENANCE done (`r3-n1-design/R3-N3-VISUAL-STANDARD-SHEET.md`, d9b5e239): fonts = LegacyRuntime tier-0 +
-  gated OS preference; six-portrait proof ids named; two missing stage sprites (committed, intheaters) specified; F-N3-1/F-N3-2 findings.
-- Evidence mirror: text-class in Git (b8e57059); release `evidence-mirror-20260915` uploading (60+ assets so far, resumable).
+## Current position (2026-09-15 21:20Z)
+- Build50 native runs DONE (K9). N2 implemented (Unity 74c2141a → 0703ed7a, 10 commits) + TEST-09 (c25848b9; EditMode 1808/1808);
+  rendered suite 209/211 → IMPL-13 diagnosing the two failures (history return offset at 1280/100; laboratory route not published at one
+  cell). Then Build51 → seal 46 → admission 42 → N2 native chain (`run-N2-chain.sh`: N2A 1440, N2B 1280, B3 dense-02) → K10.
+- Design sheets ready ahead of their phases: N3 visual standard (d9b5e239), N4 film journey (95ec9a3d), N5 people/build/lab (4d041fb7);
+  N6 next. PM delta decisions: N4 `attention` on development projects, N5 `affordable`+`refusalReason` on contract offers — both TS
+  read-model deltas to be batched (sim-core) with schema/DTO regen and a paired seal at N4 start. Open ruling C8 (rail font floor).
+- Evidence mirror: text-class in Git (b8e57059); release assets uploading (resumable, oversize runs split).
 
 ## Program order for the window
 1. R3-N1 native close-out (preflight, A, B; native defect fixes if found) → 2. remaining selected R3 UI/UX overhaul phases (plan to be
