@@ -66,3 +66,13 @@ Coordinator's standing rules for the window (derived, not new authority): Opus-o
 published plan (scope, contracts, acceptance checks, budget) before implementation; recovery points pushed on the owned working branches at
 least at every phase boundary and before any compaction; the continuation state lives in
 `docs/engineering/playability-launch-review/CONTINUATION-STATE.md` (created by this window) and the existing handoff.
+
+## Owner addenda (same session, 2026-09-15 ≈ 20:06Z, verbatim)
+- "Ensure nothing is lost with this push, please let me know where everything will be documented in case your session closes"
+- "Perfect, nothing must remain local, all must be on Github and with your decisions you can push to main"
+
+Coordinator reading: (1) every local evidence root, ledger and coordinator script is mirrored to GitHub — text-class evidence in Git on
+the PRIVATE Unity repo's evidence branch, large captures/movies/payloads as release assets on the same private repo (Git file/size limits);
+HSpector1/The-Movies is PUBLIC, so machine paths, synthetic payloads and captures never go there; credentials stay out everywhere.
+(2) Merging to main is delegated to the coordinator's judgement, still only after independent review and the technical gates for the
+paired TS/Unity candidate, never by force-push and never by weakening branch protections.
