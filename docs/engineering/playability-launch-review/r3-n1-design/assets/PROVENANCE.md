@@ -51,6 +51,30 @@ later integrity check has a baseline. Tool: plain-text SVG authoring. Licence: p
 | `03-text-200-1280.svg` | `6ec804dcfa85b0510e2bec674424d3a72a7b1696664192a36fb30b4f858eda82` | R3-N1-DESIGN-01 |
 | `04-memo-sheet-1440-150.svg` | `8dd554c45bd22d674f5db75b0e3bdbef0355be00b7887214da4730ccc3504401` | R3-N1-DESIGN-02 |
 
+## Entries — R3-N3-DESIGN-08 (stage sprites, authored 2026-09-16)
+
+The two missing stage art keys named as a `[GAP]` in `R3-N3-VISUAL-STANDARD-SHEET.md` §4.2. See
+`stage/STAGE-SPRITES-README.md` for the raster spec, the import settings and the art-key mapping the N3 writer
+must implement. Common to both: authored from scratch by the uiux-designer agent under task
+**R3-N3-DESIGN-08** on **2026-09-16**; tool = plain-text SVG authoring in this worktree, checked by
+local `rsvg-convert 2.62.3` renders at 78 px and 156 px written **only** to the session scratchpad;
+licence **project-owned**; **no raster committed** — the shipping 156 px PNG is produced by the N3
+writer into `Assets/Studio/UI/Resources/StageObjects/` and gets its own entry in *that* folder's
+`PROVENANCE.md`. Derived in language, not in bytes, from the six R3 stage SVGs at design-content
+commit `509bd4d76b23ec9faed9c743620208fa77cee332` (`R3/art/*.svg`, materialised read-only at
+`/Users/bruce/Desktop/Fable-Verified-Sources-20260914-01/R3/`): the `defs` block (the `metal`,
+`paper`, `ink`, `brass` gradients and the `shadow` filter) and the ground ellipse are reused
+verbatim from that project-owned set; every other path is new. No Lionhead pixels, no traced frame,
+no downloaded or purchased file, no font.
+
+| File | sha256 | Art key | Replaces (shared sprite) |
+|---|---|---|---|
+| `stage/committed.svg` | `c32a4ee5174a5200e480203fbd93b93374f457d994b8fbfb199b6655f7d58417` | `committed` → `Lifecycle.Committed` (operationalState `release-committed`) | `release`, shared with `release-ready` |
+| `stage/intheaters.svg` | `23a9fc6810a5f837c2ccfe56d66ab233a9a19d14a08e6476506eb9a6d67a1447` | `intheaters` → `Lifecycle.InTheaters` (`ReleasedArtKey(runActive: true)`) | `library`, shared with a finished run |
+
+Nothing in either worktree loads these two files today. They are drawable geometry plus a written
+hand-off, not shipped game art, and no capture of them exists at any size.
+
 ## Assets referenced by this design but owned elsewhere
 
 * **Stage sprites** — `…-Playability-Interaction Unity/Assets/Studio/UI/Resources/StageObjects/*.png`
@@ -66,7 +90,8 @@ later integrity check has a baseline. Tool: plain-text SVG authoring. Licence: p
 
 ```
 shasum -a 256 docs/engineering/playability-launch-review/r3-n1-design/assets/*.svg \
-              docs/engineering/playability-launch-review/r3-n1-design/assets/icons/*.svg
+              docs/engineering/playability-launch-review/r3-n1-design/assets/icons/*.svg \
+              docs/engineering/playability-launch-review/r3-n1-design/assets/stage/*.svg
 ```
 Any mismatch means the committed bytes changed without a provenance update — treat that as a defect,
 not a rounding error.
