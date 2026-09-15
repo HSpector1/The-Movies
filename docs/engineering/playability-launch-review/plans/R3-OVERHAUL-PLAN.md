@@ -45,6 +45,13 @@ caps are planning checkpoints: each phase record restates actual usage; overruns
   facility, recasting a live picture; writer → screenplay-in-draft has a command but no bridge intent (named dependency). Build uses
   `QuoteFresh` + TS commit revalidation instead of `StillDisplayed()` — N8 acceptance names both.
 - C6 "UNKNOWN STAGE" → keep the explicit unknown label (never "Writing"); unreachable in a paired build.
+- C8 (added 2026-09-15, N2) rendered-text floor vs list floors → the XAG 101 18-px rendered floor (Current Ops-adopted target) applied to the
+  rails' meta/section/body faces collapses the R3.2 list viewports at 1280×720 on paper (pictures 27 px, employees 19 px at 200 %). Ruling:
+  the floor law stays wired but NEUTRAL for those three faces until N3 measures real rendered heights at 1280×720; the card title keeps its
+  18-px floor (C3). Options for N3: (a) accept a 16-px floor at the 1280 class with an explicit XAG deviation; (b) yield chrome further (tab
+  strip → 1 row, footer abbreviations) to buy list height; (c) treat 1280×720 as a "compact" class with its own type scale. Recommendation:
+  measure first, then (b) before (a); never (c) without an Owner ruling. Handed-on N2 tail items: the lane inspector faces are double-scaled
+  (fixing it moves the natively confirmed F14 geometry — schedule with the N4 overlay work), and the pictures footer refusal line can clip.
 - C7 authorization at the revised budget → the directive delegates settled technically-ready work: proceed, report actuals each phase.
 
 ## Recovery points
