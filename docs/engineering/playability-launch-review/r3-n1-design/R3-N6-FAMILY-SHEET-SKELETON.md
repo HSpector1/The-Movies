@@ -52,3 +52,6 @@ TODO(N6). Dialog focus order, Escape ladder, destructive-action separation, and 
 
 ## 6. Implementation routing, provenance, evidence limits
 TODO(N6). Number → owner file; commits/hashes; paper-vs-rendered stated honestly; the campaign Save-As/leave regressions named as gates.
+
+> **FILLED.** Every `TODO(N6)` above is answered in `R3-N6-FINANCE-RECORDS-MENU-FAMILY-SHEET.md` (R3-N6-DESIGN-07). This skeleton is retained
+> unchanged as the phase record; read the filled sheet for the decisions.
