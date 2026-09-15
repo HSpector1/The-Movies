@@ -1,3 +1,6 @@
+> **FILLED — see `R3-N4-FILM-JOURNEY-FAMILY-SHEET.md` (R3-N4-DESIGN-05, 2026-09-15).** This skeleton is retained as the record of what the
+> N4 designer was asked to decide; every `TODO(N4)` below is answered there. Read the filled sheet, not this file, for the design.
+
 # R3-N4 family sheet — SKELETON (film journey) · written by R3-N2-DESIGN-03, filled in-phase by the N4 designer
 
 **Skeleton only.** Headings, the state list each section must cover, and the references to read. No design decision is made here; every
