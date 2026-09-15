@@ -15,6 +15,13 @@ surface"; 1A desktop-first; 3A contextual help only; 4B selective attention; fix
 behaviour, a raised minimum viewport, universal undo, portrait/font/icon work, or any other screen
 family.
 
+> **REV02 — read with `R3-N1-SHEET-REVISION-02.md`.** The connected native review of 2026-09-15
+> (F13/F14/F15) contradicted four rows of this sheet. Under order OPS-R3-N1-NATIVE-CORRECTION-20260915-01
+> §2/§3, task R3-N1-DESIGN-02 supplies the necessary responsive revision: the overlay header/footer
+> clamp (R1), the 1280x720/200 % cell (R2 — it fits; the full-screen fallback is **withdrawn**), rail
+> header rows and the list floor (R3), the stacked picture card and the action row (R4), and the opaque
+> body plate (R5). Every row below marked **REV02** is superseded by that file; everything else stands.
+
 Every number below is tagged **[R3]** (measured from the verified R3 archive), **[NAT]** (read from
 Unity source at `7471d24` and evaluated by hand from the named function — a *paper* evaluation of
 committed code, never a runtime observation) or **[REC]** (this designer's recommendation). Section H
@@ -91,6 +98,8 @@ Per the stop rule, no memo route is dropped anywhere. Two states cost more than 
   fit.** Recommendation: at that **one** state the existing full-screen `StudioWorkspaceHost`
   workspace remains the inspection surface — already shipped, drops no route, adds no popup, raises
   no minimum viewport. The two smallest alternatives are in §C.9.
+  **REV02 — withdrawn.** With the R1 header/footer clamp and viewport-scaled chrome padding the same
+  cell needs 96 + 94 + 120 = 310 and fits the 310 px envelope; see `R3-N1-SHEET-REVISION-02.md` §R2.
 * **Cast choice and the legacy Save/Load fallback.** `PlayerHasCastChoice` renders two or more
   54·s-tall choice buttons, and `systemOwnerPresent == false` renders Save/Load buttons. Neither fits
   a one-row band. They live in the sheet, one explicit control away. **One extra click, zero lost
@@ -124,7 +133,7 @@ duplicates, as the order permits.
 | **L2 — lane + receipt** | S2, S3 | tools row + band (when it fits, §B.4) + selection receipt bottom-right | `01` (receipt drawn) |
 | **L3 — lane overlay** | S4, S5, S6 | tools row + compact inspector bottom-anchored; band yields to the chip | `02-inspector-1440-100.svg` |
 | **L4 — lane overlay (sheet)** | S7 | tools row + Studio-next-steps sheet, identical geometry law to L3 | `04-memo-sheet-1440-150.svg` |
-| **L5 — short-lane fallback** | any state where §B.4 / §C.9 predicates fail | band collapses to the chip; at 1280/200 % inspection uses the existing full-screen workspace | `03-text-200-1280.svg` |
+| **L5 — short-lane fallback** | any state where §B.4 predicate fails | band collapses to the chip. **REV02:** the §C.9 full-screen inspection branch is withdrawn (REVISION-02 §R2); L5 is now a band rule only | `03-text-200-1280.svg` |
 
 **Pairs that share a rule, explicitly.** S2 ≡ S3 (a selection receipt is a selection receipt; the only
 difference is which pinned controls the receipt offers, which is existing `StudioHud` behaviour).
@@ -387,7 +396,7 @@ Maximum inspector heights **[REC]**:
 |---|---:|---:|---:|
 | 1280 / 100 % | 150 | **450** | 258 |
 | 1280 / 150 % | 244 | **356** | 352 |
-| 1280 / 200 % | 290 | **310** | 398 — *does not fit, see §C.9* |
+| 1280 / 200 % | 290 | **310** | 398 — **REV02:** it DOES fit (96 + 94 + 120), REVISION-02 §R2 |
 | 1440 / 100 % | 150 | **630** | 258 |
 | 1440 / 150 % | 244 | **536** | 352 |
 | 1440 / 200 % | 290 | **490** | 398 |
@@ -421,6 +430,15 @@ Header content, top to bottom-right: stage art (or portrait slot) · eyebrow (`P
 tooltip-only** · sub-line (`Shooting · Drama` / role) · **`◄ Back` pinned top-right of the header**, so
 Back is on screen at every scroll position and every text size. **[R3]** — this is the arrangement in
 `03-selected.png` and `07-small-waiting.png`.
+
+> **REV02 — the header geometry above and its 104/140/176 · 60/82/108 table are superseded by
+> `R3-N1-SHEET-REVISION-02.md` §R1.** "Never clamped" made the header an unbounded term in a bounded
+> rect: natively at 1440x900/200 % it consumed the whole 490 px overlay, published `inspector-open-*`
+> off-screen and left a 1 px body (F14). REV02 clamps the header title to N = 3/2/1 lines, scales
+> chrome padding by the viewport rather than the text multiplier (header 160/186/148 → 96 at the
+> 1280/200 % cell; footer 60/77/94), keeps a `bodyMin` of 66/93/120, and **renders the COMPLETE title
+> unclamped as the first block of the scrolling body whenever the header clamps** — so §E rule (2)
+> still holds with no tooltip. The body backing itself is REVISION-02 §R5 (F15).
 
 ### C.3 Both rails alive underneath — it is not a modal
 
@@ -529,6 +547,13 @@ neighbour (`RestoreTarget`). A newly opened inspector or sheet starts its own bo
 
 ### C.9 The 1280x720 / 200 % inspector conflict — stated, not papered over
 
+> **REV02 — this whole section's recommendation is WITHDRAWN.** Order
+> OPS-R3-N1-NATIVE-CORRECTION-20260915-01 §3 rules that the full-screen fallback is an implementation
+> limitation, not an exception to connected compact inspection. `R3-N1-SHEET-REVISION-02.md` §R2
+> re-derives the cell under the R1 clamp: envelope 310 = header 96 + footer 94 + body 120, both rails
+> visible and usable underneath, tools row not covered. The conflict statement below is retained as
+> the record of why the fallback was proposed; **Alt 1 and Alt 2 are not adopted.**
+
 **Conflict.** At 1280x720 with 200 % text the lane is 418 px tall (`708 − 290`). A compact inspector
 needs a fixed header (176) + a fixed footer (108) + a body that can show one fact group without
 scrolling twice per line (≈ 200) = **484 px**, before any clear-lot reserve. It does not fit, and no
@@ -597,7 +622,7 @@ same cell the lot lane is only 316 wide and the receipt covers all of it below y
 |---|---|---|---|---|---|
 | 1280x720 | 100 % | 284..964, y 258..708 | **716 x 108** | 18 x 450 (x2) | both alive |
 | 1280x720 | 150 % | 284..964, y 352..708 | **716 x 108** | 18 x 356 (x2) | both alive |
-| 1280x720 | 200 % | — full-screen workspace (§C.9) | 0 | 0 | hidden (existing behaviour) |
+| 1280x720 | 200 % | **REV02** 284..964, y 398..708 | **716 x 108** | 18 x 310 (x2) | both alive |
 | 1440x900 | 100 % | 366..1046, y 258..888 | **836 x 108** | 78 x 630 (x2) | both alive |
 | 1440x900 | 150 % | 366..1046, y 352..888 | **836 x 108** | 78 x 536 (x2) | both alive |
 | 1440x900 | 200 % | 366..1046, y 398..888 | **836 x 108** | 78 x 490 (x2) | both alive |
@@ -624,9 +649,10 @@ Identical geometry to D.3, with the sheet in place of the inspector, **including
 2. **S4–S6 side strips at 1280** are 18 px. They are spatial continuity, not click targets. The 96 px
    full-lane strip above the overlay is the region that must be clickable.
 3. **The band disappears in three of the twelve selected-state cells** (§B.4). The chip never does.
-4. **1280x720 / 200 % inspection keeps the full-screen workspace** (§C.9). This is the one cell where
-   the selected "compact overlay with both rails alive" outcome is not delivered, and it is declared
-   rather than hidden.
+4. ~~**1280x720 / 200 % inspection keeps the full-screen workspace** (§C.9).~~ **REV02 — withdrawn.**
+   That cell now carries the compact overlay with both rails alive (REVISION-02 §R2); its remaining
+   cost is a 0 px margin over `bodyMin` and a pictures-list viewport ≈ 10 px under one full card
+   (REVISION-02 §R3.3), both declared rather than hidden.
 
 ### D.6 What the native proof must demonstrate (design requirement, not a claim)
 
@@ -663,7 +689,7 @@ follows the viewport only — the already-shipped "R4 option (a)" law. **Keep it
 | — role line | wraps, own line | wraps | wraps | same |
 | — status line | wraps, own line + chip | wraps | wraps | same |
 | — row min height | 78 | grows from measurement | grows | `EmployeeRowMinHeight` x measured stack |
-| — profession tabs | one row | **flow to 2 rows** | **flow to 2–3 rows** | `LayoutTabs` (shipped: already flows) |
+| — profession tabs | one row | **flow to 2 rows** | **REV02** flow, capped at 2 rows and scrolling when the list floor requires it | `LayoutTabs` → REVISION-02 §R3.2 |
 | — search field | full width | grows taller | grows taller | `SearchHeight` |
 | — list | scrolls | scrolls | scrolls | `people-rail-scroll` |
 | **Pictures rail** — filter + Find | side by side | side by side | **STACK: filter full width above Find** | `FilterControlRect` / `FindControlRect` — **change** |
@@ -672,13 +698,17 @@ follows the viewport only — the already-shipped "R4 option (a)" law. **Keep it
 | — stage word | never truncated; own line | own line | own line | shipped |
 | — state line (incl. `Waiting · cause`) | wraps | wraps | wraps | shipped |
 | — card height | grows from measurement | grows | grows | `CardHeight` (shipped) |
+| **REV02** — rail header row (both rails) | title+count and the auxiliary control share one row | share when measured | **own rows, measured** | REVISION-02 §R3.1 |
+| **REV02** — picture card form | image left, text right | image left, text right | **stage image STACKED above the text** | REVISION-02 §R4.1–R4.2 |
+| **REV02** — LOCATE / DETAILS zone | bottom-anchored own row, text reserves it | same | same, measured width | REVISION-02 §R4.3 |
 | — visible range / paging | text grows; buttons keep `aria-disabled`-equivalent focus | same | same | shipped |
 | **Band** — eyebrow | 1 line | 1 line | 1 line | §B.2 |
 | — headline | wraps to 2 | wraps to 2 | wraps to 2 | §B.2 |
 | — reason | wraps to 2–3 | wraps to 2 | wraps to 2, **then the band's text column scrolls** | §B.2 |
 | — primary action button | 34 min height, wraps | 51, wraps | 68, wraps, **own row** | `memoWorkflowButtonStyle` law x m |
 | — details control | beside the action | beside | own row | §B.1 |
-| **Inspector** — title | 20 px, wraps, no clamp | 30, wraps | 40, wraps | §C.2 |
+| **Inspector** — title | 20 px, wraps, **REV02** clamped to 3 header lines | 30, **REV02** 2 lines | 40, **REV02** 1 line (0 at 1280) | §C.2 → REVISION-02 §R1 |
+| — complete title when the header clamps | **REV02** first block of the scrolling body, unclamped, no tooltip | same | same | REVISION-02 §R1.2 |
 | — facts grid | 2 columns | **1 column** | **1 column** | **[R3]** `.text-200 .facts` |
 | — fact values | wrap (`overflow-wrap:anywhere`) | wrap | wrap | **[R3]** |
 | — people-on-picture faces | wrap onto rows | wrap | wrap | **[R3]** `.who-row .faces{flex-wrap:wrap}` |
@@ -761,8 +791,8 @@ there. At working-tree HEAD `f57599b` the gate exists and is wired: **[NAT, at f
 * **Text fields own their keys.** While a rail search/find field is focused every key but `Tab` and
   `Escape` belongs to the field (`TextEntryFocused()`), including the arrows.
 * **The Studio Menu owns input** while its layer is not `Closed` (`modalOwnsInput`).
-* **Full-screen workspaces own their input** (`workspaceOpen`) — including the 1280/200 % inspection
-  fallback of §C.9.
+* **Full-screen workspaces own their input** (`workspaceOpen`) — **REV02:** no longer including any
+  inspection cell; the §C.9 fallback is withdrawn (REVISION-02 §R2.5).
 * **The lane overlay does NOT take modal ownership.** It owns only the keys inside its own rect and
   `Escape`; the rails keep their rings and their wheel.
 * **Focus is never selection.** A blue 3 px focus ring, a gold selection edge and a gold attention
@@ -811,7 +841,7 @@ The writer receives geometry, not prose. All px are **base px** and, where noted
 | G12 | Compact inspector rect | new `Runtime/Presentation/UI/` sibling of `StudioPersonInspectorCard.cs` / `StudioCastingInspectorCard.cs`, hosted **without** the `StudioWorkspaceHost` scrim | `width = min(W, 680·s)`; `x = L + (W−width)/2`; `bottom = B`; `height = min(content, B − overlayTopFloor − 12 − 96·s)`; header 104/140/176; footer 60/82/108; body scrolls |
 | G13 | Inspector must not set `WorkspaceOpen` | `Runtime/Presentation/UI/StudioWorkspaceHost.cs` | the lane overlay is a new non-scrim state; `WorkspaceOpen` stays false so `StudioProductionRailHud` and `StudioHud` do not suppress themselves |
 | G14 | Laboratory re-publication | `StudioHud.cs` (l. 237–249) + the new inspector | while the inspector subsumes the receipt, publish `hud-open-laboratory` at the inspector's footer rect, same name, same enable law |
-| G15 | 1280x720/200 % inspection fallback | `StudioWorkspaceHost.cs` | predicate: use the full-screen workspace when `B − overlayTopFloor − 12 − 96·s < header + footer + 200·m` |
+| G15 | **REV02** — no fallback; an assertion instead | the new inspector | assert `B − overlayTopFloor − 12·s − 96 ≥ header(N=0) + footer + bodyMin` at every supported cell and report a failure; never switch form silently (REVISION-02 §R2.5) |
 | G16 | Back/Escape ladder | `StudioProductionRailHud.cs` (`StudioRailKeyboardFocus.HandleKeys`, l. 205) | add rule 4 of §C.8: `Escape` with a rail target and no text field clears `Target`, calls `PublishRailArrowOwnership(rail, false)`, `e.Use()` |
 | G17 | `1` / `2` / `3` | `StudioProductionRailHud.cs` (`StudioRailKeyboardFocus.HandleKeys`) | `KeyCode.Alpha1`/`Keypad1` → claim the people rail's first target; `Alpha2` → the pictures rail's; `Alpha3` → activate `memo-details-open`; each `e.Use()` |
 | G18 | Rails' top floor vs the living-time chip | `StudioPeopleRailHud.TopEdge` (l. 236) and `StudioProductionRailHud.TopOffset` (l. 655) | `max(94·s_text, StudioLivingTimeHud.CurrentChipRect(Screen.width, s).yMax + 12·s, menu.yMax + 8·s)` — closes the 13 px x 56 px overlap at 1280/150 % |
