@@ -7,6 +7,36 @@ candidate pins, the bounded fixture attempt, charges and residuals. Nothing here
 Build46 is the Current Ops-qualified engineering checkpoint (not Owner-accepted); P13A remains the accepted product. Private identifiers
 stay in the Git-private `fable-local-transfer-20260914-01/r3n1-ledger-local.json`.
 
+## K9. Build50 native runs under the Owner's three-week directive — 2026-09-15 20:05Z–20:27Z (unattended, guard-admitted)
+Authority: Owner directive (`docs/operations/fable-team/OWNER-DIRECTIVE-THREE-WEEK-AUTONOMOUS-20260915.md`); the desktop became idle after
+Howard left; every run admitted by the unchanged guard (console unlocked, owner idle ≥ 60 s, listen-only witness, bound Build50 manifest
+`319fb167…`, synthetic fixture provenance) and driven through the supervised direct-pipe wrapper (`native-supervised.sh`, caffeinate tied to
+the driver pid, 30-s first-progress bound). Analyzer v3 (`check-run-v3.py`, aligns by the driver's own mapPath; v2 retained) — both in
+`coordinator-scratch/r3n1e/` on the private mirror. No Owner campaign touched; player exited by its own UI Quit in A6, by the driver's finish
+in A5 (UI quit skipped by a script toggle — see F19 withdrawn).
+| Run | Evidence (`Evidence/Playability-Interaction-01/`) | Steps | Result |
+|---|---|---|---|
+| Preflight PF | `early-2026-09-15T20-09-57-345Z` | 9 | PASS — first scripted input acknowledged 2 s after ready; clean owned shutdown |
+| A5 (1440×900, dense-01, 100 % then 200 %) | `early-2026-09-15T20-11-58-338Z` | 139 (15 attempt-failed, all script-sequence) | complete; input clean |
+| A6 (corrected script) | `early-2026-09-15T20-19-22-804Z` | 87 (8 attempt-failed, script) | complete; UI quit; input clean |
+| B1 / B2 (1280×720, dense-02) | `early-2026-09-15T20-15-…` binding refused / `…T20-22-…` | 0 / 0 | NOT RUN — B1: coordinator env path case (`Evidence` vs the manifest's `evidence`), fixed; B2: **stale-source guard** (the N2 writer's edits made the Unity tree newer than Build50 — the guard is right); Run B moves to Build51 |
+**F7–F15 native disposition on Build50 (K2's native columns):** F7 **PASS** (pointer overlay: one Escape closes only the overlay; menu stays
+closed) · F8 **PASS (Production excursion)** — people offset retained across Production workspace and back (56 → 56); the Profile excursion
+was NOT EXERCISED (script targeted an off-screen row twice) · F9 **PASS typing / FAIL after Tab-out** (see F17) · F10 **PASS** — with the lot
+selection active after Locate, one click opened the person overlay and, after Back, one click opened the picture overlay; the receipt survived
+Back · F11 **PASS** ('h' then 'q' typed into Find; list narrowed then emptied) · F12 **PASS (no menu)** but see F18 · F13 **PASS at 1440×900/200 %**
+(headers on their own rows, toolbar stacked, portrait/stage image stacked above text; capture `107-fix-130-rails-200.png`) · F14 **PASS at
+1440×900/200 %** for both overlays (person: panel [366,12,680,490], Open profile [380,26,529,68], Locate [380,100,274,68], Back [822,438,210,52],
+body [380,186,652,184]; picture: Open production [380,26,652,68], same Locate/Back/body) · F15 **PASS** (opaque body plate in captures 107/116
+and `v2-150`). The 1280×720/200 % cell, dense-02 picture overflow and the Schedule-take route stay **NOT EXERCISED** (Run B → Build51).
+**New native findings (Build50):** F16 (check, low) after a pointer-opened overlay closes, the next Escape opens the menu (invoking focus not
+held on the pointer route); **F17 (defect, medium)** keyboard row activation opens no inspection (Tab×3→Down→Return; Tab-out→Down×2→Return)
+in both runs; **F18 (defect, medium)** Escape in Find releases nothing visible and never closes Find (three presses; menu stays closed);
+F19 withdrawn (script toggled the open menu closed; Quit is visible at 200 %, capture 133); F20 (minor) monogram glyphs draw above their slot at
+200 % (row + overlay header). F16–F18/F20 were added to the N2 writer's assignment (IMPL-12 items 6–9).
+**Charges (reserve, session clock):** 20:05:00Z–20:27:00Z ≈ 22 min (preflight, runs, analysis, this record); N1 reserve ≈ 372.5 of 420 min.
+Plan/state/directive writing 20:00–20:05 and 20:11–20:13 ≈ 7 min capability (program management).
+
 ## K8. Input recovery — OPS-R3-N1-INPUT-RECOVERY-20260915-02 (pointer; the additive record is published, not repeated here)
 Order verified (blob `f28ab598` at `0b620524`). Findings that CORRECT K4: the sleep attribution is withdrawn; in both blocked runs the guard's
 startup events (six helpers) WERE acknowledged like the good 06:25Z run, the driver logged no command at all (its stdin command loop idled until
