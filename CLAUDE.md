@@ -9,7 +9,9 @@
 > 1280x720 @200 % full-screen fallback withdrawn in source), independent regressions (EditMode 1751/1751), rendered PlayMode 209/209
 > and the lawful managed-mode fixture r3n1-dense-02 (4 picture cards, a live Schedule-take decision, 4/4 command-owner refusal tests).
 > The NATIVE proof on Build50 was NOT EXERCISED: four guarded attempts were blocked (unacknowledged HID injection ×2, owner activity ×2)
-> — see the correction record (K1–K7) atop 06. N1 stays a labelled PARTIAL; its 6-hour reserve is exhausted at that record.
+> — see the correction record (K1–K7) atop 06 and the K8 input-recovery pointer (OPS-R3-N1-INPUT-RECOVERY-20260915-02: blocker corrected
+> to the coordinator's command harness, supervision tested, preflight/runs NOT RUN pending a current desktop statement). N1 stays a
+> labelled PARTIAL; its reserve is amended to 7 cumulative hours, ≈ 351.5 min used.
 > Build46 is the Current Ops-qualified engineering checkpoint (not Owner-accepted); Build47/48/49 are retained superseded records.
 > No further implementation, native input, new audit or specialist dispatch follows automatically.
 > A fresh coordinator must explicitly accept the recorded writer/input handoff and reconcile

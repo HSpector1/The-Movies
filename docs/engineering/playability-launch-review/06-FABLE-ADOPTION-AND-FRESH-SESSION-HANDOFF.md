@@ -7,6 +7,20 @@ candidate pins, the bounded fixture attempt, charges and residuals. Nothing here
 Build46 is the Current Ops-qualified engineering checkpoint (not Owner-accepted); P13A remains the accepted product. Private identifiers
 stay in the Git-private `fable-local-transfer-20260914-01/r3n1-ledger-local.json`.
 
+## K8. Input recovery — OPS-R3-N1-INPUT-RECOVERY-20260915-02 (pointer; the additive record is published, not repeated here)
+Order verified (blob `f28ab598` at `0b620524`). Findings that CORRECT K4: the sleep attribution is withdrawn; in both blocked runs the guard's
+startup events (six helpers) WERE acknowledged like the good 06:25Z run, the driver logged no command at all (its stdin command loop idled until
+witness expiry), and the un-acknowledged token was the finish-stage stop marker written after expiry — the block was the coordinator's FIFO
+command harness (the morning's runs used the direct `run-native.sh` pipe); no missing permission was identified and no Owner permission action
+was requested. Bounded coordinator-side supervision (direct pipe, explicit run paths from the driver's "ready" line, 30-s first-progress bound,
+SIGTERM to the owned driver's own finish handler) was TESTED on an inert owned blocked child: abort at 30 s, clean exit. Preflight, Run A and
+Run B: **NOT RUN** — Howard answered "Not now" to the current desktop-availability question. Per-defect native disposition and every K7
+residual unchanged. Charges: ≈ 14 productive reserve minutes (19:51:58Z–≈20:06Z), N1 reserve ≈ 351.5 of the amended 420 min; the K6 closing
+estimate is superseded by the stamped ledger (correction reserve 115.25 min; 337.45 before this recovery). Record + evidence:
+`docs/evidence/r3n1-native-correction-20260915-01/reports/INPUT-RECOVERY-01.md` and `evidence/Unity/r3n1-20/` on the private review branch
+at `c80743db4e3624f5c007ddcc5bfb74c88f393a0a` (92 files). Next: with a current desktop statement, preflight through `native-supervised.sh`,
+then A and B with fresh admissions.
+
 ## K1. Acceptance, desktop basis, ownership
 - Order verified: packet `R3-N1-NATIVE-CORRECTION` (SHA256SUMS 5/5 OK) == Git blob `ac0a3d9295c636be1ee2615d225032c20551fbd4` at
   `3cf828a9` (`docs/engineering/playability-launch-review/10-R3-N1-NATIVE-DEFECT-CORRECTION.md`, on
