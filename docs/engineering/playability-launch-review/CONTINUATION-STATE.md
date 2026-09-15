@@ -17,14 +17,15 @@
 | Full local-evidence mirror (nothing stays local): text-class evidence in Git; captures/movies/large payloads as release assets | private Unity repo, branch `docs/playability-delivery-review-20260913-01` → `docs/evidence/local-mirror-20260915/` and GitHub Release tag `evidence-mirror-20260915` (assets listed in its notes) |
 | Owner playtest list for Howard's return | `docs/engineering/playability-launch-review/OWNER-PLAYTEST-LIST.md` (grows with each phase) |
 
-## Current position (2026-09-15 21:20Z)
-- Build50 native runs DONE (K9). N2 implemented (Unity 74c2141a → 0703ed7a, 10 commits) + TEST-09 (c25848b9; EditMode 1808/1808);
-  rendered suite 209/211 → IMPL-13 diagnosing the two failures (history return offset at 1280/100; laboratory route not published at one
-  cell). Then Build51 → seal 46 → admission 42 → N2 native chain (`run-N2-chain.sh`: N2A 1440, N2B 1280, B3 dense-02) → K10.
-- Design sheets ready ahead of their phases: N3 visual standard (d9b5e239), N4 film journey (95ec9a3d), N5 people/build/lab (4d041fb7);
-  N6 next. PM delta decisions: N4 `attention` on development projects, N5 `affordable`+`refusalReason` on contract offers — both TS
-  read-model deltas to be batched (sim-core) with schema/DTO regen and a paired seal at N4 start. Open ruling C8 (rail font floor).
-- Evidence mirror: text-class in Git (b8e57059); release assets uploading (resumable, oversize runs split).
+## Current position (2026-09-15 23:05Z)
+- **Build51** bound on Unity bb23f87e / TS 69737725 (exe dc4d480628a5eb6bce31643bf3a529ce462166264342a3c810618810c626c5de, seal 46 PASS,
+  admission 42 PASS); rendered suite 210/211 (one More-actions cell assertion still iterating). N2 native runs on Build51 DONE (N2A 1440×900,
+  N2B 1280×720; K10 draft in the review folder): F18 PASS natively; the 1280×720/200 % cell hosts the person overlay but its footer wraps
+  and leaves a 52-px body; F16/F17a/F17b still open natively. Root cause found for several of these: the lane inspector fonts are scaled
+  twice (150 % renders at 225 %) — IMPL-17 is fixing that plus registry withdrawal, F16, F17a, F17b. Then TEST-14 (re-derive number pins),
+  rendered rerun, Build52, N2 native rerun + Run B (dense-02; manifest path spelling corrected), K10 record.
+- Design sheets ready for N3–N6 (d9b5e239, 95ec9a3d, 4d041fb7, 0ad64fa6); DESIGN-08 authoring the two missing stage sprites.
+- Evidence: review folder updated (Build51 runs); release assets uploading.
 
 ## Program order for the window
 1. R3-N1 native close-out (preflight, A, B; native defect fixes if found) → 2. remaining selected R3 UI/UX overhaul phases (plan to be
