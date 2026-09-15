@@ -1,5 +1,8 @@
 # R3-N5 family sheet — SKELETON (people, casting contracts, build/lot tools, laboratory) · written by R3-N2-DESIGN-03
 
+> **FILLED by R3-N5-DESIGN-06 (2026-09-15) → `R3-N5-PEOPLE-BUILD-LAB-FAMILY-SHEET.md`.** Every `TODO(N5)` below is answered there against
+> rendered element maps and committed source; this skeleton is retained unchanged as the authored brief it was.
+
 **Skeleton only.** Headings, the state list, the references. Every `TODO(N5)` is an in-phase decision by the N5 designer, made against
 rendered captures and labelled `[REC]` / `[NAT]` / `[R3]`.
 
