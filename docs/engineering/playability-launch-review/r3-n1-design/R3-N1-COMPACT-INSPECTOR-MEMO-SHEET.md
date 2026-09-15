@@ -721,6 +721,7 @@ follows the viewport only — the already-shipped "R4 option (a)" law. **Keep it
 | — header (title + Back) | 68, fixed | 96, fixed | 120, fixed | §B.5 |
 | **Tools row** — BUILD label | 176 wide | 264 | 352 | `ChipWidth` x m |
 | — Next-step chip label | `Studio next steps · 3` | may wrap to 2 lines inside 44·m | may abbreviate to `Next steps · 3` **and** keep the full label in the registry text | §B.1 |
+| **REV03** — every OTHER workspace and dialog (Profile, Roster, Production, Casting, Release result, Finance, Industry, History, Build, Laboratory, System Menu) | §E generalised — see `R3-N2-TEXT-RULES-ADDENDUM.md` (W1–W6, per-element table §3, invariants §4) | same | same | addendum §1 names the owner file per family |
 
 ### E.2 The tooltip repair, specifically
 
