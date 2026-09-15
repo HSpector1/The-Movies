@@ -4,13 +4,13 @@
 > `docs/engineering/playability-launch-review/06-FABLE-ADOPTION-AND-FRESH-SESSION-HANDOFF.md`
 > before assigning work. The latest explicit Owner/Current Ops order and its local transfer
 > receipt govern scope, actual source/build identities, cumulative usage and ownership.
-> Current disposition is OPS-R3-N1-CONTINUE-20260914-02: R3-N1 reached its connected native review
-> on Unity 18b893a6 / TS 2f16c22e / Build49 (seal 44, admission 40) with the compact inspector, lane
-> band and memo sheet, arrow gate, screenplay inspection and the lawful r3n1-dense-01 fixture delivered;
-> rendered PlayMode 202/202; three guarded native runs (see the continuation record atop 06). N1 is
-> still a labelled PARTIAL: native defects F7–F15, the declared 1280x720 @200 % fallback cell and the
-> unreachable pictures-rail overflow are open; UX-STALE-NATIVE-01 has server-refusal tests only.
-> Build46 stays the last Owner-qualified checkpoint; Build47/48 are retained superseded records.
+> Current disposition is OPS-R3-N1-NATIVE-CORRECTION-20260915-01: F7–F15 were corrected at their shared input/return/layout owners
+> on Unity 74c2141 / TS 43b3a6b1 / Build50 (executable c9816921…, seal 45, admission 41) with the design addendum REVISION-02 (the
+> 1280x720 @200 % full-screen fallback withdrawn in source), independent regressions (EditMode 1751/1751), rendered PlayMode 209/209
+> and the lawful managed-mode fixture r3n1-dense-02 (4 picture cards, a live Schedule-take decision, 4/4 command-owner refusal tests).
+> The NATIVE proof on Build50 was NOT EXERCISED: four guarded attempts were blocked (unacknowledged HID injection ×2, owner activity ×2)
+> — see the correction record (K1–K7) atop 06. N1 stays a labelled PARTIAL; its 6-hour reserve is exhausted at that record.
+> Build46 is the Current Ops-qualified engineering checkpoint (not Owner-accepted); Build47/48/49 are retained superseded records.
 > No further implementation, native input, new audit or specialist dispatch follows automatically.
 > A fresh coordinator must explicitly accept the recorded writer/input handoff and reconcile
 > authority, remaining scope and budget before implementation; desktop availability is separate.

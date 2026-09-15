@@ -1,3 +1,167 @@
+# R3-N1 native correction record — 2026-09-15 · OPS-R3-N1-NATIVE-CORRECTION-20260915-01
+
+Status: **N1 NATIVE CORRECTION — SOURCE-CORRECTED AND RENDERED-VERIFIED (209/209 on Unity 74c2141 / Build50), NATIVE PROOF NOT EXERCISED (four guarded attempts blocked by an unacknowledged HID injection / owner activity on this desktop session) — STILL A LABELLED PARTIAL; NOT OWNER-ACCEPTED; N1 RESERVE EXHAUSTED AT THIS RECORD**
+This section sits above the continuation record (C1–C7), the execution record (R1–R8) and the successor record (S1–S7), all unchanged.
+It is the one evidence-linked record of the correction's acceptance, the F7–F15 before/fix/test/native-result matrix, the exact new
+candidate pins, the bounded fixture attempt, charges and residuals. Nothing here starts P13B, a PR/merge or a protected promotion.
+Build46 is the Current Ops-qualified engineering checkpoint (not Owner-accepted); P13A remains the accepted product. Private identifiers
+stay in the Git-private `fable-local-transfer-20260914-01/r3n1-ledger-local.json`.
+
+## K1. Acceptance, desktop basis, ownership
+- Order verified: packet `R3-N1-NATIVE-CORRECTION` (SHA256SUMS 5/5 OK) == Git blob `ac0a3d9295c636be1ee2615d225032c20551fbd4` at
+  `3cf828a9` (`docs/engineering/playability-launch-review/10-R3-N1-NATIVE-DEFECT-CORRECTION.md`, on
+  `origin/docs/playability-r3-hybrid-execution-01`). Same Fable coordinator session as C1 (no restart, no new team, no Workflow tool);
+  same registered unity-ui production writer (opus), independent test-author (sonnet by profile) and design continuation owner
+  (uiux-designer, opus); ≤ 2 specialists concurrently on disjoint paths; the coordinator remained integration/native-input owner.
+  Correction charged from `2026-09-15T10:19:46Z` (packet unpack); the prior publication tail 06:54:21Z–06:59:00Z (4.65 min, reserve)
+  is deducted first.
+- **Desktop basis:** Howard's continuation statement of 2026-09-14 ("The desktop is available now for the authorized R3-N1 rendered
+  PlayMode and native tests. Keep the existing guard and all build/fixture checks.") was re-affirmed for this correction by the
+  order's own instruction in this session ("then reverify the actual failing routes … Return the corrected connected native
+  candidate"); no new verbatim sentence was given and none was solicited — recorded as the basis, not as perpetual access. The
+  unchanged guard (console unlocked + HID idle ≥ 60 s + listen-only witness + bound manifest + fixture provenance + stale-source check)
+  stayed mandatory for every rendered and native run and was never taken by foreground input.
+- Every specialist assignment, its allowed paths and its evidence root are in the coordinator scratch briefs (IMPL-09/09b/10, DATA-02,
+  DESIGN-02, TEST-06/07); the writer listed exact files before editing in `r3n1-12/writer-report-09.md` and
+  `r3n1-14/writer-report-10.md` (Unity `Evidence/Playability-Interaction-01/`, gitignored, retained locally).
+- Coordinator scope decision recorded: the compact entry cards' geometry in `StudioWorkspaceHost` was treated as the same F10 cause
+  (order §2 "related consumers … minimal client-only helpers") and corrected by the writer (IMPL-09b); no other StudioWorkspaceHost
+  change was made.
+
+## K2. F7–F15 matrix — original failing run/step/setting · source fix · independent regression · native action/capture · outcome
+| ID | Original failing run · step · setting (Build49) | Cause (file, mechanism) | Source fix (Unity commit) | Independent regression (test-author) | Native action · capture (Build50) | Outcome |
+|---|---|---|---|---|---|---|
+| F7 | R-A `early-2026-09-15T06-25-20-387Z` steps 020–023 / 050–051, 1440×900 @100: Escape on the open compact overlay also opened the Studio Menu | two Escape pipelines: IMGUI ladder in OnGUI vs polled `StudioCameraInput.CancelPressed` consumed in Update() by `StudioSelectionManager.HandleCancel → StudioSystemMenuHud.OpenMenu()` and `StudioCameraDirector`; Update runs first | `dff08b9` + `e05b218`: shared fact `StudioInputFocusGate.GuiConsumesCancel/PolledCancelAllowed`, rails + overlay publish `CancelOwner`, polled consumers defer; menu stays the top rung | EditMode `StudioInputFocusGateEscapeTests` (21); PlayMode `StudioNativeInputAndReturnRegressionTests.Escape_ClosesTheOpenOverlayOrFind…` (rendered PASS, r3n1-15) | Run A script `run-A-1440-dense1.jsonl` prepared (steps recorded) — not executed | **FIX LANDED · RENDERED PASS · NATIVE NOT EXERCISED** |
+| F12 | R-A steps 07x (Find open, Escape opened the menu), 1440×900 @100 | same pipelines + missing ladder rung: an open-but-unfocused Find matched no rule | `dff08b9`: rung 3b `CloseTopTransientLayer()` peels filter list / Find before rail focus | same tests as F7 (Find branch) | Run A script `run-A-1440-dense1.jsonl` prepared (steps recorded) — not executed | **FIX LANDED · RENDERED PASS · NATIVE NOT EXERCISED** |
+| F8 | R-A steps 020–023: overlay → OPEN PROFILE → Escape reset the employees offset to 0 | return context sound; callers then set `revealFocusedPerson`/`revealAfterTextChange` and the next draw re-scrolled to reveal the invoking row (clipped at the top) → offset 0 | `6d9d530`: restore the saved offset and the invoking focus as a target WITHOUT a reveal; shrink clamp / session / missing-id rules untouched | PlayMode `…ExcursionRestoresTheSavedOffsetAndInvokingFocus_WithoutArmingAReveal_BothRails` (rendered PASS, r3n1-15); Production excursion in the same test | Run A script `run-A-1440-dense1.jsonl` prepared (steps recorded) — not executed | **FIX LANDED · RENDERED PASS · NATIVE NOT EXERCISED** |
+| F9 | R-A steps 04x: after Tab out of the employees search, arrows/Enter still typed until Escape | Tab cleared only the focused control NAME; `GUIUtility.keyboardControl` stayed on the editor (logical focus ≠ GUI ownership) | `dff08b9`: `StudioRailKeyboardFocus.ReleaseTextEntry()` moves name + keyboardControl together on Tab-out/Escape; rails publish `TextEntryOwnsKeyboard` | PlayMode `…FindFocusesItsFieldTheFrameItIsDrawn_AndReleasesBothKeyboardFactsOnTabOut` (re-derived to the published fact in TEST-07) | Run A script `run-A-1440-dense1.jsonl` prepared (steps recorded) — not executed | **FIX LANDED · RENDERED PASS · NATIVE NOT EXERCISED** |
+| F11 | R-A step 07x: `pictures-find` gave the field no focus; typing "a" panned the camera | pointer route `TryConsumeToolbarClick` opened Find without `FocusControl`; camera read W/A/S/D unconditionally (`StudioCameraInput.cs:222-232`) | `dff08b9`: one `ToggleFind()` for both routes with a focus request spent at the field in `DrawToolbar`; `CameraMovementAllowed` withholds all movement keys while a rail field owns the keyboard | same PlayMode test + EditMode `CameraMovementAllowed` cases | Run A script `run-A-1440-dense1.jsonl` prepared (steps recorded) — not executed | **FIX LANDED · RENDERED PASS · NATIVE NOT EXERCISED** |
+| F10 | R-A steps 030–032: after Locate (world selection + receipt), a rail row click was dead | (1) a lawful Locate selects a body → compact entry card raised; both rails treated `ProductionEntryDisplayed/CastingEntryDisplayed` as a workspace and retired; (2) `TryOpenLaneInspector` answered "opened" while unhostable and `Update()` closed it (activation swallowed); (3) the entry cards were anchored inside the pictures rail's band (`StudioWorkspaceHost.cs:2288-2292`) | `2b84a2b` (employees rail yields only to a real workspace; hostability refusal) + `1861c49` (entry cards dodge the pictures rail, one card at one depth) + `40b4e5c` (pictures rail yields only to `WorkspaceOpen`) | EditMode `StudioLegacySuppressionTests.RailHudSource_YieldsOnlyToARealWorkspaceOnBothRails` (re-derived pin; failed on the unfixed rail, green after `40b4e5c`); PlayMode `…EmployeeRowActivationOpensExactlyOneInspection…` (rendered PASS, r3n1-15) | Run A script `run-A-1440-dense1.jsonl` prepared (steps recorded) — not executed | **FIX LANDED · RENDERED PASS · NATIVE NOT EXERCISED** |
+| F13 | R-A after `studio-menu-text-200`, 1440×900 @200: headers clipped/overlapped, card title/stage broke mid-word beside the 144-px slot, LOCATE over the state line | fixed `− 96·w` header rect and fixed `18·s` row; card text column 129 px beside the image; screenplay LOCATE drawn full-card-height | `7b5ae6e` (measured full-inner-width header row stacks; bottom-anchored measured action zones reserved in measure and draw) + `3a0ef0d` (card/row stack image above text below a ten-character specimen) | EditMode `StudioR3N1Impl10LayoutContractsTests` (R3/R4 cases); PlayMode R3 pairwise-disjoint header/toolbar rects at 1440×900/200 % | Run A script `run-A-1440-dense1.jsonl` prepared (steps recorded) — not executed | **FIX LANDED · RENDERED PASS · NATIVE NOT EXERCISED** |
+| F14 | R-A 1440×900 @200 picture overlay: unclamped 3-line 40-px title consumed the 490-px overlay; `inspector-open-production`/`inspector-locate` at y −138/−64; body 1 px | `MeasureLaneHeader` sized the header from unclamped `CalcHeight(title)` | `d15a16b`: bounded header rows + R1 ladder against `min(0.40·envelope, envelope − footer − bodyMin)`, rect floored at header+footer+bodyMin, action rects from the FINAL rect gated by `LaneInspectorActionPublishable`, clamped title/sub-line reflowed into the body | EditMode R1 six-cell table + publishability boundaries; PlayMode R1 panel containment + bodyMin at 1440×900/200 % | Run A script `run-A-1440-dense1.jsonl` prepared (steps recorded) — not executed | **FIX LANDED · RENDERED PASS · NATIVE NOT EXERCISED** |
+| F15 | every overlay capture: body text over the lot | only `GUI.skin.box` behind the rect + `SurfaceContainer` α 0.86 | `9d63aac`: `SurfacePlate` α 1.0 under the whole body, drawn before `BeginScrollView`, keylines outside the scroll view, opaque header/footer stock | EditMode R5 plate/keyline rect laws (component evidence only) | Run A script `run-A-1440-dense1.jsonl` prepared (steps recorded) — not executed | **FIX LANDED · RENDERED PASS · NATIVE NOT EXERCISED** |
+| §3 cell | R-D `early-2026-09-15T06-45-52-043Z`, 1280×720 @200: `inspector-fallback` (full workspace) | sheet §C.9 needed 484 px in a 310-px envelope | addendum R2 (TS `43b3a6b1`) + `d15a16b`: header N=0 (title in the body) 92 + footer 94 + bodyMin 120 = 306 ≤ 310; `inspector-fallback` only where no lane is composed | three withdrawn-fallback pins re-derived (TEST-07 item 00); PlayMode R2 person+picture compact hosting at 1280×720/200 % | Run A script `run-A-1440-dense1.jsonl` prepared (steps recorded) — not executed | **FIX LANDED · RENDERED PASS · NATIVE NOT EXERCISED** |
+
+## K3. Candidate pins — source, build, seal, admission, fixtures
+| Identity | Value |
+|---|---|
+| Unity source | `18b893a6` → **`74c2141a241a11e43affd9dee909a74b4b1b9e2e`** (13 commits: IMPL-09 `dff08b9`,`6d9d530`,`2b84a2b`,`e05b218`; IMPL-09b `1861c49`; TEST-06 `c3207c0`; IMPL-09c/10 `40b4e5c`,`9d63aac`,`d15a16b`,`7b5ae6e`,`3a0ef0d`; TEST-07 `c06e419`; IMPL-11 `44cddab`; settings restore `ae3695b`; TEST-08 `74c2141`); pushed fast-forward, remote == local |
+| TS source | `ccc49ae9` → **`43b3a6b1da3360feed31e5c5be421817a5d003aa`** (DATA-02 test `e11933b2`, design addendum `43b3a6b1`; this record follows as a docs commit — not a new build); production TS unchanged since `31f6e70d` (engine bundle `af1e8897…`, worker `807f28a6…` unchanged from Build49) |
+| **Build50** | executable sha256 **`c9816921214127a74b93033b424fea191205e24d7be05cc05c88b3a11f31c177`**, Assembly-CSharp `73ac20c00fb60290f6cd206217ca99780ee9c6f1bccd7e844d080a67ce94128c`, built 2026-09-15T13:03:06Z, manifest sha256 `319fb167eaffc4e163ed25e6dde26fd45a2714be432e7d811aee5dbad3778189` (`Builds/macOS/build-manifest.json`; evidence `interaction-build-50/`, log `interaction-build-50.log` "Build Finished, Result: Success"); Build49 (`53742268…`) and its manifest/evidence retained unchanged as the recoverable partial |
+| Seal | `entry/paired-verifier-interaction-45.json` **PASS** — TS `43b3a6b1` / Unity `74c2141a`, DTO blob `9420d5ef5e5b7db5d9c18d2300f22a3d94074eb2` both sides, schema `sha256:e64a3b65…` (Save V20 / protocol4 / projection30; no wire change) |
+| Admission | `interaction-native-admission-41.json` **PASS** (Build50 ↔ pair 45; meshes 128, dependencies 240) |
+| Fixtures | `r3n1-dense-01` sha256 `2e0ede0b…` (unchanged, byte-verified); **`r3n1-dense-02`** sha256 `bd64bbeb1dce2f39455e20ee1b562f1d16c464bd76d907624fe7774e8d251005` (126 547 bytes, week 21); `f2-set-blocker-01` unchanged |
+| Design | sheet `R3-N1-COMPACT-INSPECTOR-MEMO-SHEET.md` (12 REV02 edits) + **`R3-N1-SHEET-REVISION-02.md`** (R1–R5; §C.9 fallback withdrawn) at TS `43b3a6b1` |
+| Guard / desktop | `entry/desktop-and-guard-admission-r3n1-02.json`: guard modules byte-identical to the 2026-09-14 record (hid-guard, witness, coherent map, startup, console-state, driver) |
+Changed Unity paths (13 commits, +1 899/−201 lines incl. tests): `Runtime/Infrastructure/{StudioInputFocusGate, StudioRailReturnContracts,
+StudioPeopleRailContracts}.cs`; `Runtime/Presentation/{StudioCameraInput, StudioCameraDirector, StudioSelectionManager, StudioHud,
+StudioLaneInspectorHud, StudioPeopleRailHud, StudioProductionRailHud}.cs`; `Runtime/Presentation/UI/StudioWorkspaceHost.cs` (entry-card
+geometry + one-card-at-one-depth yield only); tests `Tests/EditMode/{StudioInputFocusGateEscapeTests (new), StudioR3N1Impl10LayoutContractsTests
+(new), StudioLegacySuppressionTests}.cs`, `Tests/PlayMode/{StudioNativeInputAndReturnRegressionTests (new), StudioProductionAndCampaignLayoutTests}.cs`.
+Not changed: DTOs, schema, System Menu (its polled Escape path was inspected; the consumer that opened it — `StudioSelectionManager.HandleCancel` —
+is the one gated), scenes, campaigns, launcher, Tools, hid-guard, package roots, Build49 evidence.
+
+## K4. Verification actually run — rendered PlayMode, EditMode, TS, native runs (counts and applicability)
+| Check | Source | Discovered/executed | Passed | Failed | Skipped | Evidence |
+|---|---|---|---|---|---|---|
+| EditMode (batch, whole platform) | Unity `e05b218` → `1861c49` (writer) | 1676 | 1676 | 0 | 0 | `r3n1-12/editmode-writer-01..04.xml` (+ `-04-railyield-blocked.xml`: 1675/1676, the deliberate pin) |
+| EditMode | `c3207c0` (TEST-06) | 1697 | 1696 | 1 | 0 | `r3n1-13/editmode-tests-01.xml` — the one failure is the re-derived F10 pin against the not-yet-narrowed pictures rail |
+| EditMode | `3a0ef0d` (IMPL-10) | 1697 | 1697 | 0 | 0 | `r3n1-14/editmode-writer-03.xml` |
+| EditMode | `c06e419` (TEST-07) / `44cddab` (IMPL-11) / `74c2141` (TEST-08) | 1751 | 1751 | 0 | 0 | `r3n1-16/editmode-tests-03.xml`, `r3n1-14/editmode-writer-04.xml`, `r3n1-18/editmode-tests-01.xml` |
+| Rendered PlayMode, class (Editor GameView) | `c3207c0` | 4 | 3 | 1 | 0 | `r3n1-15/playmode-rendered-test06-class-01.xml` — F11 read outside OnGUI (test), re-derived in TEST-07 |
+| **Rendered PlayMode, full** | `c06e419` | 209 | 203 | 6 | 0 | `r3n1-17/playmode-rendered-correction-01.xml` — 1 product regression (DETAILS reserved the old fixed zone width above 100 %, fixed `44cddab`), 2 harness defects (registry publishing switched off by the host's first Update; `hud-open-build` publisher absent), 1 un-composed lane, 1 outside-OnGUI Tab release, 1 stale rail-yield pin — all re-derived in TEST-08 without weakening |
+| **Rendered PlayMode, full** | **`74c2141`** | **209** | **209** | **0** | **0** | `r3n1-17/playmode-rendered-correction-02.xml` |
+| Broken-candidate proof | `c3207c0` Runtime + TEST-07 tests | — | — | compile: 235 × CS0117 | — | `r3n1-16/playmode-broken-01.log` (the new laws do not exist on the broken candidate; the F10 pin failed on it, above) |
+| TypeScript full suite | TS `43b3a6b1` | 5282 | 5277 | 0 | 5 | `entry/full-typescript-suite-06.{json,log}` (production TS unchanged since `31f6e70d`) |
+| Command-owner stale tests | TS `e11933b2` | 4 | 4 | 0 | 0 | `entry/r3n1-dense-02-test-run.log` |
+Batch PlayMode runs by the test owner (`r3n1-13/16/18/playmode-tests-*.xml`, 10/22 etc.) are retained as headless artifacts only
+("No graphic device" / zero-rect); the rendered runs above are the applicable evidence. The rendered run's antiAliasing side effect was
+committed once by mistake (`44cddab`) and restored byte-for-byte in `ae3695b`; Build50 is built from the restored settings.
+**Native attempts on Build50 (each its own identity, admission and evidence; failed attempts preserved; none combined):**
+| Attempt | Evidence (Unity `Evidence/Playability-Interaction-01/`) | Guard outcome | Steps | Finding |
+|---|---|---|---|---|
+| Run A (interrupted) | `early-2026-09-15T13-03-49-308Z` | admitted 13:03:53Z (unlocked, owner idle 7 281 s); player `c9816921…` launched, `000-lot.png` + `initial-map.json` captured 13:04:00Z; the driver's FIRST injected HID event (null token `67917745056450`) never received an ordered acknowledgement ("ownerinput: posted event was not acknowledged; no retry"); the driver then waited until the listen-only witness EXPIRED at its 7 200-s lifetime (15:03:54Z, `witness-end reason=expired`, 72 732 heartbeat records, no foreign input) and stopped: `WitnessUnavailable … Witness ended before the drive finished`; input state clean at start and end, owned events 0 | 0 | **clock-discontinuity finding**: the coordinator's shell clock advanced 13:03:48Z → 15:04:01Z across a ≤ 7.5-min wait loop. **Sleep is NOT supported as the cause**: `pmset -g log` shows powerd's 15-minute assertion summaries and the lid-open counter advancing continuously through the gap (`r3n1-19/sleep-and-desktop-evidence.txt`). Cause on the evidence: the unacknowledged injection blocked the driver for the witness lifetime; why the acknowledgement never arrived is not established (candidates: an event-tap/permission change for the freshly compiled `ownerinput` helper, or another desktop automation holding the event path — Codex Computer Use assertions were logged later at 16:18:53Z) |
+| Run A2 (retry) | `early-2026-09-15T15-04-35-523Z` (`console-admission.json` only) | **refused at admission**: "No unlocked 60-second owner-idle admission" (owner idle < 60 s — the desktop was in use) | 0 | no player launched |
+| Run A3 (retry, caffeinated) | `early-2026-09-15T16-20-04-515Z` | admitted 16:20:08Z after a read-only wait for owner idle ≥ 90 s; `/usr/bin/caffeinate -d -i -s -w <driverPid>` tied to the driver (recorded in `native-A3.log`, exited with the driver); player launched, `000-lot.png` + `initial-map.json` captured; stopped 16:21:36Z: `HumanInputDetected: foreign input detected — automation suspended` (physical `mouseMoved`, sourcePid 0) | 0 | the guard worked as designed; Howard confirmed in-session ("Sorry keep going") that the movement was his — desktop availability re-established for the next attempt |
+| Run A4 (retry after Howard's "keep going", caffeinated, watchdog armed) | `early-2026-09-15T16-23-33-578Z` | admitted 16:23:33Z (owner idle 96 s); player `c9816921…` launched, `000-lot.png` + `initial-map.json` captured; **identical failure to the first run**: "ownerinput: posted event was not acknowledged; no retry" → `No ordered acknowledgement for null token 18956271512613` → the driver waited for the witness lifetime and stopped at 18:23:38Z (`witness-end reason=expired`, 72 732 heartbeats, no foreign input, owned events 0); the coordinator's watchdog did not fire (its evidence-directory glob failed under zsh nomatch) and the shell clock again advanced exactly 7 200 s | 0 | **specific blocker (native HOLD)**: on this desktop session the witness records the ownership-establishing null event of the FIRST helper (seq 1, `sourceStateId 0`) but never the ordered acknowledgement (`sourceStateId 1`) that the 06:25Z run recorded (`early-2026-09-15T06-25-20-387Z/hid-witness.jsonl` seq 3), and the token the driver waits for belongs to the LAST helper (pid 27204 / 92260), whose events the witness never sees at all. Guard/driver bytes are unchanged since the successful runs; the environment changed: a competing desktop automation (SkyComputerUseService "Codex Computer Use") holds event/assertion state since 16:18Z, and the `ownerinput` helper is recompiled at each start (a fresh binary may lack the Accessibility / Input Monitoring grant). Desktop-owner action needed before any further attempt: verify System Settings › Privacy & Security › Accessibility and Input Monitoring for the ownerinput helper and node, end the competing computer-use service during runs (or log out/in to reset event taps). No further retry was made (four attempts; no indefinite loop). |
+| Run B (1280×720, dense-02) | script `run-B-1280-dense2.jsonl` prepared (101 steps: pictures overflow, Schedule-take route, the 200 % compact cell) | not started — the Run A blocker stands and the N1 reserve is exhausted at this record | 0 | NOT EXERCISED |
+Pre-existing power assertions not started by this coordinator and left untouched: `caffeinate -dims` (pid 2372, since 2026-09-12) and
+short `caffeinate -i -t 300` processes (pids 2893/4016, 16:18Z/16:22Z). Analyzer: `r3n1-19/analyzer-version.json` — the coordinator-side
+map reader `check-run.py` v2 (sha256 `850ca1be…`) counts visible elements only, matching `mapsum.py`; the driver's capture/guard tools were
+not changed (byte-identical hashes in `desktop-and-guard-admission-r3n1-02.json`); analysis outputs are named `<run>-check-v2.txt`.
+
+## K5. DATA-1 / UX-STALE-NATIVE-01 — the bounded managed-mode attempt
+- DATA-02 (test-author, 12 min): a read-only probe of all 17 existing checkpoint fixtures
+  (`entry/r3n1-dense-02-source-probe.md`) found `native-post-start-run16` already in `scriptDevelopment.mode === "managed"` with one
+  active production `prod-0015` carrying a live offered decision — so `activateScriptDevelopment` was never needed or attempted. From
+  it, `entry/generate-r3n1-dense-02.ts` applied 3 × `commissionScript` (writer `t-dir-00`, the source's one spare contracted talent —
+  lawful under `requireCommissionableWriter`) + 2 × engine `tick`, every step N=4-gated (cash $12,206,459 → $12,113,655, never
+  negative, `productionQueue` empty at every evaluation), and wrote the immutable fixture `fixtures/r3n1-dense-02` (sha256
+  `bd64bbeb1dce2f39455e20ee1b562f1d16c464bd76d907624fe7774e8d251005`, 126 547 bytes, week 21, digest `c5f13827…`; `wx`, mode 0600;
+  r3n1-dense-01 byte-identical after the run). Wire counts: roster employed 2 / freelancer 10 / known 72; productionOperations 1
+  (`ready-to-schedule`); development managed, 4 projects (1 inProduction, 2 review, 1 drafting); 0 released. **Pictures-rail overflow
+  lawful: 4 cards** (1 production + 3 non-inProduction script cards — script cards counted only where the rail genuinely displays them,
+  never relabelled as filming). Offered decision: `resolveProductionBlocker` / `scheduleShootingTake` on `prod-0015` ("Schedule the
+  shooting take"), preserved untouched.
+- Command-owner test `tests/r3n1-stale-schedule-take-02.test.ts` (TS `e11933b2`): STALE_REVISION and INTENT_NOT_AVAILABLE refusal on
+  THAT decision (staleness induced by the unrelated lawful `acceptScreenplay` intent) and fresh-intent accepted-once idempotence — 4/4
+  with the first test (`entry/r3n1-dense-02-test-run.log`). The first test's "nearest offered decision" wording stays as recorded; this
+  second fixture's decision IS the literal Schedule-take route.
+- Different immutable fixtures prove different things and are named as such: r3n1-dense-01 (people overflow, legacy mode), r3n1-dense-02
+  (pictures overflow + the Schedule-take decision, managed mode), f2-set-blocker-01 (ordinary waiting). None occurred in one campaign.
+- **Native (Build50):** NOT EXERCISED — Run B was never admitted (K4). UX-STALE-NATIVE-01 therefore stays at: server refusal proved by two
+  command-owner tests (8 assertions across both fixtures); client-side prevention documented from source — `StudioWorkspaceHost.
+  DisplayedProductionOperation.cs` re-derives the displayed decision from the CURRENT snapshot at submission (`StillDisplayed()`: same
+  intent JSON, same `currentCommand`, same session/runtime/replacement) and refuses to send otherwise, and the deferred path re-validates
+  against `displayedIntentRefresh` ("Confirming the action with the current studio state…"); the single-actor native client always submits
+  the current `stateRevision` (`StudioBridgeClient.cs:620`), so a genuine stale submission is not constructible natively without a second
+  actor — the visible-invalidation capture (accept a screenplay, return, re-derived Schedule take, accepted once, no duplicate dispatch) is
+  scripted in `run-B-1280-dense2.jsonl` and remains owed. Residual unchanged in kind: "no native capture of a refused or visibly
+  invalidated Schedule-take yet".
+
+## K6. Charges — this correction, cumulative N1, whole program
+| Counter | This correction (productive, session clock once) | Windows |
+|---|---|---|
+| Prior publication tail (reserve) | 4.65 min | 06:54:21Z–06:59:00Z (closing commit/push/read-back/reply of the continuation) |
+| Capability | **63.98 min** | 10:19:46–11:03:00 (packet, briefs, IMPL-09/09b, DATA-02, DESIGN-02) · 11:26:30–11:47:15 (IMPL-10) |
+| Reserve (verification/correction/delivery) | **≈ 131 min** = 109.25 + closing ≈ 22 (stamped in the private ledger) | 11:03:00–11:26:30 (TEST-06, rendered class run) · 11:47:15–12:14:38 (TEST-07, TS suite/push) · 12:14:38–13:05:00 (rendered suite ×2, IMPL-11, settings restore, TEST-08, push, Build50, seal 45, admission 41, Run A start) · 15:04:00–15:05:30 (A2) · 16:18:00–16:24:30 (clarification, evidence, A3, A4 start) · 18:24:00–close (A4 outcome, record, publication, ledger) |
+| Excluded — documented inactive latency, no productive activity (no tool call, no file change) | 13:05:00–15:04:00 (119.0) · 15:05:30–16:18:00 (72.5) · 16:24:30–18:24:00 (119.5) = 311 min | the driver was blocked waiting for an acknowledgement that never came (twice, each exactly the 7 200-s witness lifetime) and the coordinator sat idle between A2 and the clarification; NOT sleep (`r3n1-19/sleep-and-desktop-evidence.txt`); listed as latency, separate from productive charges |
+| **N1 cumulative** | capability **224.58 / 1 200 min** (3.74 h of 20) · reserve **≈ 353 / 360 min** (≈ 5.9 h of 6; ≈ 7 min remaining at the close — effectively exhausted) | prior 160.60 / 217.55 + this correction |
+| Whole program (provisional) | capability remaining ≈ 44.66 h · reserve remaining ≈ 11.4 h (last 6 h protected, untouched) | from C5's 45.729 / 13.652 |
+Classification rule: identical to C5 (specialist wall-clock never summed; regression authoring, corrections found by verification, builds,
+seals, admissions, native attempts and the record charged to the reserve; feature/correction implementation, fixture and design to
+capability). The alternative reading (TEST-06/07 regression authoring as capability, ≈ 51 min) is stated for Current Ops only, not
+applied. Unattributed setup/smoke time remains NOT REPORTED, not zero. Balances PROVISIONAL.
+
+## K7. Residuals, remaining coverage, stop state, publication
+**Residuals (honest labels):**
+1. **Native proof of F7–F15, the 1280×720/200 % cell, DATA-1 pictures overflow and UX-STALE-NATIVE-01 — NOT EXERCISED** (hold). Blocker
+   and the desktop-owner action are in K4. Both run scripts are ready; cost when admitted ≈ 15 min of reserve — which N1 no longer has:
+   Current Ops must either allocate from the whole-program reserve (11.4 h, last 6 h protected) or accept the candidate as
+   source-corrected/rendered-verified only.
+2. The rendered 209/209 does not close the nine defects natively; every F row above is FIX LANDED · RENDERED PASS · NATIVE NOT EXERCISED.
+3. Addendum R3.3 (tab strip capped at 2 scrolling rows, pictures footer abbreviations) not implemented → the pictures list at 1280×720/200 %
+   keeps a ≈ 10 px shortfall against its floor (a scroll cost, declared). R1.5 "More actions ▸" not implemented (no 3-action footer exists
+   in the shipped variants).
+4. Unity `Evidence/` is gitignored: all writer/test reports, xml/logs and native attempt directories are retained locally and indexed by the
+   private review publication (below); originals untouched.
+5. Carried from C6 unchanged: remaining screens/workflows, portrait/icon/font/stage art, lawful dragging, help/history, text acceptance;
+   S6 fit conclusion stands. No Owner acceptance is claimed; Build46 = Current Ops-qualified engineering checkpoint; P13A accepted product.
+**Cleanup and ownership at this record:** no driver, player, ownerinput, witness, FIFO holder or coordinator caffeinate process remains
+(verified by process listing after A4); pre-existing `caffeinate -dims` (pid 2372) and the desktop's own automation are not mine and were
+not touched; ProjectSettings restored (`ae3695b`); both worktrees clean and pushed; Build49 evidence/manifest untouched; Owner campaigns
+untouched (only disposable synthetic fixtures were bound). Fable remains integration/native-input owner; actual new input still requires
+admission and the desktop-owner action above.
+**Publication:** private Unity review branch `docs/playability-delivery-review-20260913-01`, new folder
+`docs/evidence/r3n1-native-correction-20260915-01/` (index `00-START-HERE.md`, this record, the matrix, essential text evidence,
+representative captures, `manifest.json` + `SHA256SUMS.txt`; machine paths and private session links sanitized in copies only; witness
+JSONL, player bytes, checkpoints and the 190-map archives withheld with locators). Fast-forward pushes of owned WIP/docs refs only; no PR,
+merge or protected promotion; no P13B/P14/P15/P16.
+**Next action:** desktop owner clears the acknowledgement blocker (K4); then, with a Current Ops reserve disposition, the two prepared
+runs (A then B) under the unchanged guard with caffeinate tied to the driver, followed by the K2 native columns and Owner review.
+
+---
+
 # R3-N1 continuation record — 2026-09-14/15 · OPS-R3-N1-CONTINUE-20260914-02
 
 **N1 CONNECTED NATIVE REVIEW REACHED ON BUILD49 — DELIVERED AS A PARTIAL WITH NINE NATIVE DEFECTS DECLARED, ONE DECLARED FALLBACK CELL AND ONE LAWFUL-DATA LIMIT. NOT OWNER-ACCEPTED. NO P13B, PR, MERGE OR PROTECTED PROMOTION.**
