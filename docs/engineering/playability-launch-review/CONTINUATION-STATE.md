@@ -22,7 +22,10 @@
   1440×900; F9 typing PASS; new defects F17 (keyboard Return opens no inspection), F18 (Escape never closes Find), F16 (check), F20 (minor)
   handed to the N2 writer. Run B (1280×720/200 % cell, dense-02 overflow, Schedule-take route) NOT RUN on Build50: stale-source guard once
   N2 edits entered the tree → runs on Build51.
-- N2 in progress (IMPL-12 running; DESIGN-03 done, TS 321448c1 pushed); contract-auditor preparing N7/N8 inventories (read-only).
+- N2 in progress (IMPL-12 running with the K9 native defects and the rail font floor added; DESIGN-03 done, TS 321448c1). N7/N8 legality
+  and retrievability inventory filed (`plans/N7-N8-LEGALITY-AND-RETRIEVABILITY-INVENTORY.md`, plan C5/N7 amended, f9b1d28c). N3 visual
+  standard sheet + icon SVGs + PROVENANCE done (`r3-n1-design/R3-N3-VISUAL-STANDARD-SHEET.md`, d9b5e239): fonts = LegacyRuntime tier-0 +
+  gated OS preference; six-portrait proof ids named; two missing stage sprites (committed, intheaters) specified; F-N3-1/F-N3-2 findings.
 - Evidence mirror: text-class in Git (b8e57059); release `evidence-mirror-20260915` uploading (60+ assets so far, resumable).
 
 ## Program order for the window
