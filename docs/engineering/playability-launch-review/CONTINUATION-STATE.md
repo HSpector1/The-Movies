@@ -17,7 +17,7 @@
 | Full local-evidence mirror (nothing stays local): text-class evidence in Git; captures/movies/large payloads as release assets | private Unity repo, branch `docs/playability-delivery-review-20260913-01` → `docs/evidence/local-mirror-20260915/` and GitHub Release tag `evidence-mirror-20260915` (assets listed in its notes) |
 | Owner playtest list for Howard's return | `docs/engineering/playability-launch-review/OWNER-PLAYTEST-LIST.md` (grows with each phase) |
 
-## Current position (2026-09-16 05:45Z)
+## Current position (2026-09-16 05:50Z)
 - **Build56** bound and admitted: Unity 288c4ddb / TS 70a8c3ec, exe 84f1a896…, seal 51 PASS (DTO blob 253e345a, projection 31), **admission 46
   PASS** (admission script now contract-driven). Correction: Build55 was sealed (50) but never admitted — the earlier "admission 46" claim
   for it was wrong; 46 is Build56's. **N3 delivered** (record K11 in the handoff): stage art 8/8, C2 font law + probe (F25 refuted), C1
@@ -32,6 +32,9 @@
   cue, F3/F5 retain, F4 casting refine, F6 route geometry, F26) running concurrently with TEST-24. Next: SIM-N7-01 (TS
   `operationsEventsProjection`, projection 31 → 32) once IMPL-26's Runtime edits are built, then fixture regeneration, DTO adoption, TEST,
   rendered, Build57, seal 52 / admission 47, native on the changed routes, K12.
+- TEST-24 landed (Unity d859de9e / 4e5e3a36, EditMode 1926/1926): 188 drawn glyphs all resolve in the tier-0 face, atlas rebuild re-measures,
+  XAG ladder measured → **C8 amended** (TS c581287f: ink-basis deviation declared for all five faces; title anchor holds on the box basis
+  only). Its PlayMode §5.5 class still needs the rendered Editor slot (after IMPL-26 commits). SIM-N7-01 (sim-core, TS) dispatched 05:49Z.
 - Design ahead: N7 sheet (C12 adopted), N8 sheet (C13: four routes ratified). Budget: capability remaining ≈ 38.3 h; reserve ≈ 5.9 h —
   the unprotected reserve is exhausted, 0.08 h drawn past the 6-h protection line; all further verification is reported as overrun.
 
