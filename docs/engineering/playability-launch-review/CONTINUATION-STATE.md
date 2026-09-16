@@ -23,6 +23,14 @@
   carry `technologyId` — these files are NOT in the S1b commit); sim-core dispatched on S2-T1…T3 (catalogue two entries, blueprints, technologyId
   routing with the P13A-preserving default, per-technology module law at begin/resume, Lab-level seat slots across projects, two Labs per project);
   T4 (cooperation scheduler, per-Lab receipts, **V22** ×8 numerator rebase) follows as a separate sim-core increment, then tests 5–8.
+- **S2-T4 + tests 5–8 in flight (≈17:40):** three genuine V21 fixtures minted at the last V21 writer `e68de38` and committed as `e24c860`
+  (`tests/fixtures/p13b/legacy-v21-*.json.gz`, provenance with sha256 beside them) BEFORE the writer moves to V22. sim-core owns T4 (per-Lab
+  funding split, `units = 8·raw_a + 5·raw_b` over 1/160,000, receipt `labs` rows, technology root v3 with `cooperationFromWeek`, frozen
+  `validateTechnologyV2`, `liftTechnologyV2`, Save V22 + downgrade guards, consumer and existing-test sweep). test-author owns NEW files only
+  (`tests/p13b-s2-doc03|expiry|validation|save-v22.test.ts`, additive harness builders). Honest-lift rule: a V21 receipt whose seats spanned two
+  Labs (only the e68de38–e24c860 writer could write one) lifts with `labs: null`, valid only before `cooperationFromWeek`; single-Lab receipts
+  get their one derived row (all facts known). T6 bumps the projection (receipt `units` semantics change on the wire; assign intents carry
+  `technologyId`); T5/T7 follow.
 - **Next after S2:** S3 queues → S4 → S5 → S6 → S7 → S8 per the plan order; production consumer of R07 stays DESIGN BLOCKED (Future Ops R2 recipe).
 - Everything below remains true as history.
 
