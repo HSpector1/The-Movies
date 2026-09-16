@@ -64,6 +64,12 @@ caps are planning checkpoints: each phase record restates actual usage; overruns
   has ever been rendered in another face. Ruling: keep it shut through N3; flip only after a rendered capture at both viewports × 100/150/200 %
   with the `text-metrics` probe read, as its own bounded step (N3 tail or N9). Stage art 8/8 imported; §4.1 decided (a committed card leaves the
   RELEASE READY filter). Portrait captures: cache + slots wired, `BodyResolver` installed by the body owner in N5 (0 captures until then).
+- C11 (added 2026-09-16, SIM-20) finance attention routes → the three batched read-model deltas landed at projection 31 (TS d02230a8, new
+  SCHEMA_ID `sha256:c9c07d6f…`, prior identity registered so projection-30 checkpoints migrate). `StudioFinanceRoute.kind` has no
+  Finance-internal destination, so `cash-in-red` and `recording-coverage` publish `route: null`. Ruling: **Alt A** — Unity routes those two
+  client-side off their stable ids (N6), no new wire kind; Alt B (new route kinds + another projection bump) is not adopted. Consequence: the
+  Unity DTO must be adopted in a paired commit before Build55, and the synthetic fixtures (generated at projection 30) are regenerated at 31
+  as new immutable fixtures (DATA-03) because the native driver binds the fixture schemaId to the contract.
 - C7 authorization at the revised budget → the directive delegates settled technically-ready work: proceed, report actuals each phase.
 
 ## Budget checkpoint — 2026-09-16 02:20Z (revised stage budgets, published per the directive)
