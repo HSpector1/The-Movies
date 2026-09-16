@@ -7,6 +7,34 @@ candidate pins, the bounded fixture attempt, charges and residuals. Nothing here
 Build46 is the Current Ops-qualified engineering checkpoint (not Owner-accepted); P13A remains the accepted product. Private identifiers
 stay in the Git-private `fable-local-transfer-20260914-01/r3n1-ledger-local.json`.
 
+## K10. R3-N2 responsive/text close-out — Build51 → Build52 → Build53 (2026-09-15 20:13Z – 2026-09-16 02:20Z, autonomous window)
+Phase N2 of `plans/R3-OVERHAUL-PLAN.md` (Owner directive 2026-09-15). Source: Unity `74c2141a` → **`12498560`** (IMPL-12/12b/13/14/15/16/17/18/19/21,
+TEST-09..19: 32 commits, all pushed), TS docs `681b3fdc` (design addendum DESIGN-03 321448c1; N3 sheet d9b5e239 + sprites d133f509; N4/N5/N6 sheets
+95ec9a3d/4d041fb7/0ad64fa6; inventory f9b1d28c; plan rulings C8/C9). **Build53**: exe `e86527f21665f9d1fb914c0dff510355635b1c1293ba650145de501599747be7`,
+seal 48 PASS (TS 681b3fdc / Unity 12498560, DTO 9420d5ef unchanged), admission 44 PASS. Superseded builds retained: Build51 (bb23f87e, exe dc4d4806…,
+seal 46/adm 42), Build52 (231585e9, exe 4def4411…, seal 47/adm 43).
+**Delivered (source, EditMode 1877/1877, rendered PlayMode 219 total / 214 passed — every pre-existing test green; the 5 failures are harness-side
+in the newest regression class, TEST-20 fixing):** R3.2 list floors + chrome yield ladder; R3.3 abbreviation yield + 2-row tab-strip cap; R1.5
+More-actions footer (primary action kept in the footer, heading yields, focused overflow row revealed, stale rows swept); shared responsive
+chrome extraction (`StudioResponsiveChromeContracts`); C3 card title 18 px; lane inspector fonts no longer double-scaled (150 % rendered at 225 %
+before); body-band law; registry withdrawals; ring-target parking on every seam; spent-press cancel latch; pointer-route invoking-focus capture;
+History return offset restored exactly (a real neighbour-offset defect); F13/F14/F15/F16/F17b/F18/F20/F22/F23/F24 corrected; C8 (rail font floor)
+neutral by ruling; C9 (1280×720/200 % body 112 vs 120) declared.
+**Native on Build53 (unattended, guard-admitted; runs `early-2026-09-16T02-07-04-090Z` 1440×900, `…T02-10-06-288Z` 1280×720 (dense-01),
+`…T02-13-05-779Z` dense-02 1280×720; analyses `*-check-v3.txt` in each):** F16 **PASS** (Esc #1 restores the invoking row, Esc #2 releases only,
+Esc #3 opens the menu) · F18 **PASS** · F20 **PASS** (monogram inside its slot) · F22 **PASS** (pictures list 193 px ≥ floor 182 at 1280×720/200 %;
+first card's activation zone published; paging reveals the rest) · F23 **PASS** (`rail-script-details-<id>` opens the Development card) · F24
+head published (rect containment to be pinned by TEST-20) · C9 as declared (person overlay body 112 px at 1280×720/200 %, one-row footer) ·
+DATA-1 pictures overflow **PASS** ("1–3 of 4", paging) · **Schedule-take route**: on the fresh Production workspace the offered decision is
+re-derived and ONE click dispatches it (workspace notice "Confirmed: Schedule the shooting take — Ghosts of Serpent", row state Shooting, the
+control removed → no duplicate); the driver's post-click lookup misreports "no target" (harness artifact, see writer-report-20). NOT EXERCISED:
+the mid-display invalidation step (accept-screenplay click failed on driver aim drift while the Development card slid in). **OPEN natively: F21**
+— from a focused people row, Down moves the ring to `people:search` instead of the row cursor (rendered real-key test passes; native-only
+divergence; IMPL-22 diagnosing the polled/IMGUI consumer). N2's declared remainders: C8 measurement (N3), C9, people-rail parking asymmetry.
+**Charges (session clock, this window):** capability ≈ 4.6 h (IMPL-12..21, DESIGN-03..08, plan/sheets), reserve ≈ 3.9 h (TEST-09..19, ten rendered
+runs, three builds/seals/admissions, seven native runs, analyses, records, publication). Under the directive the caps are planning checkpoints:
+N2 was budgeted 6 / 3.5 h; actuals ≈ 4.6 / 3.9 (reserve over by ≈ 0.4 h, driven by the harness iterations on one test class).
+
 ## K9. Build50 native runs under the Owner's three-week directive — 2026-09-15 20:05Z–20:27Z (unattended, guard-admitted)
 Authority: Owner directive (`docs/operations/fable-team/OWNER-DIRECTIVE-THREE-WEEK-AUTONOMOUS-20260915.md`); the desktop became idle after
 Howard left; every run admitted by the unchanged guard (console unlocked, owner idle ≥ 60 s, listen-only witness, bound Build50 manifest

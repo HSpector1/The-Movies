@@ -4,14 +4,10 @@
 > `docs/engineering/playability-launch-review/06-FABLE-ADOPTION-AND-FRESH-SESSION-HANDOFF.md`
 > before assigning work. The latest explicit Owner/Current Ops order and its local transfer
 > receipt govern scope, actual source/build identities, cumulative usage and ownership.
-> Current disposition is OPS-R3-N1-NATIVE-CORRECTION-20260915-01: F7–F15 were corrected at their shared input/return/layout owners
-> on Unity 74c2141 / TS 43b3a6b1 / Build50 (executable c9816921…, seal 45, admission 41) with the design addendum REVISION-02 (the
-> 1280x720 @200 % full-screen fallback withdrawn in source), independent regressions (EditMode 1751/1751), rendered PlayMode 209/209
-> and the lawful managed-mode fixture r3n1-dense-02 (4 picture cards, a live Schedule-take decision, 4/4 command-owner refusal tests).
-> The NATIVE proof on Build50 was NOT EXERCISED: four guarded attempts were blocked (unacknowledged HID injection ×2, owner activity ×2)
-> — see the correction record (K1–K7) atop 06 and the K8 input-recovery pointer (OPS-R3-N1-INPUT-RECOVERY-20260915-02: blocker corrected
-> to the coordinator's command harness, supervision tested, preflight/runs NOT RUN pending a current desktop statement). N1 stays a
-> labelled PARTIAL; its reserve is amended to 7 cumulative hours, ≈ 351.5 min used.
+> Current disposition: OWNER DIRECTIVE THREE-WEEK AUTONOMOUS WINDOW (2026-09-15 → 10-06; `docs/operations/fable-team/OWNER-DIRECTIVE-THREE-WEEK-
+> AUTONOMOUS-20260915.md`). Fable is PM: full R3 overhaul (plan `plans/R3-OVERHAUL-PLAN.md`) → P13B → P14 → P15 → P16. Latest candidate
+> Build53 (Unity 12498560 / TS 681b3fdc, seal 48, admission 44): N1 + N2 delivered; F7–F24 corrected with native proof on Build50–53 except F21
+> (keyboard Down → search field, native-only, open). Read `CONTINUATION-STATE.md` first, then the newest K record atop 06.
 > Build46 is the Current Ops-qualified engineering checkpoint (not Owner-accepted); Build47/48/49 are retained superseded records.
 > No further implementation, native input, new audit or specialist dispatch follows automatically.
 > A fresh coordinator must explicitly accept the recorded writer/input handoff and reconcile

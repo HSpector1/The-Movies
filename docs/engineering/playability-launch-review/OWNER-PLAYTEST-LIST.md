@@ -11,3 +11,10 @@ what "good" looks like; the coordinator's native evidence is linked from the han
    active: it must open immediately (no need to clear the selection).
 3. **Schedule-take route (managed campaign fixture)** — open the ready-to-schedule picture, act elsewhere, come back: the offered action
    is re-derived from the fresh state; acting twice never dispatches twice.
+
+4. **N2 close-out (Build53+)** — at 200 % on the 1280×720 window: the pictures list still shows a card zone and pages; the compact inspector
+   shows "More actions ▸" when its footer would not fit, Tab reaches the folded items and Escape closes the list first. Keyboard only: Tab into
+   the employees search, type, Tab out, then Down/Enter should move down the list and open a row — this is the one item still failing in the
+   coordinator's native runs (F21); tell us what you see.
+5. **Schedule-take (managed fixture)** — open the ready-to-schedule picture from the rail, then its Production workspace: the "Schedule the
+   shooting take" action fires once and disappears with a Confirmed notice; nothing fires twice.

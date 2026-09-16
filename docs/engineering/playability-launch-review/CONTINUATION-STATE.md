@@ -17,23 +17,19 @@
 | Full local-evidence mirror (nothing stays local): text-class evidence in Git; captures/movies/large payloads as release assets | private Unity repo, branch `docs/playability-delivery-review-20260913-01` → `docs/evidence/local-mirror-20260915/` and GitHub Release tag `evidence-mirror-20260915` (assets listed in its notes) |
 | Owner playtest list for Howard's return | `docs/engineering/playability-launch-review/OWNER-PLAYTEST-LIST.md` (grows with each phase) |
 
-## Current position (2026-09-16 01:00Z)
-- **Build52** bound on Unity 231585e9 / TS 73ce1a9b (exe 4def44113462cdb0380e590779e00a73b62a7056b241242913511a4d252a51a9, seal 47 PASS,
-  admission 43 PASS); rendered suite 215 total / 213 passed (two harness-only failures in the newest test class, TEST-17 fixing). Native on
-  Build52: N2C 1440×900 and N2D 1280×720 (dense-01) and **B4 dense-02 1280×720 (100 actions)** all complete with clean input/quit.
-  Natively: F16 PASS (spent-press latch), F18 PASS, F17b ring now contiguous, DATA-1 pictures overflow PASS ("1–3 of 4", paging),
-  the 1280×720/200 % cell hosts the person overlay. New: F21 (Down steps the ring backwards instead of the row cursor — keyboard row
-  navigation broken), F22 (1280×720/200 % with four pictures shows zero cards), F23 (script cards publish no activation element), and the
-  Schedule-take execute control was published+enabled but the driver's click found no target (transient; re-run with observe-before-click).
-  IMPL-20 diagnosis done; IMPL-21 fixes landed (Unity 2c7a5cda: F21, F23, F22 rung 1, stale list rows, F24); TEST-19 writing regressions; then
-  rendered, Build53, native rerun (N2E/N2F + dense-02 B5 with the corrected script), K10. Schedule-take on Build52: the click landed (fresh
-  re-derivation, accepted once, control removed) — the driver misreported it.
-- Design sheets ready for N3–N6; stage sprites authored (d133f509). Plan rulings C8/C9 recorded.
+## Current position (2026-09-16 02:25Z)
+- **N2 delivered on Build53** (Unity 12498560 / TS 681b3fdc, exe e86527f2…, seal 48, admission 44) — record K10 atop the handoff. Native on
+  Build53: F16/F18/F20/F22/F23 PASS, overflow PASS, Schedule-take dispatch confirmed; **F21 open (native-only)** — IMPL-22 diagnosing; TEST-20
+  fixing five harness-side test failures (product line green: 214/214 pre-existing tests). N2 remainders: C8 measurement (N3), C9 declared,
+  people-rail parking asymmetry, mid-display invalidation step of the stale route (driver aim drift on the sliding Development card).
+- Next: IMPL-22 fix → TEST-21 → rendered → Build54 → native F21 check; then **N3** (brief `r3n3/IMPL-N3-brief.md` staged: stage sprites,
+  fonts + coverage tests, portrait slots, coverage statement) and the batched TS deltas (`r3n4/SIM-N4-DELTAS-brief.md`) after Build54's seal.
+- Design sheets ready for N3–N6; plan rulings C8/C9 recorded; evidence mirrored (release 92 assets; review folder ≈ 200 files).
 
 ## Program order for the window
 1. R3-N1 native close-out (preflight, A, B; native defect fixes if found) → 2. remaining selected R3 UI/UX overhaul phases (plan to be
 published: `plans/R3-OVERHAUL-PLAN.md`) → 3. P13B eight obligations → 4. P14 → 5. P15 → 6. P16. Merges to main are the coordinator's call (Owner addendum) after independent review + gates; otherwise working branches.
 
 ## Exact next actions
-1. N2: integrate IMPL-12 + DESIGN-03 → test-author TEST-09 (EditMode + PlayMode) → rendered PlayMode suite → Build51 + seal + admission →
-   native regression of the changed rails/overlay (guard-admitted) → K10 record → N3.
+1. F21: IMPL-22 diagnosis → fix → TEST-21 → rendered → Build54 → guarded native F21 check (N2 key plan) → K10 addendum.
+2. N3 implementation (IMPL-N3) + TS deltas (SIM-N4) → TEST → rendered → Build55 → native art/font captures → K11 → N4.
