@@ -18,7 +18,7 @@
   per technology. Backlog: S2 entry corrected; S5-R07 future client entry added.
 - **Open, recorded, not S2's:** `bridge-p13-campaign-isolation` 60 s inline budget (72 s body on this host), `bridge-p12-campaign-library` 5/20 s
   budgets, `bridge-founding` random seed, `p13a-scientist-foundation` golden digests, r3n1 fixtures, Pillow.
-- **S3 in progress (≈23:35):** T0 fixtures (`e27f4af`), tests 1–8 RED (`dcb34ca`), engine T1–T3 landed `30836b0` (`src/core/physicalPlans.ts`,
+- **S3 T0–T4 landed; T5 matched pass running on `c18abe8` (2026-09-17 ≈00:15; `evidence/p13b-s3-20260916/30-RUN`). Earlier note kept:** T0 fixtures (`e27f4af`), tests 1–8 RED (`dcb34ca`), engine T1–T3 landed `30836b0` (`src/core/physicalPlans.ts`,
   admission at tick step 1.06 with the arrived-week stamp, Save **V23** live, sweep 22 → 23; S3 files 54/54 after five test-premise amendments;
   delegated decisions and the coordinator's bound correction recorded in the plan). **T4 in flight:** sim-core on the bridge plans page
   (projection **35**: `view: 'plans'`, `StudioPlansPage`/`StudioPlanRow`/`StudioPlanQuote`, plan actions, Laboratory `plan-queue-*` companions,
