@@ -17,16 +17,15 @@
 | Full local-evidence mirror (nothing stays local): text-class evidence in Git; captures/movies/large payloads as release assets | private Unity repo, branch `docs/playability-delivery-review-20260913-01` → `docs/evidence/local-mirror-20260915/` and GitHub Release tag `evidence-mirror-20260915` (assets listed in its notes) |
 | Owner playtest list for Howard's return | `docs/engineering/playability-launch-review/OWNER-PLAYTEST-LIST.md` (grows with each phase) |
 
-## Current position (2026-09-16 02:25Z)
-- **N2 delivered on Build53** (Unity 12498560 / TS 681b3fdc, exe e86527f2…, seal 48, admission 44) — record K10 atop the handoff. Native on
-  Build53: F16/F18/F20/F22/F23 PASS, overflow PASS, Schedule-take dispatch confirmed; **F21 open (native-only)** — IMPL-22 diagnosing; TEST-20
-  fixing five harness-side test failures (product line green: 214/214 pre-existing tests). N2 remainders: C8 measurement (N3), C9 declared,
-  people-rail parking asymmetry, mid-display invalidation step of the stale route (driver aim drift on the sliding Development card).
-- Next: IMPL-22 fix → TEST-21 → rendered → Build54 → native F21 check; then **N3** (brief `r3n3/IMPL-N3-brief.md` staged: stage sprites,
-  fonts + coverage tests, portrait slots, coverage statement) and the batched TS deltas (`r3n4/SIM-N4-DELTAS-brief.md`) after Build54's seal.
-- Design sheets ready for N3–N6; plan rulings C8/C9 recorded; evidence mirrored (release 92 assets; review folder 260 files).
-- **Budget checkpoint 02:20Z**: whole-program capability ≈ 40.0 h; reserve ≈ 7.2 h with 6 h protected (≈ 1.2 h unprotected). Revised
-  stage budgets and the overrun rule are in the plan (verification beyond 1.2 h is reported as overrun; protected hours never drawn).
+## Current position (2026-09-16 02:55Z)
+- **N2 delivered and natively closed on Build54** (Unity a5e8340b / TS eafd551e, exe a332e3bc…, seal 49, admission 45): F13–F24 PASS natively
+  (F21/F17a/F17b fixed by IMPL-23); declared: C9 body viewport at 1280×720/200 %, C8 rail font floor (N3 measures), people-rail parking
+  asymmetry, the stale route's mid-display step (driver aim drift). K10 + addendum atop the handoff.
+- Running now: TEST-21 (re-express one superseded assertion; then the rendered full suite on a5e8340b) and **SIM-20 (the batched TS read-model
+  deltas for N4/N5/N6 with schema/DTO regen)** — the Unity DTO regen + paired seal come with N3/N4's next build.
+- Next: IMPL-N3 (`r3n3/IMPL-N3-brief.md`: stage sprites, font coverage tests, portrait slots, coverage statement) → tests → rendered → Build55
+  (paired with the regenerated DTO) → native art/font captures → K11 → N4.
+- Budget checkpoint 02:20Z stands (capability ≈ 40 h; unprotected reserve ≈ 1.2 h; overrun rule published in the plan).
 
 ## Program order for the window
 1. R3-N1 native close-out (preflight, A, B; native defect fixes if found) → 2. remaining selected R3 UI/UX overhaul phases (plan to be

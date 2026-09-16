@@ -35,6 +35,18 @@ divergence; IMPL-22 diagnosing the polled/IMGUI consumer). N2's declared remaind
 runs, three builds/seals/admissions, seven native runs, analyses, records, publication). Under the directive the caps are planning checkpoints:
 N2 was budgeted 6 / 3.5 h; actuals ≈ 4.6 / 3.9 (reserve over by ≈ 0.4 h, driven by the harness iterations on one test class).
 
+**K10 addendum (2026-09-16 02:50Z) — F21 closed natively on Build54.** IMPL-22 (read-only) found the cause: the KeyDown path reconciled the ring
+to IMGUI's focused search TextField (IMGUI's own Tab moves `keyboardControl` into the field — probe `name=studio-people-search-field kbd=45`
+while the ring sits on the pictures toolbar), so Down/Return were swallowed by the editor. IMPL-23 (`50790724`, `14c43fd0`, `a5e8340b`): the ring
+is reconciled from IMGUI focus only on pointer events; every key route off a field releases name + `keyboardControl` + edge memory; a focus
+probe is appended to `rail-focus-ring`. **Build54** (Unity `a5e8340b` / TS `eafd551e`, exe `a332e3bc6189b87dc4ccb2d98c715eaff5d6417a8a8f754915dfddc8c26df2bf`,
+seal 49 PASS, admission 45 PASS). Native run `early-2026-09-16T02-49-…` (N2G, 1440×900): Tab×3 → `movie:production:details:prod-0315` → Return
+opens the overlay (**F17a PASS**); click search → 'a','s' typed → Tab → `people:search-clear` → Down → `people:person:t-dir-03` → Down →
+`t-wri-11` → Return opens that row (**F21/F17b PASS**); the hand-back law releases the editor on the first arrow (`name=none kbd=0`). One
+superseded test assertion (click-then-first-key reconciliation) is being re-expressed for the pointer-only law (TEST-21); the rendered full
+suite on Build54's source follows. N2 native disposition: F13–F24 all PASS on Build50–54 except the declared C9 body viewport and the
+mid-display invalidation step of the stale route (driver aim drift on the sliding Development card — scripted for the next dense-02 run).
+
 ## K9. Build50 native runs under the Owner's three-week directive — 2026-09-15 20:05Z–20:27Z (unattended, guard-admitted)
 Authority: Owner directive (`docs/operations/fable-team/OWNER-DIRECTIVE-THREE-WEEK-AUTONOMOUS-20260915.md`); the desktop became idle after
 Howard left; every run admitted by the unchanged guard (console unlocked, owner idle ≥ 60 s, listen-only witness, bound Build50 manifest
