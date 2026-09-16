@@ -1,0 +1,106 @@
+P13B-S2 test-author task, tests/bridge-p13b-s2-labs.test.ts — final pass after the
+coordinator's three follow-ups (2026-09-16): (1) strict tsc fixes, (2) budget-menu
+gap closed by sim-core -> reassert 80,000, (3) case 2 re-derived from engine law
+(no researchable-week gate on seating) after the coordinator removed the bridge
+gate that broke the retained P13A "seat before research opens" case.
+Run environment: 2-core 2015 MacBook Air, repo worktree wip/headless-program-20260916-ts.
+
+Commands run, in order:
+  npx tsc --noEmit -p tsconfig.bridge.json
+  npx vitest run tests/bridge-p13b-s2-labs.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000
+
+--- tsc --noEmit -p tsconfig.bridge.json ---
+(no output; exit 0 — 0 errors project-wide, 0 in tests/bridge-p13b-s2-labs.test.ts;
+the 18 errors the coordinator reported are gone)
+
+--- verbatim vitest tail ---
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s2-labs.test.ts (10 tests) 110337ms
+   ✓ case 1: a fresh Laboratory publishes snapshotVersion 34 and an empty projects array > a Laboratory with no research project at all reports laboratory.projects === [] 1784ms
+   ✓ case 2: seating is lawful before a brief's research opens; the wire dates the wait instead of hiding the brief > before week 780 (week 263, S1-style state): both the sound and lighting assign rows exist for a free employed person; the lighting row's detail names the wait, the sound row's does not (sound opened 260); dispatching the lighting assign through the bridge is accepted, publishing a paused lighting project whose bottleneckLabel also names the wait; its begin row is disabled with the same engine text 8196ms
+   ✓ case 2: seating is lawful before a brief's research opens; the wire dates the wait instead of hiding the brief > at week 780 (two-Laboratory world): both briefs are open, so no assign row still names the wait > every free employed person has BOTH technologies' assign rows on EACH Laboratory, neither detail mentions the wait, and the underlying spec carries technologyId 305ms
+   ✓ case 3: two full Laboratories — the shared project reads identically from both pages > dispatches 4+4 sound assign rows through the bridge on both Laboratories, funds the full $80,000 ceiling through the bridge's own budget row (the S2-T6 gap that used to cap this menu at $40,000 was closed 2026-09-16 — the menu now reaches 60,000/80,000) and begins through the bridge; before the first tick both pages already report companion test 4 case (i) (7 funded weeks remain, 0 of 64 verified units); one bridge-advanced week reproduces case (i) exactly (output 9.75, units 1,560,000) on both pages 30581ms
+   ✓ case 4: two technologies staffed on one Laboratory > lists two projects rows in stable id order; every project's progressLabel names its own verifiedWork/work; each fully-funded 2-seat project's cooperationLabel reads "One Laboratory: 2 seats" with the real $20,000/60,000 figures; the fifth assign for EITHER technology on this Laboratory is refused with "four seats" 19489ms
+   ✓ case 5: a third Laboratory is refused on the wire > a real, completed third Laboratory (placed and its build time elapsed — the same construction tests/p13b-s2-labs.test.ts's own base3Setup uses for the identical core-level "test 3" case) publishes its assign row disabled with the engine's own "third Laboratory" refusal 10686ms
+   ✓ case 6: a migrated V21 fixture keeps its honest single-pool receipts on the wire > loads through BridgeSession.fromSaveJson (a genuine V21 fixture, migrated on import): the sound project's three stored receipts read labs:null; the lighting project's three receipts each read one derived row; the next quoted week splits 4+2 seats at $60,000 into $40,000/$20,000, output 7.875 451ms
+   ✓ case 7: releasing a seat through the bridge recomputes the funding split > releasing one of Lab 2's two sound seats (4+2 -> 4+1) through the bridge recomputes next week's split to $40,000/$10,000, output 6.9375 8176ms
+   ✓ case 8: player-safe — no rival project, seat or talent id ever appears > the Laboratory page names only the player studio's own project and talent ids 6792ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  19:32:27
+   Duration  115.24s (transform 3.33s, setup 0ms, collect 4.30s, tests 110.34s, environment 0ms, prepare 148ms)
+
+--- per-case results against the coordinator's three follow-ups ---
+
+(1) tsc strict-mode fixes — DONE, 0 errors remain (was 18 in this file):
+    - Added `required<T>(value, message)` helper (throws with a diagnostic message
+      instead of `!`) and used it for every `.find(...)` result that feeds a later
+      assertion across cases 2, 3, 5's `after`/`lightingProject`/`beginRow` lookups,
+      and the newly-rewritten case 3.
+    - `labResponse` no longer returns the raw `session.industry(...)` value narrowed
+      only by its own local control flow (which did not survive across the
+      `labPage` caller boundary). It now extracts `response.laboratory` into a
+      local `const laboratory = required(response.laboratory, ...)` and returns a
+      NEW object literal `{ ...response, laboratory }` built from that already-
+      narrowed local — the inferred return type therefore carries a non-null
+      `laboratory` for every caller, fixing all `first.laboratory`/`next.laboratory`/
+      `response.laboratory`/`lab.projects`/`lab1Page.seats`/`lab1Page.weekly`/
+      `soundPage.projects`/`lightingPage.projects` "possibly null/undefined" errors.
+    - The `assignSpecs.some(s => s.action.technologyId === ...)` pattern (TS2339:
+      `technologyId` does not exist on the `TechnologyAction` union after a plain
+      `.filter()`, which does not propagate a type predicate) was replaced with an
+      explicit `for` loop that narrows via `if (s.action.kind !== 'assignResearchScientist') continue`
+      before ever touching `.technologyId`, in both case 2's pre-780 and at-780 sub-cases.
+
+(2) Budget-preset gap — CLOSED, reasserted — PASS:
+    Confirmed via `tsc`-independent runtime read: the live preset amounts for a
+    sound project with 8 occupied seats are now `[0, 2_500, 10_000, 40_000, 60_000, 80_000]`,
+    `Math.max(...amounts) === 80_000`. The comment at that assertion now records
+    the finding's own history (gap recorded 2026-09-16 at first authoring; closed
+    the same day by sim-core). Case 3 was restructured into ONE fully-bridge-
+    dispatched test: assign 4+4 through the bridge, dispatch `budget-<id>-80000`
+    then `run-<id>` through the bridge — both genuine `session.command()` calls,
+    not an engine-direct workaround. Before the first tick, both Laboratory pages
+    already report `progressLabel` "0 of 64..." and `estimateLabel` "...7 funded
+    weeks remain..." (this satisfies the task's original case 9 requirement, now
+    proven through a real bridge dispatch instead of the read-only workaround the
+    prior version needed). After one `tick()`, both pages report companion test 4
+    case (i) exactly: `receipt.units === 1_560_000`, `receipt.labs` = two rows at
+    `spend: 40_000, rawUnits: 120_000` each, `weekly.output === 9.75`,
+    `weekly.units === 1_560_000`, `cooperationLabel` matches `/Two Laboratories/`,
+    `/0\.625/`, `/\$40,000/`, `/120000 raw/`. The previously-separate "read-side
+    fidelity at $80,000" sub-test was REMOVED — its premise ("no bridge row
+    reaches it") is now false, and its coverage is fully subsumed by the single
+    rewritten test, which is now stronger (proves the write path too, not just
+    the read path). Test count for the file dropped from 11 to 10 as a result of
+    this consolidation (case 1, case 2 gained a second assertion cluster and case
+    3 lost a redundant test — net effect recorded, not hidden).
+
+(3) Case 2 re-derived from engine law — REWRITTEN, PASS:
+    Confirmed the removed bridge gate and the new wire text directly in
+    bridge/laboratory.ts before writing: `briefs` no longer filters by
+    `researchableWeek`; every assign row's `detail` ends with
+    "Research opens <date>; the seat waits until then." exactly when
+    `state.market.tick < entry.researchableWeek`, and the row itself is still
+    `enabled` (seating is lawful early). New case 2, two sub-cases:
+      - Before week 780 (advanced to week 263 from `p13aResearchEntry()`, the S1-
+        style state): both `assign-<rl>-<candidate>-synchronized-sound` and
+        `assign-<rl>-<candidate>-lighting-control-01` rows exist and are enabled;
+        the sound row's `detail` does not match `/Research opens/` (sound opened
+        260), the lighting row's does. Dispatching the lighting assign through the
+        bridge (`session.command()`, real submitIntent) is accepted; the resulting
+        page's `projects[]` carries a `paused` lighting project whose
+        `bottleneckLabel` matches `/Research opens/`; its `run-<projectId>` row is
+        published, `enabled: false`, with `disabledReason` matching `/Research
+        opens/` (the same `researchPrerequisiteRefusal` text the engine's dry run
+        surfaces for `beginResearch`).
+      - At week 780 (`p13bTwoLabWorld()`): both assign rows exist for every free
+        employed person on each Laboratory as before, PLUS a new check that
+        neither row's `detail` still contains "Research opens" (both briefs are
+        open by then), plus the existing `laboratoryActionSpecs`-level
+        `technologyId` check (now type-safe, see (1)).
+
+No production code was edited to reach this result — only the test file above.

@@ -1,0 +1,10 @@
+   ✓ P11 current people, obligations and film economics owners > keeps same-title films independent, preserves every P07 business amount and excludes studio costs 578ms
+ ✓ |core| tests/bridge-p11-production-location.test.ts (3 tests) 2318ms
+   ✓ P11 exact production property locations > accepts authentic26 and projects a real immediate Greenlight at the reserved placed office 1559ms
+   ✓ P11 exact production property locations > uses the real placed Post reservation, then no guessed site for ready or committed release 571ms
+
+ Test Files  2 passed (2)
+      Tests  14 passed (14)
+   Start at  19:15:26
+   Duration  14.94s (transform 2.10s, setup 0ms, collect 3.32s, tests 10.86s, environment 1ms, prepare 202ms)
+

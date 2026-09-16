@@ -1,0 +1,12 @@
+   ✓ P11 recorded trends and full portfolio > covers Development/review, Ready Casting, Production, Post and Release Ready through actual fixture action chains 1191ms
+ ✓ |core| tests/bridge-p10a-w0-people-projection.test.ts (10 tests) 3800ms
+   ✓ P10A W0 — people projection > R8 grouped attention lists each person at most once, by the highest tier; contract horizons come from the contract alone 2712ms
+ ✓ |core| tests/bridge-p11-capital-contributors.test.ts (6 tests) 3115ms
+   ✓ P11 recorded facility capital contributors over the real bridge > hydrates genuine outgoing projection24 and joins four original payments to exact construction events 904ms
+   ✓ P11 recorded facility capital contributors over the real bridge > preserves same-name site identities across periods, completion and history windows 1390ms
+
+ Test Files  3 passed (3)
+      Tests  33 passed (33)
+   Start at  19:10:27
+   Duration  25.91s (transform 2.12s, setup 0ms, collect 3.74s, tests 21.01s, environment 1ms, prepare 283ms)
+

@@ -24,8 +24,10 @@ const WORK_UNIT = 20_000
  * P13B-S2: project credit is kept over 1/160,000 (WORK_UNIT × 8) so the cooperation
  * rule `a + 0.625·b` — the larger Laboratory's raw output in full, the second at
  * five eighths — is exact in integers. One Laboratory alone still earns 8 × its raw.
+ * Exported read-only: the read side divides a quoted `output` by it to publish the
+ * same integer numerator a stored receipt carries. No engine behaviour reads it twice.
  */
-const PROJECT_UNIT = WORK_UNIT * 8
+export const PROJECT_UNIT = WORK_UNIT * 8
 const [FIRST_LAB_FACTOR, SECOND_LAB_FACTOR] = [8, 5]
 const money = (value: number) => '$' + value.toLocaleString('en-US', { maximumFractionDigits: 0 })
 /** Small counts are spelled out in player-facing refusals ("four seats", "eight Scientists"). */

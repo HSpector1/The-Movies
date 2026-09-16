@@ -232,10 +232,18 @@ stays DESIGN BLOCKED on the named pre-execution clarification (Future Ops R2 exa
       law; (d) `weeklyResearchPayroll(state, pastWeek)` cannot answer once the expired contract row is gone — tests read the permanent
       `researchPayroll` ledger row instead (finding, not a defect); (e) no public action creates a rival research project, so isolation is
       proved by construction plus a structurally injected rival row (same technique as `p13b-s2-labs`).
-- [ ] **S2-T6 Bridge (projection 34, in flight ≈18:50):** `StudioLaboratoryPage.projects[]` (per-project seats with `laboratoryFacilityId`,
-      receipts with `labs` rows or honest `null`, weekly quote with per-Lab shares and `units`, `cooperationLabel`), assign rows
-      `assign-<lab>-<person>-<technologyId>` with `technologyId` in the intent, per-project begin/resume/pause/cancel/budget rows; top-level
-      S1b members retained (superseded for the Unity binding). Test `tests/bridge-p13b-s2-labs.test.ts` (test-author, RED first).
+- [x] **S2-T6 Bridge (projection 34; 2026-09-16 ≈19:40):** `StudioLaboratoryPage.projects[]` (`StudioLaboratoryProject` with per-project seats
+      carrying `laboratoryFacilityId`, receipts with `labs` rows or honest `null`, weekly quote with per-Lab shares and `units`,
+      `cooperationLabel`), assign rows `assign-<lab>-<person>-<technologyId>` with `technologyId` in the intent, per-project
+      begin/resume/pause/cancel/budget rows with catalogue names, budget presets extended to 60,000 / 80,000 (gap found by the bridge test:
+      no published row could fund a two-Lab project at its usable ceiling), top-level S1b members retained (superseded for the binding).
+      schemaId `sha256:eeebeede…`, contract sha `9ef5d064…`, checks verified. Coordinator correction to its own T6 contract: the
+      researchable-week gate on assign rows broke the retained P13A law (`bridge-p13-laboratory` seats at week 12 for sound, opening 260);
+      the engine has no such gate (only `researchPrerequisiteRefusal` on begin/weekly), so the page now publishes every open brief, enabled as
+      the engine's dry run decides, and dates the wait on the row ("Research opens <date>; the seat waits until then."). Test
+      `tests/bridge-p13b-s2-labs.test.ts` 10/10 (RED baseline not capturable for this file — T6 landed mid-authoring; its earlier two failures
+      were the author's regex formatting), `bridge-p13b-s1b-seats` 8/8 with real values for the new members, `bridge-p13-laboratory` 7/7 after
+      the gate removal; projection pins moved 33 → 34 in eleven files. Evidence `10-t6-*`, `11-t6-*`, `12-*`, `13-*`.
 - [ ] **S2-T7 Affected suites, records, commit, push.**
 
 ## S2 — original scope record (superseded by the expansion above; kept verbatim)

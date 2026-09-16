@@ -1,0 +1,15 @@
+   ✓ Current-game Unity adoption bridge > keeps read-only polling and failed direct intent application save-neutral 2985ms
+   ✓ Current-game Unity adoption bridge > keeps every named projection and root authority token stable across identical polls 2398ms
+   ✓ Current-game Unity adoption bridge > emits and admits a screenplay commission when both authoritative slots are occupied 1554ms
+   ✓ Current-game Unity adoption bridge > emits and admits exact-project auditions when both authoritative slots are occupied 6469ms
+   ✓ Current-game Unity adoption bridge > emits and admits an evidenced exact-project greenlight without committing the package 3636ms
+   ✓ Current-game Unity adoption bridge > publishes advanceWeek through the ready-to-package family and withholds it at a casting-review decision stop 12446ms
+   ✓ Current-game Unity adoption bridge > keeps advanceWeek available while a greenlight sits queued for Development & Casting capacity 734ms
+ ✓ |core| tests/bridge-operations-events.test.ts (6 tests) 896ms
+   ✓ R3-N7-SIM-01 — operationsEventsProjection (projection 32) > L6 is pure, mutates nothing, and validates inside the served projection-34 envelope 664ms
+
+ Test Files  2 passed (2)
+      Tests  24 passed (24)
+   Start at  19:01:49
+   Duration  336.63s (transform 3.07s, setup 0ms, collect 4.59s, tests 330.88s, environment 1ms, prepare 351ms)
+

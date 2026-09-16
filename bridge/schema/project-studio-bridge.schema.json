@@ -137,7 +137,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 33,
+          "const": 34,
           "type": "integer"
         },
         "stateDigest": {
@@ -254,7 +254,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 33,
+          "const": 34,
           "type": "integer"
         },
         "stateDigest": {
@@ -764,7 +764,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 33,
+          "const": 34,
           "type": "integer"
         },
         "stateDigest": {
@@ -843,7 +843,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 33,
+          "const": 34,
           "type": "integer"
         },
         "stateDigest": {
@@ -1135,7 +1135,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 33,
+          "const": 34,
           "type": "integer"
         },
         "stateDigest": {
@@ -7725,6 +7725,12 @@
           "minLength": 1,
           "type": "string"
         },
+        "projects": {
+          "items": {
+            "$ref": "#/$defs/StudioLaboratoryProject"
+          },
+          "type": "array"
+        },
         "provenanceLabel": {
           "minLength": 1,
           "type": "string"
@@ -7781,6 +7787,7 @@
         "estimateLabel",
         "installationLabel",
         "progressLabel",
+        "projects",
         "provenanceLabel",
         "receipts",
         "scientistId",
@@ -7794,6 +7801,111 @@
       "type": "object",
       "x-csharp-name": "StudioLaboratoryPage"
     },
+    "StudioLaboratoryProject": {
+      "additionalProperties": false,
+      "properties": {
+        "bottleneckLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "budgetPerWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "cooperationLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "estimateLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "homeLaboratoryFacilityId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "laboratoryFacilityIds": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "progressLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "projectId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "receipts": {
+          "items": {
+            "$ref": "#/$defs/StudioResearchReceipt"
+          },
+          "type": "array"
+        },
+        "seats": {
+          "items": {
+            "$ref": "#/$defs/StudioLaboratorySeat"
+          },
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "paused",
+            "cancelled",
+            "completed"
+          ],
+          "type": "string"
+        },
+        "technologyId": {
+          "enum": [
+            "synchronized-sound",
+            "lighting-control-01"
+          ],
+          "type": "string"
+        },
+        "technologyLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "verifiedWork": {
+          "minimum": 0,
+          "type": "number"
+        },
+        "weekly": {
+          "$ref": "#/$defs/StudioResearchWeek"
+        },
+        "work": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "bottleneckLabel",
+        "budgetPerWeek",
+        "cooperationLabel",
+        "estimateLabel",
+        "homeLaboratoryFacilityId",
+        "laboratoryFacilityIds",
+        "progressLabel",
+        "projectId",
+        "receipts",
+        "seats",
+        "status",
+        "technologyId",
+        "technologyLabel",
+        "verifiedWork",
+        "weekly",
+        "work"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioLaboratoryProject"
+    },
     "StudioLaboratorySeat": {
       "additionalProperties": false,
       "properties": {
@@ -7804,6 +7916,10 @@
         },
         "employed": {
           "type": "boolean"
+        },
+        "laboratoryFacilityId": {
+          "minLength": 1,
+          "type": "string"
         },
         "name": {
           "minLength": 1,
@@ -7829,6 +7945,7 @@
       "required": [
         "assignedWeek",
         "employed",
+        "laboratoryFacilityId",
         "name",
         "releasedWeek",
         "talentId"
@@ -11355,9 +11472,88 @@
       "type": "object",
       "x-csharp-name": "StudioReleasedFilmSnapshot"
     },
+    "StudioResearchLabRow": {
+      "additionalProperties": false,
+      "properties": {
+        "laboratoryFacilityId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "rawUnits": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "seatTalentIds": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "spend": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "laboratoryFacilityId",
+        "rawUnits",
+        "seatTalentIds",
+        "spend"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioResearchLabRow"
+    },
+    "StudioResearchLabShare": {
+      "additionalProperties": false,
+      "properties": {
+        "laboratoryFacilityId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "rawUnits": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "seats": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "spend": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "laboratoryFacilityId",
+        "rawUnits",
+        "seats",
+        "spend"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioResearchLabShare"
+    },
     "StudioResearchReceipt": {
       "additionalProperties": false,
       "properties": {
+        "labs": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/StudioResearchLabRow"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "seatTalentIds": {
           "items": {
             "minLength": 1,
@@ -11382,6 +11578,7 @@
         }
       },
       "required": [
+        "labs",
         "seatTalentIds",
         "spend",
         "units",
@@ -11398,11 +11595,22 @@
           "minimum": 0,
           "type": "integer"
         },
+        "labs": {
+          "items": {
+            "$ref": "#/$defs/StudioResearchLabShare"
+          },
+          "type": "array"
+        },
         "output": {
           "minimum": 0,
           "type": "number"
         },
         "seats": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "units": {
           "maximum": 2147483647,
           "minimum": 0,
           "type": "integer"
@@ -11415,8 +11623,10 @@
       },
       "required": [
         "ceiling",
+        "labs",
         "output",
         "seats",
+        "units",
         "usable"
       ],
       "type": "object",
@@ -13168,7 +13378,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-33",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-34",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -13224,7 +13434,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 33,
+    "projectionVersion": 34,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

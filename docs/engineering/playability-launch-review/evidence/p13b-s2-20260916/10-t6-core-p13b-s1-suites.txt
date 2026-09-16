@@ -1,0 +1,12 @@
+   ✓ P13B-S1 determinism, replay and interleaving (test 7) > round-trips save/reload byte-identically after seating, after funded weeks, after expiry and after pause 963ms
+ ✓ |core| tests/p13b-s1-save-v21.test.ts (8 tests) 2042ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > continues the migrated active-280 project lawfully for one more funded week and re-saves byte-identically 439ms
+   ✓ P13B-S1 campaign isolation (test 10) > produces independent migrated copies from the same fixture; advancing one never touches the other 618ms
+ ✓ |core| tests/p13b-s1-staffing.test.ts (5 tests) 4446ms
+ ✓ |core| tests/p13b-s1-validation.test.ts (7 tests) 5145ms
+
+ Test Files  4 passed (4)
+      Tests  33 passed (33)
+   Start at  19:11:35
+   Duration  31.25s (transform 1.13s, setup 0ms, collect 2.12s, tests 27.84s, environment 1ms, prepare 345ms)
+

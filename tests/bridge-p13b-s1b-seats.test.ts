@@ -18,6 +18,9 @@ import type { IndustryQuery } from '../bridge/schema/industry-schema.ts'
 // directly against the current tree and MUST fail (RED) until S1b-T1/T2 implement it.
 // It imports bridge/*.ts, so it is bridge-class (tsconfig.bridge.json), matching the
 // existing tests/bridge-p13-laboratory.test.ts and tests/bridge-p13b-s1-identity.test.ts.
+// P13B-S2-T6 moved the per-bump values to projection 34 and added the members the S2 wire
+// contract gives these same rows: `laboratoryFacilityId` on every seat, `labs` on every
+// stored receipt and `units`/`labs` on the quoted week. The S1b requirements are unchanged.
 
 const SESSION_ID = 'p13b-s1b-seats-test'
 const IDENTITY_SEED = 'p13b-identity-0049'
@@ -68,9 +71,9 @@ function identityFixture(seed: string, idA: string, idB: string) {
   return { state, laboratoryFacilityId, assignedWeek }
 }
 
-describe('P13B-S1b Laboratory seats read model (projection 33)', () => {
-  it('bumps PROJECTION_VERSION to the S1b wire contract (33)', () => {
-    expect(PROJECTION_VERSION).toBe(33)
+describe('P13B-S1b Laboratory seats read model (projection 34 after S2-T6)', () => {
+  it('bumps PROJECTION_VERSION to the S1b wire contract (33; 34 after the S2-T6 bump)', () => {
+    expect(PROJECTION_VERSION).toBe(34)
   })
 
   let entry: GameState
@@ -78,7 +81,7 @@ describe('P13B-S1b Laboratory seats read model (projection 33)', () => {
   let entryTick: number
   let staffedBase: ReturnType<typeof p13bStaffedProject>
   let staffedTen: ReturnType<typeof p13bStaffedProject>
-  let baseSeats: Array<{ talentId: string; name: string; assignedWeek: number; releasedWeek: number | null; employed: boolean }>
+  let baseSeats: Array<{ talentId: string; name: string; laboratoryFacilityId: string; assignedWeek: number; releasedWeek: number | null; employed: boolean }>
   let identity: { state: GameState; laboratoryFacilityId: string; assignedWeek: number }
 
   beforeAll(() => {
@@ -88,17 +91,18 @@ describe('P13B-S1b Laboratory seats read model (projection 33)', () => {
     staffedBase = p13bStaffedProject(entry, 3, 40_000, 4)
     staffedTen = p13bStaffedProject(entry, 10, 40_000, 4)
     baseSeats = staffedBase.scientistIds.map(id => ({
-      talentId: id, name: nameOf(staffedBase.state, id), assignedWeek: entryTick, releasedWeek: null, employed: true,
+      talentId: id, name: nameOf(staffedBase.state, id), laboratoryFacilityId: staffedBase.laboratoryFacilityId,
+      assignedWeek: entryTick, releasedWeek: null, employed: true,
     }))
     identity = identityFixture(IDENTITY_SEED, IDENTITY_A, IDENTITY_B)
   }, 120_000)
 
-  it('a. fresh Laboratory with no project publishes empty seats/receipts, zero weekly and snapshotVersion 33', () => {
+  it('a. fresh Laboratory with no project publishes empty seats/receipts, zero weekly and snapshotVersion 34', () => {
     const page = readLaboratory(entry, entryLabFacilityId)
-    expect(page.snapshotVersion).toBe(33)
+    expect(page.snapshotVersion).toBe(34)
     expect(page.laboratory!.seats).toEqual([])
     expect(page.laboratory!.receipts).toEqual([])
-    expect(page.laboratory!.weekly).toEqual({ ceiling: 0, usable: 0, seats: 0, output: 0 })
+    expect(page.laboratory!.weekly).toEqual({ ceiling: 0, usable: 0, seats: 0, output: 0, units: 0, labs: [] })
   })
 
   it('b. four staffed seats publish assignment-order rows, three ascending receipts and the current week quote', () => {
@@ -107,9 +111,11 @@ describe('P13B-S1b Laboratory seats read model (projection 33)', () => {
     expect(lab.seats).toEqual(baseSeats)
     expect(lab.receipts).toHaveLength(3)
     for (let i = 0; i < 3; i++) {
-      expect(lab.receipts[i]).toEqual({ week: entryTick + i, seatTalentIds: staffedBase.scientistIds, spend: 40_000, units: 960_000 })
+      expect(lab.receipts[i]).toEqual({ week: entryTick + i, seatTalentIds: staffedBase.scientistIds, spend: 40_000, units: 960_000,
+        labs: [{ laboratoryFacilityId: staffedBase.laboratoryFacilityId, seatTalentIds: staffedBase.scientistIds, spend: 40_000, rawUnits: 120_000 }] })
     }
-    expect(lab.weekly).toEqual({ ceiling: 40_000, usable: 40_000, seats: 4, output: 6 })
+    expect(lab.weekly).toEqual({ ceiling: 40_000, usable: 40_000, seats: 4, output: 6, units: 960_000,
+      labs: [{ laboratoryFacilityId: staffedBase.laboratoryFacilityId, seats: 4, spend: 40_000, rawUnits: 120_000 }] })
   })
 
   it('c. only the last eight worked-week receipts are published, ascending and contiguous', () => {
@@ -120,7 +126,7 @@ describe('P13B-S1b Laboratory seats read model (projection 33)', () => {
     expect(receipts).toHaveLength(8)
     expect(receipts[0]!.week).toBe(full[2]!.week) // the third worked week
     for (let i = 1; i < receipts.length; i++) expect(receipts[i]!.week).toBe(receipts[i - 1]!.week + 1)
-    expect(receipts).toEqual(full.slice(-8).map(r => ({ week: r.week, seatTalentIds: r.seatTalentIds, spend: r.spend, units: r.units })))
+    expect(receipts).toEqual(full.slice(-8).map(r => ({ week: r.week, seatTalentIds: r.seatTalentIds, spend: r.spend, units: r.units, labs: r.labs })))
   })
 
   it('d. a released seat keeps its history row; the quote drops to three seats; the next receipt names three ids', () => {
@@ -132,10 +138,11 @@ describe('P13B-S1b Laboratory seats read model (projection 33)', () => {
     const lab = page.laboratory!
     expect(lab.seats[0]).toEqual({
       talentId: staffedBase.scientistIds[0], name: nameOf(released, staffedBase.scientistIds[0]!),
-      assignedWeek: entryTick, releasedWeek: releaseWeek, employed: true,
+      laboratoryFacilityId: staffedBase.laboratoryFacilityId, assignedWeek: entryTick, releasedWeek: releaseWeek, employed: true,
     })
     expect(lab.seats.slice(1)).toEqual(baseSeats.slice(1))
-    expect(lab.weekly).toEqual({ ceiling: 40_000, usable: 30_000, seats: 3, output: 4.5 })
+    expect(lab.weekly).toEqual({ ceiling: 40_000, usable: 30_000, seats: 3, output: 4.5, units: 720_000,
+      labs: [{ laboratoryFacilityId: staffedBase.laboratoryFacilityId, seats: 3, spend: 30_000, rawUnits: 90_000 }] })
 
     const ticked = tick(released)
     const nextPage = readLaboratory(ticked, staffedBase.laboratoryFacilityId)
@@ -151,18 +158,19 @@ describe('P13B-S1b Laboratory seats read model (projection 33)', () => {
     const page = readLaboratory(identity.state, identity.laboratoryFacilityId)
     const lab = page.laboratory!
     expect(lab.seats).toEqual([
-      { talentId: IDENTITY_A, name: nameA, assignedWeek: identity.assignedWeek, releasedWeek: null, employed: true },
-      { talentId: IDENTITY_B, name: nameB, assignedWeek: identity.assignedWeek, releasedWeek: null, employed: true },
+      { talentId: IDENTITY_A, name: nameA, laboratoryFacilityId: identity.laboratoryFacilityId, assignedWeek: identity.assignedWeek, releasedWeek: null, employed: true },
+      { talentId: IDENTITY_B, name: nameB, laboratoryFacilityId: identity.laboratoryFacilityId, assignedWeek: identity.assignedWeek, releasedWeek: null, employed: true },
     ])
     expect(lab.receipts).toHaveLength(1)
-    expect(lab.receipts[0]).toEqual({ week: identity.assignedWeek, seatTalentIds: [IDENTITY_A, IDENTITY_B], spend: 20_000, units: 480_000 })
+    expect(lab.receipts[0]).toEqual({ week: identity.assignedWeek, seatTalentIds: [IDENTITY_A, IDENTITY_B], spend: 20_000, units: 480_000,
+      labs: [{ laboratoryFacilityId: identity.laboratoryFacilityId, seatTalentIds: [IDENTITY_A, IDENTITY_B], spend: 20_000, rawUnits: 60_000 }] })
   })
 
   it('f. a paused project zeroes the current week quote but keeps its ceiling and seated rows', () => {
     const paused = applyActions(staffedBase.state, [{ kind: 'pauseResearch', projectId: staffedBase.projectId }])
     const page = readLaboratory(paused, staffedBase.laboratoryFacilityId)
     const lab = page.laboratory!
-    expect(lab.weekly).toEqual({ ceiling: 40_000, usable: 0, seats: 0, output: 0 })
+    expect(lab.weekly).toEqual({ ceiling: 40_000, usable: 0, seats: 0, output: 0, units: 0, labs: [] })
     expect(lab.seats).toEqual(baseSeats)
   })
 

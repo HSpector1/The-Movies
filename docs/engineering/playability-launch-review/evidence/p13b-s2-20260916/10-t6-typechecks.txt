@@ -1,0 +1,24 @@
+$ npx tsc --noEmit -p tsconfig.bridge.json
+tests/bridge-p13b-s2-labs.test.ts(75,23): error TS18047: 'first.laboratory' is possibly 'null'.
+tests/bridge-p13b-s2-labs.test.ts(78,21): error TS18047: 'next.laboratory' is possibly 'null'.
+tests/bridge-p13b-s2-labs.test.ts(115,12): error TS18047: 'response.laboratory' is possibly 'null'.
+tests/bridge-p13b-s2-labs.test.ts(153,45): error TS2339: Property 'technologyId' does not exist on type 'TechnologyAction'.
+  Property 'technologyId' does not exist on type '{ kind: "installAcousticInstruments"; laboratoryFacilityId: string; }'.
+tests/bridge-p13b-s2-labs.test.ts(154,45): error TS2339: Property 'technologyId' does not exist on type 'TechnologyAction'.
+  Property 'technologyId' does not exist on type '{ kind: "installAcousticInstruments"; laboratoryFacilityId: string; }'.
+tests/bridge-p13b-s2-labs.test.ts(214,23): error TS18048: 'lab.projects' is possibly 'undefined'.
+tests/bridge-p13b-s2-labs.test.ts(236,12): error TS18048: 'lab1Page.weekly' is possibly 'undefined'.
+tests/bridge-p13b-s2-labs.test.ts(237,24): error TS18048: 'lab1Page.seats' is possibly 'undefined'.
+tests/bridge-p13b-s2-labs.test.ts(238,20): error TS18048: 'lab1Page.seats' is possibly 'undefined'.
+tests/bridge-p13b-s2-labs.test.ts(259,25): error TS18048: 'lab.projects' is possibly 'undefined'.
+tests/bridge-p13b-s2-labs.test.ts(296,12): error TS18048: 'lab.projects' is possibly 'undefined'.
+tests/bridge-p13b-s2-labs.test.ts(297,12): error TS18048: 'lab.projects' is possibly 'undefined'.
+tests/bridge-p13b-s2-labs.test.ts(298,27): error TS18048: 'lab.projects' is possibly 'undefined'.
+tests/bridge-p13b-s2-labs.test.ts(367,23): error TS18048: 'soundPage.projects' is possibly 'undefined'.
+tests/bridge-p13b-s2-labs.test.ts(373,26): error TS18048: 'lightingPage.projects' is possibly 'undefined'.
+tests/bridge-p13b-s2-labs.test.ts(433,21): error TS18048: 'lab.projects' is possibly 'undefined'.
+tests/bridge-p13b-s2-labs.test.ts(456,27): error TS18048: 'lab.projects' is possibly 'undefined'.
+exit=2
+
+$ npx tsc --noEmit -p tsconfig.json
+exit=0

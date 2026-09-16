@@ -1,0 +1,79 @@
+P13B-S2 test-author task, tests/bridge-p13b-s2-labs.test.ts
+Command: npx vitest run tests/bridge-p13b-s2-labs.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000
+Run environment: 2-core 2015 MacBook Air, repo worktree wip/headless-program-20260916-ts.
+Fixture/subject: the new bridge-class file tests/bridge-p13b-s2-labs.test.ts (test-author-owned),
+read against bridge/laboratory.ts, bridge/schema/{bridge-schema,industry-schema}.ts as they stood
+on disk at first-run time.
+
+IMPORTANT PROVENANCE NOTE (read before treating this as a "waiting on T6" baseline):
+`grep -n "PROJECTION_VERSION = 34" bridge/schema/bridge-schema.ts` already matched BEFORE this
+file was ever run for the first time — S2-T6 landed concurrently (uncommitted, by the sim-core
+specialist owning bridge/*, generated/*) while this test file was still being authored. There was
+no point at which this exact test file could be run against a genuine pre-T6 tree. This is
+therefore NOT a "red because the feature is missing" run: both failures below are this test
+file's OWN authoring mistakes (regex formatting assumptions about `cooperationLabel`'s raw-units
+number formatting), not production gaps. They were fixed immediately after this run (see the
+sibling …-after-t6.txt for the corrected, fully-passing result). Saved here verbatim, exactly as
+run, per the task's own instruction to capture "run it once" before checking the projection gate.
+
+--- verbatim vitest tail ---
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p13b-s2-labs.test.ts (11 tests | 2 failed) 109975ms
+   ✓ case 1: a fresh Laboratory publishes snapshotVersion 34 and an empty projects array > a Laboratory with no research project at all reports laboratory.projects === [] 1556ms
+   ✓ case 2: researchable-technology gating on assign rows > before week 780, only synchronized-sound is researchable: every assign row on this Laboratory ends "-synchronized-sound", none names lighting-control-01 6827ms
+   × case 3: two full Laboratories — the shared project reads identically from both pages > dispatches 4+4 sound assign rows through the bridge on both Laboratories; the wire's own budget-<id>-<amount> menu tops out at $40,000 (a real gap — 8 occupied seats can usefully absorb $80,000, companion test 4 case (i)); dispatching the wire's own reachable max ($40,000) and advancing one week reproduces test 4 case (ii) exactly on both pages 28399ms
+     → expected 'Two Laboratories: facility-research-l…' to match /100,000 raw/
+   ✓ case 3: two full Laboratories — the shared project reads identically from both pages > read-side fidelity at the full $80,000 companion ceiling (built directly with the engine's own unrestricted setResearchBudget, since no bridge row reaches it — see the finding above): the wire reports test 4 case (i) exactly (output 9.75, units 1,560,000, 7 funded weeks remain, 0 of 64 verified units before the first tick) 305ms
+   × case 4: two technologies staffed on one Laboratory > lists two projects rows in stable id order; every project's progressLabel names its own verifiedWork/work; each fully-funded 2-seat project's cooperationLabel reads "One Laboratory: 2 seats" with the real $20,000/60,000 figures; the fifth assign for EITHER technology on this Laboratory is refused with "four seats" 21467ms
+     → expected 'One Laboratory: 2 seats, $20,000 usab…' to match /60,000 raw units\/week/week
+   ✓ case 5: a third Laboratory is refused on the wire > a real, completed third Laboratory (placed and its build time elapsed — the same construction tests/p13b-s2-labs.test.ts's own base3Setup uses for the identical core-level "test 3" case) publishes its assign row disabled with the engine's own "third Laboratory" refusal 8778ms
+   ✓ case 6: a migrated V21 fixture keeps its honest single-pool receipts on the wire > loads through BridgeSession.fromSaveJson (a genuine V21 fixture, migrated on import): the sound project's three stored receipts read labs:null; the lighting project's three receipts each read one derived row; the next quoted week splits 4+2 seats at $60,000 into $40,000/$20,000, output 7.875 302ms
+   ✓ case 7: releasing a seat through the bridge recomputes the funding split > releasing one of Lab 2's two sound seats (4+2 -> 4+1) through the bridge recomputes next week's split to $40,000/$10,000, output 6.9375 7595ms
+   ✓ case 8: player-safe — no rival project, seat or talent id ever appears > the Laboratory page names only the player studio's own project and talent ids 6901ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s2-labs.test.ts > case 3: two full Laboratories — the shared project reads identically from both pages > dispatches 4+4 sound assign rows through the bridge on both Laboratories; the wire's own budget-<id>-<amount> menu tops out at $40,000 (a real gap — 8 occupied seats can usefully absorb $80,000, companion test 4 case (i)); dispatching the wire's own reachable max ($40,000) and advancing one week reproduces test 4 case (ii) exactly on both pages
+AssertionError: expected 'Two Laboratories: facility-research-l…' to match /100,000 raw/
+
+- Expected:
+/100,000 raw/
+
++ Received:
+"Two Laboratories: facility-research-laboratory 4 seats $20,000 (100000 raw) + facility-research-laboratory-2 4 seats $20,000 (100000 raw) → 8.125 units/week; the second Laboratory counts at 0.625."
+
+ ❯ tests/bridge-p13b-s2-labs.test.ts:227:40
+    225|       expect(project.cooperationLabel).toMatch(/0\.625/)
+    226|       expect(project.cooperationLabel).toMatch(/\$20,000/)
+    227|       expect(project.cooperationLabel).toMatch(/100,000 raw/)
+       |                                        ^
+    228|       const lastReceipt = project.receipts.at(-1)!
+    229|       expect(lastReceipt.units).toBe(1_300_000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL |core|  tests/bridge-p13b-s2-labs.test.ts > case 4: two technologies staffed on one Laboratory > lists two projects rows in stable id order; every project's progressLabel names its own verifiedWork/work; each fully-funded 2-seat project's cooperationLabel reads "One Laboratory: 2 seats" with the real $20,000/60,000 figures; the fifth assign for EITHER technology on this Laboratory is refused with "four seats"
+AssertionError: expected 'One Laboratory: 2 seats, $20,000 usab…' to match /60,000 raw units\/week/week
+
+- Expected:
+/60,000 raw units\/week/
+
++ Received:
+"One Laboratory: 2 seats, $20,000 usable, 60000 raw units/week."
+
+ ❯ tests/bridge-p13b-s2-labs.test.ts:304:40
+    302|       expect(project.cooperationLabel).toMatch(/One Laboratory: 2 seat…
+    303|       expect(project.cooperationLabel).toMatch(/\$20,000 usable/)
+    304|       expect(project.cooperationLabel).toMatch(/60,000 raw units\/week…
+       |                                        ^
+    305|     }
+    306|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 9 passed (11)
+   Start at  19:00:48
+   Duration  114.62s (transform 2.96s, setup 0ms, collect 3.92s, tests 109.98s, environment 0ms, prepare 158ms)

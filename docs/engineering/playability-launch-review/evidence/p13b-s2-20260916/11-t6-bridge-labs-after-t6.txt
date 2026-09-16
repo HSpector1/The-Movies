@@ -1,0 +1,56 @@
+P13B-S2 test-author task, tests/bridge-p13b-s2-labs.test.ts
+Command: npx vitest run tests/bridge-p13b-s2-labs.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000
+Run environment: 2-core 2015 MacBook Air, repo worktree wip/headless-program-20260916-ts.
+Gate checked immediately before this run: `grep -n "PROJECTION_VERSION = 34" bridge/schema/bridge-schema.ts`
+matched (`67:export const PROJECTION_VERSION = 34 as const`) — S2-T6's bridge Laboratory work
+(bridge/laboratory.ts, bridge/schema/{bridge-schema,industry-schema}.ts, generated/unity/*,
+src/core/technology.ts's PROJECT_UNIT export) is present on disk, uncommitted, at HEAD 5564542
+plus the sim-core specialist's working-tree changes. This is the second and final run of this
+file: identical to the first run except the two regex-formatting mistakes in this test file (raw
+units are printed unformatted, e.g. "100000 raw" / "60000 raw units/week", not comma-grouped —
+see the sibling …-red.txt) were corrected between runs. No production code was touched to reach
+this result.
+
+--- verbatim vitest tail ---
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s2-labs.test.ts (11 tests) 97214ms
+   ✓ case 1: a fresh Laboratory publishes snapshotVersion 34 and an empty projects array > a Laboratory with no research project at all reports laboratory.projects === [] 1491ms
+   ✓ case 2: researchable-technology gating on assign rows > before week 780, only synchronized-sound is researchable: every assign row on this Laboratory ends "-synchronized-sound", none names lighting-control-01 4873ms
+   ✓ case 2: researchable-technology gating on assign rows > at week 780 (two-Laboratory world) > every free employed person has BOTH technologies' assign rows on EACH Laboratory, and the underlying spec carries technologyId 341ms
+   ✓ case 3: two full Laboratories — the shared project reads identically from both pages > dispatches 4+4 sound assign rows through the bridge on both Laboratories; the wire's own budget-<id>-<amount> menu tops out at $40,000 (a real gap — 8 occupied seats can usefully absorb $80,000, companion test 4 case (i)); dispatching the wire's own reachable max ($40,000) and advancing one week reproduces test 4 case (ii) exactly on both pages 25922ms
+   ✓ case 3: two full Laboratories — the shared project reads identically from both pages > read-side fidelity at the full $80,000 companion ceiling (built directly with the engine's own unrestricted setResearchBudget, since no bridge row reaches it — see the finding above): the wire reports test 4 case (i) exactly (output 9.75, units 1,560,000, 7 funded weeks remain, 0 of 64 verified units before the first tick)
+   ✓ case 4: two technologies staffed on one Laboratory > lists two projects rows in stable id order; every project's progressLabel names its own verifiedWork/work; each fully-funded 2-seat project's cooperationLabel reads "One Laboratory: 2 seats" with the real $20,000/60,000 figures; the fifth assign for EITHER technology on this Laboratory is refused with "four seats" 17916ms
+   ✓ case 5: a third Laboratory is refused on the wire > a real, completed third Laboratory (placed and its build time elapsed — the same construction tests/p13b-s2-labs.test.ts's own base3Setup uses for the identical core-level "test 3" case) publishes its assign row disabled with the engine's own "third Laboratory" refusal 9010ms
+   ✓ case 6: a migrated V21 fixture keeps its honest single-pool receipts on the wire > loads through BridgeSession.fromSaveJson (a genuine V21 fixture, migrated on import): the sound project's three stored receipts read labs:null; the lighting project's three receipts each read one derived row; the next quoted week splits 4+2 seats at $60,000 into $40,000/$20,000, output 7.875 316ms
+   ✓ case 7: releasing a seat through the bridge recomputes the funding split > releasing one of Lab 2's two sound seats (4+2 -> 4+1) through the bridge recomputes next week's split to $40,000/$10,000, output 6.9375 7786ms
+   ✓ case 8: player-safe — no rival project, seat or talent id ever appears > the Laboratory page names only the player studio's own project and talent ids 7351ms
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  19:03:47
+   Duration  101.81s (transform 2.76s, setup 0ms, collect 3.74s, tests 97.21s, environment 0ms, prepare 276ms)
+
+--- per-case mapping back to the task's numbered contract ---
+case 1  -> task item 1 (projection 34; empty projects on a fresh Laboratory)               PASS
+case 2  -> task item 2 (researchable-technology gating on assign rows, pre-780 and at 780)  PASS (2 sub-cases)
+case 3  -> task item 3 (dispatch 4+4 through the bridge)                                    PASS, WITH A RECORDED GAP:
+           the wire's own budget-<projectId>-<amount> menu tops out at $40,000 (unchanged
+           from the single-Laboratory S1 menu); no published Laboratory decision reaches the
+           fully-funded 8-seat $80,000 ceiling the companion source names for this case. The
+           full-bridge-dispatch sub-test proves and asserts this gap directly, then proceeds
+           at the wire's own reachable ceiling ($40,000 -> test 4 case (ii)'s own numbers,
+           output 8.125). A second sub-test proves wire READ fidelity at the full $80,000
+           ceiling (output 9.75, units 1,560,000) using state built with the engine's own
+           unrestricted setResearchBudget, since no bridge decision can build it.
+case 4  -> task item 4 (two technologies on one Laboratory; fifth-seat refusal)             PASS
+case 5  -> task item 5 (third Laboratory refusal on the wire)                               PASS — a real third
+           Laboratory was reachable (commitPlacement + 12 weeks build, mirroring
+           tests/p13b-s2-labs.test.ts's own base3Setup), so the fallback-only path was not needed.
+case 6  -> task item 6 (honest single-pool receipts from the migrated V21 fixture)          PASS
+case 7  -> task item 7 (release through the bridge recomputes the split)                    PASS
+case 8  -> task item 8 (player-safe)                                                        PASS
+case 9  -> task item 9 (progressLabel/estimateLabel, "7 funded weeks") — folded into case 3's
+           second sub-test (same $80,000 state) and additionally exercised generically across
+           two distinct technologies in case 4's per-project loop.                          PASS

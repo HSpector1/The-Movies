@@ -6,8 +6,10 @@ import { weeklyBurn, weeklyOverhead } from '../src/core/economyView.js'
 import { hasOperationalFacilityInstallation } from '../src/core/facilityEffects.js'
 import { blueprintById, facilityInstallationPhase, queryFacilityInstallation } from '../src/core/placement.js'
 import { TUNING } from '../src/core/tuning.js'
-import { occupiedSeats, researchCandidates, researchWeekQuote, SYNCHRONIZED_SOUND, weeklyResearchPayroll, RESEARCH_SCIENTISTS_PER_STUDIO } from '../src/core/technology.js'
-import type { TechnologyAction } from '../src/core/technologyTypes.js'
+import { occupiedSeats, playerTechnologyAccess, PROJECT_UNIT, researchCandidates, researchWeekQuote, SYNCHRONIZED_SOUND, weeklyResearchPayroll, RESEARCH_SCIENTISTS_PER_STUDIO } from '../src/core/technology.js'
+import type { ResearchWeekQuote } from '../src/core/technology.js'
+import { TECHNOLOGY_CATALOGUE, technologyEntry } from '../src/core/technologyCatalogue.js'
+import type { ResearchProject, ResearchSeat, ResearchWeekReceipt, TechnologyAction } from '../src/core/technologyTypes.js'
 import type { GameState } from '../src/core/types.js'
 import type { AvailableIntent } from './protocol.ts'
 import type { IndustryPage } from './schema/industry-schema.ts'
@@ -56,6 +58,82 @@ function committedInstallationLabel(state: GameState, facilityId: string, bluepr
       : `Due ${campaignDate(job.completesWeek).label}; ${rate} operating cost after completion, $0 during installation.`)
 }
 
+/** Every player research project this Laboratory body carries: homed here, or holding any seat row here. */
+function projectsOnLaboratory(state: GameState, own: string, laboratoryFacilityId: string): ResearchProject[] {
+  return ordered(state.technology.projects.filter(p => p.studioId === own &&
+    (p.laboratoryFacilityId === laboratoryFacilityId || p.seats.some(s => s.laboratoryFacilityId === laboratoryFacilityId))))
+}
+/** The project holding this person's one occupied seat, across every brief (engine law: one seat per person). */
+function seatedProject(state: GameState, own: string, talentId: string): ResearchProject | undefined {
+  return state.technology.projects.find(p => p.studioId === own && occupiedSeats(p).some(s => s.talentId === talentId))
+}
+// P13B-S2: one sentence set per project, so the retained top-level synchronized-sound
+// members and every `projects[]` row read identically for the same project.
+function progressLabelFor(project: ResearchProject): string {
+  return `${project.verifiedWork} of ${technologyEntry(project.technologyId).work} verified units · ${project.status}. Verified work survives cancel and restart.`
+}
+function bottleneckLabelFor(state: GameState, own: string, project: ResearchProject, quote: ResearchWeekQuote): string {
+  if (project.status === 'completed') {
+    if (project.technologyId !== SYNCHRONIZED_SOUND.id) return `${technologyEntry(project.technologyId).name} research is complete. Physical installation is the remaining capability gate.`
+    const name = (id: string) => state.operations.facilities.find(f => f.id === id)?.name ?? id
+    const physical = state.technology.adoptions.filter(a => a.studioId === own)
+    const operational = physical.filter(adoption => adoption.operationalWeek !== null)
+    return operational.length > 0
+      ? `Research is complete. Synchronized dialogue is ready on ${operational.map(adoption => `${name(adoption.stageFacilityId)} + ${name(adoption.postFacilityId)}`).join('; ')}. Select an operational chain before the production enters the filming phase, when its technology locks before the first take.`
+      : physical.length > 0 ? 'Research is complete. The committed physical installation must finish before synchronized dialogue is available.'
+        : 'Research is complete. Physical installation is the remaining capability gate.'
+  }
+  return project.status === 'cancelled' && quote.bottleneck === 'Research is paused. Verified work is retained.'
+    ? 'Research is cancelled. Verified work is retained for a later restart.'
+    : quote.bottleneck
+}
+function estimateLabelFor(state: GameState, project: ResearchProject, estimate: ResearchWeekQuote | null): string {
+  if (project.status === 'completed') return `Research completed ${campaignDate(project.completedWeek!).label}. No further research project is currently available.`
+  return estimate !== null && estimate.remainingWeeks !== null
+    ? `${project.status === 'active' ? 'At current funding' : project.status === 'cancelled' ? 'If restarted now' : 'If resumed now'}: ${estimate.remainingWeeks} funded weeks remain; estimated research completion ${campaignDate(state.market.tick + estimate.remainingWeeks).label}. Physical installation follows separately.`
+    : `No completion estimate while prerequisites are blocked. Research opens ${campaignDate(technologyEntry(project.technologyId).researchableWeek).label}.`
+}
+/** The quoted week's cooperation as one plain sentence. Laboratories are named by the same facility id `labs[]` publishes. */
+function cooperationLabelFor(quote: ResearchWeekQuote): string {
+  const [first, second] = quote.labs
+  if (!first) return `No research week is quoted: ${quote.bottleneck}`
+  if (!second) return `One Laboratory: ${first.seats} seats, ${money(first.spend)} usable, ${first.rawUnits} raw units/week.`
+  return `Two Laboratories: ${first.laboratoryFacilityId} ${first.seats} seats ${money(first.spend)} (${first.rawUnits} raw) + ` +
+    `${second.laboratoryFacilityId} ${second.seats} seats ${money(second.spend)} (${second.rawUnits} raw) → ${quote.output} units/week; the second Laboratory counts at 0.625.`
+}
+const seatRow = (state: GameState, seat: ResearchSeat) => ({
+  talentId: seat.talentId, name: state.talent.find(t => t.id === seat.talentId)?.name ?? seat.talentId,
+  laboratoryFacilityId: seat.laboratoryFacilityId, assignedWeek: seat.assignedWeek, releasedWeek: seat.releasedWeek,
+  employed: activeContract(state, seat.talentId) !== undefined,
+})
+/** A stored receipt is copied, never repaired: `labs: null` (a single-pool week written before cooperation) stays null. */
+const receiptRow = (receipt: ResearchWeekReceipt) => ({
+  week: receipt.week, seatTalentIds: [...receipt.seatTalentIds], spend: receipt.spend, units: receipt.units,
+  labs: receipt.labs === null ? null : receipt.labs.map(l => ({ laboratoryFacilityId: l.laboratoryFacilityId, seatTalentIds: [...l.seatTalentIds], spend: l.spend, rawUnits: l.rawUnits })),
+})
+/** The CURRENT week's quote as data. `units` is the same 1/160,000 numerator a receipt would carry; zero when idle. */
+const weeklyRow = (project: ResearchProject | null, quote: ResearchWeekQuote | null) => ({
+  ceiling: project?.budgetPerWeek ?? 0, usable: quote?.spend ?? 0, seats: quote?.seats ?? 0, output: quote?.output ?? 0,
+  units: Math.round((quote?.output ?? 0) * PROJECT_UNIT),
+  labs: (quote?.labs ?? []).map(l => ({ laboratoryFacilityId: l.laboratoryFacilityId, seats: l.seats, spend: l.spend, rawUnits: l.rawUnits })),
+})
+/** One `projects[]` row: this project's own facts, its seats across every Laboratory it works in, and its own quoted week. */
+function laboratoryProjectRow(state: GameState, own: string, project: ResearchProject): LaboratoryPage['projects'][number] {
+  const entry = technologyEntry(project.technologyId)
+  const quote = researchWeekQuote(state, project)
+  const estimate = project.status === 'completed' ? null : researchWeekQuote(state, { ...project, status: 'active' })
+  return {
+    projectId: project.id, technologyId: project.technologyId, technologyLabel: entry.name, status: project.status,
+    homeLaboratoryFacilityId: project.laboratoryFacilityId,
+    laboratoryFacilityIds: [...new Set(occupiedSeats(project).map(s => s.laboratoryFacilityId))].sort(),
+    verifiedWork: project.verifiedWork, work: entry.work, budgetPerWeek: project.budgetPerWeek,
+    progressLabel: progressLabelFor(project), bottleneckLabel: bottleneckLabelFor(state, own, project, quote),
+    estimateLabel: estimateLabelFor(state, project, estimate), cooperationLabel: cooperationLabelFor(quote),
+    seats: project.seats.map(seat => seatRow(state, seat)), receipts: project.weeks.slice(-8).map(receiptRow),
+    weekly: weeklyRow(project, quote),
+  }
+}
+
 /** Bounded by the player's actual facilities/productions, cached only by immutable campaign state. */
 export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActionSpec[] {
   const prior = quotes.get(state)
@@ -86,11 +164,19 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
     }
     specs.push({ id, action, label, detail, buildingId, enabled: disabledReason === null, disabledReason })
   }
+  // P13B-S2: every catalogue brief a seat can still lawfully be opened for — neither
+  // completed nor otherwise acquired by this studio. Seating before the brief's research
+  // opens is retained P13A law (the engine accepts the seat; begin/weekly work waits for
+  // `researchPrerequisiteRefusal`), so the page publishes what the engine accepts and dates
+  // the wait on the row instead of hiding the brief.
+  const briefs = TECHNOLOGY_CATALOGUE.filter(entry =>
+    !playerTechnologyAccess(state, entry.id) &&
+    !state.technology.projects.some(p => p.studioId === own && p.technologyId === entry.id && p.status === 'completed'))
   const labs = state.placement.facilities.filter(p => p.blueprintId === 'research-laboratory' && p.installation === undefined)
   const scientists = ordered(state.talent.filter(t => t.role === 'scientist' && activeContract(state, t.id)))
   for (const lab of labs) {
     const buildingId = `placed-${lab.id}`
-    const project = state.technology.projects.find(p => p.studioId === own && p.laboratoryFacilityId === lab.facilityId)
+    const labProjects = projectsOnLaboratory(state, own, lab.facilityId)
     // One selectable row per named candidate who is free to be employed, while
     // the programme still has room for another Scientist (P13B-S1).
     if (scientists.length < RESEARCH_SCIENTISTS_PER_STUDIO) for (const candidate of researchCandidates(state)) {
@@ -100,7 +186,7 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
           `Employ ${candidate.name} · Scientist`,
           `Offer ${candidate.name} a ${offer.termWeeks}-week contract: ${money(weeklySalary(offer.annualSalary))}/week, ` +
           `${money(offer.signingBonus)} signing bonus. ` +
-          (project?.seats.some(seat => seat.talentId === candidate.id && seat.releasedWeek === null)
+          (seatedProject(state, own, candidate.id) !== undefined
             ? 'Employment resumes now. The existing Laboratory seat and verified work are retained. '
             : 'Employment begins now; assigning a Laboratory seat is a separate decision. ') +
           `This contract ends ${campaignDate(offer.endWeekExclusive).label}. ` +
@@ -110,17 +196,20 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
               ? `Payroll starts now, while research opens ${campaignDate(SYNCHRONIZED_SOUND.researchableWeek).label}.`
               : ''), buildingId)
     }
-    const seated = project ? occupiedSeats(project) : []
+    // One row per (employed person, lawful brief). The engine's own seat law — this
+    // Laboratory's seat cap, the third-Laboratory refusal and one seat per person across
+    // briefs — reaches the row as its refusal text through the dry run in `add`.
     const capacity = state.operations.facilities.find(f => f.id === lab.facilityId)?.capacity ?? 0
-    if (project?.status !== 'completed' && seated.length < capacity) {
-      for (const person of scientists) {
-        if (seated.some(seat => seat.talentId === person.id)) continue
-        add(`assign-${lab.id}-${person.id}`,
-          { kind: 'assignResearchScientist', laboratoryFacilityId: lab.facilityId, scientistId: person.id },
-          `Assign ${person.name}`, `Seat this named Scientist on this Laboratory's synchronized-sound project (${seated.length} of ${capacity} seats occupied). No R&D is charged until the project runs.`, buildingId)
-      }
+    const occupiedHere = state.technology.projects.reduce((n, p) => n + occupiedSeats(p, lab.facilityId).length, 0)
+    for (const person of scientists) for (const entry of briefs) {
+      if (seatedProject(state, own, person.id)?.technologyId === entry.id) continue
+      add(`assign-${lab.id}-${person.id}-${entry.id}`,
+        { kind: 'assignResearchScientist', laboratoryFacilityId: lab.facilityId, scientistId: person.id, technologyId: entry.id },
+        `Assign ${person.name} · ${entry.name}`,
+        `Seat this named Scientist on this Laboratory's ${entry.name.toLowerCase()} project (${occupiedHere} of ${capacity} seats occupied). No R&D is charged until the project runs.` +
+        (state.market.tick < entry.researchableWeek ? ` Research opens ${campaignDate(entry.researchableWeek).label}; the seat waits until then.` : ''), buildingId)
     }
-    if (project) for (const seat of seated) {
+    for (const project of labProjects) for (const seat of occupiedSeats(project, lab.facilityId)) {
       const person = state.talent.find(t => t.id === seat.talentId)
       add(`release-${lab.id}-${seat.talentId}`, { kind: 'releaseResearchSeat', projectId: project.id, scientistId: seat.talentId },
         `Release ${person?.name ?? seat.talentId}'s seat`, 'Free this Laboratory seat. Employment, payroll and verified work continue unchanged; the seat history is retained.', buildingId)
@@ -134,20 +223,25 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
       add(`instruments-${lab.id}`, { kind: 'installAcousticInstruments', laboratoryFacilityId: lab.facilityId },
         'Install acoustic instruments', installationDetail(state, 'acoustic-instruments', lab.facilityId), buildingId, reason)
     }
-    if (project && project.status !== 'completed') {
+    for (const project of labProjects) if (project.status !== 'completed') {
+      const entry = technologyEntry(project.technologyId)
       if (project.status !== 'active') add(`run-${project.id}`, project.startedWeek === null
         ? { kind: 'beginResearch', projectId: project.id, budgetPerWeek: project.budgetPerWeek }
         : { kind: 'resumeResearch', projectId: project.id },
-      project.startedWeek === null ? 'Begin synchronized-sound research' : project.status === 'cancelled' ? 'Restart retained research' : 'Resume research',
-      `Use the assigned Scientist and the project's ${money(project.budgetPerWeek)}/week budget ceiling. Verified work remains ${project.verifiedWork} of ${SYNCHRONIZED_SOUND.work} units. Usable R&D is charged only when time advances.`, buildingId)
+      project.startedWeek === null ? `Begin ${entry.name.toLowerCase()} research` : project.status === 'cancelled' ? `Restart retained ${entry.name.toLowerCase()} research` : `Resume ${entry.name.toLowerCase()} research`,
+      `Use the assigned Scientist and the project's ${money(project.budgetPerWeek)}/week budget ceiling. Verified work remains ${project.verifiedWork} of ${entry.work} units. Usable R&D is charged only when time advances.`, buildingId)
       if (project.status === 'active') add(`pause-${project.id}`, { kind: 'pauseResearch', projectId: project.id },
-        'Pause research', 'Stop new R&D spend and retain all verified work. The Scientist remains employed and payroll continues.', buildingId)
+        `Pause ${entry.name.toLowerCase()} research`, 'Stop new R&D spend and retain all verified work. The Scientist remains employed and payroll continues.', buildingId)
       if (project.status !== 'cancelled') add(`cancel-${project.id}`, { kind: 'cancelResearch', projectId: project.id },
-        'Cancel project · retain verified work', `Retain ${project.verifiedWork} verified units for a later restart. Prior expenditure is not refunded. The employment contract and payroll continue.`, buildingId)
-      for (const amount of [0, 2_500, 10_000, 40_000]) add(`budget-${project.id}-${amount}`,
+        `Cancel ${entry.name.toLowerCase()} · retain verified work`, `Retain ${project.verifiedWork} verified units for a later restart. Prior expenditure is not refunded. The employment contract and payroll continue.`, buildingId)
+      // P13B-S2-T6: a fixed preset list, so a row id never depends on the seat count.
+      // $60,000 and $80,000 exist because a 4+2 and a 4+4 two-Laboratory project can
+      // usefully absorb them (companion §4); a ceiling above the usable amount is quoted
+      // but never charged, exactly as the row's own detail says.
+      for (const amount of [0, 2_500, 10_000, 40_000, 60_000, 80_000]) add(`budget-${project.id}-${amount}`,
         { kind: 'setResearchBudget', projectId: project.id, budgetPerWeek: amount },
-        `Set R&D ceiling: ${money(amount)}/week`,
-        `Set this project's weekly ceiling to ${money(amount)}. One Scientist can use at most ${money(SYNCHRONIZED_SOUND.usableBudgetPerScientist)}/week; money above that is not charged. Payroll is separate. A $0 ceiling allows baseline research work while active.`, buildingId,
+        `Set ${entry.name.toLowerCase()} R&D ceiling: ${money(amount)}/week`,
+        `Set this project's weekly ceiling to ${money(amount)}. One Scientist can use at most ${money(entry.usableBudgetPerScientist)}/week; money above that is not charged. Payroll is separate. A $0 ceiling allows baseline research work while active.`, buildingId,
         project.budgetPerWeek === amount ? 'This is already the selected budget ceiling.' : null)
     }
   }
@@ -191,7 +285,9 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
   const lab = state.placement.facilities.find(p => `placed-${p.id}` === buildingId && p.blueprintId === 'research-laboratory' && p.installation === undefined)
   if (!lab || !state.hollywood || state.founding !== null || !state.technology) throw new Error('That exact Research Laboratory is absent from this campaign.')
   const own = state.hollywood.playerStudioId
-  const project = state.technology.projects.find(p => p.studioId === own && p.laboratoryFacilityId === lab.facilityId)
+  // P13B-S2: the retained top-level members keep their S1b meaning — the synchronized-sound
+  // project homed on this exact body. `projects` below carries every project this body works.
+  const project = state.technology.projects.find(p => p.studioId === own && p.technologyId === SYNCHRONIZED_SOUND.id && p.laboratoryFacilityId === lab.facilityId) ?? null
   const seats = project ? occupiedSeats(project) : []
   const seatedPeople = seats.map(seat => state.talent.find(t => t.id === seat.talentId)).filter((t): t is NonNullable<typeof t> => t !== undefined)
   const person = seatedPeople[0] ?? null
@@ -204,7 +300,6 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
   const access = state.technology.access.find(a => a.studioId === own && a.technologyId === SYNCHRONIZED_SOUND.id)
   const physical = state.technology.adoptions.filter(a => a.studioId === own)
   const name = (id: string) => state.operations.facilities.find(f => f.id === id)?.name ?? id
-  const operational = physical.filter(adoption => adoption.operationalWeek !== null)
   const actions = laboratoryActionSpecs(state).filter(a => a.buildingId === null || a.buildingId === buildingId)
   const pageCount = Math.ceil(actions.length / pageSize)
   if (page > 0 && page >= pageCount) throw new Error('That Laboratory action page is outside this snapshot. Return to the first page.')
@@ -218,20 +313,12 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
       : employedScientist ? `${employedScientist.name} is employed. Assign this Scientist to a Laboratory seat to create the research project. ${scientistEmploymentDetail(state, employedScientist.id)}`
         : 'No Scientist assigned. Employ a named Scientist, then assign a Laboratory seat.',
     budgetLabel: project ? `${money(project.budgetPerWeek)}/week requested ceiling · ${money(quote?.spend ?? 0)}/week currently usable R&D · ${money(Math.max(0, project.budgetPerWeek - (quote?.spend ?? 0)))}/week of the ceiling is not currently charged · ${money(project.expenditure)} spent on this project. Payroll and employment overhead are separate. A $0 ceiling allows baseline work while active and prerequisites are met.` : 'No research budget is active.',
-    bottleneckLabel: project?.status === 'completed'
-      ? operational.length > 0
-        ? `Research is complete. Synchronized dialogue is ready on ${operational.map(adoption => `${name(adoption.stageFacilityId)} + ${name(adoption.postFacilityId)}`).join('; ')}. Select an operational chain before the production enters the filming phase, when its technology locks before the first take.`
-        : physical.length > 0 ? 'Research is complete. The committed physical installation must finish before synchronized dialogue is available.'
-          : 'Research is complete. Physical installation is the remaining capability gate.'
-      : project?.status === 'cancelled' && quote?.bottleneck === 'Research is paused. Verified work is retained.'
-        ? 'Research is cancelled. Verified work is retained for a later restart.'
-        : quote?.bottleneck ?? (instrumentsOperational
-        ? 'Acoustic instruments are operational. Assign one Scientist before research can begin.'
-        : 'Assign one Scientist and install acoustic instruments before research can begin.'),
-    estimateLabel: project?.status === 'completed' ? `Research completed ${campaignDate(project.completedWeek!).label}. No further research project is currently available.` : estimate?.remainingWeeks !== null && estimate?.remainingWeeks !== undefined
-      ? `${project?.status === 'active' ? 'At current funding' : project?.status === 'cancelled' ? 'If restarted now' : 'If resumed now'}: ${estimate.remainingWeeks} funded weeks remain; estimated research completion ${campaignDate(state.market.tick + estimate.remainingWeeks).label}. Physical installation follows separately.`
+    bottleneckLabel: project && quote ? bottleneckLabelFor(state, own, project, quote) : instrumentsOperational
+      ? 'Acoustic instruments are operational. Assign one Scientist before research can begin.'
+      : 'Assign one Scientist and install acoustic instruments before research can begin.',
+    estimateLabel: project ? estimateLabelFor(state, project, estimate)
       : `No completion estimate while prerequisites are blocked. Research opens ${campaignDate(SYNCHRONIZED_SOUND.researchableWeek).label}.`,
-    progressLabel: project ? `${project.verifiedWork} of ${SYNCHRONIZED_SOUND.work} verified units · ${project.status}. Verified work survives cancel and restart.` : `${SYNCHRONIZED_SOUND.work} verified units are required for synchronized sound. Research has not begun.`,
+    progressLabel: project ? progressLabelFor(project) : `${SYNCHRONIZED_SOUND.work} verified units are required for synchronized sound. Research has not begun.`,
     provenanceLabel: project?.completedWeek !== null && project?.completedWeek !== undefined
       ? `${(project.weeks.at(-1)?.seatTalentIds ?? [project.legacy?.scientistId ?? '']).map(id => state.talent.find(t => t.id === id)?.name ?? id).filter(Boolean).join(', ') || 'The seated Scientists'} completed synchronized sound for your studio at ${campaignDate(project.completedWeek).label}. This research record belongs to this campaign.` : 'No completed synchronized-sound invention is recorded for this Laboratory.',
     commercialLabel: access?.acquiredWeek !== null && access?.acquiredWeek !== undefined
@@ -247,12 +334,13 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
       enabled: a.enabled && enabled.has(a.id), disabledReason: a.disabledReason ?? (enabled.has(a.id) ? null : 'Refresh this Laboratory to review the current decision.'), intent: enabled.get(a.id) ?? null })),
     // P13B-S1b: the same engine facts as data. Seat history (released rows included) in stored
     // order, the last eight worked-week receipts ascending, and the CURRENT week's quote.
-    seats: (project?.seats ?? []).filter(seat => seat.laboratoryFacilityId === lab.facilityId).map(seat => ({
-      talentId: seat.talentId, name: state.talent.find(t => t.id === seat.talentId)?.name ?? seat.talentId,
-      assignedWeek: seat.assignedWeek, releasedWeek: seat.releasedWeek, employed: activeContract(state, seat.talentId) !== undefined,
-    })),
-    // P13B-S2: `units` on the wire is now the project credit over 1/160,000 (was 1/20,000); per-Lab rows arrive with the T6 projection bump.
-    receipts: (project?.weeks ?? []).slice(-8).map(r => ({ week: r.week, seatTalentIds: [...r.seatTalentIds], spend: r.spend, units: r.units })),
-    weekly: { ceiling: project?.budgetPerWeek ?? 0, usable: quote?.spend ?? 0, seats: quote?.seats ?? 0, output: quote?.output ?? 0 },
+    seats: (project?.seats ?? []).filter(seat => seat.laboratoryFacilityId === lab.facilityId).map(seat => seatRow(state, seat)),
+    // P13B-S2: `units` is the project credit over 1/160,000 (was 1/20,000) and `labs` carries
+    // the stored per-Laboratory rows, `null` exactly where the stored receipt has none.
+    receipts: (project?.weeks ?? []).slice(-8).map(receiptRow),
+    weekly: weeklyRow(project, quote),
+    // P13B-S2: every project this body carries, in stable project-id order. The members above
+    // remain the synchronized-sound project alone and are superseded by these rows.
+    projects: projectsOnLaboratory(state, own, lab.facilityId).map(p => laboratoryProjectRow(state, own, p)),
   } }
 }

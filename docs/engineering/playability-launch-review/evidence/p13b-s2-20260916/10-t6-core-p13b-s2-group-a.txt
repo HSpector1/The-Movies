@@ -1,0 +1,12 @@
+   ✓ P13B-S2 module/bench law (test 2) > does not double-book one Laboratory's seat slots when two technologies are both active there (sound 2 + lighting 2, four seats total) 5589ms
+   ✓ P13B-S2 module/bench law (test 2) > seats a person for a technology on a Laboratory lacking its discipline module (retained P13A law), but refuses to begin until the module is operational 5475ms
+   ✓ P13B-S2 module/bench law (test 2) > releases the seat claim on pause and reacquires it on resume — the S1 release law generalized to a lighting project (regression net) 5715ms
+ ✓ |core| tests/p13b-s2-cooperation.test.ts (5 tests) 7160ms
+ ✓ |core| tests/p13b-s2-catalogue.test.ts (11 tests) 6307ms
+   ✓ P13B-S2 catalogue: two technologies, stable order (test 1) > the ordinary action surface (knownTechnology) accepts both technology ids, not only synchronized-sound 643ms
+
+ Test Files  3 passed (3)
+      Tests  26 passed (26)
+   Start at  19:12:13
+   Duration  47.13s (transform 1.16s, setup 0ms, collect 2.11s, tests 43.89s, environment 1ms, prepare 312ms)
+

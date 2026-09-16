@@ -1,0 +1,14 @@
+   ✓ CF-09 post-commit attestation > rejects malformed XML EditMode XML 3952ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite EditMode XML 3882ms
+   ✓ CF-09 post-commit attestation > rejects wrong generated fixture suite type EditMode XML 4043ms
+   ✓ CF-09 post-commit attestation > rejects wrong sentinel method EditMode XML 3924ms
+   ✓ CF-09 post-commit attestation > rejects sentinel nested beneath the wrong suite EditMode XML 3862ms
+   ✓ CF-09 post-commit attestation > rejects skipped sentinel method EditMode XML 4158ms
+   ✓ CF-09 post-commit attestation > rejects failing generated fixture suite EditMode XML 4068ms
+   ✓ CF-09 post-commit attestation > rejects failed or internally inconsistent full EditMode XML 4200ms
+
+ Test Files  3 passed (3)
+      Tests  130 passed (130)
+   Start at  19:15:53
+   Duration  263.19s (transform 2.17s, setup 0ms, collect 3.25s, tests 258.85s, environment 1ms, prepare 259ms)
+

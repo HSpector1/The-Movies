@@ -1,0 +1,35 @@
+
+ ❯ |core| tests/bridge-p13-laboratory.test.ts (7 tests | 1 failed) 8915ms
+   ✓ P13A Laboratory bridge > publishes one exact Laboratory with named employment and truthful early-release refusal 930ms
+   ✓ P13A Laboratory bridge > rejects wrong building, stale revision and Save As session while keeping output detached 508ms
+   × P13A Laboratory bridge > commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist 1327ms
+     → Cannot read properties of undefined (reading 'enabled')
+   ✓ P13A Laboratory bridge > acknowledges completed acoustic instruments while the Scientist seat remains unassigned 460ms
+   ✓ P13A Laboratory bridge > shows rival sound only from the actual operational receipt, without exposing private finances 5175ms
+ ✓ |core| tests/bridge-p13-scientist-expiry.test.ts (3 tests) 17492ms
+   ✓ P13A Scientist expiration at the shared Gate Hiring boundary > projects an expired Scientist with exact hire terms and commits the same person through the Laboratory 8218ms
+   ✓ P13A Scientist expiration at the shared Gate Hiring boundary > distinguishes the requested ceiling, usable spend, uncharged balance and retained employment 5233ms
+   ✓ P13A Scientist expiration at the shared Gate Hiring boundary > distinguishes completed research, pending physical work and the exact operational sound chain 4039ms
+ ✓ |core| tests/bridge-p13-lot-technology.test.ts (2 tests) 10075ms
+   ✓ P13A exact lot technology status > shows acoustic installation on the existing Laboratory, then its real named paused/active task 4481ms
+   ✓ P13A exact lot technology status > joins actual sound work to the exact founding stage/Post and leaves the other stage unchanged 5593ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13-laboratory.test.ts > P13A Laboratory bridge > commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist
+TypeError: Cannot read properties of undefined (reading 'enabled')
+ ❯ tests/bridge-p13-laboratory.test.ts:116:19
+    114|     expect(current.laboratory.scientistLabel).toContain(session.gameSt…
+    115|     const assign = current.laboratory.actions.find(a => a.id.startsWit…
+    116|     expect(assign.enabled).toBe(true)
+       |                   ^
+    117|     expect(session.command({ ...command, commandId: 'assign-scientist'…
+    118|       payload: { intentId: assign.intent!.intentId } }).accepted).toBe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 11 passed (12)
+   Start at  18:58:45
+   Duration  41.50s (transform 2.27s, setup 0ms, collect 3.78s, tests 36.48s, environment 1ms, prepare 359ms)
+

@@ -55,7 +55,16 @@ export const PROTOCOL_VERSION = 4 as const
 // P13B-S1b (plan §S1b): 32 -> 33 — additive Laboratory seat data beside the
 // existing labels: `StudioLaboratoryPage.seats/receipts/weekly`. Nothing renamed or
 // removed, protocol stays 4, no simulation law and no durable save format changed.
-export const PROJECTION_VERSION = 33 as const
+// P13B-S2-T6 (plan §S2): 33 -> 34 — the Laboratory page carries two technologies and
+// two Laboratories: `StudioLaboratorySeat.laboratoryFacilityId`, per-Laboratory rows on
+// stored receipts (`StudioResearchReceipt.labs`, null only where the stored receipt has
+// none) and on the quoted week (`StudioResearchWeek.labs` + its integer `units`), and
+// `StudioLaboratoryPage.projects` — one row per project this body carries. The existing
+// top-level members keep their S1b meaning (the synchronized-sound project) and are
+// superseded by `projects[]` for the Unity binding. `StudioResearchReceipt.units` is now
+// the project credit over 1/160,000 (was 1/20,000): the same verified work, rebased by
+// the governed V21->V22 lift. Additive only; protocol stays 4.
+export const PROJECTION_VERSION = 34 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })

@@ -1,0 +1,12 @@
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-active-280.json.gz: the S1 legacy prefix survives intact, weeks stays empty 441ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz: the S1 legacy prefix survives intact, weeks stays empty 458ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz: the S1 legacy prefix survives intact, weeks stays empty 421ms
+   ✓ P13B-S2 Save V22 envelope law (test 8) > round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV22 byte-identically 464ms
+   ✓ P13B-S2 campaign isolation across V21→V22 (mirrors the S1 case) > produces independent migrated copies from the same V21 fixture; advancing one never touches the other 591ms
+ ✓ |core| tests/p13b-s2-expiry.test.ts (3 tests) 11598ms
+
+ Test Files  4 passed (4)
+      Tests  47 passed (47)
+   Start at  19:13:06
+   Duration  68.40s (transform 1.45s, setup 0ms, collect 2.47s, tests 64.43s, environment 1ms, prepare 370ms)
+

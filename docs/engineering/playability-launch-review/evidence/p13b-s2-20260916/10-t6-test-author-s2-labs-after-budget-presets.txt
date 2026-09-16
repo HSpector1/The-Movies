@@ -1,0 +1,39 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p13b-s2-labs.test.ts (11 tests | 1 failed) 72497ms
+   ✓ case 1: a fresh Laboratory publishes snapshotVersion 34 and an empty projects array > a Laboratory with no research project at all reports laboratory.projects === [] 757ms
+   ✓ case 2: researchable-technology gating on assign rows > before week 780, only synchronized-sound is researchable: every assign row on this Laboratory ends "-synchronized-sound", none names lighting-control-01 3656ms
+   × case 3: two full Laboratories — the shared project reads identically from both pages > dispatches 4+4 sound assign rows through the bridge on both Laboratories; the wire's own budget-<id>-<amount> menu tops out at $40,000 (a real gap — 8 occupied seats can usefully absorb $80,000, companion test 4 case (i)); dispatching the wire's own reachable max ($40,000) and advancing one week reproduces test 4 case (ii) exactly on both pages 14548ms
+     → expected 80000 to be 40000 // Object.is equality
+   ✓ case 4: two technologies staffed on one Laboratory > lists two projects rows in stable id order; every project's progressLabel names its own verifiedWork/work; each fully-funded 2-seat project's cooperationLabel reads "One Laboratory: 2 seats" with the real $20,000/60,000 figures; the fifth assign for EITHER technology on this Laboratory is refused with "four seats" 15744ms
+   ✓ case 5: a third Laboratory is refused on the wire > a real, completed third Laboratory (placed and its build time elapsed — the same construction tests/p13b-s2-labs.test.ts's own base3Setup uses for the identical core-level "test 3" case) publishes its assign row disabled with the engine's own "third Laboratory" refusal 8269ms
+   ✓ case 7: releasing a seat through the bridge recomputes the funding split > releasing one of Lab 2's two sound seats (4+2 -> 4+1) through the bridge recomputes next week's split to $40,000/$10,000, output 6.9375 6303ms
+   ✓ case 8: player-safe — no rival project, seat or talent id ever appears > the Laboratory page names only the player studio's own project and talent ids 6255ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s2-labs.test.ts > case 3: two full Laboratories — the shared project reads identically from both pages > dispatches 4+4 sound assign rows through the bridge on both Laboratories; the wire's own budget-<id>-<amount> menu tops out at $40,000 (a real gap — 8 occupied seats can usefully absorb $80,000, companion test 4 case (i)); dispatching the wire's own reachable max ($40,000) and advancing one week reproduces test 4 case (ii) exactly on both pages
+AssertionError: expected 80000 to be 40000 // Object.is equality
+
+- Expected
++ Received
+
+- 40000
++ 80000
+
+ ❯ tests/bridge-p13b-s2-labs.test.ts:189:34
+    187|     // S1 menu and still tops out at $40,000 — no published Laboratory…
+    188|     // can reach the fully-funded 8-seat ceiling. This is asserted, no…
+    189|     expect(Math.max(...amounts)).toBe(40_000)
+       |                                  ^
+    190| 
+    191|     dispatch(session, building1, `${budgetPrefix}40000`)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed (11)
+   Start at  19:08:29
+   Duration  75.72s (transform 2.03s, setup 0ms, collect 2.79s, tests 72.50s, environment 0ms, prepare 91ms)
+

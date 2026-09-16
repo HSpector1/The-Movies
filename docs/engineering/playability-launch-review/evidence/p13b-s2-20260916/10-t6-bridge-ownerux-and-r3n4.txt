@@ -1,0 +1,12 @@
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 0 1552ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 1 1396ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 2 1375ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 3 1339ms
+   ✓ Owner UX projection21 public field wire boundary > rejects malformed/fabricated slot metadata 4 1377ms
+   ✓ Owner UX projection21 public field wire boundary > accepts public fractional and known-zero cells, rejects hidden values and malformed cells 1419ms
+
+ Test Files  3 passed (3)
+      Tests  28 passed (28)
+   Start at  19:11:00
+   Duration  29.17s (transform 1.94s, setup 0ms, collect 3.57s, tests 24.56s, environment 1ms, prepare 271ms)
+

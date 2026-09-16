@@ -1,0 +1,31 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p13-laboratory.test.ts (7 tests | 1 failed) 9116ms
+   ✓ P13A Laboratory bridge > publishes one exact Laboratory with named employment and truthful early-release refusal 1068ms
+   ✓ P13A Laboratory bridge > rejects wrong building, stale revision and Save As session while keeping output detached 421ms
+   × P13A Laboratory bridge > commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist 1129ms
+     → Cannot read properties of undefined (reading 'enabled')
+   ✓ P13A Laboratory bridge > acknowledges completed acoustic instruments while the Scientist seat remains unassigned 383ms
+   ✓ P13A Laboratory bridge > shows rival sound only from the actual operational receipt, without exposing private finances 5601ms
+ ✓ |core| tests/bridge-p13b-s1b-seats.test.ts (8 tests) 8859ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13-laboratory.test.ts > P13A Laboratory bridge > commits the exact named hire once, rejects its stale sibling intent, then assigns the employed Scientist
+TypeError: Cannot read properties of undefined (reading 'enabled')
+ ❯ tests/bridge-p13-laboratory.test.ts:116:19
+    114|     expect(current.laboratory.scientistLabel).toContain(session.gameSt…
+    115|     const assign = current.laboratory.actions.find(a => a.id.startsWit…
+    116|     expect(assign.enabled).toBe(true)
+       |                   ^
+    117|     expect(session.command({ ...command, commandId: 'assign-scientist'…
+    118|       payload: { intentId: assign.intent!.intentId } }).accepted).toBe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 14 passed (15)
+   Start at  19:09:56
+   Duration  22.06s (transform 2.01s, setup 0ms, collect 3.31s, tests 17.97s, environment 1ms, prepare 194ms)
+
