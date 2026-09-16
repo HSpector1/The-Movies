@@ -21,6 +21,10 @@
 - **N2 delivered and natively closed on Build54** (Unity a5e8340b / TS eafd551e, exe a332e3bc…, seal 49, admission 45): F13–F24 PASS natively
   (F21/F17a/F17b fixed by IMPL-23); declared: C9 body viewport at 1280×720/200 %, C8 rail font floor (N3 measures), people-rail parking
   asymmetry, the stale route's mid-display step (driver aim drift). K10 + addendum atop the handoff.
+- **TS deltas landed** (SIM-20 d02230a8: projection 31, SCHEMA_ID c9c07d6f…, suite 5287) and **projection-31 fixtures regenerated**
+  (DATA-03 95652d37: r3n1-dense-01p31 sha 1c7419de…, r3n1-dense-02p31 sha 35afce05…; wire facts byte-identical); plan rulings C10/C11.
+  IMPL-24 (paired Unity DTO adoption + finance attention consumers) dispatches after TEST-22; then rendered → Build55 → seal 50 → admission 46
+  → N3 native chain on the p31 fixtures → K11.
 - Rendered full suite on 66dcc3a3: 219 total / 215 passed — every product test green; the 4 failures are harness-only in the newest class
   (IMGUI TextField focus/typing cannot be driven by injected events; two fixtures) → closed ONCE in TEST-22 (NativeOnly ignores citing the
   native maps, or fixtures from the sibling scaffolds). **N3 implementation (IMPL-19) running**; **SIM-20 (batched TS deltas)** running.
