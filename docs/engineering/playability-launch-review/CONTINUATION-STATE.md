@@ -17,7 +17,7 @@
 | Full local-evidence mirror (nothing stays local): text-class evidence in Git; captures/movies/large payloads as release assets | private Unity repo, branch `docs/playability-delivery-review-20260913-01` → `docs/evidence/local-mirror-20260915/` and GitHub Release tag `evidence-mirror-20260915` (assets listed in its notes) |
 | Owner playtest list for Howard's return | `docs/engineering/playability-launch-review/OWNER-PLAYTEST-LIST.md` (grows with each phase) |
 
-## Current position (2026-09-16 05:50Z)
+## Current position (2026-09-16 06:20Z)
 - **Build56** bound and admitted: Unity 288c4ddb / TS 70a8c3ec, exe 84f1a896…, seal 51 PASS (DTO blob 253e345a, projection 31), **admission 46
   PASS** (admission script now contract-driven). Correction: Build55 was sealed (50) but never admitted — the earlier "admission 46" claim
   for it was wrong; 46 is Build56's. **N3 delivered** (record K11 in the handoff): stage art 8/8, C2 font law + probe (F25 refuted), C1
@@ -28,6 +28,14 @@
   mid-display invalidation step stays NOT EXERCISED. Assigned to N4 IMPL-26 item 3a.
 - **Independent review AUDIT-01 (N3): REFINE** — §5.1–§5.4 font tests against the real face and the §5.5 proof set missing → TEST-24
   (running); stale C8 comment blocks → IMPL-26 item 0; portrait invalidation bookkeeping → N5.
+- **IMPL-26 landed** (Unity 6de4d41d…e360b608, pushed; EditMode 1926/1926 ×2): shared measured bottom (`StudioResponsiveChromeContracts.Surface*`
+  + `StudioSurfaceFooter`), F2 footer (reason pinned beside execute, context height derived), F1 card scrolls/clips at every text size
+  (**F26 root cause**: the Development card only scrolled and clipped at text ≠ 100 %, so at 100 % its bottom band was published off-screen),
+  W3 hit heights, 4B attention word, F3/F5 retained, F4 casting cluster under More-actions. Declared: the 4-action review footer is not under
+  More-actions (the card has no pinned footer); Escape rung 2 for the new disclosures is the host input owner's. Rendered full suite on
+  e360b608 (`r3n4-03/playmode-rendered-n4-01.xml`): 223 total / 218 passed / 3 failed — two N1/N2-proven viewport floors regressed
+  (Production decision context 0 px at 1280×720 @ 100 %; Profile renew explanation 74 px at 1280×720 @ 200 %) → **IMPL-27** (writer, running);
+  one TEST-24 sparse-control expectation contradicts the empty-roster rail law → TEST-25 item 0.
 - **N4 in progress:** IMPL-26 (writer, `r3n4/IMPL-N4-brief.md`: shared bottom clamp, F2 footer redesign, F1 card refine + `attention`
   cue, F3/F5 retain, F4 casting refine, F6 route geometry, F26) running concurrently with TEST-24. Next: SIM-N7-01 (TS
   `operationsEventsProjection`, projection 31 → 32) once IMPL-26's Runtime edits are built, then fixture regeneration, DTO adoption, TEST,
