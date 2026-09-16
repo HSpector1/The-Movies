@@ -3,7 +3,29 @@
 **Purpose.** The one file a fresh coordinator (or Howard on return) reads first. It is rewritten at every recovery point and pushed on
 `wip/playability-interaction-01-ts` (The-Movies). Everything else it names is pinned by commit. Nothing that matters lives only in a session.
 
-## LOGIC-FIRST WINDOW — S1 closeout (2026-09-16 ≈16:05 CEST; this paragraph controls)
+## LOGIC-FIRST WINDOW — S2 closeout in progress (2026-09-16 ≈19:45 CEST; this paragraph controls)
+- **P13B-S2 second technology, two Laboratories, cooperation — T1…T6 landed, T7 (matched full pass + records) running.** Commits on this branch:
+  `e68de38` (T1–T3), `e24c860` (three genuine V21 fixtures minted at the last V21 writer), `5564542` (T4 cooperation scheduler + Save **V22**
+  + tests 5–8), `bb79bdc` (records), `877aad5` (T6 bridge **projection 34**, schemaId `sha256:eeebeede…`). Live save is **V22**; live projection
+  **34**. Requirement tests 1–8 + the bridge test: catalogue 11/11, labs 10/10, cooperation 5/5, doc03 17/17, expiry 3/3, validation 15/15,
+  save-v22 12/12, bridge-p13b-s2-labs 10/10; S1/S1b suites re-based (×8 units, `labs` rows, projection 34) and green. RED evidence: `00`, `02`,
+  `04-t4-red-confirm`, `09` (tests 5–8 at e24c860: 35 failed / 12 passed of 47). The bridge test's RED baseline was not capturable (T6 landed
+  mid-authoring) — recorded in the plan, not claimed.
+- **Law decisions recorded this slice (delegated, not Owner product choices):** honest V21→V22 lift (`labs: null` for a two-Lab single-pool receipt,
+  valid only before `cooperationFromWeek`; single-Lab receipts derive their one row); `cooperationFromWeek` bounded `[0, tick]`; the bridge
+  publishes every open brief and lets the engine's dry run decide enablement — the coordinator's own T6 contract had added a researchable-week
+  gate that broke retained P13A law (seat before research opens) and was removed; budget presets extended to 60,000 / 80,000 (gap found by the
+  bridge test). Test-author findings: residual document-03 fixture reproduced lawfully at +9 weeks; overhead/opex are whole-studio ledger rows
+  (paper arithmetic + lower bound asserted); rehire on a still-active multi-seat project needs no resume (S1 law); `weeklyResearchPayroll` cannot
+  answer a past week after the contract row is gone (tests read the ledger); no public action creates a rival research project (isolation by
+  construction + injected row).
+- **T7 in flight:** matched full pass on `877aad5` (`evidence/p13b-s2-20260916/14-RUN`, `14-test-core-*`, `15-test-bridge-*`, same flags as the
+  pin baseline); expected failing set = the inherited set (r3n1 ENOENT ×6, `p13a-scientist-foundation` digests ×3, Pillow ×1, campaign-library 5 s
+  budgets, campaign-isolation 60 s inline budget vs ≈69 s body). S2 is labelled **LOGIC VERIFIED · UNITY NOT VERIFIED** only when that pass shows
+  no new failure; then the progress row closes and S3 begins per the plan order. Backlog: S2 entry written (V22, projection 34, DTO/semantics
+  changes incl. the `units` base and the null-vs-empty binding hazard).
+
+## LOGIC-FIRST WINDOW — S1 closeout (2026-09-16 ≈16:05 CEST; superseded by the S2 paragraph above, kept as history)
 - **P13B-S1 full named research staffing: LOGIC VERIFIED · UNITY NOT VERIFIED** (not P13B completion, not Owner acceptance). Production
   source of record `d74426a` (engine unchanged since); T9 commit adds only eight test-expectation fixes (V22/V21 unknown-version sentinel,
   one V21 message), the records and the evidence. Live save version is **V21**; V22 is S2's planned change. Full row, commands, counts and
