@@ -36,8 +36,12 @@ import {
   validateCommand,
   type AvailableIntent,
 } from '../bridge/protocol.ts'
-import { loadCampaignLibrary } from '../bridge/runtime/campaign-library.ts'
-import { DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS as limits } from '../bridge/runtime-checkpoint.ts'
+import { CAMPAIGN_LIBRARY_MAX_RECORDS, loadCampaignLibrary } from '../bridge/runtime/campaign-library.ts'
+import { decodeCampaignStorage } from '../bridge/runtime/campaign-storage-codec.ts'
+import {
+  DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS as limits,
+  SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
+} from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession, authoritativeDigest, type CommandResponse } from '../bridge/session.ts'
 import type { GameState } from '../src/core/index.ts'
 
@@ -75,23 +79,43 @@ function submit(
 }
 
 /**
- * Loads the immutable r3n1-dense-02p31 fixture fresh, each call — never
- * mutated. Unlike the projection-30 r3n1-dense-02 fixture, this fixture was
- * minted AT the current running schema (R3-N4-DATA-03), so loading it here
- * requires NO migration: `loaded.changed` must be false. Any load-time change
- * would mean either the fixture was mutated after minting or the running
- * schema moved on since this fixture was generated — both are hard failures,
- * not a case to tolerate.
+ * Loads the immutable r3n1-dense-02p31 fixture fresh, each call — never mutated.
+ *
+ * R3-N7-SIM-01 (projection 31 -> 32): this fixture WAS minted at the running
+ * schema when it was written (R3-N4-DATA-03), and the strict `loaded.changed ===
+ * false` guard that stated so was correct for exactly as long as projection 31
+ * was current. The read-only `operationsEvents` section has since advanced the
+ * running identity to projection 32, so this fixture is now a projection-31
+ * PRIOR and re-encodes on load for a CONTRACT reason alone.
+ *
+ * R3-N4-TEST-25 (item 4 follow-up): this era's proof is KEPT and re-expressed,
+ * exactly the way tests/r3n1-stale-schedule-take-02.test.ts's projection-30
+ * loader was re-expressed when projection 31 arrived — the file was never
+ * deleted, its guard was NARROWED. The only tolerated cause of a load-time
+ * change is that governed migration, proved by the stored checkpoint carrying a
+ * REGISTERED prior protocol-4 identity. Any other difference — a mutated
+ * fixture, an unregistered identity, a silent save migration — still throws
+ * exactly as before. So each era's fixture keeps proving that the SAME two
+ * server refusals survive the migration of its own checkpoint, which is a
+ * stronger statement than the strict guard made and is the reason to keep this
+ * file rather than let the p32 sibling replace it.
  */
 function loadFixtureState(): GameState {
   const path = resolve(
     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02p31/generated-r3n1-dense-02p31.checkpoint.json',
   )
   const raw = readFileSync(path, 'utf8')
+  const stored = decodeCampaignStorage(
+    JSON.parse(raw),
+    limits.maxCheckpointBytes,
+    CAMPAIGN_LIBRARY_MAX_RECORDS,
+  ) as { workingCheckpointJson: string }
+  const storedSchemaId = (JSON.parse(stored.workingCheckpointJson) as { schemaId: string }).schemaId
   const loaded = loadCampaignLibrary(raw, limits)
-  if (loaded.changed) {
+  if (loaded.changed && !SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(storedSchemaId)) {
     throw new Error(
-      'r3n1-dense-02p31 fixture: unexpected migration/change on load — this fixture was minted at the running schema',
+      'r3n1-dense-02p31 fixture: unexpected migration/change on load — schema ' +
+        `${storedSchemaId} is not a registered prior protocol-4 identity`,
     )
   }
   return loaded.session.gameState

@@ -85,7 +85,7 @@ function submit(
 /**
  * Loads the immutable r3n1-dense-02p32 fixture fresh, each call — never
  * mutated. Unlike the projection-30 r3n1-dense-02 fixture, this fixture was
- * minted AT the current running schema (R3-N4-DATA-03), so loading it here
+ * minted AT the current running schema (R3-N4-TEST-25 item 3 / DATA-07), so loading it here
  * requires NO migration: `loaded.changed` must be false. Any load-time change
  * would mean either the fixture was mutated after minting or the running
  * schema moved on since this fixture was generated — both are hard failures,
