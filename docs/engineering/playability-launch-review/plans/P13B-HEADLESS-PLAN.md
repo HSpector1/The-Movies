@@ -419,6 +419,92 @@ changed quote", no reservation before start, cycle/unknown/impossible refusals, 
 blocking, save/reload and Save As independence. Requires S1 and the P09 quote fingerprint. Allowance: 8 h
 capability, 3 h verification.
 
+## S4 — Direct gap-aware Office conversion (Ready row 4) — task expansion (amendment 2026-09-17)
+
+**Authoritative sources.** Companion `02-P13B-DECISIONS-AND-ACCEPTANCE.md` §6 (Office scope follows catalogue §8 without charging obsolete II
+as a hidden component; one body has independent work capacity and development standard; I→II $500k/4 w, II→III $850k/8 w, I→III $1.25m/16 w
+as candidate O1; placed body retains its baseline Opex while offline; standard increments $2.5k at II / $4k at III only while operational; old
+separately purchased II/III bodies remain real with their charges and zero extra capacity; highest operational standard is the producer rule,
+not a cumulative bonus; already assessed scripts do not change; ENG-2: new-III-without-II prerequisite removal and the 4/8/16 durations still
+require disposition; the Hall extension stays a separate real body; a true in-place extension is unimplemented and must be labelled
+unavailable), §5 row 4 + acceptance **A5** (never-owned-II I→III, II→III, new III, old purchased bodies, only high-standard body offline: no
+obsolete charge, direct 16 vs 8 weeks, no invented capacity, plot/downtime disclosed, no historical screenplay change), D4, REF-F/REF-N;
+`03-PAPER-ECONOMICS.md` "Office gap conversion, 52-week matched horizon" (direct $1,250,000 + 36×$4,000 + baseline $286,000 = $1,680,000;
+staged $1,350,000 + 40×$4,000 + $286,000 = $1,796,000; new III on another plot $1,200,000 + $160,000 + old $286,000 = $1,646,000; direct
+saves $116,000 and delays III four weeks). All at `673f49835404e262ea651b4fcb8fda5e259d80a6`.
+
+**Engine today.** `development-office-2` ($600k/8 w/$2.5k, `maxInstances: 1`) and `development-office-3` ($1.2m/12 w/$4k, requires II
+owned, `maxInstances: 1`) are effect-only bodies (`capacity: 0`); the founding `development-casting-office` ($1.5m/14 w/$5.5k, capacity 2)
+is a real work body; `facilityEffects.ts` picks the highest OPERATIONAL tier (`developmentOfficeEstUplift`, `officeTierAtMint` audit trail on
+minted screenplays). No conversion exists.
+
+**Scope.** In-place conversion of an existing development body's STANDARD through P09's installation arm ("office source-target work",
+REF-F): the body keeps its identity, plot, footprint, capacity and baseline Opex; the conversion is a P09 installation on that body that takes
+the body OFFLINE for its build (downtime), charges the standard increment only once operational, and makes the body count in the
+highest-operational-standard ladder. Nothing else in the estate changes.
+
+**Delegated implementation decisions (recorded, not Owner product choices).**
+- Two installation blueprints in `tuning.ts`, target capability `development-casting`, no cells: `office-conversion-ii` ($500,000 / 4 weeks /
+  +$2,500 weekly; requires the target body's current standard to be I) and `office-conversion-iii` (source-dependent quote: from I $1,250,000 /
+  16 weeks, from II $850,000 / 8 weeks; +$4,000 weekly; requires standard I or II). Candidate O1 tuning, flagged not Owner-approved.
+- **Standard is derived, not persisted:** `developmentStandard(state, facilityId): 'I'|'II'|'III'` = III if an operational
+  `office-conversion-iii` targets the body, II if an operational `office-conversion-ii` does, else the body's own tier (standalone II/III
+  bodies are II/III; the founding office and annex are I). `highestOperationalDevelopmentStandard(state)` replaces the two
+  `hasOperationalBlueprint` reads in `facilityEffects.ts` (standalone bodies still count; nothing stacks); `officeTierAtMint` keeps its
+  vocabulary (`'development-office-3'` for III, `'development-office-2'` for II) so historical screenplays and their audit trail are unchanged.
+  No new save fields ⇒ **Save V23 stays** (new blueprint ids only; the placement-core order pin moves 15 → 17). If any persisted fact turns out
+  to be needed, mint V23 fixtures first (S<n>-T0 rule) and allocate V24 — never reuse.
+- **Offline while converting (new P09 fact, blueprint-declared `takesTargetOffline: true`):** while a conversion placement on the body is under
+  construction, the body's slots are removed from the allocatable capacity (its `StudioFacility.capacity` contributes 0 to the operations
+  registry; work already occupying the body is not evicted — a conversion is refused while any slot is occupied, exactly as `targetEngaged`
+  refuses today), its effect does not count in the standard ladder ("taking the sole high-standard provider offline" — the quote discloses
+  `standardDuringWork`), its baseline Opex continues (weeklyPlacementOperatingCost unchanged), and the conversion's own weekly cost starts at
+  completion (existing first-charge-on-next-advance law). Lab modules keep their existing online behaviour (`takesTargetOffline` false).
+- Quotes never include an obsolete II purchase (`components` list the conversion only); a never-owned-II studio quotes I→III directly;
+  standalone new III keeps its `requires: development-office-2` (ENG-2 removal is an OPEN product choice — not coded; refusal unchanged);
+  Hall unchanged; "in-place extension" is not offered anywhere (no fake quote).
+- Commands: no new action kind — conversions go through the existing installation quote/commit pair (`queryFacilityInstallation` /
+  `commitFacilityInstallation`) and through S3 plans (`work: {kind:'installation', blueprintId:'office-conversion-iii', target:{facilityId}}`),
+  including chained I→II→III plans with `dependsOn`. Cancellation/restoration of a running conversion is S6 (Option B), not S4.
+- Bridge (projection 36, text only): conversion quote rows on the surface that publishes a building's installation decisions (the Laboratory
+  page publishes `instruments-<lab>`; the T-bridge brief first locates the equivalent surface for an office body — if none exists, add
+  `view: 'office'` mirroring the Laboratory page: `convert-<placementId>-ii|iii` rows with cost, weeks, downtime, `standardDuringWork` and
+  `standardAfter`, plus `plan-queue-convert-<placementId>-ii|iii` companions; a read member `developmentStandard` and `offline` on the body's
+  row; player-safe).
+
+**Tests (requirement-derived; each fails before its implementation).**
+1. Quotes: I→II $500,000/4 w; I→III $1,250,000/16 w on a never-owned-II studio with components naming the conversion only; II→III
+   $850,000/8 w on a converted-II body; staged sum $1,350,000 vs direct $1,250,000; refusals: target not a development body (`incompatibleTarget`),
+   standard already at/above (`alreadyInstalled`-class refusal named for conversions), occupied slots (`targetEngaged`), insufficient funds;
+   standalone III still refused without II (unchanged wording).
+2. Downtime and money (document 03, 52-week horizon through the real ledger): direct I→III — 16 weeks offline (capacity 0 for the body, a
+   script/casting request that needs the slot waits in the production queue and resumes after completion), baseline $5,500 continues every
+   week, no increment until operational, then $4,000 × 36 = $144,000; total $1,680,000; staged I→II→III $1,796,000 with no interim II
+   operation when the second conversion is committed at the first's completion; new III on another plot $1,646,000 with no old-office downtime.
+3. Standard law: highest operational standard wins and nothing stacks (converted III + purchased II → III; both charged); old purchased bodies
+   keep charges and zero capacity; converting the sole II-standard body to III drops the ladder to I during the work and the quote says so;
+   screenplays minted before, during and after keep their `officeTierAtMint` and estimated strength (no retroactive change).
+4. P09/S3 integration: the conversion is a normal placement record (fingerprint, commit, completion, `constructionCapex` row, facility history);
+   S3 plans queue a conversion, hold it on `targetEngaged` while a slot is occupied, and admit it at the next boundary once free; chained I→II
+   then II→III plans via `dependsOn`; occupancy/presence unchanged (no cells).
+5. Conservation, determinism, save/reload (V23 unchanged: a save mid-conversion reloads and completes identically), validator refusals for
+   forged conversion facts (a conversion on a non-office body; two operational conversions of the same standard on one body; a conversion whose
+   target has no body), campaign isolation.
+6. Bridge (projection 36): conversion rows with the disclosed downtime and standards, plan companions, `developmentStandard`/`offline` members,
+   stale-revision refusal, player-safe.
+
+**Allowance (plan):** 6 h capability, 2 h verification.
+
+### S4 tasks
+
+- [ ] **S4-T0** No fixture minting unless a persisted fact is added (Save V23 stays); confirm before T1.
+- [ ] **S4-T1 Blueprints, standard derivation, offline law, quotes** (sim-core; test-author writes tests 1–5 RED first): tests 1, 3, part of 2.
+- [ ] **S4-T2 Downtime money + S3 integration:** tests 2, 4, 5.
+- [ ] **S4-T3 Bridge projection 36:** test 6 (`tests/bridge-p13b-s4-office.test.ts`).
+- [ ] **S4-T4 Matched pass, records (backlog entry), commit, push.**
+
+## S4 — original scope record (superseded by the expansion above; kept verbatim)
+
 ## S4 — Direct gap-aware conversion/purchase (Ready row 4) — scope record
 
 Office I→III direct ($1.25m/16 weeks), II→III ($850k/8), I→II ($500k/4) as candidate O1 tuning; new III
