@@ -136,9 +136,9 @@ const wireSha256 = sha(Buffer.from(json, 'utf8'))
 // ── Rewrite ONLY the GeneratedWireGzip literal + its provenance header ─────
 let source = readFileSync(testFile, 'utf8')
 
-const headerRe = /\/\/ The exact generated research-active public projection from native run\n\s*\/\/ early-[0-9T:Z.-]+\. No game state or chronology is authored here\.\n\s*\/\/ It is embedded so the regression does not depend on ignored local evidence\./
+const headerRe = /\/\/ The exact generated research-active public projection from native run\n\s*\/\/ early-[0-9T:Z.-]+\. No game state or chronology is authored here\.\n\s*\/\/ It is embedded so the regression does not depend on ignored local evidence\.|\/\/ The exact projection-[0-9]+ public projection re-derived \(no native run\) from the\n\s*\/\/ same already-generated source record \(session [^)]+\) that\n\s*\/\/ produced native run early-[0-9T:Z.-]+\. No game state or\n\s*\/\/ chronology is authored here; see generated-wire\.manifest\.json alongside this file\./
 const newHeader =
-  `// The exact projection-31 public projection re-derived (no native run) from the\n` +
+  `// The exact projection-${PROJECTION_VERSION} public projection re-derived (no native run) from the\n` +
   `    // same already-generated source record (session ${TARGET_SESSION_ID}) that\n` +
   `    // produced native run ${ORIGINAL_RUN_ID}. No game state or\n` +
   `    // chronology is authored here; see generated-wire.manifest.json alongside this file.`
