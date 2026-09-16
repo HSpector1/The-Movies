@@ -1,0 +1,26 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13b-s1b-seats.test.ts (8 tests) 8980ms
+ ✓ |core| tests/bridge-p13-scientist-expiry.test.ts (3 tests) 17618ms
+   ✓ P13A Scientist expiration at the shared Gate Hiring boundary > projects an expired Scientist with exact hire terms and commits the same person through the Laboratory 8404ms
+   ✓ P13A Scientist expiration at the shared Gate Hiring boundary > distinguishes the requested ceiling, usable spend, uncharged balance and retained employment 5221ms
+   ✓ P13A Scientist expiration at the shared Gate Hiring boundary > distinguishes completed research, pending physical work and the exact operational sound chain 3992ms
+ ✓ |core| tests/bridge-p13b-s3-save-as.test.ts (1 test) 5144ms
+   ✓ P13B-S3 Save As (test 7, A11) > a Save As copy keeps the same plan ids and advances independently; the inactive original never advances (complete-state comparison) 5143ms
+ ✓ |core| tests/bridge-p13-profile-availability.test.ts (2 tests) 6666ms
+   ✓ P13A shared profile and roster current-work availability > shows the actual Scientist working after a funded advance, then available when research is paused without changing employment 6368ms
+ ✓ |core| tests/bridge-p13b-s1-identity.test.ts (1 test) 4314ms
+ ✓ |core| tests/bridge-p13-lot-technology.test.ts (2 tests) 10230ms
+   ✓ P13A exact lot technology status > shows acoustic installation on the existing Laboratory, then its real named paused/active task 4505ms
+   ✓ P13A exact lot technology status > joins actual sound work to the exact founding stage/Post and leaves the other stage unchanged 5724ms
+ ✓ |core| tests/bridge-p13-no-laboratory-commercial.test.ts (1 test) 10257ms
+   ✓ P13A commercial route without a Laboratory > keeps wait, purchase and exact stage/Post decisions in the global intent list beside other studio actions 10256ms
+ ✓ |core| tests/bridge-p13-technology-history.test.ts (1 test) 4991ms
+   ✓ P13A dated technology history projection > shows the recorded 1925 and 1928 availability dates without claiming player adoption 4990ms
+
+ Test Files  8 passed (8)
+      Tests  19 passed (19)
+   Start at  23:52:08
+   Duration  76.92s (transform 2.70s, setup 0ms, collect 6.00s, tests 68.20s, environment 2ms, prepare 736ms)
+

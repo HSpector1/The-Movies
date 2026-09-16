@@ -1,0 +1,25 @@
+$ npx tsc --noEmit -p tsconfig.bridge.json
+tests/bridge-p13b-s3-plans.test.ts(8,10): error TS6133: 'advanceTo' is declared but its value is never read.
+(exit 2)
+
+$ npx tsc --noEmit -p tsconfig.json
+(exit 0)
+
+$ npx tsc --noEmit -p ui/tsconfig.json
+(exit 0)
+
+$ npm run check:bridge-contract
+
+> project-studio-core@0.1.0 check:bridge-contract
+> vite-node scripts/generate-bridge-contract.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/bridge/schema/project-studio-bridge.schema.json
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/StudioBridgeDtos.Generated.cs
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/project-studio-bridge.contract-manifest.json
+
+$ npm run check:bridge-contract:fixtures
+
+> project-studio-core@0.1.0 check:bridge-contract:fixtures
+> vite-node scripts/generate-bridge-contract-fixtures.ts --check
+
+verified /Users/zacheryspector/The-Movies-headless-program/generated/unity/tests/StudioBridgeUnionFixtures.Generated.cs

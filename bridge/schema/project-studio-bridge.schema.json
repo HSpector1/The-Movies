@@ -137,7 +137,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 34,
+          "const": 35,
           "type": "integer"
         },
         "stateDigest": {
@@ -254,7 +254,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 34,
+          "const": 35,
           "type": "integer"
         },
         "stateDigest": {
@@ -325,7 +325,8 @@
             "commissionSet",
             "renewContract",
             "releaseTalent",
-            "researchAction"
+            "researchAction",
+            "physicalPlanAction"
           ],
           "type": "string"
         },
@@ -764,7 +765,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 34,
+          "const": 35,
           "type": "integer"
         },
         "stateDigest": {
@@ -843,7 +844,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 34,
+          "const": 35,
           "type": "integer"
         },
         "stateDigest": {
@@ -1135,7 +1136,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 34,
+          "const": 35,
           "type": "integer"
         },
         "stateDigest": {
@@ -6386,7 +6387,12 @@
             "facilityDemolished",
             "facilityMoved",
             "careerMilestone",
-            "technologyMilestone"
+            "technologyMilestone",
+            "planQueued",
+            "planStarted",
+            "planHeld",
+            "planBlocked",
+            "planCancelled"
           ],
           "type": "string"
         },
@@ -7169,7 +7175,8 @@
             "roster",
             "project",
             "employment",
-            "laboratory"
+            "laboratory",
+            "plans"
           ],
           "type": "string"
         }
@@ -7258,6 +7265,16 @@
           "minLength": 1,
           "type": "string"
         },
+        "plans": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioPlansPage"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "projects": {
           "items": {
             "$ref": "#/$defs/StudioIndustryProject"
@@ -7342,7 +7359,8 @@
             "roster",
             "project",
             "employment",
-            "laboratory"
+            "laboratory",
+            "plans"
           ],
           "type": "string"
         }
@@ -7360,6 +7378,7 @@
         "pageSize",
         "people",
         "period",
+        "plans",
         "projects",
         "protocolVersion",
         "requestId",
@@ -9981,6 +10000,338 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioPlacementUnmetRequirementSnapshot"
+    },
+    "StudioPlanCommitReceipt": {
+      "additionalProperties": false,
+      "properties": {
+        "cost": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "fingerprint": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cost",
+        "fingerprint",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPlanCommitReceipt"
+    },
+    "StudioPlanNext": {
+      "additionalProperties": false,
+      "properties": {
+        "outcome": {
+          "enum": [
+            "admit",
+            "wait",
+            "hold"
+          ],
+          "type": "string"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "outcome",
+        "reason"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPlanNext"
+    },
+    "StudioPlanQuote": {
+      "additionalProperties": false,
+      "properties": {
+        "buildWeeks": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "components": {
+          "items": {
+            "$ref": "#/$defs/StudioPlanQuoteComponent"
+          },
+          "type": "array"
+        },
+        "cost": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "fingerprint": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "weeklyOperatingCost": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "buildWeeks",
+        "components",
+        "cost",
+        "fingerprint",
+        "weeklyOperatingCost"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPlanQuote"
+    },
+    "StudioPlanQuoteComponent": {
+      "additionalProperties": false,
+      "properties": {
+        "cost": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "weeks": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cost",
+        "label",
+        "weeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPlanQuoteComponent"
+    },
+    "StudioPlanRow": {
+      "additionalProperties": false,
+      "properties": {
+        "admission": {
+          "enum": [
+            "reviewChangedQuote",
+            "automatic"
+          ],
+          "type": "string"
+        },
+        "approvedMaximumDebit": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "approvedQuote": {
+          "$ref": "#/$defs/StudioPlanQuote"
+        },
+        "blueprintId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "commitReceipt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioPlanCommitReceipt"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dependsOn": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "earliestStartWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "next": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioPlanNext"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ordinal": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "pendingQuote": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioPlanQuote"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "planId": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "queuedWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "startedPlacementId": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "held",
+            "blocked",
+            "started",
+            "cancelled"
+          ],
+          "type": "string"
+        },
+        "statusLabel": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "statusWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "targetFacilityId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "targetPlanId": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "workKind": {
+          "enum": [
+            "placement",
+            "installation"
+          ],
+          "type": "string"
+        },
+        "workLabel": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "admission",
+        "approvedMaximumDebit",
+        "approvedQuote",
+        "blueprintId",
+        "commitReceipt",
+        "dependsOn",
+        "earliestStartWeek",
+        "next",
+        "ordinal",
+        "pendingQuote",
+        "planId",
+        "queuedWeek",
+        "reason",
+        "startedPlacementId",
+        "status",
+        "statusLabel",
+        "statusWeek",
+        "targetFacilityId",
+        "targetPlanId",
+        "workKind",
+        "workLabel"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPlanRow"
+    },
+    "StudioPlansPage": {
+      "additionalProperties": false,
+      "properties": {
+        "actions": {
+          "items": {
+            "$ref": "#/$defs/StudioLaboratoryAction"
+          },
+          "type": "array"
+        },
+        "notice": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/StudioPlanRow"
+          },
+          "type": "array"
+        },
+        "title": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "actions",
+        "notice",
+        "rows",
+        "title"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioPlansPage"
     },
     "StudioPresencePersonSnapshot": {
       "additionalProperties": false,
@@ -13378,7 +13729,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-34",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-35",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -13434,7 +13785,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 34,
+    "projectionVersion": 35,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

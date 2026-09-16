@@ -30,7 +30,10 @@ describe('P13A Laboratory bridge', () => {
     const state = laboratory()
     const before = JSON.stringify(state)
     const session = new BridgeSession(state, 'lab-test')
-    const page = session.industry(query())
+    // P13B-S3-T4: the page gained the two `plan-queue-*` companions on this Laboratory,
+    // which pushed the two studio-wide sound rows past a 12-row page. The page size is
+    // widened by exactly those two rows so this case still reads the same decisions.
+    const page = session.industry(query({ pageSize: 14 }))
     expect('laboratory' in page).toBe(true)
     if (!('laboratory' in page) || !page.laboratory) throw new Error('Laboratory page absent')
     expect(parseWireValue(BRIDGE_SCHEMA.$defs.StudioIndustryResponse, page)).toEqual(page)

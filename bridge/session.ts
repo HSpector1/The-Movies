@@ -67,6 +67,7 @@ import { canonicalJson } from './schema/canonical.ts'
 import { snapshotBuildContextFor } from './snapshot-build-context.ts'
 import {industryPage} from './industry.ts'
 import {laboratoryActionSpecs,type LaboratoryIntent} from './laboratory.ts'
+import {isPhysicalPlanAction,planActionSpecs,type PlanIntent} from './plans.ts'
 import {sameNativeCampaignOrigin} from './campaign-origin.ts'
 import type {IndustryQuery} from './schema/industry-schema.ts'
 import type {
@@ -1088,15 +1089,26 @@ function resolveLaboratoryIntents(state: GameState): Array<IntentApplication & L
   const stateDigest = authoritativeDigest(state)
   return laboratoryActionSpecs(state).filter(spec => spec.enabled).map(spec => ({
     spec,
-    option: option(stateDigest, {kind:'researchAction',label:spec.label,detail:spec.detail,
+    option: option(stateDigest, {kind:isPhysicalPlanAction(spec.action)?'physicalPlanAction':'researchAction',label:spec.label,detail:spec.detail,
       projectId:'projectId' in spec.action?spec.action.projectId:null,castingSessionId:null,
       productionId:'productionId' in spec.action?spec.action.productionId:null}, spec.action),
     apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),
   }))
 }
 
+/** P13B-S3: the five plan verbs on the plans page. A plan is not research: its own kind. */
+function resolvePlanIntents(state: GameState): Array<IntentApplication & PlanIntent> {
+  const stateDigest = authoritativeDigest(state)
+  return planActionSpecs(state).filter(spec => spec.enabled).map(spec => ({
+    spec,
+    option: option(stateDigest, {kind:'physicalPlanAction',label:spec.label,detail:spec.detail,
+      projectId:null,castingSessionId:null,productionId:null}, spec.action),
+    apply: current => caught(() => ({ok:true,next:applyActions(current,[spec.action])})),
+  }))
+}
+
 function resolveAvailableIntents(state: GameState): IntentApplication[] {
-  return [...resolveStudioIntents(state), ...resolveLaboratoryIntents(state)]
+  return [...resolveStudioIntents(state), ...resolveLaboratoryIntents(state), ...resolvePlanIntents(state)]
 }
 
 export function availableIntents(state: GameState): AvailableIntent[] {
@@ -1329,7 +1341,7 @@ export class BridgeSession {
   industry(request:IndustryQuery) {
     if(request.sessionId!==this.sessionId)return this.protocolReject(request.requestId,'SESSION_MISMATCH','The active campaign changed. Refresh Industry.')
     if(request.expectedStateRevision!==this.stateRevision)return this.protocolReject(request.requestId,'STALE_REVISION','The studio advanced. Refresh this Industry page before continuing.')
-    try{return industryPage(this.state,this.sessionId,this.stateRevision,request,request.view==='laboratory'?resolveLaboratoryIntents(this.state):[])}
+    try{return industryPage(this.state,this.sessionId,this.stateRevision,request,request.view==='laboratory'?resolveLaboratoryIntents(this.state):[],request.view==='plans'?resolvePlanIntents(this.state):[])}
     catch(error){return this.protocolReject(request.requestId,'INVALID_CONTROL',(error as Error).message)}
   }
 

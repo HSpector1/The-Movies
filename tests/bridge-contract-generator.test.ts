@@ -549,12 +549,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('title')
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('noFeeLine')
 
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 34 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 35 })
       expect(generated).toContain(
-        '// Schema identity: sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2',
+        '// Schema identity: sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2',
+        'sha256:889c83c6278aaf54fc392282bb555ce03f61f8381e20cc62618e0106cf6f1da3',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -619,13 +619,14 @@ describe('CF-08 sound union-to-C# generation', () => {
         F03_COMPATIBLE_OBJECTS: '99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68',
         F04_DISCRIMINATED_OBJECTS: 'd878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b',
         F09_ARRAY_ITEM_UNION: '7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b',
-        // P13B-S2-T6 (projection 34): the Laboratory page carries two technologies and two
-        // Laboratories — StudioResearchLabRow/StudioResearchLabShare/StudioLaboratoryProject
-        // join the S1b seat DTOs, and StudioLaboratorySeat/StudioResearchReceipt/
-        // StudioResearchWeek/StudioLaboratoryPage each gain members. Both fixtures render the
-        // WHOLE current BRIDGE_SCHEMA, so both identities move together.
-        F10_CURRENT_QUOTE_UNIONS: 'a3de47906346f6cb0669dd52940775ff334d6ff58e4ea14bbcfa11fc4ae8208a',
-        F11_CURRENT_COMMAND_UNION: 'a3de47906346f6cb0669dd52940775ff334d6ff58e4ea14bbcfa11fc4ae8208a',
+        // P13B-S3-T4 (projection 35): the plans read model joins the schema —
+        // StudioPlansPage/StudioPlanRow/StudioPlanQuote/StudioPlanQuoteComponent/
+        // StudioPlanNext/StudioPlanCommitReceipt, `StudioIndustryResponse.plans`, the
+        // `plans` industry view, the five plan studio-history kinds and the
+        // `physicalPlanAction` intent kind. Both fixtures render the WHOLE current
+        // BRIDGE_SCHEMA, so both identities move together.
+        F10_CURRENT_QUOTE_UNIONS: '61ae87bba245d78fb3a0815246d9639b58a645c410b87ad9e71694eb5d776732',
+        F11_CURRENT_COMMAND_UNION: '61ae87bba245d78fb3a0815246d9639b58a645c410b87ad9e71694eb5d776732',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

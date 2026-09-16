@@ -399,7 +399,15 @@ conversion routes are S4; component receipts/restoration are S5/S6. Plans are pe
       Sweeps (`22-engine-*`): S2 87/87, S1 + bridge-P13B 52/52, P13A 62/65 (+3 inherited digests), bridge-P13 16/16, campaign-isolation solo 72.3 s,
       save sweep 78 + 180 + 83 + 109, placement/queue 153/153, owners 66/66, corpus/frozen 115/115 (M0A corpus byte-identical), bridge checkpoint
       91/91, projections 32/32, contract checks verified, consumer lock 77/77; coordinator recheck (`24-*`): S2 + save boundary 90/90, tsc root/ui clean.
-- [ ] **S3-T4 Bridge projection 35:** test 9 (`tests/bridge-p13b-s3-plans.test.ts`).
+- [x] **S3-T4 Bridge projection 35 (2026-09-17 ≈00:10):** `view: 'plans'` (request and response), `StudioPlansPage`/`StudioPlanRow`/`StudioPlanQuote`/
+      `StudioPlanQuoteComponent`/`StudioPlanNext`/`StudioPlanCommitReceipt`, plan actions (`plan-cancel|review|admission|move-up|move-down-<planId>`),
+      Laboratory `plan-queue-acoustic|electrical-<lab>` companions with a visibility rule (hidden once that module has a committed placement on
+      the Lab in any status or a queued/held/started plan already targets it — coordinator addition after the bridge test's case 2), five
+      history kinds on the wire, intent kind `physicalPlanAction` (honest wire kind; `researchAction` precedent). schemaId `sha256:889c83c6…`,
+      contract sha `4ea3b9d0…`, checks verified. `tests/bridge-p13b-s3-plans.test.ts` RED 11/11 at 30836b0 (`28`) → 11/11 (`26-t4-*`, coordinator
+      fresh `29`: plans + laboratory + s2-labs 28/28, tsc bridge/root clean); pins moved 34 → 35 in thirteen files; `bridge-p13-laboratory` case 1
+      widened its page size by exactly the two new rows. Body-placement queueing has no bridge affordance yet (needs the lot/placement quote
+      surface; recorded as future work, not S3's).
 - [ ] **S3-T5 Affected suites, records (backlog entry), commit, push.**
 
 ## S3 — original scope record (superseded by the expansion above; kept verbatim)

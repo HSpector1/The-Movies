@@ -28,6 +28,9 @@ export const AVAILABLE_INTENT_KINDS = [
   'renewContract',
   'releaseTalent',
   'researchAction',
+  // P13B-S3: the five physical-plan verbs (queue/reorder/cancel/review/set admission).
+  // A plan is not research: a separate kind keeps the wire honest about what it moves.
+  'physicalPlanAction',
 ] as const
 
 export const StudioBridgeIntentOption = object('StudioBridgeIntentOption', {

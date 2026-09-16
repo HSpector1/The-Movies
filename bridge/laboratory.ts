@@ -10,6 +10,7 @@ import { occupiedSeats, playerTechnologyAccess, PROJECT_UNIT, researchCandidates
 import type { ResearchWeekQuote } from '../src/core/technology.js'
 import { TECHNOLOGY_CATALOGUE, technologyEntry } from '../src/core/technologyCatalogue.js'
 import type { ResearchProject, ResearchSeat, ResearchWeekReceipt, TechnologyAction } from '../src/core/technologyTypes.js'
+import type { PhysicalPlanAction } from '../src/core/physicalPlans.js'
 import type { GameState } from '../src/core/types.js'
 import type { AvailableIntent } from './protocol.ts'
 import type { IndustryPage } from './schema/industry-schema.ts'
@@ -18,7 +19,9 @@ type LaboratoryPage = NonNullable<IndustryPage['laboratory']>
 export type LaboratoryActionSpec = {
   id: string
   buildingId: string | null
-  action: TechnologyAction
+  // P13B-S3: the queue companions put a PLAN verb on this page beside the immediate
+  // installation row. Same row shape, same dry run; the engine decides both.
+  action: TechnologyAction | PhysicalPlanAction
   label: string
   detail: string
   enabled: boolean
@@ -141,7 +144,7 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
   const specs: LaboratoryActionSpec[] = []
   if (!state.technology || !state.hollywood || state.founding !== null || !economyEngaged(state)) return specs
   const own = state.hollywood.playerStudioId
-  function add(id: string, action: TechnologyAction, label: string, detail: string, buildingId: string | null = null, refusal: string | null = null) {
+  function add(id: string, action: TechnologyAction | PhysicalPlanAction, label: string, detail: string, buildingId: string | null = null, refusal: string | null = null) {
     let disabledReason = refusal
     if (disabledReason === null) {
       try {
@@ -222,6 +225,35 @@ export function laboratoryActionSpecs(state: GameState): readonly LaboratoryActi
           quote.rejections.includes('insufficientFunds') ? `Acoustic installation requires ${money(quote.cost)} available cash.` : 'Complete this Laboratory before installing its acoustic instruments.')
       add(`instruments-${lab.id}`, { kind: 'installAcousticInstruments', laboratoryFacilityId: lab.facilityId },
         'Install acoustic instruments', installationDetail(state, 'acoustic-instruments', lab.facilityId), buildingId, reason)
+    }
+    // P13B-S3: the same two Laboratory modules as PLANS. A queued plan reserves nothing —
+    // no cash, capacity or engagement moves — so a Lab that is busy today can still be
+    // planned; the engine re-quotes and decides at the weekly admission boundary. The
+    // ceiling is the price quoted here, which is what the studio is approving.
+    for (const module of [
+      { key: 'acoustic', blueprintId: 'acoustic-instruments' },
+      { key: 'electrical', blueprintId: 'electrical-control-instruments' },
+    ] as const) {
+      // Not offered when this module is already HERE or already ON ITS WAY: a committed
+      // placement on this Lab in any status (under construction or operational), or a
+      // non-terminal plan of this studio already aimed at it. A second row could only ever
+      // hold on `targetEngaged` and then refuse as `alreadyInstalled` — a false affordance.
+      // Engine law is untouched: queueing a duplicate through the action stays lawful.
+      if (state.placement.facilities.some(p => p.blueprintId === module.blueprintId && p.installation?.targetFacilityId === lab.facilityId)) continue
+      if (state.physicalPlans.plans.some(plan => plan.studioId === own &&
+        (plan.status === 'queued' || plan.status === 'held' || plan.status === 'started') &&
+        plan.work.kind === 'installation' && plan.work.blueprintId === module.blueprintId &&
+        'facilityId' in plan.work.target && plan.work.target.facilityId === lab.facilityId)) continue
+      const quote = queryFacilityInstallation(state, { blueprintId: module.blueprintId, targetFacilityId: lab.facilityId })
+      const name = blueprintById(module.blueprintId)?.name ?? module.blueprintId
+      add(`plan-queue-${module.key}-${lab.id}`,
+        { kind: 'queuePhysicalPlan', work: { kind: 'installation', blueprintId: module.blueprintId, target: { facilityId: lab.facilityId } },
+          dependsOn: [], approvedMaximumDebit: quote.cost, admission: 'reviewChangedQuote' },
+        `Queue ${name.toLowerCase()} installation`,
+        `Add this installation to the studio's physical plans at the quoted ${money(quote.cost)}: ${quote.buildWeeks} weeks of physical work, ` +
+        `then ${money(quote.weeklyOperatingCost)}/week operating cost. Nothing is reserved until the plan starts — no cash, capacity or engagement ` +
+        `moves while it waits — and the plan is quoted again at each weekly boundary. ${money(quote.cost)} is the approved ceiling; a changed quote is held for your review.`,
+        buildingId)
     }
     for (const project of labProjects) if (project.status !== 'completed') {
       const entry = technologyEntry(project.technologyId)

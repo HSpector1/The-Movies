@@ -111,19 +111,19 @@ function dispatch(session: BridgeSession, buildingId: string, rowId: string): vo
 // ---------------------------------------------------------------------------
 
 describe('P13B-S2 T6 Laboratory bridge page: projection bump', () => {
-  it('bumps PROJECTION_VERSION to the S2 wire contract (34)', () => {
-    expect(PROJECTION_VERSION).toBe(34)
+  it('bumps PROJECTION_VERSION to the S2 wire contract (34; 35 after the S3-T4 bump)', () => {
+    expect(PROJECTION_VERSION).toBe(35)
   })
 })
 
-describe('case 1: a fresh Laboratory publishes snapshotVersion 34 and an empty projects array', () => {
+describe('case 1: a fresh Laboratory publishes snapshotVersion 35 and an empty projects array', () => {
   it('a Laboratory with no research project at all reports laboratory.projects === []', () => {
     const state = p13aLaboratorySlice() // week 12, one operational Laboratory, no research
     const laboratoryFacilityId = state.operations.facilities.find(f => f.capability === 'laboratory')!.id
     const buildingId = buildingIdOf(state, laboratoryFacilityId)
     const session = new BridgeSession(state, 'p13b-s2-labs-1-fresh')
     const response = labResponse(session, buildingId, nextRequestId('fresh'))
-    expect(response.snapshotVersion).toBe(34)
+    expect(response.snapshotVersion).toBe(35)
     expect(response.laboratory.projects).toEqual([])
   })
 })

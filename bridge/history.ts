@@ -353,15 +353,30 @@ export function historyProjection(state: GameState): BridgeHistoryProjection {
       }
       case 'standingDriftFolded':
         break
-      // P13B-S3: physical-plan rows are recorded in state from this slice. The
-      // plans page that reads them is S3-T4 (projection 35) — until then nothing
-      // of them reaches the wire, so this projection's output is unchanged.
+      // P13B-S3 (projection 35): one row per recorded plan transition. The subject is
+      // the STUDIO, not a body: a plan owns no building until it starts, and the plan id
+      // is not a Locate target. The engine's own `reason` is carried verbatim.
       case 'planQueued':
       case 'planStarted':
       case 'planHeld':
       case 'planBlocked':
-      case 'planCancelled':
+      case 'planCancelled': {
+        const headline =
+          row.kind === 'planQueued' ? 'Plan queued' :
+          row.kind === 'planStarted' ? 'Plan started' :
+          row.kind === 'planHeld' ? 'Plan held' :
+          row.kind === 'planBlocked' ? 'Plan blocked' : 'Plan cancelled'
+        timeline.push({
+          ...base,
+          headline,
+          detail: `Week ${String(row.week)} · plan ${row.planId}.${row.reason === null ? '' : ` ${row.reason}`}`,
+          subjectKind: 'studio',
+          subjectId: null,
+          subjectLabel: 'The studio',
+          subjectLocation: 'none',
+        })
         break
+      }
       case 'facilityCommitted':
       case 'facilityCompleted':
       case 'facilityDemolished':

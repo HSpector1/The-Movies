@@ -64,7 +64,15 @@ export const PROTOCOL_VERSION = 4 as const
 // superseded by `projects[]` for the Unity binding. `StudioResearchReceipt.units` is now
 // the project credit over 1/160,000 (was 1/20,000): the same verified work, rebased by
 // the governed V21->V22 lift. Additive only; protocol stays 4.
-export const PROJECTION_VERSION = 34 as const
+// P13B-S3-T4 (plan §S3): 34 -> 35 — the studio's persistent physical plans reach the
+// wire. A new `view: 'plans'` industry page (`StudioPlansPage` with `StudioPlanRow`,
+// `StudioPlanQuote`, `StudioPlanQuoteComponent`, `StudioPlanNext`,
+// `StudioPlanCommitReceipt`), `StudioIndustryResponse.plans` (null on every other view,
+// as `laboratory` is), the five `plan*` studio-history kinds on
+// `StudioHistoryEventSnapshot.kind`, and the `physicalPlanAction` intent kind for the
+// five plan verbs. `StudioPlanRow.next` is null exactly on a started or cancelled row:
+// a terminal plan has no next admission boundary. Additive only; protocol stays 4.
+export const PROJECTION_VERSION = 35 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2045,6 +2053,12 @@ const StudioHistoryEventSnapshot = object('StudioHistoryEventSnapshot', {
     'facilityMoved',
     'careerMilestone',
     'technologyMilestone',
+    // P13B-S3 (projection 35): the five physical-plan transitions.
+    'planQueued',
+    'planStarted',
+    'planHeld',
+    'planBlocked',
+    'planCancelled',
   ]),
   significance: enumeration(['landmark', 'major', 'standard', 'routine']),
   headline: nonEmptyText(),
