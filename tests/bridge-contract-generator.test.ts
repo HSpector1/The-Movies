@@ -549,12 +549,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('title')
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('noFeeLine')
 
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 30 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 31 })
       expect(generated).toContain(
-        '// Schema identity: sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48',
+        '// Schema identity: sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48',
+        'sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -619,8 +619,11 @@ describe('CF-08 sound union-to-C# generation', () => {
         F03_COMPATIBLE_OBJECTS: '99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68',
         F04_DISCRIMINATED_OBJECTS: 'd878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b',
         F09_ARRAY_ITEM_UNION: '7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b',
-        F10_CURRENT_QUOTE_UNIONS: 'afda746aac8bfc288c991f0bc2f1e8c7eb4552ee7f726ae7aea4d783c0290731',
-        F11_CURRENT_COMMAND_UNION: 'afda746aac8bfc288c991f0bc2f1e8c7eb4552ee7f726ae7aea4d783c0290731',
+        // R3-N4-SIM-20 (projection 31): the batched N4/N5/N6 read-model deltas add
+        // StudioDevelopmentProjectSnapshot.attention, StudioContractOfferSnapshot
+        // .affordable/.refusalReason and the StudioFinanceAttention row DTO.
+        F10_CURRENT_QUOTE_UNIONS: 'adbb06d3e91fef0e24a7d71ab30d048d15f8ececdd06d0189d4579627b8f58a7',
+        F11_CURRENT_COMMAND_UNION: 'adbb06d3e91fef0e24a7d71ab30d048d15f8ececdd06d0189d4579627b8f58a7',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

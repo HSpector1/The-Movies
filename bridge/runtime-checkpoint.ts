@@ -57,6 +57,11 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // R3-N4-SIM-20: the OUTGOING projection-30 identity, minted at 4dd667dc
+  // ("Implement initial P13A synchronized sound candidate") and carried by every
+  // durable checkpoint written before the N4/N5/N6 read-model deltas advanced the
+  // running schema to projection 31. Appended per the schema-bump law above.
+  ['sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48', 'projection-v30'],
   // P13A: exact accepted P12 protocol 4/projection 29/Save V19 identity.
   [ACCEPTED_P12_SCHEMA_ID, 'projection-v29'],
   // R05 Profile calendar label: preserve the actual outgoing native 4/28/V19

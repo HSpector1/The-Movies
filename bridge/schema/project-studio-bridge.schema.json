@@ -137,7 +137,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 30,
+          "const": 31,
           "type": "integer"
         },
         "stateDigest": {
@@ -254,7 +254,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 30,
+          "const": 31,
           "type": "integer"
         },
         "stateDigest": {
@@ -764,7 +764,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 30,
+          "const": 31,
           "type": "integer"
         },
         "stateDigest": {
@@ -843,7 +843,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 30,
+          "const": 31,
           "type": "integer"
         },
         "stateDigest": {
@@ -1135,7 +1135,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 30,
+          "const": 31,
           "type": "integer"
         },
         "stateDigest": {
@@ -3207,6 +3207,9 @@
     "StudioContractOfferSnapshot": {
       "additionalProperties": false,
       "properties": {
+        "affordable": {
+          "type": "boolean"
+        },
         "annualSalary": {
           "maximum": 2147483647,
           "minimum": 0,
@@ -3216,6 +3219,16 @@
           "maximum": 2147483647,
           "minimum": 0,
           "type": "integer"
+        },
+        "refusalReason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
         },
         "signingBonus": {
           "maximum": 2147483647,
@@ -3243,8 +3256,10 @@
         }
       },
       "required": [
+        "affordable",
         "annualSalary",
         "guaranteedComp",
+        "refusalReason",
         "signingBonus",
         "termLabel",
         "termWeeks",
@@ -3798,6 +3813,17 @@
             }
           ]
         },
+        "attention": {
+          "enum": [
+            "none",
+            "ready",
+            "waiting",
+            "active",
+            "decisionRequired",
+            "blocked"
+          ],
+          "type": "string"
+        },
         "consequence": {
           "minLength": 1,
           "type": "string"
@@ -3907,6 +3933,7 @@
       },
       "required": [
         "assessment",
+        "attention",
         "consequence",
         "dueWeek",
         "facilityName",
@@ -4166,6 +4193,36 @@
       ],
       "type": "object",
       "x-csharp-name": "StudioFilmSegmentScore"
+    },
+    "StudioFinanceAttention": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "message": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "route": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioFinanceRoute"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "message",
+        "route"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioFinanceAttention"
     },
     "StudioFinanceCapitalContributor": {
       "additionalProperties": false,
@@ -5138,7 +5195,7 @@
         },
         "attention": {
           "items": {
-            "type": "string"
+            "$ref": "#/$defs/StudioFinanceAttention"
           },
           "type": "array"
         },
@@ -12719,7 +12776,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-30",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-31",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -12775,7 +12832,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 30,
+    "projectionVersion": 31,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

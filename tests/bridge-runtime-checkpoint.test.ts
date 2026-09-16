@@ -1000,6 +1000,9 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399',
       'sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b',
       'sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99',
+      // R3-N4-SIM-20: the outgoing projection-30 identity (4dd667dc's generated header),
+      // appended when the batched N4/N5/N6 read-model deltas moved the running schema to 31.
+      'sha256:e64a3b659e4247b98631f1caa1f0e9eb0b6016aac92b0f46be590360ff9cee48',
       'sha256:ea5d645f34a472f4710b9273b225d6f15433d6d17ae8ed1af3c03686a225c8c4',
       'sha256:eb95add0fc06a54d19998c4707dd0b0ba861a22cfee6d8e6631499beeea18e25',
       'sha256:f84ae77ec59a0d7ca7cdd89115456504ddecbde2c6e3839936e4951bd65bce61',

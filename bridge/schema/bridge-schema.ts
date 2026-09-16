@@ -35,11 +35,31 @@ export const PROTOCOL_VERSION = 4 as const
 // Protocol stays 4 and gameplay save stays V18; both fields derive existing authority.
 // R05: the Profile uses the same authoritative calendar label as Industry.
 // Absolute career weeks and durable save formats remain unchanged.
-export const PROJECTION_VERSION = 30 as const
+// R3-N4-SIM-20 (N4/N5/N6 batched read-model deltas): 30 -> 31 — three additive
+// wire-shape changes, all pure projections over already-authoritative facts:
+//   (a) `StudioDevelopmentProjectSnapshot.attention`, the per-screenplay record
+//       attention, reusing the SAME closed vocabulary casting already publishes;
+//   (b) `StudioContractOfferSnapshot.affordable` + `.refusalReason`, the D-12
+//       solvency answer the sign route already asks per published term;
+//   (c) `StudioFinanceSnapshot.attention` becomes a row object
+//       (`StudioFinanceAttention` — stable id, the same sentence, an optional
+//       existing `StudioFinanceRoute`) instead of a bare string.
+// Protocol stays 4 and the durable save format is untouched: no gameplay, price,
+// employment or command law changed, and no new state is stored.
+export const PROJECTION_VERSION = 31 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
 const ratio = () => number({ minimum: 0, maximum: 1 })
+
+/**
+ * The ONE closed per-record attention vocabulary. Casting projects have published
+ * it since P04A; R3-N4-SIM-20 gives Development's per-screenplay records the same
+ * vocabulary rather than a second, divergent one. Adding a value here changes both
+ * surfaces at once, which is exactly the intent.
+ */
+const recordAttention = () =>
+  enumeration(['none', 'ready', 'waiting', 'active', 'decisionRequired', 'blocked'])
 
 const StudioGridCellSnapshot = object('StudioGridCellSnapshot', {
   gx: integer(),
@@ -891,6 +911,11 @@ const StudioDevelopmentProjectSnapshot = object('StudioDevelopmentProjectSnapsho
   writerId: nonEmptyText(),
   writerName: nonEmptyText(),
   consequence: nonEmptyText(),
+  /**
+   * R3-N4-SIM-20: the engine's own per-screenplay attention, so the client never
+   * re-derives one from `status`. Same vocabulary as `StudioCastingProjectSnapshot`.
+   */
+  attention: recordAttention(),
   assessment: nullable(reference('StudioScriptAssessmentSnapshot', StudioScriptAssessmentSnapshot)),
   facilityName: nullable(text()),
   slot: nullable(nonNegativeInteger()),
@@ -1191,7 +1216,7 @@ const StudioCastingProjectSnapshot = object('StudioCastingProjectSnapshot', {
   weeksUntilDecision: nullable(nonNegativeInteger()),
   /** The no-fee/no-hold/one-week copy from Core CASTING_SESSION_CONSEQUENCE. */
   consequence: nonEmptyText(),
-  attention: enumeration(['none', 'ready', 'waiting', 'active', 'decisionRequired', 'blocked']),
+  attention: recordAttention(),
   directorCandidates: array(reference('StudioCastingCandidateSnapshot', StudioCastingCandidateSnapshot)),
   leadCandidates: array(reference('StudioCastingCandidateSnapshot', StudioCastingCandidateSnapshot)),
   antagonistCandidates: array(reference('StudioCastingCandidateSnapshot', StudioCastingCandidateSnapshot)),
@@ -1230,6 +1255,14 @@ const StudioContractOfferSnapshot = object('StudioContractOfferSnapshot', {
   guaranteedComp: nonNegativeInteger(),
   /** Signing bonus + guaranteed compensation: the total obligation signed into. */
   totalObligation: nonNegativeInteger(),
+  /**
+   * R3-N4-SIM-20: the D-12 solvency answer for THIS term's signing bonus, asked of
+   * the same authority (`canAfford`) the sign door re-asks at commit. Presentation
+   * only — it neither authorizes nor blocks anything.
+   */
+  affordable: bool(),
+  /** The engine's own refusal sentence for this term, or null when none applies. */
+  refusalReason: nullable(text()),
 })
 
 /**
@@ -2127,6 +2160,16 @@ const StudioFinanceRoute = object('StudioFinanceRoute', {
   kind: enumeration(['profile','facilityHistory','casting','production','releaseResult','filmHistory','development']),
   targetId: nonEmptyText(), label: nonEmptyText(),
 })
+/**
+ * R3-N4-SIM-20: one Finance attention line. `id` is a stable row identity (the
+ * client keys `finance-attention-<id>` off it), `message` is the unchanged
+ * sentence, and `route` is an EXISTING presentation destination or null. No new
+ * route kind is minted here: a line whose destination is inside the Finance
+ * screen itself publishes `route: null` rather than an invented target.
+ */
+const StudioFinanceAttention = object('StudioFinanceAttention', {
+  id: nonEmptyText(), message: nonEmptyText(), route: nullable(reference('StudioFinanceRoute', StudioFinanceRoute)),
+})
 const StudioFinanceUpcomingEvent = object('StudioFinanceUpcomingEvent', {
   id: nonEmptyText(), kind: enumeration(['facilityCompletion','facilityOpex','contractRenewal','contractExpiry','setCompletion']),
   week: nonNegativeInteger(), label: nonEmptyText(), detail: nonEmptyText(),
@@ -2173,7 +2216,8 @@ const StudioFinanceSnapshot = object('StudioFinanceSnapshot', {
   employees: array(reference('StudioFinanceEmployee', StudioFinanceEmployee)),
   facilities: array(reference('StudioFinanceFacility', StudioFinanceFacility)),
   films: array(reference('StudioFinanceFilm', StudioFinanceFilm)),
-  guaranteedPayrollRemaining: number(), obligationsBasis: nonEmptyText(), operationsBasis: nonEmptyText(), attention: array(text()),
+  guaranteedPayrollRemaining: number(), obligationsBasis: nonEmptyText(), operationsBasis: nonEmptyText(),
+  attention: array(reference('StudioFinanceAttention', StudioFinanceAttention)),
   weeklyCostTimeClass: literal('currentRecurringCost'), scheduledRevenueTimeClass: literal('knownCommitment'), paceTimeClass: literal('currentPaceEstimate'),
   asOfWeek: nonNegativeInteger(), cash: number(), weeklyPayroll: number({minimum: 0}),
   weeklyOverhead: number({minimum: 0}), weeklyFacilityOperatingCost: number({minimum: 0}),
@@ -2542,6 +2586,7 @@ const definitions = {
   StudioFinanceProjection: StudioFinanceProjectionSchema,
   StudioFinanceSnapshot,
   StudioFinanceRoute,
+  StudioFinanceAttention,
   StudioFinanceUpcoming,
   StudioFinanceUpcomingWindow,
   StudioFinanceUpcomingEvent,

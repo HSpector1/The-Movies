@@ -39,8 +39,12 @@ import {
   validateCommand,
   type AvailableIntent,
 } from '../bridge/protocol.ts'
-import { loadCampaignLibrary } from '../bridge/runtime/campaign-library.ts'
-import { DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS as limits } from '../bridge/runtime-checkpoint.ts'
+import { CAMPAIGN_LIBRARY_MAX_RECORDS, loadCampaignLibrary } from '../bridge/runtime/campaign-library.ts'
+import { decodeCampaignStorage } from '../bridge/runtime/campaign-storage-codec.ts'
+import {
+  DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS as limits,
+  SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS,
+} from '../bridge/runtime-checkpoint.ts'
 import { BridgeSession, authoritativeDigest, type CommandResponse } from '../bridge/session.ts'
 import type { GameState } from '../src/core/index.ts'
 
@@ -77,14 +81,33 @@ function submit(
   return session.command(parsed.command)
 }
 
-/** Loads the immutable r3n1-dense-02 fixture fresh, each call — never mutated. */
+/**
+ * Loads the immutable r3n1-dense-02 fixture fresh, each call — never mutated.
+ *
+ * R3-N4-SIM-20 (projection 30 -> 31): this fixture was generated under the
+ * projection-30 contract, so loading it now re-encodes its working checkpoint at
+ * the running identity and `loaded.changed` is true for a CONTRACT reason alone.
+ * The guard is narrowed rather than dropped: the only tolerated cause is that
+ * governed migration, proved by the stored checkpoint carrying a REGISTERED prior
+ * protocol-4 identity. Any other difference — a mutated fixture, an unregistered
+ * identity, a silent save migration — still throws exactly as before. (Whether to
+ * regenerate the fixture at projection 31 instead is the fixture author's call.)
+ */
 function loadFixtureState(): GameState {
   const path = resolve(
     'evidence/Playability-Interaction-01/fixtures/r3n1-dense-02/generated-r3n1-dense-02.checkpoint.json',
   )
   const raw = readFileSync(path, 'utf8')
+  const stored = decodeCampaignStorage(
+    JSON.parse(raw),
+    limits.maxCheckpointBytes,
+    CAMPAIGN_LIBRARY_MAX_RECORDS,
+  ) as { workingCheckpointJson: string }
+  const storedSchemaId = (JSON.parse(stored.workingCheckpointJson) as { schemaId: string }).schemaId
   const loaded = loadCampaignLibrary(raw, limits)
-  if (loaded.changed) throw new Error('r3n1-dense-02 fixture: unexpected migration/change on load')
+  if (loaded.changed && !SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.has(storedSchemaId)) {
+    throw new Error('r3n1-dense-02 fixture: unexpected migration/change on load')
+  }
   return loaded.session.gameState
 }
 

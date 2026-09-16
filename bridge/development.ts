@@ -31,6 +31,7 @@ import {
   type Genre,
   type Promise as FilmPromise,
   type FilmShape,
+  type ReadyScriptPackageView,
   type ScriptProjectCardView,
   type ScriptProjectsReadModel,
 } from '../src/core/index.ts'
@@ -165,9 +166,51 @@ function projectSlot(
   return { facilityName: null, slot: null }
 }
 
+type DevelopmentAttentionWire =
+  NonNullable<BridgeDevelopmentSnapshot['board']>['projects'][number]['attention']
+
+/**
+ * R3-N4-SIM-20 — per-screenplay attention, in the SAME closed vocabulary the Casting
+ * board already publishes and decided by the SAME order (`bridge/casting.ts`
+ * `attentionFor`): a required decision outranks live work, a commitment that would
+ * only queue is `waiting`, and only a genuinely unblocked Ready screenplay is `ready`.
+ *
+ * Every input is an existing Script read-model fact — the project's own lifecycle
+ * status and, for a Ready screenplay, the package availability the greenlight door
+ * itself publishes. Nothing here is a new gate, and nothing is re-derived from
+ * player-facing copy.
+ */
+function attentionFor(
+  card: ScriptProjectCardView,
+  readyPackage: ReadyScriptPackageView | undefined,
+): DevelopmentAttentionWire {
+  switch (card.status) {
+    case 'review':
+      return 'decisionRequired'
+    case 'drafting':
+    case 'rewriting':
+      return 'active'
+    case 'inProduction':
+    case 'produced':
+      return 'none'
+    case 'ready': {
+      if (readyPackage === undefined) {
+        throw new Error(
+          `developmentProjection: Ready screenplay "${card.projectId}" has no package view`,
+        )
+      }
+      const availability = readyPackage.availability
+      if (availability.blockers.length === 0) return 'ready'
+      if (availability.willQueueGreenlightIntent) return 'waiting'
+      return 'blocked'
+    }
+  }
+}
+
 function projectSnapshot(
   card: ScriptProjectCardView,
   capacity: ReturnType<typeof capacitySnapshot>,
+  readyPackage: ReadyScriptPackageView | undefined,
 ) {
   const seat = projectSlot(capacity, card.projectId)
   return {
@@ -183,6 +226,7 @@ function projectSnapshot(
     writerId: card.writer.id,
     writerName: card.writer.name,
     consequence: card.consequence,
+    attention: attentionFor(card, readyPackage),
     assessment: assessmentSnapshot(card.assessment),
     facilityName: seat.facilityName,
     slot: seat.slot,
@@ -409,6 +453,9 @@ export function developmentProjection(state: GameState): BridgeDevelopmentSnapsh
     ...board.sections.productionHistory,
   ]
   const voices = worldVoices(board)
+  const packagesByProjectId = new Map(
+    board.packages.map((entry) => [entry.projectId, entry] as const),
+  )
   return {
     mode: board.mode,
     board: {
@@ -421,7 +468,9 @@ export function developmentProjection(state: GameState): BridgeDevelopmentSnapsh
         detail: board.lotAttention.detail,
       },
       capacity,
-      projects: cards.map((card) => projectSnapshot(card, capacity)),
+      projects: cards.map((card) =>
+        projectSnapshot(card, capacity, packagesByProjectId.get(card.projectId)),
+      ),
       commission: commissionSnapshot(state, board),
       review: reviewSnapshot(state, board),
     },

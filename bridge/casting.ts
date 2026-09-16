@@ -29,6 +29,7 @@
 import { financialConsequence } from './finance-consequence.ts'
 import {
   assignmentProjectCost,
+  canAfford,
   CASTING_SESSION_CONSEQUENCE,
   castingPackageReadModel,
   castingSessionsReadModel,
@@ -353,7 +354,7 @@ export function castingProjection(state: GameState): BridgeCastingSnapshot {
     projects,
     expiryNotices: expiryNotices(state),
     // P05A.3 §8/§13: the signable market + the authoritative rotation week.
-    hiringCandidates: hiringMarketView(state).map(hiringCandidateSnapshot),
+    hiringCandidates: hiringMarketView(state).map((view) => hiringCandidateSnapshot(state, view)),
     freelancerMarketRefreshWeek: freelancerMarketRefreshWeek(state),
   }
   return { mode: 'managed', board }
@@ -477,7 +478,30 @@ function greenlightConversion(
   }
 }
 
-function hiringCandidateSnapshot(view: HiringCandidateView) {
+/**
+ * R3-N4-SIM-20 — the affordability answer for ONE published term, asked of the SAME
+ * authority the sign door re-asks at commit (`canAfford` on the signing bonus, the
+ * D-12.11 voluntary-commitment gate). This is a projection of an existing rule, not
+ * a new one: the published board is already the operating-phase hiring market (the
+ * whole Casting projection is null during founding) and every person in it is
+ * currently signable, so the signing bonus is the only live refusal a term can carry.
+ * Nothing here authorizes a signing — the engine still refuses at the door.
+ */
+function offerAffordability(
+  state: GameState,
+  offer: ContractOfferView,
+): { affordable: boolean; refusalReason: string | null } {
+  const affordability = canAfford(state, offer.signingBonus)
+  if (affordability.ok) return { affordable: true, refusalReason: null }
+  return {
+    affordable: false,
+    refusalReason:
+      `The studio cannot cover the $${offer.signingBonus.toLocaleString('en-US')} signing ` +
+      `bonus for this ${offer.termLabel} term this week (${affordability.reason}).`,
+  }
+}
+
+function hiringCandidateSnapshot(state: GameState, view: HiringCandidateView) {
   return {
     talentId: view.talentId,
     name: view.name,
@@ -488,7 +512,10 @@ function hiringCandidateSnapshot(view: HiringCandidateView) {
     genreExperienceLabel: view.genreExperienceLabel,
     kind: view.kind,
     availabilityLabel: view.availabilityLabel,
-    offers: view.offers.map((offer: ContractOfferView) => ({ ...offer })),
+    offers: view.offers.map((offer: ContractOfferView) => ({
+      ...offer,
+      ...offerAffordability(state, offer),
+    })),
   }
 }
 

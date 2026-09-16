@@ -6,7 +6,18 @@ import { filmCommittedCost } from '../src/core/receptionVerdict.ts'
 import { filmResultView } from '../ui/src/engine/adapter.ts'
 import { financeUpcoming } from './finance-upcoming.ts'
 import { financePortfolio } from './finance-portfolio.ts'
+import type { FinanceRoute } from './finance-route.ts'
 import type { BridgePeopleProjection } from './people.ts'
+
+/**
+ * R3-N4-SIM-20 — one Finance attention line. The sentence is unchanged; `id` is a
+ * stable row identity the client can key a control off, and `route` is an EXISTING
+ * presentation destination or null. A line whose destination is inside the Finance
+ * screen itself (the current-period card, the recording-coverage boundary) publishes
+ * `route: null` rather than an invented target, because no such route kind exists on
+ * the wire and this delta mints none.
+ */
+export type FinanceAttention = { id: string; message: string; route: FinanceRoute | null }
 
 export type FinanceFilm = {
   productionId: string; title: string; status: string; releaseWeek: number | null; resultAvailable: boolean;
@@ -80,8 +91,32 @@ export function financeProjection(state: GameState, people: BridgePeopleProjecti
     guaranteedPayrollRemaining: employees.reduce((sum,e)=>sum+e.guaranteedRemaining,0),
     obligationsBasis:'Contract guarantees describe future payroll under existing terms. They are not an additional charge and are not subtracted from Cash. Signing bonuses already paid are excluded.',
     operationsBasis:'Ordinary overhead and operational facility costs are recurring. Construction capital and one-time Set repairs are recorded separately. Builder employment costs are not modeled.',
-    attention: [ ...(overview.runwayState==='inRed'?['Cash is in the red. Current receipts and existing obligations remain visible; voluntary decisions follow their own affordability rules.']:[]),
-      ...(employees.some(e=>e.renewalOpen)?[`${employees.filter(e=>e.renewalOpen).length} employee contract(s) are in their renewal window. Review Payroll.`]:[]),
-      ...(overview.coverageNotice===null?[]:['Earlier financial history is incomplete. See recording coverage before comparing periods.']) ],
+    attention: attentionRows(overview, employees),
   }
+}
+
+/**
+ * The SAME three producers and the SAME three sentences as before — only the wire
+ * shape changed. Order is the existing order (solvency, renewals, coverage), so a
+ * replayed response keeps its exact reading order.
+ */
+function attentionRows(
+  overview: ReturnType<typeof financeOverview>,
+  employees: readonly { talentId: string; renewalOpen: boolean }[],
+): FinanceAttention[] {
+  const renewing = employees.filter(e => e.renewalOpen)
+  const rows: FinanceAttention[] = []
+  if (overview.runwayState === 'inRed') rows.push({ id: 'cash-in-red',
+    message: 'Cash is in the red. Current receipts and existing obligations remain visible; voluntary decisions follow their own affordability rules.',
+    route: null })
+  if (renewing.length > 0) rows.push({ id: 'contract-renewals',
+    message: `${renewing.length} employee contract(s) are in their renewal window. Review Payroll.`,
+    // One open window has one exact owner; several have no single destination, and
+    // silently picking one would misdescribe the line. `finance-upcoming` routes the
+    // same contract-renewal fact to the same place with this same label.
+    route: renewing.length === 1 ? { kind: 'profile', targetId: renewing[0].talentId, label: 'Open Profile' } : null })
+  if (overview.coverageNotice !== null) rows.push({ id: 'recording-coverage',
+    message: 'Earlier financial history is incomplete. See recording coverage before comparing periods.',
+    route: null })
+  return rows
 }
