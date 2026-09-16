@@ -25,7 +25,9 @@
   the 1280×720/200 % cell hosts the person overlay. New: F21 (Down steps the ring backwards instead of the row cursor — keyboard row
   navigation broken), F22 (1280×720/200 % with four pictures shows zero cards), F23 (script cards publish no activation element), and the
   Schedule-take execute control was published+enabled but the driver's click found no target (transient; re-run with observe-before-click).
-  IMPL-20 read-only diagnosis running; then fixes, TEST-18, rendered, Build53, native rerun, K10.
+  IMPL-20 diagnosis done; IMPL-21 fixes landed (Unity 2c7a5cda: F21, F23, F22 rung 1, stale list rows, F24); TEST-19 writing regressions; then
+  rendered, Build53, native rerun (N2E/N2F + dense-02 B5 with the corrected script), K10. Schedule-take on Build52: the click landed (fresh
+  re-derivation, accepted once, control removed) — the driver misreported it.
 - Design sheets ready for N3–N6; stage sprites authored (d133f509). Plan rulings C8/C9 recorded.
 
 ## Program order for the window
