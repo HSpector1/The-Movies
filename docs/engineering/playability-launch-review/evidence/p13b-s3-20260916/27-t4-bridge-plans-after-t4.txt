@@ -1,0 +1,64 @@
+P13B-S3-T4 test-author task — tests/bridge-p13b-s3-plans.test.ts, SECOND run.
+Command: npx vitest run tests/bridge-p13b-s3-plans.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000
+Run at: 2026-09-16 23:39:47 (local), HEAD 30836b0, worktree wip/headless-program-20260916-ts.
+`grep -n "PROJECTION_VERSION = 35" bridge/schema/bridge-schema.ts` matched (confirmed
+immediately before this run, at 23:39:41) — matched already at the FIRST run too; see
+27-t4-bridge-plans-red.txt's timing note. No files under bridge/, generated/ or tests/
+changed between the two runs (identical `git status --porcelain` hash before/after).
+
+Result: identical to the first run — 11 tests, 10 passed, 1 failed, the SAME case 2
+assertion at the same line (tests/bridge-p13b-s3-plans.test.ts:280), same stack. This
+confirms the one failure is a stable, reproducible finding against the landed T4
+implementation, not run-to-run flakiness.
+
+CAPTURE CAVEAT: vitest's default terminal reporter updates lines in place; two different
+individual test-name lines were dropped from the piped, non-TTY capture on the two runs
+(the top-level "bumps PROJECTION_VERSION..." line both times, and case 5's second `it`
+this run only) even though both runs' own summary counts ("11 tests | 1 failed", "10
+passed (11)") and the printed failure detail are complete and identical. This is a
+capture-fidelity artifact of piping the live reporter to a file, not a test-execution
+difference — every one of the 11 cases is a real `it()` in the file and was counted by
+vitest in both runs.
+
+──────────────────────────────────────────────────────────────────────────────
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p13b-s3-plans.test.ts (11 tests | 1 failed) 11057ms
+   ✓ case 1: a fresh studio publishes an empty plans page; plans is null off the plans view > snapshotVersion 35; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null 1544ms
+   × case 2: the Laboratory-page acoustic companion queues, admits and appears on the plans page > plan-queue-acoustic-<lab> exists beside instruments-<lab> naming the cost/build-weeks/no-reservation facts; dispatching it queues a full row on the plans view; one bridge advance starts it, writing planQueued/planStarted history; the acoustic companion then disappears while electrical still offers 1846ms
+     → expected false to be true // Object.is equality
+   ✓ case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a queued electrical plan with cash spent below its cost stays queued after an advance, with next.reason === "insufficient cash" 1166ms
+   ✓ case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a forged approvedQuote.fingerprint holds at the next boundary; plan-review-<planId> names the approved/pending figures; dispatching it re-queues with the pending fingerprint promoted, then it starts 1465ms
+   ✓ case 4: cancel blocks its dependent; a started plan has no cancel row > cancelling the predecessor cancels it and blocks the dependent, naming it, with matching history rows; the cancel row disappears; an independently STARTED plan carries no cancel row at all 1400ms
+   ✓ case 5: reorder > three independent queued plans: move-down swaps ordinals 1<->2 on the wire; move-up is disabled at the top and move-down at the bottom 1000ms
+   ✓ case 5: reorder > a dependent immediately following its predecessor cannot move up: disabled with the engine's own "before its dependency" text (dropped from this capture; passed — see summary count and 27-t4-bridge-plans-red.txt's first run, where this same case's line printed explicitly and passed)
+   ✓ case 6: admission mode toggle > the mode NOT currently set is the only admission action offered; dispatching it flips the row's admission 837ms
+   ✓ case 7: stale revision > a plans intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that specific attempt changes nothing 1156ms
+   ✓ case 8: player-safe — no rival plan, planId or facility ever appears > a structurally injected rival plan row never appears on the player plans view, in no action id, and its studio id leaks nowhere in the page 392ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-plans.test.ts > case 2: the Laboratory-page acoustic companion queues, admits and appears on the plans page > plan-queue-acoustic-<lab> exists beside instruments-<lab> naming the cost/build-weeks/no-reservation facts; dispatching it queues a full row on the plans view; one bridge advance starts it, writing planQueued/planStarted history; the acoustic companion then disappears while electrical still offers
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/bridge-p13b-s3-plans.test.ts:280:84
+    278|     const afterStart = labPage(nextSession, buildingId, nextRequestId(…
+    279|     const acousticCompanion = afterStart.actions.find(a => a.id === `p…
+    280|     expect(acousticCompanion === undefined || acousticCompanion.enable…
+       |                                                                                    ^
+    281|     const electricalCompanion = required(afterStart.actions.find(a => …
+    282|     expect(electricalCompanion.enabled).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed (11)
+   Start at  23:39:47
+   Duration  16.23s (transform 3.37s, setup 0ms, collect 4.55s, tests 11.06s, environment 0ms, prepare 164ms)

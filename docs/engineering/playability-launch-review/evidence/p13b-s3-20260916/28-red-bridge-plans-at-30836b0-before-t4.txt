@@ -1,0 +1,154 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/154fda95-524f-4734-9a1a-376fe09a0946/scratchpad/red-30836b0
+
+ ❯ |core| tests/bridge-p13b-s3-plans.test.ts (11 tests | 11 failed) 6657ms
+   × P13B-S3-T4 plans bridge page: projection bump > bumps PROJECTION_VERSION to the S3-T4 wire contract (35) 17ms
+     → expected 34 to be 35 // Object.is equality
+   × case 1: a fresh studio publishes an empty plans page; plans is null off the plans view > snapshotVersion 35; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null 1808ms
+     → plans view absent (request fresh-req-0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"fresh-req-0","sessionId":"p13b-s3-plans-1-fresh","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"plans","targetId":null,"page":0,"pageSize":50,"totalRows":
+   × case 2: the Laboratory-page acoustic companion queues, admits and appears on the plans page > plan-queue-acoustic-<lab> exists beside instruments-<lab> naming the cost/build-weeks/no-reservation facts; dispatching it queues a full row on the plans view; one bridge advance starts it, writing planQueued/planStarted history; the acoustic companion then disappears while electrical still offers 1097ms
+     → plan-queue-acoustic-1 row absent
+   × case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a queued electrical plan with cash spent below its cost stays queued after an advance, with next.reason === "insufficient cash" 465ms
+     → Row "plan-queue-electrical-1" is absent from ["recruit-1-t-sci-00","recruit-1-t-sci-01","recruit-1-t-sci-02","recruit-1-t-sci-03","recruit-1-t-sci-04","recruit-1-t-sci-05","recruit-1-t-sci-06","recruit-1-t-sci-07","instruments-1","wait-synchronized-sound","purchase-synchronized-sound","adopt-facility-soundstage-07-facility-post-building","adopt-facility-soundstage-12-facility-post-building"].
+   × case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a forged approvedQuote.fingerprint holds at the next boundary; plan-review-<planId> names the approved/pending figures; dispatching it re-queues with the pending fingerprint promoted, then it starts 963ms
+     → plans view absent (request held-req-3-p0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"held-req-3-p0","sessionId":"p13b-s3-plans-3b-held","stateRevision":0,"stateDigest":"742d08169f04c05d5335ba4fc6373e6ca4bedb44d521080ebae87e16e8541500","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":13,"year":1920,"weekOfYear":14,"label":"1920 · Week 14"},"view":"plans","targetId":null,"page":0,"pageSize":50,"totalRows
+   × case 4: cancel blocks its dependent; a started plan has no cancel row > cancelling the predecessor cancels it and blocks the dependent, naming it, with matching history rows; the cancel row disappears; an independently STARTED plan carries no cancel row at all 579ms
+     → plans view absent (request before-cancel-req-4-p0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"before-cancel-req-4-p0","sessionId":"p13b-s3-plans-4-cancel","stateRevision":0,"stateDigest":"7792ce968c9f276e852933d620a6b7917829dc47d9ff41b476102f6ad0752c55","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":13,"year":1920,"weekOfYear":14,"label":"1920 · Week 14"},"view":"plans","targetId":null,"page":0,"pageSize":50,
+   × case 5: reorder > three independent queued plans: move-down swaps ordinals 1<->2 on the wire; move-up is disabled at the top and move-down at the bottom 305ms
+     → plans view absent (request before-reorder-req-5-p0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"before-reorder-req-5-p0","sessionId":"p13b-s3-plans-5-reorder","stateRevision":0,"stateDigest":"097eb0f51cd638603ba7f669d7eb4a77f8823f98fead56b61b8fb4ffe7d37db2","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"plans","targetId":null,"page":0,"pageSize":5
+   × case 5: reorder > a dependent immediately following its predecessor cannot move up: disabled with the engine's own "before its dependency" text 269ms
+     → plans view absent (request dependency-req-6-p0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"dependency-req-6-p0","sessionId":"p13b-s3-plans-5b-dependency","stateRevision":0,"stateDigest":"a211062ee4aab708a39a3211d8d4298532b1427d8987b2846f094bef7da8e274","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"plans","targetId":null,"page":0,"pageSize":5
+   × case 6: admission mode toggle > the mode NOT currently set is the only admission action offered; dispatching it flips the row's admission 333ms
+     → plans view absent (request before-admission-req-7-p0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"before-admission-req-7-p0","sessionId":"p13b-s3-plans-6-admission","stateRevision":0,"stateDigest":"e1d124e948458b34047f60f3e64d85fa7acb5da4e23744de55f0ca386d933ed0","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"plans","targetId":null,"page":0,"pageSiz
+   × case 7: stale revision > a plans intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that specific attempt changes nothing 290ms
+     → Row "plan-queue-acoustic-1" is absent from ["recruit-1-t-sci-00","recruit-1-t-sci-01","recruit-1-t-sci-02","recruit-1-t-sci-03","recruit-1-t-sci-04","recruit-1-t-sci-05","recruit-1-t-sci-06","recruit-1-t-sci-07","instruments-1","wait-synchronized-sound","purchase-synchronized-sound","adopt-facility-soundstage-07-facility-post-building","adopt-facility-soundstage-12-facility-post-building"].
+   × case 8: player-safe — no rival plan, planId or facility ever appears > a structurally injected rival plan row never appears on the player plans view, in no action id, and its studio id leaks nowhere in the page 525ms
+     → plans view absent (request player-safe-req-9-p0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"player-safe-req-9-p0","sessionId":"p13b-s3-plans-8-player-safe","stateRevision":0,"stateDigest":"3125f1f1488ce09f4827b4e0fccfc925fa726b87efafd75c65860eaf82346a0a","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"plans","targetId":null,"page":0,"pageSize":
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-plans.test.ts > P13B-S3-T4 plans bridge page: projection bump > bumps PROJECTION_VERSION to the S3-T4 wire contract (35)
+AssertionError: expected 34 to be 35 // Object.is equality
+
+- Expected
++ Received
+
+- 35
++ 34
+
+ ❯ tests/bridge-p13b-s3-plans.test.ts:193:32
+    191| describe('P13B-S3-T4 plans bridge page: projection bump', () => {
+    192|   it('bumps PROJECTION_VERSION to the S3-T4 wire contract (35)', () =>…
+    193|     expect(PROJECTION_VERSION).toBe(35)
+       |                                ^
+    194|   })
+    195| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-plans.test.ts > case 1: a fresh studio publishes an empty plans page; plans is null off the plans view > snapshotVersion 35; rows and actions are both empty arrays on a fresh studio; laboratory view carries plans: null
+Error: plans view absent (request fresh-req-0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"fresh-req-0","sessionId":"p13b-s3-plans-1-fresh","stateRevision":0,"stateDigest":"19de2189b955045236dcd7868e87e1b0085a17debfa10dcdc5bc842a64db6c11","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"plans","targetId":null,"page":0,"pageSize":50,"totalRows":
+ ❯ plansResponse tests/bridge-p13b-s3-plans.test.ts:145:64
+
+ ❯ tests/bridge-p13b-s3-plans.test.ts:204:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-plans.test.ts > case 2: the Laboratory-page acoustic companion queues, admits and appears on the plans page > plan-queue-acoustic-<lab> exists beside instruments-<lab> naming the cost/build-weeks/no-reservation facts; dispatching it queues a full row on the plans view; one bridge advance starts it, writing planQueued/planStarted history; the acoustic companion then disappears while electrical still offers
+Error: plan-queue-acoustic-1 row absent
+ ❯ required tests/bridge-p13b-s3-plans.test.ts:78:52
+     76|  * informative test failure instead of a silent runtime crash. */
+     77| function required<T>(value: T | null | undefined, message: string): T {
+     78|   if (value === null || value === undefined) throw new Error(message)
+       |                                                    ^
+     79|   return value
+     80| }
+ ❯ tests/bridge-p13b-s3-plans.test.ts:224:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-plans.test.ts > case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a queued electrical plan with cash spent below its cost stays queued after an advance, with next.reason === "insufficient cash"
+Error: Row "plan-queue-electrical-1" is absent from ["recruit-1-t-sci-00","recruit-1-t-sci-01","recruit-1-t-sci-02","recruit-1-t-sci-03","recruit-1-t-sci-04","recruit-1-t-sci-05","recruit-1-t-sci-06","recruit-1-t-sci-07","instruments-1","wait-synchronized-sound","purchase-synchronized-sound","adopt-facility-soundstage-07-facility-post-building","adopt-facility-soundstage-12-facility-post-building"].
+ ❯ dispatchRow tests/bridge-p13b-s3-plans.test.ts:168:19
+    166| function dispatchRow(session: BridgeSession, actions: readonly WireAct…
+    167|   const row = actions.find(a => a.id === rowId)
+    168|   if (!row) throw new Error(`Row "${rowId}" is absent from ${JSON.stri…
+       |                   ^
+    169|   if (!row.enabled || !row.intent) throw new Error(`Row "${rowId}" is …
+    170|   const response = session.command({
+ ❯ tests/bridge-p13b-s3-plans.test.ts:297:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-plans.test.ts > case 3: the envelope hold (insufficient cash) and the changed-quote hold (forged fingerprint) > a forged approvedQuote.fingerprint holds at the next boundary; plan-review-<planId> names the approved/pending figures; dispatching it re-queues with the pending fingerprint promoted, then it starts
+Error: plans view absent (request held-req-3-p0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"held-req-3-p0","sessionId":"p13b-s3-plans-3b-held","stateRevision":0,"stateDigest":"742d08169f04c05d5335ba4fc6373e6ca4bedb44d521080ebae87e16e8541500","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":13,"year":1920,"weekOfYear":14,"label":"1920 · Week 14"},"view":"plans","targetId":null,"page":0,"pageSize":50,"totalRows
+ ❯ plansResponse tests/bridge-p13b-s3-plans.test.ts:145:64
+
+ ❯ plansPage tests/bridge-p13b-s3-plans.test.ts:153:17
+ ❯ tests/bridge-p13b-s3-plans.test.ts:324:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-plans.test.ts > case 4: cancel blocks its dependent; a started plan has no cancel row > cancelling the predecessor cancels it and blocks the dependent, naming it, with matching history rows; the cancel row disappears; an independently STARTED plan carries no cancel row at all
+Error: plans view absent (request before-cancel-req-4-p0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"before-cancel-req-4-p0","sessionId":"p13b-s3-plans-4-cancel","stateRevision":0,"stateDigest":"7792ce968c9f276e852933d620a6b7917829dc47d9ff41b476102f6ad0752c55","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":13,"year":1920,"weekOfYear":14,"label":"1920 · Week 14"},"view":"plans","targetId":null,"page":0,"pageSize":50,
+ ❯ plansResponse tests/bridge-p13b-s3-plans.test.ts:145:64
+
+ ❯ plansPage tests/bridge-p13b-s3-plans.test.ts:153:17
+ ❯ tests/bridge-p13b-s3-plans.test.ts:377:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-plans.test.ts > case 5: reorder > three independent queued plans: move-down swaps ordinals 1<->2 on the wire; move-up is disabled at the top and move-down at the bottom
+Error: plans view absent (request before-reorder-req-5-p0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"before-reorder-req-5-p0","sessionId":"p13b-s3-plans-5-reorder","stateRevision":0,"stateDigest":"097eb0f51cd638603ba7f669d7eb4a77f8823f98fead56b61b8fb4ffe7d37db2","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"plans","targetId":null,"page":0,"pageSize":5
+ ❯ plansResponse tests/bridge-p13b-s3-plans.test.ts:145:64
+
+ ❯ plansPage tests/bridge-p13b-s3-plans.test.ts:153:17
+ ❯ tests/bridge-p13b-s3-plans.test.ts:415:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-plans.test.ts > case 5: reorder > a dependent immediately following its predecessor cannot move up: disabled with the engine's own "before its dependency" text
+Error: plans view absent (request dependency-req-6-p0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"dependency-req-6-p0","sessionId":"p13b-s3-plans-5b-dependency","stateRevision":0,"stateDigest":"a211062ee4aab708a39a3211d8d4298532b1427d8987b2846f094bef7da8e274","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"plans","targetId":null,"page":0,"pageSize":5
+ ❯ plansResponse tests/bridge-p13b-s3-plans.test.ts:145:64
+
+ ❯ plansPage tests/bridge-p13b-s3-plans.test.ts:153:17
+ ❯ tests/bridge-p13b-s3-plans.test.ts:438:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-plans.test.ts > case 6: admission mode toggle > the mode NOT currently set is the only admission action offered; dispatching it flips the row's admission
+Error: plans view absent (request before-admission-req-7-p0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"before-admission-req-7-p0","sessionId":"p13b-s3-plans-6-admission","stateRevision":0,"stateDigest":"e1d124e948458b34047f60f3e64d85fa7acb5da4e23744de55f0ca386d933ed0","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"plans","targetId":null,"page":0,"pageSiz
+ ❯ plansResponse tests/bridge-p13b-s3-plans.test.ts:145:64
+
+ ❯ plansPage tests/bridge-p13b-s3-plans.test.ts:153:17
+ ❯ tests/bridge-p13b-s3-plans.test.ts:454:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-plans.test.ts > case 7: stale revision > a plans intent submitted with a stale expectedStateRevision is refused with STALE_REVISION, and that specific attempt changes nothing
+Error: Row "plan-queue-acoustic-1" is absent from ["recruit-1-t-sci-00","recruit-1-t-sci-01","recruit-1-t-sci-02","recruit-1-t-sci-03","recruit-1-t-sci-04","recruit-1-t-sci-05","recruit-1-t-sci-06","recruit-1-t-sci-07","instruments-1","wait-synchronized-sound","purchase-synchronized-sound","adopt-facility-soundstage-07-facility-post-building","adopt-facility-soundstage-12-facility-post-building"].
+ ❯ dispatchRow tests/bridge-p13b-s3-plans.test.ts:168:19
+    166| function dispatchRow(session: BridgeSession, actions: readonly WireAct…
+    167|   const row = actions.find(a => a.id === rowId)
+    168|   if (!row) throw new Error(`Row "${rowId}" is absent from ${JSON.stri…
+       |                   ^
+    169|   if (!row.enabled || !row.intent) throw new Error(`Row "${rowId}" is …
+    170|   const response = session.command({
+ ❯ tests/bridge-p13b-s3-plans.test.ts:479:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-plans.test.ts > case 8: player-safe — no rival plan, planId or facility ever appears > a structurally injected rival plan row never appears on the player plans view, in no action id, and its studio id leaks nowhere in the page
+Error: plans view absent (request player-safe-req-9-p0, snapshotVersion 34, title "Industry Pulse"): {"protocolVersion":4,"schemaId":"sha256:eeebeedefeaa734290081eccb2b8e3701f95df3db2d66fd33a314581b99965b2","snapshotVersion":34,"type":"industryPage","requestId":"player-safe-req-9-p0","sessionId":"p13b-s3-plans-8-player-safe","stateRevision":0,"stateDigest":"3125f1f1488ce09f4827b4e0fccfc925fa726b87efafd75c65860eaf82346a0a","calendar":{"policy":"campaign-calendar-1920-52/v1","absoluteWeek":12,"year":1920,"weekOfYear":13,"label":"1920 · Week 13"},"view":"plans","targetId":null,"page":0,"pageSize":
+ ❯ plansResponse tests/bridge-p13b-s3-plans.test.ts:145:64
+
+ ❯ plansPage tests/bridge-p13b-s3-plans.test.ts:153:17
+ ❯ tests/bridge-p13b-s3-plans.test.ts:513:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/11]⎯
+
+ Test Files  1 failed (1)
+      Tests  11 failed (11)
+   Start at  23:42:10
+   Duration  12.56s (transform 4.00s, setup 0ms, collect 5.05s, tests 6.66s, environment 0ms, prepare 220ms)
+
