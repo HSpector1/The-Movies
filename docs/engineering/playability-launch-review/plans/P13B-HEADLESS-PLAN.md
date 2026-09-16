@@ -505,7 +505,7 @@ highest-operational-standard ladder. Nothing else in the estate changes.
 
 ### S4 tasks
 
-- [ ] **S4-T0** No fixture minting unless a persisted fact is added (Save V23 stays); confirm before T1.
+- [x] **S4-T0 (confirmed 2026-09-17 ≈01:20):** no persisted fact is added by the contract (standard and offline state are derived from ordinary placement records; the two conversion blueprints are installation blueprints), so Save V23 stays and no fixtures are minted. If sim-core finds a persisted fact unavoidable it must stop, mint V23 fixtures at `731b2d5` first, and allocate V24. Test-author dispatched for tests 1–5 RED (`evidence/p13b-s4-20260917/00-red-*`).
 - [ ] **S4-T1 Blueprints, standard derivation, offline law, quotes** (sim-core; test-author writes tests 1–5 RED first): tests 1, 3, part of 2.
 - [ ] **S4-T2 Downtime money + S3 integration:** tests 2, 4, 5.
 - [ ] **S4-T3 Bridge projection 36:** test 6 (`tests/bridge-p13b-s4-office.test.ts`).
