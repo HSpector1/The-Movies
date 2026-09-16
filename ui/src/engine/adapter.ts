@@ -3789,7 +3789,7 @@ export type ImportOutcome =
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const converted = save.saveVersion !== 20
+    const converted = save.saveVersion !== 21
     return { ok: true, state: migrateToV21(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }

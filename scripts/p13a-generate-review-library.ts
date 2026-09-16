@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { BridgeSession } from '../bridge/session.ts'
+import { makeSave } from '../src/core/save.js'
 import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS, loadBridgeRuntimeCheckpoint } from '../bridge/runtime-checkpoint.ts'
 import { initialCampaignLibrary, encodeCampaignLibrary, loadCampaignLibrary, type CampaignLibrary } from '../bridge/runtime/campaign-library.ts'
@@ -61,7 +62,7 @@ for (const source of sources) {
 const manifest = {
   kind: 'p13a-generated-evidence/v1', source: 'live engine generated fixture; no user campaign input', scenario: 'review-library',
   method: 'Eight unchanged previously generated engine checkpoints. Current initialCampaignLibrary mints storage UUIDs; only catalogue labels and record collection are authored. Full production loadCampaignLibrary validation preserves each exact source checkpoint. No player campaign operation is claimed by this setup.',
-  checkpoint, sha256: sha(encoded), bytes: Buffer.byteLength(encoded), schemaId: SCHEMA_ID, saveVersion: 20,
+  checkpoint, sha256: sha(encoded), bytes: Buffer.byteLength(encoded), schemaId: SCHEMA_ID, saveVersion: makeSave(checked.session.gameState).saveVersion,
   activeCampaignId: library.activeCampaignId, week: checked.session.gameState.market.tick, stateDigest: checked.session.snapshot().stateDigest,
   sources, generatorSha256: sha(readFileSync(resolve('scripts/p13a-generate-review-library.ts'), 'utf8')),
 }

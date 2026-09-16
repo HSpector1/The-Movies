@@ -20,6 +20,8 @@ export const RESEARCH_SCIENTISTS_PER_STUDIO = 8
 /** A whole budget dollar earns exactly 1/20,000 of a work unit; all work is kept as that integer numerator. */
 const WORK_UNIT = 20_000
 const money = (value: number) => '$' + value.toLocaleString('en-US', { maximumFractionDigits: 0 })
+/** Small counts are spelled out in player-facing refusals ("four seats", "eight Scientists"). */
+export const spelled = (n: number): string => ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'][n] ?? String(n)
 
 export function initialTechnology(week: number): StudioTechnology {
   return {version: 2, recordingStartedWeek: week, projects: [], access: [], adoptions: [], productions: []}
@@ -49,7 +51,7 @@ function playerStudioId(state: GameState): string {
 function knownTechnology(id: string): asserts id is TechnologyId {
   if (id !== SYNCHRONIZED_SOUND.id) throw new Error('That technology is not in this catalogue.')
 }
-export function technologyAccess(state: Pick<GameState, 'technology'>, studioId: string, id: string): boolean {
+export function technologyAccess(state: {technology?: Pick<StudioTechnology, 'access'>}, studioId: string, id: string): boolean {
   if (id !== SYNCHRONIZED_SOUND.id) return false
   return state.technology?.access.some(a => a.studioId === studioId && a.technologyId === id && a.acquiredWeek !== null) ?? false
 }
@@ -178,7 +180,7 @@ export function applyTechnologyAction(state: GameState, action: Exclude<Technolo
     const existing = state.technology.projects.find(p => p.studioId === own && p.technologyId === SYNCHRONIZED_SOUND.id)
     if (existing?.status === 'completed') throw new Error('Synchronized-sound research is complete; its seats accept no further assignment.')
     if (existing && existing.laboratoryFacilityId !== lab.id) throw new Error(`This project is staffed at ${state.operations.facilities.find(f => f.id === existing.laboratoryFacilityId)?.name ?? existing.laboratoryFacilityId}. Seats on a second Laboratory arrive with P13B multiple-Lab allocation.`)
-    if (existing && occupiedSeats(existing, lab.id).length >= lab.capacity) throw new Error(`This Laboratory's ${lab.capacity} seats are occupied. Release a seat or review another lawful Laboratory.`)
+    if (existing && occupiedSeats(existing, lab.id).length >= lab.capacity) throw new Error(`This Laboratory's ${spelled(lab.capacity)} seats are occupied. Release a seat or review another lawful Laboratory.`)
     const seat: ResearchSeat = {talentId: action.scientistId, laboratoryFacilityId: lab.id, assignedWeek: state.market.tick, releasedWeek: null}
     if (existing) return changeProject(state, existing.id, p => ({...p, seats: [...p.seats, seat]}))
     const project: ResearchProject = {id: `${own}:research:${SYNCHRONIZED_SOUND.id}`, studioId: own, technologyId: SYNCHRONIZED_SOUND.id,
@@ -496,18 +498,19 @@ export function validateTechnology(state: GameState): void {
     if (p.completedWeek !== null) completed.set(`${p.studioId}/${p.id}`, p.completedWeek)
     if (p.startedWeek !== null && verifiedWorkUnits > ((p.completedWeek ?? state.market.tick) - p.startedWeek) * lab!.capacity * 30_000) fail('verified work exceeds elapsed capacity of the Laboratory seats')
     let units = 0, spend = 0, receiptsFrom = p.startedWeek
-    if (p.legacy !== null) {
-      exact(p.legacy,['scientistId','throughWeek','verifiedWork','expenditure']);text(p.legacy.scientistId);integer(p.legacy.expenditure)
-      if (state.talent.find(t => t.id === p.legacy.scientistId)?.role !== 'scientist') fail('unknown legacy Scientist')
-      if (p.startedWeek === null) fail('legacy prefix without a start')
-      week(p.legacy.throughWeek);if (p.legacy.throughWeek < p.startedWeek) fail('legacy prefix precedes its start')
-      units = Math.round(p.legacy.verifiedWork * WORK_UNIT)
-      if (!Number.isFinite(p.legacy.verifiedWork) || p.legacy.verifiedWork < 0 || p.legacy.verifiedWork !== units / WORK_UNIT || units > WORK) fail('invalid legacy verified work')
-      const elapsed = Math.min(p.completedWeek ?? p.legacy.throughWeek, p.legacy.throughWeek) - p.startedWeek
+    const legacy = p.legacy
+    if (legacy !== null) {
+      exact(legacy,['scientistId','throughWeek','verifiedWork','expenditure']);text(legacy.scientistId);integer(legacy.expenditure)
+      if (state.talent.find(t => t.id === legacy.scientistId)?.role !== 'scientist') fail('unknown legacy Scientist')
+      const startedWeek = p.startedWeek ?? fail('legacy prefix without a start')
+      week(legacy.throughWeek);if (legacy.throughWeek < startedWeek) fail('legacy prefix precedes its start')
+      units = Math.round(legacy.verifiedWork * WORK_UNIT)
+      if (!Number.isFinite(legacy.verifiedWork) || legacy.verifiedWork < 0 || legacy.verifiedWork !== units / WORK_UNIT || units > WORK) fail('invalid legacy verified work')
+      const elapsed = Math.min(p.completedWeek ?? legacy.throughWeek, legacy.throughWeek) - startedWeek
       if (units > elapsed * 30_000) fail('legacy work exceeds one Scientist elapsed capacity')
-      if (units > elapsed * WORK_UNIT + p.legacy.expenditure) fail('legacy research acceleration was not paid')
-      spend = p.legacy.expenditure
-      receiptsFrom = p.legacy.throughWeek
+      if (units > elapsed * WORK_UNIT + legacy.expenditure) fail('legacy research acceleration was not paid')
+      spend = legacy.expenditure
+      receiptsFrom = legacy.throughWeek
     }
     if (p.weeks.length > 65) fail('research receipts exceed the bounded history')
     let last = -1
@@ -536,11 +539,12 @@ export function validateTechnology(state: GameState): void {
   for (const e of state.ledger) {
     if (e.kind !== 'researchSpend') continue
     week(e.week);integer(-e.amount,1)
-    const p = root.projects.find(p => e.note === `research:${p.id}`)
-    if (!p || p.startedWeek === null || e.week < p.startedWeek || p.completedWeek !== null && e.week >= p.completedWeek) fail('orphan research expense')
+    const p = root.projects.find(p => e.note === `research:${p.id}`) ?? fail('orphan research expense')
+    const startedWeek = p.startedWeek ?? fail('orphan research expense')
+    if (e.week < startedWeek || p.completedWeek !== null && e.week >= p.completedWeek) fail('orphan research expense')
     const key = `${p.id}/${e.week}`
     if (chargedWeeks.has(key)) fail('repeated research charge for one project week');chargedWeeks.add(key)
-    if (e.week < (p.legacy?.throughWeek ?? p.startedWeek)) {if (-e.amount > SYNCHRONIZED_SOUND.usableBudgetPerScientist) fail('legacy research charge exceeds one Scientist')}
+    if (e.week < (p.legacy?.throughWeek ?? startedWeek)) {if (-e.amount > SYNCHRONIZED_SOUND.usableBudgetPerScientist) fail('legacy research charge exceeds one Scientist')}
     else if (p.weeks.find(r => r.week === e.week)?.spend !== -e.amount) fail('research charge without its receipt')
   }
   validateSharedTechnology(state, v, ids, completed)

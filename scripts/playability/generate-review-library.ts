@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto'
 import { existsSync, mkdirSync, readFileSync, writeFileSync, realpathSync, lstatSync } from 'node:fs'
 import { resolve, join } from 'node:path'
 import { BridgeSession } from '../../bridge/session.ts'
+import { makeSave } from '../../src/core/save.js'
 import { SCHEMA_ID } from '../../bridge/protocol.ts'
 import { DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS as limits, loadBridgeRuntimeCheckpoint } from '../../bridge/runtime-checkpoint.ts'
 import { CAMPAIGN_LIBRARY_FORMAT, initialCampaignLibrary, encodeCampaignLibrary, loadCampaignLibrary, type CampaignLibrary } from '../../bridge/runtime/campaign-library.ts'
@@ -66,7 +67,7 @@ for (const source of sources) {
 const checkpoint = join(directory, 'generated-review-library.json')
 const manifest = { kind: 'p13a-generated-evidence/v1', source: 'live engine generated fixture; no user campaign input', scenario: 'playability-review-library',
   method: 'Six unchanged generated working engine checkpoints. Source libraries remain immutable, including original receipts/inactive records. Only this new review catalogue collection, labels and storage UUIDs are authored through the accepted initialCampaignLibrary helper. No native Save As, game action or migration is claimed by setup.',
-  checkpoint, sha256: sha(encoded), bytes: Buffer.byteLength(encoded), schemaId: SCHEMA_ID, saveVersion: 20, activeCampaignId: library.activeCampaignId,
+  checkpoint, sha256: sha(encoded), bytes: Buffer.byteLength(encoded), schemaId: SCHEMA_ID, saveVersion: makeSave(checked.session.gameState).saveVersion, activeCampaignId: library.activeCampaignId,
   week: checked.session.gameState.market.tick, stateDigest: checked.session.snapshot().stateDigest, sources, generatorSha256: sha(readFileSync(resolve('scripts/playability/generate-review-library.ts'))) }
 mkdirSync(directory, { recursive: true, mode: 0o700 })
 writeFileSync(checkpoint, encoded, { flag: 'wx', mode: 0o600 })

@@ -9,7 +9,7 @@ import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.t
 import { createBridgeRuntimeCoordinator, type BridgeRuntimeCoordinator } from '../bridge/runtime/runtime-coordinator.ts'
 import { DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS, type BridgeRuntimeCheckpointLimits } from '../bridge/runtime-checkpoint.ts'
 import { applyActions } from '../src/core/actions.js'
-import { importSave, migrateToV20 } from '../src/core/save.js'
+import { importSave, migrateToV21 } from '../src/core/save.js'
 import { advanceTo, p13aResearchReady } from '../src/harness/p13a/fixtures.js'
 
 class MemoryStore implements BridgeCheckpointStore {
@@ -23,7 +23,7 @@ function library(store: MemoryStore): CampaignLibrary {
   return loadCampaignLibrary(store.contents!, DEFAULT_BRIDGE_RUNTIME_CHECKPOINT_LIMITS).library
 }
 function state(store: MemoryStore) {
-  return migrateToV20(importSave(JSON.parse(library(store).workingCheckpointJson).currentSaveJson)).state
+  return migrateToV21(importSave(JSON.parse(library(store).workingCheckpointJson).currentSaveJson)).state
 }
 async function request(runtime: BridgeRuntimeCoordinator, operation: CampaignRequest['operation'], extra: Partial<CampaignRequest> = {}): Promise<CampaignRequest> {
   const current = (await runtime.campaignLibrary())!
@@ -61,7 +61,7 @@ describe('P13A research authority across named campaign operations', () => {
       expect(copyId).not.toBe(originalId)
       expect((await runtime.campaignLibrary())!.sessionId).not.toBe(originalSession)
       expect(library(store).records.find(record => record.id === originalId)!.checkpointJson).toBe(originalBytes)
-      expect(state(store).technology.projects[0]).toMatchObject({ id: source.technology.projects[0]!.id, scientistId: source.technology.projects[0]!.scientistId })
+      expect(state(store).technology.projects[0]).toMatchObject({ id: source.technology.projects[0]!.id, seats: source.technology.projects[0]!.seats })
 
       const current = (await runtime.campaignLibrary())!
       const query: IndustryQuery = { protocolVersion: PROTOCOL_VERSION, schemaId: SCHEMA_ID, type: 'industryQuery',

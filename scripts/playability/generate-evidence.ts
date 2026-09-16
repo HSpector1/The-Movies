@@ -9,6 +9,7 @@ import { BridgeSession } from '../../bridge/session.ts'
 import { p13aLaboratorySlice, p13aResearchEntry, p13aResearchReady, p13aGeneratedStudio, advanceTo, adoptExistingSoundChain } from '../../src/harness/p13a/fixtures.js'
 import { applyActions } from '../../src/core/actions.js'
 import { activeContract, busyTalentIds, hiringMarketIds } from '../../src/core/employment.js'
+import { makeSave } from '../../src/core/save.js'
 import { tick } from '../../src/core/tick.js'
 import type { GameState } from '../../src/core/types.js'
 import { productionPayload } from '../../tests/contracts/_contractFixtures.js'
@@ -121,7 +122,7 @@ const manifest = {
   productionPhase: state.operations.workflows.find(workflow => workflow.productionId === production?.id)?.phase ?? null,
   productionTechnology: state.technology.productions.find(row => row.productionId === production?.id) ?? null,
   checkpoint: path, sha256: createHash('sha256').update(checkpoint).digest('hex'), bytes: Buffer.byteLength(checkpoint),
-  schemaId: SCHEMA_ID, stateDigest: snapshot.stateDigest, saveVersion: 20,
+  schemaId: SCHEMA_ID, stateDigest: snapshot.stateDigest, saveVersion: makeSave(state).saveVersion,
   generatorSha256: createHash('sha256').update(readFileSync(resolve('scripts/playability/generate-evidence.ts'))).digest('hex'),
 }
 writeFileSync(path, checkpoint, {flag: 'wx'})

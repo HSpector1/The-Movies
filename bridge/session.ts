@@ -118,7 +118,7 @@ type ImportOutcome =
 function importSaveJsonCurrent(json: string): ImportOutcome {
   try {
     const save = importSave(json)
-    const converted = save.saveVersion !== 20
+    const converted = save.saveVersion !== 21
     return { ok: true, state: migrateToV21(save).state, converted }
   } catch (error) {
     return { ok: false, error: (error as Error).message }

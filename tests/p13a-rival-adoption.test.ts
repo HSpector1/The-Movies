@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
-import { exportCurrentState, importSave, migrateToV20 } from '../src/core/save.js'
+import { exportCurrentState, importSave, migrateToV21 } from '../src/core/save.js'
 import * as technology from '../src/core/technology.js'
 import { considerRivalSoundPurchase } from '../src/core/technologyRival.js'
 import { tick } from '../src/core/tick.js'
@@ -63,7 +63,7 @@ describe('P13A shared commercial adoption and exact rival cash consequence', () 
 
   it('replays the actual weekly commercial purchase, reconciles its debit and creates one dated operational receipt', () => {
     expect(released.technology.adoptions).toEqual([])
-    const restored = migrateToV20(importSave(exportCurrentState(released))).state
+    const restored = migrateToV21(importSave(exportCurrentState(released))).state
     const committed = tick(released)
     expect(exportCurrentState(tick(restored))).toBe(exportCurrentState(committed))
     const receipt = committed.technology.adoptions.find(row => row.studioId !== committed.hollywood!.playerStudioId)!
@@ -77,6 +77,6 @@ describe('P13A shared commercial adoption and exact rival cash consequence', () 
     expect(operational.technology.adoptions[0]).toMatchObject({id: receipt.id, operationalWeek: 428})
     expect(operational.hollywood!.receipts.filter(row => row.kind === 'technologyAdopted' && row.adoptionId === receipt.id)).toHaveLength(1)
     expect(operational.hollywood!.receipts.find(row => row.kind === 'technologyAdopted' && row.adoptionId === receipt.id)).toMatchObject({week: 428, studioId: receipt.studioId})
-    expect(exportCurrentState(migrateToV20(importSave(exportCurrentState(operational))).state)).toBe(exportCurrentState(operational))
+    expect(exportCurrentState(migrateToV21(importSave(exportCurrentState(operational))).state)).toBe(exportCurrentState(operational))
   }, 30_000)
 })

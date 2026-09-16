@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs'
 import { gunzipSync } from 'node:zlib'
 import { describe, expect, it } from 'vitest'
 import { generateScientist } from '../src/core/worldgen.js'
-import { convertV19ToV20, exportSave, importSave, makeSave, makeSaveV18, migrateToV19, migrateToV20, validateSaveV19, validateSaveV20 } from '../src/core/save.js'
+import { convertV19ToV20, exportSave, importSave, makeSave, makeSaveV18, migrateToV19, migrateToV20, migrateToV21, validateSaveV19, validateSaveV20 } from '../src/core/save.js'
 
 const acceptedBytes = gunzipSync(readFileSync(new URL('./fixtures/p13a/accepted-v19.json.gz', import.meta.url))).toString('utf8')
 const accepted = () => validateSaveV19(JSON.parse(acceptedBytes))
@@ -50,9 +50,11 @@ describe('P13A governed V19 to V20 persistence', () => {
     expect(a.state).not.toBe(b.state)
     expect(a.state.technology).not.toBe(b.state.technology)
     expect(a.state.talent[0]!.skills.research).not.toBe(b.state.talent[0]!.skills.research)
-    const detached = makeSave(a.state)
-    expect(detached.state).not.toBe(a.state)
-    expect(detached.state.technology.projects).not.toBe(a.state.technology.projects)
+    // The live writer emits V21 only; a genuine V20 state reaches it through the governed lift.
+    const lifted = migrateToV21(a)
+    const detached = makeSave(lifted.state)
+    expect(detached.state).not.toBe(lifted.state)
+    expect(detached.state.technology.projects).not.toBe(lifted.state.technology.projects)
   })
 
   it('keeps the accepted V19 boundary frozen and refuses disguised P13 history', () => {
@@ -84,7 +86,7 @@ describe('P13A governed V19 to V20 persistence', () => {
   })
 
   it('validates the source before JSON detachment can erase an invalid leaf', () => {
-    const save = migrateToV20(accepted())
+    const save = migrateToV21(accepted())
     Object.assign(save.state.technology, { hiddenAuthority: undefined })
     expect(() => makeSave(save.state)).toThrow()
   })

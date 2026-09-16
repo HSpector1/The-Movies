@@ -43,7 +43,7 @@ describe('C2a-M2 — a save round-trips as V15, roots and all', () => {
     const json = exportSaveJson(state)
     // This exercises the current writer, including the governed P13 root.
     // Frozen historical validators retain their separate versioned tests.
-    expect(JSON.parse(json).saveVersion).toBe(20)
+    expect(JSON.parse(json).saveVersion).toBe(21)
 
     const outcome = importSaveJson(json)
     expect(outcome.ok).toBe(true)

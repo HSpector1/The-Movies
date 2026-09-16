@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { activeContract, busyTalentIds } from '../src/core/employment.js'
-import { commitPlacement } from '../src/core/placement.js'
+import { commitPlacement, queryPlacement } from '../src/core/placement.js'
 import { researchCandidates } from '../src/core/technology.js'
 import type { GameState } from '../src/core/types.js'
 import { advanceTo, p13aResearchEntry } from '../src/harness/p13a/fixtures.js'
@@ -22,6 +22,13 @@ const recruit = (state: GameState, scientistId?: string) =>
 const assign = (state: GameState, scientistId: string, lab = laboratoryFacilityId) =>
   applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId: lab, scientistId }])
 const employedScientists = (state: GameState) => state.talent.filter(t => t.role === 'scientist' && activeContract(state, t.id))
+/** The first origin the P09 placement law accepts for a second Laboratory on this generated lot; never a guessed cell. */
+const secondLaboratoryOrigin = (state: GameState) => {
+  for (let gy = 0; gy < 24; gy++) for (let gx = 0; gx < 24; gx++) {
+    if (queryPlacement(state, { blueprintId: 'research-laboratory', origin: { gx, gy } }).ok) return { gx, gy }
+  }
+  throw new Error('This generated lot offers no lawful site for a second Research Laboratory')
+}
 
 describe('P13B-S1 named research candidates', () => {
   it('offers eight deterministic, distinct candidates with Otto first and no RNG advance', () => {
@@ -75,7 +82,7 @@ describe('P13B-S1 named seats on one Laboratory', () => {
   it('refuses an unemployed person and a seat on a second Laboratory in this slice', () => {
     const unemployed = researchCandidates(staffed)[6]!.id
     expect(() => assign(staffed, unemployed)).toThrow(/Employ/)
-    let state = commitPlacement(staffed, { blueprintId: 'research-laboratory', origin: { gx: 5, gy: 9 } })
+    let state = commitPlacement(staffed, { blueprintId: 'research-laboratory', origin: secondLaboratoryOrigin(staffed) })
     state = advanceTo(state, state.market.tick + 12)
     const second = state.operations.facilities.filter(f => f.capability === 'laboratory').find(f => f.id !== laboratoryFacilityId)!
     state = assign(state, researchCandidates(state)[0]!.id)

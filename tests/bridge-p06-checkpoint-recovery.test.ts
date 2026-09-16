@@ -14,7 +14,7 @@ import { SCHEMA_ID } from '../bridge/protocol.ts'
 import { canonicalJson } from '../bridge/schema/canonical.ts'
 import type { BridgeCheckpointStore } from '../bridge/runtime/checkpoint-store.ts'
 import { createBridgeRuntimeCoordinator } from '../bridge/runtime/runtime-coordinator.ts'
-import { importSave, type SaveFileV20 } from '../src/core/save.js'
+import { importSave, type SaveFileV21 } from '../src/core/save.js'
 import { initialTechnology } from '../src/core/technology.js'
 import { withResearchFoundation } from '../src/core/researchPeople.js'
 
@@ -49,13 +49,14 @@ function previous(bytes: string): BridgeRuntimeCheckpointV1 {
   return JSON.parse(bytes) as BridgeRuntimeCheckpointV1
 }
 
-function expectPreservedGameplay(beforeJson: string, after: SaveFileV20): void {
+function expectPreservedGameplay(beforeJson: string, after: SaveFileV21): void {
   const before = importSave(beforeJson)
   if (before.saveVersion !== 16) throw new Error('Frozen P06 evidence must contain an original Save V16')
   // Assert every old root, including IDs, commitment, cash/ledger, week and RNG,
   // against the frozen input. V20 adds neutral research person leaves and an
-  // empty technology root, and corrects the inert opening soundRequired flag.
-  // Comparing with migrateToV20's own output would not prove preservation.
+  // empty technology root, and corrects the inert opening soundRequired flag;
+  // V21 lifts that empty root to the seat/receipt shape (P13B-S1).
+  // Comparing with migrateToV21's own output would not prove preservation.
   const oldIds=new Set(before.state.talent.map(t=>t.id))
   const {hollywood,technology,...afterState}=after.state
   expect(hollywood).toMatchObject({origin:'migration',originWeek:before.state.market.tick,films:[]})
@@ -67,7 +68,7 @@ function expectPreservedGameplay(beforeJson: string, after: SaveFileV20): void {
     return copied
   })
   expect({...after,state:{...afterState,talent:oldPeople}}).toEqual({
-    saveVersion: 20,
+    saveVersion: 21,
     seed: before.seed,
     state: {
       ...before.state,

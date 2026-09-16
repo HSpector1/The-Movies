@@ -1,5 +1,5 @@
 import { buildFilmParticipants } from './filmParticipants.js'
-import { applyTechnologyAction, researchAfterEmploymentRelease, researchCandidates, RESEARCH_SCIENTISTS_PER_STUDIO } from './technology.js'
+import { applyTechnologyAction, researchAfterEmploymentRelease, researchCandidates, RESEARCH_SCIENTISTS_PER_STUDIO, spelled } from './technology.js'
 import { discardUnfilmedProductionTechnology } from './technologyProduction.js'
 import { withResearchFoundation } from './researchPeople.js'
 // ── §3 applyActions ──────────────────────────────────────────────────────────
@@ -2925,10 +2925,10 @@ export function applyActions(state: GameState, actions: Action[]): GameState {
           ? candidates.find(candidate => !activeContract(next, candidate.id))
           : candidates.find(candidate => candidate.id === action.scientistId)
         if (!scientist) throw new Error(action.scientistId === undefined
-          ? `This studio's research programme already employs its ${RESEARCH_SCIENTISTS_PER_STUDIO === 8 ? 'eight' : String(RESEARCH_SCIENTISTS_PER_STUDIO)} Scientists.`
+          ? `This studio's research programme already employs its ${spelled(RESEARCH_SCIENTISTS_PER_STUDIO)} Scientists.`
           : 'That person is not a research candidate for this studio.')
         if (activeContract(next, scientist.id)) throw new Error(`This programme already employs ${scientist.name}.`)
-        if (next.talent.filter(t => t.role === 'scientist' && activeContract(next, t.id)).length >= RESEARCH_SCIENTISTS_PER_STUDIO) throw new Error(`This studio's research programme already employs its ${RESEARCH_SCIENTISTS_PER_STUDIO === 8 ? 'eight' : String(RESEARCH_SCIENTISTS_PER_STUDIO)} Scientists.`)
+        if (next.talent.filter(t => t.role === 'scientist' && activeContract(next, t.id)).length >= RESEARCH_SCIENTISTS_PER_STUDIO) throw new Error(`This studio's research programme already employs its ${spelled(RESEARCH_SCIENTISTS_PER_STUDIO)} Scientists.`)
         if (next.talent.some(t => t.id === scientist.id && t !== scientist)) throw new Error('The Scientist identity is already in use.')
         const candidate = next.talent.includes(scientist) ? next : {...next, talent:[...next.talent,scientist], freeAgents:[...next.freeAgents,scientist.id]}
         next = applySignContract(candidate,{kind:'signContract',talentId:scientist.id,termWeeks:208})

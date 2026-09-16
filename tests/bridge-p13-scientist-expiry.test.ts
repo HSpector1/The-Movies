@@ -56,7 +56,7 @@ describe('P13A Scientist expiration at the shared Gate Hiring boundary', () => {
   it('distinguishes the requested ceiling, usable spend, uncharged balance and retained employment', () => {
     const ready = p13aResearchReady()
     const projectId = ready.technology.projects[0]!.id
-    const scientistId = ready.technology.projects[0]!.scientistId
+    const scientistId = ready.technology.projects[0]!.seats[0]!.talentId
     let state = applyActions(ready, [{ kind: 'beginResearch', projectId, budgetPerWeek: 40_000 }])
     const read = () => {
       const before = makeSave(state)

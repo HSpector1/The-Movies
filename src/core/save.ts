@@ -7354,7 +7354,7 @@ export function validateSaveV19(save: unknown): SaveFileV19 {
 function validateSaveV19WithPolicy(
   save: unknown,
   policy: "sets-v14" | "technology-v20",
-  technology?: StudioTechnology,
+  technology?: Pick<StudioTechnology, 'access' | 'adoptions'>,
 ): SaveFileV19 {
   if (!isRecord(save)) throw new Error('validateSaveV19: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');

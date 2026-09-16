@@ -448,11 +448,11 @@ function validateCanonicalCurrentSave(
   } catch (error) {
     fail(path, `is not a valid TypeScript save: ${(error as Error).message}`)
   }
-  if (imported.saveVersion !== 20) {
-    fail(path, `must be a current V20 save, received V${String(imported.saveVersion)}`)
+  if (imported.saveVersion !== 21) {
+    fail(path, `must be a current V21 save, received V${String(imported.saveVersion)}`)
   }
   if (exportSave(imported) !== saveJson) {
-    fail(path, 'must preserve the canonical V20 save bytes exactly')
+    fail(path, 'must preserve the canonical V21 save bytes exactly')
   }
   const current = imported as CurrentEnvelopeSave
   cache.set(saveJson, current)

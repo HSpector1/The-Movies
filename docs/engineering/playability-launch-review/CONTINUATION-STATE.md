@@ -3,7 +3,26 @@
 **Purpose.** The one file a fresh coordinator (or Howard on return) reads first. It is rewritten at every recovery point and pushed on
 `wip/playability-interaction-01-ts` (The-Movies). Everything else it names is pinned by commit. Nothing that matters lives only in a session.
 
-## LOGIC-FIRST WINDOW — restart record (2026-09-16 13:11 CEST; this paragraph controls)
+## LOGIC-FIRST WINDOW — S1 recovery point 2 (2026-09-16 ≈14:00 CEST; this paragraph controls)
+- **Tree at this commit:** `npm run typecheck:bridge` PASS; `npm run typecheck` (root + ui) PASS — the inherited 138 × TS5097 are cleared by
+  the recorded disposition (the four `tests/r3n1-*.test.ts` moved into `tsconfig.bridge.json` and excluded from the root program; nothing
+  disabled). `tests/p13b-s1-staffing.test.ts` **5/5 GREEN** (RED observed 13:02 before implementation, preserved in HEADLESS-PROGRESS).
+  The 36 bridge type errors at the WIP commit (`evidence/p13b-s1-20260916/00`) are fixed; V21 sweep: every test that exercises the LIVE
+  writer moved from the V20 path to V21 (47 test files + 5 ui test files), the V19→V20 fixture proof (`tests/p13a-save-v20.test.ts`)
+  stays on V20 by design; bridge/session, adapter and runtime-checkpoint treat V21 as current; the four evidence generators stamp
+  `makeSave(state).saveVersion` instead of a literal 20. Bridge contract + fixture checks PASS (schema unchanged, projection 32).
+- **P13A + bridge-P13 suites after the sweep: 77/82** (`evidence/p13b-s1-20260916/01`): (a) `bridge-p13-campaign-isolation` timed out at
+  60 s (78.5 s in the run, 82.5 s solo) while the pin baseline core run and the test author's runs shared the 2-core host — NOT attributed;
+  a quiet solo rerun is required; (b) `p13a-technology-validation` 'rejects duplicate researcher-week charges' expects /repeated research
+  charge/ but the v2 validator reports the receipt/expenditure reconciliation first — validator ordering fix assigned to sim-core;
+  (c) `p13a-scientist-foundation` 3 golden-digest mismatches — **INHERITED** at the unmodified pin (identical failure reproduced in the
+  baseline worktree `/Users/zacheryspector/The-Movies-baseline`).
+- **In flight (not in this commit):** `test-author` is authoring plan §S1 tests 3–10 as `tests/p13b-s1-scheduler.test.ts`,
+  `tests/p13b-s1-save-v21.test.ts`, `tests/p13b-s1-validation.test.ts` (+ optional `src/harness/p13b/fixtures.ts`).
+- **Next:** test-author report → sim-core brief (validator ordering + any production defects) → GREEN → contract-auditor read-only review →
+  T8 affected suites + bounded full core pass (quiet host) → T9 records, commit, push.
+
+## LOGIC-FIRST WINDOW — restart record (2026-09-16 13:11 CEST; superseded by the recovery point above, kept as history)
 - **Why this record exists:** the Owner ordered a stop on delegation until the project subagents (`.claude/agents/*.md`, six roles)
   are registered. Diagnosis (HEADLESS-PROGRESS §Environment): the files exist and are authoritative, but this session started in
   `/Users/zacheryspector` (not a repository) before the engine worktree existed, so the Agent tool never registered them. A fresh

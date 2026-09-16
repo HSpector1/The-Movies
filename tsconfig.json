@@ -22,6 +22,7 @@
     "node_modules",
     "dist",
     "tests/bridge*.test.ts",
+    "tests/r3n1-*.test.ts",
     "tests/fixtures/bridge-contract-union-fixtures.ts"
   ]
 }

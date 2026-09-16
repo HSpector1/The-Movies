@@ -1222,6 +1222,11 @@ export {
   validateSaveV20,
   migrateToV20,
   convertV19ToV20,
+  // P13B-S1 — live V20 → NEW V21 + migrateToV21 (technology root v2: named
+  // seats and per-week research receipts).
+  validateSaveV21,
+  migrateToV21,
+  convertV20ToV21,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -1244,6 +1249,7 @@ export type {
   SaveFileV18,
   SaveFileV19,
   SaveFileV20,
+  SaveFileV21,
   SaveFile,
   TalentV1,
   GameStateV1,

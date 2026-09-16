@@ -10,6 +10,7 @@
     "scripts/bridge-contract-*.ts",
     "scripts/generate-bridge-contract*.ts",
     "tests/bridge*.test.ts",
+    "tests/r3n1-*.test.ts",
     "tests/fixtures/bridge-contract-union-fixtures.ts",
     "src/**/*.ts",
     "ui/src/engine/adapter.ts",

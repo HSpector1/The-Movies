@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { tick } from '../src/core/tick.js'
-import { exportCurrentState, importSave, migrateToV20, validateSaveV20, makeSave } from '../src/core/save.js'
+import { exportCurrentState, importSave, migrateToV21, validateSaveV21, makeSave } from '../src/core/save.js'
 import { researchWeekQuote, technologyAccess } from '../src/core/technology.js'
 import { facilityInstallationPhase } from '../src/core/placement.js'
 import { hasOperationalFacilityInstallation } from '../src/core/facilityEffects.js'
@@ -16,7 +16,7 @@ describe('P13A causal Core through the real weekly engine',()=>{
   it.each([1,3,2499,5600,9999])('retains exact paid work and reloads a lawful $%s weekly budget', budgetPerWeek => {
     const mid = advanceTo(begin(budgetPerWeek),280)
     expect(mid.technology.projects[0]!.verifiedWork).toBe((20*20_000+20*budgetPerWeek)/20_000)
-    const restored = migrateToV20(importSave(exportCurrentState(mid))).state
+    const restored = migrateToV21(importSave(exportCurrentState(mid))).state
     expect(restored.technology).toEqual(mid.technology)
     expect(exportCurrentState(tick(restored))).toBe(exportCurrentState(tick(mid)))
   })
@@ -46,8 +46,8 @@ describe('P13A causal Core through the real weekly engine',()=>{
     state=advanceTo(state,315)
     expect(state.technology.adoptions.find(a=>a.id===adoption.id)!.operationalWeek).toBe(315)
     expect(hasOperationalFacilityInstallation(state,adoption.stageFacilityId,'synchronized-sound-stage')).toBe(true)
-    expect(()=>validateSaveV20(makeSave(state))).not.toThrow()
-    const restored=migrateToV20(importSave(exportCurrentState(state))).state
+    expect(()=>validateSaveV21(makeSave(state))).not.toThrow()
+    const restored=migrateToV21(importSave(exportCurrentState(state))).state
     expect(restored.technology).toEqual(state.technology)
     expect(exportCurrentState(restored)===exportCurrentState(state)).toBe(true)
   },30_000)
@@ -65,7 +65,7 @@ describe('P13A causal Core through the real weekly engine',()=>{
     expect(state.ledger.some(e=>e.kind==='researchSpend'&&e.week>=270)).toBe(false)
     expect(state.ledger.filter(e=>e.kind==='researchPayroll'&&e.week>=270)).toHaveLength(2)
     state=applyActions(state,[{kind:'cancelResearch',projectId}])
-    const roundtrip=migrateToV20(importSave(exportCurrentState(state))).state
+    const roundtrip=migrateToV21(importSave(exportCurrentState(state))).state
     state=tick(applyActions(roundtrip,[{kind:'resumeResearch',projectId}]))
     expect(state.technology.projects[0]).toMatchObject({verifiedWork:work+1.5,expenditure:spend+10_000,status:'active'})
     expect(roundtrip.technology.projects[0]).toMatchObject({verifiedWork:work,expenditure:spend,status:'cancelled'})
@@ -88,6 +88,6 @@ describe('P13A causal Core through the real weekly engine',()=>{
     expect(428-315).toBe(113)
     expect(state.era.soundRequired).toBe(false)
     expect(state.ledger.some(e=>e.kind==='researchSpend'||e.kind==='researchPayroll')).toBe(false)
-    expect(()=>validateSaveV20(makeSave(state))).not.toThrow()
+    expect(()=>validateSaveV21(makeSave(state))).not.toThrow()
   },30_000)
 })

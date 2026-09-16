@@ -1,0 +1,13 @@
+start 2026-09-16T11:52:50Z
+=== npm run typecheck (root tsc --noEmit && ui) ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+tests/p13a-physical-installation.test.ts(24,5): error TS2322: Type '1' is not assignable to type '2'.
+tests/p13a-save-v20.test.ts(91,27): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Type 'GameStateV20' is not assignable to type '{ technology: StudioTechnology; }'.
+    The types of 'technology.version' are incompatible between these types.
+      Type '1' is not assignable to type '2'.
+EXIT=2
+end 2026-09-16T11:53:51Z

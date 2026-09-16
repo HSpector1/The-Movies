@@ -1,0 +1,36 @@
+bridge/runtime-checkpoint.ts(6,3): error TS2724: '"../src/core/index.js"' has no exported member named 'migrateToV21'. Did you mean 'migrateToV10'?
+bridge/runtime-checkpoint.ts(7,8): error TS2724: '"../src/core/index.js"' has no exported member named 'SaveFileV21'. Did you mean 'SaveFileV1'?
+bridge/runtime/campaign-library.ts(5,20): error TS2724: '"../../src/core/index.js"' has no exported member named 'migrateToV21'. Did you mean 'migrateToV10'?
+bridge/session.ts(41,36): error TS2724: '"../src/core/index.js"' has no exported member named 'migrateToV21'. Did you mean 'migrateToV10'?
+src/core/save.ts(7416,137): error TS2345: Argument of type 'StudioTechnologyV1' is not assignable to parameter of type 'StudioTechnology | undefined'.
+src/core/technology.ts(351,73): error TS2345: Argument of type 'GameStateV20 | GameStateV21' is not assignable to parameter of type 'Pick<GameStateV21, "technology">'.
+src/core/technology.ts(501,43): error TS18047: 'p.legacy' is possibly 'null'.
+src/core/technology.ts(503,61): error TS18047: 'p.startedWeek' is possibly 'null'.
+src/core/technology.ts(506,97): error TS18047: 'p.startedWeek' is possibly 'null'.
+src/core/technology.ts(541,20): error TS18048: 'p' is possibly 'undefined'.
+src/core/technology.ts(543,18): error TS2531: Object is possibly 'null'.
+src/core/technology.ts(543,19): error TS18048: 'p' is possibly 'undefined'.
+src/core/technology.ts(543,44): error TS18048: 'p' is possibly 'undefined'.
+src/core/technology.ts(544,14): error TS18048: 'p' is possibly 'undefined'.
+src/harness/d16/run-d17b-continuation.ts(193,7): error TS2375: Type 'GameStateV20' is not assignable to type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+src/harness/d16/run-d17b-week86.ts(125,3): error TS2375: Type 'GameStateV20' is not assignable to type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p07a-w6-result-continuity.test.ts(224,46): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p07a-w6-result-continuity.test.ts(230,41): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p07a-w6-result-continuity.test.ts(277,46): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p08a-w2-history-projection.test.ts(178,33): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p08a-w2-history-projection.test.ts(189,27): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p09a-w5-bare-lot-first-film.test.ts(97,32): error TS2375: Type 'GameStateV20' is not assignable to type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p10a-w0-people-projection.test.ts(341,36): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p11-finance.test.ts(274,38): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p11-finance.test.ts(275,35): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p11-finance.test.ts(275,62): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p11-finance.test.ts(282,27): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p11-finance.test.ts(293,35): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p11-finance.test.ts(293,62): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p11-finance.test.ts(306,37): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p11-finance.test.ts(307,35): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p11-finance.test.ts(307,62): error TS2379: Argument of type 'GameStateV20' is not assignable to parameter of type 'GameStateV21' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+tests/bridge-p13-campaign-isolation.test.ts(64,150): error TS2339: Property 'scientistId' does not exist on type 'ResearchProject'.
+tests/bridge-p13-profile-availability.test.ts(30,33): error TS2339: Property 'scientistId' does not exist on type 'ResearchProject'.
+tests/bridge-p13-scientist-expiry.test.ts(59,55): error TS2339: Property 'scientistId' does not exist on type 'ResearchProject'.
+ui/src/engine/adapter.ts(111,3): error TS2724: '"../../../src/core/index.ts"' has no exported member named 'migrateToV21'. Did you mean 'migrateToV10'?
