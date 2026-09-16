@@ -3,6 +3,21 @@
 **Purpose.** The one file a fresh coordinator (or Howard on return) reads first. It is rewritten at every recovery point and pushed on
 `wip/playability-interaction-01-ts` (The-Movies). Everything else it names is pinned by commit. Nothing that matters lives only in a session.
 
+## LOGIC-FIRST WINDOW — newest record (2026-09-16 12:55 CEST; this paragraph controls)
+- **Owner directive `OWNER-HEADLESS-PROGRAM-20260916-01`** (published verbatim at
+  `docs/operations/fable-team/OWNER-DIRECTIVE-LOGIC-FIRST-20260916.md`): the previous laptop is unavailable; the UI/UX overhaul and all
+  Unity/native work are **paused, not accepted**; headless P13B → P14 → P15 → P16 → supported P17/P18 engine work proceeds now.
+- **Live engine entry point:** branch `wip/headless-program-20260916-ts` (this file, on that branch), created from the paused TS source
+  `wip/playability-interaction-01-ts` @ `e2e409e80eccb6a7fd49fa16aa0f750faeb51253` (remote tip re-read 2026-09-16). The paused UI branch and
+  Unity branch `wip/playability-interaction-01-client` @ `08c32c47` are preserved untouched. IMPL-29 / TEST-27 local work from the old
+  laptop is **not recoverable** from published state.
+- **Records for this window:** `HEADLESS-PROGRESS.md` (environment, baseline, slice ledger, budget), `UNITY-INTEGRATION-BACKLOG.md`
+  (everything reserved for the replacement laptop), `plans/P13B-HEADLESS-PLAN.md` (phase plan; S1 expanded into TDD tasks).
+- **Baseline on this host (Early 2015 Air, Node 20.20.2):** `typecheck:bridge` PASS; root `typecheck` FAIL inherited at the pin (138 ×
+  TS5097 from the r3n1 bridge-class tests; disposition in HEADLESS-PROGRESS); core/bridge suites running at low concurrency.
+- **Exact next actions:** P13B-S1 (full named research staffing) T1 → T9 per the plan; then S2 multiple Labs / second brief.
+- Everything below this section is the paused UI record and remains true as history; its "running" claims are superseded by the pause.
+
 ## Where everything is documented (if the session closes, start here)
 | What | Where (GitHub, private) |
 |---|---|
