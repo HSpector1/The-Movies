@@ -11,13 +11,17 @@ export { makeSaveV18 as makeSave } from '../../core/save.js'
 /** Call only AFTER exact original import/hash checks. This is not gameplay migration. */
 export function liftV18Control(state:GameStateV18):GameState { return {...structuredClone(state),hollywood:null,talent:state.talent.map(withResearchFoundation),technology:initialTechnology(state.market.tick),physicalPlans:initialPhysicalPlans()} }
 export function historicalHashState<T extends object>(state:T):object {
-  if(!('technology' in state) && !('hollywood' in state))return state
+  if(!('technology' in state) && !('hollywood' in state) && !('physicalPlans' in state))return state
   if('hollywood' in state && state.hollywood!==null)throw new Error('Historical hash cannot discard a living industry')
   if ('technology' in state) {
     const technology = state.technology as GameState['technology']
     if (stableStringify(technology) !== stableStringify(initialTechnology(technology.recordingStartedWeek))) throw new Error('Historical hash cannot discard technology authority')
   }
-  const {hollywood: _control, technology: _research,...frozen}=state as Partial<GameState>
+  if ('physicalPlans' in state) {
+    // P13B-S3: the historical control never queues physical work; an empty plan root is the only lawful shape to discard.
+    if (stableStringify(state.physicalPlans) !== stableStringify(initialPhysicalPlans())) throw new Error('Historical hash cannot discard physical-plan authority')
+  }
+  const {hollywood: _control, technology: _research, physicalPlans: _plans,...frozen}=state as Partial<GameState>
   if (frozen.talent) frozen.talent = frozen.talent.map(person => {
     if (person.role === 'scientist') throw new Error('Historical hash cannot discard a Scientist')
     const copy = { ...person }

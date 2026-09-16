@@ -408,7 +408,15 @@ conversion routes are S4; component receipts/restoration are S5/S6. Plans are pe
       fresh `29`: plans + laboratory + s2-labs 28/28, tsc bridge/root clean); pins moved 34 → 35 in thirteen files; `bridge-p13-laboratory` case 1
       widened its page size by exactly the two new rows. Body-placement queueing has no bridge affordance yet (needs the lot/placement quote
       surface; recorded as future work, not S3's).
-- [ ] **S3-T5 Affected suites, records (backlog entry), commit, push.**
+- [x] **S3-T5 Matched pass, records, commit, push (2026-09-17 ≈01:15):** matched full pass on `c18abe8` (`evidence/p13b-s3-20260916/30-RUN`,
+      `30-test-core-c18abe8`: core 229/241 files · 2765/2805 tests, 32.8 min; `31-test-bridge-c18abe8`: 57/59 · 573/585, 19.9 min; contract checks
+      verified). Failing set = the inherited set (campaign-library 11 × 5/20 s budgets, campaign-isolation 60 s inline budget, `p13a-scientist-
+      foundation` 3 digests byte-identical to the pin, r3n1 ENOENT 6, scenery Pillow 1; `bridge-founding` green this time — random seed) **plus
+      one S3-caused harness failure**: five `roster-wall-*` files (18 tests + 1 file-level) failed "SaveFileV18 replay changed entry state" because
+      `historicalHashState` (the V18 observatory's hash projection) strips the `hollywood`/`technology` roots that later versions add but had not
+      been taught the new `physicalPlans` root. Harness fix (guard + strip, mirroring the technology guard) on top of c18abe8; targeted rerun on
+      the fixed source `32-*`: roster-wall 5 files 36/36, root tsc clean (S1 precedent: post-pass edits reverified by their affected suites). No
+      engine law changed after the pass. Backlog S3 entry written; S3 row closed.
 
 ## S3 — original scope record (superseded by the expansion above; kept verbatim)
 

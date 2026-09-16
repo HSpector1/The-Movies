@@ -3,7 +3,23 @@
 **Purpose.** The one file a fresh coordinator (or Howard on return) reads first. It is rewritten at every recovery point and pushed on
 `wip/playability-interaction-01-ts` (The-Movies). Everything else it names is pinned by commit. Nothing that matters lives only in a session.
 
-## LOGIC-FIRST WINDOW — S2 closed, S3 starting (2026-09-16 ≈21:20 CEST; this paragraph controls)
+## LOGIC-FIRST WINDOW — S3 closed, S4 starting (2026-09-17 ≈01:15 CEST; this paragraph controls)
+- **P13B-S3 persistent physical plans, dependencies, admission: LOGIC VERIFIED · UNITY NOT VERIFIED** (S3 only). Production source of record:
+  engine `30836b0` + bridge `c18abe8` + the roster-wall harness fix commit on top (no engine law change). Live save **V23**, live projection **35**
+  (schemaId `sha256:889c83c6…`). Matched full pass on `c18abe8` (`evidence/p13b-s3-20260916/30-RUN`, `30-test-core-c18abe8`, `31-test-bridge-
+  c18abe8`): core 229/241 · 2765/2805, bridge 57/59 · 573/585; failing set = the inherited set + the roster-wall harness failure fixed and
+  reverified on the final source (`32-*`, 36/36). RED-first evidence: `21-red-*` (tests 1–8), `28` (test 9 at 30836b0). Five test-premise
+  amendments and the delegated decisions are itemized in the plan (S3 tasks). Process learnings saved to memory: mint fixtures before the writer
+  moves; RED-first files import from a not-yet-existing module (vite binds missing named exports to `undefined`).
+- **S4 next:** task expansion is in the plan (in-place Office conversion through P09's installation arm: `office-conversion-ii|iii` blueprints
+  with source-dependent quotes, derived development standard, offline-while-converting law, Save V23 unchanged unless a persisted fact is
+  needed, projection 36 for the bridge; ENG-2 new-build gate removal stays an OPEN product choice; tests 1–6; tasks T0–T4). test-author writes
+  tests 1–5 RED first, then sim-core T1/T2, then bridge T3, then the matched pass T4.
+- **Open, recorded, not S3's:** `bridge-p13-campaign-isolation` 60 s inline budget (72–76 s bodies), `bridge-p12-campaign-library` 5/20 s budgets,
+  `bridge-founding` random runtime seed, `p13a-scientist-foundation` golden digests, r3n1 fixtures, Pillow; Monitor liveness probe: use the
+  process table (`ps -axo command`), `pgrep -f` misreported 0 once.
+
+## LOGIC-FIRST WINDOW — S2 closed, S3 starting (2026-09-16 ≈21:20 CEST; superseded by the paragraph above, kept as history)
 - **P13B-S2 second technology, two Laboratories, cooperation: LOGIC VERIFIED · UNITY NOT VERIFIED** (S2 only). Production source of record
   `c8ef3b2` (T8 access-identity fix on top of `877aad5`). Live save **V22**, live projection **34**. Matched full pass on `877aad5`
   (`evidence/p13b-s2-20260916/14-RUN`, `14-test-core-877aad5`, `15-test-bridge-877aad5`): core 227/234 · 2716/2738, bridge 54/57 · 560/573;
