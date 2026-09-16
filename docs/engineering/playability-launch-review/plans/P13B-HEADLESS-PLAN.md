@@ -66,6 +66,7 @@ Multi-Lab cooperation and the second brief stay in S2; S1 refuses seats on a sec
 - Provisional tuning (companion S1-A/B candidate, not Owner-approved balance): $10k usable per seat, 4 seats
   per Lab (`TUNING.RESEARCH_LABORATORY_CAPACITY`), 8 employed Scientists per studio, ceiling $0..$1m.
 - Proposed product choices left uncoded: "exactly one restart after cancel" (companion §2 journey table);
+  **Resolved 2026-09-16 (OPS-P13B-R07-DISPOSITION-20260916-01 §4):** "exactly one restart" means one resumed instance of the same project, not a lifetime quota; repeated cancel → restart cycles are lawful (identities, work, spend and receipts retained; eligibility rechecked; no cloned work, refunded research or repeated entitlement). Not a product choice any more; S2-T8/S3 acceptance performs two cycles with save/reload.
   P13A restart law (retained work, repeatable) is preserved and the choice is recorded in the progress file.
 
 **Current producer contracts consumed.** P10 employment (`contractOffer`, `applySignContract`, hiring market,
@@ -179,6 +180,7 @@ stays DESIGN BLOCKED on the named pre-execution clarification (Future Ops R2 exa
 - Provisional tuning (companion §4, not Owner-approved balance): 0.625 second-Lab factor (equal full Labs → 13/16 → 9.75),
   proportional per-Lab funding with whole-dollar remainder to the lowest stable Lab id, $10k usable per seat, 4 seats/Lab.
 - Proposed product choices left uncoded: exact R07 production/Set recipe (Future Ops R2); large-stage body (K4); R02.
+  **Amended 2026-09-16:** the R07 recipe is ADOPTED by Current Ops (OPS-P13B-R07-DISPOSITION-20260916-01, adopting Future Ops `P13B-R07-PRODUCTION-CLARIFICATION.md` at `e529c10f`, blob `77cf8211`) as the bounded **S5-R07 consumer task** below; the large-stage body (K4), CAT-011 oversized Sets and companion A12 stay OPEN with their own owners; R02 unchanged.
 
 **Tests (requirement-derived; each fails before its implementation).**
 1. Catalogue: two entries, stable order, acyclic prerequisites, reachable physical targets (module blueprint on a Lab,
@@ -205,6 +207,21 @@ stays DESIGN BLOCKED on the named pre-execution clarification (Future Ops R2 exa
    receipts is NOT allowed — S1 receipts gain their single-Lab row from the seat's Lab); `migrateToV21` refuses V22.
 
 **Allowance (plan):** 10 h capability, 3 h verification.
+
+**Corrections and additions (Current Ops R07 disposition, 2026-09-16 — `OPS-P13B-R07-DISPOSITION-20260916-01`, packet SHA256-verified; adopts Future Ops clarification §§2–6).**
+- Residual comparison horizon is **[789,841)**: lawful prehistory eight funded four-person weeks (48 units, $320,000) plus one zero-ceiling week
+  (4 units) = 52 verified at 789; residual knowledge sound/light **796/798** (cooperate then lighting) and **800/791** (split); within-horizon
+  R&D **$720,000 / $520,000**, difference $200,000 preserved; prior signing and prehistory costs are sunk and never charged in that window.
+  Full-project horizon stays [780,832); the Post-onset +$12,000 correction stays separate; the $209,000 / $253,000 all-in figures remain
+  conditional paper results (S5 deployment assumptions), not runtime totals proved by S2. `tests/p13b-s2-doc03.test.ts` already asserts the
+  corrected dates and spends (finding recorded at T5).
+- **Material S2 finding — access identity (disposition §5):** `advanceResearchWeek`'s completion guard `access.some(a => a.studioId === p.studioId
+  && a.acquiredWeek !== null)` and pending selector `access.findIndex(a => a.studioId === p.studioId)` omit `technologyId` (source-confirmed at
+  877aad5; unchanged by T4–T6). Acquired access to one technology suppresses the other's grant and can remove an unrelated pending row. S2 is
+  **not** labelled verified while this defect stands; the matched pass on 877aad5 keeps its applicability as evidence of everything else.
+- **Repeated cancel/restart** is lawful (one resumed instance, no lifetime quota) — see the S1 note above.
+- S5 must generalize `finishTechnologyWeek` and the shared adoption validation per technology (target identity, prototype accounting); lighting
+  never satisfies synchronized-sound requirements and needs no Post; not S2's.
 
 ### S2 tasks
 
@@ -244,7 +261,18 @@ stays DESIGN BLOCKED on the named pre-execution clarification (Future Ops R2 exa
       `tests/bridge-p13b-s2-labs.test.ts` 10/10 (RED baseline not capturable for this file — T6 landed mid-authoring; its earlier two failures
       were the author's regex formatting), `bridge-p13b-s1b-seats` 8/8 with real values for the new members, `bridge-p13-laboratory` 7/7 after
       the gate removal; projection pins moved 33 → 34 in eleven files. Evidence `10-t6-*`, `11-t6-*`, `12-*`, `13-*`.
-- [ ] **S2-T7 Affected suites, records, commit, push.**
+- [~] **S2-T7 Affected suites, records, commit, push:** matched full pass on `877aad5` (`evidence/p13b-s2-20260916/14-RUN`, `14-test-core-877aad5`
+      core 227/234 files · 2716/2738 tests, 42.5 min; `15-test-bridge-877aad5` 54/57 · 560/573, 20.2 min; contract checks verified). Failing
+      set = the inherited set (campaign-library 11 × 5/20 s budgets, campaign-isolation 60 s inline budget vs 72.1 s body, `p13a-scientist-
+      foundation` 3 digests byte-identical to the pin, r3n1 ENOENT 6, scenery Pillow 1) **plus one pre-existing nondeterministic test**:
+      `bridge-founding` "emits the exact founding action at Core coverage" asserts a fixed role sequence on a runtime created with a random seed
+      (`BridgeSession.createRuntime()` defaults to `randomUUID()`), received 'actor' for 'director' once; 6/6 solo on the identical source and
+      green in both earlier matched runs — disposition owed to the bridge test owner (seed it), not S2's. Closeout label withheld pending S2-T8.
+- [ ] **S2-T8 Access identity (disposition §5):** test-author adds `tests/p13b-s2-access-identity.test.ts` RED on the unchanged candidate (sound→
+      lighting, lighting→sound, simultaneous completion order-independent, unrelated pending/completed access survives, save/reload and later
+      ticks, idempotence, retained same-technology rules, exact provenance); sim-core fixes the shared identity to the exact `(studioId,
+      technologyId)` pair and checks related consumers; targeted verification = S2/access/save/P13A boundary suites + the bridge Laboratory
+      files; before/fix/after evidence; then the S2 closeout label and the records.
 
 ## S2 — original scope record (superseded by the expansion above; kept verbatim)
 
@@ -367,6 +395,39 @@ Allowance: 6 h capability, 2 h verification.
 Access/equipment/site/installation/capture/Post components per technology; first prototype covers one
 equipment set; later inventor equipment at the 25% concession (sound $225k, lighting $150k); no negative
 line; entitlement scoped by campaign/studio/technology/project. Requires S2. Allowance: 6 h / 2 h.
+
+**S5-R07 consumer task (named 2026-09-16 by `OPS-P13B-R07-DISPOSITION-20260916-01`; sequenced AFTER S5 supplies the real per-technology
+access/equipment/site/installation/operational chain; full task expansion — touched producer/consumer paths, migration/projection plan,
+requirement tests, effort forecast, Unity backlog — is written before it begins, as the existing delegated expansion, not a new gate).**
+- Adopted recipe (candidate tuning, not final balance): production-plan recipe `ballroom-reveal-lighting-01` ("Ballroom reveal — foreground,
+  entrance and background lighting cues") selected through a reviewed production-plan action (semantic name `setProductionSetupRecipe`; final
+  naming delegated) bound to an exact production and plan revision; requires a usable standing `grand-ballroom` Set mounted on the reserved
+  operational soundstage with valid size fit. Setup units: Ballroom reveal **4 conventional / 2 with operational R07 on the exact bound stage**;
+  ordinary single-zone interior (`generic-interior` / `apartment-interior`) **1 / 1**; legacy productions without a setup-plan record keep their
+  existing schedule. One setup unit = one eligible production-work week (provisional). The same recipe cannot skip its preparation by being
+  called ordinary; a simpler scene is a different, revalidated plan; no quality/appeal reward.
+- Work owner: extend production operations (`advanceManagedProductions`, phase admission, exact stage/Set bindings) with a bounded setup subtask
+  after normal rehearsal and before Shooting for new explicitly planned productions; `remainingTicks = 6` / rehearsal retained while the gate is
+  open; the shared phase/validation owner recognizes the substate; at most one unit per eligible `[w,w+1)`, none on selection/queue/load/retry/
+  second sweep visit; admission at w earns its first unit at w+1; preserve sweep order, stage-release law and the 8-tick table; no second job
+  scheduler, surcharge, duplicate payroll, universal refund, global multiplier or instant retrofit discount on partly worked setup.
+- Gate for the 2-unit route: the same studio's lawful `lighting-control-01` access + supplied equipment + completed non-cancelled P09
+  `lighting-control-stage` fit-out on the exact bound stage + operational adoption. Knowledge alone, the Lab module, a different stage, unfinished
+  installation and cancelled/restoring equipment do not qualify. Lighting needs neither synchronized sound nor Post. Recipe/workload/equipment
+  provenance fixed at setup admission; the sound lock stays at actual Shooting entry; setup completes no take and satisfies no P14 promise;
+  same-binding continuation retains work; a changed stage/Set/recipe needs a new physical setup with prior work preserved in history.
+- Evidence and tests: bounded live + terminal witnesses through the production/history owner (production/recipe/version/stage/Set ids,
+  adoption reference or explicit conventional route, work week, credited/cumulative units); matched example at setup-ready 820: completion
+  **824 vs 822** (ordinary 821 both routes); controls: legacy timeline unchanged, wrong Set type/size refused, knowledge-only / Lab-only /
+  wrong-stage / active-retrofit / cancelled-installation no discount, occupied-stage competition, changed pre-Shooting sound choice, save/reload,
+  different-binding restart without recycled work, same-week retries, completed-task idempotence, Save As worlds, no filming/quality/research
+  change; a forged operational flag is not proof. Versions: the next governed save/projection versions at execution — never S3's V23/35 or a
+  reused number with different semantics; genuine earlier fixtures minted before the writer moves.
+- Retained separately, OPEN with owners and return conditions: CAT-011 oversized Sets, the K4 large-stage body/footprint/pricing, companion A12
+  refusal/acceptance; legacy bodies receive the neutral standard classification without invented setup history. S6 must exercise cancellation/
+  restoration eligibility against this consumer; S8 must bind comparable rival behaviour through real rival producers before claiming symmetry.
+  A standard-stage R07 pass cannot close A12 or all of P13B. Future recipe-review → setup → Shooting → take → result journey, client bindings,
+  readable waits and art stay in `UNITY-INTEGRATION-BACKLOG.md`.
 
 ## S6 — Option-B installation cancellation (Ready row 6) — scope record
 
