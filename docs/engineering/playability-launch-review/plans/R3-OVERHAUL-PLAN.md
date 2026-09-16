@@ -58,6 +58,12 @@ caps are planning checkpoints: each phase record restates actual usage; overruns
   window — not a full-screen fallback, not hidden; the remaining lever is chrome (pad 6·s → 4·s, +4 px) which N3's measured typography pass
   may take; the Owner may later choose a compact-class type scale (C8 option c). Also open from N2: `StudioPeopleRailHud.ValidateFocus`
   nulls instead of parking when a foreign ring owner holds the target (asymmetry with the pictures rail) — N2 tail item.
+- C10 (added 2026-09-16, N3) OS-preference typeface adoption → IMPL-19 implemented the C2 resolution law (tier-0 LegacyRuntime + a named
+  OS preference gated by `Font.HasCharacter` coverage) but left adoption SHUT (`AdoptOsPreference` false): every IMGUI row height is a live
+  measurement of the face, so a typeface swap re-measures every rail row, the memo sheet, the lane inspector and the band at once, and nothing
+  has ever been rendered in another face. Ruling: keep it shut through N3; flip only after a rendered capture at both viewports × 100/150/200 %
+  with the `text-metrics` probe read, as its own bounded step (N3 tail or N9). Stage art 8/8 imported; §4.1 decided (a committed card leaves the
+  RELEASE READY filter). Portrait captures: cache + slots wired, `BodyResolver` installed by the body owner in N5 (0 captures until then).
 - C7 authorization at the revised budget → the directive delegates settled technically-ready work: proceed, report actuals each phase.
 
 ## Budget checkpoint — 2026-09-16 02:20Z (revised stage budgets, published per the directive)
