@@ -75,6 +75,13 @@ caps are planning checkpoints: each phase record restates actual usage; overruns
   client-side off their stable ids (N6), no new wire kind; Alt B (new route kinds + another projection bump) is not adopted. Consequence: the
   Unity DTO must be adopted in a paired commit before Build55, and the synthetic fixtures (generated at projection 30) are regenerated at 31
   as new immutable fixtures (DATA-03) because the native driver binds the fixture schemaId to the contract.
+- C8 amendment (2026-09-16 05:50Z, TEST-24 measured on the real tier-0 face, `r3n3-04/editmode-tests-24.xml` 1926/1926): the declared XAG
+  deviation was under-stated. On the per-glyph INK basis (sheet §1.4 test 1, second half) no ladder face reaches 18·m — 100 %: meta 12 ·
+  section 13 · body 14 · numeric 16 · title 17 px (150 %: 17/18/19/22/23; 200 %: 21/22/24/28/30); on the `CalcSize("XAG")` BOX basis only
+  meta/section/body fall short (13.4/14.5/15.7) while numeric (19) and title (20.1) clear. Ruling: the deviation is now declared for all five
+  faces on the ink basis at every text size; the 18-px title anchor holds on the box basis only and is stated that way; the floor stays 12;
+  glyph coverage is settled (188 drawn characters, 0 missing in `LegacyRuntime`, atlas rebuild re-measures). Any change to the ladder is a
+  design-sheet revision (N9 or later), not a silent retune; the Owner may re-base the anchor on return.
 - C12 (added 2026-09-16, DESIGN-09) N7 help + attention design ADOPTED as the implementation law (`r3-n1-design/R3-N7-HELP-AND-ATTENTION-
   FAMILY-SHEET.md`, TS 79af664d): one shared help mechanism in USS and IMGUI forms — a focus/hover information line (what it does · what
   blocks it · what it costs), a `<surface>-help` toggle opening a 2–6 sentence block INSIDE the existing body scroll (never a modal; Escape
