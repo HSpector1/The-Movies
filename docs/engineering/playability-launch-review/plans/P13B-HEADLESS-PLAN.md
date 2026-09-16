@@ -506,7 +506,17 @@ highest-operational-standard ladder. Nothing else in the estate changes.
 ### S4 tasks
 
 - [x] **S4-T0 (confirmed 2026-09-17 ≈01:20):** no persisted fact is added by the contract (standard and offline state are derived from ordinary placement records; the two conversion blueprints are installation blueprints), so Save V23 stays and no fixtures are minted. If sim-core finds a persisted fact unavoidable it must stop, mint V23 fixtures at `731b2d5` first, and allocate V24. Test-author dispatched for tests 1–5 RED (`evidence/p13b-s4-20260917/00-red-*`).
-- [ ] **S4-T1 Blueprints, standard derivation, offline law, quotes** (sim-core; test-author writes tests 1–5 RED first): tests 1, 3, part of 2.
+- [~] **S4 tests 1–5 RED (test-author, 2026-09-17 ≈01:45, `066ae6d`; `evidence/p13b-s4-20260917/00-red-*`):** all four files fail at module resolution of
+      `src/core/officeConversion.js`; harness `src/harness/p13b/s4-fixtures.ts` (`s4BareOfficeStudio`: a bare-lot studio with a genuinely PLACED
+      `development-casting-office`, because the endowed founding office is a property structure that pays no weekly opex — companion §6's "no
+      invented base placement charge"; document 03's $5,500 baseline is therefore reachable only on a placed office). Adjudicated gaps (delegated
+      decisions, in the sim-core brief): (a) standard increments are charged only while the body is online and only for its CURRENT standard, so
+      the staged route lands exactly $1,796,000 (no II increment during the II→III work, none after III supersedes it); (b) document 03's standalone
+      "new III on another plot" $1,646,000 presumes ENG-2 (new III without owning II), an OPEN product choice the plan does not code — the lawful
+      engine route needs an operational II whose $2,500/week is real, so the test asserts $1,776,000 with the +$130,000 delta named as the ENG-2
+      consequence; (c) `office-conversion-iii` carries one constant component label with source-dependent cost/weeks, so a chained I→II→III plan
+      admits under `automatic` within its ceiling and holds under `reviewChangedQuote` for review; (d) refusal member `standardAlreadyMet`.
+- [ ] **S4-T1 Blueprints, standard derivation, offline law, quotes** (sim-core, dispatched ≈01:50 with T2): tests 1, 3, part of 2.
 - [ ] **S4-T2 Downtime money + S3 integration:** tests 2, 4, 5.
 - [ ] **S4-T3 Bridge projection 36:** test 6 (`tests/bridge-p13b-s4-office.test.ts`).
 - [ ] **S4-T4 Matched pass, records (backlog entry), commit, push.**
