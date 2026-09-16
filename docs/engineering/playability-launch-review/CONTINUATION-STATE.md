@@ -17,15 +17,16 @@
 | Full local-evidence mirror (nothing stays local): text-class evidence in Git; captures/movies/large payloads as release assets | private Unity repo, branch `docs/playability-delivery-review-20260913-01` → `docs/evidence/local-mirror-20260915/` and GitHub Release tag `evidence-mirror-20260915` (assets listed in its notes) |
 | Owner playtest list for Howard's return | `docs/engineering/playability-launch-review/OWNER-PLAYTEST-LIST.md` (grows with each phase) |
 
-## Current position (2026-09-15 23:05Z)
-- **Build51** bound on Unity bb23f87e / TS 69737725 (exe dc4d480628a5eb6bce31643bf3a529ce462166264342a3c810618810c626c5de, seal 46 PASS,
-  admission 42 PASS); rendered suite 210/211 (one More-actions cell assertion still iterating). N2 native runs on Build51 DONE (N2A 1440×900,
-  N2B 1280×720; K10 draft in the review folder): F18 PASS natively; the 1280×720/200 % cell hosts the person overlay but its footer wraps
-  and leaves a 52-px body; F16/F17a/F17b still open natively. Root cause found for several of these: the lane inspector fonts are scaled
-  twice (150 % renders at 225 %) — IMPL-17 is fixing that plus registry withdrawal, F16, F17a, F17b. Then TEST-14 (re-derive number pins),
-  rendered rerun, Build52, N2 native rerun + Run B (dense-02; manifest path spelling corrected), K10 record.
-- Design sheets ready for N3–N6 (d9b5e239, 95ec9a3d, 4d041fb7, 0ad64fa6); DESIGN-08 authoring the two missing stage sprites.
-- Evidence: review folder updated (Build51 runs); release assets uploading.
+## Current position (2026-09-16 01:00Z)
+- **Build52** bound on Unity 231585e9 / TS 73ce1a9b (exe 4def44113462cdb0380e590779e00a73b62a7056b241242913511a4d252a51a9, seal 47 PASS,
+  admission 43 PASS); rendered suite 215 total / 213 passed (two harness-only failures in the newest test class, TEST-17 fixing). Native on
+  Build52: N2C 1440×900 and N2D 1280×720 (dense-01) and **B4 dense-02 1280×720 (100 actions)** all complete with clean input/quit.
+  Natively: F16 PASS (spent-press latch), F18 PASS, F17b ring now contiguous, DATA-1 pictures overflow PASS ("1–3 of 4", paging),
+  the 1280×720/200 % cell hosts the person overlay. New: F21 (Down steps the ring backwards instead of the row cursor — keyboard row
+  navigation broken), F22 (1280×720/200 % with four pictures shows zero cards), F23 (script cards publish no activation element), and the
+  Schedule-take execute control was published+enabled but the driver's click found no target (transient; re-run with observe-before-click).
+  IMPL-20 read-only diagnosis running; then fixes, TEST-18, rendered, Build53, native rerun, K10.
+- Design sheets ready for N3–N6; stage sprites authored (d133f509). Plan rulings C8/C9 recorded.
 
 ## Program order for the window
 1. R3-N1 native close-out (preflight, A, B; native defect fixes if found) → 2. remaining selected R3 UI/UX overhaul phases (plan to be
