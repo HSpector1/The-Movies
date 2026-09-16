@@ -213,9 +213,29 @@ stays DESIGN BLOCKED on the named pre-execution clarification (Future Ops R2 exa
       technology decides); new blueprints in `tuning.ts`.
 - [x] **S2-T2 Modules/benches:** test 2; `laboratoryRefusal` per discipline; bench claims in occupancy/presence.
 - [x] **S2-T3 Two-Lab seats:** test 3; command + validator bounds.
-- [ ] **S2-T4 Cooperation scheduler + V22:** tests 4, 6, 7, 8; per-Lab allocation, exact fixed point, receipts, migration.
-- [ ] **S2-T5 Document 03 fixtures:** test 5 through `src/harness/p13b/fixtures.ts` (generated two-Lab world at 780).
-- [ ] **S2-T6 Bridge (text only):** per-Lab seat/contribution lines on the Laboratory page; second-brief assign rows.
+- [x] **S2-T4 Cooperation scheduler + V22 (2026-09-16 ≈18:40, commit `5564542`):** tests 4, 6, 7, 8 GREEN (5/5, 3/3, 15/15, 12/12); per-Lab
+      funding split (floor, remainder to the lowest stable Lab id), `units = 8·raw_a + 5·raw_b` over 1/160,000 with one code path shared by
+      scheduler and validator, receipt `labs` rows, technology root v3 + `cooperationFromWeek`, frozen `validateTechnologyV2`, honest
+      `liftTechnologyV2` (single-Lab receipts derive their one row; a two-Lab single-pool receipt lifts to `labs: null`, valid only before
+      `cooperationFromWeek`), Save V22 + downgrade guards; three genuine V21 fixtures minted at the last V21 writer `e68de38` (`e24c860`).
+      RED evidence: cooperation `evidence/p13b-s2-20260916/04-t4-red-confirm`; tests 5–8 at e24c860 before T4 `09` (35 failed | 12 passed of 47 —
+      the 12 are determinism / isolation-by-construction / provenance checks that hold under either law). Law detail resolved in-contract:
+      `cooperationFromWeek` bounded `[0, market.tick]`, decoupled from `recordingStartedWeek` so each forgery keeps its own refusal.
+- [x] **S2-T5 Document 03 fixtures (delivered inside tests 5–8, same commit):** test 5 `tests/p13b-s2-doc03.test.ts` 17/17 through the
+      existing `p13bTwoLabWorld()` plus the additive `p13bTwoLabWorldWithEarlyHire(earlyWeek)`. Test-author findings recorded in the file and
+      here: (a) the residual fixture runs its lawful nine-week prehistory from 780 (lighting opens 780), every date = document + 9, every
+      route-to-route difference unchanged (R&D deltas 240,000 full / 200,000 residual; idle person-weeks 304/328/344/364 exact); (b)
+      `overhead` and `facilityOpex` are whole-studio ledger rows (`src/core/tick.ts`) and the generated world carries other staff and
+      facilities, so 624,000 / 728,000 are proved as paper arithmetic against the real TUNING/blueprint constants plus a lower bound on the
+      ledger, not as an isolated ledger sum; (c) test 6 case B: a lapsed seat on a still-active multi-seat project rehires under S1's
+      existing law (no new seat row, no resume needed) — only a sole-seat lapse auto-pauses; the brief's wording was corrected to the tested
+      law; (d) `weeklyResearchPayroll(state, pastWeek)` cannot answer once the expired contract row is gone — tests read the permanent
+      `researchPayroll` ledger row instead (finding, not a defect); (e) no public action creates a rival research project, so isolation is
+      proved by construction plus a structurally injected rival row (same technique as `p13b-s2-labs`).
+- [ ] **S2-T6 Bridge (projection 34, in flight ≈18:50):** `StudioLaboratoryPage.projects[]` (per-project seats with `laboratoryFacilityId`,
+      receipts with `labs` rows or honest `null`, weekly quote with per-Lab shares and `units`, `cooperationLabel`), assign rows
+      `assign-<lab>-<person>-<technologyId>` with `technologyId` in the intent, per-project begin/resume/pause/cancel/budget rows; top-level
+      S1b members retained (superseded for the Unity binding). Test `tests/bridge-p13b-s2-labs.test.ts` (test-author, RED first).
 - [ ] **S2-T7 Affected suites, records, commit, push.**
 
 ## S2 — original scope record (superseded by the expansion above; kept verbatim)
