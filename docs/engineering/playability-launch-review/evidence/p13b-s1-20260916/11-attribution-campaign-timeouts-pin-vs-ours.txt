@@ -1,0 +1,40 @@
+attribution: solo, quiet host, --minWorkers=1 --maxWorkers=1; start 2026-09-16T13:48:22Z
+=== PIN e2e409e80eccb6a7fd49fa16aa0f750faeb51253 ===
+ ❯ |core| tests/bridge-p12-campaign-library.test.ts (13 tests | 9 failed) 91011ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 4280ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 3575ms
+   × R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 6730ms
+   × R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 6213ms
+   × R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 5425ms
+   × R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 6251ms
+   × R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 5094ms
+   × R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 6434ms
+   × R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 6260ms
+   × R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 6844ms
+   × R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 5349ms
+   ✓ R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 19281ms
+   ✓ R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 9272ms
+ ✓ |core| tests/bridge-p13-campaign-isolation.test.ts (1 test) 81795ms
+   ✓ P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives no
+ Test Files  1 failed | 1 passed (2)
+      Tests  9 failed | 5 passed (14)
+=== OURS 4e83d440cd045f24b49349793bce38592489524a ===
+ ❯ |core| tests/bridge-p12-campaign-library.test.ts (13 tests | 9 failed) 94244ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only rename 4315ms
+   ✓ R05 independent named campaign transactions > keeps a reviewed contract quote usable across failed and successful catalogue-only delete 3376ms
+   × R05 independent named campaign transactions > keeps the shipped Save route and save-before-load consistent with the named record 6999ms
+   × R05 independent named campaign transactions > rejects a corrupted cross-world active binding and stops on an uncertain commit 6959ms
+   × R05 independent named campaign transactions > saves atomically across the bounded replay journal with a new logical session 5084ms
+   × R05 independent named campaign transactions > branches CURRENT complete state, preserves original records, switches scope and survives restart 5121ms
+   × R05 independent named campaign transactions > makes failed writes, cancel/unsaved conflicts, stale targets and rename collisions leave authority intact 5180ms
+   × R05 independent named campaign transactions > requires exact delete/overwrite confirmation and never recreates a deleted active record 6787ms
+   × R05 independent named campaign transactions > imports real old current/saved checkpoints as independently recoverable records without losing original bytes 7070ms
+   × R05 independent named campaign transactions > recovers different-world legacy slots and null saved state, preserving exact originals 5782ms
+   × R05 independent named campaign transactions > branches a full journal without changing source bytes and retries the exact durable copy after restart 6115ms
+   ✓ R05 independent named campaign transactions > durably save dirty progress while preserving two inactive worlds and failed-write authority 22493ms
+   ✓ R05 independent named campaign transactions > durably discard dirty progress while preserving two inactive worlds and failed-write authority 8959ms
+ ❯ |core| tests/bridge-p13-campaign-isolation.test.ts (1 test | 1 failed) 66302ms
+   × P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives no
+ Test Files  2 failed (2)
+      Tests  10 failed | 4 passed (14)
+end 2026-09-16T13:54:08Z

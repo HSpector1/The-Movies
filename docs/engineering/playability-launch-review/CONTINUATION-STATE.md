@@ -3,7 +3,21 @@
 **Purpose.** The one file a fresh coordinator (or Howard on return) reads first. It is rewritten at every recovery point and pushed on
 `wip/playability-interaction-01-ts` (The-Movies). Everything else it names is pinned by commit. Nothing that matters lives only in a session.
 
-## LOGIC-FIRST WINDOW — S1 recovery point 2 (2026-09-16 ≈14:00 CEST; this paragraph controls)
+## LOGIC-FIRST WINDOW — S1 closeout (2026-09-16 ≈16:05 CEST; this paragraph controls)
+- **P13B-S1 full named research staffing: LOGIC VERIFIED · UNITY NOT VERIFIED** (not P13B completion, not Owner acceptance). Production
+  source of record `d74426a` (engine unchanged since); T9 commit adds only eight test-expectation fixes (V22/V21 unknown-version sentinel,
+  one V21 message), the records and the evidence. Live save version is **V21**; V22 is S2's planned change. Full row, commands, counts and
+  attribution in `HEADLESS-PROGRESS.md` (S1 row) and `evidence/p13b-s1-20260916/00–13`; the pin baseline logs are committed under
+  `evidence/headless-baseline-20260916/` (core 213/220, bridge 50/54, all failures inherited: fixtures/Pillow/digests/host-speed timeouts).
+- **Open, recorded, not S1's:** `bridge-p12-campaign-library` (per-test 5/20 s budgets) and `bridge-p13-campaign-isolation` (60 s budget
+  vs ≈72–76 s body) exceed budgets calibrated on the old M3 Max on this Air in BOTH trees — never raised or disabled; `p13a-scientist-foundation`
+  golden digests fail at the pin (inherited product drift, disposition owed to the P13A owner); r3n1 fixtures and Pillow are environment.
+- **Specialists actually used:** test-author (tests 3–10, 29/29), contract-auditor (read-only, 3 findings), sim-core (fixes) — ≤ 2 concurrent.
+- **Next:** S1b (projection 33 seats read model, plan §S1b) then S2 (plan §S2 expansion; V22 rebases the work numerator ×8; production consumer
+  of R07 stays DESIGN BLOCKED on the Future Ops R2 recipe), both under the standing logic-first directive; no Unity work.
+- Everything below remains true as history.
+
+## LOGIC-FIRST WINDOW — S1 recovery point 2 (2026-09-16 ≈14:00 CEST; superseded by the closeout above, kept as history)
 - **Tree at this commit:** `npm run typecheck:bridge` PASS; `npm run typecheck` (root + ui) PASS — the inherited 138 × TS5097 are cleared by
   the recorded disposition (the four `tests/r3n1-*.test.ts` moved into `tsconfig.bridge.json` and excluded from the root program; nothing
   disabled). `tests/p13b-s1-staffing.test.ts` **5/5 GREEN** (RED observed 13:02 before implementation, preserved in HEADLESS-PROGRESS).

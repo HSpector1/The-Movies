@@ -129,9 +129,9 @@ charged in `HEADLESS-PROGRESS.md`.
 - [x] **T5 Validator v2:** test 9; rewrite `validateTechnology`; keep `validateTechnologyV1` for V20.
 - [x] **T6 Save V21 + migration:** test 8, 10; save owner changes; legacy fixtures; downgrade refusals.
 - [x] **T7 Consumers:** occupancy/presence/adapter/bridge seat-aware; bridge P13 tests updated; test 6.
-- [ ] **T8 Affected suites (running 2026-09-16 14:55 on a quiet host against `d74426a`, matched to the baseline flags; evidence 06/07):** `p13a-*`, `bridge-p13-*`, `tick`, `save`, `replay`, occupancy tests; then a
+- [x] **T8 Affected suites (2026-09-16 14:55–15:44, quiet host, `d74426a`, baseline-matched flags; evidence 06–13: core 217/225 files, bridge 53/55, failing set = inherited + one stale expectation fixed and re-proved):** `p13a-*`, `bridge-p13-*`, `tick`, `save`, `replay`, occupancy tests; then a
       bounded full core pass; record results and inherited failures.
-- [ ] **T9 Checkpoint:** progress/backlog/continuation records, commit, push.
+- [x] **T9 Checkpoint (2026-09-16 ≈16:05; S1 LOGIC VERIFIED · UNITY NOT VERIFIED):** progress/backlog/continuation records, commit, push.
 
 Task evidence (2026-09-16): T1/T2 `tests/p13b-s1-staffing.test.ts` 5/5 (RED 13:02 → GREEN 13:50); T3/T4/T7 `tests/p13b-s1-scheduler.test.ts` 13/13 + `tests/bridge-p13b-s1-identity.test.ts` 1/1; T5 `tests/p13b-s1-validation.test.ts` 7/7 (+ P13A validation 9/9 after the duplicate-charge pre-pass); T6 `tests/p13b-s1-save-v21.test.ts` 8/8 on the three frozen V20 fixtures + accepted V19; commits `b5b2412`, `5a52e1e`, `d74426a`; read-only audit at b5b2412 (no false refusals; 3 findings fixed in d74426a). Each task ends with a commit on this branch. Commands: `npx vitest run --project core --minWorkers=1
 --maxWorkers=2 <files>`; `npx tsc --noEmit -p tsconfig.bridge.json`.

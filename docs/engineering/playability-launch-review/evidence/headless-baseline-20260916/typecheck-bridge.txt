@@ -1,0 +1,10 @@
+=== npm run typecheck:bridge ===
+
+> project-studio-core@0.1.0 typecheck:bridge
+> tsc -p tsconfig.bridge.json
+
+
+real	0m43.881s
+user	0m40.420s
+sys	0m1.388s
+EXIT=0

@@ -259,7 +259,7 @@ describe("§17 — loud rejection of an unknown saveVersion", () => {
     // sentinel this test reaches for one version past the known ceiling moves
     // with it — 17 to 18.
     const save = wellFormedSave();
-    const bad = { ...save, saveVersion: 21 } as unknown as SaveFileV14;
+    const bad = { ...save, saveVersion: 22 } as unknown as SaveFileV14;
     expect(() => loadSave(bad)).toThrow();
   });
 });
@@ -394,10 +394,10 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
     ).toMatchObject({ subjectId: null });
   });
 
-  it("rejects an unknown saveVersion 21 with the updated range, and rejects downgrading V15 to V14", () => {
+  it("rejects an unknown saveVersion 22 with the updated range, and rejects downgrading V15 to V14", () => {
     const save = wellFormedV15Save();
-    expect(() => validateSave({ ...save, saveVersion: 21 })).toThrow(
-      /versions 1 through 20 only/,
+    expect(() => validateSave({ ...save, saveVersion: 22 })).toThrow(
+      /versions 1 through 21 only/,
     );
     expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
   });

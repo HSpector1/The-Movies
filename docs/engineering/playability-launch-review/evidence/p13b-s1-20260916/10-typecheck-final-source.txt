@@ -1,0 +1,10 @@
+commit 4e83d440cd045f24b49349793bce38592489524a start 2026-09-16T13:46:33Z
+=== npx tsc --noEmit -p tsconfig.bridge.json ===
+BRIDGE_EXIT=0
+=== npm run typecheck (root + ui) ===
+
+> project-studio-core@0.1.0 typecheck
+> tsc --noEmit && tsc -p ui/tsconfig.json --noEmit
+
+ROOT_UI_EXIT=0
+end 2026-09-16T13:48:08Z

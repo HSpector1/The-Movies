@@ -1,0 +1,12 @@
+campaign-isolation actual duration, solo quiet host, --testTimeout=300000 (removes the 60 s race); start 2026-09-16T13:57:01Z
+=== The-Movies-baseline e2e409e ===
+ ❯ |core| tests/bridge-p13-campaign-isolation.test.ts (1 test | 1 failed) 75543ms
+   × P13A research authority across named campaign operations > Save As branches real research, inactive and renamed cam
+      Tests  1 failed (1)
+   Duration  79.75s (transform 2.71s, setup 0ms, collect 3.59s, tests 75.54s, environment 0ms, prepare 221ms)
+=== The-Movies-headless-program 4e83d44 ===
+ ❯ |core| tests/bridge-p13-campaign-isolation.test.ts (1 test | 1 failed) 71605ms
+   × P13A research authority across named campaign operations > Save As branches real research, inactive and renamed cam
+      Tests  1 failed (1)
+   Duration  75.79s (transform 2.77s, setup 0ms, collect 3.65s, tests 71.60s, environment 0ms, prepare 138ms)
+end 2026-09-16T13:59:41Z

@@ -1,0 +1,132 @@
+diff --git a/tests/bridge-runtime-checkpoint.test.ts b/tests/bridge-runtime-checkpoint.test.ts
+index 7484b44..679b5d2 100644
+--- a/tests/bridge-runtime-checkpoint.test.ts
++++ b/tests/bridge-runtime-checkpoint.test.ts
+@@ -428,7 +428,7 @@ describe('BridgeRuntimeCheckpointV1', () => {
+       currentSaveJson: nonCanonicalSave,
+       savedSaveJson: checkpoint.savedSaveJson,
+       journal: checkpoint.journal,
+-    })).toThrow(/canonical V20 save bytes exactly/)
++    })).toThrow(/canonical V21 save bytes exactly/)
+ 
+     const forgedSave = JSON.parse(checkpoint.currentSaveJson) as Record<string, unknown>
+     forgedSave['bridgeJournal'] = []
+diff --git a/tests/construction-save-v11.test.ts b/tests/construction-save-v11.test.ts
+index 61c2afd..f727bfe 100644
+--- a/tests/construction-save-v11.test.ts
++++ b/tests/construction-save-v11.test.ts
+@@ -550,8 +550,8 @@ describe("Development & Casting Annex V1 — SaveFileV11", () => {
+     };
+     expect(() => makeSave(withFuture)).toThrow(/unknown field "futureV13"/);
+     const save = makeSave(managedVacant("save-v11-projection"));
+-    expect(() => validateSave({ ...save, saveVersion: 21 })).toThrow(
+-      /unknown saveVersion 21.*versions 1 through 20 only/,
++    expect(() => validateSave({ ...save, saveVersion: 22 })).toThrow(
++      /unknown saveVersion 22.*versions 1 through 21 only/,
+     );
+   });
+ });
+diff --git a/tests/contracts/v14-boundary-guards.contract.test.ts b/tests/contracts/v14-boundary-guards.contract.test.ts
+index 63e77d1..37f6e3a 100644
+--- a/tests/contracts/v14-boundary-guards.contract.test.ts
++++ b/tests/contracts/v14-boundary-guards.contract.test.ts
+@@ -310,7 +310,7 @@ describe('C2a-M1 · guards (B) — the live boundary moves one way', () => {
+   // version now is. 15 is no longer unknown (validateSaveV15 exists); 16 is.
+   it('keeps every historical version frozen and rejects unknown V21', () => {
+     const save = envelopeAt(14)
+-    expect(() => validateSave({ ...save, saveVersion: 21 })).toThrow(/unknown saveVersion 21/)
++    expect(() => validateSave({ ...save, saveVersion: 22 })).toThrow(/unknown saveVersion 22/)
+   })
+ })
+ 
+diff --git a/tests/d17a-adv-migration.test.ts b/tests/d17a-adv-migration.test.ts
+index 95920b9..7d46493 100644
+--- a/tests/d17a-adv-migration.test.ts
++++ b/tests/d17a-adv-migration.test.ts
+@@ -271,7 +271,7 @@ describe('D-17A/D — validateSave still guards the version boundary loudly', ()
+   // boundary moved one further, to 17 — the same law the boundary has always followed one
+   // bump on.
+   it('rejects unknown V21 loudly', () => {
+-    expect(() => validateSave({ ...v6, saveVersion: 21 })).toThrow(/unknown saveVersion 21/)
++    expect(() => validateSave({ ...v6, saveVersion: 22 })).toThrow(/unknown saveVersion 22/)
+   })
+ 
+   it('rejects a V6 whose persisted regime fact is missing or not a boolean', () => {
+diff --git a/tests/d17b-save-v7.test.ts b/tests/d17b-save-v7.test.ts
+index 017455b..b3424ab 100644
+--- a/tests/d17b-save-v7.test.ts
++++ b/tests/d17b-save-v7.test.ts
+@@ -144,7 +144,7 @@ describe('D-17B/E4 — the frozen V7 envelope remains valid and isolated', () =>
+ 
+   it('V7 through V20 are known, so the unknown-version boundary is now 21', () => {
+     const save = makeSaveV7(toV7(foundStudio('d17b-v7-boundary')))
+-    expect(() => validateSave({ ...save, saveVersion: 21 })).toThrow(/unknown saveVersion 21/)
++    expect(() => validateSave({ ...save, saveVersion: 22 })).toThrow(/unknown saveVersion 22/)
+     // P06A (W1): 16 is now a KNOWN, LIVE version — dispatch reaches validateSaveV16, which
+     // fails on this V7 payload's real shape mismatch (no releaseAuthority), not the
+     // unknown-version boundary.
+diff --git a/tests/property-state-v13.test.ts b/tests/property-state-v13.test.ts
+index dc16f26..f3165c1 100644
+--- a/tests/property-state-v13.test.ts
++++ b/tests/property-state-v13.test.ts
+@@ -882,10 +882,10 @@ describe('C1-M1a (d) — SaveFileV13', () => {
+     }
+   })
+ 
+-  it('rejects unknown V21 beyond the current V20 boundary', () => {
++  it('rejects unknown V22 beyond the current V21 boundary', () => {
+     const live = makeSave(managedStudio('c1-m1a-unknown'))
+-    expect(() => validateSave({ ...live, saveVersion: 21 })).toThrow(
+-      /unknown saveVersion 21.*versions 1 through 20 only/,
++    expect(() => validateSave({ ...live, saveVersion: 22 })).toThrow(
++      /unknown saveVersion 22.*versions 1 through 21 only/,
+     )
+   })
+ })
+diff --git a/tests/save.test.ts b/tests/save.test.ts
+index a42ad07..6efb476 100644
+--- a/tests/save.test.ts
++++ b/tests/save.test.ts
+@@ -259,7 +259,7 @@ describe("§17 — loud rejection of an unknown saveVersion", () => {
+     // sentinel this test reaches for one version past the known ceiling moves
+     // with it — 17 to 18.
+     const save = wellFormedSave();
+-    const bad = { ...save, saveVersion: 21 } as unknown as SaveFileV14;
++    const bad = { ...save, saveVersion: 22 } as unknown as SaveFileV14;
+     expect(() => loadSave(bad)).toThrow();
+   });
+ });
+@@ -394,10 +394,10 @@ describe("P04A §2.5 — SaveFileV15 identity-bearing queue expiry", () => {
+     ).toMatchObject({ subjectId: null });
+   });
+ 
+-  it("rejects an unknown saveVersion 21 with the updated range, and rejects downgrading V15 to V14", () => {
++  it("rejects an unknown saveVersion 22 with the updated range, and rejects downgrading V15 to V14", () => {
+     const save = wellFormedV15Save();
+-    expect(() => validateSave({ ...save, saveVersion: 21 })).toThrow(
+-      /versions 1 through 20 only/,
++    expect(() => validateSave({ ...save, saveVersion: 22 })).toThrow(
++      /versions 1 through 21 only/,
+     );
+     expect(() => migrateToV14(save)).toThrow(/cannot downgrade SaveFileV15/);
+   });
+diff --git a/tests/script-projects-save-v9.test.ts b/tests/script-projects-save-v9.test.ts
+index 290b225..da4c019 100644
+--- a/tests/script-projects-save-v9.test.ts
++++ b/tests/script-projects-save-v9.test.ts
+@@ -412,11 +412,11 @@ describe("Script Projects V1 — SaveFileV9", () => {
+ 
+   it("rejects unknown V21 and refuses to downgrade V9 through migrateToV8", () => {
+     const save = makeSaveV9(generateWorld("save-v9-boundary"));
+-    expect(() => validateSave({ ...save, saveVersion: 21 })).toThrow(
+-      /unknown saveVersion 21/,
++    expect(() => validateSave({ ...save, saveVersion: 22 })).toThrow(
++      /unknown saveVersion 22/,
+     );
+-    expect(() => validateSave({ ...save, saveVersion: 21 })).toThrow(
+-      /versions 1 through 20 only/,
++    expect(() => validateSave({ ...save, saveVersion: 22 })).toThrow(
++      /versions 1 through 21 only/,
+     );
+     expect(() => migrateToV8(save)).toThrow(/cannot downgrade SaveFileV9/);
+   });

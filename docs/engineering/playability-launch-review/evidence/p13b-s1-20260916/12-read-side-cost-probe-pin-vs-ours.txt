@@ -1,0 +1,13 @@
+read-side cost probe, solo quiet host; start 2026-09-16T13:55:10Z
+=== The-Movies-baseline e2e409e ===
+laboratoryPage first call on a state: 35.6 ms
+laboratoryPage on a FRESH state object (cache miss): 4.3 ms/call (n=3)
+migrateToV20(importSave(json)): 70.3 ms/call (n=3)
+makeSave(state): 51.4 ms/call (n=3)
+=== The-Movies-headless-program 4e83d44 ===
+laboratoryPage first call on a state: 66.7 ms
+laboratoryPage on a FRESH state object (cache miss): 22.3 ms/call (n=3)
+researchCandidates: 1.0 ms/call (n=10)
+migrateToV21(importSave(json)): 93.3 ms/call (n=3)
+makeSave(state): 45.9 ms/call (n=3)
+end 2026-09-16T13:55:27Z
