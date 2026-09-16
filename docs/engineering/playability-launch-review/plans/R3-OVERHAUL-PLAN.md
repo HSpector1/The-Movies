@@ -52,6 +52,11 @@ caps are planning checkpoints: each phase record restates actual usage; overruns
   strip → 1 row, footer abbreviations) to buy list height; (c) treat 1280×720 as a "compact" class with its own type scale. Recommendation:
   measure first, then (b) before (a); never (c) without an Owner ruling. Handed-on N2 tail items: the lane inspector faces are double-scaled
   (fixing it moves the natively confirmed F14 geometry — schedule with the N4 overlay work), and the pictures footer refusal line can clip.
+- C8 DISPOSITION (2026-09-16, N3 measured): the Build55 `text-metrics` probe (after IMPL-25 corrected the probe's own double-scaling; the
+  rails draw design × s × m exactly once) measures rail ink at 100 % = meta 12 / section 13 / body 14 / title 17 px against the XAG 18-px
+  target; raising the three rail faces' floor to 16 or 18 costs 1280×720/200 % its selected list floor (−58 / −111 px) — so the floor stays 12
+  for meta/section/body (the 18-px card title is the readable anchor) and the rails carry an explicit, declared XAG deviation at the 1280×720
+  class; the only remedies are the wrapped rail heading's height or a compact-class type scale (Owner choice, C8 option c). Ruled, not hidden.
 - C9 (added 2026-09-16, N2) the 1280×720/200 % compact overlay body viewport → after the overlay font fix and the body-band law, the
   envelope (310 px) binds: header 92 (0 title lines) + footer 94 + band 132 = 318 > 310, so the body viewport is 112 px against bodyMin 120
   (8 px short) while every route stays reachable (More-actions disclosure, reveal-on-focus, scroll). Ruling: DECLARED limitation for this
