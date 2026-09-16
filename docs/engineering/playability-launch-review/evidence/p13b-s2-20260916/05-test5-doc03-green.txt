@@ -1,0 +1,10 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s2-doc03.test.ts (17 tests) 15148ms
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  17:59:33
+   Duration  18.21s (transform 1.67s, setup 0ms, collect 2.38s, tests 15.15s, environment 0ms, prepare 123ms)
+

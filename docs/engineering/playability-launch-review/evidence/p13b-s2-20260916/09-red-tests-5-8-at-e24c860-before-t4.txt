@@ -1,0 +1,620 @@
+
+ RUN  v2.1.9 /private/tmp/claude-501/-Users-zacheryspector-The-Movies-headless-program/154fda95-524f-4734-9a1a-376fe09a0946/scratchpad/red-e24c860
+
+ ❯ |core| tests/p13b-s2-doc03.test.ts (17 tests | 10 failed) 9824ms
+   × P13B-S2 document 03 [780,832) through the real scheduler (test 5) > cooperate sound then light > knowledge (completedWeek) 787 / 794, R&D 1,120,000 22ms
+     → expected 786 to be 787 // Object.is equality
+   × P13B-S2 document 03 [780,832) through the real scheduler (test 5) > cooperate sound then light > idle person-weeks 304 over [780,832) 2ms
+     → expected 320 to be 304 // Object.is equality
+   × P13B-S2 document 03 [780,832) through the real scheduler (test 5) > cooperate sound then light > every receipt is fixed-point exact: units === 8a+5b (or 8a) except the last, and Σ units round-trips to verifiedWork 1ms
+     → Cannot read properties of undefined (reading 'length')
+   × P13B-S2 document 03 [780,832) through the real scheduler (test 5) > split sound and light > every receipt is fixed-point exact (single Laboratory each: units === 8a) 2ms
+     → Cannot read properties of undefined (reading 'length')
+   × P13B-S2 document 03 [780,832) through the real scheduler (test 5) > residual routes (lawful nine-week prehistory, +9 absolute-week shift — see file header FINDING) > cooperate sound then residual light: knowledge 796 / 798 (document 787/789 +9), R&D over the compared window [789,841) is 720,000 1ms
+     → expected 795 to be 796 // Object.is equality
+   × P13B-S2 document 03 [780,832) through the real scheduler (test 5) > residual routes (lawful nine-week prehistory, +9 absolute-week shift — see file header FINDING) > cooperate residual: idle person-weeks 344 over [789,841) 1ms
+     → expected 360 to be 344 // Object.is equality
+   × P13B-S2 document 03 [780,832) through the real scheduler (test 5) > residual routes (lawful nine-week prehistory, +9 absolute-week shift — see file header FINDING) > cooperate residual: every receipt is fixed-point exact (the light project also carries its nine pre-cooperation prehistory receipts, excluded from the compared-window R&D above but still fixed-point checked here) 1ms
+     → Cannot read properties of undefined (reading 'length')
+   × P13B-S2 document 03 [780,832) through the real scheduler (test 5) > residual routes (lawful nine-week prehistory, +9 absolute-week shift — see file header FINDING) > split residual: every receipt is fixed-point exact 2ms
+     → Cannot read properties of undefined (reading 'length')
+   × P13B-S2 document 03 [780,832) through the real scheduler (test 5) > cooperate-minus-split R&D differences match the document exactly > full routes: 1,120,000 − 880,000 = 240,000 1ms
+     → expected 80000 to be 240000 // Object.is equality
+   × P13B-S2 document 03 [780,832) through the real scheduler (test 5) > cooperate-minus-split R&D differences match the document exactly > residual routes: 720,000 − 520,000 = 200,000 1ms
+     → expected 40000 to be 200000 // Object.is equality
+ ❯ |core| tests/p13b-s2-validation.test.ts (15 tests | 10 failed) 44708ms
+   × P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (a) rejects a per-Laboratory spend split that does not match the proportional funding rule, even with the receipt total unchanged 80ms
+     → Cannot read properties of undefined (reading '0')
+   × P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (b) rejects a receipt row naming a Laboratory the project has no seat on 46ms
+     → Cannot read properties of undefined (reading '0')
+   × P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (c) rejects a third Laboratory row on one receipt 30ms
+     → Cannot read properties of undefined (reading 'push')
+   × P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (e) rejects a non-final receipt whose units do not equal 8·raw_a + 5·raw_b 38ms
+     → expected [Function] to throw error matching /research credit does not match the co…/ but got 'Technology save: research receipt uni…'
+   × P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (f) rejects a receipt at/after cooperationFromWeek carrying labs: null 40ms
+     → expected [Function] to throw error matching /single-pool receipt after cooperation…/ but got 'Technology save: exact keys required:…'
+   × P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (g) rejects a technology root with cooperationFromWeek removed 146ms
+     → expected [Function] to throw an error
+   × P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (g) rejects a technology root with a non-integer cooperationFromWeek 33ms
+     → expected [Function] to throw error matching /bounded integer required/ but got 'Technology save: exact keys required:…'
+   × P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (h) rejects technology version 2 inside a saveVersion 22 envelope 88ms
+     → expected [Function] to throw an error
+   × P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > conservation: reconciles receipts, expenditure, ledger and cash over a funded cooperate interval 6371ms
+     → expected 720000 to be 5760000 // Object.is equality
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > determinism: two independent builds from the same seed give byte-identical exportSave, both fresh and after identical further actions 12316ms
+   × P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > save/reload mid-project: a reloaded cooperate project continues identically to the uninterrupted run over further weeks 6063ms
+     → migrateToV22 is not a function
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: every project a public action can create carries studioId === the player, by construction 5856ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: a rival two-Laboratory project never surfaces through the player-scoped read filter, and forging the player’s own project never touches its bytes 5920ms
+ ❯ |core| tests/p13b-s2-save-v22.test.ts (12 tests | 12 failed) 870ms
+   × P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 219ms
+     → migrateToV22 is not a function
+   × P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-released-paused-266.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 97ms
+     → migrateToV22 is not a function
+   × P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 130ms
+     → migrateToV22 is not a function
+   × P13B-S2 V21 to V22 migration (test 8) > continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically 33ms
+     → migrateToV22 is not a function
+   × P13B-S2 V21 to V22 migration (test 8) > refuses to downgrade a V22 save to V21, V20 or V19 31ms
+     → migrateToV22 is not a function
+   × P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-active-280.json.gz: the S1 legacy prefix survives intact, weeks stays empty 75ms
+     → migrateToV22 is not a function
+   × P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz: the S1 legacy prefix survives intact, weeks stays empty 71ms
+     → migrateToV22 is not a function
+   × P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz: the S1 legacy prefix survives intact, weeks stays empty 74ms
+     → migrateToV22 is not a function
+   × P13B-S2 Save V22 envelope law (test 8) > makeSave always writes saveVersion 22 34ms
+     → migrateToV22 is not a function
+   × P13B-S2 Save V22 envelope law (test 8) > refuses an unknown saveVersion 23 with the updated range 32ms
+     → migrateToV22 is not a function
+   × P13B-S2 Save V22 envelope law (test 8) > round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV22 byte-identically 39ms
+     → migrateToV22 is not a function
+   × P13B-S2 campaign isolation across V21→V22 (mirrors the S1 case) > produces independent migrated copies from the same V21 fixture; advancing one never touches the other 32ms
+     → migrateToV22 is not a function
+ ❯ |core| tests/p13b-s2-expiry.test.ts (3 tests | 3 failed) 13190ms
+   × P13B-S2 expiry/rehire across Laboratories (test 6) > Case A: a Lab-2 seat released deliberately > the next receipt carries a one-seat Lab-2 row with the spend split recomputed (5 seats: 40,000/10,000), output 6 + 0.625×1.5 = 6.9375; the Lab-1 row is unchanged in seats 60ms
+     → expected 1.125 to be 7.875 // Object.is equality
+   × P13B-S2 expiry/rehire across Laboratories (test 6) > Case B: a genuinely lapsed contract on Lab 2 > drops only the lapsed seat from Lab 2's row at the lapse week; Lab 1's row is untouched; payroll for that person stops 24ms
+     → expected undefined to deeply equal [ { …(4) }, { …(4) } ]
+   × P13B-S2 expiry/rehire across Laboratories (test 6) > Case C: every Lab-2 seat gone > the receipt drops to one row (Lab 1 only); output = raw_a/20,000 only (S1's single-Laboratory math), labs.length === 1 8ms
+     → expected undefined to deeply equal [ { …(4) } ]
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 35 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s2-doc03.test.ts > P13B-S2 document 03 [780,832) through the real scheduler (test 5) > cooperate sound then light > knowledge (completedWeek) 787 / 794, R&D 1,120,000
+AssertionError: expected 786 to be 787 // Object.is equality
+
+- Expected
++ Received
+
+- 787
++ 786
+
+ ❯ tests/p13b-s2-doc03.test.ts:206:84
+    204|     it('knowledge (completedWeek) 787 / 794, R&D 1,120,000', () => {
+    205|       const { state, soundId, lightId } = cooperateFull
+    206|       expect(state.technology.projects.find(p => p.id === soundId)!.co…
+       |                                                                                    ^
+    207|       expect(state.technology.projects.find(p => p.id === lightId)!.co…
+    208|       const rd = researchSpendInWindow(state, soundId, 780, 832) + res…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/35]⎯
+
+ FAIL |core|  tests/p13b-s2-doc03.test.ts > P13B-S2 document 03 [780,832) through the real scheduler (test 5) > cooperate sound then light > idle person-weeks 304 over [780,832)
+AssertionError: expected 320 to be 304 // Object.is equality
+
+- Expected
++ Received
+
+- 304
++ 320
+
+ ❯ tests/p13b-s2-doc03.test.ts:214:68
+    212|     it('idle person-weeks 304 over [780,832)', () => {
+    213|       const { state, soundId, lightId } = cooperateFull
+    214|       expect(idlePersonWeeks(state, [soundId, lightId], 780, 832)).toB…
+       |                                                                    ^
+    215|     })
+    216| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/35]⎯
+
+ FAIL |core|  tests/p13b-s2-doc03.test.ts > P13B-S2 document 03 [780,832) through the real scheduler (test 5) > cooperate sound then light > every receipt is fixed-point exact: units === 8a+5b (or 8a) except the last, and Σ units round-trips to verifiedWork
+TypeError: Cannot read properties of undefined (reading 'length')
+ ❯ tests/p13b-s2-doc03.test.ts:60:28
+     58|     cumulative += r.units
+     59|     if (r.labs === null) return // a pre-cooperation legacy receipt: n…
+     60|     const natural = r.labs.length === 1 ? 8 * r.labs[0]!.rawUnits : pr…
+       |                            ^
+     61|     const isLast = i === project.weeks.length - 1 && project.completed…
+     62|     if (isLast) expect(r.units).toBeLessThanOrEqual(natural)
+ ❯ assertFixedPoint tests/p13b-s2-doc03.test.ts:57:17
+ ❯ tests/p13b-s2-doc03.test.ts:219:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/35]⎯
+
+ FAIL |core|  tests/p13b-s2-doc03.test.ts > P13B-S2 document 03 [780,832) through the real scheduler (test 5) > split sound and light > every receipt is fixed-point exact (single Laboratory each: units === 8a)
+TypeError: Cannot read properties of undefined (reading 'length')
+ ❯ tests/p13b-s2-doc03.test.ts:60:28
+     58|     cumulative += r.units
+     59|     if (r.labs === null) return // a pre-cooperation legacy receipt: n…
+     60|     const natural = r.labs.length === 1 ? 8 * r.labs[0]!.rawUnits : pr…
+       |                            ^
+     61|     const isLast = i === project.weeks.length - 1 && project.completed…
+     62|     if (isLast) expect(r.units).toBeLessThanOrEqual(natural)
+ ❯ assertFixedPoint tests/p13b-s2-doc03.test.ts:57:17
+ ❯ tests/p13b-s2-doc03.test.ts:265:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/35]⎯
+
+ FAIL |core|  tests/p13b-s2-doc03.test.ts > P13B-S2 document 03 [780,832) through the real scheduler (test 5) > residual routes (lawful nine-week prehistory, +9 absolute-week shift — see file header FINDING) > cooperate sound then residual light: knowledge 796 / 798 (document 787/789 +9), R&D over the compared window [789,841) is 720,000
+AssertionError: expected 795 to be 796 // Object.is equality
+
+- Expected
++ Received
+
+- 796
++ 795
+
+ ❯ tests/p13b-s2-doc03.test.ts:273:84
+    271|     it('cooperate sound then residual light: knowledge 796 / 798 (docu…
+    272|       const { state, soundId, lightId } = cooperateResidual
+    273|       expect(state.technology.projects.find(p => p.id === soundId)!.co…
+       |                                                                                    ^
+    274|       expect(state.technology.projects.find(p => p.id === lightId)!.co…
+    275|       const rd = researchSpendInWindow(state, soundId, 789, 841) + res…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/35]⎯
+
+ FAIL |core|  tests/p13b-s2-doc03.test.ts > P13B-S2 document 03 [780,832) through the real scheduler (test 5) > residual routes (lawful nine-week prehistory, +9 absolute-week shift — see file header FINDING) > cooperate residual: idle person-weeks 344 over [789,841)
+AssertionError: expected 360 to be 344 // Object.is equality
+
+- Expected
++ Received
+
+- 344
++ 360
+
+ ❯ tests/p13b-s2-doc03.test.ts:281:68
+    279|     it('cooperate residual: idle person-weeks 344 over [789,841)', () …
+    280|       const { state, soundId, lightId } = cooperateResidual
+    281|       expect(idlePersonWeeks(state, [soundId, lightId], 789, 841)).toB…
+       |                                                                    ^
+    282|     })
+    283| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/35]⎯
+
+ FAIL |core|  tests/p13b-s2-doc03.test.ts > P13B-S2 document 03 [780,832) through the real scheduler (test 5) > residual routes (lawful nine-week prehistory, +9 absolute-week shift — see file header FINDING) > cooperate residual: every receipt is fixed-point exact (the light project also carries its nine pre-cooperation prehistory receipts, excluded from the compared-window R&D above but still fixed-point checked here)
+TypeError: Cannot read properties of undefined (reading 'length')
+ ❯ tests/p13b-s2-doc03.test.ts:60:28
+     58|     cumulative += r.units
+     59|     if (r.labs === null) return // a pre-cooperation legacy receipt: n…
+     60|     const natural = r.labs.length === 1 ? 8 * r.labs[0]!.rawUnits : pr…
+       |                            ^
+     61|     const isLast = i === project.weeks.length - 1 && project.completed…
+     62|     if (isLast) expect(r.units).toBeLessThanOrEqual(natural)
+ ❯ assertFixedPoint tests/p13b-s2-doc03.test.ts:57:17
+ ❯ tests/p13b-s2-doc03.test.ts:286:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/35]⎯
+
+ FAIL |core|  tests/p13b-s2-doc03.test.ts > P13B-S2 document 03 [780,832) through the real scheduler (test 5) > residual routes (lawful nine-week prehistory, +9 absolute-week shift — see file header FINDING) > split residual: every receipt is fixed-point exact
+TypeError: Cannot read properties of undefined (reading 'length')
+ ❯ tests/p13b-s2-doc03.test.ts:60:28
+     58|     cumulative += r.units
+     59|     if (r.labs === null) return // a pre-cooperation legacy receipt: n…
+     60|     const natural = r.labs.length === 1 ? 8 * r.labs[0]!.rawUnits : pr…
+       |                            ^
+     61|     const isLast = i === project.weeks.length - 1 && project.completed…
+     62|     if (isLast) expect(r.units).toBeLessThanOrEqual(natural)
+ ❯ assertFixedPoint tests/p13b-s2-doc03.test.ts:57:17
+ ❯ tests/p13b-s2-doc03.test.ts:305:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/35]⎯
+
+ FAIL |core|  tests/p13b-s2-doc03.test.ts > P13B-S2 document 03 [780,832) through the real scheduler (test 5) > cooperate-minus-split R&D differences match the document exactly > full routes: 1,120,000 − 880,000 = 240,000
+AssertionError: expected 80000 to be 240000 // Object.is equality
+
+- Expected
++ Received
+
+- 240000
++ 80000
+
+ ❯ tests/p13b-s2-doc03.test.ts:314:37
+    312|       const cooperateRD = researchSpendInWindow(cooperateFull.state, c…
+    313|       const splitRD = researchSpendInWindow(splitFull.state, splitFull…
+    314|       expect(cooperateRD - splitRD).toBe(240_000)
+       |                                     ^
+    315|     })
+    316| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/35]⎯
+
+ FAIL |core|  tests/p13b-s2-doc03.test.ts > P13B-S2 document 03 [780,832) through the real scheduler (test 5) > cooperate-minus-split R&D differences match the document exactly > residual routes: 720,000 − 520,000 = 200,000
+AssertionError: expected 40000 to be 200000 // Object.is equality
+
+- Expected
++ Received
+
+- 200000
++ 40000
+
+ ❯ tests/p13b-s2-doc03.test.ts:320:37
+    318|       const cooperateRD = researchSpendInWindow(cooperateResidual.stat…
+    319|       const splitRD = researchSpendInWindow(splitResidual.state, split…
+    320|       expect(cooperateRD - splitRD).toBe(200_000)
+       |                                     ^
+    321|     })
+    322|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/35]⎯
+
+ FAIL |core|  tests/p13b-s2-expiry.test.ts > P13B-S2 expiry/rehire across Laboratories (test 6) > Case A: a Lab-2 seat released deliberately > the next receipt carries a one-seat Lab-2 row with the spend split recomputed (5 seats: 40,000/10,000), output 6 + 0.625×1.5 = 6.9375; the Lab-1 row is unchanged in seats
+AssertionError: expected 1.125 to be 7.875 // Object.is equality
+
+- Expected
++ Received
+
+- 7.875
++ 1.125
+
+ ❯ tests/p13b-s2-expiry.test.ts:42:44
+     40|       // Sanity: the un-dropped week is plan test 4's own case (iii) —…
+     41|       expect(firstReceipt.spend).toBe(60_000)
+     42|       expect(firstReceipt.units / 160_000).toBe(7.875)
+       |                                            ^
+     43| 
+     44|       const released = applyActions(first, [{ kind: 'releaseResearchSe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/35]⎯
+
+ FAIL |core|  tests/p13b-s2-expiry.test.ts > P13B-S2 expiry/rehire across Laboratories (test 6) > Case B: a genuinely lapsed contract on Lab 2 > drops only the lapsed seat from Lab 2's row at the lapse week; Lab 1's row is untouched; payroll for that person stops
+AssertionError: expected undefined to deeply equal [ { …(4) }, { …(4) } ]
+
+- Expected: 
+Array [
+  Object {
+    "laboratoryFacilityId": "facility-research-laboratory",
+    "rawUnits": 120000,
+    "seatTalentIds": Array [
+      "t-sci-01",
+      "t-sci-02",
+      "t-sci-03",
+      "t-sci-04",
+    ],
+    "spend": 40000,
+  },
+  Object {
+    "laboratoryFacilityId": "facility-research-laboratory-2",
+    "rawUnits": 30000,
+    "seatTalentIds": Array [
+      "t-sci-05",
+    ],
+    "spend": 10000,
+  },
+]
+
++ Received: 
+undefined
+
+ ❯ tests/p13b-s2-expiry.test.ts:98:31
+     96|       const rawLab1 = rawUnitsOf(4, 40_000)
+     97|       const rawLab2 = rawUnitsOf(1, 10_000)
+     98|       expect(afterLapse.labs).toEqual([
+       |                               ^
+     99|         { laboratoryFacilityId: labA, seatTalentIds: lab1Ids, spend: 4…
+    100|         { laboratoryFacilityId: labB, seatTalentIds: [lab2Ids[1]!], sp…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/35]⎯
+
+ FAIL |core|  tests/p13b-s2-expiry.test.ts > P13B-S2 expiry/rehire across Laboratories (test 6) > Case C: every Lab-2 seat gone > the receipt drops to one row (Lab 1 only); output = raw_a/20,000 only (S1's single-Laboratory math), labs.length === 1
+AssertionError: expected undefined to deeply equal [ { …(4) } ]
+
+- Expected: 
+Array [
+  Object {
+    "laboratoryFacilityId": "facility-research-laboratory",
+    "rawUnits": 120000,
+    "seatTalentIds": Array [
+      "t-sci-00",
+      "t-sci-01",
+      "t-sci-02",
+      "t-sci-03",
+    ],
+    "spend": 40000,
+  },
+]
+
++ Received: 
+undefined
+
+ ❯ tests/p13b-s2-expiry.test.ts:155:28
+    153|       expect(receipt.spend).toBe(40_000) // 4 seats now, usable = 10,0…
+    154|       const rawLab1 = rawUnitsOf(4, 40_000)
+    155|       expect(receipt.labs).toEqual([{ laboratoryFacilityId: lab1, seat…
+       |                            ^
+    156|       expect(receipt.labs).toHaveLength(1)
+    157|       expect(receipt.units).toBe(8 * rawLab1)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/35]⎯
+
+ FAIL |core|  tests/p13b-s2-save-v22.test.ts > P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week
+ FAIL |core|  tests/p13b-s2-save-v22.test.ts > P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-released-paused-266.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week
+ FAIL |core|  tests/p13b-s2-save-v22.test.ts > P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week
+TypeError: migrateToV22 is not a function
+ ❯ tests/p13b-s2-save-v22.test.ts:117:24
+    115|       expect(() => validateSaveV21(before)).not.toThrow() // frozen V2…
+    116| 
+    117|       const migrated = migrateToV22(importSave(json))
+       |                        ^
+    118|       expect(migrated.saveVersion).toBe(22)
+    119|       expect(migrated.state.technology.version).toBe(3)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/35]⎯
+
+ FAIL |core|  tests/p13b-s2-save-v22.test.ts > P13B-S2 V21 to V22 migration (test 8) > continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically
+TypeError: migrateToV22 is not a function
+ ❯ tests/p13b-s2-save-v22.test.ts:156:22
+    154| 
+    155|   it('continues the migrated active staffed-4-seats-263 project for on…
+    156|     const migrated = migrateToV22(importSave(load('./fixtures/p13b/leg…
+       |                      ^
+    157|     const next = tick(migrated.state)
+    158|     const project = next.technology.projects.find(p => p.technologyId …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/35]⎯
+
+ FAIL |core|  tests/p13b-s2-save-v22.test.ts > P13B-S2 V21 to V22 migration (test 8) > refuses to downgrade a V22 save to V21, V20 or V19
+TypeError: migrateToV22 is not a function
+ ❯ tests/p13b-s2-save-v22.test.ts:170:22
+    168| 
+    169|   it('refuses to downgrade a V22 save to V21, V20 or V19', () => {
+    170|     const migrated = migrateToV22(importSave(load('./fixtures/p13b/leg…
+       |                      ^
+    171|     expect(() => migrateToV21(migrated)).toThrow(/cannot downgrade Sav…
+    172|     expect(() => migrateToV20(migrated)).toThrow(/cannot downgrade Sav…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/35]⎯
+
+ FAIL |core|  tests/p13b-s2-save-v22.test.ts > P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-active-280.json.gz: the S1 legacy prefix survives intact, weeks stays empty
+ FAIL |core|  tests/p13b-s2-save-v22.test.ts > P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz: the S1 legacy prefix survives intact, weeks stays empty
+ FAIL |core|  tests/p13b-s2-save-v22.test.ts > P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz: the S1 legacy prefix survives intact, weeks stays empty
+TypeError: migrateToV22 is not a function
+ ❯ tests/p13b-s2-save-v22.test.ts:182:24
+    180|       const before = importSave(json) as SaveFileV20
+    181|       expect(before.saveVersion).toBe(20)
+    182|       const migrated = migrateToV22(importSave(json))
+       |                        ^
+    183|       expect(migrated.saveVersion).toBe(22)
+    184|       expect(migrated.state.technology.version).toBe(3)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/35]⎯
+
+ FAIL |core|  tests/p13b-s2-save-v22.test.ts > P13B-S2 Save V22 envelope law (test 8) > makeSave always writes saveVersion 22
+TypeError: migrateToV22 is not a function
+ ❯ tests/p13b-s2-save-v22.test.ts:197:22
+    195| describe('P13B-S2 Save V22 envelope law (test 8)', () => {
+    196|   it('makeSave always writes saveVersion 22', () => {
+    197|     const migrated = migrateToV22(importSave(load('./fixtures/p13b/leg…
+       |                      ^
+    198|     expect(makeSave(migrated.state).saveVersion).toBe(22)
+    199|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/35]⎯
+
+ FAIL |core|  tests/p13b-s2-save-v22.test.ts > P13B-S2 Save V22 envelope law (test 8) > refuses an unknown saveVersion 23 with the updated range
+TypeError: migrateToV22 is not a function
+ ❯ tests/p13b-s2-save-v22.test.ts:202:22
+    200| 
+    201|   it('refuses an unknown saveVersion 23 with the updated range', () =>…
+    202|     const migrated = migrateToV22(importSave(load('./fixtures/p13b/leg…
+       |                      ^
+    203|     const save = makeSave(migrated.state)
+    204|     expect(() => validateSave({ ...save, saveVersion: 23 })).toThrow(/…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/35]⎯
+
+ FAIL |core|  tests/p13b-s2-save-v22.test.ts > P13B-S2 Save V22 envelope law (test 8) > round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV22 byte-identically
+TypeError: migrateToV22 is not a function
+ ❯ tests/p13b-s2-save-v22.test.ts:208:22
+    206| 
+    207|   it('round-trips a migrated two-Laboratory save through exportSave/im…
+    208|     const migrated = migrateToV22(importSave(load('./fixtures/p13b/leg…
+       |                      ^
+    209|     const direct = exportSave(makeSave(migrated.state))
+    210|     const restored = migrateToV22(importSave(direct)).state
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/35]⎯
+
+ FAIL |core|  tests/p13b-s2-save-v22.test.ts > P13B-S2 campaign isolation across V21→V22 (mirrors the S1 case) > produces independent migrated copies from the same V21 fixture; advancing one never touches the other
+TypeError: migrateToV22 is not a function
+ ❯ tests/p13b-s2-save-v22.test.ts:218:15
+    216|   it('produces independent migrated copies from the same V21 fixture; …
+    217|     const json = load('./fixtures/p13b/legacy-v21-staffed-4-seats-263.…
+    218|     const a = migrateToV22(importSave(json))
+       |               ^
+    219|     const b = migrateToV22(importSave(json))
+    220|     expect(a.state).not.toBe(b.state)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/35]⎯
+
+ FAIL |core|  tests/p13b-s2-validation.test.ts > P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (a) rejects a per-Laboratory spend split that does not match the proportional funding rule, even with the receipt total unchanged
+TypeError: Cannot read properties of undefined (reading '0')
+ ❯ tests/p13b-s2-validation.test.ts:67:15
+     65|     rejected(slack, state => {
+     66|       const receipt = state.technology.projects.find(p => p.id === sta…
+     67|       receipt.labs![0]!.spend -= 1
+       |               ^
+     68|       receipt.labs![1]!.spend += 1 // Σ unchanged — this must not trip…
+     69|     }, /per-Lab research split does not match the funding rule/)
+ ❯ rejected tests/p13b-s2-validation.test.ts:33:3
+ ❯ tests/p13b-s2-validation.test.ts:65:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/35]⎯
+
+ FAIL |core|  tests/p13b-s2-validation.test.ts > P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (b) rejects a receipt row naming a Laboratory the project has no seat on
+TypeError: Cannot read properties of undefined (reading '0')
+ ❯ tests/p13b-s2-validation.test.ts:77:15
+     75|       // Prefixed with a digit so it still sorts first (ascending Labo…
+     76|       // stays intact) and only the "no seat there" fact is under test.
+     77|       receipt.labs![0]!.laboratoryFacilityId = `0-decoy-${receipt.labs…
+       |               ^
+     78|     }, /receipt names a Laboratory without a seat/)
+     79|   })
+ ❯ rejected tests/p13b-s2-validation.test.ts:33:3
+ ❯ tests/p13b-s2-validation.test.ts:73:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/35]⎯
+
+ FAIL |core|  tests/p13b-s2-validation.test.ts > P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (c) rejects a third Laboratory row on one receipt
+TypeError: Cannot read properties of undefined (reading 'push')
+ ❯ tests/p13b-s2-validation.test.ts:84:21
+     82|     rejected(base, state => {
+     83|       const receipt = state.technology.projects.find(p => p.id === bas…
+     84|       receipt.labs!.push({ ...receipt.labs![0]! })
+       |                     ^
+     85|     }, /research receipt names more than two Laboratories/)
+     86|   })
+ ❯ rejected tests/p13b-s2-validation.test.ts:33:3
+ ❯ tests/p13b-s2-validation.test.ts:82:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/35]⎯
+
+ FAIL |core|  tests/p13b-s2-validation.test.ts > P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (e) rejects a non-final receipt whose units do not equal 8·raw_a + 5·raw_b
+AssertionError: expected [Function] to throw error matching /research credit does not match the co…/ but got 'Technology save: research receipt uni…'
+
+- Expected: 
+/research credit does not match the cooperation rule/
+
++ Received: 
+"Technology save: research receipt units do not match its seats and charge"
+
+ ❯ rejected tests/p13b-s2-validation.test.ts:34:35
+     32|   const changed = structuredClone(source)
+     33|   change(changed)
+     34|   expect(() => makeSave(changed)).toThrow(message)
+       |                                   ^
+     35| }
+     36| 
+ ❯ tests/p13b-s2-validation.test.ts:103:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/35]⎯
+
+ FAIL |core|  tests/p13b-s2-validation.test.ts > P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (f) rejects a receipt at/after cooperationFromWeek carrying labs: null
+AssertionError: expected [Function] to throw error matching /single-pool receipt after cooperation…/ but got 'Technology save: exact keys required:…'
+
+- Expected: 
+/single-pool receipt after cooperation began/
+
++ Received: 
+"Technology save: exact keys required: week,seatTalentIds,spend,units"
+
+ ❯ rejected tests/p13b-s2-validation.test.ts:34:35
+     32|   const changed = structuredClone(source)
+     33|   change(changed)
+     34|   expect(() => makeSave(changed)).toThrow(message)
+       |                                   ^
+     35| }
+     36| 
+ ❯ tests/p13b-s2-validation.test.ts:110:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/35]⎯
+
+ FAIL |core|  tests/p13b-s2-validation.test.ts > P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (g) rejects a technology root with cooperationFromWeek removed
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ rejected tests/p13b-s2-validation.test.ts:34:35
+     32|   const changed = structuredClone(source)
+     33|   change(changed)
+     34|   expect(() => makeSave(changed)).toThrow(message)
+       |                                   ^
+     35| }
+     36| 
+ ❯ tests/p13b-s2-validation.test.ts:117:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/35]⎯
+
+ FAIL |core|  tests/p13b-s2-validation.test.ts > P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (g) rejects a technology root with a non-integer cooperationFromWeek
+AssertionError: expected [Function] to throw error matching /bounded integer required/ but got 'Technology save: exact keys required:…'
+
+- Expected: 
+/bounded integer required/
+
++ Received: 
+"Technology save: exact keys required: version,recordingStartedWeek,projects,access,adoptions,productions"
+
+ ❯ rejected tests/p13b-s2-validation.test.ts:34:35
+     32|   const changed = structuredClone(source)
+     33|   change(changed)
+     34|   expect(() => makeSave(changed)).toThrow(message)
+       |                                   ^
+     35| }
+     36| 
+ ❯ tests/p13b-s2-validation.test.ts:123:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/35]⎯
+
+ FAIL |core|  tests/p13b-s2-validation.test.ts > P13B-S2 validator refusals for the per-Laboratory facts (test 7) > (h) rejects technology version 2 inside a saveVersion 22 envelope
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ rejected tests/p13b-s2-validation.test.ts:34:35
+     32|   const changed = structuredClone(source)
+     33|   change(changed)
+     34|   expect(() => makeSave(changed)).toThrow(message)
+       |                                   ^
+     35| }
+     36| 
+ ❯ tests/p13b-s2-validation.test.ts:129:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/35]⎯
+
+ FAIL |core|  tests/p13b-s2-validation.test.ts > P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > conservation: reconciles receipts, expenditure, ledger and cash over a funded cooperate interval
+AssertionError: expected 720000 to be 5760000 // Object.is equality
+
+- Expected
++ Received
+
+- 5760000
++ 720000
+
+ ❯ tests/p13b-s2-validation.test.ts:153:26
+    151|     expect(ledgerSpend).toBe(project.expenditure)
+    152|     const receiptUnits = project.weeks.reduce((sum, r) => sum + r.unit…
+    153|     expect(receiptUnits).toBe(Math.round(project.verifiedWork * 160_00…
+       |                          ^
+    154| 
+    155|     const newRows = s.ledger.slice(ledgerBefore)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/35]⎯
+
+ FAIL |core|  tests/p13b-s2-validation.test.ts > P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > save/reload mid-project: a reloaded cooperate project continues identically to the uninterrupted run over further weeks
+TypeError: migrateToV22 is not a function
+ ❯ tests/p13b-s2-validation.test.ts:183:22
+    181| 
+    182|     const direct = exportSave(makeSave(running))
+    183|     const reloaded = migrateToV22(importSave(direct)).state
+       |                      ^
+    184|     expect(exportSave(makeSave(reloaded))).toBe(direct)
+    185| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/35]⎯
+
+ Test Files  4 failed (4)
+      Tests  35 failed | 12 passed (47)
+   Start at  18:35:03
+   Duration  72.50s (transform 1.24s, setup 0ms, collect 2.32s, tests 68.59s, environment 1ms, prepare 383ms)
+

@@ -1,6 +1,6 @@
-import { initialTechnology, initialTechnologyV1, liftTechnologyV1, validateTechnology, validateTechnologyV1 } from './technology.js'
+import { initialTechnology, initialTechnologyV1, liftTechnologyV1, liftTechnologyV2, validateTechnology, validateTechnologyV1, validateTechnologyV2 } from './technology.js'
 import { withResearchFoundation } from './researchPeople.js'
-import type { StudioTechnology, StudioTechnologyV1 } from './technologyTypes.js'
+import type { StudioTechnology, StudioTechnologyV1, StudioTechnologyV2 } from './technologyTypes.js'
 import { initializeHollywood } from './hollywood.js'
 import { validateHollywood } from './hollywoodValidation.js'
 // ── §17 Save format + rev. 4 item M14 + D-9 SaveFileV2 (owner ruling) ─────────
@@ -67,6 +67,7 @@ import type {
   GameStateV19,
   GameStateV20,
   GameStateV21,
+  GameStateV22,
   FacilityCapability,
   GameStateV2,
   GameStateV3,
@@ -381,12 +382,21 @@ export type SaveFileV20 = {
   broadcastCache: BroadcastItem[];
 };
 
-// P13B-S1 — the LIVE envelope. V21 carries technology root v2 (named seats and
+// P13B-S1 — frozen. V21 carries technology root v2 (named seats and single-pool
 // per-week receipts); everything else is the frozen V20 shape.
 export type SaveFileV21 = {
   saveVersion: 21;
   seed: string;
   state: GameStateV21;
+  broadcastCache: BroadcastItem[];
+};
+
+// P13B-S2 — the LIVE envelope. V22 carries technology root v3: per-Laboratory
+// receipt rows, the 1/160,000 project-credit base and the cooperation week.
+export type SaveFileV22 = {
+  saveVersion: 22;
+  seed: string;
+  state: GameStateV22;
   broadcastCache: BroadcastItem[];
 };
 
@@ -412,7 +422,8 @@ export type SaveFile =
   | SaveFileV18
   | SaveFileV19
   | SaveFileV20
-  | SaveFileV21;
+  | SaveFileV21
+  | SaveFileV22;
 
 // ── Stable stringify (UNCHANGED) ─────────────────────────────────────────────
 // Recursively serializes with object keys sorted lexicographically, so the same
@@ -5083,8 +5094,9 @@ export function validateSave(save: unknown): SaveFile {
   if (s.saveVersion === 19) return validateSaveV19(save);
   if (s.saveVersion === 20) return validateSaveV20(save);
   if (s.saveVersion === 21) return validateSaveV21(save);
+  if (s.saveVersion === 22) return validateSaveV22(save);
   throw new Error(
-    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 21 only)`,
+    `validateSave: unknown saveVersion ${JSON.stringify(s.saveVersion)} (this build handles versions 1 through 22 only)`,
   );
 }
 
@@ -6148,13 +6160,13 @@ export function makeSaveV16(state: GameStateV16): SaveFileV16 {
   return validateSaveV16(save);
 }
 
-// makeSave — the live V21 boundary. Frozen prior values migrate explicitly.
+// makeSave — the live V22 boundary. Frozen prior values migrate explicitly.
 // The new plain-JSON root is detached once; only final serialization sorts it.
-export function makeSave(state: GameState): SaveFileV21 {
-  const save = validateSaveV21({ saveVersion: 21, seed: state.seed, state, broadcastCache: state.broadcastItems });
+export function makeSave(state: GameState): SaveFileV22 {
+  const save = validateSaveV22({ saveVersion: 22, seed: state.seed, state, broadcastCache: state.broadcastItems });
   // Validation precedes detachment, so undefined/non-JSON authority cannot be
   // silently repaired by stringify before the boundary sees it.
-  return JSON.parse(JSON.stringify(save)) as SaveFileV21;
+  return JSON.parse(JSON.stringify(save)) as SaveFileV22;
 }
 
 // ── Load / export / import ───────────────────────────────────────────────────
@@ -7179,6 +7191,7 @@ export function migrateToV12(save: SaveFile): SaveFileV12 {
 // one widened leaf — the honest, un-guessed `subjectId: null` on any
 // pre-existing `queueIntentExpired` row — at the final V14→V15 step.
 export function migrateToV15(save: SaveFile): SaveFileV15 {
+  if (save.saveVersion === 22) throw new Error("migrateToV15: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts");
   if (save.saveVersion === 21) throw new Error("migrateToV15: cannot downgrade SaveFileV21 or discard research seats");
   if (save.saveVersion === 20) throw new Error("migrateToV15: cannot downgrade SaveFileV20 or discard technology");
   if (save.saveVersion >= 19) throw new Error("migrateToV15: cannot downgrade SaveFileV19 or discard Hollywood");
@@ -7248,6 +7261,7 @@ export function convertV17ToV18(v17: SaveFileV17): SaveFileV18 {
 // identity (after validation at the call boundary); V1–V17 cross every frozen
 // boundary, then receive `endowed` at the final V17→V18 step.
 export function migrateToV18(save: SaveFile): SaveFileV18 {
+  if (save.saveVersion === 22) throw new Error("migrateToV18: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts");
   if (save.saveVersion === 21) throw new Error("migrateToV18: cannot downgrade SaveFileV21 or discard research seats");
   if (save.saveVersion === 20) throw new Error("migrateToV18: cannot downgrade SaveFileV20 or discard technology");
   if (save.saveVersion >= 19) throw new Error("migrateToV18: cannot downgrade SaveFileV19 or discard Hollywood");
@@ -7258,6 +7272,7 @@ export function migrateToV18(save: SaveFile): SaveFileV18 {
 // migrateToV17 — the frozen V17-target migration (P08A). A V18 save can never
 // be downgraded: discarding the founding regime would erase exact history.
 export function migrateToV17(save: SaveFile): SaveFileV17 {
+  if (save.saveVersion === 22) throw new Error("migrateToV17: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts");
   if (save.saveVersion === 21) throw new Error("migrateToV17: cannot downgrade SaveFileV21 or discard research seats");
   if (save.saveVersion === 20) throw new Error("migrateToV17: cannot downgrade SaveFileV20 or discard technology");
   if (save.saveVersion >= 19) throw new Error("migrateToV17: cannot downgrade SaveFileV19 or discard Hollywood");
@@ -7273,6 +7288,7 @@ export function migrateToV17(save: SaveFile): SaveFileV17 {
 // migrateToV16 — the frozen V16-target migration (P06A). A V17 save can never
 // be downgraded: discarding the recorded history would silently erase provenance.
 export function migrateToV16(save: SaveFile): SaveFileV16 {
+  if (save.saveVersion === 22) throw new Error("migrateToV16: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts");
   if (save.saveVersion === 21) throw new Error("migrateToV16: cannot downgrade SaveFileV21 or discard research seats");
   if (save.saveVersion === 20) throw new Error("migrateToV16: cannot downgrade SaveFileV20 or discard technology");
   if (save.saveVersion >= 19) throw new Error("migrateToV16: cannot downgrade SaveFileV19 or discard Hollywood");
@@ -7291,6 +7307,7 @@ export function migrateToV16(save: SaveFile): SaveFileV16 {
 }
 
 export function migrateToV14(save: SaveFile): SaveFileV14 {
+  if (save.saveVersion === 22) throw new Error("migrateToV14: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts");
   if (save.saveVersion === 21) throw new Error("migrateToV14: cannot downgrade SaveFileV21 or discard research seats");
   if (save.saveVersion === 20) throw new Error("migrateToV14: cannot downgrade SaveFileV20 or discard technology");
   if (save.saveVersion >= 19) throw new Error("migrateToV14: cannot downgrade SaveFileV19 or discard Hollywood");
@@ -7319,6 +7336,7 @@ export function migrateToV14(save: SaveFile): SaveFileV14 {
 }
 
 export function migrateToV13(save: SaveFile): SaveFileV13 {
+  if (save.saveVersion === 22) throw new Error("migrateToV13: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts");
   if (save.saveVersion === 21) throw new Error("migrateToV13: cannot downgrade SaveFileV21 or discard research seats");
   if (save.saveVersion === 20) throw new Error("migrateToV13: cannot downgrade SaveFileV20 or discard technology");
   if (save.saveVersion >= 19) throw new Error("migrateToV13: cannot downgrade SaveFileV19 or discard Hollywood");
@@ -7395,6 +7413,7 @@ export function convertV18ToV19(save: SaveFileV18): SaveFileV19 {
   return validateSaveV19({ saveVersion: 19, seed: save.seed, state, broadcastCache: state.broadcastItems });
 }
 export function migrateToV19(save: SaveFile): SaveFileV19 {
+  if (save.saveVersion === 22) throw new Error('migrateToV19: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts');
   if (save.saveVersion === 21) throw new Error('migrateToV19: cannot downgrade SaveFileV21 or discard research seats');
   if (save.saveVersion === 20) throw new Error('migrateToV19: cannot downgrade SaveFileV20 or discard technology');
   if (save.saveVersion === 19) return validateSaveV19(save);
@@ -7415,11 +7434,11 @@ export function validateSaveV20(save: unknown): SaveFileV20 {
   const { technology, ...legacy } = raw;
   validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, 'technology-v20', technology as StudioTechnologyV1);
   // Occupancy reads seats; a genuine V20 root is lifted read-only for that one check.
-  assertNoDoubleBookedResourceSlots({ ...typed.state, technology: liftTechnologyV1(typed.state.technology, typed.state.market.tick) });
+  assertNoDoubleBookedResourceSlots({ ...typed.state, technology: liftTechnologyV2(liftTechnologyV1(typed.state.technology, typed.state.market.tick), typed.state.market.tick) });
   return typed;
 }
 
-/** V21 validates the v2 technology root, then the frozen V20 people/money/physical law. */
+/** V21 validates the frozen v2 technology root, then the frozen V20 people/money/physical law. */
 export function validateSaveV21(save: unknown): SaveFileV21 {
   if (!isRecord(save)) throw new Error('validateSaveV21: object required');
   v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
@@ -7427,6 +7446,22 @@ export function validateSaveV21(save: unknown): SaveFileV21 {
   const raw = v14Record(checkEnvelope(save, 'validateSaveV21'), 'state');
   if (!Object.hasOwn(raw, 'technology')) throw new Error('validateSaveV21: technology root missing');
   const typed = save as SaveFileV21;
+  validateTechnologyV2(typed.state);
+  const { technology, ...legacy } = raw;
+  validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, 'technology-v20', technology as StudioTechnologyV2);
+  // Occupancy reads the live root; a genuine V21 root is lifted read-only for that one check.
+  assertNoDoubleBookedResourceSlots({ ...typed.state, technology: liftTechnologyV2(typed.state.technology, typed.state.market.tick) });
+  return typed;
+}
+
+/** V22 validates the live v3 technology root, then the frozen V20 people/money/physical law. */
+export function validateSaveV22(save: unknown): SaveFileV22 {
+  if (!isRecord(save)) throw new Error('validateSaveV22: object required');
+  v12ExactKeys(save, ['saveVersion', 'seed', 'state', 'broadcastCache'], 'save');
+  if (save.saveVersion !== 22) throw new Error('validateSaveV22: expected version 22');
+  const raw = v14Record(checkEnvelope(save, 'validateSaveV22'), 'state');
+  if (!Object.hasOwn(raw, 'technology')) throw new Error('validateSaveV22: technology root missing');
+  const typed = save as SaveFileV22;
   validateTechnology(typed.state);
   const { technology, ...legacy } = raw;
   validateSaveV19WithPolicy({ saveVersion: 19, seed: save.seed, state: legacy, broadcastCache: save.broadcastCache }, 'technology-v20', technology as StudioTechnology);
@@ -7447,8 +7482,27 @@ export function convertV20ToV21(save: SaveFileV20): SaveFileV21 {
 }
 
 export function migrateToV21(save: SaveFile): SaveFileV21 {
+  if (save.saveVersion === 22) throw new Error('migrateToV21: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts');
   if (save.saveVersion === 21) return validateSaveV21(save);
   return convertV20ToV21(migrateToV20(save));
+}
+
+/**
+ * Governed V21→V22: cooperation begins at the migration week, so every stored
+ * receipt keeps the law it was written under; the project-credit numerators are
+ * rebased ×8 and each receipt gains the one Laboratory row its own seats prove.
+ * Every other root is byte-identical. No split, charge or date is invented.
+ */
+export function convertV21ToV22(save: SaveFileV21): SaveFileV22 {
+  const validated = validateSaveV21(save);
+  const oldState = JSON.parse(JSON.stringify(validated.state)) as GameStateV21;
+  const state: GameStateV22 = { ...oldState, technology: liftTechnologyV2(oldState.technology, oldState.market.tick) };
+  return validateSaveV22({ saveVersion: 22, seed: state.seed, state, broadcastCache: state.broadcastItems });
+}
+
+export function migrateToV22(save: SaveFile): SaveFileV22 {
+  if (save.saveVersion === 22) return validateSaveV22(save);
+  return convertV21ToV22(migrateToV21(save));
 }
 
 export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
@@ -7469,6 +7523,7 @@ export function convertV19ToV20(save: SaveFileV19): SaveFileV20 {
 }
 
 export function migrateToV20(save: SaveFile): SaveFileV20 {
+  if (save.saveVersion === 22) throw new Error('migrateToV20: cannot downgrade SaveFileV22 or discard per-Laboratory research receipts');
   if (save.saveVersion === 21) throw new Error('migrateToV20: cannot downgrade SaveFileV21 or discard research seats');
   if (save.saveVersion === 20) return validateSaveV20(save);
   return convertV19ToV20(migrateToV19(save));

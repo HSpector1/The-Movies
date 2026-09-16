@@ -5,8 +5,8 @@ import { campaignDate } from './calendar.js'
 import { productionHasBegunFilming, retargetProductionTechnologyChoice, assertProductionTechnologyBindings } from './technologyProduction.js'
 import { generateScientist } from './worldgen.js'
 import { isTechnologyId, technologyEntry } from './technologyCatalogue.js'
-import type { GameState, GameStateV20, LedgerEntry, Talent } from './types.js'
-import type { ResearchProject, ResearchProjectV1, ResearchSeat, StudioTechnology, StudioTechnologyV1, TechnologyAction, TechnologyAdoption, TechnologyId } from './technologyTypes.js'
+import type { GameState, GameStateV20, GameStateV21, LedgerEntry, Talent } from './types.js'
+import type { ResearchLabContribution, ResearchProject, ResearchProjectV1, ResearchSeat, StudioTechnology, StudioTechnologyV1, StudioTechnologyV2, TechnologyAction, TechnologyAdoption, TechnologyId } from './technologyTypes.js'
 
 /**
  * The synchronized-sound parameters, retained as a named export for P13A consumers.
@@ -18,14 +18,21 @@ export const SYNCHRONIZED_SOUND = Object.freeze({
 })
 /** Provisional P13B tuning (companion §4: two Labs × four seats). Not Owner-approved balance. */
 export const RESEARCH_SCIENTISTS_PER_STUDIO = 8
-/** A whole budget dollar earns exactly 1/20,000 of a work unit; all work is kept as that integer numerator. */
+/** A whole budget dollar earns exactly 1/20,000 of a Laboratory's own raw output; every raw output is that integer numerator. */
 const WORK_UNIT = 20_000
+/**
+ * P13B-S2: project credit is kept over 1/160,000 (WORK_UNIT × 8) so the cooperation
+ * rule `a + 0.625·b` — the larger Laboratory's raw output in full, the second at
+ * five eighths — is exact in integers. One Laboratory alone still earns 8 × its raw.
+ */
+const PROJECT_UNIT = WORK_UNIT * 8
+const [FIRST_LAB_FACTOR, SECOND_LAB_FACTOR] = [8, 5]
 const money = (value: number) => '$' + value.toLocaleString('en-US', { maximumFractionDigits: 0 })
 /** Small counts are spelled out in player-facing refusals ("four seats", "eight Scientists"). */
 export const spelled = (n: number): string => ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'][n] ?? String(n)
 
 export function initialTechnology(week: number): StudioTechnology {
-  return {version: 2, recordingStartedWeek: week, projects: [], access: [], adoptions: [], productions: []}
+  return {version: 3, recordingStartedWeek: week, cooperationFromWeek: week, projects: [], access: [], adoptions: [], productions: []}
 }
 /** The frozen P13A root that a genuine V20 save carries; V19→V20 migration still mints it. */
 export function initialTechnologyV1(week: number): StudioTechnologyV1 {
@@ -36,11 +43,31 @@ export function initialTechnologyV1(week: number): StudioTechnologyV1 {
  * week; started work becomes an immutable legacy prefix proved by the V20 validator;
  * receipts begin empty. No person, charge, date or completion is invented.
  */
-export function liftTechnologyV1(root: StudioTechnologyV1, week: number): StudioTechnology {
+export function liftTechnologyV1(root: StudioTechnologyV1, week: number): StudioTechnologyV2 {
   return {...root, version: 2, projects: root.projects.map(({scientistId, ...project}) => ({...project,
     seats: [{talentId: scientistId, laboratoryFacilityId: project.laboratoryFacilityId, assignedWeek: week, releasedWeek: null}],
     weeks: [],
     legacy: project.startedWeek === null ? null : {scientistId, throughWeek: week, verifiedWork: project.verifiedWork, expenditure: project.expenditure}}))}
+}
+/**
+ * Governed V21→V22 lift: cooperation begins at the migration week, so every stored
+ * receipt keeps the law it was written under. Each project-credit numerator is
+ * rebased ×8 (1/20,000 → 1/160,000, the same verified work); a receipt whose seats
+ * all sat in one Laboratory that week gains that one known row; a receipt whose
+ * seats spanned two Laboratories keeps `labs: null`, because the split that earned
+ * it was never recorded and cannot be recovered. Everything else is unchanged.
+ */
+export function liftTechnologyV2(root: StudioTechnologyV2, week: number): StudioTechnology {
+  return {...root, version: 3, cooperationFromWeek: week, projects: root.projects.map(project => ({...project,
+    weeks: project.weeks.map(receipt => {
+      const labs = new Set(receipt.seatTalentIds.map(talentId =>
+        project.seats.find(s => s.talentId === talentId && s.assignedWeek <= receipt.week && (s.releasedWeek === null || s.releasedWeek > receipt.week))?.laboratoryFacilityId))
+      const [only] = [...labs]
+      return {...receipt, units: receipt.units * FIRST_LAB_FACTOR,
+        labs: labs.size === 1 && only !== undefined
+          ? [{laboratoryFacilityId: only, seatTalentIds: [...receipt.seatTalentIds], spend: receipt.spend, rawUnits: receipt.units}]
+          : null}
+    })}))}
 }
 
 function playerStudioId(state: GameState): string {
@@ -74,12 +101,14 @@ export function researchCandidates(state: Pick<GameState, 'seed' | 'talent'>): T
     return state.talent.find(t => t.id === id) ?? generateScientist(state.seed, id)
   })
 }
+/** The seat-bearing part of a project: enough for every eligibility read, and the shape a frozen root still satisfies. */
+type SeatedProject = Pick<ResearchProject, 'laboratoryFacilityId' | 'technologyId' | 'seats'>
 /** Seats currently held (not released), optionally within one Laboratory. */
-export function occupiedSeats(project: ResearchProject, laboratoryFacilityId?: string): ResearchSeat[] {
+export function occupiedSeats(project: Pick<ResearchProject, 'seats'>, laboratoryFacilityId?: string): ResearchSeat[] {
   return project.seats.filter(s => s.releasedWeek === null && (laboratoryFacilityId === undefined || s.laboratoryFacilityId === laboratoryFacilityId))
 }
 /** Seats that can work over [week, week+1): held by an employed Scientist. Expired or released seats earn and charge nothing. */
-export function eligibleSeatIds(state: GameState, project: ResearchProject, week = state.market.tick): string[] {
+export function eligibleSeatIds(state: GameState, project: Pick<ResearchProject, 'seats'>, week = state.market.tick): string[] {
   return occupiedSeats(project)
     .filter(s => state.talent.find(t => t.id === s.talentId)?.role === 'scientist' && activeContract(state, s.talentId, week) !== undefined)
     .map(s => s.talentId)
@@ -91,7 +120,7 @@ export function eligibleSeatIds(state: GameState, project: ResearchProject, week
  * Seating itself never asks (retained P13A law); a project with no occupied seat is
  * judged at its home Laboratory, exactly as the single-Lab slice did.
  */
-function laboratoryRefusal(state: GameState, project: Pick<ResearchProject, 'laboratoryFacilityId' | 'technologyId'> & {seats?: readonly ResearchSeat[]}): string | null {
+function laboratoryRefusal(state: GameState, project: Omit<SeatedProject, 'seats'> & {seats?: readonly ResearchSeat[]}): string | null {
   const entry = technologyEntry(project.technologyId)
   const labIds = new Set((project.seats ?? []).filter(s => s.releasedWeek === null).map(s => s.laboratoryFacilityId))
   if (labIds.size === 0) labIds.add(project.laboratoryFacilityId)
@@ -103,32 +132,75 @@ function laboratoryRefusal(state: GameState, project: Pick<ResearchProject, 'lab
   }
   return null
 }
-export function researchPrerequisiteRefusal(state: GameState, project: ResearchProject): string | null {
+export function researchPrerequisiteRefusal(state: GameState, project: SeatedProject): string | null {
   const entry = technologyEntry(project.technologyId)
   if (state.market.tick < entry.researchableWeek) return `Research opens ${campaignDate(entry.researchableWeek).label}.`
   const physical = laboratoryRefusal(state, project); if (physical) return physical
   if (eligibleSeatIds(state, project).length === 0) return 'Employ and assign a named Scientist.'
   return null
 }
-export type ResearchWeekQuote = {spend: number; output: number; remainingWeeks: number | null; bottleneck: string; seats: number; seatTalentIds: string[]}
-/** Paper formula (P13B document 03): n eligible seats, spend = min(ceiling, 10,000·n), output = n + spend/20,000. */
+
+/** One Laboratory's part of a quoted week: its own seats, its share of the funding and its raw output over 1/20,000. */
+export type ResearchLabShare = ResearchLabContribution & {seats: number}
+/** Named seats grouped by their own Laboratory, in ascending stable Lab id order; seat order inside a Lab is the project's own. */
+function seatsByLaboratory(seats: readonly ResearchSeat[], seatTalentIds: readonly string[]): {laboratoryFacilityId: string; seatTalentIds: string[]}[] {
+  const groups = new Map<string, string[]>()
+  for (const talentId of seatTalentIds) {
+    const seat = seats.find(s => s.talentId === talentId && s.releasedWeek === null)
+    if (!seat) throw new Error(`No occupied Laboratory seat holds "${talentId}" on this project.`)
+    const group = groups.get(seat.laboratoryFacilityId)
+    if (group) group.push(talentId); else groups.set(seat.laboratoryFacilityId, [talentId])
+  }
+  return [...groups.keys()].sort().map(laboratoryFacilityId => ({laboratoryFacilityId, seatTalentIds: groups.get(laboratoryFacilityId)!}))
+}
+/**
+ * Proportional per-Laboratory funding (companion §4): `floor(spend · n_L / n_total)`
+ * with the whole-dollar remainder — always fewer dollars than there are Laboratories
+ * — going one each to the lowest stable Lab ids. Raw output is S1's own formula.
+ * `byLab` must already be in ascending stable Lab id order.
+ */
+function fundingSplit(byLab: readonly {laboratoryFacilityId: string; seatTalentIds: string[]}[], spend: number): ResearchLabShare[] {
+  const total = byLab.reduce((n, lab) => n + lab.seatTalentIds.length, 0)
+  const shares = byLab.map(lab => ({laboratoryFacilityId: lab.laboratoryFacilityId, seats: lab.seatTalentIds.length,
+    seatTalentIds: lab.seatTalentIds, spend: total === 0 ? 0 : Math.floor(spend * lab.seatTalentIds.length / total), rawUnits: 0}))
+  let remainder = spend - shares.reduce((sum, lab) => sum + lab.spend, 0)
+  for (const share of shares) if (remainder > 0) {share.spend += 1; remainder -= 1}
+  for (const share of shares) share.rawUnits = share.seats * WORK_UNIT + share.spend
+  return shares
+}
+/** Project credit for one week over PROJECT_UNIT: the larger Laboratory's raw output in full, the second at five eighths. */
+function cooperationUnits(labs: readonly Pick<ResearchLabShare, 'laboratoryFacilityId' | 'rawUnits'>[]): number {
+  const ordered = [...labs].sort((a, b) => b.rawUnits - a.rawUnits || (a.laboratoryFacilityId < b.laboratoryFacilityId ? -1 : 1))
+  return FIRST_LAB_FACTOR * (ordered[0]?.rawUnits ?? 0) + SECOND_LAB_FACTOR * (ordered[1]?.rawUnits ?? 0)
+}
+
+export type ResearchWeekQuote = {spend: number; output: number; remainingWeeks: number | null; bottleneck: string; seats: number; seatTalentIds: string[]; labs: ResearchLabShare[]}
+/**
+ * Paper formula (P13B document 03 / companion §4): n eligible seats across at most
+ * two Laboratories, spend = min(ceiling, 10,000·n) split proportionally, each
+ * Laboratory's raw output n_L·20,000 + spend_L, and the project credit
+ * 8·raw_a + 5·raw_b over 160,000 — one Laboratory alone keeps S1's n + spend/20,000.
+ */
 export function researchWeekQuote(state: GameState, project: ResearchProject): ResearchWeekQuote {
   const entry = technologyEntry(project.technologyId)
   const refusal = researchPrerequisiteRefusal(state, project)
-  const idle = {spend: 0, output: 0, remainingWeeks: null, seats: 0, seatTalentIds: [] as string[]}
+  const idle = {spend: 0, output: 0, remainingWeeks: null, seats: 0, seatTalentIds: [] as string[], labs: [] as ResearchLabShare[]}
   if (project.status !== 'active' || refusal) return {...idle, bottleneck: refusal ?? 'Research is paused. Verified work is retained.'}
   const seatTalentIds = eligibleSeatIds(state, project)
   const seats = seatTalentIds.length
   const usable = entry.usableBudgetPerScientist * seats
   const spend = Math.min(project.budgetPerWeek, usable)
   if (!canAfford(state, spend).ok) return {...idle, bottleneck: 'Insufficient cash for this week’s usable research budget.'}
-  const output = seats + spend / WORK_UNIT
+  const byLab = seatsByLaboratory(project.seats, seatTalentIds)
+  const labs = fundingSplit(byLab, spend)
+  const units = cooperationUnits(labs)
+  const remaining = entry.work * PROJECT_UNIT - Math.round(project.verifiedWork * PROJECT_UNIT)
   const who = seats === 1 ? 'One assigned Scientist' : `${seats} assigned Scientists`
   const withWhom = seats === 1 ? 'this Scientist' : `these ${seats} Scientists`
-  return {spend, output, seats, seatTalentIds, remainingWeeks: Math.ceil((entry.work - project.verifiedWork) / output),
+  return {spend, output: units / PROJECT_UNIT, seats, seatTalentIds, labs, remainingWeeks: Math.ceil(remaining / units),
     bottleneck: spend >= usable
       ? `${who}: ${money(usable)}/week is usable. A higher budget adds no work and is not charged.`
-      : `The research budget limits acceleration. ${money(usable)}/week reaches ${seats * 1.5} work units with ${withWhom}.`}
+      : `The research budget limits acceleration. ${money(usable)}/week reaches ${cooperationUnits(fundingSplit(byLab, usable)) / PROJECT_UNIT} work units with ${withWhom}.`}
 }
 export function weeklyResearchSpend(state: GameState): number {
   if (!economyEngaged(state) || state.founding !== null) return 0
@@ -295,9 +367,9 @@ export function advanceResearchWeek(state: GameState): {technology: StudioTechno
     const staffedNextWeek = eligibleSeatIds(state, p, nextWeek).length > 0
     if (quote.output === 0) return p.status === 'active' && !staffedNextWeek ? {...p, status: 'paused' as const} : p
     if (quote.spend > 0) entries.push({week:state.market.tick, kind:'researchSpend', amount:-quote.spend, note:`research:${p.id}`})
-    const before = Math.round(p.verifiedWork * WORK_UNIT)
-    const units = Math.min(quote.seats * WORK_UNIT + quote.spend, work * WORK_UNIT - before)
-    const verifiedWork = (before + units) / WORK_UNIT
+    const before = Math.round(p.verifiedWork * PROJECT_UNIT)
+    const units = Math.min(cooperationUnits(quote.labs), work * PROJECT_UNIT - before)
+    const verifiedWork = (before + units) / PROJECT_UNIT
     const complete = verifiedWork >= work
     if (complete && !access.some(a => a.studioId === p.studioId && a.acquiredWeek !== null)) {
       const pending = access.findIndex(a => a.studioId === p.studioId)
@@ -306,7 +378,8 @@ export function advanceResearchWeek(state: GameState): {technology: StudioTechno
         acquiredWeek:nextWeek, accessCost:0, researchProjectId:p.id})
     }
     return {...p, verifiedWork, expenditure:p.expenditure+quote.spend,
-      weeks: [...p.weeks, {week: state.market.tick, seatTalentIds: quote.seatTalentIds, spend: quote.spend, units}],
+      weeks: [...p.weeks, {week: state.market.tick, seatTalentIds: quote.seatTalentIds, spend: quote.spend, units,
+        labs: quote.labs.map(({laboratoryFacilityId, seatTalentIds, spend, rawUnits}) => ({laboratoryFacilityId, seatTalentIds, spend, rawUnits}))}],
       status:complete?'completed' as const:!staffedNextWeek?'paused' as const:p.status,
       completedWeek:complete?nextWeek:null}
   })
@@ -339,7 +412,9 @@ type Validator = {
   studio: (id: string) => void
   own: string | undefined
 }
-function validator(state: GameState | GameStateV20): Validator {
+/** Every root the technology validators read: the live v3 state and its two frozen predecessors. */
+type TechnologyBearingState = GameState | GameStateV20 | GameStateV21
+function validator(state: TechnologyBearingState): Validator {
   const fail = (message: string): never => { throw new Error(`Technology save: ${message}`) }
   const exact = (value: unknown, keys: readonly string[]) => {
     if (!value || typeof value !== 'object' || Array.isArray(value) || Object.keys(value).length !== keys.length || !keys.every(k => Object.hasOwn(value,k))) fail(`exact keys required: ${keys.join(',')}`)
@@ -352,7 +427,7 @@ function validator(state: GameState | GameStateV20): Validator {
   return {fail, exact, integer, text, week, studio, own: state.hollywood?.playerStudioId}
 }
 /** Root shape, access, adoptions, loadouts, adoption ledger and payroll: identical law for v1 and v2 roots. */
-function validateSharedTechnology(state: GameState | GameStateV20, v: Validator, projectIds: Set<string>, completedProjects: Map<string, number>): void {
+function validateSharedTechnology(state: TechnologyBearingState, v: Validator, projectIds: Set<string>, completedProjects: Map<string, number>): void {
   const {fail, exact, integer, text, week, studio, own} = v
   const root = state.technology
   const full = state as GameState
@@ -467,19 +542,173 @@ function validateSharedTechnology(state: GameState | GameStateV20, v: Validator,
   if (projectIds.size !== root.projects.length) fail('duplicate research identity')
   assertProductionTechnologyBindings(full)
 }
-function validateRootShape(state: GameState | GameStateV20, v: Validator, version: 1 | 2): void {
+function validateRootShape(state: TechnologyBearingState, v: Validator, version: 1 | 2 | 3): void {
   const {fail, exact, integer} = v
   const root = state.technology
-  exact(root,['version','recordingStartedWeek','projects','access','adoptions','productions'])
+  exact(root, version === 3
+    ? ['version','recordingStartedWeek','cooperationFromWeek','projects','access','adoptions','productions']
+    : ['version','recordingStartedWeek','projects','access','adoptions','productions'])
   if (root.version !== version) fail('unknown version')
   integer(root.recordingStartedWeek,0,state.market.tick)
+  // The week the cooperation law took effect: minted at founding, or stamped at the
+  // V21→V22 migration. A real, never future-dated week; it is deliberately not tied
+  // to recordingStartedWeek, so a forged recording boundary keeps its own refusal.
+  if (root.version === 3) integer(root.cooperationFromWeek,0,state.market.tick)
   for (const rows of [root.projects,root.access,root.adoptions,root.productions]) if (!Array.isArray(rows)) fail('array required')
   if (state.studioHistory.rows.some(r=>r.kind==='technologyMilestone' && r.week<=root.recordingStartedWeek)) fail('invented technology history before recording began')
   if ((!state.hollywood || state.founding !== null) && [root.projects,root.access,root.adoptions,root.productions].some(a => a.length)) fail('unfounded or non-player corpus cannot hold technology authority')
 }
 
-/** Exact, campaign-local P13B boundary for the v2 root. It never repairs or invents a receipt. */
+/** Exact, campaign-local P13B boundary for the live v3 root. It never repairs or invents a receipt. */
 export function validateTechnology(state: GameState): void {
+  const v = validator(state)
+  const {fail, exact, integer, text, week, studio, own} = v
+  validateRootShape(state, v, 3)
+  const root = state.technology
+  const ids = new Set<string>(), technologies = new Set<string>(), seatHolders = new Set<string>()
+  const occupiedByLab = new Map<string, number>()
+  const completed = new Map<string, number>()
+  const employment = (state.hollywood?.employment ?? []).filter(c => c.studioId === own)
+  const employedThatWeek = (talentId: string, at: number) => employment.some(c => c.terms.talentId === talentId &&
+    c.terms.startWeek <= at && at < c.terms.endWeekExclusive && (c.endedWeek === null || at < c.endedWeek))
+  // A repeated charge for one project week is a duplicated payment, not a
+  // reconciliation gap: name it before any per-project receipt arithmetic can
+  // read the same forged row as an expenditure mismatch.
+  const chargedWeeks = new Set<string>()
+  for (const e of state.ledger) {
+    if (e.kind !== 'researchSpend') continue
+    const key = `${e.note}/${e.week}`
+    if (chargedWeeks.has(key)) fail('repeated research charge for one project week');chargedWeeks.add(key)
+  }
+  for (const p of root.projects) {
+    exact(p,['id','studioId','technologyId','laboratoryFacilityId','status','budgetPerWeek','verifiedWork','expenditure','startedWeek','completedWeek','seats','weeks','legacy'])
+    knownTechnology(p.technologyId);studio(p.studioId);text(p.id)
+    const entry = technologyEntry(p.technologyId)
+    const WORK = entry.work * PROJECT_UNIT
+    if (p.studioId !== own || p.id !== `${own}:research:${p.technologyId}` || ids.has(p.id)) fail('invalid research ownership or identity')
+    ids.add(p.id)
+    if (technologies.has(p.technologyId)) fail('one research project per studio and technology');technologies.add(p.technologyId)
+    budget(p.budgetPerWeek);integer(p.expenditure)
+    if (!Number.isFinite(p.verifiedWork) || p.verifiedWork < 0 || p.verifiedWork > entry.work) fail('invalid verified work')
+    const verifiedWorkUnits = Math.round(p.verifiedWork * PROJECT_UNIT)
+    if (p.verifiedWork !== verifiedWorkUnits / PROJECT_UNIT) fail('verified work is not a whole-dollar research unit')
+    if (!['active','paused','cancelled','completed'].includes(p.status)) fail('unknown research status')
+    const lab = state.operations.facilities.find(f => f.id === p.laboratoryFacilityId && f.capability === 'laboratory')
+    if (!lab) fail('unknown Laboratory')
+    if (!Array.isArray(p.seats) || !Array.isArray(p.weeks)) fail('array required')
+    const seatLabs = new Set<string>(), staffedLabs = new Set<string>()
+    for (const s of p.seats) {
+      exact(s,['talentId','laboratoryFacilityId','assignedWeek','releasedWeek']);text(s.talentId)
+      if (state.talent.find(t => t.id === s.talentId)?.role !== 'scientist') fail('unknown Scientist')
+      if (!state.operations.facilities.some(f => f.id === s.laboratoryFacilityId && f.capability === 'laboratory')) fail('seat outside a Laboratory of this studio')
+      seatLabs.add(s.laboratoryFacilityId)
+      week(s.assignedWeek)
+      if (s.releasedWeek !== null) {week(s.releasedWeek);if (s.releasedWeek < s.assignedWeek) fail('seat released before assignment')}
+      else {
+        if (seatHolders.has(s.talentId)) fail('double assigned Scientist');seatHolders.add(s.talentId)
+        staffedLabs.add(s.laboratoryFacilityId)
+        occupiedByLab.set(s.laboratoryFacilityId,(occupiedByLab.get(s.laboratoryFacilityId) ?? 0)+1)
+      }
+    }
+    if (staffedLabs.size > 2) fail('research project staffs more than two Laboratories')
+    if (p.startedWeek !== null) {week(p.startedWeek); if (p.startedWeek < entry.researchableWeek) fail('research before eligibility')}
+    else if (p.verifiedWork !== 0 || p.expenditure !== 0 || p.status === 'active' || p.status === 'completed' || p.weeks.length || p.legacy !== null) fail('invented research before start')
+    if (p.completedWeek !== null) {week(p.completedWeek);if (p.startedWeek === null || p.completedWeek <= p.startedWeek || p.verifiedWork !== entry.work || p.status !== 'completed') fail('invalid completion')}
+    else if (p.verifiedWork === entry.work || p.status === 'completed') fail('missing research completion receipt')
+    if (p.completedWeek !== null) completed.set(`${p.studioId}/${p.id}`, p.completedWeek)
+    // Elapsed capacity is bounded by every Laboratory this project's seats ever named, not only its home body.
+    const seatCapacity = [...seatLabs].reduce((sum,labId) => sum + (state.operations.facilities.find(f => f.id === labId)?.capacity ?? 0), 0) || lab!.capacity
+    if (p.startedWeek !== null && verifiedWorkUnits > ((p.completedWeek ?? state.market.tick) - p.startedWeek) * seatCapacity * 240_000) fail('verified work exceeds elapsed capacity of the Laboratory seats')
+    let units = 0, spend = 0, receiptsFrom = p.startedWeek
+    const legacy = p.legacy
+    if (legacy !== null) {
+      exact(legacy,['scientistId','throughWeek','verifiedWork','expenditure']);text(legacy.scientistId);integer(legacy.expenditure)
+      if (state.talent.find(t => t.id === legacy.scientistId)?.role !== 'scientist') fail('unknown legacy Scientist')
+      const startedWeek = p.startedWeek ?? fail('legacy prefix without a start')
+      week(legacy.throughWeek);if (legacy.throughWeek < startedWeek) fail('legacy prefix precedes its start')
+      units = Math.round(legacy.verifiedWork * PROJECT_UNIT)
+      if (!Number.isFinite(legacy.verifiedWork) || legacy.verifiedWork < 0 || legacy.verifiedWork !== units / PROJECT_UNIT || units > WORK) fail('invalid legacy verified work')
+      const elapsed = Math.min(p.completedWeek ?? legacy.throughWeek, legacy.throughWeek) - startedWeek
+      if (units > elapsed * 240_000) fail('legacy work exceeds one Scientist elapsed capacity')
+      if (units > FIRST_LAB_FACTOR * (elapsed * WORK_UNIT + legacy.expenditure)) fail('legacy research acceleration was not paid')
+      spend = legacy.expenditure
+      receiptsFrom = legacy.throughWeek
+    }
+    if (p.weeks.length > 65) fail('research receipts exceed the bounded history')
+    let last = -1
+    for (const [index, r] of p.weeks.entries()) {
+      exact(r,['week','seatTalentIds','spend','units','labs']);week(r.week);integer(r.spend);integer(r.units,1)
+      if (receiptsFrom === null || r.week < receiptsFrom || r.week <= last || p.completedWeek !== null && r.week >= p.completedWeek) fail('research receipt outside its worked interval')
+      last = r.week
+      if (!Array.isArray(r.seatTalentIds) || r.seatTalentIds.length < 1 || new Set(r.seatTalentIds).size !== r.seatTalentIds.length) fail('research receipt without distinct seats')
+      for (const talentId of r.seatTalentIds) {
+        if (!p.seats.some(s => s.talentId === talentId && s.assignedWeek <= r.week && (s.releasedWeek === null || s.releasedWeek > r.week))) fail('research receipt names an unseated person')
+        if (!employedThatWeek(talentId, r.week)) fail('research receipt names an unemployed Scientist')
+      }
+      if (r.spend > entry.usableBudgetPerScientist * r.seatTalentIds.length) fail('research charge exceeds its usable seats')
+      const final = index === p.weeks.length - 1 && p.completedWeek !== null
+      const labs = r.labs
+      if (labs !== null) {
+        if (!Array.isArray(labs) || labs.length < 1 || labs.length > 2) fail('research receipt names more than two Laboratories')
+        const rowSeats: string[] = []
+        for (const [labIndex, l] of labs.entries()) {
+          exact(l,['laboratoryFacilityId','seatTalentIds','spend','rawUnits']);text(l.laboratoryFacilityId);integer(l.spend);integer(l.rawUnits,1)
+          if (labIndex > 0 && labs[labIndex-1]!.laboratoryFacilityId >= l.laboratoryFacilityId) fail('per-Laboratory research rows are not in ascending Laboratory order')
+          if (!Array.isArray(l.seatTalentIds) || l.seatTalentIds.length < 1) fail('per-Laboratory research row without its seats')
+          for (const talentId of l.seatTalentIds) {
+            if (!r.seatTalentIds.includes(talentId)) fail('per-Laboratory research row names a person outside this receipt')
+            if (!p.seats.some(s => s.talentId === talentId && s.laboratoryFacilityId === l.laboratoryFacilityId && s.assignedWeek <= r.week && (s.releasedWeek === null || s.releasedWeek > r.week))) fail('receipt names a Laboratory without a seat')
+            rowSeats.push(talentId)
+          }
+          if (l.spend > entry.usableBudgetPerScientist * l.seatTalentIds.length) fail('per-Laboratory research charge exceeds its usable seats')
+        }
+        if (new Set(rowSeats).size !== rowSeats.length || rowSeats.length !== r.seatTalentIds.length) fail('per-Laboratory research rows do not account for exactly this receipt\u2019s seats')
+        if (labs.reduce((sum,l) => sum + l.spend, 0) !== r.spend) fail('per-Laboratory research charges do not sum to the receipt')
+      }
+      if (r.week >= root.cooperationFromWeek) {
+        const rows = labs ?? fail('single-pool receipt after cooperation began')
+        const split = fundingSplit(rows.map(l => ({laboratoryFacilityId: l.laboratoryFacilityId, seatTalentIds: l.seatTalentIds})), r.spend)
+        if (rows.some((l,labIndex) => split[labIndex]!.spend !== l.spend)) fail('per-Lab research split does not match the funding rule')
+        if (rows.some((l,labIndex) => split[labIndex]!.rawUnits !== l.rawUnits)) fail('per-Laboratory raw research output does not match its seats and charge')
+        const earned = cooperationUnits(rows)
+        if (final ? r.units > earned || units + r.units !== WORK : r.units !== earned) fail('research credit does not match the cooperation rule')
+      } else {
+        // Written before cooperation began: one pool over 1/20,000, rebased \u00d78 by the
+        // governed lift, which names the one Laboratory when every seat sat there and
+        // leaves `labs` absent when they did not. A split is never fabricated here.
+        if (labs !== null && (labs.length !== 1 || labs[0]!.spend !== r.spend || labs[0]!.rawUnits * FIRST_LAB_FACTOR !== r.units)) fail('single-pool receipt carries a per-Laboratory split it never earned')
+        const earned = FIRST_LAB_FACTOR * (r.seatTalentIds.length * WORK_UNIT + r.spend)
+        if (final ? r.units > earned || units + r.units !== WORK : r.units !== earned) fail('research receipt units do not match its seats and charge')
+      }
+      units += r.units;spend += r.spend
+      if (units > WORK) fail('research receipts exceed the required work')
+    }
+    if (units !== verifiedWorkUnits) fail('verified work does not reconcile with its receipts')
+    if (spend !== p.expenditure) fail('research expenditure does not reconcile with its receipts')
+    const paid = state.ledger.filter(e => e.kind === 'researchSpend' && e.note === `research:${p.id}`).reduce((sum,e) => sum-e.amount,0)
+    if (paid !== p.expenditure) fail('research expenditure does not reconcile')
+    if (p.status === 'active' && researchPrerequisiteRefusal(state,p)) fail('active research lacks its assigned person or physical prerequisites')
+  }
+  for (const [labId,count] of occupiedByLab) if (count > (state.operations.facilities.find(f => f.id === labId)?.capacity ?? 0)) fail('Laboratory seats exceed capacity')
+  for (const e of state.ledger) {
+    if (e.kind !== 'researchSpend') continue
+    week(e.week);integer(-e.amount,1)
+    const p = root.projects.find(p => e.note === `research:${p.id}`) ?? fail('orphan research expense')
+    const startedWeek = p.startedWeek ?? fail('orphan research expense')
+    if (e.week < startedWeek || p.completedWeek !== null && e.week >= p.completedWeek) fail('orphan research expense')
+    if (e.week < (p.legacy?.throughWeek ?? startedWeek)) {if (-e.amount > technologyEntry(p.technologyId).usableBudgetPerScientist) fail('legacy research charge exceeds one Scientist')}
+    else if (p.weeks.find(r => r.week === e.week)?.spend !== -e.amount) fail('research charge without its receipt')
+  }
+  validateSharedTechnology(state, v, ids, completed)
+}
+
+/**
+ * Frozen P13B-S1 validator for a genuine V21 root (single-pool receipts over
+ * 1/20,000, seats across at most two Laboratories). Retained verbatim in law;
+ * never widened. The live v3 law lives in `validateTechnology` above.
+ */
+export function validateTechnologyV2(state: GameStateV21): void {
+  const full = state as unknown as GameState
   const v = validator(state)
   const {fail, exact, integer, text, week, studio, own} = v
   validateRootShape(state, v, 2)
@@ -575,7 +804,7 @@ export function validateTechnology(state: GameState): void {
     if (spend !== p.expenditure) fail('research expenditure does not reconcile with its receipts')
     const paid = state.ledger.filter(e => e.kind === 'researchSpend' && e.note === `research:${p.id}`).reduce((sum,e) => sum-e.amount,0)
     if (paid !== p.expenditure) fail('research expenditure does not reconcile')
-    if (p.status === 'active' && researchPrerequisiteRefusal(state,p)) fail('active research lacks its assigned person or physical prerequisites')
+    if (p.status === 'active' && researchPrerequisiteRefusal(full,p)) fail('active research lacks its assigned person or physical prerequisites')
   }
   for (const [labId,count] of occupiedByLab) if (count > (state.operations.facilities.find(f => f.id === labId)?.capacity ?? 0)) fail('Laboratory seats exceed capacity')
   for (const e of state.ledger) {

@@ -1222,11 +1222,16 @@ export {
   validateSaveV20,
   migrateToV20,
   convertV19ToV20,
-  // P13B-S1 — live V20 → NEW V21 + migrateToV21 (technology root v2: named
-  // seats and per-week research receipts).
+  // P13B-S1 — frozen V20 → V21 + migrateToV21 (technology root v2: named
+  // seats and single-pool per-week research receipts).
   validateSaveV21,
   migrateToV21,
   convertV20ToV21,
+  // P13B-S2 — live V21 → NEW V22 + migrateToV22 (technology root v3: per-Laboratory
+  // receipt rows, the 1/160,000 project-credit base and the cooperation week).
+  validateSaveV22,
+  migrateToV22,
+  convertV21ToV22,
 } from './save.js'
 export type {
   SaveFileV1,
@@ -1250,6 +1255,7 @@ export type {
   SaveFileV19,
   SaveFileV20,
   SaveFileV21,
+  SaveFileV22,
   SaveFile,
   TalentV1,
   GameStateV1,
@@ -1322,6 +1328,6 @@ export type {
 export { forecastHistoryForOwner } from './industryCareer.js'
 export { exportCurrentState } from './save.js'
 export { campaignDate } from './calendar.js'
-export { SYNCHRONIZED_SOUND, researchWeekQuote, playerTechnologyAccess, technologyAccess } from './technology.js'
+export { SYNCHRONIZED_SOUND, researchWeekQuote, playerTechnologyAccess, technologyAccess, validateTechnologyV2, liftTechnologyV2 } from './technology.js'
 export { productionTechnologyView } from './technologyProduction.js'
-export type { StudioTechnology, TechnologyAction, ResearchProject, TechnologyAdoption, ProductionTechnology } from './technologyTypes.js'
+export type { StudioTechnology, StudioTechnologyV2, TechnologyAction, ResearchProject, ResearchWeekReceipt, ResearchLabContribution, TechnologyAdoption, ProductionTechnology } from './technologyTypes.js'

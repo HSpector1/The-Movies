@@ -1,0 +1,10 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s2-expiry.test.ts (3 tests) 22911ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  17:59:58
+   Duration  25.26s (transform 1.40s, setup 0ms, collect 1.80s, tests 22.91s, environment 0ms, prepare 112ms)
+

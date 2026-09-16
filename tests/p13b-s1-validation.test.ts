@@ -5,7 +5,8 @@ import type { GameState } from '../src/core/types.js'
 import { p13aResearchEntry } from '../src/harness/p13a/fixtures.js'
 import { p13bStaffedProject } from '../src/harness/p13b/fixtures.js'
 
-// P13B-S1 plan test 9: validator refusals on the v2 (V21) technology root. Each
+// P13B-S1 plan test 9: validator refusals on the live technology root (v3/V22
+// since P13B-S2; the S1 refusals below are unchanged law). Each
 // case starts from a lawful, generated, staffed save (>=2 real receipts) and
 // mutates exactly one forged fact on a structuredClone, mirroring the
 // established `rejected(source, change, message)` pattern from
@@ -27,7 +28,7 @@ function rejected(source: GameState, change: (state: GameState) => void, message
   expect(() => makeSave(changed)).toThrow(message)
 }
 
-describe('P13B-S1 validator refusals on Save V21 (test 9)', () => {
+describe('P13B-S1 validator refusals on the live save (test 9)', () => {
   it('accepts the unmutated staffed saves', () => {
     expect(() => makeSave(base2)).not.toThrow()
     expect(() => makeSave(base4)).not.toThrow()
@@ -37,7 +38,7 @@ describe('P13B-S1 validator refusals on Save V21 (test 9)', () => {
     rejected(base2, state => {
       const project = state.technology.projects[0]!
       project.weeks[0]!.units += 1
-    }, /units do not match|does not reconcile/)
+    }, /units do not match|cooperation rule|does not reconcile/)
   })
 
   it('rejects a receipt naming a Scientist who was never employed that week, even with a seat forged to cover it', () => {

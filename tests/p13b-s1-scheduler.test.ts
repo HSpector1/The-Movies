@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'vitest'
 import { applyActions } from '../src/core/actions.js'
 import { activeContract, weeklySalary } from '../src/core/employment.js'
-import { exportSave, importSave, makeSave, migrateToV21 } from '../src/core/save.js'
+import { exportSave, importSave, makeSave, migrateToV22 } from '../src/core/save.js'
 import { eligibleSeatIds, researchCandidates, researchWeekQuote, weeklyResearchPayroll } from '../src/core/technology.js'
 import { tick } from '../src/core/tick.js'
 import type { GameState } from '../src/core/types.js'
@@ -56,7 +56,7 @@ function buildFixtureB(base: GameState, lab: string): FixtureB {
 
 function assertRoundTrip(state: GameState) {
   const direct = exportSave(makeSave(state))
-  const restored = migrateToV21(importSave(direct)).state
+  const restored = migrateToV22(importSave(direct)).state
   expect(exportSave(makeSave(restored))).toBe(direct)
 }
 
@@ -89,7 +89,7 @@ describe('P13B-S1 scheduler table (test 3)', () => {
     const project = ticked.technology.projects[0]!
     expect(project.verifiedWork).toBe(6)
     expect(project.expenditure).toBe(40_000)
-    expect(project.weeks).toEqual([{ week: state.market.tick, seatTalentIds: ids, spend: 40_000, units: 120_000 }])
+    expect(project.weeks).toEqual([{ week: state.market.tick, seatTalentIds: ids, spend: 40_000, units: 960_000, labs: [{ laboratoryFacilityId: laboratoryFacilityId, seatTalentIds: ids, spend: 40_000, rawUnits: 120_000 }] }])
     expect(ticked.ledger.some(e => e.kind === 'researchSpend' && e.amount === -40_000 && e.note === `research:${project.id}`)).toBe(true)
   })
 
@@ -100,7 +100,7 @@ describe('P13B-S1 scheduler table (test 3)', () => {
     const project = ticked.technology.projects[0]!
     expect(project.verifiedWork).toBe(1.5)
     expect(project.expenditure).toBe(10_000)
-    expect(project.weeks).toEqual([{ week: state.market.tick, seatTalentIds: ids, spend: 10_000, units: 30_000 }])
+    expect(project.weeks).toEqual([{ week: state.market.tick, seatTalentIds: ids, spend: 10_000, units: 240_000, labs: [{ laboratoryFacilityId: laboratoryFacilityId, seatTalentIds: ids, spend: 10_000, rawUnits: 30_000 }] }])
   })
 
   it('4 seats x $0 ceiling: 0 spend / 4 output / 16 funded weeks, and no ledger charge at all', () => {
@@ -110,7 +110,7 @@ describe('P13B-S1 scheduler table (test 3)', () => {
     const project = ticked.technology.projects[0]!
     expect(project.verifiedWork).toBe(4)
     expect(project.expenditure).toBe(0)
-    expect(project.weeks).toEqual([{ week: state.market.tick, seatTalentIds: ids, spend: 0, units: 80_000 }])
+    expect(project.weeks).toEqual([{ week: state.market.tick, seatTalentIds: ids, spend: 0, units: 640_000, labs: [{ laboratoryFacilityId: laboratoryFacilityId, seatTalentIds: ids, spend: 0, rawUnits: 80_000 }] }])
     expect(ticked.ledger.some(e => e.kind === 'researchSpend' && e.note === `research:${project.id}`)).toBe(false)
   })
 
@@ -121,7 +121,7 @@ describe('P13B-S1 scheduler table (test 3)', () => {
     const project = ticked.technology.projects[0]!
     expect(project.verifiedWork).toBe(3)
     expect(project.expenditure).toBe(20_000)
-    expect(project.weeks).toEqual([{ week: state.market.tick, seatTalentIds: ids, spend: 20_000, units: 60_000 }])
+    expect(project.weeks).toEqual([{ week: state.market.tick, seatTalentIds: ids, spend: 20_000, units: 480_000, labs: [{ laboratoryFacilityId: laboratoryFacilityId, seatTalentIds: ids, spend: 20_000, rawUnits: 60_000 }] }])
   })
 })
 
@@ -133,8 +133,8 @@ describe('P13B-S1 expiry, rehire and pause (test 4)', () => {
     expect(project.seats.find(s => s.talentId === ids[0])).toEqual({ talentId: ids[0], laboratoryFacilityId, assignedWeek: 260, releasedWeek: null })
     expect(eligibleSeatIds(boundary, project)).toEqual([ids[1], ids[2], ids[3]])
     expect(project.weeks).toHaveLength(9)
-    expect(project.weeks[7]).toEqual({ week: 267, seatTalentIds: ids, spend: 40_000, units: 120_000 })
-    expect(project.weeks[8]).toEqual({ week: 268, seatTalentIds: [ids[1], ids[2], ids[3]], spend: 30_000, units: 90_000 })
+    expect(project.weeks[7]).toEqual({ week: 267, seatTalentIds: ids, spend: 40_000, units: 960_000, labs: [{ laboratoryFacilityId: laboratoryFacilityId, seatTalentIds: ids, spend: 40_000, rawUnits: 120_000 }] })
+    expect(project.weeks[8]).toEqual({ week: 268, seatTalentIds: [ids[1], ids[2], ids[3]], spend: 30_000, units: 720_000, labs: [{ laboratoryFacilityId: laboratoryFacilityId, seatTalentIds: [ids[1], ids[2], ids[3]], spend: 30_000, rawUnits: 90_000 }] })
     expect(project.verifiedWork).toBe(52.5)
     expect(project.expenditure).toBe(350_000)
   })
@@ -149,7 +149,7 @@ describe('P13B-S1 expiry, rehire and pause (test 4)', () => {
     expect(project.status).toBe('active')
     const next = tick(rehired)
     const receipt = next.technology.projects[0]!.weeks.at(-1)!
-    expect(receipt).toEqual({ week: 269, seatTalentIds: ids, spend: 40_000, units: 120_000 })
+    expect(receipt).toEqual({ week: 269, seatTalentIds: ids, spend: 40_000, units: 960_000, labs: [{ laboratoryFacilityId: laboratoryFacilityId, seatTalentIds: ids, spend: 40_000, rawUnits: 120_000 }] })
     expect(next.technology.projects[0]!.verifiedWork).toBe(58.5)
   })
 
@@ -169,7 +169,7 @@ describe('P13B-S1 expiry, rehire and pause (test 4)', () => {
     expect(project.status).toBe('paused')
     expect(project.verifiedWork).toBe(8)
     expect(project.weeks).toHaveLength(8)
-    expect(project.weeks[7]).toEqual({ week: 267, seatTalentIds: [id], spend: 0, units: 20_000 })
+    expect(project.weeks[7]).toEqual({ week: 267, seatTalentIds: [id], spend: 0, units: 160_000, labs: [{ laboratoryFacilityId: lab, seatTalentIds: [id], spend: 0, rawUnits: 20_000 }] })
     expect(weeklyResearchPayroll(paused, 268)).toBe(0)
     expect(() => applyActions(paused, [{ kind: 'resumeResearch', projectId }])).toThrow(/Employ and assign/)
     const rehired = applyActions(paused, [{ kind: 'recruitScientist', laboratoryFacilityId: lab, scientistId: id }])
@@ -178,7 +178,7 @@ describe('P13B-S1 expiry, rehire and pause (test 4)', () => {
     expect(resumed.technology.projects[0]!.status).toBe('active')
     expect(resumed.technology.projects[0]!.budgetPerWeek).toBe(0)
     const next = tick(resumed)
-    expect(next.technology.projects[0]!.weeks.at(-1)).toEqual({ week: 268, seatTalentIds: [id], spend: 0, units: 20_000 })
+    expect(next.technology.projects[0]!.weeks.at(-1)).toEqual({ week: 268, seatTalentIds: [id], spend: 0, units: 160_000, labs: [{ laboratoryFacilityId: lab, seatTalentIds: [id], spend: 0, rawUnits: 20_000 }] })
     expect(next.technology.projects[0]!.verifiedWork).toBe(9)
   })
 
@@ -213,7 +213,7 @@ describe('P13B-S1 conservation across a funded interval (test 5)', () => {
     expect(receiptSpend).toBe(project.expenditure)
     const ledgerSpend = after.ledger.filter(e => e.kind === 'researchSpend' && e.note === `research:${projectId}`).reduce((sum, e) => sum - e.amount, 0)
     expect(ledgerSpend).toBe(project.expenditure)
-    expect(receiptUnits).toBe(Math.round(project.verifiedWork * 20_000))
+    expect(receiptUnits).toBe(Math.round(project.verifiedWork * 160_000))
 
     const newRows = after.ledger.slice(ledgerBefore)
     const cashDelta = cashBefore - after.studio.cash
@@ -253,16 +253,16 @@ describe('P13B-S1 determinism, replay and interleaving (test 7)', () => {
     state = applyActions(state, [{ kind: 'beginResearch', projectId, budgetPerWeek: 10_000 }])
     state = advanceTo(state, state.market.tick + 2)
     expect(state.technology.projects[0]!.weeks).toEqual([
-      { week: 260, seatTalentIds: [c0], spend: 10_000, units: 30_000 },
-      { week: 261, seatTalentIds: [c0], spend: 10_000, units: 30_000 },
+      { week: 260, seatTalentIds: [c0], spend: 10_000, units: 240_000, labs: [{ laboratoryFacilityId: laboratoryFacilityId, seatTalentIds: [c0], spend: 10_000, rawUnits: 30_000 }] },
+      { week: 261, seatTalentIds: [c0], spend: 10_000, units: 240_000, labs: [{ laboratoryFacilityId: laboratoryFacilityId, seatTalentIds: [c0], spend: 10_000, rawUnits: 30_000 }] },
     ])
 
     state = applyActions(state, [{ kind: 'assignResearchScientist', laboratoryFacilityId, scientistId: c1!, technologyId: 'synchronized-sound' }])
     state = tick(state)
     const project = state.technology.projects[0]!
-    expect(project.weeks[0]).toEqual({ week: 260, seatTalentIds: [c0], spend: 10_000, units: 30_000 })
-    expect(project.weeks[1]).toEqual({ week: 261, seatTalentIds: [c0], spend: 10_000, units: 30_000 })
-    expect(project.weeks[2]).toEqual({ week: 262, seatTalentIds: [c0, c1], spend: 10_000, units: 50_000 })
+    expect(project.weeks[0]).toEqual({ week: 260, seatTalentIds: [c0], spend: 10_000, units: 240_000, labs: [{ laboratoryFacilityId: laboratoryFacilityId, seatTalentIds: [c0], spend: 10_000, rawUnits: 30_000 }] })
+    expect(project.weeks[1]).toEqual({ week: 261, seatTalentIds: [c0], spend: 10_000, units: 240_000, labs: [{ laboratoryFacilityId: laboratoryFacilityId, seatTalentIds: [c0], spend: 10_000, rawUnits: 30_000 }] })
+    expect(project.weeks[2]).toEqual({ week: 262, seatTalentIds: [c0, c1], spend: 10_000, units: 400_000, labs: [{ laboratoryFacilityId: laboratoryFacilityId, seatTalentIds: [c0, c1], spend: 10_000, rawUnits: 50_000 }] })
   })
 
   it('round-trips save/reload byte-identically after seating, after funded weeks, after expiry and after pause', () => {

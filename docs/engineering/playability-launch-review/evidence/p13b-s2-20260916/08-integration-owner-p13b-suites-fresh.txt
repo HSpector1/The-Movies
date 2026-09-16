@@ -1,0 +1,46 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s2-doc03.test.ts (17 tests) 8970ms
+ ✓ |core| tests/p13b-s1-scheduler.test.ts (13 tests) 15287ms
+   ✓ P13B-S1 determinism, replay and interleaving (test 7) > rebuilds byte-identically from the same seed and the same action list, both before and after further identical actions 4025ms
+   ✓ P13B-S1 determinism, replay and interleaving (test 7) > round-trips save/reload byte-identically after seating, after funded weeks, after expiry and after pause 1020ms
+ ✓ |core| tests/p13b-s2-validation.test.ts (15 tests) 40296ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > conservation: reconciles receipts, expenditure, ledger and cash over a funded cooperate interval 5635ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > determinism: two independent builds from the same seed give byte-identical exportSave, both fresh and after identical further actions 11192ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > save/reload mid-project: a reloaded cooperate project continues identically to the uninterrupted run over further weeks 5807ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: every project a public action can create carries studioId === the player, by construction 5188ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: a rival two-Laboratory project never surfaces through the player-scoped read filter, and forging the player’s own project never touches its bytes 5246ms
+ ✓ |core| tests/p13b-s2-save-v22.test.ts (12 tests) 4795ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 522ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-released-paused-266.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 385ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 477ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically 402ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-active-280.json.gz: the S1 legacy prefix survives intact, weeks stays empty 435ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz: the S1 legacy prefix survives intact, weeks stays empty 627ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz: the S1 legacy prefix survives intact, weeks stays empty 438ms
+   ✓ P13B-S2 Save V22 envelope law (test 8) > round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV22 byte-identically 435ms
+   ✓ P13B-S2 campaign isolation across V21→V22 (mirrors the S1 case) > produces independent migrated copies from the same V21 fixture; advancing one never touches the other 599ms
+ ✓ |core| tests/p13b-s2-labs.test.ts (10 tests) 28025ms
+   ✓ P13B-S2 module/bench law (test 2) > refuses lighting beginResearch while the seated Laboratory lacks an operational electrical/control module 6307ms
+   ✓ P13B-S2 module/bench law (test 2) > does not double-book one Laboratory's seat slots when two technologies are both active there (sound 2 + lighting 2, four seats total) 5418ms
+   ✓ P13B-S2 module/bench law (test 2) > seats a person for a technology on a Laboratory lacking its discipline module (retained P13A law), but refuses to begin until the module is operational 5534ms
+   ✓ P13B-S2 module/bench law (test 2) > releases the seat claim on pause and reacquires it on resume — the S1 release law generalized to a lighting project (regression net) 5170ms
+ ✓ |core| tests/p13b-s2-expiry.test.ts (3 tests) 11632ms
+ ✓ |core| tests/bridge-p13b-s1b-seats.test.ts (8 tests) 8295ms
+ ✓ |core| tests/p13b-s2-cooperation.test.ts (5 tests) 6612ms
+ ✓ |core| tests/p13b-s1-save-v21.test.ts (8 tests) 2151ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > lifts ./fixtures/p13b/legacy-v20-research-active-280.json.gz into one retained seat and a frozen legacy prefix 337ms
+   ✓ P13B-S1 V20 to V21 migration (test 8) > continues the migrated active-280 project lawfully for one more funded week and re-saves byte-identically 442ms
+   ✓ P13B-S1 campaign isolation (test 10) > produces independent migrated copies from the same fixture; advancing one never touches the other 619ms
+ ✓ |core| tests/p13b-s2-catalogue.test.ts (11 tests) 6873ms
+   ✓ P13B-S2 catalogue: two technologies, stable order (test 1) > the ordinary action surface (knownTechnology) accepts both technology ids, not only synchronized-sound 684ms
+ ✓ |core| tests/p13b-s1-staffing.test.ts (5 tests) 4909ms
+ ✓ |core| tests/bridge-p13b-s1-identity.test.ts (1 test) 4254ms
+ ✓ |core| tests/p13b-s1-validation.test.ts (7 tests) 5955ms
+
+ Test Files  13 passed (13)
+      Tests  115 passed (115)
+   Start at  18:32:01
+   Duration  158.47s (transform 2.41s, setup 0ms, collect 5.79s, tests 148.05s, environment 5ms, prepare 1.26s)
+

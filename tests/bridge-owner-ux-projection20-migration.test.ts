@@ -116,9 +116,9 @@ describe('Owner UX outgoing projection20 migration', () => {
     for(const [beforeJson,afterJson,afterDigest] of [[predecessor.currentSaveJson,next.currentSaveJson,next.currentStateDigest],[predecessor.savedSaveJson,next.savedSaveJson,next.savedStateDigest]]){
       if(beforeJson===null){expect(afterJson).toBeNull();expect(afterDigest).toBeNull();continue}
       const before=JSON.parse(beforeJson),after=JSON.parse(afterJson!)
-      expect(after.saveVersion).toBe(21)
+      expect(after.saveVersion).toBe(22)
       const {hollywood,technology,...oldRoots}=after.state
-      expect(technology).toEqual({ version: 2, recordingStartedWeek: before.state.market.tick, projects: [], access: [], adoptions: [], productions: [] })
+      expect(technology).toEqual({ version: 3, recordingStartedWeek: before.state.market.tick, cooperationFromWeek: before.state.market.tick, projects: [], access: [], adoptions: [], productions: [] })
       for (const person of oldRoots.talent) {
         expect(person.skills.research).toEqual(Object.fromEntries(['scientificMethod','acoustics','instrumentation','experimentation','engineering','documentation'].map(skill => [skill,{ actual: 1, perceived: 1 }])))
         expect(person.workHistory.research).toBe(0)

@@ -1,0 +1,10 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s2-cooperation.test.ts (5 tests) 7364ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  17:36:47
+   Duration  9.43s (transform 1.20s, setup 0ms, collect 1.58s, tests 7.36s, environment 0ms, prepare 116ms)
+

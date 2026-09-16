@@ -1,0 +1,129 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s2-cooperation.test.ts (5 tests | 5 failed) 9276ms
+   × P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (i) two full Labs (4+4) at $80,000: spend 40,000/40,000, raw 6/6, output 9.75/week, 7 funded weeks, verifiedWork 64 and expenditure 560,000 after 7 weeks (final week capped, full spend charged) 50ms
+     → expected 12 to be 9.75 // Object.is equality
+   × P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (ii) two full Labs (4+4) at $40,000: spend 20,000/20,000, raw 5/5, output 8.125/week 3ms
+     → expected 10 to be 8.125 // Object.is equality
+   × P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (iii) 4 + 2 seats at $60,000: spend 40,000/20,000, raw 6/3, output 7.875/week 2ms
+     → expected 9 to be 7.875 // Object.is equality
+   × P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (iv) 3 + 2 seats at $33,333: whole-dollar remainder to the lowest stable Lab id, exact fixed-point raw and output 3ms
+     → expected 6.66665 to be 5.66665625 // Object.is equality
+   × P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (v) one Laboratory only (4 seats at $40,000): unchanged S1 output 6, but the receipt now carries the new per-Lab `labs` breakdown 11ms
+     → expected undefined to deeply equal [ { …(4) } ]
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s2-cooperation.test.ts > P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (i) two full Labs (4+4) at $80,000: spend 40,000/40,000, raw 6/6, output 9.75/week, 7 funded weeks, verifiedWork 64 and expenditure 560,000 after 7 weeks (final week capped, full spend charged)
+AssertionError: expected 12 to be 9.75 // Object.is equality
+
+- Expected
++ Received
+
+- 9.75
++ 12
+
+ ❯ tests/p13b-s2-cooperation.test.ts:73:26
+     71|     const quote = researchWeekQuote(state, project)
+     72|     expect(quote.spend).toBe(80_000)
+     73|     expect(quote.output).toBe(9.75)
+       |                          ^
+     74|     expect(quote.remainingWeeks).toBe(7)
+     75| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL |core|  tests/p13b-s2-cooperation.test.ts > P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (ii) two full Labs (4+4) at $40,000: spend 20,000/20,000, raw 5/5, output 8.125/week
+AssertionError: expected 10 to be 8.125 // Object.is equality
+
+- Expected
++ Received
+
+- 8.125
++ 10
+
+ ❯ tests/p13b-s2-cooperation.test.ts:104:26
+    102|     const quote = researchWeekQuote(state, project)
+    103|     expect(quote.spend).toBe(40_000)
+    104|     expect(quote.output).toBe(8.125)
+       |                          ^
+    105|     const expectedRaw = rawUnitsOf(4, 20_000)
+    106|     expect(quote.output * PROJECT_UNIT).toBe(projectUnits(expectedRaw,…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL |core|  tests/p13b-s2-cooperation.test.ts > P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (iii) 4 + 2 seats at $60,000: spend 40,000/20,000, raw 6/3, output 7.875/week
+AssertionError: expected 9 to be 7.875 // Object.is equality
+
+- Expected
++ Received
+
+- 7.875
++ 9
+
+ ❯ tests/p13b-s2-cooperation.test.ts:114:26
+    112|     const quote = researchWeekQuote(state, project)
+    113|     expect(quote.spend).toBe(60_000)
+    114|     expect(quote.output).toBe(7.875)
+       |                          ^
+    115|     const rawA = rawUnitsOf(4, 40_000)
+    116|     const rawB = rawUnitsOf(2, 20_000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL |core|  tests/p13b-s2-cooperation.test.ts > P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (iv) 3 + 2 seats at $33,333: whole-dollar remainder to the lowest stable Lab id, exact fixed-point raw and output
+AssertionError: expected 6.66665 to be 5.66665625 // Object.is equality
+
+- Expected
++ Received
+
+- 5.66665625
++ 6.66665
+
+ ❯ tests/p13b-s2-cooperation.test.ts:134:26
+    132|     const rawLab2 = rawUnitsOf(n2, lab2Spend)
+    133|     const expectedOutput = projectUnits(rawLab1, rawLab2) / PROJECT_UN…
+    134|     expect(quote.output).toBe(expectedOutput)
+       |                          ^
+    135|   })
+    136| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL |core|  tests/p13b-s2-cooperation.test.ts > P13B-S2 cooperation arithmetic across two Laboratories (test 4) > (v) one Laboratory only (4 seats at $40,000): unchanged S1 output 6, but the receipt now carries the new per-Lab `labs` breakdown
+AssertionError: expected undefined to deeply equal [ { …(4) } ]
+
+- Expected: 
+Array [
+  Object {
+    "laboratoryFacilityId": "facility-research-laboratory",
+    "rawUnits": 120000,
+    "seatTalentIds": Array [
+      "t-sci-00",
+      "t-sci-01",
+      "t-sci-02",
+      "t-sci-03",
+    ],
+    "spend": 40000,
+  },
+]
+
++ Received: 
+undefined
+
+ ❯ tests/p13b-s2-cooperation.test.ts:145:26
+    143|     const ticked = tick(state)
+    144|     const receipt = ticked.technology.projects.find(p => p.id === proj…
+    145|     expect(receipt.labs).toEqual([{ laboratoryFacilityId: lab1, seatTa…
+       |                          ^
+    146|   })
+    147| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+ Test Files  1 failed (1)
+      Tests  5 failed (5)
+   Start at  17:22:29
+   Duration  11.77s (transform 1.48s, setup 0ms, collect 2.01s, tests 9.28s, environment 0ms, prepare 106ms)
+

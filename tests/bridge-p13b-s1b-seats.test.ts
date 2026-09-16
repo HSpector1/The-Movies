@@ -107,7 +107,7 @@ describe('P13B-S1b Laboratory seats read model (projection 33)', () => {
     expect(lab.seats).toEqual(baseSeats)
     expect(lab.receipts).toHaveLength(3)
     for (let i = 0; i < 3; i++) {
-      expect(lab.receipts[i]).toEqual({ week: entryTick + i, seatTalentIds: staffedBase.scientistIds, spend: 40_000, units: 120_000 })
+      expect(lab.receipts[i]).toEqual({ week: entryTick + i, seatTalentIds: staffedBase.scientistIds, spend: 40_000, units: 960_000 })
     }
     expect(lab.weekly).toEqual({ ceiling: 40_000, usable: 40_000, seats: 4, output: 6 })
   })
@@ -155,7 +155,7 @@ describe('P13B-S1b Laboratory seats read model (projection 33)', () => {
       { talentId: IDENTITY_B, name: nameB, assignedWeek: identity.assignedWeek, releasedWeek: null, employed: true },
     ])
     expect(lab.receipts).toHaveLength(1)
-    expect(lab.receipts[0]).toEqual({ week: identity.assignedWeek, seatTalentIds: [IDENTITY_A, IDENTITY_B], spend: 20_000, units: 60_000 })
+    expect(lab.receipts[0]).toEqual({ week: identity.assignedWeek, seatTalentIds: [IDENTITY_A, IDENTITY_B], spend: 20_000, units: 480_000 })
   })
 
   it('f. a paused project zeroes the current week quote but keeps its ceiling and seated rows', () => {

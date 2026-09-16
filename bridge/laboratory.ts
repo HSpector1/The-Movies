@@ -251,6 +251,7 @@ export function laboratoryPage(state: GameState, buildingId: string | null, inte
       talentId: seat.talentId, name: state.talent.find(t => t.id === seat.talentId)?.name ?? seat.talentId,
       assignedWeek: seat.assignedWeek, releasedWeek: seat.releasedWeek, employed: activeContract(state, seat.talentId) !== undefined,
     })),
+    // P13B-S2: `units` on the wire is now the project credit over 1/160,000 (was 1/20,000); per-Lab rows arrive with the T6 projection bump.
     receipts: (project?.weeks ?? []).slice(-8).map(r => ({ week: r.week, seatTalentIds: [...r.seatTalentIds], spend: r.spend, units: r.units })),
     weekly: { ceiling: project?.budgetPerWeek ?? 0, usable: quote?.spend ?? 0, seats: quote?.seats ?? 0, output: quote?.output ?? 0 },
   } }

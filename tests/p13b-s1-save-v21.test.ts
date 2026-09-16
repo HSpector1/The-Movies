@@ -10,11 +10,12 @@ import {
   migrateToV19,
   migrateToV20,
   migrateToV21,
+  migrateToV22,
 } from '../src/core/save.js'
 import type { SaveFileV19, SaveFileV20 } from '../src/core/save.js'
 import { tick } from '../src/core/tick.js'
 import { eligibleSeatIds } from '../src/core/technology.js'
-import type { GameStateV20, GameStateV21 } from '../src/core/types.js'
+import type { GameState, GameStateV20, GameStateV21 } from '../src/core/types.js'
 
 // P13B-S1 plan tests 8 (V20->V21 migration) and 10 (campaign isolation). The
 // three legacy V20 fixtures were minted at e2e409e80eccb6a7fd49fa16aa0f750faeb51253
@@ -33,9 +34,9 @@ function assertRootUnchanged(before: GameStateV20, after: GameStateV21) {
   expect(after.technology.recordingStartedWeek).toBe(before.technology.recordingStartedWeek)
 }
 
-function roundTripsByteIdentical(state: GameStateV21): string {
+function roundTripsByteIdentical(state: GameState): string {
   const direct = exportSave(makeSave(state))
-  const restored = migrateToV21(importSave(direct)).state
+  const restored = migrateToV22(importSave(direct)).state
   expect(exportSave(makeSave(restored))).toBe(direct)
   return direct
 }
@@ -83,17 +84,18 @@ describe('P13B-S1 V20 to V21 migration (test 8)', () => {
   })
 
   it('continues the migrated active-280 project lawfully for one more funded week and re-saves byte-identically', () => {
-    const migrated = migrateToV21(importSave(load('./fixtures/p13b/legacy-v20-research-active-280.json.gz')))
+    const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v20-research-active-280.json.gz')))
     const next = tick(migrated.state)
     const project = next.technology.projects[0]!
     expect(project.expenditure).toBe(210_000)
     expect(project.verifiedWork).toBe(31.5)
-    expect(project.weeks).toEqual([{ week: 280, seatTalentIds: [SCIENTIST_ID], spend: 10_000, units: 30_000 }])
+    expect(project.weeks).toEqual([{ week: 280, seatTalentIds: [SCIENTIST_ID], spend: 10_000, units: 240_000,
+      labs: [{ laboratoryFacilityId: LAB_ID, seatTalentIds: [SCIENTIST_ID], spend: 10_000, rawUnits: 30_000 }] }])
     roundTripsByteIdentical(next)
   })
 
   it('keeps the migrated paused-expired seat retained but ineligible, refuses resumeResearch, then accepts it after rehiring the same id', () => {
-    const migrated = migrateToV21(importSave(load('./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz'))).state
+    const migrated = migrateToV22(importSave(load('./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz'))).state
     const project = migrated.technology.projects[0]!
     expect(project.seats).toEqual([{ talentId: SCIENTIST_ID, laboratoryFacilityId: LAB_ID, assignedWeek: 468, releasedWeek: null }])
     expect(eligibleSeatIds(migrated, project)).toEqual([])
@@ -108,8 +110,8 @@ describe('P13B-S1 V20 to V21 migration (test 8)', () => {
 describe('P13B-S1 campaign isolation (test 10)', () => {
   it('produces independent migrated copies from the same fixture; advancing one never touches the other', () => {
     const json = load('./fixtures/p13b/legacy-v20-research-active-280.json.gz')
-    const a = migrateToV21(importSave(json))
-    const b = migrateToV21(importSave(json))
+    const a = migrateToV22(importSave(json))
+    const b = migrateToV22(importSave(json))
     expect(a.state).not.toBe(b.state)
     expect(a.state.technology).not.toBe(b.state.technology)
     expect(a.state.technology.projects).not.toBe(b.state.technology.projects)

@@ -9,12 +9,26 @@ export type ResearchSeat = {
   assignedWeek: number
   releasedWeek: number | null
 }
-/** One worked research week [week, week+1): the seats that earned it, the dollars charged, the work earned in 1/20,000 units. */
+/** P13B-S2: one Laboratory's part of a worked project week — its own seats, its share of the funding, its raw output in 1/20,000 units. */
+export type ResearchLabContribution = {
+  laboratoryFacilityId: string
+  seatTalentIds: string[]
+  spend: number
+  rawUnits: number
+}
+/**
+ * One worked research week [week, week+1): the seats that earned it, the dollars
+ * charged, and the project credit in 1/160,000 units (P13B-S2's rebased base, so
+ * the cooperation rule `a + 0.625·b` is exact in integers). `labs` carries the
+ * per-Laboratory breakdown; it is `null` only on a receipt written before
+ * cooperation began whose seats spanned two Laboratories, where no split is known.
+ */
 export type ResearchWeekReceipt = {
   week: number
   seatTalentIds: string[]
   spend: number
   units: number
+  labs: ResearchLabContribution[] | null
 }
 /** Immutable P13A single-Scientist prefix, proved by the frozen V20 validator before governed migration. */
 export type ResearchLegacyPrefix = {
@@ -68,19 +82,30 @@ export type ProductionTechnology = {
   adoptionId: string | null
   lockedWeek: number | null
 }
-/** Technology root v2 (Save V21): named seats and per-week receipts. */
+/**
+ * Technology root v3 (Save V22): seats across two Laboratories, per-Laboratory
+ * receipt rows and the 1/160,000 project-credit base. `cooperationFromWeek` is the
+ * first week whose receipts are written under the cooperation law — receipts before
+ * it are the single-pool rows of an older writer and are read under the older law.
+ */
 export type StudioTechnology = {
-  version: 2
+  version: 3
   recordingStartedWeek: number
+  cooperationFromWeek: number
   projects: ResearchProject[]
   access: TechnologyAccess[]
   adoptions: TechnologyAdoption[]
   productions: ProductionTechnology[]
 }
 
+/** Frozen P13B-S1 shape (technology root v2, Save V21): single-pool receipts over 1/20,000, no per-Laboratory rows. */
+export type ResearchWeekReceiptV2 = Omit<ResearchWeekReceipt, 'labs'>
+export type ResearchProjectV2 = Omit<ResearchProject, 'weeks'> & { weeks: ResearchWeekReceiptV2[] }
+export type StudioTechnologyV2 = Omit<StudioTechnology, 'version' | 'cooperationFromWeek' | 'projects'> & { version: 2; projects: ResearchProjectV2[] }
+
 /** Frozen P13A shape (technology root v1, Save V20). Validated exactly as delivered; never written by the live engine. */
 export type ResearchProjectV1 = Omit<ResearchProject, 'seats' | 'weeks' | 'legacy'> & { scientistId: string }
-export type StudioTechnologyV1 = Omit<StudioTechnology, 'version' | 'projects'> & { version: 1; projects: ResearchProjectV1[] }
+export type StudioTechnologyV1 = Omit<StudioTechnologyV2, 'version' | 'projects'> & { version: 1; projects: ResearchProjectV1[] }
 
 export type TechnologyAction =
   | { kind: 'installAcousticInstruments'; laboratoryFacilityId: string }

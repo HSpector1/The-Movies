@@ -108,7 +108,7 @@ import {
   packageDelta,
   // save
   importSave,
-  migrateToV21,
+  migrateToV22,
   convertV17ToV18,
   convertV4ToV5,
   convertV5ToV6,
@@ -3789,8 +3789,8 @@ export type ImportOutcome =
 export function importSaveJson(json: string): ImportOutcome {
   try {
     const save: SaveFile = importSave(json)
-    const converted = save.saveVersion !== 21
-    return { ok: true, state: migrateToV21(save).state, converted }
+    const converted = save.saveVersion !== 22
+    return { ok: true, state: migrateToV22(save).state, converted }
   } catch (e) {
     return { ok: false, error: (e as Error).message }
   }
@@ -3802,7 +3802,7 @@ export function importLegacyV2SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: migrateToV21(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))))))))))))).state,
+      state: migrateToV22(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV2ToV4(json)))))))))))))))).state,
       converted: true,
     }
   } catch (e) {
@@ -3816,7 +3816,7 @@ export function importLegacyV1SaveJson(json: string): ImportOutcome {
   try {
     return {
       ok: true,
-      state: migrateToV21(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))))))))))))).state,
+      state: migrateToV22(convertV17ToV18(convertV16ToV17(convertV15ToV16(convertV14ToV15(convertV13ToV14(convertV12ToV13(convertV11ToV12(convertV10ToV11(convertV9ToV10(convertV8ToV9(convertV7ToV8(convertV6ToV7(convertV5ToV6(convertV4ToV5(importLegacyV1ToV4(json)))))))))))))))).state,
       converted: true,
     }
   } catch (e) {

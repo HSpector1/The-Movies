@@ -1,0 +1,242 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > greenlights Ready screenplay A while its credited writer is actively drafting B
+[P04A.2 WITNESS] §19A quote availability (A ready, writer drafting B): {
+  "writerAvailable": true,
+  "knownGatesClear": true,
+  "canSubmitGreenlightIntent": true,
+  "blockers": []
+}
+[P04A.2 WITNESS] §19A single writing assignment after greenlight: {"talentId":"t-wri-02","projectId":"script-0001","status":"drafting","title":"The Restless Sanctuary","label":"Drafting The Restless Sanctuary"}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > HOSTILE REVIEWER: the credited writer is NOT busy after greenlight, all five seats ARE
+[P04A.2 WITNESS] §19A busy set after greenlight: {"busy":["t-act-01","t-act-09","t-act-21","t-cra-06","t-dir-02"],"creditedWriter":"t-wri-02","writerBusy":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19A — the one-writer pipeline never deadlocks > HOSTILE REVIEWER: the released film record still carries the exact writer talentId
+[P04A.2 WITNESS] §19A released-film writer credit: {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","discipline":"writing","greenlightOVR":77,"greenlightFit":72,"greenlightEP":{"low":67.7800661551918,"high":97.7682901551918,"expected":82.7741781551918},"freelancer":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT draft A and B simultaneously
+[P04A.2 WITNESS] §19B draft-while-drafting refusal: applyActions: commissionScript rejected — writer "t-wri-02" already has an active assignment
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT draft one screenplay and rewrite another
+[P04A.2 WITNESS] §19B rewrite-while-drafting refusal: applyActions: requestScriptRewrite rejected — writer "t-wri-08" already has an active assignment
+[P04A.2 WITNESS] §19B rewrite blockers (writer drafting elsewhere): {"kinds":["writer-assignment"],"legalActions":["acceptScript"]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19B — writing exclusivity is unchanged > the same writer CANNOT rewrite two screenplays simultaneously
+[P04A.2 WITNESS] §19B rewrite-while-rewriting refusal: applyActions: requestScriptRewrite rejected — writer "t-wri-08" already has an active assignment
+[P04A.2 WITNESS] §19B draft-while-rewriting refusal: applyActions: commissionScript rejected — writer "t-wri-08" already has an active assignment
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's director
+[P04A.2 WITNESS] §19C director exclusivity refusal: applyActions: greenlight talent "t-dir-02" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.lead
+[P04A.2 WITNESS] §19C cast.lead exclusivity refusal: applyActions: greenlight talent "t-act-01" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.antagonist
+[P04A.2 WITNESS] §19C cast.antagonist exclusivity refusal: applyActions: greenlight talent "t-act-09" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's cast.support
+[P04A.2 WITNESS] §19C cast.support exclusivity refusal: applyActions: greenlight talent "t-act-14" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > refuses a second greenlight that reuses picture A's craft
+[P04A.2 WITNESS] §19C craft exclusivity refusal: applyActions: greenlight talent "t-cra-07" is already engaged in an active production (exclusivity, M16)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19C — production exclusivity for the five real seats is unweakened > CONTROL: the fully disjoint second package IS legal (the five refusals are about the seats, not the world)
+[P04A.2 WITNESS] §19C one writer credited on two live pictures, busy on neither: {"writerId":"t-wri-07","credited":["t-wri-07"],"busy":false}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19D — the credited writer holds no production presence claim > projects the writer at Development for the screenplay they are DRAFTING, never into the picture they merely wrote
+[P04A.2 WITNESS] §19D presence (A in production, writer drafting B): {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","engagement":"script","credit":"writer","ownerId":"script-0001","site":"facility-development-casting","slot":0,"beats":["home","home","travel","at-site","at-site","at-site","at-site","at-site","at-site","home"],"blockedReason":null}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19D — the credited writer holds no production presence claim > never puts the credited writer on the soundstage in rehearsal or shooting
+[P04A.2 WITNESS] §19D writer presence across every phase of the picture they wrote: [{"phase":"development","engagement":"script","site":"facility-development-casting"},{"phase":"preProduction","engagement":"roster","site":"facility-development-casting"},{"phase":"rehearsal","engagement":"roster","site":"facility-development-casting"},{"phase":"shooting","engagement":"roster","site":"facility-development-casting"},{"phase":"postProduction","engagement":"roster","site":"facility-development-casting"}]
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19E — the quote projections publish no writer-busy blocker for a CREDIT > both greenlight readiness projections are clear, and name the exact writer id
+[P04A.2 WITNESS] §19E scriptReadModel package availability: {
+  "writerId": "t-wri-02",
+  "writerAvailable": true,
+  "knownGatesClear": true,
+  "canSubmitGreenlightIntent": true,
+  "blockers": []
+}
+[P04A.2 WITNESS] §19E castingPackageReadModel readiness: {"knownGatesClear":true,"willQueue":false,"blockers":[]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19E — the quote projections publish no writer-busy blocker for a CREDIT > a REFUSED greenlight command mutates nothing at all
+[P04A.2 WITNESS] §19E refused greenlight (no partial mutation): applyActions: greenlight assigns the same actor to more than one cast slot (t-act-01, t-act-01, t-act-21)
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19F — the queued greenlight path is unchanged and still truthful > a capacity refusal still QUEUES a greenlight whose credited writer is mid-draft
+[P04A.2 WITNESS] §19F queue admission while the credited writer drafts: {"kind":"greenlightScriptProject","ordinal":0,"queuedWeek":2,"writerDrafting":true}
+[P04A.2 WITNESS] §19F dequeue while still slot-starved: {"outcome":"waiting","capacity":0,"namedRefusal":"QueueableCapacityRefusal"}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19F — the queued greenlight path is unchanged and still truthful > the queued greenlight later executes correctly, preserving the exact writer credit
+[P04A.2 WITNESS] §19F queue drained: {"remaining":0,"productions":[{"projectId":"prod-0002","writerId":"t-wri-06"},{"projectId":"prod-0005","writerId":"t-wri-06"}]}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19G — the split needs no save migration and survives reload > keeps saveVersion at 16 and round-trips film credit + live writing assignment together
+[P04A.2 WITNESS] §19G saveVersion: {"saveVersion":22}
+[P04A.2 WITNESS] §19G both facts after reload: {"creditedOn":"prod-0001","draftingProject":"script-0001","busy":true}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19H — an out-of-contract credited writer: the exact current limitation > publishes no writer blocker, and the greenlight succeeds at the ENGINE layer too
+[P04A.3 WITNESS] §19H projection blockers for an out-of-contract credited writer: []
+[P04A.3 WITNESS] §19H out-of-contract greenlight now succeeds at the engine layer: {"activeProductions":1}
+
+stdout | tests/p04a2-writer-credit-law.test.ts > P04A.2 §19H — an out-of-contract credited writer: the exact current limitation > the CREDIT itself survives the contract ending mid-production
+[P04A.2 WITNESS] §19H credit survives contract expiry: {"writerId":"t-wri-02","contracted":false,"creditedOn":"prod-0001"}
+[P04A.2 WITNESS] §19H released-film credit for an off-lot writer: {"talentId":"t-wri-02","name":"Roland Ashcombe","role":"writer","discipline":"writing","greenlightOVR":77,"greenlightFit":72,"greenlightEP":{"low":67.7800661551918,"high":97.7682901551918,"expected":82.7741781551918},"freelancer":false}
+
+ ✓ |core| tests/p04a2-writer-credit-law.test.ts (22 tests) 677ms
+ ✓ |core| tests/property-state-v13.test.ts (24 tests) 5046ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > decides every query verdict from state exactly as the constants decided it 634ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > keeps the severance walk verdict-identical with structures in the obstacle set 931ms
+   ✓ C1-M1a (a) — the property IS the constants, in a new representation > plays a migrated V12 world byte-identically to a native V13 world for 30+ weeks 325ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries twelve-plus placed facilities through invariants, completion, opex, and save 561ms
+   ✓ C1-M1a (b) — nothing assumes eight structures or a small placement count > carries far more than twelve when the property has room for them 1451ms
+   ✓ C1-M1a (d) — SaveFileV13 > writes V13 by default and round-trips every lifecycle state byte-identically 437ms
+ ✓ |core| tests/facility-move-demolish.test.ts (30 tests) 2474ms
+   ✓ C1-M3a (A) — every persisted holder of a facility blocks both verbs > finds a screenplay reservation, on the RESERVATION and not the status 870ms
+   ✓ C1-M3a (F) — saves, boundaries, and determinism > round-trips a history containing both a move and a demolition 306ms
+ ✓ |core| tests/film-chronicle.test.ts (28 tests) 456ms
+   ✓ Film Chronicle V1 — SaveFileV11 durability > reconstructs a deep-equal Chronicle after an exact V11 export/import round-trip 301ms
+ ✓ |core| tests/construction-core.test.ts (12 tests) 3597ms
+   ✓ Development & Casting Annex V1 core lifecycle > completes on exactly the thirteenth advance from a nonzero start with no recurring charge or RNG draw 1068ms
+   ✓ Development & Casting Annex V1 core lifecycle > does not reallocate completing-advance productions into the Annex, then exposes it immediately 626ms
+   ✓ Development & Casting Annex V1 core lifecycle > uses the authoritative greenlight debit to reject skip-first start-clock laundering 406ms
+   ✓ Development & Casting Annex V1 core lifecycle > allows a production started after completion to claim the Annex under normal allocation 337ms
+   ✓ Development & Casting Annex V1 core lifecycle > accepts only the exact Annex V1 facility set and detects cross-owner collisions 641ms
+stdout | tests/p09a-w0-founding-regime.test.ts > P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero
+[p09 gate] release week 37; cash floor 7888869; final cash 9778380.025328362; weeks 42
+
+ ✓ |core| tests/p09a-w0-founding-regime.test.ts (13 tests) 5418ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > V18 round-trips the regime and refuses a forged or missing one 485ms
+   ✓ P09 R1 — the founding regime is persisted, exact, and immutable > the regime is never inferred from what stands on the lot 1291ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > P09 §10.3: on the sparse lot only the founding office is quotable first; every other row says exactly why 449ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > four committed sites complete on their own weeks, become operational, and start paying opex only then 499ms
+   ✓ P09 R4 — the minimum plant fits and completes on its committed weeks > save/load mid-construction continues byte-identically; same-week sites complete together in id order 955ms
+   ✓ P09 R5/R6 — the ordinary bare-lot studio releases a picture on its own money > HARD-STOP GATE: sparse start → four builds → screenplay → set → picture → release → receipts, cash never below zero 764ms
+   ✓ P09A W1 R9 — a picture may hold a stage that completed after its greenlight, from the stamped week only > holds from bindings.heldSinceWeek; a stamp forged before completion is refused 475ms
+ ✓ |core| tests/d11-employment.test.ts (36 tests) 5001ms
+   ✓ D-11 — contracts & offers > payroll accrues each week; the ledger reconciles after several weeks 479ms
+   ✓ D-11.8 — expiration > a contract expires at term end and the talent becomes a free agent 1531ms
+   ✓ D-11.7 — renewals > renewing inside the window extends the term and takes a signing bonus from cash 997ms
+   ✓ D-11 — determinism & live saves > no duplicate payroll after reload (reload ≡ continuous run) 611ms
+   ✓ D-11 — determinism & live saves > two same-seed founded+advanced runs are byte-identical (deterministic offers/markets) 424ms
+ ✓ |core| tests/d17-engagement-persistence.test.ts (30 tests) 1537ms
+   ✓ D-17A/R2: economyEngagedEver is seeded false and set only by founding / signing > a headless run NEVER engages, however many films it releases 563ms
+   ✓ D-17A/R2: convertV5ToV6 reconstructs the fact correctly for every save class > never-engaged headless WITH releases → false (production/boxOffice are excluded) 315ms
+ ✓ |core| tests/placement-save-v12.test.ts (20 tests) 2186ms
+   ✓ Placement Core V12 — the frozen envelope > writes V12 explicitly and round-trips every lifecycle state byte-identically 546ms
+ ✓ |core| tests/ruling-a-development-in-play.test.ts (18 tests) 753ms
+ ✓ |core| tests/p08a-w0-studio-history.test.ts (13 tests) 5759ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > freezes before/after/deltas equal to the actual Standing change, with the source id and drivers 501ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records filmReleased as a LANDMARK for the first film and MAJOR afterwards, by exact id 505ms
+   ✓ P08A H3/H4 — the release mutation site records exact receipts and the release fact > records theatricalRunCompleted exactly once when the run settles 450ms
+   ✓ P08A H3/H5 — weekly settling receipts are exact, bounded, and folded deterministically > records a routine settling receipt only when awareness actually moves, then folds past the window 2583ms
+   ✓ P08A H7 — save/load mid-run continues with identical history > reloaded branch equals the unbroken branch byte-for-byte after more releases 953ms
+ ✓ |core| tests/script-projects-save-v9.test.ts (8 tests) 1257ms
+   ✓ Script Projects V1 — SaveFileV9 > makes V9 by default and round-trips legacy and every managed lifecycle class byte-identically 652ms
+ ✓ |core| tests/cash-ledger-checkpoint-v11.test.ts (10 tests) 3771ms
+   ✓ SaveFileV11 cash/ledger checkpoint — historical migration > migrates an authentic played V2 without fabricating the missing production ledger row 383ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > prevents every frozen builder from moving a checkpoint after later gameplay 331ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > retains a nonempty historical checkpoint prefix only through ledger-owning builders 1197ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > preserves exact checkpoint reconciliation through managed payroll and overhead suffixes 596ms
+   ✓ SaveFileV11 cash/ledger checkpoint — post-migration authority > starts and completes the Annex from a mismatched managed V10 with exactly one post-checkpoint capex 398ms
+ ✓ |core| tests/contracts/v14-boundary-guards.contract.test.ts (36 tests) 1228ms
+ ✓ |core| tests/bridge-p11-finance.test.ts (11 tests) 7813ms
+   ✓ P11 construction financial consequence over the real bridge > development-casting-annex: retains pennies, charges once now and introduces Opex only after completion 2823ms
+   ✓ P11 construction financial consequence over the real bridge > development-office-2: retains pennies, charges once now and introduces Opex only after completion 2198ms
+   ✓ P11 construction financial consequence over the real bridge > gives illegal placement no financial successor and refuses a stale legal financial preview 1002ms
+   ✓ P11 current people, obligations and film economics owners > publishes only current contracts, with guarantees beside literal Cash and exact payroll 430ms
+   ✓ P11 current people, obligations and film economics owners > keeps same-title films independent, preserves every P07 business amount and excludes studio costs 460ms
+ ✓ |core| tests/d17b-publicity.test.ts (29 tests) 748ms
+ ✓ |core| tests/legacy-parcel-ground.test.ts (14 tests) 4338ms
+   ✓ C1-M8 (B) — a generic building may not be BUILT there > accepts nothing anywhere on the property whose body the world would not show 3694ms
+ ✓ |core| tests/d11-cycle2.test.ts (19 tests) 2216ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > film A and film B use different writers/directors/actors/craft and each records its own 572ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > later development does NOT rewrite an older film's locked greenlight OVR/name 467ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > releasing a participant does NOT remove them from an older film's record 321ms
+   ✓ D-11.A — each released film keeps its OWN immutable participants > save/reload (V3) preserves each film's distinct participant history 404ms
+ ✓ |core| tests/p06a-w1-release-authority.test.ts (14 tests) 1465ms
+   ✓ P06A W1 — save law > round-trips a committed V16 save byte-exactly and refuses downgrades 684ms
+ ✓ |core| tests/construction-save-v11.test.ts (12 tests) 1909ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > writes V12 by default and round-trips legacy, vacant, building, and completed lifecycle states 422ms
+   ✓ Development & Casting Annex V1 — SaveFileV11 > round-trips and continues byte-identically at start, S+12, and S+13 405ms
+ ✓ |core| tests/contracts/studio-events.contract.test.ts (25 tests) 1057ms
+ ✓ |core| tests/bridge-p10a-w0-people-projection.test.ts (10 tests) 3722ms
+   ✓ P10A W0 — people projection > R8 grouped attention lists each person at most once, by the highest tier; contract horizons come from the contract alone 2641ms
+   ✓ P10A W0 — people projection > R10 a genuine V16 control migrates without changing any original person 332ms
+ ✓ |core| tests/d12-economy.test.ts (17 tests) 652ms
+   ✓ D-12: V3→V4 migration records released films as legacyCompleted (no double-pay) > migrated releases carry their full-gross V3 payout and are never credited again 377ms
+ ✓ |core| tests/d17a-adv-reconciliation.test.ts (14 tests) 11145ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 0 weeks 1991ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 3 weeks 1120ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over the default window with a founding prefix of 11 weeks 1452ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds over EVERY prefix window [from, k] of the run (a sliding reconciliation sweep) 1085ms
+   ✓ D-17A/B — Σ perFilm + idle ≡ Σ ledger payroll+overhead, to the dollar > holds when a release sits at week 0 of engagement (occupancy reaching before the ledger) 430ms
+   ✓ D-17A/B — conservation holds mid-flight, not only on tidy finished slates > holds on a rosterless post-cliff studio still paying overhead 678ms
+   ✓ D-17A/B — a film is charged only for the weeks it actually occupied the studio > allocates 0 to every film over a window disjoint from its occupancy 743ms
+   ✓ D-17A/B — a film is charged only for the weeks it actually occupied the studio > charges each film 0 in every window that ends before it starts or starts after it ends 700ms
+   ✓ D-17A/B — window additivity (the partition is per WEEK, so splits are exact) > alloc[a,k] + alloc[k+1,b] === alloc[a,b] per film, per idle, per total — 24 seeded splits 764ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > conserves exactly even when the weekly cost is indivisible by the occupant count 340ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > gives the odd dollar to the lower productionId (largest remainder, ascending plain-<) 332ms
+   ✓ D-17A/B — odd dollars: whole-dollar determinism and a governed tie-break > is identical across two independent calls and across a save → validate → migrate → load trip 1232ms
+ ✓ |core| tests/c1-m6-identity-not-coordinates.test.ts (6 tests) 784ms
+ ✓ |core| tests/save.test.ts (10 tests) 239ms
+ ✓ |core| tests/bridge-p07a-w6-result-continuity.test.ts (6 tests) 2762ms
+   ✓ P07A W6 — commitment releases exactly once (R1) > one commit + one week = one FilmResult + one run; later weeks never duplicate 848ms
+   ✓ P07A W6 — active-run truth and the run-complete flip (R2/R3) > speaks projected while active, final once complete, and stays durably inspectable 378ms
+   ✓ P07A W6 — save/load preserves result truth mid-run (R4) > round-trips the projection byte-for-byte and completes the run identically 649ms
+   ✓ P07A W6 — duplicate titles are separated by exact id (R5) > two films named identically keep separate results, runs, and wire cards 523ms
+ ✓ |core| tests/c2a-m3-screenplay-mint.test.ts (8 tests) 822ms
+   ✓ C2a-M3 — a writer goes to work and hands the studio a new movie > mints a concept, a title and a blueprint at COMMISSION-COMMIT, and drafts it 323ms
+ ✓ |core| tests/c2a-m3-rename-and-pooling.test.ts (9 tests) 633ms
+   ✓ C2a-M3 — the bounded writer pool (00E.9) > is refused on a screenplay that is not being drafted 303ms
+ ✓ |core| tests/d17b-save-v7.test.ts (22 tests) 873ms
+   ✓ D-17B/E4 — migrateToV7 lifts every known version, and the chain still holds > a V7 save reloads and continues identically to an uninterrupted run 318ms
+ ✓ |core| tests/bridge-owner-ux-projection20-migration.test.ts (10 tests) 10776ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'frozen Week105 null slot' without changing either V18 gameplay slot 827ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'frozen R12 Week106 null slot and genu…' without changing either V18 gameplay slot 606ms
+   ✓ Owner UX outgoing projection20 migration > migrates 'constructed distinct-slot envelope fr…' without changing either V18 gameplay slot 888ms
+   ✓ Owner UX outgoing projection20 migration > persists 'frozen Week105 null slot' once, then preserves the new session on restart 1041ms
+   ✓ Owner UX outgoing projection20 migration > persists 'frozen R12 Week106 null slot and genu…' once, then preserves the new session on restart 1120ms
+   ✓ Owner UX outgoing projection20 migration > persists 'constructed distinct-slot envelope fr…' once, then preserves the new session on restart 1566ms
+   ✓ Owner UX outgoing projection20 migration > preserves current-schema journal/session and exact Save retries after real published advance 4159ms
+   ✓ Owner UX outgoing projection20 migration > leaves both predecessor slots and journal intact when migration persistence fails 467ms
+ ✓ |core| tests/d14-star-power.test.ts (15 tests) 3690ms
+   ✓ D-14 Star Power lifecycle (real engine) > 1 + 12. fame changes only at release, and the career event matches the transition 1232ms
+   ✓ D-14 Star Power lifecycle (real engine) > 2. the update occurs exactly once — one career event per participant per film 495ms
+   ✓ D-14 Star Power lifecycle (real engine) > 4. a future film reads the UPDATED fame (progression compounds) 382ms
+   ✓ D-14 Star Power lifecycle (real engine) > 16 + 17. reload cannot apply progression twice, and round-trip preserves career events 491ms
+   ✓ D-14 Star Power lifecycle (real engine) > 18. determinism — two identical runs produce identical career events 765ms
+ ✓ |core| tests/c2a-m2-sets-save.test.ts (4 tests) 1803ms
+   ✓ C2a-M2 — sets across the save boundary > round-trips a studio that has built, repaired and struck, byte for byte 1007ms
+   ✓ C2a-M2 — sets across the save boundary > refuses, at the V16 boundary, every state the sets authority forbids 436ms
+   ✓ C2a-M2 — the §12-M2 gate: a migrated managed V13 save reaches a NEW greenlight > greenlights, binds a set, and shoots — while the picture it migrated with never does 300ms
+ ✓ |core| tests/d17a-adv-migration.test.ts (17 tests) 19ms
+ ✓ |core| tests/contracts/phase-table-agreement.contract.test.ts (10 tests) 847ms
+   ✓ C2a-M0 · G6 (C) — the SAVE BOUNDARY agrees, proved by refusal > refuses a falsified capability multiset, naming the shared module’s own requirement 517ms
+ ✓ |core| tests/bridge-p08a-w2-history-projection.test.ts (4 tests) 3589ms
+   ✓ P08A W2 — P1 purity and P2 exact wire contract > derives byte-identically twice, mutates nothing, and validates as the history bundle section 1881ms
+   ✓ P08A W2 — P3 exact routes and P5 provenance > links receipts and rows to the exact production id, marks result availability, and reconciles channels 707ms
+   ✓ P08A W2 — P4 honesty for migrated worlds > says what was not recorded, lists pre-boundary films as unrecorded, and invents no row 627ms
+   ✓ P08A W2 — P4 honesty for migrated worlds > keeps same-title films distinct by id in every row 372ms
+ ✓ |core| tests/contracts/union-producer-subsumption.contract.test.ts (5 tests) 228ms
+ ✓ |core| tests/contracts/v14-byte-parity.contract.test.ts (6 tests) 1524ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > produces a byte-identical export from two independent runs 650ms
+   ✓ C2a-M1 · parity (A) — the same seeded script exports the same bytes > does NOT produce those bytes from a different seed 331ms
+ ✓ |core| tests/contracts/sticky-retention.contract.test.ts (2 tests) 214ms
+ ✓ |core| tests/contracts/cross-owner-refusal.contract.test.ts (3 tests) 720ms
+   ✓ C2a-M0 · §12-M0 gate — a slot claimed by two owners is REFUSED > refuses a screenplay forged onto the slot a production holds 345ms
+ ✓ |core| tests/contracts/determinism-floor.contract.test.ts (3 tests) 514ms
+   ✓ C2a-M0 · §12-M0 gate — same seed, same actions, same bytes > exports byte-identically across two fresh runs 355ms
+ ✓ |core| tests/p12-lifecycle.test.ts (5 tests) 9718ms
+   ✓ R05 shared-law rival lifecycle > rejects forged owners, erased archive announcements, invented employers and invalid chart history 1595ms
+   ✓ R05 shared-law rival lifecycle > rejects forged frozen credits, double roles, and another studio’s reserved performers 494ms
+   ✓ R05 shared-law rival lifecycle > commissions, staffs, funds, operates, releases and settles real films without player RNG draws 2426ms
+   ✓ R05 shared-law rival lifecycle > expires ordinary contracts and crosses the first real arrival from elapsed play 5129ms
+ ✓ |core| tests/p12-starting-world.test.ts (3 tests) 1572ms
+   ✓ R05 canonical starting history and genuine migration > migrates at each old state own week with empty company histories and exact player state 1148ms
+
+ Test Files  43 passed (43)
+      Tests  613 passed (613)
+   Start at  18:10:32
+   Duration  147.00s (transform 2.99s, setup 0ms, collect 16.60s, tests 115.55s, environment 13ms, prepare 4.14s)
+

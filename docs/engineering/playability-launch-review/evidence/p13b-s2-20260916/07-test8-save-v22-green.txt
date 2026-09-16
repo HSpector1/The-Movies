@@ -1,0 +1,20 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s2-save-v22.test.ts (12 tests) 6839ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-staffed-4-seats-263.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 634ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-released-paused-266.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 507ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > lifts ./fixtures/p13b/legacy-v21-two-labs-two-briefs-783.json.gz: every receipt ×8, per-Laboratory rows derived honestly, cooperationFromWeek stamped at the fixture's own week 562ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > continues the migrated active staffed-4-seats-263 project for one more funded week (now carrying its own labs row) and re-saves byte-identically 544ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-active-280.json.gz: the S1 legacy prefix survives intact, weeks stays empty 725ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-paused-expired-468.json.gz: the S1 legacy prefix survives intact, weeks stays empty 751ms
+   ✓ P13B-S2 V21 to V22 migration (test 8) > chains V20→V21→V22 for ./fixtures/p13b/legacy-v20-research-complete-operational-315.json.gz: the S1 legacy prefix survives intact, weeks stays empty 696ms
+   ✓ P13B-S2 Save V22 envelope law (test 8) > refuses an unknown saveVersion 23 with the updated range 333ms
+   ✓ P13B-S2 Save V22 envelope law (test 8) > round-trips a migrated two-Laboratory save through exportSave/importSave/migrateToV22 byte-identically 911ms
+   ✓ P13B-S2 campaign isolation across V21→V22 (mirrors the S1 case) > produces independent migrated copies from the same V21 fixture; advancing one never touches the other 825ms
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  18:01:48
+   Duration  9.27s (transform 1.55s, setup 0ms, collect 1.99s, tests 6.84s, environment 0ms, prepare 116ms)
+
