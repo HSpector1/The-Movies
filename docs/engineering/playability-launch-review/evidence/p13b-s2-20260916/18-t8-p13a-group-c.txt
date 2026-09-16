@@ -1,0 +1,21 @@
+commit cfa6f71d4b16c9fdbe6c9c936e4779e9f778af42 + working-tree fix in src/core/technology.ts (S2-T8)
+start 2026-09-16T19:07:55Z node v20.20.2 host: 2-core 2015 MacBook Air, single-worker
+command: npx vitest run tests/p13a-save-v20.test.ts tests/p13a-technology-membership.test.ts tests/p13a-technology-milestones.test.ts tests/p13a-technology-validation.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000
+================================================================================
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13a-technology-membership.test.ts (9 tests) 7399ms
+   ✓ P13A exact historical technology membership under local indexing > does not reuse membership across independent round-tripped copies with the same world and entity IDs 548ms
+   ✓ P13A exact historical technology membership under local indexing > rechecks the same mutable input after removal and after exact restoration 698ms
+ ✓ |core| tests/p13a-technology-validation.test.ts (9 tests) 9634ms
+ ✓ |core| tests/p13a-save-v20.test.ts (5 tests) 750ms
+   ✓ P13A governed V19 to V20 persistence > round-trips a migrated V20 world exactly and creates independent state objects 327ms
+ ✓ |core| tests/p13a-technology-milestones.test.ts (4 tests) 5270ms
+   ✓ P13A dated public technology history > round-trips both boundaries exactly and resumes without duplicating the permanent events 558ms
+
+ Test Files  4 passed (4)
+      Tests  27 passed (27)
+   Start at  21:07:56
+   Duration  26.82s (transform 1.26s, setup 0ms, collect 2.31s, tests 23.05s, environment 1ms, prepare 389ms)
+

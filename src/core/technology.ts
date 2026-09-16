@@ -373,8 +373,12 @@ export function advanceResearchWeek(state: GameState): {technology: StudioTechno
     const units = Math.min(cooperationUnits(quote.labs), work * PROJECT_UNIT - before)
     const verifiedWork = (before + units) / PROJECT_UNIT
     const complete = verifiedWork >= work
-    if (complete && !access.some(a => a.studioId === p.studioId && a.acquiredWeek !== null)) {
-      const pending = access.findIndex(a => a.studioId === p.studioId)
+    // Access identity is the exact (studio, technology) pair: completion grants only
+    // THIS technology, is skipped only when THIS technology is already acquired, and
+    // replaces only THIS technology's pending row. One project exists per pair, so
+    // the grant never depends on the order of `projects`.
+    if (complete && !access.some(a => a.studioId === p.studioId && a.technologyId === p.technologyId && a.acquiredWeek !== null)) {
+      const pending = access.findIndex(a => a.studioId === p.studioId && a.technologyId === p.technologyId)
       if (pending >= 0) access.splice(pending, 1)
       access.push({studioId:p.studioId, technologyId:p.technologyId, route:'research', chosenWeek:p.startedWeek!,
         acquiredWeek:nextWeek, accessCost:0, researchProjectId:p.id})
@@ -700,6 +704,17 @@ export function validateTechnology(state: GameState): void {
     if (e.week < startedWeek || p.completedWeek !== null && e.week >= p.completedWeek) fail('orphan research expense')
     if (e.week < (p.legacy?.throughWeek ?? startedWeek)) {if (-e.amount > technologyEntry(p.technologyId).usableBudgetPerScientist) fail('legacy research charge exceeds one Scientist')}
     else if (p.weeks.find(r => r.week === e.week)?.spend !== -e.amount) fail('research charge without its receipt')
+  }
+  // Access identity is the exact (studio, technology) pair. A completed project
+  // holds its own grant at its own completion week — or the purchased row the
+  // studio already owned for that technology, which research never overwrites.
+  // The shared law forbids a second row for the same pair.
+  for (const p of root.projects) {
+    if (p.completedWeek === null) continue
+    const granted = root.access.find(a => a.studioId === p.studioId && a.technologyId === p.technologyId)
+    if (!granted || (granted.route === 'research'
+      ? granted.researchProjectId !== p.id || granted.acquiredWeek !== p.completedWeek
+      : granted.route !== 'purchase')) fail('completed research without its access grant')
   }
   validateSharedTechnology(state, v, ids, completed)
 }

@@ -1,0 +1,15 @@
+commit cfa6f71d4b16c9fdbe6c9c936e4779e9f778af42 + working-tree fix in src/core/technology.ts (S2-T8)
+start 2026-09-16T19:10:18Z node v20.20.2 host: 2-core 2015 MacBook Air, single-worker
+command: npx vitest run tests/bridge-p13-campaign-isolation.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000  (inherited 60s inline budget, run alone)
+================================================================================
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/bridge-p13-campaign-isolation.test.ts (1 test) 72411ms
+   ✓ P13A research authority across named campaign operations > Save As branches real research, inactive and renamed campaigns stay frozen, and a new campaign receives none of their authority 72409ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  21:10:19
+   Duration  75.74s (transform 2.12s, setup 0ms, collect 2.88s, tests 72.41s, environment 0ms, prepare 91ms)
+

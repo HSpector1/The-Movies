@@ -1,0 +1,17 @@
+commit cfa6f71d4b16c9fdbe6c9c936e4779e9f778af42 + working-tree fix in src/core/technology.ts (S2-T8)
+start 2026-09-16T19:02:03Z node v20.20.2 host: 2-core 2015 MacBook Air, single-worker
+command: npx vitest run tests/p13b-s2-catalogue.test.ts tests/p13b-s2-cooperation.test.ts tests/p13b-s2-doc03.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000
+================================================================================
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s2-doc03.test.ts (17 tests) 8787ms
+ ✓ |core| tests/p13b-s2-cooperation.test.ts (5 tests) 6573ms
+ ✓ |core| tests/p13b-s2-catalogue.test.ts (11 tests) 6933ms
+   ✓ P13B-S2 catalogue: two technologies, stable order (test 1) > the ordinary action surface (knownTechnology) accepts both technology ids, not only synchronized-sound 601ms
+
+ Test Files  3 passed (3)
+      Tests  33 passed (33)
+   Start at  21:02:04
+   Duration  25.36s (transform 1.11s, setup 0ms, collect 1.97s, tests 22.29s, environment 1ms, prepare 282ms)
+

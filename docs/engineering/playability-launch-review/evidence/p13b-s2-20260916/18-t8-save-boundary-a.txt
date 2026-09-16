@@ -1,0 +1,15 @@
+commit cfa6f71d4b16c9fdbe6c9c936e4779e9f778af42 + working-tree fix in src/core/technology.ts (S2-T8)
+start 2026-09-16T19:11:54Z node v20.20.2 host: 2-core 2015 MacBook Air, single-worker
+command: npx vitest run tests/save.test.ts tests/contracts/v14-boundary-guards.contract.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000
+================================================================================
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/contracts/v14-boundary-guards.contract.test.ts (36 tests) 1304ms
+ ✓ |core| tests/save.test.ts (10 tests) 239ms
+
+ Test Files  2 passed (2)
+      Tests  46 passed (46)
+   Start at  21:11:56
+   Duration  4.73s (transform 1.66s, setup 0ms, collect 2.43s, tests 1.54s, environment 1ms, prepare 202ms)
+

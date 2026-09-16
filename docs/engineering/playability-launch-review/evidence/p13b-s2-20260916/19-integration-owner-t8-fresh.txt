@@ -1,0 +1,18 @@
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s2-access-identity.test.ts (8 tests) 10368ms
+   ✓ P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV22 accepts 1121ms
+ ✓ |core| tests/p13b-s2-validation.test.ts (15 tests) 47433ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > conservation: reconciles receipts, expenditure, ledger and cash over a funded cooperate interval 6069ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > determinism: two independent builds from the same seed give byte-identical exportSave, both fresh and after identical further actions 12928ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > save/reload mid-project: a reloaded cooperate project continues identically to the uninterrupted run over further weeks 6829ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: every project a public action can create carries studioId === the player, by construction 6580ms
+   ✓ P13B-S2 conservation, determinism, save/reload and campaign isolation (test 7) > campaign isolation: a rival two-Laboratory project never surfaces through the player-scoped read filter, and forging the player’s own project never touches its bytes 6335ms
+ ✓ |core| tests/p13a-technology-validation.test.ts (9 tests) 11016ms
+
+ Test Files  3 passed (3)
+      Tests  32 passed (32)
+   Start at  21:15:39
+   Duration  72.98s (transform 1.47s, setup 0ms, collect 2.55s, tests 68.82s, environment 1ms, prepare 333ms)
+

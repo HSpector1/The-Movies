@@ -1,0 +1,8 @@
+commit cfa6f71d4b16c9fdbe6c9c936e4779e9f778af42 + working-tree edit to src/core/technology.ts (S2-T8)
+start 2026-09-16T19:00:33Z node v20.20.2
+command: npx tsc --noEmit -p tsconfig.json ; npx tsc --noEmit -p tsconfig.bridge.json
+================================================================================
+--- tsconfig.json ---
+exit=0
+--- tsconfig.bridge.json ---
+exit=0

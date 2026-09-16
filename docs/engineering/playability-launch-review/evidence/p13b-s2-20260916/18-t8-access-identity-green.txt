@@ -1,0 +1,15 @@
+commit cfa6f71d4b16c9fdbe6c9c936e4779e9f778af42 + working-tree fix in src/core/technology.ts (S2-T8)
+start 2026-09-16T19:01:36Z node v20.20.2 host: 2-core 2015 MacBook Air, single-worker
+command: npx vitest run tests/p13b-s2-access-identity.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000
+================================================================================
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ✓ |core| tests/p13b-s2-access-identity.test.ts (8 tests) 7953ms
+   ✓ P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV22 accepts 718ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  21:01:37
+   Duration  10.01s (transform 1.16s, setup 0ms, collect 1.55s, tests 7.95s, environment 0ms, prepare 127ms)
+

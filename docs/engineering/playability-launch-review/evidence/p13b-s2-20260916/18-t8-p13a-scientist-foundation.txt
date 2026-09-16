@@ -1,0 +1,55 @@
+commit cfa6f71d4b16c9fdbe6c9c936e4779e9f778af42 + working-tree fix in src/core/technology.ts (S2-T8)
+start 2026-09-16T19:08:29Z node v20.20.2 host: 2-core 2015 MacBook Air, single-worker
+command: npx vitest run tests/p13a-scientist-foundation.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000
+================================================================================
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13a-scientist-foundation.test.ts (6 tests | 3 failed) 116ms
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1 46ms
+     → expected '4a4b2e78a8af26bb7804b4220ba31b2fcb667…' to be '16857a2609206c58bfb34ba3be7b67d95276e…' // Object.is equality
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2 25ms
+     → expected 'de6e49d8796e1a037e676b5e147c5850680bb…' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01…' // Object.is equality
+   × P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001 22ms
+     → expected '0b8e21842fc4a820413c3416c90bdd9ce2907…' to be '7517c0d01eb928245e2101752932b99ccd344…' // Object.is equality
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-1
+AssertionError: expected '4a4b2e78a8af26bb7804b4220ba31b2fcb667…' to be '16857a2609206c58bfb34ba3be7b67d95276e…' // Object.is equality
+
+Expected: "16857a2609206c58bfb34ba3be7b67d95276e5c96048c5674cb5987aa8a94a17"
+Received: "4a4b2e78a8af26bb7804b4220ba31b2fcb667961c5acec6d5e79c4a466859d99"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for p13a-person-regression-2
+AssertionError: expected 'de6e49d8796e1a037e676b5e147c5850680bb…' to be 'd71583f6fc04af2d251e2010ca6725e6bcc01…' // Object.is equality
+
+Expected: "d71583f6fc04af2d251e2010ca6725e6bcc0104fb727d3735155aa5235df01b8"
+Received: "de6e49d8796e1a037e676b5e147c5850680bb1b198ffdd18d41be8c588d7fcc1"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL |core|  tests/p13a-scientist-foundation.test.ts > P13A Scientist identity and employment foundation > preserves accepted people, concepts, market, era and RNG for m0a-0001
+AssertionError: expected '0b8e21842fc4a820413c3416c90bdd9ce2907…' to be '7517c0d01eb928245e2101752932b99ccd344…' // Object.is equality
+
+Expected: "7517c0d01eb928245e2101752932b99ccd3444f2ca6848a6badf579ef2fb51c4"
+Received: "0b8e21842fc4a820413c3416c90bdd9ce290750d669bc08b66b0be7705e6a2c6"
+
+ ❯ tests/p13a-scientist-foundation.test.ts:32:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 3 passed (6)
+   Start at  21:08:30
+   Duration  2.07s (transform 1.08s, setup 0ms, collect 1.53s, tests 116ms, environment 0ms, prepare 102ms)
+
