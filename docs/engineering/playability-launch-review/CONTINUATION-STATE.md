@@ -23,8 +23,9 @@
   asymmetry, the stale route's mid-display step (driver aim drift). K10 + addendum atop the handoff.
 - **TS deltas landed** (SIM-20 d02230a8: projection 31, SCHEMA_ID c9c07d6f…, suite 5287) and **projection-31 fixtures regenerated**
   (DATA-03 95652d37: r3n1-dense-01p31 sha 1c7419de…, r3n1-dense-02p31 sha 35afce05…; wire facts byte-identical); plan rulings C10/C11.
-  IMPL-24 (paired Unity DTO adoption + finance attention consumers) dispatches after TEST-22; then rendered → Build55 → seal 50 → admission 46
-  → N3 native chain on the p31 fixtures → K11.
+  IMPL-24 landed (Unity fd22cb6b: DTO blob 253e345a paired, finance attention rows client-routed per C11); TEST-22 landed (0a508e92: harness
+  closure + N3 contracts, EditMode 1912). DATA-04 running (regenerate the five P11 EditMode fixtures at projection 31 with the governed generator +
+  finance attention coverage); then rendered → Build55 → seal 50 → admission 46 → N3 native chain on the p31 fixtures → K11.
 - Rendered full suite on 66dcc3a3: 219 total / 215 passed — every product test green; the 4 failures are harness-only in the newest class
   (IMGUI TextField focus/typing cannot be driven by injected events; two fixtures) → closed ONCE in TEST-22 (NativeOnly ignores citing the
   native maps, or fixtures from the sibling scaffolds). **N3 implementation (IMPL-19) running**; **SIM-20 (batched TS deltas)** running.
