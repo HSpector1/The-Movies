@@ -1,0 +1,45 @@
+# P13B-R07-DISPOSITION packet — identities verified 2026-09-16 (shasum -a 256 -c: all OK); documents kept out of the engine tree by instruction (pinned in HSpector1/The-Movies docs branch)
+
+{
+  "packet": "P13B-R07-DISPOSITION",
+  "order": "OPS-P13B-R07-DISPOSITION-20260916-01",
+  "repository": "HSpector1/The-Movies",
+  "source_review_not_runtime_execution": true,
+  "files": [
+    {
+      "path": "00-START-HERE.md",
+      "bytes": 1610,
+      "sha256": "ff66d579dd434faf482ff6da448880bd399d2cb95296c949a5e2746ca0e229c5",
+      "source": "packet instruction authored for this handoff"
+    },
+    {
+      "path": "01-CURRENT-OPS-R07-DISPOSITION.md",
+      "bytes": 11169,
+      "sha256": "3ce0fdaa369a5b6c96c5689efbc068b67ddefa172983cebb794b8cd66425ee55",
+      "git_blob": "54e8e0d8a4bae5d3f1db32201a952a05fd51edfa",
+      "source_commit": "787e65fc8eb282dd3351df35377b46cb7dc233f6",
+      "source_path": "docs/engineering/playability-launch-review/13-P13B-R07-DISPOSITION-AND-ENGINE-FOLLOWUP.md"
+    },
+    {
+      "path": "02-P13B-R07-PRODUCTION-CLARIFICATION.md",
+      "bytes": 20469,
+      "sha256": "0621a8c2512da4b4ec2073af0711822b19d589dd35b9e0aba8802729e93c4fdf",
+      "git_blob": "77cf8211dcec17f431afd988106ef43c931258f3",
+      "source_commit": "e529c10f83e3fdab9c7911e1498c4f279ae64ce9",
+      "source_path": "docs/engineering/playability-launch-review/P13B-R07-PRODUCTION-CLARIFICATION.md"
+    },
+    {
+      "path": "03-CONTINUE-IN-FABLE.txt",
+      "bytes": 1387,
+      "sha256": "b00fa6e5532025d2f7acba10437ab24a6af3d6657ca2b5bf1e6448d2e1c0b86a",
+      "source": "packet instruction authored for this handoff"
+    }
+  ]
+}
+
+## SHA256SUMS
+ff66d579dd434faf482ff6da448880bd399d2cb95296c949a5e2746ca0e229c5  00-START-HERE.md
+3ce0fdaa369a5b6c96c5689efbc068b67ddefa172983cebb794b8cd66425ee55  01-CURRENT-OPS-R07-DISPOSITION.md
+0621a8c2512da4b4ec2073af0711822b19d589dd35b9e0aba8802729e93c4fdf  02-P13B-R07-PRODUCTION-CLARIFICATION.md
+b00fa6e5532025d2f7acba10437ab24a6af3d6657ca2b5bf1e6448d2e1c0b86a  03-CONTINUE-IN-FABLE.txt
+ac6c30e00ee5942dad5b7ded94a51f558000e8a3c333a3705da1c72034783cee  manifest.json
