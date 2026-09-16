@@ -18,3 +18,12 @@ what "good" looks like; the coordinator's native evidence is linked from the han
    coordinator's native runs (F21); tell us what you see.
 5. **Schedule-take (managed fixture)** — open the ready-to-schedule picture from the rail, then its Production workspace: the "Schedule the
    shooting take" action fires once and disappears with a Confirmed notice; nothing fires twice.
+
+6. **Visual standard (N3, Build56+)** — at 100/150/200 %: every stage on the lot shows a distinct picture for planned, building, shooting,
+   wrapped, committed, in theaters and released; rail portraits are 4:5 monograms (real captures arrive with N5); text never shows □ boxes
+   (tell us any glyph that renders as a box). Menu → the "Text metrics" line should read `scale=1` and `meta d12→12/18/24` at 100/150/200 %.
+7. **Screenplay review route (F26, fix due in N4)** — on a 1280×720 window at 100 %: open a picture's Production workspace, Escape twice back
+   to the lot, then click a script card in the pictures rail and press "Review screenplay". Before the fix the button sits above the window;
+   after it, the review opens and "Accept" advances the script. Tell us whether the Schedule-take offer on the still-open Production workspace
+   re-derives (a "Confirmed" notice, one dispatch) after that acceptance.
+
