@@ -1,0 +1,206 @@
+commit eb0623feda7e693a7146a087633b7efca488f439 (engine src/core/technology.ts byte-identical to 877aad5, verified: git diff 877aad5 HEAD -- src/core/technology.ts is empty)
+start 2026-09-16T18:55:54Z node v20.20.2 host: 2-core 2015 MacBook Air, single-worker
+command: npx vitest run tests/p13b-s2-access-identity.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000
+file under test: tests/p13b-s2-access-identity.test.ts (new, test-author-owned, no production edits)
+result: 7 RED (cases 1-7), 1 PASS (case 8, retained same-technology-law control)
+================================================================================
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s2-access-identity.test.ts (8 tests | 7 failed) 7819ms
+   × P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 1. sound then lighting: each completed technology grants its own access row with its own provenance 31ms
+     → expected undefined to deeply equal { …(7) }
+   × P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 2. lighting then sound (mirror order): each completed technology grants its own access row with its own provenance 7ms
+     → expected undefined to deeply equal { …(7) }
+   × P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 3. simultaneous completion: both technologies grant their own row with the same acquiredWeek, independent of project creation order 85ms
+     → expected undefined to deeply equal { …(7) }
+   × P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 4. unrelated pending access survives: a lighting `wait` row is untouched when sound research completes 42ms
+     → expected undefined to deeply equal { …(7) }
+   × P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 5. unrelated completed access survives: completing lighting adds its own row and leaves the sound row byte-identical 2ms
+     → expected undefined to deeply equal { …(7) }
+   × P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV22 accepts 485ms
+     → expected [] to have a length of 1 but got +0
+   × P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 7. idempotence: ticking again after completion never adds a duplicate row for either technology 9ms
+     → expected [] to have a length of 1 but got +0
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 1. sound then lighting: each completed technology grants its own access row with its own provenance
+AssertionError: expected undefined to deeply equal { …(7) }
+
+- Expected: 
+Object {
+  "accessCost": 0,
+  "acquiredWeek": 794,
+  "chosenWeek": 787,
+  "researchProjectId": "studio-aca408ec-player:research:lighting-control-01",
+  "route": "research",
+  "studioId": "studio-aca408ec-player",
+  "technologyId": "lighting-control-01",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/p13b-s2-access-identity.test.ts:97:61
+     95|     // sees the sound row already acquired and skips the whole grant b…
+     96|     // this row is never created — ownRow(...) reads `undefined` here.
+     97|     expect(ownRow(afterSecond, own, 'lighting-control-01')).toEqual(li…
+       |                                                             ^
+     98|   })
+     99| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL |core|  tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 2. lighting then sound (mirror order): each completed technology grants its own access row with its own provenance
+AssertionError: expected undefined to deeply equal { …(7) }
+
+- Expected: 
+Object {
+  "accessCost": 0,
+  "acquiredWeek": 794,
+  "chosenWeek": 787,
+  "researchProjectId": "studio-aca408ec-player:research:synchronized-sound",
+  "route": "research",
+  "studioId": "studio-aca408ec-player",
+  "technologyId": "synchronized-sound",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/p13b-s2-access-identity.test.ts:110:60
+    108|     // one missing this time, because it is whichever technology compl…
+    109|     // SECOND that loses its grant under the studioId-only selector.
+    110|     expect(ownRow(afterSecond, own, 'synchronized-sound')).toEqual(sou…
+       |                                                            ^
+    111|   })
+    112| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL |core|  tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 3. simultaneous completion: both technologies grant their own row with the same acquiredWeek, independent of project creation order
+AssertionError: expected undefined to deeply equal { …(7) }
+
+- Expected: 
+Object {
+  "accessCost": 0,
+  "acquiredWeek": 791,
+  "chosenWeek": 780,
+  "researchProjectId": "studio-aca408ec-player:research:lighting-control-01",
+  "route": "research",
+  "studioId": "studio-aca408ec-player",
+  "technologyId": "lighting-control-01",
+}
+
++ Received: 
+undefined
+
+ ❯ expectBothGranted tests/p13b-s2-access-identity.test.ts:129:57
+    127|       const lightRow: TechnologyAccess = { studioId: own, technologyId…
+    128|       expect(ownRow(state, own, 'synchronized-sound')).toEqual(soundRo…
+    129|       expect(ownRow(state, own, 'lighting-control-01')).toEqual(lightR…
+       |                                                         ^
+    130|     }
+    131| 
+ ❯ tests/p13b-s2-access-identity.test.ts:139:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL |core|  tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 4. unrelated pending access survives: a lighting `wait` row is untouched when sound research completes
+AssertionError: expected undefined to deeply equal { …(7) }
+
+- Expected: 
+Object {
+  "accessCost": 0,
+  "acquiredWeek": null,
+  "chosenWeek": 780,
+  "researchProjectId": null,
+  "route": "wait",
+  "studioId": "studio-aca408ec-player",
+  "technologyId": "lighting-control-01",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/p13b-s2-access-identity.test.ts:164:59
+    162|     // a.studioId === p.studioId)` matches the lighting `wait` row (sa…
+    163|     // studioId, ANY technologyId) and `access.splice(pending, 1)` del…
+    164|     expect(ownRow(soundDone, own, 'lighting-control-01')).toEqual(wait…
+       |                                                           ^
+    165|     const soundRow: TechnologyAccess = { studioId: own, technologyId: …
+    166|     expect(ownRow(soundDone, own, 'synchronized-sound')).toEqual(sound…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL |core|  tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 5. unrelated completed access survives: completing lighting adds its own row and leaves the sound row byte-identical
+AssertionError: expected undefined to deeply equal { …(7) }
+
+- Expected: 
+Object {
+  "accessCost": 0,
+  "acquiredWeek": 794,
+  "chosenWeek": 787,
+  "researchProjectId": "studio-aca408ec-player:research:lighting-control-01",
+  "route": "research",
+  "studioId": "studio-aca408ec-player",
+  "technologyId": "lighting-control-01",
+}
+
++ Received: 
+undefined
+
+ ❯ tests/p13b-s2-access-identity.test.ts:176:61
+    174|     // RED on the unchanged engine: identical root cause to case 1 (so…
+    175|     // already-acquired row suppresses lighting's grant entirely).
+    176|     expect(ownRow(afterSecond, own, 'lighting-control-01')).toEqual(li…
+       |                                                             ^
+    177|     const soundRowAfter = ownRow(afterSecond, own, 'synchronized-sound…
+    178|     expect(JSON.stringify(soundRowAfter)).toBe(JSON.stringify(soundRow…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL |core|  tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 6. save/reload and later ticks: exactly two rows, no duplicates, no erasure; validateSaveV22 accepts
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/p13b-s2-access-identity.test.ts:193:23
+    191|     // RED on the unchanged engine: the lighting row never existed to …
+    192|     // with (case 1's defect), so it cannot survive a round trip — len…
+    193|     expect(lightRows).toHaveLength(1)
+       |                       ^
+    194|     expect(soundRows[0]).toEqual({ studioId: own, technologyId: 'synch…
+    195|     expect(lightRows[0]).toEqual({ studioId: own, technologyId: 'light…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL |core|  tests/p13b-s2-access-identity.test.ts > P13B-S2 access identity: completion grant must key on (studioId, technologyId) > 7. idempotence: ticking again after completion never adds a duplicate row for either technology
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ tests/p13b-s2-access-identity.test.ts:206:113
+    204|     // added, but because the lighting row was never granted in the fi…
+    205|     // place (case 1's defect) — idempotence has nothing to be idempot…
+    206|     expect(again.technology.access.filter(a => a.studioId === own && a…
+       |                                                                                                                 ^
+    207|     expect(playerTechnologyAccess(again, 'synchronized-sound')).toBe(t…
+    208|     expect(playerTechnologyAccess(again, 'lighting-control-01')).toBe(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+ Test Files  1 failed (1)
+      Tests  7 failed | 1 passed (8)
+   Start at  20:55:30
+   Duration  9.93s (transform 1.25s, setup 0ms, collect 1.65s, tests 7.82s, environment 0ms, prepare 113ms)
+
