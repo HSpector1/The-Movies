@@ -379,9 +379,26 @@ conversion routes are S4; component receipts/restoration are S5/S6. Plans are pe
       cycle refusal covers self-edges and unknown ids, the validator defends forged cycles; reasons use `money()`; cancel blocks dependents
       synchronously; admission is tick step 1.06 after the production-queue admission (1.05) and stamps the ARRIVED week (`currentTick + 1`)
       exactly as that precedent; `physicalPlans` is threaded through the exact-key validator chain as `technology` was.
-- [ ] **S3-T1 Types, fingerprint, actions, validator:** tests 3, 8 and the queue-time parts of 1/4 (sim-core; test-author writes 1–8 RED first).
-- [ ] **S3-T2 Admission in `tick`:** tests 1, 2, 4, 5, 6 (ordering boundary, envelope, history).
-- [ ] **S3-T3 Save V23 + migration + Save As:** test 7.
+- [~] **S3-T1/T2/T3 engine increment (sim-core, 2026-09-16 ≈23:10; uncommitted until the five S3 files are green):** `src/core/physicalPlans.ts`
+      (root, quote snapshots, admission view, admission, validator, five action handlers), fingerprints in `placement.ts` (FNV-1a-64 over canonical
+      JSON, no dependency), tick step 1.06 after the production-queue admission with the arrived-week stamp, history rows (five kinds, not on the
+      wire until T4), Save V23 (`SaveFileV23`, `validateSaveV23`, `convertV22ToV23`, `migrateToV23`, ten downgrade guards, "1 through 23"),
+      consumers to V23, live-version sweep 22 → 23 (57 test/ui files + 4 consumers; sentinel 24), `physicalPlans` threaded through the exact-key
+      chain as `technology` was. Results: validation 12/12, save-v23 13/13, dependencies 11/11, admission 13/17, save-as 0/1 → the five failures
+      adjudicated as test premises (`22-engine-conflict-probes`): a fixture's pre-existing capex row; the second plan on one target starts the
+      boundary AFTER the first completes (admission before completions, plan law); direct `studio.cash` edits break the ledger invariant and the
+      electrical module cannot target a Lab with active research; the Save As test ignored a refused `load` (`requireClean`); a baseline
+      `statusWeek` ahead of its world. Test-author amends its own files (evidence `23-amended-*`); the engine law stands.
+      **Delegated decisions resolved by sim-core (recorded, accepted):** no persisted `resolvedTargetFacilityId` (derived helper, 16-key row);
+      `earliestStartWeek` strict against the arrived week (= the plan's `≤ currentTick`); held plans are re-evaluated every boundary and start
+      without review only when the live quote again equals the approved quote and every condition holds (only reading under which a
+      `targetEngaged` hold can ever clear); admission is player-only until S8 supplies rival physical-commit authority (rival rows validated by the
+      same law); campaign isolation enforced at the plan identity (no per-studio facility root exists to check a target against — limitation);
+      `migrateToV23` accepts a parsed envelope. **Coordinator correction:** sim-core had loosened `statusWeek`/`commitReceipt.week` to `≤ tick + 1`
+      to accept the unlawful baseline; reverted to `≤ tick` (the validator runs at the save boundary, where the arrived-week stamp is `≤ tick`).
+      Sweeps (`22-engine-*`): S2 87/87, S1 + bridge-P13B 52/52, P13A 62/65 (+3 inherited digests), bridge-P13 16/16, campaign-isolation solo 72.3 s,
+      save sweep 78 + 180 + 83 + 109, placement/queue 153/153, owners 66/66, corpus/frozen 115/115 (M0A corpus byte-identical), bridge checkpoint
+      91/91, projections 32/32, contract checks verified, consumer lock 77/77; coordinator recheck (`24-*`): S2 + save boundary 90/90, tsc root/ui clean.
 - [ ] **S3-T4 Bridge projection 35:** test 9 (`tests/bridge-p13b-s3-plans.test.ts`).
 - [ ] **S3-T5 Affected suites, records (backlog entry), commit, push.**
 
