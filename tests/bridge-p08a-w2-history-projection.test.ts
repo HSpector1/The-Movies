@@ -37,6 +37,7 @@ import { castingProjection } from '../bridge/casting.ts'
 import { releaseProjection } from '../bridge/release.ts'
 import { historyProjection } from '../bridge/history.ts'
 import { peopleProjection } from '../bridge/people.ts'
+import { operationsEventsProjection } from '../bridge/operations-events.ts'
 import { projectStudioProjectionBundle } from '../bridge/schema/runtime.ts'
 
 function foundStudio(seed: string, historical = false): GameState {
@@ -94,6 +95,7 @@ function bundleOf(state: GameState) {
     casting: castingProjection(state),
     release: releaseProjection(state),
     history: historyProjection(state),
+    operationsEvents: operationsEventsProjection(state),
     talent: peopleProjection(state),
     finance: financeProjection(state, peopleProjection(state)),
     industry: industrySummary(state),

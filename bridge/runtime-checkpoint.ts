@@ -57,6 +57,11 @@ const R05_NATIVE_FOUNDING_SCHEMA_ID =
 // that window would carry the earlier hash, and this map is keyed on the
 // hash, not the label.
 export const SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS: ReadonlyMap<string, string> = new Map<string, string>([
+  // R3-N7-SIM-01: the OUTGOING projection-31 identity, minted by the N4/N5/N6
+  // read-model deltas and carried by every durable checkpoint written before the
+  // read-only `operationsEvents` section advanced the running schema to
+  // projection 32. Appended per the schema-bump law above.
+  ['sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1', 'projection-v31'],
   // R3-N4-SIM-20: the OUTGOING projection-30 identity, minted at 4dd667dc
   // ("Implement initial P13A synchronized sound candidate") and carried by every
   // durable checkpoint written before the N4/N5/N6 read-model deltas advanced the

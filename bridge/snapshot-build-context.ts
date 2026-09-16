@@ -9,6 +9,7 @@ import { developmentProjection } from './development.ts'
 import { castingProjection } from './casting.ts'
 import { releaseProjection } from './release.ts'
 import { historyProjection } from './history.ts'
+import { operationsEventsProjection } from './operations-events.ts'
 import { peopleProjection } from './people.ts'
 import { financeProjection } from './finance.ts'
 import { industrySummary } from './industry.ts'
@@ -18,6 +19,7 @@ type DevelopmentProjectionResult = ReturnType<typeof developmentProjection>
 type CastingProjectionResult = ReturnType<typeof castingProjection>
 type ReleaseProjectionResult = ReturnType<typeof releaseProjection>
 type HistoryProjectionResult = ReturnType<typeof historyProjection>
+type OperationsEventsProjectionResult = ReturnType<typeof operationsEventsProjection>
 type PeopleProjectionResult = ReturnType<typeof peopleProjection>
 
 /**
@@ -55,6 +57,8 @@ export type SnapshotBuildContext = {
   release(): ReleaseProjectionResult
   finance(): ReturnType<typeof financeProjection>
   history(): HistoryProjectionResult
+  /** R3-N7-SIM-01: the read-only operating ledger, computed at most once per state. */
+  operationsEvents(): OperationsEventsProjectionResult
   /** P10A W0: the player-safe people projection (profiles, roster, grouped attention). */
   people(): PeopleProjectionResult
 }
@@ -72,6 +76,7 @@ export const snapshotBuildDiagnostics = {
   castingComputes: 0,
   releaseComputes: 0,
   historyComputes: 0,
+  operationsEventsComputes: 0,
   peopleComputes: 0,
 }
 
@@ -140,6 +145,10 @@ export function snapshotBuildContextFor(state: GameState): SnapshotBuildContext 
     history: lazyFact(() => {
       snapshotBuildDiagnostics.historyComputes += 1
       return historyProjection(state)
+    }),
+    operationsEvents: lazyFact(() => {
+      snapshotBuildDiagnostics.operationsEventsComputes += 1
+      return operationsEventsProjection(state)
     }),
     people: lazyFact(() => {
       snapshotBuildDiagnostics.peopleComputes += 1

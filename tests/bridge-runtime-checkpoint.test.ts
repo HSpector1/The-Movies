@@ -997,6 +997,9 @@ describe('prior protocol-4 acceptance boundary pins', () => {
       'sha256:be7ed660d04ed9b1056f48e946f86f26c10cab42b950a273d57ad9cba372f5bb',
       // Native R05 preview12 manifest/DTO, before the Profile date-label addition.
       'sha256:c6ab1b2f181b7cbbd1b873a276f0be0516a505f258c3c9ad996042e43e096712',
+      // R3-N7-SIM-01: the outgoing projection-31 identity, appended when the
+      // read-only operationsEvents section moved the running schema to 32.
+      'sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1',
       'sha256:c9dad9f3d8bb94445db1a5425d90db3f9894da9354f47a07992ff96261cfc399',
       'sha256:d3338cb713385cc23414e6a17293a5900871764f0eeaed19698e17634e74740b',
       'sha256:ddce1c399ac4ff58327b296a0600428ac3f3346b84f3639e66e48e53a65fbe99',

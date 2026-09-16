@@ -549,12 +549,12 @@ describe('CF-08 sound union-to-C# generation', () => {
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('title')
       expect(response.promotedProperties.map((property) => property.wireName)).not.toContain('noFeeLine')
 
-      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 31 })
+      const generated = generateCsharpContract({ schema, protocolVersion: 4, projectionVersion: 32 })
       expect(generated).toContain(
-        '// Schema identity: sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1',
+        '// Schema identity: sha256:b3a76d197481175c3a4a615f634cf227ae00b95981625df3f67784b307fc9e5c',
       )
       expect(schemaIdentity(schema)).toBe(
-        'sha256:c9c07d6febe4afee7f7c27c991acdfa1c86b6c3a7f5dff8528d7fa5ad72e43a1',
+        'sha256:b3a76d197481175c3a4a615f634cf227ae00b95981625df3f67784b307fc9e5c',
       )
       expect(generated).toContain('public sealed partial class StudioQuoteCastingRequest : StudioBridgeQuoteRequest')
       expect(generated).toContain('public StudioCastingDraftPayload draft;')
@@ -619,11 +619,11 @@ describe('CF-08 sound union-to-C# generation', () => {
         F03_COMPATIBLE_OBJECTS: '99f44add260a66d0eab17a86d3f743110277292606dff073a90a354bad335c68',
         F04_DISCRIMINATED_OBJECTS: 'd878443418291974137b9affddf066d3b65d8d09286febebcafec35561a2fc5b',
         F09_ARRAY_ITEM_UNION: '7c1f83b70b0e82152821b0c4a5e59bdedcf901f639445b45ec7ef49010e2af1b',
-        // R3-N4-SIM-20 (projection 31): the batched N4/N5/N6 read-model deltas add
-        // StudioDevelopmentProjectSnapshot.attention, StudioContractOfferSnapshot
-        // .affordable/.refusalReason and the StudioFinanceAttention row DTO.
-        F10_CURRENT_QUOTE_UNIONS: 'adbb06d3e91fef0e24a7d71ab30d048d15f8ececdd06d0189d4579627b8f58a7',
-        F11_CURRENT_COMMAND_UNION: 'adbb06d3e91fef0e24a7d71ab30d048d15f8ececdd06d0189d4579627b8f58a7',
+        // R3-N7-SIM-01 (projection 32): the read-only operationsEvents section adds
+        // seven StudioOperationsEvent* DTOs and one bundle member. Both fixtures
+        // render the WHOLE current BRIDGE_SCHEMA, so both identities move together.
+        F10_CURRENT_QUOTE_UNIONS: '9c8cb3535221c577e9e70606ddc749437ab6b3b425084e73d0618d587a8e79ec',
+        F11_CURRENT_COMMAND_UNION: '9c8cb3535221c577e9e70606ddc749437ab6b3b425084e73d0618d587a8e79ec',
         F12_P05_PRODUCTION_SENTINEL: '78d68a2d7670585946f79ebbfc449c85c8ad98ac381b422a8a9abea66702bde6',
       } as const
       for (const [name, expectedHash] of Object.entries(expected)) {

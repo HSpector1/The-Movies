@@ -137,7 +137,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 31,
+          "const": 32,
           "type": "integer"
         },
         "stateDigest": {
@@ -254,7 +254,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 31,
+          "const": 32,
           "type": "integer"
         },
         "stateDigest": {
@@ -764,7 +764,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 31,
+          "const": 32,
           "type": "integer"
         },
         "stateDigest": {
@@ -843,7 +843,7 @@
           "$ref": "#/$defs/StudioProjectionBundle"
         },
         "snapshotVersion": {
-          "const": 31,
+          "const": 32,
           "type": "integer"
         },
         "stateDigest": {
@@ -1135,7 +1135,7 @@
           "type": "string"
         },
         "snapshotVersion": {
-          "const": 31,
+          "const": 32,
           "type": "integer"
         },
         "stateDigest": {
@@ -7830,6 +7830,267 @@
       "type": "object",
       "x-csharp-name": "StudioLotProjection"
     },
+    "StudioOperationsEventRoute": {
+      "additionalProperties": false,
+      "properties": {
+        "buildingId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "filmId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "personId": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "buildingId",
+        "filmId",
+        "personId"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioOperationsEventRoute"
+    },
+    "StudioOperationsEventSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "wrapped",
+            "premiere",
+            "releaseCommitted",
+            "constructionCompleted",
+            "setBuilt",
+            "setRetired",
+            "reservationGranted",
+            "reservationReleased",
+            "phaseEntered",
+            "sceneryArrived",
+            "queueAdmitted",
+            "queueIntentExpired"
+          ],
+          "type": "string"
+        },
+        "route": {
+          "$ref": "#/$defs/StudioOperationsEventRoute"
+        },
+        "seq": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "significance": {
+          "enum": [
+            "major",
+            "standard"
+          ],
+          "type": "string"
+        },
+        "subject": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/StudioOperationsEventSubject"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "tier": {
+          "enum": [
+            "permanent",
+            "windowed"
+          ],
+          "type": "string"
+        },
+        "week": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "date",
+        "kind",
+        "route",
+        "seq",
+        "significance",
+        "subject",
+        "summary",
+        "tier",
+        "week"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioOperationsEventSnapshot"
+    },
+    "StudioOperationsEventSubject": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "production",
+            "film",
+            "building",
+            "set",
+            "queue",
+            "resource"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioOperationsEventSubject"
+    },
+    "StudioOperationsEventsCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "oldestWindowedWeek": {
+          "anyOf": [
+            {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "permanentKinds": {
+          "items": {
+            "enum": [
+              "wrapped",
+              "premiere",
+              "releaseCommitted",
+              "constructionCompleted",
+              "setBuilt",
+              "setRetired",
+              "reservationGranted",
+              "reservationReleased",
+              "phaseEntered",
+              "sceneryArrived",
+              "queueAdmitted",
+              "queueIntentExpired"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "windowWeeks": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "oldestWindowedWeek",
+        "permanentKinds",
+        "windowWeeks"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioOperationsEventsCoverage"
+    },
+    "StudioOperationsEventsProjection": {
+      "additionalProperties": false,
+      "properties": {
+        "operationsEvents": {
+          "$ref": "#/$defs/StudioOperationsEventsSnapshot"
+        }
+      },
+      "required": [
+        "operationsEvents"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioOperationsEventsProjection"
+    },
+    "StudioOperationsEventsSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "coverage": {
+          "$ref": "#/$defs/StudioOperationsEventsCoverage"
+        },
+        "currentWeek": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "rows": {
+          "items": {
+            "$ref": "#/$defs/StudioOperationsEventSnapshot"
+          },
+          "type": "array"
+        },
+        "totals": {
+          "$ref": "#/$defs/StudioOperationsEventsTotals"
+        }
+      },
+      "required": [
+        "coverage",
+        "currentWeek",
+        "rows",
+        "totals"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioOperationsEventsSnapshot"
+    },
+    "StudioOperationsEventsTotals": {
+      "additionalProperties": false,
+      "properties": {
+        "permanent": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "windowed": {
+          "maximum": 2147483647,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "permanent",
+        "windowed"
+      ],
+      "type": "object",
+      "x-csharp-name": "StudioOperationsEventsTotals"
+    },
     "StudioParcelSnapshot": {
       "additionalProperties": false,
       "properties": {
@@ -10428,6 +10689,9 @@
         "lot": {
           "$ref": "#/$defs/StudioLotProjection"
         },
+        "operationsEvents": {
+          "$ref": "#/$defs/StudioOperationsEventsProjection"
+        },
         "people": {
           "$ref": "#/$defs/StudioPeopleProjection"
         },
@@ -10453,6 +10717,7 @@
         "industry",
         "journeyNotices",
         "lot",
+        "operationsEvents",
         "people",
         "productions",
         "release",
@@ -12776,7 +13041,7 @@
       "x-csharp-name": "StudioWrapReceiptSnapshot"
     }
   },
-  "$id": "urn:project-studio:bridge:protocol-4:projection-31",
+  "$id": "urn:project-studio:bridge:protocol-4:projection-32",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "description": "Canonical wire contract owned by the authoritative TypeScript runtime.",
   "oneOf": [
@@ -12832,7 +13097,7 @@
   "title": "Project Studio TypeScript to Unity Bridge",
   "x-project-studio": {
     "contractId": "project-studio-current-game-unity-bridge",
-    "projectionVersion": 31,
+    "projectionVersion": 32,
     "protocolVersion": 4,
     "routes": {
       "command": "POST /command",

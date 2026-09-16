@@ -136,10 +136,13 @@ function attentionRows(state: GameState) {
 }
 
 describe('R3-N4-SIM-20 — batched N4/N5/N6 read-model deltas (projection 31)', () => {
-  it('advances the projection identity and registers the outgoing projection-30 identity', () => {
+  it('keeps the outgoing projection-30 identity registered after a later bump', () => {
+    // R3-N7-SIM-01 moved the RUNNING identity on to projection 32. The three
+    // deltas below are unchanged by that; what this case still owns is the law
+    // that the identity this task retired stays accepted forever.
     expect(PROTOCOL_VERSION).toBe(4)
-    expect(PROJECTION_VERSION).toBe(31)
-    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-31')
+    expect(PROJECTION_VERSION).toBe(32)
+    expect(BRIDGE_SCHEMA.$id).toBe('urn:project-studio:bridge:protocol-4:projection-32')
     // A bump that forgets its outgoing identity bricks every durable checkpoint
     // written under it; a bump that keeps the RUNNING identity re-migrates forever.
     expect(SUPPORTED_PRIOR_PROTOCOL_4_SCHEMA_IDS.get(OUTGOING_PROJECTION_30_SCHEMA_ID)).toBe('projection-v30')
@@ -345,7 +348,7 @@ describe('R3-N4-SIM-20 — batched N4/N5/N6 read-model deltas (projection 31)', 
 
     const response = new BridgeSession(state, 'r3n4-bundle').snapshot()
     expect(() => parseWireValue(BRIDGE_SCHEMA.$defs.StudioBridgeSnapshotResponse, response)).not.toThrow()
-    expect(response.snapshotVersion).toBe(31)
+    expect(response.snapshotVersion).toBe(32)
 
     const development = response.snapshot.development.development.board!
     expect(development.projects.length).toBeGreaterThan(0)

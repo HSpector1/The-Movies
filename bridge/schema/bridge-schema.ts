@@ -46,7 +46,13 @@ export const PROTOCOL_VERSION = 4 as const
 //       existing `StudioFinanceRoute`) instead of a bare string.
 // Protocol stays 4 and the durable save format is untouched: no gameplay, price,
 // employment or command law changed, and no new state is stored.
-export const PROJECTION_VERSION = 31 as const
+// R3-N7-SIM-01 (N7 retrievable history): 31 -> 32 — ONE additive wire section,
+// `operationsEvents`, a read-only projection over the `state.studioEvents`
+// ledger the engine has appended since C2a-M1 and nothing has ever published.
+// It stores nothing, consumes nothing and changes no simulation law; it exists
+// so a decision cue that has cleared stays retrievable in History (N7 family
+// sheet §3). Protocol stays 4 and the durable save format is untouched.
+export const PROJECTION_VERSION = 32 as const
 
 const nonEmptyText = () => text({ minLength: 1 })
 const nonNegativeInteger = () => integer({ minimum: 0 })
@@ -2081,6 +2087,71 @@ export const StudioHistoryProjectionSchema = object('StudioHistoryProjection', {
   history: reference('StudioHistorySnapshot', StudioHistorySnapshot),
 })
 
+// ── R3-N7-SIM-01 — the read-only Studio Operations Events projection ─────────
+// A second, disjoint view beside `history`: the engine's own operating ledger
+// (`state.studioEvents`), published so a decision cue that has cleared stays
+// RETRIEVABLE. Nothing here is stored, consumed or re-derived — see
+// `bridge/operations-events.ts` for the three honesty rules it enforces.
+// `significance` is deliberately the SAME vocabulary History's four shipped
+// filter chips already use, so one chip strip governs both lists.
+
+/** The twelve `StudioEventDraft` kinds, exactly (`src/core/studioEvents.ts`). */
+const operationsEventKind = () =>
+  enumeration([
+    'wrapped',
+    'premiere',
+    'releaseCommitted',
+    'constructionCompleted',
+    'setBuilt',
+    'setRetired',
+    'reservationGranted',
+    'reservationReleased',
+    'phaseEntered',
+    'sceneryArrived',
+    'queueAdmitted',
+    'queueIntentExpired',
+  ])
+const StudioOperationsEventSubject = object('StudioOperationsEventSubject', {
+  kind: enumeration(['production', 'film', 'building', 'set', 'queue', 'resource']),
+  id: nonEmptyText(),
+})
+const StudioOperationsEventRoute = object('StudioOperationsEventRoute', {
+  filmId: nullable(text()),
+  /** Always null: not one of the twelve kinds carries a talent id. */
+  personId: nullable(text()),
+  buildingId: nullable(text()),
+})
+const StudioOperationsEventSnapshot = object('StudioOperationsEventSnapshot', {
+  seq: nonNegativeInteger(),
+  week: nonNegativeInteger(),
+  date: nonEmptyText(),
+  kind: operationsEventKind(),
+  tier: enumeration(['permanent', 'windowed']),
+  significance: enumeration(['major', 'standard']),
+  summary: nonEmptyText(),
+  /** Null ONLY where the row carries no durable identity of its own. */
+  subject: nullable(reference('StudioOperationsEventSubject', StudioOperationsEventSubject)),
+  route: reference('StudioOperationsEventRoute', StudioOperationsEventRoute),
+})
+const StudioOperationsEventsCoverage = object('StudioOperationsEventsCoverage', {
+  windowWeeks: integer({ minimum: 1 }),
+  oldestWindowedWeek: nullable(nonNegativeInteger()),
+  permanentKinds: array(operationsEventKind()),
+})
+const StudioOperationsEventsTotals = object('StudioOperationsEventsTotals', {
+  permanent: nonNegativeInteger(),
+  windowed: nonNegativeInteger(),
+})
+const StudioOperationsEventsSnapshot = object('StudioOperationsEventsSnapshot', {
+  currentWeek: nonNegativeInteger(),
+  coverage: reference('StudioOperationsEventsCoverage', StudioOperationsEventsCoverage),
+  totals: reference('StudioOperationsEventsTotals', StudioOperationsEventsTotals),
+  rows: array(reference('StudioOperationsEventSnapshot', StudioOperationsEventSnapshot)),
+})
+export const StudioOperationsEventsProjectionSchema = object('StudioOperationsEventsProjection', {
+  operationsEvents: reference('StudioOperationsEventsSnapshot', StudioOperationsEventsSnapshot),
+})
+
 // ── P06A W2 — the closed Release projection (recon r2 §6.3) ─────────────────
 const StudioReleaseDecisionSnapshot = object('StudioReleaseDecisionSnapshot', {
   productionId: nonEmptyText(),
@@ -2245,6 +2316,8 @@ export const StudioProjectionBundleSchema = object('StudioProjectionBundle', {
   release: reference('StudioReleaseProjection', StudioReleaseProjectionSchema),
   // P08A W2: the Standing & Studio History section (additive; projection 16).
   history: reference('StudioHistoryProjection', StudioHistoryProjectionSchema),
+  // R3-N7-SIM-01: the read-only operating ledger beside it (additive; projection 32).
+  operationsEvents: reference('StudioOperationsEventsProjection', StudioOperationsEventsProjectionSchema),
   finance: reference('StudioFinanceProjection', StudioFinanceProjectionSchema),
   // P10A W0: the player-safe Talent section — profiles, roster, grouped attention (additive; projection 18).
   talent: reference('StudioTalentProjection', StudioTalentProjectionSchema),
@@ -2562,6 +2635,13 @@ const definitions = {
   StudioStandingBoardSnapshot,
   StudioHistorySnapshot,
   StudioHistoryProjection: StudioHistoryProjectionSchema,
+  StudioOperationsEventSubject,
+  StudioOperationsEventRoute,
+  StudioOperationsEventSnapshot,
+  StudioOperationsEventsCoverage,
+  StudioOperationsEventsTotals,
+  StudioOperationsEventsSnapshot,
+  StudioOperationsEventsProjection: StudioOperationsEventsProjectionSchema,
   StudioPersonDisciplineSnapshot,
   StudioPersonSpecialtySnapshot,
   StudioPersonRenewalTermSnapshot,
