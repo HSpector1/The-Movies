@@ -261,14 +261,14 @@ stays DESIGN BLOCKED on the named pre-execution clarification (Future Ops R2 exa
       `tests/bridge-p13b-s2-labs.test.ts` 10/10 (RED baseline not capturable for this file — T6 landed mid-authoring; its earlier two failures
       were the author's regex formatting), `bridge-p13b-s1b-seats` 8/8 with real values for the new members, `bridge-p13-laboratory` 7/7 after
       the gate removal; projection pins moved 33 → 34 in eleven files. Evidence `10-t6-*`, `11-t6-*`, `12-*`, `13-*`.
-- [~] **S2-T7 Affected suites, records, commit, push:** matched full pass on `877aad5` (`evidence/p13b-s2-20260916/14-RUN`, `14-test-core-877aad5`
+- [x] **S2-T7 Affected suites, records, commit, push (closed 2026-09-16 ≈21:20 with T8):** matched full pass on `877aad5` (`evidence/p13b-s2-20260916/14-RUN`, `14-test-core-877aad5`
       core 227/234 files · 2716/2738 tests, 42.5 min; `15-test-bridge-877aad5` 54/57 · 560/573, 20.2 min; contract checks verified). Failing
       set = the inherited set (campaign-library 11 × 5/20 s budgets, campaign-isolation 60 s inline budget vs 72.1 s body, `p13a-scientist-
       foundation` 3 digests byte-identical to the pin, r3n1 ENOENT 6, scenery Pillow 1) **plus one pre-existing nondeterministic test**:
       `bridge-founding` "emits the exact founding action at Core coverage" asserts a fixed role sequence on a runtime created with a random seed
       (`BridgeSession.createRuntime()` defaults to `randomUUID()`), received 'actor' for 'director' once; 6/6 solo on the identical source and
       green in both earlier matched runs — disposition owed to the bridge test owner (seed it), not S2's. Closeout label withheld pending S2-T8.
-- [ ] **S2-T8 Access identity (disposition §5):** test-author adds `tests/p13b-s2-access-identity.test.ts` RED on the unchanged candidate (sound→
+- [x] **S2-T8 Access identity (disposition §5; RED `cfa6f71` 7 failed | 1 passed → GREEN `c8ef3b2` 8/8; negative cases for the new refusal being added by the test-author):** test-author adds `tests/p13b-s2-access-identity.test.ts` RED on the unchanged candidate (sound→
       lighting, lighting→sound, simultaneous completion order-independent, unrelated pending/completed access survives, save/reload and later
       ticks, idempotence, retained same-technology rules, exact provenance); sim-core fixes the shared identity to the exact `(studioId,
       technologyId)` pair and checks related consumers; targeted verification = S2/access/save/P13A boundary suites + the bridge Laboratory

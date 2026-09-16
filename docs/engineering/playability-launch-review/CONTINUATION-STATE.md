@@ -3,7 +3,26 @@
 **Purpose.** The one file a fresh coordinator (or Howard on return) reads first. It is rewritten at every recovery point and pushed on
 `wip/playability-interaction-01-ts` (The-Movies). Everything else it names is pinned by commit. Nothing that matters lives only in a session.
 
-## LOGIC-FIRST WINDOW — S2 closeout in progress (2026-09-16 ≈19:45 CEST; this paragraph controls)
+## LOGIC-FIRST WINDOW — S2 closed, S3 starting (2026-09-16 ≈21:20 CEST; this paragraph controls)
+- **P13B-S2 second technology, two Laboratories, cooperation: LOGIC VERIFIED · UNITY NOT VERIFIED** (S2 only). Production source of record
+  `c8ef3b2` (T8 access-identity fix on top of `877aad5`). Live save **V22**, live projection **34**. Matched full pass on `877aad5`
+  (`evidence/p13b-s2-20260916/14-RUN`, `14-test-core-877aad5`, `15-test-bridge-877aad5`): core 227/234 · 2716/2738, bridge 54/57 · 560/573;
+  failing set = the inherited set + one pre-existing nondeterministic test (`bridge-founding`, random runtime seed; passes solo) — attribution
+  in the progress row. Per the Current Ops R07 disposition (`OPS-P13B-R07-DISPOSITION-20260916-01`, packet verified, identities in `17`), the
+  label was withheld until the source-confirmed access defect was fixed: RED `cfa6f71` (7 failed | 1 passed) → GREEN `c8ef3b2` (8/8) with
+  targeted verification (`18-t8-*`, `19-*`); a negative-case strengthening of the new validator refusal is in flight (test-author, `20`).
+- **Disposition uptake recorded:** S5-R07 consumer task named in the plan after S5's real deployment chain (standard-stage Ballroom recipe
+  `ballroom-reveal-lighting-01`, 4/2/1 units; A12/K4/CAT-011 retained OPEN; S6 cancellation and S8 rival linkage obligations); residual
+  horizon [789,841) with dates 796/798 and 800/791 and R&D $720,000/$520,000 (sunk signing/prehistory excluded); repeated cancel/restart lawful
+  (one resumed instance, no lifetime quota — removed from the unresolved lists); S5 must generalize `finishTechnologyWeek`/adoption validation
+  per technology. Backlog: S2 entry corrected; S5-R07 future client entry added.
+- **Open, recorded, not S2's:** `bridge-p13-campaign-isolation` 60 s inline budget (72 s body on this host), `bridge-p12-campaign-library` 5/20 s
+  budgets, `bridge-founding` random seed, `p13a-scientist-foundation` golden digests, r3n1 fixtures, Pillow.
+- **S3 next:** task expansion is in the plan (persistent physical plans/dependencies/admission; Save V23; projection 35; tests 1–9; T0–T5).
+  S3-T0 = genuine V22 fixtures minted at the final V22 writer `c8ef3b2` (`tests/fixtures/p13b/legacy-v22-*.json.gz`, provenance beside them)
+  before any S3 source change; then test-author tests 1–8 RED and sim-core T1 concurrently on disjoint files.
+
+## LOGIC-FIRST WINDOW — S2 closeout in progress (2026-09-16 ≈19:45 CEST; superseded by the paragraph above, kept as history)
 - **P13B-S2 second technology, two Laboratories, cooperation — T1…T6 landed, T7 (matched full pass + records) running.** Commits on this branch:
   `e68de38` (T1–T3), `e24c860` (three genuine V21 fixtures minted at the last V21 writer), `5564542` (T4 cooperation scheduler + Save **V22**
   + tests 5–8), `bb79bdc` (records), `877aad5` (T6 bridge **projection 34**, schemaId `sha256:eeebeede…`). Live save is **V22**; live projection
