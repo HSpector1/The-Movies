@@ -21,8 +21,9 @@
 - **N2 delivered and natively closed on Build54** (Unity a5e8340b / TS eafd551e, exe a332e3bc…, seal 49, admission 45): F13–F24 PASS natively
   (F21/F17a/F17b fixed by IMPL-23); declared: C9 body viewport at 1280×720/200 %, C8 rail font floor (N3 measures), people-rail parking
   asymmetry, the stale route's mid-display step (driver aim drift). K10 + addendum atop the handoff.
-- Running now: TEST-21 (re-express one superseded assertion; then the rendered full suite on a5e8340b) and **SIM-20 (the batched TS read-model
-  deltas for N4/N5/N6 with schema/DTO regen)** — the Unity DTO regen + paired seal come with N3/N4's next build.
+- Rendered full suite on 66dcc3a3: 219 total / 215 passed — every product test green; the 4 failures are harness-only in the newest class
+  (IMGUI TextField focus/typing cannot be driven by injected events; two fixtures) → closed ONCE in TEST-22 (NativeOnly ignores citing the
+  native maps, or fixtures from the sibling scaffolds). **N3 implementation (IMPL-19) running**; **SIM-20 (batched TS deltas)** running.
 - Next: IMPL-N3 (`r3n3/IMPL-N3-brief.md`: stage sprites, font coverage tests, portrait slots, coverage statement) → tests → rendered → Build55
   (paired with the regenerated DTO) → native art/font captures → K11 → N4.
 - Budget checkpoint 02:20Z stands (capability ≈ 40 h; unprotected reserve ≈ 1.2 h; overrun rule published in the plan).
