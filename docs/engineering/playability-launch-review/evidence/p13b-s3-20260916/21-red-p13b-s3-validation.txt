@@ -1,0 +1,289 @@
+# Evidence: p13b-s3-validation.test.ts RED run (SECOND run, after fixing a spurious-pass defect)
+# Fixture/run environment: repo worktree wip/headless-program-20260916-ts, HEAD e27f4af (S2 closed, V22 fixtures minted)
+# Command: npx vitest run tests/p13b-s3-validation.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000
+# Date: 2026-09-16
+#
+# FIRST run (before the fix) is preserved below for the record: it showed 11
+# failed | 1 passed — case (b) 'rejects a dependency naming an unknown plan id'
+# passed for the WRONG reason (an unrelated generic makeSave refusal string
+# 'validateSaveV12: state has unknown field "physicalPlans"' happened to match
+# the /unknown/i regex). Root cause: this vitest/vite transform binds a missing
+# NAMED export from an EXISTING module (save.ts's validateSaveV23) to
+# 'undefined' at import time instead of throwing, unlike importing from a
+# module that does not exist AT ALL (physicalPlans.ts), which fails cleanly
+# at resolution before any test runs. Fixed by importing initialPhysicalPlans
+# from physicalPlans.ts too, restoring a clean whole-file RED with zero tests
+# run and no risk of a coincidental string match. See the file's own header
+# comment for the full account.
+
+## FIRST RUN (spurious pass present) ##
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s3-validation.test.ts (12 tests | 11 failed) 4684ms
+   × P13B-S3 validator refusals for physicalPlans (test 8) > accepts the unmutated hand-authored baseline directly through validateSaveV23 27ms
+     → validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field "physicalPlans"
+   × P13B-S3 validator refusals for physicalPlans (test 8) > (a) rejects a dependency cycle 7ms
+     → expected [Function] to throw error matching /cycle/i but got 'validateSaveV18: frozen V17 state is …'
+   × P13B-S3 validator refusals for physicalPlans (test 8) > (c) rejects two plans sharing one ordinal 2ms
+     → expected [Function] to throw error matching /ordinal/i but got 'validateSaveV18: frozen V17 state is …'
+   × P13B-S3 validator refusals for physicalPlans (test 8) > (d) rejects a started plan whose placement does not exist 2ms
+     → expected [Function] to throw error matching /placement/i but got 'validateSaveV18: frozen V17 state is …'
+   × P13B-S3 validator refusals for physicalPlans (test 8) > (e) rejects a started plan whose placement carries a different blueprint 2ms
+     → expected [Function] to throw error matching /blueprint/i but got 'validateSaveV18: frozen V17 state is …'
+   × P13B-S3 validator refusals for physicalPlans (test 8) > (f) rejects two started plans naming the SAME placement (duplicate commitReceipt) 2ms
+     → expected [Function] to throw error matching /placement|receipt|duplicate/i but got 'validateSaveV18: frozen V17 state is …'
+   × P13B-S3 validator refusals for physicalPlans (test 8) > (g) rejects a plan naming another studio's target (campaign isolation — the same FINDING/limitation tests/p13b-s2-validation.test.ts records: no public action path grows a genuine rival plan, so the rival side of this law is proven by structural injection) 2ms
+     → expected [Function] to throw error matching /studio/i but got 'validateSaveV18: frozen V17 state is …'
+   × P13B-S3 validator refusals for physicalPlans (test 8) > (h) rejects a non-integer approvedMaximumDebit 2ms
+     → expected [Function] to throw error matching /integer/i but got 'validateSaveV18: frozen V17 state is …'
+   × P13B-S3 validator refusals for physicalPlans (test 8) > (i) rejects nextPlanId that is not above every existing plan id 2ms
+     → expected [Function] to throw error matching /nextPlanId/i but got 'validateSaveV18: frozen V17 state is …'
+   × P13B-S3 validator refusals for physicalPlans (test 8) > (j) rejects a queued plan carrying a pendingQuote 5ms
+     → expected [Function] to throw error matching /queued|pending/i but got 'validateSaveV18: frozen V17 state is …'
+   × P13B-S3 validator refusals for physicalPlans (test 8) > (k) rejects a held plan with no pendingQuote 2ms
+     → expected [Function] to throw error matching /held|pending/i but got 'validateSaveV18: frozen V17 state is …'
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > accepts the unmutated hand-authored baseline directly through validateSaveV23
+Error: validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field "physicalPlans"
+ ❯ validateSaveV18WithPolicy src/core/save.ts:5037:11
+    5035|     }, policy);
+    5036|   } catch (error) {
+    5037|     throw new Error(
+       |           ^
+    5038|       `validateSaveV18: frozen V17 state is invalid — ${(error as Erro…
+    5039|     );
+ ❯ validateSaveV19WithPolicy src/core/save.ts:7383:18
+ ❯ validateSaveV22 src/core/save.ts:7467:3
+ ❯ Module.makeSave src/core/save.ts:6166:16
+ ❯ tests/p13b-s3-validation.test.ts:112:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL |core|  tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (a) rejects a dependency cycle
+AssertionError: expected [Function] to throw error matching /cycle/i but got 'validateSaveV18: frozen V17 state is …'
+
+- Expected: 
+/cycle/i
+
++ Received: 
+"validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \"physicalPlans\""
+
+ ❯ rejected tests/p13b-s3-validation.test.ts:101:51
+     99| 
+    100| function rejected(state: GameState, mutate: (parsed: Record<string, un…
+    101|   expect(() => s3ForgeAndReimport(state, mutate)).toThrow(message)
+       |                                                   ^
+    102| }
+    103| 
+ ❯ tests/p13b-s3-validation.test.ts:117:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+ FAIL |core|  tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (c) rejects two plans sharing one ordinal
+AssertionError: expected [Function] to throw error matching /ordinal/i but got 'validateSaveV18: frozen V17 state is …'
+
+- Expected: 
+/ordinal/i
+
++ Received: 
+"validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \"physicalPlans\""
+
+ ❯ rejected tests/p13b-s3-validation.test.ts:101:51
+     99| 
+    100| function rejected(state: GameState, mutate: (parsed: Record<string, un…
+    101|   expect(() => s3ForgeAndReimport(state, mutate)).toThrow(message)
+       |                                                   ^
+    102| }
+    103| 
+ ❯ tests/p13b-s3-validation.test.ts:134:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯
+
+ FAIL |core|  tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (d) rejects a started plan whose placement does not exist
+AssertionError: expected [Function] to throw error matching /placement/i but got 'validateSaveV18: frozen V17 state is …'
+
+- Expected: 
+/placement/i
+
++ Received: 
+"validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \"physicalPlans\""
+
+ ❯ rejected tests/p13b-s3-validation.test.ts:101:51
+     99| 
+    100| function rejected(state: GameState, mutate: (parsed: Record<string, un…
+    101|   expect(() => s3ForgeAndReimport(state, mutate)).toThrow(message)
+       |                                                   ^
+    102| }
+    103| 
+ ❯ tests/p13b-s3-validation.test.ts:140:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯
+
+ FAIL |core|  tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (e) rejects a started plan whose placement carries a different blueprint
+AssertionError: expected [Function] to throw error matching /blueprint/i but got 'validateSaveV18: frozen V17 state is …'
+
+- Expected: 
+/blueprint/i
+
++ Received: 
+"validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \"physicalPlans\""
+
+ ❯ rejected tests/p13b-s3-validation.test.ts:101:51
+     99| 
+    100| function rejected(state: GameState, mutate: (parsed: Record<string, un…
+    101|   expect(() => s3ForgeAndReimport(state, mutate)).toThrow(message)
+       |                                                   ^
+    102| }
+    103| 
+ ❯ tests/p13b-s3-validation.test.ts:146:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯
+
+ FAIL |core|  tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (f) rejects two started plans naming the SAME placement (duplicate commitReceipt)
+AssertionError: expected [Function] to throw error matching /placement|receipt|duplicate/i but got 'validateSaveV18: frozen V17 state is …'
+
+- Expected: 
+/placement|receipt|duplicate/i
+
++ Received: 
+"validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \"physicalPlans\""
+
+ ❯ rejected tests/p13b-s3-validation.test.ts:101:51
+     99| 
+    100| function rejected(state: GameState, mutate: (parsed: Record<string, un…
+    101|   expect(() => s3ForgeAndReimport(state, mutate)).toThrow(message)
+       |                                                   ^
+    102| }
+    103| 
+ ❯ tests/p13b-s3-validation.test.ts:152:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯
+
+ FAIL |core|  tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (g) rejects a plan naming another studio's target (campaign isolation — the same FINDING/limitation tests/p13b-s2-validation.test.ts records: no public action path grows a genuine rival plan, so the rival side of this law is proven by structural injection)
+AssertionError: expected [Function] to throw error matching /studio/i but got 'validateSaveV18: frozen V17 state is …'
+
+- Expected: 
+/studio/i
+
++ Received: 
+"validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \"physicalPlans\""
+
+ ❯ rejected tests/p13b-s3-validation.test.ts:101:51
+     99| 
+    100| function rejected(state: GameState, mutate: (parsed: Record<string, un…
+    101|   expect(() => s3ForgeAndReimport(state, mutate)).toThrow(message)
+       |                                                   ^
+    102| }
+    103| 
+ ❯ tests/p13b-s3-validation.test.ts:162:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯
+
+ FAIL |core|  tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (h) rejects a non-integer approvedMaximumDebit
+AssertionError: expected [Function] to throw error matching /integer/i but got 'validateSaveV18: frozen V17 state is …'
+
+- Expected: 
+/integer/i
+
++ Received: 
+"validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \"physicalPlans\""
+
+ ❯ rejected tests/p13b-s3-validation.test.ts:101:51
+     99| 
+    100| function rejected(state: GameState, mutate: (parsed: Record<string, un…
+    101|   expect(() => s3ForgeAndReimport(state, mutate)).toThrow(message)
+       |                                                   ^
+    102| }
+    103| 
+ ❯ tests/p13b-s3-validation.test.ts:171:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯
+
+ FAIL |core|  tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (i) rejects nextPlanId that is not above every existing plan id
+AssertionError: expected [Function] to throw error matching /nextPlanId/i but got 'validateSaveV18: frozen V17 state is …'
+
+- Expected: 
+/nextPlanId/i
+
++ Received: 
+"validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \"physicalPlans\""
+
+ ❯ rejected tests/p13b-s3-validation.test.ts:101:51
+     99| 
+    100| function rejected(state: GameState, mutate: (parsed: Record<string, un…
+    101|   expect(() => s3ForgeAndReimport(state, mutate)).toThrow(message)
+       |                                                   ^
+    102| }
+    103| 
+ ❯ tests/p13b-s3-validation.test.ts:177:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯
+
+ FAIL |core|  tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (j) rejects a queued plan carrying a pendingQuote
+AssertionError: expected [Function] to throw error matching /queued|pending/i but got 'validateSaveV18: frozen V17 state is …'
+
+- Expected: 
+/queued|pending/i
+
++ Received: 
+"validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \"physicalPlans\""
+
+ ❯ rejected tests/p13b-s3-validation.test.ts:101:51
+     99| 
+    100| function rejected(state: GameState, mutate: (parsed: Record<string, un…
+    101|   expect(() => s3ForgeAndReimport(state, mutate)).toThrow(message)
+       |                                                   ^
+    102| }
+    103| 
+ ❯ tests/p13b-s3-validation.test.ts:183:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯
+
+ FAIL |core|  tests/p13b-s3-validation.test.ts > P13B-S3 validator refusals for physicalPlans (test 8) > (k) rejects a held plan with no pendingQuote
+AssertionError: expected [Function] to throw error matching /held|pending/i but got 'validateSaveV18: frozen V17 state is …'
+
+- Expected: 
+/held|pending/i
+
++ Received: 
+"validateSaveV18: frozen V17 state is invalid — validateSaveV17: frozen V16 state is invalid — validateSaveV16: frozen V15 state is invalid — validateSaveV12: state has unknown field \"physicalPlans\""
+
+ ❯ rejected tests/p13b-s3-validation.test.ts:101:51
+     99| 
+    100| function rejected(state: GameState, mutate: (parsed: Record<string, un…
+    101|   expect(() => s3ForgeAndReimport(state, mutate)).toThrow(message)
+       |                                                   ^
+    102| }
+    103| 
+ ❯ tests/p13b-s3-validation.test.ts:190:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/11]⎯
+
+ Test Files  1 failed (1)
+      Tests  11 failed | 1 passed (12)
+   Start at  21:39:38
+   Duration  6.72s (transform 1.27s, setup 0ms, collect 1.63s, tests 4.68s, environment 0ms, prepare 94ms)
+
+
+## SECOND RUN (fixed) ##
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/p13b-s3-validation.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/p13b-s3-validation.test.ts [ tests/p13b-s3-validation.test.ts ]
+Error: Failed to load url ../src/core/physicalPlans.js (resolved id: ../src/core/physicalPlans.js) in /Users/zacheryspector/The-Movies-headless-program/tests/p13b-s3-validation.test.ts. Does the file exist?
+ ❯ loadAndTransform node_modules/vitest/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51969:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  21:42:11
+   Duration  1.69s (transform 1.02s, setup 0ms, collect 0ms, tests 0ms, environment 0ms, prepare 89ms)
+

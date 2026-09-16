@@ -367,7 +367,18 @@ conversion routes are S4; component receipts/restoration are S5/S6. Plans are pe
 
 ### S3 tasks
 
-- [ ] **S3-T0 Genuine V22 fixtures** minted at the last V22 writer before any S3 source change (coordinator; provenance beside them).
+- [x] **S3-T0 Genuine V22 fixtures (2026-09-16, `e27f4af`):** `legacy-v22-staffed-4-seats-263`, `legacy-v22-two-labs-cooperating-782` minted at the
+      final V22 writer (`d597e94`, engine `c8ef3b2`); provenance with sha256 beside them.
+- [x] **S3 tests 1–8 RED (test-author, 2026-09-16 ≈22:30):** `tests/p13b-s3-admission|dependencies|save-v23|validation.test.ts` +
+      `tests/bridge-p13b-s3-save-as.test.ts`, harness `src/harness/p13b/s3-fixtures.ts`; RED for one cause each (`evidence/p13b-s3-20260916/21-red-*`:
+      four at module resolution of `src/core/physicalPlans.js`, the bridge one at `applyActions: unknown action kind queuePhysicalPlan`).
+      Methodological finding recorded: vite binds a MISSING named export from an EXISTING module to `undefined` instead of failing the import, so a
+      RED-first file must import from a not-yet-existing module (or call the missing binding) — the validation file's first run had one spurious
+      pass from an unrelated "unknown field" message matching `/unknown/`; fixed before reporting. Contract gaps resolved as delegated decisions
+      (in the sim-core brief): types in `src/core/types.ts`; `target:{planId}` implies the dependency (normalized into `dependsOn`); queue-time
+      cycle refusal covers self-edges and unknown ids, the validator defends forged cycles; reasons use `money()`; cancel blocks dependents
+      synchronously; admission is tick step 1.06 after the production-queue admission (1.05) and stamps the ARRIVED week (`currentTick + 1`)
+      exactly as that precedent; `physicalPlans` is threaded through the exact-key validator chain as `technology` was.
 - [ ] **S3-T1 Types, fingerprint, actions, validator:** tests 3, 8 and the queue-time parts of 1/4 (sim-core; test-author writes 1–8 RED first).
 - [ ] **S3-T2 Admission in `tick`:** tests 1, 2, 4, 5, 6 (ordering boundary, envelope, history).
 - [ ] **S3-T3 Save V23 + migration + Save As:** test 7.

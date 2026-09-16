@@ -1,0 +1,41 @@
+# Evidence: bridge-p13b-s3-save-as.test.ts RED run
+# Fixture/run environment: repo worktree wip/headless-program-20260916-ts, HEAD e27f4af (S2 closed, V22 fixtures minted)
+# Command: npx vitest run tests/bridge-p13b-s3-save-as.test.ts --minWorkers=1 --maxWorkers=1 --testTimeout=200000
+# Date: 2026-09-16
+#
+# Note: this file's imports (migrateToV23 from src/core/index.js, which
+# re-exports save.ts) resolve without throwing per the same 'missing named
+# export from an EXISTING module binds to undefined' behavior recorded in
+# 21-red-p13b-s3-validation.txt — so this file's RED surfaces at the first
+# actual use of the missing feature (the queuePhysicalPlan action call),
+# via the engine's own real exhaustiveness-guard throw in applyActions
+# (src/core/actions.ts:3056), not at import time. This is a clean, unambiguous,
+# single-cause RED with no risk of a spurious pass.
+
+
+ RUN  v2.1.9 /Users/zacheryspector/The-Movies-headless-program
+
+ ❯ |core| tests/bridge-p13b-s3-save-as.test.ts (1 test | 1 failed) 698ms
+   × P13B-S3 Save As (test 7, A11) > a Save As copy keeps the same plan ids and advances independently; the inactive original never advances (complete-state comparison) 696ms
+     → applyActions: unknown action kind {"kind":"queuePhysicalPlan","work":{"kind":"installation","blueprintId":"acoustic-instruments","target":{"facilityId":"facility-research-laboratory"}},"approvedMaximumDebit":350000}
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL |core|  tests/bridge-p13b-s3-save-as.test.ts > P13B-S3 Save As (test 7, A11) > a Save As copy keeps the same plan ids and advances independently; the inactive original never advances (complete-state comparison)
+Error: applyActions: unknown action kind {"kind":"queuePhysicalPlan","work":{"kind":"installation","blueprintId":"acoustic-instruments","target":{"facilityId":"facility-research-laboratory"}},"approvedMaximumDebit":350000}
+ ❯ Module.applyActions src/core/actions.ts:3056:15
+    3054|         // Exhaustiveness guard: an unknown action kind is a loud abor…
+    3055|         const _exhaustive: never = action
+    3056|         throw new Error(`applyActions: unknown action kind ${JSON.stri…
+       |               ^
+    3057|       }
+    3058|     }
+ ❯ tests/bridge-p13b-s3-save-as.test.ts:79:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  21:43:39
+   Duration  4.19s (transform 2.24s, setup 0ms, collect 3.02s, tests 698ms, environment 0ms, prepare 120ms)
+
