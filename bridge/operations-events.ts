@@ -229,7 +229,7 @@ export function operationsEventsProjection(state: GameState): BridgeOperationsEv
         const stage = facilityName(row.stageFacilityId)
         const set = row.setId === null ? null : setById(state.sets, row.setId)?.name ?? null
         const where = stage === null ? '' : ` on ${stage}`
-        const on = set === null ? '' : `, on the ${set} set`
+        const on = set === null ? '' : `, using the ${set}`
         return {
           summary: title === null
             ? `A picture wraps${where}${on}.`
@@ -277,8 +277,8 @@ export function operationsEventsProjection(state: GameState): BridgeOperationsEv
         const where = stage === null ? '' : ` on ${stage}`
         return {
           summary: set === null
-            ? `A set is standing${where}.`
-            : `The ${set.name} set is standing${where}.`,
+            ? `A new set is standing${where}.`
+            : `The ${set.name} is standing${where}.`,
           subject: { kind: 'set', id: row.setId },
           route: {
             filmId: null,
@@ -289,7 +289,7 @@ export function operationsEventsProjection(state: GameState): BridgeOperationsEv
       }
       case 'setRetired': {
         const set = setById(state.sets, row.setId)
-        const name = set === null ? 'A set' : `The ${set.name} set`
+        const name = set === null ? 'A set' : `The ${set.name}`
         const refund = row.refund > 0 ? `; ${money(row.refund)} returns to the studio` : ''
         return {
           summary: `${name} is struck${refund}.`,
